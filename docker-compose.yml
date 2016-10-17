@@ -1,0 +1,24 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+      - '80:80'
+    volumes:
+      - '.:/usr/src/app'
+      - '~/.ssh:/root/.ssh/'
+    volumes_from:
+      - gem_cache
+    expose:
+      - '3001'
+    working_dir: '/usr/src/app'
+    stdin_open: true
+    tty: true
+    command: bundle exec rails s -p 80 -b '0.0.0.0'
+    depends_on:
+      - gem_cache
+  gem_cache:
+    image: ruby:2.3.1
+    command: bin/true
+    volumes:
+      - /usr/local/bundle
