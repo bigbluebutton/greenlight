@@ -13,13 +13,13 @@
         </h4>
 
         <!-- Join form -->
-        <div id="landing_page_join_form">
-          <form class="form-inline">
+        <div id="landing_page_join">
+          <form id="join_form" class="form-inline">
             <div class="form-group">
-              <label for="name" class="sr-only">Name</label>
-              <input type="text" class="form-control input" id="name" placeholder="Your name">
+              <label for="join_form_name" class="sr-only">Name</label>
+              <input id="join_form_name" type="text" class="form-control input" id="name" placeholder="Your name" required>
             </div>
-            <button type="submit" class="btn btn-success">Join</button>
+            <button id="join_form_button" type="button" class="btn btn-success" data-url="<%= bbb_join_path(@meeting_token) %>">Join</button>
           </form>
         </div>
       </div>
@@ -38,11 +38,31 @@
       <div id="landing_page_footer_oauth_append">
         <p>You can have a personal URL (with recordings) by signing in below</p>
       </div>
-
         
     </div>
-    
-    
+  
   </div>
 
 </div>
+
+<script>
+$(document).ready(function($) {
+  $('#join_form_button').click (function (event) {
+    $.ajax({
+      url : $(this).data ('url') + "?name=" + $('#join_form_name').val(),
+      dataType : "json",
+      async : true,
+      type : 'GET',
+      success : function(data) {
+        $(location).attr("href", data.response.join_url);
+      },
+      error : function(xhr, status, error) {
+        console.info(status);
+        console.info(error);
+      },
+      complete : function(xhr, status) {
+      }
+    });
+  });
+});
+</script>
