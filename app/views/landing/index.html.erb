@@ -33,3 +33,13 @@
 <div id="landing_page_footer_oauth_append">
   <p>You can have a personal URL (with recordings) by signing in below</p>
 </div>
+
+<% if current_user.nil? %>
+<ul>
+  <li><%= link_to 'Twitter', '/auth/twitter' %></li>
+  <li><%= link_to 'Google', '/auth/google' %></li>
+</ul>
+<% else %>
+<div>Hello <%= current_user.name %></div>
+<%= link_to 'Logout', '/logout' %>
+<% end %>
