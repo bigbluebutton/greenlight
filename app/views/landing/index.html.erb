@@ -1,2 +1,35 @@
 <h1>Landing#index</h1>
-<p>Find me in app/views/landing/index.html.erb</p>
+<div id="landing_page_url">
+  <p><span id="meeting_url"><%= @meeting_url %></span></p>
+</div>
+
+<div id="landing_page_join_form">
+  <form action="#">
+    <input type="text" name="name" value="" placement="Your name">
+    <input type="submit" value="Join">
+  </form>
+</div>
+
+<div id="landing_page_invite_text">
+  <table border="1">
+    <tr>
+      <td>
+        <p>Hi Everyone</p>
+        <br>
+        <p>The meeting will be at this URL</p>
+        <br>
+        <p><a href="<%= @meeting_url %>"><span id="meeting_url"><%= @meeting_url %></a></p>
+        <br>
+        <p>Please join!</p>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div id="landing_page_footer_message">
+  <p>Bookmark this page to reuse this meeting URL, or click refresh button to generate a new meeting URL</p>
+</div>
+
+<div id="landing_page_footer_oauth_append">
+  <p>You can have a personal URL (with recordings) by signing in below</p>
+</div>
