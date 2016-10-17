@@ -39,6 +39,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
+    bigbluebutton-api-ruby (1.6.0)
+      xml-simple (~> 1.1)
     builder (3.2.2)
     byebug (9.0.6)
     coffee-rails (4.2.1)
@@ -149,11 +151,13 @@ GEM
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    xml-simple (1.1.5)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  bigbluebutton-api-ruby
   byebug
   coffee-rails (~> 4.2)
   jbuilder (~> 2.5)
