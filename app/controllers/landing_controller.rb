@@ -1,4 +1,5 @@
 class LandingController < ApplicationController
+
   def index
     @refreshable = (params[:resource] == 'meeting' && !params.has_key?(:id))
     @meeting_token = params[:id] || @meeting_token = helpers.new_meeting_token

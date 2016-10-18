@@ -1,16 +1,14 @@
 class BbbController < ApplicationController
-  include BbbHelper
 
   # GET /join
   # GET /join.json
   def join
-    logger.info params.to_json
     if ( !params.has_key?(:id) )
       render_response("missing_parameter", "meeting token was not included", :bad_request)
     elsif ( !params.has_key?(:name) )
       render_response("missing_parameter", "user name was not included", :bad_request)
     else
-      bbb_join_url = bbb_join_url(params[:id], false, params[:name], false)
+      bbb_join_url = helpers.bbb_join_url(params[:id], false, params[:name], false)
       if bbb_join_url[:returncode]
         logger.info "#Execute the redirect"
         render_response("ok", "execute the redirect", :ok, {:join_url => bbb_join_url[:join_url]})
