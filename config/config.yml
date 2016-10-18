@@ -1,3 +1,0 @@
-default:
-  bbb_endpoint: <%= ENV['BIGBLUEBUTTON_ENDPOINT'] %>
-  bbb_secret: <%= ENV['BIGBLUEBUTTON_SECRET'] %>

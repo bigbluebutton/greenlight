@@ -32,5 +32,4 @@ module BbbHelper
       return { :returncode => true, :join_url => join_url, :messageKey => "", :message => "" }
     end
   end
-
 end
