@@ -11,4 +11,8 @@ class User < ApplicationRecord
   def self.twitter_username(auth_hash)
     auth_hash['info']['nickname']
   end
+
+  def room_url
+    "/rooms/#{username}"
+  end
 end
