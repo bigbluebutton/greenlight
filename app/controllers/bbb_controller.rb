@@ -20,9 +20,6 @@ class BbbController < ApplicationController
     end
   end
 
-  def close
-  end
-  
   private
   def render_response(messageKey, message, status, response={})
     respond_to do |format|
