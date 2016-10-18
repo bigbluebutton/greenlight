@@ -45,26 +45,6 @@
 
 </div>
 
-<script>
-$(document).ready(function($) {
-  $('#join_form_button').click (function (event) {
-    $.ajax({
-      url : $(this).data ('url') + "?name=" + $('#join_form_name').val(),
-      dataType : "json",
-      async : true,
-      type : 'GET',
-      success : function(data) {
-        $(location).attr("href", data.response.join_url);
-      },
-      error : function(xhr, status, error) {
-      },
-      complete : function(xhr, status) {
-      }
-    });
-  });
-});
-</script>
-
 <% if current_user.nil? %>
 <ul>
   <li><%= link_to 'Twitter', '/auth/twitter' %></li>
