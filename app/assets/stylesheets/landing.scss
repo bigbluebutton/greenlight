@@ -5,3 +5,9 @@
 // Bootstrap
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.room {
+  .room-link {
+    margin: 0 auto;
+  }
+}
