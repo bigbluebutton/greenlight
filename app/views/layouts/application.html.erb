@@ -16,10 +16,10 @@
     <!-- Header -->
     <div class='navbar'>
       <div class='container'>
-        <%= image_tag "bbb-logo.png", :alt => "BigBlueButton Demo", :class => "center-block" %>
+        <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton Demo", :class => "center-block"), root_path %>
       </div>
     </div>
-    
+
     <%= yield %>
   </body>
 </html>

@@ -1,8 +1,13 @@
 require 'test_helper'
 
-class LandingControllerTest < ActionDispatch::IntegrationTest
+class LandingControllerTest < ActionController::TestCase
   test "should get index" do
-    get landing_index_url
+    get :index
+    assert_response :success
+  end
+
+  test "should get room" do
+    get :room, params: { name: 'user1' }
     assert_response :success
   end
 
