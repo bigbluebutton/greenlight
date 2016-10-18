@@ -66,3 +66,13 @@ $(document).ready(function($) {
   });
 });
 </script>
+
+<% if current_user.nil? %>
+<ul>
+  <li><%= link_to 'Twitter', '/auth/twitter' %></li>
+  <li><%= link_to 'Google', '/auth/google' %></li>
+</ul>
+<% else %>
+<div>Hello <%= current_user.name %></div>
+<%= link_to 'Logout', '/logout' %>
+<% end %>

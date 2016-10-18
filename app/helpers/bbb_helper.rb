@@ -4,7 +4,7 @@ module BbbHelper
     if !bbb
       return { :returncode => false, :messageKey => "BBBAPICallInvalid", :message => "BBB API call invalid." }
     else
-      meeting_id = (Digest::SHA1.hexdigest("Rails.application.secrets.secret_key_base"+meeting_token)).to_s
+      meeting_id = (Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base]+meeting_token)).to_s
 
       #See if the meeting is running
       begin
