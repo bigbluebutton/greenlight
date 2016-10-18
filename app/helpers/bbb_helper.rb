@@ -26,7 +26,7 @@ module BbbHelper
       if (user_is_moderator)
         password = bbb_meeting_info[:moderatorPW]
       else
-        passord = bbb_meeting_info[:attendeePW]
+        password = bbb_meeting_info[:attendeePW]
       end
       join_url = bbb.join_meeting_url(meeting_id, user_fullname, password )
       return { :returncode => true, :join_url => join_url, :messageKey => "", :message => "" }
