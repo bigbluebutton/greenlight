@@ -23,8 +23,8 @@
         type : 'GET',
         success : function(data) {
           $('#meeting_url').html(data.response.meeting_url);
-          $('#text_meeting_url a').href(data.response.meeting_url);
-          $('#text_meeting_url span').html(data.response.meeting_url);
+          $('#text_meeting_url').attr("href", data.response.meeting_url);
+          $('#text_meeting_url').text(data.response.meeting_url);
         },
         error : function(xhr, status, error) {
         },
