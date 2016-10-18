@@ -6,23 +6,27 @@ module BbbHelper
     else
       meeting_id = (Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base]+meeting_token)).to_s
 
-      #See if the meeting is running
+      # See if the meeting is running
       begin
         bbb_meeting_info = bbb.get_meeting_info( meeting_id, nil )
       rescue BigBlueButton::BigBlueButtonException => exc
+        # This means that is not created
         logger.info "Message for the log file #{exc.key}: #{exc.message}"
-        #This means that is not created, so create the meeting
-        logout_url = "#{request.base_url}/bbb/close"      #Closes the window after correct logout
+
+        # Prepare parameters for create
+        logout_url = "#{request.base_url}/meeting/#{meeting_token}"
         moderator_password = random_password(12)
         viewer_password = random_password(12)
         meeting_options = {:record => meeting_recorded.to_s, :logoutURL => logout_url, :moderatorPW => moderator_password, :attendeePW => viewer_password }
+
+        # Create the meeting
         bbb.create_meeting(meeting_token, meeting_id, meeting_options)
 
-        #And then get meeting info
+        # And then get meeting info
         bbb_meeting_info = bbb.get_meeting_info( meeting_id, nil )
       end
 
-      #Get the join url
+      # Get the join url
       if (user_is_moderator)
         password = bbb_meeting_info[:moderatorPW]
       else
