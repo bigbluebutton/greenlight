@@ -36,21 +36,21 @@
       </div>
 
       <div id="landing_page_footer_oauth_append">
+        <% if current_user.nil? %>
         <p>You can have a personal URL (with recordings) by signing in below</p>
+        <ul>
+          <li><%= link_to 'Twitter', '/auth/twitter' %></li>
+          <li><%= link_to 'Google', '/auth/google' %></li>
+        </ul>
+        <% else %>
+          <div>Hello <%= current_user.name %></div>
+          <div><%= link_to 'Personal Room', current_user.room_url %></div>
+          <div><%= link_to 'Logout', '/logout' %></div>
+        <% end %>
       </div>
-        
+
     </div>
-  
+
   </div>
 
 </div>
-
-<% if current_user.nil? %>
-<ul>
-  <li><%= link_to 'Twitter', '/auth/twitter' %></li>
-  <li><%= link_to 'Google', '/auth/google' %></li>
-</ul>
-<% else %>
-<div>Hello <%= current_user.name %></div>
-<%= link_to 'Logout', '/logout' %>
-<% end %>
