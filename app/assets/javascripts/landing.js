@@ -15,6 +15,23 @@
         }
       });
     });
+    $('#url_form_button').click (function (event) {
+      $.ajax({
+        url : $(this).data ('url'),
+        dataType : "json",
+        async : true,
+        type : 'GET',
+        success : function(data) {
+          $('#meeting_url').html(data.response.meeting_url);
+          $('#text_meeting_url a').href(data.response.meeting_url);
+          $('#text_meeting_url span').html(data.response.meeting_url);
+        },
+        error : function(xhr, status, error) {
+        },
+        complete : function(xhr, status) {
+        }
+      });
+    });
   };
 
   $(document).on("turbolinks:load", function() {

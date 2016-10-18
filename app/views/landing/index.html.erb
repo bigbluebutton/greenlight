@@ -6,11 +6,20 @@
     <div class="container">
       <div class="jumbotron">
         <!-- Meeting URL -->
+        <% if @refreshable %>
         <h4 class="display-3">
           <div id="landing_page_url" class="center-block">
-            <span id="meeting_url"><%= @meeting_url %></span>
+            <form id="url_form" class="form-inline">
+              <div class="form-group">
+                <span id="meeting_url"><%= @meeting_url %></span>
+              </div>
+              <button id="url_form_button" type="button" class="btn btn-default" data-url="<%= new_meeting_url() %>">
+                <span class="glyphicon glyphicon-refresh"></span>
+              </button>
+            </form>
           </div>
         </h4>
+        <% end %>
 
         <!-- Join form -->
         <div id="landing_page_join">
@@ -27,7 +36,7 @@
       <figure class=highlight><pre><figcaption class="text" data-lang="text">
         <p>Hi Everyone</p>
         <p>The meeting will be at this URL</p>
-        <p><a href="<%= @meeting_url %>"><span id="meeting_url"><%= @meeting_url %></a></p>
+        <p><a id="text_meeting_url" href="<%= @meeting_url %>"><span id="text_meeting_url"><%= @meeting_url %></a></p>
         <p>Please join!</p>
       </figcaption></pre></figure>
 
