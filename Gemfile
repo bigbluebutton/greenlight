@@ -31,9 +31,11 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  # For environment configuration
+  gem 'dotenv-rails'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem 'dotenv-rails'
 end
 
 group :development do
@@ -48,7 +50,13 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'omniauth'
-gem 'omniauth-twitter'
-gem 'omniauth-google-oauth2'
+gem 'omniauth', '1.3.1'
+gem 'omniauth-twitter', '1.2.1'
+gem 'omniauth-google-oauth2', '0.4.1'
+
 gem 'bigbluebutton-api-ruby'
+
+gem 'bootstrap-sass', '3.3.0.0'
+gem 'bootstrap-social-rails', '~> 4.12'
+gem 'jquery-ui-rails'
+gem 'jquery-datatables-rails', '~> 3.4.0'

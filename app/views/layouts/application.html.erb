@@ -9,6 +9,17 @@
   </head>
 
   <body>
+    <!-- Messages -->
+    <div id='messages' class='hidden'>
+    </div>
+
+    <!-- Header -->
+    <div class='navbar'>
+      <div class='container'>
+        <%= image_tag "bbb-logo.png", :alt => "BigBlueButton Demo", :class => "center-block" %>
+      </div>
+    </div>
+    
     <%= yield %>
   </body>
 </html>

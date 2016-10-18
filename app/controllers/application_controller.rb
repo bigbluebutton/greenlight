@@ -1,5 +1,9 @@
+require 'bigbluebutton_api'
+require 'digest/sha1'
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  include ApplicationHelper
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
