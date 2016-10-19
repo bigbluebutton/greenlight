@@ -6,7 +6,7 @@
       <div class="col-sm-2 col-sm-offset-10">
         <% if !current_user.nil? %>
           <span class="user">Hello <%= current_user.name %></span>
-          <%= link_to "Logout", "/logout" %>
+          <%= link_to "Logout", user_logout_url() %>
           <div><%= link_to 'Personal Room', current_user.room_url %></div>
         <% end %>
       </div>
