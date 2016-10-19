@@ -1,4 +1,3 @@
-<div class='container'>
 
   <!-- Body -->
   <div class='body'>
@@ -36,7 +35,7 @@
       <figure class=highlight><pre><figcaption class="text" data-lang="text">
         <p>Hi Everyone</p>
         <p>The meeting will be at this URL</p>
-        <p><a id="text_meeting_url" href="<%= @meeting_url %>"><%= @meeting_url %></p>
+        <p><a id="text_meeting_url" href="<%= @meeting_url %>"><%= @meeting_url %></a></p>
         <p>Please join!</p>
       </figcaption></pre></figure>
 
@@ -48,11 +47,11 @@
         <% if current_user.nil? %>
         <p>You can have a personal URL (with recordings) by signing in below</p>
 
-        <div>
-          <%= link_to('/auth/twitter', :class => "btn btn-block btn-md btn-social-icon btn-twitter") do %>
+        <div class="text-center">
+          <%= link_to('/auth/twitter', :class => "btn icon btn-lg btn-social-icon btn-twitter") do %>
             <span class="fa fa-twitter"></span>
           <% end %>
-          <%= link_to('/auth/google', :class => "btn btn-block btn-md btn-social-icon btn-google") do %>
+          <%= link_to('/auth/google', :class => "btn icon btn-lg btn-social-icon btn-google") do %>
             <span class="fa fa-google"></span>
           <% end %>
         </div>
@@ -61,10 +60,9 @@
           <div><%= link_to 'Personal Room', current_user.room_url %></div>
           <div><%= link_to 'Logout', '/logout' %></div>
         <% end %>
+        </div>
       </div>
 
     </div>
 
   </div>
-
-</div>
