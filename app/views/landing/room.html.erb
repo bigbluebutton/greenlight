@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-sm-2 col-sm-offset-10">
         <% if admin? %>
-          <span class="user"><%= current_user.name %></span>
+          <span class="user">Hello <%= current_user.name %></span>
           <%= link_to "Logout", "/logout" %>
         <% else %>
           <%= link_to "Login", "/auth/twitter" %>

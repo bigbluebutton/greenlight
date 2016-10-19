@@ -10,10 +10,6 @@
       <span class="fa fa-google"></span>
     <% end %>
   </div>
-  <% else %>
-    <div>Hello <%= current_user.name %></div>
-    <div><%= link_to 'Personal Room', current_user.room_url %></div>
-    <div><%= link_to 'Logout', '/logout' %></div>
   <% end %>
   </div>
 </div>
