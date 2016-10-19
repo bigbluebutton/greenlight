@@ -3,6 +3,7 @@ class LandingController < ApplicationController
   def meeting
     @refreshable = (params[:resource] == 'meetings' && !params.has_key?(:id))
     @meeting_token = params[:id] || @meeting_token = helpers.new_meeting_token
+    @resource = params[:resource]
     @resource_url = meeting_url(@meeting_token)
   end
 
@@ -16,9 +17,10 @@ class LandingController < ApplicationController
 
   def room
     @room_name = params[:name]
-    @meeting_token = @room_name
-    @resource_url = room_url(@meeting_token)
     @user = User.find_by(username: @room_name)
+    @meeting_token = @room_name
+    @resource = params[:resource]
+    @resource_url = room_url(@meeting_token)
     if @user.nil?
       redirect_to root_path
     end

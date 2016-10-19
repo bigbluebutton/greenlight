@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'bbb/join/:id', to: 'bbb#join', as: :bbb_join
+  get 'bbb/join/:resource/:id', to: 'bbb#join', as: :bbb_join
 
   get '/meetings/new', to: 'landing#new_meeting', as: :new_meeting
   get '/meetings(/:id)', to: 'landing#meeting', as: :meeting, :resource => "meetings"

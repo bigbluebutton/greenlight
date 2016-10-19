@@ -8,7 +8,7 @@ class BbbController < ApplicationController
     elsif ( !params.has_key?(:name) )
       render_response("missing_parameter", "user name was not included", :bad_request)
     else
-      bbb_join_url = helpers.bbb_join_url(params[:id], false, params[:name], false, )
+      bbb_join_url = helpers.bbb_join_url(params[:id], false, params[:name], false, "#{request.base_url}/#{params[:resource]}/#{params[:id]}")
       if bbb_join_url[:returncode]
         logger.info "#Execute the redirect"
         render_response("ok", "execute the redirect", :ok, {:join_url => bbb_join_url[:join_url]})
