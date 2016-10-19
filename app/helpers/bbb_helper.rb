@@ -13,7 +13,7 @@ module BbbHelper
     return password
   end
 
-  def bbb_join_url(meeting_token, meeting_recorded=false, user_fullname='User', user_is_moderator=false)
+  def bbb_join_url(meeting_token, meeting_recorded=false, user_fullname='User', user_is_moderator=false, meeting_logout_url=nil)
     bbb ||= BigBlueButton::BigBlueButtonApi.new(bbb_endpoint + "api", bbb_secret, "0.8", true)
     if !bbb
       return { :returncode => false, :messageKey => "BBBAPICallInvalid", :message => "BBB API call invalid." }
@@ -28,7 +28,7 @@ module BbbHelper
         logger.info "Message for the log file #{exc.key}: #{exc.message}"
 
         # Prepare parameters for create
-        logout_url = "#{request.base_url}/meeting/#{meeting_token}"
+        logout_url = meeting_logout_url || logout_url = "#{request.base_url}"
         moderator_password = random_password(12)
         viewer_password = random_password(12)
         meeting_options = {:record => meeting_recorded.to_s, :logoutURL => logout_url, :moderatorPW => moderator_password, :attendeePW => viewer_password }

@@ -1,0 +1,19 @@
+<div id="landing_page_footer_oauth_append">
+  <% if current_user.nil? %>
+  <p>You can have a personal URL (with recordings) by signing in below</p>
+
+  <div class="text-center">
+    <%= link_to('/auth/twitter', :class => "btn icon btn-lg btn-social-icon btn-twitter") do %>
+      <span class="fa fa-twitter"></span>
+    <% end %>
+    <%= link_to('/auth/google', :class => "btn icon btn-lg btn-social-icon btn-google") do %>
+      <span class="fa fa-google"></span>
+    <% end %>
+  </div>
+  <% else %>
+    <div>Hello <%= current_user.name %></div>
+    <div><%= link_to 'Personal Room', current_user.room_url %></div>
+    <div><%= link_to 'Logout', '/logout' %></div>
+  <% end %>
+  </div>
+</div>

@@ -15,6 +15,7 @@
         }
       });
     });
+
     $('#url_form_button').click (function (event) {
       $.ajax({
         url : $(this).data ('url'),
@@ -36,7 +37,7 @@
 
   $(document).on("turbolinks:load", function() {
     if ($("body[data-controller=landing]").get(0)) {
-      if ($("body[data-action=index]").get(0)) {
+      if ($("body[data-action=meeting]").get(0) || $("body[data-action=room]").get(0)) {
         initIndex();
       }
     }
