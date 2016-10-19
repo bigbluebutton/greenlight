@@ -1,19 +1,26 @@
-<div class="page-wrapper room">
-  <div class="row">
-    <div class="col-sm-2 col-sm-offset-10">
-      <% if admin? %>
-        <span class="user"><%= current_user.name %></span>
-        <%= link_to "Logout", "/logout" %>
-      <% else %>
-        <%= link_to "Login", "/auth/twitter" %>
-      <% end %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-4 col-sm-offset-4">
-      <div class="room-link">
-        Room Link: <%= link_to "/rooms/#{@room_name}", "/rooms/#{@room_name}" %>
+<!-- Body -->
+<div class='body'>
+
+  <div class="page-wrapper room">
+    <div class="row">
+      <div class="col-sm-2 col-sm-offset-10">
+        <% if admin? %>
+          <span class="user"><%= current_user.name %></span>
+          <%= link_to "Logout", "/logout" %>
+        <% else %>
+          <%= link_to "Login", "/auth/twitter" %>
+        <% end %>
       </div>
     </div>
   </div>
+
+  <div class="container">
+    <%= render 'landing/join_form' %>
+
+    <%= render 'landing/sharing_text' %>
+
+    <%= render 'landing/footer_message' %>
+  </div>
+
 </div>
+
