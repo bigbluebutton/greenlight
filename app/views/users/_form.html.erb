@@ -1,0 +1,15 @@
+<div class="col-sm-4 col-sm-offset-4">
+  <div class="jumbotron">
+    <h4>Enter Username below</h4>
+
+    <%= form_for(user, html: {class: "form-inline"}) do |f| %>
+      <div class="form-group">
+        <%= f.text_field :username, placeholder: "Username", class: "form-control input" %>
+      </div>
+      <%= f.submit class: "btn btn-success", value: "Save" %>
+    <% end %>
+    <div class="description">
+      <p>This username will be used to identify your personal room</p>
+    </div>
+  </div>
+</div>

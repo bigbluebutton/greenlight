@@ -19,7 +19,7 @@ class LandingController < ApplicationController
     @room_name = params[:name]
     @user = User.find_by(username: @room_name)
     @meeting_token = @room_name
-    @resource = params[:resource]
+    @resource = "rooms"
     @resource_url = room_url(@meeting_token)
     if @user.nil?
       redirect_to root_path
