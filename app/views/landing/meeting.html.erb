@@ -1,6 +1,18 @@
 <!-- Body -->
 <div class='body'>
 
+  <div class="page-wrapper room">
+    <div class="row">
+      <div class="col-sm-2 col-sm-offset-10">
+        <% if !current_user.nil? %>
+          <span class="user">Hello <%= current_user.name %></span>
+          <%= link_to "Logout", user_logout_url() %>
+          <div><%= link_to 'Personal Room', current_user.room_url %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <%= render 'landing/join_form' %>
 

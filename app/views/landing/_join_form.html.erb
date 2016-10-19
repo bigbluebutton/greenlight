@@ -4,7 +4,7 @@
     <div id="landing_page_url" class="center-block">
       <form id="url_form" class="form-inline">
         <div class="form-group">
-          <span id="meeting_url"><%= @resource_url %></span>
+          <span id="meeting_url"><%= resource_url(@resource, @meeting_token) %></span>
         </div>
         <% if @refreshable %>
         <button id="url_form_button" type="button" class="btn btn-default" data-url="<%= new_meeting_path() %>">
