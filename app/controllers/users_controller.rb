@@ -9,8 +9,9 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     if @user.update(user_params)
-      redirect_to controller: 'landing', action: 'room', name: @user.username
+      redirect_to controller: 'landing', action: 'index', id: @user.username, resource: 'rooms'
     else
+      @error = @user.errors.first[1] rescue nil
       render :edit
     end
   end
