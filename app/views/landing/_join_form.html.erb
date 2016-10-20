@@ -18,10 +18,14 @@
   <!-- Join form -->
   <div id="landing_page_join">
     <form id="join_form" class="form-inline">
+      <% if current_user.nil? %>
       <div class="form-group">
         <label for="join_form_name" class="sr-only">Name</label>
-        <input id="join_form_name" type="text" class="form-control input" id="name" placeholder="Your name" required>
+        <input id="join_form_name" type="text" class="form-control input" placeholder="Your name" required>
       </div>
+      <% else %>
+        <input id="join_form_name" type="hidden" value="<%= current_user.name %>">
+      <% end %>
       <button id="join_form_button" type="button" class="btn btn-success" data-url="<%= bbb_join_path(@resource, @meeting_token) %>">Join</button>
     </form>
   </div>
