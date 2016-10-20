@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     def set_user
       @user = User.find(params[:id])
       if @user.username
-        raise ActionController::RoutingError.new('Not Found')
+        render 'errors/error'
       end
     end
 

@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  provider: Twitter
+  provider: twitter
   uid: <%= SecureRandom.hex(10) %>
   name: User 1
   username: user1
 
 two:
-  provider: TWitter
+  provider: google
   uid: <%= SecureRandom.hex(10) %>
   name: User 2
   username: user2

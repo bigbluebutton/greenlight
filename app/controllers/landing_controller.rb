@@ -28,7 +28,7 @@ class LandingController < ApplicationController
   helper_method :admin?
 
   private
-  
+
   def render_meeting
     @resource = params[:resource]
     @meeting_token = params[:id] || @meeting_token = helpers.new_meeting_token
@@ -42,6 +42,7 @@ class LandingController < ApplicationController
     @user = User.find_by(username: @meeting_token)
     if @user.nil?
       redirect_to root_path
+      return
     end
     render :action => 'room'
   end
