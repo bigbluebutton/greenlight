@@ -22,15 +22,13 @@ class LandingController < ApplicationController
     render_meeting
   end
 
-  def room
-    render_room
-  end
-
   def admin?
     @user == current_user
   end
   helper_method :admin?
+
   private
+  
   def render_meeting
     @resource = params[:resource]
     @meeting_token = params[:id] || @meeting_token = helpers.new_meeting_token
@@ -47,5 +45,5 @@ class LandingController < ApplicationController
     end
     render :action => 'room'
   end
-  
+
 end

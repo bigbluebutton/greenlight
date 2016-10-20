@@ -1,6 +1,10 @@
 class User < ApplicationRecord
 
-  validates :username, uniqueness: true
+  validates :username,
+    uniqueness: { message: "this username is taken" },
+    format: { with: /\A^[0-9a-z-_]+\Z/,
+    message: "Only allows lowercase alphanumeric characters with dashes and underscores",
+    allow_blank: true }
 
   def self.from_omniauth(auth_hash)
     user = find_or_initialize_by(uid: auth_hash['uid'], provider: auth_hash['provider'])
