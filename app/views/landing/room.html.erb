@@ -8,7 +8,7 @@
           <span class="user">Hello <%= current_user.name %></span>
           <%= link_to "Logout", user_logout_url() %>
         <% else %>
-          <%= link_to "Login", "/auth/twitter" %>
+          <%= link_to "Login", "/auth/#{@user.provider}" %>
         <% end %>
       </div>
     </div>
@@ -21,4 +21,3 @@
   </div>
 
 </div>
-
