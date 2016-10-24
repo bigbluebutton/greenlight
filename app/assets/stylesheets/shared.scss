@@ -1,0 +1,57 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap-social";
+@import "font-awesome";
+
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  margin: 20px 40px;
+
+  .logo {
+    max-width: 150px;
+    max-height: 50px;
+  }
+}
+
+.footer {
+  margin: 20px;
+}
+
+.page-header {
+  margin-top: 60px;
+  border: 0;
+}
+
+.vertical-center {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+.content-box {
+  .center-block {
+    float: none;
+  }
+
+  .input-spacing {
+    margin-top: 15px;
+  }
+
+  .panel-footer {
+    padding: 35px;
+    background-color: white;
+  }
+
+  .panel-body {
+    padding-bottom: 40px;
+  }
+
+  .title-wrapper {
+    margin-bottom: 30px;
+  }
+}
