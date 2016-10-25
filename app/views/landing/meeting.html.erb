@@ -1,28 +1,33 @@
-<!-- Body -->
-<div class='body'>
 
-  <div class="page-wrapper room">
-    <div class="row">
-      <div class="col-sm-2 col-sm-offset-10">
-        <% if !current_user.nil? %>
-          <span class="user">Hello <%= current_user.name %></span>
-          <%= link_to "Logout", user_logout_url() %>
-          <% if current_user.username %>
-            <div><%= link_to 'Personal Room', current_user.room_url %></div>
-          <% else %>
-            <div><%= link_to 'Set Username', edit_user_path(current_user) %></div>
-          <% end %>
-        <% end %>
-      </div>
+
+<% content_for :title do %>
+  <div class="title">
+    Hi Everyone
+  </div>
+  <small>
+    The session will be taking place using the following URL
+  </small>
+<% end %>
+
+<% content_for :footer do %>
+  <div class="panel-footer">
+    <div class="text-center">
+      <a href="#" class="generate-link">Click refresh</a> to generate a new meeting URL
     </div>
   </div>
+<% end %>
 
-  <div class="container">
-    <%= render 'landing/join_form' %>
+<div class="page-wrapper meeting">
+  <div class='container-fluid'>
 
-    <%= render 'landing/footer_message' %>
+  <%= render 'shared/title', title: 'Start A New Session' %>
 
-    <%= render 'landing/footer_oauth_append' %>
+    <%= render layout: 'shared/center_panel' do %>
+      <div class="center-block col-sm-8">
+        <%= render 'shared/meeting_url', hidden: false %>
+        <%= render 'shared/join_form', user: current_user %>
+      </div>
+    <% end %>
+
   </div>
-
 </div>

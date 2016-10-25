@@ -1,10 +1,12 @@
 (function() {
-  var initIndex = function() {
-    $('#join_form_button').click (function (event) {
+  var init = function() {
+
+    $('.meeting-join').click (function (event) {
+      var url = $('.meeting-url').val();
+      var name = $('.meeting-user-name').val();
       $.ajax({
-        url : $(this).data ('url') + "?name=" + $('#join_form_name').val(),
+        url : url + "/join?name=" + name,
         dataType : "json",
-        async : true,
         type : 'GET',
         success : function(data) {
           $(location).attr("href", data.response.join_url);
@@ -16,29 +18,49 @@
       });
     });
 
-    $('#url_form_button').click (function (event) {
-      $.ajax({
-        url : $(this).data ('url'),
-        dataType : "json",
-        async : true,
-        type : 'GET',
-        success : function(data) {
-          $('#meeting_url').html(data.response.meeting_url);
-          $('#text_meeting_url').attr("href", data.response.meeting_url);
-          $('#text_meeting_url').text(data.response.meeting_url);
-        },
-        error : function(xhr, status, error) {
-        },
-        complete : function(xhr, status) {
-        }
-      });
+    $('.meeting-url-copy').click (function (e) {
+      meetingURL = $('.meeting-url');
+      meetingURL.select();
+      document.execCommand("copy");
+      meetingURL.blur();
     });
   };
 
+  var initIndex = function() {
+
+    $('.generate-link').click (function (e) {
+      e.preventDefault();
+      var link = window.location.protocol +
+        '//' +
+        window.location.hostname +
+        '/' +
+        'meetings/' +
+        Math.trunc(Math.random() * 1000000000);
+
+      $('.meeting-url').val(link);
+    });
+
+
+    $('.meeting-url').val('');
+    $('.generate-link').click();
+  };
+
+  var initRooms = function() {
+    meetingURL = $('.meeting-url');
+    var link = window.location.protocol +
+      '//' +
+      window.location.hostname +
+      meetingURL.data('path');
+    meetingURL.val(link);
+  };
+
   $(document).on("turbolinks:load", function() {
+    init();
     if ($("body[data-controller=landing]").get(0)) {
-      if ($("body[data-action=meeting]").get(0) || $("body[data-action=room]").get(0)) {
+      if ($("body[data-action=meetings]").get(0)) {
         initIndex();
+      } else if ($("body[data-action=rooms]").get(0)) {
+        initRooms();
       }
     }
   });
