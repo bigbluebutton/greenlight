@@ -1,23 +1,36 @@
-<!-- Body -->
-<div class='body'>
+<% if current_user %>
+  <% page_title = "Welcome, #{current_user.name.split(' ').first}" %>
+<% else %>
+  <% page_title = "Welcome to #{@user.ownership_name} Meeting Space" %>
+<% end %>
 
-  <div class="page-wrapper room">
-    <div class="row">
-      <div class="col-sm-2 col-sm-offset-10">
-        <% if admin? %>
-          <span class="user">Hello <%= current_user.name %></span>
-          <%= link_to "Logout", user_logout_url() %>
+<% content_for :title do %>
+  <div class="title">
+    <% if current_user == @user %>
+      Start a new session
+    <% elsif current_user && current_user != @user %>
+      <%= "Join #{@user.ownership_name} session" %>
+    <% else %>
+      Join the current session
+    <% end %>
+  </div>
+<% end %>
+
+<div class="page-wrapper room">
+  <div class="container-fluid">
+
+    <%= render 'shared/title', title: page_title %>
+
+    <%= render layout: 'shared/center_panel' do %>
+      <div class="center-block col-sm-8">
+        <% if current_user == @user %>
+          <%= render 'shared/meeting_url', hidden: false %>
         <% else %>
-          <%= link_to "Login", "/auth/#{@user.provider}" %>
+          <%= render 'shared/meeting_url', hidden: true %>
         <% end %>
+        <%= render 'shared/join_form', user: current_user %>
       </div>
-    </div>
+    <% end %>
+
   </div>
-
-  <div class="container">
-    <%= render 'landing/join_form' %>
-
-    <%= render 'landing/footer_message' %>
-  </div>
-
 </div>

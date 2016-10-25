@@ -1,0 +1,13 @@
+<div <%= "hidden" if hidden %> class="meetin-url-wrapper">
+  <div class="input-group">
+    <input type="text" readonly="readonly" class="form-control meeting-url" data-path="<%= @user.room_url if @user %>"/>
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-default meeting-url-copy">
+        <i class="fa fa-paperclip" aria-hidden="true"></i>
+      </button>
+    </span>
+  </div>
+  <small>
+    <em>Copy this URL to invite others to the meeting</em>
+  </small>
+</div>

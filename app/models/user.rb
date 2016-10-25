@@ -19,6 +19,14 @@ class User < ApplicationRecord
     auth_hash['info']['nickname']
   end
 
+  def ownership_name
+    if username.end_with? 's'
+      "#{username}'"
+    else
+      "#{username}'s"
+    end
+  end
+
   def room_url
     "/rooms/#{username}"
   end

@@ -1,0 +1,14 @@
+<div class="content-box">
+  <div class="row">
+    <div class="center-block col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h3 class="title-wrapper text-center">
+            <%= yield :title %>
+          </h3>
+          <%= yield %>
+      </div>
+      <%= yield :footer %>
+    </div>
+  </div>
+</div>

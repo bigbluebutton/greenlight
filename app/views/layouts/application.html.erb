@@ -14,12 +14,41 @@
     </div>
 
     <!-- Header -->
-    <div class='navbar'>
-      <div class='container'>
-        <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton Demo", :class => "center-block"), root_path %>
-      </div>
+    <div class='header'>
+      <span class="logo-wrapper pull-left">
+        <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton Demo", :class => "logo"), root_path %>
+      </span>
+      <span class="signup pull-right">
+        <% if current_user %>
+          <%= current_user.name %> |
+          <% if current_user.username %>
+            <%= link_to 'my room', current_user.room_url %> |
+          <% else %>
+            <%= link_to 'my room', edit_user_path(current_user) %> |
+          <% end %>
+          <%= link_to 'logout', user_logout_url %>
+        <% elsif @user %>
+          Are you <%= @user.username %> ? |
+          <%= link_to 'login', "/auth/#{@user.provider}" %>
+        <% else %>
+          Signup for customized sessions
+          <%= link_to('/auth/twitter', :class => "btn icon btn-lg btn-social-icon btn-twitter") do %>
+            <span class="fa fa-twitter"></span>
+          <% end %>
+          <%= link_to('/auth/google', :class => "btn icon btn-lg btn-social-icon btn-google") do %>
+            <span class="fa fa-google"></span>
+          <% end %>
+        <% end %>
+      </span>
     </div>
+    <!-- End of Header -->
 
     <%= yield %>
+
+    <!-- Footer -->
+    <div class='footer text-center'>
+      Powered by BigBlueButton
+    </div>
+    <!-- End of Footer -->
   </body>
 </html>
