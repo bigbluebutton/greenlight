@@ -10,7 +10,7 @@ html, body {
 }
 
 .header {
-  margin: 20px 40px;
+  padding: 20px 40px;
 
   .logo {
     max-width: 150px;
@@ -19,18 +19,12 @@ html, body {
 }
 
 .footer {
-  margin: 20px;
+  padding: 20px;
 }
 
 .page-header {
-  margin-top: 60px;
+  margin-top: 100px;
   border: 0;
-}
-
-.vertical-center {
-  display: inline-block;
-  vertical-align: middle;
-  float: none;
 }
 
 .content-box {

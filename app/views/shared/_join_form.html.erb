@@ -1,0 +1,9 @@
+<div class="input-group input-spacing">
+  <% @current_user = user %>
+  <%= text_field :current_user, :name, class: 'form-control meeting-user-name', placeholder: 'Enter your name' %>
+  <span class="input-group-btn">
+    <button type="button" class="btn btn-primary meeting-join">
+      Join
+    </button>
+  </span>
+</div>
