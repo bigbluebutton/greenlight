@@ -33,16 +33,22 @@
       var link = window.location.protocol +
         '//' +
         window.location.hostname +
-        '/' +
-        'meetings/' +
+        '/meetings/' +
         Math.trunc(Math.random() * 1000000000);
 
       $('.meeting-url').val(link);
     });
 
-
-    $('.meeting-url').val('');
-    $('.generate-link').click();
+    if (meetingId = $('.meeting-url').data('meetingId')) {
+      var link = window.location.protocol +
+        '//' +
+        window.location.hostname +
+        '/meetings/' +
+        meetingId;
+      $('.meeting-url').val(link)
+    } else {
+      $('.generate-link').click();
+    }
   };
 
   var initRooms = function() {

@@ -18,6 +18,7 @@ class LandingController < ApplicationController
   private
 
   def render_meeting
+    @meeting_id = params[:id]
     params[:action] = 'meetings'
     render :action => 'meeting'
   end
