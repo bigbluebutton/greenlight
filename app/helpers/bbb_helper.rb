@@ -29,11 +29,12 @@ module BbbHelper
       begin
         bbb_meeting_info = bbb.get_meeting_info( meeting_id, nil )
       rescue BigBlueButton::BigBlueButtonException => exc
+        # This means that is not created
+
         if options[:wait_for_moderator] && !options[:user_is_moderator]
           return wait_moderator_res
         end
 
-        # This means that is not created
         logger.info "Message for the log file #{exc.key}: #{exc.message}"
 
         # Prepare parameters for create
@@ -79,7 +80,7 @@ module BbbHelper
   def wait_moderator_res
     {
       returncode: false,
-      messageKey: "WaitModerator",
+      messageKey: "wait_for_moderator",
       message: "Waiting for moderator",
       status: :ok
     }
@@ -88,7 +89,7 @@ module BbbHelper
   def call_invalid_res
     {
       returncode: false,
-      messageKey: "BBBAPICallInvalid",
+      messageKey: "BBB_API_call_invalid",
       message: "BBB API call invalid.",
       status: :internal_server_error
     }

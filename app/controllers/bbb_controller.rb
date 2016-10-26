@@ -2,9 +2,9 @@ class BbbController < ApplicationController
 
   # GET /:resource/:id/join
   def join
-    if ( !params[:id] )
+    if ( params[:id].blank? )
       render_response("missing_parameter", "meeting token was not included", :bad_request)
-    elsif ( !params[:name] )
+    elsif ( params[:name].blank? )
       render_response("missing_parameter", "user name was not included", :bad_request)
     else
       user = User.find_by username: params[:id]
@@ -25,6 +25,12 @@ class BbbController < ApplicationController
         options
       )
 
+
+      if bbb_res[:returncode] && current_user && current_user == user
+        ActionCable.server.broadcast "moderator_#{user.username}_join_channel",
+          moderator: "joined"
+      end
+
       render_response bbb_res[:messageKey], bbb_res[:message], bbb_res[:status], bbb_res[:response]
     end
   end
@@ -35,6 +41,6 @@ class BbbController < ApplicationController
     @message = message
     @status = status
     @response = response
-    render status: @status && return
+    render status: @status
   end
 end

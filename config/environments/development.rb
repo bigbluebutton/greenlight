@@ -31,6 +31,12 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # action cable socket URI
+  config.action_cable.url = "ws://localhost/cable"
+
+  # allowed action cable origins
+  Rails.application.config.action_cable.allowed_request_origins = ['http://localhost']
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
