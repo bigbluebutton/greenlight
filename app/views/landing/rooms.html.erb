@@ -21,16 +21,18 @@
 
     <%= render 'shared/title', title: page_title %>
 
-    <%= render layout: 'shared/center_panel' do %>
-      <div class="center-block col-sm-8">
-        <% if current_user == @user %>
-          <%= render 'shared/meeting_url', hidden: false %>
-        <% else %>
-          <%= render 'shared/meeting_url', hidden: true %>
-        <% end %>
-        <%= render 'shared/join_form', user: current_user %>
-      </div>
-    <% end %>
+    <div class="center-panel-wrapper">
+      <%= render layout: 'shared/center_panel' do %>
+        <div class="center-block col-sm-8">
+          <% if current_user == @user %>
+            <%= render 'shared/meeting_url', hidden: false %>
+          <% else %>
+            <%= render 'shared/meeting_url', hidden: true %>
+          <% end %>
+          <%= render 'shared/join_form', user: current_user %>
+        </div>
+      <% end %>
+    </div>
 
   </div>
 </div>

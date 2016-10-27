@@ -1,20 +1,34 @@
 (function() {
+  var waitForModerator = function(url) {
+    $.get(url + "/wait", function(html) {
+      $(".center-panel-wrapper").html(html);
+    });
+    if (!Meeting.getInstance().getWaitingForMod()) {
+      Meeting.getInstance().setWaitingForMod(true);
+      if (Meeting.getInstance().getModJoined()) {
+        loopJoin();
+      }
+    }
+  };
+
   var init = function() {
 
     $('.meeting-join').click (function (event) {
       var url = $('.meeting-url').val();
       var name = $('.meeting-user-name').val();
-      $.ajax({
-        url : url + "/join?name=" + name,
-        dataType : "json",
-        type : 'GET',
-        success : function(data) {
+      Meeting.getInstance().setURL(url);
+      Meeting.getInstance().setName(name);
+      var jqxhr = Meeting.getInstance().getjoinMeetingURL();
+
+      jqxhr.done(function(data) {
+        if (data.messageKey === 'wait_for_moderator') {
+          waitForModerator(url);
+        } else {
           $(location).attr("href", data.response.join_url);
-        },
-        error : function(xhr, status, error) {
-        },
-        complete : function(xhr, status) {
         }
+      });
+      jqxhr.fail(function(xhr, status, error) {
+        console.info("meeting join failed");
       });
     });
 
@@ -33,16 +47,22 @@
       var link = window.location.protocol +
         '//' +
         window.location.hostname +
-        '/' +
-        'meetings/' +
+        '/meetings/' +
         Math.trunc(Math.random() * 1000000000);
 
       $('.meeting-url').val(link);
     });
 
-
-    $('.meeting-url').val('');
-    $('.generate-link').click();
+    if (meetingId = $('.meeting-url').data('meetingId')) {
+      var link = window.location.protocol +
+        '//' +
+        window.location.hostname +
+        '/meetings/' +
+        meetingId;
+      $('.meeting-url').val(link)
+    } else {
+      $('.generate-link').click();
+    }
   };
 
   var initRooms = function() {

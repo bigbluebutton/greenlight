@@ -10,6 +10,10 @@ class LandingController < ApplicationController
     end
   end
 
+  def wait_for_moderator
+    render layout: false
+  end
+
   def admin?
     @user == current_user
   end
@@ -18,8 +22,9 @@ class LandingController < ApplicationController
   private
 
   def render_meeting
+    @meeting_id = params[:id]
     params[:action] = 'meetings'
-    render :action => 'meeting'
+    render :action => 'meetings'
   end
 
   def render_room
@@ -29,7 +34,7 @@ class LandingController < ApplicationController
       redirect_to root_path
       return
     end
-    render :action => 'room'
+    render :action => 'rooms'
   end
 
 end
