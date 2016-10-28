@@ -49,14 +49,13 @@ class BbbController < ApplicationController
   # PATCH /rooms/:id/recordings/:record_id
   def update_recordings
     bbb_res = helpers.bbb_update_recordings(params[:record_id], params[:published] == 'true')
-    render_bbb_response bbb_res, bbb_res[:recordings]
+    render_bbb_response bbb_res
   end
 
   # DELETE /rooms/:id/recordings/:record_id
   def delete_recordings
-    byebug
     bbb_res = helpers.bbb_delete_recordings(params[:record_id])
-    render_bbb_response bbb_res, bbb_res[:recordings]
+    render_bbb_response bbb_res
   end
 
   private
@@ -69,7 +68,7 @@ class BbbController < ApplicationController
       render head(:unauthorized) && return
     end
 
-    recordings = helpers.bbb_get_recordings(params[:record_id])[:recordings]
+    recordings = helpers.bbb_get_recordings(params[:id])[:recordings]
     recordings.each do |recording|
       if recording[:recordID] == params[:record_id]
         return true
@@ -78,7 +77,7 @@ class BbbController < ApplicationController
     render head(:not_found) && return
   end
 
-  def render_bbb_response(bbb_res, response)
+  def render_bbb_response(bbb_res, response={})
     @messageKey = bbb_res[:messageKey]
     @message = bbb_res[:message]
     @status = bbb_res[:status]
