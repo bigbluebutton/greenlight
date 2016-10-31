@@ -1,4 +1,4 @@
-module BbbHelper
+module BbbApi
   def bbb_endpoint
     Rails.application.secrets[:bbb_endpoint]
   end
@@ -67,9 +67,15 @@ module BbbHelper
     end
   end
 
-  def bbb_get_recordings(meeting_token)
-    meeting_id = (Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base]+meeting_token)).to_s
-    bbb_safe_execute :get_recordings, meetingID: meeting_id
+  def bbb_get_recordings(meeting_id, record_id=nil)
+    options={}
+    if record_id
+      options[:recordID] = record_id
+    end
+    if meeting_id
+      options[:meetingID] = (Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base]+meeting_id)).to_s
+    end
+    bbb_safe_execute :get_recordings, options
   end
 
   def bbb_update_recordings(id, published)

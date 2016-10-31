@@ -112,9 +112,9 @@
             if (type === 'display') {
               var roomName = window.location.pathname.split('/').pop();
               var published = row.published;
-              var eye = (published) ? 'eye' : 'eye-slash'
+              var eye = getPublishClass(published);
               return '<button type="button" class="btn btn-default recording-update" data-id="'+data+'" data-room="'+roomName+'" data-published="'+published+'">' +
-                '<i class="fa fa-'+eye+'" aria-hidden="true"></i></button> ' +
+                '<i class="fa '+eye+'" aria-hidden="true"></i></button> ' +
                 '<button type="button" class="btn btn-default recording-delete" data-id="'+data+'" data-room="'+roomName+'">' +
                 '<i class="fa fa-trash-o" aria-hidden="true"></i></button>';
             }
@@ -128,12 +128,15 @@
       var room = $(this).data('room');
       var id = $(this).data('id');
       var published = $(this).data('published');
+      $(this).prop("disabled", true);
       $.ajax({
         method: 'PATCH',
         url: '/rooms/'+room+'/recordings/'+id,
         data: {published: (!published).toString()}
       }).done(function(data) {
-        $(this).prop("disabled", true);
+
+      }).fail(function(data) {
+        $(this).prop("disabled", false);
       });
     });
 

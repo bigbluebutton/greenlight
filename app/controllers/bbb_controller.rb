@@ -1,4 +1,5 @@
 class BbbController < ApplicationController
+  include BbbApi
 
   before_action :authorize_owner_recording, only: [:update_recordings, :delete_recordings]
 
@@ -20,7 +21,7 @@ class BbbController < ApplicationController
       end
       options[:meeting_logout_url] = "#{request.base_url}/#{params[:resource]}/#{params[:id]}"
 
-      bbb_res = helpers.bbb_join_url(
+      bbb_res = bbb_join_url(
         params[:id],
         params[:name],
         options
@@ -42,19 +43,22 @@ class BbbController < ApplicationController
       render head(:not_found) && return
     end
 
-    bbb_res = helpers.bbb_get_recordings user.username
+    bbb_res = bbb_get_recordings user.username
     render_bbb_response bbb_res, bbb_res[:recordings]
   end
 
   # PATCH /rooms/:id/recordings/:record_id
   def update_recordings
-    bbb_res = helpers.bbb_update_recordings(params[:record_id], params[:published] == 'true')
+    bbb_res = bbb_update_recordings(params[:record_id], params[:published] == 'true')
+    if bbb_res[:returncode]
+      RecordingUpdatesJob.perform_later(@user.username, params[:record_id], bbb_res[:published])
+    end
     render_bbb_response bbb_res
   end
 
   # DELETE /rooms/:id/recordings/:record_id
   def delete_recordings
-    bbb_res = helpers.bbb_delete_recordings(params[:record_id])
+    bbb_res = bbb_delete_recordings(params[:record_id])
     render_bbb_response bbb_res
   end
 
@@ -68,9 +72,10 @@ class BbbController < ApplicationController
       render head(:unauthorized) && return
     end
 
-    recordings = helpers.bbb_get_recordings(params[:id])[:recordings]
+    recordings = bbb_get_recordings(params[:id])[:recordings]
     recordings.each do |recording|
       if recording[:recordID] == params[:record_id]
+        @user = user
         return true
       end
     end
