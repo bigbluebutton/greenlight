@@ -1,5 +1,6 @@
 json.partial! 'bbb', messageKey: @messageKey, message: @message, status: @status
 unless @response.blank?
+  json.is_owner current_user == @user
   json.recordings do
     unless @response.is_a? Array
       @response = [@response]

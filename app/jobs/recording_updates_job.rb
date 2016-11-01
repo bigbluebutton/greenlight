@@ -11,6 +11,7 @@ class RecordingUpdatesJob < ApplicationJob
       bbb_res = bbb_get_recordings(nil, record_id)
       if bbb_res[:recordings].first[:published].to_s == published
         ActionCable.server.broadcast "#{room}_recording_updates_channel",
+          record_id: record_id,
           published: bbb_res[:recordings].first[:published]
         break
       end

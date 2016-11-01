@@ -38,12 +38,12 @@ class BbbController < ApplicationController
 
   # GET /rooms/:id/recordings
   def recordings
-    user = User.find_by username: params[:id]
-    if !user
+    @user = User.find_by username: params[:id]
+    if !@user
       render head(:not_found) && return
     end
 
-    bbb_res = bbb_get_recordings user.username
+    bbb_res = bbb_get_recordings @user.username
     render_bbb_response bbb_res, bbb_res[:recordings]
   end
 

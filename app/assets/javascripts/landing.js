@@ -98,8 +98,10 @@
           render: function(data, type, row) {
             if (type === 'display') {
               var str = "";
-              for(let i in data) {
-                str += '<a href="'+data[i].url+'">'+data[i].type+'</a> ';
+              if (row.published) {
+                for(let i in data) {
+                  str += '<a href="'+data[i].url+'">'+data[i].type+'</a> ';
+                }
               }
               return str;
             }
@@ -125,10 +127,11 @@
     });
 
     $('#recordings').on('click', '.recording-update', function(event) {
-      var room = $(this).data('room');
-      var id = $(this).data('id');
-      var published = $(this).data('published');
-      $(this).prop("disabled", true);
+      var btn = $(this);
+      var room = btn.data('room');
+      var id = btn.data('id');
+      var published = btn.data('published');
+      btn.prop("disabled", true);
       $.ajax({
         method: 'PATCH',
         url: '/rooms/'+room+'/recordings/'+id,
@@ -136,7 +139,7 @@
       }).done(function(data) {
 
       }).fail(function(data) {
-        $(this).prop("disabled", false);
+        btn.prop("disabled", false);
       });
     });
 
@@ -147,7 +150,7 @@
         method: 'DELETE',
         url: '/rooms/'+room+'/recordings/'+id
       }).done(function() {
-        $('tr[id="'+id+'"]').remove();
+        recordingsTable.api().row("#"+id).remove().draw();
       });
     });
 
@@ -160,6 +163,9 @@
     }
     table = recordingsTable.api();
     $.get("/rooms/"+window.location.pathname.split('/').pop()+"/recordings", function(data) {
+      if (!data.is_owner) {
+        table.column(-1).visible( false );
+      }
       var i;
       for (i = 0; i < data.recordings.length; i++) {
         var totalMinutes = Math.round((new Date(data.recordings[i].end_time) - new Date(data.recordings[i].start_time)) / 1000 / 60);

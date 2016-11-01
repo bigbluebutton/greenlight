@@ -7,11 +7,10 @@
     },
     {
       received: function(data) {
-        var btn = $("#recordings").find(".recording-update:disabled");
-        btn.data('published', data.published);
-        btn.find('i').removeClass(getPublishClass(!data.published));
-        btn.find('i').addClass(getPublishClass(data.published));
-        btn.prop("disabled", false);
+        var table = $("#recordings").DataTable();
+        var rowData = table.row("#"+data.record_id).data();
+        rowData.published = data.published
+        table.row("#"+data.record_id).data(rowData).draw();
       }
     });
   };
