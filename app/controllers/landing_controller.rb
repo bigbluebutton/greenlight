@@ -15,7 +15,7 @@ class LandingController < ApplicationController
   end
 
   def admin?
-    @user == current_user
+    @user && @user == current_user
   end
   helper_method :admin?
 

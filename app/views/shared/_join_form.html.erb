@@ -1,9 +1,23 @@
-<div class="input-group input-spacing">
-  <% @current_user = user %>
-  <%= text_field :current_user, :name, class: 'form-control meeting-user-name', placeholder: 'Enter your name' %>
-  <span class="input-group-btn">
-    <button type="button" class="btn btn-primary meeting-join">
+<div class="join-form input-group input-spacing">
+  <% if current_user %>
+    <% @current_user = user %>
+    <%= text_field :current_user, :name, class: 'form-control meeting-user-name', type: 'hidden' %>
+  <% else %>
+    <%= text_field :nil, :nil, class: 'form-control meeting-user-name', placeholder: 'Enter your name' %>
+  <% end %>
+  <% if admin? %>
+    <button type="button" class="btn btn-primary center-block meeting-join">
+      Start
+    </button>
+  <% elsif current_user %>
+    <button type="button" class="btn btn-primary center-block meeting-join">
       Join
     </button>
-  </span>
+  <% else %>
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-primary meeting-join">
+        Join
+      </button>
+    </span>
+  <% end %>
 </div>
