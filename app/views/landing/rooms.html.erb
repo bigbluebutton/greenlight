@@ -16,7 +16,7 @@
   </div>
 <% end %>
 
-<div class="page-wrapper rooms">
+<div class="page-wrapper rooms" data-room="<%= @user.username %>">
   <div class="container-fluid">
 
     <%= render 'shared/title', title: page_title %>

@@ -4,6 +4,10 @@ $.ajaxSetup({
   }
 });
 
+var getRoomName = function() {
+  return $(".page-wrapper.rooms").data('room');
+}
+
 var PUBLISHED_CLASSES = ['fa-eye-slash', 'fa-eye']
 
 var getPublishClass = function(published) {

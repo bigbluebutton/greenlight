@@ -112,7 +112,7 @@
           targets: -1,
           render: function(data, type, row) {
             if (type === 'display') {
-              var roomName = window.location.pathname.split('/').pop();
+              var roomName = getRoomName();
               var published = row.published;
               var eye = getPublishClass(published);
               return '<button type="button" class="btn btn-default recording-update" data-id="'+data+'" data-room="'+roomName+'" data-published="'+published+'">' +
@@ -162,7 +162,7 @@
       return;
     }
     table = recordingsTable.api();
-    $.get("/rooms/"+window.location.pathname.split('/').pop()+"/recordings", function(data) {
+    $.get("/rooms/"+getRoomName()+"/recordings", function(data) {
       if (!data.is_owner) {
         table.column(-1).visible( false );
       }
