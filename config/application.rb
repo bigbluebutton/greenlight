@@ -11,5 +11,8 @@ module Greenlight
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    config.bigbluebutton_endpoint = ENV['BIGBLUEBUTTON_ENDPOINT']
+    config.bigbluebutton_secret = ENV['BIGBLUEBUTTON_SECRET']
   end
 end

@@ -1,10 +1,10 @@
 module BbbApi
   def bbb_endpoint
-    Rails.application.secrets[:bbb_endpoint]
+    Rails.configuration.bigbluebutton_endpoint
   end
 
   def bbb_secret
-    Rails.application.secrets[:bbb_secret]
+    Rails.configuration.bigbluebutton_secret
   end
 
   def bbb
