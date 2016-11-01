@@ -7,12 +7,14 @@
   </small>
 <% end %>
 
-<% content_for :footer do %>
-  <div class="panel-footer">
-    <div class="text-center">
-      <a href="#" class="generate-link">Click refresh</a> to generate a new meeting URL
+<% if !@meeting_id %>
+  <% content_for :footer do %>
+    <div class="panel-footer">
+      <div class="text-center">
+        <a href="#" class="generate-link">Click refresh</a> to generate a new meeting URL
+      </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
 
 <div class="page-wrapper meetings">
