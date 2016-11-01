@@ -1,3 +1,15 @@
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+
+var PUBLISHED_CLASSES = ['fa-eye-slash', 'fa-eye']
+
+var getPublishClass = function(published) {
+  return PUBLISHED_CLASSES[+published];
+}
+
 var meetingInstance = null;
 class Meeting {
   constructor(url, name) {

@@ -31,11 +31,13 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.active_job.queue_adapter = :async
+
   # action cable socket URI
   config.action_cable.url = "ws://localhost/cable"
 
   # allowed action cable origins
-  Rails.application.config.action_cable.allowed_request_origins = ['http://localhost']
+  config.action_cable.allowed_request_origins = ['http://localhost']
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

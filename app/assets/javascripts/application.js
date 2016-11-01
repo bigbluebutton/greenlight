@@ -12,6 +12,8 @@
 //
 //= require jquery2
 //= require jquery-ui
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_self

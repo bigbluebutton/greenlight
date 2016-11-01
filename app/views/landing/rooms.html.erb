@@ -16,7 +16,7 @@
   </div>
 <% end %>
 
-<div class="page-wrapper room">
+<div class="page-wrapper rooms">
   <div class="container-fluid">
 
     <%= render 'shared/title', title: page_title %>
@@ -34,5 +34,9 @@
       <% end %>
     </div>
 
+    <div class="table-wrapper">
+      <h3>Past Recordings</h3>
+      <table id="recordings" class="table" width="100%"></table>
+    </div>
   </div>
 </div>
