@@ -88,16 +88,30 @@
       },
       columns: [
         { title: "Date Recorded", data: "start_time" },
+        { title: "Presentation", data: "previews"},
         { title: "Duration", data: "duration" },
         { title: "Views", data: "playbacks" },
         { title: "Actions", data: "id" }
       ],
       columnDefs: [
         {
-          targets: 2,
+          targets: 1,
           render: function(data, type, row) {
             if (type === 'display') {
-              var str = "";
+              var str = '';
+              for(let i in data) {
+                str += '<img height="50" width="50" src="'+data[i].url+'" alt="'+data[i].alt+'"></img> ';
+              }
+              return str;
+            }
+            return data;
+          }
+        },
+        {
+          targets: 3,
+          render: function(data, type, row) {
+            if (type === 'display') {
+              var str = '';
               if (row.published) {
                 for(let i in data) {
                   str += '<a href="'+data[i].url+'">'+data[i].type+'</a> ';

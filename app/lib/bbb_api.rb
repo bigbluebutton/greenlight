@@ -75,7 +75,53 @@ module BbbApi
     if meeting_id
       options[:meetingID] = (Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base]+meeting_id)).to_s
     end
-    bbb_safe_execute :get_recordings, options
+    res = bbb_safe_execute :get_recordings, options
+
+    # ensure recordings is an array
+    if !res[:recordings]
+      res[:recordings] = []
+    elsif !res[:recordings].is_a? Array
+      res[:recordings] = [res[:recordings]]
+    end
+
+    res[:recordings].each do |recording|
+      pref_preview = {}
+
+      # create a playbacks attribute on recording for playback formats
+      recording[:playbacks] = if !recording[:playback] || !recording[:playback][:format]
+        []
+      elsif recording[:playback][:format].is_a? Array
+        recording[:playback][:format]
+      else
+        [recording[:playback][:format]]
+      end
+
+      recording[:playbacks].each_with_index do |playback, index|
+        # create a previews attribute on playbacks for preview images
+        playback[:previews] = if !playback[:preview] || !playback[:preview][:images] || !playback[:preview][:images][:image]
+          []
+        elsif playback[:preview][:images][:image].is_a? Array
+          playback[:preview][:images][:image]
+        else
+          [playback[:preview][:images][:image]]
+        end
+        if playback[:type] == 'presentation' && playback[:previews].present?
+          pref_preview[:presentation] = index
+        elsif playback[:previews].present? && pref_preview[:other].blank?
+          pref_preview[:other] = index
+        end
+      end
+
+      # create a previews attribute on recordings for preview images
+      recording[:previews] = if pref_preview[:presentation]
+        recording[:playbacks][pref_preview[:presentation]][:previews]
+      elsif pref_preview[:other]
+        recording[:playbacks][pref_preview[:other]][:previews]
+      else
+        []
+      end
+    end
+    res
   end
 
   def bbb_update_recordings(id, published)
