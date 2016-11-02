@@ -9,6 +9,10 @@ html, body {
   height: 100%;
 }
 
+.app-background {
+  background: linear-gradient(0, white 65%, #4DC0A2 35%);
+}
+
 .header {
   padding: 20px 40px;
 
@@ -30,6 +34,9 @@ html, body {
 .center-panel {
   .center-block {
     float: none;
+  }
+  .center-panel-size {
+    width: 650px;
   }
 
   .input-spacing {
