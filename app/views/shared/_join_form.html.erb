@@ -3,20 +3,20 @@
     <% @current_user = user %>
     <%= text_field :current_user, :name, class: 'form-control meeting-user-name', type: 'hidden' %>
   <% else %>
-    <%= text_field :nil, :nil, class: 'form-control meeting-user-name', placeholder: 'Enter your name' %>
+    <%= text_field :nil, :nil, class: 'form-control meeting-user-name', placeholder: t('enter_name') %>
   <% end %>
   <% if admin? %>
     <button type="button" class="btn btn-primary center-block meeting-join">
-      Start
+      <%= t('start') %>
     </button>
   <% elsif current_user %>
     <button type="button" class="btn btn-primary center-block meeting-join">
-      Join
+      <%= t('join') %>
     </button>
   <% else %>
     <span class="input-group-btn">
       <button type="button" class="btn btn-primary meeting-join">
-        Join
+        <%= t('join') %>
       </button>
     </span>
   <% end %>

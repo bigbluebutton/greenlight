@@ -60,3 +60,5 @@ gem 'bootstrap-social-rails', '~> 4.12'
 gem 'font-awesome-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-datatables-rails', '~> 3.4.0'
+
+gem 'http_accept_language'

@@ -84,14 +84,14 @@
       info: false,
       ordering: false,
       language: {
-        emptyTable: "Past recordings are shown here."
+        emptyTable: " "
       },
       columns: [
-        { title: "Date Recorded", data: "start_time" },
-        { title: "Presentation", data: "previews"},
-        { title: "Duration", data: "duration" },
-        { title: "Views", data: "playbacks" },
-        { title: "Actions", data: "id" }
+        { data: "start_time" },
+        { data: "previews"},
+        { data: "duration" },
+        { data: "playbacks" },
+        { data: "id" }
       ],
       columnDefs: [
         {
@@ -186,7 +186,8 @@
         data.recordings[i].duration = totalMinutes;
 
         data.recordings[i].start_time = new Date(data.recordings[i].start_time)
-          .toLocaleString([], {month: 'long', day: 'numeric', year: 'numeric', hour12: 'true', hour: '2-digit', minute: '2-digit'});
+          .toLocaleString($('html').attr('lang'),
+            {month: 'long', day: 'numeric', year: 'numeric', hour12: 'true', hour: '2-digit', minute: '2-digit'});
       }
       table.clear();
       table.rows.add(data.recordings);
