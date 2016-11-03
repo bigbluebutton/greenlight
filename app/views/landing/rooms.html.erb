@@ -1,17 +1,17 @@
 <% if current_user %>
-  <% page_title = "Welcome, #{current_user.name.split(' ').first}" %>
+  <% page_title = t('greet_user', name: current_user.name) %>
 <% else %>
-  <% page_title = "Welcome to #{@user.ownership_name} Meeting Space" %>
+  <% page_title= t('greet_guest', name: @user.username) %>
 <% end %>
 
 <% content_for :title do %>
   <div class="title">
     <% if current_user == @user %>
-      Start a new session
+      <%= t('start_new_session') %>
     <% elsif current_user && current_user != @user %>
-      <%= "Join #{@user.ownership_name} session" %>
+      <%= t('join_session_user', name: @user.username) %>
     <% else %>
-      Join the current session
+      <%= t('join_session_guest') %>
     <% end %>
   </div>
 <% end %>
@@ -35,8 +35,16 @@
     </div>
 
     <div class="table-wrapper">
-      <h3>Past Recordings</h3>
-      <table id="recordings" class="table" width="100%"></table>
+      <h3><%= t('past_recordings') %></h3>
+      <table id="recordings" class="table" width="100%">
+        <thead>
+          <th><%= t('date_recorded') %></th>
+          <th><%= t('presentation') %></th>
+          <th><%= t('duration') %></th>
+          <th><%= t('views') %></th>
+          <th><%= t('actions') %></th>
+        </thead>
+      </table>
     </div>
   </div>
 </div>

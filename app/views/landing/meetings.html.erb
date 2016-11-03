@@ -1,9 +1,9 @@
 <% content_for :title do %>
   <div class="title">
-    Hi Everyone
+    <%= t('hi_all') %>
   </div>
   <small>
-    The session will be taking place using the following URL
+    <%= t('session_url_explanation') %>
   </small>
 <% end %>
 
@@ -11,7 +11,7 @@
   <% content_for :footer do %>
     <div class="panel-footer">
       <div class="text-center">
-        <a href="#" class="generate-link">Click refresh</a> to generate a new meeting URL
+        <%= t('refresh_html') %>
       </div>
     </div>
   <% end %>
@@ -20,7 +20,7 @@
 <div class="page-wrapper meetings">
   <div class='container-fluid'>
 
-    <%= render 'shared/title', title: 'Start A New Session' %>
+    <%= render 'shared/title', title: t('start_new_session') %>
 
     <%= render layout: 'shared/center_panel' do %>
       <div class="center-block col-sm-8">

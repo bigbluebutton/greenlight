@@ -15,7 +15,7 @@ unless @response.blank?
       end
       json.playbacks do
         json.array!(recording[:playbacks]) do |playback|
-          json.type playback[:type]
+          json.type t(playback[:type]) # translates the playback type
           json.url playback[:url]
           json.previews do
             json.array!(playback[:previews]) do |preview|

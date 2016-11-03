@@ -84,14 +84,14 @@
       info: false,
       ordering: false,
       language: {
-        emptyTable: "Past recordings are shown here."
+        emptyTable: " "
       },
       columns: [
-        { title: "Date Recorded", data: "start_time" },
-        { title: "Presentation", data: "previews"},
-        { title: "Duration", data: "duration" },
-        { title: "Views", data: "playbacks" },
-        { title: "Actions", data: "id" }
+        { data: "start_time" },
+        { data: "previews"},
+        { data: "duration" },
+        { data: "playbacks" },
+        { data: "id" }
       ],
       columnDefs: [
         {
