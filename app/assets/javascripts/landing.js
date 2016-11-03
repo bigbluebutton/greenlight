@@ -186,7 +186,8 @@
         data.recordings[i].duration = totalMinutes;
 
         data.recordings[i].start_time = new Date(data.recordings[i].start_time)
-          .toLocaleString([], {month: 'long', day: 'numeric', year: 'numeric', hour12: 'true', hour: '2-digit', minute: '2-digit'});
+          .toLocaleString($('html').attr('lang'),
+            {month: 'long', day: 'numeric', year: 'numeric', hour12: 'true', hour: '2-digit', minute: '2-digit'});
       }
       table.clear();
       table.rows.add(data.recordings);
