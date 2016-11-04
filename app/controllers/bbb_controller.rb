@@ -9,7 +9,7 @@ class BbbController < ApplicationController
     if params[:name].blank?
       render_bbb_response("missing_parameter", "user name was not included", :unprocessable_entity)
     else
-      user = User.find_by username: params[:id]
+      user = User.find_by encrypted_id: params[:id]
 
       options = if user
         {
@@ -29,7 +29,7 @@ class BbbController < ApplicationController
       )
 
       if bbb_res[:returncode] && current_user && current_user == user
-        ActionCable.server.broadcast "#{user.username}_meeting_updates_channel",
+        ActionCable.server.broadcast "#{user.encrypted_id}_meeting_updates_channel",
           action: 'moderator_joined',
           moderator: 'joined'
       end
@@ -42,9 +42,9 @@ class BbbController < ApplicationController
   def end
     load_and_authorize_room_owner!
 
-    bbb_res = bbb_end_meeting @user.username
+    bbb_res = bbb_end_meeting @user.encrypted_id
     if bbb_res[:returncode]
-      EndMeetingJob.perform_later(@user.username)
+      EndMeetingJob.perform_later(@user.encrypted_id)
     end
     render_bbb_response bbb_res
   end
@@ -53,7 +53,7 @@ class BbbController < ApplicationController
   def recordings
     load_room!
 
-    bbb_res = bbb_get_recordings @user.username
+    bbb_res = bbb_get_recordings @user.encrypted_id
     render_bbb_response bbb_res, bbb_res[:recordings]
   end
 
@@ -61,7 +61,7 @@ class BbbController < ApplicationController
   def update_recordings
     bbb_res = bbb_update_recordings(params[:record_id], params[:published] == 'true')
     if bbb_res[:returncode]
-      RecordingUpdatesJob.perform_later(@user.username, params[:record_id], bbb_res[:published])
+      RecordingUpdatesJob.perform_later(@user.encrypted_id, params[:record_id], bbb_res[:published])
     end
     render_bbb_response bbb_res
   end
@@ -70,7 +70,7 @@ class BbbController < ApplicationController
   def delete_recordings
     bbb_res = bbb_delete_recordings(params[:record_id])
     if bbb_res[:returncode]
-      RecordingDeletesJob.perform_later(@user.username, params[:record_id])
+      RecordingDeletesJob.perform_later(@user.encrypted_id, params[:record_id])
     end
     render_bbb_response bbb_res
   end
@@ -78,7 +78,7 @@ class BbbController < ApplicationController
   private
 
   def load_room!
-    @user = User.find_by username: params[:id]
+    @user = User.find_by encrypted_id: params[:id]
     if !@user
       render head(:not_found) && return
     end

@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   resources :users, only: [:edit, :update]
   get '/users/logout', to: 'sessions#destroy', as: :user_logout
 
-  get '/auth/:provider/callback', to: 'sessions#create'
+  match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  get '/auth/failure', to: 'landing#auth_failure'
 
   # There are two resources [meetings|rooms]
   # meetings offer a landing page for NON authenticated users to create and join session in BigBlueButton

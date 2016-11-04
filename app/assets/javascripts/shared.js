@@ -4,7 +4,7 @@ $.ajaxSetup({
   }
 });
 
-var getRoomName = function() {
+var getEncryptedId = function() {
   return $(".page-wrapper.rooms").data('room');
 }
 

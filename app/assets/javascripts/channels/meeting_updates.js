@@ -9,7 +9,7 @@
   var initRooms = function() {
     App.messages = App.cable.subscriptions.create({
       channel: 'MeetingUpdatesChannel',
-      username: getRoomName()
+      encrypted_id: getEncryptedId()
     },
     {
       received: function(data) {

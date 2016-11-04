@@ -152,7 +152,7 @@
           targets: -1,
           render: function(data, type, row) {
             if (type === 'display') {
-              var roomName = getRoomName();
+              var roomName = getEncryptedId();
               var published = row.published;
               var eye = getPublishClass(published);
               return '<button type="button" class="btn btn-default recording-update" data-published="'+published+'">' +
@@ -210,7 +210,7 @@
       return;
     }
     table = recordingsTable.api();
-    $.get("/rooms/"+getRoomName()+"/recordings", function(data) {
+    $.get("/rooms/"+getEncryptedId()+"/recordings", function(data) {
       if (!data.is_owner) {
         table.column(-1).visible( false );
       }
