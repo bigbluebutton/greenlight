@@ -71,6 +71,13 @@ module BbbApi
     end
   end
 
+  def bbb_get_meeting_info(id)
+    meeting_id = bbb_meeting_id(id)
+    response_data = bbb.get_meeting_info(meeting_id, nil)
+  rescue BigBlueButton::BigBlueButtonException => exc
+    response_data = bbb_exception_res exc
+  end
+
   def bbb_get_recordings(meeting_id, record_id=nil)
     options={}
     if record_id
@@ -208,5 +215,10 @@ module BbbApi
       res[:status] = :not_found
     end
     res
+  rescue
+    {
+      returncode: false,
+      status: :internal_server_error
+    }
   end
 end

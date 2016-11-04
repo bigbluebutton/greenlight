@@ -24,6 +24,7 @@ en-US:
   are_you: Are you %{name} ?
   date_recorded: Date Recorded
   duration: Duration
+  end: End
   enter_name: Enter your name
   greet_user: Welcome, %{name}
   greet_guest: Welcome to %{name} Meeting Space

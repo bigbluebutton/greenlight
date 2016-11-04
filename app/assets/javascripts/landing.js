@@ -34,6 +34,18 @@
       });
     });
 
+    $('.meeting-end').click (function (event) {
+      var jqxhr = Meeting.getInstance().endMeeting();
+      var btn = $(this);
+      btn.prop("disabled", true);
+      jqxhr.done(function(data) {
+
+      });
+      jqxhr.fail(function(xhr, status, error) {
+        console.info("meeting end failed");
+      });
+    });
+
     $('.meeting-url-copy').click (function (e) {
       meetingURL = $('.meeting-url');
       meetingURL.select();
