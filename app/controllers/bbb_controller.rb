@@ -1,7 +1,8 @@
 class BbbController < ApplicationController
   include BbbApi
 
-  before_action :authorize_owner_recording, only: [:update_recordings, :delete_recordings]
+  before_action :authorize_recording_owner!, only: [:update_recordings, :delete_recordings]
+  before_action :load_and_authorize_room_owner!, only: [:end]
 
   # GET /:resource/:id/join
   def join
@@ -36,12 +37,17 @@ class BbbController < ApplicationController
     end
   end
 
+  # DELETE /rooms/:id/end
+  def end
+    load_and_authorize_room_owner!
+
+    bbb_res = bbb_end_meeting @user.username
+    render_bbb_response bbb_res
+  end
+
   # GET /rooms/:id/recordings
   def recordings
-    @user = User.find_by username: params[:id]
-    if !@user
-      render head(:not_found) && return
-    end
+    load_room!
 
     bbb_res = bbb_get_recordings @user.username
     render_bbb_response bbb_res, bbb_res[:recordings]
@@ -64,18 +70,27 @@ class BbbController < ApplicationController
 
   private
 
-  def authorize_owner_recording
-    user = User.find_by username: params[:id]
-    if !user
+  def load_room!
+    @user = User.find_by username: params[:id]
+    if !@user
       render head(:not_found) && return
-    elsif !current_user || current_user != user
+    end
+  end
+
+  def load_and_authorize_room_owner!
+    load_room!
+
+    if !current_user || current_user != @user
       render head(:unauthorized) && return
     end
+  end
+
+  def authorize_recording_owner!
+    load_and_authorize_room_owner!
 
     recordings = bbb_get_recordings(params[:id])[:recordings]
     recordings.each do |recording|
       if recording[:recordID] == params[:record_id]
-        @user = user
         return true
       end
     end
@@ -87,6 +102,6 @@ class BbbController < ApplicationController
     @message = bbb_res[:message]
     @status = bbb_res[:status]
     @response = response
-    render status: @status && return
+    render status: @status
   end
 end

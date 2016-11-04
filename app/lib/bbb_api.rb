@@ -11,6 +11,10 @@ module BbbApi
     @bbb ||= BigBlueButton::BigBlueButtonApi.new(bbb_endpoint + "api", bbb_secret, "0.8", true)
   end
 
+  def bbb_meeting_id(id)
+    Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base]+id).to_s
+  end
+
   def random_password(length)
     o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
     password = (0...length).map { o[rand(o.length)] }.join
@@ -26,7 +30,7 @@ module BbbApi
     if !bbb
       return call_invalid_res
     else
-      meeting_id = (Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base]+meeting_token)).to_s
+      meeting_id = bbb_meeting_id(meeting_token)
 
       # See if the meeting is running
       begin
@@ -63,7 +67,7 @@ module BbbApi
         password = bbb_meeting_info[:attendeePW]
       end
       join_url = bbb.join_meeting_url(meeting_id, full_name, password )
-      return success_res(join_url)
+      return success_join_res(join_url)
     end
   end
 
@@ -124,6 +128,22 @@ module BbbApi
     res
   end
 
+  def bbb_end_meeting(id)
+    # get meeting info for moderator password
+    meeting_id = bbb_meeting_id(id)
+    bbb_meeting_info = bbb.get_meeting_info(meeting_id, nil)
+
+    response_data = if bbb_meeting_info.is_a?(Hash) && bbb_meeting_info[:moderatorPW]
+      bbb.end_meeting(meeting_id, bbb_meeting_info[:moderatorPW])
+    else
+      {}
+    end
+    response_data[:status] = :ok
+    response_data
+  rescue BigBlueButton::BigBlueButtonException => exc
+    response_data = bbb_exception_res exc
+  end
+
   def bbb_update_recordings(id, published)
     bbb_safe_execute :publish_recordings, id, published
   end
@@ -147,7 +167,7 @@ module BbbApi
     response_data
   end
 
-  def success_res(join_url)
+  def success_join_res(join_url)
     {
       returncode: true,
       messageKey: "ok",
@@ -178,11 +198,15 @@ module BbbApi
   end
 
   def bbb_exception_res(exc)
-    {
+    res = {
       returncode: false,
       messageKey: 'BBB'+exc.key.capitalize.underscore,
       message: exc.message,
-      status: :internal_server_error
+      status: :unprocessable_entity
     }
+    if res[:messageKey] == 'BBBnotfound'
+      res[:status] = :not_found
+    end
+    res
   end
 end

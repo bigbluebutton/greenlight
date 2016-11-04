@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/:resource/:id', to: 'landing#index', as: :resource
   get '/:resource/:id/join', to: 'bbb#join', as: :bbb_join, defaults: {format: 'json'}
   get '/:resource/:id/wait', to: 'landing#wait_for_moderator'
+  delete '/rooms/:id/end', to: 'bbb#end', defaults: {format: 'json'}
   get '/rooms/:id/recordings', to: 'bbb#recordings', defaults: {format: 'json'}
   patch '/rooms/:id/recordings/:record_id', to: 'bbb#update_recordings', defaults: {format: 'json'}
   delete '/rooms/:id/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {format: 'json'}
