@@ -1,6 +1,6 @@
 <div class="join-form input-group input-spacing">
   <% if current_user %>
-    <% @current_user = user %>
+    <% @current_user = current_user %>
     <%= text_field :current_user, :name, class: 'form-control meeting-user-name', type: 'hidden' %>
   <% else %>
     <%= text_field :nil, :nil, class: 'form-control meeting-user-name', placeholder: t('enter_name') %>

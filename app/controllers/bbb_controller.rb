@@ -43,6 +43,9 @@ class BbbController < ApplicationController
     load_and_authorize_room_owner!
 
     bbb_res = bbb_end_meeting @user.username
+    if bbb_res[:returncode]
+      EndMeetingJob.perform_later(@user.username)
+    end
     render_bbb_response bbb_res
   end
 

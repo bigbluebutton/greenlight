@@ -15,6 +15,17 @@ class LandingController < ApplicationController
     render layout: false
   end
 
+  def session_status_refresh
+    @user = User.find_by(username: params[:id])
+    if @user.nil?
+      render head(:not_found) && return
+    end
+
+    @meeting_running = bbb_get_meeting_info(@user.username)[:returncode]
+
+    render layout: false
+  end
+
   def admin?
     @user && @user == current_user
   end

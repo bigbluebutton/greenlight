@@ -29,7 +29,9 @@
           <% else %>
             <%= render 'shared/meeting_url', hidden: true %>
           <% end %>
-          <%= render 'shared/join_form', user: current_user %>
+          <div class="join-form-wrapper">
+            <%= render 'shared/join_form' %>
+          </div>
         </div>
       <% end %>
     </div>

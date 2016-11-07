@@ -1,5 +1,11 @@
 (function() {
 
+  var sessionStatusRefresh = function(url) {
+    $.get(url + "/session_status_refresh", function(html) {
+      $(".join-form-wrapper").html(html);
+    });
+  }
+
   var initRooms = function() {
     App.messages = App.cable.subscriptions.create({
       channel: 'MeetingUpdatesChannel',
@@ -12,11 +18,12 @@
             Meeting.getInstance().setModJoined(true);
             if (Meeting.getInstance().getWaitingForMod()) {
               loopJoin();
+            } else {
+              sessionStatusRefresh($('.meeting-url').val());
             }
           }
-          else if (data.action === 'meeting_ended') {
-
-          }
+        } else if (data.action === 'meeting_ended') {
+          sessionStatusRefresh($('.meeting-url').val());
         }
       }
     });
