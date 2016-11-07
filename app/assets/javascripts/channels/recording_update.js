@@ -11,6 +11,14 @@
         var rowData = table.row("#"+data.record_id).data();
         rowData.published = data.published
         table.row("#"+data.record_id).data(rowData).draw();
+        var publish = (data.published) ? 'publish' : 'unpublish';
+
+        // show alert success alert
+        $('.alert-template .alert-message').html($('.'+publish+'-alert').html());
+        $('#alerts').html($('.alert-template').html());
+        setTimeout(function() {
+          $('#alerts > .alert').alert('close');
+        }, 4000);
       }
     });
   };

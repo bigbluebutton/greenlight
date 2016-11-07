@@ -41,6 +41,8 @@ en-US:
   past_recordings: Past Recordings
   powered_bigbluebutton: Powered by BigBlueButton
   presentation: Presentation
+  recording_publish_success: Recording was successfully published
+  recording_unpublish_success: Recording was successfully unpublished
   refresh_html: <a href="#" class="generate-link">Click refresh</a> to generate a new meeting URL
   session_url_explanation: The session will be taking place using the following URL
   start: Start

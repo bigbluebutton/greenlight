@@ -13,6 +13,15 @@ html, body {
   background: linear-gradient(0, white 65%, #4DC0A2 35%);
 }
 
+#alerts {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  margin-left: -250px;
+  width: 500px;
+  z-index: 999;
+}
+
 .header {
   padding: 20px 40px;
 

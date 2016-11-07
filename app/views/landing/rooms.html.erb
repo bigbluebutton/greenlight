@@ -63,4 +63,18 @@
       <%= t('no') %>
     </button>
   </div>
+  <div class="alert-template">
+    <div class="alert alert-success alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <span class="alert-message">Recording was successfully published</span>
+    </div>
+  </div>
+  <div class="publish-alert">
+    <%= t('recording_publish_success') %>
+  </div>
+  <div class="unpublish-alert">
+    <%= t('recording_unpublish_success') %>
+  </div>
 </div>
