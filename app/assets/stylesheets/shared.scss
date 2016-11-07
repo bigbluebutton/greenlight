@@ -10,7 +10,14 @@ html, body {
 }
 
 .app-background {
-  background: linear-gradient(0, white 65%, #4DC0A2 35%);
+  background: #4dc0a2;
+  background: -moz-linear-gradient(top, #4dc0a2 0%, #4dc0a2 35%, #ffffff 35%, #ffffff 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #4dc0a2), color-stop(35%, #4dc0a2), color-stop(35%, #ffffff), color-stop(100%, #ffffff));
+  background: -webkit-linear-gradient(top, #4dc0a2 0%, #4dc0a2 35%, #ffffff 35%, #ffffff 100%);
+  background: -o-linear-gradient(top, #4dc0a2 0%, #4dc0a2 35%, #ffffff 35%, #ffffff 100%);
+  background: -ms-linear-gradient(top, #4dc0a2 0%, #4dc0a2 35%, #ffffff 35%, #ffffff 100%);
+  background: linear-gradient(to bottom, #4dc0a2 0%, #4dc0a2 35%, #ffffff 35%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4dc0a2', endColorstr='#ffffff', GradientType=0 );
 }
 
 #alerts {
