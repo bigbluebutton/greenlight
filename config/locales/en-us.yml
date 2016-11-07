@@ -21,7 +21,8 @@
 
 en-US:
   actions: Actions
-  are_you: Are you %{name} ?
+  are_you: Are you %{name}?
+  are_you_sure: Are you sure?
   date_recorded: Date Recorded
   duration: Duration
   end: End
@@ -35,6 +36,7 @@ en-US:
   login: login
   logout: logout
   my_room: my room
+  no: No
   oauth_signup: Signup for customized sessions
   past_recordings: Past Recordings
   powered_bigbluebutton: Powered by BigBlueButton
@@ -48,3 +50,4 @@ en-US:
   views: Views
   wait_for_mod_msg: Looks like you're the first one here...
   wait_for_mod_explanation: You will automatically join when the meeting starts
+  yes: Yes
