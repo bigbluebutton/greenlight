@@ -36,6 +36,13 @@ class Meeting {
     });
   };
 
+  endMeeting() {
+    return $.ajax({
+      url: this.url + "/end",
+      type: 'DELETE'
+    });
+  }
+
   setURL(url) {
     this.url = url;
   }

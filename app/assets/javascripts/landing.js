@@ -15,7 +15,7 @@
 
   var init = function() {
 
-    $('.meeting-join').click (function (event) {
+    $('.center-panel').on ('click', '.meeting-join', function (event) {
       var url = $('.meeting-url').val();
       var name = $('.meeting-user-name').val();
       Meeting.getInstance().setURL(url);
@@ -34,7 +34,19 @@
       });
     });
 
-    $('.meeting-url-copy').click (function (e) {
+    $('.center-panel').on ('click', '.meeting-end', function (event) {
+      var jqxhr = Meeting.getInstance().endMeeting();
+      var btn = $(this);
+      btn.prop("disabled", true);
+      jqxhr.done(function(data) {
+
+      });
+      jqxhr.fail(function(xhr, status, error) {
+        console.info("meeting end failed");
+      });
+    });
+
+    $('.center-panel').on ('click', '.meeting-url-copy', function (event) {
       meetingURL = $('.meeting-url');
       meetingURL.select();
       document.execCommand("copy");
