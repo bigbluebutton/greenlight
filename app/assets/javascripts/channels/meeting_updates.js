@@ -2,15 +2,20 @@
 
   var initRooms = function() {
     App.messages = App.cable.subscriptions.create({
-      channel: 'ModeratorJoinsChannel',
+      channel: 'MeetingUpdatesChannel',
       username: getRoomName()
     },
     {
       received: function(data) {
-        if (!Meeting.getInstance().getModJoined()) {
-          Meeting.getInstance().setModJoined(true);
-          if (Meeting.getInstance().getWaitingForMod()) {
-            loopJoin();
+        if (data.action === 'moderator_joined') {
+          if (!Meeting.getInstance().getModJoined()) {
+            Meeting.getInstance().setModJoined(true);
+            if (Meeting.getInstance().getWaitingForMod()) {
+              loopJoin();
+            }
+          }
+          else if (data.action === 'meeting_ended') {
+
           }
         }
       }
