@@ -76,3 +76,18 @@ var loopJoin = function() {
     console.info("meeting join failed");
   });
 }
+
+var showAlert = function(html, timeout_delay) {
+  if (!html) {
+    return;
+  }
+
+  $('.alert-template .alert-message').html(html);
+  $('#alerts').html($('.alert-template').html());
+
+  if (timeout_delay) {
+    setTimeout(function() {
+      $('#alerts > .alert').alert('close');
+    }, timeout_delay);
+  }
+}

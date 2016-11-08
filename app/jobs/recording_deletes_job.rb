@@ -1,19 +1,18 @@
-class RecordingUpdatesJob < ApplicationJob
+class RecordingDeletesJob < ApplicationJob
   include BbbApi
 
   queue_as :default
 
-  def perform(room, record_id, published)
+  def perform(room, record_id)
     tries = 0
     sleep_time = 2
 
     while tries < 4
       bbb_res = bbb_get_recordings(nil, record_id)
-      if bbb_res[:recordings].first[:published].to_s == published
+      if !bbb_res[:recordings] || bbb_res[:messageKey] == 'noRecordings'
         ActionCable.server.broadcast "#{room}_recording_updates_channel",
-          action: 'update',
-          record_id: record_id,
-          published: bbb_res[:recordings].first[:published]
+          action: 'delete',
+          record_id: record_id
         break
       end
       sleep sleep_time

@@ -187,14 +187,18 @@
     });
 
     $('#recordings').on('click', '.recording-delete', function(event) {
+      var btn = $(this);
       var row = recordingsTable.api().row($(this).closest('tr')).data();
       var url = $('.meeting-url').val();
       var id = row.id;
+      btn.prop('disabled', true);
       $.ajax({
         method: 'DELETE',
         url: url+'/recordings/'+id
       }).done(function() {
-        recordingsTable.api().row("#"+id).remove().draw();
+
+      }).fail(function(data) {
+        btn.prop('disabled', false);
       });
     });
 
