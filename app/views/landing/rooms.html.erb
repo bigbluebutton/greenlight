@@ -41,12 +41,40 @@
       <table id="recordings" class="table" width="100%">
         <thead>
           <th><%= t('date_recorded') %></th>
-          <th><%= t('presentation') %></th>
+          <th><%= t('thumbnails') %></th>
           <th><%= t('duration') %></th>
           <th><%= t('views') %></th>
           <th><%= t('actions') %></th>
         </thead>
       </table>
     </div>
+  </div>
+</div>
+
+<div hidden class="hidden-elements">
+  <div class="delete-popover-title">
+    <%= t('are_you_sure') %>
+  </div>
+  <div class="delete-popover-body">
+    <button type="button" class="btn btn-danger recording-delete">
+      <%= t('yes') %>
+    </button>
+    <button type="button" class="btn btn-default">
+      <%= t('no') %>
+    </button>
+  </div>
+  <div class="alert-template">
+    <div class="alert alert-success alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <span class="alert-message">Recording was successfully published</span>
+    </div>
+  </div>
+  <div class="publish-alert">
+    <%= t('recording_publish_success') %>
+  </div>
+  <div class="unpublish-alert">
+    <%= t('recording_unpublish_success') %>
   </div>
 </div>

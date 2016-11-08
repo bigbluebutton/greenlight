@@ -21,7 +21,8 @@
 
 en-US:
   actions: Actions
-  are_you: Are you %{name} ?
+  are_you: Are you %{name}?
+  are_you_sure: Are you sure?
   date_recorded: Date Recorded
   duration: Duration
   end: End
@@ -35,16 +36,21 @@ en-US:
   login: login
   logout: logout
   my_room: my room
+  no: No
   oauth_signup: Signup for customized sessions
   past_recordings: Past Recordings
   powered_bigbluebutton: Powered by BigBlueButton
   presentation: Presentation
+  recording_publish_success: Recording was successfully published
+  recording_unpublish_success: Recording was successfully unpublished
   refresh_html: <a href="#" class="generate-link">Click refresh</a> to generate a new meeting URL
   session_url_explanation: The session will be taking place using the following URL
   start: Start
   start_new_session: Start a new session
+  thumbnails: Thumbnails
   url_copy_explanation: Copy this URL to invite others to the meeting
   video: Video
   views: Views
   wait_for_mod_msg: Looks like you're the first one here...
   wait_for_mod_explanation: You will automatically join when the meeting starts
+  yes: Yes

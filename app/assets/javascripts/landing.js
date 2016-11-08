@@ -52,6 +52,20 @@
       document.execCommand("copy");
       meetingURL.blur();
     });
+
+    // enable popovers
+    var options = {
+      selector: '.has-popover',
+      html: true,
+      trigger: 'focus',
+      title: function() {
+        return $(".delete-popover-title").html();
+      },
+      content: function() {
+        return $(".delete-popover-body").html();
+      }
+    };
+    $('#recordings').popover(options);
   };
 
   var initIndex = function() {
@@ -141,10 +155,12 @@
               var roomName = getRoomName();
               var published = row.published;
               var eye = getPublishClass(published);
-              return '<button type="button" class="btn btn-default recording-update" data-id="'+data+'" data-room="'+roomName+'" data-published="'+published+'">' +
+              return '<button type="button" class="btn btn-default recording-update" data-published="'+published+'">' +
                 '<i class="fa '+eye+'" aria-hidden="true"></i></button> ' +
-                '<button type="button" class="btn btn-default recording-delete" data-id="'+data+'" data-room="'+roomName+'">' +
-                '<i class="fa fa-trash-o" aria-hidden="true"></i></button>';
+                '<a tabindex="0" role="button" class="btn btn-default has-popover"' +
+                  'data-toggle="popover" data-placement="top">' +
+                    '<i class="fa fa-trash-o" aria-hidden="true"></i>' +
+                '</a>';
             }
             return data;
           }
@@ -154,27 +170,29 @@
 
     $('#recordings').on('click', '.recording-update', function(event) {
       var btn = $(this);
-      var room = btn.data('room');
-      var id = btn.data('id');
+      var row = recordingsTable.api().row($(this).closest('tr')).data();
+      var url = $('.meeting-url').val();
+      var id = row.id;
       var published = btn.data('published');
-      btn.prop("disabled", true);
+      btn.prop('disabled', true);
       $.ajax({
         method: 'PATCH',
-        url: '/rooms/'+room+'/recordings/'+id,
+        url: url+'/recordings/'+id,
         data: {published: (!published).toString()}
       }).done(function(data) {
 
       }).fail(function(data) {
-        btn.prop("disabled", false);
+        btn.prop('disabled', false);
       });
     });
 
     $('#recordings').on('click', '.recording-delete', function(event) {
-      var room = $(this).data('room');
-      var id = $(this).data('id');
+      var row = recordingsTable.api().row($(this).closest('tr')).data();
+      var url = $('.meeting-url').val();
+      var id = row.id;
       $.ajax({
         method: 'DELETE',
-        url: '/rooms/'+room+'/recordings/'+id
+        url: url+'/recordings/'+id
       }).done(function() {
         recordingsTable.api().row("#"+id).remove().draw();
       });
