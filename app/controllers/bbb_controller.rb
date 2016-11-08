@@ -69,6 +69,9 @@ class BbbController < ApplicationController
   # DELETE /rooms/:id/recordings/:record_id
   def delete_recordings
     bbb_res = bbb_delete_recordings(params[:record_id])
+    if bbb_res[:returncode]
+      RecordingDeletesJob.perform_later(@user.username, params[:record_id])
+    end
     render_bbb_response bbb_res
   end
 

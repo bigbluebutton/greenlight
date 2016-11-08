@@ -8,17 +8,19 @@
     {
       received: function(data) {
         var table = $("#recordings").DataTable();
-        var rowData = table.row("#"+data.record_id).data();
-        rowData.published = data.published
-        table.row("#"+data.record_id).data(rowData).draw();
-        var publish = (data.published) ? 'publish' : 'unpublish';
+        var row = table.row("#"+data.record_id);
+        if (data.action === 'update') {
+          var rowData = row.data();
+          rowData.published = data.published
+          table.row("#"+data.record_id).data(rowData).draw();
 
-        // show alert success alert
-        $('.alert-template .alert-message').html($('.'+publish+'-alert').html());
-        $('#alerts').html($('.alert-template').html());
-        setTimeout(function() {
-          $('#alerts > .alert').alert('close');
-        }, 4000);
+          var publish = (data.published) ? 'publish' : 'unpublish';
+          showAlert($('.'+publish+'-alert').html(), 4000);
+        } else if (data.action === 'delete') {
+          row.remove().draw();
+
+          showAlert($('.delete-alert').html(), 4000);
+        }
       }
     });
   };
