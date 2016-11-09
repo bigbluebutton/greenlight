@@ -31,7 +31,7 @@ en-US:
   greet_guest: Welcome to %{name} Meeting Space
   hi_all: Hi Everyone
   join: Join
-  join_session_guest: Join the current session
+  join_session: Join the current session
   join_session_user: Join %{name} session
   login: login
   logout: logout

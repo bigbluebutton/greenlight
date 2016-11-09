@@ -15,7 +15,7 @@
 
   var init = function() {
 
-    $('.center-panel').on ('click', '.meeting-join', function (event) {
+    $('.center-panel-wrapper').on ('click', '.meeting-join', function (event) {
       var url = $('.meeting-url').val();
       var name = $('.meeting-user-name').val();
       Meeting.getInstance().setURL(url);
@@ -34,7 +34,7 @@
       });
     });
 
-    $('.center-panel').on ('click', '.meeting-end', function (event) {
+    $('.center-panel-wrapper').on ('click', '.meeting-end', function (event) {
       var jqxhr = Meeting.getInstance().endMeeting();
       var btn = $(this);
       btn.prop("disabled", true);
@@ -46,7 +46,7 @@
       });
     });
 
-    $('.center-panel').on ('click', '.meeting-url-copy', function (event) {
+    $('.center-panel-wrapper').on ('click', '.meeting-url-copy', function (event) {
       meetingURL = $('.meeting-url');
       meetingURL.select();
       document.execCommand("copy");
@@ -94,12 +94,7 @@
   };
 
   var initRooms = function() {
-    meetingURL = $('.meeting-url');
-    var link = window.location.protocol +
-      '//' +
-      window.location.hostname +
-      meetingURL.data('path');
-    meetingURL.val(link);
+    displayMeetingURL();
 
     // initialize recordings datatable
     recordingsTable = $('#recordings').dataTable({

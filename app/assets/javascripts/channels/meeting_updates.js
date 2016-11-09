@@ -2,7 +2,7 @@
 
   var sessionStatusRefresh = function(url) {
     $.get(url + "/session_status_refresh", function(html) {
-      $(".join-form-wrapper").html(html);
+      $(".center-panel-wrapper").html(html);
     });
   }
 

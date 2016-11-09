@@ -4,36 +4,13 @@
   <% page_title= t('greet_guest', name: @user.username) %>
 <% end %>
 
-<% content_for :title do %>
-  <div class="title">
-    <% if current_user == @user %>
-      <%= t('start_new_session') %>
-    <% elsif current_user && current_user != @user %>
-      <%= t('join_session_user', name: @user.username) %>
-    <% else %>
-      <%= t('join_session_guest') %>
-    <% end %>
-  </div>
-<% end %>
-
 <div class="page-wrapper rooms" data-room="<%= @user.encrypted_id %>">
   <div class="container-fluid">
 
     <%= render 'shared/title', title: page_title %>
 
     <div class="center-panel-wrapper">
-      <%= render layout: 'shared/center_panel' do %>
-        <div class="center-block col-sm-8">
-          <% if current_user == @user %>
-            <%= render 'shared/meeting_url', hidden: false %>
-          <% else %>
-            <%= render 'shared/meeting_url', hidden: true %>
-          <% end %>
-          <div class="join-form-wrapper">
-            <%= render 'shared/join_form' %>
-          </div>
-        </div>
-      <% end %>
+      <%= render 'rooms_center_panel' %>
     </div>
 
     <div class="table-wrapper">
