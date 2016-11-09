@@ -1,8 +1,8 @@
 <% content_for :title do %>
   <div class="title">
-    <% if current_user == @user %>
+    <% if admin? && !@meeting_running %>
       <%= t('start_new_session') %>
-    <% elsif current_user && current_user != @user %>
+    <% elsif !admin? %>
       <%= t('join_session_user', name: @user.username) %>
     <% else %>
       <%= t('join_session') %>
@@ -12,7 +12,7 @@
 
 <%= render layout: 'shared/center_panel' do %>
   <div class="center-block col-sm-8">
-    <% if current_user == @user %>
+    <% if admin? %>
       <%= render 'shared/meeting_url', hidden: false %>
     <% else %>
       <%= render 'shared/meeting_url', hidden: true %>

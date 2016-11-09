@@ -15,11 +15,11 @@
           table.row("#"+data.record_id).data(rowData).draw();
 
           var publish = (data.published) ? 'publish' : 'unpublish';
-          showAlert($('.'+publish+'-alert').html(), 4000);
+          showAlert($('.recording-'+publish+'-alert').html(), 4000);
         } else if (data.action === 'delete') {
           row.remove().draw();
 
-          showAlert($('.delete-alert').html(), 4000);
+          showAlert($('.recording-delete-alert').html(), 4000);
         }
       }
     });

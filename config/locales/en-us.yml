@@ -35,6 +35,8 @@ en-US:
   join_session_user: Join %{name} session
   login: login
   logout: logout
+  meeting_ended: Meeting was ended
+  meeting_started: Meeting was started
   my_room: my room
   no: No
   oauth_signup: Signup for customized sessions
