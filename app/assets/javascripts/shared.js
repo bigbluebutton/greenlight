@@ -91,3 +91,12 @@ var showAlert = function(html, timeout_delay) {
     }, timeout_delay);
   }
 }
+
+var displayMeetingURL = function() {
+  meetingURL = $('.meeting-url');
+  var link = window.location.protocol +
+    '//' +
+    window.location.hostname +
+    meetingURL.data('path');
+  meetingURL.val(link);
+}

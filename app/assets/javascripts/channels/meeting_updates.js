@@ -2,7 +2,8 @@
 
   var sessionStatusRefresh = function(url) {
     $.get(url + "/session_status_refresh", function(html) {
-      $(".join-form-wrapper").html(html);
+      $(".center-panel-wrapper").html(html);
+      displayMeetingURL();
     });
   }
 
@@ -20,10 +21,12 @@
               loopJoin();
             } else {
               sessionStatusRefresh($('.meeting-url').val());
+              showAlert($('.meeting-started-alert').html(), 4000);
             }
           }
         } else if (data.action === 'meeting_ended') {
           sessionStatusRefresh($('.meeting-url').val());
+          showAlert($('.meeting-ended-alert').html(), 4000);
         }
       }
     });

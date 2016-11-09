@@ -1,0 +1,24 @@
+<% content_for :title do %>
+  <div class="title">
+    <% if admin? && !@meeting_running %>
+      <%= t('start_new_session') %>
+    <% elsif !admin? %>
+      <%= t('join_session_user', name: @user.username) %>
+    <% else %>
+      <%= t('join_session') %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= render layout: 'shared/center_panel' do %>
+  <div class="center-block col-sm-8">
+    <% if admin? %>
+      <%= render 'shared/meeting_url', hidden: false %>
+    <% else %>
+      <%= render 'shared/meeting_url', hidden: true %>
+    <% end %>
+    <div class="join-form-wrapper">
+      <%= render 'shared/join_form' %>
+    </div>
+  </div>
+<% end %>
