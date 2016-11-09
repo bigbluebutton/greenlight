@@ -1,14 +1,8 @@
 class SessionsController < ApplicationController
   def create
     @user = User.from_omniauth(request.env['omniauth.auth'])
-    if @user.persisted?
-      session[:user_id] = @user.id
-      redirect_to controller: 'landing', action: 'index', id: @user.username, resource: 'rooms'
-    else
-      @user.save!
-      session[:user_id] = @user.id
-      redirect_to controller: 'users', action: 'edit', id: @user.id
-    end
+    session[:user_id] = @user.id
+    redirect_to controller: 'landing', action: 'index', id: @user.encrypted_id, resource: 'rooms'
   rescue => e
     logger.error "Error authenticating via omniauth: #{e}"
     redirect_to root_path

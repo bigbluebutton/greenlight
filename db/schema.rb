@@ -10,19 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017203809) do
+ActiveRecord::Schema.define(version: 20161108224701) do
 
   create_table "users", force: :cascade do |t|
-    t.string   "provider",   null: false
-    t.string   "uid",        null: false
+    t.string   "provider",     null: false
+    t.string   "uid",          null: false
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "username"
+    t.string   "encrypted_id", null: false
+    t.index ["encrypted_id"], name: "index_users_on_encrypted_id", unique: true
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["provider"], name: "index_users_on_provider"
     t.index ["uid"], name: "index_users_on_uid"
-    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
 end

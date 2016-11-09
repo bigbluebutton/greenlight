@@ -16,14 +16,18 @@ class LandingController < ApplicationController
   end
 
   def session_status_refresh
-    @user = User.find_by(username: params[:id])
+    @user = User.find_by(encrypted_id: params[:id])
     if @user.nil?
       render head(:not_found) && return
     end
 
-    @meeting_running = bbb_get_meeting_info(@user.username)[:returncode]
+    @meeting_running = bbb_get_meeting_info(@user.encrypted_id)[:returncode]
 
     render layout: false
+  end
+
+  def auth_failure
+    redirect_to '/'
   end
 
   def admin?
@@ -42,13 +46,13 @@ class LandingController < ApplicationController
   def render_room
     params[:action] = 'rooms'
 
-    @user = User.find_by(username: params[:id])
+    @user = User.find_by(encrypted_id: params[:id])
     if @user.nil?
       redirect_to root_path
       return
     end
 
-    @meeting_running = bbb_get_meeting_info(@user.username)[:returncode]
+    @meeting_running = bbb_get_meeting_info(@user.encrypted_id)[:returncode]
 
     render :action => 'rooms'
   end

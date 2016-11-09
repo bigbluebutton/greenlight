@@ -13,7 +13,7 @@
     <!-- Messages -->
     <div id='alerts'>
     </div>
-    
+
     <!-- Header -->
     <div class='header'>
       <span class="logo-wrapper pull-left">
@@ -22,11 +22,7 @@
       <span class="signup pull-right">
         <% if current_user %>
           <%= current_user.name %> |
-          <% if current_user.username %>
-            <%= link_to t('my_room'), current_user.room_url %> |
-          <% else %>
-            <%= link_to t('my_room'), edit_user_path(current_user) %> |
-          <% end %>
+          <%= link_to t('my_room'), current_user.room_url %> |
           <%= link_to t('logout'), user_logout_url %>
         <% elsif @user %>
           <%= t('are_you', name: @user.username) %> |
