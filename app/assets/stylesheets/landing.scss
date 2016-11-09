@@ -9,5 +9,13 @@
 .rooms {
   .table-wrapper {
     padding: 40px 50px 10px 50px;
+
+    #recordings {
+      thead {
+        th:after {
+          content: none; //removes the sort icon in table header
+        }
+      }
+    }
   }
 }

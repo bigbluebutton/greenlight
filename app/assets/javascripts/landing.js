@@ -103,13 +103,13 @@
       paging: false,
       searching: false,
       info: false,
-      ordering: false,
+      order: [[ 0, "desc" ]],
       language: {
         emptyTable: " "
       },
       columns: [
         { data: "start_time" },
-        { data: "previews"},
+        { data: "previews" },
         { data: "duration" },
         { data: "playbacks" },
         { data: "id" }
