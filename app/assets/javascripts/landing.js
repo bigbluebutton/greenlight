@@ -16,11 +16,9 @@
   var init = function() {
 
     $('.center-panel-wrapper').on ('click', '.meeting-join', function (event) {
-      var url = $('.meeting-url').val();
       var name = $('.meeting-user-name').val();
-      Meeting.getInstance().setURL(url);
       Meeting.getInstance().setName(name);
-      var jqxhr = Meeting.getInstance().getjoinMeetingURL();
+      var jqxhr = Meeting.getInstance().getJoinMeetingResponse();
 
       jqxhr.done(function(data) {
         if (data.messageKey === 'wait_for_moderator') {
@@ -47,10 +45,10 @@
     });
 
     $('.center-panel-wrapper').on ('click', '.meeting-url-copy', function (event) {
-      meetingURL = $('.meeting-url');
-      meetingURL.select();
+      meetingURLInput = $('.meeting-url');
+      meetingURLInput.select();
       document.execCommand("copy");
-      meetingURL.blur();
+      meetingURLInput.blur();
     });
 
     // enable popovers
@@ -94,7 +92,7 @@
   };
 
   var initRooms = function() {
-    displayMeetingURL();
+    displayRoomURL();
 
     // initialize recordings datatable
     recordingsTable = $('#recordings').dataTable({
@@ -147,7 +145,7 @@
           targets: -1,
           render: function(data, type, row) {
             if (type === 'display') {
-              var roomName = getEncryptedId();
+              var roomName = Meeting.getInstance().getId();
               var published = row.published;
               var eye = getPublishClass(published);
               return '<button type="button" class="btn btn-default recording-update" data-published="'+published+'">' +
@@ -205,7 +203,7 @@
       return;
     }
     table = recordingsTable.api();
-    $.get("/rooms/"+getEncryptedId()+"/recordings", function(data) {
+    $.get("/rooms/"+Meeting.getInstance().getId()+"/recordings", function(data) {
       if (!data.is_owner) {
         table.column(-1).visible( false );
       }

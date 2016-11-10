@@ -3,14 +3,14 @@
   var sessionStatusRefresh = function(url) {
     $.get(url + "/session_status_refresh", function(html) {
       $(".center-panel-wrapper").html(html);
-      displayMeetingURL();
+      displayRoomURL();
     });
   }
 
   var initRooms = function() {
     App.messages = App.cable.subscriptions.create({
       channel: 'MeetingUpdatesChannel',
-      encrypted_id: getEncryptedId()
+      encrypted_id: Meeting.getInstance().getId()
     },
     {
       received: function(data) {
