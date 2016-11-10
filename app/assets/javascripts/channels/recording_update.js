@@ -14,12 +14,12 @@
           rowData.published = data.published
           table.row("#"+data.record_id).data(rowData).draw();
 
-          var publish = (data.published) ? 'publish' : 'unpublish';
-          showAlert($('.recording-'+publish+'-alert').html(), 4000);
+          var published = (data.published) ? 'published' : 'unpublished';
+          showAlert(I18n['recording_'+published], 4000);
         } else if (data.action === 'delete') {
           row.remove().draw();
 
-          showAlert($('.recording-delete-alert').html(), 4000);
+          showAlert(I18n.recording_deleted, 4000);
         }
       }
     });

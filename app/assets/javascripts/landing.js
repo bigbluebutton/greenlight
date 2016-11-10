@@ -59,7 +59,7 @@
       html: true,
       trigger: 'focus',
       title: function() {
-        return $(".delete-popover-title").html();
+        return I18n.are_you_sure;
       },
       content: function() {
         return $(".delete-popover-body").html();
