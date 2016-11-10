@@ -21,12 +21,12 @@
               loopJoin();
             } else {
               sessionStatusRefresh($('.meeting-url').val());
-              showAlert($('.meeting-started-alert').html(), 4000);
+              showAlert(I18n.meeting_started, 4000);
             }
           }
         } else if (data.action === 'meeting_ended') {
           sessionStatusRefresh($('.meeting-url').val());
-          showAlert($('.meeting-ended-alert').html(), 4000);
+          showAlert(I18n.meeting_ended, 4000);
         }
       }
     });
