@@ -33,11 +33,8 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :async
 
-  # action cable socket URI
-  config.action_cable.url = "ws://localhost/cable"
-
   # allowed action cable origins
-  config.action_cable.allowed_request_origins = ['http://localhost']
+  Rails.application.config.action_cable.disable_request_forgery_protection = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
