@@ -15,6 +15,7 @@
   var init = function() {
     Meeting.clear();
 
+    // setup click handlers
     $('.center-panel-wrapper').on ('click', '.meeting-join', function (event) {
       var name = $('.meeting-user-name').val();
       Meeting.getInstance().setName(name);
@@ -30,6 +31,13 @@
       jqxhr.fail(function(xhr, status, error) {
         console.info("meeting join failed");
       });
+    });
+
+    $('.center-panel-wrapper').on ('keypress', '.meeting-user-name', function (event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        $('.meeting-join').click();
+      }
     });
 
     $('.center-panel-wrapper').on ('click', '.meeting-end', function (event) {
@@ -64,6 +72,13 @@
       }
     };
     $('#recordings').popover(options);
+
+    // focus user
+    if ($('.meeting-user-name').is(':visible')) {
+      $('.meeting-user-name').focus();
+    } else {
+      $('.meeting-join').focus();
+    }
   };
 
   var initIndex = function() {
