@@ -9,18 +9,25 @@ class @Meeting
   @getInstance: ->
     if _meetingInstance
       return _meetingInstance
-    id = $(".page-wrapper.rooms").data('room')
-    url = @buildURL()
+    id = $(".page-wrapper").data('id')
+    url = @buildURL(id)
     name = $('.meeting-user-name').val()
     _meetingInstance = new Meeting(id, url, name)
     return _meetingInstance
 
-  @buildURL: ->
+  @clear: ->
+    _meetingInstance = null
+
+  @buildURL: (id) ->
+    if (resource = location.pathname.split('/')[1]) != 'rooms'
+      resource = 'meetings'
     return location.protocol +
       '//' +
       location.hostname +
-      '/rooms/' +
-      $('.rooms').data('room')
+      '/' +
+      resource +
+      '/' +
+      id;
 
   # Sends the end meeting request
   # Returns a response object

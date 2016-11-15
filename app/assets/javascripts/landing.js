@@ -13,6 +13,7 @@
   };
 
   var init = function() {
+    Meeting.clear();
 
     $('.center-panel-wrapper').on ('click', '.meeting-join', function (event) {
       var name = $('.meeting-user-name').val();
@@ -69,16 +70,17 @@
 
     $('.generate-link').click (function (e) {
       e.preventDefault();
+      var newId = Math.trunc(Math.random() * 1000000000);
+      $(".page-wrapper.meetings").data('id', newId);
       var link = window.location.protocol +
         '//' +
         window.location.hostname +
         '/meetings/' +
-        Math.trunc(Math.random() * 1000000000);
-
+        newId;
       $('.meeting-url').val(link);
     });
 
-    if (meetingId = $('.meeting-url').data('meetingId')) {
+    if (meetingId = $(".page-wrapper.meetings").data('id')) {
       var link = window.location.protocol +
         '//' +
         window.location.hostname +
