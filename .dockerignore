@@ -1,0 +1,20 @@
+# git
+.git
+.gitignore
+README.md
+
+# Rails
+.env
+.env.prod
+*.rbc
+capybara-*.html
+.rspec
+log
+tmp
+/db/**/*.sqlite3
+/db/**/*.sqlite3-journal
+public/system
+coverage/
+spec/tmp
+.rvmrc
+scripts/

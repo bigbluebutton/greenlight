@@ -6,7 +6,6 @@ services:
       - '80:80'
     volumes:
       - '.:/usr/src/app'
-      - '~/.ssh:/root/.ssh/'
     volumes_from:
       - gem_cache
     expose:
