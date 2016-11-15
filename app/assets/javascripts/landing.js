@@ -22,7 +22,7 @@
 
       jqxhr.done(function(data) {
         if (data.messageKey === 'wait_for_moderator') {
-          waitForModerator(url);
+          waitForModerator(Meeting.getInstance().getURL());
         } else {
           $(location).attr("href", data.response.join_url);
         }
