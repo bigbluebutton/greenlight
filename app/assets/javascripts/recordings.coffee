@@ -50,7 +50,7 @@ class @Recordings
               str = ''
               if row.published
                 for d in data
-                  str += '<a href="'+d.url+'">'+d.type+'</a> '
+                  str += '<a href="'+d.url+'">'+d.type_i18n+'</a> '
               return str
             return data
         },
