@@ -26,9 +26,13 @@ en-US:
     are_you_sure: Are you sure?
     meeting_ended: Meeting was ended
     meeting_started: Meeting was started
+    publish_recording: Publish recording
     recording_deleted: Recording was deleted
     recording_published: Recording was published
     recording_unpublished: Recording was unpublished
+    unpublish_recording: Unpublish recording
+  copied: Copied
+  copy_error: Use Ctrl-c to copy
   date_recorded: Date Recorded
   duration: Duration
   end: End
@@ -48,6 +52,7 @@ en-US:
   powered_bigbluebutton: Powered by BigBlueButton
   presentation: Presentation
   refresh_html: <a href="#" class="generate-link">Click refresh</a> to generate a new meeting URL
+  delete_recording: Delete recording
   session_url_explanation: The session will be taking place using the following URL
   start: Start
   start_new_session: Start a new session
