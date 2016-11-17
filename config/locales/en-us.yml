@@ -29,6 +29,8 @@ en-US:
     recording_deleted: Recording was deleted
     recording_published: Recording was published
     recording_unpublished: Recording was unpublished
+  copied: Copied
+  copy_error: Use Ctrl-c to copy
   date_recorded: Date Recorded
   duration: Duration
   end: End

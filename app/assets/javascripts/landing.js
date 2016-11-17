@@ -15,7 +15,7 @@
   var init = function() {
     Meeting.clear();
 
-    // setup click handlers
+    // setup event handlers
     $('.center-panel-wrapper').on ('click', '.meeting-join', function (event) {
       var name = $('.meeting-user-name').val();
       Meeting.getInstance().setName(name);
@@ -54,10 +54,48 @@
 
     $('.center-panel-wrapper').on ('click', '.meeting-url-copy', function (event) {
       meetingURLInput = $('.meeting-url');
+
+      // copy URL
       meetingURLInput.select();
-      document.execCommand("copy");
-      meetingURLInput.blur();
+      try {
+        var success = document.execCommand("copy");
+        if (success) {
+          meetingURLInput.blur();
+          $(this).trigger('hint', [$(this).data('copied-hint')]);
+        } else {
+          $(this).trigger('hint', [$(this).data('copy-error')]);
+        }
+      } catch (err) {
+        $(this).trigger('hint', [$(this).data('copy-error')]);
+      }
     });
+
+    $('.center-panel-wrapper').on('hint', '.meeting-url-copy', function (event, msg) {
+      $(this).focus();
+      $(this).attr('title', msg)
+        .tooltip('fixTitle')
+        .tooltip('show')
+        .attr('title', $(this).data('copy-hint'))
+        .tooltip('fixTitle');
+    });
+
+    $('.center-panel-wrapper').on('mouseleave', '.meeting-url-copy', function (event, msg) {
+      $(this).blur();
+    });
+
+    $('.center-panel-wrapper').on('focus', '.meeting-url', function (event, msg) {
+      $(this).select();
+    });
+
+    // only allow ctrl-c to work
+    $('.center-panel-wrapper').on('keydown', '.meeting-url', function (event, msg) {
+      if(!event.ctrlKey) {
+        event.preventDefault();
+      }
+    });
+
+    // enable tooltips
+    $('[data-toggle="tooltip"]').tooltip()
 
     // enable popovers
     var options = {
@@ -73,7 +111,7 @@
     };
     $('#recordings').popover(options);
 
-    // focus user
+    // focus name input or join button
     if ($('.meeting-user-name').is(':visible')) {
       $('.meeting-user-name').focus();
     } else {

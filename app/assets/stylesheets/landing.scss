@@ -2,11 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.join-form {
-  width: 100%;
+.center-panel-wrapper {
+  .join-form {
+    width: 100%;
+  }
+
+  .meeting-url-wrapper {
+    .meeting-url {
+      cursor: default;
+    }
+  }
 }
 
 .rooms {
+
   .table-wrapper {
     padding: 40px 50px 10px 50px;
 
@@ -18,4 +27,5 @@
       }
     }
   }
+
 }
