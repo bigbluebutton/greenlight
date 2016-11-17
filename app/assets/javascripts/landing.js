@@ -96,11 +96,13 @@
 
     // enable tooltips
     var options = {
-      selector: '.has-tooltip'
+      selector: '.has-tooltip',
+      container: 'body'
     };
     $(document).tooltip(options)
     var options = {
       selector: '.bottom-tooltip',
+      container: 'body',
       placement: 'bottom'
     };
     $(document).tooltip(options);
@@ -108,6 +110,7 @@
     // enable popovers
     var options = {
       selector: '.has-popover',
+      container: 'body',
       html: true,
       trigger: 'focus',
       title: function() {
