@@ -60,13 +60,16 @@ class @Recordings
             if type == 'display'
               roomName = Meeting.getInstance().getId()
               published = row.published
-              eye = getPublishClass(published)
-              return '<button type="button" class="btn btn-default recording-update" data-published="'+published+'">' +
-                '<i class="fa '+eye+'" aria-hidden="true"></i></button> ' +
-                '<a tabindex="0" role="button" class="btn btn-default has-popover"' +
-                  'data-toggle="popover" data-placement="top">' +
-                    '<i class="fa fa-trash-o" aria-hidden="true"></i>' +
-                '</a>'
+              icon = getPublishClass(published)
+              publishText = if published then 'publish' else 'unpublish'
+              recordingActions = $('.hidden-elements').find('.recording-actions')
+              recordingActions.find('.recording-update > i')
+                .removeClass()
+                .addClass('fa '+icon)
+              recordingActions.find('.recording-update')
+                .attr('data-published', published)
+                .attr('title', I18n[publishText+'_recording'])
+              return recordingActions.html()
             return data
         }
       ]

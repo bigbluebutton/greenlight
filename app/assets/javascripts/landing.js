@@ -87,7 +87,7 @@
       $(this).select();
     });
 
-    // only allow ctrl-c to work
+    // only allow ctrl commands
     $('.center-panel-wrapper').on('keydown', '.meeting-url', function (event, msg) {
       if(!event.ctrlKey) {
         event.preventDefault();
@@ -95,7 +95,15 @@
     });
 
     // enable tooltips
-    $('[data-toggle="tooltip"]').tooltip()
+    var options = {
+      selector: '.has-tooltip'
+    };
+    $(document).tooltip(options)
+    var options = {
+      selector: '.bottom-tooltip',
+      placement: 'bottom'
+    };
+    $(document).tooltip(options);
 
     // enable popovers
     var options = {
