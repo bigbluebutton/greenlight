@@ -25,6 +25,9 @@
           content: none; //removes the sort icon in table header
         }
       }
+      .dataTables_empty {
+        text-align: center;
+      }
     }
   }
 

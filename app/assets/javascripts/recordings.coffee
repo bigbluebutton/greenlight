@@ -13,14 +13,14 @@ class @Recordings
       info: false,
       order: [[ 0, "desc" ]],
       language: {
-        emptyTable: " "
+        emptyTable: I18n.no_recordings
       },
       columns: [
         { data: "start_time" },
-        { data: "previews" },
+        { data: "previews", orderable: false },
         { data: "duration" },
-        { data: "playbacks" },
-        { data: "id" }
+        { data: "playbacks", orderable: false },
+        { data: "id", orderable: false }
       ],
       columnDefs: [
         {
@@ -61,7 +61,7 @@ class @Recordings
               roomName = Meeting.getInstance().getId()
               published = row.published
               icon = getPublishClass(published)
-              publishText = if published then 'publish' else 'unpublish'
+              publishText = if published then 'unpublish' else 'publish'
               recordingActions = $('.hidden-elements').find('.recording-actions')
               recordingActions.find('.recording-update > i')
                 .removeClass()
@@ -74,6 +74,13 @@ class @Recordings
         }
       ]
     })
+    options = {
+      selector: '.delete-tooltip',
+      container: 'body',
+      placement: 'bottom',
+      title: I18n.delete_recording
+    };
+    $('#recordings').tooltip(options);
 
   # Gets the current instance or creates a new one
   @getInstance: ->
