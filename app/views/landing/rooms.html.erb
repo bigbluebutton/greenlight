@@ -14,13 +14,13 @@
     </div>
 
     <div class="table-wrapper">
-      <h3><%= t('past_recordings') %></h3>
       <table id="recordings" class="table" width="100%">
         <thead>
           <th><%= t('date_recorded') %></th>
           <th><%= t('thumbnails') %></th>
           <th><%= t('duration') %></th>
           <th><%= t('views') %></th>
+          <th>published</th>
           <th><%= t('actions') %></th>
         </thead>
       </table>
@@ -49,8 +49,8 @@
     <button type="button" class="btn btn-default recording-update bottom-tooltip" data-published="">
         <i class="fa" aria-hidden="true"></i>
     </button>
-    <a tabindex="0" role="button" class="btn btn-default has-popover bottom-tooltip"
-      data-placement="top" title="<%= t('delete_recording') %>">
+    <a tabindex="0" role="button" class="btn btn-default has-popover delete-tooltip"
+      data-placement="top">
         <i class="fa fa-trash-o" aria-hidden="true"></i>
     </a>
   </div>

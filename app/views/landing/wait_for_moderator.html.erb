@@ -5,7 +5,11 @@
   <small>
     <%= t('wait_for_mod_explanation') %>
   </small>
+
 <% end %>
 
 <%= render layout: 'shared/center_panel' do %>
+  <div class="loading-wrapper">
+    <%= image_tag "loading-indicator.gif", :alt => "" %>
+  </div>
 <% end %>

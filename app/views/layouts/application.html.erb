@@ -4,6 +4,7 @@
     <title>Greenlight</title>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -21,14 +22,19 @@
       </span>
       <span class="signup pull-right">
         <% if current_user %>
-          <%= current_user.name %> |
-          <%= link_to t('my_room'), current_user.room_url %> |
+          <% if !@user %>
+            <%= link_to current_user.name, current_user.room_url %> |
+          <% else %>
+            <%= current_user.name %> |
+          <% end %>
           <%= link_to t('logout'), user_logout_url %>
         <% elsif @user %>
           <%= t('are_you', name: @user.username) %> |
           <%= link_to t('login'), "/auth/#{@user.provider}" %>
         <% else %>
-          <%= t('oauth_signup') %>
+          <span class="signup-description hidden-xs">
+            <%= t('oauth_signup') %>
+          </span>
           <%= link_to('/auth/twitter', :class => "btn icon btn-lg btn-social-icon btn-twitter") do %>
             <span class="fa fa-twitter"></span>
           <% end %>

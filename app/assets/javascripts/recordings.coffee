@@ -9,18 +9,20 @@ class @Recordings
       data: [],
       rowId: 'id',
       paging: false,
-      searching: false,
+      dom: 't',
       info: false,
       order: [[ 0, "desc" ]],
       language: {
-        emptyTable: " "
+        emptyTable: I18n.no_recordings,
+        zeroRecords: I18n.no_recordings
       },
       columns: [
         { data: "start_time" },
-        { data: "previews" },
+        { data: "previews", orderable: false },
         { data: "duration" },
-        { data: "playbacks" },
-        { data: "id" }
+        { data: "playbacks", orderable: false },
+        { data: "published", visible: false },
+        { data: "id", orderable: false }
       ],
       columnDefs: [
         {
@@ -38,8 +40,9 @@ class @Recordings
           render: (data, type, row) ->
             if type == 'display'
               str = ''
-              for d in data
-                str += '<img height="50" width="50" src="'+d.url+'" alt="'+d.alt+'"></img> '
+              if row.published
+                for d in data
+                  str += '<img height="50" width="50" src="'+d.url+'" alt="'+d.alt+'"></img> '
               return str
             return data
         },
@@ -50,7 +53,7 @@ class @Recordings
               str = ''
               if row.published
                 for d in data
-                  str += '<a href="'+d.url+'">'+d.type_i18n+'</a> '
+                  str += '<a href="'+d.url+'" target="_blank">'+d.type_i18n+'</a> '
               return str
             return data
         },
@@ -61,7 +64,7 @@ class @Recordings
               roomName = Meeting.getInstance().getId()
               published = row.published
               icon = getPublishClass(published)
-              publishText = if published then 'publish' else 'unpublish'
+              publishText = if published then 'unpublish' else 'publish'
               recordingActions = $('.hidden-elements').find('.recording-actions')
               recordingActions.find('.recording-update > i')
                 .removeClass()
@@ -74,6 +77,13 @@ class @Recordings
         }
       ]
     })
+    options = {
+      selector: '.delete-tooltip',
+      container: 'body',
+      placement: 'bottom',
+      title: I18n.delete_recording
+    };
+    $('#recordings').tooltip(options);
 
   # Gets the current instance or creates a new one
   @getInstance: ->
@@ -88,12 +98,17 @@ class @Recordings
   @initialized: ->
     return $.fn.DataTable.isDataTable('#recordings') && _recordingsInstance
 
+  draw: ->
+    if !@isOwner()
+      @table.api().columns(4).search('true')
+    @table.api().columns.adjust().draw()
+
   # refresh the recordings from the server
   refresh: ->
-    _this = this
     table_api = this.table.api()
-    $.get "/rooms/"+Meeting.getInstance().getId()+"/recordings", (data) ->
-      if !data.is_owner
+    $.get "/rooms/"+Meeting.getInstance().getId()+"/recordings", (data) =>
+      @setOwner(data.is_owner)
+      if !@owner
         table_api.column(-1).visible(false)
       for recording in data.recordings
         totalMinutes = Math.round((new Date(recording.end_time) - new Date(recording.start_time)) / 1000 / 60)
@@ -102,7 +117,7 @@ class @Recordings
         return new Date(b.start_time) - new Date(a.start_time)
       table_api.clear()
       table_api.rows.add(data.recordings)
-      table_api.columns.adjust().draw()
+      @draw()
 
   # setup click handlers for the action buttons
   setupActionHandlers: ->
@@ -138,3 +153,9 @@ class @Recordings
       ).fail((data) ->
         btn.prop('disabled', false)
       )
+
+  isOwner: ->
+    @owner
+
+  setOwner: (owner) ->
+    @owner = owner

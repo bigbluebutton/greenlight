@@ -2,18 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.center-panel-wrapper {
-  .join-form {
-    width: 100%;
-  }
-
-  .meeting-url-wrapper {
-    .meeting-url {
-      cursor: default;
-    }
-  }
-}
-
 .rooms {
 
   .table-wrapper {
@@ -24,6 +12,9 @@
         th:after {
           content: none; //removes the sort icon in table header
         }
+      }
+      .dataTables_empty {
+        text-align: center;
       }
     }
   }
