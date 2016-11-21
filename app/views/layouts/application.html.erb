@@ -4,6 +4,7 @@
     <title>Greenlight</title>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -31,7 +32,9 @@
           <%= t('are_you', name: @user.username) %> |
           <%= link_to t('login'), "/auth/#{@user.provider}" %>
         <% else %>
-          <%= t('oauth_signup') %>
+          <span class="signup-description hidden-xs">
+            <%= t('oauth_signup') %>
+          </span>
           <%= link_to('/auth/twitter', :class => "btn icon btn-lg btn-social-icon btn-twitter") do %>
             <span class="fa fa-twitter"></span>
           <% end %>

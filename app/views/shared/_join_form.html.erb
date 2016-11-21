@@ -1,36 +1,40 @@
-<div class="join-form input-group input-spacing">
-  <% if current_user %>
-    <% @current_user = current_user %>
-    <%= text_field :current_user, :name, class: 'form-control meeting-user-name', type: 'hidden' %>
-  <% else %>
-    <%= text_field :nil, :nil, class: 'form-control meeting-user-name', placeholder: t('enter_name') %>
-  <% end %>
-  <% if admin? %>
-    <% if @meeting_running %>
-      <div class="col-sm-6">
-        <button type="button" class="btn btn-primary meeting-join pull-right">
+<div class="join-form-wrapper">
+  <div class="center-block">
+    <div class="join-form input-group input-spacing">
+      <% if current_user %>
+        <% @current_user = current_user %>
+        <%= text_field :current_user, :name, class: 'form-control meeting-user-name', type: 'hidden' %>
+      <% else %>
+        <%= text_field :nil, :nil, class: 'form-control meeting-user-name', placeholder: t('enter_name') %>
+      <% end %>
+      <% if admin? %>
+        <% if @meeting_running %>
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-primary meeting-join pull-right">
+              <%= t('join') %>
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-danger meeting-end pull-left">
+              <%= t('end') %>
+            </button>
+          </div>
+        <% else %>
+          <button type="button" class="btn btn-primary center-block meeting-join">
+            <%= t('start') %>
+          </button>
+        <% end %>
+      <% elsif current_user %>
+        <button type="button" class="btn btn-primary center-block meeting-join">
           <%= t('join') %>
         </button>
-      </div>
-      <div class="col-sm-6">
-        <button type="button" class="btn btn-danger meeting-end pull-left">
-          <%= t('end') %>
-        </button>
-      </div>
-    <% else %>
-      <button type="button" class="btn btn-primary center-block meeting-join">
-        <%= t('start') %>
-      </button>
-    <% end %>
-  <% elsif current_user %>
-    <button type="button" class="btn btn-primary center-block meeting-join">
-      <%= t('join') %>
-    </button>
-  <% else %>
-    <span class="input-group-btn">
-      <button type="button" class="btn btn-primary meeting-join">
-        <%= t('join') %>
-      </button>
-    </span>
-  <% end %>
+      <% else %>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-primary meeting-join">
+            <%= t('join') %>
+          </button>
+        </span>
+      <% end %>
+    </div>
+  </div>
 </div>

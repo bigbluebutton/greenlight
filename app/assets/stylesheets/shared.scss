@@ -7,17 +7,17 @@
 html, body {
   width: 100%;
   height: 100%;
+  background: #ffffff;
 }
 
 .app-background {
-  background: #4dc0a2;
-  background: -moz-linear-gradient(top, #4dc0a2 0%, #4dc0a2 35%, #ffffff 35%, #ffffff 100%);
-  background: -webkit-gradient(left top, left bottom, color-stop(0%, #4dc0a2), color-stop(35%, #4dc0a2), color-stop(35%, #ffffff), color-stop(100%, #ffffff));
-  background: -webkit-linear-gradient(top, #4dc0a2 0%, #4dc0a2 35%, #ffffff 35%, #ffffff 100%);
-  background: -o-linear-gradient(top, #4dc0a2 0%, #4dc0a2 35%, #ffffff 35%, #ffffff 100%);
-  background: -ms-linear-gradient(top, #4dc0a2 0%, #4dc0a2 35%, #ffffff 35%, #ffffff 100%);
-  background: linear-gradient(to bottom, #4dc0a2 0%, #4dc0a2 35%, #ffffff 35%, #ffffff 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4dc0a2', endColorstr='#ffffff', GradientType=0 );
+  background: #ffffff;
+  background: -moz-linear-gradient(top, #4dc0a2 0%, #4dc0a2 350px, #ffffff 350px, #ffffff 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #4dc0a2), color-stop(350px, #4dc0a2), color-stop(350px, #ffffff), color-stop(100%, #ffffff));
+  background: -webkit-linear-gradient(top, #4dc0a2 0%, #4dc0a2 350px, #ffffff 350px, #ffffff 100%);
+  background: -o-linear-gradient(top, #4dc0a2 0%, #4dc0a2 350px, #ffffff 350px, #ffffff 100%);
+  background: -ms-linear-gradient(top, #4dc0a2 0%, #4dc0a2 350px, #ffffff 350px, #ffffff 100%);
+  background: linear-gradient(to bottom, #4dc0a2 0%, #4dc0a2 350px, #ffffff 350px, #ffffff 100%);
 }
 
 #alerts {
@@ -52,7 +52,10 @@ html, body {
     float: none;
   }
   .center-panel-size {
-    width: 650px;
+    max-width: 900px
+  }
+  .center-panel-conent-size {
+    max-width: 800px;
   }
 
   .input-spacing {
@@ -70,5 +73,27 @@ html, body {
 
   .title-wrapper {
     margin-bottom: 30px;
+  }
+
+  .join-form-wrapper {
+    .center-block {
+      max-width: 400px;
+    }
+    .join-form {
+      width: 100%;
+    }
+    .btn {
+      width: initial;
+    }
+  }
+
+  .meeting-url-wrapper {
+    .meeting-url {
+      cursor: default;
+    }
+  }
+
+  .loading-wrapper {
+    text-align: center;
   }
 }

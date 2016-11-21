@@ -9,7 +9,7 @@ class @Recordings
       data: [],
       rowId: 'id',
       paging: false,
-      dom: 'lrtip',
+      dom: 't',
       info: false,
       order: [[ 0, "desc" ]],
       language: {

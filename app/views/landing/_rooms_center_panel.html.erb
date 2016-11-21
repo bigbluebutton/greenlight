@@ -11,14 +11,12 @@
 <% end %>
 
 <%= render layout: 'shared/center_panel' do %>
-  <div class="center-block col-sm-8">
+  <div class="center-block center-panel-conent-size col-xs-12">
     <% if admin? %>
       <%= render 'shared/meeting_url', hidden: false %>
     <% else %>
       <%= render 'shared/meeting_url', hidden: true %>
     <% end %>
-    <div class="join-form-wrapper">
-      <%= render 'shared/join_form' %>
-    </div>
+    <%= render 'shared/join_form' %>
   </div>
 <% end %>
