@@ -29,9 +29,7 @@ class BbbController < ApplicationController
       )
 
       if bbb_res[:returncode] && current_user && current_user == user
-        ActionCable.server.broadcast "#{user.encrypted_id}_meeting_updates_channel",
-          action: 'moderator_joined',
-          moderator: 'joined'
+        JoinMeetingJob.perform_later(user.encrypted_id)
       end
 
       render_bbb_response bbb_res, bbb_res[:response]

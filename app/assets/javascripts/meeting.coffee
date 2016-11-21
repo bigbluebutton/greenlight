@@ -47,8 +47,14 @@ class @Meeting
   getId: ->
     return @id
 
+  setId: (id) ->
+    @id = id
+
   getURL: ->
     return @url
+
+  setURL: (url) ->
+    @url = url
 
   getName: ->
     return @name
