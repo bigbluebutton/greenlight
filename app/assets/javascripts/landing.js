@@ -19,6 +19,7 @@
     $('.center-panel-wrapper').on ('click', '.meeting-join', function (event) {
       var name = $('.meeting-user-name').val();
       Meeting.getInstance().setName(name);
+      Meeting.getInstance().setURL(Meeting.buildMeetingURL());
       var jqxhr = Meeting.getInstance().getJoinMeetingResponse();
 
       jqxhr.done(function(data) {
@@ -136,21 +137,11 @@
       e.preventDefault();
       var newId = Math.trunc(Math.random() * 1000000000);
       $(".page-wrapper.meetings").data('id', newId);
-      var link = window.location.protocol +
-        '//' +
-        window.location.hostname +
-        '/meetings/' +
-        newId;
-      $('.meeting-url').val(link);
+      $('.meeting-url').val(Meeting.buildMeetingURL());
     });
 
     if (meetingId = $(".page-wrapper.meetings").data('id')) {
-      var link = window.location.protocol +
-        '//' +
-        window.location.hostname +
-        '/meetings/' +
-        meetingId;
-      $('.meeting-url').val(link)
+      $('.meeting-url').val(Meeting.getInstance().getURL());
     } else {
       $('.generate-link').click();
     }
