@@ -16,7 +16,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = ENV['DISABLE_RAILS_SERVE_STATIC_FILES'].blank?
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -63,11 +63,11 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  # action cable socket URI
-  config.action_cable.url = "ws://#{ENV['HOSTNAME']}/cable" # TODO this should use WSS protocol
-
-  # allowed action cable origins
-  config.action_cable.allowed_request_origins = ["https://#{ENV['HOSTNAME']}", "http://#{ENV['HOSTNAME']}"]
+  # action cable origins
+  unless ENV["RAILS_ACTION_CABLE_FORGERY_PROTECTION"].present?
+    Rails.application.config.action_cable.disable_request_forgery_protection = true
+  end
+  # config.action_cable.allowed_request_origins = ["https://#{ENV['HOSTNAME']}", "http://#{ENV['HOSTNAME']}"]
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
@@ -79,7 +79,7 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV["DISABLE_RAILS_LOG_TO_STDOUT"].blank?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
