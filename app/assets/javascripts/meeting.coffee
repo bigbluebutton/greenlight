@@ -10,7 +10,7 @@ class @Meeting
     if _meetingInstance
       return _meetingInstance
     id = $(".page-wrapper").data('id')
-    url = @buildURL(id)
+    url = @buildMeetingURL()
     name = $('.meeting-user-name').val()
     _meetingInstance = new Meeting(id, url, name)
     return _meetingInstance
@@ -18,16 +18,17 @@ class @Meeting
   @clear: ->
     _meetingInstance = null
 
-  @buildURL: (id) ->
+  @buildMeetingURL: (id) ->
     if (resource = location.pathname.split('/')[1]) != 'rooms'
       resource = 'meetings'
-    return location.protocol +
-      '//' +
-      location.hostname +
-      '/' +
-      resource +
-      '/' +
-      id;
+    id ||= $(".page-wrapper").data('id')
+    return @buildFullDomainURL() + '/' + resource + '/' + id
+
+  @buildFullDomainURL: ->
+    url = location.protocol + '//' + location.hostname
+    if location.port
+      url.concat ':' + location.port
+    return url
 
   # Sends the end meeting request
   # Returns a response object
