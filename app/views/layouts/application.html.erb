@@ -32,14 +32,20 @@
           <%= t('are_you', name: @user.username) %> |
           <%= link_to t('login'), "/auth/#{@user.provider}" %>
         <% else %>
-          <span class="signup-description hidden-xs">
-            <%= t('oauth_signup') %>
-          </span>
-          <%= link_to('/auth/twitter', :class => "btn icon btn-lg btn-social-icon btn-twitter") do %>
-            <span class="fa fa-twitter"></span>
+          <% if omniauth_providers_configured.present? %>
+            <span class="signup-description hidden-xs">
+              <%= t('oauth_signup') %>
+            </span>
           <% end %>
-          <%= link_to('/auth/google', :class => "btn icon btn-lg btn-social-icon btn-google") do %>
-            <span class="fa fa-google"></span>
+          <% if omniauth_providers_configured(:twitter) %>
+            <%= link_to('/auth/twitter', :class => "btn icon btn-lg btn-social-icon btn-twitter") do %>
+              <span class="fa fa-twitter"></span>
+            <% end %>
+          <% end %>
+          <% if omniauth_providers_configured(:google) %>
+            <%= link_to('/auth/google', :class => "btn icon btn-lg btn-social-icon btn-google") do %>
+              <span class="fa fa-google"></span>
+            <% end %>
           <% end %>
         <% end %>
       </span>
