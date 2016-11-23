@@ -27,7 +27,7 @@ class @Meeting
   @buildFullDomainURL: ->
     url = location.protocol + '//' + location.hostname
     if location.port
-      url.concat ':' + location.port
+      url += ':' + location.port
     return url
 
   # Sends the end meeting request
