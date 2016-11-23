@@ -14,4 +14,16 @@ module ApplicationHelper
     end
     translations[:client]
   end
+
+  def omniauth_providers_configured(provider = nil)
+    if provider
+      Rails.configuration.send("omniauth_#{provider}")
+    else
+      providers = []
+      Rails.configuration.providers.each do |provider|
+        providers.push(provider) if Rails.configuration.send("omniauth_#{provider}")
+      end
+      providers
+    end
+  end
 end
