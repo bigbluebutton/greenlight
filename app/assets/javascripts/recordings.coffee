@@ -13,8 +13,8 @@ class @Recordings
       info: false,
       order: [[ 0, "desc" ]],
       language: {
-        emptyTable: I18n.no_recordings,
-        zeroRecords: I18n.no_recordings
+        emptyTable: '<h3>'+I18n.no_recordings+'</h3>',
+        zeroRecords: '<h3>'+I18n.no_recordings+'</h3>'
       },
       columns: [
         { data: "start_time" },
