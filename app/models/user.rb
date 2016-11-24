@@ -1,10 +1,5 @@
 class User < ApplicationRecord
 
-  # validates :username,
-  #   format: { with: /\A^[0-9a-z-_]+\Z/,
-  #   message: "Only allows lowercase alphanumeric characters with dashes and underscores",
-  #   allow_blank: true }
-
   before_create :set_encrypted_id
 
   def self.from_omniauth(auth_hash)
@@ -28,6 +23,6 @@ class User < ApplicationRecord
   end
 
   def set_encrypted_id
-    self.encrypted_id = Digest::SHA1.hexdigest(uid+provider)
+    self.encrypted_id = "#{username[0..1]}-#{Digest::SHA1.hexdigest(uid+provider)[0..7]}"
   end
 end

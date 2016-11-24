@@ -27,7 +27,7 @@ en-US:
     delete_recording: Delete recording
     meeting_ended: Meeting was ended
     meeting_started: Meeting was started
-    no_recordings: No recordings
+    no_recordings: No Recordings
     publish_recording: Publish recording
     recording_deleted: Recording was deleted
     recording_published: Recording was published
@@ -35,7 +35,7 @@ en-US:
     unpublish_recording: Hide recording
   copied: Copied
   copy_error: Use Ctrl-c to copy
-  create_session: Create a session
+  create_session: Create a Session
   create_your_session: Create your own session
   date_recorded: Date
   duration: Duration
@@ -59,7 +59,7 @@ en-US:
   return_to_room: Return to your personal room
   session_url_explanation: The session will be taking place using the following URL
   start: Start
-  start_new_session: Start a new session
+  your_personal_room: Your Personal Room
   thumbnails: Thumbnails
   url_copy_explanation: Copy this URL to invite others to the meeting
   url_refresh_hint: Generate a new meeting URL

@@ -108,21 +108,6 @@
     };
     $(document).tooltip(options);
 
-    // enable popovers
-    var options = {
-      selector: '.has-popover',
-      container: 'body',
-      html: true,
-      trigger: 'focus',
-      title: function() {
-        return I18n.are_you_sure;
-      },
-      content: function() {
-        return $(".delete-popover-body").html();
-      }
-    };
-    $('#recordings').popover(options);
-
     // focus name input or join button
     if ($('.meeting-user-name').is(':visible')) {
       $('.meeting-user-name').focus();
