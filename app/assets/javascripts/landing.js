@@ -131,7 +131,7 @@
     }
   };
 
-  var initIndex = function() {
+  var initMeetings = function() {
 
     $('.generate-link').click (function (e) {
       e.preventDefault();
@@ -157,8 +157,10 @@
   $(document).on("turbolinks:load", function() {
     if ($("body[data-controller=landing]").get(0)) {
       init();
-      if ($("body[data-action=meetings]").get(0)) {
-        initIndex();
+      if ($("body[data-action=index]").get(0)) {
+        initMeetings();
+      } else if ($("body[data-action=meetings]").get(0)) {
+        initMeetings();
       } else if ($("body[data-action=rooms]").get(0)) {
         initRooms();
       }

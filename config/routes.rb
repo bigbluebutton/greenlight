@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   # There are two resources [meetings|rooms]
   # meetings offer a landing page for NON authenticated users to create and join session in BigBlueButton
   # rooms offer a customized landing page for authenticated users to create and join session in BigBlueButton
-  get '/:resource/:id', to: 'landing#index', as: :resource
+  get '/:resource/:id', to: 'landing#resource', as: :resource
   get '/:resource/:id/join', to: 'bbb#join', as: :bbb_join, defaults: {format: 'json'}
   get '/:resource/:id/wait', to: 'landing#wait_for_moderator'
   get '/:resource/:id/session_status_refresh', to: 'landing#session_status_refresh'
