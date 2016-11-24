@@ -81,11 +81,22 @@ class @Recordings
     })
     options = {
       selector: '.delete-tooltip',
-      container: 'body',
       placement: 'bottom',
       title: I18n.delete_recording
     };
-    $('#recordings').tooltip(options);
+    $('#recordings').tooltip(options)
+
+    # enable popovers
+    options = {
+      selector: '.has-popover',
+      html: true,
+      trigger: 'focus',
+      title: ->
+        return I18n.are_you_sure;
+      content: ->
+        return $(".delete-popover-body").html()
+    }
+    $('#recordings').popover(options)
 
   # Gets the current instance or creates a new one
   @getInstance: ->
