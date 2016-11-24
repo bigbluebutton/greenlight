@@ -63,12 +63,14 @@ class @Recordings
             if type == 'display'
               roomName = Meeting.getInstance().getId()
               published = row.published
-              icon = getPublishClass(published)
               publishText = if published then 'unpublish' else 'publish'
               recordingActions = $('.hidden-elements').find('.recording-actions')
-              recordingActions.find('.recording-update > i')
-                .removeClass()
-                .addClass('fa '+icon)
+              recordingActions.find('.recording-update > i.default')
+                .removeClass(PUBLISHED_CLASSES.join(' '))
+                .addClass(getPublishClass(published))
+              recordingActions.find('.recording-update > i.hover')
+                .removeClass(PUBLISHED_CLASSES.join(' '))
+                .addClass(getPublishClass(!published))
               recordingActions.find('.recording-update')
                 .attr('data-published', published)
                 .attr('title', I18n[publishText+'_recording'])

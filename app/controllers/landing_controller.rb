@@ -2,6 +2,9 @@ class LandingController < ApplicationController
   include BbbApi
 
   def index
+  end
+
+  def resource
     if params[:resource] == 'meetings'
       render_meeting
     elsif params[:resource] == 'rooms'

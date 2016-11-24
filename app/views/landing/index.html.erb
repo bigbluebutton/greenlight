@@ -1,0 +1,20 @@
+<% content_for :title do %>
+  <div class="title">
+    <h2><%= t('create_session') %></h2>
+  </div>
+<% end %>
+
+<div class="page-wrapper meetings">
+  <div class="container-fluid">
+
+    <div class="center-panel-wrapper">
+      <%= render layout: 'shared/center_panel' do %>
+        <div class="center-block center-panel-conent-size col-xs-12">
+          <%= render 'shared/meeting_url', hidden: false %>
+          <%= render 'shared/join_form' %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>

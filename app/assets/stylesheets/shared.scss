@@ -31,7 +31,7 @@ html, body {
 
 .header {
   padding: 20px 40px;
-
+  margin-bottom: 160px;
   .logo {
     max-width: 150px;
     max-height: 50px;
@@ -40,11 +40,6 @@ html, body {
 
 .footer {
   padding: 20px;
-}
-
-.page-header {
-  margin-top: 100px;
-  border: 0;
 }
 
 .center-panel {

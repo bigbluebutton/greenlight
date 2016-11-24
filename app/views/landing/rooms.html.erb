@@ -7,8 +7,6 @@
 <div class="page-wrapper rooms" data-id="<%= @user.encrypted_id %>">
   <div class="container-fluid">
 
-    <%= render 'shared/title', title: page_title %>
-
     <div class="center-panel-wrapper">
       <%= render 'rooms_center_panel' %>
     </div>
@@ -47,7 +45,8 @@
   </div>
   <div class="recording-actions">
     <button type="button" class="btn btn-default recording-update bottom-tooltip" data-published="">
-        <i class="fa" aria-hidden="true"></i>
+        <i class="fa default" aria-hidden="true"></i>
+        <i class="fa hover" aria-hidden="true"></i>
     </button>
     <a tabindex="0" role="button" class="btn btn-default has-popover delete-tooltip"
       data-placement="top">

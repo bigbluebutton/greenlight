@@ -132,7 +132,6 @@
   };
 
   var initIndex = function() {
-
     $('.generate-link').click (function (e) {
       e.preventDefault();
       var newId = Math.trunc(Math.random() * 1000000000);
@@ -140,11 +139,11 @@
       $('.meeting-url').val(Meeting.buildMeetingURL());
     });
 
-    if (meetingId = $(".page-wrapper.meetings").data('id')) {
-      $('.meeting-url').val(Meeting.getInstance().getURL());
-    } else {
-      $('.generate-link').click();
-    }
+    $('.generate-link').click();
+  };
+
+  var initMeetings = function() {
+    $('.meeting-url').val(Meeting.getInstance().getURL());
   };
 
   var initRooms = function() {
@@ -157,8 +156,10 @@
   $(document).on("turbolinks:load", function() {
     if ($("body[data-controller=landing]").get(0)) {
       init();
-      if ($("body[data-action=meetings]").get(0)) {
+      if ($("body[data-action=index]").get(0)) {
         initIndex();
+      } else if ($("body[data-action=meetings]").get(0)) {
+        initMeetings();
       } else if ($("body[data-action=rooms]").get(0)) {
         initRooms();
       }

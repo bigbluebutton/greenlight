@@ -1,31 +1,28 @@
 <% content_for :title do %>
   <div class="title">
-    <%= t('hi_all') %>
+    <h2><%= t('join_session_id', id: @meeting_id) %></h2>
   </div>
-  <small>
-    <%= t('session_url_explanation') %>
-  </small>
 <% end %>
 
-<% if !@meeting_id %>
-  <% content_for :footer do %>
-    <div class="panel-footer">
-      <div class="text-center">
-        <%= t('refresh_html') %>
-      </div>
+<% content_for :footer do %>
+  <div class="panel-footer">
+    <div class="text-center">
+      <% if current_user %>
+        <%= link_to t('return_to_room'), current_user.room_url %>
+      <% else %>
+        <%= link_to t('create_your_session'), root_path %>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 <% end %>
 
 <div class="page-wrapper meetings" data-id="<%= @meeting_id %>">
   <div class="container-fluid">
 
-    <%= render 'shared/title', title: t('start_new_session') %>
-
     <div class="center-panel-wrapper">
       <%= render layout: 'shared/center_panel' do %>
         <div class="center-block center-panel-conent-size col-xs-12">
-          <%= render 'shared/meeting_url', hidden: false %>
+          <%= render 'shared/meeting_url', hidden: true %>
           <%= render 'shared/join_form' %>
         </div>
       <% end %>
