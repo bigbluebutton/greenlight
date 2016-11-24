@@ -1,12 +1,14 @@
 <% content_for :title do %>
   <div class="title">
-    <% if admin? && !@meeting_running %>
-      <%= t('start_new_session') %>
-    <% elsif !admin? %>
-      <%= t('join_session_user', name: @user.username) %>
-    <% else %>
-      <%= t('join_session') %>
-    <% end %>
+    <h2>
+      <% if admin? && !@meeting_running %>
+        <%= t('your_personal_room') %>
+      <% elsif !admin? %>
+        <%= t('join_session_user', name: @user.username) %>
+      <% else %>
+        <%= t('join_session') %>
+      <% end %>
+    </h2>
   </div>
 <% end %>
 
