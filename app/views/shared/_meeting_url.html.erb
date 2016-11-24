@@ -2,6 +2,13 @@
   <div class="input-group">
     <input type="text" class="form-control meeting-url"/>
     <span class="input-group-btn">
+      <% if params[:action] == 'index' %>
+        <button type="button" class="btn btn-default generate-link has-tooltip"
+          title="<%= t('url_refresh_hint') %>"
+        >
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      <% end %>
       <button type="button" class="btn btn-default meeting-url-copy has-tooltip"
         title="<%= t('url_copy_explanation') %>"
         data-copied-hint="<%= t('copied') %>"

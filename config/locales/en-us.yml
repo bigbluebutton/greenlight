@@ -35,6 +35,7 @@ en-US:
     unpublish_recording: Hide recording
   copied: Copied
   copy_error: Use Ctrl-c to copy
+  create_session: Create a session
   create_your_session: Create your own session
   date_recorded: Date
   duration: Duration
@@ -55,13 +56,13 @@ en-US:
   past_recordings: Past Recordings
   powered_bigbluebutton: Powered by BigBlueButton
   presentation: Presentation
-  refresh_html: <a href="#" class="generate-link">Click refresh</a> to generate a new meeting URL
   return_to_room: Return to your personal room
   session_url_explanation: The session will be taking place using the following URL
   start: Start
   start_new_session: Start a new session
   thumbnails: Thumbnails
   url_copy_explanation: Copy this URL to invite others to the meeting
+  url_refresh_hint: Generate a new meeting URL
   video: Video
   views: Views
   wait_for_mod_msg: Looks like you're the first one here...

@@ -1,20 +1,7 @@
 <% content_for :title do %>
   <div class="title">
-    <%= t('hi_all') %>
+    <h2><%= t('create_session') %></h2>
   </div>
-  <small>
-    <%= t('session_url_explanation') %>
-  </small>
-<% end %>
-
-<% if !@meeting_id %>
-  <% content_for :footer do %>
-    <div class="panel-footer">
-      <div class="text-center">
-        <%= t('refresh_html') %>
-      </div>
-    </div>
-  <% end %>
 <% end %>
 
 <div class="page-wrapper meetings">
