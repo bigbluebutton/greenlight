@@ -54,7 +54,7 @@ en-US:
   no: No
   oauth_signup: Signup for customized sessions
   past_recordings: Past Recordings
-  powered_bigbluebutton: Powered by BigBlueButton
+  powered_bigbluebutton_html: Powered by %{link}
   presentation: Presentation
   return_to_room: Return to your personal room
   session_url_explanation: The session will be taking place using the following URL
