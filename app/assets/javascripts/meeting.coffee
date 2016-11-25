@@ -19,26 +19,24 @@
 _meetingInstance = null
 
 class @Meeting
-  constructor: (@id, @url, @name) ->
+  constructor: (@id, @type, @name) ->
 
   # Gets the current instance or creates a new one
   @getInstance: ->
     if _meetingInstance
       return _meetingInstance
     id = $(".page-wrapper").data('id')
-    url = @buildMeetingURL()
+    if (type = location.pathname.split('/')[1]) != 'rooms'
+      type = 'meetings'
     name = $('.meeting-user-name').val()
-    _meetingInstance = new Meeting(id, url, name)
+    _meetingInstance = new Meeting(id, type, name)
     return _meetingInstance
 
   @clear: ->
     _meetingInstance = null
 
-  @buildMeetingURL: (id) ->
-    if (resource = location.pathname.split('/')[1]) != 'rooms'
-      resource = 'meetings'
-    id ||= $(".page-wrapper").data('id')
-    return @buildFullDomainURL() + '/' + resource + '/' + id
+  @buildMeetingURL: (id, type) ->
+    return @buildFullDomainURL() + '/' + type + '/' + id
 
   @buildFullDomainURL: ->
     url = location.protocol + '//' + location.hostname
@@ -50,7 +48,7 @@ class @Meeting
   # Returns a response object
   endMeeting: ->
     return $.ajax({
-      url: @url + "/end",
+      url: @getURL() + "/end",
       type: 'DELETE'
     })
 
@@ -58,35 +56,53 @@ class @Meeting
   # Returns a response object
   #    The response object contains the URL to join the meeting
   getJoinMeetingResponse: ->
-    return $.get @url + "/join?name=" + @name, ->
-
+    return $.get @getURL() + "/join?name=" + @name, (data) =>
+      if data.messageKey == 'ok' && @type == 'meetings'
+        try
+          joinedMeetings = localStorage.getItem('joinedMeetings') || ''
+          joinedMeetings = joinedMeetings.split(',')
+          joinedMeetings = joinedMeetings.filter (item) => item != @id.toString()
+          if joinedMeetings.length >= 5
+            joinedMeetings.splice(0, 1)
+          joinedMeetings.push(@id)
+          localStorage.setItem('joinedMeetings', joinedMeetings.join(','))
+        catch err
+          localStorage.setItem('joinedMeetings', @id)
 
   getId: ->
     return @id
 
   setId: (id) ->
     @id = id
+    return this
+
+  getType: ->
+    return @type
+
+  setType: (type) ->
+    @type = type
+    return this
 
   getURL: ->
-    return @url
-
-  setURL: (url) ->
-    @url = url
+    return Meeting.buildMeetingURL(@id, @type)
 
   getName: ->
     return @name
 
   setName: (name) ->
     @name = name
+    return this
 
   getModJoined: ->
     return @modJoined
 
   setModJoined: (modJoined) ->
     @modJoined = modJoined
+    return this
 
   getWaitingForMod: ->
     return @waitingForMod
 
   setWaitingForMod: (wMod) ->
     @waitingForMod = wMod
+    return this

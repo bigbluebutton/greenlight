@@ -72,6 +72,7 @@ en-US:
   past_recordings: Past Recordings
   powered_bigbluebutton_html: Powered by %{link}
   presentation: Presentation
+  previously_joined_meetings: Previously Joined Sessions
   return_to_room: Return to your personal room
   session_url_explanation: The session will be taking place using the following URL
   start: Start

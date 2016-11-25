@@ -35,7 +35,7 @@
     $('.center-panel-wrapper').on ('click', '.meeting-join', function (event) {
       var name = $('.meeting-user-name').val();
       Meeting.getInstance().setName(name);
-      Meeting.getInstance().setURL(Meeting.buildMeetingURL());
+      Meeting.getInstance().setId($(".page-wrapper").data('id'));
       var jqxhr = Meeting.getInstance().getJoinMeetingResponse();
 
       jqxhr.done(function(data) {
@@ -136,11 +136,18 @@
     $('.generate-link').click (function (e) {
       e.preventDefault();
       var newId = Math.trunc(Math.random() * 1000000000);
+      Meeting.getInstance().setId(newId);
       $(".page-wrapper.meetings").data('id', newId);
-      $('.meeting-url').val(Meeting.buildMeetingURL());
+      $('.meeting-url').val(Meeting.getInstance().getURL());
     });
 
     $('.generate-link').click();
+
+    $('ul.previously-joined').empty();
+    var joinedMeetings = localStorage.getItem('joinedMeetings').split(',');
+    for (var id in joinedMeetings) {
+      $('ul.previously-joined').append('<li><a href="/meetings/'+joinedMeetings[id]+'">'+joinedMeetings[id]+'</a></li>');
+    }
   };
 
   var initMeetings = function() {
