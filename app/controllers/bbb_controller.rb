@@ -18,7 +18,9 @@ class BbbController < ApplicationController
           user_is_moderator: current_user == user
         }
       else
-        {}
+        {
+          user_is_moderator: true
+        }
       end
       options[:meeting_logout_url] = "#{request.base_url}/#{params[:resource]}/#{params[:id]}"
 
