@@ -140,14 +140,7 @@ class @Recordings
       if !@owner
         table_api.column(-1).visible(false)
       for recording in data.recordings
-        hours = Math.floor(recording.length/60)
-        minutes = recording.length % 60
-        recording.duration =  if minutes>=60
-                                hours+"hours and "+minutes+" minutes"
-                              else if minutes>1
-                                minutes+" minutes"
-                              else
-                                "< 1 minute"
+        recording.duration = recording.length
       data.recordings.sort (a,b) ->
         return new Date(b.start_time) - new Date(a.start_time)
       table_api.clear()
