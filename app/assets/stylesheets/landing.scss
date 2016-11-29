@@ -43,3 +43,20 @@
   }
 
 }
+
+.img-thumbnail{
+  padding: 4px;
+  background-color: white;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+
+  &.large{
+    display: none;
+  }
+
+  &:hover + &.large{
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+  }
+}

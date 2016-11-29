@@ -58,7 +58,7 @@ class @Recordings
               str = ''
               if row.published
                 for d in data
-                  str += '<img height="50" width="50" src="'+d.url+'" alt="'+d.alt+'"></img> '
+                  str += '<img height="50" width="50" class="img-thumbnail" src="'+d.url+'" alt="'+d.alt+'"></img><img class="img-thumbnail large" src="'+d.url+'"></img>'
               return str
             return data
         },
