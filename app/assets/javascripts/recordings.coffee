@@ -140,8 +140,7 @@ class @Recordings
       if !@owner
         table_api.column(-1).visible(false)
       for recording in data.recordings
-        totalMinutes = Math.round((new Date(recording.end_time) - new Date(recording.start_time)) / 1000 / 60)
-        recording.duration = totalMinutes
+        recording.duration = recording.length
       data.recordings.sort (a,b) ->
         return new Date(b.start_time) - new Date(a.start_time)
       table_api.clear()
