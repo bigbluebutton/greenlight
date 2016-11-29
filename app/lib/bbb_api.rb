@@ -113,7 +113,7 @@ module BbbApi
 
     res[:recordings].each do |recording|
       pref_preview = {}
-
+      recording[:length] = recording[:playback][:format].is_a?(Hash) ? recording[:playback][:format][:length] : recording[:playback][:format].first[:length]
       # create a playbacks attribute on recording for playback formats
       recording[:playbacks] = if !recording[:playback] || !recording[:playback][:format]
         []
