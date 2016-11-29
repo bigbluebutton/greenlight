@@ -19,6 +19,15 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
   </div>
 <% end %>
 
+<% content_for :footer do %>
+  <div class="panel-footer">
+    <div class="list-group text-center">
+      <h4><%= t('previously_joined_meetings') %></h4>
+      <ul class="previously-joined"></ul>
+    </div>
+  </div>
+<% end %>
+
 <div class="page-wrapper meetings">
   <div class="container-fluid">
 
