@@ -145,8 +145,8 @@
 
     $('ul.previously-joined').empty();
     var joinedMeetings = localStorage.getItem('joinedMeetings').split(',');
-    for (var id in joinedMeetings) {
-      $('ul.previously-joined').append('<li><a href="/meetings/'+joinedMeetings[id]+'">'+joinedMeetings[id]+'</a></li>');
+    for (var i = joinedMeetings.length - 1; i >= 0; i--) {
+      $('ul.previously-joined').append('<li><a href="/meetings/'+joinedMeetings[i]+'">'+joinedMeetings[i]+'</a></li>');
     }
   };
 
