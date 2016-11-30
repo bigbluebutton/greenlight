@@ -1,0 +1,9 @@
+machine:
+  services:
+    - docker
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - ./scripts/build_image_master.sh
