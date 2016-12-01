@@ -26,7 +26,7 @@
   var initRooms = function() {
     App.messages = App.cable.subscriptions.create({
       channel: 'MeetingUpdatesChannel',
-      encrypted_id: Meeting.getInstance().getId()
+      encrypted_id: $(".page-wrapper").data('id')
     },
     {
       received: function(data) {
