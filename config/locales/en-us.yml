@@ -44,6 +44,7 @@ en-US:
     meeting_ended: Meeting was ended
     meeting_started: Meeting was started
     no_recordings: No Recordings
+    no_recordings_yet: No Recordings (Yet!)
     publish_recording: Publish recording
     recording_deleted: Recording was deleted
     recording_published: Recording was published

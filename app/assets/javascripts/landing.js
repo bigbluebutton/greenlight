@@ -30,6 +30,10 @@
 
   var init = function() {
     Meeting.clear();
+    var nameInput = $('.meeting-user-name');
+    if (!nameInput.val()) {
+      nameInput.val(localStorage.getItem('lastJoinedName'));
+    }
 
     // setup event handlers
     $('.center-panel-wrapper').on ('click', '.meeting-join', function (event) {
