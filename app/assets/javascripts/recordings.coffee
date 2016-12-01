@@ -102,7 +102,7 @@ class @Recordings
     };
     $('#recordings').tooltip(options)
 
-    $(document).on "turbolinks:before-cache", =>
+    $(document).one "turbolinks:before-cache", =>
       @getTable().api().clear().draw().destroy()
 
     # enable popovers
