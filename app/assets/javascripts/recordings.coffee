@@ -102,6 +102,9 @@ class @Recordings
     };
     $('#recordings').tooltip(options)
 
+    $(document).on "turbolinks:before-cache", =>
+      @getTable().api().clear().draw().destroy()
+
     # enable popovers
     options = {
       selector: '.has-popover',
@@ -150,7 +153,7 @@ class @Recordings
   # setup click handlers for the action buttons
   setupActionHandlers: ->
     table_api = this.table.api()
-    this.table.on 'click', '.recording-update', (event) ->
+    @getTable().on 'click', '.recording-update', (event) ->
       btn = $(this)
       row = table_api.row($(this).closest('tr')).data()
       url = $('.meeting-url').val()
@@ -181,6 +184,9 @@ class @Recordings
       ).fail((data) ->
         btn.prop('disabled', false)
       )
+
+  getTable: ->
+    @table
 
   isOwner: ->
     @owner
