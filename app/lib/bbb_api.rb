@@ -42,6 +42,7 @@ module BbbApi
     options[:user_is_moderator] ||= false
     options[:wait_for_moderator] ||= false
     options[:meeting_logout_url] ||= nil
+    options[:meeting_name] ||= meeting_token
 
     if !bbb
       return call_invalid_res
@@ -66,7 +67,7 @@ module BbbApi
         viewer_password = random_password(12)
         meeting_options = {record: options[:meeting_recorded].to_s, logoutURL: logout_url, moderatorPW: moderator_password, attendeePW: viewer_password}
         # Create the meeting
-        bbb.create_meeting(meeting_token, meeting_id, meeting_options)
+        bbb.create_meeting(options[:meeting_name], meeting_id, meeting_options)
 
         # And then get meeting info
         bbb_meeting_info = bbb.get_meeting_info( meeting_id, nil )

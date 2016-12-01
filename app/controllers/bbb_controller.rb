@@ -31,6 +31,7 @@ class BbbController < ApplicationController
         {
           wait_for_moderator: true,
           meeting_recorded: true,
+          meeting_name: user.name,
           user_is_moderator: current_user == user
         }
       else
