@@ -29,13 +29,13 @@ class @Recordings
       info: false,
       order: [[ 0, "desc" ]],
       language: {
-        emptyTable: '<h3>'+I18n.no_recordings+'</h3>',
+        emptyTable: '<h3>'+I18n.no_recordings_yet+'</h3>',
         zeroRecords: '<h3>'+I18n.no_recordings+'</h3>'
       },
       columns: [
         { data: "start_time" },
         { data: "previews", orderable: false },
-        { data: "duration" },
+        { data: "duration", orderable: false },
         { data: "playbacks", orderable: false },
         { data: "published", visible: false },
         { data: "id", orderable: false }
