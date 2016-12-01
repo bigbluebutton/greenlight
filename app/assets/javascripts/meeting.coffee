@@ -58,6 +58,10 @@ class @Meeting
   getJoinMeetingResponse: ->
     return $.get @getURL() + "/join?name=" + @name, (data) =>
       if data.messageKey == 'ok' && @type == 'meetings'
+        # update name used to join meeting
+        localStorage.setItem('lastJoinedName', @getName())
+
+        # update previously joined meetings on client
         try
           joinedMeetings = localStorage.getItem('joinedMeetings') || ''
           joinedMeetings = joinedMeetings.split(',')
