@@ -29,7 +29,7 @@ html, body {
 .app-background {
   height: 350px;
   width: 100%;
-  background: url('greenlight_background.jpg');
+  background: asset-url('greenlight_background');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
