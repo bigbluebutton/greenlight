@@ -27,13 +27,12 @@ html, body {
 }
 
 .app-background {
-  background: #ffffff;
-  background: -moz-linear-gradient(top, #4dc0a2 0%, #4dc0a2 350px, #ffffff 350px, #ffffff 100%);
-  background: -webkit-gradient(left top, left bottom, color-stop(0%, #4dc0a2), color-stop(350px, #4dc0a2), color-stop(350px, #ffffff), color-stop(100%, #ffffff));
-  background: -webkit-linear-gradient(top, #4dc0a2 0%, #4dc0a2 350px, #ffffff 350px, #ffffff 100%);
-  background: -o-linear-gradient(top, #4dc0a2 0%, #4dc0a2 350px, #ffffff 350px, #ffffff 100%);
-  background: -ms-linear-gradient(top, #4dc0a2 0%, #4dc0a2 350px, #ffffff 350px, #ffffff 100%);
-  background: linear-gradient(to bottom, #4dc0a2 0%, #4dc0a2 350px, #ffffff 350px, #ffffff 100%);
+  height: 350px;
+  width: 100%;
+  background: url('greenlight_background.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #alerts {
