@@ -1,0 +1,32 @@
+# Rails secret key base
+#
+#   You can generate a secure one through the Greenlight docker image with:
+#   `docker run --rm bigbluebutton/greenlight rake secret`
+#
+SECRET_KEY_BASE=
+
+# BigBlueButton
+#
+#   The endpoint and secret from your bigbluebutton server
+#
+BIGBLUEBUTTON_ENDPOINT=http://test-install.blindsidenetworks.com/bigbluebutton/
+BIGBLUEBUTTON_SECRET=8cd8ef52e8e101574e400365b55e11a6
+
+# Twitter Login Provider (optional)
+#
+#   You will need to register the app at https://apps.twitter.com/
+#   For the callback URL use 'http://<your hostname:port>/users/auth/twitter/callback'
+#   Once registered copy the ID and Secret here
+#
+TWITTER_ID=
+TWITTER_SECRET=
+
+# Google Login Provider (optional)
+#
+#   You will need to register for at https://console.developers.google.com/apis/credentials
+#   Select Oauth client ID -> web application
+#   For the callback URL use 'http://<your hostname:port>/users/auth/google/callback'
+#   Once registered copy the ID and Secret here
+#
+GOOGLE_OAUTH2_ID=
+GOOGLE_OAUTH2_SECRET=

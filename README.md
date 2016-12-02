@@ -1,24 +1,14 @@
-# README
+# Greenlight
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Greenlight is a simple front-end application for [BigBlueButton](http://bigbluebutton.org/)
 
-Things you may want to cover:
+## Usage
 
-* Ruby version
+Install [docker](https://docs.docker.com/engine/getstarted/step_one/)  
+Create an environment variables file, here is a [template with instructions](https://raw.githubusercontent.com/zach-chai/greenlight/new_prod/env)  
+Start the server in docker
 
-* System dependencies
+    docker run -d -p 3000:80 -v ${pwd}/db/production --env-file env bigbluebutton/greenlight
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+You can change the published port (-p) default is 3000  
+and the location of the environment variables file (--env-file) default is env
