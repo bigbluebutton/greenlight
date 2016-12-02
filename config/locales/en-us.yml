@@ -55,7 +55,7 @@ en-US:
   create_session: Create a Session
   create_your_session: Create your own session
   date_recorded: Date
-  duration: Duration
+  duration: Duration (minutes)
   end: End
   enter_name: Enter your name
   greet_user: Welcome, %{name}
