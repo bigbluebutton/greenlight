@@ -71,7 +71,7 @@ en-US:
   no: No
   oauth_signup: Signup for customized sessions
   past_recordings: Past Recordings
-  powered_bigbluebutton_html: Powered by %{link}
+  footer_html: "%{greenlight_link} build %{version}, Powered by %{bbb_link}"
   presentation: Presentation
   previously_joined_meetings: Previously Joined Sessions
   return_to_room: Return to your personal room

@@ -42,4 +42,10 @@ module ApplicationHelper
       providers
     end
   end
+
+  def version
+    Greenlight::VERSION
+  rescue
+    'development'
+  end
 end

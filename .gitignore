@@ -21,4 +21,3 @@ vendor/.bundle
 
 # Ignore Byebug command history file.
 .byebug_history
-.env
