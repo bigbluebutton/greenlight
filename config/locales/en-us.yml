@@ -67,6 +67,14 @@ en-US:
   join_session_user: Join %{name} session
   login: login
   logout: logout
+  meeting_invite:
+    explanation: Send an email with an invitation to this meeting
+    not_signed_in:
+      body: "You have been invited to a meeting.\n\nPlease open the following page in your web browser: &&URL&&"
+      subject: "Invitation to a meeting"
+    signed_in:
+      body: "You have been invited by %{user} to a meeting.\n\nPlease open the following page in your web browser: &&URL&&"
+      subject: "%{user} invited you to a meeting"
   my_room: my room
   no: No
   oauth_signup: Signup for customized sessions
