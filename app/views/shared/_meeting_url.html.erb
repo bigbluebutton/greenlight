@@ -15,16 +15,16 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 <div <%= "hidden" if hidden %> class="meeting-url-wrapper">
   <div class="input-group">
-    <input type="text" class="form-control meeting-url"/>
-    <span class="input-group-btn">
-
+    <div class="meeting-url-group">
+      <input type="text" class="form-control meeting-url"/>
       <% if params[:action] == 'index' %>
-        <button type="button" class="btn btn-default generate-link has-tooltip"
-          title="<%= t('url_refresh_hint') %>"
-        >
-          <i class="fa fa-refresh" aria-hidden="true"></i>
-        </button>
+        <i class="fa fa-refresh generate-link has-tooltip" aria-hidden="true"
+           title="<%= t('url_refresh_hint') %>"
+        ></i>
       <% end %>
+    </div>
+
+    <span class="input-group-btn">
 
       <button type="button" class="btn btn-default meeting-url-copy has-tooltip"
         title="<%= t('url_copy_explanation') %>"

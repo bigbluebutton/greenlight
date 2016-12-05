@@ -69,3 +69,20 @@
     z-index: 1;
   }
 }
+
+.meeting-url-group {
+  position: relative;
+
+  .generate-link {
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    z-index: 9;
+    color: #999;
+    cursor: pointer;
+
+    &:hover {
+      color: #000;
+    }
+  }
+}
