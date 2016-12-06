@@ -19,22 +19,13 @@ class RecordingUpdatesJob < ApplicationJob
 
   queue_as :default
 
-  def perform(room, record_id, published)
-    tries = 0
-    sleep_time = 2
-
-    while tries < 4
-      bbb_res = bbb_get_recordings(nil, record_id)
-      if bbb_res[:recordings].first[:published].to_s == published
-        ActionCable.server.broadcast "#{room}_recording_updates_channel",
-          action: 'update',
-          record_id: record_id,
-          published: bbb_res[:recordings].first[:published]
-        break
-      end
-      sleep sleep_time
-      sleep_time = sleep_time * 2
-      tries += 1
-    end
+  def perform(room, record_id)
+    bbb_res = bbb_get_recordings(nil, record_id)
+    recording = bbb_res[:recordings].first
+    ActionCable.server.broadcast "#{room}_recording_updates_channel",
+      action: 'update',
+      record_id: record_id,
+      published: recording[:published],
+      listed: bbb_is_recording_listed(recording)
   end
 end

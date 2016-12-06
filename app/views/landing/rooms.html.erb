@@ -50,6 +50,17 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
       <%= t('no') %>
     </button>
   </div>
+  <div class="recording-visibility-popover">
+    <button type="button" class="btn btn-default btn-danger recording-update" data-visibility="inaccessible">
+      <%= t('innaccessible') %>
+    </button>
+    <button type="button" class="btn btn-default btn-warning recording-update" data-visibility="unlisted">
+      <%= t('unlisted') %>
+    </button>
+    <button type="button" class="btn btn-default btn-success recording-update" data-visibility="published">
+      <%= t('published') %>
+    </button>
+  </div>
   <div class="alert-template">
     <div class="alert alert-success alert-dismissible fade in" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -59,12 +70,14 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     </div>
   </div>
   <div class="recording-actions">
-    <button type="button" class="btn btn-default recording-update bottom-tooltip" data-published="">
-        <i class="fa default" aria-hidden="true"></i>
-        <i class="fa hover" aria-hidden="true"></i>
+    <button type="button" class="btn btn-default has-popover recording-update-trigger"
+            data-placement="left" data-popover-body=".recording-visibility-popover"
+            data-popover-title="<%= t('change_recording_visibility') %>">
+      <i class="fa fa-eye" aria-hidden="true"></i>
     </button>
     <a tabindex="0" role="button" class="btn btn-default has-popover delete-tooltip"
-      data-placement="top">
+       data-placement="top" data-popover-body=".delete-popover-body"
+       data-popover-title="<%= t('are_you_sure') %>">
         <i class="fa fa-trash-o" aria-hidden="true"></i>
     </a>
   </div>

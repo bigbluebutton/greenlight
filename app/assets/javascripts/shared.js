@@ -20,12 +20,6 @@ $.ajaxSetup({
   }
 });
 
-var PUBLISHED_CLASSES = ['fa-eye-slash', 'fa-eye']
-
-var getPublishClass = function(published) {
-  return PUBLISHED_CLASSES[+published];
-}
-
 var loopJoin = function() {
   var jqxhr = Meeting.getInstance().getJoinMeetingResponse();
   jqxhr.done(function(data) {
@@ -57,4 +51,4 @@ var showAlert = function(html, timeout_delay) {
 
 var displayRoomURL = function() {
   $('.meeting-url').val(Meeting.getInstance().getURL());
-}
+};

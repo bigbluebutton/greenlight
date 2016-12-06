@@ -100,7 +100,8 @@
         .tooltip('fixTitle');
     });
 
-    $('.center-panel-wrapper').on ('click', '.meeting-invite', function (event) {
+    // button used to send invitations to the meeting (i.e. "mailto:" link)
+    $('.center-panel-wrapper').on('click', '.meeting-invite', function (event) {
       var meetingURL = Meeting.getInstance().getURL();
       var subject = $(this).data("invite-subject");
       var body = $(this).data("invite-body").replace("&&URL&&", meetingURL);

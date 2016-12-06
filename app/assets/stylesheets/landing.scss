@@ -86,3 +86,17 @@
     }
   }
 }
+
+.recording-update-trigger {
+  &.recording-inaccessible {
+    color: red;
+  }
+
+  &.recording-unlisted {
+    color: #e3a91e;
+  }
+
+  &.recording-published {
+    color: green;
+  }
+}

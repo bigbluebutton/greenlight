@@ -76,9 +76,11 @@ class BbbController < ApplicationController
 
   # PATCH /rooms/:id/recordings/:record_id
   def update_recordings
-    bbb_res = bbb_update_recordings(params[:record_id], params[:published] == 'true')
+    published = params[:published] == 'true'
+    metadata = params.select{ |k, v| k.match(/^meta_/) }
+    bbb_res = bbb_update_recordings(params[:record_id], published, metadata)
     if bbb_res[:returncode]
-      RecordingUpdatesJob.perform_later(@user.encrypted_id, params[:record_id], bbb_res[:published])
+      RecordingUpdatesJob.perform_later(@user.encrypted_id, params[:record_id])
     end
     render_bbb_response bbb_res
   end

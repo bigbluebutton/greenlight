@@ -23,17 +23,21 @@
     },
     {
       received: function(data) {
+
         var recordings = Recordings.getInstance();
-        var table = recordings.table.api()
+        var table = recordings.table.api();
         var row = table.row("#"+data.record_id);
+
         if (data.action === 'update') {
           var rowData = row.data();
-          rowData.published = data.published
+
+          rowData.published = data.published;
+          rowData.listed = data.listed;
           table.row("#"+data.record_id).data(rowData);
           recordings.draw();
 
-          var published = (data.published) ? 'published' : 'unpublished';
-          showAlert(I18n['recording_'+published], 4000);
+          var status = data.published ? (data.listed ? 'published' : 'unlisted') : 'unpublished';
+          showAlert(I18n['recording_'+status], 4000);
         } else if (data.action === 'delete') {
           row.remove();
           recordings.draw();

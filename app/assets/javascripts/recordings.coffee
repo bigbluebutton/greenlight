@@ -37,7 +37,7 @@ class @Recordings
         { data: "previews", orderable: false },
         { data: "duration", orderable: false },
         { data: "playbacks", orderable: false },
-        { data: "published", visible: false },
+        { data: "listed", visible: false },
         { data: "id", orderable: false }
       ],
       columnDefs: [
@@ -78,18 +78,18 @@ class @Recordings
           render: (data, type, row) ->
             if type == 'display'
               roomName = Meeting.getInstance().getId()
-              published = row.published
-              publishText = if published then 'unpublish' else 'publish'
               recordingActions = $('.hidden-elements').find('.recording-actions')
-              recordingActions.find('.recording-update > i.default')
-                .removeClass(PUBLISHED_CLASSES.join(' '))
-                .addClass(getPublishClass(published))
-              recordingActions.find('.recording-update > i.hover')
-                .removeClass(PUBLISHED_CLASSES.join(' '))
-                .addClass(getPublishClass(!published))
-              recordingActions.find('.recording-update')
-                .attr('data-published', published)
-                .attr('title', I18n[publishText+'_recording'])
+              classes = ['recording-inaccessible', 'recording-unlisted', 'recording-published']
+              if row.published
+                if row.listed
+                  cls = classes[2]
+                else
+                  cls = classes[1]
+              else
+                cls = classes[0]
+              trigger = recordingActions.find('.recording-update-trigger')
+              trigger.removeClass(classes.join(' '))
+              trigger.addClass(cls)
               return recordingActions.html()
             return data
         }
@@ -111,9 +111,10 @@ class @Recordings
       html: true,
       trigger: 'focus',
       title: ->
-        return I18n.are_you_sure;
+        return $(this).data("popover-title");
       content: ->
-        return $(".delete-popover-body").html()
+        bodySelector = $(this).data("popover-body")
+        return $(bodySelector).html()
     }
     $('#recordings').popover(options)
 
@@ -153,17 +154,25 @@ class @Recordings
   # setup click handlers for the action buttons
   setupActionHandlers: ->
     table_api = this.table.api()
+
     @getTable().on 'click', '.recording-update', (event) ->
       btn = $(this)
       row = table_api.row($(this).closest('tr')).data()
       url = $('.meeting-url').val()
       id = row.id
-      published = btn.data('published')
+
+      published = btn.data('visibility') == "unlisted" ||
+        btn.data('visibility') == "published"
+      listed = btn.data('visibility') == "published"
+
       btn.prop('disabled', true)
       $.ajax({
         method: 'PATCH',
         url: url+'/recordings/'+id,
-        data: {published: (!published).toString()}
+        data: {
+          published: published.toString(),
+          "meta_greenlight-listed": listed.toString()
+        }
       }).done((data) ->
 
       ).fail((data) ->

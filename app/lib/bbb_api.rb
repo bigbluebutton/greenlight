@@ -15,6 +15,8 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 module BbbApi
+  META_LISTED = "greenlight-listed"
+
   def bbb_endpoint
     Rails.configuration.bigbluebutton_endpoint || ''
   end
@@ -65,7 +67,14 @@ module BbbApi
         logout_url = options[:meeting_logout_url] || "#{request.base_url}"
         moderator_password = random_password(12)
         viewer_password = random_password(12)
-        meeting_options = {record: options[:meeting_recorded].to_s, logoutURL: logout_url, moderatorPW: moderator_password, attendeePW: viewer_password}
+        meeting_options = {
+          record: options[:meeting_recorded].to_s,
+          logoutURL: logout_url,
+          moderatorPW: moderator_password,
+          attendeePW: viewer_password,
+          "meta_#{BbbApi::META_LISTED}": false
+        }
+
         # Create the meeting
         bbb.create_meeting(options[:meeting_name], meeting_id, meeting_options)
 
@@ -148,6 +157,8 @@ module BbbApi
       else
         []
       end
+
+      recording[:listed] = bbb_is_recording_listed(recording)
     end
     res
   end
@@ -168,8 +179,11 @@ module BbbApi
     response_data = bbb_exception_res exc
   end
 
-  def bbb_update_recordings(id, published)
+  def bbb_update_recordings(id, published, metadata)
     bbb_safe_execute :publish_recordings, id, published
+
+    params = { recordID: id }.merge(metadata)
+    bbb_safe_execute :send_api_request, "updateRecordings", params
   end
 
   def bbb_delete_recordings(id)
@@ -189,6 +203,11 @@ module BbbApi
       end
     end
     response_data
+  end
+
+  def bbb_is_recording_listed(recording)
+    !recording[:metadata].blank? &&
+      recording[:metadata][BbbApi::META_LISTED.to_sym] == "true"
   end
 
   def success_join_res(join_url)

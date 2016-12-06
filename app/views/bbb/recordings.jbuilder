@@ -24,6 +24,7 @@ json.recordings do
     json.end_time recording[:endTime]
     json.published recording[:published]
     json.length recording[:length]
+    json.listed recording[:listed]
     json.previews do
       json.array!(recording[:previews]) do |preview|
         json.partial! 'preview', preview: preview
