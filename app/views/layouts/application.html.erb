@@ -79,4 +79,8 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 <script type="text/javascript">
   window.I18n = <%= client_translations.to_json.html_safe %>
+  window.GreenLight = {};
+  window.GreenLight.META_LISTED = "<%= BbbApi::META_LISTED %>";
+  window.GreenLight.META_TOKEN = "<%= BbbApi::META_TOKEN %>";
+  window.GreenLight.META_HOOK_URL = "<%= BbbApi::META_HOOK_URL %>";
 </script>

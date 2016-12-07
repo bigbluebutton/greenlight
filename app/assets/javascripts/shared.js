@@ -34,6 +34,7 @@ var loopJoin = function() {
   });
 }
 
+var alertTimeout = null;
 var showAlert = function(html, timeout_delay) {
   if (!html) {
     return;
@@ -43,11 +44,12 @@ var showAlert = function(html, timeout_delay) {
   $('#alerts').html($('.alert-template').html());
 
   if (timeout_delay) {
-    setTimeout(function() {
+    clearTimeout(alertTimeout);
+    alertTimeout = setTimeout(function() {
       $('#alerts > .alert').alert('close');
     }, timeout_delay);
   }
-}
+};
 
 var displayRoomURL = function() {
   $('.meeting-url').val(Meeting.getInstance().getURL());

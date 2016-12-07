@@ -166,13 +166,13 @@ class @Recordings
       listed = btn.data('visibility') == "published"
 
       btn.prop('disabled', true)
+
+      data = { published: published.toString() }
+      data["meta_" + GreenLight.META_LISTED] = listed.toString();
       $.ajax({
         method: 'PATCH',
         url: url+'/recordings/'+id,
-        data: {
-          published: published.toString(),
-          "meta_greenlight-listed": listed.toString()
-        }
+        data: data
       }).done((data) ->
 
       ).fail((data) ->

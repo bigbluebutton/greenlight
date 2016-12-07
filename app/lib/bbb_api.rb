@@ -15,7 +15,9 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 module BbbApi
-  META_LISTED = "greenlight-listed"
+  META_LISTED = "gl-listed"
+  META_TOKEN = "gl-token"
+  META_HOOK_URL = "gl-webhooks-callback-url"
 
   def bbb_endpoint
     Rails.configuration.bigbluebutton_endpoint || ''
@@ -53,7 +55,7 @@ module BbbApi
 
       # See if the meeting is running
       begin
-        bbb_meeting_info = bbb.get_meeting_info( meeting_id, nil )
+        bbb_meeting_info = bbb.get_meeting_info(meeting_id, nil)
       rescue BigBlueButton::BigBlueButtonException => exc
         # This means that is not created
 
@@ -72,8 +74,13 @@ module BbbApi
           logoutURL: logout_url,
           moderatorPW: moderator_password,
           attendeePW: viewer_password,
-          "meta_#{BbbApi::META_LISTED}": false
+          "meta_#{BbbApi::META_LISTED}": false,
+          "meta_#{BbbApi::META_TOKEN}": meeting_token
         }
+
+        meeting_options.merge!(
+          { "meta_#{BbbApi::META_HOOK_URL}": options[:hook_url] }
+        ) if options[:hook_url]
 
         # Create the meeting
         bbb.create_meeting(options[:meeting_name], meeting_id, meeting_options)
@@ -110,7 +117,7 @@ module BbbApi
       options[:recordID] = record_id
     end
     if meeting_id
-      options[:meetingID] = (Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base]+meeting_id)).to_s
+      options[:meetingID] = bbb_meeting_id(meeting_id)
     end
     res = bbb_safe_execute :get_recordings, options
 
@@ -208,6 +215,42 @@ module BbbApi
   def bbb_is_recording_listed(recording)
     !recording[:metadata].blank? &&
       recording[:metadata][BbbApi::META_LISTED.to_sym] == "true"
+  end
+
+  # Parses a recording as returned by getRecordings and returns it
+  # as an object as expected by the views.
+  # TODO: this is almost the same done by jbuilder templates (bbb/recordings),
+  #       how to reuse them?
+  def parse_recording_for_view(recording)
+    recording[:previews] ||= []
+    previews = recording[:previews].map do |preview|
+      {
+        url: preview[:content],
+        width: preview[:width],
+        height: preview[:height],
+        alt: preview[:alt]
+      }
+    end
+    recording[:playbacks] ||= []
+    playbacks = recording[:playbacks].map do |playback|
+      {
+        type: playback[:type],
+        type_i18n: t(playback[:type]),
+        url: playback[:url],
+        previews: previews
+      }
+    end
+    {
+      id: recording[:recordID],
+      name: recording[:name],
+      published: recording[:published],
+      end_time: recording[:endTime].to_s,
+      start_time: recording[:startTime].to_s,
+      length: recording[:length],
+      listed: recording[:listed],
+      playbacks: playbacks,
+      previews: previews
+    }
   end
 
   def success_join_res(join_url)

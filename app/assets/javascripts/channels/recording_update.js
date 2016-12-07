@@ -26,23 +26,32 @@
 
         var recordings = Recordings.getInstance();
         var table = recordings.table.api();
-        var row = table.row("#"+data.record_id);
+        var row = table.row("#"+data.id);
 
         if (data.action === 'update') {
           var rowData = row.data();
 
           rowData.published = data.published;
           rowData.listed = data.listed;
-          table.row("#"+data.record_id).data(rowData);
+          table.row("#"+data.id).data(rowData);
           recordings.draw();
 
           var status = data.published ? (data.listed ? 'published' : 'unlisted') : 'unpublished';
           showAlert(I18n['recording_'+status], 4000);
+
         } else if (data.action === 'delete') {
           row.remove();
           recordings.draw();
-
           showAlert(I18n.recording_deleted, 4000);
+
+        } else if (data.action === 'create') {
+          if (row.length == 0) {
+            data.duration = data.length;
+            table.rows.add([data]);
+            recordings.draw();
+            showAlert(I18n.recording_created, 4000);
+          }
+
         }
       }
     });

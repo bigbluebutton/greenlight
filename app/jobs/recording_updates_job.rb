@@ -24,7 +24,7 @@ class RecordingUpdatesJob < ApplicationJob
     recording = bbb_res[:recordings].first
     ActionCable.server.broadcast "#{room}_recording_updates_channel",
       action: 'update',
-      record_id: record_id,
+      id: record_id,
       published: recording[:published],
       listed: bbb_is_recording_listed(recording)
   end

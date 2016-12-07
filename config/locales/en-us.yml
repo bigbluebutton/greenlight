@@ -48,6 +48,7 @@ en-US:
     no_recordings: No Recordings
     no_recordings_yet: No Recordings (Yet!)
     publish_recording: Publish recording
+    recording_created: A recording was created
     recording_deleted: Recording was deleted
     recording_published: Recording was published
     recording_unlisted: Recording was unlisted
