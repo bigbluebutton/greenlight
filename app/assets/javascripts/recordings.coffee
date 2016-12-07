@@ -106,10 +106,12 @@ class @Recordings
       @getTable().api().clear().draw().destroy()
 
     # enable popovers
+    # can't use trigger:'focus' because it doesn't work will with buttons inside
+    # the popover
     options = {
       selector: '.has-popover',
       html: true,
-      trigger: 'focus',
+      trigger: 'click',
       title: ->
         return $(this).data("popover-title");
       content: ->
@@ -117,6 +119,19 @@ class @Recordings
         return $(bodySelector).html()
     }
     $('#recordings').popover(options)
+
+    # close popovers manually when clicking outside of them or in buttons
+    # with [data-dismiss="popover"]
+    # careful to hide only the open popover and not all of them, otherwise they won't reopen
+    $('body').on 'click', (e) ->
+      $('.has-popover').each ->
+        if !$(this).is(e.target) and $(this).has(e.target).length == 0 and $('.popover.in').has(e.target).length == 0
+          if $(this).next(".popover.in").length > 0
+            $(this).popover('hide')
+    $(document).on 'click', '[data-dismiss="popover"]', (e) ->
+      $('.has-popover').each ->
+        if $(this).next(".popover.in").length > 0
+          $(this).popover('hide')
 
   # Gets the current instance or creates a new one
   @getInstance: ->
