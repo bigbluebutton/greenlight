@@ -82,6 +82,12 @@ en-US:
       subject: "%{user} invited you to a meeting"
   my_room: my room
   no: No
+  notification_mailer:
+    recording_ready_email:
+      hi: "Hi, %{name}"
+      phrase1: "One of your recordings has just been made available."
+      phrase2: "Access the following website to view it and publish to other users: %{url}"
+      subject: "Your recording is ready!"
   oauth_signup: Signup for customized sessions
   past_recordings: Past Recordings
   footer_html: "%{greenlight_link} build %{version}, Powered by %{bbb_link}"

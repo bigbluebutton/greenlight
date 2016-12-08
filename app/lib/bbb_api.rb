@@ -77,13 +77,12 @@ module BbbApi
           "meta_#{BbbApi::META_LISTED}": false,
           "meta_#{BbbApi::META_TOKEN}": meeting_token
         }
+        meeting_options.merge!(
+          { "meta_#{BbbApi::META_HOOK_URL}": options[:hook_url] }
+        ) if options[:hook_url]
 
-        if ENV['GREENLIGHT_USE_WEBHOOKS']
+        if Rails.configuration.use_webhooks
           webhook_register(options[:hook_url], meeting_id)
-        else
-          meeting_options.merge!(
-            { "meta_#{BbbApi::META_HOOK_URL}": options[:hook_url] }
-          ) if options[:hook_url]
         end
 
         # Create the meeting

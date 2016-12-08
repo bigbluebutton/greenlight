@@ -37,5 +37,36 @@ module Greenlight
     # BigBlueButton
     config.bigbluebutton_endpoint = ENV['BIGBLUEBUTTON_ENDPOINT']
     config.bigbluebutton_secret = ENV['BIGBLUEBUTTON_SECRET']
+
+    # GreenLight
+    config.use_webhooks = ENV['GREENLIGHT_USE_WEBHOOKS']
+    config.smtp_from = ENV['SMTP_FROM']
+    config.smtp_server = ENV['SMTP_SERVER']
+    config.smtp_domain = ENV['SMTP_DOMAIN']
+    config.smtp_port = ENV['SMTP_PORT'] || 587
+    config.smtp_username = ENV['SMTP_USERNAME']
+    config.smtp_password = ENV['SMTP_PASSWORD']
+    config.smtp_auth = ENV['SMTP_AUTH'] || "login"
+    config.smtp_starttls_auto = ENV['SMTP_STARTTLS_AUTO'].nil? ? true : ENV['SMTP_STARTTLS_AUTO']
+    config.smtp_tls = ENV['SMTP_TLS'].nil? ? false : ENV['SMTP_TLS']
+
+    # SMTP
+    config.action_mailer.default_url_options = { host: ENV['GREENLIGHT_DOMAIN'] }
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.smtp_settings = {
+      :address =>              config.smtp_server,
+      :domain =>               config.smtp_domain,
+      :port =>                 config.smtp_port,
+      :user_name =>            config.smtp_username,
+      :password =>             config.smtp_password,
+      :authentication =>       config.smtp_auth,
+      :enable_starttls_auto => config.smtp_starttls_auto,
+      :tls =>                  config.smtp_tls
+    }
+    config.action_mailer.default_options = {
+      from: config.smtp_from
+    }
   end
 end

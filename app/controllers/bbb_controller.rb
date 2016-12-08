@@ -170,9 +170,13 @@ class BbbController < ApplicationController
         rec_info = rec_info[:recordings].first
         RecordingCreatedJob.perform_later(token, parse_recording_for_view(rec_info))
 
+        # send an email to the owner of this recording, if defined
+        owner = User.find_by(encrypted_id: token)
+        RecordingReadyEmailJob.perform_later(owner) if owner.present?
+
         # TODO: remove the webhook now that the meeting and recording are done
         # remove only if the meeting is not running, otherwise the hook is needed
-        # if ENV['GREENLIGHT_USE_WEBHOOKS']
+        # if Rails.configuration.use_webhooks
         #   webhook_remove("#{base_url}/callback")
         # end
       else
