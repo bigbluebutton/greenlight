@@ -155,18 +155,31 @@ class BbbController < ApplicationController
   end
 
   def treat_callback_event(event)
+    eventName = (event.present? && event['header'].present?) ? event['header']['name'] : nil
 
     # a recording is ready
-    if event['header']['name'] == "publish_ended"
-      token = event['payload']['metadata'][META_TOKEN]
-      record_id = event['payload']['meeting_id']
+    if eventName == "publish_ended"
+      if event['payload'] && event['payload']['metadata'] && event['payload']['meeting_id']
+        token = event['payload']['metadata'][META_TOKEN]
+        record_id = event['payload']['meeting_id']
 
-      # the webhook event doesn't have all the data we need, so we need
-      # to send a getRecordings anyway
-      # TODO: if the webhooks included all data we wouldn't need this
-      rec_info = bbb_get_recordings(token, record_id)
-      rec_info = rec_info[:recordings].first
-      RecordingCreatedJob.perform_later(token, parse_recording_for_view(rec_info))
+        # the webhook event doesn't have all the data we need, so we need
+        # to send a getRecordings anyway
+        # TODO: if the webhooks included all data in the event we wouldn't need this
+        rec_info = bbb_get_recordings(token, record_id)
+        rec_info = rec_info[:recordings].first
+        RecordingCreatedJob.perform_later(token, parse_recording_for_view(rec_info))
+
+        # TODO: remove the webhook now that the meeting and recording are done
+        # remove only if the meeting is not running, otherwise the hook is needed
+        # if ENV['GREENLIGHT_USE_WEBHOOKS']
+        #   webhook_remove("#{base_url}/callback")
+        # end
+      else
+        logger.error "Bad format for event #{event}, won't process"
+      end
+    else
+      logger.info "Callback event will not be treated. Event name: #{eventName}"
     end
 
     render head(:ok) && return

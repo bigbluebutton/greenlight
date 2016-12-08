@@ -78,9 +78,13 @@ module BbbApi
           "meta_#{BbbApi::META_TOKEN}": meeting_token
         }
 
-        meeting_options.merge!(
-          { "meta_#{BbbApi::META_HOOK_URL}": options[:hook_url] }
-        ) if options[:hook_url]
+        if ENV['GREENLIGHT_USE_WEBHOOKS']
+          webhook_register(options[:hook_url], meeting_id)
+        else
+          meeting_options.merge!(
+            { "meta_#{BbbApi::META_HOOK_URL}": options[:hook_url] }
+          ) if options[:hook_url]
+        end
 
         # Create the meeting
         bbb.create_meeting(options[:meeting_name], meeting_id, meeting_options)
@@ -251,6 +255,26 @@ module BbbApi
       playbacks: playbacks,
       previews: previews
     }
+  end
+
+  def webhook_register(url, meeting_id=nil)
+    params = { callbackURL: url }
+    params.merge!({ meetingID: meeting_id }) if meeting_id.present?
+    bbb_safe_execute :send_api_request, "hooks/create", params
+  end
+
+  def webhook_remove(url)
+    res = bbb_safe_execute :send_api_request, "hooks/list"
+    if res && res[:hooks] && res[:hooks][:hook]
+      res[:hooks][:hook] = [res[:hooks][:hook]] unless res[:hooks][:hook].is_a?(Array)
+      hook = res[:hooks][:hook].select{ |h|
+        h[:callbackURL] == url
+      }.first
+      if hook.present?
+        params = { hookID: hook[:hookID] }
+        bbb_safe_execute :send_api_request, "hooks/destroy", params
+      end
+    end
   end
 
   def success_join_res(join_url)
