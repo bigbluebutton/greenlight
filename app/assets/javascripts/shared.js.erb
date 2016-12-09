@@ -68,5 +68,10 @@ var showNotification = function(title, options) {
   }
 };
 
-// TODO: only need permissions if the user is signed in
-Notification.requestPermission();
+// For now there are notifications only for users signed in and when they
+// are in their room's page
+$(document).on("turbolinks:load", function() {
+  if (GreenLight.user.roomOwner) {
+    Notification.requestPermission();
+  }
+});
