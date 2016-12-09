@@ -52,8 +52,13 @@ class BbbController < ApplicationController
         options
       )
 
+      # the user can join the meeting
       if bbb_res[:returncode] && current_user && current_user == user
         JoinMeetingJob.perform_later(user.encrypted_id)
+
+      # user will be waiting for a moderator
+      else
+        NotifyUserWaitingJob.perform_later(user.encrypted_id, params[:name])
       end
 
       render_bbb_response bbb_res, bbb_res[:response]

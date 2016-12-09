@@ -77,10 +77,13 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
   </body>
 </html>
 
+<!-- Global javascript variables and helpers -->
 <script type="text/javascript">
   window.I18n = <%= client_translations.to_json.html_safe %>
   window.GreenLight = {};
   window.GreenLight.META_LISTED = "<%= BbbApi::META_LISTED %>";
   window.GreenLight.META_TOKEN = "<%= BbbApi::META_TOKEN %>";
   window.GreenLight.META_HOOK_URL = "<%= BbbApi::META_HOOK_URL %>";
+  window.GreenLight.user = {};
+  window.GreenLight.user.roomOwner = <%= is_room_owner %>;
 </script>

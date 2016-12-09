@@ -54,6 +54,8 @@ en-US:
     recording_unlisted: Recording was unlisted
     recording_unpublished: Recording was unpublished
     unpublish_recording: Hide recording
+    user_waiting_body: "%{user} is waiting to join your room!"
+    user_waiting_title: A user is waiting
   copied: Copied
   copy_error: Use Ctrl-c to copy
   create_session: Create a Session
