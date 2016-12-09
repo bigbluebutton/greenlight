@@ -79,7 +79,7 @@ class @Recordings
             if type == 'display'
               roomName = Meeting.getInstance().getId()
               recordingActions = $('.hidden-elements').find('.recording-actions')
-              classes = ['recording-inaccessible', 'recording-unlisted', 'recording-published']
+              classes = ['recording-unpublished', 'recording-unlisted', 'recording-published']
               if row.published
                 if row.listed
                   cls = classes[2]

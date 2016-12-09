@@ -65,7 +65,6 @@ en-US:
   greet_user: Welcome, %{name}
   greet_guest: Welcome to %{name} Meeting Space
   hi_all: Hi Everyone
-  innaccessible: Innaccessible
   join: Join
   join_session: Join the current session
   join_session_id: Join %{id}
@@ -100,6 +99,7 @@ en-US:
   your_personal_room: Your Personal Room
   thumbnails: Thumbnails
   unlisted: Unlisted
+  unpublished: Unpublished
   url_copy_explanation: Copy this URL to invite others to the meeting
   url_refresh_hint: Generate a new meeting URL
   video: Video
