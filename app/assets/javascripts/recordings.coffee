@@ -45,10 +45,13 @@ class @Recordings
           targets: 0,
           render: (data, type, row) ->
             if type == 'display'
-              return new Date(data)
+              date = new Date(data)
+              title = date
                 .toLocaleString($('html').attr('lang'),
                   {month: 'long', day: 'numeric', year: 'numeric',
                   hour12: 'true', hour: '2-digit', minute: '2-digit'})
+              timeago = '<time datetime="'+date.toISOString()+'" data-time-ago="'+date.toISOString()+'">'+date.toISOString()+'</time>'
+              return title+'<span class="timeago">('+timeago+')</span>'
             return data
         },
         {
@@ -194,7 +197,7 @@ class @Recordings
         btn.prop('disabled', false)
       )
 
-    this.table.on 'click', '.recording-delete', (event) ->
+    @getTable().on 'click', '.recording-delete', (event) ->
       btn = $(this)
       row = table_api.row($(this).closest('tr')).data()
       url = $('.meeting-url').val()
@@ -208,6 +211,9 @@ class @Recordings
       ).fail((data) ->
         btn.prop('disabled', false)
       )
+
+    @getTable().on 'draw.dt', (event) ->
+      $('time[data-time-ago]').timeago();
 
   getTable: ->
     @table

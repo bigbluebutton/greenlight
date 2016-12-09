@@ -37,16 +37,11 @@
       .dataTables_empty {
         text-align: center;
       }
-      .recording-update:hover > {
-        .default {
-          display: none;
-        }
-        .hover {
-          display: inline-block;
-        }
-      }
-      .fa.hover {
-        display: none;
+      .timeago {
+        margin-left: 5px;
+        font-size: 13px;
+        cursor: pointer;
+        color: #999;
       }
     }
   }
