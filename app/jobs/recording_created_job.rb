@@ -14,9 +14,13 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-module UsersHelper
-  def is_room_owner
-    token = current_user ? current_user.encrypted_id : nil
-    token.present? && params[:id].present? && token == params[:id]
+class RecordingCreatedJob < ApplicationJob
+  include BbbApi
+
+  queue_as :default
+
+  def perform(room, recording)
+    ActionCable.server.broadcast "#{room}_recording_updates_channel",
+      { action: 'create' }.merge(recording)
   end
 end

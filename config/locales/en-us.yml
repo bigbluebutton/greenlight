@@ -38,6 +38,8 @@
 en-US:
   actions: Actions
   are_you: Are you %{name}?
+  are_you_sure: Are you sure?
+  change_recording_visibility: "Change visibility to:"
   client:
     are_you_sure: Are you sure?
     delete_recording: Delete recording
@@ -46,10 +48,14 @@ en-US:
     no_recordings: No Recordings
     no_recordings_yet: No Recordings (Yet!)
     publish_recording: Publish recording
+    recording_created: A recording was created
     recording_deleted: Recording was deleted
     recording_published: Recording was published
+    recording_unlisted: Recording was unlisted
     recording_unpublished: Recording was unpublished
     unpublish_recording: Hide recording
+    user_waiting_body: "%{user} is waiting to join your room!"
+    user_waiting_title: A user is waiting
   copied: Copied
   copy_error: Use Ctrl-c to copy
   create_session: Create a Session
@@ -67,18 +73,35 @@ en-US:
   join_session_user: Join %{name} session
   login: login
   logout: logout
+  meeting_invite:
+    explanation: Send an email with an invitation to this meeting
+    not_signed_in:
+      body: "You have been invited to a meeting.\n\nPlease open the following page in your web browser: &&URL&&"
+      subject: "Invitation to a meeting"
+    signed_in:
+      body: "You have been invited by %{user} to a meeting.\n\nPlease open the following page in your web browser: &&URL&&"
+      subject: "%{user} invited you to a meeting"
   my_room: my room
   no: No
+  notification_mailer:
+    recording_ready_email:
+      hi: "Hi, %{name}"
+      phrase1: "One of your recordings has just been made available."
+      phrase2: "Access the following website to view it and publish to other users: %{url}"
+      subject: "Your recording is ready!"
   oauth_signup: Signup for customized sessions
   past_recordings: Past Recordings
   footer_html: "%{greenlight_link} build %{version}, Powered by %{bbb_link}"
   presentation: Presentation
   previously_joined_meetings: Previously Joined Sessions
+  published: Published
   return_to_room: Return to your personal room
   session_url_explanation: The session will be taking place using the following URL
   start: Start
   your_personal_room: Your Personal Room
   thumbnails: Thumbnails
+  unlisted: Unlisted
+  unpublished: Unpublished
   url_copy_explanation: Copy this URL to invite others to the meeting
   url_refresh_hint: Generate a new meeting URL
   video: Video

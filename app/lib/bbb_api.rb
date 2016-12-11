@@ -15,6 +15,10 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 module BbbApi
+  META_LISTED = "gl-listed"
+  META_TOKEN = "gl-token"
+  META_HOOK_URL = "gl-webhooks-callback-url"
+
   def bbb_endpoint
     Rails.configuration.bigbluebutton_endpoint || ''
   end
@@ -51,7 +55,7 @@ module BbbApi
 
       # See if the meeting is running
       begin
-        bbb_meeting_info = bbb.get_meeting_info( meeting_id, nil )
+        bbb_meeting_info = bbb.get_meeting_info(meeting_id, nil)
       rescue BigBlueButton::BigBlueButtonException => exc
         # This means that is not created
 
@@ -65,7 +69,22 @@ module BbbApi
         logout_url = options[:meeting_logout_url] || "#{request.base_url}"
         moderator_password = random_password(12)
         viewer_password = random_password(12)
-        meeting_options = {record: options[:meeting_recorded].to_s, logoutURL: logout_url, moderatorPW: moderator_password, attendeePW: viewer_password}
+        meeting_options = {
+          record: options[:meeting_recorded].to_s,
+          logoutURL: logout_url,
+          moderatorPW: moderator_password,
+          attendeePW: viewer_password,
+          "meta_#{BbbApi::META_LISTED}": false,
+          "meta_#{BbbApi::META_TOKEN}": meeting_token
+        }
+        meeting_options.merge!(
+          { "meta_#{BbbApi::META_HOOK_URL}": options[:hook_url] }
+        ) if options[:hook_url]
+
+        if Rails.configuration.use_webhooks
+          webhook_register(options[:hook_url], meeting_id)
+        end
+
         # Create the meeting
         bbb.create_meeting(options[:meeting_name], meeting_id, meeting_options)
 
@@ -101,7 +120,7 @@ module BbbApi
       options[:recordID] = record_id
     end
     if meeting_id
-      options[:meetingID] = (Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base]+meeting_id)).to_s
+      options[:meetingID] = bbb_meeting_id(meeting_id)
     end
     res = bbb_safe_execute :get_recordings, options
 
@@ -148,6 +167,8 @@ module BbbApi
       else
         []
       end
+
+      recording[:listed] = bbb_is_recording_listed(recording)
     end
     res
   end
@@ -168,8 +189,11 @@ module BbbApi
     response_data = bbb_exception_res exc
   end
 
-  def bbb_update_recordings(id, published)
+  def bbb_update_recordings(id, published, metadata)
     bbb_safe_execute :publish_recordings, id, published
+
+    params = { recordID: id }.merge(metadata)
+    bbb_safe_execute :send_api_request, "updateRecordings", params
   end
 
   def bbb_delete_recordings(id)
@@ -189,6 +213,67 @@ module BbbApi
       end
     end
     response_data
+  end
+
+  def bbb_is_recording_listed(recording)
+    !recording[:metadata].blank? &&
+      recording[:metadata][BbbApi::META_LISTED.to_sym] == "true"
+  end
+
+  # Parses a recording as returned by getRecordings and returns it
+  # as an object as expected by the views.
+  # TODO: this is almost the same done by jbuilder templates (bbb/recordings),
+  #       how to reuse them?
+  def parse_recording_for_view(recording)
+    recording[:previews] ||= []
+    previews = recording[:previews].map do |preview|
+      {
+        url: preview[:content],
+        width: preview[:width],
+        height: preview[:height],
+        alt: preview[:alt]
+      }
+    end
+    recording[:playbacks] ||= []
+    playbacks = recording[:playbacks].map do |playback|
+      {
+        type: playback[:type],
+        type_i18n: t(playback[:type]),
+        url: playback[:url],
+        previews: previews
+      }
+    end
+    {
+      id: recording[:recordID],
+      name: recording[:name],
+      published: recording[:published],
+      end_time: recording[:endTime].to_s,
+      start_time: recording[:startTime].to_s,
+      length: recording[:length],
+      listed: recording[:listed],
+      playbacks: playbacks,
+      previews: previews
+    }
+  end
+
+  def webhook_register(url, meeting_id=nil)
+    params = { callbackURL: url }
+    params.merge!({ meetingID: meeting_id }) if meeting_id.present?
+    bbb_safe_execute :send_api_request, "hooks/create", params
+  end
+
+  def webhook_remove(url)
+    res = bbb_safe_execute :send_api_request, "hooks/list"
+    if res && res[:hooks] && res[:hooks][:hook]
+      res[:hooks][:hook] = [res[:hooks][:hook]] unless res[:hooks][:hook].is_a?(Array)
+      hook = res[:hooks][:hook].select{ |h|
+        h[:callbackURL] == url
+      }.first
+      if hook.present?
+        params = { hookID: hook[:hookID] }
+        bbb_safe_execute :send_api_request, "hooks/destroy", params
+      end
+    end
   end
 
   def success_join_res(join_url)

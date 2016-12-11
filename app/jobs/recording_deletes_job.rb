@@ -28,7 +28,7 @@ class RecordingDeletesJob < ApplicationJob
       if !bbb_res[:recordings] || bbb_res[:messageKey] == 'noRecordings'
         ActionCable.server.broadcast "#{room}_recording_updates_channel",
           action: 'delete',
-          record_id: record_id
+          id: record_id
         break
       end
       sleep sleep_time

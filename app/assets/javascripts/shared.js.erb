@@ -20,12 +20,6 @@ $.ajaxSetup({
   }
 });
 
-var PUBLISHED_CLASSES = ['fa-eye-slash', 'fa-eye']
-
-var getPublishClass = function(published) {
-  return PUBLISHED_CLASSES[+published];
-}
-
 var loopJoin = function() {
   var jqxhr = Meeting.getInstance().getJoinMeetingResponse();
   jqxhr.done(function(data) {
@@ -38,8 +32,9 @@ var loopJoin = function() {
   jqxhr.fail(function(xhr, status, error) {
     console.info("meeting join failed");
   });
-}
+};
 
+var alertTimeout = null;
 var showAlert = function(html, timeout_delay) {
   if (!html) {
     return;
@@ -49,12 +44,34 @@ var showAlert = function(html, timeout_delay) {
   $('#alerts').html($('.alert-template').html());
 
   if (timeout_delay) {
-    setTimeout(function() {
+    clearTimeout(alertTimeout);
+    alertTimeout = setTimeout(function() {
       $('#alerts > .alert').alert('close');
     }, timeout_delay);
   }
-}
+};
 
 var displayRoomURL = function() {
   $('.meeting-url').val(Meeting.getInstance().getURL());
-}
+};
+
+var showNotification = function(title, options) {
+  if (Notification.permission === "granted") {
+    var icon = '<%= asset_path("bbb-logo.png") %>';
+    options = $.extend(options, {
+      icon: icon
+    });
+    var notification = new Notification(title, options);
+    notification.onclick = function() {
+      window.focus();
+    };
+  }
+};
+
+// For now there are notifications only for users signed in and when they
+// are in their room's page
+$(document).on("turbolinks:load", function() {
+  if (GreenLight.user.roomOwner) {
+    Notification.requestPermission();
+  }
+});

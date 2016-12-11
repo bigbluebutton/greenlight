@@ -100,6 +100,15 @@
         .tooltip('fixTitle');
     });
 
+    // button used to send invitations to the meeting (i.e. "mailto:" link)
+    $('.center-panel-wrapper').on('click', '.meeting-invite', function (event) {
+      var meetingURL = Meeting.getInstance().getURL();
+      var subject = $(this).data("invite-subject");
+      var body = $(this).data("invite-body").replace("&&URL&&", meetingURL);
+      var mailto = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      window.open(mailto);
+    });
+
     $('.center-panel-wrapper').on('mouseleave', '.meeting-url-copy', function (event, msg) {
       $(this).blur();
     });
@@ -120,7 +129,7 @@
       selector: '.has-tooltip',
       container: 'body'
     };
-    $(document).tooltip(options)
+    $(document).tooltip(options);
     var options = {
       selector: '.bottom-tooltip',
       container: 'body',
@@ -151,7 +160,7 @@
     var joinedMeetings = localStorage.getItem('joinedMeetings');
     if (joinedMeetings && joinedMeetings.length > 0) {
       joinedMeetings = joinedMeetings.split(',');
-      $('.center-panel-wrapper .panel-footer').removeClass('hidden')
+      $('.center-panel-wrapper .panel-footer').removeClass('hidden');
 
       for (var i = joinedMeetings.length - 1; i >= 0; i--) {
         $('ul.previously-joined').append('<li><a href="/meetings/'+joinedMeetings[i]+'">'+joinedMeetings[i]+'</a></li>');

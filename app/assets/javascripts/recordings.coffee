@@ -37,7 +37,7 @@ class @Recordings
         { data: "previews", orderable: false },
         { data: "duration", orderable: false },
         { data: "playbacks", orderable: false },
-        { data: "published", visible: false },
+        { data: "listed", visible: false },
         { data: "id", orderable: false }
       ],
       columnDefs: [
@@ -45,10 +45,13 @@ class @Recordings
           targets: 0,
           render: (data, type, row) ->
             if type == 'display'
-              return new Date(data)
+              date = new Date(data)
+              title = date
                 .toLocaleString($('html').attr('lang'),
                   {month: 'long', day: 'numeric', year: 'numeric',
                   hour12: 'true', hour: '2-digit', minute: '2-digit'})
+              timeago = '<time datetime="'+date.toISOString()+'" data-time-ago="'+date.toISOString()+'">'+date.toISOString()+'</time>'
+              return title+'<span class="timeago">('+timeago+')</span>'
             return data
         },
         {
@@ -78,18 +81,18 @@ class @Recordings
           render: (data, type, row) ->
             if type == 'display'
               roomName = Meeting.getInstance().getId()
-              published = row.published
-              publishText = if published then 'unpublish' else 'publish'
               recordingActions = $('.hidden-elements').find('.recording-actions')
-              recordingActions.find('.recording-update > i.default')
-                .removeClass(PUBLISHED_CLASSES.join(' '))
-                .addClass(getPublishClass(published))
-              recordingActions.find('.recording-update > i.hover')
-                .removeClass(PUBLISHED_CLASSES.join(' '))
-                .addClass(getPublishClass(!published))
-              recordingActions.find('.recording-update')
-                .attr('data-published', published)
-                .attr('title', I18n[publishText+'_recording'])
+              classes = ['recording-unpublished', 'recording-unlisted', 'recording-published']
+              if row.published
+                if row.listed
+                  cls = classes[2]
+                else
+                  cls = classes[1]
+              else
+                cls = classes[0]
+              trigger = recordingActions.find('.recording-update-trigger')
+              trigger.removeClass(classes.join(' '))
+              trigger.addClass(cls)
               return recordingActions.html()
             return data
         }
@@ -106,16 +109,32 @@ class @Recordings
       @getTable().api().clear().draw().destroy()
 
     # enable popovers
+    # can't use trigger:'focus' because it doesn't work will with buttons inside
+    # the popover
     options = {
       selector: '.has-popover',
       html: true,
-      trigger: 'focus',
+      trigger: 'click',
       title: ->
-        return I18n.are_you_sure;
+        return $(this).data("popover-title");
       content: ->
-        return $(".delete-popover-body").html()
+        bodySelector = $(this).data("popover-body")
+        return $(bodySelector).html()
     }
     $('#recordings').popover(options)
+
+    # close popovers manually when clicking outside of them or in buttons
+    # with [data-dismiss="popover"]
+    # careful to hide only the open popover and not all of them, otherwise they won't reopen
+    $('body').on 'click', (e) ->
+      $('.has-popover').each ->
+        if !$(this).is(e.target) and $(this).has(e.target).length == 0 and $('.popover.in').has(e.target).length == 0
+          if $(this).next(".popover.in").length > 0
+            $(this).popover('hide')
+    $(document).on 'click', '[data-dismiss="popover"]', (e) ->
+      $('.has-popover').each ->
+        if $(this).next(".popover.in").length > 0
+          $(this).popover('hide')
 
   # Gets the current instance or creates a new one
   @getInstance: ->
@@ -153,24 +172,32 @@ class @Recordings
   # setup click handlers for the action buttons
   setupActionHandlers: ->
     table_api = this.table.api()
+
     @getTable().on 'click', '.recording-update', (event) ->
       btn = $(this)
       row = table_api.row($(this).closest('tr')).data()
       url = $('.meeting-url').val()
       id = row.id
-      published = btn.data('published')
+
+      published = btn.data('visibility') == "unlisted" ||
+        btn.data('visibility') == "published"
+      listed = btn.data('visibility') == "published"
+
       btn.prop('disabled', true)
+
+      data = { published: published.toString() }
+      data["meta_" + GreenLight.META_LISTED] = listed.toString();
       $.ajax({
         method: 'PATCH',
         url: url+'/recordings/'+id,
-        data: {published: (!published).toString()}
+        data: data
       }).done((data) ->
 
       ).fail((data) ->
         btn.prop('disabled', false)
       )
 
-    this.table.on 'click', '.recording-delete', (event) ->
+    @getTable().on 'click', '.recording-delete', (event) ->
       btn = $(this)
       row = table_api.row($(this).closest('tr')).data()
       url = $('.meeting-url').val()
@@ -184,6 +211,9 @@ class @Recordings
       ).fail((data) ->
         btn.prop('disabled', false)
       )
+
+    @getTable().on 'draw.dt', (event) ->
+      $('time[data-time-ago]').timeago();
 
   getTable: ->
     @table

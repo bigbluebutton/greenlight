@@ -15,15 +15,17 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 <div <%= "hidden" if hidden %> class="meeting-url-wrapper">
   <div class="input-group">
-    <input type="text" class="form-control meeting-url"/>
-    <span class="input-group-btn">
+    <div class="meeting-url-group">
+      <input type="text" class="form-control meeting-url"/>
       <% if params[:action] == 'index' %>
-        <button type="button" class="btn btn-default generate-link has-tooltip"
-          title="<%= t('url_refresh_hint') %>"
-        >
-          <i class="fa fa-refresh" aria-hidden="true"></i>
-        </button>
+        <i class="fa fa-refresh generate-link has-tooltip" aria-hidden="true"
+           title="<%= t('url_refresh_hint') %>"
+        ></i>
       <% end %>
+    </div>
+
+    <span class="input-group-btn">
+
       <button type="button" class="btn btn-default meeting-url-copy has-tooltip"
         title="<%= t('url_copy_explanation') %>"
         data-copied-hint="<%= t('copied') %>"
@@ -32,6 +34,22 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
       >
         <i class="fa fa-paperclip" aria-hidden="true"></i>
       </button>
+
+      <% if current_user %>
+        <% body = t('meeting_invite.signed_in.body', user: current_user.name) %>
+        <% subject = t('meeting_invite.signed_in.subject', user: current_user.name) %>
+      <% else %>
+        <% body = t('meeting_invite.not_signed_in.body') %>
+        <% subject = t('meeting_invite.not_signed_in.subject') %>
+      <% end %>
+      <button type="button" class="btn btn-default meeting-invite has-tooltip"
+        title="<%= t('meeting_invite.explanation') %>"
+        data-invite-body="<%= body %>"
+        data-invite-subject="<%= subject %>"
+      >
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+      </button>
+
     </span>
   </div>
 </div>

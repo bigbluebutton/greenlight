@@ -20,6 +20,9 @@ class BbbController < ApplicationController
   before_action :authorize_recording_owner!, only: [:update_recordings, :delete_recordings]
   before_action :load_and_authorize_room_owner!, only: [:end]
 
+  skip_before_action :verify_authenticity_token, only: :callback
+  before_action :validate_checksum, only: :callback
+
   # GET /:resource/:id/join
   def join
     if params[:name].blank?
@@ -39,7 +42,9 @@ class BbbController < ApplicationController
           user_is_moderator: true
         }
       end
-      options[:meeting_logout_url] = "#{request.base_url}/#{params[:resource]}/#{params[:id]}"
+      base_url = "#{request.base_url}/#{params[:resource]}/#{params[:id]}"
+      options[:meeting_logout_url] = base_url
+      options[:hook_url] = "#{base_url}/callback"
 
       bbb_res = bbb_join_url(
         params[:id],
@@ -47,11 +52,30 @@ class BbbController < ApplicationController
         options
       )
 
+      # the user can join the meeting
       if bbb_res[:returncode] && current_user && current_user == user
         JoinMeetingJob.perform_later(user.encrypted_id)
+
+      # user will be waiting for a moderator
+      else
+        NotifyUserWaitingJob.perform_later(user.encrypted_id, params[:name])
       end
 
       render_bbb_response bbb_res, bbb_res[:response]
+    end
+  end
+
+  # POST /:resource/:id/callback
+  # Endpoint for webhook calls from BigBlueButton
+  def callback
+    begin
+      data = JSON.parse(read_body(request))
+      treat_callback_event(data["event"])
+    rescue Exception => e
+      logger.error "Error parsing webhook data. Data: #{data}, exception: #{e.inspect}"
+
+      # respond with 200 anyway so BigBlueButton knows the hook call was ok
+      render head(:ok)
     end
   end
 
@@ -76,9 +100,11 @@ class BbbController < ApplicationController
 
   # PATCH /rooms/:id/recordings/:record_id
   def update_recordings
-    bbb_res = bbb_update_recordings(params[:record_id], params[:published] == 'true')
+    published = params[:published] == 'true'
+    metadata = params.select{ |k, v| k.match(/^meta_/) }
+    bbb_res = bbb_update_recordings(params[:record_id], published, metadata)
     if bbb_res[:returncode]
-      RecordingUpdatesJob.perform_later(@user.encrypted_id, params[:record_id], bbb_res[:published])
+      RecordingUpdatesJob.perform_later(@user.encrypted_id, params[:record_id])
     end
     render_bbb_response bbb_res
   end
@@ -127,5 +153,81 @@ class BbbController < ApplicationController
     @status = bbb_res[:status]
     @response = response
     render status: @status
+  end
+
+  def read_body(request)
+    request.body.read.force_encoding("UTF-8")
+  end
+
+  def treat_callback_event(event)
+    eventName = (event.present? && event['header'].present?) ? event['header']['name'] : nil
+
+    # a recording is ready
+    if eventName == "publish_ended"
+      if event['payload'] && event['payload']['metadata'] && event['payload']['meeting_id']
+        token = event['payload']['metadata'][META_TOKEN]
+        record_id = event['payload']['meeting_id']
+
+        # the webhook event doesn't have all the data we need, so we need
+        # to send a getRecordings anyway
+        # TODO: if the webhooks included all data in the event we wouldn't need this
+        rec_info = bbb_get_recordings(token, record_id)
+        rec_info = rec_info[:recordings].first
+        RecordingCreatedJob.perform_later(token, parse_recording_for_view(rec_info))
+
+        # send an email to the owner of this recording, if defined
+        if Rails.configuration.mail_notifications
+          owner = User.find_by(encrypted_id: token)
+          RecordingReadyEmailJob.perform_later(owner) if owner.present?
+        end
+
+        # TODO: remove the webhook now that the meeting and recording are done
+        # remove only if the meeting is not running, otherwise the hook is needed
+        # if Rails.configuration.use_webhooks
+        #   webhook_remove("#{base_url}/callback")
+        # end
+      else
+        logger.error "Bad format for event #{event}, won't process"
+      end
+    else
+      logger.info "Callback event will not be treated. Event name: #{eventName}"
+    end
+
+    render head(:ok) && return
+  end
+
+  # Validates the checksum received in a callback call.
+  # If the checksum doesn't match, renders an ok and aborts execution.
+  def validate_checksum
+    secret = ENV['BIGBLUEBUTTON_SECRET']
+    checksum = params["checksum"]
+    data = read_body(request)
+    callback_url = uri_remove_param(request.url, "checksum")
+
+    checksum_str = "#{callback_url}#{data}#{secret}"
+    calculated_checksum = Digest::SHA1.hexdigest(checksum_str)
+
+    if calculated_checksum != checksum
+      logger.error "Checksum did not match. Calculated: #{calculated_checksum}, received: #{checksum}"
+
+      # respond with 200 anyway so BigBlueButton knows the hook call was ok
+      # but abort execution
+      render head(:ok) && return
+    end
+  end
+
+  # Removes parameters from an URI
+  def uri_remove_param(uri, params = nil)
+    return uri unless params
+    params = Array(params)
+    uri_parsed = URI.parse(uri)
+    return uri unless uri_parsed.query
+    new_params = uri_parsed.query.gsub(/&amp;/, '&').split('&').reject { |q| params.include?(q.split('=').first) }
+    uri = uri.split('?').first
+    if new_params.count > 0
+      "#{uri}?#{new_params.join('&')}"
+    else
+      uri
+    end
   end
 end

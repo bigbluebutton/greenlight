@@ -14,9 +14,11 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-module UsersHelper
-  def is_room_owner
-    token = current_user ? current_user.encrypted_id : nil
-    token.present? && params[:id].present? && token == params[:id]
+class NotifyUserWaitingJob < ApplicationJob
+  queue_as :default
+
+  def perform(room, user)
+    ActionCable.server.broadcast "#{room}_meeting_updates_channel",
+                                 { action: 'user_waiting', user: user }
   end
 end

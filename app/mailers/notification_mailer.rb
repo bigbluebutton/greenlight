@@ -14,9 +14,12 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-module UsersHelper
-  def is_room_owner
-    token = current_user ? current_user.encrypted_id : nil
-    token.present? && params[:id].present? && token == params[:id]
+class NotificationMailer < ActionMailer::Base
+  default from: Rails.configuration.smtp_from
+
+  def recording_ready_email(user)
+    @user = user
+    @room_url = resource_url(resource: "rooms", id: user.encrypted_id)
+    mail(to: user.email, subject: t('.subject'))
   end
 end

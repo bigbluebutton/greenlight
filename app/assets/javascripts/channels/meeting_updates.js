@@ -21,7 +21,7 @@
       $(".center-panel-wrapper").html(html);
       displayRoomURL();
     });
-  }
+  };
 
   var initRooms = function() {
     App.messages = App.cable.subscriptions.create({
@@ -43,6 +43,13 @@
         } else if (data.action === 'meeting_ended') {
           sessionStatusRefresh($('.meeting-url').val());
           showAlert(I18n.meeting_ended, 4000);
+        } else if (data.action === 'user_waiting') {
+          // show a browser notification only to the owner
+          if (GreenLight.user.roomOwner) {
+            showNotification(I18n.user_waiting_title, {
+              body: I18n.user_waiting_body.replace(/%{user}/, data.user)
+            });
+          }
         }
       }
     });

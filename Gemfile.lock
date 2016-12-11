@@ -152,6 +152,9 @@ GEM
       nokogiri (~> 1.6.0)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails-timeago (2.15.0)
+      actionpack (>= 3.1)
+      activesupport (>= 3.1)
     railties (5.0.0.1)
       actionpack (= 5.0.0.1)
       activesupport (= 5.0.0.1)
@@ -224,6 +227,7 @@ DEPENDENCIES
   omniauth-twitter (= 1.2.1)
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
+  rails-timeago (~> 2.0)
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
@@ -237,4 +241,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.5
+   1.13.6
