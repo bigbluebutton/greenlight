@@ -58,8 +58,8 @@ en-US:
     user_waiting_title: A user is waiting
   copied: Copied
   copy_error: Use Ctrl-c to copy
-  create_session: Create a Session
-  create_your_session: Create your own session
+  create_session: Invite others to a meeting
+  create_your_session: Create your own meeting
   date_recorded: Date
   duration: Duration (minutes)
   end: End
@@ -68,9 +68,9 @@ en-US:
   greet_guest: Welcome to %{name} Meeting Space
   hi_all: Hi Everyone
   join: Join
-  join_session: Join the current session
+  join_session: Join the current meeting
   join_session_id: Join %{id}
-  join_session_user: Join %{name} session
+  join_session_user: Join %{name} meeting
   login: login
   logout: logout
   meeting_invite:
@@ -89,14 +89,14 @@ en-US:
       phrase1: "One of your recordings has just been made available."
       phrase2: "Access the following website to view it and publish to other users: %{url}"
       subject: "Your recording is ready!"
-  oauth_signup: Signup for customized sessions
+  oauth_signup: Signup for customized meetings
   past_recordings: Past Recordings
   footer_html: "%{greenlight_link} build %{version}, Powered by %{bbb_link}"
   presentation: Presentation
-  previously_joined_meetings: Previously Joined Sessions
+  previously_joined_meetings: Previously Joined Meetings
   published: Published
   return_to_room: Return to your personal room
-  session_url_explanation: The session will be taking place using the following URL
+  session_url_explanation: The meeting will be taking place using the following URL
   start: Start
   your_personal_room: Your Personal Room
   thumbnails: Thumbnails
