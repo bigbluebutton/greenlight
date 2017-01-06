@@ -70,6 +70,9 @@ module Greenlight
       config.action_mailer.default_options = {
         from: config.smtp_from
       }
+    else
+      # this needs to be set because it's always used to configure mailers
+      config.smtp_from = ""
     end
   end
 end
