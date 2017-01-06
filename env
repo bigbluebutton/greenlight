@@ -1,16 +1,48 @@
-# Rails secret key base
+# Step 1 - Create a secret key for rails
 #
-#   You can generate a secure one through the Greenlight docker image with:
-#   `docker run --rm bigbluebutton/greenlight rake secret`
+# You can generate a secure one through the Greenlight docker image 
+# with with the command
+#
+#   docker run --rm greenlight rake secret
 #
 SECRET_KEY_BASE=
 
-# BigBlueButton
+# Step 2 - Enter credentials for your BigBlueButton Server
 #
-#   The endpoint and secret from your bigbluebutton server
+# The endpoint and secret from your bigbluebutton server.  To get these values, run
+# the following command on your BigBlueButton server
 #
-BIGBLUEBUTTON_ENDPOINT=http://test-install.blindsidenetworks.com/bigbluebutton/
-BIGBLUEBUTTON_SECRET=8cd8ef52e8e101574e400365b55e11a6
+#    bbb-conf --secret
+#
+# and uncomment the following two variables
+#BIGBLUEBUTTON_ENDPOINT=
+#BIGBLUEBUTTON_SECRET=
+
+# If "true", GreenLight will register a webhook callback for each meeting
+# created. This callback is called for all events that happen in the meeting,
+# including the processing of its recording. These events are used to update
+# the web page dynamically as things happen in the server.
+# If not "true", the application will add a metadata to the meetings with this same
+# callback URL. Scripts can then be added to BigBlueButton to call this callback
+# URL and send specific events to GreenLight (e.g. a post publish script to warn
+# the application when recordings are done).
+GREENLIGHT_USE_WEBHOOKS=false
+
+GREENLIGHT_DOMAIN=localhost-lxc.org
+
+# Enable email notifications
+GREENLIGHT_MAIL_NOTIFICATIONS=true
+GREENLIGHT_DOMAIN=localhost-lxc.org
+
+SMTP_FROM=youremail@gmail.com
+SMTP_SERVER=smtp.gmail.com
+SMTP_DOMAIN=gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=youremail@gmail.com
+SMTP_PASSWORD=yourpassword
+# SMTP_TLS=false
+# SMTP_AUTH=login
+# SMTP_STARTTLS_AUTO=true
 
 # Twitter Login Provider (optional)
 #
