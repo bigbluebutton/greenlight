@@ -34,7 +34,7 @@
     if (!nameInput.val()) {
       var lastName = localStorage.getItem('lastJoinedName');
       if (lastName !== 'undefined') {
-        nameInput.val(localStorage.getItem('lastJoinedName'));
+        nameInput.val(lastName);
       }
     }
 
