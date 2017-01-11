@@ -43,6 +43,11 @@ module ApplicationHelper
     end
   end
 
+  # Whether the current page is the page of a room/meeting or not
+  def on_room_or_meeting_page?
+    params[:id].present?
+  end
+
   def version
     Greenlight::VERSION
   rescue

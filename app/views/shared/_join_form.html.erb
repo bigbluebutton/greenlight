@@ -16,12 +16,13 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 <div class="join-form-wrapper">
   <div class="center-block">
     <div class="join-form input-group input-spacing">
+
+      <!-- if the user is signed in, add a hidden input with their name -->
       <% if current_user %>
-        <% @current_user = current_user %>
-        <%= text_field :current_user, :name, class: 'form-control meeting-user-name', type: 'hidden' %>
-      <% else %>
-        <%= text_field :nil, :nil, class: 'form-control meeting-user-name', placeholder: t('enter_name') %>
+        <%= text_field_tag 'user[name]', current_user.name, class: 'form-control meeting-user-name', type: 'hidden' %>
       <% end %>
+
+      <!-- if admin means the user is signed in and owns the room -->
       <% if admin? %>
         <% if @meeting_running %>
           <div class="col-sm-6">
@@ -36,19 +37,33 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
           </div>
         <% else %>
           <button type="button" class="btn btn-primary center-block meeting-join">
-            <%= t('start') %>
+            <%= t('start_meeting') %>
           </button>
         <% end %>
-      <% elsif current_user %>
-        <button type="button" class="btn btn-primary center-block meeting-join">
-          <%= t('join') %>
-        </button>
       <% else %>
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-primary meeting-join">
-            <%= t('join') %>
+
+        <!-- on the page of a room/meeting, the user might have to enter a name -->
+        <% if on_room_or_meeting_page? %>
+          <% if current_user %>
+            <button type="button" class="btn btn-primary center-block meeting-join">
+              <%= t('join') %>
+            </button>
+          <% else %>
+            <%= text_field_tag 'user[name]', '', class: 'form-control meeting-user-name', placeholder: t('enter_name') %>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-primary center-block meeting-join">
+                <%= t('join') %>
+              </button>
+            </span>
+          <% end %>
+
+        <!-- on the landing page we don't ask for a name, just show the start button -->
+        <% else %>
+          <button type="button" class="btn btn-primary center-block meeting-join">
+            <%= t('start_meeting') %>
           </button>
-        </span>
+        <% end %>
+
       <% end %>
     </div>
   </div>
