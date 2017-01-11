@@ -32,7 +32,10 @@
     Meeting.clear();
     var nameInput = $('.meeting-user-name');
     if (!nameInput.val()) {
-      nameInput.val(localStorage.getItem('lastJoinedName'));
+      var lastName = localStorage.getItem('lastJoinedName');
+      if (lastName !== 'undefined') {
+        nameInput.val(lastName);
+      }
     }
 
     // setup event handlers
@@ -40,18 +43,25 @@
       var name = $('.meeting-user-name').val();
       Meeting.getInstance().setName(name);
       Meeting.getInstance().setId($(".page-wrapper").data('id'));
-      var jqxhr = Meeting.getInstance().getJoinMeetingResponse();
 
-      jqxhr.done(function(data) {
-        if (data.messageKey === 'wait_for_moderator') {
-          waitForModerator(Meeting.getInstance().getURL());
-        } else {
-          $(location).attr("href", data.response.join_url);
-        }
-      });
-      jqxhr.fail(function(xhr, status, error) {
-        console.info("meeting join failed");
-      });
+      // a user name is set, join the user into the session
+      if (name !== undefined && name !== null) {
+        var jqxhr = Meeting.getInstance().getJoinMeetingResponse();
+        jqxhr.done(function(data) {
+          if (data.messageKey === 'wait_for_moderator') {
+            waitForModerator(Meeting.getInstance().getURL());
+          } else {
+            $(location).attr("href", data.response.join_url);
+          }
+        });
+        jqxhr.fail(function(xhr, status, error) {
+          console.info("meeting join failed");
+        });
+
+      // if not user name was set it means we must ask for a name
+      } else {
+        $(location).attr("href", Meeting.getInstance().getURL());
+      }
     });
 
     $('.center-panel-wrapper').on ('keypress', '.meeting-user-name', function (event) {
