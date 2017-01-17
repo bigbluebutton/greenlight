@@ -1,7 +1,9 @@
 version: '2'
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
       - '80:80'
     volumes:
@@ -10,7 +12,6 @@ services:
       - gem_cache
     expose:
       - '3001'
-    working_dir: '/usr/src/app'
     stdin_open: true
     tty: true
     command: bundle exec rails s -p 80 -b '0.0.0.0'
