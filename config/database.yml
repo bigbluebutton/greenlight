@@ -21,5 +21,10 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production/production.sqlite3
+  adapter: <%= ENV['DB_ADAPTER'] || 'sqlite3' %>
+  host: <%= ENV['DB_HOST'] %>
+  database: <%= ENV['DB_NAME'] || 'db/production/production.sqlite3' %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  pool: <%= ENV['DB_POOL'] || 5 %>
+  timeout: <%= ENV['DB_TIMEOUT'] || 5000 %>
