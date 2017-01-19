@@ -47,7 +47,7 @@ SMTP_PASSWORD=yourpassword
 # Twitter Login Provider (optional)
 #
 #   You will need to register the app at https://apps.twitter.com/
-#   For the callback URL use 'http://<your hostname:port>/users/auth/twitter/callback'
+#   For the callback URL use 'http://<your hostname:port>/auth/twitter/callback'
 #   Once registered copy the ID and Secret here
 #
 TWITTER_ID=
@@ -57,7 +57,7 @@ TWITTER_SECRET=
 #
 #   You will need to register for at https://console.developers.google.com/apis/credentials
 #   Select Oauth client ID -> web application
-#   For the callback URL use 'http://<your hostname:port>/users/auth/google/callback'
+#   For the callback URL use 'http://<your hostname:port>/auth/google/callback'
 #   Once registered copy the ID and Secret here
 #
 GOOGLE_OAUTH2_ID=
