@@ -1,0 +1,13 @@
+<span class="signup pull-right">
+  <% if current_user %>
+    <% if !@user %>
+      <%= link_to current_user.name, current_user.room_url %> |
+    <% else %>
+      <%= current_user.name %> |
+    <% end %>
+    <%= link_to t('logout'), user_logout_url %>
+  <% elsif @user %>
+    <%= t('are_you', name: @user.username) %> |
+    <%= link_to t('login'), "/auth/#{@user.provider}" %>
+  <% end %>
+</span>

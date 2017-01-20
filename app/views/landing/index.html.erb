@@ -33,11 +33,17 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
     <div class="center-panel-wrapper">
       <%= render layout: 'shared/center_panel' do %>
-        <div class="center-block center-panel-conent-size col-xs-12">
+        <div class="center-block center-panel-content-size col-xs-12">
           <%= render 'shared/meeting_url', hidden: false %>
           <%= render 'shared/join_form' %>
         </div>
       <% end %>
+    </div>
+
+    <div class="center-block col-xs-6 login">
+      <div class="text-center">
+        <span class="login-text"><%= t('login_description') %></span> <%= link_to 'Login', '/users/login', class: 'btn btn-lg btn-primary' %>
+      </div>
     </div>
 
   </div>

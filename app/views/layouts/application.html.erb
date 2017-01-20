@@ -23,6 +23,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
   </head>
 
   <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>">
@@ -35,35 +36,9 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
       <span class="logo-wrapper pull-left">
         <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), root_path %>
       </span>
-      <span class="signup pull-right">
-        <% if current_user %>
-          <% if !@user %>
-            <%= link_to current_user.name, current_user.room_url %> |
-          <% else %>
-            <%= current_user.name %> |
-          <% end %>
-          <%= link_to t('logout'), user_logout_url %>
-        <% elsif @user %>
-          <%= t('are_you', name: @user.username) %> |
-          <%= link_to t('login'), "/auth/#{@user.provider}" %>
-        <% else %>
-          <% if omniauth_providers_configured.present? %>
-            <span class="signup-description hidden-xs">
-              <%= t('oauth_signup') %>
-            </span>
-          <% end %>
-          <% if omniauth_providers_configured(:twitter) %>
-            <%= link_to('/auth/twitter', :class => "btn icon btn-lg btn-social-icon btn-twitter") do %>
-              <span class="fa fa-twitter"></span>
-            <% end %>
-          <% end %>
-          <% if omniauth_providers_configured(:google) %>
-            <%= link_to('/auth/google', :class => "btn icon btn-lg btn-social-icon btn-google") do %>
-              <span class="fa fa-google"></span>
-            <% end %>
-          <% end %>
-        <% end %>
-      </span>
+      <% unless params[:controller] == 'sessions' && params[:action] == 'new' %>
+        <%= render 'shared/signup' %>
+      <% end %>
     </div>
     <!-- End of Header -->
 

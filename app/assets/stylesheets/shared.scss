@@ -26,13 +26,17 @@ html, body {
   background: #ffffff;
 }
 
-.app-background {
+.background {
   height: 350px;
   width: 100%;
   background: asset-url('greenlight_background');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+body[data-controller=landing].app-background {
+  @extend .background;
 }
 
 body[data-controller=landing][data-action=rooms].app-background {
@@ -61,14 +65,14 @@ body[data-controller=landing][data-action=rooms].app-background {
   padding: 20px;
 }
 
+.center-block {
+  float: none;
+}
 .center-panel {
-  .center-block {
-    float: none;
-  }
   .center-panel-size {
     max-width: 900px
   }
-  .center-panel-conent-size {
+  .center-panel-content-size {
     max-width: 800px;
   }
 
@@ -113,4 +117,43 @@ body[data-controller=landing][data-action=rooms].app-background {
 
 .popover {
   max-width: none;
+}
+
+a.signin-link {
+  &:hover, &:focus {
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+
+.signin-link {
+  .signin-icon {
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+  }
+  .signin-button {
+    background: white;
+    width: 250px;
+    border: thin solid #888;
+    border-radius: 2px;
+    white-space: nowrap;
+    padding: 5px;
+    margin-bottom: 14px;
+  }
+  .signin-icon-wrapper {
+    display: inline-block;
+    width: 40px;
+  }
+  .signin-text-wrapper {
+    display: inline-block;
+    width: 200px;
+  }
+  .signin-text {
+    font-family: 'Roboto', sans-serif;
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+  }
 }
