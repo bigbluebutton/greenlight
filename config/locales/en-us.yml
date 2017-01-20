@@ -97,7 +97,7 @@ en-US:
   return_to_room: Return to your personal room
   session_url_explanation: The meeting will be taking place using the following URL
   signin_text: Log in with %{provider}
-  signup_description: Login for customized sessions
+  login_description: Login for customized sessions
   start: Start
   start_meeting: Start Meeting
   your_personal_room: Your Personal Room
