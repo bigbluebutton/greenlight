@@ -71,7 +71,9 @@ en-US:
   join_session: Join the current meeting
   join_session_id: Join %{id}
   join_session_user: Join %{name} meeting
+  logged_in_description_html: You are logged in as %{link}
   login: login
+  login_description: Want your own recorded meetings?
   logout: logout
   meeting_invite:
     explanation: Send an email with an invitation to this meeting
@@ -97,7 +99,6 @@ en-US:
   return_to_room: Return to your personal room
   session_url_explanation: The meeting will be taking place using the following URL
   signin_text: Log in with %{provider}
-  login_description: Login for customized sessions
   start: Start
   start_meeting: Start Meeting
   your_personal_room: Your Personal Room
