@@ -1,13 +1,13 @@
-<span class="signup pull-right">
+<span class="signup">
   <% if current_user %>
-    <% if !@user %>
-      <%= link_to current_user.name, current_user.room_url %> |
-    <% else %>
-      <%= current_user.name %> |
-    <% end %>
-    <%= link_to t('logout'), user_logout_url %>
-  <% elsif @user %>
-    <%= t('are_you', name: @user.username) %> |
-    <%= link_to t('login'), "/auth/#{@user.provider}" %>
+  <div class="text-center">
+    <span class=""><%= t('logged_in_description_html', link: link_to(current_user.name, current_user.room_url)) %></span>
+    <div class=""><%= link_to t('logout'), user_logout_url %></div>
+  </div>
+  <% else %>
+    <div class="text-center">
+      <span class=""><%= t('login_description') %></span>
+      <div class=""><%= link_to t('login'), '/users/login' %></div>
+    </div>
   <% end %>
 </span>

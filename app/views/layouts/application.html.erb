@@ -36,9 +36,6 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
       <span class="logo-wrapper pull-left">
         <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), root_path %>
       </span>
-      <% unless params[:controller] == 'sessions' && params[:action] == 'new' %>
-        <%= render 'shared/signup' %>
-      <% end %>
     </div>
     <!-- End of Header -->
 

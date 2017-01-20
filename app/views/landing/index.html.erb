@@ -41,9 +41,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     </div>
 
     <div class="center-block col-xs-6 login">
-      <div class="text-center">
-        <span class="login-text"><%= t('login_description') %></span> <%= link_to 'Login', '/users/login', class: 'btn btn-lg btn-primary' %>
-      </div>
+      <%= render 'shared/signup' %>
     </div>
 
   </div>
