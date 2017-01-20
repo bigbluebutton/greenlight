@@ -26,13 +26,17 @@ html, body {
   background: #ffffff;
 }
 
-.app-background {
+.background {
   height: 350px;
   width: 100%;
   background: asset-url('greenlight_background');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+body[data-controller=landing].app-background {
+  @extend .background;
 }
 
 body[data-controller=landing][data-action=rooms].app-background {
@@ -61,14 +65,14 @@ body[data-controller=landing][data-action=rooms].app-background {
   padding: 20px;
 }
 
+.center-block {
+  float: none;
+}
 .center-panel {
-  .center-block {
-    float: none;
-  }
   .center-panel-size {
     max-width: 900px
   }
-  .center-panel-conent-size {
+  .center-panel-content-size {
     max-width: 800px;
   }
 

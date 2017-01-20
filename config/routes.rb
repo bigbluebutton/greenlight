@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   resources :users, only: [:edit, :update]
+  get '/users/login', to: 'sessions#new'
   get '/users/logout', to: 'sessions#destroy', as: :user_logout
 
   match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
