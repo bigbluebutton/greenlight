@@ -5,7 +5,7 @@ Greenlight is a simple front-end application for [BigBlueButton](http://bigblueb
 ## Usage
 
 Install [docker](https://docs.docker.com/engine/getstarted/step_one/)  
-Create an environment variables file, here is a [template with instructions](https://raw.githubusercontent.com/zach-chai/greenlight/new_prod/env)  
+Create an environment variables file, here is a [template with instructions](https://raw.githubusercontent.com/bigbluebutton/greenlight/master/env)  
 Start the server in docker
 
     docker run -d -p 3000:80 -v ${pwd}/db/production --env-file env bigbluebutton/greenlight
