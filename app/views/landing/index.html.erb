@@ -36,20 +36,21 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
             </div>
           </div>
 
-          <div class="row">
+          <div class="row invite-join-wrapper">
             <div class="col-xs-6">
               <div class="title-wrapper text-center">
-                <div class="title">
+                <div class="title-invite">
                   <h2><%= t('invite') %></h2>
                   <span><%= t('invite_description') %></span>
                 </div>
               </div>
               <%= render 'shared/meeting_url', hidden: false %>
             </div>
+            <div class="verticle-line"></div>
             <div class="col-xs-6">
               <div class="title-wrapper text-center">
-                <div class="title">
-                  <h2><%= t('join_session_id', id: '<meeting-name>') %></h2>
+                <div class="title-join">
+                  <h2 class="join-meeting-title"><%= t('join') %></h2>
                 </div>
               </div>
               <%= render 'shared/join_form' %>

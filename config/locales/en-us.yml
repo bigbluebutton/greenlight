@@ -43,6 +43,7 @@ en-US:
   client:
     are_you_sure: Are you sure?
     delete_recording: Delete recording
+    join_title: Join "%{id}"
     meeting_ended: Meeting was ended
     meeting_started: Meeting was started
     no_recordings: No Recordings
@@ -72,7 +73,7 @@ en-US:
   invite_description: (share this link below to invite others to this meeting)
   join: Join
   join_session: Join the current meeting
-  join_session_id: Join "%{id}"
+  join_session_id: Join %{id}
   join_session_user: Join %{name} meeting
   logged_in_description_html: You are logged in as %{link}
   login: login
@@ -109,7 +110,6 @@ en-US:
   unlisted: Unlisted
   unpublished: Unpublished
   url_copy_explanation: Copy this URL to invite others to the meeting
-  url_refresh_hint: Generate a new meeting URL
   video: Video
   views: Views
   wait_for_mod_msg: Looks like you're the first one here...
