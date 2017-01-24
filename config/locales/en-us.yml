@@ -43,6 +43,7 @@ en-US:
   client:
     are_you_sure: Are you sure?
     delete_recording: Delete recording
+    join_title: Join "%{id}"
     meeting_ended: Meeting was ended
     meeting_started: Meeting was started
     no_recordings: No Recordings
@@ -58,15 +59,18 @@ en-US:
     user_waiting_title: A user is waiting
   copied: Copied
   copy_error: Use Ctrl-c to copy
-  create_session: Invite others to a meeting
   create_your_session: Create your own meeting
   date_recorded: Date
   duration: Duration (minutes)
   end: End
   enter_name: Enter your name
+  enter_meeting_name: Enter a meeting name
   greet_user: Welcome, %{name}
   greet_guest: Welcome to %{name} Meeting Space
   hi_all: Hi Everyone
+  home_title: Welcome to BigBlueButton
+  invite: Invite
+  invite_description: (share this link below to invite others to this meeting)
   join: Join
   join_session: Join the current meeting
   join_session_id: Join %{id}
@@ -106,7 +110,6 @@ en-US:
   unlisted: Unlisted
   unpublished: Unpublished
   url_copy_explanation: Copy this URL to invite others to the meeting
-  url_refresh_hint: Generate a new meeting URL
   video: Video
   views: Views
   wait_for_mod_msg: Looks like you're the first one here...

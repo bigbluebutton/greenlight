@@ -80,7 +80,7 @@ class @Recordings
           targets: -1,
           render: (data, type, row) ->
             if type == 'display'
-              roomName = Meeting.getInstance().getId()
+              roomName = Meeting.getInstance().getMeetingId()
               recordingActions = $('.hidden-elements').find('.recording-actions')
               classes = ['recording-unpublished', 'recording-unlisted', 'recording-published']
               if row.published
@@ -157,7 +157,7 @@ class @Recordings
   # refresh the recordings from the server
   refresh: ->
     table_api = this.table.api()
-    $.get "/rooms/"+Meeting.getInstance().getId()+"/recordings", (data) =>
+    $.get "/rooms/"+Meeting.getInstance().getMeetingId()+"/recordings", (data) =>
       @setOwner(data.is_owner)
       if !@owner
         table_api.column(-1).visible(false)

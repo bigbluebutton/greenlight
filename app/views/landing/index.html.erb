@@ -15,16 +15,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 <% content_for :title do %>
   <div class="title">
-    <h2><%= t('create_session') %></h2>
-  </div>
-<% end %>
-
-<% content_for :footer do %>
-  <div class="panel-footer hidden">
-    <div class="list-group text-center">
-      <h4><%= t('previously_joined_meetings') %></h4>
-      <ul class="previously-joined"></ul>
-    </div>
+    <h2><%= t('home_title') %></h2>
   </div>
 <% end %>
 
@@ -34,8 +25,38 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     <div class="center-panel-wrapper">
       <%= render layout: 'shared/center_panel' do %>
         <div class="center-block center-panel-content-size col-xs-12">
-          <%= render 'shared/meeting_url', hidden: false %>
-          <%= render 'shared/join_form' %>
+          <%= render 'shared/meeting_name_form' %>
+
+          <div class="row">
+            <div class="previously-joined-wrapper hidden">
+              <div class="list-group text-center">
+                <h4><%= t('previously_joined_meetings') %></h4>
+                <ul class="previously-joined"></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="row invite-join-wrapper">
+            <div class="col-xs-6">
+              <div class="title-wrapper text-center">
+                <div class="title-invite">
+                  <h2><%= t('invite') %></h2>
+                  <span><%= t('invite_description') %></span>
+                </div>
+              </div>
+              <%= render 'shared/meeting_url', hidden: false %>
+            </div>
+            <div class="verticle-line"></div>
+            <div class="col-xs-6">
+              <div class="title-wrapper text-center">
+                <div class="title-join">
+                  <h2 class="join-meeting-title"><%= t('join') %></h2>
+                </div>
+              </div>
+              <%= render 'shared/join_form' %>
+            </div>
+          </div>
+
         </div>
       <% end %>
     </div>
