@@ -17,11 +17,6 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
   <div class="input-group">
     <div class="meeting-url-group">
       <input type="text" class="form-control meeting-url"/>
-      <% if params[:action] == 'index' %>
-        <i class="fa fa-refresh generate-link has-tooltip" aria-hidden="true"
-           title="<%= t('url_refresh_hint') %>"
-        ></i>
-      <% end %>
     </div>
 
     <span class="input-group-btn">

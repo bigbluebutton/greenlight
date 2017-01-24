@@ -26,6 +26,10 @@ html, body {
   background: #ffffff;
 }
 
+.container-fluid {
+  height: 100%;
+}
+
 .background {
   height: 350px;
   width: 100%;
@@ -68,12 +72,17 @@ body[data-controller=landing][data-action=rooms].app-background {
 .center-block {
   float: none;
 }
+.center-panel-wrapper {
+  height: 100%;
+}
 .center-panel {
+  height: 100%;
   .center-panel-size {
-    max-width: 900px
+    max-width: 1200px
   }
   .center-panel-content-size {
-    max-width: 800px;
+    height: 100%;
+    max-width: 1100px;
   }
 
   .input-spacing {
@@ -156,4 +165,17 @@ a.signin-link {
     font-weight: bold;
     color: #444;
   }
+}
+
+.verticle-line {
+  // parent must be position relative to work
+  width: 1px;
+  background-color: lightgray;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+}
+
+.invite-join-wrapper {
+  position: relative;
 }
