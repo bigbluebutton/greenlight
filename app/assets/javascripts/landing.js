@@ -41,8 +41,8 @@
     // setup event handlers
     $('.center-panel-wrapper').on ('click', '.meeting-join', function (event) {
       var name = $('.meeting-user-name').val();
-      Meeting.getInstance().setName(name);
-      Meeting.getInstance().setId($(".page-wrapper").data('id'));
+      Meeting.getInstance().setUserName(name);
+      Meeting.getInstance().setMeetingId($(".page-wrapper").data('id'));
 
       // a user name is set, join the user into the session
       if (name !== undefined && name !== null) {
@@ -159,7 +159,7 @@
     $('.generate-link').click (function (e) {
       e.preventDefault();
       var newId = Math.trunc(Math.random() * 1000000000);
-      Meeting.getInstance().setId(newId);
+      Meeting.getInstance().setMeetingId(newId);
       $(".page-wrapper.meetings").data('id', newId);
       $('.meeting-url').val(Meeting.getInstance().getURL());
     });
