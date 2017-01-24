@@ -170,7 +170,7 @@
     var joinedMeetings = localStorage.getItem('joinedMeetings');
     if (joinedMeetings && joinedMeetings.length > 0) {
       joinedMeetings = joinedMeetings.split(',');
-      $('.center-panel-wrapper .panel-footer').removeClass('hidden');
+      $('.center-panel-wrapper .previously-joined-wrapper').removeClass('hidden');
 
       for (var i = joinedMeetings.length - 1; i >= 0; i--) {
         $('ul.previously-joined').append('<li><a href="/meetings/'+joinedMeetings[i]+'">'+joinedMeetings[i]+'</a></li>');
