@@ -1,0 +1,13 @@
+<div class="invite-join-wrapper hidden">
+  <div class="col-xs-6">
+    <%= render 'shared/title', title: t('invite') do %>
+      <span><%= t('invite_description') %></span>
+    <% end %>
+    <%= render 'shared/meeting_url', hidden: false %>
+  </div>
+  <div class="verticle-line"></div>
+  <div class="col-xs-6">
+    <%= render 'shared/title', title: t('join'), title_class: 'join-meeting-title' %>
+    <%= render 'shared/join_form' %>
+  </div>
+</div>

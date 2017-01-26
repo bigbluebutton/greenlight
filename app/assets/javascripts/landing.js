@@ -140,7 +140,12 @@
       $(".page-wrapper.meetings").data('id', newId);
       $('.meeting-url').val(Meeting.getInstance().getURL());
       $('.join-meeting-title').html(I18n.join_title.replace(/%{id}/, newId));
-    })
+      if (newId === '') {
+        $('.invite-join-wrapper').addClass('hidden');
+      } else {
+        $('.invite-join-wrapper').removeClass('hidden');
+      }
+    });
 
     // enable tooltips
     var options = {
