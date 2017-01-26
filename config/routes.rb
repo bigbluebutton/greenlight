@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   get '/:resource/:id/session_status_refresh', to: 'landing#session_status_refresh'
   post '/:resource/:id/callback', to: 'bbb#callback' #, defaults: {format: 'json'}
   delete '/rooms/:id/end', to: 'bbb#end', defaults: {format: 'json'}
+  get '/:resource/:room_id/:id/join', to: 'bbb#join', defaults: {format: 'json'}
   get '/rooms/:id/recordings', to: 'bbb#recordings', defaults: {format: 'json'}
   patch '/rooms/:id/recordings/:record_id', to: 'bbb#update_recordings', defaults: {format: 'json'}
   delete '/rooms/:id/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {format: 'json'}

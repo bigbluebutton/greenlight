@@ -191,6 +191,15 @@
   var initRooms = function() {
     displayRoomURL();
 
+    $('.center-panel-wrapper').on('keyup', '.meeting-name', function (event, msg) {
+      var newName = $(this).val();
+      // Meeting.getInstance().setMeetingId(newId);
+      Meeting.getInstance().setMeetingName(newName);
+      // $(".page-wrapper.meetings").data('id', newId);
+      // $('.meeting-url').val(Meeting.getInstance().getURL());
+      // $('.join-meeting-title').html(I18n.join_title.replace(/%{id}/, newId));
+    });
+
     Recordings.getInstance().refresh();
     Recordings.getInstance().setupActionHandlers();
   };

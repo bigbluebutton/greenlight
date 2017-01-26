@@ -19,7 +19,7 @@
 _meetingInstance = null
 
 class @Meeting
-  constructor: (@meetingId, @type, @userName) ->
+  constructor: (@meetingId, @type, @userName, @meetingName) ->
 
   # Gets the current instance or creates a new one
   @getInstance: ->
@@ -35,8 +35,12 @@ class @Meeting
   @clear: ->
     _meetingInstance = null
 
-  @buildMeetingURL: (id, type) ->
-    return @buildFullDomainURL() + '/' + type + '/' + encodeURIComponent(id)
+  @buildMeetingURL: (id, type, name) ->
+    if name
+      name = '/' + encodeURIComponent(name)
+    else
+      name = ''
+    return @buildFullDomainURL() + '/' + type + '/' + encodeURIComponent(id) + name
 
   @buildFullDomainURL: ->
     url = location.protocol + '//' + location.hostname
@@ -80,6 +84,10 @@ class @Meeting
     @meetingId = id
     return this
 
+  setMeetingName: (name) ->
+    @meetingName = name
+    return this
+
   getType: ->
     return @type
 
@@ -88,7 +96,7 @@ class @Meeting
     return this
 
   getURL: ->
-    return Meeting.buildMeetingURL(@meetingId, @type)
+    return Meeting.buildMeetingURL(@meetingId, @type, @meetingName)
 
   getUserName: ->
     return @userName
