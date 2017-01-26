@@ -36,7 +36,7 @@ class @Meeting
     _meetingInstance = null
 
   @buildMeetingURL: (id, type) ->
-    return @buildFullDomainURL() + '/' + type + '/' + id
+    return @buildFullDomainURL() + '/' + type + '/' + encodeURIComponent(id)
 
   @buildFullDomainURL: ->
     url = location.protocol + '//' + location.hostname
