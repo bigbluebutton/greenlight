@@ -23,10 +23,15 @@
     });
   };
 
-  var initRooms = function() {
+  var enableMeetingUpdates = function() {
+    var meeting_id = '';
+    if ($(".page-wrapper.rooms").data('main-room') === false) {
+      meeting_id = $(".page-wrapper.rooms").data('id');
+    }
     App.messages = App.cable.subscriptions.create({
       channel: 'MeetingUpdatesChannel',
-      encrypted_id: $(".page-wrapper").data('id')
+      admin_id: $(".page-wrapper.rooms").data('admin-id'),
+      meeting_id: meeting_id
     },
     {
       received: function(data) {
@@ -58,7 +63,7 @@
   $(document).on("turbolinks:load", function() {
     if ($("body[data-controller=landing]").get(0)) {
       if ($("body[data-action=rooms]").get(0)) {
-        initRooms();
+        enableMeetingUpdates();
       }
     }
   });

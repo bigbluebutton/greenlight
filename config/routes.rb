@@ -30,14 +30,17 @@ Rails.application.routes.draw do
   # rooms offer a customized landing page for authenticated users to create and join session in BigBlueButton
   get '/:resource/:id', to: 'landing#resource', as: :resource
   get '/:resource/:id/join', to: 'bbb#join', as: :bbb_join, defaults: {format: 'json'}
-  get '/:resource/:id/wait', to: 'landing#wait_for_moderator'
-  get '/:resource/:id/session_status_refresh', to: 'landing#session_status_refresh'
+
+  get '/rooms/:room_id/recordings', to: 'bbb#recordings', defaults: {format: 'json'}
   post '/:resource/:id/callback', to: 'bbb#callback' #, defaults: {format: 'json'}
-  delete '/rooms/:id/end', to: 'bbb#end', defaults: {format: 'json'}
-  get '/:resource/:room_id/:id/join', to: 'bbb#join', defaults: {format: 'json'}
-  get '/rooms/:id/recordings', to: 'bbb#recordings', defaults: {format: 'json'}
   patch '/rooms/:id/recordings/:record_id', to: 'bbb#update_recordings', defaults: {format: 'json'}
   delete '/rooms/:id/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {format: 'json'}
+  get '/:resource/:room_id/:id/wait', to: 'landing#wait_for_moderator'
+  get '/:resource/:room_id/:id/session_status_refresh', to: 'landing#session_status_refresh'
+  delete '/rooms/:room_id/:id/end', to: 'bbb#end', defaults: {format: 'json'}
+  get '/rooms/:room_id/:id', to: 'landing#resource', resource: 'rooms'
+  get '/:resource/:room_id/:id/join', to: 'bbb#join', defaults: {format: 'json'}
 
-  root to: 'landing#index', :resource => "meetings"
+
+  root to: 'landing#index', :resource => 'meetings'
 end

@@ -19,28 +19,30 @@
 _meetingInstance = null
 
 class @Meeting
-  constructor: (@meetingId, @type, @userName, @meetingName) ->
+  constructor: (@meetingId, @type, @userName, @adminId) ->
 
   # Gets the current instance or creates a new one
   @getInstance: ->
     if _meetingInstance
       return _meetingInstance
-    id = $(".page-wrapper").data('id')
+    meetingId = $(".page-wrapper").data('id')
     if (type = location.pathname.split('/')[1]) != 'rooms'
       type = 'meetings'
     name = $('.meeting-user-name').val()
-    _meetingInstance = new Meeting(id, type, name)
+    adminId = $(".page-wrapper").data('admin-id')
+    _meetingInstance = new Meeting(meetingId, type, name, adminId)
     return _meetingInstance
 
   @clear: ->
     _meetingInstance = null
 
-  @buildMeetingURL: (id, type, name) ->
-    if name
-      name = '/' + encodeURIComponent(name)
+  @buildMeetingURL: (meetingId, type, adminId) ->
+    fullId = ''
+    if adminId
+      fullId = encodeURIComponent(adminId) + '/' + encodeURIComponent(meetingId)
     else
-      name = ''
-    return @buildFullDomainURL() + '/' + type + '/' + encodeURIComponent(id) + name
+      fullId = encodeURIComponent(meetingId)
+    return @buildFullDomainURL() + '/' + type + '/' + fullId
 
   @buildFullDomainURL: ->
     url = location.protocol + '//' + location.hostname
@@ -84,8 +86,11 @@ class @Meeting
     @meetingId = id
     return this
 
-  setMeetingName: (name) ->
-    @meetingName = name
+  getAdminId: ->
+    return @adminId
+
+  setAdminId: (id) ->
+    @adminId = id
     return this
 
   getType: ->
@@ -96,7 +101,7 @@ class @Meeting
     return this
 
   getURL: ->
-    return Meeting.buildMeetingURL(@meetingId, @type, @meetingName)
+    return Meeting.buildMeetingURL(@meetingId, @type, @adminId)
 
   getUserName: ->
     return @userName

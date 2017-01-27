@@ -42,11 +42,13 @@ class BbbController < ApplicationController
           )
         end
 
-        meeting_id = params[:room_id]
+        meeting_id = "#{params[:room_id]}-#{params[:id]}"
         meeting_name = params[:id]
+        meeting_path = "#{params[:room_id]}/#{params[:id]}"
       else
-        meeting_id = params[:id]
         user = User.find_by encrypted_id: params[:id]
+        meeting_id = params[:id]
+        meeting_path = meeting_id
       end
 
       options = if user
@@ -62,7 +64,7 @@ class BbbController < ApplicationController
         }
       end
 
-      base_url = "#{request.base_url}/#{params[:resource]}/#{meeting_id}"
+      base_url = "#{request.base_url}/#{params[:resource]}/#{meeting_path}"
       options[:meeting_logout_url] = base_url
       options[:hook_url] = "#{base_url}/callback"
 
@@ -74,11 +76,11 @@ class BbbController < ApplicationController
 
       # the user can join the meeting
       if bbb_res[:returncode] && current_user && current_user == user
-        JoinMeetingJob.perform_later(meeting_id)
+        JoinMeetingJob.perform_later(user.encrypted_id, params[:id])
 
       # user will be waiting for a moderator
       else
-        NotifyUserWaitingJob.perform_later(meeting_id, params[:name])
+        NotifyUserWaitingJob.perform_later(user.encrypted_id, params[:id], params[:name])
       end
 
       render_bbb_response bbb_res, bbb_res[:response]
@@ -103,9 +105,9 @@ class BbbController < ApplicationController
   def end
     load_and_authorize_room_owner!
 
-    bbb_res = bbb_end_meeting @user.encrypted_id
+    bbb_res = bbb_end_meeting "#{@user.encrypted_id}-#{params[:id]}"
     if bbb_res[:returncode]
-      EndMeetingJob.perform_later(@user.encrypted_id)
+      EndMeetingJob.perform_later(@user.encrypted_id, params[:id])
     end
     render_bbb_response bbb_res
   end
@@ -114,7 +116,8 @@ class BbbController < ApplicationController
   def recordings
     load_room!
 
-    bbb_res = bbb_get_recordings @user.encrypted_id
+    # bbb_res = bbb_get_recordings "#{@user.encrypted_id}-#{params[:id]}"
+    bbb_res = bbb_get_recordings "#{@user.encrypted_id}"
     render_bbb_response bbb_res, bbb_res[:recordings]
   end
 
@@ -141,7 +144,7 @@ class BbbController < ApplicationController
   private
 
   def load_room!
-    @user = User.find_by encrypted_id: params[:id]
+    @user = User.find_by encrypted_id: params[:room_id]
     if !@user
       render head(:not_found) && return
     end
@@ -158,7 +161,7 @@ class BbbController < ApplicationController
   def authorize_recording_owner!
     load_and_authorize_room_owner!
 
-    recordings = bbb_get_recordings(params[:id])[:recordings]
+    recordings = bbb_get_recordings(params[:room_id])[:recordings]
     recordings.each do |recording|
       if recording[:recordID] == params[:record_id]
         return true

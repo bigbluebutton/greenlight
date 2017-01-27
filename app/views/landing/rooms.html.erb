@@ -19,11 +19,15 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
   <% page_title= t('greet_guest', name: @user.username) %>
 <% end %>
 
-<div class="page-wrapper rooms" data-id="<%= @user.encrypted_id %>">
+<div class="page-wrapper rooms" data-main-room="<%= @main_room %>" data-id="<%= @meeting_id %>" data-admin-id="<%= @user.encrypted_id %>">
   <div class="container-fluid">
 
     <div class="center-panel-wrapper">
-      <%= render 'rooms_center_panel' %>
+      <% if @main_room %>
+        <%= render 'rooms_center_panel' %>
+      <% else %>
+        <%= render 'rooms_meetings_center_panel' %>
+      <% end %>
     </div>
 
     <%= render 'shared/signup' %>
