@@ -26,15 +26,34 @@ class BbbController < ApplicationController
   # GET /:resource/:id/join
   def join
     if params[:name].blank?
-      render_bbb_response("missing_parameter", "user name was not included", :unprocessable_entity)
+      return render_bbb_response(
+        messageKey: "missing_parameter",
+        message: "user name was not included",
+        status: :unprocessable_entity
+      )
     else
-      user = User.find_by encrypted_id: params[:id]
+      if params[:room_id]
+        user = User.find_by encrypted_id: params[:room_id]
+        if !user
+          return render_bbb_response(
+            messageKey: "not_found",
+            message: "User Not Found",
+            status: :not_found
+          )
+        end
+
+        meeting_id = params[:room_id]
+        meeting_name = params[:id]
+      else
+        meeting_id = params[:id]
+        user = User.find_by encrypted_id: params[:id]
+      end
 
       options = if user
         {
           wait_for_moderator: true,
           meeting_recorded: true,
-          meeting_name: user.name,
+          meeting_name: meeting_name,
           user_is_moderator: current_user == user
         }
       else
@@ -42,23 +61,24 @@ class BbbController < ApplicationController
           user_is_moderator: true
         }
       end
-      base_url = "#{request.base_url}/#{params[:resource]}/#{params[:id]}"
+
+      base_url = "#{request.base_url}/#{params[:resource]}/#{meeting_id}"
       options[:meeting_logout_url] = base_url
       options[:hook_url] = "#{base_url}/callback"
 
       bbb_res = bbb_join_url(
-        params[:id],
+        meeting_id,
         params[:name],
         options
       )
 
       # the user can join the meeting
       if bbb_res[:returncode] && current_user && current_user == user
-        JoinMeetingJob.perform_later(params[:id])
+        JoinMeetingJob.perform_later(meeting_id)
 
       # user will be waiting for a moderator
       else
-        NotifyUserWaitingJob.perform_later(params[:id], params[:name])
+        NotifyUserWaitingJob.perform_later(meeting_id, params[:name])
       end
 
       render_bbb_response bbb_res, bbb_res[:response]

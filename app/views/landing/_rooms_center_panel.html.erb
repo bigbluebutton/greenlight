@@ -30,10 +30,23 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 <%= render layout: 'shared/center_panel' do %>
   <div class="center-block center-panel-content-size col-xs-12">
     <% if admin? %>
-      <%= render 'shared/meeting_url', hidden: false %>
+      <%= render 'shared/meeting_name_form' %>
+      <div class="invite-join-wrapper">
+        <div class="col-xs-6">
+          <%= render 'shared/title', title: t('invite') do %>
+          <span><%= t('invite_description') %></span>
+          <% end %>
+          <%= render 'shared/meeting_url', hidden: false %>
+        </div>
+        <div class="verticle-line"></div>
+        <div class="col-xs-6">
+          <%= render 'shared/title', title: t('join'), title_class: 'join-meeting-title' %>
+          <%= render 'shared/join_form' %>
+        </div>
+      </div>
     <% else %>
       <%= render 'shared/meeting_url', hidden: true %>
+      <%= render 'shared/join_form' %>
     <% end %>
-    <%= render 'shared/join_form' %>
   </div>
 <% end %>
