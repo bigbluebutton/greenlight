@@ -34,6 +34,7 @@ class @Recordings
       },
       columns: [
         { data: "start_time" },
+        { data: "name", visible: $(".page-wrapper.rooms").data('main-room') },
         { data: "previews", orderable: false },
         { data: "duration", orderable: false },
         { data: "playbacks", orderable: false },
@@ -55,7 +56,7 @@ class @Recordings
             return data
         },
         {
-          targets: 1,
+          targets: 2,
           render: (data, type, row) ->
             if type == 'display'
               str = ''
@@ -66,7 +67,7 @@ class @Recordings
             return data
         },
         {
-          targets: 3,
+          targets: 4,
           render: (data, type, row) ->
             if type == 'display'
               str = ''
