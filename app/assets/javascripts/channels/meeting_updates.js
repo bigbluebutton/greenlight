@@ -62,13 +62,13 @@
   };
 
   $(document).on("turbolinks:load", function() {
+    // disable meeting updates if enabled from a previous page
+    if (App.meeting_update) {
+      disableMeetingUpdates();
+    }
     if ($("body[data-controller=landing]").get(0)) {
       if ($("body[data-action=rooms]").get(0)) {
-        // disable meeting updates if enabled from a previous page
-        if (App.meeting_update) {
-          disableMeetingUpdates();
-        }
-        if ($(".page-wrapper.rooms").data('main-room') === false) {
+        if (!$(".page-wrapper.rooms").data('main-room')) {
           enableMeetingUpdates();
         }
       }

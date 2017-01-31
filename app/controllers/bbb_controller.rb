@@ -24,6 +24,7 @@ class BbbController < ApplicationController
   before_action :validate_checksum, only: :callback
 
   # GET /:resource/:id/join
+  # GET /:resource/:room_id/:id/join
   def join
     if params[:name].blank?
       return render_bbb_response(
@@ -56,6 +57,7 @@ class BbbController < ApplicationController
           wait_for_moderator: true,
           meeting_recorded: true,
           meeting_name: meeting_name,
+          room_owner: params[:room_id],
           user_is_moderator: current_user == user
         }
       else
@@ -102,6 +104,7 @@ class BbbController < ApplicationController
   end
 
   # DELETE /rooms/:id/end
+  # DELETE /rooms/:room_id/:id/end
   def end
     load_and_authorize_room_owner!
 
@@ -113,30 +116,37 @@ class BbbController < ApplicationController
   end
 
   # GET /rooms/:id/recordings
+  # GET /rooms/:room_id/:id/recordings
   def recordings
     load_room!
 
     # bbb_res = bbb_get_recordings "#{@user.encrypted_id}-#{params[:id]}"
-    bbb_res = bbb_get_recordings "#{@user.encrypted_id}"
+    options = { "meta_room-id": @user.encrypted_id }
+    if params[:id]
+      options["meta_meeting-name"] = params[:id]
+    end
+    bbb_res = bbb_get_recordings(options)
     render_bbb_response bbb_res, bbb_res[:recordings]
   end
 
   # PATCH /rooms/:id/recordings/:record_id
+  # PATCH /rooms/:room_id/:id/recordings/:record_id
   def update_recordings
     published = params[:published] == 'true'
     metadata = params.select{ |k, v| k.match(/^meta_/) }
     bbb_res = bbb_update_recordings(params[:record_id], published, metadata)
     if bbb_res[:returncode]
-      RecordingUpdatesJob.perform_later(@user.encrypted_id, params[:record_id])
+      RecordingUpdatesJob.perform_later(@user.encrypted_id, params[:record_id], params[:id])
     end
     render_bbb_response bbb_res
   end
 
   # DELETE /rooms/:id/recordings/:record_id
+  # DELETE /rooms/:room_id/:id/recordings/:record_id
   def delete_recordings
     bbb_res = bbb_delete_recordings(params[:record_id])
     if bbb_res[:returncode]
-      RecordingDeletesJob.perform_later(@user.encrypted_id, params[:record_id])
+      RecordingDeletesJob.perform_later(@user.encrypted_id, params[:record_id], params[:id])
     end
     render_bbb_response bbb_res
   end
@@ -161,7 +171,7 @@ class BbbController < ApplicationController
   def authorize_recording_owner!
     load_and_authorize_room_owner!
 
-    recordings = bbb_get_recordings(params[:room_id])[:recordings]
+    recordings = bbb_get_recordings({recordID: params[:record_id]})[:recordings]
     recordings.each do |recording|
       if recording[:recordID] == params[:record_id]
         return true
@@ -194,7 +204,7 @@ class BbbController < ApplicationController
         # the webhook event doesn't have all the data we need, so we need
         # to send a getRecordings anyway
         # TODO: if the webhooks included all data in the event we wouldn't need this
-        rec_info = bbb_get_recordings(token, record_id)
+        rec_info = bbb_get_recordings({recordID: record_id})
         rec_info = rec_info[:recordings].first
         RecordingCreatedJob.perform_later(token, parse_recording_for_view(rec_info))
 

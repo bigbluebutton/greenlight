@@ -88,6 +88,7 @@ en-US:
       body: "You have been invited by %{user} to a meeting.\n\nPlease open the following page in your web browser: &&URL&&"
       subject: "%{user} invited you to a meeting"
   my_room: my room
+  name: Name
   no: No
   notification_mailer:
     recording_ready_email:
