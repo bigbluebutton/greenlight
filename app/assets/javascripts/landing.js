@@ -64,6 +64,10 @@
       }
     });
 
+    $('.center-panel-wrapper').on ('click', '.meeting-start', function (event) {
+      Turbolinks.visit(Meeting.getInstance().getURL());
+    });
+
     $('.center-panel-wrapper').on ('keypress', '.meeting-user-name', function (event) {
       if (event.keyCode === 13) {
         event.preventDefault();
@@ -192,12 +196,15 @@
     displayRoomURL();
 
     $('.center-panel-wrapper').on('keyup', '.meeting-name', function (event, msg) {
-      var newName = $(this).val();
-      // Meeting.getInstance().setMeetingId(newId);
-      Meeting.getInstance().setMeetingName(newName);
-      // $(".page-wrapper.meetings").data('id', newId);
-      // $('.meeting-url').val(Meeting.getInstance().getURL());
-      // $('.join-meeting-title').html(I18n.join_title.replace(/%{id}/, newId));
+      var newId = $(this).val();
+      Meeting.getInstance().setMeetingId(newId);
+      $('.meeting-url').val(Meeting.getInstance().getURL());
+      $('.join-meeting-title').html(I18n.join_title.replace(/%{id}/, newId));
+      if (newId === '') {
+        $('.invite-join-wrapper').addClass('hidden');
+      } else {
+        $('.invite-join-wrapper').removeClass('hidden');
+      }
     });
 
     Recordings.getInstance().refresh();

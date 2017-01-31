@@ -17,6 +17,6 @@
 module UsersHelper
   def is_room_owner
     token = current_user ? current_user.encrypted_id : nil
-    token.present? && params[:id].present? && token == params[:id]
+    token.present? && params[:room_id].present? && token == params[:room_id]
   end
 end

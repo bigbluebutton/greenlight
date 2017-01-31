@@ -16,6 +16,12 @@
 
 class MeetingUpdatesChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "#{params[:encrypted_id]}_meeting_updates_channel"
+
+    full_id = if params[:meeting_id].present?
+      "#{params[:admin_id]}-#{params[:meeting_id]}"
+    else
+      params[:admin_id]
+    end
+    stream_from "#{full_id}_meeting_updates_channel"
   end
 end

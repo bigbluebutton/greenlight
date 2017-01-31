@@ -157,7 +157,7 @@ class @Recordings
   # refresh the recordings from the server
   refresh: ->
     table_api = this.table.api()
-    $.get "/rooms/"+Meeting.getInstance().getMeetingId()+"/recordings", (data) =>
+    $.get "/rooms/"+Meeting.getInstance().getAdminId()+"/recordings", (data) =>
       @setOwner(data.is_owner)
       if !@owner
         table_api.column(-1).visible(false)

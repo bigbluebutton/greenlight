@@ -19,15 +19,15 @@ class EndMeetingJob < ApplicationJob
 
   queue_as :default
 
-  def perform(room)
+  def perform(room, meeting)
     tries = 0
     sleep_time = 2
 
     while tries < 4
-      bbb_res = bbb_get_meeting_info(room)
+      bbb_res = bbb_get_meeting_info("#{room}-#{meeting}")
 
       if !bbb_res[:returncode]
-        ActionCable.server.broadcast "#{room}_meeting_updates_channel",
+        ActionCable.server.broadcast "#{room}-#{meeting}_meeting_updates_channel",
           action: 'meeting_ended'
         break
       end

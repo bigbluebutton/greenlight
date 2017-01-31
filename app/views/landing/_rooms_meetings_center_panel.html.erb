@@ -13,4 +13,17 @@ You should have received a copy of the GNU Lesser General Public License along
 with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 -->
 
-<%= render 'rooms_meetings_center_panel' %>
+<% content_for :title do %>
+  <div class="title">
+    <h2>
+      <%= t('join_session_id', id: @meeting_id) %>
+    </h2>
+  </div>
+<% end %>
+
+<%= render layout: 'shared/center_panel' do %>
+  <div class="center-block center-panel-content-size col-xs-12">
+    <%= render 'shared/meeting_url', hidden: true %>
+    <%= render 'shared/join_form' %>
+  </div>
+<% end %>
