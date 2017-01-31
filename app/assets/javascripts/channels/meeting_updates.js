@@ -24,14 +24,10 @@
   };
 
   var enableMeetingUpdates = function() {
-    var meeting_id = '';
-    if ($(".page-wrapper.rooms").data('main-room') === false) {
-      meeting_id = $(".page-wrapper.rooms").data('id');
-    }
-    App.messages = App.cable.subscriptions.create({
+    App.meeting_update = App.cable.subscriptions.create({
       channel: 'MeetingUpdatesChannel',
       admin_id: $(".page-wrapper.rooms").data('admin-id'),
-      meeting_id: meeting_id
+      meeting_id: $(".page-wrapper.rooms").data('id')
     },
     {
       received: function(data) {
@@ -60,10 +56,21 @@
     });
   };
 
+  var disableMeetingUpdates = function() {
+    App.meeting_update.unsubscribe();
+    delete App.meeting_update
+  };
+
   $(document).on("turbolinks:load", function() {
     if ($("body[data-controller=landing]").get(0)) {
       if ($("body[data-action=rooms]").get(0)) {
-        enableMeetingUpdates();
+        // disable meeting updates if enabled from a previous page
+        if (App.meeting_update) {
+          disableMeetingUpdates();
+        }
+        if ($(".page-wrapper.rooms").data('main-room') === false) {
+          enableMeetingUpdates();
+        }
       }
     }
   });
