@@ -39,12 +39,12 @@ class LandingControllerTest < ActionController::TestCase
   end
 
   test "should get wait for moderator" do
-    get :wait_for_moderator, params: { id: @user.encrypted_id, resource: 'rooms' }
+    get :wait_for_moderator, params: { room_id: @user.encrypted_id, id: 'room1', resource: 'rooms' }
     assert_response :success
   end
 
   test "should get session status refresh" do
-    get :wait_for_moderator, params: { id: @user.encrypted_id, resource: 'rooms' }
+    get :wait_for_moderator, params: { room_id: @user.encrypted_id, id: 'room1', resource: 'rooms' }
     assert_response :success
   end
 
