@@ -29,11 +29,12 @@ Rails.application.routes.draw do
   # meetings offer a landing page for NON authenticated users to create and join session in BigBlueButton
   # rooms offer a customized landing page for authenticated users to create and join session in BigBlueButton
 
-  get '/rooms/:room_id/recordings', to: 'bbb#recordings', defaults: {format: 'json'}
-  patch '/rooms/:id/recordings/:record_id', to: 'bbb#update_recordings', defaults: {format: 'json'}
-  delete '/rooms/:id/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {format: 'json'}
-  get '/rooms/:room_id/:id', to: 'landing#resource', resource: 'rooms'
+  patch '/rooms/:room_id/recordings/:record_id', to: 'bbb#update_recordings', defaults: {format: 'json'}
+  delete '/rooms/:room_id/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {format: 'json'}
+
   get '/rooms/:room_id',  to: 'landing#resource', resource: 'rooms'
+  get '/rooms/:room_id/recordings', to: 'bbb#recordings', defaults: {format: 'json'}
+  get '/rooms/:room_id/:id', to: 'landing#resource', resource: 'rooms'
   delete '/rooms/:room_id/:id/end', to: 'bbb#end', defaults: {format: 'json'}
 
   get '/:resource/:id', to: 'landing#resource', as: :resource

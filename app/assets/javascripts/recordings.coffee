@@ -157,7 +157,7 @@ class @Recordings
   # refresh the recordings from the server
   refresh: ->
     table_api = this.table.api()
-    $.get "/rooms/"+Meeting.getInstance().getAdminId()+"/recordings", (data) =>
+    $.get @getRecordingsURL(), (data) =>
       @setOwner(data.is_owner)
       if !@owner
         table_api.column(-1).visible(false)
@@ -172,11 +172,12 @@ class @Recordings
   # setup click handlers for the action buttons
   setupActionHandlers: ->
     table_api = this.table.api()
+    recordingsObject = this
 
     @getTable().on 'click', '.recording-update', (event) ->
       btn = $(this)
       row = table_api.row($(this).closest('tr')).data()
-      url = $('.meeting-url').val()
+      url = recordingsObject.getRecordingsURL()
       id = row.id
 
       published = btn.data('visibility') == "unlisted" ||
@@ -189,7 +190,7 @@ class @Recordings
       data["meta_" + GreenLight.META_LISTED] = listed.toString();
       $.ajax({
         method: 'PATCH',
-        url: url+'/recordings/'+id,
+        url: url+'/'+id,
         data: data
       }).done((data) ->
 
@@ -200,12 +201,12 @@ class @Recordings
     @getTable().on 'click', '.recording-delete', (event) ->
       btn = $(this)
       row = table_api.row($(this).closest('tr')).data()
-      url = $('.meeting-url').val()
+      url = recordingsObject.getRecordingsURL()
       id = row.id
       btn.prop('disabled', true)
       $.ajax({
         method: 'DELETE',
-        url: url+'/recordings/'+id
+        url: url+'/'+id
       }).done((data) ->
 
       ).fail((data) ->
@@ -217,6 +218,13 @@ class @Recordings
 
   getTable: ->
     @table
+
+  getRecordingsURL: ->
+    if $(".page-wrapper.rooms").data('main-room')
+      base_url = '/rooms/'+Meeting.getInstance().getAdminId()
+    else
+      base_url = $('.meeting-url').val()
+    base_url+'/recordings'
 
   isOwner: ->
     @owner
