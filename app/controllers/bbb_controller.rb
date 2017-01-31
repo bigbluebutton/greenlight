@@ -24,6 +24,7 @@ class BbbController < ApplicationController
   before_action :validate_checksum, only: :callback
 
   # GET /:resource/:id/join
+  # GET /:resource/:room_id/:id/join
   def join
     if params[:name].blank?
       return render_bbb_response(
@@ -103,6 +104,7 @@ class BbbController < ApplicationController
   end
 
   # DELETE /rooms/:id/end
+  # DELETE /rooms/:room_id/:id/end
   def end
     load_and_authorize_room_owner!
 
@@ -114,6 +116,7 @@ class BbbController < ApplicationController
   end
 
   # GET /rooms/:id/recordings
+  # GET /rooms/:room_id/:id/recordings
   def recordings
     load_room!
 
@@ -127,6 +130,7 @@ class BbbController < ApplicationController
   end
 
   # PATCH /rooms/:id/recordings/:record_id
+  # PATCH /rooms/:room_id/:id/recordings/:record_id
   def update_recordings
     published = params[:published] == 'true'
     metadata = params.select{ |k, v| k.match(/^meta_/) }
@@ -138,6 +142,7 @@ class BbbController < ApplicationController
   end
 
   # DELETE /rooms/:id/recordings/:record_id
+  # DELETE /rooms/:room_id/:id/recordings/:record_id
   def delete_recordings
     bbb_res = bbb_delete_recordings(params[:record_id])
     if bbb_res[:returncode]
