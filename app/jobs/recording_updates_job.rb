@@ -19,10 +19,17 @@ class RecordingUpdatesJob < ApplicationJob
 
   queue_as :default
 
-  def perform(room, record_id)
-    bbb_res = bbb_get_recordings(nil, record_id)
+  def perform(room, record_id, meeting=nil)
+    bbb_res = bbb_get_recordings({recordID: record_id})
     recording = bbb_res[:recordings].first
+    full_id = room
+    full_id += "-#{recording[:metadata][:"meeting-name"]}"
     ActionCable.server.broadcast "#{room}_recording_updates_channel",
+      action: 'update',
+      id: record_id,
+      published: recording[:published],
+      listed: bbb_is_recording_listed(recording)
+    ActionCable.server.broadcast "#{full_id}_recording_updates_channel",
       action: 'update',
       id: record_id,
       published: recording[:published],

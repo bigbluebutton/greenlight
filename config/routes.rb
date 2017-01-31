@@ -32,10 +32,14 @@ Rails.application.routes.draw do
   patch '/rooms/:room_id/recordings/:record_id', to: 'bbb#update_recordings', defaults: {format: 'json'}
   delete '/rooms/:room_id/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {format: 'json'}
 
+
   get '/rooms/:room_id',  to: 'landing#resource', resource: 'rooms'
   get '/rooms/:room_id/recordings', to: 'bbb#recordings', defaults: {format: 'json'}
   get '/rooms/:room_id/:id', to: 'landing#resource', resource: 'rooms'
   delete '/rooms/:room_id/:id/end', to: 'bbb#end', defaults: {format: 'json'}
+  get '/rooms/:room_id/:id/recordings', to: 'bbb#recordings', defaults: {format: 'json'}
+  patch '/rooms/:room_id/:id/recordings/:record_id', to: 'bbb#update_recordings', defaults: {format: 'json'}
+  delete '/rooms/:room_id/:id/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {format: 'json'}
 
   get '/:resource/:id', to: 'landing#resource', as: :resource
   get '/:resource/:id/join', to: 'bbb#join', as: :bbb_join, defaults: {format: 'json'}
