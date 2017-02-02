@@ -37,7 +37,7 @@
 
 en-US:
   actions: Actions
-  are_you: Are you %{name}?
+  are_you: Are you %{name} ?
   are_you_sure: Are you sure?
   change_recording_visibility: "Change visibility to:"
   client:
@@ -76,9 +76,7 @@ en-US:
   invite: Invite
   invite_description: (share this link below to invite others to this meeting)
   join: Join
-  join_session: Join the current meeting
   join_session_id: Join %{id}
-  join_session_user: Join %{name} meeting
   logged_in_description_html: You are logged in as %{link}
   login: login
   login_description: Want your own recorded meetings?
@@ -111,6 +109,7 @@ en-US:
   your_personal_room: Your Personal Room
   thumbnails: Thumbnails
   url_copy_explanation: Copy this URL to invite others to the meeting
+  user_person_room: "%{name} personal room"
   video: Video
   visibility: Visibility
   wait_for_mod_msg: Looks like you're the first one here...

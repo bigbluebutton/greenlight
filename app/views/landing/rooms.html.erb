@@ -30,7 +30,11 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
       <% end %>
     </div>
 
-    <%= render 'shared/signup' %>
+    <% if !@main_room %>
+      <div class="row text-center">
+        <%= link_to(t('return_to_room'), current_user.room_url) %>
+      </div>
+    <% end %>
 
     <div class="table-wrapper">
       <table id="recordings" class="table" width="100%">
