@@ -49,12 +49,15 @@ en-US:
     no_recordings: No Recordings
     no_recordings_yet: No Recordings (Yet!)
     publish_recording: Publish recording
+    published: Everyone
     recording_created: A recording was created
     recording_deleted: Recording was deleted
     recording_published: Recording was published
     recording_unlisted: Recording was unlisted
     recording_unpublished: Recording was unpublished
     unpublish_recording: Hide recording
+    unlisted: Unlisted
+    unpublished: No one
     user_waiting_body: "%{user} is waiting to join your room!"
     user_waiting_title: A user is waiting
   copied: Copied
@@ -100,7 +103,6 @@ en-US:
   footer_html: "%{greenlight_link} build %{version}, Powered by %{bbb_link}"
   presentation: Presentation
   previously_joined_meetings: Previously Joined Meetings
-  published: Published
   return_to_room: Return to your personal room
   session_url_explanation: The meeting will be taking place using the following URL
   signin_text: Log in with %{provider}
@@ -108,10 +110,9 @@ en-US:
   start_meeting: Start Meeting
   your_personal_room: Your Personal Room
   thumbnails: Thumbnails
-  unlisted: Unlisted
-  unpublished: Unpublished
   url_copy_explanation: Copy this URL to invite others to the meeting
   video: Video
+  visibility: Visibility
   wait_for_mod_msg: Looks like you're the first one here...
   wait_for_mod_explanation: You will automatically join when the meeting starts
   watch: Watch

@@ -37,6 +37,7 @@ class @Recordings
         { data: "name", visible: $(".page-wrapper.rooms").data('main-room') },
         { data: "previews", orderable: false },
         { data: "duration", orderable: false },
+        { data: "published" },
         { data: "playbacks", orderable: false },
         { data: "listed", visible: false },
         { data: "id", orderable: false }
@@ -68,6 +69,21 @@ class @Recordings
         },
         {
           targets: 4,
+          render: (data, type, row) ->
+            visibility = ['unpublished', 'unlisted', 'published']
+            if row.published
+              if row.listed
+                state = visibility[2]
+              else
+                state = visibility[1]
+            else
+              state = visibility[0]
+            if type == 'display'
+              return I18n[state]
+            return state
+        }
+        {
+          targets: 5,
           render: (data, type, row) ->
             if type == 'display'
               str = ''
@@ -152,7 +168,7 @@ class @Recordings
 
   draw: ->
     if !@isOwner()
-      @table.api().columns(4).search('true')
+      @table.api().columns(5).search('true')
     @table.api().columns.adjust().draw()
 
   # refresh the recordings from the server
