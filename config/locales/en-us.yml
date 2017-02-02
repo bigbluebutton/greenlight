@@ -64,7 +64,7 @@ en-US:
   duration: Duration (minutes)
   end: End
   enter_name: Enter your name
-  enter_meeting_name: Enter a meeting name
+  enter_meeting_name: Enter a meeting name to start
   greet_user: Welcome, %{name}
   greet_guest: Welcome to %{name} Meeting Space
   hi_all: Hi Everyone
@@ -79,6 +79,7 @@ en-US:
   login: login
   login_description: Want your own recorded meetings?
   logout: logout
+  meeting: Meeting
   meeting_invite:
     explanation: Send an email with an invitation to this meeting
     not_signed_in:
@@ -88,7 +89,6 @@ en-US:
       body: "You have been invited by %{user} to a meeting.\n\nPlease open the following page in your web browser: &&URL&&"
       subject: "%{user} invited you to a meeting"
   my_room: my room
-  name: Name
   no: No
   notification_mailer:
     recording_ready_email:
@@ -112,7 +112,7 @@ en-US:
   unpublished: Unpublished
   url_copy_explanation: Copy this URL to invite others to the meeting
   video: Video
-  views: Views
   wait_for_mod_msg: Looks like you're the first one here...
   wait_for_mod_explanation: You will automatically join when the meeting starts
+  watch: Watch
   yes: Yes
