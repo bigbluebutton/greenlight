@@ -152,7 +152,7 @@ class @Recordings
 
   draw: ->
     if !@isOwner()
-      @table.api().columns(4).search('true')
+      @table.api().columns(5).search('true')
     @table.api().columns.adjust().draw()
 
   # refresh the recordings from the server
