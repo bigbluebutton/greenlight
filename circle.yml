@@ -10,5 +10,4 @@ deployment:
   hub:
     branch: master
     commands:
-      - ./scripts/set_version.sh
       - ./scripts/build_image_master.sh

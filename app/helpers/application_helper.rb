@@ -47,10 +47,4 @@ module ApplicationHelper
   def on_room_or_meeting_page?
     params[:id].present?
   end
-
-  def version
-    Greenlight::VERSION
-  rescue
-    'development'
-  end
 end
