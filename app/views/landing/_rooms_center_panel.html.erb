@@ -32,6 +32,9 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     <% if admin? %>
       <%= render 'shared/meeting_name_form' %>
       <div class="row">
+        <%= render 'landing/previously_joined' %>
+      </div>
+      <div class="row">
         <%= render 'landing/invite_join' %>
       </div>
     <% else %>

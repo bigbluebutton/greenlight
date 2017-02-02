@@ -63,21 +63,27 @@ class @Meeting
   #    The response object contains the URL to join the meeting
   getJoinMeetingResponse: ->
     return $.get @getURL() + "/join?name=" + @userName, (data) =>
-      if data.messageKey == 'ok' && @type == 'meetings'
-        # update name used to join meeting
-        localStorage.setItem('lastJoinedName', @getUserName())
+      # update name used to join meeting
+      localStorage.setItem('lastJoinedName', @getUserName())
 
-        # update previously joined meetings on client
+      if data.messageKey == 'ok'
+        key = ''
+        if @type == 'meetings'
+          key = 'joinedMeetings'
+        else if @type == 'rooms'
+          key = 'joinedRooms'
+
+        # update previously joined meetings/rooms on client
         try
-          joinedMeetings = localStorage.getItem('joinedMeetings') || ''
+          joinedMeetings = localStorage.getItem(key) || ''
           joinedMeetings = joinedMeetings.split(',')
           joinedMeetings = joinedMeetings.filter (item) => item != @meetingId.toString()
           if joinedMeetings.length >= 5
             joinedMeetings.splice(0, 1)
           joinedMeetings.push(@meetingId)
-          localStorage.setItem('joinedMeetings', joinedMeetings.join(','))
+          localStorage.setItem(key, joinedMeetings.join(','))
         catch err
-          localStorage.setItem('joinedMeetings', @meetingId)
+          localStorage.setItem(key, @meetingId)
 
   getMeetingId: ->
     return @meetingId
