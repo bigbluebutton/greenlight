@@ -68,6 +68,7 @@ en-US:
   end: End
   enter_name: Enter your name
   enter_meeting_name: Enter a meeting name to start
+  footer_html: Powered by %{bbb_link}
   greet_user: Welcome, %{name}
   greet_guest: Welcome to %{name} Meeting Space
   hi_all: Hi Everyone
@@ -100,7 +101,6 @@ en-US:
       phrase2: "Access the following website to view it and publish to other users: %{url}"
       subject: "Your recording is ready!"
   past_recordings: Past Recordings
-  footer_html: "%{greenlight_link} build %{version}, Powered by %{bbb_link}"
   presentation: Presentation
   previously_joined_meetings: Previously Joined Meetings
   return_to_room: Return to your personal room
