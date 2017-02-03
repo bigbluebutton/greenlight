@@ -41,8 +41,8 @@
     // setup event handlers
     $('.center-panel-wrapper').on ('click', '.meeting-join', function (event) {
       var name = $('.meeting-user-name').val();
-      Meeting.getInstance().setName(name);
-      Meeting.getInstance().setId($(".page-wrapper").data('id'));
+      Meeting.getInstance().setUserName(name);
+      Meeting.getInstance().setMeetingId($(".page-wrapper").data('id'));
 
       // a user name is set, join the user into the session
       if (name !== undefined && name !== null) {
@@ -62,6 +62,10 @@
       } else {
         $(location).attr("href", Meeting.getInstance().getURL());
       }
+    });
+
+    $('.center-panel-wrapper').on ('click', '.meeting-start', function (event) {
+      Turbolinks.visit(Meeting.getInstance().getURL());
     });
 
     $('.center-panel-wrapper').on ('keypress', '.meeting-user-name', function (event) {
@@ -148,7 +152,9 @@
     $(document).tooltip(options);
 
     // focus name input or join button
-    if ($('.meeting-user-name').is(':visible')) {
+    if ($('.meeting-name').is(':visible')) {
+      $('.meeting-name').focus();
+    } else if ($('.meeting-user-name').is(':visible')) {
       $('.meeting-user-name').focus();
     } else {
       $('.meeting-join').focus();
@@ -156,21 +162,25 @@
   };
 
   var initIndex = function() {
-    $('.generate-link').click (function (e) {
-      e.preventDefault();
-      var newId = Math.trunc(Math.random() * 1000000000);
-      Meeting.getInstance().setId(newId);
+
+    $('.center-panel-wrapper').on('keyup', '.meeting-name', function (event, msg) {
+      var newId = $(this).val();
+      Meeting.getInstance().setMeetingId(newId);
       $(".page-wrapper.meetings").data('id', newId);
       $('.meeting-url').val(Meeting.getInstance().getURL());
+      $('.join-meeting-title').html(I18n.join_title.replace(/%{id}/, newId));
+      if (newId === '') {
+        $('.invite-join-wrapper').addClass('hidden');
+      } else {
+        $('.invite-join-wrapper').removeClass('hidden');
+      }
     });
-
-    $('.generate-link').click();
 
     $('ul.previously-joined').empty();
     var joinedMeetings = localStorage.getItem('joinedMeetings');
     if (joinedMeetings && joinedMeetings.length > 0) {
       joinedMeetings = joinedMeetings.split(',');
-      $('.center-panel-wrapper .panel-footer').removeClass('hidden');
+      $('.center-panel-wrapper .previously-joined-wrapper').removeClass('hidden');
 
       for (var i = joinedMeetings.length - 1; i >= 0; i--) {
         $('ul.previously-joined').append('<li><a href="/meetings/'+joinedMeetings[i]+'">'+joinedMeetings[i]+'</a></li>');
@@ -184,6 +194,39 @@
 
   var initRooms = function() {
     displayRoomURL();
+
+    $('.center-panel-wrapper').on('input', '.meeting-name', function (event, msg) {
+      var newId = $(this).val();
+      Meeting.getInstance().setMeetingId(newId);
+      $('.meeting-url').val(Meeting.getInstance().getURL());
+      $('.join-meeting-title').html(I18n.join_title.replace(/%{id}/, newId));
+      if (newId === '') {
+        $('.invite-join-wrapper').addClass('hidden');
+      } else {
+        $('.invite-join-wrapper').removeClass('hidden');
+      }
+    });
+
+    if ($(".page-wrapper.rooms").data('main-room')) {
+      $('.center-panel-wrapper').on('click', '.fill-meeting-name', function (event, msg) {
+        var name = $(this).text();
+        $('input.meeting-name').val(name).trigger('input');
+      });
+
+      $('ul.previously-joined').empty();
+      var joinedMeetings = localStorage.getItem('joinedRooms');
+      if (joinedMeetings && joinedMeetings.length > 0) {
+        joinedMeetings = joinedMeetings.split(',');
+        $('.center-panel-wrapper .previously-joined-wrapper').removeClass('hidden');
+
+        for (var i = joinedMeetings.length - 1; i >= 0; i--) {
+          $('ul.previously-joined').append('<li><a class="fill-meeting-name">'+joinedMeetings[i]+'</a></li>');
+        }
+      }
+      if ($('input.meeting-name').val() !== '') {
+        $('input.meeting-name').trigger('input');
+      }
+    }
 
     Recordings.getInstance().refresh();
     Recordings.getInstance().setupActionHandlers();

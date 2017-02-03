@@ -24,17 +24,40 @@ class BbbController < ApplicationController
   before_action :validate_checksum, only: :callback
 
   # GET /:resource/:id/join
+  # GET /:resource/:room_id/:id/join
   def join
     if params[:name].blank?
-      render_bbb_response("missing_parameter", "user name was not included", :unprocessable_entity)
+      return render_bbb_response(
+        messageKey: "missing_parameter",
+        message: "user name was not included",
+        status: :unprocessable_entity
+      )
     else
-      user = User.find_by encrypted_id: params[:id]
+      if params[:room_id]
+        user = User.find_by encrypted_id: params[:room_id]
+        if !user
+          return render_bbb_response(
+            messageKey: "not_found",
+            message: "User Not Found",
+            status: :not_found
+          )
+        end
+
+        meeting_id = "#{params[:room_id]}-#{params[:id]}"
+        meeting_name = params[:id]
+        meeting_path = "#{params[:room_id]}/#{params[:id]}"
+      else
+        user = User.find_by encrypted_id: params[:id]
+        meeting_id = params[:id]
+        meeting_path = meeting_id
+      end
 
       options = if user
         {
           wait_for_moderator: true,
           meeting_recorded: true,
-          meeting_name: user.name,
+          meeting_name: meeting_name,
+          room_owner: params[:room_id],
           user_is_moderator: current_user == user
         }
       else
@@ -42,23 +65,26 @@ class BbbController < ApplicationController
           user_is_moderator: true
         }
       end
-      base_url = "#{request.base_url}/#{params[:resource]}/#{params[:id]}"
+
+      base_url = "#{request.base_url}/#{params[:resource]}/#{meeting_path}"
       options[:meeting_logout_url] = base_url
       options[:hook_url] = "#{base_url}/callback"
 
       bbb_res = bbb_join_url(
-        params[:id],
+        meeting_id,
         params[:name],
         options
       )
 
       # the user can join the meeting
-      if bbb_res[:returncode] && current_user && current_user == user
-        JoinMeetingJob.perform_later(params[:id])
+      if bbb_res[:returncode] && user
+        if current_user == user
+          JoinMeetingJob.perform_later(user.encrypted_id, params[:id])
 
       # user will be waiting for a moderator
-      else
-        NotifyUserWaitingJob.perform_later(params[:id], params[:name])
+        else
+          NotifyUserWaitingJob.perform_later(user.encrypted_id, params[:id], params[:name])
+        end
       end
 
       render_bbb_response bbb_res, bbb_res[:response]
@@ -80,40 +106,49 @@ class BbbController < ApplicationController
   end
 
   # DELETE /rooms/:id/end
+  # DELETE /rooms/:room_id/:id/end
   def end
     load_and_authorize_room_owner!
 
-    bbb_res = bbb_end_meeting @user.encrypted_id
+    bbb_res = bbb_end_meeting "#{@user.encrypted_id}-#{params[:id]}"
     if bbb_res[:returncode]
-      EndMeetingJob.perform_later(@user.encrypted_id)
+      EndMeetingJob.perform_later(@user.encrypted_id, params[:id])
     end
     render_bbb_response bbb_res
   end
 
   # GET /rooms/:id/recordings
+  # GET /rooms/:room_id/:id/recordings
   def recordings
     load_room!
 
-    bbb_res = bbb_get_recordings @user.encrypted_id
+    # bbb_res = bbb_get_recordings "#{@user.encrypted_id}-#{params[:id]}"
+    options = { "meta_room-id": @user.encrypted_id }
+    if params[:id]
+      options["meta_meeting-name"] = params[:id]
+    end
+    bbb_res = bbb_get_recordings(options)
     render_bbb_response bbb_res, bbb_res[:recordings]
   end
 
   # PATCH /rooms/:id/recordings/:record_id
+  # PATCH /rooms/:room_id/:id/recordings/:record_id
   def update_recordings
     published = params[:published] == 'true'
     metadata = params.select{ |k, v| k.match(/^meta_/) }
     bbb_res = bbb_update_recordings(params[:record_id], published, metadata)
     if bbb_res[:returncode]
-      RecordingUpdatesJob.perform_later(@user.encrypted_id, params[:record_id])
+      RecordingUpdatesJob.perform_later(@user.encrypted_id, params[:record_id], params[:id])
     end
     render_bbb_response bbb_res
   end
 
   # DELETE /rooms/:id/recordings/:record_id
+  # DELETE /rooms/:room_id/:id/recordings/:record_id
   def delete_recordings
     bbb_res = bbb_delete_recordings(params[:record_id])
     if bbb_res[:returncode]
-      RecordingDeletesJob.perform_later(@user.encrypted_id, params[:record_id])
+      RecordingDeletesJob.perform_later(@user.encrypted_id, params[:record_id], params[:id])
     end
     render_bbb_response bbb_res
   end
@@ -121,7 +156,7 @@ class BbbController < ApplicationController
   private
 
   def load_room!
-    @user = User.find_by encrypted_id: params[:id]
+    @user = User.find_by encrypted_id: params[:room_id]
     if !@user
       render head(:not_found) && return
     end
@@ -138,7 +173,7 @@ class BbbController < ApplicationController
   def authorize_recording_owner!
     load_and_authorize_room_owner!
 
-    recordings = bbb_get_recordings(params[:id])[:recordings]
+    recordings = bbb_get_recordings({recordID: params[:record_id]})[:recordings]
     recordings.each do |recording|
       if recording[:recordID] == params[:record_id]
         return true
@@ -171,7 +206,7 @@ class BbbController < ApplicationController
         # the webhook event doesn't have all the data we need, so we need
         # to send a getRecordings anyway
         # TODO: if the webhooks included all data in the event we wouldn't need this
-        rec_info = bbb_get_recordings(token, record_id)
+        rec_info = bbb_get_recordings({recordID: record_id})
         rec_info = rec_info[:recordings].first
         RecordingCreatedJob.perform_later(token, parse_recording_for_view(rec_info))
 

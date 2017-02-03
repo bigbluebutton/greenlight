@@ -16,10 +16,11 @@
 
 (function() {
 
-  var initRooms = function() {
-    App.messages = App.cable.subscriptions.create({
+  var enableRecordingUpdates = function() {
+    App.recording_update = App.cable.subscriptions.create({
       channel: 'RecordingUpdatesChannel',
-      encrypted_id: $(".page-wrapper").data('id')
+      admin_id: $(".page-wrapper.rooms").data('admin-id'),
+      meeting_id: $(".page-wrapper.rooms").data('id')
     },
     {
       received: function(data) {
@@ -57,10 +58,19 @@
     });
   };
 
+  var disableRecordingUpdates = function() {
+    App.recording_update.unsubscribe();
+    delete App.recording_update
+  };
+
   $(document).on("turbolinks:load", function() {
+    // disable recording updates if enabled from a previous page
+    if (App.recording_update) {
+      disableRecordingUpdates();
+    }
     if ($("body[data-controller=landing]").get(0)) {
       if ($("body[data-action=rooms]").get(0)) {
-        initRooms();
+        enableRecordingUpdates();
       }
     }
   });

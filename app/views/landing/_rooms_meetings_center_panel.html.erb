@@ -15,33 +15,15 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 <% content_for :title do %>
   <div class="title">
-    <h2><%= t('home_title') %></h2>
+    <h2>
+      <%= t('join_session_id', id: @meeting_id) %>
+    </h2>
   </div>
 <% end %>
 
-<div class="page-wrapper meetings">
-  <div class="container-fluid">
-
-    <div class="center-panel-wrapper">
-      <%= render layout: 'shared/center_panel' do %>
-        <div class="center-block center-panel-content-size col-xs-12">
-          <%= render 'shared/meeting_name_form' %>
-
-          <div class="row">
-            <%= render 'landing/previously_joined' %>
-          </div>
-
-          <div class="row">
-            <%= render 'landing/invite_join' %>
-          </div>
-
-        </div>
-      <% end %>
-    </div>
-
-    <div class="center-block col-xs-6 login">
-      <%= render 'shared/signup' %>
-    </div>
-
+<%= render layout: 'shared/center_panel' do %>
+  <div class="center-block center-panel-content-size col-xs-12">
+    <%= render 'shared/meeting_url', hidden: true %>
+    <%= render 'shared/join_form' %>
   </div>
-</div>
+<% end %>

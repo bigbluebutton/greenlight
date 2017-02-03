@@ -14,13 +14,16 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
+.previously-joined {
+  list-style-type: none;
+  margin:auto;
+  width: 200px;
+  padding: 0;
+  cursor: pointer;
+}
+
 .meetings {
-  .previously-joined {
-    list-style-type: none;
-    margin:auto;
-    width: 200px;
-    padding: 0;
-  }
+
 }
 
 .rooms {
@@ -46,6 +49,11 @@
     }
   }
 
+  .meeting-url-button-group {
+    padding-top: 5px;
+    width: 100px;
+  }
+
 }
 
 .img-thumbnail{
@@ -67,19 +75,6 @@
 
 .meeting-url-group {
   position: relative;
-
-  .generate-link {
-    position: absolute;
-    right: 12px;
-    top: 10px;
-    z-index: 9;
-    color: #999;
-    cursor: pointer;
-
-    &:hover {
-      color: #000;
-    }
-  }
 }
 
 .recording-update-trigger {

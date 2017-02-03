@@ -37,44 +37,51 @@
 
 en-US:
   actions: Actions
-  are_you: Are you %{name}?
+  are_you: Are you %{name} ?
   are_you_sure: Are you sure?
   change_recording_visibility: "Change visibility to:"
   client:
     are_you_sure: Are you sure?
     delete_recording: Delete recording
+    join_title: Join "%{id}"
     meeting_ended: Meeting was ended
     meeting_started: Meeting was started
     no_recordings: No Recordings
     no_recordings_yet: No Recordings (Yet!)
     publish_recording: Publish recording
+    published: Everyone
     recording_created: A recording was created
     recording_deleted: Recording was deleted
     recording_published: Recording was published
     recording_unlisted: Recording was unlisted
     recording_unpublished: Recording was unpublished
     unpublish_recording: Hide recording
+    unlisted: Unlisted
+    unpublished: No one
     user_waiting_body: "%{user} is waiting to join your room!"
     user_waiting_title: A user is waiting
   copied: Copied
   copy_error: Use Ctrl-c to copy
-  create_session: Invite others to a meeting
   create_your_session: Create your own meeting
   date_recorded: Date
   duration: Duration (minutes)
   end: End
   enter_name: Enter your name
+  enter_meeting_name: Enter a meeting name to start
+  footer_html: Powered by %{bbb_link}
   greet_user: Welcome, %{name}
   greet_guest: Welcome to %{name} Meeting Space
   hi_all: Hi Everyone
+  home_title: Welcome to BigBlueButton
+  invite: Invite
+  invite_description: (share this link below to invite others to this meeting)
   join: Join
-  join_session: Join the current meeting
   join_session_id: Join %{id}
-  join_session_user: Join %{name} meeting
   logged_in_description_html: You are logged in as %{link}
   login: login
   login_description: Want your own recorded meetings?
   logout: logout
+  meeting: Meeting
   meeting_invite:
     explanation: Send an email with an invitation to this meeting
     not_signed_in:
@@ -92,10 +99,8 @@ en-US:
       phrase2: "Access the following website to view it and publish to other users: %{url}"
       subject: "Your recording is ready!"
   past_recordings: Past Recordings
-  footer_html: "%{greenlight_link} build %{version}, Powered by %{bbb_link}"
   presentation: Presentation
   previously_joined_meetings: Previously Joined Meetings
-  published: Published
   return_to_room: Return to your personal room
   session_url_explanation: The meeting will be taking place using the following URL
   signin_text: Log in with %{provider}
@@ -103,12 +108,11 @@ en-US:
   start_meeting: Start Meeting
   your_personal_room: Your Personal Room
   thumbnails: Thumbnails
-  unlisted: Unlisted
-  unpublished: Unpublished
   url_copy_explanation: Copy this URL to invite others to the meeting
-  url_refresh_hint: Generate a new meeting URL
+  user_person_room: "%{name} personal room"
   video: Video
-  views: Views
+  visibility: Visibility
   wait_for_mod_msg: Looks like you're the first one here...
   wait_for_mod_explanation: You will automatically join when the meeting starts
+  watch: Watch
   yes: Yes

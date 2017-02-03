@@ -19,24 +19,30 @@
 _meetingInstance = null
 
 class @Meeting
-  constructor: (@id, @type, @name) ->
+  constructor: (@meetingId, @type, @userName, @adminId) ->
 
   # Gets the current instance or creates a new one
   @getInstance: ->
     if _meetingInstance
       return _meetingInstance
-    id = $(".page-wrapper").data('id')
+    meetingId = $(".page-wrapper").data('id')
     if (type = location.pathname.split('/')[1]) != 'rooms'
       type = 'meetings'
     name = $('.meeting-user-name').val()
-    _meetingInstance = new Meeting(id, type, name)
+    adminId = $(".page-wrapper").data('admin-id')
+    _meetingInstance = new Meeting(meetingId, type, name, adminId)
     return _meetingInstance
 
   @clear: ->
     _meetingInstance = null
 
-  @buildMeetingURL: (id, type) ->
-    return @buildFullDomainURL() + '/' + type + '/' + id
+  @buildMeetingURL: (meetingId, type, adminId) ->
+    fullId = ''
+    if adminId
+      fullId = encodeURIComponent(adminId) + '/' + encodeURIComponent(meetingId)
+    else
+      fullId = encodeURIComponent(meetingId)
+    return @buildFullDomainURL() + '/' + type + '/' + fullId
 
   @buildFullDomainURL: ->
     url = location.protocol + '//' + location.hostname
@@ -56,28 +62,41 @@ class @Meeting
   # Returns a response object
   #    The response object contains the URL to join the meeting
   getJoinMeetingResponse: ->
-    return $.get @getURL() + "/join?name=" + @name, (data) =>
-      if data.messageKey == 'ok' && @type == 'meetings'
-        # update name used to join meeting
-        localStorage.setItem('lastJoinedName', @getName())
+    return $.get @getURL() + "/join?name=" + @userName, (data) =>
+      # update name used to join meeting
+      localStorage.setItem('lastJoinedName', @getUserName())
 
-        # update previously joined meetings on client
+      if data.messageKey == 'ok'
+        key = ''
+        if @type == 'meetings'
+          key = 'joinedMeetings'
+        else if @type == 'rooms'
+          key = 'joinedRooms'
+
+        # update previously joined meetings/rooms on client
         try
-          joinedMeetings = localStorage.getItem('joinedMeetings') || ''
+          joinedMeetings = localStorage.getItem(key) || ''
           joinedMeetings = joinedMeetings.split(',')
-          joinedMeetings = joinedMeetings.filter (item) => item != @id.toString()
+          joinedMeetings = joinedMeetings.filter (item) => item != @meetingId.toString()
           if joinedMeetings.length >= 5
             joinedMeetings.splice(0, 1)
-          joinedMeetings.push(@id)
-          localStorage.setItem('joinedMeetings', joinedMeetings.join(','))
+          joinedMeetings.push(@meetingId)
+          localStorage.setItem(key, joinedMeetings.join(','))
         catch err
-          localStorage.setItem('joinedMeetings', @id)
+          localStorage.setItem(key, @meetingId)
 
-  getId: ->
-    return @id
+  getMeetingId: ->
+    return @meetingId
 
-  setId: (id) ->
-    @id = id
+  setMeetingId: (id) ->
+    @meetingId = id
+    return this
+
+  getAdminId: ->
+    return @adminId
+
+  setAdminId: (id) ->
+    @adminId = id
     return this
 
   getType: ->
@@ -88,13 +107,13 @@ class @Meeting
     return this
 
   getURL: ->
-    return Meeting.buildMeetingURL(@id, @type)
+    return Meeting.buildMeetingURL(@meetingId, @type, @adminId)
 
-  getName: ->
-    return @name
+  getUserName: ->
+    return @userName
 
-  setName: (name) ->
-    @name = name
+  setUserName: (name) ->
+    @userName = name
     return this
 
   getModJoined: ->

@@ -18,10 +18,8 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     <h2>
       <% if admin? && !@meeting_running %>
         <%= t('your_personal_room') %>
-      <% elsif !admin? %>
-        <%= t('join_session_user', name: @user.username) %>
       <% else %>
-        <%= t('join_session') %>
+        <%= t('user_person_room', name: @user.name) %>
       <% end %>
     </h2>
   </div>
@@ -30,10 +28,18 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 <%= render layout: 'shared/center_panel' do %>
   <div class="center-block center-panel-content-size col-xs-12">
     <% if admin? %>
-      <%= render 'shared/meeting_url', hidden: false %>
+      <%= render 'shared/meeting_name_form' %>
+      <div class="row">
+        <%= render 'landing/previously_joined' %>
+      </div>
+      <div class="row">
+        <%= render 'landing/invite_join' %>
+      </div>
     <% else %>
-      <%= render 'shared/meeting_url', hidden: true %>
+      <div class="text-center">
+        <div><%= t('are_you', name: @user.name) %></div>
+        <div class=""><%= link_to t('login'), '/users/login' %></div>
+      </div>
     <% end %>
-    <%= render 'shared/join_form' %>
   </div>
 <% end %>

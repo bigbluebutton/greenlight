@@ -34,8 +34,10 @@ class @Recordings
       },
       columns: [
         { data: "start_time" },
+        { data: "name", visible: $(".page-wrapper.rooms").data('main-room') },
         { data: "previews", orderable: false },
         { data: "duration", orderable: false },
+        { data: "published" },
         { data: "playbacks", orderable: false },
         { data: "listed", visible: false },
         { data: "id", orderable: false }
@@ -55,7 +57,7 @@ class @Recordings
             return data
         },
         {
-          targets: 1,
+          targets: 2,
           render: (data, type, row) ->
             if type == 'display'
               str = ''
@@ -66,7 +68,22 @@ class @Recordings
             return data
         },
         {
-          targets: 3,
+          targets: 4,
+          render: (data, type, row) ->
+            visibility = ['unpublished', 'unlisted', 'published']
+            if row.published
+              if row.listed
+                state = visibility[2]
+              else
+                state = visibility[1]
+            else
+              state = visibility[0]
+            if type == 'display'
+              return I18n[state]
+            return state
+        }
+        {
+          targets: 5,
           render: (data, type, row) ->
             if type == 'display'
               str = ''
@@ -80,7 +97,7 @@ class @Recordings
           targets: -1,
           render: (data, type, row) ->
             if type == 'display'
-              roomName = Meeting.getInstance().getId()
+              roomName = Meeting.getInstance().getMeetingId()
               recordingActions = $('.hidden-elements').find('.recording-actions')
               classes = ['recording-unpublished', 'recording-unlisted', 'recording-published']
               if row.published
@@ -151,13 +168,13 @@ class @Recordings
 
   draw: ->
     if !@isOwner()
-      @table.api().columns(4).search('true')
+      @table.api().columns(6).search('true')
     @table.api().columns.adjust().draw()
 
   # refresh the recordings from the server
   refresh: ->
     table_api = this.table.api()
-    $.get "/rooms/"+Meeting.getInstance().getId()+"/recordings", (data) =>
+    $.get @getRecordingsURL(), (data) =>
       @setOwner(data.is_owner)
       if !@owner
         table_api.column(-1).visible(false)
@@ -172,11 +189,12 @@ class @Recordings
   # setup click handlers for the action buttons
   setupActionHandlers: ->
     table_api = this.table.api()
+    recordingsObject = this
 
     @getTable().on 'click', '.recording-update', (event) ->
       btn = $(this)
       row = table_api.row($(this).closest('tr')).data()
-      url = $('.meeting-url').val()
+      url = recordingsObject.getRecordingsURL()
       id = row.id
 
       published = btn.data('visibility') == "unlisted" ||
@@ -189,7 +207,7 @@ class @Recordings
       data["meta_" + GreenLight.META_LISTED] = listed.toString();
       $.ajax({
         method: 'PATCH',
-        url: url+'/recordings/'+id,
+        url: url+'/'+id,
         data: data
       }).done((data) ->
 
@@ -200,12 +218,12 @@ class @Recordings
     @getTable().on 'click', '.recording-delete', (event) ->
       btn = $(this)
       row = table_api.row($(this).closest('tr')).data()
-      url = $('.meeting-url').val()
+      url = recordingsObject.getRecordingsURL()
       id = row.id
       btn.prop('disabled', true)
       $.ajax({
         method: 'DELETE',
-        url: url+'/recordings/'+id
+        url: url+'/'+id
       }).done((data) ->
 
       ).fail((data) ->
@@ -217,6 +235,13 @@ class @Recordings
 
   getTable: ->
     @table
+
+  getRecordingsURL: ->
+    if $(".page-wrapper.rooms").data('main-room')
+      base_url = '/rooms/'+Meeting.getInstance().getAdminId()
+    else
+      base_url = $('.meeting-url').val()
+    base_url+'/recordings'
 
   isOwner: ->
     @owner

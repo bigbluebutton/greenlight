@@ -47,6 +47,7 @@ module BbbApi
     options[:wait_for_moderator] ||= false
     options[:meeting_logout_url] ||= nil
     options[:meeting_name] ||= meeting_token
+    options[:room_owner] ||= nil
 
     if !bbb
       return call_invalid_res
@@ -81,6 +82,12 @@ module BbbApi
           { "meta_#{BbbApi::META_HOOK_URL}": options[:hook_url] }
         ) if options[:hook_url]
 
+        # these parameters are used to filter recordings by room and meeting
+        meeting_options.merge!(
+          { "meta_room-id": options[:room_owner],
+            "meta_meeting-name": options[:meeting_name]}
+        ) if options[:room_owner]
+
         if Rails.configuration.use_webhooks
           webhook_register(options[:hook_url], meeting_id)
         end
@@ -114,13 +121,9 @@ module BbbApi
     response_data = bbb_exception_res exc
   end
 
-  def bbb_get_recordings(meeting_id, record_id=nil)
-    options={}
-    if record_id
-      options[:recordID] = record_id
-    end
-    if meeting_id
-      options[:meetingID] = bbb_meeting_id(meeting_id)
+  def bbb_get_recordings(options={})
+    if options[:meetingID]
+      options[:meetingID] = bbb_meeting_id(options[:meetingID])
     end
     res = bbb_safe_execute :get_recordings, options
 
