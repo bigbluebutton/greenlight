@@ -28,29 +28,25 @@ Rails.application.routes.draw do
   # There are two resources [meetings|rooms]
   # meetings offer a landing page for NON authenticated users to create and join session in BigBlueButton
   # rooms offer a customized landing page for authenticated users to create and join session in BigBlueButton
+  scope '/:resource' do
+    scope '/:room_id' do
+      # recording routes for updating, deleting and viewing recordings
+      get '/(:id)/recordings', to: 'bbb#recordings', defaults: {id: nil, format: 'json'}
+      patch '/(:id)/recordings/:record_id', to: 'bbb#update_recordings', defaults: {id: nil, format: 'json'}
+      delete '/(:id)/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {id: nil, format: 'json'}
 
-  # recording routes for updating, deleting and viewing recordings
-  get '/rooms/:room_id/recordings', to: 'bbb#recordings', defaults: {format: 'json'}
-  patch '/rooms/:room_id/recordings/:record_id', to: 'bbb#update_recordings', defaults: {format: 'json'}
-  delete '/rooms/:room_id/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {format: 'json'}
-  get '/rooms/:room_id/:id/recordings', to: 'bbb#recordings', defaults: {format: 'json'}
-  patch '/rooms/:room_id/:id/recordings/:record_id', to: 'bbb#update_recordings', defaults: {format: 'json'}
-  delete '/rooms/:room_id/:id/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {format: 'json'}
+      # room specific routes
+      delete '/:id/end', to: 'bbb#end', defaults: {format: 'json'}
+      get '/:id/wait', to: 'landing#wait_for_moderator'
+      get '/:id/session_status_refresh', to: 'landing#session_status_refresh'
+    end
 
-  # room routes for joining, ending, waiting and refreshing authenticated meetings
-  get '/rooms/:room_id',  to: 'landing#resource', resource: 'rooms'
-  get '/rooms/:room_id/:id', to: 'landing#resource', resource: 'rooms'
-  get '/rooms/:room_id/:id/join', to: 'bbb#join', resource: 'rooms', defaults: {format: 'json'}
-  delete '/rooms/:room_id/:id/end', to: 'bbb#end', defaults: {format: 'json'}
+    # routes shared between meetings and rooms
+    get '/(:room_id)/:id', to: 'landing#resource', defaults: {room_id: nil}
+    get '/(:room_id)/:id/join', to: 'bbb#join', defaults: {room_id: nil, format: 'json'}
+    post '/:id/callback', to: 'bbb#callback' #, defaults: {format: 'json'}
 
-  # routes shared between meetings and rooms
-  get '/:resource/:id', to: 'landing#resource', as: :resource
-  get '/:resource/:id/join', to: 'bbb#join', as: :bbb_join, defaults: {format: 'json'}
-  post '/:resource/:id/callback', to: 'bbb#callback' #, defaults: {format: 'json'}
-
-  get '/:resource/:room_id/:id/wait', to: 'landing#wait_for_moderator'
-  get '/:resource/:room_id/:id/session_status_refresh', to: 'landing#session_status_refresh'
-
+  end
 
   root to: 'landing#index', :resource => 'meetings'
 end
