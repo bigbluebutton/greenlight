@@ -163,7 +163,7 @@
 
   var initIndex = function() {
 
-    $('.center-panel-wrapper').on('keyup', '.meeting-name', function (event, msg) {
+    $('.center-panel-wrapper').on('input', '.meeting-name', function (event, msg) {
       var newId = $(this).val();
       Meeting.getInstance().setMeetingId(newId);
       $(".page-wrapper.meetings").data('id', newId);
@@ -176,16 +176,7 @@
       }
     });
 
-    $('ul.previously-joined').empty();
-    var joinedMeetings = localStorage.getItem('joinedMeetings');
-    if (joinedMeetings && joinedMeetings.length > 0) {
-      joinedMeetings = joinedMeetings.split(',');
-      $('.center-panel-wrapper .previously-joined-wrapper').removeClass('hidden');
-
-      for (var i = joinedMeetings.length - 1; i >= 0; i--) {
-        $('ul.previously-joined').append('<li><a href="/meetings/'+joinedMeetings[i]+'">'+joinedMeetings[i]+'</a></li>');
-      }
-    }
+    PreviousMeetings.init('joinedMeetings');
   };
 
   var initMeetings = function() {
@@ -208,21 +199,8 @@
     });
 
     if ($(".page-wrapper.rooms").data('main-room')) {
-      $('.center-panel-wrapper').on('click', '.fill-meeting-name', function (event, msg) {
-        var name = $(this).text();
-        $('input.meeting-name').val(name).trigger('input');
-      });
+      PreviousMeetings.init('joinedRooms');
 
-      $('ul.previously-joined').empty();
-      var joinedMeetings = localStorage.getItem('joinedRooms');
-      if (joinedMeetings && joinedMeetings.length > 0) {
-        joinedMeetings = joinedMeetings.split(',');
-        $('.center-panel-wrapper .previously-joined-wrapper').removeClass('hidden');
-
-        for (var i = joinedMeetings.length - 1; i >= 0; i--) {
-          $('ul.previously-joined').append('<li><a class="fill-meeting-name">'+joinedMeetings[i]+'</a></li>');
-        }
-      }
       if ($('input.meeting-name').val() !== '') {
         $('input.meeting-name').trigger('input');
       }
