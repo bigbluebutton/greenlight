@@ -22,11 +22,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 <% content_for :footer do %>
   <div class="panel-footer">
     <div class="text-center">
-      <% if current_user %>
-        <%= link_to t('return_to_room'), current_user.room_url %>
-      <% else %>
-        <%= link_to t('create_your_session'), root_path %>
-      <% end %>
+      <%= link_to t('create_your_session'), root_path %>
     </div>
   </div>
 <% end %>

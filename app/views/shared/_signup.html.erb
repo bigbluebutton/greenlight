@@ -1,13 +1,17 @@
 <span class="signup">
   <% if current_user %>
   <div class="text-center">
-    <span class=""><%= t('logged_in_description_html', link: link_to(current_user.name, current_user.room_url)) %></span>
-    <div class=""><%= link_to t('logout'), user_logout_url %></div>
+    <% if @main_room %>
+      <span><%= t('logged_in_description_html', link: link_to(current_user.name, current_user.room_url)) %></span>
+    <% else %>
+      <%= link_to(t('return_to_room'), current_user.room_url) %>
+    <% end %>
+    <div><%= link_to t('logout'), user_logout_url %></div>
   </div>
   <% else %>
     <div class="text-center">
-      <span class=""><%= t('login_description') %></span>
-      <div class=""><%= link_to t('login'), '/users/login' %></div>
+      <span><%= t('login_description') %></span>
+      <div><%= link_to t('login'), '/users/login' %></div>
     </div>
   <% end %>
 </span>
