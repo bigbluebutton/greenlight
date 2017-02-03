@@ -14,29 +14,50 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 -->
 
 <div <%= "hidden" if hidden %> class="meeting-url-wrapper">
-  <div class="input-group">
+  <div class="<%= 'input-group' unless @user %>">
     <div class="meeting-url-group">
       <input type="text" class="form-control meeting-url"/>
     </div>
 
-    <span class="input-group-btn">
+    <% if current_user %>
+      <% body = t('meeting_invite.signed_in.body', user: current_user.name) %>
+      <% subject = t('meeting_invite.signed_in.subject', user: current_user.name) %>
+    <% else %>
+      <% body = t('meeting_invite.not_signed_in.body') %>
+      <% subject = t('meeting_invite.not_signed_in.subject') %>
+    <% end %>
 
-      <button type="button" class="btn btn-default meeting-url-copy has-tooltip"
+    <% if @user %>
+      <div class="center-block meeting-url-button-group">
+        <button type="button" class="btn btn-default meeting-url-copy has-tooltip pull-left"
+          title="<%= t('url_copy_explanation') %>"
+          data-copied-hint="<%= t('copied') %>"
+          data-copy-error="<%= t('copy_error') %>"
+          data-copy-hint="<%= t('url_copy_explanation') %>"
+        >
+          <i class="fa fa-clipboard" aria-hidden="true"></i>
+        </button>
+
+        <button type="button" class="btn btn-default meeting-invite has-tooltip pull-right"
+          title="<%= t('meeting_invite.explanation') %>"
+          data-invite-body="<%= body %>"
+          data-invite-subject="<%= subject %>"
+        >
+          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        </button>
+      </div>
+    <% else %>
+      <span class="input-group-btn">
+
+        <button type="button" class="btn btn-default meeting-url-copy has-tooltip"
         title="<%= t('url_copy_explanation') %>"
         data-copied-hint="<%= t('copied') %>"
         data-copy-error="<%= t('copy_error') %>"
         data-copy-hint="<%= t('url_copy_explanation') %>"
-      >
+        >
         <i class="fa fa-clipboard" aria-hidden="true"></i>
       </button>
 
-      <% if current_user %>
-        <% body = t('meeting_invite.signed_in.body', user: current_user.name) %>
-        <% subject = t('meeting_invite.signed_in.subject', user: current_user.name) %>
-      <% else %>
-        <% body = t('meeting_invite.not_signed_in.body') %>
-        <% subject = t('meeting_invite.not_signed_in.subject') %>
-      <% end %>
       <button type="button" class="btn btn-default meeting-invite has-tooltip"
         title="<%= t('meeting_invite.explanation') %>"
         data-invite-body="<%= body %>"
@@ -45,6 +66,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
         <i class="fa fa-envelope-o" aria-hidden="true"></i>
       </button>
 
-    </span>
+  </span>
+    <% end %>
   </div>
 </div>
