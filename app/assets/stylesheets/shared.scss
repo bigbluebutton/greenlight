@@ -43,10 +43,6 @@ body[data-controller=landing].app-background {
   @extend .background;
 }
 
-body[data-controller=landing][data-action=rooms].app-background {
-  background-image: asset-url('bg_personal_room');
-}
-
 #alerts {
   position: absolute;
   top: 10px;
