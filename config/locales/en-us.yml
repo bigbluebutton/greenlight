@@ -74,16 +74,16 @@ en-US:
   invite: Invite
   invite_description: (share this link below to invite others to this meeting)
   join: Join
-  logged_in_description_html: You are logged in as %{link}
-  login: login
-  login_description: Want to record a meeting?
-  logout: logout
   landing_titles:
     start_meeting: Start your own meeting
     get_work_down: Let's get some work done
     connect: Connect in real-time with others
     collaborate: Collaborate with friends
     teach: Teach students online
+  logged_in_description_html: You are logged in as %{link}
+  login: login
+  login_description: Want to record a meeting?
+  logout: logout
   meeting: Meeting
   meeting_invite:
     explanation: Send an email with an invitation to this meeting
@@ -93,6 +93,7 @@ en-US:
     signed_in:
       body: "You have been invited by %{user} to a meeting.\n\nPlease open the following page in your web browser: &&URL&&"
       subject: "%{user} invited you to a meeting"
+  moderator_default_message: Invitation link - %{url}
   my_room: my room
   no: No
   notification_mailer:
@@ -104,7 +105,7 @@ en-US:
   past_recordings: Past Recordings
   presentation: Presentation
   previous_meetings: (previous meetings)
-  return_to_room: Return to your personal room
+  return_to_room: Return to main page
   session_url_explanation: The meeting will be taking place using the following URL
   signin_text: Log in with %{provider}
   start: Start
