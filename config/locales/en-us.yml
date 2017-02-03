@@ -69,8 +69,6 @@ en-US:
   enter_name: Enter your name
   enter_meeting_name: Enter a meeting name to start
   footer_html: Powered by %{bbb_link}
-  greet_user: Welcome, %{name}
-  greet_guest: Welcome to %{name} Meeting Space
   hi_all: Hi Everyone
   home_title: Welcome to BigBlueButton
   invite: Invite
@@ -80,6 +78,12 @@ en-US:
   login: login
   login_description: Want to record a meeting?
   logout: logout
+  landing_titles:
+    start_meeting: Start your own meeting
+    get_work_down: Let's get some work done
+    connect: Connect in real-time with others
+    collaborate: Collaborate with friends
+    teach: Teach students online
   meeting: Meeting
   meeting_invite:
     explanation: Send an email with an invitation to this meeting

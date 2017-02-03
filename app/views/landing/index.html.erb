@@ -15,7 +15,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 <% content_for :title do %>
   <div class="title">
-    <h2><%= t('home_title') %></h2>
+    <h2><%= t('landing_titles').values[rand(t('landing_titles').size)] %></h2>
   </div>
 <% end %>
 
