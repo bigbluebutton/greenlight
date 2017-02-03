@@ -13,12 +13,6 @@ You should have received a copy of the GNU Lesser General Public License along
 with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 -->
 
-<% if current_user %>
-  <% page_title = t('greet_user', name: current_user.name) %>
-<% else %>
-  <% page_title= t('greet_guest', name: @user.username) %>
-<% end %>
-
 <div class="page-wrapper rooms" data-main-room="<%= @main_room %>" data-id="<%= @meeting_id %>" data-admin-id="<%= @user.encrypted_id %>">
   <div class="container-fluid">
 
@@ -41,8 +35,8 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
           <th><%= t('meeting') %></th>
           <th><%= t('thumbnails') %></th>
           <th><%= t('duration') %></th>
-          <th><%= t('visibility') %></th>
           <th><%= t('watch') %></th>
+          <th><%= t('visibility') %></th>
           <th>published</th>
           <th><%= t('actions') %></th>
         </thead>

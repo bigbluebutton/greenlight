@@ -37,8 +37,8 @@ class @Recordings
         { data: "name", visible: $(".page-wrapper.rooms").data('main-room') },
         { data: "previews", orderable: false },
         { data: "duration", orderable: false },
-        { data: "published" },
         { data: "playbacks", orderable: false },
+        { data: "published" },
         { data: "listed", visible: false },
         { data: "id", orderable: false }
       ],
@@ -70,6 +70,17 @@ class @Recordings
         {
           targets: 4,
           render: (data, type, row) ->
+            if type == 'display'
+              str = ''
+              if row.published
+                for d in data
+                  str += '<a href="'+d.url+'" target="_blank">'+d.type_i18n+'</a> '
+              return str
+            return data
+        },
+        {
+          targets: 5,
+          render: (data, type, row) ->
             visibility = ['unpublished', 'unlisted', 'published']
             if row.published
               if row.listed
@@ -81,17 +92,6 @@ class @Recordings
             if type == 'display'
               return I18n[state]
             return state
-        }
-        {
-          targets: 5,
-          render: (data, type, row) ->
-            if type == 'display'
-              str = ''
-              if row.published
-                for d in data
-                  str += '<a href="'+d.url+'" target="_blank">'+d.type_i18n+'</a> '
-              return str
-            return data
         },
         {
           targets: -1,

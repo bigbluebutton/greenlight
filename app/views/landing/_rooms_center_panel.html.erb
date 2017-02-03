@@ -17,7 +17,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
   <div class="title">
     <h2>
       <% if admin? && !@meeting_running %>
-        <%= t('your_personal_room') %>
+        <%= t('admin_room_title', user: @user.name) %>
       <% else %>
         <%= t('user_person_room', name: @user.name) %>
       <% end %>

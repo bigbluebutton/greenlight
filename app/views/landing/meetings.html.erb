@@ -15,7 +15,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 <% content_for :title do %>
   <div class="title">
-    <h2><%= t('join_session_id', id: @meeting_id) %></h2>
+    <h2><%= "\"#{@meeting_id}\"" %></h2>
   </div>
 <% end %>
 
