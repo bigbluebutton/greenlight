@@ -37,13 +37,13 @@
 
 en-US:
   actions: Actions
-  are_you: Are you %{name} ?
+  admin_room_title: Welcome %{user}
+  are_you: Are you %{name}?
   are_you_sure: Are you sure?
   change_recording_visibility: "Change visibility to:"
   client:
     are_you_sure: Are you sure?
     delete_recording: Delete recording
-    join_title: Join "%{id}"
     meeting_ended: Meeting was ended
     meeting_started: Meeting was started
     no_recordings: No Recordings
@@ -64,7 +64,7 @@ en-US:
   copy_error: Use Ctrl-c to copy
   create_your_session: Create your own meeting
   date_recorded: Date
-  duration: Duration (minutes)
+  duration: Length (minutes)
   end: End
   enter_name: Enter your name
   enter_meeting_name: Enter a meeting name to start
@@ -76,10 +76,9 @@ en-US:
   invite: Invite
   invite_description: (share this link below to invite others to this meeting)
   join: Join
-  join_session_id: Join %{id}
   logged_in_description_html: You are logged in as %{link}
   login: login
-  login_description: Want your own recorded meetings?
+  login_description: Want to record a meeting?
   logout: logout
   meeting: Meeting
   meeting_invite:
@@ -100,13 +99,12 @@ en-US:
       subject: "Your recording is ready!"
   past_recordings: Past Recordings
   presentation: Presentation
-  previously_joined_meetings: Previously Joined Meetings
+  previous_meetings: (previous meetings)
   return_to_room: Return to your personal room
   session_url_explanation: The meeting will be taking place using the following URL
   signin_text: Log in with %{provider}
   start: Start
-  start_meeting: Start Meeting
-  your_personal_room: Your Personal Room
+  start_join: Start
   thumbnails: Thumbnails
   url_copy_explanation: Copy this URL to invite others to the meeting
   user_person_room: "%{name} personal room"

@@ -168,7 +168,7 @@
       Meeting.getInstance().setMeetingId(newId);
       $(".page-wrapper.meetings").data('id', newId);
       $('.meeting-url').val(Meeting.getInstance().getURL());
-      $('.join-meeting-title').html(I18n.join_title.replace(/%{id}/, newId));
+      $('.join-meeting-title').text('"'+newId+'"');
       if (newId === '') {
         $('.invite-join-wrapper').addClass('hidden');
       } else {
@@ -190,7 +190,7 @@
       var newId = $(this).val();
       Meeting.getInstance().setMeetingId(newId);
       $('.meeting-url').val(Meeting.getInstance().getURL());
-      $('.join-meeting-title').html(I18n.join_title.replace(/%{id}/, newId));
+      $('.join-meeting-title').text('"'+newId+'"');
       if (newId === '') {
         $('.invite-join-wrapper').addClass('hidden');
       } else {
