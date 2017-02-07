@@ -29,4 +29,9 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(id: session[:user_id])
   end
   helper_method :current_user
+
+  def relative_root
+    Rails.configuration.relative_url_root || ""
+  end
+  helper_method :relative_root
 end

@@ -18,15 +18,15 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
   <head>
     <title>Greenlight</title>
     <%= csrf_meta_tags %>
-    <%= action_cable_meta_tag %>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="action-cable-url" content="<%= relative_root+Rails.configuration.action_cable.mount_path %>"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
   </head>
 
-  <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>">
+  <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>" data-resource="<%= params[:resource] %>">
     <!-- Messages -->
     <div id='alerts'>
     </div>
@@ -53,6 +53,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 <script type="text/javascript">
   window.I18n = <%= client_translations.to_json.html_safe %>
   window.GreenLight = {};
+  window.GreenLight.relative_root = "<%= relative_root %>"
   window.GreenLight.META_LISTED = "<%= BbbApi::META_LISTED %>";
   window.GreenLight.META_TOKEN = "<%= BbbApi::META_TOKEN %>";
   window.GreenLight.META_HOOK_URL = "<%= BbbApi::META_HOOK_URL %>";

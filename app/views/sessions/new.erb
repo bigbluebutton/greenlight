@@ -26,7 +26,7 @@
       <%= render layout: 'shared/center_panel' do %>
         <div class="center-block center-panel-content-size col-xs-12">
           <% if omniauth_providers_configured(:twitter) %>
-            <%= link_to '/auth/twitter', class: "signin-link signin-link-twitter" do %>
+            <%= link_to omniauth_login_url(:twitter), class: "signin-link signin-link-twitter" do %>
               <div class="signin-button center-block">
                 <div class="signin-icon-wrapper">
                   <%= image_tag("twitter_signin_logo.png", alt: "T", class: "signin-icon") %>
@@ -38,7 +38,7 @@
             <% end %>
           <% end %>
           <% if omniauth_providers_configured(:google) %>
-              <%= link_to '/auth/google', class: "signin-link signin-link-google" do %>
+              <%= link_to omniauth_login_url(:google), class: "signin-link signin-link-google" do %>
                 <div class="signin-button center-block">
                   <div class="signin-icon-wrapper">
                     <%= image_tag("g-normal.png", alt: "G", class: "signin-icon") %>
