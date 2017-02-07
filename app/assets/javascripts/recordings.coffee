@@ -238,7 +238,7 @@ class @Recordings
 
   getRecordingsURL: ->
     if $(".page-wrapper.rooms").data('main-room')
-      base_url = '/rooms/'+Meeting.getInstance().getAdminId()
+      base_url = Meeting.buildRootURL()+'/'+$('body').data('resource')+'/'+Meeting.getInstance().getAdminId()
     else
       base_url = $('.meeting-url').val()
     base_url+'/recordings'

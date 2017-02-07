@@ -10,6 +10,8 @@ services:
       - '.:/usr/src/app'
     volumes_from:
       - gem_cache
+    env_file:
+      - .env
     expose:
       - '3001'
     stdin_open: true

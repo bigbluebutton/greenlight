@@ -38,7 +38,7 @@
     <% else %>
       <div class="text-center">
         <div><%= t('are_you', name: @user.name) %></div>
-        <div class=""><%= link_to t('login'), '/users/login' %></div>
+        <div class=""><%= link_to t('login'), user_login_url %></div>
       </div>
     <% end %>
   </div>

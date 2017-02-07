@@ -26,8 +26,7 @@ class @Meeting
     if _meetingInstance
       return _meetingInstance
     meetingId = $(".page-wrapper").data('id')
-    if (type = location.pathname.split('/')[1]) != 'rooms'
-      type = 'meetings'
+    type = $("body").data('resource')
     name = $('.meeting-user-name').val()
     adminId = $(".page-wrapper").data('admin-id')
     _meetingInstance = new Meeting(meetingId, type, name, adminId)
@@ -42,9 +41,9 @@ class @Meeting
       fullId = encodeURIComponent(adminId) + '/' + encodeURIComponent(meetingId)
     else
       fullId = encodeURIComponent(meetingId)
-    return @buildFullDomainURL() + '/' + type + '/' + fullId
+    return @buildRootURL() + '/' + type + '/' + fullId
 
-  @buildFullDomainURL: ->
+  @buildRootURL: ->
     url = location.protocol + '//' + location.hostname
     if location.port
       url += ':' + location.port
