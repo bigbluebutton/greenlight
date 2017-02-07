@@ -47,6 +47,8 @@ class @Meeting
     url = location.protocol + '//' + location.hostname
     if location.port
       url += ':' + location.port
+    if GreenLight.relative_root
+      url += GreenLight.relative_root
     return url
 
   # Sends the end meeting request

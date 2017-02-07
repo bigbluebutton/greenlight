@@ -66,7 +66,7 @@ class BbbController < ApplicationController
         }
       end
 
-      base_url = "#{request.base_url}/#{params[:resource]}/#{meeting_path}"
+      base_url = "#{request.base_url}#{relative_root}/#{params[:resource]}/#{meeting_path}"
       options[:meeting_logout_url] = base_url
       options[:hook_url] = "#{base_url}/callback"
 

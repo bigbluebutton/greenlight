@@ -44,7 +44,7 @@ module ApplicationHelper
   end
 
   def omniauth_login_url(provider)
-    "/auth/#{provider}"
+    "#{relative_root}/auth/#{provider}"
   end
 
   # Whether the current page is the page of a room/meeting or not

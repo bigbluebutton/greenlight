@@ -44,7 +44,7 @@ class User < ApplicationRecord
   end
 
   def room_url
-    "/rooms/#{encrypted_id}"
+    "#{Rails.configuration.relative_url_root}/rooms/#{encrypted_id}"
   end
 
   def set_encrypted_id
