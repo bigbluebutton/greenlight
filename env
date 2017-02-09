@@ -1,9 +1,9 @@
 # Step 1 - Create a secret key for rails
 #
-# You can generate a secure one through the Greenlight docker image 
+# You can generate a secure one through the Greenlight docker image
 # with with the command
 #
-#   docker run --rm greenlight rake secret
+#   docker run --rm bigbluebutton/greenlight rake secret
 #
 SECRET_KEY_BASE=
 
@@ -17,6 +17,7 @@ SECRET_KEY_BASE=
 # and uncomment the following two variables
 #BIGBLUEBUTTON_ENDPOINT=
 #BIGBLUEBUTTON_SECRET=
+
 
 # If "true", GreenLight will register a webhook callback for each meeting
 # created. This callback is called for all events that happen in the meeting,
@@ -62,3 +63,10 @@ TWITTER_SECRET=
 #
 GOOGLE_OAUTH2_ID=
 GOOGLE_OAUTH2_SECRET=
+
+# Prefix for the application's root URL
+# Useful for deploying the application to a subdirectory
+#
+#   default: '/b' (recommended)
+#
+#RAILS_RELATIVE_URL_ROOT=/b
