@@ -88,5 +88,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.relative_url_root = ENV['RAILS_RELATIVE_URL_ROOT'] || '/b'
+  if ENV['RELATIVE_URL_ROOT'] != '/'
+    config.relative_url_root = ENV['RELATIVE_URL_ROOT'] || '/b'
+  end
 end

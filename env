@@ -67,6 +67,6 @@ GOOGLE_OAUTH2_SECRET=
 # Prefix for the application's root URL
 # Useful for deploying the application to a subdirectory
 #
-#   default: '/b' (recommended)
+#   default is '/b' (recommended)
 #
-#RAILS_RELATIVE_URL_ROOT=/b
+#RELATIVE_URL_ROOT=/b
