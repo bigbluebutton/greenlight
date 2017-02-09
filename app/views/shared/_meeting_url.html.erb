@@ -35,7 +35,7 @@
           data-copy-error="<%= t('copy_error') %>"
           data-copy-hint="<%= t('url_copy_explanation') %>"
         >
-          <i class="fa fa-clipboard" aria-hidden="true"></i>
+          <%= icon('clipboard') %>
         </button>
 
         <button type="button" class="btn btn-default meeting-invite has-tooltip pull-right"
@@ -43,7 +43,7 @@
           data-invite-body="<%= body %>"
           data-invite-subject="<%= subject %>"
         >
-          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          <%= icon('envelope-o') %>
         </button>
       </div>
     <% else %>
@@ -55,7 +55,7 @@
         data-copy-error="<%= t('copy_error') %>"
         data-copy-hint="<%= t('url_copy_explanation') %>"
         >
-        <i class="fa fa-clipboard" aria-hidden="true"></i>
+          <%= icon('clipboard') %>
       </button>
 
       <button type="button" class="btn btn-default meeting-invite has-tooltip"
@@ -63,7 +63,7 @@
         data-invite-body="<%= body %>"
         data-invite-subject="<%= subject %>"
       >
-        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        <%= icon('envelope-o') %>
       </button>
 
   </span>

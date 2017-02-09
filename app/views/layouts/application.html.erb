@@ -21,12 +21,18 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     <meta name="action-cable-url" content="<%= relative_root+Rails.configuration.action_cable.mount_path %>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+    <% if relative_root != '/b' %>
+      <script src="https://use.fontawesome.com/5ec1c77c7b.js"></script>
+    <% else %>
+      <%= stylesheet_link_tag  'fa/gl-fa', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <% end %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
   </head>
 
-  <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>" data-resource="<%= params[:resource] %>">
+  <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>" data-resource="<%= params[:resource] %>"
+    style="background:url(<%= image_path('greenlight_background.png') if params[:controller] == 'landing' %>);">
     <!-- Messages -->
     <div id='alerts'>
     </div>

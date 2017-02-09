@@ -17,7 +17,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap-social";
-@import "font-awesome";
 
 
 html, body {
@@ -33,7 +32,6 @@ html, body {
 .background {
   height: 350px;
   width: 100%;
-  background: asset-url('greenlight_background');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
