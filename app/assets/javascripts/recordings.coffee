@@ -73,8 +73,11 @@ class @Recordings
             if type == 'display'
               str = ''
               if row.published
-                for d in data
-                  str += '<a href="'+d.url+'" target="_blank">'+d.type_i18n+'</a> '
+                if data.length == 1
+                  str = '<a class="btn btn-default" href="'+data[0].url+'" target="_blank"><i class="fa fa-play-circle"></i></a>'
+                else
+                  for d in data
+                    str += '<a href="'+d.url+'" target="_blank">'+d.type_i18n+'</a> '
               return str
             return data
         },
