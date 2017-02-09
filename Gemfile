@@ -60,7 +60,7 @@ gem 'bigbluebutton-api-ruby'
 
 gem 'bootstrap-sass', '3.3.0.0'
 gem 'bootstrap-social-rails', '~> 4.12'
-gem 'font-awesome-rails'
+gem 'font-awesome-sass'
 gem 'jquery-ui-rails'
 gem 'jquery-datatables-rails', '~> 3.4.0'
 gem 'rails-timeago', '~> 2.0'
