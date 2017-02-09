@@ -65,7 +65,7 @@
     });
 
     $('.center-panel-wrapper').on ('click', '.meeting-start', function (event) {
-      Turbolinks.visit(Meeting.getInstance().getURL());
+      Turbolinks.visit($('.meeting-url').val());
     });
 
     $('.center-panel-wrapper').on ('keypress', '.meeting-user-name', function (event) {

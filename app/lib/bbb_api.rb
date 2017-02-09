@@ -48,13 +48,7 @@ module BbbApi
     options[:meeting_logout_url] ||= nil
     options[:meeting_name] ||= meeting_token
     options[:room_owner] ||= nil
-
-    if options[:room_owner]
-      meeting_url = "#{request.base_url}/rooms/#{options[:room_owner]}/#{options[:meeting_name]}"
-    else
-      meeting_url = "#{request.base_url}/meetings/#{meeting_token}"
-    end
-    options[:moderator_message] ||= t('moderator_default_message', url: "<a href=\"#{meeting_url}\" target=\"_blank\"><u>#{meeting_url}</u></a>")
+    options[:moderator_message] ||= ''
 
     if !bbb
       return call_invalid_res

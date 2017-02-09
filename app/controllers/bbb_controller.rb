@@ -69,6 +69,7 @@ class BbbController < ApplicationController
       base_url = "#{request.base_url}#{relative_root}/#{params[:resource]}/#{meeting_path}"
       options[:meeting_logout_url] = base_url
       options[:hook_url] = "#{base_url}/callback"
+      options[:moderator_message] = t('moderator_default_message', url: "<a href=\"#{base_url}\" target=\"_blank\"><u>#{base_url}</u></a>")
 
       bbb_res = bbb_join_url(
         meeting_id,
