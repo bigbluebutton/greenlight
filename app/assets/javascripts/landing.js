@@ -75,6 +75,13 @@
       }
     });
 
+    $('.center-panel-wrapper').on ('keypress', '.meeting-name', function (event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        $('.meeting-start').click();
+      }
+    });
+
     $('.center-panel-wrapper').on ('click', '.meeting-end', function (event) {
       var jqxhr = Meeting.getInstance().endMeeting();
       var btn = $(this);
