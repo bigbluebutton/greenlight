@@ -32,7 +32,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
   </head>
 
   <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>" data-resource="<%= params[:resource] %>"
-    style="background:url(<%= image_path('greenlight_background.png') if params[:controller] == 'landing' %>);">
+    style="background-image:url(<%= image_path('greenlight_background.png') if params[:controller] == 'landing' %>);">
     <!-- Messages -->
     <div id='alerts'>
     </div>
