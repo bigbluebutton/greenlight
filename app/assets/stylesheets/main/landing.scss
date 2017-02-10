@@ -14,6 +14,11 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
+.meeting-url-button-group {
+  padding-top: 5px;
+  width: 100px;
+}
+
 .previously-joined {
   list-style-type: none;
   margin:auto;
@@ -48,12 +53,6 @@
       }
     }
   }
-
-  .meeting-url-button-group {
-    padding-top: 5px;
-    width: 100px;
-  }
-
 }
 
 .img-thumbnail{
