@@ -95,6 +95,7 @@ en-US:
       subject: "%{user} invited you to a meeting"
   moderator_default_message: Invitation link - %{url}
   my_room: my room
+  name: Name
   no: No
   notification_mailer:
     recording_ready_email:
