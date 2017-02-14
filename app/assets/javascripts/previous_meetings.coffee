@@ -17,6 +17,8 @@
 # Previous Meetings class
 
 class @PreviousMeetings
+  MAX_MEETINGS = 5
+
   @init: (type) ->
     $('.center-panel-wrapper').off 'click', '.fill-meeting-name'
     $('.center-panel-wrapper').on 'click', '.fill-meeting-name', (event, msg) ->
@@ -29,6 +31,8 @@ class @PreviousMeetings
       joinedMeetings = joinedMeetings.split(',')
 
       for m in joinedMeetings by -1
+        if $('ul.previously-joined > li').length > MAX_MEETINGS
+          break
         $('ul.previously-joined').append('<li><a class="fill-meeting-name">'+m+'</a></li>')
 
       $('.center-panel-wrapper .previously-joined-wrapper').removeClass('hidden')
@@ -44,9 +48,9 @@ class @PreviousMeetings
       names = names.filter( (value) ->
         return $.inArray(value, meetings) == -1
       )
-      for m in names
-        if $('ul.previously-joined').length > 4
-          return
+      for m in meetings
+        if $('ul.previously-joined > li').length > MAX_MEETINGS
+          break
         $('ul.previously-joined').append('<li><a class="fill-meeting-name">'+m+'</a></li>')
 
       $('.center-panel-wrapper .previously-joined-wrapper').removeClass('hidden')
