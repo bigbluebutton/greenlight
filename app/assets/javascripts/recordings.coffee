@@ -202,6 +202,13 @@ class @Recordings
       table_api.rows.add(data.recordings)
       @draw()
 
+      recording_names = data.recordings.map (r) ->
+        return r.name
+      output = {}
+      for key in [0...recording_names.length]
+        output[recording_names[key]] = recording_names[key]
+      PreviousMeetings.add(value for key, value of output)
+
   # setup click handlers for the action buttons
   setupActionHandlers: ->
     table_api = this.table.api()
