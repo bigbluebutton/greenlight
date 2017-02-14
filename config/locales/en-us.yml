@@ -43,11 +43,13 @@ en-US:
   change_recording_visibility: "Change visibility to:"
   client:
     are_you_sure: Are you sure?
+    change_visibility: Change visibility
     delete_recording: Delete recording
     meeting_ended: Meeting was ended
     meeting_started: Meeting was started
     no_recordings: No Recordings
     no_recordings_yet: No Recordings (Yet!)
+    play_recording: Play recording
     publish_recording: Publish recording
     published: Everyone
     recording_created: A recording was created
@@ -111,6 +113,7 @@ en-US:
   signin_text: Log in with %{provider}
   start: Start
   start_join: Start
+  start_meeting: Start meeting
   thumbnails: Thumbnails
   url_copy_explanation: Copy this URL to invite others to the meeting
   user_person_room: "%{name} personal room"

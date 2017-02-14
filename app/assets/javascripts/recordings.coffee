@@ -86,7 +86,7 @@ class @Recordings
               str = ''
               if row.published
                 if data.length == 1
-                  str = '<a class="btn btn-default" href="'+data[0].url+'" target="_blank"><i class="fa fa-play-circle"></i></a>'
+                  str = '<a class="btn btn-default play-tooltip" href="'+data[0].url+'" target="_blank"><i class="fa fa-play-circle"></i></a>'
                 else
                   for d in data
                     str += '<a href="'+d.url+'" target="_blank">'+d.type_i18n+'</a> '
@@ -135,6 +135,14 @@ class @Recordings
       placement: 'bottom',
       title: I18n.delete_recording
     };
+    $('#recordings').tooltip(options)
+
+    options.selector = '.visibility-tooltip'
+    options.title = I18n.change_visibility
+    $('#recordings').tooltip(options)
+
+    options.selector = '.play-tooltip'
+    options.title = I18n.play_recording
     $('#recordings').tooltip(options)
 
     $(document).one "turbolinks:before-cache", =>
@@ -209,7 +217,7 @@ class @Recordings
         for key in [0...recording_names.length]
           output[recording_names[key]] = recording_names[key]
         PreviousMeetings.add(value for key, value of output)
-        
+
 
   # setup click handlers for the action buttons
   setupActionHandlers: ->
