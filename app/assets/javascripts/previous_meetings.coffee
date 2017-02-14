@@ -17,7 +17,8 @@
 # Previous Meetings class
 
 class @PreviousMeetings
-  @init: (type)->
+  @init: (type) ->
+    $('.center-panel-wrapper').off 'click', '.fill-meeting-name'
     $('.center-panel-wrapper').on 'click', '.fill-meeting-name', (event, msg) ->
       name = $(this).text()
       $('input.meeting-name').val(name).trigger('input')
@@ -28,6 +29,24 @@ class @PreviousMeetings
       joinedMeetings = joinedMeetings.split(',')
 
       for m in joinedMeetings by -1
+        $('ul.previously-joined').append('<li><a class="fill-meeting-name">'+m+'</a></li>')
+
+      $('.center-panel-wrapper .previously-joined-wrapper').removeClass('hidden')
+
+  @add: (names) ->
+    meetings = $('ul.previously-joined > li').toArray().map( (li) ->
+      return li.innerText
+    )
+    index = meetings.indexOf('')
+    if index > 1
+      meetings.splice(index, 1)
+    if Array.isArray(names)
+      names = names.filter( (value) ->
+        return $.inArray(value, meetings) == -1
+      )
+      for m in names
+        if $('ul.previously-joined').length > 4
+          return
         $('ul.previously-joined').append('<li><a class="fill-meeting-name">'+m+'</a></li>')
 
       $('.center-panel-wrapper .previously-joined-wrapper').removeClass('hidden')
