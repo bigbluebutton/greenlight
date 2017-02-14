@@ -19,6 +19,18 @@
 _recordingsInstance = null
 
 class @Recordings
+  # adding or removing a column will require updates to all subsequent column positions
+  COLUMN = {
+    DATE: 0,
+    NAME: 1,
+    PREVIEW: 2,
+    DURATION: 3,
+    PLAYBACK: 4,
+    VISIBILITY: 5,
+    LISTED: 6,
+    ACTION: 7
+  }
+
   constructor: ->
     # configure the datatable for recordings
     this.table = $('#recordings').dataTable({
@@ -27,7 +39,7 @@ class @Recordings
       paging: false,
       dom: 't',
       info: false,
-      order: [[ 0, "desc" ]],
+      order: [[ COLUMN.DATE, "desc" ]],
       language: {
         emptyTable: '<h3>'+I18n.no_recordings_yet+'</h3>',
         zeroRecords: '<h3>'+I18n.no_recordings+'</h3>'
@@ -44,7 +56,7 @@ class @Recordings
       ],
       columnDefs: [
         {
-          targets: 0,
+          targets: COLUMN.DATE,
           render: (data, type, row) ->
             if type == 'display'
               date = new Date(data)
@@ -57,7 +69,7 @@ class @Recordings
             return data
         },
         {
-          targets: 2,
+          targets: COLUMN.PREVIEW,
           render: (data, type, row) ->
             if type == 'display'
               str = ''
@@ -68,7 +80,7 @@ class @Recordings
             return data
         },
         {
-          targets: 4,
+          targets: COLUMN.PLAYBACK,
           render: (data, type, row) ->
             if type == 'display'
               str = ''
@@ -82,7 +94,7 @@ class @Recordings
             return data
         },
         {
-          targets: 5,
+          targets: COLUMN.VISIBILITY,
           render: (data, type, row) ->
             visibility = ['unpublished', 'unlisted', 'published']
             if row.published
@@ -97,7 +109,7 @@ class @Recordings
             return state
         },
         {
-          targets: -1,
+          targets: COLUMN.ACTION,
           render: (data, type, row) ->
             if type == 'display'
               roomName = Meeting.getInstance().getMeetingId()
@@ -171,7 +183,7 @@ class @Recordings
 
   draw: ->
     if !@isOwner()
-      @table.api().columns(6).search('true')
+      @table.api().columns(COLUMN.LISTED).search('true')
     @table.api().columns.adjust().draw()
 
   # refresh the recordings from the server
@@ -180,8 +192,8 @@ class @Recordings
     $.get @getRecordingsURL(), (data) =>
       @setOwner(data.is_owner)
       if !@owner
-        table_api.column(-1).visible(false)
-        table_api.column(5).visible(false)
+        table_api.column(COLUMN.ACTION).visible(false)
+        table_api.column(COLUMN.VISIBILITY).visible(false)
       for recording in data.recordings
         recording.duration = recording.length
       data.recordings.sort (a,b) ->
