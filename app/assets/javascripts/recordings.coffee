@@ -181,6 +181,7 @@ class @Recordings
       @setOwner(data.is_owner)
       if !@owner
         table_api.column(-1).visible(false)
+        table_api.column(5).visible(false)
       for recording in data.recordings
         recording.duration = recording.length
       data.recordings.sort (a,b) ->
