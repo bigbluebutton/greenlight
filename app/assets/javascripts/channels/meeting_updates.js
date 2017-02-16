@@ -24,10 +24,14 @@
   };
 
   var enableMeetingUpdates = function() {
+    var meetingId = ''
+    if (!$(".page-wrapper.rooms").data('main-room')) {
+      meetingId = $(".page-wrapper.rooms").data('id');
+    }
     App.meeting_update = App.cable.subscriptions.create({
       channel: 'MeetingUpdatesChannel',
       admin_id: $(".page-wrapper.rooms").data('admin-id'),
-      meeting_id: $(".page-wrapper.rooms").data('id')
+      meeting_id: meetingId
     },
     {
       received: function(data) {
@@ -46,7 +50,7 @@
           showAlert(I18n.meeting_ended, 4000);
         } else if (data.action === 'user_waiting') {
           // show a browser notification only to the owner
-          if (GreenLight.user.roomOwner) {
+          if (isRoomOwner()) {
             showNotification(I18n.user_waiting_title, {
               body: I18n.user_waiting_body.replace(/%{user}/, data.user)
             });
@@ -68,9 +72,7 @@
     }
     if ($("body[data-controller=landing]").get(0)) {
       if ($("body[data-action=rooms]").get(0)) {
-        if (!$(".page-wrapper.rooms").data('main-room')) {
-          enableMeetingUpdates();
-        }
+        enableMeetingUpdates();
       }
     }
   });
