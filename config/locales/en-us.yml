@@ -71,6 +71,11 @@ en-US:
   enter_name: Enter your name
   enter_meeting_name: Enter a meeting name to start
   footer_html: Powered by %{bbb_link}
+  getting_started_page:
+    title: Getting Started Quickly
+    setting_up_audio: Setting Up Audio
+    viewer_overview: Viewer Overview
+    presenter_overview: Moderator/Presenter Overview
   hi_all: Hi Everyone
   home_title: Welcome to BigBlueButton
   invite: Invite
