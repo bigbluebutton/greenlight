@@ -16,7 +16,7 @@
 
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
-  get 'help/getting_started'
+  get 'help/getting_started', as: :help
 
   mount ActionCable.server => '/cable'
 

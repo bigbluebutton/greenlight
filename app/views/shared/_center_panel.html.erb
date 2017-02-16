@@ -24,6 +24,9 @@
           <%= yield %>
         </div>
         <%= yield :footer %>
+        <div class="help-link">
+          <%= link_to t('help'), help_url %>
+        </div>
       </div>
     </div>
   </div>

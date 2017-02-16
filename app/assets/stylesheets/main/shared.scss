@@ -79,6 +79,10 @@ body[data-controller=landing].app-background {
     max-width: 1100px;
   }
 
+  .panel {
+    position: relative;
+  }
+
   .input-spacing {
     margin-top: 15px;
   }
@@ -172,4 +176,11 @@ a.signin-link {
 
 .invite-join-wrapper {
   position: relative;
+}
+
+.help-link {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 3px;
 }
