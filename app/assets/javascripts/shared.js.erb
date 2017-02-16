@@ -68,10 +68,14 @@ var showNotification = function(title, options) {
   }
 };
 
+var isRoomOwner = function() {
+  return $('body').data('current-user') === $('.page-wrapper.rooms').data('admin-id')
+}
+
 // For now there are notifications only for users signed in and when they
 // are in their room's page
 $(document).on("turbolinks:load", function() {
-  if (GreenLight.user.roomOwner) {
+  if (isRoomOwner()) {
     Notification.requestPermission();
   }
 });

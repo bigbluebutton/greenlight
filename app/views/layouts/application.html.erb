@@ -45,7 +45,9 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
   </head>
 
-  <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>" data-resource="<%= params[:resource] %>"
+  <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>"
+    data-resource="<%= params[:resource] %>"
+    data-current-user="<%= current_user.try(:encrypted_id) %>"
     style="background-image:url(<%= image_path('greenlight_background.png') if params[:controller] == 'landing' %>);">
     <!-- Messages -->
     <div id='alerts'>
