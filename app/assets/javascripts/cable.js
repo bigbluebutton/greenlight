@@ -22,8 +22,13 @@
 //= require_tree ./channels
 
 (function() {
+  var protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+  var host     = window.GreenLight.WEBSOCKET_HOST || window.location.host + window.GreenLight.RELATIVE_ROOT;
+  var path     = window.GreenLight.WEBSOCKET_PATH || '/cable';
+  var url      = protocol + host + path;
+
   this.App || (this.App = {});
 
-  App.cable = ActionCable.createConsumer();
+  App.cable = ActionCable.createConsumer(url);
 
 }).call(this);

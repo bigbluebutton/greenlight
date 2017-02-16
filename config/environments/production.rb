@@ -65,7 +65,6 @@ Rails.application.configure do
   unless ENV["RAILS_ACTION_CABLE_FORGERY_PROTECTION"].present?
     Rails.application.config.action_cable.disable_request_forgery_protection = true
   end
-  # config.action_cable.allowed_request_origins = ["https://#{ENV['HOSTNAME']}", "http://#{ENV['HOSTNAME']}"]
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
