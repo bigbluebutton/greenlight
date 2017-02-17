@@ -19,7 +19,7 @@ class NotificationMailer < ActionMailer::Base
 
   def recording_ready_email(user)
     @user = user
-    @room_url = resource_url(resource: "rooms", id: user.encrypted_id)
+    @room_url = meeting_room_url(resource: 'rooms', id: user.encrypted_id)
     mail(to: user.email, subject: t('.subject'))
   end
 end

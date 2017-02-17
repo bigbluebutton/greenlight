@@ -43,11 +43,11 @@ Rails.application.routes.draw do
       get '/:id/wait', to: 'landing#wait_for_moderator'
       get '/:id/session_status_refresh', to: 'landing#session_status_refresh'
     end
+    post '/:room_id/:id/callback', to: 'bbb#callback' #, defaults: {format: 'json'}
 
     # routes shared between meetings and rooms
     get '/(:room_id)/:id/join', to: 'bbb#join', defaults: {room_id: nil, format: 'json'}
     get '/(:room_id)/:id', to: 'landing#resource', as: :meeting_room, defaults: {room_id: nil}
-    post '/:id/callback', to: 'bbb#callback' #, defaults: {format: 'json'}
   end
 
   root to: 'landing#index', :resource => 'meetings'
