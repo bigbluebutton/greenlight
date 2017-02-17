@@ -202,6 +202,7 @@ class BbbController < ApplicationController
     if eventName == "publish_ended"
       if event['payload'] && event['payload']['metadata'] && event['payload']['meeting_id']
         token = event['payload']['metadata'][META_TOKEN]
+        room_id = event['payload']['metadata']['room-id']
         record_id = event['payload']['meeting_id']
 
         # the webhook event doesn't have all the data we need, so we need
@@ -209,11 +210,11 @@ class BbbController < ApplicationController
         # TODO: if the webhooks included all data in the event we wouldn't need this
         rec_info = bbb_get_recordings({recordID: record_id})
         rec_info = rec_info[:recordings].first
-        RecordingCreatedJob.perform_later(token, parse_recording_for_view(rec_info))
+        RecordingCreatedJob.perform_later(token, room_id, parse_recording_for_view(rec_info))
 
         # send an email to the owner of this recording, if defined
         if Rails.configuration.mail_notifications
-          owner = User.find_by(encrypted_id: token)
+          owner = User.find_by(encrypted_id: room_id)
           RecordingReadyEmailJob.perform_later(owner) if owner.present?
         end
 

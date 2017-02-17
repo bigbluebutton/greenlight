@@ -19,8 +19,10 @@ class RecordingCreatedJob < ApplicationJob
 
   queue_as :default
 
-  def perform(room, recording)
+  def perform(token, room, recording)
     ActionCable.server.broadcast "#{room}_recording_updates_channel",
       { action: 'create' }.merge(recording)
+      ActionCable.server.broadcast "#{token}_recording_updates_channel",
+        { action: 'create' }.merge(recording)
   end
 end
