@@ -17,9 +17,9 @@
   <% if current_user %>
   <div class="text-center">
     <% if @main_room %>
-      <span><%= t('logged_in_description_html', link: link_to(current_user.name, current_user.room_url)) %></span>
+      <span><%= t('logged_in_description_html', link: link_to(current_user.name, meeting_room_url(resource: 'rooms', id: current_user.encrypted_id))) %></span>
     <% else %>
-      <%= link_to(t('return_to_room'), current_user.room_url) %>
+      <%= link_to(t('return_to_room'), meeting_room_url(resource: 'rooms', id: current_user.encrypted_id)) %>
     <% end %>
     <div><%= link_to t('logout'), user_logout_url %></div>
   </div>

@@ -43,10 +43,6 @@ class User < ApplicationRecord
     auth_hash['info']['email']
   end
 
-  def room_url
-    "#{Rails.configuration.relative_url_root}/rooms/#{encrypted_id}"
-  end
-
   def set_encrypted_id
     self.encrypted_id = "#{username[0..1]}-#{Digest::SHA1.hexdigest(uid+provider)[0..7]}"
   end

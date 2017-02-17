@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
   def create
     @user = User.from_omniauth(request.env['omniauth.auth'])
     session[:user_id] = @user.id
-    redirect_to @user.room_url
+    redirect_to meeting_room_url(resource: 'rooms', id: @user.encrypted_id)
   rescue => e
     logger.error "Error authenticating via omniauth: #{e}"
     redirect_to root_path
