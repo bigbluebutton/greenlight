@@ -72,7 +72,7 @@ class @Meeting
         if @type == 'meetings'
           key = 'joinedMeetings'
         else if @type == 'rooms'
-          key = 'joinedRooms'
+          key = 'joinedRooms-'+@adminId
 
         # update previously joined meetings/rooms on client
         try

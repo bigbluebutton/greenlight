@@ -192,6 +192,7 @@
 
   var initRooms = function() {
     displayRoomURL();
+    var roomAdmin = $('.page-wrapper.rooms').data('admin-id');
 
     $('.center-panel-wrapper').on('input', '.meeting-name', function (event, msg) {
       var newId = $(this).val();
@@ -206,7 +207,7 @@
     });
 
     if ($(".page-wrapper.rooms").data('main-room')) {
-      PreviousMeetings.init('joinedRooms');
+      PreviousMeetings.init('joinedRooms-'+roomAdmin);
 
       if ($('input.meeting-name').val() !== '') {
         $('input.meeting-name').trigger('input');
