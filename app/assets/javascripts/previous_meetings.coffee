@@ -19,6 +19,7 @@
 class @PreviousMeetings
   MAX_MEETINGS = 5
 
+  # initializes and populates previous meetings list with entries from localStorage
   @init: (type) ->
     $('.center-panel-wrapper').off 'click', '.fill-meeting-name'
     $('.center-panel-wrapper').on 'click', '.fill-meeting-name', (event, msg) ->
@@ -29,15 +30,10 @@ class @PreviousMeetings
     joinedMeetings = localStorage.getItem(type)
     if joinedMeetings && joinedMeetings.length > 0
       joinedMeetings = joinedMeetings.split(',')
+      PreviousMeetings.append(joinedMeetings.reverse())
 
-      for m in joinedMeetings by -1
-        if $('ul.previously-joined > li').length > MAX_MEETINGS
-          break
-        $('ul.previously-joined').append('<li><a class="fill-meeting-name">'+m+'</a></li>')
-
-      $('.center-panel-wrapper .previously-joined-wrapper').removeClass('hidden')
-
-  @add: (names) ->
+  # adds to previous meetings list if its unique
+  @uniqueAdd: (names) ->
     meetings = $('ul.previously-joined > li').toArray().map( (li) ->
       return li.innerText
     )
@@ -48,9 +44,12 @@ class @PreviousMeetings
       names = names.filter( (value) ->
         return $.inArray(value, meetings) == -1
       )
-      for m in names
-        if $('ul.previously-joined > li').length > MAX_MEETINGS
-          break
-        $('ul.previously-joined').append('<li><a class="fill-meeting-name">'+m+'</a></li>')
+      PreviousMeetings.append(names)
 
-      $('.center-panel-wrapper .previously-joined-wrapper').removeClass('hidden')
+  @append: (meeting_names) ->
+    for m in meeting_names
+      if $('ul.previously-joined > li').length > MAX_MEETINGS
+        break
+      $('ul.previously-joined').append('<li><a class="fill-meeting-name">'+m+'</a></li>')
+
+    $('.center-panel-wrapper .previously-joined-wrapper').removeClass('hidden')
