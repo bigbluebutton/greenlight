@@ -20,6 +20,9 @@ class NotificationMailer < ActionMailer::Base
   def recording_ready_email(user)
     @user = user
     @room_url = meeting_room_url(resource: 'rooms', id: user.encrypted_id)
+    unless @room_url.include? "#{Rails.configuration.relative_url_root}/"
+      @room_url = @room_url.split('/rooms/').join("#{Rails.configuration.relative_url_root}/rooms/")
+    end
     mail(to: user.email, subject: t('.subject'))
   end
 end

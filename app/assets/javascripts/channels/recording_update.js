@@ -47,9 +47,7 @@
 
         } else if (data.action === 'create') {
           if (row.length == 0) {
-            data.duration = data.length;
-            table.rows.add([data]);
-            recordings.draw();
+            recordings.refresh();
             showAlert(I18n.recording_created, 4000);
           }
 
