@@ -20,16 +20,21 @@ _recordingsInstance = null
 
 class @Recordings
   # adding or removing a column will require updates to all subsequent column positions
-  COLUMN = {
-    DATE: 0,
-    NAME: 1,
-    PREVIEW: 2,
-    DURATION: 3,
-    PLAYBACK: 4,
-    VISIBILITY: 5,
-    LISTED: 6,
-    ACTION: 7
-  }
+  COLUMNS = [
+    'DATE',
+    'NAME',
+    'PREVIEW',
+    'DURATION',
+    'PARTICIPANTS',
+    'PLAYBACK',
+    'VISIBILITY',
+    'LISTED',
+    'ACTION'
+  ]
+  COLUMN = {}
+  i = 0
+  for c in COLUMNS
+    COLUMN[c] = i++
 
   constructor: ->
     # configure the datatable for recordings
@@ -48,7 +53,8 @@ class @Recordings
         { data: "start_time" },
         { data: "name", visible: $(".page-wrapper.rooms").data('main-room') },
         { data: "previews", orderable: false },
-        { data: "duration", orderable: false },
+        { data: "duration" },
+        { data: "participants" },
         { data: "playbacks", orderable: false },
         { data: "published" },
         { data: "listed", visible: false },

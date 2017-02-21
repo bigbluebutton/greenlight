@@ -111,6 +111,7 @@ en-US:
       phrase1: "One of your recordings has just been made available."
       phrase2: "Access the following website to view it and publish to other users: %{url}"
       subject: "Your recording is ready!"
+  participants: Users
   past_recordings: Past Recordings
   presentation: Presentation
   previous_meetings: (previous meetings)

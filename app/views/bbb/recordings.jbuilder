@@ -25,6 +25,11 @@ json.recordings do
     json.published recording[:published]
     json.length recording[:length]
     json.listed recording[:listed]
+    if recording[:participants].is_a? String
+      json.participants recording[:participants]
+    else
+      json.participants nil
+    end
     json.previews do
       json.array!(recording[:previews]) do |preview|
         json.partial! 'preview', preview: preview
