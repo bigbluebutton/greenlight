@@ -18,33 +18,6 @@ SECRET_KEY_BASE=
 #BIGBLUEBUTTON_ENDPOINT=
 #BIGBLUEBUTTON_SECRET=
 
-
-# If "true", GreenLight will register a webhook callback for each meeting
-# created. This callback is called for all events that happen in the meeting,
-# including the processing of its recording. These events are used to update
-# the web page dynamically as things happen in the server.
-# If not "true", the application will add a metadata to the meetings with this same
-# callback URL. Scripts can then be added to BigBlueButton to call this callback
-# URL and send specific events to GreenLight (e.g. a post publish script to warn
-# the application when recordings are done).
-GREENLIGHT_USE_WEBHOOKS=false
-
-GREENLIGHT_DOMAIN=localhost-lxc.org
-
-# Enable email notifications
-GREENLIGHT_MAIL_NOTIFICATIONS=true
-GREENLIGHT_DOMAIN=localhost-lxc.org
-
-SMTP_FROM=youremail@gmail.com
-SMTP_SERVER=smtp.gmail.com
-SMTP_DOMAIN=gmail.com
-SMTP_PORT=587
-SMTP_USERNAME=youremail@gmail.com
-SMTP_PASSWORD=yourpassword
-# SMTP_TLS=false
-# SMTP_AUTH=login
-# SMTP_STARTTLS_AUTO=true
-
 # Twitter Login Provider (optional)
 #
 #   You will need to register the app at https://apps.twitter.com/
@@ -63,6 +36,31 @@ TWITTER_SECRET=
 #
 GOOGLE_OAUTH2_ID=
 GOOGLE_OAUTH2_SECRET=
+
+# If "true", GreenLight will register a webhook callback for each meeting
+# created. This callback is called for all events that happen in the meeting,
+# including the processing of its recording. These events are used to update
+# the web page dynamically as things happen in the server.
+# If not "true", the application will add a metadata to the meetings with this same
+# callback URL. Scripts can then be added to BigBlueButton to call this callback
+# URL and send specific events to GreenLight (e.g. a post publish script to warn
+# the application when recordings are done).
+GREENLIGHT_USE_WEBHOOKS=false
+
+
+# SMTP Mailer
+#
+GREENLIGHT_MAIL_NOTIFICATIONS=true
+GREENLIGHT_DOMAIN=localhost-lxc.org
+SMTP_FROM=youremail@gmail.com
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+SMTP_DOMAIN=gmail.com
+SMTP_USERNAME=youremail@gmail.com
+SMTP_PASSWORD=yourpassword
+# SMTP_TLS=false
+# SMTP_AUTH=login
+# SMTP_STARTTLS_AUTO=true
 
 # Prefix for the application's root URL
 # Useful for deploying the application to a subdirectory
