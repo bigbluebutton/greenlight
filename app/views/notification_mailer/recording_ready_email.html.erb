@@ -21,26 +21,26 @@
   <body>
     <p><%= t('.hi', name: @user.name) %></p>
     <p><%= t('.phrase1') %></p>
-    <table border="1" cellspacing="0" cellpadding="4">
+    <table>
       <tr>
-        <td><%= t('.table.name') %></td>
-        <td><%= @recording[:name] %></td>
+        <td align='right'><%= t('.table.name') %></td>
+        <td><b><%= @recording[:name] %></b></td>
       </tr>
       <tr>
-        <td><%= t('.table.length') %></td>
-        <td><%= t('.table.length_value', value: @recording[:length]) %></td>
+        <td align='right'><%= t('.table.length') %></td>
+        <td><b><%= t('.table.length_value', value: @recording[:length]) %></b></td>
       </tr>
       <tr>
-        <td><%= t('.table.started') %></td>
-        <td><%= Time.parse(@recording[:start_time]).utc %></td>
+        <td align='right'><%= t('.table.started') %></td>
+        <td><b><%= Time.parse(@recording[:start_time]).utc %></b></td>
       </tr>
       <tr>
-        <td><%= t('.table.ended') %></td>
-        <td><%= Time.parse(@recording[:end_time]).utc %></td>
+        <td align='right'><%= t('.table.ended') %></td>
+        <td><b><%= Time.parse(@recording[:end_time]).utc %></b></td>
       </tr>
       <tr>
-        <td><%= t('.table.users') %></td>
-        <td><%= @recording[:participants] %></td>
+        <td align='right'><%= t('.table.users') %></td>
+        <td><b><%= @recording[:participants] %></b></td>
       </tr>
     </table>
     <p><%= t('.phrase2') %></p>
