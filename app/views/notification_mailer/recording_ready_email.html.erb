@@ -21,6 +21,37 @@
   <body>
     <p><%= t('.hi', name: @user.name) %></p>
     <p><%= t('.phrase1') %></p>
-    <p><%= t('.phrase2', url: @room_url) %></p>
+    <table border="1" cellspacing="0" cellpadding="4">
+      <tr>
+        <td><%= t('.table.name') %></td>
+        <td><%= @recording[:name] %></td>
+      </tr>
+      <tr>
+        <td><%= t('.table.length') %></td>
+        <td><%= t('.table.length_value', value: @recording[:length]) %></td>
+      </tr>
+      <tr>
+        <td><%= t('.table.started') %></td>
+        <td><%= Time.parse(@recording[:start_time]).utc %></td>
+      </tr>
+      <tr>
+        <td><%= t('.table.ended') %></td>
+        <td><%= Time.parse(@recording[:end_time]).utc %></td>
+      </tr>
+      <tr>
+        <td><%= t('.table.users') %></td>
+        <td><%= @recording[:participants] %></td>
+      </tr>
+    </table>
+    <p><%= t('.phrase2') %></p>
+    <p style="text-align:center;"><%= link_to(@recording[:playbacks][0][:url], @recording[:playbacks][0][:url]) %></p>
+    <p><%= t('.phrase3_html') %></p>
+    <p><%= t('.phrase4') %></p>
+    <p style="text-align:center;"><%= link_to(@room_url, @room_url) %></p>
+    <p><%= t('.phrase5') %></p>
+    <p><%= t('.closing') %></p>
+    --
+    <p><%= t('.footer.phrase1') %></p>
+    <p><%= t('.footer.phrase2_html', url: link_to("http://bigbluebutton.org/", "http://bigbluebutton.org/")) %></p>
   </body>
 </html>

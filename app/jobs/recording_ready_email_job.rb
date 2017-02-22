@@ -17,9 +17,9 @@
 class RecordingReadyEmailJob < ApplicationJob
   queue_as :default
 
-  def perform(user)
+  def perform(user, rec)
     if user.email.present?
-      NotificationMailer.recording_ready_email(user).deliver
+      NotificationMailer.recording_ready_email(user, rec).deliver
     end
   end
 end

@@ -17,8 +17,9 @@
 class NotificationMailer < ActionMailer::Base
   default from: Rails.configuration.smtp_from
 
-  def recording_ready_email(user)
+  def recording_ready_email(user, rec)
     @user = user
+    @recording = rec
     @room_url = meeting_room_url(resource: 'rooms', id: user.encrypted_id)
     unless @room_url.include? "#{Rails.configuration.relative_url_root}/"
       @room_url = @room_url.split('/rooms/').join("#{Rails.configuration.relative_url_root}/rooms/")
