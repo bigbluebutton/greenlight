@@ -257,7 +257,8 @@ module BbbApi
       length: recording[:length],
       listed: recording[:listed],
       playbacks: playbacks,
-      previews: previews
+      previews: previews,
+      participants: recording[:participants]
     }
   end
 
