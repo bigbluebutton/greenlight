@@ -32,6 +32,18 @@ class BbbController < ApplicationController
         message: "user name was not included",
         status: :unprocessable_entity
       )
+    elsif params[:name].size > user_name_limit
+      return render_bbb_response(
+        messageKey: "invalid_parameter",
+        message: "user name is too long",
+        status: :unprocessable_entity
+      )
+    elsif params[:id].size > meeting_name_limit
+      return render_bbb_response(
+        messageKey: "invalid_parameter",
+        message: "meeting name is too long",
+        status: :unprocessable_entity
+      )
     else
       if params[:room_id]
         user = User.find_by encrypted_id: params[:room_id]

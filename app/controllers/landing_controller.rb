@@ -21,7 +21,9 @@ class LandingController < ApplicationController
   end
 
   def resource
-    if params[:resource] == 'meetings'
+    if params[:id].size > meeting_name_limit
+      redirect_to action: :index
+    elsif params[:resource] == 'meetings'
       render_meeting
     elsif params[:resource] == 'rooms'
       render_room

@@ -44,7 +44,7 @@
 
         <!-- if not signed in show field to enter name -->
         <% else %>
-          <%= text_field_tag 'user[name]', '', class: 'form-control meeting-user-name', placeholder: t('enter_name') %>
+          <%= text_field_tag 'user[name]', '', class: 'form-control meeting-user-name', placeholder: t('enter_name'), maxlength: user_name_limit %>
           <span class="input-group-btn">
             <button type="button" class="btn btn-primary center-block meeting-join">
               <%= t('join') %>

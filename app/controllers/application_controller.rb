@@ -20,6 +20,8 @@ require 'digest/sha1'
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :set_locale
+  MEETING_NAME_LIMIT = 200
+  USER_NAME_LIMIT = 100
 
   def set_locale
     I18n.locale = http_accept_language.language_region_compatible_from(I18n.available_locales)
@@ -34,4 +36,14 @@ class ApplicationController < ActionController::Base
     Rails.configuration.relative_url_root || ""
   end
   helper_method :relative_root
+
+  def meeting_name_limit
+    MEETING_NAME_LIMIT
+  end
+  helper_method :meeting_name_limit
+
+  def user_name_limit
+    USER_NAME_LIMIT
+  end
+  helper_method :user_name_limit
 end
