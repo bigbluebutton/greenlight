@@ -60,7 +60,7 @@ en-US:
     unpublish_recording: Hide recording
     unlisted: Unlisted
     unpublished: No one
-    user_waiting_body: "%{user} is waiting to join your room!"
+    user_waiting_body: "%{user} is waiting to join %{meeting}!"
     user_waiting_title: A user is waiting
   copied: Copied
   copy_error: Use Ctrl-c to copy

@@ -18,9 +18,8 @@ class NotifyUserWaitingJob < ApplicationJob
   queue_as :default
 
   def perform(room, meeting, user)
-    ActionCable.server.broadcast "#{room}-#{meeting}_meeting_updates_channel",
-                                  { action: 'user_waiting', user: user }
-    ActionCable.server.broadcast "#{room}_meeting_updates_channel",
-                                  { action: 'user_waiting', user: user }
+    payload = { action: 'user_waiting', user: user, meeting_name: meeting }
+    ActionCable.server.broadcast "#{room}-#{meeting}_meeting_updates_channel", payload
+    ActionCable.server.broadcast "#{room}_meeting_updates_channel", payload
   end
 end

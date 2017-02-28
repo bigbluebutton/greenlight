@@ -52,7 +52,7 @@
           // show a browser notification only to the owner
           if (isRoomOwner()) {
             showNotification(I18n.user_waiting_title, {
-              body: I18n.user_waiting_body.replace(/%{user}/, data.user)
+              body: I18n.user_waiting_body.replace(/%{user}/, data.user).replace(/%{meeting}/, '"'+data.meeting_name+'"')
             });
           }
         }
