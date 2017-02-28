@@ -104,7 +104,7 @@ en-US:
   moderator_default_message: Invitation link - %{url}
   my_room: my room
   name: Name
-  no: No
+  'no': 'No'
   notification_mailer:
     recording_ready_email:
       closing: "Regards,... BigBlueButton"
@@ -143,4 +143,4 @@ en-US:
   wait_for_mod_msg: Looks like you're the first one here...
   wait_for_mod_explanation: You will automatically join when the meeting starts
   watch: Watch
-  yes: Yes
+  'yes': 'Yes'

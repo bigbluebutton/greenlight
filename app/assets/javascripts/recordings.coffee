@@ -249,7 +249,7 @@ class @Recordings
         url: url+'/'+id,
         data: data
       }).done((data) ->
-
+        btn.prop('disabled', false)
       ).fail((data) ->
         btn.prop('disabled', false)
       )
@@ -264,7 +264,7 @@ class @Recordings
         method: 'DELETE',
         url: url+'/'+id
       }).done((data) ->
-
+        btn.prop('disabled', false)
       ).fail((data) ->
         btn.prop('disabled', false)
       )

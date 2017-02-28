@@ -159,9 +159,10 @@ class BbbController < ApplicationController
   # DELETE /rooms/:id/recordings/:record_id
   # DELETE /rooms/:room_id/:id/recordings/:record_id
   def delete_recordings
+    recording = bbb_get_recordings({recordID: params[:record_id]})[:recordings].first
     bbb_res = bbb_delete_recordings(params[:record_id])
     if bbb_res[:returncode]
-      RecordingDeletesJob.perform_later(@user.encrypted_id, params[:record_id], params[:id])
+      RecordingDeletesJob.perform_later(@user.encrypted_id, params[:record_id], recording[:metadata][:"meeting-name"])
     end
     render_bbb_response bbb_res
   end

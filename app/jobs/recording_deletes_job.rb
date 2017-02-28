@@ -20,25 +20,12 @@ class RecordingDeletesJob < ApplicationJob
   queue_as :default
 
   def perform(room, record_id, meeting=nil)
-    tries = 0
-    sleep_time = 2
-
-    while tries < 4
-      bbb_res = bbb_get_recordings({recordID: record_id})
-      if !bbb_res[:recordings] || bbb_res[:messageKey] == 'noRecordings'
-        full_id = room
-        full_id += "-#{recording[:metadata][:"meeting-name"]}"
-        ActionCable.server.broadcast "#{room}_recording_updates_channel",
-          action: 'delete',
-          id: record_id
-        ActionCable.server.broadcast "#{full_id}_recording_updates_channel",
-          action: 'delete',
-          id: record_id
-        break
-      end
-      sleep sleep_time
-      sleep_time = sleep_time * 2
-      tries += 1
-    end
+    full_id = "#{room}-#{meeting}"
+    ActionCable.server.broadcast "#{room}_recording_updates_channel",
+      action: 'delete',
+      id: record_id
+    ActionCable.server.broadcast "#{full_id}_recording_updates_channel",
+      action: 'delete',
+      id: record_id
   end
 end
