@@ -49,6 +49,11 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+group :test do
+  gem 'mocha'
+  gem 'simplecov', :require => false
+end
+
 group :production do
   # For more condensed logging
   gem "lograge"
