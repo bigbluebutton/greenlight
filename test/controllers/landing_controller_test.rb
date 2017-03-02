@@ -19,7 +19,7 @@ require 'test_helper'
 class LandingControllerTest < ActionController::TestCase
 
   setup do
-    @meeting_id = rand 100000000..999999999
+    @meeting_id = 'test_id'
     @user = users :user1
   end
 
@@ -38,14 +38,27 @@ class LandingControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get meeting room" do
+    get :resource, params: { room_id: @user.encrypted_id, id: @meeting_id, resource: 'rooms' }
+    assert_response :success
+  end
+
   test "should get wait for moderator" do
-    get :wait_for_moderator, params: { room_id: @user.encrypted_id, id: 'room1', resource: 'rooms' }
+    get :wait_for_moderator, params: { room_id: @user.encrypted_id, id: @meeting_id, resource: 'rooms' }
     assert_response :success
   end
 
   test "should get session status refresh" do
-    get :wait_for_moderator, params: { room_id: @user.encrypted_id, id: 'room1', resource: 'rooms' }
+    get :session_status_refresh, params: { room_id: @user.encrypted_id, id: @meeting_id, resource: 'rooms' }
     assert_response :success
+  end
+
+  test "should fallback to en-US locale if locale is en" do
+    request.headers["Accept-Language"] = 'en'
+    get :index, params: {resource: 'meetings'}
+    assert_response :success
+
+    assert css_select('html').attribute('lang').value, 'en'
   end
 
 end
