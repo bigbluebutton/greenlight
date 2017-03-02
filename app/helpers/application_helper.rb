@@ -51,4 +51,12 @@ module ApplicationHelper
   def on_room_or_meeting_page?
     params[:id].present?
   end
+
+  def background
+    if current_user
+      "random_backgrounds/back-0#{rand(6) + 1}.jpg"
+    else
+      'greenlight_background.png'
+    end
+  end
 end
