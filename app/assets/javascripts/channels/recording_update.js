@@ -46,7 +46,7 @@
           showAlert(I18n.recording_deleted, 4000);
 
         } else if (data.action === 'create') {
-          if (row.length == 0) {
+          if (isRoomOwner() && row.length == 0) {
             recordings.refresh();
             showAlert(I18n.recording_created, 4000);
           }
