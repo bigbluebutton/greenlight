@@ -81,7 +81,6 @@ class BbbControllerTest < ActionController::TestCase
   end
 
   test "should get recordings" do
-
     BbbController.any_instance.expects(:bbb_get_recordings)
       .returns({status: :ok, recordings: []}).once
 
@@ -94,7 +93,6 @@ class BbbControllerTest < ActionController::TestCase
 
     BbbController.any_instance.expects(:bbb_get_recordings)
       .returns({status: :ok, recordings: [{recordID: @recording}]}).once
-
     BbbController.any_instance.expects(:bbb_update_recordings)
       .returns({status: :ok}).once
 
@@ -107,7 +105,6 @@ class BbbControllerTest < ActionController::TestCase
 
     BbbController.any_instance.expects(:bbb_get_recordings)
       .returns({status: :ok, recordings: [{recordID: @recording}]}).at_least_once
-
     BbbController.any_instance.expects(:bbb_delete_recordings)
       .returns({status: :ok}).once
 
@@ -119,8 +116,7 @@ class BbbControllerTest < ActionController::TestCase
     login users :user2
 
     BbbController.any_instance.expects(:bbb_get_recordings)
-      .returns({status: :ok, recordings: [{recordID: @recording}]}).at_least_once
-
+      .returns({status: :ok, recordings: [{recordID: @recording}]}).once
     BbbController.any_instance.expects(:bbb_delete_recordings)
       .returns({status: :ok}).once
 
@@ -133,7 +129,6 @@ class BbbControllerTest < ActionController::TestCase
 
     BbbController.any_instance.expects(:bbb_get_recordings)
       .returns({status: :ok, recordings: []}).once
-
     BbbController.any_instance.expects(:bbb_update_recordings)
       .returns({status: :ok}).once
 
@@ -141,27 +136,48 @@ class BbbControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
-  test "should return success on invalid checksum" do
-
+  test "should not send notification on invalid checksum" do
     BbbController.any_instance.expects(:treat_callback_event).never
 
-    post :callback, params: { room_id: @user.encrypted_id, resource: 'rooms', id: @meeting_id, event: {} }
+    post :callback, params: { room_id: @user.encrypted_id, resource: 'rooms', id: @meeting_id }
+    assert_response :success
+    BbbController.any_instance.unstub(:treat_callback_event)
+  end
+
+  test "should send notification on valid callback" do
+    checksum = set_recording_callback_data(@user, @meeting_id)
+    request.headers["ORIGINAL_FULLPATH"] = "/rooms/#{@user.encrypted_id}/#{@meeting_id}/callback?checksum=#{checksum}"
+
+    BbbController.any_instance.expects(:bbb_get_recordings)
+      .returns({status: :ok, recordings: [{recordID: @recording}]}).once
+
+    post :callback, params: { room_id: @user.encrypted_id, resource: 'rooms', id: @meeting_id, checksum: checksum }
     assert_response :success
   end
 
-  # TODO fix this test
-  # test "should send notification on valid callback" do
-  #
-  #   BbbController.any_instance.expects(:treat_callback_event).once
-  #
-  #   BbbController.any_instance.expects(:validate_checksum)
-  #     .returns(true).once
-  #
-  #   post :callback, params: { room_id: @user.encrypted_id, resource: 'rooms', id: @meeting_id, event: {} }
-  #   assert_response :success
-  # end
-
   private
+
+  # Sets the raw post data for callback and returns the checksum
+  def set_recording_callback_data(user, meeting_name)
+    secret = ENV['BIGBLUEBUTTON_SECRET']
+    data = {"event":
+      {"header":{"name":"publish_ended"},
+      "payload":{"metadata":
+        {"gl-listed": "false",
+        "isBreakout": "false",
+        "meetingName": meeting_name,
+        "meeting-name": meeting_name,
+        "meetingId": "b483e57c6ea0e38be6f05ac76aec60b5b9cbfe17",
+        "room-id": user.encrypted_id,
+        "gl-token": "#{user.encrypted_id}-#{meeting_name}",
+        "gl-webhooks-callback-url": "http://test.host/rooms/#{user.encrypted_id}/#{meeting_name}/callback"},
+        "meeting_id": "f344d42cc5ea2fbb7fe64edabce42dae5dc1c0c5-1487709353538"}},
+      "timestamp": 1488557092}
+
+    request.env['RAW_POST_DATA'] = data.to_json
+    Digest::SHA1.hexdigest(
+      "#{data[:event][:payload][:metadata][:'gl-webhooks-callback-url']}#{data.to_json}#{secret}")
+  end
 
   def meeting_token(user, id)
     "#{user.encrypted_id}-#{id}"

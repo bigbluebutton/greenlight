@@ -254,7 +254,7 @@ class BbbController < ApplicationController
     secret = ENV['BIGBLUEBUTTON_SECRET']
     checksum = params["checksum"]
     data = read_body(request)
-    callback_url = uri_remove_param(request.url, "checksum")
+    callback_url = uri_remove_param(request.original_url, "checksum")
 
     checksum_str = "#{callback_url}#{data}#{secret}"
     calculated_checksum = Digest::SHA1.hexdigest(checksum_str)
@@ -262,6 +262,8 @@ class BbbController < ApplicationController
     if calculated_checksum != checksum
       logger.error "Checksum did not match. Calculated: #{calculated_checksum}, received: #{checksum}"
       false
+    else
+      true
     end
   end
 
