@@ -48,10 +48,6 @@ class LandingController < ApplicationController
     render layout: false
   end
 
-  def auth_failure
-    redirect_to '/'
-  end
-
   def admin?
     @user && @user == current_user
   end

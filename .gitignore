@@ -18,6 +18,7 @@ vendor/.bundle
 !/log/.keep
 !/tmp/.keep
 .env
+coverage
 
 # Ignore Byebug command history file.
 .byebug_history
