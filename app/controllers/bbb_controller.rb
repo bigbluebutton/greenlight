@@ -21,7 +21,6 @@ class BbbController < ApplicationController
   before_action :load_and_authorize_room_owner!, only: [:end]
 
   skip_before_action :verify_authenticity_token, only: :callback
-  before_action :validate_checksum, only: :callback
 
   # GET /:resource/:id/join
   # GET /:resource/:room_id/:id/join
@@ -104,9 +103,13 @@ class BbbController < ApplicationController
     end
   end
 
-  # POST /:resource/:id/callback
+  # POST /:resource/:room_id/:id/callback
   # Endpoint for webhook calls from BigBlueButton
   def callback
+    # respond with 200 anyway so BigBlueButton knows the hook call was ok
+    # but abort execution
+    head(:ok) && return unless validate_checksum
+
     begin
       data = JSON.parse(read_body(request))
       treat_callback_event(data["event"])
@@ -114,11 +117,10 @@ class BbbController < ApplicationController
       logger.error "Error parsing webhook data. Data: #{data}, exception: #{e.inspect}"
 
       # respond with 200 anyway so BigBlueButton knows the hook call was ok
-      render head(:ok)
+      head(:ok) && return
     end
   end
 
-  # DELETE /rooms/:id/end
   # DELETE /rooms/:room_id/:id/end
   def end
     load_and_authorize_room_owner!
@@ -130,7 +132,7 @@ class BbbController < ApplicationController
     render_bbb_response bbb_res
   end
 
-  # GET /rooms/:id/recordings
+  # GET /rooms/:room_id/recordings
   # GET /rooms/:room_id/:id/recordings
   def recordings
     load_room!
@@ -144,7 +146,7 @@ class BbbController < ApplicationController
     render_bbb_response bbb_res, bbb_res[:recordings]
   end
 
-  # PATCH /rooms/:id/recordings/:record_id
+  # PATCH /rooms/:room_id/recordings/:record_id
   # PATCH /rooms/:room_id/:id/recordings/:record_id
   def update_recordings
     published = params[:published] == 'true'
@@ -156,7 +158,7 @@ class BbbController < ApplicationController
     render_bbb_response bbb_res
   end
 
-  # DELETE /rooms/:id/recordings/:record_id
+  # DELETE /rooms/:room_id/recordings/:record_id
   # DELETE /rooms/:room_id/:id/recordings/:record_id
   def delete_recordings
     recording = bbb_get_recordings({recordID: params[:record_id]})[:recordings].first
@@ -259,10 +261,7 @@ class BbbController < ApplicationController
 
     if calculated_checksum != checksum
       logger.error "Checksum did not match. Calculated: #{calculated_checksum}, received: #{checksum}"
-
-      # respond with 200 anyway so BigBlueButton knows the hook call was ok
-      # but abort execution
-      render head(:ok) && return
+      false
     end
   end
 
