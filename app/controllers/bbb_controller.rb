@@ -153,7 +153,7 @@ class BbbController < ApplicationController
     metadata = params.select{ |k, v| k.match(/^meta_/) }
     bbb_res = bbb_update_recordings(params[:record_id], published, metadata)
     if bbb_res[:returncode]
-      RecordingUpdatesJob.perform_later(@user.encrypted_id, params[:record_id], params[:id])
+      RecordingUpdatesJob.perform_later(@user.encrypted_id, params[:record_id])
     end
     render_bbb_response bbb_res
   end

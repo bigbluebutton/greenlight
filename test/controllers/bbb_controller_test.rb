@@ -19,6 +19,8 @@ require 'test_helper'
 class BbbControllerTest < ActionController::TestCase
   include BbbApi
 
+  RETURNCODE_SUCCESS = 'SUCCESS'
+
   setup do
     @meeting_id = 'test_id'
     @user = users :user1
@@ -51,7 +53,7 @@ class BbbControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should wati for moderator on join for authenticated meeting when not room owner" do
+  test "should wait for moderator on join for authenticated meeting when not room owner" do
     BbbController.any_instance.expects(:bbb_join_url)
       .with() do |token, full_name, opts|
         opts[:wait_for_moderator] && !opts[:user_is_moderator]
@@ -67,7 +69,7 @@ class BbbControllerTest < ActionController::TestCase
     BbbController.any_instance.expects(:bbb_end_meeting)
       .with() do |token|
         token == meeting_token(@user, @meeting_id)
-      end.returns({status: :ok}).once
+      end.returns({status: :ok, returncode: RETURNCODE_SUCCESS}).once
 
     get :end, params: { room_id: @user.encrypted_id, id: @meeting_id, resource: 'rooms' }
     assert_response :success
@@ -84,7 +86,7 @@ class BbbControllerTest < ActionController::TestCase
     BbbController.any_instance.expects(:bbb_get_recordings)
       .returns({status: :ok, recordings: []}).once
 
-    get :recordings, params: { room_id: @user.encrypted_id, resource: 'rooms' }
+    get :recordings, params: { room_id: @user.encrypted_id, resource: 'rooms', id: @meeting_id }
     assert_response :success
   end
 
@@ -94,7 +96,7 @@ class BbbControllerTest < ActionController::TestCase
     BbbController.any_instance.expects(:bbb_get_recordings)
       .returns({status: :ok, recordings: [{recordID: @recording}]}).once
     BbbController.any_instance.expects(:bbb_update_recordings)
-      .returns({status: :ok}).once
+      .returns({status: :ok, returncode: RETURNCODE_SUCCESS}).once
 
     patch :update_recordings, params: { room_id: @user.encrypted_id, resource: 'rooms', record_id: @recording }
     assert_response :success
@@ -104,9 +106,9 @@ class BbbControllerTest < ActionController::TestCase
     login @user
 
     BbbController.any_instance.expects(:bbb_get_recordings)
-      .returns({status: :ok, recordings: [{recordID: @recording}]}).at_least_once
+      .returns({status: :ok, recordings: [{recordID: @recording, metadata: {'meeting-name': @meeting_id}}]}).twice
     BbbController.any_instance.expects(:bbb_delete_recordings)
-      .returns({status: :ok}).once
+      .returns({status: :ok, returncode: RETURNCODE_SUCCESS}).once
 
     delete :delete_recordings, params: { room_id: @user.encrypted_id, resource: 'rooms', record_id: @recording }
     assert_response :success

@@ -15,12 +15,10 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class RecordingDeletesJob < ApplicationJob
-  include BbbApi
-
   queue_as :default
 
-  def perform(room, record_id, meeting=nil)
-    full_id = "#{room}-#{meeting}"
+  def perform(room, record_id, meeting_name)
+    full_id = "#{room}-#{meeting_name}"
     ActionCable.server.broadcast "#{room}_recording_updates_channel",
       action: 'delete',
       id: record_id
