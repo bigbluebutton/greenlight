@@ -11,3 +11,7 @@ deployment:
     branch: master
     commands:
       - ./scripts/build_image_master.sh
+
+test:
+  pre:
+    - cp env .env

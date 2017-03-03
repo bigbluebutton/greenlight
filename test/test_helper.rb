@@ -17,13 +17,18 @@
 ENV['RAILS_ENV'] ||= 'test'
 
 require 'simplecov'
+if ENV['CIRCLE_ARTIFACTS']
+  dir = File.join(ENV['CIRCLE_ARTIFACTS'], "coverage")
+  SimpleCov.coverage_dir(dir)
+end
 SimpleCov.start do
-  add_group 'Models', 'app/models'
-  add_group 'Controllers', 'app/controllers'
-  add_group 'Helpers', 'app/helpers'
+  add_group 'Models', 'app/models/'
+  add_group 'Controllers', 'app/controllers/'
+  add_group 'Helpers', 'app/helpers/'
   add_group 'Config', 'config/'
   add_group 'Libraries', 'lib/'
   add_group 'Tests', 'test/'
+  add_group 'Jobs', 'app/jobs/'
 end
 
 require File.expand_path('../../config/environment', __FILE__)

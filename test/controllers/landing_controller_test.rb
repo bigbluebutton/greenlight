@@ -43,6 +43,11 @@ class LandingControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should not get room for invalid user" do
+    get :resource, params: { room_id: 'invalid id', id: @meeting_id, resource: 'rooms' }
+    assert_response :redirect
+  end
+
   test "should get wait for moderator" do
     get :wait_for_moderator, params: { room_id: @user.encrypted_id, id: @meeting_id, resource: 'rooms' }
     assert_response :success
