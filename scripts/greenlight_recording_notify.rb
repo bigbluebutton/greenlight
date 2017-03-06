@@ -24,6 +24,30 @@ require "digest/sha1"
 require "uri"
 require File.expand_path('../../../lib/recordandplayback', __FILE__)
 
+# Get the list of participants
+def getParticipantsInfo(events_xml)
+  BigBlueButton.logger.info("Task: Getting participants info")
+  doc = Nokogiri::XML(File.open(events_xml))
+  participants_ids = []
+  participants_info = []
+
+  doc.xpath("//event[@eventname='ParticipantJoinEvent']").each do |joinEvent|
+     userId = joinEvent.xpath(".//userId").text
+
+     #removing "_N" at the end of userId
+     userId.gsub!(/_\d*/, "")
+
+     if !participants_ids.include? userId
+        participants_ids << userId
+
+        participant_name = joinEvent.xpath(".//name").text
+        participant_role = joinEvent.xpath(".//role").text
+        participants_info << [userId, participant_name, participant_role]
+     end
+  end
+  participants_info
+end
+
 logger = Logger.new("/var/log/bigbluebutton/post_process.log", 'weekly')
 logger.level = Logger::INFO
 BigBlueButton.logger = logger
@@ -33,7 +57,8 @@ opts = Trollop::options do
 end
 meeting_id = opts[:meeting_id]
 
-meeting_metadata = BigBlueButton::Events.get_meeting_metadata("/var/bigbluebutton/recording/raw/#{meeting_id}/events.xml")
+events_xml = "/var/bigbluebutton/recording/raw/#{meeting_id}/events.xml"
+meeting_metadata = BigBlueButton::Events.get_meeting_metadata(events_xml)
 
 BigBlueButton.logger.info("Post Process: Recording Notify for [#{meeting_id}] starts")
 
@@ -42,6 +67,8 @@ begin
 
   unless callback_url.nil?
     BigBlueButton.logger.info("Making callback for recording ready notification")
+
+    participants_info = getParticipantsInfo(events_xml)
 
     props = JavaProperties::Properties.new("/var/lib/tomcat7/webapps/bigbluebutton/WEB-INF/classes/bigbluebutton.properties")
     secret = props[:securitySalt]
@@ -53,7 +80,8 @@ begin
       },
       "payload":{
         "metadata": meeting_metadata,
-        "meeting_id": meeting_id
+        "meeting_id": meeting_id,
+        "participants": participants_info
       }
     }
     payload = {
