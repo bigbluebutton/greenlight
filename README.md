@@ -1,14 +1,12 @@
 # Greenlight
 
-Greenlight is a simple front-end application for [BigBlueButton](http://bigbluebutton.org/)
+Greenlight is a simple front-end application for [BigBlueButton](http://bigbluebutton.org/).  For an overview of how GreenLight works see
 
-## Usage
+[![GreenLight Overview](https://img.youtube.com/vi/yGX3JCv7OVM/0.jpg)](https://youtu.be/yGX3JCv7OVM)
 
-Install [docker](https://docs.docker.com/engine/getstarted/step_one/)  
-Create an environment variables file, here is a [template with instructions](https://raw.githubusercontent.com/bigbluebutton/greenlight/master/env)  
-Start the server in docker
+## Installation on BigBlueButton
+We've created a Docker image to make it easy to install GreenLight on a BigBlueButton 1.1-beta (or later server).  See [Installing GreenLight](http://docs.bigbluebutton.org/1.1/green-light.html) in the BigBlueButton documentation.
 
-    docker run -d -p 5000:80 -v ${pwd}/db/production --env-file env bigbluebutton/greenlight
+# Development
 
-You can change the published port (-p) default is 5000  
-and the location of the environment variables file (--env-file) default is env
+GreenLight is a rails 5 application. 
