@@ -23,12 +23,12 @@ class LandingController < ApplicationController
   def resource
     if params[:id].size > meeting_name_limit
       redirect_to action: :index
-    elsif params[:resource] == 'meetings'
+    elsif params[:resource] == 'meetings' && !params[:room_id]
       render_meeting
     elsif params[:resource] == 'rooms'
       render_room
     else
-      render 'errors/error'
+      redirect_to root_url, flash: {danger: "An error occured"}
     end
   end
 
