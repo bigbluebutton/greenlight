@@ -51,6 +51,13 @@ var showAlert = function(html, timeout_delay) {
   }
 };
 
+// remove flash alerts after 5 seconds
+var flashAlertDelayedDismiss = function() {
+  setTimeout(function(){
+    $('.flash-alerts').remove();
+  }, 5000);
+};
+
 var displayRoomURL = function() {
   $('.meeting-url').val(Meeting.getInstance().getURL());
 };
@@ -78,4 +85,5 @@ $(document).on("turbolinks:load", function() {
   if (isRoomOwner()) {
     Notification.requestPermission();
   }
+  flashAlertDelayedDismiss();
 });
