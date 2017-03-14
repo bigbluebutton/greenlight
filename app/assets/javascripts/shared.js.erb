@@ -35,12 +35,15 @@ var loopJoin = function() {
 };
 
 var alertTimeout = null;
-var showAlert = function(html, timeout_delay) {
+var showAlert = function(html, timeout_delay, type) {
+  type = type || 'success'
+
   if (!html) {
     return;
   }
 
   $('.alert-template .alert-message').html(html);
+  $('.alert-template .alert').removeClass('alert-success alert-danger alert-info alert-warning').addClass('alert-'+type);
   $('#alerts').html($('.alert-template').html());
 
   if (timeout_delay) {

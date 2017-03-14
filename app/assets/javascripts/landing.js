@@ -47,16 +47,20 @@
       // a user name is set, join the user into the session
       if (name !== undefined && name !== null) {
         var jqxhr = Meeting.getInstance().getJoinMeetingResponse();
-        jqxhr.done(function(data) {
-          if (data.messageKey === 'wait_for_moderator') {
-            waitForModerator(Meeting.getInstance().getURL());
-          } else {
-            $(location).attr("href", data.response.join_url);
-          }
-        });
-        jqxhr.fail(function(xhr, status, error) {
-          console.info("meeting join failed");
-        });
+        if (jqxhr) {
+          jqxhr.done(function(data) {
+            if (data.messageKey === 'wait_for_moderator') {
+              waitForModerator(Meeting.getInstance().getURL());
+            } else {
+              $(location).attr("href", data.response.join_url);
+            }
+          });
+          jqxhr.fail(function(xhr, status, error) {
+            console.info("meeting join failed");
+          });
+        } else {
+          $('.meeting-user-name').parent().addClass('has-error');
+        }
 
       // if not user name was set it means we must ask for a name
       } else {
@@ -66,6 +70,14 @@
 
     $('.center-panel-wrapper').on ('click', '.meeting-start', function (event) {
       Turbolinks.visit($('.meeting-url').val());
+    });
+
+    $('.center-panel-wrapper').on ('input', '.meeting-user-name', function (event) {
+      if ($(this).val() === '') {
+        $(this).parent().addClass('has-error')
+      } else {
+        $(this).parent().removeClass('has-error')
+      }
     });
 
     $('.center-panel-wrapper').on ('keypress', '.meeting-user-name', function (event) {
