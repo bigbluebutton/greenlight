@@ -63,6 +63,9 @@ class @Meeting
   # Returns a response object
   #    The response object contains the URL to join the meeting
   getJoinMeetingResponse: ->
+    if !@userName
+      showAlert(I18n.enter_name, 4000, 'danger')
+      return false
     return $.get @getURL() + "/join?name=" + @userName, (data) =>
       # update name used to join meeting
       localStorage.setItem('lastJoinedName', @getUserName())

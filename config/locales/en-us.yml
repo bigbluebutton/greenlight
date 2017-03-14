@@ -45,6 +45,7 @@ en-US:
     are_you_sure: Are you sure?
     change_visibility: Change visibility
     delete_recording: Delete recording
+    enter_name: Enter a name to join
     meeting_ended: Meeting was ended
     meeting_started: Meeting was started
     no_recordings: No Recordings
