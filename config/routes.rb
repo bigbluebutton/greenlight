@@ -45,7 +45,7 @@ Rails.application.routes.draw do
 
     # routes shared between meetings and rooms
     get '/(:room_id)/:id/join', to: 'bbb#join', defaults: {room_id: nil, format: 'json'}
-    get '/(:room_id)/:id', to: 'landing#resource', as: :meeting_room, defaults: {room_id: nil}
+    get '/(:room_id)/:id', to: 'landing#resource', as: :meeting_room, defaults: {room_id: nil}, :constraints => {:id => /[^\/]+/}
   end
 
   root to: 'landing#index', :resource => 'meetings'
