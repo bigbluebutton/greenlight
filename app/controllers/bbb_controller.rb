@@ -126,7 +126,7 @@ class BbbController < ApplicationController
     load_and_authorize_room_owner!
 
     bbb_res = bbb_end_meeting "#{@user.encrypted_id}-#{params[:id]}"
-    if bbb_res[:returncode]
+    if bbb_res[:returncode] || bbb_res[:status] == :not_found
       EndMeetingJob.perform_later(@user.encrypted_id, params[:id])
     end
     render_bbb_response bbb_res
