@@ -128,6 +128,7 @@ class BbbController < ApplicationController
     bbb_res = bbb_end_meeting "#{@user.encrypted_id}-#{params[:id]}"
     if bbb_res[:returncode] || bbb_res[:status] == :not_found
       EndMeetingJob.perform_later(@user.encrypted_id, params[:id])
+      bbb_res[:status] = :ok
     end
     render_bbb_response bbb_res
   end
