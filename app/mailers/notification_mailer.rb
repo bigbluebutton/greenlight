@@ -21,9 +21,12 @@ class NotificationMailer < ActionMailer::Base
     @user = user
     @recording = rec
     @room_url = meeting_room_url(resource: 'rooms', id: user.encrypted_id)
+
+    # Need this because URL doesn't respect the relative_url_root by default
     unless @room_url.include? "#{Rails.configuration.relative_url_root}/"
       @room_url = @room_url.split('/rooms/').join("#{Rails.configuration.relative_url_root}/rooms/")
     end
-    mail(to: user.email, subject: t('.subject'))
+
+    mail(to: user.email, subject: t('.subject', recording: @recording[:name]))
   end
 end

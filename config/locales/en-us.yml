@@ -119,7 +119,7 @@ en-US:
       phrase3_html: "This recording is currently <b>unlisted</b>, which means only users with the above direct link can view the recording."
       phrase4: "To make this recording public for everyone, visit"
       phrase5: "and change its visibility from unlisted to public.  After the recording is public, anyone with the above URL can view it."
-      subject: "Your recording is ready!"
+      subject: "Your recording is ready - %{recording}"
       table:
         ended: Ended
         name: Name
