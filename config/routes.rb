@@ -18,6 +18,10 @@
 Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
+  match '/404', to: 'errors#not_found', via: :all
+  match '/500', to: 'errors#error', via: :all
+  match '/422', to: 'errors#error', via: :all
+
   resources :users, only: [:edit, :update]
   get '/users/login', to: 'sessions#new', as: :user_login
   get '/users/logout', to: 'sessions#destroy', as: :user_logout
