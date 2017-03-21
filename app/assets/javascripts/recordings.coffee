@@ -250,23 +250,27 @@ class @Recordings
         data: data
       }).done((data) ->
         btn.prop('disabled', false)
-      ).fail((data) ->
+      ).fail((xhr, text) ->
         btn.prop('disabled', false)
       )
 
     @getTable().on 'click', '.recording-delete', (event) ->
       btn = $(this)
-      row = table_api.row($(this).closest('tr')).data()
+      row = table_api.row($(this).closest('tr'))
       url = recordingsObject.getRecordingsURL()
-      id = row.id
+      id = row.data().id
       btn.prop('disabled', true)
       $.ajax({
         method: 'DELETE',
         url: url+'/'+id
       }).done((data) ->
         btn.prop('disabled', false)
-      ).fail((data) ->
+      ).fail((xhr, text) ->
         btn.prop('disabled', false)
+        if xhr.status == 404
+          row.remove();
+          recordingsObject.draw()
+          showAlert(I18n.recording_deleted, 4000);
       )
 
     @getTable().on 'draw.dt', (event) ->
