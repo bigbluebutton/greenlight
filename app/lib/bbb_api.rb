@@ -95,7 +95,11 @@ module BbbApi
         end
 
         # Create the meeting
-        bbb.create_meeting(options[:meeting_name], meeting_id, meeting_options)
+        begin
+          bbb.create_meeting(options[:meeting_name], meeting_id, meeting_options)
+        rescue BigBlueButton::BigBlueButtonException => exc
+          logger.info "BBB error on create #{exc.key}: #{exc.message}"
+        end
 
         # And then get meeting info
         bbb_meeting_info = bbb.get_meeting_info( meeting_id, nil )
