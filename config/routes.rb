@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     post '/:room_id/:id/callback', to: 'bbb#callback' #, defaults: {format: 'json'}
 
     # routes shared between meetings and rooms
-    get '/(:room_id)/:id/join', to: 'bbb#join', defaults: {room_id: nil, format: 'json'}
+    get '/(:room_id)/:id/join', to: 'bbb#join', defaults: {room_id: nil, format: 'json'}, :constraints => {:id => /[^\/]+/} # override the constraint to allow '.' and disallow '/'
     get '/(:room_id)/:id', to: 'landing#resource', as: :meeting_room, defaults: {room_id: nil}, :constraints => {:id => /[^\/]+/} # override the constraint to allow '.' and disallow '/'
   end
 
