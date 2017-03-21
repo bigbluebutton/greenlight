@@ -56,7 +56,7 @@ class LandingController < ApplicationController
   private
 
   def render_meeting
-    @meeting_id = params[:id]
+    @meeting_id = params[:id].strip
     params[:action] = 'meetings'
     render :action => 'meetings'
   end
@@ -71,7 +71,7 @@ class LandingController < ApplicationController
     end
 
     if @user.encrypted_id != params[:id]
-      @meeting_id = params[:id]
+      @meeting_id = params[:id].strip
     end
     @meeting_running = bbb_get_meeting_info("#{@user.encrypted_id}-#{@meeting_id}")[:returncode]
     @main_room = @meeting_id.blank? || @meeting_id == @user.encrypted_id
