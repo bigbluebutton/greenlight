@@ -28,6 +28,8 @@ module Greenlight
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    config.exceptions_app = self.routes
+
     # i18n
     # ensure each language has a regional fallback
     config.i18n.available_locales = %w(en en-US)
