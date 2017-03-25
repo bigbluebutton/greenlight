@@ -28,4 +28,4 @@ Many developers already know Rails well, and we wanted to create both a full fro
 
 We invite you to build upon GreenLight and help make it better.  See [Contributing to BigBlueButton](http://docs.bigbluebutton.org/support/faq.html#contributing-to-bigbluebutton).
 
-We invite your feedback, questions, and suggests about GreenLight too.  Please post to the [developer mailing list](https://groups.google.com/forum/#!forum/bigbluebutton-dev).
+We invite your feedback, questions, and suggests about GreenLight too.  Please post them to the [developer mailing list](https://groups.google.com/forum/#!forum/bigbluebutton-dev).
