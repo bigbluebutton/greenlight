@@ -37,19 +37,19 @@ Rails.application.routes.draw do
     # room specific routes
     scope '/:room_id' do
       # recording routes for updating, deleting and viewing recordings
-      get '/(:id)/recordings', to: 'bbb#recordings', defaults: {id: nil, format: 'json'}
-      patch '/(:id)/recordings/:record_id', to: 'bbb#update_recordings', defaults: {id: nil, format: 'json'}
-      delete '/(:id)/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {id: nil, format: 'json'}
+      get '/(:id)/recordings', to: 'bbb#recordings', defaults: {id: nil, format: 'json'}, :constraints => {:id => /[^\/]+/} # override the constraint to allow '.' and disallow '/'
+      patch '/(:id)/recordings/:record_id', to: 'bbb#update_recordings', defaults: {id: nil, format: 'json'}, :constraints => {:id => /[^\/]+/}
+      delete '/(:id)/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {id: nil, format: 'json'}, :constraints => {:id => /[^\/]+/}
 
-      delete '/:id/end', to: 'bbb#end', defaults: {format: 'json'}
-      get '/:id/wait', to: 'landing#wait_for_moderator'
-      get '/:id/session_status_refresh', to: 'landing#session_status_refresh'
+      delete '/:id/end', to: 'bbb#end', defaults: {format: 'json'}, :constraints => {:id => /[^\/]+/}
+      get '/:id/wait', to: 'landing#wait_for_moderator', :constraints => {:id => /[^\/]+/}
+      get '/:id/session_status_refresh', to: 'landing#session_status_refresh', :constraints => {:id => /[^\/]+/}
     end
-    post '/:room_id/:id/callback', to: 'bbb#callback' #, defaults: {format: 'json'}
+    post '/:room_id/:id/callback', to: 'bbb#callback', :constraints => {:id => /[^\/]+/}
 
     # routes shared between meetings and rooms
-    get '/(:room_id)/:id/join', to: 'bbb#join', defaults: {room_id: nil, format: 'json'}, :constraints => {:id => /[^\/]+/} # override the constraint to allow '.' and disallow '/'
-    get '/(:room_id)/:id', to: 'landing#resource', as: :meeting_room, defaults: {room_id: nil}, :constraints => {:id => /[^\/]+/} # override the constraint to allow '.' and disallow '/'
+    get '/(:room_id)/:id/join', to: 'bbb#join', defaults: {room_id: nil, format: 'json'}, :constraints => {:id => /[^\/]+/}
+    get '/(:room_id)/:id', to: 'landing#resource', as: :meeting_room, defaults: {room_id: nil}, :constraints => {:id => /[^\/]+/}
   end
 
   root to: 'landing#index', :resource => 'meetings'
