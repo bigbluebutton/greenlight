@@ -22,13 +22,15 @@ class LandingController < ApplicationController
 
   def resource
     if params[:id].size > meeting_name_limit
-      redirect_to action: :index
+      redirect_to root_url, flash: {danger: t('meeting_name_long')}
+    elsif ['&', '$', ','].any? { |c| params[:id].include?(c) } # temporary fix for misbehaving characters
+      redirect_to root_url, flash: {danger: t('disallowed_characters_msg')}
     elsif params[:resource] == 'meetings' && !params[:room_id]
       render_meeting
     elsif params[:resource] == 'rooms'
       render_room
     else
-      redirect_to root_url, flash: {danger: "An error occured"}
+      redirect_to root_url, flash: {danger: t('error')}
     end
   end
 
