@@ -67,10 +67,12 @@ en-US:
   copy_error: Use Ctrl-c to copy
   create_your_session: Create your own meeting
   date_recorded: Date
+  disallowed_characters_msg: Characters not allowed in meeting name $&,
   duration: Length (minutes)
   end: End
   enter_name: Enter your name
   enter_meeting_name: Enter a meeting name to start
+  error: An error occured
   error_title: An error has occured
   footer_html: Powered by %{bbb_link}
   help: Help
@@ -100,6 +102,7 @@ en-US:
       body: "You have been invited by %{user} to a meeting.\n\nPlease open the following page in your web browser: &&URL&&"
       subject: "%{user} invited you to a meeting"
   moderator_default_message: Invitation link - %{url}
+  meeting_name_long: Meeting name too long
   my_room: my room
   name: Name
   'no': 'No'
