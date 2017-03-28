@@ -142,11 +142,17 @@ module BbbApi
 
     res[:recordings].each do |recording|
       pref_preview = {}
-      recording[:length] = recording[:playback][:format].is_a?(Hash) ? recording[:playback][:format][:length] : recording[:playback][:format].first[:length]
+      recording[:length] = if recording[:playback][:format].is_a?(Hash)
+        recording[:playback][:format][:length]
+      elsif recording[:playback][:format].is_a?(Array)
+        recording[:playback][:format].first[:length]
+      else
+        nil
+      end
       # create a playbacks attribute on recording for playback formats
       recording[:playbacks] = if !recording[:playback] || !recording[:playback][:format]
         []
-      elsif recording[:playback][:format].is_a? Array
+      elsif recording[:playback][:format].is_a?(Array)
         recording[:playback][:format]
       else
         [recording[:playback][:format]]
@@ -154,17 +160,19 @@ module BbbApi
 
       recording[:playbacks].each_with_index do |playback, index|
         # create a previews attribute on playbacks for preview images
-        playback[:previews] = if !playback[:preview] || !playback[:preview][:images] || !playback[:preview][:images][:image]
-          []
-        elsif playback[:preview][:images][:image].is_a? Array
-          playback[:preview][:images][:image]
-        else
-          [playback[:preview][:images][:image]]
-        end
-        if playback[:type] == 'presentation' && playback[:previews].present?
-          pref_preview[:presentation] = index
-        elsif playback[:previews].present? && pref_preview[:other].blank?
-          pref_preview[:other] = index
+        if playback.is_a?(Hash)
+          playback[:previews] = if !playback[:preview] || !playback[:preview][:images] || !playback[:preview][:images][:image]
+            []
+          elsif playback[:preview][:images][:image].is_a? Array
+            playback[:preview][:images][:image]
+          else
+            [playback[:preview][:images][:image]]
+          end
+          if playback[:type] == 'presentation' && playback[:previews].present?
+            pref_preview[:presentation] = index
+          elsif playback[:previews].present? && pref_preview[:other].blank?
+            pref_preview[:other] = index
+          end
         end
       end
 
