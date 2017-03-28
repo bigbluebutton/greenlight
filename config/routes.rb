@@ -33,23 +33,23 @@ Rails.application.routes.draw do
   # meetings offer a landing page for NON authenticated users to create and join session in BigBlueButton
   # rooms offer a customized landing page for authenticated users to create and join session in BigBlueButton
   scope '/:resource', constraints: {resource: /meetings|rooms/} do
-
+    disallow_slash = /[^\/]+/ # override the constraint to allow '.' and disallow '/'
     # room specific routes
-    scope '/:room_id' do
+    scope '/:room_id', :constraints => {:room_id => disallow_slash} do
       # recording routes for updating, deleting and viewing recordings
-      get '/(:id)/recordings', to: 'bbb#recordings', defaults: {id: nil, format: 'json'}, :constraints => {:id => /[^\/]+/} # override the constraint to allow '.' and disallow '/'
-      patch '/(:id)/recordings/:record_id', to: 'bbb#update_recordings', defaults: {id: nil, format: 'json'}, :constraints => {:id => /[^\/]+/}
-      delete '/(:id)/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {id: nil, format: 'json'}, :constraints => {:id => /[^\/]+/}
+      get '/(:id)/recordings', to: 'bbb#recordings', defaults: {id: nil, format: 'json'}, :constraints => {:id => disallow_slash}
+      patch '/(:id)/recordings/:record_id', to: 'bbb#update_recordings', defaults: {id: nil, format: 'json'}, :constraints => {:id => disallow_slash}
+      delete '/(:id)/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {id: nil, format: 'json'}, :constraints => {:id => disallow_slash}
 
-      delete '/:id/end', to: 'bbb#end', defaults: {format: 'json'}, :constraints => {:id => /[^\/]+/}
-      get '/:id/wait', to: 'landing#wait_for_moderator', :constraints => {:id => /[^\/]+/}
-      get '/:id/session_status_refresh', to: 'landing#session_status_refresh', :constraints => {:id => /[^\/]+/}
+      delete '/:id/end', to: 'bbb#end', defaults: {format: 'json'}, :constraints => {:id => disallow_slash}
+      get '/:id/wait', to: 'landing#wait_for_moderator', :constraints => {:id => disallow_slash}
+      get '/:id/session_status_refresh', to: 'landing#session_status_refresh', :constraints => {:id => disallow_slash}
     end
-    post '/:room_id/:id/callback', to: 'bbb#callback', :constraints => {:id => /[^\/]+/}
+    post '/:room_id/:id/callback', to: 'bbb#callback', :constraints => {:id => disallow_slash, :room_id => disallow_slash}
 
     # routes shared between meetings and rooms
-    get '/(:room_id)/:id/join', to: 'bbb#join', defaults: {room_id: nil, format: 'json'}, :constraints => {:id => /[^\/]+/}
-    get '/(:room_id)/:id', to: 'landing#resource', as: :meeting_room, defaults: {room_id: nil}, :constraints => {:id => /[^\/]+/}
+    get '/(:room_id)/:id/join', to: 'bbb#join', defaults: {room_id: nil, format: 'json'}, :constraints => {:id => disallow_slash, :room_id => disallow_slash}
+    get '/(:room_id)/:id', to: 'landing#resource', as: :meeting_room, defaults: {room_id: nil}, :constraints => {:id => disallow_slash, :room_id => disallow_slash}
   end
 
   root to: 'landing#index', :resource => 'meetings'
