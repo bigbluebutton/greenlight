@@ -137,6 +137,10 @@ en-US:
   start: Start
   start_join: Start
   start_meeting: Start meeting
+  test_mailer:
+    test_email:
+      subject: Test Email
+      phrase1: This is a test email sent to %{email}
   thumbnails: Thumbnails
   url_copy_explanation: Copy this URL to invite others to the meeting
   user_person_room: "%{name} personal room"
