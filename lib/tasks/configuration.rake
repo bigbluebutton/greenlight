@@ -44,10 +44,10 @@ namespace :conf  do
     passed
 
     # send a test email to specified email address
-    print "Sending Test Email"
+    print "Sending Test Email:"
     if email_address
+      print "\n"
       send_email(email_address)
-      print(": Sent\n")
     else
       failed("No email address specified")
     end
@@ -72,7 +72,8 @@ end
 def send_email(email_address)
   TestMailer.test_email(email_address).deliver
 rescue => exc
-  failed("Error sending test email - #{exc}")
+  print("Error sending test email - #{exc}\n")
+  exit
 end
 
 def failed(msg)
