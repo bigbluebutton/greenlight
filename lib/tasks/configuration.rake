@@ -27,6 +27,31 @@ namespace :conf  do
     test_request("#{ENV['BIGBLUEBUTTON_ENDPOINT']}api/getMeetings?checksum=#{checksum}")
     passed
   end
+
+  desc "Check Email Configuration"
+  task :check_email, [:email] => :environment do |task, args|
+    ENV_VARIABLES = ['GREENLIGHT_MAIL_NOTIFICATIONS', 'GREENLIGHT_DOMAIN',
+      'SMTP_FROM', 'SMTP_SERVER', 'SMTP_PORT', 'SMTP_DOMAIN',
+      'SMTP_USERNAME', 'SMTP_PASSWORD']
+    email_address = args[:email]
+
+    print "Checking environment"
+    ENV_VARIABLES.each do |var|
+      if ENV[var].blank?
+        failed("#{var} not set correctly")
+      end
+    end
+    passed
+
+    # send a test email to specified email address
+    print "Sending Test Email"
+    if email_address
+      send_email(email_address)
+      print(": Sent\n")
+    else
+      failed("No email address specified")
+    end
+  end
 end
 
 # takes the full URL including the protocol
@@ -42,6 +67,12 @@ def test_request(url)
   rescue => exc
     failed("Error connecting to BigBlueButton server - #{exc}")
   end
+end
+
+def send_email(email_address)
+  TestMailer.test_email(email_address).deliver
+rescue => exc
+  failed("Error sending test email - #{exc}")
 end
 
 def failed(msg)
