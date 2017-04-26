@@ -22,7 +22,7 @@ class User < ApplicationRecord
     user = find_or_initialize_by(uid: auth_hash['uid'], provider: auth_hash['provider'])
     user.username = self.send("#{auth_hash['provider']}_username", auth_hash) rescue nil
     user.email = self.send("#{auth_hash['provider']}_email", auth_hash) rescue nil
-    user.name = auth_hash['info']['name']
+    user.name = auth_hash['info']['name'] 
     user.save!
     user
   end
@@ -40,6 +40,17 @@ class User < ApplicationRecord
   end
 
   def self.google_email(auth_hash)
+    auth_hash['info']['email']
+  end
+
+  #24042017 - Kristof VD Ouweland - Adding a mapping from uid internal hash array
+  def self.ldap_username(auth_hash)
+    auth_hash['info']['uid']
+  end
+
+  #24042017 - Kristof VD Ouweland - Adding a mappting from email to internal hash array	
+  def self.ldap_email(auth_hash)
+	
     auth_hash['info']['email']
   end
 

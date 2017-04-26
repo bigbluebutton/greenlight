@@ -119,7 +119,7 @@ en-US:
       phrase3_html: "This recording is currently <b>unlisted</b>, which means only users with the above direct link can view the recording."
       phrase4: "To make this recording public for everyone, visit"
       phrase5: "and change its visibility from unlisted to public.  After the recording is public, anyone with the above URL can view it."
-      subject: "Your recording is ready - %{recording}"
+      subject: "Your recording is ready!"
       table:
         ended: Ended
         name: Name
@@ -137,10 +137,6 @@ en-US:
   start: Start
   start_join: Start
   start_meeting: Start meeting
-  test_mailer:
-    test_email:
-      subject: Test Email
-      phrase1: This is a test email sent to %{email}
   thumbnails: Thumbnails
   url_copy_explanation: Copy this URL to invite others to the meeting
   user_person_room: "%{name} personal room"

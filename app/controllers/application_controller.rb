@@ -18,7 +18,8 @@ require 'bigbluebutton_api'
 require 'digest/sha1'
 
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+	protect_from_forgery with: :exception
+	
   before_action :set_locale
   MEETING_NAME_LIMIT = 200
   USER_NAME_LIMIT = 100

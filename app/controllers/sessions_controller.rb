@@ -15,7 +15,9 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class SessionsController < ApplicationController
-
+	# 24042017 - Kristof VD Ouweland - since the omniauth-ldap page does not have the CRSF token, currently disabled this. 
+ 	# should be reenabled but a reconfigure of omniauth-ldap is required for this.
+	skip_before_action :verify_authenticity_token
   def new
   end
 

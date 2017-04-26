@@ -25,6 +25,7 @@
     <div class="center-panel-wrapper">
       <%= render layout: 'shared/center_panel' do %>
         <div class="center-block center-panel-content-size col-xs-12">
+
           <% if omniauth_providers_configured(:twitter) %>
             <%= link_to omniauth_login_url(:twitter), class: "signin-link signin-link-twitter" do %>
               <div class="signin-button center-block">
@@ -37,6 +38,7 @@
               </div>
             <% end %>
           <% end %>
+
           <% if omniauth_providers_configured(:google) %>
               <%= link_to omniauth_login_url(:google), class: "signin-link signin-link-google" do %>
                 <div class="signin-button center-block">
@@ -49,7 +51,26 @@
                 </div>
               <% end %>
           <% end %>
-        </div>
+		  
+		<%
+		 #24042017 - Kristof VD Ouweland - Adding a LDAP block login
+		 #Logo can be adjusted according to company logo for example - took a basic ldap logo for now
+		%>
+		<% if omniauth_providers_configured(:ldap) %>
+		<div class="signin-button center-block">
+			<div class="signin-icon-wrapper">
+		  	 <%= image_tag("ldap-normal.png", alt: "L", class: "signin-icon") %>
+			</div>
+			<div class="signin-text-wrapper text-center">
+			 <a href="../../auth/ldap">Login using LDAP credentials</a>
+			</div>
+                  </div>
+
+		</div>
+        	<% end %>
+
+ 
+       </div>
       <% end %>
     </div>
 
