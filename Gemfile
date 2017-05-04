@@ -76,3 +76,5 @@ gem 'jquery-datatables-rails', '~> 3.4.0'
 gem 'rails-timeago', '~> 2.0'
 
 gem 'http_accept_language'
+
+gem 'slack-notifier'

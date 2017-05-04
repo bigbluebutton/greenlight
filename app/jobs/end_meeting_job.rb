@@ -18,6 +18,7 @@ class EndMeetingJob < ApplicationJob
   queue_as :default
 
   def perform(room, meeting)
+    Rails.configuration.slack_notifier.ping "#{meeting} has ended." if Rails.application.config.slack_webhook
     ActionCable.server.broadcast "#{room}-#{meeting}_meeting_updates_channel",
       action: 'meeting_ended'
   end

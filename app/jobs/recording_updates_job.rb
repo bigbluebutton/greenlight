@@ -22,6 +22,11 @@ class RecordingUpdatesJob < ApplicationJob
   def perform(room, record_id)
     recording = bbb_get_recordings({recordID: record_id})[:recordings].first
     full_id = "#{room}-#{recording[:metadata][:"meeting-name"]}"
+
+    # send message about recording to a slack channel.
+    slack_message = "A recording of #{recording[:metadata][:"meeting-name"]} was " + (recording[:metadata][:"gl-listed"] == "true" ? "published." : "unpublished.")
+    Rails.configuration.slack_notifier.ping slack_message
+
     ActionCable.server.broadcast "#{room}_recording_updates_channel",
       action: 'update',
       id: record_id,
