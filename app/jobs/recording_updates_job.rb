@@ -25,7 +25,7 @@ class RecordingUpdatesJob < ApplicationJob
 
     # send message about recording to a slack channel.
     slack_message = "A recording of #{recording[:metadata][:"meeting-name"]} was " + (recording[:metadata][:"gl-listed"] == "true" ? "published." : "unpublished.")
-    Rails.configuration.slack_notifier.ping slack_message
+    Rails.configuration.slack_notifier.ping slack_message if Rails.application.config.slack_webhook
 
     ActionCable.server.broadcast "#{room}_recording_updates_channel",
       action: 'update',
