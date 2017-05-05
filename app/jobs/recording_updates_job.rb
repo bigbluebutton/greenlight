@@ -23,8 +23,8 @@ class RecordingUpdatesJob < ApplicationJob
     recording = bbb_get_recordings({recordID: record_id})[:recordings].first
     full_id = "#{room}-#{recording[:metadata][:"meeting-name"]}"
 
-    # send message about recording to a slack channel.
-    slack_message = "A recording of #{recording[:metadata][:"meeting-name"]} was " + (recording[:metadata][:"gl-listed"] == "true" ? "published." : "unpublished.")
+    change = (recording[:metadata][:"gl-listed"] == "true") ? I18n.t('slack.published') : I18n.t('slack.unpublished')
+    slack_message = I18n.t('slack.recording_visibility', meeting: recording[:metadata][:"meeting-name"], change: change)
     Rails.configuration.slack_notifier.ping slack_message if Rails.application.config.slack_webhook
 
     ActionCable.server.broadcast "#{room}_recording_updates_channel",
