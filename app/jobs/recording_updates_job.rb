@@ -22,6 +22,11 @@ class RecordingUpdatesJob < ApplicationJob
   def perform(room, record_id)
     recording = bbb_get_recordings({recordID: record_id})[:recordings].first
     full_id = "#{room}-#{recording[:metadata][:"meeting-name"]}"
+
+    change = (recording[:metadata][:"gl-listed"] == "true") ? I18n.t('slack.published') : I18n.t('slack.unpublished')
+    slack_message = I18n.t('slack.recording_visibility', meeting: recording[:metadata][:"meeting-name"], change: change)
+    Rails.configuration.slack_notifier.ping slack_message if !Rails.configuration.slack_notifier.nil?
+
     ActionCable.server.broadcast "#{room}_recording_updates_channel",
       action: 'update',
       id: record_id,

@@ -6,7 +6,6 @@
 #   docker run --rm bigbluebutton/greenlight rake secret
 #
 SECRET_KEY_BASE=
-
 # Step 2 - Enter credentials for your BigBlueButton Server
 #
 # The endpoint and secret from your bigbluebutton server.  To get these values, run
@@ -15,8 +14,8 @@ SECRET_KEY_BASE=
 #    bbb-conf --secret
 #
 # and uncomment the following two variables
-#BIGBLUEBUTTON_ENDPOINT=
-#BIGBLUEBUTTON_SECRET=
+BIGBLUEBUTTON_ENDPOINT=
+BIGBLUEBUTTON_SECRET=
 
 # Twitter Login Provider (optional)
 #
@@ -47,6 +46,16 @@ GOOGLE_OAUTH2_SECRET=
 # the application when recordings are done).
 GREENLIGHT_USE_WEBHOOKS=false
 
+# Slack Integration (optional)
+#
+#   You will need to register an incoming-webhook for your slack channel
+#   in order for GreenLight to post to it. You can do this by going
+#   to https://slack.com/apps/A0F7XDUAZ-incoming-webhooks, selecting your
+#   team and then selecting "Add Incoming WebHooks integration" on the
+#   desired channel. You will then need to paste the webhook below.
+#
+SLACK_WEBHOOK=
+SLACK_CHANNEL=
 
 # SMTP Mailer
 #

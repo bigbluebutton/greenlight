@@ -14,17 +14,23 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-class JoinMeetingJob < ApplicationJob
-  queue_as :default
+def uri?(string)
+  uri = URI.parse(string)
+  %w( http https ).include?(uri.scheme)
+rescue URI::BadURIError
+  false
+rescue URI::InvalidURIError
+  false
+end
 
-def perform(user, meeting, base_url)
-
-    join_message = I18n.t('slack.meeting_join', user: user.name, meeting: meeting) + "(#{base_url})"
-    formatted = Slack::Notifier::Util::LinkFormatter.format(join_message)
-    Rails.configuration.slack_notifier.ping formatted if !Rails.configuration.slack_notifier.nil?
-
-    ActionCable.server.broadcast "#{user.encrypted_id}-#{meeting}_meeting_updates_channel",
-      action: 'moderator_joined',
-      moderator: 'joined'
+if !ENV['SLACK_WEBHOOK'].nil? && !ENV['SLACK_WEBHOOK'].empty? && uri?(ENV['SLACK_WEBHOOK']) then
+  # Initialize the slack notifier.
+  Rails.application.config.slack_notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK'] do
+    defaults channel: ENV['SLACK_CHANNEL'],
+             username: "BigBlueButton",
+             icon_url: 'https://avatars3.githubusercontent.com/u/230228?v=3&s=200'
   end
+else
+  # Initialize it to nil (slack not configured)
+  Rails.application.config.slack_notifier = nil
 end
