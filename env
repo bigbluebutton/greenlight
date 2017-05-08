@@ -14,8 +14,8 @@ SECRET_KEY_BASE=
 #    bbb-conf --secret
 #
 # and uncomment the following two variables
-BIGBLUEBUTTON_ENDPOINT=
-BIGBLUEBUTTON_SECRET=
+#BIGBLUEBUTTON_ENDPOINT=
+#BIGBLUEBUTTON_SECRET=
 
 # Twitter Login Provider (optional)
 #
