@@ -37,6 +37,17 @@ TWITTER_SECRET=
 GOOGLE_OAUTH2_ID=
 GOOGLE_OAUTH2_SECRET=
 
+# Slack Integration (optional)
+#
+#   You will need to register a incoming-webhook for your slack channel
+#   in order for GreenLight to post to it. You can do this by going
+#   to https://slack.com/apps/A0F7XDUAZ-incoming-webhooks, selecting your
+#   team and then selecting "Add Incoming WebHooks integration" on the
+#   desired channel. You will then need to paste the webhook below.
+#
+SLACK_WEBHOOK=
+SLACK_CHANNEL=
+
 # If "true", GreenLight will register a webhook callback for each meeting
 # created. This callback is called for all events that happen in the meeting,
 # including the processing of its recording. These events are used to update

@@ -14,14 +14,11 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-class EndMeetingJob < ApplicationJob
-  queue_as :default
+Rails.application.config.slack_webhook = ENV['SLACK_WEBHOOK'].present?
 
-  def perform(room, meeting)
-
-    Rails.application.config.slack_notifier.ping I18n.t('slack.meeting_end', meeting: meeting) if Rails.application.config.slack_webhook
-
-    ActionCable.server.broadcast "#{room}-#{meeting}_meeting_updates_channel",
-      action: 'meeting_ended'
-  end
+# Initialize the slack notifier.
+Rails.application.config.slack_notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK'] do
+  defaults channel: ENV['SLACK_CHANNEL'],
+           username: "BigBlueButton",
+           icon_url: 'https://avatars3.githubusercontent.com/u/230228?v=3&s=200'
 end

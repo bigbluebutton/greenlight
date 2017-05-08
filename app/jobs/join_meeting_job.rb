@@ -17,8 +17,13 @@
 class JoinMeetingJob < ApplicationJob
   queue_as :default
 
-  def perform(room, meeting)
-    ActionCable.server.broadcast "#{room}-#{meeting}_meeting_updates_channel",
+def perform(user, meeting, base_url)
+
+    join_message = I18n.t('slack.meeting_join', user: user.name, meeting: meeting) + "(#{base_url})"
+    formatted = Slack::Notifier::Util::LinkFormatter.format(join_message)
+    Rails.application.config.slack_notifier.ping formatted if Rails.application.config.slack_webhook
+
+    ActionCable.server.broadcast "#{user.encrypted_id}-#{meeting}_meeting_updates_channel",
       action: 'moderator_joined',
       moderator: 'joined'
   end
