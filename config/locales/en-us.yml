@@ -134,6 +134,12 @@ en-US:
   return_to_room: Return to main page
   session_url_explanation: The meeting will be taking place using the following URL
   signin_text: Log in with %{provider}
+  slack:
+    meeting_end: "%{meeting} has ended."
+    meeting_join: "%{user} joined %{meeting}.\n[Click here join!]"
+    recording_visibility: "A recording of %{meeting} was %{change}"
+    published: published
+    unpublished: unpublished
   start: Start
   start_join: Start
   start_meeting: Start meeting
