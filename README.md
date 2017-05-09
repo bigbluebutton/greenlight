@@ -1,5 +1,6 @@
-[![Build Status](https://scrutinizer-ci.com/g/bigbluebutton/greenlight/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bigbluebutton/greenlight/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bigbluebutton/greenlight/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bigbluebutton/greenlight/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/bigbluebutton/greenlight/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bigbluebutton/greenlight/build-status/master)
+[![CircleCI](https://circleci.com/gh/bigbluebutton/greenlight.svg?style=shield)](https://circleci.com/gh/bigbluebutton/greenlight)
 
 # Greenlight
 
