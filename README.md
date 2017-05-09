@@ -1,3 +1,6 @@
+[![Build Status](https://scrutinizer-ci.com/g/bigbluebutton/greenlight/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bigbluebutton/greenlight/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bigbluebutton/greenlight/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bigbluebutton/greenlight/?branch=master)
+
 # Greenlight
 
 GreenLight is a simple (but powerful) front-end interface for your BigBlueButton server.  At its core, GreenLight provides a minimalistic web-based application that lets users
@@ -5,7 +8,7 @@ GreenLight is a simple (but powerful) front-end interface for your BigBlueButton
   * Create a meeting
   * Invite others to the meeting
   * Join a meeting
-  
+
 Furthermore, if you configure GreenLight to use either Google or Twitter for authentication (via OAuth2), users can login to record meetings and manage recordings.
 
 ## Overview video
