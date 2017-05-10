@@ -55,6 +55,19 @@ class LandingController < ApplicationController
   end
   helper_method :admin?
 
+  def preferences
+    @user = current_user
+  end
+
+  def landing_background
+    if !current_user || !current_user.background? then
+      (ENV['LANDING_BACKGROUND'].present?) ? ENV['LANDING_BACKGROUND'] : 'greenlight_background.png'
+    else
+      current_user.background.url
+    end
+  end
+  helper_method :landing_background
+
   private
 
   def render_meeting

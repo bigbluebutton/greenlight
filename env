@@ -57,6 +57,15 @@ GREENLIGHT_USE_WEBHOOKS=false
 SLACK_WEBHOOK=
 SLACK_CHANNEL=
 
+# Landing Background (optional)
+#
+#   Supply a URL to an image to change the landing background. If no
+#   URL is provided GreenLight will use a default image. If you
+#   supply a path that does not lead to an image, no landing image
+#   will appear.
+#
+LANDING_BACKGROUND=
+
 # SMTP Mailer
 #
 GREENLIGHT_MAIL_NOTIFICATIONS=true

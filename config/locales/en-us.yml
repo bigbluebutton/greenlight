@@ -40,6 +40,8 @@ en-US:
   admin_room_title: Welcome %{user}
   are_you: Are you %{name}?
   are_you_sure: Are you sure?
+  background_image: Background Image
+  back: Back
   change_recording_visibility: "Change visibility to:"
   client:
     are_you_sure: Are you sure?
@@ -79,6 +81,7 @@ en-US:
   hi_all: Hi Everyone
   home_page: Home page
   home_title: Welcome to BigBlueButton
+  invalid_file: You may only upload an image file (jpg, gif, png).
   invite: Invite
   invite_description: (share this link below to invite others to this meeting)
   join: Join
@@ -106,6 +109,7 @@ en-US:
   my_room: my room
   name: Name
   'no': 'No'
+  no_file: You must select a file to upload.
   not_found_title: Sorry we couldn't find that.
   notification_mailer:
     recording_ready_email:
@@ -129,6 +133,8 @@ en-US:
         users: Users
   participants: Users
   past_recordings: Past Recordings
+  preferences: Preferences
+  preferences_logged: You must be logged in to edit preferences.
   presentation: Presentation
   previous_meetings: (previous meetings)
   return_to_room: Return to main page
@@ -138,8 +144,8 @@ en-US:
     meeting_end: "%{meeting} has ended."
     meeting_join: "%{user} joined %{meeting}.\n[Click here join!]"
     recording_visibility: "A recording of %{meeting} was %{change}"
-    published: published
-    unpublished: unpublished
+    published: published.
+    unpublished: unpublished.
   start: Start
   start_join: Start
   start_meeting: Start meeting
@@ -148,6 +154,7 @@ en-US:
       subject: Test Email
       phrase1: This is a test email sent to %{email}
   thumbnails: Thumbnails
+  upload: Upload
   url_copy_explanation: Copy this URL to invite others to the meeting
   user_person_room: "%{name} personal room"
   video: Video
