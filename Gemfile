@@ -77,4 +77,8 @@ gem 'rails-timeago', '~> 2.0'
 
 gem 'http_accept_language'
 
+# For sending slack notifications.
 gem 'slack-notifier'
+
+# For landing background image uploading.
+gem 'paperclip', '~> 4.2'
