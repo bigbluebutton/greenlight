@@ -15,7 +15,7 @@
 
 <% content_for :title do %>
   <div class="title">
-    <h2>
+    <h2 id = 'title-header'>
       <% if admin? && !@meeting_running %>
         <%= t('admin_room_title', user: @user.name) %>
       <% else %>

@@ -46,8 +46,9 @@ en-US:
   client:
     are_you_sure: Are you sure?
     change_visibility: Change visibility
-    delete_recording: Delete recording
+    delete_recording: Delete
     enter_name: Enter a name to join
+    mail_recording: Mail
     meeting_ended: Meeting was ended
     meeting_started: Meeting was started
     no_recordings: No Recordings
@@ -58,11 +59,15 @@ en-US:
     recording_created: A recording was created
     recording_deleted: Recording was deleted
     recording_published: Recording was published
+    recording_mail_subject: " has invited you to view a recording."
+    recording_mail_body: "To view the recording, follow the link below:"
     recording_unlisted: Recording was unlisted
     recording_unpublished: Recording was unpublished
+    share: Share
     unpublish_recording: Hide recording
     unlisted: Unlisted
     unpublished: No one
+    upload_youtube: Youtube
     user_waiting_body: "%{user} is waiting to join %{meeting}!"
     user_waiting_title: A user is waiting
   copied: Copied
@@ -158,8 +163,14 @@ en-US:
   url_copy_explanation: Copy this URL to invite others to the meeting
   user_person_room: "%{name} personal room"
   video: Video
+  video_title: Video title
   visibility: Visibility
   wait_for_mod_msg: Looks like you're the first one here...
   wait_for_mod_explanation: You will automatically join when the meeting starts
   watch: Watch
   'yes': 'Yes'
+  youtube_description: This recording was recorded with BigBlueButton. For more information check out https://bigbluebutton.org/
+  youtube_privacy_options:
+    public: Public
+    private: Private
+    unlisted: Unlisted

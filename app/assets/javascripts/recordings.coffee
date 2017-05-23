@@ -37,6 +37,18 @@ class @Recordings
     COLUMN[c] = i++
 
   constructor: ->
+    recordingsObject = this
+    canUpload = {}
+
+    # Determine which recordings can be uploaded to Youtube.
+    $.ajax({
+      method: 'GET',
+      async: false,
+      url: recordingsObject.getRecordingsURL() + '/can_upload'
+    }).success((res_data) ->
+      canUpload = res_data
+    )
+
     # configure the datatable for recordings
     this.table = $('#recordings').dataTable({
       data: [],
@@ -131,6 +143,14 @@ class @Recordings
               trigger = recordingActions.find('.recording-update-trigger')
               trigger.removeClass(classes.join(' '))
               trigger.addClass(cls)
+
+              upload_btn = recordingActions.find('.cloud-upload')
+
+              if canUpload[row.id]
+                upload_btn.attr('data-popover-body', '.mail_youtube_popover')
+              else
+                upload_btn.attr('data-popover-body', '.mail_popover')
+
               return recordingActions.html()
             return data
         }
@@ -149,6 +169,18 @@ class @Recordings
 
     options.selector = '.play-tooltip'
     options.title = I18n.play_recording
+    $('#recordings').tooltip(options)
+
+    options.selector = '.youtube-tooltip'
+    options.title = I18n.upload_youtube
+    $('#recordings').tooltip(options)
+
+    options.selector = '.upload-tooltip'
+    options.title = I18n.share
+    $('#recordings').tooltip(options)
+
+    options.selector = '.mail-tooltip'
+    options.title = I18n.mail_recording
     $('#recordings').tooltip(options)
 
     $(document).one "turbolinks:before-cache", =>
@@ -273,11 +305,51 @@ class @Recordings
           showAlert(I18n.recording_deleted, 4000);
       )
 
+    @getTable().on 'click', '.upload-button', (event) ->
+      btn = $(this)
+      row = table_api.row($(this).closest('tr')).data()
+      url = recordingsObject.getRecordingsURL()
+      id = row.id
+
+      title = btn.closest('form').find('#video-title').val()
+      privacy_status = btn.closest('form').find('input[name=privacy_status]:checked').val()
+
+      if title == ''
+        title = row.name
+
+      $.ajax({
+        method: 'POST',
+        url: url+'/'+id
+        data: {video_title: title, privacy_status: privacy_status}
+      })
+
+    @getTable().on 'click', '.mail-recording', (event) ->
+      btn = $(this)
+      row = table_api.row($(this).closest('tr')).data()
+      url = recordingsObject.getRecordingsURL()
+      id = row.id
+
+      # Take the username from the header.
+      username = $('#title-header').text().replace('Welcome ', '').trim()
+
+      recording_url = row.playbacks[0].url
+      webcams_url = getHostName(recording_url) + '/presentation/' + id + '/video/webcams.webm'
+      subject = username + I18n.recording_mail_subject
+      body = I18n.recording_mail_body + "\n\n" + recording_url
+
+      mailto = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      window.open(mailto);
+
     @getTable().on 'draw.dt', (event) ->
       $('time[data-time-ago]').timeago();
 
   getTable: ->
     @table
+
+  getHostName = (url) ->
+    parser = document.createElement('a');
+    parser.href = url;
+    parser.origin;
 
   getRecordingsURL: ->
     if $(".page-wrapper.rooms").data('main-room')

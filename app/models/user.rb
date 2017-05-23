@@ -26,6 +26,7 @@ class User < ApplicationRecord
     user.username = self.send("#{auth_hash['provider']}_username", auth_hash) rescue nil
     user.email = self.send("#{auth_hash['provider']}_email", auth_hash) rescue nil
     user.name = auth_hash['info']['name']
+    user.token = auth_hash['credentials']['token']
     user.save!
     user
   end
