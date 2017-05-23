@@ -70,6 +70,7 @@ en-US:
     upload_youtube: Youtube
     user_waiting_body: "%{user} is waiting to join %{meeting}!"
     user_waiting_title: A user is waiting
+    youtube_disabled: Recording did not contain any video.
   copied: Copied
   copy_error: Use Ctrl-c to copy
   create_your_session: Create your own meeting
@@ -160,6 +161,7 @@ en-US:
       phrase1: This is a test email sent to %{email}
   thumbnails: Thumbnails
   upload: Upload
+  upload_to_youtube: Upload to Youtube
   url_copy_explanation: Copy this URL to invite others to the meeting
   user_person_room: "%{name} personal room"
   video: Video

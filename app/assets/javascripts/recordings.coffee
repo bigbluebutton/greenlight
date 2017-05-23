@@ -183,6 +183,10 @@ class @Recordings
     options.title = I18n.mail_recording
     $('#recordings').tooltip(options)
 
+    options.selector = '.disabled-tooltip'
+    options.title = I18n.youtube_disabled
+    $('#recordings').tooltip(options)
+
     $(document).one "turbolinks:before-cache", =>
       @getTable().api().clear().draw().destroy()
 
