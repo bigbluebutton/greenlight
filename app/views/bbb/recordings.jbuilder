@@ -37,12 +37,14 @@ json.recordings do
     end
     json.playbacks do
       json.array!(recording[:playbacks]) do |playback|
-        json.type playback[:type]
-        json.type_i18n t(playback[:type]) # translates the playback type
-        json.url playback[:url]
-        json.previews do
-          json.array!(playback[:previews]) do |preview|
-            json.partial! 'preview', preview: preview
+        if playback.is_a?(Hash)
+          json.type playback[:type]
+          json.type_i18n t(playback[:type]) # translates the playback type
+          json.url playback[:url]
+          json.previews do
+            json.array!(playback[:previews]) do |preview|
+              json.partial! 'preview', preview: preview
+            end
           end
         end
       end
