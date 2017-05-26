@@ -315,8 +315,8 @@ class @Recordings
       url = recordingsObject.getRecordingsURL()
       id = row.id
 
-      title = btn.closest('form').find('#video-title').val()
-      privacy_status = btn.closest('form').find('input[name=privacy_status]:checked').val()
+      title = $('#video-title').val()
+      privacy_status = $('input[name=privacy_status]:checked').val()
 
       if title == ''
         title = row.name
