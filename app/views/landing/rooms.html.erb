@@ -63,11 +63,13 @@
         </div>
       </div>
       <div class = "row top-buffer text-center">
-        <form class="privacy_form">
-          <label class="radio-inline"><input type="radio" name="privacy_status" value="public" checked><%= t('youtube_privacy_options.public') %> </label>
-          <label class="radio-inline"><input type="radio" name="privacy_status" value="private"><%= t('youtube_privacy_options.private') %> </label>
-          <label class="radio-inline"><input type="radio" name="privacy_status" value="unlisted"><%= t('youtube_privacy_options.unlisted') %></label>
-        </form>
+        <div class = "col-xs-10 col-xs-offset-1">
+          <form class="privacy_form">
+            <label class="radio-inline"><input type="radio" name="privacy_status" value="public" checked><%= t('youtube_privacy_options.public') %> </label>
+            <label class="radio-inline"><input type="radio" name="privacy_status" value="private"><%= t('youtube_privacy_options.private') %> </label>
+            <label class="radio-inline"><input type="radio" name="privacy_status" value="unlisted"><%= t('youtube_privacy_options.unlisted') %></label>
+          </form>
+        </div>
       </div>
         <div class="row top-buffer text-center">
           <button type="button" class="btn btn-success upload-button centered" data-dismiss="popover">

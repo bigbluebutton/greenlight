@@ -344,6 +344,10 @@ class @Recordings
       mailto = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
       window.open(mailto);
 
+    @getTable().on 'click', '.youtube-upload', (event) ->
+      row = table_api.row($(this).closest('tr')).data()
+      $('#video-title').attr('value', row.name)
+
     @getTable().on 'draw.dt', (event) ->
       $('time[data-time-ago]').timeago();
 
