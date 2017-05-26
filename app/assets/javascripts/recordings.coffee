@@ -339,7 +339,7 @@ class @Recordings
       recording_url = row.playbacks[0].url
       webcams_url = getHostName(recording_url) + '/presentation/' + id + '/video/webcams.webm'
       subject = username + I18n.recording_mail_subject
-      body = I18n.recording_mail_body + "\n\n" + recording_url
+      body = I18n.recording_mail_body + "\n\n" + recording_url + "\n\n" + I18n.email_footer_1 + "\n" + I18n.email_footer_2
 
       mailto = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
       window.open(mailto);

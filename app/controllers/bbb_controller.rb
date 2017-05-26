@@ -178,7 +178,7 @@ class BbbController < ApplicationController
       client = Yt::Account.new(access_token: current_user.token)
       video = client.upload_video(get_webcams_url(params[:record_id]),
               title: params[:video_title],
-              description: t('youtube_description'),
+              description: t('youtube_description', url: 'https://bigbluebutton.org/'),
               privacy_status: params[:privacy_status])
     rescue
       # In this case, they don't have a youtube channel connected to their account, so prompt to create one.
