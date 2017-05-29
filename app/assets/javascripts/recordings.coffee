@@ -265,6 +265,7 @@ class @Recordings
   setupActionHandlers: ->
     table_api = this.table.api()
     recordingsObject = this
+    selectedUpload = null
 
     @getTable().on 'click', '.recording-update', (event) ->
       btn = $(this)
@@ -325,7 +326,21 @@ class @Recordings
         method: 'POST',
         url: url+'/'+id
         data: {video_title: title, privacy_status: privacy_status}
+        success: () ->
+          cloud = selectedUpload.find('.cloud-blue')
+          check = selectedUpload.find('.green-check')
+          spinner = selectedUpload.find('.load-spinner')
+
+          spinner.hide()
+          check.show()
+          setTimeout ( ->
+            cloud.show()
+            check.hide()
+          ), 4000
       })
+
+      selectedUpload.find('.cloud-blue').hide()
+      selectedUpload.find('.load-spinner').show()
 
     @getTable().on 'click', '.mail-recording', (event) ->
       btn = $(this)
@@ -347,6 +362,9 @@ class @Recordings
     @getTable().on 'click', '.youtube-upload', (event) ->
       row = table_api.row($(this).closest('tr')).data()
       $('#video-title').attr('value', row.name)
+
+    @getTable().on 'click', '.cloud-upload', (event) ->
+      selectedUpload = $(this)
 
     @getTable().on 'draw.dt', (event) ->
       $('time[data-time-ago]').timeago();
