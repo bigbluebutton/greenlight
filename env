@@ -36,6 +36,18 @@ TWITTER_SECRET=
 GOOGLE_OAUTH2_ID=
 GOOGLE_OAUTH2_SECRET=
 
+# 24042017 - Kristof VD Ouweland LDAP login Provider (optional)
+#
+# Normally you have your own LDAP server running in order to provide authentication.
+# Set the ID below to TRUE in case you want to use LDAP. 
+# Leave it blank to keep it disabled.
+# IMPORTANT! We cannot stress enough to use secure LDAP instead of LDAP. If you use LDAP, usernames and passwords can be intercepted during authentication
+# Note: LDAP authenication is based on module OmnitAuth-LDAP thanks to pyu10055
+# Note: https://github.com/intridea/omniauth-ldap
+# IMPORTANT: Dueue to a current bug in the omniauthentication with relative urls, it is important to currently run the greenlight application with a relative url of /
+# Note: https://gist.github.com/jiggneshhgohel/4a79aa26cb628533fe132295cffc45b2#gistcomment-1836286
+LDAP_ACTIVE=TRUE
+
 # If "true", GreenLight will register a webhook callback for each meeting
 # created. This callback is called for all events that happen in the meeting,
 # including the processing of its recording. These events are used to update
@@ -69,12 +81,12 @@ LANDING_BACKGROUND=
 # SMTP Mailer
 #
 GREENLIGHT_MAIL_NOTIFICATIONS=true
-GREENLIGHT_DOMAIN=localhost-lxc.org
-SMTP_FROM=youremail@gmail.com
-SMTP_SERVER=smtp.gmail.com
-SMTP_PORT=587
-SMTP_DOMAIN=gmail.com
-SMTP_USERNAME=youremail@gmail.com
+GREENLIGHT_DOMAIN=testdummy.com
+SMTP_FROM=dummy@dummy.com
+SMTP_SERVER=smtp.dummy.com
+SMTP_PORT=25
+SMTP_DOMAIN=dummy.com
+SMTP_USERNAME=youremail@dummy.com
 SMTP_PASSWORD=yourpassword
 # SMTP_TLS=false
 # SMTP_AUTH=login
@@ -85,4 +97,4 @@ SMTP_PASSWORD=yourpassword
 #
 #   default is '/b' (recommended)
 #
-#RELATIVE_URL_ROOT=/b
+RELATIVE_URL_ROOT=/b

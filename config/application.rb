@@ -76,5 +76,7 @@ module Greenlight
       # this needs to be set because it's always used to configure mailers
       config.smtp_from = ""
     end
+
+
   end
 end

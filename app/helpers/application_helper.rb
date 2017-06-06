@@ -32,6 +32,8 @@ module ApplicationHelper
   end
 
   def omniauth_providers_configured(provider = nil)
+    OmniAuth.config.logger = Rails.logger
+
     if provider
       Rails.configuration.send("omniauth_#{provider}")
     else

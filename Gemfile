@@ -65,6 +65,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'omniauth', '1.3.1'
 gem 'omniauth-twitter', '1.2.1'
 gem 'omniauth-google-oauth2', '0.4.1'
+# 24042017 - Kristof VD Ouweland: Added omniauth-ldap to include LDAP authentication
+gem 'omniauth-ldap', '1.0.5'
 
 gem 'bigbluebutton-api-ruby'
 
