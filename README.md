@@ -20,9 +20,9 @@ For a overview of how GreenLight works, see the following video
 
 
 ## Installation on the BigBlueButton server
-We designed GreenLight to install on a [BigBlueButton 1.1-beta](http://docs.bigbluebutton.org/1.1/install.html) (or later) server.  This means you don't need a separate server to run GreenLight.
+We designed GreenLight to install on a [BigBlueButton 1.1-beta](http://docs.bigbluebutton.org/install/green-light.html) (or later) server.  This means you don't need a separate server to run GreenLight.
 
-For more informaiton see [Installing GreenLight](http://docs.bigbluebutton.org/1.1/green-light.html).
+For more informaiton see [Installing GreenLight](http://docs.bigbluebutton.org/install/green-light.html).
 
 # Source Code
 
