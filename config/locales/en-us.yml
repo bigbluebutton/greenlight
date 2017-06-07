@@ -37,6 +37,7 @@
 
 en-US:
   actions: Actions
+  active_meetings: (active meetings)
   admin_room_title: Welcome %{user}
   are_you: Are you %{name}?
   are_you_sure: Are you sure?
