@@ -1,3 +1,4 @@
+// Handles action cable events from bbb-webhooks and initial population of active meetings.
 
 MEETINGS = {}
 
@@ -5,18 +6,19 @@ MEETINGS = {}
 if($('body').data('current-user')){
   App.messages = App.cable.subscriptions.create('RefreshMeetingsChannel', {
     received: function(data) {
-      console.log(data)
+      console.log('Recieved ' + data['method'] + ' action for ' + data['meeting'] + '.')
       if(isPreviouslyJoined(data['meeting'])){
         if(data['method'] == 'create'){
-
           // Create an empty meeting.
           MEETINGS[data['meeting']] = {'name': data['meeting'],
                                       'participants': 0,
                                       'moderators': 0}
 
           renderActiveMeeting(MEETINGS[data['meeting']])
+          updatePreviousMeetings();
         } else if(data['method'] == 'destroy'){
           removeActiveMeeting(MEETINGS[data['meeting']])
+          PreviousMeetings.append([data['meeting']])
           delete MEETINGS[data['meeting']]
         } else if(data['method'] == 'join'){
           handleUser(data, 1)
@@ -25,6 +27,15 @@ if($('body').data('current-user')){
           handleUser(data, -1)
         }
       }
+    }
+  });
+}
+
+updatePreviousMeetings = function(){
+  $("ul.previously-joined li").each(function(idx, li) {
+    previous_meeting = $(li);
+    if(Object.keys(MEETINGS).indexOf(previous_meeting.text()) > -1){
+      previous_meeting.remove()
     }
   });
 }
@@ -39,7 +50,7 @@ handleUser = function(data, n){
 }
 
 updateMeetingText = function(meeting){
-  $('#' + meeting['name']).html('<a>' + meeting['name'] + '</a> <i>(' +
+  $('#' + meeting['name'].replace(' ', '_')).html('<a>' + meeting['name'] + '</a> <i>(' +
           meeting['participants'] + ((meeting['participants'] == 1) ? ' user, ' : ' users, ') +
           meeting['moderators'] + ((meeting['moderators'] == 1) ? ' mod)' : ' mods)'))
 }
@@ -57,9 +68,13 @@ initialPopulate = function(){
                             'moderators': moderators}
       if(isPreviouslyJoined(name)){
         renderActiveMeeting(MEETINGS[name])
-        // remove it.
       }
     }
+  }).done(function(){
+    // Remove from previous meetings if they are active.
+    updatePreviousMeetings();
+    $('.hidden-list').show();
+    $('.fa-spinner').hide();
   });
 }
 
@@ -69,7 +84,7 @@ isPreviouslyJoined = function(meeting){
 }
 
 renderActiveMeeting = function(m){
-  var meeting_item = $('<li id = ' + m['name'] + '><a>' + m['name'] + '</a>' +
+  var meeting_item = $('<li id = ' + m['name'].replace(' ', '_') + '><a>' + m['name'] + '</a>' +
           ' <i>(' + m['participants'] + ' users, ' + m['moderators'] + ' mods)</i>' + '</li>')
   $('.actives').append(meeting_item);
 
@@ -80,8 +95,7 @@ renderActiveMeeting = function(m){
 }
 
 removeActiveMeeting = function(meeting){
-  $('#' + meeting['name']).remove()
-  //$(".actives:contains('" + meeting['name'] + "')").remove()
+  $('#' + meeting['name'].replace(' ', '_')).remove()
 }
 
 // Directly join a meeting from active meetings.
@@ -114,4 +128,4 @@ joinMeeting = function(meeting_name){
   }
 }
 
-if($('body').data('current-user')){ console.log('Populating active meetings.'); initialPopulate() }
+if($('body').data('current-user')){ console.log('Populating active meetings.'); setTimeout(initialPopulate, 1250); }
