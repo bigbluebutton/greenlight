@@ -119,33 +119,41 @@ joinMeeting = function(meeting_name){
 }
 
 // Only need to register for logged in users.
-if($('body').data('current-user')){
-  App.messages = App.cable.subscriptions.create('RefreshMeetingsChannel', {
-    received: function(data) {
-      console.log('Recieved ' + data['method'] + ' action for ' + data['meeting'] + '.')
-      if(isPreviouslyJoined(data['meeting'])){
-        if(data['method'] == 'create'){
-          // Create an empty meeting.
-          MEETINGS[data['meeting']] = {'name': data['meeting'],
-                                      'participants': 0,
-                                      'moderators': 0}
+$(document).on('turbolinks:load', function(){
+  if($('body').data('current-user')){
 
-          renderActiveMeeting(MEETINGS[data['meeting']])
-          updatePreviousMeetings();
-        } else if(data['method'] == 'destroy'){
-          removeActiveMeeting(MEETINGS[data['meeting']])
-          PreviousMeetings.append([data['meeting']])
-          delete MEETINGS[data['meeting']]
-        } else if(data['method'] == 'join'){
-          handleUser(data, 1)
-          updateMeetingText(MEETINGS[data['meeting']])
-        } else if(data['method'] == 'leave'){
-          handleUser(data, -1)
+    MEETINGS = {}
+    $('.actives').empty();
+
+    if(!App.messages){
+      App.messages = App.cable.subscriptions.create('RefreshMeetingsChannel', {
+        received: function(data) {
+          console.log('Recieved ' + data['method'] + ' action for ' + data['meeting'] + '.')
+          if(isPreviouslyJoined(data['meeting'])){
+            if(data['method'] == 'create'){
+              // Create an empty meeting.
+              MEETINGS[data['meeting']] = {'name': data['meeting'],
+                                          'participants': 0,
+                                          'moderators': 0}
+
+              renderActiveMeeting(MEETINGS[data['meeting']])
+              updatePreviousMeetings();
+            } else if(data['method'] == 'destroy'){
+              removeActiveMeeting(MEETINGS[data['meeting']])
+              PreviousMeetings.append([data['meeting']])
+              delete MEETINGS[data['meeting']]
+            } else if(data['method'] == 'join'){
+              handleUser(data, 1)
+              updateMeetingText(MEETINGS[data['meeting']])
+            } else if(data['method'] == 'leave'){
+              handleUser(data, -1)
+            }
+          }
         }
-      }
+      });
     }
-  });
 
-  console.log('Populating active meetings.');
-  setTimeout(initialPopulate, LOADING_DELAY);
-}
+    console.log('Populating active meetings.');
+    setTimeout(initialPopulate, LOADING_DELAY);
+  }
+});
