@@ -74,7 +74,8 @@ isPreviouslyJoined = function(meeting){
 
 renderActiveMeeting = function(m){
   var meeting_item = $('<li id = ' + m['name'].replace(' ', '_') + '><a>' + m['name'] + '</a>' +
-          ' <i>(' + m['participants'] + ' users, ' + m['moderators'] + ' mods)</i>' + '</li>')
+          ' <i>(' + m['participants'] + ((m['participants'] == 1) ? ' user, ' : ' users, ') +
+          m['moderators'] + ((m['moderators'] == 1) ? ' mod)' : ' mods)') + '</i>' + '</li>')
   $('.actives').append(meeting_item);
 
   // Set up join on click.
