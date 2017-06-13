@@ -270,6 +270,7 @@ class BbbController < ApplicationController
   def validate_checksum
     secret = ENV['BIGBLUEBUTTON_SECRET']
     checksum = params["checksum"]
+    return false unless checksum
 
     # Decode and break the body into parts.
     parts = URI.decode_www_form(read_body(request))
@@ -279,7 +280,7 @@ class BbbController < ApplicationController
 
     # Manually remove the space between the two elements.
     converted_data[converted_data.rindex("timestamp") - 2] = ''
-    
+
     callback_url = uri_remove_param(request.original_url, "checksum")
 
     checksum_str = "#{callback_url}#{converted_data}#{secret}"
