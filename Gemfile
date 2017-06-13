@@ -82,3 +82,9 @@ gem 'slack-notifier'
 
 # For landing background image uploading.
 gem 'paperclip', '~> 4.2'
+
+# For uploading recordings to Youtube.
+gem 'yt', '~> 0.28.0'
+
+# Simple HTTP client.
+gem 'faraday'

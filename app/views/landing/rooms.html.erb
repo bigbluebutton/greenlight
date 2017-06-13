@@ -55,6 +55,49 @@
       <%= t('no') %>
     </button>
   </div>
+  <div class="youtube-popover">
+    <form class = "form-inline">
+      <div class = "row">
+        <div class="col-xs-12">
+          <input type="title" class="form-control" id="video-title" placeholder="<%= t('video_title') %>">
+        </div>
+      </div>
+      <div class = "row top-buffer text-center">
+        <div class = "col-xs-10 col-xs-offset-1">
+          <form class="privacy_form">
+            <label class="radio-inline"><input type="radio" name="privacy_status" value="public" checked><%= t('youtube_privacy_options.public') %> </label>
+            <label class="radio-inline"><input type="radio" name="privacy_status" value="private"><%= t('youtube_privacy_options.private') %> </label>
+            <label class="radio-inline"><input type="radio" name="privacy_status" value="unlisted"><%= t('youtube_privacy_options.unlisted') %></label>
+          </form>
+        </div>
+      </div>
+        <div class="row top-buffer text-center">
+          <button type="button" class="btn btn-success upload-button centered" data-dismiss="popover">
+            <%= t('upload') %>
+          </button>
+        </div>
+    </form>
+  </div>
+  <div class='mail_youtube_popover'>
+    <button type="button" class="btn btn-default mail-recording mail-tooltip">
+      <%= icon('envelope-o') %>
+    </button>
+    <button type="button" class="btn btn-default has-popover youtube-upload youtube-tooltip"
+          data-placement="top" data-popover-body=".youtube-popover"
+          data-popover-title="<%= t('upload_to_youtube') %>" >
+      <div class = 'youtube-red'> <%= icon('youtube-play') %> </div>
+    </button>
+  </div>
+  <div class='mail_popover'>
+    <button type="button" class="btn btn-default mail-recording mail-tooltip fa-2x">
+      <%= icon('envelope-o') %>
+    </button>
+    <div class="tooltip-wrapper disabled disabled-tooltip">
+      <button type="button" class="btn btn-default" disabled>
+          <%= icon('youtube-play') %>
+      </button>
+    </div>
+  </div>
   <div class="recording-visibility-popover">
     <button type="button" class="btn btn-default btn-success recording-update" data-visibility="published">
       <%= t('client.published') %>
@@ -71,6 +114,12 @@
             data-placement="left" data-popover-body=".recording-visibility-popover"
             data-popover-title="<%= t('change_recording_visibility') %>">
       <%= icon('eye') %>
+    </button>
+    <button type="button" class="btn btn-default has-popover cloud-upload upload-tooltip"
+            data-placement="top">
+      <div class = 'cloud-blue'> <%= icon('cloud-upload') %> </div>
+      <div class = 'green-check' hidden> <%= icon('check') %> </div>
+      <div class = 'load-spinner fa-spin' hidden> <%= icon('spinner') %> </div>
     </button>
     <a tabindex="0" role="button" class="btn btn-default has-popover delete-tooltip"
        data-placement="top" data-popover-body=".delete-popover-body"
