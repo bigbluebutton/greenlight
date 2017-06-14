@@ -176,7 +176,7 @@ class BbbControllerTest < ActionController::TestCase
         "meeting_id": "f344d42cc5ea2fbb7fe64edabce42dae5dc1c0c5-1487709353538"}},
       "timestamp": 1488557092}
 
-    request.env['RAW_POST_DATA'] = data.to_json
+    request.env['RAW_POST_DATA'] = URI.encode_www_form(data)
     Digest::SHA1.hexdigest(
       "#{data[:event][:payload][:metadata][:'gl-webhooks-callback-url']}#{data.to_json}#{secret}")
   end

@@ -34,6 +34,10 @@ class LandingController < ApplicationController
     end
   end
 
+  def send_data
+    render json: bbb.get_meetings
+  end
+
   def wait_for_moderator
     render layout: false
   end

@@ -111,8 +111,8 @@ class BbbController < ApplicationController
     head(:ok) && return unless validate_checksum
 
     begin
-      data = JSON.parse(read_body(request))
-      treat_callback_event(data["event"])
+      data = JSON.parse(params['event'])
+      treat_callback_event(data)
     rescue Exception => e
       logger.error "Error parsing webhook data. Data: #{data}, exception: #{e.inspect}"
 
@@ -277,6 +277,15 @@ class BbbController < ApplicationController
       else
         logger.error "Bad format for event #{event}, won't process"
       end
+    elsif eventName == "meeting_created_message"
+      # Fire an Actioncable event that updates _previously_joined for the client.
+      actioncable_event('create', params['id'])
+    elsif eventName == "meeting_destroyed_event"
+      actioncable_event('destroy', params['id'])
+    elsif eventName == "user_joined_message"
+      actioncable_event('join', params['id'], event['payload']['user']['role'])
+    elsif eventName == "user_left_message"
+      actioncable_event('leave', params['id'], event['payload']['user']['role'])
     else
       logger.info "Callback event will not be treated. Event name: #{eventName}"
     end
@@ -284,15 +293,32 @@ class BbbController < ApplicationController
     render head(:ok) && return
   end
 
+  def actioncable_event(method, id, role = 'none')
+    ActionCable.server.broadcast 'refresh_meetings',
+      method: method,
+      meeting: id,
+      role: role
+  end
+
   # Validates the checksum received in a callback call.
   # If the checksum doesn't match, renders an ok and aborts execution.
   def validate_checksum
     secret = ENV['BIGBLUEBUTTON_SECRET']
     checksum = params["checksum"]
-    data = read_body(request)
+    return false unless checksum
+
+    # Decode and break the body into parts.
+    parts = URI.decode_www_form(read_body(request))
+
+    # Convert the data into the correct checksum format, replace ruby hash arrows.
+    converted_data = {parts[0][0]=>parts[0][1],parts[1][0]=>parts[1][1].to_i}.to_s.gsub!('=>', ':')
+
+    # Manually remove the space between the two elements.
+    converted_data[converted_data.rindex("timestamp") - 2] = ''
+
     callback_url = uri_remove_param(request.original_url, "checksum")
 
-    checksum_str = "#{callback_url}#{data}#{secret}"
+    checksum_str = "#{callback_url}#{converted_data}#{secret}"
     calculated_checksum = Digest::SHA1.hexdigest(checksum_str)
 
     if calculated_checksum != checksum

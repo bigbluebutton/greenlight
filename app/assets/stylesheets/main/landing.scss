@@ -19,7 +19,7 @@
   width: 100px;
 }
 
-.previously-joined {
+.previously-joined, .actives {
   list-style-type: none;
   margin:auto;
   width: 200px;
@@ -90,6 +90,11 @@
   }
 }
 
+.fa-spinner {
+  width: 100%;
+  text-align: center;
+}
+  
 .youtube-red {
   color: red;
 }

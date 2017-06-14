@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     post '/:room_id/:id/callback', to: 'bbb#callback', :constraints => {:id => disallow_slash, :room_id => disallow_slash}
 
     # routes shared between meetings and rooms
+    get '/(:room_id)/request', to: 'landing#send_data', :defaults => { :format => 'xml' }
     get '/(:room_id)/:id/join', to: 'bbb#join', defaults: {room_id: nil, format: 'json'}, :constraints => {:id => disallow_slash, :room_id => disallow_slash}
     get '/(:room_id)/:id', to: 'landing#resource', as: :meeting_room, defaults: {room_id: nil}, :constraints => {:id => disallow_slash, :room_id => disallow_slash}
   end
