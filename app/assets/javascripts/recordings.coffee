@@ -37,6 +37,18 @@ class @Recordings
     COLUMN[c] = i++
 
   constructor: ->
+    recordingsObject = this
+    canUpload = {}
+
+    # Determine which recordings can be uploaded to Youtube.
+    $.ajax({
+      method: 'GET',
+      async: false,
+      url: recordingsObject.getRecordingsURL() + '/can_upload'
+    }).success((res_data) ->
+      canUpload = res_data
+    )
+
     # configure the datatable for recordings
     this.table = $('#recordings').dataTable({
       data: [],
@@ -131,6 +143,14 @@ class @Recordings
               trigger = recordingActions.find('.recording-update-trigger')
               trigger.removeClass(classes.join(' '))
               trigger.addClass(cls)
+
+              upload_btn = recordingActions.find('.cloud-upload')
+
+              if canUpload[row.id]
+                upload_btn.attr('data-popover-body', '.mail_youtube_popover')
+              else
+                upload_btn.attr('data-popover-body', '.mail_popover')
+
               return recordingActions.html()
             return data
         }
@@ -149,6 +169,22 @@ class @Recordings
 
     options.selector = '.play-tooltip'
     options.title = I18n.play_recording
+    $('#recordings').tooltip(options)
+
+    options.selector = '.youtube-tooltip'
+    options.title = I18n.upload_youtube
+    $('#recordings').tooltip(options)
+
+    options.selector = '.upload-tooltip'
+    options.title = I18n.share
+    $('#recordings').tooltip(options)
+
+    options.selector = '.mail-tooltip'
+    options.title = I18n.mail_recording
+    $('#recordings').tooltip(options)
+
+    options.selector = '.disabled-tooltip'
+    options.title = I18n.youtube_disabled
     $('#recordings').tooltip(options)
 
     $(document).one "turbolinks:before-cache", =>
@@ -229,6 +265,7 @@ class @Recordings
   setupActionHandlers: ->
     table_api = this.table.api()
     recordingsObject = this
+    selectedUpload = null
 
     @getTable().on 'click', '.recording-update', (event) ->
       btn = $(this)
@@ -273,11 +310,72 @@ class @Recordings
           showAlert(I18n.recording_deleted, 4000);
       )
 
+    @getTable().on 'click', '.upload-button', (event) ->
+      btn = $(this)
+      row = table_api.row($(this).closest('tr')).data()
+      url = recordingsObject.getRecordingsURL()
+      id = row.id
+
+      title = $('#video-title').val()
+      privacy_status = $('input[name=privacy_status]:checked').val()
+
+      if title == ''
+        title = row.name
+
+      $.ajax({
+        method: 'POST',
+        url: url+'/'+id
+        data: {video_title: title, privacy_status: privacy_status}
+        success: () ->
+          cloud = selectedUpload.find('.cloud-blue')
+          check = selectedUpload.find('.green-check')
+          spinner = selectedUpload.find('.load-spinner')
+
+          spinner.hide()
+          check.show()
+          setTimeout ( ->
+            cloud.show()
+            check.hide()
+          ), 4000
+      })
+
+      selectedUpload.find('.cloud-blue').hide()
+      selectedUpload.find('.load-spinner').show()
+
+    @getTable().on 'click', '.mail-recording', (event) ->
+      btn = $(this)
+      row = table_api.row($(this).closest('tr')).data()
+      url = recordingsObject.getRecordingsURL()
+      id = row.id
+
+      # Take the username from the header.
+      username = $('#title-header').text().replace('Welcome ', '').trim()
+
+      recording_url = row.playbacks[0].url
+      webcams_url = getHostName(recording_url) + '/presentation/' + id + '/video/webcams.webm'
+      subject = username + I18n.recording_mail_subject
+      body = I18n.recording_mail_body + "\n\n" + recording_url + "\n\n" + I18n.email_footer_1 + "\n" + I18n.email_footer_2
+
+      mailto = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      window.open(mailto);
+
+    @getTable().on 'click', '.youtube-upload', (event) ->
+      row = table_api.row($(this).closest('tr')).data()
+      $('#video-title').attr('value', row.name)
+
+    @getTable().on 'click', '.cloud-upload', (event) ->
+      selectedUpload = $(this)
+
     @getTable().on 'draw.dt', (event) ->
       $('time[data-time-ago]').timeago();
 
   getTable: ->
     @table
+
+  getHostName = (url) ->
+    parser = document.createElement('a');
+    parser.href = url;
+    parser.origin;
 
   getRecordingsURL: ->
     if $(".page-wrapper.rooms").data('main-room')

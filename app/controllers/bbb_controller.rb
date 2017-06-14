@@ -170,6 +170,41 @@ class BbbController < ApplicationController
     render_bbb_response bbb_res
   end
 
+  # POST /rooms/:room_id/recordings/:record_id
+  # POST /rooms/:room_id/:id/recordings/:record_id
+  def youtube_publish
+    # If we can't get the client, then they don't have a Youtube account.
+    begin
+      client = Yt::Account.new(access_token: current_user.token)
+      video = client.upload_video(get_webcams_url(params[:record_id]),
+              title: params[:video_title],
+              description: t('youtube_description', url: 'https://bigbluebutton.org/'),
+              privacy_status: params[:privacy_status])
+    rescue
+      # In this case, they don't have a youtube channel connected to their account, so prompt to create one.
+      redirect_to 'https://m.youtube.com/create_channel'
+    end
+  end
+
+  # GET /rooms/:room_id/recordings/can_upload
+  def can_upload
+    upload_data = {}
+    bbb_get_recordings[:recordings].each{ |recording_data|
+      next if recording_data[:recordID] == ""
+      # The recording is uploadable if it contains webcam data and they are logged in thorugh Google.
+      uploadable = Faraday.head(get_webcams_url(recording_data[:recordID])).status == 200 &&
+                   Rails.application.config.omniauth_google &&
+                   current_user.provider == 'google'
+      upload_data[recording_data[:recordID]] = uploadable
+    }
+    render json: upload_data
+  end
+
+  def get_webcams_url(recording_id)
+    uri = URI.parse(ENV['BIGBLUEBUTTON_ENDPOINT'])
+    uri.scheme + '://' + uri.host + '/presentation/' + recording_id + '/video/webcams.webm'
+  end
+
   private
 
   def load_room!

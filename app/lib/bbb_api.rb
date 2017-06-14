@@ -141,6 +141,7 @@ module BbbApi
     end
 
     res[:recordings].each do |recording|
+      next if recording.key?(:error)
       pref_preview = {}
       recording[:length] = recording[:playback][:format].is_a?(Hash) ? recording[:playback][:format][:length] : recording[:playback][:format].first[:length]
       # create a playbacks attribute on recording for playback formats
