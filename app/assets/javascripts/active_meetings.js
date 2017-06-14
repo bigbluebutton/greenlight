@@ -73,7 +73,8 @@ initialPopulate = function(){
 }
 
 isPreviouslyJoined = function(meeting){
-  joinedMeetings = localStorage.getItem('joinedRooms-' + $('body').data('current-user')).split(',') || [];
+  joinedMeetings = localStorage.getItem('joinedRooms-' + $('body').data('current-user')) || [];
+  if (joinedMeetings != []){ joinedMeetings = joinedMeetings.split(','); }
   return joinedMeetings.indexOf(meeting) >= 0
 }
 
