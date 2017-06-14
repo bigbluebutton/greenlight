@@ -73,9 +73,9 @@ initialPopulate = function(){
 }
 
 isPreviouslyJoined = function(meeting){
-  joinedMeetings = localStorage.getItem('joinedRooms-' + $('body').data('current-user')) || [];
-  if (joinedMeetings != []){ joinedMeetings = joinedMeetings.split(','); }
-  return joinedMeetings.indexOf(meeting) >= 0
+  joinedMeetings = localStorage.getItem('joinedRooms-' + $('body').data('current-user'));
+  if (joinedMeetings == '' || joinedMeetings == null){ return false; }
+  return joinedMeetings.split(',').indexOf(meeting) >= 0
 }
 
 renderActiveMeeting = function(m){
