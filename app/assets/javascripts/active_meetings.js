@@ -45,7 +45,8 @@ updateMeetingText = function(meeting){
 }
 
 initialPopulate = function(){
-  $.get(window.location.origin + '/rooms/' + $('body').data('current-user') + '/request', function(data){
+  if (window.location.href.includes('preferences')) { return; }
+  $.get((window.location.href + '/request').replace('#', ''), function(data){
     meetings = data['meetings']
     for(var i = 0; i < meetings.length; i++){
       name = meetings[i]['meetingName']
@@ -53,8 +54,8 @@ initialPopulate = function(){
       moderators = parseInt(meetings[i]['moderatorCount'])
       // Create meeting.
       MEETINGS[name] = {'name': name,
-                            'participants': participants - moderators,
-                            'moderators': moderators}
+                        'participants': participants - moderators,
+                        'moderators': moderators}
       if(isPreviouslyJoined(name)){
         renderActiveMeeting(MEETINGS[name])
       }
@@ -64,6 +65,9 @@ initialPopulate = function(){
     updatePreviousMeetings();
     $('.hidden-list').show();
     $('.fa-spinner').hide();
+  }).error(function(){
+    console.log('Not on a page to load meetings.')
+    return true;
   });
 }
 
