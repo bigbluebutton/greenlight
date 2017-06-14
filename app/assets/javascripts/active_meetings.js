@@ -45,7 +45,8 @@ updateMeetingText = function(meeting){
 }
 
 initialPopulate = function(){
-  if (window.location.href.includes('preferences')) { return; }
+  // Only populate on room resources.
+  if (!window.location.href.includes('rooms')) { return; }
   $.get((window.location.href + '/request').replace('#', ''), function(data){
     meetings = data['meetings']
     for(var i = 0; i < meetings.length; i++){

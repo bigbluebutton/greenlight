@@ -67,7 +67,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     <div class='header'>
       <span class="logo-wrapper pull-left">
         <% if current_user %>
-          <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), meeting_room_path('rooms', User.find(current_user).encrypted_id) %>
+          <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), meeting_room_path('rooms', User.find(current_user.id).encrypted_id) %>
         <% else %>
           <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), root_path %>
         <% end %>
