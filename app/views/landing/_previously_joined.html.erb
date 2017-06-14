@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<% if current_user %>
+<% if current_user && !current_page?(root_url) %>
   <div class="previously-joined-wrapper hidden">
     <div class = 'row'>
       <div class = 'col-xs-3 col-xs-offset-2'>
