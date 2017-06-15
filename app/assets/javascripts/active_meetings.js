@@ -18,7 +18,7 @@
 // the landing page using custom Actioncable events.
 
 MEETINGS = {}
-LOADING_DELAY = 1250 // milliseconds.
+LOADING_DELAY = 3000 // milliseconds.
 
 updatePreviousMeetings = function(){
   $("ul.previously-joined li").each(function(idx, li) {
@@ -46,7 +46,8 @@ updateMeetingText = function(meeting){
 
 initialPopulate = function(){
   // Only populate on room resources.
-  if (!window.location.href.includes('rooms')) { return; }
+  chopped = window.location.href.split('/')
+  if (!window.location.href.includes('rooms') || chopped[chopped.length - 2] == $('body').data('current-user')) { return; }
   $.get((window.location.href + '/request').replace('#', ''), function(data){
     meetings = data['meetings']
     for(var i = 0; i < meetings.length; i++){
@@ -65,7 +66,7 @@ initialPopulate = function(){
     // Remove from previous meetings if they are active.
     updatePreviousMeetings();
     $('.hidden-list').show();
-    $('.fa-spinner').hide();
+    $('.active-spinner').hide();
   }).error(function(){
     console.log('Not on a page to load meetings.')
     return true;
