@@ -18,7 +18,7 @@
 // the landing page using custom Actioncable events.
 
 MEETINGS = {}
-LOADING_DELAY = 2500 // milliseconds.
+LOADING_DELAY = 1750 // milliseconds.
 
 updatePreviousMeetings = function(){
   $("ul.previously-joined li").each(function(idx, li) {

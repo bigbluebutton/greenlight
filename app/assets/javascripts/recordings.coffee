@@ -314,7 +314,7 @@ class @Recordings
           cloud = selectedUpload.find('.cloud-blue')
           check = selectedUpload.find('.green-check')
           spinner = selectedUpload.find('.load-spinner')
-          
+
           showAlert(I18n.successful_upload, 4000);
 
           spinner.hide()
@@ -359,7 +359,8 @@ class @Recordings
       # Determine if the recording can be uploaded to Youtube.
       $.ajax({
         method: 'POST',
-        data: {'rec_id': id}
+        data: {'rec_id': id},
+        async: false,
         url: recordingsObject.getRecordingsURL() + '/can_upload'
       }).success((res_data) ->
         canUpload = res_data['uploadable']
