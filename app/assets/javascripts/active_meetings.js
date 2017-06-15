@@ -18,7 +18,7 @@
 // the landing page using custom Actioncable events.
 
 MEETINGS = {}
-LOADING_DELAY = 3000 // milliseconds.
+LOADING_DELAY = 2500 // milliseconds.
 
 updatePreviousMeetings = function(){
   $("ul.previously-joined li").each(function(idx, li) {
@@ -147,7 +147,7 @@ $(document).on('turbolinks:load', function(){
               updatePreviousMeetings();
             } else if(data['method'] == 'destroy'){
               removeActiveMeeting(MEETINGS[data['meeting']])
-              PreviousMeetings.append([data['meeting']])
+              PreviousMeetings.uniqueAdd([data['meeting']])
               delete MEETINGS[data['meeting']]
             } else if(data['method'] == 'join'){
               handleUser(data, 1)
