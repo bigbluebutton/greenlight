@@ -38,16 +38,6 @@ class @Recordings
 
   constructor: ->
     recordingsObject = this
-    canUpload = {}
-
-    # Determine which recordings can be uploaded to Youtube.
-    $.ajax({
-      method: 'GET',
-      async: false,
-      url: recordingsObject.getRecordingsURL() + '/can_upload'
-    }).success((res_data) ->
-      canUpload = res_data
-    )
 
     # configure the datatable for recordings
     this.table = $('#recordings').dataTable({
@@ -143,13 +133,6 @@ class @Recordings
               trigger = recordingActions.find('.recording-update-trigger')
               trigger.removeClass(classes.join(' '))
               trigger.addClass(cls)
-
-              upload_btn = recordingActions.find('.cloud-upload')
-
-              if canUpload[row.id]
-                upload_btn.attr('data-popover-body', '.mail_youtube_popover')
-              else
-                upload_btn.attr('data-popover-body', '.mail_popover')
 
               return recordingActions.html()
             return data
@@ -266,6 +249,7 @@ class @Recordings
     table_api = this.table.api()
     recordingsObject = this
     selectedUpload = null
+    canUpload = false
 
     @getTable().on 'click', '.recording-update', (event) ->
       btn = $(this)
@@ -330,13 +314,15 @@ class @Recordings
           cloud = selectedUpload.find('.cloud-blue')
           check = selectedUpload.find('.green-check')
           spinner = selectedUpload.find('.load-spinner')
+          
+          showAlert(I18n.successful_upload, 4000);
 
           spinner.hide()
           check.show()
           setTimeout ( ->
             cloud.show()
             check.hide()
-          ), 4000
+          ), 2500
       })
 
       selectedUpload.find('.cloud-blue').hide()
@@ -364,7 +350,27 @@ class @Recordings
       $('#video-title').attr('value', row.name)
 
     @getTable().on 'click', '.cloud-upload', (event) ->
+      btn = $(this)
+      row = table_api.row($(this).closest('tr')).data()
+      id = row.id
+
       selectedUpload = $(this)
+
+      # Determine if the recording can be uploaded to Youtube.
+      $.ajax({
+        method: 'POST',
+        data: {'rec_id': id}
+        url: recordingsObject.getRecordingsURL() + '/can_upload'
+      }).success((res_data) ->
+        canUpload = res_data['uploadable']
+      )
+
+      if canUpload
+        $(this).attr('data-popover-body', '.mail_youtube_popover')
+      else
+        $(this).attr('data-popover-body', '.mail_popover')
+
+      $(this).popover('show')
 
     @getTable().on 'draw.dt', (event) ->
       $('time[data-time-ago]').timeago();

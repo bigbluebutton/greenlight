@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     scope '/:room_id', :constraints => {:room_id => disallow_slash} do
       # recording routes for updating, deleting and viewing recordings
       get '/(:id)/recordings', to: 'bbb#recordings', defaults: {id: nil, format: 'json'}, :constraints => {:id => disallow_slash}
-      get '/(:id)/recordings/can_upload', to: 'bbb#can_upload', defaults: {id: nil, format: 'json'}, :constraints => {:id => disallow_slash}
+      post '/(:id)/recordings/can_upload', to: 'bbb#can_upload', defaults: {id: nil, format: 'json'}, :constraints => {:id => disallow_slash}
       post '/(:id)/recordings/:record_id', to: 'bbb#youtube_publish', defaults: {id: nil, format: 'json'}, :constraints => {:id => disallow_slash}
       patch '/(:id)/recordings/:record_id', to: 'bbb#update_recordings', defaults: {id: nil, format: 'json'}, :constraints => {:id => disallow_slash}
       delete '/(:id)/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {id: nil, format: 'json'}, :constraints => {:id => disallow_slash}
