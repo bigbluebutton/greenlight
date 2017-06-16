@@ -180,10 +180,22 @@ class BbbController < ApplicationController
               title: params[:video_title],
               description: t('youtube_description', url: 'https://bigbluebutton.org/'),
               privacy_status: params[:privacy_status])
-    rescue
-      # In this case, they don't have a youtube channel connected to their account, so prompt to create one.
-      redirect_to 'https://m.youtube.com/create_channel'
+    rescue => e
+      errors = e.response_body['error']['errors']
+      # Many complications, start by getting them to refresh their token.
+      if errors.length > 1
+        redirect_url = user_login_url
+      else
+        error = errors[0]
+        if error['message'] == "Unauthorized"
+          redirect_url = 'https://m.youtube.com/create_channel'
+        else
+          # In this case, they don't have a youtube channel connected to their account, so prompt to create one.
+          redirect_url = user_login_url
+        end
+      end
     end
+    render json: {:url => redirect_url}
   end
 
   # POST /rooms/:room_id/recordings/can_upload

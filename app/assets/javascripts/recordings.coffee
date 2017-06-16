@@ -310,19 +310,24 @@ class @Recordings
         method: 'POST',
         url: url+'/'+id
         data: {video_title: title, privacy_status: privacy_status}
-        success: () ->
-          cloud = selectedUpload.find('.cloud-blue')
-          check = selectedUpload.find('.green-check')
-          spinner = selectedUpload.find('.load-spinner')
+        success: (data) ->
 
-          showAlert(I18n.successful_upload, 4000);
+          if data['url'] != null
+            window.location.href = data['url']
+          else
+            cloud = selectedUpload.find('.cloud-blue')
+            check = selectedUpload.find('.green-check')
+            spinner = selectedUpload.find('.load-spinner')
 
-          spinner.hide()
-          check.show()
-          setTimeout ( ->
-            cloud.show()
-            check.hide()
-          ), 2500
+            showAlert(I18n.successful_upload, 4000);
+
+            spinner.hide()
+            check.show()
+
+            setTimeout ( ->
+              cloud.show()
+              check.hide()
+            ), 2500
       })
 
       selectedUpload.find('.cloud-blue').hide()
