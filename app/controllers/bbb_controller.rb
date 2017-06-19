@@ -111,7 +111,8 @@ class BbbController < ApplicationController
     head(:ok) && return unless validate_checksum
 
     begin
-      data = JSON.parse(params['event'])
+      event = params['event']
+      data = event.is_a?(String) ? JSON.parse(params['event']) : event
       treat_callback_event(data)
     rescue Exception => e
       logger.error "Error parsing webhook data. Data: #{data}, exception: #{e.inspect}"
@@ -314,18 +315,26 @@ class BbbController < ApplicationController
     checksum = params["checksum"]
     return false unless checksum
 
-    # Decode and break the body into parts.
-    parts = URI.decode_www_form(read_body(request))
+    # Message is only encoded if it comes from the bbb-webhooks node application.
+    # The post process script does not encode it's response body.
+    begin
+      # Decode and break the body into parts.
+      parts = URI.decode_www_form(read_body(request))
 
-    # Convert the data into the correct checksum format, replace ruby hash arrows.
-    converted_data = {parts[0][0]=>parts[0][1],parts[1][0]=>parts[1][1].to_i}.to_s.gsub!('=>', ':')
+      # Convert the data into the correct checksum format, replace ruby hash arrows.
+      converted_data = {parts[0][0]=>parts[0][1],parts[1][0]=>parts[1][1].to_i}.to_s.gsub!('=>', ':')
 
-    # Manually remove the space between the two elements.
-    converted_data[converted_data.rindex("timestamp") - 2] = ''
+      # Manually remove the space between the two elements.
+      converted_data[converted_data.rindex("timestamp") - 2] = ''
+      callback_url = uri_remove_param(request.original_url, "checksum")
+      checksum_str = "#{callback_url}#{converted_data}#{secret}"
+    rescue
+      # Data was not recieved encoded (sent from post process script).
+      data = read_body(request)
+      callback_url = uri_remove_param(request.original_url, "checksum")
+      checksum_str = "#{callback_url}#{data}#{secret}"
+    end
 
-    callback_url = uri_remove_param(request.original_url, "checksum")
-
-    checksum_str = "#{callback_url}#{converted_data}#{secret}"
     calculated_checksum = Digest::SHA1.hexdigest(checksum_str)
 
     if calculated_checksum != checksum

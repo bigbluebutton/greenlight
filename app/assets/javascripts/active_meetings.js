@@ -92,7 +92,9 @@ renderActiveMeeting = function(m){
 }
 
 removeActiveMeeting = function(meeting){
-  $('#' + meeting['name'].replace(' ', '_')).remove()
+  if(meeting){
+    $('#' + meeting['name'].replace(' ', '_')).remove()
+  }
 }
 
 // Directly join a meeting from active meetings.
