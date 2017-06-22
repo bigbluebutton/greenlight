@@ -141,6 +141,12 @@ en-US:
         length_value: "%{value} minutes"
         started: Started
         users: Users
+      user_table:
+        user: User
+        role: Role
+        join: Join
+        left: Leave
+        duration: Duration
   participants: Users
   past_recordings: Past Recordings
   preferences: Preferences

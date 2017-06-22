@@ -48,6 +48,32 @@ def getParticipantsInfo(events_xml)
   participants_info
 end
 
+# Gets the join and leave times for each user, as well as total duration of stay.
+def get_duration_info(events_xml)
+  BigBlueButton.logger.info("Task: Getting duration information.")
+  doc = Nokogiri::XML(File.open(events_xml))
+  user_data = {}
+  first_event_time = BigBlueButton::Events.first_event_timestamp(events_xml)
+  timestamp = doc.at_xpath('/recording')['meeting_id'].split('-')[1].to_i
+  joinEvents = doc.xpath('/recording/event[@module="PARTICIPANT" and @eventname="ParticipantJoinEvent"]')
+  leftEvents = doc.xpath('/recording/event[@module="PARTICIPANT" and @eventname="ParticipantLeftEvent"]')
+  # This should never occur, but just in case.
+  return {'error' => 'inequal number of join/left events.'} if joinEvents.length != leftEvents.length
+  joinEvents.each do |join|
+    uID = join.xpath('externalUserId').text
+    user_data[uID] = {}
+    user_data[uID]['name'] = join.xpath('name').text
+    user_data[uID]['join'] = join['timestamp'].to_i - first_event_time + timestamp
+    user_data[uID]['role'] = join.xpath('role').text
+  end
+  leftEvents.each do |left|
+    uID = left.xpath('userId').text.split('_')[0]
+    user_data[uID]['left'] = left['timestamp'].to_i - first_event_time + timestamp
+    user_data[uID]['duration'] = user_data[uID]['left'] - user_data[uID]['join']
+  end
+  user_data
+end
+
 logger = Logger.new("/var/log/bigbluebutton/post_process.log", 'weekly')
 logger.level = Logger::INFO
 BigBlueButton.logger = logger
@@ -69,6 +95,7 @@ begin
     BigBlueButton.logger.info("Making callback for recording ready notification")
 
     participants_info = getParticipantsInfo(events_xml)
+    duration_info = get_duration_info(events_xml)
 
     props = JavaProperties::Properties.new("/var/lib/tomcat7/webapps/bigbluebutton/WEB-INF/classes/bigbluebutton.properties")
     secret = props[:securitySalt]
@@ -81,7 +108,8 @@ begin
       "payload":{
         "metadata": meeting_metadata,
         "meeting_id": meeting_id,
-        "participants": participants_info
+        "participants": participants_info,
+        "duration": duration_info
       }
     }
     payload = {

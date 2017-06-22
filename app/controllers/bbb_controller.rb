@@ -263,6 +263,7 @@ class BbbController < ApplicationController
         token = event['payload']['metadata'][META_TOKEN]
         room_id = event['payload']['metadata']['room-id']
         record_id = event['payload']['meeting_id']
+        duration_data = event['payload']['duration']
 
         # the webhook event doesn't have all the data we need, so we need
         # to send a getRecordings anyway
@@ -270,6 +271,8 @@ class BbbController < ApplicationController
         rec_info = bbb_get_recordings({recordID: record_id})
         rec_info = rec_info[:recordings].first
         RecordingCreatedJob.perform_later(token, room_id, parse_recording_for_view(rec_info))
+
+        rec_info[:duration] = duration_data.to_json
 
         # send an email to the owner of this recording, if defined
         if Rails.configuration.mail_notifications

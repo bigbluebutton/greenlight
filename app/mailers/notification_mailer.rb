@@ -20,6 +20,7 @@ class NotificationMailer < ActionMailer::Base
   def recording_ready_email(user, rec)
     @user = user
     @recording = rec
+    @duration = JSON.parse(rec[:duration])
     @room_url = meeting_room_url(resource: 'rooms', id: user.encrypted_id)
 
     # Need this because URL doesn't respect the relative_url_root by default

@@ -43,6 +43,30 @@
         <td><b><%= @recording[:participants] %></b></td>
       </tr>
     </table>
+    <br>
+    <table style = "padding:0 15px 0 15px;">
+      <tr>
+        <th style = "padding:0 15px 0 15px;"><b><%= t('.user_table.user') %></b></th>
+        <th style = "padding:0 15px 0 15px;"><b><%= t('.user_table.role') %></b></th>
+        <th style = "padding:0 15px 0 15px;"><b><%= t('.user_table.join') %></b></th>
+        <th style = "padding:0 15px 0 15px;"><b><%= t('.user_table.left') %></b></th>
+        <th style = "padding:0 15px 0 15px;"><b><%= t('.user_table.duration') %></b></th>
+      </tr>
+      <% @duration.each do |user| %>
+        <tr>
+          <td style = "padding:0 15px 0 15px;"><%= user[1]['name'] %></td>
+          <td style = "padding:0 15px 0 15px;"><%= user[1]['role'].downcase.capitalize %></td>
+          <td style = "padding:0 15px 0 15px;"><%= Time.at(user[1]['join'] / 1000).strftime("%H:%M:%S") %></td>
+          <td style = "padding:0 15px 0 15px;"><%= Time.at(user[1]['left'] / 1000).strftime("%H:%M:%S") %></td>
+          <td style = "padding:0 15px 0 15px;"><%= Time.at(user[1]['duration'] / 1000).utc.strftime("%H:%M:%S") %></td>
+        </tr>
+      <% end %>
+    </table>
+    <br>
+    <p><%= t('thumbnails') %>:</p>
+    <% @recording[:previews].each do |preview| %>
+      <img style = "display:inline;" src = "<%= preview[:url] %>" alt = "<%= preview[:alt] %>">
+    <% end %>
     <p><%= t('.phrase2') %></p>
     <p style="text-align:center;"><%= link_to(@recording[:playbacks][0][:url], @recording[:playbacks][0][:url]) %></p>
     <p><%= t('.phrase3_html') %></p>
