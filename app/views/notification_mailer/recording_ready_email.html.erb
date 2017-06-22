@@ -63,7 +63,7 @@
       <% end %>
     </table>
     <br>
-    <p><%= t('thumbnails') %>:</p>
+    <p><%= (t('thumbnails') + ':') if @recording[:previews].length > 0 %></p>
     <% @recording[:previews].each do |preview| %>
       <img style = "display:inline;" src = "<%= preview[:url] %>" alt = "<%= preview[:alt] %>">
     <% end %>
