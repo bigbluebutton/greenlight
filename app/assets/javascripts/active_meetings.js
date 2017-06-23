@@ -51,6 +51,8 @@ initialPopulate = function(){
   $.get((window.location.href + '/request').replace('#', ''), function(data){
     meetings = data['meetings']
     for(var i = 0; i < meetings.length; i++){
+      // Make sure the meeting actually belongs to the current user.
+      if(meetings[i]['metadata']['room-id'] != $('body').data('current-user')) { continue; }
       name = meetings[i]['meetingName']
       participants = parseInt(meetings[i]['participantCount'])
       moderators = parseInt(meetings[i]['moderatorCount'])
@@ -87,7 +89,7 @@ renderActiveMeeting = function(m){
 
   // Set up join on click.
   meeting_item.click(function(){
-    joinMeeting(name);
+    joinMeeting(m['name']);
   });
 }
 
@@ -99,31 +101,24 @@ removeActiveMeeting = function(meeting){
 
 // Directly join a meeting from active meetings.
 joinMeeting = function(meeting_name){
-  var name = $('.meeting-user-name').val();
+  if (meeting_name == undefined || meeting_name == null) { return; }
   Meeting.getInstance().setUserName(localStorage.getItem('lastJoinedName'));
   Meeting.getInstance().setMeetingId(meeting_name);
 
-  // a user name is set, join the user into the session
-  if (name !== undefined && name !== null) {
-    var jqxhr = Meeting.getInstance().getJoinMeetingResponse();
-    if (jqxhr) {
-      jqxhr.done(function(data) {
-        if (data.messageKey === 'wait_for_moderator') {
-          waitForModerator(Meeting.getInstance().getURL());
-        } else {
-          $(location).attr("href", data.response.join_url);
-        }
-      });
-      jqxhr.fail(function(xhr, status, error) {
-        console.info("meeting join failed");
-      });
-    } else {
-      $('.meeting-user-name').parent().addClass('has-error');
-    }
-
-  // if not user name was set it means we must ask for a name
+  var jqxhr = Meeting.getInstance().getJoinMeetingResponse();
+  if (jqxhr) {
+    jqxhr.done(function(data) {
+      if (data.messageKey === 'wait_for_moderator') {
+        waitForModerator(Meeting.getInstance().getURL());
+      } else {
+        $(location).attr("href", data.response.join_url);
+      }
+    });
+    jqxhr.fail(function(xhr, status, error) {
+      console.info("meeting join failed");
+    });
   } else {
-    $(location).attr("href", Meeting.getInstance().getURL());
+    $('.meeting-user-name').parent().addClass('has-error');
   }
 }
 
@@ -137,8 +132,8 @@ $(document).on('turbolinks:load', function(){
     if(!App.messages){
       App.messages = App.cable.subscriptions.create('RefreshMeetingsChannel', {
         received: function(data) {
-          console.log('Recieved ' + data['method'] + ' action for ' + data['meeting'] + '.')
-          if(isPreviouslyJoined(data['meeting'])){
+          console.log('Recieved ' + data['method'] + ' action for ' + data['meeting'] + ' with room id ' + data['room'] + '.')
+          if(isPreviouslyJoined(data['meeting']) && data['room'] == $('body').data('current-user')){
             if(data['method'] == 'create'){
               // Create an empty meeting.
               MEETINGS[data['meeting']] = {'name': data['meeting'],

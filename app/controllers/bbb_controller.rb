@@ -290,13 +290,13 @@ class BbbController < ApplicationController
       end
     elsif eventName == "meeting_created_message"
       # Fire an Actioncable event that updates _previously_joined for the client.
-      actioncable_event('create', params['id'])
+      actioncable_event('create', params['id'], params['room_id'])
     elsif eventName == "meeting_destroyed_event"
-      actioncable_event('destroy', params['id'])
+      actioncable_event('destroy', params['id'], params['room_id'])
     elsif eventName == "user_joined_message"
-      actioncable_event('join', params['id'], event['payload']['user']['role'])
+      actioncable_event('join', params['id'], params['room_id'], event['payload']['user']['role'])
     elsif eventName == "user_left_message"
-      actioncable_event('leave', params['id'], event['payload']['user']['role'])
+      actioncable_event('leave', params['id'], params['room_id'], event['payload']['user']['role'])
     else
       logger.info "Callback event will not be treated. Event name: #{eventName}"
     end
@@ -304,10 +304,11 @@ class BbbController < ApplicationController
     render head(:ok) && return
   end
 
-  def actioncable_event(method, id, role = 'none')
+  def actioncable_event(method, id, room_id, role = 'none')
     ActionCable.server.broadcast 'refresh_meetings',
       method: method,
       meeting: id,
+      room: room_id,
       role: role
   end
 
