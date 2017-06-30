@@ -188,11 +188,6 @@ module BbbApi
     meeting_id = bbb_meeting_id(id)
     bbb_meeting_info = bbb.get_meeting_info(meeting_id, nil)
 
-    # Remove the webhook when the meeting ends.
-    if Rails.configuration.use_webhooks
-      webhook_remove(bbb_meeting_info[:metadata][:"gl-webhooks-callback-url"])
-    end
-
     response_data = if bbb_meeting_info.is_a?(Hash) && bbb_meeting_info[:moderatorPW]
       bbb.end_meeting(meeting_id, bbb_meeting_info[:moderatorPW])
     else

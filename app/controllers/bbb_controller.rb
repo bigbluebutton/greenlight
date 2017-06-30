@@ -279,12 +279,6 @@ class BbbController < ApplicationController
           owner = User.find_by(encrypted_id: room_id)
           RecordingReadyEmailJob.perform_later(owner, parse_recording_for_view(rec_info)) if owner.present?
         end
-
-        # TODO: remove the webhook now that the meeting and recording are done
-        # remove only if the meeting is not running, otherwise the hook is needed
-        # if Rails.configuration.use_webhooks
-        #   webhook_remove("#{base_url}/callback")
-        # end
       else
         logger.error "Bad format for event #{event}, won't process"
       end
@@ -293,6 +287,10 @@ class BbbController < ApplicationController
       actioncable_event('create', params['id'], params['room_id'])
     elsif eventName == "meeting_destroyed_event"
       actioncable_event('destroy', params['id'], params['room_id'])
+      record_id = event['payload']['meeting_id'].split('-')[0]
+      rec_info = bbb_get_recordings({recordID: record_id})
+      rec_info = rec_info[:recordings].first
+      webhook_remove(rec_info[:metadata][:"gl-webhooks-callback-url"])
     elsif eventName == "user_joined_message"
       actioncable_event('join', params['id'], params['room_id'], event['payload']['user']['role'])
     elsif eventName == "user_left_message"
