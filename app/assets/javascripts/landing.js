@@ -17,7 +17,8 @@
 (function() {
 
   var waitForModerator = function(url) {
-    $.get(url + "/wait", function(html) {
+    localStorage.setItem("waitingName", $('.meeting-user-name').val());
+    $.post(url + "/wait", {name: $('.meeting-user-name').val()}, function(html) {
       $(".center-panel-wrapper").html(html);
     });
     if (!Meeting.getInstance().getWaitingForMod()) {

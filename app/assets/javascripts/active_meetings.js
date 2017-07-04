@@ -18,6 +18,7 @@
 // the landing page using custom Actioncable events.
 
 var MEETINGS = {}
+var WAITING = {}
 var LOADING_DELAY = 1750 // milliseconds.
 
 var updatePreviousMeetings = function(){
@@ -29,19 +30,44 @@ var updatePreviousMeetings = function(){
   });
 }
 
-var handleUser = function(data, n){
+var addUser = function(data){
   if(data['role'] == 'MODERATOR'){
-    MEETINGS[data['meeting']]['moderators'] += n
+    MEETINGS[data['meeting']]['moderators'].push(data['user'])
   } else {
-    MEETINGS[data['meeting']]['participants'] += n
+    MEETINGS[data['meeting']]['participants'].push(data['user'])
   }
   updateMeetingText(MEETINGS[data['meeting']])
 }
 
-var updateMeetingText = function(meeting){
-  $('#' + meeting['name'].replace(' ', '_')).html('<a>' + meeting['name'] + '</a> <i>(' +
-          meeting['participants'] + ((meeting['participants'] == 1) ? ' user, ' : ' users, ') +
-          meeting['moderators'] + ((meeting['moderators'] == 1) ? ' mod)' : ' mods)'))
+var removeUser = function(data){
+  if(data['role'] == 'MODERATOR'){
+    MEETINGS[data['meeting']]['moderators'].splice(MEETINGS[data['meeting']]['moderators'].indexOf(data['user']), 1);
+  } else {
+    MEETINGS[data['meeting']]['participants'].splice(MEETINGS[data['meeting']]['participants'].indexOf(data['user']), 1);
+  }
+  updateMeetingText(MEETINGS[data['meeting']])
+}
+
+var updateMeetingText = function(m){
+  if(m.hasOwnProperty('moderators')){
+    var body = '<a>' + m['name'] + '</a><i>: ' + m['moderators'].join('(mod), ') + (m['moderators'].length > 0 ? '(mod)' : '') +
+                (m['participants'].length > 0 && m['moderators'].length != 0 ? ', ' : '') + m['participants'].join(', ') + '</i>'
+  } else {
+    var body = '<a>' + m['name'] + '</a><i> (not yet started): ' + 
+                m['users'].join(', ') + '</i>'
+  }
+
+  if($('#' + m['name'].replace(' ', '_')).length == 0){
+    var meeting_item = $('<li id = ' + m['name'].replace(' ', '_') + '>' + body + '</li>')
+    $('.actives').append(meeting_item);
+
+    // Set up join on click.
+    meeting_item.click(function(){
+      joinMeeting(m['name']);
+    });
+  } else {
+    $('#' + m['name'].replace(' ', '_')).html(body)
+  }
 }
 
 var initialPopulate = function(){
@@ -49,21 +75,48 @@ var initialPopulate = function(){
   var chopped = window.location.href.split('/')
   if (!window.location.href.includes('rooms') || chopped[chopped.length - 2] == $('body').data('current-user')) { return; }
   $.get((window.location.href + '/request').replace('#', ''), function(data){
-    var meetings = data['meetings']
+    var meetings = data['active']['meetings']
+    var waiting = data['waiting']
+    
+    jQuery.each(waiting[$('body').data('current-user')], function(name, users){
+      WAITING[name] = {'name': name,
+                       'users': users}
+      updateMeetingText(WAITING[name])
+    });
+    
     for(var i = 0; i < meetings.length; i++){
       // Make sure the meeting actually belongs to the current user.
       if(meetings[i]['metadata']['room-id'] != $('body').data('current-user')) { continue; }
       var name = meetings[i]['meetingName']
-      var participants = parseInt(meetings[i]['participantCount'])
-      var moderators = parseInt(meetings[i]['moderatorCount'])
+      
+      var participants = []
+      var moderators = []
+      
+      var attendees;
+      if(meetings[i]['attendees']['attendee'] instanceof Array){
+        attendees = meetings[i]['attendees']['attendee']
+      } else {
+        attendees = [meetings[i]['attendees']['attendee']]
+      }
+      
+      jQuery.each(attendees, function(i, attendee){
+        if(attendee['role'] == "MODERATOR"){
+          moderators.push(attendee['fullName'])
+        } else {
+          participants.push(attendee['fullName'])
+        }
+      });
+      
       // Create meeting.
       MEETINGS[name] = {'name': name,
-                        'participants': participants - moderators,
+                        'participants': participants,
                         'moderators': moderators}
+                        
       if(isPreviouslyJoined(name)){
-        renderActiveMeeting(MEETINGS[name])
+        updateMeetingText(MEETINGS[name])
       }
     }
+    
   }).done(function(){
     // Remove from previous meetings if they are active.
     updatePreviousMeetings();
@@ -79,18 +132,6 @@ var isPreviouslyJoined = function(meeting){
   joinedMeetings = localStorage.getItem('joinedRooms-' + $('body').data('current-user'));
   if (joinedMeetings == '' || joinedMeetings == null){ return false; }
   return joinedMeetings.split(',').indexOf(meeting) >= 0
-}
-
-var renderActiveMeeting = function(m){
-  var meeting_item = $('<li id = ' + m['name'].replace(' ', '_') + '><a>' + m['name'] + '</a>' +
-          ' <i>(' + m['participants'] + ((m['participants'] == 1) ? ' user, ' : ' users, ') +
-          m['moderators'] + ((m['moderators'] == 1) ? ' mod)' : ' mods)') + '</i>' + '</li>')
-  $('.actives').append(meeting_item);
-
-  // Set up join on click.
-  meeting_item.click(function(){
-    joinMeeting(m['name']);
-  });
 }
 
 var removeActiveMeeting = function(meeting){
@@ -137,20 +178,36 @@ $(document).on('turbolinks:load', function(){
             if(data['method'] == 'create'){
               // Create an empty meeting.
               MEETINGS[data['meeting']] = {'name': data['meeting'],
-                                          'participants': 0,
-                                          'moderators': 0}
-
-              renderActiveMeeting(MEETINGS[data['meeting']])
+                                          'participants': [],
+                                          'moderators': []}
+              updateMeetingText(MEETINGS[data['meeting']])
               updatePreviousMeetings();
+              if (WAITING.hasOwnProperty(data['meeting'])){ delete WAITING[data['meeting']]; }
             } else if(data['method'] == 'destroy'){
               removeActiveMeeting(MEETINGS[data['meeting']])
               PreviousMeetings.uniqueAdd([data['meeting']])
               delete MEETINGS[data['meeting']]
             } else if(data['method'] == 'join'){
-              handleUser(data, 1)
-              updateMeetingText(MEETINGS[data['meeting']])
+              addUser(data)
             } else if(data['method'] == 'leave'){
-              handleUser(data, -1)
+              removeUser(data)
+            } else if(data['method'] == 'waiting'){
+              // Handle waiting meeting.
+              if(WAITING.hasOwnProperty(data['meeting'])){
+                WAITING[data['meeting']]['users'].push(data['user'])
+                updateMeetingText(WAITING[data['meeting']])
+              } else {
+                WAITING[data['meeting']] = {'name': data['meeting'],
+                                            'users': [data['user']]}
+                updateMeetingText(WAITING[data['meeting']])
+              }
+            } else if((data['method'] == 'no_longer_waiting') && (WAITING.hasOwnProperty(data['meeting']))){
+                WAITING[data['meeting']]['users'].splice(WAITING[data['meeting']]['users'].indexOf(data['user']), 1)
+                updateMeetingText(WAITING[data['meeting']])
+                if(WAITING[data['meeting']]['users'].length == 0){
+                  removeActiveMeeting(WAITING[data['meeting']])
+                  delete WAITING[data['meeting']]
+                }
             }
           }
         }

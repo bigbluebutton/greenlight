@@ -44,13 +44,14 @@ Rails.application.routes.draw do
       delete '/(:id)/recordings/:record_id', to: 'bbb#delete_recordings', defaults: {id: nil, format: 'json'}, :constraints => {:id => disallow_slash}
 
       delete '/:id/end', to: 'bbb#end', defaults: {format: 'json'}, :constraints => {:id => disallow_slash}
-      get '/:id/wait', to: 'landing#wait_for_moderator', :constraints => {:id => disallow_slash}
+      post '/:id/wait', to: 'landing#wait_for_moderator', :constraints => {:id => disallow_slash}
+      post '/:id/no_longer_wait', to: 'landing#no_longer_waiting', :constraints => {:id => disallow_slash}
       get '/:id/session_status_refresh', to: 'landing#session_status_refresh', :constraints => {:id => disallow_slash}
     end
     post '/:room_id/:id/callback', to: 'bbb#callback', :constraints => {:id => disallow_slash, :room_id => disallow_slash}
 
     # routes shared between meetings and rooms
-    get '/(:room_id)/request', to: 'landing#send_data', :defaults => { :format => 'xml' }
+    get '/(:room_id)/request', to: 'landing#send_meetings_data', :defaults => { :format => 'xml' }
     get '/(:room_id)/:id/join', to: 'bbb#join', defaults: {room_id: nil, format: 'json'}, :constraints => {:id => disallow_slash, :room_id => disallow_slash}
     get '/(:room_id)/:id', to: 'landing#resource', as: :meeting_room, defaults: {room_id: nil}, :constraints => {:id => disallow_slash, :room_id => disallow_slash}
   end

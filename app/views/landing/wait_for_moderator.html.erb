@@ -28,3 +28,11 @@
     <%= image_tag "loading-indicator.gif", :alt => "" %>
   </div>
 <% end %>
+
+<script>
+// Notify the server when a user is no longer waiting to join a meeting.
+
+window.addEventListener("beforeunload", function(e){
+  $.post(window.location.href + '/no_longer_wait', {name: localStorage.waitingName});
+}, false);
+</script>

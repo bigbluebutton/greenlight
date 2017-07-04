@@ -34,12 +34,27 @@ class LandingController < ApplicationController
     end
   end
 
-  def send_data
-    render json: bbb.get_meetings
+  def send_meetings_data
+    render json: {active: bbb.get_meetings, waiting: WaitingList.waiting}
   end
 
   def wait_for_moderator
+    WaitingList.add(params[:room_id], params[:name], params[:id])
+    ActionCable.server.broadcast 'refresh_meetings',
+      method: 'waiting',
+      meeting: params[:id],
+      room: params[:room_id],
+      user: params[:name]
     render layout: false
+  end
+
+  def no_longer_waiting
+    WaitingList.remove(params[:room_id], params[:name], params[:id])
+    ActionCable.server.broadcast 'refresh_meetings',
+      method: 'no_longer_waiting',
+      meeting: params[:id],
+      room: params[:room_id],
+      user: params[:name]
   end
 
   def session_status_refresh
