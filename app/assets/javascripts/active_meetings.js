@@ -50,8 +50,14 @@ var removeUser = function(data){
 
 var updateMeetingText = function(m){
   if(m.hasOwnProperty('moderators')){
-    var body = '<a>' + m['name'] + '</a><i>: ' + m['moderators'].join('(mod), ') + (m['moderators'].length > 0 ? '(mod)' : '') +
-                (m['participants'].length > 0 && m['moderators'].length != 0 ? ', ' : '') + m['participants'].join(', ') + '</i>'
+    var list;
+    if(m['moderators'].length + m['participants'].length == 0){
+      list = '(empty)'
+    } else {
+      list = m['moderators'].join('(mod), ') + (m['moderators'].length > 0 ? '(mod)' : '') +
+      (m['participants'].length > 0 && m['moderators'].length != 0 ? ', ' : '') + m['participants'].join(', ')
+    }
+    var body = '<a>' + m['name'] + '</a><i>: ' + list + '</i>'
   } else {
     var body = '<a>' + m['name'] + '</a><i> (not yet started): ' + 
                 m['users'].join(', ') + '</i>'
