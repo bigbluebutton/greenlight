@@ -100,8 +100,6 @@ module BbbApi
         rescue BigBlueButton::BigBlueButtonException => exc
           logger.info "BBB error on create #{exc.key}: #{exc.message}"
         end
-        
-        WaitingList.empty(options[:room_owner], options[:meeting_name])
 
         # And then get meeting info
         bbb_meeting_info = bbb.get_meeting_info( meeting_id, nil )

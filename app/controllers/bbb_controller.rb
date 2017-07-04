@@ -92,7 +92,7 @@ class BbbController < ApplicationController
       if user
         if bbb_res[:returncode] && current_user == user
           JoinMeetingJob.perform_later(user, params[:id], base_url)
-
+          WaitingList.empty(options[:room_owner], options[:meeting_name])
       # user will be waiting for a moderator
         else
           NotifyUserWaitingJob.perform_later(user.encrypted_id, params[:id], params[:name])
