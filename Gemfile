@@ -65,6 +65,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'omniauth', '1.3.1'
 gem 'omniauth-twitter', '1.2.1'
 gem 'omniauth-google-oauth2', '0.4.1'
+gem 'omniauth-ldap'
 
 gem 'bigbluebutton-api-ruby'
 

@@ -47,6 +47,14 @@ class User < ApplicationRecord
     auth_hash['info']['email']
   end
 
+  def self.ldap_username(auth_hash)
+    auth_hash['info']['nickname']
+  end
+  
+  def self.ldap_email(auth_hash)
+    auth_hash['info']['email']
+  end
+
   def set_encrypted_id
     self.encrypted_id = "#{username[0..1]}-#{Digest::SHA1.hexdigest(uid+provider)[0..7]}"
   end

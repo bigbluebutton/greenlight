@@ -36,6 +36,20 @@ TWITTER_SECRET=
 GOOGLE_OAUTH2_ID=
 GOOGLE_OAUTH2_SECRET=
 
+# LDAP Login Provider (optional)
+#
+#   You can enable LDAP authentication by providing values for LDAP_SERVER and LDAP_PORT.
+#   For information about setting up LDAP, see: (LINK TO LDAP DOCS).
+#
+LDAP_SERVER=
+LDAP_PORT=
+LDAP_UID=
+LDAP_BASE=
+LDAP_BIND_DN=
+LDAP_PASSWORD=
+LDAP_ICON=
+LDAP_NAME=
+
 # If "true", GreenLight will register a webhook callback for each meeting
 # created. This callback is called for all events that happen in the meeting,
 # including the processing of its recording. These events are used to update
