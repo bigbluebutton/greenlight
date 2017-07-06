@@ -19,6 +19,10 @@ class SessionsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def new
+    # If LDAP is enabled, just route to it instead.
+    if Rails.application.config.omniauth_ldap
+      redirect_to "#{relative_root}/auth/ldap"
+    end
   end
 
   def create
