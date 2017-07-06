@@ -20,3 +20,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     bind_dn: ENV['LDAP_BIND_DN'],
     password: ENV['LDAP_PASSWORD']
 end
+
+# Redirect back to login in development mode.
+OmniAuth.config.on_failure = Proc.new { |env|
+  OmniAuth::FailureEndpoint.new(env).redirect_to_failure
+}
