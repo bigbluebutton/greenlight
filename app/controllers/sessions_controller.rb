@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
 
   def auth_failure
     if params[:message] == 'invalid_credentials'
-      redirect_to '/', flash: {danger: 'Invalid login credentials.' }
+      redirect_to '/', flash: {danger: t('invalid_login') }
     else
       redirect_to '/'
     end
