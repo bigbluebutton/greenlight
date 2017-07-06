@@ -13,7 +13,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :ldap,
     host: ENV['LDAP_SERVER'],
     port: ENV['LDAP_PORT'],
-    method: :plain,
+    method: ENV['LDAP_METHOD'].present? ? ENV['LDAP_METHOD'].to_sym : :plain,
     allow_username_or_email_login: true,
     uid: ENV['LDAP_UID'],
     base: ENV['LDAP_BASE'],
