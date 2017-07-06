@@ -39,7 +39,8 @@ GOOGLE_OAUTH2_SECRET=
 # LDAP Login Provider (optional)
 #
 #   You can enable LDAP authentication by providing values for LDAP_SERVER and LDAP_PORT.
-#   For information about setting up LDAP, see: (LINK TO LDAP DOCS).
+#   For information about setting up LDAP, see: 
+#     http://docs.bigbluebutton.org/install/green-light.html#ldap-oauth
 #
 LDAP_SERVER=
 LDAP_PORT=
