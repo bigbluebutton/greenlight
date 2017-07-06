@@ -49,18 +49,6 @@
                 </div>
               <% end %>
           <% end %>
-          <% if omniauth_providers_configured(:ldap) %>
-              <%= link_to omniauth_login_url(:ldap), class: "signin-link signin-link-ldap" do %>
-                <div class="signin-button center-block">
-                  <div class="signin-icon-wrapper">
-                    <%= image_tag(ENV['LDAP_ICON'].present? ? ENV['LDAP_ICON'] : 'ldap_icon.png', alt: "L", class: "signin-icon") %>
-                  </div>
-                  <div class="signin-text-wrapper text-center">
-                    <span class="signin-text"><%= t('signin_text', provider: ENV['LDAP_NAME'].present? ? ENV['LDAP_NAME'] : 'LDAP') %></span>
-                  </div>
-                </div>
-              <% end %>
-          <% end %>
         </div>
       <% end %>
     </div>

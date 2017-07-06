@@ -47,8 +47,6 @@ LDAP_UID=
 LDAP_BASE=
 LDAP_BIND_DN=
 LDAP_PASSWORD=
-LDAP_ICON=
-LDAP_NAME=
 
 # If "true", GreenLight will register a webhook callback for each meeting
 # created. This callback is called for all events that happen in the meeting,
