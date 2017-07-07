@@ -42,7 +42,6 @@ class SessionsController < ApplicationController
   end
 
   def auth_failure
-    puts params.inspect
     if params[:message] == 'invalid_credentials'
       redirect_to '/', flash: {danger: t('invalid_login') }
     elsif params[:message] == 'ldap_error'
