@@ -8,7 +8,12 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "should get new" do
     get :new
-    assert_response :success
+    # We redirect directly to LDAP if configured.
+    if ENV['LDAP_SERVER'].present?
+      assert_response :redirect
+    else
+      assert_response :success
+    end
   end
 
   test "should redirect to home on auth failture" do
