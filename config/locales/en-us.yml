@@ -92,6 +92,7 @@ en-US:
   home_page: Home page
   home_title: Welcome to BigBlueButton
   invalid_file: You may only upload an image file (jpg, gif, png).
+  invalid_login: Invalid log in credentials.
   invite: Invite
   invite_description: (share this link below to invite others to this meeting)
   join: Join
@@ -101,6 +102,7 @@ en-US:
     connect: Connect in real-time with others
     collaborate: Collaborate with friends
     teach: Teach students online
+  ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   logged_in_description_html: You are logged in as %{link}
   login: login
   login_description: Want to record a meeting?
@@ -182,6 +184,7 @@ en-US:
   watch: Watch
   'yes': 'Yes'
   youtube_description: This recording was recorded with BigBlueButton. For more information check out %{url}.
+  youtube_footer: this will upload all webcam and audio data
   youtube_privacy_options:
     public: Public
     private: Private

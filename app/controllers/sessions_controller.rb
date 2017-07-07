@@ -16,7 +16,13 @@
 
 class SessionsController < ApplicationController
 
+  skip_before_action :verify_authenticity_token
+
   def new
+    # If LDAP is enabled, just route to it instead.
+    if Rails.application.config.omniauth_ldap
+      redirect_to "#{relative_root}/auth/ldap"
+    end
   end
 
   def create
@@ -36,6 +42,12 @@ class SessionsController < ApplicationController
   end
 
   def auth_failure
-    redirect_to '/'
+    if params[:message] == 'invalid_credentials'
+      redirect_to '/', flash: {danger: t('invalid_login') }
+    elsif params[:message] == 'ldap_error'
+      redirect_to '/', flash: {danger: t('ldap_error') }
+    else
+      redirect_to '/'
+    end
   end
 end

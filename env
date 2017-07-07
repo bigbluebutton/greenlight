@@ -36,6 +36,20 @@ TWITTER_SECRET=
 GOOGLE_OAUTH2_ID=
 GOOGLE_OAUTH2_SECRET=
 
+# LDAP Login Provider (optional)
+#
+#   You can enable LDAP authentication by providing values for the variables below.
+#   For information about setting up LDAP, see: 
+#     http://docs.bigbluebutton.org/install/green-light.html#ldap-oauth
+#
+LDAP_SERVER=
+LDAP_PORT=
+LDAP_METHOD=
+LDAP_UID=
+LDAP_BASE=
+LDAP_BIND_DN=
+LDAP_PASSWORD=
+
 # If "true", GreenLight will register a webhook callback for each meeting
 # created. This callback is called for all events that happen in the meeting,
 # including the processing of its recording. These events are used to update
