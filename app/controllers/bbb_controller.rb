@@ -201,10 +201,12 @@ class BbbController < ApplicationController
 
   # POST /rooms/:room_id/recordings/can_upload
   def can_upload
-    # The recording is uploadable if it contains webcam data and they are logged in thorugh Google.
-    uploadable = Faraday.head(get_webcams_url(params[:rec_id])).status == 200 &&
-                 Rails.application.config.omniauth_google &&
-                 current_user.provider == 'google'
+    # The recording is uploadable if it contains webcam data and they are logged in through Google.
+    if current_user.provider != 'google'
+      uploadable = 'invalid_provider' 
+    else
+      uploadable = (Faraday.head(get_webcams_url(params[:rec_id])).status == 200 && current_user.provider == 'google').to_s
+    end
     render json: {:uploadable => uploadable}
   end
 

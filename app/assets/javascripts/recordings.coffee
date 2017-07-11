@@ -169,6 +169,10 @@ class @Recordings
     options.selector = '.disabled-tooltip'
     options.title = I18n.youtube_disabled
     $('#recordings').tooltip(options)
+    
+    options.selector = '.invalid-tooltip'
+    options.title = I18n.invalid_provider
+    $('#recordings').tooltip(options)
 
     $(document).one "turbolinks:before-cache", =>
       @getTable().api().clear().draw().destroy()
@@ -371,8 +375,10 @@ class @Recordings
         canUpload = res_data['uploadable']
       )
 
-      if canUpload
+      if canUpload == 'true'
         $(this).attr('data-popover-body', '.mail_youtube_popover')
+      else if canUpload == 'invalid_provider'
+        $(this).attr('data-popover-body', '.no_youtube_popover')
       else
         $(this).attr('data-popover-body', '.mail_popover')
 
