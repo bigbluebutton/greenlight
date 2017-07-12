@@ -42,6 +42,7 @@ module Greenlight
 
     config.use_webhooks = ENV['GREENLIGHT_USE_WEBHOOKS'] == "true"
     config.mail_notifications = ENV['GREENLIGHT_MAIL_NOTIFICATIONS'] == "true"
+    config.disable_guest_access = ENV['DISABLE_GUEST_ACCESS'] == "true"
 
     # SMTP and action mailer
     if config.mail_notifications

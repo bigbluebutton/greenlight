@@ -18,6 +18,15 @@ require 'test_helper'
 
 class LandingControllerTest < ActionController::TestCase
 
+  # Should redirect to login url if guest access is disabled.
+  def assert_login_or_success
+    if Rails.configuration.disable_guest_access
+      assert_redirected_to user_login_path
+    else
+      assert_response :success
+    end
+  end
+
   setup do
     @meeting_id = 'test_id'
     @user = users :user1
@@ -25,12 +34,12 @@ class LandingControllerTest < ActionController::TestCase
 
   test "should get index" do
     get :index, params: {resource: 'meetings'}
-    assert_response :success
+    assert_login_or_success
   end
 
   test "should get meeting" do
     get :resource, params: { id: @meeting_id, resource: 'meetings' }
-    assert_response :success
+    assert_login_or_success
   end
 
   test "should get room" do
@@ -61,9 +70,12 @@ class LandingControllerTest < ActionController::TestCase
   test "should fallback to en-US locale if locale is en" do
     request.headers["Accept-Language"] = 'en'
     get :index, params: {resource: 'meetings'}
-    assert_response :success
-
-    assert css_select('html').attribute('lang').value, 'en'
+    if Rails.configuration.disable_guest_access
+      assert_redirected_to user_login_path
+    else
+      assert_response :success
+      assert css_select('html').attribute('lang').value, 'en'
+    end
   end
 
 end
