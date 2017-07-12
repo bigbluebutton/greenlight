@@ -90,7 +90,8 @@ module BbbApi
             "meta_meeting-name": options[:meeting_name]}
         ) if options[:room_owner]
 
-        if Rails.configuration.use_webhooks
+        # Only register webhooks if they are enabled it's not a guest meeting.
+        if Rails.configuration.use_webhooks && params[:resource] == 'rooms'
           webhook_register(options[:hook_url], meeting_id)
         end
 
