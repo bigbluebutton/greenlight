@@ -88,6 +88,8 @@ en-US:
   error: An error occured
   error_title: An error has occured
   footer_html: Powered by %{bbb_link}
+  guest_sentence_one_html: GreenLight lets you create and manage %{bbb_link} meetings and recordings.
+  guest_sentence_two: To learn more about how GreenLight works, check out the video below!
   help: Help
   hi_all: Hi Everyone
   home_page: Home page
@@ -107,6 +109,7 @@ en-US:
   logged_in_description_html: You are logged in as %{link}
   login: login
   login_description: Want to record a meeting?
+  login_greenlight: Login to GreenLight
   logout: logout
   meeting: Meeting
   meeting_invite:
@@ -184,6 +187,7 @@ en-US:
   wait_for_mod_explanation: You will automatically join when the meeting starts
   watch: Watch
   'yes': 'Yes'
+  welcome_to_greenlight: Welcome to GreenLight!
   youtube_description: This recording was recorded with BigBlueButton. For more information check out %{url}.
   youtube_footer: this will upload all webcam and audio data
   youtube_privacy_options:

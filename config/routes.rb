@@ -56,6 +56,7 @@ Rails.application.routes.draw do
     get '/(:room_id)/:id', to: 'landing#resource', as: :meeting_room, defaults: {room_id: nil}, :constraints => {:id => disallow_slash, :room_id => disallow_slash}
   end
 
+  get '/guest', to: 'landing#guest', as: :guest
   get '/preferences', to: 'landing#preferences', as: :preferences
 
   root to: 'landing#index', :resource => 'meetings'

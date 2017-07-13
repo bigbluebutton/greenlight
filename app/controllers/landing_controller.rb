@@ -18,12 +18,13 @@ class LandingController < ApplicationController
   include BbbApi
 
   def index
-    redirect_to user_login_path if Rails.configuration.disable_guest_access
+    # If guest access is disabled, redirect the user to the guest landing and force login.
+    redirect_to guest_path if Rails.configuration.disable_guest_access
   end
 
   def resource
     if Rails.configuration.disable_guest_access && params[:resource] == 'meetings'
-      redirect_to user_login_path 
+      redirect_to guest_path 
     else
       if params[:id].size > meeting_name_limit
         redirect_to root_url, flash: {danger: t('meeting_name_long')}
@@ -37,6 +38,11 @@ class LandingController < ApplicationController
         redirect_to root_url, flash: {danger: t('error')}
       end
     end
+  end
+  
+  def guest
+    # If someone tries to aceess the guest landing when guest access is enabled, just send them to root.
+    redirect_to root_url unless Rails.configuration.disable_guest_access
   end
 
   def send_meetings_data
