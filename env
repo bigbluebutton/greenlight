@@ -1,11 +1,11 @@
 # Step 1 - Create a secret key for rails
 #
-# You can generate a secure one through the Greenlight docker image
+# You can generate a secure one through the WebShule docker image
 # with with the command
 #
 #   docker run --rm bigbluebutton/greenlight rake secret
 #
-SECRET_KEY_BASE=
+SECRET_KEY_BASE=ad355d300b49e75cf1fb1339f9fc2bf0d1bce92186cb14f5e68f6c905824ae4eb16f61a038653774f0a5ff8ea85b9b3b8c6d2fa9fd4e8268b42c8cf51100390c
 # Step 2 - Enter credentials for your BigBlueButton Server
 #
 # The endpoint and secret from your bigbluebutton server.  To get these values, run
@@ -14,8 +14,8 @@ SECRET_KEY_BASE=
 #    bbb-conf --secret
 #
 # and uncomment the following two variables
-#BIGBLUEBUTTON_ENDPOINT=
-#BIGBLUEBUTTON_SECRET=
+BIGBLUEBUTTON_ENDPOINT=http://172.16.60.27/bigbluebutton/
+BIGBLUEBUTTON_SECRET=948932735d2c821dcde0a6bdd6c686b3
 
 # Twitter Login Provider (optional)
 #
@@ -23,8 +23,8 @@ SECRET_KEY_BASE=
 #   For the callback URL use 'http://<your hostname:port>/auth/twitter/callback'
 #   Once registered copy the ID and Secret here
 #
-TWITTER_ID=
-TWITTER_SECRET=
+TWITTER_ID=332117213
+TWITTER_SECRET=tKYBvzVtWX7O2U0WffRwYDY6ZYzwEIN8xIYNcvmaEtJEB3QHsS
 
 # Google Login Provider (optional)
 #
@@ -33,8 +33,8 @@ TWITTER_SECRET=
 #   For the callback URL use 'http://<your hostname:port>/auth/google/callback'
 #   Once registered copy the ID and Secret here
 #
-GOOGLE_OAUTH2_ID=
-GOOGLE_OAUTH2_SECRET=
+GOOGLE_OAUTH2_ID=1046208150567-bg0emk7vom3k8gr70bs6ft86kng7ku1a.apps.googleusercontent.com
+GOOGLE_OAUTH2_SECRET=_kpNUNaMI-sTg8xit913OLqS
 
 # LDAP Login Provider (optional)
 #
@@ -58,7 +58,7 @@ LDAP_PASSWORD=
 # callback URL. Scripts can then be added to BigBlueButton to call this callback
 # URL and send specific events to GreenLight (e.g. a post publish script to warn
 # the application when recordings are done).
-GREENLIGHT_USE_WEBHOOKS=false
+GREENLIGHT_USE_WEBHOOKS=true
 
 # Slack Integration (optional)
 #
@@ -88,8 +88,8 @@ SMTP_FROM=youremail@gmail.com
 SMTP_SERVER=smtp.gmail.com
 SMTP_PORT=587
 SMTP_DOMAIN=gmail.com
-SMTP_USERNAME=youremail@gmail.com
-SMTP_PASSWORD=yourpassword
+SMTP_USERNAME=oasis.sybill@gmail.com
+SMTP_PASSWORD=4deluvovsheila
 # SMTP_TLS=false
 # SMTP_AUTH=login
 # SMTP_STARTTLS_AUTO=true
