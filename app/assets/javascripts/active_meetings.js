@@ -21,15 +21,17 @@ var MEETINGS = {}
 var WAITING = {}
 var LOADING_DELAY = 1750 // milliseconds.
 
+// Updates the previous meetings section.
 var updatePreviousMeetings = function(){
   $("ul.previously-joined li").each(function(idx, li) {
-    previous_meeting = $(li);
+    var previous_meeting = $(li);
     if(Object.keys(MEETINGS).indexOf(previous_meeting.text()) > -1){
       previous_meeting.remove()
     }
   });
 }
 
+// Adds a user to a meeting.
 var addUser = function(data){
   if(data['role'] == 'MODERATOR'){
     MEETINGS[data['meeting']]['moderators'].push(data['user'])
@@ -39,6 +41,7 @@ var addUser = function(data){
   updateMeetingText(MEETINGS[data['meeting']])
 }
 
+// Removes a user from a meeting.
 var removeUser = function(data){
   if(data['role'] == 'MODERATOR'){
     MEETINGS[data['meeting']]['moderators'].splice(MEETINGS[data['meeting']]['moderators'].indexOf(data['user']), 1);
@@ -48,21 +51,26 @@ var removeUser = function(data){
   updateMeetingText(MEETINGS[data['meeting']])
 }
 
+// Updates the display text for an active meeting.
 var updateMeetingText = function(m){
+  // If a meeting has a moderators property, it is running.
+  var body;
   if(m.hasOwnProperty('moderators')){
     var list;
     if(m['moderators'].length + m['participants'].length == 0){
       list = '(empty)'
     } else {
       list = m['moderators'].join('(mod), ') + (m['moderators'].length > 0 ? '(mod)' : '') +
-      (m['participants'].length > 0 && m['moderators'].length != 0 ? ', ' : '') + m['participants'].join(', ')
+        (m['participants'].length > 0 && m['moderators'].length != 0 ? ', ' : '') + m['participants'].join(', ')
     }
-    var body = '<a>' + m['name'] + '</a><i>: ' + list + '</i>'
+    body = '<a>' + m['name'] + '</a><i>: ' + list + '</i>'
+  // Otherwise it hasn't started (users waiting the join).
   } else {
-    var body = '<a>' + m['name'] + '</a><i> (not yet started): ' + 
-                m['users'].join(', ') + '</i>'
+    body = '<a>' + m['name'] + '</a><i> (not yet started): ' + 
+                  m['users'].join(', ') + '</i>'
   }
 
+  // If the item doesn't exist, add it and set up join meeting event.
   if($('#' + m['name'].replace(' ', '_')).length == 0){
     var meeting_item = $('<li id = ' + m['name'].replace(' ', '_') + '>' + body + '</li>')
     $('.actives').append(meeting_item);
@@ -71,11 +79,13 @@ var updateMeetingText = function(m){
     meeting_item.click(function(){
       joinMeeting(m['name']);
     });
+  // Otherwise, just change the body.
   } else {
     $('#' + m['name'].replace(' ', '_')).html(body)
   }
 }
 
+// Initially populates the active meetings when the page loads using the API.
 var initialPopulate = function(){
   // Only populate on room resources.
   var chopped = window.location.href.split('/')
@@ -95,15 +105,15 @@ var initialPopulate = function(){
       if(meetings[i]['metadata']['room-id'] != $('body').data('current-user')) { continue; }
       var name = meetings[i]['meetingName']
       
-      var participants = []
-      var moderators = []
-      
       var attendees;
       if(meetings[i]['attendees']['attendee'] instanceof Array){
         attendees = meetings[i]['attendees']['attendee']
       } else {
         attendees = [meetings[i]['attendees']['attendee']]
       }
+      
+      var participants = []
+      var moderators = []
       
       jQuery.each(attendees, function(i, attendee){
         // The API doesn't return a empty array when empty, just undefined.
@@ -131,22 +141,19 @@ var initialPopulate = function(){
     updatePreviousMeetings();
     $('.hidden-list').show();
     $('.active-spinner').hide();
-  }).error(function(){
-    console.log('Not on a page to load meetings.')
-    return true;
   });
 }
 
+// Checks if a meeting has been prveiously joined by the user.
 var isPreviouslyJoined = function(meeting){
-  joinedMeetings = localStorage.getItem('joinedRooms-' + $('body').data('current-user'));
+  var joinedMeetings = localStorage.getItem('joinedRooms-' + $('body').data('current-user'));
   if (joinedMeetings == '' || joinedMeetings == null){ return false; }
   return joinedMeetings.split(',').indexOf(meeting) >= 0
 }
 
+// Removes an active meeting.
 var removeActiveMeeting = function(meeting){
-  if(meeting){
-    $('#' + meeting['name'].replace(' ', '_')).remove()
-  }
+  if(meeting){ $('#' + meeting['name'].replace(' ', '_')).remove() }
 }
 
 // Directly join a meeting from active meetings.
@@ -177,13 +184,16 @@ $(document).on('turbolinks:load', function(){
   if($('body').data('current-user')){
 
     MEETINGS = {}
+    // Ensure actives is empty.
     $('.actives').empty();
 
     if(!App.messages){
+      // Setup actioncable.
       App.messages = App.cable.subscriptions.create('RefreshMeetingsChannel', {
         received: function(data) {
           console.log('Recieved ' + data['method'] + ' action for ' + data['meeting'] + ' with room id ' + data['room'] + '.')
           if(isPreviouslyJoined(data['meeting']) && data['room'] == $('body').data('current-user')){
+            // Handle webhook event.
             if(data['method'] == 'create'){
               // Create an empty meeting.
               MEETINGS[data['meeting']] = {'name': data['meeting'],
@@ -224,6 +234,7 @@ $(document).on('turbolinks:load', function(){
     }
 
     console.log('Populating active meetings.');
+    // Short delay to hide the previous meetings population.
     setTimeout(initialPopulate, LOADING_DELAY);
   }
 });

@@ -40,7 +40,7 @@
     }
 
     // setup event handlers
-    $('.center-panel-wrapper').on ('click', '.meeting-join', function (event) {
+    $('.center-panel-wrapper').on ('click', '.meeting-join', function () {
       var name = $('.meeting-user-name').val();
       Meeting.getInstance().setUserName(name);
       Meeting.getInstance().setMeetingId($(".page-wrapper").data('id'));
@@ -56,7 +56,7 @@
               $(location).attr("href", data.response.join_url);
             }
           });
-          jqxhr.fail(function(xhr, status, error) {
+          jqxhr.fail(function() {
             console.info("meeting join failed");
           });
         } else {
@@ -69,11 +69,11 @@
       }
     });
 
-    $('.center-panel-wrapper').on ('click', '.meeting-start', function (event) {
+    $('.center-panel-wrapper').on ('click', '.meeting-start', function () {
       Turbolinks.visit($('.meeting-url').val());
     });
 
-    $('.center-panel-wrapper').on ('input', '.meeting-user-name', function (event) {
+    $('.center-panel-wrapper').on ('input', '.meeting-user-name', function () {
       if ($(this).val() === '') {
         $(this).parent().addClass('has-error')
       } else {
@@ -95,20 +95,17 @@
       }
     });
 
-    $('.center-panel-wrapper').on ('click', '.meeting-end', function (event) {
+    $('.center-panel-wrapper').on ('click', '.meeting-end', function () {
       var jqxhr = Meeting.getInstance().endMeeting();
       var btn = $(this);
       btn.prop("disabled", true);
-      jqxhr.done(function(data) {
-
-      });
-      jqxhr.fail(function(xhr, status, error) {
+      jqxhr.fail(function() {
         console.info("meeting end failed");
       });
     });
 
-    $('.center-panel-wrapper').on ('click', '.meeting-url-copy', function (event) {
-      meetingURLInput = $('.meeting-url');
+    $('.center-panel-wrapper').on ('click', '.meeting-url-copy', function () {
+      var meetingURLInput = $('.meeting-url');
 
       // copy URL
       meetingURLInput.select();
@@ -135,7 +132,7 @@
     });
 
     // button used to send invitations to the meeting (i.e. "mailto:" link)
-    $('.center-panel-wrapper').on('click', '.meeting-invite', function (event) {
+    $('.center-panel-wrapper').on('click', '.meeting-invite', function () {
       var meetingURL = Meeting.getInstance().getURL();
       var subject = $(this).data("invite-subject");
       var body = $(this).data("invite-body").replace("&&URL&&", meetingURL);
@@ -143,16 +140,16 @@
       window.open(mailto);
     });
 
-    $('.center-panel-wrapper').on('mouseleave', '.meeting-url-copy', function (event, msg) {
+    $('.center-panel-wrapper').on('mouseleave', '.meeting-url-copy', function () {
       $(this).blur();
     });
 
-    $('.center-panel-wrapper').on('focus', '.meeting-url', function (event, msg) {
+    $('.center-panel-wrapper').on('focus', '.meeting-url', function () {
       $(this).select();
     });
 
     // only allow ctrl commands
-    $('.center-panel-wrapper').on('keydown', '.meeting-url', function (event, msg) {
+    $('.center-panel-wrapper').on('keydown', '.meeting-url', function (event) {
       if(!event.ctrlKey) {
         event.preventDefault();
       }
@@ -164,7 +161,7 @@
       container: 'body'
     };
     $(document).tooltip(options);
-    var options = {
+    options = {
       selector: '.bottom-tooltip',
       container: 'body',
       placement: 'bottom'
@@ -183,7 +180,7 @@
 
   var initIndex = function() {
 
-    $('.center-panel-wrapper').on('input', '.meeting-name', function (event, msg) {
+    $('.center-panel-wrapper').on('input', '.meeting-name', function () {
       var newId = $(this).val();
       Meeting.getInstance().setMeetingId(newId);
       $(".page-wrapper.meetings").data('id', newId);
@@ -207,7 +204,7 @@
     displayRoomURL();
     var roomAdmin = $('.page-wrapper.rooms').data('admin-id');
 
-    $('.center-panel-wrapper').on('input', '.meeting-name', function (event, msg) {
+    $('.center-panel-wrapper').on('input', '.meeting-name', function () {
       var newId = $(this).val();
       Meeting.getInstance().setMeetingId(newId);
       $('.meeting-url').val(Meeting.getInstance().getURL());

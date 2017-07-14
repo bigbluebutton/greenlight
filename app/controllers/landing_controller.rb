@@ -41,7 +41,7 @@ class LandingController < ApplicationController
   end
   
   def guest
-    # If someone tries to aceess the guest landing when guest access is enabled, just send them to root.
+    # If someone tries to access the guest landing when guest access is enabled, just send them to root.
     redirect_to root_url unless Rails.configuration.disable_guest_access
   end
 
