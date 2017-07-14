@@ -106,10 +106,13 @@ var initialPopulate = function(){
       }
       
       jQuery.each(attendees, function(i, attendee){
-        if(attendee['role'] == "MODERATOR"){
-          moderators.push(attendee['fullName'])
-        } else {
-          participants.push(attendee['fullName'])
+        // The API doesn't return a empty array when empty, just undefined.
+        if(attendee != undefined){
+          if(attendee['role'] == "MODERATOR"){
+            moderators.push(attendee['fullName'])
+          } else {
+            participants.push(attendee['fullName'])
+          }
         }
       });
       
