@@ -10,7 +10,7 @@ GreenLight is a simple (but powerful) front-end interface for your BigBlueButton
   * Invite others to the meeting
   * Join a meeting
 
-Furthermore, if you configure GreenLight to use either Google or Twitter for authentication (via OAuth2), users can login to record meetings and manage recordings.
+Furthermore, if you configure GreenLight to use either Google, Twitter (both via OAuth2) or LDAP for authentication, users can login to record meetings and manage recordings.
 
 ## Overview video
 
