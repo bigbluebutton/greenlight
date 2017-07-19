@@ -17,9 +17,11 @@ class WaitingList
   def self.remove(room, user, meeting)
     if @waiting.has_key?(room) then
       if @waiting[room].has_key?(meeting) then
-        @waiting[room][meeting].slice!(@waiting[room][meeting].index(user))
-        @waiting[room].delete(meeting) if @waiting[room][meeting].length == 0
-        @waiting.delete(room) if @waiting[room].length == 0
+        if @waiting[room][meeting].include?(user) then
+          @waiting[room][meeting].slice!(@waiting[room][meeting].index(user))
+          @waiting[room].delete(meeting) if @waiting[room][meeting].length == 0
+          @waiting.delete(room) if @waiting[room].length == 0
+        end
       end
     end
   end
