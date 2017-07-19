@@ -104,3 +104,6 @@ SMTP_PASSWORD=yourpassword
 # Uncomment and set to 'true' to only allow users to create meetings when authenticated.
 # Unauthenticated users are still able to join meetings through invites.
 #DISABLE_GUEST_ACCESS=false
+
+# Comment this out to send logs to STDOUT in production instead of log/production.log .
+DISABLE_RAILS_LOG_TO_STDOUT=true
