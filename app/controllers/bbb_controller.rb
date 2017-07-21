@@ -286,25 +286,28 @@ class BbbController < ApplicationController
       end
     elsif eventName == "meeting_created_message"
       # Fire an Actioncable event that updates _previously_joined for the client.
-      actioncable_event('create', params['id'], params['room_id'])
+      actioncable_event('create', params[:id], params[:room_id])
     elsif eventName == "meeting_destroyed_event"
-      actioncable_event('destroy', params['id'], params['room_id'])
+      actioncable_event('destroy', params[:id], params[:room_id])
       
-      record_id = event['payload']['meeting_id'].split('-')[0]
-      rec_info = bbb_get_recordings({recordID: record_id})
-      rec_info = rec_info[:recordings].first
+      # Since the meeting is destroyed we have no way get the callback url to remove the meeting, so we must build it.
+      remove_url = build_callback_url(params[:id], params[:room_id])
       
-      # Remove the webhook.
-      webhook_remove(rec_info[:metadata][:"gl-webhooks-callback-url"])
+      # Remove webhook for the meeting.
+      webhook_remove(remove_url)
     elsif eventName == "user_joined_message"
-      actioncable_event('join', params['id'], params['room_id'], event['payload']['user']['name'], event['payload']['user']['role'])
+      actioncable_event('join', params[:id], params[:room_id], event['payload']['user']['name'], event['payload']['user']['role'])
     elsif eventName == "user_left_message"
-      actioncable_event('leave', params['id'], params['room_id'], event['payload']['user']['name'], event['payload']['user']['role'])
+      actioncable_event('leave', params[:id], params[:room_id], event['payload']['user']['name'], event['payload']['user']['role'])
     else
       logger.info "Callback event will not be treated. Event name: #{eventName}"
     end
 
     render head(:ok) && return
+  end
+  
+  def build_callback_url(id, room_id)
+    "#{request.base_url}#{relative_root}/rooms/#{room_id}/#{URI.encode(id)}/callback"
   end
 
   def actioncable_event(method, id, room_id, user = 'none', role = 'none')
