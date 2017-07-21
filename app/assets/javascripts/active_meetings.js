@@ -71,8 +71,9 @@ var updateMeetingText = function(m){
   }
 
   // If the item doesn't exist, add it and set up join meeting event.
-  if($('#' + m['name'].replace(' ', '_')).length == 0){
-    var meeting_item = $('<li id = ' + m['name'].replace(' ', '_') + '>' + body + '</li>')
+  if($("li[id='" +  m['name'].replace(' ', '_') + "']").length == 0){
+    var meeting_item = $("<li>" + body + "</li>")
+    meeting_item.attr('id', m['name'].replace(' ', '_'))
     $('.actives').append(meeting_item);
 
     // Set up join on click.
@@ -81,7 +82,7 @@ var updateMeetingText = function(m){
     });
   // Otherwise, just change the body.
   } else {
-    $('#' + m['name'].replace(' ', '_')).html(body)
+    $("li[id='" +  m['name'].replace(' ', '_') + "']").html(body)
   }
 }
 
@@ -153,7 +154,7 @@ var isPreviouslyJoined = function(meeting){
 
 // Removes an active meeting.
 var removeActiveMeeting = function(meeting){
-  if(meeting){ $('#' + meeting['name'].replace(' ', '_')).remove() }
+  if(meeting){ $("li[id='" +  meeting['name'].replace(' ', '_') + "']").remove() }
 }
 
 // Directly join a meeting from active meetings.
@@ -192,7 +193,7 @@ $(document).on('turbolinks:load', function(){
       App.messages = App.cable.subscriptions.create('RefreshMeetingsChannel', {
         received: function(data) {
           console.log('Recieved ' + data['method'] + ' action for ' + data['meeting'] + ' with room id ' + data['room'] + '.')
-          if(isPreviouslyJoined(data['meeting']) && data['room'] == $('body').data('current-user')){
+          if(data['room'] == $('body').data('current-user')){
             // Handle webhook event.
             if(data['method'] == 'create'){
               // Create an empty meeting.
