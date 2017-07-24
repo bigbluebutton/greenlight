@@ -43,11 +43,11 @@ class SessionsController < ApplicationController
 
   def auth_failure
     if params[:message] == 'invalid_credentials'
-      redirect_to '/', flash: {danger: t('invalid_login') }
+      redirect_to relative_root, flash: {danger: t('invalid_login') }
     elsif params[:message] == 'ldap_error'
-      redirect_to '/', flash: {danger: t('ldap_error') }
+      redirect_to relative_root, flash: {danger: t('ldap_error') }
     else
-      redirect_to '/'
+      redirect_to relative_root
     end
   end
 end
