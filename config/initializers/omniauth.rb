@@ -14,7 +14,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     scope: ['profile', 'email', 'youtube', 'youtube.upload'], 
     access_type: 'online', 
     name: 'google',
-    hd: ENV['GOOGLE_OAUTH2_HD']
+    hd: ENV['GOOGLE_OAUTH2_HD'].blank? ? nil : ENV['GOOGLE_OAUTH2_HD']
   provider :ldap,
     host: ENV['LDAP_SERVER'],
     port: ENV['LDAP_PORT'],
