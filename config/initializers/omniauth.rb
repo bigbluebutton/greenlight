@@ -8,8 +8,13 @@ Rails.application.config.omniauth_ldap = ENV['LDAP_SERVER'].present?
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :twitter, ENV['TWITTER_ID'], ENV['TWITTER_SECRET']
-  provider :google_oauth2, ENV['GOOGLE_OAUTH2_ID'], ENV['GOOGLE_OAUTH2_SECRET'],
-    scope: ['profile', 'email', 'youtube', 'youtube.upload'], access_type: 'online', name: 'google'
+  provider :google_oauth2,
+    ENV['GOOGLE_OAUTH2_ID'],
+    ENV['GOOGLE_OAUTH2_SECRET'],
+    scope: ['profile', 'email', 'youtube', 'youtube.upload'], 
+    access_type: 'online', 
+    name: 'google',
+    hd: ENV['GOOGLE_OAUTH2_HD']
   provider :ldap,
     host: ENV['LDAP_SERVER'],
     port: ENV['LDAP_PORT'],
