@@ -33,8 +33,13 @@ TWITTER_SECRET=
 #   For the callback URL use 'http://<your hostname:port>/auth/google/callback'
 #   Once registered copy the ID and Secret here
 #
+#   The GOOGLE_OAUTH2_HD variable is used to limit sign-in to a particular Google Apps hosted domain. This
+#   can be a string such as, 'domain.com'. If left blank, GreenLight will allow sign-in from all Google Apps hosted
+#   domains.
+#
 GOOGLE_OAUTH2_ID=
 GOOGLE_OAUTH2_SECRET=
+GOOGLE_OAUTH2_HD=
 
 # LDAP Login Provider (optional)
 #
