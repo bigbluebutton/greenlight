@@ -57,6 +57,7 @@ en-US:
     meeting_started: Meeting was started
     no_recordings: No Recordings
     no_recordings_yet: No Recordings (Yet!)
+    no_video: Recording did not contain any video.
     play_recording: Play recording
     publish_recording: Publish recording
     published: Everyone
@@ -75,7 +76,6 @@ en-US:
     upload_youtube: Youtube
     user_waiting_body: "%{user} is waiting to join %{meeting}!"
     user_waiting_title: A user is waiting
-    youtube_disabled: Recording did not contain any video.
   copied: Copied
   copy_error: Use Ctrl-c to copy
   create_your_session: Create your own meeting

@@ -65,6 +65,16 @@ LDAP_PASSWORD=
 # the application when recordings are done).
 GREENLIGHT_USE_WEBHOOKS=false
 
+# Enable uploading to Youtube (optional)
+#
+#   When this is enabled, users will be able to directly upload their recordings
+#   to Youtube. If you plan to enable this, you should follow the steps outlined
+#   in our docs for setting up the Youtube data API.
+#
+#   http://docs.bigbluebutton.org/install/green-light.html#8-enabling-uploading-to-youtube-optional
+#
+ENABLE_YOUTUBE_UPLOADING=false
+
 # Slack Integration (optional)
 #
 #   You will need to register an incoming-webhook for your slack channel

@@ -166,14 +166,6 @@ class @Recordings
     options.title = I18n.mail_recording
     $('#recordings').tooltip(options)
 
-    options.selector = '.disabled-tooltip'
-    options.title = I18n.youtube_disabled
-    $('#recordings').tooltip(options)
-    
-    options.selector = '.invalid-tooltip'
-    options.title = I18n.invalid_provider
-    $('#recordings').tooltip(options)
-
     $(document).one "turbolinks:before-cache", =>
       @getTable().api().clear().draw().destroy()
 
@@ -374,15 +366,42 @@ class @Recordings
       }).success((res_data) ->
         canUpload = res_data['uploadable']
       )
+      
+      youtube_button = $('.share-popover').find('.youtube-upload')
+      
+      attr = $(this).attr('data-popover-body');
+      
+      # Check if the cloud button has a popover body.
+      if (typeof attr == typeof undefined || attr == false)
+        switch canUpload
+          # We can upload the recording.
+          when 'true'
+            youtube_button.attr('title', I18n.upload_youtube)
+            youtube_button.removeClass('disabled-button')
+            youtube_button.addClass('has-popover')
+            youtube_button.show()
+          # Can't upload because uploading is disabled.
+          when 'uploading_disabled'
+            youtube_button.hide()
+          # Can't upload because account is not authenticated with Google.
+          when 'invalid_provider'
+            youtube_button.attr('title', I18n.invalid_provider)
+            youtube_button.addClass('disabled-button')
+            youtube_button.removeClass('has-popover')
+            youtube_button.show()
+          # Can't upload because recording does not contain video.
+          else
+            youtube_button.attr('title', I18n.no_video)
+            youtube_button.addClass('disabled-button')
+            youtube_button.removeClass('has-popover')
+            youtube_button.show()
 
-      if canUpload == 'true'
-        $(this).attr('data-popover-body', '.mail_youtube_popover')
-      else if canUpload == 'invalid_provider'
-        $(this).attr('data-popover-body', '.no_youtube_popover')
+        $(this).attr('data-popover-body', '.share-popover')
+        $(this).popover('show')
       else
-        $(this).attr('data-popover-body', '.mail_popover')
-
-      $(this).popover('show')
+        $(this).popover('hide')
+        $(this).removeAttr('data-popover-body')
+        
 
     @getTable().on 'draw.dt', (event) ->
       $('time[data-time-ago]').timeago();

@@ -43,6 +43,7 @@ module Greenlight
     config.use_webhooks = ENV['GREENLIGHT_USE_WEBHOOKS'] == "true"
     config.mail_notifications = ENV['GREENLIGHT_MAIL_NOTIFICATIONS'] == "true"
     config.disable_guest_access = ENV['DISABLE_GUEST_ACCESS'] == "true"
+    config.enable_youtube_uploading = ENV['ENABLE_YOUTUBE_UPLOADING'] == "true"
 
     # SMTP and action mailer
     if config.mail_notifications

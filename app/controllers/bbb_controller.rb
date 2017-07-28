@@ -202,7 +202,9 @@ class BbbController < ApplicationController
   # POST /rooms/:room_id/recordings/can_upload
   def can_upload
     # The recording is uploadable if it contains webcam data and they are logged in through Google.
-    if current_user.provider != 'google'
+    if Rails.configuration.enable_youtube_uploading == false then
+      uploadable = 'uploading_disabled'
+    elsif current_user.provider != 'google'
       uploadable = 'invalid_provider' 
     else
       uploadable = (Faraday.head(get_webcams_url(params[:rec_id])).status == 200 && current_user.provider == 'google').to_s

@@ -79,35 +79,15 @@
         <p id = 'youtube-footer'><%= t('youtube_footer') %></p>
     </form>
   </div>
-  <div class='mail_youtube_popover'>
+  <div class='share-popover'>
     <button type="button" class="btn btn-default mail-recording mail-tooltip">
       <%= icon('envelope-o') %>
     </button>
     <button type="button" class="btn btn-default has-popover youtube-upload youtube-tooltip"
           data-placement="top" data-popover-body=".youtube-popover"
-          data-popover-title="<%= t('upload_to_youtube') %>" >
+          data-popover-title="<%= t('upload_to_youtube') %>">
       <div class = 'youtube-red'> <%= icon('youtube-play') %> </div>
     </button>
-  </div>
-  <div class='mail_popover'>
-    <button type="button" class="btn btn-default mail-recording mail-tooltip fa-2x">
-      <%= icon('envelope-o') %>
-    </button>
-    <div class="tooltip-wrapper disabled disabled-tooltip">
-      <button type="button" class="btn btn-default" disabled>
-          <%= icon('youtube-play') %>
-      </button>
-    </div>
-  </div>
-  <div class='no_youtube_popover'>
-    <button type="button" class="btn btn-default mail-recording mail-tooltip fa-2x">
-      <%= icon('envelope-o') %>
-    </button>
-    <div class="tooltip-wrapper disabled invalid-tooltip">
-      <button type="button" class="btn btn-default" disabled>
-          <%= icon('youtube-play') %>
-      </button>
-    </div>
   </div>
   <div class="recording-visibility-popover">
     <button type="button" class="btn btn-default btn-success recording-update" data-visibility="published">

@@ -11,7 +11,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :google_oauth2,
     ENV['GOOGLE_OAUTH2_ID'],
     ENV['GOOGLE_OAUTH2_SECRET'],
-    scope: ['profile', 'email', 'youtube', 'youtube.upload'], 
+    scope: ENV['ENABLE_YOUTUBE_UPLOADING'] == 'true' ? ['profile', 'email', 'youtube', 'youtube.upload'] : ['profile', 'email'] , 
     access_type: 'online', 
     name: 'google',
     hd: ENV['GOOGLE_OAUTH2_HD'].blank? ? nil : ENV['GOOGLE_OAUTH2_HD']
