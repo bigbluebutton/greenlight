@@ -48,29 +48,47 @@ def getParticipantsInfo(events_xml)
   participants_info
 end
 
+def get_id_from_event(event)
+  (event.xpath('externalUserId').empty?) ? event.xpath('userId').text.split('_')[0] : event.xpath('externalUserId').text
+end
+
 # Gets the join and leave times for each user, as well as total duration of stay.
 def get_duration_info(events_xml)
   BigBlueButton.logger.info("Task: Getting duration information.")
   doc = Nokogiri::XML(File.open(events_xml))
-  user_data = {}
+
   first_event_time = BigBlueButton::Events.first_event_timestamp(events_xml)
+  last_event_time = BigBlueButton::Events.last_event_timestamp(events_xml)
   timestamp = doc.at_xpath('/recording')['meeting_id'].split('-')[1].to_i
   joinEvents = doc.xpath('/recording/event[@module="PARTICIPANT" and @eventname="ParticipantJoinEvent"]')
   leftEvents = doc.xpath('/recording/event[@module="PARTICIPANT" and @eventname="ParticipantLeftEvent"]')
-  # This should never occur, but just in case.
-  return {'error' => 'inequal number of join/left events.'} if joinEvents.length != leftEvents.length
+  
+  user_data = {}
+  uIDs = []
+  
   joinEvents.each do |join|
-    uID = join.xpath('externalUserId').text
+    uID = get_id_from_event(join)
+    uIDs << uID
     user_data[uID] = {}
     user_data[uID]['name'] = join.xpath('name').text
-    user_data[uID]['join'] = join['timestamp'].to_i - first_event_time + timestamp
     user_data[uID]['role'] = join.xpath('role').text
+    user_data[uID]['join'] = join['timestamp'].to_i - first_event_time + timestamp
   end
+  
   leftEvents.each do |left|
-    uID = left.xpath('userId').text.split('_')[0]
+    uID = get_id_from_event(left)
     user_data[uID]['left'] = left['timestamp'].to_i - first_event_time + timestamp
     user_data[uID]['duration'] = user_data[uID]['left'] - user_data[uID]['join']
   end
+  
+  # Sometimes leftEvents are missing...
+  uIDs.each do |id|
+    unless user_data[id].has_key?('left')
+      user_data[id]['left'] = last_event_time - first_event_time + timestamp
+      user_data[id]['duration'] = user_data[id]['left'] - user_data[id]['join']
+    end
+  end
+
   user_data
 end
 
