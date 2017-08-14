@@ -17,6 +17,8 @@
 class LandingController < ApplicationController
   include BbbApi
 
+  helper_method :admin?
+
   def index
     # If guest access is disabled, redirect the user to the guest landing and force login.
     redirect_to guest_path if Rails.configuration.disable_guest_access
@@ -24,7 +26,7 @@ class LandingController < ApplicationController
 
   def resource
     if Rails.configuration.disable_guest_access && params[:resource] == 'meetings'
-      redirect_to guest_path 
+      redirect_to guest_path
     else
       if params[:id].size > meeting_name_limit
         redirect_to root_url, flash: {danger: t('meeting_name_long')}
@@ -39,7 +41,7 @@ class LandingController < ApplicationController
       end
     end
   end
-  
+
   def guest
     # If someone tries to access the guest landing when guest access is enabled, just send them to root.
     redirect_to root_url unless Rails.configuration.disable_guest_access
@@ -51,21 +53,13 @@ class LandingController < ApplicationController
 
   def wait_for_moderator
     WaitingList.add(params[:room_id], params[:name], params[:id])
-    ActionCable.server.broadcast 'refresh_meetings',
-      method: 'waiting',
-      meeting: params[:id],
-      room: params[:room_id],
-      user: params[:name]
+    send_alert(params, 'waiting')
     render layout: false
   end
 
   def no_longer_waiting
     WaitingList.remove(params[:room_id], params[:name], params[:id])
-    ActionCable.server.broadcast 'refresh_meetings',
-      method: 'no_longer_waiting',
-      meeting: params[:id],
-      room: params[:room_id],
-      user: params[:name]
+    send_alert(params, 'no_longer_waiting')
   end
 
   def session_status_refresh
@@ -83,7 +77,6 @@ class LandingController < ApplicationController
   def admin?
     @user && @user == current_user
   end
-  helper_method :admin?
 
   def preferences
     @user = current_user
@@ -124,4 +117,11 @@ class LandingController < ApplicationController
     render :action => 'rooms'
   end
 
+  def send_alert(params, method)
+    ActionCable.server.broadcast 'refresh_meetings',
+      method: method,
+      meeting: params[:id],
+      room: params[:room_id],
+      user: params[:name]
+  end
 end
