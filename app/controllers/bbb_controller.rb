@@ -205,7 +205,7 @@ class BbbController < ApplicationController
     if Rails.configuration.enable_youtube_uploading == false then
       uploadable = 'uploading_disabled'
     elsif current_user.provider != 'google'
-      uploadable = 'invalid_provider' 
+      uploadable = 'invalid_provider'
     else
       uploadable = (Faraday.head(get_webcams_url(params[:rec_id])).status == 200 && current_user.provider == 'google').to_s
     end
@@ -213,7 +213,7 @@ class BbbController < ApplicationController
   end
 
   def get_webcams_url(recording_id)
-    uri = URI.parse(ENV['BIGBLUEBUTTON_ENDPOINT'])
+    uri = URI.parse(Rails.configuration.bigbluebutton_endpoint)
     uri.scheme + '://' + uri.host + '/presentation/' + recording_id + '/video/webcams.webm'
   end
 
@@ -291,10 +291,10 @@ class BbbController < ApplicationController
       actioncable_event('create', params[:id], params[:room_id])
     elsif eventName == "meeting_destroyed_event"
       actioncable_event('destroy', params[:id], params[:room_id])
-      
+
       # Since the meeting is destroyed we have no way get the callback url to remove the meeting, so we must build it.
       remove_url = build_callback_url(params[:id], params[:room_id])
-      
+
       # Remove webhook for the meeting.
       webhook_remove(remove_url)
     elsif eventName == "user_joined_message"
@@ -307,7 +307,7 @@ class BbbController < ApplicationController
 
     render head(:ok) && return
   end
-  
+
   def build_callback_url(id, room_id)
     "#{request.base_url}#{relative_root}/rooms/#{room_id}/#{URI.encode(id)}/callback"
   end
