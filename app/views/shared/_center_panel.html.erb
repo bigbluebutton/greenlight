@@ -18,6 +18,9 @@
     <div class="center-block center-panel-size col-xs-12">
       <div class="panel panel-default">
         <div class="panel-body">
+          <% if bigbluebutton_endpoint_default? %>
+          <div class="panel-alert alert alert-danger"><%= t('warning_bigbluebutton_endpoint_default') %></div>
+          <% end %>
           <h3 class="title-wrapper text-center">
             <%= yield :title %>
           </h3>
