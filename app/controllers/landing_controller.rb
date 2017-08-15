@@ -17,8 +17,6 @@
 class LandingController < ApplicationController
   include BbbApi
 
-  helper_method :admin?
-
   def index
     # If guest access is disabled, redirect the user to the guest landing and force login.
     redirect_to guest_path if Rails.configuration.disable_guest_access
@@ -77,6 +75,7 @@ class LandingController < ApplicationController
   def admin?
     @user && @user == current_user
   end
+  helper_method :admin?
 
   def preferences
     @user = current_user
