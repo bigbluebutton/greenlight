@@ -15,6 +15,10 @@
 // with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 /** global: Meeting */
+/** global: PreviousMeetings */
+/** global: QRCode */
+/** global: Recordings */
+/** global: Turbolinks */
 
 (function() {
 
