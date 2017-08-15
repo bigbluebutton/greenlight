@@ -20,15 +20,15 @@ module BbbApi
   META_HOOK_URL = "gl-webhooks-callback-url"
 
   def bbb_endpoint
-    Rails.configuration.bigbluebutton_endpoint || ''
+    Rails.configuration.bigbluebutton_endpoint
   end
 
   def bbb_secret
-    Rails.configuration.bigbluebutton_secret || ''
+    Rails.configuration.bigbluebutton_secret
   end
 
   def bbb
-    @bbb ||= BigBlueButton::BigBlueButtonApi.new(bbb_endpoint + "api", bbb_secret, "0.8", true)
+    @bbb ||= BigBlueButton::BigBlueButtonApi.new(bbb_endpoint + "api", bbb_secret, "0.8")
   end
 
   def bbb_meeting_id(id)

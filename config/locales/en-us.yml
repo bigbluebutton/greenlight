@@ -187,6 +187,7 @@ en-US:
   wait_for_mod_explanation: You will automatically join when the meeting starts
   watch: Watch
   'yes': 'Yes'
+  warning_bigbluebutton_endpoint_default: This deployment of Greenlight is making use of the BigBlueButton testing server that comes pre-configured by default. It should be replaced.
   welcome_to_greenlight: Welcome to GreenLight!
   youtube_description: This recording was recorded with BigBlueButton. For more information check out %{url}.
   youtube_footer: this will upload all webcam and audio data
