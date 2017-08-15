@@ -37,9 +37,12 @@ module Greenlight
     config.i18n.fallbacks = {'en' => 'en-US'}
 
     # BigBlueButton
-    config.bigbluebutton_endpoint = ENV['BIGBLUEBUTTON_ENDPOINT']  || 'http://test-install.blindsidenetworks.com/bigbluebutton/'
-    config.bigbluebutton_secret = ENV['BIGBLUEBUTTON_SECRET'] || '8cd8ef52e8e101574e400365b55e11a6'
+    config.bigbluebutton_endpoint_default = 'http://test-install.blindsidenetworks.com/bigbluebutton/'
+    config.bigbluebutton_secret_default = '8cd8ef52e8e101574e400365b55e11a6'
+    config.bigbluebutton_endpoint = ENV['BIGBLUEBUTTON_ENDPOINT']  || config.bigbluebutton_endpoint_default
+    config.bigbluebutton_secret = ENV['BIGBLUEBUTTON_SECRET'] || config.bigbluebutton_secret_default
 
+    # Greelight specific
     config.use_webhooks = ENV['GREENLIGHT_USE_WEBHOOKS'] && ENV['GREENLIGHT_USE_WEBHOOKS'] == "true"
     config.mail_notifications = ENV['GREENLIGHT_MAIL_NOTIFICATIONS'] && ENV['GREENLIGHT_MAIL_NOTIFICATIONS'] == "true"
     config.disable_guest_access = ENV['DISABLE_GUEST_ACCESS'] && ENV['DISABLE_GUEST_ACCESS'] == "true"

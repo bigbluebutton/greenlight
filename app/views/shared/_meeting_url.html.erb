@@ -44,7 +44,7 @@
       <%= icon('envelope-o') %>
     </button>
 
-    <% if qrcode_generation_enabled %>
+    <% if qrcode_generation_enabled? %>
     <button type="button" class="btn btn-default meeting-url-qrcode has-tooltip"
       title="<%= t('qrcode.explanation') %>"
       data-qrcode-generated-hint="<%= t('qrcode.generated') %>"

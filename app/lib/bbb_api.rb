@@ -28,7 +28,7 @@ module BbbApi
   end
 
   def bbb
-    @bbb ||= BigBlueButton::BigBlueButtonApi.new(bbb_endpoint + "api", bbb_secret, "0.8", true)
+    @bbb ||= BigBlueButton::BigBlueButtonApi.new(bbb_endpoint + "api", bbb_secret, "0.8")
   end
 
   def bbb_meeting_id(id)

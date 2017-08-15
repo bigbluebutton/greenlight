@@ -47,8 +47,13 @@ class ApplicationController < ActionController::Base
   end
   helper_method :user_name_limit
 
-  def qrcode_generation_enabled
+  def bigbluebutton_endpoint_default?
+    Rails.configuration.bigbluebutton_endpoint_default == Rails.configuration.bigbluebutton_endpoint
+  end
+  helper_method :bigbluebutton_endpoint_default?
+
+  def qrcode_generation_enabled?
     Rails.configuration.enable_qrcode_generation
   end
-  helper_method :qrcode_generation_enabled
+  helper_method :qrcode_generation_enabled?
 end
