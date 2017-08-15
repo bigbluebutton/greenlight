@@ -20,6 +20,7 @@
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require rails-timeago-all
 //= require bootstrap-sprockets
+//= require qrcode/qrcode.js
 //= require turbolinks
 //= require_self
 //= require_tree .

@@ -26,8 +26,8 @@
     <% subject = t('meeting_invite.not_signed_in.subject') %>
   <% end %>
 
-  <div class="center-block meeting-url-button-group">
-    <button type="button" class="btn btn-default meeting-url-copy has-tooltip pull-left"
+  <div class="meeting-url-button-group center-block">
+    <button type="button" class="btn btn-default meeting-url-copy has-tooltip"
       title="<%= t('url_copy_explanation') %>"
       data-copied-hint="<%= t('copied') %>"
       data-copy-error="<%= t('copy_error') %>"
@@ -36,12 +36,24 @@
       <%= icon('clipboard') %>
     </button>
 
-    <button type="button" class="btn btn-default meeting-invite has-tooltip pull-right"
+    <button type="button" class="btn btn-default meeting-invite has-tooltip"
       title="<%= t('meeting_invite.explanation') %>"
       data-invite-body="<%= body %>"
       data-invite-subject="<%= subject %>"
     >
       <%= icon('envelope-o') %>
     </button>
+
+    <% if qrcode_generation_enabled %>
+    <button type="button" class="btn btn-default meeting-url-qrcode has-tooltip"
+      title="<%= t('qrcode.explanation') %>"
+      data-qrcode-generated-hint="<%= t('qrcode.generated') %>"
+      data-qrcode-generate-error="<%= t('qrcode.generate_error') %>"
+      data-qrcode-generate-hint="<%= t('qrcode.explanation') %>"
+    >
+      <%= icon('qrcode') %>
+    </button>
+    <% end %>
   </div>
+  <div class="meeting-url-qrcode-group center-block has-tooltip"></div>
 </div>

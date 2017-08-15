@@ -46,4 +46,9 @@ class ApplicationController < ActionController::Base
     USER_NAME_LIMIT
   end
   helper_method :user_name_limit
+
+  def qrcode_generation_enabled
+    Rails.configuration.enable_qrcode_generation
+  end
+  helper_method :qrcode_generation_enabled
 end

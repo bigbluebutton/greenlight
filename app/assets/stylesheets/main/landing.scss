@@ -16,7 +16,15 @@
 
 .meeting-url-button-group {
   padding-top: 5px;
-  width: 100px;
+  width: 150px;
+  text-align: center;
+}
+
+.meeting-url-qrcode-group {
+  padding-top: 5px;
+  width: 128px;
+  height: 128px;
+  text-align: center;
 }
 
 .previously-joined, .actives {
@@ -98,7 +106,7 @@
 .disabled-button {
     opacity: 0.5;
 }
-  
+
 .youtube-red {
   color: red;
 }
@@ -122,5 +130,5 @@
  #youtube-footer{
    font-size: 10px;
    text-align: center;
-   margin-top: 10px; 
+   margin-top: 10px;
  }
