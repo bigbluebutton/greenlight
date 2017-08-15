@@ -23,7 +23,7 @@
 (function() {
 
   var waitForModerator = function(url) {
-    Window.localStorage.setItem("waitingName", $('.meeting-user-name').val());
+    window.localStorage.setItem("waitingName", $('.meeting-user-name').val());
     $.post(url + "/wait", {name: $('.meeting-user-name').val()}, function(html) {
       $(".center-panel-wrapper").html(html);
     });
@@ -39,7 +39,7 @@
     Meeting.clear();
     var nameInput = $('.meeting-user-name');
     if (!nameInput.val()) {
-      var lastName = Window.localStorage.getItem('lastJoinedName');
+      var lastName = window.localStorage.getItem('lastJoinedName');
       if (lastName !== 'undefined') {
         nameInput.val(lastName);
       }
