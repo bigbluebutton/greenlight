@@ -51,4 +51,9 @@ class ApplicationController < ActionController::Base
     Rails.configuration.bigbluebutton_endpoint_default == Rails.configuration.bigbluebutton_endpoint
   end
   helper_method :bigbluebutton_endpoint_default?
+
+  def qrcode_generation_enabled?
+    Rails.configuration.enable_qrcode_generation
+  end
+  helper_method :qrcode_generation_enabled?
 end

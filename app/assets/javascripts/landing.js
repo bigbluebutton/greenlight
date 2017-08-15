@@ -22,6 +22,8 @@
 
 (function() {
 
+  var qrcode;
+
   var waitForModerator = function(url) {
     window.localStorage.setItem("waitingName", $('.meeting-user-name').val());
     $.post(url + "/wait", {name: $('.meeting-user-name').val()}, function(html) {
@@ -137,6 +139,10 @@
         .tooltip('fixTitle');
     });
 
+    $('.center-panel-wrapper').on('mouseleave', '.meeting-url-copy', function () {
+      $(this).blur();
+    });
+
     // button used to send invitations to the meeting (i.e. "mailto:" link)
     $('.center-panel-wrapper').on('click', '.meeting-invite', function () {
       var meetingURL = Meeting.getInstance().getURL();
@@ -146,7 +152,43 @@
       window.open(mailto);
     });
 
-    $('.center-panel-wrapper').on('mouseleave', '.meeting-url-copy', function () {
+    $('.center-panel-wrapper').on ('click', '.meeting-url-qrcode', function () {
+      var meetingURL;
+
+      try {
+        meetingURL = $('.meeting-url').val();
+        if ($('.meeting-url-qrcode-group').is(':empty')) {
+          // generate code
+          qrcode = new QRCode($(".meeting-url-qrcode-group")[0], {
+                text: meetingURL,
+                width: 128,
+                height: 128,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+              });
+        } else {
+          // clear the code.
+          qrcode.clear();
+          // make another code.
+          qrcode.makeCode(meetingURL);
+        }
+        $(this).trigger('hint', [$(this).data('qrcode-generated-hint')]);
+      } catch (err) {
+        $(this).trigger('hint', [$(this).data('qrcode-generate-error')]);
+      }
+    });
+
+    $('.center-panel-wrapper').on('hint', '.meeting-url-qrcode', function (event, msg) {
+      $(this).focus();
+      $(this).attr('title', msg)
+        .tooltip('fixTitle')
+        .tooltip('show')
+        .attr('title', $(this).data('qrcode-generate-hint'))
+        .tooltip('fixTitle');
+    });
+
+    $('.center-panel-wrapper').on('mouseleave', '.meeting-url-qrcode', function () {
       $(this).blur();
     });
 
@@ -197,6 +239,9 @@
       } else {
         $('.invite-join-wrapper').removeClass('hidden');
       }
+      if (!$('.meeting-url-qrcode-group').is(':empty')) {
+        $('.meeting-url-qrcode-group').empty();
+      }
     });
 
     PreviousMeetings.init('joinedMeetings');
@@ -219,6 +264,9 @@
         $('.invite-join-wrapper').addClass('hidden');
       } else {
         $('.invite-join-wrapper').removeClass('hidden');
+      }
+      if (!$('.meeting-url-qrcode-group').is(':empty')) {
+        $('.meeting-url-qrcode-group').empty();
       }
     });
 

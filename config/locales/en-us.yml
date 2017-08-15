@@ -159,6 +159,11 @@ en-US:
   preferences_logged: You must be logged in to edit preferences.
   presentation: Presentation
   previous_meetings: (previous meetings)
+  qrcode:
+    explanation: Generate QR Code to invite others to the meeting
+    generated: Generated
+    generate_error: Error generating QR code
+    hint: Right click to download the image
   return_to_room: Return to main page
   session_url_explanation: The meeting will be taking place using the following URL
   signin_text: Log in with %{provider}
