@@ -47,13 +47,8 @@ class ApplicationController < ActionController::Base
   end
   helper_method :user_name_limit
 
-  def user_name_limit
-    USER_NAME_LIMIT
-  end
-  helper_method :user_name_limit
-
   def bigbluebutton_endpoint_default?
-    Rails.configuration.bigbluebutton_endpoint_default === Rails.configuration.bigbluebutton_endpoint
+    Rails.configuration.bigbluebutton_endpoint_default == Rails.configuration.bigbluebutton_endpoint
   end
   helper_method :bigbluebutton_endpoint_default?
 end
