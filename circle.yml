@@ -14,4 +14,4 @@ deployment:
 
 test:
   pre:
-    - cp env .env
+    - cp sample.env .env

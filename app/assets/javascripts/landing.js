@@ -14,12 +14,18 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
+/** global: Meeting */
+/** global: PreviousMeetings */
+/** global: QRCode */
+/** global: Recordings */
+/** global: Turbolinks */
+
 (function() {
 
   var qrcode;
 
   var waitForModerator = function(url) {
-    localStorage.setItem("waitingName", $('.meeting-user-name').val());
+    Window.localStorage.setItem("waitingName", $('.meeting-user-name').val());
     $.post(url + "/wait", {name: $('.meeting-user-name').val()}, function(html) {
       $(".center-panel-wrapper").html(html);
     });
@@ -35,7 +41,7 @@
     Meeting.clear();
     var nameInput = $('.meeting-user-name');
     if (!nameInput.val()) {
-      var lastName = localStorage.getItem('lastJoinedName');
+      var lastName = Window.localStorage.getItem('lastJoinedName');
       if (lastName !== 'undefined') {
         nameInput.val(lastName);
       }
