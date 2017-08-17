@@ -6,7 +6,7 @@ Rails.application.config.omniauth_twitter = ENV['TWITTER_ID'].present? && ENV['T
 
 Rails.application.config.omniauth_ldap = ENV['LDAP_SERVER'].present? && ENV['LDAP_UID'].present? && ENV['LDAP_BASE'].present? && ENV['LDAP_BIND_DN'].present? && ENV['LDAP_PASSWORD'].present?
 
-Rails.application.config.omniauth_saml = ENV['SAML_ISSUER'].present? && ENV['SAML_IDP_URL'].present? && ENV['SAML_IDP_CERT'].present? && ENV['SAML_NAME_IDENTIFIER'].present? && ENV['SAML_UID_ATTRIBUTE'].present?
+Rails.application.config.omniauth_saml = ENV['SAML_ISSUER'].present? && ENV['SAML_IDP_URL'].present? && ENV['SAML_IDP_CERT_FINGERPRINT'].present? && ENV['SAML_NAME_IDENTIFIER'].present? && ENV['SAML_UID_ATTRIBUTE'].present?
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :twitter, ENV['TWITTER_ID'], ENV['TWITTER_SECRET']
@@ -25,16 +25,13 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     bind_dn: ENV['LDAP_BIND_DN'],
     password: ENV['LDAP_PASSWORD']
   provider :saml,
-    #assertion_consumer_service_url: "consumer_service_url",
     issuer: ENV['SAML_ISSUER'],
     idp_sso_target_url: ENV['SAML_IDP_URL'],
-    #idp_sso_target_url_runtime_params  => {:original_request_param => :mapped_idp_param},
-    #idp_cert: ENV['SAML_IDP_CERT'],
-    idp_cert_fingerprint: "25:72:85:66:C9:94:22:98:36:84:11:E1:88:C7:AC:40:98:F9:E7:82",
-    #idp_cert_fingerprint_validator     => lambda { |fingerprint| fingerprint },
+    idp_cert_fingerprint: ENV['SAML_IDP_CERT_FINGERPRINT'],
     name_identifier_format: "urn:mace:dir:attribute-def:eduPersonPrincipalName",
-    attribute_statements: { name: ['urn:mace:dir:attribute-def:displayName'], email: ['urn:mace:dir:attribute-def:mail'] },
+    attribute_statements: { nickname:['urn:mace:dir:attribute-def:eduPersonPrincipalName'],email: ['urn:mace:dir:attribute-def:mail'], last_name: ['urn:mace:dir:attribute-def:sn'], first_name:['urn:mace:dir:attribute-def:givenName'],name:['urn:mace:dir:attribute-def:cn'] },
     uid_attribute: "urn:mace:dir:attribute-def:eduPersonPrincipalName"
+    #2do: implement signing of requests
     #certificate: ENV['SAML_MY_CERT'].blank? ? nil : ENV['SAML_MY_CERT'],
     #private_key: ENV['SAML_MY_KEY'].blank? ? nil : ENV['SAML_MY_KEY']
 end
