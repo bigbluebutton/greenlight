@@ -29,12 +29,14 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     issuer: ENV['SAML_ISSUER'],
     idp_sso_target_url: ENV['SAML_IDP_URL'],
     #idp_sso_target_url_runtime_params  => {:original_request_param => :mapped_idp_param},
-    idp_cert: ENV['SAML_IDP_CERT'],
-    #idp_cert_fingerprint               => "E7:91:B2:E1:...",
+    #idp_cert: ENV['SAML_IDP_CERT'],
+    idp_cert_fingerprint: "25:72:85:66:C9:94:22:98:36:84:11:E1:88:C7:AC:40:98:F9:E7:82",
     #idp_cert_fingerprint_validator     => lambda { |fingerprint| fingerprint },
-    name_identifier_format: "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
-    certificate: ENV['SAML_MY_CERT'].blank? ? nil : ENV['SAML_MY_CERT'],
-    private_key: ENV['SAML_MY_KEY'].blank? ? nil : ENV['SAML_MY_KEY']
+    name_identifier_format: "urn:mace:dir:attribute-def:eduPersonPrincipalName",
+    attribute_statements: { name: ['urn:mace:dir:attribute-def:displayName'], email: ['urn:mace:dir:attribute-def:mail'] },
+    uid_attribute: "urn:mace:dir:attribute-def:eduPersonPrincipalName"
+    #certificate: ENV['SAML_MY_CERT'].blank? ? nil : ENV['SAML_MY_CERT'],
+    #private_key: ENV['SAML_MY_KEY'].blank? ? nil : ENV['SAML_MY_KEY']
 end
 
 # Redirect back to login in development mode.
