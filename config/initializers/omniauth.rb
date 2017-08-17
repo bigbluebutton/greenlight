@@ -32,7 +32,9 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     idp_cert: ENV['SAML_IDP_CERT'],
     #idp_cert_fingerprint               => "E7:91:B2:E1:...",
     #idp_cert_fingerprint_validator     => lambda { |fingerprint| fingerprint },
-    name_identifier_format: "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    name_identifier_format: "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+    certificate: ENV['SAML_MY_CERT'].blank? ? nil : ENV['SAML_MY_CERT'],
+    private_key: ENV['SAML_MY_KEY'].blank? ? nil : ENV['SAML_MY_KEY']
 end
 
 # Redirect back to login in development mode.
