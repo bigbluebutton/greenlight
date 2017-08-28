@@ -6,7 +6,6 @@ README.md
 # Rails
 .env
 .env.prod
-sample.env
 *.rbc
 capybara-*.html
 .rspec
