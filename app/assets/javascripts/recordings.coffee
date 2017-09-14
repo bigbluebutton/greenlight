@@ -224,7 +224,9 @@ class @Recordings
         table_api.column(COLUMN.ACTION).visible(false)
         table_api.column(COLUMN.VISIBILITY).visible(false)
       for recording in data.recordings
-        recording.duration = recording.length
+        # NOTE: Temporary fix for the minutes to milliseconds bug some recordings may have
+        # experienced when transitioning from BigBlueButton 1.1 to BigBlueButton 2.0.
+        recording.duration = if recording.duration < 1000  then recording.duration else parseInt(recording.length / 60000)
       data.recordings.sort (a,b) ->
         return new Date(b.start_time) - new Date(a.start_time)
       table_api.clear()
