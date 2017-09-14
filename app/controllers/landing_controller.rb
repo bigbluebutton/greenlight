@@ -44,9 +44,38 @@ class LandingController < ApplicationController
     # If someone tries to access the guest landing when guest access is enabled, just send them to root.
     redirect_to root_url unless Rails.configuration.disable_guest_access
   end
-
-  def send_meetings_data
-    render json: {active: bbb.get_meetings, waiting: WaitingList.waiting}
+  
+  # Sends data on meetings that the current user has previously joined.
+  def get_previous_meeting_statuses
+    previously_joined = params[:previously_joined]
+    active_meetings = bbb.get_meetings[:meetings]
+    payload = {active: [], waiting: []}
+    # Find meetings that are owned by the current user and also active.
+    active_meetings.each do |m|
+      if m[:metadata].has_key?(:'room-id')
+        if previously_joined.include?(m[:meetingName])&& m[:metadata][:'room-id'] == current_user[:encrypted_id]
+          if m[:attendees] == {}
+            attendees = []
+          else
+            attendees = m[:attendees][:attendee]
+            attendees = [attendees] unless attendees.is_a?(Array)
+          end
+          participants = []
+          moderators = []
+          attendees.each do |a|
+            if a[:role] == 'MODERATOR'
+              moderators << {name: a[:fullName], user_id: a[:userID]}
+            else
+              participants << {name: a[:fullName], user_id: a[:userID]}
+            end
+          end
+          payload[:active] << {name: m[:meetingName], moderators: moderators, participants: participants}
+        end
+      end
+    end  
+    # Add the waiting meetings.
+    payload[:waiting] = WaitingList.waiting[current_user[:encrypted_id]] || {}
+    render json: payload
   end
 
   def wait_for_moderator
