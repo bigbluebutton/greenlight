@@ -76,8 +76,11 @@ en-US:
     upload_youtube: Youtube
     user_waiting_body: "%{user} is waiting to join %{meeting}!"
     user_waiting_title: A user is waiting
+  client_html5: HTML5
+  client_flash: Flash
   copied: Copied
   copy_error: Use Ctrl-c to copy
+  currently_joining_with: Currently joining with %{client} client.
   create_your_session: Create your own meeting
   date_recorded: Date
   disallowed_characters_msg: Characters not allowed in meeting name $&,
@@ -157,6 +160,7 @@ en-US:
   past_recordings: Past Recordings
   preferences: Preferences
   preferences_logged: You must be logged in to edit preferences.
+  prefered_client: Prefered Client
   presentation: Presentation
   previous_meetings: (previous meetings)
   qrcode:
@@ -176,6 +180,7 @@ en-US:
   start: Start
   start_join: Start
   start_meeting: Start meeting
+  switch_clients: Switch Clients
   test_mailer:
     test_email:
       subject: Test Email

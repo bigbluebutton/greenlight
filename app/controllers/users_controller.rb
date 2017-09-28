@@ -19,13 +19,19 @@ class UsersController < ActionController::Base
   # For updating a users background image.
   def update
 
-    # Make sure they actually select a file.
-    if params[:user] then
+    if params[:commit] == t('upload')
+      # Make sure they actually select a file.
+      if params[:user] then
+        @user = User.find(params[:id])
+        @user.assign_attributes(background: user_params[:background])
+        flash[:danger] = t('invalid_file') unless @user.save
+      else
+        flash[:danger] = t('no_file')
+      end
+    elsif params[:commit] == t('switch_clients')
+      # Switch the users default client.
       @user = User.find(params[:id])
-      @user.assign_attributes(background: user_params[:background])
-      flash[:danger] = t('invalid_file') unless @user.save
-    else
-      flash[:danger] = t('no_file')
+      @user.update_attributes(use_html5: !@user.use_html5)
     end
 
     # Reload the page to apply changes and show flash messages.

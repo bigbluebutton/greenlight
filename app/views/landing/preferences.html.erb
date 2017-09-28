@@ -23,12 +23,21 @@
 
       <% if @user %>
         <div class="upload-form">
+          <h3><%= t('background_image') %></h3>
           <p> <%= t('background_image') + ": " + (@user.background_file_name || '')  %> </p>
           <%= form_for @user, :html => { :multipart => true } do |f| %>
             <div class="form-group">
               <%= f.file_field :background, class: 'form-control'%>
             </div>
             <%= f.submit t('upload'), class: 'btn btn-info' %>
+          <% end %>
+        </div>
+        <br>
+        <div class="html5-check">
+          <h3><%= t('prefered_client') %></h3>
+          <p><%= t('currently_joining_with', client: @user.use_html5 ? t('client_html5') : t('client_flash')) %></p>
+          <%= form_for @user do |f| %>
+            <%= f.submit t('switch_clients'), class: 'btn btn-info' %>
           <% end %>
         </div>
       <% else %>

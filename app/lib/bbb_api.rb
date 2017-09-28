@@ -80,6 +80,7 @@ module BbbApi
           "meta_#{BbbApi::META_LISTED}": false,
           "meta_#{BbbApi::META_TOKEN}": meeting_token
         }
+        
         meeting_options.merge!(
           { "meta_#{BbbApi::META_HOOK_URL}": options[:hook_url] }
         ) if options[:hook_url]
@@ -116,7 +117,31 @@ module BbbApi
       else
         password = bbb_meeting_info[:attendeePW]
       end
-      join_url = bbb.join_meeting_url(meeting_id, full_name, password )
+      
+      # Determine which client to join as.
+      if current_user.nil?
+        use_html5 = Rails.configuration.use_html5_by_default
+      else
+        use_html5 = current_user.use_html5 == true 
+      end
+      
+      # If the user wants to use HTML5, verfiy it's running.
+      if use_html5
+        html5_check = Faraday.get bbb_endpoint.gsub('bigbluebutton/', 'html5client/check')
+        # If HTML5 is not running, must use Flash.
+        unless html5_check.status == 200
+          use_html5 = false
+        end
+      end
+        
+      # Generate the join URL.
+      if use_html5
+        clientURL = bbb_endpoint.gsub('bigbluebutton/', 'html5client/join')
+        join_url = bbb.join_meeting_url(meeting_id, full_name, password, {clientURL: clientURL})
+      else
+        join_url = bbb.join_meeting_url(meeting_id, full_name, password)
+      end
+
       return success_join_res(join_url)
     end
   end
