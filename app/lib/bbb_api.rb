@@ -122,24 +122,42 @@ module BbbApi
       if current_user.nil?
         use_html5 = Rails.configuration.use_html5_by_default
       else
-        use_html5 = current_user.use_html5 == true 
+        use_html5 = current_user.use_html5
       end
       
-      # If the user wants to use HTML5, verfiy it's running.
-      if use_html5
-        html5_check = Faraday.get bbb_endpoint.gsub('bigbluebutton/', 'html5client/check')
-        # If HTML5 is not running, must use Flash.
-        unless html5_check.status == 200
-          use_html5 = false
-        end
+      # Verify HTML5 is running.
+      html5_running = Faraday.get(bbb_endpoint.gsub('bigbluebutton/', 'html5client/check')).status == 200
+      
+      # Determine if the user is on mobile.
+      mobile = session[:mobile_param].nil? ? session[:mobile_param] == "1" : request.user_agent =~ /Mobile|webOS/
+      
+      can_join = true
+      
+      # Restrict client if needed.
+      if mobile && html5_running
+        # Must use HTML5 because they are on mobile.
+        use_html5 = true
+      elsif mobile && !html5_running
+        # The user cannot join.
+        can_join = false
+      elsif !mobile && !html5_running
+        # HTML5 is not running, so must use Flash.
+        use_html5 = false
       end
         
       # Generate the join URL.
-      if use_html5
-        clientURL = bbb_endpoint.gsub('bigbluebutton/', 'html5client/join')
-        join_url = bbb.join_meeting_url(meeting_id, full_name, password, {clientURL: clientURL})
+      if can_join
+        if use_html5
+          clientURL = bbb_endpoint.gsub('bigbluebutton/', 'html5client/join')
+          join_url = bbb.join_meeting_url(meeting_id, full_name, password, {clientURL: clientURL})
+        else
+          join_url = bbb.join_meeting_url(meeting_id, full_name, password)
+        end
       else
-        join_url = bbb.join_meeting_url(meeting_id, full_name, password)
+        # This still creates the meeting, just doesn't let them join.
+        # TODO: Notify the user that the join failed.
+        #ActionCable.server.broadcast "#{current_user.encrypted_id}-#{meeting_id}_meeting_updates_channel",
+        #  action: 'mobile_html5_join_fail'  
       end
 
       return success_join_res(join_url)
