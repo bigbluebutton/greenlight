@@ -70,6 +70,7 @@ en-US:
     recording_unpublished: Recording was unpublished
     share: Share
     successful_upload: Recording successfully uploaded to Youtube!
+    unable_to_join_mobile: This BigBlueButton server does not use the HTML5 client, which means you are unable to join on mobile.
     unpublish_recording: Hide recording
     unlisted: Unlisted
     unpublished: No one
@@ -80,7 +81,7 @@ en-US:
   client_flash: Flash
   copied: Copied
   copy_error: Use Ctrl-c to copy
-  currently_joining_with: Currently joining with %{client} client.
+  currently_joining_with: Currently prefering the %{client} client.
   create_your_session: Create your own meeting
   date_recorded: Date
   disallowed_characters_msg: Characters not allowed in meeting name $&,
@@ -97,6 +98,7 @@ en-US:
   hi_all: Hi Everyone
   home_page: Home page
   home_title: Welcome to BigBlueButton
+  html5_not_enabled: This server is not HTML5 enabled, so you must use the Flash client.
   invalid_file: You may only upload an image file (jpg, gif, png).
   invalid_login: Invalid log in credentials.
   invite: Invite

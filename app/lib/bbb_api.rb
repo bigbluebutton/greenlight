@@ -53,114 +53,109 @@ module BbbApi
     if !bbb
       return call_invalid_res
     else
-      meeting_id = bbb_meeting_id(meeting_token)
+      # Verify HTML5 is running.
+      html5_running = Rails.configuration.html5_enabled
+      
+      # Determine if the user is on mobile.
+      browser = Browser.new(request.user_agent)
+      mobile = browser.device.tablet?
+    
+      # If the user is on mobile and the BigBlueButton server isn't running the HTML5 client,
+      # they can't join or create meetings.
+      if mobile and !html5_running then
+        return unable_to_join_res
+      else
+        meeting_id = bbb_meeting_id(meeting_token)
 
-      # See if the meeting is running
-      begin
-        bbb_meeting_info = bbb.get_meeting_info(meeting_id, nil)
-      rescue BigBlueButton::BigBlueButtonException => exc
-        # This means that is not created
+        # See if the meeting is running
+        begin
+          bbb_meeting_info = bbb.get_meeting_info(meeting_id, nil)
+        rescue BigBlueButton::BigBlueButtonException => exc
+          # This means that is not created
 
-        if options[:wait_for_moderator] && !options[:user_is_moderator]
+          if options[:wait_for_moderator] && !options[:user_is_moderator]
+            return wait_moderator_res
+          end
+
+          logger.info "Message for the log file #{exc.key}: #{exc.message}"
+
+          # Prepare parameters for create
+          logout_url = options[:meeting_logout_url] || "#{request.base_url}"
+          moderator_password = random_password(12)
+          viewer_password = random_password(12)
+          meeting_options = {
+            record: options[:meeting_recorded].to_s,
+            logoutURL: logout_url,
+            moderatorPW: moderator_password,
+            attendeePW: viewer_password,
+            moderatorOnlyMessage: options[:moderator_message],
+            "meta_#{BbbApi::META_LISTED}": false,
+            "meta_#{BbbApi::META_TOKEN}": meeting_token
+          }
+          
+          meeting_options.merge!(
+            { "meta_#{BbbApi::META_HOOK_URL}": options[:hook_url] }
+          ) if options[:hook_url]
+
+          # these parameters are used to filter recordings by room and meeting
+          meeting_options.merge!(
+            { "meta_room-id": options[:room_owner],
+              "meta_meeting-name": options[:meeting_name]}
+          ) if options[:room_owner]
+
+          # Only register webhooks if they are enabled it's not a guest meeting.
+          if Rails.configuration.use_webhooks && params[:resource] == 'rooms'
+            webhook_register(options[:hook_url], meeting_id)
+          end
+
+          # Create the meeting
+          begin
+            bbb.create_meeting(options[:meeting_name], meeting_id, meeting_options)
+          rescue BigBlueButton::BigBlueButtonException => exc
+            logger.info "BBB error on create #{exc.key}: #{exc.message}"
+          end
+
+          # And then get meeting info
+          bbb_meeting_info = bbb.get_meeting_info( meeting_id, nil )
+        end
+
+        if options[:wait_for_moderator] && !options[:user_is_moderator] && bbb_meeting_info[:moderatorCount] <= 0
           return wait_moderator_res
         end
 
-        logger.info "Message for the log file #{exc.key}: #{exc.message}"
-
-        # Prepare parameters for create
-        logout_url = options[:meeting_logout_url] || "#{request.base_url}"
-        moderator_password = random_password(12)
-        viewer_password = random_password(12)
-        meeting_options = {
-          record: options[:meeting_recorded].to_s,
-          logoutURL: logout_url,
-          moderatorPW: moderator_password,
-          attendeePW: viewer_password,
-          moderatorOnlyMessage: options[:moderator_message],
-          "meta_#{BbbApi::META_LISTED}": false,
-          "meta_#{BbbApi::META_TOKEN}": meeting_token
-        }
-        
-        meeting_options.merge!(
-          { "meta_#{BbbApi::META_HOOK_URL}": options[:hook_url] }
-        ) if options[:hook_url]
-
-        # these parameters are used to filter recordings by room and meeting
-        meeting_options.merge!(
-          { "meta_room-id": options[:room_owner],
-            "meta_meeting-name": options[:meeting_name]}
-        ) if options[:room_owner]
-
-        # Only register webhooks if they are enabled it's not a guest meeting.
-        if Rails.configuration.use_webhooks && params[:resource] == 'rooms'
-          webhook_register(options[:hook_url], meeting_id)
+        # Get the join url
+        if (options[:user_is_moderator])
+          password = bbb_meeting_info[:moderatorPW]
+        else
+          password = bbb_meeting_info[:attendeePW]
         end
-
-        # Create the meeting
-        begin
-          bbb.create_meeting(options[:meeting_name], meeting_id, meeting_options)
-        rescue BigBlueButton::BigBlueButtonException => exc
-          logger.info "BBB error on create #{exc.key}: #{exc.message}"
-        end
-
-        # And then get meeting info
-        bbb_meeting_info = bbb.get_meeting_info( meeting_id, nil )
-      end
-
-      if options[:wait_for_moderator] && !options[:user_is_moderator] && bbb_meeting_info[:moderatorCount] <= 0
-        return wait_moderator_res
-      end
-
-      # Get the join url
-      if (options[:user_is_moderator])
-        password = bbb_meeting_info[:moderatorPW]
-      else
-        password = bbb_meeting_info[:attendeePW]
-      end
-      
-      # Determine which client to join as.
-      if current_user.nil?
-        use_html5 = Rails.configuration.use_html5_by_default
-      else
-        use_html5 = current_user.use_html5
-      end
-      
-      # Verify HTML5 is running.
-      html5_running = Faraday.get(bbb_endpoint.gsub('bigbluebutton/', 'html5client/check')).status == 200
-      
-      # Determine if the user is on mobile.
-      mobile = session[:mobile_param].nil? ? session[:mobile_param] == "1" : request.user_agent =~ /Mobile|webOS/
-      
-      can_join = true
-      
-      # Restrict client if needed.
-      if mobile && html5_running
-        # Must use HTML5 because they are on mobile.
-        use_html5 = true
-      elsif mobile && !html5_running
-        # The user cannot join.
-        can_join = false
-      elsif !mobile && !html5_running
-        # HTML5 is not running, so must use Flash.
-        use_html5 = false
-      end
         
-      # Generate the join URL.
-      if can_join
+        # Determine which client to join as.
+        if current_user.nil?
+          use_html5 = Rails.configuration.use_html5_by_default
+        else
+          use_html5 = current_user.use_html5
+        end
+        
+        # Restrict client if needed.
+        if mobile && html5_running
+          # Must use HTML5 because they are on mobile.
+          use_html5 = true
+        elsif !mobile && !html5_running
+          # HTML5 is not running, so must use Flash.
+          use_html5 = false
+        end
+          
+        # Generate the join URL.
         if use_html5
           clientURL = bbb_endpoint.gsub('bigbluebutton/', 'html5client/join')
           join_url = bbb.join_meeting_url(meeting_id, full_name, password, {clientURL: clientURL})
         else
           join_url = bbb.join_meeting_url(meeting_id, full_name, password)
         end
-      else
-        # This still creates the meeting, just doesn't let them join.
-        # TODO: Notify the user that the join failed.
-        #ActionCable.server.broadcast "#{current_user.encrypted_id}-#{meeting_id}_meeting_updates_channel",
-        #  action: 'mobile_html5_join_fail'  
-      end
 
-      return success_join_res(join_url)
+        return success_join_res(join_url)
+      end
     end
   end
 
@@ -341,6 +336,15 @@ module BbbApi
       response: {
         join_url: join_url
       }
+    }
+  end
+  
+  def unable_to_join_res
+    {
+      returncode: false,
+      messageKey: "unable_to_join",
+      message: "Unable to join.",
+      status: :ok
     }
   end
 

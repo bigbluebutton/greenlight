@@ -35,9 +35,13 @@
         <br>
         <div class="html5-check">
           <h3><%= t('prefered_client') %></h3>
-          <p><%= t('currently_joining_with', client: @user.use_html5 ? t('client_html5') : t('client_flash')) %></p>
-          <%= form_for @user do |f| %>
-            <%= f.submit t('switch_clients'), class: 'btn btn-info' %>
+          <% if html5_enabled? %>
+            <p><%= t('currently_joining_with', client: @user.use_html5 ? t('client_html5') : t('client_flash')) %></p>
+            <%= form_for @user do |f| %>
+              <%= f.submit t('switch_clients'), class: 'btn btn-info' %>
+            <% end %>
+          <% else %>
+            <p><%= t('html5_not_enabled') %></p>
           <% end %>
         </div>
       <% else %>
