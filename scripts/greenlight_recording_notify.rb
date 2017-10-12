@@ -49,7 +49,7 @@ def getParticipantsInfo(events_xml)
 end
 
 def get_id_from_event(event)
-  (event.xpath('externalUserId').empty?) ? event.xpath('userId').text.split('_')[0] : event.xpath('externalUserId').text
+  (event.xpath('externalUserId').empty?) ? event.xpath('userId').text : event.xpath('externalUserId').text
 end
 
 # Gets the join and leave times for each user, as well as total duration of stay.
