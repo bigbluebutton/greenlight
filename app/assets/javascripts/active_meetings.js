@@ -117,8 +117,8 @@ var initialPopulate = function(){
       
       // Populate waiting meetings.
       Object.keys(data['waiting']).forEach(function(key) { 
-        WAITING[name] = {'name': key, 'users': data['waiting'][key]}
-        updateMeetingText(WAITING[name])
+        WAITING[key] = {'name': key, 'users': data['waiting'][key]}
+        updateMeetingText(WAITING[key])
       })
       
       // Add the meetings to the active meetings list.

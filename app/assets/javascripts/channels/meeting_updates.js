@@ -55,6 +55,8 @@
               body: I18n.user_waiting_body.replace(/%{user}/, data.user).replace(/%{meeting}/, '"'+data.meeting_name+'"')
             });
           }
+        } else if(data.action === 'unable_to_join') {
+          showAlert(I18n.unable_to_join_mobile, 6000)
         }
       }
     });

@@ -14,10 +14,11 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-module LandingHelper
+class NotifyUserCantJoinJob < ApplicationJob
+  queue_as :default
 
-  def html5_enabled?
-    Rails.configuration.html5_enabled
+  def perform(room, meeting, user)
+    payload = { action: 'unable_to_join', user: user, meeting_name: meeting }
+    ActionCable.server.broadcast "#{room}-#{meeting}_meeting_updates_channel", payload
   end
-
 end

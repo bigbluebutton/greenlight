@@ -89,3 +89,6 @@ gem 'yt', '~> 0.28.0'
 
 # Simple HTTP client.
 gem 'faraday'
+
+# For device detection to determine BigBlueButton client.
+gem 'browser'

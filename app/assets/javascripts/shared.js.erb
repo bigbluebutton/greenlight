@@ -69,7 +69,8 @@ var showNotification = function(title, options) {
   if (Notification.permission === "granted") {
     var icon = '<%= asset_path("bbb-logo.png") %>';
     options = $.extend(options, {
-      icon: icon
+      icon: icon,
+      tag: 'UserWaiting'
     });
     var notification = new Notification(title, options);
     notification.onclick = function() {
