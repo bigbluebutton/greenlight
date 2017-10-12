@@ -112,7 +112,7 @@ class LandingController < ApplicationController
 
   def landing_background
     if !current_user || !current_user.background? then
-      (ENV['LANDING_BACKGROUND'].present?) ? ENV['LANDING_BACKGROUND'] : 'greenlight_background.png'
+      (ENV['LANDING_BACKGROUND'].present?) ? ENV['LANDING_BACKGROUND'] : 'header_background.jpg'
     else
       current_user.background.url
     end

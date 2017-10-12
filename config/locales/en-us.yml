@@ -108,7 +108,7 @@ en-US:
     start_meeting: Start your own meeting
     get_work_down: Let's get some work done
     connect: Connect in real-time with others
-    collaborate: Collaborate with friends
+    collaborate: Welcome to LVS Demo
     teach: Teach students online
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   logged_in_description_html: You are logged in as %{link}
