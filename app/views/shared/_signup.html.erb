@@ -25,8 +25,8 @@
   </div>
   <% else %>
     <div class="text-center">
-      <span><%= t('login_description') %></span>
-      <div><%= link_to t('login'), user_login_url %></div>
+      <h2><span><%= t('login_description') %></span></h2>
+      <div><%= link_to t('login'), user_login_url, class: "btn-blue-o btn btn-primary" %></div>
     </div>
   <% end %>
 </span>
