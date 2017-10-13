@@ -16,7 +16,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <title>Greenlight</title>
+    <title>Live Video System</title>
     <%= csrf_meta_tags %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -43,6 +43,8 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700 %7c Open+Sans:300,400,600,700" rel="stylesheet"> 
+
   </head>
 
   <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>"
@@ -67,9 +69,9 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     <div class='header'>
       <span class="logo-wrapper pull-left">
         <% if current_user %>
-          <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), meeting_room_path('rooms', User.find(current_user.id).encrypted_id) %>
+          <%#= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), meeting_room_path('rooms', User.find(current_user.id).encrypted_id) %>
         <% else %>
-          <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), root_path %>
+          <%#= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), root_path %>
         <% end %>
       </span>
     </div>
@@ -79,7 +81,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
     <!-- Footer -->
     <div class='footer text-center'>
-      <%= t('footer_html', bbb_link: link_to('BigBlueButton', 'http://bigbluebutton.org/', target: "_blank")) %>.<br><br>
+      <%#= t('footer_html', bbb_link: link_to('BigBlueButton', 'http://bigbluebutton.org/', target: "_blank")) %>.<br><br>
     </div>
     <!-- End of Footer -->
   <div hidden class="hidden-elements">
