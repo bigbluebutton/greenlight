@@ -46,6 +46,7 @@ GEM
       sass (~> 3.2)
     bootstrap-social-rails (4.12.0)
       railties (>= 3.1)
+    browser (2.5.1)
     builder (3.2.3)
     byebug (9.0.6)
     climate_control (0.2.0)
@@ -139,9 +140,9 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    omniauth (1.3.1)
-      hashie (>= 1.2, < 4)
-      rack (>= 1.0, < 3)
+    omniauth (1.6.1)
+      hashie (>= 3.4.6, < 3.6.0)
+      rack (>= 1.6.2, < 3)
     omniauth-google-oauth2 (0.4.1)
       jwt (~> 1.5.2)
       multi_json (~> 1.3)
@@ -284,6 +285,7 @@ DEPENDENCIES
   bigbluebutton-api-ruby
   bootstrap-sass (= 3.3.0.0)
   bootstrap-social-rails (~> 4.12)
+  browser
   byebug
   coffee-rails (~> 4.2)
   dotenv-rails
@@ -297,7 +299,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   lograge
   mocha
-  omniauth (= 1.3.1)
+  omniauth (= 1.6.1)
   omniauth-google-oauth2 (= 0.4.1)
   omniauth-ldap
   omniauth-saml
@@ -323,4 +325,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.15.3
+   1.15.4

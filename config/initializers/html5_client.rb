@@ -14,10 +14,6 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-module LandingHelper
-
-  def html5_enabled?
-    Rails.configuration.html5_enabled
-  end
-
-end
+# Send a request to check if the HTML5 client is enabled on the BigBlueButton server.
+res = Faraday.get(Rails.configuration.bigbluebutton_endpoint.gsub('bigbluebutton/', 'html5client/check'))
+Rails.application.config.html5_enabled = res.status == 200

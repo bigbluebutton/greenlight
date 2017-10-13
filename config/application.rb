@@ -48,6 +48,7 @@ module Greenlight
     config.disable_guest_access = ENV['DISABLE_GUEST_ACCESS'] && ENV['DISABLE_GUEST_ACCESS'] == "true"
     config.enable_youtube_uploading = ENV['ENABLE_YOUTUBE_UPLOADING'] && ENV['ENABLE_YOUTUBE_UPLOADING'] == "true"
     config.enable_qrcode_generation = ENV['ENABLE_QRCODE_GENERATION'] && ENV['ENABLE_QRCODE_GENERATION'] == "true"
+    config.use_html5_by_default = ENV['USE_HTML5_BY_DEFAULT'] == "true"
 
     # SMTP and action mailer
     if config.mail_notifications

@@ -93,7 +93,10 @@ class BbbController < ApplicationController
         if bbb_res[:returncode] && current_user == user
           JoinMeetingJob.perform_later(user, params[:id], base_url)
           WaitingList.empty(options[:room_owner], options[:meeting_name])
-      # user will be waiting for a moderator
+        # the user can't join because they are on mobile and HTML5 is not enabled.
+        elsif bbb_res[:messageKey] == 'unable_to_join'
+          NotifyUserCantJoinJob.perform_later(user.encrypted_id, params[:id], params[:name])
+        # user will be waiting for a moderator
         else
           NotifyUserWaitingJob.perform_later(user.encrypted_id, params[:id], params[:name])
         end
@@ -259,7 +262,12 @@ class BbbController < ApplicationController
   end
 
   def treat_callback_event(event)
-    eventName = (event.present? && event['header'].present?) ? event['header']['name'] : nil
+    # Check if the event is a BigBlueButton 2.0 event.
+    if event.has_key?('envelope')
+      eventName = (event.present? && event['envelope'].present?) ? event['envelope']['name'] : nil
+    else # The event came from BigBlueButton 1.1 (or earlier).
+      eventName = (event.present? && event['header'].present?) ? event['header']['name'] : nil
+    end
 
     # a recording is ready
     if eventName == "publish_ended"
@@ -286,11 +294,11 @@ class BbbController < ApplicationController
       else
         logger.error "Bad format for event #{event}, won't process"
       end
-    elsif eventName == "meeting_created_message"
+    elsif eventName == "meeting_created_message" || eventName == "MeetingCreatedEvtMsg" 
       # Fire an Actioncable event that updates _previously_joined for the client.
-      actioncable_event('create', params[:id], params[:room_id])
-    elsif eventName == "meeting_destroyed_event"
-      actioncable_event('destroy', params[:id], params[:room_id])
+      actioncable_event('create')
+    elsif eventName == "meeting_destroyed_event" || eventName == "MeetingEndedEvtMsg"
+      actioncable_event('destroy')
 
       # Since the meeting is destroyed we have no way get the callback url to remove the meeting, so we must build it.
       remove_url = build_callback_url(params[:id], params[:room_id])
@@ -298,9 +306,13 @@ class BbbController < ApplicationController
       # Remove webhook for the meeting.
       webhook_remove(remove_url)
     elsif eventName == "user_joined_message"
-      actioncable_event('join', params[:id], params[:room_id], event['payload']['user']['name'], event['payload']['user']['role'])
+      actioncable_event('join', {user_id: event['payload']['user']['extern_userid'], user: event['payload']['user']['name'], role: event['payload']['user']['role']})
+    elsif eventName == "UserJoinedMeetingEvtMsg"
+      actioncable_event('join', {user_id: event['core']['body']['intId'], user: event['core']['body']['name'], role: event['core']['body']['role']})
     elsif eventName == "user_left_message"
-      actioncable_event('leave', params[:id], params[:room_id], event['payload']['user']['name'], event['payload']['user']['role'])
+      actioncable_event('leave', {user_id: event['payload']['user']['extern_userid']})
+    elsif eventName == "UserLeftMeetingEvtMsg"
+      actioncable_event('leave', {user_id: event['core']['body']['intId']})
     else
       logger.info "Callback event will not be treated. Event name: #{eventName}"
     end
@@ -312,13 +324,9 @@ class BbbController < ApplicationController
     "#{request.base_url}#{relative_root}/rooms/#{room_id}/#{URI.encode(id)}/callback"
   end
 
-  def actioncable_event(method, id, room_id, user = 'none', role = 'none')
-    ActionCable.server.broadcast 'refresh_meetings',
-      method: method,
-      meeting: id,
-      room: room_id,
-      user: user,
-      role: role
+  def actioncable_event(method, data = {})
+    data = {method: method, meeting: params[:id], room: params[:room_id]}.merge(data)
+    ActionCable.server.broadcast('refresh_meetings', data)
   end
 
   # Validates the checksum received in a callback call.
