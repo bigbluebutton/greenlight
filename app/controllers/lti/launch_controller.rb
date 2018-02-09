@@ -247,6 +247,7 @@ module Lti
         session_cache(:last_name, params[:lis_person_name_family])
       else
         generate_names
+        set_generated_names
       end
     end
 
@@ -263,7 +264,9 @@ module Lti
            end
          end
       end
+    end
 
+    def set_generated_names
       # set the parameters that were not given by the lms using fallbacks defined below
       # NO FULL NAME:  use sourcedid                                      (blank if sourcedid unavailable)
       # NO EMAIL:      generate email using resource_link_id and user_id  (raise error if no user_id supplied)
