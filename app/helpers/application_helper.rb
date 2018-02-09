@@ -146,57 +146,6 @@ module ApplicationHelper
     ((request.referrer && !request.referrer.include?('admin/lti') && request.referrer.include?('lti')) || request.original_fullpath.include?('lti'))
   end
 
-  def lti_enabled?(id, tool = nil)
-    if (current_user.is_a?(Sadmin))
-      # lti restrictions only apply to non superusers
-      return true
-    elsif user_signed_in?
-      # check if subordinate, if it is use parent mask
-      account = current_user.account.is_category?(:subordinate) ? current_user.account.parent : current_user.account
-    else
-      # user is not signed in so we use account id
-      account = Account.find(id)
-    end
-
-    if tool
-      return account.lti_enabled && account.send(tool)
-    else
-      return account.lti_enabled
-    end
-  end
-
-  def verify_lti_enabled(id, tool = nil)
-    # sometimes this check is used when a user is not signed in (ex. student in a classroom)
-    # so we supply an id to lookup the setting if necessary
-    if !lti_enabled?(id, tool)
-      # interrupt the lti associated action since lti is not enabled or tool is not enabled
-      @error = { message: "LTI support is disabled." }
-      redirect_to forbidden_path(@error)
-    end
-  end
-
-  def module_enabled?(mod_mask, id)
-    if (current_user.is_a?(Sadmin))
-      # module restrictions only apply to non superusers
-      return true
-    elsif user_signed_in?
-      # check if subordinate, if it is use parent mask
-      account = current_user.account.is_category?(:subordinate) ? current_user.account.parent : current_user.account
-    else
-      # user is not signed in so we use account id
-      account = Account.find(id)
-    end
-    return account.modules_mask.to_i & mod_mask > 0
-  end
-
-  def verify_module_action(mod_name, mod_mask, id)
-    if !module_enabled?(mod_mask, id)
-      # interrupt the module action and display an error page since the module is disabled
-      @error = { message: "The <b>#{mod_name}</b> module is disabled." }
-      redirect_to forbidden_path(@error)
-    end
-  end
-
   def module_name( controller )
     controller_elements = controller.split('/')
     controller_elements[0].capitalize
