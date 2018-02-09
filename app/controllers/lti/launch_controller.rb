@@ -291,7 +291,7 @@ module Lti
     def set_product_params
       session_cache(:resource_link_id, params[:resource_link_id])
 
-      if ["moodle", "Blackboard Learn", "desire2learn"].include? params[:tool_consumer_info_product_family_code]
+      if ["moodle", "Blackboard Learn", "desire2learn", "canvas"].include? params[:tool_consumer_info_product_family_code]
         session_cache(:resource_link_id, Digest::SHA1.hexdigest(params[:tool_consumer_instance_guid] + params[:resource_link_id]))
       end
 
@@ -309,10 +309,6 @@ module Lti
           session_cache(:resource_link_id, Digest::SHA1.hexdigest(params[:resource_link_id]))
           # username is stored in sourcedid
           session_cache(:first_name, params[:lis_person_sourcedid])
-        end
-
-        if params[:tool_consumer_info_product_family_code] == "canvas"
-          session_cache(:resource_link_id, Digest::SHA1.hexdigest(params[:tool_consumer_instance_guid] + params[:resource_link_id]))
         end
 
         if params[:tool_consumer_info_product_family_code] == "sakai"
