@@ -306,13 +306,7 @@ module Lti
       end
 
       if params[:lti_version] == LTI_20
-        if params[:tool_consumer_info_product_family_code] == "moodle"
-          session_cache(:user_id, params[:custom_user_id])
-        end
-
-        if params[:tool_consumer_info_product_family_code] == "canvas"
-          session_cache(:resource_link_id, Digest::SHA1.hexdigest(params[:custom_context_id] + params[:resource_link_id]))
-        end
+        set_20_params
       else
         # needs to be a better way to identify if the consumer is edX
         if params[:launch_presentation_return_url].blank? && params[:resource_link_id].match(/^.+?(?=-)/)
@@ -324,6 +318,16 @@ module Lti
         if params[:tool_consumer_info_product_family_code] == "sakai"
           session_cache(:resource_link_id, Digest::SHA1.hexdigest(params[:ext_sakai_server] + params[:resource_link_id]))
         end
+      end
+    end
+
+    def set_20_params
+      if params[:tool_consumer_info_product_family_code] == "moodle"
+        session_cache(:user_id, params[:custom_user_id])
+      end
+
+      if params[:tool_consumer_info_product_family_code] == "canvas"
+        session_cache(:resource_link_id, Digest::SHA1.hexdigest(params[:custom_context_id] + params[:resource_link_id]))
       end
     end
 
