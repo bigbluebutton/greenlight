@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="turbolinks-cache-control" content="no-cache">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CastleBN</title>
+
+  <!-- Main css styles -->
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+
+  <script type="text/javascript">
+    window.I18n = <%= current_locale.to_json.html_safe %>
+  </script>
+
+  <!-- Main javascript files -->
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="gray-bg">
+
+  <!-- Main view  -->
+  <%= render 'layouts/messages' %>
+  <%= yield %>
+
+  <!-- Include javascript per-view -->
+  <!-- For demo purpose we include javascript in view but you can easily start SeedProject and organize it with Rails asset pipeline as you want -->
+  <%= yield :javascript %>
+
+</body>
+</html>

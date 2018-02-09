@@ -1,0 +1,61 @@
+<%= render 'layouts/topbody' %>
+
+<div class="users wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title form-inline">
+          <div class="form-group"><h5>LTI Keypairs</h5></div> 
+          <div class="form-group">
+          <%= select_tag "lti_ver", options_for_select(lti_versions_as_options_for_select, params[:ver]), :class => "btn btn-outline" %>
+          <i class="fa fa-circle-o-notch fa-spin hide" id="wait_load" title="Loading..."></i> 
+          </div>
+        </div>
+        <div class="ibox-content" id="keypairs_list">
+          <% if (can? :process, RailsLti2Provider::Tool) && (params[:ver].nil? || params[:ver] == LtiHelper::LTI_10) %>
+          <%= link_to 'Add keypair', new_lti_path, class: "btn btn-default btn-xs" %> 
+          <% end %>
+          <div>
+            <table id="keypairs" class="table table-striped table-bordered dt-responsive" width="100%">
+              <thead>
+                <tr>
+                  <% if (sadmin_signed_in? && current_user == true_user) || (current_user && current_user.is_superior?) %>
+                  <th>Account</th>
+                  <% end %>
+                  <th>Key</th>
+                  <th>Secret</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% @keypairs.each do |keypair| %>
+                <tr>
+                  <% if (sadmin_signed_in? && current_user == true_user) || (current_user && current_user.is_superior?) %>
+                  <td><%= keypair.account.code if keypair.account %></td>
+                  <% end %>
+                  <td><%= keypair.uuid %></td>
+                  <td><%= keypair.shared_secret[0, 32] + (keypair.shared_secret.length > 32 ? '...' : '') %></td>
+                  <td class="actions-col">
+                    <%= link_to '<i class="fa fa-file" aria-hidden="true"></i>'.html_safe, lti_path(keypair), :title => 'Show', class: "btn btn-default" %>
+                    <% if can? :process, RailsLti2Provider::Tool %>
+                      <% if ((sadmin_signed_in? || (current_user && current_user.is_superior?)) && params[:ver] == LtiHelper::LTI_20) || params[:ver] == LtiHelper::LTI_10 || params[:ver].nil? %>
+                      <%= link_to '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>'.html_safe, edit_lti_path(keypair), :title => 'Edit', class: "btn btn-default" %>
+                      <% end %>
+                    <%= content_tag :div, '<i class="fa fa-trash" aria-hidden="true"></i>'.html_safe, :class => "delete-confirm btn btn-danger", :data => { :url => lti_path(keypair.id), :method => "delete" } %>                  
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.table-responsive -->
+        </div>
+        </div>
+      <!-- /.panel-body -->
+      </div>
+    <!-- /.panel -->
+    </div>
+  <!-- /.col-lg-12 -->
+  </div>
+</div>

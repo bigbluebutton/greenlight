@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+  <h2><b>Configure LTI 1 Provider</b>
+    <%= button_tag 'Close', class: 'pull-right btn btn-default btn-sm', onclick: 'window.close()' %></h2>
+  </div>
+  <div>
+    <p><strong>Consumer Key: 'key'</strong></p>
+    <p><strong>Consumer Secret: 'secret'</strong></p>
+  </div>
+  <% if ["sakai", "d2l", "blackboard"].include?(params[:platform]) %>
+  <h3>Launch URL</h3>
+  <!--
+  <pre class="pre-scrollable" id="xml_url"><%= lti_launch_url %></pre>
+  <p class="text-muted">The selected platform only supports adding by launch url</p>
+  -->
+  <% else %>
+  <h3>Cartridge URL</h3>
+  <pre class="pre-scrollable" id="xml_url" data-url="<%= lti_xml_config_url  %>"><%= lti_xml_config_url + "?platform=" + (params[:platform].nil? ? '' : params[:platform]) %></pre>
+  <% end %>
+  <p class="text-muted">Note: A valid key and secret is required to launch the tool</p>
+  <div class="row form-inline">
+    <div class="col-sm-6">
+      <%= label_tag :platform %>
+      <%= select_tag :platform, options_for_select(@platforms, params[:platform].nil? ? nil : params[:platform]), class: "form-control mb-2 mr-sm-2 mb-sm-0" %>
+    </div>
+  </div><br>
+  <% if @placements %>
+  <div class="row">
+   <% if @placements.empty? %>
+   <div class="col-sm-6">
+     <p><strong>Specify placement locations:</strong></p>
+     Tool placements are set in your platform's external tools settings page.
+   </div>
+   <div class="col-sm-6">
+     <p><strong>Specify any custom parameters:</strong></p>
+     Custom parameters are set in your platform's external tools settings page.
+   </div>
+   <% else %>
+   <div class="col-sm-6">
+     <p><strong>Specify placement locations:</strong></p>
+     <button class="btn btn-primary btn-sm" onclick="$('input:checkbox').prop('checked', true)">Check All</button>
+     <button class="btn btn-default btn-sm" onclick="$('input:checkbox').prop('checked', false)">Uncheck All</button>
+     <div id="placements">
+     <% @placements.each do |p| %>
+       <div class="checkbox">
+         <label>
+           <input type="checkbox" value="true" name="<%= p[:key] %>">
+           <%= p[:name] %>
+         </label>
+         <input type="text" class="pull-right custom hide" id="public_name" value="Conference">
+       </div>
+     <% end %>
+     </div>
+    </div>
+    <div class="col-sm-6">
+      <p><strong>Specify any custom parameters:</strong></p>
+      <button class="btn btn-default btn-sm" id="add_custom_param">Add Custom Parameter</button><br><br>
+      <div id="custom_params">
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <% end %>
+</div>

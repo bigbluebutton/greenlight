@@ -1,0 +1,26 @@
+<div class="row border-bottom">
+  <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+      <button class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </button>
+    </div>
+    <ul class="nav navbar-top-links list-inline pull-right">
+        <% if current_user != true_user %>
+        <li><div class="form-group">
+          You're signed in as <%= current_user.full_name %>
+          <%= link_to "Back to sAdmin", main_app.stop_impersonating_path %>
+          </div></li>
+        <% end %>
+        <% if sadmin_signed_in? && current_user == true_user %>
+         <li><ul class="list-inline"><%= form_tag(main_app.impersonate_path, method: "get", class: "form-inline") do %>
+          <li class="pull-left"><%= select_tag "id", options_from_collection_for_select(User.all, "id", "username"), class: 'form-control' %></li>
+            <li style="margin-right: 0"><%= submit_tag "Impersonate", name: "impersonate", class: "btn btn-primary", id: "impersonate" %></li>
+          <% end %></ul></li>
+        <% end %>
+        <% if sadmin_signed_in? || user_signed_in? %>
+           <li><%= link_to('<i class="fa fa-sign-out"></i>'.html_safe + ' Sign out', main_app.destroy_user_session_path, :method => :get) %></li>
+        <% else %>
+           <li><%= link_to('<i class="fa fa-sign-in"></i>'.html_safe + ' Sign in', main_app.new_user_session_path)  %></li>
+        <% end %>
+    </ul>
+  </nav>
+</div>

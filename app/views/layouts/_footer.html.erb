@@ -1,0 +1,7 @@
+<div class="footer">
+    <div>
+        <strong>Copyright</strong> Blindside Networks &copy; 2017&nbsp;
+        <span class="small">(<%= @app_version_tag %>)</span>
+        <%= select_tag "locale", options_for_select(I18n.available_locales, I18n.locale), :class => "btn btn-outline pull-right", :style => "padding: 0;-webkit-appearance: none;-moz-appearance: none;text-indent: 1px;text-overflow: '';" %>
+    </div>
+</div>

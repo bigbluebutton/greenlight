@@ -1,0 +1,39 @@
+<div class="middle-box container">
+  <div class="ibox-title">
+    <%= image_tag "blindside_logo.png", size: "32x32", class: "pull-left" %>
+    <div style="padding-left: 40px;">
+    <% if controller.isProf? %>
+      <h3 style="display: inline;"><%= t 'lti.splash.prof.title' %></h3><br>
+      <p style="display: inline;" class="text-muted"><%= t 'lti.splash.prof.subtitle' %></p>
+    <% else %>
+      <h3 style="display: inline;">Uh Oh</h3><br>
+      <p style="display: inline;" class="text-muted"><%= t 'lti.splash.student.subtitle' %></p>
+    <% end %>
+    </div>
+  </div>
+  <div class="ibox ibox-content">
+  <% if controller.isProf? %>
+  <% @resources.each do |resource| %>
+    <div class="row">
+      <% if 1==1 %>
+      <%= button_to lti_post_launch_path(resource, launch_id: @launch_id), { method: :post, params: { authenticity_token: session[:_csrf_token] }, class: 'btn btn-primary btn-outline btn-block', style: 'text-align: left'} do %>
+        <span><%= image_tag resource.downcase+"_icon.ico", alt: "icon", size: "24x24" %>&nbsp;<%= resource.pluralize %></span>
+      <% end %>
+      <% else %>
+      <%= link_to "", class: "btn btn-default btn-block disabled", style: "text-align: left" do %>
+        <div>
+          <span class="col-sm-10">
+          <%= image_tag resource.downcase+"_icon.ico", method: :post, alt: "icon", size: "24x24" %>&nbsp;<%= resource.pluralize %>
+          </span>
+          <span class="label label-danger"><%= t 'lti.splash.labels.disabled' %></span>
+        </div>
+      <% end %>
+      <% end %>
+      <br>
+    </div>
+  <% end %>
+  <% else %>
+    <p class="text-danger"><%= t 'lti.splash.msgs.unready' %></p>
+  <% end %>
+  </div>
+</div>

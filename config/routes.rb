@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   match '/500', to: 'errors#error', via: :all
   match '/422', to: 'errors#error', via: :all
 
+  #devise_for :sadmins
+  #devise_for :users, :only => :omniauth_callbacks, :controllers => {:omniauth_callbacks  => "users/omniauth_callbacks" }
   resources :users, only: [:edit, :update]
   get '/users/login', to: 'sessions#new', as: :user_login
   get '/users/logout', to: 'sessions#destroy', as: :user_logout
@@ -59,5 +61,28 @@ Rails.application.routes.draw do
   get '/guest', to: 'landing#guest', as: :guest
   get '/preferences', to: 'landing#preferences', as: :preferences
 
+  scope "/lti" do
+    get 'generate_hex', to: 'lti#generate_hex'
+  end
+  # LTI helper paths; require launch_id param to have distinct launch sessions
+
+
+  namespace :lti do
+    get 'config_builder', to: 'launch#config_builder', as: :config_builder
+    get 'resources', to: 'launch#xml_config', as: :xml_config
+    post 'resources', to: 'launch#launch', as: 'launch' #We point the LMS to this route
+    post 'resources/:type', to:'launch#post_launch', as: 'post_launch'
+
+    resources :tool_proxy, only: [:create]
+
+    post 'register', to: 'registration#register', as: :tool_registration
+    post 'reregister', to: 'registration#register', as: :tool_reregistration
+    post 'submit_capabilities', to: 'registration#save_capabilities', as: 'save_capabilities'
+    get 'submit_proxy/:registration_uuid', to: 'registration#submit_proxy', as: 'submit_proxy'
+
+    mount RailsLti2Provider::Engine => "/rails_lti2_provider"
+  end
+
   root to: 'landing#index', :resource => 'meetings'
+
 end

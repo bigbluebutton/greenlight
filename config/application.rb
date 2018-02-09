@@ -29,6 +29,7 @@ module Greenlight
     # -- all .rb files in that directory are automatically loaded.
 
     config.exceptions_app = self.routes
+    config.autoload_paths += %W(#{config.root}/lib)
 
     # i18n
     # ensure each language has a regional fallback

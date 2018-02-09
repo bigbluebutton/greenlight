@@ -1,0 +1,57 @@
+<div class="container">
+  <h3><%= t 'lti.registrations.titles.general' %>
+    <button class="btn btn-default btn-sm pull-right" onclick="$('input:checkbox').prop('checked', true)">Check All</button>
+    <button class="btn btn-default btn-sm pull-right" onclick="$('input:checkbox').prop('checked', false)">Uncheck All</button>
+    <br><br>
+  </h3>
+  <form method="post" action="<%= lti_save_capabilities_path(reg_key: params['reg_key'], reg_password: @reg_pw) %>">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <%-# Add lti tool consumer info that was sent to previous controller but uncommited -%>
+    <input type="hidden" name="lti_message_type" value="<%= params['lti_message_type'] %>"/>
+    <input type="hidden" name="lti_version" value="<%= params['lti_version'] %>"/>
+    <input type="hidden" name="tc_profile_url" value="<%= params['tc_profile_url'] %>"/>
+    <input type="hidden" name="launch_presentation_return_url" value="<%= params['launch_presentation_return_url'] %>"/>
+    <input type="hidden" name="launch_presentation_document_target" value="<%= params['launch_presentation_document_target'] %>"/>
+
+    <div class="ibox-title">
+      <strong><%= t('lti.registrations.labels.resource') %></strong>
+    </div>
+    <div class="ibox ibox-content">
+    <!--
+    <% @resources.each do |name, _| %>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="true" name="resources[<%= name %>][enabled]">
+          <%= name.pluralize %>
+        </label>
+      </div>
+    <% end %>
+  -->
+    </div>
+
+    <div style="padding-top: 15px; margin-top: 15px; border-top: 1px solid #DDDDDD;">
+      <input type="submit" class="btn btn-primary" value="<%= t 'lti.registrations.buttons.continue' %>">
+    </div>
+  </form>
+</div>
+
+<%= content_for :javascript do %>
+<script>
+$("#resource").change(function() {
+  var opt_params = $("#resource").find(":checked").attr("opt");
+  // hide params based on selection
+  if (opt_params.length > 0) {
+    $("#parameters").removeClass('hide');
+    $.each($("tbody").children(), function(i, param) {
+      if (!opt_params.includes($(param).children()[2].innerText)) {
+        $(param).addClass('hide');
+      } else {
+        $(param).removeClass('hide');
+      }
+    });
+  } else {
+    $("#parameters").addClass('hide');
+  }
+});
+</script>
+<% end %>

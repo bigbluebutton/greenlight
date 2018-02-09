@@ -1,0 +1,98 @@
+<%= render 'layouts/topbody' %>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <% if @keypair.id.nil? %>
+          <h5>New Keypair</h5>
+          <% else %>
+          <h5>Update Keypair</h5>
+          <% end %>
+        </div>
+
+        <div class="ibox-content">
+          <%= form_for @keypair, :url => { controller: params[:controller], action: @keypair.id.nil? ? "create" : "update" } do |f| %>
+            <br>
+            <% if @keypair.errors.any? %>
+              <div id="error_explanation" class="alert alert-danger">
+                <h2>
+                  <%= pluralize(@keypair.errors.count, "error") %> prohibited
+                  this room from being saved:
+                </h2>
+                <ul>
+                  <% @keypair.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <fieldset>
+              <% if current_user.is_a?(Sadmin) || current_user.is_superior? %>
+              <div class="form-group input-group col-lg-5 field">
+                <%= f.label :account %><br>
+                <%= f.select :account_id, options_for_select(accounts_as_options_for_select, :selected => @keypair.account_id), {}, { :class => 'form-control' } %>
+              </div>
+              <% elsif @keypair.id.nil? %>
+                <%= f.label :account %><br>
+                <p class="form-control-static"><%= Account.find(current_user.account_id).name %></p>
+                <%= f.hidden_field :account_id, value: current_user.account_id %>
+              <% else %>
+                <%= f.label :account %><br>
+                <p class="form-control-static"><%= Account.find(@keypair.account_id).name %></p>
+              <% end %>
+              
+              <% if @keypair.id.nil? || @keypair.lti_version.include?('1p0') %>
+              <div class="form-group input-group col-lg-5 field">
+                <%= f.label :uuid, "Key" %><br>
+                <%= f.text_field :uuid, :class => "form-control" %>
+              </div>
+
+              <div class="form-group input-group col-lg-5 field">
+                <%= f.label :shared_secret, "Secret" %><br>
+                <div class="input-group">
+                  <%= f.text_field :shared_secret, placeholder: "Enter a secret or generate one", :class => "form-control", data: { url: generate_hex_path } %>
+                  <div id="generate" class= "input-group-addon btn btn-default">Generate</div>
+                </div>
+              </div>
+
+              <% if current_user.is_a?(Sadmin) || current_user.is_admin? || current_user.is_superior? %> 
+              <div class="form-group input-group col-lg-5 field" style="display: block; width: 100%">
+              <%= f.label :resources, "Active Resources" %><br>
+	      <% @resources.each do |name, _| %>
+	        <div class="checkbox">
+	          <label>
+	            <input type="checkbox" value="true" name="resources[<%= name %>][enabled]" <%= "checked" if @keypair.resource_type.include?(name) %> >
+	            <%= name.pluralize %>
+	          </label>
+	        </div>
+	      <% end %> 
+              </div>
+              <% end %>
+
+              <% else %>
+              <div class="form-group input-group col-lg-5 field">
+                <%= f.label :uuid, "Key" %><br>
+                <p class="form-control-static"><%= @keypair.uuid %></p>
+              </div>
+
+              <div class="form-group input-group col-lg-5 field" style="display: block; width: 100%">
+                <%= f.label :shared_secret, "Secret" %><br>
+                <p class="form-control-static"><span style="word-wrap: break-word;"><%= @keypair.shared_secret %></span></p>
+              </div>
+              <% end %>
+
+              <div class="action">
+                <%= f.submit :class => 'btn btn-primary' %>&nbsp;<%= link_to 'Cancel', url_for(:back), class: "btn btn-default" %>
+              </div>
+
+            </fieldset>
+
+          <% end %>
+          <!-- form for rooms ends here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

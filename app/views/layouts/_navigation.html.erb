@@ -1,0 +1,138 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                        <% if current_user.assets.find_by_filename('profile_pic') %>
+                            <%= image_tag current_user.file_url('profile_pic'), :class => "img-circle", :alt => "picture" %><br /><br />
+                        <% else %>
+                            <%= image_tag "users/0/small/man-303792_640.png", :class => "img-circle", :alt => "picture" %>
+                        <% end %>
+                    </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold"><%= current_user %></strong>
+                            </span> <span class="text-muted text-xs block"> <%= current_user.account_name[0..24] %><b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <% if sadmin_signed_in? || user_signed_in? %>
+                        <li>
+                            <%= link_to users_me_path do %>
+                                <i class="fa fa-user fa-fw"></i> Profile
+                            <% end %>
+                        </li>
+                        <li>
+                            <%= link_to main_app.destroy_user_session_path, method: :get do %>
+                                <i class="fa fa-sign-out fa-fw"></i> Sign out
+                            <% end %>
+                        </li>
+                        <% else %>
+                        <li><%= link_to('Sign in', new_user_session_path)  %></li>
+                        <% end %>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                   <% if current_user.assets.find_by_filename('profile_pic') %>
+                     <%= link_to image_tag(current_user.file_url('profile_pic'), :class => "img-circle", :alt => "picture"), "/users/me", method: :get %><br/><br/>
+                   <% else %>
+                     <%= link_to image_tag("users/0/small/man-303792_640.png", :class => "img-circle", :alt => "picture"), "/users/me", method: :get %>
+                   <% end %>
+                </div>
+            </li>
+            <% if module_enabled?(Account::DASHBOARD, nil) %>
+            <li class="<%= 'active' if request.original_fullpath.include?('/dashboard') %>">
+                <%= link_to main_app.dashboard_path do %>
+                <i class="fa fa-dashboard fa-fw"></i> <span class="nav-label">Dashboard</span>
+                <% end %>
+            </li>
+            <% end %>
+            <% if can? :manage, Region %>
+            <li class="<%= 'active' if request.original_fullpath.include?('/admin/regions') %>">
+                <%= link_to main_app.regions_path, method: :get do %>
+                <i class="fa fa-globe fa-fw"></i> <span class="nav-label">LB Regions</span>
+                <% end %>
+            </li>
+            <% end %>
+            <% if can? :manage, LbGroup %>
+            <li class="<%= 'active' if request.original_fullpath.include?('/admin/lb_groups') %>">
+                <%= link_to main_app.lb_groups_path, method: :get do %>
+                <i class="fa fa-server fa-fw"></i> <span class="nav-label">LB Groups</span>
+                <% end %>
+            </li>
+            <% end %>
+            <% if current_user.is_a?(User) && current_user.is_admin? %>
+            <li class="<%= 'active' if request.original_fullpath.include?('/admin/accounts/' + current_user.account.id.to_s) %>">
+                <%= link_to main_app.account_path(current_user.account.id), method: :get do %>
+                <i class="fa fa-square fa-fw"></i> <span class="nav-label">My Account</span>
+                <% end %>
+            </li>
+            <% end %>
+            <% if can? :create, Account %>
+            <li class="<%= 'active' if request.original_fullpath.include?('/admin/accounts') && request.original_fullpath.exclude?('/admin/accounts/' + current_user.account.id.to_s) %>">
+                <%= link_to main_app.accounts_path, method: :get do %>
+                <i class="fa fa-sitemap fa-fw"></i> <span class="nav-label">Accounts</span>
+                <% end %>
+            </li>
+            <% end %>
+            <% if (can? :process, User) && module_enabled?(Account::USERS, nil) %>
+            <li class="<%= 'active' if request.original_fullpath.include?('/admin/users') %>">
+                <%= link_to main_app.users_path, method: :get do %>
+                <i class="fa fa-users fa-fw"></i> <span class="nav-label">Users</span>
+                <% end %>
+            </li>
+            <% end %>
+            <% if (can? :read, Landing) && module_enabled?(Account::LANDINGS, nil) %>
+            <li class="<%= 'active' if request.original_fullpath.include?('/admin/landings') %>">
+                <%= link_to main_app.landings_path, method: :get do %>
+                <i class="fa fa-desktop fa-fw"></i> <span class="nav-label">Landing pages</span>
+                <% end %>
+            </li>
+            <% end %>
+            <% if (can? :read, Room) && module_enabled?(Account::ROOMS, nil) %>
+            <li class="<%= 'active' if request.original_fullpath.include?('/admin/rooms') %>">
+                <%= link_to main_app.rooms_path, method: :get do %>
+                <i class="fa fa-video-camera fa-fw"></i> <span class="nav-label">Rooms</span>
+                <% end %>
+            </li>
+            <% end %>
+            <% if (can? :read, Recording) && module_enabled?(Account::RECORDINGS, nil) %>
+            <li class="<%= 'active' if request.original_fullpath.include?('/admin/recordings') %>">
+                <%= link_to main_app.recordings_path, method: :get do %>
+                <i class="fa fa-file-video-o fa-fw"></i> <span class="nav-label">Recordings</span>
+                <% end %>
+            </li>
+            <% end %>
+            <% if (can? :read, Assignment) && module_enabled?(Account::UPRESENT, nil) %>
+            <li class="<%= 'active' if request.original_fullpath.include?('/admin/assignments') %>">
+                <%= link_to main_app.assignments_path, method: :get do %>
+                <i class="fa fa-comments-o fa-fw"></i> <span class="nav-label">UPresent</span>
+                <% end %>
+            </li>
+            <% end %>
+            <% if (can? :process, RailsLti2Provider::Tool) && lti_enabled?(nil) && module_enabled?(Account::LTI, nil) %>
+            <li class="<%= 'active' if request.original_fullpath.include?('/admin/lti') %>">
+                <%= link_to main_app.lti_index_path, method: :get do %>
+                <i class="fa fa-key fa-fw"></i> <span class="nav-label">LTI Keys</span>
+                <% end %>
+            </li>
+            <% end %>
+            <% if can?(:watchtower, Meeting) && module_enabled?(Account::WATCHTOWER, nil) %>
+            <li class="<%= 'active' if request.original_fullpath.include?('/admin/watchtower') %>">
+                <%= link_to '/admin/watchtower', method: :get do %>
+                <i class="fa fa-table fa-fw"></i> <span class="nav-label">Watchtower</span>
+                <% end %>
+            </li>
+            <% end %>
+            <% if can?(:report, Meeting) && module_enabled?(Account::REPORT, nil) %>
+            <li class="<%= 'active' if request.original_fullpath.include?('/admin/report') %>">
+                <%= link_to main_app.reports_path, method: :get do %>
+                <i class="fa fa-bar-chart fa-fw"></i><span class="nav-label">Reports</span>
+                <% end %>
+            </li>
+            <% end %>
+        </ul>
+    </div>
+</nav>

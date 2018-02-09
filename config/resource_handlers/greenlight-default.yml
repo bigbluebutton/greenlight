@@ -1,0 +1,19 @@
+code: default
+name:
+  default_value: Greenlight
+  key: default.name
+
+description:
+  default_value: GreenlightBN LTI
+  key: default.description
+
+messages:
+  - type: basic-lti-launch-request
+    route:
+      path: "/default"
+      controller: "lti/launch"
+      action: "launch"
+icon:
+  default_location:
+    path: "/assets/blindside_logo.png"
+  key: iconStyle.default.path

@@ -82,7 +82,7 @@ gem 'http_accept_language'
 gem 'slack-notifier'
 
 # For landing background image uploading.
-gem 'paperclip', '~> 5.1'
+gem 'paperclip', '~> 5.2'
 
 # For uploading recordings to Youtube.
 gem 'yt', '~> 0.28.0'
@@ -92,3 +92,11 @@ gem 'faraday'
 
 # For device detection to determine BigBlueButton client.
 gem 'browser'
+
+gem 'rails_12factor'
+gem 'ims-lti', '2.1.2'
+gem 'rails_lti2_provider', git: 'https://github.com/blindsidenetworks/rails_lti2_provider.git'
+gem 'react-rails', '1.5.0'
+gem 'lodash-rails', '~> 3.7.0'
+gem 'therubyracer'
+gem 'cancancan', '~> 1.16'
