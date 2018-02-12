@@ -1,6 +1,7 @@
 module Lti
   class RegistrationController < ApplicationController
     #layout 'empty'
+    layout 'application'
 
     include RailsLti2Provider::ControllerHelpers
     #include AccountsHelper
@@ -44,16 +45,15 @@ module Lti
       key = ActiveSupport::KeyGenerator.new('password').generate_key(Rails.application.secrets.secret_key_base, 32)
       crypt = ActiveSupport::MessageEncryptor.new(key)
       decrypted_pw = crypt.decrypt_and_verify(params['reg_password'])
+
       params['reg_password'] = decrypted_pw
 
       registration_request
-      #@registration.account_id = @account.id
 
       if reregistration?
         lti_authentication
       end
       @registration.save!
-
       # Update capabilities
       parameters = params['variable_parameters'] ? params['variable_parameters'].select { |_, v| v['enabled'] } : {}
       placements = params['placements'] ? params['placements'].select { |_, v| v['enabled'] } : {}
@@ -67,13 +67,21 @@ module Lti
       tool_settings = (params['tool_settings'].present? && JSON.parse(params['tool_settings'])) || nil
       tool_proxy = @registration.tool_proxy
       tool_profile = tool_proxy.tool_profile
+      puts "HELLO!!!"
+      #puts tool_profile.inspect
+      #puts tool_profile.base_url_choice.inspect
+      tool_profile.base_url_choice.find{ |choice| choice.default_message_url != '' }.default_base_url = root_url.chop
+      #puts tool_profile.base_url_choice.find{ |choice| choice.default_message_url != '' }.default_base_url
+      #tool_profile.base_url_choice = root_url
+      #puts root_url
+      puts tool_profile.base_message_url
+
       add_reregistration_handler!(@registration, tool_profile)
       tool_proxy.security_contract.tool_service = tool_services if tool_services.present?
       # make changes to settings to resource handler
       rh = tool_profile.resource_handler.first
       mh = rh.message.first
       mh.parameter = set_consumer_params(@registration.tool_consumer_profile.capabilities_offered, parameters.keys)
-
       rh.ext_placements = placements.keys
       mh.enabled_capability = placements.keys
       # custom parameters are set here
@@ -83,7 +91,6 @@ module Lti
 
       @registration.update(tool_proxy_json: tool_proxy.to_json)
       redirect_to lti_submit_proxy_path(@registration.id)
-
     end
 
     def submit_proxy
@@ -92,6 +99,7 @@ module Lti
         proxy = register_proxy(registration)
         # update the tool with the registration account and resource type
         resource_code = registration.tool_proxy.tool_profile.resource_handler.as_json.first["resource_type"]["code"]
+
         registration.tool.update(account_id: registration.account_id, resource_type: resource_code)
         redirect_to_consumer(proxy)
       rescue IMS::LTI::Errors::ToolProxyRegistrationError => e

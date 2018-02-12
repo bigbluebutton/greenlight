@@ -62,7 +62,7 @@ module Lti
       icon_url = request.host_with_port + view_context.image_path('blindside_logo.png')
       tc = IMS::LTI::Services::ToolConfig.new()
       tc.title = "Greenlight"
-      #tc.launch_url = lti_launch_url
+      tc.launch_url = lti_launch_url
       #tc.secure_launch_url = lti_launch_url(:protocol => 'https')
       tc.icon = 'http://' + icon_url
       tc.secure_icon = 'https://' + icon_url
@@ -91,6 +91,7 @@ module Lti
     end
 
     def launch
+      puts "LAUNCH ATTEMPTED"
       @user = User.where(email: session_cache(:email)).first
       if @user
         @user.update(uid: session_cache(:user_id))

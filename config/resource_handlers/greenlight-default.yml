@@ -15,5 +15,5 @@ messages:
       action: "launch"
 icon:
   default_location:
-    path: "/assets/blindside_logo.png"
+    path: "/assets/bbb-logo.png"
   key: iconStyle.default.path
