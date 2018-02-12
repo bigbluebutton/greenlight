@@ -67,14 +67,7 @@ module Lti
       tool_settings = (params['tool_settings'].present? && JSON.parse(params['tool_settings'])) || nil
       tool_proxy = @registration.tool_proxy
       tool_profile = tool_proxy.tool_profile
-      puts "HELLO!!!"
-      #puts tool_profile.inspect
-      #puts tool_profile.base_url_choice.inspect
       tool_profile.base_url_choice.find{ |choice| choice.default_message_url != '' }.default_base_url = root_url.chop
-      #puts tool_profile.base_url_choice.find{ |choice| choice.default_message_url != '' }.default_base_url
-      #tool_profile.base_url_choice = root_url
-      #puts root_url
-      puts tool_profile.base_message_url
 
       add_reregistration_handler!(@registration, tool_profile)
       tool_proxy.security_contract.tool_service = tool_services if tool_services.present?
