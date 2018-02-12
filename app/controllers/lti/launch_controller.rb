@@ -91,7 +91,7 @@ module Lti
     end
 
     def launch
-      puts "LAUNCH ATTEMPTED"
+      #Get the user attempting launch
       @user = User.where(email: session_cache(:email)).first
       if @user
         @user.update(uid: session_cache(:user_id))
@@ -106,12 +106,13 @@ module Lti
           }
         })
       end
-      # update the email and nickname to match the user since generate_nickname() is used if isProf
 
+      # update the email and nickname to match the user since generate_nickname() is used if isProf
       @user.provider = params[:tool_consumer_info_product_family_code]
       session_cache(:nickname, @user.username)
       session_cache(:email, @user.email)
 
+      #save user information
       unless @user.save
         respond_to do |format|
           format.json { render json: @user.errors.full_messages, status: :unprocessable_entity } && return
@@ -130,6 +131,7 @@ module Lti
 
       @resources = tool.resource_type.split(",")
 
+      #finished setting up launch, redirect to post_launch
       self.send(:post_launch)
     end
 
@@ -149,7 +151,7 @@ module Lti
       @resource = session_cache(:resourcelink_title).gsub(/\s/,'-')
       session[:user_id] = @user.id
 
-      #redirect_to meeting_room_url(resource: 'rooms', id: @user.encrypted_id)
+      #redirect_to meeting_room_url if opened, else wait for the prof
       if isProf?
         @@path = "#{root_url}rooms/#{@user.encrypted_id}/#{@resource}"
         redirect_to @@path

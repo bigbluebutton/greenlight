@@ -24,6 +24,7 @@ module Lti
 
       filtered_capabilities = tcp.capability_offered.select { |cap| OPTIONAL_PARAMETERS.include?(cap) || cap.include?('placements') }.uniq
 
+      #get a list of resources and capabilities
       @resources = AVAILABLE_RESOURCES
       @capabilities = filtered_capabilities.each_with_object({placements: [], parameters: []}) do |cap, hash|
         unless filter_out.include?(cap)
@@ -64,9 +65,11 @@ module Lti
         actions = [*JSON.parse("{\"a\":#{v['actions']}}")['a']]
         IMS::LTI::Models::RestServiceProfile.new(service: v['id'], action: actions)
       end
+      #Set the tool settings, proxy and profile for registration
       tool_settings = (params['tool_settings'].present? && JSON.parse(params['tool_settings'])) || nil
       tool_proxy = @registration.tool_proxy
       tool_profile = tool_proxy.tool_profile
+      #Fix of the tool profile base url, now correctly matches root.url
       tool_profile.base_url_choice.find{ |choice| choice.default_message_url != '' }.default_base_url = root_url.chop
 
       add_reregistration_handler!(@registration, tool_profile)
@@ -82,6 +85,7 @@ module Lti
       # set the single resource handler profile
       tool_proxy.tool_profile.resource_handler = [rh]
 
+      #update the registration and the redirect to submit_proxy
       @registration.update(tool_proxy_json: tool_proxy.to_json)
       redirect_to lti_submit_proxy_path(@registration.id)
     end
