@@ -219,6 +219,7 @@ module Lti
         raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:insufficient_launch_info) unless params[:roles]
         session_cache(:membership_role, params[:roles])
         set_session_person
+        tool = RailsLti2Provider::Tool.create!(uuid: ENV['GREENLIGHT_KEY'], shared_secret:ENV['GREENLIGHT_SECRET'], lti_version: 'LTI-1p0', tool_settings:'none', resource_link_id: 'a')
       else
         session_cache(:resourcelink_title, params[:custom_resourcelink_title])
         session_cache(:resourcelink_description, params[:custom_resourcelink_description])
@@ -229,14 +230,16 @@ module Lti
         session_cache(:last_name, params[:custom_person_name_family])
         session_cache(:nickname, isProf? ? generate_nickname(params[:custom_person_name_full]) : params[:custom_person_name_full])
       end
-
-      tool = RailsLti2Provider::Tool.create!(uuid: ENV['GREENLIGHT_KEY'], shared_secret:ENV['GREENLIGHT_SECRET'], lti_version: 'LTI-1p0', tool_settings:'none', resource_link_id: 'a')
+      puts "OUATHCONSUMERKEY"
+      puts request.request_parameters['oauth_consumer_key']
       tool = RailsLti2Provider::Tool.find_by(uuid: request.request_parameters['oauth_consumer_key'])
+      puts tool.uuid
       tool.resource_link_id = params[:resource_link_id]
       tool.resource_type = 'Room'
       tool.save!
       raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:keypair_not_found) unless tool
       lti_authentication(tool)
+      puts @lti_launch.tool_id
       session_cache(:tool_id, @lti_launch.tool_id)
     end
 
