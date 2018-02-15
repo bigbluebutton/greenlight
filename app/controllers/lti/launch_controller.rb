@@ -293,10 +293,10 @@ module Lti
     end
 
     def set_20_params
+      #sets paramaters for lti 2.0 launches
       if params[:tool_consumer_info_product_family_code] == "moodle"
         session_cache(:user_id, params[:custom_user_id])
       end
-
       if params[:tool_consumer_info_product_family_code] == "canvas"
         session_cache(:resource_link_id, Digest::SHA1.hexdigest(params[:custom_context_id] + params[:resource_link_id]))
       end

@@ -27,7 +27,7 @@
           <%= yield %>
         </div>
         <%= yield :footer %>
-        <% if !from_lti? %>
+        <% if !only_lti? %>
           <div class="help-link">
             <%= link_to t('help'), 'http://bigbluebutton.org/videos/', target: '_blank' %>
             <% if current_user %>

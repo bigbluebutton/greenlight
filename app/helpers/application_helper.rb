@@ -103,7 +103,7 @@ module ApplicationHelper
 
   def set_version_tag
     @app_version_tag = ''
-    @app_version_tag +=  'CastleBN v' + "#{APP_VERSION}"
+    @app_version_tag +=  'GreenlightBN v' + "#{APP_VERSION}"
     @app_version_tag += ', build-' + ENV['BUILD_DIGEST'] if ENV.has_key?('BUILD_DIGEST')
     @app_version_tag += ', released on ' + ENV['BUILD_TIMESTAMP'] if ENV.has_key?('BUILD_TIMESTAMP')
   end
@@ -141,9 +141,12 @@ module ApplicationHelper
   end
 
   def from_lti?
-    # ignore lti keys management page
     controller_path != 'lti' &&
     ((request.referrer && !request.referrer.include?('admin/lti') && request.referrer.include?('lti')) || request.original_fullpath.include?('lti'))
+  end
+
+  def only_lti?
+    return ENV['GREENLIGHT_ONLY_LTI']
   end
 
   def module_name( controller )

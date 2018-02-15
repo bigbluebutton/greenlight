@@ -60,6 +60,7 @@ Rails.application.routes.draw do
 
   get '/guest', to: 'landing#guest', as: :guest
   get '/preferences', to: 'landing#preferences', as: :preferences
+  get '/lti', to: 'landing#ltionly', as: :lti_only
 
   scope "/lti" do
     get 'generate_hex', to: 'lti#generate_hex'

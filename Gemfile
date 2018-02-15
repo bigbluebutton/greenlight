@@ -94,7 +94,7 @@ gem 'faraday'
 gem 'browser'
 
 gem 'rails_12factor'
-gem 'ims-lti', '2.1.2'
+gem 'ims-lti', git: 'https://github.com/blindsidenetworks/ims-lti.git'
 gem 'rails_lti2_provider', git: 'https://github.com/blindsidenetworks/rails_lti2_provider.git'
 gem 'react-rails', '1.5.0'
 gem 'lodash-rails', '~> 3.7.0'

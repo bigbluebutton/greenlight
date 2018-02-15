@@ -94,6 +94,7 @@ en-US:
   footer_html: Powered by %{bbb_link}
   guest_sentence_one_html: GreenLight lets you create and manage %{bbb_link} meetings and recordings.
   guest_sentence_two: To learn more about how GreenLight works, check out the video below!
+  lti_only_sentence_one: Greenlight is currently set to only work when accessed via your LMS. Please attempt to launch Greenlight from there.
   help: Help
   hi_all: Hi Everyone
   home_page: Home page

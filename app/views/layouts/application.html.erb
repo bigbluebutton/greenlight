@@ -44,11 +44,11 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
   </head>
-
   <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>"
     data-resource="<%= params[:resource] %>"
     data-current-user="<%= current_user.try(:encrypted_id) %>"
-    style="background-image:url(<%= image_path(landing_background) if params[:controller] == 'landing' %>);">
+    style="background-image:url(<%= image_path(landing_background) if params[:controller] == 'landing' && (!only_lti? || !current_user) %>);">
+
     <!-- Messages -->
     <div id='alerts'>
       <div class='flash-alerts'>
@@ -66,7 +66,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     <!-- Header -->
     <div class='header'>
       <span class="logo-wrapper pull-left">
-        <% if from_lti? %>
+        <% if only_lti? && current_user%>
           <%= image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo")%>
         <% elsif current_user %>
           <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), meeting_room_path('rooms', User.find(current_user.id).encrypted_id) %>
