@@ -1,24 +1,19 @@
 module Lti
   class LaunchController < ApplicationController
-    layout 'application'
+    layout 'empty'
 
-    #skip_authorization_check
+    skip_authorization_check
     include RailsLti2Provider::ControllerHelpers
 
-    #include AccountsHelper
     include UsersHelper
     include LtiHelper
     include ApplicationHelper
 
-
     skip_before_action :verify_authenticity_token
 
     before_action :log_params
-    # find_account executes before set_session_cache
     before_action :set_referrer_session, :set_session_cache, only: :launch
     after_action :disable_xframe_header
-
-
 
     rescue_from RailsLti2Provider::LtiLaunch::Unauthorized do |ex|
       @error = { key: ex.error,
@@ -137,15 +132,12 @@ module Lti
 
     def post_launch
       sanitize_resource_type
-
       # The LTI key does not have an entry in resource_type; did not select any active resource
       raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:resources_not_found) if session_cache(:launch_type).blank?
-
       tool = RailsLti2Provider::Tool.find(session_cache(:tool_id))
 
       # Verify that this resource is still active
       raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:resource_not_active) if !tool.resource_type.include?(session_cache(:launch_type))
-      #update_usages(tool)
 
       # get the class associated to the resource type in the tool and get the record
       @resource = session_cache(:resourcelink_title).gsub(/\s/,'-')
@@ -219,7 +211,7 @@ module Lti
         raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:insufficient_launch_info) unless params[:roles]
         session_cache(:membership_role, params[:roles])
         set_session_person
-        tool = RailsLti2Provider::Tool.create!(uuid: ENV['GREENLIGHT_KEY'], shared_secret:ENV['GREENLIGHT_SECRET'], lti_version: 'LTI-1p0', tool_settings:'none', resource_link_id: 'a')
+        tool = RailsLti2Provider::Tool.create!(uuid: Rails.configuration.greenlight_key, shared_secret:Rails.configuration.greenlight_secret, lti_version: 'LTI-1p0', tool_settings:'none', resource_link_id: 'a')
       else
         session_cache(:resourcelink_title, params[:custom_resourcelink_title])
         session_cache(:resourcelink_description, params[:custom_resourcelink_description])

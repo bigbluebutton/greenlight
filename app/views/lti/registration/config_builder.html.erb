@@ -1,11 +1,28 @@
 <div class="container">
-  <div class="row">
-  <h2><b>Configure LTI 1 Provider</b>
-    <%= button_tag 'Close', class: 'pull-right btn btn-default btn-sm', onclick: 'window.close()' %></h2>
+  <div class="ltiheader">
+    <div id="config_logo">
+      <%= image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo")%>
+    </div>
+    <div id="config_header">
+      <h2><b>LTI 2 Configuration</b></h2>
+    </div>
+    <div id="config_back">
+      <a href="<%=root_url%>" class="button">Home</a>
+    </div>
+  </div>
+  <p>Paste this url into your tool consumer to register this tool:</p>
+  <pre class="pre-scrollable" ><%= lti_tool_registration_url%></pre>
+  <div class="ltiheader">
+    <div id="config_logo">
+      <%= image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo")%>
+    </div>
+    <div id="config_header">
+      <h2><b>Configure LTI 1 Provider</b></h2>
+    </div>
   </div>
   <div>
-    <p><strong>Consumer Key: 'key'</strong></p>
-    <p><strong>Consumer Secret: 'secret'</strong></p>
+    <p><strong>Consumer Key: '<%=Rails.configuration.greenlight_key%>'</strong></p>
+    <p><strong>Consumer Secret: '<%=Rails.configuration.greenlight_secret%>'</strong></p>
   </div>
   <% if ["sakai", "d2l", "blackboard"].include?(params[:platform]) %>
   <h3>Launch URL</h3>
@@ -42,7 +59,7 @@
      <button class="btn btn-default btn-sm" onclick="$('input:checkbox').prop('checked', false)">Uncheck All</button>
      <div id="placements">
      <% @placements.each do |p| %>
-       <div class="checkbox">
+       <div class="checkbox" id="labeled">
          <label>
            <input type="checkbox" value="true" name="<%= p[:key] %>">
            <%= p[:name] %>

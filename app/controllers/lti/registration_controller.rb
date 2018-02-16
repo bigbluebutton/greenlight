@@ -1,16 +1,12 @@
 module Lti
   class RegistrationController < ApplicationController
-    #layout 'empty'
     layout 'application'
 
     include RailsLti2Provider::ControllerHelpers
-    #include AccountsHelper
     include LtiHelper
 
     skip_authorization_check
-    #before_action :registration_request, only: :register
     protect_from_forgery except: :save_capabilities
-    #before_action :find_account, only: [:register, :save_capabilities]
     after_action :disable_xframe_header
 
     def register

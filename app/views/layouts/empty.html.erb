@@ -1,30 +1,60 @@
+<!--
+BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+Copyright (c) 2016 BigBlueButton Inc. and by respective authors (see below).
+This program is free software; you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the Free Software
+Foundation; either version 3.0 of the License, or (at your option) any later
+version.
+
+BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+You should have received a copy of the GNU Lesser General Public License along
+with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+-->
+
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="turbolinks-cache-control" content="no-cache">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GreenlightBN</title>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <title>Greenlight</title>
+    <%= csrf_meta_tags %>
 
-  <!-- Main css styles -->
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <script type="text/javascript">
-    window.I18n = <%= current_locale.to_json.html_safe %>
-  </script>
+    <% if relative_root != '/b' %>
+      <script src="https://use.fontawesome.com/5ec1c77c7b.js"></script>
+    <% else %>
+      <%= stylesheet_link_tag  'fa/gl-fa', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <% end %>
 
-  <!-- Main javascript files -->
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body class="gray-bg">
+    <!-- Global javascript variables and helpers -->
+    <script type="text/javascript">
+      window.I18n = <%= client_translations.to_json.html_safe %>
+      window.GreenLight = {};
+      window.GreenLight.WEBSOCKET_HOST = "<%= ENV['WEBSOCKET_HOST'] %>"
+      window.GreenLight.RELATIVE_ROOT = "<%= relative_root %>"
+      window.GreenLight.META_LISTED = "<%= BbbApi::META_LISTED %>";
+      window.GreenLight.META_TOKEN = "<%= BbbApi::META_TOKEN %>";
+      window.GreenLight.META_HOOK_URL = "<%= BbbApi::META_HOOK_URL %>";
+      window.GreenLight.user = {};
+      window.GreenLight.user.roomOwner = <%= is_room_owner %>;
+    </script>
 
-  <!-- Main view  -->
-  <%= yield %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  </head>
+  <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>"
+    data-resource="<%= params[:resource] %>"
+    data-current-user="<%= current_user.try(:encrypted_id) %>">
 
-  <!-- Include javascript per-view -->
-  <!-- For demo purpose we include javascript in view but you can easily start SeedProject and organize it with Rails asset pipeline as you want -->
-  <%= yield :javascript %>
+    <%= yield %>
 
-</body>
+    <!-- Footer -->
+    <div class='footer text-center'>
+      <%= t('footer_html', bbb_link: link_to('BigBlueButton', 'http://bigbluebutton.org/', target: "_blank")) %>.<br><br>
+    </div>
+    <!-- End of Footer -->
+
+  </body>
 </html>
