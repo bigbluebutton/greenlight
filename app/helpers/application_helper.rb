@@ -67,77 +67,12 @@ module ApplicationHelper
     params[:controller] == controller_name ? "active" : nil
   end
 
-  def is_active_action(action_name)
-    params[:action] == action_name ? "active" : nil
-  end
-
-  def random_password(length)
-    o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
-    password = (0...length).map { o[rand(o.length)] }.join
-    return password
-  end
-
-  def generate_secret
-    random = Random.new
-    return random.bytes(16).unpack("H*")[0]
-  end
-
-  def generate_bbb_endpoint(account_code, region_id, scheme='http')
-    region = Region.find(region_id)
-    if !region.code? || !region.endpoint?
-      nil
-    else
-      scheme + '://' + account_code + '.api.' + region.code + '.' + region.endpoint + '/bigbluebutton/api'
-    end
-  end
-
-  def set_current_user
-    if sadmin_signed_in?
-      @current_user = current_sadmin
-    elsif user_signed_in?
-      @current_user = current_user
-    else
-      @current_user = nil
-    end
-  end
-
-  def set_version_tag
-    @app_version_tag = ''
-    @app_version_tag +=  'GreenlightBN v' + "#{APP_VERSION}"
-    @app_version_tag += ', build-' + ENV['BUILD_DIGEST'] if ENV.has_key?('BUILD_DIGEST')
-    @app_version_tag += ', released on ' + ENV['BUILD_TIMESTAMP'] if ENV.has_key?('BUILD_TIMESTAMP')
-  end
-
-  def current_person
-    if sadmin_signed_in?
-      current_sadmin
-    elsif user_signed_in?
-      current_user
-    else
-      User.new
-    end
-  end
-
-  def current_account
-    # As this helper is also called from outside the RailsApp, when debugging use Rails.logger.info
-    account = Accounts.new(request).current_account
-    account || raise(ActiveRecord::RecordNotFound)
-  end
-
   def custom_authentication
     unless from_lti?
       if !current_user
         authenticate_user!
       end
     end
-  end
-
-  def current_locale
-    # init backend if necessary
-    I18n.backend.send(:init_translations) unless I18n.backend.initialized?
-
-    @locale ||= I18n.backend.send(:translations)
-    return @locale[I18n.locale].with_indifferent_access
   end
 
   def from_lti?
@@ -148,11 +83,6 @@ module ApplicationHelper
   def only_lti?
     return true if Rails.configuration.only_lti
     return false
-  end
-
-  def module_name( controller )
-    controller_elements = controller.split('/')
-    controller_elements[0].capitalize
   end
 
   CAP_TO_DESCRIPTIONS = {

@@ -45,66 +45,6 @@ module LtiHelper
     end
   end
 
-  def resolve_lti_layout
-    if request.referrer.nil? && request.original_fullpath.include?('lti') && !session[:from_launch] && current_user && !params[:launch_id]
-      redirect_to request.original_fullpath.gsub('/lti/', '/admin/') and return
-    elsif !request.original_fullpath.include?('lti') && current_user
-      session[:from_launch] = nil
-      "application"
-    else
-      "lti"
-    end
-  end
-  def lti_view_check
-    disable_xframe_header if request.original_fullpath.include?('lti')
-  end
-
-  # lti_ability() custom ability loading for authorization with LTI resources
-  # Ex.
-  #  Call using delegate on can?, cannot?, authorize! to: lti_ability
-  #    or use as lti_ability.can? etc.
-
-  def lti_ability
-    # for check_authorization to pass
-    @_authorized = true
-    if from_lti?
-      attr = session_cache(:launch_user) unless session_cache(:launch_user).blank?
-      user = User.new(attr)
-      @ability = Ability.new(user)
-    else
-      current_ability
-    end
-  end
-
-  # user_role?(sym) retrieves the role of the LTI resource user depending on
-  #   whether the launch is from the LTI or console context
-  # sym is one of :sadmin, :admin, :manager, :member
-
-  def user_role?(role)
-    if user_signed_in? && !from_lti?
-      # only signed in users can be sadmin
-      if role == :sadmin
-        current_user.is_a?(Sadmin)
-      else
-        current_user.send("is_#{role}?")
-      end
-    elsif from_lti?
-      attr = session_cache(:launch_user) unless session_cache(:launch_user).blank?
-      User.new(attr).send("is_#{role}?")
-    else
-      false
-    end
-  end
-
-  def verify_launch_session
-    if !params[:launch_id].blank? && Rails.cache.read(params[:launch_id]+"/session") != session.id
-      @error = { key: :session_expired, message: I18n.t('errors.general.launch_expired')}
-      disable_xframe_header if defined? disable_xframe_header
-      render('lti/launch/_error', layout: 'empty') and return
-    end
-  end
-
-
   # Generates a unique nickname for the user
   # Given fullname="First Middle-Name Last" => firstmnlast[some_random_hex]
   def generate_nickname(fullname)

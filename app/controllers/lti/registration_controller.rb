@@ -121,15 +121,6 @@ module Lti
     end
 
     private
-    def find_account
-      # Find the associated account for registration
-      #@account = get_account_by_url(params['tc_profile_url'])
-      #if @account.nil?
-      #  @error = I18n.t('lti.errors.account_not_found')
-      #  disable_xframe_header
-      #  render 'save_capabilities', layout: 'empty' and return
-      #end
-    end
 
     def get_consumer_profile
       reg_request = IMS::LTI::Models::Messages::Message.generate(params.except(:controller, :action))
@@ -146,28 +137,6 @@ module Lti
         IMS::LTI::Models::Parameter.new(name: var.downcase.gsub('.','_'), variable: var)
       end
       parameters
-    end
-
-    def set_resource_handler(offered_resources, resources)
-
-      if resources.length > 1 && (resources.keys - AVAILABLE_RESOURCES.keys).empty?
-        # use the generic resource handler and supply all resource types in the code
-        # if the launch has more than one accessible resource
-        offered_resources.each do |res|
-          @selected = res if res.resource_type.code == "generic"
-        end
-        @selected.resource_type.code = resources.keys.join(",")
-        return @selected
-      else
-        offered_resources.each do |res|
-          return res if res.resource_type.code == resources.keys.first
-        end
-      end
-
-      # user probably tampered with the resource type
-      @error = I18n.t('lti.errors.bad_resource')
-      disable_xframe_header
-      render 'save_capabilities', layout: 'empty' and return
     end
   end
 end

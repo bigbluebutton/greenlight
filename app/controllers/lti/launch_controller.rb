@@ -161,41 +161,6 @@ module Lti
     end
 
     private
-    def update_usages(tool)
-      tool_data = tool.usage
-      # construct general resource entry if necessary
-      unless tool_data['General']
-        tool_data['General'] = { 'all_users' => session_cache(:nickname), 'uses' => 1 }
-      else
-        tool_data['General']['uses'] += 1
-
-        users = tool_data['General']['all_users'].split(",")
-        unless users.include? session_cache(:nickname)
-          tool_data['General']['all_users'] = (users << session_cache(:nickname)).join(',')
-        end
-      end
-
-      # construct new user resource entry if necessary
-      unless tool_data[session_cache(:resource_link_id)]
-        tool_data[session_cache(:resource_link_id)] = { 'users' => {}, 'resource_type' => session_cache(:launch_type) }
-      end
-
-      # construct new user data entry if necessary
-      unless tool_data[session_cache(:resource_link_id)]['users'][session_cache(:user_id)]
-        tool_data[session_cache(:resource_link_id)]['users'][session_cache(:user_id)] = {
-          first: session_cache(:first_name),
-          last: session_cache(:last_name),
-          email: session_cache(:email),
-          uses: 1,
-          last_login: DateTime.now.to_date.to_s
-        }
-      else
-        tool_data[session_cache(:resource_link_id)]['users'][session_cache(:user_id)]['uses'] += 1
-        tool_data[session_cache(:resource_link_id)]['users'][session_cache(:user_id)]['last_login'] = DateTime.now.to_date.to_s
-      end
-
-      tool.update_attributes(usage: tool_data, origin: @_respondent_url)
-    end
 
     def set_session_cache
       session_cache(:user_id, params[:user_id])
@@ -305,11 +270,6 @@ module Lti
         sanitized_type = tool.resource_type if AVAILABLE_RESOURCES.keys.include?(tool.resource_type)
       end
       session_cache(:launch_type, sanitized_type)
-    end
-
-    def initial_launch?(tool)
-      # there is no usage data if the launch has not been setup
-      return tool.usage[session_cache(:resource_link_id)].nil?
     end
 
     def log_params
