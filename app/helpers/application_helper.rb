@@ -58,7 +58,7 @@ module ApplicationHelper
   def log_hash(h)
     log_div("*", 100)
     h.sort.map do |key, value|
-      logger.info "#{key}: " + value
+      logger.info "#{key}: " + "#{value}"
     end
     log_div("*", 100)
   end
