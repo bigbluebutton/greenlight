@@ -30,7 +30,6 @@ class LandingController < ApplicationController
 
   def resource
     disable_xframe_header
-    puts current_user
     if Rails.configuration.only_lti && current_user == nil
       redirect_to lti_only_path
     elsif Rails.configuration.disable_guest_access && params[:resource] == 'meetings'

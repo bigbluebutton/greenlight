@@ -146,7 +146,8 @@ module ApplicationHelper
   end
 
   def only_lti?
-    return ENV['GREENLIGHT_ONLY_LTI']
+    return true if Rails.configuration.only_lti
+    return false
   end
 
   def module_name( controller )

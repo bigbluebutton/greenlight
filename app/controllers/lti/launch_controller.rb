@@ -222,16 +222,12 @@ module Lti
         session_cache(:last_name, params[:custom_person_name_family])
         session_cache(:nickname, isProf? ? generate_nickname(params[:custom_person_name_full]) : params[:custom_person_name_full])
       end
-      puts "OUATHCONSUMERKEY"
-      puts request.request_parameters['oauth_consumer_key']
       tool = RailsLti2Provider::Tool.find_by(uuid: request.request_parameters['oauth_consumer_key'])
-      puts tool.uuid
       tool.resource_link_id = params[:resource_link_id]
       tool.resource_type = 'Room'
       tool.save!
       raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:keypair_not_found) unless tool
       lti_authentication(tool)
-      puts @lti_launch.tool_id
       session_cache(:tool_id, @lti_launch.tool_id)
     end
 

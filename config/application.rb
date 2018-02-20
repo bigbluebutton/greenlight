@@ -45,7 +45,7 @@ module Greenlight
 
     config.greenlight_key = ENV['GREENLIGHT_KEY'] || "key"
     config.greenlight_secret = ENV['GREENLIGHT_SECRET'] || "secret"
-    config.only_lti = ENV['GREENLIGHT_ONLY_LTI'] || "false"
+    config.only_lti = ENV['GREENLIGHT_ONLY_LTI'] &&  ENV['GREENLIGHT_ONLY_LTI'] == "true"
 
     # Greelight specific
     config.use_webhooks = ENV['GREENLIGHT_USE_WEBHOOKS'] && ENV['GREENLIGHT_USE_WEBHOOKS'] == "true"
