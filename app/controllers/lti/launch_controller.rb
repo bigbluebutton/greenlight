@@ -105,20 +105,16 @@ module Lti
       @user.provider = params[:tool_consumer_info_product_family_code]
       session_cache(:nickname, @user.username)
       session_cache(:email, @user.email)
-
-      #save user information
       unless @user.save
         respond_to do |format|
           format.json { render json: @user.errors.full_messages, status: :unprocessable_entity } && return
         end
       end
       # store basic user information for authorization
-      session_cache(:launch_user, @user.attributes.slice("id", "uid", "account_id"))
+      session_cache(:launch_user, @user.attributes.slice("id", "uid"))
       tool = RailsLti2Provider::Tool.find(session_cache(:tool_id))
-
       @resources = tool.resource_type.split(",")
 
-      #finished setting up launch, redirect to post_launch
       self.send(:post_launch)
     end
 
@@ -127,7 +123,6 @@ module Lti
       # The LTI key does not have an entry in resource_type; did not select any active resource
       raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:resources_not_found) if session_cache(:launch_type).blank?
       tool = RailsLti2Provider::Tool.find(session_cache(:tool_id))
-
       # Verify that this resource is still active
       raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:resource_not_active) if !tool.resource_type.include?(session_cache(:launch_type))
 
@@ -136,15 +131,11 @@ module Lti
       session[:user_id] = @user.id
 
       #redirect_to meeting_room_url if opened, else wait for the prof
-      if isProf?
-        @@path = "#{root_url}rooms/#{@user.encrypted_id}/#{@resource}"
+      @@path = "#{root_url}rooms/#{@user.encrypted_id}/#{@resource}" if isProf?
+      if defined? @@path
         redirect_to @@path
       else
-        if defined? @@path
-          redirect_to @@path
-        else
-          render 'errors/not_created'
-        end
+        render 'errors/not_created'
       end
     end
 
@@ -233,16 +224,9 @@ module Lti
     end
 
     def sanitize_resource_type
-      if params[:type]
-        sanitized_type = params[:type] if AVAILABLE_RESOURCES.keys.include?(params[:type])
-      elsif !session_cache(:launch_type).blank?
-        type = session_cache(:launch_type)
-        sanitized_type = type if AVAILABLE_RESOURCES.keys.include?(type)
-      else
-        tool = RailsLti2Provider::Tool.find(session_cache(:tool_id))
-        # performing a single launch
-        sanitized_type = tool.resource_type if AVAILABLE_RESOURCES.keys.include?(tool.resource_type)
-      end
+      tool = RailsLti2Provider::Tool.find(session_cache(:tool_id))
+      # performing a single launch
+      sanitized_type = tool.resource_type if AVAILABLE_RESOURCES.keys.include?(tool.resource_type)
       session_cache(:launch_type, sanitized_type)
     end
 

@@ -42,25 +42,22 @@ module Lti
       key = ActiveSupport::KeyGenerator.new('password').generate_key(Rails.application.secrets.secret_key_base, 32)
       crypt = ActiveSupport::MessageEncryptor.new(key)
       decrypted_pw = crypt.decrypt_and_verify(params['reg_password'])
-
       params['reg_password'] = decrypted_pw
 
       registration_request
+      lti_authentication if reregistration?
 
-      if reregistration?
-        lti_authentication
-      end
       @registration.save!
       # Update capabilities
       parameters = params['variable_parameters'] ? params['variable_parameters'].select { |_, v| v['enabled'] } : {}
       placements = params['placements'] ? params['placements'].select { |_, v| v['enabled'] } : {}
       resources = params['resources'] ? params['resources'].select { |_, v| v['enabled'] } : {}
-      services = params['service'] ? params['service'].select { |_, v| v['enabled'] } : {}
-      tool_services = services.map do |_, v|
+      #services = params['service'] ? params['service'].select { |_, v| v['enabled'] } : {}
+      #tool_services = services.map do |_, v|
         #The JSON could be a single element or an array, we want to force it to an array
-        actions = [*JSON.parse("{\"a\":#{v['actions']}}")['a']]
-        IMS::LTI::Models::RestServiceProfile.new(service: v['id'], action: actions)
-      end
+      #  actions = [*JSON.parse("{\"a\":#{v['actions']}}")['a']]
+      #  IMS::LTI::Models::RestServiceProfile.new(service: v['id'], action: actions)
+      #end
       #Set the tool settings, proxy and profile for registration
       tool_settings = (params['tool_settings'].present? && JSON.parse(params['tool_settings'])) || nil
       tool_proxy = @registration.tool_proxy
@@ -69,7 +66,7 @@ module Lti
       tool_profile.base_url_choice.find{ |choice| choice.default_message_url != '' }.default_base_url = root_url.chop
 
       add_reregistration_handler!(@registration, tool_profile)
-      tool_proxy.security_contract.tool_service = tool_services if tool_services.present?
+      #tool_proxy.security_contract.tool_service = tool_services if tool_services.present?
       # make changes to settings to resource handler
       rh = tool_profile.resource_handler.first
       mh = rh.message.first
