@@ -101,7 +101,6 @@ module Lti
           }
         })
       end
-
       # update the email and nickname to match the user since generate_nickname() is used if isProf
       @user.provider = params[:tool_consumer_info_product_family_code]
       session_cache(:nickname, @user.username)
@@ -115,14 +114,7 @@ module Lti
       end
       # store basic user information for authorization
       session_cache(:launch_user, @user.attributes.slice("id", "uid", "account_id"))
-
       tool = RailsLti2Provider::Tool.find(session_cache(:tool_id))
-
-      # link the resource id to the tool(keypair) if new
-      resource_ids = tool.resource_link_id.split(",")
-      unless resource_ids.include?(session_cache(:resource_link_id))
-        tool.update(resource_link_id: resource_ids.push(session_cache(:resource_link_id)).join(","))
-      end
 
       @resources = tool.resource_type.split(",")
 
@@ -171,12 +163,13 @@ module Lti
         # build lti launch session data based on what the lms has supplied
         session_cache(:resourcelink_title, params[:resource_link_title])
         session_cache(:resourcelink_description, params[:resource_link_description])
-
         # roles are required for lti resources
         raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:insufficient_launch_info) unless params[:roles]
         session_cache(:membership_role, params[:roles])
         set_session_person
-        tool = RailsLti2Provider::Tool.create!(uuid: Rails.configuration.greenlight_key, shared_secret:Rails.configuration.greenlight_secret, lti_version: 'LTI-1p0', tool_settings:'none', resource_link_id: 'a')
+        secret = Rails.configuration.greenlight_secret
+        tool = RailsLti2Provider::Tool.create!(uuid: Rails.configuration.greenlight_key, shared_secret: secret, lti_version: 'LTI-1p0', tool_settings:'none')
+        tool.save!
       else
         session_cache(:resourcelink_title, params[:custom_resourcelink_title])
         session_cache(:resourcelink_description, params[:custom_resourcelink_description])
@@ -188,11 +181,12 @@ module Lti
         session_cache(:nickname, isProf? ? generate_nickname(params[:custom_person_name_full]) : params[:custom_person_name_full])
       end
       tool = RailsLti2Provider::Tool.find_by(uuid: request.request_parameters['oauth_consumer_key'])
-      tool.resource_link_id = params[:resource_link_id]
+      tool.shared_secret = secret if session_cache(:lti_version) == LTI_10
       tool.resource_type = 'Room'
       tool.save!
       raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:keypair_not_found) unless tool
       lti_authentication(tool)
+
       session_cache(:tool_id, @lti_launch.tool_id)
     end
 
@@ -216,45 +210,25 @@ module Lti
       # since this is the first set_session to be called
       @launch_id = Digest::SHA1.hexdigest(params[:oauth_nonce])
 
-      # edX? (edX does not send a family code) stores the referrer in the first portion of the resource_link_id
-      if params[:launch_presentation_return_url].blank? && params[:resource_link_id].match(/^.+?(?=-)/)
-        session_cache(:referrer, params[:resource_link_id].match(/^.+?(?=-)/) ? params[:resource_link_id].match(/^.+?(?=-)/)[0] : nil)
-      else
-        session_cache(:referrer, request.referrer.nil? ? params[:launch_presentation_return_url] : request.referrer)
-      end
+      session_cache(:referrer, request.referrer.nil? ? params[:launch_presentation_return_url] : request.referrer)
+
     end
 
     # set product specific settings to the cache
     def set_product_params
-      session_cache(:resource_link_id, params[:resource_link_id])
-
-      if ["moodle", "Blackboard Learn", "desire2learn", "canvas"].include? params[:tool_consumer_info_product_family_code]
-        session_cache(:resource_link_id, Digest::SHA1.hexdigest(params[:tool_consumer_instance_guid] + params[:resource_link_id]))
-      end
 
       if params[:lti_version] == LTI_20
-        set_20_params
+        #sets paramaters for lti 2.0 launches
+        if params[:tool_consumer_info_product_family_code] == "moodle"
+          session_cache(:user_id, params[:custom_user_id])
+        end
       else
         # needs to be a better way to identify if the consumer is edX
-        if params[:launch_presentation_return_url].blank? && params[:resource_link_id].match(/^.+?(?=-)/)
-          session_cache(:resource_link_id, Digest::SHA1.hexdigest(params[:resource_link_id]))
+        if params[:launch_presentation_return_url].blank?
           # username is stored in sourcedid
           session_cache(:first_name, params[:lis_person_sourcedid])
         end
 
-        if params[:tool_consumer_info_product_family_code] == "sakai"
-          session_cache(:resource_link_id, Digest::SHA1.hexdigest(params[:ext_sakai_server] + params[:resource_link_id]))
-        end
-      end
-    end
-
-    def set_20_params
-      #sets paramaters for lti 2.0 launches
-      if params[:tool_consumer_info_product_family_code] == "moodle"
-        session_cache(:user_id, params[:custom_user_id])
-      end
-      if params[:tool_consumer_info_product_family_code] == "canvas"
-        session_cache(:resource_link_id, Digest::SHA1.hexdigest(params[:custom_context_id] + params[:resource_link_id]))
       end
     end
 

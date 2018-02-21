@@ -5,4 +5,4 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-tool = RailsLti2Provider::Tool.create!(uuid: 'key', shared_secret:'secret', lti_version: 'LTI-1p0', tool_settings:'none', resource_link_id: 'a')
+tool = RailsLti2Provider::Tool.create!(uuid: 'key', shared_secret:'secret', lti_version: 'LTI-1p0', tool_settings:'none')
