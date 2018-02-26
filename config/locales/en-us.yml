@@ -133,6 +133,7 @@ en-US:
   name: Name
   'no': 'No'
   no_file: You must select a file to upload.
+  not_created_title: This room has not yet been created. If you're a student please wait for your instructor to begin this meeting, and then reload the page
   not_found_title: Sorry we couldn't find that.
   notification_mailer:
     recording_ready_email:
