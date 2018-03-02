@@ -12,6 +12,7 @@ GIT
 GIT
   remote: https://github.com/blindsidenetworks/rails_lti2_provider.git
   revision: 3b6be854155c7289c20a4f688e70db66b2758993
+  ref: 3b6be854155c7289c20a4f688e70db66b2758993
   specs:
     rails_lti2_provider (0.0.1)
       ims-lti
@@ -57,6 +58,7 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    aes_key_wrap (1.0.1)
     arel (7.1.4)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -70,9 +72,9 @@ GEM
       sass (~> 3.2)
     bootstrap-social-rails (4.12.0)
       railties (>= 3.1)
-    browser (2.5.2)
+    browser (2.5.3)
     builder (3.2.3)
-    byebug (9.1.0)
+    byebug (10.0.0)
     cancancan (1.17.0)
     climate_control (0.2.0)
     cocaine (0.5.8)
@@ -99,17 +101,17 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
-    ffi (1.9.18)
-    ffi (1.9.18-java)
-    ffi (1.9.18-x64-mingw32)
-    ffi (1.9.18-x86-mingw32)
+    ffi (1.9.23)
+    ffi (1.9.23-java)
+    ffi (1.9.23-x64-mingw32)
+    ffi (1.9.23-x86-mingw32)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.7)
     http_accept_language (2.1.1)
-    i18n (0.9.4)
+    i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -127,8 +129,9 @@ GEM
       railties (>= 3.2.16)
     json (1.8.6)
     json (1.8.6-java)
-    json-jwt (1.8.3)
+    json-jwt (1.9.2)
       activesupport
+      aes_key_wrap
       bindata
       securecompare
       url_safe_base64
@@ -144,7 +147,7 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.1.1)
+    loofah (2.2.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.0)
@@ -310,9 +313,9 @@ GEM
     turbolinks-source (5.1.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2017.3)
+    tzinfo-data (1.2018.3)
       tzinfo (>= 1.0.0)
-    uglifier (4.1.3)
+    uglifier (4.1.6)
       execjs (>= 0.3.0, < 3)
     url_safe_base64 (0.2.2)
     web-console (3.5.1)
@@ -346,7 +349,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   dotenv-rails
   faraday
-  font-awesome-sass
+  font-awesome-sass (= 4.7.0)
   http_accept_language
   ims-lti!
   jbuilder (~> 2.5)

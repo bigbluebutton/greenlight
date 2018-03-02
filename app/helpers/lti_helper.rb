@@ -5,7 +5,7 @@ module LtiHelper
   LTI_20 = "LTI-2p0"
 
   # LTI2 LAUNCH
-  LTI2_REQUIRED_PARAMETERS = ["Context.id", "ResourceLink.id", "ResourceLink.title", "ResourceLink.description", "User.id", "User.username", "Person.sourcedId", "Person.name.full", "Membership.role", "Person.name.given", "Person.name.family", "Person.email.primary"]
+  LTI2_REQUIRED_PARAMETERS = ["Context.id", "ResourceLink.title", "User.id", "User.username", "Person.sourcedId", "Person.name.full", "Membership.role", "Person.name.given", "Person.name.family", "Person.email.primary"]
 
   OPTIONAL_PARAMETERS = []
 

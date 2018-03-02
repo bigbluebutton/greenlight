@@ -90,7 +90,7 @@ module Lti
         # update the tool with the registration account and resource type
         resource_code = registration.tool_proxy.tool_profile.resource_handler.as_json.first["resource_type"]["code"]
 
-        registration.tool.update(account_id: registration.account_id, resource_type: resource_code)
+        registration.tool.update(resource_type: resource_code)
         redirect_to_consumer(proxy)
       rescue IMS::LTI::Errors::ToolProxyRegistrationError => e
         @error = {
