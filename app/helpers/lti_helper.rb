@@ -7,6 +7,7 @@ module LtiHelper
   # LTI2 LAUNCH
   LTI2_REQUIRED_PARAMETERS = ["Context.id", "ResourceLink.title", "User.id", "User.username", "Person.sourcedId", "Person.name.full", "Membership.role", "Person.name.given", "Person.name.family", "Person.email.primary"]
 
+
   OPTIONAL_PARAMETERS = []
 
   # the name should match the code for the resource_handlers in config/resource_handlers/*.yml

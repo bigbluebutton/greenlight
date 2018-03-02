@@ -13,6 +13,7 @@ GIT
   remote: https://github.com/blindsidenetworks/rails_lti2_provider.git
   revision: 3b6be854155c7289c20a4f688e70db66b2758993
   ref: 3b6be854155c7289c20a4f688e70db66b2758993
+
   specs:
     rails_lti2_provider (0.0.1)
       ims-lti
@@ -75,6 +76,7 @@ GEM
     browser (2.5.3)
     builder (3.2.3)
     byebug (10.0.0)
+
     cancancan (1.17.0)
     climate_control (0.2.0)
     cocaine (0.5.8)
@@ -105,6 +107,7 @@ GEM
     ffi (1.9.23-java)
     ffi (1.9.23-x64-mingw32)
     ffi (1.9.23-x86-mingw32)
+
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
     globalid (0.4.1)
@@ -112,6 +115,7 @@ GEM
     hashie (3.5.7)
     http_accept_language (2.1.1)
     i18n (0.9.5)
+
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -132,6 +136,7 @@ GEM
     json-jwt (1.9.2)
       activesupport
       aes_key_wrap
+
       bindata
       securecompare
       url_safe_base64

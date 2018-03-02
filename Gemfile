@@ -96,6 +96,7 @@ gem 'browser'
 gem 'rails_12factor'
 gem 'ims-lti', git: 'https://github.com/blindsidenetworks/ims-lti.git'
 gem 'rails_lti2_provider', git: 'https://github.com/blindsidenetworks/rails_lti2_provider.git', :ref => '3b6be854155c7289c20a4f688e70db66b2758993'
+
 gem 'react-rails', '1.5.0'
 gem 'lodash-rails', '~> 3.7.0'
 gem 'therubyracer'
