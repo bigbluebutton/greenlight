@@ -23,9 +23,10 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth_hash)
     user = find_or_initialize_by(uid: auth_hash['uid'], provider: auth_hash['provider'])
-    user.username = self.send("#{auth_hash['provider']}_username", auth_hash) rescue nil
-    user.email = self.send("#{auth_hash['provider']}_email", auth_hash) rescue nil
-    user.name = auth_hash['info']['name']
+    user.username = auth_hash['info']['nickname'] rescue nil
+    user.username = self.send("#{auth_hash['provider']}_username", auth_hash) if auth_hash['provider'] == 'google'
+    user.email = auth_hash['info']['email'] rescue nil
+    user.name = auth_hash['info']['name'] rescue nil
     user.token = auth_hash['credentials']['token'] rescue nil
     user.save!
     user
@@ -50,7 +51,7 @@ class User < ApplicationRecord
   def self.ldap_username(auth_hash)
     auth_hash['info']['nickname']
   end
-  
+
   def self.ldap_email(auth_hash)
     auth_hash['info']['email']
   end

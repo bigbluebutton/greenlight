@@ -1,0 +1,19 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-content">
+          <div class="row text-center">
+            <div class="col-sm-12">
+              <h1>Uh Oh :(</h1>
+              <%= @error[:message] %>
+              <br>
+              <br>
+              <span class="text-danger">Error key: <%= @error[:key] %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

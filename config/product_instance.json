@@ -1,0 +1,28 @@
+{
+    "guid": "baf196ff-2707-4ea3-9ad7-713db8e6f740",
+    "product_info": {
+        "product_version": "1.0",
+        "product_name": {
+            "default_value": "Greenlight",
+            "key": "tool.name"
+        },
+        "product_family": {
+            "code": "greenlight-lti2",
+            "vendor": {
+                "code": "blindsidenetworks.com",
+                "vendor_name": {
+                    "default_value": "Blindside Networks",
+                    "key": "tool.vendor.name"
+                },
+                "timestamp": "2017-06-16T9:29:55-05:00"
+            },
+            "description": {
+              "default_value": "Blindside Networks is a company dedicated to helping universities, colleges and commercial companies deliver a high-quality learning experience to remote students. We do this by providing commercial support and hosting for BigBlueButton, an open source web conferencing system for distance education."
+            },
+            "website": "http://www.blindsidenetworks.com/",
+            "contact": {
+              "email": "ffdixon@blindsidenetworks.com"
+            }
+        }
+    }
+}

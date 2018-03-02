@@ -29,6 +29,7 @@ module Greenlight
     # -- all .rb files in that directory are automatically loaded.
 
     config.exceptions_app = self.routes
+    config.autoload_paths += %W(#{config.root}/lib)
 
     # i18n
     # ensure each language has a regional fallback
@@ -41,6 +42,10 @@ module Greenlight
     config.bigbluebutton_secret_default = '8cd8ef52e8e101574e400365b55e11a6'
     config.bigbluebutton_endpoint = ENV['BIGBLUEBUTTON_ENDPOINT']  || config.bigbluebutton_endpoint_default
     config.bigbluebutton_secret = ENV['BIGBLUEBUTTON_SECRET'] || config.bigbluebutton_secret_default
+
+    config.greenlight_key = ENV['GREENLIGHT_KEY'] || "key"
+    config.greenlight_secret = ENV['GREENLIGHT_SECRET'] || "secret"
+    config.only_lti = ENV['GREENLIGHT_ONLY_LTI'] &&  ENV['GREENLIGHT_ONLY_LTI'] == "true"
 
     # Greelight specific
     config.use_webhooks = ENV['GREENLIGHT_USE_WEBHOOKS'] && ENV['GREENLIGHT_USE_WEBHOOKS'] == "true"

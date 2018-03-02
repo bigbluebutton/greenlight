@@ -29,9 +29,10 @@
         <%= yield :footer %>
         <div class="help-link">
           <%= link_to t('help'), 'http://bigbluebutton.org/videos/', target: '_blank' %>
-          <% if current_user %>
+          <% if current_user && !only_lti?%>
             | <%= link_to t('preferences'), preferences_path %>
           <% end %>
+          | <%= link_to t('lti_button'), lti_config_builder_path, target: '_blank' %>
         </div>
       </div>
     </div>

@@ -13,22 +13,21 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<span class="signup">
-  <% if current_user %>
-  <div class="text-center">
-    <% if !only_lti? %>
-      <% if @main_room %>
-        <span><%= t('logged_in_description_html', link: link_to(current_user.name, meeting_room_url(resource: 'rooms', id: current_user.encrypted_id))) %></span>
-      <% else %>
-        <%= link_to(t('return_to_room'), meeting_room_url(resource: 'rooms', id: current_user.encrypted_id)) %>
-      <% end %>
-      <div><%= link_to t('logout'), user_logout_url %></div>
-    <% end %>
-  </div>
-  <% else %>
-    <div class="text-center">
-      <span><%= t('login_description') %></span>
-      <div><%= link_to t('login'), user_login_url %></div>
+<div class="page-wrapper meetings">
+  <div class="container-fluid">
+
+    <div class="center-panel-wrapper">
+        <%= render layout: 'shared/center_panel' do %>
+          <h1 class='text-center'><%= t('welcome_to_greenlight') %></h1>
+          <p class='text-center' style='font-size: 13px;'> <%= t('lti_only_sentence_one')%></p>
+          <p class='text-center' style='font-size: 13px;'> <%= t('guest_sentence_one_html', bbb_link: link_to('BigBlueButton',
+           'http://bigbluebutton.org/', target: "_blank")) %><br><%= t('guest_sentence_two') %></p>
+        <% end %>
+      </div>
+
+    <div class="text-center" style="padding-top:20px;">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/yGX3JCv7OVM" frameborder="0" allowfullscreen></iframe>
     </div>
-  <% end %>
-</span>
+
+  </div>
+</div>

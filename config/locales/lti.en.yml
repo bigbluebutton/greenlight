@@ -1,0 +1,152 @@
+en:
+  lti:
+    errors:
+      bad_launch: "LTI launch failed: "
+      bad_resource: "Bad resource type. The selected resource is unidentifiable"
+
+      insufficient_launch_info: "Missing user identifier parameter."
+      resources_not_found: "No active resources found for this launch."
+      resource_not_active: "This resource is no longer active."
+      account_not_found: "Requester does not have an associated account."
+      requester_url_not_found: "Requester url could not be determined; request referrer is nil."
+      keypair_not_found: "Check if your consumer key is valid and if the key matches the requester account."
+      invalid_signature: "OAuth signature is invalid. Is the secret correct?"
+      invalid_nonce: "Nonce has already been used."
+      request_too_old: "Request is too old."
+      unknown: "Unknown error."
+
+    splash:
+      prof:
+        title: "Greenlight Resource Setup"
+        subtitle: "Select a resource for this launch"
+      student:
+        subtitle: "You're not supposed to be here yet!"
+      labels:
+        disabled: "DISABLED"
+      msgs:
+        unready: "This resource has not been setup."
+
+    registrations:
+      titles:
+        general: "Select capabilities"
+        no_action: "Looks like there are no optional settings to set! Press continue to finish the tool registration."
+      buttons:
+        check: "Check All"
+        uncheck: "Uncheck All"
+        continue: "Continue"
+      labels:
+        placement: "Where would you like this app to appear?"
+        parameter: "Select which variable parameters you would like to pass along with their values"
+        resource: "What Greenlight resources would you like to activate?"
+      headers:
+        state: "Enable?"
+        field_name: "Returned Field Name"
+        variable: "LTI Variable"
+
+
+    rooms:
+      titles:
+        new: "New Room"
+        update: "Update Room"
+        show: "Room Information"
+      buttons:
+        create: "Create"
+        update: "Update"
+        delete: "Delete"
+        enter: "Enter"
+        cancel: "Cancel"
+        close: "Close"
+        updtandrstrt: "Update & Restart"
+        transfer: "I want to transfer room owners."
+      labels:
+        account: "Account"
+        name: "Name"
+        description: "Description"
+        welcome: "Welcome"
+        record: "Record"
+        wait_mod: "Wait for moderator"
+        all_mod: "All moderators"
+        shared: "Shared room"
+        mod_pw: "Moderator password"
+        view_pw: "Viewer password"
+      tooltips:
+        refresh: "Refresh"
+        edit: "Edit"
+        playback: "Playback"
+        welcome: "Welcome message is added to the chat"
+        record: "The session may be recorded"
+        wait_mod: "Viewers are unable to join until a moderator joins"
+        all_mod: "All users join as moderators"
+        shared: "The room may be shared within external landing pages"
+      recordings:
+        titles:
+          delete: "Confirm Delete"
+          show: "Recordings"
+        headers:
+          recording: "Recording"
+          preview: "Preview"
+          activity: "Activity"
+          description: "Description"
+          date: "Date"
+          duration: "Duration"
+          actions: "Actions"
+        msgs:
+          confirmation: "You are about to delete one recording, this procedure is irreversible. Do you want to proceed?"
+          disabled: "Recordings exist for this room, but the recordings module has been disabled."
+          published_only: "Only for published recordings."
+      msgs:
+        transfer: "You will no longer be able to manage the room if you transfer ownership."
+        unauthorized: "You need to sign in to use this room."
+        session_closed: "Warning: The session is over, but the window could not be close automatically. It is necessary to close it manually."
+        not_found: "The owner has not created a room."
+        not_saved:
+          one: "1 error prohibited this %{resource} from being saved:"
+          other: "%{count} errors prohibited this %{resource} from being saved:"
+      js_msgs:
+        no_users: "There are no users in this session."
+        in_progress: "A session in this room is in progress."
+        active_unauthorized: " But only elevated users can enter right now."
+        active_authorized: " You can enter right now."
+        unauthorized: "Room is ready, but only elevated users can enter right now."
+        authorized: "Room is ready to enter"
+        mods_in:
+          one: "There is <b>%{count}</b> moderator"
+          other: "There are <b>%{count}</b> moderators"
+        views_in:
+          one: "There is <b>%{count}</b> viewer"
+          other: "There are <b>%{count}</b> viewers"
+        attendees_in:
+          one: " and <b>%{count}</b> viewer."
+          other: " and <b>%{count}</b> viewers."
+        started_at: "This session started at <b>%{time}</b>"
+        running_for: " and has been running for "
+        prompt_restart: "A session restart is required to apply this change if you already have a session running."
+        bad_publish: "Failed to change publish state: %{error}"
+        error: "An error occured while fetching room information.<br><br>error key: %{error}"
+
+    assignments:
+      titles:
+        new: "New Assignment"
+        update: "Update Assignment"
+        show: "Assignment Information"
+      buttons:
+        create: "Create"
+        update: "Update"
+        delete: "Delete"
+        enter: "Enter"
+        cancel: "Cancel"
+        close: "Close"
+        updtandrstrt: "Update & Restart"
+      labels:
+        account: "Account"
+        name: "Name"
+        description: "Description"
+      tooltips:
+        refresh: "Refresh"
+        edit: "Edit"
+      msgs:
+        unauthorized: "You need to sign in to use this assignment."
+        not_found: "The owner has not completed configuration."
+        not_saved:
+          one: "1 error prohibited this %{resource} from being saved:"
+          other: "%{count} errors prohibited this %{resource} from being saved:"

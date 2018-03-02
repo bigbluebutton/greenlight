@@ -116,6 +116,8 @@ en-US:
   login_description: Want to record a meeting?
   login_greenlight: Login to GreenLight
   logout: logout
+  lti_only_sentence_one: Greenlight is currently set to only work when accessed via your LMS. Please attempt to launch Greenlight from there.
+  lti_button: LTI
   meeting: Meeting
   meeting_invite:
     explanation: Send an email with an invitation to this meeting

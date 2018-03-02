@@ -15,15 +15,24 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class LandingController < ApplicationController
+  include RailsLti2Provider::ControllerHelpers
   include BbbApi
+  include ApplicationHelper
 
   def index
     # If guest access is disabled, redirect the user to the guest landing and force login.
-    redirect_to guest_path if Rails.configuration.disable_guest_access
+    if Rails.configuration.only_lti
+      redirect_to lti_only_path
+    elsif Rails.configuration.disable_guest_access
+      redirect_to guest_path
+    end
   end
 
   def resource
-    if Rails.configuration.disable_guest_access && params[:resource] == 'meetings'
+    disable_xframe_header
+    if Rails.configuration.only_lti && current_user == nil
+      redirect_to lti_only_path
+    elsif Rails.configuration.disable_guest_access && params[:resource] == 'meetings'
       redirect_to guest_path
     else
       if params[:id].size > meeting_name_limit
@@ -44,7 +53,13 @@ class LandingController < ApplicationController
     # If someone tries to access the guest landing when guest access is enabled, just send them to root.
     redirect_to root_url unless Rails.configuration.disable_guest_access
   end
-  
+
+  def ltionly
+    # If someone tries to access the guest landing when guest access is enabled, just send them to root.
+    redirect_to root_url unless Rails.configuration.only_lti
+  end
+
+
   # Sends data on meetings that the current user has previously joined.
   def get_previous_meeting_statuses
     previously_joined = params[:previously_joined]
@@ -72,7 +87,7 @@ class LandingController < ApplicationController
           payload[:active] << {name: m[:meetingName], moderators: moderators, participants: participants}
         end
       end
-    end  
+    end
     # Add the waiting meetings.
     payload[:waiting] = WaitingList.waiting[current_user[:encrypted_id]] || {}
     render json: payload

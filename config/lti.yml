@@ -1,0 +1,8 @@
+development:
+  product_instance_guid: baf196ff-2707-4ea3-9ad7-713db8e6f740
+
+test:
+  product_instance_guid: e5a89d02-1f4e-403f-b866-fa1f6cc7a672
+
+production:
+  product_instance_guid: 3b2ca97-f432-4a72-8458-71057aec4f48

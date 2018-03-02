@@ -46,4 +46,57 @@ module ApplicationHelper
   def omniauth_login_url(provider)
     "#{relative_root}/auth/#{provider}"
   end
+
+  def log_div(seed, n)
+    div = seed
+    for i in 1..n
+      div += seed
+    end
+    logger.info div
+  end
+
+  def log_hash(h)
+    log_div("*", 100)
+    h.sort.map do |key, value|
+      logger.info "#{key}: " + "#{value}"
+    end
+    log_div("*", 100)
+  end
+
+  def is_active_controller(controller_name)
+    params[:controller] == controller_name ? "active" : nil
+  end
+
+  def custom_authentication
+    unless from_lti?
+      if !current_user
+        authenticate_user!
+      end
+    end
+  end
+
+  def from_lti?
+    controller_path != 'lti' &&
+    ((request.referrer && !request.referrer.include?('admin/lti') && request.referrer.include?('lti')) || request.original_fullpath.include?('lti'))
+  end
+
+  def only_lti?
+    return true if Rails.configuration.only_lti
+    return false
+  end
+
+  CAP_TO_DESCRIPTIONS = {
+    'accountNavigation' => 'Account Navigation',
+    'courseNavigation' => 'Course Navigation',
+    'assignmentSelection' => 'Assignment Selection',
+    'linkSelection' => 'Link Selection'
+  }
+
+  def display_cap(cap)
+    if CAP_TO_DESCRIPTIONS.keys.include? cap
+      CAP_TO_DESCRIPTIONS[cap]
+    else
+      cap
+    end
+  end
 end
