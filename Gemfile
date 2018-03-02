@@ -82,7 +82,7 @@ gem 'http_accept_language'
 gem 'slack-notifier'
 
 # For landing background image uploading.
-gem 'paperclip', '~> 4.2'
+gem 'paperclip', '~> 5.1'
 
 # For uploading recordings to Youtube.
 gem 'yt', '~> 0.28.0'
