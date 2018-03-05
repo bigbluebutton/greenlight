@@ -89,6 +89,8 @@ module Lti
 
     def launch
       #Get the user attempting launch
+      puts "NICKNAME?"
+      puts  session_cache(:nickname)
       @user = User.where(email: session_cache(:email)).first
       if @user
         @user.update(uid: session_cache(:user_id))
@@ -104,7 +106,6 @@ module Lti
         })
       end
       # update the email and nickname to match the user since generate_nickname() is used if isProf
-      @user.provider = params[:tool_consumer_info_product_family_code]
       session_cache(:nickname, @user.username)
       session_cache(:email, @user.email)
       unless @user.save
@@ -129,11 +130,12 @@ module Lti
       raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:resource_not_active) if !tool.resource_type.include?(session_cache(:launch_type))
 
       # get the class associated to the resource type in the tool and get the record
-      @resource = session_cache(:resourcelink_title).gsub(/\s/,'-')
+      @resource = session_cache(:resourcelink_title) ? session_cache(:resourcelink_title).gsub(/\s/,'-') : session_cache(:resourcelink_id)
       session[:user_id] = @user.id
-
+      puts @resource
       #redirect_to meeting_room_url if opened, else wait for the prof
       path = "#{root_url}rooms/#{@user.encrypted_id}/#{@resource}"
+      puts path
       if isProf?
         @@paths << path unless @@paths.include? path
       end
@@ -158,7 +160,6 @@ module Lti
       session_cache(:user_id, params[:user_id])
       session_cache(:lti_version, params[:lti_version])
       set_product_params
-
       if session_cache(:lti_version) == LTI_10
         # build lti launch session data based on what the lms has supplied
         session_cache(:resourcelink_title, params[:resource_link_title])
@@ -171,6 +172,7 @@ module Lti
         tool = RailsLti2Provider::Tool.create!(uuid: Rails.configuration.greenlight_key, shared_secret: secret, lti_version: 'LTI-1p0', tool_settings:'none')
         tool.save!
       else
+        session_cache(:resourcelink_id, params[:resource_link_id])
         session_cache(:resourcelink_title, params[:custom_resourcelink_title])
         session_cache(:resourcelink_description, params[:custom_resourcelink_description])
         session_cache(:membership_role, params[:custom_membership_role])
