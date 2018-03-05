@@ -89,8 +89,7 @@ module Lti
 
     def launch
       #Get the user attempting launch
-      puts "NICKNAME?"
-      puts  session_cache(:nickname)
+
       @user = User.where(email: session_cache(:email)).first
       if @user
         @user.update(uid: session_cache(:user_id))
@@ -132,10 +131,8 @@ module Lti
       # get the class associated to the resource type in the tool and get the record
       @resource = session_cache(:resourcelink_title) ? session_cache(:resourcelink_title).gsub(/\s/,'-') : session_cache(:resourcelink_id)
       session[:user_id] = @user.id
-      puts @resource
       #redirect_to meeting_room_url if opened, else wait for the prof
       path = "#{root_url}rooms/#{@user.encrypted_id}/#{@resource}"
-      puts path
       if isProf?
         @@paths << path unless @@paths.include? path
       end
