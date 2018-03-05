@@ -15,8 +15,8 @@ ADD . $APP_HOME
 
 # Install app dependencies
 RUN bundle install --without development test doc --deployment --clean
-#RUN bundle exec rake db:migrate
-#RUN bundle exec rake db:reset DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+# RUN bundle exec rake db:migrate
+# RUN bundle exec rake db:reset DISABLE_DATABASE_ENVIRONMENT_CHECK=1
 RUN bundle exec rake assets:precompile --trace
 
 CMD ["scripts/default_start.sh"]

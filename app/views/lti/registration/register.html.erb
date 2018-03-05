@@ -17,7 +17,6 @@
       <strong><%= t('lti.registrations.labels.resource') %></strong>
     </div>
     <div class="ibox ibox-content">
-    <!--
     <% @resources.each do |name, _| %>
       <div class="checkbox">
         <label>
@@ -26,9 +25,57 @@
         </label>
       </div>
     <% end %>
-  -->
     </div>
 
+    <% if @capabilities[:placements].length > 0 %>
+    <div class="ibox-title">
+      <strong><%= t 'lti.registrations.labels.placement' %></strong>
+    </div>
+    <div class="ibox ibox-content">
+    <% @capabilities[:placements].each do |cap| %>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="true" name="placements[Canvas.placements.<%= cap %>][enabled]">
+          <%= display_cap(cap) %>
+        </label>
+      </div>
+    <% end %>
+    </div>
+    <% end %>
+
+    <% if @capabilities[:parameters].length > 0 %>
+    <div id="parameters">
+    <div class="ibox-title">
+      <strong><%= t 'lti.registrations.labels.parameter' %></strong>
+    </div>
+    <div class="ibox-content">
+    <table class="table table-condensed" style="background-color: white;">
+      <thead>
+      <tr>
+        <th class="text-center"><%= t 'lti.registrations.headers.state' %></th>
+        <th><%= t 'lti.registrations.headers.field_name' %></th>
+        <th><%= t 'lti.registrations.headers.variable' %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @capabilities[:parameters].each do |cap| %>
+        <tr>
+          <td class="text-center" style="line-height: 2.2;">
+            <label style="display: block;">
+              <input type="checkbox" value="true" name="variable_parameters[<%= cap %>][enabled]"/>
+            </label>
+          </td>
+          <td>
+            <p class="form-static"><%= cap.downcase.gsub('.', '_') %></p>
+          </td>
+          <td style="line-height: 2.2;"><%= cap %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    </div>
+    </div>
+    <% end %>
     <div style="padding-top: 15px; margin-top: 15px; border-top: 1px solid #DDDDDD;">
       <input type="submit" class="btn btn-primary" value="<%= t 'lti.registrations.buttons.continue' %>">
     </div>
