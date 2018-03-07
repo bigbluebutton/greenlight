@@ -15,25 +15,42 @@
 
 <div class="center-panel">
   <div class="row">
-    <div class="center-block center-panel-size col-xs-12">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <% if bigbluebutton_endpoint_default? %>
-          <div class="panel-alert alert alert-danger"><%= t('warning_bigbluebutton_endpoint_default') %></div>
-          <% end %>
-          <h3 class="title-wrapper text-center">
-            <%= yield :title %>
-          </h3>
-          <%= yield %>
-        </div>
-        <%= yield :footer %>
-        <div class="help-link">
-          <%= link_to t('help'), 'http://bigbluebutton.org/videos/', target: '_blank' %>
-          <% if current_user && !only_lti?%>
-            | <%= link_to t('preferences'), preferences_path %>
-          <% end %>
+    <% if(!only_lti? && !from_lti?) %>
+      <div class="center-block center-panel-size col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <% if bigbluebutton_endpoint_default? %>
+            <div class="panel-alert alert alert-danger"><%= t('warning_bigbluebutton_endpoint_default') %></div>
+            <% end %>
+            <h3 class="title-wrapper text-center">
+              <%= yield :title %>
+            </h3>
+            <%= yield %>
+          </div>
+          <%= yield :footer %>
+          <div class="help-link">
+            <%= link_to t('help'), 'http://bigbluebutton.org/videos/', target: '_blank' %>
+            <% if current_user %>
+              | <%= link_to t('preferences'), preferences_path %>
+            <% end %>
+          </div>
         </div>
       </div>
-    </div>
+    <% else %>
+      <div class="center-block center-panel-size col-xs-12">
+        <div class="ltiheader">
+          <div id="config_logo">
+            <%= image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo")%>
+          </div>
+          <div id="room_name">
+            <h3 class="title-wrapper text-center">
+              <%= yield :title %>
+            </h3>
+          </div>
+        </div>
+        <%= yield %>
+        <%= yield :footer %>
+      </div>
+    <% end %>
   </div>
 </div>

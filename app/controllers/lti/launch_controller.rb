@@ -1,6 +1,6 @@
 module Lti
   class LaunchController < ApplicationController
-    layout 'empty'
+    layout 'lti'
 
     skip_authorization_check
     include RailsLti2Provider::ControllerHelpers
@@ -42,7 +42,7 @@ module Lti
                                                     I18n.t('lti.errors.unknown')
                                                 end }
       disable_xframe_header
-      render 'lti/launch/_error', layout: "empty"
+      render 'lti/launch/_error', layout: "lti"
     end
 
     def config_builder
@@ -132,7 +132,7 @@ module Lti
       @resource = session_cache(:resourcelink_title) ? session_cache(:resourcelink_title).gsub(/\s/,'-') : session_cache(:resourcelink_id)
       session[:user_id] = @user.id
       #redirect_to meeting_room_url if opened, else wait for the prof
-      path = "#{root_url}rooms/#{@user.encrypted_id}/#{@resource}"
+      path = "#{root_url}lti/rooms/#{@user.encrypted_id}/#{@resource}"
       if isProf?
         @@paths << path unless @@paths.include? path
       end

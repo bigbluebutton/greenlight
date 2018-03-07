@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   # There are two resources [meetings|rooms]
   # meetings offer a landing page for NON authenticated users to create and join session in BigBlueButton
   # rooms offer a customized landing page for authenticated users to create and join session in BigBlueButton
-  scope '/:resource', constraints: {resource: /meetings|rooms/} do
+  scope '(/lti)/:resource', constraints: {resource: /meetings|rooms/} do
     disallow_slash = /[^\/]+/ # override the constraint to allow '.' and disallow '/'
     # room specific routes
     scope '/:room_id', :constraints => {:room_id => disallow_slash} do
@@ -51,10 +51,14 @@ Rails.application.routes.draw do
       get '/:id/session_status_refresh', to: 'landing#session_status_refresh', :constraints => {:id => disallow_slash}
     end
     post '/:room_id/:id/callback', to: 'bbb#callback', :constraints => {:id => disallow_slash, :room_id => disallow_slash}
-
+    get '/:room_id/:id/close', to: 'landing#close', :constraints => {:id => disallow_slash, :room_id => disallow_slash}
     # routes shared between meetings and rooms
     post '/(:room_id)/statuses', to: 'landing#get_previous_meeting_statuses'
     get '/(:room_id)/:id/join', to: 'bbb#join', defaults: {room_id: nil, format: 'json'}, :constraints => {:id => disallow_slash, :room_id => disallow_slash}
+    get '/(:room_id)/:id', to: 'landing#resource', as: :lti_room, defaults: {room_id: nil}, :constraints => {:id => disallow_slash, :room_id => disallow_slash}
+  end
+  scope '/:resource', constraints: {resource: /meetings|rooms/} do
+    disallow_slash = /[^\/]+/ # override the constraint to allow '.' and disallow '/'
     get '/(:room_id)/:id', to: 'landing#resource', as: :meeting_room, defaults: {room_id: nil}, :constraints => {:id => disallow_slash, :room_id => disallow_slash}
   end
 

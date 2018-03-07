@@ -127,6 +127,13 @@ class @Meeting
     @modJoined = modJoined
     return this
 
+  getLTI: ->
+    return @fromLTI
+
+  setLTI: (fromLTI) ->
+    @fromLTI = fromLTI
+    return this
+
   getWaitingForMod: ->
     return @waitingForMod
 

@@ -12,23 +12,13 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
+<script type="text/javascript">
+  function CloseWin()
+  {
+    window.close();
+  }
+</script>
 
-<span class="signup">
-  <% if current_user %>
-  <div class="text-center">
-    <% if !only_lti? && !from_lti?%>
-      <% if @main_room %>
-        <span><%= t('logged_in_description_html', link: link_to(current_user.name, meeting_room_url(resource: 'rooms', id: current_user.encrypted_id))) %></span>
-      <% else %>
-        <%= link_to(t('return_to_room'), meeting_room_url(resource: 'rooms', id: current_user.encrypted_id)) %>
-      <% end %>
-      <div><%= link_to t('logout'), user_logout_url %></div>
-    <% end %>
-  </div>
-  <% else %>
-    <div class="text-center">
-      <span><%= t('login_description') %></span>
-      <div><%= link_to t('login'), user_login_url %></div>
-    </div>
-  <% end %>
-</span>
+<body onLoad="CloseWin()">
+
+</body>

@@ -50,8 +50,10 @@
     // setup event handlers
     $('.center-panel-wrapper').on ('click', '.meeting-join', function () {
       var name = $('.meeting-user-name').val();
+      var lti = $('.meeting-lti').val();
       Meeting.getInstance().setUserName(name);
       Meeting.getInstance().setMeetingId($(".page-wrapper").data('id'));
+      Meeting.getInstance().setLTI(lti);
 
       // a user name is set, join the user into the session
       if (name !== undefined && name !== null) {
@@ -61,7 +63,12 @@
             if (data.messageKey === 'wait_for_moderator') {
               waitForModerator(Meeting.getInstance().getURL());
             } else if (data.messageKey === 'ok') {
-              $(location).attr("href", data.response.join_url);
+              if (lti === "true"){
+                window.open(data.response.join_url);
+                window.location.reload();
+              } else {
+                $(location).attr("href", data.response.join_url);
+              }
             }
           });
           jqxhr.fail(function() {
@@ -82,6 +89,14 @@
     });
 
     $('.center-panel-wrapper').on ('input', '.meeting-user-name', function () {
+      if ($(this).val() === '') {
+        $(this).parent().addClass('has-error')
+      } else {
+        $(this).parent().removeClass('has-error')
+      }
+    });
+
+    $('.center-panel-wrapper').on ('input', '.meeting-lti', function () {
       if ($(this).val() === '') {
         $(this).parent().addClass('has-error')
       } else {

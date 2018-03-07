@@ -22,11 +22,17 @@ $.ajaxSetup({
 
 var loopJoin = function() {
   var jqxhr = Meeting.getInstance().getJoinMeetingResponse();
+  var lti = Meeting.getInstance().getLTI();
   jqxhr.done(function(data) {
     if (data.messageKey === 'wait_for_moderator') {
       setTimeout(loopJoin, 5000);
     } else {
-      $(location).attr("href", data.response.join_url);
+      if (lti === "true"){
+        window.open(data.response.join_url);
+        window.location.reload();
+      } else {
+        $(location).attr("href", data.response.join_url);
+      }
     }
   });
   jqxhr.fail(function(xhr, status, error) {

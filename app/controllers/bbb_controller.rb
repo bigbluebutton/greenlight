@@ -16,6 +16,7 @@
 
 class BbbController < ApplicationController
   include BbbApi
+  include ApplicationHelper
 
   before_action :authorize_recording_owner!, only: [:update_recordings, :delete_recordings]
   before_action :load_and_authorize_room_owner!, only: [:end]
@@ -78,7 +79,8 @@ class BbbController < ApplicationController
       end
 
       base_url = "#{request.base_url}#{relative_root}/#{params[:resource]}/#{meeting_path}"
-      options[:meeting_logout_url] = base_url
+      options[:meeting_logout_url] = "#{base_url}"
+      options[:meeting_logout_url] = "#{base_url}/close" if from_lti?
       options[:hook_url] = "#{base_url}/callback"
       options[:moderator_message] = t('moderator_default_message', url: "<a href=\"#{base_url}\" target=\"_blank\"><u>#{base_url}</u></a>")
 
@@ -111,6 +113,7 @@ class BbbController < ApplicationController
   def callback
     # respond with 200 anyway so BigBlueButton knows the hook call was ok
     # but abort execution
+
     head(:ok) && return unless validate_checksum
 
     begin
@@ -294,7 +297,7 @@ class BbbController < ApplicationController
       else
         logger.error "Bad format for event #{event}, won't process"
       end
-    elsif eventName == "meeting_created_message" || eventName == "MeetingCreatedEvtMsg" 
+    elsif eventName == "meeting_created_message" || eventName == "MeetingCreatedEvtMsg"
       # Fire an Actioncable event that updates _previously_joined for the client.
       actioncable_event('create')
     elsif eventName == "meeting_destroyed_event" || eventName == "MeetingEndedEvtMsg"
