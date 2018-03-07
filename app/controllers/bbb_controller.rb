@@ -113,7 +113,6 @@ class BbbController < ApplicationController
   def callback
     # respond with 200 anyway so BigBlueButton knows the hook call was ok
     # but abort execution
-
     head(:ok) && return unless validate_checksum
 
     begin

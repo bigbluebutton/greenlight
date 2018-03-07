@@ -89,7 +89,6 @@ module Lti
 
     def launch
       #Get the user attempting launch
-
       @user = User.where(email: session_cache(:email)).first
       if @user
         @user.update(uid: session_cache(:user_id))
