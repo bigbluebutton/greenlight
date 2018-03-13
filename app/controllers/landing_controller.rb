@@ -155,11 +155,12 @@ class LandingController < ApplicationController
       @user.user_room_id = @user.encrypted_id
       @user.save
     end
-    @room_id = @user.user_room_id
     if @user.nil?
       redirect_to root_path
       return
     end
+    @room_id = @user.user_room_id
+
     if @user.encrypted_id != params[:id]
       @meeting_id = params[:id].strip
     end
