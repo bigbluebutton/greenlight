@@ -20,7 +20,8 @@ user1:
   provider: twitter
   uid: <%= SecureRandom.hex(10) %>
   username: user1
-  encrypted_id: u2-<%= SecureRandom.hex(8) %>
+  encrypted_id: &eid1 u2-<%= SecureRandom.hex(8) %>
+  user_room_id: *eid1
   name: User 1
   email: user1@email.com
 
@@ -28,6 +29,7 @@ user2:
   provider: google
   uid: <%= SecureRandom.hex(10) %>
   username: user2
-  encrypted_id: u1-<%= SecureRandom.hex(8) %>
+  encrypted_id: &eid2 u1-<%= SecureRandom.hex(8) %>
+  user_room_id: *eid2
   name: User 2
   email: user2@email.com
