@@ -217,7 +217,6 @@ module Lti
 
     # set product specific settings to the cache
     def set_product_params
-
       if params[:lti_version] == LTI_20
         #sets paramaters for lti 2.0 launches
         if params[:tool_consumer_info_product_family_code] == "moodle"
@@ -229,7 +228,6 @@ module Lti
           # username is stored in sourcedid
           session_cache(:first_name, params[:lis_person_sourcedid])
         end
-
       end
     end
 

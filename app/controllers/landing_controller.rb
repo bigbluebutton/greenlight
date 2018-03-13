@@ -92,7 +92,7 @@ class LandingController < ApplicationController
     payload[:waiting] = WaitingList.waiting[current_user[:encrypted_id]] || {}
     render json: payload
   end
- 
+
   def wait_for_moderator
     WaitingList.add(params[:room_id], params[:name], params[:id])
     send_alert(params, 'waiting')
@@ -150,19 +150,16 @@ class LandingController < ApplicationController
     params[:action] = 'rooms'
     if from_lti?
       @user = User.find_by(user_room_id: params[:room_id] || params[:id])
-      @room_id = params[:room_id]
     else
       @user = User.find_by(encrypted_id: params[:room_id] || params[:id])
       @user.user_room_id = @user.encrypted_id
       @user.save
-      @room_id = @user.user_room_id
-
     end
+    @room_id = @user.user_room_id
     if @user.nil?
       redirect_to root_path
       return
     end
-
     if @user.encrypted_id != params[:id]
       @meeting_id = params[:id].strip
     end
