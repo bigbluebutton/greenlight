@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20170928183010) do
     t.datetime "updated_at",                              null: false
     t.string   "username"
     t.string   "encrypted_id",                            null: false
+    t.string   "user_room_id"
     t.string   "email"
     t.string   "background_file_name"
     t.string   "background_content_type"
@@ -32,6 +33,7 @@ ActiveRecord::Schema.define(version: 20170928183010) do
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["provider"], name: "index_users_on_provider"
     t.index ["uid"], name: "index_users_on_uid"
+    t.index ["user_room_id"], name: "index_users_on_user_room_id"
   end
 
   create_table "rails_lti2_provider_lti_launches", force: :cascade do |t|

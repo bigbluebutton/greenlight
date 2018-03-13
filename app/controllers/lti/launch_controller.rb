@@ -106,6 +106,7 @@ module Lti
       # update the email and nickname to match the user since generate_nickname() is used if isProf
       session_cache(:nickname, @user.username)
       session_cache(:email, @user.email)
+      @user.user_room_id = session_cache(:context_title) if isProf?
       unless @user.save
         respond_to do |format|
           format.json { render json: @user.errors.full_messages, status: :unprocessable_entity } && return
@@ -128,10 +129,10 @@ module Lti
       raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:resource_not_active) if !tool.resource_type.include?(session_cache(:launch_type))
 
       # get the class associated to the resource type in the tool and get the record
-      @resource = session_cache(:resourcelink_title) ? session_cache(:resourcelink_title).gsub(/\s/,'-') : session_cache(:resourcelink_id)
+      @resource = session_cache(:resourcelink_title) ? session_cache(:resourcelink_title).gsub(/\s/,'-') : "#{session_cache(:context_title)} Room"
       session[:user_id] = @user.id
       #redirect_to meeting_room_url if opened, else wait for the prof
-      path = "#{root_url}lti/rooms/#{@user.encrypted_id}/#{@resource}"
+      path = "#{root_url}lti/rooms/#{@user.user_room_id}/#{@resource}"
       if isProf?
         @@paths << path unless @@paths.include? path
       end
@@ -160,6 +161,8 @@ module Lti
         # build lti launch session data based on what the lms has supplied
         session_cache(:resourcelink_title, params[:resource_link_title])
         session_cache(:resourcelink_description, params[:resource_link_description])
+        session_cache(:context_title, params[:context_title])
+
         # roles are required for lti resources
         raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:insufficient_launch_info) unless params[:roles]
         session_cache(:membership_role, params[:roles])
@@ -172,7 +175,7 @@ module Lti
         session_cache(:resourcelink_title, params[:custom_resourcelink_title])
         session_cache(:resourcelink_description, params[:custom_resourcelink_description])
         session_cache(:membership_role, params[:custom_membership_role])
-
+        session_cache(:context_title, params[:custom_context_title])
         session_cache(:email, params[:custom_person_email_primary])
         session_cache(:first_name, params[:custom_person_name_given])
         session_cache(:last_name, params[:custom_person_name_family])
@@ -233,7 +236,7 @@ module Lti
     def sanitize_resource_type
       tool = RailsLti2Provider::Tool.find(session_cache(:tool_id))
       # performing a single launch
-      sanitized_type = tool.resource_type if AVAILABLE_RESOURCES.keys.include?(tool.resource_type)
+      sanitized_type = tool.resource_type
       session_cache(:launch_type, sanitized_type)
     end
 

@@ -60,5 +60,6 @@ class User < ApplicationRecord
 
   def set_encrypted_id
     self.encrypted_id = "#{username[0..1]}-#{Digest::SHA1.hexdigest(uid+provider)[0..7]}"
+    self.user_room_id = self.encrypted_id
   end
 end

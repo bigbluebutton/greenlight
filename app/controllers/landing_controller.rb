@@ -68,7 +68,7 @@ class LandingController < ApplicationController
     # Find meetings that are owned by the current user and also active.
     active_meetings.each do |m|
       if m[:metadata].has_key?(:'room-id')
-        if previously_joined.include?(m[:meetingName])&& m[:metadata][:'room-id'] == current_user[:encrypted_id]
+        if previously_joined.include?(m[:meetingName])&& m[:metadata][:'room-id'] == current_user[:user_room_id]
           if m[:attendees] == {}
             attendees = []
           else
@@ -92,7 +92,7 @@ class LandingController < ApplicationController
     payload[:waiting] = WaitingList.waiting[current_user[:encrypted_id]] || {}
     render json: payload
   end
-
+ 
   def wait_for_moderator
     WaitingList.add(params[:room_id], params[:name], params[:id])
     send_alert(params, 'waiting')
@@ -105,13 +105,13 @@ class LandingController < ApplicationController
   end
 
   def session_status_refresh
-    @user = User.find_by(encrypted_id: params[:room_id])
+    @user = User.find_by(user_room_id: params[:room_id])
     if @user.nil?
       render head(:not_found) && return
     end
 
     @meeting_id = params[:id]
-    @meeting_running = bbb_get_meeting_info("#{@user.encrypted_id}-#{params[:id]}")[:returncode]
+    @meeting_running = bbb_get_meeting_info("#{@user.user_room_id}-#{params[:id]}")[:returncode]
 
     render layout: false
   end
@@ -148,8 +148,16 @@ class LandingController < ApplicationController
 
   def render_room
     params[:action] = 'rooms'
+    if from_lti?
+      @user = User.find_by(user_room_id: params[:room_id] || params[:id])
+      @room_id = params[:room_id]
+    else
+      @user = User.find_by(encrypted_id: params[:room_id] || params[:id])
+      @user.user_room_id = @user.encrypted_id
+      @user.save
+      @room_id = @user.user_room_id
 
-    @user = User.find_by(encrypted_id: params[:room_id] || params[:id])
+    end
     if @user.nil?
       redirect_to root_path
       return
@@ -158,8 +166,8 @@ class LandingController < ApplicationController
     if @user.encrypted_id != params[:id]
       @meeting_id = params[:id].strip
     end
-    @meeting_running = bbb_get_meeting_info("#{@user.encrypted_id}-#{@meeting_id}")[:returncode]
-    @main_room = @meeting_id.blank? || @meeting_id == @user.encrypted_id
+    @meeting_running = bbb_get_meeting_info("#{@user.user_room_id}-#{@meeting_id}")[:returncode]
+    @main_room = @meeting_id.blank? || @meeting_id == @user.user_room_id
 
     render :action => 'rooms'
   end

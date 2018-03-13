@@ -47,7 +47,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
   <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>"
     data-resource="<%= params[:resource] %>"
     data-current-user="<%= current_user.try(:encrypted_id) %>"
-    style="background-image:url(<%= image_path(landing_background) if params[:controller] == 'landing' && ((!only_lti? && !from_lti?) || !current_user) %>);">
+    style="background-image:url(<%= image_path(landing_background) if params[:controller] == 'landing' && (!only_lti? && !from_lti?) %>);">
     <!-- Messages -->
     <div id='alerts'>
       <div class='flash-alerts'>
@@ -63,7 +63,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     </div>
 
     <!-- Header -->
-    <% if (!only_lti? && !from_lti?) || !current_user%>
+    <% if (!only_lti? && !from_lti?)%>
       <div class='header'>
         <span class="logo-wrapper pull-left">
           <% if current_user %>

@@ -5,14 +5,11 @@ module LtiHelper
   LTI_20 = "LTI-2p0"
 
   # LTI2 LAUNCH
-  LTI2_REQUIRED_PARAMETERS = ["Context.id", "ResourceLink.id", "ResourceLink.title", "ResourceLink.description", "User.id", "User.username", "Person.sourcedId", "Person.name.full", "Membership.role", "Person.name.given", "Person.name.family", "Person.email.primary"]
+  LTI2_REQUIRED_PARAMETERS = ["Context.id", "Context.title", "ResourceLink.id", "ResourceLink.title", "ResourceLink.description", "User.id", "User.username", "Person.sourcedId", "Person.name.full", "Membership.role", "Person.name.given", "Person.name.family", "Person.email.primary"]
 
 
   OPTIONAL_PARAMETERS = []
 
-  # the name should match the code for the resource_handlers in config/resource_handlers/*.yml
-  AVAILABLE_RESOURCES =  {"Room" => { :opt => OPTIONAL_PARAMETERS },
-                          "Assignment" => { :opt => OPTIONAL_PARAMETERS }}
 
   # LTI1 PARAMETER PROFILES
   LTI1_RECOMMENDED_PARAMETERS = ["lis_person_name_full", "lis_person_name_given", "lis_person_name_family"]

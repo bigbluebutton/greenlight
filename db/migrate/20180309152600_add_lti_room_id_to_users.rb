@@ -14,17 +14,9 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-class JoinMeetingJob < ApplicationJob
-  queue_as :default
-
-def perform(user, meeting, base_url)
-
-    join_message = I18n.t('slack.meeting_join', user: user.name, meeting: meeting) + "(#{base_url})"
-    formatted = Slack::Notifier::Util::LinkFormatter.format(join_message)
-    Rails.configuration.slack_notifier.ping formatted if !Rails.configuration.slack_notifier.nil?
-
-    ActionCable.server.broadcast "#{user.user_room_id}-#{meeting}_meeting_updates_channel",
-      action: 'moderator_joined',
-      moderator: 'joined'
+class AddLtiRoomIdToUsers < ActiveRecord::Migration[5.0]
+  def change
+    add_column :users, :user_room_id, :string
+    add_index :users, :user_room_id
   end
 end

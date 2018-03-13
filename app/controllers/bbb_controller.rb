@@ -46,7 +46,8 @@ class BbbController < ApplicationController
       )
     else
       if params[:room_id]
-        user = User.find_by encrypted_id: params[:room_id]
+        user = User.find_by user_room_id: params[:room_id]
+
         if !user
           return render_bbb_response(
             messageKey: "not_found",
@@ -78,7 +79,12 @@ class BbbController < ApplicationController
         }
       end
 
-      base_url = "#{request.base_url}#{relative_root}/#{params[:resource]}/#{meeting_path}"
+      if from_lti?
+        base_url = "#{request.base_url}#{relative_root}/lti/#{params[:resource]}/#{meeting_path}"
+      else
+        base_url = "#{request.base_url}#{relative_root}/#{params[:resource]}/#{meeting_path}"
+      end
+
       options[:meeting_logout_url] = "#{base_url}"
       options[:meeting_logout_url] = "#{base_url}/close" if from_lti?
       options[:hook_url] = "#{base_url}/callback"
@@ -130,10 +136,10 @@ class BbbController < ApplicationController
   # DELETE /rooms/:room_id/:id/end
   def end
     load_and_authorize_room_owner!
+    bbb_res = bbb_end_meeting "#{@user.user_room_id}-#{params[:id]}"
 
-    bbb_res = bbb_end_meeting "#{@user.encrypted_id}-#{params[:id]}"
     if bbb_res[:returncode] || bbb_res[:status] == :not_found
-      EndMeetingJob.perform_later(@user.encrypted_id, params[:id])
+      EndMeetingJob.perform_later(@user.user_room_id, params[:id])
       bbb_res[:status] = :ok
     end
     render_bbb_response bbb_res
@@ -143,9 +149,8 @@ class BbbController < ApplicationController
   # GET /rooms/:room_id/:id/recordings
   def recordings
     load_room!
-
     # bbb_res = bbb_get_recordings "#{@user.encrypted_id}-#{params[:id]}"
-    options = { "meta_room-id": @user.encrypted_id }
+    options = { "meta_room-id": @user.user_room_id }
     if params[:id]
       options["meta_meeting-name"] = params[:id]
     end
@@ -160,7 +165,7 @@ class BbbController < ApplicationController
     metadata = params.select{ |k, v| k.match(/^meta_/) }
     bbb_res = bbb_update_recordings(params[:record_id], published, metadata)
     if bbb_res[:returncode]
-      RecordingUpdatesJob.perform_later(@user.encrypted_id, params[:record_id])
+      RecordingUpdatesJob.perform_later(@user.user_room_id, params[:record_id])
     end
     render_bbb_response bbb_res
   end
@@ -171,7 +176,7 @@ class BbbController < ApplicationController
     recording = bbb_get_recordings({recordID: params[:record_id]})[:recordings].first
     bbb_res = bbb_delete_recordings(params[:record_id])
     if bbb_res[:returncode]
-      RecordingDeletesJob.perform_later(@user.encrypted_id, params[:record_id], recording[:metadata][:"meeting-name"])
+      RecordingDeletesJob.perform_later(@user.user_room_id, params[:record_id], recording[:metadata][:"meeting-name"])
     end
     render_bbb_response bbb_res
   end
@@ -225,7 +230,7 @@ class BbbController < ApplicationController
   private
 
   def load_room!
-    @user = User.find_by encrypted_id: params[:room_id]
+    @user = User.find_by user_room_id: params[:room_id]
     if !@user
       render head(:not_found) && return
     end

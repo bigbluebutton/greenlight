@@ -65,7 +65,6 @@
             } else if (data.messageKey === 'ok') {
               if (lti === "true"){
                 window.open(data.response.join_url);
-                window.location.reload();
               } else {
                 $(location).attr("href", data.response.join_url);
               }
