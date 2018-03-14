@@ -1,4 +1,5 @@
 module LtiHelper
+  @@paths = [] unless defined? @@paths
 
   # LTI VERSIONS
   LTI_10 = "LTI-1p0"
@@ -87,5 +88,20 @@ module LtiHelper
     session_cache(:email, "#{Digest::SHA1.hexdigest(params[:user_id])}@nomail") if !lis_params.include?("email_primary")
     session_cache(:first_name, !lis_params.include?("person_sourcedid") ? session_cache(:nickname) : params[:lis_person_sourcedid]) if !lis_params.include?("name_given")
     session_cache(:last_name, "User") if !lis_params.include?("name_family")
+  end
+
+  def get_paths
+    return @@paths
+  end
+
+  def set_paths(paths)
+    @@paths = paths
+  end
+
+  def check_paths(user)
+    path = "#{root_url}lti/rooms/#{user.user_room_id}"
+    @@paths.each do |room_path|
+      @@paths.delete(room_path) if room_path.include? path
+    end
   end
 end

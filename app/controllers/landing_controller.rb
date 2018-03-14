@@ -18,6 +18,7 @@ class LandingController < ApplicationController
   include RailsLti2Provider::ControllerHelpers
   include BbbApi
   include ApplicationHelper
+  include LtiHelper
 
   def index
     # If guest access is disabled, redirect the user to the guest landing and force login.
@@ -152,6 +153,7 @@ class LandingController < ApplicationController
       @user = User.find_by(user_room_id: params[:room_id] || params[:id])
     else
       @user = User.find_by(encrypted_id: params[:room_id] || params[:id])
+      check_paths(@user)
       @user.user_room_id = @user.encrypted_id
       @user.save
     end

@@ -15,8 +15,6 @@ module Lti
     before_action :set_referrer_session, :set_session_cache, only: :launch
     after_action :disable_xframe_header
 
-    @@paths = [] unless defined? @@paths
-
     rescue_from RailsLti2Provider::LtiLaunch::Unauthorized do |ex|
       @error = { key: ex.error,
                  message: 'LTI launch failed: ' + case ex.error
@@ -106,6 +104,8 @@ module Lti
       # update the email and nickname to match the user since generate_nickname() is used if isProf
       session_cache(:nickname, @user.username)
       session_cache(:email, @user.email)
+      @resource = session_cache(:resourcelink_title) ? session_cache(:resourcelink_title).gsub(/\s/,'-') : "#{session_cache(:context_title)} Room"
+      check_paths(@user) if isProf?
       @user.user_room_id = session_cache(:context_title) if isProf?
       unless @user.save
         respond_to do |format|
@@ -129,21 +129,19 @@ module Lti
       raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:resource_not_active) if !tool.resource_type.include?(session_cache(:launch_type))
 
       # get the class associated to the resource type in the tool and get the record
-      @resource = session_cache(:resourcelink_title) ? session_cache(:resourcelink_title).gsub(/\s/,'-') : "#{session_cache(:context_title)} Room"
       session[:user_id] = @user.id
       #redirect_to meeting_room_url if opened, else wait for the prof
-      path = "#{root_url}lti/rooms/#{@user.user_room_id}/#{@resource}"
+      path = "#{root_url}lti/rooms/#{session_cache(:context_title) }/#{@resource}"
+      @paths = get_paths
+
       if isProf?
-        @@paths << path unless @@paths.include? path
+        @paths << path unless @paths.include? path
+        set_paths(@paths)
       end
-      destination_path = ''
-      @@paths.each do |room_path|
-        destination_path = room_path if room_path.include? @resource
-      end
-      if destination_path == ''
-        render 'errors/not_created'
+      if @paths.include? path
+        redirect_to path
       else
-        redirect_to destination_path
+        render 'errors/not_created'
       end
     end
 
