@@ -73,7 +73,6 @@ Rails.application.routes.draw do
 
 
   namespace :lti do
-    #get 'config_builder', to: 'launch#config_builder', as: :config_builder
     get 'resources', to: 'launch#xml_config', as: :xml_config
     post 'resources', to: 'launch#launch', as: 'launch' #We point the LMS to this route
     post 'resources/:type', to:'launch#post_launch', as: 'post_launch'

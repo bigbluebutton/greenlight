@@ -43,16 +43,6 @@ module Lti
       render 'lti/launch/_error', layout: "lti"
     end
 
-    def config_builder
-      @platforms = LtiExtensions::LMS.keys
-      if params[:platform].nil?
-        @placements = LtiExtensions::LMS[:canvas][:placements]
-      else
-        @placements = LtiExtensions::LMS[params[:platform].to_sym][:placements]
-      end
-      render 'lti/registration/config_builder'
-    end
-
     def xml_config
       icon_url = request.host_with_port + view_context.image_path('blindside_logo.png')
       tc = IMS::LTI::Services::ToolConfig.new()
