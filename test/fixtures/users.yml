@@ -23,6 +23,7 @@ user1:
   encrypted_id: u2-<%= SecureRandom.hex(8) %>
   name: User 1
   email: user1@email.com
+  role: Moderator
 
 user2:
   provider: google
@@ -31,3 +32,4 @@ user2:
   encrypted_id: u1-<%= SecureRandom.hex(8) %>
   name: User 2
   email: user2@email.com
+  role: Learner

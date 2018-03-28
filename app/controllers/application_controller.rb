@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def is_mod
-    current_user.roles != nil && current_user.roles.match(/Learner|Student/).nil?
+    current_user && current_user.roles != nil && current_user.roles.match(/Learner|Student/).nil?
   end
   helper_method :is_mod
 
