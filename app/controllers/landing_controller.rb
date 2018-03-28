@@ -105,7 +105,7 @@ class LandingController < ApplicationController
   end
 
   def session_status_refresh
-    @user = current_user
+    @user = from_lti? ? current_user : User.find_by(encrypted_id: params[:room_id])
     if @user.nil?
       render head(:not_found) && return
     end
