@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20180309152600) do
     t.datetime "updated_at",                              null: false
     t.string   "username"
     t.string   "encrypted_id",                            null: false
-    t.string   "user_room_id"
+    t.string   "roles"
     t.string   "email"
     t.string   "background_file_name"
     t.string   "background_content_type"
@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 20180309152600) do
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["provider"], name: "index_users_on_provider"
     t.index ["uid"], name: "index_users_on_uid"
-    t.index ["user_room_id"], name: "index_users_on_user_room_id"
   end
 
   create_table "rails_lti2_provider_lti_launches", force: :cascade do |t|
@@ -65,5 +64,15 @@ ActiveRecord::Schema.define(version: 20180309152600) do
     t.string   "lti_version"
     t.string   "resource_type",    default: ""
   end
+
+#  create_table "rooms", force: :cascade do |t|
+#    t.string   "meeting_name",                        null: false
+#    t.string   "id",                                  null: false
+#    t.string   "owner_id",                            null: false
+#    t.boolean   "open",                                default: false
+#    t.index ["meeting_name", "room_name"], name: "index_rooms_on_meeting_name_and_room_name", unique: true
+#    t.index ["owner_id"], name: "index_rooms_on_owner_id", unique: true
+
+#  end
 
 end

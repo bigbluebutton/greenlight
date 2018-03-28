@@ -55,11 +55,11 @@ module BbbApi
     else
       # Verify HTML5 is running.
       html5_running = Rails.configuration.html5_enabled
-      
+
       # Determine if the user is on mobile.
       browser = Browser.new(request.user_agent)
       mobile = browser.device.tablet?
-    
+
       # If the user is on mobile and the BigBlueButton server isn't running the HTML5 client,
       # they can't join or create meetings.
       if mobile and !html5_running then
@@ -92,7 +92,7 @@ module BbbApi
             "meta_#{BbbApi::META_LISTED}": false,
             "meta_#{BbbApi::META_TOKEN}": meeting_token
           }
-          
+
           meeting_options.merge!(
             { "meta_#{BbbApi::META_HOOK_URL}": options[:hook_url] }
           ) if options[:hook_url]
@@ -129,14 +129,14 @@ module BbbApi
         else
           password = bbb_meeting_info[:attendeePW]
         end
-        
+
         # Determine which client to join as.
         if current_user.nil?
           use_html5 = Rails.configuration.use_html5_by_default
         else
           use_html5 = current_user.use_html5
         end
-        
+
         # Restrict client if needed.
         if mobile && html5_running
           # Must use HTML5 because they are on mobile.
@@ -145,7 +145,7 @@ module BbbApi
           # HTML5 is not running, so must use Flash.
           use_html5 = false
         end
-          
+
         # Generate the join URL.
         if use_html5
           clientURL = bbb_endpoint.gsub('bigbluebutton/', 'html5client/join')
@@ -338,7 +338,7 @@ module BbbApi
       }
     }
   end
-  
+
   def unable_to_join_res
     {
       returncode: false,

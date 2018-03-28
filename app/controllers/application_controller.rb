@@ -32,6 +32,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  def is_mod
+    current_user.roles != nil && current_user.roles.match(/Learner|Student/).nil?
+  end
+  helper_method :is_mod
+
   def relative_root
     Rails.configuration.relative_url_root || ""
   end

@@ -25,7 +25,7 @@
       <%= text_field_tag 'lti', from_lti?, class: 'form-control meeting-lti', type: 'hidden' %>
 
       <!-- if admin means the user is signed in and owns the room -->
-      <% if admin? && @meeting_running %>
+      <% if ((from_lti? && is_mod) || (!from_lti? && admin?)) && @meeting_running %>
         <div class="col-sm-6">
           <button type="button" class="btn btn-primary meeting-join pull-right">
             <%= t('join') %>

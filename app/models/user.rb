@@ -27,6 +27,7 @@ class User < ApplicationRecord
     user.provider = "unknown" if user.provider == nil
     user.username = auth_hash['info']['nickname'] rescue nil
     user.username = self.send("#{auth_hash['provider']}_username", auth_hash) if auth_hash['provider'] == 'google'
+    user.roles = auth_hash['info']['roles'] rescue nil
     user.email = auth_hash['info']['email'] rescue nil
     user.name = auth_hash['info']['name'] rescue nil
     user.token = auth_hash['credentials']['token'] rescue nil
@@ -60,6 +61,5 @@ class User < ApplicationRecord
 
   def set_encrypted_id
     self.encrypted_id = "#{username[0..1]}-#{Digest::SHA1.hexdigest(uid+provider)[0..7]}"
-    self.user_room_id = self.encrypted_id
   end
 end

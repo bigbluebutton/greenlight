@@ -48,6 +48,11 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     data-resource="<%= params[:resource] %>"
     data-current-user="<%= current_user.try(:encrypted_id) %>"
     style="background-image:url(<%= image_path(landing_background) if params[:controller] == 'landing' && (!only_lti? && !from_lti?) %>);">
+    <script type="text/javascript">
+      if (parent.location==location && location.href.includes("lti/rooms")) {
+        location.href = "<%= root_path + '403' %>"
+      }
+    </script>
     <!-- Messages -->
     <div id='alerts'>
       <div class='flash-alerts'>

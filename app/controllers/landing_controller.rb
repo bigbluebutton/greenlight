@@ -60,7 +60,6 @@ class LandingController < ApplicationController
     redirect_to root_url unless Rails.configuration.only_lti
   end
 
-
   # Sends data on meetings that the current user has previously joined.
   def get_previous_meeting_statuses
     previously_joined = params[:previously_joined]
@@ -69,7 +68,7 @@ class LandingController < ApplicationController
     # Find meetings that are owned by the current user and also active.
     active_meetings.each do |m|
       if m[:metadata].has_key?(:'room-id')
-        if previously_joined.include?(m[:meetingName])&& m[:metadata][:'room-id'] == current_user[:user_room_id]
+        if previously_joined.include?(m[:meetingName])&& m[:metadata][:'room-id'] == current_user[:encrypted_id]
           if m[:attendees] == {}
             attendees = []
           else
@@ -106,13 +105,17 @@ class LandingController < ApplicationController
   end
 
   def session_status_refresh
-    @user = User.find_by(user_room_id: params[:room_id])
+    @user = current_user
     if @user.nil?
       render head(:not_found) && return
     end
 
     @meeting_id = params[:id]
-    @meeting_running = bbb_get_meeting_info("#{@user.user_room_id}-#{params[:id]}")[:returncode]
+    if from_lti?
+      @meeting_running = bbb_get_meeting_info("#{params[:room_id]}-#{params[:id]}")[:returncode]
+    else
+      @meeting_running = bbb_get_meeting_info("#{@user.encrypted_id}-#{params[:id]}")[:returncode]
+    end
 
     render layout: false
   end
@@ -128,6 +131,7 @@ class LandingController < ApplicationController
 
   def close
     @user = current_user
+    redirect_to root_url unless request.referrer
   end
 
   def landing_background
@@ -150,24 +154,23 @@ class LandingController < ApplicationController
   def render_room
     params[:action] = 'rooms'
     if from_lti?
-      @user = User.find_by(user_room_id: params[:room_id] || params[:id])
+      @user = current_user
+      @room_id = params[:room_id]
+      @meeting_id = params[:id].strip
     else
       @user = User.find_by(encrypted_id: params[:room_id] || params[:id])
-      check_paths(@user)
-      @user.user_room_id = @user.encrypted_id
-      @user.save
+      if @user.nil?
+        redirect_to root_path
+        return
+      end
+      @room_id = @user.encrypted_id
+      if @user.encrypted_id != params[:id]
+        @meeting_id = params[:id].strip
+      end
+      @main_room = @meeting_id.blank? || @meeting_id == @user.encrypted_id
     end
-    if @user.nil?
-      redirect_to root_path
-      return
-    end
-    @room_id = @user.user_room_id
 
-    if @user.encrypted_id != params[:id]
-      @meeting_id = params[:id].strip
-    end
-    @meeting_running = bbb_get_meeting_info("#{@user.user_room_id}-#{@meeting_id}")[:returncode]
-    @main_room = @meeting_id.blank? || @meeting_id == @user.user_room_id
+    @meeting_running = bbb_get_meeting_info("#{@room_id}-#{@meeting_id}")[:returncode]
 
     render :action => 'rooms'
   end

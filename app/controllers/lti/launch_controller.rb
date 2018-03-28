@@ -87,16 +87,14 @@ module Lti
           'info'     => {
             'email' => session_cache(:email),
             'nickname' => session_cache(:nickname),
-            'name' => "#{session_cache(:first_name)} #{session_cache(:last_name)}"
+            'name' => "#{session_cache(:first_name)} #{session_cache(:last_name)}",
+            'roles' => session_cache(:membership_role)
           }
         })
       end
       # update the email and nickname to match the user since generate_nickname() is used if isProf
       session_cache(:nickname, @user.username)
       session_cache(:email, @user.email)
-      @resource = session_cache(:resourcelink_title) ? session_cache(:resourcelink_title).gsub(/\s/,'-') : "#{session_cache(:context_title)} Room"
-      check_paths(@user) if isProf?
-      @user.user_room_id = session_cache(:context_title) if isProf?
       unless @user.save
         respond_to do |format|
           format.json { render json: @user.errors.full_messages, status: :unprocessable_entity } && return
@@ -117,22 +115,13 @@ module Lti
       tool = RailsLti2Provider::Tool.find(session_cache(:tool_id))
       # Verify that this resource is still active
       raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:resource_not_active) if !tool.resource_type.include?(session_cache(:launch_type))
-
       # get the class associated to the resource type in the tool and get the record
       session[:user_id] = @user.id
-      #redirect_to meeting_room_url if opened, else wait for the prof
-      path = "#{root_url}lti/rooms/#{session_cache(:context_title) }/#{@resource}"
-      @paths = get_paths
-
-      if isProf?
-        @paths << path unless @paths.include? path
-        set_paths(@paths)
-      end
-      if @paths.include? path
-        redirect_to path
-      else
-        render 'errors/not_created'
-      end
+      #redirect_to meeting_room_url
+      @resource = session_cache(:resourcelink_title) ? session_cache(:resourcelink_title).gsub(/\s/,'-') : "#{session_cache(:context_title)} Room"
+      @room_id = session_cache(:context_title)
+      path = "#{root_url}lti/rooms/#{@room_id}/#{@resource}"
+      redirect_to path
     end
 
     def isProf?
