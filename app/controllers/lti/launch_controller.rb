@@ -143,7 +143,7 @@ module Lti
         # roles are required for lti resources
         raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:insufficient_launch_info) unless params[:roles]
         session_cache(:membership_role, params[:roles])
-        set_session_person
+        set_session_user
         secret = Rails.configuration.greenlight_secret
         tool = RailsLti2Provider::Tool.create!(uuid: Rails.configuration.greenlight_key, shared_secret: secret, lti_version: 'LTI-1p0', tool_settings:'none')
         tool.save!
@@ -168,19 +168,14 @@ module Lti
       session_cache(:tool_id, @lti_launch.tool_id)
     end
 
-    def set_session_person
-      unless (LTI1_RECOMMENDED_PARAMETERS - params.keys).length > 0
-        # generate username should a user require to be created
-        session_cache(:nickname, isProf? ? generate_nickname(params[:lis_person_name_full]) : params[:lis_person_name_full])
-        session_cache(:email,
-                      params[:lis_person_contact_email_primary] ? params[:lis_person_contact_email_primary] : "#{session_cache(:nickname)}@nomail")
-        session_cache(:first_name, params[:lis_person_name_given])
-        session_cache(:last_name, params[:lis_person_name_family])
-      else
-        generate_names
-        set_generated_names
-      end
+    def set_session_user
+      # generate username should a user require to be created
+      session_cache(:nickname, isProf? ? generate_nickname(params[:lis_person_name_full]) : params[:lis_person_name_full])
+      session_cache(:email, params[:lis_person_contact_email_primary] ? params[:lis_person_contact_email_primary] : "#{session_cache(:nickname)}@nomail")
+      session_cache(:first_name, params[:lis_person_name_given])
+      session_cache(:last_name, params[:lis_person_name_family])
     end
+
 
     def set_referrer_session
       session[:from_launch] = true
