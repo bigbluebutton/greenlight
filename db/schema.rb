@@ -65,14 +65,4 @@ ActiveRecord::Schema.define(version: 20180309152600) do
     t.string   "resource_type",    default: ""
   end
 
-#  create_table "rooms", force: :cascade do |t|
-#    t.string   "meeting_name",                        null: false
-#    t.string   "id",                                  null: false
-#    t.string   "owner_id",                            null: false
-#    t.boolean   "open",                                default: false
-#    t.index ["meeting_name", "room_name"], name: "index_rooms_on_meeting_name_and_room_name", unique: true
-#    t.index ["owner_id"], name: "index_rooms_on_owner_id", unique: true
-
-#  end
-
 end
