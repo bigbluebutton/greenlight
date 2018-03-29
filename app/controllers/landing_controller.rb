@@ -171,7 +171,6 @@ class LandingController < ApplicationController
     end
 
     @meeting_running = bbb_get_meeting_info("#{@room_id}-#{@meeting_id}")[:returncode]
-
     render :action => 'rooms'
   end
 

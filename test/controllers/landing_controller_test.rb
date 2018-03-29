@@ -28,7 +28,7 @@ class LandingControllerTest < ActionController::TestCase
     get :index, params: {resource: 'meetings'}
     assert_response :success
   end
-  
+
   test "should redirect to guest from index" do
     Rails.configuration.disable_guest_access = true
     get :index, params: {resource: 'meetings'}

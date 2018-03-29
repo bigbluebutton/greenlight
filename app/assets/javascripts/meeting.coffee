@@ -35,13 +35,16 @@ class @Meeting
   @clear: ->
     _meetingInstance = null
 
-  @buildMeetingURL: (meetingId, type, adminId) ->
+  @buildMeetingURL: (meetingId, type, adminId, fromLTI) ->
     fullId = ''
+    ltiPath = ''
+    if fromLTI == "true"
+      ltiPath = 'lti/'
     if adminId
       fullId = encodeURIComponent(adminId) + '/' + encodeURIComponent(meetingId)
     else
       fullId = encodeURIComponent(meetingId)
-    return @buildRootURL() + '/' + type + '/' + fullId
+    return @buildRootURL() + '/' + ltiPath + type + '/' + fullId
 
   @buildRootURL: ->
     url = location.protocol + '//' + location.hostname
@@ -111,7 +114,7 @@ class @Meeting
     return this
 
   getURL: ->
-    return Meeting.buildMeetingURL(@meetingId, @type, @adminId)
+    return Meeting.buildMeetingURL(@meetingId, @type, @adminId, @fromLTI)
 
   getUserName: ->
     return @userName

@@ -243,7 +243,7 @@ class BbbController < ApplicationController
 
   def load_and_authorize_room_owner!
     load_room!
-    if (!current_user || current_user != @user) && (from_lti? && !is_mod)
+    if (!current_user || current_user != @user) && (!from_lti? || (from_lti? && !is_mod))
       render head(:unauthorized) && return
     end
   end
