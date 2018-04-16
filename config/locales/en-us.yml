@@ -134,6 +134,8 @@ en-US:
   'no': 'No'
   no_file: You must select a file to upload.
   not_created_title: This room has not yet been created. If you're a student please wait for your instructor to begin this meeting, and then reload the page
+  not_lti_title: Forbidden access to LTI room
+  not_lti_message: Rooms generated via LTI, can only be opened inside your LMS environment
   not_found_title: Sorry we couldn't find that.
   notification_mailer:
     recording_ready_email:

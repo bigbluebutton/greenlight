@@ -15,7 +15,6 @@
 
 <div class="page-wrapper meetings">
   <div class="container-fluid">
-
     <div class="center-panel-wrapper">
         <%= render layout: 'shared/center_panel' do %>
           <h1 class='text-center'><%= t('welcome_to_greenlight') %></h1>
@@ -23,11 +22,9 @@
           <p class='text-center' style='font-size: 13px;'> <%= t('guest_sentence_one_html', bbb_link: link_to('BigBlueButton',
            'http://bigbluebutton.org/', target: "_blank")) %><br><%= t('guest_sentence_two') %></p>
         <% end %>
-      </div>
-
+    </div>
     <div class="text-center" style="padding-top:20px;">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/yGX3JCv7OVM" frameborder="0" allowfullscreen></iframe>
     </div>
-
   </div>
 </div>

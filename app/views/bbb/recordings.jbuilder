@@ -15,7 +15,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 json.partial! 'bbb', messageKey: @messageKey, message: @message, status: @status
-json.is_owner current_user == @user
+json.is_owner (current_user == @user  && !from_lti?) || (from_lti? && is_mod)
 json.recordings do
   json.array!(@response) do |recording|
     json.id recording[:recordID]

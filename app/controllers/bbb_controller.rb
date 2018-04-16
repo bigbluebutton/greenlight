@@ -16,6 +16,7 @@
 
 class BbbController < ApplicationController
   include BbbApi
+  include ApplicationHelper
 
   before_action :authorize_recording_owner!, only: [:update_recordings, :delete_recordings]
   before_action :load_and_authorize_room_owner!, only: [:end]
@@ -46,7 +47,9 @@ class BbbController < ApplicationController
     else
       if params[:room_id]
         user = User.find_by encrypted_id: params[:room_id]
-        if !user
+        user = current_user if from_lti?
+
+        if !user && !from_lti?
           return render_bbb_response(
             messageKey: "not_found",
             message: "User Not Found",
@@ -56,20 +59,22 @@ class BbbController < ApplicationController
 
         meeting_id = "#{params[:room_id]}-#{params[:id]}"
         meeting_name = params[:id]
+        @room_id = params[:room_id]
         meeting_path = "#{URI.encode(params[:room_id])}/#{URI.encode(params[:id]).gsub('/','%2F')}"
       else
         user = User.find_by encrypted_id: params[:id]
         meeting_id = params[:id]
+        @room_id = params[:id]
         meeting_path = URI.encode(meeting_id).gsub('/','%2F')
       end
 
-      options = if user
+      options = if from_lti? || user
         {
           wait_for_moderator: true,
           meeting_recorded: true,
           meeting_name: meeting_name,
           room_owner: params[:room_id],
-          user_is_moderator: current_user == user
+          user_is_moderator: is_mod || (!from_lti? && current_user == user)
         }
       else
         {
@@ -77,8 +82,11 @@ class BbbController < ApplicationController
         }
       end
 
-      base_url = "#{request.base_url}#{relative_root}/#{params[:resource]}/#{meeting_path}"
-      options[:meeting_logout_url] = base_url
+      lti = from_lti? ? "lti/" : ""
+      base_url = "#{request.base_url}#{relative_root}/#{lti}#{params[:resource]}/#{meeting_path}"
+
+      options[:meeting_logout_url] = "#{base_url}"
+      options[:meeting_logout_url] = "#{request.base_url}#{relative_root}/close" if from_lti?
       options[:hook_url] = "#{base_url}/callback"
       options[:moderator_message] = t('moderator_default_message', url: "<a href=\"#{base_url}\" target=\"_blank\"><u>#{base_url}</u></a>")
 
@@ -89,16 +97,16 @@ class BbbController < ApplicationController
       )
 
       # the user can join the meeting
-      if user
+      if from_lti? || user
         if bbb_res[:returncode] && current_user == user
-          JoinMeetingJob.perform_later(user, params[:id], base_url)
+          JoinMeetingJob.perform_later(user, params[:id], base_url, @room_id)
           WaitingList.empty(options[:room_owner], options[:meeting_name])
         # the user can't join because they are on mobile and HTML5 is not enabled.
         elsif bbb_res[:messageKey] == 'unable_to_join'
-          NotifyUserCantJoinJob.perform_later(user.encrypted_id, params[:id], params[:name])
+          NotifyUserCantJoinJob.perform_later(@room_id, params[:id], params[:name])
         # user will be waiting for a moderator
         else
-          NotifyUserWaitingJob.perform_later(user.encrypted_id, params[:id], params[:name])
+          NotifyUserWaitingJob.perform_later(@room_id, params[:id], params[:name])
         end
       end
 
@@ -128,10 +136,9 @@ class BbbController < ApplicationController
   # DELETE /rooms/:room_id/:id/end
   def end
     load_and_authorize_room_owner!
-
-    bbb_res = bbb_end_meeting "#{@user.encrypted_id}-#{params[:id]}"
+    bbb_res = bbb_end_meeting "#{params[:room_id]}-#{params[:id]}"
     if bbb_res[:returncode] || bbb_res[:status] == :not_found
-      EndMeetingJob.perform_later(@user.encrypted_id, params[:id])
+      EndMeetingJob.perform_later(params[:room_id], params[:id])
       bbb_res[:status] = :ok
     end
     render_bbb_response bbb_res
@@ -141,9 +148,13 @@ class BbbController < ApplicationController
   # GET /rooms/:room_id/:id/recordings
   def recordings
     load_room!
-
+    @user = current_user if from_lti?
     # bbb_res = bbb_get_recordings "#{@user.encrypted_id}-#{params[:id]}"
-    options = { "meta_room-id": @user.encrypted_id }
+    if from_lti?
+      options = { "meta_room-id": params[:room_id] }
+    else
+      options = { "meta_room-id": @user.encrypted_id }
+    end
     if params[:id]
       options["meta_meeting-name"] = params[:id]
     end
@@ -158,7 +169,7 @@ class BbbController < ApplicationController
     metadata = params.select{ |k, v| k.match(/^meta_/) }
     bbb_res = bbb_update_recordings(params[:record_id], published, metadata)
     if bbb_res[:returncode]
-      RecordingUpdatesJob.perform_later(@user.encrypted_id, params[:record_id])
+      RecordingUpdatesJob.perform_later(params[:room_id], params[:record_id])
     end
     render_bbb_response bbb_res
   end
@@ -169,7 +180,7 @@ class BbbController < ApplicationController
     recording = bbb_get_recordings({recordID: params[:record_id]})[:recordings].first
     bbb_res = bbb_delete_recordings(params[:record_id])
     if bbb_res[:returncode]
-      RecordingDeletesJob.perform_later(@user.encrypted_id, params[:record_id], recording[:metadata][:"meeting-name"])
+      RecordingDeletesJob.perform_later(params[:room_id], params[:record_id], recording[:metadata][:"meeting-name"])
     end
     render_bbb_response bbb_res
   end
@@ -223,6 +234,7 @@ class BbbController < ApplicationController
   private
 
   def load_room!
+    return if from_lti?
     @user = User.find_by encrypted_id: params[:room_id]
     if !@user
       render head(:not_found) && return
@@ -231,15 +243,13 @@ class BbbController < ApplicationController
 
   def load_and_authorize_room_owner!
     load_room!
-
-    if !current_user || current_user != @user
+    if (!current_user || current_user != @user) && (!from_lti? || (from_lti? && !is_mod))
       render head(:unauthorized) && return
     end
   end
 
   def authorize_recording_owner!
     load_and_authorize_room_owner!
-
     recordings = bbb_get_recordings({recordID: params[:record_id]})[:recordings]
     recordings.each do |recording|
       if recording[:recordID] == params[:record_id]
@@ -294,7 +304,7 @@ class BbbController < ApplicationController
       else
         logger.error "Bad format for event #{event}, won't process"
       end
-    elsif eventName == "meeting_created_message" || eventName == "MeetingCreatedEvtMsg" 
+    elsif eventName == "meeting_created_message" || eventName == "MeetingCreatedEvtMsg"
       # Fire an Actioncable event that updates _previously_joined for the client.
       actioncable_event('create')
     elsif eventName == "meeting_destroyed_event" || eventName == "MeetingEndedEvtMsg"

@@ -16,7 +16,7 @@
 <span class="signup">
   <% if current_user %>
   <div class="text-center">
-    <% if !only_lti? %>
+    <% if !only_lti? && !from_lti?%>
       <% if @main_room %>
         <span><%= t('logged_in_description_html', link: link_to(current_user.name, meeting_room_url(resource: 'rooms', id: current_user.encrypted_id))) %></span>
       <% else %>

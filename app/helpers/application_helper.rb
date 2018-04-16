@@ -77,7 +77,8 @@ module ApplicationHelper
 
   def from_lti?
     controller_path != 'lti' &&
-    ((request.referrer && !request.referrer.include?('admin/lti') && request.referrer.include?('lti')) || request.original_fullpath.include?('lti'))
+    ((request.referrer && !request.referrer.include?('admin/lti') && request.referrer.include?('lti')) || request.original_fullpath.include?('lti')) &&
+    !(request.original_fullpath.include?("#{relative_root}/403"))
   end
 
   def only_lti?

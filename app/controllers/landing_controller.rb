@@ -18,6 +18,7 @@ class LandingController < ApplicationController
   include RailsLti2Provider::ControllerHelpers
   include BbbApi
   include ApplicationHelper
+  include LtiHelper
 
   def index
     # If guest access is disabled, redirect the user to the guest landing and force login.
@@ -58,7 +59,6 @@ class LandingController < ApplicationController
     # If someone tries to access the guest landing when guest access is enabled, just send them to root.
     redirect_to root_url unless Rails.configuration.only_lti
   end
-
 
   # Sends data on meetings that the current user has previously joined.
   def get_previous_meeting_statuses
@@ -105,13 +105,17 @@ class LandingController < ApplicationController
   end
 
   def session_status_refresh
-    @user = User.find_by(encrypted_id: params[:room_id])
+    @user = from_lti? ? current_user : User.find_by(encrypted_id: params[:room_id])
     if @user.nil?
       render head(:not_found) && return
     end
 
     @meeting_id = params[:id]
-    @meeting_running = bbb_get_meeting_info("#{@user.encrypted_id}-#{params[:id]}")[:returncode]
+    if from_lti?
+      @meeting_running = bbb_get_meeting_info("#{params[:room_id]}-#{params[:id]}")[:returncode]
+    else
+      @meeting_running = bbb_get_meeting_info("#{@user.encrypted_id}-#{params[:id]}")[:returncode]
+    end
 
     render layout: false
   end
@@ -123,6 +127,11 @@ class LandingController < ApplicationController
 
   def preferences
     @user = current_user
+  end
+
+  def close
+    @user = current_user
+    redirect_to root_url unless request.referrer
   end
 
   def landing_background
@@ -144,19 +153,24 @@ class LandingController < ApplicationController
 
   def render_room
     params[:action] = 'rooms'
-
-    @user = User.find_by(encrypted_id: params[:room_id] || params[:id])
-    if @user.nil?
-      redirect_to root_path
-      return
-    end
-
-    if @user.encrypted_id != params[:id]
+    if from_lti?
+      @user = current_user
+      @room_id = params[:room_id]
       @meeting_id = params[:id].strip
+    else
+      @user = User.find_by(encrypted_id: params[:room_id] || params[:id])
+      if @user.nil?
+        redirect_to root_path
+        return
+      end
+      @room_id = @user.encrypted_id
+      if @user.encrypted_id != params[:id]
+        @meeting_id = params[:id].strip
+      end
+      @main_room = @meeting_id.blank? || @meeting_id == @user.encrypted_id
     end
-    @meeting_running = bbb_get_meeting_info("#{@user.encrypted_id}-#{@meeting_id}")[:returncode]
-    @main_room = @meeting_id.blank? || @meeting_id == @user.encrypted_id
 
+    @meeting_running = bbb_get_meeting_info("#{@room_id}-#{@meeting_id}")[:returncode]
     render :action => 'rooms'
   end
 

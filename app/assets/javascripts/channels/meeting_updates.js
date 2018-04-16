@@ -44,6 +44,8 @@
               sessionStatusRefresh($('.meeting-url').val());
               showAlert(I18n.meeting_started, 4000);
             }
+          } else {
+            sessionStatusRefresh($('.meeting-url').val());
           }
         } else if (data.action === 'meeting_ended') {
           sessionStatusRefresh($('.meeting-url').val());

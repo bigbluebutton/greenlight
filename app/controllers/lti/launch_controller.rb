@@ -1,6 +1,6 @@
 module Lti
   class LaunchController < ApplicationController
-    layout 'empty'
+    layout 'lti'
 
     skip_authorization_check
     include RailsLti2Provider::ControllerHelpers
@@ -14,8 +14,6 @@ module Lti
     before_action :log_params
     before_action :set_referrer_session, :set_session_cache, only: :launch
     after_action :disable_xframe_header
-
-    @@paths = [] unless defined? @@paths
 
     rescue_from RailsLti2Provider::LtiLaunch::Unauthorized do |ex|
       @error = { key: ex.error,
@@ -42,17 +40,7 @@ module Lti
                                                     I18n.t('lti.errors.unknown')
                                                 end }
       disable_xframe_header
-      render 'lti/launch/_error', layout: "empty"
-    end
-
-    def config_builder
-      @platforms = LtiExtensions::LMS.keys
-      if params[:platform].nil?
-        @placements = LtiExtensions::LMS[:canvas][:placements]
-      else
-        @placements = LtiExtensions::LMS[params[:platform].to_sym][:placements]
-      end
-      render 'lti/registration/config_builder'
+      render 'lti/launch/_error', layout: "lti"
     end
 
     def xml_config
@@ -99,12 +87,12 @@ module Lti
           'info'     => {
             'email' => session_cache(:email),
             'nickname' => session_cache(:nickname),
-            'name' => "#{session_cache(:first_name)} #{session_cache(:last_name)}"
+            'name' => "#{session_cache(:first_name)} #{session_cache(:last_name)}",
+            'roles' => session_cache(:membership_role)
           }
         })
       end
       # update the email and nickname to match the user since generate_nickname() is used if isProf
-      @user.provider = params[:tool_consumer_info_product_family_code]
       session_cache(:nickname, @user.username)
       session_cache(:email, @user.email)
       unless @user.save
@@ -127,25 +115,13 @@ module Lti
       tool = RailsLti2Provider::Tool.find(session_cache(:tool_id))
       # Verify that this resource is still active
       raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:resource_not_active) if !tool.resource_type.include?(session_cache(:launch_type))
-
       # get the class associated to the resource type in the tool and get the record
-      @resource = session_cache(:resourcelink_title).gsub(/\s/,'-')
       session[:user_id] = @user.id
-
-      #redirect_to meeting_room_url if opened, else wait for the prof
-      path = "#{root_url}rooms/#{@user.encrypted_id}/#{@resource}"
-      if isProf?
-        @@paths << path unless @@paths.include? path
-      end
-      destination_path = ''
-      @@paths.each do |room_path|
-        destination_path = room_path if room_path.include? @resource
-      end
-      if destination_path == ''
-        render 'errors/not_created'
-      else
-        redirect_to destination_path
-      end
+      #redirect_to meeting_room_url
+      @resource = session_cache(:resourcelink_title) ? session_cache(:resourcelink_title).gsub(/\s/,'-') : "#{session_cache(:context_title)} Room"
+      @room_id = session_cache(:context_title)
+      path = "#{root_url}lti/rooms/#{@room_id}/#{@resource}"
+      redirect_to path
     end
 
     def isProf?
@@ -158,23 +134,25 @@ module Lti
       session_cache(:user_id, params[:user_id])
       session_cache(:lti_version, params[:lti_version])
       set_product_params
-
       if session_cache(:lti_version) == LTI_10
         # build lti launch session data based on what the lms has supplied
         session_cache(:resourcelink_title, params[:resource_link_title])
         session_cache(:resourcelink_description, params[:resource_link_description])
+        session_cache(:context_title, params[:context_title])
+
         # roles are required for lti resources
         raise RailsLti2Provider::LtiLaunch::Unauthorized.new(:insufficient_launch_info) unless params[:roles]
         session_cache(:membership_role, params[:roles])
-        set_session_person
+        set_session_user
         secret = Rails.configuration.greenlight_secret
         tool = RailsLti2Provider::Tool.create!(uuid: Rails.configuration.greenlight_key, shared_secret: secret, lti_version: 'LTI-1p0', tool_settings:'none')
         tool.save!
       else
+        session_cache(:resourcelink_id, params[:resource_link_id])
         session_cache(:resourcelink_title, params[:custom_resourcelink_title])
         session_cache(:resourcelink_description, params[:custom_resourcelink_description])
         session_cache(:membership_role, params[:custom_membership_role])
-
+        session_cache(:context_title, params[:custom_context_title])
         session_cache(:email, params[:custom_person_email_primary])
         session_cache(:first_name, params[:custom_person_name_given])
         session_cache(:last_name, params[:custom_person_name_family])
@@ -190,19 +168,14 @@ module Lti
       session_cache(:tool_id, @lti_launch.tool_id)
     end
 
-    def set_session_person
-      unless (LTI1_RECOMMENDED_PARAMETERS - params.keys).length > 0
-        # generate username should a user require to be created
-        session_cache(:nickname, isProf? ? generate_nickname(params[:lis_person_name_full]) : params[:lis_person_name_full])
-        session_cache(:email,
-                      params[:lis_person_contact_email_primary] ? params[:lis_person_contact_email_primary] : "#{session_cache(:nickname)}@nomail")
-        session_cache(:first_name, params[:lis_person_name_given])
-        session_cache(:last_name, params[:lis_person_name_family])
-      else
-        generate_names
-        set_generated_names
-      end
+    def set_session_user
+      # generate username should a user require to be created
+      session_cache(:nickname, isProf? ? generate_nickname(params[:lis_person_name_full]) : params[:lis_person_name_full])
+      session_cache(:email, params[:lis_person_contact_email_primary] ? params[:lis_person_contact_email_primary] : "#{session_cache(:nickname)}@nomail")
+      session_cache(:first_name, params[:lis_person_name_given])
+      session_cache(:last_name, params[:lis_person_name_family])
     end
+
 
     def set_referrer_session
       session[:from_launch] = true
@@ -216,7 +189,6 @@ module Lti
 
     # set product specific settings to the cache
     def set_product_params
-
       if params[:lti_version] == LTI_20
         #sets paramaters for lti 2.0 launches
         if params[:tool_consumer_info_product_family_code] == "moodle"
@@ -228,14 +200,13 @@ module Lti
           # username is stored in sourcedid
           session_cache(:first_name, params[:lis_person_sourcedid])
         end
-
       end
     end
 
     def sanitize_resource_type
       tool = RailsLti2Provider::Tool.find(session_cache(:tool_id))
       # performing a single launch
-      sanitized_type = tool.resource_type if AVAILABLE_RESOURCES.keys.include?(tool.resource_type)
+      sanitized_type = tool.resource_type
       session_cache(:launch_type, sanitized_type)
     end
 

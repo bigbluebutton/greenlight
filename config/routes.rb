@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   match '/404', to: 'errors#not_found', via: :all
   match '/500', to: 'errors#error', via: :all
   match '/422', to: 'errors#error', via: :all
+  match '/403', to: 'errors#forbidden', via: :all
 
   #devise_for :sadmins
   #devise_for :users, :only => :omniauth_callbacks, :controllers => {:omniauth_callbacks  => "users/omniauth_callbacks" }
@@ -34,7 +35,7 @@ Rails.application.routes.draw do
   # There are two resources [meetings|rooms]
   # meetings offer a landing page for NON authenticated users to create and join session in BigBlueButton
   # rooms offer a customized landing page for authenticated users to create and join session in BigBlueButton
-  scope '/:resource', constraints: {resource: /meetings|rooms/} do
+  scope '/(:lti)/:resource', constraints: {resource: /meetings|rooms/} do
     disallow_slash = /[^\/]+/ # override the constraint to allow '.' and disallow '/'
     # room specific routes
     scope '/:room_id', :constraints => {:room_id => disallow_slash} do
@@ -51,16 +52,22 @@ Rails.application.routes.draw do
       get '/:id/session_status_refresh', to: 'landing#session_status_refresh', :constraints => {:id => disallow_slash}
     end
     post '/:room_id/:id/callback', to: 'bbb#callback', :constraints => {:id => disallow_slash, :room_id => disallow_slash}
-
     # routes shared between meetings and rooms
     post '/(:room_id)/statuses', to: 'landing#get_previous_meeting_statuses'
     get '/(:room_id)/:id/join', to: 'bbb#join', defaults: {room_id: nil, format: 'json'}, :constraints => {:id => disallow_slash, :room_id => disallow_slash}
+    get '/(:room_id)/:id', to: 'landing#resource', as: :lti_room, defaults: {room_id: nil}, :constraints => {:id => disallow_slash, :room_id => disallow_slash}
+  end
+
+  scope '/:resource', constraints: {resource: /meetings|rooms/} do
+    disallow_slash = /[^\/]+/ # override the constraint to allow '.' and disallow '/'
     get '/(:room_id)/:id', to: 'landing#resource', as: :meeting_room, defaults: {room_id: nil}, :constraints => {:id => disallow_slash, :room_id => disallow_slash}
   end
 
   get '/guest', to: 'landing#guest', as: :guest
   get '/preferences', to: 'landing#preferences', as: :preferences
   get '/lti', to: 'landing#ltionly', as: :lti_only
+  get '/close', to: 'landing#close', as: :close
+
 
   scope "/lti" do
     get 'generate_hex', to: 'lti#generate_hex'
@@ -69,7 +76,6 @@ Rails.application.routes.draw do
 
 
   namespace :lti do
-    get 'config_builder', to: 'launch#config_builder', as: :config_builder
     get 'resources', to: 'launch#xml_config', as: :xml_config
     post 'resources', to: 'launch#launch', as: 'launch' #We point the LMS to this route
     post 'resources/:type', to:'launch#post_launch', as: 'post_launch'

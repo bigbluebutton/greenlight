@@ -47,8 +47,12 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
   <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>"
     data-resource="<%= params[:resource] %>"
     data-current-user="<%= current_user.try(:encrypted_id) %>"
-    style="background-image:url(<%= image_path(landing_background) if params[:controller] == 'landing' && (!only_lti? || !current_user) %>);">
-
+    style="background-image:url(<%= image_path(landing_background) if params[:controller] == 'landing' && (!only_lti? && !from_lti?) %>);">
+    <script type="text/javascript">
+      if (parent.location==location && location.href.includes("lti/rooms")) {
+        location.href = "<%= root_path + '403' %>"
+      }
+    </script>
     <!-- Messages -->
     <div id='alerts'>
       <div class='flash-alerts'>
@@ -64,17 +68,17 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     </div>
 
     <!-- Header -->
-    <div class='header'>
-      <span class="logo-wrapper pull-left">
-        <% if only_lti? && current_user%>
-          <%= image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo")%>
-        <% elsif current_user %>
-          <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), meeting_room_path('rooms', User.find(current_user.id).encrypted_id) %>
-        <% else %>
-          <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), root_path %>
-        <% end %>
-      </span>
-    </div>
+    <% if (!only_lti? && !from_lti?)%>
+      <div class='header'>
+        <span class="logo-wrapper pull-left">
+          <% if current_user %>
+            <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), meeting_room_path('rooms', User.find(current_user.id).encrypted_id) %>
+          <% else %>
+            <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), root_path %>
+          <% end %>
+        </span>
+      </div>
+    <% end %>
     <!-- End of Header -->
 
     <%= yield %>

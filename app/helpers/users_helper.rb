@@ -16,6 +16,7 @@
 
 module UsersHelper
   def is_room_owner
+    return is_mod if from_lti?
     token = current_user ? current_user.encrypted_id : nil
     token.present? && params[:room_id].present? && token == params[:room_id]
   end
