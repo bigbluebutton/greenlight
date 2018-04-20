@@ -1,0 +1,165 @@
+es:
+  actions: Acciones
+  active_meetings: (sesión activa)
+  admin_room_title: Bienvenido %{user}
+  are_you: ¿Éres %{name}?
+  are_you_sure: ¿Estás seguro?
+  background_image: Imagén de fondo
+  back: Atrás
+  change_recording_visibility: "Cambiar visibilidad a:"
+  client:
+    are_you_sure: ¿Estás seguro?
+    change_visibility: Cambiar visibilidad
+    delete_recording: Borrar
+    email_footer_1: Este e-mail es generado automáticamente por el servidor de BigBlueButton. No responda a este e-mail.
+    email_footer_2: BigBlueButton es un sistema de conferencia web de código abierto. Para obtener más información sobre BigBlueButton y sus sorprendentes capacidades, consulte https://bigbluebutton.org/.
+    enter_name: Introduce un nombre para ingresar
+    invalid_provider: Debes autenticarte con Google para poder cargar
+    mail_recording: Correo
+    meeting_ended: La sesión ha terminado
+    meeting_started: La sesión ha iniciado
+    no_recordings: Sin grabaciones
+    no_recordings_yet: No hay grabaciones (Todavía)
+    no_video: La grabación no contiene video
+    play_recording: Reproducir la grabación
+    publish_recording: Publicar la grabación
+    published: Todos
+    recording_created: Una grabación fue creada
+    recording_deleted: Grabación fue borrada
+    recording_published: Grabación es pública
+    recording_mail_subject: "the han invitado a ver una grabación"
+    recording_mail_body: "Para ver la grabación, siga el siguiente enlace:"
+    recording_unlisted: Grabación no enlistada
+    recording_unpublished: 'Grabación no es pública '
+    share: Compartir
+    successful_upload: Grabación cargada exitósamente en Youtube!
+    unpublish_recording: Esconder grabación
+    unlisted: No enlistada
+    unpublished: Ninguno
+    upload_youtube: Youtube
+    user_waiting_body: "¡%{user} está esperando para unirse %{meeting}!"
+    user_waiting_title: Un usuario esta en espera
+  copied: Copiado
+  copy_error: Usa Ctrl-c para copiar
+  create_your_session: Crea tu propia sesión.
+  date_recorded: Fecha
+  disallowed_characters_msg: Caracteres no permitidos en el nombre de la sesión $&,
+  duration: Duración (minutos)
+  end: Finalizar
+  enter_name: Introduce tu nombre
+  enter_meeting_name: Indique un nombre de sesión para iniciar
+  error: Ha ocurrido un error
+  error_title: Ha ocurrido un error
+  footer_html: Funciona con %{bbb_link}
+  guest_sentence_one_html: GreenLight te permite crear y administrar %{bbb_link} sesiones y grabaciones.
+  guest_sentence_two: ¡Para aprender más acerca de cómo funciona GreenLight, echa un vistazo al vídeo a continuación!
+  help: Ayuda
+  hi_all: Hola a todos
+  home_page: Página principal
+  home_title: Bienvenido a BigBlueButton
+  invalid_file: Sólo puede subir un archivo de imagen (jpg, gif, png).
+  invalid_login: Credenciales de acceso inválidos.
+  invite: Invitar
+  invite_description: (comparte este enlace para invitar a otros a esta sesión)
+  join: Ingresar
+  landing_titles:
+    start_meeting: Inicia tu propia sesión
+    get_work_down: Hagamos algo de trabajo
+    connect: Conéctate en tiempo real con otros
+    collaborate: Colabora con amigos
+    teach: Enseña a tus estudiantes en línea
+  ldap_error: No se puede conectar al servidor LDAP. Compruebe la configuración de LDAP en el archivo "env" y asegúrate de que tu servidor está ejecutándose.
+  logged_in_description_html: Has iniciado sesión como %{link}
+  login: inicia sesión
+  login_description: ¿Quieres grabar una sesión?
+  login_greenlight: Iniciar sesión en GreenLight
+  logout: cerrar sesión
+  meeting: Sesión
+  meeting_invite:
+    explanation: Enviar un e-mail con una invitación a esta sesión
+    not_signed_in:
+      body: "Usted ha sido invitado a una sesión.\n\nAbra la siguiente página en su navegador web: &&URL&&"
+      subject: "Invitación a una sesión"
+    signed_in:
+      body: "Te han invitado %{user} a una sesión\n\nAbra la siguiente página en su navegador web: &&URL&&"
+      subject: "%{user} te ha invitado a una sesión"
+  moderator_default_message: Enlace a invitación %{url}
+  meeting_name_long: Nombre de sesión demasiado largo
+  my_room: mi sala
+  name: Nombre
+  'no': 'No'
+  no_file: Debes seleccionar un archivo para subirlo.
+  not_found_title: Lo sentimos, no pudimos encontrar eso.
+  notification_mailer:
+    recording_ready_email:
+      closing: "Saludos, ... BigBlueButton"
+      footer:
+        phrase1: Este e-mail es generado automáticamente por el servidor de BigBlueButton. No responda a este e-mail.
+        phrase2_html: BigBlueButton es un sistema de conferencia web de código abierto. Para obtener más información sobre BigBlueButton y sus sorprendentes capacidades, consulte %{url}.
+      hi: "Hola %{name}"
+      phrase1: "Esta es una notificación por e-mail, de que su grabación de la sesión está lista."
+      phrase2: "Aquí hay un enlace directo a la grabación"
+      phrase3_html: "Esta grabación está actualmente <b>no-listada</b>, lo que significa que solo los usuarios con la liga directa podrán ver la grabación. "
+      phrase4: "Para que esta grabación sea pública para todos, visite"
+      phrase5: "y cambiar su visibilidad de no-listada al público. Después de que la grabación sea pública, cualquier persona con la URL anterior podrá verla."
+      subject: "Tu grabación está lista - %{recording}"
+      table:
+        ended: Finalizada
+        name: Nombre
+        length: Duración
+        length_value: "%{value} minutos"
+        started: Iniciada
+        users: Usuarios
+      user_table:
+        user: Usuario
+        role: Rol
+        join: Unirse
+        left: Salir
+        duration: Duración
+  participants: Usuarios
+  past_recordings: Grabaciones pasadas
+  preferences: Preferencias
+  preferences_logged: Debes iniciar sesión para editar las preferencias
+  presentation: Presentación
+  previous_meetings: (sesiones anteriores)
+  qrcode:
+    explanation: Genera un código QR para invitar a otros a la sesión.
+    generated: Generado
+    generate_error: Error generando código QR
+    hint: Clic derecho para descargar la imagen
+  return_to_room: Regresar a pantalla principal.
+  session_url_explanation: La sesión se llevará a cabo utilizando la siguiente URL
+  signin_text: Iniciar sesión con %{provider}
+  slack:
+    meeting_end: "%{meeting} ha finalizado."
+    meeting_join: "%{user} se unió a %{meeting}.\n[¡Oprima aquí para unirse!]"
+    recording_visibility: "Una grabación de %{meeting} fue %{change}"
+    published: publicado.
+    unpublished: no-publicado.
+  start: Inicio
+  start_join: Inicio
+  start_meeting: Inicia sesión
+  test_mailer:
+    test_email:
+      subject: 'E-Mail de prueba '
+      phrase1: Este es un e-mail de prueba enviado a %{email}
+  thumbnails: Miniaturas
+  upload: Subir
+  upload_to_youtube: Subir a Youtube
+  url_copy_explanation: Copia esta URL para invitar otros a la sesión
+  user_person_room: "%{name} sala personal"
+  video: Video
+  video_title: Título del video
+  visibility: Visibilidad
+  wait_for_mod_msg: Parece que eres el primero aquí...
+  wait_for_mod_explanation: Ingresarás automáticamente cuando la sesión inicie
+  watch: Ver
+  'yes': 'Si'
+  warning_bigbluebutton_endpoint_default: Este instalación de Greenlight está usando el servidor de pruebas BigBlueButton que viene pre-configurado por omisión. Debe ser reemplazado.
+  welcome_to_greenlight: Bienvenido a GreenLight!
+  youtube_description: Esta grabación se grabó con BigBlueButton. Para obtener más información, consulte %{url}.
+  youtube_footer: esto cargara toda el contenido de audio y video
+  youtube_privacy_options:
+    public: Pública
+    private: Privada
+    unlisted: No listada
