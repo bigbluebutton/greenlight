@@ -44,7 +44,7 @@ module Lti
     end
 
     def xml_config
-      icon_url = request.host_with_port + view_context.image_path('blindside_logo.png')
+      icon_url = request.host_with_port + view_context.image_path('bbb_logo.png')
       tc = IMS::LTI::Services::ToolConfig.new()
       tc.title = "Greenlight"
       tc.launch_url = lti_launch_url
