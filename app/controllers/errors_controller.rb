@@ -23,7 +23,7 @@ class ErrorsController < ApplicationController
   def not_found
   end
 
-  def not_authorized
+  def forbidden
   end
 
 end
