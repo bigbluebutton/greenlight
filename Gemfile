@@ -71,7 +71,7 @@ gem 'bigbluebutton-api-ruby'
 
 gem 'bootstrap-sass', '3.3.0.0'
 gem 'bootstrap-social-rails', '~> 4.12'
-gem 'font-awesome-sass'
+gem 'font-awesome-sass', '4.7.0'
 gem 'jquery-ui-rails'
 gem 'jquery-datatables-rails', '~> 3.4.0'
 gem 'rails-timeago', '~> 2.0'
@@ -96,4 +96,3 @@ gem 'omniauth-saml'
 
 # For device detection to determine BigBlueButton client.
 gem 'browser'
-
