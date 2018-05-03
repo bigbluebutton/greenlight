@@ -23,10 +23,6 @@ class SessionsController < ApplicationController
     if Rails.application.config.omniauth_ldap
       redirect_to "#{relative_root}/auth/ldap"
     end
-    #If SAML is enabled, just route to it instead.
-    if Rails.application.config.omniauth_saml
-      redirect_to "#{relative_root}/auth/saml"
-    end
   end
 
   def create

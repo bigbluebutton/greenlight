@@ -49,6 +49,18 @@
                 </div>
               <% end %>
           <% end %>
+          <% if omniauth_providers_configured(:saml) %>
+            <%= link_to omniauth_login_url(:saml), class: "signin-link signin-link-google" do %>
+              <div class="signin-button center-block">
+                <div class="signin-icon-wrapper">
+                  <%= image_tag("cas-normal.png", alt: "Login with SAML", class: "signin-icon") %>
+                </div>
+                <div class="signin-text-wrapper text-center">
+                  <span class="signin-text"><%= t('signin_text', provider: 'SAML') %></span>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
         </div>
       <% end %>
     </div>
