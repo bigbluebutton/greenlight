@@ -1,0 +1,165 @@
+ru_RU:
+  actions: Действия
+  active_meetings: (активные конференции)
+  admin_room_title: Добро пожаловать %{user}
+  are_you: Вы %{name}?
+  are_you_sure: Вы уверены?
+  background_image: Фоновое изображение
+  back: Вернуться
+  change_recording_visibility: "Изменить видимость на:"
+  client:
+    are_you_sure: Вы уверены?
+    change_visibility: Изменить видимость
+    delete_recording: Удалить
+    email_footer_1: Это письмо было сформировано автоматически сервером BigBlueButton. Пожалуйста не отвечайте на него.
+    email_footer_2: BigBlueButton система вебконференцсвязи с открытым кодом. Больше информации о BigBlueButton и его возможностях смотрите на https://bigbluebutton.org/
+    enter_name: Введите Ваше имя
+    invalid_provider: Вам необходимо авторизоваться с учетной записью Google для загрузки.
+    mail_recording: Написать
+    meeting_ended: Конференция была завершена.
+    meeting_started: Конференция началась.
+    no_recordings: Нет записей.
+    no_recordings_yet: Пока нет записей.
+    no_video: Запись не содержит видео.
+    play_recording: Воспроизвести запись.
+    publish_recording: Опубликовать запись.
+    published: Для всех
+    recording_created: Запись создана
+    recording_deleted: Запись удалена
+    recording_published: Запись опубликована
+    recording_mail_subject: "пригласил Вас для просмотра записи."
+    recording_mail_body: "Для просмотра записи перейдите по ссылке ниже:"
+    recording_unlisted: Запись доступа только по прямой ссылке
+    recording_unpublished: Запись больше недоступна для просмотра.
+    share: Поделиться
+    successful_upload: Запись успешно загружена на Youtube!
+    unpublish_recording: Скрыть запись.
+    unlisted: По ссылке
+    unpublished: Никому
+    upload_youtube: Youtube
+    user_waiting_body: "%{user}ожидает присоединения к %{meeting}"
+    user_waiting_title: Пользователь ждет
+  copied: Скопировано
+  copy_error: Используйте Ctrl-c для копирования
+  create_your_session: Создать свою конференцию
+  date_recorded: Дата
+  disallowed_characters_msg: Эти символы нельзя использовать в имени конференции $&,
+  duration: Продолжительность (минуты)
+  end: Завершить
+  enter_name: Введите Ваше имя
+  enter_meeting_name: Введите имя конференции для начала
+  error: Произошла ошибка
+  error_title: Произошла ошибка
+  footer_html: При поддержке %{bbb_link}
+  guest_sentence_one_html: GreenLight позволяет Вам создавать и управлять конференциями и записями %{bbb_link}.
+  guest_sentence_two: Чтобы больше узнать о том, как работает GreenLight просмотрите видео ниже.
+  help: Помощь
+  hi_all: Привет всем
+  home_page: Домашняя страница
+  home_title: Добро пожаловать в BigBlueButton
+  invalid_file: Вы можете загрузить только файлы изображений (jpg, gif, png).
+  invalid_login: Неверные учетные данные для входа
+  invite: Пригласить
+  invite_description: (поделитесь ссылкой ниже чтобы пригласить других участников в эту конференцию)
+  join: Присоединиться
+  landing_titles:
+    start_meeting: Начать свою конференцию
+    get_work_down: Давайте проделаем определенную работу
+    connect: Подключение к другим участникам в режиме реального времени
+    collaborate: Совместная деятельность с друзьями
+    teach: Обучать студентов онлайн
+  ldap_error: Невозможно соединиться с сервером LDAP. Пожалуйста проверьте Вашу конфигурацию LDAP в env-файле и убедитесь в работоспособности Вашего LDAP-сервера.
+  logged_in_description_html: Вы вошли как %{link}
+  login: логин
+  login_description: Желаете записать конференцию?
+  login_greenlight: Вход в GreenLight
+  logout: выход
+  meeting: Конференция
+  meeting_invite:
+    explanation: Отправить письмо с приглашением в эту конференцию
+    not_signed_in:
+      body: "Вас пригласили в конференцию.\n\nПожалуйста откройте следующую страницу в Вашем браузере: &&URL&&"
+      subject: "Приглашение в конференцию"
+    signed_in:
+      body: "Вы были приглашены в конференцию участником %{user}.\n\nПожалуйста откройте следующую страницу в Вашем браузере: &&URL&&"
+      subject: "%{user} пригласил Вас в конференцию"
+  moderator_default_message: Ссылка на приглашение - %{url}
+  meeting_name_long: Наименование конференции слишком длинное
+  my_room: моя комната
+  name: Наименование
+  'no': 'Нет'
+  no_file: Вы должны выбрать файл для загрузки.
+  not_found_title: Извините, мы не смогли это найти.
+  notification_mailer:
+    recording_ready_email:
+      closing: "С уважением,... BigBlueButton"
+      footer:
+        phrase1: Это письмо было сформировано автоматически сервером BigBlueButton. Пожалуйста не отвечайте на него.
+        phrase2_html: BigBlueButton система вебконференцсвязи с открытым кодом. Больше информации о BigBlueButton и его возможностях смотрите на %{url}.
+      hi: "Здравствуйте, %{name}"
+      phrase1: "Это уведомление о том, что запись Вашей сессии готова."
+      phrase2: "Это прямая ссылка на запись."
+      phrase3_html: "Эта запись теперь доступна только <b>по ссылке</b>, это означает, что просмотреть запись могут только пользователи у которых есть прямая ссылка на запись."
+      phrase4: "Что бы сделать запись доступной для всех, посетите"
+      phrase5: "и измените ее видимость с \"по ссылке\" на \"опубликованную\". После того как запись будет опубликована любой сможет просмотреть ее по вышеуказанному URL."
+      subject: "Ваша запись готова - %{recording}"
+      table:
+        ended: Завершена
+        name: Наименование
+        length: Продолжительность
+        length_value: "%{value} минут"
+        started: Начата
+        users: Пользователи
+      user_table:
+        user: Пользователь
+        role: Роль
+        join: Присоединиться
+        left: Покинуть
+        duration: Продолжительность
+  participants: Пользователи
+  past_recordings: Последние записи
+  preferences: Настройки
+  preferences_logged: Необходимо авторизоваться для изменения настроек
+  presentation: Презентация
+  previous_meetings: (предыдущие конференции)
+  qrcode:
+    explanation: Создать QR Код для приглашения других участников конференции.
+    generated: Создан
+    generate_error: Ошибка создания QR кода
+    hint: Используйте правую клавишу мыши для загрузки изображения
+  return_to_room: Вернуться на главную страницу
+  session_url_explanation: Конференция будет проходить по следующему URL-адресу
+  signin_text: Войти используя %{provider}
+  slack:
+    meeting_end: "%{meeting} была завершена."
+    meeting_join: "%{user} присоединилось к %{meeting}.\n[Чтобы присоединиться нажмите здесь!]"
+    recording_visibility: "Запись %{meeting} была %{change}"
+    published: опубликована.
+    unpublished: убрана из доступа.
+  start: Начать
+  start_join: Присоединиться
+  start_meeting: Начать конференцию
+  test_mailer:
+    test_email:
+      subject: Проверка отправки письма
+      phrase1: Это проверочное письмо было отправлено %{email}
+  thumbnails: Миниатюры
+  upload: Загрузка
+  upload_to_youtube: Загрузка на Youtube
+  url_copy_explanation: Скопируйте этот URL чтобы пригласить других участников в конференцию
+  user_person_room: "Личная комната %{name}"
+  video: Видео
+  video_title: Заголовок видео
+  visibility: Видимость
+  wait_for_mod_msg: Похоже, Вы здесь первый...
+  wait_for_mod_explanation: Вы будете автоматически присоединены когда конференция начнется
+  watch: Просмотр
+  'yes': 'Да'
+  warning_bigbluebutton_endpoint_default: Этот Greenlight развернут с использование конфигурации "по умолчанию" настроенной на тестовый сервер BigBlueButton. Необходимо изменить настройки.
+  welcome_to_greenlight: Добро пожаловать в GreenLight!
+  youtube_description: Эта запись была сделана с использованием BigBlueButton. Для получения дополнительной информации пройдите по ссылке %{url}.
+  youtube_footer: будут загружены все данные с вебкамер и все аудиоданные
+  youtube_privacy_options:
+    public: Публичный
+    private: Частный
+    unlisted: По ссылке
