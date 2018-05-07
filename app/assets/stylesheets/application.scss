@@ -1,0 +1,161 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ // BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+//
+// Copyright (c) 2016 BigBlueButton Inc. and by respective authors (see below).
+//
+// This program is free software; you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software
+// Foundation; either version 3.0 of the License, or (at your option) any later
+// version.
+//
+// BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+// PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License along
+// with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+@import "bootstrap";
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+}
+
+.container-fluid {
+  height: 100%;
+}
+
+.background {
+  height: 350px;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+body[data-controller=landing].app-background {
+  @extend .background;
+}
+
+#alerts {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  margin-left: -250px;
+  width: 500px;
+  z-index: 999;
+}
+
+.header {
+  padding: 20px 40px;
+  margin-bottom: 160px;
+  .logo {
+    max-width: 150px;
+    max-height: 50px;
+  }
+}
+
+.footer {
+  padding: 20px;
+}
+
+.center-block {
+  float: none;
+}
+.center-panel-wrapper {
+  height: 100%;
+}
+.center-panel {
+  height: 100%;
+  .center-panel-size {
+    max-width: 1200px
+  }
+  .center-panel-content-size {
+    height: 100%;
+    max-width: 1100px;
+  }
+
+  .panel {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .input-spacing {
+    margin-top: 15px;
+  }
+
+  .panel-footer {
+    background-color: white;
+  }
+
+  .panel-body {
+    padding-bottom: 40px;
+  }
+
+  .title-wrapper {
+    margin-bottom: 30px;
+  }
+
+  .join-form-wrapper {
+    .center-block {
+      max-width: 400px;
+    }
+    .join-form {
+      width: 100%;
+    }
+    .btn {
+      width: initial;
+    }
+  }
+
+  .meeting-url-wrapper {
+    .meeting-url {
+      cursor: default;
+    }
+  }
+
+  .loading-wrapper {
+    text-align: center;
+  }
+}
+
+.popover {
+  max-width: none;
+}
+
+.verticle-line {
+  // parent must be position relative to work
+  width: 1px;
+  background-color: lightgray;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+}
+
+.invite-join-wrapper {
+  position: relative;
+}
+
+.help-link {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 3px;
+}

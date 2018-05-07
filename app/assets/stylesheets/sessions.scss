@@ -1,0 +1,50 @@
+// Place all the styles related to the Sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.login {
+  .center-panel {
+    .center-panel-size {
+      max-width: 400px;
+    }
+  }
+}
+
+a.signin-link {
+  &:hover, &:focus {
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+
+.signin-link {
+  .signin-icon {
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+  }
+  .signin-button {
+    background: white;
+    width: 250px;
+    border: thin solid #888;
+    border-radius: 2px;
+    white-space: nowrap;
+    padding: 5px;
+    margin-bottom: 14px;
+  }
+  .signin-icon-wrapper {
+    display: inline-block;
+    width: 40px;
+  }
+  .signin-text-wrapper {
+    display: inline-block;
+    width: 200px;
+  }
+  .signin-text {
+    font-family: 'Roboto', sans-serif;
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+  }
+}

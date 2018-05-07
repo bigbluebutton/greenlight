@@ -1,0 +1,7 @@
+<% title_class ||= '' %>
+<div class="title-wrapper text-center">
+  <div class="title">
+    <h2 class="<%= title_class if title_class %>"><%= title %></h2>
+    <%= yield %>
+  </div>
+</div>

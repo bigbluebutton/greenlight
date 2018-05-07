@@ -1,0 +1,7 @@
+<p>The join the meeting, enter a name.</p>
+
+<p>Enter a name to start a session.</p>
+<%= form_tag join_meeting_path(room_uid: @meeting.room.uid, meeting_uid: @meeting.uid) do %>
+  <%= text_field_tag "join_name" %>
+  <%= submit_tag "Join" %>
+<% end %>

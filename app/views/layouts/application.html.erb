@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Greenlight20</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>"
+    data-resource="<%= params[:resource] %>"
+    data-current-user="<%= current_user.try(:encrypted_id) %>"
+    style="background-image:url(<%= image_path('background.png') if params[:controller] == 'main' %>);">
+
+    <!-- Messages -->
+    <div id='alerts'>
+      <div class='flash-alerts'>
+        <% flash.each do |name, msg| %>
+          <div class="alert alert-<%= name %> alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <span class="alert-message"><%= msg %></span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  <!-- Header -->
+    <div class='header'>
+      <span class="logo-wrapper pull-left">
+        <% if current_user %>
+          <%= link_to image_tag("bbb_logo.png", :alt => "BigBlueButton", :class => "logo"), room_path(current_user) %>
+        <% else %>
+          <%= link_to image_tag("bbb_logo.png", :alt => "BigBlueButton", :class => "logo"), root_path %>
+        <% end %>
+      </span>
+    </div>
+
+    <%= yield %>
+  </body>
+</html>

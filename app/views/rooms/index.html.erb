@@ -1,0 +1,22 @@
+<p>This is a room.</p>
+
+<p><%= @room.user.name %><p>
+
+<%= link_to 'Sessions', root_path %>
+<%= link_to 'Recordings', root_path %>
+<%= link_to 'Settings', root_path %>
+
+<p>Enter a name to start a session.</p>
+<%= form_for @meeting do |f| %>
+  <%= f.text_field :name %>
+  <%= f.submit "Start" %>
+<% end %>
+
+<br><br><br><br><br>
+<p>Previous Sessions</p>
+<% current_user.room.meetings.each do |m| %>
+  <p><%= m.name + " " + m.is_running?.to_s %></p>
+<% end %>
+<br>
+
+<%= link_to 'Logout', user_logout_path %>

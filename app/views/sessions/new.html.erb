@@ -1,0 +1,32 @@
+<% content_for :title do %>
+  <div class="title">
+    <h2><%= "Login" %></h2>
+  </div>
+<% end %>
+
+<div class="page-wrapper login">
+  <div class="container-fluid">
+
+    <div class="center-panel-wrapper">
+      <%= render layout: 'shared/center_panel' do %>
+        <div class="center-block center-panel-content-size col-xs-12">
+
+          <% configured_providers.each do |provider| %>
+            <%= link_to omniauth_login_url(provider), class: "signin-link signin-link-#{provider}" do %>
+              <div class="signin-button center-block">
+                <div class="signin-icon-wrapper">
+                  <%= image_tag("#{provider}_logo.png", alt: "T", class: "signin-icon") %>
+                </div>
+                <div class="signin-text-wrapper text-center">
+                  <span class="signin-text"><%= "Login with #{provider.capitalize}" %></span>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>
