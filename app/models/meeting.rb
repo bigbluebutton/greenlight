@@ -38,7 +38,6 @@ class Meeting < ApplicationRecord
     options[:meeting_logout_url] ||= nil
     options[:moderator_message] ||= ''
     options[:user_is_moderator] ||= false
-
     options[:meeting_recorded] ||= false
 
     #options[:wait_for_moderator] ||= false
@@ -59,6 +58,12 @@ class Meeting < ApplicationRecord
 
     # Generate the join URL.
     bbb.join_meeting_url(uid, username, password)
+  end
+
+  # Fetches all recordings for a meeting.
+  def recordings
+    res = bbb.get_recordings(meetingID: uid)
+    res[:recordings]
   end
 
   # Checks if a meeting is running on the BigBlueButton server.

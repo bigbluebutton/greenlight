@@ -1,1 +1,7 @@
-<p>waiting for meeting to start...</p>
+<p>Waiting for meeting to start...</p>
+<p>You will be redirected when the meeing starts...</p>
+
+<% unless current_user %>
+  <p>Input a name for when the meeting starts.</p>
+  <%= text_field(:unauthenticated_join_name, nil) %>
+<% end %>

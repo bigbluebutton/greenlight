@@ -15,7 +15,7 @@
 <br><br><br><br><br>
 <p>Previous Sessions</p>
 <% current_user.room.meetings.each do |m| %>
-  <p><%= m.name + " " + m.is_running?.to_s %></p>
+  <p><%= m.name + " " + m.is_running?.to_s + " " + m.recordings.to_s %></p>
 <% end %>
 <br>
 
