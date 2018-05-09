@@ -86,7 +86,8 @@ class MeetingsController < ApplicationController
   private
 
   def meeting_params(room)
-    params.require(:meeting).permit(:name).merge!(room_id: room.id)
+    params.require(:meeting).permit(:name).merge!(room: room)
+    #params.require(:meeting).permit(:name).merge!(room_id: room.id)
   end
 
   def default_meeting_options

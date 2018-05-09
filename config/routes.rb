@@ -9,10 +9,20 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/login', to: 'sessions#new', as: :user_login
-  get '/logout', to: 'sessions#destroy', as: :user_logout
+  get '/signup', to: 'users#new'
+  post '/signup', to: 'users#create'
 
-  match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  # Login to Greenlight.
+  get '/login', to: 'sessions#new'
+
+  # Handles login of :greenlight provider account.
+  post '/login',  to: 'sessions#create', as: :create_session
+
+  # Log the user out of the session.
+  get '/logout', to: 'sessions#destroy'
+
+  # Handles Omniauth authentication.
+  match '/auth/:provider/callback', to: 'sessions#omniauth_session', via: [:get, :post], as: :omniauth_session
   get '/auth/failure', to: 'sessions#fail'
 
   root to: 'main#index'

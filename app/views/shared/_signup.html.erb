@@ -6,12 +6,12 @@
     <% else %>
       <%= link_to(t('return_to_room'), room_path(current_user)) %>
     <% end %>
-    <div><%= link_to t('logout'), user_logout_url %></div>
+    <div><%= link_to t('logout'), logout_url %></div>
   </div>
   <% else %>
     <div class="text-center">
       <span><%= t('login_description') %></span>
-      <div><%= link_to t('login'), user_login_url %></div>
+      <div><%= link_to t('login'), login_url %></div>
     </div>
   <% end %>
 </span>

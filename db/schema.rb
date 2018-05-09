@@ -14,10 +14,11 @@ ActiveRecord::Schema.define(version: 20180504131713) do
 
   create_table "meetings", force: :cascade do |t|
     t.integer  "room_id"
-    t.string   "name",       null: false
+    t.string   "name"
     t.string   "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_meetings_on_name"
     t.index ["room_id"], name: "index_meetings_on_room_id"
     t.index ["uid"], name: "index_meetings_on_uid"
   end
@@ -32,13 +33,15 @@ ActiveRecord::Schema.define(version: 20180504131713) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "provider",   null: false
-    t.string   "uid",        null: false
+    t.string   "provider"
+    t.string   "uid"
     t.string   "name"
     t.string   "username"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["password_digest"], name: "index_users_on_password_digest", unique: true
   end
 
 end

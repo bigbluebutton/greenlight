@@ -11,7 +11,10 @@ class Room < ApplicationRecord
 
   private
 
+  # Generates a uid for the room.
   def set_uid
-    self.uid = Digest::SHA1.hexdigest(user.uid + user.provider + user.username)[0..12]
+    digest = user.id.to_s + user.provider + user.username
+    digest += user.uid unless user.uid.nil?
+    self.uid = Digest::SHA1.hexdigest(digest)[0..12]
   end
 end

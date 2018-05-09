@@ -2,6 +2,8 @@ class Meeting < ApplicationRecord
 
   before_create :generate_meeting_id
 
+  validates :name, presence: true
+
   belongs_to :room
 
   # Creates a meeting on the BigBlueButton server.
@@ -11,9 +13,7 @@ class Meeting < ApplicationRecord
       logoutURL: options[:meeting_logout_url] || '',
       moderatorPW: random_password(12),
       attendeePW: random_password(12),
-      moderatorOnlyMessage: options[:moderator_message],
-      "meta_#{BigBlueHelper::META_LISTED}": false,
-      "meta_#{BigBlueHelper::META_TOKEN}": name
+      moderatorOnlyMessage: options[:moderator_message]
     }
 
     #meeting_options.merge!(

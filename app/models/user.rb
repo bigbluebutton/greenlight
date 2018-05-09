@@ -1,6 +1,22 @@
 class User < ApplicationRecord
 
+  after_create :initialize_room
+  before_save { email.downcase! }
+
   has_one :room
+
+  validates :name, length: { maximum: 24 }, presence: true
+  validates :username, presence: true
+  validates :provider, presence: true
+  validates :email, length: { maximum: 60 }, presence: true,
+                    uniqueness: { case_sensitive: false },
+                    format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+
+  validates :password, length: { minimum: 6 }, allow_nil: true
+
+  # We don't want to run the validations because they require a user
+  # to have a password. Users who authenticate via omniauth won't.
+  has_secure_password(validations: false)
 
   class << self
     
@@ -10,10 +26,6 @@ class User < ApplicationRecord
       user.name = send("#{auth['provider']}_name", auth)
       user.username = send("#{auth['provider']}_username", auth)
       user.email = send("#{auth['provider']}_email", auth)
-      #user.token = auth['credentials']['token']
-
-      # Create a room for the user if they don't have one.
-      user.room = Room.create unless user.room
       
       user.save!
       user
@@ -48,4 +60,11 @@ class User < ApplicationRecord
 
   end
 
+  private
+
+  # Initializes a room for the user.
+  def initialize_room
+    self.room = Room.new
+    self.save!
+  end
 end
