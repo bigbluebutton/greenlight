@@ -3,30 +3,21 @@ require 'test_helper'
 class MeetingTest < ActiveSupport::TestCase
 
   def setup
-    @user = User.new(
-      name: "Example User",
-      username: "Username",
-      provider: "greenlight",
-      email: "user@example.com",
-      password: "example",
-      password_confirmation: "example"
-    )
+    @steve = users(:steve)
 
-    @room = Room.new(user: @user)
+    @kitchen = rooms(:kitchen)
     
-    @meeting = Meeting.new(
-      name: "Test Meeting",
-      room: @room
-    )
+    @breakfast = meetings(:breakfast)
+    @breakfast.room = @kitchen
   end
 
   test "name should be present." do
-    @meeting.name = nil
-    assert_not @meeting.valid?
+    @breakfast.name = nil
+    assert_not @breakfast.valid?
   end
 
   test "should set uid on creation." do
-    @meeting.save
-    assert @meeting.uid
+    @breakfast.send(:generate_meeting_id)
+    assert @breakfast.uid
   end
 end

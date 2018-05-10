@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
   # GET /logout
   def destroy
     logout if current_user
+    head :no_content
   end
 
   # POST /login
@@ -22,7 +23,7 @@ class SessionsController < ApplicationController
   end
 
   # GET/POST /auth/:provider/callback
-  def omniauth_session
+  def omniauth
     user = User.from_omniauth(request.env['omniauth.auth'])
     login(user)
   end

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   # Handles Omniauth authentication.
-  match '/auth/:provider/callback', to: 'sessions#omniauth_session', via: [:get, :post], as: :omniauth_session
+  match '/auth/:provider/callback', to: 'sessions#omniauth', via: [:get, :post], as: :omniauth_session
   get '/auth/failure', to: 'sessions#fail'
 
   root to: 'main#index'

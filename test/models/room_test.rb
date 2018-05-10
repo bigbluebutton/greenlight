@@ -3,37 +3,18 @@ require 'test_helper'
 class RoomTest < ActiveSupport::TestCase
 
   def setup
-    @user = User.new(
-      name: "Example User",
-      username: "Username",
-      provider: "greenlight",
-      email: "user@example.com",
-      password: "example",
-      password_confirmation: "example"
-    )
+    @steve = users(:steve)
+    @mark = users(:mark)
 
-    @room = Room.new(
-      user: @user
-    )
+    @kitchen = rooms(:kitchen)
+    @kitchen.user = @steve
   end
 
   test "#owned_by? should identify correct owner." do
-    assert @room.owned_by?(@user)
+    assert @kitchen.owned_by?(@steve)
   end
 
   test "#owned_by? should identify incorrect owner." do
-    diff_user = User.new(
-      name: "Different User",
-      username: "Diffname",
-      provider: "greenlight",
-      email: "diff@example.com",
-    )
-    
-    assert_not @room.owned_by?(diff_user)
-  end
-
-  test "should set uid on creation." do
-    @room.save
-    assert @room.uid
+    assert_not @kitchen.owned_by?(@mark)
   end
 end

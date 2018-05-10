@@ -1,50 +1,48 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  
+
   def setup
-    @user = User.new(
-      name: "Example User",
-      username: "Username",
-      provider: "greenlight",
-      email: "user@example.com",
-      password: "example",
-      password_confirmation: "example"
-    )
+    @steve = users(:steve)
   end
 
   test "should be valid." do
-    assert @user.valid?
+    assert @steve.valid?
   end
 
   test "name should be present." do
-    @user.name = nil
-    assert_not @user.valid?
+    @steve.name = nil
+    assert_not @steve.valid?
   end
 
   test "email should be present." do
-    @user.email = nil
-    assert_not @user.valid?
+    @steve.email = nil
+    assert_not @steve.valid?
   end
 
   test "username should be present." do
-    @user.username = nil
-    assert_not @user.valid?
+    @steve.username = nil
+    assert_not @steve.valid?
   end
 
   test "provider should be present." do
-    @user.provider = nil
-    assert_not @user.valid?
+    @steve.provider = nil
+    assert_not @steve.valid?
   end
 
   test "should allow nil uid." do
-    @user.uid = nil
-    assert @user.valid?
+    @steve.uid = nil
+    assert @steve.valid?
   end
 
   test "should allow nil password." do
-    @user.password = @user.password_confirmation = nil
-    assert @user.valid?
+    @steve.password = @steve.password_confirmation = nil
+    assert @steve.valid?
+  end
+
+  test "password should be longer than 6 characters if it exists." do
+    @steve.password = "short"
+    assert_not @steve.valid?
   end
 
   test "should create user from omniauth" do
@@ -70,51 +68,51 @@ class UserTest < ActiveSupport::TestCase
 
   test "email addresses should be saved as lower-case." do
     mixed_case = "ExAmPlE@eXaMpLe.CoM"
-    @user.email = mixed_case
-    @user.save
-    assert_equal mixed_case.downcase, @user.email
+    @steve.email = mixed_case
+    @steve.save
+    assert_equal mixed_case.downcase, @steve.email
   end
 
   test "email validation should reject invalid addresses." do
     invalid_addresses = %w[user@example,com user_at_foo.org user.name@example. foo@bar_baz.com foo@bar+baz.com]
     invalid_addresses.each do |invalid_address|
-      @user.email = invalid_address
-      assert_not @user.valid?, "#{invalid_address.inspect} should be invalid."
+      @steve.email = invalid_address
+      assert_not @steve.valid?, "#{invalid_address.inspect} should be invalid."
     end
   end
 
   test "email should be unique." do
-    duplicate_user = @user.dup
-    duplicate_user.email = @user.email.upcase
-    @user.save
+    duplicate_user = @steve.dup
+    duplicate_user.email = @steve.email.upcase
+    @steve.save
     assert_not duplicate_user.valid?
   end
 
   test "name should not be too long." do
-    @user.name = "a" * 25
-    assert_not @user.valid?
+    @steve.name = "a" * 25
+    assert_not @steve.valid?
   end
 
   test "email should not be too long." do
-    @user.email = "a" * 50 + "@example.com"
-    assert_not @user.valid?
+    @steve.email = "a" * 50 + "@example.com"
+    assert_not @steve.valid?
   end
 
   test "password should have a minimum length." do
-    @user.password = @user.password_confirmation = "a" * 5
-    assert_not @user.valid?
+    @steve.password = @steve.password_confirmation = "a" * 5
+    assert_not @steve.valid?
   end
 
   test "should authenticate on valid password." do
-    assert_not_equal @user.authenticate('example'), false
+    assert @steve.authenticate("steve12345")
   end
 
   test "should not authenticate on invalid password." do
-    assert_not @user.authenticate('incorrect')
+    assert_not @steve.authenticate('incorrect')
   end
 
-  test "should create room when saved." do
-    @user.save
-    assert @user.room
+  test "#initialize_room should create room." do
+    @steve.send(:initialize_room)
+    assert @steve.room
   end
 end
