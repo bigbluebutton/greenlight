@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
 
   # GET /logout
   def destroy
-    logout if current_user
-    head :no_content
+    logout
+    redirect_to root_path
   end
 
   # POST /login
@@ -20,6 +20,18 @@ class SessionsController < ApplicationController
       
       render :new
     end
+  end
+
+  # POST /launch
+  def launch
+    # This will recieve a encoded POST from a launcher that
+    # contains the provider, and all user information. The
+    # launcher is what does the authentication, so we know
+    # that the user is who they say they are. We just need
+    # to use our secret to decode it and then log them in
+    # to GreenLight (or sign them up).
+
+    # User.from_launch()
   end
 
   # GET/POST /auth/:provider/callback

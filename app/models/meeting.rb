@@ -6,6 +6,8 @@ class Meeting < ApplicationRecord
 
   belongs_to :room
 
+  RETURNCODE_SUCCESS = "SUCCESS"
+
   # Creates a meeting on the BigBlueButton server.
   def create(options = {})
     create_options = {
@@ -86,9 +88,59 @@ class Meeting < ApplicationRecord
     Rails.configuration.bigbluebutton_secret
   end
 
-  # Use one common instance of the BigBlueButton API for all meetings.
+  # Sets a BigBlueButtonApi object for interacting with the API.
   def bbb
-    @@bbb ||= BigBlueButton::BigBlueButtonApi.new(bbb_endpoint + "api", bbb_secret, "0.8")
+    @bbb ||= if Rails.configuration.loadbalanced_configuration
+      lb_user = retrieve_loadbalanced_credentials(self.room.user.provider)
+      BigBlueButton::BigBlueButtonApi.new(remove_slash(lb_user["apiURL"]), lb_user["secret"], "0.8")
+    else
+      BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
+    end
+  end
+
+  # Rereives the loadbalanced BigBlueButton credentials for a user.
+  def retrieve_loadbalanced_credentials(provider)
+    # Include Omniauth accounts under the Greenlight provider.
+    provider = "greenlight" if Rails.configuration.providers.include?(provider.to_sym)
+
+    # Build the URI.
+    uri = encode_bbb_url(
+      Rails.configuration.loadbalancer_endpoint,
+      Rails.configuration.loadbalancer_secret,
+      {name: provider}
+    )
+
+    # Make the request.
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = (uri.scheme == 'https')
+    response = http.get(uri.request_uri)
+
+    unless response.kind_of?(Net::HTTPSuccess)
+      raise "Error retrieving provider credentials: #{response.code} #{response.message}"
+    end
+
+    # Parse XML.
+    doc = XmlSimple.xml_in(response.body, 'ForceArray' => false)
+
+    # Return the user credentials if the request succeeded on the loadbalancer.
+    return doc['user'] if doc['returncode'] == RETURNCODE_SUCCESS
+
+    raise "User with provider #{provider} does not exist." if doc['messageKey'] == "noSuchUser"
+    raise "API call #{url} failed with #{doc['messageKey']}."
+  end
+
+  # Builds a request to retrieve credentials from the load balancer.
+  def encode_bbb_url(base_url, secret, params)
+    encoded_params = OAuth::Helper.normalize(params)
+    string = "getUser" + encoded_params + secret
+    checksum = OpenSSL::Digest.digest('sha1', string).unpack("H*").first
+
+    URI.parse("#{base_url}?#{encoded_params}&checksum=#{checksum}")
+  end
+
+  # Removes trailing forward slash from BigBlueButton URL.
+  def remove_slash(s)
+    s.nil? ? nil : s.chomp("/")
   end
 
   # Generates a BigBlueButton meeting id from a meeting token.

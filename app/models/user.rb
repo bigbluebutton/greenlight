@@ -1,14 +1,14 @@
 class User < ApplicationRecord
 
   after_create :initialize_room
-  before_save { email.downcase! }
+  before_save { email.downcase! unless email.nil? }
 
   has_one :room
 
   validates :name, length: { maximum: 24 }, presence: true
   validates :username, presence: true
   validates :provider, presence: true
-  validates :email, length: { maximum: 60 }, presence: true,
+  validates :email, length: { maximum: 60 }, allow_nil: true,
                     uniqueness: { case_sensitive: false },
                     format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
@@ -29,6 +29,11 @@ class User < ApplicationRecord
       
       user.save!
       user
+    end
+
+    # Generates a user from a trusted launcher.
+    def from_launch(auth)
+
     end
 
     private
@@ -57,7 +62,6 @@ class User < ApplicationRecord
     def google_email(auth)
       auth['info']['email']
     end
-
   end
 
   private

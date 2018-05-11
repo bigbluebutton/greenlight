@@ -20,9 +20,20 @@ class ApplicationController < ActionController::Base
 
   # Determines if the BigBlueButton endpoint is configured (or set to default).
   def bigbluebutton_endpoint_default?
+    return false if loadbalanced_configuration?
     Rails.configuration.bigbluebutton_endpoint_default == Rails.configuration.bigbluebutton_endpoint
   end
   helper_method :bigbluebutton_endpoint_default?
+
+  def loadbalanced_configuration?
+    Rails.configuration.loadbalanced_configuration
+  end
+  helper_method :loadbalanced_configuration?
+
+  def allow_greenlight_users?
+    Rails.configuration.greenlight_accounts
+  end
+  helper_method :allow_greenlight_users?
 
   private
 

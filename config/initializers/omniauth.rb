@@ -1,4 +1,4 @@
-# List of supported providers.
+# List of supported Omniauth providers.
 Rails.application.config.providers = [:google, :twitter]
 
 # Set which providers are configured.

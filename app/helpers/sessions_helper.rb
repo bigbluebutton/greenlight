@@ -8,7 +8,6 @@ module SessionsHelper
   # Logs current user out of GreenLight.
   def logout
     session.delete(:user_id) if current_user
-    redirect_to root_path
   end
 
   # Retrieves the current user.

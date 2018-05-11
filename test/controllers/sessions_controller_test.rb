@@ -9,11 +9,6 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     @steve.room = @kitchen
   end
 
-  test 'can get login page.' do
-    get login_path
-    assert_response :success
-  end
-
   test 'can signin with greenlight account.' do
     post create_session_path, params: {session: {email: @steve.email, password: "steve12345"}}
     

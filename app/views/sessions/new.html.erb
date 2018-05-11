@@ -24,20 +24,22 @@
             <% end %>
           <% end %>
 
-          <center><p>or...<br><br></p></center>
+          <% if allow_greenlight_users? %>
+            <center><p>or...<br><br></p></center>
 
-          <%= form_for(:session, url: login_path) do |f| %>
-            <div class="input-field col s12">
-              <%= f.label :email, "Email Address" %>
-              <%= f.text_field :email %>
-            </div>
-            <div class="input-field col s12">
-              <%= f.label :password %>
-              <%= f.password_field :password %>
-            </div>
-            <br>
-            <%= f.submit "Login", class: "btn white-text light-green" %>
-            <%= link_to "Don't have an account? Sign up!", signup_path %>
+            <%= form_for(:session, url: login_path) do |f| %>
+              <div class="input-field col s12">
+                <%= f.label :email, "Email Address" %>
+                <%= f.text_field :email %>
+              </div>
+              <div class="input-field col s12">
+                <%= f.label :password %>
+                <%= f.password_field :password %>
+              </div>
+              <br>
+              <%= f.submit "Login", class: "btn white-text light-green" %>
+              <%= link_to "Don't have an account? Sign up!", signup_path %>
+            <% end %>
           <% end %>
         </div>
       <% end %>

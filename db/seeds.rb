@@ -12,6 +12,6 @@ User.create(
   uid: "someuid",
   username: "testuser",
   email: "test@user.com",
-  password: "test",
-  password_confirmation: "test",
+  password: "password",
+  password_confirmation: "password",
 )
