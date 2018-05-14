@@ -39,9 +39,6 @@ class ApplicationController < ActionController::Base
 
   # Ensure the user is logged into the room they are accessing.
   def verify_room_ownership
-    return unless params.include?(:room_uid)
-    @room = Room.find_by(uid: params[:room_uid])
-  
     # Redirect to correct room or root if not logged in.
     if current_user.nil?
       redirect_to root_path

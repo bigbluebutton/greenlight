@@ -1,22 +1,23 @@
 <p>This is a room.</p>
 
 <p><%= @room.user.name %><p>
+<p><%= @room.meeting.uid %><p>
+<p><%= @room.uid %><p>
 
 <%= link_to 'Sessions', root_path %>
 <%= link_to 'Recordings', root_path %>
 <%= link_to 'Settings', root_path %>
 
-<p>Enter a name to start a session.</p>
-<%= form_for @meeting do |f| %>
-  <%= f.text_field :name %>
-  <%= f.submit "Start" %>
+<p>Click below to join the meeting.</p>
+
+<% if @room.meeting.is_running? %>
+  <p>meeting is already running</p>
+<% else %>
+  <%= form_tag join_room_path, method: :get do %>
+    <%= submit_tag 'Start Meeting' %>
+  <% end %>
 <% end %>
 
-<br><br><br><br><br>
-<p>Previous Sessions</p>
-<% current_user.room.meetings.each do |m| %>
-  <p><%= m.name + " " + m.is_running?.to_s + " " + m.recordings.to_s %></p>
-<% end %>
-<br>
+<br><br>
 
 <%= link_to 'Logout', logout_path %>

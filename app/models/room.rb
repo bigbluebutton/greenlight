@@ -3,9 +3,10 @@ class Room < ApplicationRecord
   before_create :set_uid
 
   belongs_to :user
-  has_many :meetings
+  has_one :meeting
 
   def owned_by?(user)
+    return false if user.nil?
     user.room == self
   end
 

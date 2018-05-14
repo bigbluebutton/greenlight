@@ -68,7 +68,7 @@ class User < ApplicationRecord
 
   # Initializes a room for the user.
   def initialize_room
-    self.room = Room.new
-    self.save!
+    room = Room.create(user_id: self.id)
+    Meeting.create(room_id: room.id, name: "Example")
   end
 end
