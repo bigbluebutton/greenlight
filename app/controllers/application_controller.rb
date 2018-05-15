@@ -35,15 +35,21 @@ class ApplicationController < ActionController::Base
   end
   helper_method :allow_greenlight_users?
 
-  private
-
-  # Ensure the user is logged into the room they are accessing.
-  def verify_room_ownership
-    # Redirect to correct room or root if not logged in.
-    if current_user.nil?
-      redirect_to root_path
-    elsif @room.nil? || current_user != @room.user
-      redirect_to room_path(current_user.room.uid)
-    end
+  # Generate a URL to start a meeting.
+  def owner_meeting_url
+    opts = default_meeting_options
+    opts[:user_is_moderator] = true
+    @room.meeting.join_path(current_user.name, opts)
+  end
+  helper_method :owner_meeting_url
+  
+  # Default, unconfigured meeting options.
+  def default_meeting_options
+    {
+      user_is_moderator: false,
+      meeting_logout_url: request.base_url + logout_room_path(@room.uid),
+      meeting_recorded: true,
+      moderator_message: "To invite someone to the meeting, send them this link:\n\n#{request.base_url + room_path(@room.uid)}"
+    }
   end
 end

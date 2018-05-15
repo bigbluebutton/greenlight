@@ -8,9 +8,6 @@ class RoomsControllerTest < ActionDispatch::IntegrationTest
 
     @kitchen = rooms(:kitchen)
     @garage = rooms(:garage)
-
-    @steve.room = @kitchen
-    @mark.room = @garage
   end
 
   test 'should redirect to root if not logged in.' do

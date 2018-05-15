@@ -5,6 +5,7 @@ class Room < ApplicationRecord
   belongs_to :user
   has_one :meeting
 
+  # Determines if a user owns a room.
   def owned_by?(user)
     return false if user.nil?
     user.room == self
@@ -16,6 +17,7 @@ class Room < ApplicationRecord
   def set_uid
     digest = user.id.to_s + user.provider + user.username
     digest += user.uid unless user.uid.nil?
-    self.uid = Digest::SHA1.hexdigest(digest)[0..12]
+
+    self.uid = [user.name.split(' ').first.downcase, Digest::SHA1.hexdigest(digest)[0..7]].join('-')
   end
 end

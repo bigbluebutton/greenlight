@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
 
   # Room and Meeting routes.
-  scope '/rooms/:room_uid' do
+  scope '/r/:room_uid' do
     get '/', to: 'rooms#index', as: :room
+    match '/start', to: 'rooms#start', as: :start_room, via: [:get, :post]
     match '/join', to: 'rooms#join', as: :join_room, via: [:get, :post]
     match '/wait', to: 'rooms#wait', as: :wait_room, via: [:get, :post]
+    match '/logout', to: 'rooms#logout', as: :logout_room, via: [:get, :post]
     resources :meetings, only: [:index], param: :meeting_uid
   end
 

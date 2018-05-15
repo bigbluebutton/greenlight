@@ -1,8 +1,8 @@
 class MeetingsController < ApplicationController
 
-  before_action :verify_room_ownership
+  #before_action :verify_room_ownership
 
-  # GET /rooms/:room_uid/meetings
+  # GET /r/:room_uid/meetings
   def index
   end
 

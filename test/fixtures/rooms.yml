@@ -6,7 +6,9 @@
 #
 
 kitchen:
+  user: steve
   uid: "13579"
 
 garage:
+  user: mark
   uid: "02468"

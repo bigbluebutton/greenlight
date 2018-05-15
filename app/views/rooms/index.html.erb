@@ -13,9 +13,7 @@
 <% if @room.meeting.is_running? %>
   <p>meeting is already running</p>
 <% else %>
-  <%= form_tag join_room_path, method: :get do %>
-    <%= submit_tag 'Start Meeting' %>
-  <% end %>
+  <%= link_to "Start Meeting", start_room_path(@room.uid) %>
 <% end %>
 
 <br><br>

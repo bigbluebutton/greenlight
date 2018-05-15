@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include MeetingsHelper
 
   # Gets all configured omniauth providers.
   def configured_providers
