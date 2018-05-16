@@ -148,8 +148,7 @@ module BbbApi
           
         # Generate the join URL.
         if use_html5
-          clientURL = bbb_endpoint.gsub('bigbluebutton/', 'html5client/join')
-          join_url = bbb.join_meeting_url(meeting_id, full_name, password, {clientURL: clientURL})
+          join_url = bbb.join_meeting_url(meeting_id, full_name, password, {joinViaHtml5:true})
         else
           join_url = bbb.join_meeting_url(meeting_id, full_name, password)
         end
