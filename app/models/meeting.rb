@@ -9,7 +9,8 @@ class Meeting < ApplicationRecord
   RETURNCODE_SUCCESS = "SUCCESS"
 
   # Creates a meeting on the BigBlueButton server.
-  def create(options = {})
+  def start_meeting(options = {})
+    puts bbb
     create_options = {
       record: options[:meeting_recorded].to_s,
       logoutURL: options[:meeting_logout_url] || '',
@@ -34,7 +35,7 @@ class Meeting < ApplicationRecord
   # Returns a URL to join a user into a meeting.
   def join_path(username, options = {})
     # Create the meeting if it isn't running.
-    create(options) unless is_running?
+    start_meeting(options) unless is_running?
 
     # Set meeting options.
     options[:meeting_logout_url] ||= nil
@@ -134,11 +135,11 @@ class Meeting < ApplicationRecord
     encoded_params = OAuth::Helper.normalize(params)
     string = "getUser" + encoded_params + secret
     checksum = OpenSSL::Digest.digest('sha1', string).unpack("H*").first
-
+    
     URI.parse("#{base_url}?#{encoded_params}&checksum=#{checksum}")
   end
 
-  # Removes trailing forward slash from BigBlueButton URL.
+  # Removes trailing forward slash from a URL.
   def remove_slash(s)
     s.nil? ? nil : s.chomp("/")
   end

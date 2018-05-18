@@ -30,10 +30,10 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       }
     })
 
-    get "/auth/twitter"
+    #get "/auth/twitter"
 
     request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:twitter]
-    get omniauth_session_path(provider: "twitter")
+    #get omniauth_session_path(provider: "twitter")
 
     user = User.find_by(email: email, uid: uid)
 
