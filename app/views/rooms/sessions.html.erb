@@ -1,0 +1,10 @@
+Sessions
+<br><br>
+<%= @meeting.recordings %>
+
+<% @meeting.recordings.each do |rec| %>
+  <p><%= rec[:metadata][:meetingName] %></p>
+  <% Array.wrap(rec[:playback][:format]).each do |form| %>
+    <%= link_to form[:type], form[:url] %>
+  <% end %>
+<% end %>

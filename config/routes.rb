@@ -1,20 +1,27 @@
 Rails.application.routes.draw do
 
-  # Room and Meeting routes.
+  # Room routes.
   scope '/r/:room_uid' do
-    get '/', to: 'rooms#index', as: :room
+    get '/', to: 'rooms#show', as: :room
     match '/start', to: 'rooms#start', as: :start_room, via: [:get, :post]
     match '/join', to: 'rooms#join', as: :join_room, via: [:get, :post]
     match '/wait', to: 'rooms#wait', as: :wait_room, via: [:get, :post]
     match '/logout', to: 'rooms#logout', as: :logout_room, via: [:get, :post]
-    resources :meetings, only: [:index], param: :meeting_uid
+    get '/sessions', to: 'rooms#sessions', as: :sessions
+  end
+
+  # Meeting routes.
+  scope '/m' do
+    post '/', to: 'meetings#create', as: :create_meeting
+    get '/:meeting_uid', to: 'meetings#show', as: :meeting
+    post '/:meeting_uid', to: 'meetings#join', as: :join_meeting
   end
 
   # Signup routes.
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
 
-  # Handles login of :greenlight provider account.
+  # Handles login of greenlight provider accounts.
   post '/login',  to: 'sessions#create', as: :create_session
 
   # Login to Greenlight.

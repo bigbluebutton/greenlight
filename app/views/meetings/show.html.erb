@@ -1,0 +1,11 @@
+<h4>This is an unauthenticated meeting page.</h4>
+
+<% if current_user %>
+  <%= link_to "Join", join_meeting_path(uid: @meeting.uid), {method: :post} %>
+<% else %>
+  <p>Enter a name to join the session.</p>
+  <%= form_tag join_meeting_path do %>
+    <%= text_field_tag "join_name" %>
+    <%= submit_tag "Join" %>
+  <% end %>
+<% end %>

@@ -4,13 +4,12 @@ class Meeting < ApplicationRecord
 
   validates :name, presence: true
 
-  belongs_to :room
+  belongs_to :room, optional: true
 
   RETURNCODE_SUCCESS = "SUCCESS"
 
   # Creates a meeting on the BigBlueButton server.
   def start_meeting(options = {})
-    puts bbb
     create_options = {
       record: options[:meeting_recorded].to_s,
       logoutURL: options[:meeting_logout_url] || '',

@@ -10,12 +10,14 @@
     <div class="center-panel-wrapper">
       <%= render layout: 'shared/center_panel' do %>
         <div class="center-block center-panel-content-size col-xs-12">
-          <%= render 'shared/meeting_name_form' %>
-
-          <div class="row">
-            <%= render 'main/invite_join' %>
-          </div>
-
+          <%= form_for(:meeting, url: create_meeting_path) do |f| %>
+            <div class="input-field col s12">
+              <%= f.label :name, "Name" %>
+              <%= f.text_field :name %>
+            </div>
+            <br>
+            <%= f.submit "Start Meeting", class: "btn white-text light-green" %>
+          <% end %>
         </div>
       <% end %>
     </div>

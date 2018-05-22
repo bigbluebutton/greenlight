@@ -1,7 +1,7 @@
 class RoomsController < ApplicationController
 
   before_action :find_room, :verify_room_ownership
-  skip_before_action :verify_room_ownership, only: [:index, :join, :wait]
+  skip_before_action :verify_room_ownership, only: [:show, :join, :wait]
 
   # GET /r/:room_uid
   def index
@@ -80,6 +80,10 @@ class RoomsController < ApplicationController
   def logout
     # Redirect the owner to their room.
     redirect_to room_path(@room.uid)
+  end
+
+  # GET /r/:room_uid/sessions
+  def sessions
   end
 
   private
