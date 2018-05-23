@@ -3,10 +3,10 @@ Rails.application.routes.draw do
   # Room routes.
   scope '/r/:room_uid' do
     get '/', to: 'rooms#show', as: :room
-    match '/start', to: 'rooms#start', as: :start_room, via: [:get, :post]
-    match '/join', to: 'rooms#join', as: :join_room, via: [:get, :post]
+    get '/start', to: 'rooms#start', as: :start_room
+    get '/join', to: 'rooms#join', as: :join_room
     match '/wait', to: 'rooms#wait', as: :wait_room, via: [:get, :post]
-    match '/logout', to: 'rooms#logout', as: :logout_room, via: [:get, :post]
+    get '/logout', to: 'rooms#logout', as: :logout_room
     get '/sessions', to: 'rooms#sessions', as: :sessions
   end
 

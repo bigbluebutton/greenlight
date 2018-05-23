@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
   skip_before_action :verify_room_ownership, only: [:show, :join, :wait]
 
   # GET /r/:room_uid
-  def index
+  def show
     opts = default_meeting_options
 
     if @meeting.is_running?
@@ -63,7 +63,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  # GET /r/:room_uid/wait
+  # GET/POST /r/:room_uid/wait
   def wait
     if @meeting.is_running?
       if current_user
@@ -84,6 +84,7 @@ class RoomsController < ApplicationController
 
   # GET /r/:room_uid/sessions
   def sessions
+
   end
 
   private
