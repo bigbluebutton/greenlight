@@ -1,0 +1,27 @@
+<div class="header py-4">
+	<div class="container">
+		<div class="d-flex">
+			<a class="header-brand" href="{{ site.base }}/index.html">
+				<%= image_tag("bbb_logo.png", class: "header-brand-img") %>
+			</a>
+
+			<div class="d-flex order-lg-2 ml-auto">
+				<% if current_user %>
+					<div class="dropdown">
+						<a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+							<span class="avatar" style="background-image: url({{ site.base }}/{{ user.photo }})"></span>
+							<span class="ml-2 d-none d-lg-block">
+								<span class="text-default">{{ user.name }} {{ user.surname }}</span>
+								<small class="text-muted d-block mt-1">Administrator</small>
+							</span>
+						</a>
+					</div>
+				<% else %>
+					<button type="submit" class="btn btn-pill btn-outline-primary ml-auto" data-toggle="modal" data-target="#loginModal">Login</button>
+
+					<%= render "shared/login_modal" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,36 +1,18 @@
-<% content_for :title do %>
-  <div class="title">
-    <h2>Landing Title</h2>
-  </div>
-<% end %>
+<div class="container">
+	<h1 class="display-3 text-center text-primary">Teach Students Online</h1>
+	<hr class="small-rule">
 
-<div class="page-wrapper meetings">
-  <div class="container-fluid">
+  <%= render "shared/start_meeting" %>
 
-    <div class="center-panel-wrapper">
-      <%= render layout: 'shared/center_panel' do %>
-        <div class="center-block center-panel-content-size col-xs-12">
-          <%= form_for(:meeting, url: create_meeting_path) do |f| %>
-            <div class="input-field col s12">
-              <%= f.label :name, "Name" %>
-              <%= f.text_field :name %>
-            </div>
-            <br>
-            <%= f.submit "Start Meeting", class: "btn white-text light-green" %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
+  <br>
 
-    <% unless configured_providers.empty? %>
-      <div class="center-block col-xs-6 login">
-        <%= render 'shared/signup' %>
-      </div>
-    <% end %>
-
-    <div class="text-center" style="padding-top:20px;">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/yGX3JCv7OVM" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-  </div>
+  <%= render "shared/features" %>
 </div>
+
+<%= render "shared/video_modal" %>
+
+<script>
+$(window).on('load',function(){
+  $('#welcomeModal').modal('show');
+});
+</script>

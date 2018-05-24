@@ -39,14 +39,16 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
+    autoprefixer-rails (8.5.0)
+      execjs
     bcrypt (3.1.11)
     bigbluebutton-api-ruby (1.6.0)
       xml-simple (~> 1.1)
     bindex (0.5.0)
-    bootstrap-sass (3.3.0.0)
-      sass (~> 3.2)
-    bootstrap-social-rails (4.12.0)
-      railties (>= 3.1)
+    bootstrap (4.1.1)
+      autoprefixer-rails (>= 6.0.3)
+      popper_js (>= 1.12.9, < 2)
+      sass (>= 3.5.2)
     builder (3.2.3)
     byebug (10.0.2)
     coffee-rails (4.2.2)
@@ -75,8 +77,8 @@ GEM
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.23)
-    font-awesome-sass (4.7.0)
-      sass (>= 3.2)
+    font-awesome-sass (5.0.13)
+      sassc (>= 1.11)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.7)
@@ -131,6 +133,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
+    popper_js (1.12.9)
     puma (3.11.4)
     rack (2.0.5)
     rack-test (0.6.3)
@@ -194,6 +197,10 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (1.11.4)
+      bundler
+      ffi (~> 1.9.6)
+      sass (>= 3.3.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -207,6 +214,8 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.3.13)
+    tabler-rubygem (0.1.2)
+      autoprefixer-rails (>= 6.0.3)
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
@@ -233,14 +242,13 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   bigbluebutton-api-ruby
-  bootstrap-sass (= 3.3.0.0)
-  bootstrap-social-rails (~> 4.12)
+  bootstrap (~> 4.1.1)
   byebug
   coffee-rails (~> 4.2)
   dotenv-rails
   factory_bot_rails
   faker
-  font-awesome-sass (= 4.7.0)
+  font-awesome-sass (~> 5.0.13)
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
@@ -255,6 +263,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
+  tabler-rubygem
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)

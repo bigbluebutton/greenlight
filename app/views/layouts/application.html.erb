@@ -10,8 +10,7 @@
 
   <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>"
     data-resource="<%= params[:resource] %>"
-    data-current-user="<%= current_user.try(:encrypted_id) %>"
-    style="background-image:url(<%= image_path('background.png') if params[:controller] == 'main' %>);">
+    data-current-user="<%= current_user.try(:encrypted_id) %>">
 
     <!-- Messages -->
     <div id='alerts'>
@@ -27,17 +26,10 @@
       </div>
     </div>
 
-  <!-- Header -->
-    <div class='header'>
-      <span class="logo-wrapper pull-left">
-        <% if current_user %>
-          <%= link_to image_tag("bbb_logo.png", :alt => "BigBlueButton", :class => "logo"), room_path(current_user) %>
-        <% else %>
-          <%= link_to image_tag("bbb_logo.png", :alt => "BigBlueButton", :class => "logo"), root_path %>
-        <% end %>
-      </span>
-    </div>
+    <%= render "shared/header" %>
 
     <%= yield %>
+
+    <%= render "shared/footer" %>
   </body>
 </html>

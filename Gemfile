@@ -41,9 +41,11 @@ gem 'omniauth-google-oauth2'
 gem 'bigbluebutton-api-ruby'
 
 # Front-end.
-gem 'bootstrap-sass', '3.3.0.0'
-gem 'bootstrap-social-rails', '~> 4.12'
-gem 'font-awesome-sass', '4.7.0'
+gem 'bootstrap', '~> 4.1.1'
+gem 'tabler-rubygem'
+
+# Fontawesome icons.
+gem "font-awesome-sass", '~> 5.0.13'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

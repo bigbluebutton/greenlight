@@ -1,0 +1,35 @@
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <div class="card-body p-6">
+          <div class="card-title text-primary">
+            <h3>Login</h3>
+          </div>
+
+          <hr class="small-rule">
+          <% configured_providers.each do |provider| %>
+            <%= link_to omniauth_login_url(provider), class: "btn btn-pill btn-#{provider} btn-block" do %>
+               <i class="fab fa-<%= provider %>"></i>&ensp;<%= "Login with #{provider.capitalize}" %>
+            <% end %>
+          <% end %>
+
+          <hr>
+          <div class="form-group">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          </div>
+          <div class="form-footer">
+            <button type="submit" class="btn btn-outline-primary btn-block btn-pill">Login</button>
+          </div>
+        </div>
+        <div class="card-footer">
+          <%= link_to "Don't have an account, sign up!", "google.com" %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

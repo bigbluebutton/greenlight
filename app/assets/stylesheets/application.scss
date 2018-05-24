@@ -30,12 +30,42 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+@import "tabler/variables";
 @import "bootstrap";
+@import "tabler";
+@import "tabler.plugins";
+
+$background-color: #d1e2ff;
+$rule-color: lightblue;
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+}
+
+iframe{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+ }
 
 html, body {
   width: 100%;
   height: 100%;
-  background: #ffffff;
+  background: linear-gradient(180deg, $background-color 50%, white 50%);
+}
+
+.small-rule {
+  width: 25%;
+  border-width: 3px;
+  background-color: $rule-color;
 }
 
 .container-fluid {
