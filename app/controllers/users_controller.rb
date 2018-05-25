@@ -17,6 +17,11 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /settings
+  def settings
+    redirect_to root_path unless current_user
+  end
+
   private
 
   def user_params

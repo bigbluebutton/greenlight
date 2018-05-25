@@ -1,0 +1,93 @@
+<div class="container">
+
+  <div class="form-group">
+    <div class="selectgroup selectgroup-pills">
+      <label class="selectgroup-item">
+        <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked="">
+        <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-user"></i> Account</span>
+      </label>
+      <label class="selectgroup-item">
+        <input type="radio" name="icon-input" value="2" class="selectgroup-input">
+        <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-pencil-alt"></i> Design </span>
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Background</label>
+    <div class="row gutters-xs">
+      <div class="col-auto">
+        <label class="colorinput">
+          <input name="color" type="radio" value="azure" class="colorinput-input">
+          <span class="colorinput-color bg-azure"></span>
+        </label>
+      </div>
+      <div class="col-auto">
+        <label class="colorinput">
+          <input name="color" type="radio" value="indigo" class="colorinput-input" checked="">
+          <span class="colorinput-color bg-indigo"></span>
+        </label>
+      </div>
+      <div class="col-auto">
+        <label class="colorinput">
+          <input name="color" type="radio" value="purple" class="colorinput-input">
+          <span class="colorinput-color bg-purple"></span>
+        </label>
+      </div>
+      <div class="col-auto">
+        <label class="colorinput">
+          <input name="color" type="radio" value="pink" class="colorinput-input">
+          <span class="colorinput-color bg-pink"></span>
+        </label>
+      </div>
+      <div class="col-auto">
+        <label class="colorinput">
+          <input name="color" type="radio" value="red" class="colorinput-input">
+          <span class="colorinput-color bg-red"></span>
+        </label>
+      </div>
+      <div class="col-auto">
+        <label class="colorinput">
+          <input name="color" type="radio" value="orange" class="colorinput-input">
+          <span class="colorinput-color bg-orange"></span>
+        </label>
+      </div>
+      <div class="col-auto">
+        <label class="colorinput">
+          <input name="color" type="radio" value="yellow" class="colorinput-input">
+          <span class="colorinput-color bg-yellow"></span>
+        </label>
+      </div>
+      <div class="col-auto">
+        <label class="colorinput">
+          <input name="color" type="radio" value="lime" class="colorinput-input">
+          <span class="colorinput-color bg-lime"></span>
+        </label>
+      </div>
+      <div class="col-auto">
+        <label class="colorinput">
+          <input name="color" type="radio" value="green" class="colorinput-input">
+          <span class="colorinput-color bg-green"></span>
+        </label>
+      </div>
+      <div class="col-auto">
+        <label class="colorinput">
+          <input name="color" type="radio" value="teal" class="colorinput-input">
+          <span class="colorinput-color bg-teal"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Name</label>
+    <input type="text" class="form-control" value="<%= current_user.name %>" readonly="">
+
+    <label class="form-label">Email</label>
+    <input type="text" class="form-control" value="<%= current_user.email %>" readonly="">
+
+    <label class="form-label">Account Provider</label>
+    <input type="text" class="form-control" value="<%= current_user.provider.capitalize %>" readonly="">
+  </div>
+  
+</div>

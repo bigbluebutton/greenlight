@@ -1,12 +1,14 @@
 <div class="card text-center">
   <div class="card-body">
     <div class="col-8 offset-2 form-group">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Enter a meeting name to start!">
-        <span class="input-group-append">
-          <button class="btn btn-primary" type="button">Start Meeting</button>
-        </span>
-      </div>
+      <%= form_for(:meeting, url: create_meeting_path) do |f| %>
+        <div class="input-group">
+          <%= f.text_field :name, class: "form-control", placeholder: "Enter a meeting name to start!" %>
+          <span class="input-group-append">
+            <%= f.submit "Start Meeting", class: "btn btn-primary" %>
+          </span>
+        </div>
+      <% end %>
     </div>
   </div>
   <div class="card-footer">

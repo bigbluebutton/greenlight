@@ -26,7 +26,7 @@ class User < ApplicationRecord
       user.name = send("#{auth['provider']}_name", auth)
       user.username = send("#{auth['provider']}_username", auth)
       user.email = send("#{auth['provider']}_email", auth)
-      
+      user.image = send("#{auth['provider']}_image", auth)
       user.save!
       user
     end
@@ -51,6 +51,10 @@ class User < ApplicationRecord
       auth['info']['email']
     end
 
+    def twitter_image(auth)
+      auth['info']['image']
+    end
+
     def google_name(auth)
       auth['info']['name']
     end
@@ -61,6 +65,19 @@ class User < ApplicationRecord
 
     def google_email(auth)
       auth['info']['email']
+    end
+
+    def google_image(auth)
+      auth['info']['picture']
+    end
+  end
+
+  def subtitle
+    case provider
+    when "greenlight", "google", "twitter"
+      "User"
+    else
+      "Unknown"
     end
   end
 

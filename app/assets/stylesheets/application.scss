@@ -68,6 +68,19 @@ html, body {
   background-color: $rule-color;
 }
 
+.thumbnail {
+  height: 60%;
+  width: auto;
+}
+
+.client-icon {
+  height: 100px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .container-fluid {
   height: 100%;
 }

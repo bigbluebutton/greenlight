@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
 
+  # User settings.
+  get '/settings', to: 'users#settings'
+
   # Handles login of greenlight provider accounts.
   post '/login',  to: 'sessions#create', as: :create_session
 

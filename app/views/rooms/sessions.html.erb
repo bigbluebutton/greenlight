@@ -1,3 +1,43 @@
+<div class="container">
+  <div class="col-lg-10">
+    <div class="card">
+      <table class="table card-table table-vcenter">
+        <tbody>
+        <% 3.times do %>
+          <tr>
+            <td>
+              <!--<i class="fas fa-users fa-2x"></i>-->
+              <img class="thumbnail" src="http://test-install.blindsidenetworks.com/presentation/b622495d927cd99e9898b0601c2b18a5424a0627-1527259102285/presentation/d2d9a672040fbde2a47a10bf6c37b6a4b5ae187f-1527259102298/thumbnails/thumb-1.png">
+            </td>
+            <td class="text-left">
+              <h4>Introduction to Dinosaurs</h4>
+              <p><i>June 21, 2017 (about 3 hours ago)</i></p>
+            </td>
+            <td class="text-center d-none d-md-table-cell text-nowrap">
+              <h6 class="text-uppercase"><strong>Users</strong></h6>
+              <h5>3</h5>
+            </td>
+            <td class="text-center d-none d-md-table-cell text-nowrap">
+              <h6 class="text-uppercase"><strong>Length</strong></h6>
+              <h5>2 hours</h5>
+            </td>
+            <td class="text-center d-none d-md-table-cell text-nowrap">
+              <h6 class="text-uppercase"><strong>Visbility</strong></h6>
+              <h5>Unlisted</h5>
+            </td>
+            <td>
+              <button type="button" class="btn btn-icon btn-success"><i class="fas fa-video"></i></button>
+              <button type="button" class="btn btn-icon btn-primary"><i class="fas fa-chart-bar"></i></button>          
+              <button type="button" class="btn btn-icon btn-warning"><i class="fas fa-podcast"></i></button>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 Sessions
 <br><br>
 <%= @meeting.recordings %>
