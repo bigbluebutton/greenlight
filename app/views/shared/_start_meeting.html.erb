@@ -1,17 +1,59 @@
-<div class="card text-center">
-  <div class="card-body">
-    <div class="col-8 offset-2 form-group">
-      <%= form_for(:meeting, url: create_meeting_path) do |f| %>
-        <div class="input-group">
-          <%= f.text_field :name, class: "form-control", placeholder: "Enter a meeting name to start!" %>
-          <span class="input-group-append">
-            <%= f.submit "Start Meeting", class: "btn btn-primary" %>
-          </span>
-        </div>
-      <% end %>
+<div class="col-10 offset-1 form-group">
+  <div class="start-block">
+    <%= form_for(:meeting, url: create_meeting_path) do |f| %>
+      <div class="input-group" style="height: 70px;">
+        <%= f.text_field :name, id: "name-input", class: "form-control main-large", placeholder: "Enter a meeting name!", autocomplete: :off %>
+        <span class="input-group-append">
+          <%= f.submit "Start", class: "btn btn-primary px-7 main-large" %>
+        </span>
+      </div>
+    <% end %>
+    <div class="input-group align-center p-4">
+      <div class="col-8">
+        <label class="form-label">Invite Participants</label>
+        <input id="invite-url" type="text" class="form-control" value="greenlight.com/m/your-meeting-name" readonly="">
+      </div>
+      <div class="col-4 mt-auto align-center">
+        <button id="copy" class="btn btn-primary">
+          <i class="fas fa-copy"></i>
+          Copy
+        </button>
+        <button id="email" class="btn btn-primary">
+          <i class="fas fa-envelope"></i>
+          Email
+        </button>
+      </div>
     </div>
   </div>
-  <div class="card-footer">
-    Invite URL and stuff goes here.
-  </div>
 </div>
+
+<script>
+
+var invite_url;
+var copy = $('#copy');
+
+$('#name-input').on('input', function(){
+  if ($('#name-input').val() == "") {
+    invite_url = window.location.href + "m/your-meeting-name";
+  } else {
+    invite_url = window.location.href + "m/" + encodeURIComponent($('#name-input').val());
+  }
+  $('#invite-url').val(invite_url);
+});
+
+copy.on('click', function(){
+  var inviteURL = $('#invite-url');
+  inviteURL.select();
+
+  var success = document.execCommand("copy");
+  if (success) {
+    inviteURL.blur();
+    copy.addClass('btn-success');
+    copy.html("<i class='fas fa-check'></i> Copy")
+    setTimeout(function(){
+      copy.removeClass('btn-success');
+      copy.html("<i class='fas fa-copy'></i> Copy")
+    }, 1500)
+  }
+});
+</script>

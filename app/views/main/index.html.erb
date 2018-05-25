@@ -1,5 +1,5 @@
 <div class="container">
-	<h1 class="display-3 text-center text-primary">Teach Students Online</h1>
+	<h1 id="main-text" class="display-3 text-center text-primary">Teach Students Online.</h1>
 	<hr class="small-rule">
 
   <%= render "shared/start_meeting" %>
@@ -15,4 +15,24 @@
 $(window).on('load',function(){
   $('#welcomeModal').modal('show');
 });
+
+textOptions = [
+  "Start your own Meeting.",
+  "Collaborate with Friends.",
+  "Connect in Real-Time.",
+  "Teach Students Online.",
+]
+
+textOpt = 0
+
+var changeText = function(){
+  $('#main-text').text(textOptions[textOpt]);
+  $('#main-text').fadeIn(1000)
+  textOpt++;
+  if (textOpt > textOptions.length) { textOpt = 0; }
+}
+
+setInterval(function(){
+  $('#main-text').fadeOut(1000, changeText)
+}, 7000);
 </script>
