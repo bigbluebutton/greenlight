@@ -1,13 +1,49 @@
 <div class="container">
 
   <% if current_user %>
-	  <h1 id="user-text" class="display-3 text-center text-primary"><%= "Welcome, #{current_user.firstname}." %></h1>
+	  <h1 id="user-text" class="display-3 text-center text-primary mt-9"><%= "Welcome, #{current_user.firstname}." %></h1>
     <%= render "shared/modals/create_room_modal" %>
   <% else %>
-    <h1 id="main-text" class="display-3 text-center text-primary">Teach Students Online.</h1>
+    <h1 id="main-text" class="display-3 text-center text-primary mt-9">Teach Students Online.</h1>
     <%= render "shared/modals/video_modal" %>
   <% end %>
   <hr class="small-rule">
+
+  <div class="row">
+    <% 3.times do %>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body p-1">
+          <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+            <tbody>
+              <td>
+                <span class="colorinput-color bg-azure"></span>
+              </td>
+              <td>
+                <div>Example Room</div>
+                <div class="small text-muted">
+                  <i>Created on June 17th, 2017</i>
+                </div>
+              </td>
+              <td class="text-right">
+                <div class="item-action dropdown">
+                  <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
+                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
+                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
+                  </div>
+                </div>
+              </td>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
 
   <!-- <%= render "shared/start_meeting" %> -->
 
