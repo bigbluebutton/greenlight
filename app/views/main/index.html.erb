@@ -1,15 +1,20 @@
 <div class="container">
-	<h1 id="main-text" class="display-3 text-center text-primary">Teach Students Online.</h1>
-	<hr class="small-rule">
 
-  <%= render "shared/start_meeting" %>
+  <% if current_user %>
+	  <h1 id="user-text" class="display-3 text-center text-primary"><%= "Welcome, #{current_user.firstname}." %></h1>
+    <%= render "shared/modals/create_room_modal" %>
+  <% else %>
+    <h1 id="main-text" class="display-3 text-center text-primary">Teach Students Online.</h1>
+    <%= render "shared/modals/video_modal" %>
+  <% end %>
+  <hr class="small-rule">
+
+  <!-- <%= render "shared/start_meeting" %> -->
 
   <br>
 
   <%= render "shared/features" %>
 </div>
-
-<%= render "shared/modals/video_modal" %>
 
 <script>
 $(window).on('load',function(){

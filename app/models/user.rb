@@ -81,6 +81,10 @@ class User < ApplicationRecord
     end
   end
 
+  def firstname
+    name.split(' ').first
+  end
+
   private
 
   # Initializes a room for the user.

@@ -1,93 +1,125 @@
 <div class="container">
 
-  <div class="form-group">
-    <div class="selectgroup selectgroup-pills">
-      <label class="selectgroup-item">
-        <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked="">
-        <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-user"></i> Account</span>
-      </label>
-      <label class="selectgroup-item">
-        <input type="radio" name="icon-input" value="2" class="selectgroup-input">
-        <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-pencil-alt"></i> Design </span>
-      </label>
+  <div class="row">
+    <div class="col-10 offset-1">
+      <p style="font-size: 25px;">Settings</p>
+      <hr>
     </div>
   </div>
 
-  <div class="form-group">
-    <label class="form-label">Background</label>
-    <div class="row gutters-xs">
-      <div class="col-auto">
-        <label class="colorinput">
-          <input name="color" type="radio" value="azure" class="colorinput-input">
-          <span class="colorinput-color bg-azure"></span>
-        </label>
+  <div class="row">
+    <div class="col-2 offset-1">
+      <button id="account" class="setting-btn btn btn-primary btn-sm btn-block m-2">Account</button>
+      <button id="password" class="setting-btn btn btn-primary btn-sm btn-block m-2">Password</button>
+      <button id="design" class="setting-btn btn btn-primary btn-sm btn-block m-2">Design</button>
+    </div>
+
+    <div class="col-8">
+      <div id="account" class="setting-view card">
+        <div class="card-body p-6">
+          <div class="card-title text-primary">
+            <h4>Update your Account</h4>
+          </div>
+          <hr>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-6">
+                <label class="form-label">Fullname</label>
+                <div class="input-icon">
+                  <span class="input-icon-addon">
+                    <i class="fas fa-user"></i>
+                  </span>
+                  <input type="text" class="form-control" value="<%= current_user.name %>" placeholder="Fullname">
+                </div>
+              </div>
+              <div class="col-6">
+                <label class="form-label">Email</label>
+                <div class="input-icon">
+                  <span class="input-icon-addon">
+                    <i class="fas fa-at"></i>
+                  </span>
+                  <input type="email" class="form-control" value="<%= current_user.email %>" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <br>
+            <label class="form-label">Account Provider</label>
+            <input type="text" class="form-control" value="<%= current_user.provider.capitalize %>" readonly="">
+            <br>
+            <label class="form-label">Profile Image</label>
+            <span class="avatar avatar-xl" style="background-image: url(<%= current_user.image %>)"></span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a href="#" class="btn btn-primary float-right">Update</a>
+        </div>
       </div>
-      <div class="col-auto">
-        <label class="colorinput">
-          <input name="color" type="radio" value="indigo" class="colorinput-input" checked="">
-          <span class="colorinput-color bg-indigo"></span>
-        </label>
+
+      <div id="password" class="setting-view card">
+        <div class="card-body p-6">
+          <div class="card-title text-primary">
+            <h4>Change your Password</h4>
+          </div>
+          <hr>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-9">
+                <label class="form-label">Old Password</label>
+                <input type="password" class="form-control">
+                <br>
+                <label class="form-label">New Password</label>
+                <input type="password" class="form-control"> 
+                <br>
+                <label class="form-label">New Password Confirmation</label>
+                <input type="password" class="form-control"> 
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a href="#" class="btn btn-primary float-right">Update</a>
+        </div>
       </div>
-      <div class="col-auto">
-        <label class="colorinput">
-          <input name="color" type="radio" value="purple" class="colorinput-input">
-          <span class="colorinput-color bg-purple"></span>
-        </label>
-      </div>
-      <div class="col-auto">
-        <label class="colorinput">
-          <input name="color" type="radio" value="pink" class="colorinput-input">
-          <span class="colorinput-color bg-pink"></span>
-        </label>
-      </div>
-      <div class="col-auto">
-        <label class="colorinput">
-          <input name="color" type="radio" value="red" class="colorinput-input">
-          <span class="colorinput-color bg-red"></span>
-        </label>
-      </div>
-      <div class="col-auto">
-        <label class="colorinput">
-          <input name="color" type="radio" value="orange" class="colorinput-input">
-          <span class="colorinput-color bg-orange"></span>
-        </label>
-      </div>
-      <div class="col-auto">
-        <label class="colorinput">
-          <input name="color" type="radio" value="yellow" class="colorinput-input">
-          <span class="colorinput-color bg-yellow"></span>
-        </label>
-      </div>
-      <div class="col-auto">
-        <label class="colorinput">
-          <input name="color" type="radio" value="lime" class="colorinput-input">
-          <span class="colorinput-color bg-lime"></span>
-        </label>
-      </div>
-      <div class="col-auto">
-        <label class="colorinput">
-          <input name="color" type="radio" value="green" class="colorinput-input">
-          <span class="colorinput-color bg-green"></span>
-        </label>
-      </div>
-      <div class="col-auto">
-        <label class="colorinput">
-          <input name="color" type="radio" value="teal" class="colorinput-input">
-          <span class="colorinput-color bg-teal"></span>
-        </label>
+
+      <div id="design" class="setting-view card">
+        <div class="card-body p-6">
+          <div class="card-title text-primary">
+            <h4>Customize Greenlight</h4>
+          </div>
+          <hr>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-6">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a href="#" class="btn btn-primary float-right">Update</a>
+        </div>
       </div>
     </div>
+
   </div>
-
-  <div class="form-group">
-    <label class="form-label">Name</label>
-    <input type="text" class="form-control" value="<%= current_user.name %>" readonly="">
-
-    <label class="form-label">Email</label>
-    <input type="text" class="form-control" value="<%= current_user.email %>" readonly="">
-
-    <label class="form-label">Account Provider</label>
-    <input type="text" class="form-control" value="<%= current_user.provider.capitalize %>" readonly="">
-  </div>
-  
 </div>
+
+<script>
+settingsButtons = $('.setting-btn');
+settingsViews = $('.setting-view');
+
+$(window).on('load', function(){
+  settingsButtons.each(function(i, btn) {
+    if(i != 0){ $(settingsViews[i]).hide(); }
+    $(btn).click(function(){
+      settingsViews.each(function(i, view){
+        if($(view).attr("id") == $(btn).attr("id")){
+          $(view).show();
+        } else {
+          $(view).hide();
+        }
+      });
+    });
+  });
+});
+</script>

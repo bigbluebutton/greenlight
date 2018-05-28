@@ -2,7 +2,8 @@ module SessionsHelper
   # Logs a user into GreenLight.
   def login(user)
     session[:user_id] = user.id
-    redirect_to room_path(user.room.uid)
+    redirect_to root_path
+    #redirect_to room_path(user.room.uid)
   end
 
   # Logs current user out of GreenLight.

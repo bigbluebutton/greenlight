@@ -1,4 +1,4 @@
-<div class="header py-4">
+<div class="header py-4 mb-6">
 	<div class="container">
 		<div class="d-flex">
 			<a class="header-brand" href="{{ site.base }}/index.html">
@@ -7,6 +7,11 @@
 
 			<div class="d-flex order-lg-2 ml-auto">
 				<% if current_user %>
+					<a class="px-3" href="" data-toggle="modal" data-target="#createRoomModal">
+						<i class="fas fa-plus"></i> Create Room
+					</a>
+					<%= render "shared/modals/login_modal" %>
+					<a class="px-3" href="">Sessions</a>
 					<div class="dropdown">
 						<a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
 							<% if current_user.image.nil? %>
@@ -20,6 +25,9 @@
 							</span>
 						</a>
 					</div>
+					<%= link_to logout_path do %>
+						<i class="fas fa-sign-out-alt fa-2x px-5"></i>
+					<% end %>
 				<% else %>
 					<button type="submit" class="btn btn-pill btn-outline-primary ml-auto" data-toggle="modal" data-target="#loginModal">Login</button>
 					<%= render "shared/modals/login_modal" %>

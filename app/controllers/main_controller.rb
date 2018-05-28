@@ -1,6 +1,6 @@
 class MainController < ApplicationController
 
-  before_action :redirect_to_room
+  #before_action :redirect_to_room
 
   # GET /
   def index
