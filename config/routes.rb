@@ -1,20 +1,15 @@
 Rails.application.routes.draw do
 
   # Room routes.
-  scope '/r/:room_uid' do
-    get '/', to: 'rooms#show', as: :room
-    get '/start', to: 'rooms#start', as: :start_room
-    get '/join', to: 'rooms#join', as: :join_room
-    match '/wait', to: 'rooms#wait', as: :wait_room, via: [:get, :post]
-    get '/logout', to: 'rooms#logout', as: :logout_room
-    get '/sessions', to: 'rooms#sessions', as: :sessions
-  end
-
-  # Meeting routes.
-  scope '/m' do
-    post '/', to: 'meetings#create', as: :create_meeting
-    get '/:meeting_uid', to: 'meetings#show', as: :meeting
-    post '/:meeting_uid', to: 'meetings#join', as: :join_meeting
+  scope '/r' do
+    post '/', to: 'rooms#create', as: :create_room
+    scope '/:room_uid' do
+      match '/', to: 'rooms#show', as: :room, via: [:get, :post]
+      get '/start', to: 'rooms#start', as: :start_room
+      match '/wait', to: 'rooms#wait', as: :wait_room, via: [:get, :post]
+      get '/logout', to: 'rooms#logout', as: :logout_room
+      get '/sessions', to: 'rooms#sessions', as: :sessions
+    end
   end
 
   # Signup routes.

@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-body p-1">
+    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+      <tbody>
+        <td>
+          <span class="colorinput-color bg-azure"></span>
+        </td>
+        <td>
+          <div><%= room.name %></div>
+          <div class="small text-muted">
+            <i>Created on <%= room.created_at.strftime("%B #{room.created_at.day.ordinalize}, %Y") %></i>
+          </div>
+        </td>
+        <td class="text-right">
+          <div class="item-action dropdown">
+            <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
+              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
+              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-trash"></i> Delete</a>
+            </div>
+          </div>
+        </td>
+      </tbody>
+    </table>
+  </div>
+</div>

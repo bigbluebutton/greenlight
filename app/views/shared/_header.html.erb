@@ -1,9 +1,9 @@
 <div class="header py-4 mb-6">
 	<div class="container">
 		<div class="d-flex">
-			<a class="header-brand" href="{{ site.base }}/index.html">
+			<%= link_to root_path, class: "header-brand" do %>
 				<%= image_tag("bbb_logo.png", class: "header-brand-img") %>
-			</a>
+			<% end %>
 
 			<div class="d-flex order-lg-2 ml-auto">
 				<% if current_user %>
@@ -24,10 +24,22 @@
 								<small class="text-muted d-block mt-1"><%= current_user.subtitle %></small>
 							</span>
 						</a>
+						<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end" style="position: absolute; transform: translate3d(-56px, 32px, 0px); top: 0px; left: 0px; will-change: transform;">
+							<a class="dropdown-item" href="#">
+								<i class="dropdown-icon fe fe-user"></i> Sessions
+							</a>
+							<%= link_to settings_path, class: "dropdown-item" do %>
+								<i class="dropdown-icon fe fe-settings"></i> Settings
+							<% end %>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">
+								<i class="dropdown-icon fe fe-help-circle"></i> Need help?
+							</a>
+							<%= link_to logout_path, class: "dropdown-item" do %>
+								<i class="dropdown-icon fe fe-log-out"></i> Sign out
+							<% end %>
+						</div>
 					</div>
-					<%= link_to logout_path do %>
-						<i class="fas fa-sign-out-alt fa-2x px-5"></i>
-					<% end %>
 				<% else %>
 					<button type="submit" class="btn btn-pill btn-outline-primary ml-auto" data-toggle="modal" data-target="#loginModal">Login</button>
 					<%= render "shared/modals/login_modal" %>

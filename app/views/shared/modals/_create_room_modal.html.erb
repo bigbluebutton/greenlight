@@ -8,28 +8,27 @@
           </div>
 
           <hr class="small-rule">
-          <div class="form-group">
+          <%= form_for(:room, url: create_room_path) do |f| %>
             <div class="input-icon">
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <input type="email" class="form-control" placeholder="Enter a room name...">
+              <%= f.text_field :name, class: "form-control", placeholder: "Enter a room name...", autocomplete: :off %>
             </div>
             <label class="custom-switch mt-5 mb-5 float-left">
-              <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
+              <%= f.check_box :auto_join, class: "custom-switch-input", checked: true %>
               <span class="custom-switch-indicator"></span>
               <span class="custom-switch-description">Automatically join me into the room when created.</span>
             </label>
-          </div>
           <div class="form-footer">
-            <button type="submit" class="btn btn-outline-primary btn-block btn-pill">Create Room</button>
+            <%= f.submit "Create Room", class: "btn btn-outline-primary btn-block btn-pill" %>
           </div>
+          <% end %>
         </div>
         <div class="card-footer">
           <p>You will be free to delete this room at any time.</p>
         </div>
       </div>
-
     </div>
   </div>
 </div>

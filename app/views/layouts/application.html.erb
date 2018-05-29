@@ -33,6 +33,11 @@
       <%= yield %>
 
       <%= render "shared/footer" %>
+
+      <!-- Modal Load -->
+      <% if current_user %>
+        <%= render "shared/modals/create_room_modal" %>
+      <% end %>
       
     </div>
   </body>

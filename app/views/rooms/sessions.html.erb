@@ -1,17 +1,6 @@
 <div class="container">
 
-  <div class="row">
-    <div class="col-10 offset-1">
-      <p style="font-size: 25px;">Sessions</p>
-      <!-- <div class="input-icon float-right">
-        <input type="text" class="form-control" placeholder="Search for...">
-        <span class="input-icon-addon">
-          <i class="fe fe-search"></i>
-        </span>
-      </div> -->
-      <hr>
-    </div>
-  </div>
+  <%= render "shared/components/subtitle", subtitle: "Sessions" %>
 
   <div class="col-10 offset-1">
     <div class="card">
@@ -82,9 +71,9 @@
 
 Sessions
 <br><br>
-<%= @meeting.recordings %>
+<%= @room.recordings %>
 
-<% @meeting.recordings.each do |rec| %>
+<% @room.recordings.each do |rec| %>
   <p><%= rec[:metadata][:meetingName] %></p>
   <% Array.wrap(rec[:playback][:format]).each do |form| %>
     <%= link_to form[:type], form[:url] %>

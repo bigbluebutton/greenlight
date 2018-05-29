@@ -2,7 +2,6 @@
 
   <% if current_user %>
 	  <h1 id="user-text" class="display-3 text-center text-primary mt-9"><%= "Welcome, #{current_user.firstname}." %></h1>
-    <%= render "shared/modals/create_room_modal" %>
   <% else %>
     <h1 id="main-text" class="display-3 text-center text-primary mt-9">Teach Students Online.</h1>
     <%= render "shared/modals/video_modal" %>
@@ -10,47 +9,19 @@
   <hr class="small-rule">
 
   <% if current_user %>
-  <div class="row">
-    <% 3.times do %>
-    <div class="col-4">
-      <div class="card">
-        <div class="card-body p-1">
-          <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
-            <tbody>
-              <td>
-                <span class="colorinput-color bg-azure"></span>
-              </td>
-              <td>
-                <div>Example Room</div>
-                <div class="small text-muted">
-                  <i>Created on June 17th, 2017</i>
-                </div>
-              </td>
-              <td class="text-right">
-                <div class="item-action dropdown">
-                  <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                  </div>
-                </div>
-              </td>
-            </tbody>
-          </table>
+    <div class="row">
+      <% current_user.rooms.each do |room| %>
+        <div class="col-4">
+          <%= link_to room do %>
+            <%= render "shared/components/room_block", room: room %>
+          <% end %>
         </div>
-      </div>
+      <% end %>
     </div>
-    <% end %>
-  </div>
 
-  <!-- <%= render "shared/start_meeting" %> -->
-
-  <br>
+    <br>
   <% else %>
-  <%= render "shared/features" %>
+    <%= render "shared/features" %>
   <% end %>
 </div>
 

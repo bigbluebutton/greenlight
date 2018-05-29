@@ -3,7 +3,7 @@ class User < ApplicationRecord
   after_create :initialize_room
   before_save { email.downcase! unless email.nil? }
 
-  has_one :room
+  has_many :rooms
 
   validates :name, length: { maximum: 24 }, presence: true
   validates :username, presence: true
@@ -89,7 +89,6 @@ class User < ApplicationRecord
 
   # Initializes a room for the user.
   def initialize_room
-    room = Room.create(user_id: self.id)
-    Meeting.create(room_id: room.id, name: "Example")
+    Room.create(user_id: self.id, name: firstname + "'s Room")
   end
 end

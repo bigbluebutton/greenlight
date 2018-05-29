@@ -4,7 +4,6 @@ class MainController < ApplicationController
 
   # GET /
   def index
-    @meeting = Meeting.new
   end
 
   private

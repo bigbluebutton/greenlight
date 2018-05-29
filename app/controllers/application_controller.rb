@@ -47,9 +47,9 @@ class ApplicationController < ActionController::Base
   def default_meeting_options
     {
       user_is_moderator: false,
-      meeting_logout_url: request.base_url + logout_room_path(@room.uid),
+      meeting_logout_url: request.base_url + logout_room_path(@room),
       meeting_recorded: true,
-      moderator_message: "To invite someone to the meeting, send them this link:\n\n#{request.base_url + room_path(@room.uid)}"
+      moderator_message: "To invite someone to the meeting, send them this link:\n\n#{request.base_url + room_path(@room)}"
     }
   end
 end

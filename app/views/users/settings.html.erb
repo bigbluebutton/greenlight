@@ -1,11 +1,6 @@
 <div class="container">
 
-  <div class="row">
-    <div class="col-10 offset-1">
-      <p style="font-size: 25px;">Settings</p>
-      <hr>
-    </div>
-  </div>
+  <%= render "shared/components/subtitle", subtitle: "Settings" %>
 
   <div class="row">
     <div class="col-2 offset-1">
@@ -108,7 +103,7 @@
 settingsButtons = $('.setting-btn');
 settingsViews = $('.setting-view');
 
-$(window).on('load', function(){
+$(document).ready(function(){
   settingsButtons.each(function(i, btn) {
     if(i != 0){ $(settingsViews[i]).hide(); }
     $(btn).click(function(){

@@ -1,20 +1,15 @@
 <p>This is a room.</p>
 
 <p><%= @room.user.name %><p>
-<p><%= @room.meeting.uid %><p>
 <p><%= @room.uid %><p>
-
-<%= link_to 'Sessions', sessions_path %>
-<%= link_to 'Settings', root_path %>
 
 <p>Click below to join the meeting.</p>
 
-<% if @room.meeting.is_running? %>
+<% if @room.is_running? %>
   <p>meeting is already running</p>
 <% else %>
-  <%= link_to "Start Meeting", start_room_path(@room.uid) %>
+  <%= link_to "Start Room", start_room_path(@room) %>
 <% end %>
 
 <br><br>
-
-<%= link_to 'Logout', logout_path %>
+<%= link_to "Sessions", sessions_path(@room) %>
