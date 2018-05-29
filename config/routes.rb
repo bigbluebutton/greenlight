@@ -1,15 +1,13 @@
 Rails.application.routes.draw do
 
+  resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/r'
+
   # Room routes.
-  scope '/r' do
-    post '/', to: 'rooms#create', as: :create_room
-    scope '/:room_uid' do
-      match '/', to: 'rooms#show', as: :room, via: [:get, :post]
-      get '/start', to: 'rooms#start', as: :start_room
-      match '/wait', to: 'rooms#wait', as: :wait_room, via: [:get, :post]
-      get '/logout', to: 'rooms#logout', as: :logout_room
-      get '/sessions', to: 'rooms#sessions', as: :sessions
-    end
+  scope '/r/:room_uid' do
+    get '/start', to: 'rooms#start', as: :start_room
+    match '/wait', to: 'rooms#wait', as: :wait_room, via: [:get, :post]
+    get '/logout', to: 'rooms#logout', as: :logout_room
+    get '/sessions', to: 'rooms#sessions', as: :sessions
   end
 
   # Signup routes.

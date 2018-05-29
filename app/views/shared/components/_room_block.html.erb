@@ -8,7 +8,7 @@
         <td>
           <div><%= room.name %></div>
           <div class="small text-muted">
-            <i>Created on <%= room.created_at.strftime("%B #{room.created_at.day.ordinalize}, %Y") %></i>
+            <i>Created on <%= room.created_at.strftime("%B #{room.created_at.day.ordinalize}, %Y.") %></i>
           </div>
         </td>
         <td class="text-right">
@@ -17,7 +17,9 @@
             <div class="dropdown-menu dropdown-menu-right">
               <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
               <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-trash"></i> Delete</a>
+              <%= button_to room, method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown-item" do %>
+                <i class="dropdown-icon fe fe-trash"></i> Delete
+              <% end %>
             </div>
           </div>
         </td>

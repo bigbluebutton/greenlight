@@ -11,8 +11,13 @@ class RoomsController < ApplicationController
     room.user = current_user
 
     if room.save
-      redirect_to room
+      if room_params[:auto_join] == "1"
+        redirect_to start_room_path(room)
+      else
+        redirect_to room
+      end
     else
+      # Handle room didn't save.
 
     end
   end
@@ -43,6 +48,13 @@ class RoomsController < ApplicationController
         redirect_to wait_room_path(@room)
       end
     end
+  end
+
+  # DELETE /r/:room_uid
+  def destroy
+    @room.destroy
+
+    redirect_to root_path
   end
 
   # GET /r/:room_uid/start
