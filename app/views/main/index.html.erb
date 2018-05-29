@@ -9,6 +9,7 @@
   <% end %>
   <hr class="small-rule">
 
+  <% if current_user %>
   <div class="row">
     <% 3.times do %>
     <div class="col-4">
@@ -48,8 +49,9 @@
   <!-- <%= render "shared/start_meeting" %> -->
 
   <br>
-
+  <% else %>
   <%= render "shared/features" %>
+  <% end %>
 </div>
 
 <script>
