@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
 
+  # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/r'
 
-  # Room routes.
+  # Extended room routes.
   scope '/r/:room_uid' do
+    post '/', to: 'rooms#join'
     get '/start', to: 'rooms#start', as: :start_room
     match '/wait', to: 'rooms#wait', as: :wait_room, via: [:get, :post]
     get '/logout', to: 'rooms#logout', as: :logout_room

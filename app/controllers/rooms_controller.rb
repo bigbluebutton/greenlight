@@ -22,7 +22,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  # GET/POST /r/:room_uid
+  # GET /r/:room_uid
   def show
     opts = default_meeting_options
 
@@ -34,19 +34,24 @@ class RoomsController < ApplicationController
           redirect_to @room.join_path(current_user, opts)
         end
       else
-        # If you're unauthenticated, you must enter a name to join the meeting.
-        if params[:join_name]
-          redirect_to @room.join_path(params[:join_name], opts)
-        else
-          # Render the join page so they can supply their name.
-          render :join
-        end
+        # Render the join page so they can supply their name.
+        render :join
       end
     else
       # If the meeting isn't running and you don't own the room, go to the waiting page.
       if !@room.owned_by?(current_user)
         redirect_to wait_room_path(@room)
       end
+    end
+  end
+
+  # POST /r/:room_uid
+  def join
+    opts = default_meeting_options
+    
+    # If you're unauthenticated, you must enter a name to join the meeting.
+    if params[:join_name]
+      redirect_to @room.join_path(params[:join_name], opts)
     end
   end
 
