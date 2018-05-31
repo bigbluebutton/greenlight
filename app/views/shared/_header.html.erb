@@ -2,16 +2,14 @@
 	<div class="container">
 		<div class="d-flex">
 			<%= link_to root_path, class: "header-brand" do %>
-				<%= image_tag("bbb_logo.png", class: "header-brand-img") %>
+				<%= image_tag("logo_with_text.png", class: "header-brand-img") %>
 			<% end %>
 
 			<div class="d-flex order-lg-2 ml-auto">
 				<% if current_user %>
-					<a class="px-3" href="" data-toggle="modal" data-target="#createRoomModal">
+					<a class="px-5" href="" data-toggle="modal" data-target="#createRoomModal">
 						<i class="fas fa-plus"></i> Create Room
 					</a>
-					<%= render "shared/modals/login_modal" %>
-					<a class="px-3" href="">Sessions</a>
 					<div class="dropdown">
 						<a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
 							<% if current_user.image.nil? %>
@@ -41,8 +39,11 @@
 						</div>
 					</div>
 				<% else %>
-					<button type="submit" class="btn btn-pill btn-outline-primary ml-auto" data-toggle="modal" data-target="#loginModal">Login</button>
+					<button type="submit" class="btn btn-pill btn-outline-primary mx-2" data-toggle="modal" data-target="#loginModal">Login</button>
+					<button type="submit" class="btn btn-pill btn-outline-primary mx-2" data-toggle="modal" data-target="#signupModal">Signup</button>
+
 					<%= render "shared/modals/login_modal" %>
+					<%= render "shared/modals/signup_modal" %>
 				<% end %>
 			</div>
 		</div>

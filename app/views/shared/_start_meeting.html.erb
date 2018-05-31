@@ -26,34 +26,3 @@
     </div>
   </div>
 </div>
-
-<script>
-
-var invite_url;
-var copy = $('#copy');
-
-$('#name-input').on('input', function(){
-  if ($('#name-input').val() == "") {
-    invite_url = window.location.href + "m/your-meeting-name";
-  } else {
-    invite_url = window.location.href + "m/" + encodeURIComponent($('#name-input').val());
-  }
-  $('#invite-url').val(invite_url);
-});
-
-copy.on('click', function(){
-  var inviteURL = $('#invite-url');
-  inviteURL.select();
-
-  var success = document.execCommand("copy");
-  if (success) {
-    inviteURL.blur();
-    copy.addClass('btn-success');
-    copy.html("<i class='fas fa-check'></i> Copy")
-    setTimeout(function(){
-      copy.removeClass('btn-success');
-      copy.html("<i class='fas fa-copy'></i> Copy")
-    }, 1500)
-  }
-});
-</script>

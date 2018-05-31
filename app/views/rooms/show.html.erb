@@ -1,15 +1,56 @@
-<p>This is a room.</p>
+<div class="container">
+  <div class="row mt-9">
+    <div class="col-9">
+      <h1 id="user-text" class="display-3 text-left text-primary mb-5"><%= @room.name %></h1>
+      <label class="form-label text-primary">Invite Participants</label>
+      <form class="form-inline">
+        <input id="invite-url" type="text" class="form-control mb-5" value="<%= request.base_url + @room.invite_path %>" readonly="" style="width: 40%;">
+        <div id="copy" class="btn btn-primary mx-2 mb-5">
+          <i class="fas fa-copy"></i>
+          Copy
+        </div>
+        <div id="email" class="btn btn-primary mb-5">
+          <i class="fas fa-envelope"></i>
+          Email
+        </div>
+      </form>
+      <h4 class="text-left text-primary">2 Sessions | 3 Recordings</h4>
+    </div>
+    <div class="col-3">
+      <%= link_to "Start", start_room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right" %>
+    </div>
+  </div>
 
-<p><%= @room.user.name %><p>
-<p><%= @room.uid %><p>
+  <div class="row mt-8 mb-6">
+    <% (current_user.rooms - [@room]).each do |room| %>
+      <div class="col-4">
+        <%= link_to room do %>
+          <%= render "shared/components/room_block", room: room %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-<p>Click below to join the meeting.</p>
+<%= render "shared/sessions" %>
 
-<% if @room.is_running? %>
-  <p>meeting is already running</p>
-<% else %>
-  <%= link_to "Start Room", start_room_path(@room) %>
-<% end %>
+<script>
+var invite_url;
+var copy = $('#copy');
 
-<br><br>
-<%= link_to "Sessions", sessions_path(@room) %>
+copy.on('click', function(){
+  var inviteURL = $('#invite-url');
+  inviteURL.select();
+
+  var success = document.execCommand("copy");
+  if (success) {
+    inviteURL.blur();
+    copy.addClass('btn-success');
+    copy.html("<i class='fas fa-check'></i> Copy")
+    setTimeout(function(){
+      copy.removeClass('btn-success');
+      copy.html("<i class='fas fa-copy'></i> Copy")
+    }, 2000)
+  }
+});
+</script>

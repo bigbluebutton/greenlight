@@ -1,28 +1,11 @@
 <div class="container">
 
-  <% if current_user %>
-	  <h1 id="user-text" class="display-3 text-center text-primary mt-9"><%= "Welcome, #{current_user.firstname}." %></h1>
-  <% else %>
-    <h1 id="main-text" class="display-3 text-center text-primary mt-9">Teach Students Online.</h1>
-    <%= render "shared/modals/video_modal" %>
-  <% end %>
+  <h1 id="main-text" class="display-3 text-center text-primary mt-9">Teach Students Online.</h1>
+  <%= render "shared/modals/video_modal" %>
+
   <hr class="small-rule">
 
-  <% if current_user %>
-    <div class="row">
-      <% current_user.rooms.each do |room| %>
-        <div class="col-4">
-          <%= link_to room do %>
-            <%= render "shared/components/room_block", room: room %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-
-    <br>
-  <% else %>
-    <%= render "shared/features" %>
-  <% end %>
+  <%= render "shared/features" %>
 </div>
 
 <script>

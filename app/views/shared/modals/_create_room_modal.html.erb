@@ -13,15 +13,14 @@
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= f.text_field :name, class: "form-control", placeholder: "Enter a room name...", autocomplete: :off %>
-            </div>
+              <%= f.text_field :name, id: "room-name", class: "form-control", placeholder: "Enter a room name...", autocomplete: :off %>            </div>
             <label class="custom-switch mt-5 mb-5 float-left">
               <%= f.check_box :auto_join, class: "custom-switch-input", checked: true %>
               <span class="custom-switch-indicator"></span>
-              <span class="custom-switch-description">Automatically join me into the room when created.</span>
+              <span class="custom-switch-description">Automatically join me into the room.</span>
             </label>
           <div class="form-footer">
-            <%= f.submit "Create Room", class: "btn btn-outline-primary btn-block btn-pill" %>
+            <%= f.submit "Create Room", id: "create-room-submit", class: "btn btn-outline-primary btn-block btn-pill" %>
           </div>
           <% end %>
         </div>
@@ -32,3 +31,15 @@
     </div>
   </div>
 </div>
+
+<script>
+
+var roomCreateValidations = function(){
+  if($('#room-name').val().length == 0){
+    $('#room-name').addClass("is-invalid");
+  }
+}
+
+$('#create-room-submit').on('click', roomCreateValidations);
+
+</script>

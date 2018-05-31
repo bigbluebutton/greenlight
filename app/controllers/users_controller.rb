@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  
+
   # GET /signup
   def new
     @user = User.new
@@ -9,11 +9,11 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     user.provider = "greenlight"
-    
+
     if user.save
-      login(user)
+     login(user)
     else
-      render :new
+
     end
   end
 
@@ -25,6 +25,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :username, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end

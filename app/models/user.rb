@@ -1,12 +1,12 @@
 class User < ApplicationRecord
 
-  after_create :initialize_room
+  after_create :initialize_main_room
   before_save { email.downcase! unless email.nil? }
 
   has_many :rooms
+  belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
 
   validates :name, length: { maximum: 24 }, presence: true
-  validates :username, presence: true
   validates :provider, presence: true
   validates :email, length: { maximum: 60 }, allow_nil: true,
                     uniqueness: { case_sensitive: false },
@@ -27,6 +27,7 @@ class User < ApplicationRecord
       user.username = send("#{auth['provider']}_username", auth)
       user.email = send("#{auth['provider']}_email", auth)
       user.image = send("#{auth['provider']}_image", auth)
+
       user.save!
       user
     end
@@ -88,7 +89,8 @@ class User < ApplicationRecord
   private
 
   # Initializes a room for the user.
-  def initialize_room
-    Room.create(user_id: self.id, name: firstname + "'s Room")
+  def initialize_main_room
+    self.main_room = Room.create!(user: self, name: firstname + "'s Room")
+    self.save
   end
 end

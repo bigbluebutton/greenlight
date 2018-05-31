@@ -12,8 +12,7 @@ Rails.application.routes.draw do
     get '/sessions', to: 'rooms#sessions', as: :sessions
   end
 
-  # Signup routes.
-  get '/signup', to: 'users#new'
+  # Signup route.
   post '/signup', to: 'users#create'
 
   # User settings.

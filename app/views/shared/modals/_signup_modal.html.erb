@@ -1,0 +1,38 @@
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <div class="card-body p-6">
+          <div class="card-title text-primary">
+            <h3>Signup</h3>
+          </div>
+
+          <hr class="small-rule">
+
+          <%= form_for(@user, url: signup_path) do |f| %>
+            <div class="form-group">
+              <%= f.label :name, "Full Name", class: "form-label text-left" %>
+              <%= f.text_field :name, class: "form-control", placeholder: "Full Name" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :email, "Email", class: "form-label text-left" %>
+              <%= f.text_field :email, class: "form-control", placeholder: "Email" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :password, "Password", class: "form-label text-left" %>
+              <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :password, "Password Confirmation", class: "form-label text-left" %>
+              <%= f.password_field :password, class: "form-control", placeholder: "Password Confirmation" %>
+            </div>
+
+            <div class="form-footer">
+              <%= f.submit "Signup", class: "btn btn-outline-primary btn-block btn-pill" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

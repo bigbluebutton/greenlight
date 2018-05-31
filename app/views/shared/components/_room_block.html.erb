@@ -3,7 +3,9 @@
     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
       <tbody>
         <td>
-          <span class="colorinput-color bg-azure"></span>
+          <span class="stamp stamp-md bg-azure mr-3">
+            <i class="fas fa-<%= room.icon %>"></i>
+          </span>
         </td>
         <td>
           <div><%= room.name %></div>
@@ -17,8 +19,10 @@
             <div class="dropdown-menu dropdown-menu-right">
               <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
               <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-              <%= button_to room, method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown-item" do %>
-                <i class="dropdown-icon fe fe-trash"></i> Delete
+              <% if room != current_user.main_room %>
+                <%= button_to room, method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown-item" do %>
+                  <i class="dropdown-icon fe fe-trash"></i> Delete
+                <% end %>
               <% end %>
             </div>
           </div>

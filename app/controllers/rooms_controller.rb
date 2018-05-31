@@ -48,7 +48,7 @@ class RoomsController < ApplicationController
   # POST /r/:room_uid
   def join
     opts = default_meeting_options
-    
+
     # If you're unauthenticated, you must enter a name to join the meeting.
     if params[:join_name]
       redirect_to @room.join_path(params[:join_name], opts)
@@ -57,9 +57,9 @@ class RoomsController < ApplicationController
 
   # DELETE /r/:room_uid
   def destroy
-    @room.destroy
+    @room.destroy unless @room == current_user.main_room
 
-    redirect_to root_path
+    redirect_to current_user.main_room
   end
 
   # GET /r/:room_uid/start
@@ -87,7 +87,11 @@ class RoomsController < ApplicationController
   # GET /r/:room_uid/logout
   def logout
     # Redirect the owner to their room.
-    redirect_to root_path
+    if current_user
+      redirect_to current_user.main_room
+    else
+      redirect_to root_path
+    end
   end
 
   # GET /r/:room_uid/sessions

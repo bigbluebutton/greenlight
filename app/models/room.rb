@@ -1,10 +1,13 @@
 class Room < ApplicationRecord
 
-  before_create :generate_uids
+  before_create :setup
+
+  validates :name, presence: true
 
   belongs_to :user
   has_one :meeting
 
+  ROOM_ICONS = %w(circle star certificate play cloud heart square bookmark cog)
   RETURNCODE_SUCCESS = "SUCCESS"
 
   def to_param
@@ -116,9 +119,11 @@ class Room < ApplicationRecord
   end
 
   # Generates a uid for the room and BigBlueButton.
-  def generate_uids
-    self.uid = [user.firstname, (0...8).map { (65 + rand(26)).chr }.join].join('-')
+  def setup
+    self.uid = [user.firstname, (0...8).map { (65 + rand(26)).chr }.join].join('-').downcase
     self.bbb_id = Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base] + Time.now.to_i.to_s).to_s
+
+    self.icon = ROOM_ICONS.sample
   end
 
   # Rereives the loadbalanced BigBlueButton credentials for a user.

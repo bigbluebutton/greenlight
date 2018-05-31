@@ -17,15 +17,18 @@ ActiveRecord::Schema.define(version: 20180504131705) do
     t.string   "name"
     t.string   "uid"
     t.string   "bbb_id"
+    t.string   "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["bbb_id"], name: "index_rooms_on_bbb_id"
+    t.index ["icon"], name: "index_rooms_on_icon"
     t.index ["name"], name: "index_rooms_on_name"
     t.index ["uid"], name: "index_rooms_on_uid"
     t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer  "room_id"
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
@@ -36,6 +39,7 @@ ActiveRecord::Schema.define(version: 20180504131705) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["password_digest"], name: "index_users_on_password_digest", unique: true
+    t.index ["room_id"], name: "index_users_on_room_id"
   end
 
 end
