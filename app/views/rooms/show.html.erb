@@ -1,34 +1,41 @@
-<div class="container">
-  <div class="row mt-9">
-    <div class="col-9">
-      <h1 id="user-text" class="display-3 text-left text-primary mb-5"><%= @room.name %></h1>
-      <label class="form-label text-primary">Invite Participants</label>
-      <form class="form-inline">
-        <input id="invite-url" type="text" class="form-control mb-5" value="<%= request.base_url + @room.invite_path %>" readonly="" style="width: 40%;">
-        <div id="copy" class="btn btn-primary mx-2 mb-5">
-          <i class="fas fa-copy"></i>
-          Copy
-        </div>
-        <div id="email" class="btn btn-primary mb-5">
-          <i class="fas fa-envelope"></i>
-          Email
-        </div>
-      </form>
-      <h4 class="text-left text-primary">2 Sessions | 3 Recordings</h4>
-    </div>
-    <div class="col-3">
-      <%= link_to "Start", start_room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right" %>
-    </div>
-  </div>
-
-  <div class="row mt-8 mb-6">
-    <% (current_user.rooms - [@room]).each do |room| %>
-      <div class="col-4">
-        <%= link_to room do %>
-          <%= render "shared/components/room_block", room: room %>
-        <% end %>
+<div class="room-section">
+  <div class="container">
+    <div class="row pt-9">
+      <div class="col-lg-9 col-sm-12">
+        <h1 id="user-text" class="display-3 text-left text-primary mb-3"><%= @room.name %></h1>
+        <h4 class="text-left text-primary mb-6">0 Sessions | 0 Recordings</h4>
+        <label class="form-label text-primary">Invite Participants</label>
+        <form class="form-inline">
+          <div class="input-icon" style="width: 45%;">
+            <span class="input-icon-addon">
+              <i class="fe fe-link"></i>
+            </span>
+            <input id="invite-url" type="text" class="form-control" value="<%= request.base_url + @room.invite_path %>" readonly="" style="width: 100%;">
+          </div>
+          <div id="copy" class="btn btn-primary mx-2">
+            <i class="fas fa-copy"></i>
+            Copy
+          </div>
+          <!-- <div id="email" class="btn btn-primary">
+            <i class="fas fa-envelope"></i>
+            Email
+          </div> -->
+        </form>
       </div>
-    <% end %>
+      <div class="col-lg-3 col-sm-12 bottom-div mt-5">
+        <%= link_to "Start", start_room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right" %>
+      </div>
+    </div>
+
+    <div class="row mt-7 mb-2">
+      <% (current_user.rooms - [@room]).each do |room| %>
+        <div class="col-4">
+          <%= link_to room do %>
+            <%= render "shared/components/room_block", room: room %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 

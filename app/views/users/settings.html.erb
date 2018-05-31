@@ -1,15 +1,25 @@
-<div class="container">
+<div class="container mt-8">
 
   <%= render "shared/components/subtitle", subtitle: "Settings" %>
 
   <div class="row">
-    <div class="col-2">
-      <button id="account" class="setting-btn btn btn-primary btn-sm btn-block m-2">Account</button>
-      <button id="password" class="setting-btn btn btn-primary btn-sm btn-block m-2">Password</button>
-      <button id="design" class="setting-btn btn btn-primary btn-sm btn-block m-2">Design</button>
+    <div class="col-lg-3 mb-4">
+      <div class="list-group list-group-transparent mb-0">
+        <button id="account" class="list-group-item list-group-item-action setting-btn active">
+          <span class="icon mr-3"><i class="fe fe-user"></i></span>Account
+        </button>
+
+        <button id="password" class="list-group-item list-group-item-action setting-btn">
+          <span class="icon mr-3"><i class="fe fe-lock"></i></span>Password
+        </button>
+
+        <button id="design" class="list-group-item list-group-item-action setting-btn">
+          <span class="icon mr-3"><i class="fe fe-edit-2"></i></span>Design
+        </button>
+      </div>
     </div>
 
-    <div class="col-10">
+    <div class="col-lg-9">
       <div id="account" class="setting-view card">
         <div class="card-body p-6">
           <div class="card-title text-primary">
@@ -107,10 +117,12 @@ $(document).ready(function(){
   settingsButtons.each(function(i, btn) {
     if(i != 0){ $(settingsViews[i]).hide(); }
     $(btn).click(function(){
+      $(btn).addClass("active");
       settingsViews.each(function(i, view){
         if($(view).attr("id") == $(btn).attr("id")){
           $(view).show();
         } else {
+          $(settingsButtons[i]).removeClass("active");
           $(view).hide();
         }
       });

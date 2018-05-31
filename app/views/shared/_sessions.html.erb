@@ -1,7 +1,7 @@
 <div class="sessions pb-5">
   <div class="container pt-6">
 
-    <%= render "shared/components/subtitle", subtitle: "Sessions" %>
+    <%= render "shared/components/subtitle", subtitle: "Recordings" %>
 
     <div class="col-12">
       <div class="card">
@@ -14,6 +14,7 @@
                 <th class="text-left">Length</th>
                 <th class="text-left">Users</th>
                 <th class="text-left">Visibility</th>
+                <th>Formats</th>
                 <th class="text-center"><i class="icon-settings"></i></th>
               </tr>
             </thead>
@@ -57,11 +58,10 @@
                   <div class="item-action dropdown">
                     <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                      <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                      <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
+                      <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon far fa-eye"></i> Change Visibility</a>
+                      <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon far fa-envelope"></i> Email Recording</a>
                       <div class="dropdown-divider"></div>
-                      <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
+                      <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-trash"></i> Delete</a>
                     </div>
                   </div>
                 </td>

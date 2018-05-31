@@ -38,7 +38,7 @@
 @import "tabler";
 @import "tabler.plugins";
 
-$background-color: #D1E2FF;
+$background-color: #F5F7FB;
 $rule-color: lightblue;
 
 .video-container {
@@ -50,10 +50,17 @@ $rule-color: lightblue;
 
 a {
   text-decoration: none !important;
+  cursor: pointer;
 }
 
-.sessions {
-  background-color: white;
+.bottom-div {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.room-section {
+  background-color: $background-color;
 }
 
 .start-block {
@@ -64,8 +71,6 @@ a {
 
 .start-button {
   font-size: 26px;
-  position: absolute;
-  bottom: 0;
 }
 
 .main-large {
@@ -89,7 +94,7 @@ html, body {
   height: 100%;
   //background: linear-gradient(180deg, $background-color 50%, white 50%);
   //background-repeat: no-repeat;
-  background-color: $background-color;
+  background-color: white;
 }
 
 .wrapper {
