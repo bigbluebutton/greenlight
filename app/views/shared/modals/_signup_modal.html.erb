@@ -9,7 +9,7 @@
 
           <hr class="small-rule">
 
-          <%= form_for(@user, url: signup_path) do |f| %>
+          <%= form_for(User.new, url: signup_path) do |f| %>
             <div class="form-group">
               <%= f.label :name, "Full Name", class: "form-label text-left" %>
               <%= f.text_field :name, class: "form-control", placeholder: "Full Name" %>

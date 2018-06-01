@@ -90,7 +90,7 @@ class User < ApplicationRecord
 
   # Initializes a room for the user.
   def initialize_main_room
-    self.main_room = Room.create!(user: self, name: firstname + "'s Room")
+    self.main_room = Room.create!(owner: self, name: firstname + "'s Room")
     self.save
   end
 end

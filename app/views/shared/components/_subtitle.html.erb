@@ -1,6 +1,16 @@
   <div class="row">
-    <div class="col-12">
+    <div class="col-9">
       <p class="subtitle"><%= subtitle %></p>
-      <hr>
     </div>
+    <% if search %>
+      <div class="col-3">
+        <div class="input-icon">
+          <span class="input-icon-addon">
+            <i class="fas fa-search"></i>
+          </span>
+          <input type="text" class="form-control btn-pill" placeholder="Search...">
+        </div>
+      </div>
+    <% end %>
   </div>
+  <hr class="mt-0">

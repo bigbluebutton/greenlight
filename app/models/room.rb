@@ -4,7 +4,7 @@ class Room < ApplicationRecord
 
   validates :name, presence: true
 
-  belongs_to :user
+  belongs_to :owner, class_name: 'User', foreign_key: :user_id
   has_one :meeting
 
   ROOM_ICONS = %w(circle star certificate play cloud heart square bookmark cog)
@@ -111,7 +111,7 @@ class Room < ApplicationRecord
   def bbb
     @bbb = BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
     #@bbb ||= if Rails.configuration.loadbalanced_configuration
-    #  lb_user = retrieve_loadbalanced_credentials(self.room.user.provider)
+    #  lb_user = retrieve_loadbalanced_credentials(self.room.owner.provider)
     #  BigBlueButton::BigBlueButtonApi.new(remove_slash(lb_user["apiURL"]), lb_user["secret"], "0.8")
     #else
     #  BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
@@ -120,7 +120,7 @@ class Room < ApplicationRecord
 
   # Generates a uid for the room and BigBlueButton.
   def setup
-    self.uid = [user.firstname, (0...8).map { (65 + rand(26)).chr }.join].join('-').downcase
+    self.uid = [owner.firstname, (0...9).map { (65 + rand(26)).chr }.join].join('-').downcase
     self.bbb_id = Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base] + Time.now.to_i.to_s).to_s
 
     self.icon = ROOM_ICONS.sample

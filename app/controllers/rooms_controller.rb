@@ -8,7 +8,7 @@ class RoomsController < ApplicationController
   # POST /r
   def create
     room = Room.new(name: room_params[:name])
-    room.user = current_user
+    room.owner = current_user
 
     if room.save
       if room_params[:auto_join] == "1"
@@ -38,10 +38,15 @@ class RoomsController < ApplicationController
         render :join
       end
     else
-      # If the meeting isn't running and you don't own the room, go to the waiting page.
+      # If the room isn't running, go to join page to enter a name.
       if !@room.owned_by?(current_user)
-        redirect_to wait_room_path(@room)
+        render :join
       end
+
+      # If the meeting isn't running and you don't own the room, go to the waiting page.
+      #if !@room.owned_by?(current_user)
+      #  redirect_to wait_room_path(@room)
+      #end
     end
   end
 

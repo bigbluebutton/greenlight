@@ -6,6 +6,7 @@ class CreateRooms < ActiveRecord::Migration[5.0]
       t.string :uid, index: true
       t.string :bbb_id, index: true
       t.string :icon, index: true
+      t.integer :sessions, index: true
 
       t.timestamps
     end

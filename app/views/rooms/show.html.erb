@@ -1,8 +1,12 @@
-<div class="room-section">
+<div class="room-section pb-1">
   <div class="container">
-    <div class="row pt-9">
+    <div class="row pt-8">
       <div class="col-lg-9 col-sm-12">
-        <h1 id="user-text" class="display-3 text-left text-primary mb-3"><%= @room.name %></h1>
+        <h1 id="user-text" class="display-3 text-left text-primary mb-3"><%= @room.name %>
+          <% if current_user.main_room == @room %>
+            <i class="fas fa-home align-top" style="font-size: 22px;"></i>
+          <% end %>
+        </h1>
         <h4 class="text-left text-primary mb-6">0 Sessions | 0 Recordings</h4>
         <label class="form-label text-primary">Invite Participants</label>
         <form class="form-inline">
@@ -29,7 +33,7 @@
 
     <div class="row mt-7 mb-2">
       <% (current_user.rooms - [@room]).each do |room| %>
-        <div class="col-4">
+        <div class="col-lg-4 col-md-6 col-sm-12">
           <%= link_to room do %>
             <%= render "shared/components/room_block", room: room %>
           <% end %>
@@ -39,7 +43,7 @@
   </div>
 </div>
 
-<%= render "shared/sessions" %>
+<%= render "shared/sessions", recordings: @room.recordings %>
 
 <script>
 var invite_url;
