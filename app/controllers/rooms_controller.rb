@@ -56,27 +56,17 @@ class RoomsController < ApplicationController
   # POST /r/:room_uid
   def join
     opts = default_meeting_options
-    puts 
-    puts @room.invite_path
+
     # If you're unauthenticated, you must enter a name to join the meeting.
     if params[@room.invite_path][:join_name]
-      redirect_to @room.join_path(params[:join_name], opts)
+      redirect_to @room.join_path(params[@room.invite_path][:join_name], opts)
     end
   end
 
   # DELETE /r/:room_uid
   def destroy
-    # Only delete a room if there is another to fallback too.
-    if current_user.rooms.length > 1
-
-      # Assign a new random main_room if it's the main room.
-      if @room == current_user.main_room
-        current_user.main_room = (current_user.rooms - [@room]).sample
-        current_user.save
-      end
-
-      @room.destroy
-    end
+    # Don't delete the users home room.
+    @room.destroy if @room != current_user.main_room
 
     redirect_to current_user.main_room
   end

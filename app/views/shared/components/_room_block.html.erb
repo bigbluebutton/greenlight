@@ -21,13 +21,16 @@
           <div class="item-action dropdown">
             <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
             <div class="dropdown-menu dropdown-menu-right">
+              <%= button_to root_path, class: "dropdown-item" do %>
+                <i class="dropdown-icon fe fe-link"></i> Copy Link
+              <% end %>
               <% if room != current_user.main_room %>
                 <%= button_to make_home_path(room), class: "dropdown-item" do %>
                   <i class="dropdown-icon fas fa-home"></i> Make Home Room
                 <% end %>
-              <% end %>
-              <%= button_to room, method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown-item" do %>
-                <i class="dropdown-icon far fa-trash-alt"></i> Delete
+                <%= button_to room, method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown-item" do %>
+                  <i class="dropdown-icon far fa-trash-alt"></i> Delete
+                <% end %>
               <% end %>
             </div>
           </div>

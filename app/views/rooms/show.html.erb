@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row pt-9">
       <div class="col-lg-9 col-sm-12">
-        <h1 id="user-text" class="display-3 text-left mb-3"><%= @room.name %>
+        <h1 id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= @room.name %>
           <% if current_user.main_room == @room %>
             <i class="fas fa-home align-top" style="font-size: 22px;"></i>
           <% end %>
@@ -32,12 +32,14 @@
     </div>
 
     <div class="row mt-7 mb-2">
-      <% (current_user.rooms - [@room]).each do |room| %>
-        <div class="col-lg-4 col-md-6 col-sm-12">
-          <%= link_to room do %>
-            <%= render "shared/components/room_block", room: room %>
-          <% end %>
-        </div>
+      <% if current_user.rooms.length > 1 %>
+        <% current_user.rooms.each do |room| %>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <%= link_to room do %>
+              <%= render "shared/components/room_block", room: room %>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>
