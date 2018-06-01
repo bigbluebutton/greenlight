@@ -94,7 +94,35 @@ class Room < ApplicationRecord
   # Fetches all recordings for a meeting.
   def recordings
     res = bbb.get_recordings(meetingID: bbb_id)
+
+    # Format playbacks in a more pleasant way.
+    res[:recordings].each do |r|
+      next if r.key?(:error)
+      r[:playbacks] = if !r[:playback] || !r[:playback][:format]
+        []
+      elsif r[:playback][:format].is_a?(Array)
+        r[:playback][:format]
+      else
+        [r[:playback][:format]]
+      end
+
+      r.delete(:playback)
+    end 
+
     res[:recordings]
+  end
+
+  # Deletes a recording from a room.
+  def delete_recording(record_id)
+    res = bbb.delete_recordings(record_id)
+
+    if res[:returncode]
+      # Handle successful deletion.
+
+    else
+      # Handle unsuccessful deletion.
+
+    end
   end
 
   private

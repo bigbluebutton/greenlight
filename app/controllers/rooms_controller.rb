@@ -48,6 +48,9 @@ class RoomsController < ApplicationController
       #  redirect_to wait_room_path(@room)
       #end
     end
+
+    # NOTE: TEST TO MAKE SURE THIS DOESN'T FIRE WHEN THEY ARE NOT OWNER AND REDIRECTED.
+    @recordings = @room.recordings
   end
 
   # POST /r/:room_uid
@@ -62,7 +65,17 @@ class RoomsController < ApplicationController
 
   # DELETE /r/:room_uid
   def destroy
-    @room.destroy unless @room == current_user.main_room
+    # Only delete a room if there is another to fallback too.
+    if current_user.rooms.length > 1
+
+      # Assign a new random main_room if it's the main room.
+      if @room == current_user.main_room
+        current_user.main_room = (current_user.rooms - [@room]).sample
+        current_user.save
+      end
+
+      @room.destroy
+    end
 
     redirect_to current_user.main_room
   end
@@ -72,6 +85,9 @@ class RoomsController < ApplicationController
     # Join the user in and start the meeting.
     opts = default_meeting_options
     opts[:user_is_moderator] = true
+
+    @room.sessions += 1
+    @room.save
 
     redirect_to @room.join_path(current_user, opts)
   end
@@ -103,6 +119,43 @@ class RoomsController < ApplicationController
   def sessions
 
   end
+
+  # POST /r/:room_uid/home
+  def home
+    current_user.main_room = @room
+    current_user.save
+
+    redirect_to @room    
+  end
+
+  # DELETE /r/:room_uid/:record_id
+  def delete_recording
+    @room.delete_recording(params[:record_id])
+
+    redirect_to current_user.main_room
+  end
+
+  # Helper for converting BigBlueButton dates into the desired format.
+  def recording_date(date)
+    date.strftime("%B #{date.day.ordinalize}, %Y.")
+  end
+  helper_method :recording_date
+
+  # Helper for converting BigBlueButton dates into a nice length string.
+  def recording_length(start_time, end_time)
+    len = ((end_time - start_time) * 24 * 60).to_i
+
+    if len > 60
+      "#{len / 60} hrs"
+    else
+      if len == 0
+        "< 1 min"
+      else
+        "#{len} min"
+      end
+    end
+  end
+  helper_method :recording_length
 
   private
 

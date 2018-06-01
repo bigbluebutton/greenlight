@@ -10,6 +10,13 @@ Rails.application.routes.draw do
     match '/wait', to: 'rooms#wait', as: :wait_room, via: [:get, :post]
     get '/logout', to: 'rooms#logout', as: :logout_room
     get '/sessions', to: 'rooms#sessions', as: :sessions
+    post '/home', to: 'rooms#home', as: :make_home
+    
+    # Mange recordings.
+    scope '/:record_id' do
+      post '/', to: 'rooms#update_recording', as: :update_recording
+      delete '/', to: 'rooms#delete_recording', as: :delete_recording
+    end
   end
 
   # Signup route.

@@ -1,0 +1,52 @@
+<tr>
+  <td>
+    <div><%= recording[:name] %></div>
+    <div class="small text-muted">
+      Recorded on <%= recording_date(recording[:startTime]) %>
+    </div>
+  </td>
+  <td>
+    <% p = recording[:playbacks].find do |p| p[:type] == "presentation" end %>
+    <% if p %>
+      <% p[:preview][:images][:image].each do |img| %>
+        <%= image_tag(img[:content], class: "thumbnail px-2") %>
+      <% end %>
+    <% end %>
+  </td>
+  <td class="text-left">
+    <div class="small text-muted text-uppercase">
+      Length
+    </div>
+    <%= recording_length(recording[:startTime], recording[:endTime]) %>
+  </td>
+  <td class="text-left">
+    <div class="small text-muted text-uppercase">
+      Users
+    </div>
+    <%= recording[:participants] %>
+  </td>
+  <td class="text-left">
+    <div class="small text-muted text-uppercase">
+      Visibility
+    </div>
+    <%= recording[:state].capitalize %>
+  </td>
+  <td>
+    <% recording[:playbacks].each do |p| %>
+      <%= link_to p[:type].capitalize, p[:url], class: "btn btn-secondary", target: "_blank" %>
+    <% end %>
+  </td>
+  <td class="text-center">
+    <div class="item-action dropdown">
+      <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon far fa-eye"></i> Change Visibility</a>
+        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon far fa-envelope"></i> Email Recording</a>
+        <div class="dropdown-divider"></div>
+        <%= button_to delete_recording_path(@room, record_id: recording[:recordID]), method: :delete, class: "dropdown-item" do %>
+          <i class="dropdown-icon far fa-trash-alt"></i> Delete
+        <% end %>
+      </div>
+    </div>
+  </td>
+</tr>

@@ -26,53 +26,8 @@
                 </td>
               </tr>
             <% else %>
-              <% 3.times do %>
-                <tr>
-                  <td>
-                    <div>Example Meeting</div>
-                    <div class="small text-muted">
-                      June 21, 2017 <i>(about 3 hours ago)</i>
-                    </div>
-                  </td>
-                  <td>
-                    <img class="thumbnail px-2" src="http://test-install.blindsidenetworks.com/presentation/b622495d927cd99e9898b0601c2b18a5424a0627-1527259102285/presentation/d2d9a672040fbde2a47a10bf6c37b6a4b5ae187f-1527259102298/thumbnails/thumb-1.png">
-                    <img class="thumbnail px-2" src="http://test-install.blindsidenetworks.com/presentation/b622495d927cd99e9898b0601c2b18a5424a0627-1527259102285/presentation/d2d9a672040fbde2a47a10bf6c37b6a4b5ae187f-1527259102298/thumbnails/thumb-1.png">
-                    <img class="thumbnail px-2" src="http://test-install.blindsidenetworks.com/presentation/b622495d927cd99e9898b0601c2b18a5424a0627-1527259102285/presentation/d2d9a672040fbde2a47a10bf6c37b6a4b5ae187f-1527259102298/thumbnails/thumb-1.png">
-                  </td>
-                  <td class="text-left">
-                    <div class="small text-muted text-uppercase">
-                      Length
-                    </div>
-                    1 hr
-                  </td>
-                  <td class="text-left">
-                    <div class="small text-muted text-uppercase">
-                      Users
-                    </div>
-                    4
-                  </td>
-                  <td class="text-left">
-                    <div class="small text-muted text-uppercase">
-                      Visibility
-                    </div>
-                    Unlisted
-                  </td>
-                  <td>
-                    <a href="#" class="btn btn-secondary">Presentation</a>
-                    <a href="#" class="btn btn-secondary">Podcast</a>
-                  </td>
-                  <td class="text-center">
-                    <div class="item-action dropdown">
-                      <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon far fa-eye"></i> Change Visibility</a>
-                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon far fa-envelope"></i> Email Recording</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon far fa-trash-alt"></i> Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+              <% recordings.each do |recording| %>
+                <%= render "shared/components/recording_row", recording: recording %>
               <% end %>
             <% end %>
             </tbody>

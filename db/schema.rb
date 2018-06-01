@@ -18,11 +18,13 @@ ActiveRecord::Schema.define(version: 20180504131705) do
     t.string   "uid"
     t.string   "bbb_id"
     t.string   "icon"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "sessions",   default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.index ["bbb_id"], name: "index_rooms_on_bbb_id"
     t.index ["icon"], name: "index_rooms_on_icon"
     t.index ["name"], name: "index_rooms_on_name"
+    t.index ["sessions"], name: "index_rooms_on_sessions"
     t.index ["uid"], name: "index_rooms_on_uid"
     t.index ["user_id"], name: "index_rooms_on_user_id"
   end
