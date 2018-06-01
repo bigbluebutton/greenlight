@@ -1,8 +1,8 @@
 <div class="card">
   <div class="card-body p-1">
-    <table class="table table-hover table-vcenter text-nowrap table-no-border" style="border-bottom: none;">
+    <table class="table table-hover table-vcenter text-nowrap table-no-border">
       <tbody>
-        <td>
+        <td style="border-top: none;">
           <span class="stamp stamp-md bg-cyan">
             <% if room == current_user.main_room %>
               <i class="fas fa-home"></i>
@@ -11,13 +11,13 @@
             <% end %>
           </span>
         </td>
-        <td>
-          <h4 class="font-weight-normal p-0"><%= room.name %></h4>
+        <td style="border-top: none;">
+          <h4 class="m-0 text-normal" style="color: #495057;"><%= room.name %></h4>
           <div class="small text-muted">
             <i>Last Session on <%= recording_date(room.created_at) %></i>
           </div>
         </td>
-        <td class="text-right">
+        <td class="text-right" style="border-top: none;">
           <div class="item-action dropdown">
             <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
             <div class="dropdown-menu dropdown-menu-right">
