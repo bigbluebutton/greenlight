@@ -2,13 +2,13 @@
   <div class="container">
     <div class="row pt-9">
       <div class="col-lg-9 col-sm-12">
-        <h1 id="user-text" class="display-3 text-left text-primary mb-3"><%= @room.name %>
+        <h1 id="user-text" class="display-3 text-left mb-3"><%= @room.name %>
           <% if current_user.main_room == @room %>
             <i class="fas fa-home align-top" style="font-size: 22px;"></i>
           <% end %>
         </h1>
-        <h4 class="text-left text-primary mb-6"><%= @room.sessions %> Sessions | <%= @recordings.length %> Recordings</h4>
-        <label class="form-label text-primary">Invite Participants</label>
+        <h4 class="text-left mb-6"><%= @room.sessions %> Sessions | <%= @recordings.length %> Recordings</h4>
+        <label class="form-label">Invite Participants</label>
         <form class="form-inline">
           <div class="input-icon" style="width: 45%;">
             <span class="input-icon-addon">

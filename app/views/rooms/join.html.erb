@@ -18,12 +18,14 @@
         <h5 class="font-weight-normal ml-4 mt-3 text-primary"><%= @room.owner.name %> (Owner)</h5>
       </div>
       <div class="col-lg-6 col-md-4 col-sm-12">
-        <div class="input-group" style="height: 60px;">
-          <input type="text" id="name-input" class="form-control main-large" placeholder="Enter your name!"></input>
-          <span class="input-group-append">
-            <button class="btn btn-primary px-7 main-large">Join</button>
-          </span>
-        </div>
+        <%= form_for room_path, method: :post do |f| %>
+          <div class="input-group" style="height: 60px;">
+            <%= f.text_field :join_name, class: "form-control main-large", placeholder: "Enter your name!" %>
+            <span class="input-group-append">
+              <%= f.submit "Join", class: "btn btn-primary px-7 main-large" %>
+            </span>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

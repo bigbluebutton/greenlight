@@ -1,18 +1,18 @@
 <div class="card">
   <div class="card-body p-1">
-    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+    <table class="table table-hover table-vcenter text-nowrap table-no-border" style="border-bottom: none;">
       <tbody>
         <td>
-          <span class="stamp stamp-md bg-primary">
+          <span class="stamp stamp-md bg-cyan">
             <% if room == current_user.main_room %>
               <i class="fas fa-home"></i>
             <% else %>
-              <i class="fas fa-<%= room.icon %>"></i>
+              <i class="fas fa-chalkboard-teacher"></i>
             <% end %>
           </span>
         </td>
         <td>
-          <div><%= room.name %></div>
+          <h4 class="font-weight-normal p-0"><%= room.name %></h4>
           <div class="small text-muted">
             <i>Last Session on <%= recording_date(room.created_at) %></i>
           </div>

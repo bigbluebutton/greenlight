@@ -2,38 +2,39 @@
   <div class="container pt-6">
 
     <%= render "shared/components/subtitle", subtitle: "Recordings", search: true %>
-
-    <div class="col-12">
-      <div class="card">
-        <div class="table-responsive">
-          <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Thumbnails</th>
-                <th class="text-left">Length</th>
-                <th class="text-left">Users</th>
-                <th class="text-left">Visibility</th>
-                <th>Formats</th>
-                <th class="text-center"><i class="icon-settings"></i></th>
-              </tr>
-            </thead>
-            <tbody>
-            <% if recordings.empty? %>
-              <tr>
-                <td colspan="7" class="text-center h4 p-6 font-weight-normal">
-                  This room has no recordings.
-                </td>
-              </tr>
-            <% else %>
-              <% recordings.each do |recording| %>
-                <%= render "shared/components/recording_row", recording: recording %>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="table-responsive">
+            <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Thumbnails</th>
+                  <th class="text-left">Length</th>
+                  <th class="text-left">Users</th>
+                  <th class="text-left">Visibility</th>
+                  <th>Formats</th>
+                  <th class="text-center"><i class="icon-settings"></i></th>
+                </tr>
+              </thead>
+              <tbody>
+              <% if recordings.empty? %>
+                <tr>
+                  <td colspan="7" class="text-center h4 p-6 font-weight-normal">
+                    This room has no recordings.
+                  </td>
+                </tr>
+              <% else %>
+                <% recordings.each do |recording| %>
+                  <%= render "shared/components/recording_row", recording: recording %>
+                <% end %>
               <% end %>
-            <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>    
+              </tbody>
+            </table>
+          </div>
+        </div>    
+      </div>
     </div>
   </div>
 </div>

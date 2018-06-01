@@ -56,9 +56,10 @@ class RoomsController < ApplicationController
   # POST /r/:room_uid
   def join
     opts = default_meeting_options
-
+    puts 
+    puts @room.invite_path
     # If you're unauthenticated, you must enter a name to join the meeting.
-    if params[:join_name]
+    if params[@room.invite_path][:join_name]
       redirect_to @room.join_path(params[:join_name], opts)
     end
   end
