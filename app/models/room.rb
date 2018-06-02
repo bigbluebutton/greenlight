@@ -22,12 +22,7 @@ class Room < ApplicationRecord
 
   # Checks if a room is running on the BigBlueButton server.
   def is_running?
-    begin
-      bbb.get_meeting_info(bbb_id, nil)
-      return true
-    rescue BigBlueButton::BigBlueButtonException => exc
-      return false
-    end
+    bbb.is_meeting_running?(bbb_id)
   end
 
   # Determines the invite URL for the room.
