@@ -24,6 +24,9 @@
               <%= button_to root_path, class: "dropdown-item" do %>
                 <i class="dropdown-icon fe fe-link"></i> Copy Link
               <% end %>
+              <%= button_to root_path, class: "dropdown-item" do %>
+                <i class="dropdown-icon fas fa-cog"></i> Room Settings
+              <% end %>
               <% if room != current_user.main_room %>
                 <%= button_to make_home_path(room), class: "dropdown-item" do %>
                   <i class="dropdown-icon fas fa-home"></i> Make Home Room

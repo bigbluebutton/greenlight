@@ -77,9 +77,6 @@ class RoomsController < ApplicationController
     opts = default_meeting_options
     opts[:user_is_moderator] = true
 
-    @room.sessions += 1
-    @room.save
-
     redirect_to @room.join_path(current_user, opts)
   end
 

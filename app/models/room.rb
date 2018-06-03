@@ -25,6 +25,19 @@ class Room < ApplicationRecord
     bbb.is_meeting_running?(bbb_id)
   end
 
+  # Retrieves all the users in a room.
+  def participants
+    begin
+      res = bbb.get_meeting_info(bbb_id, nil)
+      res[:attendees].map do |att|
+        User.find_by(uid: att[:userID], name: att[:fullName])
+      end
+    rescue BigBlueButton::BigBlueButtonException => exc
+      # The meeting is most likely not running.
+      []
+    end
+  end
+
   # Determines the invite URL for the room.
   def invite_path
     "/r/#{uid}"
@@ -39,6 +52,10 @@ class Room < ApplicationRecord
       attendeePW: random_password(12),
       moderatorOnlyMessage: options[:moderator_message]
     }
+
+    # Increment room sessions.
+    self.sessions += 1
+    self.save
 
     #meeting_options.merge!(
       #{ "meta_room-id": options[:room_owner],
@@ -55,7 +72,7 @@ class Room < ApplicationRecord
 
   # Returns a URL to join a user into a meeting.
   def join_path(user, options = {})
-    user = user.name if user.is_a?(User)
+    username = user.name if user.is_a?(User)
 
     # Create the meeting if it isn't running.
     start_session(options) unless is_running?
@@ -83,7 +100,7 @@ class Room < ApplicationRecord
     end
 
     # Generate the join URL.
-    bbb.join_meeting_url(bbb_id, user, password)
+    bbb.join_meeting_url(bbb_id, username, password, {userID: user.uid})
   end
 
   # Fetches all recordings for a meeting.
