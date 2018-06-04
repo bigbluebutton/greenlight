@@ -19,17 +19,13 @@ Rails.application.routes.draw do
     end
   end
 
-  # Signup route.
-  post '/signup', to: 'users#create'
-
-  # User settings.
-  get '/settings', to: 'users#settings'
+  # User resources.
+  #resources :users, only: [:create, :update, :edit], param: :user_uid
+  get '/users/:user_uid/edit', to: 'users#edit', as: :edit_user
+  patch '/users/:user_uid/edit', to: 'users#update', as: :update_user
 
   # Handles login of greenlight provider accounts.
   post '/login',  to: 'sessions#create', as: :create_session
-
-  # Login to Greenlight.
-  get '/login', to: 'sessions#new'
 
   # Log the user out of the session.
   get '/logout', to: 'sessions#destroy'

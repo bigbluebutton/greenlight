@@ -10,10 +10,6 @@ class Room < ApplicationRecord
   ROOM_ICONS = %w(circle star certificate play cloud heart square bookmark cog)
   RETURNCODE_SUCCESS = "SUCCESS"
 
-  def to_param
-    uid  
-  end
-
   # Determines if a user owns a room.
   def owned_by?(user)
     return false if user.nil?
@@ -72,8 +68,6 @@ class Room < ApplicationRecord
 
   # Returns a URL to join a user into a meeting.
   def join_path(user, options = {})
-    username = user.name if user.is_a?(User)
-
     # Create the meeting if it isn't running.
     start_session(options) unless is_running?
 
@@ -100,7 +94,11 @@ class Room < ApplicationRecord
     end
 
     # Generate the join URL.
-    bbb.join_meeting_url(bbb_id, username, password, {userID: user.uid})
+    if user.is_a?(User)
+      bbb.join_meeting_url(bbb_id, user.name, password, {userID: user.uid})
+    else
+      bbb.join_meeting_url(bbb_id, user, password)
+    end
   end
 
   # Fetches all recordings for a meeting.

@@ -57,9 +57,16 @@ class RoomsController < ApplicationController
   def join
     opts = default_meeting_options
 
-    # If you're unauthenticated, you must enter a name to join the meeting.
-    if params[@room.invite_path][:join_name]
-      redirect_to @room.join_path(params[@room.invite_path][:join_name], opts)
+    if @room.is_running?
+      # If you're unauthenticated, you must enter a name to join the meeting.
+      if params[@room.invite_path][:join_name]
+        redirect_to @room.join_path(params[@room.invite_path][:join_name], opts)
+      else
+        redirect_to @room.join_path(current_user, opts)
+      end
+    else
+      # They need to wait until the meeting begins.
+
     end
   end
 

@@ -22,7 +22,11 @@ class User < ApplicationRecord
     
     # Generates a user from omniauth.
     def from_omniauth(auth)
-      user = find_or_initialize_by(uid: auth['uid'], provider: auth['provider'])
+      user = find_or_initialize_by(
+        social_uid: auth['uid'],
+        provider: auth['provider']
+      )
+
       user.name = send("#{auth['provider']}_name", auth)
       user.username = send("#{auth['provider']}_username", auth)
       user.email = send("#{auth['provider']}_email", auth)

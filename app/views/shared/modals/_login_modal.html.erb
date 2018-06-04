@@ -15,25 +15,29 @@
           <% end %>
 
           <hr>
-          <div class="form-group">
-            <div class="input-icon">
-              <span class="input-icon-addon">
-                <i class="fas fa-at"></i>
-              </span>
-              <input type="email" class="form-control" placeholder="Email">
+          <%= form_for(:session, url: create_session_path) do |f| %>
+            <div class="form-group">
+              <div class="input-icon">
+                <span class="input-icon-addon">
+                  <i class="fas fa-at"></i>
+                </span>
+                <%= f.text_field :email, class: "form-control", placeholder: "Email" %>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <div class="input-icon">
-              <span class="input-icon-addon">
-                <i class="fas fa-key"></i>
-              </span>
-              <input type="password" class="form-control" placeholder="Password">
+
+            <div class="form-group">
+              <div class="input-icon">
+                <span class="input-icon-addon">
+                  <i class="fas fa-key"></i>
+                </span>
+                <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+              </div>
             </div>
-          </div>
-          <div class="form-footer">
-            <button type="submit" class="btn btn-outline-primary btn-block btn-pill">Login</button>
-          </div>
+
+            <div class="form-footer">
+              <%= f.submit "Login", class: "btn btn-outline-primary btn-block btn-pill" %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

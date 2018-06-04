@@ -31,7 +31,7 @@
 							<%= link_to current_user.main_room, class: "dropdown-item" do %>
 								<i class="dropdown-icon fas fa-home"></i> Home Room	
 							<% end %>
-							<%= link_to settings_path, class: "dropdown-item" do %>
+							<%= link_to edit_user_path(current_user), class: "dropdown-item" do %>
 								<i class="dropdown-icon fe fe-settings"></i> Settings
 							<% end %>
 							<div class="dropdown-divider"></div>

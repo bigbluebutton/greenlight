@@ -18,7 +18,6 @@ class SessionsController < ApplicationController
     else
       # Login unsuccessful, display error message.
       
-      render :new
     end
   end
 

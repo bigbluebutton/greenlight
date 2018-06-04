@@ -9,7 +9,7 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-6 col-md-8 col-sm-12 form-inline mb-5">
+      <div class="col-lg-6 col-md-8 col-sm-12 form-inline mb-5 align-top">
         <% if @room.owner.image.nil? %>
           <span class="avatar"><%= @room.owner.name.first %></span>
         <% else %>
@@ -34,5 +34,3 @@
     </div>
   </div>
 </div>
-
-<%= @room.participants %>
