@@ -1,13 +1,19 @@
-<div class="container">
+<div class="room-section pb-2 pt-9">
+  <div class="container text-center">
 
-  <h1 id="main-text" class="display-3 text-center text-primary mt-9">Teach Students Online.</h1>
+    <h1 id="main-text" class="display-3 font-weight-400">Welcome to Greenlight.</h1>
+    <h4 class="text-muted">A simple front end for your BigBlueButton Open Source Web Conferencing Server.</h4>
 
-  <hr class="small-rule">
-
-  <%= render "shared/features" %>
+    <%= link_to "https://www.google.com", class: "p-3", target: "_blank" do %>
+      <h4>Watch a tutorial on using Greenlight <i class="fe fe-play-circle"></i></h4>
+    <% end %>
+  </div>
 </div>
 
+<%= render "shared/features" %>
+
 <script>
+/*
 textOptions = [
   "Start your own Meeting.",
   "Collaborate with Friends.",
@@ -27,4 +33,5 @@ var changeText = function(){
 setInterval(function(){
   $('#main-text').fadeOut(1000, changeText)
 }, 7000);
+*/
 </script>
