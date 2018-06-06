@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
 
   # User resources.
-  #resources :users, only: [:create, :update, :edit], param: :user_uid
+  resources :users, only: [:create], param: :user_uid
   get '/users/:user_uid/edit', to: 'users#edit', as: :edit_user
   patch '/users/:user_uid/edit', to: 'users#update', as: :update_user
 
