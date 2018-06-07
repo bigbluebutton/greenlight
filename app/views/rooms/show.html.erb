@@ -28,9 +28,9 @@
       </div>
       <div class="col-lg-3 col-sm-12 bottom-div mt-5">
         <% if @is_running %>
-          <div class="btn btn-success active btn-block px-7 start-button float-right">In Progress</div>
+          <div class="btn btn-success btn-block px-7 start-button float-right">In Progress</div>
         <% else %>
-          <%= link_to "Start", start_room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right" %>
+          <%= button_to "Start", start_room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right" %>
         <% end %>
       </div>
     </div>

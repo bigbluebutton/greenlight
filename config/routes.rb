@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # Extended room routes.
   scope '/r/:room_uid' do
     post '/', to: 'rooms#join'
-    get '/start', to: 'rooms#start', as: :start_room
+    post '/start', to: 'rooms#start', as: :start_room
     get '/logout', to: 'rooms#logout', as: :logout_room
     post '/home', to: 'rooms#home', as: :make_home
     

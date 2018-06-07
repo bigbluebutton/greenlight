@@ -61,7 +61,7 @@ class RoomsController < ApplicationController
     redirect_to current_user.main_room
   end
 
-  # GET /r/:room_uid/start
+  # POST /r/:room_uid/start
   def start
     # Join the user in and start the meeting.
     opts = default_meeting_options
