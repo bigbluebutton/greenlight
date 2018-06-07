@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :find_user, only: [:edit, :update]
+  before_action :ensure_unauthenticated, only: [:new, :create]
 
   # POST /users
   def create
@@ -13,6 +14,11 @@ class UsersController < ApplicationController
       # Handle error on user creation.
 
     end
+  end
+
+  # GET /signup
+  def new 
+    @user = User.new
   end
 
   # GET /users/:user_uid/edit
@@ -62,6 +68,10 @@ class UsersController < ApplicationController
       # Handle user does not exist.
 
     end
+  end
+
+  def ensure_unauthenticated
+    redirect_to current_user.main_room if current_user
   end
 
   def user_params

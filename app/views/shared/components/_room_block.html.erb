@@ -14,16 +14,17 @@
         <td style="border-top: none;">
           <h4 class="m-0 text-normal" style="color: #495057;"><%= room.name %></h4>
           <div class="small text-muted">
-            <i>Last Session on <%= recording_date(room.created_at) %></i>
+            <% if room.sessions > 0 %>
+              <i>Last session on <%= recording_date(room.last_session) %></i>
+            <% else %>
+              <i>This room has no sessions, yet!</i>
+            <% end %>
           </div>
         </td>
         <td class="text-right" style="border-top: none;">
           <div class="item-action dropdown">
             <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <%= button_to root_path, class: "dropdown-item" do %>
-                <i class="dropdown-icon fe fe-link"></i> Copy Link
-              <% end %>
               <%= button_to root_path, class: "dropdown-item" do %>
                 <i class="dropdown-icon fas fa-cog"></i> Room Settings
               <% end %>

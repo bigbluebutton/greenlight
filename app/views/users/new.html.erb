@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row mt-9">
+    <div class="col col-4 offset-4 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="mt-2">Create an Account</h4>
+        </div>
+        <div class="card-body">
+          <%= form_for @user, method: :post do |f|  %>
+            <div class="form-group">
+              <%= f.label "Fullname", class: "form-label" %>
+              <div class="input-icon">
+                <span class="input-icon-addon">
+                  <i class="fas fa-user"></i>
+                </span>
+                <%= f.text_field :name, class: "form-control", placeholder: "Fullname" %>
+              </div>
+              <br>
+              <%= f.label "Email", class: "form-label" %>
+              <div class="input-icon">
+                <span class="input-icon-addon">
+                  <i class="fas fa-at"></i>
+                </span>
+                <%= f.text_field :email, class: "form-control", placeholder: "Email" %>
+              </div>
+              <br>
+              <%= f.label "Password", class: "form-label" %>
+              <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+              <br>
+              <%= f.label "Password Confirmation", class: "form-label" %>
+              <%= f.password_field :password, class: "form-control", placeholder: "Password Confirmation" %>
+            </div>
+            <div class="card-footer">
+              <%= f.submit "Sign up", class: "btn btn-primary float-right" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

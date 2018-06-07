@@ -7,9 +7,7 @@ Rails.application.routes.draw do
   scope '/r/:room_uid' do
     post '/', to: 'rooms#join'
     get '/start', to: 'rooms#start', as: :start_room
-    match '/wait', to: 'rooms#wait', as: :wait_room, via: [:get, :post]
     get '/logout', to: 'rooms#logout', as: :logout_room
-    get '/sessions', to: 'rooms#sessions', as: :sessions
     post '/home', to: 'rooms#home', as: :make_home
     
     # Mange recordings.
@@ -21,6 +19,7 @@ Rails.application.routes.draw do
 
   # User resources.
   resources :users, only: [:create], param: :user_uid
+  get '/signup', to: 'users#new', as: :signup
   get '/users/:user_uid/edit', to: 'users#edit', as: :edit_user
   patch '/users/:user_uid/edit', to: 'users#update', as: :update_user
 

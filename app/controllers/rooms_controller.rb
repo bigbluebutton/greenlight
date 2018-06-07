@@ -24,49 +24,31 @@ class RoomsController < ApplicationController
 
   # GET /r/:room_uid
   def show
-    opts = default_meeting_options
-
-    if @room.is_running?
-      if current_user
-        # If you don't own the room but the meeting is running, join up.
-        if !@room.owned_by?(current_user)
-          opts[:user_is_moderator] = false
-          redirect_to @room.join_path(current_user, opts)
-        end
-      else
-        # Render the join page so they can supply their name.
-        render :join
-      end
+    if current_user && @room.owned_by?(current_user)
+      @recordings = @room.recordings
     else
-      # If the room isn't running, go to join page to enter a name.
-      if !@room.owned_by?(current_user)
-        render :join
-      end
-
-      # If the meeting isn't running and you don't own the room, go to the waiting page.
-      #if !@room.owned_by?(current_user)
-      #  redirect_to wait_room_path(@room)
-      #end
+      render :join
     end
-
-    # NOTE: TEST TO MAKE SURE THIS DOESN'T FIRE WHEN THEY ARE NOT OWNER AND REDIRECTED.
-    @recordings = @room.recordings
   end
 
   # POST /r/:room_uid
   def join
     opts = default_meeting_options
 
+    # Assign join name if passed.
+    if params[@room.invite_path]
+      @join_name = params[@room.invite_path][:join_name]
+    end
+
     if @room.is_running?
-      # If you're unauthenticated, you must enter a name to join the meeting.
-      if params[@room.invite_path][:join_name]
-        redirect_to @room.join_path(params[@room.invite_path][:join_name], opts)
-      else
+      if current_user
         redirect_to @room.join_path(current_user, opts)
+      elsif join_name = params[:join_name] || params[@room.invite_path][:join_name]
+        redirect_to @room.join_path(join_name, opts)
       end
     else
       # They need to wait until the meeting begins.
-
+      render :wait
     end
   end
 
@@ -85,19 +67,10 @@ class RoomsController < ApplicationController
     opts[:user_is_moderator] = true
 
     redirect_to @room.join_path(current_user, opts)
-  end
 
-  # GET/POST /r/:room_uid/wait
-  def wait
-    if @room.is_running?
-      if current_user
-        # If they are logged in and waiting, use their account name.
-        redirect_to @room.join_path(current_user, default_meeting_options)
-      elsif !params[:unauthenticated_join_name].blank?
-        # Otherwise, use the name they submitted on the wating page.
-        redirect_to @room.join_path(params[:unauthenticated_join_name], default_meeting_options)
-      end
-    end
+    # Notify users that the room has started.
+    # Delay 5 seconds to allow for server start, although the request will retry until it succeeds.
+    NotifyUserWaitingJob.set(wait: 5.seconds).perform_later(@room)
   end
 
   # GET /r/:room_uid/logout
@@ -108,11 +81,6 @@ class RoomsController < ApplicationController
     else
       redirect_to root_path
     end
-  end
-
-  # GET /r/:room_uid/sessions
-  def sessions
-
   end
 
   # POST /r/:room_uid/home

@@ -51,6 +51,7 @@ class Room < ApplicationRecord
 
     # Increment room sessions.
     self.sessions += 1
+    self.last_session = DateTime.now
     self.save
 
     #meeting_options.merge!(
@@ -84,7 +85,7 @@ class Room < ApplicationRecord
     return call_invalid_res if !bbb
 
     # Get the meeting info.
-    meeting_info = bbb.get_meeting_info(bbb_id, nil) 
+    meeting_info = bbb.get_meeting_info(bbb_id, nil)
 
     # Determine the password to use when joining.
     password = if options[:user_is_moderator]
@@ -99,6 +100,13 @@ class Room < ApplicationRecord
     else
       bbb.join_meeting_url(bbb_id, user, password)
     end
+  end
+
+  # Notify waiting users that a meeting has started.
+  def notify_waiting
+    ActionCable.server.broadcast("#{uid}_waiting_channel", {
+      action: "started"
+    })
   end
 
   # Fetches all recordings for a meeting.
