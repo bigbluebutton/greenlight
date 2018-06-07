@@ -25,6 +25,7 @@ class RoomsController < ApplicationController
   # GET /r/:room_uid
   def show
     if current_user && @room.owned_by?(current_user)
+      @is_running = @room.is_running?
       @recordings = @room.recordings
     else
       render :join
