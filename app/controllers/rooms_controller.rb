@@ -74,12 +74,8 @@ class RoomsController < ApplicationController
 
   # GET /r/:room_uid/logout
   def logout
-    # Redirect the owner to their room.
-    if current_user
-      redirect_to current_user.main_room
-    else
-      redirect_to root_path
-    end
+    # Redirect the correct page.
+    redirect_to @room
   end
 
   # POST /r/:room_uid/home
@@ -127,12 +123,7 @@ class RoomsController < ApplicationController
 
   # Find the room from the uid.
   def find_room
-    @room = Room.find_by(uid: params[:room_uid])
-
-    if @room.nil?
-      # Handle room doesn't exist.
-
-    end
+    @room = Room.find_by!(uid: params[:room_uid])
   end
 
   # Ensure the user is logged into the room they are accessing.
