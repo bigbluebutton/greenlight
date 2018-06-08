@@ -42,6 +42,12 @@ class ApplicationController < ActionController::Base
     @room.meeting.join_path(current_user.name, opts)
   end
   helper_method :owner_meeting_url
+
+  # Determines if a form field needs the is-invalid class.
+  def form_is_invalid?(obj, key)
+    'is-invalid' if !obj.errors.messages[key].empty?
+  end
+  helper_method :form_is_invalid?
   
   # Default, unconfigured meeting options.
   def default_meeting_options

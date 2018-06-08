@@ -5,14 +5,14 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    user = User.new(user_params)
-    user.provider = "greenlight"
+    @user = User.new(user_params)
+    @user.provider = "greenlight"
 
-    if user.save
-     login(user)
+    if @user.save
+     login(@user)
     else
       # Handle error on user creation.
-
+      render :new
     end
   end
 

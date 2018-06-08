@@ -18,8 +18,8 @@ Rails.application.routes.draw do
   end
 
   # User resources.
-  resources :users, only: [:create], param: :user_uid
   get '/signup', to: 'users#new', as: :signup
+  post '/signup', to: 'users#create', as: :create_user
   get '/users/:user_uid/edit', to: 'users#edit', as: :edit_user
   patch '/users/:user_uid/edit', to: 'users#update', as: :update_user
 

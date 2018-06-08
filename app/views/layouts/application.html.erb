@@ -8,10 +8,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>"
-    data-resource="<%= params[:resource] %>"
-    data-current-user="<%= current_user.try(:encrypted_id) %>">
-
+  <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>">
     <div class="wrapper">
 
       <!-- Messages -->

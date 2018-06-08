@@ -6,29 +6,26 @@
           <h4 class="mt-2">Create an Account</h4>
         </div>
         <div class="card-body">
-          <%= form_for @user, method: :post do |f|  %>
+          <%= form_for @user, url: create_user_path, method: :post do |f|  %>
             <div class="form-group">
               <%= f.label "Fullname", class: "form-label" %>
-              <div class="input-icon">
-                <span class="input-icon-addon">
-                  <i class="fas fa-user"></i>
-                </span>
-                <%= f.text_field :name, class: "form-control", placeholder: "Fullname" %>
-              </div>
-              <br>
+              <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: "Fullname" %>
+              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:name).first %></div>
+            </div>
+            <div class="form-group">
               <%= f.label "Email", class: "form-label" %>
-              <div class="input-icon">
-                <span class="input-icon-addon">
-                  <i class="fas fa-at"></i>
-                </span>
-                <%= f.text_field :email, class: "form-control", placeholder: "Email" %>
-              </div>
-              <br>
+              <%= f.text_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: "Email" %>
+              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:email).first %></div>
+            </div>
+            <div class="form-group">
               <%= f.label "Password", class: "form-label" %>
-              <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
-              <br>
+              <%= f.password_field :password, class: "form-control #{form_is_invalid?(@user, :password)}", placeholder: "Password" %>
+              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:password).first %></div>
+            </div>
+            <div class="form-group">
               <%= f.label "Password Confirmation", class: "form-label" %>
-              <%= f.password_field :password, class: "form-control", placeholder: "Password Confirmation" %>
+              <%= f.password_field :password_confirmation, class: "form-control #{form_is_invalid?(@user, :password_confirmation)}", placeholder: "Password Confirmation" %>
+              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:password_confirmation).first %></div>
             </div>
             <div class="card-footer">
               <%= f.submit "Sign up", class: "btn btn-primary float-right" %>

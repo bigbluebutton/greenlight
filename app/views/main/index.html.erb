@@ -1,37 +1,14 @@
-<div class="room-section pb-2 pt-9">
-  <div class="container text-center">
+<div class="room-section">
+  <div class="d-flex align-items-center" style="height: 100%;">
+    <div class="container text-center">
+      <h1 id="main-text" class="font-weight-400 resp-header">Welcome to BigBlueButton.</h1>
+      <h4 class="text-muted">A simple front end for your BigBlueButton Open Source Web Conferencing Server.</h4>
 
-    <h1 id="main-text" class="display-3 font-weight-400">Welcome to BigBlueButton.</h1>
-    <h4 class="text-muted">A simple front end for your BigBlueButton Open Source Web Conferencing Server.</h4>
-
-    <%= link_to "https://www.youtube.com/watch?v=yGX3JCv7OVM&feature=youtu.be", class: "p-3", target: "_blank" do %>
-      <h4>Watch a tutorial on using Greenlight <i class="fe fe-play-circle"></i></h4>
-    <% end %>
+      <%= link_to "https://www.youtube.com/watch?v=yGX3JCv7OVM&feature=youtu.be", class: "p-3", target: "_blank" do %>
+        <h4>Watch a tutorial on using Greenlight <i class="fe fe-play-circle"></i></h4>
+      <% end %>
+    </div>
   </div>
 </div>
 
 <%= render "shared/features" %>
-
-<script>
-/*
-textOptions = [
-  "Start your own Meeting.",
-  "Collaborate with Friends.",
-  "Connect in Real-Time.",
-  "Teach Students Online.",
-]
-
-textOpt = 0
-
-var changeText = function(){
-  $('#main-text').text(textOptions[textOpt]);
-  $('#main-text').fadeIn(1000)
-  textOpt++;
-  if (textOpt > textOptions.length) { textOpt = 0; }
-}
-
-setInterval(function(){
-  $('#main-text').fadeOut(1000, changeText)
-}, 7000);
-*/
-</script>

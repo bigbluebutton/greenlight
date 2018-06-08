@@ -1,9 +1,7 @@
 class RoomsController < ApplicationController
 
   before_action :find_room, except: :create
-
-  #before_action :verify_room_ownership
-  #skip_before_action :verify_room_ownership, only: [:create, :show, :join, :wait]
+  before_action :verify_room_ownership, only: [:start, :destroy, :home]
 
   # POST /r
   def create

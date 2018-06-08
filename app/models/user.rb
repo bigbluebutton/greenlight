@@ -12,10 +12,9 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false },
                     format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
-  validates :password, length: { minimum: 6 }, allow_nil: true
+  validates :password, length: { minimum: 6 }, presence: true, confirmation: true, if: :greenlight_account?
 
-  # We don't want to run the validations because they require a user
-  # to have a password. Users who authenticate via omniauth won't.
+  # We don't want to require password validations on all accounts.
   has_secure_password(validations: false)
 
   class << self
@@ -88,6 +87,10 @@ class User < ApplicationRecord
 
   def firstname
     name.split(' ').first
+  end
+
+  def greenlight_account?
+    provider == "greenlight"
   end
 
   private
