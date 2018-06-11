@@ -90,6 +90,13 @@ class RoomsController < ApplicationController
     redirect_to @room    
   end
 
+  # PATCH /r/:room_uid/:record_id
+  def update_recording
+    bbb.publish_recordings(params[:record_id], params[:publish])
+
+    
+  end
+
   # DELETE /r/:room_uid/:record_id
   def delete_recording
     @room.delete_recording(params[:record_id])

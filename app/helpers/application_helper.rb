@@ -12,4 +12,13 @@ module ApplicationHelper
   def omniauth_login_url(provider)
     "/auth/#{provider}"
   end
+  
+  # Determine if Greenlight is configured to allow user signups.
+  def allow_user_signup?
+    Rails.configuration.allow_user_signup
+  end
+
+  def bigbluebutton_endpoint_default?
+    Rails.configuration.bigbluebutton_endpoint_default == Rails.configuration.bigbluebutton_endpoint
+  end
 end

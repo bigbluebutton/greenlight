@@ -1,8 +1,12 @@
-<div class="text-center center-page">
-  <h1 class="display-2 font-weight-400">Whoops!</h1>
-  <h2>Looks like we can't find that resource.</h2>
-  <h3>Is it possible its been removed?</h3>
-  <%= link_to root_url do %>
-    <h4>Return to home page.</h4>
-  <% end %>
+<div class="page">
+  <div class="page-content">
+    <div class="container text-center">
+      <div class="display-1 text-muted mb-5">404</div>
+      <h1 class="h2 mb-3">Whoops! Looks like we can't find that.</h1>
+      <p class="h4 text-muted font-weight-normal mb-7">Is it possible its been removed?</p>
+      <a class="btn btn-primary" href="javascript:history.back()">
+        <i class="fe fe-arrow-left mr-2"></i>Go back
+      </a>
+    </div>
+  </div>
 </div>

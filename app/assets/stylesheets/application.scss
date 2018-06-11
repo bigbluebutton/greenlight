@@ -56,10 +56,22 @@ a {
   flex-direction: column;
 }
 
-.room-section {
+.table-responsive {
+  overflow: visible;
+}
+
+.landing-section {
   position: relative;
   height: 45%;
   background-color: $background-color;
+}
+
+.room-section {
+  background-color: $background-color;
+}
+
+.danger-section {
+  background-color: #efe6e6;
 }
 
 .start-block {

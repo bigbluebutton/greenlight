@@ -27,6 +27,10 @@
 
       <%= render "shared/header" %>
 
+      <% if bigbluebutton_endpoint_default? %>
+        <%= render "shared/error_banner" %>
+      <% end %>
+
       <%= yield %>
 
       <!-- Modal Load -->

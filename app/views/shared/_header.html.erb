@@ -10,7 +10,7 @@
 					<%= image_tag("logo_with_text.png", class: "header-brand-img") %>
 				<% end %>
 			<% end %>
-
+			
 			<div class="d-flex ml-auto">
 				<% if current_user %>
 					<a class="px-5 ml-2 mt-1" href="" data-toggle="modal" data-target="#createRoomModal">
@@ -45,7 +45,10 @@
 					</div>
 				<% else %>
 					<%= link_to "Login", "#loginModal", :class => "btn btn-pill btn-outline-primary mx-2", "data-toggle": "modal" %>
-					<%= link_to "Signup", signup_path, :class => "btn btn-pill btn-outline-primary mx-2" %>
+
+					<% if allow_user_signup? %>
+						<%= link_to "Signup", signup_path, :class => "btn btn-pill btn-outline-primary mx-2" %>
+					<% end %>
 					
 					<%= render "shared/modals/login_modal" %>
 				<% end %>

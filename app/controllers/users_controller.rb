@@ -5,6 +5,9 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
+    # Verify that GreenLight is configured to allow user signup.
+    return unless Rails.configuration.allow_user_signup
+
     @user = User.new(user_params)
     @user.provider = "greenlight"
 
@@ -17,8 +20,12 @@ class UsersController < ApplicationController
   end
 
   # GET /signup
-  def new 
-    @user = User.new
+  def new
+    if Rails.configuration.allow_user_signup
+      @user = User.new
+    else
+      redirect_to root_path
+    end
   end
 
   # GET /users/:user_uid/edit

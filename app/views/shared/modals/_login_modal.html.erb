@@ -3,11 +3,10 @@
     <div class="modal-content text-center">
       <div class="modal-body">
         <div class="card-body p-6">
-          <div class="card-title text-primary">
+          <div class="card-title">
             <h3>Login</h3>
           </div>
-
-          <hr class="small-rule">
+          
           <% configured_providers.each do |provider| %>
             <%= link_to omniauth_login_url(provider), class: "btn btn-pill btn-#{provider} btn-block" do %>
                <i class="fab fa-<%= provider %>"></i>&ensp;<%= "Login with #{provider.capitalize}" %>
@@ -15,6 +14,7 @@
           <% end %>
 
           <hr>
+          
           <%= form_for(:session, url: create_session_path) do |f| %>
             <div class="form-group">
               <div class="input-icon">

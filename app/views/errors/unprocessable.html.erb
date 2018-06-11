@@ -1,7 +1,12 @@
-<div class="text-center center-page">
-  <h1 class="display-2 font-weight-400">Oops!</h1>
-  <h3>Request is unprocessable.</h3>
-  <%= link_to root_url do %>
-    <h4>Return to home page.</h4>
-  <% end %>
+<div class="page">
+  <div class="page-content">
+    <div class="container text-center">
+      <div class="display-1 text-muted mb-5">422</div>
+      <h1 class="h2 mb-3">Oops! Request is unprocessable.</h1>
+      <p class="h4 text-muted font-weight-normal mb-7">Unforunately this isn't a valid request.</p>
+      <a class="btn btn-primary" href="javascript:history.back()">
+        <i class="fe fe-arrow-left mr-2"></i>Go back
+      </a>
+    </div>
+  </div>
 </div>
