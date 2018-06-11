@@ -1,7 +1,12 @@
 <%= render 'shared/room_event' do %>
   <%= form_for room_path, method: :post do |f| %>
     <div class="input-group" style="height: 48px;">
-      <%= f.text_field :join_name, class: "form-control main-large", placeholder: "Enter your name!", value: "#{current_user ? current_user.name : ''}" %>
+      <%= f.text_field :join_name,
+          required: true,
+          class: "form-control main-large",
+          placeholder: "Enter your name!",
+          value: "#{current_user ? current_user.name : ''}",
+          readonly: !current_user.nil? %>
       <span class="input-group-append">
         <%= f.submit "Join", class: "btn btn-primary px-7 main-large" %>
       </span>

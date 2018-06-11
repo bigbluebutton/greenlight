@@ -85,6 +85,13 @@ a {
   width: 60%;
 }
 
+.center-page {
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
 iframe{
   position: absolute;
   top: 0;

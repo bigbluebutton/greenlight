@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  # Error routes.
+  match '/404', to: 'errors#not_found', via: :all
+  match '/422', to: 'errors#unprocessable', via: :all
+  match '/500', to: 'errors#internal_error', via: :all
+
   # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/r'
 

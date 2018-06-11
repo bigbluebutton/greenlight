@@ -7,7 +7,6 @@ class Room < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
   has_one :meeting
 
-  ROOM_ICONS = %w(circle star certificate play cloud heart square bookmark cog)
   RETURNCODE_SUCCESS = "SUCCESS"
 
   # Determines if a user owns a room.
@@ -19,19 +18,6 @@ class Room < ApplicationRecord
   # Checks if a room is running on the BigBlueButton server.
   def is_running?
     bbb.is_meeting_running?(bbb_id)
-  end
-
-  # Retrieves all the users in a room.
-  def participants
-    begin
-      res = bbb.get_meeting_info(bbb_id, nil)
-      res[:attendees].map do |att|
-        User.find_by(uid: att[:userID], name: att[:fullName])
-      end
-    rescue BigBlueButton::BigBlueButtonException => exc
-      # The meeting is most likely not running.
-      []
-    end
   end
 
   # Determines the invite URL for the room.
@@ -68,7 +54,7 @@ class Room < ApplicationRecord
   end
 
   # Returns a URL to join a user into a meeting.
-  def join_path(user, options = {})
+  def join_path(name, options = {}, uid = nil)
     # Create the meeting if it isn't running.
     start_session(options) unless is_running?
 
@@ -95,10 +81,10 @@ class Room < ApplicationRecord
     end
 
     # Generate the join URL.
-    if user.is_a?(User)
-      bbb.join_meeting_url(bbb_id, user.name, password, {userID: user.uid})
+    if uid
+      bbb.join_meeting_url(bbb_id, name, password, {userID: uid})
     else
-      bbb.join_meeting_url(bbb_id, user, password)
+      bbb.join_meeting_url(bbb_id, name, password)
     end
   end
 
@@ -107,6 +93,19 @@ class Room < ApplicationRecord
     ActionCable.server.broadcast("#{uid}_waiting_channel", {
       action: "started"
     })
+  end
+
+  # Retrieves all the users in a room.
+  def participants
+    begin
+      res = bbb.get_meeting_info(bbb_id, nil)
+      res[:attendees].map do |att|
+        User.find_by(uid: att[:userID], name: att[:fullName])
+      end
+    rescue BigBlueButton::BigBlueButtonException => exc
+      # The meeting is most likely not running.
+      []
+    end
   end
 
   # Fetches all recordings for a meeting.
@@ -168,8 +167,6 @@ class Room < ApplicationRecord
   def setup
     self.uid = [owner.firstname, (0...9).map { (65 + rand(26)).chr }.join].join('-').downcase
     self.bbb_id = Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base] + Time.now.to_i.to_s).to_s
-
-    self.icon = ROOM_ICONS.sample
   end
 
   # Rereives the loadbalanced BigBlueButton credentials for a user.

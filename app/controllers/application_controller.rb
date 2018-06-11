@@ -35,14 +35,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :allow_greenlight_users?
 
-  # Generate a URL to start a meeting.
-  def owner_meeting_url
-    opts = default_meeting_options
-    opts[:user_is_moderator] = true
-    @room.meeting.join_path(current_user.name, opts)
-  end
-  helper_method :owner_meeting_url
-
   # Determines if a form field needs the is-invalid class.
   def form_is_invalid?(obj, key)
     'is-invalid' if !obj.errors.messages[key].empty?

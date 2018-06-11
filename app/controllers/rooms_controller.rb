@@ -35,14 +35,18 @@ class RoomsController < ApplicationController
     opts = default_meeting_options
 
     # Assign join name if passed.
-    if params[@room.invite_path]
+    if params[@room.invite_path][:join_name]
       @join_name = params[@room.invite_path][:join_name]
+    else
+      # Join name not passed.
+      return
     end
 
     if @room.is_running?
       if current_user
-        redirect_to @room.join_path(current_user, opts)
-      elsif join_name = params[:join_name] || params[@room.invite_path][:join_name]
+        redirect_to @room.join_path(current_user.name, opts, current_user.uid)
+      else
+        join_name = params[@room.invite_path][:join_name]
         redirect_to @room.join_path(join_name, opts)
       end
     else
@@ -65,7 +69,7 @@ class RoomsController < ApplicationController
     opts = default_meeting_options
     opts[:user_is_moderator] = true
 
-    redirect_to @room.join_path(current_user, opts)
+    redirect_to @room.join_path(current_user.name, opts, current_user.uid)
 
     # Notify users that the room has started.
     # Delay 5 seconds to allow for server start, although the request will retry until it succeeds.
