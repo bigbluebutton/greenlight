@@ -109,7 +109,7 @@ class Room < ApplicationRecord
     end
   end
 
-  # Fetches all recordings for a meeting.
+  # Fetches all recordings for a room.
   def recordings
     res = bbb.get_recordings(meetingID: bbb_id)
 
@@ -128,6 +128,11 @@ class Room < ApplicationRecord
     end 
 
     res[:recordings]
+  end
+
+  # Fetches a rooms public recordings.
+  def public_recordings
+    recordings.select do |r| r[:metadata]["gl-listed"] end
   end
 
   def update_recording(record_id, meta)

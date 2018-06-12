@@ -5,23 +5,19 @@
   <div class="row">
     <div class="col-lg-3 mb-4">
       <div class="list-group list-group-transparent mb-0">
-        <%= link_to edit_user_path(@user, setting: "account"), id: "account", class: "list-group-item list-group-item-action setting-btn" do %>
+        <button id="account" class="list-group-item list-group-item-action setting-btn active">
           <span class="icon mr-3"><i class="fe fe-user"></i></span>Account
-        <% end %>
-
-        <%= link_to edit_user_path(@user, setting: "image"), id: "image", class: "list-group-item list-group-item-action setting-btn" do %>
-          <span class="icon mr-3"><i class="fe fe-image"></i></span>Profile Image
-        <% end %>
+        </button>
 
         <% if @user.social_uid.nil? %>
-          <%= link_to edit_user_path(@user, setting: "password"), id: "password", class: "list-group-item list-group-item-action setting-btn" do %>
+          <button id="password" class="list-group-item list-group-item-action setting-btn">
             <span class="icon mr-3"><i class="fe fe-lock"></i></span>Password
-          <% end %>
+          </button>
         <% end %>
 
-        <%= link_to edit_user_path(@user, setting: "design"), id: "design", class: "list-group-item list-group-item-action setting-btn" do %>
+        <button id="design" class="list-group-item list-group-item-action setting-btn">
           <span class="icon mr-3"><i class="fe fe-edit-2"></i></span>Design
-        <% end %>
+        </button>
       </div>
   
       <% if @user.errors.any? %>
@@ -41,7 +37,6 @@
 
     <div class="col-lg-9">
       <%= render "shared/settings/setting_view", setting_id: "account", setting_title: "Update your Account Info" %>
-      <%= render "shared/settings/setting_view", setting_id: "image", setting_title: "Change your Profile Image" %>
 
       <% if @user.social_uid.nil? %>
         <%= render "shared/settings/setting_view", setting_id: "password", setting_title: "Change your Password" %>
@@ -53,34 +48,23 @@
 </div>
 
 <script>
-/*
-// Helper for grabbing URL params.
-$.urlParam = function(name){
-  var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.href);
-  if (results==null){
-    return null;
-  } else {
-    return results[1] || 0;
-  }
-}
-
+settingsButtons = $('.setting-btn');
 settingsViews = $('.setting-view');
 
 $(document).ready(function(){
-  var setting = $.urlParam("setting");
-
-  /*if (!["account", "image", "password", "design"].includes(setting)){
-    var url = [location.protocol, '//', location.host, location.pathname].join('');
-    window.location.href = url + "?setting=account";
-  }
-  if (!["account", "image", "password", "design"].includes(setting)){ setting = "account"; }
-
-  $("#" + setting).addClass("active");
-
-  settingsViews.each(function(i, view){
-    if($(view).attr("id") != setting){
-      $(view).hide();
-    }
+  settingsButtons.each(function(i, btn) {
+    if(i != 0){ $(settingsViews[i]).hide(); }
+    $(btn).click(function(){
+      $(btn).addClass("active");
+      settingsViews.each(function(i, view){
+        if($(view).attr("id") == $(btn).attr("id")){
+          $(view).show();
+        } else {
+          $(settingsButtons[i]).removeClass("active");
+          $(view).hide();
+        }
+      });
+    });
   });
-});*/
+});
 </script>

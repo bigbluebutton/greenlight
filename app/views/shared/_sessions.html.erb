@@ -1,7 +1,7 @@
 <div class="sessions pb-5">
   <div class="container pt-6">
 
-    <%= render "shared/components/subtitle", subtitle: "Recordings", search: true %>
+    <%= render "shared/components/subtitle", subtitle: (only_public ? "Public " : "") + "Recordings", search: true %>
     <div class="row">
       <div class="col-12">
         <div class="card">
@@ -22,7 +22,7 @@
               <% if recordings.empty? %>
                 <tr>
                   <td colspan="7" class="text-center h4 p-6 font-weight-normal">
-                    This room has no recordings.
+                    <%= "This room has no #{(only_public ? "public " : "")} recordings." %>
                   </td>
                 </tr>
               <% else %>

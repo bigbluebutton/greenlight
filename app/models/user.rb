@@ -8,7 +8,8 @@ class User < ApplicationRecord
 
   validates :name, length: { maximum: 24 }, presence: true
   validates :provider, presence: true
-  validates :email, length: { maximum: 60 }, allow_nil: true,
+  validates :image, format: {with: /\.(png|jpg)\Z/i}, allow_blank: true
+  validates :email, length: { maximum: 60 }, allow_blank: true,
                     uniqueness: { case_sensitive: false },
                     format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
@@ -56,7 +57,7 @@ class User < ApplicationRecord
     end
 
     def twitter_image(auth)
-      auth['info']['image']
+      auth['info']['image'].gsub!("_normal", "")
     end
 
     def google_name(auth)
@@ -72,7 +73,7 @@ class User < ApplicationRecord
     end
 
     def google_image(auth)
-      auth['info']['picture']
+      auth['info']['image']
     end
   end
 

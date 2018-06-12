@@ -18,7 +18,7 @@
 					</a>
 					<div class="dropdown">
 						<a href="#" class="nav-link pr-0" data-toggle="dropdown">
-							<% if current_user.image.nil? %>
+							<% if current_user.image.blank? %>
 								<span class="avatar"><%= current_user.name.first %></span>
 							<% else %>
 								<span class="avatar" style="background-image: url(<%= current_user.image %>)"></span>

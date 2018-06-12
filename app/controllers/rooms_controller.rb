@@ -25,9 +25,10 @@ class RoomsController < ApplicationController
   # GET /r/:room_uid
   def show
     if current_user && @room.owned_by?(current_user)
-      @is_running = @room.is_running?
       @recordings = @room.recordings
+      @is_running = @room.is_running?
     else
+      @recordings = @room.public_recordings
       render :join
     end
   end
@@ -97,10 +98,8 @@ class RoomsController < ApplicationController
     meta = {
       "meta_#{META_LISTED}": (params[:state] == "public")
     }
-    puts '-------------'
-    puts params[:record_id]
+
     res = @room.update_recording(params[:record_id], meta)
-    puts res
     redirect_to @room if res[:updated]
   end
 

@@ -5,26 +5,34 @@
       <div class="col-6">
         <%= f.label "Fullname", class: "form-label" %>
         <div class="input-icon">
-          <span class="input-icon-addon">
-            <i class="fas fa-user"></i>
-          </span>
-          <%= f.text_field :name, class: "form-control", value: @user.name, placeholder: "Fullname" %>
+          <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", value: @user.name, placeholder: "Fullname" %>
         </div>
       </div>
 
       <div class="col-6">
         <%= f.label "Email", class: "form-label" %>
         <div class="input-icon">
-          <span class="input-icon-addon">
-            <i class="fas fa-at"></i>
-          </span>
-          <%= f.text_field :email, class: "form-control #{'is-invalid' if !@user.errors.messages[:email].empty?}", value: @user.email, placeholder: "Email" %>
+          <%= f.text_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", value: @user.email, placeholder: "Email" %>
         </div>
       </div>
     </div>
     <br>
     <%= f.label "Provider", class: "form-label" %>
     <%= f.text_field :provider, class: "form-control", value: @user.provider.capitalize, readonly: "" %>
+
+    <%= f.label "Image", class: "form-label mt-5" %>
+    <div class="row">
+      <div class="col-2">
+        <% if current_user.image.blank? %>
+          <span class="avatar avatar-xxl mr-5 mt-2"><%= current_user.name.first %></span>
+        <% else %>
+          <span class="avatar avatar-xxl mr-5 mt-2" style="background-image: url(<%= current_user.image %>)"></span>
+        <% end %>
+      </div>
+      <div class="col-10" style="transform: translateY(25%);">
+        <%= f.text_field :image, class: "form-control #{form_is_invalid?(@user, :image)}", value: @user.image, placeholder: "Profile Image URL" %>
+      </div>
+    </div>
   </div>
   <div class="card-footer">
     <%= f.submit "Update", class: "btn btn-primary float-right" %>
