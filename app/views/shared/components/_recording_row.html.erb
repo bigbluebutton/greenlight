@@ -27,12 +27,16 @@
   </td>
   <td class="text-left">
     <div class="dropdown">
-      <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fe fe-globe px-2"></i> Public</button>
+      <% if recording[:metadata]["gl-listed"] %>
+        <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fe fe-globe px-2"></i> Public</button>
+      <% else %>
+        <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fe fe-link px-2"></i> Unlisted</button>
+      <% end %>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <%= button_to update_recording_path(@room, record_id: recording[:recordID]), method: :patch, class: "dropdown-item" do %>
+        <%= button_to update_recording_path(@room, record_id: recording[:recordID], state: "public"), class: "dropdown-item" do %>
           <i class="dropdown-icon fe fe-globe"></i> Public
         <% end %>
-        <%= button_to update_recording_path(@room, record_id: recording[:recordID]), method: :patch, class: "dropdown-item" do %>
+        <%= button_to update_recording_path(@room, record_id: recording[:recordID], state: "unlisted"), class: "dropdown-item" do %>
           <i class="dropdown-icon fe fe-link"></i> Unlisted
         <% end %>
       </div>
@@ -46,8 +50,8 @@
   <td class="text-center">
     <div class="item-action dropdown">
       <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-      <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-181px, -156px, 0px); top: 0px; left: 0px; will-change: transform;">
-        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon far fa-envelope"></i> Email Recording</a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item email-link" data-pres-link="<%= p[:url] %>"><i class="dropdown-icon far fa-envelope"></i> Email Recording</a>
         <div class="dropdown-divider"></div>
         <%= button_to delete_recording_path(@room, record_id: recording[:recordID]), method: :delete, class: "dropdown-item" do %>
           <i class="dropdown-icon far fa-trash-alt"></i> Delete

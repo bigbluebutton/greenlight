@@ -32,7 +32,8 @@ class Room < ApplicationRecord
       logoutURL: options[:meeting_logout_url] || '',
       moderatorPW: random_password(12),
       attendeePW: random_password(12),
-      moderatorOnlyMessage: options[:moderator_message]
+      moderatorOnlyMessage: options[:moderator_message],
+      "meta_gl-listed": false
     }
 
     # Increment room sessions.
@@ -81,11 +82,11 @@ class Room < ApplicationRecord
     end
 
     # Generate the join URL.
-    if uid
-      bbb.join_meeting_url(bbb_id, name, password, {userID: uid})
-    else
-      bbb.join_meeting_url(bbb_id, name, password)
-    end
+    join_opts = {}
+    join_opts.merge!({userID: uid}) if uid
+    join_opts.merge!({joinViaHtml5: true}) if Rails.configuration.html5_enabled
+    
+    bbb.join_meeting_url(bbb_id, name, password, join_opts)
   end
 
   # Notify waiting users that a meeting has started.
@@ -127,6 +128,12 @@ class Room < ApplicationRecord
     end 
 
     res[:recordings]
+  end
+
+  def update_recording(record_id, meta)
+    meta.merge!({recordID: record_id})
+ 
+    bbb.send_api_request("updateRecordings", meta)
   end
 
   # Deletes a recording from a room.

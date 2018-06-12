@@ -3,6 +3,8 @@ class RoomsController < ApplicationController
   before_action :find_room, except: :create
   before_action :verify_room_ownership, only: [:start, :destroy, :home]
 
+  META_LISTED = "gl-listed"
+
   # POST /r
   def create
     room = Room.new(name: room_params[:name])
@@ -90,11 +92,16 @@ class RoomsController < ApplicationController
     redirect_to @room    
   end
 
-  # PATCH /r/:room_uid/:record_id
+  # POST /r/:room_uid/:record_id
   def update_recording
-    bbb.publish_recordings(params[:record_id], params[:publish])
-
-    
+    meta = {
+      "meta_#{META_LISTED}": (params[:state] == "public")
+    }
+    puts '-------------'
+    puts params[:record_id]
+    res = @room.update_recording(params[:record_id], meta)
+    puts res
+    redirect_to @room if res[:updated]
   end
 
   # DELETE /r/:room_uid/:record_id
