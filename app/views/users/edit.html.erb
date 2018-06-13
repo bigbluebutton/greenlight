@@ -1,5 +1,4 @@
 <div class="container mt-8">
-
   <%= render "shared/components/subtitle", subtitle: "Settings", search: false %>
 
   <div class="row">
@@ -46,25 +45,3 @@
     </div>
   </div>
 </div>
-
-<script>
-settingsButtons = $('.setting-btn');
-settingsViews = $('.setting-view');
-
-$(document).ready(function(){
-  settingsButtons.each(function(i, btn) {
-    if(i != 0){ $(settingsViews[i]).hide(); }
-    $(btn).click(function(){
-      $(btn).addClass("active");
-      settingsViews.each(function(i, view){
-        if($(view).attr("id") == $(btn).attr("id")){
-          $(view).show();
-        } else {
-          $(settingsButtons[i]).removeClass("active");
-          $(view).hide();
-        }
-      });
-    });
-  });
-});
-</script>
