@@ -1,20 +1,20 @@
 class RoomsController < ApplicationController
 
   before_action :find_room, except: :create
-  before_action :verify_room_ownership, only: [:start, :destroy, :home]
+  before_action :verify_room_ownership, except: [:create, :show, :join, :logout]
 
   META_LISTED = "gl-listed"
 
   # POST /r
   def create
-    room = Room.new(name: room_params[:name])
-    room.owner = current_user
+    @room = Room.new(name: room_params[:name])
+    @room.owner = current_user
 
-    if room.save
+    if @room.save
       if room_params[:auto_join] == "1"
-        redirect_to start_room_path(room)
+        start
       else
-        redirect_to room
+        redirect_to @room
       end
     else
       # Handle room didn't save.
@@ -28,7 +28,6 @@ class RoomsController < ApplicationController
       @recordings = @room.recordings
       @is_running = @room.is_running?
     else
-      @recordings = @room.public_recordings
       render :join
     end
   end
@@ -38,9 +37,9 @@ class RoomsController < ApplicationController
     opts = default_meeting_options
 
     # Assign join name if passed.
-    if params[@room.invite_path][:join_name]
+    if params[@room.invite_path]
       @join_name = params[@room.invite_path][:join_name]
-    else
+    elsif !params[:join_name]
       # Join name not passed.
       return
     end
@@ -49,7 +48,7 @@ class RoomsController < ApplicationController
       if current_user
         redirect_to @room.join_path(current_user.name, opts, current_user.uid)
       else
-        join_name = params[@room.invite_path][:join_name]
+        join_name = params[:join_name] || params[@room.invite_path][:join_name]
         redirect_to @room.join_path(join_name, opts)
       end
     else
@@ -152,7 +151,7 @@ class RoomsController < ApplicationController
   def bring_to_room
     if current_user
       # Redirect authenticated users to their room.
-      redirect_to room_path(current_user.room.uid)
+      redirect_to room_path(current_user.room)
     else
       # Redirect unauthenticated users to root.
       redirect_to root_path

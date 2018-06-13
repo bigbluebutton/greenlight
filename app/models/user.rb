@@ -77,13 +77,12 @@ class User < ApplicationRecord
     end
   end
 
-  def subtitle
-    case provider
-    when "greenlight", "google", "twitter"
-      "User"
-    else
-      "Unknown"
-    end
+  # Retrives a list of all a users rooms that are not the main room, sorted by last session date.
+  def secondary_rooms
+    secondary = (rooms - [main_room])
+    no_session, session = secondary.partition do |r| r.last_session.nil? end
+    sorted = session.sort_by do |r| r.last_session end
+    session + no_session
   end
 
   def firstname

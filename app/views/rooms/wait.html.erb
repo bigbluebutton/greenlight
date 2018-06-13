@@ -37,7 +37,7 @@ var request_to_join_meeting = function(){
     },
     error: function(){
       // The meeting is still booting (going slowly), retry shortly.
-      if(join_attempts < 4){ setTimeout(request_to_join_meeting, 5000); }
+      if(join_attempts < 4){ setTimeout(request_to_join_meeting, 10000); }
       join_attempts++;
     }
   });
