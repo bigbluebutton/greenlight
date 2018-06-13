@@ -2,120 +2,22 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.meeting-url-button-group {
-  padding-top: 5px;
-  width: 150px;
-  text-align: center;
+.responsive-header {
+  font-size: 3.3vw;
 }
 
-.meeting-url-qrcode-group {
-  padding-top: 5px;
-  width: 128px;
-  text-align: center;
-}
-
-.previously-joined, .actives {
-  list-style-type: none;
-  margin:auto;
-  width: 200px;
-  padding: 0;
-  cursor: pointer;
-}
-
-.meetings {
-
-}
-
-.rooms {
-
-  .table-wrapper {
-    padding: 40px 50px 10px 50px;
-
-    #recordings {
-      thead {
-        th:after {
-          content: none; //removes the sort icon in table header
-        }
-      }
-      .dataTables_empty {
-        text-align: center;
-      }
-      .timeago {
-        margin-left: 5px;
-        font-size: 13px;
-        cursor: pointer;
-        color: #999;
-      }
-    }
-  }
-}
-
-.img-thumbnail{
-  padding: 4px;
-  background-color: white;
-  border: 1px solid #dddddd;
-  border-radius: 4px;
-
-  &.large{
-    display: none;
-  }
-
-  &:hover + &.large{
-    display: inline-block;
-    position: absolute;
-    z-index: 1;
-  }
-}
-
-.meeting-url-group {
+.landing-section {
   position: relative;
+  height: 40%;
 }
 
-.recording-update-trigger {
-  &.recording-unpublished {
-    color: red;
-  }
-
-  &.recording-unlisted {
-    color: #e3a91e;
-  }
-
-  &.recording-published {
-    color: green;
-  }
+.feature-stamp {
+  width: 7vw !important;
+  height: 7vw !important;
+  font-size: 1vw;
 }
 
-.fa-spinner {
-  width: 100%;
-  text-align: center;
+.feature-icon {
+  transform: translateY(-50%);
+  margin-top: 50%;
 }
-
-.disabled-button {
-    opacity: 0.5;
-}
-
-.youtube-red {
-  color: red;
-}
-
-.cloud-blue {
-  color: cornflowerblue;
-}
-
-.green-check {
-  color: limegreen;
-}
-
-.top-buffer {
-  margin-top: 8px;
-}
-
-.tooltip-wrapper {
-  display: inline-block;
-}
-
- #youtube-footer{
-   font-size: 10px;
-   text-align: center;
-   margin-top: 10px;
- }

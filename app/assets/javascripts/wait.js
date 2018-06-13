@@ -7,7 +7,7 @@ $(document).on("turbolinks:load", function(){
   if(controller == "rooms" && action == "join"){
     App.waiting = App.cable.subscriptions.create({
       channel: "WaitingChannel",
-      uid: $(".room-section").attr("room")
+      uid: $(".background").attr("room")
     }, {
       received: function(data){
         if(data.action = "started"){ request_to_join_meeting(); }
@@ -23,7 +23,7 @@ var request_to_join_meeting = function(){
     url: window.location.pathname,
     type: 'POST',
     data: {
-      join_name: $(".room-section").attr("join-name")
+      join_name: $(".background").attr("join-name")
     },
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',

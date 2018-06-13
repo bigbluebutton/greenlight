@@ -1,3 +1,24 @@
 // Place all the styles related to the Rooms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.start-button {
+  font-size: 26px !important;
+}
+
+.thumbnail {
+  height: 40% !important;
+  width: auto;
+}
+
+.join-form {
+  font-size: 20px !important;
+}
+
+.join-input {
+  height: 48px;
+}
+
+.home-indicator {
+  font-size: 22px !important;
+}

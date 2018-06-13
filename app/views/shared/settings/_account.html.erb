@@ -29,7 +29,7 @@
           <span class="avatar avatar-xxl mr-5 mt-2" style="background-image: url(<%= current_user.image %>)"></span>
         <% end %>
       </div>
-      <div class="col-10" style="transform: translateY(25%);">
+      <div class="col-10 mt-5">
         <%= f.text_field :image, class: "form-control #{form_is_invalid?(@user, :image)}", placeholder: "Profile Image URL" %>
       </div>
     </div>

@@ -14,22 +14,6 @@
  *= require_self
  */
 
- // BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
-//
-// Copyright (c) 2016 BigBlueButton Inc. and by respective authors (see below).
-//
-// This program is free software; you can redistribute it and/or modify it under the
-// terms of the GNU Lesser General Public License as published by the Free Software
-// Foundation; either version 3.0 of the License, or (at your option) any later
-// version.
-//
-// BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
-// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-// PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU Lesser General Public License along
-// with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
@@ -41,86 +25,9 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext);
 
 $background-color: #F5F7FB;
-$rule-color: lightblue;
+$error-background-color: #EFE6E6;
 
 $footer-height: 80px;
-
-a {
-  text-decoration: none !important;
-  cursor: pointer;
-}
-
-.bottom-div {
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
-}
-
-.table-responsive {
-  overflow: visible;
-}
-
-.landing-section {
-  position: relative;
-  height: 45%;
-  background-color: $background-color;
-}
-
-.room-section {
-  background-color: $background-color;
-}
-
-.danger-section {
-  background-color: #efe6e6;
-}
-
-.start-block {
-  background-color: white;
-  border: 3px solid lightblue;
-  border-radius: 4px;
-}
-
-.start-button {
-  font-size: 26px;
-}
-
-.feature-icon {
-  transform: translateY(-50%);
-  margin-top: 50%;
-}
-
-.main-large {
-  font-size: 20px;
-}
-
-.join-button {
-  width: 60%;
-}
-
-.center-page {
-  position: absolute;
-  top: 50%;
-  left:50%;
-  transform: translate(-50%,-50%);
-}
-
-iframe{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
- }
-
-.subtitle {
-  font-size: 25px;
-}
-
-.feature-stamp {
-  width: 7vw;
-  height: 7vw;
-  font-size: 1vw;
-}
 
 html, body {
   width: 100%;
@@ -128,12 +35,9 @@ html, body {
   background-color: white;
 }
 
-.resp-header {
-  font-size: 3.3vw;
-}
-
-.font-weight-400 {
-  font-weight: 400;
+a {
+  text-decoration: none !important;
+  cursor: pointer;
 }
 
 .wrapper {
@@ -147,130 +51,42 @@ html, body {
   bottom: 0px;
 }
 
-.small-rule {
-  width: 25%;
-  border-width: 3px;
-  background-color: $rule-color;
-}
-
-.thumbnail {
-  height: 40%;
-  width: auto;
-}
-
-.client-icon {
-  height: 100px;
-  width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.container-fluid {
-  height: 100%;
+.table-responsive {
+  overflow: visible;
 }
 
 .background {
-  height: 350px;
-  width: 100%;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color: $background-color;
 }
 
-body[data-controller=landing].app-background {
-  @extend .background;
+.error-section {
+  background-color: $error-background-color;
 }
 
-#alerts {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  margin-left: -250px;
-  width: 500px;
-  z-index: 999;
+.font-weight-400 {
+  font-weight: 400;
 }
 
-.center-block {
-  float: none;
+.subtitle {
+  font-size: 25px;
 }
-.center-panel-wrapper {
-  height: 100%;
+
+.force-bottom {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
 }
-.center-panel {
-  height: 100%;
-  .center-panel-size {
-    max-width: 1200px
-  }
-  .center-panel-content-size {
-    height: 100%;
-    max-width: 1100px;
-  }
 
-  .panel {
-    position: relative;
-    overflow: hidden;
-  }
+.invite-link-input {
+  width: 45%;
+}
 
-  .input-spacing {
-    margin-top: 15px;
-  }
-
-  .panel-footer {
-    background-color: white;
-  }
-
-  .panel-body {
-    padding-bottom: 40px;
-  }
-
-  .title-wrapper {
-    margin-bottom: 30px;
-  }
-
-  .join-form-wrapper {
-    .center-block {
-      max-width: 400px;
-    }
-    .join-form {
-      width: 100%;
-    }
-    .btn {
-      width: initial;
-    }
-  }
-
-  .meeting-url-wrapper {
-    .meeting-url {
-      cursor: default;
-    }
-  }
-
-  .loading-wrapper {
-    text-align: center;
+.no-border-top {
+  td {
+    border-top: none;
   }
 }
 
-.popover {
-  max-width: none;
-}
-
-.verticle-line {
-  // parent must be position relative to work
-  width: 1px;
-  background-color: lightgray;
-  height: 100%;
-  position: absolute;
-  left: 50%;
-}
-
-.invite-join-wrapper {
-  position: relative;
-}
-
-.help-link {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding-right: 3px;
+.force-text-normal {
+  color: #495057;
 }
