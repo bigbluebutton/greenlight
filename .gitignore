@@ -11,6 +11,10 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+# Ignore static assets.
+/public/system/**
+/public/assets/**
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
