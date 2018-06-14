@@ -10,9 +10,7 @@ Greenlight is a simple front-end interface for your BigBlueButton server. At it'
 
 Furthermore, Greenlight is completely configurable. This means you can turn on/off features to make Greenlight fit your specific use case. For more information on this, see our [documentation](http://docs.bigbluebutton.org/install/green-light.html).
 
-For a overview of how GreenLight works, checkout our introduction to Greenlight video:
-
-[![GreenLight Overview](https://img.youtube.com/vi/yGX3JCv7OVM/0.jpg)](https://youtu.be/yGX3JCv7OVM)
+For a overview of how GreenLight works, checkout our [Introduction to Greenlight video](https://youtu.be/yGX3JCv7OVM).
 
 
 ## Installation on a BigBlueButton Server
@@ -27,7 +25,7 @@ Greenlight is designed to work on a [BigBlueButton 2.0](https://github.com/bigbl
 
 
 
-## Source Code
+## Source Code & Contributing
 
 GreenLight is built using Ruby on Rails. Many developers already know Rails well, and we wanted to create both a full front-end to BigBlueButton but also a reference implementation of how to fully leverage the [BigBlueButton API](http://docs.bigbluebutton.org/dev/api.html).
 
