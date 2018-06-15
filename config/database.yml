@@ -12,12 +12,11 @@ test:
   adapter: sqlite3
   database: db/development.sqlite3
 
+# Use sqlite in production by default. Greenlight supports 
 production:
   <<: *default
-  adapter: postgresql
-  database: greenlight_production  
-  encoding: unicode  
-  username: postgres  
-  password:  
-  host: db 
-
+  adapter: <%= ENV['DB_ADAPTER'] || 'sqlite3' %>
+  host: <%= ENV['DB_HOST'] %>
+  database: <%= ENV['DB_NAME'] || 'db/production/production.sqlite3' %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
