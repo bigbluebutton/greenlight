@@ -1,21 +1,27 @@
 require "rails_helper"
 
 describe Room, type: :model do
+  before { @room = create(:room) }
 
-  describe "#owned_by?" do
-    it "should identify correct owner." do
-      room = create(:room)
-      expect(room.owned_by?(room.user)).to eql(true)
-    end
+  context 'validations' do
+    it { should validate_presence_of :name }
+  end
 
-    it "should identify incorrect owner." do
-      room = create(:room)
-      expect(room.owned_by?(create(:user))).to eql(false)
-    end
+  context 'associations' do
+    it { should belong_to(:owner).class_name("User") }
+  end
 
-    it "should return false when user is nil." do
-      room = create(:room)
-      expect(room.owned_by?(nil)).to eql(false)
+  context '#setup' do
+    it 'creates random uid and bbb_id' do
+      expect(@room.uid).to_not be_nil
+      expect(@room.bbb_id).to_not be_nil
     end
   end
+
+  context "#to_param" do
+    it "uses uid as the default identifier for routes" do
+      expect(@room.to_param).to eq(@room.uid)
+    end
+  end
+
 end

@@ -13,13 +13,7 @@ FactoryBot.define do
   end
 
   factory :room do
-    uid { rand(10 ** 8) }
-    user { create(:user) }
-  end
-
-  factory :meeting do
-    uid { rand(10 ** 8) }
     name { Faker::Pokemon.name }
-    room { create(:room) }
+    owner { create(:user) }
   end
 end

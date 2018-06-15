@@ -48,20 +48,22 @@ class UsersController < ApplicationController
     errors = {}
 
     # Verify that the provided password is correct.
-    if user_params[:password] && @user.authenticate(user_params[:password])
-      # Verify that the new passwords match.
-      if user_params[:new_password] == user_params[:password_confirmation]
-        @user.password = user_params[:new_password]
+    if user_params[:password]
+      if @user.authenticate(user_params[:password])
+        # Verify that the new passwords match.
+        if user_params[:new_password] == user_params[:password_confirmation]
+          @user.password = user_params[:new_password]
+        else
+          # New passwords don't match.
+          errors[:password_confirmation] = "'s don't match"
+        end
       else
-        # New passwords don't match.
-        errors[:password_confirmation] = "'s don't match"
+        # Original password is incorrect, can't update.
+        errors[:password] = "is incorrect"
       end
-    else
-      # Original password is incorrect, can't update.
-      errors[:password] = "is incorrect"
     end
 
-    if @user.save
+    if @user.save!
       # Notify the use that their account has been updated.
       redirect_to edit_user_path(@user), notice: "Information successfully updated."
     else

@@ -13,7 +13,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false },
                     format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
-  validates :password, length: { minimum: 6 }, presence: true, confirmation: true, if: :greenlight_account?
+  validates :password, length: { minimum: 6 }, presence: true, confirmation: true, allow_blank: true, if: :greenlight_account?
 
   # We don't want to require password validations on all accounts.
   has_secure_password(validations: false)
@@ -97,7 +97,7 @@ class User < ApplicationRecord
 
   # Initializes a room for the user and assign a BigBlueButton user id.
   def initialize_main_room
-    self.uid =  "gl-#{(0...12).map { (65 + rand(26)).chr }.join.downcase}"
+    self.uid = "gl-#{(0...12).map { (65 + rand(26)).chr }.join.downcase}"
     self.main_room = Room.create!(owner: self, name: firstname + "'s Room")
     self.save
   end
