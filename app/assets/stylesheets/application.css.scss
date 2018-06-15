@@ -10,7 +10,6 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
  */
 
@@ -19,8 +18,12 @@
 
 @import "tabler/variables";
 @import "bootstrap";
-@import "tabler";
+@import "tabler-custom";
 @import "tabler.plugins";
+
+@import "main";
+@import "rooms";
+@import "sessions";
 
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext);
 
