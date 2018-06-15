@@ -22,17 +22,21 @@ Rails.application.routes.draw do
     end
   end
 
-  # User resources.
+  # Signup routes.
   get '/signup', to: 'users#new', as: :signup
   post '/signup', to: 'users#create', as: :create_user
-  get '/users/:user_uid/edit', to: 'users#edit', as: :edit_user
-  patch '/users/:user_uid/edit', to: 'users#update', as: :update_user
 
-  # Handles login of greenlight provider accounts.
-  post '/login',  to: 'sessions#create', as: :create_session
-
-  # Log the user out of the session.
-  get '/logout', to: 'sessions#destroy'
+  # User resources.
+  scope '/users' do
+    get '/:user_uid/edit', to: 'users#edit', as: :edit_user
+    patch '/:user_uid/edit', to: 'users#update', as: :update_user
+  
+    # Handles login of greenlight provider accounts.
+    post '/login',  to: 'sessions#create', as: :create_session
+  
+    # Log the user out of the session.
+    get '/logout', to: 'sessions#destroy'
+  end
 
   # Handles launches from a trusted launcher.
   post '/launch', to: 'sessions#launch'
