@@ -5,7 +5,7 @@ class RoomsController < ApplicationController
 
   META_LISTED = "gl-listed"
 
-  # POST /r
+  # POST /
   def create
     redirect_to root_path unless current_user
     
@@ -24,7 +24,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  # GET /r/:room_uid
+  # GET /:room_uid
   def show
     if current_user && @room.owned_by?(current_user)
       @recordings = @room.recordings
@@ -34,7 +34,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  # POST /r/:room_uid
+  # POST /:room_uid
   def join
     opts = default_meeting_options
 
@@ -59,7 +59,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  # DELETE /r/:room_uid
+  # DELETE /:room_uid
   def destroy
     # Don't delete the users home room.
     @room.destroy if @room != current_user.main_room
@@ -67,7 +67,7 @@ class RoomsController < ApplicationController
     redirect_to current_user.main_room
   end
 
-  # POST /r/:room_uid/start
+  # POST /:room_uid/start
   def start
     # Join the user in and start the meeting.
     opts = default_meeting_options
@@ -80,13 +80,13 @@ class RoomsController < ApplicationController
     NotifyUserWaitingJob.set(wait: 5.seconds).perform_later(@room)
   end
 
-  # GET /r/:room_uid/logout
+  # GET /:room_uid/logout
   def logout
     # Redirect the correct page.
     redirect_to @room
   end
 
-  # POST /r/:room_uid/home
+  # POST /:room_uid/home
   def home
     current_user.main_room = @room
     current_user.save
@@ -94,7 +94,7 @@ class RoomsController < ApplicationController
     redirect_to @room    
   end
 
-  # POST /r/:room_uid/:record_id
+  # POST /:room_uid/:record_id
   def update_recording
     meta = {
       "meta_#{META_LISTED}": (params[:state] == "public")
@@ -104,7 +104,7 @@ class RoomsController < ApplicationController
     redirect_to @room if res[:updated]
   end
 
-  # DELETE /r/:room_uid/:record_id
+  # DELETE /:room_uid/:record_id
   def delete_recording
     @room.delete_recording(params[:record_id])
 

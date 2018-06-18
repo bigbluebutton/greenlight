@@ -21,7 +21,7 @@ class Room < ApplicationRecord
 
   # Determines the invite URL for the room.
   def invite_path
-    "/r/#{uid}"
+    "#{Rails.configuration.relative_url_root}/#{uid}"
   end
 
   # Creates a meeting on the BigBlueButton server.

@@ -15,6 +15,9 @@
 /public/system/**
 /public/assets/**
 
+# Ignore production paths.
+/db/production
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*

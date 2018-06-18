@@ -83,4 +83,11 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Set the relative url root for deployment to a subdirectory.
+  if ENV['RELATIVE_URL_ROOT'].present?
+    config.relative_url_root = ENV['RELATIVE_URL_ROOT']
+  else
+    config.relative_url_root = ""
+  end
 end

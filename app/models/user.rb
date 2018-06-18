@@ -13,7 +13,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false },
                     format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
-  validates :password, length: { minimum: 6 }, presence: true, confirmation: true, allow_blank: true, if: :greenlight_account?
+  validates :password, length: { minimum: 6 }, confirmation: true, if: :greenlight_account?
 
   # We don't want to require password validations on all accounts.
   has_secure_password(validations: false)
@@ -57,7 +57,7 @@ class User < ApplicationRecord
     end
 
     def twitter_image(auth)
-      auth['info']['image'].gsub!("_normal", "")
+      auth['info']['image'].gsub("_normal", "")
     end
 
     def google_name(auth)
