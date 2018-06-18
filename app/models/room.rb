@@ -7,6 +7,7 @@ class Room < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
 
   RETURNCODE_SUCCESS = "SUCCESS"
+  META_LISTED = "gl-listed"
 
   # Determines if a user owns a room.
   def owned_by?(user)
@@ -32,13 +33,11 @@ class Room < ApplicationRecord
       moderatorPW: random_password(12),
       attendeePW: random_password(12),
       moderatorOnlyMessage: options[:moderator_message],
-      "meta_gl-listed": false
+      "meta_#{META_LISTED}": false
     }
 
-    # Increment room sessions.
-    self.sessions += 1
-    self.last_session = DateTime.now
-    self.save
+    # Update session info.
+    self.update_attributes(sessions: sessions + 1, last_session: DateTime.now)
 
     #meeting_options.merge!(
       #{ "meta_room-id": options[:room_owner],
@@ -131,7 +130,7 @@ class Room < ApplicationRecord
 
   # Fetches a rooms public recordings.
   def public_recordings
-    recordings.select do |r| r[:metadata]["gl-listed"] end
+    recordings.select do |r| r[:metadata][:"gl-listed"] == "true" end
   end
 
   def update_recording(record_id, meta)

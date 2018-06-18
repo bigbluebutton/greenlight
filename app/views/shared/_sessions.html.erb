@@ -15,7 +15,9 @@
                   <th class="text-left">Users</th>
                   <th class="text-left">Visibility</th>
                   <th>Formats</th>
-                  <th class="text-center"><i class="icon-settings"></i></th>
+                  <% unless only_public %>
+                    <th class="text-center"><i class="icon-settings"></i></th>
+                  <% end %>
                 </tr>
               </thead>
               <tbody>
@@ -27,7 +29,11 @@
                 </tr>
               <% else %>
                 <% recordings.each do |recording| %>
-                  <%= render "shared/components/recording_row", recording: recording %>
+                  <% if only_public %>
+                    <%= render "shared/components/public_recording_row", recording: recording %>
+                  <% else %>
+                    <%= render "shared/components/recording_row", recording: recording %>
+                  <% end %>
                 <% end %>
               <% end %>
               </tbody>

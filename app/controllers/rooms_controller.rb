@@ -97,7 +97,7 @@ class RoomsController < ApplicationController
   # POST /:room_uid/:record_id
   def update_recording
     meta = {
-      "meta_#{META_LISTED}": (params[:state] == "public")
+      "meta_#{META_LISTED}" => (params[:state] == "public")
     }
 
     res = @room.update_recording(params[:record_id], meta)

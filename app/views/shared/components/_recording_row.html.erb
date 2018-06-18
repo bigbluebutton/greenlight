@@ -9,7 +9,7 @@
     <% p = recording[:playbacks].find do |p| p[:type] == "presentation" end %>
     <% if p %>
       <% p[:preview][:images][:image].each do |img| %>
-        <%= image_tag(img[:content], class: "thumbnail px-2") %>
+        <%= image_tag(img[:content].strip, class: "thumbnail px-2") %>
       <% end %>
     <% end %>
   </td>
@@ -27,7 +27,7 @@
   </td>
   <td class="text-left">
     <div class="dropdown">
-      <% if recording[:metadata]["gl-listed"] %>
+      <% if recording[:metadata][:"gl-listed"] == "true" %>
         <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fe fe-globe px-2"></i> Public</button>
       <% else %>
         <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fe fe-link px-2"></i> Unlisted</button>

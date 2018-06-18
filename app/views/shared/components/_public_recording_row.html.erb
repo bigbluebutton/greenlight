@@ -1,0 +1,42 @@
+<tr>
+  <td>
+    <div><%= recording[:name] %></div>
+    <div class="small text-muted">
+      Recorded on <%= recording_date(recording[:startTime]) %>
+    </div>
+  </td>
+  <td>
+    <% p = recording[:playbacks].find do |p| p[:type] == "presentation" end %>
+    <% if p %>
+      <% p[:preview][:images][:image].each do |img| %>
+        <%= image_tag(img[:content].strip, class: "thumbnail px-2") %>
+      <% end %>
+    <% end %>
+  </td>
+  <td class="text-left">
+    <div class="small text-muted text-uppercase">
+      Length
+    </div>
+    <%= recording_length(recording[:startTime], recording[:endTime]) %>
+  </td>
+  <td class="text-left">
+    <div class="small text-muted text-uppercase">
+      Users
+    </div>
+    <%= recording[:participants] %>
+  </td>
+  <td class="text-left">
+    <div class="dropdown">
+      <% if recording[:metadata][:"gl-listed"] == "true" %>
+        <i class="dropdown-icon fe fe-globe px-2"></i> Public
+      <% else %>
+        <i class="dropdown-icon fe fe-link px-2"></i> Unlisted
+      <% end %>
+    </div>
+  </td>
+  <td>
+    <% recording[:playbacks].each do |p| %>
+      <%= link_to p[:type].capitalize, p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
+    <% end %>
+  </td>
+</tr>
