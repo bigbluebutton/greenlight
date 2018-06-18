@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    action-cable-testing (0.3.1)
+      actioncable (~> 5.0)
     actioncable (5.0.7)
       actionpack (= 5.0.7)
       nio4r (>= 1.2, < 3.0)
@@ -240,6 +242,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  action-cable-testing
   bcrypt (~> 3.1.7)
   bigbluebutton-api-ruby
   bootstrap (~> 4.1.1)

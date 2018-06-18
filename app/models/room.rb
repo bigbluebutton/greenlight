@@ -135,21 +135,12 @@ class Room < ApplicationRecord
 
   def update_recording(record_id, meta)
     meta.merge!({recordID: record_id})
- 
     bbb.send_api_request("updateRecordings", meta)
   end
 
   # Deletes a recording from a room.
   def delete_recording(record_id)
-    res = bbb.delete_recordings(record_id)
-
-    if res[:returncode]
-      # Handle successful deletion.
-
-    else
-      # Handle unsuccessful deletion.
-
-    end
+    bbb.delete_recordings(record_id)
   end
 
   private

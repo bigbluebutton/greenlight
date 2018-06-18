@@ -20,9 +20,13 @@ describe User, type: :model do
     it { should_not allow_value("invalid.txt").for(:image) }
     it { should allow_value("", nil).for(:image) }
 
+    it "should convert email to downcase on save" do
+      user = create(:user, email: "EXAMPLE@EXAMPLE.COM")
+      expect(user.email).to eq("example@example.com")
+    end
+
     context 'is greenlight account' do
       before { allow(subject).to receive(:greenlight_account?).and_return(true) }
-      it { should validate_presence_of(:password) }
       it { should validate_length_of(:password).is_at_least(6) }
     end
 
@@ -47,6 +51,33 @@ describe User, type: :model do
   context "#to_param" do
     it "uses uid as the default identifier for routes" do
       expect(@user.to_param).to eq(@user.uid)
+    end
+  end
+
+  context '#from_omniauth' do
+    it "should create user from omniauth" do
+      auth = {
+        "uid" => "123456789",
+        "provider" => "twitter",
+        "info" => {
+          "name" => "Test Name",
+          "nickname" => "username",
+          "email" => "test@example.com",
+          "image" => "example.png"
+        }
+      }
+  
+      expect {
+        user = User.from_omniauth(auth)
+
+        expect(user.name).to eq("Test Name")
+        expect(user.email).to eq("test@example.com")
+        expect(user.image).to eq("example.png")
+        expect(user.provider).to eq("twitter")
+        expect(user.social_uid).to eq("123456789")
+      }.to change {
+        User.count
+      }.by(1)
     end
   end
 

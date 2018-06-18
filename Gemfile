@@ -75,6 +75,7 @@ end
 group :test do
   # Include Rspec and other testing utilities.
   gem 'rspec-rails', '~> 3.7'
+  gem 'action-cable-testing'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'faker'
   gem "factory_bot_rails"
