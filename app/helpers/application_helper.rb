@@ -10,7 +10,7 @@ module ApplicationHelper
 
   # Generates the login URL for a specific provider.
   def omniauth_login_url(provider)
-    "/auth/#{provider}"
+    "#{Rails.configuration.relative_url_root}/auth/#{provider}"
   end
   
   # Determine if Greenlight is configured to allow user signups.

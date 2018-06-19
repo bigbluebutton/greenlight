@@ -47,7 +47,8 @@ class ApplicationController < ActionController::Base
       user_is_moderator: false,
       meeting_logout_url: request.base_url + logout_room_path(@room),
       meeting_recorded: true,
-      moderator_message: "To invite someone to the meeting, send them this link:\n\n#{request.base_url + room_path(@room)}"
+      moderator_message: "To invite someone to the meeting, send them this link:\n\n
+        #{request.base_url + Rails.configuration.relative_url_root + room_path(@room)}"
     }
   end
 end

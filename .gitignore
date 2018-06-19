@@ -14,15 +14,15 @@
 # Ignore static assets.
 /public/system/**
 /public/assets/**
+/public/gl/**
 
 # Ignore production paths.
 /db/production
 
 # Ignore all logfiles and tempfiles.
 /log/*
-/tmp/*
+/tmp
 !/log/.keep
-!/tmp/.keep
 
 # Ignore Byebug command history file.
 .byebug_history
