@@ -1,0 +1,14 @@
+version: '3'
+
+services:  
+  app:
+    entrypoint: [bin/start]
+    image: joshblind/greenlight:latest
+    container_name: greenlight-web
+    env_file: .env
+    restart: unless-stopped
+    ports:
+      - 6000:3000
+    volumes:      
+      - ./db/production:/usr/src/app/db/production
+      - ./log:/usr/src/app/log
