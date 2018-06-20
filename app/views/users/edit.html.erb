@@ -5,17 +5,17 @@
     <div class="col-lg-3 mb-4">
       <div class="list-group list-group-transparent mb-0">
         <button id="account" class="list-group-item list-group-item-action setting-btn active">
-          <span class="icon mr-3"><i class="fe fe-user"></i></span>Account
+          <span class="icon mr-3"><i class="fas fa-user"></i></span>Account
         </button>
 
         <% if @user.social_uid.nil? %>
           <button id="password" class="list-group-item list-group-item-action setting-btn">
-            <span class="icon mr-3"><i class="fe fe-lock"></i></span>Password
+            <span class="icon mr-3"><i class="fas fa-lock"></i></span>Password
           </button>
         <% end %>
 
         <button id="design" class="list-group-item list-group-item-action setting-btn">
-          <span class="icon mr-3"><i class="fe fe-edit-2"></i></span>Design
+          <span class="icon mr-3"><i class="fas fa-edit"></i></span>Design
         </button>
       </div>
   

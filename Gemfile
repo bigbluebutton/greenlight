@@ -53,9 +53,6 @@ gem 'bigbluebutton-api-ruby'
 gem 'bootstrap', '~> 4.1.1'
 gem 'tabler-rubygem'
 
-# Fontawesome icons.
-gem "font-awesome-sass", '~> 5.0.13'
-
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
