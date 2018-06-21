@@ -8,6 +8,7 @@ class Room < ApplicationRecord
 
   RETURNCODE_SUCCESS = "SUCCESS"
   META_LISTED = "gl-listed"
+  UID_LENGTH = 6
 
   # Determines if a user owns a room.
   def owned_by?(user)
@@ -166,8 +167,14 @@ class Room < ApplicationRecord
 
   # Generates a uid for the room and BigBlueButton.
   def setup
-    self.uid = [owner.firstname, (0...9).map { (65 + rand(26)).chr }.join].join('-').downcase
+    self.uid = random_room_uid
     self.bbb_id = Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base] + Time.now.to_i.to_s).to_s
+  end
+
+  # Generates a random room uid that uses the users name.
+  def random_room_uid
+    charset = %w{ 2 3 4 6 7 9 a c d e f g h j k m n p q r t v w x y z}
+    owner.firstname.downcase + "-" + (0...UID_LENGTH).map{ charset.to_a[rand(charset.size)] }.join.insert(UID_LENGTH / 2, "-")
   end
 
   # Rereives the loadbalanced BigBlueButton credentials for a user.
