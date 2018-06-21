@@ -11,14 +11,16 @@ Rails.application.routes.draw do
 
   # User resources.
   scope '/u' do
-    get '/:user_uid/edit', to: 'users#edit', as: :edit_user
-    patch '/:user_uid/edit', to: 'users#update', as: :update_user
-  
+    match '/terms', to: 'users#terms', via: [:get, :post]
+
     # Handles login of greenlight provider accounts.
     post '/login',  to: 'sessions#create', as: :create_session
   
     # Log the user out of the session.
     get '/logout', to: 'sessions#destroy'
+
+    get '/:user_uid/edit', to: 'users#edit', as: :edit_user
+    patch '/:user_uid/edit', to: 'users#update', as: :update_user
   end
 
   # Handles launches from a trusted launcher.

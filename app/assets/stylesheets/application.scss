@@ -89,3 +89,9 @@ a {
 .force-text-normal {
   color: #495057;
 }
+
+.terms {
+  overflow: scroll;
+  height: 55vh;
+  white-space: pre-line;
+}

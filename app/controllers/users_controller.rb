@@ -73,6 +73,16 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  # GET /u/terms
+  def terms
+    redirect_to root_path unless current_user
+
+    if params[:accept] == "true"
+      current_user.update_attribute(accepted_terms: true)
+      redirect_to current_user.main_room
+    end
+  end
   
   private
 

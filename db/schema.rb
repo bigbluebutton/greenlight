@@ -39,8 +39,9 @@ ActiveRecord::Schema.define(version: 20180504131705) do
     t.string   "social_uid"
     t.string   "image"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.boolean  "accepted_terms",  default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.index ["password_digest"], name: "index_users_on_password_digest", unique: true
     t.index ["room_id"], name: "index_users_on_room_id"
   end

@@ -5,5 +5,4 @@ test:
   adapter: test
 
 production:
-  adapter: redis
-  url: redis://localhost:6379/1
+  adapter: async
