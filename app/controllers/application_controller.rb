@@ -18,6 +18,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :user_name_limit
 
+  # Relative root helper (when deploying to subdirectory).
+  def relative_root
+    Rails.configuration.relative_url_root || ""
+  end
+  helper_method :relative_root
+
   # Determines if the BigBlueButton endpoint is configured (or set to default).
   def bigbluebutton_endpoint_default?
     return false if loadbalanced_configuration?
