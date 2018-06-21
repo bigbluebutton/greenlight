@@ -57,7 +57,7 @@ class User < ApplicationRecord
     end
 
     def twitter_image(auth)
-      auth['info']['image'].gsub("_normal", "")
+      auth['info']['image'].gsub("http", "https").gsub("_normal", "")
     end
 
     def google_name(auth)
