@@ -64,10 +64,6 @@ class Room < ApplicationRecord
     options[:user_is_moderator] ||= false
     options[:meeting_recorded] ||= false
 
-    #options[:wait_for_moderator] ||= false
-    #options[:meeting_name] ||= name
-    #options[:room_owner] ||= nil
-
     return call_invalid_res if !bbb
 
     # Get the meeting info.

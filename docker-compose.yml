@@ -5,7 +5,7 @@ services:
     entrypoint: [bin/start]
     image: joshblind/greenlight:latest
     container_name: greenlight-web
-    env_file: .env
+    env_file: env
     restart: unless-stopped
     ports:
       - 6000:3000

@@ -10,7 +10,7 @@
 
     <div class="row">
       <div class="col-lg-6 col-md-8 col-sm-12 form-inline mb-5 align-top">
-        <% if @room.owner.image.nil? %>
+        <% if @room.owner.image.blank? %>
           <span class="avatar"><%= @room.owner.name.first %></span>
         <% else %>
           <span class="avatar" style="background-image: url(<%= @room.owner.image %>)"></span>
