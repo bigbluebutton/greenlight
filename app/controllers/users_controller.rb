@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH /u/:user_uid
+  # PATCH /u/:user_uid/edit
   def update
     if params[:setting] == "password"
       # Update the users password.
@@ -87,12 +87,7 @@ class UsersController < ApplicationController
   private
 
   def find_user
-    @user = User.find_by(uid: params[:user_uid])
-
-    unless @user
-      # Handle user does not exist.
-
-    end
+    @user = User.find_by!(uid: params[:user_uid])
   end
 
   def ensure_unauthenticated
