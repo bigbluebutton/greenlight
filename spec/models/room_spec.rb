@@ -3,10 +3,10 @@ require 'bigbluebutton_api'
 
 describe Room, type: :model do
 
-  before {
+  before do
     @user = create(:user)
     @room = @user.main_room
-  }
+  end
 
   context 'validations' do
     it { should validate_presence_of(:name) }

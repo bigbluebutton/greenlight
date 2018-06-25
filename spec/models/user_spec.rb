@@ -1,7 +1,9 @@
 require "rails_helper"
 
 describe User, type: :model do
-  before { @user = create(:user) }
+  before do
+    @user = create(:user)
+  end
 
   context 'validations' do
     it { should validate_presence_of(:name) }
@@ -55,7 +57,7 @@ describe User, type: :model do
   end
 
   context '#from_omniauth' do
-    it "should create user from omniauth" do
+    let(:auth) {
       auth = {
         "uid" => "123456789",
         "provider" => "twitter",
@@ -66,7 +68,9 @@ describe User, type: :model do
           "image" => "example.png"
         }
       }
-  
+    }
+
+    it "should create user from omniauth" do
       expect {
         user = User.from_omniauth(auth)
 
