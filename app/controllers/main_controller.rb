@@ -1,6 +1,7 @@
-class MainController < ApplicationController
+# frozen_string_literal: true
 
-  #before_action :redirect_to_room
+class MainController < ApplicationController
+  # before_action :redirect_to_room
 
   # GET /
   def index

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bigbluebutton_api'
 
 class ApplicationController < ActionController::Base
@@ -43,18 +45,18 @@ class ApplicationController < ActionController::Base
 
   # Determines if a form field needs the is-invalid class.
   def form_is_invalid?(obj, key)
-    'is-invalid' if !obj.errors.messages[key].empty?
+    'is-invalid' unless obj.errors.messages[key].empty?
   end
   helper_method :form_is_invalid?
-  
+
   # Default, unconfigured meeting options.
   def default_meeting_options
+    invite_msg = "To invite someone to the meeting, send them this link:"
     {
       user_is_moderator: false,
       meeting_logout_url: request.base_url + logout_room_path(@room),
       meeting_recorded: true,
-      moderator_message: "To invite someone to the meeting, send them this link:\n\n
-        #{request.base_url + relative_root + room_path(@room)}"
+      moderator_message: "#{invite_msg}\n\n #{request.base_url + relative_root + room_path(@room)}",
     }
   end
 end

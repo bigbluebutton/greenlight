@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # List of supported Omniauth providers.
 Rails.application.config.providers = [:google, :twitter]
 
@@ -10,7 +12,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :twitter, ENV['TWITTER_ID'], ENV['TWITTER_SECRET']
 
   provider :google_oauth2, ENV['GOOGLE_OAUTH2_ID'], ENV['GOOGLE_OAUTH2_SECRET'],
-    scope: ['profile', 'email'],
+    scope: %w(profile email),
     access_type: 'online',
     name: 'google',
     hd: ENV['GOOGLE_OAUTH2_HD'].blank? ? nil : ENV['GOOGLE_OAUTH2_HD']

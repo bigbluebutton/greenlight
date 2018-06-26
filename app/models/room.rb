@@ -1,5 +1,6 @@
-class Room < ApplicationRecord
+# frozen_string_literal: true
 
+class Room < ApplicationRecord
   before_create :setup
 
   validates :name, presence: true
@@ -8,7 +9,6 @@ class Room < ApplicationRecord
 
   RETURNCODE_SUCCESS = "SUCCESS"
   META_LISTED = "gl-listed"
-  UID_LENGTH = 6
 
   # Determines if a user owns a room.
   def owned_by?(user)
@@ -17,7 +17,7 @@ class Room < ApplicationRecord
   end
 
   # Checks if a room is running on the BigBlueButton server.
-  def is_running?
+  def running?
     bbb.is_meeting_running?(bbb_id)
   end
 
@@ -34,16 +34,11 @@ class Room < ApplicationRecord
       moderatorPW: random_password(12),
       attendeePW: random_password(12),
       moderatorOnlyMessage: options[:moderator_message],
-      "meta_#{META_LISTED}": false
+      "meta_#{META_LISTED}": false,
     }
 
     # Update session info.
-    self.update_attributes(sessions: sessions + 1, last_session: DateTime.now)
-
-    #meeting_options.merge!(
-      #{ "meta_room-id": options[:room_owner],
-      #  "meta_meeting-name": options[:meeting_name]}
-    #) if options[:room_owner]
+    update_attributes(sessions: sessions + 1, last_session: DateTime.now)
 
     # Send the create request.
     begin
@@ -56,7 +51,7 @@ class Room < ApplicationRecord
   # Returns a URL to join a user into a meeting.
   def join_path(name, options = {}, uid = nil)
     # Create the meeting if it isn't running.
-    start_session(options) unless is_running?
+    start_session(options) unless running?
 
     # Set meeting options.
     options[:meeting_logout_url] ||= nil
@@ -64,7 +59,7 @@ class Room < ApplicationRecord
     options[:user_is_moderator] ||= false
     options[:meeting_recorded] ||= false
 
-    return call_invalid_res if !bbb
+    return call_invalid_res unless bbb
 
     # Get the meeting info.
     meeting_info = bbb.get_meeting_info(bbb_id, nil)
@@ -78,30 +73,26 @@ class Room < ApplicationRecord
 
     # Generate the join URL.
     join_opts = {}
-    join_opts.merge!({userID: uid}) if uid
-    join_opts.merge!({joinViaHtml5: true}) if Rails.configuration.html5_enabled
-    
+    join_opts[:userID] = uid if uid
+    join_opts[:joinViaHtml5] = true if Rails.configuration.html5_enabled
+
     bbb.join_meeting_url(bbb_id, name, password, join_opts)
   end
 
   # Notify waiting users that a meeting has started.
   def notify_waiting
-    ActionCable.server.broadcast("#{uid}_waiting_channel", {
-      action: "started"
-    })
+    ActionCable.server.broadcast("#{uid}_waiting_channel", action: "started")
   end
 
   # Retrieves all the users in a room.
   def participants
-    begin
-      res = bbb.get_meeting_info(bbb_id, nil)
-      res[:attendees].map do |att|
-        User.find_by(uid: att[:userID], name: att[:fullName])
-      end
-    rescue BigBlueButton::BigBlueButtonException => exc
-      # The meeting is most likely not running.
-      []
+    res = bbb.get_meeting_info(bbb_id, nil)
+    res[:attendees].map do |att|
+      User.find_by(uid: att[:userID], name: att[:fullName])
     end
+  rescue BigBlueButton::BigBlueButtonException
+    # The meeting is most likely not running.
+    []
   end
 
   # Fetches all recordings for a room.
@@ -120,18 +111,18 @@ class Room < ApplicationRecord
       end
 
       r.delete(:playback)
-    end 
+    end
 
     res[:recordings]
   end
 
   # Fetches a rooms public recordings.
   def public_recordings
-    recordings.select do |r| r[:metadata][:"gl-listed"] == "true" end
+    recordings.select { |r| r[:metadata][:"gl-listed"] == "true" }
   end
 
   def update_recording(record_id, meta)
-    meta.merge!({recordID: record_id})
+    meta[:recordID] = record_id
     bbb.send_api_request("updateRecordings", meta)
   end
 
@@ -153,12 +144,12 @@ class Room < ApplicationRecord
   # Sets a BigBlueButtonApi object for interacting with the API.
   def bbb
     @bbb ||= BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
-    #@bbb ||= if Rails.configuration.loadbalanced_configuration
-    #  lb_user = retrieve_loadbalanced_credentials(self.room.owner.provider)
-    #  BigBlueButton::BigBlueButtonApi.new(remove_slash(lb_user["apiURL"]), lb_user["secret"], "0.8")
-    #else
-    #  BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
-    #end
+    # @bbb ||= if Rails.configuration.loadbalanced_configuration
+    #   lb_user = retrieve_loadbalanced_credentials(self.room.owner.provider)
+    #   BigBlueButton::BigBlueButtonApi.new(remove_slash(lb_user["apiURL"]), lb_user["secret"], "0.8")
+    # else
+    #   BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
+    # end
   end
 
   # Generates a uid for the room and BigBlueButton.
@@ -167,10 +158,15 @@ class Room < ApplicationRecord
     self.bbb_id = Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base] + Time.now.to_i.to_s).to_s
   end
 
+  # Generates a three character uid chunk.
+  def uid_chunk
+    charset = ("a".."z").to_a - %w(b i l o s) + ("2".."9").to_a - %w(5 8)
+    (0...3).map { charset.to_a[rand(charset.size)] }.join
+  end
+
   # Generates a random room uid that uses the users name.
   def random_room_uid
-    charset = %w{ 2 3 4 6 7 9 a c d e f g h j k m n p q r t v w x y z}
-    owner.firstname.downcase + "-" + (0...UID_LENGTH).map{ charset.to_a[rand(charset.size)] }.join.insert(UID_LENGTH / 2, "-")
+    [owner.firstname, uid_chunk, uid_chunk].join('-').downcase
   end
 
   # Rereives the loadbalanced BigBlueButton credentials for a user.
@@ -182,7 +178,7 @@ class Room < ApplicationRecord
     uri = encode_bbb_url(
       Rails.configuration.loadbalancer_endpoint,
       Rails.configuration.loadbalancer_secret,
-      {name: provider}
+      name: provider
     )
 
     # Make the request.
@@ -190,7 +186,7 @@ class Room < ApplicationRecord
     http.use_ssl = (uri.scheme == 'https')
     response = http.get(uri.request_uri)
 
-    unless response.kind_of?(Net::HTTPSuccess)
+    unless response.is_a?(Net::HTTPSuccess)
       raise "Error retrieving provider credentials: #{response.code} #{response.message}"
     end
 
@@ -209,7 +205,7 @@ class Room < ApplicationRecord
     encoded_params = OAuth::Helper.normalize(params)
     string = "getUser" + encoded_params + secret
     checksum = OpenSSL::Digest.digest('sha1', string).unpack("H*").first
-    
+
     URI.parse("#{base_url}?#{encoded_params}&checksum=#{checksum}")
   end
 
@@ -220,7 +216,7 @@ class Room < ApplicationRecord
 
   # Generates a random password for a meeting.
   def random_password(length)
-    o = ([('a'..'z'), ('A'..'Z')].map do |i| i.to_a end).flatten
-    ((0...length).map do o[rand(o.length)] end).join
+    charset = ("a".."z").to_a + ("A".."Z").to_a
+    ((0...length).map { charset[rand(charset.length)] }).join
   end
 end
