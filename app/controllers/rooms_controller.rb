@@ -1,5 +1,6 @@
-class RoomsController < ApplicationController
+# frozen_string_literal: true
 
+class RoomsController < ApplicationController
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :find_room, except: :create
   before_action :verify_room_ownership, except: [:create, :show, :join, :logout]
@@ -9,7 +10,7 @@ class RoomsController < ApplicationController
   # POST /
   def create
     redirect_to root_path unless current_user
-    
+
     @room = Room.new(name: room_params[:name])
     @room.owner = current_user
 
@@ -19,9 +20,6 @@ class RoomsController < ApplicationController
       else
         redirect_to @room
       end
-    else
-      # Handle room didn't save.
-
     end
   end
 
@@ -29,7 +27,7 @@ class RoomsController < ApplicationController
   def show
     if current_user && @room.owned_by?(current_user)
       @recordings = @room.recordings
-      @is_running = @room.is_running?
+      @is_running = @room.running?
     else
       render :join
     end
@@ -47,7 +45,7 @@ class RoomsController < ApplicationController
       return
     end
 
-    if @room.is_running?
+    if @room.running?
       if current_user
         redirect_to @room.join_path(current_user.name, opts, current_user.uid)
       else
@@ -92,13 +90,13 @@ class RoomsController < ApplicationController
     current_user.main_room = @room
     current_user.save
 
-    redirect_to @room    
+    redirect_to @room
   end
 
   # POST /:room_uid/:record_id
   def update_recording
     meta = {
-      "meta_#{META_LISTED}" => (params[:state] == "public")
+      "meta_#{META_LISTED}" => (params[:state] == "public"),
     }
 
     res = @room.update_recording(params[:record_id], meta)
@@ -124,12 +122,10 @@ class RoomsController < ApplicationController
 
     if len > 60
       "#{len / 60} hrs"
+    elsif len == 0
+      "< 1 min"
     else
-      if len == 0
-        "< 1 min"
-      else
-        "#{len} min"
-      end
+      "#{len} min"
     end
   end
   helper_method :recording_length
@@ -147,7 +143,7 @@ class RoomsController < ApplicationController
 
   # Ensure the user is logged into the room they are accessing.
   def verify_room_ownership
-    bring_to_room if !@room.owned_by?(current_user)
+    bring_to_room unless @room.owned_by?(current_user)
   end
 
   # Redirects a user to their room.

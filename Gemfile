@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -67,12 +69,16 @@ group :development, :test do
 
   # Environment configuration.
   gem 'dotenv-rails'
+
+  # Ruby linting.
+  gem 'rubocop'
 end
 
 group :test do
   # Include Rspec and other testing utilities.
   gem 'rspec-rails', '~> 3.7'
   gem 'action-cable-testing'
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'faker'
   gem "factory_bot_rails"

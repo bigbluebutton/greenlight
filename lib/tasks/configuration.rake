@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'nokogiri'
 require 'digest/sha1'
 
-namespace :conf  do
+namespace :conf do
   desc "Check Configuration"
-  task :check => :environment do
-    ENV_VARIABLES = ['SECRET_KEY_BASE', 'BIGBLUEBUTTON_ENDPOINT', 'BIGBLUEBUTTON_SECRET']
+  task check: :environment do
+    ENV_VARIABLES = %w(SECRET_KEY_BASE BIGBLUEBUTTON_ENDPOINT BIGBLUEBUTTON_SECRET)
 
     # Initial check that variables are set
     print "\nChecking environment"
@@ -31,17 +33,15 @@ end
 
 # takes the full URL including the protocol
 def test_request(url)
-  begin
-    uri = URI(url)
-    res = Net::HTTP.get(uri)
+  uri = URI(url)
+  res = Net::HTTP.get(uri)
 
-    doc = Nokogiri::XML(res)
-    if doc.css("returncode").text != "SUCCESS"
-      failed("Could not get a valid response from BigBlueButton server - #{res}")
-    end
-  rescue => exc
-    failed("Error connecting to BigBlueButton server - #{exc}")
+  doc = Nokogiri::XML(res)
+  if doc.css("returncode").text != "SUCCESS"
+    failed("Could not get a valid response from BigBlueButton server - #{res}")
   end
+rescue => exc
+  failed("Error connecting to BigBlueButton server - #{exc}")
 end
 
 def failed(msg)
@@ -49,6 +49,6 @@ def failed(msg)
   exit
 end
 
-def passed()
+def passed
   print(": Passed\n")
 end

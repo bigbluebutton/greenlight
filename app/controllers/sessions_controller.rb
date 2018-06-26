@@ -1,5 +1,6 @@
-class SessionsController < ApplicationController
+# frozen_string_literal: true
 
+class SessionsController < ApplicationController
   # GET /users/login
   def new
   end
@@ -13,11 +14,8 @@ class SessionsController < ApplicationController
   # POST /users/login
   def create
     user = User.find_by(email: session_params[:email])
-    if user && user.authenticate(session_params[:password])
+    if user.&authenticate(session_params[:password])
       login(user)
-    else
-      # Login unsuccessful, display error message.
-      
     end
   end
 

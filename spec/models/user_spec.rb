@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 describe User, type: :model do
-  before { @user = create(:user) }
+  before do
+    @user = create(:user)
+  end
 
   context 'validations' do
     it { should validate_presence_of(:name) }
@@ -21,8 +25,8 @@ describe User, type: :model do
     it { should allow_value("", nil).for(:image) }
 
     it "should convert email to downcase on save" do
-      user = create(:user, email: "EXAMPLE@EXAMPLE.COM")
-      expect(user.email).to eq("example@example.com")
+      user = create(:user, email: "DOWNCASE@DOWNCASE.COM")
+      expect(user.email).to eq("downcase@downcase.com")
     end
 
     context 'is greenlight account' do
@@ -63,11 +67,11 @@ describe User, type: :model do
           "name" => "Test Name",
           "nickname" => "username",
           "email" => "test@example.com",
-          "image" => "example.png"
-        }
+          "image" => "example.png",
+        },
       }
-  
-      expect {
+
+      expect do
         user = User.from_omniauth(auth)
 
         expect(user.name).to eq("Test Name")
@@ -75,9 +79,7 @@ describe User, type: :model do
         expect(user.image).to eq("example.png")
         expect(user.provider).to eq("twitter")
         expect(user.social_uid).to eq("123456789")
-      }.to change {
-        User.count
-      }.by(1)
+      end.to change { User.count }.by(1)
     end
   end
 
