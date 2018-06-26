@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -47,7 +49,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -85,9 +87,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Set the relative url root for deployment to a subdirectory.
-  if ENV['RELATIVE_URL_ROOT'].present?
-    config.relative_url_root = ENV['RELATIVE_URL_ROOT']
-  else
-    config.relative_url_root = "/"
-  end
+  config.relative_url_root = "/"
+  config.relative_url_root = ENV['RELATIVE_URL_ROOT'] if ENV['RELATIVE_URL_ROOT'].present?
 end

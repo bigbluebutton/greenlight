@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Load terms and conditions.
 
 terms = "#{Rails.root}/config/terms.txt"

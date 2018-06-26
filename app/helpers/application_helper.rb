@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   include MeetingsHelper
 
@@ -12,7 +14,7 @@ module ApplicationHelper
   def omniauth_login_url(provider)
     "#{Rails.configuration.relative_url_root}/auth/#{provider}"
   end
-  
+
   # Determine if Greenlight is configured to allow user signups.
   def allow_user_signup?
     Rails.configuration.allow_user_signup

@@ -1,17 +1,18 @@
-class User < ApplicationRecord
+# frozen_string_literal: true
 
+class User < ApplicationRecord
   after_create :initialize_main_room
-  before_save { email.downcase! unless email.nil? }
+  before_save { email.try(:downcase!) }
 
   has_many :rooms
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
 
   validates :name, length: { maximum: 24 }, presence: true
   validates :provider, presence: true
-  validates :image, format: {with: /\.(png|jpg)\Z/i}, allow_blank: true
+  validates :image, format: { with: /\.(png|jpg)\Z/i }, allow_blank: true
   validates :email, length: { maximum: 60 }, allow_blank: true,
                     uniqueness: { case_sensitive: false },
-                    format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+                    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
   validates :password, length: { minimum: 6 }, confirmation: true, if: :greenlight_account?
 
@@ -19,26 +20,15 @@ class User < ApplicationRecord
   has_secure_password(validations: false)
 
   class << self
-    
     # Generates a user from omniauth.
     def from_omniauth(auth)
-      user = find_or_initialize_by(
-        social_uid: auth['uid'],
-        provider: auth['provider']
-      )
-
-      user.name = send("#{auth['provider']}_name", auth)
-      user.username = send("#{auth['provider']}_username", auth)
-      user.email = send("#{auth['provider']}_email", auth)
-      user.image = send("#{auth['provider']}_image", auth)
-
-      user.save!
-      user
-    end
-
-    # Generates a user from a trusted launcher.
-    def from_launch(auth)
-
+      find_or_initialize_by(social_uid: auth['uid'], provider: auth['provider']).tap do |u|
+        u.name = send("#{auth['provider']}_name", auth)
+        u.username = send("#{auth['provider']}_username", auth)
+        u.email = send("#{auth['provider']}_email", auth)
+        u.image = send("#{auth['provider']}_image", auth)
+        u.save!
+      end
     end
 
     private
@@ -80,9 +70,9 @@ class User < ApplicationRecord
   # Retrives a list of all a users rooms that are not the main room, sorted by last session date.
   def secondary_rooms
     secondary = (rooms - [main_room])
-    no_session, session = secondary.partition do |r| r.last_session.nil? end
-    sorted = session.sort_by do |r| r.last_session end
-    session + no_session
+    no_session, session = secondary.partition { |r| r.last_session.nil? }
+    sorted = session.sort_by(&:last_session)
+    sorted + no_session
   end
 
   def firstname
@@ -99,6 +89,6 @@ class User < ApplicationRecord
   def initialize_main_room
     self.uid = "gl-#{(0...12).map { (65 + rand(26)).chr }.join.downcase}"
     self.main_room = Room.create!(owner: self, name: firstname + "'s Room")
-    self.save
+    save
   end
 end

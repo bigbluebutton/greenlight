@@ -1,5 +1,6 @@
-Rails.application.routes.draw do
+# frozen_string_literal: true
 
+Rails.application.routes.draw do
   # Error routes.
   match '/404', to: 'errors#not_found', via: :all
   match '/422', to: 'errors#unprocessable', via: :all
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
 
     # Handles login of greenlight provider accounts.
     post '/login',  to: 'sessions#create', as: :create_session
-  
+
     # Log the user out of the session.
     get '/logout', to: 'sessions#destroy'
 
@@ -39,7 +40,7 @@ Rails.application.routes.draw do
     post '/start', to: 'rooms#start', as: :start_room
     get '/logout', to: 'rooms#logout', as: :logout_room
     post '/home', to: 'rooms#home', as: :make_home
-    
+
     # Mange recordings.
     scope '/:record_id' do
       post '/', to: 'rooms#update_recording', as: :update_recording

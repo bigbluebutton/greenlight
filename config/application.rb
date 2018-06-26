@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
@@ -13,12 +15,16 @@ module Greenlight
     # -- all .rb files in that directory are automatically loaded.
 
     # Use custom error routes.
-    config.exceptions_app = self.routes
+    config.exceptions_app = routes
 
     config.loadbalanced_configuration = (ENV["USE_LOADBALANCED_CONFIGURATION"] == "true")
 
     # Setup BigBlueButton configuration.
-    unless config.loadbalanced_configuration
+    if config.loadbalanced_configuration
+      # Fetch credentials from a loadbalancer based on provider.
+      config.loadbalancer_endpoint = ENV["LOADBALANCER_ENDPOINT"]
+      config.loadbalancer_secret = ENV["LOADBALANCER_SECRET"]
+    else
       # Default credentials (test-install.blindsidenetworks.com/bigbluebutton).
       config.bigbluebutton_endpoint_default = "http://test-install.blindsidenetworks.com/bigbluebutton/api/"
       config.bigbluebutton_secret_default = "8cd8ef52e8e101574e400365b55e11a6"
@@ -35,10 +41,6 @@ module Greenlight
 
       # Fix endpoint format if required.
       config.bigbluebutton_endpoint += "api/" unless config.bigbluebutton_endpoint.ends_with?('api/')
-    else
-      # Fetch credentials from a loadbalancer based on provider.
-      config.loadbalancer_endpoint = ENV["LOADBALANCER_ENDPOINT"]
-      config.loadbalancer_secret = ENV["LOADBALANCER_SECRET"]
     end
 
     # Determine if GreenLight should allow non-omniauth signup/login.

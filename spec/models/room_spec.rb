@@ -1,12 +1,13 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 require 'bigbluebutton_api'
 
 describe Room, type: :model do
-
-  before {
+  before do
     @user = create(:user)
     @room = @user.main_room
-  }
+  end
 
   context 'validations' do
     it { should validate_presence_of(:name) }
@@ -45,14 +46,14 @@ describe Room, type: :model do
     end
   end
 
-  context "#is_running?" do
+  context "#running?" do
     it "should return false when not running" do
-      expect(@room.is_running?).to be false
+      expect(@room.running?).to be false
     end
 
     it "should return true when running" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
-      expect(@room.is_running?).to be true
+      expect(@room.running?).to be true
     end
   end
 
@@ -60,11 +61,9 @@ describe Room, type: :model do
     it "should update latest session info" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:create_meeting).and_return(true)
 
-      expect{
+      expect do
         @room.start_session
-      }.to change {
-        @room.sessions
-      }.by(1)
+      end.to change { @room.sessions }.by(1)
 
       expect(@room.last_session.utc.to_i).to eq(Time.now.to_i)
     end
@@ -72,33 +71,31 @@ describe Room, type: :model do
 
   context "#join_path" do
     it "should return correct join URL for user" do
-      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_meeting_info).and_return({
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_meeting_info).and_return(
         attendeePW: "testpass"
-      })
+      )
 
       endpoint = Rails.configuration.bigbluebutton_endpoint
       secret = Rails.configuration.bigbluebutton_secret
       fullname = "fullName=Example"
-      html = if Rails.configuration.html5_enabled then "&joinViaHtml5=true" else "" end
-      meetingID = "&meetingID=#{@room.bbb_id}"
+      html = Rails.configuration.html5_enabled ? "&joinViaHtml5=true" : ""
+      meeting_id = "&meetingID=#{@room.bbb_id}"
       password = "&password=testpass"
 
-      query = fullname + html + meetingID + password
+      query = fullname + html + meeting_id + password
       checksum_string = "join#{query + secret}"
 
       checksum = OpenSSL::Digest.digest('sha1', checksum_string).unpack("H*").first
 
-      expect(@room.join_path("Example")).to eql(
-        "#{endpoint}join?#{query}&checksum=#{checksum}"
-      )
+      expect(@room.join_path("Example")).to eql("#{endpoint}join?#{query}&checksum=#{checksum}")
     end
   end
 
   context "#notify_waiting" do
     it "should broadcast to waiting channel with started action" do
-      expect{
+      expect do
         @room.notify_waiting
-      }.to have_broadcasted_to("#{@room.uid}_waiting_channel").with(a_hash_including(action: "started"))
+      end.to have_broadcasted_to("#{@room.uid}_waiting_channel").with(a_hash_including(action: "started"))
     end
   end
 
@@ -107,13 +104,13 @@ describe Room, type: :model do
       user1 = create(:user)
       user2 = create(:user)
 
-      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_meeting_info).and_return({
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_meeting_info).and_return(
         attendees: [
-          {userID: user1.uid, fullName: user1.name},
-          {userID: "non-matching-uid", fullName: "Guest User"},
-          {userID: user2.uid, fullName: user2.name}
-        ]
-      })
+          { userID: user1.uid, fullName: user1.name },
+          { userID: "non-matching-uid", fullName: "Guest User" },
+          { userID: user2.uid, fullName: user2.name },
+        ],
+      )
 
       expect(@room.participants).to contain_exactly(user1, nil, user2)
     end
@@ -121,21 +118,21 @@ describe Room, type: :model do
 
   context "#recordings" do
     it "should properly find meeting recordings" do
-      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_recordings).and_return({
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_recordings).and_return(
         recordings: [
           {
             name: "Example",
             playback: {
-              format: "presentation"
-            }
+              format: "presentation",
+            },
           },
-        ]
-      })
+        ],
+      )
 
-      expect(@room.recordings).to contain_exactly({
+      expect(@room.recordings).to contain_exactly(
         name: "Example",
-        playbacks: ["presentation"]
-      })
+        playbacks: %w(presentation),
+      )
     end
   end
 end

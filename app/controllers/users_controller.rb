@@ -1,5 +1,6 @@
-class UsersController < ApplicationController
+# frozen_string_literal: true
 
+class UsersController < ApplicationController
   before_action :find_user, only: [:edit, :update]
   before_action :ensure_unauthenticated, only: [:new, :create]
 
@@ -12,7 +13,7 @@ class UsersController < ApplicationController
     @user.provider = "greenlight"
 
     if @user.save
-     login(@user)
+      login(@user)
     else
       # Handle error on user creation.
       render :new
@@ -61,16 +62,13 @@ class UsersController < ApplicationController
         redirect_to edit_user_path(@user), notice: "Information successfully updated."
       else
         # Append custom errors.
-        errors.each do |k, v| @user.errors.add(k, v) end
+        errors.each { |k, v| @user.errors.add(k, v) }
         render :edit
       end
+    elsif @user.update_attributes(user_params)
+      redirect_to edit_user_path(@user), notice: "Information successfully updated."
     else
-      # Update the core user attributes.
-      if @user.update_attributes(user_params)
-        redirect_to edit_user_path(@user), notice: "Information successfully updated."
-      else
-        render :edit
-      end
+      render :edit
     end
   end
 
@@ -83,7 +81,7 @@ class UsersController < ApplicationController
       redirect_to current_user.main_room
     end
   end
-  
+
   private
 
   def find_user
