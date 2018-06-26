@@ -37,15 +37,20 @@ class RoomsController < ApplicationController
   def join
     opts = default_meeting_options
 
-    # Assign join name if passed.
-    if params[@room.invite_path]
-      @join_name = params[@room.invite_path][:join_name]
-    elsif !params[:join_name]
-      # Join name not passed.
-      return
+    unless @room.owned_by?(current_user)
+      # Assign join name if passed.
+      if params[@room.invite_path]
+        @join_name = params[@room.invite_path][:join_name]
+      elsif !params[:join_name]
+        # Join name not passed.
+        return
+      end
     end
 
     if @room.running?
+      # Determine if the user needs to join as a moderator.
+      opts[:user_is_moderator] = @room.owned_by?(current_user)
+
       if current_user
         redirect_to @room.join_path(current_user.name, opts, current_user.uid)
       else
