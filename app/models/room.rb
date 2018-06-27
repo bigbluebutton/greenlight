@@ -74,7 +74,6 @@ class Room < ApplicationRecord
     # Generate the join URL.
     join_opts = {}
     join_opts[:userID] = uid if uid
-    join_opts[:joinViaHtml5] = true if Rails.configuration.html5_enabled
 
     bbb.join_meeting_url(bbb_id, name, password, join_opts)
   end

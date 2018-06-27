@@ -78,11 +78,10 @@ describe Room, type: :model do
       endpoint = Rails.configuration.bigbluebutton_endpoint
       secret = Rails.configuration.bigbluebutton_secret
       fullname = "fullName=Example"
-      html = Rails.configuration.html5_enabled ? "&joinViaHtml5=true" : ""
       meeting_id = "&meetingID=#{@room.bbb_id}"
       password = "&password=testpass"
 
-      query = fullname + html + meeting_id + password
+      query = fullname + meeting_id + password
       checksum_string = "join#{query + secret}"
 
       checksum = OpenSSL::Digest.digest('sha1', checksum_string).unpack("H*").first
