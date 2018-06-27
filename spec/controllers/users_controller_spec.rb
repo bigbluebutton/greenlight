@@ -1,28 +1,29 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 describe UsersController, type: :controller do
-
-  let(:user_params) {
+  let(:user_params) do
     {
       user: {
         name: "Example",
         email: "example@example.com",
         password: "password",
-        password_confirmation: "password"
-      }
+        password_confirmation: "password",
+      },
     }
-  }
+  end
 
-  let(:invalid_params) {
+  let(:invalid_params) do
     {
       user: {
         name: "Invalid",
         email: "example.com",
         password: "pass",
-        password_confirmation: "invalid"
-      }
+        passwrd_confirmation: "invalid",
+      },
     }
-  }
+  end
 
   describe "GET #new" do
     it "assigns a blank user to the view" do
@@ -72,10 +73,6 @@ describe UsersController, type: :controller do
 
       expect(@user.name).to eql("Example")
       expect(@user.email).to eql("example@example.com")
-    end
-
-    it "properly updates user password" do
-
     end
 
     it "renders #edit on unsuccessful save" do

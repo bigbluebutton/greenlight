@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 describe ErrorsController, type: :controller do
-
   describe "GET #not_found" do
     it "returns not_found" do
       get :not_found
