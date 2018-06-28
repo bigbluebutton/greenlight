@@ -1,3 +1,11 @@
+<% unless flash.empty? %>
+  <%= render "shared/error_banner" do %>
+    <% flash.each do |key, value| %>
+      <%= content_tag :div, value, class: "flash #{key} d-inline" %>
+    <% end %>
+  <% end %>
+<% end %>
+
 <div class="background landing-section">
   <div class="d-flex align-items-center" style="height: 100%;">
     <div class="container text-center">
