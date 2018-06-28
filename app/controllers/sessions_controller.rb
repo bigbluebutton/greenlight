@@ -1,12 +1,7 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-
   LOGIN_FAILED = "Login failed due to invalid credentials. Are you sure you typed them correctly?"
-
-  # GET /users/login
-  def new
-  end
 
   # GET /users/logout
   def destroy
@@ -40,6 +35,9 @@ class SessionsController < ApplicationController
   def omniauth
     user = User.from_omniauth(request.env['omniauth.auth'])
     login(user)
+  rescue => e
+    logger.error "Error authenticating via omniauth: #{e}"
+    redirect_to root_path
   end
 
   # POST /auth/failure

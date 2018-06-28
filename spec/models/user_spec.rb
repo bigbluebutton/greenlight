@@ -59,8 +59,8 @@ describe User, type: :model do
   end
 
   context '#from_omniauth' do
-    it "should create user from omniauth" do
-      auth = {
+    let(:auth) do
+      {
         "uid" => "123456789",
         "provider" => "twitter",
         "info" => {
@@ -70,7 +70,9 @@ describe User, type: :model do
           "image" => "example.png",
         },
       }
+    end
 
+    it "should create user from omniauth" do
       expect do
         user = User.from_omniauth(auth)
 

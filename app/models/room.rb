@@ -97,7 +97,6 @@ class Room < ApplicationRecord
   # Fetches all recordings for a room.
   def recordings
     res = bbb.get_recordings(meetingID: bbb_id)
-
     # Format playbacks in a more pleasant way.
     res[:recordings].each do |r|
       next if r.key?(:error)

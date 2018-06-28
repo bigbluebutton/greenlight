@@ -58,6 +58,9 @@ gem 'tabler-rubygem'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Ruby linting.
+gem 'rubocop', require: false
+
 group :production do
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'
@@ -69,9 +72,6 @@ group :development, :test do
 
   # Environment configuration.
   gem 'dotenv-rails'
-
-  # Ruby linting.
-  gem 'rubocop'
 end
 
 group :test do
