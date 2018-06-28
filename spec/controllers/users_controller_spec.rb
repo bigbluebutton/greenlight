@@ -2,18 +2,19 @@
 
 require "rails_helper"
 
-describe UsersController, type: :controller do
-  let(:user_params) do
-    {
-      user: {
-        name: "Example",
-        email: "example@example.com",
-        password: "password",
-        password_confirmation: "password",
-      },
-    }
-  end
+def random_valid_user_params
+  pass = Faker::Internet.password(8)
+  {
+    user: {
+      name: Faker::Name.first_name,
+      email: Faker::Internet.email,
+      password: pass,
+      password_confirmation: pass,
+    },
+  }
+end
 
+describe UsersController, type: :controller do
   let(:invalid_params) do
     {
       user: {
@@ -34,11 +35,13 @@ describe UsersController, type: :controller do
 
   describe "POST #create" do
     it "redirects to user room on succesful create" do
-      post :create, params: user_params
+      params = random_valid_user_params
+      post :create, params: params
 
-      u = User.last
+      u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+
       expect(u).to_not be_nil
-      expect(u.name).to eql("Example")
+      expect(u.name).to eql(params[:user][:name])
       expect(response).to redirect_to(room_path(u.main_room))
     end
 
@@ -46,14 +49,16 @@ describe UsersController, type: :controller do
       user = create(:user)
       @request.session[:user_id] = user.id
 
-      post :create, params: user_params
+      post :create, params: random_valid_user_params
       expect(response).to redirect_to(room_path(user.main_room))
     end
 
     it "user saves with greenlight provider" do
-      post :create, params: user_params
+      params = random_valid_user_params
+      post :create, params: params
 
-      u = User.last
+      u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+
       expect(u.provider).to eql("greenlight")
     end
 
@@ -66,13 +71,14 @@ describe UsersController, type: :controller do
 
   describe "PATCH #update" do
     it "properly updates user attributes" do
-      @user = create(:user)
+      user = create(:user)
 
-      patch :update, params: user_params.merge!(user_uid: @user)
-      @user.reload
+      params = random_valid_user_params
+      patch :update, params: params.merge!(user_uid: user)
+      user.reload
 
-      expect(@user.name).to eql("Example")
-      expect(@user.email).to eql("example@example.com")
+      expect(user.name).to eql(params[:user][:name])
+      expect(user.email).to eql(params[:user][:email])
     end
 
     it "renders #edit on unsuccessful save" do
