@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
   # POST /users/login
   def create
     user = User.find_by(email: session_params[:email])
-    if user&.authenticate(session_params[:password])
+    if user.try(:authenticate, session_params[:password])
       login(user)
     else
       redirect_to root_path, notice: LOGIN_FAILED
