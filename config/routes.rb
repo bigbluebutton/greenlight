@@ -24,9 +24,6 @@ Rails.application.routes.draw do
     patch '/:user_uid/edit', to: 'users#update', as: :update_user
   end
 
-  # Handles launches from a trusted launcher.
-  post '/launch', to: 'sessions#launch'
-
   # Handles Omniauth authentication.
   match '/auth/:provider/callback', to: 'sessions#omniauth', via: [:get, :post], as: :omniauth_session
   get '/auth/failure', to: 'sessions#fail'
