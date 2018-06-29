@@ -17,7 +17,7 @@ module Greenlight
     # Use custom error routes.
     config.exceptions_app = routes
 
-    config.loadbalanced_configuration = (ENV["USE_LOADBALANCED_CONFIGURATION"] == "true")
+    config.loadbalanced_configuration = ENV["LOADBALANCER_ENDPOINT"].present? && ENV["LOADBALANCER_SECRET"].present?
 
 
     # Default credentials (test-install.blindsidenetworks.com/bigbluebutton).

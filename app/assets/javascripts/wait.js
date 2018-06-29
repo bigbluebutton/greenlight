@@ -10,7 +10,9 @@ $(document).on("turbolinks:load", function(){
       uid: $(".background").attr("room")
     }, {
       received: function(data){
-        if(data.action = "started"){ request_to_join_meeting(); }
+        if(data.action = "started"){
+          request_to_join_meeting();
+        }
       }
     });
   }
@@ -29,8 +31,8 @@ var request_to_join_meeting = function(){
       'Content-Type': 'application/x-www-form-urlencoded',
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
     },
-    error: function(){
-      // The meeting is still booting (going slowly), retry shortly.
+    success: function(){
+      // Enqueue another trial just incase they didn't actually join.
       if(join_attempts < 4){ setTimeout(request_to_join_meeting, 10000); }
       join_attempts++;
     }

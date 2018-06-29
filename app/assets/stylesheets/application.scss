@@ -26,7 +26,7 @@
 $background-color: #F5F7FB;
 $error-background-color: #EFE6E6;
 
-$footer-height: 80px;
+$footer-height: 65px;
 
 html, body {
   width: 100%;
@@ -45,9 +45,11 @@ a {
 }
 
 .footer {
+  position: fixed;
+  height: $footer-height;
   width: 100%;
-  position: abolute;
-  bottom: 0px;
+  bottom: 0;
+  z-index: 5;
 }
 
 .table-responsive {

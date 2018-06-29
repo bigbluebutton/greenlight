@@ -74,7 +74,6 @@ class Room < ApplicationRecord
     # Generate the join URL.
     join_opts = {}
     join_opts[:userID] = uid if uid
-    join_opts[:joinViaHtml5] = true if Rails.configuration.html5_enabled
 
     bbb.join_meeting_url(bbb_id, name, password, join_opts)
   end
@@ -98,7 +97,6 @@ class Room < ApplicationRecord
   # Fetches all recordings for a room.
   def recordings
     res = bbb.get_recordings(meetingID: bbb_id)
-
     # Format playbacks in a more pleasant way.
     res[:recordings].each do |r|
       next if r.key?(:error)
@@ -143,13 +141,12 @@ class Room < ApplicationRecord
 
   # Sets a BigBlueButtonApi object for interacting with the API.
   def bbb
-    @bbb ||= BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
-    # @bbb ||= if Rails.configuration.loadbalanced_configuration
-    #   lb_user = retrieve_loadbalanced_credentials(self.room.owner.provider)
-    #   BigBlueButton::BigBlueButtonApi.new(remove_slash(lb_user["apiURL"]), lb_user["secret"], "0.8")
-    # else
-    #   BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
-    # end
+    @bbb ||= if Rails.configuration.loadbalanced_configuration
+      lb_user = retrieve_loadbalanced_credentials(owner.provider)
+      BigBlueButton::BigBlueButtonApi.new(remove_slash(lb_user["apiURL"]), lb_user["secret"], "0.8")
+    else
+      BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
+    end
   end
 
   # Generates a uid for the room and BigBlueButton.
@@ -176,7 +173,7 @@ class Room < ApplicationRecord
 
     # Build the URI.
     uri = encode_bbb_url(
-      Rails.configuration.loadbalancer_endpoint,
+      Rails.configuration.loadbalancer_endpoint + "getUser",
       Rails.configuration.loadbalancer_secret,
       name: provider
     )

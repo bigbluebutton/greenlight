@@ -155,7 +155,7 @@ class RoomsController < ApplicationController
   def bring_to_room
     if current_user
       # Redirect authenticated users to their room.
-      redirect_to room_path(current_user.room)
+      redirect_to room_path(current_user.main_room)
     else
       # Redirect unauthenticated users to root.
       redirect_to root_path

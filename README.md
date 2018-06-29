@@ -8,7 +8,7 @@ Greenlight is a simple front-end interface for your BigBlueButton server. At it'
   * Invite others to your room using a simple URL.
   * View recordings and share them with others.
 
-Furthermore, Greenlight is completely configurable. This means you can turn on/off features to make Greenlight fit your specific use case. For more information on Greenlight and it's features, see our [documentation](http://docs.bigbluebutton.org/install/green-light.html).
+Furthermore, Greenlight is completely configurable. This means you can turn on/off features to make Greenlight fit your specific use case. For more information on Greenlight and it's features, see our [documentation](http://docs.bigbluebutton.org/install/greenlight.html).
 
 For a overview of how GreenLight works, checkout our [Introduction to Greenlight Video](https://youtu.be/yGX3JCv7OVM).
 
