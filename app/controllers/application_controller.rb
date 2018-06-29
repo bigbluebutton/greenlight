@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   protect_from_forgery with: :exception
+  skip_before_filter :verify_authenticity_token
 
   MEETING_NAME_LIMIT = 90
   USER_NAME_LIMIT = 30

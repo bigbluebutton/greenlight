@@ -1,14 +1,18 @@
 # frozen_string_literal: true
 
 # List of supported Omniauth providers.
-Rails.application.config.providers = [:google, :twitter]
+Rails.application.config.providers = [:google, :twitter, :bn_launcher]
 
 # Set which providers are configured.
 Rails.application.config.omniauth_google = ENV['GOOGLE_OAUTH2_ID'].present? && ENV['GOOGLE_OAUTH2_SECRET'].present?
 Rails.application.config.omniauth_twitter = ENV['TWITTER_ID'].present? && ENV['TWITTER_SECRET'].present?
+Rails.application.config.omniauth_bn_launcher = (ENV["USE_LOADBALANCED_CONFIGURATION"] == "true")
 
 # Setup the Omniauth middleware.
 Rails.application.config.middleware.use OmniAuth::Builder do
+
+  provider :bn_launcher, ENV['LAUNCHER_SECRET'], (ENV['LAUNCHER_RELATIVE_URL_ROOT'] || '' + '/login')
+
   provider :twitter, ENV['TWITTER_ID'], ENV['TWITTER_SECRET']
 
   provider :google_oauth2, ENV['GOOGLE_OAUTH2_ID'], ENV['GOOGLE_OAUTH2_SECRET'],

@@ -65,6 +65,22 @@ class User < ApplicationRecord
     def google_image(auth)
       auth['info']['image']
     end
+
+    def bn_launcher_name(auth)
+      auth['user_info']['username']
+    end
+
+    def bn_launcher_username(auth)
+      auth['user_info']['username']
+    end
+
+    def bn_launcher_email(auth)
+      auth['user_info']['email']
+    end
+
+    def bn_launcher_image(auth)
+      ""
+    end
   end
 
   # Retrives a list of all a users rooms that are not the main room, sorted by last session date.
