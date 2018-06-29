@@ -141,13 +141,12 @@ class Room < ApplicationRecord
 
   # Sets a BigBlueButtonApi object for interacting with the API.
   def bbb
-    @bbb ||= BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
-    # @bbb ||= if Rails.configuration.loadbalanced_configuration
-    #   lb_user = retrieve_loadbalanced_credentials(self.room.owner.provider)
-    #   BigBlueButton::BigBlueButtonApi.new(remove_slash(lb_user["apiURL"]), lb_user["secret"], "0.8")
-    # else
-    #   BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
-    # end
+    @bbb ||= if Rails.configuration.loadbalanced_configuration
+      lb_user = retrieve_loadbalanced_credentials(owner.provider)
+      BigBlueButton::BigBlueButtonApi.new(remove_slash(lb_user["apiURL"]), lb_user["secret"], "0.8")
+    else
+      BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
+    end
   end
 
   # Generates a uid for the room and BigBlueButton.
@@ -174,7 +173,7 @@ class Room < ApplicationRecord
 
     # Build the URI.
     uri = encode_bbb_url(
-      Rails.configuration.loadbalancer_endpoint,
+      Rails.configuration.loadbalancer_endpoint + "getUser",
       Rails.configuration.loadbalancer_secret,
       name: provider
     )
