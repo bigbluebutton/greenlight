@@ -90,14 +90,6 @@ class RoomsController < ApplicationController
     redirect_to @room
   end
 
-  # POST /:room_uid/home
-  def home
-    current_user.main_room = @room
-    current_user.save
-
-    redirect_to @room
-  end
-
   # POST /:room_uid/:record_id
   def update_recording
     meta = {

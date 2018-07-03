@@ -36,7 +36,6 @@ Rails.application.routes.draw do
     post '/', to: 'rooms#join'
     post '/start', to: 'rooms#start', as: :start_room
     get '/logout', to: 'rooms#logout', as: :logout_room
-    post '/home', to: 'rooms#home', as: :make_home
 
     # Mange recordings.
     scope '/:record_id' do
