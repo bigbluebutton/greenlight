@@ -10,7 +10,7 @@
 					<%= image_tag("logo_with_text.png", class: "header-brand-img") %>
 				<% end %>
 			<% end %>
-			
+
 			<div class="d-flex ml-auto">
 				<% if current_user %>
 					<a class="px-5 ml-2 mt-1" href="" data-toggle="modal" data-target="#createRoomModal">
@@ -29,13 +29,13 @@
 						</a>
 						<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end">
 							<%= link_to current_user.main_room, class: "dropdown-item" do %>
-								<i class="dropdown-icon fas fa-home"></i> Home Room	
+								<i class="dropdown-icon fas fa-home"></i> Home Room
 							<% end %>
 							<%= link_to edit_user_path(current_user), class: "dropdown-item" do %>
 								<i class="dropdown-icon fas fa-cog"></i> Settings
 							<% end %>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="http://docs.bigbluebutton.org/support/faq.html">
+							<a class="dropdown-item" href="http://docs.bigbluebutton.org/install/greenlight.html" target="_blank">
 								<i class="dropdown-icon far fa-question-circle"></i> Need help?
 							</a>
 							<%= link_to logout_path, class: "dropdown-item" do %>
@@ -49,7 +49,7 @@
 					<% if allow_user_signup? %>
 						<%= link_to "Signup", signup_path, :class => "btn btn-pill btn-outline-primary mx-2" %>
 					<% end %>
-					
+
 					<%= render "shared/modals/login_modal" %>
 				<% end %>
 			</div>
