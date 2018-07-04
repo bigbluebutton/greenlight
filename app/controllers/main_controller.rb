@@ -7,7 +7,7 @@ class MainController < ApplicationController
   def index
     if current_user
       # Redirect authenticated users to their room.
-      redirect_to room_path(current_user.room)
+      redirect_to room_path(current_user.main_room)
     else
       # Redirect unauthenticated users to root.
       #TODO use env? for launcher login endpoint

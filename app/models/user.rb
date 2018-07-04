@@ -67,19 +67,19 @@ class User < ApplicationRecord
     end
 
     def bn_launcher_name(auth)
-      auth['user_info']['username']
+      auth['info']['name']
     end
 
     def bn_launcher_username(auth)
-      auth['user_info']['username']
+      auth['info']['username']
     end
 
     def bn_launcher_email(auth)
-      auth['user_info']['email']
+      auth['info']['email']
     end
 
     def bn_launcher_image(auth)
-      ""
+      auth['info']['image']
     end
   end
 

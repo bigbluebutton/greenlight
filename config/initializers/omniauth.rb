@@ -10,8 +10,13 @@ Rails.application.config.omniauth_bn_launcher = (ENV["USE_LOADBALANCED_CONFIGURA
 
 # Setup the Omniauth middleware.
 Rails.application.config.middleware.use OmniAuth::Builder do
+  if Rails.env.production?
+    provider :bn_launcher,
+             client_id: ENV['BN_LAUNCHER_CLIENT_ID'],
+             client_secret: ENV['BN_LAUNCHER_CLIENT_SECRET'],
+             client_options: {site: ENV['BN_LAUNCHER_REDIRECT_URI']}
+  end
 
-  provider :bn_launcher, ENV['LAUNCHER_SECRET'], (ENV['LAUNCHER_RELATIVE_URL_ROOT'] || '' + '/login')
 
   provider :twitter, ENV['TWITTER_ID'], ENV['TWITTER_SECRET']
 

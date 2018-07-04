@@ -1,9 +1,11 @@
 GIT
   remote: https://github.com/blindsidenetworks/omniauth-bn-launcher.git
-  revision: 52fbc3ff40c64ad5eef51f7e6c0beba2c666356f
+  revision: d93b9fa51f920c733618ec4040c93458ff19951f
+  branch: oauth2
   specs:
     omniauth-bn-launcher (0.1.0)
       omniauth (~> 1.3, >= 1.3.2)
+      omniauth-oauth2 (= 1.5.0)
 
 GEM
   remote: https://rubygems.org/

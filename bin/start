@@ -1,4 +1,9 @@
 #!/bin/bash
+while [ "$RAILS_ENV" = "production" ] && ! curl http://$DB_HOST:5432/ 2>&1 | grep '52'
+do
+  echo "Waiting for postgres to start up ..."
+  sleep 1
+done
 
 bundle exec rake db:create
 bundle exec rake db:migrate
