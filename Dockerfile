@@ -6,7 +6,8 @@ RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 # Set an environment variable for the install location.
 ENV RAILS_ROOT /usr/src/app
 #Add token for private gems
-RUN bundle config github.com ENV['GITHUB_TOKEN']
+ARG GITHUB_TOKEN
+RUN bundle config github.com $GITHUB_TOKEN
 
 # Make the directory and set as working.
 RUN mkdir -p $RAILS_ROOT

@@ -12,8 +12,8 @@ Rails.application.config.omniauth_bn_launcher = (ENV["USE_LOADBALANCED_CONFIGURA
 Rails.application.config.middleware.use OmniAuth::Builder do
   if Rails.env.production?
     provider :bn_launcher,
-             client_id: ENV['BN_LAUNCHER_CLIENT_ID'],
-             client_secret: ENV['BN_LAUNCHER_CLIENT_SECRET'],
+             client_id: ENV['CLIENT_ID'],
+             client_secret: ENV['CLIENT_SECRET'],
              client_options: {site: ENV['BN_LAUNCHER_REDIRECT_URI']}
   end
 
