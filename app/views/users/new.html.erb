@@ -28,7 +28,8 @@
               <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:password_confirmation).first %></div>
             </div>
             <div class="card-footer">
-              <%= f.submit "Sign up", class: "btn btn-primary float-right" %>
+              <%= f.submit "Sign up", class: "btn btn-primary float-right ml-2" %>
+              <%= link_to "Cancel", root_path, class: "btn btn-danger float-right ml-2" %>
             </div>
           <% end %>
         </div>
