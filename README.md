@@ -12,7 +12,9 @@ Interested? Try Greenlight out on our [demo server](https://demo.bigbluebutton.o
 
 Greenlight is also completely configurable. This means you can turn on/off features to make Greenlight fit your specific use case. For more information on Greenlight and its features, see our [documentation](http://docs.bigbluebutton.org/install/greenlight.html).
 
-For a overview of how Greenlight works, checkout our [Introduction to Greenlight Video](https://youtu.be/yGX3JCv7OVM).
+For a overview of how Greenlight works, checkout our Introduction to Greenlight Video:
+
+[![GreenLight Overview](https://img.youtube.com/vi/Hso8yLzkqj8/0.jpg)](https://youtu.be/Hso8yLzkqj8)
 
 ## Installation on a BigBlueButton Server
 

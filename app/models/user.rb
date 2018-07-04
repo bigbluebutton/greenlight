@@ -23,8 +23,8 @@ class User < ApplicationRecord
     # Generates a user from omniauth.
     def from_omniauth(auth)
       find_or_initialize_by(social_uid: auth['uid'], provider: auth['provider']).tap do |u|
-        u.name = send("#{auth['provider']}_name", auth)
-        u.username = send("#{auth['provider']}_username", auth)
+        u.name = send("#{auth['provider']}_name", auth) unless u.name
+        u.username = send("#{auth['provider']}_username", auth) unless u.username
         u.email = send("#{auth['provider']}_email", auth)
         u.image = send("#{auth['provider']}_image", auth)
         u.save!

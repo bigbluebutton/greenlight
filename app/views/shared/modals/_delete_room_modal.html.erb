@@ -1,0 +1,25 @@
+<div class="modal fade" id="deleteRoomModal_<%= room.uid %>" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <div class="card-body p-6">
+          <div class="card-title">
+            <h3>Are you sure you want to delete <%= room.name %>?</h3>
+          </div>
+
+          <button type="button" class="btn btn-pill btn-info my-1 btn-del-room" data-dismiss="modal">
+            On second thought, I'll keep it.
+          </button>
+
+          <%= button_to room, method: :delete, id: "delete-confirm", class: "btn btn-pill btn-danger my-1 btn-del-room" do %>
+            I'm sure, delete this room.
+          <% end %>
+
+        </div>
+        <div class="card-footer">
+          <p>You will <b>not</b> be able to recover this room or any of its associated recordings.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
