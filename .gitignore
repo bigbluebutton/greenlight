@@ -14,7 +14,7 @@
 # Ignore static assets.
 /public/system/**
 /public/assets/**
-/public/gl/**
+/public/b/**
 
 # Ignore production paths.
 /db/production

@@ -1,6 +1,8 @@
 #!/bin/bash
 
 bundle exec rake db:create
-bundle exec rake db:migrate
+if ! bundle exec rake db:migrate ; then
+  export DB_MIGRATE_FAILED=1
+fi
 
 exec bundle exec puma -C config/puma.rb
