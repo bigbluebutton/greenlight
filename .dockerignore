@@ -14,7 +14,7 @@ tmp
 /db/**/*.sqlite3-journal
 /db/production
 public/assets
-public/gl
+public/b
 coverage/
 spec/tmp
 .rvmrc
