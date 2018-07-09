@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # List of supported Omniauth providers.
-Rails.application.config.providers = [:google, :twitter, :bn_launcher]
+Rails.application.config.providers = [:google, :twitter]
 
 # Set which providers are configured.
 Rails.application.config.omniauth_google = ENV['GOOGLE_OAUTH2_ID'].present? && ENV['GOOGLE_OAUTH2_SECRET'].present?
@@ -23,11 +23,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
              client_options: {site: ENV['BN_LAUNCHER_REDIRECT_URI']},
              :setup => SETUP_PROC
   end
-  # provider :bn_launcher,
-  #          client_id: '123',
-  #          client_secret: '456',
-  #          client_options: {site: "http://demo.gl.greenlight.com:3000"},
-  #          :setup => SETUP_PROC
 
   provider :twitter, ENV['TWITTER_ID'], ENV['TWITTER_SECRET']
 

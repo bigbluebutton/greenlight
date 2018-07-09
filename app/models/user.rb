@@ -22,7 +22,9 @@ class User < ApplicationRecord
   class << self
     # Generates a user from omniauth.
     def from_omniauth(auth)
-      find_or_initialize_by(social_uid: auth['uid'], provider: auth['provider']).tap do |u|
+      #Provider is the customer name if in loadbalanced config mode
+      provider = (auth['provider'] == "bn_launcher") ? auth['info']['customer'] : auth['provider']
+      find_or_initialize_by(social_uid: auth['uid'], provider: provider).tap do |u|
         u.name = send("#{auth['provider']}_name", auth) unless u.name
         u.username = send("#{auth['provider']}_username", auth) unless u.username
         u.email = send("#{auth['provider']}_email", auth)
