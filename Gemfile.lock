@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/blindsidenetworks/omniauth-bn-launcher.git
-  revision: c272a928c41966ec3f43d841e372838be0465a8d
+  revision: 6b79f38114a1c9e2dde4958ad5a4f02443c9c023
   specs:
     omniauth-bn-launcher (0.1.0)
       omniauth (~> 1.3, >= 1.3.2)

@@ -6,17 +6,28 @@ Rails.application.config.providers = [:google, :twitter, :bn_launcher]
 # Set which providers are configured.
 Rails.application.config.omniauth_google = ENV['GOOGLE_OAUTH2_ID'].present? && ENV['GOOGLE_OAUTH2_SECRET'].present?
 Rails.application.config.omniauth_twitter = ENV['TWITTER_ID'].present? && ENV['TWITTER_SECRET'].present?
-Rails.application.config.omniauth_bn_launcher = (ENV["USE_LOADBALANCED_CONFIGURATION"] == "true")
+Rails.application.config.omniauth_bn_launcher = Rails.configuration.loadbalanced_configuration
+Rails.application.config.omniauth_bn_launcher = ENV["LOADBALANCER_ENDPOINT"].present? && ENV["LOADBALANCER_SECRET"].present?
+
+SETUP_PROC = lambda do |env|
+  SessionsController.helpers.set_omniauth_options env
+end
+
 
 # Setup the Omniauth middleware.
 Rails.application.config.middleware.use OmniAuth::Builder do
-  if Rails.env.production?
+  if Rails.configuration.omniauth_bn_launcher
     provider :bn_launcher,
              client_id: ENV['CLIENT_ID'],
              client_secret: ENV['CLIENT_SECRET'],
-             client_options: {site: ENV['BN_LAUNCHER_REDIRECT_URI']}
+             client_options: {site: ENV['BN_LAUNCHER_REDIRECT_URI']},
+             :setup => SETUP_PROC
   end
-
+  # provider :bn_launcher,
+  #          client_id: '123',
+  #          client_secret: '456',
+  #          client_options: {site: "http://demo.gl.greenlight.com:3000"},
+  #          :setup => SETUP_PROC
 
   provider :twitter, ENV['TWITTER_ID'], ENV['TWITTER_SECRET']
 

@@ -18,7 +18,8 @@ module Greenlight
     config.exceptions_app = routes
 
     config.loadbalanced_configuration = ENV["LOADBALANCER_ENDPOINT"].present? && ENV["LOADBALANCER_SECRET"].present?
-
+    # The default callback url that bn launcher will redirect to
+    config.gl_callback_url = ENV["GL_CALLBACK_URL"]
     # Setup BigBlueButton configuration.
     if config.loadbalanced_configuration
       # Fetch credentials from a loadbalancer based on provider.

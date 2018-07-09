@@ -5,9 +5,6 @@ class MainController < ApplicationController
 
   # GET /
   def index
-    if Rails.env.production? && !current_user
-      redirect_to "#{Rails.configuration.relative_url_root}/auth/bn_launcher"
-    end
   end
 
   private

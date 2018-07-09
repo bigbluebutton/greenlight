@@ -22,4 +22,15 @@ module SessionsHelper
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
+
+  def parse_customer_name(hostname)
+    provider = hostname.split('.')
+    provider.first == 'www' ? provider.second : provider.first
+  end
+
+  def set_omniauth_options(env)
+    env['omniauth.strategy'].options[:customer] = parse_customer_name env["SERVER_NAME"]
+    env['omniauth.strategy'].options[:gl_redirect_url] = env["rack.url_scheme"] + "://" + env["SERVER_NAME"] + ":" + env["SERVER_PORT"]
+    env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
+  end
 end

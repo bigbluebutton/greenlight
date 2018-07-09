@@ -47,6 +47,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
+gem "omniauth-bn-launcher", git: "https://github.com/blindsidenetworks/omniauth-bn-launcher.git"
 
 # BigBlueButton API wrapper.
 gem 'bigbluebutton-api-ruby'
@@ -64,7 +65,6 @@ gem 'rubocop', require: false
 group :production do
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'
-  gem "omniauth-bn-launcher", git: "https://github.com/blindsidenetworks/omniauth-bn-launcher.git"
 end
 
 group :development, :test do
