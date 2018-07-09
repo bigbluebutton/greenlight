@@ -170,20 +170,4 @@ describe RoomsController, type: :controller do
       expect(response).to redirect_to(root_path)
     end
   end
-
-  describe "POST #home" do
-    before do
-      @user = create(:user)
-      @secondary_room = create(:room, owner: @user)
-    end
-
-    it "should change users home room" do
-      @request.session[:user_id] = @user.id
-      post :home, params: { room_uid: @secondary_room }
-      @user.reload
-
-      expect(@user.main_room).to eql(@secondary_room)
-      expect(response).to redirect_to(@secondary_room)
-    end
-  end
 end
