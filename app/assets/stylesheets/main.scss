@@ -21,3 +21,18 @@
   transform: translateY(-50%);
   margin-top: 50%;
 }
+
+.or-line {
+  div {
+    width: 100%;
+    height: 16px;
+    border-bottom: 1px solid #d3d3d3;
+    text-align: center;
+    span {
+      font-size: 120%;
+      background-color: #ffffff;
+      padding: 0 10px;
+      color: #d3d3d3
+    }
+  }
+}

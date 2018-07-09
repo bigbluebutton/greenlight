@@ -1,14 +1,14 @@
 version: '3'
 
-services:  
+services:
   app:
     entrypoint: [bin/start]
-    image: joshblind/greenlight:latest
-    container_name: greenlight-web
+    image: bigbluebutton/greenlight:v2
+    container_name: greenlight-v2
     env_file: env
     restart: unless-stopped
     ports:
-      - 6000:3000
-    volumes:      
+      - 5000:80
+    volumes:
       - ./db/production:/usr/src/app/db/production
       - ./log:/usr/src/app/log

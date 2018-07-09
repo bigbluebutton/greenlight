@@ -1,18 +1,18 @@
-# Routes requests to Greenlight based on the '/gl' prefix.
-# Use this file to route '/gl' paths on your BigBlueButton server
+# Routes requests to Greenlight based on the '/b' prefix.
+# Use this file to route '/b' paths on your BigBlueButton server
 # to the Greenlight application. If you are using a different
 # subpath, you should change it here.
 
-location /gl {
-  proxy_pass          http://127.0.0.1:6000;
+location /b {
+  proxy_pass          http://127.0.0.1:5000;
   proxy_set_header    Host              $host;
   proxy_set_header    X-Forwarded-For   $proxy_add_x_forwarded_for;
   proxy_set_header    X-Forwarded-Proto $scheme;
   proxy_http_version  1.1;
 }
 
-location /gl/cable {
-  proxy_pass          http://127.0.0.1:6000;
+location /b/cable {
+  proxy_pass          http://127.0.0.1:5000;
   proxy_set_header    Host              $host;
   proxy_set_header    X-Forwarded-For   $proxy_add_x_forwarded_for;
   proxy_set_header    X-Forwarded-Proto $scheme;

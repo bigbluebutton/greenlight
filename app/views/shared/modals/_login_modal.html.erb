@@ -6,15 +6,19 @@
           <div class="card-title">
             <h3>Login</h3>
           </div>
-          
-          <% configured_providers.each do |provider| %>
-            <%= link_to omniauth_login_url(provider), class: "btn btn-pill btn-#{provider} btn-block" do %>
-               <i class="fab fa-<%= provider %>"></i>&ensp;<%= "Login with #{provider.capitalize}" %>
+
+          <% unless configured_providers.length.zero? %>
+            <% configured_providers.each do |provider| %>
+              <%= link_to omniauth_login_url(provider), class: "btn btn-pill btn-#{provider} btn-block" do %>
+                <i class="fab fa-<%= provider %>"></i>&ensp;<%= "Login with #{provider.capitalize}" %>
+              <% end %>
             <% end %>
+
+            <div class="or-line my-6">
+              <div><span class="text-uppercase">or</span></div>
+            </div>
           <% end %>
 
-          <hr>
-          
           <%= form_for(:session, url: create_session_path) do |f| %>
             <div class="form-group">
               <div class="input-icon">

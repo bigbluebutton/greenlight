@@ -22,22 +22,21 @@
           </div>
         </td>
         <td class="text-right">
-          <div class="item-action dropdown">
-            <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fas fa-ellipsis-v"></i></a>
-            <div class="dropdown-menu dropdown-menu-right">
-              <%= link_to room, class: "dropdown-item" do %>
-                <i class="dropdown-icon fas fa-cog"></i> Room Settings
-              <% end %>
-              <% if room != current_user.main_room %>
-                <%= button_to make_home_path(room), class: "dropdown-item" do %>
-                  <i class="dropdown-icon fas fa-home"></i> Make Home Room
+          <% if room != current_user.main_room %>
+            <div class="item-action dropdown">
+              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fas fa-ellipsis-v"></i></a>
+              <div class="dropdown-menu">
+                <!--
+                <%= link_to room, class: "dropdown-item" do %>
+                  <i class="dropdown-icon fas fa-cog"></i> Room Settings
                 <% end %>
-                <%= button_to room, method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown-item" do %>
+                -->
+                <a href="" data-toggle="modal" data-target="#deleteRoomModal_<%= room.uid %>"class="dropdown-item">
                   <i class="dropdown-icon far fa-trash-alt"></i> Delete
-                <% end %>
-              <% end %>
+                </a>
+              </div>
             </div>
-          </div>
+          <% end %>
         </td>
       </tbody>
     </table>

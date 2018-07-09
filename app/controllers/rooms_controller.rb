@@ -65,8 +65,9 @@ class RoomsController < ApplicationController
 
   # DELETE /:room_uid
   def destroy
+    p @room
     # Don't delete the users home room.
-    @room.destroy if @room != current_user.main_room
+    @room.destroy if @room.owned_by?(current_user) && @room != current_user.main_room
 
     redirect_to current_user.main_room
   end
@@ -87,14 +88,6 @@ class RoomsController < ApplicationController
   # GET /:room_uid/logout
   def logout
     # Redirect the correct page.
-    redirect_to @room
-  end
-
-  # POST /:room_uid/home
-  def home
-    current_user.main_room = @room
-    current_user.save
-
     redirect_to @room
   end
 
