@@ -1,5 +1,7 @@
 # Greenlight
 
+Greenlight is currently on version 2.0. If you are still running Greenlight 1.0 we suggest [upgrading to 2.0](http://docs.bigbluebutton.org/install/greenlight-v2.html#upgrading-from-greenlight-10).
+
 Greenlight is a simple front-end interface for your BigBlueButton server. At it's heart, Greenlight provides a minimalistic web-based application that allows users to:
 
   * Signup/Login with Twitter, Google, or through the application itself.
@@ -10,7 +12,7 @@ Greenlight is a simple front-end interface for your BigBlueButton server. At it'
 
 Interested? Try Greenlight out on our [demo server](https://demo.bigbluebutton.org/gl)!
 
-Greenlight is also completely configurable. This means you can turn on/off features to make Greenlight fit your specific use case. For more information on Greenlight and its features, see our [documentation](http://docs.bigbluebutton.org/install/greenlight.html).
+Greenlight is also completely configurable. This means you can turn on/off features to make Greenlight fit your specific use case. For more information on Greenlight and its features, see our [documentation](http://docs.bigbluebutton.org/install/greenlight-v2.html).
 
 For a overview of how Greenlight works, checkout our Introduction to Greenlight Video:
 

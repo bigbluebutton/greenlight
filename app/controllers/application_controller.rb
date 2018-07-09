@@ -5,6 +5,13 @@ require 'bigbluebutton_api'
 class ApplicationController < ActionController::Base
   include SessionsHelper
 
+  before_action :migration_error?
+
+  # Show an information page when migration fails and there is a version error.
+  def migration_error?
+    render :migration_error unless ENV["DB_MIGRATE_FAILED"].blank?
+  end
+
   protect_from_forgery with: :exception
 
   MEETING_NAME_LIMIT = 90
