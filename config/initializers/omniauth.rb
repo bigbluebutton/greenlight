@@ -7,7 +7,6 @@ Rails.application.config.providers = [:google, :twitter]
 Rails.application.config.omniauth_google = ENV['GOOGLE_OAUTH2_ID'].present? && ENV['GOOGLE_OAUTH2_SECRET'].present?
 Rails.application.config.omniauth_twitter = ENV['TWITTER_ID'].present? && ENV['TWITTER_SECRET'].present?
 Rails.application.config.omniauth_bn_launcher = Rails.configuration.loadbalanced_configuration
-Rails.application.config.omniauth_bn_launcher = ENV["LOADBALANCER_ENDPOINT"].present? && ENV["LOADBALANCER_SECRET"].present?
 
 SETUP_PROC = lambda do |env|
   SessionsController.helpers.set_omniauth_options env

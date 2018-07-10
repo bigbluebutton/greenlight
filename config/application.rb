@@ -25,6 +25,7 @@ module Greenlight
       # Fetch credentials from a loadbalancer based on provider.
       config.loadbalancer_endpoint = ENV["LOADBALANCER_ENDPOINT"]
       config.loadbalancer_secret = ENV["LOADBALANCER_SECRET"]
+      config.launcher_secret = ENV["LAUNCHER_SECRET"]
     else
       # Default credentials (test-install.blindsidenetworks.com/bigbluebutton).
       config.bigbluebutton_endpoint_default = "http://test-install.blindsidenetworks.com/bigbluebutton/api/"
