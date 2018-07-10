@@ -47,7 +47,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
-gem "omniauth-bn-launcher", git: "https://github.com/blindsidenetworks/omniauth-bn-launcher.git"
+gem 'omniauth-bn-launcher', '~> 0.1.0'
 
 # BigBlueButton API wrapper.
 gem 'bigbluebutton-api-ruby'
