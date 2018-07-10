@@ -62,15 +62,15 @@ describe SessionsController, type: :controller do
       )
 
       OmniAuth.config.mock_auth[:bn_launcher] = OmniAuth::AuthHash.new(
-          provider: "bn_launcher",
-          uid: "bn-launcher-user",
-          info: {
-              email: "user1@google.com",
-              name: "User1",
-              nickname: "nick",
-              image: "touch.png",
-              customer: 'ocps'
-          }
+        provider: "bn_launcher",
+        uid: "bn-launcher-user",
+        info: {
+          email: "user1@google.com",
+          name: "User1",
+          nickname: "nick",
+          image: "touch.png",
+          customer: 'ocps',
+        }
       )
 
       OmniAuth.config.on_failure = proc { |env|
