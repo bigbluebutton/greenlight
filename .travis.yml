@@ -10,6 +10,7 @@ rvm:
 
 script:
   - bundle exec rubocop
+  - bundle exec rspec
   - docker build -t bigbluebutton/greenlight:master .
 
 after_script:
