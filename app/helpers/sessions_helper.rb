@@ -33,11 +33,12 @@ module SessionsHelper
     provider.first == 'www' ? provider.second : provider.first
   end
 
-  def set_omniauth_options(env)
+  def omniauth_options(env)
     gl_redirect_url = env["rack.url_scheme"] + "://" + env["SERVER_NAME"] + ":" + env["SERVER_PORT"]
     env['omniauth.strategy'].options[:customer] = parse_customer_name env["SERVER_NAME"]
     env['omniauth.strategy'].options[:gl_redirect_url] = gl_redirect_url
     env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
-    env['omniauth.strategy'].options[:checksum] = generate_checksum  parse_customer_name(env["SERVER_NAME"]), gl_redirect_url, Rails.configuration.launcher_secret
+    env['omniauth.strategy'].options[:checksum] = generate_checksum parse_customer_name(env["SERVER_NAME"]),
+      gl_redirect_url, Rails.configuration.launcher_secret
   end
 end

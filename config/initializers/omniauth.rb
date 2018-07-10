@@ -9,18 +9,16 @@ Rails.application.config.omniauth_twitter = ENV['TWITTER_ID'].present? && ENV['T
 Rails.application.config.omniauth_bn_launcher = Rails.configuration.loadbalanced_configuration
 
 SETUP_PROC = lambda do |env|
-  SessionsController.helpers.set_omniauth_options env
+  SessionsController.helpers.omniauth_options env
 end
-
 
 # Setup the Omniauth middleware.
 Rails.application.config.middleware.use OmniAuth::Builder do
   if Rails.configuration.omniauth_bn_launcher
-    provider :bn_launcher,
-             client_id: ENV['CLIENT_ID'],
+    provider :bn_launcher, client_id: ENV['CLIENT_ID'],
              client_secret: ENV['CLIENT_SECRET'],
-             client_options: {site: ENV['BN_LAUNCHER_REDIRECT_URI']},
-             :setup => SETUP_PROC
+             client_options: { site: ENV['BN_LAUNCHER_REDIRECT_URI'] },
+             setup: SETUP_PROC
   end
 
   provider :twitter, ENV['TWITTER_ID'], ENV['TWITTER_SECRET']
