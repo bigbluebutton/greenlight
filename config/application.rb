@@ -50,5 +50,8 @@ module Greenlight
 
     # Configure custom banner message.
     config.banner_message = ENV['BANNER_MESSAGE']
+
+    # Configure custom branding image.
+    config.branding_image = ENV['BRANDING_IMAGE']
   end
 end
