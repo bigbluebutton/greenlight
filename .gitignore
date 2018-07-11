@@ -29,3 +29,7 @@
 
 # Ignore environment configuration.
 .env
+
+# IDEs
+.idea
+.idea/**

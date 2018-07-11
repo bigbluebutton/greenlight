@@ -61,18 +61,40 @@ describe SessionsController, type: :controller do
         },
       )
 
+      OmniAuth.config.mock_auth[:bn_launcher] = OmniAuth::AuthHash.new(
+        provider: "bn_launcher",
+        uid: "bn-launcher-user",
+        info: {
+          email: "user1@google.com",
+          name: "User1",
+          nickname: "nick",
+          image: "touch.png",
+          customer: 'ocps',
+        }
+      )
+
       OmniAuth.config.on_failure = proc { |env|
         OmniAuth::FailureEndpoint.new(env).redirect_to_failure
       }
     end
 
-    it "should create and login user with omniauth" do
+    it "should create and login user with omniauth twitter" do
       request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
       get :omniauth, params: { provider: :twitter }
 
       u = User.last
       expect(u.provider).to eql("twitter")
       expect(u.email).to eql("user@twitter.com")
+      expect(@request.session[:user_id]).to eql(u.id)
+    end
+
+    it "should create and login user with omniauth bn launcher" do
+      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
+      get :omniauth, params: { provider: 'bn_launcher' }
+
+      u = User.last
+      expect(u.provider).to eql("ocps")
+      expect(u.email).to eql("user1@google.com")
       expect(@request.session[:user_id]).to eql(u.id)
     end
 
@@ -83,8 +105,14 @@ describe SessionsController, type: :controller do
       expect(response).to redirect_to(root_path)
     end
 
-    it "should not create session without omniauth env set" do
+    it "should not create session without omniauth env set for google" do
       get :omniauth, params: { provider: 'google' }
+
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "should not create session without omniauth env set for bn_launcher" do
+      get :omniauth, params: { provider: 'bn_launcher' }
 
       expect(response).to redirect_to(root_path)
     end

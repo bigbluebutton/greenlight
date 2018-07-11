@@ -44,7 +44,11 @@
 						</div>
 					</div>
 				<% else %>
-					<%= link_to "Login", "#loginModal", :class => "btn btn-pill btn-outline-primary mx-2", "data-toggle": "modal" %>
+          <% if  Rails.configuration.omniauth_bn_launcher && !current_user %>
+            <%= link_to "Login", "#{Rails.configuration.relative_url_root}/auth/bn_launcher", :class => "btn btn-pill btn-outline-primary mx-2" %>
+          <% else %>
+            <%= link_to "Login", "#loginModal", :class => "btn btn-pill btn-outline-primary mx-2", "data-toggle": "modal" %>
+          <% end %>
 
 					<% if allow_user_signup? %>
 						<%= link_to "Signup", signup_path, :class => "btn btn-pill btn-outline-primary mx-2" %>
