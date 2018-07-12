@@ -19,3 +19,5 @@ coverage/
 spec/tmp
 .rvmrc
 .byebug_history
+vendor/bundle
+.bundle
