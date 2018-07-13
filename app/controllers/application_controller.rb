@@ -6,16 +6,22 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   before_action :migration_error?
+  before_action :set_locale
+
+  protect_from_forgery with: :exception
+
+  MEETING_NAME_LIMIT = 90
+  USER_NAME_LIMIT = 30
 
   # Show an information page when migration fails and there is a version error.
   def migration_error?
     render :migration_error unless ENV["DB_MIGRATE_FAILED"].blank?
   end
 
-  protect_from_forgery with: :exception
-
-  MEETING_NAME_LIMIT = 90
-  USER_NAME_LIMIT = 30
+  # Sets the appropriate locale.
+  def set_locale
+    I18n.locale = http_accept_language.language_region_compatible_from(I18n.available_locales)
+  end
 
   def meeting_name_limit
     MEETING_NAME_LIMIT
