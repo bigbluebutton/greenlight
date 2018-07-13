@@ -58,7 +58,7 @@ class UsersController < ApplicationController
       end
 
       if errors.empty? && @user.save
-        # Notify the use that their account has been updated.
+        # Notify the user that their account has been updated.
         redirect_to edit_user_path(@user), notice: "Information successfully updated."
       else
         # Append custom errors.
