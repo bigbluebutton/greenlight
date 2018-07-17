@@ -1,26 +1,26 @@
 <div class="container mt-8">
-  <%= render "shared/components/subtitle", subtitle: "Settings", search: false %>
+  <%= render "shared/components/subtitle", subtitle: t("settings.title"), search: false %>
 
   <div class="row">
     <div class="col-lg-3 mb-4">
       <div class="list-group list-group-transparent mb-0">
         <button id="account" class="list-group-item list-group-item-action setting-btn active">
-          <span class="icon mr-3"><i class="fas fa-user"></i></span>Account
+          <span class="icon mr-3"><i class="fas fa-user"></i></span><%= t("settings.account.title") %>
         </button>
 
         <% if @user.social_uid.nil? %>
           <button id="password" class="list-group-item list-group-item-action setting-btn">
-            <span class="icon mr-3"><i class="fas fa-lock"></i></span>Password
+            <span class="icon mr-3"><i class="fas fa-lock"></i></span><%= t("settings.password.title") %>
           </button>
         <% end %>
 
         <button id="design" class="list-group-item list-group-item-action setting-btn">
-          <span class="icon mr-3"><i class="fas fa-edit"></i></span>Design
+          <span class="icon mr-3"><i class="fas fa-edit"></i></span><%= t("settings.design.title") %>
         </button>
       </div>
-  
+
       <% if @user.errors.any? %>
-        <h5 class="mt-8">Errors:</h5>
+        <h5 class="mt-8"><%= t("errors.title") %>:</h5>
         <ul>
         <% @user.errors.full_messages.each do |err| %>
           <li class="text-danger"><%= err %>.</li>
@@ -35,13 +35,13 @@
 
 
     <div class="col-lg-9">
-      <%= render "shared/settings/setting_view", setting_id: "account", setting_title: "Update your Account Info" %>
+      <%= render "shared/settings/setting_view", setting_id: "account", setting_title: t("settings.account.subtitle") %>
 
       <% if @user.social_uid.nil? %>
-        <%= render "shared/settings/setting_view", setting_id: "password", setting_title: "Change your Password" %>
+        <%= render "shared/settings/setting_view", setting_id: "password", setting_title: t("settings.password.subtitle") %>
       <% end %>
 
-      <%= render "shared/settings/setting_view", setting_id: "design", setting_title: "Customize GreenLight" %>
+      <%= render "shared/settings/setting_view", setting_id: "design", setting_title: t("settings.design.subtitle") %>
     </div>
   </div>
 </div>

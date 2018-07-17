@@ -2,10 +2,10 @@
   <div class="page-content">
     <div class="container text-center">
       <div class="display-1 text-muted mb-5">404</div>
-      <h1 class="h2 mb-3">Whoops! Looks like we can't find that.</h1>
-      <p class="h4 text-muted font-weight-normal mb-7">Is it possible its been removed?</p>
+      <h1 class="h2 mb-3"><%= t("errors.not_found.message") %></h1>
+      <p class="h4 text-muted font-weight-normal mb-7"><%= t("errors.not_found.help") %></p>
       <a class="btn btn-primary" href="javascript:history.back()">
-        <i class="fas fa-arrow-left mr-2"></i>Go back
+        <i class="fas fa-arrow-left mr-2"></i><%= t("go_back") %>
       </a>
     </div>
   </div>

@@ -4,11 +4,11 @@
       <%= f.text_field :join_name,
           required: true,
           class: "form-control join-form",
-          placeholder: "Enter your name!",
+          placeholder: t("enter_your_name"),
           value: "#{current_user ? current_user.name : ''}",
           readonly: !current_user.nil? %>
       <span class="input-group-append">
-        <%= f.submit "Join", class: "btn btn-primary px-7 join-form" %>
+        <%= f.submit t("room.join"), class: "btn btn-primary px-7 join-form" %>
       </span>
     </div>
   <% end %>

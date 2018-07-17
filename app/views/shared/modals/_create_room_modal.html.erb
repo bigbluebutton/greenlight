@@ -4,7 +4,7 @@
       <div class="modal-body">
         <div class="card-body p-6">
           <div class="card-title">
-            <h3>Create New Room</h3>
+            <h3><%= t("modal.create_room.title") %></h3>
           </div>
 
           <%= form_for(:room, url: rooms_path) do |f| %>
@@ -12,13 +12,13 @@
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= f.text_field :name, id: "room-name", class: "form-control", value: "", placeholder: "Enter a room name...", autocomplete: :off %>
-              <div class="invalid-feedback text-left">Room name cannot be blank.</div>
+              <%= f.text_field :name, id: "room-name", class: "form-control", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off %>
+              <div class="invalid-feedback text-left"><%= t("modal.create_room.not_blank") %></div>
             </div>
             <label class="custom-switch mt-5 mb-5 float-left">
               <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>
               <span class="custom-switch-indicator"></span>
-              <span class="custom-switch-description">Automatically join me into the room.</span>
+              <span class="custom-switch-description"><%= t("modal.create_room.auto_join") %></span>
             </label>
           <div class="form-footer">
             <%= f.submit "Create Room", id: "create-room-submit", class: "btn btn-outline-primary btn-block btn-pill" %>
@@ -26,7 +26,7 @@
           <% end %>
         </div>
         <div class="card-footer">
-          <p>You will be free to delete this room at any time.</p>
+          <p><%= t("modal.create_room.free_delete") %></p>
         </div>
       </div>
     </div>

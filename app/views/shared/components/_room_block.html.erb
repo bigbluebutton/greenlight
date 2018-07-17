@@ -15,9 +15,9 @@
           <h4 class="m-0 force-text-normal"><%= room.name %></h4>
           <div class="small text-muted">
             <% if room.sessions > 0 %>
-              <i>Last session on <%= recording_date(room.last_session) %></i>
+              <i><%= t("room.last_session", session: recording_date(room.last_session)) %></i>
             <% else %>
-              <i>This room has no sessions, yet!</i>
+              <i><%= t("room.no_sessions") %></i>
             <% end %>
           </div>
         </td>
@@ -28,11 +28,11 @@
               <div class="dropdown-menu">
                 <!--
                 <%= link_to room, class: "dropdown-item" do %>
-                  <i class="dropdown-icon fas fa-cog"></i> Room Settings
+                  <i class="dropdown-icon fas fa-cog"></i> <%= t("room.settings") %>
                 <% end %>
                 -->
                 <a href="" data-toggle="modal" data-target="#deleteRoomModal_<%= room.uid %>"class="dropdown-item">
-                  <i class="dropdown-icon far fa-trash-alt"></i> Delete
+                  <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
                 </a>
               </div>
             </div>
