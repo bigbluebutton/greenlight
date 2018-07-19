@@ -41,6 +41,8 @@ en:
       home: Home room
       settings: Settings
       signout: Sign out
+  info_update_success: Information successfully updated.
+  invite_message: "To invite someone to the meeting, send them this link:"
   landing:
     about: A simple front end for your BigBlueButton Open Source Web Conferencing Server.
     welcome: Welcome to Greenlight.
@@ -48,6 +50,7 @@ en:
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
   login: Login
+  login_failed: Login failed due to invalid credentials. Are you sure you typed them correctly?
   modal:
     create_room:
       auto_join: Automatically join me into the room.

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  LOGIN_FAILED = "Login failed due to invalid credentials. Are you sure you typed them correctly?"
-
   # GET /users/logout
   def destroy
     logout
@@ -15,7 +13,7 @@ class SessionsController < ApplicationController
     if user.try(:authenticate, session_params[:password])
       login(user)
     else
-      redirect_to root_path, notice: LOGIN_FAILED
+      redirect_to root_path, notice: I18n.t("login_failed")
     end
   end
 

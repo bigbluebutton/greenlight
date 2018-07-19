@@ -64,12 +64,12 @@ class ApplicationController < ActionController::Base
 
   # Default, unconfigured meeting options.
   def default_meeting_options
-    invite_msg = "To invite someone to the meeting, send them this link:"
+    invite_msg = I18n.t("invite_message")
     {
       user_is_moderator: false,
       meeting_logout_url: request.base_url + logout_room_path(@room),
       meeting_recorded: true,
-      moderator_message: "#{invite_msg}\n\n #{request.base_url + room_path(@room)}",
+      moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
     }
   end
 end
