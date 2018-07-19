@@ -9,7 +9,7 @@
 			<div class="d-flex ml-auto">
 				<% if current_user %>
 					<a class="px-5 ml-2 mt-1" href="" data-toggle="modal" data-target="#createRoomModal">
-						<i class="fas fa-plus"></i>&nbsp; Create Room
+						<i class="fas fa-plus"></i>&nbsp; <%= t("header.create_room") %>
 					</a>
 					<div class="dropdown">
 						<a href="#" class="nav-link pr-0" data-toggle="dropdown">
@@ -24,29 +24,29 @@
 						</a>
 						<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end">
 							<%= link_to current_user.main_room, class: "dropdown-item" do %>
-								<i class="dropdown-icon fas fa-home"></i> Home Room
+								<i class="dropdown-icon fas fa-home"></i> <%= t("header.dropdown.home") %>
 							<% end %>
 							<%= link_to edit_user_path(current_user), class: "dropdown-item" do %>
-								<i class="dropdown-icon fas fa-cog"></i> Settings
+								<i class="dropdown-icon fas fa-cog"></i> <%= t("header.dropdown.settings") %>
 							<% end %>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="http://docs.bigbluebutton.org/install/greenlight.html" target="_blank">
-								<i class="dropdown-icon far fa-question-circle"></i> Need help?
+								<i class="dropdown-icon far fa-question-circle"></i> <%= t("header.dropdown.help") %>
 							</a>
 							<%= link_to logout_path, class: "dropdown-item" do %>
-								<i class="dropdown-icon fas fa-sign-out-alt"></i> Sign out
+								<i class="dropdown-icon fas fa-sign-out-alt"></i> <%= t("header.dropdown.signout") %>
 							<% end %>
 						</div>
 					</div>
 				<% else %>
-          <% if  Rails.configuration.omniauth_bn_launcher && !current_user %>
-            <%= link_to "Login", "#{Rails.configuration.relative_url_root}/auth/bn_launcher", :class => "btn btn-pill btn-outline-primary mx-2" %>
+          <% if Rails.configuration.omniauth_bn_launcher && !current_user %>
+            <%= link_to t("login"), "#{Rails.configuration.relative_url_root}/auth/bn_launcher", :class => "btn btn-pill btn-outline-primary mx-2" %>
           <% else %>
-            <%= link_to "Login", "#loginModal", :class => "btn btn-pill btn-outline-primary mx-2", "data-toggle": "modal" %>
+            <%= link_to t("login"), "#loginModal", :class => "btn btn-pill btn-outline-primary mx-2", "data-toggle": "modal" %>
           <% end %>
 
 					<% if allow_user_signup? %>
-						<%= link_to "Signup", signup_path, :class => "btn btn-pill btn-outline-primary mx-2" %>
+						<%= link_to t("signup.title"), signup_path, :class => "btn btn-pill btn-outline-primary mx-2" %>
 					<% end %>
 
 					<%= render "shared/modals/login_modal" %>

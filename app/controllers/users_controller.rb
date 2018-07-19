@@ -59,14 +59,14 @@ class UsersController < ApplicationController
 
       if errors.empty? && @user.save
         # Notify the user that their account has been updated.
-        redirect_to edit_user_path(@user), notice: "Information successfully updated."
+        redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
       else
         # Append custom errors.
         errors.each { |k, v| @user.errors.add(k, v) }
         render :edit
       end
     elsif @user.update_attributes(user_params)
-      redirect_to edit_user_path(@user), notice: "Information successfully updated."
+      redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
     else
       render :edit
     end

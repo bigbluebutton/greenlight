@@ -2,7 +2,7 @@
   <td>
     <div><%= recording[:name] %></div>
     <div class="small text-muted">
-      Recorded on <%= recording_date(recording[:startTime]) %>
+      <%= t("recording.recorded_on", date: recording_date(recording[:startTime])) %>
     </div>
   </td>
   <td>
@@ -15,22 +15,22 @@
   </td>
   <td class="text-left">
     <div class="small text-muted text-uppercase">
-      Length
+      <%= t("recording.table.length") %>
     </div>
     <%= recording_length(recording[:startTime], recording[:endTime]) %>
   </td>
   <td class="text-left">
     <div class="small text-muted text-uppercase">
-      Users
+      <%= t("recording.table.users") %>
     </div>
     <%= recording[:participants] %>
   </td>
   <td class="text-left">
     <div class="dropdown">
       <% if recording[:metadata][:"gl-listed"] == "true" %>
-        <i class="dropdown-icon fas fa-globe px-2"></i> Public
+        <i class="dropdown-icon fas fa-globe px-2"></i> <%= t("recording.visibility.public") %>
       <% else %>
-        <i class="dropdown-icon fas fa-link px-2"></i> Unlisted
+        <i class="dropdown-icon fas fa-link px-2"></i> <%= t("recording.visibility.unlisted") %>
       <% end %>
     </div>
   </td>

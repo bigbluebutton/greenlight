@@ -4,20 +4,20 @@
       <div class="modal-body">
         <div class="card-body p-6">
           <div class="card-title">
-            <h3>Are you sure you want to delete <%= room.name %>?</h3>
+            <h3><%= t("modal.delete_room.confirm", room: room.name) %></h3>
           </div>
 
           <button type="button" class="btn btn-pill btn-info my-1 btn-del-room" data-dismiss="modal">
-            On second thought, I'll keep it.
+            <%= t("modal.delete_room.keep") %>
           </button>
 
           <%= button_to room, method: :delete, id: "delete-confirm", class: "btn btn-pill btn-danger my-1 btn-del-room" do %>
-            I'm sure, delete this room.
+            <%= t("modal.delete_room.delete") %>
           <% end %>
 
         </div>
         <div class="card-footer">
-          <p>You will <b>not</b> be able to recover this room or any of its associated recordings.</p>
+          <p><%= t("modal.delete_room.warning").html_safe %></p>
         </div>
       </div>
     </div>

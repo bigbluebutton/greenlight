@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Greenlight</title>
+    <title><%= t("greenlight") %></title>
     <%= csrf_meta_tags %>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
@@ -19,15 +19,14 @@
 
   <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>">
     <div class="wrapper">
-
       <%= render "shared/header" %>
 
       <% if bigbluebutton_endpoint_default? %>
         <%= render "shared/error_banner" do %>
           <i class="fas fa-exclamation-triangle"></i>
-          <p class="d-inline">This deployment is using a pre-configured testing server,
-          you should replace this with your own.
-          For details, see the <%= link_to "documentation", "http://docs.bigbluebutton.org/install/greenlight.html#installing-greenlight", target: "_blank" %>.
+          <p class="d-inline"><%= t("test_install",
+            href: link_to(t("docs").downcase, "http://docs.bigbluebutton.org/install/greenlight-v2.html#2-install-greenlight", target: "_blank")
+          ).html_safe %>
         <% end %>
       <% end %>
 
@@ -42,7 +41,6 @@
       <% if current_user %>
         <%= render "shared/modals/create_room_modal" %>
       <% end %>
-
     </div>
 
     <%= render "shared/footer" %>

@@ -6,16 +6,22 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   before_action :migration_error?
+  before_action :set_locale
+
+  protect_from_forgery with: :exception
+
+  MEETING_NAME_LIMIT = 90
+  USER_NAME_LIMIT = 30
 
   # Show an information page when migration fails and there is a version error.
   def migration_error?
     render :migration_error unless ENV["DB_MIGRATE_FAILED"].blank?
   end
 
-  protect_from_forgery with: :exception
-
-  MEETING_NAME_LIMIT = 90
-  USER_NAME_LIMIT = 30
+  # Sets the appropriate locale.
+  def set_locale
+    I18n.locale = http_accept_language.language_region_compatible_from(I18n.available_locales)
+  end
 
   def meeting_name_limit
     MEETING_NAME_LIMIT
@@ -58,12 +64,12 @@ class ApplicationController < ActionController::Base
 
   # Default, unconfigured meeting options.
   def default_meeting_options
-    invite_msg = "To invite someone to the meeting, send them this link:"
+    invite_msg = I18n.t("invite_message")
     {
       user_is_moderator: false,
       meeting_logout_url: request.base_url + logout_room_path(@room),
       meeting_recorded: true,
-      moderator_message: "#{invite_msg}\n\n #{request.base_url + room_path(@room)}",
+      moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
     }
   end
 end

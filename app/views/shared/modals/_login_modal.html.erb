@@ -4,18 +4,22 @@
       <div class="modal-body">
         <div class="card-body p-6">
           <div class="card-title">
-            <h3>Login</h3>
+            <h3><%= t("login") %></h3>
           </div>
 
           <% unless configured_providers.length.zero? %>
             <% configured_providers.each do |provider| %>
               <%= link_to omniauth_login_url(provider), class: "btn btn-pill btn-#{provider} btn-block" do %>
-                <i class="fab fa-<%= provider %>"></i>&ensp;<%= "Login with #{provider.capitalize}" %>
+                <i class="fab fa-<%= provider %>"></i>&ensp;<%= t("modal.login.with", provider: provider.capitalize) %>
               <% end %>
             <% end %>
 
             <div class="or-line my-6">
-              <div><span class="text-uppercase">or</span></div>
+              <div>
+                <span class="text-uppercase">
+                  <%= t("modal.login.or") %>
+                </span>
+              </div>
             </div>
           <% end %>
 
@@ -25,7 +29,7 @@
                 <span class="input-icon-addon">
                   <i class="fas fa-at"></i>
                 </span>
-                <%= f.text_field :email, class: "form-control", placeholder: "Email", value: "" %>
+                <%= f.text_field :email, class: "form-control", placeholder: t("email"), value: "" %>
               </div>
             </div>
 
@@ -34,12 +38,12 @@
                 <span class="input-icon-addon">
                   <i class="fas fa-key"></i>
                 </span>
-                <%= f.password_field :password, class: "form-control", placeholder: "Password", value: "" %>
+                <%= f.password_field :password, class: "form-control", placeholder: t("password"), value: "" %>
               </div>
             </div>
 
             <div class="form-footer">
-              <%= f.submit "Login", class: "btn btn-outline-primary btn-block btn-pill" %>
+              <%= f.submit t("login"), class: "btn btn-outline-primary btn-block btn-pill" %>
             </div>
           <% end %>
         </div>

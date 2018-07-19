@@ -17,9 +17,16 @@ module Greenlight
     # Use custom error routes.
     config.exceptions_app = routes
 
+    # Configure I18n localization.
+    config.i18n.available_locales = %w(en)
+    config.i18n.default_locale = "en"
+
+    # Check if a loadbalancer is configured.
     config.loadbalanced_configuration = ENV["LOADBALANCER_ENDPOINT"].present? && ENV["LOADBALANCER_SECRET"].present?
+
     # The default callback url that bn launcher will redirect to
     config.gl_callback_url = ENV["GL_CALLBACK_URL"]
+
     # Setup BigBlueButton configuration.
     if config.loadbalanced_configuration
       # Fetch credentials from a loadbalancer based on provider.

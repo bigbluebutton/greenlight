@@ -1,7 +1,7 @@
 <div class="sessions pb-5">
   <div class="container pt-6">
 
-    <%= render "shared/components/subtitle", subtitle: (only_public ? "Public " : "") + "Recordings", search: true %>
+    <%= render "shared/components/subtitle", subtitle: (only_public ? t("recording.visibility.public") + " " : "") + t("room.recordings"), search: true %>
     <div class="row">
       <div class="col-12">
         <div class="card">
@@ -9,12 +9,12 @@
             <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Thumbnails</th>
-                  <th class="text-left">Length</th>
-                  <th class="text-left">Users</th>
-                  <th class="text-left">Visibility</th>
-                  <th>Formats</th>
+                  <th><%= t("recording.table.name") %></th>
+                  <th><%= t("recording.table.thumbnails") %></th>
+                  <th class="text-left"><%= t("recording.table.length") %></th>
+                  <th class="text-left"><%= t("recording.table.users") %></th>
+                  <th class="text-left"><%= t("recording.table.visibility") %></th>
+                  <th><%= t("recording.table.formats") %></th>
                   <% unless only_public %>
                     <th class="text-center"><i class="icon-settings"></i></th>
                   <% end %>
@@ -24,7 +24,7 @@
               <% if recordings.empty? %>
                 <tr>
                   <td colspan="7" class="text-center h4 p-6 font-weight-normal">
-                    <%= "This room has no #{(only_public ? "public " : "")} recordings." %>
+                    <%= t("recording.no_recordings", inject: only_public ? t("recording.visibility.public").downcase + " "  : "") %>
                   </td>
                 </tr>
               <% else %>
@@ -39,7 +39,7 @@
               </tbody>
             </table>
           </div>
-        </div>    
+        </div>
       </div>
     </div>
   </div>

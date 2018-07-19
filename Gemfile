@@ -56,6 +56,9 @@ gem 'bigbluebutton-api-ruby'
 gem 'bootstrap', '~> 4.1.1'
 gem 'tabler-rubygem'
 
+# For detecting the users preferred language.
+gem 'http_accept_language'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

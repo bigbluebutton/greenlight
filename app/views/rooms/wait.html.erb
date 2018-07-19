@@ -1,8 +1,8 @@
 <%= render 'shared/room_event' do %>
   <div class="row">
     <div class="col-9">
-      <h3>Oops! The meeting hasn't started yet.</h3>
-      <h4 class="text-muted">You will automatically join when the meeting starts.</h4>
+      <h3><%= t("room.wait.message") %></h3>
+      <h4 class="text-muted"><%= t("room.wait.auto") %></h4>
     </div>
     <div class="col-3">
       <div class="loader align-bottom mt-3"></div>

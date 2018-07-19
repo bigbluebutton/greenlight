@@ -1,23 +1,127 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
+# English (en) locale.
 
 en:
-  hello: "Hello world"
+  bigbluebutton: BigBlueButton
+  cancel: Cancel
+  copy: Copy
+  delete: Delete
+  docs: Documentation
+  email: Email
+  enter_your_name: Enter your name!
+  errors:
+    internal:
+      message: Oh no! Looks like something went wrong on our end.
+      help: The error has been logged, we'll take a look!
+    migration_error:
+      contact_admin: If you are not an administrator, please contact one.
+      continue: I'd like to stay using 1.0.
+      notice: >
+        Greenlight encountered a database migration error.<br>
+        This may be because you haven't updated to Greenlight 2.0.
+    not_found:
+      message: Whoops! Looks like we can't find that.
+      help: Is it possible its been removed?
+    title: Errors
+    unprocessable:
+      message: Oops! Request is unprocessable.
+      help: Unforunately this isn't a valid request.
+  features:
+    title: Features
+    rooms: Personalized Rooms
+    recordings: Recording Management
+    designs: Custom Designs
+  footer:
+    powered_by: Powered by %{href}.
+  go_back: Go back
+  greenlight: Greenlight
+  header:
+    create_room: Create Room
+    dropdown:
+      help: Need help?
+      home: Home room
+      settings: Settings
+      signout: Sign out
+  info_update_success: Information successfully updated.
+  invite_message: "To invite someone to the meeting, send them this link:"
+  landing:
+    about: A simple front end for your BigBlueButton Open Source Web Conferencing Server.
+    welcome: Welcome to Greenlight.
+    video: Watch a tutorial on using Greenlight
+    upgrade: Show me how to upgrade to 2.0!
+    version: We've released a new version of Greenlight, but your database isn't compatible.
+  login: Login
+  login_failed: Login failed due to invalid credentials. Are you sure you typed them correctly?
+  modal:
+    create_room:
+      auto_join: Automatically join me into the room.
+      free_delete: You will be free to delete this room at any time.
+      name_placeholder: Enter a room name...
+      not_blank: Room name cannot be blank.
+      title: Create New Room
+    delete_room:
+      confirm: Are you sure you want to delete %{room}?
+      delete: I'm sure, delete this room.
+      keep: On second thought, I'll keep it.
+      warning: You will <b>not</b> be able to recover this room or any of its associated recordings.
+    login:
+      or: or
+      with: Login with %{provider}
+  password: Password
+  recording:
+    email: Email Recording
+    no_recordings: This room has no %{inject}recordings.
+    recorded_on: Recorded on %{date}
+    table:
+      name: Name
+      thumbnails: Thumbnails
+      length: Length
+      users: Users
+      visibility: Visibility
+      formats: Formats
+    visibility:
+      public: Public
+      unlisted: Unlisted
+  room:
+    invited: You have been inivited to join
+    invite_participants: Invite Participants
+    join: Join
+    last_session: Last session on %{session}
+    owner: Owner
+    no_sessions: This room has no sessions, yet!
+    recordings: Recordings
+    sessions: Sessions
+    settings: Room Settings
+    start: Start
+    wait:
+      message: Oops! The meeting hasn't started yet.
+      auto: You will automatically join when the meeting starts.
+  settings:
+    account:
+      fullname: Fullname
+      provider: Provider
+      image: Image
+      image_url: Profile Image URL
+      subtitle: Update your Account Info
+      title: Account
+    design:
+      not_supported: Customization not currently supported.
+      subtitle: Customize Greenlight
+      title: Design
+    password:
+      confirmation: New Password Confirmation
+      new: New Password
+      old: Old Password
+      subtitle: Change your Password
+      title: Password
+    title: Settings
+  signup:
+    password_confirm: Password Confirmation
+    subtitle: Create an Account
+    title: Signup
+  terms:
+    accept: I accept the terms and conditions.
+    title: Terms and Conditions
+  test_install: >
+    This deployment is using a pre-configured testing server, you should replace this with your own.
+    For details, see the %{href}.
+  update: Update
