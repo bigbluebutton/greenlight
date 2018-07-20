@@ -25,7 +25,6 @@ class SessionsController < ApplicationController
     login(user)
   rescue => e
     logger.error "Error authenticating via omniauth: #{e}"
-    redirect_to root_path
   end
 
   # POST /auth/failure
