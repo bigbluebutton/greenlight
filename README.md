@@ -1,6 +1,7 @@
 # Greenlight
 
 ![Travis CI](https://travis-ci.org/bigbluebutton/greenlight.svg?branch=master)
+![Docker Pulls](https://img.shields.io/docker/pulls/bigbluebutton/greenlight.svg)
 
 > Greenlight is currently on version 2.0. If you are still running Greenlight 1.0 we suggest [upgrading to 2.0](http://docs.bigbluebutton.org/install/greenlight-v2.html#upgrading-from-greenlight-10).
 
