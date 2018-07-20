@@ -47,3 +47,27 @@ end
 OmniAuth.config.on_failure = proc { |env|
   OmniAuth::FailureEndpoint.new(env).redirect_to_failure
 }
+
+# Work around beacuse callback_url option causes
+# omniauth.auth to be nil in the authhash when
+# authenticating with LDAP.
+module OmniAuthLDAPExt
+  def request_phase
+    rel_root = ENV['RELATIVE_URL_ROOT'].present? ? ENV['RELATIVE_URL_ROOT'] : '/b'
+
+    @callback_path = nil
+    path = options[:callback_path]
+    options[:callback_path] = "#{rel_root if Rails.env == 'production'}/auth/ldap/callback"
+    form = super
+    options[:callback_path] = path
+    form
+  end
+end
+
+module OmniAuth
+  module Strategies
+    class LDAP
+      prepend OmniAuthLDAPExt
+    end
+  end
+end
