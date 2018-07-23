@@ -30,6 +30,7 @@ en:
     rooms: Personalized Rooms
     recordings: Recording Management
     designs: Custom Designs
+    authentication: User Authentication
   footer:
     powered_by: Powered by %{href}.
   go_back: Go back
