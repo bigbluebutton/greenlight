@@ -25,10 +25,11 @@ class SessionsController < ApplicationController
     login(user)
   rescue => e
     logger.error "Error authenticating via omniauth: #{e}"
+    omniauth_fail
   end
 
   # POST /auth/failure
-  def fail
+  def omniauth_fail
     redirect_to root_path, notice: I18n.t(params[:message], default: I18n.t("omniauth_error"))
   end
 

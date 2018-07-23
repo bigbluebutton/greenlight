@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   # Handles Omniauth authentication.
   match '/auth/:provider/callback', to: 'sessions#omniauth', via: [:get, :post], as: :omniauth_session
-  get '/auth/failure', to: 'sessions#fail'
+  get '/auth/failure', to: 'sessions#omniauth_fail'
 
   # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/'
