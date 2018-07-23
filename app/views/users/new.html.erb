@@ -1,11 +1,26 @@
 <div class="container">
-  <div class="row mt-9">
-    <div class="col col-4 offset-4 mx-auto">
+  <div class="row mt-6">
+    <div class="col col-4 offset-4">
       <div class="card">
-        <div class="card-header">
+        <div class="card-header background">
           <h4 class="mt-2"><%= t("signup.subtitle") %></h4>
         </div>
-        <div class="card-body">
+        <div class="card-body background">
+          <% unless configured_providers.length.zero? %>
+            <% configured_providers.each do |provider| %>
+              <%= link_to omniauth_login_url(provider), class: "btn btn-pill btn-#{provider} btn-block" do %>
+                <i class="fab fa-<%= provider %>"></i>&ensp;<%= t("signup.with", provider: provider.capitalize) %>
+              <% end %>
+            <% end %>
+
+            <div class="or-line my-3">
+              <div>
+                <span class="text-uppercase" style="background-color: #F5F7FB;">
+                  <%= t("modal.login.or") %>
+                </span>
+              </div>
+            </div>
+          <% end %>
           <%= form_for @user, url: create_user_path, method: :post do |f|  %>
             <div class="form-group">
               <%= f.label t("settings.account.fullname"), class: "form-label" %>
@@ -29,7 +44,7 @@
             </div>
             <div class="card-footer">
               <%= f.submit t("signup.title"), class: "btn btn-primary float-right ml-2" %>
-              <%= link_to t("cancel"), root_path, class: "btn btn-danger float-right ml-2" %>
+              <%= link_to t("cancel"), root_path, class: "btn btn-secondary float-right ml-2" %>
             </div>
           <% end %>
         </div>
