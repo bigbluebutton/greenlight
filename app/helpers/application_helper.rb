@@ -10,6 +10,11 @@ module ApplicationHelper
     end
   end
 
+  # Determines which providers can show a login button in the login modal.
+  def iconset_providers
+    configured_providers & [:google, :twitter]
+  end
+
   # Generates the login URL for a specific provider.
   def omniauth_login_url(provider)
     "#{Rails.configuration.relative_url_root}/auth/#{provider}"

@@ -43,6 +43,7 @@ en:
       settings: Settings
       signout: Sign out
   info_update_success: Information successfully updated.
+  invalid_credentials: Login failed due to invalid credentials. Are you sure you entered them correctly?
   invite_message: "To invite someone to the meeting, send them this link:"
   landing:
     about: A simple front end for your BigBlueButton Open Source Web Conferencing Server.
@@ -50,8 +51,8 @@ en:
     video: Watch a tutorial on using Greenlight
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
+  ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   login: Login
-  login_failed: Login failed due to invalid credentials. Are you sure you typed them correctly?
   modal:
     create_room:
       auto_join: Automatically join me into the room.
@@ -67,6 +68,7 @@ en:
     login:
       or: or
       with: Login with %{provider}
+  omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!
   password: Password
   recording:
     email: Email Recording

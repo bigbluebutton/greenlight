@@ -7,8 +7,8 @@
             <h3><%= t("login") %></h3>
           </div>
 
-          <% unless configured_providers.length.zero? %>
-            <% configured_providers.each do |provider| %>
+          <% unless iconset_providers.length.zero? %>
+            <% iconset_providers.each do |provider| %>
               <%= link_to omniauth_login_url(provider), class: "btn btn-pill btn-#{provider} btn-block" do %>
                 <i class="fab fa-<%= provider %>"></i>&ensp;<%= t("modal.login.with", provider: provider.capitalize) %>
               <% end %>

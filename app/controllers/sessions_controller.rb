@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:omniauth, :fail]
+
   # GET /users/logout
   def destroy
     logout
@@ -13,7 +15,7 @@ class SessionsController < ApplicationController
     if user.try(:authenticate, session_params[:password])
       login(user)
     else
-      redirect_to root_path, notice: I18n.t("login_failed")
+      redirect_to root_path, notice: I18n.t("invalid_credentials")
     end
   end
 
@@ -23,12 +25,12 @@ class SessionsController < ApplicationController
     login(user)
   rescue => e
     logger.error "Error authenticating via omniauth: #{e}"
-    redirect_to root_path
+    omniauth_fail
   end
 
   # POST /auth/failure
-  def fail
-    redirect_to root_path
+  def omniauth_fail
+    redirect_to root_path, notice: I18n.t(params[:message], default: I18n.t("omniauth_error"))
   end
 
   private

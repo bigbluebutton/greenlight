@@ -25,10 +25,10 @@ class User < ApplicationRecord
       # Provider is the customer name if in loadbalanced config mode
       provider = auth['provider'] == "bn_launcher" ? auth['info']['customer'] : auth['provider']
       find_or_initialize_by(social_uid: auth['uid'], provider: provider).tap do |u|
-        u.name = send("#{auth['provider']}_name", auth) unless u.name
-        u.username = send("#{auth['provider']}_username", auth) unless u.username
-        u.email = send("#{auth['provider']}_email", auth)
-        u.image = send("#{auth['provider']}_image", auth)
+        u.name = auth_name(auth) unless u.name
+        u.username = auth_username(auth) unless u.username
+        u.email = auth_email(auth)
+        u.image = auth_image(auth)
         u.save!
       end
     end
@@ -36,52 +36,32 @@ class User < ApplicationRecord
     private
 
     # Provider attributes.
-    def twitter_name(auth)
+    def auth_name(auth)
       auth['info']['name']
     end
 
-    def twitter_username(auth)
-      auth['info']['nickname']
+    def auth_username(auth)
+      case auth['provider']
+      when :google
+        auth['info']['email'].split('@').first
+      when :bn_launcher
+        auth['info']['username']
+      else
+        auth['info']['nickname']
+      end
     end
 
-    def twitter_email(auth)
+    def auth_email(auth)
       auth['info']['email']
     end
 
-    def twitter_image(auth)
-      auth['info']['image'].gsub("http", "https").gsub("_normal", "")
-    end
-
-    def google_name(auth)
-      auth['info']['name']
-    end
-
-    def google_username(auth)
-      auth['info']['email'].split('@').first
-    end
-
-    def google_email(auth)
-      auth['info']['email']
-    end
-
-    def google_image(auth)
-      auth['info']['image']
-    end
-
-    def bn_launcher_name(auth)
-      auth['info']['name']
-    end
-
-    def bn_launcher_username(auth)
-      auth['info']['username']
-    end
-
-    def bn_launcher_email(auth)
-      auth['info']['email']
-    end
-
-    def bn_launcher_image(auth)
-      auth['info']['image']
+    def auth_image(auth)
+      case auth['provider']
+      when :twitter
+        auth['info']['image'].gsub("http", "https").gsub("_normal", "")
+      else
+        auth['info']['image']
+      end
     end
   end
 

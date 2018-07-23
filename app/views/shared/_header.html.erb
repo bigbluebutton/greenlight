@@ -30,7 +30,7 @@
 								<i class="dropdown-icon fas fa-cog"></i> <%= t("header.dropdown.settings") %>
 							<% end %>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="http://docs.bigbluebutton.org/install/greenlight.html" target="_blank">
+							<a class="dropdown-item" href="http://docs.bigbluebutton.org/install/greenlight-v2.html" target="_blank">
 								<i class="dropdown-icon far fa-question-circle"></i> <%= t("header.dropdown.help") %>
 							</a>
 							<%= link_to logout_path, class: "dropdown-item" do %>
@@ -39,9 +39,11 @@
 						</div>
 					</div>
 				<% else %>
-          <% if Rails.configuration.omniauth_bn_launcher && !current_user %>
-            <%= link_to t("login"), "#{Rails.configuration.relative_url_root}/auth/bn_launcher", :class => "btn btn-pill btn-outline-primary mx-2" %>
-          <% else %>
+          <% if Rails.configuration.omniauth_bn_launcher %>
+            <%= link_to t("login"), omniauth_login_url(:bn_launcher), :class => "btn btn-pill btn-outline-primary mx-2" %>
+          <% elsif Rails.configuration.omniauth_ldap %>
+						<%= link_to t("login"), omniauth_login_url(:ldap), :class => "btn btn-pill btn-outline-primary mx-2" %>
+					<% else %>
             <%= link_to t("login"), "#loginModal", :class => "btn btn-pill btn-outline-primary mx-2", "data-toggle": "modal" %>
           <% end %>
 
