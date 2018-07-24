@@ -11,6 +11,9 @@ Rails.application.config.omniauth_ldap = ENV['LDAP_SERVER'].present? && ENV['LDA
                                          ENV['LDAP_PASSWORD'].present?
 Rails.application.config.omniauth_bn_launcher = Rails.configuration.loadbalanced_configuration
 
+# If LDAP is enabled, override and disable allow_user_signup.
+Rails.application.config.allow_user_signup = false if Rails.application.config.omniauth_ldap
+
 SETUP_PROC = lambda do |env|
   SessionsController.helpers.omniauth_options env
 end
