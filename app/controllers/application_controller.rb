@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   MEETING_NAME_LIMIT = 90
-  USER_NAME_LIMIT = 30
+  USER_NAME_LIMIT = 32
 
   # Show an information page when migration fails and there is a version error.
   def migration_error?

@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :rooms
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
 
-  validates :name, length: { maximum: 24 }, presence: true
+  validates :name, length: { maximum: 32 }, presence: true
   validates :provider, presence: true
   validates :image, format: { with: /\.(png|jpg)\Z/i }, allow_blank: true
   validates :email, length: { maximum: 60 }, allow_blank: true,
