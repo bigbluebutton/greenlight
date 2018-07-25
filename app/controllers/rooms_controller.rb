@@ -127,6 +127,12 @@ class RoomsController < ApplicationController
   end
   helper_method :recording_length
 
+  # Prevents single images from erroring when not passed as an array.
+  def safe_recording_images(images)
+    Array.wrap(images)
+  end
+  helper_method :safe_recording_images
+
   private
 
   def room_params
