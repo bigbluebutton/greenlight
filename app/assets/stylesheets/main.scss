@@ -29,3 +29,20 @@
     }
   }
 }
+
+.img-cycle img {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.img-cycle img:first-child {
+  display:block;
+}
+
+.green-grad {
+  background: linear-gradient(to right, rgba(164,179,87,1) 0%, rgba(117,137,12,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

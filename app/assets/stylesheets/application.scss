@@ -26,9 +26,11 @@
 $background-color: #F5F7FB;
 $error-background-color: #EFE6E6;
 
+$header-height: 65px;
 $footer-height: 65px;
 
 html, body {
+  position: relative;
   width: 100%;
   height: 100%;
   background-color: white;
@@ -39,17 +41,19 @@ a {
   cursor: pointer;
 }
 
-.wrapper {
-  height: calc(100% - #{$footer-height});
+.header {
+  height: $header-height;
+}
+
+.page {
   position: relative;
+  height: auto;
+  min-height: calc(100% - #{$header-height} - #{$footer-height});
 }
 
 .footer {
-  position: fixed;
   height: $footer-height;
   width: 100%;
-  bottom: 0;
-  z-index: 5;
 }
 
 .table-responsive {
