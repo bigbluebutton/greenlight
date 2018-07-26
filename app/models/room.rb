@@ -163,7 +163,7 @@ class Room < ApplicationRecord
 
   # Generates a random room uid that uses the users name.
   def random_room_uid
-    [owner.firstname, uid_chunk, uid_chunk].join('-').downcase
+    [owner.name_chunk, uid_chunk, uid_chunk].join('-').downcase
   end
 
   # Rereives the loadbalanced BigBlueButton credentials for a user.
