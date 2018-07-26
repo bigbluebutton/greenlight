@@ -45,10 +45,14 @@ a {
   height: $header-height;
 }
 
-.page {
+.wrapper {
   position: relative;
   height: auto;
   min-height: calc(100% - #{$header-height} - #{$footer-height});
+}
+
+.flex-center {
+  transform: translateY(25%);
 }
 
 .footer {

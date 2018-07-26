@@ -39,16 +39,17 @@ en:
     create_room: Create Room
     dropdown:
       help: Need help?
-      home: Home room
+      home: Home Room
       settings: Settings
       signout: Sign out
+  home_room: Home Room
   info_update_success: Information successfully updated.
   invalid_credentials: Login failed due to invalid credentials. Are you sure you entered them correctly?
   invite_message: "To invite someone to the meeting, send them this link:"
   landing:
     about: Greenlight is a simple front-end for your %{href} open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link.
     welcome: Welcome to <span class="green-grad">Greenlight</span>.
-    video: Checkout our tutorial on using Greenlight
+    video: Watch our tutorial on using Greenlight
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.

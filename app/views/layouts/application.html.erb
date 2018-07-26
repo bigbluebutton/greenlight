@@ -18,9 +18,9 @@
   </head>
 
   <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>">
-          <%= render "shared/header" %>
+    <%= render "shared/header" %>
 
-    <div class="page">
+    <div class="wrapper">
       <% if bigbluebutton_endpoint_default? %>
         <%= render "shared/error_banner" do %>
           <i class="fas fa-exclamation-triangle"></i>

@@ -9,12 +9,12 @@ describe User, type: :model do
 
   context 'validations' do
     it { should validate_presence_of(:name) }
-    it { should validate_length_of(:name).is_at_most(32) }
+    it { should validate_length_of(:name).is_at_most(256) }
 
     it { should validate_presence_of(:provider) }
 
     it { should validate_uniqueness_of(:email).case_insensitive }
-    it { should validate_length_of(:email).is_at_most(60) }
+    it { should validate_length_of(:email).is_at_most(256) }
     it { should allow_value("", nil).for(:email) }
     it { should allow_value("valid@email.com").for(:email) }
     it { should_not allow_value("invalid_email").for(:email) }
@@ -85,10 +85,10 @@ describe User, type: :model do
     end
   end
 
-  context '#first_name' do
-    it 'properly finds the users first name' do
+  context '#name_chunk' do
+    it 'properly finds the first three characters of the users name' do
       user = create(:user, name: "Example User")
-      expect(user.firstname).to eq("Example")
+      expect(user.name_chunk).to eq("exa")
     end
   end
 end

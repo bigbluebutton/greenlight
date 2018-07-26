@@ -7,10 +7,10 @@ class User < ApplicationRecord
   has_many :rooms
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
 
-  validates :name, length: { maximum: 32 }, presence: true
+  validates :name, length: { maximum: 256 }, presence: true
   validates :provider, presence: true
   validates :image, format: { with: /\.(png|jpg)\Z/i }, allow_blank: true
-  validates :email, length: { maximum: 60 }, allow_blank: true,
+  validates :email, length: { maximum: 256 }, allow_blank: true,
                     uniqueness: { case_sensitive: false },
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
@@ -73,8 +73,8 @@ class User < ApplicationRecord
     sorted + no_session
   end
 
-  def firstname
-    name.split(' ').first
+  def name_chunk
+    name[0...3].downcase
   end
 
   def greenlight_account?
@@ -86,7 +86,7 @@ class User < ApplicationRecord
   # Initializes a room for the user and assign a BigBlueButton user id.
   def initialize_main_room
     self.uid = "gl-#{(0...12).map { (65 + rand(26)).chr }.join.downcase}"
-    self.main_room = Room.create!(owner: self, name: firstname + "'s Room")
+    self.main_room = Room.create!(owner: self, name: I18n.t("home_room"))
     save
   end
 end
