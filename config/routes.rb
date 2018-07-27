@@ -20,8 +20,10 @@ Rails.application.routes.draw do
     # Log the user out of the session.
     get '/logout', to: 'sessions#destroy'
 
+    # Account management.
     get '/:user_uid/edit', to: 'users#edit', as: :edit_user
     patch '/:user_uid/edit', to: 'users#update', as: :update_user
+    delete '/:user_uid', to: 'users#destroy', as: :delete_user
   end
 
   # Handles Omniauth authentication.

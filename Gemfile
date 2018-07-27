@@ -63,6 +63,9 @@ gem 'http_accept_language'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Markdown parsing.
+gem 'redcarpet'
+
 group :production do
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'

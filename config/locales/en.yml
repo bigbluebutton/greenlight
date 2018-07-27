@@ -18,6 +18,8 @@ en:
       notice: >
         Greenlight encountered a database migration error.<br>
         This may be because you haven't updated to Greenlight 2.0.
+      upgrade: Show me how to upgrade to 2.0!
+      version: We've released a new version of Greenlight, but your database isn't compatible.
     not_found:
       message: Whoops! Looks like we can't find that.
       help: Is it possible its been removed?
@@ -61,6 +63,11 @@ en:
       name_placeholder: Enter a room name...
       not_blank: Room name cannot be blank.
       title: Create New Room
+    delete_account:
+      confirm: Are you sure you want to delete your account?
+      delete: I'm sure, delete my account.
+      keep: Actually, I'll keep it.
+      warning: This decision is final. You will <b>not</b> be able to recover associated data.
     delete_room:
       confirm: Are you sure you want to delete %{room}?
       delete: I'm sure, delete this room.
@@ -106,7 +113,12 @@ en:
       image: Image
       image_url: Profile Image URL
       subtitle: Update your Account Info
-      title: Account
+      title: Account Info
+    delete:
+      button: Yes, I would like to delete my account.
+      disclaimer: If you choose to delete your account, it will <b>NOT</b> be recoverable. All information regarding your account, including settings, rooms, and recording will be removed.
+      subtitle: Permanently Delete your Account
+      title: Delete Account
     design:
       not_supported: Customization not currently supported.
       subtitle: Customize Greenlight

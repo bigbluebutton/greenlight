@@ -51,10 +51,6 @@ a {
   min-height: calc(100% - #{$header-height} - #{$footer-height});
 }
 
-.flex-center {
-  transform: translateY(25%);
-}
-
 .footer {
   height: $footer-height;
   width: 100%;
@@ -103,5 +99,4 @@ a {
 .terms {
   overflow: scroll;
   height: 55vh;
-  white-space: pre-line;
 }
