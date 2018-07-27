@@ -160,7 +160,7 @@ class Room < ApplicationRecord
   # Deletes all recordings associated with the room.
   def delete_all_recordings
     record_ids = recordings.map { |r| r[:recordID] }
-    delete_recording(record_ids)
+    delete_recording(record_ids) unless record_ids.empty?
   end
 
   # Generates a three character uid chunk.
