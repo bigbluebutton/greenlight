@@ -1,0 +1,15 @@
+<div class="form-group">
+  <div class="row">
+    <div class="col-12">
+      <center>
+        <%= t("settings.delete.disclaimer").html_safe %>
+        <br>
+        <a href="" data-toggle="modal" data-target="#deleteAccountModal" class="btn btn-danger mt-6">
+          <%= t("settings.delete.button") %>
+        </a>
+      </center>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/modals/delete_account_modal" %>

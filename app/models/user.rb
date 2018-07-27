@@ -4,6 +4,8 @@ class User < ApplicationRecord
   after_create :initialize_main_room
   before_save { email.try(:downcase!) }
 
+  before_destroy :destroy_rooms
+
   has_many :rooms
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
 
@@ -82,6 +84,11 @@ class User < ApplicationRecord
   end
 
   private
+
+  # Destory a users rooms when they are removed.
+  def destroy_rooms
+    rooms.destroy_all
+  end
 
   # Initializes a room for the user and assign a BigBlueButton user id.
   def initialize_main_room

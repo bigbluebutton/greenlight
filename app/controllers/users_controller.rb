@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :find_user, only: [:edit, :update]
+  before_action :find_user, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create]
 
   # POST /u
@@ -70,6 +70,15 @@ class UsersController < ApplicationController
     else
       render :edit
     end
+  end
+
+  # DELETE /u/:user_uid
+  def destroy
+    if current_user && current_user == @user
+      @user.destroy
+      session.delete(:user_id)
+    end
+    redirect_to root_path
   end
 
   # GET /u/terms
