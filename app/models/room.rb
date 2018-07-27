@@ -3,6 +3,8 @@
 class Room < ApplicationRecord
   before_create :setup
 
+  before_destroy :delete_all_recordings
+
   validates :name, presence: true
 
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
@@ -153,6 +155,12 @@ class Room < ApplicationRecord
   def setup
     self.uid = random_room_uid
     self.bbb_id = Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base] + Time.now.to_i.to_s).to_s
+  end
+
+  # Deletes all recordings associated with the room.
+  def delete_all_recordings
+    record_ids = recordings.map { |r| r[:recordID] }
+    delete_recording(record_ids)
   end
 
   # Generates a three character uid chunk.

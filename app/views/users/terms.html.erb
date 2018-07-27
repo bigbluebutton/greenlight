@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container pt-5">
   <div class="col-md-8 offset-2">
     <div class="card">
       <div class="card-header">
@@ -8,7 +8,7 @@
           <div class="terms">
             <p><%= Rails.configuration.terms %></p>
           </div>
-          <div class="btn-list mt-4 text-right mt-8">
+          <div class="btn-list text-right pt-8">
             <%= button_to t("terms.accept"), terms_path, params: {accept: true}, class: "btn btn-primary btn-space" %>
           </div>
         </form>
