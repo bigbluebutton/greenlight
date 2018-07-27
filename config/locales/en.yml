@@ -18,6 +18,8 @@ en:
       notice: >
         Greenlight encountered a database migration error.<br>
         This may be because you haven't updated to Greenlight 2.0.
+      upgrade: Show me how to upgrade to 2.0!
+      version: We've released a new version of Greenlight, but your database isn't compatible.
     not_found:
       message: Whoops! Looks like we can't find that.
       help: Is it possible its been removed?
