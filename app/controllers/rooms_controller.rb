@@ -114,11 +114,9 @@ class RoomsController < ApplicationController
   helper_method :recording_date
 
   # Helper for converting BigBlueButton dates into a nice length string.
-  def recording_length(start_time, end_time)
-    len = ((end_time - start_time) * 24 * 60).to_i
-
+  def recording_length(len)
     if len > 60
-      "#{len / 60} hrs"
+      "#{(len / 60).round} hrs"
     elsif len == 0
       "< 1 min"
     else

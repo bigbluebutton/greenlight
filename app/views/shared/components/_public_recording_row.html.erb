@@ -17,7 +17,7 @@
     <div class="small text-muted text-uppercase">
       <%= t("recording.table.length") %>
     </div>
-    <%= recording_length(recording[:startTime], recording[:endTime]) %>
+    <%= recording_length(recording[:playbacks].first[:length]) %>
   </td>
   <td class="text-left">
     <div class="small text-muted text-uppercase">

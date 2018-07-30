@@ -23,7 +23,9 @@
         </td>
         <td class="text-right">
           <div class="item-action dropdown">
-            <a href="javascript:void(0)" data-toggle="dropdown" class="icon <%= 'invisible' if room == current_user.main_room %>"><i class="fas fa-ellipsis-v px-4"></i></a>
+            <a href="javascript:void(0)" data-toggle="dropdown" class="icon <%= 'invisible' if room == current_user.main_room %>">
+              <i class="fas fa-ellipsis-v px-4"></i>
+            </a>
             <div class="dropdown-menu">
               <!--
               <%= link_to room, class: "dropdown-item" do %>

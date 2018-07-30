@@ -113,7 +113,7 @@ class Room < ApplicationRecord
       r.delete(:playback)
     end
 
-    res[:recordings]
+    res[:recordings].sort_by { |rec| rec[:endTime] }.reverse
   end
 
   # Fetches a rooms public recordings.
