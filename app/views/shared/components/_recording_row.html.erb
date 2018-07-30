@@ -17,7 +17,7 @@
     <div class="small text-muted text-uppercase">
       <%= t("recording.table.length") %>
     </div>
-    <%= recording_length(recording[:startTime], recording[:endTime]) %>
+    <%= recording_length(recording[:playbacks].first[:length]) %>
   </td>
   <td class="text-left">
     <div class="small text-muted text-uppercase">
@@ -49,7 +49,9 @@
   </td>
   <td class="text-center">
     <div class="item-action dropdown">
-      <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fas fa-ellipsis-v"></i></a>
+      <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
+        <i class="fas fa-ellipsis-v px-4"></i>
+      </a>
       <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item email-link" data-pres-link="<%= p[:url] %>"><i class="dropdown-icon far fa-envelope"></i> <%= t("recording.email") %></a>
         <div class="dropdown-divider"></div>
