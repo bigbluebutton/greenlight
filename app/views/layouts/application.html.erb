@@ -16,7 +16,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <title>Greenlight</title>
+    <title>Aquada - IDMANN Conferencing</title>
     <%= csrf_meta_tags %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -48,7 +48,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
   <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>"
     data-resource="<%= params[:resource] %>"
     data-current-user="<%= current_user.try(:encrypted_id) %>"
-    style="background-image:url(<%= image_path(landing_background) if params[:controller] == 'landing' %>);">
+    style="background-image:url(<%= image_path("aquada-logo.jpg") if params[:controller] == 'landing' %>);">
     <!-- Messages -->
     <div id='alerts'>
       <div class='flash-alerts'>
@@ -67,9 +67,9 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
     <div class='header'>
       <span class="logo-wrapper pull-left">
         <% if current_user %>
-          <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), meeting_room_path('rooms', User.find(current_user.id).encrypted_id) %>
+          <%= link_to image_tag("IDMANNInstitute3.jpg", :alt => "BigBlueButton", :class => "logo"), meeting_room_path('rooms', User.find(current_user.id).encrypted_id) %>
         <% else %>
-          <%= link_to image_tag("bbb-logo.png", :alt => "BigBlueButton", :class => "logo"), root_path %>
+          <%= link_to image_tag("IDMANNInstitute3.jpg", :alt => "BigBlueButton", :class => "logo"), root_path %>
         <% end %>
       </span>
     </div>
