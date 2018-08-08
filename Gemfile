@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.4.0'
+ruby '2.4.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
@@ -96,3 +96,5 @@ gem 'omniauth-saml'
 
 # For device detection to determine BigBlueButton client.
 gem 'browser'
+
+gem 'wdm', '>= 0.1.0'
