@@ -63,7 +63,7 @@
   invalid_credentials: O login falhou devido à credenciais inválidas. Tem certeza que inseriu corretamente?
   invite_message: "Para convidar alguém para a reunião, envie este link:"
   landing:
-    about: Greenlight é um front-end simples para seu %{href} servidor de webconferências. Você pode criar suas próprias salas para hospedar sessões, ou se juntar a outras utilizando um link curto e conveniente.
+    about: Greenlight é um front-end simples para seu servidor de webconferências %{href}. Você pode criar suas próprias salas para hospedar sessões, ou se juntar a outras utilizando um link curto e conveniente.
     welcome: Bem vindo ao <span class="green-grad">Greenlight</span>.
     video: Assista ao nosso tutorial sobre como utilizar o Greenlight
     upgrade: Mostre-me como atualizar para o 2.0!
@@ -71,9 +71,9 @@
   ldap_error: Não é possível conectar-se ao servidor LDAP. Verifique sua configuração LDAP no arquivo ENV e certifique-se de que seu servidor está funcionando.
   login: Login
   modal:
-    create_room:
+    create_room: 
       auto_join: Entrar automaticamente na sala.
-      free_delete: Você será livre para delevar esta sala a qualquer tempo.
+      free_delete: Você será livre para deletar esta sala a qualquer tempo.
       name_placeholder: Insira o nome da sala...
       not_blank: O nome da sala não pode ficar vazio.
       title: Criar Nova Sala
@@ -94,7 +94,7 @@
   password: Senha
   recording:
     email: Enviar Gravação por E-mail
-    no_recordings: Esta sala não possui %{inject}gravações.
+    no_recordings: Esta sala não possui %{inject} gravações.
     recorded_on: Gravado em %{date}
     table:
       name: Nome
@@ -130,7 +130,7 @@
       title: Informações de Conta
     delete:
       button: Sim, eu gostaria de deletar minha conta.
-      disclaimer: Se você escolher deletar sua conta, isto<b>NÃO</b> poderá ser refeito. Todas as informações relacionadas a sua conta, incluindo configurações, salas, e gravações serão removidas.
+      disclaimer: Se você escolher deletar sua conta, isto <b>NÃO</b> poderá ser desfeito. Todas as informações relacionadas a sua conta, incluindo configurações, salas e gravações serão removidas.
       subtitle: Deletar conta Permanentemente
       title: Deletar Conta
     design:
