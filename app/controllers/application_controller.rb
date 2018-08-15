@@ -24,6 +24,9 @@ class ApplicationController < ActionController::Base
   before_action :migration_error?
   before_action :set_locale
 
+  # Force SSL for loadbalancer configurations.
+  before_filter :redirect_to_https
+
   protect_from_forgery with: :exception
 
   MEETING_NAME_LIMIT = 90
@@ -87,5 +90,10 @@ class ApplicationController < ActionController::Base
       meeting_recorded: true,
       moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
     }
+  end
+
+
+  def redirect_to_https
+    redirect_to :protocol => "https://" if ( loadbalanced_configuration? and request.headers["X-Forwarded-Proto"] == "http")
   end
 end
