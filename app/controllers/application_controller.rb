@@ -92,8 +92,7 @@ class ApplicationController < ActionController::Base
     }
   end
 
-
   def redirect_to_https
-    redirect_to :protocol => "https://" if ( loadbalanced_configuration? and request.headers["X-Forwarded-Proto"] == "http")
+    redirect_to protocol: "https://" if loadbalanced_configuration? && request.headers["X-Forwarded-Proto"] == "http"
   end
 end
