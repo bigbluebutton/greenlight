@@ -39,9 +39,9 @@ class Room < ApplicationRecord
     bbb.is_meeting_running?(bbb_id)
   end
 
-  # Determines the invite URL for the room.
+  # Determines the invite path for the room.
   def invite_path
-    "#{Rails.configuration.relative_url_root}/#{uid}"
+    "#{Rails.configuration.relative_url_root}/#{CGI.escape(uid)}"
   end
 
   # Creates a meeting on the BigBlueButton server.
