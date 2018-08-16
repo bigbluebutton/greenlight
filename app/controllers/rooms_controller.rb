@@ -130,7 +130,12 @@ class RoomsController < ApplicationController
   helper_method :recording_date
 
   # Helper for converting BigBlueButton dates into a nice length string.
-  def recording_length(len)
+  def recording_length(playbacks)
+    # Stats format currently doesn't support length.
+    playbacks.reject! { |p| p[:type] == "statistics" }
+    return "0 min" if playbacks.empty?
+
+    len = playbacks.first[:length]
     if len > 60
       "#{(len / 60).round} hrs"
     elsif len == 0
