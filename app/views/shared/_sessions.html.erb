@@ -25,7 +25,9 @@
               <thead>
                 <tr>
                   <th><%= t("recording.table.name") %></th>
-                  <th><%= t("recording.table.thumbnails") %></th>
+                  <% if recording_thumbnails? %>
+                    <th><%= t("recording.table.thumbnails") %></th>
+                  <% end %>
                   <th class="text-left"><%= t("recording.table.length") %></th>
                   <th class="text-left"><%= t("recording.table.users") %></th>
                   <th class="text-left"><%= t("recording.table.visibility") %></th>
