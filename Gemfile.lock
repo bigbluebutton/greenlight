@@ -45,7 +45,7 @@ GEM
     autoprefixer-rails (8.6.4)
       execjs
     bcrypt (3.1.12)
-    bigbluebutton-api-ruby (1.6.0)
+    bigbluebutton-api-ruby (1.7.0)
       xml-simple (~> 1.1)
     bindex (0.5.0)
     bootstrap (4.1.1)
