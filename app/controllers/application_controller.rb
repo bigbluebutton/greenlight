@@ -70,6 +70,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :loadbalanced_configuration?
 
+  def recording_thumbnails?
+    Rails.configuration.recording_thumbnails
+  end
+  helper_method :recording_thumbnails?
+
   def allow_greenlight_users?
     Rails.configuration.greenlight_accounts
   end

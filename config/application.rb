@@ -76,5 +76,8 @@ module Greenlight
 
     # Configure custom branding image.
     config.branding_image = ENV['BRANDING_IMAGE']
+
+    # Enable/disable recording thumbnails.
+    config.recording_thumbnails = (ENV['RECORDING_THUMBNAILS'] != "false")
   end
 end
