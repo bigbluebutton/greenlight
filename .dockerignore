@@ -21,3 +21,4 @@ spec/tmp
 .byebug_history
 vendor/bundle
 .bundle
+Jenkinsfile
