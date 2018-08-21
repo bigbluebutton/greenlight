@@ -11,6 +11,12 @@ if (env.TAG_NAME && env.TAG_NAME.contains("release")) {
   kubecSecretsId = 'gl-launcher-staging-secrets'
 }
 
+properties([
+  pipelineTriggers([
+    githubPush()
+  ])
+])
+
 podTemplate(label: label, cloud: "${kubeCloud}", containers: [
   containerTemplate(name: 'ruby', image: "ruby:2.5.1", command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'gcloud', image: "gcr.io/ci-cd-for-bn/gcloud-docker", command: 'cat', ttyEnabled: true),
@@ -31,7 +37,7 @@ volumes: [
     
     stage('Test') {
       container('ruby') {
-        sh "bundle install && bundle exec rubocop && bundle exec rspec"
+        sh "bundle install --without development production && bundle exec rubocop && bundle exec rspec"
       }
     }
    
