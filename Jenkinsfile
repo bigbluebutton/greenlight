@@ -11,7 +11,14 @@ if (env.TAG_NAME && env.TAG_NAME.contains("release")) {
   kubecSecretsId = 'gl-launcher-staging-secrets'
 }
 
+properties([
+  pipelineTriggers([
+    githubPush()
+  ])
+])
+
 podTemplate(label: label, cloud: "${kubeCloud}", containers: [
+  containerTemplate(name: 'ruby', image: "ruby:2.5.1", command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'gcloud', image: "gcr.io/ci-cd-for-bn/gcloud-docker", command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'kubectl', image: 'gcr.io/cloud-builders/kubectl', command: 'cat', ttyEnabled: true)
 ],
@@ -27,6 +34,12 @@ volumes: [
     def shortGitCommit = "${gitCommit[0..10]}"
     def previousGitCommit = sh(script: "git rev-parse ${gitCommit}~", returnStdout: true)
     def imageTag = "gcr.io/${project}/${appName}:${gitBranch}.${env.BUILD_NUMBER}.${gitCommit}"
+    
+    stage('Test') {
+      container('ruby') {
+        sh "bundle install --without development production && bundle exec rubocop && bundle exec rspec"
+      }
+    }
    
     stage('Build and Publish') {
       container('gcloud') {
@@ -50,7 +63,7 @@ volumes: [
       container('kubectl') {
          withCredentials([file(credentialsId: kubecSecretsId, variable: 'FILE')]) {
             sh '''
-              kubectl get pods && kubectl apply -f $FILE
+              kubectl apply -f $FILE
             '''
          }
         sh "kubectl set image deployments/gl-deployment gl=${imageTag}"
