@@ -30,37 +30,43 @@ volumes: [
     def imageTag = "gcr.io/${project}/${appName}:${gitBranch}.${env.BUILD_NUMBER}.${gitCommit}"
     
     stage('Test') {
-      container('ruby') {
-        sh "bundle install && bundle exec rubocop && bundle exec rspec "
+      steps {
+        container('ruby') {
+          sh "bundle install && bundle exec rubocop && bundle exec rspec "
+        }
       }
     }
    
     stage('Build and Publish') {
-      container('gcloud') {
-        withCredentials([file(credentialsId: 'cloud-datastore-user-account-creds', variable: 'FILE')]) {
-          sh "gcloud auth activate-service-account --key-file=$FILE"
-          if (kubeCloud == "staging") {
-            sh "gcloud docker -- build -t ${imageTag} . && gcloud docker -- push ${imageTag}"
-          } else {
-           imageTag = "gcr.io/${project}/${appName}:${gitTag}"
-           withCredentials([string(credentialsId: 'DOCKER_USER', variable: 'DOCKER_USER'), string(credentialsId: 'DOCKER_PASSWORD', variable: 'DOCKER_PASSWORD')]) {
-             sh "gcloud docker -- build -t ${imageTag} -t '$DOCKER_USER/${appName}:${greenlightVersion}' -t '$DOCKER_USER/${appName}:${gitTag}' . && gcloud docker -- push ${imageTag}"
-             sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD"
-             sh "docker push '$DOCKER_USER/${appName}:${greenlightVersion}' && docker push '$DOCKER_USER/${appName}:${gitTag}'"
-           }
+      steps {
+        container('gcloud') {
+          withCredentials([file(credentialsId: 'cloud-datastore-user-account-creds', variable: 'FILE')]) {
+            sh "gcloud auth activate-service-account --key-file=$FILE"
+            if (kubeCloud == "staging") {
+              sh "gcloud docker -- build -t ${imageTag} . && gcloud docker -- push ${imageTag}"
+            } else {
+             imageTag = "gcr.io/${project}/${appName}:${gitTag}"
+             withCredentials([string(credentialsId: 'DOCKER_USER', variable: 'DOCKER_USER'), string(credentialsId: 'DOCKER_PASSWORD', variable: 'DOCKER_PASSWORD')]) {
+               sh "gcloud docker -- build -t ${imageTag} -t '$DOCKER_USER/${appName}:${greenlightVersion}' -t '$DOCKER_USER/${appName}:${gitTag}' . && gcloud docker -- push ${imageTag}"
+               sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD"
+               sh "docker push '$DOCKER_USER/${appName}:${greenlightVersion}' && docker push '$DOCKER_USER/${appName}:${gitTag}'"
+             }
+            }
           }
         }
       }
     }
 
     stage('Deploy') {
-      container('kubectl') {
-         withCredentials([file(credentialsId: kubecSecretsId, variable: 'FILE')]) {
-            sh '''
-              kubectl apply -f $FILE
-            '''
-         }
-        sh "kubectl set image deployments/gl-deployment gl=${imageTag}"
+      steps {
+        container('kubectl') {
+           withCredentials([file(credentialsId: kubecSecretsId, variable: 'FILE')]) {
+              sh '''
+                kubectl apply -f $FILE
+              '''
+           }
+          sh "kubectl set image deployments/gl-deployment gl=${imageTag}"
+        }
       }
     }
   }
