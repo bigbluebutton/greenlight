@@ -31,7 +31,7 @@ volumes: [
     
     stage('Test') {
       container('ruby') {
-        sh "bundle install && bundle exec rubocop && bundle exec rspec"
+        sh "bundle install && bundle exec rubocop && bundle exec rspec "
       }
     }
    
