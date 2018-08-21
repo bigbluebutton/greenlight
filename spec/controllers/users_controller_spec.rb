@@ -43,6 +43,8 @@ describe UsersController, type: :controller do
   end
 
   describe "GET #new" do
+    before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
+
     it "assigns a blank user to the view" do
       get :new
       expect(assigns(:user)).to be_a_new(User)
@@ -50,15 +52,47 @@ describe UsersController, type: :controller do
   end
 
   describe "POST #create" do
-    it "redirects to user room on succesful create" do
-      params = random_valid_user_params
-      post :create, params: params
+    context "allow greenlight accounts" do
+      before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
 
-      u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+      it "redirects to user room on successful create" do
+        params = random_valid_user_params
+        post :create, params: params
 
-      expect(u).to_not be_nil
-      expect(u.name).to eql(params[:user][:name])
-      expect(response).to redirect_to(room_path(u.main_room))
+        u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+
+        expect(u).to_not be_nil
+        expect(u.name).to eql(params[:user][:name])
+        expect(response).to redirect_to(room_path(u.main_room))
+      end
+
+      it "user saves with greenlight provider" do
+        params = random_valid_user_params
+        post :create, params: params
+
+        u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+
+        expect(u.provider).to eql("greenlight")
+      end
+
+      it "renders #new on unsuccessful save" do
+        post :create, params: invalid_params
+
+        expect(response).to render_template(:new)
+      end
+    end
+
+    context "disallow greenlight accounts" do
+      before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(false) }
+
+      it "redirect to root on attempted create" do
+        params = random_valid_user_params
+        post :create, params: params
+
+        u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+
+        expect(u).to be_nil
+      end
     end
 
     it "redirects to main room if already authenticated" do
@@ -67,21 +101,6 @@ describe UsersController, type: :controller do
 
       post :create, params: random_valid_user_params
       expect(response).to redirect_to(room_path(user.main_room))
-    end
-
-    it "user saves with greenlight provider" do
-      params = random_valid_user_params
-      post :create, params: params
-
-      u = User.find_by(name: params[:user][:name], email: params[:user][:email])
-
-      expect(u.provider).to eql("greenlight")
-    end
-
-    it "renders #new on unsuccessful save" do
-      post :create, params: invalid_params
-
-      expect(response).to render_template(:new)
     end
   end
 
