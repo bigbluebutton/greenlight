@@ -50,7 +50,7 @@ volumes: [
       container('kubectl') {
          withCredentials([file(credentialsId: kubecSecretsId, variable: 'FILE')]) {
             sh '''
-              kubectl get pods && kubectl apply -f $FILE
+              kubectl apply -f $FILE
             '''
          }
         sh "kubectl set image deployments/gl-deployment gl=${imageTag}"
