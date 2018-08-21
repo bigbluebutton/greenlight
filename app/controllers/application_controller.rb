@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
 
   # Force SSL for loadbalancer configurations.
-  before_filter :redirect_to_https
+  before_action :redirect_to_https
 
   protect_from_forgery with: :exception
 

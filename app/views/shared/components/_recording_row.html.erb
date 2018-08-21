@@ -38,7 +38,7 @@
     <div class="small text-muted text-uppercase">
       <%= t("recording.table.users") %>
     </div>
-    <%= recording[:participants] %>
+    <%= recording[:participants] || "-" %>
   </td>
   <td class="text-left">
     <div class="dropdown">
