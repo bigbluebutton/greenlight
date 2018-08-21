@@ -1,0 +1,158 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Spanish (es) locale.
+
+es:
+  bigbluebutton: BigBlueButton
+  cancel: Cancelar
+  copy: Copiar
+  delete: Eliminar
+  docs: Documentación
+  email: Correo
+  enter_your_name: Introduce tu nombre
+  errors:
+    internal:
+      message: Oh no! PArece que algo falló de tu lado.
+      help: "El error ha sido registrado, vamos a revisarlo."
+    migration_error:
+      contact_admin: "Sí tu no eres administrador, contacta a uno."
+      continue: Me gustaría seguir utilizando la versión 1.0
+      notice: >
+        Greenlight encontro un error al migrar la base de datos. <br>Esto puede deberse a que no hás actualizado a Greenlight versión 2.0
+      upgrade: Muestrame como actualizar a la verisión 2.0
+      version: Hemos publicado una nueva version de Greenlight pero tu base de datos no es compatible.
+    not_found:
+      message: Ups! parece que no podemos encontrarle
+      help: "¿Puede ser que haya sido eliminada?"
+    title: Errores
+    unprocessable:
+      message: "Ups!, La acción no puede ser procesada"
+      help: Desafortunadamente esta no es una acción valida
+  features:
+    title: Funciones
+    rooms: Salas personalizadas
+    recordings: Administración de grabaciones
+    designs: Diseño personalizado
+    authentication: Autentificación de usuario
+  footer:
+    powered_by: "Funciona con %{href}"
+  go_back: Atrás
+  greenlight: Greenlight
+  header:
+    create_room: Creat sala
+    dropdown:
+      help: "¿Necesitas ayuda?"
+      home: Sala principal
+      settings: Configuración
+      signout: Salir
+  home_room: Sala principal
+  info_update_success: La información ha sido actualizada exitósamente
+  invalid_credentials: El ingreso falló debido al uso incorrecto de clave de acceso. Estás seguro de haberla introduciso corréctamente.
+  invite_message: "Para invitar a alquien a la sesión, enviale este enlace:"
+  landing:
+    about: "Greenlight es una interface web para tu servidor %{href}de conferencias de fuentes libres. Puedes crear tus propias salas y ser anfitrión de sesiones o ingresar a las de otros utilizando un corto y conveniente enlace."
+    welcome: Bienvenido a <span class="green-grad">Greenlight</span>.
+    video: Ve nuestro tutorial de como utilizar Greenlight
+    upgrade: Muestrame como actualizar a versión 2.0
+    version: Hemos publicado una nueva version de Greenlight pero tu base de datos no es compatible.
+  ldap_error: No se puede conectar al servidor LDAP. Compruebe la configuración de LDAP en el archivo "env" y asegúrate de que tu servidor está ejecutándose.
+  login: Ingresar
+  modal:
+    create_room:
+      auto_join: Eniame a la sala automáticamente cuando empiece ls sesión
+      free_delete: Podrás eliminar la sala en el momento que quieras
+      name_placeholder: Introduce un nombre para la sala
+      not_blank: El nombre de la sala no puede estar vacío
+      title: Crear una sala nueva
+    delete_account:
+      confirm: "¿Estás seguro de querer eliminar tu cuenta?"
+      delete: "Estoy seguro, elimina mi cuenta"
+      keep: "De hecho, la conserbaré"
+      warning: "Esta decisión es final, <b>No</b> podrás recuperar la información asociada"
+    delete_room:
+      confirm: "¿Estás seguro de querer eliminar %{room}?"
+      delete: "Estoy seguro, elimina esta sala"
+      keep: "Cambie de opinión, la conservaré"
+      warning: <b>No</b> podrás recuperar la sala ni las grabaciones asociadas
+    login:
+      or: o
+      with: "Ingresar con %{provider}"
+  omniauth_error: Ocurrió un error al intentar ingresar utilizando OmniAuth. Por favor intente nuevamente o contacte un administrador.
+  password: Contraseña
+  recording:
+    email: Enviar correo con la grabación
+    no_recordings: "Esta sala no tiene grabaciones %{inject}"
+    recorded_on: "Grabada el %{date}"
+    table:
+      name: Nombre
+      thumbnails: Imagenes miniatura
+      length: Longitud
+      users: Usuarios
+      visibility: Visibilidad
+      formats: Formatos
+    visibility:
+      public: Pública
+      unlisted: No listada
+  room:
+    invited: Hás sido invitado a ingresar
+    invite_participants: Invitar participantes
+    join: Entrar
+    last_session: "Última sesión en %{session}"
+    owner: Dueño
+    no_sessions: Esta sala todavía no tiene sesiones
+    recordings: Grabaciones
+    sessions: Sesiones
+    settings: Configuración de sala
+    start: Iniciar
+    wait:
+      message: Ups! L sesión todavía no dado inicio
+      auto: Serás enviado a la sala automáticamente cuando empiece ls sesión
+  settings:
+    account:
+      fullname: Nombre completo
+      provider: Proveedor
+      image: Imagen
+      image_url: "Enlace a imagén de perfil "
+      subtitle: Actualizar información de usuario
+      title: Información de la cuenta
+    delete:
+      button: "Si, me gustaría eleiminar mi cuenta de usuario."
+      disclaimer: "Sí elijes eliminar tu cuenta de usuario, <b>NO</b> podrá ser recuperada. Toda la información relacionada con tu cuenta, incluyendo configuración, salas y grabaciones, será eliminada."
+      subtitle: Eliminar la cuenta de forma permanente
+      title: Eliminar cuenta
+    design:
+      not_supported: Personalización no es soportada actualmente
+      subtitle: Personalizar Greenlight
+      title: Diseño
+    password:
+      confirmation: Confirmación de contraseña nueva
+      new: Contraseña nueva
+      old: Contraseña anterior
+      subtitle: Cambiar tu contraseña
+      title: Contraseña
+    title: Configuración
+  signup:
+    password_confirm: Confirmación de contraseña
+    subtitle: Crear una cuenta
+    title: Registrarse
+    with: "Registrarse utilizando %{provider}"
+  terms:
+    accept: Accepto los términos y condiciones
+    title: Términos y condiciones
+  test_install: >
+    Esta instalación esta haciendo uso del servidor para pruebas que viene pre-configurado. Debería ser substituido con tu propio servidor. Para más detalles vea %{href}.
+  update: Actualizar
