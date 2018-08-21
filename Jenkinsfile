@@ -29,7 +29,7 @@ volumes: [
     def previousGitCommit = sh(script: "git rev-parse ${gitCommit}~", returnStdout: true)
     def imageTag = "gcr.io/${project}/${appName}:${gitBranch}.${env.BUILD_NUMBER}.${gitCommit}"
     
-    stage('Test') {
+    stage('Testing') {
       steps {
         container('ruby') {
           sh "bundle install && bundle exec rubocop && bundle exec rspec "
