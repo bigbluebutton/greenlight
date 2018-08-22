@@ -2,6 +2,7 @@ def project = 'ci-cd-for-bn'
 def appName = 'greenlight'
 def greenlightVersion = 'v2'
 def label = "jenkins-execution-worker-${UUID.randomUUID().toString()}"
+def releaseBuild = env.TAG_NAME && env.TAG_NAME.contains("release")
 
 String convert(long millsToConvert){
    long seconds, minutes, hours;
@@ -13,7 +14,7 @@ String convert(long millsToConvert){
    return String.format("%02d:%02d:%02d", hours, minutes, seconds);
 }
 
-if (env.TAG_NAME && env.TAG_NAME.contains("release")) {
+if (releaseBuild) {
   kubeCloud = "production"
   kubecSecretsId = 'gl-launcher-prod-secrets'
 } else {
@@ -46,6 +47,7 @@ volumes: [
       def shortGitCommit = "${gitCommit[0..10]}"
       def previousGitCommit = sh(script: "git rev-parse ${gitCommit}~", returnStdout: true)
       def imageTag = "gcr.io/${project}/${appName}:${gitBranch}.${env.BUILD_NUMBER}.${gitCommit}"
+      def stageBuild = (kubeCloud == "staging" && gitBranch == "master")
 
       stage('Test') {
         container('ruby') {
@@ -55,17 +57,17 @@ volumes: [
 
       stage('Build and Publish') {
         container('gcloud') {
-          withCredentials([file(credentialsId: 'cloud-datastore-user-account-creds', variable: 'FILE')]) {
+          withCredentials([file(credentialsId: 'cloud-datastore-user-account-creds', variable: 'FILE'), string(credentialsId: 'DOCKER_USER', variable: 'DOCKER_USER'), string(credentialsId: 'DOCKER_PASSWORD', variable: 'DOCKER_PASSWORD')]) {
             sh "gcloud auth activate-service-account --key-file=$FILE"
-            if (kubeCloud == "staging") {
-              sh "gcloud docker -- build -t ${imageTag} -t 'bigbluebutton/${appName}:test' . && gcloud docker -- push ${imageTag}"
-            } else {
-             imageTag = "gcr.io/${project}/${appName}:${gitTag}"
-             withCredentials([string(credentialsId: 'DOCKER_USER', variable: 'DOCKER_USER'), string(credentialsId: 'DOCKER_PASSWORD', variable: 'DOCKER_PASSWORD')]) {
-               sh "gcloud docker -- build -t ${imageTag} -t 'bigbluebutton/${appName}:${greenlightVersion}' -t 'bigbluebutton/${appName}:${gitTag}' . && gcloud docker -- push ${imageTag}"
-               sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD"
-               sh "docker push 'bigbluebutton/${appName}:${greenlightVersion}' && docker push 'bigbluebutton/${appName}:${gitTag}'"
-             }
+            if (stageBuild) {
+              sh "gcloud docker -- build -t ${imageTag} -t 'bigbluebutton/${appName}:master' . && gcloud docker -- push ${imageTag}"
+              sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD"
+              sh "docker push 'bigbluebutton/${appName}:${greenlightVersion}' && docker push 'bigbluebutton/${appName}:${gitTag}'"
+            } else if (releaseBuild) {
+              imageTag = "gcr.io/${project}/${appName}:${gitTag}"
+              sh "gcloud docker -- build -t ${imageTag} -t 'bigbluebutton/${appName}:${greenlightVersion}' -t 'bigbluebutton/${appName}:${gitTag}' . && gcloud docker -- push ${imageTag}"
+              sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD"
+              sh "docker push 'bigbluebutton/${appName}:${greenlightVersion}' && docker push 'bigbluebutton/${appName}:${gitTag}'"
             }
           }
         }
@@ -73,10 +75,12 @@ volumes: [
 
       stage('Deploy') {
         container('kubectl') {
-           withCredentials([file(credentialsId: kubecSecretsId, variable: 'FILE')]) {
-              sh '''
-                kubectl apply -f $FILE
-              '''
+           if (stageBuild || releaseBuild) {
+              withCredentials([file(credentialsId: kubecSecretsId, variable: 'FILE')]) {
+                 sh '''
+                   kubectl apply -f $FILE
+                 '''
+              }
            }
           sh "kubectl set image deployments/gl-deployment gl=${imageTag}"
         }
