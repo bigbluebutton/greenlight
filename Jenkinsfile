@@ -3,6 +3,16 @@ def appName = 'greenlight'
 def greenlightVersion = 'v2'
 def label = "jenkins-execution-worker-${UUID.randomUUID().toString()}"
 
+String convert(long millsToConvert){
+   long seconds, minutes, hours;
+   seconds = millsToConvert / 1000;
+   minutes = seconds / 60;
+   seconds = seconds % 60;
+   hours = minutes / 60;
+   minutes = minutes % 60;
+   return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+}
+
 if (env.TAG_NAME && env.TAG_NAME.contains("release")) {
   kubeCloud = "production"
   kubecSecretsId = 'gl-launcher-prod-secrets'
@@ -10,6 +20,12 @@ if (env.TAG_NAME && env.TAG_NAME.contains("release")) {
   kubeCloud = "staging"
   kubecSecretsId = 'gl-launcher-staging-secrets'
 }
+
+properties([
+  pipelineTriggers([
+    githubPush()
+  ])
+])
 
 podTemplate(label: label, cloud: "${kubeCloud}", containers: [
   containerTemplate(name: 'ruby', image: "ruby:2.5.1", command: 'cat', ttyEnabled: true),
@@ -21,47 +37,53 @@ volumes: [
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
 ]){
   node(label) {
-    def myRepo = checkout scm
-    def gitCommit = myRepo.GIT_COMMIT
-    def gitBranch = myRepo.GIT_BRANCH
-    def gitTag = env.TAG_NAME
-    def shortGitCommit = "${gitCommit[0..10]}"
-    def previousGitCommit = sh(script: "git rev-parse ${gitCommit}~", returnStdout: true)
-    def imageTag = "gcr.io/${project}/${appName}:${gitBranch}.${env.BUILD_NUMBER}.${gitCommit}"
-    
-    stage('Testing') {
-      container('ruby') {
-        sh "bundle install && bundle exec rubocop && bundle exec rspec "
+    try {
+      slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+      def myRepo = checkout scm
+      def gitCommit = myRepo.GIT_COMMIT
+      def gitBranch = myRepo.GIT_BRANCH
+      def gitTag = env.TAG_NAME
+      def shortGitCommit = "${gitCommit[0..10]}"
+      def previousGitCommit = sh(script: "git rev-parse ${gitCommit}~", returnStdout: true)
+      def imageTag = "gcr.io/${project}/${appName}:${gitBranch}.${env.BUILD_NUMBER}.${gitCommit}"
+
+      stage('Test') {
+        container('ruby') {
+          sh "bundle install && bundle exec rubocop && bundle exec rspec "
+        }
       }
-    }
-   
-    stage('Build and Publish') {
-      container('gcloud') {
-        withCredentials([file(credentialsId: 'cloud-datastore-user-account-creds', variable: 'FILE')]) {
-          sh "gcloud auth activate-service-account --key-file=$FILE"
-          if (kubeCloud == "staging") {
-            sh "gcloud docker -- build -t ${imageTag} . && gcloud docker -- push ${imageTag}"
-          } else {
-           imageTag = "gcr.io/${project}/${appName}:${gitTag}"
-           withCredentials([string(credentialsId: 'DOCKER_USER', variable: 'DOCKER_USER'), string(credentialsId: 'DOCKER_PASSWORD', variable: 'DOCKER_PASSWORD')]) {
-             sh "gcloud docker -- build -t ${imageTag} -t '$DOCKER_USER/${appName}:${greenlightVersion}' -t '$DOCKER_USER/${appName}:${gitTag}' . && gcloud docker -- push ${imageTag}"
-             sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD"
-             sh "docker push '$DOCKER_USER/${appName}:${greenlightVersion}' && docker push '$DOCKER_USER/${appName}:${gitTag}'"
-           }
+
+      stage('Build and Publish') {
+        container('gcloud') {
+          withCredentials([file(credentialsId: 'cloud-datastore-user-account-creds', variable: 'FILE')]) {
+            sh "gcloud auth activate-service-account --key-file=$FILE"
+            if (kubeCloud == "staging") {
+              sh "gcloud docker -- build -t ${imageTag} -t 'bigbluebutton/${appName}:test' . && gcloud docker -- push ${imageTag}"
+            } else {
+             imageTag = "gcr.io/${project}/${appName}:${gitTag}"
+             withCredentials([string(credentialsId: 'DOCKER_USER', variable: 'DOCKER_USER'), string(credentialsId: 'DOCKER_PASSWORD', variable: 'DOCKER_PASSWORD')]) {
+               sh "gcloud docker -- build -t ${imageTag} -t 'bigbluebutton/${appName}:${greenlightVersion}' -t 'bigbluebutton/${appName}:${gitTag}' . && gcloud docker -- push ${imageTag}"
+               sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD"
+               sh "docker push 'bigbluebutton/${appName}:${greenlightVersion}' && docker push 'bigbluebutton/${appName}:${gitTag}'"
+             }
+            }
           }
         }
       }
-    }
 
-    stage('Deploy') {
-      container('kubectl') {
-         withCredentials([file(credentialsId: kubecSecretsId, variable: 'FILE')]) {
-            sh '''
-              kubectl apply -f $FILE
-            '''
-         }
-        sh "kubectl set image deployments/gl-deployment gl=${imageTag}"
+      stage('Deploy') {
+        container('kubectl') {
+           withCredentials([file(credentialsId: kubecSecretsId, variable: 'FILE')]) {
+              sh '''
+                kubectl apply -f $FILE
+              '''
+           }
+          sh "kubectl set image deployments/gl-deployment gl=${imageTag}"
+        }
       }
+      slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' in ${convert(currentBuild.duration)} (${env.BUILD_URL})")
+    } catch(e) {
+       slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' message: ${e} (${env.BUILD_URL})")
     }
   }
 }
