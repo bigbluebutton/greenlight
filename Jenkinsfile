@@ -14,6 +14,7 @@ String convert(long millsToConvert){
    return String.format("%02d:%02d:%02d", hours, minutes, seconds);
 }
 
+
 if (releaseBuild) {
   kubeCloud = "production"
   kubecSecretsId = 'gl-launcher-prod-secrets'
