@@ -17,10 +17,10 @@ String convert(long millsToConvert){
 
 if (releaseBuild) {
   kubeCloud = "production"
-  kubecSecretsId = 'gl-launcher-prod-secrets'
+  kubecSecretsId = 'greenlight-prod-secrets'
 } else {
   kubeCloud = "staging"
-  kubecSecretsId = 'gl-launcher-staging-secrets'
+  kubecSecretsId = 'greenlight-staging-secrets'
 }
 
 properties([
