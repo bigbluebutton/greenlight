@@ -63,7 +63,7 @@ volumes: [
             if (stageBuild) {
               sh "gcloud docker -- build -t ${imageTag} -t 'bigbluebutton/${appName}:master' . && gcloud docker -- push ${imageTag}"
               sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD"
-              sh "docker push 'bigbluebutton/${appName}:${greenlightVersion}' && docker push 'bigbluebutton/${appName}:${gitTag}'"
+              sh "docker push 'bigbluebutton/${appName}:master'"
             } else if (releaseBuild) {
               imageTag = "gcr.io/${project}/${appName}:${gitTag}"
               sh "gcloud docker -- build -t ${imageTag} -t 'bigbluebutton/${appName}:${greenlightVersion}' -t 'bigbluebutton/${appName}:${gitTag}' . && gcloud docker -- push ${imageTag}"
