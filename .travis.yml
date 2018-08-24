@@ -2,29 +2,12 @@ sudo: required
 
 language: ruby
 
-services:
-  - docker
-
 rvm:
   - 2.5.1
 
 script:
   - bundle exec rubocop
   - bundle exec rspec
-  - docker build -t bigbluebutton/greenlight:master .
-
-after_script:
-  - docker images
-
-before_deploy:
-  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
-
-deploy:
-  skip_cleanup: true
-  provider: script
-  script: docker push bigbluebutton/greenlight:master
-  on:
-    branch: master
 
 notifications:
   email: false
