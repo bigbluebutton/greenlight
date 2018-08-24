@@ -17,10 +17,10 @@ String convert(long millsToConvert){
 
 if (releaseBuild) {
   kubeCloud = "production"
-  kubecSecretsId = 'gl-launcher-prod-secrets'
+  kubecSecretsId = 'greenlight-prod-secrets'
 } else {
   kubeCloud = "staging"
-  kubecSecretsId = 'gl-launcher-staging-secrets'
+  kubecSecretsId = 'greenlight-staging-secrets'
 }
 
 properties([
@@ -46,7 +46,7 @@ volumes: [
       def gitBranch = myRepo.GIT_BRANCH
       def gitTag = env.TAG_NAME
       def shortGitCommit = "${gitCommit[0..10]}"
-      def previousGitCommit = sh(script: "git rev-parse ${gitCommit}~", returnStdout: true)
+      def previousGitCommit = myRepo.GIT_PREVIOUS_COMMIT
       def imageTag = "gcr.io/${project}/${appName}:${gitBranch}.${env.BUILD_NUMBER}.${gitCommit}"
       def stageBuild = (kubeCloud == "staging" && gitBranch == "master")
 
