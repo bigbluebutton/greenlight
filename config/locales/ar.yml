@@ -1,0 +1,158 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Arabic (ar) locale.
+
+ar:
+  bigbluebutton: BigBlueButton
+  cancel: إلغاء
+  copy: نسخ
+  delete: حذف
+  docs: موثقات
+  email: البريد الإلكتروني
+  enter_your_name: أدخل أسمك!
+  errors:
+    internal:
+      message: أوه لا! يبدو أن هناك خطأ ما من جانبنا.
+      help: لقد تم تسجيل الخطأ ، سنلقي نظرة!
+    migration_error:
+      contact_admin: إذا لم تكن مسؤولاً ، الرجاء الاتصال بأحد المسؤولين.
+      continue: أود أن أبقى في استخدام 1.0.
+      notice: >
+        واجه Greenlight خطأ في ترحيل قاعدة البيانات. <br>قد يكون هذا بسبب عدم تحديثك إلى Greenlight 2.0.
+      upgrade: أرني كيفية الترقية إلى 2.0!
+      version: لقد أصدرنا إصدارًا جديدًا من Greenlight ، لكن قاعدة البيانات غير متوافقة.
+    not_found:
+      message: أووه! يبدو أننا لا نستطيع العثور على ذلك.
+      help: هل من الممكن حذفه؟
+    title: أخطاء
+    unprocessable:
+      message: أووه! الطلب غير قابل للإجراء.
+      help: للأسف ، هذا ليس طلبًا صحيحا.
+  features:
+    title: الميزات
+    rooms: غرف معدلة
+    recordings: إدارة التسجيل
+    designs: تصاميم مخصصة
+    authentication: مصادقة المستخدم
+  footer:
+    powered_by: "مشغل بواسطة%{href}."
+  go_back: عودة
+  greenlight: Greenlight
+  header:
+    create_room: إنشاء غرفة
+    dropdown:
+      help: تحتاج مساعدة؟
+      home: غرفة الإستقبال
+      settings: إعدادات
+      signout: خروج
+  home_room: غرفة الإستقبال
+  info_update_success: تحديث المعلومات بنجاح.
+  invalid_credentials: فشل الدخول بسبب بيانات الاعتماد غير الصالحة. هل أنت متأكد من أنك أدخلتهم بشكل صحيح؟
+  invite_message: "لدعوة شخص ما إلى الاجتماع ، أرسل لهم هذا الرابط:"
+  landing:
+    about: "  Greenlight واجهة أمامية بسيطة لخادم المؤتمرات عبر الإنترنت الخاص بك%{href}. يمكنك إنشاء غرفك الخاصة لاستضافة الجلسات ، أو الانضمام إلى الآخرين باستخدام رابط قصير وملائم."
+    welcome: مرحبًا بك في<span class="green-grad">Greenlight</span>.
+    video: شاهد برنامجنا التعليمي حول استخدام Greenlight
+    upgrade: أرني كيفية الترقية إلى 2.0!
+    version: لقد أصدرنا إصدارًا جديدًا من Greenlight ، لكن قاعدة البيانات غير متوافقة.
+  ldap_error: غير قادر على الاتصال بخادم LDAP. يرجى التحقق من تكوين LDAP في ملف env والتأكد من تشغيل خادمك.
+  login: الدخول
+  modal:
+    create_room:
+      auto_join: انضم إلي تلقائيا في الغرفة.
+      free_delete: سيكون لك مطلق الحرية في حذف هذه الغرفة في أي وقت.
+      name_placeholder: أدخل اسم الغرفة ...
+      not_blank: لا يمكن ترك اسم الغرفة فارغًا.
+      title: قم بإنشاء غرفة جديدة
+    delete_account:
+      confirm: هل انت متأكد انك تريد حذف حسابك؟
+      delete: أنا متأكد من حذف حسابي.
+      keep: في الواقع ، سأحافظ عليه.
+      warning: هذا القرار نهائي.<b>لن</b> تكون قادرًا على استعادة البيانات المرتبطة.
+    delete_room:
+      confirm: "هل أنت متأكد أنك تريد حذف %{room}؟"
+      delete: أنا متأكد من حذف هذه الغرفة.
+      keep: "On second thought, I'll keep it."
+      warning: <b>لن</b> تتمكن من استعادة هذه الغرفة أو أي من التسجيلات المرتبطة بها.
+    login:
+      or: أو
+      with: "الدخول بـ %{provider}"
+  omniauth_error: حدث خطأ أثناء المصادقة مع omniauth. يرجى المحاولة مرة أخرى أو الاتصال بمسؤول!
+  password: كلمه السر
+  recording:
+    email: " البريد الإلكتروني للتسجيل"
+    no_recordings: "لا تحتوي هذه الغرفة على أي من%{inject} التسجيلات.."
+    recorded_on: "تم التسجيل في %{date}"
+    table:
+      name: الإسم
+      thumbnails: الصورة المصغرة
+      length: الطول
+      users: المستخدمين
+      visibility: الرؤية
+      formats: الصيغة
+    visibility:
+      public: عامة
+      unlisted: غير مدرج
+  room:
+    invited: لقد تمت دعوتك للانضمام
+    invite_participants: دعوة المشاركين
+    join: انضم
+    last_session: "الجلسة الأخيرة في %{session}"
+    owner: مالك
+    no_sessions: "ما زالت, لا تحتوي هذه الغرفة على جلسات."
+    recordings: التسجيلات
+    sessions: جلسات
+    settings: إعدادات الغرفة
+    start: بداية
+    wait:
+      message: آسف! لم يبدأ الاجتماع بعد.
+      auto: ستنضم تلقائيًا عندما يبدأ الاجتماع.
+  settings:
+    account:
+      fullname: الاسم الكامل
+      provider: مزود
+      image: صورة
+      image_url: عنوان URL لصورة الملف الشخصي
+      subtitle: قم بتحديث معلومات حسابك
+      title: معلومات الحساب
+    delete:
+      button: نعم ، أرغب في حذف حسابي.
+      disclaimer: إذا اخترت حذف حسابك . <b>لا</b> يمكن استرداده. ستتم إزالة جميع المعلومات المتعلقة بحسابك ، بما في ذلك الإعدادات والغرف والتسجيل.
+      subtitle: "حذف حسابك بشكل دائم "
+      title: حذف الحساب
+    design:
+      not_supported: التخصيص غير مدعوم حاليًا.
+      subtitle: تخصيص Greenlight
+      title: التصميم
+    password:
+      confirmation: تأكيد كلمة السر الجديدة
+      new: كلمة السر الجديدة
+      old: كلمة السر القديمة
+      subtitle: غير كلمة السر الخاصة بك
+      title: كلمه السر
+    title: إعدادات
+  signup:
+    password_confirm: تأكيد كلمة السر
+    subtitle: انشئ حساب
+    title: اشتراك
+    with: "اشترك عن طريق %{provider}"
+  terms:
+    accept: أوافق على الشروط والأحكام.
+    title: الأحكام والشروط
+  test_install: >
+    يستخدم هذا النشر خادم اختبار تمت تهيئته مسبقًا ، ويجب استبداله بخادمك الشخصي. لمزيد من التفاصيل ، اطلع على%{href} .
+  update: تحديث

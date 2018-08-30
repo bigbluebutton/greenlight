@@ -1,0 +1,158 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# German (de) locale.
+
+de:
+  bigbluebutton: BigBlueButton
+  cancel: Abbrechen
+  copy: Kopieren
+  delete: Löschen
+  docs: Dokumentation
+  email: Email
+  enter_your_name: Geben Sie Ihren Namen ein!
+  errors:
+    internal:
+      message: Oh nein! Irgendetwas ist schiefgelaufen.
+      help: "Der Fehler wurde gespeichert, wir werden ihn analysieren!"
+    migration_error:
+      contact_admin: "Wenn Sie kein Administrator sind, kontaktieren Sie bitte einen."
+      continue: Ich möchte bleiben und 1.0 verwenden.
+      notice: >
+        Greenlight hat einen Datenbankmigrationsfehler bemerkt.<br> Dies kann auftreten, weil Sie noch nicht auf Greenlight 2.0. upgedatet haben.
+      upgrade: "Zeigen Sie mir, wie ich auf Version 2.0. update!"
+      version: "Wir haben eine neue Version von Greenlight veröffentlicht, aber Ihre Datenbank ist damit nicht kompatibel."
+    not_found:
+      message: "Ups! Sieht so aus, als können wir das nicht finden."
+      help: "Ist es möglich, dass es entfernt wurde?"
+    title: Fehler
+    unprocessable:
+      message: Ups! Anfrage konnte nicht verarbeitet werden.
+      help: Leider ist das keine valide Anfrage.
+  features:
+    title: Eigenschaften
+    rooms: Personalisierte Räume
+    recordings: Aufzeichnungsmanagement
+    designs: Eigene Designs
+    authentication: Nutzerauthentifizierung
+  footer:
+    powered_by: "Bereitgestellt durch %{href}."
+  go_back: Zurück
+  greenlight: Greenlight
+  header:
+    create_room: Raum erstellen
+    dropdown:
+      help: "Brauchen Sie Hilfe?"
+      home: Startraum
+      settings: Einstellungen
+      signout: Abmelden
+  home_room: Startraum
+  info_update_success: Information erfolgreich aktualisiert.
+  invalid_credentials: "Login wegen ungültiger Anmeldedaten fehlgeschlagen. Sind Sie sicher, alles richtig eingegeben zu haben?"
+  invite_message: "Um jemanden zur Konferenz einzuladen, schicken Sie ihm diesen Link:"
+  landing:
+    about: "Greenlight ist ein einfaches Frontend für Ihren quelloffenen %{href} Webkonferenzserver. Sie können Ihre eigenen Räume erstellen um Konferenzen abzuhalten oder Sie können bestehenden Konferenzen über einen praktischen Link beitreten."
+    welcome: Willkommen zu <span class="green-grad">Greenlight</span>.
+    video: Schauen Sie sich unsere Anleitung zur Verwendung von Greenlight an
+    upgrade: "Zeigen Sie mir, wie ich auf Version 2.0. update!"
+    version: "Wir haben eine neue Version von Greenlight veröffentlicht, aber Ihre Datenbank ist damit nicht kompatibel."
+  ldap_error: "Verbindung zum LDAP Server konnte nicht hergestellt werden. Bitte überprüfen Sie die LDAP Konfiguration und stellen Sie sicher, dass der LDAP-Server läuft."
+  login: Login
+  modal:
+    create_room:
+      auto_join: Automatisch dem Raum beitreten.
+      free_delete: Sie können den Raum jederzeit wieder löschen.
+      name_placeholder: Geben Sie einen Raumnamen ein...
+      not_blank: Es muss ein Raumname angegeben werden.
+      title: Neuen Raum erstellen
+    delete_account:
+      confirm: "Sind Sie sicher, dass Sie Ihren Account löschen wollen?"
+      delete: Ich bin mir sicher. Löschen Sie meinen Account.
+      keep: Ich behalte ihn doch.
+      warning: "Diese Entscheidung ist endgültig. Sie werden <b>nicht</b> in der Lage sein, damit verbundene Daten wiederherzustellen."
+    delete_room:
+      confirm: "Sind Sie sicher, dass Sie %{room}löschen wollen?"
+      delete: Ich will diesen Raum löschen.
+      keep: Ich will ihn doch nicht löschen.
+      warning: "Sie werden <b>nicht</b> in der Lage sein, den Raum oder mit ihm verbundene Aufzeichnungen wiederherzustellen."
+    login:
+      or: oder
+      with: "Login mit %{provider}"
+  omniauth_error: Es ist ein Fehler bei der Authentifizierung über Omniauth aufgetreten. Versuchen Sie es nochmal oder kontaktieren Sie einen Administrator.
+  password: Passwort
+  recording:
+    email: Aufzeichnungslink per Email
+    no_recordings: "Dieser Raum hat keine %{inject}Aufzeichnungen."
+    recorded_on: "Aufgezeichnet am %{date}"
+    table:
+      name: Name
+      thumbnails: Miniaturbilder
+      length: Dauer
+      users: Teilnehmer
+      visibility: Sichtbarkeit
+      formats: Formate
+    visibility:
+      public: Öffentlich
+      unlisted: Nicht gelistet
+  room:
+    invited: Sie wurden zur Teilnahme eingeladen
+    invite_participants: Teilnehmer einladen
+    join: Teilnehmen
+    last_session: "Letzte Konferenz am %{session}"
+    owner: Besitzer
+    no_sessions: In diesem Raum haben noch keine Konferenzen stattgefunden.
+    recordings: Aufzeichnungen
+    sessions: Konferenzen
+    settings: Raumeinstellungen
+    start: Starten
+    wait:
+      message: Ups! Die Konferenz hat noch nicht begonnen.
+      auto: "Sie treten der Konferenz automatisch bei, sobald Sie begonnen hat."
+  settings:
+    account:
+      fullname: Vollständiger Name
+      provider: Anbieter
+      image: Bild
+      image_url: URL des Profilbilds
+      subtitle: Accountinformationen aktualisieren
+      title: Accountinformationen
+    delete:
+      button: "Ja, ich möchte meinen Account löschen."
+      disclaimer: "Wenn Sie Ihren Account löschen, können Sie ihn <b>NICHT</b> wiederherstellen. Alle mit ihrem Account verbundenen Informationen - wie Einstellungen, Räume und Aufzeichnungen - werden gelöscht."
+      subtitle: Account endgültig löschen
+      title: Account löschen
+    design:
+      not_supported: Individuelle Anpassungen werden gegenwärtig nicht unterstützt.
+      subtitle: Greenlight individuell anpassen
+      title: Design
+    password:
+      confirmation: Bestätigung von neuem Passwort
+      new: Neues Passwort
+      old: Altes Passwort
+      subtitle: Passwort ändern
+      title: Passwort
+    title: Einstellungen
+  signup:
+    password_confirm: Passwortbestätigung
+    subtitle: Account erstellen
+    title: Anmelden
+    with: "Anmelden mit %{provider}"
+  terms:
+    accept: Ich stimme den allgemeinen Nutzungsbedingungen zu.
+    title: Allgemeine Nutzungsbedingungen
+  test_install: >
+    Diese Installation verwendet einen vorkonfigurierten Testserver. Sie sollten diesen durch Ihren eigenen Server ersetzen. Weitere Informationen dazu unter %{href}.
+  update: Update

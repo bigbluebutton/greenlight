@@ -1,0 +1,158 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# French (fr) locale.
+
+fr:
+  bigbluebutton: BigBlueButton
+  cancel: Annuler
+  copy: Copier
+  delete: Supprimer
+  docs: Documentation
+  email: Email
+  enter_your_name: Entrez votre nom !
+  errors:
+    internal:
+      message: Oh non ! On dirait que quelque chose a mal tourné de notre côté.
+      help: "L'erreur a été enregistrée, nous allons jeter un coup d’œil !"
+    migration_error:
+      contact_admin: "Si vous n’êtes pas un administrateur, veuillez en contacter un."
+      continue: Je veux rester sur la 1.0.
+      notice: >
+        Greenlight a rencontré une erreur de migration de base de données.<br> C'est peut-être parce que vous n'avez pas mis à jour Greenlight 2.0.
+      upgrade: Montrez-moi comment passer à la version 2.0 !
+      version: "Nous avons publié une nouvelle version de Greenlight, mais votre base de données n'est pas compatible."
+    not_found:
+      message: Oups ! On dirait qu'on ne peut pas trouver ça.
+      help: "Est-il possible qu'il ait été supprimé ?"
+    title: Erreurs
+    unprocessable:
+      message: Oups ! La demande est impossible à traiter.
+      help: "Malheureusement, ce n'est pas une demande valide."
+  features:
+    title: "Fonctionnalités "
+    rooms: "Salons Personnalisés "
+    recordings: Gestion des enregistrements
+    designs: Designs personnalisés
+    authentication: Authentification d'utilisateur
+  footer:
+    powered_by: "Alimenté par %{href}."
+  go_back: Retour
+  greenlight: Greenlight
+  header:
+    create_room: "Créer Salon "
+    dropdown:
+      help: "Besoin d'aide ?"
+      home: "Salle d’Accueil "
+      settings: "Paramètres "
+      signout: Déconnexion
+  home_room: Salle d’Accueil
+  info_update_success: Informations mises à jour avec succès.
+  invalid_credentials: "La connexion a échoué en raison d'informations d'identification erronées. Êtes-vous sûr de les avoir entrées correctement ?"
+  invite_message: "Pour inviter quelqu'un à la réunion, envoyez-lui ce lien :"
+  landing:
+    about: "Greenlight est une interface simple pour votre %{href} serveur open-source de Web conférence. Vous pouvez créer vos propres salles pour héberger des sessions ou rejoindre d'autres utilisateurs via un lien court et pratique."
+    welcome: Bienvenue sur <span class="green-grad">Greenlight</span>.
+    video: Regardez notre tutoriel sur l'utilisation de Greenlight
+    upgrade: Montrez-moi comment passer à la version 2.0 !
+    version: "Nous avons publié une nouvelle version de Greenlight, mais votre base de données n'est pas compatible."
+  ldap_error: Impossible de se connecter au serveur LDAP. Veuillez vérifier votre configuration LDAP dans le fichier env et vous assurer que votre serveur est en cours d'exécution.
+  login: Connexion
+  modal:
+    create_room:
+      auto_join: Rejoignez-moi automatiquement dans le salon.
+      free_delete: Vous serez libre de supprimer cette salle à tout moment.
+      name_placeholder: Entrez un nom de salle...
+      not_blank: Le nom de salle ne peut être vide.
+      title: Créer Nouvelle Salle
+    delete_account:
+      confirm: "Êtes-vous sûr de vouloir supprimer votre compte ?"
+      delete: "Je suis sûr, supprimer mon compte."
+      keep: "En fait, je vais le garder."
+      warning: Cette décision est définitive. Vous ne pourrez <b>pas</b>  récupérer les données associées.
+    delete_room:
+      confirm: "Êtes-vous sûr de vouloir supprimer %{room}?"
+      delete: "Je suis sûr, supprimer cette salle."
+      keep: "À bien y réfléchir, je vais la garder."
+      warning: Vous ne pourrez <b>pas</b> récupérer cette salle ou les enregistrements associés.
+    login:
+      or: ou
+      with: "Connexion via %{provider}"
+  omniauth_error: Une erreur est survenue lors de l'authentification avec omniauth. Veuillez réessayer ou contacter un administrateur !
+  password: Mot de passe
+  recording:
+    email: Envoyer l'enregistrement par Email
+    no_recordings: "Cette salle n'a pas d'enregistrement%{inject}."
+    recorded_on: "Enregistré le %{date}"
+    table:
+      name: Nom
+      thumbnails: Vignettes
+      length: Longueur
+      users: Utilisateurs
+      visibility: Visibilité
+      formats: Formats
+    visibility:
+      public: Publique
+      unlisted: Non Listé
+  room:
+    invited: Vous avez été invité à rejoindre
+    invite_participants: Inviter des participants
+    join: Rejoindre
+    last_session: "Dernière session le %{session}"
+    owner: Propriétaire
+    no_sessions: Cette salle n'a pas encore de sessions !
+    recordings: Enregistrements
+    sessions: Sessions
+    settings: Paramètres Salle
+    start: Démarrer
+    wait:
+      message: Oups ! La réunion n'a pas encore commencé.
+      auto: "Vous serez automatiquement connecté à la réunion, dès son démarrage."
+  settings:
+    account:
+      fullname: Nom complet
+      provider: Fournisseur
+      image: Image
+      image_url: URL de l'image profil
+      subtitle: Mettre à jour les informations de votre compte
+      title: Informations de compte
+    delete:
+      button: "Oui, je souhaiterais supprimer mon compte."
+      disclaimer: "Si vous choisissez de supprimer votre compte, il NE sera <b>PAS</b> récupérable. Toutes les informations concernant votre compte, y compris les paramètres, les salons et les enregistrements seront supprimées."
+      subtitle: Supprimer Définitivement votre Compte
+      title: Supprimer Compte
+    design:
+      not_supported: Personnalisation non prise en charge actuellement.
+      subtitle: Personnalisation Greenlight
+      title: Design
+    password:
+      confirmation: Confirmation du nouveau mot de passe
+      new: Nouveau Mot de passe
+      old: Ancien Mot de passe
+      subtitle: Changer votre Mot de passe
+      title: Mot de passe
+    title: "Paramètres "
+  signup:
+    password_confirm: Confirmation Mot de passe
+    subtitle: Créer un Compte
+    title: S’inscrire
+    with: "S'inscrire via %{provider}"
+  terms:
+    accept: J'accepte les termes et conditions.
+    title: Termes et Conditions
+  test_install: >
+    Ce déploiement utilise un serveur de test pré-configuré, vous devez le remplacer par le vôtre. Pour plus de détails, voir le %{href}.
+  update: Mise à jour
