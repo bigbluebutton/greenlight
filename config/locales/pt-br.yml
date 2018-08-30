@@ -13,8 +13,10 @@
 #
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
- # Brazilian Portuguese (pt-br) locale.
- pt-br:
+
+# Brazilian Portuguese (pt-br) locale.
+
+pt-br:
   bigbluebutton: BigBlueButton
   cancel: Cancelar
   copy: Copiar
@@ -71,7 +73,7 @@
   ldap_error: Não é possível conectar-se ao servidor LDAP. Verifique sua configuração LDAP no arquivo ENV e certifique-se de que seu servidor está funcionando.
   login: Login
   modal:
-    create_room: 
+    create_room:
       auto_join: Entrar automaticamente na sala.
       free_delete: Você será livre para deletar esta sala a qualquer tempo.
       name_placeholder: Insira o nome da sala...

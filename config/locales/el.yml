@@ -1,0 +1,158 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Greek (el) locale.
+
+el:
+  bigbluebutton: BigBlueButton
+  cancel: Ακύρωση
+  copy: Αντιγραφή
+  delete: Διαγραφή
+  docs: Οδηγίες
+  email: Ηλεκτρονικό Ταχυδρομείο
+  enter_your_name: Εισάγετε το όνομα σας!
+  errors:
+    internal:
+      message: Ωχ όχι! Φαίνεται ότι κάτι πήγε στραβά
+      help: "Το σφάλμα έχει καταγραφεί, θα ρίξουμε μια ματιά!"
+    migration_error:
+      contact_admin: "Αν δεν είστε διαχειριστής, επικοινωνήστε με έναν."
+      continue: Θα ήθελα να μείνω χρησιμοποιώντας 1.0.
+      notice: >
+        Το Greenlight αντιμετώπισε σφάλμα με τη βάση δεδομένων. <br> Αυτό μπορεί να οφείλεται στο ότι δεν έχετε αναβαθμιστει στο Greenlight 2.0.
+      upgrade: Δείξε μου πώς να αναβαθμίσω σε 2.0!
+      version: "Έχουμε κυκλοφορήσει μια νέα έκδοση του Greenlight, αλλά η βάση δεδομένων σας δεν είναι συμβατή."
+    not_found:
+      message: Ωπ! Φαίνεται ότι δεν μπορούμε να το βρούμε αυτό.
+      help: Είναι δυνατόν να αφαιρεθεί;
+    title: Σφάλματα
+    unprocessable:
+      message: Ωπ! Το αίτημα είναι μη επεξεργάσιμο.
+      help: "Δυστυχώς, αυτό δεν είναι έγκυρο αίτημα."
+  features:
+    title: Χαρακτηριστικά
+    rooms: Εξατομικευμένα Δωμάτια
+    recordings: Διαχείριση εγγραφής
+    designs: Προσαρμοσμένα Σχέδια
+    authentication: Έλεγχος ταυτότητας χρήστη
+  footer:
+    powered_by: "Υποστηριζόμενο από %{href}"
+  go_back: Πήγαινε πίσω
+  greenlight: Greenlight
+  header:
+    create_room: Δημιουργία δωματίου
+    dropdown:
+      help: Χρειάζεστε βοήθεια;
+      home: Αρχική αίθουσα
+      settings: Ρυθμίσεις
+      signout: Αποσύνδεση
+  home_room: Αρχική αίθουσα
+  info_update_success: Οι πληροφορίες ενημερώθηκαν με επιτυχία.
+  invalid_credentials: Η σύνδεση απέτυχε λόγω μη έγκυρων διαπιστευτηρίων. Είστε βέβαιοι ότι τα έχετε εισάγει σωστά;
+  invite_message: "Για να προσκαλέσετε κάποιον στη συνεδρίαση, στείλτε τον σύνδεσμο:"
+  landing:
+    about: "Το Greenlight είναι ένα απλό διαχειριστικό εργαλείο για το σύστημα τηλεδιάσκεψης ανοιχτού κώδικα %{href}. Μπορείτε να δημιουργήσετε τα δικά σας δωμάτια για να φιλοξενήσετε συνεδρίες ή να συμμετάσχετε σε άλλους χρησιμοποιώντας ένα σύντομο και βολικό σύνδεσμο."
+    welcome: Καλωσήρθες στο <span class="green-grad"> Greenlight </span>.
+    video: Παρακολουθήστε το σεμινάριο μας σχετικά με τη χρήση του Greenlight
+    upgrade: Δείξε μου πώς να αναβαθμίσω σε 2.0!
+    version: "Έχουμε κυκλοφορήσει μια νέα έκδοση του Greenlight, αλλά η βάση δεδομένων σας δεν είναι συμβατή."
+  ldap_error: Δεν είναι δυνατή η σύνδεση με το διακομιστή LDAP. Ελέγξτε τη διαμόρφωση του LDAP στο αρχείο env και βεβαιωθείτε ότι ο διακομιστής σας εκτελείται.
+  login: Σύνδεση
+  modal:
+    create_room:
+      auto_join: Αυτόματα σύνδεσε με στο δωμάτιο.
+      free_delete: Θα μπορείτε να διαγράψετε αυτό το δωμάτιο ανά πάσα στιγμή.
+      name_placeholder: Εισαγάγετε ένα όνομα δωματίου ...
+      not_blank: Το όνομα του δωματίου δεν μπορεί να είναι κενό.
+      title: Δημιουργία νέου δωματίου
+    delete_account:
+      confirm: Είστε βέβαιοι ότι θέλετε να διαγράψετε το λογαριασμό σας;
+      delete: "Είμαι σίγουρος, διαγράψτε τον λογαριασμό μου."
+      keep: "Στην πραγματικότητα, θα το κρατήσω."
+      warning: Η απόφαση αυτή είναι τελική. <b>Δεν</b> θα μπορείτε να ανακτήσετε τα συσχετισμένα δεδομένα.
+    delete_room:
+      confirm: "Είστε βέβαιοι ότι θέλετε να διαγράψετε το %{room};"
+      delete: "Είμαι σίγουρος, διαγράψτε αυτό το δωμάτιο."
+      keep: "Με μια δέυτερη σκέψη, θα το κρατήσω."
+      warning: <b>Δεν</b> θα μπορέσετε να ανακτήσετε αυτό το δωμάτιο ή οποιαδήποτε από τις συσχετισμένες εγγραφές του.
+    login:
+      or: ή
+      with: "Συνδέσου με %{provider}"
+  omniauth_error: Παρουσιάστηκε σφάλμα κατά την επικύρωση με το omniauth. Δοκιμάστε ξανά ή επικοινωνήστε με έναν διαχειριστή!
+  password: Κωδικός πρόσβασης
+  recording:
+    email: Εγγραφή μέσω ηλεκτρονικού ταχυδρομείου
+    no_recordings: "Αυτό το δωμάτιο δεν έχει %{inject} εγγραφές."
+    recorded_on: "Εγγραφή στις %{date}"
+    table:
+      name: Όνομα
+      thumbnails: Μικρογραφίες
+      length: Μήκος
+      users: Χρήστες
+      visibility: Εμφάνιση
+      formats: Μορφές
+    visibility:
+      public: Δημόσιο
+      unlisted: Ακαταχώριτο
+  room:
+    invited: Έχετε προσκληθεί να συμμετάσχετε
+    invite_participants: Προσκαλέστε τους συμμετέχοντες
+    join: Συμμετοχή
+    last_session: "Τελευταία συνεδρία στις %{session}"
+    owner: Ιδιοκτήτης
+    no_sessions: "Αυτό το δωμάτιο δεν έχει συνεδρίες, ακόμα!"
+    recordings: Εγγραφές
+    sessions: Συνεδρίες
+    settings: Ρυθμίσεις δωματίου
+    start: Αρχή
+    wait:
+      message: Ωχ! Η συνάντηση δεν έχει ξεκινήσει ακόμα.
+      auto: Θα συνδεθείτε αυτόματα όταν ξεκινήσει η συνεδρίαση.
+  settings:
+    account:
+      fullname: Πλήρες όνομα
+      provider: Οργανισμός
+      image: Εικόνα
+      image_url: Διεύθυνση εικόνας προφίλ
+      subtitle: Ενημερώστε τα στοιχεία του λογαριασμού σας
+      title: Πληροφορίες λογαριασμού
+    delete:
+      button: "Ναι, θα ήθελα να διαγράψω τον λογαριασμό μου."
+      disclaimer: "Εάν επιλέξετε να διαγράψετε τον λογαριασμό σας, αυτό <b>ΔΕΝ</b> θα είναι ανακτήσιμο. Όλες οι πληροφορίες σχετικά με το λογαριασμό σας, συμπεριλαμβανομένων των ρυθμίσεων, των δωματίων και των εγγραφών θα καταργηθούν."
+      subtitle: Διαγράψτε μόνιμα τον λογαριασμό σας
+      title: Διαγραφή λογαριασμού
+    design:
+      not_supported: Η προσαρμογή δεν υποστηρίζεται αυτή τη στιγμή.
+      subtitle: Προσαρμογή του Greenlight
+      title: Σχέδιο
+    password:
+      confirmation: Επιβεβαίωση νέου κωδικού
+      new: Νέος Κωδικός
+      old: Παλιός Κωδικός
+      subtitle: Αλλάξτε τον κωδικό σας
+      title: Κωδικός πρόσβασης
+    title: Ρυθμίσεις
+  signup:
+    password_confirm: Επιβεβαίωση κωδικού πρόσβασης
+    subtitle: Δημιουργία λογαριασμού
+    title: Εγγραφείτε
+    with: "Εγγραφείτε με %{provider}"
+  terms:
+    accept: Αποδέχομαι τους όρους και τις προϋποθέσεις.
+    title: Οροι και Προϋποθέσεις
+  test_install: >
+    Αυτή η ανάπτυξη χρησιμοποιεί έναν προκαθορισμένο διακομιστή δοκιμών, θα πρέπει να το αντικαταστήσετε με το δικό σας. Για λεπτομέρειες, ανατρέξτε στην ενότητα %{href}.
+  update: Ενημέρωση
