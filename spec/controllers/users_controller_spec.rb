@@ -26,6 +26,7 @@ def random_valid_user_params
       email: Faker::Internet.email,
       password: pass,
       password_confirmation: pass,
+      accepted_terms: true,
     },
   }
 end
@@ -37,7 +38,8 @@ describe UsersController, type: :controller do
         name: "Invalid",
         email: "example.com",
         password: "pass",
-        passwrd_confirmation: "invalid",
+        password_confirmation: "invalid",
+        accepted_terms: false,
       },
     }
   end

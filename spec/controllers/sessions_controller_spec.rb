@@ -20,7 +20,7 @@ require "rails_helper"
 
 describe SessionsController, type: :controller do
   before(:all) do
-    @user = create(:user, password: "example", password_confirmation: "example")
+    @user = create(:user, password: "example", password_confirmation: "example", accepted_terms: true)
   end
 
   describe "GET #destroy" do
