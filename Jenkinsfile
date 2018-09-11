@@ -82,8 +82,8 @@ volumes: [
                    kubectl apply -f $FILE
                  '''
               }
+              sh "kubectl set image deployments/gl-deployment gl=${imageTag}"
            }
-          sh "kubectl set image deployments/gl-deployment gl=${imageTag}"
         }
       }
       slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' in ${convert(currentBuild.duration)} (${env.BUILD_URL})")
