@@ -48,6 +48,7 @@ class User < ApplicationRecord
         u.username = auth_username(auth) unless u.username
         u.email = auth_email(auth)
         u.image = auth_image(auth)
+        u.accepted_terms = true
         u.save!
       end
     end
