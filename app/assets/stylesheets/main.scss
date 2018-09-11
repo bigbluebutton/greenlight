@@ -63,3 +63,9 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.blue-grad {
+  background: linear-gradient(to right, rgba(65,105,225,1) 0%,  rgba(0,0,225,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
