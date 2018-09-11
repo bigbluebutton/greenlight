@@ -33,6 +33,7 @@ class User < ApplicationRecord
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
   validates :password, length: { minimum: 6 }, confirmation: true, if: :greenlight_account?, on: :create
+  validates :accepted_terms, acceptance: true
 
   # We don't want to require password validations on all accounts.
   has_secure_password(validations: false)

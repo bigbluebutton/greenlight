@@ -73,6 +73,11 @@ class UsersController < ApplicationController
         errors[:password] = "is incorrect"
       end
 
+      if user_params[:accepted_terms] == false
+        # Need to accept the terms and conditions
+        errors[:accepted_terms] = "You need to accept the terms and conditions"
+      end
+
       if errors.empty? && @user.save
         # Notify the user that their account has been updated.
         redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
@@ -99,12 +104,8 @@ class UsersController < ApplicationController
 
   # GET /u/terms
   def terms
-    redirect_to root_path unless current_user
-
-    if params[:accept] == "true"
-      current_user.update_attribute(accepted_terms: true)
-      redirect_to current_user.main_room
-    end
+    # Render the terms page
+    render "terms"
   end
 
   private
@@ -118,6 +119,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :image, :password, :password_confirmation, :new_password, :provider)
+    params.require(:user).permit(:name, :email, :image, :password, :password_confirmation, :new_password, :provider, :accepted_terms)
   end
 end

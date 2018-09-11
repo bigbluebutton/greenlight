@@ -23,9 +23,6 @@
           <div class="terms">
             <%= markdown(Rails.configuration.terms) %>
           </div>
-          <div class="btn-list text-right pt-8">
-            <%= button_to t("terms.accept"), terms_path, params: {accept: true}, class: "btn btn-primary btn-space" %>
-          </div>
         </form>
       </div>
     </div>
