@@ -25,7 +25,7 @@ module SessionsHelper
     if !Rails.configuration.terms || user.accepted_terms
       redirect_to user.main_room
     else
-      redirect_to terms_path 
+      redirect_to terms_path
     end
   end
 
