@@ -13,21 +13,6 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="container pt-5">
-  <div class="col-md-8 offset-2">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%= t("terms.title") %></h3>
-      </div>
-      <div class="card-body">
-          <div class="terms">
-            <%= markdown(Rails.configuration.terms) %>
-          </div>
-          <% if current_user %>
-            <%= render "/shared/components/terms_button" %>
-          <% end %>
-        </form>
-      </div>
-    </div>
-  </div>
+<div class="btn-list text-right pt-8">
+    <%= link_to t("terms.accept_existing"), accept_path, class: "btn btn-primary btn-space" %>
 </div>

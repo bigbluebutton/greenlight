@@ -97,10 +97,16 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
-  # GET /u/terms
+  # GET /terms
   def terms
     # Render the terms page
     render "terms"
+  end
+
+  # GET /accept
+  def accept
+    current_user.update_attributes(accepted_terms: true)
+    redirect_to current_user.main_room if current_user
   end
 
   private

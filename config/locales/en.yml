@@ -157,6 +157,7 @@ en:
     with: Signup with %{provider}
   terms:
     accept: I accept the %{href}
+    accept_existing: Accept
     title: Terms and Conditions
   test_install: >
     This deployment is using a pre-configured testing server, you should replace this with your own.

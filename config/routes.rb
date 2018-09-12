@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   # Redirect to terms page
   match '/terms', to: 'users#terms', via: [:get, :post]
 
+  # Accept terms for existing accounts
+  get '/accept', to: 'users#accept', as: :accept
+
   # User resources.
   scope '/u' do
     # Handles login of greenlight provider accounts.
