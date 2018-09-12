@@ -31,9 +31,8 @@ Rails.application.routes.draw do
 
   # User resources.
   scope '/u' do
-    
     # Handles login of greenlight provider accounts.
-    post '/login',  to: 'sessions#create', as: :create_session
+    post '/login', to: 'sessions#create', as: :create_session
 
     # Log the user out of the session.
     get '/logout', to: 'sessions#destroy'
