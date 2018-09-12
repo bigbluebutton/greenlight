@@ -69,7 +69,7 @@ module Greenlight
     end
 
     # Determine if GreenLight should allow non-omniauth signup/login.
-    config.allow_user_signup = "true"
+    config.allow_user_signup = (ENV['ALLOW_GREENLIGHT_ACCOUNTS'] == "true")
 
     # Configure custom banner message.
     config.banner_message = ENV['BANNER_MESSAGE']
