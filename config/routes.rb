@@ -27,10 +27,8 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create', as: :create_user
 
   # Redirect to terms page
-  match '/terms', to: 'users#terms', via: [:get, :post]
-
-  # Accept terms for existing accounts
-  get '/accept', to: 'users#accept', as: :accept
+  get '/terms', to: 'users#terms', as: :terms
+  get '/terms/accept', to: 'users#accept_terms', as: :accept_terms
 
   # User resources.
   scope '/u' do

@@ -17,6 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class RoomsController < ApplicationController
+  before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :find_room, except: :create
   before_action :verify_room_ownership, except: [:create, :show, :join, :logout]
 
@@ -176,5 +177,9 @@ class RoomsController < ApplicationController
       # Redirect unauthenticated users to root.
       redirect_to root_path
     end
+  end
+
+  def validate_accepted_terms
+    redirect_to terms_path unless current_user.accepted_terms
   end
 end

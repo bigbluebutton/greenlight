@@ -103,8 +103,8 @@ class UsersController < ApplicationController
     render "terms"
   end
 
-  # GET /accept
-  def accept
+  # GET /terms/accept
+  def accept_terms
     current_user.update_attributes(accepted_terms: true)
     redirect_to current_user.main_room if current_user
   end
