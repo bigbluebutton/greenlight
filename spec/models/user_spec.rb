@@ -35,7 +35,7 @@ describe User, type: :model do
     it { should allow_value("valid@email.com").for(:email) }
     it { should_not allow_value("invalid_email").for(:email) }
     it { should allow_value(true).for(:accepted_terms) }
-    it { should_not allow_value(false).for(:accepted_terms) }
+    it { should allow_value(false).for(:accepted_terms) }
 
     it { should allow_value("valid.jpg").for(:image) }
     it { should allow_value("valid.png").for(:image) }
