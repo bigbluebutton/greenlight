@@ -23,7 +23,7 @@
           <div class="terms">
             <%= markdown(Rails.configuration.terms) %>
           </div>
-          <% if current_user %>
+          <% if Rails.configuration.terms && current_user && !current_user.accepted_terms %>
             <%= render "/shared/components/terms_button" %>
           <% end %>
         </form>
