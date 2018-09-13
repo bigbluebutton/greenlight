@@ -95,7 +95,17 @@ class User < ApplicationRecord
   end
 
   def name_chunk
-    name[0...3].downcase
+    charset = ("a".."z").to_a - %w(b i l o s) + ("2".."9").to_a - %w(5 8)
+    chunk = name.parameterize[0...3]
+    if chunk.empty?
+      chunk + (0...3).map { charset.to_a[rand(charset.size)] }.join
+    elsif chunk.length == 1
+      chunk + (0...2).map { charset.to_a[rand(charset.size)] }.join
+    elsif chunk.length == 2
+      chunk + (0...1).map { charset.to_a[rand(charset.size)] }.join
+    else
+      chunk
+    end
   end
 
   def greenlight_account?
