@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     @user.provider = "greenlight"
 
     if @user.save
-      UserMailer.welcome_email(@user).deliver
+      UserMailer.welcome_email(@user).deliver unless !Rails.configuration.enable_email_verification
       login(@user)
     else
       # Handle error on user creation.
