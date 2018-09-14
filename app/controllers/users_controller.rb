@@ -29,6 +29,7 @@ class UsersController < ApplicationController
     @user.provider = "greenlight"
 
     if @user.save
+      UserMailer.welcome_email(@user).deliver
       login(@user)
     else
       # Handle error on user creation.
