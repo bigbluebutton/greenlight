@@ -28,7 +28,6 @@ Rails.application.routes.draw do
 
   # Redirect to terms page
   match '/terms', to: 'users#terms', via: [:get, :post]
-  get '/terms/accept', to: 'users#accept_terms', as: :accept_terms
 
   # User resources.
   scope '/u' do

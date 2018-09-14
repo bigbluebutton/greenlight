@@ -99,14 +99,10 @@ class UsersController < ApplicationController
 
   # GET /terms
   def terms
-    # Render the terms page
-    render "terms"
-  end
-
-  # GET /terms/accept
-  def accept_terms
-    current_user.update_attributes(accepted_terms: true)
-    redirect_to current_user.main_room if current_user
+    if params[:accept] == "true"
+      current_user.update_attributes(accepted_terms: true)
+      redirect_to current_user.main_room if current_user
+    end
   end
 
   private
