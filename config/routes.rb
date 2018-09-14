@@ -26,6 +26,13 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new', as: :signup
   post '/signup', to: 'users#create', as: :create_user
 
+  # Verification Routes
+  scope '/verify' do
+    match '/:user_uid', to: 'users#verify', via: [:get, :post], as: :verify
+
+    #get '/', to: 'users#resend', via: [:get, :post], as: :resend
+  end
+
   # User resources.
   scope '/u' do
     match '/terms', to: 'users#terms', via: [:get, :post]

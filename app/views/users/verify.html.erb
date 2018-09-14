@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
+<%
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
-#
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
-#
 # This program is free software; you can redistribute it and/or modify it under the
 # terms of the GNU Lesser General Public License as published by the Free Software
 # Foundation; either version 3.0 of the License, or (at your option) any later
@@ -12,16 +9,22 @@
 # BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-#
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
 
-class UserMailer < ApplicationMailer
-  default from: 'notifications@example.com'
-
-  def welcome_email(user, url)
-    @user = user
-    @url = url
-    mail(to: @user.email, subject: 'Welcome to BigBlueButton!')
-  end
-end
+<div class="container pt-5">
+  <div class="col-md-8 offset-2">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><%= t("verify.title") %></h3>
+      </div>
+      <div class="card-body">
+          <div class="btn-list text-right pt-8">
+            <%= button_to t("verify.accept"), verify_path, params: { user_uid: "same" }, class: "btn btn-primary btn-space" %>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

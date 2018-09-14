@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20180504131705) do
     t.string   "image"
     t.string   "password_digest"
     t.boolean  "accepted_terms",  default: false
+    t.boolean  "verified",        default: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.index ["password_digest"], name: "index_users_on_password_digest", unique: true

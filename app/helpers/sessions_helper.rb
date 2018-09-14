@@ -23,7 +23,11 @@ module SessionsHelper
 
     # If there are not terms, or the user has accepted them, go to their room.
     if !Rails.configuration.terms || user.accepted_terms
-      redirect_to user.main_room
+      #if !Rails.configuration.enable_verification_email || user.verified
+        redirect_to user.main_room
+      #else
+      #  redirect_to verify_path
+      #end
     else
       redirect_to terms_path
     end
