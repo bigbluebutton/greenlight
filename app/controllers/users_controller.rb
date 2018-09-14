@@ -97,13 +97,11 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
-  # GET /u/terms
+  # GET /terms
   def terms
-    redirect_to root_path unless current_user
-
     if params[:accept] == "true"
-      current_user.update_attribute(accepted_terms: true)
-      redirect_to current_user.main_room
+      current_user.update_attributes(accepted_terms: true)
+      redirect_to current_user.main_room if current_user
     end
   end
 
@@ -118,6 +116,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :image, :password, :password_confirmation, :new_password, :provider)
+    params.require(:user).permit(:name, :email, :image, :password, :password_confirmation,
+      :new_password, :provider, :accepted_terms)
   end
 end
