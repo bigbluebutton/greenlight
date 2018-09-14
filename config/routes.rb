@@ -26,19 +26,19 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new', as: :signup
   post '/signup', to: 'users#create', as: :create_user
 
-  # Verification Routes
-  scope '/verify' do
-    match '/:user_uid', to: 'users#verify', via: [:get, :post], as: :verify
-
-    #get '/', to: 'users#resend', via: [:get, :post], as: :resend
-  end
+  # Redirect to terms page
+  match '/terms', to: 'users#terms', via: [:get, :post]
 
   # User resources.
   scope '/u' do
-    match '/terms', to: 'users#terms', via: [:get, :post]
+    # Verification Routes
+    scope '/verify' do
+      match '/', to: 'users#verify', via: [:get, :post], as: :verify
+      match '/resend', to: 'users#resend', via: [:get, :post], as: :resend
+    end
 
     # Handles login of greenlight provider accounts.
-    post '/login',  to: 'sessions#create', as: :create_session
+    post '/login', to: 'sessions#create', as: :create_session
 
     # Log the user out of the session.
     get '/logout', to: 'sessions#destroy'

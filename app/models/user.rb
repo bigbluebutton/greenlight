@@ -34,6 +34,9 @@ class User < ApplicationRecord
 
   validates :password, length: { minimum: 6 }, confirmation: true, if: :greenlight_account?, on: :create
 
+  # Bypass validation if omniauth
+  validates :accepted_terms, acceptance: true, unless: proc { !greenlight_account? }
+
   # We don't want to require password validations on all accounts.
   has_secure_password(validations: false)
 
@@ -47,6 +50,7 @@ class User < ApplicationRecord
         u.username = auth_username(auth) unless u.username
         u.email = auth_email(auth)
         u.image = auth_image(auth)
+        u.verified = true
         u.save!
       end
     end

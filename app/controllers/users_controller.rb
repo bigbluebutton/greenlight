@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     @user.provider = "greenlight"
 
     if @user.save
-      UserMailer.welcome_email(@user, request.base_url + verify_path(@user)).deliver unless !Rails.configuration.enable_email_verification
+      UserMailer.welcome_email(@user, request.base_url + verify_path).deliver unless !Rails.configuration.enable_email_verification
       login(@user)
     else
       # Handle error on user creation.
@@ -98,20 +98,23 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
-  # GET /u/terms
+  # GET | POST /terms
   def terms
-    redirect_to root_path unless current_user
-
     if params[:accept] == "true"
-      current_user.update_attribute(accepted_terms: true)
-      redirect_to current_user.main_room
+      current_user.update_attributes(accepted_terms: true)
+      redirect_to current_user.main_room if current_user
     end
   end
 
-  # GET /verify
+  # GET | POST /u/verify/
   def verify
-    puts "GOOD JOB TEAM"
-    #redirect_to "verify"
+    #find_user.update_attributes(verified: true)
+    render 'verify' # Create a verify view
+  end
+
+  # GET /u/verify/resend
+  def resend
+    render 'verify' # Create a resend view
   end
 
   private
@@ -125,6 +128,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :image, :password, :password_confirmation, :new_password, :provider)
+    params.require(:user).permit(:name, :email, :image, :password, :password_confirmation,
+      :new_password, :provider, :accepted_terms)
   end
 end

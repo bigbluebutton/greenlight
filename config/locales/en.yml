@@ -17,6 +17,10 @@
 # English (en) locale.
 
 en:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Terms and Conditions"
   bigbluebutton: BigBlueButton
   cancel: Cancel
   copy: Copy
@@ -152,7 +156,8 @@ en:
     title: Signup
     with: Signup with %{provider}
   terms:
-    accept: I accept the terms and conditions.
+    accept: I accept the %{href}
+    accept_existing: I accept the terms and conditions
     title: Terms and Conditions
   test_install: >
     This deployment is using a pre-configured testing server, you should replace this with your own.
