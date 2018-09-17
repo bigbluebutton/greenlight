@@ -102,7 +102,7 @@ class UsersController < ApplicationController
   def terms
     if params[:accept] == "true"
       current_user.update_attributes(accepted_terms: true)
-      redirect_to current_user.main_room if current_user
+      login(current_user)
     end
   end
 
@@ -111,7 +111,7 @@ class UsersController < ApplicationController
     #find_user.update_attributes(verified: true)
     if params[:verified] == "true"
       current_user.update_attributes(verified: true)
-      redirect_to current_user.main_room if current_user
+      login(current_user)
     else
       render 'verify'
     end
@@ -119,10 +119,14 @@ class UsersController < ApplicationController
 
   # GET /u/verify/resend
   def resend
-    if current_user.verified == "true"
-      redirect_to current_user.main_room if current_user
+    if current_user.verified == true
+      login(current_user)
+    elsif params[:verified] == "false"
+      # Resend Email
+      UserMailer.welcome_email(current_user, request.base_url + confirm_path(current_user.uid)).deliver unless !Rails.configuration.enable_email_verification
+      render 'verify'
     else
-      render 'verify' # Create a resend view
+      render 'verify'
     end
   end
 

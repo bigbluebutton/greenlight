@@ -18,6 +18,7 @@
 
 class RoomsController < ApplicationController
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
+  before_action :validate_verified_email, unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: :create
   before_action :verify_room_ownership, except: [:create, :show, :join, :logout]
 
@@ -181,5 +182,9 @@ class RoomsController < ApplicationController
 
   def validate_accepted_terms
     redirect_to terms_path unless current_user.accepted_terms
+  end
+
+  def validate_verified_email
+    redirect_to resend_path unless current_user.verified
   end
 end
