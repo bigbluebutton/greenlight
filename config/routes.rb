@@ -33,8 +33,8 @@ Rails.application.routes.draw do
   scope '/u' do
     # Verification Routes
     scope '/verify' do
-      match '/', to: 'users#verify', via: [:get, :post], as: :verify
       match '/resend', to: 'users#resend', via: [:get, :post], as: :resend
+      match '/confirm/:user_uid', to: 'users#confirm', via: [:get, :post], as: :confirm
     end
 
     # Handles login of greenlight provider accounts.

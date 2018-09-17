@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     @user.provider = "greenlight"
 
     if @user.save
-      UserMailer.welcome_email(@user, request.base_url + verify_path).deliver unless !Rails.configuration.enable_email_verification
+      UserMailer.welcome_email(@user, request.base_url + confirm_path(@user)).deliver unless !Rails.configuration.enable_email_verification
       login(@user)
     else
       # Handle error on user creation.
@@ -106,15 +106,24 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET | POST /u/verify/
-  def verify
+  # GET | POST /u/verify/confirm
+  def confirm
     #find_user.update_attributes(verified: true)
-    render 'verify' # Create a verify view
+    if params[:verified] == "true"
+      current_user.update_attributes(verified: true)
+      redirect_to current_user.main_room if current_user
+    else
+      render 'verify'
+    end
   end
 
   # GET /u/verify/resend
   def resend
-    render 'verify' # Create a resend view
+    if current_user.verified == "true"
+      redirect_to current_user.main_room if current_user
+    else
+      render 'verify' # Create a resend view
+    end
   end
 
   private
