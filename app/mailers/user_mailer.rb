@@ -19,7 +19,7 @@
 class UserMailer < ApplicationMailer
   default from: 'notifications@example.com'
 
-  def welcome_email(user, url)
+  def verify_email(user, url)
     @user = user
     @url = url
     mail(to: @user.email, subject: 'Welcome to BigBlueButton!')

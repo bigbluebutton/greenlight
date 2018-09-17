@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
     if @user.save
       if Rails.configuration.enable_email_verification
-        UserMailer.welcome_email(@user, request.base_url + confirm_path(@user)).deliver
+        UserMailer.verify_email(@user, request.base_url + confirm_path(@user)).deliver
       end
       login(@user)
     else
@@ -125,10 +125,7 @@ class UsersController < ApplicationController
     if current_user.verified == true
       login(current_user)
     elsif params[:verified] == "false"
-      # Resend Email
-      if Rails.configuration.enable_email_verification
-        UserMailer.welcome_email(current_user, request.base_url + confirm_path(current_user.uid)).deliver
-      end
+      UserMailer.verify_email(current_user, request.base_url + confirm_path(current_user.uid)).deliver
       render 'verify'
     else
       render 'verify'
