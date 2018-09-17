@@ -27,6 +27,7 @@ def random_valid_user_params
       password: pass,
       password_confirmation: pass,
       accepted_terms: true,
+      verified: true,
     },
   }
 end
@@ -40,6 +41,7 @@ describe UsersController, type: :controller do
         password: "pass",
         password_confirmation: "invalid",
         accepted_terms: false,
+        verified: false,
       },
     }
   end
@@ -65,7 +67,12 @@ describe UsersController, type: :controller do
 
         expect(u).to_not be_nil
         expect(u.name).to eql(params[:user][:name])
-        expect(response).to redirect_to(room_path(u.main_room))
+
+        if Rails.configuration.enable_email_verification
+          expect(response).to redirect_to(resend_path)
+        else
+          expect(response).to redirect_to(room_path(u.main_room))
+        end
       end
 
       it "user saves with greenlight provider" do

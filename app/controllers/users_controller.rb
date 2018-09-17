@@ -110,7 +110,9 @@ class UsersController < ApplicationController
 
   # GET | POST /u/verify/confirm
   def confirm
-    if params[:verified] == "true"
+    if current_user.verified == true
+      login(current_user)
+    elsif params[:verified] == "true"
       current_user.update_attributes(verified: true)
       login(current_user)
     else
