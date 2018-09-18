@@ -58,6 +58,7 @@ describe UsersController, type: :controller do
   describe "POST #create" do
     context "allow greenlight accounts" do
       before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
+      before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(false) }
 
       it "redirects to user room on successful create" do
         params = random_valid_user_params
@@ -68,11 +69,7 @@ describe UsersController, type: :controller do
         expect(u).to_not be_nil
         expect(u.name).to eql(params[:user][:name])
 
-        if Rails.configuration.enable_email_verification
-          expect(response).to redirect_to(resend_path)
-        else
-          expect(response).to redirect_to(room_path(u.main_room))
-        end
+        expect(response).to redirect_to(room_path(u.main_room))
       end
 
       it "user saves with greenlight provider" do
@@ -130,6 +127,59 @@ describe UsersController, type: :controller do
 
       patch :update, params: invalid_params.merge!(user_uid: @user)
       expect(response).to render_template(:edit)
+    end
+  end
+
+  describe "GET | POST #resend" do
+    before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
+    before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(true) }
+
+    it "redirects to main room if verified" do
+      params = random_valid_user_params
+      post :create, params: params
+
+      u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+      u.verified = false
+
+      get :resend
+      expect(response).to render_template(:verify)
+    end
+
+    it "resend email upon click if unverified" do
+      params = random_valid_user_params
+      post :create, params: params
+
+      u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+      u.verified = false
+
+      expect { post :resend, params: { verified: false } }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect(response).to render_template(:verify)
+    end
+  end
+
+  describe "GET | POST #confirm" do
+    before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
+    before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(true) }
+
+    it "redirects to main room if already verified" do
+      params = random_valid_user_params
+      post :create, params: params
+
+      u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+
+      post :confirm, params: { user_uid: u.uid, verified: true }
+      expect(response).to redirect_to(room_path(u.main_room))
+    end
+
+    it "renders confirmation pane if unverified" do
+      params = random_valid_user_params
+      post :create, params: params
+
+      u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+      u.verified = false
+
+      get :confirm, params: { user_uid: u.uid }
+      expect(response).to render_template(:verify)
     end
   end
 end
