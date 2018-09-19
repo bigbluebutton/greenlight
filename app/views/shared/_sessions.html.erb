@@ -45,7 +45,7 @@
                   </td>
                 </tr>
               <% else %>
-                <% recordings.each do |recording| %>
+                <% @recordings.each do |recording| %>
                   <% if only_public %>
                     <%= render "shared/components/public_recording_row", recording: recording %>
                   <% else %>
@@ -56,6 +56,9 @@
               </tbody>
             </table>
           </div>
+        </div>
+        <div class='digg_pagination'>
+          <%= will_paginate @recordings%>
         </div>
       </div>
     </div>

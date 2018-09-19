@@ -16,6 +16,9 @@ gem 'puma', '~> 3.0'
 # Use SQLite as the primary database.
 gem 'sqlite3'
 
+# Add pagination
+gem 'will_paginate'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
