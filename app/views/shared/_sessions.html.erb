@@ -17,6 +17,11 @@
   <div class="container pt-6">
 
     <%= render "shared/components/subtitle", subtitle: (only_public ? t("recording.visibility.public") + " " : "") + t("room.recordings"), search: true %>
+    <%= form_tag search_recordings_path, class: "", method: :get do %>
+      <i class="fas fa-search"></i>
+      <%= text_field_tag :search, "" %>
+    <%= submit_tag 'Search', class: "form_submit" %>
+    <% end %>
     <div class="row">
       <div class="col-12">
         <div class="card">
