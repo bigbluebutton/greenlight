@@ -110,7 +110,7 @@ class UsersController < ApplicationController
 
   # GET | POST /u/verify/confirm
   def confirm
-    if current_user.verified == true
+    if current_user.verified
       login(current_user)
     elsif params[:verified] == "true"
       current_user.update_attributes(verified: true)
@@ -122,7 +122,7 @@ class UsersController < ApplicationController
 
   # GET /u/verify/resend
   def resend
-    if current_user.verified == true
+    if current_user.verified
       login(current_user)
     elsif params[:verified] == "false"
       UserMailer.verify_email(current_user, request.base_url + confirm_path(current_user.uid)).deliver
