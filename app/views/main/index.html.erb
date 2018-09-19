@@ -21,24 +21,23 @@
   <% end %>
 <% end %>
 
-<div class="container pt-9 pb-4">
-  <div class="row pb-8">
-    <div class="col-md-8 col-sm-12">
-      <p id="main-text" class="font-weight-400 display-4"><%= t("landing.welcome").html_safe %></p>
-      <p class="text-muted h4" style="line-height: 22px;"><%= t("landing.about", href: link_to(t("greenlight"), "https://bigbluebutton.org/2018/07/09/greenlight-2-0/", target: "_blank", class: "text-green")).html_safe %></p>
-      <br>
-      <%= link_to "https://youtu.be/Hso8yLzkqj8", target: "_blank" do %>
-        <h4><%= t("landing.video") %> <i class="far fa-play-circle"></i></h4>
-      <% end %>
-    </div>
-    <div class="col-md-4 col-sm-12 img-cycle text-center">
-      <%= image_tag("landing/world.png", class: "active") %>
-      <%= image_tag("landing/bbb.png") %>
-      <%= image_tag("landing/mobile.png") %>
+<div class="background">
+  <div class="container pt-9 pb-8">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 text-center">
+        <h1 id="main-text" class="display-4 mb-4"> <%= t("landing.welcome").html_safe %></h1>
+        <p class="lead offset-lg-2 col-lg-8 col-sm-12 "><%= t("landing.about", href: link_to(t("greenlight"), "https://bigbluebutton.org/2018/07/09/greenlight-2-0/", target: "_blank")).html_safe %></p>
+        <%= link_to "https://youtu.be/Hso8yLzkqj8", target: "_blank" do %>
+          <h4><%= t("landing.video") %> <i class="far fa-play-circle ml-1"></i></h4>
+        <% end %>
+      </div>
+
     </div>
   </div>
-  <%= render "shared/features" %>
 </div>
+
+<%= render "shared/features" %>
+
 
 <script>
 var cycleImages = function(){
