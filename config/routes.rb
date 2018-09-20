@@ -56,9 +56,6 @@ Rails.application.routes.draw do
     post '/start', to: 'rooms#start', as: :start_room
     get '/logout', to: 'rooms#logout', as: :logout_room
 
-    # Mange recordings.
-    get '/', to: 'rooms#search_recordings', as: :search_recordings
-
     scope '/:record_id' do
       post '/', to: 'rooms#update_recording', as: :update_recording
       delete '/', to: 'rooms#delete_recording', as: :delete_recording

@@ -17,11 +17,12 @@
   <div class="container pt-6">
 
     <%= render "shared/components/subtitle", subtitle: (only_public ? t("recording.visibility.public") + " " : "") + t("room.recordings"), search: true %>
-    <%= form_tag search_recordings_path, class: "", method: :get do %>
-      <i class="fas fa-search"></i>
-      <%= text_field_tag :search, "" %>
-    <%= submit_tag 'Search', class: "form_submit" %>
+    <%= form_tag room_path, class: "form-inline", method: :get do %>
+      <i class="fas fa-search ml-2"></i>
+      <%= text_field_tag :search, nil, { class: "form-control ml-2"} %>
+      <%= submit_tag :search, class: "btn-sm btn-primary ml-2" %>
     <% end %>
+    <br>
     <div class="row">
       <div class="col-12">
         <div class="card">
@@ -63,7 +64,7 @@
           </div>
         </div>
         <div class='digg_pagination'>
-          <%= will_paginate @recordings%>
+          <%= will_paginate @recordings %>
         </div>
       </div>
     </div>
