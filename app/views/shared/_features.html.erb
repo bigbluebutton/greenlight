@@ -13,27 +13,29 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<h1 class="text-center mt-8"><%= t("features.title") %></h1>
 
-<div class="container text-center">
-  <div class="col-12 mt-6">
-    <div class="background row feature-stamp">
-      <div class="col-3 my-5">
-        <i class="fas fa-chalkboard-teacher fa-3x"></i>
-        <h4 class="mt-5"><%= t("features.rooms") %></h4>
+<div class="container mt-8 mb-6 text-center">
+
+  <h2 class="mb-6">Greenlight <%= t("features.title") %></h2>
+
+  <div class="row feature-stamp">
+    <div class="col-lg-3 col-md-6">
+      <div class="feature-item">
+        <div class="stamp bg-primary"><i class="fas fa-chalkboard-teacher fa-2x"></i></div>
+        <h4 class="mt-4"><%= t("features.rooms") %></h4>
       </div>
-      <div class="col-3 my-5">
-        <i class="fas fa-film fa-3x"></i>
-        <h4 class="mt-5"><%= t("features.recordings") %></h4>
-      </div>
-      <div class="col-3 my-5">
-        <i class="fas fa-pencil-alt fa-3x"></i>
-        <h4 class="mt-5"><%= t("features.designs") %></h4>
-      </div>
-      <div class="col-3 my-5">
-        <i class="fas fa-door-open fa-3x"></i>
-        <h4 class="mt-5"><%= t("features.authentication") %></h4>
-      </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <span class="stamp bg-primary"><i class="fas fa-film fa-2x"></i></span>
+      <h4 class="mt-4"><%= t("features.recordings") %></h4>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <span class="stamp bg-primary"><i class="fas fa-pencil-alt fa-2x"></i></span>
+      <h4 class="mt-4"><%= t("features.designs") %></h4>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <span class="stamp bg-primary"><i class="fas fa-door-open fa-2x"></i></span>
+      <h4 class="mt-4"><%= t("features.authentication") %></h4>
     </div>
   </div>
 </div>
