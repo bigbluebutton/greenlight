@@ -24,7 +24,7 @@ module SessionsHelper
     # If there are not terms, or the user has accepted them, check for email verification
     # If there email verification is disabled, or the user has verified, go to their room
     if !Rails.configuration.terms || user.accepted_terms
-      if !Rails.configuration.enable_email_verification || user.verified
+      if !Rails.configuration.enable_email_verification || user.email_verified
         redirect_to user.main_room
       else
         redirect_to resend_path

@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
     if @user.save
       if Rails.configuration.enable_email_verification
-        UserMailer.verify_email(@user, request.base_url + confirm_path(@user)).deliver
+        UserMailer.verify_email(@user, verification_link(@user)).deliver
       end
       login(@user)
     else
@@ -110,10 +110,10 @@ class UsersController < ApplicationController
 
   # GET | POST /u/verify/confirm
   def confirm
-    if current_user.verified
+    if current_user.email_verified
       login(current_user)
-    elsif params[:verified] == "true"
-      current_user.update_attributes(verified: true)
+    elsif params[:email_verified] == "true"
+      current_user.update_attributes(email_verified: true)
       login(current_user)
     else
       render 'verify'
@@ -122,10 +122,10 @@ class UsersController < ApplicationController
 
   # GET /u/verify/resend
   def resend
-    if current_user.verified
+    if current_user.email_verified
       login(current_user)
-    elsif params[:verified] == "false"
-      UserMailer.verify_email(current_user, request.base_url + confirm_path(current_user.uid)).deliver
+    elsif params[:email_verified] == "false"
+      UserMailer.verify_email(current_user, verification_link(current_user)).deliver
       render 'verify'
     else
       render 'verify'
@@ -133,6 +133,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def verification_link(user)
+    request.base_url + confirm_path(user.uid)
+  end
 
   def find_user
     @user = User.find_by!(uid: params[:user_uid])

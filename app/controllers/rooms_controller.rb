@@ -185,6 +185,6 @@ class RoomsController < ApplicationController
   end
 
   def validate_verified_email
-    redirect_to resend_path unless current_user.verified
+    redirect_to resend_path unless current_user.email_verified
   end
 end

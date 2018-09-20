@@ -27,7 +27,7 @@ def random_valid_user_params
       password: pass,
       password_confirmation: pass,
       accepted_terms: true,
-      verified: true,
+      email_verified: true,
     },
   }
 end
@@ -41,7 +41,7 @@ describe UsersController, type: :controller do
         password: "pass",
         password_confirmation: "invalid",
         accepted_terms: false,
-        verified: false,
+        email_verified: false,
       },
     }
   end
@@ -139,7 +139,7 @@ describe UsersController, type: :controller do
       post :create, params: params
 
       u = User.find_by(name: params[:user][:name], email: params[:user][:email])
-      u.verified = false
+      u.email_verified = false
 
       get :resend
       expect(response).to render_template(:verify)
@@ -150,9 +150,9 @@ describe UsersController, type: :controller do
       post :create, params: params
 
       u = User.find_by(name: params[:user][:name], email: params[:user][:email])
-      u.verified = false
+      u.email_verified = false
 
-      expect { post :resend, params: { verified: false } }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect { post :resend, params: { email_verified: false } }.to change { ActionMailer::Base.deliveries.count }.by(1)
       expect(response).to render_template(:verify)
     end
   end
@@ -167,7 +167,7 @@ describe UsersController, type: :controller do
 
       u = User.find_by(name: params[:user][:name], email: params[:user][:email])
 
-      post :confirm, params: { user_uid: u.uid, verified: true }
+      post :confirm, params: { user_uid: u.uid, email_verified: true }
       expect(response).to redirect_to(room_path(u.main_room))
     end
 
@@ -176,7 +176,7 @@ describe UsersController, type: :controller do
       post :create, params: params
 
       u = User.find_by(name: params[:user][:name], email: params[:user][:email])
-      u.verified = false
+      u.email_verified = false
 
       get :confirm, params: { user_uid: u.uid }
       expect(response).to render_template(:verify)

@@ -32,17 +32,17 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   ActionMailer::Base.smtp_settings = {
-    address: ENV['SMTP_ADDRESS'],
+    address: ENV['SMTP_SERVER'],
     port: ENV["SMTP_PORT"],
     domain: ENV['SMTP_DOMAIN'],
-    user_name: ENV['SENDER_EMAIL'],
-    password: ENV['SENDER_PASSWORD'],
-    authentication: "plain",
-    enable_starttls_auto: true,
+    user_name: ENV['SMTP_USERNAME'],
+    password: ENV['SMTP_PASSWORD'],
+    authentication: ENV['SMTP_AUTH'],
+    enable_starttls_auto: ENV['SMTP_STARTTLS_AUTO'],
   }
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
 

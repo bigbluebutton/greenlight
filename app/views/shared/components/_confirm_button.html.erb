@@ -14,5 +14,5 @@
 %>
 
 <div class="btn-list text-right pt-8">
-    <%= button_to t("verify.accept"), confirm_path, params: { user_uid: params[:user_uid], verified: true }, class: "btn btn-primary btn-space" %>
+    <%= button_to t("verify.accept"), confirm_path, params: { user_uid: params[:user_uid], email_verified: true }, class: "btn btn-primary btn-space" %>
 </div>

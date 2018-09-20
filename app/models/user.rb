@@ -50,7 +50,7 @@ class User < ApplicationRecord
         u.username = auth_username(auth) unless u.username
         u.email = auth_email(auth)
         u.image = auth_image(auth)
-        u.verified = true
+        u.email_verified = true
         u.save!
       end
     end
