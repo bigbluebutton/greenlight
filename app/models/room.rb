@@ -130,8 +130,6 @@ class Room < ApplicationRecord
     end
 
     res[:recordings].sort_by { |rec| rec[:endTime] }.reverse
-    #hi=recordings.first[:name]
-    #byebug
   end
 
   # Fetches a rooms public recordings.

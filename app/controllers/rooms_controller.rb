@@ -42,13 +42,13 @@ class RoomsController < ApplicationController
   # GET /:room_uid
   def show
     if current_user && @room.owned_by?(current_user)
-      if params[:search]
-        @recordings = @room.recordings.select{
-          |recording| recording[:name].downcase.include?(params[:search].downcase)
-        }.paginate(page: params[:page], per_page: 2)
-      else
-        @recordings = @room.recordings.paginate(page: params[:page], per_page: 2)
-      end
+      @recordings =
+        if params[:search]
+          @room.recordings.select { |recording| recording[:name].downcase.include?(params[:search].downcase) }
+            .paginate(page: params[:page], per_page: 10)
+        else
+          @room.recordings.paginate(page: params[:page], per_page: 10)
+        end
       @is_running = @room.running?
     else
       render :join

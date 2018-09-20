@@ -58,8 +58,4 @@ module SessionsHelper
     env['omniauth.strategy'].options[:checksum] = generate_checksum parse_customer_name(env["SERVER_NAME"]),
       gl_redirect_url, Rails.configuration.launcher_secret
   end
-
-  def filter_by(recordings)
-
-  end
 end
