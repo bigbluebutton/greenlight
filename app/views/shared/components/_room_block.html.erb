@@ -47,6 +47,9 @@
                 <i class="dropdown-icon fas fa-cog"></i> <%= t("room.settings") %>
               <% end %>
               -->
+              <a href="" data-toggle="modal" data-target="#renameRoomModal_<%= room.uid %>"class="dropdown-item">
+                <i class="dropdown-icon far fa-edit"></i> <%= t("rename") %>
+              </a>
               <a href="" data-toggle="modal" data-target="#deleteRoomModal_<%= room.uid %>"class="dropdown-item">
                 <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
               </a>

@@ -96,6 +96,10 @@ en:
     login:
       or: or
       with: Login with %{provider}
+    rename_recording:
+      
+    rename_room:
+      
   omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!
   password: Password
   recording:
@@ -112,6 +116,7 @@ en:
     visibility:
       public: Public
       unlisted: Unlisted
+  rename: "Rename"
   room:
     invited: You have been inivited to join
     invite_participants: Invite Participants

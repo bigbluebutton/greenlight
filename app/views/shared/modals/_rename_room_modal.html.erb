@@ -1,0 +1,61 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="modal fade" id="renameRoomModal_<%= room.uid %>" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <div class="card-body p-6">
+          <div class="card-title">
+            <h3><%= t("modal.create_room.title") %></h3>
+          </div>
+
+          <%= form_for(:room, url: rooms_path) do |f| %>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="fas fa-chalkboard-teacher"></i>
+              </span>
+              <%= f.text_field :name, id: "room-name", class: "form-control", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off %>
+              <div class="invalid-feedback text-left"><%= t("modal.create_room.not_blank") %></div>
+            </div>
+            <label class="custom-switch mt-5 mb-5 float-left">
+              <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>
+              <span class="custom-switch-indicator"></span>
+              <span class="custom-switch-description"><%= t("modal.create_room.auto_join") %></span>
+            </label>
+          <div class="form-footer">
+            <%= f.submit "Create Room", id: "create-room-submit", class: "btn btn-outline-primary btn-block btn-pill" %>
+          </div>
+          <% end %>
+        </div>
+        <div class="card-footer">
+          <p><%= t("modal.create_room.free_delete") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Handle validation messages client-side because
+// form is served in modal, and they are minimal.
+var roomCreateValidations = function(){
+  if($('#room-name').val().length == 0){
+    $('#room-name').addClass("is-invalid");
+  }
+}
+
+$('#create-room-submit').on('click', roomCreateValidations);
+</script>
