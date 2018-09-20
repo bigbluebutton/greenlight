@@ -43,10 +43,11 @@ class RoomsController < ApplicationController
   def show
     if current_user && @room.owned_by?(current_user)
       if params[:search]
-        @recordings = @room.recordings.select{|recording| recording.name.include?(params[:search])}.paginate(page: params[:page], per_page: 2)
+        @recordings = @room.recordings.select{
+          |recording| recording[:name].downcase.include?(params[:search].downcase)
+        }.paginate(page: params[:page], per_page: 2)
       else
         @recordings = @room.recordings.paginate(page: params[:page], per_page: 2)
-        byebug
       end
       @is_running = @room.running?
     else
