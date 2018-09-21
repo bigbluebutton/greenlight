@@ -29,7 +29,6 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :image
       t.string :password_digest, index: { unique: true }
       t.boolean :accepted_terms, default: false
-      t.boolean :email_verified, default: false
 
       t.timestamps
     end
