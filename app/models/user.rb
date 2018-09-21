@@ -36,7 +36,7 @@ class User < ApplicationRecord
 
   # Bypass validation if omniauth
   validates :accepted_terms, acceptance: true,
-                             unless: -> { !Rails.configuration.terms || proc { !greenlight_account? } }
+                             unless: -> { !Rails.configuration.terms || !greenlight_account? }
 
   # We don't want to require password validations on all accounts.
   has_secure_password(validations: false)
