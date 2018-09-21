@@ -18,6 +18,15 @@
 
 require "rails_helper"
 
+def random_valid_room_params
+  {
+    room: {
+      name: Faker::Name.first_name,
+      auto_join: false,
+    },
+  }
+end
+
 describe RoomsController, type: :controller do
   describe "GET #show" do
     before do
@@ -184,6 +193,22 @@ describe RoomsController, type: :controller do
       post :start, params: { room_uid: @other_room }
 
       expect(response).to redirect_to(root_path)
+    end
+  end
+
+  describe "PATCH #update" do
+    before do
+      @user = create(:user)
+      @secondary_room = create(:room, owner: @user)
+    end
+
+    it "properly updates room name and redirects to current page" do
+      @request.session[:user_id] = @user.id
+
+      patch :update, params: random_valid_room_params
+      @secondary_room.reload
+
+      expect(response).to redirect_to(@user.main_room)
     end
   end
 end

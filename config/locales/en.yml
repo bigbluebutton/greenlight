@@ -99,7 +99,8 @@ en:
     rename_recording:
       
     rename_room:
-      
+      name_placeholder: Enter a new room name...
+  name_update_success: Room name successfully changed!
   omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!
   password: Password
   recording:
@@ -116,7 +117,7 @@ en:
     visibility:
       public: Public
       unlisted: Unlisted
-  rename: "Rename"
+  rename: Rename
   room:
     invited: You have been inivited to join
     invite_participants: Invite Participants

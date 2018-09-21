@@ -19,29 +19,21 @@
       <div class="modal-body">
         <div class="card-body p-6">
           <div class="card-title">
-            <h3><%= t("modal.create_room.title") %></h3>
+            <h3><%= t("rename") %></h3>
           </div>
 
-          <%= form_for(:room, url: rooms_path) do |f| %>
+          <%= form_for(:room, url: update_room_path, method: :patch) do |f| %>
+            <%= hidden_field_tag :setting, "rename" %>
             <div class="input-icon">
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= f.text_field :name, id: "room-name", class: "form-control", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off %>
-              <div class="invalid-feedback text-left"><%= t("modal.create_room.not_blank") %></div>
+              <%= f.text_field :name, id: "room-name", class: "form-control", value: "", placeholder: t("modal.rename_room.name_placeholder"), autocomplete: :off %>
             </div>
-            <label class="custom-switch mt-5 mb-5 float-left">
-              <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>
-              <span class="custom-switch-indicator"></span>
-              <span class="custom-switch-description"><%= t("modal.create_room.auto_join") %></span>
-            </label>
-          <div class="form-footer">
-            <%= f.submit "Create Room", id: "create-room-submit", class: "btn btn-outline-primary btn-block btn-pill" %>
-          </div>
+            <div class="form-footer">
+                <%= f.submit "Rename", id: "rename-room-submit", class: "btn btn-outline-primary btn-block btn-pill" %>
+            </div>
           <% end %>
-        </div>
-        <div class="card-footer">
-          <p><%= t("modal.create_room.free_delete") %></p>
         </div>
       </div>
     </div>
@@ -51,11 +43,11 @@
 <script>
 // Handle validation messages client-side because
 // form is served in modal, and they are minimal.
-var roomCreateValidations = function(){
+var roomRenameyValidations = function(){
   if($('#room-name').val().length == 0){
     $('#room-name').addClass("is-invalid");
   }
 }
 
-$('#create-room-submit').on('click', roomCreateValidations);
+$('#rename-room-submit').on('click', roomRenameValidations);
 </script>

@@ -49,6 +49,18 @@ class RoomsController < ApplicationController
     end
   end
 
+  # PATCH /:room_uid
+  def update
+    if params[:setting] == "rename"
+      @room.name = room_params[:name] if @room.owned_by?(current_user) && @room != current_user.main_room
+
+      if @room.save
+        # Notify the user that their account has been updated.
+        redirect_to room_path, notice: I18n.t("name_update_success")
+      end
+    end
+  end
+
   # POST /:room_uid
   def join
     opts = default_meeting_options
