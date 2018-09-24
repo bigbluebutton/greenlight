@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
   # POST /users/login
   def create
     user = User.find_by(email: session_params[:email])
-    if session_params[:password] && !user.greenlight_account?
+    if user && !user.greenlight_account? && session_params[:password]
       redirect_to root_path, notice: I18n.t("invalid_login_method")
     elsif user.try(:authenticate, session_params[:password])
       login(user)
