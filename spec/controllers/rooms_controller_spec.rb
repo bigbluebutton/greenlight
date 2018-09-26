@@ -34,12 +34,28 @@ describe RoomsController, type: :controller do
       expect(assigns(:is_running)).to eql(@owner.main_room.running?)
     end
 
+    it "should be able to search recordings if user is owner" do
+      @request.session[:user_id] = @owner.id
+
+      get :show, params: { room_uid: @owner.main_room, search: :none }
+
+      expect(assigns(:recordings)).to eql([])
+    end
+
     it "should render join if user is not owner" do
       @request.session[:user_id] = @user.id
 
       get :show, params: { room_uid: @owner.main_room }
 
       expect(response).to render_template(:join)
+    end
+
+    it "should be able to search public recordings if user is not owner" do
+      @request.session[:user_id] = @user.id
+
+      get :show, params: { room_uid: @owner.main_room, search: :none }
+
+      expect(assigns(:recordings)).to eql([])
     end
 
     it "should raise if room is not valid" do
