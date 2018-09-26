@@ -51,6 +51,13 @@ class RoomsController < ApplicationController
         end
       @is_running = @room.running?
     else
+      @recordings =
+        if params[:search]
+          @room.public_recordings.select { |recording| recording[:name].downcase.include?(params[:search].downcase) }
+            .paginate(page: params[:page], per_page: 10)
+        else
+          @room.public_recordings.paginate(page: params[:page], per_page: 10)
+        end
       render :join
     end
   end

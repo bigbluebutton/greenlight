@@ -51,7 +51,7 @@
                   </td>
                 </tr>
               <% else %>
-                <% @recordings.each do |recording| %>
+                <% recordings.each do |recording| %>
                   <% if only_public %>
                     <%= render "shared/components/public_recording_row", recording: recording %>
                   <% else %>
@@ -63,11 +63,9 @@
             </table>
           </div>
         </div>
-        <% if @room.owned_by?(current_user) %>
-          <div class='digg_pagination'>
-            <%= will_paginate @recordings %>
-          </div>
-        <% end %>
+        <div class='digg_pagination'>
+          <%= will_paginate recordings %>
+        </div>
       </div>
     </div>
   </div>
