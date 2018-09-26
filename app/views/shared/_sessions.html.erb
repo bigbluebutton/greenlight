@@ -63,9 +63,11 @@
             </table>
           </div>
         </div>
-        <div class='digg_pagination'>
-          <%= will_paginate @recordings %>
-        </div>
+        <% if @room.owned_by?(current_user) %>
+          <div class='digg_pagination'>
+            <%= will_paginate @recordings %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
