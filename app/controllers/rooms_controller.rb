@@ -59,6 +59,13 @@ class RoomsController < ApplicationController
         redirect_to room_path, notice: I18n.t("name_update_success")
       end
     end
+
+    redirect_to room_path
+
+    #respond_to do |format|
+    #  format.html { redirect_to room_path }
+      #format.js { }
+    #end
   end
 
   # POST /:room_uid
