@@ -18,6 +18,17 @@
 
 require "rails_helper"
 
+def stub_bbb_api
+  stub_request(:get, "http://api.fixer.io/latest?symbols=USD&base=EUR").
+    to_return(:body => %Q(
+    {
+      meetingID: 
+      attendeePW:
+      moderatorPW: 
+    }
+  ))
+end
+
 describe RoomsController, type: :controller do
   describe "GET #show" do
     before do
