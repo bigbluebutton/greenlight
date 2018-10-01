@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 
   # Sets the appropriate locale.
   def set_locale
-    I18n.locale = http_accept_language.language_region_compatible_from(I18n.available_locales)
+    I18n.locale = I18n.available_locales[0] #http_accept_language.language_region_compatible_from(I18n.available_locales)
   end
 
   def meeting_name_limit
