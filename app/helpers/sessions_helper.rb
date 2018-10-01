@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
+require "restclient"
+
 module SessionsHelper
   # Logs a user into GreenLight.
   def login(user)
@@ -57,5 +59,13 @@ module SessionsHelper
     env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
     env['omniauth.strategy'].options[:checksum] = generate_checksum parse_customer_name(env["SERVER_NAME"]),
       gl_redirect_url, Rails.configuration.launcher_secret
+  end
+
+  def activeSetting(setting)
+    #document = Nokogiri::HTML(File.open("./app/views/users/edit.html.erb"))
+    page_url = request.original_url
+    #document = Nokogiri::HTML(openuri.get(page_url))
+    puts document
+    true
   end
 end

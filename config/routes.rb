@@ -39,7 +39,7 @@ Rails.application.routes.draw do
 
     # Account management.
     get '/:user_uid/edit', to: 'users#edit', as: :edit_user
-    patch '/:user_uid/edit', to: 'users#update', as: :update_user
+    patch '/:user_uid/edit/', to: 'users#update', as: :update_user
     delete '/:user_uid', to: 'users#destroy', as: :delete_user
   end
 
