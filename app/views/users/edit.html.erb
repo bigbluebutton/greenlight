@@ -14,15 +14,13 @@
 %>
 
 <div class="container pt-8">
-  <% loaded = false 
-    puts loaded%>
   <%= render "shared/components/subtitle", subtitle: t("settings.title"), search: false %>
 
   <div class="row">
     <div class="col-lg-3 mb-4">
       <div class="list-group list-group-transparent mb-0">
         
-        <button id="account" class="list-group-item list-group-item-action setting-btn <%= "active" if params[:setting] == "account"%>">
+        <button id="account" class="list-group-item list-group-item-action setting-btn <%= "active" if !params[:setting] || params[:setting] == "account"%>">
           <span class="icon mr-3"><i class="fas fa-user"></i></span><%= t("settings.account.title") %>
         </button>
 
@@ -57,25 +55,15 @@
 
 
     <div class="col-lg-9">
-      <% if !params[:setting] || loaded || params[:setting] == "account" %>
-        <%= render "shared/settings/setting_view", setting_id: "account", setting_title: t("settings.account.subtitle") %>
+      <%= render "shared/settings/setting_view", setting_id: "account", setting_title: t("settings.account.subtitle") %>
+
+      <% if @user.social_uid.nil? %>
+        <%= render "shared/settings/setting_view", setting_id: "password", setting_title: t("settings.password.subtitle") %>
       <% end %>
 
-      <% if !params[:setting] || loaded || params[:setting] == "password" %>
-        <% if @user.social_uid.nil? %>
-          <%= render "shared/settings/setting_view", setting_id: "password", setting_title: t("settings.password.subtitle") %>
-        <% end %>
-      <% end %>
-      
-      <% if !params[:setting] || loaded || params[:setting] == "design" %>
-        <%= render "shared/settings/setting_view", setting_id: "design", setting_title: t("settings.design.subtitle") %>
-      <% end %>
+      <%= render "shared/settings/setting_view", setting_id: "design", setting_title: t("settings.design.subtitle") %>
 
-      <% if !params[:setting] || loaded || params[:setting] == "delete" %>
-        <%= render "shared/settings/setting_view", setting_id: "delete", setting_title: t("settings.delete.subtitle") %>
-      <% end %>
+      <%= render "shared/settings/setting_view", setting_id: "delete", setting_title: t("settings.delete.subtitle") %>
     </div>
-    <% loaded = true 
-        puts loaded%>
   </div>
 </div>
