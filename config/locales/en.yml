@@ -78,7 +78,6 @@ en:
   login: Login
   modal:
     create_room:
-      confirm: Create Room
       auto_join: Automatically join me into the room.
       free_delete: You will be free to delete this room at any time.
       name_placeholder: Enter a room name...
