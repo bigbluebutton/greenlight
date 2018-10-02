@@ -99,6 +99,8 @@ class UsersController < ApplicationController
 
   # GET /terms
   def terms
+    redirect_to '/404' unless Rails.configuration.terms
+
     if params[:accept] == "true"
       current_user.update_attributes(accepted_terms: true)
       redirect_to current_user.main_room if current_user
