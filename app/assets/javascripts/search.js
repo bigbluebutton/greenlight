@@ -32,11 +32,8 @@ $(document).on('turbolinks:load', function(){
                 alert(search_query + String.fromCharCode(event.keyCode));
             }
 
-            //Search for recordings and display them based on name match
+            // Search for recordings and display them based on name match.
             recordings_table = $(".table-responsive");
-            //recordings_table.click(function(){
-            //    alert("Recordings table clicked");
-            //});
 
             recordings = recordings_table.find('tbody:tr');
             recordings.each(function(){
