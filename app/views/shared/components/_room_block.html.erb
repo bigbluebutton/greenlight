@@ -115,7 +115,7 @@ var submitRename = function(e){
   var room_name_editable = document.getElementById('room-name-editable_<%= room.uid %>');
   var room_name_editable_input = document.getElementById('room-name-editable-input_<%= room.uid %>');
   //alert(room_name_editable_input.value);
-  if (e.target == room_name_button) {
+  if (e.target == room_name_button || e.target == document.getElementsByClassName("fa-edit")[0]) {
     //alert("Yes");
   }
 else if(room_name_editable.classList.contains("is-visible")){
