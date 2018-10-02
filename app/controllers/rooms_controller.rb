@@ -181,7 +181,9 @@ class RoomsController < ApplicationController
   end
 
   def validate_accepted_terms
-    redirect_to terms_path unless current_user.accepted_terms
+    if current_user
+      redirect_to terms_path unless current_user.accepted_terms
+    end
   end
 
   def validate_verified_email

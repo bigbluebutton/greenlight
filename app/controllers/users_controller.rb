@@ -102,6 +102,8 @@ class UsersController < ApplicationController
 
   # GET | POST /terms
   def terms
+    redirect_to '/404' unless Rails.configuration.terms
+
     if params[:accept] == "true"
       current_user.update_attributes(accepted_terms: true)
       login(current_user)
