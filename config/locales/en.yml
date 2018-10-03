@@ -151,11 +151,11 @@ en:
       subtitle: Change your Password
       title: Password
     title: Settings
-  signup:
+    signup:
     password_confirm: Password Confirmation
     subtitle: Create an Account
-    title: Signup
-    with: Signup with %{provider}
+    title: Sign up
+    with: Sign up with %{provider}
   terms:
     accept: I accept the %{href}
     accept_existing: I accept the terms and conditions
