@@ -20,12 +20,12 @@ $(document).on('turbolinks:load', function(){
   var action = $("body").data('action');
 
   // Only run on the settings page.
-  if (controller == "users" && action == "edit"){
+  if ((controller == "users" && action == "edit") || (controller == "users" && action == "update")){
     settingsButtons = $('.setting-btn');
     settingsViews = $('.setting-view');
 
     settingsButtons.each(function(i, btn) {
-      if(i != 0){ $(settingsViews[i]).hide(); }
+      if(!$(btn).hasClass("active")){ $(settingsViews[i]).hide(); }
       $(btn).click(function(){
         $(btn).addClass("active");
         settingsViews.each(function(i, view){
