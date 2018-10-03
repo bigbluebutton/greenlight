@@ -46,7 +46,7 @@
               <tbody>
               <tr id="no_recordings_found" style="display: none;">
                 <td colspan="7" class="text-center h4 p-6 font-weight-normal" >
-                  <%= t("recording.no_recordings", inject: only_public ? t("recording.visibility.public").downcase + " "  : "") %>
+                  <%= t("recording.no_matched_recordings", inject: only_public ? t("recording.visibility.public").downcase + " "  : "") %>
                 </td>
               </tr>
               <% if recordings.empty? %>
