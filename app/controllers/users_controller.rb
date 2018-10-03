@@ -84,6 +84,9 @@ class UsersController < ApplicationController
         errors.each { |k, v| @user.errors.add(k, v) }
         render :edit
       end
+    elsif user_params[:email] != @user.email && @user.update_attributes(user_params)
+      @user.update_attributes(email_verified: false)
+      redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
     elsif @user.update_attributes(user_params)
       redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
     else
