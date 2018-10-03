@@ -28,10 +28,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.provider = "greenlight"
 
-    if @user.save
-      if Rails.configuration.enable_email_verification
-        UserMailer.verify_email(@user, verification_link(@user)).deliver
-      end
+    if Rails.configuration.enable_email_verification && @user.save
+      UserMailer.verify_email(@user, verification_link(@user)).deliver
+      login(@user)
+    elsif @user.save
       login(@user)
     else
       # Handle error on user creation.
@@ -115,7 +115,9 @@ class UsersController < ApplicationController
 
   # GET | POST /u/verify/confirm
   def confirm
-    if current_user.email_verified
+    if !current_user || current_user.uid != params[:user_uid]
+      redirect_to '/404'
+    elsif current_user.email_verified
       login(current_user)
     elsif params[:email_verified] == "true"
       current_user.update_attributes(email_verified: true)
@@ -127,7 +129,9 @@ class UsersController < ApplicationController
 
   # GET /u/verify/resend
   def resend
-    if current_user.email_verified
+    if !current_user
+      redirect_to '/404'
+    elsif current_user.email_verified
       login(current_user)
     elsif params[:email_verified] == "false"
       UserMailer.verify_email(current_user, verification_link(current_user)).deliver
