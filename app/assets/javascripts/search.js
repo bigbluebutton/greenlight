@@ -15,34 +15,40 @@
 // with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 $(document).on('turbolinks:load', function(){
-    var controller = $("body").data('controller');
-    var action = $("body").data('action');
+  var controller = $("body").data('controller');
+  var action = $("body").data('action');
 
-    if(controller == "rooms" && action == "show"){
-        search_input = $('#search_bar');
-        
-        search_input.bind("keydown", function(event){
-            alert("Search input clicked");
+  if(controller == "rooms" && action == "show"){
+    search_input = $('#search_bar');
 
-            search_query = search_input.find(".form-control").val();
-            if(event.key == "Backspace"){
-                alert(search_query.substring(0, search_query.length - 1));
-            }
-            else{
-                alert(search_query + String.fromCharCode(event.keyCode));
-            }
+    search_input.bind("keyup", function(event){
 
-            //Search for recordings and display them based on name match
-            recordings_table = $(".table-responsive");
-            //recordings_table.click(function(){
-            //    alert("Recordings table clicked");
-            //});
+      // Retrieve the current search query
+      search_query = search_input.find(".form-control").val();
 
-            recordings = recordings_table.find('tbody:tr');
-            recordings.each(function(){
-                alert($(this).find('div')[0]);
-            });
+      //Search for recordings and display them based on name match
+      var recordings_found = 0;
 
-        });
-    }
+      recordings_table = $(".table-responsive");
+      recordings = recordings_table.find('tbody').find('tr');
+
+      recordings.each(function(){
+        if($(this).find('#recording_name').text().toLowerCase().includes(search_query.toLowerCase())){
+            recordings_found = recordings_found + 1;
+            $(this).show();
+        }
+        else{
+            $(this).hide();
+        }
+      });
+
+      // Show "No recordings match your search" if no recordings found
+      if(recordings_found == 0){
+        $('#no_recordings_found').show();
+      }
+      else{
+        $('#no_recordings_found').hide();
+      }
+    });
+  }
 });
