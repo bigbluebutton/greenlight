@@ -20,7 +20,8 @@ require "rails_helper"
 
 describe SessionsController, type: :controller do
   before(:all) do
-    @user = create(:user, password: "example", password_confirmation: "example")
+    @user = create(:user, provider: "greenlight", password: "example", password_confirmation: "example")
+    @omni_user = create(:user, password: "example", password_confirmation: "example")
   end
 
   describe "GET #destroy" do
@@ -55,6 +56,17 @@ describe SessionsController, type: :controller do
         session: {
           email: @user.email,
           password: "invalid",
+        },
+      }
+
+      expect(@request.session[:user_id]).to be_nil
+    end
+
+    it "should not login user in if account mismatch" do
+      post :create, params: {
+        session: {
+          email: @omni_user.email,
+          password: "example",
         },
       }
 
