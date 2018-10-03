@@ -45,6 +45,7 @@ class RoomsController < ApplicationController
       @recordings = @room.recordings
       @is_running = @room.running?
     else
+      @recordings = @room.public_recordings
       render :join
     end
   end
