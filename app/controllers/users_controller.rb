@@ -82,7 +82,7 @@ class UsersController < ApplicationController
       else
         # Append custom errors.
         errors.each { |k, v| @user.errors.add(k, v) }
-        render :edit
+        render :edit, params: { settings: params[:settings] }
       end
     elsif user_params[:email] != @user.email && @user.update_attributes(user_params)
       @user.update_attributes(email_verified: false)
@@ -90,7 +90,7 @@ class UsersController < ApplicationController
     elsif @user.update_attributes(user_params)
       redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
     else
-      render :edit
+      render :edit, params: { settings: params[:settings] }
     end
   end
 

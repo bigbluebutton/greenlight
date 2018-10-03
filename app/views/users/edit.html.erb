@@ -19,21 +19,22 @@
   <div class="row">
     <div class="col-lg-3 mb-4">
       <div class="list-group list-group-transparent mb-0">
-        <button id="account" class="list-group-item list-group-item-action setting-btn active">
+        
+        <button id="account" class="list-group-item list-group-item-action setting-btn <%= "active" if !params[:setting] || params[:setting] == "account"%>">
           <span class="icon mr-3"><i class="fas fa-user"></i></span><%= t("settings.account.title") %>
         </button>
 
         <% if @user.social_uid.nil? %>
-          <button id="password" class="list-group-item list-group-item-action setting-btn">
+          <button id="password" class="list-group-item list-group-item-action setting-btn <%= "active" if params[:setting] == "password"%>">
             <span class="icon mr-3"><i class="fas fa-lock"></i></span><%= t("settings.password.title") %>
           </button>
         <% end %>
 
-        <button id="design" class="list-group-item list-group-item-action setting-btn">
+        <button id="design" class="list-group-item list-group-item-action setting-btn <%= "active" if params[:setting] == "design"%>">
           <span class="icon mr-3"><i class="fas fa-edit"></i></span><%= t("settings.design.title") %>
         </button>
 
-        <button id="delete" class="list-group-item list-group-item-action setting-btn">
+        <button id="delete" class="list-group-item list-group-item-action setting-btn <%= "active" if params[:setting] == "delete"%>">
           <span class="icon mr-3"><i class="fas fa-trash-alt"></i></span><%= t("settings.delete.title") %>
         </button>
       </div>

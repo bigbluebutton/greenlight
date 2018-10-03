@@ -114,7 +114,7 @@ en:
       public: Public
       unlisted: Unlisted
   room:
-    invited: You have been inivited to join
+    invited: You have been invited to join
     invite_participants: Invite Participants
     join: Join
     last_session: Last session on %{session}
