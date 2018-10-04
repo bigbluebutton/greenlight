@@ -21,15 +21,16 @@ $(document).on('turbolinks:load', function(){
 
     if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update"){
       room_blocks = $('#room_block_container').find('.card');
-        
-      /*.each(function(){
-        alert("This is a card.");
-        room_blocks.push($(this))
-      });*/
-
+ 
       room_blocks.each(function(){
-        alert(room_blocks.length);
-        alert("This is a card.");
+
+        
+        alert("This MAY work");
+        // Register a click event on each room_block rename dropdown
+        if($(this).find('.item-action').find('.invisible')){
+          alert("This will work");
+        }
+
       });
     }
   });
