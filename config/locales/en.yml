@@ -67,6 +67,7 @@ en:
   home_room: Home Room
   info_update_success: Information successfully updated.
   invalid_credentials: Login failed due to invalid credentials. Are you sure you entered them correctly?
+  invalid_login_method: Login failed due to account mismatch. You need to log in with omniauth.
   invite_message: "To invite someone to the meeting, send them this link:"
   landing:
     about: "%{href} is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link."
@@ -113,7 +114,7 @@ en:
       public: Public
       unlisted: Unlisted
   room:
-    invited: You have been inivited to join
+    invited: You have been invited to join
     invite_participants: Invite Participants
     join: Join
     last_session: Last session on %{session}
