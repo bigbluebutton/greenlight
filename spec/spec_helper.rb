@@ -43,19 +43,20 @@ WebMock.disable_net_connect!(allow_localhost: true)
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-
   # rspec webmock config goes here. To prevent tests from defaulting to
   # external servers, api stubbing is used to simulate external server
   # responses
   config.before(:each) do
-    stub_request(:any, /#{ENV['BIGBLUEBUTTON_ENDPOINT']}/).
-      with(
-        headers: {
-        'Accept'=>'*/*',
-        'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-        'User-Agent'=>'Ruby'
-        }).
-      to_return(status: 200, body: "", headers: {})
+    stub_request(:any, /#{ENV['BIGBLUEBUTTON_ENDPOINT']}/)
+      .with(
+        headers:
+        {
+          'Accept': '*/*',
+          'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'User-Agent': 'Ruby',
+        }
+      )
+      .to_return(status: 200, body: "", headers: {})
   end
 
   # rspec-expectations config goes here. You can use an alternate

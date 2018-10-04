@@ -18,7 +18,6 @@
 
 require "rails_helper"
 
-
 describe RoomsController, type: :controller do
   describe "GET #show" do
     before do
