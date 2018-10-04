@@ -165,7 +165,3 @@ en:
     This deployment is using a pre-configured testing server, you should replace this with your own.
     For details, see the %{href}.
   update: Update
-  will_paginate:
-    previous_label: "&#8592; Previous"
-    next_label: "Next &#8594;"
-    page_gap: "&hellip;"

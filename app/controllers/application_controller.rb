@@ -17,7 +17,6 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 require 'bigbluebutton_api'
-require 'will_paginate/array'
 
 class ApplicationController < ActionController::Base
   include SessionsHelper
