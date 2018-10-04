@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="card">
+<div id="room_block" class="card">
   <div class="card-body p-1">
     <table class="table table-hover table-vcenter text-nowrap table-no-border">
       <tbody class="no-border-top">
@@ -78,7 +78,7 @@
   </div>
 </div>
 
-<script>
+<!-- <script>
 var roomRenameValidations = function(){
   if($('#room-name').val().length == 0){
     $('#room-name').addClass("is-invalid");
@@ -179,4 +179,4 @@ room.uid %>').on('click', renameRoom);
 function removeRenameListener(){
   window.removeEventListener("click", submitRename);
 }*/
-</script>
+</script> -->
