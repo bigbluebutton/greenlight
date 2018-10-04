@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 # Health check to monitor the status of the rails server
-
 HealthCheck.setup do |config|
-
   # uri prefix (no leading slash)
   config.uri = 'health_check'
 
@@ -26,16 +24,16 @@ HealthCheck.setup do |config|
   config.http_status_for_error_object = 500
 
   # bucket names to test connectivity - required only if s3 check used, access permissions can be mixed
-  config.buckets = {'bucket_name' => [:R, :W, :D]}
+  config.buckets = { 'bucket_name' => [:R, :W, :D] }
 
   # You can customize which checks happen on a standard health check, eg to set an explicit list use:
-  config.standard_checks = [ 'database', 'migrations', 'custom' ]
+  config.standard_checks = %w(database migrations custom)
 
   # Or to exclude one check:
-  config.standard_checks -= [ 'emailconf' ]
+  config.standard_checks -= %w(emailconf)
 
   # You can set what tests are run with the 'full' or 'all' parameter
-  config.full_checks = ['database', 'migrations', 'custom', 'email', 'cache', 'redis', 'resque-redis', 'sidekiq-redis', 's3']
+  config.full_checks = %w(database migrations custom email cache redis resque-redis sidekiq-redis s3)
 
   # max-age of response in seconds
   # cache-control is public when max_age > 1 and basic_auth_username is not set
