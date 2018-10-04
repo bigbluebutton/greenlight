@@ -20,7 +20,7 @@ $(document).on('turbolinks:load', function(){
 
 
     if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update"){
-      var room_blocks = $('#room_block_container').find('#room_block');
+      room_blocks = $('#room_block_container').find('.card');
         
       /*.each(function(){
         alert("This is a card.");
