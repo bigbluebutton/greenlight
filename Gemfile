@@ -87,6 +87,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'faker'
   gem "factory_bot_rails"
+  gem 'webmock'
 
   # Ruby linting.
   gem 'rubocop'
