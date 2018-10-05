@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="card">
+<div id=<%= "home_room_block" if current_user.main_room %> class="card">
   <div class="card-body p-1">
     <table class="table table-hover table-vcenter text-nowrap table-no-border">
       <tbody class="no-border-top">
