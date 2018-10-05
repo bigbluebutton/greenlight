@@ -20,17 +20,52 @@ $(document).on('turbolinks:load', function(){
 
 
     if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update"){
-      room_blocks = $('#room_block_container').find('.card');
- 
+      var room_blocks = $('#room_block_container').find('.card');
+
+      var editable = false;
+
+      // Bind a rename event for each room block
       room_blocks.each(function(){
 
-        
-        alert("This MAY work");
+        var room_block = $(this)
         // Register a click event on each room_block rename dropdown
-        if($(this).find('.item-action').find('.invisible')){
-          alert("This will work");
-        }
+        if(!room_block.is('#home_room_block')){
+          //alert("This will work");
+        
+          room_block.find('#rename-room-button').bind('click', function(e){
 
+            //alert(room_block.find('#room-name'));
+            room_block.find('#room-name').hide();
+            room_block.find('#room-name-editable').show();
+            room_block.find('#room-name-editable-input').select()
+
+            //alert($(this).find('#room-name'));
+            //alert("Rename activated");
+
+            e.preventDefault();
+
+            // Register one time window event to submit new name
+            $(window).one('mousedown', function(){
+              // Apply ajax request
+              // alert("GOOD");
+
+              room_update_url = "/" + room_block.data('room-uid');
+              // alert(room_update_url);
+
+              $.ajax({
+                url: room_update_url,
+                type: "PATCH",
+                data:{
+                  setting: "rename",
+                  room_name: room_block.find('#room-name-editable-input').val(),
+                },
+                success: function(data){
+                  console.log("Success");
+                },
+              });
+            });
+          });
+        }
       });
     }
   });

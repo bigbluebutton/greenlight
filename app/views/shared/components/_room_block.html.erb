@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div id=<%= "home_room_block" if current_user.main_room %> class="card">
+<div id="<%= 'home_room_block' if room == current_user.main_room %>" data-room-uid=<%= room.uid %> class="card">
   <div class="card-body p-1">
     <table class="table table-hover table-vcenter text-wrap table-no-border">
       <tbody class="no-border-top">
@@ -27,18 +27,11 @@
           </span>
         </td>
         <td>
-          <div id="room-name_<%= room.uid %>" class="toggle-content is-visible">
+          <div id="room-name">
             <h4 contenteditable="false" class="m-0 force-text-normal" ><%= room.name %></h4>
           </div>
-          <div id="room-name-editable_<%= room.uid %>" class="toggle-content">
-            <input id="room-name-editable-input_<%= room.uid %>", class="form-control input-sm w-100 h-4", value=<%= room.name %>>
-            <!-- <%= form_tag update_room_path, class: "form-inline", params:{ setting: :rename }, method: :patch do %>
-              <%= 
-                id = 'room-name-editable-input_%{room_uid}'
-                repl = {room_uid: room.uid}
-                text_field_tag id % repl, room.name, class: "form-control input-sm w-100 h-4" 
-              %>
-            <% end %> -->
+          <div id="room-name-editable" style="display: none">
+            <input id="room-name-editable-input" class="form-control input-sm w-100 h-4" value="<%= room.name %>">
           </div>
           <div class="small text-muted">
             <% if room.sessions > 0 %>
@@ -64,7 +57,7 @@
                 <i class="dropdown-icon far fa-edit"></i> <%= t("rename") %>
               </a>
               -->
-              <a href="" id="rename-room-button_<%= room.uid %>" class="dropdown-item">
+              <a href="" id="rename-room-button" class="dropdown-item">
                 <i class="dropdown-icon far fa-edit"></i> <%= t("rename") %>
               </a>
               <a href="" data-toggle="modal" data-target="#deleteRoomModal_<%= room.uid %>"class="dropdown-item">
@@ -77,106 +70,3 @@
     </table>
   </div>
 </div>
-
-<!-- <script>
-var roomRenameValidations = function(){
-  if($('#room-name').val().length == 0){
-    $('#room-name').addClass("is-invalid");
-  }
-}
-
-$('#rename-room-submit').on('click', roomRenameValidations);
-
-function helloWorld(){
-  alert("hello world");
-}
-
-var renameRoom = function(e){
-  //alert('room-name_<%= room.uid %>');
-  var room_name = document.getElementById('room-name_<%= room.uid %>');
-  var room_name_editable = document.getElementById('room-name-editable_<%= room.uid %>');
-  var room_name_editable_input = document.getElementById('room-name-editable-input_<%= room.uid %>');
-  if (room_name.classList.contains("is-visible")) {
-    //alert("Yes");
-    room_name.classList.remove("is-visible");
-    room_name_editable.classList.add("is-visible");
-    room_name_editable_input.select();
-  }
-  //roomBlockRenamable();
-  //alert($._data(window, "events"));
-  //addRenameListener();
-  e.preventDefault();
-}
-
-var submitRename = function(e){
-  //alert('rename-room-button_<%= room.uid %>');
-  var room_name_button = document.getElementById('rename-room-button_<%= room.uid %>');
-  var room_name = document.getElementById('room-name_<%= room.uid %>');
-  var room_name_editable = document.getElementById('room-name-editable_<%= room.uid %>');
-  var room_name_editable_input = document.getElementById('room-name-editable-input_<%= room.uid %>');
-  //alert(room_name_editable_input.value);
-  if (e.target == room_name_button || e.target == document.getElementsByClassName("fa-edit")[0]) {
-    //alert("Yes");
-  }
-else if(room_name_editable.classList.contains("is-visible")){
-    //Run Ajax patch method
-
-    $.ajax({
-      url: "<%= update_room_path %>",
-      type: "PATCH",
-      data:{
-        settings: "rename",
-        room_name: room_name_editable_input.value,
-      },
-      success: function(data){
-        console.log("Success");
-        //alert("Success");
-      },
-    });
-
-    //room_name.classList.add("is-visible");
-    //room_name_editable.classList.remove("is-visible");
-  }
-  //roomBlockUnrenamable();
-  //window.removeEventListener("click", submitRename);
-  //removeRenameListener();
-}
-
-/*var renameRoom = function(e) {
-  //alert("So its just the script that isn't working");
-  var room_name = document.getElementById('room-name_<%= room.uid %>');
-  var room_name_editable = document.getElementById('room-name-editable_<%= room.uid %>');
-  var room_name_editable_input = document.getElementById('room-name-editable-input_<%= room.uid %>');
-  if (room_name.classList.contains("is-visible")) {
-    //alert("Yes");
-    //alert(room_name.classList);
-    //alert($('#room-name_<%= room.uid %>').classList);
-    //$('#room-name_<%= room.uid %>').classList.remove("is-visible");
-    room_name.classList.remove("is-visible");
-    room_name_editable.classList.add("is-visible");
-    alert(document.getElementsByTagName('text_field_tag')[0]);
-    alert(room_name_editable_input);
-    room_name_editable_input.select();
-    //$('#room-name-editable_<%= room.uid %>').classList.add("is-visible");
-  }
-  else {
-    room_name.classList.add("is-visible");
-    room_name_editable.classList.remove("is-visible");
-    //$('#room-name_<%= room.uid %>').classList.add("is-visible");
-    //$('#room-name-editable_<%= room.uid %>').classList.remove("is-visible");
-  }
-  alert("Is redirection the problem?");
-  e.preventDefault();
-}*/
-
-$('#rename-room-button_<%= puts room.uid
-room.uid %>').on('click', renameRoom);
-
-//function addRenameListener(){
-  window.addEventListener("click", submitRename);
-/*}
-
-function removeRenameListener(){
-  window.removeEventListener("click", submitRename);
-}*/
-</script> -->

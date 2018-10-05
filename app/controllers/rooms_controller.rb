@@ -52,15 +52,11 @@ class RoomsController < ApplicationController
   # PATCH /:room_uid
   def update
     if params[:setting] == "rename"
-      @room.name = room_params[:name] if @room.owned_by?(current_user) && @room != current_user.main_room
-
-      if @room.save
-        # Notify the user that their account has been updated.
-        redirect_to room_path, notice: I18n.t("name_update_success")
-      end
+      @room.update_attributes(name: params[:room_name]) if @room.owned_by?(current_user) && @room != current_user.main_room
+      redirect_to room_path
+    else
+      redirect_to room_path
     end
-
-    redirect_to room_path
 
     #respond_to do |format|
     #  format.html { redirect_to room_path }
