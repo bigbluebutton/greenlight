@@ -79,12 +79,12 @@ class UsersController < ApplicationController
       else
         # Append custom errors.
         errors.each { |k, v| @user.errors.add(k, v) }
-        render :edit
+        render :edit, params: { settings: params[:settings] }
       end
     elsif @user.update_attributes(user_params)
       redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
     else
-      render :edit
+      render :edit, params: { settings: params[:settings] }
     end
   end
 
@@ -99,6 +99,8 @@ class UsersController < ApplicationController
 
   # GET /terms
   def terms
+    redirect_to '/404' unless Rails.configuration.terms
+
     if params[:accept] == "true"
       current_user.update_attributes(accepted_terms: true)
       redirect_to current_user.main_room if current_user
