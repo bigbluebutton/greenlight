@@ -57,11 +57,6 @@ class RoomsController < ApplicationController
     else
       redirect_to room_path
     end
-
-    #respond_to do |format|
-    #  format.html { redirect_to room_path }
-      #format.js { }
-    #end
   end
 
   # POST /:room_uid
