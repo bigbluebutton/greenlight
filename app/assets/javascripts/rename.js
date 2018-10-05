@@ -18,40 +18,40 @@ $(document).on('turbolinks:load', function(){
     var controller = $("body").data('controller');
     var action = $("body").data('action');
 
-
     if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update"){
+
+      // Renaming room blocks
+      // Bind a rename event for each room block
       var room_blocks = $('#room_block_container').find('.card');
 
-      var editable = false;
-
-      // Bind a rename event for each room block
       room_blocks.each(function(){
 
         var room_block = $(this)
-        // Register a click event on each room_block rename dropdown
+
         if(!room_block.is('#home_room_block')){
-          //alert("This will work");
-        
+  
+          // Register a click event on each room_block rename dropdown
           room_block.find('#rename-room-button').bind('click', function(e){
 
-            //alert(room_block.find('#room-name'));
             room_block.find('#room-name').hide();
             room_block.find('#room-name-editable').show();
             room_block.find('#room-name-editable-input').select()
 
-            //alert($(this).find('#room-name'));
-            //alert("Rename activated");
-
+            // Stop automatic refresh
             e.preventDefault();
 
-            // Register one time window event to submit new name
-            $(window).one('mousedown', function(){
-              // Apply ajax request
-              // alert("GOOD");
+            // Register window event to submit new name
+            // upon click or upon pressing the enter key
+            $(window).on('mousedown keypress', function(e){
+              
+              // Check if event is keypress and enter key is pressed
+              if(e.type != "mousedown" && e.which !== 13){
+                return
+              }
 
               room_update_url = "/" + room_block.data('room-uid');
-              // alert(room_update_url);
 
+              // Send ajax request for update
               $.ajax({
                 url: room_update_url,
                 type: "PATCH",
@@ -63,9 +63,52 @@ $(document).on('turbolinks:load', function(){
                   console.log("Success");
                 },
               });
+
+              // Remove window event when ajax call to update name is submitted
+              $(window).off('mousedown keypress');
             });
           });
         }
       });
+
+      // Renaming room by header
+      // Bind a click event to the edit button
+      var room_title = $('#room-title')
+      
+      room_title.find('a').on('click', function(e){
+
+        room_title.find('#user-text').attr("contenteditable", true);
+        room_title.find('#user-text').focus();
+          
+        // Stop automatic refresh
+        e.preventDefault();
+
+        // Register window event to submit new name
+        // upon click or upon pressing the enter key
+        $(window).on('mousedown keypress', function(e){
+          
+          // Check if event is keypress and enter key is pressed
+          if(e.type != "mousedown" && e.which !== 13){
+            return
+          }
+
+          // Send ajax request for update
+          $.ajax({
+            url: window.location.pathname,
+            type: "PATCH",
+            data:{
+              setting: "rename",
+              room_name: room_title.find('#user-text').text(),
+            },
+            success: function(data){
+              console.log("Success");
+            },
+          });
+
+          // Remove window event when ajax call to update name is submitted
+          $(window).off('mousedown keypress');
+        });
+      });
+
     }
   });
