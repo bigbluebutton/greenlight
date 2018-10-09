@@ -54,7 +54,7 @@ gem 'omniauth-bn-launcher', '~> 0.1.0'
 gem 'bigbluebutton-api-ruby'
 
 # Front-end.
-gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap', '~> 4.1.3'
 gem 'tabler-rubygem'
 
 # For detecting the users preferred language.
