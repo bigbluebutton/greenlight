@@ -51,8 +51,15 @@ class RoomsController < ApplicationController
 
   # PATCH /:room_uid
   def update
-    if params[:setting] == "rename"
+    if params[:setting] == "rename_block"
+      @room = Room.find_by!(uid: params[:room_block_uid])
       @room.update_attributes(name: params[:room_name]) if @room.owned_by?(current_user) && @room != current_user.main_room
+      redirect_to room_path
+    elsif params[:setting] == "rename_header"
+      @room.update_attributes(name: params[:room_name]) if @room.owned_by?(current_user) && @room != current_user.main_room
+      redirect_to room_path
+    elsif params[:setting] == "rename_recording"
+      @room.update_recording(params[:record_id], meta_name: params[:record_name])
       redirect_to room_path
     else
       redirect_to room_path

@@ -15,7 +15,10 @@
 
 <tr>
   <td>
-    <div><%= recording[:name] %></div>
+    <div id="recording-title" class="form-inline edit_hover_class" data-recordid="<%= recording[:recordID] %>">
+      <text id='recording-text'><%= recording[:name] %></text>
+      <a href=""><i class="fa fa-edit align-top ml-2"></i></a>
+    </div>
     <div class="small text-muted">
       <%= t("recording.recorded_on", date: recording_date(recording[:startTime])) %>
     </div>
