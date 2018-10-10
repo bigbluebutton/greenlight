@@ -87,10 +87,8 @@ class User < ApplicationRecord
       case auth['provider']
       when :twitter
         auth['info']['image'].gsub("http", "https").gsub("_normal", "")
-      when :microsoft_office365
-        #Insert auth image handler here
       else
-        auth['info']['image']
+        auth['info']['image'] unless auth['provider'] == :microsoft_office365
       end
     end
   end
