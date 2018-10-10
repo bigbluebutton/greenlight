@@ -22,9 +22,15 @@
         </div>
         <div class="card-body background">
           <% unless configured_providers.length.zero? %>
-            <% configured_providers.each do |provider| %>
+            <% iconset_providers.each do |provider| %>
               <%= link_to omniauth_login_url(provider), class: "btn btn-pill btn-#{provider} btn-block" do %>
                 <i class="fab fa-<%= provider %>"></i>&ensp;<%= t("signup.with", provider: provider.capitalize) %>
+              <% end %>
+            <% end %>
+
+            <% if configured_providers.include? :microsoft_office365 %>
+              <%= link_to omniauth_login_url(:microsoft_office365), class: "btn btn-pill btn-primary btn-block" do %>
+                <i class="fab fa-windows"></i>&ensp;<%= t("signup.with", provider: "Office365") %>
               <% end %>
             <% end %>
 

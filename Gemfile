@@ -47,6 +47,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-microsoft-office365', '~> 0.0.7'
 gem 'omniauth-ldap'
 gem 'omniauth-bn-launcher', '~> 0.1.0'
 

@@ -60,7 +60,12 @@ class User < ApplicationRecord
 
     # Provider attributes.
     def auth_name(auth)
-      auth['info']['name']
+      case auth['provider']
+      when :microsoft_office365
+        auth['info']['display_name']
+      else
+        auth['info']['name']
+      end
     end
 
     def auth_username(auth)
@@ -82,6 +87,8 @@ class User < ApplicationRecord
       case auth['provider']
       when :twitter
         auth['info']['image'].gsub("http", "https").gsub("_normal", "")
+      when :microsoft_office365
+        #Insert auth image handler here
       else
         auth['info']['image']
       end
