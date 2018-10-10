@@ -1,4 +1,5 @@
-<%
+# frozen_string_literal: true
+
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
 #
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
@@ -14,6 +15,13 @@
 #
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-%>
 
-<%= yield %>
+class UserMailer < ApplicationMailer
+  default from: 'notifications@example.com'
+
+  def verify_email(user, url)
+    @user = user
+    @url = url
+    mail(to: @user.email, subject: 'Welcome to BigBlueButton!')
+  end
+end

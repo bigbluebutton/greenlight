@@ -1,4 +1,5 @@
-<%
+# frozen_string_literal: true
+
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
 #
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
@@ -14,6 +15,9 @@
 #
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-%>
 
-<%= yield %>
+class AddEmailVerifiedToUser < ActiveRecord::Migration[5.0]
+  def change
+    add_column :users, :email_verified, :boolean, default: false
+  end
+end
