@@ -160,8 +160,8 @@ $(document).on('turbolinks:load', function(){
               record_name: recording_title.find('text').text(),
             },
             success: function(data){
-              alert(data);
-              alert("Success");
+              //alert(data);
+              //alert("Success");
               console.log("Success");
             },
           });
