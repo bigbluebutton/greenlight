@@ -40,6 +40,8 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (7.1.4)
     ast (2.4.0)
     autoprefixer-rails (8.6.4)
@@ -48,7 +50,7 @@ GEM
     bigbluebutton-api-ruby (1.7.0)
       xml-simple (~> 1.1)
     bindex (0.5.0)
-    bootstrap (4.1.1)
+    bootstrap (4.1.3)
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
@@ -68,6 +70,8 @@ GEM
       simplecov (>= 0.7)
       term-ansicolor
       thor
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     crass (1.0.4)
     diff-lcs (1.3)
     docile (1.3.1)
@@ -91,6 +95,7 @@ GEM
     ffi (1.9.25)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    hashdiff (0.3.7)
     hashie (3.5.7)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -166,8 +171,9 @@ GEM
     parser (2.5.1.0)
       ast (~> 2.4.0)
     pg (0.21.0)
-    popper_js (1.12.9)
+    popper_js (1.14.3)
     powerpack (0.1.2)
+    public_suffix (3.0.3)
     puma (3.11.4)
     pyu-ruby-sasl (0.0.3.3)
     rack (2.0.5)
@@ -239,6 +245,7 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.9.0)
     rubyntlm (0.6.2)
+    safe_yaml (1.0.4)
     sass (3.5.6)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -297,6 +304,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webmock (3.4.2)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -309,7 +320,7 @@ DEPENDENCIES
   action-cable-testing
   bcrypt (~> 3.1.7)
   bigbluebutton-api-ruby
-  bootstrap (~> 4.1.1)
+  bootstrap (~> 4.1.3)
   byebug
   coffee-rails (~> 4.2)
   coveralls
@@ -344,6 +355,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  webmock
 
 BUNDLED WITH
-   1.16.3
+   1.16.4
