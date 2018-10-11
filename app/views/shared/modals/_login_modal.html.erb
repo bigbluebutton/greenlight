@@ -34,7 +34,7 @@
             <% end %>
 
             <% if provider = configured_providers[1] %>
-              <%= link_to omniauth_login_url(provider), class: "btn-#{provider}" do %>
+              <%= link_to omniauth_login_url(provider), class: "btn btn-pill btn-#{provider} btn-block" do %>
                 <i class="fab fa-<%= provider %>"></i>&ensp;<%= t("modal.login.with", provider: provider.capitalize) %>
               <% end %>
             <% end %>

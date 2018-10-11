@@ -151,7 +151,7 @@ en:
       subtitle: Change your Password
       title: Password
     title: Settings
-    signup:
+  signup:
     password_confirm: Password Confirmation
     subtitle: Create an Account
     title: Sign up
