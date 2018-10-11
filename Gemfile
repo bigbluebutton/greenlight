@@ -69,6 +69,9 @@ gem 'redcarpet'
 group :production do
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'
+
+  # Externalize logs
+  gem 'remote_syslog_logger', '~> 1.0', '>= 1.0.3'
 end
 
 group :development, :test do
