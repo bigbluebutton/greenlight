@@ -17,7 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 Rails.application.routes.draw do
-  health_check_routes
+  get 'health_check', to: 'health_check/health_check#index'
 
   # Error routes.
   match '/404', to: 'errors#not_found', via: :all
