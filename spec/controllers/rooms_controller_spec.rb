@@ -55,7 +55,7 @@ describe RoomsController, type: :controller do
 
       get :show, params: { room_uid: @owner.main_room, search: :none }
 
-      expect(assigns(:recordings)).to eql([])
+      expect(assigns(:recordings)).to eql(nil)
     end
 
     it "should raise if room is not valid" do
