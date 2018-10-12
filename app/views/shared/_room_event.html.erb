@@ -40,4 +40,4 @@
   </div>
 </div>
 
-<%= render "shared/sessions", recordings: @recordings, only_public: true %>
+<%= render "shared/sessions", recordings: @room.public_recordings, only_public: true %>
