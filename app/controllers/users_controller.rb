@@ -28,7 +28,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.provider = "greenlight"
 
-    if @user.save
+    if Rails.configuration.enable_email_verification && @user.save
+      UserMailer.verify_email(@user, verification_link(@user)).deliver
+      login(@user)
+    elsif @user.save
       login(@user)
     else
       # Handle error on user creation.
@@ -81,6 +84,9 @@ class UsersController < ApplicationController
         errors.each { |k, v| @user.errors.add(k, v) }
         render :edit, params: { settings: params[:settings] }
       end
+    elsif user_params[:email] != @user.email && @user.update_attributes(user_params)
+      @user.update_attributes(email_verified: false)
+      redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
     elsif @user.update_attributes(user_params)
       redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
     else
@@ -97,17 +103,49 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
-  # GET /terms
+  # GET | POST /terms
   def terms
     redirect_to '/404' unless Rails.configuration.terms
 
     if params[:accept] == "true"
       current_user.update_attributes(accepted_terms: true)
-      redirect_to current_user.main_room if current_user
+      login(current_user)
+    end
+  end
+
+  # GET | POST /u/verify/confirm
+  def confirm
+    if !current_user || current_user.uid != params[:user_uid]
+      redirect_to '/404'
+    elsif current_user.email_verified
+      login(current_user)
+    elsif params[:email_verified] == "true"
+      current_user.update_attributes(email_verified: true)
+      login(current_user)
+    else
+      render 'verify'
+    end
+  end
+
+  # GET /u/verify/resend
+  def resend
+    if !current_user
+      redirect_to '/404'
+    elsif current_user.email_verified
+      login(current_user)
+    elsif params[:email_verified] == "false"
+      UserMailer.verify_email(current_user, verification_link(current_user)).deliver
+      render 'verify'
+    else
+      render 'verify'
     end
   end
 
   private
+
+  def verification_link(user)
+    request.base_url + confirm_path(user.uid)
+  end
 
   def find_user
     @user = User.find_by!(uid: params[:user_uid])

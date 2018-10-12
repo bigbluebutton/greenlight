@@ -20,24 +20,20 @@
       <%= t("recording.recorded_on", date: recording_date(recording[:startTime])) %>
     </div>
   </td>
-  <% p = recording[:playbacks].find do |p| p[:type] == "presentation" end %>
-  <% if p && p.key?(:preview) && recording_thumbnails? %>
+  <% if recording_thumbnails? %>
     <td>
-      <% safe_recording_images(p[:preview][:images][:image]).each do |img| %>
-        <%= image_tag(img[:content].strip, class: "thumbnail px-2") %>
+      <% p = recording[:playbacks].find do |p| p.key?(:preview) end %>
+      <% if p %>
+        <% safe_recording_images(p[:preview][:images][:image]).each do |img| %>
+          <%= image_tag(img[:content].strip, class: "thumbnail px-2") %>
+        <% end %>
       <% end %>
     </td>
   <% end %>
   <td class="text-left">
-    <div class="small text-muted text-uppercase">
-      <%= t("recording.table.length") %>
-    </div>
     <%= recording_length(recording[:playbacks]) %>
   </td>
   <td class="text-left">
-    <div class="small text-muted text-uppercase">
-      <%= t("recording.table.users") %>
-    </div>
     <%= recording[:participants] || "-" %>
   </td>
   <td class="text-left">
@@ -68,8 +64,11 @@
         <i class="fas fa-ellipsis-v px-4"></i>
       </a>
       <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item email-link" data-pres-link="<%= p[:url] %>"><i class="dropdown-icon far fa-envelope"></i> <%= t("recording.email") %></a>
-        <div class="dropdown-divider"></div>
+        <% p = recording[:playbacks].find do |p| p.key?(:length) end %>
+        <% if p %>
+          <a class="dropdown-item email-link" data-pres-link="<%= p[:url] %>"><i class="dropdown-icon far fa-envelope"></i> <%= t("recording.email") %></a>
+          <div class="dropdown-divider"></div>
+        <% end %>
         <%= button_to delete_recording_path(@room, record_id: recording[:recordID]), method: :delete, class: "dropdown-item" do %>
           <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
         <% end %>

@@ -165,3 +165,7 @@ en:
     This deployment is using a pre-configured testing server, you should replace this with your own.
     For details, see the %{href}.
   update: Update
+  verify:
+    title: Verify your email
+    resend: Resend verification email
+    accept: Verify
