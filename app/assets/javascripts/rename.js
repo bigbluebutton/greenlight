@@ -25,12 +25,14 @@ $(document).on('turbolinks:load', function(){
     var room_blocks = $('#room_block_container').find('.card');
 
     room_blocks.each(function(){
-      
+
       var room_block = $(this)
       configure_room_block(room_block)
     });
 
 
+
+    // Set the room block event
     function configure_room_block(room_block){
       if(!room_block.is('#home_room_block')){
 
@@ -44,32 +46,56 @@ $(document).on('turbolinks:load', function(){
           // Stop automatic refresh
           e.preventDefault();
 
-          register_window_event(room_block);
+          register_window_event(room_block, null, null);
         });
       }
     }
 
-    function register_window_event(room_block){
+    function register_window_event(element, textfield_id){
       // Register window event to submit new name
       // upon click or upon pressing the enter key
       $(window).on('mousedown keypress', function(clickEvent){
         
+        // Return if the text is clicked
+        if(clickEvent.type == "mousedown" && clickEvent.target.id == textfield_id){
+          return
+        }
+
+        // Return if the edit icon is clicked
+        /*if(clickEvent.type == "mousedown" && clickEvent.target.find('i').attr('class') == 'fa-edit'){ //data('recordid') == recording_title.data('recordid')){
+          return
+        }*/
+
         // Check if event is keypress and enter key is pressed
         if(clickEvent.type != "mousedown" && clickEvent.which !== 13){
           return
         }
 
-        submit_update_request({
-          setting: "rename_block",
-          room_block_uid: room_block.data('room-uid'),
-          room_name: room_block.find('#room-name-editable-input').val(),
-        });
+        submit_rename_request(element);
 
         // Remove window event when ajax call to update name is submitted
         $(window).off('mousedown keypress');
       });
     }
 
+    // Apply ajax request depending on the element that triggered the event
+    function submit_rename_request(element){
+      if(element.data('room-uid')){
+        submit_update_request({
+          setting: "rename_block",
+          room_block_uid: element.data('room-uid'),
+          room_name: element.find('#room-name-editable-input').val(),
+        });
+      }
+      else if(element.is('#room-title')){
+        submit_update_request({
+          setting: "rename_header",
+          room_name: element.find('#user-text').text(),
+        });
+      }
+    }
+
+    // Helper for submitting ajax requests
     function submit_update_request(data){
       // Send ajax request for update
       $.ajax({
@@ -86,7 +112,7 @@ $(document).on('turbolinks:load', function(){
     // Bind a click event to the edit button
     var room_title = $('#room-title')
     
-    room_title.find('a').on('click', function(e){
+    room_title.find('.fa-edit').on('click', function(e){
 
       room_title.find('#user-text').fadeTo('medium', 0.7);
       room_title.find('#user-text').attr("contenteditable", true);
@@ -95,28 +121,7 @@ $(document).on('turbolinks:load', function(){
       // Stop automatic refresh
       e.preventDefault();
 
-      // Register window event to submit new name
-      // upon click or upon pressing the enter key
-      $(window).on('mousedown keypress', function(clickEvent){
-
-        // Return if the text element is clicked
-        if(clickEvent.type == "mousedown" && clickEvent.target.id == 'user-text'){
-          return
-        }
-
-        // Return if event is keypress and enter key isn't pressed
-        if(clickEvent.type == "keypress" && clickEvent.which !== 13){
-          return
-        }
-
-        submit_update_request({
-          setting: "rename_header",
-          room_name: room_title.find('#user-text').text(),
-        });
-
-        // Remove window event when ajax call to update name is submitted
-        $(window).off('mousedown keypress');
-      });
+      register_window_event(room_title, 'user-text');
     });
 
     // Renaming recordings by block
