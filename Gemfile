@@ -67,6 +67,9 @@ gem 'http_accept_language'
 # Markdown parsing.
 gem 'redcarpet'
 
+# For health check endpoint
+gem "health_check"
+
 group :production do
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'
