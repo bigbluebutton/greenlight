@@ -25,9 +25,13 @@ $(document).on('turbolinks:load', function(){
     var room_blocks = $('#room_block_container').find('.card');
 
     room_blocks.each(function(){
-
+      
       var room_block = $(this)
+      configure_room_block(room_block)
+    });
 
+
+    function configure_room_block(room_block){
       if(!room_block.is('#home_room_block')){
 
         // Register a click event on each room_block rename dropdown
@@ -40,35 +44,43 @@ $(document).on('turbolinks:load', function(){
           // Stop automatic refresh
           e.preventDefault();
 
-          // Register window event to submit new name
-          // upon click or upon pressing the enter key
-          $(window).on('mousedown keypress', function(clickEvent){
-            
-            // Check if event is keypress and enter key is pressed
-            if(clickEvent.type != "mousedown" && clickEvent.which !== 13){
-              return
-            }
-
-            // Send ajax request for update
-            $.ajax({
-              url: window.location.pathname,
-              type: "PATCH",
-              data:{
-                setting: "rename_block",
-                room_block_uid: room_block.data('room-uid'),
-                room_name: room_block.find('#room-name-editable-input').val(),
-              },
-              success: function(data){
-                console.log("Success");
-              },
-            });
-
-            // Remove window event when ajax call to update name is submitted
-            $(window).off('mousedown keypress');
-          });
+          register_window_event(room_block)
         });
       }
-    });
+    }
+
+    function register_window_event(element){
+      // Register window event to submit new name
+      // upon click or upon pressing the enter key
+      $(window).on('mousedown keypress', function(clickEvent){
+        
+        // Check if event is keypress and enter key is pressed
+        if(clickEvent.type != "mousedown" && clickEvent.which !== 13){
+          return
+        }
+
+        submit_update_request({
+          setting: "rename_block",
+          room_block_uid: element.data('room-uid'),
+          room_name: element.find('#room-name-editable-input').val(),
+        });
+
+        // Remove window event when ajax call to update name is submitted
+        $(window).off('mousedown keypress');
+      });
+    }
+
+    function submit_update_request(data){
+      // Send ajax request for update
+      $.ajax({
+        url: window.location.pathname,
+        type: "PATCH",
+        data,
+        success: function(data){
+          console.log("Success");
+        },
+      });
+    }
 
     // Renaming room by header
     // Bind a click event to the edit button
@@ -97,17 +109,9 @@ $(document).on('turbolinks:load', function(){
           return
         }
 
-        // Send ajax request for update
-        $.ajax({
-          url: window.location.pathname,
-          type: "PATCH",
-          data:{
-            setting: "rename_header",
-            room_name: room_title.find('#user-text').text(),
-          },
-          success: function(data){
-            console.log("Success");
-          },
+        submit_update_request({
+          setting: "rename_header",
+          room_name: room_title.find('#user-text').text(),
         });
 
         // Remove window event when ajax call to update name is submitted
@@ -136,9 +140,6 @@ $(document).on('turbolinks:load', function(){
         // Register window event to submit new name
         // upon click or upon pressing the enter key
         $(window).on('mousedown keypress', function(clickEvent){
-
-          //alert(clickEvent.target);
-          //alert(recording_title.data('recordid'));
           
           // Return if the text element is clicked
           if(clickEvent.type == "mousedown" && clickEvent.target.id == 'recording-text'){ //data('recordid') == recording_title.data('recordid')){
@@ -150,20 +151,10 @@ $(document).on('turbolinks:load', function(){
             return
           }
 
-          // Send ajax request for update
-          $.ajax({
-            url: window.location.pathname,
-            type: "PATCH",
-            data:{
-              setting: "rename_recording",
-              record_id: recording_title.data('recordid'),
-              record_name: recording_title.find('text').text(),
-            },
-            success: function(data){
-              //alert(data);
-              //alert("Success");
-              console.log("Success");
-            },
+          submit_update_request({
+            setting: "rename_recording",
+            record_id: recording_title.data('recordid'),
+            record_name: recording_title.find('text').text(),
           });
 
           // Remove window event when ajax call to update name is submitted
