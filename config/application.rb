@@ -69,7 +69,7 @@ module Greenlight
     end
 
     # Determine if GreenLight should enable email verification
-    config.enable_email_verification = (ENV['GREENLIGHT_MAIL_NOTIFICATIONS'] == "true")
+    config.enable_email_verification = (ENV['ALLOW_MAIL_NOTIFICATIONS'] == "true")
 
     # Determine if GreenLight should allow non-omniauth signup/login.
     config.allow_user_signup = (ENV['ALLOW_GREENLIGHT_ACCOUNTS'] == "true")
