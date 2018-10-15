@@ -35,7 +35,7 @@ $(document).on('turbolinks:load', function(){
       if(!room_block.is('#home_room_block')){
 
         // Register a click event on each room_block rename dropdown
-        room_block.find('#rename-room-button').bind('click', function(e){
+        room_block.find('#rename-room-button').on('click', function(e){
 
           room_block.find('#room-name').hide();
           room_block.find('#room-name-editable').show();
@@ -44,12 +44,12 @@ $(document).on('turbolinks:load', function(){
           // Stop automatic refresh
           e.preventDefault();
 
-          register_window_event(room_block)
+          register_window_event(room_block);
         });
       }
     }
 
-    function register_window_event(element){
+    function register_window_event(room_block){
       // Register window event to submit new name
       // upon click or upon pressing the enter key
       $(window).on('mousedown keypress', function(clickEvent){
@@ -61,8 +61,8 @@ $(document).on('turbolinks:load', function(){
 
         submit_update_request({
           setting: "rename_block",
-          room_block_uid: element.data('room-uid'),
-          room_name: element.find('#room-name-editable-input').val(),
+          room_block_uid: room_block.data('room-uid'),
+          room_name: room_block.find('#room-name-editable-input').val(),
         });
 
         // Remove window event when ajax call to update name is submitted
@@ -75,7 +75,7 @@ $(document).on('turbolinks:load', function(){
       $.ajax({
         url: window.location.pathname,
         type: "PATCH",
-        data,
+        data: data,
         success: function(data){
           console.log("Success");
         },
