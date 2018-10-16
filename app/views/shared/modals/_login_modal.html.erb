@@ -41,6 +41,12 @@
               <% end %>
             <% end %>
 
+            <% if configured_providers.include? :microsoft_office365 %>
+              <%= link_to omniauth_login_url(:microsoft_office365), class: "btn btn-pill btn-primary btn-block" do %>
+                <i class="fab fa-windows"></i>&ensp;<%= t("modal.login.with", provider: "Office365") %>
+              <% end %>
+            <% end %>
+
             <div class="or-line my-6">
               <div>
                 <span class="text-uppercase">
