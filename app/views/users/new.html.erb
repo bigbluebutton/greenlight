@@ -35,14 +35,21 @@
 
             <% if configured_providers.include? :twitter %>
               <% provider = :twitter %>
-              <%= link_to omniauth_login_url(provider), class: "btn btn-pill btn-#{provider} btn-block" do %>
-                <i class="fab fa-<%= provider %>"></i>&ensp;<%= t("signup.with", provider: provider.capitalize) %>
+              <%= link_to omniauth_login_url(provider), class: "customBtn-#{provider}" do %>
+                <span class="customBtn-icon">
+                  <img src="https://cdn2.iconfinder.com/data/icons/minimalism/512/twitter.png" width="18" height="18"></img>
+                </span>
+                <span class="customBtn-text"><%= t("signup.with", provider: provider.capitalize) %></span>
               <% end %>
             <% end %>
 
             <% if configured_providers.include? :microsoft_office365 %>
-              <%= link_to omniauth_login_url(:microsoft_office365), class: "btn btn-pill btn-primary btn-block" do %>
-                <i class="fab fa-windows"></i>&ensp;<%= t("signup.with", provider: "Office365") %>
+              <% provider = :microsoft_office365 %>
+              <%= link_to omniauth_login_url(provider), class: "customBtn-#{provider}" do %>
+                <span class="customBtn-icon">
+                  <img src="http://icons-for-free.com/free-icons/png/512/1156646.png" width="18" height="18"></img>
+                </span>
+                <span class="customBtn-text"><%= t("signup.with", provider: provider.capitalize) %></span>
               <% end %>
             <% end %>
 
