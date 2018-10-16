@@ -30,6 +30,7 @@ vendor/bundle
 
 # Ignore environment configuration.
 .env
+env
 
 # IDEs
 .idea
