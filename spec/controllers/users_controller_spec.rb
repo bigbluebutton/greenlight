@@ -109,8 +109,8 @@ describe UsersController, type: :controller do
 
         expect do
           post :create, params: params
-          raise Net::SMTPAuthenticationError
-        end.to raise_error { Net::SMTPAuthenticationError }
+          raise :anyerror
+        end.to raise_error { :anyerror }
       end
     end
 
