@@ -25,6 +25,7 @@ en:
   cancel: Cancel
   copy: Copy
   delete: Delete
+  delivery_error: An error occured during email delivery. Please verify your smtp settings or contact an administrator!
   docs: Documentation
   email: Email
   enter_your_name: Enter your name!
