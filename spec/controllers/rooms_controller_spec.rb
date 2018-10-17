@@ -200,15 +200,33 @@ describe RoomsController, type: :controller do
     before do
       @user = create(:user)
       @secondary_room = create(:room, owner: @user)
+      @editable_room = create(:room, owner: @user)
     end
 
-    it "properly updates room name and redirects to current page" do
+    it "properly updates room name through room block and redirects to current page" do
       @request.session[:user_id] = @user.id
 
-      patch :update, params: random_valid_room_params
-      @secondary_room.reload
+      patch :update, params: { room_uid: @secondary_room, room_block_uid: @editable_room,
+                               setting: :rename_block, room_name: :name }
 
-      expect(response).to redirect_to(@user.main_room)
+      expect(response).to redirect_to(@secondary_room)
+    end
+
+    it "properly updates room name through room header and redirects to current page" do
+      @request.session[:user_id] = @user.id
+
+      patch :update, params: { room_uid: @secondary_room, setting: :rename_header, room_name: :name }
+
+      expect(response).to redirect_to(@secondary_room)
+    end
+
+    it "properly updates recording name and redirects to current page" do
+      @request.session[:user_id] = @user.id
+
+      patch :update, params: { room_uid: @secondary_room, recordid: :recordid,
+                               setting: :rename_recording, record_name: :name }
+
+      expect(response).to redirect_to(@secondary_room)
     end
   end
 end
