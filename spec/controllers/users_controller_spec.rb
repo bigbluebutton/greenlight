@@ -101,6 +101,19 @@ describe UsersController, type: :controller do
       end
     end
 
+    context "allow email verification" do
+      before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(true) }
+
+      it "should raise if there there is a delivery failure" do
+        params = random_valid_user_params
+
+        expect do
+          post :create, params: params
+          raise :anyerror
+        end.to raise_error { :anyerror }
+      end
+    end
+
     it "redirects to main room if already authenticated" do
       user = create(:user)
       @request.session[:user_id] = user.id
@@ -154,6 +167,19 @@ describe UsersController, type: :controller do
 
       expect { post :resend, params: { email_verified: false } }.to change { ActionMailer::Base.deliveries.count }.by(1)
       expect(response).to render_template(:verify)
+    end
+
+    it "should raise if there there is a delivery failure" do
+      params = random_valid_user_params
+      post :create, params: params
+
+      u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+      u.email_verified = false
+
+      expect do
+        post :resend, params: { email_verified: false }
+        raise Net::SMTPAuthenticationError
+      end.to raise_error { Net::SMTPAuthenticationError }
     end
   end
 
