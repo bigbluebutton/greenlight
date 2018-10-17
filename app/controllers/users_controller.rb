@@ -29,8 +29,13 @@ class UsersController < ApplicationController
     @user.provider = "greenlight"
 
     if Rails.configuration.enable_email_verification && @user.save
-      UserMailer.verify_email(@user, verification_link(@user)).deliver
-      login(@user)
+      begin
+        UserMailer.verify_email(@user, verification_link(@user)).deliver
+        login(@user)
+      rescue => e
+        logger.error "Error in email delivery: #{e}"
+        mailer_delivery_fail
+      end
     elsif @user.save
       login(@user)
     else
@@ -134,14 +139,23 @@ class UsersController < ApplicationController
     elsif current_user.email_verified
       login(current_user)
     elsif params[:email_verified] == "false"
-      UserMailer.verify_email(current_user, verification_link(current_user)).deliver
-      render 'verify'
+      begin
+        UserMailer.verify_email(current_user, verification_link(current_user)).deliver
+        render 'verify'
+      rescue => e
+        logger.error "Error in email delivery: #{e}"
+        mailer_delivery_fail
+      end
     else
       render 'verify'
     end
   end
 
   private
+
+  def mailer_delivery_fail
+    redirect_to root_path, notice: I18n.t(params[:message], default: I18n.t("delivery_error"))
+  end
 
   def verification_link(user)
     request.base_url + confirm_path(user.uid)
