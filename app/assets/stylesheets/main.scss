@@ -102,7 +102,7 @@
 
 .customBtn-google {
   @extend .customBtn;
-  background: #4688F1;
+  background: #4688f1;
 
   .customBtn-image {
     background: #ffffff image-url("google-logo.png") no-repeat left top;
@@ -113,7 +113,7 @@
 
 .customBtn-twitter {
   @extend .customBtn;
-  background: #158CDB;
+  background: #1da1f2;
 
   .customBtn-image {
     background: #ffffff image-url("twitter-logo.png") no-repeat left top;
@@ -124,7 +124,7 @@
 
 .customBtn-microsoft_office365 {
   @extend .customBtn;
-  background: #EA3F00;
+  background: #f65314;
 
   .customBtn-image {
     background: #ffffff image-url("office365-logo.jpeg") no-repeat left top;
@@ -135,7 +135,7 @@
 
 .customBtn-microsoft_windows {
   @extend .customBtn;
-  background: #477ECE;
+  background: #00a1f1;
 
   .customBtn-image {
     background: #ffffff image-url("windows-logo.png") no-repeat left top;
