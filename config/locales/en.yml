@@ -25,6 +25,7 @@ en:
   cancel: Cancel
   copy: Copy
   delete: Delete
+  delivery_error: An error occured during email delivery. Please contact an administrator!
   docs: Documentation
   email: Email
   enter_your_name: Enter your name!
@@ -99,6 +100,10 @@ en:
       with: Sign in with %{provider}
   omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!
   password: Password
+  provider:
+    google: Google
+    microsoft_office365: Office 365
+    twitter: Twitter
   recording:
     email: Email Recording
     no_recordings: This room has no %{inject}recordings.

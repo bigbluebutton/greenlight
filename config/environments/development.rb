@@ -41,8 +41,8 @@ Rails.application.configure do
     enable_starttls_auto: ENV['SMTP_STARTTLS_AUTO'],
   }
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  # Do care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
