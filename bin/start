@@ -13,4 +13,6 @@ if ! bundle exec rake db:migrate ; then
   export DB_MIGRATE_FAILED=1
 fi
 
+bundle exec rake assets:precompile
+
 exec bundle exec puma -C config/puma.rb
