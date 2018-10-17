@@ -97,6 +97,8 @@ GEM
       activesupport (>= 4.2.0)
     hashdiff (0.3.7)
     hashie (3.5.7)
+    health_check (3.0.0)
+      railties (>= 5.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http_accept_language (2.1.1)
@@ -158,6 +160,9 @@ GEM
       omniauth (~> 1.8.1)
       pyu-ruby-sasl (~> 0.0.3.3)
       rubyntlm (~> 0.6.2)
+    omniauth-microsoft-office365 (0.0.7)
+      omniauth
+      omniauth-oauth2
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
@@ -327,6 +332,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
+  health_check
   http_accept_language
   jbuilder (~> 2.5)
   jquery-rails
@@ -335,6 +341,7 @@ DEPENDENCIES
   omniauth-bn-launcher (~> 0.1.0)
   omniauth-google-oauth2
   omniauth-ldap
+  omniauth-microsoft-office365 (~> 0.0.7)
   omniauth-twitter
   pg (~> 0.18)
   puma (~> 3.0)
