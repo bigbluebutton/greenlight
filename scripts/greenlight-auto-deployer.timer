@@ -1,0 +1,12 @@
+[Unit]
+Description=Runs greenlight-deploy every minute
+
+[Timer]
+# Time to wait after booting before we run first time
+OnBootSec=1min
+# Time between running each consecutive time
+OnUnitActiveSec=1m
+Unit=greenlight-auto-deployer.service
+
+[Install]
+WantedBy=multi-user.target

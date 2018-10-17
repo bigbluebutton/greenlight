@@ -25,6 +25,7 @@ en:
   cancel: Cancel
   copy: Copy
   delete: Delete
+  delivery_error: An error occured during email delivery. Please contact an administrator!
   docs: Documentation
   email: Email
   enter_your_name: Enter your name!
@@ -76,7 +77,7 @@ en:
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
-  login: Login
+  login: Sign in
   modal:
     create_room:
       auto_join: Automatically join me into the room.
@@ -96,7 +97,7 @@ en:
       warning: You will <b>not</b> be able to recover this room or any of its associated recordings.
     login:
       or: or
-      with: Login with %{provider}
+      with: Sign in with %{provider}
     rename_recording:
       
     rename_room:
@@ -104,6 +105,10 @@ en:
   name_update_success: Room name successfully changed!
   omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!
   password: Password
+  provider:
+    google: Google
+    microsoft_office365: Office 365
+    twitter: Twitter
   recording:
     email: Email Recording
     no_recordings: This room has no %{inject}recordings.
@@ -160,8 +165,8 @@ en:
   signup:
     password_confirm: Password Confirmation
     subtitle: Create an Account
-    title: Signup
-    with: Signup with %{provider}
+    title: Sign up
+    with: Sign up with %{provider}
   terms:
     accept: I accept the %{href}
     accept_existing: I accept the terms and conditions
@@ -170,3 +175,7 @@ en:
     This deployment is using a pre-configured testing server, you should replace this with your own.
     For details, see the %{href}.
   update: Update
+  verify:
+    title: Verify your email
+    resend: Resend verification email
+    accept: Verify

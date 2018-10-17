@@ -51,6 +51,7 @@ class User < ApplicationRecord
         u.username = auth_username(auth) unless u.username
         u.email = auth_email(auth)
         u.image = auth_image(auth)
+        u.email_verified = true
         u.save!
       end
     end
@@ -59,7 +60,12 @@ class User < ApplicationRecord
 
     # Provider attributes.
     def auth_name(auth)
-      auth['info']['name']
+      case auth['provider']
+      when :microsoft_office365
+        auth['info']['display_name']
+      else
+        auth['info']['name']
+      end
     end
 
     def auth_username(auth)
@@ -82,7 +88,7 @@ class User < ApplicationRecord
       when :twitter
         auth['info']['image'].gsub("http", "https").gsub("_normal", "")
       else
-        auth['info']['image']
+        auth['info']['image'] unless auth['provider'] == :microsoft_office365
       end
     end
   end

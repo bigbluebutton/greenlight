@@ -28,6 +28,7 @@ FactoryBot.define do
     password { password }
     password_confirmation { password }
     accepted_terms { true }
+    email_verified { true }
   end
 
   factory :room do

@@ -57,3 +57,90 @@
 .display-4 {
   font-weight: normal;
 }
+
+.customBtn {
+  display: block;
+  text-align: center;
+  background: #cccccc;
+  color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);
+  -webkit-transition: background-color .218s,border-color .218s,box-shadow .218s;
+  transition: background-color .218s,border-color .218s,box-shadow .218s;
+  white-space: nowrap;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  margin-bottom:20px;
+  &:hover {
+    cursor: pointer;
+    color: #ffffff;
+    -webkit-box-shadow: 0 0 3px 3px rgba(66,133,244,.3);
+    box-shadow: 0 0 3px 3px rgba(66,133,244,.3);
+  }
+
+  .customBtn-icon {
+    display: inline-block;
+    vertical-align: middle;
+    padding:13px 15px 13px 15px;
+    float:left;
+    background: #ffffff;
+  }
+
+  .customBtn-text {
+    font-size: 16px;
+    line-height: 48px;
+    font-weight: 600;
+    letter-spacing: .21px;
+    padding:0 25px;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .customBtn-image {
+    background: #ffffff;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
+.customBtn-google {
+  @extend .customBtn;
+  background: #4688f1;
+
+  .customBtn-image {
+    background: #ffffff image-url("google-logo.png") no-repeat left top;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
+.customBtn-twitter {
+  @extend .customBtn;
+  background: #1da1f2;
+
+  .customBtn-image {
+    background: #ffffff image-url("twitter-logo.png") no-repeat left top;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
+.customBtn-microsoft_office365 {
+  @extend .customBtn;
+  background: #f65314;
+
+  .customBtn-image {
+    background: #ffffff image-url("office365-logo.jpeg") no-repeat left top;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
+.customBtn-microsoft_windows {
+  @extend .customBtn;
+  background: #00a1f1;
+
+  .customBtn-image {
+    background: #ffffff image-url("windows-logo.png") no-repeat left top;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
