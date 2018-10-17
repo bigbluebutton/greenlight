@@ -23,7 +23,7 @@
           <%= recording[:name] %>
         <% end %>
       </text>
-      <a href=""><i class="fa fa-edit align-top ml-2"></i></a>
+      <a><i id="edit-record" class="fa fa-edit align-top ml-2" data-edit-recordid="<%= recording[:recordID] %>"></i></a>
     </div>
     <div class="small text-muted">
       <%= t("recording.recorded_on", date: recording_date(recording[:startTime])) %>

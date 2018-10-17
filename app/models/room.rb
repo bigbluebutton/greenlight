@@ -139,7 +139,6 @@ class Room < ApplicationRecord
 
   def update_recording(record_id, meta)
     meta[:recordID] = record_id
-    #byebug
     bbb.send_api_request("updateRecordings", meta)
   end
 
