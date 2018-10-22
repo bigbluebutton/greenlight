@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/jiama843/omniauth-microsoft-office365.git
+  revision: cee569a4a2b230d1d083fc10264f43a0fee25dac
+  branch: add_restriction_by_domain
+  specs:
+    omniauth-microsoft-office365 (0.0.7)
+      omniauth
+      omniauth-oauth2
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -160,9 +169,6 @@ GEM
       omniauth (~> 1.8.1)
       pyu-ruby-sasl (~> 0.0.3.3)
       rubyntlm (~> 0.6.2)
-    omniauth-microsoft-office365 (0.0.7)
-      omniauth
-      omniauth-oauth2
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
@@ -341,7 +347,7 @@ DEPENDENCIES
   omniauth-bn-launcher (~> 0.1.0)
   omniauth-google-oauth2
   omniauth-ldap
-  omniauth-microsoft-office365 (~> 0.0.7)
+  omniauth-microsoft-office365!
   omniauth-twitter
   pg (~> 0.18)
   puma (~> 3.0)

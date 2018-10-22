@@ -37,7 +37,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     name: 'google',
     hd: ENV['GOOGLE_OAUTH2_HD'].blank? ? nil : ENV['GOOGLE_OAUTH2_HD']
 
-  provider :microsoft_office365, ENV['OFFICE365_KEY'], ENV['OFFICE365_SECRET']
+  provider :microsoft_office365, ENV['OFFICE365_KEY'], ENV['OFFICE365_SECRET'],
+    hd: ENV['OFFICE365_HD'].blank? ? nil : ENV['OFFICE365_HD']
 
   provider :ldap,
     host: ENV['LDAP_SERVER'],
