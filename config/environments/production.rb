@@ -90,7 +90,7 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Use a remote syslogger for production
-  config.logger = RemoteSyslogLogger.new('syslog.domain.com', XXXXX)
+  config.logger = RemoteSyslogLogger.new(ENV['SYSLOG_DOMAIN'], ENV['SYSLOG_PORT'])
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
