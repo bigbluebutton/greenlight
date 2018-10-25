@@ -93,9 +93,6 @@ class RoomsController < ApplicationController
     # Join the user in and start the meeting.
     opts = default_meeting_options
     opts[:user_is_moderator] = true
-    opts[:callbackUrl] = URI.encode(request.base_url + "/" + @room.uid)
-
-    puts URI.encode(request.base_url + "/" + @room.uid)
 
     redirect_to @room.join_path(current_user.name, opts, current_user.uid)
 

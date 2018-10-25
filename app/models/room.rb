@@ -56,9 +56,6 @@ class Room < ApplicationRecord
       "meta_endCallbackUrl": options[:callbackUrl],
     }
 
-    puts create_options[:"meta_gl-listed"]
-    puts create_options[:meta_endCallbackUrl] + "***********************************************************************"
-
     # Update session info.
     update_attributes(sessions: sessions + 1, last_session: DateTime.now)
 

@@ -17,7 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class UserMailer < ApplicationMailer
-  default from: 'john.ma@blindsidenetworks.com'
+  default from: 'notifications@example.com'
 
   def verify_email(user, url)
     @user = user
