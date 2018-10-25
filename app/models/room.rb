@@ -53,7 +53,6 @@ class Room < ApplicationRecord
       attendeePW: random_password(12),
       moderatorOnlyMessage: options[:moderator_message],
       "meta_#{META_LISTED}": false,
-      "meta_endCallbackUrl": options[:callbackUrl],
     }
 
     # Update session info.
