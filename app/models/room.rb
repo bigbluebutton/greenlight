@@ -53,7 +53,11 @@ class Room < ApplicationRecord
       attendeePW: random_password(12),
       moderatorOnlyMessage: options[:moderator_message],
       "meta_#{META_LISTED}": false,
+      "meta_endCallbackUrl": options[:callbackUrl],
     }
+
+    puts create_options[:"meta_gl-listed"]
+    puts create_options[:meta_endCallbackUrl] + "***********************************************************************"
 
     # Update session info.
     update_attributes(sessions: sessions + 1, last_session: DateTime.now)

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/jiama843/omniauth-microsoft-office365.git
-  revision: cee569a4a2b230d1d083fc10264f43a0fee25dac
+  revision: 685d9359aa5cea020e0b40b78615bfdb27cb347f
   branch: add_restriction_by_domain
   specs:
     omniauth-microsoft-office365 (0.0.7)
