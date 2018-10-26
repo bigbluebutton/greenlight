@@ -68,6 +68,8 @@ module Greenlight
       config.bigbluebutton_endpoint += "api/" unless config.bigbluebutton_endpoint.ends_with?('api/')
     end
 
+    config.email_sender = ENV['EMAIL_SENDER'].present? ? ENV['EMAIL_SENDER'] : "notifications@example.com"
+
     # Determine if GreenLight should enable email verification
     config.enable_email_verification = (ENV['ALLOW_MAIL_NOTIFICATIONS'] == "true")
 
