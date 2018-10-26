@@ -22,6 +22,6 @@ class UserMailer < ApplicationMailer
   def verify_email(user, url)
     @user = user
     @url = url
-    mail(to: @user.email, subject: 'Welcome to BigBlueButton!')
+    mail(to: @user.email, subject: t('landing.welcome'))
   end
 end
