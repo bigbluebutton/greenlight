@@ -5,10 +5,15 @@ services:
     entrypoint: [bin/start]
     image: bigbluebutton/greenlight:v2
     container_name: greenlight-v2
-    env_file: env
+    env_file: .env
     restart: unless-stopped
     ports:
       - 5000:80
     volumes:
       - ./db/production:/usr/src/app/db/production
       - ./log:/usr/src/app/log
+#    logging:
+#      driver: $LOG_DRIVER
+#      options:
+#        syslog-address: $LOG_ADDRESS
+#        tag: $LOG_TAG
