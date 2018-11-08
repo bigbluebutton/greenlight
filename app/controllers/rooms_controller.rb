@@ -96,7 +96,7 @@ class RoomsController < ApplicationController
 
     begin
       redirect_to @room.join_path(current_user.name, opts, current_user.uid)
-    rescue BigBlueButton::BigBlueButtonException => exc
+    rescue BigBlueButton::BigBlueButtonException
       redirect_to room_path, notice: I18n.t(params[:message], default: I18n.t("concurrent_session_error"))
     end
 
