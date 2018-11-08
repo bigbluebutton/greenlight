@@ -23,6 +23,7 @@ en:
         accepted_terms: "Terms and Conditions"
   bigbluebutton: BigBlueButton
   cancel: Cancel
+  concurrent_session_error: The maximum number of concurrent sessions allowed has been reached!
   copy: Copy
   delete: Delete
   delivery_error: An error occured during email delivery. Please contact an administrator!

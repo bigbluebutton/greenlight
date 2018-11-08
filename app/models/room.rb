@@ -63,6 +63,7 @@ class Room < ApplicationRecord
       bbb.create_meeting(name, bbb_id, create_options)
     rescue BigBlueButton::BigBlueButtonException => exc
       puts "BigBlueButton failed on create: #{exc.key}: #{exc.message}"
+      raise exc
     end
   end
 

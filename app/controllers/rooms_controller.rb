@@ -94,7 +94,13 @@ class RoomsController < ApplicationController
     opts = default_meeting_options
     opts[:user_is_moderator] = true
 
-    redirect_to @room.join_path(current_user.name, opts, current_user.uid)
+    begin
+      redirect_to @room.join_path(current_user.name, opts, current_user.uid)
+    rescue BigBlueButton::BigBlueButtonException => exc
+      if exc.key.to_s == "maxConcurrent"
+        redirect_to room_path, notice: I18n.t(params[:message], default: I18n.t("concurrent_session_error"))
+      end
+    end
 
     # Notify users that the room has started.
     # Delay 5 seconds to allow for server start, although the request will retry until it succeeds.
