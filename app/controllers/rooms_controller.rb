@@ -97,9 +97,7 @@ class RoomsController < ApplicationController
     begin
       redirect_to @room.join_path(current_user.name, opts, current_user.uid)
     rescue BigBlueButton::BigBlueButtonException => exc
-      if exc.key.to_s == "maxConcurrent"
-        redirect_to room_path, notice: I18n.t(params[:message], default: I18n.t("concurrent_session_error"))
-      end
+      redirect_to room_path, notice: I18n.t(params[:message], default: I18n.t("concurrent_session_error"))
     end
 
     # Notify users that the room has started.

@@ -62,8 +62,10 @@ class Room < ApplicationRecord
     begin
       bbb.create_meeting(name, bbb_id, create_options)
     rescue BigBlueButton::BigBlueButtonException => exc
+      if exc.key.to_s == "maxConcurrent"
+        raise exc
+      end
       puts "BigBlueButton failed on create: #{exc.key}: #{exc.message}"
-      raise exc
     end
   end
 
