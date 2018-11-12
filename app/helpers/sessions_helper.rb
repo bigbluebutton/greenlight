@@ -70,7 +70,7 @@ module SessionsHelper
 
   def google_omniauth_hd(env, hd)
     hd_opts = hd.split(',')
-    env['omniauth.strategy'].options[:hd] = 
+    env['omniauth.strategy'].options[:hd] =
       if hd_opts.empty?
         nil
       elsif hd_opts.length == 1
