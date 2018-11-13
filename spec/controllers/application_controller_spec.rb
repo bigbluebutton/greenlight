@@ -19,9 +19,8 @@
 require "rails_helper"
 
 describe ApplicationController, type: :controller do
-
   describe "Application Controller Tests" do
-    before (:all) do
+    before :all do
       Rails.configuration.greenlight_accounts = true
       Rails.configuration.recording_thumbnails = true
       Rails.configuration.bigbluebutton_endpoint_default = :default_endpoint
