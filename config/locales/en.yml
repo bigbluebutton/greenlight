@@ -135,6 +135,7 @@ en:
   settings:
     account:
       fullname: Fullname
+      language: Language
       provider: Provider
       image: Image
       image_url: Profile Image URL
