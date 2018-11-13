@@ -20,35 +20,37 @@ require "rails_helper"
 
 describe ApplicationController, type: :controller do
   describe "Application Controller Tests" do
-    before do
-      Rails.configuration.greenlight_accounts = true
-      Rails.configuration.recording_thumbnails = true
-      Rails.configuration.bigbluebutton_endpoint_default = :default_endpoint
-      Rails.configuration.bigbluebutton_endpoint = :default_endpoint
-    end
+    context "Always return true" do
+      before :context do
+        Rails.configuration.greenlight_accounts = true
+        Rails.configuration.recording_thumbnails = true
+        Rails.configuration.bigbluebutton_endpoint_default = :default_endpoint
+        Rails.configuration.bigbluebutton_endpoint = :default_endpoint
+      end
 
-    it "Allows greenlight users?" do
-      expect(controller.allow_greenlight_users?).to eq(true)
-    end
+      it "Allows greenlight users?" do
+        expect(controller.allow_greenlight_users?).to eq(true)
+      end
 
-    it "verifies if recording thumnails exist" do
-      expect(controller.recording_thumbnails?).to eq(true)
-    end
+      it "verifies if recording thumnails exist" do
+        expect(controller.recording_thumbnails?).to eq(true)
+      end
 
-    it "verifies if bigbluebutton endpoint is default" do
-      expect(controller.bigbluebutton_endpoint_default?).to eq(true)
-    end
+      it "verifies if bigbluebutton endpoint is default" do
+        expect(controller.bigbluebutton_endpoint_default?).to eq(true)
+      end
 
-    it "Returns meeting name limit" do
-      expect(controller.meeting_name_limit).to eq(90)
-    end
+      it "Returns meeting name limit" do
+        expect(controller.meeting_name_limit).to eq(90)
+      end
 
-    it "Returns user name limit" do
-      expect(controller.user_name_limit).to eq(32)
-    end
+      it "Returns user name limit" do
+        expect(controller.user_name_limit).to eq(32)
+      end
 
-    it "Returns relative root" do
-      expect(controller.relative_root).to eq("")
+      it "Returns relative root" do
+        expect(controller.relative_root).to eq("")
+      end
     end
   end
 end
