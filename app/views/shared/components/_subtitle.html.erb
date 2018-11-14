@@ -22,10 +22,52 @@
       <div class="input-icon">
         <input type="text" class="form-control btn-pill" placeholder="Search...">
         <span class="input-icon-addon">
-        <i class="fas fa-search"></i>
-      </span>
+          <i class="fas fa-search"></i>
+        </span>
       </div>
     </div>
   <% end %>
 </div>
 <hr class="mt-0">
+
+<div id="filter_recordings" class="row mt-2">
+  <div class="col-1">
+    <input class="form-control display-4" readonly="" value="Filters:">
+  </div>
+  <div class="col-2 filter_category">
+    <select type="text" class="form-control custom-select">
+      <option class="option selected" data-selectable="">None</option>
+      <option class="option selected" data-selectable="" data-filter-opt="length">Length</option>
+      <option class="option selected" data-selectable="" data-filter-opt="users">Users</option>
+      <option class="option selected" data-selectable="" data-filter-opt="visibility">Visibility</option>
+      <option class="option selected" data-selectable="" data-filter-opt="formats">Formats</option>
+    </select>
+  </div>
+  <div class="col-2 filter_dropdown" style='display: none' data-filter-opt="length">
+    <select type="text" class="form-control custom-select">
+      <option class="option selected" data-selectable="" data-value="1">Less than 1 min</option>
+      <option class="option selected" data-selectable="" data-value="2">1 to 10 mins</option>
+      <option class="option selected" data-selectable="" data-value="3">More than 10 mins</option>
+    </select>
+  </div>
+  <div class="col-2 filter_dropdown" style='display: none' data-filter-opt="users">
+    <select type="text" class="form-control custom-select">
+      <option class="option selected" data-selectable="" data-value="1">Less than 10 users</option>
+      <option class="option selected" data-selectable="" data-value="2">10 to 30 users</option>
+      <option class="option selected" data-selectable="" data-value="3">More than 30 users</option>
+    </select>
+  </div>
+  <div class="col-2 filter_dropdown" style='display: none' data-filter-opt="visibility">
+    <select type="text" class="form-control custom-select">
+      <option class="option selected" data-selectable="" data-value="1">Unlisted</option>
+      <option class="option selected" data-selectable="" data-value="2">Public</option>
+    </select>
+  </div>
+  <div class="col-2 filter_dropdown" style='display: none' data-filter-opt="formats">
+    <select type="text" class="form-control custom-select">
+      <option class="option selected" data-selectable="" data-value="1">Presentation</option>
+      <option class="option selected" data-selectable="" data-value="2">Podcast</option>
+    </select>
+  </div>
+</div>
+<br>
