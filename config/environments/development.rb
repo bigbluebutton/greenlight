@@ -29,7 +29,7 @@ Rails.application.configure do
   end
 
   # Don't wrap form components in field_with_error divs
-  ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+  ActionView::Base.field_error_proc = proc do |html_tag|
     html_tag.html_safe
   end
 
