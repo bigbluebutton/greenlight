@@ -22,9 +22,7 @@
           placeholder: t("enter_your_name"),
           value: "#{current_user ? current_user.name : ''}",
           readonly: !current_user.nil? %>
-      <span class="input-group-append">
-        <%= f.submit t("room.join"), class: "btn btn-primary px-7 join-form" %>
-      </span>
+      <%= f.submit t("room.join"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
     </div>
   <% end %>
 <% end %>
