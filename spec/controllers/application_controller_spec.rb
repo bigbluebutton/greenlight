@@ -19,8 +19,31 @@
 require "rails_helper"
 
 describe ApplicationController, type: :controller do
+  describe "Application Controller Tests" do
+    before { allow(Rails.configuration).to receive(:recording_thumbnails).and_return(true) }
+    before { allow(Rails.configuration).to receive(:bigbluebutton_endpoint).and_return(:defaultBBBendpoint) }
+    before { allow(Rails.configuration).to receive(:bigbluebutton_endpoint_default).and_return(:defaultBBBendpoint) }
 
-  describe "Application tests" do
+    it "verifies if recording thumnails exist" do
+      expect(controller.recording_thumbnails?).to eq(true)
+    end
+
+    it "verifies if bigbluebutton endpoint is default" do
+      expect(controller.bigbluebutton_endpoint_default?).to eq(true)
+    end
+
+    it "Returns meeting name limit" do
+      expect(controller.meeting_name_limit).to eq(90)
+    end
+
+    it "Returns user name limit" do
+      expect(controller.user_name_limit).to eq(32)
+    end
+
+    it "Returns relative root" do
+      expect(controller.relative_root).to eq("")
+    end
+
     it "should return the right user locales" do
       expect(controller.user_locale("عربى")).to eq(:ar)
       expect(controller.user_locale("English")).to eq(:en)
