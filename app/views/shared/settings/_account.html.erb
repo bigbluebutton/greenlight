@@ -36,16 +36,7 @@
     <%= f.text_field :provider, class: "form-control", readonly: "" %>
     <br>
     <%= f.label t("settings.account.language"), class: "form-label" %>
-    <%= f.select :language, 
-      ['----- default (browser language) -----',
-       'عربى',
-       'English',
-       'Français',
-       'Deutsche',
-       'Ελληνικά',
-       'Portuguese (Brazil)',
-       'Español'],
-      {}, { class: "form-control custom-select" } %>
+    <%= f.select :language, language_options, {}, { class: "form-control custom-select" } %>
 
     <%= f.label t("settings.account.image"), class: "form-label mt-5" %>
     <div class="row">

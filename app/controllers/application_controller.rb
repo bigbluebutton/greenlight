@@ -39,8 +39,8 @@ class ApplicationController < ActionController::Base
 
   # Sets the appropriate locale.
   def set_locale
-    I18n.locale = if current_user && current_user.language != '----- default (browser language) -----'
-      user_locale(current_user.language)
+    I18n.locale = if current_user && current_user.language != 'default'
+      current_user.language
     else
       http_accept_language.language_region_compatible_from(I18n.available_locales)
     end
@@ -103,24 +103,5 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_https
     redirect_to protocol: "https://" if loadbalanced_configuration? && request.headers["X-Forwarded-Proto"] == "http"
-  end
-
-  def user_locale(lang)
-    case lang
-    when "عربى"
-      :ar
-    when "English"
-      :en
-    when "Français"
-      :fr
-    when "Deutsche"
-      :de
-    when "Ελληνικά"
-      :el
-    when "Portuguese (Brazil)"
-      :'pt-br'
-    when "Español"
-      :es
-    end
   end
 end

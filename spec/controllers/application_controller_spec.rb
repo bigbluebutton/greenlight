@@ -43,15 +43,5 @@ describe ApplicationController, type: :controller do
     it "Returns relative root" do
       expect(controller.relative_root).to eq("")
     end
-
-    it "should return the right user locales" do
-      expect(controller.user_locale("عربى")).to eq(:ar)
-      expect(controller.user_locale("English")).to eq(:en)
-      expect(controller.user_locale("Français")).to eq(:fr)
-      expect(controller.user_locale("Deutsche")).to eq(:de)
-      expect(controller.user_locale("Ελληνικά")).to eq(:el)
-      expect(controller.user_locale("Portuguese (Brazil)")).to eq(:'pt-br')
-      expect(controller.user_locale("Español")).to eq(:es)
-    end
   end
 end
