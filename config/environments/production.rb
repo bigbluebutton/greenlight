@@ -51,6 +51,11 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
+  # Don't wrap form components in field_with_error divs
+  ActionView::Base.field_error_proc = proc do |html_tag|
+    html_tag.html_safe
+  end
+
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 

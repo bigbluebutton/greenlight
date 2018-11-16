@@ -61,7 +61,10 @@
             </div>
             <% if Rails.configuration.terms %>
               <div class="form-inline">
-                <%= f.check_box :accepted_terms, class: "form-control #{form_is_invalid?(@user, :accepted_terms)}", placeholder: t("signup.password_confirm") %>
+                <label class="custom-switch">
+                  <%= f.check_box :accepted_terms, class: "custom-switch-input form-control #{form_is_invalid?(@user, :accepted_terms)}", placeholder: t("signup.password_confirm") %>
+                  <span class="custom-switch-indicator"></span>
+                </label>
                 <%= f.label :accepted_terms, t("terms.accept", href: link_to(t("terms.title"), terms_path, target: "_blank", class: "ml-1 text-blue")).html_safe, class: "ml-1" %>
                 <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:accepted_terms).first %></div>
               </div>
