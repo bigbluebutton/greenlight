@@ -67,4 +67,16 @@ module SessionsHelper
     env['omniauth.strategy'].options[:checksum] = generate_checksum parse_customer_name(env["SERVER_NAME"]),
       gl_redirect_url, Rails.configuration.launcher_secret
   end
+
+  def google_omniauth_hd(env, hd)
+    hd_opts = hd.split(',')
+    env['omniauth.strategy'].options[:hd] =
+      if hd_opts.empty?
+        nil
+      elsif hd_opts.length == 1
+        hd_opts[0]
+      else
+        hd_opts
+      end
+  end
 end

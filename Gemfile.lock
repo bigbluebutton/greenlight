@@ -181,7 +181,7 @@ GEM
     public_suffix (3.0.3)
     puma (3.11.4)
     pyu-ruby-sasl (0.0.3.3)
-    rack (2.0.5)
+    rack (2.0.6)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.7)
