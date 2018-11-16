@@ -22,6 +22,7 @@ en:
       user:
         accepted_terms: "Terms and Conditions"
   bigbluebutton: BigBlueButton
+  bigbluebutton_exception: Oops, there was an error when starting the meeting!
   cancel: Cancel
   copy: Copy
   delete: Delete
@@ -78,6 +79,7 @@ en:
     version: We've released a new version of Greenlight, but your database isn't compatible.
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   login: Sign in
+  max_concurrent: The maximum number of concurrent sessions allowed has been reached!
   modal:
     create_room:
       auto_join: Automatically join me into the room.

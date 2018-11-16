@@ -17,7 +17,12 @@ Rails.application.config.omniauth_bn_launcher = Rails.configuration.loadbalanced
 Rails.application.config.allow_user_signup = false if Rails.application.config.omniauth_ldap
 
 SETUP_PROC = lambda do |env|
-  SessionsController.helpers.omniauth_options env
+  provider = env['omniauth.strategy'].options[:name]
+  if provider == "google"
+    SessionsController.helpers.google_omniauth_hd env, ENV['GOOGLE_OAUTH2_HD']
+  else
+    SessionsController.helpers.omniauth_options env
+  end
 end
 
 # Setup the Omniauth middleware.
@@ -35,7 +40,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     scope: %w(profile email),
     access_type: 'online',
     name: 'google',
-    hd: ENV['GOOGLE_OAUTH2_HD'].blank? ? nil : ENV['GOOGLE_OAUTH2_HD']
+    setup: SETUP_PROC
 
   provider :microsoft_office365, ENV['OFFICE365_KEY'], ENV['OFFICE365_SECRET']
 
