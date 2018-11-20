@@ -22,24 +22,74 @@ $(document).on('turbolinks:load', function(){
 
     // Upon change to filter category dropdown, show the correct filter dropdown
     // for the category
-    $('.filter_category').on('change', function(){
-      $("#filter_recordings").find(".filter_dropdown").each(function(){
-        $(this).hide();
-      });
-
-      filter_value = $(this).find(":selected").data("filter-opt");
-      $("#filter_recordings").find(`[data-filter-opt='${filter_value}']`).show();
+    $('th').each(function(){
+      if($(this).data("header")){
+        $(this).on('click', function(){    
+          set_active_header($(this).data("header"));
+          sort_by($(this).data("header"), $(this).data('order'));
+        });
+      }
     });
 
-    //
-    $('#filter_recordings').find(".filter_dropdown").each(function(){
-      $(this).on('change', function(){
-        category_data = $('.filter_category').find(":selected").data("filter-opt");
-        select_data = $(this).find(":selected").data("value");
-
-        alert(category_data);
-        alert(select_data);
+    // Based on the header (Name, Length or Users) clicked,
+    // Modify the ui for the tables
+    function set_active_header(active_header){
+      $('th').each(function(){
+        if($(this).data("header") == active_header){
+          configure_order($(this));
+        }
+        else{
+          $(this).text($(this).data("header"));
+          $(this).data('order', 'none');
+        }
       });
-    });
+    }
+
+    // Based on the header (Name, Length or Users) clicked,
+    // Modify the ui for the tables
+    function configure_order(header_elem){
+      if(header_elem.data('order') === 'asc'){ // asc
+        header_elem.text(header_elem.data("header") + " ↓");
+        header_elem.data('order', 'desc');
+      }
+      else if(header_elem.data('order') === 'desc'){ // desc
+        header_elem.text(header_elem.data("header"));
+        header_elem.data('order', 'none');
+      }
+      else{ // none
+        header_elem.text(header_elem.data("header") + " ↑");
+        header_elem.data('order', 'asc');
+      }
+    }
+
+    // Given a label and an order, sort recordings by order
+    // under a given label
+    function sort_by(label, order){
+      var recording_list_tbody = $('.table-responsive').find('tbody');
+      if(label === "Name"){
+        sort_recordings(recording_list_tbody, order, "#recording_name");
+      }
+      else if(label === "Length"){
+        sort_recordings(recording_list_tbody, order, "#recording_length");
+      }
+      else if(label === "Users"){
+        sort_recordings(recording_list_tbody, order, "#recording_users");
+      }
+    }
+
+    // Generalized function for sorting recordings
+    function sort_recordings(recording_list_tbody, order, recording_id){
+      recording_list_tbody.find('tr').sort(function(a, b){
+        a_val = $(a).find(recording_id).text();
+        b_val = $(b).find(recording_id).text();
+
+        if(order === "asc"){
+          return a_val.localeCompare(b_val);
+        }
+        else if(order === "desc"){
+          return b_val.localeCompare(a_val);
+        }
+      }).appendTo(recording_list_tbody);
+    }
   }
 });
