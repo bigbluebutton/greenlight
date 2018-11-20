@@ -143,6 +143,29 @@ describe UsersController, type: :controller do
     end
   end
 
+  describe "DELETE #user" do
+    before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
+
+    it "properly deletes user" do
+      user = create(:user)
+
+      delete :destroy, params: { user_uid: user.uid }
+
+      expect(response).to redirect_to(root_path)
+    end
+  end
+
+  describe "GET | POST #terms" do
+    before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
+    before { allow(Rails.configuration).to receive(:terms).and_return(false) }
+
+    it "Redirects to 404 if terms is disabled" do
+      post :terms, params: { accept: "false" }
+
+      expect(response).to redirect_to('/404')
+    end
+  end
+
   describe "GET | POST #resend" do
     before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
     before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(true) }

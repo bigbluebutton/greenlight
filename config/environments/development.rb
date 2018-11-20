@@ -28,8 +28,13 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  # Tell Action Mailer to use smtp server
-  config.action_mailer.delivery_method = :smtp
+  # Don't wrap form components in field_with_error divs
+  ActionView::Base.field_error_proc = proc do |html_tag|
+    html_tag.html_safe
+  end
+
+  # Tell Action Mailer to use smtp server, if configured
+  config.action_mailer.delivery_method = ENV['SMTP_SERVER'].present? ? :smtp : :sendmail
 
   ActionMailer::Base.smtp_settings = {
     address: ENV['SMTP_SERVER'],

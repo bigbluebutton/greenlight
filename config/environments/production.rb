@@ -51,11 +51,16 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
+  # Don't wrap form components in field_with_error divs
+  ActionView::Base.field_error_proc = proc do |html_tag|
+    html_tag.html_safe
+  end
+
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # Tell Action Mailer to use smtp server
-  config.action_mailer.delivery_method = :smtp
+  # Tell Action Mailer to use smtp server, if configured
+  config.action_mailer.delivery_method = ENV['SMTP_SERVER'].present? ? :smtp : :sendmail
 
   ActionMailer::Base.smtp_settings = {
     address: ENV['SMTP_SERVER'],
@@ -93,7 +98,7 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV["RAILS_LOG_TO_STDOUT"] == "true"
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
