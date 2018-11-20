@@ -41,7 +41,7 @@ describe RoomsController, type: :controller do
 
       expect(response).to render_template(:join)
     end
-    
+
     it "should raise if room is not valid" do
       expect do
         get :show, params: { room_uid: "non_existent" }

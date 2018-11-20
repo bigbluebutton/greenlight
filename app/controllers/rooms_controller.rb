@@ -53,7 +53,7 @@ class RoomsController < ApplicationController
   # POST /:room_uid
   def join
     opts = default_meeting_options
-    
+
     unless @room.owned_by?(current_user)
       # Assign join name if passed.
       if params[@room.invite_path]
