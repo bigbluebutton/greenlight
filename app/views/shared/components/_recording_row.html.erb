@@ -65,6 +65,9 @@
       </a>
       <div class="dropdown-menu dropdown-menu-right">
         <% p = recording[:playbacks].find do |p| p.key?(:length) end %>
+        <a class="dropdown-item" href="" data-toggle="modal" data-target="#editRecordingModal_<%= recording[:recordID] %>">
+          <i class="dropdown-icon far fa-play-circle"></i> <%= t("edit_details") %>
+				</a>
         <% if p %>
           <a class="dropdown-item email-link" data-pres-link="<%= p[:url] %>"><i class="dropdown-icon far fa-envelope"></i> <%= t("recording.email") %></a>
           <div class="dropdown-divider"></div>

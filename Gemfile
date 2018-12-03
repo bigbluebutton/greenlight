@@ -56,6 +56,7 @@ gem 'bigbluebutton-api-ruby'
 
 # Front-end.
 gem 'bootstrap', '~> 4.1.3'
+gem 'bootstrap_tokenfield_rails'
 gem 'tabler-rubygem'
 
 # For detecting the users preferred language.

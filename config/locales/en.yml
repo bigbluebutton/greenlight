@@ -87,6 +87,13 @@ en:
       name_placeholder: Enter a room name...
       not_blank: Room name cannot be blank.
       title: Create New Room
+    edit_recording:
+      tags: Tags
+      save: Save Changes
+      listed: List Recording
+      name_placeholder: Enter a recording name ...
+      not_blank: Recording name cannot be blank.
+      title: Edit Recording Details
     delete_account:
       confirm: Are you sure you want to delete your account?
       delete: I'm sure, delete my account.

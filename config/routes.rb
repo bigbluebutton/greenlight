@@ -66,6 +66,7 @@ Rails.application.routes.draw do
 
     # Mange recordings.
     scope '/:record_id' do
+      post '/edit', to: 'rooms#edit_recording', as: :edit_recording
       post '/', to: 'rooms#update_recording', as: :update_recording
       delete '/', to: 'rooms#delete_recording', as: :delete_recording
     end

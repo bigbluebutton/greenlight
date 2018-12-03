@@ -30,3 +30,4 @@
 //= require tabler.plugins
 //= require turbolinks
 //= require_tree .
+//= require bootstrap-tokenfield

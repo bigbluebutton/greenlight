@@ -50,6 +50,7 @@
                     <%= render "shared/components/public_recording_row", recording: recording %>
                   <% else %>
                     <%= render "shared/components/recording_row", recording: recording %>
+                    <%= render "shared/modals/edit_recording_modal", recording: recording %>
                   <% end %>
                 <% end %>
               <% end %>

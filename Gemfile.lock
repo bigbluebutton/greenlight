@@ -54,6 +54,7 @@ GEM
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
+    bootstrap_tokenfield_rails (0.12.1)
     builder (3.2.3)
     byebug (10.0.2)
     coffee-rails (4.2.2)
@@ -326,6 +327,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bigbluebutton-api-ruby
   bootstrap (~> 4.1.3)
+  bootstrap_tokenfield_rails
   byebug
   coffee-rails (~> 4.2)
   coveralls

@@ -1,0 +1,85 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="modal fade" id="editRecordingModal_<%= recording[:recordID] %>" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <div class="card-body p-6">
+          <div class="card-title">
+            <h3><%= t("modal.edit_recording.title") %></h3>
+          </div>
+
+          <%= form_tag edit_recording_path(@room, record_id: recording[:recordID]), method: :post do %>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="fas fa-chalkboard-teacher"></i>
+              </span>
+              <%= text_field_tag :name, nil, class: "form-control", value: "", placeholder: t("modal.edit_recording.name_placeholder"), autocomplete: :off %>
+              <div class="invalid-feedback text-left"><%= t("modal.edit_recording.not_blank") %></div>
+            </div>
+            <br>
+            <div class="form-group text-left">
+              <%= label_tag :tag_list, 'Tags', class: "form-label" %>
+              <%= hidden_field_tag :tag_list, nil, class: "form-control", value: "", placeholder: t("modal.edit_recording.name_placeholder"), id: "tag-list_#{recording[:recordID]}"%>
+              <input type="text" class="form-control" id="tokenfield_<%= recording[:recordID] %>" value="red,green,blue" />
+            </div>
+            <label class="custom-switch mt-5 mb-5 float-left">
+              <%= check_box_tag :listed, 1, false, class: "custom-switch-input" %>
+              <span class="custom-switch-indicator"></span>
+              <span class="custom-switch-description"><%= t("modal.edit_recording.listed") %></span>
+            </label>
+            <div class="invalid-feedback text-left"><%= t("modal.edit_recording.not_blank") %></div>
+            <div class="form-footer">
+              <%= submit_tag t("modal.edit_recording.save"), id: "create-room-submit", class: "btn btn-outline-primary btn-block btn-pill" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Handle validation messages client-side because
+// form is served in modal, and they are minimal.
+var roomCreateValidations = function(){
+  if($('#room-name').val().length == 0){
+    $('#room-name').addClass("is-invalid");
+  }
+}
+
+$('#create-room-submit').on('click', roomCreateValidations);
+
+$('#tokenfield_<%= recording[:recordID] %>').tokenfield({
+  autocomplete: {
+    source: ['red','blue','green','yellow','violet','brown','purple','black','white'],
+    delay: 100
+  },
+  showAutocompleteOnFocus: true
+})
+
+$('#tag-list_<%= recording[:recordID] %>').tokenfield({
+  autocomplete: {
+    source: ['red','blue','green','yellow','violet','brown','purple','black','white'],
+    delay: 100
+  },
+  showAutocompleteOnFocus: true
+})
+$('#tag-list_<%= recording[:recordID] %>').on('click', function(){
+  //console.log($(this));
+  $(this).append('<span class="tag">One<a href="#" class="tag-addon"><i class="fe fe-x"></i></a></span>');
+});
+</script>
