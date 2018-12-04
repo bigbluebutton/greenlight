@@ -25,11 +25,14 @@
   <div class="container">
     <div class="row pt-9">
       <div class="col-lg-9 col-sm-12">
-        <h1 id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= @room.name %>
+        <div id="room-title" class="display-3 form-inline <%= 'edit_hover_class' if current_user.main_room != @room %>">
+          <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= @room.name %></h1>
           <% if current_user.main_room == @room %>
-            <i class="fas fa-home align-top home-indicator"></i>
+            <a class="disable-click"><i class="fas fa-home align-top home-indicator ml-2"></i></a>
+          <% else %>
+            <a><i id="edit-room" class="fa fa-edit align-top home-indicator ml-2" data-edit-room="<%= @room.uid %>"></i></a>
           <% end %>
-        </h1>
+        </div>
         <h4 class="text-left mb-6"><%= @room.sessions %> <%= t("room.sessions") %> | <%= @recordings.length %> <%= t("room.recordings") %></h4>
         <label class="form-label"><%= t("room.invite_participants") %></label>
         <form class="form-inline">
@@ -54,7 +57,7 @@
       </div>
     </div>
 
-    <div class="row pt-7 pb-2">
+    <div id="room_block_container" class="row pt-7 pb-2">
       <% if current_user.rooms.length > 1 %>
         <div class="col-lg-4 col-md-6 col-sm-12">
           <%= link_to current_user.main_room do %>
