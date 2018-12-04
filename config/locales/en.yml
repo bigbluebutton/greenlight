@@ -92,6 +92,7 @@ en:
       save: Save Changes
       listed: List Recording
       name_placeholder: Enter a recording name ...
+      tag_placeholder: Type and press ,
       not_blank: Recording name cannot be blank.
       title: Edit Recording Details
     delete_account:

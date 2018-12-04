@@ -119,9 +119,12 @@ class RoomsController < ApplicationController
     redirect_to @room
   end
 
-  # POST /:room_uid/:record_id
+  # POST /:room_uid/:record_id/edit
   def edit_recording
-  
+    @room.update_recording(params[:record_id], "meta_name" => params[:name])
+    @room.update_recording(params[:record_id], "meta_tag-list" => params[:tag_list])
+    @room.update_recording(params[:record_id], "meta_#{META_LISTED}" => (params[:state] == "public"))
+    redirect_to @room
   end
 
   # POST /:room_uid/:record_id

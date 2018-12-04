@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="modal fade" id="editRecordingModal_<%= recording[:recordID] %>" tabindex="-1" role="dialog">
+<div class="modal fade edit-recording-modal" id="editRecordingModal_<%= recording[:recordID] %>" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content text-center">
       <div class="modal-body">
@@ -27,23 +27,23 @@
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= text_field_tag :name, nil, class: "form-control", value: "", placeholder: t("modal.edit_recording.name_placeholder"), autocomplete: :off %>
+              <%= text_field_tag :name, nil, class: "form-control", value: recording[:metadata][:name]? recording[:metadata][:name] : recording[:name], placeholder: t("modal.edit_recording.name_placeholder"), autocomplete: :off %>
               <div class="invalid-feedback text-left"><%= t("modal.edit_recording.not_blank") %></div>
             </div>
             <br>
             <div class="form-group text-left">
               <%= label_tag :tag_list, 'Tags', class: "form-label" %>
-              <%= hidden_field_tag :tag_list, nil, class: "form-control", value: "", placeholder: t("modal.edit_recording.name_placeholder"), id: "tag-list_#{recording[:recordID]}"%>
-              <input type="text" class="form-control" id="tokenfield_<%= recording[:recordID] %>" value="red,green,blue" />
+              <%= hidden_field_tag :tag_list, nil, class: "form-control tag-list" %>
+              <input type="text" class="form-control tag-list-tokenfield" value="<%= recording[:metadata][:"tag-list"]? recording[:metadata][:"tag-list"] : nil %>" placeholder="<%= t("modal.edit_recording.tag_placeholder") %>" />
             </div>
             <label class="custom-switch mt-5 mb-5 float-left">
-              <%= check_box_tag :listed, 1, false, class: "custom-switch-input" %>
+              <%= check_box_tag :state, "public", recording[:metadata][:"gl-listed"] == "true", class: "custom-switch-input" %>
               <span class="custom-switch-indicator"></span>
               <span class="custom-switch-description"><%= t("modal.edit_recording.listed") %></span>
             </label>
             <div class="invalid-feedback text-left"><%= t("modal.edit_recording.not_blank") %></div>
-            <div class="form-footer">
-              <%= submit_tag t("modal.edit_recording.save"), id: "create-room-submit", class: "btn btn-outline-primary btn-block btn-pill" %>
+            <div class="form-footer edit-recording-submit">
+              <%= submit_tag t("modal.edit_recording.save"), class: "btn btn-outline-primary btn-block btn-pill" %>
             </div>
           <% end %>
         </div>
@@ -62,24 +62,4 @@ var roomCreateValidations = function(){
 }
 
 $('#create-room-submit').on('click', roomCreateValidations);
-
-$('#tokenfield_<%= recording[:recordID] %>').tokenfield({
-  autocomplete: {
-    source: ['red','blue','green','yellow','violet','brown','purple','black','white'],
-    delay: 100
-  },
-  showAutocompleteOnFocus: true
-})
-
-$('#tag-list_<%= recording[:recordID] %>').tokenfield({
-  autocomplete: {
-    source: ['red','blue','green','yellow','violet','brown','purple','black','white'],
-    delay: 100
-  },
-  showAutocompleteOnFocus: true
-})
-$('#tag-list_<%= recording[:recordID] %>').on('click', function(){
-  //console.log($(this));
-  $(this).append('<span class="tag">One<a href="#" class="tag-addon"><i class="fe fe-x"></i></a></span>');
-});
 </script>
