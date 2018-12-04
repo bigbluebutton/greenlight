@@ -61,11 +61,11 @@ $(document).on('turbolinks:load', function(){
 
     // Set a room header rename event
     function configure_room_header(room_title){
-      room_title.find('.fa-edit').on('click', function(e){
 
+      function register_room_title_event(e){
         // Remove current window events
         $(window).off('mousedown keypress');
-  
+
         room_title.find('#user-text').fadeTo('medium', 0.7);
         room_title.find('#user-text').attr("contenteditable", true);
         room_title.find('#user-text').focus();
@@ -74,6 +74,16 @@ $(document).on('turbolinks:load', function(){
         e.preventDefault();
   
         register_window_event(room_title, 'user-text', '#edit-room', 'edit-room');
+      }
+
+      room_title.find('#user-text').on('dblclick', function(e){
+        if(room_title.find('#edit-room').length){
+          register_room_title_event(e);
+        }
+      });
+
+      room_title.find('.fa-edit').on('click', function(e){
+        register_room_title_event(e);
       });
     }
 
