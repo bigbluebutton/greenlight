@@ -18,7 +18,7 @@ $(document).on('turbolinks:load', function(){
   var controller = $("body").data('controller');
   var action = $("body").data('action');
 
-  if(controller == "rooms" && action == "show"){
+  if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update"){
     search_input = $('#search_bar');
 
     search_input.bind("keyup", function(event){
@@ -29,16 +29,15 @@ $(document).on('turbolinks:load', function(){
       //Search for recordings and display them based on name match
       var recordings_found = 0;
 
-      recordings_table = $(".table-responsive");
-      recordings = recordings_table.find('tbody').find('tr');
+      recordings = $('#recording-table').find('tr');
 
       recordings.each(function(){
-        if($(this).find('#recording_name').text().toLowerCase().includes(search_query.toLowerCase())){
-            recordings_found = recordings_found + 1;
-            $(this).show();
+        if($(this).find('text').text().toLowerCase().includes(search_query.toLowerCase())){
+          recordings_found = recordings_found + 1;
+          $(this).show();
         }
         else{
-            $(this).hide();
+          $(this).hide();
         }
       });
 

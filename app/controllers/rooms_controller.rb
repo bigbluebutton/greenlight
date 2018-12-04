@@ -50,6 +50,19 @@ class RoomsController < ApplicationController
     end
   end
 
+  # PATCH /:room_uid
+  def update
+    if params[:setting] == "rename_block"
+      @room = Room.find_by!(uid: params[:room_block_uid])
+      update_room_attributes
+    elsif params[:setting] == "rename_header"
+      update_room_attributes
+    elsif params[:setting] == "rename_recording"
+      @room.update_recording(params[:record_id], "meta_name" => params[:record_name])
+    end
+    redirect_to room_path
+  end
+
   # POST /:room_uid
   def join
     opts = default_meeting_options
@@ -157,6 +170,12 @@ class RoomsController < ApplicationController
   helper_method :safe_recording_images
 
   private
+
+  def update_room_attributes
+    if @room.owned_by?(current_user) && @room != current_user.main_room
+      @room.update_attributes(name: params[:room_name])
+    end
+  end
 
   def room_params
     params.require(:room).permit(:name, :auto_join)

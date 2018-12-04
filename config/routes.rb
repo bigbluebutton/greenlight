@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   # Extended room routes.
   scope '/:room_uid' do
     post '/', to: 'rooms#join'
+    patch '/', to: 'rooms#update', as: :update_room
     post '/start', to: 'rooms#start', as: :start_room
     get '/logout', to: 'rooms#logout', as: :logout_room
 
