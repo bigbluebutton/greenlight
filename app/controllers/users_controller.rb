@@ -93,6 +93,7 @@ class UsersController < ApplicationController
       @user.update_attributes(email_verified: false)
       redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
     elsif @user.update_attributes(user_params)
+      update_locale(@user)
       redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
     else
       render :edit, params: { settings: params[:settings] }
