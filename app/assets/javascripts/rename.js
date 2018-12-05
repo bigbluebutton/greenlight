@@ -192,9 +192,6 @@ $(document).on('turbolinks:load', function(){
         url: window.location.pathname,
         type: "PATCH",
         data: data,
-        success: function(data){
-          console.log("Success");
-        },
       });
     }
   }
