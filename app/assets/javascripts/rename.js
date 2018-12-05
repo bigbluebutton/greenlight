@@ -22,7 +22,7 @@ $(document).on('turbolinks:load', function(){
 
     // Elements that can be renamed
     var room_title = $('#room-title');
-    var room_blocks = $('#room_block_container').find('.card');
+    var room_blocks = $('#room_block_container').find('a');
     var recording_rows = $('#recording-table').find('tr');
 
     // Configure renaming for room header
@@ -47,6 +47,13 @@ $(document).on('turbolinks:load', function(){
         // Register a click event on each room_block rename dropdown
         room_block.find('#rename-room-button').on('click', function(e){
 
+          room_block.find('#room-name-editable-input').on('focusout', function(){
+            submit_rename_request(room_block.find('.card'));
+            $(window).off('mousedown keydown');
+            return;
+          });
+
+          room_block.click(function(linkEvent) { linkEvent.preventDefault(); });
           room_block.find('#room-name').hide();
           room_block.find('#room-name-editable').show();
           room_block.find('#room-name-editable-input').select()
@@ -54,18 +61,24 @@ $(document).on('turbolinks:load', function(){
           // Stop automatic refresh
           e.preventDefault();
 
-          register_window_event(room_block, null, null);
+          register_window_event(room_block.find('.card'), 'room-name-editable-input', null);
         });
       }
     }
 
     // Set a room header rename event
     function configure_room_header(room_title){
-      room_title.find('.fa-edit').on('click', function(e){
 
+      function register_room_title_event(e){
         // Remove current window events
-        $(window).off('mousedown keypress');
-  
+        $(window).off('mousedown keydown');
+
+        if(e.type == 'focusout'){
+          submit_rename_request(room_title);
+          return;
+        }
+
+        room_title.addClass("dotted_underline");
         room_title.find('#user-text').fadeTo('medium', 0.7);
         room_title.find('#user-text').attr("contenteditable", true);
         room_title.find('#user-text').focus();
@@ -74,16 +87,32 @@ $(document).on('turbolinks:load', function(){
         e.preventDefault();
   
         register_window_event(room_title, 'user-text', '#edit-room', 'edit-room');
+      }
+
+      room_title.find('#user-text').on('dblclick focusout', function(e){
+        if(room_title.find('#edit-room').length){
+          register_room_title_event(e);
+        }
+      });
+
+      room_title.find('.fa-edit').on('click', function(e){
+        register_room_title_event(e);
       });
     }
 
     // Set a recording row rename event
     function configure_recording_row(recording_title){
-      recording_title.find('a').on('click', function(e){
 
+      function register_recording_title_event(e){
         // Remove current window events
-        $(window).off('mousedown keypress');
+        $(window).off('mousedown keydown');
+
+        if(e.type == 'focusout'){
+          submit_rename_request(recording_title);
+          return;
+        }
         
+        recording_title.addClass("dotted_underline");
         recording_title.fadeTo('medium', 0.7);
         recording_title.find('text').attr("contenteditable", true);
         recording_title.find('text').focus();
@@ -92,13 +121,21 @@ $(document).on('turbolinks:load', function(){
         e.preventDefault();
         
         register_window_event(recording_title, 'recording-text', '#edit-record', 'edit-recordid');
+      }
+      
+      recording_title.find('a').on('click focusout', function(e){
+        register_recording_title_event(e);
+      });
+
+      recording_title.find('#recording-text').on('dblclick focusout', function(e){
+        register_recording_title_event(e);
       });
     }
 
     // Register window event to submit new name
     // upon click or upon pressing the enter key
     function register_window_event(element, textfield_id, edit_button_id, edit_button_data){
-      $(window).on('mousedown keypress', function(clickEvent){
+      $(window).on('mousedown keydown', function(clickEvent){
 
         // Return if the text is clicked
         if(clickEvent.type == "mousedown" && clickEvent.target.id == textfield_id){
@@ -111,15 +148,16 @@ $(document).on('turbolinks:load', function(){
           return;
         }
         
-        // Check if event is keypress and enter key is pressed
-        if(clickEvent.type != "mousedown" && clickEvent.which !== 13){
+        // Check if event is keydown and enter key is not pressed
+        if(clickEvent.type == "keydown" && clickEvent.which !== 13){
           return;
         }
-
+        
+        clickEvent.preventDefault();
         submit_rename_request(element);
 
         // Remove window event when ajax call to update name is submitted
-        $(window).off('mousedown keypress');
+        $(window).off('mousedown keydown');
       });
     }
 
@@ -154,9 +192,6 @@ $(document).on('turbolinks:load', function(){
         url: window.location.pathname,
         type: "PATCH",
         data: data,
-        success: function(data){
-          console.log("Success");
-        },
       });
     }
   }
