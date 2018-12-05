@@ -196,7 +196,7 @@ describe RoomsController, type: :controller do
     it "edits recording parameters on edit field" do
       @request.session[:user_id] = @owner.id
 
-      post :edit_recording, params: { room_uid: @owner.main_room, record_id: :record_id  }
+      post :edit_recording, params: { room_uid: @owner.main_room, record_id: :record_id }
       expect(response).to redirect_to(@owner.main_room)
     end
   end
