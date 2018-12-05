@@ -58,6 +58,11 @@ a {
   cursor: pointer;
 }
 
+.dotted_underline {
+  border-bottom: 3px dashed #d3d3d3;
+  width: 100%;
+}
+
 .disable-click {
   pointer-events: none;
 }
