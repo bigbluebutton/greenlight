@@ -66,6 +66,7 @@ $(document).on('turbolinks:load', function(){
         // Remove current window events
         $(window).off('mousedown keypress');
 
+        //room_title.find('#user-text').addClass("dotted_underline");
         room_title.find('#user-text').fadeTo('medium', 0.7);
         room_title.find('#user-text').attr("contenteditable", true);
         room_title.find('#user-text').focus();
