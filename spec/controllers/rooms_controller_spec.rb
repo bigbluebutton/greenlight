@@ -186,4 +186,18 @@ describe RoomsController, type: :controller do
       expect(response).to redirect_to(root_path)
     end
   end
+
+  describe "POST #edit" do
+    before do
+      @user = create(:user)
+      @owner = create(:user)
+    end
+
+    it "edits recording parameters on edit field" do
+      @request.session[:user_id] = @owner.id
+
+      post :edit_recording, params: { room_uid: @owner.main_room, record_id: :record_id  }
+      expect(response).to redirect_to(@owner.main_room)
+    end
+  end
 end

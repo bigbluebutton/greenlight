@@ -57,7 +57,7 @@ class RoomsController < ApplicationController
     end
     redirect_to room_path
   end
-  
+
   # POST /:room_uid
   def join
     opts = default_meeting_options
