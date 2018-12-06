@@ -48,7 +48,7 @@ module ApplicationHelper
 
   # Returns language selection options
   def language_options
-    language_opts = [[t("language_options.default"), "default"]]
+    language_opts = [['<<<< ' + t("language_options.default") + ' >>>>', "default"]]
     Rails.configuration.languages.each do |loc|
       language_opts.push([t("language_options." + loc), loc])
     end

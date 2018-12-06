@@ -78,7 +78,7 @@ en:
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
   language_options:
-    default: ----- default (browser language) -----
+    default: Default (browser language)
     ar: Arabic
     de: German
     el: Greek
@@ -110,7 +110,7 @@ en:
       or: or
       with: Sign in with %{provider}
     rename_recording:
-      
+
     rename_room:
       name_placeholder: Enter a new room name...
   name_update_success: Room name successfully changed!
