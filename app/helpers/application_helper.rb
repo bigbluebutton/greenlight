@@ -46,6 +46,15 @@ module ApplicationHelper
     Rails.configuration.bigbluebutton_endpoint_default == Rails.configuration.bigbluebutton_endpoint
   end
 
+  # Returns language selection options
+  def language_options
+    language_opts = [['<<<< ' + t("language_options.default") + ' >>>>', "default"]]
+    Rails.configuration.languages.each do |loc|
+      language_opts.push([t("language_options." + loc), loc])
+    end
+    language_opts.sort
+  end
+
   # Parses markdown for rendering.
   def markdown(text)
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
