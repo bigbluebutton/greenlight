@@ -34,6 +34,9 @@
     <br>
     <%= f.label t("settings.account.provider"), class: "form-label" %>
     <%= f.text_field :provider, class: "form-control", readonly: "" %>
+    <br>
+    <%= f.label t("settings.account.language"), class: "form-label" %>
+    <%= f.select :language, language_options, {}, { class: "form-control custom-select" } %>
 
     <%= f.label t("settings.account.image"), class: "form-label mt-5" %>
     <div class="row">
