@@ -18,6 +18,15 @@
 
 require "rails_helper"
 
+def random_valid_room_params
+  {
+    room: {
+      name: Faker::Name.first_name,
+      auto_join: false,
+    },
+  }
+end
+
 describe RoomsController, type: :controller do
   describe "GET #show" do
     before do
@@ -187,6 +196,7 @@ describe RoomsController, type: :controller do
     end
   end
 
+<<<<<<< HEAD
   describe "POST #edit" do
     before do
       @user = create(:user)
@@ -198,6 +208,39 @@ describe RoomsController, type: :controller do
 
       post :edit_recording, params: { room_uid: @owner.main_room, record_id: :record_id }
       expect(response).to redirect_to(@owner.main_room)
+=======
+  describe "PATCH #update" do
+    before do
+      @user = create(:user)
+      @secondary_room = create(:room, owner: @user)
+      @editable_room = create(:room, owner: @user)
+    end
+
+    it "properly updates room name through room block and redirects to current page" do
+      @request.session[:user_id] = @user.id
+
+      patch :update, params: { room_uid: @secondary_room, room_block_uid: @editable_room,
+                               setting: :rename_block, room_name: :name }
+
+      expect(response).to redirect_to(@secondary_room)
+    end
+
+    it "properly updates room name through room header and redirects to current page" do
+      @request.session[:user_id] = @user.id
+
+      patch :update, params: { room_uid: @secondary_room, setting: :rename_header, room_name: :name }
+
+      expect(response).to redirect_to(@secondary_room)
+    end
+
+    it "properly updates recording name and redirects to current page" do
+      @request.session[:user_id] = @user.id
+
+      patch :update, params: { room_uid: @secondary_room, recordid: :recordid,
+                               setting: :rename_recording, record_name: :name }
+
+      expect(response).to redirect_to(@secondary_room)
+>>>>>>> 8b41dec8ac5eb4049a923e7cd9bb4a256233d97a
     end
   end
 end

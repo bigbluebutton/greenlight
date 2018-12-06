@@ -51,15 +51,3 @@
     </div>
   </div>
 </div>
-
-<script>
-// Handle validation messages client-side because
-// form is served in modal, and they are minimal.
-var roomCreateValidations = function(){
-  if($('#room-name').val().length == 0){
-    $('#room-name').addClass("is-invalid");
-  }
-}
-
-$('#create-room-submit').on('click', roomCreateValidations);
-</script>

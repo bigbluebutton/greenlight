@@ -79,5 +79,8 @@ module Greenlight
 
     # Enable/disable recording thumbnails.
     config.recording_thumbnails = (ENV['RECORDING_THUMBNAILS'] != "false")
+
+    # Prevent automatic form submit tag disable
+    config.action_view.automatically_disable_submit_tag = false
   end
 end

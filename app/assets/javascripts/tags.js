@@ -39,7 +39,7 @@ $(document).on('turbolinks:load', function(){
       
       $(this).find('.edit-recording-submit').on('click', function(){
         tag_list_data.val(tag_list_input.val());
-      });  
+      });
     });
   }
 });

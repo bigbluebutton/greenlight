@@ -28,6 +28,8 @@
 //
 //= require tabler
 //= require tabler.plugins
+//= require jquery
+//= require jquery_ujs
 //= require turbolinks
-//= require_tree .
 //= require bootstrap-tokenfield
+//= require_tree .
