@@ -114,6 +114,7 @@ en:
   recording:
     email: Email Recording
     no_recordings: This room has no %{inject}recordings.
+    no_matched_recordings: No %{inject} recordings match your search.
     recorded_on: Recorded on %{date}
     table:
       name: Name
