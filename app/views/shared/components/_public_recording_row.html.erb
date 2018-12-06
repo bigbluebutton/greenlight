@@ -16,11 +16,13 @@
 <tr>
   <td>
     <div>
-      <% if recording[:metadata][:name] %>
-        <%= recording[:metadata][:name] %>
-      <% else %>
-        <%= recording[:name] %>
-      <% end %>
+      <text>
+        <% if recording[:metadata][:name] %>
+          <%= recording[:metadata][:name] %>
+        <% else %>
+          <%= recording[:name] %>
+        <% end %>
+      </text>
     </div>
     <div class="small text-muted">
       <%= t("recording.recorded_on", date: recording_date(recording[:startTime])) %>
