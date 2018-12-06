@@ -58,6 +58,15 @@ a {
   cursor: pointer;
 }
 
+.dotted_underline {
+  border-bottom: 3px dashed #d3d3d3;
+  width: 100%;
+}
+
+.disable-click {
+  pointer-events: none;
+}
+
 .header {
   height: $header-height;
 }
@@ -116,4 +125,8 @@ a {
 .terms {
   overflow: scroll;
   height: 55vh;
+}
+
+[contenteditable]:focus {
+  outline: 0px solid transparent;
 }

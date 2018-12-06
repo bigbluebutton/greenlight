@@ -18,10 +18,10 @@ $(document).on('turbolinks:load', function(){
   var controller = $("body").data('controller');
   var action = $("body").data('action');
 
-  if(controller == "rooms" && action == "show"){
+  if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update"){
 
-    // Upon change to filter category dropdown, show the correct filter dropdown
-    // for the category
+    // Choose active header
+    // (Name, Length or Users)
     $('th').each(function(){
       if($(this).data("header")){
         $(this).on('click', function(){    
@@ -67,21 +67,21 @@ $(document).on('turbolinks:load', function(){
     function sort_by(label, order){
       var recording_list_tbody = $('.table-responsive').find('tbody');
       if(label === "Name"){
-        sort_recordings(recording_list_tbody, order, "#recording_name");
+        sort_recordings(recording_list_tbody, order, "#recording-title");
       }
       else if(label === "Length"){
-        sort_recordings(recording_list_tbody, order, "#recording_length");
+        sort_recordings(recording_list_tbody, order, "#recording-length");
       }
       else if(label === "Users"){
-        sort_recordings(recording_list_tbody, order, "#recording_users");
+        sort_recordings(recording_list_tbody, order, "#recording-users");
       }
     }
 
     // Generalized function for sorting recordings
     function sort_recordings(recording_list_tbody, order, recording_id){
       recording_list_tbody.find('tr').sort(function(a, b){
-        a_val = $(a).find(recording_id).text();
-        b_val = $(b).find(recording_id).text();
+        a_val = $.trim($(a).find(recording_id).text());
+        b_val = $.trim($(b).find(recording_id).text());
 
         if(order === "asc"){
           return a_val.localeCompare(b_val);

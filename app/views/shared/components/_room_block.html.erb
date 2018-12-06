@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="card">
+<div id="<%= 'home_room_block' if room == current_user.main_room %>" data-room-uid=<%= room.uid %> class="card">
   <div class="card-body p-1">
     <table class="table table-hover table-vcenter text-wrap table-no-border">
       <tbody class="no-border-top">
@@ -27,7 +27,12 @@
           </span>
         </td>
         <td>
-          <h4 class="m-0 force-text-normal"><%= room.name %></h4>
+          <div id="room-name">
+            <h4 contenteditable="false" class="m-0 force-text-normal" ><%= room.name %></h4>
+          </div>
+          <div id="room-name-editable" style="display: none">
+            <input id="room-name-editable-input" class="form-control input-sm w-100 h-4" value="<%= room.name %>">
+          </div>
           <div class="small text-muted">
             <% if room.sessions > 0 %>
               <i><%= t("room.last_session", session: recording_date(room.last_session)) %></i>
@@ -47,6 +52,9 @@
                 <i class="dropdown-icon fas fa-cog"></i> <%= t("room.settings") %>
               <% end %>
               -->
+              <a href="" id="rename-room-button" class="dropdown-item">
+                <i class="dropdown-icon far fa-edit"></i> <%= t("rename") %>
+              </a>
               <a href="" data-toggle="modal" data-target="#deleteRoomModal_<%= room.uid %>"class="dropdown-item">
                 <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
               </a>

@@ -41,22 +41,27 @@
                   <% end %>
                 </tr>
               </thead>
-              <tbody>
-              <% if recordings.empty? %>
-                <tr>
-                  <td colspan="7" class="text-center h4 p-6 font-weight-normal">
-                    <%= t("recording.no_recordings", inject: only_public ? t("recording.visibility.public").downcase + " "  : "") %>
+              <tbody id="recording-table">
+                <tr id="no_recordings_found" style="display: none;">
+                  <td colspan="7" class="text-center h4 p-6 font-weight-normal" >
+                    <%= t("recording.no_matched_recordings", inject: only_public ? t("recording.visibility.public").downcase + " "  : "") %>
                   </td>
                 </tr>
-              <% else %>
-                <% recordings.each do |recording| %>
-                  <% if only_public %>
-                    <%= render "shared/components/public_recording_row", recording: recording %>
-                  <% else %>
-                    <%= render "shared/components/recording_row", recording: recording %>
+                <% if recordings.empty? %>
+                  <tr>
+                    <td colspan="7" class="text-center h4 p-6 font-weight-normal">
+                      <%= t("recording.no_recordings", inject: only_public ? t("recording.visibility.public").downcase + " "  : "") %>
+                    </td>
+                  </tr>
+                <% else %>
+                  <% recordings.each do |recording| %>
+                    <% if only_public %>
+                      <%= render "shared/components/public_recording_row", recording: recording %>
+                    <% else %>
+                      <%= render "shared/components/recording_row", recording: recording %>
+                    <% end %>
                   <% end %>
                 <% end %>
-              <% end %>
               </tbody>
             </table>
           </div>
