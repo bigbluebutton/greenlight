@@ -37,6 +37,10 @@ module Greenlight
     config.i18n.available_locales = %w(en pt-br es ar fr de el)
     config.i18n.default_locale = "en"
 
+    config.i18n.available_locales.each do |locale|
+      config.i18n.fallbacks[locale] = [locale, :en]
+    end
+
     # Check if a loadbalancer is configured.
     config.loadbalanced_configuration = ENV["LOADBALANCER_ENDPOINT"].present? && ENV["LOADBALANCER_SECRET"].present?
 
