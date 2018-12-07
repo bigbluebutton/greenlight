@@ -212,7 +212,6 @@ describe RoomsController, type: :controller do
     end
   end
 
-<<<<<<< HEAD
   describe "POST #edit" do
     before do
       @user = create(:user)
@@ -224,7 +223,9 @@ describe RoomsController, type: :controller do
 
       post :edit_recording, params: { room_uid: @owner.main_room, record_id: :record_id }
       expect(response).to redirect_to(@owner.main_room)
-=======
+    end
+  end
+
   describe "PATCH #update" do
     before do
       @user = create(:user)
@@ -256,7 +257,6 @@ describe RoomsController, type: :controller do
                                setting: :rename_recording, record_name: :name }
 
       expect(response).to redirect_to(@secondary_room)
->>>>>>> 8b41dec8ac5eb4049a923e7cd9bb4a256233d97a
     end
   end
 end
