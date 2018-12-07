@@ -25,7 +25,7 @@
           <%= form_tag edit_recording_path(@room, record_id: recording[:recordID]), method: :post do %>
             <div class="input-icon">
               <span class="input-icon-addon">
-                <i class="fas fa-chalkboard-teacher"></i>
+                <i class="far fa-play-circle"></i>
               </span>
               <%= text_field_tag :name, nil, id: "edit-room-name", class: "form-control", value: recording[:metadata][:name]? recording[:metadata][:name] : recording[:name], placeholder: t("modal.edit_recording.name_placeholder"), autocomplete: :off, required: true %>
               <div class="invalid-feedback text-left"><%= t("modal.edit_recording.not_blank") %></div>
