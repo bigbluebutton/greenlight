@@ -27,7 +27,7 @@
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= text_field_tag :name, nil, class: "form-control", value: recording[:metadata][:name]? recording[:metadata][:name] : recording[:name], placeholder: t("modal.edit_recording.name_placeholder"), autocomplete: :off %>
+              <%= text_field_tag :name, nil, id: "edit-room-name", class: "form-control", value: recording[:metadata][:name]? recording[:metadata][:name] : recording[:name], placeholder: t("modal.edit_recording.name_placeholder"), autocomplete: :off, required: true %>
               <div class="invalid-feedback text-left"><%= t("modal.edit_recording.not_blank") %></div>
             </div>
             <br>

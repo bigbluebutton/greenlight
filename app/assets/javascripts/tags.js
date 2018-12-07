@@ -25,6 +25,7 @@ $(document).on('turbolinks:load', function(){
       var tag_list_input = $(this).find('.tag-list-tokenfield')
       var tag_list_data = $(this).find(".tag-list");
 
+      // Tokenizing for the tags input field
       tag_list_input.tokenfield();
       tag_list_input.on('tokenfield:createtoken', function (event) {
         var existingTokens = $(this).tokenfield('getTokens');
@@ -37,6 +38,7 @@ $(document).on('turbolinks:load', function(){
         });
       });
 
+      // Handle form submit
       $(this).find('.edit-recording-submit').on('click', function(){
         tag_list_data.val(tag_list_input.val());
       });
