@@ -50,6 +50,30 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def bbb_endpoint
+    Rails.configuration.bigbluebutton_endpoint
+  end
+
+  def bbb_secret
+    Rails.configuration.bigbluebutton_secret
+  end
+
+  def remove_slash(s)
+    s.nil? ? nil : s.chomp("/")
+  end
+
+  def test_bbb_connection
+    if Rails.configuration.loadbalanced_configuration
+      lb_user = retrieve_loadbalanced_credentials(owner.provider)
+      BigBlueButton::BigBlueButtonApi.new(remove_slash(lb_user["apiURL"]), lb_user["secret"], "0.8").test_connection
+    else
+      BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8").test_connection
+    end
+    true
+  rescue BigBlueButton::BigBlueButtonException => exc
+    false
+  end
+
   def meeting_name_limit
     MEETING_NAME_LIMIT
   end

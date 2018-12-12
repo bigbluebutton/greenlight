@@ -23,6 +23,7 @@ en:
         accepted_terms: "Terms and Conditions"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: Oops, there was an error when starting the meeting!
+  bigbluebutton_connection_exception: There are connectivity issues with your BigBlueButton endpoint. Limited functionality available.
   cancel: Cancel
   copy: Copy
   delete: Delete

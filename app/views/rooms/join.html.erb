@@ -22,7 +22,12 @@
           placeholder: t("enter_your_name"),
           value: "#{current_user ? current_user.name : ''}",
           readonly: !current_user.nil? %>
-      <%= f.submit t("room.join"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
+
+      <% if test_bbb_connection %>
+        <%= f.submit t("room.join"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
+      <% else %>
+        <%= f.submit t("room.join"), disabled: true, class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
+      <% end %>
     </div>
   <% end %>
 <% end %>

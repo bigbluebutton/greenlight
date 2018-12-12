@@ -40,4 +40,6 @@
   </div>
 </div>
 
-<%= render "shared/sessions", recordings: @room.public_recordings, only_public: true %>
+<% if test_bbb_connection %>
+  <%= render "shared/sessions", recordings: @room.public_recordings, only_public: true %>
+<% end %>

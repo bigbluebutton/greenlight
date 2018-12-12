@@ -48,6 +48,8 @@ class RoomsController < ApplicationController
     else
       render :join
     end
+  rescue BigBlueButton::BigBlueButtonException => exc
+    puts exc
   end
 
   # PATCH /:room_uid
