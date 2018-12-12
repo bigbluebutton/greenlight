@@ -21,8 +21,14 @@ require "rails_helper"
 describe ApplicationController, type: :controller do
   describe "Application Controller Tests" do
     before { allow(Rails.configuration).to receive(:recording_thumbnails).and_return(true) }
-    before { allow(Rails.configuration).to receive(:bigbluebutton_endpoint).and_return(:defaultBBBendpoint) }
-    before { allow(Rails.configuration).to receive(:bigbluebutton_endpoint_default).and_return(:defaultBBBendpoint) }
+    before do
+      allow(Rails.configuration).to receive(:bigbluebutton_endpoint)
+        .and_return("http://test-install.blindsidenetworks.com/bigbluebutton/api/")
+    end
+    before do
+      allow(Rails.configuration).to receive(:bigbluebutton_endpoint_default)
+        .and_return("http://test-install.blindsidenetworks.com/bigbluebutton/api/")
+    end
 
     it "verifies if recording thumnails exist" do
       expect(controller.recording_thumbnails?).to eq(true)
@@ -42,6 +48,10 @@ describe ApplicationController, type: :controller do
 
     it "Returns relative root" do
       expect(controller.relative_root).to eq("")
+    end
+
+    it "tests bbb connection" do
+      expect(controller.test_bbb_connection).to eq(true)
     end
   end
 end

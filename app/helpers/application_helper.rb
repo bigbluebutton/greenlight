@@ -60,14 +60,11 @@ module ApplicationHelper
 
   # Test bbb connection
   def test_bbb_connection
-    if Rails.configuration.loadbalanced_configuration
-      lb_user = retrieve_loadbalanced_credentials(owner.provider)
-      BigBlueButton::BigBlueButtonApi.new(remove_slash(lb_user["apiURL"]), lb_user["secret"], "0.8").test_connection
-    else
+    unless Rails.configuration.loadbalanced_configuration
       BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8").test_connection
     end
     true
-  rescue BigBlueButton::BigBlueButtonException => exc
+  rescue BigBlueButton::BigBlueButtonException
     false
   end
 
