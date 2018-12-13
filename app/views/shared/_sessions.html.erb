@@ -24,12 +24,16 @@
             <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
               <thead>
                 <tr>
-                  <th><%= t("recording.table.name") %></th>
+                  <th data-header="<%= t("recording.table.name") %>" data-order="none"><%= t("recording.table.name") %></th>
                   <% if recording_thumbnails? %>
                     <th><%= t("recording.table.thumbnails") %></th>
                   <% end %>
-                  <th class="text-left"><%= t("recording.table.length") %></th>
-                  <th class="text-left"><%= t("recording.table.users") %></th>
+                  <th class="text-left" data-header="<%= t("recording.table.length") %>" data-order="none">
+                    <%= t("recording.table.length") %>
+                  </th>
+                  <th class="text-left" data-header="<%= t("recording.table.users") %>" data-order="none">
+                    <%= t("recording.table.users") %>
+                  </th>
                   <th class="text-left"><%= t("recording.table.visibility") %></th>
                   <th><%= t("recording.table.formats") %></th>
                   <% unless only_public %>
