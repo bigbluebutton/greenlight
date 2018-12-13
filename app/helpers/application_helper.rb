@@ -46,28 +46,6 @@ module ApplicationHelper
     Rails.configuration.bigbluebutton_endpoint_default == Rails.configuration.bigbluebutton_endpoint
   end
 
-  def bbb_endpoint
-    Rails.configuration.bigbluebutton_endpoint
-  end
-
-  def bbb_secret
-    Rails.configuration.bigbluebutton_secret
-  end
-
-  def remove_slash(s)
-    s.nil? ? nil : s.chomp("/")
-  end
-
-  # Test bbb connection
-  def test_bbb_connection
-    unless Rails.configuration.loadbalanced_configuration
-      BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8").test_connection
-    end
-    true
-  rescue BigBlueButton::BigBlueButtonException
-    false
-  end
-
   # Returns language selection options
   def language_options
     language_opts = [['<<<< ' + t("language_options.default") + ' >>>>', "default"]]

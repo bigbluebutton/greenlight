@@ -47,7 +47,7 @@
         <% end %>
       <% end %>
 
-      <% if !test_bbb_connection %>
+      <% if !bbb_connected? %>
         <%= render "shared/error_banner" do %>
           <i class="fas fa-exclamation-triangle"></i>
           <p class="d-inline"><%= t("bigbluebutton_connection_exception") %></p>

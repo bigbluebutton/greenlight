@@ -49,7 +49,7 @@
         </form>
       </div>
       <div class="col-lg-3 col-sm-12 force-bottom mt-5">
-        <% if !test_bbb_connection %>
+        <% if !bbb_connected? %>
           <%= button_to t("room.start"), start_room_path(@room), disabled: true, class: "btn btn-primary btn-block px-7 start-button float-right" %>
         <% elsif @is_running %>
           <%= button_to t("room.join"), room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right" %>
@@ -79,6 +79,6 @@
   </div>
 </div>
 
-<% if test_bbb_connection %>
+<% if bbb_connected? %>
   <%= render "shared/sessions", recordings: @recordings, only_public: false %>
 <% end %>
