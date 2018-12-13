@@ -15,7 +15,7 @@
 
 <tr>
   <td>
-    <div>
+    <div id="recording-title">
       <text>
         <% if recording[:metadata][:name] %>
           <%= recording[:metadata][:name] %>
@@ -38,13 +38,13 @@
       <% end %>
     </td>
   <% end %>
-  <td class="text-left">
+  <td id="recording-length" class="text-left">
     <div class="small text-muted text-uppercase">
       <%= t("recording.table.length") %>
     </div>
     <%= recording_length(recording[:playbacks]) %>
   </td>
-  <td class="text-left">
+  <td id="recording-users" class="text-left">
     <div class="small text-muted text-uppercase">
       <%= t("recording.table.users") %>
     </div>
