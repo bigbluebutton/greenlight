@@ -1,6 +1,9 @@
-<%
+# frozen_string_literal: true
+
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
 # This program is free software; you can redistribute it and/or modify it under the
 # terms of the GNU Lesser General Public License as published by the Free Software
 # Foundation; either version 3.0 of the License, or (at your option) any later
@@ -9,23 +12,12 @@
 # BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-%>
 
-<div class="row mt-2">
-  <div class="col-9">
-    <p class="subtitle"><%= subtitle %></p>
-  </div>
-  <% if search %>
-    <div id="search_bar" class="col-3">
-      <div class="input-icon">
-        <input type="text" class="form-control btn-pill" placeholder="Search...">
-        <span class="input-icon-addon">
-        <i class="fas fa-search"></i>
-      </span>
-      </div>
-    </div>
-  <% end %>
-</div>
-<hr class="mt-0">
+class AddLanguageToUser < ActiveRecord::Migration[5.0]
+  def change
+    add_column :users, :language, :string, default: 'default'
+  end
+end

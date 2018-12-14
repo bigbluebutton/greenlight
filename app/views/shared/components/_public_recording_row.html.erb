@@ -15,12 +15,14 @@
 
 <tr>
   <td>
-    <div>
-      <% if recording[:metadata][:name] %>
-        <%= recording[:metadata][:name] %>
-      <% else %>
-        <%= recording[:name] %>
-      <% end %>
+    <div id="recording-title">
+      <text>
+        <% if recording[:metadata][:name] %>
+          <%= recording[:metadata][:name] %>
+        <% else %>
+          <%= recording[:name] %>
+        <% end %>
+      </text>
     </div>
     <div class="small text-muted">
       <%= t("recording.recorded_on", date: recording_date(recording[:startTime])) %>
@@ -36,13 +38,13 @@
       <% end %>
     </td>
   <% end %>
-  <td class="text-left">
+  <td id="recording-length" class="text-left">
     <div class="small text-muted text-uppercase">
       <%= t("recording.table.length") %>
     </div>
     <%= recording_length(recording[:playbacks]) %>
   </td>
-  <td class="text-left">
+  <td id="recording-users" class="text-left">
     <div class="small text-muted text-uppercase">
       <%= t("recording.table.users") %>
     </div>
