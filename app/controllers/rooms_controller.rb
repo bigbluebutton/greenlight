@@ -21,6 +21,7 @@ class RoomsController < ApplicationController
   before_action :validate_verified_email, unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: :create
   before_action :verify_room_ownership, except: [:create, :show, :join, :logout]
+  before_action :test_bbb_connection
 
   META_LISTED = "gl-listed"
 
@@ -59,7 +60,7 @@ class RoomsController < ApplicationController
       update_room_attributes
     elsif params[:setting] == "rename_header"
       update_room_attributes
-    elsif params[:setting] == "rename_recording"
+    elsif @bbb_connected && params[:setting] == "rename_recording"
       @room.update_recording(params[:record_id], "meta_name" => params[:record_name])
     end
     redirect_to room_path
@@ -67,6 +68,8 @@ class RoomsController < ApplicationController
 
   # POST /:room_uid
   def join
+    redirect_to room_path && return unless @bbb_connected
+
     opts = default_meeting_options
     unless @room.owned_by?(current_user)
       # Assign join name if passed.
@@ -96,6 +99,8 @@ class RoomsController < ApplicationController
 
   # DELETE /:room_uid
   def destroy
+    redirect_to room_path && return unless @bbb_connected
+
     # Don't delete the users home room.
     @room.destroy if @room.owned_by?(current_user) && @room != current_user.main_room
 
@@ -104,6 +109,8 @@ class RoomsController < ApplicationController
 
   # POST /:room_uid/start
   def start
+    redirect_to room_path && return unless @bbb_connected
+
     # Join the user in and start the meeting.
     opts = default_meeting_options
     opts[:user_is_moderator] = true
@@ -137,6 +144,8 @@ class RoomsController < ApplicationController
 
   # DELETE /:room_uid/:record_id
   def delete_recording
+    redirect_to room_path && return unless @bbb_connected
+
     @room.delete_recording(params[:record_id])
 
     redirect_to current_user.main_room
@@ -214,5 +223,9 @@ class RoomsController < ApplicationController
     if current_user
       redirect_to resend_path unless current_user.email_verified
     end
+  end
+
+  def test_bbb_connection
+    @bbb_connected = bbb_connected?
   end
 end

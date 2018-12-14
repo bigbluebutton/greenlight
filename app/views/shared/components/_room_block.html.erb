@@ -55,7 +55,7 @@
               <a href="" id="rename-room-button" class="dropdown-item">
                 <i class="dropdown-icon far fa-edit"></i> <%= t("rename") %>
               </a>
-              <% if bbb_connected? %>
+              <% if @bbb_connected %>
                 <a href="" data-toggle="modal" data-target="#deleteRoomModal_<%= room.uid %>"class="dropdown-item">
                   <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
                 </a>
