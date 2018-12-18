@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181113174230) do
+ActiveRecord::Schema.define(version: 20181217142710) do
 
   create_table "rooms", force: :cascade do |t|
     t.integer  "user_id"
@@ -40,10 +40,13 @@ ActiveRecord::Schema.define(version: 20181113174230) do
     t.string   "image"
     t.string   "password_digest"
     t.boolean  "accepted_terms",  default: false
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.boolean  "email_verified",  default: false
     t.string   "language",        default: "default"
+    t.string   "role",            default: "moderator"
+    t.string   "reset_digest"
+    t.datetime "reset_sent_at"
     t.index ["password_digest"], name: "index_users_on_password_digest", unique: true
     t.index ["room_id"], name: "index_users_on_room_id"
   end
