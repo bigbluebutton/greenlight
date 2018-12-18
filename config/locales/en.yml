@@ -124,7 +124,9 @@ en:
   no_user_email_exists: There is no existing user with the email specified. Please make sure you typed it correctly.
   omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!
   password: Password
+  password_empty_notice: Password cannot be empty.
   password_reset_success: Password has been reset.
+  password_different_notice: Password Confirmation does not match.
   provider:
     google: Google
     microsoft_office365: Office 365

@@ -41,9 +41,12 @@ class PasswordResetsController < ApplicationController
 
   def update
     if params[:user][:password].empty?
-      @user.errors.add(:password, "can't be empty")
+      flash.now[:notice] = I18n.t("password_empty_notice")
       render 'edit'
-    elsif @user.update_attributes(user_params)
+    elsif params[:user][:password] != params[:user][:password_confirmation]
+      flash.now[:notice] = I18n.t("password_different_notice")
+      render 'edit'
+    elsif current_user.update_attributes(user_params)
       redirect_to root_path, notice: I18n.t("password_reset_success")
     else
       render 'edit'
@@ -56,20 +59,24 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by(email: params[:email])
   end
 
+  def current_user
+    @user
+  end
+
   def user_params
     params.require(:user).permit(:password, :password_confirmation)
   end
 
   # Checks expiration of reset token.
   def check_expiration
-    if @user.password_reset_expired?
+    if current_user.password_reset_expired?
       redirect_to new_password_reset_url, notice: I18n.t("expired_reset_token")
     end
   end
 
   # Confirms a valid user.
   def valid_user
-    unless @user&.email_verified && @user.authenticated?(:reset, params[:id])
+    unless current_user&.email_verified && current_user.authenticated?(:reset, params[:id])
       redirect_to root_url
     end
   end
