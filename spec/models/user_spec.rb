@@ -111,7 +111,6 @@ describe User, type: :model do
   end
 
   context 'password reset' do
-
     it 'creates token and respective reset digest' do
       user = create(:user)
 

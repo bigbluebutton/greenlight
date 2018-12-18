@@ -33,12 +33,6 @@ def random_valid_user_params
 end
 
 describe PasswordResetsController, type: :controller do
-
-  it "starts a new password reset flow" do
-    get :new
-    expect(response).to have_http_status(:ok)
-  end
-
   describe "POST #create" do
     context "allow mail notifications" do
       before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(true) }
@@ -48,8 +42,8 @@ describe PasswordResetsController, type: :controller do
 
         params = {
           password_reset: {
-            email: user.email
-          }
+            email: user.email,
+          },
         }
 
         post :create, params: params
@@ -59,8 +53,8 @@ describe PasswordResetsController, type: :controller do
       it "reloads the page if no email exists in the database" do
         params = {
           password_reset: {
-            email: nil
-          }
+            email: nil,
+          },
         }
 
         post :create, params: params
@@ -70,7 +64,7 @@ describe PasswordResetsController, type: :controller do
 
     context "does not allow mail notifications" do
       before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(false) }
-      
+
       it "renders a 404 page upon if email notifications are disabled" do
         get :create
         expect(response).to redirect_to("/404")
@@ -82,7 +76,6 @@ describe PasswordResetsController, type: :controller do
     before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(true) }
 
     context "valid user" do
-      
       it "reloads page with notice if password is empty" do
         token = "reset_token"
 
@@ -92,14 +85,14 @@ describe PasswordResetsController, type: :controller do
         params = {
           id: token,
           user: {
-            password: nil
-          }
+            password: nil,
+          },
         }
 
         patch :update, params: params
         expect(response).to render_template(:edit)
       end
-      
+
       it "reloads page with notice if password is confirmation doesn't match" do
         token = "reset_token"
 
@@ -110,8 +103,8 @@ describe PasswordResetsController, type: :controller do
           id: token,
           user: {
             password: :password,
-            password_confirmation: nil
-          }
+            password_confirmation: nil,
+          },
         }
 
         patch :update, params: params
@@ -133,8 +126,8 @@ describe PasswordResetsController, type: :controller do
           id: token,
           user: {
             password: :password,
-            password_confirmation: :password
-          }
+            password_confirmation: :password,
+          },
         }
 
         patch :update, params: params
