@@ -34,6 +34,9 @@ class PasswordResetsController < ApplicationController
     else
       redirect_to new_password_reset_path, notice: I18n.t("no_user_email_exists")
     end
+  rescue => e
+    logger.error "Error in email delivery: #{e}"
+    redirect_to root_path, notice: I18n.t(params[:message], default: I18n.t("delivery_error"))
   end
 
   def edit
