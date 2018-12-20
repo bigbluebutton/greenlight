@@ -21,7 +21,6 @@ $(document).on('turbolinks:load', function(){
 
   // Only run on room pages.
   if (controller == "rooms" && action == "show"){
-    var invite_url;
     var copy = $('#copy');
 
     // Handle copy button.

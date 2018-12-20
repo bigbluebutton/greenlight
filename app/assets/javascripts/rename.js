@@ -50,7 +50,6 @@ $(document).on('turbolinks:load', function(){
           room_block.find('#room-name-editable-input').on('focusout', function(){
             submit_rename_request(room_block.find('.card'));
             $(window).off('mousedown keydown');
-            return;
           });
 
           room_block.click(function(linkEvent) { linkEvent.preventDefault(); });
