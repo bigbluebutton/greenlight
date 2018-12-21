@@ -55,6 +55,13 @@
                 <%= f.password_field :password, class: "form-control", placeholder: t("password"), value: "" %>
               </div>
             </div>
+            <% if Rails.configuration.enable_email_verification %>
+              <div class="form-group">
+                <div class="input-icon">
+                  <%= link_to t("modal.login.forgot_password"), new_password_reset_path %>
+                </div>
+              </div>
+            <% end %>
             <div class="form-footer">
               <%= f.submit t("login"), class: "btn btn-outline-primary btn-block btn-pill" %>
             </div>

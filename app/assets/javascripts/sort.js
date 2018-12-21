@@ -33,7 +33,7 @@ $(document).on('turbolinks:load', function(){
 
     // Based on the header (Name, Length or Users) clicked,
     // Modify the ui for the tables
-    function set_active_header(active_header){
+    var set_active_header = function(active_header){
       $('th').each(function(){
         if($(this).data("header") == active_header){
           configure_order($(this));
@@ -47,7 +47,7 @@ $(document).on('turbolinks:load', function(){
 
     // Based on the header (Name, Length or Users) clicked,
     // Modify the ui for the tables
-    function configure_order(header_elem){
+    var configure_order = function(header_elem){
       if(header_elem.data('order') === 'asc'){ // asc
         header_elem.text(header_elem.data("header") + " ↓");
         header_elem.data('order', 'desc');
@@ -64,7 +64,7 @@ $(document).on('turbolinks:load', function(){
 
     // Given a label and an order, sort recordings by order
     // under a given label
-    function sort_by(label, order){
+    var sort_by = function(label, order){
       var recording_list_tbody = $('.table-responsive').find('tbody');
       if(label === "Name"){
         sort_recordings(recording_list_tbody, order, "#recording-title");
@@ -78,10 +78,10 @@ $(document).on('turbolinks:load', function(){
     }
 
     // Generalized function for sorting recordings
-    function sort_recordings(recording_list_tbody, order, recording_id){
+    var sort_recordings = function(recording_list_tbody, order, recording_id){
       recording_list_tbody.find('tr').sort(function(a, b){
-        a_val = $.trim($(a).find(recording_id).text());
-        b_val = $.trim($(b).find(recording_id).text());
+        var a_val = $.trim($(a).find(recording_id).text());
+        var b_val = $.trim($(b).find(recording_id).text());
 
         if(order === "asc"){
           return a_val.localeCompare(b_val);

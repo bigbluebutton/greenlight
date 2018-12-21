@@ -17,6 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class User < ApplicationRecord
+  attr_accessor :reset_token
   after_create :initialize_main_room
   before_save { email.try(:downcase!) }
 
@@ -93,6 +94,30 @@ class User < ApplicationRecord
     end
   end
 
+  # Sets the password reset attributes.
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+  # Sends password reset email.
+  def send_password_reset_email(url)
+    UserMailer.password_reset(self, url).deliver_now
+  end
+
+  # Returns true if the given token matches the digest.
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  # Return true if password reset link expires
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
   # Retrives a list of all a users rooms that are not the main room, sorted by last session date.
   def secondary_rooms
     secondary = (rooms - [main_room])
@@ -117,6 +142,16 @@ class User < ApplicationRecord
 
   def greenlight_account?
     provider == "greenlight"
+  end
+
+  def self.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
+  # Returns a random token.
+  def self.new_token
+    SecureRandom.urlsafe_base64
   end
 
   private
