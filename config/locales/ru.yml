@@ -22,12 +22,14 @@ ru:
       user:
         accepted_terms: "Условия и положения"
   bigbluebutton: BigBlueButton
+  bigbluebutton_exception: К сожалению, произошла ошибка при начале встречи!
   cancel: Отмена
   copy: Копировать
   delete: Удалить
   delivery_error: Произошла ошибка во время доставки электронной почты. Пожалуйста, свяжитесь с администратором!
   docs: Документация
   email: Электронная почта
+  email_sent: Письмо отправлено!
   enter_your_name: Введите ваше имя!
   errors:
     internal:
@@ -48,6 +50,7 @@ ru:
     unprocessable:
       message: К сожалению, запрос не обрабатывается.
       help: К сожалению, это неверный запрос.
+      expired_reset_token: Срок действия ссылки для сброса пароля истек!
   features:
     title: Возможности
     rooms: Персонализированные комнаты
@@ -56,6 +59,10 @@ ru:
     authentication: Аутентификация пользователей
   footer:
     powered_by: Работает под управлением %{href}.
+  forgot_password:
+    subtitle: Забыли пароль
+    email: электронная почта
+    submit: Отправить
   go_back: Вернуться
   greenlight: Greenlight
   header:
@@ -71,13 +78,24 @@ ru:
   invalid_login_method: Ошибка входа в систему из-за несоответствия аккаунта. Вы должны войти в систему с помощью omniauth.
   invite_message: "Чтобы пригласить собеседника, отправьте ему эту ссылку:"
   landing:
-    about: "%{href} это простой веб интерфейс для вашего сервера веб конференций с открытым исходным кодом BigBlueButton. Вы можете создавать свои собственные комнаты для размещения сессий или присоединяться к другим, используя короткую и удобную ссылку."
+    about: "%{href} это простой Web интерфейс для вашего сервера веб-конференций с открытым исходным кодом BigBlueButton. Вы можете создавать свои собственные комнаты для размещения сессий или присоединяться к другим, используя короткую и удобную ссылку."
     welcome: Добро пожаловать в BigBlueButton.
     video: Ознакомьтесь с нашим учебником по использованию Greenlight
     upgrade: Покажите мне, как обновить до 2.0!
     version: Мы выпустили новую версию Greenlight, но ваша база данных не совместима.
+  language_options:
+    default: По умолчанию (Язык браузера)
+    ar: Arabic
+    de: German
+    el: Greek
+    en: English
+    es: Spanish
+    fr: French
+    pt-br: Portuguese (Brazil)
+    ru: Russian
   ldap_error: Невозможно подключиться к серверу LDAP. Пожалуйста, проверьте свою конфигурацию LDAP в файле env и убедитесь, что ваш сервер работает.
   login: Войти
+  max_concurrent: Достигнуто максимально допустимое количество одновременных сеансов!
   modal:
     create_room:
       auto_join: Автоматически присоединять меня в эту комнату.
@@ -98,15 +116,26 @@ ru:
     login:
       or: или
       with: Войти с помощью %{provider}
+      forgot_password: Забыли пароль?
+    rename_recording:
+
+   rename_room:
+      name_placeholder: Введите новое название комнаты ...
+  name_update_success: Название комнаты успешно изменено!
+  no_user_email_exists: Пользователь с указанным адресом электронной почты не существует. Пожалуйста, убедитесь, что вы ввели его правильно.
   omniauth_error: Произошла ошибка при аутентификации с помощью omniauth. Пожалуйста, попробуйте еще раз или свяжитесь с администратором!
   password: Пароль
+  password_empty_notice: Пароль не может быть пустым.
+  password_reset_success: Пароль был сброшен.
+  password_different_notice: Подтверждение пароля не совпадает.
   provider:
     google: Google
     microsoft_office365: Office 365
     twitter: Twitter
   recording:
     email: Отправить ссылку на e-mail
-    no_recordings: В этой комнате нет %{inject}записей.
+    no_recordings: В этой комнате нет %{inject} записей.
+    no_matched_recordings: Нет записей %{inject}, соответствующих вашему запросу.
     recorded_on: Записано %{date}
     table:
       name: Название
@@ -118,6 +147,12 @@ ru:
     visibility:
       public: Публичная
       unlisted: Личная
+  rename: Переименовать
+  reset_password:
+    subtitle: Сброс пароля
+    password: Новый пароль
+    confirm: Подтверждение нового пароля
+    update: Обновить пароль
   room:
     invited: Вы были приглашены присоединиться
     invite_participants: Пригласить участников
@@ -135,6 +170,7 @@ ru:
   settings:
     account:
       fullname: Полное имя
+      language: Язык
       provider: Провайдер
       image: Образ
       image_url: URL изображения профиля
@@ -142,7 +178,7 @@ ru:
       title: Информация об аккаунте
     delete:
       button: Да, я хочу удалить свой аккаунт.
-      disclaimer: Если вы решите удалить свой аккаунт, он <b>НЕ</b> сможет быть восстановлен. Вся информация, касающаяся вашего аккаунта, включая настройки, комнаты и записи, будет удалена.
+      disclaimer: Если вы решите удалить свою аккаунт, он <b>НЕ</b> сможет быть восстановлен. Вся информация, касающаяся вашего аккаунта, включая настройки, комнаты и записи, будет удалена.
       subtitle: Удалить мой аккаунт навсегда
       title: Удалить аккаунт
     design:
