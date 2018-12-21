@@ -109,4 +109,21 @@ describe User, type: :model do
       expect(user.name_chunk).to eq("exa")
     end
   end
+
+  context 'password reset' do
+    it 'creates token and respective reset digest' do
+      user = create(:user)
+
+      reset_digest_success = user.create_reset_digest
+      expect(reset_digest_success).to eq(true)
+    end
+
+    it 'verifies if password reset link expired' do
+      user = create(:user)
+      user.create_reset_digest
+
+      expired = user.password_reset_expired?
+      expect(expired).to be_in([true, false])
+    end
+  end
 end

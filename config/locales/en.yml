@@ -29,6 +29,7 @@ en:
   delivery_error: An error occured during email delivery. Please contact an administrator!
   docs: Documentation
   email: Email
+  email_sent: Email Sent!
   enter_your_name: Enter your name!
   errors:
     internal:
@@ -49,6 +50,7 @@ en:
     unprocessable:
       message: Oops! Request is unprocessable.
       help: Unforunately this isn't a valid request.
+  expired_reset_token: Password reset link has expired!
   features:
     title: Features
     rooms: Personalized Rooms
@@ -57,6 +59,10 @@ en:
     authentication: User Authentication
   footer:
     powered_by: Powered by %{href}.
+  forgot_password:
+    subtitle: Forgot Password
+    email: Email
+    submit: Submit
   go_back: Go back
   greenlight: Greenlight
   header:
@@ -109,13 +115,18 @@ en:
     login:
       or: or
       with: Sign in with %{provider}
+      forgot_password: Forgot Password?
     rename_recording:
 
     rename_room:
       name_placeholder: Enter a new room name...
   name_update_success: Room name successfully changed!
+  no_user_email_exists: There is no existing user with the email specified. Please make sure you typed it correctly.
   omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!
   password: Password
+  password_empty_notice: Password cannot be empty.
+  password_reset_success: Password has been reset.
+  password_different_notice: Password Confirmation does not match.
   provider:
     google: Google
     microsoft_office365: Office 365
@@ -136,6 +147,11 @@ en:
       public: Public
       unlisted: Unlisted
   rename: Rename
+  reset_password:
+    subtitle: Reset Password
+    password: New Password
+    confirm: New Password Confirmation
+    update: Update Password
   room:
     invited: You have been invited to join
     invite_participants: Invite Participants
