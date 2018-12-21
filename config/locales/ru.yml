@@ -61,7 +61,7 @@ ru:
     powered_by: Работает под управлением %{href}.
   forgot_password:
     subtitle: Забыли пароль
-    email: электронная почта
+    email: Электронная почта
     submit: Отправить
   go_back: Вернуться
   greenlight: Greenlight
