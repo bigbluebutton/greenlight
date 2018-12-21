@@ -21,8 +21,8 @@ $(document).on('turbolinks:load', function(){
 
   // Only run on the settings page.
   if ((controller == "users" && action == "edit") || (controller == "users" && action == "update")){
-    settingsButtons = $('.setting-btn');
-    settingsViews = $('.setting-view');
+    var settingsButtons = $('.setting-btn');
+    var settingsViews = $('.setting-view');
 
     settingsButtons.each(function(i, btn) {
       if(!$(btn).hasClass("active")){ $(settingsViews[i]).hide(); }
