@@ -20,28 +20,8 @@ $(document).on('turbolinks:load', function(){
 
   if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update"){
 
-    // Elements that can be renamed
-    var room_title = $('#room-title');
-    var room_blocks = $('#room_block_container').find('a');
-    var recording_rows = $('#recording-table').find('tr');
-
-    // Configure renaming for room header
-    configure_room_header(room_title);
-
-    // Configure renaming for room blocks
-    room_blocks.each(function(){
-      var room_block = $(this)
-      configure_room_block(room_block)
-    });
-
-    // Configure renaming for recording rows
-    recording_rows.each(function(){
-      var recording_title = $(this).find('#recording-title');      
-      configure_recording_row(recording_title);
-    });
-
     // Set a room block rename event
-    function configure_room_block(room_block){
+    var configure_room_block = function(room_block){
       if(!room_block.is('#home_room_block')){
 
         // Register a click event on each room_block rename dropdown
@@ -50,7 +30,6 @@ $(document).on('turbolinks:load', function(){
           room_block.find('#room-name-editable-input').on('focusout', function(){
             submit_rename_request(room_block.find('.card'));
             $(window).off('mousedown keydown');
-            return;
           });
 
           room_block.click(function(linkEvent) { linkEvent.preventDefault(); });
@@ -67,7 +46,7 @@ $(document).on('turbolinks:load', function(){
     }
 
     // Set a room header rename event
-    function configure_room_header(room_title){
+    var configure_room_header = function(room_title){
 
       function register_room_title_event(e){
         // Remove current window events
@@ -101,7 +80,7 @@ $(document).on('turbolinks:load', function(){
     }
 
     // Set a recording row rename event
-    function configure_recording_row(recording_title){
+    var configure_recording_row = function(recording_title){
 
       function register_recording_title_event(e){
         // Remove current window events
@@ -134,7 +113,7 @@ $(document).on('turbolinks:load', function(){
 
     // Register window event to submit new name
     // upon click or upon pressing the enter key
-    function register_window_event(element, textfield_id, edit_button_id, edit_button_data){
+    var register_window_event = function(element, textfield_id, edit_button_id, edit_button_data){
       $(window).on('mousedown keydown', function(clickEvent){
 
         // Return if the text is clicked
@@ -162,7 +141,7 @@ $(document).on('turbolinks:load', function(){
     }
 
     // Apply ajax request depending on the element that triggered the event
-    function submit_rename_request(element){
+    var submit_rename_request = function(element){
       if(element.data('room-uid')){
         submit_update_request({
           setting: "rename_block",
@@ -186,7 +165,7 @@ $(document).on('turbolinks:load', function(){
     }
 
     // Helper for submitting ajax requests
-    function submit_update_request(data){
+    var submit_update_request = function(data){
       // Send ajax request for update
       $.ajax({
         url: window.location.pathname,
@@ -194,5 +173,25 @@ $(document).on('turbolinks:load', function(){
         data: data,
       });
     }
+
+    // Elements that can be renamed
+    var room_title = $('#room-title');
+    var room_blocks = $('#room_block_container').find('a');
+    var recording_rows = $('#recording-table').find('tr');
+
+    // Configure renaming for room header
+    configure_room_header(room_title);
+
+    // Configure renaming for room blocks
+    room_blocks.each(function(){
+      var room_block = $(this)
+      configure_room_block(room_block)
+    });
+
+    // Configure renaming for recording rows
+    recording_rows.each(function(){
+      var recording_title = $(this).find('#recording-title');      
+      configure_recording_row(recording_title);
+    });
   }
 });
