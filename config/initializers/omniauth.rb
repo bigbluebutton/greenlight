@@ -5,6 +5,8 @@ Rails.application.config.providers = []
 
 # Set which providers are configured.
 Rails.application.config.omniauth_bn_launcher = Rails.configuration.loadbalanced_configuration
+Rails.application.config.omniauth_auth0 = ENV['AUTH0_ID'].present? && ENV['AUTH0_SECRET'].present? &&
+                                          ENV['AUTH0_DOMAIN'].present?
 Rails.application.config.omniauth_ldap = ENV['LDAP_SERVER'].present? && ENV['LDAP_UID'].present? &&
                                          ENV['LDAP_BASE'].present? && ENV['LDAP_BIND_DN'].present? &&
                                          ENV['LDAP_PASSWORD'].present?
@@ -45,7 +47,18 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       bind_dn: ENV['LDAP_BIND_DN'],
       password: ENV['LDAP_PASSWORD']
   else
-    if Rails.configuration.omniauth_twitter
+    if Rails.configuration.omniauth_auth0
+      Rails.application.config.providers << :auth0
+    
+      provider :auth0,
+        client_id: ENV['AUTH0_ID'],
+        client_secret: ENV['AUTH0_SECRET'],
+        domain: ENV['AUTH0_DOMAIN'],
+        callback_path: '/auth/oauth2/callback',
+        authorize_params: {
+          scope: 'openid profile email name'
+        }
+    elsif Rails.configuration.omniauth_twitter
       Rails.application.config.providers << :twitter
 
       provider :twitter, ENV['TWITTER_ID'], ENV['TWITTER_SECRET']
