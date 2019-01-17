@@ -30,7 +30,7 @@ class User < ApplicationRecord
   validates :provider, presence: true
   validates :image, format: { with: /\.(png|jpg)\Z/i }, allow_blank: true
   validates :email, length: { maximum: 256 }, allow_blank: true,
-                    uniqueness: { case_sensitive: false },
+                    uniqueness: { case_sensitive: false, scope: [:provider] },
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
   validates :password, length: { minimum: 6 }, confirmation: true, if: :greenlight_account?, on: :create
