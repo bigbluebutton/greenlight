@@ -83,8 +83,8 @@ RSpec.configure do |config|
           <user>
             <name>greenlight</name>
             <maxMeetings>1000</maxMeetings>
-            <apiURL>#{ENV['LOADBALANCER_ENDPOINT'] + 'api'}</apiURL>
-            <secret>#{ENV['BIGBLUEBUTTON_SECRET']}</secret>
+            <apiURL>#{ENV['LOADBALANCER_ENDPOINT']}</apiURL>
+            <secret>#{ENV['LOADBALANCER_SECRET']}</secret>
           </user>
         </response>", headers: {}) if ENV['LOADBALANCER_ENDPOINT']
   end

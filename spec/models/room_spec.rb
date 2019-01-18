@@ -91,8 +91,13 @@ describe Room, type: :model do
         attendeePW: "testpass"
       )
 
-      endpoint = Rails.configuration.bigbluebutton_endpoint
-      secret = Rails.configuration.bigbluebutton_secret
+      if Rails.configuration.loadbalanced_configuration
+        endpoint = Rails.configuration.loadbalancer_endpoint
+        secret = Rails.configuration.loadbalancer_secret
+      else
+        endpoint = Rails.configuration.bigbluebutton_endpoint
+        secret = Rails.configuration.bigbluebutton_secret
+      end
       fullname = "fullName=Example"
       meeting_id = "&meetingID=#{@room.bbb_id}"
       password = "&password=testpass"
@@ -101,7 +106,6 @@ describe Room, type: :model do
       checksum_string = "join#{query + secret}"
 
       checksum = OpenSSL::Digest.digest('sha1', checksum_string).unpack("H*").first
-
       expect(@room.join_path("Example")).to eql("#{endpoint}join?#{query}&checksum=#{checksum}")
     end
   end
