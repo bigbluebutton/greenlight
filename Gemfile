@@ -70,6 +70,9 @@ gem 'redcarpet'
 # For health check endpoint
 gem "health_check"
 
+# For the cookie warning that appears at the bottom
+gem 'cookies_eu'
+
 group :production do
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'
