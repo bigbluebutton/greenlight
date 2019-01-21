@@ -13,8 +13,15 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<footer class="footer pt-3">
-  <p class="text-center mb-1"><%= t("footer.powered_by", href: link_to(t("greenlight"), "https://bigbluebutton.org/2018/07/09/greenlight-2-0/", target: "_blank")).html_safe %> v <%= Greenlight::Application::VERSION %></p>
-</footer>
-
-<%= render "shared/components/cookie_warning" %>
+  <% if cookies && cookies['cookie_consented'] != 'true' %>
+    <div class="cookies-banner">
+      <div class="cookies-banner-content">
+        <span class="cookies-warning-text">
+          Cookies help us deliver our services. By using our services, you agree to our use of cookies.
+        </span>
+        <span class="cookies-warning-button">
+          <button id="cookies-agree-button" class="btn customBtn">I Agree</button>
+        </span>
+      </div>
+    </div>
+  <% end %>
