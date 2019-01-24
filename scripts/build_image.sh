@@ -37,6 +37,7 @@ if [ ! -z "$IMAGE" ]; then
   #docker build -t $IMAGE .
 else
   echo "Docker image for $REPO_SLUG won't be built"
+  exit 0
 fi
 
 if [ ! -z "$DOCKER_USERNAME" ] && [ ! -z "$DOCKER_PASSWORD" ]; then
