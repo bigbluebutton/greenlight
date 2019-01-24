@@ -9,6 +9,9 @@ script:
   - bundle exec rubocop
   - bundle exec rspec
 
+build:
+  - ./scripts/build_image.sh $TRAVIS_BRANCH
+
 notifications:
   email: false
   slack:
