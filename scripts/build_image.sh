@@ -28,7 +28,7 @@ TAG=$3
 
 if [ ! -z "$TAG" ] && [ "$TAG" == *"release"* ]; then
   IMAGE=$REPO_SLUG:$TAG
-elif [ "$BRANCH" == "master" ]; then
+elif [ "$BRANCH" == "master" ] || [ ! -z "DOCKER_BUILD_FORCED" ]; then
   IMAGE=$REPO_SLUG:$BRANCH
 fi
 
