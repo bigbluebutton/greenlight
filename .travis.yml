@@ -3,16 +3,12 @@ sudo: required
 language: ruby
 
 rvm:
-  - 2.5.3
+  - 2.5.1
 
-jobs:
-  include:
-    - stage: test
-      script:
-        - bundle exec rubocop
-        - bundle exec rspec
-    - stage: build
-      script: ./scripts/build_image.sh $TRAVIS_BRANCH
+script:
+  - bundle exec rubocop
+  - bundle exec rspec
+  - ./scripts/build_image.sh $TRAVIS_REPO_SLUG $TRAVIS_BRANCH $TRAVIS_TAG
 
 notifications:
   email: false
