@@ -45,5 +45,5 @@ if [ ! -z "$DOCKER_USERNAME" ] && [ ! -z "$DOCKER_PASSWORD" ]; then
   echo "Docker image $IMAGE is being published"
   docker push $IMAGE
 else
-  echo "Docker image for $REPO_SLUG can't be published"
+  echo "Docker image for $REPO_SLUG can't be published as DOCKER_USERNAME or DOCKER_PASSWORD are missing"
 fi
