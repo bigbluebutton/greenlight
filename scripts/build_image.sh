@@ -34,7 +34,7 @@ fi
 
 if [ ! -z "$IMAGE" ]; then
   echo "Docker image $IMAGE is being built"
-  #docker build -t $IMAGE .
+  docker build -t $IMAGE .
 else
   echo "Docker image for $REPO_SLUG won't be built"
   exit 0
