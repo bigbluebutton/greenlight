@@ -38,7 +38,6 @@
 @import "main";
 @import "rooms";
 @import "sessions";
-@import "cookies";
 
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext);
 
@@ -125,4 +124,9 @@ a {
 
 [contenteditable]:focus {
   outline: 0px solid transparent;
+}
+
+.cookies-banner {
+  height: $footer-height;
+  background-color: $background-color;
 }

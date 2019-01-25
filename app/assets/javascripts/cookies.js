@@ -21,6 +21,7 @@ $(document).ready(function() {
     cookieDate.setFullYear(cookieDate.getFullYear() + 1); //1 year from now
     document.cookie = "cookie_consented=true; path=/; expires=" + cookieDate.toUTCString() + ";"
 
-    $(".cookies-banner").hide() //hide the banner at the bottom
+    //hide the banner at the bottom
+    $(".cookies-banner").attr("style","display:none !important")
   })
 })

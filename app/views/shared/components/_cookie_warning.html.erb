@@ -14,13 +14,13 @@
 %>
 
   <% if cookies && cookies['cookie_consented'] != 'true' %>
-    <div class="cookies-banner">
-      <div class="cookies-banner-content">
-        <span class="cookies-warning-text">
-          Cookies help us deliver our services. By using our services, you agree to our use of cookies.
+    <div class="cookies-banner fixed-bottom text-center d-inline-block">
+      <div class="cookies-banner-content py-3">
+        <span class="cookies-warning-text pr-5">
+          <%= t("cookies.cookie_info") %>
         </span>
-        <span class="cookies-warning-button">
-          <button id="cookies-agree-button" class="btn customBtn">I Agree</button>
+        <span class="cookies-warning-button d-inline-block">
+          <button id="cookies-agree-button" class="btn customBtn bg-primary"><%= t("cookies.cookie_button") %></button>
         </span>
       </div>
     </div>
