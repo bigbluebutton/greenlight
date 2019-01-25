@@ -1,3 +1,4 @@
+def appName = 'greenlight'
 def project = 'gl-dev'
 
 node('docker') {
