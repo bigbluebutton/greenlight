@@ -6,8 +6,7 @@ rvm:
   - 2.5.1
 
 script:
-  - bundle exec rubocop
-  - bundle exec rspec
+  - bundle install && bundle exec rubocop && bundle exec rspec
   - ./scripts/build_image.sh $TRAVIS_REPO_SLUG $TRAVIS_BRANCH $TRAVIS_TAG
 
 notifications:
