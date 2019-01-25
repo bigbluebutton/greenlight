@@ -118,7 +118,15 @@ en:
       with: Sign in with %{provider}
       forgot_password: Forgot Password?
     rename_recording:
-
+    room_settings:
+      title: Room Settings
+      update: Update Room
+      client: Select client type
+      mute: Mute users when they join
+      default: Default
+      html: HTML5
+      flash: Flash
+      footer_text: Adjustment to your room can be done at anytime.
     rename_room:
       name_placeholder: Enter a new room name...
   name_update_success: Room name successfully changed!
