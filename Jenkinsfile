@@ -1,4 +1,4 @@
-node('docker') {
+node('master') {
   stage('Test') {
     container('ruby') {
       sh 'ruby --version'
