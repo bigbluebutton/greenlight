@@ -1,3 +1,5 @@
+def project = 'gl-dev'
+
 node('docker') {
     checkout scm
     stage('Build') {
