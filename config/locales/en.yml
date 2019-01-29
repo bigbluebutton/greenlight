@@ -29,7 +29,7 @@ en:
   delivery_error: An error occured during email delivery. Please contact an administrator!
   docs: Documentation
   email: Email
-  email_sent: Email Sent!
+  email_sent: Email Sent! (Please check your Spam folder if you haven't received it)
   enter_your_name: Enter your name!
   errors:
     internal:

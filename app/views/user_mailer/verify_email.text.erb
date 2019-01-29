@@ -17,12 +17,10 @@
 %>
 
 
-Welcome to Greenlight, <%= @user.name %>
-===============================================
- 
-You have successfully registered your Greenlight account,
-your username is: <%= @user.email %>.
- 
-To verify your account, just follow this link: <%= link_to 'verify your email', @url  %>.
- 
+Welcome to <%= t('bigbluebutton') %>!,  <%= @user[:name] %>
+
+You have successfully registered your <%= t('bigbluebutton') %> account, your username is: <%= @user[:email] %>.
+
+To verify your account, just follow this link: <%= @url  %>
+
 Thanks for joining and have a great day!
