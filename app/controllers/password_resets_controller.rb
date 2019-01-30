@@ -29,7 +29,7 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by(email: params[:password_reset][:email].downcase)
     if @user
       @user.create_reset_digest
-      @user.send_password_reset_email(request.base_url)
+      @user.send_password_reset_email(reset_link)
       redirect_to root_url, notice: I18n.t("email_sent")
     else
       redirect_to new_password_reset_path, notice: I18n.t("no_user_email_exists")
@@ -75,6 +75,10 @@ class PasswordResetsController < ApplicationController
     if current_user.password_reset_expired?
       redirect_to new_password_reset_url, notice: I18n.t("expired_reset_token")
     end
+  end
+
+  def reset_link
+    request.base_url + edit_password_reset_path(@user.reset_token, email: @user.email)
   end
 
   # Confirms a valid user.
