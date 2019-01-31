@@ -172,6 +172,8 @@ en:
     sessions: Sessions
     settings: Room Settings
     start: Start
+    update_settings_error: "There was an error updating the room settings."
+    update_settings_success: "Room settings successfully updated"
     wait:
       message: Oops! The meeting hasn't started yet.
       auto: You will automatically join when the meeting starts.

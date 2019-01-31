@@ -119,7 +119,7 @@ class RoomsController < ApplicationController
     begin
       redirect_to @room.join_path(current_user.name, opts, current_user.uid)
     rescue BigBlueButton::BigBlueButtonException => exc
-      redirect_to room_path, notice: I18n.t(exc.key.to_s.underscore, default: I18n.t("bigbluebutton_exception"))
+      redirect_to room_path, alert: I18n.t(exc.key.to_s.underscore, default: I18n.t("bigbluebutton_exception"))
     end
 
     # Notify users that the room has started.
@@ -129,12 +129,17 @@ class RoomsController < ApplicationController
 
   # POST /:room_uid/update_settings
   def update_settings
-    @room = Room.find_by!(uid: params[:room_uid])
-    # Update the rooms settings
-    update_room_attributes("settings")
-    # Update the rooms name if it has been changed
-    update_room_attributes("name") if @room.name != room_params[:name]
+    begin
+      @room = Room.find_by!(uid: params[:room_uid])
+      # Update the rooms settings
+      update_room_attributes("settings")
+      # Update the rooms name if it has been changed
+      update_room_attributes("name") if @room.name != room_params[:name]
+    rescue StandardError => ex
+      flash[:alert] = I18n.t("room.update_settings_error")
+    end
 
+    flash[:success] = I18n.t("room.update_settings_success")
     redirect_to room_path
   end
 

@@ -83,7 +83,8 @@ class UsersController < ApplicationController
 
       if errors.empty? && @user.save
         # Notify the user that their account has been updated.
-        redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
+        flash[:success] = I18n.t("info_update_success")
+        redirect_to edit_user_path(@user)
       else
         # Append custom errors.
         errors.each { |k, v| @user.errors.add(k, v) }
@@ -91,10 +92,12 @@ class UsersController < ApplicationController
       end
     elsif user_params[:email] != @user.email && @user.update_attributes(user_params)
       @user.update_attributes(email_verified: false)
-      redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
+      flash[:success] = I18n.t("info_update_success")
+      redirect_to edit_user_path(@user)
     elsif @user.update_attributes(user_params)
       update_locale(@user)
-      redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
+      flash[:success] = I18n.t("info_update_success")
+      redirect_to edit_user_path(@user)
     else
       render :edit, params: { settings: params[:settings] }
     end
@@ -155,7 +158,7 @@ class UsersController < ApplicationController
   private
 
   def mailer_delivery_fail
-    redirect_to root_path, notice: I18n.t(params[:message], default: I18n.t("delivery_error"))
+    redirect_to root_path, alert: I18n.t(params[:message], default: I18n.t("delivery_error"))
   end
 
   def verification_link(user)
