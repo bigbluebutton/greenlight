@@ -36,8 +36,12 @@ class RoomsController < ApplicationController
       if room_params[:auto_join] == "1"
         start
       else
+        flash[:success] = I18n.t("room.create_room_success")
         redirect_to @room
       end
+    else
+      flash[:alert] = I18n.t("room.create_room_error")
+      redirect_to current_user.main_room
     end
   end
 
@@ -130,16 +134,18 @@ class RoomsController < ApplicationController
   # POST /:room_uid/update_settings
   def update_settings
     begin
+      raise "Room name can't be blank" if room_params[:name].empty?
+
       @room = Room.find_by!(uid: params[:room_uid])
       # Update the rooms settings
       update_room_attributes("settings")
       # Update the rooms name if it has been changed
       update_room_attributes("name") if @room.name != room_params[:name]
-    rescue StandardError => ex
+    rescue StandardError
       flash[:alert] = I18n.t("room.update_settings_error")
+    else
+      flash[:success] = I18n.t("room.update_settings_success")
     end
-
-    flash[:success] = I18n.t("room.update_settings_success")
     redirect_to room_path
   end
 
