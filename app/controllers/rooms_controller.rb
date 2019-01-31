@@ -22,6 +22,7 @@ class RoomsController < ApplicationController
   before_action :find_room, except: :create
   before_action :verify_room_ownership, except: [:create, :show, :join, :logout]
 
+  include RecordingsHelper
   META_LISTED = "gl-listed"
 
   # POST /
@@ -43,7 +44,12 @@ class RoomsController < ApplicationController
   # GET /:room_uid
   def show
     if current_user && @room.owned_by?(current_user)
-      @recordings = @room.recordings
+      recs = @room.recordings
+      # Add the room id to each recording object
+      recs.each do |rec|
+        rec[:room_uid] = @room.uid
+      end
+      @recordings = recs
       @is_running = @room.running?
     else
       render :join
@@ -137,37 +143,9 @@ class RoomsController < ApplicationController
   def delete_recording
     @room.delete_recording(params[:record_id])
 
-    redirect_to current_user.main_room
+    # Redirects to the page that made the initial request
+    redirect_to request.referrer
   end
-
-  # Helper for converting BigBlueButton dates into the desired format.
-  def recording_date(date)
-    date.strftime("%B #{date.day.ordinalize}, %Y.")
-  end
-  helper_method :recording_date
-
-  # Helper for converting BigBlueButton dates into a nice length string.
-  def recording_length(playbacks)
-    # Stats format currently doesn't support length.
-    valid_playbacks = playbacks.reject { |p| p[:type] == "statistics" }
-    return "0 min" if valid_playbacks.empty?
-
-    len = valid_playbacks.first[:length]
-    if len > 60
-      "#{(len / 60).round} hrs"
-    elsif len == 0
-      "< 1 min"
-    else
-      "#{len} min"
-    end
-  end
-  helper_method :recording_length
-
-  # Prevents single images from erroring when not passed as an array.
-  def safe_recording_images(images)
-    Array.wrap(images)
-  end
-  helper_method :safe_recording_images
 
   private
 
