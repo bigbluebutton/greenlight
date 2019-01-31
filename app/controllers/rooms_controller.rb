@@ -26,7 +26,7 @@ class RoomsController < ApplicationController
 
   # POST /
   def create
-    redirect_to root_path unless current_user
+    redirect_to(root_path) && return unless current_user
 
     @room = Room.new(name: room_params[:name])
     @room.owner = current_user

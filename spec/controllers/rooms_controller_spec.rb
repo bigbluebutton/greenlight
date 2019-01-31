@@ -237,7 +237,7 @@ describe RoomsController, type: :controller do
     it "properly updates room settings through the room settings modal and redirects to current page" do
       @request.session[:user_id] = @user.id
 
-      room_params = { "client": "html5", "mute_on_join": "1" }
+      room_params = { "client": "html5", "mute_on_join": "1", "name": @secondary_room.name }
       formatted_room_params = "{\"muteOnStart\":true,\"joinViaHtml5\":true}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
