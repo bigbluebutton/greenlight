@@ -24,12 +24,15 @@ en:
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: Oops, there was an error when starting the meeting!
   cancel: Cancel
+  cookies:
+    cookie_info: Cookies help us deliver our services. By using our services, you agree to our use of cookies.
+    cookie_button: I Agree
   copy: Copy
   delete: Delete
   delivery_error: An error occured during email delivery. Please contact an administrator!
   docs: Documentation
   email: Email
-  email_sent: Email Sent!
+  email_sent: Email Sent! (Please check your Spam folder if you haven't received it)
   enter_your_name: Enter your name!
   errors:
     internal:
