@@ -51,6 +51,7 @@ $(document).on('turbolinks:load', function(){
       });
     });
   }
+
   // Display and update all fields related to creating a room in the createRoomModal
   $("#create-room").click(function(){
     $("#create-room-name").val("")
