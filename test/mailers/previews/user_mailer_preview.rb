@@ -6,7 +6,7 @@ class UserMailerPreview < ActionMailer::Preview
   def password_reset
     user = User.first
     user.reset_token = User.new_token
-    url = "http://localhost:3000" + "/password_resets/" + user.reset_token + "/edit?email=" + user.email
+    url = "http://example.com" + "/password_resets/" + user.reset_token + "/edit?email=" + user.email
     UserMailer.password_reset(user, url)
   end
 
@@ -14,7 +14,7 @@ class UserMailerPreview < ActionMailer::Preview
   # http://localhost:3000/rails/mailers/user_mailer/verify_email
   def verify_email
     user = User.first
-    url = "http://localhost:3000" + "/u/verify/confirm/" + user.uid
+    url = "http://example.com" + "/u/verify/confirm/" + user.uid
     UserMailer.verify_email(user, url)
   end
 end
