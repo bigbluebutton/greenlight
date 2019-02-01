@@ -16,13 +16,10 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
+Welcome to <%= t('bigbluebutton') %>!,  <%= @user[:name] %>
 
-Welcome to Greenlight, <%= @user.name %>
-===============================================
- 
-You have successfully registered your Greenlight account,
-your username is: <%= @user.email %>.
- 
-To verify your account, just follow this link: <%= link_to 'verify your email', @url  %>.
- 
+You have successfully registered your <%= t('bigbluebutton') %> account, your username is: <%= @user[:email] %>.
+
+To verify your account, just follow this link: <%= @url  %>
+
 Thanks for joining and have a great day!

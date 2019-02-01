@@ -16,20 +16,27 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h1>Welcome to BigBlueButton!, <%= @user.name %></h1>
-    <p>
-      You have successfully registered your Greenlight account,
-      your username is: <%= @user.email %>.<br>
-    </p>
-    <p>
-      To verify your account, just follow this link: <%= link_to 'verify your email', @url %>.
-    </p>
-    <p>Thanks for joining and have a great day!</p>
-  </body>
-</html>
+  <div style="text-align:center; font-family:'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+    <div style="display:inline-block; background-color:#F5F7FB; border:1px solid #d3d3d3; padding: 25px 70px">
+      <%= image_tag(Rails.configuration.branding_image.blank? ? "logo_with_text.png" : Rails.configuration.branding_image) %>
+
+      <h1 style="margin-bottom:30px">Welcome to  <%= t('bigbluebutton') %>!,
+        <%= @user[:name] %></h1>
+
+      <p>
+        You have successfully registered your <%= t('bigbluebutton') %> account, your username is:
+        <%= @user[:email] %>.
+      </p>
+
+      <p style="margin-bottom:45px;">
+        To verify your account, just click the button below.
+      </p>
+
+      <a style="background: #467fcf;color: #ffffff; padding: 10px 15px; box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);border: 1px solid transparent;text-decoration:none;" href="<%= @url %>">
+        Verify Account
+      </a>
+
+      <p style="margin-top:45px;">Thanks for joining and have a great day!</p>
+
+    </div>
+  </div>
