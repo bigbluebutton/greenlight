@@ -52,6 +52,9 @@ Rails.application.routes.draw do
     get '/:user_uid/edit', to: 'users#edit', as: :edit_user
     patch '/:user_uid/edit', to: 'users#update', as: :update_user
     delete '/:user_uid', to: 'users#destroy', as: :delete_user
+
+    # All user recordings
+    get '/:user_uid/recordings', to: 'users#recordings', as: :get_user_recordings
   end
 
   # Handles Omniauth authentication.

@@ -20,6 +20,8 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create]
 
+  include RecordingsHelper
+
   # POST /u
   def create
     # Verify that GreenLight is configured to allow user signup.
@@ -107,6 +109,27 @@ class UsersController < ApplicationController
       session.delete(:user_id)
     end
     redirect_to root_path
+  end
+
+  # GET /u/:user_uid/recordings
+  def recordings
+    if current_user && current_user.uid == params[:user_uid]
+      @recordings = []
+      current_user.rooms.each do |room|
+        # Check that current user is the room owner
+        next unless room.owner == current_user
+
+        recs = room.recordings
+        # Add the room id to each recording object
+        recs.each do |rec|
+          rec[:room_uid] = room.uid
+        end
+        # Adds an array to another array
+        @recordings.push(*recs)
+      end
+    else
+      redirect_to root_path
+    end
   end
 
   # GET | POST /terms
