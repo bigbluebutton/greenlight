@@ -17,8 +17,7 @@
 	<div class="container">
 		<div class="d-flex">
 			<%= link_to (current_user ? current_user.main_room : root_path), class: "header-brand" do %>
-				<%= image_tag(Rails.configuration.branding_image.blank? ? "logo_with_text.png" : Rails.configuration.branding_image,
-					class: "header-brand-img") %>
+				<%= image_tag(Rails.configuration.branding_image,class: "header-brand-img") %>
 			<% end %>
 
 			<div class="d-flex ml-auto">
@@ -40,6 +39,9 @@
 						<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end">
 							<%= link_to current_user.main_room, class: "dropdown-item" do %>
 								<i class="dropdown-icon fas fa-home"></i> <%= t("header.dropdown.home") %>
+							<% end %>
+							<%= link_to get_user_recordings_path(current_user), class: "dropdown-item" do %>
+								<i class="dropdown-icon fas fa-video"></i> <%= t("room.recordings") %>
 							<% end %>
 							<%= link_to edit_user_path(current_user), class: "dropdown-item" do %>
 								<i class="dropdown-icon fas fa-cog"></i> <%= t("header.dropdown.settings") %>

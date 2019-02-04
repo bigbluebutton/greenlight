@@ -79,7 +79,7 @@ module Greenlight
     config.banner_message = ENV['BANNER_MESSAGE']
 
     # Configure custom branding image.
-    config.branding_image = ENV['BRANDING_IMAGE']
+    config.branding_image = ENV['BRANDING_IMAGE'] || "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
 
     # Enable/disable recording thumbnails.
     config.recording_thumbnails = (ENV['RECORDING_THUMBNAILS'] != "false")

@@ -1,4 +1,5 @@
-<%
+# frozen_string_literal: true
+
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
 #
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
@@ -14,12 +15,31 @@
 #
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-%>
 
-Welcome to <%= t('bigbluebutton') %>!,  <%= @user[:name] %>
+module RecordingsHelper
+  # Helper for converting BigBlueButton dates into the desired format.
+  def recording_date(date)
+    date.strftime("%B #{date.day.ordinalize}, %Y.")
+  end
 
-You have successfully registered your <%= t('bigbluebutton') %> account, your username is: <%= @user[:email] %>.
+  # Helper for converting BigBlueButton dates into a nice length string.
+  def recording_length(playbacks)
+    # Stats format currently doesn't support length.
+    valid_playbacks = playbacks.reject { |p| p[:type] == "statistics" }
+    return "0 min" if valid_playbacks.empty?
 
-To verify your account, just follow this link: <%= @url  %>
+    len = valid_playbacks.first[:length]
+    if len > 60
+      "#{(len / 60).round} hrs"
+    elsif len == 0
+      "< 1 min"
+    else
+      "#{len} min"
+    end
+  end
 
-Thanks for joining and have a great day!
+  # Prevents single images from erroring when not passed as an array.
+  def safe_recording_images(images)
+    Array.wrap(images)
+  end
+end
