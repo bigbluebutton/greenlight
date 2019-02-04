@@ -102,6 +102,7 @@ class ApplicationController < ActionController::Base
       meeting_logout_url: request.base_url + logout_room_path(@room),
       meeting_recorded: true,
       moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
+      recording_callback_url: request.base_url + processing_recording_path(@room),
     }
   end
 

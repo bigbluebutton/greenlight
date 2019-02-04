@@ -71,6 +71,7 @@ Rails.application.routes.draw do
     post '/update_settings', to: 'rooms#update_settings'
     post '/start', to: 'rooms#start', as: :start_room
     get '/logout', to: 'rooms#logout', as: :logout_room
+    get '/processing_recording', to: 'rooms#processing_recording', as: :processing_recording
 
     # Manage recordings
     scope '/:record_id' do

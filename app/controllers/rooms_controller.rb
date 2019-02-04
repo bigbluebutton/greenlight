@@ -20,7 +20,7 @@ class RoomsController < ApplicationController
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :validate_verified_email, unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: :create
-  before_action :verify_room_ownership, except: [:create, :show, :join, :logout]
+  before_action :verify_room_ownership, except: [:create, :show, :join, :logout, :processing_recording]
 
   include RecordingsHelper
   META_LISTED = "gl-listed"
@@ -55,6 +55,16 @@ class RoomsController < ApplicationController
         rec[:room_uid] = @room.uid
       end
       @recordings = recs
+
+      @processing = []
+      rec_proc = @room.recordings_processing
+
+      if @recordings.length < rec_proc
+        @processing.push(@room.name)
+      elsif @recordings.length > rec_proc
+        @room.update_attribute(:recordings_processing, @room.recordings.length)
+      end
+
       @is_running = @room.running?
     else
       render :join
@@ -159,6 +169,15 @@ class RoomsController < ApplicationController
   def logout
     # Redirect the correct page.
     redirect_to @room
+  end
+
+  # GET /:room_uid/processing_recording
+  def processing_recording
+    if params[:recordingmarks]
+      @room.update_attribute(:recordings_processing, @room.recordings_processing + 1)
+    end
+
+    head :no_content
   end
 
   # POST /:room_uid/:record_id

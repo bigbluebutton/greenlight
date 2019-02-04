@@ -53,6 +53,7 @@ class Room < ApplicationRecord
       attendeePW: random_password(12),
       moderatorOnlyMessage: options[:moderator_message],
       muteOnStart: options[:mute_on_start] || false,
+      meta_endCallbackUrl: options[:recording_callback_url],
       "meta_#{META_LISTED}": false,
     }
 
@@ -78,6 +79,7 @@ class Room < ApplicationRecord
     options[:moderator_message] ||= ''
     options[:user_is_moderator] ||= false
     options[:meeting_recorded] ||= false
+    options[:recording_callback_url] ||= nil
 
     return call_invalid_res unless bbb
 

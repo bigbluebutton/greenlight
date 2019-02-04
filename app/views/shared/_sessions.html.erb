@@ -47,7 +47,7 @@
                     <%= t("recording.no_matched_recordings", inject: only_public ? t("recording.visibility.public").downcase + " "  : "") %>
                   </td>
                 </tr>
-                <% if recordings.empty? %>
+                <% if recordings.empty? && @processing.empty? %>
                   <tr>
                     <td colspan="7" class="text-center h4 p-6 font-weight-normal">
                       <% if user_recordings %>
@@ -58,6 +58,11 @@
                     </td>
                   </tr>
                 <% else %>
+                  <% if @processing.any? %>
+                    <% @processing.each do |proc| %>
+                      <%= render "shared/components/processing_recording_row", recording_name: proc %>
+                    <% end %>
+                  <% end %>
                   <% recordings.each do |recording| %>
                     <% if only_public %>
                       <%= render "shared/components/public_recording_row", recording: recording %>

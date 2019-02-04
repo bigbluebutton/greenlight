@@ -118,6 +118,7 @@ class UsersController < ApplicationController
   def recordings
     if current_user && current_user.uid == params[:user_uid]
       @recordings = []
+      @processing = []
       current_user.rooms.each do |room|
         # Check that current user is the room owner
         next unless room.owner == current_user
@@ -129,6 +130,15 @@ class UsersController < ApplicationController
         end
         # Adds an array to another array
         @recordings.push(*recs)
+
+        # Add the recordings that are being processed
+        rec_proc = room.recordings_processing
+
+        if room.recordings.length < rec_proc
+          @processing.push(room.name)
+        elsif room.recordings.length > rec_proc
+          room.update_attribute(:recordings_processing, room.recordings.length)
+        end
       end
     else
       redirect_to root_path

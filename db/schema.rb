@@ -10,18 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190122210632) do
+ActiveRecord::Schema.define(version: 20190213153433) do
 
   create_table "rooms", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
     t.string   "uid"
     t.string   "bbb_id"
-    t.integer  "sessions",      default: 0
+    t.integer  "sessions",              default: 0
     t.datetime "last_session"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.string   "room_settings", default: "{ }"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "room_settings",         default: "{ }"
+    t.integer  "recordings_processing", default: 0
     t.index ["bbb_id"], name: "index_rooms_on_bbb_id"
     t.index ["last_session"], name: "index_rooms_on_last_session"
     t.index ["name"], name: "index_rooms_on_name"
@@ -40,14 +41,16 @@ ActiveRecord::Schema.define(version: 20190122210632) do
     t.string   "social_uid"
     t.string   "image"
     t.string   "password_digest"
-    t.boolean  "accepted_terms",  default: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.boolean  "email_verified",  default: false
-    t.string   "language",        default: "default"
-    t.string   "role",            default: "moderator"
+    t.boolean  "accepted_terms",    default: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.boolean  "email_verified",    default: false
+    t.string   "language",          default: "default"
+    t.string   "role",              default: "moderator"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.string   "activation_digest"
+    t.datetime "activated_at"
     t.index ["password_digest"], name: "index_users_on_password_digest", unique: true
     t.index ["room_id"], name: "index_users_on_room_id"
   end
