@@ -27,17 +27,22 @@ class RoomsController < ApplicationController
 
   # POST /
   def create
-    redirect_to root_path unless current_user
+    redirect_to(root_path) && return unless current_user
 
     @room = Room.new(name: room_params[:name])
     @room.owner = current_user
+    @room.room_settings = create_room_settings_string(room_params[:mute_on_join], room_params[:client])
 
     if @room.save
       if room_params[:auto_join] == "1"
         start
       else
+        flash[:success] = I18n.t("room.create_room_success")
         redirect_to @room
       end
+    else
+      flash[:alert] = I18n.t("room.create_room_error")
+      redirect_to current_user.main_room
     end
   end
 
@@ -60,9 +65,9 @@ class RoomsController < ApplicationController
   def update
     if params[:setting] == "rename_block"
       @room = Room.find_by!(uid: params[:room_block_uid])
-      update_room_attributes
+      update_room_attributes("name")
     elsif params[:setting] == "rename_header"
-      update_room_attributes
+      update_room_attributes("name")
     elsif params[:setting] == "rename_recording"
       @room.update_recording(params[:record_id], "meta_name" => params[:record_name])
     end
@@ -85,6 +90,10 @@ class RoomsController < ApplicationController
     if @room.running?
       # Determine if the user needs to join as a moderator.
       opts[:user_is_moderator] = @room.owned_by?(current_user)
+
+      # Check if the user has specified which client to use
+      room_settings = JSON.parse(@room[:room_settings])
+      opts[:join_via_html5] = room_settings["joinViaHtml5"] if room_settings["joinViaHtml5"]
 
       if current_user
         redirect_to @room.join_path(current_user.name, opts, current_user.uid)
@@ -112,15 +121,38 @@ class RoomsController < ApplicationController
     opts = default_meeting_options
     opts[:user_is_moderator] = true
 
+    # Include the user's choices for the room settings
+    room_settings = JSON.parse(@room[:room_settings])
+    opts[:mute_on_start] = room_settings["muteOnStart"] if room_settings["muteOnStart"]
+    opts[:join_via_html5] = room_settings["joinViaHtml5"] if room_settings["joinViaHtml5"]
+
     begin
       redirect_to @room.join_path(current_user.name, opts, current_user.uid)
     rescue BigBlueButton::BigBlueButtonException => exc
-      redirect_to room_path, notice: I18n.t(exc.key.to_s.underscore, default: I18n.t("bigbluebutton_exception"))
+      redirect_to room_path, alert: I18n.t(exc.key.to_s.underscore, default: I18n.t("bigbluebutton_exception"))
     end
 
     # Notify users that the room has started.
     # Delay 5 seconds to allow for server start, although the request will retry until it succeeds.
     NotifyUserWaitingJob.set(wait: 5.seconds).perform_later(@room)
+  end
+
+  # POST /:room_uid/update_settings
+  def update_settings
+    begin
+      raise "Room name can't be blank" if room_params[:name].empty?
+
+      @room = Room.find_by!(uid: params[:room_uid])
+      # Update the rooms settings
+      update_room_attributes("settings")
+      # Update the rooms name if it has been changed
+      update_room_attributes("name") if @room.name != room_params[:name]
+    rescue StandardError
+      flash[:alert] = I18n.t("room.update_settings_error")
+    else
+      flash[:success] = I18n.t("room.update_settings_success")
+    end
+    redirect_to room_path
   end
 
   # GET /:room_uid/logout
@@ -136,7 +168,9 @@ class RoomsController < ApplicationController
     }
 
     res = @room.update_recording(params[:record_id], meta)
-    redirect_to @room if res[:updated]
+
+    # Redirects to the page that made the initial request
+    redirect_to request.referrer if res[:updated]
   end
 
   # DELETE /:room_uid/:record_id
@@ -149,14 +183,32 @@ class RoomsController < ApplicationController
 
   private
 
-  def update_room_attributes
+  def update_room_attributes(update_type)
     if @room.owned_by?(current_user) && @room != current_user.main_room
-      @room.update_attributes(name: params[:room_name])
+      if update_type.eql? "name"
+        @room.update_attributes(name: params[:room_name] || room_params[:name])
+      elsif update_type.eql? "settings"
+        room_settings_string = create_room_settings_string(room_params[:mute_on_join], room_params[:client])
+        @room.update_attributes(room_settings: room_settings_string)
+      end
     end
   end
 
+  def create_room_settings_string(mute_res, client_res)
+    room_settings = {}
+    room_settings["muteOnStart"] = mute_res == "1" ? true : false
+
+    if client_res.eql? "html5"
+      room_settings["joinViaHtml5"] = true
+    elsif client_res.eql? "flash"
+      room_settings["joinViaHtml5"] = false
+    end
+
+    room_settings.to_json
+  end
+
   def room_params
-    params.require(:room).permit(:name, :auto_join)
+    params.require(:room).permit(:name, :auto_join, :mute_on_join, :client)
   end
 
   # Find the room from the uid.

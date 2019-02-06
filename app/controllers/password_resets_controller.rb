@@ -32,11 +32,11 @@ class PasswordResetsController < ApplicationController
       @user.send_password_reset_email(reset_link)
       redirect_to root_url, notice: I18n.t("email_sent")
     else
-      redirect_to new_password_reset_path, notice: I18n.t("no_user_email_exists")
+      redirect_to new_password_reset_path, alert: I18n.t("no_user_email_exists")
     end
   rescue => e
     logger.error "Error in email delivery: #{e}"
-    redirect_to root_path, notice: I18n.t(params[:message], default: I18n.t("delivery_error"))
+    redirect_to root_path, alert: I18n.t(params[:message], default: I18n.t("delivery_error"))
   end
 
   def edit
@@ -44,13 +44,14 @@ class PasswordResetsController < ApplicationController
 
   def update
     if params[:user][:password].empty?
-      flash.now[:notice] = I18n.t("password_empty_notice")
+      flash.now[:alert] = I18n.t("password_empty_notice")
       render 'edit'
     elsif params[:user][:password] != params[:user][:password_confirmation]
-      flash.now[:notice] = I18n.t("password_different_notice")
+      flash.now[:alert] = I18n.t("password_different_notice")
       render 'edit'
     elsif current_user.update_attributes(user_params)
-      redirect_to root_path, notice: I18n.t("password_reset_success")
+      flash[:success] = I18n.t("password_reset_success")
+      redirect_to root_path
     else
       render 'edit'
     end
@@ -73,7 +74,7 @@ class PasswordResetsController < ApplicationController
   # Checks expiration of reset token.
   def check_expiration
     if current_user.password_reset_expired?
-      redirect_to new_password_reset_url, notice: I18n.t("expired_reset_token")
+      redirect_to new_password_reset_url, alert: I18n.t("expired_reset_token")
     end
   end
 

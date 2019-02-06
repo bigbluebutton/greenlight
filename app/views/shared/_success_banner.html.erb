@@ -13,9 +13,6 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<%
-# shared/sessions is a partial, meaning it can't be rendered through the controller
-# without losing all css
-%>
-
-<%= render "shared/sessions", recordings: @recordings, only_public: false, user_recordings: true %>
+<div class="alert alert-icon alert-success text-center mb-0">
+  <%= yield %>
+</div>

@@ -121,7 +121,15 @@ en:
       with: Sign in with %{provider}
       forgot_password: Forgot Password?
     rename_recording:
-
+    room_settings:
+      title: Room Settings
+      update: Update Room
+      client: Select client type
+      mute: Mute users when they join
+      default: Default
+      html: HTML5
+      flash: Flash
+      footer_text: Adjustment to your room can be done at anytime.
     rename_room:
       name_placeholder: Enter a new room name...
   name_update_success: Room name successfully changed!
@@ -138,6 +146,7 @@ en:
   recording:
     email: Email Recording
     no_recordings: This room has no %{inject}recordings.
+    no_user_recordings: You currently have no recordings.
     no_matched_recordings: No %{inject} recordings match your search.
     recorded_on: Recorded on %{date}
     table:
@@ -157,6 +166,8 @@ en:
     confirm: New Password Confirmation
     update: Update Password
   room:
+    create_room_error: There was an error creating the room
+    create_room_success: Room created successfully
     invited: You have been invited to join
     invite_participants: Invite Participants
     join: Join
@@ -167,6 +178,8 @@ en:
     sessions: Sessions
     settings: Room Settings
     start: Start
+    update_settings_error: There was an error updating the room settings
+    update_settings_success: Room settings successfully updated
     wait:
       message: Oops! The meeting hasn't started yet.
       auto: You will automatically join when the meeting starts.
