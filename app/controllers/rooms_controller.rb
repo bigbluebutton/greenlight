@@ -168,7 +168,9 @@ class RoomsController < ApplicationController
     }
 
     res = @room.update_recording(params[:record_id], meta)
-    redirect_to @room if res[:updated]
+
+    # Redirects to the page that made the initial request
+    redirect_to request.referrer if res[:updated]
   end
 
   # DELETE /:room_uid/:record_id
