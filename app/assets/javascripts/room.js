@@ -76,7 +76,7 @@ $(document).on('turbolinks:load', function(){
   $(".update-room").click(function(){
     var room_block_uid = $(this).closest("#room-block").data("room-uid")
     $("#create-room-name").val($(this).closest("tbody").find("#room-name h4").text())
-    $("#createRoomModal form").attr("action", "/" + room_block_uid + "/update_settings")
+    $("#createRoomModal form").attr("action", room_block_uid + "/update_settings")
 
     //show all elements & their children with a update-only class
     $(".update-only").each(function() {
