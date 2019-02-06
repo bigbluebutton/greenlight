@@ -58,7 +58,6 @@ $(document).on('turbolinks:load', function(){
     $("#createRoomModal form").attr("action", "/")
     updateDropdown($(".dropdown-item[value='default']"))
     $("#room_mute_on_join").prop("checked", false)
-    $("#auto-join-label").addClass("mt-3 mb-6")
 
     //show all elements & their children with a create-only class
     $(".create-only").each(function() {
@@ -68,8 +67,8 @@ $(document).on('turbolinks:load', function(){
 
     //hide all elements & their children with a update-only class
     $(".update-only").each(function() {
-      $(this).hide()
-      if($(this).children().length > 0) $(this).children().hide()
+      $(this).attr('style',"display:none !important")
+      if($(this).children().length > 0) $(this).children().attr('style',"display:none !important")
     })
   })
 
@@ -78,7 +77,6 @@ $(document).on('turbolinks:load', function(){
     var room_block_uid = $(this).closest("#room-block").data("room-uid")
     $("#create-room-name").val($(this).closest("tbody").find("#room-name h4").text())
     $("#createRoomModal form").attr("action", "/" + room_block_uid + "/update_settings")
-    $("#auto-join-label").removeClass("mt-3 mb-6")
 
     //show all elements & their children with a update-only class
     $(".update-only").each(function() {
@@ -88,8 +86,8 @@ $(document).on('turbolinks:load', function(){
 
     //hide all elements & their children with a create-only class
     $(".create-only").each(function() {
-      $(this).hide()
-      if($(this).children().length > 0) $(this).children().hide()
+      $(this).attr('style',"display:none !important")
+      if($(this).children().length > 0) $(this).children().attr('style',"display:none !important")
     })
 
     updateCurrentSettings($(this).closest("#room-block").data("room-settings"))
