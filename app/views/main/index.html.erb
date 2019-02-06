@@ -13,13 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<% unless flash.empty? %>
-  <%= render "shared/error_banner" do %>
-    <% flash.each do |key, value| %>
-      <%= content_tag :div, value, class: "flash #{key} d-inline" %>
-    <% end %>
-  <% end %>
-<% end %>
+<%= render 'shared/flash_messages' unless flash.empty? %>
 
 <div class="background">
   <div class="container pt-9 pb-8">
