@@ -19,7 +19,8 @@
       <div class="modal-body">
         <div class="card-body p-6">
           <div class="card-title">
-            <h3><%= t("modal.create_room.title") %></h3>
+            <h3 class="create-only"><%= t("modal.create_room.title") %></h3>
+            <h3 class="update-only"><%= t("modal.room_settings.title") %></h3>
           </div>
 
           <%= form_for(:room, url: rooms_path) do |f| %>
@@ -27,21 +28,45 @@
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= f.text_field :name, id: "room-name", class: "form-control", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off %>
+              <%= f.text_field :name, id: "create-room-name", class: "form-control", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off %>
               <div class="invalid-feedback text-left"><%= t("modal.create_room.not_blank") %></div>
             </div>
-            <label class="custom-switch mt-5 mb-5 float-left">
-              <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>
-              <span class="custom-switch-indicator"></span>
-              <span class="custom-switch-description"><%= t("modal.create_room.auto_join") %></span>
+
+            <label class="mt-5 mb-3 w-100 text-left d-inline-block">
+              <input type="hidden" name="room[client]" id="room_client">
+              <span id="room-settings-dropdown-label" class="custom-switch-description"><%= t("modal.room_settings.client")%></span>
+              <div id="dropdown-div" class="dropdown float-right">
+                <button id="dropdown-trigger" type="button" class="btn btn-secondary dropdown-toggle px-4" data-toggle="dropdown">
+                  <%= t("modal.room_settings.default")%>
+                </button>
+                <div class="dropdown-menu">
+                  <button type=button class="dropdown-item" onclick="updateDropdown($(this))" value="default"><%= t("modal.room_settings.default")%></button>
+                  <button type=button class="dropdown-item" onclick="updateDropdown($(this))" value="html5"><%= t("modal.room_settings.html")%></button>
+                  <button type=button class="dropdown-item" onclick="updateDropdown($(this))" value="flash"><%= t("modal.room_settings.flash")%></button>
+                </div>
+              </div>
             </label>
-          <div class="form-footer">
-            <%= f.submit t("header.create_room"), id: "create-room-submit", class: "btn btn-outline-primary btn-block btn-pill" %>
+
+            <label class="custom-switch mt-3 mb-3 w-100 text-left d-inline-block">
+              <span class="custom-switch-description"><%= t("modal.room_settings.mute")%></span>
+              <%= f.check_box :mute_on_join, class: "custom-switch-input", checked: false %>
+              <span class="custom-switch-indicator float-right"></span>
+            </label>
+
+            <label id="auto-join-label" class="create-only custom-switch mb-6 w-100 text-left d-inline-block">
+              <span class="custom-switch-description"><%= t("modal.create_room.auto_join") %></span>
+              <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>
+              <span class="custom-switch-indicator float-right"></span>
+            </label>
+          <div>
+            <%= f.submit t("header.create_room"), id: "create-room-submit", class: "create-only btn btn-outline-primary btn-block btn-pill" %>
+            <%= f.submit t("modal.room_settings.update"), id: "create-room-submit", class: "update-only btn btn-outline-primary btn-block btn-pill" %>
           </div>
           <% end %>
         </div>
         <div class="card-footer">
-          <p><%= t("modal.create_room.free_delete") %></p>
+          <p class="create-only"><%= t("modal.create_room.free_delete") %></p>
+          <p class="update-only"><%= t("modal.room_settings.footer_text") %></p>
         </div>
       </div>
     </div>
