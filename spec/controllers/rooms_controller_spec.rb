@@ -72,6 +72,15 @@ describe RoomsController, type: :controller do
         get :show, params: { room_uid: "non_existent" }
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
+
+    it "redirects to root if owner of room is not verified" do
+      @owner.update_attribute(:email_verified, false)
+
+      post :show, params: { room_uid: @owner.main_room }
+
+      expect(flash[:alert]).to be_present
+      expect(response).to redirect_to(root_path)
+    end
   end
 
   describe "POST #create" do
@@ -150,6 +159,15 @@ describe RoomsController, type: :controller do
       post :join, params: { room_uid: @room, join_name: @owner.name }
 
       expect(response).to redirect_to(@user.main_room.join_path(@owner.name, { user_is_moderator: true }, @owner.uid))
+    end
+
+    it "redirects to root if owner of room is not verified" do
+      @owner.update_attribute(:email_verified, false)
+
+      post :join, params: { room_uid: @room, join_name: @owner.name }
+
+      expect(flash[:alert]).to be_present
+      expect(response).to redirect_to(root_path)
     end
   end
 
