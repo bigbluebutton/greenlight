@@ -13,6 +13,14 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<% flash.each do |key, value| %>
-  <%= content_tag :div, value, class: "flash #{key} d-inline-block text-success" %>
+<% flash.each do |key,value| %>
+  <% if key.eql? "success" %>
+    <%= render "shared/success_banner" do %>
+      <%= content_tag :div, value, class: "flash #{key} d-inline" %>
+    <% end %>
+  <% elsif key.eql? "alert" %>
+    <%= render "shared/error_banner" do %>
+      <%= content_tag :div, value, class: "flash #{key} d-inline" %>
+    <% end %>
+  <% end %>
 <% end %>
