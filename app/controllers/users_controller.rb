@@ -17,10 +17,10 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class UsersController < ApplicationController
+  include RecordingsHelper
+
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create]
-
-  include RecordingsHelper
 
   # POST /u
   def create
@@ -117,19 +117,7 @@ class UsersController < ApplicationController
   # GET /u/:user_uid/recordings
   def recordings
     if current_user && current_user.uid == params[:user_uid]
-      @recordings = []
-      current_user.rooms.each do |room|
-        # Check that current user is the room owner
-        next unless room.owner == current_user
-
-        recs = room.recordings
-        # Add the room id to each recording object
-        recs.each do |rec|
-          rec[:room_uid] = room.uid
-        end
-        # Adds an array to another array
-        @recordings.push(*recs)
-      end
+      @recordings = current_user.all_recordings
     else
       redirect_to root_path
     end

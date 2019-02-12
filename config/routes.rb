@@ -71,11 +71,14 @@ Rails.application.routes.draw do
     post '/update_settings', to: 'rooms#update_settings'
     post '/start', to: 'rooms#start', as: :start_room
     get '/logout', to: 'rooms#logout', as: :logout_room
+  end
 
+  # Recording operations routes
+  scope '/:meetingID' do
     # Manage recordings
     scope '/:record_id' do
-      post '/', to: 'rooms#update_recording', as: :update_recording
-      delete '/', to: 'rooms#delete_recording', as: :delete_recording
+      post '/', to: 'recordings#update_recording', as: :update_recording
+      delete '/', to: 'recordings#delete_recording', as: :delete_recording
     end
   end
 
