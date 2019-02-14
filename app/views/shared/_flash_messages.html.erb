@@ -15,12 +15,16 @@
 
 <% flash.each do |key,value| %>
   <% if key.eql? "success" %>
-    <%= render "shared/success_banner" do %>
+    <div class="alert alert-icon alert-success text-center mb-0">
       <%= content_tag :div, value, class: "flash #{key} d-inline" %>
-    <% end %>
+    </div>
   <% elsif key.eql? "alert" %>
-    <%= render "shared/error_banner" do %>
+    <div class="alert alert-icon alert-danger text-center mb-0">
       <%= content_tag :div, value, class: "flash #{key} d-inline" %>
-    <% end %>
+    </div>
+  <% elsif key.eql? "info" %>
+    <div class="alert alert-icon alert-info text-center mb-0">
+      <%= content_tag :div, value, class: "flash #{key} d-inline" %>
+    </div>
   <% end %>
 <% end %>
