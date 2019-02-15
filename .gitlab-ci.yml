@@ -1,0 +1,60 @@
+stages:
+  #- test
+  #- build
+  - deploy
+
+#test:
+#  stage: test
+#  image: ruby:2.5
+#  script:
+#  - apt-get update -qq && apt-get install -y -qq sqlite3 libsqlite3-dev nodejs
+#  - bundle install --path /cache
+#  - bundle exec rake db:create RAILS_ENV=test
+#  - bundle exec rake test & bundle exec rspec & bundle exec rubocop
+
+#build:
+#  stage: build
+#  script:
+#  - echo 'Building is not enabled'
+
+development:
+  stage: deploy
+  image: docker:stable
+  services:
+  - docker:dind
+  #- google/cloud-sdk:latest
+  #- gcloud
+  #- gce
+  script:
+  - apk update && apk add bash
+  - apk add --no-cache bash
+  -  if [ -z "$DEVELOPMENT_DEPLOY_SCRIPT" ]; then echo "Delopying for development is not enabled"; else echo "Lets do it"; fi
+  #- docker images
+  #- ls -al ./scripts
+  #- ./scripts/deploy_image.sh
+  #- env DOCKER_DEPLOYMENT=CI_BUILD_NAME
+  #- ./scripts/deploy_image.sh $CI_PROJECT_PATH $CI_COMMIT_REF_NAME
+
+staging:
+  stage: deploy
+  image: docker:stable
+  services:
+  - docker:dind
+  script:
+  #- [ ! -z "$STAGING_DEPLOY_SCRIPT" ] && wget -O - $STAGING_DEPLOY_SCRIPT | sh
+  - env DOCKER_DEPLOYMENT=staging
+  - echo 'Delopying for staging is not enabled'
+  only:
+  - master
+
+production:
+  stage: deploy
+  image: docker:stable
+  services:
+  - docker:dind
+  script:
+  #- [ ! -z "$STAGING_DEPLOY_SCRIPT" ] && wget -O - $STAGING_DEPLOY_SCRIPT | sh
+  - env DOCKER_DEPLOYMENT=production
+  - echo 'Delopying for production is not enabled'
+  only:
+  - tags
