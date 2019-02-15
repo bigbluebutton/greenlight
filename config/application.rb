@@ -81,6 +81,9 @@ module Greenlight
     # Configure custom branding image.
     config.branding_image = ENV['BRANDING_IMAGE'] || "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
 
+    # Show/Hide cutomization tab in user settings
+    config.allow_custom_branding = (ENV['ALLOW_CUSTOM_BRANDING'] == "true")
+
     # Enable/disable recording thumbnails.
     config.recording_thumbnails = (ENV['RECORDING_THUMBNAILS'] != "false")
 
