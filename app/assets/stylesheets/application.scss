@@ -128,5 +128,10 @@ a {
 
 .cookies-banner {
   height: $footer-height;
-  background-color: $background-color;
+  color: white;
+  background-color: $button-color-blue;
+
+  #cookies-agree-button {
+    background-color: green !important;
+  }
 }
