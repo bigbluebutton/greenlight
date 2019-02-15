@@ -243,15 +243,18 @@ class RoomsController < ApplicationController
   def validate_verified_email
     if current_user
       redirect_to account_activation_path(current_user) unless current_user.email_verified
-    else
-      redirect_to root_path
     end
   end
 
   def verify_room_owner_verified
     unless @room.owner.email_verified
       flash[:alert] = t("room.unavailable")
-      redirect_to root_path
+
+      if current_user
+        redirect_to current_user.main_room
+      else
+        redirect_to root_path
+      end
     end
   end
 end
