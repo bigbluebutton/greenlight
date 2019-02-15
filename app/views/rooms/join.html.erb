@@ -13,6 +13,8 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
+<%= render 'shared/flash_messages' unless flash.empty? %>
+
 <%= render 'shared/room_event' do %>
   <%= form_for room_path(@room), method: :post do |f| %>
     <div class="input-group join-input">
