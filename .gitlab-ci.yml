@@ -1,60 +1,118 @@
 stages:
-  #- test
-  #- build
+  - test
+  - build
   - deploy
 
-#test:
-#  stage: test
-#  image: ruby:2.5
-#  script:
-#  - apt-get update -qq && apt-get install -y -qq sqlite3 libsqlite3-dev nodejs
-#  - bundle install --path /cache
-#  - bundle exec rake db:create RAILS_ENV=test
-#  - bundle exec rake test & bundle exec rspec & bundle exec rubocop
+before_script:
 
-#build:
-#  stage: build
-#  script:
-#  - echo 'Building is not enabled'
+test:
+  stage: test
+  image: ruby:2.5
+  script:
+  - apt-get update -qq && apt-get install -y -qq sqlite3 libsqlite3-dev nodejs
+  - bundle install --path /cache
+  - bundle exec rake db:create RAILS_ENV=test
+  - bundle exec rake test & bundle exec rspec & bundle exec rubocop
+  only:
+    refs:
+      - branches
+    variables:
+      - $GITLAB_TEST
+
+build:
+  variables:
+    CD_DEPLOY_ENV: $CI_JOB_NAME
+    CD_REF_SLUG: $CI_PROJECT_PATH
+    CD_REF_NAME: $CI_COMMIT_REF_NAME
+    CD_COMMIT_SHA: $CI_COMMIT_SHA
+    CD_COMMIT_BEFORE_SHA: $CI_COMMIT_BEFORE_SHA
+  stage: build
+  image: docker:stable
+  services:
+  - docker:dind
+  script:
+  # Install bash, curl, git for deployment script
+  - apk update && apk add --no-cache bash curl git
+  # Install CA certs, openssl to https downloads, python for gcloud sdk
+  - apk add --update make ca-certificates openssl python
+  - update-ca-certificates
+  # Build.
+  - ./scripts/image_build.sh $CI_PROJECT_PATH $CI_COMMIT_REF_NAME
+  only:
+    variables:
+      - $GITLAB_BUILD
 
 development:
+  variables:
+    CD_DEPLOY_ENV: $CI_JOB_NAME
+    CD_REF_SLUG: $CI_PROJECT_PATH
+    CD_REF_NAME: $CI_COMMIT_REF_NAME
+    CD_COMMIT_SHA: $CI_COMMIT_SHA
+    CD_COMMIT_BEFORE_SHA: $CI_COMMIT_BEFORE_SHA
   stage: deploy
   image: docker:stable
   services:
   - docker:dind
-  #- google/cloud-sdk:latest
-  #- gcloud
-  #- gce
   script:
-  - apk update && apk add bash
-  - apk add --no-cache bash
-  -  if [ -z "$DEVELOPMENT_DEPLOY_SCRIPT" ]; then echo "Delopying for development is not enabled"; else echo "Lets do it"; fi
-  #- docker images
-  #- ls -al ./scripts
-  #- ./scripts/deploy_image.sh
-  #- env DOCKER_DEPLOYMENT=CI_BUILD_NAME
-  #- ./scripts/deploy_image.sh $CI_PROJECT_PATH $CI_COMMIT_REF_NAME
+  # Install bash, curl, git for deployment script
+  - apk update && apk add --no-cache bash curl git
+  # Install CA certs, openssl to https downloads, python for gcloud sdk
+  - apk add --update make ca-certificates openssl python
+  - update-ca-certificates
+  # Deploy if external script is defined.
+  - if [ -z "$CD_DEPLOY_SCRIPT" ]; then echo "Script for deployment is not defined"; else ./scripts/image_deploy.sh; fi
+  only:
+    refs:
+      - branches
+    variables:
+      - $GITLAB_DEPLOY
 
 staging:
+  variables:
+    CD_DEPLOY_ENV: $CI_JOB_NAME
+    CD_REF_SLUG: $CI_PROJECT_PATH
+    CD_REF_NAME: $CI_COMMIT_REF_NAME
+    CD_COMMIT_SHA: $CI_COMMIT_SHA
+    CD_COMMIT_BEFORE_SHA: $CI_COMMIT_BEFORE_SHA
   stage: deploy
   image: docker:stable
   services:
   - docker:dind
   script:
-  #- [ ! -z "$STAGING_DEPLOY_SCRIPT" ] && wget -O - $STAGING_DEPLOY_SCRIPT | sh
-  - env DOCKER_DEPLOYMENT=staging
-  - echo 'Delopying for staging is not enabled'
+  # Install bash, curl, git for deployment script
+  - apk update && apk add --no-cache bash curl git
+  # Install CA certs, openssl to https downloads, python for gcloud sdk
+  - apk add --update make ca-certificates openssl python
+  - update-ca-certificates
+  # Deploy if external script is defined.
+  - if [ -z "$CD_DEPLOY_SCRIPT" ]; then echo "Script for deployment is not defined"; else ./scripts/image_deploy.sh; fi
   only:
-  - master
+    refs:
+      - master
+    variables:
+      - $GITLAB_DEPLOY
 
 production:
+  variables:
+    CD_DEPLOY_ENV: $CI_JOB_NAME
+    CD_REF_SLUG: $CI_PROJECT_PATH
+    CD_REF_NAME: $CI_COMMIT_REF_NAME
+    CD_COMMIT_SHA: $CI_COMMIT_SHA
+    CD_COMMIT_BEFORE_SHA: $CI_COMMIT_BEFORE_SHA
   stage: deploy
   image: docker:stable
   services:
   - docker:dind
   script:
-  #- [ ! -z "$STAGING_DEPLOY_SCRIPT" ] && wget -O - $STAGING_DEPLOY_SCRIPT | sh
-  - env DOCKER_DEPLOYMENT=production
-  - echo 'Delopying for production is not enabled'
+  # Install bash, curl, git for deployment script
+  - apk update && apk add --no-cache bash curl git
+  # Install CA certs, openssl to https downloads, python for gcloud sdk
+  - apk add --update make ca-certificates openssl python
+  - update-ca-certificates
+  # Deploy if external script is defined.
+  - if [ -z "$CD_DEPLOY_SCRIPT" ]; then echo "Script for deployment is not defined"; else ./scripts/image_deploy.sh; fi
   only:
-  - tags
+    refs:
+      - tags
+    variables:
+      - $GITLAB_DEPLOY

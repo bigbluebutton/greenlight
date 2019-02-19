@@ -1,0 +1,14 @@
+sudo: required
+
+language: ruby
+
+rvm:
+  - 2.5.1
+
+script:
+  - bundle install && bundle exec rubocop && bundle exec rspec
+
+notifications:
+  email: false
+  slack:
+    secure: SSt7FJExMkQ5jLfLMSZzF+I3OHK+nohFXDqf5JtxnH+ql4F70QphClPmJrXg6/AuokLQwWU1QE66EBkjq0dWf+4yQPyKH450fBznqz3el7ybnItuTcOnK4F/F5nt9ekYhXUZ4UJSKiyZbNp8RIjBFcxDQyn8+zX+etTMRW+Dfulj6It9jweqv1/Qm4H9KyJeGLWDdyNOz8yXkKVBGe4uXATXbYUoZtEBwg5JDuK9g2suHqn+si6br7cSySMpJTEoyid72V5FtxK1bh59Uv9Ok+x0X4ruCwwiIT4DJt7l3G2Cq1hGdJE70WiPJQ2MoFKDsM1Mkcbf22CGCYLy/t1JqNoNElpvA4xRM6qi837Bq1s3gtFo4DTPX6FOWDdSe7fOZNCSVZbc/zmnAvO8v9U2z9PpckrtQA/mG16wsLlJh304iuP+I+h7kil7ur5x9TDG+10sP6+mhqk7g2X4ZDfvt0zBDiV8DKK64CYmLO+hyZl9jkPTVqS8twNXclV31wWgN4txiuTRAE2Bbd9b+3tDGzDqBYkLAgMg08sCunxtJQgUWnhf4NJTmdGXLrab4C9SfilL0QgzqQ6lP97F5CMopXgjf5u1tMtbCq7ExVVS6SS2AtLWC8YEaW4hGlaD2acO9JgWXRrhqvtDS3RtXwJ46bHnfK5MUInpcw6nHBoto+w=
