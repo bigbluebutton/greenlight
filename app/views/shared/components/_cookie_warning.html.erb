@@ -13,25 +13,15 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<%= render 'shared/flash_messages' unless flash.empty? %>
-
-<div class="container">
-  <div class="row pt-7">
-    <div class="col col-4 offset-4">
-      <div class="card">
-        <div class="card-header background">
-          <h4 class="mt-2"><%= t("forgot_password.subtitle") %></h4>
-        </div>
-        <div class="card-body background">
-          <%= form_for(:password_reset, url: password_resets_path) do |f| %>
-            <%= f.label t("forgot_password.email"), class: "form-label" %>
-            <%= f.email_field :email, class: "form-control" %>
-            <br>
-      
-            <%= f.submit t("forgot_password.submit"), class: "btn btn-primary" %>
-          <% end %>
-        </div>
+  <% if cookies && cookies['cookie_consented'] != 'true' %>
+    <div class="cookies-banner fixed-bottom text-center d-inline-block">
+      <div class="cookies-banner-content py-3">
+        <span class="cookies-warning-text pr-5">
+          <%= t("cookies.cookie_info") %>
+        </span>
+        <span class="cookies-warning-button d-inline-block">
+          <button id="cookies-agree-button" class="btn customBtn bg-primary"><%= t("cookies.cookie_button") %></button>
+        </span>
       </div>
     </div>
-  </div>
-</div>
+  <% end %>

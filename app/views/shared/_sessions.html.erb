@@ -50,7 +50,11 @@
                 <% if recordings.empty? %>
                   <tr>
                     <td colspan="7" class="text-center h4 p-6 font-weight-normal">
-                      <%= t("recording.no_recordings", inject: only_public ? t("recording.visibility.public").downcase + " "  : "") %>
+                      <% if user_recordings %>
+                        <%= t("recording.no_user_recordings") %>
+                      <% else %>
+                        <%= t("recording.no_recordings", inject: only_public ? t("recording.visibility.public").downcase + " "  : "") %>
+                      <% end %>
                     </td>
                   </tr>
                 <% else %>

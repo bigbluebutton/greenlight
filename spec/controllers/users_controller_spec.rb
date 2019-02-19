@@ -231,4 +231,17 @@ describe UsersController, type: :controller do
       expect(response).to render_template(:verify)
     end
   end
+
+  describe "GET #recordings" do
+    before do
+      @user1 = create(:user)
+      @user2 = create(:user)
+    end
+
+    it "redirects to root if the incorrect user tries to access the page" do
+      get :recordings, params: { current_user: @user2, user_uid: @user1.uid }
+
+      expect(response).to redirect_to(root_path)
+    end
+  end
 end

@@ -20,6 +20,8 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create]
 
+  include RecordingsHelper
+
   # POST /u
   def create
     # Verify that GreenLight is configured to allow user signup.
@@ -83,7 +85,8 @@ class UsersController < ApplicationController
 
       if errors.empty? && @user.save
         # Notify the user that their account has been updated.
-        redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
+        flash[:success] = I18n.t("info_update_success")
+        redirect_to edit_user_path(@user)
       else
         # Append custom errors.
         errors.each { |k, v| @user.errors.add(k, v) }
@@ -91,10 +94,12 @@ class UsersController < ApplicationController
       end
     elsif user_params[:email] != @user.email && @user.update_attributes(user_params)
       @user.update_attributes(email_verified: false)
-      redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
+      flash[:success] = I18n.t("info_update_success")
+      redirect_to edit_user_path(@user)
     elsif @user.update_attributes(user_params)
       update_locale(@user)
-      redirect_to edit_user_path(@user), notice: I18n.t("info_update_success")
+      flash[:success] = I18n.t("info_update_success")
+      redirect_to edit_user_path(@user)
     else
       render :edit, params: { settings: params[:settings] }
     end
@@ -107,6 +112,27 @@ class UsersController < ApplicationController
       session.delete(:user_id)
     end
     redirect_to root_path
+  end
+
+  # GET /u/:user_uid/recordings
+  def recordings
+    if current_user && current_user.uid == params[:user_uid]
+      @recordings = []
+      current_user.rooms.each do |room|
+        # Check that current user is the room owner
+        next unless room.owner == current_user
+
+        recs = room.recordings
+        # Add the room id to each recording object
+        recs.each do |rec|
+          rec[:room_uid] = room.uid
+        end
+        # Adds an array to another array
+        @recordings.push(*recs)
+      end
+    else
+      redirect_to root_path
+    end
   end
 
   # GET | POST /terms
@@ -155,7 +181,7 @@ class UsersController < ApplicationController
   private
 
   def mailer_delivery_fail
-    redirect_to root_path, notice: I18n.t(params[:message], default: I18n.t("delivery_error"))
+    redirect_to root_path, alert: I18n.t(params[:message], default: I18n.t("delivery_error"))
   end
 
   def verification_link(user)

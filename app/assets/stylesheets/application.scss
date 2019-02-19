@@ -34,17 +34,12 @@
 @import "bootstrap";
 @import "tabler-custom";
 
+@import "utilities/variables";
 @import "main";
 @import "rooms";
 @import "sessions";
 
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext);
-
-$background-color: #F5F7FB;
-$error-background-color: #EFE6E6;
-
-$header-height: 65px;
-$footer-height: 65px;
 
 html, body {
   position: relative;
@@ -129,4 +124,14 @@ a {
 
 [contenteditable]:focus {
   outline: 0px solid transparent;
+}
+
+.cookies-banner {
+  height: $footer-height;
+  color: white;
+  background-color: $button-color-blue;
+
+  #cookies-agree-button {
+    background-color: green !important;
+  }
 }
