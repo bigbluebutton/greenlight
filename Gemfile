@@ -43,6 +43,8 @@ gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'rails_admin', '~> 1.3'
+
 # Authentication.
 gem 'omniauth'
 gem 'omniauth-twitter'
@@ -66,6 +68,10 @@ gem 'http_accept_language'
 
 # Markdown parsing.
 gem 'redcarpet'
+
+gem 'pry-doc'
+
+gem 'devise'
 
 # For health check endpoint
 gem "health_check"

@@ -18,7 +18,8 @@
 
 class SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:omniauth, :fail]
-
+  after_action :login_user_detail, only: [:create]
+  after_action :login_omniauth_user_detail, only: [:omniauth]
   # GET /users/logout
   def destroy
     logout
@@ -52,6 +53,16 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def login_user_detail
+    user = User.find_by_email(session_params[:email])
+    user.update_attribute(:last_sign_in_at, Time.now) if user.present?
+  end
+
+  def login_omniauth_user_detail
+    user = User.from_omniauth(request.env['omniauth.auth'])
+    user.update_attribute(:last_sign_in_at, Time.now) if user.present?
+  end
 
   def session_params
     params.require(:session).permit(:email, :password)

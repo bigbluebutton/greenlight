@@ -18,13 +18,13 @@
 
 class UsersController < ApplicationController
   before_action :find_user, only: [:edit, :update, :destroy]
+  after_action :signup_user_detail, only: [:create]
   before_action :ensure_unauthenticated, only: [:new, :create]
 
   # POST /u
   def create
     # Verify that GreenLight is configured to allow user signup.
     return unless Rails.configuration.allow_user_signup
-
     @user = User.new(user_params)
     @user.provider = "greenlight"
 
@@ -153,6 +153,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def signup_user_detail
+    @user.update_attribute(:last_sign_in_at, Time.now) if @user.present?
+  end
 
   def mailer_delivery_fail
     redirect_to root_path, notice: I18n.t(params[:message], default: I18n.t("delivery_error"))

@@ -17,6 +17,13 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 Rails.application.routes.draw do
+
+  devise_for :admins
+
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+  get '/admin' => "main#dashboard", :as => :dashboard
+
   get 'health_check', to: 'health_check/health_check#index'
 
   # Error routes.

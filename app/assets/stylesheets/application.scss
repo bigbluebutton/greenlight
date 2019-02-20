@@ -130,3 +130,73 @@ a {
 [contenteditable]:focus {
   outline: 0px solid transparent;
 }
+
+//Admin login
+
+.logo{
+  height: 130px;
+}
+
+.bg-red{
+  color: #fff;
+}
+
+.remember_me{
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.card .user_input{
+  width: 95%;
+  border-radius: 6px;
+  margin: 10px;
+}
+
+.center{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card{
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 0.8rem;
+    max-width: 500px;
+}
+
+.card > form{
+    display: flex;
+    flex-direction: column;
+}
+
+.card h2{
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.field{
+    padding: 5px;
+    margin-bottom: 2rem;
+    height: 30px;
+    width: 16rem;
+    border: 1px solid grey;
+    margin: 10px auto;
+}
+
+.submit{
+    height: 35px;
+    color: #fff;
+    background-color: #000;
+    border: none;
+    letter-spacing: 0.2rem;
+    transition: 0.3s opacity ease;
+    cursor: pointer;
+}
+.submit:hover{
+   opacity: 0.6;
+}

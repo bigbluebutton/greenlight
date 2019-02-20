@@ -1,0 +1,17 @@
+<%= stylesheet_link_tag 'application', media: 'all'%>
+<div class="center">
+  <div class="card">
+    <%= content_tag(:div, flash[:alert], :class => "alert bg-red login-alert") if flash[:alert] %>
+    <h2>Welcome To Green Light</h2>
+    <h2>Admin Log in</h2>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= f.email_field :email, autofocus: true, class: 'field', placeholder: 'email ...', class: 'form-control user_input' %>
+      <%= f.password_field :password, autocomplete: "off", class: 'field', placeholder: 'password ...',class: 'form-control user_input' %>
+      <div class="remember_me">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+      <%= f.submit "Log in", class: 'submit' %>
+    <% end %>
+  </div>
+</div>
