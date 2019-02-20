@@ -29,10 +29,12 @@ namespace :conf do
     test_request("#{ENV['BIGBLUEBUTTON_ENDPOINT']}api/getMeetings?checksum=#{checksum}")
     passed
 
-    # Tests the checksum on the getMeetings api call
-    print "Checking SMTP connection"
-    test_smtp
-    passed
+    if ENV['ALLOW_MAIL_NOTIFICATIONS'] == 'true'
+      # Tests the configuration of the SMTP Server
+      print "Checking SMTP connection"
+      test_smtp
+      passed
+    end
   end
 end
 
