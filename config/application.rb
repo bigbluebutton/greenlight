@@ -79,9 +79,15 @@ module Greenlight
     config.banner_message = ENV['BANNER_MESSAGE']
 
     # Configure custom branding image.
-    config.branding_image = ENV['BRANDING_IMAGE']
+    config.branding_image = ENV['BRANDING_IMAGE'] || "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
+
+    # Show/Hide cutomization tab in user settings
+    config.allow_custom_branding = (ENV['ALLOW_CUSTOM_BRANDING'] == "true")
 
     # Enable/disable recording thumbnails.
     config.recording_thumbnails = (ENV['RECORDING_THUMBNAILS'] != "false")
+
+    # Configure which settings are available to user on room creation/edit after creation
+    config.room_features = ENV['ROOM_FEATURES'] || ""
   end
 end
