@@ -39,6 +39,8 @@ fi
 # Build the image
 echo "Docker image $REF_SLUG:$REF_NAME is being built"
 docker_build=$(docker build -t $REF_SLUG:$REF_NAME .)
+echo $docker_build
+docker images
 
 if [ -z "$CD_DOCKER_USERNAME" ] || [ -z "$CD_DOCKER_PASSWORD" ]; then
   echo "Docker image for $REF_SLUG can't be published because CD_DOCKER_USERNAME or CD_DOCKER_PASSWORD are missing"
