@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo "Script for deployment: $CD_DEPLOY_SCRIPT v16"
+echo "Source for deployment script: $CD_DEPLOY_SOURCE"
 
-if [ -z $CD_DEPLOY_SCRIPT ]; then
-  echo "Script for deployment is not defined"
+if [ -z $CD_DEPLOY_SOURCE ]; then
+  echo "Source for deployment script is not defined"
   exit 0
 fi
 
@@ -32,11 +32,11 @@ echo "Docker image $CD_REF_SLUG:$CD_REF_NAME is being deployed for $CD_DEPLOY_EN
 
 # The actual script should be pulled from an external repository
 if [ ! -z $CD_GITHUB_OAUTH_TOKEN ]; then
-  echo "Script from a github private repo: $CD_DEPLOY_SCRIPT"
-  curl -H "Authorization: token $CD_GITHUB_OAUTH_TOKEN" -H "Accept: application/vnd.github.v3.raw" -H "Cache-Control: no-cache" -L $CD_DEPLOY_SCRIPT > deploy.sh
+  echo "Script from a github private repo: $CD_DEPLOY_SOURCE/$CD_DEPLOY_ENV/deploy.sh"
+  curl -H "Authorization: token $CD_GITHUB_OAUTH_TOKEN" -H "Accept: application/vnd.github.v3.raw" -H "Cache-Control: no-cache" -L $CD_DEPLOY_SOURCE/$CD_DEPLOY_ENV/deploy.sh > deploy.sh
   chmod +x deploy.sh
   ./deploy.sh
 else
-  echo "Script from a any other public repo: $CD_DEPLOY_SCRIPT"
-  wget -O - $CD_DEPLOY_SCRIPT | bash $CD_DEPLOY_ENV $CD_REF_SLUG $CD_REF_NAME
+  echo "Script from a any other public repo: $CD_DEPLOY_SOURCE"
+  wget -O - $CD_DEPLOY_SOURCE/$CD_DEPLOY_ENV/deploy.sh | bash $CD_DEPLOY_ENV $CD_REF_SLUG $CD_REF_NAME
 fi
