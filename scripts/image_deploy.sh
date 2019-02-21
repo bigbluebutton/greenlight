@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "v1"
+
 if [ -z "$CD_DEPLOY_SCRIPT" ]; then
   echo "Script for deployment is not defined"
   exit 0
