@@ -57,6 +57,36 @@ RSpec.configure do |config|
         }
       )
       .to_return(status: 200, body: "", headers: {})
+    stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT']}/)
+      .with(
+        headers:
+        {
+          'Accept': '*/*',
+          'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'User-Agent': 'Ruby',
+        }
+      )
+      .to_return(status: 200, body: "", headers: {})
+    stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT'] + 'getUser'}/)
+      .with(
+        headers:
+        {
+          'Accept': '*/*',
+          'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'User-Agent': 'Ruby',
+        }
+      )
+      .to_return(status: 200, body: "
+        <response>
+          <version>1.0</version>
+          <returncode>SUCCESS</returncode>
+          <user>
+            <name>greenlight</name>
+            <maxMeetings>1000</maxMeetings>
+            <apiURL>#{ENV['LOADBALANCER_ENDPOINT']}</apiURL>
+            <secret>#{ENV['LOADBALANCER_SECRET']}</secret>
+          </user>
+        </response>", headers: {}) if ENV['LOADBALANCER_ENDPOINT']
   end
 
   # rspec-expectations config goes here. You can use an alternate

@@ -14,45 +14,11 @@
 * You should have received a copy of the GNU Lesser General Public License along
 * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 */
-
-// Place all the styles related to the Rooms controller here.
+// Declare all variables here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-.start-button {
-  font-size: 26px !important;
-}
-
-.thumbnail {
-  height: 60px !important;
-  width: auto;
-}
-
-.join-form {
-  font-size: 20px !important;
-}
-
-.join-input {
-  height: 48px;
-}
-
-.home-indicator {
-  font-size: 22px !important;
-}
-
-.btn-del-room {
-  width: 70% !important;
-}
-
-.edit_hover_class a{
-  visibility: hidden;
-}
-
-.edit_hover_class:hover a {
-  visibility: visible;
-}
-
-#room-settings-dropdown-label {
-  vertical-align: middle;
-  padding-top: 12px;
-}
+$background-color: #F5F7FB;
+$error-background-color: #EFE6E6;
+$button-color-blue: #467FCF;
+$header-height: 65px;
+$footer-height: 65px;

@@ -59,6 +59,9 @@ Rails.application.routes.draw do
     get '/:user_uid/edit', to: 'users#edit', as: :edit_user
     patch '/:user_uid/edit', to: 'users#update', as: :update_user
     delete '/:user_uid', to: 'users#destroy', as: :delete_user
+
+    # All user recordings
+    get '/:user_uid/recordings', to: 'users#recordings', as: :get_user_recordings
   end
 
   # Handles Omniauth authentication.
@@ -72,6 +75,7 @@ Rails.application.routes.draw do
   scope '/:room_uid' do
     post '/', to: 'rooms#join'
     patch '/', to: 'rooms#update', as: :update_room
+    post '/update_settings', to: 'rooms#update_settings'
     post '/start', to: 'rooms#start', as: :start_room
     get '/logout', to: 'rooms#logout', as: :logout_room
 
