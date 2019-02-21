@@ -37,12 +37,6 @@ build:
       - $GITLAB_BUILD
 
 deploy:
-  variables:
-    CD_DEPLOY_ENV: $CI_JOB_NAME
-    CD_REF_SLUG: $CI_PROJECT_PATH
-    CD_REF_NAME: $CI_COMMIT_REF_NAME
-    CD_COMMIT_SHA: $CI_COMMIT_SHA
-    CD_COMMIT_BEFORE_SHA: $CI_COMMIT_BEFORE_SHA
   stage: deploy
   image: docker:stable
   services:
@@ -53,8 +47,8 @@ deploy:
   # Install CA certs, openssl to https downloads, python for gcloud sdk
   - apk add --update make ca-certificates openssl python
   - update-ca-certificates
-  # Deploy if external script is defined.
-  - if [ -z "$CD_DEPLOY_SCRIPT" ]; then echo "Script for deployment is not defined"; else ./scripts/image_deploy.sh; fi
+  # Deploy.
+  - ./scripts/image_build.sh $CI_PROJECT_PATH $CI_COMMIT_REF_NAME $CI_COMMIT_SHA $CI_COMMIT_BEFORE_SHA
   only:
     refs:
       - branches
