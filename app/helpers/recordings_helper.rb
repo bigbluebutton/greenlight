@@ -1,6 +1,9 @@
-<%
+# frozen_string_literal: true
+
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
 # This program is free software; you can redistribute it and/or modify it under the
 # terms of the GNU Lesser General Public License as published by the Free Software
 # Foundation; either version 3.0 of the License, or (at your option) any later
@@ -9,29 +12,34 @@
 # BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-%>
 
-<%= render 'shared/flash_messages' unless flash.empty? %>
+module RecordingsHelper
+  # Helper for converting BigBlueButton dates into the desired format.
+  def recording_date(date)
+    date.strftime("%B #{date.day.ordinalize}, %Y.")
+  end
 
-<div class="container">
-  <div class="row pt-7">
-    <div class="col col-4 offset-4">
-      <div class="card">
-        <div class="card-header background">
-          <h4 class="mt-2"><%= t("forgot_password.subtitle") %></h4>
-        </div>
-        <div class="card-body background">
-          <%= form_for(:password_reset, url: password_resets_path) do |f| %>
-            <%= f.label t("forgot_password.email"), class: "form-label" %>
-            <%= f.email_field :email, class: "form-control" %>
-            <br>
-      
-            <%= f.submit t("forgot_password.submit"), class: "btn btn-primary" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  # Helper for converting BigBlueButton dates into a nice length string.
+  def recording_length(playbacks)
+    # Stats format currently doesn't support length.
+    valid_playbacks = playbacks.reject { |p| p[:type] == "statistics" }
+    return "0 min" if valid_playbacks.empty?
+
+    len = valid_playbacks.first[:length]
+    if len > 60
+      "#{(len / 60).round} hrs"
+    elsif len == 0
+      "< 1 min"
+    else
+      "#{len} min"
+    end
+  end
+
+  # Prevents single images from erroring when not passed as an array.
+  def safe_recording_images(images)
+    Array.wrap(images)
+  end
+end

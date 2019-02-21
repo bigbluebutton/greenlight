@@ -79,14 +79,19 @@ describe RoomsController, type: :controller do
       @owner = create(:user)
     end
 
-    it "should create room with name" do
+    it "should create room with name and correct settings" do
       @request.session[:user_id] = @owner.id
       name = Faker::Pokemon.name
-      post :create, params: { room: { name: name } }
+
+      room_params = { name: name, "client": "html5", "mute_on_join": "1" }
+      json_room_settings = "{\"muteOnStart\":true,\"joinViaHtml5\":true}"
+
+      post :create, params: { room: room_params }
 
       r = @owner.secondary_rooms.last
       expect(r.name).to eql(name)
       expect(r.owner).to eql(@owner)
+      expect(r.room_settings).to eql(json_room_settings)
       expect(response).to redirect_to(r)
     end
 
@@ -209,6 +214,36 @@ describe RoomsController, type: :controller do
       post :start, params: { room_uid: @other_room }
 
       expect(response).to redirect_to(root_path)
+    end
+  end
+
+  describe "POST #update_settings" do
+    before do
+      @user = create(:user)
+      @secondary_room = create(:room, owner: @user)
+    end
+
+    it "properly updates room name through the room settings modal and redirects to current page" do
+      @request.session[:user_id] = @user.id
+      name = Faker::Pokemon.name
+
+      room_params = { room_uid: @secondary_room.uid, room: { "name": name } }
+
+      expect { post :update_settings, params: room_params }.to change { @secondary_room.reload.name }
+        .from(@secondary_room.name).to(name)
+      expect(response).to redirect_to(@secondary_room)
+    end
+
+    it "properly updates room settings through the room settings modal and redirects to current page" do
+      @request.session[:user_id] = @user.id
+
+      room_params = { "client": "html5", "mute_on_join": "1", "name": @secondary_room.name }
+      formatted_room_params = "{\"muteOnStart\":true,\"joinViaHtml5\":true}" # JSON string format
+
+      expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
+        .to change { @secondary_room.reload.room_settings }
+        .from(@secondary_room.room_settings).to(formatted_room_params)
+      expect(response).to redirect_to(@secondary_room)
     end
   end
 

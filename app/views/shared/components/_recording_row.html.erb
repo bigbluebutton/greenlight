@@ -53,17 +53,18 @@
         <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fas fa-link px-2"></i> <%= t("recording.visibility.unlisted") %></button>
       <% end %>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <%= button_to update_recording_path(@room, record_id: recording[:recordID], state: "public"), class: "dropdown-item" do %>
+        <%= button_to update_recording_path(room_uid: recording[:room_uid], record_id: recording[:recordID], state: "public"), class: "dropdown-item" do %>
           <i class="dropdown-icon fas fa-globe"></i> <%= t("recording.visibility.public") %>
         <% end %>
-        <%= button_to update_recording_path(@room, record_id: recording[:recordID], state: "unlisted"), class: "dropdown-item" do %>
+        <%= button_to update_recording_path(room_uid: recording[:room_uid], record_id: recording[:recordID], state: "unlisted"), class: "dropdown-item" do %>
           <i class="dropdown-icon fas fa-link"></i> <%= t("recording.visibility.unlisted") %>
         <% end %>
       </div>
     </div>
   </td>
   <td>
-    <% recording[:playbacks].each do |p| %>
+    <% sorted_formats =  recording[:playbacks].sort_by! {|p| p[:type]} %>
+    <% sorted_formats.each do |p| %>
       <%= link_to p[:type].capitalize, p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
     <% end %>
   </td>
@@ -78,7 +79,7 @@
           <a class="dropdown-item email-link" data-pres-link="<%= p[:url] %>"><i class="dropdown-icon far fa-envelope"></i> <%= t("recording.email") %></a>
           <div class="dropdown-divider"></div>
         <% end %>
-        <%= button_to delete_recording_path(@room, record_id: recording[:recordID]), method: :delete, class: "dropdown-item" do %>
+        <%= button_to delete_recording_path(room_uid: recording[:room_uid], record_id: recording[:recordID]), method: :delete, class: "dropdown-item" do %>
           <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
         <% end %>
       </div>

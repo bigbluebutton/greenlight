@@ -51,4 +51,70 @@ $(document).on('turbolinks:load', function(){
       });
     });
   }
+
+  // Display and update all fields related to creating a room in the createRoomModal
+  $("#create-room").click(function(){
+    $("#create-room-name").val("")
+    $("#createRoomModal form").attr("action", "/")
+    updateDropdown($(".dropdown-item[value='default']"))
+    $("#room_mute_on_join").prop("checked", false)
+
+    //show all elements & their children with a create-only class
+    $(".create-only").each(function() {
+      $(this).show()
+      if($(this).children().length > 0) $(this).children().show()
+    })
+
+    //hide all elements & their children with a update-only class
+    $(".update-only").each(function() {
+      $(this).attr('style',"display:none !important")
+      if($(this).children().length > 0) $(this).children().attr('style',"display:none !important")
+    })
+  })
+
+  // Display and update all fields related to creating a room in the createRoomModal
+  $(".update-room").click(function(){
+    var room_block_uid = $(this).closest("#room-block").data("room-uid")
+    $("#create-room-name").val($(this).closest("tbody").find("#room-name h4").text())
+    $("#createRoomModal form").attr("action", room_block_uid + "/update_settings")
+
+    //show all elements & their children with a update-only class
+    $(".update-only").each(function() {
+      $(this).show()
+      if($(this).children().length > 0) $(this).children().show()
+    })
+
+    //hide all elements & their children with a create-only class
+    $(".create-only").each(function() {
+      $(this).attr('style',"display:none !important")
+      if($(this).children().length > 0) $(this).children().attr('style',"display:none !important")
+    })
+
+    updateCurrentSettings($(this).closest("#room-block").data("room-settings"))
+  })
+
+  //Update the createRoomModal to show the correct current settings
+  function updateCurrentSettings(settings){
+    //set checkbox
+    if(settings.muteOnStart){
+      $("#room_mute_on_join").prop("checked", true)
+    } else { //default option
+      $("#room_mute_on_join").prop("checked", false)
+    }
+
+    //set dropdown value
+    if (settings.joinViaHtml5) {
+      updateDropdown($(".dropdown-item[value='html5']"))
+    } else if (settings.joinViaHtml5 == false) {
+      updateDropdown($(".dropdown-item[value='flash']"))
+    } else { //default option
+      updateDropdown($(".dropdown-item[value='default']"))
+    }
+  }
 });
+
+// Updates the dropdown element to show the clicked/correct text
+function updateDropdown(element) {
+  $("#dropdown-trigger").text(element.text())
+  $("#room_client").val(element.val())
+}

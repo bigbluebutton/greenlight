@@ -79,8 +79,8 @@ describe PasswordResetsController, type: :controller do
       it "reloads page with notice if password is empty" do
         token = "reset_token"
 
-        controller.stub(:valid_user).and_return(nil)
-        controller.stub(:check_expiration).and_return(nil)
+        allow(controller).to receive(:valid_user).and_return(nil)
+        allow(controller).to receive(:check_expiration).and_return(nil)
 
         params = {
           id: token,
@@ -96,8 +96,8 @@ describe PasswordResetsController, type: :controller do
       it "reloads page with notice if password is confirmation doesn't match" do
         token = "reset_token"
 
-        controller.stub(:valid_user).and_return(nil)
-        controller.stub(:check_expiration).and_return(nil)
+        allow(controller).to receive(:valid_user).and_return(nil)
+        allow(controller).to receive(:check_expiration).and_return(nil)
 
         params = {
           id: token,
@@ -118,9 +118,9 @@ describe PasswordResetsController, type: :controller do
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
         user.reset_digest = BCrypt::Password.create(token, cost: cost)
 
-        controller.stub(:valid_user).and_return(nil)
-        controller.stub(:check_expiration).and_return(nil)
-        controller.stub(:current_user).and_return(user)
+        allow(controller).to receive(:valid_user).and_return(nil)
+        allow(controller).to receive(:check_expiration).and_return(nil)
+        allow(controller).to receive(:current_user).and_return(user)
 
         params = {
           id: token,
