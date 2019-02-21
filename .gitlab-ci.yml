@@ -48,7 +48,7 @@ deploy:
   - apk add --update make ca-certificates openssl python
   - update-ca-certificates
   # Deploy.
-  - ./scripts/image_build.sh $CI_PROJECT_PATH $CI_COMMIT_REF_NAME $CI_COMMIT_SHA $CI_COMMIT_BEFORE_SHA
+  - ./scripts/image_deploy.sh $CI_PROJECT_PATH $CI_COMMIT_REF_NAME $CI_COMMIT_SHA $CI_COMMIT_BEFORE_SHA
   only:
     refs:
       - branches
