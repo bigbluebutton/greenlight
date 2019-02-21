@@ -38,9 +38,7 @@ elif [ ! -z $CD_COMMIT_SHA ]; then
 fi
 # Build the image
 echo "Docker image $REF_SLUG:$REF_NAME is being built"
-docker_build=$(docker build -t $REF_SLUG:$REF_NAME .)
-echo $docker_build
-docker images
+docker build -t $REF_SLUG:$REF_NAME .
 
 if [ -z "$CD_DOCKER_USERNAME" ] || [ -z "$CD_DOCKER_PASSWORD" ]; then
   echo "Docker image for $REF_SLUG can't be published because CD_DOCKER_USERNAME or CD_DOCKER_PASSWORD are missing"
@@ -53,12 +51,12 @@ echo "Docker image $REF_SLUG:$REF_NAME is being published"
 docker push $REF_SLUG:$REF_NAME
 
 # Publish latest and v2 if it id a release
-build_digest=$(echo "$docker_build" | grep built | cut -c20-31)
 echo $build_digest
 if [[ "$REF_NAME" == *"release"* ]]; then
-  docker tag $build_digest $REF_SLUG:latest
+  docker_image_id=$(docker images | grep -E "^$REF_SLUG.*$REF_NAME" | awk -e '{print $3}')
+  docker tag $docker_image_id $REF_SLUG:latest
   docker push $REF_SLUG:latest
-  docker tag $build_digest $REF_SLUG:v2
+  docker tag $docker_image_id $REF_SLUG:v2
   docker push $REF_SLUG:v2
 fi
 exit 0
