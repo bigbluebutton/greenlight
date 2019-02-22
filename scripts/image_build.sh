@@ -21,42 +21,42 @@ if [[ ($# == "--help") ||  $# == "-h" ]]; then
 	exit 0
 fi
 
-REF_SLUG=$1
-REF_NAME=$2
-COMMIT_SHA=$3
+export CD_REF_SLUG=$1
+export CD_REF_NAME=$2
+export CD_COMMIT_SHA=$3
 
-if [ "$REF_NAME" != "master" ] && [[ "$REF_NAME" != *"release"* ]] && [ -z $CD_BUILD_ALL ];then
-  echo "Docker image for $REF_SLUG won't be built"
+if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && [ -z $CD_BUILD_ALL ];then
+  echo "Docker image for $CD_REF_SLUG won't be built"
   exit 0
 fi
 
 # Set the version tag when it is a release or the commit sha was included.
-if [[ "$REF_NAME" == *"release"* ]]; then
-  sed -i "s/VERSION =.*/VERSION = \"$(expr substr $REF_NAME 9)\"/g" config/initializers/version.rb
+if [[ "$CD_REF_NAME" == *"release"* ]]; then
+  sed -i "s/VERSION =.*/VERSION = \"$(expr substr $CD_REF_NAME 9)\"/g" config/initializers/version.rb
 elif [ ! -z $CD_COMMIT_SHA ]; then
-  sed -i "s/VERSION =.*/VERSION = \"$REF_NAME ($(expr substr $COMMIT_SHA 1 8))\"/g" config/initializers/version.rb
+  sed -i "s/VERSION =.*/VERSION = \"$CD_REF_NAME ($(expr substr $CD_COMMIT_SHA 1 8))\"/g" config/initializers/version.rb
 fi
 # Build the image
-echo "Docker image $REF_SLUG:$REF_NAME is being built"
-docker build -t $REF_SLUG:$REF_NAME .
+echo "Docker image $CD_REF_SLUG:$CD_REF_NAME is being built"
+docker build -t $CD_REF_SLUG:$CD_REF_NAME .
 
 if [ -z "$CD_DOCKER_USERNAME" ] || [ -z "$CD_DOCKER_PASSWORD" ]; then
-  echo "Docker image for $REF_SLUG can't be published because CD_DOCKER_USERNAME or CD_DOCKER_PASSWORD are missing"
+  echo "Docker image for $CD_REF_SLUG can't be published because CD_DOCKER_USERNAME or CD_DOCKER_PASSWORD are missing"
   exit 0
 fi
 
 # Publish the image
 docker login -u="$CD_DOCKER_USERNAME" -p="$CD_DOCKER_PASSWORD"
-echo "Docker image $REF_SLUG:$REF_NAME is being published"
-docker push $REF_SLUG:$REF_NAME
+echo "Docker image $CD_REF_SLUG:$CD_REF_NAME is being published"
+docker push $CD_REF_SLUG:$CD_REF_NAME
 
 # Publish latest and v2 if it id a release
 echo $build_digest
-if [[ "$REF_NAME" == *"release"* ]]; then
-  docker_image_id=$(docker images | grep -E "^$REF_SLUG.*$REF_NAME" | awk -e '{print $3}')
-  docker tag $docker_image_id $REF_SLUG:latest
-  docker push $REF_SLUG:latest
-  docker tag $docker_image_id $REF_SLUG:v2
-  docker push $REF_SLUG:v2
+if [[ "$CD_REF_NAME" == *"release"* ]]; then
+  docker_image_id=$(docker images | grep -E "^$CD_REF_SLUG.*$CD_REF_NAME" | awk -e '{print $3}')
+  docker tag $docker_image_id $CD_REF_SLUG:latest
+  docker push $CD_REF_SLUG:latest
+  docker tag $docker_image_id $CD_REF_SLUG:v2
+  docker push $CD_REF_SLUG:v2
 fi
 exit 0
