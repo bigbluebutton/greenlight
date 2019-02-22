@@ -20,13 +20,8 @@
         <h3 class="card-title"><%= t("verify.title") %></h3>
       </div>
       <div class="card-body">
-          <p> Your account has not been verified yet. </p>
-          <% if Rails.configuration.enable_email_verification && params[:user_uid] == current_user.uid %>
-            <%= render "/shared/components/confirm_button" %>
-          <% else %>
-            <%= render "/shared/components/resend_button" %>
-          <% end %>
-        </form>
+        <p><%= t("verify.not_verified") %></p>
+        <%= render "/shared/components/resend_button" %>
       </div>
     </div>
   </div>

@@ -18,9 +18,11 @@
 
 class RoomsController < ApplicationController
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
-  before_action :validate_verified_email, unless: -> { !Rails.configuration.enable_email_verification }
+  before_action :validate_verified_email, except: [:show, :join],
+                unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: :create
   before_action :verify_room_ownership, except: [:create, :show, :join, :logout]
+  before_action :verify_room_owner_verified, only: [:show, :join]
 
   include RecordingsHelper
   META_LISTED = "gl-listed"
@@ -240,7 +242,19 @@ class RoomsController < ApplicationController
 
   def validate_verified_email
     if current_user
-      redirect_to resend_path unless current_user.email_verified
+      redirect_to account_activation_path(current_user) unless current_user.email_verified
+    end
+  end
+
+  def verify_room_owner_verified
+    unless @room.owner.email_verified
+      flash[:alert] = t("room.unavailable")
+
+      if current_user
+        redirect_to current_user.main_room
+      else
+        redirect_to root_path
+      end
     end
   end
 end
