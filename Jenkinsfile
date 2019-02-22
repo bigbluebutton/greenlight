@@ -63,14 +63,10 @@ volumes: [
             if (stageBuild) {
               sh "sed -i 's/VERSION =.*/VERSION = \"${gitBranch} (${gitCommit.substring(0, 7)})\"/g' config/initializers/version.rb"
               sh "gcloud docker -- build -t ${imageTag} -t 'bigbluebutton/${appName}:master' . && gcloud docker -- push ${imageTag}"
-              sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD"
-              sh "docker push 'bigbluebutton/${appName}:master'"
             } else if (releaseBuild) {
               sh "sed -i 's/VERSION =.*/VERSION = \"${gitTag.substring(8)}\"/g' config/initializers/version.rb"
               imageTag = "gcr.io/${project}/${appName}:${gitTag}"
               sh "gcloud docker -- build -t ${imageTag} -t 'bigbluebutton/${appName}:${greenlightVersion}' -t 'bigbluebutton/${appName}:${gitTag}' . && gcloud docker -- push ${imageTag}"
-              sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD"
-              sh "docker push 'bigbluebutton/${appName}:${greenlightVersion}' && docker push 'bigbluebutton/${appName}:${gitTag}'"
             }
           }
         }
