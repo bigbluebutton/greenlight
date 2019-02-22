@@ -1,12 +1,6 @@
 #!/bin/bash
 
-echo "v1.0.1"
-
-if [ -z "$CD_DEPLOY_SCRIPT" ]; then
-  echo "Script for deployment is not defined"
-  exit 0
-fi
-echo "Source for deployment script: $CD_DEPLOY_SCRIPT"
+echo "v1.0.2"
 
 display_usage() {
   echo "This script should be used as part of a CI strategy."
@@ -29,6 +23,12 @@ if [[ ($# == "--help") ||  $# == "-h" ]]; then
 	exit 0
 fi
 
+if [ -z "$CD_DEPLOY_SCRIPT" ]; then
+  echo "Script for deployment is not defined"
+  exit 0
+fi
+echo "Source for deployment script: $CD_DEPLOY_SCRIPT"
+
 export CD_REF_SLUG=$1
 export CD_REF_NAME=$2
 export CD_COMMIT_SHA=$3
@@ -50,8 +50,7 @@ if [ -z $CD_REF_NAME ]; then
   exit 0
 fi
 
-# It deploys only master and releases unless CD_DEPLOY_ALL is included
-if [ -z $DEPLOY_ALL ] && [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]]; then
+if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && [ -z $CD_DEPLOY_ALL ];then
   echo "Docker image for $CD_REF_SLUG won't be deployed"
   exit 0
 fi

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "v1.0.1"
+echo "v1.0.2"
 
 display_usage() {
   echo "This script should be used as part of a CI strategy."
