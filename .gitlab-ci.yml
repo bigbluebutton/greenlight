@@ -1,0 +1,56 @@
+stages:
+  - test
+  - build
+  - deploy
+
+before_script:
+
+test:
+  stage: test
+  image: ruby:2.5
+  script:
+  - apt-get update -qq && apt-get install -y -qq sqlite3 libsqlite3-dev nodejs
+  - bundle install --path /cache
+  - bundle exec rake db:create RAILS_ENV=test
+  - bundle exec rake test & bundle exec rspec & bundle exec rubocop
+  only:
+    refs:
+      - branches
+    variables:
+      - $GITLAB_TEST
+
+build:
+  stage: build
+  image: docker:stable
+  services:
+  - docker:dind
+  script:
+  # Install bash, curl, git for deployment script
+  - apk update && apk add --no-cache bash curl git
+  # Install CA certs, openssl to https downloads, python for gcloud sdk
+  - apk add --update make ca-certificates openssl python
+  - update-ca-certificates
+  # Build.
+  - ./scripts/image_build.sh $CI_PROJECT_PATH $CI_COMMIT_REF_NAME $CI_COMMIT_SHA
+  only:
+    variables:
+      - $GITLAB_BUILD
+
+deploy:
+  stage: deploy
+  image: docker:stable
+  services:
+  - docker:dind
+  script:
+  # Install bash, curl, git for deployment script
+  - apk update && apk add --no-cache bash curl git
+  # Install CA certs, openssl to https downloads, python for gcloud sdk
+  - apk add --update make ca-certificates openssl python
+  - update-ca-certificates
+  # Deploy.
+  - ./scripts/image_deploy.sh $CI_PROJECT_PATH $CI_COMMIT_REF_NAME $CI_COMMIT_SHA $CI_COMMIT_BEFORE_SHA
+  only:
+    refs:
+      - branches
+    variables:
+      - $GITLAB_DEPLOY
