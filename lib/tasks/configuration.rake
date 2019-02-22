@@ -52,7 +52,7 @@ rescue => exc
   failed("Error connecting to SMTP - #{exc}")
 end
 
-# takes the full URL including the protocol
+# Takes the full URL including the protocol
 def test_request(url)
   uri = URI(url)
   res = Net::HTTP.get(uri)
