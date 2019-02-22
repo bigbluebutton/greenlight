@@ -1,6 +1,26 @@
 #!/bin/bash
 
-echo "v1.0.2"
+################################################################################
+# For this script to work properly it is required to define some environment variables
+# in the CI/CD Env variable declaration, while others should be passed as parameters.
+#
+#------------------------------------------------------------------------------
+# Defined as part of the CD/CI Env Variables:
+#
+# CD_DOCKER_USERNAME
+# A DockerHub username to be used for uploading the build.
+#
+# CD_DOCKER_PASSWORD
+# A DockerHub password to be used for uploading the build.
+#
+# CD_BUILD_ALL
+# As the build is supposed to be done only for master (for a nightly deployments) and for releases
+# (like 'release-2.0.5' for production deployments), it is additionally required to include this
+# variable in order to build any other brnach, as it may be required for testing or reviewing work
+# as part of the development process.
+#
+
+echo "v1.0.3"
 
 display_usage() {
   echo "This script should be used as part of a CI strategy."

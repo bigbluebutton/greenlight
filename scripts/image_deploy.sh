@@ -1,6 +1,27 @@
 #!/bin/bash
 
-echo "v1.0.2"
+################################################################################
+# For this script to work properly it is required to define some environment variables
+# in the CI/CD Env variable declaration, while others should be passed as parameters.
+#
+#------------------------------------------------------------------------------
+# Defined as part of the CD/CI Env Variables:
+#
+# CD_DEPLOY_SCRIPT
+# The script to be used for the actual deployment. If a private repo is used, also the corresponding
+# OAuth token will be required. e.g CD_GITHUB_OAUTH_TOKEN when the script is stored in GitHub.
+#
+# CD_GITHUB_OAUTH_TOKEN
+# A GitHub token for granting access to https://github.com/blindsidenetworks/greenlight-scripts
+#
+# CD_DEPLOY_ALL
+# As the deployment is supposed to be normaly done only for master (for a nightly deployments) and
+# for releases(like 'release-2.0.5' for production deployments), it is additionally required to
+# include this variable in order to deploy any other brnach, as it may be required for testing
+# or reviewing work as part of development process.
+#
+
+echo "v1.0.3"
 
 display_usage() {
   echo "This script should be used as part of a CI strategy."
