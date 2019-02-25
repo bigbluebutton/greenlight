@@ -178,6 +178,7 @@ en:
     sessions: Sessions
     settings: Room Settings
     start: Start
+    unavailable: This room is currently unavailable due to the owner's email not being verified.
     update_settings_error: There was an error updating the room settings
     update_settings_success: Room settings successfully updated
     wait:
@@ -222,6 +223,11 @@ en:
     For details, see the %{href}.
   update: Update
   verify:
-    title: Verify your email
-    resend: Resend verification email
     accept: Verify
+    activated: Account verified!
+    already_verified: Account has already been verified
+    invalid: Invalid verification link
+    not_verified: Your account has not been verified yet.
+    resend: Resend verification email
+    signin: Please sign in to access your account.
+    title: Verify your email
