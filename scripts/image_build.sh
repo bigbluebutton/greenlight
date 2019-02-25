@@ -20,8 +20,6 @@
 # as part of the development process.
 #
 
-echo "v1.0.3"
-
 display_usage() {
   echo "This script should be used as part of a CI strategy."
   echo -e "Usage:\n  build_image.sh [ARGUMENTS]"

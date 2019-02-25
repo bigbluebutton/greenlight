@@ -13,11 +13,9 @@ test:
   - bundle install --path /cache
   - bundle exec rake db:create RAILS_ENV=test
   - bundle exec rake test & bundle exec rspec & bundle exec rubocop
-  only:
-    refs:
-      - branches
+  except:
     variables:
-      - $GITLAB_TEST
+      - $CD_TEST_IGNORE
 
 build:
   stage: build
@@ -34,7 +32,11 @@ build:
   - ./scripts/image_build.sh $CI_PROJECT_PATH $CI_COMMIT_REF_NAME $CI_COMMIT_SHA
   only:
     variables:
-      - $GITLAB_BUILD
+      - $CD_DOCKER_USERNAME
+      - $CD_DOCKER_PASSWORD
+  except:
+    variables:
+      - $CD_BUILD_IGNORE
 
 deploy:
   stage: deploy
@@ -53,4 +55,9 @@ deploy:
     refs:
       - branches
     variables:
-      - $GITLAB_DEPLOY
+      - $CD_DOCKER_USERNAME
+      - $CD_DOCKER_PASSWORD
+      - $CD_DEPLOY_SCRIPT
+  except:
+    variables:
+      - $CD_DEPLOY_IGNORE
