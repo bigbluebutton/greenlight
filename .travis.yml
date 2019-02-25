@@ -5,8 +5,22 @@ language: ruby
 rvm:
   - 2.5.1
 
-script:
-  - bundle install && bundle exec rubocop && bundle exec rspec
+jobs:
+  include:
+    - stage: test
+      name: rubocop
+      script: bundle exec rubocop
+      if: env(CD_TEST_IGNORE) IS NOT present
+
+    - stage: test
+      name: rspec
+      script: bundle exec rspec
+      if: env(CD_TEST_IGNORE) IS NOT present
+
+    - stage: build
+      name: build docker image
+      script: bash scripts/image_build.sh $TRAVIS_REPO_SLUG $TRAVIS_BRANCH $TRAVIS_COMMIT
+      if: !env(TRAVIS_PULL_REQUEST) AND env(CD_BUILD_IGNORE) IS NOT present AND env(CD_DOCKER_USERNAME) IS present AND env(CD_DOCKER_PASSWORD) IS present
 
 notifications:
   email: false
