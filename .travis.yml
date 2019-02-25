@@ -21,7 +21,6 @@ jobs:
       name: build docker image
       script: bash scripts/image_build.sh $TRAVIS_REPO_SLUG $TRAVIS_BRANCH $TRAVIS_COMMIT
       if: !env(TRAVIS_PULL_REQUEST) AND env(CD_BUILD_IGNORE) IS NOT present AND env(CD_DOCKER_USERNAME) IS present AND env(CD_DOCKER_PASSWORD) IS present
-      #if: env(CD_BUILD_IGNORE) IS NOT present AND (branch = master OR tag IS present OR env(CD_BUILD_ALL) IS present) AND env(CD_DOCKER_USERNAME) IS present AND env(CD_DOCKER_PASSWORD) IS present
 
 notifications:
   email: false
