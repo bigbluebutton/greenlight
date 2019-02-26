@@ -43,38 +43,31 @@ if [[ ($# == "--help") ||  $# == "-h" ]]; then
 fi
 
 if [ -z "$CD_DEPLOY_SCRIPT" ]; then
-  echo "Script for deployment is not defined"
+  echo "Script for deployment is not defined, it has to be defined as an ENV variable. [e.g. CD_DEPLOY_SCRIPT=https://example.com/scripts/deploy.sh]"
   exit 0
 fi
-echo "Source for deployment script: $CD_DEPLOY_SCRIPT"
+echo "Script for deployment: $CD_DEPLOY_SCRIPT"
 
 export CD_REF_SLUG=$1
 export CD_REF_NAME=$2
 export CD_COMMIT_SHA=$3
 export CD_COMMIT_BEFORE_SHA=$4
 
-
-if [ -z $CD_DEPLOY_SCRIPT ]; then
-  echo "Source for deployment script is not defined"
-  exit 0
-fi
-
 if [ -z $CD_REF_SLUG ]; then
-  echo "Repository not included [e.g. bigbluebutton/greenlight]"
+  echo "Repository not included, it should have been passed as an argument. [e.g. bigbluebutton/greenlight]"
   exit 0
 fi
 
 if [ -z $CD_REF_NAME ]; then
-  echo "Neither branch nor tag were included [e.g. master|release-2.0.5]"
+  echo "Neither branch nor tag were included, the name should have been passed as an argument. [e.g. master|release-2.0.5]"
   exit 0
 fi
 
 if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && [ -z $CD_DEPLOY_ALL ];then
-  echo "Docker image for $CD_REF_SLUG won't be deployed"
+  echo "Docker image for $CD_REF_SLUG won't be deployed. The conditions for running this build were not met."
   exit 0
 fi
-
-echo "Docker image $CD_REF_SLUG:$CD_REF_NAME is being deployed"
+echo "Docker image $CD_REF_SLUG:$CD_REF_NAME is being deployed."
 
 # The actual script should be pulled from an external repository
 if [ ! -z $CD_GITHUB_OAUTH_TOKEN ]; then
@@ -84,7 +77,6 @@ else
   echo "Script from a any other public repo: $CD_DEPLOY_SCRIPT"
   curl -L $CD_DEPLOY_SCRIPT > deploy.sh
 fi
-
 chmod +x deploy.sh
 ./deploy.sh $CD_REF_SLUG $CD_REF_NAME $CD_COMMIT_SHA $CD_COMMIT_BEFORE_SHA
 
