@@ -31,6 +31,9 @@ build:
   # Build.
   - ./scripts/image_build.sh $CI_PROJECT_PATH $CI_COMMIT_REF_NAME $CI_COMMIT_SHA
   only:
+    refs:
+      - branches
+      - tags
     variables:
       - $CD_DOCKER_USERNAME
       - $CD_DOCKER_PASSWORD
@@ -54,6 +57,7 @@ deploy:
   only:
     refs:
       - branches
+      - tags
     variables:
       - $CD_DOCKER_USERNAME
       - $CD_DOCKER_PASSWORD
