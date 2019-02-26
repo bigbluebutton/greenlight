@@ -52,7 +52,7 @@ fi
 
 # Set the version tag when it is a release or the commit sha was included.
 if [[ "$CD_REF_NAME" == *"release"* ]]; then
-  sed -i "s/VERSION =.*/VERSION = \"$(expr substr $CD_REF_NAME 9)\"/g" config/initializers/version.rb
+  sed -i "s/VERSION =.*/VERSION = \"${CD_REF_NAME:8}\"/g" config/initializers/version.rb
 elif [ ! -z $CD_COMMIT_SHA ]; then
   sed -i "s/VERSION =.*/VERSION = \"$CD_REF_NAME ($(expr substr $CD_COMMIT_SHA 1 8))\"/g" config/initializers/version.rb
 fi
