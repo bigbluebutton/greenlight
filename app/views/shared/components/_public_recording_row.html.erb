@@ -60,8 +60,9 @@
     </div>
   </td>
   <td>
+    <% sorted_formats =  recording[:playbacks].sort_by! {|p| p[:type]} %>
     <% p = recording[:playbacks].find do |p| p.key?(:length) end %>
-    <% recording[:playbacks].each do |p| %>
+    <% sorted_formats.each do |p| %>
       <%= link_to p[:type].capitalize, p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
     <% end %>
   </td>

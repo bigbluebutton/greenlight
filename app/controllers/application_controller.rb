@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
 
   before_action :migration_error?
   before_action :set_locale
+  layout :layout
 
   # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
@@ -108,4 +109,31 @@ class ApplicationController < ActionController::Base
   def redirect_to_https
     redirect_to protocol: "https://" if loadbalanced_configuration? && request.headers["X-Forwarded-Proto"] == "http"
   end
+
+
+private
+  # Overwriting the sign_out redirect path method
+  def after_sign_out_path_for(resource_or_scope)
+    if resource_or_scope == :admin
+      new_admin_session_path
+    else
+      root_path
+    end
+  end
+
+  def after_sign_in_path_for(resource)
+    if resource.is_a?(Admin)
+      dashboard_path
+    else
+      root_path
+    end
+  end
+
+  def layout
+    # only turn it off for login pages:
+    is_a?(Devise::SessionsController) ? false : "application"
+    # or turn layout off for every devise controller:
+    !devise_controller? && "application"
+  end
+
 end

@@ -18,7 +18,8 @@
 
 class SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:omniauth, :fail]
-
+  after_action :login_user_detail, only: [:create]
+  after_action :login_omniauth_user_detail, only: [:omniauth]
   # GET /users/logout
   def destroy
     logout
@@ -29,11 +30,11 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: session_params[:email])
     if user && !user.greenlight_account?
-      redirect_to root_path, notice: I18n.t("invalid_login_method")
+      redirect_to root_path, alert: I18n.t("invalid_login_method")
     elsif user.try(:authenticate, session_params[:password])
       login(user)
     else
-      redirect_to root_path, notice: I18n.t("invalid_credentials")
+      redirect_to root_path, alert: I18n.t("invalid_credentials")
     end
   end
 
@@ -48,10 +49,20 @@ class SessionsController < ApplicationController
 
   # POST /auth/failure
   def omniauth_fail
-    redirect_to root_path, notice: I18n.t(params[:message], default: I18n.t("omniauth_error"))
+    redirect_to root_path, alert: I18n.t(params[:message], default: I18n.t("omniauth_error"))
   end
 
   private
+
+  def login_user_detail
+    user = User.find_by_email(session_params[:email])
+    user.update_attribute(:last_sign_in_at, Time.now) if user.present?
+  end
+
+  def login_omniauth_user_detail
+    user = User.from_omniauth(request.env['omniauth.auth'])
+    user.update_attribute(:last_sign_in_at, Time.now) if user.present?
+  end
 
   def session_params
     params.require(:session).permit(:email, :password)

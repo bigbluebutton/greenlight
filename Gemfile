@@ -67,6 +67,10 @@ gem 'http_accept_language'
 # Markdown parsing.
 gem 'redcarpet'
 
+gem 'devise'
+
+gem 'rails_admin', '~> 1.3'
+
 # For health check endpoint
 gem "health_check"
 
