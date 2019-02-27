@@ -72,6 +72,21 @@ describe SessionsController, type: :controller do
 
       expect(@request.session[:user_id]).to be_nil
     end
+
+    it "should not login user if account is not verified" do
+      @secondary_user = create(:user, email_verified: false, provider: "greenlight",
+                                password: "example", password_confirmation: "example")
+
+      post :create, params: {
+        session: {
+          email: @secondary_user.email,
+          password: "example",
+        },
+      }
+
+      expect(@request.session[:user_id]).to be_nil
+      expect(response).to redirect_to(account_activation_path(email: @secondary_user.email))
+    end
   end
 
   describe "GET/POST #omniauth" do
