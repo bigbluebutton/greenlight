@@ -20,6 +20,8 @@
 # as part of the development process.
 #
 
+echo "v2019022601"
+
 display_usage() {
   echo "This script should be used as part of a CI strategy."
   echo -e "Usage:\n  build_image.sh [ARGUMENTS]"
