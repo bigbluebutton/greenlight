@@ -30,19 +30,37 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.provider = "greenlight"
 
-    if Rails.configuration.enable_email_verification && @user.save
+    # Check if user already exists
+    if User.exists?(email: user_params[:email], provider: @user.provider)
+      existing_user = User.find_by!(email: user_params[:email], provider: @user.provider)
+      if Rails.configuration.enable_email_verification && !existing_user.email_verified?
+        # User exists but is not verified
+        redirect_to(account_activation_path(email: existing_user.email)) && return
+      else
+        # User already exists and is verified
+        # Attempt to save so that the correct errors appear
+        @user.save
+
+        render(:new) && return
+      end
+    elsif Rails.configuration.enable_email_verification && @user.save
       begin
-        UserMailer.verify_email(@user, verification_link(@user)).deliver
-        login(@user)
+        @user.send_activation_email(verification_link)
       rescue => e
         logger.error "Error in email delivery: #{e}"
-        mailer_delivery_fail
+        flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
+      else
+        flash[:success] = I18n.t("email_sent")
       end
+
+      redirect_to(root_path) && return
     elsif @user.save
+      # User doesn't exist and email verification is turned off
+      @user.activate
       login(@user)
     else
       # Handle error on user creation.
-      render :new
+      render(:new) && return
     end
   end
 
@@ -145,51 +163,14 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET | POST /u/verify/confirm
-  def confirm
-    if !current_user || current_user.uid != params[:user_uid]
-      redirect_to '/404'
-    elsif current_user.email_verified
-      login(current_user)
-    elsif params[:email_verified] == "true"
-      current_user.update_attributes(email_verified: true)
-      login(current_user)
-    else
-      render 'verify'
-    end
-  end
-
-  # GET /u/verify/resend
-  def resend
-    if !current_user
-      redirect_to '/404'
-    elsif current_user.email_verified
-      login(current_user)
-    elsif params[:email_verified] == "false"
-      begin
-        UserMailer.verify_email(current_user, verification_link(current_user)).deliver
-        render 'verify'
-      rescue => e
-        logger.error "Error in email delivery: #{e}"
-        mailer_delivery_fail
-      end
-    else
-      render 'verify'
-    end
-  end
-
   private
-
-  def mailer_delivery_fail
-    redirect_to root_path, alert: I18n.t(params[:message], default: I18n.t("delivery_error"))
-  end
-
-  def verification_link(user)
-    request.base_url + confirm_path(user.uid)
-  end
 
   def find_user
     @user = User.find_by!(uid: params[:user_uid])
+  end
+
+  def verification_link
+    request.base_url + edit_account_activation_path(token: @user.activation_token, email: @user.email)
   end
 
   def ensure_unauthenticated
