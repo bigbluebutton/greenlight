@@ -49,9 +49,12 @@ fi
 export CD_REF_SLUG=$1
 export CD_REF_NAME=$2
 export CD_COMMIT_SHA=$3
+if [ -z $CD_DOCKER_REPO ]; then
+  export CD_DOCKER_REPO=$CD_REF_SLUG
+fi
 
 if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && [ -z $CD_BUILD_ALL ];then
-  echo "Docker image for $CD_REF_SLUG won't be built"
+  echo "#### Docker image for $CD_REF_SLUG won't be built"
   exit 0
 fi
 
@@ -61,32 +64,27 @@ if [[ "$CD_REF_NAME" == *"release"* ]]; then
 elif [ ! -z $CD_COMMIT_SHA ]; then
   sed -i "s/VERSION =.*/VERSION = \"$CD_REF_NAME ($(expr substr $CD_COMMIT_SHA 1 8))\"/g" config/initializers/version.rb
 fi
+
 # Build the image
-echo "Docker image $CD_REF_SLUG:$CD_REF_NAME is being built"
-docker build -t $CD_REF_SLUG:$CD_REF_NAME .
+echo "#### Docker image $CD_DOCKER_REPO:$CD_REF_NAME is being built"
+docker build -t $CD_DOCKER_REPO:$CD_REF_NAME .
 
 if [ -z "$CD_DOCKER_USERNAME" ] || [ -z "$CD_DOCKER_PASSWORD" ]; then
-  echo "Docker image for $CD_REF_SLUG can't be published because CD_DOCKER_USERNAME or CD_DOCKER_PASSWORD are missing"
+  echo "#### Docker image for $CD_DOCKER_REPO can't be published because CD_DOCKER_USERNAME or CD_DOCKER_PASSWORD are missing"
   exit 0
 fi
 
 # Publish the image
 docker login -u="$CD_DOCKER_USERNAME" -p="$CD_DOCKER_PASSWORD"
-if [ ! -z $CD_DOCKER_REPO ]; then
-  docker_repo=$CD_DOCKER_REPO
-else
-  docker_repo=$CD_REF_SLUG
-fi
-
-echo "Docker image $docker_repo:$CD_REF_NAME is being published"
-docker push $docker_repo
+echo "#### Docker image $CD_DOCKER_REPO:$CD_REF_NAME is being published"
+docker push $CD_DOCKER_REPO
 
 # Publish latest and v2 if it id a release
 if [[ "$CD_REF_NAME" == *"release"* ]]; then
-  docker_image_id=$(docker images | grep -E "^$docker_repo.*$CD_REF_NAME" | awk -e '{print $3}')
-  docker tag $docker_image_id $docker_repo:latest
-  docker push $docker_repo:latest
-  docker tag $docker_image_id $docker_repo:v2
-  docker push $docker_repo:v2
+  docker_image_id=$(docker images | grep -E "^$CD_DOCKER_REPO.*$CD_REF_NAME" | awk -e '{print $3}')
+  docker tag $docker_image_id $CD_DOCKER_REPO:latest
+  docker push $CD_DOCKER_REPO:latest
+  docker tag $docker_image_id $CD_DOCKER_REPO:v2
+  docker push $CD_DOCKER_REPO:v2
 fi
 exit 0
