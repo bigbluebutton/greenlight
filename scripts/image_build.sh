@@ -13,6 +13,9 @@
 # CD_DOCKER_PASSWORD
 # A DockerHub password to be used for uploading the build.
 #
+# CD_DOCKER_REPO
+# A DockerHub repository. By default the CD_REF_SLUG is also used as the docker repo.
+#
 # CD_BUILD_ALL
 # As the build is supposed to be done only for master (for a nightly deployments) and for releases
 # (like 'release-2.0.5' for production deployments), it is additionally required to include this
@@ -69,16 +72,21 @@ fi
 
 # Publish the image
 docker login -u="$CD_DOCKER_USERNAME" -p="$CD_DOCKER_PASSWORD"
-echo "Docker image $CD_REF_SLUG:$CD_REF_NAME is being published"
-docker push $CD_REF_SLUG:$CD_REF_NAME
+if [ ! -z $CD_DOCKER_REPO ]; then
+  docker_repo=$CD_DOCKER_REPO
+else
+  docker_repo=$CD_REF_SLUG
+fi
+
+echo "Docker image $docker_repo:$CD_REF_NAME is being published"
+docker push $docker_repo
 
 # Publish latest and v2 if it id a release
-echo $build_digest
 if [[ "$CD_REF_NAME" == *"release"* ]]; then
-  docker_image_id=$(docker images | grep -E "^$CD_REF_SLUG.*$CD_REF_NAME" | awk -e '{print $3}')
-  docker tag $docker_image_id $CD_REF_SLUG:latest
-  docker push $CD_REF_SLUG:latest
-  docker tag $docker_image_id $CD_REF_SLUG:v2
-  docker push $CD_REF_SLUG:v2
+  docker_image_id=$(docker images | grep -E "^$docker_repo.*$CD_REF_NAME" | awk -e '{print $3}')
+  docker tag $docker_image_id $docker_repo:latest
+  docker push $docker_repo:latest
+  docker tag $docker_image_id $docker_repo:v2
+  docker push $docker_repo:v2
 fi
 exit 0
