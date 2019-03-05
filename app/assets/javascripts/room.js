@@ -55,7 +55,10 @@ $(document).on('turbolinks:load', function(){
   // Display and update all fields related to creating a room in the createRoomModal
   $("#create-room").click(function(){
     $("#create-room-name").val("")
-    $("#createRoomModal form").attr("action", "/")
+
+    var relative_url_root = window.location.pathname.split("/")[1];
+
+    $("#createRoomModal form").attr("action", "/" + relative_url_root)
     updateDropdown($(".dropdown-item[value='default']"))
     $("#room_mute_on_join").prop("checked", false)
 
