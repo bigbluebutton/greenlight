@@ -73,7 +73,12 @@ class RoomsController < ApplicationController
     elsif params[:setting] == "rename_recording"
       @room.update_recording(params[:record_id], "meta_name" => params[:record_name])
     end
-    redirect_to room_path
+
+    if request.referrer
+      redirect_to request.referrer
+    else
+      redirect_to room_path
+    end
   end
 
   # POST /:room_uid
