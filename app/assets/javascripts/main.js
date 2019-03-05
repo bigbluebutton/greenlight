@@ -16,14 +16,6 @@
 
 // Handle changing of settings tabs.
 $(document).on('turbolinks:load', function(){
-  var roomCreateValidations = function(){
-    if($('#create-room-name').val().length === 0){
-      $('#create-room-name').addClass("is-invalid");
-    }
-  }
-
-  $('#create-room-submit').on('click', roomCreateValidations);
-
   var controller = $("body").data('controller');
   var action = $("body").data('action');
 
