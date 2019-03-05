@@ -13,3 +13,11 @@
 //
 // You should have received a copy of the GNU Lesser General Public License along
 // with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+var roomCreateValidations = function(){
+  if($('#room-name').val().length == 0){
+    $('#room-name').addClass("is-invalid");
+  }
+}
+
+$('#create-room-submit').on('click', roomCreateValidations);
