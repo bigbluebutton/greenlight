@@ -18,7 +18,7 @@ $(document).on('turbolinks:load', function(){
   var controller = $("body").data('controller');
   var action = $("body").data('action');
 
-  if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update"){
+  if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update" || controller == "users" && action == "recordings"){
 
     // Set a room header rename event
     var configure_room_header = function(room_title){
@@ -117,14 +117,7 @@ $(document).on('turbolinks:load', function(){
 
     // Apply ajax request depending on the element that triggered the event
     var submit_rename_request = function(element){
-      if(element.data('room-uid')){
-        submit_update_request({
-          setting: "rename_block",
-          room_block_uid: element.data('room-uid'),
-          room_name: element.find('#room-name-editable-input').val(),
-        });
-      }
-      else if(element.is('#room-title')){
+      if(element.is('#room-title')){
         submit_update_request({
           setting: "rename_header",
           room_name: element.find('#user-text').text(),
@@ -135,15 +128,28 @@ $(document).on('turbolinks:load', function(){
           setting: "rename_recording",
           record_id: element.data('recordid'),
           record_name: element.find('text').text(),
+          room_uid: element.data('room-uid'),
         });
       }
     }
 
     // Helper for submitting ajax requests
     var submit_update_request = function(data){
+      var update_path = window.location.pathname
+
+      if ('room_uid' in data) {
+        update_path = $("body").data('relative-root')
+
+        if (!update_path.endsWith("/")) {
+          update_path += "/"
+        }
+
+        update_path += data.room_uid
+      }
+
       // Send ajax request for update
       $.ajax({
-        url: window.location.pathname,
+        url: update_path,
         type: "PATCH",
         data: data,
       });
