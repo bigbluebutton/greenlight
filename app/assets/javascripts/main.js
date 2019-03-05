@@ -14,10 +14,34 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-var roomCreateValidations = function(){
-  if($('#room-name').val().length == 0){
-    $('#room-name').addClass("is-invalid");
+// Handle changing of settings tabs.
+$(document).on('turbolinks:load', function(){
+  var roomCreateValidations = function(){
+    if($('#create-room-name').val().length === 0){
+      $('#create-room-name').addClass("is-invalid");
+    }
   }
-}
 
-$('#create-room-submit').on('click', roomCreateValidations);
+  $('#create-room-submit').on('click', roomCreateValidations);
+
+  var controller = $("body").data('controller');
+  var action = $("body").data('action');
+
+
+  // Only run on the main page.
+  if (controller == "main" && action == "index"){
+    var cycleImages = function(){
+      var images = $('.img-cycle img');
+      var now = images.filter(':visible');
+      var next = now.next().length ? now.next() : images.first();
+      var speed = 1500;
+
+      now.fadeOut(speed);
+      next.fadeIn(speed);
+    }
+
+    $(function() {
+      setInterval(cycleImages, 5000);
+    });
+  }
+});
