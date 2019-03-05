@@ -29,19 +29,13 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: session_params[:email])
     if user && !user.greenlight_account?
-      if request.referrer.present?
-        redirect_to request.referrer, alert: I18n.t("invalid_login_method")
-      else
-        redirect_to root_path, alert: I18n.t("invalid_login_method")
-      end
+      redirect_to root_path, alert: I18n.t("invalid_login_method")
     elsif user.try(:authenticate, session_params[:password])
       if user.email_verified
         login(user)
       else
         redirect_to(account_activation_path(email: user.email)) && return
       end
-    elsif request.referrer.present?
-      redirect_to request.referrer, alert: I18n.t("invalid_credentials")
     else
       redirect_to root_path, alert: I18n.t("invalid_credentials")
     end
