@@ -34,23 +34,27 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>">
+  <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>" data-relative-root="<%= Rails.configuration.relative_url_root || "/" %>">
     <%= render "shared/header" %>
 
     <div class="wrapper">
       <% if bigbluebutton_endpoint_default? %>
-        <%= render "shared/error_banner" do %>
-          <i class="fas fa-exclamation-triangle"></i>
-          <p class="d-inline"><%= t("test_install",
-            href: link_to(t("docs").downcase, "http://docs.bigbluebutton.org/install/greenlight-v2.html#2-install-greenlight", target: "_blank")
-          ).html_safe %>
-        <% end %>
+        <div class="alert alert-icon alert-danger text-center mb-0">
+          <div class="flash alert d-inline">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p class="d-inline"><%= t("test_install",
+              href: link_to(t("docs").downcase, "http://docs.bigbluebutton.org/install/greenlight-v2.html#2-install-greenlight", target: "_blank")
+            ).html_safe %>
+          </div>
+        </div>
       <% end %>
 
       <% unless Rails.configuration.banner_message.blank? %>
-        <%= render "shared/error_banner" do %>
-          <p class="d-inline"><%= Rails.configuration.banner_message %></p>
-        <% end %>
+        <div class="alert alert-icon alert-danger text-center mb-0">
+          <div class="flash alert d-inline">
+            <p class="d-inline"><%= Rails.configuration.banner_message %></p>
+          </div>
+        </div>
       <% end %>
 
       <%= yield %>

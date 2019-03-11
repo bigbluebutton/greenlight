@@ -29,6 +29,7 @@ FactoryBot.define do
     password_confirmation { password }
     accepted_terms { true }
     email_verified { true }
+    activated_at { Time.zone.now }
   end
 
   factory :room do

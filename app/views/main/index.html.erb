@@ -31,20 +31,3 @@
 </div>
 
 <%= render "shared/features" %>
-
-
-<script>
-var cycleImages = function(){
-  var images = $('.img-cycle img');
-  var now = images.filter(':visible');
-  var next = now.next().length ? now.next() : images.first();
-  var speed = 1500;
-
-  now.fadeOut(speed);
-  next.fadeIn(speed);
-}
-
-$(function() {
-  setInterval(cycleImages, 5000);
-});
-</script>

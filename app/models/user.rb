@@ -19,9 +19,10 @@
 class User < ApplicationRecord
   include ::APIConcern
 
-  attr_accessor :reset_token
-  after_create :initialize_main_room
+  attr_accessor :reset_token, :activation_token
+  after_create :create_home_room_if_verified
   before_save { email.try(:downcase!) }
+  before_create :create_activation_digest
 
   before_destroy :destroy_rooms
 
@@ -119,6 +120,18 @@ class User < ApplicationRecord
 
     format_recordings(res)
   end
+  
+  # Activates an account and initialize a users main room
+  def activate
+    update_attribute(:email_verified, true)
+    update_attribute(:activated_at, Time.zone.now)
+
+    initialize_main_room
+  end
+
+  def send_activation_email(url)
+    UserMailer.verify_email(self, url).deliver
+  end
 
   # Sets the password reset attributes.
   def create_reset_digest
@@ -182,14 +195,27 @@ class User < ApplicationRecord
 
   private
 
+  def create_activation_digest
+    # Create the token and digest.
+    self.activation_token  = User.new_token
+    self.activation_digest = User.digest(activation_token)
+  end
+
   # Destory a users rooms when they are removed.
   def destroy_rooms
     rooms.destroy_all
   end
 
+  # Assigns the user a BigBlueButton id and a home room if verified
+  def create_home_room_if_verified
+    self.uid = "gl-#{(0...12).map { (65 + rand(26)).chr }.join.downcase}"
+
+    initialize_main_room if email_verified
+    save
+  end
+
   # Initializes a room for the user and assign a BigBlueButton user id.
   def initialize_main_room
-    self.uid = "gl-#{(0...12).map { (65 + rand(26)).chr }.join.downcase}"
     self.main_room = Room.create!(owner: self, name: I18n.t("home_room"))
     save
   end

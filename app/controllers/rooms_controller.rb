@@ -20,9 +20,11 @@ class RoomsController < ApplicationController
   include RecordingsHelper
 
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
-  before_action :validate_verified_email, unless: -> { !Rails.configuration.enable_email_verification }
+  before_action :validate_verified_email, except: [:show, :join],
+                unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: :create
   before_action :verify_room_ownership, except: [:create, :show, :join, :logout]
+  before_action :verify_room_owner_verified, only: [:show, :join]
 
   # POST /
   def create
@@ -67,7 +69,12 @@ class RoomsController < ApplicationController
     elsif params[:setting] == "rename_recording"
       @room.update_recording(params[:record_id], "meta_name" => params[:record_name])
     end
-    redirect_to room_path
+
+    if request.referrer
+      redirect_to request.referrer
+    else
+      redirect_to room_path
+    end
   end
 
   # POST /:room_uid
@@ -216,7 +223,19 @@ class RoomsController < ApplicationController
 
   def validate_verified_email
     if current_user
-      redirect_to resend_path unless current_user.email_verified
+      redirect_to account_activation_path(current_user) unless current_user.email_verified
+    end
+  end
+
+  def verify_room_owner_verified
+    unless @room.owner.email_verified
+      flash[:alert] = t("room.unavailable")
+
+      if current_user
+        redirect_to current_user.main_room
+      else
+        redirect_to root_path
+      end
     end
   end
 end

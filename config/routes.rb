@@ -34,14 +34,15 @@ Rails.application.routes.draw do
   # Password reset resources.
   resources :password_resets, only: [:new, :create, :edit, :update]
 
+  # Account activation resources
+  scope '/account_activations' do
+    get '/', to: 'account_activations#show', as: :account_activation
+    get '/edit', to: 'account_activations#edit', as: :edit_account_activation
+    get '/resend', to: 'account_activations#resend', as: :resend_email
+  end
+
   # User resources.
   scope '/u' do
-    # Verification Routes
-    scope '/verify' do
-      match '/resend', to: 'users#resend', via: [:get, :post], as: :resend
-      match '/confirm/:user_uid', to: 'users#confirm', via: [:get, :post], as: :confirm
-    end
-
     # Handles login of greenlight provider accounts.
     post '/login', to: 'sessions#create', as: :create_session
 
