@@ -120,7 +120,7 @@ class User < ApplicationRecord
 
     format_recordings(res)
   end
-  
+
   # Activates an account and initialize a users main room
   def activate
     update_attribute(:email_verified, true)
