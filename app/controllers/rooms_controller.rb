@@ -17,15 +17,14 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class RoomsController < ApplicationController
+  include RecordingsHelper
+
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :validate_verified_email, except: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: :create
   before_action :verify_room_ownership, except: [:create, :show, :join, :logout]
   before_action :verify_room_owner_verified, only: [:show, :join]
-
-  include RecordingsHelper
-  META_LISTED = "gl-listed"
 
   # POST /
   def create
@@ -52,10 +51,7 @@ class RoomsController < ApplicationController
   def show
     if current_user && @room.owned_by?(current_user)
       recs = @room.recordings
-      # Add the room id to each recording object
-      recs.each do |rec|
-        rec[:room_uid] = @room.uid
-      end
+
       @recordings = recs
       @is_running = @room.running?
     else
@@ -166,26 +162,6 @@ class RoomsController < ApplicationController
   def logout
     # Redirect the correct page.
     redirect_to @room
-  end
-
-  # POST /:room_uid/:record_id
-  def update_recording
-    meta = {
-      "meta_#{META_LISTED}" => (params[:state] == "public"),
-    }
-
-    res = @room.update_recording(params[:record_id], meta)
-
-    # Redirects to the page that made the initial request
-    redirect_to request.referrer if res[:updated]
-  end
-
-  # DELETE /:room_uid/:record_id
-  def delete_recording
-    @room.delete_recording(params[:record_id])
-
-    # Redirects to the page that made the initial request
-    redirect_to request.referrer
   end
 
   private
