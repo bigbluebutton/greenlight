@@ -17,6 +17,8 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class User < ApplicationRecord
+  include ::APIConcern
+
   attr_accessor :reset_token, :activation_token
   after_create :create_home_room_if_verified
   before_save { email.try(:downcase!) }
@@ -93,6 +95,30 @@ class User < ApplicationRecord
         auth['info']['image'] unless auth['provider'] == :microsoft_office365
       end
     end
+  end
+
+  def all_recordings
+    pag_num = Rails.configuration.pagination_number
+
+    pag_loops = rooms.length / pag_num - 1
+
+    res = { recordings: [] }
+
+    (0..pag_loops).each do |i|
+      pag_rooms = rooms[pag_num * i, pag_num]
+
+      # bbb.get_recordings returns an object
+      # take only the array portion of the object that is returned
+      full_res = bbb.get_recordings(meetingID: pag_rooms.pluck(:bbb_id))
+      res[:recordings].push(*full_res[:recordings])
+    end
+
+    last_pag_room = rooms[pag_num * (pag_loops + 1), rooms.length % pag_num]
+
+    full_res = bbb.get_recordings(meetingID: last_pag_room.pluck(:bbb_id))
+    res[:recordings].push(*full_res[:recordings])
+
+    format_recordings(res)
   end
 
   # Activates an account and initialize a users main room
