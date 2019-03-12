@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
+include RoomsHelper
+
 class Room < ApplicationRecord
   before_create :setup
 
@@ -174,8 +176,8 @@ class Room < ApplicationRecord
   def setup
     self.uid = random_room_uid
     self.bbb_id = Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base] + Time.now.to_i.to_s).to_s
-    self.moderator_pw = random_password(12)
-    self.attendee_pw = random_password(12)
+    self.moderator_pw = RandomPassword.generate(length: 12)
+    self.attendee_pw = RandomPassword.generate(length: 12)
   end
 
   # Deletes all recordings associated with the room.
@@ -238,11 +240,5 @@ class Room < ApplicationRecord
   # Removes trailing forward slash from a URL.
   def remove_slash(s)
     s.nil? ? nil : s.chomp("/")
-  end
-
-  # Generates a random password for a meeting.
-  def random_password(length)
-    charset = ("a".."z").to_a + ("A".."Z").to_a
-    ((0...length).map { charset[rand(charset.length)] }).join
   end
 end
