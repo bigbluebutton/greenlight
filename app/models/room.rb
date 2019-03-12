@@ -62,9 +62,11 @@ class Room < ApplicationRecord
 
     # Send the create request.
     begin
-      bbb.create_meeting(name, bbb_id, create_options)
+      meeting = bbb.create_meeting(name, bbb_id, create_options)
       # Update session info.
-      update_attributes(sessions: sessions + 1, last_session: DateTime.now) unless running?
+      unless meeting[:messageKey] == 'duplicateWarning'
+        update_attributes(sessions: sessions + 1, last_session: DateTime.now)
+      end
     rescue BigBlueButton::BigBlueButtonException => exc
       puts "BigBlueButton failed on create: #{exc.key}: #{exc.message}"
       raise exc
