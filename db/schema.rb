@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190206210049) do
+ActiveRecord::Schema.define(version: 20190312003555) do
 
   create_table "rooms", force: :cascade do |t|
     t.integer  "user_id"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20190206210049) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.string   "room_settings", default: "{ }"
+    t.string   "moderator_pw"
+    t.string   "attendee_pw"
     t.index ["bbb_id"], name: "index_rooms_on_bbb_id"
     t.index ["last_session"], name: "index_rooms_on_last_session"
     t.index ["name"], name: "index_rooms_on_name"
@@ -41,11 +43,10 @@ ActiveRecord::Schema.define(version: 20190206210049) do
     t.string   "image"
     t.string   "password_digest"
     t.boolean  "accepted_terms",    default: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.boolean  "email_verified",    default: false
     t.string   "language",          default: "default"
-    t.string   "role",              default: "moderator"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
     t.string   "activation_digest"

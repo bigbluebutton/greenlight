@@ -90,7 +90,7 @@ class RoomsController < ApplicationController
       end
     end
 
-    if @room.running?
+    if @room.running? || @room.owned_by?(current_user)
       # Determine if the user needs to join as a moderator.
       opts[:user_is_moderator] = @room.owned_by?(current_user)
 
