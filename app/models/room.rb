@@ -49,15 +49,15 @@ class Room < ApplicationRecord
     create_options = {
       record: options[:meeting_recorded].to_s,
       logoutURL: options[:meeting_logout_url] || '',
-      moderatorPW: random_password(12),
-      attendeePW: random_password(12),
+      moderatorPW: moderator_pw,
+      attendeePW: attendee_pw,
       moderatorOnlyMessage: options[:moderator_message],
       muteOnStart: options[:mute_on_start] || false,
       "meta_#{META_LISTED}": false,
     }
 
     # Update session info.
-    update_attributes(sessions: sessions + 1, last_session: DateTime.now)
+    update_attributes(sessions: sessions + 1, last_session: DateTime.now) unless running?
 
     # Send the create request.
     begin
@@ -70,8 +70,8 @@ class Room < ApplicationRecord
 
   # Returns a URL to join a user into a meeting.
   def join_path(name, options = {}, uid = nil)
-    # Create the meeting if it isn't running.
-    start_session(options) unless running?
+    # Create the meeting, even if it's running
+    start_session(options)
 
     # Set meeting options.
     options[:meeting_logout_url] ||= nil
@@ -174,6 +174,8 @@ class Room < ApplicationRecord
   def setup
     self.uid = random_room_uid
     self.bbb_id = Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base] + Time.now.to_i.to_s).to_s
+    self.moderator_pw = random_password(12)
+    self.attendee_pw = random_password(12)
   end
 
   # Deletes all recordings associated with the room.
