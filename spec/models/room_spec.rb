@@ -153,5 +153,14 @@ describe Room, type: :model do
         playbacks: %w(presentation),
       )
     end
+
+    it "deletes the recording" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:delete_recordings).and_return(
+        returncode: true, deleted: true
+      )
+
+      expect(@room.delete_recording(Faker::IDNumber.valid))
+        .to contain_exactly([:returncode, true], [:deleted, true])
+    end
   end
 end
