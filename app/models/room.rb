@@ -58,12 +58,11 @@ class Room < ApplicationRecord
       "meta_#{META_LISTED}": false,
     }
 
-    # Update session info.
-    update_attributes(sessions: sessions + 1, last_session: DateTime.now) unless running?
-
     # Send the create request.
     begin
       bbb.create_meeting(name, bbb_id, create_options)
+      # Update session info.
+      update_attributes(sessions: sessions + 1, last_session: DateTime.now) unless running?
     rescue BigBlueButton::BigBlueButtonException => exc
       puts "BigBlueButton failed on create: #{exc.key}: #{exc.message}"
       raise exc
