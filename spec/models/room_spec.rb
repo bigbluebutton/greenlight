@@ -75,7 +75,9 @@ describe Room, type: :model do
 
   context "#start_session" do
     it "should update latest session info" do
-      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:create_meeting).and_return(true)
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:create_meeting).and_return(
+        messageKey: ""
+      )
 
       expect do
         @room.start_session

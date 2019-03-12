@@ -19,11 +19,11 @@ ActiveRecord::Schema.define(version: 20190312003555) do
     t.string   "bbb_id"
     t.integer  "sessions",      default: 0
     t.datetime "last_session"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "room_settings", default: "{ }"
-    t.string   "moderator_pw",
-    t.string   "attendee_pw",
+    t.string   "moderator_pw"
+    t.string   "attendee_pw"
     t.index ["bbb_id"], name: "index_rooms_on_bbb_id"
     t.index ["last_session"], name: "index_rooms_on_last_session"
     t.index ["name"], name: "index_rooms_on_name"

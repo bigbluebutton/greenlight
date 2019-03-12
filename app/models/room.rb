@@ -58,12 +58,13 @@ class Room < ApplicationRecord
       "meta_#{META_LISTED}": false,
     }
 
-    # Update session info.
-    update_attributes(sessions: sessions + 1, last_session: DateTime.now) unless running?
-
     # Send the create request.
     begin
-      bbb.create_meeting(name, bbb_id, create_options)
+      meeting = bbb.create_meeting(name, bbb_id, create_options)
+      # Update session info.
+      unless meeting[:messageKey] == 'duplicateWarning'
+        update_attributes(sessions: sessions + 1, last_session: DateTime.now)
+      end
     rescue BigBlueButton::BigBlueButtonException => exc
       puts "BigBlueButton failed on create: #{exc.key}: #{exc.message}"
       raise exc
@@ -145,8 +146,8 @@ class Room < ApplicationRecord
   def setup
     self.uid = random_room_uid
     self.bbb_id = Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base] + Time.now.to_i.to_s).to_s
-    self.moderator_pw = random_password(12)
-    self.attendee_pw = random_password(12)
+    self.moderator_pw = RandomPassword.generate(length: 12)
+    self.attendee_pw = RandomPassword.generate(length: 12)
   end
 
   # Deletes all recordings associated with the room.
@@ -164,11 +165,5 @@ class Room < ApplicationRecord
   # Generates a random room uid that uses the users name.
   def random_room_uid
     [owner.name_chunk, uid_chunk, uid_chunk].join('-').downcase
-  end
-
-  # Generates a random password for a meeting.
-  def random_password(length)
-    charset = ("a".."z").to_a + ("A".."Z").to_a
-    ((0...length).map { charset[rand(charset.length)] }).join
   end
 end
