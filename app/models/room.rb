@@ -140,6 +140,22 @@ class Room < ApplicationRecord
     bbb.delete_recordings(record_id)
   end
 
+  def play_recording(record_id, type)
+    recordings.select { |r| r[:recordID] == record_id }.first[:playbacks].select { |p| p[:type] == type }.first[:url]
+  end
+
+  # Passing it on the url
+  #
+  def token_url(user, ip, record_id, playback)
+    auth_token = get_token(user, ip, record_id)
+    if auth_token.present?
+      uri = playback
+      uri += URI.parse(uri).query.blank? ? "?" : "&"
+      uri += "token=#{auth_token}"
+      uri
+    end
+  end
+
   private
 
   # Generates a uid for the room and BigBlueButton.
@@ -165,5 +181,12 @@ class Room < ApplicationRecord
   # Generates a random room uid that uses the users name.
   def random_room_uid
     [owner.name_chunk, uid_chunk, uid_chunk].join('-').downcase
+  end
+
+  def get_token(user, ip, record_id)
+    user.present? ? authName = user.email : authName = "anonymous"
+    api_token = bbb.send_api_request(:getRecordingToken, { authUser: authName, authAddr: ip, meetingID: record_id })
+    str_token = api_token[:token]
+    str_token
   end
 end
