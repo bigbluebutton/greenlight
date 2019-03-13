@@ -74,6 +74,7 @@ describe RoomsController, type: :controller do
     end
 
     it "redirects to root if owner of room is not verified" do
+      allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
       @owner.update_attribute(:email_verified, false)
 
       post :show, params: { room_uid: @owner.main_room }
@@ -162,6 +163,7 @@ describe RoomsController, type: :controller do
     end
 
     it "redirects to root if owner of room is not verified" do
+      allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
       @owner.update_attribute(:email_verified, false)
 
       post :join, params: { room_uid: @room, join_name: @owner.name }
