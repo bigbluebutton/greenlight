@@ -105,6 +105,11 @@ class ApplicationController < ActionController::Base
     }
   end
 
+  # Manually deal with 401 errors
+  rescue_from CanCan::AccessDenied do |_exception|
+    render "errors/not_found"
+  end
+
   def redirect_to_https
     redirect_to protocol: "https://" if loadbalanced_configuration? && request.headers["X-Forwarded-Proto"] == "http"
   end

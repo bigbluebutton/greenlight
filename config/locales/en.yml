@@ -21,6 +21,11 @@ en:
     attributes:
       user:
         accepted_terms: "Terms and Conditions"
+  administrator:
+    title: Administrator Settings
+    design:
+      subtitle: Customize Greenlight
+      title: Design
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: Oops, there was an error when starting the meeting!
   cancel: Cancel
@@ -69,6 +74,7 @@ en:
   go_back: Go back
   greenlight: Greenlight
   header:
+    admin: Administrator
     create_room: Create Room
     dropdown:
       help: Need help?
@@ -198,10 +204,6 @@ en:
       disclaimer: If you choose to delete your account, it will <b>NOT</b> be recoverable. All information regarding your account, including settings, rooms, and recording will be removed.
       subtitle: Permanently Delete your Account
       title: Delete Account
-    design:
-      not_supported: Customization not currently supported.
-      subtitle: Customize Greenlight
-      title: Design
     password:
       confirmation: New Password Confirmation
       new: New Password
