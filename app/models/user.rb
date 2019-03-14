@@ -17,10 +17,12 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class User < ApplicationRecord
+  rolify
   include ::APIConcern
 
   attr_accessor :reset_token, :activation_token
   after_create :create_home_room_if_verified
+  after_create :assign_default_role
   before_save { email.try(:downcase!) }
   before_create :create_activation_digest
 
@@ -218,5 +220,10 @@ class User < ApplicationRecord
   def initialize_main_room
     self.main_room = Room.create!(owner: self, name: I18n.t("home_room"))
     save
+  end
+
+  # Initialize the user to use the default user role
+  def assign_default_role
+    add_role(:user) if roles.blank?
   end
 end
