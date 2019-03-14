@@ -10,18 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190312003555) do
+ActiveRecord::Schema.define(version: 20190314152108) do
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "resource_type"
+    t.integer  "resource_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["name"], name: "index_roles_on_name"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
+  end
 
   create_table "rooms", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
     t.string   "uid"
     t.string   "bbb_id"
-    t.integer  "sessions",      default: 0
+    t.integer  "sessions",              default: 0
     t.datetime "last_session"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.string   "room_settings", default: "{ }"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "room_settings",         default: "{ }"
     t.string   "moderator_pw"
     t.string   "attendee_pw"
     t.index ["bbb_id"], name: "index_rooms_on_bbb_id"
@@ -43,8 +54,8 @@ ActiveRecord::Schema.define(version: 20190312003555) do
     t.string   "image"
     t.string   "password_digest"
     t.boolean  "accepted_terms",    default: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.boolean  "email_verified",    default: false
     t.string   "language",          default: "default"
     t.string   "reset_digest"
@@ -53,6 +64,14 @@ ActiveRecord::Schema.define(version: 20190312003555) do
     t.datetime "activated_at"
     t.index ["password_digest"], name: "index_users_on_password_digest", unique: true
     t.index ["room_id"], name: "index_users_on_room_id"
+  end
+
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+    t.index ["role_id"], name: "index_users_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+    t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
 end
