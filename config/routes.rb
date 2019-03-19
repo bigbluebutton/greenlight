@@ -80,7 +80,7 @@ Rails.application.routes.draw do
     scope '/:record_id' do
       post '/', to: 'recordings#update_recording', as: :update_recording
       delete '/', to: 'recordings#delete_recording', as: :delete_recording
-      post '/:type', to: 'recordings#play_recording', as: :play_recording
+      get '/:type', to: 'recordings#play_recording', as: :play_recording
     end
   end
 
