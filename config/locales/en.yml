@@ -26,6 +26,15 @@ en:
     design:
       subtitle: Customize Greenlight
       title: Design
+    users:
+      subtitle: View Users
+      table:
+        created: Created On
+        name: Name
+        provider: Provider
+        uid: User ID
+        username: Username
+      title: Users
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: Oops, there was an error when starting the meeting!
   cancel: Cancel

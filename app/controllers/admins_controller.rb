@@ -21,5 +21,12 @@ class AdminsController < ApplicationController
 
   # GET /
   def index
+    @users = get_admins_users
+  end
+
+  private
+
+  def get_admins_users
+    User.all.reverse_order
   end
 end
