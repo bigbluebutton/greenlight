@@ -20,6 +20,10 @@
     </div>
     <hr>
 
-    <%= render "shared/settings/#{setting_id}" %>
+    <% unless (defined?(admin_view)).nil? %>
+      <%= render "shared/admin_settings/#{setting_id}" %>
+    <% else %>
+      <%= render "shared/settings/#{setting_id}" %>
+    <% end %>
   </div>
 <% end %>
