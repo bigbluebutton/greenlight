@@ -1,0 +1,49 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="form-group">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+        <thead>
+          <tr>
+            <th data-header="<%= t("administrator.users.table.name") %>" data-order="none">
+              <%= t("administrator.users.table.name") %>
+            </th>
+            <th data-header="<%= t("administrator.users.table.username") %>" data-order="none">
+              <%= t("administrator.users.table.username") %>
+            </th>
+            <th class="text-left" data-header="<%= t("administrator.users.table.provider") %>" data-order="none">
+              <%= t("administrator.users.table.provider") %>
+            </th>
+            <th class="text-left" data-header="<%= t("administrator.users.table.created") %>" data-order="none">
+              <%= t("administrator.users.table.created") %>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr data-user-uid="<%= user.uid %>">
+              <td><%= user.name %></td>
+              <td><%= user.email ? user.email : user.username%></td>
+              <td><%= user.provider %></td>
+              <td><%= user.created_at %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
