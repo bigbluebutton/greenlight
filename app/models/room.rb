@@ -186,7 +186,6 @@ class Room < ApplicationRecord
   def get_token(user, ip, record_id)
     user.present? ? authName = user.email : authName = "anonymous"
     api_token = bbb.send_api_request(:getRecordingToken, { authUser: authName, authAddr: ip, meetingID: record_id })
-    str_token = api_token[:token]
-    str_token
+    api_token[:token]
   end
 end
