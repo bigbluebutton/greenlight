@@ -18,6 +18,9 @@
 
 module APIConcern
   extend ActiveSupport::Concern
+
+  RETURNCODE_SUCCESS = "SUCCESS"
+
   def bbb_endpoint
     Rails.configuration.bigbluebutton_endpoint
   end

@@ -24,7 +24,8 @@ class RoomsController < ApplicationController
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: :create
   before_action :verify_room_ownership, except: [:create, :show, :join, :logout]
-  before_action :verify_room_owner_verified, only: [:show, :join], unless: -> { !Rails.configuration.enable_email_verification }
+  before_action :verify_room_owner_verified, only: [:show, :join],
+                unless: -> { !Rails.configuration.enable_email_verification }
 
   # POST /
   def create
