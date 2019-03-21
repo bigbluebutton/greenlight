@@ -1,0 +1,158 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+zh_CN:
+  bigbluebutton: BigBlueButton
+  cancel: 取消
+  copy: 复制
+  delete: 删除
+  docs: 文档
+  email: Email
+  enter_your_name: 输入您的名字！
+  errors:
+    internal:
+      message: 哎呀，看起来服务器内部出错了！
+      help: 错误信息已经记录了，我们会检查一下!
+    migration_error:
+      contact_admin: 请联系管理员。
+      continue: 还是继续使用 1.0吧。
+      notice: >
+        Greenlight 遇到数据库迁移错误。<br>可能因为您还没有更新到 Greenlight 2.0。
+      upgrade: 告诉我如何升级到 2.0!
+      version: 我们已经发布了新版Greenlight，但您的数据库不兼容。
+    not_found:
+      message: 哎哟！看来我们找不到它了。
+      help: 它有可能被移除了吗？
+    title: 错误
+    unprocessable:
+      message: 哎呀！请求无法处理。
+      help: 这不是有效的请求。
+  features:
+    title: 功能
+    rooms: 个人房间
+    recordings: 记录管理
+    designs: 定制设计
+    authentication: 用户认证
+  footer:
+    powered_by: "Powered by%{href}"
+  go_back: 返回
+  greenlight: 在线会议系统
+  header:
+    create_room: 创建房间
+    dropdown:
+      help: 帮助
+      home: 大厅
+      settings: 设置
+      signout: 登出
+  home_room: 大厅
+  info_update_success: 信息更新成功。
+  invalid_credentials: 登录失败。输入有误？
+  invite_message: "邀请他人参加会议，请发送以下链接："
+  landing:
+    about: "%{href}是一个开源的网页会议系统，专为在线学习而设计。高清的视音频通话，文字聊天，分享屏幕，随堂测试，分组讨论，还有白板一起涂鸦。"
+    welcome: 欢迎来到<span class="green-grad">在线会议系统</span>
+    video: 请看使用说明
+    upgrade: 告诉我怎么升级到 2.0!
+    version: 我们发布了新版Greenlight，但你的数据库不兼容。
+  ldap_error: 无法连接到LDAP服务器，请在env文件中检查LDAP配置，还要确保服务已经启动。
+  login: 登录
+  modal:
+    create_room:
+      auto_join: 自动进入此房间。
+      free_delete: 任何时候都可以删除这个房间。
+      name_placeholder: 请输入房间名...
+      not_blank: 房间名不能空着呀。
+      title: 创建新的房间
+    delete_account:
+      confirm: 确定要删除您的账户吗？
+      delete: 我确定，请删除我的账户。
+      keep: 我还是留着吧。
+      warning: 这是最终决定，您将<b>无法</b>恢复相关数据。
+    delete_room:
+      confirm: "确定要删除%{room}吗?"
+      delete: 我确定，请删除这个房间。
+      keep: 我还是留着它吧。
+      warning: 您将<b>无法</b>恢复这个房间和它相关的所有记录。
+    login:
+      or: 或
+      with: "通过%{provider}登录"
+  omniauth_error: 与omniauth进行身份验证时出错。请再试一次，或与管理员联系！
+  password: 密码
+  recording:
+    email: 通过Email发送记录
+    no_recordings: "这个房间没有%{inject}记录。"
+    recorded_on: "录制于%{date}"
+    table:
+      name: 名字
+      thumbnails: 预览图
+      length: 长度
+      users: 用户数
+      visibility: 可见性
+      formats: 格式
+    visibility:
+      public: 公开
+      unlisted: 隐藏
+  room:
+    invited: 您被邀请加入
+    invite_participants: 邀请参与者的链接
+    join: 加入
+    last_session: "上一次会议%{session}"
+    owner: 主持人
+    no_sessions: 房间从未使用！
+    recordings: 记录
+    sessions: 会议
+    settings: 房间设置
+    start: 开始
+    wait:
+      message: 哎呀！会议还没开始呢。
+      auto: 会议开始后您将自动进入。
+  settings:
+    account:
+      fullname: 全名
+      provider: 应用平台
+      image: 头像
+      image_url: 头像URL
+      subtitle: 更新您的账户信息
+      title: 账户信息
+    delete:
+      button: 是的，我想删除我的账户。
+      disclaimer: 删除账户后<b>无法</b>恢复。账户所有相关信息都会被移除，包括设置、房间和记录。
+      subtitle: 永久删除您的账户
+      title: 删除账户
+    design:
+      not_supported: 目前不支持定制。
+      subtitle: 定制Greenlight
+      title: 设计
+    password:
+      confirmation: 确认新密码
+      new: 新密码
+      old: 旧密码
+      subtitle: 修改密码
+      title: 密码
+    title: 设置
+  signup:
+    password_confirm: 密码确认
+    subtitle: 创建账户
+    title: 注册
+    with: "用%{provider}注册"
+  terms:
+    accept: 我接受协议和条款。
+    title: 协议和条款
+  test_install: >
+    此部署使用的是预配置的测试服务器，您应该用自己的服务器来替换它。 详细信息请看 %{href}。
+  update: 更新

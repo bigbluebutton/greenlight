@@ -14,15 +14,25 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-# Spanish (es) locale.
+# Locale.
 
 es:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Términos y condiciones"
   bigbluebutton: BigBlueButton
+  bigbluebutton_exception: Oh no! Ocurrió un error al iniciar la sesión
   cancel: Cancelar
+  cookies:
+    cookie_info: "Las cookies nos ayudan a proveer nuestros servicios. Al utilizar nuestros servicios, usted acepta nuestro uso de cookies."
+    cookie_button: Acepto
   copy: Copiar
   delete: Eliminar
+  delivery_error: Ocurrió un error durante el envío de correo electrónico. Por favor contacte un administrador.
   docs: Documentación
-  email: Correo
+  email: Cuenta de correo
+  email_sent: El mensaje fue enviado! (Verifica tu carpeta de Spam sí no lo haz recibido)
   enter_your_name: Introduce tu nombre
   errors:
     internal:
@@ -42,6 +52,7 @@ es:
     unprocessable:
       message: "Ups!, La acción no puede ser procesada"
       help: Desafortunadamente esta no es una acción valida
+  expired_reset_token: El enlace para reiniciar la contraseña ha expirado
   features:
     title: Funciones
     rooms: Salas personalizadas
@@ -50,6 +61,10 @@ es:
     authentication: Autentificación de usuario
   footer:
     powered_by: "Funciona con %{href}"
+  forgot_password:
+    subtitle: Olvidé la contraseña
+    email: Cuenta de correo
+    submit: Enviar
   go_back: Atrás
   greenlight: Greenlight
   header:
@@ -62,6 +77,7 @@ es:
   home_room: Sala principal
   info_update_success: La información ha sido actualizada exitósamente
   invalid_credentials: El ingreso falló debido al uso incorrecto de clave de acceso. Estás seguro de haberla introduciso corréctamente.
+  invalid_login_method: El inicio de sesión falló debido a la falta de coincidencia de cuenta. Necesitas iniciar sesión con uno de los proveedores.
   invite_message: "Para invitar a alquien a la sesión, enviale este enlace:"
   landing:
     about: "Greenlight es una interface web para tu servidor %{href}de conferencias de fuentes libres. Puedes crear tus propias salas y ser anfitrión de sesiones o ingresar a las de otros utilizando un corto y conveniente enlace."
@@ -77,9 +93,13 @@ es:
     en: Inglés
     es: Español
     fr: Francés
+    pt: Portugués
     pt-br: Portugués (Brasil)
+    ru: Ruso
+    zh-cn: Chino (PRC)
   ldap_error: No se puede conectar al servidor LDAP. Compruebe la configuración de LDAP en el archivo "env" y asegúrate de que tu servidor está ejecutándose.
   login: Ingresar
+  max_concurrent: Se a alcanzado el número máximo de sesiones permitidas
   modal:
     create_room:
       auto_join: Eniame a la sala automáticamente cuando empiece ls sesión
@@ -100,11 +120,35 @@ es:
     login:
       or: o
       with: "Ingresar con %{provider}"
+      forgot_password: "Olvidaste tu contraseña?"
+    rename_recording:
+    room_settings:
+      title: Configuración de la sala
+      update: Actualizar la sala
+      client: Seleccionar el tipo de cliente
+      mute: Deshabilitar micrófono de usuarios al entrar
+      default: Por omisión
+      html: HTML5
+      flash: Flash
+      footer_text: Puedes hacer cambios a tu sala en cualquier momento
+    rename_room:
+      name_placeholder: Introduce un nuevo nombre para la sala...
+  name_update_success: El nombre de la sala ha sido actualizado exitósamente
+  no_user_email_exists: "No hay ningún usuario existente con el correo electrónico especificado. Por favor, asegúrese de que lo escribió correctamente."
   omniauth_error: Ocurrió un error al intentar ingresar utilizando OmniAuth. Por favor intente nuevamente o contacte un administrador.
   password: Contraseña
+  password_empty_notice: La contraseña no puede estar vacía
+  password_reset_success: La contraseña ha sido cambiada
+  password_different_notice: La confirmación de password no coincide
+  provider:
+    google: Google
+    microsoft_office365: Office 365
+    twitter: Twitter
   recording:
-    email: Enviar correo con la grabación
+    email: Enviar correo electrónico con la grabación
     no_recordings: "Esta sala no tiene grabaciones %{inject}"
+    no_user_recordings: No tienes grabaciones
+    no_matched_recordings: "No hay %{inject} grabaciones que coincidan con tu busqueda."
     recorded_on: "Grabada el %{date}"
     table:
       name: Nombre
@@ -116,7 +160,15 @@ es:
     visibility:
       public: Pública
       unlisted: No listada
+  rename: Cambiar nombre
+  reset_password:
+    subtitle: Reiniciar contraseña
+    password: Nueva contraseña
+    confirm: Confirmación de nueva contraseña
+    update: Actualizar contraseña
   room:
+    create_room_error: Ocurrió un error al crear la sala
+    create_room_success: La sala fue creada exitósamente
     invited: Hás sido invitado a ingresar
     invite_participants: Invitar participantes
     join: Entrar
@@ -127,12 +179,16 @@ es:
     sessions: Sesiones
     settings: Configuración de sala
     start: Iniciar
+    unavailable: Esta sala no se encuentra disponible debido a que la cuenta de correo  de su propietario no ha sido verificado.
+    update_settings_error: Ocurrió un error al actualizar la configuración de la sala
+    update_settings_success: La configuración de la sala fue actualizada exitósamente
     wait:
       message: Ups! L sesión todavía no dado inicio
       auto: Serás enviado a la sala automáticamente cuando empiece ls sesión
   settings:
     account:
       fullname: Nombre completo
+      language: Idioma
       provider: Proveedor
       image: Imagen
       image_url: "Enlace a imagén de perfil "
@@ -161,7 +217,17 @@ es:
     with: "Registrarse utilizando %{provider}"
   terms:
     accept: Accepto los términos y condiciones
+    accept_existing: Acepto los términos y condiciones
     title: Términos y condiciones
   test_install: >
     Esta instalación esta haciendo uso del servidor para pruebas que viene pre-configurado. Debería ser substituido con tu propio servidor. Para más detalles vea %{href}.
   update: Actualizar
+  verify:
+    accept: Verificar
+    activated: Cuenta de correo verificada.
+    already_verified: Cuenta de correo verificada con anterioridad
+    invalid: Enlace de verificación invalido
+    not_verified: Tu cuenta de correo no ha sido verificada
+    resend: Reenviar enlace para verificación de cuenta de correo
+    signin: "Ingresa para tener acceso a la información de tu cuenta "
+    title: Verificar tu cuenta de correo
