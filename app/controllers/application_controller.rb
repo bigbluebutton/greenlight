@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
 
   before_action :migration_error?
   before_action :set_locale
+  before_action :check_admin_password
 
   # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
@@ -108,6 +109,14 @@ class ApplicationController < ActionController::Base
   # Manually deal with 401 errors
   rescue_from CanCan::AccessDenied do |_exception|
     render "errors/not_found"
+  end
+
+  # Checks to make sure that the admin has changed his password from the default
+  def check_admin_password
+    if current_user && (current_user.has_role? :admin) && current_user.authenticate("administrator")
+      flash.now[:alert] = I18n.t("default_admin",
+        edit_link: edit_user_path(user_uid: current_user.uid) + "?setting=password").html_safe
+    end
   end
 
   def redirect_to_https
