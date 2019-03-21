@@ -16,7 +16,7 @@
 
 # Locale.
 
-pt-br:
+pt:
   bigbluebutton: BigBlueButton
   cancel: Cancelar
   copy: Copiar
@@ -26,19 +26,18 @@ pt-br:
   enter_your_name: Insira seu nome!
   errors:
     internal:
-      message: Ah, não! Parece que algo deu errado no fim.
-      help: O erro foi registrado, daremos uma olhada!
+      message: "Ah, não! Parece que algo deu errado no fim."
+      help: "O erro foi registrado, daremos uma olhada!"
     migration_error:
-      contact_admin: Se você não é um administrador, por favor contate algum.
+      contact_admin: "Se você não é um administrador, por favor contate algum."
       continue: Gostaria de permanecer usando 1.0.
       notice: >
-        Greenlight encontrou um erro de migração no banco de dados.<br>
-        Isso pode ser porque você não atualizou para o Greenlight 2.0.
+        Greenlight encontrou um erro de migração no banco de dados.<br> Isso pode ser porque você não atualizou para o Greenlight 2.0.
       upgrade: Mostre-me como atualizar para 2.0!
-      version: Lançamos uma nova versão do Greenlight, entretanto sua base de dados é incompatível.
+      version: "Lançamos uma nova versão do Greenlight, entretanto sua base de dados é incompatível."
     not_found:
       message: Epa! Parece que não conseguimos encontrar isto.
-      help: É possível que tenha sido removido?
+      help: "É possível que tenha sido removido?"
     title: Erros
     unprocessable:
       message: Oops! Solicitação é improcessável.
@@ -50,26 +49,26 @@ pt-br:
     designs: Designs Personalizados
     authentication: Autenticação de Usuário
   footer:
-    powered_by: Desenvolvido por %{href}.
+    powered_by: "Desenvolvido por %{href}."
   go_back: Voltar
   greenlight: Greenlight
   header:
     create_room: Criar Sala
     dropdown:
-      help: Precisa de Ajuda?
+      help: "Precisa de Ajuda?"
       home: Sala Inicial
       settings: Configurações
       signout: Sair
   home_room: Sala Inicial
   info_update_success: Informações atualizadas com sucesso.
-  invalid_credentials: O login falhou devido à credenciais inválidas. Tem certeza que inseriu corretamente?
+  invalid_credentials: "O login falhou devido à credenciais inválidas. Tem certeza que inseriu corretamente?"
   invite_message: "Para convidar alguém para a reunião, envie este link:"
   landing:
-    about: Greenlight é um front-end simples para seu servidor de webconferências %{href}. Você pode criar suas próprias salas para hospedar sessões, ou se juntar a outras utilizando um link curto e conveniente.
+    about: "Greenlight é um front-end simples para seu servidor de webconferências %{href}. Você pode criar suas próprias salas para hospedar sessões, ou se juntar a outras utilizando um link curto e conveniente."
     welcome: Bem vindo ao <span class="green-grad">Greenlight</span>.
     video: Assista ao nosso tutorial sobre como utilizar o Greenlight
     upgrade: Mostre-me como atualizar para o 2.0!
-    version: Lançamos uma nova versão do Greenlight, entretanto sua base de dados é incompatível.
+    version: "Lançamos uma nova versão do Greenlight, entretanto sua base de dados é incompatível."
   ldap_error: Não é possível conectar-se ao servidor LDAP. Verifique sua configuração LDAP no arquivo ENV e certifique-se de que seu servidor está funcionando.
   login: Login
   modal:
@@ -80,24 +79,24 @@ pt-br:
       not_blank: O nome da sala não pode ficar vazio.
       title: Criar Nova Sala
     delete_account:
-      confirm: Tem certeza que deseja deletar sua conta?
-      delete: Estou certo, deletar minha conta.
+      confirm: "Tem certeza que deseja deletar sua conta?"
+      delete: "Estou certo, deletar minha conta."
       keep: No momento irei mantê-la.
       warning: Esta é uma decisão final. Você <b>não</b> será capaz de recuperar os dados associados.
     delete_room:
-      confirm: Você tem certeza de que deseja deletar %{room}?
-      delete: Estou certo, deletar esta sala.
-      keep: Em um segundo pensamento, irei mantê-la.
+      confirm: "Você tem certeza de que deseja deletar %{room}?"
+      delete: "Estou certo, deletar esta sala."
+      keep: "Em um segundo pensamento, irei mantê-la."
       warning: Você <b>não</b> será capaz de recuperar esta sala ou qualquer uma das gravações associadas a ela.
     login:
       or: ou
-      with: Login com %{provider}
+      with: "Login com %{provider}"
   omniauth_error: Um erro ocorreu enquanto autenticava com omniauth. Tente novamente ou contate um administrador!
   password: Senha
   recording:
     email: Enviar Gravação por E-mail
-    no_recordings: Esta sala não possui %{inject} gravações.
-    recorded_on: Gravado em %{date}
+    no_recordings: "Esta sala não possui %{inject} gravações."
+    recorded_on: "Gravado em %{date}"
     table:
       name: Nome
       thumbnails: Miniaturas
@@ -112,9 +111,9 @@ pt-br:
     invited: Você foi convidado a participar
     invite_participants: Convidar participantes
     join: Participar
-    last_session: Última sessão em %{session}
+    last_session: "Última sessão em %{session}"
     owner: Proprietário
-    no_sessions: Esta sala não possui sessões, ainda!
+    no_sessions: "Esta sala não possui sessões, ainda!"
     recordings: Gravações
     sessions: Sessões
     settings: Configurações da Sala
@@ -131,8 +130,8 @@ pt-br:
       subtitle: Atualizar suas Informações de Conta
       title: Informações de Conta
     delete:
-      button: Sim, eu gostaria de deletar minha conta.
-      disclaimer: Se você escolher deletar sua conta, isto <b>NÃO</b> poderá ser desfeito. Todas as informações relacionadas a sua conta, incluindo configurações, salas e gravações serão removidas.
+      button: "Sim, eu gostaria de deletar minha conta."
+      disclaimer: "Se você escolher deletar sua conta, isto <b>NÃO</b> poderá ser desfeito. Todas as informações relacionadas a sua conta, incluindo configurações, salas e gravações serão removidas."
       subtitle: Deletar conta Permanentemente
       title: Deletar Conta
     design:
@@ -150,11 +149,10 @@ pt-br:
     password_confirm: Confirmação de Senha
     subtitle: Criar uma Conta
     title: Cadastro
-    with: Cadastro com %{provider}
+    with: "Cadastro com %{provider}"
   terms:
     accept: Aceito os termos e condições.
     title: Termos e Condições
   test_install: >
-    Esta implantação está usando um servidor de teste pré-configurado, você deve substitui-lo pelo seu próprio.
-    Para detalhes, veja o %{href}.
+    Esta implantação está usando um servidor de teste pré-configurado, você deve substitui-lo pelo seu próprio. Para detalhes, veja o %{href}.
   update: Atualizar

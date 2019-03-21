@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-# English (en) locale.
+# Locale.
 
 en:
   activerecord:
@@ -94,8 +94,10 @@ en:
     en: English
     es: Spanish
     fr: French
+    pt: Portuguese
     pt-br: Portuguese (Brazil)
     ru: Russian
+    zh-cn: Chinese (PRC)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   login: Sign in
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!
