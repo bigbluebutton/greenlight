@@ -185,6 +185,10 @@ class User < ApplicationRecord
     provider == "greenlight"
   end
 
+  def admin_of?(user)
+    (has_role? :admin) && (id != user.id)
+  end
+
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)

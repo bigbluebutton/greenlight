@@ -18,7 +18,7 @@
   <div class="row">
     <div class="col-lg-3 mb-4">
       <div class="list-group list-group-transparent mb-0">
-        <button id="users" class="list-group-item list-group-item-action setting-btn active">
+        <button id="users" class="list-group-item list-group-item-action setting-btn <%= "active" if !params[:setting] || params[:setting] == "users"%>">
           <span class="icon mr-3"><i class="fas fa-users"></i></span><%= t("administrator.users.title") %>
         </button>
       </div>
@@ -30,7 +30,13 @@
 
 
     <div class="col-lg-9">
-      <%= render "shared/settings/setting_view", admin_view: true, setting_id: "users", setting_title: t("administrator.users.subtitle") %>
+      <% if defined?(setting_id) && setting_id == "account" %>
+        <%= render "shared/settings/setting_view", setting_id: "account", setting_title: t("administrator.users.edit.title") %>
+      <% else %>
+        <%= render "shared/settings/setting_view", admin_view: true, setting_id: "users", setting_title: t("administrator.users.subtitle") %>
+      <% end %>
+
+      <%= render "shared/modals/delete_account_modal", delete_location: "/" %>
     </div>
   </div>
 </div>

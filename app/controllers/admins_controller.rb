@@ -18,9 +18,39 @@
 
 class AdminsController < ApplicationController
   authorize_resource class: false
+  before_action :find_user, except: :index
+  before_action :verify_admin_of_user, except: :index
 
-  # GET /
+  # GET /admins
   def index
     @users = User.all.reverse_order
+  end
+
+  # GET /admins/edit/:user_uid
+  def edit_user
+    render "admins/index", locals: { setting_id: "account" }
+  end
+
+  # POST /admins/promote/:user_uid
+  def promote
+    @user.add_role :admin
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.promoted") }
+  end
+
+  # POST /admins/demote/:user_uid
+  def demote
+    @user.remove_role :admin
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.demoted") }
+  end
+
+  private
+
+  def find_user
+    @user = User.find_by!(uid: params[:user_uid])
+  end
+
+  def verify_admin_of_user
+    redirect_to admins_path,
+      flash: { alert: I18n.t("administrator.flash.unauthorized") } unless current_user.admin_of?(@user)
   end
 end

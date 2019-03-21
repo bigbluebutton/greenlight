@@ -22,15 +22,29 @@ en:
       user:
         accepted_terms: "Terms and Conditions"
   administrator:
-    title: Administrator Settings
     design:
       subtitle: Customize Greenlight
       title: Design
+    flash:
+      delete: User deleted successfully
+      delete_fail: Failed to delete user
+      demoted: User has been successfully demoted
+      promoted: User has been successfully promoted
+      unauthorized: You are not authorized to perform actions on this user
+    title: Administrator Settings
     users:
+      edit:
+        title: Edit User Details
+      settings:
+        delete: Delete
+        demote: Demote to User
+        edit: Edit
+        promote: Promote to Admin
       subtitle: View Users
       table:
         created: Created On
         name: Name
+        not_found: No users match your search
         provider: Provider
         uid: User ID
         username: Username
@@ -114,8 +128,8 @@ en:
       not_blank: Room name cannot be blank.
       title: Create New Room
     delete_account:
-      confirm: Are you sure you want to delete your account?
-      delete: I'm sure, delete my account.
+      confirm: Are you sure you want to delete this account?
+      delete: I'm sure, delete this account.
       keep: Actually, I'll keep it.
       warning: This decision is final. You will <b>not</b> be able to recover associated data.
     delete_room:

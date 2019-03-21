@@ -148,10 +148,22 @@ describe UsersController, type: :controller do
 
     it "properly deletes user" do
       user = create(:user)
+      @request.session[:user_id] = user.id
 
       delete :destroy, params: { user_uid: user.uid }
 
       expect(response).to redirect_to(root_path)
+    end
+
+    it "allows admins to delete users" do
+      user = create(:user)
+      admin = create(:user)
+      admin.add_role :admin
+      @request.session[:user_id] = admin.id
+
+      delete :destroy, params: { user_uid: user.uid }
+
+      expect(response).to redirect_to(admins_path)
     end
   end
 

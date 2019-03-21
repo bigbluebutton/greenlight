@@ -19,6 +19,7 @@
       <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
         <thead>
           <tr>
+            <th></th>
             <th data-header="<%= t("administrator.users.table.name") %>" data-order="none">
               <%= t("administrator.users.table.name") %>
             </th>
@@ -31,16 +32,61 @@
             <th class="text-left" data-header="<%= t("administrator.users.table.created") %>" data-order="none">
               <%= t("administrator.users.table.created") %>
             </th>
+            <th class="text-center">
+            </th>
           </tr>
         </thead>
-        <tbody>
-          <% @users.each do |user| %>
-            <tr data-user-uid="<%= user.uid %>">
-              <td><%= user.name %></td>
-              <td><%= user.email ? user.email : user.username%></td>
-              <td><%= user.provider %></td>
-              <td><%= user.created_at %></td>
-            </tr>
+        <tbody id="users-table">
+          <tr id="no_users_found" style="display: none;">
+            <td colspan="7" class="text-center h4 p-6 font-weight-normal" >
+              <%= t("administrator.users.table.not_found") %>
+            </td>
+          </tr>
+          <% if @users %>
+            <% @users.each do |user| %>
+              <% if user != current_user %>
+                <tr data-user-uid="<%= user.uid %>">
+                  <td class="p-2">
+                    <% if user.has_role? :admin %>
+                      <i class="fas fa-crown text-warning"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= user.name %>
+                  </td>
+                  <td><%= user.email && user.email != "" ? user.email : user.username%></td>
+                  <td><%= user.provider %></td>
+                  <td><%= user.created_at %></td>
+                  <td>
+                    <div class="item-action dropdown">
+                      <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
+                        <i class="fas fa-ellipsis-v px-4"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu">
+                        <%= link_to admin_edit_user_path(user_uid: user.uid), class: "dropdown-item" do %>
+                          <i class="dropdown-icon fas fa-user-edit"></i> <%= t("administrator.users.settings.edit") %>
+                        <% end %>
+                        <button class= "delete-user dropdown-item" data-toggle="modal" data-target="#deleteAccountModal">
+                          <i class="dropdown-icon fas fa-user-minus"></i> <%= t("administrator.users.settings.delete") %>
+                        </button>
+
+                        <% if user.has_role? :admin %>
+                          <%= button_to admin_demote_path(user_uid: user.uid), class: "dropdown-item" do %>
+                            <i class="dropdown-icon fas fa-level-down-alt"></i> <%= t("administrator.users.settings.demote") %>
+                          <% end %>
+                        <% elsif user.has_role? :user %>
+                          <%= button_to admin_promote_path(user_uid: user.uid), class: "dropdown-item" do %>
+                            <i class="dropdown-icon fas fa-level-up-alt"></i> <%= t("administrator.users.settings.promote") %>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          <% else %>
+
           <% end %>
         </tbody>
       </table>
