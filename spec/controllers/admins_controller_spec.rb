@@ -19,13 +19,13 @@
 require "rails_helper"
 
 describe AdminsController, type: :controller do
-  context "GET #index" do
-    before do
-      @user = create(:user)
-      @admin = create(:user)
-      @admin.add_role :admin
-    end
+  before do
+    @user = create(:user)
+    @admin = create(:user)
+    @admin.add_role :admin
+  end
 
+  context "GET #index" do
     it "renders a 404 if a user tries to acccess it" do
       @request.session[:user_id] = @user.id
       get :index
@@ -38,6 +38,43 @@ describe AdminsController, type: :controller do
       get :index
 
       expect(response).to render_template(:index)
+    end
+  end
+
+  context "GET #edit_user" do
+    it "renders the index page" do
+      @request.session[:user_id] = @admin.id
+
+      get :edit_user, params: { user_uid: @user.uid }
+
+      expect(response).to render_template(:index)
+    end
+  end
+
+  context "POST #promote" do
+    it "promotes a user to admin" do
+      @request.session[:user_id] = @admin.id
+
+      expect(@user.has_role?(:admin)).to eq(false)
+
+      post :promote, params: { user_uid: @user.uid }
+
+      expect(@user.has_role?(:admin)).to eq(true)
+      expect(response).to redirect_to(admins_path)
+    end
+  end
+
+  context "POST #demote" do
+    it "demotes an admin to user" do
+      @request.session[:user_id] = @admin.id
+
+      @user.add_role :admin
+      expect(@user.has_role?(:admin)).to eq(true)
+
+      post :demote, params: { user_uid: @user.uid }
+
+      expect(@user.has_role?(:admin)).to eq(false)
+      expect(response).to redirect_to(admins_path)
     end
   end
 end
