@@ -52,7 +52,7 @@ en:
     title: Errors
     unprocessable:
       message: Oops! Request is unprocessable.
-      help: Unforunately this isn't a valid request.
+      help: Unfortunately this isn't a valid request.
   expired_reset_token: Password reset link has expired!
   features:
     title: Features
