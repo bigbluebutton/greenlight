@@ -85,18 +85,8 @@ zh_CN:
     video: 请看使用说明
     upgrade: 告诉我怎么升级到 2.0!
     version: 我们发布了新版Greenlight，但你的数据库不兼容。
-  language_options:
-    default: 默认（浏览器语言）
-    ar: Arabic
-    de: German
-    el: Greek
-    en: English
-    es: Spanish
-    fr: French
-    pt: Portuguese
-    pt-br: Portuguese (Brazil)
-    ru: Russian
-    zh-cn: Chinese (PRC)
+  language_name: Chinese (PRC)
+  language_default: 默认（浏览器语言）
   ldap_error: 无法连接到LDAP服务器，请在env文件中检查LDAP配置，还要确保服务已经启动。
   login: 登录
   max_concurrent: 已达到允许的最大并发会话数！
