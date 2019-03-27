@@ -77,7 +77,7 @@ module ApplicationHelper
     begin
       provider_info = retrieve_provider_info(@customer_name, 'api2', 'getUserGreenlightCredentials')
       provider_info['provider'] != 'local'
-    rescue Exception => e
+    rescue StandardError => e
       logger.info e
     end
   end

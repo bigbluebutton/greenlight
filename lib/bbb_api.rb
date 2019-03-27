@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BbbApi
   RETURNCODE_SUCCESS = "SUCCESS"
 
@@ -71,5 +73,4 @@ module BbbApi
   def remove_slash(s)
     s.nil? ? nil : s.chomp("/")
   end
-
 end
