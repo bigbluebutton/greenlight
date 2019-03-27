@@ -1,0 +1,233 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+de_DE:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Teilnahmebedingungen"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: "Ups, beim Start der Konferenz ist ein Fehler aufgetreten!"
+  cancel: Abbrechen
+  cookies:
+    cookie_info: Cookies helfen uns bei der Bereitstellung unserer Dienste. Durch die Nutzung der Dienste stimmen Sie der Nutzung von Cookies zu.
+    cookie_button: Ich stimme zu
+  copy: Kopieren
+  delete: Löschen
+  delivery_error: Während der Emailzustellung ist ein Fehler aufgetreten. Bitte kontaktieren Sie einen Administrator!
+  docs: Dokumentation
+  email: Email
+  email_sent: "Email abgeschickt! (Bitte prüfen Sie ihren Spamordner, falls Sie keine Nachricht erhalten haben)"
+  enter_your_name: Geben Sie Ihren Namen ein!
+  errors:
+    internal:
+      message: Oh nein! Irgendetwas ist schiefgelaufen.
+      help: "Der Fehler wurde gespeichert, wir werden ihn analysieren!"
+    migration_error:
+      contact_admin: "Wenn Sie kein Administrator sind, kontaktieren Sie bitte einen."
+      continue: Ich möchte bleiben und 1.0 verwenden.
+      notice: >
+        Greenlight hat einen Datenbankmigrationsfehler bemerkt.<br> Dies kann auftreten, weil Sie noch nicht auf Greenlight 2.0. upgedatet haben.
+      upgrade: "Zeigen Sie mir, wie ich auf Version 2.0. update!"
+      version: "Wir haben eine neue Version von Greenlight veröffentlicht, aber Ihre Datenbank ist damit nicht kompatibel."
+    not_found:
+      message: "Ups! Sieht so aus, als können wir das nicht finden."
+      help: "Ist es möglich, dass es entfernt wurde?"
+    title: Fehler
+    unprocessable:
+      message: Ups! Anfrage konnte nicht verarbeitet werden.
+      help: Leider ist das keine valide Anfrage.
+  expired_reset_token: Passwordresetlink ist abgelaufen!
+  features:
+    title: Eigenschaften
+    rooms: Personalisierte Räume
+    recordings: Aufzeichnungsmanagement
+    designs: Eigene Designs
+    authentication: Nutzerauthentifizierung
+  footer:
+    powered_by: "Bereitgestellt durch %{href}."
+  forgot_password:
+    subtitle: Passwort vergessen
+    email: Email
+    submit: Abschicken
+  go_back: Zurück
+  greenlight: Greenlight
+  header:
+    create_room: Raum erstellen
+    dropdown:
+      help: "Brauchen Sie Hilfe?"
+      home: Startraum
+      settings: Einstellungen
+      signout: Abmelden
+  home_room: Startraum
+  info_update_success: Information erfolgreich aktualisiert.
+  invalid_credentials: "Login wegen ungültiger Anmeldedaten fehlgeschlagen. Sind Sie sicher, alles richtig eingegeben zu haben?"
+  invalid_login_method: Login fehlgeschlagen aufgrund einer Zugangsdiskrepanz. Sie müssen sich mit Omniauth anmelden.
+  invite_message: "Um jemanden zur Konferenz einzuladen, schicken Sie ihm diesen Link:"
+  landing:
+    about: "%{href} ist ein einfacher Frontend für Ihren quelloffenen BigBlueButton Webkonferenzserver. Sie können ihre eigenen Räume erstellen, um Konferenzen abzuhalten oder Sie können bestehenden Konferenzen über einen praktischen Kurzlink beitreten."
+    welcome: Willkommen zu BigBlueButton.
+    video: Schauen Sie sich unsere Anleitung zur Verwendung von Greenlight an
+    upgrade: "Zeigen Sie mir, wie ich auf Version 2.0. update!"
+    version: "Wir haben eine neue Version von Greenlight veröffentlicht, aber Ihre Datenbank ist damit nicht kompatibel."
+  language_options:
+    default: Voreinstellung (Browsersprache)
+    ar: Arabisch
+    de: Deutsch
+    el: Griechisch
+    en: Englisch
+    es: Spanisch
+    fr: Französisch
+    pt: Portugisisch
+    pt-br: Portugisisch (Brasilien)
+    ru: Russisch
+    zh-cn: Chinesisch (Volksrepublik China)
+  ldap_error: "Verbindung zum LDAP Server konnte nicht hergestellt werden. Bitte überprüfen Sie die LDAP Konfiguration und stellen Sie sicher, dass der LDAP-Server läuft."
+  login: Einloggen
+  max_concurrent: Die maximale Anzahl gleichzeitiger Verbindungen ist erreicht!
+  modal:
+    create_room:
+      auto_join: Automatisch dem Raum beitreten.
+      free_delete: Sie können den Raum jederzeit wieder löschen.
+      name_placeholder: Geben Sie einen Raumnamen ein...
+      not_blank: Es muss ein Raumname angegeben werden.
+      title: Neuen Raum erstellen
+    delete_account:
+      confirm: "Sind Sie sicher, dass Sie Ihren Account löschen wollen?"
+      delete: Ich bin mir sicher. Löschen Sie meinen Account.
+      keep: Ich behalte ihn doch.
+      warning: "Diese Entscheidung ist endgültig. Sie werden <b>nicht</b> in der Lage sein, damit verbundene Daten wiederherzustellen."
+    delete_room:
+      confirm: "Sind Sie sicher, dass Sie %{room}löschen wollen?"
+      delete: Ich will diesen Raum löschen.
+      keep: Ich will ihn doch nicht löschen.
+      warning: "Sie werden <b>nicht</b> in der Lage sein, den Raum oder mit ihm verbundene Aufzeichnungen wiederherzustellen."
+    login:
+      or: oder
+      with: "Einloggen mit %{provider}"
+      forgot_password: "Passwort vergessen?"
+    rename_recording:
+    room_settings:
+      title: Raumeinstellungen
+      update: Raum aktualisieren
+      client: Client auswählen
+      mute: Teilnehmer beim Betreten stummschalten
+      default: Voreinstellung
+      html: HTML5
+      flash: Flash
+      footer_text: Anpassungen des Raums können jederzeit vorgenommen werden.
+    rename_room:
+      name_placeholder: Neuen Raumnamen eingeben...
+  name_update_success: Raumname erfolgreich geändert!
+  no_user_email_exists: "Es gibt keinen Nutzer mit der angegebenen Email. Stellen Sie sicher, dass Sie sich nicht vertippt haben."
+  omniauth_error: Es ist ein Fehler bei der Authentifizierung über Omniauth aufgetreten. Versuchen Sie es nochmal oder kontaktieren Sie einen Administrator.
+  password: Passwort
+  password_empty_notice: Das Passwort kann nicht leer bleiben.
+  password_reset_success: Passwort wurde zurückgesetzt.
+  password_different_notice: Passwortbestätigung ist nicht zutreffend.
+  provider:
+    google: Google
+    microsoft_office365: Office 365
+    twitter: Twitter
+  recording:
+    email: Aufzeichnungslink per Email
+    no_recordings: "Dieser Raum hat keine %{inject}Aufzeichnungen."
+    no_user_recordings: Momentan sind keine Aufzeichnungen verfügbar.
+    no_matched_recordings: "Keine %{inject} Aufzeichnungen passen zu Ihrer Suche."
+    recorded_on: "Aufgezeichnet am %{date}"
+    table:
+      name: Name
+      thumbnails: Miniaturbilder
+      length: Dauer
+      users: Teilnehmer
+      visibility: Sichtbarkeit
+      formats: Formate
+    visibility:
+      public: Öffentliche
+      unlisted: Nicht gelistet
+  rename: Umbenennen
+  reset_password:
+    subtitle: Passwort zurücksetzen
+    password: Neues Passwort
+    confirm: Bestätigung Ihres neuen Passworts
+    update: Passwort aktualisieren
+  room:
+    create_room_error: Bei der Erstellung des Raums ist ein Fehler aufgetreten
+    create_room_success: Raum erfolgreich erstellt
+    invited: Sie wurden zur Teilnahme eingeladen
+    invite_participants: Teilnehmer einladen
+    join: Teilnehmen
+    last_session: "Letzte Konferenz am %{session}"
+    owner: Initiator
+    no_sessions: In diesem Raum haben noch keine Konferenzen stattgefunden.
+    recordings: Aufzeichnungen
+    sessions: Konferenzen
+    settings: Raumeinstellungen
+    start: Starten
+    unavailable: "Der Raum ist aktuell nicht verfügbar, weil die Email des Raumbesitzers noch nicht verifiziert wurde."
+    update_settings_error: Bei der Aktualisierung der Raumeinstellungen ist ein Fehler aufgetreten.
+    update_settings_success: Raumeinstellungen erfolgreich aktualisiert
+    wait:
+      message: Ups! Die Konferenz hat noch nicht begonnen.
+      auto: "Sie treten der Konferenz automatisch bei, sobald Sie begonnen hat."
+  settings:
+    account:
+      fullname: Vollständiger Name
+      language: Sprache
+      provider: Anbieter
+      image: Bild
+      image_url: URL des Profilbilds
+      subtitle: Accountinformationen aktualisieren
+      title: Accountinformationen
+    delete:
+      button: "Ja, ich möchte meinen Account löschen."
+      disclaimer: "Wenn Sie Ihren Account löschen, können Sie ihn <b>NICHT</b> wiederherstellen. Alle mit ihrem Account verbundenen Informationen - wie Einstellungen, Räume und Aufzeichnungen - werden gelöscht."
+      subtitle: Account endgültig löschen
+      title: Account löschen
+    design:
+      not_supported: Individuelle Anpassungen werden gegenwärtig nicht unterstützt.
+      subtitle: Greenlight individuell anpassen
+      title: Design
+    password:
+      confirmation: Bestätigung von neuem Passwort
+      new: Neues Passwort
+      old: Altes Passwort
+      subtitle: Passwort ändern
+      title: Passwort
+    title: Einstellungen
+  signup:
+    password_confirm: Passwortbestätigung
+    subtitle: Account erstellen
+    title: Registrieren
+    with: "Registrieren mit %{provider}"
+  terms:
+    accept: "Ich akzeptiere die %{href}"
+    accept_existing: Ich akzeptiere die Teilnahmebedingungen
+    title: Allgemeine Nutzungsbedingungen
+  test_install: >
+    Diese Installation verwendet einen vorkonfigurierten Testserver. Sie sollten diesen durch Ihren eigenen Server ersetzen. Weitere Informationen dazu unter %{href}.
+  update: Aktualisieren
+  verify:
+    accept: Verifizieren
+    activated: Zugang verifiziert!
+    already_verified: Zugang wurde bereits verifiziert
+    invalid: Ungültiger Verifikationslink
+    not_verified: Ihr Zugang wurde noch nicht verifiziert.
+    resend: Verifikationsemail erneut versenden
+    signin: "Einloggen, um auf den eigenen Account zuzugreifen."
+    title: Verifizierung Sie Ihre Email
