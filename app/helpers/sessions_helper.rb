@@ -54,18 +54,18 @@ module SessionsHelper
   end
 
   def parse_customer_name(hostname)
-    provider = hostname.split('.')
-    provider.first == 'www' ? provider.second : provider.first
+    hostname.split('.').first
   end
 
   def omniauth_options(env)
     gl_redirect_url = (Rails.env.production? ? "https" : env["rack.url_scheme"]) + "://" + env["SERVER_NAME"] + ":" +
         env["SERVER_PORT"]
-    env['omniauth.strategy'].options[:customer] = parse_customer_name env["SERVER_NAME"]
+    customer_name = parse_customer_name(env["SERVER_NAME"])
+    env['omniauth.strategy'].options[:customer] = customer_name
     env['omniauth.strategy'].options[:gl_redirect_url] = gl_redirect_url
     env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
-    env['omniauth.strategy'].options[:checksum] = generate_checksum parse_customer_name(env["SERVER_NAME"]),
-      gl_redirect_url, Rails.configuration.launcher_secret
+    env['omniauth.strategy'].options[:checksum] = generate_checksum(customer_name, gl_redirect_url,
+      Rails.configuration.launcher_secret)
   end
 
   def google_omniauth_hd(env, hd)

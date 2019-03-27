@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
 
   before_action :migration_error?
   before_action :set_locale
+  before_action :set_customer_name
 
   # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
@@ -108,4 +109,9 @@ class ApplicationController < ActionController::Base
   def redirect_to_https
     redirect_to protocol: "https://" if loadbalanced_configuration? && request.headers["X-Forwarded-Proto"] == "http"
   end
+
+  def set_customer_name
+    @customer_name = parse_customer_name(env["SERVER_NAME"])
+  end
+  helper_method :set_customer_name
 end

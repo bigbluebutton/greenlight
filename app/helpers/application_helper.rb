@@ -16,8 +16,11 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
+require 'bbb_api'
+
 module ApplicationHelper
   include MeetingsHelper
+  include BbbApi
 
   # Gets all configured omniauth providers.
   def configured_providers
@@ -67,5 +70,15 @@ module ApplicationHelper
       highlight: true)
 
     markdown.render(text).html_safe
+  end
+
+  def omniauth_bn_launcher_signin?
+    return false unless Rails.configuration.omniauth_bn_launcher
+    begin
+      provider_info = retrieve_provider_info(@customer_name, 'api2', 'getUserGreenlightCredentials')
+      provider_info['provider'] != 'local'
+    rescue Exception => e
+      logger.info e
+    end
   end
 end

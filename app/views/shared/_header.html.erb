@@ -56,11 +56,11 @@
 						</div>
 					</div>
 				<% else %>
-          <% if Rails.configuration.omniauth_bn_launcher %>
+          <% if omniauth_bn_launcher_signin? %>
             <%= link_to t("login"), omniauth_login_url(:bn_launcher), :class => "btn btn-pill btn-outline-primary mx-2" %>
           <% elsif Rails.configuration.omniauth_ldap %>
-						<%= link_to t("login"), omniauth_login_url(:ldap), :class => "btn btn-pill btn-outline-primary mx-2" %>
-					<% else %>
+            <%= link_to t("login"), omniauth_login_url(:ldap), :class => "btn btn-pill btn-outline-primary mx-2" %>
+          <% else %>
             <%= link_to t("login"), "#loginModal", :class => "btn btn-pill btn-outline-primary mx-2", "data-toggle": "modal" %>
           <% end %>
 
