@@ -55,8 +55,7 @@ module ApplicationHelper
       language_name = locale.to_s if locale != :en && language_name == 'English'
       language_opts.push([language_name, locale.to_s])
     end
-    logger.info language_opts
-    language_opts
+    language_opts.sort
   end
 
   # Parses markdown for rendering.
