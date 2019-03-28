@@ -1,0 +1,49 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="form-group">
+  <div class="row">
+    <div class="col-12">
+      <center class="mb-7"><%= t("administrator.design.description") %></center>
+
+      <div class="mb-7 form-group">
+        <label class="form-label"><%= t("administrator.design.branding.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.design.branding.info") %></label>
+        <div class="input-group">
+          <input id="branding-url" type="text" class="form-control" value="<%= Rails.configuration.branding_image %>">
+          <span class="input-group-append">
+            <button onclick="changeBrandingImage('<%= admin_branding_path %>')" class="btn btn-primary" type="button"><%= t("administrator.design.branding.change") %></button>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.design.color.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.design.color.info") %></label>
+        <div class="row gutters-xs">
+          <div class="col-auto">
+            <input id="coloring-path" value="<%= admin_coloring_path %>" hidden>
+            <label class="colorinput">
+              <input name="color" type="color" value="default" class="colorinput-input" />
+              <span class="colorinput-color" style="background: <%= Rails.configuration.primary_color %>;">
+                <i class="p-1 fas fa-paint-brush"></i>
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

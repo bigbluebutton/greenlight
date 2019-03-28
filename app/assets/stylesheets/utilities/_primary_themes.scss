@@ -1,0 +1,69 @@
+.btn-primary,
+.btn-primary:visited,
+.btn-primary i {
+  background-color: $primary-color !important;
+  border-color: $primary-color !important;
+}
+
+.btn-primary:active,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.btn-primary:focus,
+.btn-primary:hover,
+.btn-primary:hover i {
+  background-color: $primary-color-darken !important;
+  border-color: $primary-color-darken !important;
+}
+
+.btn-outline-primary {
+  border-color: $primary-color !important;
+  color: $primary-color !important;
+
+  &:hover {
+    background: $primary-color !important;
+    color: white !important;
+  }
+}
+
+a:not(.icon):not(.dropdown-item):not(.btn) {
+  color: $primary-color !important;
+}
+
+.header a:hover:not(.btn) {
+  color: $primary-color-darken !important;
+}
+
+.dropdown-item {
+  &:hover {
+    color: $primary-color !important;
+  }
+  &:active {
+    background-color: $primary-color-lighten !important;
+  }
+}
+
+.header .avatar {
+  background-color: $primary-color !important;
+  color: white !important;
+}
+
+input:focus, select:focus {
+  box-shadow: 0 0 5px $primary-color !important;
+  border-color: $primary-color !important;
+}
+
+.list-group-item.active {
+  background-color: $primary-color-lighten !important;
+
+  &, .list-group-item.active * {
+    color: $primary-color !important;
+  }
+}
+
+.text-primary {
+  color: $primary-color !important;
+}
+
+.bg-primary {
+  background-color: $primary-color !important;
+}

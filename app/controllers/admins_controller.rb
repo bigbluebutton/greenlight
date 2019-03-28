@@ -18,8 +18,9 @@
 
 class AdminsController < ApplicationController
   authorize_resource class: false
-  before_action :find_user, except: :index
-  before_action :verify_admin_of_user, except: :index
+  before_action :find_user, only: [:edit_user, :promote, :demote]
+  before_action :verify_admin_of_user, only: [:edit_user, :promote, :demote]
+  before_action :find_setting, only: [:branding, :coloring]
 
   # GET /admins
   def index
@@ -43,14 +44,41 @@ class AdminsController < ApplicationController
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.demoted") }
   end
 
+  # POST /admins/branding
+  def branding
+    Rails.configuration.branding_image = params[:url]
+    @settings.update_value("Branding Image", params[:url])
+    redirect_to admins_path
+  end
+
+  # POST /admins/color
+  def coloring
+    Rails.configuration.primary_color = params[:color]
+    @settings.update_value("Primary Color", params[:color])
+    redirect_to admins_path
+  end
+
   private
 
   def find_user
     @user = User.find_by!(uid: params[:user_uid])
   end
 
+  def find_setting
+    @settings = Setting.find_or_create_by!(provider: user_provider)
+  end
+
   def verify_admin_of_user
     redirect_to admins_path,
       flash: { alert: I18n.t("administrator.flash.unauthorized") } unless current_user.admin_of?(@user)
+  end
+
+  # Returns users provider
+  def user_provider
+    if Rails.configuration.loadbalanced_configuration
+      current_user.provider
+    else
+      "greenlight"
+    end
   end
 end

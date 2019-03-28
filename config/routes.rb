@@ -35,10 +35,16 @@ Rails.application.routes.draw do
   resources :admins, only: [:index]
 
   scope '/admins' do
+    post '/branding', to: 'admins#branding', as: :admin_branding
+    post '/coloring', to: 'admins#coloring', as: :admin_coloring
     post '/signup', to: 'admins#signup', as: :admin_signup
     get '/edit/:user_uid', to: 'admins#edit_user', as: :admin_edit_user
     post '/promote/:user_uid', to: 'admins#promote', as: :admin_promote
     post '/demote/:user_uid', to: 'admins#demote', as: :admin_demote
+  end
+
+  scope '/themes' do
+    get '/primary', to: 'themes#index', as: :themes_primary
   end
 
   # Password reset resources.
