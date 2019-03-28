@@ -25,56 +25,88 @@ describe AdminsController, type: :controller do
     @admin.add_role :admin
   end
 
-  context "GET #index" do
-    it "renders a 404 if a user tries to acccess it" do
-      @request.session[:user_id] = @user.id
-      get :index
+  describe "User Roles" do
+    context "GET #index" do
+      it "renders a 404 if a user tries to acccess it" do
+        @request.session[:user_id] = @user.id
+        get :index
 
-      expect(response).to render_template(:not_found)
+        expect(response).to render_template(:not_found)
+      end
+
+      it "renders the admin settings if an admin tries to acccess it" do
+        @request.session[:user_id] = @admin.id
+        get :index
+
+        expect(response).to render_template(:index)
+      end
     end
 
-    it "renders the admin settings if an admin tries to acccess it" do
-      @request.session[:user_id] = @admin.id
-      get :index
+    context "GET #edit_user" do
+      it "renders the index page" do
+        @request.session[:user_id] = @admin.id
 
-      expect(response).to render_template(:index)
+        get :edit_user, params: { user_uid: @user.uid }
+
+        expect(response).to render_template(:index)
+      end
+    end
+
+    context "POST #promote" do
+      it "promotes a user to admin" do
+        @request.session[:user_id] = @admin.id
+
+        expect(@user.has_role?(:admin)).to eq(false)
+
+        post :promote, params: { user_uid: @user.uid }
+
+        expect(@user.has_role?(:admin)).to eq(true)
+        expect(response).to redirect_to(admins_path)
+      end
+    end
+
+    context "POST #demote" do
+      it "demotes an admin to user" do
+        @request.session[:user_id] = @admin.id
+
+        @user.add_role :admin
+        expect(@user.has_role?(:admin)).to eq(true)
+
+        post :demote, params: { user_uid: @user.uid }
+
+        expect(@user.has_role?(:admin)).to eq(false)
+        expect(response).to redirect_to(admins_path)
+      end
     end
   end
 
-  context "GET #edit_user" do
-    it "renders the index page" do
-      @request.session[:user_id] = @admin.id
+  describe "User Design" do
+    context "POST #branding" do
+      it "changes the branding image on the page" do
+        @request.session[:user_id] = @admin.id
+        fake_image_url = "example.com"
 
-      get :edit_user, params: { user_uid: @user.uid }
+        post :branding, params: { url: fake_image_url }
 
-      expect(response).to render_template(:index)
+        feature = Setting.find_by(provider: "greenlight").features.find_by(name: "Branding Image")
+
+        expect(feature[:value]).to eq(fake_image_url)
+        expect(response).to redirect_to(admins_path)
+      end
     end
-  end
 
-  context "POST #promote" do
-    it "promotes a user to admin" do
-      @request.session[:user_id] = @admin.id
+    context "POST #coloring" do
+      it "changes the primary on the page" do
+        @request.session[:user_id] = @admin.id
+        primary_color = "#000000"
 
-      expect(@user.has_role?(:admin)).to eq(false)
+        post :coloring, params: { color: primary_color }
 
-      post :promote, params: { user_uid: @user.uid }
+        feature = Setting.find_by(provider: "greenlight").features.find_by(name: "Primary Color")
 
-      expect(@user.has_role?(:admin)).to eq(true)
-      expect(response).to redirect_to(admins_path)
-    end
-  end
-
-  context "POST #demote" do
-    it "demotes an admin to user" do
-      @request.session[:user_id] = @admin.id
-
-      @user.add_role :admin
-      expect(@user.has_role?(:admin)).to eq(true)
-
-      post :demote, params: { user_uid: @user.uid }
-
-      expect(@user.has_role?(:admin)).to eq(false)
-      expect(response).to redirect_to(admins_path)
+        expect(feature[:value]).to eq(primary_color)
+        expect(response).to redirect_to(admins_path)
+      end
     end
   end
 end

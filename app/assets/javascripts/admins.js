@@ -50,16 +50,20 @@ $(document).on('turbolinks:load', function(){
       });
 
       // Show "No users match your search" if no users found
-      console.log(users_found)
       if(users_found === 0){
-        console.log("Showing")
         $('#no_users_found').show();
       }
       else{
-        console.log("Hiding")
         $('#no_users_found').hide();
       }
     });
+
+    // Change the color of the color inputs when the color is changed
+    $(".colorinput-input").change(function(data) {
+      var color = $(data.target).val()
+      $.post($("#coloring-path").val(), {color: color})
+    });
+
   }
 
   // Only run on the admins edit user page.
@@ -75,3 +79,9 @@ $(document).on('turbolinks:load', function(){
     })
   }
 });
+
+// Change the branding image to the image provided
+function changeBrandingImage(path) {
+  var url = $("#branding-url").val()
+  $.post(path, {url: url})
+}
