@@ -18,13 +18,13 @@ $(document).on('turbolinks:load', function(){
   var controller = $("body").data('controller');
   var action = $("body").data('action');
 
-  if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update"){
+  if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update" || controller == "users" && action == "recordings"){
 
     // Choose active header
     // (Name, Length or Users)
     $('th').each(function(){
       if($(this).data("header")){
-        $(this).on('click', function(){    
+        $(this).on('click', function(){
           set_active_header($(this).data("header"));
           sort_by($(this).data("header"), $(this).data('order'));
         });
@@ -80,8 +80,13 @@ $(document).on('turbolinks:load', function(){
     // Generalized function for sorting recordings
     var sort_recordings = function(recording_list_tbody, order, recording_id){
       recording_list_tbody.find('tr').sort(function(a, b){
-        var a_val = $.trim($(a).find(recording_id).text());
-        var b_val = $.trim($(b).find(recording_id).text());
+        if (recording_id == "#recording-length") {
+          var a_val = $.trim($(a).find(recording_id).data("full-length"));
+          var b_val = $.trim($(b).find(recording_id).data("full-length"));
+        } else {
+          var a_val = $.trim($(a).find(recording_id).text());
+          var b_val = $.trim($(b).find(recording_id).text());
+        }
 
         if(order === "asc"){
           return a_val.localeCompare(b_val);
@@ -89,6 +94,8 @@ $(document).on('turbolinks:load', function(){
         else if(order === "desc"){
           return b_val.localeCompare(a_val);
         }
+
+
       }).appendTo(recording_list_tbody);
     }
   }
