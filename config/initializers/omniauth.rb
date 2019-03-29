@@ -60,9 +60,6 @@ OmniAuth.config.on_failure = proc { |env|
   OmniAuth::FailureEndpoint.new(env).redirect_to_failure
 }
 
-# Customize LDAP login page CSS
-OmniAuth.config.form_css = File.read(Rails.root.join('app', 'assets', 'stylesheets', 'ldap.css'))
-
 # Work around because callback_url option causes
 # omniauth.auth to be nil in the authhash when
 # authenticating with LDAP.
@@ -152,9 +149,11 @@ module OmniAuthFormExt
 
   protected
 
-  # Adds the fontawesome link to the css header
+  # Adds the fontawesome link to the css header as well as the .scss files
   def css
-    super << "\n<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css' \
+    "\n<link rel='stylesheet' href='#{ActionController::Base.helpers.stylesheet_path('application.css')}'> \
+     \n<link rel='stylesheet' href='#{ActionController::Base.helpers.stylesheet_path('ldap.css')}'> \
+     \n<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css' \
               integrity='sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp' \
               crossorigin='anonymous'>"
   end

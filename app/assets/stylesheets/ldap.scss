@@ -1,0 +1,52 @@
+@import "utilities/variables";
+
+body {
+    background: $background-color;
+    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.center {
+    right: 50%;
+    bottom: 50%;
+    transform: translate(50%,50%);
+    position: absolute;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 30px 50px 10px;
+    background: #fff;
+    color: rgb(73, 80, 87);
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 0;
+    -moz-border-radius-topleft: 2px;
+    -moz-border-radius-topright: 2px;
+    -webkit-border-top-left-radius: 2px;
+    -webkit-border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+h1, form {
+    -moz-box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+}
+
+form {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: 0;
+    padding: 30px 50px;
+    width: 100%;
+    -moz-border-radius-bottomleft: 2px;
+    -moz-border-radius-bottomright: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -webkit-border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
