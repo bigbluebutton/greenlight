@@ -85,18 +85,8 @@ pt_BR:
     video: Assista ao nosso tutorial sobre como utilizar o Greenlight
     upgrade: Mostre-me como atualizar para o 2.0!
     version: "Lançamos uma nova versão do Greenlight, entretanto sua base de dados é incompatível."
-  language_options:
-    default: Padrão (idioma do navegador)
-    ar: Arábico
-    de: Alemão
-    el: Grego
-    en: Inglês
-    es: Espanhol
-    fr: Francês
-    pt: Português
-    pt-br: Português (Brasil)
-    ru: Russo
-    zh-cn: Chinês (RPC)
+  language_name: Português (Brasil)
+  language_default: Padrão (idioma do navegador)
   ldap_error: Não é possível conectar ao servidor LDAP. Verifique sua configuração LDAP e certifique-se de que seu servidor está funcionando.
   login: Entrar
   max_concurrent: O número máximo de sessões simultâneas foi alcançado.
