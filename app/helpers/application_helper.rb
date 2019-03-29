@@ -51,9 +51,12 @@ module ApplicationHelper
 
   # Returns language selection options
   def language_options
-    language_opts = [['<<<< ' + t("language_options.default") + ' >>>>', "default"]]
-    Rails.configuration.languages.each do |loc|
-      language_opts.push([t("language_options." + loc), loc])
+    locales = I18n.available_locales
+    language_opts = [['<<<< ' + t("language_default") + ' >>>>', "default"]]
+    locales.each do |locale|
+      language_name = t("language_name", locale: locale)
+      language_name = locale.to_s if locale != :en && language_name == 'English'
+      language_opts.push([language_name, locale.to_s])
     end
     language_opts.sort
   end
