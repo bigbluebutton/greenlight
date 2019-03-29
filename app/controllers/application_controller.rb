@@ -102,7 +102,9 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_https
-    redirect_to protocol: "https://" if Rails.configuration.loadbalanced_configuration && request.headers["X-Forwarded-Proto"] == "http"
+    if Rails.configuration.loadbalanced_configuration && request.headers["X-Forwarded-Proto"] == "http"
+      redirect_to protocol: "https://"
+    end
   end
 
   def set_customer_name
