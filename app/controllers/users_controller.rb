@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     return unless Rails.configuration.allow_user_signup
 
     @user = User.new(user_params)
-    @user.provider = @customer_name || "greenlight"
+    @user.provider = @lb_user || "greenlight"
 
     # Check if user already exists
     if User.exists?(email: user_params[:email], provider: @user.provider)

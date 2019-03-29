@@ -48,23 +48,23 @@ module SessionsHelper
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
-  def generate_checksum(customer_name, redirect_url, secret)
-    string = customer_name + redirect_url + secret
+  def generate_checksum(lb_user, redirect_url, secret)
+    string = lb_user + redirect_url + secret
     OpenSSL::Digest.digest('sha1', string).unpack("H*").first
   end
 
-  def parse_customer_name(hostname)
+  def parse_lb_user(hostname)
     hostname.split('.').first
   end
 
   def omniauth_options(env)
     gl_redirect_url = (Rails.env.production? ? "https" : env["rack.url_scheme"]) + "://" + env["SERVER_NAME"] + ":" +
         env["SERVER_PORT"]
-    customer_name = parse_customer_name(env["SERVER_NAME"])
-    env['omniauth.strategy'].options[:customer] = customer_name
+    lb_user = parse_lb_user(env["SERVER_NAME"])
+    env['omniauth.strategy'].options[:customer] = lb_user
     env['omniauth.strategy'].options[:gl_redirect_url] = gl_redirect_url
     env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
-    env['omniauth.strategy'].options[:checksum] = generate_checksum(customer_name, gl_redirect_url,
+    env['omniauth.strategy'].options[:checksum] = generate_checksum(lb_user, gl_redirect_url,
       Rails.configuration.launcher_secret)
   end
 
