@@ -16,8 +16,11 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
+require 'bbb_api'
+
 class User < ApplicationRecord
   include ::APIConcern
+  include ::BbbApi
 
   attr_accessor :reset_token, :activation_token
   after_create :create_home_room_if_verified
@@ -180,7 +183,9 @@ class User < ApplicationRecord
   end
 
   def greenlight_account?
-    provider == "greenlight"
+    return provider == "greenlight" unless Rails.configuration.loadbalanced_configuration
+    provider_info = retrieve_provider_info(provider, 'api2', 'getUserGreenlightCredentials')
+    provider_info['provider'] == 'greenlight'
   end
 
   def self.digest(string)

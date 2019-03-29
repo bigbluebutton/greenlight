@@ -75,13 +75,10 @@ module ApplicationHelper
     markdown.render(text).html_safe
   end
 
-  def omniauth_bn_launcher_signin?
-    return false unless Rails.configuration.omniauth_bn_launcher
-    begin
-      provider_info = retrieve_provider_info(@customer_name, 'api2', 'getUserGreenlightCredentials')
-      provider_info['provider'] != 'local'
-    rescue StandardError => e
-      logger.info e
-    end
+  def allow_greenlight_accounts?
+    return true unless Rails.configuration.loadbalanced_configuration
+    return false unless Rails.configuration.allow_user_signup
+    provider_info = retrieve_provider_info(@customer_name, 'api2', 'getUserGreenlightCredentials')
+    provider_info['provider'] == 'greenlight'
   end
 end

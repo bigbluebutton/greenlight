@@ -69,15 +69,10 @@ class ApplicationController < ActionController::Base
 
   # Determines if the BigBlueButton endpoint is configured (or set to default).
   def bigbluebutton_endpoint_default?
-    return false if loadbalanced_configuration?
+    return false if Rails.configuration.loadbalanced_configuration
     Rails.configuration.bigbluebutton_endpoint_default == Rails.configuration.bigbluebutton_endpoint
   end
   helper_method :bigbluebutton_endpoint_default?
-
-  def loadbalanced_configuration?
-    Rails.configuration.loadbalanced_configuration
-  end
-  helper_method :loadbalanced_configuration?
 
   def recording_thumbnails?
     Rails.configuration.recording_thumbnails
@@ -107,11 +102,11 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_https
-    redirect_to protocol: "https://" if loadbalanced_configuration? && request.headers["X-Forwarded-Proto"] == "http"
+    redirect_to protocol: "https://" if Rails.configuration.loadbalanced_configuration && request.headers["X-Forwarded-Proto"] == "http"
   end
 
   def set_customer_name
-    @customer_name = parse_customer_name(env["SERVER_NAME"])
+    @customer_name = parse_customer_name(request.env["SERVER_NAME"]) if Rails.configuration.loadbalanced_configuration
   end
   helper_method :set_customer_name
 end

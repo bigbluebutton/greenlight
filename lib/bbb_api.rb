@@ -13,7 +13,7 @@ module BbbApi
 
   # Sets a BigBlueButtonApi object for interacting with the API.
   def bbb
-    @bbb ||= if Rails.configuration.loadbalanced_configuration
+    if Rails.configuration.loadbalanced_configuration
       if instance_of? Room
         # currently in the Room Model
         lb_user = retrieve_provider_info(owner.provider)
