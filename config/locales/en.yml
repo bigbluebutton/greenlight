@@ -89,6 +89,7 @@ en:
   language_name: English
   language_default: Default (browser language)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
+  ldap_login: LDAP Authentication
   login: Sign in
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!
   modal:

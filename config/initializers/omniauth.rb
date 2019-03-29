@@ -60,7 +60,10 @@ OmniAuth.config.on_failure = proc { |env|
   OmniAuth::FailureEndpoint.new(env).redirect_to_failure
 }
 
-# Work around beacuse callback_url option causes
+# Customize LDAP login page CSS
+OmniAuth.config.form_css = File.read(Rails.root.join('app', 'assets', 'stylesheets', 'ldap.css'))
+
+# Work around because callback_url option causes
 # omniauth.auth to be nil in the authhash when
 # authenticating with LDAP.
 module OmniAuthLDAPExt
@@ -70,16 +73,104 @@ module OmniAuthLDAPExt
     @callback_path = nil
     path = options[:callback_path]
     options[:callback_path] = "#{rel_root if Rails.env == 'production'}/auth/ldap/callback"
-    form = super
+    form = generate_form
     options[:callback_path] = path
+
     form
+  end
+
+  # Customize LDAP form generation
+  def generate_form
+    f = OmniAuth::Form.new(title: I18n.t('ldap_login'), url: callback_path)
+    f.login_field 'username'
+    f.password_field 'password'
+    f.button "Login"
+    f.to_response
   end
 end
 
+# Workaround to have access to OmniAuth::Form to customize the LDAP Form creation
+module OmniAuthFormExt
+  # Overrides the header to add the div.center tag
+  def header(title, header_info)
+    @html << <<-HTML
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>#{title}</title>
+        #{css}
+        #{header_info}
+      </head>
+      <body>
+      <div class="center">
+        <h1>#{title}</h1>
+        <form method='post' #{"action='#{options[:url]}' " if options[:url]}noValidate='noValidate'>
+    HTML
+
+    self
+  end
+
+  # Creates a login_field method with our custom HTML and CSS
+  def login_field(name)
+    @html << <<-HTML
+    <div class="form-group">
+      <div class="input-icon">
+        <span class="input-icon-addon">
+          <i class="fas fa-at"></i>
+        </span>
+        <input class="form-control" placeholder="E-mail" value="" type="text" name="#{name}" id="#{name}">
+      </div>
+    </div>
+    HTML
+
+    self
+  end
+
+  # Creates a password_field method with our custom HTML and CSS
+  def password_field(name)
+    @html << <<-HTML
+    <div class="form-group">
+      <div class="input-icon">
+        <span class="input-icon-addon">
+          <i class="fas fa-key"></i>
+        </span>
+        <input value="" class="form-control" placeholder="Senha" type="password" name="#{name}" id="#{name}">
+      </div>
+    </div>
+    HTML
+
+    self
+  end
+
+  # Overrides button method with our custom HTML and CSS
+  def button(text)
+    @with_custom_button = true
+    @html << "<input type='submit' name='commit' value='#{text}' \
+              class='btn btn-outline-primary btn-block btn-pill' data-disable-with='Login'>"
+  end
+
+  protected
+
+  # Adds the fontawesome link to the css header
+  def css
+    super << "\n<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css' \
+              integrity='sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp' \
+              crossorigin='anonymous'>"
+  end
+end
+
+# Prepends for the OmniAuth workarounds above
 module OmniAuth
   module Strategies
     class LDAP
       prepend OmniAuthLDAPExt
     end
+  end
+end
+
+module OmniAuth
+  class Form
+    prepend OmniAuthFormExt
   end
 end
