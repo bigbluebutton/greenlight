@@ -81,7 +81,7 @@ module Greenlight
     # Configure custom branding image.
     config.branding_image = ENV['BRANDING_IMAGE'] || "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
 
-    # Show/Hide cutomization tab in user settings
+    # Show/Hide customization tab in user settings
     config.allow_custom_branding = (ENV['ALLOW_CUSTOM_BRANDING'] == "true")
 
     # Enable/disable recording thumbnails.
@@ -92,5 +92,8 @@ module Greenlight
 
     # The maximum number of rooms included in one bbbapi call
     config.pagination_number = ENV['PAGINATION_NUMBER'].to_i == 0 ? 25 : ENV['PAGINATION_NUMBER'].to_i
+
+    # Show/hide "Add to Google Calendar" button in the room page
+    config.enable_google_calendar_button = (ENV['ENABLE_GOOGLE_CALENDAR_BUTTON'] == "true")
   end
 end
