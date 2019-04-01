@@ -16,13 +16,13 @@ module BbbApi
     if Rails.configuration.loadbalanced_configuration
       if instance_of? Room
         # currently in the Room Model
-        lb_user = retrieve_provider_info(owner.provider)
+        user_domain = retrieve_provider_info(owner.provider)
       elsif instance_of? User
         # currently in the User Model
-        lb_user = retrieve_provider_info(provider)
+        user_domain = retrieve_provider_info(provider)
       end
 
-      BigBlueButton::BigBlueButtonApi.new(remove_slash(lb_user["apiURL"]), lb_user["secret"], "0.8")
+      BigBlueButton::BigBlueButtonApi.new(remove_slash(user_domain["apiURL"]), user_domain["secret"], "0.8")
     else
       BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
     end
@@ -72,5 +72,11 @@ module BbbApi
   # Removes trailing forward slash from a URL.
   def remove_slash(s)
     s.nil? ? nil : s.chomp("/")
+  end
+
+  def launcher_allow_user_signup_whitelisted?(provider)
+    return false unless Rails.configuration.launcher_allow_user_signup
+    whitelist = Rails.configuration.launcher_allow_user_signup.split(',')
+    whitelist.include? provider
   end
 end

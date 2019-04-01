@@ -67,7 +67,7 @@ class AccountActivationsController < ApplicationController
   end
 
   def email_params
-    params.require(:email).permit(:token)
+    params.require(:email).permit(:email, :token)
   end
 
   def find_user

@@ -184,6 +184,9 @@ class User < ApplicationRecord
 
   def greenlight_account?
     return provider == "greenlight" unless Rails.configuration.loadbalanced_configuration
+    # No need to retrive the provider info if the provider is whitelisted
+    return true if launcher_allow_user_signup_whitelisted?(provider)
+    # Proceed with fetching the provider info
     provider_info = retrieve_provider_info(provider, 'api2', 'getUserGreenlightCredentials')
     provider_info['provider'] == 'greenlight'
   end

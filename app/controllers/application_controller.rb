@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   before_action :migration_error?
   before_action :set_locale
-  before_action :set_lb_user
+  before_action :set_user_domain
 
   # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
@@ -107,8 +107,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_lb_user
-    @lb_user = parse_lb_user(request.env["SERVER_NAME"]) if Rails.configuration.loadbalanced_configuration
+  def set_user_domain
+    @user_domain = if Rails.configuration.loadbalanced_configuration
+      parse_user_domain(request.env["SERVER_NAME"])
+    else
+      "greenlight"
+    end
   end
-  helper_method :set_lb_user
+  helper_method :set_user_domain
 end

@@ -57,6 +57,7 @@ module Greenlight
       config.loadbalancer_endpoint = ENV["LOADBALANCER_ENDPOINT"]
       config.loadbalancer_secret = ENV["LOADBALANCER_SECRET"]
       config.launcher_secret = ENV["LAUNCHER_SECRET"]
+      config.launcher_allow_user_signup = ENV["LAUNCHER_ALLOW_GREENLIGHT_ACCOUNTS"]
     else
       # Use standalone BigBlueButton server.
       config.bigbluebutton_endpoint = ENV["BIGBLUEBUTTON_ENDPOINT"] || config.bigbluebutton_endpoint_default

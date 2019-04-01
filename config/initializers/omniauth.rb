@@ -17,7 +17,7 @@ Rails.application.config.omniauth_microsoft_office365 = ENV['OFFICE365_KEY'].pre
 Rails.application.config.allow_user_signup = false if Rails.application.config.omniauth_ldap
 
 SETUP_PROC = lambda do |env|
-  provider = env['omniauth.strategy'].options[:name]
+  provider = request.env['omniauth.strategy'].options[:name]
   if provider == "google"
     SessionsController.helpers.google_omniauth_hd env, ENV['GOOGLE_OAUTH2_HD']
   else
