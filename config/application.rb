@@ -95,17 +95,5 @@ module Greenlight
 
     # Default primary color if the user does not specify one
     config.primary_color_default = "#467fcf"
-
-    # Set the branding image and primary color for the user
-    config.after_initialize do
-      # Use defaults if the table doesn't exist or if the provider can't be found
-      if !ActiveRecord::Base.connection.data_source_exists?(:settings) || !Setting.where(provider: "greenlight").exists?
-        Rails.configuration.branding_image = Rails.configuration.branding_image_default
-        Rails.configuration.primary_color = Rails.configuration.primary_color_default
-      else
-        Rails.configuration.branding_image = Setting.find_by(provider: "greenlight").get_value("Branding Image")
-        Rails.configuration.primary_color = Setting.find_by(provider: "greenlight").get_value("Primary Color")
-      end
-    end
   end
 end

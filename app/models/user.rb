@@ -186,7 +186,15 @@ class User < ApplicationRecord
   end
 
   def admin_of?(user)
-    (has_role? :admin) && (id != user.id)
+    if Rails.configuration.loadbalanced_configuration
+      if has_role? :super_admin
+        id != user.id
+      else
+        (has_role? :admin) && (id != user.id) && (provider == user.provider) && (!user.has_role? :super_admin)
+      end
+    else
+      (has_role? :admin) && (id != user.id)
+    end
   end
 
   def self.digest(string)

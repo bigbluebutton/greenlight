@@ -3,6 +3,7 @@
 .btn-primary i {
   background-color: $primary-color !important;
   border-color: $primary-color !important;
+  color: white !important;
 }
 
 .btn-primary:active,
@@ -13,6 +14,19 @@
 .btn-primary:hover i {
   background-color: $primary-color-darken !important;
   border-color: $primary-color-darken !important;
+  color: white !important;
+}
+
+a {
+  color: $primary-color !important;
+}
+
+.oauth-signin {
+  color: white !important;
+
+  &:hover * {
+    color: white !important;
+  }
 }
 
 .btn-outline-primary {
@@ -23,10 +37,10 @@
     background: $primary-color !important;
     color: white !important;
   }
-}
 
-a:not(.icon):not(.dropdown-item):not(.btn) {
-  color: $primary-color !important;
+  &:focus {
+    box-shadow: 0 0 0 2px $primary-color-lighten;
+  }
 }
 
 .header a:hover:not(.btn) {
@@ -34,6 +48,7 @@ a:not(.icon):not(.dropdown-item):not(.btn) {
 }
 
 .dropdown-item {
+  color: #6e7687 !important;
   &:hover {
     color: $primary-color !important;
   }

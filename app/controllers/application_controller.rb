@@ -20,6 +20,7 @@ require 'bigbluebutton_api'
 
 class ApplicationController < ActionController::Base
   include SessionsHelper
+  include ThemingHelper
 
   before_action :migration_error?
   before_action :set_locale

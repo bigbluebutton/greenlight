@@ -24,7 +24,13 @@ class AdminsController < ApplicationController
 
   # GET /admins
   def index
-    @users = User.all.reverse_order
+    @users = []
+    User.find_each do |user|
+      if current_user.admin_of? user
+        @users.push(user)
+      end
+    end
+    @users.reverse!
   end
 
   # GET /admins/edit/:user_uid
@@ -46,16 +52,14 @@ class AdminsController < ApplicationController
 
   # POST /admins/branding
   def branding
-    Rails.configuration.branding_image = params[:url]
     @settings.update_value("Branding Image", params[:url])
     redirect_to admins_path
   end
 
   # POST /admins/color
   def coloring
-    Rails.configuration.primary_color = params[:color]
     @settings.update_value("Primary Color", params[:color])
-    redirect_to admins_path
+    redirect_to admins_path(setting: "design")
   end
 
   private
@@ -65,20 +69,11 @@ class AdminsController < ApplicationController
   end
 
   def find_setting
-    @settings = Setting.find_or_create_by!(provider: user_provider)
+    @settings = Setting.find_or_create_by!(provider: user_settings_provider)
   end
 
   def verify_admin_of_user
     redirect_to admins_path,
       flash: { alert: I18n.t("administrator.flash.unauthorized") } unless current_user.admin_of?(@user)
-  end
-
-  # Returns users provider
-  def user_provider
-    if Rails.configuration.loadbalanced_configuration
-      current_user.provider
-    else
-      "greenlight"
-    end
   end
 end

@@ -60,8 +60,13 @@ $(document).on('turbolinks:load', function(){
 
     // Change the color of the color inputs when the color is changed
     $(".colorinput-input").change(function(data) {
+      // Get the color from the input
       var color = $(data.target).val()
-      $.post($("#coloring-path").val(), {color: color})
+
+      // Update the color in the database and reload the page
+      $.post($("#coloring-path").val(), {color: color}).done(function(data) {
+        location.reload()
+      });
     });
 
   }

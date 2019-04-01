@@ -17,16 +17,18 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class ThemesController < ApplicationController
+  before_action :provider_settings
+
   # GET /primary
   def index
-    color = params[:color] || Rails.configuration.primary_color_default
+    color = @settings.get_value("Primary Color") || Rails.configuration.primary_color_default
     file_name = Rails.root.join('app', 'assets', 'stylesheets', 'utilities', '_primary_themes.scss')
     @file_contents = File.read(file_name)
 
     # Include the variables and covert scss file to css
     @compiled = Sass::Engine.new("$primary-color:#{color};" \
-                                 "$primary-color-lighten:#{lighten(color)};" \
-                                 "$primary-color-darken:#{darken(color)};" +
+                                 "$primary-color-lighten:lighten(#{color}, 40%);" \
+                                 "$primary-color-darken:darken(#{color}, 10%);" +
                                  @file_contents, syntax: :scss).render
 
     respond_to do |format|
@@ -36,21 +38,7 @@ class ThemesController < ApplicationController
 
   private
 
-  def darken(hex_color, amount = 0.8)
-    hex_color = hex_color.delete('#')
-    rgb = hex_color.scan(/../).map(&:hex)
-    rgb[0] = (rgb[0].to_i * amount).round
-    rgb[1] = (rgb[1].to_i * amount).round
-    rgb[2] = (rgb[2].to_i * amount).round
-    format("#%02x%02x%02x", rgb[0], rgb[1], rgb[2])
-  end
-
-  def lighten(hex_color, amount = 0.9)
-    hex_color = hex_color.delete('#')
-    rgb = hex_color.scan(/../).map(&:hex)
-    rgb[0] = [(rgb[0].to_i + 255 * amount).round, 255].min
-    rgb[1] = [(rgb[1].to_i + 255 * amount).round, 255].min
-    rgb[2] = [(rgb[2].to_i + 255 * amount).round, 255].min
-    format("#%02x%02x%02x", rgb[0], rgb[1], rgb[2])
+  def provider_settings
+    @settings = Setting.find_or_create_by(provider: user_settings_provider)
   end
 end
