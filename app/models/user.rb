@@ -133,7 +133,7 @@ class User < ApplicationRecord
 
   def activated?
     return true unless Rails.configuration.enable_email_verification
-    return self.email_verified
+    email_verified
   end
 
   def send_activation_email(url)
