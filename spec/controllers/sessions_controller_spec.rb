@@ -40,6 +40,8 @@ describe SessionsController, type: :controller do
   end
 
   describe "POST #create" do
+    before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(true) }
+
     it "should login user in if credentials valid" do
       post :create, params: {
         session: {

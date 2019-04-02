@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
     redirect_to(root_path, alert: I18n.t("invalid_login_method")) && return unless user.greenlight_account?
     redirect_to(root_path, alert: I18n.t("invalid_credentials")) && return unless user.try(:authenticate,
       session_params[:password])
-    redirect_to(account_activation_path(email: user.email)) && return unless user.email_verified
+    redirect_to(account_activation_path(email: user.email)) && return unless user.activated?
     login(user)
   end
 

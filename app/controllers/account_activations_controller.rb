@@ -27,7 +27,7 @@ class AccountActivationsController < ApplicationController
 
   # GET /account_activations/edit
   def edit
-    if @user && !@user.email_verified? && @user.authenticated?(:activation, params[:token])
+    if @user && !@user.activated? && @user.authenticated?(:activation, params[:token])
       @user.activate
 
       flash[:success] = I18n.t("verify.activated") + " " + I18n.t("verify.signin")
@@ -40,7 +40,7 @@ class AccountActivationsController < ApplicationController
 
   # GET /account_activations/resend
   def resend
-    if @user.email_verified
+    if @user.activated?
       flash[:alert] = I18n.t("verify.already_verified")
     else
       begin

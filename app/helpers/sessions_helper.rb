@@ -31,7 +31,7 @@ module SessionsHelper
 
   # If email verification is disabled, or the user has verified, go to their room
   def check_email_verified(user)
-    if !Rails.configuration.enable_email_verification || user.email_verified
+    if user.activated?
       redirect_to user.main_room
     else
       redirect_to resend_path

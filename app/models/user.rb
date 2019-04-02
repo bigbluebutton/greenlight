@@ -128,8 +128,12 @@ class User < ApplicationRecord
   def activate
     update_attribute(:email_verified, true)
     update_attribute(:activated_at, Time.zone.now)
-
     initialize_main_room
+  end
+
+  def activated?
+    return true unless Rails.configuration.enable_email_verification
+    return self.email_verified
   end
 
   def send_activation_email(url)
@@ -217,9 +221,7 @@ class User < ApplicationRecord
   # Assigns the user a BigBlueButton id and a home room if verified
   def create_home_room_if_verified
     self.uid = "gl-#{(0...12).map { (65 + rand(26)).chr }.join.downcase}"
-
-    initialize_main_room if email_verified
-    save
+    initialize_main_room
   end
 
   # Initializes a room for the user and assign a BigBlueButton user id.
