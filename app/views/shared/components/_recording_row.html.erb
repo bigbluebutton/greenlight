@@ -65,7 +65,7 @@
   <td>
     <% sorted_formats =  recording[:playbacks].sort_by! {|p| p[:type]} %>
     <% sorted_formats.each do |p| %>
-      <%= link_to p[:type].capitalize, p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
+      <%= link_to p[:type].capitalize, show_recording_path(recording[:meetingID], recording[:recordID], type: p[:type]), class: "btn btn-sm btn-primary", target: "_blank" %>
     <% end %>
   </td>
   <td class="text-center">

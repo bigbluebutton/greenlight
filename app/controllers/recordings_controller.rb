@@ -17,10 +17,18 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>
 
 class RecordingsController < ApplicationController
+  layout false
+
   before_action :find_room
-  before_action :verify_room_ownership
+  before_action :verify_room_ownership, except: :show
 
   META_LISTED = "gl-listed"
+
+  # GET /:meetingID/:record_id
+  def show
+    @recording = @room.recordings.find { |r| r[:recordID] == params[:record_id] }
+    @recording_url = @recording[:playbacks].find { |p| p[:type] == params[:type] }[:url]
+  end
 
   # POST /:meetingID/:record_id
   def update_recording
