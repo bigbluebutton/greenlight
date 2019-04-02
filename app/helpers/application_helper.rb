@@ -79,9 +79,9 @@ module ApplicationHelper
     return true unless Rails.configuration.loadbalanced_configuration
     return false unless Rails.configuration.allow_user_signup
     # No need to retrieve the provider info if the provider is whitelisted
-    return true if launcher_allow_user_signup_whitelisted?(@lb_user)
+    return true if launcher_allow_user_signup_whitelisted?(@user_domain)
     # Proceed with retrieving the provider info
-    provider_info = retrieve_provider_info(@lb_user, 'api2', 'getUserGreenlightCredentials')
+    provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
     provider_info['provider'] == 'greenlight'
   end
 end

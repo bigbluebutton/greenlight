@@ -71,6 +71,6 @@ class AccountActivationsController < ApplicationController
   end
 
   def find_user
-    @user = User.find_by!(email: params[:email], provider: "greenlight")
+    @user = User.find_by!(email: params[:email], provider: @user_domain)
   end
 end
