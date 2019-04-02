@@ -78,12 +78,13 @@ $(document).on('turbolinks:load', function(){
     // Generalized function for sorting recordings
     var sort_recordings = function(recording_list_tbody, order, recording_id){
       recording_list_tbody.find('tr').sort(function(a, b){
+        var a_val, b_val;
         if (recording_id == "#recording-length") {
-          var a_val = $.trim($(a).find(recording_id).data("full-length"));
-          var b_val = $.trim($(b).find(recording_id).data("full-length"));
+          a_val = $.trim($(a).find(recording_id).data("full-length"));
+          b_val = $.trim($(b).find(recording_id).data("full-length"));
         } else {
-          var a_val = $.trim($(a).find(recording_id).text());
-          var b_val = $.trim($(b).find(recording_id).text());
+          a_val = $.trim($(a).find(recording_id).text());
+          b_val = $.trim($(b).find(recording_id).text());
         }
 
         if(order === "asc"){
