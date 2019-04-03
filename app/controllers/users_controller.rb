@@ -64,6 +64,10 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /signin
+  def signin
+  end
+
   # GET /signup
   def new
     if Rails.configuration.allow_user_signup

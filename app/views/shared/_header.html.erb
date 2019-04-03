@@ -49,7 +49,7 @@
 								<i class="dropdown-icon fas fa-video"></i> <%= t("room.recordings") %>
 							<% end %>
 							<%= link_to edit_user_path(current_user), class: "dropdown-item" do %>
-								<i class="dropdown-icon fas fa-cog"></i> <%= t("header.dropdown.settings") %>
+								<i class="dropdown-icon fas fa-id-card mr-3"></i><%= t("header.dropdown.settings") %>
 							<% end %>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="http://docs.bigbluebutton.org/install/greenlight-v2.html" target="_blank">
@@ -62,18 +62,16 @@
 					</div>
 				<% else %>
           <% if Rails.configuration.omniauth_bn_launcher %>
-            <%= link_to t("login"), omniauth_login_url(:bn_launcher), :class => "btn btn-pill btn-outline-primary mx-2" %>
+            <%= link_to t("login"), omniauth_login_url(:bn_launcher), :class => "btn btn-outline-primary mx-2" %>
           <% elsif Rails.configuration.omniauth_ldap %>
-						<%= link_to t("login"), omniauth_login_url(:ldap), :class => "btn btn-pill btn-outline-primary mx-2" %>
+						<%= link_to t("login"), omniauth_login_url(:ldap), :class => "btn btn-outline-primary mx-2" %>
 					<% else %>
-            <%= link_to t("login"), "#loginModal", :class => "btn btn-pill btn-outline-primary mx-2", "data-toggle": "modal" %>
+            <%= link_to t("login"), signin_path, :class => "btn btn-outline-primary mx-2" %>
           <% end %>
 
 					<% if allow_user_signup? %>
-						<%= link_to t("signup.title"), signup_path, :class => "btn btn-pill btn-outline-primary mx-2" %>
+						<%= link_to t("signup.title"), signup_path, :class => "btn btn-outline-primary mx-2" %>
 					<% end %>
-
-					<%= render "shared/modals/login_modal" %>
 				<% end %>
 			</div>
 		</div>

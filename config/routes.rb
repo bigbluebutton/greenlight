@@ -24,7 +24,8 @@ Rails.application.routes.draw do
   match '/422', to: 'errors#unprocessable', via: :all
   match '/500', to: 'errors#internal_error', via: :all
 
-  # Signup routes.
+  # Signin/Signup routes.
+  get '/signin', to: 'users#signin', as: :signin
   get '/signup', to: 'users#new', as: :signup
   post '/signup', to: 'users#create', as: :create_user
 

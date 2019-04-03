@@ -54,6 +54,7 @@ en:
         created: Created On
         name: Name
         not_found: No users match your search
+        no_users: No users found
         provider: Provider
         uid: User ID
         username: Username
@@ -112,7 +113,7 @@ en:
     dropdown:
       help: Need help?
       home: Rooms
-      settings: Settings
+      settings: Profile
       signout: Sign out
   home_room: Home Room
   info_update_success: Information successfully updated.
@@ -139,6 +140,7 @@ en:
     zh-cn: Chinese (PRC)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   login: Sign in
+  login_title: Sign in to your account
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!
   modal:
     create_room:
@@ -245,7 +247,7 @@ en:
       old: Old Password
       subtitle: Change your Password
       title: Password
-    title: Settings
+    title: Profile
   signup:
     password_confirm: Password Confirmation
     subtitle: Create an Account
