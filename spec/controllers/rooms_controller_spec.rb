@@ -159,7 +159,7 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @owner.id
       post :join, params: { room_uid: @room, join_name: @owner.name }
 
-      expect(response).to redirect_to(@user.main_room.join_path(@owner.name, { user_is_moderator: true }, @owner.uid))
+      expect(response).to redirect_to(@owner.main_room.join_path(@owner.name, { user_is_moderator: true }, @owner.uid))
     end
 
     it "redirects to root if owner of room is not verified" do
