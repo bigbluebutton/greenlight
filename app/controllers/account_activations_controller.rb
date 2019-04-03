@@ -17,6 +17,8 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class AccountActivationsController < ApplicationController
+  include UsersHelper
+
   before_action :ensure_unauthenticated
   before_action :find_user
 
@@ -44,7 +46,7 @@ class AccountActivationsController < ApplicationController
       flash[:alert] = I18n.t("verify.already_verified")
     else
       begin
-        @user.send_activation_email(verification_link)
+        @user.send_activation_email(user_verification_link)
       rescue => e
         logger.error "Error in email delivery: #{e}"
         flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
@@ -57,10 +59,6 @@ class AccountActivationsController < ApplicationController
   end
 
   private
-
-  def verification_link
-    request.base_url + edit_account_activation_path(token: @user.activation_token, email: @user.email)
-  end
 
   def ensure_unauthenticated
     redirect_to current_user.main_room if current_user

@@ -24,7 +24,7 @@ $(document).on('turbolinks:load', function(){
     // (Name, Length or Users)
     $('th').each(function(){
       if($(this).data("header")){
-        $(this).on('click', function(){    
+        $(this).on('click', function(){
           set_active_header($(this).data("header"));
           sort_by($(this).data("header"), $(this).data('order'));
         });
@@ -88,6 +88,8 @@ $(document).on('turbolinks:load', function(){
         }
         else if(order === "desc"){
           return b_val.localeCompare(a_val);
+        } else {
+          return;
         }
       }).appendTo(recording_list_tbody);
     }
