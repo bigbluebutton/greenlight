@@ -56,6 +56,15 @@ class RoomsController < ApplicationController
       @recordings = recs
       @is_running = @room.running?
     else
+      # Get users name
+      @name = if current_user
+        current_user.name
+      elsif cookies.encrypted[:greenlight_name]
+        cookies.encrypted[:greenlight_name]
+      else
+        ""
+      end
+
       render :join
     end
   end
@@ -90,6 +99,9 @@ class RoomsController < ApplicationController
         return
       end
     end
+
+    # create or update cookie with join name
+    cookies.encrypted[:greenlight_name] = @join_name unless cookies.encrypted[:greenlight_name] == @join_name
 
     if @room.running? || @room.owned_by?(current_user)
       # Determine if the user needs to join as a moderator.
