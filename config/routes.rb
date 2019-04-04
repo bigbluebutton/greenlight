@@ -81,6 +81,7 @@ Rails.application.routes.draw do
       get '/', to: 'recordings#show', as: :show_recording
       post '/', to: 'recordings#update_recording', as: :update_recording
       delete '/', to: 'recordings#delete_recording', as: :delete_recording
+      get '/:type', to: 'recordings#play_recording', as: :play_recording
     end
   end
 
