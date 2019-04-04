@@ -47,7 +47,7 @@ RSpec.configure do |config|
   # external servers, api stubbing is used to simulate external server
   # responses
   config.before(:each) do
-    stub_request(:any, /#{ENV['BIGBLUEBUTTON_ENDPOINT']}/)
+    stub_request(:any, /#{ENV['BIGBLUEBUTTON_ENDPOINT'] + 'api'}/)
       .with(
         headers:
         {
@@ -57,7 +57,7 @@ RSpec.configure do |config|
         }
       )
       .to_return(status: 200, body: "", headers: {})
-    stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT']}/)
+    stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT'] + 'api'}/)
       .with(
         headers:
         {
@@ -67,7 +67,7 @@ RSpec.configure do |config|
         }
       )
       .to_return(status: 200, body: "", headers: {})
-    stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT'] + 'getUser'}/)
+    stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT'] + 'api\/getUser'}/)
       .with(
         headers:
         {
@@ -85,6 +85,24 @@ RSpec.configure do |config|
             <maxMeetings>1000</maxMeetings>
             <apiURL>#{ENV['LOADBALANCER_ENDPOINT']}</apiURL>
             <secret>#{ENV['LOADBALANCER_SECRET']}</secret>
+          </user>
+        </response>", headers: {}) if ENV['LOADBALANCER_ENDPOINT']
+    stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT'] + 'api2\/getUserGreenlightCredentials'}/)
+      .with(
+        headers:
+        {
+          'Accept': '*/*',
+          'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'User-Agent': 'Ruby',
+        }
+      )
+      .to_return(status: 200, body: "
+        <response>
+          <version>2.0</version>
+          <returncode>SUCCESS</returncode>
+          <user>
+            <provider>greenlight</provider>
+            <GOOGLE_HD/>
           </user>
         </response>", headers: {}) if ENV['LOADBALANCER_ENDPOINT']
   end

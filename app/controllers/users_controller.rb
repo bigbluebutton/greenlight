@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     else
       flash[:success] = I18n.t("email_sent")
     end
-    redirect_to(root_path) && return
+    redirect_to(root_path)
   end
 
   # GET /signup
