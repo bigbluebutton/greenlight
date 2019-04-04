@@ -16,5 +16,11 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-module UsersHelper
+module Verifier
+  extend ActiveSupport::Concern
+
+  # Returns the link the user needs to click to verify their account
+  def user_verification_link
+    request.base_url + edit_account_activation_path(token: @user.activation_token, email: @user.email)
+  end
 end

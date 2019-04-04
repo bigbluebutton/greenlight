@@ -17,7 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class AccountActivationsController < ApplicationController
-  include UsersHelper
+  include Verifier
 
   before_action :ensure_unauthenticated
   before_action :find_user
