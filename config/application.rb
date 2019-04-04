@@ -73,6 +73,9 @@ module Greenlight
     # Determine if GreenLight should enable email verification
     config.enable_email_verification = (ENV['ALLOW_MAIL_NOTIFICATIONS'] == "true")
 
+    # Determine if the BBB server has authentication or not
+    config.enable_bbb_server_authentication = (ENV['ENABLE_BBB_SERVER_AUTHENTICATION'] == 'true')
+
     # Determine if GreenLight should allow non-omniauth signup/login.
     config.allow_user_signup = (ENV['ALLOW_GREENLIGHT_ACCOUNTS'] == "true")
 
