@@ -29,13 +29,13 @@ describe RecordingsController, type: :controller do
     it "can access a recording if it is logged in" do
       @request.session[:user_id] = @user.uid
 
-      get :show, params: {meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid }
+      get :show, params: { meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid }
 
       expect(response).to have_http_status(200)
     end
 
     it "can access a recording if it is NOT logged in" do
-      get :show, params: {meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid }
+      get :show, params: { meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid }
 
       expect(response).to have_http_status(200)
     end
