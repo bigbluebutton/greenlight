@@ -25,19 +25,21 @@ describe RecordingsController, type: :controller do
     @secondary_user = create(:user)
   end
 
-  context "GET #show " do
-    it "can access a recording if it is logged in" do
-      @request.session[:user_id] = @user.uid
+  unless Rails.configuration.enable_bbb_server_authentication
+    context "GET #play_recording " do
+      it "can access a recording if it is logged in" do
+        @request.session[:user_id] = @user.uid
 
-      get :show, params: { meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid }
+        get :play_recording, params: { meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid, type: :presentation }
 
-      expect(response).to have_http_status(200)
-    end
+        expect(response).to have_http_status(200)
+      end
 
-    it "can access a recording if it is NOT logged in" do
-      get :show, params: { meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid }
+      it "can access a recording if it is NOT logged in" do
+        get :play_recording, params: { meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid, type: :presentation }
 
-      expect(response).to have_http_status(200)
+        expect(response).to have_http_status(200)
+      end
     end
   end
 

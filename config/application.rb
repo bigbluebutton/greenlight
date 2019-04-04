@@ -96,5 +96,8 @@ module Greenlight
 
     # The maximum number of rooms included in one bbbapi call
     config.pagination_number = ENV['PAGINATION_NUMBER'].to_i == 0 ? 25 : ENV['PAGINATION_NUMBER'].to_i
+
+    # Default recording visibility
+    config.default_recording_visibility = ENV['DEFAULT_RECORDING_VISIBILITY'] || "unlisted"
   end
 end

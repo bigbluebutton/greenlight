@@ -141,7 +141,8 @@ class Room < ApplicationRecord
 
   # Chooses the recording of arrom, based on its id and type
   def play_recording(record_id, type)
-    recordings.select { |r| r[:recordID] == record_id }.first[:playbacks].select { |p| p[:type] == type }.first[:url]
+    recording = recordings.select { |r| r[:recordID] == record_id }.first
+    recording.playbacks.select { |p| p[:type] == type }.first.url if recording
   end
 
   # Passing token on the url
@@ -152,7 +153,7 @@ class Room < ApplicationRecord
       uri += URI.parse(uri).query.blank? ? "?" : "&"
       uri += "token=#{auth_token}"
     end
-    
+
     uri
   end
 

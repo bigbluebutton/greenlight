@@ -20,7 +20,7 @@ class RecordingsController < ApplicationController
   layout false
 
   before_action :find_room
-  before_action :verify_room_ownership, except: :show
+  before_action :verify_room_ownership, except: :play_recording
 
   META_LISTED = "gl-listed"
 
