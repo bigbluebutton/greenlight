@@ -25,6 +25,24 @@ describe RecordingsController, type: :controller do
     @secondary_user = create(:user)
   end
 
+  context "GET #show " do
+    it "can access a recording if it is logged in" do
+      @request.session[:user_id] = @user.uid
+
+      get :show, params: {meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid }
+
+      pp response
+
+      expect(response).to have_http_status(200)
+    end
+
+    it "can access a recording if it is NOT logged in" do
+      get :show, params: {meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid }
+
+      expect(response).to have_http_status(200)
+    end
+  end
+
   context "POST #update_recording" do
     it "updates the recordings details" do
       @request.session[:user_id] = @user.uid

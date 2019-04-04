@@ -27,7 +27,7 @@ class RecordingsController < ApplicationController
   # GET /:meetingID/:record_id
   def show
     @recording = @room.recordings.find { |r| r[:recordID] == params[:record_id] }
-    @recording_url = @recording[:playbacks].find { |p| p[:type] == params[:type] }[:url]
+    @recording_url = @recording.playbacks.find { |p| p[:type] == params[:type] }.url if @recording&.playbacks
   end
 
   # POST /:meetingID/:record_id
