@@ -143,17 +143,17 @@ class Room < ApplicationRecord
     recordings.select { |r| r[:recordID] == record_id }.first[:playbacks].select { |p| p[:type] == type }.first[:url]
   end
 
-  # Passing it on the url
-  #
+  # Passing token on the url
   def token_url(user, ip, record_id, playback)
     auth_token = get_token(user, ip, record_id)
-    if auth_token.present?
       uri = playback
+    if auth_token.present?
       uri += URI.parse(uri).query.blank? ? "?" : "&"
       uri += "token=#{auth_token}"
+    end
+    
       uri
     end
-  end
 
   private
 
