@@ -31,8 +31,6 @@ describe RecordingsController, type: :controller do
 
       get :show, params: {meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid }
 
-      pp response
-
       expect(response).to have_http_status(200)
     end
 
