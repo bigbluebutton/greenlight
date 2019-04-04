@@ -84,7 +84,7 @@ RSpec.configure do |config|
             <name>greenlight</name>
             <maxMeetings>1000</maxMeetings>
             <apiURL>#{ENV['BIGBLUEBUTTON_ENDPOINT']}api/</apiURL>
-            <secret>#{ENV['BIGBLUEBUTTON_SECRET']}api/</secret>
+            <secret>#{ENV['BIGBLUEBUTTON_SECRET']}</secret>
           </user>
         </response>", headers: {}) if ENV['LOADBALANCER_ENDPOINT']
     stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT'] + 'api2\/getUserGreenlightCredentials'}/)

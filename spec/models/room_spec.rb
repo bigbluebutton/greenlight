@@ -93,13 +93,8 @@ describe Room, type: :model do
         attendeePW: "testpass"
       )
 
-      if Rails.configuration.loadbalanced_configuration
-        endpoint = Rails.configuration.loadbalancer_endpoint
-        secret = Rails.configuration.loadbalancer_secret
-      else
-        endpoint = Rails.configuration.bigbluebutton_endpoint
-        secret = Rails.configuration.bigbluebutton_secret
-      end
+      endpoint = Rails.configuration.bigbluebutton_endpoint
+      secret = Rails.configuration.bigbluebutton_secret
       fullname = "fullName=Example"
       meeting_id = "&meetingID=#{@room.bbb_id}"
       password = "&password=testpass"

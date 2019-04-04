@@ -19,14 +19,10 @@
 require "rails_helper"
 
 describe SessionsController, type: :controller do
-  before(:all) do
-    @user = create(:user, provider: "greenlight", password: "example", password_confirmation: "example")
-    @omni_user = create(:user, password: "example", password_confirmation: "example")
-  end
-
   describe "GET #destroy" do
     before(:each) do
-      @request.session[:user_id] = @user.id
+      user = create(:user, provider: "greenlight")
+      @request.session[:user_id] = user.id
       get :destroy
     end
 
@@ -41,23 +37,27 @@ describe SessionsController, type: :controller do
 
   describe "POST #create" do
     before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(true) }
+    before(:each) do
+      @user1 = create(:user, provider: 'greenlight', password: 'example', password_confirmation: 'example')
+      @user2 = create(:user, password: 'example', password_confirmation: "example")
+    end
 
     it "should login user in if credentials valid" do
       post :create, params: {
         session: {
-          email: @user.email,
-          password: "example",
+          email: @user1.email,
+          password: 'example',
         },
       }
 
-      expect(@request.session[:user_id]).to eql(@user.id)
+      expect(@request.session[:user_id]).to eql(@user1.id)
     end
 
     it "should not login user in if credentials invalid" do
       post :create, params: {
         session: {
-          email: @user.email,
-          password: "invalid",
+          email: @user1.email,
+          password: 'invalid',
         },
       }
 
@@ -67,7 +67,7 @@ describe SessionsController, type: :controller do
     it "should not login user in if account mismatch" do
       post :create, params: {
         session: {
-          email: @omni_user.email,
+          email: @user2.email,
           password: "example",
         },
       }
@@ -76,18 +76,18 @@ describe SessionsController, type: :controller do
     end
 
     it "should not login user if account is not verified" do
-      @secondary_user = create(:user, email_verified: false, provider: "greenlight",
-                                password: "example", password_confirmation: "example")
+      @user3 = create(:user, email_verified: false, provider: "greenlight",
+        password: "example", password_confirmation: 'example')
 
       post :create, params: {
         session: {
-          email: @secondary_user.email,
-          password: "example",
+          email: @user3.email,
+          password: 'example',
         },
       }
 
       expect(@request.session[:user_id]).to be_nil
-      expect(response).to redirect_to(account_activation_path(email: @secondary_user.email))
+      expect(response).to redirect_to(account_activation_path(email: @user3.email))
     end
   end
 
@@ -101,7 +101,7 @@ describe SessionsController, type: :controller do
         info: {
           email: "user@twitter.com",
           name: "Twitter User",
-          nickname: "username",
+          nickname: "twitteruser",
           image: "example.png",
         },
       )
@@ -110,11 +110,11 @@ describe SessionsController, type: :controller do
         provider: "bn_launcher",
         uid: "bn-launcher-user",
         info: {
-          email: "user1@google.com",
-          name: "User1",
-          nickname: "nick",
+          email: "user@google.com",
+          name: "Google User",
+          nickname: "googleuser",
           image: "touch.png",
-          customer: 'ocps',
+          customer: 'customer1',
         }
       )
 
@@ -123,37 +123,39 @@ describe SessionsController, type: :controller do
       }
     end
 
-    it "should create and login user with omniauth twitter" do
-      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
-      get :omniauth, params: { provider: :twitter }
+    unless Rails.configuration.omniauth_bn_launcher
+      it "should create and login user with omniauth twitter" do
+        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
+        get :omniauth, params: { provider: :twitter }
 
-      u = User.last
-      expect(u.provider).to eql("twitter")
-      expect(u.email).to eql("user@twitter.com")
-      expect(@request.session[:user_id]).to eql(u.id)
-    end
+        u = User.last
+        expect(u.provider).to eql("twitter")
+        expect(u.email).to eql("user@twitter.com")
+        expect(@request.session[:user_id]).to eql(u.id)
+      end
 
-    it "should create and login user with omniauth bn launcher" do
-      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
-      get :omniauth, params: { provider: 'bn_launcher' }
+      it "should create and login user with omniauth bn launcher" do
+        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
+        get :omniauth, params: { provider: 'bn_launcher' }
 
-      u = User.last
-      expect(u.provider).to eql("ocps")
-      expect(u.email).to eql("user1@google.com")
-      expect(@request.session[:user_id]).to eql(u.id)
-    end
+        u = User.last
+        expect(u.provider).to eql("customer1")
+        expect(u.email).to eql("user@google.com")
+        expect(@request.session[:user_id]).to eql(u.id)
+      end
 
-    it "should redirect to root on invalid omniauth login" do
-      request.env["omniauth.auth"] = :invalid_credentials
-      get :omniauth, params: { provider: :twitter }
+      it "should redirect to root on invalid omniauth login" do
+        request.env["omniauth.auth"] = :invalid_credentials
+        get :omniauth, params: { provider: :twitter }
 
-      expect(response).to redirect_to(root_path)
-    end
+        expect(response).to redirect_to(root_path)
+      end
 
-    it "should not create session without omniauth env set for google" do
-      get :omniauth, params: { provider: 'google' }
+      it "should not create session without omniauth env set for google" do
+        get :omniauth, params: { provider: 'google' }
 
-      expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(root_path)
+      end
     end
 
     it "should not create session without omniauth env set for bn_launcher" do
