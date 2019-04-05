@@ -47,7 +47,7 @@ RSpec.configure do |config|
   # external servers, api stubbing is used to simulate external server
   # responses
   config.before(:each) do
-    stub_request(:any, /#{ENV['BIGBLUEBUTTON_ENDPOINT'] + 'api'}/)
+    stub_request(:any, /#{"http:\/\/bbb.example.com\/bigbluebutton\/api"}/)
       .with(
         headers:
         {
@@ -83,8 +83,8 @@ RSpec.configure do |config|
           <user>
             <name>greenlight</name>
             <maxMeetings>1000</maxMeetings>
-            <apiURL>#{ENV['BIGBLUEBUTTON_ENDPOINT']}api/</apiURL>
-            <secret>#{ENV['BIGBLUEBUTTON_SECRET']}</secret>
+            <apiURL>http:\/\/bbb.example.com\/bigbluebutton\/api</apiURL>
+            <secret>secret</secret>
           </user>
         </response>", headers: {}) if ENV['LOADBALANCER_ENDPOINT']
     stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT'] + 'api2\/getUserGreenlightCredentials'}/)

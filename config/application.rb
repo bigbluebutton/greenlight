@@ -58,9 +58,8 @@ module Greenlight
     # Fix endpoint format if required.
     config.bigbluebutton_endpoint += "api/" unless config.bigbluebutton_endpoint.ends_with?('api/')
 
-    # Setup BigBlueButton configuration.
     if config.loadbalanced_configuration
-      # Fetch credentials from a loadbalancer based on provider.
+      # Settings for fetching credentials from a loadbalancer based on provider.
       config.loadbalancer_endpoint = ENV["LOADBALANCER_ENDPOINT"]
       config.loadbalancer_secret = ENV["LOADBALANCER_SECRET"]
       config.launcher_secret = ENV["LAUNCHER_SECRET"]
