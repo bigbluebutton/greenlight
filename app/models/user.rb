@@ -23,7 +23,7 @@ class User < ApplicationRecord
   include ::BbbApi
 
   attr_accessor :reset_token
-  after_create :create_home_room_if_verified
+  after_create :initialize_main_room
   before_save { email.try(:downcase!) }
 
   before_destroy :destroy_rooms
@@ -127,7 +127,6 @@ class User < ApplicationRecord
   def activate
     update_attribute(:email_verified, true)
     update_attribute(:activated_at, Time.zone.now)
-    initialize_main_room
   end
 
   def activated?
@@ -223,14 +222,9 @@ class User < ApplicationRecord
     rooms.destroy_all
   end
 
-  # Assigns the user a BigBlueButton id and a home room if verified
-  def create_home_room_if_verified
-    self.uid = "gl-#{(0...12).map { (65 + rand(26)).chr }.join.downcase}"
-    initialize_main_room
-  end
-
   # Initializes a room for the user and assign a BigBlueButton user id.
   def initialize_main_room
+    self.uid = "gl-#{(0...12).map { (65 + rand(26)).chr }.join.downcase}"
     self.main_room = Room.create!(owner: self, name: I18n.t("home_room"))
     save
   end
