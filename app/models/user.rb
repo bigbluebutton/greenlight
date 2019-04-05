@@ -214,7 +214,7 @@ class User < ApplicationRecord
   def create_reset_activation_digest(token)
     # Create the digest and persist it.
     self.activation_digest = User.digest(token)
-    self.save
+    save
     token
   end
 
