@@ -19,7 +19,7 @@
 Rails.application.routes.draw do
   # Root routes
   get Rails.configuration.landing_page_url, to: 'main#index', as: :root
-  root to: 'application#not_found', as: ''
+  root to: 'errors#not_found', as: ''
 
   # Health check route
   get 'health_check', to: 'health_check/health_check#index'
