@@ -34,8 +34,13 @@ module Greenlight
     config.exceptions_app = routes
 
     # Configure I18n localization.
+    config.i18n.enforce_available_locales = false
     config.i18n.available_locales = %w(en pt-br es ar fr de el ru)
-    config.i18n.default_locale = "en"
+    config.i18n.default_locale = if config.i18n.available_locales.include?(ENV["DEFAULT_LOCALE"])
+      ENV["DEFAULT_LOCALE"].to_sym
+    else
+      :en
+    end
 
     config.i18n.available_locales.each do |locale|
       config.i18n.fallbacks[locale] = [locale, :en]
