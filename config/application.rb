@@ -92,5 +92,8 @@ module Greenlight
 
     # The maximum number of rooms included in one bbbapi call
     config.pagination_number = ENV['PAGINATION_NUMBER'].to_i == 0 ? 25 : ENV['PAGINATION_NUMBER'].to_i
+
+    # Custom link for the 'Do you need help?' button on the User menu
+    config.need_help_button_link = ENV['NEED_HELP_BUTTON_LINK'] || 'http://docs.bigbluebutton.org/install/greenlight-v2.html'
   end
 end
