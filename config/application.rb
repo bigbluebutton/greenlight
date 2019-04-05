@@ -71,6 +71,9 @@ module Greenlight
       config.bigbluebutton_endpoint += "api/" unless config.bigbluebutton_endpoint.ends_with?('api/')
     end
 
+    # Specify the link for the landing page
+    config.landing_page_url = ENV['LANDING_PAGE_URL'] || '/'
+
     # Specify the email address that all mail is sent from
     config.email_sender = ENV['EMAIL_SENDER'].present? ? ENV['EMAIL_SENDER'] : "notifications@example.com"
 
