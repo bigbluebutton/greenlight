@@ -22,10 +22,9 @@ class User < ApplicationRecord
   include ::APIConcern
   include ::BbbApi
 
-  attr_accessor :reset_token, :activation_token
+  attr_accessor :reset_token
   after_create :create_home_room_if_verified
   before_save { email.try(:downcase!) }
-  before_create :create_activation_digest
 
   before_destroy :destroy_rooms
 
@@ -195,6 +194,11 @@ class User < ApplicationRecord
     provider_info['provider'] == 'greenlight'
   end
 
+  def activation_token
+    # Create the token.
+    create_reset_activation_digest(User.new_token)
+  end
+
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
@@ -207,10 +211,11 @@ class User < ApplicationRecord
 
   private
 
-  def create_activation_digest
-    # Create the token and digest.
-    self.activation_token  = User.new_token
-    self.activation_digest = User.digest(activation_token)
+  def create_reset_activation_digest(token)
+    # Create the digest and persist it.
+    self.activation_digest = User.digest(token)
+    self.save
+    token
   end
 
   # Destory a users rooms when they are removed.
