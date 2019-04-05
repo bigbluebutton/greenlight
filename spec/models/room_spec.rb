@@ -83,7 +83,7 @@ describe Room, type: :model do
         @room.start_session
       end.to change { @room.sessions }.by(1)
 
-      expect(@room.last_session.utc.to_i).to eq(Time.now.to_i)
+      expect(@room.last_session).not_to be nil
     end
   end
 
