@@ -22,14 +22,17 @@
 
 			<div class="d-flex ml-auto">
 				<% if current_user %>
-					<a id="create-room" class="px-3 ml-2 mt-1" href="" data-toggle="modal" data-target="#createRoomModal">
-						<i class="fas fa-plus"></i>&nbsp; <%= t("header.create_room") %>
-					</a>
-					<% if current_user.has_role? :admin %>
-						<a id="" class="px-3 ml-2 mt-1" href="<%= admins_path %>">
-							<i class="fas fa-user-tie"></i>&nbsp; <%= t("header.admin") %>
-						</a>
+
+					<% rooms_page = params[:controller] == "rooms" && params[:action] == "show" ? "active" : "" %>
+					<%= link_to current_user.main_room, class: "px-3 mx-1 mt-1 header-nav #{rooms_page}" do %>
+						<i class="fas fa-home pr-1 "></i> <%= t("header.dropdown.home") %>
 					<% end %>
+
+					<% all_rec_page = params[:controller] == "users" && params[:action] == "recordings" ? "active" : "" %>
+					<%= link_to get_user_recordings_path(current_user), class: "px-3 mx-1 mt-1 header-nav #{all_rec_page}" do %>
+						<i class="fas fa-video pr-1"></i> <%= t("header.all_recordings") %>
+					<% end %>
+
 					<div class="dropdown">
 						<a href="#" class="nav-link pr-0" data-toggle="dropdown">
 							<% if current_user.image.blank? %>
@@ -42,14 +45,13 @@
 							</span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end">
-							<%= link_to current_user.main_room, class: "dropdown-item" do %>
-								<i class="dropdown-icon fas fa-home"></i> <%= t("header.dropdown.home") %>
-							<% end %>
-							<%= link_to get_user_recordings_path(current_user), class: "dropdown-item" do %>
-								<i class="dropdown-icon fas fa-video"></i> <%= t("room.recordings") %>
-							<% end %>
-							<%= link_to edit_user_path(current_user), class: "dropdown-item" do %>
+							<%= link_to edit_user_path(current_user), class: "dropdown-item"  do %>
 								<i class="dropdown-icon fas fa-id-card mr-3"></i><%= t("header.dropdown.settings") %>
+							<% end %>
+							<% if current_user.has_role? :admin %>
+								<%= link_to admins_path, class: "dropdown-item" do %>
+									<i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
+								<% end %>
 							<% end %>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="http://docs.bigbluebutton.org/install/greenlight-v2.html" target="_blank">

@@ -13,9 +13,17 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<%
-# shared/sessions is a partial, meaning it can't be rendered through the controller
-# without losing all css
-%>
-
-<%= render "shared/sessions", recordings: @recordings, only_public: false, user_recordings: true, title: t("recording.all_recordings") %>
+<div class="col-lg-4 col-md-6 col-sm-12">
+  <div id="create-room-block" class="card-body p-1 mb-5 background" data-toggle="modal" data-target="#createRoomModal">
+    <div class="row p-3">
+      <div class="col-4">
+        <span class="stamp stamp-md bg-primary">
+          <i class="fas fa-plus"></i>
+        </span>
+      </div>
+      <div class="col-8">
+        <h4 class="my-2"><%= t("room.create_room") %></h4>
+      </div>
+    </div>
+  </div>
+</div>

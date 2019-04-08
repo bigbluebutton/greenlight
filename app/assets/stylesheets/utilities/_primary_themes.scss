@@ -43,8 +43,23 @@ a {
   }
 }
 
-.header a:hover:not(.btn) {
-  color: $primary-color-darken !important;
+.header {
+  & .avatar {
+    background-color: $primary-color !important;
+    color: white !important;
+  }
+
+  & a:hover:not(.btn) {
+    color: $primary-color !important;
+  }
+
+  & .header-nav {
+    border-color: $primary-color !important;
+  }
+
+  & .header-nav.active {
+    color: $primary-color !important;
+  }
 }
 
 .dropdown-item {
@@ -55,11 +70,6 @@ a {
   &:active {
     background-color: $primary-color-lighten !important;
   }
-}
-
-.header .avatar {
-  background-color: $primary-color !important;
-  color: white !important;
 }
 
 input:focus, select:focus {
