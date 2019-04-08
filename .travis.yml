@@ -15,7 +15,7 @@ jobs:
 
     - stage: test
       name: rspec
-      script: bundle exec rspec
+      script: gem install bundler & bundle exec rspec
       if: env(CD_TEST_IGNORE) IS NOT present
 
     - stage: build
