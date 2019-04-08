@@ -64,6 +64,10 @@ module Greenlight
       config.loadbalancer_secret = ENV["LOADBALANCER_SECRET"]
       config.launcher_secret = ENV["LAUNCHER_SECRET"]
       config.launcher_allow_user_signup = ENV["LAUNCHER_ALLOW_GREENLIGHT_ACCOUNTS"]
+
+      # Fix endpoint format if required.
+      config.loadbalancer_endpoint += "/" unless config.bigbluebutton_endpoint.ends_with?("/")
+      config.loadbalancer_endpoint = config.loadbalancer_endpoint.chomp("api/")
     end
 
     # Specify the email address that all mail is sent from
