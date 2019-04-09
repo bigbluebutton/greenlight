@@ -76,12 +76,16 @@ module ApplicationHelper
   end
 
   def allow_greenlight_accounts?
-    return true unless Rails.configuration.loadbalanced_configuration
+    return Rails.configuration.allow_user_signup unless Rails.configuration.loadbalanced_configuration
     return false unless Rails.configuration.allow_user_signup
     # No need to retrieve the provider info if the provider is whitelisted
     return true if launcher_allow_user_signup_whitelisted?(@user_domain)
     # Proceed with retrieving the provider info
-    provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
-    provider_info['provider'] == 'greenlight'
+    begin
+      provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
+      provider_info['provider'] == 'greenlight'
+    rescue
+      false
+    end
   end
 end
