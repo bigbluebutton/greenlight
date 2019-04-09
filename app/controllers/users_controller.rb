@@ -18,7 +18,6 @@
 
 class UsersController < ApplicationController
   include RecordingsHelper
-  include UsersHelper
 
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create]
