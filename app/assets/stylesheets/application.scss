@@ -30,7 +30,10 @@
  *= require_self
  */
 
-@import "tabler/variables";
+// Variables
+@import "tabler-variables";
+
+// Vendor
 @import "bootstrap";
 @import "tabler-custom";
 
