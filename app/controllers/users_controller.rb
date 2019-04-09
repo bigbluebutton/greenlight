@@ -28,40 +28,24 @@ class UsersController < ApplicationController
     return unless Rails.configuration.allow_user_signup
 
     @user = User.new(user_params)
-    @user.provider = "greenlight"
+    @user.provider = @user_domain
 
-    # Check if user already exists
-    if User.exists?(email: user_params[:email], provider: @user.provider)
-      existing_user = User.find_by!(email: user_params[:email], provider: @user.provider)
-      if Rails.configuration.enable_email_verification && !existing_user.email_verified?
-        # User exists but is not verified
-        redirect_to(account_activation_path(email: existing_user.email)) && return
-      else
-        # User already exists and is verified
-        # Attempt to save so that the correct errors appear
-        @user.save
+    # Handle error on user creation.
+    render(:new) && return unless @user.save
 
-        render(:new) && return
-      end
-    elsif Rails.configuration.enable_email_verification && @user.save
-      begin
-        @user.send_activation_email(verification_link)
-      rescue => e
-        logger.error "Error in email delivery: #{e}"
-        flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
-      else
-        flash[:success] = I18n.t("email_sent")
-      end
+    # Sign in automatically if email verification is disabled.
+    login(@user) && return unless Rails.configuration.enable_email_verification
 
-      redirect_to(root_path) && return
-    elsif @user.save
-      # User doesn't exist and email verification is turned off
-      @user.activate
-      login(@user)
+    # Start email verification and redirect to root.
+    begin
+      @user.send_activation_email(verification_link)
+    rescue => e
+      logger.error "Error in email delivery: #{e}"
+      flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     else
-      # Handle error on user creation.
-      render(:new) && return
+      flash[:success] = I18n.t("email_sent")
     end
+    redirect_to(root_path)
   end
 
   # GET /signup
