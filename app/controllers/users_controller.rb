@@ -18,7 +18,7 @@
 
 class UsersController < ApplicationController
   include RecordingsHelper
-  include Verifier
+  include UsersHelper
 
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create]
@@ -31,25 +31,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.provider = @user_domain
 
-<<<<<<< HEAD
     # Handle error on user creation.
     render(:new) && return unless @user.save
 
     # Sign in automatically if email verification is disabled.
     login(@user) && return unless Rails.configuration.enable_email_verification
-=======
-        render(:new) && return
-      end
-    elsif Rails.configuration.enable_email_verification && @user.save
-      begin
-        @user.send_activation_email(user_verification_link)
-      rescue => e
-        logger.error "Error in email delivery: #{e}"
-        flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
-      else
-        flash[:success] = I18n.t("email_sent")
-      end
->>>>>>> Scrutinizer fixes
 
     # Start email verification and redirect to root.
     begin
