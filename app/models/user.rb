@@ -26,7 +26,6 @@ class User < ApplicationRecord
   attr_accessor :reset_token
   after_create :assign_default_role
   after_create :initialize_main_room
-  
   before_save { email.try(:downcase!) }
 
   before_destroy :destroy_rooms
