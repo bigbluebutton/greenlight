@@ -84,7 +84,8 @@ class PasswordResetsController < ApplicationController
 
   # Confirms a valid user.
   def valid_user
-    unless current_user&.email_verified && current_user.authenticated?(:reset, params[:id])
+    unless current_user.authenticated?(:reset, params[:id])
+      current_user&.activate unless current_user&.activated?
       redirect_to root_url
     end
   end

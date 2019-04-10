@@ -31,7 +31,7 @@ module SessionsHelper
 
   # If email verification is disabled, or the user has verified, go to their room
   def check_email_verified(user)
-    if !Rails.configuration.enable_email_verification || user.email_verified
+    if user.activated?
       redirect_to user.main_room
     else
       redirect_to resend_path
@@ -48,24 +48,26 @@ module SessionsHelper
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
-  def generate_checksum(customer_name, redirect_url, secret)
-    string = customer_name + redirect_url + secret
+  def generate_checksum(user_domain, redirect_url, secret)
+    string = user_domain + redirect_url + secret
     OpenSSL::Digest.digest('sha1', string).unpack("H*").first
   end
 
-  def parse_customer_name(hostname)
-    provider = hostname.split('.')
-    provider.first == 'www' ? provider.second : provider.first
+  def parse_user_domain(hostname)
+    return hostname.split('.').first unless Rails.configuration.url_host
+    return '' unless hostname.include?(Rails.configuration.url_host)
+    hostname.chomp(Rails.configuration.url_host).chomp('.')
   end
 
   def omniauth_options(env)
     gl_redirect_url = (Rails.env.production? ? "https" : env["rack.url_scheme"]) + "://" + env["SERVER_NAME"] + ":" +
         env["SERVER_PORT"]
-    env['omniauth.strategy'].options[:customer] = parse_customer_name env["SERVER_NAME"]
+    user_domain = parse_user_domain(env["SERVER_NAME"])
+    env['omniauth.strategy'].options[:customer] = user_domain
     env['omniauth.strategy'].options[:gl_redirect_url] = gl_redirect_url
     env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
-    env['omniauth.strategy'].options[:checksum] = generate_checksum parse_customer_name(env["SERVER_NAME"]),
-      gl_redirect_url, Rails.configuration.launcher_secret
+    env['omniauth.strategy'].options[:checksum] = generate_checksum(user_domain, gl_redirect_url,
+      Rails.configuration.launcher_secret)
   end
 
   def google_omniauth_hd(env, hd)
