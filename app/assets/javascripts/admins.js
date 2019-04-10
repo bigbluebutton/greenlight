@@ -50,13 +50,10 @@ $(document).on('turbolinks:load', function(){
       });
 
       // Show "No users match your search" if no users found
-      console.log(users_found)
       if(users_found === 0){
-        console.log("Showing")
         $('#no_users_found').show();
       }
       else{
-        console.log("Hiding")
         $('#no_users_found').hide();
       }
     });
