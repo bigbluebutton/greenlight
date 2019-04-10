@@ -90,7 +90,7 @@ en:
     title: Errors
     unprocessable:
       message: Oops! Request is unprocessable.
-      help: Unforunately this isn't a valid request.
+      help: Unfortunately this isn't a valid request.
   expired_reset_token: Password reset link has expired!
   features:
     title: Features
@@ -116,6 +116,7 @@ en:
       signout: Sign out
   home_room: Home Room
   info_update_success: Information successfully updated.
+  invalid_user: Login failed due to user not found. Are you sure the email account is correct?
   invalid_credentials: Login failed due to invalid credentials. Are you sure you entered them correctly?
   invalid_login_method: Login failed due to account mismatch. You need to log in with omniauth.
   invite_message: "To invite someone to the meeting, send them this link:"
@@ -125,18 +126,8 @@ en:
     video: Watch our tutorial on using Greenlight
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
-  language_options:
-    default: Default (browser language)
-    ar: Arabic
-    de: German
-    el: Greek
-    en: English
-    es: Spanish
-    fr: French
-    pt: Portuguese
-    pt-br: Portuguese (Brazil)
-    ru: Russian
-    zh-cn: Chinese (PRC)
+  language_name: English
+  language_default: Default (browser language)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   login: Sign in
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!

@@ -16,8 +16,11 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
+require 'bbb_api'
+
 module ApplicationHelper
   include MeetingsHelper
+  include BbbApi
 
   # Gets all configured omniauth providers.
   def configured_providers
@@ -48,9 +51,12 @@ module ApplicationHelper
 
   # Returns language selection options
   def language_options
-    language_opts = [['<<<< ' + t("language_options.default") + ' >>>>', "default"]]
-    Rails.configuration.languages.each do |loc|
-      language_opts.push([t("language_options." + loc), loc])
+    locales = I18n.available_locales
+    language_opts = [['<<<< ' + t("language_default") + ' >>>>', "default"]]
+    locales.each do |locale|
+      language_name = t("language_name", locale: locale)
+      language_name = locale.to_s if locale != :en && language_name == 'English'
+      language_opts.push([language_name, locale.to_s])
     end
     language_opts.sort
   end
@@ -67,5 +73,19 @@ module ApplicationHelper
       highlight: true)
 
     markdown.render(text).html_safe
+  end
+
+  def allow_greenlight_accounts?
+    return Rails.configuration.allow_user_signup unless Rails.configuration.loadbalanced_configuration
+    return false unless Rails.configuration.allow_user_signup
+    # No need to retrieve the provider info if the provider is whitelisted
+    return true if launcher_allow_user_signup_whitelisted?(@user_domain)
+    # Proceed with retrieving the provider info
+    begin
+      provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
+      provider_info['provider'] == 'greenlight'
+    rescue
+      false
+    end
   end
 end

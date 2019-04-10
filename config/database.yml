@@ -12,7 +12,7 @@ test:
   adapter: sqlite3
   database: db/test.sqlite3
 
-# Use sqlite in production by default. Greenlight supports 
+# Use sqlite in production by default. Greenlight supports
 production:
   <<: *default
   adapter: <%= ENV['DB_ADAPTER'] || 'sqlite3' %>

@@ -16,8 +16,11 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
+require 'bbb_api'
+
 class Room < ApplicationRecord
   include ::APIConcern
+  include ::BbbApi
 
   before_create :setup
 
