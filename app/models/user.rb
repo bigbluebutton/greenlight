@@ -127,6 +127,7 @@ class User < ApplicationRecord
   def activate
     update_attribute(:email_verified, true)
     update_attribute(:activated_at, Time.zone.now)
+    save
   end
 
   def activated?
