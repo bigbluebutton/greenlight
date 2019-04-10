@@ -57,9 +57,11 @@ module Greenlight
 
     # Fix endpoint format if required.
     config.bigbluebutton_endpoint += "/" unless config.bigbluebutton_endpoint.ends_with?('/')
-    config.bigbluebutton_endpoint +=
-      "bigbluebutton/api/" unless config.bigbluebutton_endpoint.ends_with?('bigbluebutton/api/')
-    config.bigbluebutton_endpoint += "api/" unless config.bigbluebutton_endpoint.ends_with?('api/')
+    if config.bigbluebutton_endpoint.ends_with?('bigbluebutton/')
+      config.bigbluebutton_endpoint += "api/"
+    elsif !config.bigbluebutton_endpoint.ends_with?('bigbluebutton/api/')
+      config.bigbluebutton_endpoint += "bigbluebutton/api/"
+    end
 
     if config.loadbalanced_configuration
       # Settings for fetching credentials from a loadbalancer based on provider.
