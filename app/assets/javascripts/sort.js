@@ -15,10 +15,8 @@
 // with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 $(document).on('turbolinks:load', function(){
-  var controller = $("body").data('controller');
-  var action = $("body").data('action');
-
-  if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update"){
+  // Check if there is a table on this page
+  if ($("table").length) {
 
     // Choose active header
     // (Name, Length or Users)
@@ -80,8 +78,14 @@ $(document).on('turbolinks:load', function(){
     // Generalized function for sorting recordings
     var sort_recordings = function(recording_list_tbody, order, recording_id){
       recording_list_tbody.find('tr').sort(function(a, b){
-        var a_val = $.trim($(a).find(recording_id).text());
-        var b_val = $.trim($(b).find(recording_id).text());
+        var a_val, b_val;
+        if (recording_id == "#recording-length") {
+          a_val = $.trim($(a).find(recording_id).data("full-length"));
+          b_val = $.trim($(b).find(recording_id).data("full-length"));
+        } else {
+          a_val = $.trim($(a).find(recording_id).text());
+          b_val = $.trim($(b).find(recording_id).text());
+        }
 
         if(order === "asc"){
           return a_val.localeCompare(b_val);
@@ -91,6 +95,8 @@ $(document).on('turbolinks:load', function(){
         } else {
           return undefined;
         }
+
+
       }).appendTo(recording_list_tbody);
     }
   }
