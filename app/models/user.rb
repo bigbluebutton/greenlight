@@ -185,6 +185,7 @@ class User < ApplicationRecord
   end
 
   def greenlight_account?
+    return true unless provider # For testing cases when provider is set to null
     return provider == "greenlight" unless Rails.configuration.loadbalanced_configuration
     # No need to retrive the provider info if the provider is whitelisted
     return true if launcher_allow_user_signup_whitelisted?(provider)
