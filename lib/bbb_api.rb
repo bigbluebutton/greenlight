@@ -31,7 +31,7 @@ module BbbApi
   # Rereives info from the loadbalanced in regards to a Provider (or tenant).
   def retrieve_provider_info(provider, api = 'api', route = 'getUser')
     # Include Omniauth accounts under the Greenlight provider.
-    raise "Provider not included." if provider.empty?
+    raise "Provider not included." if !provider || provider.empty?
 
     # Build the URI.
     uri = encode_bbb_url(

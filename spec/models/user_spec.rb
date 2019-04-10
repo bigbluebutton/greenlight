@@ -17,6 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 require "rails_helper"
+require 'bigbluebutton_api'
 
 describe User, type: :model do
   before do
