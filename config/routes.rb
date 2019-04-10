@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   scope '/account_activations' do
     get '/', to: 'account_activations#show', as: :account_activation
     get '/edit', to: 'account_activations#edit', as: :edit_account_activation
-    get '/resend', to: 'account_activations#resend', as: :resend_email
+    post '/resend', to: 'account_activations#resend', as: :resend_email
   end
 
   # User resources.
