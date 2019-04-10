@@ -133,7 +133,7 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @user.id
       post :join, params: { room_uid: @room, join_name: @user.name }
 
-      expect(response).to redirect_to(@user.main_room.join_path(@user.name, {}, @user.uid))
+      expect(response).to redirect_to(@owner.main_room.join_path(@user.name, {}, @user.uid))
     end
 
     it "should use join name if user is not logged in and meeting running" do
@@ -141,7 +141,7 @@ describe RoomsController, type: :controller do
 
       post :join, params: { room_uid: @room, join_name: "Join Name" }
 
-      expect(response).to redirect_to(@user.main_room.join_path("Join Name", {}))
+      expect(response).to redirect_to(@owner.main_room.join_path("Join Name", {}))
     end
 
     it "should render wait if meeting isn't running" do
@@ -159,7 +159,7 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @owner.id
       post :join, params: { room_uid: @room, join_name: @owner.name }
 
-      expect(response).to redirect_to(@user.main_room.join_path(@owner.name, { user_is_moderator: true }, @owner.uid))
+      expect(response).to redirect_to(@owner.main_room.join_path(@owner.name, { user_is_moderator: true }, @owner.uid))
     end
 
     it "redirects to root if owner of room is not verified" do

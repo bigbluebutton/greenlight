@@ -16,15 +16,19 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
+require 'bbb_api'
+
 class User < ApplicationRecord
   rolify
   include ::APIConcern
+  include ::BbbApi
 
   attr_accessor :reset_token, :activation_token
   after_create :create_home_room_if_verified
   after_create :assign_default_role
+  after_create :initialize_main_room
+
   before_save { email.try(:downcase!) }
-  before_create :create_activation_digest
 
   before_destroy :destroy_rooms
 
@@ -127,8 +131,11 @@ class User < ApplicationRecord
   def activate
     update_attribute(:email_verified, true)
     update_attribute(:activated_at, Time.zone.now)
+  end
 
-    initialize_main_room
+  def activated?
+    return true unless Rails.configuration.enable_email_verification
+    email_verified
   end
 
   def send_activation_email(url)
@@ -182,7 +189,17 @@ class User < ApplicationRecord
   end
 
   def greenlight_account?
-    provider == "greenlight"
+    return provider == "greenlight" unless Rails.configuration.loadbalanced_configuration
+    # No need to retrive the provider info if the provider is whitelisted
+    return true if launcher_allow_user_signup_whitelisted?(provider)
+    # Proceed with fetching the provider info
+    provider_info = retrieve_provider_info(provider, 'api2', 'getUserGreenlightCredentials')
+    provider_info['provider'] == 'greenlight'
+  end
+
+  def activation_token
+    # Create the token.
+    create_reset_activation_digest(User.new_token)
   end
 
   def admin_of?(user)
@@ -201,10 +218,11 @@ class User < ApplicationRecord
 
   private
 
-  def create_activation_digest
-    # Create the token and digest.
-    self.activation_token  = User.new_token
-    self.activation_digest = User.digest(activation_token)
+  def create_reset_activation_digest(token)
+    # Create the digest and persist it.
+    self.activation_digest = User.digest(token)
+    save
+    token
   end
 
   # Destory a users rooms when they are removed.
@@ -212,16 +230,9 @@ class User < ApplicationRecord
     rooms.destroy_all
   end
 
-  # Assigns the user a BigBlueButton id and a home room if verified
-  def create_home_room_if_verified
-    self.uid = "gl-#{(0...12).map { (65 + rand(26)).chr }.join.downcase}"
-
-    initialize_main_room if email_verified
-    save
-  end
-
   # Initializes a room for the user and assign a BigBlueButton user id.
   def initialize_main_room
+    self.uid = "gl-#{(0...12).map { (65 + rand(26)).chr }.join.downcase}"
     self.main_room = Room.create!(owner: self, name: I18n.t("home_room"))
     save
   end

@@ -409,6 +409,9 @@ Style/StringLiteralsInInterpolation:
   - single_quotes
   - double_quotes
 
+Style/Strip:
+  Enabled: true
+
 Layout/SpaceAroundBlockParameters:
   EnforcedStyleInsidePipes: no_space
   SupportedStylesInsidePipes:
@@ -1091,9 +1094,6 @@ Performance/FixedSize:
 
 Performance/FlatMap:
   EnabledForFlattenWithoutParams: false
-
-Performance/LstripRstrip:
-  Enabled: true
 
 Performance/RangeInclude:
   Enabled: true
