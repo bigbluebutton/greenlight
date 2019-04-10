@@ -23,8 +23,7 @@ class User < ApplicationRecord
   include ::APIConcern
   include ::BbbApi
 
-  attr_accessor :reset_token, :activation_token
-  after_create :create_home_room_if_verified
+  attr_accessor :reset_token
   after_create :assign_default_role
   after_create :initialize_main_room
 
