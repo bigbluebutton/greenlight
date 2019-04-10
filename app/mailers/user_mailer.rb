@@ -17,7 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class UserMailer < ApplicationMailer
-  default from: Rails.configuration.email_sender
+  default from: Rails.configuration.smtp_sender
 
   def verify_email(user, url)
     @user = user
