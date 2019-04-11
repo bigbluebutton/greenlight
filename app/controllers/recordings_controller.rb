@@ -22,6 +22,13 @@ class RecordingsController < ApplicationController
 
   META_LISTED = "gl-listed"
 
+  # GET /:meetingID/:record_id/:format
+  def play_recording
+    url = @room.play_recording(params[:record_id], params[:type])
+    
+    redirect_to @room.token_url(@user, request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip, params[:record_id], url)
+  end
+
   # POST /:meetingID/:record_id
   def update_recording
     meta = {
