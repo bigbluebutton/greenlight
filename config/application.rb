@@ -56,7 +56,10 @@ module Greenlight
     config.bigbluebutton_secret = ENV["BIGBLUEBUTTON_SECRET"] || config.bigbluebutton_secret_default
 
     # Fix endpoint format if required.
-    config.bigbluebutton_endpoint += "api/" unless config.bigbluebutton_endpoint.ends_with?('api/')
+    config.bigbluebutton_endpoint += "/" unless config.bigbluebutton_endpoint.ends_with?('/')
+    config.bigbluebutton_endpoint += "api/" if config.bigbluebutton_endpoint.ends_with?('bigbluebutton/')
+    config.bigbluebutton_endpoint +=
+      "bigbluebutton/api/" unless config.bigbluebutton_endpoint.ends_with?('bigbluebutton/api/')
 
     if config.loadbalanced_configuration
       # Settings for fetching credentials from a loadbalancer based on provider.
@@ -68,10 +71,13 @@ module Greenlight
       # Fix endpoint format if required.
       config.loadbalancer_endpoint += "/" unless config.bigbluebutton_endpoint.ends_with?("/")
       config.loadbalancer_endpoint = config.loadbalancer_endpoint.chomp("api/")
+
+      # Configure which settings are available to user on room creation/edit after creation
+      config.url_host = ENV['URL_HOST'] || ''
     end
 
     # Specify the email address that all mail is sent from
-    config.email_sender = ENV['EMAIL_SENDER'].present? ? ENV['EMAIL_SENDER'] : "notifications@example.com"
+    config.smtp_sender = ENV['SMTP_SENDER'] || "notifications@example.com"
 
     # Determine if GreenLight should enable email verification
     config.enable_email_verification = (ENV['ALLOW_MAIL_NOTIFICATIONS'] == "true")

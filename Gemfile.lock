@@ -365,6 +365,7 @@ DEPENDENCIES
   random_password
   redcarpet
   redis (~> 3.0)
+  rolify
   remote_syslog_logger
   rolify
   rspec-rails (~> 3.7)

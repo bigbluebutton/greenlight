@@ -61,7 +61,7 @@ class AdminsController < ApplicationController
     @settings.update_value("Primary Color", params[:color])
     redirect_to admins_path(setting: "design")
   end
-
+  
   private
 
   def find_user

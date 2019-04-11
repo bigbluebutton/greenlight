@@ -68,7 +68,6 @@ $(document).on('turbolinks:load', function(){
         location.reload()
       });
     });
-
   }
 
   // Only run on the admins edit user page.
