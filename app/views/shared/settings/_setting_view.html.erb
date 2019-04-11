@@ -16,10 +16,37 @@
 <%= content_tag(:div, id: setting_id, class: "setting-view card") do %>
   <div class="card-body p-6">
     <div class="card-title text-primary">
-      <h4><%= setting_title %></h4>
+      <div class="form-group">
+        <div class="row">
+          <% if setting_id == "users" %>
+            <div class="col-7 mt-2">
+              <h4><%= setting_title %></h4>
+            </div>
+
+            <div class="col-5 float-right">
+              <div id="search-bar">
+                <div class="input-icon">
+                  <input id="search-value" type="text" class="form-control btn-pill" placeholder="Search...">
+                  <span class="input-icon-addon">
+                  <i class="fas fa-search"></i>
+                </span>
+                </div>
+              </div>
+            </div>
+          <% else %>
+            <div class="col-12 mt-2">
+              <h4><%= setting_title %></h4>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
     <hr>
 
-    <%= render "shared/settings/#{setting_id}" %>
+    <% unless (defined?(admin_view)).nil? %>
+      <%= render "shared/admin_settings/#{setting_id}" %>
+    <% else %>
+      <%= render "shared/settings/#{setting_id}" %>
+    <% end %>
   </div>
 <% end %>

@@ -129,4 +129,27 @@ describe User, type: :model do
       expect(expired).to be_in([true, false])
     end
   end
+
+  context '#roles' do
+    it "defaults the user to a user role" do
+      expect(@user.has_role?(:user)).to be true
+    end
+
+    it "does not give the user an admin role" do
+      expect(@user.has_role?(:admin)).to be false
+    end
+
+    it "returns true if the user is an admin of another" do
+      @admin = create(:user)
+      @admin.add_role :admin
+
+      expect(@admin.admin_of?(@user)).to be true
+    end
+
+    it "returns false if the user is NOT an admin of another" do
+      @admin = create(:user)
+
+      expect(@admin.admin_of?(@user)).to be false
+    end
+  end
 end

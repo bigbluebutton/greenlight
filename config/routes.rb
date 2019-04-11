@@ -31,6 +31,16 @@ Rails.application.routes.draw do
   # Redirect to terms page
   match '/terms', to: 'users#terms', via: [:get, :post]
 
+  # Admin resouces
+  resources :admins, only: [:index]
+
+  scope '/admins' do
+    post '/signup', to: 'admins#signup', as: :admin_signup
+    get '/edit/:user_uid', to: 'admins#edit_user', as: :admin_edit_user
+    post '/promote/:user_uid', to: 'admins#promote', as: :admin_promote
+    post '/demote/:user_uid', to: 'admins#demote', as: :admin_demote
+  end
+
   # Password reset resources.
   resources :password_resets, only: [:new, :create, :edit, :update]
 

@@ -19,11 +19,14 @@
 require 'bbb_api'
 
 class User < ApplicationRecord
+  rolify
   include ::APIConcern
   include ::BbbApi
 
   attr_accessor :reset_token
+  after_create :assign_default_role
   after_create :initialize_main_room
+
   before_save { email.try(:downcase!) }
 
   before_destroy :destroy_rooms
@@ -199,6 +202,10 @@ class User < ApplicationRecord
     create_reset_activation_digest(User.new_token)
   end
 
+  def admin_of?(user)
+    (has_role? :admin) && (id != user.id)
+  end
+
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
@@ -228,5 +235,10 @@ class User < ApplicationRecord
     self.uid = "gl-#{(0...12).map { (65 + rand(26)).chr }.join.downcase}"
     self.main_room = Room.create!(owner: self, name: I18n.t("home_room"))
     save
+  end
+
+  # Initialize the user to use the default user role
+  def assign_default_role
+    add_role(:user) if roles.blank?
   end
 end
