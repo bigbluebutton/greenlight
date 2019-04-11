@@ -16,23 +16,11 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-FactoryBot.define do
-  factory :user do
-    password = Faker::Internet.password(8)
-    provider { %w(google twitter).sample }
-    uid { rand(10**8) }
-    name { Faker::Name.first_name }
-    username { Faker::Internet.user_name }
-    email { Faker::Internet.email }
-    password { password }
-    password_confirmation { password }
-    accepted_terms { true }
-    email_verified { true }
-    activated_at { Time.zone.now }
-  end
+module Verifier
+  extend ActiveSupport::Concern
 
-  factory :room do
-    name { Faker::Pokemon.name }
-    owner { create(:user) }
+  # Returns the link the user needs to click to verify their account
+  def user_verification_link
+    request.base_url + edit_account_activation_path(token: @user.activation_token, email: @user.email)
   end
 end

@@ -66,13 +66,13 @@ $(document).on('turbolinks:load', function(){
     //show all elements & their children with a create-only class
     $(".create-only").each(function() {
       $(this).show()
-      if($(this).children().length > 0) $(this).children().show()
+      if($(this).children().length > 0) { $(this).children().show() }
     })
 
     //hide all elements & their children with a update-only class
     $(".update-only").each(function() {
       $(this).attr('style',"display:none !important")
-      if($(this).children().length > 0) $(this).children().attr('style',"display:none !important")
+      if($(this).children().length > 0) { $(this).children().attr('style',"display:none !important") }
     })
   })
 
@@ -85,13 +85,13 @@ $(document).on('turbolinks:load', function(){
     //show all elements & their children with a update-only class
     $(".update-only").each(function() {
       $(this).show()
-      if($(this).children().length > 0) $(this).children().show()
+      if($(this).children().length > 0) { $(this).children().show() }
     })
 
     //hide all elements & their children with a create-only class
     $(".create-only").each(function() {
       $(this).attr('style',"display:none !important")
-      if($(this).children().length > 0) $(this).children().attr('style',"display:none !important")
+      if($(this).children().length > 0) { $(this).children().attr('style',"display:none !important") }
     })
 
     updateCurrentSettings($(this).closest("#room-block").data("room-settings"))
@@ -109,7 +109,7 @@ $(document).on('turbolinks:load', function(){
     //set dropdown value
     if (settings.joinViaHtml5) {
       updateDropdown($(".dropdown-item[value='html5']"))
-    } else if (settings.joinViaHtml5 == false) {
+    } else if (settings.joinViaHtml5 === false) {
       updateDropdown($(".dropdown-item[value='flash']"))
     } else { //default option
       updateDropdown($(".dropdown-item[value='default']"))
