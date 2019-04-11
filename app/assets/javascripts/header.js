@@ -15,6 +15,11 @@
 // with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 $(document).on('turbolinks:load', function(){
+  // Stores the current url when the user clicks the sign in button
+  $(".sign-in-button").click(function(){
+    document.cookie ="return_to=" + window.location.href
+  })
+
   // Checks to see if the user provided an image url and displays it if they did
   $("#user-image")
     .on("load", function() {
