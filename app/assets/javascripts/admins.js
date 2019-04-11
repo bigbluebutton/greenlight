@@ -63,7 +63,6 @@ $(document).on('turbolinks:load', function(){
       var color = $(data.target).val()
       $.post($("#coloring-path").val(), {color: color})
     });
-
   }
 
   // Only run on the admins edit user page.

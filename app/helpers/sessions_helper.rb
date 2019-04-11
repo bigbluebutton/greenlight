@@ -32,7 +32,17 @@ module SessionsHelper
   # If email verification is disabled, or the user has verified, go to their room
   def check_email_verified(user)
     if user.activated?
-      redirect_to user.main_room
+      # Get the url to redirect the user to
+      url = if cookies[:return_to] && cookies[:return_to] != root_url
+        cookies[:return_to]
+      else
+        user.main_room
+      end
+
+      # Delete the cookie if it exists
+      cookies.delete :return_to if cookies[:return_to]
+
+      redirect_to url
     else
       redirect_to resend_path
     end
@@ -54,7 +64,9 @@ module SessionsHelper
   end
 
   def parse_user_domain(hostname)
-    hostname.split('.').first
+    return hostname.split('.').first unless Rails.configuration.url_host
+    return '' unless hostname.include?(Rails.configuration.url_host)
+    hostname.chomp(Rails.configuration.url_host).chomp('.')
   end
 
   def omniauth_options(env)

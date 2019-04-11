@@ -125,7 +125,7 @@ class ApplicationController < ActionController::Base
     @user_domain = if Rails.env.test? || !Rails.configuration.loadbalanced_configuration
       "greenlight"
     else
-      parse_user_domain(request.env["SERVER_NAME"])
+      parse_user_domain(request.host)
     end
   end
   helper_method :set_user_domain

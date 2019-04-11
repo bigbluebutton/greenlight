@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   scope '/themes' do
     get '/primary', to: 'themes#index', as: :themes_primary
   end
-
+  
   # Password reset resources.
   resources :password_resets, only: [:new, :create, :edit, :update]
 

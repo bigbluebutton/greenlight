@@ -18,9 +18,11 @@
 
 class AdminsController < ApplicationController
   authorize_resource class: false
+
   before_action :find_user, only: [:edit_user, :promote, :demote]
   before_action :verify_admin_of_user, only: [:edit_user, :promote, :demote]
   before_action :find_setting, only: [:branding, :coloring]
+
 
   # GET /admins
   def index
@@ -57,13 +59,13 @@ class AdminsController < ApplicationController
     @settings.update_value("Primary Color", params[:color])
     redirect_to admins_path
   end
-
+  
   private
 
   def find_user
     @user = User.find_by!(uid: params[:user_uid])
   end
-
+  
   def find_setting
     @settings = Setting.find_or_create_by!(provider: user_provider)
   end
