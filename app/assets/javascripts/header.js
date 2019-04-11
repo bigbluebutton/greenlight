@@ -19,4 +19,15 @@ $(document).on('turbolinks:load', function(){
   $(".sign-in-button").click(function(){
     document.cookie ="return_to=" + window.location.href
   })
+
+  // Checks to see if the user provided an image url and displays it if they did
+  $("#user-image")
+    .on("load", function() {
+      $("#user-image").show()
+      $("#user-avatar").hide()
+    })
+    .on("error", function() {
+      $("#user-image").hide()
+      $("#user-avatar").show()
+    })
 })
