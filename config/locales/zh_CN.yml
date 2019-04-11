@@ -76,6 +76,7 @@ zh_CN:
       signout: 退出
   home_room: 大厅
   info_update_success: 信息更新成功。
+  invalid_user: 由于找不到用户，登录失败。您确定电子邮件帐户是正确的吗？
   invalid_credentials: 登录失败。输入有误？
   invalid_login_method: 由于帐户不匹配，登录失败。您需要使用Omniauth登录。
   invite_message: "邀请他人参加会议，请发送以下链接："
