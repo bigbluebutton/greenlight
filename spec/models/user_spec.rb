@@ -40,7 +40,7 @@ describe User, type: :model do
 
     it { should allow_value("valid.jpg").for(:image) }
     it { should allow_value("valid.png").for(:image) }
-    it { should_not allow_value("invalid.txt").for(:image) }
+    it { should allow_value("random_file.txt").for(:image) }
     it { should allow_value("", nil).for(:image) }
 
     it "should convert email to downcase on save" do
