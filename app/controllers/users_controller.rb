@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
     # Start email verification and redirect to root.
     begin
-      @user.send_activation_email(verification_link)
+      @user.send_activation_email(user_verification_link)
     rescue => e
       logger.error "Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
