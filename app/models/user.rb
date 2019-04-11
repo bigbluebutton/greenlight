@@ -33,7 +33,6 @@ class User < ApplicationRecord
 
   validates :name, length: { maximum: 256 }, presence: true
   validates :provider, presence: true
-  validates :image, format: { with: /\.(png|jpg)\Z/i }, allow_blank: true
   validates :email, length: { maximum: 256 }, allow_blank: true,
                     uniqueness: { case_sensitive: false, scope: :provider },
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }

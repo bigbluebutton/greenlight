@@ -145,7 +145,6 @@ $(document).on('turbolinks:load', function(){
 
     // Elements that can be renamed
     var room_title = $('#room-title');
-    var room_blocks = $('#room_block_container').find('a');
     var recording_rows = $('#recording-table').find('tr');
 
     // Configure renaming for room header

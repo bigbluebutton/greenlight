@@ -1,4 +1,5 @@
-<%
+# frozen_string_literal: true
+
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
 #
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
@@ -14,15 +15,12 @@
 #
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-%>
 
-<%= t('mailer.user.password_reset.title') %>
+module Verifier
+  extend ActiveSupport::Concern
 
-<%= t('mailer.user.password_reset.welcome', bigbluebutton: t('bigbluebutton')) %>
-<%= t('mailer.user.password_reset.message') %>
-
-<%= @url %>
-
-<%= t('mailer.user.password_reset.expire') %>
-
-<%= t('mailer.user.password_reset.ignore') %>
+  # Returns the link the user needs to click to verify their account
+  def user_verification_link
+    request.base_url + edit_account_activation_path(token: @user.activation_token, email: @user.email)
+  end
+end
