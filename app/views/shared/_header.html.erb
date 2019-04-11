@@ -56,21 +56,22 @@
 							<% end %>
 						</div>
 					</div>
-				<% else %>
+        <% else %>
+          <% allow_greenlight_accounts = allow_greenlight_accounts? %>
           <% if Rails.configuration.omniauth_ldap %>
             <%= link_to t("login"), omniauth_login_url(:ldap), :class => "btn btn-pill btn-outline-primary mx-2" %>
-          <% elsif allow_greenlight_accounts? %>
+          <% elsif allow_greenlight_accounts %>
             <%= link_to t("login"), "#loginModal", :class => "btn btn-pill btn-outline-primary mx-2", "data-toggle": "modal" %>
           <% else %>
             <%= link_to t("login"), omniauth_login_url(:bn_launcher), :class => "btn btn-pill btn-outline-primary mx-2" %>
           <% end %>
 
-          <% if allow_user_signup? && allow_greenlight_accounts? %>
+          <% if allow_user_signup? && allow_greenlight_accounts %>
             <%= link_to t("signup.title"), signup_path, :class => "btn btn-pill btn-outline-primary mx-2" %>
           <% end %>
 
           <%= render "shared/modals/login_modal" %>
-          <% end %>
+        <% end %>
       </div>
     </div>
   </div>

@@ -76,12 +76,23 @@ module ApplicationHelper
   end
 
   def allow_greenlight_accounts?
-    return true unless Rails.configuration.loadbalanced_configuration
-    return false unless Rails.configuration.allow_user_signup
+    return Rails.configuration.allow_user_signup unless Rails.configuration.loadbalanced_configuration
+    return false unless @user_domain && !@user_domain.empty? && Rails.configuration.allow_user_signup
     # No need to retrieve the provider info if the provider is whitelisted
     return true if launcher_allow_user_signup_whitelisted?(@user_domain)
     # Proceed with retrieving the provider info
-    provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
-    provider_info['provider'] == 'greenlight'
+    begin
+      provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
+      provider_info['provider'] == 'greenlight'
+    rescue => ex
+      logger.info ex
+      false
+    end
+  end
+
+  # Return all the translations available in the client side through javascript
+  def current_translations
+    @translations ||= I18n.backend.send(:translations)
+    @translations[I18n.locale].with_indifferent_access[:javascript] || {}
   end
 end
