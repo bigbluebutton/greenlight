@@ -92,6 +92,8 @@ $(document).on('turbolinks:load', function(){
         }
         else if(order === "desc"){
           return b_val.localeCompare(a_val);
+        } else {
+          return undefined;
         }
 
 
