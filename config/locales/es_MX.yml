@@ -14,9 +14,9 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-# Spanish (es) locale.
+# Mexican (es_MX) locale.
 
-es:
+es_MX:
   activerecord:
     attributes:
       user:
@@ -85,7 +85,7 @@ es:
     video: Ve nuestro tutorial de como utilizar Greenlight
     upgrade: Muestrame como actualizar a versión 2.0
     version: Hemos publicado una nueva version de Greenlight pero tu base de datos no es compatible.
-  language_name: Español
+  language_name: Español (México)
   language_default: Por omisión (idioma del navegador)
   ldap_error: No se puede conectar al servidor LDAP. Compruebe la configuración de LDAP en el archivo "env" y asegúrate de que tu servidor está ejecutándose.
   login: Ingresar

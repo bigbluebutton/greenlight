@@ -80,6 +80,9 @@ module Greenlight
     # Determine if GreenLight should enable email verification
     config.enable_email_verification = (ENV['ALLOW_MAIL_NOTIFICATIONS'] == "true")
 
+    # Determine if the BBB server has authentication or not
+    config.enable_bbb_server_authentication = (ENV['ENABLE_BBB_SERVER_AUTHENTICATION'] == 'true')
+
     # Determine if GreenLight should allow non-omniauth signup/login.
     config.allow_user_signup = (ENV['ALLOW_GREENLIGHT_ACCOUNTS'] == "true")
 
@@ -103,5 +106,8 @@ module Greenlight
 
     # Custom link for the 'Do you need help?' button on the User menu
     config.need_help_button_link = ENV['NEED_HELP_BUTTON_LINK'] || 'http://docs.bigbluebutton.org/install/greenlight-v2.html'
+
+    # Default recording visibility
+    config.default_recording_visibility = ENV['DEFAULT_RECORDING_VISIBILITY'] || "unlisted"
   end
 end
