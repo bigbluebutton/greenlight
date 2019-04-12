@@ -3,6 +3,9 @@ stages:
   - build
   - deploy
 
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+
 before_script:
 
 test:
