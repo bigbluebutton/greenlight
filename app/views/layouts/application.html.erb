@@ -80,11 +80,9 @@
         </div>
       <% end %>
 
-      <%= yield %>
+      <%= render 'shared/flash_messages' unless flash.empty? %>
 
-      <% if current_user %>
-        <%= render "shared/modals/create_room_modal" %>
-      <% end %>
+      <%= yield %>
     </div>
 
     <%= render "shared/footer" %>

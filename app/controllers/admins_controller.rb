@@ -18,7 +18,6 @@
 
 class AdminsController < ApplicationController
   authorize_resource class: false
-
   before_action :find_user, only: [:edit_user, :promote, :demote]
   before_action :verify_admin_of_user, only: [:edit_user, :promote, :demote]
   before_action :find_setting, only: [:branding, :coloring]

@@ -81,10 +81,6 @@ a {
   width: 100%;
 }
 
-.table-responsive {
-  overflow: visible;
-}
-
 .background {
   background-color: $background-color;
 }
@@ -146,4 +142,19 @@ input:focus {
 
 .list-group-item-action.active {
   color: $primary;
+}
+
+.header .header-nav {
+  color: $text-muted !important;
+
+  &:hover {
+    padding-bottom: 21px;
+    border-bottom: 1px solid $primary;
+  }
+
+  &.active {
+    color: $primary !important;
+    padding-bottom: 21px;
+    border-bottom: 1px solid $primary;
+  }
 }
