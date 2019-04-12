@@ -99,9 +99,14 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if ENV["RAILS_LOG_TO_STDOUT"] == "true"
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
+  elsif ENV["RAILS_LOG_REMOTE_NAME"] && ENV["RAILS_LOG_REMOTE_PORT"]
+    require 'remote_syslog_logger'
+    logger_program = ENV["RAILS_LOG_REMOTE_TAG"] || "greenlight-#{ENV['RAILS_ENV']}"
+    config.logger = RemoteSyslogLogger.new(ENV["RAILS_LOG_REMOTE_NAME"],
+      ENV["RAILS_LOG_REMOTE_PORT"], program: logger_program)
   end
 
   # Do not dump schema after migrations.

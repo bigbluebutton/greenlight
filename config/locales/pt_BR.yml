@@ -76,6 +76,7 @@ pt_BR:
       signout: Sair
   home_room: Sala inicial
   info_update_success: Informações atualizadas com sucesso.
+  invalid_user: "O login falhou por não encontrarmos esse usuário no nosso banco de dados. Você tem certeza que a conta de e-mail está correta?"
   invalid_credentials: "O login falhou porque a credencial utilizada é inválida. Tem certeza que inseriu as informações corretamente?"
   invalid_login_method: O login falhou porque sua conta foi criada utilizando login social. Selecione a opção de login social para continuar.
   invite_message: "Para convidar alguém para a reunião, envie este link:"

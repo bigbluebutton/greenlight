@@ -79,6 +79,7 @@ en:
       signout: Sign out
   home_room: Home Room
   info_update_success: Information successfully updated.
+  invalid_user: Login failed due to user not found. Are you sure the email account is correct?
   invalid_credentials: Login failed due to invalid credentials. Are you sure you entered them correctly?
   invalid_login_method: Login failed due to account mismatch. You need to log in with omniauth.
   invite_message: "To invite someone to the meeting, send them this link:"
@@ -91,6 +92,7 @@ en:
   language_name: English
   language_default: Default (browser language)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
+  ldap_login: LDAP Authentication
   login: Sign in
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!
   modal:
