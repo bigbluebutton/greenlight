@@ -34,6 +34,7 @@ module Greenlight
     config.exceptions_app = routes
 
     # Configure I18n localization.
+    config.i18n.enforce_available_locales = false
     config.i18n.available_locales = %w(en pt-br es ar fr de el ru)
     config.i18n.default_locale = "en"
 
@@ -72,6 +73,9 @@ module Greenlight
     # Determine if GreenLight should enable email verification
     config.enable_email_verification = (ENV['ALLOW_MAIL_NOTIFICATIONS'] == "true")
 
+    # Determine if the BBB server has authentication or not
+    config.enable_bbb_server_authentication = (ENV['ENABLE_BBB_SERVER_AUTHENTICATION'] == 'true')
+
     # Determine if GreenLight should allow non-omniauth signup/login.
     config.allow_user_signup = (ENV['ALLOW_GREENLIGHT_ACCOUNTS'] == "true")
 
@@ -92,5 +96,8 @@ module Greenlight
 
     # The maximum number of rooms included in one bbbapi call
     config.pagination_number = ENV['PAGINATION_NUMBER'].to_i == 0 ? 25 : ENV['PAGINATION_NUMBER'].to_i
+
+    # Default recording visibility
+    config.default_recording_visibility = ENV['DEFAULT_RECORDING_VISIBILITY'] || "unlisted"
   end
 end

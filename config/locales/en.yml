@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-# English (en) locale.
+# English (en) locale
 
 en:
   activerecord:
@@ -52,7 +52,7 @@ en:
     title: Errors
     unprocessable:
       message: Oops! Request is unprocessable.
-      help: Unforunately this isn't a valid request.
+      help: Unfortunately this isn't a valid request.
   expired_reset_token: Password reset link has expired!
   features:
     title: Features
@@ -86,16 +86,8 @@ en:
     video: Watch our tutorial on using Greenlight
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
-  language_options:
-    default: Default (browser language)
-    ar: Arabic
-    de: German
-    el: Greek
-    en: English
-    es: Spanish
-    fr: French
-    pt-br: Portuguese (Brazil)
-    ru: Russian
+  language_name: English
+  language_default: Default (browser language)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   login: Sign in
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!
