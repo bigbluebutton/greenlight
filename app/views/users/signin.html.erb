@@ -13,14 +13,14 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content text-center">
-      <div class="modal-body">
-        <div class="card-body p-6">
-          <div class="card-title">
-            <h3><%= t("login") %></h3>
-          </div>
+<div class="container">
+  <div class="row pt-7">
+    <div class="col col-lg-6 offset-lg-3">
+      <div class="card">
+        <div class="card-header background">
+          <h4 class="mt-2"><%= t("login_title") %></h4>
+        </div>
+        <div class="card-body background">
           <% unless iconset_providers.length.zero? %>
             <% iconset_providers.each do |provider| %>
               <%= link_to omniauth_login_url(provider), class: "customBtn-#{provider} oauth-signin" do %>
@@ -32,7 +32,7 @@
             <% end %>
             <div class="or-line my-6">
               <div>
-                <span class="text-uppercase">
+                <span class="text-uppercase" style="background-color: #F5F7FB;">
                   <%= t("modal.login.or") %>
                 </span>
               </div>
@@ -62,8 +62,8 @@
                 </div>
               </div>
             <% end %>
-            <div class="form-footer">
-              <%= f.submit t("login"), class: "btn btn-outline-primary btn-block btn-pill" %>
+            <div class="card-footer px-0">
+              <%= f.submit t("login"), class: "btn btn-primary btn-block signin-button" %>
             </div>
           <% end %>
         </div>

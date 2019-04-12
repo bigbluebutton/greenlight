@@ -18,7 +18,6 @@
 
 class AdminsController < ApplicationController
   authorize_resource class: false
-
   before_action :find_user, only: [:edit_user, :promote, :demote]
   before_action :verify_admin_of_user, only: [:edit_user, :promote, :demote]
   before_action :find_setting, only: [:branding, :coloring]
@@ -77,6 +76,7 @@ class AdminsController < ApplicationController
     redirect_to admins_path,
       flash: { alert: I18n.t("administrator.flash.unauthorized") } unless current_user.admin_of?(@user)
   end
+<<<<<<< HEAD
 
   # Returns users provider
   def user_provider
@@ -86,4 +86,6 @@ class AdminsController < ApplicationController
       "greenlight"
     end
   end
+=======
+>>>>>>> bfef477286148d0ddc148c8cbd744a2f8d655675
 end

@@ -49,6 +49,10 @@ class UsersController < ApplicationController
     redirect_to(root_path)
   end
 
+  # GET /signin
+  def signin
+  end
+
   # GET /signup
   def new
     if Rails.configuration.allow_user_signup

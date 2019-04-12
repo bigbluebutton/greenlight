@@ -40,7 +40,7 @@ en:
       demoted: User has been successfully demoted
       promoted: User has been successfully promoted
       unauthorized: You are not authorized to perform actions on this user
-    title: Administrator Settings
+    title: Organization Settings
     users:
       edit:
         title: Edit User Details
@@ -54,6 +54,7 @@ en:
         created: Created On
         name: Name
         not_found: No users match your search
+        no_users: No users found
         provider: Provider
         uid: User ID
         username: Username
@@ -107,12 +108,12 @@ en:
   go_back: Go back
   greenlight: Greenlight
   header:
-    admin: Administrator
-    create_room: Create Room
+    all_recordings: All Recordings
     dropdown:
+      account_settings: Organization
       help: Need help?
-      home: Rooms
-      settings: Settings
+      home: Home
+      settings: Profile
       signout: Sign out
   home_room: Home Room
   info_update_success: Information successfully updated.
@@ -137,6 +138,7 @@ en:
   language_default: Default (browser language)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   login: Sign in
+  login_title: Sign in to your account
   mailer:
     user:
       password_reset:
@@ -157,6 +159,7 @@ en:
   modal:
     create_room:
       auto_join: Automatically join me into the room.
+      create: Create Room
       free_delete: You will be free to delete this room at any time.
       name_placeholder: Enter a room name...
       not_blank: Room name cannot be blank.
@@ -199,6 +202,7 @@ en:
     microsoft_office365: Office 365
     twitter: Twitter
   recording:
+    all_recordings: All Recordings
     email: Email Recording
     no_recordings: This room has no %{inject}recordings.
     no_user_recordings: You currently have no recordings.
@@ -221,6 +225,7 @@ en:
     confirm: New Password Confirmation
     update: Update Password
   room:
+    create_room: Create a Room
     create_room_error: There was an error creating the room
     create_room_success: Room created successfully
     invited: You have been invited to join
@@ -229,7 +234,7 @@ en:
     last_session: Last session on %{session}
     owner: Owner
     no_sessions: This room has no sessions, yet!
-    recordings: Recordings
+    recordings: Room Recordings
     sessions: Sessions
     settings: Room Settings
     start: Start
@@ -259,7 +264,7 @@ en:
       old: Old Password
       subtitle: Change your Password
       title: Password
-    title: Settings
+    title: Profile
   signup:
     password_confirm: Password Confirmation
     subtitle: Create an Account
