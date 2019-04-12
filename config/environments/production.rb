@@ -111,4 +111,6 @@ Rails.application.configure do
   if ENV['RELATIVE_URL_ROOT'] != "/"
     config.relative_url_root = ENV['RELATIVE_URL_ROOT'] || "/b"
   end
+
+  config.default_recording_visibility = ENV['DEFAULT_RECORDING_VISIBILITY'] || "unlisted"
 end

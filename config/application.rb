@@ -36,7 +36,11 @@ module Greenlight
     # Configure I18n localization.
     config.i18n.enforce_available_locales = false
     config.i18n.available_locales = %w(en pt-br es ar fr de el ru)
-    config.i18n.default_locale = "en"
+    config.i18n.default_locale = if config.i18n.available_locales.include?(ENV["DEFAULT_LOCALE"])
+      ENV["DEFAULT_LOCALE"].to_sym
+    else
+      :en
+    end
 
     config.i18n.available_locales.each do |locale|
       config.i18n.fallbacks[locale] = [locale, :en]
@@ -67,6 +71,9 @@ module Greenlight
       config.bigbluebutton_endpoint += "api/" unless config.bigbluebutton_endpoint.ends_with?('api/')
     end
 
+    # Specify the link for the landing page
+    config.landing_page_url = ENV['LANDING_PAGE_URL'] || '/'
+
     # Specify the email address that all mail is sent from
     config.email_sender = ENV['EMAIL_SENDER'].present? ? ENV['EMAIL_SENDER'] : "notifications@example.com"
 
@@ -96,6 +103,9 @@ module Greenlight
 
     # The maximum number of rooms included in one bbbapi call
     config.pagination_number = ENV['PAGINATION_NUMBER'].to_i == 0 ? 25 : ENV['PAGINATION_NUMBER'].to_i
+
+    # Custom link for the 'Do you need help?' button on the User menu
+    config.need_help_button_link = ENV['NEED_HELP_BUTTON_LINK'] || 'http://docs.bigbluebutton.org/install/greenlight-v2.html'
 
     # Default recording visibility
     config.default_recording_visibility = ENV['DEFAULT_RECORDING_VISIBILITY'] || "unlisted"
