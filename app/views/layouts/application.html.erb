@@ -32,6 +32,9 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Primary color styling -->
+    <%= stylesheet_link_tag themes_primary_path %>
     
     <!-- Primary color styling -->
     <%= stylesheet_link_tag themes_primary_path(color: Rails.configuration.primary_color) %>

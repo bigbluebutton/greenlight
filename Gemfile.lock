@@ -367,6 +367,7 @@ DEPENDENCIES
   redis (~> 3.0)
   rolify
   remote_syslog_logger
+  rolify
   rspec-rails (~> 3.7)
   rubocop
   sass-rails (~> 5.0)

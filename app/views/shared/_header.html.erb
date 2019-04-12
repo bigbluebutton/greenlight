@@ -17,7 +17,7 @@
 	<div class="container">
 		<div class="d-flex">
 			<%= link_to (current_user ? current_user.main_room : root_path), class: "header-brand" do %>
-				<%= image_tag(Rails.configuration.branding_image,class: "header-brand-img") %>
+				<%= image_tag(logo_image, class: "header-brand-img", alt:"") %>
 			<% end %>
 
 			<div class="d-flex ml-auto">

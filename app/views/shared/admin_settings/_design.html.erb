@@ -22,7 +22,7 @@
         <label class="form-label"><%= t("administrator.design.branding.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.design.branding.info") %></label>
         <div class="input-group">
-          <input id="branding-url" type="text" class="form-control" value="<%= Rails.configuration.branding_image %>">
+          <input id="branding-url" type="text" class="form-control" value="<%= logo_image %>">
           <span class="input-group-append">
             <button onclick="changeBrandingImage('<%= admin_branding_path %>')" class="btn btn-primary" type="button"><%= t("administrator.design.branding.change") %></button>
           </span>
@@ -36,8 +36,8 @@
           <div class="col-auto">
             <input id="coloring-path" value="<%= admin_coloring_path %>" hidden>
             <label class="colorinput">
-              <input name="color" type="color" value="default" class="colorinput-input" />
-              <span class="colorinput-color" style="background: <%= Rails.configuration.primary_color %>;">
+              <input name="color" type="color" value="<%= user_color %>" class="colorinput-input" />
+              <span class="colorinput-color" style="background: <%= user_color %>;">
                 <i class="p-1 fas fa-paint-brush"></i>
               </span>
             </label>

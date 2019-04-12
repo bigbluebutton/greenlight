@@ -20,7 +20,9 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.has_role? :admin
+    if user.has_role? :super_admin
+      can :manage, :all
+    elsif user.has_role? :admin
       can :manage, :all
     elsif user.has_role? :user
       cannot :manage, AdminsController
