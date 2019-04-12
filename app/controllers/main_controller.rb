@@ -18,6 +18,7 @@
 
 class MainController < ApplicationController
   # before_action :redirect_to_room
+  before_action :redirect_to_ldap, if: -> { Rails.application.config.omniauth_ldap }
 
   # GET /
   def index
@@ -28,5 +29,10 @@ class MainController < ApplicationController
   def redirect_to_room
     # If the user is logged in already, move them along to their room.
     redirect_to room_path(current_user.room) if current_user
+  end
+
+  def redirect_to_ldap
+    # If the user is not logged in already, move them to the ldap login page
+    redirect_to '/auth/ldap' unless current_user
   end
 end
