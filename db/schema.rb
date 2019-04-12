@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190314152108) do
+ActiveRecord::Schema.define(version: 20190326144939) do
+
+  create_table "features", force: :cascade do |t|
+    t.integer  "setting_id"
+    t.string   "name",                       null: false
+    t.string   "value"
+    t.boolean  "enabled",    default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["setting_id"], name: "index_features_on_setting_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -41,6 +51,12 @@ ActiveRecord::Schema.define(version: 20190314152108) do
     t.index ["sessions"], name: "index_rooms_on_sessions"
     t.index ["uid"], name: "index_rooms_on_uid"
     t.index ["user_id"], name: "index_rooms_on_user_id"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string   "provider",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

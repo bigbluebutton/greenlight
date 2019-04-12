@@ -21,6 +21,10 @@
         <button id="users" class="list-group-item list-group-item-action setting-btn <%= "active" if !params[:setting] || params[:setting] == "users"%>">
           <span class="icon mr-3"><i class="fas fa-users"></i></span><%= t("administrator.users.title") %>
         </button>
+        
+        <button id="design" class="list-group-item list-group-item-action setting-btn <%= "active" if params[:setting] == "design"%>">
+          <span class="icon mr-4"><i class="fas fa-palette"></i></span><%= t("administrator.design.title") %>
+        </button>
       </div>
 
       <div class="mt-8">
@@ -34,6 +38,7 @@
         <%= render "shared/settings/setting_view", setting_id: "account", setting_title: t("administrator.users.edit.title") %>
       <% else %>
         <%= render "shared/settings/setting_view", admin_view: true, setting_id: "users", setting_title: t("administrator.users.subtitle") %>
+        <%= render "shared/settings/setting_view", admin_view: true, setting_id: "design", setting_title: t("administrator.design.subtitle") %>
       <% end %>
 
       <%= render "shared/modals/delete_account_modal", delete_location: "/" %>

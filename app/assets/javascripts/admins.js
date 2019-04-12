@@ -57,6 +57,12 @@ $(document).on('turbolinks:load', function(){
         $('#no_users_found').hide();
       }
     });
+
+    // Change the color of the color inputs when the color is changed
+    $(".colorinput-input").change(function(data) {
+      var color = $(data.target).val()
+      $.post($("#coloring-path").val(), {color: color})
+    });
   }
 
   // Only run on the admins edit user page.
@@ -72,3 +78,9 @@ $(document).on('turbolinks:load', function(){
     })
   }
 });
+
+// Change the branding image to the image provided
+function changeBrandingImage(path) {
+  var url = $("#branding-url").val()
+  $.post(path, {url: url})
+}

@@ -88,9 +88,6 @@ module Greenlight
     # Configure custom banner message.
     config.banner_message = ENV['BANNER_MESSAGE']
 
-    # Configure custom branding image.
-    config.branding_image = ENV['BRANDING_IMAGE'] || "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
-
     # Show/Hide cutomization tab in user settings
     config.allow_custom_branding = (ENV['ALLOW_CUSTOM_BRANDING'] == "true")
 
@@ -102,5 +99,23 @@ module Greenlight
 
     # The maximum number of rooms included in one bbbapi call
     config.pagination_number = ENV['PAGINATION_NUMBER'].to_i == 0 ? 25 : ENV['PAGINATION_NUMBER'].to_i
+
+    # Default branding image if the user does not specify one
+    config.branding_image_default = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
+
+    # Default primary color if the user does not specify one
+    config.primary_color_default = "#467fcf"
+
+    # Set the branding image and primary color for the user
+    config.after_initialize do
+      # Use defaults if the table doesn't exist or if the provider can't be found
+      if !ActiveRecord::Base.connection.data_source_exists?(:settings) || !Setting.where(provider: "greenlight").exists?
+        Rails.configuration.branding_image = Rails.configuration.branding_image_default
+        Rails.configuration.primary_color = Rails.configuration.primary_color_default
+      else
+        Rails.configuration.branding_image = Setting.find_by(provider: "greenlight").get_value("Branding Image")
+        Rails.configuration.primary_color = Setting.find_by(provider: "greenlight").get_value("Primary Color")
+      end
+    end
   end
 end

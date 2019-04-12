@@ -41,6 +41,10 @@
 
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext);
 
+* {
+  outline: none !important;
+}
+
 html, body {
   position: relative;
   width: 100%;
@@ -134,4 +138,12 @@ a {
   #cookies-agree-button {
     background-color: green !important;
   }
+}
+
+input:focus {
+    border-color: $primary !important;
+}
+
+.list-group-item-action.active {
+  color: $primary;
 }

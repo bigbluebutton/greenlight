@@ -23,6 +23,15 @@ en:
         accepted_terms: "Terms and Conditions"
   administrator:
     design:
+      branding:
+        change: Change Image
+        info: Change the branding image that appears in the top left corner
+        placeholder: Image Url...
+        title: Branding Image
+      color:
+        info: Change the primary color used across the website
+        title: Primary Color
+      description: Customize various colors and images for your GreenLight instance. Please note that these changes will be reflected to all users.
       subtitle: Customize Greenlight
       title: Design
     flash:
@@ -102,7 +111,7 @@ en:
     create_room: Create Room
     dropdown:
       help: Need help?
-      home: Home Room
+      home: Rooms
       settings: Settings
       signout: Sign out
   home_room: Home Room
