@@ -63,19 +63,18 @@
 							<% end %>
 						</div>
 					</div>
-<<<<<<< HEAD
         <% else %>
           <% allow_greenlight_accounts = allow_greenlight_accounts? %>
           <% if Rails.configuration.omniauth_ldap %>
-            <%= link_to t("login"), omniauth_login_url(:ldap), :class => "btn btn-pill btn-outline-primary mx-2 sign-in-button" %>
+            <%= link_to t("login"), omniauth_login_url(:ldap), :class => "btn btn-outline-primary mx-2 sign-in-button" %>
           <% elsif allow_greenlight_accounts %>
-            <%= link_to t("login"), "#loginModal", :class => "btn btn-pill btn-outline-primary mx-2 sign-in-button", "data-toggle": "modal" %>
+            <%= link_to t("login"), signin_path, :class => "btn btn-outline-primary mx-2 sign-in-button" %>
           <% else %>
-            <%= link_to t("login"), omniauth_login_url(:bn_launcher), :class => "btn btn-pill btn-outline-primary mx-2 sign-in-button" %>
+            <%= link_to t("login"), omniauth_login_url(:bn_launcher), :class => "btn btn-outline-primary mx-2 sign-in-button" %>
           <% end %>
 
           <% if allow_user_signup? && allow_greenlight_accounts %>
-            <%= link_to t("signup.title"), signup_path, :class => "btn btn-pill btn-outline-primary mx-2 sign-in-button" %>
+            <%= link_to t("signup.title"), signup_path, :class => "btn btn-outline-primary mx-2 sign-in-button" %>
           <% end %>
 
           <%= render "shared/modals/login_modal" %>
@@ -83,22 +82,4 @@
       </div>
     </div>
   </div>
-=======
-				<% else %>
-          <% if Rails.configuration.omniauth_bn_launcher %>
-            <%= link_to t("login"), omniauth_login_url(:bn_launcher), :class => "btn btn-outline-primary mx-2" %>
-          <% elsif Rails.configuration.omniauth_ldap %>
-						<%= link_to t("login"), omniauth_login_url(:ldap), :class => "btn btn-outline-primary mx-2" %>
-					<% else %>
-            <%= link_to t("login"), signin_path, :class => "btn btn-outline-primary mx-2" %>
-          <% end %>
-
-					<% if allow_user_signup? %>
-						<%= link_to t("signup.title"), signup_path, :class => "btn btn-outline-primary mx-2" %>
-					<% end %>
-				<% end %>
-			</div>
-		</div>
-	</div>
->>>>>>> bfef477286148d0ddc148c8cbd744a2f8d655675
 </div>

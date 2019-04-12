@@ -214,18 +214,6 @@ class User < ApplicationRecord
     end
   end
 
-  def admin_of?(user)
-    if Rails.configuration.loadbalanced_configuration
-      if has_role? :super_admin
-        id != user.id
-      else
-        (has_role? :admin) && (id != user.id) && (provider == user.provider) && (!user.has_role? :super_admin)
-      end
-    else
-      (has_role? :admin) && (id != user.id)
-    end
-  end
-
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
