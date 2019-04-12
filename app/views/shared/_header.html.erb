@@ -76,8 +76,6 @@
           <% if allow_user_signup? && allow_greenlight_accounts %>
             <%= link_to t("signup.title"), signup_path, :class => "btn btn-outline-primary mx-2 sign-in-button" %>
           <% end %>
-
-          <%= render "shared/modals/login_modal" %>
         <% end %>
       </div>
     </div>
