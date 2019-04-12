@@ -17,6 +17,8 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class AccountActivationsController < ApplicationController
+  include Verifier
+
   before_action :ensure_unauthenticated
   before_action :find_user
 
@@ -27,7 +29,7 @@ class AccountActivationsController < ApplicationController
 
   # GET /account_activations/edit
   def edit
-    if @user && !@user.email_verified? && @user.authenticated?(:activation, params[:token])
+    if @user && !@user.activated? && @user.authenticated?(:activation, params[:token])
       @user.activate
 
       flash[:success] = I18n.t("verify.activated") + " " + I18n.t("verify.signin")
@@ -40,11 +42,11 @@ class AccountActivationsController < ApplicationController
 
   # GET /account_activations/resend
   def resend
-    if @user.email_verified
+    if @user.activated?
       flash[:alert] = I18n.t("verify.already_verified")
     else
       begin
-        @user.send_activation_email(verification_link)
+        @user.send_activation_email(user_verification_link)
       rescue => e
         logger.error "Error in email delivery: #{e}"
         flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
@@ -58,19 +60,15 @@ class AccountActivationsController < ApplicationController
 
   private
 
-  def verification_link
-    request.base_url + edit_account_activation_path(token: @user.activation_token, email: @user.email)
-  end
-
   def ensure_unauthenticated
     redirect_to current_user.main_room if current_user
   end
 
   def email_params
-    params.require(:email).permit(:token)
+    params.require(:email).permit(:email, :token)
   end
 
   def find_user
-    @user = User.find_by!(email: params[:email], provider: "greenlight")
+    @user = User.find_by!(email: params[:email], provider: @user_domain)
   end
 end

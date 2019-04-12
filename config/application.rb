@@ -34,8 +34,8 @@ module Greenlight
     config.exceptions_app = routes
 
     # Configure I18n localization.
-    config.i18n.available_locales = %w(ar de el en es fr pt pt-br ru zh-cn)
-    config.i18n.default_locale = "en"
+    config.i18n.available_locales = [:en]
+    config.i18n.default_locale = :en
 
     config.i18n.available_locales.each do |locale|
       config.i18n.fallbacks[locale] = [locale, :en]
@@ -48,26 +48,36 @@ module Greenlight
     config.gl_callback_url = ENV["GL_CALLBACK_URL"]
 
     # Default credentials (test-install.blindsidenetworks.com/bigbluebutton).
-    config.bigbluebutton_endpoint_default = "http://test-install.blindsidenetworks.com/bigbluebutton/api/"
+    config.bigbluebutton_endpoint_default = "http://test-install.blindsidenetworks.com/bigbluebutton/"
     config.bigbluebutton_secret_default = "8cd8ef52e8e101574e400365b55e11a6"
 
-    # Setup BigBlueButton configuration.
+    # Use standalone BigBlueButton server.
+    config.bigbluebutton_endpoint = ENV["BIGBLUEBUTTON_ENDPOINT"] || config.bigbluebutton_endpoint_default
+    config.bigbluebutton_secret = ENV["BIGBLUEBUTTON_SECRET"] || config.bigbluebutton_secret_default
+
+    # Fix endpoint format if required.
+    config.bigbluebutton_endpoint += "/" unless config.bigbluebutton_endpoint.ends_with?('/')
+    config.bigbluebutton_endpoint += "api/" if config.bigbluebutton_endpoint.ends_with?('bigbluebutton/')
+    config.bigbluebutton_endpoint +=
+      "bigbluebutton/api/" unless config.bigbluebutton_endpoint.ends_with?('bigbluebutton/api/')
+
     if config.loadbalanced_configuration
-      # Fetch credentials from a loadbalancer based on provider.
+      # Settings for fetching credentials from a loadbalancer based on provider.
       config.loadbalancer_endpoint = ENV["LOADBALANCER_ENDPOINT"]
       config.loadbalancer_secret = ENV["LOADBALANCER_SECRET"]
       config.launcher_secret = ENV["LAUNCHER_SECRET"]
-    else
-      # Use standalone BigBlueButton server.
-      config.bigbluebutton_endpoint = ENV["BIGBLUEBUTTON_ENDPOINT"] || config.bigbluebutton_endpoint_default
-      config.bigbluebutton_secret = ENV["BIGBLUEBUTTON_SECRET"] || config.bigbluebutton_secret_default
+      config.launcher_allow_user_signup = ENV["LAUNCHER_ALLOW_GREENLIGHT_ACCOUNTS"]
 
       # Fix endpoint format if required.
-      config.bigbluebutton_endpoint += "api/" unless config.bigbluebutton_endpoint.ends_with?('api/')
+      config.loadbalancer_endpoint += "/" unless config.bigbluebutton_endpoint.ends_with?("/")
+      config.loadbalancer_endpoint = config.loadbalancer_endpoint.chomp("api/")
+
+      # Configure which settings are available to user on room creation/edit after creation
+      config.url_host = ENV['URL_HOST'] || ''
     end
 
     # Specify the email address that all mail is sent from
-    config.email_sender = ENV['EMAIL_SENDER'].present? ? ENV['EMAIL_SENDER'] : "notifications@example.com"
+    config.smtp_sender = ENV['SMTP_SENDER'] || "notifications@example.com"
 
     # Determine if GreenLight should enable email verification
     config.enable_email_verification = (ENV['ALLOW_MAIL_NOTIFICATIONS'] == "true")

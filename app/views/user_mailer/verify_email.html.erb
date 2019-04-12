@@ -20,23 +20,25 @@
     <div style="display:inline-block; background-color:#F5F7FB; border:1px solid #d3d3d3; padding: 25px 70px">
       <%= image_tag(logo_image) %>
 
-      <h1 style="margin-bottom:30px">Welcome to  <%= t('bigbluebutton') %>!,
-        <%= @user[:name] %></h1>
+      <h1 style="margin-bottom:30px">
+        <%= t('mailer.user.verify_email.welcome', bigbluebutton: t('bigbluebutton'), name: @user[:name]) %>
+      </h1>
 
       <p>
-        You have successfully registered your <%= t('bigbluebutton') %> account, your username is:
-        <%= @user[:email] %>.
+        <%= t('mailer.user.verify_email.success', bigbluebutton: t('bigbluebutton'), email: @user[:email]) %>
       </p>
 
       <p style="margin-bottom:45px;">
-        To verify your account, just click the button below.
+        <%= t('mailer.user.verify_email.verify') %>
       </p>
 
       <a style="background: #467fcf;color: #ffffff; padding: 10px 15px; box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);border: 1px solid transparent;text-decoration:none;" href="<%= @url %>">
-        Verify Account
+        <%= t('mailer.user.verify_email.verify_link') %>
       </a>
 
-      <p style="margin-top:45px;">Thanks for joining and have a great day!</p>
+      <p style="margin-top:45px;">
+        <%= t('mailer.user.verify_email.thanks') %>
+      </p>
 
     </div>
   </div>

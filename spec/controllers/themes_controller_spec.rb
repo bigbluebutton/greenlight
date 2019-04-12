@@ -36,14 +36,13 @@ describe ThemesController, type: :controller do
   context "CSS file creation" do
     before do
       @fake_color = Faker::Color.hex_color
-      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow(Rails.configuration).to receive(:primary_color_default).and_return(@fake_color)
     end
 
     it "returns the correct color based on provider" do
       color1 = Faker::Color.hex_color
       provider1 = Faker::Company.name
-      Setting.create(provider: provider1).features.create(name: "Primary Color", value: color1, enabled: true)
+      Setting.create(provider: "greenlight").features.create(name: "Primary Color", value: color1, enabled: true)
       user1 = create(:user, provider: provider1)
 
       @request.session[:user_id] = user1.id

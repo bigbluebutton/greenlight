@@ -17,6 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 require "rails_helper"
+require 'bigbluebutton_api'
 
 describe User, type: :model do
   before do
@@ -39,7 +40,7 @@ describe User, type: :model do
 
     it { should allow_value("valid.jpg").for(:image) }
     it { should allow_value("valid.png").for(:image) }
-    it { should_not allow_value("invalid.txt").for(:image) }
+    it { should allow_value("random_file.txt").for(:image) }
     it { should allow_value("", nil).for(:image) }
 
     it "should convert email to downcase on save" do
@@ -76,30 +77,32 @@ describe User, type: :model do
     end
   end
 
-  context '#from_omniauth' do
-    let(:auth) do
-      {
-        "uid" => "123456789",
-        "provider" => "twitter",
-        "info" => {
-          "name" => "Test Name",
-          "nickname" => "username",
-          "email" => "test@example.com",
-          "image" => "example.png",
-        },
-      }
-    end
+  unless Rails.configuration.omniauth_bn_launcher
+    context '#from_omniauth' do
+      let(:auth) do
+        {
+          "uid" => "123456789",
+          "provider" => "twitter",
+          "info" => {
+            "name" => "Test Name",
+            "nickname" => "username",
+            "email" => "test@example.com",
+            "image" => "example.png",
+          },
+        }
+      end
 
-    it "should create user from omniauth" do
-      expect do
-        user = User.from_omniauth(auth)
+      it "should create user from omniauth" do
+        expect do
+          user = User.from_omniauth(auth)
 
-        expect(user.name).to eq("Test Name")
-        expect(user.email).to eq("test@example.com")
-        expect(user.image).to eq("example.png")
-        expect(user.provider).to eq("twitter")
-        expect(user.social_uid).to eq("123456789")
-      end.to change { User.count }.by(1)
+          expect(user.name).to eq("Test Name")
+          expect(user.email).to eq("test@example.com")
+          expect(user.image).to eq("example.png")
+          expect(user.provider).to eq("twitter")
+          expect(user.social_uid).to eq("123456789")
+        end.to change { User.count }.by(1)
+      end
     end
   end
 

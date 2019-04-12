@@ -30,7 +30,7 @@ module RecordingsHelper
 
     len = valid_playbacks.first[:length]
     if len > 60
-      "#{(len / 60).round} hrs"
+      "#{(len / 60).to_i} hrs #{len % 60} mins"
     elsif len == 0
       "< 1 min"
     else
@@ -41,5 +41,9 @@ module RecordingsHelper
   # Prevents single images from erroring when not passed as an array.
   def safe_recording_images(images)
     Array.wrap(images)
+  end
+
+  def room_uid_from_bbb(bbb_id)
+    Room.find_by(bbb_id: bbb_id)[:uid]
   end
 end

@@ -17,12 +17,22 @@
 # Locale.
 
 zh_CN:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "协议和条款"
   bigbluebutton: BigBlueButton
+  bigbluebutton_exception: " 哎呀，启动会议出错！"
   cancel: 取消
+  cookies:
+    cookie_info: Cookies帮助我们提供服务。您同意我们使用cookies才能使用这些服务。
+    cookie_button: 我同意
   copy: 复制
   delete: 删除
+  delivery_error: 电子邮件传递过程中出错。请联系管理员！
   docs: 文档
   email: Email
+  email_sent: 电子邮件已经发送！（如果没有收到，请检查您的垃圾邮件文件夹）
   enter_your_name: 输入您的名字！
   errors:
     internal:
@@ -42,6 +52,7 @@ zh_CN:
     unprocessable:
       message: 哎呀！请求无法处理。
       help: 这不是有效的请求。
+  expired_reset_token: 密码重置链接已过期！
   features:
     title: 功能
     rooms: 个人房间
@@ -50,6 +61,10 @@ zh_CN:
     authentication: 用户认证
   footer:
     powered_by: "Powered by%{href}"
+  forgot_password:
+    subtitle: 忘记密码
+    email: Email
+    submit: 提交
   go_back: 返回
   greenlight: 在线会议系统
   header:
@@ -58,19 +73,24 @@ zh_CN:
       help: 帮助
       home: 大厅
       settings: 设置
-      signout: 登出
+      signout: 退出
   home_room: 大厅
   info_update_success: 信息更新成功。
+  invalid_user: 由于找不到用户，登录失败。您确定电子邮件帐户是正确的吗？
   invalid_credentials: 登录失败。输入有误？
+  invalid_login_method: 由于帐户不匹配，登录失败。您需要使用Omniauth登录。
   invite_message: "邀请他人参加会议，请发送以下链接："
   landing:
-    about: "%{href}是一个开源的网页会议系统，专为在线学习而设计。高清的视音频通话，文字聊天，分享屏幕，随堂测试，分组讨论，还有白板一起涂鸦。"
-    welcome: 欢迎来到<span class="green-grad">在线会议系统</span>
+    about: "%{href} 是BigBluebutton开源Web会议服务器的简单前端。您可以创建自己的会议房间来主持会议，或者使用一个简短而方便的链接加入其他会议房间。"
+    welcome: 欢迎使用 BigBlueButton。
     video: 请看使用说明
     upgrade: 告诉我怎么升级到 2.0!
     version: 我们发布了新版Greenlight，但你的数据库不兼容。
+  language_name: 中文（S）
+  language_default: 默认（浏览器语言）
   ldap_error: 无法连接到LDAP服务器，请在env文件中检查LDAP配置，还要确保服务已经启动。
   login: 登录
+  max_concurrent: 已达到允许的最大并发会话数！
   modal:
     create_room:
       auto_join: 自动进入此房间。
@@ -90,12 +110,36 @@ zh_CN:
       warning: 您将<b>无法</b>恢复这个房间和它相关的所有记录。
     login:
       or: 或
-      with: "通过%{provider}登录"
+      with: "通过 %{provider}登录"
+      forgot_password: 忘记密码？
+    rename_recording:
+    room_settings:
+      title: 房间设置
+      update: 更新房间
+      client: 选择客户端类型
+      mute: 用户加入时静音
+      default: 默认
+      html: HTML5
+      flash: Flash
+      footer_text: 您可以随时调整房间。
+    rename_room:
+      name_placeholder: 输入新房间名称…
+  name_update_success: 房间名称更改成功！
+  no_user_email_exists: 没有指定电子邮件的现有用户。请确保输入正确。
   omniauth_error: 与omniauth进行身份验证时出错。请再试一次，或与管理员联系！
   password: 密码
+  password_empty_notice: 密码不能为空。
+  password_reset_success: 密码已重置。
+  password_different_notice: 密码确认不匹配。
+  provider:
+    google: Google
+    microsoft_office365: Office 365
+    twitter: Twitter
   recording:
     email: 通过Email发送记录
     no_recordings: "这个房间没有%{inject}记录。"
+    no_user_recordings: 您当前没有录制。
+    no_matched_recordings: "没有搜索到 %{inject} 录像。"
     recorded_on: "录制于%{date}"
     table:
       name: 名字
@@ -107,8 +151,16 @@ zh_CN:
     visibility:
       public: 公开
       unlisted: 隐藏
+  rename: 重命名
+  reset_password:
+    subtitle: 重置密码
+    password: 新密码
+    confirm: 确认新密码
+    update: 更新密码
   room:
-    invited: 您被邀请加入
+    create_room_error: 创建房间时出错
+    create_room_success: 创建房间成功
+    invited: 您已被邀请加入
     invite_participants: 邀请参与者的链接
     join: 加入
     last_session: "上一次会议%{session}"
@@ -118,12 +170,16 @@ zh_CN:
     sessions: 会议
     settings: 房间设置
     start: 开始
+    unavailable: 由于未验证所有者的电子邮件，此房间当前不可用。
+    update_settings_error: 更新房间设置时出错
+    update_settings_success: 已成功更新房间设置
     wait:
       message: 哎呀！会议还没开始呢。
       auto: 会议开始后您将自动进入。
   settings:
     account:
       fullname: 全名
+      language: 语言
       provider: 应用平台
       image: 头像
       image_url: 头像URL
@@ -149,10 +205,20 @@ zh_CN:
     password_confirm: 密码确认
     subtitle: 创建账户
     title: 注册
-    with: "用%{provider}注册"
+    with: "通过%{provider}注册"
   terms:
-    accept: 我接受协议和条款。
+    accept: "我同意%{href}"
+    accept_existing: 我接受协议和条款。
     title: 协议和条款
   test_install: >
     此部署使用的是预配置的测试服务器，您应该用自己的服务器来替换它。 详细信息请看 %{href}。
   update: 更新
+  verify:
+    accept: 核实
+    activated: 账户已核实！
+    already_verified: 帐户已验证
+    invalid: 无效的验证链接
+    not_verified: 您的帐户尚未验证。
+    resend: 重新发送验证电子邮件
+    signin: 请登录以访问您的帐户。
+    title: 验证您的电子邮件

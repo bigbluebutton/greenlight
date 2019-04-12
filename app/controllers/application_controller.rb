@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
   before_action :migration_error?
   before_action :set_locale
   before_action :check_admin_password
+  before_action :set_user_domain
 
   # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
@@ -70,15 +71,10 @@ class ApplicationController < ActionController::Base
 
   # Determines if the BigBlueButton endpoint is configured (or set to default).
   def bigbluebutton_endpoint_default?
-    return false if loadbalanced_configuration?
+    return false if Rails.configuration.loadbalanced_configuration
     Rails.configuration.bigbluebutton_endpoint_default == Rails.configuration.bigbluebutton_endpoint
   end
   helper_method :bigbluebutton_endpoint_default?
-
-  def loadbalanced_configuration?
-    Rails.configuration.loadbalanced_configuration
-  end
-  helper_method :loadbalanced_configuration?
 
   def recording_thumbnails?
     Rails.configuration.recording_thumbnails
@@ -121,6 +117,17 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_https
-    redirect_to protocol: "https://" if loadbalanced_configuration? && request.headers["X-Forwarded-Proto"] == "http"
+    if Rails.configuration.loadbalanced_configuration && request.headers["X-Forwarded-Proto"] == "http"
+      redirect_to protocol: "https://"
+    end
   end
+
+  def set_user_domain
+    @user_domain = if Rails.env.test? || !Rails.configuration.loadbalanced_configuration
+      "greenlight"
+    else
+      parse_user_domain(request.host)
+    end
+  end
+  helper_method :set_user_domain
 end

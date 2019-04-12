@@ -30,9 +30,11 @@ class PasswordResetsController < ApplicationController
     if @user
       @user.create_reset_digest
       @user.send_password_reset_email(reset_link)
-      redirect_to root_url, notice: I18n.t("email_sent")
+      flash[:success] = I18n.t("email_sent")
+      redirect_to root_path
     else
-      redirect_to new_password_reset_path, alert: I18n.t("no_user_email_exists")
+      flash[:alert] = I18n.t("no_user_email_exists")
+      redirect_to new_password_reset_path
     end
   rescue => e
     logger.error "Error in email delivery: #{e}"
@@ -84,7 +86,8 @@ class PasswordResetsController < ApplicationController
 
   # Confirms a valid user.
   def valid_user
-    unless current_user&.email_verified && current_user.authenticated?(:reset, params[:id])
+    unless current_user.authenticated?(:reset, params[:id])
+      current_user&.activate unless current_user&.activated?
       redirect_to root_url
     end
   end
