@@ -36,6 +36,9 @@
     <!-- Primary color styling -->
     <%= stylesheet_link_tag themes_primary_path %>
     
+    <!-- Primary color styling -->
+    <%= stylesheet_link_tag themes_primary_path(color: Rails.configuration.primary_color) %>
+    
     <script type="text/javascript">
       // Rail-ish function to translate a string, according to the Rails locales
       window.t = function t(key) {
