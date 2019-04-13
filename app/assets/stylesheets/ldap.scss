@@ -1,7 +1,8 @@
-@import "utilities/variables";
+@import "custom-variables";
+$ldap-bg-color: #d6d6d6 !default;
 
 body {
-    background-color: $background-color;
+    background-color: $ldap-bg-color;
 }
 
 .center {

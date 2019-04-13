@@ -92,6 +92,6 @@ module ApplicationHelper
   # Return all the translations available in the client side through javascript
   def current_translations
     @translations ||= I18n.backend.send(:translations)
-    @translations[I18n.locale].with_indifferent_access[:javascript] || {}
+    @translations[I18n.locale.to_s.split('-').join('_').to_sym]&.with_indifferent_access[:javascript] || {}
   end
 end
