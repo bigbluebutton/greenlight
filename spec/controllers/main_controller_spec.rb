@@ -19,10 +19,45 @@
 require "rails_helper"
 
 describe MainController, type: :controller do
+  before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
+
   describe "GET #index" do
-    it "returns success" do
-      get :index
-      expect(response).to be_successful
-    end
+    describe "LDAP is NOT active" do
+
+      it "returns success if user is logged in" do
+        user = create(:user)
+        @request.session[:user_id] = user.id
+
+        get :index
+
+        expect(response).to have_http_status(200)
+      end
+
+      it "returns succes if user is NOT logged in" do
+        get :index
+
+        expect(response).to have_http_status(200)
+      end
+    end 
+
+    describe "LDAP is active" do
+      before { Rails.application.config.omniauth_ldap = true }
+      after { Rails.application.config.omniauth_ldap = false }
+
+      it "returns success if user is logged in" do
+        user = create(:user, provider: "ldap")
+        @request.session[:user_id] = user.id
+
+        get :index
+
+        expect(response).to have_http_status(200)
+      end
+
+      it "redirects to LDAP login page if user is NOT logged in" do
+        get :index
+
+        expect(response).to have_http_status(302)
+      end
+    end 
   end
 end

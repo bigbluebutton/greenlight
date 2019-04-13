@@ -47,7 +47,7 @@
 								<i class="dropdown-icon fas fa-cog"></i> <%= t("header.dropdown.settings") %>
 							<% end %>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="http://docs.bigbluebutton.org/install/greenlight-v2.html" target="_blank">
+							<a class="dropdown-item" href="<%= Rails.configuration.need_help_button_link %>" target="_blank">
 								<i class="dropdown-icon far fa-question-circle"></i> <%= t("header.dropdown.help") %>
 							</a>
 							<%= link_to logout_path, class: "dropdown-item" do %>
@@ -55,22 +55,23 @@
 							<% end %>
 						</div>
 					</div>
-				<% else %>
-          <% if Rails.configuration.omniauth_bn_launcher %>
-            <%= link_to t("login"), omniauth_login_url(:bn_launcher), :class => "btn btn-pill btn-outline-primary mx-2" %>
-          <% elsif Rails.configuration.omniauth_ldap %>
-						<%= link_to t("login"), omniauth_login_url(:ldap), :class => "btn btn-pill btn-outline-primary mx-2" %>
-					<% else %>
+        <% else %>
+          <% allow_greenlight_accounts = allow_greenlight_accounts? %>
+          <% if Rails.configuration.omniauth_ldap %>
+            <%= link_to t("login"), omniauth_login_url(:ldap), :class => "btn btn-pill btn-outline-primary mx-2" %>
+          <% elsif allow_greenlight_accounts %>
             <%= link_to t("login"), "#loginModal", :class => "btn btn-pill btn-outline-primary mx-2", "data-toggle": "modal" %>
+          <% else %>
+            <%= link_to t("login"), omniauth_login_url(:bn_launcher), :class => "btn btn-pill btn-outline-primary mx-2" %>
           <% end %>
 
-					<% if allow_user_signup? %>
-						<%= link_to t("signup.title"), signup_path, :class => "btn btn-pill btn-outline-primary mx-2" %>
-					<% end %>
+          <% if allow_user_signup? && allow_greenlight_accounts %>
+            <%= link_to t("signup.title"), signup_path, :class => "btn btn-pill btn-outline-primary mx-2" %>
+          <% end %>
 
-					<%= render "shared/modals/login_modal" %>
-				<% end %>
-			</div>
-		</div>
-	</div>
+          <%= render "shared/modals/login_modal" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

@@ -34,8 +34,13 @@ module Greenlight
     config.exceptions_app = routes
 
     # Configure I18n localization.
+    config.i18n.enforce_available_locales = false
     config.i18n.available_locales = %w(en pt-br es ar fr de el ru)
-    config.i18n.default_locale = "en"
+    config.i18n.default_locale = if config.i18n.available_locales.include?(ENV["DEFAULT_LOCALE"])
+      ENV["DEFAULT_LOCALE"].to_sym
+    else
+      :en
+    end
 
     config.i18n.available_locales.each do |locale|
       config.i18n.fallbacks[locale] = [locale, :en]
@@ -48,29 +53,39 @@ module Greenlight
     config.gl_callback_url = ENV["GL_CALLBACK_URL"]
 
     # Default credentials (test-install.blindsidenetworks.com/bigbluebutton).
-    config.bigbluebutton_endpoint_default = "http://test-install.blindsidenetworks.com/bigbluebutton/api/"
+    config.bigbluebutton_endpoint_default = "http://test-install.blindsidenetworks.com/bigbluebutton/"
     config.bigbluebutton_secret_default = "8cd8ef52e8e101574e400365b55e11a6"
 
-    # Setup BigBlueButton configuration.
+    # Use standalone BigBlueButton server.
+    config.bigbluebutton_endpoint = ENV["BIGBLUEBUTTON_ENDPOINT"] || config.bigbluebutton_endpoint_default
+    config.bigbluebutton_secret = ENV["BIGBLUEBUTTON_SECRET"] || config.bigbluebutton_secret_default
+
+    # Fix endpoint format if required.
+    config.bigbluebutton_endpoint += "api/" unless config.bigbluebutton_endpoint.ends_with?('api/')
+
     if config.loadbalanced_configuration
-      # Fetch credentials from a loadbalancer based on provider.
+      # Settings for fetching credentials from a loadbalancer based on provider.
       config.loadbalancer_endpoint = ENV["LOADBALANCER_ENDPOINT"]
       config.loadbalancer_secret = ENV["LOADBALANCER_SECRET"]
       config.launcher_secret = ENV["LAUNCHER_SECRET"]
-    else
-      # Use standalone BigBlueButton server.
-      config.bigbluebutton_endpoint = ENV["BIGBLUEBUTTON_ENDPOINT"] || config.bigbluebutton_endpoint_default
-      config.bigbluebutton_secret = ENV["BIGBLUEBUTTON_SECRET"] || config.bigbluebutton_secret_default
+      config.launcher_allow_user_signup = ENV["LAUNCHER_ALLOW_GREENLIGHT_ACCOUNTS"]
 
       # Fix endpoint format if required.
-      config.bigbluebutton_endpoint += "api/" unless config.bigbluebutton_endpoint.ends_with?('api/')
+      config.loadbalancer_endpoint += "/" unless config.bigbluebutton_endpoint.ends_with?("/")
+      config.loadbalancer_endpoint = config.loadbalancer_endpoint.chomp("api/")
     end
+
+    # Specify the link for the landing page
+    config.landing_page_url = ENV['LANDING_PAGE_URL'] || '/'
 
     # Specify the email address that all mail is sent from
     config.email_sender = ENV['EMAIL_SENDER'].present? ? ENV['EMAIL_SENDER'] : "notifications@example.com"
 
     # Determine if GreenLight should enable email verification
     config.enable_email_verification = (ENV['ALLOW_MAIL_NOTIFICATIONS'] == "true")
+
+    # Determine if the BBB server has authentication or not
+    config.enable_bbb_server_authentication = (ENV['ENABLE_BBB_SERVER_AUTHENTICATION'] == 'true')
 
     # Determine if GreenLight should allow non-omniauth signup/login.
     config.allow_user_signup = (ENV['ALLOW_GREENLIGHT_ACCOUNTS'] == "true")
@@ -81,7 +96,7 @@ module Greenlight
     # Configure custom branding image.
     config.branding_image = ENV['BRANDING_IMAGE'] || "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
 
-    # Show/Hide cutomization tab in user settings
+    # Show/Hide customization tab in user settings
     config.allow_custom_branding = (ENV['ALLOW_CUSTOM_BRANDING'] == "true")
 
     # Enable/disable recording thumbnails.
@@ -92,5 +107,14 @@ module Greenlight
 
     # The maximum number of rooms included in one bbbapi call
     config.pagination_number = ENV['PAGINATION_NUMBER'].to_i == 0 ? 25 : ENV['PAGINATION_NUMBER'].to_i
+
+    # Custom link for the 'Do you need help?' button on the User menu
+    config.need_help_button_link = ENV['NEED_HELP_BUTTON_LINK'] || 'http://docs.bigbluebutton.org/install/greenlight-v2.html'
+
+    # Default recording visibility
+    config.default_recording_visibility = ENV['DEFAULT_RECORDING_VISIBILITY'] || "unlisted"
+
+    # Show/hide "Add to Google Calendar" button in the room page
+    config.enable_google_calendar_button = (ENV['ENABLE_GOOGLE_CALENDAR_BUTTON'] == "true")
   end
 end

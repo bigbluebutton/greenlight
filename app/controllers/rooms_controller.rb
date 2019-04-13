@@ -51,9 +51,7 @@ class RoomsController < ApplicationController
   # GET /:room_uid
   def show
     if current_user && @room.owned_by?(current_user)
-      recs = @room.recordings
-
-      @recordings = recs
+      @recordings = @room.recordings
       @is_running = @room.running?
     else
       render :join
@@ -224,12 +222,12 @@ class RoomsController < ApplicationController
 
   def validate_verified_email
     if current_user
-      redirect_to account_activation_path(current_user) unless current_user.email_verified
+      redirect_to account_activation_path(current_user) unless current_user.activated?
     end
   end
 
   def verify_room_owner_verified
-    unless @room.owner.email_verified
+    unless @room.owner.activated?
       flash[:alert] = t("room.unavailable")
 
       if current_user

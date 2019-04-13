@@ -17,12 +17,17 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 Rails.application.routes.draw do
+  # Root routes
+  get Rails.configuration.landing_page_url, to: 'main#index', as: :root
+  root to: 'errors#not_found', as: ''
+
+  # Health check route
   get 'health_check', to: 'health_check/health_check#index'
 
   # Error routes.
-  match '/404', to: 'errors#not_found', via: :all
-  match '/422', to: 'errors#unprocessable', via: :all
-  match '/500', to: 'errors#internal_error', via: :all
+  match '/404', to: 'errors#not_found', via: :all, as: :not_found
+  match '/422', to: 'errors#unprocessable', via: :all, as: :unprocessable
+  match '/500', to: 'errors#internal_error', via: :all, as: :internal_error
 
   # Signup routes.
   get '/signup', to: 'users#new', as: :signup
@@ -38,7 +43,7 @@ Rails.application.routes.draw do
   scope '/account_activations' do
     get '/', to: 'account_activations#show', as: :account_activation
     get '/edit', to: 'account_activations#edit', as: :edit_account_activation
-    get '/resend', to: 'account_activations#resend', as: :resend_email
+    post '/resend', to: 'account_activations#resend', as: :resend_email
   end
 
   # User resources.
@@ -83,6 +88,4 @@ Rails.application.routes.draw do
       get '/:type', to: 'recordings#play_recording', as: :play_recording
     end
   end
-
-  root to: 'main#index'
 end
