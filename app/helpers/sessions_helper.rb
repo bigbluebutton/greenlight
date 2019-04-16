@@ -64,7 +64,7 @@ module SessionsHelper
   end
 
   def parse_user_domain(hostname)
-    return hostname.split('.').first unless Rails.configuration.url_host
+    return hostname.split('.').first if Rails.configuration.url_host.empty?
     Rails.configuration.url_host.split(',').each do |url_host|
       if hostname.include?(url_host)
         return hostname.chomp(url_host).chomp('.')
