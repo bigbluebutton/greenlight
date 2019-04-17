@@ -4,9 +4,8 @@ stages:
   - deploy
 
 cache:
-  key: "$CI_COMMIT_REF_SLUG"
   paths:
-    - bin/
+    - /cache
 
 before_script:
 

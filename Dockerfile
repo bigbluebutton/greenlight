@@ -17,7 +17,7 @@ ENV RAILS_ENV production
 COPY . .
 
 # Install gems.
-RUN bundle install --without development test --deployment --clean
+RUN bundle install --path /cache --without development test --deployment --clean
 
 # Precompile assets.
 RUN bundle exec rake assets:clean
