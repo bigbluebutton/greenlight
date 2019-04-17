@@ -3,6 +3,11 @@ stages:
   - build
   - deploy
 
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - bin/
+
 before_script:
 
 test:
