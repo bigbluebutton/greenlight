@@ -69,7 +69,7 @@ if [ -z $CD_DOCKER_REPO ]; then
   export CD_DOCKER_REPO=$CD_REF_SLUG
 fi
 
-if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && [ -z $CD_DEPLOY_ALL ];then
+if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && ( [ -z $CD_DEPLOY_ALL ] || [ "$CD_DEPLOY_ALL" != "true" ] ); then
   echo "#### Docker image for $CD_DOCKER_REPO won't be deployed. The conditions for running this build were not met."
   exit 0
 fi
