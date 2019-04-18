@@ -197,7 +197,7 @@ class Room < ApplicationRecord
   rescue BigBlueButton::BigBlueButtonException => e
     logger.error "Error when trying to connect to the BBB server: #{e}"
     logger.error "Possibly related to enabling BBB server authentication" if e.to_s.include?('getRecordingToken')
-    
+
     raise e
   end
 end
