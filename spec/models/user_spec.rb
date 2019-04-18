@@ -152,4 +152,16 @@ describe User, type: :model do
       expect(@admin.admin_of?(@user)).to be false
     end
   end
+
+  context 'blank email' do
+    it "allows a blank email if the provider is not greenlight" do
+      user = create(:user, email: "", provider: "ldap")
+      expect(user.valid?).to be true
+    end
+
+    it "does not allow a blank email if the provider is greenlight" do
+      expect { create(:user, email: "", provider: "greenlight") }
+        .to raise_exception(ActiveRecord::RecordInvalid, "Validation failed: Email can't be blank")
+    end
+  end
 end

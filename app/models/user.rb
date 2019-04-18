@@ -36,6 +36,7 @@ class User < ApplicationRecord
 
   validates :name, length: { maximum: 256 }, presence: true
   validates :provider, presence: true
+  validate :check_if_email_can_be_blank
   validates :email, length: { maximum: 256 }, allow_blank: true,
                     uniqueness: { case_sensitive: false, scope: :provider },
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
@@ -248,5 +249,9 @@ class User < ApplicationRecord
   # Initialize the user to use the default user role
   def assign_default_role
     add_role(:user) if roles.blank?
+  end
+
+  def check_if_email_can_be_blank
+    errors.add(:email, I18n.t("errors.messages.blank")) if provider == "greenlight" && email.blank?
   end
 end
