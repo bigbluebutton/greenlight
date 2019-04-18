@@ -49,7 +49,6 @@ en:
         demote: Demote to User
         edit: Edit
         promote: Promote to Admin
-      subtitle: View Users
       table:
         created: Created On
         name: Name
@@ -58,7 +57,7 @@ en:
         provider: Provider
         uid: User ID
         username: Username
-      title: Users
+      title: Manage Users
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: Oops, there was an error when starting the meeting!
   cancel: Cancel
