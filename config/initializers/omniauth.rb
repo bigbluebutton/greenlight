@@ -128,7 +128,7 @@ module OmniAuthFormExt
         <span class="input-icon-addon">
           <i class="fas fa-at"></i>
         </span>
-        <input class="form-control" placeholder="E-mail" value="" type="text" name="#{name}" id="#{name}">
+        <input class="form-control" placeholder="Login" value="" type="text" name="#{name}" id="#{name}">
       </div>
     </div>
     HTML
