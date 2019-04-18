@@ -23,7 +23,6 @@ describe MainController, type: :controller do
 
   describe "GET #index" do
     describe "LDAP is NOT active" do
-
       it "returns success if user is logged in" do
         user = create(:user)
         @request.session[:user_id] = user.id
@@ -38,7 +37,7 @@ describe MainController, type: :controller do
 
         expect(response).to have_http_status(200)
       end
-    end 
+    end
 
     describe "LDAP is active" do
       before { Rails.application.config.omniauth_ldap = true }
@@ -58,6 +57,6 @@ describe MainController, type: :controller do
 
         expect(response).to have_http_status(302)
       end
-    end 
+    end
   end
 end
