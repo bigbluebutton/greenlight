@@ -44,7 +44,7 @@ class UsersController < ApplicationController
       logger.error "Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     else
-      flash[:success] = I18n.t("email_sent")
+      flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
     end
     redirect_to(root_path)
   end

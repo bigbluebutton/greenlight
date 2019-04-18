@@ -70,7 +70,7 @@ en:
   delivery_error: An error occured during email delivery. Please contact an administrator!
   docs: Documentation
   email: Email
-  email_sent: Email Sent! (Please check your Spam folder if you haven't received it)
+  email_sent: Your %{email_type} email has been sent! (Please check your Spam folder if you haven't received it)
   enter_your_name: Enter your name!
   errors:
     internal:
@@ -286,3 +286,4 @@ en:
     resend: Resend verification email
     signin: Please sign in to access your account.
     title: Verify your email
+    verification: Verification
