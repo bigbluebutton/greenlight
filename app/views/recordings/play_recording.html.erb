@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
+<%
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
-#
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
-#
 # This program is free software; you can redistribute it and/or modify it under the
 # terms of the GNU Lesser General Public License as published by the Free Software
 # Foundation; either version 3.0 of the License, or (at your option) any later
@@ -12,27 +9,10 @@
 # BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-#
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
 
-class MainController < ApplicationController
-  # before_action :redirect_to_room
-  before_action :redirect_to_ldap, if: -> { Rails.application.config.omniauth_ldap }
-
-  # GET /
-  def index
-  end
-
-  private
-
-  def redirect_to_room
-    # If the user is logged in already, move them along to their room.
-    redirect_to room_path(current_user.room) if current_user
-  end
-
-  def redirect_to_ldap
-    # If the user is not logged in already, move them to the ldap login page
-    redirect_to '/auth/ldap' unless current_user
-  end
-end
+<iframe src="<%= @token_url %>" style="position:absolute; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+    Your browser doesn't support iframes
+</iframe>

@@ -17,10 +17,21 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>
 
 class RecordingsController < ApplicationController
+  layout false
+
   before_action :find_room
-  before_action :verify_room_ownership
+  before_action :verify_room_ownership, except: :play_recording
 
   META_LISTED = "gl-listed"
+
+  # GET /:meetingID/:record_id/:format
+  def play_recording
+    @url = @room.play_recording(params[:record_id], params[:type])
+    @token_url = @room.token_url(@user,
+      request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip,
+      params[:record_id],
+      @url)
+  end
 
   # POST /:meetingID/:record_id
   def update_recording

@@ -1,0 +1,119 @@
+/* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+*
+* Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 3.0 of the License, or (at your option) any later
+* version.
+*
+* BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+*/
+
+// File variables
+$error-bg: #EFE6E6 !default;
+$header-height: 65px !default;
+$footer-height: 65px !default;
+$background-color: white !default;
+
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext);
+
+html, body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: $background-color;
+}
+
+a {
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.dotted_underline {
+  border-bottom: 3px dashed #d3d3d3;
+  width: 100%;
+}
+
+.disable-click {
+  pointer-events: none;
+}
+
+.header {
+  height: $header-height;
+}
+
+.wrapper {
+  position: relative;
+  height: auto;
+  min-height: calc(100% - #{$header-height} - #{$footer-height});
+}
+
+.footer {
+  height: $footer-height;
+  width: 100%;
+}
+
+.table-responsive {
+  overflow: visible;
+}
+
+.background {
+  background-color: $body-bg;
+}
+
+.error-section {
+  background-color: $error-bg;
+}
+
+.font-weight-400 {
+  font-weight: 400;
+}
+
+.subtitle {
+  font-size: 25px;
+}
+
+.force-bottom {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.invite-link-input {
+  width: 100%;
+}
+
+.no-border-top {
+  td {
+    border-top: none;
+  }
+}
+
+.force-text-normal {
+  color: $gray-700;
+}
+
+.terms {
+  height: 55vh;
+  overflow: scroll;
+}
+
+[contenteditable]:focus {
+  outline: 0px solid transparent;
+}
+
+.cookies-banner {
+  background-color: $primary;
+  color: white;
+  height: $footer-height;
+
+  #cookies-agree-button {
+    background-color: $green !important;
+  }
+}

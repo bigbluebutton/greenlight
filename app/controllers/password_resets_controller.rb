@@ -93,6 +93,6 @@ class PasswordResetsController < ApplicationController
   end
 
   def disable_password_reset
-    redirect_to '/404'
+    redirect_to not_found_path
   end
 end

@@ -14,13 +14,14 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-# Locale.
+# English (en) locale
 
 en:
   activerecord:
     attributes:
       user:
         accepted_terms: "Terms and Conditions"
+  add_to_google_calendar: "Add to Google Calendar"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: Oops, there was an error when starting the meeting!
   cancel: Cancel
@@ -28,6 +29,7 @@ en:
     cookie_info: Cookies help us deliver our services. By using our services, you agree to our use of cookies.
     cookie_button: I Agree
   copy: Copy
+  copied: Copied
   delete: Delete
   delivery_error: An error occured during email delivery. Please contact an administrator!
   docs: Documentation
@@ -97,6 +99,7 @@ en:
   language_name: English
   language_default: Default (browser language)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
+  ldap_login: LDAP Authentication
   login: Sign in
   mailer:
     user:

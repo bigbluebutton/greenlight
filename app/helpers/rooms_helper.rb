@@ -17,4 +17,9 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 module RoomsHelper
+  # Helper to generate the path to a Google Calendar event creation
+  # It will have its title set as the room name, and the location as the URL to the room
+  def google_calendar_path
+    "http://calendar.google.com/calendar/r/eventedit?text=#{@room.name}&location=#{request.base_url + request.fullpath}"
+  end
 end

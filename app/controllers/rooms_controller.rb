@@ -51,9 +51,7 @@ class RoomsController < ApplicationController
   # GET /:room_uid
   def show
     if current_user && @room.owned_by?(current_user)
-      recs = @room.recordings
-
-      @recordings = recs
+      @recordings = @room.recordings
       @is_running = @room.running?
     else
       # Get users name
