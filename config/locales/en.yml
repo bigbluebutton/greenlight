@@ -148,8 +148,9 @@ en:
         expire: This link will expire in two hours.
         ignore: You can safely ignore this email if you did not request a password reset.
       verify_email:
-        welcome: Welcome to %{bigbluebutton}, %{name}!
-        success: You have successfully registered your %{bigbluebutton} account. Your username is %{email}.
+        welcome: Welcome to your personal space, %{name}!
+        success: Leveraging %{bigbluebutton}, you can create your own rooms to host sessions and collaborate with others.
+        username: Your username is %{email}.
         verify: To verify your account, just click the button below.
         verify_text: 'To verify your account, just follow this link: %{url}'
         verify_link: Verify Account

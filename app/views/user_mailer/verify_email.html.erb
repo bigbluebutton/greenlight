@@ -21,11 +21,15 @@
       <%= image_tag(logo_image, height: '70') %>
 
       <h1 style="margin-bottom:30px">
-        <%= t('mailer.user.verify_email.welcome', bigbluebutton: t('bigbluebutton'), name: @user[:name]) %>
+        <%= t('mailer.user.verify_email.welcome', name: @user[:name]) %>
       </h1>
 
       <p>
-        <%= t('mailer.user.verify_email.success', bigbluebutton: t('bigbluebutton'), email: @user[:email]) %>
+        <%= t('mailer.user.verify_email.success', bigbluebutton: t('bigbluebutton')) %>
+      </p>
+
+      <p>
+        <%= t('mailer.user.verify_email.username', email: @user[:email]) %>
       </p>
 
       <p style="margin-bottom:45px;">
