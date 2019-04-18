@@ -33,11 +33,11 @@ class AccountActivationsController < ApplicationController
       @user.activate
 
       flash[:success] = I18n.t("verify.activated") + " " + I18n.t("verify.signin")
+      redirect_to signin_path
     else
       flash[:alert] = I18n.t("verify.invalid")
+      redirect_to root_path
     end
-
-    redirect_to root_url
   end
 
   # GET /account_activations/resend
