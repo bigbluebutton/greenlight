@@ -246,7 +246,7 @@ en:
       auto: You will automatically join when the meeting starts.
   settings:
     account:
-      fullname: Fullname
+      fullname: Full name
       language: Language
       provider: Provider
       image: Image
