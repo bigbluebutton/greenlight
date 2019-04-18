@@ -64,9 +64,13 @@ module SessionsHelper
   end
 
   def parse_user_domain(hostname)
-    return hostname.split('.').first unless Rails.configuration.url_host
-    return '' unless hostname.include?(Rails.configuration.url_host)
-    hostname.chomp(Rails.configuration.url_host).chomp('.')
+    return hostname.split('.').first if Rails.configuration.url_host.empty?
+    Rails.configuration.url_host.split(',').each do |url_host|
+      if hostname.include?(url_host)
+        return hostname.chomp(url_host).chomp('.')
+      end
+    end
+    ''
   end
 
   def omniauth_options(env)
