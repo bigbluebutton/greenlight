@@ -252,6 +252,12 @@ class User < ApplicationRecord
   end
 
   def check_if_email_can_be_blank
-    errors.add(:email, I18n.t("errors.messages.blank")) if provider == "greenlight" && email.blank?
+    if email.blank?
+      if Rails.configuration.loadbalanced_configuration && greenlight_account?
+        errors.add(:email, I18n.t("errors.messages.blank"))
+      elsif provider == "greenlight"
+        errors.add(:email, I18n.t("errors.messages.blank"))
+      end
+    end
   end
 end

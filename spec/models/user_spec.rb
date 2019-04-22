@@ -32,7 +32,6 @@ describe User, type: :model do
 
     it { should validate_uniqueness_of(:email).scoped_to(:provider).case_insensitive }
     it { should validate_length_of(:email).is_at_most(256) }
-    it { should allow_value("", nil).for(:email) }
     it { should allow_value("valid@email.com").for(:email) }
     it { should_not allow_value("invalid_email").for(:email) }
     it { should allow_value(true).for(:accepted_terms) }
@@ -155,6 +154,8 @@ describe User, type: :model do
 
   context 'blank email' do
     it "allows a blank email if the provider is not greenlight" do
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(false)
+
       user = create(:user, email: "", provider: "ldap")
       expect(user.valid?).to be true
     end

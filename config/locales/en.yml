@@ -50,11 +50,12 @@ en:
         edit: Edit
         promote: Promote to Admin
       table:
-        created: Created On
+        created: Created
         name: Name
         not_found: No users match your search
         no_users: No users found
         provider: Provider
+        role: Role
         uid: User ID
         username: Username
       title: Manage Users
@@ -226,6 +227,10 @@ en:
     password: New Password
     confirm: New Password Confirmation
     update: Update Password
+  roles:
+    administrator: Administrator
+    super_admin: Super Admin
+    user: User
   room:
     create_room: Create a Room
     create_room_error: There was an error creating the room
