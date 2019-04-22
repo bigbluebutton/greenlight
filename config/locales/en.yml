@@ -218,6 +218,8 @@ en:
     visibility:
       public: Public
       unlisted: Unlisted
+    format:
+      presentation: Presentation
   rename: Rename
   reset_password:
     subtitle: Reset Password
