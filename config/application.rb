@@ -105,5 +105,8 @@ module Greenlight
 
     # Default primary color if the user does not specify one
     config.primary_color_default = "#467fcf"
+
+    # Default admin password
+    config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
   end
 end

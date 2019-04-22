@@ -111,7 +111,7 @@ class ApplicationController < ActionController::Base
 
   # Checks to make sure that the admin has changed his password from the default
   def check_admin_password
-    if current_user && (current_user.has_role? :admin) && current_user.authenticate("administrator")
+    if current_user && current_user.has_role?(:admin) && current_user.authenticate(Rails.configuration.admin_password_default)
       flash.now[:alert] = I18n.t("default_admin",
         edit_link: edit_user_path(user_uid: current_user.uid) + "?setting=password").html_safe
     end
