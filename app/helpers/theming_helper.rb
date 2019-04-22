@@ -34,12 +34,7 @@ module ThemingHelper
     if Rails.configuration.loadbalanced_configuration && current_user
       current_user.provider
     elsif Rails.configuration.loadbalanced_configuration
-      # Get the first part of the domain
-      url = request.base_url
-      protocol_end = url.index("://") + 3
-      first_period = url.index(".")
-
-      url[protocol_end, first_period - protocol_end]
+      @user_domain
     else
       "greenlight"
     end
