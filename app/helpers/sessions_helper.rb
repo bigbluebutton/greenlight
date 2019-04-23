@@ -35,7 +35,7 @@ module SessionsHelper
       # Dont redirect to any of these urls
       urls = [root_url, signup_url, signin_url]
       # Get the url to redirect the user to
-      url = if cookies[:return_to] &&  !urls.include?(cookies[:return_to])
+      url = if cookies[:return_to] && !urls.include?(cookies[:return_to])
         cookies[:return_to]
       else
         user.main_room
