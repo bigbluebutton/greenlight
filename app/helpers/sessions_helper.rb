@@ -33,7 +33,7 @@ module SessionsHelper
   def check_email_verified(user)
     if user.activated?
       # Get the url to redirect the user to
-      url = if cookies[:return_to] && cookies[:return_to] != root_url
+      url = if cookies[:return_to] && ![root_url, signup_url].include?(cookies[:return_to])
         cookies[:return_to]
       else
         user.main_room
