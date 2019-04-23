@@ -88,9 +88,6 @@ module Greenlight
     # Configure custom banner message.
     config.banner_message = ENV['BANNER_MESSAGE']
 
-    # Show/Hide cutomization tab in user settings
-    config.allow_custom_branding = (ENV['ALLOW_CUSTOM_BRANDING'] == "true")
-
     # Enable/disable recording thumbnails.
     config.recording_thumbnails = (ENV['RECORDING_THUMBNAILS'] != "false")
 
