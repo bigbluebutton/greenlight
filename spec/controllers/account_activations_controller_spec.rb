@@ -50,7 +50,7 @@ describe AccountActivationsController, type: :controller do
 
       expect(@user.email_verified).to eq(true)
       expect(flash[:success]).to be_present
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(signin_path)
     end
 
     it "does not activate a user if they have the correct activation token" do

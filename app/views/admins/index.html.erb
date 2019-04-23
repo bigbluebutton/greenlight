@@ -32,7 +32,7 @@
       <% if defined?(setting_id) && setting_id == "account" %>
         <%= render "shared/settings/setting_view", setting_id: "account", setting_title: t("administrator.users.edit.title") %>
       <% else %>
-        <%= render "shared/settings/setting_view", admin_view: true, setting_id: "users", setting_title: t("administrator.users.subtitle") %>
+        <%= render "shared/settings/setting_view", admin_view: true, setting_id: "users", setting_title: t("administrator.users.title") %>
         <%= render "shared/settings/setting_view", admin_view: true, setting_id: "design", setting_title: t("administrator.design.subtitle") %>
       <% end %>
 

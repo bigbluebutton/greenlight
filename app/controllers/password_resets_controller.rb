@@ -30,7 +30,7 @@ class PasswordResetsController < ApplicationController
     if @user
       @user.create_reset_digest
       @user.send_password_reset_email(reset_link)
-      flash[:success] = I18n.t("email_sent")
+      flash[:success] = I18n.t("email_sent", email_type: t("reset_password.subtitle"))
       redirect_to root_path
     else
       flash[:alert] = I18n.t("no_user_email_exists")
