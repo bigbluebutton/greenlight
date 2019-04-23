@@ -49,16 +49,16 @@ en:
         demote: Demote to User
         edit: Edit
         promote: Promote to Admin
-      subtitle: View Users
       table:
-        created: Created On
+        created: Created
         name: Name
         not_found: No users match your search
         no_users: No users found
         provider: Provider
+        role: Role
         uid: User ID
         username: Username
-      title: Users
+      title: Manage Users
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: Oops, there was an error when starting the meeting!
   cancel: Cancel
@@ -71,7 +71,7 @@ en:
   delivery_error: An error occured during email delivery. Please contact an administrator!
   docs: Documentation
   email: Email
-  email_sent: Email Sent! (Please check your Spam folder if you haven't received it)
+  email_sent: Your %{email_type} email has been sent! (Please check your Spam folder if you haven't received it)
   enter_your_name: Enter your name!
   errors:
     internal:
@@ -85,6 +85,8 @@ en:
         This may be because you haven't updated to Greenlight 2.0.
       upgrade: Show me how to upgrade to 2.0!
       version: We've released a new version of Greenlight, but your database isn't compatible.
+    messages:
+      blank: can't be blank
     not_found:
       message: Whoops! Looks like we can't find that.
       help: Is it possible its been removed?
@@ -149,8 +151,9 @@ en:
         expire: This link will expire in two hours.
         ignore: You can safely ignore this email if you did not request a password reset.
       verify_email:
-        welcome: Welcome to %{bigbluebutton}, %{name}!
-        success: You have successfully registered your %{bigbluebutton} account. Your username is %{email}.
+        welcome: Welcome to your personal space, %{name}!
+        success: Leveraging %{bigbluebutton}, you can create your own rooms to host sessions and collaborate with others.
+        username: Your username is %{email}.
         verify: To verify your account, just click the button below.
         verify_text: 'To verify your account, just follow this link: %{url}'
         verify_link: Verify Account
@@ -226,6 +229,10 @@ en:
     password: New Password
     confirm: New Password Confirmation
     update: Update Password
+  roles:
+    administrator: Administrator
+    super_admin: Super Admin
+    user: User
   room:
     create_room: Create a Room
     create_room_error: There was an error creating the room
@@ -248,7 +255,7 @@ en:
       auto: You will automatically join when the meeting starts.
   settings:
     account:
-      fullname: Fullname
+      fullname: Full name
       language: Language
       provider: Provider
       image: Image
@@ -289,3 +296,4 @@ en:
     resend: Resend verification email
     signin: Please sign in to access your account.
     title: Verify your email
+    verification: Verification

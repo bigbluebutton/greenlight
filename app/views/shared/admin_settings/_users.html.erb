@@ -20,7 +20,6 @@
         <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
           <thead>
             <tr>
-              <th></th>
               <th data-header="<%= t("administrator.users.table.name") %>" data-order="none">
                 <%= t("administrator.users.table.name") %>
               </th>
@@ -30,8 +29,8 @@
               <th class="text-left" data-header="<%= t("administrator.users.table.provider") %>" data-order="none">
                 <%= t("administrator.users.table.provider") %>
               </th>
-              <th class="text-left" data-header="<%= t("administrator.users.table.created") %>" data-order="none">
-                <%= t("administrator.users.table.created") %>
+              <th class="text-center" data-header="<%= t("administrator.users.table.role") %>" data-order="none">
+                <%= t("administrator.users.table.role") %>
               </th>
               <th class="text-center">
               </th>
@@ -47,17 +46,27 @@
               <% @users.each do |user| %>
                 <% if user != current_user %>
                   <tr data-user-uid="<%= user.uid %>">
-                    <td class="p-2">
-                      <% if user.has_role? :admin %>
-                        <i class="fas fa-crown text-warning"></i>
-                      <% end %>
-                    </td>
                     <td>
-                      <%= user.name %>
+                      <div><%= user.name %></div>
+                      <div class="small text-muted"><%= [t("administrator.users.table.created"), ": ", user.created_at].join %></div>
                     </td>
                     <td><%= user.email && user.email != "" ? user.email : user.username%></td>
                     <td><%= user.provider %></td>
-                    <td><%= user.created_at %></td>
+                    <td class="text-center">
+                      <% if user.has_role? :super_admin %>
+                        <div class="user-role btn btn-sm btn-red">
+                          <%= t("roles.super_admin") %>
+                        </div>
+                      <% elsif user.has_role? :admin %>
+                        <div class="user-role btn btn-sm btn-yellow">
+                          <%= t("roles.administrator") %>
+                        </div>
+                      <% else %>
+                        <div class="user-role btn btn-sm btn-gray">
+                          <%= t("roles.user") %>
+                        </div>
+                      <% end %>
+                    </td>
                     <td>
                       <div class="item-action dropdown">
                         <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
