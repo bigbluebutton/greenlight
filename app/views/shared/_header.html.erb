@@ -62,9 +62,11 @@
             <%= link_to t("login"), omniauth_login_url(:ldap), :class => "btn btn-pill btn-outline-primary mx-2 sign-in-button" %>
           <% elsif allow_greenlight_accounts %>
             <%= link_to t("login"), "#loginModal", :class => "btn btn-pill btn-outline-primary mx-2 sign-in-button", "data-toggle": "modal" %>
-          <% else %>
+					<% elsif Rails.configuration.loadbalanced_configuration %>
             <%= link_to t("login"), omniauth_login_url(:bn_launcher), :class => "btn btn-pill btn-outline-primary mx-2 sign-in-button" %>
-          <% end %>
+					<% else %>
+						<%= link_to t("login"), "#loginModal", :class => "btn btn-pill btn-outline-primary mx-2 sign-in-button", "data-toggle": "modal" %>
+					<% end %>
 
           <% if allow_user_signup? && allow_greenlight_accounts %>
             <%= link_to t("signup.title"), signup_path, :class => "btn btn-pill btn-outline-primary mx-2 sign-in-button" %>
