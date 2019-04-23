@@ -7,7 +7,7 @@ namespace :admin do
     u = {
       name: 'Administrator',
       password: Rails.configuration.admin_password_default,
-      email: 'admin@example.com'
+      email: 'admin@example.com',
     }
     admin = User.where(email: u[:email])
     # Create administrator account if it doesn't exist
