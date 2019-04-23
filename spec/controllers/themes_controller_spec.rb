@@ -40,9 +40,12 @@ describe ThemesController, type: :controller do
     end
 
     it "returns the correct color based on provider" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
       color1 = Faker::Color.hex_color
       provider1 = Faker::Company.name
-      Setting.create(provider: "greenlight").features.create(name: "Primary Color", value: color1, enabled: true)
+      Setting.create(provider: provider1).features.create(name: "Primary Color", value: color1, enabled: true)
       user1 = create(:user, provider: provider1)
 
       @request.session[:user_id] = user1.id

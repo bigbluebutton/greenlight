@@ -139,10 +139,18 @@ describe User, type: :model do
     end
 
     it "returns true if the user is an admin of another" do
-      @admin = create(:user)
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+      @admin = create(:user, provider: @user.provider)
       @admin.add_role :admin
 
       expect(@admin.admin_of?(@user)).to be true
+
+      @super_admin = create(:user, provider: "test")
+      @super_admin.add_role :super_admin
+
+      expect(@super_admin.admin_of?(@user)).to be true
     end
 
     it "returns false if the user is NOT an admin of another" do

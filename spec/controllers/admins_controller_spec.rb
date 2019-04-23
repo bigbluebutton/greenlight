@@ -20,8 +20,8 @@ require "rails_helper"
 
 describe AdminsController, type: :controller do
   before do
-    @user = create(:user)
-    @admin = create(:user)
+    @user = create(:user, provider: "provider1")
+    @admin = create(:user, provider: "provider1")
     @admin.add_role :admin
   end
 
@@ -83,12 +83,15 @@ describe AdminsController, type: :controller do
   describe "User Design" do
     context "POST #branding" do
       it "changes the branding image on the page" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
         @request.session[:user_id] = @admin.id
         fake_image_url = "example.com"
 
         post :branding, params: { url: fake_image_url }
 
-        feature = Setting.find_by(provider: "greenlight").features.find_by(name: "Branding Image")
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Branding Image")
 
         expect(feature[:value]).to eq(fake_image_url)
         expect(response).to redirect_to(admins_path)
@@ -97,12 +100,15 @@ describe AdminsController, type: :controller do
 
     context "POST #coloring" do
       it "changes the primary on the page" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
         @request.session[:user_id] = @admin.id
         primary_color = "#000000"
 
         post :coloring, params: { color: primary_color }
 
-        feature = Setting.find_by(provider: "greenlight").features.find_by(name: "Primary Color")
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color")
 
         expect(feature[:value]).to eq(primary_color)
         expect(response).to redirect_to(admins_path(setting: "design"))
