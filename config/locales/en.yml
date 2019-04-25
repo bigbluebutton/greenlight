@@ -274,6 +274,7 @@ en:
       subtitle: Change your Password
       title: Password
     title: Profile
+    search: Search
   signup:
     password_confirm: Password Confirmation
     subtitle: Create an Account

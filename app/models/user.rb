@@ -102,6 +102,17 @@ class User < ApplicationRecord
     end
   end
 
+  def self.admins_search(string)
+    search_query = "name LIKE :search OR email LIKE :search OR username LIKE :search" \
+                   " OR created_at LIKE :search OR provider LIKE :search"
+    search_param = "%#{string}%"
+    where(search_query, search: search_param)
+  end
+
+  def self.admins_order(column, direction)
+    order("#{column} #{direction}")
+  end
+
   def all_recordings
     pag_num = Rails.configuration.pagination_number
 

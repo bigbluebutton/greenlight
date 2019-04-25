@@ -26,38 +26,6 @@ $(document).on('turbolinks:load', function(){
       $("#delete-confirm").parent().attr("action", "/u/" + uid)
     })
 
-    // Enable the search bar
-    var search_input = $('#search-bar');
-
-    search_input.bind("keyup", function(){
-
-      // Retrieve the current search query
-      var search_query = $("#search-value").val();
-
-      //Search for users and display them based on name match
-      var users_found = 0;
-
-      var users = $('#users-table').find('tr');
-
-      users.each(function(){
-        if($(this).text().toLowerCase().includes(search_query.toLowerCase())){
-          users_found = users_found + 1;
-          $(this).show();
-        }
-        else{
-          $(this).hide();
-        }
-      });
-
-      // Show "No users match your search" if no users found
-      if(users_found === 0){
-        $('#no_users_found').show();
-      }
-      else{
-        $('#no_users_found').hide();
-      }
-    });
-
     // Change the color of the color inputs when the color is changed
     $(".colorinput-input").change(function(data) {
       // Get the color from the input
@@ -68,6 +36,32 @@ $(document).on('turbolinks:load', function(){
         location.reload()
       });
     });
+
+    // Submit search if the user hits enter
+    $("#search-input").keypress(function(key) {
+      var keyPressed = key.which
+      if (keyPressed == 13) {
+        searchPage()
+      }
+    })
+
+    // Add listeners for sort
+    $("th[data-order]").click(function(data){
+      var header_elem = $(data.target)
+
+      if(header_elem.data('order') === 'asc'){ // asc
+        header_elem.data('order', 'desc');
+      }
+      else if(header_elem.data('order') === 'desc'){ // desc
+        header_elem.data('order', 'none');
+      }
+      else{ // none
+        header_elem.data('order', 'asc');
+      }
+
+      var search = $("#search-input").val()
+      window.location.replace(window.location.pathname + "?page=1&search=" + search + "&column=" + header_elem.data("header") + "&direction="+ header_elem.data('order'))
+    })
   }
 
   // Only run on the admins edit user page.
@@ -88,4 +82,16 @@ $(document).on('turbolinks:load', function(){
 function changeBrandingImage(path) {
   var url = $("#branding-url").val()
   $.post(path, {url: url})
+}
+
+// Searches the user table for the given string
+function searchPage() {
+  var search = $("#search-input").val()
+
+  window.location.replace(window.location.pathname + "?page=1&search=" + search)
+}
+
+// Clears the search bar
+function clearSearch() {
+  window.location.replace(window.location.pathname + "?page=1")
 }

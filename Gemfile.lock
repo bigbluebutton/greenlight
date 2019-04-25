@@ -175,6 +175,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
+    pagy (2.1.5)
     parallel (1.12.1)
     parser (2.5.1.0)
       ast (~> 2.4.0)
@@ -358,6 +359,7 @@ DEPENDENCIES
   omniauth-ldap
   omniauth-microsoft-office365 (~> 0.0.7)
   omniauth-twitter
+  pagy
   pg (~> 0.18)
   puma (~> 3.0)
   rails (~> 5.0.7)
@@ -365,7 +367,6 @@ DEPENDENCIES
   random_password
   redcarpet
   redis (~> 3.0)
-  rolify
   remote_syslog_logger
   rolify
   rspec-rails (~> 3.7)
