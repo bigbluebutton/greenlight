@@ -174,6 +174,8 @@ pt_BR:
     visibility:
       public: Público
       unlisted: Não listado
+    format:
+      presentation: Apresentação
   rename: Renomear
   reset_password:
     subtitle: Resetar senha
