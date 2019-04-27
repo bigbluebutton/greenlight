@@ -15,7 +15,7 @@
 
 <tr>
   <td>
-    <div id="recording-title">
+    <div id="recording-title" class="form-inline edit_hover_class" data-recordid="<%= recording[:recordID] %>" data-room-uid="<%= room_uid_from_bbb(recording[:meetingID]) %>" data-path="<%= update_room_path(room_uid: room_uid_from_bbb(recording[:meetingID])) %>">
       <text>
         <% if recording[:metadata][:name] %>
           <%= recording[:metadata][:name] %>
@@ -38,7 +38,7 @@
       <% end %>
     </td>
   <% end %>
-  <td id="recording-length" class="text-left">
+  <td id="recording-length" class="text-left" data-full-length="<%=recording[:playbacks].first[:length]%>">
     <div class="small text-muted text-uppercase">
       <%= t("recording.table.length") %>
     </div>
@@ -63,7 +63,7 @@
     <% sorted_formats =  recording[:playbacks].sort_by! {|p| p[:type]} %>
     <% p = recording[:playbacks].find do |p| p.key?(:length) end %>
     <% sorted_formats.each do |p| %>
-      <%= link_to p[:type].capitalize, p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
+      <%= link_to t("recording.format.#{p[:type]}"), p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
     <% end %>
   </td>
 </tr>

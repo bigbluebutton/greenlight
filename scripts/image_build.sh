@@ -53,7 +53,7 @@ if [ -z $CD_DOCKER_REPO ]; then
   export CD_DOCKER_REPO=$CD_REF_SLUG
 fi
 
-if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && [ -z $CD_BUILD_ALL ];then
+if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && ( -z $CD_BUILD_ALL ] || [ "$CD_BUILD_ALL" != "true" ] ); then
   echo "#### Docker image for $CD_REF_SLUG won't be built"
   exit 0
 fi

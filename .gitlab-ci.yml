@@ -3,6 +3,10 @@ stages:
   - build
   - deploy
 
+cache:
+  paths:
+    - /cache
+
 before_script:
 
 test:

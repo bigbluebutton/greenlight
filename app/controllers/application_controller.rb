@@ -44,11 +44,12 @@ class ApplicationController < ActionController::Base
   end
 
   def update_locale(user)
-    I18n.locale = if user && user.language != 'default'
+    locale = if user && user.language != 'default'
       user.language
     else
       http_accept_language.language_region_compatible_from(I18n.available_locales)
     end
+    I18n.locale = locale.tr('-', '_') unless locale.nil?
   end
 
   def meeting_name_limit
@@ -111,7 +112,7 @@ class ApplicationController < ActionController::Base
     @user_domain = if Rails.env.test? || !Rails.configuration.loadbalanced_configuration
       "greenlight"
     else
-      parse_user_domain(request.env["SERVER_NAME"])
+      parse_user_domain(request.host)
     end
   end
   helper_method :set_user_domain
