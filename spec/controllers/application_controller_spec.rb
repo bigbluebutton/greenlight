@@ -16,34 +16,30 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-require "rails_helper"
+require 'rails_helper'
 
-describe ErrorsController, type: :controller do
-  describe "GET #not_found" do
-    it "returns not_found" do
-      get :not_found
-      expect(response).to have_http_status(404)
+RSpec.configure do |c|
+  c.infer_base_class_for_anonymous_controllers = false
+end
+
+describe ApplicationController do
+  controller do
+    before_action :check_if_unbanned
+
+    def index
+      head :ok
     end
   end
 
-  describe "GET #unprocessable" do
-    it "returns unprocessable" do
-      get :unprocessable
-      expect(response).to have_http_status(422)
-    end
-  end
+  context "roles" do
+    it "redirects a banned user to a 401 and logs them out" do
+      @user = create(:user)
+      @user.add_role :denied
+      @request.session[:user_id] = @user.id
 
-  describe "GET #internal_error" do
-    it "returns internal_error" do
-      get :internal_error
-      expect(response).to have_http_status(500)
-    end
-  end
-
-  describe "GET #unauthorized" do
-    it "returns unauthorized" do
-      get :unauthorized
-      expect(response).to have_http_status(401)
+      get :index
+      expect(@request.session[:user_id]).to be_nil
+      expect(response).to redirect_to(unauthorized_path)
     end
   end
 end

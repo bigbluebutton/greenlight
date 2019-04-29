@@ -18,8 +18,8 @@
 
 class AdminsController < ApplicationController
   authorize_resource class: false
-  before_action :find_user, only: [:edit_user, :promote, :demote]
-  before_action :verify_admin_of_user, only: [:edit_user, :promote, :demote]
+  before_action :find_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
+  before_action :verify_admin_of_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
   before_action :find_setting, only: [:branding, :coloring]
 
   # GET /admins
@@ -62,6 +62,18 @@ class AdminsController < ApplicationController
     redirect_to admins_path(setting: "design")
   end
 
+  # POST /admins/ban/:user_uid
+  def ban_user
+    @user.add_role :denied
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.banned") }
+  end
+
+  # POST /admins/unban/:user_uid
+  def unban_user
+    @user.remove_role :denied
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.unbanned") }
+  end
+
   private
 
   def find_user
@@ -75,14 +87,5 @@ class AdminsController < ApplicationController
   def verify_admin_of_user
     redirect_to admins_path,
       flash: { alert: I18n.t("administrator.flash.unauthorized") } unless current_user.admin_of?(@user)
-  end
-
-  # Returns users provider
-  def user_provider
-    if Rails.configuration.loadbalanced_configuration
-      current_user.provider
-    else
-      "greenlight"
-    end
   end
 end

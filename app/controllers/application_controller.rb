@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :check_admin_password
   before_action :set_user_domain
+  before_action :check_if_unbanned
 
   # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
@@ -111,7 +112,8 @@ class ApplicationController < ActionController::Base
 
   # Checks to make sure that the admin has changed his password from the default
   def check_admin_password
-    if current_user&.has_role?(:admin) && current_user.authenticate(Rails.configuration.admin_password_default)
+    if current_user&.has_role?(:admin) && current_user.greenlight_account? &&
+      current_user.authenticate(Rails.configuration.admin_password_default)
       flash.now[:alert] = I18n.t("default_admin",
         edit_link: edit_user_path(user_uid: current_user.uid) + "?setting=password").html_safe
     end
@@ -131,4 +133,13 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :set_user_domain
+
+  # Checks if the user is banned and logs him out if he is
+  def check_if_unbanned
+    if current_user&.has_role?(:denied)
+      session.delete(:user_id)
+      redirect_to unauthorized_path
+    end
+  end
+  helper_method :check_if_unbanned
 end
