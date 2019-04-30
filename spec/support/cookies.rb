@@ -16,8 +16,21 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-class MainController < ApplicationController
-  # GET /
-  def index
+# Allows Rspec to access excrypted, signed or permanent cookies
+module ActionDispatch
+  class Cookies
+    class CookieJar
+      def encrypted
+        self
+      end
+
+      def signed
+        self
+      end
+
+      def permanent
+        self
+      end
+    end
   end
 end

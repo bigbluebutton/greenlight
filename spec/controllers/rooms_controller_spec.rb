@@ -82,6 +82,21 @@ describe RoomsController, type: :controller do
       expect(flash[:alert]).to be_present
       expect(response).to redirect_to(root_path)
     end
+
+    it "sets the join name to cookie[:greenlight_name] if it exists" do
+      name = Faker::Pokemon.name
+      @request.cookies[:greenlight_name] = name
+
+      get :show, params: { room_uid: @owner.main_room }
+
+      expect(assigns(:name)).to eql(name)
+    end
+
+    it "sets the join name to blank if user isnt signed in" do
+      get :show, params: { room_uid: @owner.main_room }
+
+      expect(assigns(:name)).to eql("")
+    end
   end
 
   describe "POST #create" do
@@ -112,6 +127,17 @@ describe RoomsController, type: :controller do
       end.to change { Room.count }.by(0)
 
       expect(response).to redirect_to(root_path)
+    end
+
+    it "it should redirect back to main room with error if it fails" do
+      @request.session[:user_id] = @owner.id
+
+      room_params = { name: "", "client": "html5", "mute_on_join": "1" }
+
+      post :create, params: { room: room_params }
+
+      expect(flash[:alert]).to be_present
+      expect(response).to redirect_to(@owner.main_room)
     end
   end
 
@@ -298,6 +324,21 @@ describe RoomsController, type: :controller do
                                setting: :rename_recording, record_name: :name }
 
       expect(response).to redirect_to(@secondary_room)
+    end
+  end
+
+  describe "GET #logout" do
+    before do
+      @user = create(:user)
+      @room = @user.main_room
+    end
+
+    it "redirects to the correct room" do
+      @request.session[:user_id] = @user.id
+
+      get :logout, params: { room_uid: @room }
+
+      expect(response).to redirect_to(@room)
     end
   end
 end
