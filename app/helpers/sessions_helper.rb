@@ -32,8 +32,10 @@ module SessionsHelper
   # If email verification is disabled, or the user has verified, go to their room
   def check_email_verified(user)
     if user.activated?
+      # Dont redirect to any of these urls
+      urls = [root_url, signup_url, signin_url]
       # Get the url to redirect the user to
-      url = if cookies[:return_to] && cookies[:return_to] != root_url
+      url = if cookies[:return_to] && !urls.include?(cookies[:return_to])
         cookies[:return_to]
       else
         user.main_room

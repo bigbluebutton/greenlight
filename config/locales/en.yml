@@ -50,11 +50,11 @@ en:
         edit: Edit
         promote: Promote to Admin
       table:
+        authenticator: Authenticator
         created: Created
         name: Name
         not_found: No users match your search
         no_users: No users found
-        provider: Provider
         role: Role
         uid: User ID
         username: Username
@@ -274,6 +274,7 @@ en:
       subtitle: Change your Password
       title: Password
     title: Profile
+    search: Search
   signup:
     password_confirm: Password Confirmation
     subtitle: Create an Account
