@@ -20,16 +20,31 @@
         <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
           <thead>
             <tr>
-              <th data-header="<%= t("administrator.users.table.name") %>" data-order="none">
+              <th data-header="name" data-order="<%= @order_column == "name" ? @order_direction : "none" %>">
                 <%= t("administrator.users.table.name") %>
+                <% if @order_column == "name" && @order_direction == "desc" %>
+                 ↓
+                <% elsif @order_column == "name" && @order_direction == "asc" %>
+                 ↑
+                <% end %>
               </th>
-              <th data-header="<%= t("administrator.users.table.username") %>" data-order="none">
+              <th data-header="email" data-order="<%= @order_column == "email" ? @order_direction : "none" %>">
                 <%= t("administrator.users.table.username") %>
+                <% if @order_column == "email" && @order_direction == "desc" %>
+                 ↓
+                <% elsif @order_column == "email" && @order_direction == "asc" %>
+                 ↑
+                <% end %>
               </th>
-              <th class="text-left" data-header="<%= t("administrator.users.table.authenticator") %>" data-order="none">
+              <th class="text-left" data-header="provider" data-order="<%= @order_column == "provider" ? @order_direction : "none" %>">
                 <%= t("administrator.users.table.authenticator") %>
+                <% if @order_column == "provider" && @order_direction == "desc" %>
+                 ↓
+                <% elsif @order_column == "provider" && @order_direction == "asc" %>
+                 ↑
+                <% end %>
               </th>
-              <th class="text-center" data-header="<%= t("administrator.users.table.role") %>" data-order="none">
+              <th class="text-center">
                 <%= t("administrator.users.table.role") %>
               </th>
               <th class="text-center">
@@ -68,29 +83,31 @@
                       <% end %>
                     </td>
                     <td>
-                      <div class="item-action dropdown">
-                        <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
-                          <i class="fas fa-ellipsis-v px-4"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu">
-                          <%= link_to admin_edit_user_path(user_uid: user.uid), class: "dropdown-item" do %>
-                            <i class="dropdown-icon fas fa-user-edit"></i> <%= t("administrator.users.settings.edit") %>
-                          <% end %>
-                          <button class= "delete-user dropdown-item" data-toggle="modal" data-target="#deleteAccountModal">
-                            <i class="dropdown-icon fas fa-user-minus"></i> <%= t("administrator.users.settings.delete") %>
-                          </button>
+                      <% unless user.has_role? :super_admin %>
+                        <div class="item-action dropdown">
+                          <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
+                            <i class="fas fa-ellipsis-v px-4"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu">
+                            <%= link_to admin_edit_user_path(user_uid: user.uid), class: "dropdown-item" do %>
+                              <i class="dropdown-icon fas fa-user-edit"></i> <%= t("administrator.users.settings.edit") %>
+                            <% end %>
+                            <button class= "delete-user dropdown-item" data-toggle="modal" data-target="#deleteAccountModal">
+                              <i class="dropdown-icon fas fa-user-minus"></i> <%= t("administrator.users.settings.delete") %>
+                            </button>
 
-                          <% if user.has_role? :admin %>
-                            <%= button_to admin_demote_path(user_uid: user.uid), class: "dropdown-item" do %>
-                              <i class="dropdown-icon fas fa-level-down-alt"></i> <%= t("administrator.users.settings.demote") %>
+                            <% if user.has_role? :admin %>
+                              <%= button_to admin_demote_path(user_uid: user.uid), class: "dropdown-item" do %>
+                                <i class="dropdown-icon fas fa-level-down-alt"></i> <%= t("administrator.users.settings.demote") %>
+                              <% end %>
+                            <% elsif user.has_role? :user %>
+                              <%= button_to admin_promote_path(user_uid: user.uid), class: "dropdown-item" do %>
+                                <i class="dropdown-icon fas fa-level-up-alt"></i> <%= t("administrator.users.settings.promote") %>
+                              <% end %>
                             <% end %>
-                          <% elsif user.has_role? :user %>
-                            <%= button_to admin_promote_path(user_uid: user.uid), class: "dropdown-item" do %>
-                              <i class="dropdown-icon fas fa-level-up-alt"></i> <%= t("administrator.users.settings.promote") %>
-                            <% end %>
-                          <% end %>
+                          </div>
                         </div>
-                      </div>
+                      <% end %>
                     </td>
                   </tr>
                 <% end %>
@@ -104,6 +121,9 @@
             <% end %>
           </tbody>
         </table>
+        <div class="float-right mt-4">
+          <%== pagy_bootstrap_nav(@pagy) %>
+        </div>
       </div>
     </div>
   </div>

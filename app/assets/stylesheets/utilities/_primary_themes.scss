@@ -96,3 +96,30 @@ input:focus, select:focus {
 .btn-danger {
   color: white !important;
 }
+
+#clear-search {
+  &:hover {
+    color: $primary-color-darken !important;
+  }
+}
+
+.pagination {
+  .page-item {
+    &.active a {
+      color:white !important;
+      background-color: $primary-color !important;
+    }
+
+    & a {
+      border-color: $primary-color !important;
+    }
+
+    & a:hover {
+      background-color: $primary-color-lighten !important;
+    }
+
+    & a:focus {
+      box-shadow: 0 0 3px $primary-color !important;
+    }
+  }
+}

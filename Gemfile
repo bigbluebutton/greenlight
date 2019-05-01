@@ -57,6 +57,7 @@ gem 'bigbluebutton-api-ruby'
 # Front-end.
 gem 'bootstrap', '~> 4.3.1'
 gem 'tabler-rubygem'
+gem 'pagy'
 
 # For detecting the users preferred language.
 gem 'http_accept_language'

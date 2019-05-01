@@ -15,8 +15,10 @@
 // with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 $(document).on('turbolinks:load', function(){
-  // Check if there is a table on this page
-  if ($("table").length) {
+  var controller = $("body").data('controller');
+  var action = $("body").data('action');
+
+  if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update" || controller == "users" && action == "recordings"){
 
     // Choose active header
     // (Name, Length or Users)
