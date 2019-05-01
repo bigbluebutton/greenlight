@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
+<%
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
-#
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
-#
 # This program is free software; you can redistribute it and/or modify it under the
 # terms of the GNU Lesser General Public License as published by the Free Software
 # Foundation; either version 3.0 of the License, or (at your option) any later
@@ -12,38 +9,12 @@
 # BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-#
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
 
-require "rails_helper"
-
-describe ErrorsController, type: :controller do
-  describe "GET #not_found" do
-    it "returns not_found" do
-      get :not_found
-      expect(response).to have_http_status(404)
-    end
-  end
-
-  describe "GET #unprocessable" do
-    it "returns unprocessable" do
-      get :unprocessable
-      expect(response).to have_http_status(422)
-    end
-  end
-
-  describe "GET #internal_error" do
-    it "returns internal_error" do
-      get :internal_error
-      expect(response).to have_http_status(500)
-    end
-  end
-
-  describe "GET #unauthorized" do
-    it "returns unauthorized" do
-      get :unauthorized
-      expect(response).to have_http_status(401)
-    end
-  end
-end
+<div class="container text-center pt-9">
+  <div class="display-1 text-muted mb-5">401</div>
+  <h1 class="h2 mb-3"><%= t("errors.unauthorized.message") %></h1>
+  <p class="h4 text-muted font-weight-normal mb-7"><%= t("errors.unauthorized.help") %></p>
+</div>
