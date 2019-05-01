@@ -92,7 +92,7 @@ group :test do
   gem "factory_bot_rails"
   gem 'webmock'
   # Ruby linting.
-  gem 'rubocop'
+  gem 'rubocop', '~> 0.65.0', require: false
 end
 
 group :development do
