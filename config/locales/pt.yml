@@ -20,7 +20,7 @@ pt:
   activerecord:
     attributes:
       user:
-        accepted_terms: "Termos e Condiçõe"
+        accepted_terms: "Termos e Condições"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: "Oops, aconteceu um erro ao tentar começar a reunião."
   cancel: Cancelar
@@ -174,6 +174,8 @@ pt:
     visibility:
       public: Público
       unlisted: Privado
+    format:
+      presentation: Apresentação
   rename: Renomear
   reset_password:
     subtitle: Resetar Senha
