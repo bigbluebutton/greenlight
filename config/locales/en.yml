@@ -35,6 +35,8 @@ en:
       subtitle: Customize Greenlight
       title: Design
     flash:
+      banned: User has been successfully banned.
+      unbanned: User has been successfully unbanned.
       delete: User deleted successfully
       delete_fail: Failed to delete user
       demoted: User has been successfully demoted
@@ -45,10 +47,12 @@ en:
       edit:
         title: Edit User Details
       settings:
+        ban: Ban User
         delete: Delete
         demote: Demote to User
         edit: Edit
         promote: Promote to Admin
+        unban: Unban User
       table:
         authenticator: Authenticator
         created: Created
@@ -91,6 +95,9 @@ en:
       message: Whoops! Looks like we can't find that.
       help: Is it possible its been removed?
     title: Errors
+    unauthorized:
+      message: You do not have access to this application
+      help: If you believe this is a mistake, please contact your system administrator.
     unprocessable:
       message: Oops! Request is unprocessable.
       help: Unfortunately this isn't a valid request.
@@ -231,6 +238,7 @@ en:
     update: Update Password
   roles:
     administrator: Administrator
+    banned: Banned
     super_admin: Super Admin
     user: User
   room:

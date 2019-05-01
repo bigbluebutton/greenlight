@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :check_admin_password
   before_action :set_user_domain
+  before_action :check_if_unbanned
 
   # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
@@ -133,4 +134,13 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :set_user_domain
+
+  # Checks if the user is banned and logs him out if he is
+  def check_if_unbanned
+    if current_user&.has_role?(:denied)
+      session.delete(:user_id)
+      redirect_to unauthorized_path
+    end
+  end
+  helper_method :check_if_unbanned
 end

@@ -61,6 +61,7 @@ describe AdminsController, type: :controller do
         post :promote, params: { user_uid: @user.uid }
 
         expect(@user.has_role?(:admin)).to eq(true)
+        expect(flash[:success]).to be_present
         expect(response).to redirect_to(admins_path)
       end
     end
@@ -75,6 +76,36 @@ describe AdminsController, type: :controller do
         post :demote, params: { user_uid: @user.uid }
 
         expect(@user.has_role?(:admin)).to eq(false)
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(admins_path)
+      end
+    end
+
+    context "POST #ban" do
+      it "bans a user from the application" do
+        @request.session[:user_id] = @admin.id
+
+        expect(@user.has_role?(:denied)).to eq(false)
+
+        post :ban_user, params: { user_uid: @user.uid }
+
+        expect(@user.has_role?(:denied)).to eq(true)
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(admins_path)
+      end
+    end
+
+    context "POST #unban" do
+      it "unbans the user from the application" do
+        @request.session[:user_id] = @admin.id
+        @user.add_role :denied
+
+        expect(@user.has_role?(:denied)).to eq(true)
+
+        post :unban_user, params: { user_uid: @user.uid }
+
+        expect(@user.has_role?(:denied)).to eq(false)
+        expect(flash[:success]).to be_present
         expect(response).to redirect_to(admins_path)
       end
     end

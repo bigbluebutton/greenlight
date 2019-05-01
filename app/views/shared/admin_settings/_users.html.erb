@@ -68,7 +68,11 @@
                     <td><%= user.email && user.email != "" ? user.email : user.username%></td>
                     <td><%= user.provider %></td>
                     <td class="text-center">
-                      <% if user.has_role? :super_admin %>
+                      <% if user.has_role? :denied %>
+                        <div class="user-role btn btn-sm btn-gray-dark">
+                          <%= t("roles.banned") %>
+                        </div>
+                      <% elsif user.has_role? :super_admin %>
                         <div class="user-role btn btn-sm btn-red">
                           <%= t("roles.super_admin") %>
                         </div>
@@ -89,20 +93,29 @@
                             <i class="fas fa-ellipsis-v px-4"></i>
                           </a>
                           <div class="dropdown-menu dropdown-menu">
-                            <%= link_to admin_edit_user_path(user_uid: user.uid), class: "dropdown-item" do %>
-                              <i class="dropdown-icon fas fa-user-edit"></i> <%= t("administrator.users.settings.edit") %>
-                            <% end %>
-                            <button class= "delete-user dropdown-item" data-toggle="modal" data-target="#deleteAccountModal">
-                              <i class="dropdown-icon fas fa-user-minus"></i> <%= t("administrator.users.settings.delete") %>
-                            </button>
-
-                            <% if user.has_role? :admin %>
-                              <%= button_to admin_demote_path(user_uid: user.uid), class: "dropdown-item" do %>
-                                <i class="dropdown-icon fas fa-level-down-alt"></i> <%= t("administrator.users.settings.demote") %>
+                            <% if user.has_role? :denied %>
+                              <%= button_to admin_unban_path(user_uid: user.uid), class: "dropdown-item" do %>
+                                <i class="dropdown-icon fas fa-lock-open"></i> <%= t("administrator.users.settings.unban") %>
                               <% end %>
-                            <% elsif user.has_role? :user %>
-                              <%= button_to admin_promote_path(user_uid: user.uid), class: "dropdown-item" do %>
-                                <i class="dropdown-icon fas fa-level-up-alt"></i> <%= t("administrator.users.settings.promote") %>
+                            <% else %>
+                              <%= link_to admin_edit_user_path(user_uid: user.uid), class: "dropdown-item" do %>
+                                <i class="dropdown-icon fas fa-user-edit"></i> <%= t("administrator.users.settings.edit") %>
+                              <% end %>
+                              <button class= "delete-user dropdown-item" data-toggle="modal" data-target="#deleteAccountModal">
+                                <i class="dropdown-icon fas fa-user-minus"></i> <%= t("administrator.users.settings.delete") %>
+                              </button>
+
+                              <% if user.has_role? :admin %>
+                                <%= button_to admin_demote_path(user_uid: user.uid), class: "dropdown-item" do %>
+                                  <i class="dropdown-icon fas fa-level-down-alt"></i> <%= t("administrator.users.settings.demote") %>
+                                <% end %>
+                              <% elsif user.has_role? :user %>
+                                <%= button_to admin_promote_path(user_uid: user.uid), class: "dropdown-item" do %>
+                                  <i class="dropdown-icon fas fa-level-up-alt"></i> <%= t("administrator.users.settings.promote") %>
+                                <% end %>
+                              <% end %>
+                              <%= button_to admin_ban_path(user_uid: user.uid), class: "dropdown-item" do %>
+                                <i class="dropdown-icon fas fa-lock"></i> <%= t("administrator.users.settings.ban") %>
                               <% end %>
                             <% end %>
                           </div>
