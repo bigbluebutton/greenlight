@@ -37,7 +37,7 @@
                 <% end %>
               </th>
               <th class="text-left" data-header="provider" data-order="<%= @order_column == "provider" ? @order_direction : "none" %>">
-                <%= t("administrator.users.table.provider") %>
+                <%= t("administrator.users.table.authenticator") %>
                 <% if @order_column == "provider" && @order_direction == "desc" %>
                  ↓
                 <% elsif @order_column == "provider" && @order_direction == "asc" %>
