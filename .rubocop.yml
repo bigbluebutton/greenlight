@@ -170,7 +170,7 @@ Naming/FileName:
   Regex:
   IgnoreExecutableScripts: true
 
-Layout/FirstParameterIndentation:
+Layout/IndentFirstArgument:
   EnforcedStyle: consistent
   SupportedStyles:
   - consistent
