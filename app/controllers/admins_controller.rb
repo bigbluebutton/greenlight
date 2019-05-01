@@ -17,6 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class AdminsController < ApplicationController
+  include Pagy::Backend
   authorize_resource class: false
   before_action :find_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
   before_action :verify_admin_of_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
@@ -24,13 +25,22 @@ class AdminsController < ApplicationController
 
   # GET /admins
   def index
-    @users = []
-    User.find_each do |user|
-      if current_user.admin_of? user
-        @users.push(user)
-      end
+    @search = params[:search] ? params[:search] : ""
+    @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
+    @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
+    puts @order_direction.to_s
+
+    if Rails.configuration.loadbalanced_configuration && !current_user.has_role?(:super_admin)
+      @pagy, @users = pagy(User.without_role(:super_admin)
+                  .where(provider: current_user.provider)
+                  .where.not(id: current_user.id)
+                  .admins_search(@search)
+                  .admins_order(@order_column, @order_direction))
+    else
+      @pagy, @users = pagy(User.where.not(id: current_user.id)
+                      .admins_search(@search)
+                      .admins_order(@order_column, @order_direction))
     end
-    @users.reverse!
   end
 
   # GET /admins/edit/:user_uid

@@ -159,3 +159,11 @@ input:focus {
     border-bottom: 1px solid $primary;
   }
 }
+
+table {
+  thead {
+    th[data-order]:hover {
+      cursor: pointer;
+    }
+  }
+}

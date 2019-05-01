@@ -17,4 +17,5 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 module AdminsHelper
+  include Pagy::Frontend
 end

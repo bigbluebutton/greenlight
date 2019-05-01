@@ -19,3 +19,14 @@
     cursor: default;
   }
 }
+
+#clear-search {
+  z-index: 9;
+  position: absolute;
+  right: 55px;
+  top: 8px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
