@@ -16,22 +16,20 @@
 <div class="form-group">
   <div class="row">
     <div class="col-12">
-      <center class="mb-7"><%= t("administrator.design.description") %></center>
-
       <div class="mb-7 form-group">
-        <label class="form-label"><%= t("administrator.design.branding.title") %></label>
-        <label class="form-label text-muted"><%= t("administrator.design.branding.info") %></label>
+        <label class="form-label"><%= t("administrator.site_settings.branding.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.branding.info") %></label>
         <div class="input-group">
           <input id="branding-url" type="text" class="form-control" value="<%= logo_image %>">
           <span class="input-group-append">
-            <button onclick="changeBrandingImage('<%= admin_branding_path %>')" class="btn btn-primary" type="button"><%= t("administrator.design.branding.change") %></button>
+            <button onclick="changeBrandingImage('<%= admin_branding_path %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.branding.change") %></button>
           </span>
         </div>
       </div>
 
       <div class="form-group">
-        <label class="form-label"><%= t("administrator.design.color.title") %></label>
-        <label class="form-label text-muted"><%= t("administrator.design.color.info") %></label>
+        <label class="form-label"><%= t("administrator.site_settings.color.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.color.info") %></label>
         <div class="row gutters-xs">
           <div class="col-auto">
             <input id="coloring-path" value="<%= admin_coloring_path %>" hidden>

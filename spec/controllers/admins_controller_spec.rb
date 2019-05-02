@@ -142,7 +142,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admins_path(setting: "design"))
+        expect(response).to redirect_to(admins_path(setting: "site_settings"))
       end
     end
   end

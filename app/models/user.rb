@@ -222,7 +222,7 @@ class User < ApplicationRecord
         (has_role? :admin) && (id != user.id) && (provider == user.provider) && (!user.has_role? :super_admin)
       end
     else
-      (has_role? :admin) && (id != user.id)
+      ((has_role? :admin) || (has_role? :super_admin)) && (id != user.id)
     end
   end
 

@@ -16,21 +16,28 @@
 <div class="header py-4">
 	<div class="container">
 		<div class="d-flex">
-			<%= link_to (current_user ? current_user.main_room : root_path), class: "header-brand" do %>
+			<%= link_to (current_user ? home_page : root_path), class: "header-brand" do %>
 				<%= image_tag(logo_image, class: "header-brand-img", alt:"") %>
 			<% end %>
 
 			<div class="d-flex ml-auto">
 				<% if current_user %>
 
-					<% rooms_page = params[:controller] == "rooms" && params[:action] == "show" ? "active" : "" %>
-					<%= link_to current_user.main_room, class: "px-3 mx-1 mt-1 header-nav #{rooms_page}" do %>
-						<i class="fas fa-home pr-1 "></i> <%= t("header.dropdown.home") %>
-					<% end %>
+					<% if current_user.has_role? :super_admin %>
+						<% admins_page = params[:controller] == "admins" && params[:action] == "index" ? "active" : "" %>
+						<%= link_to admins_path, class: "px-3 mx-1 mt-1 header-nav #{admins_page}" do %>
+							<i class="fas fa-home pr-1 "></i> <%= t("header.dropdown.home") %>
+						<% end %>
+					<% else %>
+						<% rooms_page = params[:controller] == "rooms" && params[:action] == "show" ? "active" : "" %>
+						<%= link_to current_user.main_room, class: "px-3 mx-1 mt-1 header-nav #{rooms_page}" do %>
+							<i class="fas fa-home pr-1 "></i> <%= t("header.dropdown.home") %>
+						<% end %>
 
-					<% all_rec_page = params[:controller] == "users" && params[:action] == "recordings" ? "active" : "" %>
-					<%= link_to get_user_recordings_path(current_user), class: "px-3 mx-1 mt-1 header-nav #{all_rec_page}" do %>
-						<i class="fas fa-video pr-1"></i> <%= t("header.all_recordings") %>
+						<% all_rec_page = params[:controller] == "users" && params[:action] == "recordings" ? "active" : "" %>
+						<%= link_to get_user_recordings_path(current_user), class: "px-3 mx-1 mt-1 header-nav #{all_rec_page}" do %>
+							<i class="fas fa-video pr-1"></i> <%= t("header.all_recordings") %>
+						<% end %>
 					<% end %>
 
 					<div class="dropdown">
