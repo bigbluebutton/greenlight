@@ -12,9 +12,7 @@ namespace :conf do
     # Initial check that variables are set
     print "\nChecking environment"
     ENV_VARIABLES.each do |var|
-      if ENV[var].blank?
-        failed("#{var} not set correctly")
-      end
+      failed("#{var} not set correctly") if ENV[var].blank?
     end
     passed
 
@@ -48,8 +46,8 @@ def test_smtp
     ENV['SMTP_AUTH']) do |s|
     s.sendmail('test', ENV['SMTP_USERNAME'], 'notifications@example.com')
   end
-rescue => exc
-  failed("Error connecting to SMTP - #{exc}")
+rescue => e
+  failed("Error connecting to SMTP - #{e}")
 end
 
 # Takes the full URL including the protocol
@@ -58,11 +56,9 @@ def test_request(url)
   res = Net::HTTP.get(uri)
 
   doc = Nokogiri::XML(res)
-  if doc.css("returncode").text != "SUCCESS"
-    failed("Could not get a valid response from BigBlueButton server - #{res}")
-  end
-rescue => exc
-  failed("Error connecting to BigBlueButton server - #{exc}")
+  failed("Could not get a valid response from BigBlueButton server - #{res}") if doc.css("returncode").text != "SUCCESS"
+rescue => e
+  failed("Error connecting to BigBlueButton server - #{e}")
 end
 
 def failed(msg)
