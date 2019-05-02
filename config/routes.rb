@@ -20,16 +20,36 @@ Rails.application.routes.draw do
   get 'health_check', to: 'health_check/health_check#index'
 
   # Error routes.
-  match '/404', to: 'errors#not_found', via: :all
+  match '/401', to: 'errors#unauthorized', via: :all, as: :unauthorized
+  match '/404', to: 'errors#not_found', via: :all, as: :not_found
   match '/422', to: 'errors#unprocessable', via: :all
-  match '/500', to: 'errors#internal_error', via: :all
+  match '/500', to: 'errors#internal_error', via: :all, as: :internal_error
 
-  # Signup routes.
+  # Signin/Signup routes.
+  get '/signin', to: 'users#signin', as: :signin
   get '/signup', to: 'users#new', as: :signup
   post '/signup', to: 'users#create', as: :create_user
 
   # Redirect to terms page
   match '/terms', to: 'users#terms', via: [:get, :post]
+
+  # Admin resouces
+  resources :admins, only: [:index]
+
+  scope '/admins' do
+    post '/branding', to: 'admins#branding', as: :admin_branding
+    post '/coloring', to: 'admins#coloring', as: :admin_coloring
+    post '/signup', to: 'admins#signup', as: :admin_signup
+    get '/edit/:user_uid', to: 'admins#edit_user', as: :admin_edit_user
+    post '/promote/:user_uid', to: 'admins#promote', as: :admin_promote
+    post '/demote/:user_uid', to: 'admins#demote', as: :admin_demote
+    post '/ban/:user_uid', to: 'admins#ban_user', as: :admin_ban
+    post '/unban/:user_uid', to: 'admins#unban_user', as: :admin_unban
+  end
+
+  scope '/themes' do
+    get '/primary', to: 'themes#index', as: :themes_primary
+  end
 
   # Password reset resources.
   resources :password_resets, only: [:new, :create, :edit, :update]

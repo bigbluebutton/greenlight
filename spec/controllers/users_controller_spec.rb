@@ -148,6 +148,35 @@ describe UsersController, type: :controller do
 
     it "properly deletes user" do
       user = create(:user)
+      @request.session[:user_id] = user.id
+
+      delete :destroy, params: { user_uid: user.uid }
+
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "allows admins to delete users" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+      user = create(:user, provider: "provider1")
+      admin = create(:user, provider: "provider1")
+      admin.add_role :admin
+      @request.session[:user_id] = admin.id
+
+      delete :destroy, params: { user_uid: user.uid }
+
+      expect(response).to redirect_to(admins_path)
+    end
+
+    it "doesn't allow admins of other providers to delete users" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+      user = create(:user, provider: "provider1")
+      admin = create(:user, provider: "provider2")
+      admin.add_role :admin
+      @request.session[:user_id] = admin.id
 
       delete :destroy, params: { user_uid: user.uid }
 

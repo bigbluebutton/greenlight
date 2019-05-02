@@ -32,7 +32,6 @@ describe User, type: :model do
 
     it { should validate_uniqueness_of(:email).scoped_to(:provider).case_insensitive }
     it { should validate_length_of(:email).is_at_most(256) }
-    it { should allow_value("", nil).for(:email) }
     it { should allow_value("valid@email.com").for(:email) }
     it { should_not allow_value("invalid_email").for(:email) }
     it { should allow_value(true).for(:accepted_terms) }
@@ -127,6 +126,51 @@ describe User, type: :model do
 
       expired = user.password_reset_expired?
       expect(expired).to be_in([true, false])
+    end
+  end
+
+  context '#roles' do
+    it "defaults the user to a user role" do
+      expect(@user.has_role?(:user)).to be true
+    end
+
+    it "does not give the user an admin role" do
+      expect(@user.has_role?(:admin)).to be false
+    end
+
+    it "returns true if the user is an admin of another" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+      @admin = create(:user, provider: @user.provider)
+      @admin.add_role :admin
+
+      expect(@admin.admin_of?(@user)).to be true
+
+      @super_admin = create(:user, provider: "test")
+      @super_admin.add_role :super_admin
+
+      expect(@super_admin.admin_of?(@user)).to be true
+    end
+
+    it "returns false if the user is NOT an admin of another" do
+      @admin = create(:user)
+
+      expect(@admin.admin_of?(@user)).to be false
+    end
+  end
+
+  context 'blank email' do
+    it "allows a blank email if the provider is not greenlight" do
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(false)
+
+      user = create(:user, email: "", provider: "ldap")
+      expect(user.valid?).to be true
+    end
+
+    it "does not allow a blank email if the provider is greenlight" do
+      expect { create(:user, email: "", provider: "greenlight") }
+        .to raise_exception(ActiveRecord::RecordInvalid, "Validation failed: Email can't be blank")
     end
   end
 end

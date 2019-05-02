@@ -15,7 +15,7 @@
 
 <div class="container">
   <div class="row pt-7">
-    <div class="col col-4 offset-4">
+    <div class="col col-lg-6 offset-lg-3">
       <div class="card">
         <div class="card-header background">
           <h4 class="mt-2"><%= t("signup.subtitle") %></h4>
@@ -23,7 +23,7 @@
         <div class="card-body background">
           <% unless iconset_providers.length.zero? %>
             <% iconset_providers.each do |provider| %>
-              <%= link_to omniauth_login_url(provider), class: "customBtn-#{provider}" do %>
+              <%= link_to omniauth_login_url(provider), class: "customBtn-#{provider} oauth-signin" do %>
                 <span class="customBtn-icon">
                   <img class="customBtn-image"></img>
                 </span>
@@ -69,9 +69,9 @@
                 <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:accepted_terms).first %></div>
               </div>
             <% end %>
-            <div class="card-footer">
-              <%= f.submit t("signup.title"), class: "btn btn-primary float-right ml-2" %>
-              <%= link_to t("cancel"), root_path, class: "btn btn-secondary float-right ml-2" %>
+            <div class="card-footer px-0 pb-0">
+              <%= f.submit t("signup.title"), class: "btn btn-primary btn-block signin-button" %>
+              <%= link_to t("cancel"), root_path, class: "btn btn-secondary btn-block signin-button" %>
             </div>
           <% end %>
         </div>

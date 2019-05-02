@@ -19,11 +19,14 @@
 require 'bbb_api'
 
 class User < ApplicationRecord
+  rolify
   include ::APIConcern
   include ::BbbApi
 
   attr_accessor :reset_token
+  after_create :assign_default_role
   after_create :initialize_main_room
+
   before_save { email.try(:downcase!) }
 
   before_destroy :destroy_rooms
@@ -33,6 +36,7 @@ class User < ApplicationRecord
 
   validates :name, length: { maximum: 256 }, presence: true
   validates :provider, presence: true
+  validate :check_if_email_can_be_blank
   validates :email, length: { maximum: 256 }, allow_blank: true,
                     uniqueness: { case_sensitive: false, scope: :provider },
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
@@ -96,6 +100,17 @@ class User < ApplicationRecord
         auth['info']['image'] unless auth['provider'] == :microsoft_office365
       end
     end
+  end
+
+  def self.admins_search(string)
+    search_query = "name LIKE :search OR email LIKE :search OR username LIKE :search" \
+                   " OR created_at LIKE :search OR provider LIKE :search"
+    search_param = "%#{string}%"
+    where(search_query, search: search_param)
+  end
+
+  def self.admins_order(column, direction)
+    order("#{column} #{direction}")
   end
 
   def all_recordings
@@ -199,6 +214,18 @@ class User < ApplicationRecord
     create_reset_activation_digest(User.new_token)
   end
 
+  def admin_of?(user)
+    if Rails.configuration.loadbalanced_configuration
+      if has_role? :super_admin
+        id != user.id
+      else
+        (has_role? :admin) && (id != user.id) && (provider == user.provider) && (!user.has_role? :super_admin)
+      end
+    else
+      (has_role? :admin) && (id != user.id)
+    end
+  end
+
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
@@ -228,5 +255,20 @@ class User < ApplicationRecord
     self.uid = "gl-#{(0...12).map { rand(65..90).chr }.join.downcase}"
     self.main_room = Room.create!(owner: self, name: I18n.t("home_room"))
     save
+  end
+
+  # Initialize the user to use the default user role
+  def assign_default_role
+    add_role(:user) if roles.blank?
+  end
+
+  def check_if_email_can_be_blank
+    if email.blank?
+      if Rails.configuration.loadbalanced_configuration && greenlight_account?
+        errors.add(:email, I18n.t("errors.messages.blank"))
+      elsif provider == "greenlight"
+        errors.add(:email, I18n.t("errors.messages.blank"))
+      end
+    end
   end
 end

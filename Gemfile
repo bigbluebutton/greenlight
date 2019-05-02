@@ -57,6 +57,7 @@ gem 'bigbluebutton-api-ruby'
 # Front-end.
 gem 'bootstrap', '~> 4.3.1'
 gem 'tabler-rubygem'
+gem 'pagy'
 
 # For detecting the users preferred language.
 gem 'http_accept_language'
@@ -69,6 +70,11 @@ gem 'redcarpet'
 
 # For health check endpoint
 gem "health_check"
+
+# For providing user roles
+gem "rolify"
+# For limiting access based on user roles
+gem 'cancancan', '~> 2.0'
 
 group :production do
   # Use a postgres database in production.
