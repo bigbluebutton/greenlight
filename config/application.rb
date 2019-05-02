@@ -107,6 +107,6 @@ module Greenlight
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
 
     # Number of rows to display per page
-    config.pagination_rows = ENV['NUMBER_OF_ROWS'].to_i == 0 ? 10 : ENV['NUMBER_OF_ROWS'].to_i
+    config.pagination_rows = ENV['NUMBER_OF_ROWS'].to_i.zero? ? 10 : ENV['NUMBER_OF_ROWS'].to_i
   end
 end
