@@ -1,0 +1,132 @@
+AllCops:
+  Exclude:
+  - 'db/schema.rb'
+  - 'vendor/**/*'
+  DisabledByDefault: false
+  TargetRubyVersion: 2.5
+
+# Gems within groups in the Gemfile should be alphabetically sorted.
+Bundler/OrderedGems:
+  Enabled: false
+
+# Checks if uses of quotes match the configured preference.
+Style/StringLiterals:
+  Enabled: false
+
+# Document classes and non-namespace modules.
+Style/Documentation:
+  Enabled: false
+
+# Check for conditionals that can be replaced with guard clauses
+Style/GuardClause:
+  Enabled: false
+
+# Checks the formatting of empty method definitions.
+Style/EmptyMethod:
+  Enabled: false
+
+# Checks for trailing comma in hash literals.
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+# Checks for trailing comma in argument lists.
+Style/TrailingCommaInArguments:
+  Enabled: false
+
+# Checks that `include`, `extend` and `prepend` exists at the top level.
+Style/MixinUsage:
+  Enabled: false
+
+# Use %i or %I for arrays of symbols.
+Style/SymbolArray:
+  Enabled: false
+
+# Use `%`-literal delimiters consistently
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+# Only use if/unless modifiers on single line statements.
+Style/MultilineIfModifier:
+  Enabled: false
+
+# Checks for trailing comma in array literals.
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+# Use `expand_path(__dir__)` instead of `expand_path('..', __FILE__)`.
+Style/ExpandPathArguments:
+  Enabled: false
+
+# Do not assign mutable objects to constants.
+Style/MutableConstant:
+  Enabled: false
+
+# Avoid rescuing without specifying an error class.
+Style/RescueStandardError:
+  Enabled: false
+
+# Align the elements of a hash literal if they span more than one line.
+Layout/AlignHash:
+  Enabled: false
+
+# Align the parameters of a method definition if they span more than one line.
+Layout/AlignParameters:
+  Enabled: false
+
+# Align ends corresponding to defs correctly.
+Layout/EndAlignment:
+  Enabled: false
+
+# Align elses and elsifs correctly.
+Layout/ElseAlignment:
+  Enabled: false
+
+# Add empty line after guard clause.
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+# Align the arguments of a method call if they span more than one line.
+Layout/AlignArguments:
+  Enabled: false
+
+#
+Layout/IndentationWidth:
+  Enabled: false
+
+# Checks for ambiguous block association with method when param passed without parentheses.
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+# Avoid long blocks with many lines.
+Metrics/BlockLength:
+  Enabled: false
+
+# A complexity metric geared towards measuring complexity for a human reader.
+Metrics/PerceivedComplexity:
+  Max: 17
+
+# Avoid classes longer than 100 lines of code.
+Metrics/ClassLength:
+  Enabled: false
+
+# Limit lines to 80 characters.
+Metrics/LineLength:
+  Max: 120
+
+# Avoid methods longer than 10 lines of code.
+Metrics/MethodLength:
+  Enabled: false
+
+# A calculated magnitude based on number of assignments,
+# branches, and conditions.
+Metrics/AbcSize:
+  Max: 60
+
+# A complexity metric that is strongly correlated to the number
+# of test cases needed to validate a method.
+Metrics/CyclomaticComplexity:
+  Max: 17
+
+# Checks for method parameter names that contain capital letters, end in numbers, or do not meet a minimal length.
+Naming/UncommunicativeMethodParamName:
+  Enabled: false

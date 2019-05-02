@@ -95,7 +95,7 @@ module Greenlight
     config.room_features = ENV['ROOM_FEATURES'] || ""
 
     # The maximum number of rooms included in one bbbapi call
-    config.pagination_number = ENV['PAGINATION_NUMBER'].to_i == 0 ? 25 : ENV['PAGINATION_NUMBER'].to_i
+    config.pagination_number = ENV['PAGINATION_NUMBER'].to_i.zero? ? 25 : ENV['PAGINATION_NUMBER'].to_i
 
     # Default branding image if the user does not specify one
     config.branding_image_default = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
@@ -107,6 +107,6 @@ module Greenlight
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
 
     # Number of rows to display per page
-    config.pagination_rows = ENV['NUMBER_OF_ROWS'].to_i == 0 ? 10 : ENV['NUMBER_OF_ROWS'].to_i
+    config.pagination_rows = ENV['NUMBER_OF_ROWS'].to_i.zero? ? 10 : ENV['NUMBER_OF_ROWS'].to_i
   end
 end

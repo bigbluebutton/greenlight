@@ -81,12 +81,15 @@ group :production do
   gem 'pg', '~> 0.18'
 end
 
+# Ruby linting.
+gem 'rubocop'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  # Environment configuration.
+  gem 'dotenv-rails'
 end
-# Environment configuration.
-gem 'dotenv-rails'
 
 group :test do
   # Include Rspec and other testing utilities.
@@ -97,8 +100,6 @@ group :test do
   gem 'faker'
   gem "factory_bot_rails"
   gem 'webmock'
-  # Ruby linting.
-  gem 'rubocop'
 end
 
 group :development do

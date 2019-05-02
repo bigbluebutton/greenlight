@@ -84,8 +84,8 @@ module ApplicationHelper
     begin
       provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
       provider_info['provider'] == 'greenlight'
-    rescue => ex
-      logger.info ex
+    rescue => e
+      logger.info e
       false
     end
   end

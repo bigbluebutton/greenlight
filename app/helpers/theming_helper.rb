@@ -20,13 +20,13 @@ module ThemingHelper
   # Returns the logo based on user's provider
   def logo_image
     Setting.find_or_create_by(provider: user_settings_provider)
-      .get_value("Branding Image") || Rails.configuration.branding_image_default
+           .get_value("Branding Image") || Rails.configuration.branding_image_default
   end
 
   # Returns the primary color based on user's provider
   def user_color
     Setting.find_or_create_by(provider: user_settings_provider)
-      .get_value("Primary Color") || Rails.configuration.primary_color_default
+           .get_value("Primary Color") || Rails.configuration.primary_color_default
   end
 
   # Returns the user's provider in the settings context
