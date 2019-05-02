@@ -67,9 +67,9 @@ class Room < ApplicationRecord
       unless meeting[:messageKey] == 'duplicateWarning'
         update_attributes(sessions: sessions + 1, last_session: DateTime.now)
       end
-    rescue BigBlueButton::BigBlueButtonException => exc
-      puts "BigBlueButton failed on create: #{exc.key}: #{exc.message}"
-      raise exc
+    rescue BigBlueButton::BigBlueButtonException => e
+      puts "BigBlueButton failed on create: #{e.key}: #{e.message}"
+      raise e
     end
   end
 
