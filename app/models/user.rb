@@ -225,7 +225,7 @@ class User < ApplicationRecord
 
   # Initializes a room for the user and assign a BigBlueButton user id.
   def initialize_main_room
-    self.uid = "gl-#{(0...12).map { (65 + rand(26)).chr }.join.downcase}"
+    self.uid = "gl-#{(0...12).map { rand(65..90).chr }.join.downcase}"
     self.main_room = Room.create!(owner: self, name: I18n.t("home_room"))
     save
   end

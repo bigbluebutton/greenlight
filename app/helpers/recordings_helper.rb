@@ -31,7 +31,7 @@ module RecordingsHelper
     len = valid_playbacks.first[:length]
     if len > 60
       "#{(len / 60).to_i} hrs #{len % 60} mins"
-    elsif len == 0
+    elsif len.zero?
       "< 1 min"
     else
       "#{len} min"

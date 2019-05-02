@@ -75,9 +75,7 @@ class PasswordResetsController < ApplicationController
 
   # Checks expiration of reset token.
   def check_expiration
-    if current_user.password_reset_expired?
-      redirect_to new_password_reset_url, alert: I18n.t("expired_reset_token")
-    end
+    redirect_to new_password_reset_url, alert: I18n.t("expired_reset_token") if current_user.password_reset_expired?
   end
 
   def reset_link

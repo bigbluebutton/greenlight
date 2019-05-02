@@ -60,22 +60,20 @@ module SessionsHelper
 
   def generate_checksum(user_domain, redirect_url, secret)
     string = user_domain + redirect_url + secret
-    OpenSSL::Digest.digest('sha1', string).unpack("H*").first
+    OpenSSL::Digest.digest('sha1', string).unpack1("H*")
   end
 
   def parse_user_domain(hostname)
     return hostname.split('.').first if Rails.configuration.url_host.empty?
     Rails.configuration.url_host.split(',').each do |url_host|
-      if hostname.include?(url_host)
-        return hostname.chomp(url_host).chomp('.')
-      end
+      return hostname.chomp(url_host).chomp('.') if hostname.include?(url_host)
     end
     ''
   end
 
   def omniauth_options(env)
     gl_redirect_url = (Rails.env.production? ? "https" : env["rack.url_scheme"]) + "://" + env["SERVER_NAME"] + ":" +
-        env["SERVER_PORT"]
+                      env["SERVER_PORT"]
     user_domain = parse_user_domain(env["SERVER_NAME"])
     env['omniauth.strategy'].options[:customer] = user_domain
     env['omniauth.strategy'].options[:gl_redirect_url] = gl_redirect_url

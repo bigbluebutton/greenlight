@@ -76,7 +76,7 @@ group :production do
 end
 
 # Ruby linting.
-gem 'rubocop', '0.57.1'
+gem 'rubocop'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
