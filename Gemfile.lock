@@ -104,7 +104,7 @@ GEM
     http_accept_language (2.1.1)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
-    jaro_winkler (1.5.1)
+    jaro_winkler (1.5.2)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -174,8 +174,8 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
-    parallel (1.12.1)
-    parser (2.5.1.0)
+    parallel (1.17.0)
+    parser (2.6.3.0)
       ast (~> 2.4.0)
     pg (0.21.0)
     popper_js (1.14.5)
@@ -244,7 +244,7 @@ GEM
       rspec-mocks (~> 3.7.0)
       rspec-support (~> 3.7.0)
     rspec-support (3.7.1)
-    rubocop (0.57.2)
+    rubocop (0.57.1)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.5)
@@ -252,7 +252,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
-    ruby-progressbar (1.9.0)
+    ruby-progressbar (1.10.0)
     rubyntlm (0.6.2)
     safe_yaml (1.0.4)
     sass (3.5.6)
@@ -314,7 +314,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
-    unicode-display_width (1.4.0)
+    unicode-display_width (1.5.0)
     web-console (3.6.2)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -364,7 +364,7 @@ DEPENDENCIES
   redis (~> 3.0)
   remote_syslog_logger
   rspec-rails (~> 3.7)
-  rubocop
+  rubocop (= 0.57.1)
   sass-rails (~> 5.0)
   shoulda-matchers (~> 3.1)
   spring
