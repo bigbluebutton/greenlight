@@ -27,6 +27,7 @@ describe RecordingsController, type: :controller do
 
   context "POST #update_recording" do
     it "updates the recordings details" do
+      allow_any_instance_of(Room).to receive(:update_recording).and_return(updated: true)
       @request.session[:user_id] = @user.uid
 
       post :update_recording, params: { meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid, state: "public" }
@@ -45,6 +46,7 @@ describe RecordingsController, type: :controller do
 
   context "DELETE #delete_recording" do
     it "deletes the recording" do
+      allow_any_instance_of(Room).to receive(:delete_recording).and_return(true)
       @request.session[:user_id] = @user.uid
 
       post :delete_recording, params: { meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid, state: "public" }

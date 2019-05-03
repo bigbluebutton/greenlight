@@ -56,3 +56,12 @@
   vertical-align: middle;
   padding-top: 12px;
 }
+
+#create-room-block {
+  border: 1px dashed lightgray;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}

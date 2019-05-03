@@ -35,11 +35,16 @@
 @import "tabler-custom";
 
 @import "utilities/variables";
+@import "admins";
 @import "main";
 @import "rooms";
 @import "sessions";
 
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext);
+
+* {
+  outline: none !important;
+}
 
 html, body {
   position: relative;
@@ -75,10 +80,6 @@ a {
 .footer {
   height: $footer-height;
   width: 100%;
-}
-
-.table-responsive {
-  overflow: visible;
 }
 
 .background {
@@ -133,5 +134,36 @@ a {
 
   #cookies-agree-button {
     background-color: green !important;
+  }
+}
+
+input:focus {
+    border-color: $primary !important;
+}
+
+.list-group-item-action.active {
+  color: $primary;
+}
+
+.header .header-nav {
+  color: $text-muted !important;
+
+  &:hover {
+    padding-bottom: 21px;
+    border-bottom: 1px solid $primary;
+  }
+
+  &.active {
+    color: $primary !important;
+    padding-bottom: 21px;
+    border-bottom: 1px solid $primary;
+  }
+}
+
+table {
+  thead {
+    th[data-order]:hover {
+      cursor: pointer;
+    }
   }
 }

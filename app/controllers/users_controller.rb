@@ -44,9 +44,13 @@ class UsersController < ApplicationController
       logger.error "Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     else
-      flash[:success] = I18n.t("email_sent")
+      flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
     end
     redirect_to(root_path)
+  end
+
+  # GET /signin
+  def signin
   end
 
   # GET /signup
@@ -61,7 +65,7 @@ class UsersController < ApplicationController
   # GET /u/:user_uid/edit
   def edit
     if current_user
-      redirect_to current_user.room unless @user == current_user
+      redirect_to current_user.main_room if @user != current_user && !current_user.admin_of?(@user)
     else
       redirect_to root_path
     end
@@ -113,6 +117,16 @@ class UsersController < ApplicationController
     if current_user && current_user == @user
       @user.destroy
       session.delete(:user_id)
+    elsif current_user.admin_of?(@user)
+      begin
+        @user.destroy
+      rescue => e
+        logger.error "Error in user deletion: #{e}"
+        flash[:alert] = I18n.t(params[:message], default: I18n.t("administrator.flash.delete_fail"))
+      else
+        flash[:success] = I18n.t("administrator.flash.delete")
+      end
+      redirect_to(admins_path) && return
     end
     redirect_to root_path
   end

@@ -56,6 +56,7 @@ GEM
       sassc-rails (>= 2.0.0)
     builder (3.2.3)
     byebug (10.0.2)
+    cancancan (2.3.0)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -174,6 +175,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
+    pagy (2.1.5)
     parallel (1.17.0)
     parser (2.6.3.0)
       ast (~> 2.4.0)
@@ -226,6 +228,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rolify (5.2.0)
     rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -336,6 +339,7 @@ DEPENDENCIES
   bigbluebutton-api-ruby
   bootstrap (~> 4.3.1)
   byebug
+  cancancan (~> 2.0)
   coffee-rails (~> 4.2)
   coveralls
   dotenv-rails
@@ -353,6 +357,7 @@ DEPENDENCIES
   omniauth-ldap
   omniauth-microsoft-office365 (~> 0.0.7)
   omniauth-twitter
+  pagy
   pg (~> 0.18)
   puma (~> 3.0)
   rails (~> 5.0.7)
@@ -361,6 +366,7 @@ DEPENDENCIES
   redcarpet
   redis (~> 3.0)
   remote_syslog_logger
+  rolify
   rspec-rails (~> 3.7)
   rubocop
   sass-rails (~> 5.0)

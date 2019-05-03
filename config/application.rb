@@ -88,12 +88,6 @@ module Greenlight
     # Configure custom banner message.
     config.banner_message = ENV['BANNER_MESSAGE']
 
-    # Configure custom branding image.
-    config.branding_image = ENV['BRANDING_IMAGE'] || "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
-
-    # Show/Hide cutomization tab in user settings
-    config.allow_custom_branding = (ENV['ALLOW_CUSTOM_BRANDING'] == "true")
-
     # Enable/disable recording thumbnails.
     config.recording_thumbnails = (ENV['RECORDING_THUMBNAILS'] != "false")
 
@@ -102,5 +96,17 @@ module Greenlight
 
     # The maximum number of rooms included in one bbbapi call
     config.pagination_number = ENV['PAGINATION_NUMBER'].to_i.zero? ? 25 : ENV['PAGINATION_NUMBER'].to_i
+
+    # Default branding image if the user does not specify one
+    config.branding_image_default = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
+
+    # Default primary color if the user does not specify one
+    config.primary_color_default = "#467fcf"
+
+    # Default admin password
+    config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
+
+    # Number of rows to display per page
+    config.pagination_rows = ENV['NUMBER_OF_ROWS'].to_i.zero? ? 10 : ENV['NUMBER_OF_ROWS'].to_i
   end
 end

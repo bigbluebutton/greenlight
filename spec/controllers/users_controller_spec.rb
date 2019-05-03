@@ -47,11 +47,63 @@ describe UsersController, type: :controller do
   end
 
   describe "GET #new" do
-    before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
-
     it "assigns a blank user to the view" do
+      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
+
       get :new
       expect(assigns(:user)).to be_a_new(User)
+    end
+
+    it "redirects to root if allow_user_signup is false" do
+      allow(Rails.configuration).to receive(:allow_user_signup).and_return(false)
+
+      get :new
+      expect(response).to redirect_to(root_path)
+    end
+  end
+
+  describe "GET #edit" do
+    it "renders the edit template" do
+      user = create(:user)
+
+      @request.session[:user_id] = user.id
+
+      get :edit, params: { user_uid: user.uid }
+
+      expect(response).to render_template(:edit)
+    end
+
+    it "does not allow you to edit other users if you're not an admin" do
+      user = create(:user)
+      user2 = create(:user)
+
+      @request.session[:user_id] = user.id
+
+      get :edit, params: { user_uid: user2.uid }
+
+      expect(response).to redirect_to(user.main_room)
+    end
+
+    it "allows admins to edit other users" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+      user = create(:user, provider: "provider1")
+      user.add_role :admin
+      user2 = create(:user, provider: "provider1")
+
+      @request.session[:user_id] = user.id
+
+      get :edit, params: { user_uid: user2.uid }
+
+      expect(response).to render_template(:edit)
+    end
+
+    it "redirect to root if user isn't signed in" do
+      user = create(:user)
+
+      get :edit, params: { user_uid: user }
+      expect(response).to redirect_to(root_path)
     end
   end
 
@@ -85,6 +137,21 @@ describe UsersController, type: :controller do
         post :create, params: invalid_params
 
         expect(response).to render_template(:new)
+      end
+
+      it "sends activation email if email verification is on" do
+        allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+
+        params = random_valid_user_params
+        expect { post :create, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
+
+        u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+
+        expect(u).to_not be_nil
+        expect(u.name).to eql(params[:user][:name])
+
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(root_path)
       end
     end
 
@@ -133,6 +200,8 @@ describe UsersController, type: :controller do
 
       expect(user.name).to eql(params[:user][:name])
       expect(user.email).to eql(params[:user][:email])
+      expect(flash[:success]).to be_present
+      expect(response).to redirect_to(edit_user_path(user))
     end
 
     it "renders #edit on unsuccessful save" do
@@ -148,6 +217,37 @@ describe UsersController, type: :controller do
 
     it "properly deletes user" do
       user = create(:user)
+      @request.session[:user_id] = user.id
+
+      delete :destroy, params: { user_uid: user.uid }
+
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "allows admins to delete users" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+      allow_any_instance_of(Room).to receive(:delete_all_recordings).and_return('')
+
+      user = create(:user, provider: "provider1")
+      admin = create(:user, provider: "provider1")
+      admin.add_role :admin
+      @request.session[:user_id] = admin.id
+
+      delete :destroy, params: { user_uid: user.uid }
+
+      expect(flash[:success]).to be_present
+      expect(response).to redirect_to(admins_path)
+    end
+
+    it "doesn't allow admins of other providers to delete users" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+      user = create(:user, provider: "provider1")
+      admin = create(:user, provider: "provider2")
+      admin.add_role :admin
+      @request.session[:user_id] = admin.id
 
       delete :destroy, params: { user_uid: user.uid }
 
