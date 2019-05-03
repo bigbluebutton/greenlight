@@ -95,4 +95,11 @@ module ApplicationHelper
     @translations ||= I18n.backend.send(:translations)
     @translations[I18n.locale].with_indifferent_access[:javascript] || {}
   end
+
+  # Returns the page that the logo redirects to when clicked on
+  def home_page
+    return root_path unless current_user
+    return admins_path if current_user.has_role? :super_admin
+    current_user.main_room
+  end
 end

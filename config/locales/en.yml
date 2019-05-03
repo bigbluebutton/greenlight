@@ -22,7 +22,7 @@ en:
       user:
         accepted_terms: "Terms and Conditions"
   administrator:
-    design:
+    site_settings:
       branding:
         change: Change Image
         info: Change the branding image that appears in the top left corner
@@ -31,9 +31,8 @@ en:
       color:
         info: Change the primary color used across the website
         title: Primary Color
-      description: Customize various colors and images for your GreenLight instance. Please note that these changes will be reflected to all users.
       subtitle: Customize Greenlight
-      title: Design
+      title: Site Settings
     flash:
       banned: User has been successfully banned.
       unbanned: User has been successfully unbanned.

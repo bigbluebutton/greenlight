@@ -31,7 +31,10 @@ module SessionsHelper
 
   # If email verification is disabled, or the user has verified, go to their room
   def check_email_verified(user)
-    if user.activated?
+    # Admin users should be redirected to the admin page
+    if user.has_role? :super_admin
+      redirect_to admins_path
+    elsif user.activated?
       # Dont redirect to any of these urls
       dont_redirect_to = [root_url, signup_url, unauthorized_url, internal_error_url, not_found_url]
       url = if cookies[:return_to] && !dont_redirect_to.include?(cookies[:return_to])

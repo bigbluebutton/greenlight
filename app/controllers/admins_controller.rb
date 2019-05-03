@@ -30,9 +30,9 @@ class AdminsController < ApplicationController
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
     puts @order_direction.to_s
 
-    if Rails.configuration.loadbalanced_configuration && !current_user.has_role?(:super_admin)
+    if Rails.configuration.loadbalanced_configuration
       @pagy, @users = pagy(User.without_role(:super_admin)
-                  .where(provider: current_user.provider)
+                  .where(provider: user_settings_provider)
                   .where.not(id: current_user.id)
                   .admins_search(@search)
                   .admins_order(@order_column, @order_direction))
@@ -69,7 +69,7 @@ class AdminsController < ApplicationController
   # POST /admins/color
   def coloring
     @settings.update_value("Primary Color", params[:color])
-    redirect_to admins_path(setting: "design")
+    redirect_to admins_path(setting: "site_settings")
   end
 
   # POST /admins/ban/:user_uid
