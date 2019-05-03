@@ -65,7 +65,7 @@ class UsersController < ApplicationController
   # GET /u/:user_uid/edit
   def edit
     if current_user
-      redirect_to current_user.room unless @user == current_user || !current_user.admin_of?(@user)
+      redirect_to current_user.main_room if @user != current_user && !current_user.admin_of?(@user)
     else
       redirect_to root_path
     end
