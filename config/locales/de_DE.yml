@@ -21,6 +21,47 @@ de_DE:
     attributes:
       user:
         accepted_terms: "Teilnahmebedingungen"
+  administrator:
+    site_settings:
+      branding:
+        change: Bild ändern
+        info: Das in der linken oberen Ecke dargestellte Markenlogo ändern
+        placeholder: Bild URL...
+        title: Markenlogo
+      color:
+        info: Primäre Farbe der Webseite ändern
+        title: Primäre Farbe
+      subtitle: Greenlight individuell anpassen
+      title: Seiteneinstellungen
+    flash:
+      banned: Teilnehmer wurde erfolgreich gesperrt.
+      unbanned: Teilnehmer wurde erfolgreich entsperrt.
+      delete: Teilnehmer erfolgreich gelöscht
+      delete_fail: Löschen des Teilnehmers fehlgeschlagen
+      demoted: "Teilnehmer wurde erfolgreich zurückgestuft "
+      promoted: Teilnehmer wurde erfolgreich hochgestuft
+      unauthorized: "Sie haben nicht die notwendigen Rechte, um diese Änderung bei diesem Teilnehmer vorzunehmen."
+    title: Organisationseinstellungen
+    users:
+      edit:
+        title: Teilnehmerdetails editieren
+      settings:
+        ban: Teilnehmer ausschließen
+        delete: Löschen
+        demote: Zum Teilnehmer zurückstufen
+        edit: Ändern
+        promote: Zum Adiministrator hochstufen
+        unban: Ausschluss des Teilnehmers aufheben.
+      table:
+        authenticator: Authenticator
+        created: Erzeugt
+        name: Name
+        not_found: Keinen Teilnehmer für Ihre Suchkriterien gefunden
+        no_users: Kein Teilnehmer gefunden
+        role: Rolle
+        uid: Teilnehmer ID
+        username: Teilnehmername
+      title: Teilnehmer verwalten
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: "Ups, beim Start der Konferenz ist ein Fehler aufgetreten!"
   cancel: Abbrechen
@@ -28,11 +69,12 @@ de_DE:
     cookie_info: Cookies helfen uns bei der Bereitstellung unserer Dienste. Durch die Nutzung der Dienste stimmen Sie der Nutzung von Cookies zu.
     cookie_button: Ich stimme zu
   copy: Kopieren
+  default_admin: "Sie verwenden immer noch das voreingestellte Passwort für diesen Account. Bitte klicken Sie  <a href=\"%{edit_link}\">hier</a> um es zu ändern"
   delete: Löschen
   delivery_error: Während der Emailzustellung ist ein Fehler aufgetreten. Bitte kontaktieren Sie einen Administrator!
   docs: Dokumentation
   email: Email
-  email_sent: "Email abgeschickt! (Bitte prüfen Sie ihren Spamordner, falls Sie keine Nachricht erhalten haben)"
+  email_sent: "Ihre %{email_type} Email wurde verschickt! (Bitte prüfen Sie Ihren Spamordner, falls Sie die Email nicht erhalten haben)"
   enter_your_name: Geben Sie Ihren Namen ein!
   errors:
     internal:
@@ -45,10 +87,15 @@ de_DE:
         Greenlight hat einen Datenbankmigrationsfehler bemerkt.<br> Dies kann auftreten, weil Sie noch nicht auf Greenlight 2.0. upgedatet haben.
       upgrade: "Zeigen Sie mir, wie ich auf Version 2.0. update!"
       version: "Wir haben eine neue Version von Greenlight veröffentlicht, aber Ihre Datenbank ist damit nicht kompatibel."
+    messages:
+      blank: kann nicht leer sein
     not_found:
       message: "Ups! Sieht so aus, als können wir das nicht finden."
       help: "Ist es möglich, dass es entfernt wurde?"
     title: Fehler
+    unauthorized:
+      message: Sie haben keine Zugriffsberechtigung auf diese Applikation
+      help: "Falls Sie glauben, dass hier ein Fehler vorliegt, kontaktieren Sie Ihren Systemadministrator."
     unprocessable:
       message: Ups! Anfrage konnte nicht verarbeitet werden.
       help: Leider ist das keine valide Anfrage.
@@ -68,11 +115,12 @@ de_DE:
   go_back: Zurück
   greenlight: Greenlight
   header:
-    create_room: Raum erstellen
+    all_recordings: Alle Aufzeichnungen
     dropdown:
+      account_settings: Organisation
       help: "Brauchen Sie Hilfe?"
-      home: Startraum
-      settings: Einstellungen
+      home: Startseite
+      settings: Profil
       signout: Abmelden
   home_room: Startraum
   info_update_success: Information erfolgreich aktualisiert.
@@ -97,6 +145,7 @@ de_DE:
   language_default: Voreinstellung (Browsersprache)
   ldap_error: "Verbindung zum LDAP Server konnte nicht hergestellt werden. Bitte überprüfen Sie die LDAP Konfiguration und stellen Sie sicher, dass der LDAP-Server läuft."
   login: Einloggen
+  login_title: In Ihren Account einloggen
   mailer:
     user:
       password_reset:
@@ -107,8 +156,9 @@ de_DE:
         expire: Dieser Link wird in zwei Stunden ungültig.
         ignore: "Sie können diese Email einfach ignorieren, falls Sie keine Passwortzurücksetzung veranlasst haben."
       verify_email:
-        welcome: "Willkommen zu %{bigbluebutton}, %{name}!"
-        success: "Sie haben sich erfolgreich für einen %{bigbluebutton} Account registriert. Ihr Benutzername lautet %{email}."
+        welcome: "Willkommen zu Ihrem persönlichem Bereich, %{name}!"
+        success: "Durch den Einsatz von %{bigbluebutton}, können Sie Ihre eigenen Räume erstellen, dort Konferenzen durchführen und mit anderen zusammenarbeiten."
+        username: "Ihr Benutzername ist  %{email}."
         verify: "Zur Accountverfikation, klicken Sie bitte auf den untenstehenden Link."
         verify_text: 'Um Ihren Account zu verifizieren, folgen Sie diesem Link: %{url}'
         verify_link: Account verifizieren
@@ -117,13 +167,14 @@ de_DE:
   modal:
     create_room:
       auto_join: Automatisch dem Raum beitreten.
+      create: Raum erstellen
       free_delete: Sie können den Raum jederzeit wieder löschen.
       name_placeholder: Geben Sie einen Raumnamen ein...
       not_blank: Es muss ein Raumname angegeben werden.
       title: Neuen Raum erstellen
     delete_account:
-      confirm: "Sind Sie sicher, dass Sie Ihren Account löschen wollen?"
-      delete: Ich bin mir sicher. Löschen Sie meinen Account.
+      confirm: "Sind Sie sicher, dass Sie diesen Account löschen wollen?"
+      delete: "Ich bin sicher, der Account soll gelöscht werden."
       keep: Ich behalte ihn doch.
       warning: "Diese Entscheidung ist endgültig. Sie werden <b>nicht</b> in der Lage sein, damit verbundene Daten wiederherzustellen."
     delete_room:
@@ -159,6 +210,7 @@ de_DE:
     microsoft_office365: Office 365
     twitter: Twitter
   recording:
+    all_recordings: Alle Aufzeichnungen
     email: Aufzeichnungslink per Email
     no_recordings: "Dieser Raum hat keine %{inject}Aufzeichnungen."
     no_user_recordings: Momentan sind keine Aufzeichnungen verfügbar.
@@ -182,7 +234,13 @@ de_DE:
     password: Neues Passwort
     confirm: Bestätigung Ihres neuen Passworts
     update: Passwort aktualisieren
+  roles:
+    administrator: Administrator
+    banned: Gesperrt
+    super_admin: Super Admin
+    user: Benutzer
   room:
+    create_room: Raum erstellen
     create_room_error: Bei der Erstellung des Raums ist ein Fehler aufgetreten
     create_room_success: Raum erfolgreich erstellt
     invited: Sie wurden zur Teilnahme eingeladen
@@ -191,7 +249,7 @@ de_DE:
     last_session: "Letzte Konferenz am %{session}"
     owner: Initiator
     no_sessions: In diesem Raum haben noch keine Konferenzen stattgefunden.
-    recordings: Aufzeichnungen
+    recordings: Aufzeichnungen des Raums
     sessions: Konferenzen
     settings: Raumeinstellungen
     start: Starten
@@ -215,17 +273,14 @@ de_DE:
       disclaimer: "Wenn Sie Ihren Account löschen, können Sie ihn <b>NICHT</b> wiederherstellen. Alle mit ihrem Account verbundenen Informationen - wie Einstellungen, Räume und Aufzeichnungen - werden gelöscht."
       subtitle: Account endgültig löschen
       title: Account löschen
-    design:
-      not_supported: Individuelle Anpassungen werden gegenwärtig nicht unterstützt.
-      subtitle: Greenlight individuell anpassen
-      title: Design
     password:
       confirmation: Bestätigung von neuem Passwort
       new: Neues Passwort
       old: Altes Passwort
       subtitle: Passwort ändern
       title: Passwort
-    title: Einstellungen
+    title: Profil
+    search: Suche
   signup:
     password_confirm: Passwortbestätigung
     subtitle: Account erstellen
@@ -247,3 +302,4 @@ de_DE:
     resend: Verifikationsemail erneut versenden
     signin: "Einloggen, um auf den eigenen Account zuzugreifen."
     title: Verifizierung Sie Ihre Email
+    verification: Verifikation
