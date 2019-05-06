@@ -33,11 +33,7 @@ class UsersController < ApplicationController
 
     # Add validation errors to model if they exist
     valid_user = @user.valid?
-    valid_captcha = if config.recaptcha_enabled
-      verify_recaptcha(model: @user)
-    else
-      true
-    end
+    valid_captcha = config.recaptcha_enabled ? verify_recaptcha(model: @user) : true
 
     if valid_user && valid_captcha
       @user.save

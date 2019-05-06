@@ -108,5 +108,8 @@ module Greenlight
 
     # Number of rows to display per page
     config.pagination_rows = ENV['NUMBER_OF_ROWS'].to_i.zero? ? 10 : ENV['NUMBER_OF_ROWS'].to_i
+
+    # Whether the user has defined the variables required for recaptcha
+    config.recaptcha_enabled = ENV['RECAPTCHA_SITE_KEY'].present? && ENV['RECAPTCHA_SECRET_KEY'].present?
   end
 end
