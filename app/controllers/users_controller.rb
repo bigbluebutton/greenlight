@@ -31,8 +31,19 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.provider = @user_domain
 
-    # Handle error on user creation.
-    render(:new) && return unless @user.save
+    # Add validation errors to model if they exist
+    valid_user = @user.valid?
+    valid_captcha = if config.recaptcha_enabled
+      verify_recaptcha(model: @user)
+    else
+      true
+    end
+
+    if valid_user && valid_captcha
+      @user.save
+    else
+      render(:new) && return
+    end
 
     # Sign in automatically if email verification is disabled.
     login(@user) && return unless Rails.configuration.enable_email_verification
