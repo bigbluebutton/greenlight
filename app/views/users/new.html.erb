@@ -70,8 +70,13 @@
               </div>
             <% end %>
             <div class="card-footer px-0 pb-0">
+              <% if recaptcha_enabled? %>
+                <div class="form-group">
+                  <%= recaptcha_tags %>
+                  <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:base).first %></div>
+                </div>
+              <% end %>
               <%= f.submit t("signup.title"), class: "btn btn-primary btn-block signin-button" %>
-              <%= link_to t("cancel"), root_path, class: "btn btn-secondary btn-block signin-button" %>
             </div>
           <% end %>
         </div>

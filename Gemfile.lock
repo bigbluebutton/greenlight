@@ -220,6 +220,8 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    recaptcha (4.14.0)
+      json
     redcarpet (3.4.0)
     redis (3.3.5)
     remote_syslog_logger (1.0.4)
@@ -363,6 +365,7 @@ DEPENDENCIES
   rails (~> 5.0.7)
   rails-controller-testing
   random_password
+  recaptcha
   redcarpet
   redis (~> 3.0)
   remote_syslog_logger
