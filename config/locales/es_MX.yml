@@ -26,7 +26,7 @@ es_MX:
       branding:
         change: Cambiar imagen
         info: Cambiar la imagen personalizada que aparece en la esquina superior izquierda
-        placeholder: Enlace de la imagen
+        placeholder: Enlace de la imagen...
         title: Imagen personalizada
       color:
         info: Cambiar el color principal utilizado en todo el sitio web
@@ -34,23 +34,23 @@ es_MX:
       subtitle: Personalizar Greenlight
       title: Configuración del sitio web
     flash:
-      banned: El usuario ha sido bloqueado
-      unbanned: El usuario ha sido desbloqueado
-      delete: El usuario ha sido eliminado
-      delete_fail: El usuario no pudo ser eliminado
-      demoted: El usuario ha sido degradado
-      promoted: El usuario ha sido promovido
-      unauthorized: No estas autorizado para ejecutar operaciones en este usuario
-    title: Configuración de Organización
+      banned: El usuario ha sido bloqueado.
+      unbanned: El usuario ha sido desbloqueado.
+      delete: El usuario ha sido eliminado.
+      delete_fail: El usuario no pudo ser eliminado.
+      demoted: El usuario ha sido degradado.
+      promoted: El usuario ha sido promovido.
+      unauthorized: No estas autorizado para ejecutar operaciones en este usuario.
+    title: Configuración de organización
     users:
       edit:
-        title: Editar los detalles del usuario
+        title: Editar detalles de usuario
       settings:
         ban: Bloquear usuario
         delete: Eliminar
         demote: Degradar usuario
         edit: Editar
-        promote: Promover usuario
+        promote: Promover a administrador
         unban: Desbloquear usuario
       table:
         authenticator: Autenificador
@@ -63,7 +63,7 @@ es_MX:
         username: Nombre de usuario
       title: Administrar usuarios
   bigbluebutton: BigBlueButton
-  bigbluebutton_exception: Oh no! Ocurrió un error al iniciar la sesión
+  bigbluebutton_exception: Oh no! Ocurrió un error al iniciar la sesión.
   cancel: Cancelar
   cookies:
     cookie_info: "Las cookies nos ayudan a proveer nuestros servicios. Al utilizar nuestros servicios, usted acepta nuestro uso de cookies."
@@ -74,14 +74,14 @@ es_MX:
   delivery_error: Ocurrió un error durante el envío de correo electrónico. Por favor contacte un administrador.
   docs: Documentación
   email: Cuenta de correo
-  email_sent: "Tu %{email_type}email ha sido enviado. (Revisa tu carpeta de Spam sí no lo has recibido)"
+  email_sent: "Tu email de %{email_type} ha sido enviado. (Revisa tu carpeta de Spam sí no lo has recibido)"
   enter_your_name: Introduce tu nombre
   errors:
     internal:
       message: Oh no! Parece que algo falló de tu lado.
       help: "El error ha sido registrado, vamos a revisarlo."
     migration_error:
-      contact_admin: "Sí tu no eres administrador, contacta a uno."
+      contact_admin: "Sí no eres administrador, contacta a uno."
       continue: Me gustaría seguir utilizando la versión 1.0
       notice: >
         Greenlight encontro un error al migrar la base de datos. <br>Esto puede deberse a que no hás actualizado a Greenlight versión 2.0
@@ -96,14 +96,14 @@ es_MX:
       confirmation: "no conicide %{attribute}"
       inclusion: no está incluido en la lista
     not_found:
-      message: Ups! parece que no podemos encontrarle
+      message: Oh no! parece que no podemos encontrarle.
       help: "¿Puede ser que haya sido eliminada?"
     title: Errores
     unauthorized:
       message: No tienes acceso a ésta aplicación
       help: "Sí tu crees que este es un error, contacta al administrador del sistema"
     unprocessable:
-      message: "Ups!, La acción no puede ser procesada"
+      message: "Oh no!, La acción no puede ser procesada."
       help: Desafortunadamente esta no es una acción valida
   expired_reset_token: El enlace para reiniciar la contraseña ha expirado
   features:
@@ -222,7 +222,7 @@ es_MX:
     twitter: Twitter
   recaptcha:
     errors:
-      recaptcha_unreachable: La respuesta de tu reCAPTCHA falló. Intentalo de nuevo.
+      recaptcha_unreachable: Oh no! La respuesta de tu reCAPTCHA falló. Intentalo de nuevo.
       verification_failed: "La verificación reCAPTCHA ha falado, intentalo nuevamente."
   recording:
     all_recordings: Todas las grabaciones
@@ -272,7 +272,7 @@ es_MX:
     update_settings_error: Ocurrió un error al actualizar la configuración de la sala
     update_settings_success: La configuración de la sala fue actualizada exitósamente
     wait:
-      message: Ups! L sesión todavía no dado inicio
+      message: Oh no! La sesión todavía no ha comenzado.
       auto: Serás enviado a la sala automáticamente cuando empiece ls sesión
   settings:
     account:
