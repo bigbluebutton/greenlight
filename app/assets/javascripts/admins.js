@@ -23,7 +23,12 @@ $(document).on('turbolinks:load', function(){
     // show the modal with the correct form action url
     $(".delete-user").click(function(data){
       var uid = $(data.target).closest("tr").data("user-uid")
-      $("#delete-confirm").parent().attr("action", "/u/" + uid)
+      var url = $("body").data("relative-root")
+      if (!url.endsWith("/")) {
+        url += "/"
+      }
+      url += "u/" + uid
+      $("#delete-confirm").parent().attr("action", url)
     })
 
     // Change the color of the color inputs when the color is changed
@@ -66,13 +71,13 @@ $(document).on('turbolinks:load', function(){
 
   // Only run on the admins edit user page.
   if (controller == "admins" && action == "edit_user") {
-    $("#users").click(function(data){
+    $(".setting-btn").click(function(data){
       var url = $("body").data("relative-root")
       if (!url.endsWith("/")) {
         url += "/"
       }
-      url += "admins"
 
+      url += "admins?setting=" + data.target.id
       window.location.href = url
     })
   }
