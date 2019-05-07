@@ -28,7 +28,6 @@ class AdminsController < ApplicationController
     @search = params[:search] || ""
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
-    puts @order_direction.to_s
 
     if Rails.configuration.loadbalanced_configuration
       @pagy, @users = pagy(User.without_role(:super_admin)
