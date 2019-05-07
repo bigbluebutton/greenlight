@@ -210,6 +210,10 @@ en:
     google: Google
     microsoft_office365: Office 365
     twitter: Twitter
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Oops, we failed to validate your reCAPTCHA response. Please try again.
+      verification_failed: reCAPTCHA verification failed, please try again.
   recording:
     all_recordings: All Recordings
     email: Email Recording
