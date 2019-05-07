@@ -208,6 +208,11 @@ en:
   name_update_success: Room name successfully changed!
   no_user_email_exists: There is no existing user with the email specified. Please make sure you typed it correctly.
   omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!
+  pagy:
+    nav:
+      prev: "&lsaquo; Prev"
+      next: "Next &rsaquo;"
+      gap: "&hellip;"
   password: Password
   password_empty_notice: Password cannot be empty.
   password_reset_success: Password has been reset.
