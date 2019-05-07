@@ -182,7 +182,7 @@ en:
       confirm: Are you sure you want to delete %{room}?
       delete: I'm sure, delete this room.
       keep: On second thought, I'll keep it.
-      warning: You will <b>not</b> be able to recover this room or any of its associated recordings.
+      warning: You will <b>not</b> be able to recover this room or any of its %{recordings_num} associated recordings.
     login:
       or: or
       with: Sign in with %{provider}
