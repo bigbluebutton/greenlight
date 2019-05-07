@@ -143,4 +143,4 @@ Pagy::VARS[:items] = Rails.configuration.pagination_rows # default
 # I18n extra: uses the standard i18n gem which is ~18x slower using ~10x more memory
 # than the default pagy internal i18n (see above)
 # See https://ddnexus.github.io/pagy/extras/i18n
-# require 'pagy/extras/i18n'
+require 'pagy/extras/i18n'
