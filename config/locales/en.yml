@@ -90,6 +90,12 @@ en:
       version: We've released a new version of Greenlight, but your database isn't compatible.
     messages:
       blank: can't be blank
+      too_short: is too short
+      invalid: is invalid
+      taken: has already been taken
+      accepted: must be accepted
+      confirmation: doesn't match %{attribute}
+      inclusion: is not included in the list
     not_found:
       message: Whoops! Looks like we can't find that.
       help: Is it possible its been removed?
