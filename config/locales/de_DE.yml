@@ -89,6 +89,12 @@ de_DE:
       version: "Wir haben eine neue Version von Greenlight veröffentlicht, aber Ihre Datenbank ist damit nicht kompatibel."
     messages:
       blank: kann nicht leer sein
+      too_short: ist zu kurz
+      invalid: ist ungültig
+      taken: wird bereit verwendet
+      accepted: muss akzeptiert werden
+      confirmation: "passt nicht zu %{attribute}"
+      inclusion: ist nicht Teil der Liste
     not_found:
       message: "Ups! Sieht so aus, als können wir das nicht finden."
       help: "Ist es möglich, dass es entfernt wurde?"
@@ -181,7 +187,7 @@ de_DE:
       confirm: "Sind Sie sicher, dass Sie %{room}löschen wollen?"
       delete: Ich will diesen Raum löschen.
       keep: Ich will ihn doch nicht löschen.
-      warning: "Sie werden <b>nicht</b> in der Lage sein, den Raum oder mit ihm verbundene Aufzeichnungen wiederherzustellen."
+      warning: "Sie werden <b>nicht</b> in der Lage sein diesen Raum oder die in ihm durchgeführten %{recordings_num} Aufzeichnungen wiederherzustellen."
     login:
       or: oder
       with: "Einloggen mit %{provider}"
@@ -201,6 +207,11 @@ de_DE:
   name_update_success: Raumname erfolgreich geändert!
   no_user_email_exists: "Es gibt keinen Nutzer mit der angegebenen Email. Stellen Sie sicher, dass Sie sich nicht vertippt haben."
   omniauth_error: Es ist ein Fehler bei der Authentifizierung über Omniauth aufgetreten. Versuchen Sie es nochmal oder kontaktieren Sie einen Administrator.
+  pagy:
+    nav:
+      prev: "&lsaquo; Vorheriges"
+      next: "Nächstes &rsaquo;"
+      gap: "&hellip;"
   password: Passwort
   password_empty_notice: Das Passwort kann nicht leer bleiben.
   password_reset_success: Passwort wurde zurückgesetzt.
@@ -209,6 +220,10 @@ de_DE:
     google: Google
     microsoft_office365: Office 365
     twitter: Twitter
+  recaptcha:
+    errors:
+      recaptcha_unreachable: "Ups, es war nicht möglich die reCAPTCHA Antwort zu überprüfen. Bitte versuchen Sie es nochmals."
+      verification_failed: "reCAPTCHA Verifikation fehlgeschlagen, bitte nochmals versuchen."
   recording:
     all_recordings: Alle Aufzeichnungen
     email: Aufzeichnungslink per Email
