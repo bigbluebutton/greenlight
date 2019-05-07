@@ -31,7 +31,7 @@ module BbbApi
   # Rereives info from the loadbalanced in regards to a Provider (or tenant).
   def retrieve_provider_info(provider, api = 'api', route = 'getUser')
     # Include Omniauth accounts under the Greenlight provider.
-    provider ||= 'greenlight'
+    raise "Provider not included." if !provider || provider.empty?
 
     # Build the URI.
     uri = encode_bbb_url(
@@ -64,7 +64,7 @@ module BbbApi
   def encode_bbb_url(base_url, secret, params, route = 'getUser')
     encoded_params = params.to_param
     string = route + encoded_params + secret
-    checksum = OpenSSL::Digest.digest('sha1', string).unpack('H*').first
+    checksum = OpenSSL::Digest.digest('sha1', string).unpack1('H*')
 
     URI.parse("#{base_url}#{route}?#{encoded_params}&checksum=#{checksum}")
   end

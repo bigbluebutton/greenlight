@@ -56,7 +56,10 @@ module Greenlight
     config.bigbluebutton_secret = ENV["BIGBLUEBUTTON_SECRET"] || config.bigbluebutton_secret_default
 
     # Fix endpoint format if required.
-    config.bigbluebutton_endpoint += "api/" unless config.bigbluebutton_endpoint.ends_with?('api/')
+    config.bigbluebutton_endpoint += "/" unless config.bigbluebutton_endpoint.ends_with?('/')
+    config.bigbluebutton_endpoint += "api/" if config.bigbluebutton_endpoint.ends_with?('bigbluebutton/')
+    config.bigbluebutton_endpoint +=
+      "bigbluebutton/api/" unless config.bigbluebutton_endpoint.ends_with?('bigbluebutton/api/')
 
     if config.loadbalanced_configuration
       # Settings for fetching credentials from a loadbalancer based on provider.
@@ -68,10 +71,13 @@ module Greenlight
       # Fix endpoint format if required.
       config.loadbalancer_endpoint += "/" unless config.bigbluebutton_endpoint.ends_with?("/")
       config.loadbalancer_endpoint = config.loadbalancer_endpoint.chomp("api/")
+
+      # Configure which settings are available to user on room creation/edit after creation
+      config.url_host = ENV['URL_HOST'] || ''
     end
 
     # Specify the email address that all mail is sent from
-    config.email_sender = ENV['EMAIL_SENDER'].present? ? ENV['EMAIL_SENDER'] : "notifications@example.com"
+    config.smtp_sender = ENV['SMTP_SENDER'] || "notifications@example.com"
 
     # Determine if GreenLight should enable email verification
     config.enable_email_verification = (ENV['ALLOW_MAIL_NOTIFICATIONS'] == "true")
@@ -82,12 +88,6 @@ module Greenlight
     # Configure custom banner message.
     config.banner_message = ENV['BANNER_MESSAGE']
 
-    # Configure custom branding image.
-    config.branding_image = ENV['BRANDING_IMAGE'] || "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
-
-    # Show/Hide cutomization tab in user settings
-    config.allow_custom_branding = (ENV['ALLOW_CUSTOM_BRANDING'] == "true")
-
     # Enable/disable recording thumbnails.
     config.recording_thumbnails = (ENV['RECORDING_THUMBNAILS'] != "false")
 
@@ -95,6 +95,21 @@ module Greenlight
     config.room_features = ENV['ROOM_FEATURES'] || ""
 
     # The maximum number of rooms included in one bbbapi call
-    config.pagination_number = ENV['PAGINATION_NUMBER'].to_i == 0 ? 25 : ENV['PAGINATION_NUMBER'].to_i
+    config.pagination_number = ENV['PAGINATION_NUMBER'].to_i.zero? ? 25 : ENV['PAGINATION_NUMBER'].to_i
+
+    # Default branding image if the user does not specify one
+    config.branding_image_default = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
+
+    # Default primary color if the user does not specify one
+    config.primary_color_default = "#467fcf"
+
+    # Default admin password
+    config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
+
+    # Number of rows to display per page
+    config.pagination_rows = ENV['NUMBER_OF_ROWS'].to_i.zero? ? 10 : ENV['NUMBER_OF_ROWS'].to_i
+
+    # Whether the user has defined the variables required for recaptcha
+    config.recaptcha_enabled = ENV['RECAPTCHA_SITE_KEY'].present? && ENV['RECAPTCHA_SECRET_KEY'].present?
   end
 end

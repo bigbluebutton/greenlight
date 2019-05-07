@@ -18,6 +18,7 @@
 
 class UsersController < ApplicationController
   include RecordingsHelper
+  include Verifier
 
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create]
@@ -30,22 +31,33 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.provider = @user_domain
 
-    # Handle error on user creation.
-    render(:new) && return unless @user.save
+    # Add validation errors to model if they exist
+    valid_user = @user.valid?
+    valid_captcha = config.recaptcha_enabled ? verify_recaptcha(model: @user) : true
+
+    if valid_user && valid_captcha
+      @user.save
+    else
+      render(:new) && return
+    end
 
     # Sign in automatically if email verification is disabled.
     login(@user) && return unless Rails.configuration.enable_email_verification
 
     # Start email verification and redirect to root.
     begin
-      @user.send_activation_email(verification_link)
+      @user.send_activation_email(user_verification_link)
     rescue => e
       logger.error "Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     else
-      flash[:success] = I18n.t("email_sent")
+      flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
     end
     redirect_to(root_path)
+  end
+
+  # GET /signin
+  def signin
   end
 
   # GET /signup
@@ -60,7 +72,7 @@ class UsersController < ApplicationController
   # GET /u/:user_uid/edit
   def edit
     if current_user
-      redirect_to current_user.room unless @user == current_user
+      redirect_to current_user.main_room if @user != current_user && !current_user.admin_of?(@user)
     else
       redirect_to root_path
     end
@@ -112,6 +124,16 @@ class UsersController < ApplicationController
     if current_user && current_user == @user
       @user.destroy
       session.delete(:user_id)
+    elsif current_user.admin_of?(@user)
+      begin
+        @user.destroy
+      rescue => e
+        logger.error "Error in user deletion: #{e}"
+        flash[:alert] = I18n.t(params[:message], default: I18n.t("administrator.flash.delete_fail"))
+      else
+        flash[:success] = I18n.t("administrator.flash.delete")
+      end
+      redirect_to(admins_path) && return
     end
     redirect_to root_path
   end
@@ -139,10 +161,6 @@ class UsersController < ApplicationController
 
   def find_user
     @user = User.find_by!(uid: params[:user_uid])
-  end
-
-  def verification_link
-    request.base_url + edit_account_activation_path(token: @user.activation_token, email: @user.email)
   end
 
   def ensure_unauthenticated

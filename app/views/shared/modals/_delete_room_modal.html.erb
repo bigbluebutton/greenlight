@@ -22,17 +22,17 @@
             <h3><%= t("modal.delete_room.confirm", room: room.name) %></h3>
           </div>
 
-          <button type="button" class="btn btn-pill btn-info my-1 btn-del-room" data-dismiss="modal">
+          <button type="button" class="btn btn-info my-1 btn-del-room" data-dismiss="modal">
             <%= t("modal.delete_room.keep") %>
           </button>
 
-          <%= button_to room, method: :delete, id: "delete-confirm", class: "btn btn-pill btn-danger my-1 btn-del-room" do %>
+          <%= button_to room, method: :delete, id: "delete-confirm", class: "btn btn-danger my-1 btn-del-room" do %>
             <%= t("modal.delete_room.delete") %>
           <% end %>
 
         </div>
         <div class="card-footer">
-          <p><%= t("modal.delete_room.warning").html_safe %></p>
+          <p><%= t("modal.delete_room.warning", recordings_num: room.recordings.length).html_safe %> </p>
         </div>
       </div>
     </div>

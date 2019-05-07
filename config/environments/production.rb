@@ -113,7 +113,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Set the relative url root for deployment to a subdirectory.
-  if ENV['RELATIVE_URL_ROOT'] != "/"
-    config.relative_url_root = ENV['RELATIVE_URL_ROOT'] || "/b"
-  end
+  config.relative_url_root = ENV['RELATIVE_URL_ROOT'] || "/b" if ENV['RELATIVE_URL_ROOT'] != "/"
 end

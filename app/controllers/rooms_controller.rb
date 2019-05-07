@@ -56,6 +56,15 @@ class RoomsController < ApplicationController
       @recordings = recs
       @is_running = @room.running?
     else
+      # Get users name
+      @name = if current_user
+        current_user.name
+      elsif cookies.encrypted[:greenlight_name]
+        cookies.encrypted[:greenlight_name]
+      else
+        ""
+      end
+
       render :join
     end
   end
@@ -90,6 +99,9 @@ class RoomsController < ApplicationController
         return
       end
     end
+
+    # create or update cookie with join name
+    cookies.encrypted[:greenlight_name] = @join_name unless cookies.encrypted[:greenlight_name] == @join_name
 
     if @room.running? || @room.owned_by?(current_user)
       # Determine if the user needs to join as a moderator.
@@ -132,8 +144,8 @@ class RoomsController < ApplicationController
 
     begin
       redirect_to @room.join_path(current_user.name, opts, current_user.uid)
-    rescue BigBlueButton::BigBlueButtonException => exc
-      redirect_to room_path, alert: I18n.t(exc.key.to_s.underscore, default: I18n.t("bigbluebutton_exception"))
+    rescue BigBlueButton::BigBlueButtonException => e
+      redirect_to room_path, alert: I18n.t(e.key.to_s.underscore, default: I18n.t("bigbluebutton_exception"))
     end
 
     # Notify users that the room has started.
@@ -180,7 +192,7 @@ class RoomsController < ApplicationController
 
   def create_room_settings_string(mute_res, client_res)
     room_settings = {}
-    room_settings["muteOnStart"] = mute_res == "1" ? true : false
+    room_settings["muteOnStart"] = mute_res == "1"
 
     if client_res.eql? "html5"
       room_settings["joinViaHtml5"] = true

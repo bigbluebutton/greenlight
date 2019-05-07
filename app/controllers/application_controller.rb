@@ -20,10 +20,13 @@ require 'bigbluebutton_api'
 
 class ApplicationController < ActionController::Base
   include SessionsHelper
+  include ThemingHelper
 
   before_action :migration_error?
   before_action :set_locale
+  before_action :check_admin_password
   before_action :set_user_domain
+  before_action :check_if_unbanned
 
   # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
@@ -44,11 +47,12 @@ class ApplicationController < ActionController::Base
   end
 
   def update_locale(user)
-    I18n.locale = if user && user.language != 'default'
+    locale = if user && user.language != 'default'
       user.language
     else
       http_accept_language.language_region_compatible_from(I18n.available_locales)
     end
+    I18n.locale = locale.tr('-', '_') unless locale.nil?
   end
 
   def meeting_name_limit
@@ -101,6 +105,21 @@ class ApplicationController < ActionController::Base
     }
   end
 
+  # Manually deal with 401 errors
+  rescue_from CanCan::AccessDenied do |_exception|
+    render "errors/not_found"
+  end
+
+  # Checks to make sure that the admin has changed his password from the default
+  def check_admin_password
+    if current_user&.has_role?(:admin) && current_user&.greenlight_account? &&
+       current_user&.authenticate(Rails.configuration.admin_password_default)
+
+      flash.now[:alert] = I18n.t("default_admin",
+        edit_link: edit_user_path(user_uid: current_user.uid) + "?setting=password").html_safe
+    end
+  end
+
   def redirect_to_https
     if Rails.configuration.loadbalanced_configuration && request.headers["X-Forwarded-Proto"] == "http"
       redirect_to protocol: "https://"
@@ -111,8 +130,17 @@ class ApplicationController < ActionController::Base
     @user_domain = if Rails.env.test? || !Rails.configuration.loadbalanced_configuration
       "greenlight"
     else
-      parse_user_domain(request.env["SERVER_NAME"])
+      parse_user_domain(request.host)
     end
   end
   helper_method :set_user_domain
+
+  # Checks if the user is banned and logs him out if he is
+  def check_if_unbanned
+    if current_user&.has_role?(:denied)
+      session.delete(:user_id)
+      redirect_to unauthorized_path
+    end
+  end
+  helper_method :check_if_unbanned
 end

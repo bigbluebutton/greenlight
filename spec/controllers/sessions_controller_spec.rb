@@ -89,6 +89,73 @@ describe SessionsController, type: :controller do
       expect(@request.session[:user_id]).to be_nil
       expect(response).to redirect_to(account_activation_path(email: @user3.email))
     end
+
+    it "redirects the user to the page they clicked sign in from" do
+      user = create(:user, provider: "greenlight",
+        password: "example", password_confirmation: 'example')
+
+      url = Faker::Internet.domain_name
+
+      @request.cookies[:return_to] = url
+
+      post :create, params: {
+        session: {
+          email: user.email,
+          password: 'example',
+        },
+      }
+
+      expect(@request.session[:user_id]).to eql(user.id)
+      expect(response).to redirect_to(url)
+    end
+
+    it "redirects the user to their home room if they clicked the sign in button from root" do
+      user = create(:user, provider: "greenlight",
+        password: "example", password_confirmation: 'example')
+
+      @request.cookies[:return_to] = root_url
+
+      post :create, params: {
+        session: {
+          email: user.email,
+          password: 'example',
+        },
+      }
+
+      expect(@request.session[:user_id]).to eql(user.id)
+      expect(response).to redirect_to(user.main_room)
+    end
+
+    it "redirects the user to their home room if return_to cookie doesn't exist" do
+      user = create(:user, provider: "greenlight",
+        password: "example", password_confirmation: 'example')
+
+      post :create, params: {
+        session: {
+          email: user.email,
+          password: 'example',
+        },
+      }
+
+      expect(@request.session[:user_id]).to eql(user.id)
+      expect(response).to redirect_to(user.main_room)
+    end
+
+    it "redirects to the admins page for admins" do
+      user = create(:user, provider: "greenlight",
+        password: "example", password_confirmation: 'example')
+      user.add_role :super_admin
+
+      post :create, params: {
+        session: {
+          email: user.email,
+          password: 'example',
+        },
+      }
+
+      expect(@request.session[:user_id]).to eql(user.id)
+      expect(response).to redirect_to(admins_path)
+    end
   end
 
   describe "GET/POST #omniauth" do

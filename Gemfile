@@ -57,6 +57,7 @@ gem 'bigbluebutton-api-ruby'
 # Front-end.
 gem 'bootstrap', '~> 4.3.1'
 gem 'tabler-rubygem'
+gem 'pagy'
 
 # For detecting the users preferred language.
 gem 'http_accept_language'
@@ -70,10 +71,18 @@ gem 'redcarpet'
 # For health check endpoint
 gem "health_check"
 
+# For providing user roles
+gem "rolify"
+# For limiting access based on user roles
+gem 'cancancan', '~> 2.0'
+
 group :production do
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'
 end
+
+# Ruby linting.
+gem 'rubocop'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -91,8 +100,6 @@ group :test do
   gem 'faker'
   gem "factory_bot_rails"
   gem 'webmock'
-  # Ruby linting.
-  gem 'rubocop'
 end
 
 group :development do
@@ -112,3 +119,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'coveralls', require: false
 
 gem 'random_password'
+
+# Adds helpers for the Google reCAPTCHA API
+gem "recaptcha"

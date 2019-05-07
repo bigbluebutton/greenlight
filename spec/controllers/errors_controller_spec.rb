@@ -39,4 +39,11 @@ describe ErrorsController, type: :controller do
       expect(response).to have_http_status(500)
     end
   end
+
+  describe "GET #unauthorized" do
+    it "returns unauthorized" do
+      get :unauthorized
+      expect(response).to have_http_status(401)
+    end
+  end
 end

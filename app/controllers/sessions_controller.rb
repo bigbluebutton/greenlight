@@ -27,12 +27,18 @@ class SessionsController < ApplicationController
 
   # POST /users/login
   def create
-    user = User.find_by(email: session_params[:email], provider: @user_domain)
-    redirect_to(root_path, alert: I18n.t("invalid_user")) && return unless user
-    redirect_to(root_path, alert: I18n.t("invalid_login_method")) && return unless user.greenlight_account?
+    admin = User.find_by(email: session_params[:email])
+    if admin&.has_role? :super_admin
+      user = admin
+    else
+      user = User.find_by(email: session_params[:email], provider: @user_domain)
+      redirect_to(root_path, alert: I18n.t("invalid_user")) && return unless user
+      redirect_to(root_path, alert: I18n.t("invalid_login_method")) && return unless user.greenlight_account?
+      redirect_to(account_activation_path(email: user.email)) && return unless user.activated?
+    end
     redirect_to(root_path, alert: I18n.t("invalid_credentials")) && return unless user.try(:authenticate,
       session_params[:password])
-    redirect_to(account_activation_path(email: user.email)) && return unless user.activated?
+
     login(user)
   end
 

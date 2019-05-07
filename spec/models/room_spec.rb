@@ -102,7 +102,7 @@ describe Room, type: :model do
       query = fullname + meeting_id + password
       checksum_string = "join#{query + secret}"
 
-      checksum = OpenSSL::Digest.digest('sha1', checksum_string).unpack("H*").first
+      checksum = OpenSSL::Digest.digest('sha1', checksum_string).unpack1("H*")
       expect(@room.join_path("Example")).to eql("#{endpoint}join?#{query}&checksum=#{checksum}")
     end
   end
