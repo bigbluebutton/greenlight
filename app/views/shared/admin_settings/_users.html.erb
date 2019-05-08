@@ -68,16 +68,16 @@
                     <td><%= user.email && user.email != "" ? user.email : user.username%></td>
                     <td><%= user.provider %></td>
                     <td class="text-center">
-                    <% @roles = user.roles() %>
-                      <% if @roles.any?{|r| r[:name] == "denied"}%>
+                    <% roles = user.roles().pluck(:name) %>
+                      <% if roles.include?("denied")%>
                         <div class="user-role btn btn-sm btn-gray-dark">
                           <%= t("roles.banned") %>
                         </div>
-                      <% elsif @roles.any?{|r| r[:name] == "super_admin"} %>
+                      <% elsif roles.include?("super_admin") %>
                         <div class="user-role btn btn-sm btn-red">
                           <%= t("roles.super_admin") %>
                         </div>
-                      <% elsif @roles.any?{|r| r[:name] == "admin"} %>
+                      <% elsif roles.include?("admin") %>
                         <div class="user-role btn btn-sm btn-yellow">
                           <%= t("roles.administrator") %>
                         </div>
@@ -88,13 +88,13 @@
                       <% end %>
                     </td>
                     <td>
-                      <% unless @roles.any?{|r| r[:name] == "super_admin"} %>
+                      <% unless roles.include?("super_admin") %>
                         <div class="item-action dropdown">
                           <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
                             <i class="fas fa-ellipsis-v px-4"></i>
                           </a>
                           <div class="dropdown-menu dropdown-menu">
-                            <% if @roles.any?{|r| r[:name] == "denied"} %>
+                            <% if roles.include?("denied") %>
                               <%= button_to admin_unban_path(user_uid: user.uid), class: "dropdown-item" do %>
                                 <i class="dropdown-icon fas fa-lock-open"></i> <%= t("administrator.users.settings.unban") %>
                               <% end %>
@@ -106,11 +106,11 @@
                                 <i class="dropdown-icon fas fa-user-minus"></i> <%= t("administrator.users.settings.delete") %>
                               </button>
 
-                              <% if @roles.any?{|r| r[:name] == "admin"} %>
+                              <% if roles.include?("admin") %>
                                 <%= button_to admin_demote_path(user_uid: user.uid), class: "dropdown-item" do %>
                                   <i class="dropdown-icon fas fa-level-down-alt"></i> <%= t("administrator.users.settings.demote") %>
                                 <% end %>
-                              <% elsif @roles.any?{|r| r[:name] == "user"} %>
+                              <% elsif roles.include?("user") %>
                                 <%= button_to admin_promote_path(user_uid: user.uid), class: "dropdown-item" do %>
                                   <i class="dropdown-icon fas fa-level-up-alt"></i> <%= t("administrator.users.settings.promote") %>
                                 <% end %>
