@@ -25,6 +25,7 @@ class AdminsController < ApplicationController
 
   # GET /admins
   def index
+    @roles = []
     @search = params[:search] || ""
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
