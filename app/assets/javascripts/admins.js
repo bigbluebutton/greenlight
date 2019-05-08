@@ -17,7 +17,7 @@
 $(document).on('turbolinks:load', function(){
   var controller = $("body").data('controller');
   var action = $("body").data('action');
-
+  
   // Only run on the admins page.
   if (controller == "admins" && action == "index") {
     // show the modal with the correct form action url
@@ -36,32 +36,6 @@ $(document).on('turbolinks:load', function(){
         location.reload()
       });
     });
-
-    // Submit search if the user hits enter
-    $("#search-input").keypress(function(key) {
-      var keyPressed = key.which
-      if (keyPressed == 13) {
-        searchPage()
-      }
-    })
-
-    // Add listeners for sort
-    $("th[data-order]").click(function(data){
-      var header_elem = $(data.target)
-
-      if(header_elem.data('order') === 'asc'){ // asc
-        header_elem.data('order', 'desc');
-      }
-      else if(header_elem.data('order') === 'desc'){ // desc
-        header_elem.data('order', 'none');
-      }
-      else{ // none
-        header_elem.data('order', 'asc');
-      }
-
-      var search = $("#search-input").val()
-      window.location.replace(window.location.pathname + "?page=1&search=" + search + "&column=" + header_elem.data("header") + "&direction="+ header_elem.data('order'))
-    })
   }
 
   // Only run on the admins edit user page.
@@ -82,16 +56,4 @@ $(document).on('turbolinks:load', function(){
 function changeBrandingImage(path) {
   var url = $("#branding-url").val()
   $.post(path, {url: url})
-}
-
-// Searches the user table for the given string
-function searchPage() {
-  var search = $("#search-input").val()
-
-  window.location.replace(window.location.pathname + "?page=1&search=" + search)
-}
-
-// Clears the search bar
-function clearSearch() {
-  window.location.replace(window.location.pathname + "?page=1")
 }

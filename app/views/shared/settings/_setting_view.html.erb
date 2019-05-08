@@ -17,38 +17,9 @@
   <div class="card-body p-6">
     <div class="card-title text-primary">
       <div class="form-group">
-        <div class="row">
-          <% if setting_id == "users" %>
-            <div class="col-7 mt-2">
-              <h4><%= setting_title %></h4>
-            </div>
-
-            <div class="col-5 float-right">
-              <div id="search-bar">
-                <div class="input-group">
-                  <input id="search-input" type="text" class="form-control" placeholder="<%= t("settings.search") %>..." value="<%= @search %>">
-                  <% unless @search.blank? %>
-                    <span id="clear-search" class="text-primary" onclick="clearSearch()">
-                      <i class="fas fa-times"></i>
-                    </span>
-                  <% end %>
-                  <span class="input-group-append">
-                    <button class="btn btn-primary" type="button" onclick="searchPage()">
-                      <i class="fas fa-search"></i>
-                    </button>
-                  </span>
-              </div>
-              </div>
-            </div>
-          <% else %>
-            <div class="col-12 mt-2">
-              <h4 class="text-primary"><%= setting_title %></h4>
-            </div>
-          <% end %>
-        </div>
+        <%= render "shared/components/subtitle", subtitle: setting_title, search: setting_id == "users" %>
       </div>
     </div>
-    <hr>
 
     <% unless (defined?(admin_view)).nil? %>
       <%= render "shared/admin_settings/#{setting_id}" %>

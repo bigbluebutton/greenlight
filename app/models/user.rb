@@ -113,7 +113,7 @@ class User < ApplicationRecord
     order("#{column} #{direction}")
   end
 
-  def all_recordings
+  def all_recordings(search_params = {}, ret_search_params = false)
     pag_num = Rails.configuration.pagination_number
 
     pag_loops = rooms.length / pag_num - 1
@@ -134,7 +134,7 @@ class User < ApplicationRecord
     full_res = bbb.get_recordings(meetingID: last_pag_room.pluck(:bbb_id))
     res[:recordings].push(*full_res[:recordings])
 
-    format_recordings(res)
+    format_recordings(res, search_params, ret_search_params)
   end
 
   # Activates an account and initialize a users main room

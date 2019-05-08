@@ -18,6 +18,7 @@
 
 class RoomsController < ApplicationController
   include RecordingsHelper
+  include Pagy::Backend
 
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :validate_verified_email, except: [:show, :join],
@@ -51,9 +52,11 @@ class RoomsController < ApplicationController
   # GET /:room_uid
   def show
     if current_user && @room.owned_by?(current_user)
-      recs = @room.recordings
+      @search, @order_column, @order_direction, recs =
+        @room.recordings(params.permit(:search, :column, :direction), true)
 
-      @recordings = recs
+      @pagy, @recordings = pagy_array(recs)
+
       @is_running = @room.running?
     else
       # Get users name
@@ -64,6 +67,11 @@ class RoomsController < ApplicationController
       else
         ""
       end
+
+      @search, @order_column, @order_direction, pub_recs =
+        @room.public_recordings(params.permit(:search, :column, :direction), true)
+
+      @pagy, @public_recordings = pagy_array(pub_recs)
 
       render :join
     end
@@ -118,6 +126,13 @@ class RoomsController < ApplicationController
         redirect_to @room.join_path(join_name, opts)
       end
     else
+
+      search_params = params[@room.invite_path] || params
+      @search, @order_column, @order_direction, pub_recs =
+        @room.public_recordings(search_params.permit(:search, :column, :direction), true)
+
+      @pagy, @public_recordings = pagy_array(pub_recs)
+
       # They need to wait until the meeting begins.
       render :wait
     end
