@@ -103,8 +103,16 @@ class User < ApplicationRecord
   end
 
   def self.admins_search(string)
+    active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
+    # Postgres requires created_at to be cast to a string
+    created_at_query = if active_database == "postgresql"
+      "created_at::text"
+    else
+      "created_at"
+    end
+
     search_query = "name LIKE :search OR email LIKE :search OR username LIKE :search" \
-                   " OR created_at LIKE :search OR provider LIKE :search"
+                   " OR #{created_at_query} LIKE :search OR provider LIKE :search"
     search_param = "%#{string}%"
     where(search_query, search: search_param)
   end
@@ -149,20 +157,11 @@ class User < ApplicationRecord
     email_verified
   end
 
-  def send_activation_email(url)
-    UserMailer.verify_email(self, url).deliver
-  end
-
   # Sets the password reset attributes.
   def create_reset_digest
     self.reset_token = User.new_token
     update_attribute(:reset_digest,  User.digest(reset_token))
     update_attribute(:reset_sent_at, Time.zone.now)
-  end
-
-  # Sends password reset email.
-  def send_password_reset_email(url)
-    UserMailer.password_reset(self, url).deliver_now
   end
 
   # Returns true if the given token matches the digest.
