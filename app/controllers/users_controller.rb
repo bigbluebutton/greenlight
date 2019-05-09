@@ -18,7 +18,7 @@
 
 class UsersController < ApplicationController
   include RecordingsHelper
-  include Verifier
+  include Emailer
 
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create]
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
 
     # Start email verification and redirect to root.
     begin
-      @user.send_activation_email(user_verification_link)
+      send_activation_email(@user)
     rescue => e
       logger.error "Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
