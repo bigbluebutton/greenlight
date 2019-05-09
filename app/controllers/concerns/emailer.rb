@@ -16,11 +16,27 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-module Verifier
+module Emailer
   extend ActiveSupport::Concern
+
+  # Sends account activation email.
+  def send_activation_email(user)
+    @user = user
+    UserMailer.verify_email(@user, user_verification_link, logo_image, user_color).deliver
+  end
+
+  # Sends password reset email.
+  def send_password_reset_email(user)
+    @user = user
+    UserMailer.password_reset(@user, reset_link, logo_image, user_color).deliver_now
+  end
 
   # Returns the link the user needs to click to verify their account
   def user_verification_link
     request.base_url + edit_account_activation_path(token: @user.activation_token, email: @user.email)
+  end
+
+  def reset_link
+    request.base_url + edit_password_reset_path(@user.reset_token, email: @user.email)
   end
 end

@@ -19,15 +19,19 @@
 class UserMailer < ApplicationMailer
   default from: Rails.configuration.smtp_sender
 
-  def verify_email(user, url)
+  def verify_email(user, url, image, color)
     @user = user
     @url = url
+    @image = image
+    @color = color
     mail(to: @user.email, subject: t('landing.welcome'))
   end
 
-  def password_reset(user, url)
+  def password_reset(user, url, image, color)
     @user = user
     @url = url
+    @image = image
+    @color = color
     mail to: user.email, subject: t('reset_password.subtitle')
   end
 end
