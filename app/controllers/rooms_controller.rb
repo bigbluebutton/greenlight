@@ -51,10 +51,14 @@ class RoomsController < ApplicationController
   # GET /:room_uid
   def show
     if current_user && @room.owned_by?(current_user)
-      recs = @room.recordings
+      if current_user.has_role? :super_admin
+        redirect_to admins_path
+      else
+        recs = @room.recordings
 
-      @recordings = recs
-      @is_running = @room.running?
+        @recordings = recs
+        @is_running = @room.running?
+      end
     else
       # Get users name
       @name = if current_user
