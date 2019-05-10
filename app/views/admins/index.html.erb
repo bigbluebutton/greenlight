@@ -36,7 +36,7 @@
         <%= render "shared/settings/setting_view", admin_view: true, setting_id: "site_settings", setting_title: t("administrator.site_settings.subtitle") %>
       <% end %>
 
-      <%= render "shared/modals/delete_account_modal", delete_location: "/" %>
+      <%= render "shared/modals/delete_account_modal", delete_location: relative_root %>
     </div>
   </div>
 </div>

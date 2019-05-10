@@ -18,6 +18,6 @@
 
 module UsersHelper
   def recaptcha_enabled?
-    config.recaptcha_enabled
+    Rails.configuration.recaptcha_enabled
   end
 end

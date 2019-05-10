@@ -21,36 +21,89 @@ es_MX:
     attributes:
       user:
         accepted_terms: "Términos y condiciones"
+  administrator:
+    site_settings:
+      branding:
+        change: Cambiar imagen
+        info: Cambiar la imagen personalizada que aparece en la esquina superior izquierda
+        placeholder: Enlace de la imagen...
+        title: Imagen personalizada
+      color:
+        info: Cambiar el color principal utilizado en todo el sitio web
+        title: Color principal
+      subtitle: Personalizar Greenlight
+      title: Configuración del sitio web
+    flash:
+      banned: El usuario ha sido bloqueado.
+      unbanned: El usuario ha sido desbloqueado.
+      delete: El usuario ha sido eliminado.
+      delete_fail: El usuario no pudo ser eliminado.
+      demoted: El usuario ha sido degradado.
+      promoted: El usuario ha sido promovido.
+      unauthorized: No estas autorizado para ejecutar operaciones en este usuario.
+    title: Configuración de organización
+    users:
+      edit:
+        title: Editar detalles de usuario
+      settings:
+        ban: Bloquear usuario
+        delete: Eliminar
+        demote: Degradar usuario
+        edit: Editar
+        promote: Promover a administrador
+        unban: Desbloquear usuario
+      table:
+        authenticator: Autenificador
+        created: Creado
+        name: Nombre
+        not_found: No se encontraron usuarios con ese criterio
+        no_users: No se encontraron usuarios
+        role: Rol
+        uid: Identificador de usuario
+        username: Nombre de usuario
+      title: Administrar usuarios
   bigbluebutton: BigBlueButton
-  bigbluebutton_exception: Oh no! Ocurrió un error al iniciar la sesión
+  bigbluebutton_exception: Oh no! Ocurrió un error al iniciar la sesión.
   cancel: Cancelar
   cookies:
     cookie_info: "Las cookies nos ayudan a proveer nuestros servicios. Al utilizar nuestros servicios, usted acepta nuestro uso de cookies."
     cookie_button: Acepto
   copy: Copiar
+  default_admin: "Estas usilizando la contraseña por omisión para esta cuenta de usuario. Haz click <a href=\"%{edit_link}\">aquí </a> para cambiarla"
   delete: Eliminar
   delivery_error: Ocurrió un error durante el envío de correo electrónico. Por favor contacte un administrador.
   docs: Documentación
   email: Cuenta de correo
-  email_sent: El mensaje fue enviado! (Verifica tu carpeta de Spam sí no lo haz recibido)
+  email_sent: "Tu email de %{email_type} ha sido enviado. (Revisa tu carpeta de Spam sí no lo has recibido)"
   enter_your_name: Introduce tu nombre
   errors:
     internal:
       message: Oh no! Parece que algo falló de tu lado.
       help: "El error ha sido registrado, vamos a revisarlo."
     migration_error:
-      contact_admin: "Sí tu no eres administrador, contacta a uno."
+      contact_admin: "Sí no eres administrador, contacta a uno."
       continue: Me gustaría seguir utilizando la versión 1.0
       notice: >
         Greenlight encontro un error al migrar la base de datos. <br>Esto puede deberse a que no hás actualizado a Greenlight versión 2.0
       upgrade: Muestrame como actualizar a la verisión 2.0
       version: Hemos publicado una nueva version de Greenlight pero tu base de datos no es compatible.
+    messages:
+      blank: el valor no puede estar vacío
+      too_short: es demasiado corta
+      invalid: es invalida
+      taken: ya existe
+      accepted: debe ser aceptado
+      confirmation: "no conicide %{attribute}"
+      inclusion: no está incluido en la lista
     not_found:
-      message: Ups! parece que no podemos encontrarle
+      message: Oh no! parece que no podemos encontrarle.
       help: "¿Puede ser que haya sido eliminada?"
     title: Errores
+    unauthorized:
+      message: No tienes acceso a ésta aplicación
+      help: "Sí tu crees que este es un error, contacta al administrador del sistema"
     unprocessable:
-      message: "Ups!, La acción no puede ser procesada"
+      message: "Oh no!, La acción no puede ser procesada."
       help: Desafortunadamente esta no es una acción valida
   expired_reset_token: El enlace para reiniciar la contraseña ha expirado
   features:
@@ -68,11 +121,12 @@ es_MX:
   go_back: Atrás
   greenlight: Greenlight
   header:
-    create_room: Crear sala
+    all_recordings: Todas las grabaciones
     dropdown:
+      account_settings: Organización
       help: "¿Necesitas ayuda?"
-      home: Sala principal
-      settings: Configuración
+      home: Inicio
+      settings: Perfil de usuario
       signout: Salir
   home_room: Sala principal
   info_update_success: La información ha sido actualizada exitósamente
@@ -97,6 +151,7 @@ es_MX:
   language_default: Por omisión (idioma del navegador)
   ldap_error: No se puede conectar al servidor LDAP. Compruebe la configuración de LDAP en el archivo "env" y asegúrate de que tu servidor está ejecutándose.
   login: Ingresar
+  login_title: Ingresar a tu cuenta
   mailer:
     user:
       password_reset:
@@ -107,8 +162,9 @@ es_MX:
         expire: Este enlace expira en dos horas
         ignore: Puedes ignorar este mensaje sin preocupaciones sí no haz sido tu quien solicito el cambio de contraseña.
       verify_email:
-        welcome: "Bienvenido a %{bigbluebutton}, %{name}!"
-        success: "El registro de tu cuenta %{bigbluebutton} ha sido exitoso. Tu nombre de usuario es %{email}."
+        welcome: "Bienvenido a tu espacio personal %{name}"
+        success: "Haciendo uso de %{bigbluebutton}, puedes crear tus propias salas para sostener reuniones y colaborar con otros."
+        username: "Tu nombre de usuario es %{email}"
         verify: "Para verificar la cuenta, haz click en el botón que aparece abajo."
         verify_text: 'Utiliza este enlace para verificar tu cuenta: %{url}'
         verify_link: Verificar la cuenta de usuario
@@ -117,20 +173,21 @@ es_MX:
   modal:
     create_room:
       auto_join: Eniame a la sala automáticamente cuando empiece ls sesión
+      create: Crear sala
       free_delete: Podrás eliminar la sala en el momento que quieras
       name_placeholder: Introduce un nombre para la sala
       not_blank: El nombre de la sala no puede estar vacío
       title: Crear una sala nueva
     delete_account:
-      confirm: "¿Estás seguro de querer eliminar tu cuenta?"
-      delete: "Estoy seguro, elimina mi cuenta"
+      confirm: "¿Estas seguro de querer eliminar esta cuenta de usuario?"
+      delete: Estoy seguro de eliminar ésta cuenta
       keep: "De hecho, la conserbaré"
       warning: "Esta decisión es final, <b>No</b> podrás recuperar la información asociada"
     delete_room:
       confirm: "¿Estás seguro de querer eliminar %{room}?"
       delete: "Estoy seguro, elimina esta sala"
       keep: "Cambie de opinión, la conservaré"
-      warning: <b>No</b> podrás recuperar la sala ni las grabaciones asociadas
+      warning: "La recuperación de la sala o grabaciones asociadas a %{recordings_num} <b>no</b> sera posible."
     login:
       or: o
       with: "Ingresar con %{provider}"
@@ -150,6 +207,11 @@ es_MX:
   name_update_success: El nombre de la sala ha sido actualizado exitósamente
   no_user_email_exists: "No hay ningún usuario existente con el correo electrónico especificado. Por favor, asegúrese de que lo escribió correctamente."
   omniauth_error: Ocurrió un error al intentar ingresar utilizando OmniAuth. Por favor intente nuevamente o contacte un administrador.
+  pagy:
+    nav:
+      prev: "&lsaquo; Anterior"
+      next: "Siguiente &rsaquo;"
+      gap: "&hellip;"
   password: Contraseña
   password_empty_notice: La contraseña no puede estar vacía
   password_reset_success: La contraseña ha sido cambiada
@@ -158,7 +220,12 @@ es_MX:
     google: Google
     microsoft_office365: Office 365
     twitter: Twitter
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Oh no! La respuesta de tu reCAPTCHA falló. Intentalo de nuevo.
+      verification_failed: "La verificación reCAPTCHA ha falado, intentalo nuevamente."
   recording:
+    all_recordings: Todas las grabaciones
     email: Enviar correo electrónico con la grabación
     no_recordings: "Esta sala no tiene grabaciones %{inject}"
     no_user_recordings: No tienes grabaciones
@@ -182,7 +249,13 @@ es_MX:
     password: Nueva contraseña
     confirm: Confirmación de nueva contraseña
     update: Actualizar contraseña
+  roles:
+    administrator: Administrador
+    banned: Bloqueado
+    super_admin: Super Administrador
+    user: Usuario
   room:
+    create_room: Crear una sala
     create_room_error: Ocurrió un error al crear la sala
     create_room_success: La sala fue creada exitósamente
     invited: Hás sido invitado a ingresar
@@ -191,7 +264,7 @@ es_MX:
     last_session: "Última sesión en %{session}"
     owner: Dueño
     no_sessions: Esta sala todavía no tiene sesiones
-    recordings: Grabaciones
+    recordings: Grabaciones de sala
     sessions: Sesiones
     settings: Configuración de sala
     start: Iniciar
@@ -199,7 +272,7 @@ es_MX:
     update_settings_error: Ocurrió un error al actualizar la configuración de la sala
     update_settings_success: La configuración de la sala fue actualizada exitósamente
     wait:
-      message: Ups! L sesión todavía no dado inicio
+      message: Oh no! La sesión todavía no ha comenzado.
       auto: Serás enviado a la sala automáticamente cuando empiece ls sesión
   settings:
     account:
@@ -215,17 +288,14 @@ es_MX:
       disclaimer: "Sí elijes eliminar tu cuenta de usuario, <b>NO</b> podrá ser recuperada. Toda la información relacionada con tu cuenta, incluyendo configuración, salas y grabaciones, será eliminada."
       subtitle: Eliminar la cuenta de forma permanente
       title: Eliminar cuenta
-    design:
-      not_supported: Personalización no es soportada actualmente
-      subtitle: Personalizar Greenlight
-      title: Diseño
     password:
       confirmation: Confirmación de contraseña nueva
       new: Contraseña nueva
       old: Contraseña anterior
       subtitle: Cambiar tu contraseña
       title: Contraseña
-    title: Configuración
+    title: Perfil de usuario
+    search: Buscar
   signup:
     password_confirm: Confirmación de contraseña
     subtitle: Crear una cuenta
@@ -247,3 +317,4 @@ es_MX:
     resend: Reenviar enlace para verificación de cuenta de correo
     signin: "Ingresa para tener acceso a la información de tu cuenta "
     title: Verificar tu cuenta de correo
+    verification: Verificación
