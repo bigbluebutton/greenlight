@@ -97,6 +97,15 @@ describe RoomsController, type: :controller do
 
       expect(assigns(:name)).to eql("")
     end
+
+    it "redirects to admin if user is a super_admin" do
+      @request.session[:user_id] = @owner.id
+      @owner.add_role :super_admin
+
+      get :show, params: { room_uid: @owner.main_room, search: :none }
+
+      expect(response).to redirect_to(admins_path)
+    end
   end
 
   describe "POST #create" do

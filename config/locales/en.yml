@@ -173,7 +173,7 @@ en:
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!
   modal:
     create_room:
-      auto_join: Automatically join me into the room.
+      auto_join: Automatically join me into the room
       create: Create Room
       free_delete: You will be free to delete this room at any time.
       name_placeholder: Enter a room name...
