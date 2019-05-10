@@ -22,7 +22,7 @@
         <div class="input-group">
           <input id="branding-url" type="text" class="form-control" value="<%= logo_image %>">
           <span class="input-group-append">
-            <button onclick="changeBrandingImage('<%= admin_branding_path %>')" style="z-index:0" class="btn btn-primary" type="button"><%= t("administrator.site_settings.branding.change") %></button>
+            <button id="branding-image" onclick="changeBrandingImage('<%= admin_branding_path %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.branding.change") %></button>
           </span>
         </div>
       </div>
