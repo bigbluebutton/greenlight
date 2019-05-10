@@ -31,15 +31,32 @@ $(document).on('turbolinks:load', function(){
       $("#delete-confirm").parent().attr("action", url)
     })
 
-    // Change the color of the color inputs when the color is changed
-    $(".colorinput-input").change(function(data) {
-      // Get the color from the input
-      var color = $(data.target).val()
+    $('.colorinput').ColorPicker({
+      onHide: function (colpkr) {
+        var colour = $("#user-colour").val();
 
-      // Update the color in the database and reload the page
-      $.post($("#coloring-path").val(), {color: color}).done(function(data) {
-        location.reload()
-      });
+        // Update the color in the database and reload the page
+        $.post($("#coloring-path").val(), {color: colour}).done(function(data) {
+          location.reload()
+        });
+      },
+
+      onSubmit: function(hsb, hex, rgb, el) {
+        $.post($("#coloring-path").val(), {color: '#' + hex}).done(function(data) {
+          location.reload()
+        });
+      },
+      
+      onBeforeShow: function () {
+        var colour = $("#user-colour").val();
+
+        $(this).ColorPickerSetColor(colour);
+      },
+
+      onChange: function (hsb, hex, rgb) {
+        $('.colorinput span').css('backgroundColor', '#' + hex);
+        $("#user-colour").val('#' + hex);
+      }
     });
 
     // Submit search if the user hits enter
