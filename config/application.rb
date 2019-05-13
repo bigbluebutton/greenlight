@@ -111,5 +111,8 @@ module Greenlight
 
     # Whether the user has defined the variables required for recaptcha
     config.recaptcha_enabled = ENV['RECAPTCHA_SITE_KEY'].present? && ENV['RECAPTCHA_SECRET_KEY'].present?
+
+    # Show/hide "Add to Google Calendar" button in the room page
+    config.enable_google_calendar_button = (ENV['ENABLE_GOOGLE_CALENDAR_BUTTON'] == "true")
   end
 end

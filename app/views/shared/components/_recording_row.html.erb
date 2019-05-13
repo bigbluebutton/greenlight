@@ -39,7 +39,7 @@
       <% end %>
     </td>
   <% end %>
-  <td id="recording-length" class="text-left" data-full-length="<%=recording[:playbacks].first[:length]%>">
+  <td id="recording-length" class="text-left" data-full-length="<%= recording[:playbacks].empty? ? 0 : recording[:playbacks].first[:length]%>">
     <%= recording_length(recording[:playbacks]) %>
   </td>
   <td id="recording-users" class="text-left">
@@ -63,7 +63,7 @@
     </div>
   </td>
   <td>
-    <% sorted_formats =  recording[:playbacks].sort_by! {|p| p[:type]} %>
+    <% sorted_formats = recording[:playbacks].sort_by! { |p| p[:type] } %>
     <% sorted_formats.each do |p| %>
       <%= link_to t("recording.format.#{p[:type]}"), p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
     <% end %>
