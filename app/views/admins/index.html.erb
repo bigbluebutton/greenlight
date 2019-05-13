@@ -1,0 +1,42 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+<div class="container pt-6">
+  <%= render "shared/components/subtitle", subtitle: t("administrator.title"), search: false %>
+
+  <div class="row">
+    <div class="col-lg-3 mb-4">
+      <div class="list-group list-group-transparent mb-0">
+        <button id="users" class="list-group-item list-group-item-action setting-btn <%= "active" if !params[:setting] || params[:setting] == "users"%>">
+          <span class="icon mr-3"><i class="fas fa-users"></i></span><%= t("administrator.users.title") %>
+        </button>
+        <button id="site_settings" class="list-group-item list-group-item-action setting-btn <%= "active" if params[:setting] == "site_settings"%>">
+          <span class="icon mr-4"><i class="fas fa-cogs"></i></span><%= t("administrator.site_settings.title") %>
+        </button>
+      </div>
+    </div>
+
+
+    <div class="col-lg-9">
+      <% if defined?(setting_id) && setting_id == "account" %>
+        <%= render "shared/settings/setting_view", setting_id: "account", setting_title: t("administrator.users.edit.title") %>
+      <% else %>
+        <%= render "shared/settings/setting_view", admin_view: true, setting_id: "users", setting_title: t("administrator.users.title") %>
+        <%= render "shared/settings/setting_view", admin_view: true, setting_id: "site_settings", setting_title: t("administrator.site_settings.subtitle") %>
+      <% end %>
+
+      <%= render "shared/modals/delete_account_modal", delete_location: relative_root %>
+    </div>
+  </div>
+</div>

@@ -32,7 +32,10 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    
+
+    <!-- Primary color styling -->
+    <%= stylesheet_link_tag themes_primary_path %>
+
     <script type="text/javascript">
       // Rail-ish function to translate a string, according to the Rails locales
       window.t = function t(key) {
@@ -42,7 +45,7 @@
 
         var keys = key.split('.');
         var value = <%= current_translations.to_json.html_safe %>; // Add I18n variables
-        
+
         keys.forEach(key => {
           if (value) {
             value = value[key];
@@ -77,11 +80,9 @@
         </div>
       <% end %>
 
-      <%= yield %>
+      <%= render 'shared/flash_messages' unless flash.empty? %>
 
-      <% if current_user %>
-        <%= render "shared/modals/create_room_modal" %>
-      <% end %>
+      <%= yield %>
     </div>
 
     <%= render "shared/footer" %>

@@ -140,6 +140,22 @@ describe SessionsController, type: :controller do
       expect(@request.session[:user_id]).to eql(user.id)
       expect(response).to redirect_to(user.main_room)
     end
+
+    it "redirects to the admins page for admins" do
+      user = create(:user, provider: "greenlight",
+        password: "example", password_confirmation: 'example')
+      user.add_role :super_admin
+
+      post :create, params: {
+        session: {
+          email: user.email,
+          password: 'example',
+        },
+      }
+
+      expect(@request.session[:user_id]).to eql(user.id)
+      expect(response).to redirect_to(admins_path)
+    end
   end
 
   describe "GET/POST #omniauth" do

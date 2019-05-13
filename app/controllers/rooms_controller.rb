@@ -26,6 +26,7 @@ class RoomsController < ApplicationController
   before_action :verify_room_ownership, except: [:create, :show, :join, :logout]
   before_action :verify_room_owner_verified, only: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
+  before_action :verify_user_not_admin, only: [:show]
 
   # POST /
   def create
@@ -144,8 +145,8 @@ class RoomsController < ApplicationController
 
     begin
       redirect_to @room.join_path(current_user.name, opts, current_user.uid)
-    rescue BigBlueButton::BigBlueButtonException => exc
-      redirect_to room_path, alert: I18n.t(exc.key.to_s.underscore, default: I18n.t("bigbluebutton_exception"))
+    rescue BigBlueButton::BigBlueButtonException => e
+      redirect_to room_path, alert: I18n.t(e.key.to_s.underscore, default: I18n.t("bigbluebutton_exception"))
     end
 
     # Notify users that the room has started.
@@ -192,7 +193,7 @@ class RoomsController < ApplicationController
 
   def create_room_settings_string(mute_res, client_res)
     room_settings = {}
-    room_settings["muteOnStart"] = mute_res == "1" ? true : false
+    room_settings["muteOnStart"] = mute_res == "1"
 
     if client_res.eql? "html5"
       room_settings["joinViaHtml5"] = true
@@ -244,11 +245,15 @@ class RoomsController < ApplicationController
     unless @room.owner.activated?
       flash[:alert] = t("room.unavailable")
 
-      if current_user
+      if current_user && !@room.owned_by?(current_user)
         redirect_to current_user.main_room
       else
         redirect_to root_path
       end
     end
+  end
+
+  def verify_user_not_admin
+    redirect_to admins_path if current_user && current_user&.has_role?(:super_admin)
   end
 end

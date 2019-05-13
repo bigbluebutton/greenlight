@@ -17,4 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 module UsersHelper
+  def recaptcha_enabled?
+    Rails.configuration.recaptcha_enabled
+  end
 end

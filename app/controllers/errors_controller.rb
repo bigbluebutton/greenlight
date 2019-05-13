@@ -28,4 +28,8 @@ class ErrorsController < ApplicationController
   def internal_error
     render status: 500, formats: :html
   end
+
+  def unauthorized
+    render status: 401, formats: :html
+  end
 end

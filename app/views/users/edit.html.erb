@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="container pt-8">
+<div class="container pt-6">
   <%= render "shared/components/subtitle", subtitle: t("settings.title"), search: false %>
 
   <div class="row">
@@ -30,12 +30,6 @@
           </button>
         <% end %>
 
-        <% if Rails.configuration.allow_custom_branding %>
-          <button id="design" class="list-group-item list-group-item-action setting-btn <%= "active" if params[:setting] == "design"%>">
-            <span class="icon mr-3"><i class="fas fa-edit"></i></span><%= t("settings.design.title") %>
-          </button>
-        <% end %>
-
         <button id="delete" class="list-group-item list-group-item-action setting-btn <%= "active" if params[:setting] == "delete"%>">
           <span class="icon mr-3"><i class="fas fa-trash-alt"></i></span><%= t("settings.delete.title") %>
         </button>
@@ -49,10 +43,6 @@
         <% end %>
         </ul>
       <% end %>
-
-      <div class="mt-8">
-        <%= render 'shared/flash_messages' unless flash.empty? %>
-      </div>
     </div>
 
 
@@ -61,10 +51,6 @@
 
       <% if @user.social_uid.nil? %>
         <%= render "shared/settings/setting_view", setting_id: "password", setting_title: t("settings.password.subtitle") %>
-      <% end %>
-
-      <% if Rails.configuration.allow_custom_branding %>
-        <%= render "shared/settings/setting_view", setting_id: "design", setting_title: t("settings.design.subtitle") %>
       <% end %>
 
       <%= render "shared/settings/setting_view", setting_id: "delete", setting_title: t("settings.delete.subtitle") %>
