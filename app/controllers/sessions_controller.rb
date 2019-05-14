@@ -53,7 +53,7 @@ class SessionsController < ApplicationController
         user = User.from_omniauth(@auth)
         login(user)
       else
-        flash[:alert] = I18n.t("registration.invite.fail")
+        flash[:alert] = I18n.t("registration.invite.no_invite")
         redirect_to root_path
       end
     rescue => e
