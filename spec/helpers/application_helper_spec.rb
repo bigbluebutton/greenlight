@@ -65,15 +65,6 @@ describe ApplicationHelper do
       expect(helper.allow_greenlight_accounts?).to eql(false)
     end
 
-    it "allows if user_domain is white listed" do
-      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
-      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-
-      @user_domain = "provider1"
-
-      expect(helper.allow_greenlight_accounts?).to eql(true)
-    end
-
     it "allows if user provider is set to greenlight" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
