@@ -121,15 +121,16 @@ class Room < ApplicationRecord
   end
 
   # Fetches all recordings for a room.
-  def recordings
+  def recordings(search_params = {}, ret_search_params = false)
     res = bbb.get_recordings(meetingID: bbb_id)
 
-    format_recordings(res)
+    format_recordings(res, search_params, ret_search_params)
   end
 
   # Fetches a rooms public recordings.
-  def public_recordings
-    recordings.select { |r| r[:metadata][:"gl-listed"] == "true" }
+  def public_recordings(search_params = {}, ret_search_params = false)
+    search, order_col, order_dir, recs = recordings(search_params, ret_search_params)
+    [search, order_col, order_dir, recs.select { |r| r[:metadata][:"gl-listed"] == "true" }]
   end
 
   def update_recording(record_id, meta)
