@@ -62,12 +62,14 @@ de_DE:
         uid: Teilnehmer ID
         username: Teilnehmername
       title: Teilnehmer verwalten
+  add_to_google_calendar: "Zum Google Kalender hinzufügen"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: "Ups, beim Start der Konferenz ist ein Fehler aufgetreten!"
   cancel: Abbrechen
   cookies:
     cookie_info: Cookies helfen uns bei der Bereitstellung unserer Dienste. Durch die Nutzung der Dienste stimmen Sie der Nutzung von Cookies zu.
     cookie_button: Ich stimme zu
+  copied: Kopiert
   copy: Kopieren
   default_admin: "Sie verwenden immer noch das voreingestellte Passwort für diesen Account. Bitte klicken Sie  <a href=\"%{edit_link}\">hier</a> um es zu ändern"
   delete: Löschen
@@ -272,8 +274,8 @@ de_DE:
     update_settings_error: Bei der Aktualisierung der Raumeinstellungen ist ein Fehler aufgetreten.
     update_settings_success: Raumeinstellungen erfolgreich aktualisiert
     wait:
-      message: Ups! Die Konferenz hat noch nicht begonnen.
-      auto: "Sie treten der Konferenz automatisch bei, sobald Sie begonnen hat."
+      message: Die Konferenz hat noch nicht begonnen.
+      auto: "Sie treten der Konferenz automatisch bei, sobald sie begonnen hat."
   settings:
     account:
       fullname: Vollständiger Name
