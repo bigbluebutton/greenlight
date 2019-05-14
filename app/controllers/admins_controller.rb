@@ -68,7 +68,7 @@ class AdminsController < ApplicationController
   # POST /admins/color
   def coloring
     @settings.update_value("Primary Color", params[:color])
-    redirect_to admins_path(setting: "site_settings")
+    redirect_to admins_path
   end
 
   # POST /admins/ban/:user_uid
