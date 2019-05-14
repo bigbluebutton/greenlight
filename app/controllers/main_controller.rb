@@ -17,7 +17,10 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class MainController < ApplicationController
+  include Registrar
   # GET /
   def index
+    # Store invite token
+    session[:invite_token] = params[:invite_token] if params[:invite_token] && invite_registration
   end
 end

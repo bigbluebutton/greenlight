@@ -19,6 +19,7 @@
 require 'bigbluebutton_api'
 
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
   include SessionsHelper
   include ThemingHelper
 
@@ -84,7 +85,7 @@ class ApplicationController < ActionController::Base
   helper_method :recording_thumbnails?
 
   def allow_greenlight_users?
-    Rails.configuration.greenlight_accounts
+    allow_greenlight_accounts?
   end
   helper_method :allow_greenlight_users?
 

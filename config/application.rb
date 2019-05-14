@@ -97,15 +97,6 @@ module Greenlight
     # The maximum number of rooms included in one bbbapi call
     config.pagination_number = ENV['PAGINATION_NUMBER'].to_i.zero? ? 25 : ENV['PAGINATION_NUMBER'].to_i
 
-    # Default branding image if the user does not specify one
-    config.branding_image_default = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
-
-    # Default primary color if the user does not specify one
-    config.primary_color_default = "#467fcf"
-
-    # Default admin password
-    config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
-
     # Number of rows to display per page
     config.pagination_rows = ENV['NUMBER_OF_ROWS'].to_i.zero? ? 10 : ENV['NUMBER_OF_ROWS'].to_i
 
@@ -114,5 +105,22 @@ module Greenlight
 
     # Show/hide "Add to Google Calendar" button in the room page
     config.enable_google_calendar_button = (ENV['ENABLE_GOOGLE_CALENDAR_BUTTON'] == "true")
+
+    # Enum containing the different possible registration methods
+    config.registration_methods = { open: "0", invite: "1", approval: "2" }
+
+    # DEFAULTS
+
+    # Default branding image if the user does not specify one
+    config.branding_image_default = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
+
+    # Default primary color if the user does not specify one
+    config.primary_color_default = "#467fcf"
+
+    # Default registration method if the user does not specify one
+    config.registration_method_default = config.registration_methods[:open]
+
+    # Default admin password
+    config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
   end
 end

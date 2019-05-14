@@ -109,6 +109,34 @@ describe AdminsController, type: :controller do
         expect(response).to redirect_to(admins_path)
       end
     end
+
+    context "POST #invite" do
+      before do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(ApplicationController).to receive(:allow_greenlight_users?).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+      end
+
+      it "invites a user" do
+        @request.session[:user_id] = @admin.id
+        email = Faker::Internet.email
+        post :invite, params: { invite_user: { email: email } }
+
+        invite = Invitation.find_by(email: email, provider: "greenlight")
+
+        expect(invite.present?).to eq(true)
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(admins_path)
+      end
+
+      it "sends an invitation email" do
+        @request.session[:user_id] = @admin.id
+        email = Faker::Internet.email
+
+        params = { invite_user: { email: email } }
+        expect { post :invite, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
+    end
   end
 
   describe "User Design" do
@@ -125,7 +153,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Branding Image")
 
         expect(feature[:value]).to eq(fake_image_url)
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admins_path(setting: "site_settings"))
       end
     end
 
@@ -142,6 +170,37 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color")
 
         expect(feature[:value]).to eq(primary_color)
+        expect(response).to redirect_to(admins_path(setting: "site_settings"))
+      end
+    end
+
+    context "POST #registration_method" do
+      it "changes the registration method for the given context" do
+        allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+
+        post :registration_method, params: { method: "invite" }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Registration Method")
+
+        expect(feature[:value]).to eq(Rails.configuration.registration_methods[:invite])
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(admins_path(setting: "site_settings"))
+      end
+
+      it "does not allow the user to change to invite if emails are off" do
+        allow(Rails.configuration).to receive(:enable_email_verification).and_return(false)
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+
+        post :registration_method, params: { method: "invite" }
+
+        expect(flash[:alert]).to be_present
         expect(response).to redirect_to(admins_path(setting: "site_settings"))
       end
     end

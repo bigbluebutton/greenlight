@@ -17,4 +17,10 @@ class UserMailerPreview < ActionMailer::Preview
     url = "http://example.com" + "/u/verify/confirm/" + user.uid
     UserMailer.verify_email(user, url)
   end
+
+  # Preview this email at
+  # http://localhost:3000/rails/mailers/user_mailer/invite_email
+  def invite_email
+    UserMailer.invite_email("Example User", "from@example.com", "token", "http://example.com/signup")
+  end
 end

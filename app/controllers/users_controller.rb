@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   include RecordingsHelper
   include Pagy::Backend
   include Emailer
+  include Registrar
 
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create]
@@ -32,29 +33,20 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.provider = @user_domain
 
-    # Add validation errors to model if they exist
-    valid_user = @user.valid?
-    valid_captcha = Rails.configuration.recaptcha_enabled ? verify_recaptcha(model: @user) : true
+    # User or recpatcha is not valid
+    render(:new) && return unless valid_user_or_captcha
 
-    if valid_user && valid_captcha
-      @user.save
-    else
-      render(:new) && return
-    end
+    # User token is either invalid or expired
+    return redirect_to root_path, flash: { alert: I18n.t("registration.invite.fail") } unless passes_invite_reqs
 
-    # Sign in automatically if email verification is disabled.
-    login(@user) && return unless Rails.configuration.enable_email_verification
+    @user.save
 
-    # Start email verification and redirect to root.
-    begin
-      send_activation_email(@user)
-    rescue => e
-      logger.error "Error in email delivery: #{e}"
-      flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
-    else
-      flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
-    end
-    redirect_to(root_path)
+    # Sign in automatically if email verification is disabled or if user is already verified.
+    login(@user) && return if !Rails.configuration.enable_email_verification || @user.email_verified
+
+    send_verification
+
+    redirect_to root_path
   end
 
   # GET /signin
@@ -63,11 +55,16 @@ class UsersController < ApplicationController
 
   # GET /signup
   def new
-    if Rails.configuration.allow_user_signup
-      @user = User.new
-    else
-      redirect_to root_path
+    return redirect_to root_path unless Rails.configuration.allow_user_signup
+
+    # Check if the user needs to be invited
+    if invite_registration
+      redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless params[:invite_token]
+
+      session[:invite_token] = params[:invite_token]
     end
+
+    @user = User.new
   end
 
   # GET /u/:user_uid/edit
@@ -173,5 +170,35 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :image, :password, :password_confirmation,
       :new_password, :provider, :accepted_terms, :language)
+  end
+
+  def send_verification
+    # Start email verification and redirect to root.
+    begin
+      send_activation_email(@user)
+    rescue => e
+      logger.error "Error in email delivery: #{e}"
+      flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
+    else
+      flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
+    end
+  end
+
+  # Add validation errors to model if they exist
+  def valid_user_or_captcha
+    valid_user = @user.valid?
+    valid_captcha = Rails.configuration.recaptcha_enabled ? verify_recaptcha(model: @user) : true
+
+    valid_user && valid_captcha
+  end
+
+  # Checks if the user passes the requirements to be invited
+  def passes_invite_reqs
+    # check if user needs to be invited and IS invited
+    invitation = check_user_invited(@user.email, session[:invite_token], @user_domain)
+
+    @user.email_verified = true if invitation[:verified]
+
+    invitation[:present]
   end
 end

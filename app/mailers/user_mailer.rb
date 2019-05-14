@@ -34,4 +34,13 @@ class UserMailer < ApplicationMailer
     @color = color
     mail to: user.email, subject: t('reset_password.subtitle')
   end
+
+  def invite_email(name, email, url, image, color)
+    @name = name
+    @email = email
+    @url = url
+    @image = image
+    @color = color
+    mail to: email, subject: t('mailer.user.invite.subject')
+  end
 end

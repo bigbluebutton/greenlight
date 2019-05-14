@@ -18,10 +18,11 @@
 
 class AdminsController < ApplicationController
   include Pagy::Backend
+  include Emailer
   authorize_resource class: false
   before_action :find_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
   before_action :verify_admin_of_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
-  before_action :find_setting, only: [:branding, :coloring]
+  before_action :find_setting, only: [:branding, :coloring, :registration_method]
 
   # GET /admins
   def index
@@ -42,6 +43,8 @@ class AdminsController < ApplicationController
     end
   end
 
+  # MANAGE USERS
+
   # GET /admins/edit/:user_uid
   def edit_user
     render "admins/index", locals: { setting_id: "account" }
@@ -59,18 +62,6 @@ class AdminsController < ApplicationController
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.demoted") }
   end
 
-  # POST /admins/branding
-  def branding
-    @settings.update_value("Branding Image", params[:url])
-    redirect_to admins_path
-  end
-
-  # POST /admins/color
-  def coloring
-    @settings.update_value("Primary Color", params[:color])
-    redirect_to admins_path(setting: "site_settings")
-  end
-
   # POST /admins/ban/:user_uid
   def ban_user
     @user.add_role :denied
@@ -81,6 +72,53 @@ class AdminsController < ApplicationController
   def unban_user
     @user.remove_role :denied
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.unbanned") }
+  end
+
+  # POST /admins/invite
+  def invite
+    email = params[:invite_user][:email]
+
+    begin
+      invitation = create_or_update_invite(email)
+
+      send_invitation_email(current_user.name, email, invitation.invite_token)
+    rescue => e
+      logger.error "Error in email delivery: #{e}"
+      flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
+    else
+      flash[:success] = I18n.t("administrator.flash.invite", email: email)
+    end
+
+    redirect_to admins_path
+  end
+
+  # SITE SETTINGS
+
+  # POST /admins/branding
+  def branding
+    @settings.update_value("Branding Image", params[:url])
+    redirect_to admins_path(setting: "site_settings")
+  end
+
+  # POST /admins/color
+  def coloring
+    @settings.update_value("Primary Color", params[:color])
+    redirect_to admins_path(setting: "site_settings")
+  end
+
+  # POST /admins/registration_method/:method
+  def registration_method
+    new_method = Rails.configuration.registration_methods[params[:method].to_sym]
+
+    # Only allow change to Join by Invitation if user has emails enabled
+    if !Rails.configuration.enable_email_verification && new_method == Rails.configuration.registration_methods[:invite]
+      redirect_to admins_path(setting: "site_settings"),
+        flash: { alert: I18n.t("administrator.flash.invite_email_verification") }
+    else
+      @settings.update_value("Registration Method", new_method)
+      redirect_to admins_path(setting: "site_settings"),
+        flash: { success: I18n.t("administrator.flash.registration_method_updated") }
+    end
   end
 
   private
@@ -96,5 +134,21 @@ class AdminsController < ApplicationController
   def verify_admin_of_user
     redirect_to admins_path,
       flash: { alert: I18n.t("administrator.flash.unauthorized") } unless current_user.admin_of?(@user)
+  end
+
+  # Creates the invite if it doesn't exist, or updates the updated_at time if it does
+  def create_or_update_invite(email)
+    invite = Invitation.find_by(email: email, provider: @user_domain)
+
+    # Invite already exists
+    if invite.present?
+      # Updates updated_at to now
+      invite.touch
+    else
+      # Creates invite
+      invite = Invitation.create(email: email, provider: @user_domain)
+    end
+
+    invite
   end
 end

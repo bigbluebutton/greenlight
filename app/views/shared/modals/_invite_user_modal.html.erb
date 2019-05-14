@@ -1,0 +1,44 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <div class="card-body p-6">
+          <div class="card-title">
+            <h3><%= t("modal.invite_user.title") %></h3>
+          </div>
+
+          <%= form_for(:invite_user, url: invite_user_path) do |f| %>
+            <div class="input-icon mb-2">
+              <span class="input-icon-addon">
+                <i class="fas fa-envelope"></i>
+              </span>
+              <%= f.text_field :email, class: "form-control", value: "", placeholder: t("modal.invite_user.email_placeholder"), autocomplete: :off %>
+              <div class="invalid-feedback text-left"><%= t("modal.invite_user.not_blank") %></div>
+            </div>
+          <div class="mt-4">
+            <%= f.submit t("modal.invite_user.send"), class:"btn btn-primary btn-block" %>
+          </div>
+          <% end %>
+        </div>
+        <div class="card-footer">
+          <p><%= t("modal.invite_user.footer") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

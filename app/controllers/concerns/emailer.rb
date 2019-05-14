@@ -31,12 +31,26 @@ module Emailer
     UserMailer.password_reset(@user, reset_link, logo_image, user_color).deliver_now
   end
 
+  # Sends inivitation to join
+  def send_invitation_email(name, email, token)
+    @token = token
+    UserMailer.invite_email(name, email, invitation_link, logo_image, user_color).deliver
+  end
+
   # Returns the link the user needs to click to verify their account
   def user_verification_link
-    request.base_url + edit_account_activation_path(token: @user.activation_token, email: @user.email)
+    edit_account_activation_url(token: @user.activation_token, email: @user.email)
   end
 
   def reset_link
-    request.base_url + edit_password_reset_path(@user.reset_token, email: @user.email)
+    edit_password_reset_url(@user.reset_token, email: @user.email)
+  end
+
+  def invitation_link
+    if Rails.configuration.loadbalanced_configuration && !allow_greenlight_users?
+      root_url(invite_token: @token)
+    else
+      signup_url(invite_token: @token)
+    end
   end
 end
