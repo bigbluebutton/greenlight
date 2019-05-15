@@ -164,6 +164,11 @@ en:
         reset_link: Reset Password
         expire: This link will expire in two hours.
         ignore: You can safely ignore this email if you did not request a password reset.
+      promoted:
+        admins_link: Visit the Organization Page
+        info: You are now an administrator on %{url}.
+        more-info: As an administrator, you can manage users, their role and configure your site settings by changing the logo and brand colour.
+        subtitle: Administrator Rights Granted
       verify_email:
         welcome: Welcome to your personal space, %{name}!
         success: Leveraging %{bigbluebutton}, you can create your own rooms to host sessions and collaborate with others.

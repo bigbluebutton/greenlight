@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+<%
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
 #
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
@@ -15,31 +14,13 @@
 #
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
 
-class UserMailer < ApplicationMailer
-  default from: Rails.configuration.smtp_sender
 
-  def verify_email(user, url, image, color)
-    @user = user
-    @url = url
-    @image = image
-    @color = color
-    mail(to: @user.email, subject: t('landing.welcome'))
-  end
+<%= t('mailer.user.promoted.subtitle') %>
 
-  def password_reset(user, url, image, color)
-    @user = user
-    @url = url
-    @image = image
-    @color = color
-    mail to: user.email, subject: t('reset_password.subtitle')
-  end
+<%= t('mailer.user.promoted.info', url: @url) %>
 
-  def user_promoted(user, url, image, color)
-    @url = url
-    @admin_url = url + "admins"
-    @image = image
-    @color = color
-    mail to: user.email, subject: t('mailer.user.promoted.subtitle')
-  end
-end
+<%= t('mailer.user.promoted.more-info') %>
+
+<%= @admin_url %>

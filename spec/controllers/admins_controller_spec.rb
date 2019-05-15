@@ -64,6 +64,14 @@ describe AdminsController, type: :controller do
         expect(flash[:success]).to be_present
         expect(response).to redirect_to(admins_path)
       end
+
+      it "sends an email to the user being promoted" do
+        @request.session[:user_id] = @admin.id
+
+        params = { user_uid: @user.uid }
+
+        expect { post :promote, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
     end
 
     context "POST #demote" do

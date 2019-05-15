@@ -18,6 +18,8 @@
 
 class AdminsController < ApplicationController
   include Pagy::Backend
+  include Emailer
+
   authorize_resource class: false
   before_action :find_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
   before_action :verify_admin_of_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
@@ -50,6 +52,9 @@ class AdminsController < ApplicationController
   # POST /admins/promote/:user_uid
   def promote
     @user.add_role :admin
+
+    send_user_promoted_email(@user)
+
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.promoted") }
   end
 
