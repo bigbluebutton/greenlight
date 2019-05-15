@@ -25,9 +25,9 @@ zh_CN:
     site_settings:
       branding:
         change: 修改品牌形象
-        info: 更改左上角显示的品牌形象
+        info: 更改左上角显示的网站标志
         placeholder: 品牌形象URL地址
-        title: 品牌形象
+        title: 网站标志
       color:
         info: 更改整个网站使用的主颜色
         title: 主颜色
@@ -54,7 +54,7 @@ zh_CN:
         unban: 取消禁止用户
       table:
         authenticator: 认证方式
-        created: Created
+        created: 创建于
         name: 名字
         not_found: 没有与您的搜索匹配的用户
         no_users: 没有找到用户
@@ -62,12 +62,14 @@ zh_CN:
         uid: 用户ID
         username: 用户名
       title: 管理用户
+  add_to_google_calendar: "添加到谷歌日历"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: 哎呀，启动会议出错！
   cancel: 取消
   cookies:
     cookie_info: Cookies帮助我们提供服务。您同意我们使用cookies才能使用这些服务。
     cookie_button: 我同意
+  copied: Copied
   copy: 复制
   default_admin: "您仍在使用此帐户的默认密码。 请点击 <a href=\"%{edit_link}\">这里</a> 修改。"
   delete: 删除
@@ -143,7 +145,7 @@ zh_CN:
         footer: 'BigBlueButton是一个开源的Web会议系统。有关BigBlueButton的更多信息，请参阅https://bigBlueButton.org/。'
   landing:
     about: "%{href} 是开源Web会议服务器BigBluebutton的简易前端。我们可以创建并主持会议，或通过链接加入其他会议。"
-    welcome: 欢迎使用BigBlueButton
+    welcome: 欢迎来到BigBlueButton在线会议系统
     video: 请看使用说明
     upgrade: 告诉我怎么升级到 2.0!
     version: 我们发布了新版Greenlight，但你的数据库不兼容。
@@ -172,7 +174,7 @@ zh_CN:
   max_concurrent: 已达到允许的最大并发会话数！
   modal:
     create_room:
-      auto_join: 自动加入此会议室
+      auto_join: 自动进入此房间
       create: 创建会议室
       free_delete: 任何时候都可以删除这个会议室
       name_placeholder: 这里请输入会议室名称...
