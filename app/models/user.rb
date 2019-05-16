@@ -111,8 +111,8 @@ class User < ApplicationRecord
       "created_at"
     end
 
-    search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
-                   " OR users.#{created_at_query} LIKE :search OR provider LIKE :search"
+    search_query = "name LIKE :search OR email LIKE :search OR username LIKE :search" \
+                   " OR #{created_at_query} LIKE :search OR provider LIKE :search"
     search_param = "%#{string}%"
     where(search_query, search: search_param)
   end

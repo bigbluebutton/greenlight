@@ -41,6 +41,8 @@ module Emailer
     UserMailer.approve_user(user, root_path, logo_image, user_color).deliver_now
   end
 
+  private
+
   # Returns the link the user needs to click to verify their account
   def user_verification_link
     edit_account_activation_url(token: @user.activation_token, email: @user.email)
