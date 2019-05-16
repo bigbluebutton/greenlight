@@ -53,10 +53,10 @@ module Emailer
   end
 
   def invitation_link
-    if Rails.configuration.loadbalanced_configuration && !allow_greenlight_users?
-      root_url(invite_token: @token)
-    else
+    if allow_greenlight_users?
       signup_url(invite_token: @token)
+    else
+      root_url(invite_token: @token)
     end
   end
 end

@@ -140,10 +140,10 @@ class ApplicationController < ActionController::Base
   def check_user_role
     if current_user&.has_role? :denied
       session.delete(:user_id)
-      redirect_to unauthorized_path
+      redirect_to root_path, flash: { alert: I18n.t("registration.banned.fail") }
     elsif current_user&.has_role? :pending
       session.delete(:user_id)
-      redirect_to unauthorized_path(status: "pending")
+      redirect_to root_path, flash: { alert: I18n.t("registration.approval.fail") }
     end
   end
   helper_method :check_user_role

@@ -30,14 +30,6 @@ class ErrorsController < ApplicationController
   end
 
   def unauthorized
-    if params[:status] == "pending"
-      @message = I18n.t("errors.unauthorized.pending.message")
-      @help = I18n.t("errors.unauthorized.pending.help")
-    else
-      @message = I18n.t("errors.unauthorized.message")
-      @help = I18n.t("errors.unauthorized.help")
-    end
-
     render status: 401, formats: :html
   end
 end

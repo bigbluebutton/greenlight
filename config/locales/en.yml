@@ -117,9 +117,7 @@ en:
     unauthorized:
       message: You do not have access to this application
       help: If you believe this is a mistake, please contact your system administrator.
-      pending:
-        message: Your account has not been approved yet
-        help: If multiple days have passed, please contact your system administrator.
+
     unprocessable:
       message: Oops! Request is unprocessable.
       help: Unfortunately this isn't a valid request.
@@ -279,6 +277,10 @@ en:
     format:
       presentation: Presentation
   registration:
+    approval: 
+      fail: Your account has not been approved yet. If multiples days has passed since you signed up, please contact your administrator.
+    banned:
+      fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator. 
     invite:
       fail: Your token is either invalid or has expired. If you believe this is a mistake, please contact your administrator.
       no_invite: You do not have an invitation to join. Please contact your administrator to receive one.
