@@ -38,7 +38,7 @@ module Emailer
   end
 
   def send_user_approved_email(user)
-    UserMailer.approve_user(user, root_path, logo_image, user_color).deliver_now
+    UserMailer.approve_user(user, root_url, logo_image, user_color).deliver_now
   end
 
   private

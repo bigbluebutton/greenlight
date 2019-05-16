@@ -175,7 +175,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Branding Image")
 
         expect(feature[:value]).to eq(fake_image_url)
-        expect(response).to redirect_to(admins_path(setting: "site_settings"))
+        expect(response).to redirect_to(admins_path)
       end
     end
 
@@ -192,7 +192,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admins_path(setting: "site_settings"))
+        expect(response).to redirect_to(admins_path)
       end
     end
 
@@ -210,7 +210,7 @@ describe AdminsController, type: :controller do
 
         expect(feature[:value]).to eq(Rails.configuration.registration_methods[:invite])
         expect(flash[:success]).to be_present
-        expect(response).to redirect_to(admins_path(setting: "site_settings"))
+        expect(response).to redirect_to(admins_path)
       end
 
       it "does not allow the user to change to invite if emails are off" do
@@ -223,7 +223,7 @@ describe AdminsController, type: :controller do
         post :registration_method, params: { method: "invite" }
 
         expect(flash[:alert]).to be_present
-        expect(response).to redirect_to(admins_path(setting: "site_settings"))
+        expect(response).to redirect_to(admins_path)
       end
     end
   end

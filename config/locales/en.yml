@@ -278,7 +278,8 @@ en:
       presentation: Presentation
   registration:
     approval: 
-      fail: Your account has not been approved yet. If multiples days has passed since you signed up, please contact your administrator.
+      fail: Your account has not been approved yet. If multiples days have passed since you signed up, please contact your administrator.
+      signup: Your account was successfully created. It has been sent to an administrator for approval.
     banned:
       fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator. 
     invite:

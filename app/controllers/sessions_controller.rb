@@ -51,17 +51,17 @@ class SessionsController < ApplicationController
       @user_exists = check_user_exists
 
       # If using invitation registration method, make sure user is invited
-      if passes_invite_reqs
-        user = User.from_omniauth(@auth)
+      return redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless passes_invite_reqs
 
-        # Add pending role if approval method and is a new user
-        user.add_role :pending if approval_registration && !@user_exists
+      user = User.from_omniauth(@auth)
 
-        login(user)
-      else
-        flash[:alert] = I18n.t("registration.invite.no_invite")
-        redirect_to root_path
+      # Add pending role if approval method and is a new user
+      if approval_registration && !@user_exists
+        user.add_role :pending
+        return redirect_to root_path, flash: { success: I18n.t("registration.approval.signup") }
       end
+
+      login(user)
     rescue => e
         logger.error "Error authenticating via omniauth: #{e}"
         omniauth_fail

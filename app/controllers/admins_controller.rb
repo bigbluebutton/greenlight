@@ -101,13 +101,13 @@ class AdminsController < ApplicationController
   # POST /admins/branding
   def branding
     @settings.update_value("Branding Image", params[:url])
-    redirect_to admins_path(setting: "site_settings")
+    redirect_to admins_path
   end
 
   # POST /admins/color
   def coloring
     @settings.update_value("Primary Color", params[:color])
-    redirect_to admins_path(setting: "site_settings")
+    redirect_to admins_path
   end
 
   # POST /admins/registration_method/:method
@@ -116,11 +116,11 @@ class AdminsController < ApplicationController
 
     # Only allow change to Join by Invitation if user has emails enabled
     if !Rails.configuration.enable_email_verification && new_method == Rails.configuration.registration_methods[:invite]
-      redirect_to admins_path(setting: "site_settings"),
+      redirect_to admins_path,
         flash: { alert: I18n.t("administrator.flash.invite_email_verification") }
     else
       @settings.update_value("Registration Method", new_method)
-      redirect_to admins_path(setting: "site_settings"),
+      redirect_to admins_path,
         flash: { success: I18n.t("administrator.flash.registration_method_updated") }
     end
   end
