@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+<%
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
 #
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
@@ -15,29 +14,14 @@
 #
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
 
-class ErrorsController < ApplicationController
-  def not_found
-    render status: 404, formats: :html
-  end
+<%= t('mailer.user.approve.subject') %>
 
-  def unprocessable
-    render status: 422, formats: :html
-  end
+<%= t('mailer.user.approve.info') %>
 
-  def internal_error
-    render status: 500, formats: :html
-  end
+<%= t('mailer.user.approve.username', email: @user.email) %>
 
-  def unauthorized
-    if params[:status] == "pending"
-      @message = I18n.t("errors.unauthorized.pending.message")
-      @help = I18n.t("errors.unauthorized.pending.help")
-    else
-      @message = I18n.t("errors.unauthorized.message")
-      @help = I18n.t("errors.unauthorized.help")
-    end
+<%= t('mailer.user.approve.signin') %>
 
-    render status: 401, formats: :html
-  end
-end
+<%= @url %>

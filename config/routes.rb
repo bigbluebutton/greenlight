@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     post '/unban/:user_uid', to: 'admins#unban_user', as: :admin_unban
     post '/invite', to: 'admins#invite', as: :invite_user
     post '/registration_method/:method', to: 'admins#registration_method', as: :admin_change_registration
+    post '/approve/:user_uid', to: 'admins#approve', as: :admin_approve
   end
 
   scope '/themes' do

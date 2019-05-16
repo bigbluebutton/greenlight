@@ -46,11 +46,17 @@ class SessionsController < ApplicationController
 
   # GET/POST /auth/:provider/callback
   def omniauth
-    # If using invitation registration method, make sure user is invited
     begin
       @auth = request.env['omniauth.auth']
+      @user_exists = check_user_exists
+
+      # If using invitation registration method, make sure user is invited
       if passes_invite_reqs
         user = User.from_omniauth(@auth)
+
+        # Add pending role if approval method and is a new user
+        user.add_role :pending if approval_registration && !@user_exists
+
         login(user)
       else
         flash[:alert] = I18n.t("registration.invite.no_invite")
@@ -73,12 +79,14 @@ class SessionsController < ApplicationController
     params.require(:session).permit(:email, :password)
   end
 
+  def check_user_exists
+    provider = @auth['provider'] == "bn_launcher" ? @auth['info']['customer'] : @auth['provider']
+    User.exists?(social_uid: @auth['uid'], provider: provider)
+  end
+
   # Check if the user already exists, if not then check for invitation
   def passes_invite_reqs
-    provider = @auth['provider'] == "bn_launcher" ? @auth['info']['customer'] : @auth['provider']
-    user_exists = User.exists?(social_uid: @auth['uid'], provider: provider)
-
-    return true if user_exists
+    return true if @user_exists
 
     invitation = check_user_invited("", session[:invite_token], @user_domain)
     invitation[:present]

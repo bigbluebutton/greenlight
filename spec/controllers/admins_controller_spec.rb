@@ -137,6 +137,28 @@ describe AdminsController, type: :controller do
         expect { post :invite, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
     end
+
+    context "POST #approve" do
+      it "approves a pending user" do
+        @request.session[:user_id] = @admin.id
+
+        @user.add_role :pending
+
+        post :approve, params: { user_uid: @user.uid }
+
+        expect(@user.has_role?(:pending)).to eq(false)
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(admins_path)
+      end
+
+      it "sends the user an email telling them theyre approved" do
+        @request.session[:user_id] = @admin.id
+
+        @user.add_role :pending
+        params = { user_uid: @user.uid }
+        expect { post :approve, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
+    end
   end
 
   describe "User Design" do

@@ -19,10 +19,14 @@
 class AdminsController < ApplicationController
   include Pagy::Backend
   include Emailer
+
+  manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve]
+  site_settings = [:branding, :coloring, :registration_method]
+
   authorize_resource class: false
-  before_action :find_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
-  before_action :verify_admin_of_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
-  before_action :find_setting, only: [:branding, :coloring, :registration_method]
+  before_action :find_user, only: manage_users
+  before_action :verify_admin_of_user, only: manage_users
+  before_action :find_setting, only: site_settings
 
   # GET /admins
   def index
@@ -30,17 +34,7 @@ class AdminsController < ApplicationController
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
 
-    if Rails.configuration.loadbalanced_configuration
-      @pagy, @users = pagy(User.without_role(:super_admin)
-                  .where(provider: user_settings_provider)
-                  .where.not(id: current_user.id)
-                  .admins_search(@search)
-                  .admins_order(@order_column, @order_direction))
-    else
-      @pagy, @users = pagy(User.where.not(id: current_user.id)
-                      .admins_search(@search)
-                      .admins_order(@order_column, @order_direction))
-    end
+    @pagy, @users = pagy(user_list)
   end
 
   # MANAGE USERS
@@ -64,6 +58,7 @@ class AdminsController < ApplicationController
 
   # POST /admins/ban/:user_uid
   def ban_user
+    @user.remove_role :pending if @user.has_role? :pending
     @user.add_role :denied
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.banned") }
   end
@@ -72,6 +67,15 @@ class AdminsController < ApplicationController
   def unban_user
     @user.remove_role :denied
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.unbanned") }
+  end
+
+  # POST /admins/approve/:user_uid
+  def approve
+    @user.remove_role :pending
+
+    send_user_approved_email(@user)
+
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.approved") }
   end
 
   # POST /admins/invite
@@ -134,6 +138,21 @@ class AdminsController < ApplicationController
   def verify_admin_of_user
     redirect_to admins_path,
       flash: { alert: I18n.t("administrator.flash.unauthorized") } unless current_user.admin_of?(@user)
+  end
+
+  # Gets the list of users based on your configuration
+  def user_list
+    if Rails.configuration.loadbalanced_configuration
+      User.without_role(:super_admin)
+          .where(provider: user_settings_provider)
+          .where.not(id: current_user.id)
+          .admins_search(@search)
+          .admins_order(@order_column, @order_direction)
+    else
+      User.where.not(id: current_user.id)
+          .admins_search(@search)
+          .admins_order(@order_column, @order_direction)
+    end
   end
 
   # Creates the invite if it doesn't exist, or updates the updated_at time if it does

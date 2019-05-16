@@ -34,7 +34,11 @@ module Emailer
   # Sends inivitation to join
   def send_invitation_email(name, email, token)
     @token = token
-    UserMailer.invite_email(name, email, invitation_link, logo_image, user_color).deliver
+    UserMailer.invite_email(name, email, invitation_link, logo_image, user_color).deliver_now
+  end
+
+  def send_user_approved_email(user)
+    UserMailer.approve_user(user, root_path, logo_image, user_color).deliver_now
   end
 
   # Returns the link the user needs to click to verify their account

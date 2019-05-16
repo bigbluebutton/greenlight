@@ -36,9 +36,13 @@ class UsersController < ApplicationController
     # User or recpatcha is not valid
     render(:new) && return unless valid_user_or_captcha
 
-    # User token is either invalid or expired
+    # Redirect to root if user token is either invalid or expired
     return redirect_to root_path, flash: { alert: I18n.t("registration.invite.fail") } unless passes_invite_reqs
 
+    # Set user to pending if Approval Registration is set
+    @user.add_role :pending if approval_registration
+
+    # User has passed all validations required
     @user.save
 
     # Sign in automatically if email verification is disabled or if user is already verified.

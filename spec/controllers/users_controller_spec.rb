@@ -235,6 +235,35 @@ describe UsersController, type: :controller do
           expect(response).to redirect_to(root_path)
         end
       end
+
+      context "enable approval registration" do
+        before do
+          allow_any_instance_of(Registrar).to receive(:approval_registration).and_return(true)
+          allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
+        end
+
+        it "allows any user to sign up" do
+          allow(Rails.configuration).to receive(:enable_email_verification).and_return(false)
+
+          params = random_valid_user_params
+
+          post :create, params: params
+
+          expect(User.exists?(name: params[:user][:name], email: params[:user][:email])).to eq(true)
+        end
+
+        it "sets the user to pending on sign up" do
+          allow(Rails.configuration).to receive(:enable_email_verification).and_return(false)
+
+          params = random_valid_user_params
+
+          post :create, params: params
+
+          u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+
+          expect(u.has_role?(:pending)).to eq(true)
+        end
+      end
     end
 
     it "redirects to main room if already authenticated" do

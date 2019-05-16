@@ -41,6 +41,7 @@ en:
       subtitle: Customize Greenlight
       title: Site Settings
     flash:
+      approved: User has been successfully approved.
       banned: User has been successfully banned.
       unbanned: User has been successfully unbanned.
       delete: User deleted successfully
@@ -116,6 +117,9 @@ en:
     unauthorized:
       message: You do not have access to this application
       help: If you believe this is a mistake, please contact your system administrator.
+      pending:
+        message: Your account has not been approved yet
+        help: If multiple days have passed, please contact your system administrator.
     unprocessable:
       message: Oops! Request is unprocessable.
       help: Unfortunately this isn't a valid request.
@@ -168,6 +172,12 @@ en:
   login_title: Sign in to your account
   mailer:
     user:
+      approve:
+        info: Your account has been approved.
+        signin: To access your personal rooms, click the button below and sign in.
+        signin_link: Sign In
+        subject: Account Approved
+        username: Your username is %{email}.
       invite:
         info: You have been invited to your own personal space by %{name}
         signup: To signup using your email, click the button below and follow the steps.
@@ -281,6 +291,7 @@ en:
   roles:
     administrator: Administrator
     banned: Banned
+    pending: Pending
     super_admin: Super Admin
     user: User
   room:

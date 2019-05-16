@@ -28,7 +28,11 @@ module AdminsHelper
   end
 
   def invite_registration
-     registration_method == Rails.configuration.registration_methods[:invite]
+    registration_method == Rails.configuration.registration_methods[:invite]
+  end
+
+  def approval_registration
+    registration_method == Rails.configuration.registration_methods[:approval]
   end
 
   def registration_method_string

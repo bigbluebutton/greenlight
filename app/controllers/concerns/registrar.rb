@@ -24,11 +24,11 @@ module Registrar
   end
 
   def open_registration
-     registration_method == Rails.configuration.registration_methods[:invite]
+     registration_method == Rails.configuration.registration_methods[:open]
   end
 
   def approval_registration
-     registration_method == Rails.configuration.registration_methods[:invite]
+     registration_method == Rails.configuration.registration_methods[:approval]
   end
 
   def invite_registration
