@@ -250,6 +250,8 @@ describe UsersController, type: :controller do
           post :create, params: params
 
           expect(User.exists?(name: params[:user][:name], email: params[:user][:email])).to eq(true)
+          expect(flash[:success]).to be_present
+          expect(response).to redirect_to(root_path)
         end
 
         it "sets the user to pending on sign up" do

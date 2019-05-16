@@ -45,7 +45,9 @@ class UsersController < ApplicationController
     # Set user to pending and redirect if Approval Registration is set
     if approval_registration
       @user.add_role :pending
-      return redirect_to root_path, flash: { success: I18n.t("registration.approval.signup") }
+
+      return redirect_to root_path,
+        flash: { success: I18n.t("registration.approval.signup") } unless Rails.configuration.enable_email_verification
     end
 
     # Sign in automatically if email verification is disabled or if user is already verified.
