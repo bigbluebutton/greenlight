@@ -142,7 +142,37 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admins_path(setting: "site_settings"))
+        expect(response).to redirect_to(admins_path)
+      end
+
+      it "changes the primary-lighten on the page" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+        primary_color = "#000000"
+
+        post :coloring_lighten, params: { color: primary_color }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color Lighten")
+
+        expect(feature[:value]).to eq(primary_color)
+        expect(response).to redirect_to(admins_path)
+      end
+
+      it "changes the primary-darken on the page" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+        primary_color = "#000000"
+
+        post :coloring_darken, params: { color: primary_color }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color Darken")
+
+        expect(feature[:value]).to eq(primary_color)
+        expect(response).to redirect_to(admins_path)
       end
     end
   end

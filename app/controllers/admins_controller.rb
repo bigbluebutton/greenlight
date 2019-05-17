@@ -17,11 +17,12 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class AdminsController < ApplicationController
+  include Themer
   include Pagy::Backend
   authorize_resource class: false
   before_action :find_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
   before_action :verify_admin_of_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
-  before_action :find_setting, only: [:branding, :coloring]
+  before_action :find_setting, only: [:branding, :coloring, :coloring_lighten, :coloring_darken]
 
   # GET /admins
   def index
@@ -68,7 +69,19 @@ class AdminsController < ApplicationController
   # POST /admins/color
   def coloring
     @settings.update_value("Primary Color", params[:color])
-    redirect_to admins_path(setting: "site_settings")
+    @settings.update_value("Primary Color Lighten", color_lighten(params[:color]))
+    @settings.update_value("Primary Color Darken", color_darken(params[:color]))
+    redirect_to admins_path
+  end
+
+  def coloring_lighten
+    @settings.update_value("Primary Color Lighten", params[:color])
+    redirect_to admins_path
+  end
+
+  def coloring_darken
+    @settings.update_value("Primary Color Darken", params[:color])
+    redirect_to admins_path
   end
 
   # POST /admins/ban/:user_uid

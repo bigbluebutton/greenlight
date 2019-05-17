@@ -102,6 +102,12 @@ module Greenlight
     # Default primary color if the user does not specify one
     config.primary_color_default = "#467fcf"
 
+    # Default primary color lighten if the user does not specify one
+    config.primary_color_lighten_default = "#f5f7fb"
+
+    # Default primary color darken if the user does not specify one
+    config.primary_color_darken_default = "#316cbe"
+
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
 
