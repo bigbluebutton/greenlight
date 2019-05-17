@@ -229,6 +229,10 @@ describe AdminsController, type: :controller do
     context "POST #registration_method" do
       it "changes the registration method for the given context" do
         allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
 
         post :registration_method, params: { method: "invite" }
 
@@ -241,12 +245,15 @@ describe AdminsController, type: :controller do
 
       it "does not allow the user to change to invite if emails are off" do
         allow(Rails.configuration).to receive(:enable_email_verification).and_return(false)
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
 
         @request.session[:user_id] = @admin.id
 
         post :registration_method, params: { method: "invite" }
 
         expect(flash[:alert]).to be_present
+        expect(response).to redirect_to(admins_path)
       end
     end
   end
