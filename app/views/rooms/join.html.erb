@@ -16,6 +16,9 @@
 <%= render 'shared/room_event' do %>
   <%= form_for room_path(@room), method: :post do |f| %>
     <div class="input-group join-input">
+      <%= f.hidden_field(:search, :value => params[:search])%>
+      <%= f.hidden_field(:column, :value => params[:column])%>
+      <%= f.hidden_field(:direction, :value => params[:direction])%>
       <%= f.text_field :join_name,
           required: true,
           class: "form-control join-form",

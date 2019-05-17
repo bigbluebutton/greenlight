@@ -121,7 +121,7 @@ class User < ApplicationRecord
     order("#{column} #{direction}")
   end
 
-  def all_recordings
+  def all_recordings(search_params = {}, ret_search_params = false)
     pag_num = Rails.configuration.pagination_number
 
     pag_loops = rooms.length / pag_num - 1
@@ -142,7 +142,7 @@ class User < ApplicationRecord
     full_res = bbb.get_recordings(meetingID: last_pag_room.pluck(:bbb_id))
     res[:recordings].push(*full_res[:recordings])
 
-    format_recordings(res)
+    format_recordings(res, search_params, ret_search_params)
   end
 
   # Activates an account and initialize a users main room
@@ -200,9 +200,8 @@ class User < ApplicationRecord
 
   def greenlight_account?
     return true unless provider # For testing cases when provider is set to null
-    return provider == "greenlight" unless Rails.configuration.loadbalanced_configuration
-    # No need to retrive the provider info if the provider is whitelisted
-    return true if launcher_allow_user_signup_whitelisted?(provider)
+    return true if provider == "greenlight"
+    return false unless Rails.configuration.loadbalanced_configuration
     # Proceed with fetching the provider info
     provider_info = retrieve_provider_info(provider, 'api2', 'getUserGreenlightCredentials')
     provider_info['provider'] == 'greenlight'
