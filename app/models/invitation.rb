@@ -1,6 +1,9 @@
-<%
+# frozen_string_literal: true
+
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
 # This program is free software; you can redistribute it and/or modify it under the
 # terms of the GNU Lesser General Public License as published by the Free Software
 # Foundation; either version 3.0 of the License, or (at your option) any later
@@ -9,12 +12,12 @@
 # BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-%>
 
-<div class="container text-center pt-9">
-  <div class="display-1 text-muted mb-5">401</div>
-  <h1 class="h2 mb-3"><%= I18n.t("errors.unauthorized.message") %></h1>
-  <p class="h4 text-muted font-weight-normal mb-7"><%= I18n.t("errors.unauthorized.help") %></p>
-</div>
+class Invitation < ApplicationRecord
+  has_secure_token :invite_token
+
+  scope :valid, -> { where(updated_at: (Time.now - 48.hours)..Time.now) }
+end
