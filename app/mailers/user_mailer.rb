@@ -42,6 +42,7 @@ class UserMailer < ApplicationMailer
     @image = image
     @color = color
     mail to: user.email, subject: t('mailer.user.promoted.subtitle')
+  end
     
   def invite_email(name, email, url, image, color)
     @name = name
