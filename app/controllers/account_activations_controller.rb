@@ -32,6 +32,10 @@ class AccountActivationsController < ApplicationController
     if @user && !@user.activated? && @user.authenticated?(:activation, params[:token])
       @user.activate
 
+      # Redirect user to root with account pending flash if account is still pending
+      return redirect_to root_path,
+        flash: { success: I18n.t("registration.approval.signup") } if @user.has_role?(:pending)
+
       flash[:success] = I18n.t("verify.activated") + " " + I18n.t("verify.signin")
       redirect_to signin_path
     else

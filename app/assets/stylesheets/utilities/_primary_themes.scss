@@ -15,12 +15,18 @@
 .btn-primary:active,
 .btn-primary:active:focus,
 .btn-primary:active:hover,
-.btn-primary:focus,
 .btn-primary:hover,
 .btn-primary:hover i {
   background-color: $primary-color-darken !important;
   border-color: $primary-color-darken !important;
   color: white !important;
+}
+
+.btn-primary:focus {
+  background-color: $primary-color-darken !important;
+  border-color: $primary-color-darken !important;
+  color: white !important;
+  box-shadow: 0 0 0 2px $primary-color-lighten !important;
 }
 
 a {
@@ -45,7 +51,7 @@ a {
   }
 
   &:focus {
-    box-shadow: 0 0 0 2px $primary-color-lighten;
+    box-shadow: 0 0 0 2px $primary-color-lighten !important;
   }
 }
 

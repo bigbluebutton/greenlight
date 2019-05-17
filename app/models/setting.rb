@@ -37,6 +37,8 @@ class Setting < ApplicationRecord
         Rails.configuration.branding_image_default
       when "Primary Color"
         Rails.configuration.primary_color_default
+      when "Registration Method"
+        Rails.configuration.registration_method_default
       end
     end
   end

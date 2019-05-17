@@ -16,33 +16,39 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-module AdminsHelper
-  include Pagy::Frontend
-
-  def display_invite
-    current_page?(admins_path) && invite_registration
-  end
+module Registrar
+  extend ActiveSupport::Concern
 
   def registration_method
     Setting.find_or_create_by!(provider: user_settings_provider).get_value("Registration Method")
   end
 
-  def invite_registration
-    registration_method == Rails.configuration.registration_methods[:invite]
+  def open_registration
+     registration_method == Rails.configuration.registration_methods[:open]
   end
 
   def approval_registration
-    registration_method == Rails.configuration.registration_methods[:approval]
+     registration_method == Rails.configuration.registration_methods[:approval]
   end
 
-  def registration_method_string
-    case registration_method
-    when Rails.configuration.registration_methods[:open]
-        I18n.t("administrator.site_settings.registration.methods.open")
-    when Rails.configuration.registration_methods[:invite]
-        I18n.t("administrator.site_settings.registration.methods.invite")
-    when Rails.configuration.registration_methods[:approval]
-        I18n.t("administrator.site_settings.registration.methods.approval")
-      end
+  def invite_registration
+     registration_method == Rails.configuration.registration_methods[:invite]
+  end
+
+  # Returns a hash containing whether the user has been invited and if they
+  # signed up with the same email that they were invited with
+  def check_user_invited(email, token, domain)
+    return { present: true, verified: false } unless invite_registration
+    return { present: false, verified: false } if token.nil?
+
+    invite = Invitation.valid.find_by(invite_token: token, provider: domain)
+    if invite.present?
+      # Check if they used the same email to sign up
+      same_email = email.casecmp(invite.email).zero?
+      invite.destroy
+      { present: true, verified: same_email }
+    else
+      { present: false, verified: false }
+    end
   end
 end
