@@ -22,23 +22,50 @@
         <div class="input-group">
           <input id="branding-url" type="text" class="form-control" value="<%= logo_image %>">
           <span class="input-group-append">
-            <button onclick="changeBrandingImage('<%= admin_branding_path %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.branding.change") %></button>
+            <button id="branding-image" onclick="changeBrandingImage('<%= admin_branding_path %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.branding.change") %></button>
           </span>
         </div>
       </div>
-
-      <div class="form-group">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="mb-7 form-group">
         <label class="form-label"><%= t("administrator.site_settings.color.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.color.info") %></label>
         <div class="row gutters-xs">
           <div class="col-auto">
             <input id="coloring-path" value="<%= admin_coloring_path %>" hidden>
-            <label class="colorinput">
-              <input name="color" type="color" value="<%= user_color %>" class="colorinput-input" />
+            <input id="user-colour" value="<%= user_color %>" hidden/>
+            <div class="colorinput">
               <span class="colorinput-color" style="background: <%= user_color %>;">
                 <i class="p-1 fas fa-paint-brush"></i>
               </span>
-            </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.registration.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.registration.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="registrationMethods" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= registration_method_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="registrationMethods">
+            <%= button_to admin_change_registration_path("open"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.registration.methods.open") %>
+            <% end %>
+            <%= button_to admin_change_registration_path("invite"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.registration.methods.invite") %>
+            <% end %>
+            <%= button_to admin_change_registration_path("approval"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.registration.methods.approval") %>
+            <% end %>
           </div>
         </div>
       </div>

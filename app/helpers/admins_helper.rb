@@ -18,4 +18,31 @@
 
 module AdminsHelper
   include Pagy::Frontend
+
+  def display_invite
+    current_page?(admins_path) && invite_registration
+  end
+
+  def registration_method
+    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Registration Method")
+  end
+
+  def invite_registration
+    registration_method == Rails.configuration.registration_methods[:invite]
+  end
+
+  def approval_registration
+    registration_method == Rails.configuration.registration_methods[:approval]
+  end
+
+  def registration_method_string
+    case registration_method
+    when Rails.configuration.registration_methods[:open]
+        I18n.t("administrator.site_settings.registration.methods.open")
+    when Rails.configuration.registration_methods[:invite]
+        I18n.t("administrator.site_settings.registration.methods.invite")
+    when Rails.configuration.registration_methods[:approval]
+        I18n.t("administrator.site_settings.registration.methods.approval")
+      end
+  end
 end

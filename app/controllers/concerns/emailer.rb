@@ -35,12 +35,32 @@ module Emailer
     UserMailer.user_promoted(user, root_url, logo_image, user_color).deliver_now
   end
 
+  # Sends inivitation to join
+  def send_invitation_email(name, email, token)
+    @token = token
+    UserMailer.invite_email(name, email, invitation_link, logo_image, user_color).deliver_now
+  end
+
+  def send_user_approved_email(user)
+    UserMailer.approve_user(user, root_url, logo_image, user_color).deliver_now
+  end
+
+  private
+
   # Returns the link the user needs to click to verify their account
   def user_verification_link
-    request.base_url + edit_account_activation_path(token: @user.activation_token, email: @user.email)
+    edit_account_activation_url(token: @user.activation_token, email: @user.email)
   end
 
   def reset_link
-    request.base_url + edit_password_reset_path(@user.reset_token, email: @user.email)
+    edit_password_reset_url(@user.reset_token, email: @user.email)
+  end
+
+  def invitation_link
+    if allow_greenlight_users?
+      signup_url(invite_token: @token)
+    else
+      root_url(invite_token: @token)
+    end
   end
 end

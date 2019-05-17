@@ -35,6 +35,8 @@ env
 # IDEs
 .idea
 .idea/**
+.vscode
+.vscode/**
 
 config/terms.md
 coverage*

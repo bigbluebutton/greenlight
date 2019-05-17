@@ -20,10 +20,13 @@ class AdminsController < ApplicationController
   include Pagy::Backend
   include Emailer
 
+  manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve]
+  site_settings = [:branding, :coloring, :registration_method]
+
   authorize_resource class: false
-  before_action :find_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
-  before_action :verify_admin_of_user, only: [:edit_user, :promote, :demote, :ban_user, :unban_user]
-  before_action :find_setting, only: [:branding, :coloring]
+  before_action :find_user, only: manage_users
+  before_action :verify_admin_of_user, only: manage_users
+  before_action :find_setting, only: site_settings
 
   # GET /admins
   def index
@@ -31,18 +34,10 @@ class AdminsController < ApplicationController
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
 
-    if Rails.configuration.loadbalanced_configuration
-      @pagy, @users = pagy(User.without_role(:super_admin)
-                  .where(provider: user_settings_provider)
-                  .where.not(id: current_user.id)
-                  .admins_search(@search)
-                  .admins_order(@order_column, @order_direction))
-    else
-      @pagy, @users = pagy(User.where.not(id: current_user.id)
-                      .admins_search(@search)
-                      .admins_order(@order_column, @order_direction))
-    end
+    @pagy, @users = pagy(user_list)
   end
+
+  # MANAGE USERS
 
   # GET /admins/edit/:user_uid
   def edit_user
@@ -64,6 +59,48 @@ class AdminsController < ApplicationController
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.demoted") }
   end
 
+  # POST /admins/ban/:user_uid
+  def ban_user
+    @user.remove_role :pending if @user.has_role? :pending
+    @user.add_role :denied
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.banned") }
+  end
+
+  # POST /admins/unban/:user_uid
+  def unban_user
+    @user.remove_role :denied
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.unbanned") }
+  end
+
+  # POST /admins/approve/:user_uid
+  def approve
+    @user.remove_role :pending
+
+    send_user_approved_email(@user)
+
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.approved") }
+  end
+
+  # POST /admins/invite
+  def invite
+    email = params[:invite_user][:email]
+
+    begin
+      invitation = create_or_update_invite(email)
+
+      send_invitation_email(current_user.name, email, invitation.invite_token)
+    rescue => e
+      logger.error "Error in email delivery: #{e}"
+      flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
+    else
+      flash[:success] = I18n.t("administrator.flash.invite", email: email)
+    end
+
+    redirect_to admins_path
+  end
+
+  # SITE SETTINGS
+
   # POST /admins/branding
   def branding
     @settings.update_value("Branding Image", params[:url])
@@ -73,19 +110,22 @@ class AdminsController < ApplicationController
   # POST /admins/color
   def coloring
     @settings.update_value("Primary Color", params[:color])
-    redirect_to admins_path(setting: "site_settings")
+    redirect_to admins_path
   end
 
-  # POST /admins/ban/:user_uid
-  def ban_user
-    @user.add_role :denied
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.banned") }
-  end
+  # POST /admins/registration_method/:method
+  def registration_method
+    new_method = Rails.configuration.registration_methods[params[:method].to_sym]
 
-  # POST /admins/unban/:user_uid
-  def unban_user
-    @user.remove_role :denied
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.unbanned") }
+    # Only allow change to Join by Invitation if user has emails enabled
+    if !Rails.configuration.enable_email_verification && new_method == Rails.configuration.registration_methods[:invite]
+      redirect_to admins_path,
+        flash: { alert: I18n.t("administrator.flash.invite_email_verification") }
+    else
+      @settings.update_value("Registration Method", new_method)
+      redirect_to admins_path,
+        flash: { success: I18n.t("administrator.flash.registration_method_updated") }
+    end
   end
 
   private
@@ -101,5 +141,36 @@ class AdminsController < ApplicationController
   def verify_admin_of_user
     redirect_to admins_path,
       flash: { alert: I18n.t("administrator.flash.unauthorized") } unless current_user.admin_of?(@user)
+  end
+
+  # Gets the list of users based on your configuration
+  def user_list
+    if Rails.configuration.loadbalanced_configuration
+      User.without_role(:super_admin)
+          .where(provider: user_settings_provider)
+          .where.not(id: current_user.id)
+          .admins_search(@search)
+          .admins_order(@order_column, @order_direction)
+    else
+      User.where.not(id: current_user.id)
+          .admins_search(@search)
+          .admins_order(@order_column, @order_direction)
+    end
+  end
+
+  # Creates the invite if it doesn't exist, or updates the updated_at time if it does
+  def create_or_update_invite(email)
+    invite = Invitation.find_by(email: email, provider: @user_domain)
+
+    # Invite already exists
+    if invite.present?
+      # Updates updated_at to now
+      invite.touch
+    else
+      # Creates invite
+      invite = Invitation.create(email: email, provider: @user_domain)
+    end
+
+    invite
   end
 end
