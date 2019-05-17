@@ -24,7 +24,7 @@ namespace :conf do
     # Tests the checksum on the getMeetings api call
     print "Checking Secret"
     checksum = Digest::SHA1.hexdigest("getMeetings#{ENV['BIGBLUEBUTTON_SECRET']}")
-    test_request("#{ENV['BIGBLUEBUTTON_ENDPOINT']}api/getMeetings?checksum=#{checksum}")
+    test_request("#{ENV['BIGBLUEBUTTON_ENDPOINT']}getMeetings?checksum=#{checksum}")
     passed
 
     if ENV['ALLOW_MAIL_NOTIFICATIONS'] == 'true'

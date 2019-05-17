@@ -48,7 +48,7 @@ module Greenlight
     config.gl_callback_url = ENV["GL_CALLBACK_URL"]
 
     # Default credentials (test-install.blindsidenetworks.com/bigbluebutton).
-    config.bigbluebutton_endpoint_default = "http://test-install.blindsidenetworks.com/bigbluebutton/"
+    config.bigbluebutton_endpoint_default = "http://test-install.blindsidenetworks.com/bigbluebutton/api/"
     config.bigbluebutton_secret_default = "8cd8ef52e8e101574e400365b55e11a6"
 
     # Use standalone BigBlueButton server.
@@ -66,7 +66,6 @@ module Greenlight
       config.loadbalancer_endpoint = ENV["LOADBALANCER_ENDPOINT"]
       config.loadbalancer_secret = ENV["LOADBALANCER_SECRET"]
       config.launcher_secret = ENV["LAUNCHER_SECRET"]
-      config.launcher_allow_user_signup = ENV["LAUNCHER_ALLOW_GREENLIGHT_ACCOUNTS"]
 
       # Fix endpoint format if required.
       config.loadbalancer_endpoint += "/" unless config.bigbluebutton_endpoint.ends_with?("/")

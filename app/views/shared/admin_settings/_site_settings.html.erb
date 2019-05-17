@@ -22,7 +22,7 @@
         <div class="input-group">
           <input id="branding-url" type="text" class="form-control" value="<%= logo_image %>">
           <span class="input-group-append">
-            <button onclick="changeBrandingImage('<%= admin_branding_path %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.branding.change") %></button>
+            <button id="branding-image" onclick="changeBrandingImage('<%= admin_branding_path %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.branding.change") %></button>
           </span>
         </div>
       </div>
@@ -36,12 +36,12 @@
         <div class="row gutters-xs">
           <div class="col-auto">
             <input id="coloring-path" value="<%= admin_coloring_path %>" hidden>
-            <label class="colorinput">
-              <input name="color" type="color" value="<%= user_color %>" class="colorinput-input" />
+            <input id="user-colour" value="<%= user_color %>" hidden/>
+            <div class="colorinput">
               <span class="colorinput-color" style="background: <%= user_color %>;">
                 <i class="p-1 fas fa-paint-brush"></i>
               </span>
-            </label>
+            </div>
           </div>
         </div>
       </div>
