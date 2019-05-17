@@ -18,14 +18,24 @@
     <p class="subtitle"><%= subtitle %></p>
   </div>
   <% if search %>
-    <div id="search_bar" class="col-4">
-      <div class="input-icon">
-        <input type="text" class="form-control btn-pill" placeholder="Search...">
-        <span class="input-icon-addon">
-        <i class="fas fa-search"></i>
-      </span>
+    <div class="col-4">
+      <div id="search-bar">
+        <div class="input-group">
+          <input id="search-input" type="text" class="form-control" placeholder="<%= t("settings.search") %>..." value="<%= @search %>">
+          <% unless @search.blank? %>
+            <span id="clear-search" class="text-primary" onclick="clearSearch()">
+              <i class="fas fa-times"></i>
+            </span>
+          <% end %>
+          <span class="input-group-append">
+            <button class="btn btn-primary" type="button" onclick="searchPage()">
+              <i class="fas fa-search"></i>
+            </button>
+          </span>
+        </div>
       </div>
     </div>
   <% end %>
 </div>
+
 <hr class="mt-0">

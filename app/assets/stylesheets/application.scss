@@ -33,6 +33,7 @@
 @import "tabler/variables";
 @import "bootstrap";
 @import "tabler-custom";
+@import "colorpicker";
 
 @import "utilities/variables";
 @import "admins";
@@ -105,7 +106,7 @@ a {
 }
 
 .invite-link-input {
-  width: 45%;
+  width: 100%;
 }
 
 .no-border-top {

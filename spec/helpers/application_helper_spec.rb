@@ -65,20 +65,9 @@ describe ApplicationHelper do
       expect(helper.allow_greenlight_accounts?).to eql(false)
     end
 
-    it "allows if user_domain is white listed" do
-      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
-      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-      allow(helper).to receive(:launcher_allow_user_signup_whitelisted?).and_return(true)
-
-      @user_domain = "provider1"
-
-      expect(helper.allow_greenlight_accounts?).to eql(true)
-    end
-
     it "allows if user provider is set to greenlight" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-      allow(helper).to receive(:launcher_allow_user_signup_whitelisted?).and_return(false)
       allow(helper).to receive(:retrieve_provider_info).and_return("provider" => "greenlight")
 
       @user_domain = "provider1"
@@ -89,7 +78,6 @@ describe ApplicationHelper do
     it "doesnt allow if user provider is not set to greenlight" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-      allow(helper).to receive(:launcher_allow_user_signup_whitelisted?).and_return(false)
       allow(helper).to receive(:retrieve_provider_info).and_return("provider" => "google")
 
       @user_domain = "provider1"

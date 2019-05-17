@@ -18,6 +18,7 @@
 
 class UsersController < ApplicationController
   include RecordingsHelper
+  include Pagy::Backend
   include Emailer
 
   before_action :find_user, only: [:edit, :update, :destroy]
@@ -141,7 +142,9 @@ class UsersController < ApplicationController
   # GET /u/:user_uid/recordings
   def recordings
     if current_user && current_user.uid == params[:user_uid]
-      @recordings = current_user.all_recordings
+      @search, @order_column, @order_direction, recs =
+        current_user.all_recordings(params.permit(:search, :column, :direction), true)
+      @pagy, @recordings = pagy_array(recs)
     else
       redirect_to root_path
     end

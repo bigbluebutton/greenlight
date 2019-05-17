@@ -62,12 +62,14 @@ en:
         uid: User ID
         username: Username
       title: Manage Users
+  add_to_google_calendar: "Add to Google Calendar"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: Oops, there was an error when starting the meeting!
   cancel: Cancel
   cookies:
     cookie_info: Cookies help us deliver our services. By using our services, you agree to our use of cookies.
     cookie_button: I Agree
+  copied: Copied
   copy: Copy
   default_admin: You are still using the default password for this account. Please click <a href="%{edit_link}">here</a> to change it
   delete: Delete
