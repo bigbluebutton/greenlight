@@ -223,34 +223,6 @@ describe SessionsController, type: :controller do
 
         expect(response).to redirect_to(root_path)
       end
-
-      context 'registration notification emails' do
-        before do
-          allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
-          @user = create(:user, provider: "greenlight")
-          @admin = create(:user, provider: "greenlight", email: "test@example.com")
-          @admin.add_role :admin
-        end
-
-        it "should notify admin on new user signup with approve/reject registration" do
-          allow_any_instance_of(Registrar).to receive(:approval_registration).and_return(true)
-
-          request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
-          
-          expect { get :omniauth, params: { provider: 'bn_launcher' } }.to change { ActionMailer::Base.deliveries.count }.by(1)
-        end
-  
-        it "should notify admin on new user signup with invite registration" do
-          allow_any_instance_of(Registrar).to receive(:invite_registration).and_return(true)
-          
-          invite = Invitation.create(email: "user@google.com", provider: "greenlight")
-          @request.session[:invite_token] = invite.invite_token
-
-          request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
-  
-          expect { get :omniauth, params: { provider: 'bn_launcher' } }.to change { ActionMailer::Base.deliveries.count }.by(1)
-        end
-      end
     end
 
     it "should not create session without omniauth env set for bn_launcher" do

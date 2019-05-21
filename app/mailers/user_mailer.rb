@@ -51,22 +51,4 @@ class UserMailer < ApplicationMailer
     @color = color
     mail to: user.email, subject: t('mailer.user.approve.subject')
   end
-
-  def approval_user_signup(user, url, image, color, admin_emails)
-    @user = user
-    @url = url + "admins"
-    @image = image
-    @color = color
-
-    mail to: admin_emails, subject: t('mailer.user.approve.signup.subject')
-  end
-
-  def invite_user_signup(user, url, image, color, admin_emails)
-    @user = user
-    @url = url + "admins"
-    @image = image
-    @color = color
-
-    mail to: admin_emails, subject: t('mailer.user.invite.signup.subject')
-  end
 end
