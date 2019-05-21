@@ -31,6 +31,19 @@ $(document).on('turbolinks:load', function(){
       $("#delete-confirm").parent().attr("action", url)
     })
 
+    //clear the role filter if user clicks on the x
+    $(".clear-role").click(function(data) {
+      search = new URL(location.href).searchParams.get('search')
+
+      url = window.location.pathname + "?page=1"
+    
+      if (search) {
+        url += "&search=" + search
+      }  
+    
+      window.location.replace(url);
+    })
+
     $('.colorinput').ColorPicker({
       onHide: function (colpkr) {
         var colour = $("#user-colour").val();
@@ -78,4 +91,17 @@ $(document).on('turbolinks:load', function(){
 function changeBrandingImage(path) {
   var url = $("#branding-url").val()
   $.post(path, {url: url})
+}
+
+// Filters by role
+function filterRole(role) {
+  search = new URL(location.href).searchParams.get('search')
+
+  url = window.location.pathname + "?page=1" + "&role=" + role
+
+  if (search) {
+    url += "&search=" + search
+  }  
+
+  window.location.replace(url);
 }

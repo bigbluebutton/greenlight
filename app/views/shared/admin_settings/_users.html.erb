@@ -13,6 +13,10 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
+<% if @role.present? %>
+  <%= render "shared/components/admins_tags" %>
+<% end %>
+
 <div class="form-group">
   <div class="row">
     <div class="col-12">
@@ -69,27 +73,7 @@
                     <td><%= user.provider %></td>
                     <td class="text-center">
                       <% roles = user.roles().pluck(:name) %>
-                      <% if roles.include?("denied")%>
-                        <div class="user-role btn btn-sm btn-gray-dark">
-                          <%= t("roles.banned") %>
-                        </div>
-                      <% elsif roles.include?("pending") %>
-                        <div class="user-role btn btn-sm btn-cyan">
-                          <%= t("roles.pending") %>
-                        </div>
-                      <% elsif roles.include?("super_admin") %>
-                        <div class="user-role btn btn-sm btn-red">
-                          <%= t("roles.super_admin") %>
-                        </div>
-                      <% elsif roles.include?("admin") %>
-                        <div class="user-role btn btn-sm btn-yellow">
-                          <%= t("roles.administrator") %>
-                        </div>
-                      <% else %>
-                        <div class="user-role btn btn-sm btn-gray">
-                          <%= t("roles.user") %>
-                        </div>
-                      <% end %>
+                      <%= render "shared/components/admins_role", roles: roles %>
                     </td>
                     <td>
                       <% if roles.include?("pending") %>
