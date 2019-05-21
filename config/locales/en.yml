@@ -194,6 +194,11 @@ en:
         info: You are now an administrator on %{url}.
         more-info: As an administrator, you can manage users, their role and configure your site settings by changing the logo and brand colour.
         subtitle: Administrator Rights Granted
+      demoted:
+        root_link: Visit the Organization Page
+        info: You are no longer an administrator on %{url}.
+        more-info: You now have the same privileges as a regular user and will no longer be able to configure the site settings.
+        subtitle: Administrator Rights Rescinded
       verify_email:
         welcome: Welcome to your personal space, %{name}!
         success: Leveraging %{bigbluebutton}, you can create your own rooms to host sessions and collaborate with others.

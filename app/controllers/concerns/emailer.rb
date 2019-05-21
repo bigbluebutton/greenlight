@@ -35,6 +35,10 @@ module Emailer
     UserMailer.user_promoted(user, root_url, logo_image, user_color).deliver_now
   end
 
+  def send_user_demoted_email(user)
+    UserMailer.user_demoted(user, root_url, logo_image, user_color).deliver_now
+  end
+
   # Sends inivitation to join
   def send_invitation_email(name, email, token)
     @token = token

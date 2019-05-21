@@ -56,6 +56,9 @@ class AdminsController < ApplicationController
   # POST /admins/demote/:user_uid
   def demote
     @user.remove_role :admin
+
+    send_user_demoted_email(@user)
+
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.demoted") }
   end
 

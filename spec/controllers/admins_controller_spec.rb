@@ -87,6 +87,16 @@ describe AdminsController, type: :controller do
         expect(flash[:success]).to be_present
         expect(response).to redirect_to(admins_path)
       end
+
+      it "sends an email to the user being demoted" do
+        @request.session[:user_id] = @admin.id
+
+        @user.add_role :admin
+
+        params = { user_uid: @user.uid }
+
+        expect { post :demote, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
     end
 
     context "POST #ban" do
