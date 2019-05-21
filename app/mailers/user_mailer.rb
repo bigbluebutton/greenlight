@@ -54,7 +54,7 @@ class UserMailer < ApplicationMailer
 
   def approval_user_signup(user, url, image, color, admin_emails)
     @user = user
-    @url = url + "admins"
+    @url = url
     @image = image
     @color = color
 
@@ -63,7 +63,7 @@ class UserMailer < ApplicationMailer
 
   def invite_user_signup(user, url, image, color, admin_emails)
     @user = user
-    @url = url + "admins"
+    @url = url
     @image = image
     @color = color
 

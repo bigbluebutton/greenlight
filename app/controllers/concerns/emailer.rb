@@ -42,11 +42,11 @@ module Emailer
   end
 
   def send_approval_user_signup_email(user)
-    UserMailer.approval_user_signup(user, root_url, logo_image, user_color, admin_emails).deliver_now
+    UserMailer.approval_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
   end
 
   def send_invite_user_signup_email(user)
-    UserMailer.invite_user_signup(user, root_url, logo_image, user_color, admin_emails).deliver_now
+    UserMailer.invite_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
   end
 
   private
