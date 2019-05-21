@@ -50,6 +50,8 @@ class UsersController < ApplicationController
         flash: { success: I18n.t("registration.approval.signup") } unless Rails.configuration.enable_email_verification
     end
 
+    send_registration_email if Rails.configuration.enable_email_verification
+
     # Sign in automatically if email verification is disabled or if user is already verified.
     login(@user) && return if !Rails.configuration.enable_email_verification || @user.email_verified
 
@@ -190,6 +192,19 @@ class UsersController < ApplicationController
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     else
       flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
+    end
+  end
+
+  def send_registration_email
+    begin
+      if invite_registration
+        send_invite_user_signup_email(@user)
+      elsif approval_registration
+        send_approval_user_signup_email(@user)
+      end
+    rescue => e
+      logger.error "Error in email delivery: #{e}"
+      flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     end
   end
 
