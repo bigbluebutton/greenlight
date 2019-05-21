@@ -186,6 +186,17 @@ describe UsersController, type: :controller do
         before do
           allow_any_instance_of(Registrar).to receive(:invite_registration).and_return(true)
           allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
+          @user = create(:user, provider: "greenlight")
+          @admin = create(:user, provider: "greenlight", email: "test@example.com")
+          @admin.add_role :admin
+        end
+
+        it "should notify admins that user signed up" do   
+          params = random_valid_user_params
+          invite = Invitation.create(email: params[:user][:email], provider: "greenlight")
+          @request.session[:invite_token] = invite.invite_token
+  
+          expect { post :create, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
         end
 
         it "rejects the user if they are not invited" do
@@ -240,6 +251,9 @@ describe UsersController, type: :controller do
         before do
           allow_any_instance_of(Registrar).to receive(:approval_registration).and_return(true)
           allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
+          @user = create(:user, provider: "greenlight")
+          @admin = create(:user, provider: "greenlight", email: "test@example.com")
+          @admin.add_role :admin
         end
 
         it "allows any user to sign up" do
@@ -264,6 +278,14 @@ describe UsersController, type: :controller do
           u = User.find_by(name: params[:user][:name], email: params[:user][:email])
 
           expect(u.has_role?(:pending)).to eq(true)
+        end
+
+        it "notifies admins that a user signed up" do
+          allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+
+          params = random_valid_user_params
+
+          expect { post :create, params: params }.to change { ActionMailer::Base.deliveries.count }.by(2)
         end
       end
     end
