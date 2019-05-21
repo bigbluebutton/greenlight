@@ -13,9 +13,6 @@ gem 'rails', '~> 5.0.7'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 
-# Use SQLite as the primary database.
-gem 'sqlite3', '~> 1.3'
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
@@ -76,19 +73,21 @@ gem "rolify"
 # For limiting access based on user roles
 gem 'cancancan', '~> 2.0'
 
-group :production do
-  # Use a postgres database in production.
-  gem 'pg', '~> 0.18'
-end
-
 # Ruby linting.
 gem 'rubocop'
+
+group :production do
+  # Use a postgres database for production.
+  gem 'pg', '~> 0.18'
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   # Environment configuration.
   gem 'dotenv-rails'
+  # Use a sqlite database for test and development.
+  gem 'sqlite3', '~> 1.3'
 end
 
 group :test do
