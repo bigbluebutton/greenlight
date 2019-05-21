@@ -5,7 +5,7 @@
 !Status](https://coveralls.io/repos/github/bigbluebutton/greenlight/badge.svg?branch=master)
 ![Docker Pulls](https://img.shields.io/docker/pulls/bigbluebutton/greenlight.svg)
 
-> Greenlight is currently on version 2.0. If you are still running Greenlight 1.0 we suggest [upgrading to 2.0](http://docs.bigbluebutton.org/install/greenlight-v2.html#upgrading-from-greenlight-10).
+> Greenlight is currently on version 2.0. If you are still running Greenlight 1.0 we suggest [upgrading to 2.0](http://docs.bigbluebutton.org/greenlight/gl-install.html#upgrading-from-greenlight-10).
 
 Greenlight is a simple front-end interface for your BigBlueButton server. At it's heart, Greenlight provides a minimalistic web-based application that allows users to:
 
@@ -27,7 +27,7 @@ For a overview of how Greenlight works, checkout our Introduction to Greenlight 
 
 Greenlight is designed to work on a [BigBlueButton 2.0](https://github.com/bigbluebutton/bigbluebutton) (or later) server.
 
-For information on installing Greenlight, checkout our [Installing Greenlight on a BigBlueButton Server](http://docs.bigbluebutton.org/install/greenlight.html#installing-on-a-bigbluebutton-server) documentation.
+For information on installing Greenlight, checkout our [Installing Greenlight on a BigBlueButton Server](http://docs.bigbluebutton.org/greenlight/gl-install.html#installing-on-a-bigbluebutton-server) documentation.
 
 ## Source Code & Contributing
 
