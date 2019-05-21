@@ -29,7 +29,7 @@ describe AdminsController, type: :controller do
     before do
       allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
     end
-    
+
     context "GET #index" do
       it "renders a 404 if a user tries to acccess it" do
         @request.session[:user_id] = @user.id
