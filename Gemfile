@@ -73,20 +73,20 @@ gem "rolify"
 # For limiting access based on user roles
 gem 'cancancan', '~> 2.0'
 
-# Ruby linting.
-gem 'rubocop'
-
 group :production do
-  # Use a postgres database for production.
+  # Use a postgres database in production.
   gem 'pg', '~> 0.18'
 end
+
+# Ruby linting.
+gem 'rubocop'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   # Environment configuration.
   gem 'dotenv-rails'
-  # Use a sqlite database for test and development.
+  # Use a sqlite database in test and development.
   gem 'sqlite3', '~> 1.3'
 end
 
