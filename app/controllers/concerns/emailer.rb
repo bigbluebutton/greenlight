@@ -41,6 +41,18 @@ module Emailer
     UserMailer.approve_user(user, root_url, logo_image, user_color).deliver_now
   end
 
+  def self.before(*names)
+    names.each do |name|
+      m = instance_method(name)
+      define_method(name) do |*args, &block|
+        return unless Rails.configuration.enable_email_verification
+        m.bind(self).call(*args, &block)
+      end
+    end
+  end
+
+  before(*instance_methods)
+
   private
 
   # Returns the link the user needs to click to verify their account
