@@ -63,7 +63,7 @@ module Emailer
       admins = admins.without_role(:super_admin)
                      .where(provider: user_settings_provider)
     end
-   
+
     admins.collect(&:email).join(",")
   end
 

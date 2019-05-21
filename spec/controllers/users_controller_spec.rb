@@ -191,11 +191,11 @@ describe UsersController, type: :controller do
           @admin.add_role :admin
         end
 
-        it "should notify admins that user signed up" do   
+        it "should notify admins that user signed up" do
           params = random_valid_user_params
           invite = Invitation.create(email: params[:user][:email], provider: "greenlight")
           @request.session[:invite_token] = invite.invite_token
-  
+
           expect { post :create, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
         end
 

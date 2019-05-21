@@ -50,10 +50,10 @@ class SessionsController < ApplicationController
     begin
       @auth = request.env['omniauth.auth']
       @user_exists = check_user_exists
-  
+
       # If using invitation registration method, make sure user is invited
       return redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless passes_invite_reqs
-      
+
       user = User.from_omniauth(@auth)
 
       # Add pending role if approval method and is a new user
@@ -66,7 +66,8 @@ class SessionsController < ApplicationController
         return redirect_to root_path, flash: { success: I18n.t("registration.approval.signup") }
       end
 
-      send_invite_user_signup_email(user) if Rails.configuration.enable_email_verification && invite_registration && !@user_exists
+      send_invite_user_signup_email(user) if Rails.configuration.enable_email_verification &&
+                                             invite_registration && !@user_exists
 
       login(user)
     rescue => e

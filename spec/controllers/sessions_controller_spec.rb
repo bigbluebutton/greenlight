@@ -236,19 +236,21 @@ describe SessionsController, type: :controller do
           allow_any_instance_of(Registrar).to receive(:approval_registration).and_return(true)
 
           request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
-          
-          expect { get :omniauth, params: { provider: 'bn_launcher' } }.to change { ActionMailer::Base.deliveries.count }.by(1)
+
+          expect { get :omniauth, params: { provider: 'bn_launcher' } }
+            .to change { ActionMailer::Base.deliveries.count }.by(1)
         end
-  
+
         it "should notify admin on new user signup with invite registration" do
           allow_any_instance_of(Registrar).to receive(:invite_registration).and_return(true)
-          
+
           invite = Invitation.create(email: "user@google.com", provider: "greenlight")
           @request.session[:invite_token] = invite.invite_token
 
           request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
-  
-          expect { get :omniauth, params: { provider: 'bn_launcher' } }.to change { ActionMailer::Base.deliveries.count }.by(1)
+
+          expect { get :omniauth, params: { provider: 'bn_launcher' } }
+            .to change { ActionMailer::Base.deliveries.count }.by(1)
         end
       end
     end
