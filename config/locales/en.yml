@@ -29,8 +29,11 @@ en:
         placeholder: Image Url...
         title: Branding Image
       color:
-        info: Change the primary color used across the website
+        info: Changing the Regular Color will change both Lighten and Darken. Lighten and Darken can then be changed individually
         title: Primary Color
+        regular: Regular
+        lighten: Lighten
+        Darken: Darken
       registration:
         info: Change the way that users register to the website
         title: Registration Method

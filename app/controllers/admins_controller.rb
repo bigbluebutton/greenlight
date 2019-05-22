@@ -18,10 +18,11 @@
 
 class AdminsController < ApplicationController
   include Pagy::Backend
+  include Themer
   include Emailer
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve]
-  site_settings = [:branding, :coloring, :registration_method]
+  site_settings = [:branding, :coloring, :coloring_lighten, :coloring_darken, :registration_method]
 
   authorize_resource class: false
   before_action :find_user, only: manage_users
@@ -107,6 +108,18 @@ class AdminsController < ApplicationController
   # POST /admins/color
   def coloring
     @settings.update_value("Primary Color", params[:color])
+    @settings.update_value("Primary Color Lighten", color_lighten(params[:color]))
+    @settings.update_value("Primary Color Darken", color_darken(params[:color]))
+    redirect_to admins_path
+  end
+
+  def coloring_lighten
+    @settings.update_value("Primary Color Lighten", params[:color])
+    redirect_to admins_path
+  end
+
+  def coloring_darken
+    @settings.update_value("Primary Color Darken", params[:color])
     redirect_to admins_path
   end
 
