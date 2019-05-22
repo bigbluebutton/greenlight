@@ -18,10 +18,11 @@
 
 class AdminsController < ApplicationController
   include Pagy::Backend
+  include Themer
   include Emailer
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve]
-  site_settings = [:branding, :coloring, :registration_method, :room_authentication]
+  site_settings = [:branding, :coloring, :coloring_lighten, :coloring_darken, :registration_method, :room_authentication]
 
   authorize_resource class: false
   before_action :find_user, only: manage_users
@@ -33,6 +34,7 @@ class AdminsController < ApplicationController
     @search = params[:search] || ""
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
+    @role = params[:role] || ""
 
     @pagy, @users = pagy(user_list)
   end
@@ -47,12 +49,18 @@ class AdminsController < ApplicationController
   # POST /admins/promote/:user_uid
   def promote
     @user.add_role :admin
+
+    send_user_promoted_email(@user)
+
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.promoted") }
   end
 
   # POST /admins/demote/:user_uid
   def demote
     @user.remove_role :admin
+
+    send_user_demoted_email(@user)
+
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.demoted") }
   end
 
@@ -107,6 +115,18 @@ class AdminsController < ApplicationController
   # POST /admins/color
   def coloring
     @settings.update_value("Primary Color", params[:color])
+    @settings.update_value("Primary Color Lighten", color_lighten(params[:color]))
+    @settings.update_value("Primary Color Darken", color_darken(params[:color]))
+    redirect_to admins_path
+  end
+
+  def coloring_lighten
+    @settings.update_value("Primary Color Lighten", params[:color])
+    redirect_to admins_path
+  end
+
+  def coloring_darken
+    @settings.update_value("Primary Color Darken", params[:color])
     redirect_to admins_path
   end
 
@@ -148,15 +168,18 @@ class AdminsController < ApplicationController
 
   # Gets the list of users based on your configuration
   def user_list
+    list = if @role.present?
+      User.with_role(@role.to_sym).where.not(id: current_user.id)
+    else
+      User.where.not(id: current_user.id)
+    end
+
     if Rails.configuration.loadbalanced_configuration
-      User.without_role(:super_admin)
-          .where(provider: user_settings_provider)
-          .where.not(id: current_user.id)
+      list.where(provider: user_settings_provider)
           .admins_search(@search)
           .admins_order(@order_column, @order_direction)
     else
-      User.where.not(id: current_user.id)
-          .admins_search(@search)
+      list.admins_search(@search)
           .admins_order(@order_column, @order_direction)
     end
   end

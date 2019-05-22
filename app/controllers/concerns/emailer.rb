@@ -21,24 +21,48 @@ module Emailer
 
   # Sends account activation email.
   def send_activation_email(user)
+    return unless Rails.configuration.enable_email_verification
+
     @user = user
     UserMailer.verify_email(@user, user_verification_link, logo_image, user_color).deliver
   end
 
   # Sends password reset email.
   def send_password_reset_email(user)
+    return unless Rails.configuration.enable_email_verification
+
     @user = user
     UserMailer.password_reset(@user, reset_link, logo_image, user_color).deliver_now
   end
 
+  def send_user_promoted_email(user)
+    UserMailer.user_promoted(user, root_url, logo_image, user_color).deliver_now
+  end
+
+  def send_user_demoted_email(user)
+    UserMailer.user_demoted(user, root_url, logo_image, user_color).deliver_now
+  end
+
   # Sends inivitation to join
   def send_invitation_email(name, email, token)
+    return unless Rails.configuration.enable_email_verification
+
     @token = token
     UserMailer.invite_email(name, email, invitation_link, logo_image, user_color).deliver_now
   end
 
   def send_user_approved_email(user)
+    return unless Rails.configuration.enable_email_verification
+
     UserMailer.approve_user(user, root_url, logo_image, user_color).deliver_now
+  end
+
+  def send_approval_user_signup_email(user)
+    UserMailer.approval_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
+  end
+
+  def send_invite_user_signup_email(user)
+    UserMailer.invite_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
   end
 
   private
@@ -46,6 +70,17 @@ module Emailer
   # Returns the link the user needs to click to verify their account
   def user_verification_link
     edit_account_activation_url(token: @user.activation_token, email: @user.email)
+  end
+
+  def admin_emails
+    admins = User.with_role(:admin)
+
+    if Rails.configuration.loadbalanced_configuration
+      admins = admins.without_role(:super_admin)
+                     .where(provider: user_settings_provider)
+    end
+
+    admins.collect(&:email).join(",")
   end
 
   def reset_link

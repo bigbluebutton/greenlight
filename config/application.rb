@@ -116,6 +116,12 @@ module Greenlight
     # Default primary color if the user does not specify one
     config.primary_color_default = "#467fcf"
 
+    # Default primary color lighten if the user does not specify one
+    config.primary_color_lighten_default = "#e8eff9"
+
+    # Default primary color darken if the user does not specify one
+    config.primary_color_darken_default = "#316cbe"
+
     # Default registration method if the user does not specify one
     config.registration_method_default = config.registration_methods[:open]
 
