@@ -14,18 +14,22 @@
 %>
 
 <%= render 'shared/room_event' do %>
-  <%= form_for room_path(@room), method: :post do |f| %>
-    <div class="input-group join-input">
-      <%= f.hidden_field(:search, :value => params[:search])%>
-      <%= f.hidden_field(:column, :value => params[:column])%>
-      <%= f.hidden_field(:direction, :value => params[:direction])%>
-      <%= f.text_field :join_name,
-          required: true,
-          class: "form-control join-form",
-          placeholder: t("enter_your_name"),
-          value: "#{@name}",
-          readonly: !current_user.nil? %>
-      <%= f.submit t("room.join"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
-    </div>
+  <% if room_authentication_required && current_user.nil? %>
+    <h2><%= t("administrator.site_settings.authentication.user-info") %></h2>
+  <% else %>
+    <%= form_for room_path(@room), method: :post do |f| %>
+      <div class="input-group join-input">
+        <%= f.hidden_field(:search, :value => params[:search])%>
+        <%= f.hidden_field(:column, :value => params[:column])%>
+        <%= f.hidden_field(:direction, :value => params[:direction])%>
+        <%= f.text_field :join_name,
+            required: true,
+            class: "form-control join-form",
+            placeholder: t("enter_your_name"),
+            value: "#{@name}",
+            readonly: !current_user.nil? %>
+        <%= f.submit t("room.join"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

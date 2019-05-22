@@ -98,6 +98,9 @@ class RoomsController < ApplicationController
 
   # POST /:room_uid
   def join
+    # If this setting is turned on only authenticated users are allowed to join rooms
+    room_authentication_required
+
     opts = default_meeting_options
     unless @room.owned_by?(current_user)
       # Assign join name if passed.
@@ -270,5 +273,13 @@ class RoomsController < ApplicationController
 
   def verify_user_not_admin
     redirect_to admins_path if current_user && current_user&.has_role?(:super_admin)
+  end
+
+  def room_authentication_required
+    if Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Authentication") == "true" &&
+       current_user.nil?
+      flash[:alert] = I18n.t("administrator.site_settings.authentication.user-info")
+      redirect_to signin_path
+    end
   end
 end
