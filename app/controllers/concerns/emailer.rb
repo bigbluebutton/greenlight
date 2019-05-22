@@ -49,11 +49,30 @@ module Emailer
     UserMailer.approve_user(user, root_url, logo_image, user_color).deliver_now
   end
 
+  def send_approval_user_signup_email(user)
+    UserMailer.approval_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
+  end
+
+  def send_invite_user_signup_email(user)
+    UserMailer.invite_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
+  end
+
   private
 
   # Returns the link the user needs to click to verify their account
   def user_verification_link
     edit_account_activation_url(token: @user.activation_token, email: @user.email)
+  end
+
+  def admin_emails
+    admins = User.with_role(:admin)
+
+    if Rails.configuration.loadbalanced_configuration
+      admins = admins.without_role(:super_admin)
+                     .where(provider: user_settings_provider)
+    end
+
+    admins.collect(&:email).join(",")
   end
 
   def reset_link
