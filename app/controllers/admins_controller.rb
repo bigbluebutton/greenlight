@@ -34,6 +34,7 @@ class AdminsController < ApplicationController
     @search = params[:search] || ""
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
+    @role = params[:role] || ""
 
     @pagy, @users = pagy(user_list)
   end
@@ -161,15 +162,18 @@ class AdminsController < ApplicationController
 
   # Gets the list of users based on your configuration
   def user_list
+    list = if @role.present?
+      User.with_role(@role.to_sym).where.not(id: current_user.id)
+    else
+      User.where.not(id: current_user.id)
+    end
+
     if Rails.configuration.loadbalanced_configuration
-      User.without_role(:super_admin)
-          .where(provider: user_settings_provider)
-          .where.not(id: current_user.id)
+      list.where(provider: user_settings_provider)
           .admins_search(@search)
           .admins_order(@order_column, @order_direction)
     else
-      User.where.not(id: current_user.id)
-          .admins_search(@search)
+      list.admins_search(@search)
           .admins_order(@order_column, @order_direction)
     end
   end

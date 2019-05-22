@@ -31,8 +31,21 @@ $(document).on('turbolinks:load', function(){
       $("#delete-confirm").parent().attr("action", url)
     })
 
-    /* COLOR SELECTORS */
+    //clear the role filter if user clicks on the x
+    $(".clear-role").click(function(data) {
+      search = new URL(location.href).searchParams.get('search')
 
+      url = window.location.pathname + "?page=1"
+    
+      if (search) {
+        url += "&search=" + search
+      }  
+    
+      window.location.replace(url);
+    })
+    
+    /* COLOR SELECTORS */
+    
     $('#colorinput-regular').ColorPicker({
       onBeforeShow: function () {
         var colour = rgb2hex($("#colorinput-regular").css("background-color"))
@@ -93,6 +106,19 @@ function changeBrandingImage(path) {
   $.post(path, {url: url})
 }
 
+// Filters by role
+function filterRole(role) {
+  search = new URL(location.href).searchParams.get('search')
+
+  url = window.location.pathname + "?page=1" + "&role=" + role
+
+  if (search) {
+    url += "&search=" + search
+  }  
+
+  window.location.replace(url);
+}
+
 function rgb2hex(rgb) {
   rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
   function hex(x) {
@@ -100,3 +126,4 @@ function rgb2hex(rgb) {
   }
   return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
+
