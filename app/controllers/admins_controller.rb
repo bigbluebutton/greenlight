@@ -18,10 +18,11 @@
 
 class AdminsController < ApplicationController
   include Pagy::Backend
+  include Themer
   include Emailer
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve]
-  site_settings = [:branding, :coloring, :registration_method]
+  site_settings = [:branding, :coloring, :coloring_lighten, :coloring_darken, :registration_method]
 
   authorize_resource class: false
   before_action :find_user, only: manage_users
@@ -48,12 +49,18 @@ class AdminsController < ApplicationController
   # POST /admins/promote/:user_uid
   def promote
     @user.add_role :admin
+
+    send_user_promoted_email(@user)
+
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.promoted") }
   end
 
   # POST /admins/demote/:user_uid
   def demote
     @user.remove_role :admin
+
+    send_user_demoted_email(@user)
+
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.demoted") }
   end
 
@@ -108,6 +115,18 @@ class AdminsController < ApplicationController
   # POST /admins/color
   def coloring
     @settings.update_value("Primary Color", params[:color])
+    @settings.update_value("Primary Color Lighten", color_lighten(params[:color]))
+    @settings.update_value("Primary Color Darken", color_darken(params[:color]))
+    redirect_to admins_path
+  end
+
+  def coloring_lighten
+    @settings.update_value("Primary Color Lighten", params[:color])
+    redirect_to admins_path
+  end
+
+  def coloring_darken
+    @settings.update_value("Primary Color Darken", params[:color])
     redirect_to admins_path
   end
 

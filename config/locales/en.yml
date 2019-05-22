@@ -29,8 +29,11 @@ en:
         placeholder: Image Url...
         title: Branding Image
       color:
-        info: Change the primary color used across the website
+        info: Changing the Regular Color will change both Lighten and Darken. Lighten and Darken can then be changed individually
         title: Primary Color
+        regular: Regular
+        lighten: Lighten
+        Darken: Darken
       registration:
         info: Change the way that users register to the website
         title: Registration Method
@@ -176,6 +179,11 @@ en:
         signin_link: Sign In
         subject: Account Approved
         username: Your username is %{email}.
+      demoted:
+        info: You are no longer an administrator on %{url}.
+        more-info: You now have the same privileges as a regular user and will no longer be able to access any of the Administrator settings.
+        root_link: Visit the Organization Page
+        subtitle: Administrator Rights Rescinded
       invite:
         info: You have been invited to your own personal space by %{name}
         signup: To signup using your email, click the button below and follow the steps.
@@ -189,6 +197,11 @@ en:
         reset_link: Reset Password
         expire: This link will expire in two hours.
         ignore: You can safely ignore this email if you did not request a password reset.
+      promoted:
+        admins_link: Visit the Organization Page
+        info: You are now an administrator on %{url}.
+        more-info: As an administrator, you can manage users, their role and configure your site settings by changing the logo and brand colour.
+        subtitle: Administrator Rights Granted
       verify_email:
         welcome: Welcome to your personal space, %{name}!
         success: Leveraging %{bigbluebutton}, you can create your own rooms to host sessions and collaborate with others.
