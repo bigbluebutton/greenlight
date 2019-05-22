@@ -228,7 +228,7 @@ describe AdminsController, type: :controller do
     end
 
     context "POST #room_authentication" do
-      it "changes the primary on the page" do
+      it "changes the room authentication required setting" do
         allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
         allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
 

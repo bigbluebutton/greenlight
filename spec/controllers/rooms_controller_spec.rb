@@ -212,7 +212,7 @@ describe RoomsController, type: :controller do
 
       post :join, params: { room_uid: @room }
 
-      expect(response).to render_template(:join)
+      expect(response).to redirect_to(signin_path)
     end
   end
 
