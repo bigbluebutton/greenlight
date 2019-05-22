@@ -53,11 +53,13 @@ if [ -z $CD_DOCKER_REPO ]; then
   export CD_DOCKER_REPO=$CD_REF_SLUG
 fi
 
-if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && ( -z $CD_BUILD_ALL ] || [ "$CD_BUILD_ALL" != "true" ] ); then
+if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && ( [ -z "$CD_BUILD_ALL" ] || [ "$CD_BUILD_ALL" != "true" ] ); then
   echo "#### Docker image for $CD_REF_SLUG won't be built"
   exit 0
 fi
 
+# Include sqlite for production
+sed -i "/^group :production do/a\ \ gem 'sqlite3', '~> 1.3'" Gemfile
 # Set the version tag when it is a release or the commit sha was included.
 if [[ "$CD_REF_NAME" == *"release"* ]]; then
   sed -i "s/VERSION =.*/VERSION = \"${CD_REF_NAME:8}\"/g" config/initializers/version.rb
