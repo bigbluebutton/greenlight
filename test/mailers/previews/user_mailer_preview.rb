@@ -49,4 +49,23 @@ class UserMailerPreview < ActionMailer::Preview
     user = User.first
     UserMailer.invite_user_signup(user, "http://example.com/", @logo, @color, "test@example.com")
   end
+  
+  # http://localhost:3000/rails/mailers/user_mailer/user_promoted
+  def user_promoted
+    user = User.first
+    url = "http://example.com"
+    logo_image = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
+    user_color = "#467fcf"
+    UserMailer.user_promoted(user, url, logo_image, user_color)
+  end
+
+  # Preview this email at
+  # http://localhost:3000/rails/mailers/user_mailer/user_demoted
+  def user_demoted
+    user = User.first
+    url = "http://example.com"
+    logo_image = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
+    user_color = "#467fcf"
+    UserMailer.user_demoted(user, url, logo_image, user_color)
+  end
 end
