@@ -41,6 +41,10 @@ Style/MixinUsage:
 Style/SymbolArray:
   Enabled: false
 
+# Don't use begin blocks when they are not needed.
+Style/RedundantBegin:
+  Enabled: false
+
 # Use `%`-literal delimiters consistently
 Style/PercentLiteralDelimiters:
   Enabled: false

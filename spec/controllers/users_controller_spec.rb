@@ -169,7 +169,9 @@ describe UsersController, type: :controller do
     end
 
     context "allow email verification" do
-      before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(true) }
+      before do
+        allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+      end
 
       it "should raise if there there is a delivery failure" do
         params = random_valid_user_params
@@ -178,6 +180,91 @@ describe UsersController, type: :controller do
           post :create, params: params
           raise :anyerror
         end.to raise_error { :anyerror }
+      end
+
+      context "enable invite registration" do
+        before do
+          allow_any_instance_of(Registrar).to receive(:invite_registration).and_return(true)
+          allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
+        end
+
+        it "rejects the user if they are not invited" do
+          get :new
+
+          expect(flash[:alert]).to be_present
+          expect(response).to redirect_to(root_path)
+        end
+
+        it "allows the user to signup if they are invited" do
+          allow(Rails.configuration).to receive(:enable_email_verification).and_return(false)
+
+          params = random_valid_user_params
+          invite = Invitation.create(email: params[:user][:name], provider: "greenlight")
+          @request.session[:invite_token] = invite.invite_token
+
+          post :create, params: params
+
+          u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+          expect(response).to redirect_to(u.main_room)
+        end
+
+        it "verifies the user if they sign up with the email they receieved the invite with" do
+          allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+
+          params = random_valid_user_params
+          invite = Invitation.create(email: params[:user][:email], provider: "greenlight")
+          @request.session[:invite_token] = invite.invite_token
+
+          post :create, params: params
+
+          u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+          expect(response).to redirect_to(u.main_room)
+        end
+
+        it "asks the user to verify if they signup with a different email" do
+          allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+
+          params = random_valid_user_params
+          invite = Invitation.create(email: Faker::Internet.email, provider: "greenlight")
+          @request.session[:invite_token] = invite.invite_token
+
+          post :create, params: params
+
+          expect(User.exists?(name: params[:user][:name], email: params[:user][:email])).to eq(true)
+          expect(flash[:success]).to be_present
+          expect(response).to redirect_to(root_path)
+        end
+      end
+
+      context "enable approval registration" do
+        before do
+          allow_any_instance_of(Registrar).to receive(:approval_registration).and_return(true)
+          allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
+        end
+
+        it "allows any user to sign up" do
+          allow(Rails.configuration).to receive(:enable_email_verification).and_return(false)
+
+          params = random_valid_user_params
+
+          post :create, params: params
+
+          expect(User.exists?(name: params[:user][:name], email: params[:user][:email])).to eq(true)
+          expect(flash[:success]).to be_present
+          expect(response).to redirect_to(root_path)
+        end
+
+        it "sets the user to pending on sign up" do
+          allow(Rails.configuration).to receive(:enable_email_verification).and_return(false)
+
+          params = random_valid_user_params
+
+          post :create, params: params
+
+          u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+
+          expect(u.has_role?(:pending)).to eq(true)
+        end
       end
     end
 

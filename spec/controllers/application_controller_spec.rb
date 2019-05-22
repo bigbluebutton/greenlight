@@ -32,14 +32,28 @@ describe ApplicationController do
   end
 
   context "roles" do
-    it "redirects a banned user to a 401 and logs them out" do
+    before do
       @user = create(:user)
+    end
+
+    it "redirects a banned user to a 401 and logs them out" do
       @user.add_role :denied
       @request.session[:user_id] = @user.id
 
       get :index
       expect(@request.session[:user_id]).to be_nil
-      expect(response).to redirect_to(unauthorized_path)
+      expect(flash[:alert]).to be_present
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "redirects a pending user to a 401 and logs them out" do
+      @user.add_role :pending
+      @request.session[:user_id] = @user.id
+
+      get :index
+      expect(@request.session[:user_id]).to be_nil
+      expect(flash[:alert]).to be_present
+      expect(response).to redirect_to(root_path)
     end
   end
 end

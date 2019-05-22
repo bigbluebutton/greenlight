@@ -19,6 +19,7 @@
 require 'bigbluebutton_api'
 
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
   include SessionsHelper
   include ThemingHelper
 
@@ -26,7 +27,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :check_admin_password
   before_action :set_user_domain
-  before_action :check_if_unbanned
+  before_action :check_user_role
 
   # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
@@ -84,7 +85,7 @@ class ApplicationController < ActionController::Base
   helper_method :recording_thumbnails?
 
   def allow_greenlight_users?
-    Rails.configuration.greenlight_accounts
+    allow_greenlight_accounts?
   end
   helper_method :allow_greenlight_users?
 
@@ -136,11 +137,14 @@ class ApplicationController < ActionController::Base
   helper_method :set_user_domain
 
   # Checks if the user is banned and logs him out if he is
-  def check_if_unbanned
-    if current_user&.has_role?(:denied)
+  def check_user_role
+    if current_user&.has_role? :denied
       session.delete(:user_id)
-      redirect_to unauthorized_path
+      redirect_to root_path, flash: { alert: I18n.t("registration.banned.fail") }
+    elsif current_user&.has_role? :pending
+      session.delete(:user_id)
+      redirect_to root_path, flash: { alert: I18n.t("registration.approval.fail") }
     end
   end
-  helper_method :check_if_unbanned
+  helper_method :check_user_role
 end

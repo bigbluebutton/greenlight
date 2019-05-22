@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190326144939) do
+ActiveRecord::Schema.define(version: 20190507190710) do
 
   create_table "features", force: :cascade do |t|
     t.integer  "setting_id"
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(version: 20190326144939) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.index ["setting_id"], name: "index_features_on_setting_id"
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.string   "email",        null: false
+    t.string   "provider",     null: false
+    t.string   "invite_token"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -38,11 +46,11 @@ ActiveRecord::Schema.define(version: 20190326144939) do
     t.string   "name"
     t.string   "uid"
     t.string   "bbb_id"
-    t.integer  "sessions",              default: 0
+    t.integer  "sessions",      default: 0
     t.datetime "last_session"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.string   "room_settings",         default: "{ }"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "room_settings", default: "{ }"
     t.string   "moderator_pw"
     t.string   "attendee_pw"
     t.index ["bbb_id"], name: "index_rooms_on_bbb_id"
@@ -70,8 +78,8 @@ ActiveRecord::Schema.define(version: 20190326144939) do
     t.string   "image"
     t.string   "password_digest"
     t.boolean  "accepted_terms",    default: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.boolean  "email_verified",    default: false
     t.string   "language",          default: "default"
     t.string   "reset_digest"
