@@ -21,12 +21,16 @@ module Emailer
 
   # Sends account activation email.
   def send_activation_email(user)
+    return unless Rails.configuration.enable_email_verification
+
     @user = user
     UserMailer.verify_email(@user, user_verification_link, logo_image, user_color).deliver
   end
 
   # Sends password reset email.
   def send_password_reset_email(user)
+    return unless Rails.configuration.enable_email_verification
+
     @user = user
     UserMailer.password_reset(@user, reset_link, logo_image, user_color).deliver_now
   end
@@ -41,11 +45,15 @@ module Emailer
 
   # Sends inivitation to join
   def send_invitation_email(name, email, token)
+    return unless Rails.configuration.enable_email_verification
+
     @token = token
     UserMailer.invite_email(name, email, invitation_link, logo_image, user_color).deliver_now
   end
 
   def send_user_approved_email(user)
+    return unless Rails.configuration.enable_email_verification
+
     UserMailer.approve_user(user, root_url, logo_image, user_color).deliver_now
   end
 
