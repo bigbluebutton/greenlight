@@ -206,6 +206,14 @@ describe RoomsController, type: :controller do
       expect(flash[:alert]).to be_present
       expect(response).to redirect_to(root_path)
     end
+
+    it "should not allow the user to join if the user isn't signed in and room authentication is required" do
+      allow_any_instance_of(Setting).to receive(:get_value).and_return("true")
+
+      post :join, params: { room_uid: @room }
+
+      expect(response).to render_template(:join)
+    end
   end
 
   describe "DELETE #destroy" do

@@ -21,7 +21,7 @@ class AdminsController < ApplicationController
   include Emailer
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve]
-  site_settings = [:branding, :coloring, :registration_method]
+  site_settings = [:branding, :coloring, :registration_method, :room_authentication]
 
   authorize_resource class: false
   before_action :find_user, only: manage_users
@@ -107,6 +107,12 @@ class AdminsController < ApplicationController
   # POST /admins/color
   def coloring
     @settings.update_value("Primary Color", params[:color])
+    redirect_to admins_path
+  end
+
+  # POST /admins/meetingAuthentication
+  def room_authentication
+    @settings.update_value("Room Authentication", params[:authenticationRequired])
     redirect_to admins_path
   end
 

@@ -226,5 +226,22 @@ describe AdminsController, type: :controller do
         expect(response).to redirect_to(admins_path)
       end
     end
+
+    context "POST #room_authentication" do
+      it "changes the primary on the page" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+        checked = true
+
+        post :room_authentication, params: { authenticationRequired: checked }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Authentication")
+
+        expect(feature[:value]).to eq(checked.to_s)
+        expect(response).to redirect_to(admins_path)
+      end
+    end
   end
 end

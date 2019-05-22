@@ -31,6 +31,19 @@
   <div class="row">
     <div class="col-12">
       <div class="mb-7 form-group">
+        <label class="form-label"><%= t("administrator.site_settings.authentication.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.authentication.info") %></label>
+        <div class="row gutters-xs">
+          <div class="input-group">
+            <%= check_box_tag "room_authentication", '', room_authentication_required, class: 'ml-1 mt-1', onchange: "changeRoomAuthentication(this.checked, '#{admin_room_authentication_path}')"%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="mb-7 form-group">
         <label class="form-label"><%= t("administrator.site_settings.color.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.color.info") %></label>
         <div class="row gutters-xs">

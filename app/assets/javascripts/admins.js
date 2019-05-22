@@ -79,3 +79,8 @@ function changeBrandingImage(path) {
   var url = $("#branding-url").val()
   $.post(path, {url: url})
 }
+
+// Change whether or not user have to be signed in to join a room
+function changeRoomAuthentication(checked, path) {
+  $.post(path, {authenticationRequired: checked})
+}

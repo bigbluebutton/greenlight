@@ -23,6 +23,10 @@ en:
         accepted_terms: "Terms and Conditions"
   administrator:
     site_settings:
+      authentication:
+        info: Only allow authenticated users to join a room
+        title: Require Authentication for Rooms
+        user-info: You must sign in to Greenlight to join this room
       branding:
         change: Change Image
         info: Change the branding image that appears in the top left corner
