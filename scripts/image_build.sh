@@ -60,6 +60,8 @@ fi
 
 # Include sqlite for production
 sed -i "/^group :production do/a\ \ gem 'sqlite', '~> 1.3'" Gemfile
+cat Gemfile
+cat Gemfile.lock
 # Set the version tag when it is a release or the commit sha was included.
 if [[ "$CD_REF_NAME" == *"release"* ]]; then
   sed -i "s/VERSION =.*/VERSION = \"${CD_REF_NAME:8}\"/g" config/initializers/version.rb
