@@ -49,7 +49,7 @@ class UserMailerPreview < ActionMailer::Preview
     user = User.first
     UserMailer.invite_user_signup(user, "http://example.com/", @logo, @color, "test@example.com")
   end
-  
+
   # http://localhost:3000/rails/mailers/user_mailer/user_promoted
   def user_promoted
     user = User.first

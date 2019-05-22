@@ -22,7 +22,8 @@ class AdminsController < ApplicationController
   include Emailer
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve]
-  site_settings = [:branding, :coloring, :coloring_lighten, :coloring_darken, :registration_method, :room_authentication]
+  site_settings = [:branding, :coloring, :coloring_lighten, :coloring_darken,
+                   :registration_method, :room_authentication]
 
   authorize_resource class: false
   before_action :find_user, only: manage_users
