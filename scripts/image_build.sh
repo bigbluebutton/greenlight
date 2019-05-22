@@ -59,7 +59,7 @@ if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && ( [ 
 fi
 
 # Include sqlite for production
-sed -i "/^group :production do/a\ \ gem 'sqlite3'" Gemfile
+sed -i "/^group :production do/a\ \ gem 'sqlite3', '~> 1.3.6'" Gemfile
 # Set the version tag when it is a release or the commit sha was included.
 if [[ "$CD_REF_NAME" == *"release"* ]]; then
   sed -i "s/VERSION =.*/VERSION = \"${CD_REF_NAME:8}\"/g" config/initializers/version.rb
