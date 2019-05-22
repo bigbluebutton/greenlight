@@ -35,7 +35,7 @@
         <div class="row gutters-xs">
           <label class="custom-control custom-checkbox ml-1">
             <%= check_box_tag "room_authentication", '', room_authentication_required, class: 'custom-control-input', onchange: "changeRoomAuthentication(this.checked, '#{admin_room_authentication_path}')"%>
-            <span class="custom-control-label text-muted pt-1"><%= t("administrator.site_settings.authentication.info") %></span>
+            <span class="custom-control-label text-muted authentication-required"><%= t("administrator.site_settings.authentication.info") %></span>
           </label>
         </div>
       </div>
