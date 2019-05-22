@@ -14,7 +14,6 @@ test:
   image: ruby:2.5
   script:
   - apt-get update -qq && apt-get install -y -qq sqlite3 libsqlite3-dev nodejs
-  - bundle update --bundler
   - bundle install --path /cache
   - bundle exec rake db:create RAILS_ENV=test
   - bundle exec rake test & bundle exec rspec & bundle exec rubocop

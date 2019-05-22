@@ -16,9 +16,6 @@ ENV RAILS_ENV production
 # Adding project files.
 COPY . .
 
-# Update bundler.
-RUN bundle update --bundler
-
 # Install gems.
 RUN bundle install --without development test --deployment --clean
 
