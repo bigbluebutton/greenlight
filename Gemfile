@@ -13,9 +13,6 @@ gem 'rails', '~> 5.0.7'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 
-# Use SQLite as the primary database.
-gem 'sqlite3', '~> 1.3'
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
@@ -89,6 +86,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   # Environment configuration.
   gem 'dotenv-rails'
+  # Use a sqlite database in test and development.
+  gem 'sqlite3', '~> 1.3.6'
 end
 
 group :test do
