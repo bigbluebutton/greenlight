@@ -22,4 +22,9 @@ module RoomsHelper
   def google_calendar_path
     "http://calendar.google.com/calendar/r/eventedit?text=#{@room.name}&location=#{request.base_url + request.fullpath}"
   end
+
+  def room_authentication_required
+    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Authentication") == "true" &&
+      current_user.nil?
+  end
 end

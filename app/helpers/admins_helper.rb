@@ -35,8 +35,12 @@ module AdminsHelper
     registration_method == Rails.configuration.registration_methods[:approval]
   end
 
-  def room_authentication_required
-    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Authentication") == "true"
+  def room_authentication_string
+    if Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Authentication") == "true"
+      I18n.t("administrator.site_settings.authentication.enabled")
+    else
+      I18n.t("administrator.site_settings.authentication.disabled")
+    end
   end
 
   def registration_method_string

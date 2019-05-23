@@ -285,13 +285,12 @@ describe AdminsController, type: :controller do
         allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
 
         @request.session[:user_id] = @admin.id
-        checked = true
 
-        post :room_authentication, params: { authenticationRequired: checked }
+        post :room_authentication, params: { value: "true" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Authentication")
 
-        expect(feature[:value]).to eq(checked.to_s)
+        expect(feature[:value]).to eq("true")
         expect(response).to redirect_to(admins_path)
       end
     end

@@ -16,7 +16,7 @@
 <div class="form-group">
   <div class="row">
     <div class="col-12">
-      <div class="mb-7 form-group">
+      <div class="mb-6 form-group">
         <label class="form-label"><%= t("administrator.site_settings.branding.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.branding.info") %></label>
         <div class="input-group">
@@ -30,20 +30,7 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <div class="mb-7 form-group">
-        <label class="form-label"><%= t("administrator.site_settings.authentication.title") %></label>
-        <div class="row gutters-xs">
-          <label class="custom-control custom-checkbox ml-1">
-            <%= check_box_tag "room_authentication", '', room_authentication_required, class: 'custom-control-input', onchange: "changeRoomAuthentication(this.checked, '#{admin_room_authentication_path}')"%>
-            <span class="custom-control-label text-muted authentication-required"><%= t("administrator.site_settings.authentication.info") %></span>
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <div class="mb-7 form-group">
+      <div class="mb-6 form-group">
         <label class="form-label"><%= t("administrator.site_settings.color.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.color.info") %></label>
           <div class="color-inputs">
@@ -68,7 +55,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12">
+    <div class="mb-6 col-12">
       <div class="form-group">
         <label class="form-label"><%= t("administrator.site_settings.registration.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.registration.info") %></label>
@@ -85,6 +72,27 @@
             <% end %>
             <%= button_to admin_change_registration_path("approval"), class: "dropdown-item" do %>
               <%= t("administrator.site_settings.registration.methods.approval") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.authentication.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.authentication.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="room-auth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= room_authentication_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="room-auth">
+            <%= button_to admin_room_authentication_path(value: "true"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.authentication.enabled") %>
+            <% end %>
+            <%= button_to admin_room_authentication_path(value: "false"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.authentication.disabled") %>
             <% end %>
           </div>
         </div>
