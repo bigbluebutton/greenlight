@@ -67,7 +67,7 @@ class AdminsController < ApplicationController
 
   # POST /admins/ban/:user_uid
   def ban_user
-    @user.remove_role :pending if @user.has_role? :pending
+    @user.roles = []
     @user.add_role :denied
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.banned") }
   end
@@ -75,6 +75,7 @@ class AdminsController < ApplicationController
   # POST /admins/unban/:user_uid
   def unban_user
     @user.remove_role :denied
+    @user.add_role :user
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.unbanned") }
   end
 
@@ -110,7 +111,7 @@ class AdminsController < ApplicationController
   # POST /admins/branding
   def branding
     @settings.update_value("Branding Image", params[:url])
-    redirect_to admins_path
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings.image") }
   end
 
   # POST /admins/color
@@ -118,23 +119,23 @@ class AdminsController < ApplicationController
     @settings.update_value("Primary Color", params[:color])
     @settings.update_value("Primary Color Lighten", color_lighten(params[:color]))
     @settings.update_value("Primary Color Darken", color_darken(params[:color]))
-    redirect_to admins_path
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   def coloring_lighten
     @settings.update_value("Primary Color Lighten", params[:color])
-    redirect_to admins_path
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   def coloring_darken
     @settings.update_value("Primary Color Darken", params[:color])
-    redirect_to admins_path
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   # POST /admins/room_authentication
   def room_authentication
     @settings.update_value("Room Authentication", params[:value])
-    redirect_to admins_path
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   # POST /admins/registration_method/:method
