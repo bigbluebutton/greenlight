@@ -14,7 +14,7 @@
 %>
 
 <%= render 'shared/room_event' do %>
-  <% if room_authentication_required && current_user.nil? %>
+  <% if room_authentication_required %>
     <h2><%= t("administrator.site_settings.authentication.user-info") %></h2>
   <% else %>
     <%= form_for room_path(@room), method: :post do |f| %>

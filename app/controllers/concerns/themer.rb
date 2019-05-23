@@ -17,31 +17,31 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 module Themer
-extend ActiveSupport::Concern
+  extend ActiveSupport::Concern
 
-# Lightens a color by 40%
-def color_lighten(color)
-  # Uses the built in Sass Engine to lighten the color
+  # Lightens a color by 40%
+  def color_lighten(color)
+    # Uses the built in Sass Engine to lighten the color
 
-  dummy_scss = "h1 { color: $lighten; }"
-  compiled = Sass::Engine.new("$lighten:lighten(#{color}, 40%);" + dummy_scss, syntax: :scss).render
+    dummy_scss = "h1 { color: $lighten; }"
+    compiled = Sass::Engine.new("$lighten:lighten(#{color}, 40%);" + dummy_scss, syntax: :scss).render
 
-  string_locater = 'color: '
-  color_start = compiled.index(string_locater) + string_locater.length
+    string_locater = 'color: '
+    color_start = compiled.index(string_locater) + string_locater.length
 
-  compiled[color_start..color_start + 6]
-end
+    compiled[color_start..color_start + 6]
+  end
 
-# Darkens a color by 10%
-def color_darken(color)
-  # Uses the built in Sass Engine to darken the color
+  # Darkens a color by 10%
+  def color_darken(color)
+    # Uses the built in Sass Engine to darken the color
 
-  dummy_scss = "h1 { color: $darken; }"
-  compiled = Sass::Engine.new("$darken:darken(#{color}, 10%);" + dummy_scss, syntax: :scss).render
+    dummy_scss = "h1 { color: $darken; }"
+    compiled = Sass::Engine.new("$darken:darken(#{color}, 10%);" + dummy_scss, syntax: :scss).render
 
-  string_locater = 'color: '
-  color_start = compiled.index(string_locater) + string_locater.length
+    string_locater = 'color: '
+    color_start = compiled.index(string_locater) + string_locater.length
 
-  compiled[color_start..color_start + 6]
-end
+    compiled[color_start..color_start + 6]
+  end
 end

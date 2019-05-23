@@ -106,11 +106,6 @@ function changeBrandingImage(path) {
   $.post(path, {url: url})
 }
 
-// Change whether or not user have to be signed in to join a room
-function changeRoomAuthentication(checked, path) {
-  $.post(path, {authenticationRequired: checked})
-}
-
 // Filters by role
 function filterRole(role) {
   search = new URL(location.href).searchParams.get('search')

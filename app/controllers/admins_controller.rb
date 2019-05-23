@@ -131,9 +131,9 @@ class AdminsController < ApplicationController
     redirect_to admins_path
   end
 
-  # POST /admins/meetingAuthentication
+  # POST /admins/room_authentication
   def room_authentication
-    @settings.update_value("Room Authentication", params[:authenticationRequired])
+    @settings.update_value("Room Authentication", params[:value])
     redirect_to admins_path
   end
 
