@@ -29,6 +29,9 @@ class ApplicationController < ActionController::Base
   before_action :set_user_domain
   before_action :check_user_role
 
+  # Manually handle BigBlueButton errors
+  rescue_from BigBlueButton::BigBlueButtonException, with: :handle_bigbluebutton_error
+
   # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
 
@@ -147,4 +150,9 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :check_user_role
+
+  # Manually Handle BigBlueButton errors
+  def handle_bigbluebutton_error
+    render "errors/bigbluebutton_error"
+  end
 end

@@ -24,10 +24,12 @@ end
 
 describe ApplicationController do
   controller do
-    before_action :check_if_unbanned
-
     def index
       head :ok
+    end
+
+    def error
+      raise BigBlueButton::BigBlueButtonException
     end
   end
 
@@ -54,6 +56,15 @@ describe ApplicationController do
       expect(@request.session[:user_id]).to be_nil
       expect(flash[:alert]).to be_present
       expect(response).to redirect_to(root_path)
+    end
+  end
+
+  context "errors" do
+    it "renders a BigBlueButton error if a BigBlueButtonException occurrs" do
+      routes.draw { get "error" => "anonymous#error" }
+
+      get :error
+      expect(response).to render_template("errors/bigbluebutton_error")
     end
   end
 end

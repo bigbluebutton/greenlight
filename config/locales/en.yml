@@ -98,6 +98,10 @@ en:
   email_sent: Your %{email_type} email has been sent! (Please check your Spam folder if you haven't received it)
   enter_your_name: Enter your name!
   errors:
+    bigbluebutton:
+      help: Please make sure the proper steps have been taken. <a href="%{doc_link}">Learn more</a>
+      message: Invalid BigBlueButton Endpoint and Secret
+      title: Server Error
     internal:
       message: Oh no! Looks like something went wrong on our end.
       help: The error has been logged, we'll take a look!
@@ -124,7 +128,6 @@ en:
     unauthorized:
       message: You do not have access to this application
       help: If you believe this is a mistake, please contact your system administrator.
-
     unprocessable:
       message: Oops! Request is unprocessable.
       help: Unfortunately this isn't a valid request.
