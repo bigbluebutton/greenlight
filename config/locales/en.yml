@@ -60,6 +60,7 @@ en:
       invite_email_verification: ALLOW_MAIL_NOTIFICATIONS must be set to true in order to use this method
       promoted: User has been successfully promoted
       registration_method_updated: Registration method successfully updated
+      settings: Site Settings successfully changed
       unauthorized: You are not authorized to perform actions on this user
     title: Organization Settings
     users:
