@@ -1,3 +1,9 @@
+.btn {
+  &:focus {
+    box-shadow: 0 0 0 2px $primary-color-lighten;
+  }
+}
+
 .btn-primary,
 .btn-primary:visited,
 .btn-primary i {
@@ -9,11 +15,23 @@
 .btn-primary:active,
 .btn-primary:active:focus,
 .btn-primary:active:hover,
-.btn-primary:focus,
 .btn-primary:hover,
 .btn-primary:hover i {
   background-color: $primary-color-darken !important;
   border-color: $primary-color-darken !important;
+  color: white !important;
+}
+
+.btn-primary:focus {
+  background-color: $primary-color-darken !important;
+  border-color: $primary-color-darken !important;
+  color: white !important;
+  box-shadow: 0 0 0 2px $primary-color-lighten !important;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before{
+  background-color: $primary-color !important;
+  border-color: $primary-color !important;
   color: white !important;
 }
 
@@ -39,7 +57,7 @@ a {
   }
 
   &:focus {
-    box-shadow: 0 0 0 2px $primary-color-lighten;
+    box-shadow: 0 0 0 2px $primary-color-lighten !important;
   }
 }
 
@@ -91,6 +109,7 @@ input:focus, select:focus {
 
 .bg-primary {
   background-color: $primary-color !important;
+  color: white !important;
 }
 
 .btn-danger {
@@ -122,4 +141,22 @@ input:focus, select:focus {
       box-shadow: 0 0 3px $primary-color !important;
     }
   }
+}
+
+.primary-regular {
+  background-color: $primary-color !important;
+  border-color: $primary-color !important;
+  color: white !important;
+}
+
+.primary-lighten {
+  background-color: $primary-color-lighten !important;
+  border-color: $primary-color-lighten !important;
+  color: $primary-color !important;
+}
+
+.primary-darken {
+  background-color: $primary-color-darken !important;
+  border-color: $primary-color-darken !important;
+  color: white !important;
 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190326144939) do
+ActiveRecord::Schema.define(version: 20190522195242) do
 
   create_table "features", force: :cascade do |t|
     t.integer  "setting_id"
@@ -19,7 +19,18 @@ ActiveRecord::Schema.define(version: 20190326144939) do
     t.boolean  "enabled",    default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.index ["name"], name: "index_features_on_name"
     t.index ["setting_id"], name: "index_features_on_setting_id"
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.string   "email",        null: false
+    t.string   "provider",     null: false
+    t.string   "invite_token"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["invite_token"], name: "index_invitations_on_invite_token"
+    t.index ["provider"], name: "index_invitations_on_provider"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -57,6 +68,7 @@ ActiveRecord::Schema.define(version: 20190326144939) do
     t.string   "provider",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["provider"], name: "index_settings_on_provider"
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,7 +90,10 @@ ActiveRecord::Schema.define(version: 20190326144939) do
     t.datetime "reset_sent_at"
     t.string   "activation_digest"
     t.datetime "activated_at"
+    t.index ["created_at"], name: "index_users_on_created_at"
+    t.index ["email"], name: "index_users_on_email"
     t.index ["password_digest"], name: "index_users_on_password_digest", unique: true
+    t.index ["provider"], name: "index_users_on_provider"
     t.index ["room_id"], name: "index_users_on_room_id"
   end
 

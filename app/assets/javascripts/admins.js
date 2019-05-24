@@ -31,32 +31,58 @@ $(document).on('turbolinks:load', function(){
       $("#delete-confirm").parent().attr("action", url)
     })
 
-    $('.colorinput').ColorPicker({
-      onHide: function (colpkr) {
-        var colour = $("#user-colour").val();
+    //clear the role filter if user clicks on the x
+    $(".clear-role").click(function(data) {
+      search = new URL(location.href).searchParams.get('search')
 
-        // Update the color in the database and reload the page
-        $.post($("#coloring-path").val(), {color: colour}).done(function(data) {
-          location.reload()
-        });
-      },
-
-      onSubmit: function(hsb, hex, rgb, el) {
-        $.post($("#coloring-path").val(), {color: '#' + hex}).done(function(data) {
-          location.reload()
-        });
-      },
-      
+      url = window.location.pathname + "?page=1"
+    
+      if (search) {
+        url += "&search=" + search
+      }  
+    
+      window.location.replace(url);
+    })
+    
+    /* COLOR SELECTORS */
+    
+    $('#colorinput-regular').ColorPicker({
       onBeforeShow: function () {
-        var colour = $("#user-colour").val();
+        var colour = rgb2hex($("#colorinput-regular").css("background-color"))
 
         $(this).ColorPickerSetColor(colour);
       },
+      onSubmit: function(_hsb, hex, _rgb, _el) {
+        $.post($("#coloring-path-regular").val(), {color: '#' + hex}).done(function(data) {
+          location.reload()
+        });
+      },
+    });
 
-      onChange: function (hsb, hex, rgb) {
-        $('.colorinput span').css('backgroundColor', '#' + hex);
-        $("#user-colour").val('#' + hex);
-      }
+    $('#colorinput-lighten').ColorPicker({
+      onBeforeShow: function () {
+        var colour = rgb2hex($("#colorinput-lighten").css("background-color"))
+
+        $(this).ColorPickerSetColor(colour);
+      },
+      onSubmit: function(_hsb, hex, _rgb, _el) {
+        $.post($("#coloring-path-lighten").val(), {color: '#' + hex}).done(function(data) {
+          location.reload()
+        });
+      },
+    });
+
+    $('#colorinput-darken').ColorPicker({
+      onBeforeShow: function () {
+        var colour = rgb2hex($("#colorinput-darken").css("background-color"))
+
+        $(this).ColorPickerSetColor(colour);
+      },
+      onSubmit: function(_hsb, hex, _rgb, _el) {
+        $.post($("#coloring-path-darken").val(), {color: '#' + hex}).done(function(data) {
+          location.reload()
+        });
+      },
     });
   }
 
@@ -79,3 +105,25 @@ function changeBrandingImage(path) {
   var url = $("#branding-url").val()
   $.post(path, {url: url})
 }
+
+// Filters by role
+function filterRole(role) {
+  search = new URL(location.href).searchParams.get('search')
+
+  url = window.location.pathname + "?page=1" + "&role=" + role
+
+  if (search) {
+    url += "&search=" + search
+  }  
+
+  window.location.replace(url);
+}
+
+function rgb2hex(rgb) {
+  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+  function hex(x) {
+      return ("0" + parseInt(x).toString(16)).slice(-2);
+  }
+  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
