@@ -111,7 +111,7 @@ class AdminsController < ApplicationController
   # POST /admins/branding
   def branding
     @settings.update_value("Branding Image", params[:url])
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings.image") }
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   # POST /admins/color
