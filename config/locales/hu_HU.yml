@@ -1,0 +1,394 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+hu_HU:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Felhasználási feltételek"
+  administrator:
+    site_settings:
+      authentication:
+        disabled: Kikapcsolva
+        enabled: Bekapcsolva
+        info: Csak hitelesített felhasználók léphetnek be a szobába
+        title: Hitelesítés megkövetelése a szobákhoz
+        user-info: Ebbe a szobába a belépéshez a Greenlight-ba be kell jelentkezned
+      branding:
+        change: Kép cseréje
+        info: A bal felső sarokban megjelenő branding  kép cseréje
+        placeholder: Kép URL-je...
+        title: Branding kép
+      color:
+        info: ""
+        title: Elsődleges szín
+        regular: Szokásos
+        lighten: Világosabb
+        Darken: Sötétebb
+      registration:
+        info: A felhasználók weboldalra hitelesítési módjának módosítása
+        title: Regisztráció módja
+        methods:
+          approval: Jóváhagy/Elutasít
+          invite: Belépés meghívásra
+          open: Regisztráció megnyitása
+      subtitle: Greenlight személy szabása
+      title: Weboldal beállításai
+    flash:
+      approved: A felhasználót sikeresen jóváhagytad.
+      banned: A felhasználót sikeresen  kizártad.
+      unbanned: A felhasználót kizárását sikeresen visszavontad.
+      delete: A felhasználót sikeresen törölted
+      delete_fail: A felhasználó törlése sikertelen
+      demoted: A felhasználót sikeresen lefokoztad
+      invite: "A meghívót sikeresen elküldtük %{email}"
+      invite_email_verification: "ALLOW_MAIL_NOTIFICATIONS beállításnak igaznak kell lennie, hogy ezt a módot használhasd"
+      promoted: A felhasználót sikeresen előléptetted
+      registration_method_updated: A regisztráció módját sikeresen módosítottad
+      settings: A weboldal beállításait sikeresen módosítottad
+      unauthorized: "Nincs jogosultságod, hogy műveletet hajts végre ezen a felhasználón"
+    title: Szervezet beállításai
+    users:
+      invite: Felhasználó meghívása
+      edit:
+        title: Felhasználó adatainak módosítása
+      settings:
+        ban: Felhasználó kizárása
+        delete: Törlés
+        demote: Lefokozás felhasználóvá
+        edit: Módosítás
+        promote: Előléptetés vezetővé
+        unban: Felhasználó kizárásának vsszavonása
+      table:
+        authenticator: Hitelesítő
+        created: Létrehozva
+        name: Név
+        not_found: Egy felhasználó sem felel meg a keresési feltételnek
+        no_users: Egy felhasználót sem találtunk
+        role: Szerep
+        uid: Felhasználó ID
+        username: Felhasználónév
+      title: Felhasználókezelés
+  add_to_google_calendar: "Google Naptár hozzáadása"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: "Sajnáljuk, hiba történt a találkozó indításakor!"
+  cancel: Mégsem
+  cookies:
+    cookie_info: "A sütik segítenek, hogy ezt a szolgáltatását nyújthassuk. Szolgáltatásaink használatával elfogadod a sütijeinket."
+    cookie_button: Egyetértek
+  copied: Másolva
+  copy: Másolás
+  default_admin: "Még mindig az alapértelmezett jelszót használd ehhez a felhasználóhoz. Kérjük, kattints <a href=\"%{edit_link}\">ide</a> a módosításához."
+  delete: Törlés
+  delivery_error: ""
+  docs: Dokumentáció
+  email: E-mail cím
+  email_sent: ""
+  enter_your_name: Add meg az e-mail címed!
+  errors:
+    bigbluebutton:
+      help: ""
+      message: Érvénytelen BigBlueButton Végpont és Titok
+      title: Szerverhiba
+    internal:
+      message: ""
+      help: ""
+    migration_error:
+      contact_admin: ""
+      continue: Inkább maradnék az 1.0-ás használatánál.
+      notice: >
+      upgrade: ""
+      version: ""
+    messages:
+      blank: nem lehet üres
+      too_short: túl rövid
+      invalid: érvénytelen
+      taken: már elhasználták
+      accepted: el kell fogadni
+      confirmation: "nem egyezik %{attribute}"
+      inclusion: nincs benne ebben a listában
+    not_found:
+      message: "Oppssz! Úgy látszik, nem találjuk."
+      help: "Lehetséges, hogy már eltávolították?"
+    title: Hibák
+    unauthorized:
+      message: Nincs hozzáférésed ehhez az alkalmazáshoz
+      help: ""
+    unprocessable:
+      message: Oppssz! A kérés nem hajtható végre.
+      help: ""
+  expired_reset_token: A jelszómódosító-link már lejárt!
+  features:
+    title: Tulajdonságok
+    rooms: ""
+    recordings: Felvételkezelés
+    designs: Egyéni design
+    authentication: Felhasználói hitelesítés
+  footer:
+    powered_by: "Powered by %{href}."
+  forgot_password:
+    subtitle: Elfelejtett jelszó
+    email: E-mail
+    submit: Jóváhagyás
+  go_back: Vissza
+  greenlight: Greenlight
+  header:
+    all_recordings: Összes felvétel
+    dropdown:
+      account_settings: Szervezet
+      help: "Segítségre van szükséged?"
+      home: Otthon
+      settings: Profil
+      signout: Kijelentkezés
+  home_room: Otthoni szoba
+  info_update_success: A információt sikeresen módosítottad.
+  invalid_user: ""
+  invalid_credentials: ""
+  invalid_login_method: ""
+  invite_message: "Az előadásra meghíváshoz, küldd el ezt a linket:"
+  javascript:
+    room:
+      mailer:
+        subject: 'meghívott, hogy nézd meg a felvételt.'
+        body: 'A felvétel megtekintéséhez, kattints az alábbi linkre:'
+        autogenerated: 'Ez a BigBlueButton által automatikusan generált e-mail.'
+        footer: ''
+  landing:
+    about: ""
+    welcome: A BigBlueButton üdvözöl.
+    video: ""
+    upgrade: "Mutasd, hogyan tudok frissíteni a 2.0-ás verzióra!"
+    version: ""
+  language_name: Angol
+  language_default: Alapértelmezett (böngésző nyelve)
+  ldap_error: ""
+  login: Bejelentkezés
+  login_title: Bejelentkezés a fiókomba
+  mailer:
+    user:
+      approve:
+        info: ""
+        signin: ""
+        signin_link: Bejelentkezés
+        signup:
+          info: ""
+          more-info: ""
+          admins_link: ""
+          subject: "" 
+          username: ""
+        subject: ""
+        username: ""
+      demoted:
+        info: ""
+        more-info: ""
+        root_link: ""
+        subtitle: ""
+      invite:
+        info: ""
+        signup: To signup using your email, click the button below and follow the steps.
+        signup_link: Regisztráció
+        signup:
+          info: ""
+          admins_link: ""
+          subject: "" 
+          username: ""
+        subject: ""
+        username: ""
+      password_reset:
+        title: ''
+        welcome: ""
+        message: ''
+        reset_link: Jelszó alaphelyzetbe állítása
+        expire: ""
+        ignore: ""
+      promoted:
+        admins_link: A Szervezeti oldal megtekintése
+        info: ""
+        more-info: ""
+        subtitle: ""
+      verify_email:
+        welcome: ""
+        success: ""
+        username: "A felhasználóneved %{email}."
+        verify: ""
+        verify_text: ''
+        verify_link: Fiók ellenőrzése
+        thanks: "Köszönjük, hogy csatlakoztál. További szép napot!"
+  max_concurrent: ""
+  modal:
+    create_room:
+      auto_join: ""
+      create: Szoba létrehozása
+      free_delete: ""
+      name_placeholder: ""
+      not_blank: A szoba neve ne lehet üres.
+      title: Új szoba létrehozása
+    delete_account:
+      confirm: ""
+      delete: "Biztos, hogy törlöm ezt a fiókot."
+      keep: ""
+      warning: ""
+    delete_room:
+      confirm: ""
+      delete: ""
+      keep: ""
+      warning: ""
+    invite_user:
+      email_placeholder: ""
+      footer: ""
+      send: Meghívó küldése
+      title: Felhasználó meghívása
+    login:
+      or: vagy
+      with: "%{provider} bejelentkezés"
+      forgot_password: "Elfejtetted a jelszavad?"
+    rename_recording:
+    room_settings:
+      title: Szoba beállításai
+      update: Szoba frissítése
+      client: Válaszd ki a kliens típusát
+      mute: Felhasználók némítása csatlakozáskor
+      default: Alapértelmezett
+      html: HTML5
+      flash: Flash
+      footer_text: ""
+    rename_room:
+      name_placeholder: ""
+  name_update_success: ""
+  no_user_email_exists: ""
+  omniauth_error: ""
+  pagy:
+    nav:
+      prev: "&lsaquo; Előző"
+      next: "Következő &rsaquo;"
+      gap: "&hellip;"
+  password: Jelszó
+  password_empty_notice: A jelszó nem lehet üres.
+  password_reset_success: ""
+  password_different_notice: A két új jelszó eltér egymástól.
+  provider:
+    google: Google
+    microsoft_office365: Office 365
+    twitter: Twitter
+  recaptcha:
+    errors:
+      recaptcha_unreachable: ""
+      verification_failed: ""
+  recording:
+    all_recordings: Összes felvétel
+    email: ""
+    no_recordings: ""
+    no_user_recordings: ""
+    no_matched_recordings: ""
+    recorded_on: "Rögzítették %{date}"
+    table:
+      name: Név
+      thumbnails: Indexképek
+      length: Hosszúság
+      users: Felhasználók
+      visibility: Láthatóság
+      formats: Formátumok
+    visibility:
+      public: Nyilvános
+      unlisted: Fel nem sorolt
+    format:
+      presentation: Prezentáció
+  registration:
+    approval: 
+      fail: ""
+      signup: ""
+    banned:
+      fail: "" 
+    invite:
+      fail: ""
+      no_invite: ""
+  rename: Átnevezés
+  reset_password:
+    subtitle: Jelszó alaphelyzetbe állítása
+    password: Új jelszó
+    confirm: Új jelszó újra
+    update: Jelszó módosítása
+  roles:
+    administrator: Üzemeltető
+    banned: Kizárva
+    pending: Függőben
+    super_admin: Szuper üzemeltető
+    user: Felhasználó
+  room:
+    create_room: Szoba létrehozása
+    create_room_error: ""
+    create_room_success: A szobát sikeresen létrehoztad
+    invited: ""
+    invite_participants: Résztvevők meghívása
+    join: Belépés
+    last_session: ""
+    owner: Tulajdonos
+    no_sessions: ""
+    recordings: Szobafelvételek
+    sessions: Munkamenetek
+    settings: Szoba beállításai
+    start: Indítás
+    unavailable: ""
+    update_settings_error: ""
+    update_settings_success: A szoba beállításait sikeresen módosítottad
+    wait:
+      message: Oppssz! Az eladás még nem kezdődött el.
+      auto: "Automatikusan csatlakoztatunk az előadáshoz, amikor az elindul."
+  settings:
+    account:
+      fullname: Teljes név
+      language: Nyelv
+      provider: Beszállító
+      image: Kép
+      image_url: ""
+      subtitle: ""
+      title: ""
+    delete:
+      button: ""
+      disclaimer: ""
+      subtitle: Fiókom végleges törlése
+      title: Fiók törlése
+    password:
+      confirmation: Új jelszó újra
+      new: Új jelszó
+      old: Régi jelszó
+      subtitle: Jelszó módosítása
+      title: Jelszó
+    title: Profil
+    search: Keresés
+  signup:
+    password_confirm: ""
+    subtitle: Fiók létrehozása
+    title: Regisztrálás
+    with: ""
+  terms:
+    accept: ""
+    accept_existing: ""
+    title: Felhasználási feltételek
+  test_install: >
+  update: Frissítés
+  verify:
+    accept: Ellenőrzés
+    activated: A fiókot sikeresen ellenőriztük!
+    already_verified: A fiókodat már visszaigazoltad
+    invalid: Érvénytelen visszaigazoló link
+    not_verified: A fiókodat még nem igazoltad vissza.
+    resend: Visszaigazoló e-mail újraküldése
+    signin: A fiókod eléréséhez jelentkezz be.
+    title: Ellenőrizd postaládádat
+    verification: Visszaigazolás
