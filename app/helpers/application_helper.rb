@@ -39,6 +39,11 @@ module ApplicationHelper
     "#{Rails.configuration.relative_url_root}/auth/#{provider}"
   end
 
+  # Generates the logout URL for omniauth_auth0
+  def auth0_logout_url()
+    "https://#{ENV['AUTH0_DOMAIN']}/logout?returnTo=#{logout_url}&client_id=#{ENV['AUTH0_ID']}"
+  end
+
   # Determine if Greenlight is configured to allow user signups.
   def allow_user_signup?
     Rails.configuration.allow_user_signup
