@@ -198,7 +198,7 @@ en:
       demoted:
         info: You are no longer an administrator on %{url}.
         more-info: You now have the same privileges as a regular user and will no longer be able to access any of the Administrator settings.
-        root_link: Visit the Organization Page
+        root_link: Sign In
         subtitle: Administrator Rights Rescinded
       invite:
         info: You have been invited to your own personal space by %{name}
