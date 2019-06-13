@@ -32,10 +32,10 @@ $(document).on('turbolinks:load', function(){
     })
 
     //clear the role filter if user clicks on the x
-    $(".clear-role").click(function(data) {
-      search = new URL(location.href).searchParams.get('search')
+    $(".clear-role").click(function() {
+      var search = new URL(location.href).searchParams.get('search')
 
-      url = window.location.pathname + "?page=1"
+      var url = window.location.pathname + "?page=1"
     
       if (search) {
         url += "&search=" + search
@@ -52,8 +52,8 @@ $(document).on('turbolinks:load', function(){
 
         $(this).ColorPickerSetColor(colour);
       },
-      onSubmit: function(_hsb, hex, _rgb, _el) {
-        $.post($("#coloring-path-regular").val(), {color: '#' + hex}).done(function(data) {
+      onSubmit: function(_hsb, hex) {
+        $.post($("#coloring-path-regular").val(), {color: '#' + hex}).done(function() {
           location.reload()
         });
       },
@@ -65,8 +65,8 @@ $(document).on('turbolinks:load', function(){
 
         $(this).ColorPickerSetColor(colour);
       },
-      onSubmit: function(_hsb, hex, _rgb, _el) {
-        $.post($("#coloring-path-lighten").val(), {color: '#' + hex}).done(function(data) {
+      onSubmit: function(_hsb, hex) {
+        $.post($("#coloring-path-lighten").val(), {color: '#' + hex}).done(function() {
           location.reload()
         });
       },
@@ -78,8 +78,8 @@ $(document).on('turbolinks:load', function(){
 
         $(this).ColorPickerSetColor(colour);
       },
-      onSubmit: function(_hsb, hex, _rgb, _el) {
-        $.post($("#coloring-path-darken").val(), {color: '#' + hex}).done(function(data) {
+      onSubmit: function(_hsb, hex) {
+        $.post($("#coloring-path-darken").val(), {color: '#' + hex}).done(function() {
           location.reload()
         });
       },
@@ -108,9 +108,9 @@ function changeBrandingImage(path) {
 
 // Filters by role
 function filterRole(role) {
-  search = new URL(location.href).searchParams.get('search')
+  var search = new URL(location.href).searchParams.get('search')
 
-  url = window.location.pathname + "?page=1" + "&role=" + role
+  var url = window.location.pathname + "?page=1" + "&role=" + role
 
   if (search) {
     url += "&search=" + search
