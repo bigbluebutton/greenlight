@@ -197,7 +197,7 @@ de_DE:
       demoted:
         info: "Sie sind nicht länger Administrator auf %{url}."
         more-info: "Sie haben jetzt die selben Rechte wie normale Nutzer und können nicht länger administrative Einstellungen verändern. "
-        root_link: Organisationsseite besuchen
+        root_link: Einloggen
         subtitle: Administratorrechte entzogen
       invite:
         info: "Sie wurden von %{name} in Ihren persönlichen Bereich eingeladen"
