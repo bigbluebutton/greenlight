@@ -31,9 +31,9 @@ hu_HU:
         user-info: Ebbe a szobába a belépéshez a Greenlight-ba be kell jelentkezned
       branding:
         change: Kép cseréje
-        info: A bal felső sarokban megjelenő branding  kép cseréje
+        info: A bal felső sarokban megjelenő arculati kép cseréje
         placeholder: Kép URL-je...
-        title: Branding kép
+        title: Arculati kép
       color:
         info: "A Szokásos szín változtatásával módosul a Világosabb és a Sötétebb is, de ezek egyénileg is módosíthatóak."
         title: Elsődleges szín
@@ -59,7 +59,7 @@ hu_HU:
       invite: "A meghívót sikeresen elküldtük %{email}"
       invite_email_verification: "ALLOW_MAIL_NOTIFICATIONS beállításnak igaznak kell lennie, hogy ezt a módot használhasd"
       promoted: A felhasználót sikeresen előléptetted
-      registration_method_updated: A regisztráció módját sikeresen módosítottad
+      registration_method_updated: A regisztráció módját sikeresen megváltoztattad
       settings: A weboldal beállításait sikeresen módosítottad
       unauthorized: "Nincs jogosultságod, hogy műveletet hajts végre ezen a felhasználón"
     title: Szervezet beállításai
@@ -89,11 +89,11 @@ hu_HU:
   bigbluebutton_exception: "Sajnáljuk, hiba történt a találkozó indításakor!"
   cancel: Mégsem
   cookies:
-    cookie_info: "A sütik segítenek, hogy ezt a szolgáltatását nyújthassuk. Szolgáltatásaink használatával elfogadod a sütijeinket."
+    cookie_info: A szolgáltatását nyújtásában segítenek a sütijeink. A szolgáltatásaink használatával elfogadod a sütijeinket.
     cookie_button: Egyetértek
-  copied: Másolva
+  copied: Másoltad
   copy: Másolás
-  default_admin: "Még mindig az alapértelmezett jelszót használd ehhez a felhasználóhoz. Kérjük, kattints <a href=\"%{edit_link}\">ide</a> a módosításához."
+  default_admin: "Még mindig az alapértelmezett jelszót használod ehhez a felhasználóhoz. Kérjük, kattints <a href=\"%{edit_link}\">ide</a> a jelszó módosításához."
   delete: Törlés
   delivery_error: "Hi az e-mail küldése közben. Kérjük, jelezd az üzemeltetőnek!"
   docs: Dokumentáció
@@ -103,7 +103,7 @@ hu_HU:
   errors:
     bigbluebutton:
       help: "Kérjük, ellenőrizd, hogy a szükséges lépéseket megtetted. <a href=\"%{doc_link}\"> Bővebb információk</a>"
-      message: Érvénytelen BigBlueButton Végpont és Titok
+      message: Érvénytelen BigBlueButton Endpoint és Secret
       title: Szerverhiba
     internal:
       message: Jajj ne! Valami hiba történt a végünkön.
@@ -137,9 +137,9 @@ hu_HU:
   features:
     title: Tulajdonságok
     rooms: Személyre szabott szobák
-    recordings: Felvételkezelés
-    designs: Egyéni design
-    authentication: Felhasználói hitelesítés
+    recordings: Felvételek kezelése
+    designs: Egyéni kinézet
+    authentication: Felhasználók hitelesítése
   footer:
     powered_by: "Powered by %{href}."
   forgot_password:
@@ -152,12 +152,12 @@ hu_HU:
     all_recordings: Összes felvétel
     dropdown:
       account_settings: Szervezet
-      help: "Segítségre van szükséged?"
-      home: Otthon
+      help: Segítség
+      home: Saját
       settings: Profil
       signout: Kijelentkezés
-  home_room: Otthoni szoba
-  info_update_success: A információt sikeresen módosítottad.
+  home_room: Saját szobám
+  info_update_success: Az információt sikeresen módosítottad.
   invalid_user: "Bejelentkezési hiba, mert a felhasználót nem találtuk. Biztos, hogy ez az e-mail cím helyes?"
   invalid_credentials: "Bejelentkezési hiba, mert a hitelesítés nem érvényes. Biztos, hogy jól adtad meg az adatokat?"
   invalid_login_method: "Bejelentkezési hiba, mert a fiók nem megfelelő. Jelentkezz be omniauth-szal."
@@ -176,7 +176,7 @@ hu_HU:
     upgrade: "Mutasd, hogyan tudok frissíteni a 2.0-ás verzióra!"
     version: "A Greenlight új verziója jelent meg, de az adatbázisod nem kompatibilis."
   language_name: Angol
-  language_default: Alapértelmezett (böngésző nyelve)
+  language_default: Alapértelmezett (a böngésző nyelve)
   ldap_error: "Nem sikerült csatlakozni az LDAP szerverhez. Kérjük, ellenőrizd a beállításokat a környezeti, env fájlban, illetve azt, hogy a szerver működik és elérhető."
   login: Bejelentkezés
   login_title: Bejelentkezés a fiókomba
@@ -197,7 +197,7 @@ hu_HU:
       demoted:
         info: "Te már nem vagy %{url} üzemeltetője."
         more-info: "Mostantól egy felhasználóval azonos jogokkal bírsz, így nem tudod elérni a Rendszerbeállításokat."
-        root_link: A Szervezeti oldal megtekintése
+        root_link: Bejelentkezés
         subtitle: Üzemeltetői jogok visszavonva
       invite:
         info: "%{name} meghívott a személyes területedre."
@@ -220,7 +220,7 @@ hu_HU:
       promoted:
         admins_link: A Szervezeti oldal megtekintése
         info: "Mostantól a %{url} üzemeltetője vagy."
-        more-info: "Üzemeletetőként, kezelheted a felhasználókat, szerepeiket, továbbá konfigurálhatod a weboldalt a logó és az arculati szín módosításával."
+        more-info: "Üzemeltetőként kezelheted a felhasználókat, szerepeiket, továbbá konfigurálhatod a weboldalt a logó és az arculati szín módosításával."
         subtitle: Üzemeltetői jogok biztosítva
       verify_email:
         welcome: "%{name}, üdvözlünk a személyes területeden!"
@@ -242,7 +242,7 @@ hu_HU:
     delete_account:
       confirm: "Biztos, hogy töröd ezt a fiókot?"
       delete: "Biztos, hogy törlöm ezt a fiókot."
-      keep: Tulajdonképpen meg fogom tartani.
+      keep: Inkább megtartom.
       warning: Ez egy végleges döntés. A kapcsolódó adatokat később már <b>nem</b> lehet visszaállítani.
     delete_room:
       confirm: "Biztos, hogy töröld %{room} szobát?"
@@ -261,13 +261,13 @@ hu_HU:
     rename_recording:
     room_settings:
       title: Szoba beállításai
-      update: Szoba frissítése
+      update: Szoba módosítása
       client: Válaszd ki a kliens típusát
       mute: Felhasználók némítása csatlakozáskor
       default: Alapértelmezett
       html: HTML5
       flash: Flash
-      footer_text: A szobád beállítása bármikor végrehajtható.
+      footer_text: A szobád beállításai bármikor módosíthatóak.
     rename_room:
       name_placeholder: Add meg egy új szoba nevét ...
   name_update_success: A szoba nevét sikeresen módosítottad!
@@ -293,7 +293,7 @@ hu_HU:
   recording:
     all_recordings: Összes felvétel
     email: E-mail felvétel
-    no_recordings: "Ennek a szobának egy %{inject}felvétele sincs."
+    no_recordings: "Ennek a szobának egy %{inject} felvétele sincs."
     no_user_recordings: Jelenleg egy felvételed sincs.
     no_matched_recordings: "Egy %{inject} felvétel sem felel meg a keresési feltételnek."
     recorded_on: "Rögzítették %{date}"
@@ -312,7 +312,7 @@ hu_HU:
   registration:
     approval: 
       fail: "A fiókodat még nem hagyták jóvá. Ha már többi nap eltelt a regisztrációd óta, lépj kapcsolatba az üzemeltetőkkel."
-      signup: "A fiókodat sikeresen létrehoztuk, várjuk az üzemeltető jóváhagyását."
+      signup: "A fiókodat sikeresen létrehoztuk, várunk az üzemeltető jóváhagyására."
     banned:
       fail: "Nincs hozzáférésed ehhez az alkalmazáshoz. Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd az üzemeltetőnek." 
     invite:
@@ -337,11 +337,11 @@ hu_HU:
     invited: "Meghívtak, hogy belépj"
     invite_participants: Résztvevők meghívása
     join: Belépés
-    last_session: "Utolsó munkamenet %{session}"
+    last_session: "Utolsó munkamenet időpontja %{session}"
     owner: Tulajdonos
     no_sessions: Ennek a szobának még nincs munkamenete!
-    recordings: Szobafelvételek
-    sessions: Munkamenetek
+    recordings: Felvétel
+    sessions: Munkamenet
     settings: Szoba beállításai
     start: Indítás
     unavailable: "Ez a szoba jelenleg nem érhető el, mert a tulajdonosa nem igazolta vissza az e-mail címét."
@@ -354,14 +354,14 @@ hu_HU:
     account:
       fullname: Teljes név
       language: Nyelv
-      provider: Beszállító
+      provider: Szolgáltató
       image: Kép
       image_url: Profilkép URL-je
-      subtitle: Fiókinformációd módosítása
+      subtitle: Fiókinformációim módosítása
       title: Fiókinformációk
     delete:
       button: "Igen, törlöm a fiókom."
-      disclaimer: "Amennyiben törlöd fiókod, azt később már <b>NEM</b> lehet visszaállítani.  A fiókodhoz kapcsolódó összes adatot, a beállításokat, a szobákat és a felvételeket is véglegesen törlöd."
+      disclaimer: "Amennyiben törlöd a fiókod, azt később már <b>NEM</b> lehet visszaállítani. A fiókodhoz kapcsolódó összes adatot, a beállításokat, a szobákat és a felvételeket is véglegesen törlöd."
       subtitle: Fiókom végleges törlése
       title: Fiók törlése
     password:
@@ -383,7 +383,7 @@ hu_HU:
     title: Felhasználási feltételek
   test_install: >
     Ez a fejlesztés egy előre konfigurált tesztszervert használ, amit helyettesíts a sajátoddal. Bővebb információkért %{href}. oldalt.
-  update: Frissítés
+  update: Módosítás
   verify:
     accept: Visszaigazolás
     activated: A fiókot sikeresen ellenőriztük!
