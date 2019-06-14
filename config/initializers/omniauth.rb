@@ -48,6 +48,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       password: ENV['LDAP_PASSWORD']
   else
     if Rails.configuration.omniauth_auth0
+      Rails.application.config.role_claim = ENV['AUTH0_ROLE_CLAIM']
       Rails.application.config.providers << :auth0
     
       provider :auth0,

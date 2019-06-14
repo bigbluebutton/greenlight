@@ -61,6 +61,8 @@ class User < ApplicationRecord
         u.email = auth_email(auth)
         u.image = auth_image(auth)
         u.email_verified = true
+        roles = auth_roles(auth)
+        roles.each {|r| u.add_role r }
         u.save!
       end
     end
@@ -86,6 +88,12 @@ class User < ApplicationRecord
       else
         auth['info']['nickname']
       end
+    end
+
+    def auth_roles(auth)
+      return [] unless Rails.application.config.respond_to? :role_claim
+      role_claim = Rails.application.config.role_claim
+      auth[role_claim] || auth['info'][role_claim] || auth['extra']['raw_info'][role_claim] || []
     end
 
     def auth_email(auth)
