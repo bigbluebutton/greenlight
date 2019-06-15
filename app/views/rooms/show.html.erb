@@ -81,7 +81,9 @@
           <%= render "shared/modals/delete_room_modal", room: room %>
         <% end %>
       <% end %>
-      <%= render "shared/components/create_room_block"%>
+      <% if can_create_rooms? %>
+        <%= render "shared/components/create_room_block"%>
+      <% end %>
     </div>
   </div>
 </div>

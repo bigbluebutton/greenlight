@@ -27,4 +27,13 @@ module RoomsHelper
     Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Authentication") == "true" &&
       current_user.nil?
   end
+
+  def can_create_rooms?
+    room_creation_auth = Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Creation Auth")
+    if room_creation_auth == "authenticated"
+      current_user
+    else
+      current_user.has_role?(:super_admin) || current_user.has_role?(:admin)     
+    end
+  end
 end

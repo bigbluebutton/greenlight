@@ -32,6 +32,11 @@ class RoomsController < ApplicationController
   # POST /
   def create
     redirect_to(root_path) && return unless current_user
+    if !can_create_rooms?
+       redirect_to root_path
+       flash[:alert] = I18n.t("room.create_room_unauthorized")
+       return
+    end
 
     @room = Room.new(name: room_params[:name])
     @room.owner = current_user
@@ -278,5 +283,14 @@ class RoomsController < ApplicationController
   def auth_required
     Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Authentication") == "true" &&
       current_user.nil?
+  end
+
+  def can_create_rooms?
+    room_creation_auth = Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Creation Auth")
+    if room_creation_auth == "authenticated"
+      current_user
+    else
+      current_user.has_role?(:super_admin) || current_user.has_role?(:admin)     
+    end
   end
 end
