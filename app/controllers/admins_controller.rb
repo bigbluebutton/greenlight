@@ -23,7 +23,7 @@ class AdminsController < ApplicationController
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve]
   site_settings = [:branding, :coloring, :coloring_lighten, :coloring_darken,
-                   :registration_method, :room_authentication]
+                   :registration_method, :room_authentication, :room_creation_auth]
 
   authorize_resource class: false
   before_action :find_user, only: manage_users
@@ -135,6 +135,12 @@ class AdminsController < ApplicationController
   # POST /admins/room_authentication
   def room_authentication
     @settings.update_value("Room Authentication", params[:value])
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") }
+  end
+
+  # POST /admins/room_creation_auth
+  def room_creation_auth
+    @settings.update_value("Room Creation Auth", params[:value])
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 

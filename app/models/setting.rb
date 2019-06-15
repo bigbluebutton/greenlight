@@ -41,6 +41,8 @@ class Setting < ApplicationRecord
         Rails.configuration.registration_method_default
       when "Room Authentication"
         false
+      when "Room Creation Auth"
+        Rails.configuration.room_creation_auth_default
       end
     end
   end

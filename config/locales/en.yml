@@ -47,6 +47,12 @@ en:
           approval: Approve/Decline
           invite: Join by Invitation
           open: Open Registration
+      room_creation_auth:
+        title: Permission needed to create rooms
+        info: Which users should be allowed to create rooms?
+        options:
+          authenticated: Authenticated Users (Default)
+          admins: Admin users
       subtitle: Customize Greenlight
       title: Site Settings
     flash:

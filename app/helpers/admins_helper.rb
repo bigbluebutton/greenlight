@@ -43,6 +43,14 @@ module AdminsHelper
     end
   end
 
+  def room_creation_auth_string
+    if Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Creation Auth") == "admins"
+      I18n.t("administrator.site_settings.room_creation_auth.options.admins")
+    else
+      I18n.t("administrator.site_settings.room_creation_auth.options.authenticated")
+    end
+  end
+
   def registration_method_string
     case registration_method
     when Rails.configuration.registration_methods[:open]

@@ -134,6 +134,9 @@ module Greenlight
     # Default registration method if the user does not specify one
     config.registration_method_default = config.registration_methods[:open]
 
+    # Default permission needed to create rooms
+    config.room_creation_auth_default = :authenticated
+
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
   end

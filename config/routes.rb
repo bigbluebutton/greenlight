@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     post '/branding', to: 'admins#branding', as: :admin_branding
     post '/coloring', to: 'admins#coloring', as: :admin_coloring
     post '/room_authentication', to: 'admins#room_authentication', as: :admin_room_authentication
+    post '/room_creation_auth', to: 'admins#room_creation_auth', as: :admin_room_creation_auth
     post '/coloring_lighten', to: 'admins#coloring_lighten', as: :admin_coloring_lighten
     post '/coloring_darken', to: 'admins#coloring_darken', as: :admin_coloring_darken
     post '/signup', to: 'admins#signup', as: :admin_signup

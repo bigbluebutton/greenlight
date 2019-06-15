@@ -99,4 +99,25 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.room_creation_auth.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.room_creation_auth.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="room-creation-auth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= room_creation_auth_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="room-creation-auth">
+            <%= button_to admin_room_creation_auth_path(value: "authenticated"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.room_creation_auth.options.authenticated") %>
+            <% end %>
+            <%= button_to admin_room_creation_auth_path(value: "admins"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.room_creation_auth.options.admins") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
