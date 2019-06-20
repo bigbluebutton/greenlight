@@ -2,6 +2,6 @@
 
 module Greenlight
   class Application
-    VERSION = "2"
+    VERSION = ENV['VERSION_CODE'] || "2"
   end
 end
