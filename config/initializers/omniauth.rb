@@ -13,7 +13,7 @@ Rails.application.config.omniauth_ldap = ENV['LDAP_SERVER'].present? && ENV['LDA
 Rails.application.config.omniauth_twitter = ENV['TWITTER_ID'].present? && ENV['TWITTER_SECRET'].present?
 Rails.application.config.omniauth_google = ENV['GOOGLE_OAUTH2_ID'].present? && ENV['GOOGLE_OAUTH2_SECRET'].present?
 Rails.application.config.omniauth_azure_ad = ENV['OFFICE365_KEY'].present? &&
-                                                        ENV['OFFICE365_SECRET'].present?
+                                             ENV['OFFICE365_SECRET'].present?
 
 # If LDAP is enabled, override and disable allow_user_signup.
 Rails.application.config.allow_user_signup = false if Rails.application.config.omniauth_ldap
