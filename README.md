@@ -17,7 +17,7 @@ Greenlight is a simple front-end interface for your BigBlueButton server. At it'
 
 Interested? Try Greenlight out on our [demo server](https://demo.bigbluebutton.org/gl)!
 
-Greenlight is also completely configurable. This means you can turn on/off features to make Greenlight fit your specific use case. For more information on Greenlight and its features, see our [documentation](http://docs.bigbluebutton.org/install/greenlight-v2.html).
+Greenlight is also completely configurable. This means you can turn on/off features to make Greenlight fit your specific use case. For more information on Greenlight and its features, see our [documentation](http://docs.bigbluebutton.org/greenlight/gl-install.html).
 
 For a overview of how Greenlight works, checkout our Introduction to Greenlight Video:
 
