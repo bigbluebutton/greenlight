@@ -2,10 +2,10 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build',
          '--build-arg',
-         'version_code=${BRANCH_NAME} (${SHORT_SHA})',
+         'version_code=${TAG_NAME}',
          '-t',
-         'gcr.io/$PROJECT_ID/${_URL}:${BRANCH_NAME}.${SHORT_SHA}',
+         'gcr.io/$PROJECT_ID/${_URL}:${TAG_NAME}.${SHORT_SHA}',
          '.']
 images: [
-    'gcr.io/$PROJECT_ID/${_URL}:${BRANCH_NAME}.${SHORT_SHA}'
+    'gcr.io/$PROJECT_ID/${_URL}:${TAG_NAME}.${SHORT_SHA}'
 ]
