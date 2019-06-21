@@ -69,12 +69,7 @@ class User < ApplicationRecord
 
     # Provider attributes.
     def auth_name(auth)
-      case auth['provider']
-      when :microsoft_office365
-        auth['info']['display_name']
-      else
-        auth['info']['name']
-      end
+      auth['info']['name']
     end
 
     def auth_username(auth)
@@ -82,6 +77,8 @@ class User < ApplicationRecord
       when :google
         auth['info']['email'].split('@').first
       when :bn_launcher
+        auth['info']['username']
+      when :azure_ad
         auth['info']['username']
       else
         auth['info']['nickname']
@@ -97,7 +94,7 @@ class User < ApplicationRecord
       when :twitter
         auth['info']['image'].gsub("http", "https").gsub("_normal", "")
       else
-        auth['info']['image'] unless auth['provider'] == :microsoft_office365
+        auth['info']['image'] unless auth['info']['image'].nil?
       end
     end
   end

@@ -31,7 +31,7 @@ module ApplicationHelper
 
   # Determines which providers can show a login button in the login modal.
   def iconset_providers
-    configured_providers & [:google, :twitter, :microsoft_office365]
+    configured_providers & [:google, :twitter, :azure_ad]
   end
 
   # Generates the login URL for a specific provider.

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'azure_ad'
+
 # List of supported Omniauth providers.
 Rails.application.config.providers = []
 
@@ -10,7 +12,7 @@ Rails.application.config.omniauth_ldap = ENV['LDAP_SERVER'].present? && ENV['LDA
                                          ENV['LDAP_PASSWORD'].present?
 Rails.application.config.omniauth_twitter = ENV['TWITTER_ID'].present? && ENV['TWITTER_SECRET'].present?
 Rails.application.config.omniauth_google = ENV['GOOGLE_OAUTH2_ID'].present? && ENV['GOOGLE_OAUTH2_SECRET'].present?
-Rails.application.config.omniauth_microsoft_office365 = ENV['OFFICE365_KEY'].present? &&
+Rails.application.config.omniauth_azure_ad = ENV['OFFICE365_KEY'].present? &&
                                                         ENV['OFFICE365_SECRET'].present?
 
 # If LDAP is enabled, override and disable allow_user_signup.
@@ -59,10 +61,10 @@ Rails.application.config.middleware.use OmniAuth::Builder do
         name: 'google',
         setup: SETUP_PROC
     end
-    if Rails.configuration.omniauth_microsoft_office365
-      Rails.application.config.providers << :microsoft_office365
+    if Rails.configuration.omniauth_azure_ad
+      Rails.application.config.providers << :azure_ad
 
-      provider :microsoft_office365, ENV['OFFICE365_KEY'], ENV['OFFICE365_SECRET']
+      provider :azure_ad, ENV['OFFICE365_KEY'], ENV['OFFICE365_SECRET']
     end
   end
 end
