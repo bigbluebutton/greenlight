@@ -15,8 +15,8 @@
 // with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 #users-table {
-  .user-role:hover {
-    cursor: default;
+  .user-role {
+    color: white !important;
   }
 }
 
@@ -29,4 +29,16 @@
   &:hover {
     cursor: pointer;
   }
+}
+
+.tag i {
+  color: white !important;
+}
+
+#branding-image{
+  z-index: auto;
+}
+
+.authentication-required{
+  padding-top: 2px;
 }

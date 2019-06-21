@@ -14,18 +14,36 @@
 %>
 
 <div class="row mt-2">
-  <div class="col-8">
+  <div class="col-4">
     <p class="subtitle"><%= subtitle %></p>
   </div>
   <% if search %>
-    <div id="search_bar" class="col-4">
-      <div class="input-icon">
-        <input type="text" class="form-control btn-pill" placeholder="Search...">
-        <span class="input-icon-addon">
-        <i class="fas fa-search"></i>
-      </span>
+    <div class="col-8">
+      <% if display_invite %>
+        <div id="invite-user" class="d-inline-block float-right ml-3">
+          <%= link_to "#inviteModal", :class => "btn btn-primary", "data-toggle": "modal" do %>
+            <%= t("administrator.users.invite") %> <i class="fas fa-paper-plane ml-1"></i>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div id="search-bar" class="d-inline-block float-right">
+        <div class="input-group">
+          <input id="search-input" type="text" class="form-control" placeholder="<%= t("settings.search") %>..." value="<%= @search %>">
+          <% unless @search.blank? %>
+            <span id="clear-search" class="text-primary" onclick="clearSearch()">
+              <i class="fas fa-times"></i>
+            </span>
+          <% end %>
+          <span class="input-group-append">
+            <button class="btn btn-outline-primary" type="button" onclick="searchPage()">
+              <i class="fas fa-search"></i>
+            </button>
+          </span>
+        </div>
       </div>
     </div>
   <% end %>
 </div>
+
 <hr class="mt-0">

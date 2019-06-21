@@ -17,6 +17,8 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 module RecordingsHelper
+  include Pagy::Frontend
+
   # Helper for converting BigBlueButton dates into the desired format.
   def recording_date(date)
     date.strftime("%B #{date.day.ordinalize}, %Y.")

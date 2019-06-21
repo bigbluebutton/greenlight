@@ -18,4 +18,4 @@
 # without losing all css
 %>
 
-<%= render "shared/sessions", recordings: @recordings, only_public: false, user_recordings: true, title: t("recording.all_recordings") %>
+<%= render "shared/sessions", recordings: @recordings,  pagy: @pagy, only_public: false, user_recordings: true, title: t("recording.all_recordings") %>

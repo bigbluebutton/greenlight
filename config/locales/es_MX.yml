@@ -62,12 +62,14 @@ es_MX:
         uid: Identificador de usuario
         username: Nombre de usuario
       title: Administrar usuarios
+  add_to_google_calendar: "Agregar a calendario de Google"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: Oh no! Ocurrió un error al iniciar la sesión.
   cancel: Cancelar
   cookies:
     cookie_info: "Las cookies nos ayudan a proveer nuestros servicios. Al utilizar nuestros servicios, usted acepta nuestro uso de cookies."
     cookie_button: Acepto
+  copied: Copiada
   copy: Copiar
   default_admin: "Estas usilizando la contraseña por omisión para esta cuenta de usuario. Haz click <a href=\"%{edit_link}\">aquí </a> para cambiarla"
   delete: Eliminar
@@ -172,7 +174,7 @@ es_MX:
   max_concurrent: Se a alcanzado el número máximo de sesiones permitidas
   modal:
     create_room:
-      auto_join: Eniame a la sala automáticamente cuando empiece ls sesión
+      auto_join: Envíame a la sala automáticamente cuando empiece ls sesión
       create: Crear sala
       free_delete: Podrás eliminar la sala en el momento que quieras
       name_placeholder: Introduce un nombre para la sala

@@ -62,7 +62,7 @@ zh_CN:
       registration_method_updated: 注册方法已成功更新
       settings: 已成功更改网站设置
       unauthorized: 您无权对此用户执行操作
-    title: 组织设置
+    title: 全局设置
     users:
       invite: 邀请用户
       edit:
@@ -151,7 +151,7 @@ zh_CN:
   header:
     all_recordings: 所有录像
     dropdown:
-      account_settings: 组织
+      account_settings: 全局设置
       help: 帮助
       home: 首页
       settings: 个人设置

@@ -17,7 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class AccountActivationsController < ApplicationController
-  include Verifier
+  include Emailer
 
   before_action :ensure_unauthenticated
   before_action :find_user
@@ -31,6 +31,10 @@ class AccountActivationsController < ApplicationController
   def edit
     if @user && !@user.activated? && @user.authenticated?(:activation, params[:token])
       @user.activate
+
+      # Redirect user to root with account pending flash if account is still pending
+      return redirect_to root_path,
+        flash: { success: I18n.t("registration.approval.signup") } if @user.has_role?(:pending)
 
       flash[:success] = I18n.t("verify.activated") + " " + I18n.t("verify.signin")
       redirect_to signin_path
@@ -46,7 +50,7 @@ class AccountActivationsController < ApplicationController
       flash[:alert] = I18n.t("verify.already_verified")
     else
       begin
-        @user.send_activation_email(user_verification_link)
+        send_activation_email(@user)
       rescue => e
         logger.error "Error in email delivery: #{e}"
         flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))

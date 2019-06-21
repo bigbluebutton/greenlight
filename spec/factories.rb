@@ -32,7 +32,7 @@ FactoryBot.define do
   end
 
   factory :room do
-    name { Faker::Pokemon.name }
+    name { Faker::Games::Pokemon.name }
     owner { create(:user) }
   end
 end
