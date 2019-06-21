@@ -11,6 +11,8 @@ RUN mkdir -p $RAILS_ROOT
 WORKDIR $RAILS_ROOT
 
 # Set environment variables.
+ARG version_code
+ENV VERSION_CODE=$version_code
 ENV RAILS_ENV production
 
 # Adding project files.
