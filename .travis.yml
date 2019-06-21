@@ -20,7 +20,7 @@ jobs:
 
     - stage: build
       name: build docker image
-      script: bash scripts/image_build.sh $TRAVIS_REPO_SLUG $TRAVIS_BRANCH $TRAVIS_COMMIT
+      script: bash scripts/image_build.sh $TRAVIS_REPO_SLUG
       if: env(CD_BUILD_IGNORE) IS NOT present AND type NOT IN (pull_request) AND env(CD_DOCKER_USERNAME) IS present AND env(CD_DOCKER_PASSWORD) IS present
 
 notifications:
