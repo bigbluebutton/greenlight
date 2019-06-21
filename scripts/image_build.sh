@@ -69,7 +69,7 @@ if [ -z $CD_DOCKER_REPO ]; then
   export CD_DOCKER_REPO=$CD_REF_SLUG
 fi
 echo "#### Docker image $CD_DOCKER_REPO:$CD_REF_NAME is being built"
-docker build --build-arg version_code=${CD_VERSION_CODE} -t $CD_DOCKER_REPO:$CD_REF_NAME .
+docker build --build-arg version_code="${CD_VERSION_CODE}" -t $CD_DOCKER_REPO:$CD_REF_NAME .
 
 if [ -z "$CD_DOCKER_USERNAME" ] || [ -z "$CD_DOCKER_PASSWORD" ]; then
   echo "#### Docker image for $CD_DOCKER_REPO can't be published because CD_DOCKER_USERNAME or CD_DOCKER_PASSWORD are missing (Ignore this warning if running outside a CD/CI environment)"
