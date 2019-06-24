@@ -156,7 +156,7 @@ ar:
   password_different_notice: تأكيد كلمة المرور غير متطابق.
   provider:
     google: Google
-    azure_ad: Office 365
+    office365: Office 365
     twitter: Twitter
   recording:
     email: " البريد الإلكتروني للتسجيل"

@@ -156,7 +156,7 @@ fr:
   password_different_notice: La confirmation du mot de passe ne correspond pas.
   provider:
     google: Google
-    azure_ad: Office 365
+    office365: Office 365
     twitter: Twitter
   recording:
     email: Envoyer l'enregistrement par Email

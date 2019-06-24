@@ -6,35 +6,24 @@ require 'azure_ad'
 Rails.application.config.providers = []
 
 # Set which providers are configured.
-Rails.application.config.omniauth_bn_launcher = Rails.configuration.loadbalanced_configuration
 Rails.application.config.omniauth_ldap = ENV['LDAP_SERVER'].present? && ENV['LDAP_UID'].present? &&
                                          ENV['LDAP_BASE'].present? && ENV['LDAP_BIND_DN'].present? &&
                                          ENV['LDAP_PASSWORD'].present?
 Rails.application.config.omniauth_twitter = ENV['TWITTER_ID'].present? && ENV['TWITTER_SECRET'].present?
 Rails.application.config.omniauth_google = ENV['GOOGLE_OAUTH2_ID'].present? && ENV['GOOGLE_OAUTH2_SECRET'].present?
-Rails.application.config.omniauth_azure_ad = ENV['OFFICE365_KEY'].present? &&
-                                             ENV['OFFICE365_SECRET'].present?
+Rails.application.config.omniauth_office365 = ENV['OFFICE365_KEY'].present? &&
+                                              ENV['OFFICE365_SECRET'].present?
 
 # If LDAP is enabled, override and disable allow_user_signup.
 Rails.application.config.allow_user_signup = false if Rails.application.config.omniauth_ldap
 
 SETUP_PROC = lambda do |env|
-  provider = env['omniauth.strategy'].options[:name]
-  if provider == "google"
-    SessionsController.helpers.google_omniauth_hd env, ENV['GOOGLE_OAUTH2_HD']
-  else
-    SessionsController.helpers.omniauth_options env
-  end
+  SessionsController.helpers.omniauth_options env
 end
 
 # Setup the Omniauth middleware.
 Rails.application.config.middleware.use OmniAuth::Builder do
-  if Rails.configuration.omniauth_bn_launcher
-    provider :bn_launcher, client_id: ENV['CLIENT_ID'],
-      client_secret: ENV['CLIENT_SECRET'],
-      client_options: { site: ENV['BN_LAUNCHER_REDIRECT_URI'] },
-      setup: SETUP_PROC
-  elsif Rails.configuration.omniauth_ldap
+  if Rails.configuration.omniauth_ldap
     Rails.application.config.providers << :ldap
 
     provider :ldap,
@@ -47,6 +36,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       bind_dn: ENV['LDAP_BIND_DN'],
       password: ENV['LDAP_PASSWORD']
   else
+    provider :saml, setup: SETUP_PROC if Rails.configuration.loadbalanced_configuration
     if Rails.configuration.omniauth_twitter
       Rails.application.config.providers << :twitter
 
@@ -55,16 +45,24 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     if Rails.configuration.omniauth_google
       Rails.application.config.providers << :google
 
+      scope = if ENV['ENABLE_YOUTUBE_UPLOADING'] && ENV['ENABLE_YOUTUBE_UPLOADING'] == 'true'
+                ['profile', 'email', 'youtube', 'youtube.upload']
+              else
+                %w(profile email)
+              end
+
       provider :google_oauth2, ENV['GOOGLE_OAUTH2_ID'], ENV['GOOGLE_OAUTH2_SECRET'],
-        scope: %w(profile email),
+        scope: scope,
         access_type: 'online',
         name: 'google',
         setup: SETUP_PROC
     end
-    if Rails.configuration.omniauth_azure_ad
-      Rails.application.config.providers << :azure_ad
+    if Rails.configuration.omniauth_office365
+      Rails.application.config.providers << :office365
 
-      provider :azure_ad, ENV['OFFICE365_KEY'], ENV['OFFICE365_SECRET']
+      provider :azure_ad, ENV['OFFICE365_KEY'], ENV['OFFICE365_SECRET'],
+                name: 'office365',
+                setup: SETUP_PROC
     end
   end
 end

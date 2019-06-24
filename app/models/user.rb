@@ -54,7 +54,7 @@ class User < ApplicationRecord
     # Generates a user from omniauth.
     def from_omniauth(auth)
       # Provider is the customer name if in loadbalanced config mode
-      provider = auth['provider'] == "bn_launcher" ? auth['info']['customer'] : auth['provider']
+      provider = Rails.configuration.loadbalanced_configuration ? auth['info']['customer'] : auth['provider']
       find_or_initialize_by(social_uid: auth['uid'], provider: provider).tap do |u|
         u.name = auth_name(auth) unless u.name
         u.username = auth_username(auth) unless u.username
@@ -69,16 +69,21 @@ class User < ApplicationRecord
 
     # Provider attributes.
     def auth_name(auth)
-      auth['info']['name']
+      case auth['provider']
+      when :saml
+        auth['info']['first_name'] + ' ' + auth['info']['last_name']
+      else
+        auth['info']['name']
+      end
     end
 
     def auth_username(auth)
       case auth['provider']
       when :google
         auth['info']['email'].split('@').first
-      when :bn_launcher
-        auth['info']['username']
-      when :azure_ad
+      when :saml
+        auth['extra']['raw_info']['displayName'] || auth['extra']['raw_info']['commonName']
+      when :office365
         auth['info']['username']
       else
         auth['info']['nickname']

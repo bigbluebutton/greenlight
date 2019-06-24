@@ -285,7 +285,7 @@ en:
   password_different_notice: Password Confirmation does not match.
   provider:
     google: Google
-    azure_ad: Office 365
+    office365: Office 365
     twitter: Twitter
   recaptcha:
     errors:

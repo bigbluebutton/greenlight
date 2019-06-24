@@ -46,7 +46,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'azure-ad-omniauth', git: 'https://github.com/blindsidenetworks/omniauth-azure-ad.git'
 gem 'omniauth-ldap'
-gem 'omniauth-bn-launcher', '~> 0.1.0'
+gem 'omniauth-saml'
 
 # BigBlueButton API wrapper.
 gem 'bigbluebutton-api-ruby'
