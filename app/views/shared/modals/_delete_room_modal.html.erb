@@ -32,7 +32,12 @@
 
         </div>
         <div class="card-footer">
-          <p><%= t("modal.delete_room.warning", recordings_num: room.recordings.length).html_safe %> </p>
+          <p>
+            <%= t("modal.delete_room.warning").html_safe %>
+            <% if room.recordings.length > 0 %>
+              <%= t("modal.delete_room.recording_warning", recordings_num: room.recordings.length).html_safe %>
+            <% end %>
+          </p>
         </div>
       </div>
     </div>
