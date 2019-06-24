@@ -112,6 +112,17 @@
   }
 }
 
+.customBtn-saml {
+  @extend .customBtn;
+  background: #4688f1;
+
+  .customBtn-image {
+    background: #ffffff image-url("saml-logo.png") no-repeat left top;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
 .customBtn-twitter {
   @extend .customBtn;
   background: #1da1f2;

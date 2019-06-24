@@ -13,6 +13,9 @@ Rails.application.config.omniauth_twitter = ENV['TWITTER_ID'].present? && ENV['T
 Rails.application.config.omniauth_google = ENV['GOOGLE_OAUTH2_ID'].present? && ENV['GOOGLE_OAUTH2_SECRET'].present?
 Rails.application.config.omniauth_office365 = ENV['OFFICE365_KEY'].present? &&
                                               ENV['OFFICE365_SECRET'].present?
+Rails.application.config.omniauth_saml = ENV['SAML_ISSUER'].present? &&
+                                        ENV['SAML_TARGET_URL'].present? &&
+                                        ENV['SAML_FINGERPRINT'].present?
 
 # If LDAP is enabled, override and disable allow_user_signup.
 Rails.application.config.allow_user_signup = false if Rails.application.config.omniauth_ldap
@@ -36,7 +39,15 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       bind_dn: ENV['LDAP_BIND_DN'],
       password: ENV['LDAP_PASSWORD']
   else
-    provider :saml, setup: SETUP_PROC if Rails.configuration.loadbalanced_configuration
+    provider :saml, setup: SETUP_PROC if Rails.configuration.loadbalanced_configuration 
+    if Rails.configuration.omniauth_saml
+      Rails.application.config.providers << :saml
+
+      provider :saml,
+      issuer: ENV['SAML_ISSUER'],
+      idp_sso_target_url: ENV['SAML_TARGET_URL'],
+      idp_cert_fingerprint: ENV['SAML_FINGERPRINT']
+    end
     if Rails.configuration.omniauth_twitter
       Rails.application.config.providers << :twitter
 
