@@ -251,6 +251,7 @@ describe SessionsController, type: :controller do
 
     it "should create and login user with omniauth google" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      Rails.configuration.url_host = ''
       allow_any_instance_of(BbbApi).to receive(:retrieve_provider_info).and_return('provider' => 'test')
       request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google]
       get :omniauth, params: { provider: 'google' }
