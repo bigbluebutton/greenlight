@@ -77,10 +77,19 @@ function searchPage() {
   var controller = $("body").data('controller');
   var action = $("body").data('action');
 
+  // Check if the user filtered by role
+  var role = new URL(location.href).searchParams.get('role')
+
+  var url = window.location.pathname + "?page=1&search=" + search
+
+  if (role) {
+    url += "&role=" + role
+  }  
+
   if(controller === "rooms" && action === "show"){
-    window.location.replace(window.location.pathname + "?page=1&search=" + search + "#recordings-table");
+    window.location.replace(url + "#recordings-table");
   } else{
-    window.location.replace(window.location.pathname + "?page=1&search=" + search);
+    window.location.replace(url);
   }
   
 }
@@ -90,9 +99,17 @@ function clearSearch() {
   var controller = $("body").data('controller');
   var action = $("body").data('action');
 
+  var role = new URL(location.href).searchParams.get('role')
+
+  var url = window.location.pathname + "?page=1"
+
+  if (role) {
+    url += "&role=" + role
+  }  
+
   if(controller === "rooms" && action === "show"){
-    window.location.replace(window.location.pathname + "?page=1"  + "#recordings-table");
+    window.location.replace(url + "#recordings-table");
   } else{
-    window.location.replace(window.location.pathname + "?page=1");
+    window.location.replace(url);
   }
 }

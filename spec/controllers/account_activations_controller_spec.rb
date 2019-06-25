@@ -72,6 +72,17 @@ describe AccountActivationsController, type: :controller do
       expect(flash[:alert]).to be_present
       expect(response).to redirect_to(root_path)
     end
+
+    it "redirects a pending user to root with a flash" do
+      @user = create(:user, email_verified: false, provider: "greenlight")
+
+      @user.add_role :pending
+
+      get :edit, params: { email: @user.email, token: @user.activation_token }
+
+      expect(flash[:success]).to be_present
+      expect(response).to redirect_to(root_path)
+    end
   end
 
   describe "GET #resend" do

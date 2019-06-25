@@ -23,26 +23,48 @@ en:
         accepted_terms: "Terms and Conditions"
   administrator:
     site_settings:
+      authentication:
+        disabled: Disabled
+        enabled: Enabled
+        info: Only allow authenticated users to join a room
+        title: Require Authentication for Rooms
+        user-info: You must sign in to Greenlight to join this room
       branding:
         change: Change Image
         info: Change the branding image that appears in the top left corner
         placeholder: Image Url...
         title: Branding Image
       color:
-        info: Change the primary color used across the website
+        info: Changing the Regular Color will change both Lighten and Darken. Lighten and Darken can then be changed individually
         title: Primary Color
+        regular: Regular
+        lighten: Lighten
+        Darken: Darken
+      registration:
+        info: Change the way that users register to the website
+        title: Registration Method
+        methods:
+          approval: Approve/Decline
+          invite: Join by Invitation
+          open: Open Registration
       subtitle: Customize Greenlight
       title: Site Settings
     flash:
+      approved: User has been successfully approved.
       banned: User has been successfully banned.
       unbanned: User has been successfully unbanned.
       delete: User deleted successfully
       delete_fail: Failed to delete user
       demoted: User has been successfully demoted
+      invite: Invite successfully sent to %{email}
+      invite_email_verification: ALLOW_MAIL_NOTIFICATIONS must be set to true in order to use this method
       promoted: User has been successfully promoted
+      registration_method_updated: Registration method successfully updated
+      settings: Site Settings successfully changed
       unauthorized: You are not authorized to perform actions on this user
     title: Organization Settings
     users:
+      invite: Invite User
       edit:
         title: Edit User Details
       settings:
@@ -79,6 +101,10 @@ en:
   email_sent: Your %{email_type} email has been sent! (Please check your Spam folder if you haven't received it)
   enter_your_name: Enter your name!
   errors:
+    bigbluebutton:
+      help: Please make sure the proper steps have been taken. <a href="%{doc_link}">Learn more</a>
+      message: Invalid BigBlueButton Endpoint and Secret
+      title: Server Error
     internal:
       message: Oh no! Looks like something went wrong on our end.
       help: The error has been logged, we'll take a look!
@@ -157,6 +183,34 @@ en:
   login_title: Sign in to your account
   mailer:
     user:
+      approve:
+        info: Your account has been approved.
+        signin: To access your personal rooms, click the button below and sign in.
+        signin_link: Sign In
+        signup:
+          info: A new user has signed up to use Greenlight.
+          more-info: To allow this user to access Greenlight you must approve their account in organization settings.
+          admins_link: Visit the Organization Page
+          subject: New Greenlight User Sign Up 
+          username: The user signed up with the name %{name} and the email %{email}.
+        subject: Account Approved
+        username: Your username is %{email}.
+      demoted:
+        info: You are no longer an administrator on %{url}.
+        more-info: You now have the same privileges as a regular user and will no longer be able to access any of the Administrator settings.
+        root_link: Sign In
+        subtitle: Administrator Rights Rescinded
+      invite:
+        info: You have been invited to your own personal space by %{name}
+        signup: To signup using your email, click the button below and follow the steps.
+        signup_link: Sign Up
+        signup:
+          info: A user that was invited has signed up to use Greenlight.
+          admins_link: Visit the Organization Page
+          subject: New Greenlight User Sign Up 
+          username: The user signed up with the name %{name} and the email %{email}.
+        subject: Invitation to join BigBlueButton
+        username: Your username is %{email}.
       password_reset:
         title: 'Password reset'
         welcome: It seems like you forgot your password for %{bigbluebutton}
@@ -164,6 +218,11 @@ en:
         reset_link: Reset Password
         expire: This link will expire in two hours.
         ignore: You can safely ignore this email if you did not request a password reset.
+      promoted:
+        admins_link: Visit the Organization Page
+        info: You are now an administrator on %{url}.
+        more-info: As an administrator, you can manage users, their role and configure your site settings by changing the logo and brand colour.
+        subtitle: Administrator Rights Granted
       verify_email:
         welcome: Welcome to your personal space, %{name}!
         success: Leveraging %{bigbluebutton}, you can create your own rooms to host sessions and collaborate with others.
@@ -191,6 +250,11 @@ en:
       delete: I'm sure, delete this room.
       keep: On second thought, I'll keep it.
       warning: You will <b>not</b> be able to recover this room or any of its %{recordings_num} associated recordings.
+    invite_user:
+      email_placeholder: Enter the user's email
+      footer: The user will receive an email with instructions on how to sign up
+      send: Send Invite
+      title: Invite User
     login:
       or: or
       with: Sign in with %{provider}
@@ -246,6 +310,15 @@ en:
       unlisted: Unlisted
     format:
       presentation: Presentation
+  registration:
+    approval: 
+      fail: Your account has not been approved yet. If multiples days have passed since you signed up, please contact your administrator.
+      signup: Your account was successfully created. It has been sent to an administrator for approval.
+    banned:
+      fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator. 
+    invite:
+      fail: Your token is either invalid or has expired. If you believe this is a mistake, please contact your administrator.
+      no_invite: You do not have an invitation to join. Please contact your administrator to receive one.
   rename: Rename
   reset_password:
     subtitle: Reset Password
@@ -255,6 +328,7 @@ en:
   roles:
     administrator: Administrator
     banned: Banned
+    pending: Pending
     super_admin: Super Admin
     user: User
   room:
