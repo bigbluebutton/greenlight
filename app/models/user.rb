@@ -69,12 +69,7 @@ class User < ApplicationRecord
 
     # Provider attributes.
     def auth_name(auth)
-      case auth['provider']
-      when :saml
-        auth['info']['first_name'] + ' ' + auth['info']['last_name']
-      else
-        auth['info']['name']
-      end
+      auth['info']['name']
     end
 
     def auth_username(auth)
@@ -82,7 +77,7 @@ class User < ApplicationRecord
       when :google
         auth['info']['email'].split('@').first
       when :saml
-        auth['extra']['raw_info']['displayName'] || auth['extra']['raw_info']['commonName']
+        auth['info']['user_id']
       when :office365
         auth['info']['username']
       else

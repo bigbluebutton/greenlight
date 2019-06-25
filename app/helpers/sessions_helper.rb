@@ -80,9 +80,7 @@ module SessionsHelper
       raise 'Customer not recognized' unless customer_info
 
       if customer_info[:saml]
-        env['omniauth.strategy'].options[:issuer] = customer_info[:saml][:issuer]
-        env['omniauth.strategy'].options[:idp_sso_target_url] = customer_info[:saml][:idp_sso_target_url]
-        env['omniauth.strategy'].options[:idp_cert_fingerprint] = customer_info[:saml][:idp_cert_fingerprint]
+        saml_options(env, customer_info[:saml])
       elsif customer_info[:google]
         env['omniauth.strategy'].options[:hd] = customer_info[:google][:hd] unless
           customer_info[:google][:hd].empty? || customer_info[:google][:hd] == 'gmail.com'
@@ -105,15 +103,37 @@ module SessionsHelper
     end
   end
 
+  def saml_options(env, customer_info)
+    env['omniauth.strategy'].options[:issuer] = customer_info[:issuer]
+    env['omniauth.strategy'].options[:idp_sso_target_url] = customer_info[:idp_sso_target_url]
+    env['omniauth.strategy'].options[:idp_cert_fingerprint] = customer_info[:idp_cert_fingerprint]
+    env['omniauth.strategy'].options[:attribute_statements] = {
+      name: ["name", customer_info[:attribute_mappings]["name"]],
+      email: ["email", customer_info[:attribute_mappings]["email"]],
+      user_id: ["user_id", customer_info[:attribute_mappings]["user_id"]],
+      iamge: ['image', customer_info[:attribute_mappings]["image"]]
+    }
+  end
+
   def retrieve_customer_info(provider)
     provider_info = retrieve_provider_info(provider, 'api2', 'getUserGreenlightCredentials')
 
     customer_info = {}
     if provider_info['provider'] == 'saml'
+      attribute_mappings = {}
+
+      unless provider_info['SAML_ATTRIBUTE_MAPPINGS'].empty?
+        attribute_mappings = Hash[provider_info['SAML_ATTRIBUTE_MAPPINGS'].split(',').map do |attr|
+          split_attr = attr.split('=')
+          [split_attr[0], split_attr[1]]
+        end]
+      end
+
       customer_info[:saml] = {
         issuer: provider_info['SAML_ISSUER'],
         idp_sso_target_url: provider_info['SAML_IDP_URL'],
         idp_cert_fingerprint: provider_info['SAML_IDP_CERT_FINGERPRINT'],
+        attribute_mappings: attribute_mappings
       }
     elsif provider_info['provider'] == 'google'
       customer_info = { google: { hd: provider_info['GOOGLE_HD'] } }

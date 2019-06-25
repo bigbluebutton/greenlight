@@ -14,13 +14,39 @@ Rails.application.config.omniauth_google = ENV['GOOGLE_OAUTH2_ID'].present? && E
 Rails.application.config.omniauth_office365 = ENV['OFFICE365_KEY'].present? &&
                                               ENV['OFFICE365_SECRET'].present?
 Rails.application.config.omniauth_saml = ENV['SAML_ISSUER'].present? &&
-                                        ENV['SAML_TARGET_URL'].present? &&
-                                        ENV['SAML_FINGERPRINT'].present?
+                                         ENV['SAML_TARGET_URL'].present? &&
+                                         ENV['SAML_FINGERPRINT'].present?
 
 # If LDAP is enabled, override and disable allow_user_signup.
 Rails.application.config.allow_user_signup = false if Rails.application.config.omniauth_ldap
 
 SETUP_PROC = lambda do |env|
+  env['omniauth.strategy'].options[:request_attributes] = [
+    {
+      name: 'email',
+      is_required: "true",
+      friendly_name: 'email',
+      name_format: "urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
+    },
+    {
+      name: 'user_id',
+      is_required: "true",
+      friendly_name: 'username',
+      name_format: "urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
+    },
+    {
+      name: 'name',
+      is_required: "true",
+      friendly_name: 'name',
+      name_format: "urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
+    },
+    {
+      name: 'image',
+      is_required: "false",
+      friendly_name: 'profile picture',
+      name_format: "urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
+    }
+  ]
   SessionsController.helpers.omniauth_options env
 end
 
@@ -39,8 +65,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       bind_dn: ENV['LDAP_BIND_DN'],
       password: ENV['LDAP_PASSWORD']
   else
-    provider :saml, setup: SETUP_PROC if Rails.configuration.loadbalanced_configuration 
-    if Rails.configuration.omniauth_saml
+    provider :saml, setup: SETUP_PROC if Rails.configuration.loadbalanced_configuration
+    if Rails.configuration.omniauth_saml && !Rails.configuration.loadbalanced_configuration
       Rails.application.config.providers << :saml
 
       provider :saml,
