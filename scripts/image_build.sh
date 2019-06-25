@@ -59,7 +59,6 @@ fi
 sqliteCount="$(grep "gem 'sqlite3'" Gemfile | wc -l)"
 
 if [ $sqliteCount -lt 2 ]; then
-  echo "test"
   sed -i "/^group :production do/a\ \ gem 'sqlite3', '~> 1.3.6'" Gemfile
 fi
 
