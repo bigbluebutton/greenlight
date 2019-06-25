@@ -17,11 +17,11 @@ WORKDIR $RAILS_ROOT
 # Set Rails environment.
 ENV RAILS_ENV production
 
+COPY Gemfile* ./
+RUN bundle install --without development test --deployment --clean
+
 # Adding project files.
 COPY . .
-
-# Install gems.
-RUN bundle install --without development test --deployment --clean
 
 # Precompile assets.
 RUN bundle exec rake assets:clean
