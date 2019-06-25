@@ -10,9 +10,9 @@ services:
     ports:
       - 5000:80
 # When using sqlite3 as the database
-    volumes:
-      - ./db/production:/usr/src/app/db/production
-      - ./log:/usr/src/app/log
+#    volumes:
+#      - ./db/production:/usr/src/app/db/production
+#      - ./log:/usr/src/app/log
 # When using external logging
 #    logging:
 #      driver: $LOG_DRIVER
@@ -22,16 +22,18 @@ services:
 
 
 # When using postgresql as the database
-#    links:
-#      - db
+    links:
+      - db
 #
-#  db:
-#    image: postgres:9.5
-#    restart: on-failure
-#    ports:
-#      - 5432:5432
-#    environment:
-#      - PGHOST=postgres
-#      - PGDATABASE=postgres
-#      - PGUSER=postgres
-#      - PGPASSWORD=password
+  db:
+    image: postgres:9.5
+    restart: on-failure
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db/production:/var/lib/postgresql/data
+    environment:
+      - PGHOST=postgres
+      - PGDATABASE=postgres
+      - PGUSER=postgres
+      - PGPASSWORD=password
