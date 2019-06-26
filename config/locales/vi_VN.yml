@@ -274,7 +274,7 @@ vi_VN:
     update_settings_error: Có lỗi khi cập nhật cài đặt phòng
     update_settings_success: Cài đặt phòng được cập nhật thành công
     wait:
-      message: Rất tiếc! Phòng chưa bắt đầu.
+      message: Phòng chưa bắt đầu.
       auto: Bạn sẽ tự động tham gia khi phòng bắt đầu.
   settings:
     account:

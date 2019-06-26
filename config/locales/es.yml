@@ -274,7 +274,7 @@ es:
     update_settings_error: Ocurrió un error al actualizar la configuración de la sala
     update_settings_success: La configuración de la sala fue actualizada exitósamente
     wait:
-      message: Oh no! La sesión todavía no ha comenzado.
+      message: La sesión todavía no ha comenzado.
       auto: Serás enviado a la sala automáticamente cuando empiece ls sesión
   settings:
     account:
