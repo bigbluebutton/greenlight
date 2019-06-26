@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/blindsidenetworks/omniauth-azure-ad.git
+  revision: a352b8f4d19aa0107d73164df3f970f012c5be3d
+  specs:
+    azure-ad-omniauth (1.0.0)
+      omniauth (>= 1.3.2)
+      omniauth-oauth2 (>= 1.5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -142,9 +150,6 @@ GEM
     omniauth (1.9.0)
       hashie (>= 3.4.6, < 3.7.0)
       rack (>= 1.6.2, < 3)
-    omniauth-bn-launcher (0.1.0)
-      omniauth (~> 1.3, >= 1.3.2)
-      omniauth-oauth2 (= 1.5.0)
     omniauth-google-oauth2 (0.6.1)
       jwt (>= 2.0)
       omniauth (>= 1.1.1)
@@ -154,15 +159,15 @@ GEM
       omniauth (~> 1.0)
       pyu-ruby-sasl (~> 0.0.3.2)
       rubyntlm (~> 0.3.4)
-    omniauth-microsoft-office365 (0.0.7)
-      omniauth
-      omniauth-oauth2
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
     omniauth-oauth2 (1.5.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.2)
+    omniauth-saml (1.10.1)
+      omniauth (~> 1.3, >= 1.3.2)
+      ruby-saml (~> 1.7)
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
@@ -243,6 +248,8 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
     ruby-progressbar (1.10.0)
+    ruby-saml (1.10.2)
+      nokogiri (>= 1.5.10)
     rubyntlm (0.3.4)
     safe_yaml (1.0.5)
     sass (3.7.4)
@@ -321,6 +328,7 @@ PLATFORMS
 
 DEPENDENCIES
   action-cable-testing
+  azure-ad-omniauth!
   bcrypt (~> 3.1.7)
   bigbluebutton-api-ruby
   bootstrap (~> 4.3.1)
@@ -338,10 +346,9 @@ DEPENDENCIES
   listen (~> 3.0.5)
   mini_racer
   omniauth
-  omniauth-bn-launcher (~> 0.1.0)
   omniauth-google-oauth2
   omniauth-ldap
-  omniauth-microsoft-office365 (~> 0.0.7)
+  omniauth-saml
   omniauth-twitter
   pagy
   pg (~> 0.18)
