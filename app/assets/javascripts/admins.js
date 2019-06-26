@@ -31,42 +31,59 @@ $(document).on('turbolinks:load', function(){
       $("#delete-confirm").parent().attr("action", url)
     })
 
-    // Change the color of the color inputs when the color is changed
-    $(".colorinput-input").change(function(data) {
-      // Get the color from the input
-      var color = $(data.target).val()
+    //clear the role filter if user clicks on the x
+    $(".clear-role").click(function() {
+      var search = new URL(location.href).searchParams.get('search')
 
-      // Update the color in the database and reload the page
-      $.post($("#coloring-path").val(), {color: color}).done(function(data) {
-        location.reload()
-      });
+      var url = window.location.pathname + "?page=1"
+    
+      if (search) {
+        url += "&search=" + search
+      }  
+    
+      window.location.replace(url);
+    })
+    
+    /* COLOR SELECTORS */
+    
+    $('#colorinput-regular').ColorPicker({
+      onBeforeShow: function () {
+        var colour = rgb2hex($("#colorinput-regular").css("background-color"))
+
+        $(this).ColorPickerSetColor(colour);
+      },
+      onSubmit: function(_hsb, hex) {
+        $.post($("#coloring-path-regular").val(), {color: '#' + hex}).done(function() {
+          location.reload()
+        });
+      },
     });
 
-    // Submit search if the user hits enter
-    $("#search-input").keypress(function(key) {
-      var keyPressed = key.which
-      if (keyPressed == 13) {
-        searchPage()
-      }
-    })
+    $('#colorinput-lighten').ColorPicker({
+      onBeforeShow: function () {
+        var colour = rgb2hex($("#colorinput-lighten").css("background-color"))
 
-    // Add listeners for sort
-    $("th[data-order]").click(function(data){
-      var header_elem = $(data.target)
+        $(this).ColorPickerSetColor(colour);
+      },
+      onSubmit: function(_hsb, hex) {
+        $.post($("#coloring-path-lighten").val(), {color: '#' + hex}).done(function() {
+          location.reload()
+        });
+      },
+    });
 
-      if(header_elem.data('order') === 'asc'){ // asc
-        header_elem.data('order', 'desc');
-      }
-      else if(header_elem.data('order') === 'desc'){ // desc
-        header_elem.data('order', 'none');
-      }
-      else{ // none
-        header_elem.data('order', 'asc');
-      }
+    $('#colorinput-darken').ColorPicker({
+      onBeforeShow: function () {
+        var colour = rgb2hex($("#colorinput-darken").css("background-color"))
 
-      var search = $("#search-input").val()
-      window.location.replace(window.location.pathname + "?page=1&search=" + search + "&column=" + header_elem.data("header") + "&direction="+ header_elem.data('order'))
-    })
+        $(this).ColorPickerSetColor(colour);
+      },
+      onSubmit: function(_hsb, hex) {
+        $.post($("#coloring-path-darken").val(), {color: '#' + hex}).done(function() {
+          location.reload()
+        });
+      },
+    });
   }
 
   // Only run on the admins edit user page.
@@ -76,8 +93,8 @@ $(document).on('turbolinks:load', function(){
       if (!url.endsWith("/")) {
         url += "/"
       }
-
       url += "admins?setting=" + data.target.id
+
       window.location.href = url
     })
   }
@@ -89,14 +106,24 @@ function changeBrandingImage(path) {
   $.post(path, {url: url})
 }
 
-// Searches the user table for the given string
-function searchPage() {
-  var search = $("#search-input").val()
+// Filters by role
+function filterRole(role) {
+  var search = new URL(location.href).searchParams.get('search')
 
-  window.location.replace(window.location.pathname + "?page=1&search=" + search)
+  var url = window.location.pathname + "?page=1" + "&role=" + role
+
+  if (search) {
+    url += "&search=" + search
+  }  
+
+  window.location.replace(url);
 }
 
-// Clears the search bar
-function clearSearch() {
-  window.location.replace(window.location.pathname + "?page=1")
+function rgb2hex(rgb) {
+  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+  function hex(x) {
+      return ("0" + parseInt(x).toString(16)).slice(-2);
+  }
+  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
+

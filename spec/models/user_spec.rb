@@ -173,4 +173,97 @@ describe User, type: :model do
         .to raise_exception(ActiveRecord::RecordInvalid, "Validation failed: Email can't be blank")
     end
   end
+
+  context '#recordings' do
+    it "gets all filtered and sorted recordings for the user" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_recordings).and_return(
+        recordings: [
+          {
+            name: "Example",
+            participants: "3",
+            playback: {
+              format:
+              {
+                type: "presentation"
+              }
+            },
+            metadata: {
+              "gl-listed": "true",
+            }
+          },
+          {
+            name: "aExamaaa",
+            participants: "5",
+            playback: {
+              format:
+              {
+                type: "other"
+              }
+            },
+            metadata: {
+              "gl-listed": "false",
+            }
+          },
+          {
+            name: "test",
+            participants: "1",
+            playback: {
+              format:
+              {
+                type: "presentation"
+              }
+            },
+            metadata: {
+              "gl-listed": "true",
+            }
+          },
+          {
+            name: "Exam",
+            participants: "1",
+            playback: {
+              format:
+              {
+                type: "other"
+              }
+            },
+            metadata: {
+              "gl-listed": "false",
+              name: "z",
+            }
+          }
+        ]
+      )
+
+      expect(@user.all_recordings(search: "Exam", column: "name", direction: "desc")).to eq(
+        [
+          {
+            name: "Example",
+            participants: "3",
+            playbacks:
+              [
+                {
+                  type: "presentation"
+                }
+              ],
+            metadata: {
+              "gl-listed": "true",
+            }
+          },
+          {
+            name: "aExamaaa",
+            participants: "5",
+            playbacks:
+              [
+                {
+                  type: "other"
+                }
+              ],
+            metadata: {
+              "gl-listed": "false",
+            }
+          }
+        ]
+      )
+    end
+  end
 end

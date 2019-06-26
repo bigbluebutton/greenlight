@@ -18,36 +18,98 @@ $(document).on('turbolinks:load', function(){
   var controller = $("body").data('controller');
   var action = $("body").data('action');
 
-  if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update"){
-    var search_input = $('#search_bar');
+  if ((controller == "admins" && action == "index") || 
+      (controller == "rooms" && action == "show") || 
+      (controller == "rooms" && action == "update") ||
+      (controller == "rooms" && action == "join") || 
+      (controller == "users" && action == "recordings")) {
+    // Submit search if the user hits enter
+    $("#search-input").keypress(function(key) {
+      var keyPressed = key.which
+      if (keyPressed == 13) {
+        searchPage()
+      }
+    })
 
-    search_input.bind("keyup", function(){
+    // Add listeners for sort
+    $("th[data-order]").click(function(data){
+      var header_elem = $(data.target)
+      var controller = $("body").data('controller');
+      var action = $("body").data('action');
 
-      // Retrieve the current search query
-      var search_query = search_input.find(".form-control").val();
+      if(header_elem.data('order') === 'asc'){ // asc
+        header_elem.data('order', 'desc');
+      }
+      else if(header_elem.data('order') === 'desc'){ // desc
+        header_elem.data('order', 'none');
+      }
+      else{ // none
+        header_elem.data('order', 'asc');
+      }
 
-      //Search for recordings and display them based on name match
-      var recordings_found = 0;
+      var search = $("#search-input").val();
 
-      var recordings = $('#recording-table').find('tr');
-
-      recordings.each(function(){
-        if($(this).find('text').text().toLowerCase().includes(search_query.toLowerCase())){
-          recordings_found = recordings_found + 1;
-          $(this).show();
-        }
-        else{
-          $(this).hide();
-        }
-      });
-
-      // Show "No recordings match your search" if no recordings found
-      if(recordings_found === 0){
-        $('#no_recordings_found').show();
+      if(controller === "rooms" && action === "show"){
+        window.location.replace(window.location.pathname + "?page=1&search=" + search + 
+          "&column=" + header_elem.data("header") + "&direction="+ header_elem.data('order') + 
+          "#recordings-table");
       }
       else{
-        $('#no_recordings_found').hide();
+        window.location.replace(window.location.pathname + "?page=1&search=" + search + 
+          "&column=" + header_elem.data("header") + "&direction="+ header_elem.data('order'));
       }
-    });
+    })
+
+    if(controller === "rooms" && action === "show"){
+      $(".page-item > a").each(function(){
+        if(!$(this).attr('href').endsWith("#")){
+          $(this).attr('href', $(this).attr('href') + "#recordings-table")
+        }
+      })
+    }
   }
-});
+})
+
+// Searches the user table for the given string
+function searchPage() {
+  var search = $("#search-input").val();
+
+  var controller = $("body").data('controller');
+  var action = $("body").data('action');
+
+  // Check if the user filtered by role
+  var role = new URL(location.href).searchParams.get('role')
+
+  var url = window.location.pathname + "?page=1&search=" + search
+
+  if (role) {
+    url += "&role=" + role
+  }  
+
+  if(controller === "rooms" && action === "show"){
+    window.location.replace(url + "#recordings-table");
+  } else{
+    window.location.replace(url);
+  }
+  
+}
+
+// Clears the search bar
+function clearSearch() {
+  var controller = $("body").data('controller');
+  var action = $("body").data('action');
+
+  var role = new URL(location.href).searchParams.get('role')
+
+  var url = window.location.pathname + "?page=1"
+
+  if (role) {
+    url += "&role=" + role
+  }  
+
+  if(controller === "rooms" && action === "show"){
+    window.location.replace(url + "#recordings-table");
+  } else{
+    window.location.replace(url);
+  }
+}

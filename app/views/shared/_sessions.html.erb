@@ -21,21 +21,54 @@
       <div class="col-12">
         <div class="card">
           <div class="table-responsive">
-            <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+            <table id="recordings-table" class="table table-hover table-outline table-vcenter text-nowrap card-table">
               <thead>
                 <tr>
-                  <th data-header="<%= t("recording.table.name") %>" data-order="none"><%= t("recording.table.name") %></th>
+                  <th data-header="name" data-order="<%= @order_column == "name" ? @order_direction : "none" %>">
+                    <%= t("recording.table.name") %>
+                    <% if @order_column == "name" && @order_direction == "desc" %>
+                      ↓
+                    <% elsif @order_column == "name" && @order_direction == "asc" %>
+                      ↑
+                    <% end %>
+                  </th>
                   <% if recording_thumbnails? %>
-                    <th><%= t("recording.table.thumbnails") %></th>
+                    <th>
+                      <%= t("recording.table.thumbnails") %>
+                    </th>
                   <% end %>
-                  <th class="text-left" data-header="<%= t("recording.table.length") %>" data-order="none">
+                  <th class="text-left" data-header="length" data-order="<%= @order_column == "length" ? @order_direction : "none" %>">
                     <%= t("recording.table.length") %>
+                    <% if @order_column == "length" && @order_direction == "desc" %>
+                      ↓
+                    <% elsif @order_column == "length" && @order_direction == "asc" %>
+                      ↑
+                    <% end %>
                   </th>
-                  <th class="text-left" data-header="<%= t("recording.table.users") %>" data-order="none">
+                  <th class="text-left" data-header="users" data-order="<%= @order_column == "users" ? @order_direction : "none" %>">
                     <%= t("recording.table.users") %>
+                    <% if @order_column == "users" && @order_direction == "desc" %>
+                      ↓
+                    <% elsif @order_column == "users" && @order_direction == "asc" %>
+                      ↑
+                    <% end %>
                   </th>
-                  <th class="text-left"><%= t("recording.table.visibility") %></th>
-                  <th><%= t("recording.table.formats") %></th>
+                  <th class="text-left" data-header="visibility" data-order="<%= @order_column == "visibility" ? @order_direction : "none" %>">
+                    <%= t("recording.table.visibility") %>
+                    <% if @order_column == "visibility" && @order_direction == "desc" %>
+                      ↓
+                    <% elsif @order_column == "visibility" && @order_direction == "asc" %>
+                      ↑
+                    <% end %>
+                  </th>
+                  <th data-header="formats" data-order="<%= @order_column == "formats" ? @order_direction : "none" %>">
+                    <%= t("recording.table.formats") %>
+                    <% if @order_column == "formats" && @order_direction == "desc" %>
+                      ↓
+                    <% elsif @order_column == "formats" && @order_direction == "asc" %>
+                      ↑
+                    <% end %>
+                  </th>
                   <% unless only_public %>
                     <th class="text-center"><i class="icon-settings"></i></th>
                   <% end %>
@@ -68,6 +101,11 @@
                 <% end %>
               </tbody>
             </table>
+            <% if !recordings.empty?%>
+              <div class="float-right mr-4 mt-4">
+                <%== pagy_bootstrap_nav(pagy) %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>

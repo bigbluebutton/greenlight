@@ -23,19 +23,17 @@
 # as part of the development process.
 #
 
-echo "v2019022601"
-
 display_usage() {
   echo "This script should be used as part of a CI strategy."
   echo -e "Usage:\n  build_image.sh [ARGUMENTS]"
   echo -e "\nMandatory arguments \n"
   echo -e "  repo_slug     The git repository  (e.g. bigbluebutton/greenlight)"
+  echo -e "\nOptional arguments \n"
   echo -e "  branch | tag  The branch (e.g. master | release-2.0.5)"
-  echo -e "  commit_sha    The sha for the current commit (e.g. 750615dd479c23c8873502d45158b10812ea3274)"
 }
 
 # if less than two arguments supplied, display usage
-if [ $# -le 1 ]; then
+if [ $# -le 0 ]; then
 	display_usage
 	exit 1
 fi
@@ -48,29 +46,38 @@ fi
 
 export CD_REF_SLUG=$1
 export CD_REF_NAME=$2
-export CD_COMMIT_SHA=$3
-if [ -z $CD_DOCKER_REPO ]; then
-  export CD_DOCKER_REPO=$CD_REF_SLUG
+if [ -z $CD_REF_NAME ]; then
+  export CD_REF_NAME=$(git branch | grep \* | cut -d ' ' -f2)
 fi
 
-if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && ( -z $CD_BUILD_ALL ] || [ "$CD_BUILD_ALL" != "true" ] ); then
-  echo "#### Docker image for $CD_REF_SLUG won't be built"
+if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && ( [ -z "$CD_BUILD_ALL" ] || [ "$CD_BUILD_ALL" != "true" ] ); then
+  echo "#### Docker image for $CD_REF_SLUG:$CD_REF_NAME won't be built"
   exit 0
+fi
+
+# Include sqlite for production
+sqliteCount="$(grep "gem 'sqlite3'" Gemfile | wc -l)"
+
+if [ $sqliteCount -lt 2 ]; then
+  sed -i "/^group :production do/a\ \ gem 'sqlite3', '~> 1.3.6'" Gemfile
 fi
 
 # Set the version tag when it is a release or the commit sha was included.
 if [[ "$CD_REF_NAME" == *"release"* ]]; then
-  sed -i "s/VERSION =.*/VERSION = \"${CD_REF_NAME:8}\"/g" config/initializers/version.rb
-elif [ ! -z $CD_COMMIT_SHA ]; then
-  sed -i "s/VERSION =.*/VERSION = \"$CD_REF_NAME ($(expr substr $CD_COMMIT_SHA 1 8))\"/g" config/initializers/version.rb
+  export CD_VERSION_CODE=${CD_REF_NAME:8}
+else
+  export CD_VERSION_CODE="$CD_REF_NAME ($(expr substr $(git rev-parse HEAD) 1 7))"
 fi
 
 # Build the image
+if [ -z $CD_DOCKER_REPO ]; then
+  export CD_DOCKER_REPO=$CD_REF_SLUG
+fi
 echo "#### Docker image $CD_DOCKER_REPO:$CD_REF_NAME is being built"
-docker build -t $CD_DOCKER_REPO:$CD_REF_NAME .
+docker build --build-arg version_code="${CD_VERSION_CODE}" -t $CD_DOCKER_REPO:$CD_REF_NAME .
 
 if [ -z "$CD_DOCKER_USERNAME" ] || [ -z "$CD_DOCKER_PASSWORD" ]; then
-  echo "#### Docker image for $CD_DOCKER_REPO can't be published because CD_DOCKER_USERNAME or CD_DOCKER_PASSWORD are missing"
+  echo "#### Docker image for $CD_DOCKER_REPO can't be published because CD_DOCKER_USERNAME or CD_DOCKER_PASSWORD are missing (Ignore this warning if running outside a CD/CI environment)"
   exit 0
 fi
 
