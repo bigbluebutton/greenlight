@@ -103,8 +103,16 @@ class User < ApplicationRecord
   end
 
   def self.admins_search(string)
-    search_query = "name LIKE :search OR email LIKE :search OR username LIKE :search" \
-                   " OR created_at LIKE :search OR provider LIKE :search"
+    active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
+    # Postgres requires created_at to be cast to a string
+    created_at_query = if active_database == "postgresql"
+      "created_at::text"
+    else
+      "created_at"
+    end
+
+    search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
+                   " OR users.#{created_at_query} LIKE :search OR provider LIKE :search"
     search_param = "%#{string}%"
     where(search_query, search: search_param)
   end
@@ -113,7 +121,7 @@ class User < ApplicationRecord
     order("#{column} #{direction}")
   end
 
-  def all_recordings
+  def all_recordings(search_params = {}, ret_search_params = false)
     pag_num = Rails.configuration.pagination_number
 
     pag_loops = rooms.length / pag_num - 1
@@ -134,7 +142,7 @@ class User < ApplicationRecord
     full_res = bbb.get_recordings(meetingID: last_pag_room.pluck(:bbb_id))
     res[:recordings].push(*full_res[:recordings])
 
-    format_recordings(res)
+    format_recordings(res, search_params, ret_search_params)
   end
 
   # Activates an account and initialize a users main room
@@ -149,20 +157,11 @@ class User < ApplicationRecord
     email_verified
   end
 
-  def send_activation_email(url)
-    UserMailer.verify_email(self, url).deliver
-  end
-
   # Sets the password reset attributes.
   def create_reset_digest
     self.reset_token = User.new_token
     update_attribute(:reset_digest,  User.digest(reset_token))
     update_attribute(:reset_sent_at, Time.zone.now)
-  end
-
-  # Sends password reset email.
-  def send_password_reset_email(url)
-    UserMailer.password_reset(self, url).deliver_now
   end
 
   # Returns true if the given token matches the digest.
@@ -201,9 +200,8 @@ class User < ApplicationRecord
 
   def greenlight_account?
     return true unless provider # For testing cases when provider is set to null
-    return provider == "greenlight" unless Rails.configuration.loadbalanced_configuration
-    # No need to retrive the provider info if the provider is whitelisted
-    return true if launcher_allow_user_signup_whitelisted?(provider)
+    return true if provider == "greenlight"
+    return false unless Rails.configuration.loadbalanced_configuration
     # Proceed with fetching the provider info
     provider_info = retrieve_provider_info(provider, 'api2', 'getUserGreenlightCredentials')
     provider_info['provider'] == 'greenlight'

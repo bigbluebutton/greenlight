@@ -73,10 +73,4 @@ module BbbApi
   def remove_slash(s)
     s.nil? ? nil : s.chomp("/")
   end
-
-  def launcher_allow_user_signup_whitelisted?(provider)
-    return false unless Rails.configuration.launcher_allow_user_signup
-    whitelist = Rails.configuration.launcher_allow_user_signup.split(',')
-    whitelist.include?(provider)
-  end
 end

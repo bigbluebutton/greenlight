@@ -39,12 +39,18 @@ Rails.application.routes.draw do
   scope '/admins' do
     post '/branding', to: 'admins#branding', as: :admin_branding
     post '/coloring', to: 'admins#coloring', as: :admin_coloring
+    post '/room_authentication', to: 'admins#room_authentication', as: :admin_room_authentication
+    post '/coloring_lighten', to: 'admins#coloring_lighten', as: :admin_coloring_lighten
+    post '/coloring_darken', to: 'admins#coloring_darken', as: :admin_coloring_darken
     post '/signup', to: 'admins#signup', as: :admin_signup
     get '/edit/:user_uid', to: 'admins#edit_user', as: :admin_edit_user
     post '/promote/:user_uid', to: 'admins#promote', as: :admin_promote
     post '/demote/:user_uid', to: 'admins#demote', as: :admin_demote
     post '/ban/:user_uid', to: 'admins#ban_user', as: :admin_ban
     post '/unban/:user_uid', to: 'admins#unban_user', as: :admin_unban
+    post '/invite', to: 'admins#invite', as: :invite_user
+    post '/registration_method/:method', to: 'admins#registration_method', as: :admin_change_registration
+    post '/approve/:user_uid', to: 'admins#approve', as: :admin_approve
   end
 
   scope '/themes' do
