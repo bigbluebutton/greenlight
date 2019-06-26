@@ -57,7 +57,7 @@ en:
       delete_fail: Failed to delete user
       demoted: User has been successfully demoted
       invite: Invite successfully sent to %{email}
-      invite_email_verification: ALLOW_MAIL_NOTIFICATIONS must be set to true in order to use this method
+      invite_email_verification: Emails must be enabled in order to use this method. Please contact your system administrator.
       promoted: User has been successfully promoted
       registration_method_updated: Registration method successfully updated
       settings: Site Settings successfully changed
@@ -349,7 +349,7 @@ en:
     update_settings_error: There was an error updating the room settings
     update_settings_success: Room settings successfully updated
     wait:
-      message: Oops! The meeting hasn't started yet.
+      message: The meeting hasn't started yet.
       auto: You will automatically join when the meeting starts.
   settings:
     account:
