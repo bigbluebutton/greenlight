@@ -57,7 +57,7 @@ de_DE:
       delete_fail: Löschen des Teilnehmers fehlgeschlagen
       demoted: "Teilnehmer wurde erfolgreich zurückgestuft "
       invite: "Einladung erfolgreich an %{email} geschickt"
-      invite_email_verification: "ALLOW_MAIL_NOTIFICATIONS muss auf den Wert true gesetzt sein, damit diese Methode verwendet werden kann"
+      invite_email_verification: "Emailversand muss aktiviert sein, um diese Methode verwenden zu können. Bitte kontaktieren Sie Ihren Systemadministrator."
       promoted: Teilnehmer wurde erfolgreich hochgestuft
       registration_method_updated: Registrierungsmethode erfolgreich aktualisiert
       settings: Seiteneinstellungen erfolgreich geändert
@@ -248,7 +248,8 @@ de_DE:
       confirm: "Sind Sie sicher, dass Sie %{room}löschen wollen?"
       delete: Ich will diesen Raum löschen.
       keep: Ich will ihn doch nicht löschen.
-      warning: "Sie werden <b>nicht</b> in der Lage sein diesen Raum oder die in ihm durchgeführten %{recordings_num} Aufzeichnungen wiederherzustellen."
+      warning: "Sie werden <b>nicht</b> in der Lage sein, diesen Raum wiederherzustellen"
+      recording_warning: "oder jegliche seiner %{recordings_num} verknüpften Aufzeichnungen."
     invite_user:
       email_placeholder: Nutzeremail eingeben
       footer: "Der Nutzer wird eine Email mit dazu Anweisungen erhalten, wie er sich registrieren kann "
