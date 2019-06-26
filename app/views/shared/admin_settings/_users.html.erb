@@ -13,6 +13,10 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
+<% if @role.present? %>
+  <%= render "shared/components/admins_tags" %>
+<% end %>
+
 <div class="form-group">
   <div class="row">
     <div class="col-12">
@@ -68,27 +72,25 @@
                     <td><%= user.email && user.email != "" ? user.email : user.username%></td>
                     <td><%= user.provider %></td>
                     <td class="text-center">
-                    <% roles = user.roles().pluck(:name) %>
-                      <% if roles.include?("denied")%>
-                        <div class="user-role btn btn-sm btn-gray-dark">
-                          <%= t("roles.banned") %>
-                        </div>
-                      <% elsif roles.include?("super_admin") %>
-                        <div class="user-role btn btn-sm btn-red">
-                          <%= t("roles.super_admin") %>
-                        </div>
-                      <% elsif roles.include?("admin") %>
-                        <div class="user-role btn btn-sm btn-yellow">
-                          <%= t("roles.administrator") %>
-                        </div>
-                      <% else %>
-                        <div class="user-role btn btn-sm btn-gray">
-                          <%= t("roles.user") %>
-                        </div>
-                      <% end %>
+                      <% roles = user.roles().pluck(:name) %>
+                      <%= render "shared/components/admins_role", roles: roles %>
                     </td>
                     <td>
-                      <% unless roles.include?("super_admin") %>
+                      <% if roles.include?("pending") %>
+                        <div class="item-action dropdown">
+                          <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
+                            <i class="fas fa-ellipsis-v px-4"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu">
+                            <%= button_to admin_approve_path(user_uid: user.uid), class: "dropdown-item" do %>
+                              <i class="dropdown-icon far fa-check-circle"></i> <%= t("administrator.users.settings.approve") %>
+                            <% end %>
+                            <%= button_to admin_ban_path(user_uid: user.uid), class: "dropdown-item" do %>
+                              <i class="dropdown-icon far fa-times-circle"></i> <%= t("administrator.users.settings.decline") %>
+                            <% end %>
+                          </div>
+                        </div>
+                      <% elsif !roles.include?("super_admin") %>
                         <div class="item-action dropdown">
                           <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
                             <i class="fas fa-ellipsis-v px-4"></i>
@@ -142,3 +144,5 @@
     </div>
   </div>
 </div>
+
+<%= render "shared/modals/invite_user_modal" %>

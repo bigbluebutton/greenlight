@@ -16,7 +16,7 @@
 <div class="form-group">
   <div class="row">
     <div class="col-12">
-      <div class="mb-7 form-group">
+      <div class="mb-6 form-group">
         <label class="form-label"><%= t("administrator.site_settings.branding.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.branding.info") %></label>
         <div class="input-group">
@@ -26,19 +26,74 @@
           </span>
         </div>
       </div>
-
-      <div class="form-group">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="mb-6 form-group">
         <label class="form-label"><%= t("administrator.site_settings.color.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.color.info") %></label>
-        <div class="row gutters-xs">
-          <div class="col-auto">
-            <input id="coloring-path" value="<%= admin_coloring_path %>" hidden>
-            <input id="user-colour" value="<%= user_color %>" hidden/>
-            <div class="colorinput">
-              <span class="colorinput-color" style="background: <%= user_color %>;">
-                <i class="p-1 fas fa-paint-brush"></i>
-              </span>
+          <div class="color-inputs">
+            <input id="coloring-path-regular" type="hidden" value="<%= admin_coloring_path%>">
+            <input id="coloring-path-lighten" type="hidden" value="<%= admin_coloring_lighten_path%>">
+            <input id="coloring-path-darken" type="hidden" value="<%= admin_coloring_darken_path%>">
+
+            <div id="colorinput-regular" class="btn primary-regular mr-3">
+              <%= t("administrator.site_settings.color.regular") %>
             </div>
+
+            <div id="colorinput-lighten" class="btn primary-lighten mr-3">
+              <%= t("administrator.site_settings.color.lighten") %>
+            </div>
+
+            <div id="colorinput-darken" class="btn primary-darken">
+              <%= t("administrator.site_settings.color.darken") %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-6 col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.registration.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.registration.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="registrationMethods" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= registration_method_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="registrationMethods">
+            <%= button_to admin_change_registration_path("open"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.registration.methods.open") %>
+            <% end %>
+            <%= button_to admin_change_registration_path("invite"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.registration.methods.invite") %>
+            <% end %>
+            <%= button_to admin_change_registration_path("approval"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.registration.methods.approval") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.authentication.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.authentication.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="room-auth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= room_authentication_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="room-auth">
+            <%= button_to admin_room_authentication_path(value: "true"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.authentication.enabled") %>
+            <% end %>
+            <%= button_to admin_room_authentication_path(value: "false"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.authentication.disabled") %>
+            <% end %>
           </div>
         </div>
       </div>
