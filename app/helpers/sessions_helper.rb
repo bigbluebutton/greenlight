@@ -67,34 +67,80 @@ module SessionsHelper
     OpenSSL::Digest.digest('sha1', string).unpack1("H*")
   end
 
-  def parse_user_domain(hostname)
-    return hostname.split('.').first if Rails.configuration.url_host.empty?
-    Rails.configuration.url_host.split(',').each do |url_host|
-      return hostname.chomp(url_host).chomp('.') if hostname.include?(url_host)
-    end
-    ''
-  end
-
   def omniauth_options(env)
-    gl_redirect_url = (Rails.env.production? ? "https" : env["rack.url_scheme"]) + "://" + env["SERVER_NAME"] + ":" +
-                      env["SERVER_PORT"]
-    user_domain = parse_user_domain(env["SERVER_NAME"])
-    env['omniauth.strategy'].options[:customer] = user_domain
-    env['omniauth.strategy'].options[:gl_redirect_url] = gl_redirect_url
-    env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
-    env['omniauth.strategy'].options[:checksum] = generate_checksum(user_domain, gl_redirect_url,
-      Rails.configuration.launcher_secret)
+    provider = env['omniauth.strategy'].options[:name]
+
+    if Rails.configuration.loadbalanced_configuration
+      user_domain = parse_user_domain(env["SERVER_NAME"])
+
+      env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
+
+      customer_info = retrieve_customer_info(user_domain)
+
+      raise 'Customer not recognized' unless customer_info
+
+      if customer_info[:saml]
+        saml_options(env, customer_info[:saml])
+      elsif customer_info[:google]
+        env['omniauth.strategy'].options[:hd] = customer_info[:google][:hd] unless
+          customer_info[:google][:hd].empty? || customer_info[:google][:hd] == 'gmail.com'
+      elsif customer_info[:office365]
+        env['omniauth.strategy'].options[:allowed_domains] = customer_info[:office365][:hd] unless
+        customer_info[:office365][:hd].empty?
+      end
+    end
+
+    if provider == 'google' && !Rails.configuration.loadbalanced_configuration
+      hd_opts = ENV['GOOGLE_OAUTH2_HD'].split(',')
+      env['omniauth.strategy'].options[:hd] =
+        if hd_opts.empty?
+          nil
+        elsif hd_opts.length == 1
+          hd_opts[0]
+        else
+          hd_opts
+        end
+    end
   end
 
-  def google_omniauth_hd(env, hd)
-    hd_opts = hd.split(',')
-    env['omniauth.strategy'].options[:hd] =
-      if hd_opts.empty?
-        nil
-      elsif hd_opts.length == 1
-        hd_opts[0]
-      else
-        hd_opts
+  def saml_options(env, customer_info)
+    env['omniauth.strategy'].options[:issuer] = customer_info[:issuer]
+    env['omniauth.strategy'].options[:idp_sso_target_url] = customer_info[:idp_sso_target_url]
+    env['omniauth.strategy'].options[:idp_cert_fingerprint] = customer_info[:idp_cert_fingerprint]
+    env['omniauth.strategy'].options[:attribute_statements] = {
+      name: ["name", customer_info[:attribute_mappings]["name"]],
+      email: ["email", customer_info[:attribute_mappings]["email"]],
+      user_id: ["user_id", customer_info[:attribute_mappings]["user_id"]],
+      iamge: ['image', customer_info[:attribute_mappings]["image"]]
+    }
+  end
+
+  def retrieve_customer_info(provider)
+    provider_info = retrieve_provider_info(provider, 'api2', 'getUserGreenlightCredentials')
+
+    customer_info = {}
+    if provider_info['provider'] == 'saml'
+      attribute_mappings = {}
+
+      unless provider_info['SAML_ATTRIBUTE_MAPPINGS'].empty?
+        attribute_mappings = Hash[provider_info['SAML_ATTRIBUTE_MAPPINGS'].split(',').map do |attr|
+          split_attr = attr.split('=')
+          [split_attr[0], split_attr[1]]
+        end]
       end
+
+      customer_info[:saml] = {
+        issuer: provider_info['SAML_ISSUER'],
+        idp_sso_target_url: provider_info['SAML_IDP_URL'],
+        idp_cert_fingerprint: provider_info['SAML_IDP_CERT_FINGERPRINT'],
+        attribute_mappings: attribute_mappings
+      }
+    elsif provider_info['provider'] == 'google'
+      customer_info = { google: { hd: provider_info['GOOGLE_HD'] } }
+    elsif provider_info['provider'] == 'office365'
+      customer_info = { office365: { hd: provider_info['OFFICE_365_HD'] } }
+    end
+
+    customer_info
   end
 end

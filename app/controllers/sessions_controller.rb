@@ -54,6 +54,7 @@ class SessionsController < ApplicationController
       # If using invitation registration method, make sure user is invited
       return redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless passes_invite_reqs
 
+      @auth['info']['customer'] = parse_user_domain(request.host) if Rails.configuration.loadbalanced_configuration
       user = User.from_omniauth(@auth)
 
       # Add pending role if approval method and is a new user
@@ -88,7 +89,7 @@ class SessionsController < ApplicationController
   end
 
   def check_user_exists
-    provider = @auth['provider'] == "bn_launcher" ? @auth['info']['customer'] : @auth['provider']
+    provider = Rails.configuration.loadbalanced_configuration ? parse_user_domain(request.host) : @auth['provider']
     User.exists?(social_uid: @auth['uid'], provider: provider)
   end
 
