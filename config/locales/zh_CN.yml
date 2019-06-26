@@ -348,7 +348,7 @@ zh_CN:
     update_settings_error: 修改会议室设置出错
     update_settings_success: 会议室设置修改成功
     wait:
-      message: 哎呀！会议还没开始呢。
+      message: 会议还没开始呢。
       auto: 会议开始后您将自动进入
   settings:
     account:
