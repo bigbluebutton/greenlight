@@ -57,7 +57,7 @@ hu_HU:
       delete_fail: A felhasználó törlése sikertelen
       demoted: A felhasználót sikeresen lefokoztad
       invite: "A meghívót sikeresen elküldtük %{email}"
-      invite_email_verification: "ALLOW_MAIL_NOTIFICATIONS beállításnak igaznak kell lennie, hogy ezt a módot használhasd"
+      invite_email_verification: "Ennek a használatához az e-maileket engedélyezni kell. Kérjük, ezt jelezd a rendszerüzemeltetőnek."
       promoted: A felhasználót sikeresen előléptetted
       registration_method_updated: A regisztráció módját sikeresen megváltoztattad
       settings: A weboldal beállításait sikeresen módosítottad
@@ -129,7 +129,7 @@ hu_HU:
     title: Hibák
     unauthorized:
       message: Nincs hozzáférésed ehhez az alkalmazáshoz
-      help: "Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd az üzemeltetőnek."
+      help: "Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd a rendszerüzemeltetőnek."
     unprocessable:
       message: Oppssz! A kérés nem hajtható végre.
       help: Sajnos ez nem egy valós kérés.
@@ -248,7 +248,8 @@ hu_HU:
       confirm: "Biztos, hogy töröld %{room} szobát?"
       delete: "Igen, törlöm ezt  a szobát."
       keep: "Második gondolatom, hogy meg fogom tartani."
-      warning: "<b>Nem</b> lehet majd ezt a szobát, illetve a hozzá kapcsolódó %{recordings_num} felvételt sem visszaállítani."
+      warning: Ezt a szobát <b>nem</b> lehet majd visszaállítani
+      recording_warning: "vagy bármely  hozzá tartozó %{recordings_num} felvételt."
     invite_user:
       email_placeholder: Add meg a felhasználó e-mail címét
       footer: "A felhasználónak egy, a regisztrációhoz szükséges útmutatót tartalmazó e-mailt fogunk küldeni."
@@ -348,7 +349,7 @@ hu_HU:
     update_settings_error: Hiba történt a szoba beállításainak módosításakor
     update_settings_success: A szoba beállításait sikeresen módosítottad
     wait:
-      message: Oppssz! Az eladás még nem kezdődött el.
+      message: A találkozó még nem indult el.
       auto: "Automatikusan csatlakoztatunk az előadáshoz, amikor az elindul."
   settings:
     account:
