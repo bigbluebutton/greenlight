@@ -197,7 +197,7 @@ zh_CN:
       demoted:
         info: "您不再是 %{url}的管理员."
         more-info: 您现在拥有与普通用户相同的权限，将无法再访问任何管理员设置。
-        root_link: 访问组织页面
+        root_link: 登录
         subtitle: 管理人权利被撤销了
       invite:
         info: "您被%{name}邀请到您自己的私人空间 "
@@ -348,7 +348,7 @@ zh_CN:
     update_settings_error: 修改会议室设置出错
     update_settings_success: 会议室设置修改成功
     wait:
-      message: 哎呀！会议还没开始呢。
+      message: 会议还没开始呢。
       auto: 会议开始后您将自动进入
   settings:
     account:
