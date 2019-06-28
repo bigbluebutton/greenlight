@@ -8,7 +8,7 @@ services:
     env_file: .env
     restart: unless-stopped
     ports:
-      - 5000:80
+      - 127.0.0.1:5000:80
 # When using external logging
 #    logging:
 #      driver: $LOG_DRIVER
@@ -20,17 +20,17 @@ services:
 # When using sqlite3 as the database
 #      - ./db/production:/usr/src/app/db/production
 # When using postgresql as the database
-    links:
-      - db
-  db:
-    image: postgres:9.5
-    restart: on-failure
-    ports:
-      - 5432:5432
-    volumes:
-      - ./db/production:/var/lib/postgresql/data
-    environment:
-      - PGHOST=postgres
-      - PGDATABASE=postgres
-      - PGUSER=postgres
-      - PGPASSWORD=password
+#    links:
+#      - db
+#  db:
+#    image: postgres:9.5
+#    restart: on-failure
+#    ports:
+#      - 127.0.0.1:5432:5432
+#    volumes:
+#      - ./db/production:/var/lib/postgresql/data
+#    environment:
+#      - PGHOST=postgres
+#      - PGDATABASE=postgres
+#      - PGUSER=postgres
+#      - PGPASSWORD=password
