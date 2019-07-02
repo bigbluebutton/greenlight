@@ -173,9 +173,9 @@ describe SessionsController, type: :controller do
         },
       )
 
-      OmniAuth.config.mock_auth[:bn_launcher] = OmniAuth::AuthHash.new(
-        provider: "bn_launcher",
-        uid: "bn-launcher-user",
+      OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new(
+        provider: "google",
+        uid: "google-user",
         info: {
           email: "user@google.com",
           name: "Google User",
@@ -190,7 +190,11 @@ describe SessionsController, type: :controller do
       }
     end
 
-    unless Rails.configuration.omniauth_bn_launcher
+    describe 'standalone omniauth login tests' do
+      before do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(false)
+      end
+
       it "should create and login user with omniauth twitter" do
         request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
         get :omniauth, params: { provider: :twitter }
@@ -198,16 +202,6 @@ describe SessionsController, type: :controller do
         u = User.last
         expect(u.provider).to eql("twitter")
         expect(u.email).to eql("user@twitter.com")
-        expect(@request.session[:user_id]).to eql(u.id)
-      end
-
-      it "should create and login user with omniauth bn launcher" do
-        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
-        get :omniauth, params: { provider: 'bn_launcher' }
-
-        u = User.last
-        expect(u.provider).to eql("customer1")
-        expect(u.email).to eql("user@google.com")
         expect(@request.session[:user_id]).to eql(u.id)
       end
 
@@ -235,9 +229,9 @@ describe SessionsController, type: :controller do
         it "should notify admin on new user signup with approve/reject registration" do
           allow_any_instance_of(Registrar).to receive(:approval_registration).and_return(true)
 
-          request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
+          request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google]
 
-          expect { get :omniauth, params: { provider: 'bn_launcher' } }
+          expect { get :omniauth, params: { provider: 'google' } }
             .to change { ActionMailer::Base.deliveries.count }.by(1)
         end
 
@@ -247,18 +241,25 @@ describe SessionsController, type: :controller do
           invite = Invitation.create(email: "user@google.com", provider: "greenlight")
           @request.session[:invite_token] = invite.invite_token
 
-          request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
+          request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google]
 
-          expect { get :omniauth, params: { provider: 'bn_launcher' } }
+          expect { get :omniauth, params: { provider: 'google' } }
             .to change { ActionMailer::Base.deliveries.count }.by(1)
         end
       end
     end
 
-    it "should not create session without omniauth env set for bn_launcher" do
-      get :omniauth, params: { provider: 'bn_launcher' }
+    it "should create and login user with omniauth google" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      Rails.configuration.url_host = ''
+      allow_any_instance_of(BbbApi).to receive(:retrieve_provider_info).and_return('provider' => 'test')
+      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google]
+      get :omniauth, params: { provider: 'google' }
 
-      expect(response).to redirect_to(root_path)
+      u = User.last
+      expect(u.provider).to eql("test")
+      expect(u.email).to eql("user@google.com")
+      expect(@request.session[:user_id]).to eql(u.id)
     end
   end
 end
