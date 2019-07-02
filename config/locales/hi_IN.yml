@@ -156,7 +156,7 @@ hi_IN:
   password_different_notice: पासवर्ड की पुष्टि मेल नहीं खाती।
   provider:
     google: गूगल
-    microsoft_office365: ऑफिस 365
+    office365: ऑफिस 365
     twitter: ट्विटर
   recording:
     email: ईमेल रिकॉर्डिंग
