@@ -170,13 +170,11 @@ class AdminsController < ApplicationController
 
   # Gets the list of users based on your configuration
   def user_list
-    initial_list = if current_user.has_role? :super_admin
-      User.where.not(id: current_user.id)
+    list = if @role.present?
+      User.with_role(@role.to_sym).where.not(id: current_user.id)
     else
-      User.without_role(:super_admin).where.not(id: current_user.id)
+      User.where.not(id: current_user.id)
     end
-
-    list = @role.present? ? initial_list.with_role(@role.to_sym) : initial_list
 
     if Rails.configuration.loadbalanced_configuration
       list.where(provider: user_settings_provider)

@@ -348,7 +348,7 @@ hu_HU:
     update_settings_error: Hiba történt a szoba beállításainak módosításakor
     update_settings_success: A szoba beállításait sikeresen módosítottad
     wait:
-      message: Az eladás még nem kezdődött el.
+      message: Oppssz! Az eladás még nem kezdődött el.
       auto: "Automatikusan csatlakoztatunk az előadáshoz, amikor az elindul."
   settings:
     account:

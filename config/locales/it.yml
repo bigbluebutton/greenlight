@@ -274,7 +274,7 @@ it:
     update_settings_error: Si è verificato un errore nell'aggiornamento dei dettagli della stanza
     update_settings_success: Impostazioni della stanza aggiornate correttamente
     wait:
-      message: Il meeting non è ancora cominciato.
+      message: Diamine! Il meeting non è ancora cominciato.
       auto: Verrai inserito nella stanza non appena il meeting avrà inizio.
   settings:
     account:
