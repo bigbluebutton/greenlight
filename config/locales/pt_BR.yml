@@ -199,7 +199,7 @@ pt_BR:
     update_settings_error: Ocorreu um erro ao atualizar as configurações da sala
     update_settings_success: Configurações da sala atualizadas com sucesso
     wait:
-      message: Oops! A reunião ainda não iniciou.
+      message: A reunião ainda não iniciou.
       auto: Você será automaticamente inserido na reunião quando ela começar.
   settings:
     account:
