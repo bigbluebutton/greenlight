@@ -375,8 +375,6 @@ en:
       title: Password
     title: Profile
     search: Search
-  signin:
-    username: Username
   signup:
     password_confirm: Password Confirmation
     subtitle: Create an Account

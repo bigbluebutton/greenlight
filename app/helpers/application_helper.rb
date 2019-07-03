@@ -36,15 +36,11 @@ module ApplicationHelper
 
   # Generates the login URL for a specific provider.
   def omniauth_login_url(provider)
-    if provider == :load_balancer
+    if provider == :bn_launcher
       customer = parse_user_domain(request.host)
       customer_info = retrieve_provider_info(customer, 'api2', 'getUserGreenlightCredentials')
 
-      if customer_info['provider'] == 'ldap'
-        ldap_signin_path
-      else
-        "#{Rails.configuration.relative_url_root}/auth/#{customer_info['provider']}"
-      end
+      "#{Rails.configuration.relative_url_root}/auth/#{customer_info['provider']}"
     else
       "#{Rails.configuration.relative_url_root}/auth/#{provider}"
     end
