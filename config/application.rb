@@ -136,5 +136,19 @@ module Greenlight
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
+
+    config.ldap_host = ENV['LDAP_SERVER']
+    config.ldap_port = ENV['LDAP_PORT'] || 389
+    config.ldap_bind_dn = ENV['LDAP_BIND_DN']
+    config.ldap_password = ENV['LDAP_PASSWORD']
+    config.ldap_base = ENV['LDAP_BASE']
+    config.ldap_uid = ENV['LDAP_UID']
+
+    # To keep the configuration values the same as the old omniauth ldap provider
+    config.ldap_encryption = if ENV['LDAP_METHOD'] == 'ssl'
+      'simple_tls'
+    elsif ENV['LDAP_METHOD'] == 'tls'
+      'start_tls'
+    end
   end
 end

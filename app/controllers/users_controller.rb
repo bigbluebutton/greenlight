@@ -64,6 +64,10 @@ class UsersController < ApplicationController
   def signin
   end
 
+  # GET /ldap_signin
+  def ldap_signin
+  end
+
   # GET /signup
   def new
     return redirect_to root_path unless Rails.configuration.allow_user_signup
