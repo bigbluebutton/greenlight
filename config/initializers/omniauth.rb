@@ -52,43 +52,44 @@ end
 
 # Setup the Omniauth middleware.
 Rails.application.config.middleware.use OmniAuth::Builder do
-  if !Rails.configuration.omniauth_ldap || Rails.configuration.loadbalanced_configuration
-    provider :saml, setup: SETUP_PROC if Rails.configuration.loadbalanced_configuration
-    if Rails.configuration.omniauth_saml && !Rails.configuration.loadbalanced_configuration
-      Rails.application.config.providers << :saml
+  if Rails.configuration.loadbalanced_configuration || Rails.configuration.omniauth_ldap
+    Rails.application.config.providers << :ldap
+  end
+  provider :saml, setup: SETUP_PROC if Rails.configuration.loadbalanced_configuration
+  if Rails.configuration.omniauth_saml && !Rails.configuration.loadbalanced_configuration
+    Rails.application.config.providers << :saml
 
-      provider :saml,
-      issuer: ENV['SAML_ISSUER'],
-      idp_sso_target_url: ENV['SAML_TARGET_URL'],
-      idp_cert_fingerprint: ENV['SAML_FINGERPRINT']
-    end
-    if Rails.configuration.omniauth_twitter
-      Rails.application.config.providers << :twitter
+    provider :saml,
+    issuer: ENV['SAML_ISSUER'],
+    idp_sso_target_url: ENV['SAML_TARGET_URL'],
+    idp_cert_fingerprint: ENV['SAML_FINGERPRINT']
+  end
+  if Rails.configuration.omniauth_twitter
+    Rails.application.config.providers << :twitter
 
-      provider :twitter, ENV['TWITTER_ID'], ENV['TWITTER_SECRET']
-    end
-    if Rails.configuration.omniauth_google
-      Rails.application.config.providers << :google
+    provider :twitter, ENV['TWITTER_ID'], ENV['TWITTER_SECRET']
+  end
+  if Rails.configuration.omniauth_google
+    Rails.application.config.providers << :google
 
-      scope = if ENV['ENABLE_YOUTUBE_UPLOADING'] && ENV['ENABLE_YOUTUBE_UPLOADING'] == 'true'
-                ['profile', 'email', 'youtube', 'youtube.upload']
-              else
-                %w(profile email)
-              end
+    scope = if ENV['ENABLE_YOUTUBE_UPLOADING'] && ENV['ENABLE_YOUTUBE_UPLOADING'] == 'true'
+              ['profile', 'email', 'youtube', 'youtube.upload']
+            else
+              %w(profile email)
+            end
 
-      provider :google_oauth2, ENV['GOOGLE_OAUTH2_ID'], ENV['GOOGLE_OAUTH2_SECRET'],
-        scope: scope,
-        access_type: 'online',
-        name: 'google',
-        setup: SETUP_PROC
-    end
-    if Rails.configuration.omniauth_office365
-      Rails.application.config.providers << :office365
+    provider :google_oauth2, ENV['GOOGLE_OAUTH2_ID'], ENV['GOOGLE_OAUTH2_SECRET'],
+      scope: scope,
+      access_type: 'online',
+      name: 'google',
+      setup: SETUP_PROC
+  end
+  if Rails.configuration.omniauth_office365
+    Rails.application.config.providers << :office365
 
-      provider :azure_ad, ENV['OFFICE365_KEY'], ENV['OFFICE365_SECRET'],
-                name: 'office365',
-                setup: SETUP_PROC
-    end
+    provider :azure_ad, ENV['OFFICE365_KEY'], ENV['OFFICE365_SECRET'],
+              name: 'office365',
+              setup: SETUP_PROC
   end
 end
 

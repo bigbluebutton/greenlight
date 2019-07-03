@@ -46,7 +46,7 @@ describe ApplicationHelper do
       allow(Rails.configuration).to receive(:relative_url_root).and_return("/b")
       allow_any_instance_of(BbbApi).to receive(:retrieve_provider_info).and_return('provider' => 'google')
 
-      provider = :load_balancer
+      provider = :bn_provider
 
       expect(helper.omniauth_login_url(provider)).to eql("/b/auth/google")
     end
@@ -55,7 +55,7 @@ describe ApplicationHelper do
       allow(Rails.configuration).to receive(:relative_url_root).and_return("/b")
       allow_any_instance_of(BbbApi).to receive(:retrieve_provider_info).and_return('provider' => 'ldap')
 
-      provider = :load_balancer
+      provider = :bn_provider
 
       expect(helper.omniauth_login_url(provider)).to eql(ldap_signin_path)
     end

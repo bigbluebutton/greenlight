@@ -289,6 +289,7 @@ en:
     office365: Office 365
     twitter: Twitter
     saml: Saml
+    ldap: LDAP
   recaptcha:
     errors:
       recaptcha_unreachable: Oops, we failed to validate your reCAPTCHA response. Please try again.

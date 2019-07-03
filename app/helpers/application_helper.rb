@@ -31,12 +31,12 @@ module ApplicationHelper
 
   # Determines which providers can show a login button in the login modal.
   def iconset_providers
-    configured_providers & [:google, :twitter, :office365, :saml]
+    configured_providers & [:google, :twitter, :office365, :saml, :ldap]
   end
 
   # Generates the login URL for a specific provider.
   def omniauth_login_url(provider)
-    if provider == :load_balancer
+    if provider == :bn_provider
       customer = parse_user_domain(request.host)
       customer_info = retrieve_provider_info(customer, 'api2', 'getUserGreenlightCredentials')
 
@@ -45,6 +45,8 @@ module ApplicationHelper
       else
         "#{Rails.configuration.relative_url_root}/auth/#{customer_info['provider']}"
       end
+    elsif provider == :ldap
+      ldap_signin_path
     else
       "#{Rails.configuration.relative_url_root}/auth/#{provider}"
     end
