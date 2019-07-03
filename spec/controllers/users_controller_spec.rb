@@ -107,6 +107,13 @@ describe UsersController, type: :controller do
     end
   end
 
+  describe "GET #ldap_signin" do
+    it "should render ldap signin page" do
+      get :ldap_signin
+      expect(response).to render_template(:ldap_signin)
+    end
+  end
+
   describe "POST #create" do
     context "allow greenlight accounts" do
       before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }

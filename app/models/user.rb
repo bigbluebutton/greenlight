@@ -52,7 +52,7 @@ class User < ApplicationRecord
 
   class << self
     # Generates a user from omniauth.
-    def from_omniauth(auth)
+    def from_external_provider(auth)
       # Provider is the customer name if in loadbalanced config mode
       provider = Rails.configuration.loadbalanced_configuration ? auth['info']['customer'] : auth['provider']
       find_or_initialize_by(social_uid: auth['uid'], provider: provider).tap do |u|

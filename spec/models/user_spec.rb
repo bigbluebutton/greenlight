@@ -76,7 +76,7 @@ describe User, type: :model do
     end
   end
 
-  context '#from_omniauth' do
+  context '#from_external_provider' do
     let(:auth) do
       {
         "uid" => "123456789",
@@ -93,7 +93,7 @@ describe User, type: :model do
     it "should create user from omniauth" do
       expect do
         allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(false)
-        user = User.from_omniauth(auth)
+        user = User.from_external_provider(auth)
 
         expect(user.name).to eq("Test Name")
         expect(user.email).to eq("test@example.com")

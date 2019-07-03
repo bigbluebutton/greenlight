@@ -52,19 +52,7 @@ end
 
 # Setup the Omniauth middleware.
 Rails.application.config.middleware.use OmniAuth::Builder do
-  if Rails.configuration.omniauth_ldap
-    Rails.application.config.providers << :ldap
-
-    provider :ldap,
-      host: ENV['LDAP_SERVER'],
-      port: ENV['LDAP_PORT'] || '389',
-      method: ENV['LDAP_METHOD'].blank? ? :plain : ENV['LDAP_METHOD'].to_sym,
-      allow_username_or_email_login: true,
-      uid: ENV['LDAP_UID'],
-      base: ENV['LDAP_BASE'],
-      bind_dn: ENV['LDAP_BIND_DN'],
-      password: ENV['LDAP_PASSWORD']
-  else
+  if !Rails.configuration.omniauth_ldap || Rails.configuration.loadbalanced_configuration
     provider :saml, setup: SETUP_PROC if Rails.configuration.loadbalanced_configuration
     if Rails.configuration.omniauth_saml && !Rails.configuration.loadbalanced_configuration
       Rails.application.config.providers << :saml
@@ -108,27 +96,3 @@ end
 OmniAuth.config.on_failure = proc { |env|
   OmniAuth::FailureEndpoint.new(env).redirect_to_failure
 }
-
-# Work around beacuse callback_url option causes
-# omniauth.auth to be nil in the authhash when
-# authenticating with LDAP.
-module OmniAuthLDAPExt
-  def request_phase
-    rel_root = ENV['RELATIVE_URL_ROOT'].present? ? ENV['RELATIVE_URL_ROOT'] : '/b'
-
-    @callback_path = nil
-    path = options[:callback_path]
-    options[:callback_path] = "#{rel_root if Rails.env == 'production'}/auth/ldap/callback"
-    form = super
-    options[:callback_path] = path
-    form
-  end
-end
-
-module OmniAuth
-  module Strategies
-    class LDAP
-      prepend OmniAuthLDAPExt
-    end
-  end
-end

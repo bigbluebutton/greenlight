@@ -41,6 +41,24 @@ describe ApplicationHelper do
 
       expect(helper.omniauth_login_url(provider)).to eql("/b/auth/#{provider}")
     end
+
+    it "returns the correct omniauth login url from the loadbalancer" do
+      allow(Rails.configuration).to receive(:relative_url_root).and_return("/b")
+      allow_any_instance_of(BbbApi).to receive(:retrieve_provider_info).and_return('provider' => 'google')
+
+      provider = :load_balancer
+
+      expect(helper.omniauth_login_url(provider)).to eql("/b/auth/google")
+    end
+
+    it "returns the correct ldap login url from the loadbalancer" do
+      allow(Rails.configuration).to receive(:relative_url_root).and_return("/b")
+      allow_any_instance_of(BbbApi).to receive(:retrieve_provider_info).and_return('provider' => 'ldap')
+
+      provider = :load_balancer
+
+      expect(helper.omniauth_login_url(provider)).to eql(ldap_signin_path)
+    end
   end
 
   describe "#allow_greenlight_accounts" do

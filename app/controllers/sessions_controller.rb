@@ -20,6 +20,15 @@ class SessionsController < ApplicationController
   include Registrar
   include Emailer
 
+  LDAP_ATTRIBUTE_MAPPING = {
+    'name' => [:cn],
+    'first_name' => [:givenName],
+    'last_name' => [:sn],
+    'email' => [:mail, :email, :userPrincipalName],
+    'nickname' => [:uid, :userid, :sAMAccountName],
+    'image' => [:jpegPhoto]
+  }
+
   skip_before_action :verify_authenticity_token, only: [:omniauth, :fail]
 
   # GET /users/logout
@@ -45,32 +54,25 @@ class SessionsController < ApplicationController
     login(user)
   end
 
+  def ldap
+    result = send_ldap_request
+
+    if result
+      result = result.first
+    else
+      redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials"))
+      return
+    end
+
+    parse_auth(result)
+    process_external_signin
+  end
+
   # GET/POST /auth/:provider/callback
   def omniauth
     begin
       @auth = request.env['omniauth.auth']
-      @user_exists = check_user_exists
-
-      # If using invitation registration method, make sure user is invited
-      return redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless passes_invite_reqs
-
-      @auth['info']['customer'] = parse_user_domain(request.host) if Rails.configuration.loadbalanced_configuration
-      user = User.from_omniauth(@auth)
-
-      # Add pending role if approval method and is a new user
-      if approval_registration && !@user_exists
-        user.add_role :pending
-
-        # Inform admins that a user signed up if emails are turned on
-        send_approval_user_signup_email(user) if Rails.configuration.enable_email_verification
-
-        return redirect_to root_path, flash: { success: I18n.t("registration.approval.signup") }
-      end
-
-      send_invite_user_signup_email(user) if Rails.configuration.enable_email_verification &&
-                                             invite_registration && !@user_exists
-
-      login(user)
+      process_external_signin
     rescue => e
         logger.error "Error authenticating via omniauth: #{e}"
         omniauth_fail
@@ -99,5 +101,98 @@ class SessionsController < ApplicationController
 
     invitation = check_user_invited("", session[:invite_token], @user_domain)
     invitation[:present]
+  end
+
+  def process_external_signin
+    @user_exists = check_user_exists
+
+    # If using invitation registration method, make sure user is invited
+    return redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless passes_invite_reqs
+
+    @auth['info']['customer'] = parse_user_domain(request.host) if Rails.configuration.loadbalanced_configuration
+    user = User.from_external_provider(@auth)
+
+    # Add pending role if approval method and is a new user
+    if approval_registration && !@user_exists
+      user.add_role :pending
+
+      # Inform admins that a user signed up if emails are turned on
+      send_approval_user_signup_email(user) if Rails.configuration.enable_email_verification
+
+      return redirect_to root_path, flash: { success: I18n.t("registration.approval.signup") }
+    end
+
+    send_invite_user_signup_email(user) if Rails.configuration.enable_email_verification &&
+                                           invite_registration && !@user_exists
+
+    login(user)
+  end
+
+  def send_ldap_request
+    host = ''
+    port = 389
+    bind_dn = ''
+    password = ''
+    encryption = nil
+    base = ''
+    uid = ''
+
+    if Rails.configuration.loadbalanced_configuration
+      customer = parse_user_domain(request.host)
+      customer_info = retrieve_provider_info(customer, 'api2', 'getUserGreenlightCredentials')
+
+      host = customer_info['LDAP_SERVER']
+      port = customer_info['LDAP_PORT'].to_i != 0 ? customer_info['LDAP_PORT'].to_i : 389
+      bind_dn = customer_info['LDAP_BIND_DN']
+      password = customer_info['LDAP_PASSWORD']
+      encryption = config.ldap_encryption = if customer_info['LDAP_METHOD'] == 'ssl'
+                                              'simple_tls'
+                                            elsif customer_info['LDAP_METHOD'] == 'tls'
+                                              'start_tls'
+                                            end
+      base = customer_info['LDAP_BASE']
+      uid = customer_info['LDAP_UID']
+    else
+      host = Rails.configuration.ldap_host
+      port = Rails.configuration.ldap_port
+      bind_dn = Rails.configuration.ldap_bind_dn
+      password = Rails.configuration.ldap_password
+      encryption = Rails.configuration.ldap_encryption
+      base = Rails.configuration.ldap_base
+      uid = Rails.configuration.ldap_uid
+    end
+
+    ldap = Net::LDAP.new(
+      host: host,
+      port: port,
+      auth: {
+        method: :simple,
+        username: bind_dn,
+        password: password
+      },
+      encryption: encryption
+    )
+
+    ldap.bind_as(
+      base: base,
+      filter: "(#{uid}=#{session_params[:password]})",
+      password: session_params[:password]
+    )
+  end
+
+  def parse_auth(result)
+    @auth = {}
+    @auth['info'] = {}
+    @auth['uid'] = result.dn
+    @auth['provider'] = :ldap
+
+    LDAP_ATTRIBUTE_MAPPING.each do |key, value|
+      value.each do |v|
+        if result[v].first
+          @auth['info'][key] = result[v].first
+          break
+        end
+      end
+    end
   end
 end

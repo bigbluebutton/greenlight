@@ -154,11 +154,6 @@ GEM
       jwt (>= 2.0)
       omniauth (>= 1.1.1)
       omniauth-oauth2 (>= 1.5)
-    omniauth-ldap (1.0.5)
-      net-ldap (~> 0.12)
-      omniauth (~> 1.0)
-      pyu-ruby-sasl (~> 0.0.3.2)
-      rubyntlm (~> 0.3.4)
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
@@ -179,7 +174,6 @@ GEM
     popper_js (1.14.5)
     public_suffix (3.0.3)
     puma (3.12.1)
-    pyu-ruby-sasl (0.0.3.3)
     rack (2.0.7)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -250,7 +244,6 @@ GEM
     ruby-progressbar (1.10.0)
     ruby-saml (1.10.2)
       nokogiri (>= 1.5.10)
-    rubyntlm (0.3.4)
     safe_yaml (1.0.5)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -345,9 +338,9 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   mini_racer
+  net-ldap (~> 0.16.1)
   omniauth
   omniauth-google-oauth2
-  omniauth-ldap
   omniauth-saml
   omniauth-twitter
   pagy
