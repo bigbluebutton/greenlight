@@ -29,4 +29,9 @@ services:
       - 127.0.0.1:5432:5432
     volumes:
       - ./db/production:/var/lib/postgresql/data
-    env_file: .env
+    environment:
+      PGHOST: localhost
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+
