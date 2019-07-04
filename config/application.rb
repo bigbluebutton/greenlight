@@ -134,6 +134,9 @@ module Greenlight
     # Default registration method if the user does not specify one
     config.registration_method_default = config.registration_methods[:open]
 
+    # Default limit on number of rooms users can create
+    config.number_of_rooms_default = 15
+
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
   end

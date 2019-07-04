@@ -47,6 +47,9 @@ en:
           approval: Approve/Decline
           invite: Join by Invitation
           open: Open Registration
+      rooms:
+        info: Limits the number of rooms that a user can have (including Home Room). This setting does not apply to administrators.
+        title: Number of Rooms per User
       subtitle: Customize Greenlight
       title: Site Settings
     flash:
@@ -343,6 +346,8 @@ en:
     owner: Owner
     no_sessions: This room has no sessions, yet!
     recordings: Room Recordings
+    room_limit: You have reached the maximum number of rooms allowed
+    room_limit_exceeded: You have exceeded the number of rooms allowed. Please delete %{difference} room(s) to access this room.
     sessions: Sessions
     settings: Room Settings
     start: Start
