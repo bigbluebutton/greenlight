@@ -17,9 +17,6 @@ Rails.application.config.omniauth_saml = ENV['SAML_ISSUER'].present? &&
                                          ENV['SAML_TARGET_URL'].present? &&
                                          ENV['SAML_FINGERPRINT'].present?
 
-# If LDAP is enabled, override and disable allow_user_signup.
-Rails.application.config.allow_user_signup = false if Rails.application.config.omniauth_ldap
-
 SETUP_PROC = lambda do |env|
   env['omniauth.strategy'].options[:request_attributes] = [
     {
