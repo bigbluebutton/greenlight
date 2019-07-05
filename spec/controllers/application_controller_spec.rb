@@ -31,6 +31,10 @@ describe ApplicationController do
     def error
       raise BigBlueButton::BigBlueButtonException
     end
+
+    def user_not_found
+      set_user_domain
+    end
   end
 
   context "roles" do
@@ -65,6 +69,18 @@ describe ApplicationController do
 
       get :error
       expect(response).to render_template("errors/bigbluebutton_error")
+    end
+
+    it "renders a 404 error if user is not found" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow(Rails.env).to receive(:test?).and_return(false)
+      allow_any_instance_of(ApplicationHelper).to receive(:parse_user_domain).and_return("")
+      allow_any_instance_of(BbbApi).to receive(:retrieve_provider_info).and_raise("abook")
+
+      routes.draw { get "user_not_found" => "anonymous#user_not_found" }
+
+      get :user_not_found
+      expect(response).to render_template("errors/not_found")
     end
   end
 end
