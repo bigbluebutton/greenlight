@@ -75,12 +75,24 @@ describe ApplicationController do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow(Rails.env).to receive(:test?).and_return(false)
       allow_any_instance_of(ApplicationHelper).to receive(:parse_user_domain).and_return("")
-      allow_any_instance_of(BbbApi).to receive(:retrieve_provider_info).and_raise("abook")
+      allow_any_instance_of(BbbApi).to receive(:retrieve_provider_info).and_raise("No user with that id exists")
 
       routes.draw { get "user_not_found" => "anonymous#user_not_found" }
 
       get :user_not_found
       expect(response).to render_template("errors/not_found")
+    end
+
+    it "renders a 500 error if any other error is not found" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow(Rails.env).to receive(:test?).and_return(false)
+      allow_any_instance_of(ApplicationHelper).to receive(:parse_user_domain).and_return("")
+      allow_any_instance_of(BbbApi).to receive(:retrieve_provider_info).and_raise("Other error")
+
+      routes.draw { get "user_not_found" => "anonymous#user_not_found" }
+
+      get :user_not_found
+      expect(response).to render_template("errors/internal_error")
     end
   end
 end
