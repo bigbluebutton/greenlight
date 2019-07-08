@@ -186,7 +186,6 @@ en:
     video: Watch our tutorial on using Greenlight
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
-  language_name: English
   language_default: Default (browser language)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   login: Sign in
@@ -201,7 +200,7 @@ en:
           info: A new user has signed up to use Greenlight.
           more-info: To allow this user to access Greenlight you must approve their account in organization settings.
           admins_link: Visit the Organization Page
-          subject: New Greenlight User Sign Up 
+          subject: New Greenlight User Sign Up
           username: The user signed up with the name %{name} and the email %{email}.
         subject: Account Approved
         username: Your username is %{email}.
@@ -217,7 +216,7 @@ en:
         signup:
           info: A user that was invited has signed up to use Greenlight.
           admins_link: Visit the Organization Page
-          subject: New Greenlight User Sign Up 
+          subject: New Greenlight User Sign Up
           username: The user signed up with the name %{name} and the email %{email}.
         subject: Invitation to join BigBlueButton
         username: Your username is %{email}.
@@ -322,11 +321,11 @@ en:
     format:
       presentation: Presentation
   registration:
-    approval: 
+    approval:
       fail: Your account has not been approved yet. If multiples days have passed since you signed up, please contact your administrator.
       signup: Your account was successfully created. It has been sent to an administrator for approval.
     banned:
-      fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator. 
+      fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator.
     invite:
       fail: Your token is either invalid or has expired. If you believe this is a mistake, please contact your administrator.
       no_invite: You do not have an invitation to join. Please contact your administrator to receive one.
