@@ -80,7 +80,7 @@ module SessionsHelper
                       env["SERVER_PORT"]
     user_domain = parse_user_domain(env["SERVER_NAME"])
     env['omniauth.strategy'].options[:customer] = user_domain
-    env['omniauth.strategy'].options[:gl_redirect_url] = gl_redirect_url
+    env['omniauth.strategy'].options[:customer_redirect_url] = gl_redirect_url
     env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
     env['omniauth.strategy'].options[:checksum] = generate_checksum(user_domain, gl_redirect_url,
       Rails.configuration.launcher_secret)
