@@ -21,7 +21,7 @@
   <div class="row">
     <div class="col-12">
       <div class="table-responsive">
-        <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+        <table class="table table-hover table-outline table-vcenter card-table">
           <thead>
             <tr>
               <th data-header="name" data-order="<%= @order_column == "name" ? @order_direction : "none" %>">
@@ -69,7 +69,7 @@
                       <div><%= user.name %></div>
                       <div class="small text-muted"><%= [t("administrator.users.table.created"), ": ", user.created_at].join %></div>
                     </td>
-                    <td><%= user.email && user.email != "" ? user.email : user.username%></td>
+                    <td class="user-email"><%= user.email && user.email != "" ? user.email : user.username%></td>
                     <td><%= user.provider %></td>
                     <td class="text-center">
                       <% roles = user.roles().pluck(:name) %>
