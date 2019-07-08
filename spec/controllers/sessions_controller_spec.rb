@@ -268,6 +268,7 @@ describe SessionsController, type: :controller do
       end
 
       it "should notify twitter users that twitter is deprecated" do
+        allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
         twitter_user = User.create(name: "Twitter User", email: "user@twitter.com", image: "example.png",
           username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
 
