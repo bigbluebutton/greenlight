@@ -24,6 +24,8 @@ require 'json'
 
 module MozillaLanguageMapping
   def language_mapping_list
-    JSON.parse(File.read('lib/assets/mozilla_language_mapping.json'))
+    language_mapping_json = 'lib/assets/mozilla_language_mapping.json'
+    return {} unless File.file?(language_mapping_json)
+    JSON.parse(File.read(language_mapping_json))
   end
 end
