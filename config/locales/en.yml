@@ -202,7 +202,7 @@ en:
         subtitle: Administrator Rights Rescinded
       invite:
         info: You have been invited to your own personal space by %{name}
-        signup: To signup using your email, click the button below and follow the steps.
+        signup_info: To signup using your email, click the button below and follow the steps.
         signup_link: Sign Up
         signup:
           info: A user that was invited has signed up to use Greenlight.
