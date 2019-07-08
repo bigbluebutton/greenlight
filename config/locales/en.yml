@@ -21,6 +21,14 @@ en:
     attributes:
       user:
         accepted_terms: "Terms and Conditions"
+        email: Email
+        name: Name
+        password: Password
+        password_confirmation: Password Confirmation
+    errors:
+      models:
+        user:
+          confirmation: doesn't match Password
   administrator:
     site_settings:
       authentication:
@@ -68,6 +76,8 @@ en:
       edit:
         title: Edit User Details
       settings:
+        approve: Approve
+        decline: Decline
         ban: Ban User
         delete: Delete
         demote: Demote to User
