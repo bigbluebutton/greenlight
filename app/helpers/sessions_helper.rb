@@ -19,7 +19,7 @@
 module SessionsHelper
   # Logs a user into GreenLight.
   def login(user)
-    migrate_twitter_users(user)
+    migrate_twitter_user(user)
 
     session[:user_id] = user.id
 
@@ -100,7 +100,7 @@ module SessionsHelper
       end
   end
 
-  def migrate_twitter_users(user)
+  def migrate_twitter_user(user)
     if !session["old_twitter_user_id"].nil? && user.provider != "twitter"
       old_user = User.find(session["old_twitter_user_id"])
 
