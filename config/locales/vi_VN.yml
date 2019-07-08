@@ -220,7 +220,7 @@ vi_VN:
   password_different_notice: Xác nhận mật khẩu không khớp.
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
   recaptcha:
     errors:

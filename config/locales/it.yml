@@ -220,7 +220,7 @@ it:
   password_different_notice: La conferma della password non coincide.
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
   recaptcha:
     errors:

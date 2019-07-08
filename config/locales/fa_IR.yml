@@ -284,7 +284,7 @@ fa_IR:
   password_different_notice: تاییدیه رمز عبور با رمز ارائه شده مطابقت ندارد.
   provider:
     google: گوگل
-    microsoft_office365: افیس 365
+    office365: افیس 365
     twitter: توییتر
   recaptcha:
     errors:
