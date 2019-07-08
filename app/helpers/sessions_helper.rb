@@ -76,12 +76,14 @@ module SessionsHelper
   end
 
   def omniauth_options(env)
-    gl_redirect_url = (Rails.env.production? ? "https" : env["rack.url_scheme"]) + "://" + env["SERVER_NAME"] + ":" +
+    customer_redirect_url = (Rails.env.production? ? "https" : env["rack.url_scheme"]) + "://" + env["SERVER_NAME"] + ":" +
                       env["SERVER_PORT"]
     user_domain = parse_user_domain(env["SERVER_NAME"])
     env['omniauth.strategy'].options[:customer] = user_domain
-    env['omniauth.strategy'].options[:customer_redirect_url] = gl_redirect_url
+    env['omniauth.strategy'].options[:customer_redirect_url] = customer_redirect_url
     env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
+
+    # This is only used in the old launcher and shoudl eventually be removed
     env['omniauth.strategy'].options[:checksum] = generate_checksum(user_domain, gl_redirect_url,
       Rails.configuration.launcher_secret)
   end
