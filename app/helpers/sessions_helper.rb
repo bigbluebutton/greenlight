@@ -19,6 +19,8 @@
 module SessionsHelper
   # Logs a user into GreenLight.
   def login(user)
+    migrate_twitter_user(user)
+
     session[:user_id] = user.id
 
     # If there are not terms, or the user has accepted them, check for email verification
@@ -96,5 +98,25 @@ module SessionsHelper
       else
         hd_opts
       end
+  end
+
+  def migrate_twitter_user(user)
+    if !session["old_twitter_user_id"].nil? && user.provider != "twitter"
+      old_user = User.find(session["old_twitter_user_id"])
+
+      old_user.rooms.each do |room|
+        room.owner = user
+
+        room.name = "Old " + room.name if room.id == old_user.main_room.id
+
+        room.save!
+      end
+
+      # Query for the old user again so the migrated rooms don't get deleted
+      old_user.reload
+      old_user.destroy!
+
+      session["old_twitter_user_id"] = nil
+    end
   end
 end

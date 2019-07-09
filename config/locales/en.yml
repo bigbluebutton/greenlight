@@ -330,7 +330,11 @@ en:
       fail: Your account has not been approved yet. If multiples days have passed since you signed up, please contact your administrator.
       signup: Your account was successfully created. It has been sent to an administrator for approval.
     banned:
-      fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator.
+      fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator. 
+    deprecated:
+      new_signin: Select a new login method for you account. All your rooms from your old account will be migrated to the new account
+      twitter_signin: Signing in via Twitter has been deprecated and will be removed in the next release. Click <a href="%{link}"> here </a> to move your account to a new authentication method
+      twitter_signup: Sign up via Twitter has been deprecated. Please use a different sign up method
     invite:
       fail: Your token is either invalid or has expired. If you believe this is a mistake, please contact your administrator.
       no_invite: You do not have an invitation to join. Please contact your administrator to receive one.
