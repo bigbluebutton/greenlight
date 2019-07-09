@@ -17,10 +17,12 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 require 'bbb_api'
+require 'i18n/language/mapping'
 
 module ApplicationHelper
   include MeetingsHelper
   include BbbApi
+  include I18n::Language::Mapping
 
   # Gets all configured omniauth providers.
   def configured_providers
@@ -31,7 +33,11 @@ module ApplicationHelper
 
   # Determines which providers can show a login button in the login modal.
   def iconset_providers
-    configured_providers & [:google, :twitter, :microsoft_office365, :ldap]
+    providers = configured_providers & [:google, :twitter, :microsoft_office365, :ldap]
+
+    providers.delete(:twitter) if session[:old_twitter_user_id]
+
+    providers
   end
 
   # Generates the login URL for a specific provider.
@@ -58,9 +64,8 @@ module ApplicationHelper
     locales = I18n.available_locales
     language_opts = [['<<<< ' + t("language_default") + ' >>>>', "default"]]
     locales.each do |locale|
-      language_name = t("language_name", locale: locale)
-      language_name = locale.to_s if locale != :en && language_name == 'English'
-      language_opts.push([language_name, locale.to_s])
+      language_mapping = I18n::Language::Mapping.language_mapping_list[locale.to_s.gsub("_", "-")]
+      language_opts.push([language_mapping["nativeName"], locale.to_s])
     end
     language_opts.sort
   end

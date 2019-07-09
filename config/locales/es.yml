@@ -175,7 +175,6 @@ es:
     video: Ve nuestro tutorial de como utilizar Greenlight
     upgrade: Muestrame como actualizar a versión 2.0
     version: Hemos publicado una nueva version de Greenlight pero tu base de datos no es compatible.
-  language_name: Español
   language_default: Por omisión (idioma del navegador)
   ldap_error: No se puede conectar al servidor LDAP. Compruebe la configuración de LDAP en el archivo "env" y asegúrate de que tu servidor está ejecutándose.
   login: Ingresar
@@ -190,7 +189,7 @@ es:
           info: Se ha registrado un usuario nuevo.
           more-info: Para permitir el acceso de este usuario debes aprobar su cuenta de usuario a través de la configuración de la organización.
           admins_link: Ir a la página de la organización
-          subject: Registro de usuario nuevo 
+          subject: Registro de usuario nuevo
           username: "El usuario se ha registrado como %{name} con el email %{email}."
         subject: Cuenta de usuario autorizada
         username: "Tu nombre de usuario es %{email}"
@@ -206,7 +205,7 @@ es:
         signup:
           info: Un usuario que fue invitado a registrarse ha completado su registro.
           admins_link: Ir a la página de la organización
-          subject: Registro de usuario nuevo 
+          subject: Registro de usuario nuevo
           username: "El usuario se ha registrado como %{name} con el email %{email}."
         subject: Invitación a ingresar a BigBlueButton
         username: "Tu nombre de usuario es %{email}."
@@ -311,11 +310,11 @@ es:
     format:
       presentation: Presentación
   registration:
-    approval: 
+    approval:
       fail: "Tú cuenta de usuario todavía no ha sido autorizada. Si han pasado varios días desde tú registro, te sugerimos contactar al administrador."
       signup: Tú cuenta de usuario ha sido creada y se le ha enviado una notificación al administrador para su autorización.
     banned:
-      fail: "No tienes acceso a esta aplicación. Sí tu crees que este es un error, contacta al administrador del sistema." 
+      fail: "No tienes acceso a esta aplicación. Sí tu crees que este es un error, contacta al administrador del sistema."
     invite:
       fail: "Tu código ha expirado o es invalido. Sí tu crees que este es un error, contacta al administrador del sistema."
       no_invite: No tienes una invitación para ingresar. Contacta al administrador del sistema para obtener una.

@@ -33,6 +33,8 @@ class RoomsController < ApplicationController
   def create
     redirect_to(root_path) && return unless current_user
 
+    return redirect_to current_user.main_room, flash: { alert: I18n.t("room.room_limit") } if room_limit_exceeded
+
     @room = Room.new(name: room_params[:name])
     @room.owner = current_user
     @room.room_settings = create_room_settings_string(room_params[:mute_on_join], room_params[:client])
@@ -278,5 +280,15 @@ class RoomsController < ApplicationController
   def auth_required
     Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Authentication") == "true" &&
       current_user.nil?
+  end
+
+  def room_limit_exceeded
+    limit = Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
+
+    # Does not apply to admin
+    # 15+ option is used as unlimited
+    return false if current_user&.has_role?(:admin) || limit == 15
+
+    current_user.rooms.count >= limit
   end
 end

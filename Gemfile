@@ -26,7 +26,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'mini_racer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.3.3'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
@@ -123,3 +123,5 @@ gem 'random_password'
 
 # Adds helpers for the Google reCAPTCHA API
 gem "recaptcha"
+
+gem 'i18n-language-mapping', '~> 0.1.0'

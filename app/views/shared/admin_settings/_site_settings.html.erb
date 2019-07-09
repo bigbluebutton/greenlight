@@ -78,7 +78,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="mb-6 row">
     <div class="col-12">
       <div class="form-group">
         <label class="form-label"><%= t("administrator.site_settings.authentication.title") %></label>
@@ -94,6 +94,40 @@
             <%= button_to admin_room_authentication_path(value: "false"), class: "dropdown-item" do %>
               <%= t("administrator.site_settings.authentication.disabled") %>
             <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.rooms.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.rooms.info") %></label>
+        <div class="row gutters-xs">
+          <div class="col-auto">
+            <label class="colorinput">
+              <%= button_to admin_room_limit_path(limit: 1), class: "colorinput-input" do %><% end %>
+              <span class="colorinput-color <%= room_limit_number == 1 ? "btn-primary" : "btn-outline-primary" %>">1</span>
+            </label>
+          </div>
+          <div class="col-auto">
+            <label class="colorinput">
+              <%= button_to admin_room_limit_path(limit: 5), class: "colorinput-input" do %><% end %>
+              <span class="colorinput-color <%= room_limit_number == 5 ? "btn-primary" : "btn-outline-primary" %>">5</span>
+            </label>
+          </div>
+          <div class="col-auto">
+            <label class="colorinput">
+              <%= button_to admin_room_limit_path(limit: 10), class: "colorinput-input" do %><% end %>
+              <span class="colorinput-color <%= room_limit_number == 10 ? "btn-primary" : "btn-outline-primary" %>">10</span>
+            </label>
+          </div>
+          <div class="col-auto">
+            <label class="colorinput">
+              <%= button_to admin_room_limit_path(limit: 15), class: "colorinput-input" do %><% end %>
+              <span class="colorinput-color <%= room_limit_number == 15 ? "btn-primary" : "btn-outline-primary" %>">15+</span>
+            </label>
           </div>
         </div>
       </div>

@@ -21,6 +21,14 @@ en:
     attributes:
       user:
         accepted_terms: "Terms and Conditions"
+        email: Email
+        name: Name
+        password: Password
+        password_confirmation: Password Confirmation
+    errors:
+      models:
+        user:
+          confirmation: doesn't match Password
   administrator:
     site_settings:
       authentication:
@@ -47,6 +55,9 @@ en:
           approval: Approve/Decline
           invite: Join by Invitation
           open: Open Registration
+      rooms:
+        info: Limits the number of rooms that a user can have (including Home Room). This setting does not apply to administrators.
+        title: Number of Rooms per User
       subtitle: Customize Greenlight
       title: Site Settings
     flash:
@@ -68,6 +79,8 @@ en:
       edit:
         title: Edit User Details
       settings:
+        approve: Approve
+        decline: Decline
         ban: Ban User
         delete: Delete
         demote: Demote to User
@@ -127,6 +140,8 @@ en:
     not_found:
       message: Whoops! Looks like we can't find that.
       help: Is it possible its been removed?
+      user_message: User Not Found.
+      user_help: Sorry, this user is not registered.
     title: Errors
     unauthorized:
       message: You do not have access to this application
@@ -176,7 +191,6 @@ en:
     video: Watch our tutorial on using Greenlight
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
-  language_name: English
   language_default: Default (browser language)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   login: Sign in
@@ -191,7 +205,7 @@ en:
           info: A new user has signed up to use Greenlight.
           more-info: To allow this user to access Greenlight you must approve their account in organization settings.
           admins_link: Visit the Organization Page
-          subject: New Greenlight User Sign Up 
+          subject: New Greenlight User Sign Up
           username: The user signed up with the name %{name} and the email %{email}.
         subject: Account Approved
         username: Your username is %{email}.
@@ -202,12 +216,12 @@ en:
         subtitle: Administrator Rights Rescinded
       invite:
         info: You have been invited to your own personal space by %{name}
-        signup: To signup using your email, click the button below and follow the steps.
+        signup_info: To signup using your email, click the button below and follow the steps.
         signup_link: Sign Up
         signup:
           info: A user that was invited has signed up to use Greenlight.
           admins_link: Visit the Organization Page
-          subject: New Greenlight User Sign Up 
+          subject: New Greenlight User Sign Up
           username: The user signed up with the name %{name} and the email %{email}.
         subject: Invitation to join BigBlueButton
         username: Your username is %{email}.
@@ -313,11 +327,15 @@ en:
     format:
       presentation: Presentation
   registration:
-    approval: 
+    approval:
       fail: Your account has not been approved yet. If multiples days have passed since you signed up, please contact your administrator.
       signup: Your account was successfully created. It has been sent to an administrator for approval.
     banned:
       fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator. 
+    deprecated:
+      new_signin: Select a new login method for you account. All your rooms from your old account will be migrated to the new account
+      twitter_signin: Signing in via Twitter has been deprecated and will be removed in the next release. Click <a href="%{link}"> here </a> to move your account to a new authentication method
+      twitter_signup: Sign up via Twitter has been deprecated. Please use a different sign up method
     invite:
       fail: Your token is either invalid or has expired. If you believe this is a mistake, please contact your administrator.
       no_invite: You do not have an invitation to join. Please contact your administrator to receive one.
@@ -344,6 +362,8 @@ en:
     owner: Owner
     no_sessions: This room has no sessions, yet!
     recordings: Room Recordings
+    room_limit: You have reached the maximum number of rooms allowed
+    room_limit_exceeded: You have exceeded the number of rooms allowed. Please delete %{difference} room(s) to access this room.
     sessions: Sessions
     settings: Room Settings
     start: Start
