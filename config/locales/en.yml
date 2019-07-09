@@ -300,7 +300,7 @@ en:
   password_different_notice: Password Confirmation does not match.
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
     ldap: LDAP
   recaptcha:
