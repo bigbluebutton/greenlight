@@ -283,7 +283,7 @@ hu_HU:
   password_different_notice: A két új jelszó eltér egymástól.
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
   recaptcha:
     errors:
