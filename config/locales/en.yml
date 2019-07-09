@@ -140,6 +140,8 @@ en:
     not_found:
       message: Whoops! Looks like we can't find that.
       help: Is it possible its been removed?
+      user_message: User Not Found.
+      user_help: Sorry, this user is not registered.
     title: Errors
     unauthorized:
       message: You do not have access to this application
