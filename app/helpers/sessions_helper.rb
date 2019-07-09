@@ -86,7 +86,7 @@ module SessionsHelper
     env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
 
     # This is only used in the old launcher and should eventually be removed
-    env['omniauth.strategy'].options[:checksum] = generate_checksum(user_domain, gl_redirect_url,
+    env['omniauth.strategy'].options[:checksum] = generate_checksum(user_domain, customer_redirect_url,
       Rails.configuration.launcher_secret)
   end
 
