@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/blindsidenetworks/omniauth-azure-ad.git
+  revision: c0c7d4dfb4fa4e66986dba6b436a924d83e48377
+  specs:
+    omniauth-bn-office365 (1.0.0)
+      omniauth (>= 1.3.2)
+      omniauth-oauth2 (>= 1.5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -101,6 +109,7 @@ GEM
     http_accept_language (2.1.1)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
+    i18n-language-mapping (0.1.0)
     jaro_winkler (1.5.2)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
@@ -154,9 +163,6 @@ GEM
       omniauth (~> 1.0)
       pyu-ruby-sasl (~> 0.0.3.2)
       rubyntlm (~> 0.3.4)
-    omniauth-microsoft-office365 (0.0.7)
-      omniauth
-      omniauth-oauth2
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
@@ -333,15 +339,16 @@ DEPENDENCIES
   faker
   health_check
   http_accept_language
+  i18n-language-mapping (~> 0.1.0)
   jbuilder (~> 2.5)
-  jquery-rails
+  jquery-rails (~> 4.3.3)
   listen (~> 3.0.5)
   mini_racer
   omniauth
   omniauth-bn-launcher (~> 0.1.0)
+  omniauth-bn-office365!
   omniauth-google-oauth2
   omniauth-ldap
-  omniauth-microsoft-office365 (~> 0.0.7)
   omniauth-twitter
   pagy
   pg (~> 0.18)

@@ -51,6 +51,10 @@ class SessionsController < ApplicationController
       @auth = request.env['omniauth.auth']
       @user_exists = check_user_exists
 
+      if !@user_exists && @auth['provider'] == "twitter"
+        return redirect_to root_path, flash: { alert: I18n.t("registration.deprecated.twitter_signup") }
+      end
+
       # If using invitation registration method, make sure user is invited
       return redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless passes_invite_reqs
 
@@ -70,6 +74,16 @@ class SessionsController < ApplicationController
                                              invite_registration && !@user_exists
 
       login(user)
+
+      if @auth['provider'] == "twitter"
+        flash[:alert] = if allow_user_signup? && allow_greenlight_accounts?
+                          I18n.t("registration.deprecated.twitter_signin",
+                            link: signup_path(old_twitter_user_id: user.id))
+                        else
+                          I18n.t("registration.deprecated.twitter_signin",
+                            link: signin_path(old_twitter_user_id: user.id))
+                        end
+      end
     rescue => e
         logger.error "Error authenticating via omniauth: #{e}"
         omniauth_fail

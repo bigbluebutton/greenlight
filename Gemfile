@@ -26,7 +26,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'mini_racer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.3.3'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
@@ -44,7 +44,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
-gem 'omniauth-microsoft-office365', '~> 0.0.7'
+gem 'omniauth-bn-office365', git: 'https://github.com/blindsidenetworks/omniauth-azure-ad.git'
 gem 'omniauth-ldap'
 gem 'omniauth-bn-launcher', '~> 0.1.0'
 
@@ -121,3 +121,5 @@ gem 'random_password'
 
 # Adds helpers for the Google reCAPTCHA API
 gem "recaptcha"
+
+gem 'i18n-language-mapping', '~> 0.1.0'

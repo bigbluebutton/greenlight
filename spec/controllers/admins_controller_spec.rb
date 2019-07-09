@@ -247,7 +247,9 @@ describe AdminsController, type: :controller do
         expect(response).to redirect_to(admins_path)
       end
     end
+  end
 
+  describe "Site Settings" do
     context "POST #registration_method" do
       it "changes the registration method for the given context" do
         allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
@@ -291,6 +293,22 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Authentication")
 
         expect(feature[:value]).to eq("true")
+        expect(response).to redirect_to(admins_path)
+      end
+    end
+
+    context "POST #room_limit" do
+      it "changes the room limit setting" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+
+        post :room_limit, params: { limit: 5 }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Limit")
+
+        expect(feature[:value]).to eq("5")
         expect(response).to redirect_to(admins_path)
       end
     end
