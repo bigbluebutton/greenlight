@@ -79,13 +79,17 @@ module SessionsHelper
 
   def omniauth_options(env)
     if env['omniauth.strategy'].options[:name] == "bn-launcher"
-      gl_redirect_url = (Rails.env.production? ? "https" : env["rack.url_scheme"]) + "://" + env["SERVER_NAME"] + ":" +
-                        env["SERVER_PORT"]
+      protocol = Rails.env.production? ? "https" : env["rack.url_scheme"]
+
+      customer_redirect_url = protocol + "://" + env["SERVER_NAME"] + ":" +
+                              env["SERVER_PORT"]
       user_domain = parse_user_domain(env["SERVER_NAME"])
       env['omniauth.strategy'].options[:customer] = user_domain
-      env['omniauth.strategy'].options[:gl_redirect_url] = gl_redirect_url
+      env['omniauth.strategy'].options[:customer_redirect_url] = customer_redirect_url
       env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
-      env['omniauth.strategy'].options[:checksum] = generate_checksum(user_domain, gl_redirect_url,
+
+      # This is only used in the old launcher and should eventually be removed
+      env['omniauth.strategy'].options[:checksum] = generate_checksum(user_domain, customer_redirect_url,
         Rails.configuration.launcher_secret)
     elsif env['omniauth.strategy'].options[:name] == "google"
       set_hd(env, ENV['GOOGLE_OAUTH2_HD'])

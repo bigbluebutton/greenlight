@@ -27,7 +27,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   if Rails.configuration.omniauth_bn_launcher
     provider :bn_launcher, client_id: ENV['CLIENT_ID'],
       client_secret: ENV['CLIENT_SECRET'],
-      client_options: { site: ENV['BN_LAUNCHER_REDIRECT_URI'] },
+      client_options: { site: ENV['BN_LAUNCHER_URI'] || ENV['BN_LAUNCHER_REDIRECT_URI'] },
       setup: SETUP_PROC
   elsif Rails.configuration.omniauth_ldap
     Rails.application.config.providers << :ldap
