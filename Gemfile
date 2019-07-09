@@ -121,3 +121,5 @@ gem 'random_password'
 
 # Adds helpers for the Google reCAPTCHA API
 gem "recaptcha"
+
+gem 'i18n-language-mapping', '~> 0.1.0'
