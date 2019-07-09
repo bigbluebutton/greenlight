@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get '/signin', to: 'users#signin', as: :signin
   get '/signup', to: 'users#new', as: :signup
   post '/signup', to: 'users#create', as: :create_user
+  get '/ldap_signin', to: 'users#ldap_signin', as: :ldap_signin
 
   # Redirect to terms page
   match '/terms', to: 'users#terms', via: [:get, :post]
@@ -87,6 +88,7 @@ Rails.application.routes.draw do
   # Handles Omniauth authentication.
   match '/auth/:provider/callback', to: 'sessions#omniauth', via: [:get, :post], as: :omniauth_session
   get '/auth/failure', to: 'sessions#omniauth_fail'
+  post '/auth/ldap', to: 'sessions#ldap', as: :ldap_callback
 
   # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/'

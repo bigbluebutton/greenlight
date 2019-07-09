@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/blindsidenetworks/bn-ldap-authentication.git
+  revision: 538132e0df70dbe470120f7bc7a93968c522031f
+  specs:
+    bn-ldap-authentication (1.0.0)
+      net-ldap
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -323,6 +330,7 @@ DEPENDENCIES
   action-cable-testing
   bcrypt (~> 3.1.7)
   bigbluebutton-api-ruby
+  bn-ldap-authentication!
   bootstrap (~> 4.3.1)
   byebug
   cancancan (~> 2.0)
@@ -337,6 +345,7 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   mini_racer
+  net-ldap
   omniauth
   omniauth-bn-launcher (~> 0.1.0)
   omniauth-google-oauth2
