@@ -149,7 +149,6 @@ vi_VN:
     video: Xem thêm hướng dẫn sử dụng LiveRoom
     upgrade: Hãy chỉ cho tôi cách nâng cấp lên 2.0!
     version: "Chúng tôi đã phát hành phiên bản mới của Greenlight, nhưng cơ sở dữ liệu của bạn không tương thích."
-  language_name: Tiếng Anh
   language_default: Mặc định (ngôn ngữ từ trình duyệt)
   ldap_error: Không thể kết nối với máy chủ LDAP. Vui lòng kiểm tra cấu hình LDAP của bạn trong tệp env và đảm bảo máy chủ của bạn đang hoạt động.
   login: Đăng nhập

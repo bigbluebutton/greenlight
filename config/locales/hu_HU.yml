@@ -175,7 +175,6 @@ hu_HU:
     video: Nézd meg az ismertetőnket a  Greenlight használatáról
     upgrade: "Mutasd, hogyan tudok frissíteni a 2.0-ás verzióra!"
     version: "A Greenlight új verziója jelent meg, de az adatbázisod nem kompatibilis."
-  language_name: Angol
   language_default: Alapértelmezett (a böngésző nyelve)
   ldap_error: "Nem sikerült csatlakozni az LDAP szerverhez. Kérjük, ellenőrizd a beállításokat a környezeti, env fájlban, illetve azt, hogy a szerver működik és elérhető."
   login: Bejelentkezés
@@ -190,7 +189,7 @@ hu_HU:
           info: "Egy új felhasználó regisztrált, hogy használhassa a Greenlight-ot."
           more-info: "Ahhoz, hogy ez a felhasználó elérhesse a Greenlight-ot, a szervezheti beállításokban hozzá kell rendelned."
           admins_link: A Szervezeti oldal megtekintése
-          subject: Új Greenlight felhasználó regisztrált 
+          subject: Új Greenlight felhasználó regisztrált
           username: "A felhasználó %{name} felhasználónévvel, %{email} e-mail címmel regisztrált."
         subject: Jóváhagyott fiók
         username: "A felhasználóneved %{email}."
@@ -206,7 +205,7 @@ hu_HU:
         signup:
           info: "Egy meghívott felhasználó regisztrált, hogy használhassa a Greenlight-ot."
           admins_link: A Szervezeti oldal megtekintése
-          subject: Új Greenlight felhasználó regisztrált 
+          subject: Új Greenlight felhasználó regisztrált
           username: "A felhasználó %{name} felhasználónévvel, %{email} e-mail címmel regisztrált."
         subject: Meghívás a BigBlueButton használatára
         username: "A felhasználóneved %{email}."
@@ -310,11 +309,11 @@ hu_HU:
     format:
       presentation: Prezentáció
   registration:
-    approval: 
+    approval:
       fail: "A fiókodat még nem hagyták jóvá. Ha már többi nap eltelt a regisztrációd óta, lépj kapcsolatba az üzemeltetőkkel."
       signup: "A fiókodat sikeresen létrehoztuk, várunk az üzemeltető jóváhagyására."
     banned:
-      fail: "Nincs hozzáférésed ehhez az alkalmazáshoz. Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd az üzemeltetőnek." 
+      fail: "Nincs hozzáférésed ehhez az alkalmazáshoz. Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd az üzemeltetőnek."
     invite:
       fail: "A tokened nem érvényes vagy lejárt. Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd az üzemeltetőnek."
       no_invite: Neked nem küldtünk meghívót. Kérhetsz egyet az üzemeltetőktől.
