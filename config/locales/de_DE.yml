@@ -23,26 +23,48 @@ de_DE:
         accepted_terms: "Teilnahmebedingungen"
   administrator:
     site_settings:
+      authentication:
+        disabled: Deaktiviert
+        enabled: Aktiviert
+        info: Nur authentifizierte Nutzer dürfen diesen Raum betreten
+        title: Betreten des Raums erfordert Authentifizierung
+        user-info: "Sie müssen in Greenlight eingeloggt sein, um diesen Raum zu betreten"
       branding:
         change: Bild ändern
         info: Das in der linken oberen Ecke dargestellte Markenlogo ändern
         placeholder: Bild URL...
         title: Markenlogo
       color:
-        info: Primäre Farbe der Webseite ändern
+        info: Das Ändern der normalen Farbe wird sich auf Heller und Dunkler auswirken. Heller und Dunkler können danach individuell angepasst werden
         title: Primäre Farbe
+        regular: Normal
+        lighten: Heller
+        Darken: Dunkler
+      registration:
+        info: Verändern der Weise wie sich Teilnehmer auf der Webseite registrieren
+        title: Registrierungsmethode
+        methods:
+          approval: Genehmigen/Verweigern
+          invite: Teilnahme durch Einladung
+          open: Offene Registrierung
       subtitle: Greenlight individuell anpassen
       title: Seiteneinstellungen
     flash:
+      approved: Teilnehmer wurde erfolgreich genehmigt
       banned: Teilnehmer wurde erfolgreich gesperrt.
       unbanned: Teilnehmer wurde erfolgreich entsperrt.
       delete: Teilnehmer erfolgreich gelöscht
       delete_fail: Löschen des Teilnehmers fehlgeschlagen
       demoted: "Teilnehmer wurde erfolgreich zurückgestuft "
+      invite: "Einladung erfolgreich an %{email} geschickt"
+      invite_email_verification: "Emailversand muss aktiviert sein, um diese Methode verwenden zu können. Bitte kontaktieren Sie Ihren Systemadministrator."
       promoted: Teilnehmer wurde erfolgreich hochgestuft
+      registration_method_updated: Registrierungsmethode erfolgreich aktualisiert
+      settings: Seiteneinstellungen erfolgreich geändert
       unauthorized: "Sie haben nicht die notwendigen Rechte, um diese Änderung bei diesem Teilnehmer vorzunehmen."
     title: Organisationseinstellungen
     users:
+      invite: Teilnehmer einladen
       edit:
         title: Teilnehmerdetails editieren
       settings:
@@ -50,7 +72,7 @@ de_DE:
         delete: Löschen
         demote: Zum Teilnehmer zurückstufen
         edit: Ändern
-        promote: Zum Adiministrator hochstufen
+        promote: Zum Administrator hochstufen
         unban: Ausschluss des Teilnehmers aufheben.
       table:
         authenticator: Authenticator
@@ -62,12 +84,14 @@ de_DE:
         uid: Teilnehmer ID
         username: Teilnehmername
       title: Teilnehmer verwalten
+  add_to_google_calendar: "Zum Google Kalender hinzufügen"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: "Ups, beim Start der Konferenz ist ein Fehler aufgetreten!"
   cancel: Abbrechen
   cookies:
     cookie_info: Cookies helfen uns bei der Bereitstellung unserer Dienste. Durch die Nutzung der Dienste stimmen Sie der Nutzung von Cookies zu.
     cookie_button: Ich stimme zu
+  copied: Kopiert
   copy: Kopieren
   default_admin: "Sie verwenden immer noch das voreingestellte Passwort für diesen Account. Bitte klicken Sie  <a href=\"%{edit_link}\">hier</a> um es zu ändern"
   delete: Löschen
@@ -77,6 +101,10 @@ de_DE:
   email_sent: "Ihre %{email_type} Email wurde verschickt! (Bitte prüfen Sie Ihren Spamordner, falls Sie die Email nicht erhalten haben)"
   enter_your_name: Geben Sie Ihren Namen ein!
   errors:
+    bigbluebutton:
+      help: "Bitte stellen Sie sicher, dass die notwendigen Schritte durchgeführt wurden. <a href=\"%{doc_link}\">Mehr erfahren</a>"
+      message: BigBlueButton Endpunkt und Geheimnis ungültig
+      title: Serverfehler
     internal:
       message: Oh nein! Irgendetwas ist schiefgelaufen.
       help: "Der Fehler wurde gespeichert, wir werden ihn analysieren!"
@@ -147,13 +175,40 @@ de_DE:
     video: Schauen Sie sich unsere Anleitung zur Verwendung von Greenlight an
     upgrade: "Zeigen Sie mir, wie ich auf Version 2.0. update!"
     version: "Wir haben eine neue Version von Greenlight veröffentlicht, aber Ihre Datenbank ist damit nicht kompatibel."
-  language_name: Deutsch
   language_default: Voreinstellung (Browsersprache)
   ldap_error: "Verbindung zum LDAP Server konnte nicht hergestellt werden. Bitte überprüfen Sie die LDAP Konfiguration und stellen Sie sicher, dass der LDAP-Server läuft."
   login: Einloggen
   login_title: In Ihren Account einloggen
   mailer:
     user:
+      approve:
+        info: Ihr Zugang wurde genehmigt.
+        signin: "Um auf Ihre persönlichen Räume zuzugreifen, klicken Sie bitte auf den unten stehenden Button und loggen Sie sich ein. "
+        signin_link: Einloggen
+        signup:
+          info: Ein neuer Nutzer hat sich bei Greenlight angemeldet.
+          more-info: "Um diesem Nutzer Zugriff auf Greenlight zu geben, müssen Sie seinen Account in den Organisationseinstellungen genehmigen."
+          admins_link: Organisationsseite besuchen
+          subject: Neue Greenlight Nutzerregistierung
+          username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registiert."
+        subject: Account genehmigt
+        username: "Ihr Nutzername ist %{email}."
+      demoted:
+        info: "Sie sind nicht länger Administrator auf %{url}."
+        more-info: "Sie haben jetzt die selben Rechte wie normale Nutzer und können nicht länger administrative Einstellungen verändern. "
+        root_link: Einloggen
+        subtitle: Administratorrechte entzogen
+      invite:
+        info: "Sie wurden von %{name} in Ihren persönlichen Bereich eingeladen"
+        signup: To signup using your email, click the button below and follow the steps.
+        signup_link: Registieren
+        signup:
+          info: Ein Nutzer hat Sie dazu eingeladen sich für die Nutzung von Greenlight zu registieren.
+          admins_link: Organisationsseite besuchen
+          subject: Registierung neuer Greenlight-Nutzer
+          username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registriert."
+        subject: Einladung zur BigBlueButton-Teilnahme
+        username: "Ihr Nutzername ist %{email}."
       password_reset:
         title: 'Passwort zurücksetzen'
         welcome: "Es scheint als ob Sie ihr Passwort für %{bigbluebutton} vergessen haben"
@@ -161,6 +216,11 @@ de_DE:
         reset_link: Passwort zurücksetzen
         expire: Dieser Link wird in zwei Stunden ungültig.
         ignore: "Sie können diese Email einfach ignorieren, falls Sie keine Passwortzurücksetzung veranlasst haben."
+      promoted:
+        admins_link: Organisationsseite besuchen
+        info: "Sie sind jetzt Administrator auf %{url}."
+        more-info: "Als Administrator können sie Nutzer verwalten, deren Rolle ändern und die Seiteneinstellungen wie z.B, das Logo oder die Hintergrundfarbe verändern."
+        subtitle: Administratorrechte genehmigt
       verify_email:
         welcome: "Willkommen zu Ihrem persönlichem Bereich, %{name}!"
         success: "Durch den Einsatz von %{bigbluebutton}, können Sie Ihre eigenen Räume erstellen, dort Konferenzen durchführen und mit anderen zusammenarbeiten."
@@ -187,7 +247,13 @@ de_DE:
       confirm: "Sind Sie sicher, dass Sie %{room}löschen wollen?"
       delete: Ich will diesen Raum löschen.
       keep: Ich will ihn doch nicht löschen.
-      warning: "Sie werden <b>nicht</b> in der Lage sein diesen Raum oder die in ihm durchgeführten %{recordings_num} Aufzeichnungen wiederherzustellen."
+      warning: "Sie werden <b>nicht</b> in der Lage sein, diesen Raum wiederherzustellen"
+      recording_warning: "oder jegliche seiner %{recordings_num} verknüpften Aufzeichnungen."
+    invite_user:
+      email_placeholder: Nutzeremail eingeben
+      footer: "Der Nutzer wird eine Email mit dazu Anweisungen erhalten, wie er sich registrieren kann "
+      send: Einladung schicken
+      title: Nutzer einladen
     login:
       or: oder
       with: "Einloggen mit %{provider}"
@@ -218,7 +284,7 @@ de_DE:
   password_different_notice: Passwortbestätigung ist nicht zutreffend.
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
   recaptcha:
     errors:
@@ -243,6 +309,15 @@ de_DE:
       unlisted: Nicht gelistet
     format:
       presentation: Präsentation
+  registration:
+    approval:
+      fail: "Ihr Account wurde noch nicht freigeschaltet. Falls Sie sich bereits vor mehreren Tagen registriert haben, kontaktieren Sie bitte Ihren Administrator."
+      signup: Ihr Account wurde erfolgreich erzeugt. Er muss noch durch einen Administrator freigeschaltet werden.
+    banned:
+      fail: "Sie haben keinen Zugriff auf dieses Applikation. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
+    invite:
+      fail: "Ihr Token ist entweder ungültig oder er ist abgelaufen. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
+      no_invite: "Sie sind nicht zu Teilnahme eingeladen. Bitte kontaktieren Sie Ihren Administrator, um eine Einladung zu erhalten."
   rename: Umbenennen
   reset_password:
     subtitle: Passwort zurücksetzen
@@ -252,6 +327,7 @@ de_DE:
   roles:
     administrator: Administrator
     banned: Gesperrt
+    pending: Noch nicht erledigt
     super_admin: Super Admin
     user: Benutzer
   room:
@@ -272,8 +348,8 @@ de_DE:
     update_settings_error: Bei der Aktualisierung der Raumeinstellungen ist ein Fehler aufgetreten.
     update_settings_success: Raumeinstellungen erfolgreich aktualisiert
     wait:
-      message: Ups! Die Konferenz hat noch nicht begonnen.
-      auto: "Sie treten der Konferenz automatisch bei, sobald Sie begonnen hat."
+      message: Die Konferenz hat noch nicht begonnen.
+      auto: "Sie treten der Konferenz automatisch bei, sobald sie begonnen hat."
   settings:
     account:
       fullname: Vollständiger Name

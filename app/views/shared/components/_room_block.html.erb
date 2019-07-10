@@ -28,7 +28,11 @@
         </td>
         <td>
           <div id="room-name">
-            <h4 contenteditable="false" class="m-0 force-text-normal" ><%= room.name %></h4>
+            <% if room == current_user.main_room %>
+              <h4 contenteditable="false" class="m-0 force-text-normal" ><%= t("home_room") %></h4>
+            <% else %>
+              <h4 contenteditable="false" class="m-0 force-text-normal" ><%= room.name %></h4>
+            <% end %>
           </div>
           <div id="room-name-editable" style="display: none">
             <input id="room-name-editable-input" class="form-control input-sm w-100 h-4" value="<%= room.name %>">

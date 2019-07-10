@@ -78,9 +78,9 @@ function searchPage() {
   var action = $("body").data('action');
 
   // Check if the user filtered by role
-  role = new URL(location.href).searchParams.get('role')
+  var role = new URL(location.href).searchParams.get('role')
 
-  url = window.location.pathname + "?page=1&search=" + search
+  var url = window.location.pathname + "?page=1&search=" + search
 
   if (role) {
     url += "&role=" + role
@@ -99,9 +99,9 @@ function clearSearch() {
   var controller = $("body").data('controller');
   var action = $("body").data('action');
 
-  role = new URL(location.href).searchParams.get('role')
+  var role = new URL(location.href).searchParams.get('role')
 
-  url = window.location.pathname + "?page=1"
+  var url = window.location.pathname + "?page=1"
 
   if (role) {
     url += "&role=" + role

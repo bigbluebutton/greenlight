@@ -85,7 +85,6 @@ ru_RU:
     video: Посмотрите наше руководство по использованию Greenlight
     upgrade: Показать мне как обновиться до версии 2.0!
     version: "Мы выпустили новую версию Greenlight, но Ваша база данных несовместима с ней."
-  language_name: Русский
   language_default: По умолчанию (язык браузера)
   ldap_error: Невозможно соединиться с сервером LDAP. Пожалуйста проверьте Вашу конфигурацию LDAP в env-файле и убедитесь в работоспособности Вашего LDAP-сервера.
   login: Войти
@@ -132,7 +131,7 @@ ru_RU:
   password_different_notice: Подтверждение пароля не совпадает.
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
   recording:
     email: Отправить ссылку на запись
@@ -173,7 +172,7 @@ ru_RU:
     update_settings_error: При обновлении настроек комнаты произошла ошибка
     update_settings_success: Настройки комнаты успешно обновлены
     wait:
-      message: Ой! Встреча еще не началась.
+      message: Встреча еще не началась.
       auto: "Когда встреча начнется, Вы присоединитесь автоматически."
   settings:
     account:

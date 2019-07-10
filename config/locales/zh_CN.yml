@@ -23,26 +23,48 @@ zh_CN:
         accepted_terms: "协议和条款"
   administrator:
     site_settings:
+      authentication:
+        disabled: 禁用
+        enabled: 启用
+        info: 仅允许经过身份验证的用户加入会议室
+        title: 要求对会议室进行身份验证
+        user-info: 你必须登录Greenlight才能加入这个会议室
       branding:
         change: 修改品牌形象
-        info: 更改左上角显示的品牌形象
+        info: 更改左上角显示的网站标志
         placeholder: 品牌形象URL地址
-        title: 品牌形象
+        title: 网站标志
       color:
-        info: 更改整个网站使用的主颜色
+        info: 改变常规颜色将同时更改明暗。可以单独更改变亮和变暗。
         title: 主颜色
+        regular: 常规
+        lighten: 变亮
+        Darken: 变暗
+      registration:
+        info: 更改用户在网站注册的方式
+        title: 注册方式
+        methods:
+          approval: 批准/拒绝
+          invite: 邀请加入
+          open: 开放式注册
       subtitle: 自定义Greenlight
       title: 网站设置
     flash:
+      approved: 已成功批准用户。
       banned: 已成功禁止用户。
       unbanned: 已成功取消对用户的禁止。
       delete: 已成功删除用户
       delete_fail: 删除用户失败
       demoted: 用户已成功降级
+      invite: "邀请成功发送到 %{email}"
+      invite_email_verification: ALLOW_MAIL_NOTIFICATIONS 必须设置为true才能使用此方法
       promoted: 用户已成功升级
+      registration_method_updated: 注册方法已成功更新
+      settings: 已成功更改网站设置
       unauthorized: 您无权对此用户执行操作
     title: 全局设置
     users:
+      invite: 邀请用户
       edit:
         title: 编辑用户详细信息
       settings:
@@ -54,7 +76,7 @@ zh_CN:
         unban: 取消禁止用户
       table:
         authenticator: 认证方式
-        created: Created
+        created: 创建于
         name: 名字
         not_found: 没有与您的搜索匹配的用户
         no_users: 没有找到用户
@@ -62,12 +84,14 @@ zh_CN:
         uid: 用户ID
         username: 用户名
       title: 管理用户
+  add_to_google_calendar: "添加到谷歌日历"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: 哎呀，启动会议出错！
   cancel: 取消
   cookies:
     cookie_info: Cookies帮助我们提供服务。您同意我们使用cookies才能使用这些服务。
     cookie_button: 我同意
+  copied: Copied
   copy: 复制
   default_admin: "您仍在使用此帐户的默认密码。 请点击 <a href=\"%{edit_link}\">这里</a> 修改。"
   delete: 删除
@@ -77,6 +101,10 @@ zh_CN:
   email_sent: "您的 %{email_type} 邮件已经发送！（如果您没有收到邮件，请检查您的垃圾邮件文件夹）"
   enter_your_name: 输入您的名字！
   errors:
+    bigbluebutton:
+      help: "请确保采取了正确的步骤. <a href=\"%{doc_link}\">了解更多信息</a>"
+      message: BigBlueButton的Endpoint 和Secret无效
+      title: 服务器错误
     internal:
       message: 哎呀，看起来服务器内部出错了！
       help: 错误信息已经记录了，我们会检查一下!
@@ -143,17 +171,44 @@ zh_CN:
         footer: 'BigBlueButton是一个开源的Web会议系统。有关BigBlueButton的更多信息，请参阅https://bigBlueButton.org/。'
   landing:
     about: "%{href} 是开源Web会议服务器BigBluebutton的简易前端。我们可以创建并主持会议，或通过链接加入其他会议。"
-    welcome: 欢迎使用BigBlueButton
+    welcome: 欢迎来到BigBlueButton在线会议系统
     video: 请看使用说明
     upgrade: 告诉我怎么升级到 2.0!
     version: 我们发布了新版Greenlight，但你的数据库不兼容。
-  language_name: 简体中文
   language_default: 默认（浏览器语言）
   ldap_error: 无法连接到LDAP服务器，请在env文件中检查LDAP配置，还要确保服务已经启动。
   login: 登录
   login_title: 登录到您的帐户
   mailer:
     user:
+      approve:
+        info: 您的帐户已被批准。
+        signin: 要访问您的私人会议室，请单击下面的按钮并登录。
+        signin_link: 登录
+        signup:
+          info: 一个新用户已注册使用Greenlight。
+          more-info: 若要允许此用户访问greenlight，您必须在“组织设置”中批准其帐户。
+          admins_link: 访问组织页面
+          subject: 新Greenlight用户注册
+          username: "用户注册了名称 %{name} 和电子邮箱 %{email}."
+        subject: 帐户已批准
+        username: "您的用户名是 %{email}."
+      demoted:
+        info: "您不再是 %{url}的管理员."
+        more-info: 您现在拥有与普通用户相同的权限，将无法再访问任何管理员设置。
+        root_link: 登录
+        subtitle: 管理人权利被撤销了
+      invite:
+        info: "您被%{name}邀请到您自己的私人空间 "
+        signup: To signup using your email, click the button below and follow the steps.
+        signup_link: 注册
+        signup:
+          info: 被邀请的用户已注册使用greenlight。
+          admins_link: 访问组织页面
+          subject: 新Greenlight用户注册
+          username: "用户注册了名称%{name} 和电子邮箱 %{email}."
+        subject: 邀请加入 BigBlueButton
+        username: "您的用户名是 %{email}."
       password_reset:
         title: '重置密码'
         welcome: "好像您忘了%{bigbluebutton}的密码"
@@ -161,6 +216,11 @@ zh_CN:
         reset_link: 重置密码
         expire: 此链接将在两小时后过期。
         ignore: 如果您没有请求密码重置，安全的做法是忽略此电子邮件。
+      promoted:
+        admins_link: 访问组织页面
+        info: "您现在是 %{url}的管理员了."
+        more-info: 作为管理员，您可以通过更改徽标和品牌颜色来管理用户及其角色并配置站点设置。
+        subtitle: 管理员权利已授权
       verify_email:
         welcome: "欢迎来到您的个人空间，%{name}！"
         success: "使用%{bigbluebutton}，您可以创建私有会议室来主持会议并与其他人协作。"
@@ -172,7 +232,7 @@ zh_CN:
   max_concurrent: 已达到允许的最大并发会话数！
   modal:
     create_room:
-      auto_join: 自动加入此会议室
+      auto_join: 自动进入会议室
       create: 创建会议室
       free_delete: 任何时候都可以删除这个会议室
       name_placeholder: 这里请输入会议室名称...
@@ -188,6 +248,11 @@ zh_CN:
       delete: 我确定删除这个会议室
       keep: 我还是留着它吧
       warning: "您将 <b>不能</b> 恢复这个会议室或任何跟 %{recordings_num} 相关的录像。"
+    invite_user:
+      email_placeholder: 输入用户的电子邮件
+      footer: 用户将收到一封电子邮件，其中包含如何注册的说明。
+      send: 发送邀请
+      title: 邀请用户
     login:
       or: 或
       with: "通过 %{provider}登录"
@@ -218,7 +283,7 @@ zh_CN:
   password_different_notice: 两次新密码不一致。
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
   recaptcha:
     errors:
@@ -243,6 +308,15 @@ zh_CN:
       unlisted: 隐藏
     format:
       presentation: 演示
+  registration:
+    approval:
+      fail: 您的帐户尚未批准。如果您注册后已过多天，请与管理员联系。
+      signup: 您的帐户已成功创建。它已发送给管理员审批。
+    banned:
+      fail: 您没有访问此应用程序的权限。如果您认为这是一个错误，请联系您的管理员。
+    invite:
+      fail: 您的令牌无效或已过期。如果您认为这是一个错误，请联系您的管理员。
+      no_invite: 您没有被邀请加入。请联系管理员申请邀请。
   rename: 重命名
   reset_password:
     subtitle: 重置密码
@@ -252,6 +326,7 @@ zh_CN:
   roles:
     administrator: 管理员
     banned: Banned
+    pending: 待定
     super_admin: 超级管理员
     user: 用户
   room:
@@ -272,7 +347,7 @@ zh_CN:
     update_settings_error: 修改会议室设置出错
     update_settings_success: 会议室设置修改成功
     wait:
-      message: 哎呀！会议还没开始呢。
+      message: 会议还没开始呢。
       auto: 会议开始后您将自动进入
   settings:
     account:
