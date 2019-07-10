@@ -78,7 +78,7 @@ module SessionsHelper
   end
 
   def omniauth_options(env)
-    if env['omniauth.strategy'].options[:name] == "bn-launcher"
+    if env['omniauth.strategy'].options[:name] == "bn_launcher"
       protocol = Rails.env.production? ? "https" : env["rack.url_scheme"]
 
       customer_redirect_url = protocol + "://" + env["SERVER_NAME"] + ":" +
