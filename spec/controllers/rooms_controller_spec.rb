@@ -129,7 +129,7 @@ describe RoomsController, type: :controller do
       expect(response).to redirect_to(r)
     end
 
-    it "it should redirect to root if not logged in" do
+    it "should redirect to root if not logged in" do
       expect do
         name = Faker::Games::Pokemon.name
         post :create, params: { room: { name: name } }
@@ -138,10 +138,23 @@ describe RoomsController, type: :controller do
       expect(response).to redirect_to(root_path)
     end
 
-    it "it should redirect back to main room with error if it fails" do
+    it "should redirect back to main room with error if it fails" do
       @request.session[:user_id] = @owner.id
 
       room_params = { name: "", "client": "html5", "mute_on_join": "1" }
+
+      post :create, params: { room: room_params }
+
+      expect(flash[:alert]).to be_present
+      expect(response).to redirect_to(@owner.main_room)
+    end
+
+    it "redirects to main room if room limit is reached" do
+      allow_any_instance_of(Setting).to receive(:get_value).and_return(1)
+
+      @request.session[:user_id] = @owner.id
+
+      room_params = { name: Faker::Games::Pokemon.name, "client": "html5", "mute_on_join": "1" }
 
       post :create, params: { room: room_params }
 

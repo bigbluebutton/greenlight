@@ -26,13 +26,6 @@ describe ErrorsController, type: :controller do
     end
   end
 
-  describe "GET #unprocessable" do
-    it "returns unprocessable" do
-      get :unprocessable
-      expect(response).to have_http_status(422)
-    end
-  end
-
   describe "GET #internal_error" do
     it "returns internal_error" do
       get :internal_error

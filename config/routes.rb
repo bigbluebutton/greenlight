@@ -22,13 +22,13 @@ Rails.application.routes.draw do
   # Error routes.
   match '/401', to: 'errors#unauthorized', via: :all, as: :unauthorized
   match '/404', to: 'errors#not_found', via: :all, as: :not_found
-  match '/422', to: 'errors#unprocessable', via: :all
   match '/500', to: 'errors#internal_error', via: :all, as: :internal_error
 
   # Signin/Signup routes.
   get '/signin', to: 'users#signin', as: :signin
   get '/signup', to: 'users#new', as: :signup
   post '/signup', to: 'users#create', as: :create_user
+  get '/ldap_signin', to: 'users#ldap_signin', as: :ldap_signin
 
   # Redirect to terms page
   match '/terms', to: 'users#terms', via: [:get, :post]
@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     post '/invite', to: 'admins#invite', as: :invite_user
     post '/registration_method/:method', to: 'admins#registration_method', as: :admin_change_registration
     post '/approve/:user_uid', to: 'admins#approve', as: :admin_approve
+    post '/room_limit', to: 'admins#room_limit', as: :admin_room_limit
   end
 
   scope '/themes' do
@@ -87,6 +88,7 @@ Rails.application.routes.draw do
   # Handles Omniauth authentication.
   match '/auth/:provider/callback', to: 'sessions#omniauth', via: [:get, :post], as: :omniauth_session
   get '/auth/failure', to: 'sessions#omniauth_fail'
+  post '/auth/ldap', to: 'sessions#ldap', as: :ldap_callback
 
   # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/'
