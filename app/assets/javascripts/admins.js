@@ -45,45 +45,8 @@ $(document).on('turbolinks:load', function(){
     })
     
     /* COLOR SELECTORS */
-    
-    $('#colorinput-regular').ColorPicker({
-      onBeforeShow: function () {
-        var colour = rgb2hex($("#colorinput-regular").css("background-color"))
 
-        $(this).ColorPickerSetColor(colour);
-      },
-      onSubmit: function(_hsb, hex) {
-        $.post($("#coloring-path-regular").val(), {color: '#' + hex}).done(function() {
-          location.reload()
-        });
-      },
-    });
-
-    $('#colorinput-lighten').ColorPicker({
-      onBeforeShow: function () {
-        var colour = rgb2hex($("#colorinput-lighten").css("background-color"))
-
-        $(this).ColorPickerSetColor(colour);
-      },
-      onSubmit: function(_hsb, hex) {
-        $.post($("#coloring-path-lighten").val(), {color: '#' + hex}).done(function() {
-          location.reload()
-        });
-      },
-    });
-
-    $('#colorinput-darken').ColorPicker({
-      onBeforeShow: function () {
-        var colour = rgb2hex($("#colorinput-darken").css("background-color"))
-
-        $(this).ColorPickerSetColor(colour);
-      },
-      onSubmit: function(_hsb, hex) {
-        $.post($("#coloring-path-darken").val(), {color: '#' + hex}).done(function() {
-          location.reload()
-        });
-      },
-    });
+    loadColourSelectors()
   }
 
   // Only run on the admins edit user page.
@@ -119,11 +82,82 @@ function filterRole(role) {
   window.location.replace(url);
 }
 
-function rgb2hex(rgb) {
-  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-  function hex(x) {
-      return ("0" + parseInt(x).toString(16)).slice(-2);
-  }
-  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
-}
+function loadColourSelectors() {
+  const pickrRegular = new Pickr({
+    el: '#colorinput-regular',
+    theme: 'monolith',
+    useAsButton: true,
+    lockOpacity: true,
+    defaultRepresentation: 'HEX',
+    closeWithKey: 'Enter',
+    default: $("#colorinput-regular").css("background-color"),
 
+    components: {
+        palette: true,
+        preview: true,
+        hue: true,
+        interaction: {
+            input: true,
+            save: true,
+        },
+    },
+  });
+
+  const pickrLighten = new Pickr({
+    el: '#colorinput-lighten',
+    theme: 'monolith',
+    useAsButton: true,
+    lockOpacity: true,
+    defaultRepresentation: 'HEX',
+    closeWithKey: 'Enter',
+    default: $("#colorinput-lighten").css("background-color"),
+
+    components: {
+        palette: true,
+        preview: true,
+        hue: true,
+        interaction: {
+            input: true,
+            save: true,
+        },
+    },
+  });
+
+  const pickrDarken = new Pickr({
+    el: '#colorinput-darken',
+    theme: 'monolith',
+    useAsButton: true,
+    lockOpacity: true,
+    defaultRepresentation: 'HEX',
+    closeWithKey: 'Enter',
+    default: $("#colorinput-darken").css("background-color"),
+
+    components: {
+        palette: true,
+        preview: true,
+        hue: true,
+        interaction: {
+            input: true,
+            save: true,
+        },
+    },
+  });
+
+  pickrRegular.on("save", (color, instance) => {
+    $.post($("#coloring-path-regular").val(), {color: color.toHEXA().toString()}).done(function() {
+      location.reload()
+    });
+  })
+
+  pickrLighten.on("save", (color, instance) => {
+    $.post($("#coloring-path-lighten").val(), {color: color.toHEXA().toString()}).done(function() {
+      location.reload()
+    });
+  })
+
+  pickrDarken.on("save", (color, instance) => {
+    $.post($("#coloring-path-darken").val(), {color: color.toHEXA().toString()}).done(function() {
+      location.reload()
+    });
+  })
+}

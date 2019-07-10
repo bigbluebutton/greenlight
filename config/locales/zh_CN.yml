@@ -175,7 +175,6 @@ zh_CN:
     video: 请看使用说明
     upgrade: 告诉我怎么升级到 2.0!
     version: 我们发布了新版Greenlight，但你的数据库不兼容。
-  language_name: 简体中文
   language_default: 默认（浏览器语言）
   ldap_error: 无法连接到LDAP服务器，请在env文件中检查LDAP配置，还要确保服务已经启动。
   login: 登录
@@ -190,7 +189,7 @@ zh_CN:
           info: 一个新用户已注册使用Greenlight。
           more-info: 若要允许此用户访问greenlight，您必须在“组织设置”中批准其帐户。
           admins_link: 访问组织页面
-          subject: 新Greenlight用户注册 
+          subject: 新Greenlight用户注册
           username: "用户注册了名称 %{name} 和电子邮箱 %{email}."
         subject: 帐户已批准
         username: "您的用户名是 %{email}."
@@ -206,7 +205,7 @@ zh_CN:
         signup:
           info: 被邀请的用户已注册使用greenlight。
           admins_link: 访问组织页面
-          subject: 新Greenlight用户注册 
+          subject: 新Greenlight用户注册
           username: "用户注册了名称%{name} 和电子邮箱 %{email}."
         subject: 邀请加入 BigBlueButton
         username: "您的用户名是 %{email}."
@@ -284,7 +283,7 @@ zh_CN:
   password_different_notice: 两次新密码不一致。
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
   recaptcha:
     errors:
@@ -310,11 +309,11 @@ zh_CN:
     format:
       presentation: 演示
   registration:
-    approval: 
+    approval:
       fail: 您的帐户尚未批准。如果您注册后已过多天，请与管理员联系。
       signup: 您的帐户已成功创建。它已发送给管理员审批。
     banned:
-      fail: 您没有访问此应用程序的权限。如果您认为这是一个错误，请联系您的管理员。 
+      fail: 您没有访问此应用程序的权限。如果您认为这是一个错误，请联系您的管理员。
     invite:
       fail: 您的令牌无效或已过期。如果您认为这是一个错误，请联系您的管理员。
       no_invite: 您没有被邀请加入。请联系管理员申请邀请。

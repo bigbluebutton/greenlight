@@ -31,5 +31,4 @@
 //= require tabler
 //= require tabler.plugins
 //= require jquery_ujs
-//= require colorpicker
 //= require_tree .

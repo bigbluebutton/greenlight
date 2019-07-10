@@ -13,54 +13,65 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
+<% exceeds_limit = current_room_exceeds_limit(@room)%>
+<% if exceeds_limit%>
+  <div class="alert alert-danger alert-dismissible text-center mb-0">
+    <%= t("room.room_limit_exceeded", difference: @diff) %>
+  </div>
+<% end %>
 <div class="background pb-1">
   <div class="container">
     <div class="row pt-9">
       <div class="col-lg-8 col-sm-12">
         <div id="room-title" class="display-3 form-inline <%= 'edit_hover_class' if current_user.main_room != @room %>">
-          <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= @room.name %></h1>
           <% if current_user.main_room == @room %>
+            <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= t("home_room") %></h1>
             <a class="disable-click"><i class="fas fa-home align-top home-indicator ml-2"></i></a>
           <% else %>
+            <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= @room.name %></h1>
             <a><i id="edit-room" class="fa fa-edit align-top home-indicator ml-2" data-edit-room="<%= @room.uid %>"></i></a>
           <% end %>
         </div>
         <h4 class="text-left mb-6"><%= @room.sessions %> <%= t("room.sessions") %> | <%= @recordings.length %> <%= t("room.recordings") %></h4>
-        <label class="form-label"><%= t("room.invite_participants") %></label>
-        <div class="row">
-          <div class="col-lg-5 col-md-12 mt-2 pr-0">
-            <div class="input-icon invite-link-input">
-              <span class="input-icon-addon">
-                <i class="fas fa-link"></i>
-              </span>
-              <input id="invite-url" type="text" class="form-control w-100" value="<%= request.base_url + @room.invite_path %>" readonly="">
-            </div>
-          </div>
-          <div class="col-lg-7 col-md-12 pr-0">
-            <div class="row">
-              <div class="col-sm-6">
-                <a href="#" id="copy" class="btn btn-primary btn-block mt-2">
-                  <i class="fas fa-copy"></i>
-                  <%= t("copy") %>
-                </a>
+        <% unless exceeds_limit %>
+          <label class="form-label"><%= t("room.invite_participants") %></label>
+          <div class="row">
+            <div class="col-lg-5 col-md-12 mt-2 pr-0">
+              <div class="input-icon invite-link-input">
+                <span class="input-icon-addon">
+                  <i class="fas fa-link"></i>
+                </span>
+                <input id="invite-url" type="text" class="form-control w-100" value="<%= request.base_url + @room.invite_path %>" readonly="">
               </div>
-              <div class="col-sm-6 pl-0">
-                <% if Rails.configuration.enable_google_calendar_button %>
-                  <a href="<%= google_calendar_path %>" target="__blank" id="schedule" class="btn btn-primary btn-block mt-2">
-                    <i class="fas fa-calendar-plus"></i>
-                    <%= t("add_to_google_calendar") %>
+            </div>
+            <div class="col-lg-7 col-md-12 pr-0">
+              <div class="row">
+                <div class="col-sm-6">
+                  <a href="#" id="copy" class="btn btn-primary btn-block mt-2">
+                    <i class="fas fa-copy"></i>
+                    <%= t("copy") %>
                   </a>
-                <% end %>
+                </div>
+                <div class="col-sm-6 pl-0">
+                  <% if Rails.configuration.enable_google_calendar_button %>
+                    <a href="<%= google_calendar_path %>" target="__blank" id="schedule" class="btn btn-primary btn-block mt-2">
+                      <i class="fas fa-calendar-plus"></i>
+                      <%= t("add_to_google_calendar") %>
+                    </a>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        <% end %>
       </div>
       <div class="offset-lg-1 col-lg-3 col-sm-12 force-bottom mt-5 pr-0">
         <% if @is_running %>
           <%= button_to t("room.join"), room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right" %>
         <% else %>
-          <%= button_to t("room.start"), start_room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right" %>
+          <% unless exceeds_limit %>
+            <%= button_to t("room.start"), start_room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right" %>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -81,7 +92,9 @@
           <%= render "shared/modals/delete_room_modal", room: room %>
         <% end %>
       <% end %>
-      <%= render "shared/components/create_room_block"%>
+      <% unless room_limit_exceeded %>
+        <%= render "shared/components/create_room_block"%>
+      <% end %>
     </div>
   </div>
 </div>
