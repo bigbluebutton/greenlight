@@ -21,10 +21,6 @@ class ErrorsController < ApplicationController
     render status: 404, formats: :html
   end
 
-  def unprocessable
-    render status: 422, formats: :html
-  end
-
   def internal_error
     render status: 500, formats: :html
   end

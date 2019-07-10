@@ -23,26 +23,48 @@ it:
         accepted_terms: "Termini e condizioni"
   administrator:
     site_settings:
+      authentication:
+        disabled: Disabilitato
+        enabled: Abilitato
+        info: Permettere l'accesso solo ad utenti autenticati
+        title: Richiedi autenticazione per ogni stanza
+        user-info: Devi registrarti ad DENTAL LIVE Manager per accedere alla stanza
       branding:
         change: Cambia immagine
         info: Cambia il logo del brand che appare nell'angolo in alto a sinistra
         placeholder: Indirizzo immagine...
         title: Logo
       color:
-        info: Cambia il colore primario usato nel sito
+        info: "Cambiando il valore del colore di base, verranno cambiati sia la versione chiara che scura. Le due versioni possono essere modificate individualmente"
         title: Colore primario
+        regular: Colore di base
+        lighten: Chiaro
+        Darken: Scuro
+      registration:
+        info: Cambiare il modo in cui gli utenti si registrano al sito web
+        title: Metodo di registrazione
+        methods:
+          approval: Approva/Rifiuta
+          invite: Accesso tramite invito
+          open: Registrazione libera
       subtitle: Personalizza Greenlight
       title: Impostazioni Sito
     flash:
+      approved: L'utente è stato approvato con successo
       banned: L'utente è stato bannato.
       unbanned: E' stato tolto il blocco utente.
       delete: L'utente è stato eliminato con successo
       delete_fail: Errore nell'eliminazione utente
       demoted: L'utente è stato declassato
+      invite: "L'invito è stato inviato a %{email}"
+      invite_email_verification: ""
       promoted: L'utente è stato promosso
+      registration_method_updated: Il metodo di registrazione è stato aggiornato con successo
+      settings: Le impostazioni web sono state modificate con successo
       unauthorized: Non sei autorizzato ad effettuare modifiche sull'utente
     title: Impostazioni dell'organizzazione
     users:
+      invite: Invita utente
       edit:
         title: Modifica dettagli utente
       settings:
@@ -79,6 +101,10 @@ it:
   email_sent: "La tua email di %{email_type} è stata inviata! (Controlla nella cartella Spam della tua email se non la ricevi)"
   enter_your_name: Inserisci il tuo nome!
   errors:
+    bigbluebutton:
+      help: "Per favore, assicurarsi di aver completato tutti i passaggi. <a href=\"%{doc_link}\">Altre informazioni</a>"
+      message: "Impostazioni di collegamento, Endpoint e Secret, errati"
+      title: Errore del server
     internal:
       message: Diamine! Sembra che qualcosa non funzioni qui da noi.
       help: "L'errore è stato salvato, abbiamo inviato un gruppo di scimmie per risolvere il problema."
@@ -149,13 +175,40 @@ it:
     video: Guarda il tutorial sull'utilizzo di GreenLight
     upgrade: Mostrami come aggiornare alla versione 2.0!
     version: "E' stata rilasciata una nuova versione di GreenLight, ma il tuo database non è compatibile."
-  language_name: Inglese
   language_default: Predefinito (linguaggio del browser)
   ldap_error: Impossibile collegarsi al server LDAP. Controlla la configurazione LDAP nel file env e assicurati che il server sia attivo.
   login: Entra
   login_title: Entra nel tuo account
   mailer:
     user:
+      approve:
+        info: Il tuo account è stato approvato.
+        signin: "Per accedere alle stanze personali, clicca sul bottone in basso ed effettua il login"
+        signin_link: Entra
+        signup:
+          info: "Un nuovo utente si è registrato "
+          more-info: ""
+          admins_link: ""
+          subject: ""
+          username: ""
+        subject: ""
+        username: ""
+      demoted:
+        info: ""
+        more-info: ""
+        root_link: ""
+        subtitle: ""
+      invite:
+        info: ""
+        signup: To signup using your email, click the button below and follow the steps.
+        signup_link: ""
+        signup:
+          info: ""
+          admins_link: ""
+          subject: ""
+          username: ""
+        subject: ""
+        username: ""
       password_reset:
         title: 'Reimposta password'
         welcome: "Sembra che tu abbia dimenticato la password per %{bigbluebutton}"
@@ -163,6 +216,11 @@ it:
         reset_link: Reimposta Password
         expire: Questo link scadrà tra 2 ore.
         ignore: Se non hai richiesto tu di reimpostare la password puoi ignorare questa email.
+      promoted:
+        admins_link: ""
+        info: ""
+        more-info: ""
+        subtitle: ""
       verify_email:
         welcome: "Benvenuti nel vostro spazio personale, %{name}!"
         success: "Supporta %{bigbluebutton}, puoi creare le tue stanze e ospitare meeting per collaborare con altri utenti."
@@ -189,7 +247,13 @@ it:
       confirm: "Sicuro di voler eliminare %{room}?"
       delete: "Sono sicuro, elimina la stanza."
       keep: "Ripensandoci, penso che la terrò."
-      warning: "<b>Non</b> potrai recuperare questa stanza e le relative %{recordings_num} registrazioni salvate."
+      warning: ""
+      recording_warning: ""
+    invite_user:
+      email_placeholder: ""
+      footer: ""
+      send: ""
+      title: ""
     login:
       or: o
       with: "Entra con %{provider}"
@@ -220,7 +284,7 @@ it:
   password_different_notice: La conferma della password non coincide.
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
   recaptcha:
     errors:
@@ -245,6 +309,15 @@ it:
       unlisted: Non in elenco
     format:
       presentation: Presentazione
+  registration:
+    approval:
+      fail: ""
+      signup: ""
+    banned:
+      fail: ""
+    invite:
+      fail: ""
+      no_invite: ""
   rename: Rinomina
   reset_password:
     subtitle: Reimposta password
@@ -254,6 +327,7 @@ it:
   roles:
     administrator: Amministratore
     banned: Bloccato
+    pending: ""
     super_admin: Super Amministratore
     user: Utente
   room:
@@ -274,7 +348,7 @@ it:
     update_settings_error: Si è verificato un errore nell'aggiornamento dei dettagli della stanza
     update_settings_success: Impostazioni della stanza aggiornate correttamente
     wait:
-      message: Il meeting non è ancora cominciato.
+      message: ""
       auto: Verrai inserito nella stanza non appena il meeting avrà inizio.
   settings:
     account:

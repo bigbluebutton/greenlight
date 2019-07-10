@@ -62,6 +62,14 @@ class UsersController < ApplicationController
 
   # GET /signin
   def signin
+    unless params[:old_twitter_user_id].nil? && session[:old_twitter_user_id].nil?
+      flash[:alert] = I18n.t("registration.deprecated.new_signin")
+      session[:old_twitter_user_id] = params[:old_twitter_user_id] unless params[:old_twitter_user_id].nil?
+    end
+  end
+
+  # GET /ldap_signin
+  def ldap_signin
   end
 
   # GET /signup
@@ -73,6 +81,12 @@ class UsersController < ApplicationController
       redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless params[:invite_token]
 
       session[:invite_token] = params[:invite_token]
+    end
+
+    unless params[:old_twitter_user_id].nil? && session[:old_twitter_user_id].nil?
+      logout
+      flash.now[:alert] = I18n.t("registration.deprecated.new_signin")
+      session[:old_twitter_user_id] = params[:old_twitter_user_id] unless params[:old_twitter_user_id].nil?
     end
 
     @user = User.new
@@ -175,7 +189,7 @@ class UsersController < ApplicationController
   end
 
   def ensure_unauthenticated
-    redirect_to current_user.main_room if current_user
+    redirect_to current_user.main_room if current_user && params[:old_twitter_user_id].nil?
   end
 
   def user_params

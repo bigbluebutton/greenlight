@@ -37,10 +37,6 @@ module Greenlight
     config.i18n.available_locales = [:en]
     config.i18n.default_locale = :en
 
-    config.i18n.available_locales.each do |locale|
-      config.i18n.fallbacks[locale] = [locale, :en]
-    end
-
     # Check if a loadbalancer is configured.
     config.loadbalanced_configuration = ENV["LOADBALANCER_ENDPOINT"].present? && ENV["LOADBALANCER_SECRET"].present?
 
@@ -133,6 +129,9 @@ module Greenlight
 
     # Default registration method if the user does not specify one
     config.registration_method_default = config.registration_methods[:open]
+
+    # Default limit on number of rooms users can create
+    config.number_of_rooms_default = 15
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
