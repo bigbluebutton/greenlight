@@ -131,10 +131,25 @@ class ApplicationController < ActionController::Base
   end
 
   def set_user_domain
-    @user_domain = if Rails.env.test? || !Rails.configuration.loadbalanced_configuration
-      "greenlight"
+    if Rails.env.test? || !Rails.configuration.loadbalanced_configuration
+      @user_domain = "greenlight"
     else
-      parse_user_domain(request.host)
+      @user_domain = parse_user_domain(request.host)
+
+      # Checks to see if the user exists
+      begin
+        retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
+      rescue => e
+        if e.message.eql? "No user with that id exists"
+          render "errors/not_found", locals: { message: I18n.t("errors.not_found.user_not_found.message"),
+            help: I18n.t("errors.not_found.user_not_found.help") }
+        elsif e.message.eql? "Provider not included."
+          render "errors/not_found", locals: { message: I18n.t("errors.not_found.user_missing.message"),
+            help: I18n.t("errors.not_found.user_missing.help") }
+        else
+          render "errors/internal_error"
+        end
+      end
     end
   end
   helper_method :set_user_domain

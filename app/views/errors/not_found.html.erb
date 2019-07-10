@@ -14,10 +14,15 @@
 %>
 
 <div class="container text-center pt-9">
-  <div class="display-1 text-muted mb-5">404</div>
-  <h1 class="h2 mb-3"><%= t("errors.not_found.message") %></h1>
-  <p class="h4 text-muted font-weight-normal mb-7"><%= t("errors.not_found.help") %></p>
-  <a class="btn btn-primary" href="javascript:history.back()">
-    <i class="fas fa-arrow-left mr-2"></i><%= t("go_back") %>
-  </a>
+  <div class="display-1 mb-5 text-primary">404</div>
+  <% if defined?(message) && defined?(help) %>
+    <h1 class="h2 mb-3"><%= message %></h1>
+    <p class="h4 text-muted font-weight-normal mb-7"><%= help %></p>
+  <% else %>
+    <h1 class="h2 mb-3"><%= t("errors.not_found.message") %></h1>
+    <p class="h4 text-muted font-weight-normal mb-7"><%= t("errors.not_found.help") %></p>
+    <a class="btn btn-primary" href="javascript:history.back()">
+      <i class="fas fa-arrow-left mr-2"></i><%= t("go_back") %>
+    </a>
+  <% end %>
 </div>

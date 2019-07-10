@@ -123,7 +123,7 @@
   }
 }
 
-.customBtn-microsoft_office365 {
+.customBtn-office365 {
   @extend .customBtn;
   background: #f65314;
 
@@ -140,6 +140,17 @@
 
   .customBtn-image {
     background: #ffffff image-url("windows-logo.png") no-repeat left top;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
+.customBtn-ldap {
+  @extend .customBtn;
+  background: #d61515;
+
+  .customBtn-image {
+    background: #ffffff image-url("ldap-logo.png") no-repeat left top;
     background-size: 18px 18px;
     padding:10px 10px 10px 10px;
   }
