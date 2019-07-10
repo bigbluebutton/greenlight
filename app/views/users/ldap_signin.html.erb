@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row pt-7">
+        <div class="col col-lg-6 offset-lg-3">
+            <div class="card">
+                <div class="card-header background">
+                    <h4 class="mt-2"><%= t("login_title") %></h4>
+                </div>
+                <div class="card-body background">
+                    <%= form_for(:session, url: ldap_callback_path) do |f| %>
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <span class="input-icon-addon">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <%= f.text_field :username, class: "form-control", placeholder: t("administrator.users.table.username"), value: "" %>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <span class="input-icon-addon">
+                                    <i class="fas fa-key"></i>
+                                </span>
+                                <%= f.password_field :password, class: "form-control", placeholder: t("password"), value: "" %>
+                            </div>
+                        </div>
+                        <div>
+                            <%= f.submit t("login"), class: "btn btn-primary btn-block signin-button" %>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

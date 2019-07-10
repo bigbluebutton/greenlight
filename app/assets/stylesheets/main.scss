@@ -145,6 +145,17 @@
   }
 }
 
+.customBtn-ldap {
+  @extend .customBtn;
+  background: #d61515;
+
+  .customBtn-image {
+    background: #ffffff image-url("ldap-logo.png") no-repeat left top;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
 .signin-button {
   font-size: 16px;
 }

@@ -302,6 +302,7 @@ en:
     google: Google
     office365: Office 365
     twitter: Twitter
+    ldap: LDAP
   recaptcha:
     errors:
       recaptcha_unreachable: Oops, we failed to validate your reCAPTCHA response. Please try again.

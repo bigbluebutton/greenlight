@@ -45,8 +45,9 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-bn-office365', git: 'https://github.com/blindsidenetworks/omniauth-bn-office365.git', tag: '0.1.0'
-gem 'omniauth-ldap'
-gem 'omniauth-bn-launcher', git: 'https://github.com/blindsidenetworks/omniauth-bn-launcher.git', tag: '0.1.0'
+gem 'omniauth-bn-launcher', git: 'https://github.com/blindsidenetworks/omniauth-bn-launcher.git', tag: '0.1.1'
+gem 'bn-ldap-authentication', git: 'https://github.com/blindsidenetworks/bn-ldap-authentication.git'
+gem 'net-ldap'
 
 # BigBlueButton API wrapper.
 gem 'bigbluebutton-api-ruby'
