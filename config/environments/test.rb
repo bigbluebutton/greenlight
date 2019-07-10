@@ -49,4 +49,6 @@ Rails.application.configure do
   # Use standalone BigBlueButton server.
   config.bigbluebutton_endpoint = config.bigbluebutton_endpoint_default
   config.bigbluebutton_secret = config.bigbluebutton_secret_default
+
+  config.loadbalanced_configuration = false
 end

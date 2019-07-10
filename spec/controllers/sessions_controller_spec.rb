@@ -156,6 +156,29 @@ describe SessionsController, type: :controller do
       expect(@request.session[:user_id]).to eql(user.id)
       expect(response).to redirect_to(admins_path)
     end
+
+    it "should migrate old rooms from the twitter account to the new user" do
+      twitter_user = User.create(name: "Twitter User", email: "user@twitter.com", image: "example.png",
+        username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
+
+      room = Room.new(name: "Test")
+      room.owner = twitter_user
+      room.save!
+
+      post :create, params: {
+        session: {
+          email: @user1.email,
+          password: 'example',
+        },
+      }, session: {
+        old_twitter_user_id: twitter_user.id
+      }
+
+      @user1.reload
+      expect(@user1.rooms.count).to eq(3)
+      expect(@user1.rooms.find { |r| r.name == "Old Home Room" }).to_not be_nil
+      expect(@user1.rooms.find { |r| r.name == "Test" }).to_not be_nil
+    end
   end
 
   describe "GET/POST #omniauth" do
@@ -171,6 +194,18 @@ describe SessionsController, type: :controller do
           nickname: "twitteruser",
           image: "example.png",
         },
+      )
+
+      OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new(
+        provider: "google",
+        uid: "google-user",
+        info: {
+          email: "user@google.com",
+          name: "Google User",
+          nickname: "googleuser",
+          image: "touch.png",
+          customer: 'customer1',
+        }
       )
 
       OmniAuth.config.mock_auth[:bn_launcher] = OmniAuth::AuthHash.new(
@@ -190,68 +225,108 @@ describe SessionsController, type: :controller do
       }
     end
 
-    unless Rails.configuration.omniauth_bn_launcher
-      it "should create and login user with omniauth twitter" do
+    it "should create and login user with omniauth google" do
+      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google]
+      get :omniauth, params: { provider: :google }
+
+      u = User.last
+      expect(u.provider).to eql("google")
+      expect(u.email).to eql("user@google.com")
+      expect(@request.session[:user_id]).to eql(u.id)
+    end
+
+    it "should create and login user with omniauth bn launcher" do
+      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
+      get :omniauth, params: { provider: 'bn_launcher' }
+
+      u = User.last
+      expect(u.provider).to eql("customer1")
+      expect(u.email).to eql("user@google.com")
+      expect(@request.session[:user_id]).to eql(u.id)
+    end
+
+    it "should redirect to root on invalid omniauth login" do
+      request.env["omniauth.auth"] = :invalid_credentials
+      get :omniauth, params: { provider: :google }
+
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "should not create session without omniauth env set for google" do
+      get :omniauth, params: { provider: 'google' }
+
+      expect(response).to redirect_to(root_path)
+    end
+
+    context 'twitter deprecation' do
+      it "should not allow new user sign up with omniauth twitter" do
         request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
         get :omniauth, params: { provider: :twitter }
 
-        u = User.last
-        expect(u.provider).to eql("twitter")
-        expect(u.email).to eql("user@twitter.com")
-        expect(@request.session[:user_id]).to eql(u.id)
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq(I18n.t("registration.deprecated.twitter_signup"))
       end
 
-      it "should create and login user with omniauth bn launcher" do
-        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
-        get :omniauth, params: { provider: 'bn_launcher' }
+      it "should notify twitter users that twitter is deprecated" do
+        allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
+        twitter_user = User.create(name: "Twitter User", email: "user@twitter.com", image: "example.png",
+          username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
 
-        u = User.last
-        expect(u.provider).to eql("customer1")
-        expect(u.email).to eql("user@google.com")
-        expect(@request.session[:user_id]).to eql(u.id)
-      end
-
-      it "should redirect to root on invalid omniauth login" do
-        request.env["omniauth.auth"] = :invalid_credentials
+        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
         get :omniauth, params: { provider: :twitter }
 
-        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq(I18n.t("registration.deprecated.twitter_signin",
+          link: signup_path(old_twitter_user_id: twitter_user.id)))
       end
 
-      it "should not create session without omniauth env set for google" do
-        get :omniauth, params: { provider: 'google' }
+      it "should migrate rooms from the twitter account to the google account" do
+        twitter_user = User.create(name: "Twitter User", email: "user@twitter.com", image: "example.png",
+          username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
 
-        expect(response).to redirect_to(root_path)
+        room = Room.new(name: "Test")
+        room.owner = twitter_user
+        room.save!
+
+        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google]
+        get :omniauth, params: { provider: :google }, session: { old_twitter_user_id: twitter_user.id }
+
+        u = User.last
+        expect(u.provider).to eql("google")
+        expect(u.email).to eql("user@google.com")
+        expect(@request.session[:user_id]).to eql(u.id)
+        expect(u.rooms.count).to eq(3)
+        expect(u.rooms.find { |r| r.name == "Old Home Room" }).to_not be_nil
+        expect(u.rooms.find { |r| r.name == "Test" }).to_not be_nil
+      end
+    end
+
+    context 'registration notification emails' do
+      before do
+        allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+        @user = create(:user, provider: "greenlight")
+        @admin = create(:user, provider: "greenlight", email: "test@example.com")
+        @admin.add_role :admin
       end
 
-      context 'registration notification emails' do
-        before do
-          allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
-          @user = create(:user, provider: "greenlight")
-          @admin = create(:user, provider: "greenlight", email: "test@example.com")
-          @admin.add_role :admin
-        end
+      it "should notify admin on new user signup with approve/reject registration" do
+        allow_any_instance_of(Registrar).to receive(:approval_registration).and_return(true)
 
-        it "should notify admin on new user signup with approve/reject registration" do
-          allow_any_instance_of(Registrar).to receive(:approval_registration).and_return(true)
+        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
 
-          request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
+        expect { get :omniauth, params: { provider: 'bn_launcher' } }
+          .to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
 
-          expect { get :omniauth, params: { provider: 'bn_launcher' } }
-            .to change { ActionMailer::Base.deliveries.count }.by(1)
-        end
+      it "should notify admin on new user signup with invite registration" do
+        allow_any_instance_of(Registrar).to receive(:invite_registration).and_return(true)
 
-        it "should notify admin on new user signup with invite registration" do
-          allow_any_instance_of(Registrar).to receive(:invite_registration).and_return(true)
+        invite = Invitation.create(email: "user@google.com", provider: "greenlight")
+        @request.session[:invite_token] = invite.invite_token
 
-          invite = Invitation.create(email: "user@google.com", provider: "greenlight")
-          @request.session[:invite_token] = invite.invite_token
+        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
 
-          request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
-
-          expect { get :omniauth, params: { provider: 'bn_launcher' } }
-            .to change { ActionMailer::Base.deliveries.count }.by(1)
-        end
+        expect { get :omniauth, params: { provider: 'bn_launcher' } }
+          .to change { ActionMailer::Base.deliveries.count }.by(1)
       end
     end
 
@@ -259,6 +334,43 @@ describe SessionsController, type: :controller do
       get :omniauth, params: { provider: 'bn_launcher' }
 
       expect(response).to redirect_to(root_path)
+    end
+  end
+
+  describe "POST #ldap" do
+    it "should create and login a user with a ldap login" do
+      entry = Net::LDAP::Entry.new("cn=Test User,ou=people,dc=planetexpress,dc=com")
+      entry[:cn] = "Test User"
+      entry[:givenName] = "Test"
+      entry[:sn] = "User"
+      entry[:mail] = "test@example.com"
+      allow_any_instance_of(Net::LDAP).to receive(:bind_as).and_return([entry])
+
+      post :ldap, params: {
+        session: {
+          user: "test",
+          password: 'password',
+        },
+      }
+
+      u = User.last
+      expect(u.provider).to eql("ldap")
+      expect(u.email).to eql("test@example.com")
+      expect(@request.session[:user_id]).to eql(u.id)
+    end
+
+    it "should redirect to signin on invalid credentials" do
+      allow_any_instance_of(Net::LDAP).to receive(:bind_as).and_return(false)
+
+      post :ldap, params: {
+        session: {
+          user: "test",
+          password: 'passwor',
+        },
+      }
+
+      expect(response).to redirect_to(ldap_signin_path)
+      expect(flash[:alert]).to eq(I18n.t("invalid_credentials"))
     end
   end
 end

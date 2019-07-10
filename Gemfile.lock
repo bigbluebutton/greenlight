@@ -1,3 +1,28 @@
+GIT
+  remote: https://github.com/blindsidenetworks/bn-ldap-authentication.git
+  revision: 538132e0df70dbe470120f7bc7a93968c522031f
+  specs:
+    bn-ldap-authentication (1.0.0)
+      net-ldap
+
+GIT
+  remote: https://github.com/blindsidenetworks/omniauth-bn-launcher.git
+  revision: 025785046c3d532ed2252ef4762469c8d08d4839
+  tag: 0.1.1
+  specs:
+    omniauth-bn-launcher (0.1.1)
+      omniauth (~> 1.3, >= 1.3.2)
+      omniauth-oauth2 (= 1.5.0)
+
+GIT
+  remote: https://github.com/blindsidenetworks/omniauth-bn-office365.git
+  revision: d6640b37b5df50b5ed80e1271518bfb5dfb2a966
+  tag: 0.1.0
+  specs:
+    omniauth-bn-office365 (1.0.0)
+      omniauth (>= 1.3.2)
+      omniauth-oauth2 (>= 1.5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -101,6 +126,7 @@ GEM
     http_accept_language (2.1.1)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
+    i18n-language-mapping (0.1.0)
     jaro_winkler (1.5.2)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
@@ -142,21 +168,10 @@ GEM
     omniauth (1.9.0)
       hashie (>= 3.4.6, < 3.7.0)
       rack (>= 1.6.2, < 3)
-    omniauth-bn-launcher (0.1.0)
-      omniauth (~> 1.3, >= 1.3.2)
-      omniauth-oauth2 (= 1.5.0)
     omniauth-google-oauth2 (0.6.1)
       jwt (>= 2.0)
       omniauth (>= 1.1.1)
       omniauth-oauth2 (>= 1.5)
-    omniauth-ldap (1.0.5)
-      net-ldap (~> 0.12)
-      omniauth (~> 1.0)
-      pyu-ruby-sasl (~> 0.0.3.2)
-      rubyntlm (~> 0.3.4)
-    omniauth-microsoft-office365 (0.0.7)
-      omniauth
-      omniauth-oauth2
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
@@ -174,7 +189,6 @@ GEM
     popper_js (1.14.5)
     public_suffix (3.0.3)
     puma (3.12.1)
-    pyu-ruby-sasl (0.0.3.3)
     rack (2.0.7)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -243,7 +257,6 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
     ruby-progressbar (1.10.0)
-    rubyntlm (0.3.4)
     safe_yaml (1.0.5)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -323,6 +336,7 @@ DEPENDENCIES
   action-cable-testing
   bcrypt (~> 3.1.7)
   bigbluebutton-api-ruby
+  bn-ldap-authentication!
   bootstrap (~> 4.3.1)
   byebug
   cancancan (~> 2.0)
@@ -333,15 +347,16 @@ DEPENDENCIES
   faker
   health_check
   http_accept_language
+  i18n-language-mapping (~> 0.1.0)
   jbuilder (~> 2.5)
-  jquery-rails
+  jquery-rails (~> 4.3.3)
   listen (~> 3.0.5)
   mini_racer
+  net-ldap
   omniauth
-  omniauth-bn-launcher (~> 0.1.0)
+  omniauth-bn-launcher!
+  omniauth-bn-office365!
   omniauth-google-oauth2
-  omniauth-ldap
-  omniauth-microsoft-office365 (~> 0.0.7)
   omniauth-twitter
   pagy
   pg (~> 0.18)
