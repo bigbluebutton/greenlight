@@ -22,7 +22,6 @@ Rails.application.routes.draw do
   # Error routes.
   match '/401', to: 'errors#unauthorized', via: :all, as: :unauthorized
   match '/404', to: 'errors#not_found', via: :all, as: :not_found
-  match '/422', to: 'errors#unprocessable', via: :all
   match '/500', to: 'errors#internal_error', via: :all, as: :internal_error
 
   # Signin/Signup routes.

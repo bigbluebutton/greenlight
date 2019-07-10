@@ -14,10 +14,10 @@
 %>
 
 <div class="container text-center pt-9">
-  <div class="display-1 text-muted mb-5">404</div>
-  <% if defined?(user_not_found) %>
-    <h1 class="h2 mb-3"><%= t("errors.not_found.user_message") %></h1>
-    <p class="h4 text-muted font-weight-normal mb-7"><%= t("errors.not_found.user_help") %></p>
+  <div class="display-1 mb-5 text-primary">404</div>
+  <% if defined?(message) && defined?(help) %>
+    <h1 class="h2 mb-3"><%= message %></h1>
+    <p class="h4 text-muted font-weight-normal mb-7"><%= help %></p>
   <% else %>
     <h1 class="h2 mb-3"><%= t("errors.not_found.message") %></h1>
     <p class="h4 text-muted font-weight-normal mb-7"><%= t("errors.not_found.help") %></p>
