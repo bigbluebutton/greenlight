@@ -12,6 +12,11 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
+
+<% # Only load the color picker on the Admins page %>
+<%= stylesheet_link_tag    "https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/monolith.min.css" %>
+<%= javascript_include_tag "https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js" %>
+
 <div class="container pt-6">
   <%= render "shared/components/subtitle", subtitle: t("administrator.title"), search: false %>
 

@@ -198,8 +198,8 @@ es:
   mailer:
     user:
       approve:
-        info: Tu cuenta ha sido autorizada.
-        signin: "Para acceder tus salas personales, haz click en el botón de abajo e inicia sesión."
+        info: Tu cuenta ha sido autorizada
+        signin: "Para acceder tus salas personales, haz click en el botón de abajo e inicia sesión"
         signin_link: Iniciar sesión
         signup:
           info: Se ha registrado un usuario nuevo.

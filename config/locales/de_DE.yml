@@ -57,7 +57,7 @@ de_DE:
       delete_fail: Löschen des Teilnehmers fehlgeschlagen
       demoted: "Teilnehmer wurde erfolgreich zurückgestuft "
       invite: "Einladung erfolgreich an %{email} geschickt"
-      invite_email_verification: "ALLOW_MAIL_NOTIFICATIONS muss auf den Wert true gesetzt sein, damit diese Methode verwendet werden kann"
+      invite_email_verification: "Emailversand muss aktiviert sein, um diese Methode verwenden zu können. Bitte kontaktieren Sie Ihren Systemadministrator."
       promoted: Teilnehmer wurde erfolgreich hochgestuft
       registration_method_updated: Registrierungsmethode erfolgreich aktualisiert
       settings: Seiteneinstellungen erfolgreich geändert
@@ -175,7 +175,6 @@ de_DE:
     video: Schauen Sie sich unsere Anleitung zur Verwendung von Greenlight an
     upgrade: "Zeigen Sie mir, wie ich auf Version 2.0. update!"
     version: "Wir haben eine neue Version von Greenlight veröffentlicht, aber Ihre Datenbank ist damit nicht kompatibel."
-  language_name: Deutsch
   language_default: Voreinstellung (Browsersprache)
   ldap_error: "Verbindung zum LDAP Server konnte nicht hergestellt werden. Bitte überprüfen Sie die LDAP Konfiguration und stellen Sie sicher, dass der LDAP-Server läuft."
   login: Einloggen
@@ -190,7 +189,7 @@ de_DE:
           info: Ein neuer Nutzer hat sich bei Greenlight angemeldet.
           more-info: "Um diesem Nutzer Zugriff auf Greenlight zu geben, müssen Sie seinen Account in den Organisationseinstellungen genehmigen."
           admins_link: Organisationsseite besuchen
-          subject: Neue Greenlight Nutzerregistierung 
+          subject: Neue Greenlight Nutzerregistierung
           username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registiert."
         subject: Account genehmigt
         username: "Ihr Nutzername ist %{email}."
@@ -206,7 +205,7 @@ de_DE:
         signup:
           info: Ein Nutzer hat Sie dazu eingeladen sich für die Nutzung von Greenlight zu registieren.
           admins_link: Organisationsseite besuchen
-          subject: Registierung neuer Greenlight-Nutzer 
+          subject: Registierung neuer Greenlight-Nutzer
           username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registriert."
         subject: Einladung zur BigBlueButton-Teilnahme
         username: "Ihr Nutzername ist %{email}."
@@ -248,7 +247,8 @@ de_DE:
       confirm: "Sind Sie sicher, dass Sie %{room}löschen wollen?"
       delete: Ich will diesen Raum löschen.
       keep: Ich will ihn doch nicht löschen.
-      warning: "Sie werden <b>nicht</b> in der Lage sein diesen Raum oder die in ihm durchgeführten %{recordings_num} Aufzeichnungen wiederherzustellen."
+      warning: "Sie werden <b>nicht</b> in der Lage sein, diesen Raum wiederherzustellen"
+      recording_warning: "oder jegliche seiner %{recordings_num} verknüpften Aufzeichnungen."
     invite_user:
       email_placeholder: Nutzeremail eingeben
       footer: "Der Nutzer wird eine Email mit dazu Anweisungen erhalten, wie er sich registrieren kann "
@@ -284,7 +284,7 @@ de_DE:
   password_different_notice: Passwortbestätigung ist nicht zutreffend.
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
   recaptcha:
     errors:
@@ -310,11 +310,11 @@ de_DE:
     format:
       presentation: Präsentation
   registration:
-    approval: 
+    approval:
       fail: "Ihr Account wurde noch nicht freigeschaltet. Falls Sie sich bereits vor mehreren Tagen registriert haben, kontaktieren Sie bitte Ihren Administrator."
       signup: Ihr Account wurde erfolgreich erzeugt. Er muss noch durch einen Administrator freigeschaltet werden.
     banned:
-      fail: "Sie haben keinen Zugriff auf dieses Applikation. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator." 
+      fail: "Sie haben keinen Zugriff auf dieses Applikation. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
     invite:
       fail: "Ihr Token ist entweder ungültig oder er ist abgelaufen. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
       no_invite: "Sie sind nicht zu Teilnahme eingeladen. Bitte kontaktieren Sie Ihren Administrator, um eine Einladung zu erhalten."
