@@ -121,7 +121,6 @@ en:
     internal:
       message: Looks like something went wrong on our end.
       help: The error has been logged, we'll take a look!
-      title: Internal Server Error
     migration_error:
       contact_admin: If you are not an administrator, please contact one.
       continue: I'd like to stay using 1.0.
@@ -139,22 +138,18 @@ en:
       confirmation: doesn't match %{attribute}
       inclusion: is not included in the list
     not_found:
-      message: Looks like we can't find that.
+      message: Sorry! The page you are looking for does not exist.
       help: Is it possible its been removed?
-      title: Page not Found
       user_not_found:
         help: Please contact an administrator.
         message: Sorry, this user is not registered.
-        title: User not Found
       user_missing:
         help: Please verify the URL and try again
         message: The URL that you have entered is not valid.
-        title: Incorrect URL
     title: Errors
     unauthorized:
       message: You do not have access to this application
       help: If you believe this is a mistake, please contact your system administrator.
-      title: Access Denied
   expired_reset_token: Password reset link has expired!
   features:
     title: Features
