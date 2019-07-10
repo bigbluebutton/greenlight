@@ -214,13 +214,17 @@ class User < ApplicationRecord
 
   def admin_of?(user)
     if Rails.configuration.loadbalanced_configuration
-      if has_role? :super_admin
+      # Pulls in the user roles if they weren't request in the original request
+      # So the has_cached_role? doesn't always return false
+      user.roles
+      if has_cached_role? :super_admin
         id != user.id
       else
-        (has_role? :admin) && (id != user.id) && (provider == user.provider) && (!user.has_role? :super_admin)
+        (has_cached_role? :admin) && (id != user.id) && (provider == user.provider) &&
+          (!user.has_cached_role? :super_admin)
       end
     else
-      ((has_role? :admin) || (has_role? :super_admin)) && (id != user.id)
+      ((has_cached_role? :admin) || (has_cached_role? :super_admin)) && (id != user.id)
     end
   end
 

@@ -185,7 +185,7 @@ class UsersController < ApplicationController
   private
 
   def find_user
-    @user = User.find_by!(uid: params[:user_uid])
+    @user = User.where(uid: params[:user_uid]).includes(:roles).first
   end
 
   def ensure_unauthenticated
