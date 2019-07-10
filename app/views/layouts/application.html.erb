@@ -33,6 +33,11 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+
+    <!-- Because of turbolinks, this will only load once -->
+    <%= stylesheet_link_tag    "https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/monolith.min.css" %>
+    <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js" %>
+
     <!-- Primary color styling -->
     <%= stylesheet_link_tag themes_primary_path %>
 
