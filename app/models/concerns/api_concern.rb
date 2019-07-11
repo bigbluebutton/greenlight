@@ -23,7 +23,7 @@ module APIConcern
   def format_recordings(api_res, search_params, ret_search_params)
     search = search_params[:search] || ""
     order_col = search_params[:column] && search_params[:direction] != "none" ? search_params[:column] : "end_time"
-    order_dir = search_params[:column] && search_params[:direction] != "none" ? search_params[:direction] : "asc"
+    order_dir = search_params[:column] && search_params[:direction] != "none" ? search_params[:direction] : "desc"
 
     search = search.downcase
 
@@ -66,26 +66,26 @@ module APIConcern
   def sort_recordings(recs, order_col, order_dir)
     recs = case order_col
            when "end_time"
-        recs.sort_by { |r| r[:endTime] }
+              recs.sort_by { |r| r[:endTime] }
            when "name"
-        recs.sort_by do |r|
-          if !r[:metadata].nil? && !r[:metadata][:name].nil?
-            r[:metadata][:name].downcase
-          else
-            r[:name].downcase
-          end
-        end
+              recs.sort_by do |r|
+                if !r[:metadata].nil? && !r[:metadata][:name].nil?
+                  r[:metadata][:name].downcase
+                else
+                  r[:name].downcase
+                end
+              end
            when "length"
-        recs.sort_by { |r| r[:playbacks].reject { |p| p[:type] == "statistics" }.first[:length] }
+              recs.sort_by { |r| r[:playbacks].reject { |p| p[:type] == "statistics" }.first[:length] }
            when "users"
-        recs.sort_by { |r| r[:participants] }
+              recs.sort_by { |r| r[:participants] }
            when "visibility"
-        recs.sort_by { |r| r[:metadata][:"gl-listed"] }
+              recs.sort_by { |r| r[:metadata][:"gl-listed"] }
            when "formats"
-        recs.sort_by { |r| r[:playbacks].first[:type].downcase }
-      else
-        recs.sort_by { |r| r[:endTime] }
-    end
+              recs.sort_by { |r| r[:playbacks].first[:type].downcase }
+            else
+              recs.sort_by { |r| r[:endTime] }
+            end
 
     if order_dir == 'asc'
       recs
