@@ -127,6 +127,8 @@ module SessionsHelper
       old_user.destroy!
 
       session["old_twitter_user_id"] = nil
+
+      flash[:success] = I18n.t("registration.deprecated.merge_success")
     end
   end
 end
