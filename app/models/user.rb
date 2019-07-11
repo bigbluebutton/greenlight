@@ -62,7 +62,7 @@ class User < ApplicationRecord
         u.image = auth_image(auth)
         u.email_verified = true
         roles = auth_roles(auth)
-        roles.each {|r| u.add_role r }
+        roles.each { |r| u.add_role r }
         u.save!
       end
     end
