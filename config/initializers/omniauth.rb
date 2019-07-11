@@ -63,7 +63,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
         authorize_params: {
           scope: 'openid profile email name'
         }
-      end
     end
   end
 end
