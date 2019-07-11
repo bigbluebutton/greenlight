@@ -57,7 +57,7 @@ class Room < ApplicationRecord
       attendeePW: attendee_pw,
       moderatorOnlyMessage: options[:moderator_message],
       muteOnStart: options[:mute_on_start] || false,
-      "meta_#{META_LISTED}": false,
+      "meta_#{META_LISTED}": options[:recording_default_visibility] || false
     }
 
     # Send the create request.

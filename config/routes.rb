@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     post '/registration_method/:method', to: 'admins#registration_method', as: :admin_change_registration
     post '/approve/:user_uid', to: 'admins#approve', as: :admin_approve
     post '/room_limit', to: 'admins#room_limit', as: :admin_room_limit
+    post '/default_recording_visibility', to: 'admins#default_recording_visibility', as: :admin_recording_visibility
   end
 
   scope '/themes' do
