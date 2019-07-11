@@ -21,6 +21,14 @@ de_DE:
     attributes:
       user:
         accepted_terms: "Teilnahmebedingungen"
+        email: Email
+        name: Name
+        password: Passwort
+        password_confirmation: Passwort Bestätigung
+    errors:
+      models:
+        user:
+          confirmation: stimmt nicht mit dem Passwort überein
   administrator:
     site_settings:
       authentication:
@@ -47,6 +55,9 @@ de_DE:
           approval: Genehmigen/Verweigern
           invite: Teilnahme durch Einladung
           open: Offene Registrierung
+      rooms:
+        info: "Limitiert die Anzahl der Räume, die Nutzer einrichten können (inklusive des Startraums). Diese Einstellung wirkt sich nicht auf Administratoren aus."
+        title: Anzahl der Räume pro Nutzer
       subtitle: Greenlight individuell anpassen
       title: Seiteneinstellungen
     flash:
@@ -68,6 +79,8 @@ de_DE:
       edit:
         title: Teilnehmerdetails editieren
       settings:
+        approve: Freischalten
+        decline: Abweisen
         ban: Teilnehmer ausschließen
         delete: Löschen
         demote: Zum Teilnehmer zurückstufen
@@ -106,7 +119,7 @@ de_DE:
       message: BigBlueButton Endpunkt und Geheimnis ungültig
       title: Serverfehler
     internal:
-      message: Oh nein! Irgendetwas ist schiefgelaufen.
+      message: "Es sieht so aus, als ob irgendwas schiefgelaufen ist."
       help: "Der Fehler wurde gespeichert, wir werden ihn analysieren!"
     migration_error:
       contact_admin: "Wenn Sie kein Administrator sind, kontaktieren Sie bitte einen."
@@ -124,15 +137,18 @@ de_DE:
       confirmation: "passt nicht zu %{attribute}"
       inclusion: ist nicht Teil der Liste
     not_found:
-      message: "Ups! Sieht so aus, als können wir das nicht finden."
+      message: Tut uns leid! Die aufgerufene Seite existiert nicht.
       help: "Ist es möglich, dass es entfernt wurde?"
+      user_not_found:
+        help: Bitte kontaktieren Sie einen Administrator.
+        message: "Tut uns leid, dieser Nutzer ist nicht registriert."
+      user_missing:
+        help: Bitte prüfen Sie die URL und versuchen Sie es erneut
+        message: Die eingegebene URL ist ungültig.
     title: Fehler
     unauthorized:
       message: Sie haben keine Zugriffsberechtigung auf diese Applikation
       help: "Falls Sie glauben, dass hier ein Fehler vorliegt, kontaktieren Sie Ihren Systemadministrator."
-    unprocessable:
-      message: Ups! Anfrage konnte nicht verarbeitet werden.
-      help: Leider ist das keine valide Anfrage.
   expired_reset_token: Passwordresetlink ist abgelaufen!
   features:
     title: Eigenschaften
@@ -200,7 +216,7 @@ de_DE:
         subtitle: Administratorrechte entzogen
       invite:
         info: "Sie wurden von %{name} in Ihren persönlichen Bereich eingeladen"
-        signup: To signup using your email, click the button below and follow the steps.
+        signup_info: "Um sich mit Ihrer Email anzumelden, klicken Sie den untenstehenden Button und folgen Sie den Schritten."
         signup_link: Registieren
         signup:
           info: Ein Nutzer hat Sie dazu eingeladen sich für die Nutzung von Greenlight zu registieren.
@@ -286,6 +302,7 @@ de_DE:
     google: Google
     office365: Office 365
     twitter: Twitter
+    ldap: LDAP
   recaptcha:
     errors:
       recaptcha_unreachable: "Ups, es war nicht möglich die reCAPTCHA Antwort zu überprüfen. Bitte versuchen Sie es nochmals."
@@ -314,7 +331,11 @@ de_DE:
       fail: "Ihr Account wurde noch nicht freigeschaltet. Falls Sie sich bereits vor mehreren Tagen registriert haben, kontaktieren Sie bitte Ihren Administrator."
       signup: Ihr Account wurde erfolgreich erzeugt. Er muss noch durch einen Administrator freigeschaltet werden.
     banned:
-      fail: "Sie haben keinen Zugriff auf dieses Applikation. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
+      fail: "Sie haben keinen Zugriff auf dieses Applikation. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator." 
+    deprecated:
+      new_signin: Wählen Sie eine neue Loginmethode für Ihren Account aus. Alle Ihre Räume und Ihr alter Account werden auf einen neuen Account migriert.
+      twitter_signin: "Das Einloggen über Twitter wird bald nicht mehr unterstützt und wird in einer zukünftigen Version ganz entfernt. Klicken Sie <a href=\"%{link}\"> hier </a> um Ihren Account auf eine neue Authentifizierungsmethode umzustellen"
+      twitter_signup: Einloggen über Twitter wird abgeschafft. Bitte verwenden Sie eine andere Loginmethode
     invite:
       fail: "Ihr Token ist entweder ungültig oder er ist abgelaufen. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
       no_invite: "Sie sind nicht zu Teilnahme eingeladen. Bitte kontaktieren Sie Ihren Administrator, um eine Einladung zu erhalten."
@@ -341,6 +362,8 @@ de_DE:
     owner: Initiator
     no_sessions: In diesem Raum haben noch keine Konferenzen stattgefunden.
     recordings: Aufzeichnungen des Raums
+    room_limit: Sie haben die maximale Anzahl von Räumen eingerichtet.
+    room_limit_exceeded: "Sie haben die maximale Nummer an einrichtbaren Räumen überschritten. Bitte löschen Sie %{difference} Räume, um auf diesen Raum zuzugreifen."
     sessions: Konferenzen
     settings: Raumeinstellungen
     start: Starten
