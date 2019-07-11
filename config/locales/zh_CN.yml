@@ -57,12 +57,12 @@ zh_CN:
       delete_fail: 删除用户失败
       demoted: 用户已成功降级
       invite: "邀请成功发送到 %{email}"
-      invite_email_verification: ALLOW_MAIL_NOTIFICATIONS 必须设置为true才能使用此方法
+      invite_email_verification: 必须启用电子邮件才能使用此方法。请与系统管理员联系。
       promoted: 用户已成功升级
       registration_method_updated: 注册方法已成功更新
       settings: 已成功更改网站设置
       unauthorized: 您无权对此用户执行操作
-    title: 全局设置
+    title: 组织设置
     users:
       invite: 邀请用户
       edit:
@@ -151,7 +151,7 @@ zh_CN:
   header:
     all_recordings: 所有录像
     dropdown:
-      account_settings: 全局设置
+      account_settings: 组织
       help: 帮助
       home: 首页
       settings: 个人设置
@@ -175,7 +175,6 @@ zh_CN:
     video: 请看使用说明
     upgrade: 告诉我怎么升级到 2.0!
     version: 我们发布了新版Greenlight，但你的数据库不兼容。
-  language_name: 简体中文
   language_default: 默认（浏览器语言）
   ldap_error: 无法连接到LDAP服务器，请在env文件中检查LDAP配置，还要确保服务已经启动。
   login: 登录
@@ -190,7 +189,7 @@ zh_CN:
           info: 一个新用户已注册使用Greenlight。
           more-info: 若要允许此用户访问greenlight，您必须在“组织设置”中批准其帐户。
           admins_link: 访问组织页面
-          subject: 新Greenlight用户注册 
+          subject: 新Greenlight用户注册
           username: "用户注册了名称 %{name} 和电子邮箱 %{email}."
         subject: 帐户已批准
         username: "您的用户名是 %{email}."
@@ -206,7 +205,7 @@ zh_CN:
         signup:
           info: 被邀请的用户已注册使用greenlight。
           admins_link: 访问组织页面
-          subject: 新Greenlight用户注册 
+          subject: 新Greenlight用户注册
           username: "用户注册了名称%{name} 和电子邮箱 %{email}."
         subject: 邀请加入 BigBlueButton
         username: "您的用户名是 %{email}."
@@ -248,7 +247,8 @@ zh_CN:
       confirm: "确定要删除%{room}吗?"
       delete: 我确定删除这个会议室
       keep: 我还是留着它吧
-      warning: "您将 <b>不能</b> 恢复这个会议室或任何跟 %{recordings_num} 相关的录像。"
+      warning: 您将<b>无法</b> 恢复这个会议房间
+      recording_warning: "或任意 %{recordings_num} 的相关录像"
     invite_user:
       email_placeholder: 输入用户的电子邮件
       footer: 用户将收到一封电子邮件，其中包含如何注册的说明。
@@ -284,7 +284,7 @@ zh_CN:
   password_different_notice: 两次新密码不一致。
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
   recaptcha:
     errors:
@@ -310,11 +310,11 @@ zh_CN:
     format:
       presentation: 演示
   registration:
-    approval: 
+    approval:
       fail: 您的帐户尚未批准。如果您注册后已过多天，请与管理员联系。
       signup: 您的帐户已成功创建。它已发送给管理员审批。
     banned:
-      fail: 您没有访问此应用程序的权限。如果您认为这是一个错误，请联系您的管理员。 
+      fail: 您没有访问此应用程序的权限。如果您认为这是一个错误，请联系您的管理员。
     invite:
       fail: 您的令牌无效或已过期。如果您认为这是一个错误，请联系您的管理员。
       no_invite: 您没有被邀请加入。请联系管理员申请邀请。
@@ -348,7 +348,7 @@ zh_CN:
     update_settings_error: 修改会议室设置出错
     update_settings_success: 会议室设置修改成功
     wait:
-      message: 会议还没开始呢。
+      message: 会议还没有开始。
       auto: 会议开始后您将自动进入
   settings:
     account:

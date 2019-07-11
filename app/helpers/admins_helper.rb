@@ -53,4 +53,8 @@ module AdminsHelper
         I18n.t("administrator.site_settings.registration.methods.approval")
       end
   end
+
+  def room_limit_number
+    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
+  end
 end
