@@ -387,4 +387,12 @@ describe UsersController, type: :controller do
       expect(response).to redirect_to(root_path)
     end
   end
+
+  context 'GET #ldap_signin' do
+    it "should render the ldap signin page" do
+      get :ldap_signin
+
+      expect(response).to render_template(:ldap_signin)
+    end
+  end
 end

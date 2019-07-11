@@ -93,7 +93,6 @@ pt:
     video: Assista ao nosso tutorial sobre como utilizar o Greenlight
     upgrade: Mostre-me como atualizar para o 2.0!
     version: "Lançamos uma nova versão do Greenlight, entretanto sua base de dados é incompatível."
-  language_name: Português
   language_default: Padrão (idioma do navegador)
   ldap_error: Não é possível conectar-se ao servidor LDAP. Verifique sua configuração LDAP no arquivo ENV e certifique-se de que seu servidor está funcionando.
   login: Login
@@ -156,7 +155,7 @@ pt:
   password_different_notice: A Confirmação de Senha não corresponde a Senha inserida acima.
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
   recording:
     email: Enviar Gravação por E-mail
@@ -199,7 +198,7 @@ pt:
     update_settings_error: Aconteceu um erro ao tentar atualizar as configurações da sala
     update_settings_success: Configurações da sala atualizadas com sucesso.
     wait:
-      message: Oops! A reunião ainda não iniciou.
+      message: A reunião ainda não iniciou.
       auto: Você será automaticamente inserido na reunião quando ela começar.
   settings:
     account:
