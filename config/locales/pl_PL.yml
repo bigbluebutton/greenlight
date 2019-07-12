@@ -417,4 +417,4 @@ pl_PL:
     resend: Wyślij ponownie email weryfikacyjny
     signin: "Proszę się zalogować, aby uzyskać dostęp do swojego konta."
     title: Zweryfikuj swój adres email
-    verification: Sprawdzenie
+    verification: Weryfikacja
