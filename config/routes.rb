@@ -100,6 +100,7 @@ Rails.application.routes.draw do
     post '/update_settings', to: 'rooms#update_settings'
     post '/start', to: 'rooms#start', as: :start_room
     get '/logout', to: 'rooms#logout', as: :logout_room
+    post '/login', to: 'rooms#login', as: :login_room
   end
 
   # Recording operations routes
