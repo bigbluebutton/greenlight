@@ -99,14 +99,16 @@ module SessionsHelper
   end
 
   def set_hd(env, hd)
-    hd_opts = hd.split(',')
-    env['omniauth.strategy'].options[:hd] =
-      if hd_opts.empty?
-        nil
-      elsif hd_opts.length == 1
-        hd_opts[0]
-      else
-        hd_opts
+    if hd
+      hd_opts = hd.split(',')
+      env['omniauth.strategy'].options[:hd] =
+        if hd_opts.empty?
+          nil
+        elsif hd_opts.length == 1
+          hd_opts[0]
+        else
+          hd_opts
+        end
       end
   end
 
@@ -127,6 +129,8 @@ module SessionsHelper
       old_user.destroy!
 
       session["old_twitter_user_id"] = nil
+
+      flash[:success] = I18n.t("registration.deprecated.merge_success")
     end
   end
 end
