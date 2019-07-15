@@ -8,13 +8,13 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.7'
+gem 'rails', '~> 5.2.3'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -40,6 +40,9 @@ gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
+
 # Authentication.
 gem 'omniauth'
 gem 'omniauth-twitter'
@@ -54,7 +57,7 @@ gem 'bigbluebutton-api-ruby'
 
 # Front-end.
 gem 'bootstrap', '~> 4.3.1'
-gem 'tabler-rubygem'
+gem 'tabler-rubygem', git: 'https://github.com/vbalazs/tabler-rubygem.git', branch: 'fix-sass'
 gem 'pagy'
 
 # For detecting the users preferred language.
