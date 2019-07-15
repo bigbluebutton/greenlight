@@ -281,6 +281,7 @@ en:
       update: Update Room
       client: Select client type
       mute: Mute users when they join
+      start: Allow any user to start this meeting
       default: Default
       html: HTML5
       flash: Flash
