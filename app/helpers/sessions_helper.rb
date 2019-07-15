@@ -61,7 +61,7 @@ module SessionsHelper
 
   # Retrieves the current user.
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
+    @current_user ||= User.where(id: session[:user_id]).includes(:roles).first
   end
 
   def generate_checksum(user_domain, redirect_url, secret)

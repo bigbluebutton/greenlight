@@ -162,7 +162,7 @@ class AdminsController < ApplicationController
   private
 
   def find_user
-    @user = User.find_by!(uid: params[:user_uid])
+    @user = User.where(uid: params[:user_uid]).includes(:roles).first
   end
 
   def find_setting
@@ -176,10 +176,10 @@ class AdminsController < ApplicationController
 
   # Gets the list of users based on your configuration
   def user_list
-    initial_list = if current_user.has_role? :super_admin
-      User.where.not(id: current_user.id)
+    initial_list = if current_user.has_cached_role? :super_admin
+      User.where.not(id: current_user.id).includes(:roles)
     else
-      User.without_role(:super_admin).where.not(id: current_user.id)
+      User.without_role(:super_admin).where.not(id: current_user.id).includes(:roles)
     end
 
     list = @role.present? ? initial_list.with_role(@role.to_sym) : initial_list
