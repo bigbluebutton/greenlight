@@ -20,21 +20,104 @@ ru_RU:
   activerecord:
     attributes:
       user:
-        accepted_terms: "Условия и положения."
+        accepted_terms: "Terms and Conditions"
+        email: Email
+        name: Имя
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+    errors:
+      models:
+        user:
+          confirmation: Пароль не совпадает
+  administrator:
+    site_settings:
+      authentication:
+        disabled: Отключено
+        enabled: Включено
+        info: Только аутентифицированные пользователи могут подключиться к комнате
+        title: Требуется аутентификация для комнаты
+        user-info: Вы должны войти в Greenlight для подключения к этой комнате
+      branding:
+        change: Изменить изображение
+        info: Change the branding image that appears in the top left corner
+        placeholder: Url изображения...
+        title: Branding Image
+      color:
+        info: Changing the Regular Color will change both Lighten and Darken. Lighten and Darken can then be changed individually
+        title: Основной цвет
+        regular: Regular
+        lighten: Lighten
+        Darken: Darken
+      registration:
+        info: Сменить способ регистрации пользователей для этого сайта
+        title: Метод регистрации
+        methods:
+          approval: Утвердить / Отклонить
+          invite: Подключение по приглашению
+          open: Открытая регистрация
+      rooms:
+        info: Ограничения количества комнат на пользователя (включая скрытые комнаты). Эта настройка не применяется для администраторов.
+        title: Количество комнат на пользователя
+      subtitle: Настроить Greenlight
+      title: Настройки сайта
+    flash:
+      approved: Пользователь был успешно подтвержден.
+      banned: Пользователь был успешно забанен.
+      unbanned: Пользователь был успешно разбанен.
+      delete: Пользователь был успешно удален
+      delete_fail: Ошибка удаления пользователя
+      demoted: User has been successfully demoted
+      invite: Invite successfully sent to %{email}
+      invite_email_verification: Emails must be enabled in order to use this method. Please contact your system administrator.
+      promoted: User has been successfully promoted
+      registration_method_updated: Метод регистрации обновлен успешно
+      settings: Настройки сайта успешно изменены
+      unauthorized: You are not authorized to perform actions on this user
+    title: Настройки организации
+    users:
+      invite: Пригласить пользователя
+      edit:
+        title: Изменить детали пользователя
+      settings:
+        approve: Удтвердить
+        decline: Отклонить
+        ban: Забанить пользователя
+        delete: Удалить
+        demote: Demote to User
+        edit: Править
+        promote: Повысить до администратора
+        unban: Разбанить пользователя
+      table:
+        authenticator: Аутентификатор
+        created: Создан
+        name: Имя
+        not_found: Нет пользователей по вашему поиску
+        no_users: Пользователи не найдены
+        role: Роль
+        uid: ID пользователя
+        username: Username
+      title: Управление пользователями
+  add_to_google_calendar: "Добавить в Google Calendar"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: "Упс, при запуске мероприятия произошла ошибка!"
   cancel: Отмена
   cookies:
-    cookie_info: "Cookie помогают нам предоставлять наши сервисы. Используя наши сервисы, Вы разрешаете нам использовать файлы cookie."
+    cookie_info: Cookies help us deliver our services. By using our services, you agree to our use of cookies.
     cookie_button: Я согласен
+  copied: Скопировано
   copy: Копировать
-  delete: Удалить
-  delivery_error: При отправке email произошла ошибка. Пожалуйста свяжитесь с администратором!
-  docs: Документация
+  default_admin: You are still using the default password for this account. Please click <a href="%{edit_link}">here</a> to change it
+  delete: Удалить 
+  delivery_error: An error occured during email delivery. Please contact an administrator!
+  docs: Documentation
   email: Email
-  email_sent: Email отправлен! (Пожалуйста проверьте папку со спамом если Вы не получили письмо)
-  enter_your_name: Введите Ваше имя!
+  email_sent: Your %{email_type} email has been sent! (Please check your Spam folder if you haven't received it)
+  enter_your_name: Enter your name!
   errors:
+    bigbluebutton:
+      help: Please make sure the proper steps have been taken. <a href="%{doc_link}">Learn more</a>
+      message: Invalid BigBlueButton Endpoint and Secret
+      title: Ошибка сервера
     internal:
       message: О нет! Похоже у нас что-то пошло не так.
       help: "Ошибка была зарегистрирована, мы посмотрим!"
@@ -42,17 +125,32 @@ ru_RU:
       contact_admin: "Если Вы не являетесь администратором, пожалуйста свяжитесь с ним."
       continue: Я хотел бы остаться на версии 1.0.
       notice: >
-        Greenlight столкнулась с ошибкой миграции базы данных.<br> Возможно, это связано с тем, что вы не обновили Greenlight 2.0.
-      upgrade: Показать мне как обновиться до версии 2.0!
-      version: "Мы выпустили новую версию Greenlight, но Ваша база данных несовместима с ней."
+        Greenlight encountered a database migration error.<br>
+        This may be because you haven't updated to Greenlight 2.0.
+      upgrade: Show me how to upgrade to 2.0!
+      version: We've released a new version of Greenlight, but your database isn't compatible.
+    messages:
+      blank: can't be blank
+      too_short: is too short
+      invalid: is invalid
+      taken: has already been taken
+      accepted: must be accepted
+      confirmation: doesn't match %{attribute}
+      inclusion: is not included in the list
     not_found:
-      message: "Упс! Похоже, мы не можем этого найти."
-      help: "Возможно, это было удалено?"
+      message: Sorry! The page you are looking for does not exist.
+      help: Is it possible its been removed?
+      user_not_found:
+        help: Пожалуйста, свяжитесь с администратором.
+        message: Извините, этот пользователь не зарегистрирован.
+      user_missing:
+        help: Пожалуйста, проверьте URL и попробуйте снова
+        message: The URL that you have entered is not valid.
     title: Ошибки
-    unprocessable:
-      message: Ой! Запрос невозможно обработать.
-      help: "К сожалению, это неверный запрос."
-  expired_reset_token: Ссылка для сброса пароля истекла!
+    unauthorized:
+      message: У вас нет доступа к этому приложению
+      help: If you believe this is a mistake, please contact your system administrator.
+  expired_reset_token: Ссылка на изменение пароля просрочена!
   features:
     title: Возможности
     rooms: Индивидуальные комнаты
@@ -70,31 +168,92 @@ ru_RU:
   header:
     create_room: Создать комнату
     dropdown:
-      help: "Необходима помощь?"
-      home: Домашняя комната
-      settings: Настройки
+      account_settings: Организация
+      help: Требуется помощь?
+      home: Home
+      settings: Профиль
       signout: Выйти
   home_room: Домашняя комната
-  info_update_success: Информация успешно обновлена.
-  invalid_credentials: "Не удалось войти из-за некорректных учетных данных. Вы уверены в правильности их ввода?"
-  invalid_login_method: Не удалось войти из-за несоответствия аккаунта. Вам необходимо выполнить вход с использованием omniauth.
-  invite_message: "Для приглашения на встречу отправьте следующую ссылку:"
+  info_update_success: Информация обновлена успешно.
+  invalid_user: Login failed due to user not found. Are you sure the email account is correct?
+  invalid_credentials: Login failed due to invalid credentials. Are you sure you entered them correctly?
+  invalid_login_method: Login failed due to account mismatch. You need to log in with omniauth.
+  invite_message: "To invite someone to the meeting, send them this link:"
+  javascript:
+    room:
+      mailer:
+        subject: 'has invited you to view a recording.'
+        body: 'To view the recording, follow the link below:'
+        autogenerated: 'This e-mail is auto-generated by BigBlueButton.'
+        footer: 'BigBlueButton is an open source web conferencing system. For more information on BigBlueButton, see https://bigbluebutton.org/.'
   landing:
-    about: "%{href} это простой внешний интерфейс для Вашего сервера вебконференций с открытым кодом BigBlueButton. Вы можете создавать собственные комнаты для встреч или присоединяться к комнатам созданным другими пользователями используя короткую и удобную ссылку."
-    welcome: Добро пожаловать в BigBlueButton
-    video: Посмотрите наше руководство по использованию Greenlight
-    upgrade: Показать мне как обновиться до версии 2.0!
-    version: "Мы выпустили новую версию Greenlight, но Ваша база данных несовместима с ней."
+    about: "%{href} is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link."
+    welcome: Добро пожаловать в  BigBlueButton.
+    video: Смотреть инструкцию по пользованию Greenlight
+    upgrade: Show me how to upgrade to 2.0!
+    version: Мы выпустили новую версию Greenlight,но ваша база данных несовместима.
   language_default: По умолчанию (язык браузера)
-  ldap_error: Невозможно соединиться с сервером LDAP. Пожалуйста проверьте Вашу конфигурацию LDAP в env-файле и убедитесь в работоспособности Вашего LDAP-сервера.
+  ldap_error: Невозможно подключиться к серверу LDAP. Пожалуйста, проверьте ваши настройки LDAP в файле env и убедитесь, что сервер запущен.
   login: Войти
-  max_concurrent: Достигнуто максимально возможное количество одновременный сессий!
+  login_title: Войти в ваш аккаунт
+  mailer:
+    user:
+      approve:
+        info: Your account has been approved.
+        signin: To access your personal rooms, click the button below and sign in.
+        signin_link: Sign In
+        signup:
+          info: A new user has signed up to use Greenlight.
+          more-info: To allow this user to access Greenlight you must approve their account in organization settings.
+          admins_link: Visit the Organization Page
+          subject: New Greenlight User Sign Up
+          username: The user signed up with the name %{name} and the email %{email}.
+        subject: Account Approved
+        username: Your username is %{email}.
+      demoted:
+        info: You are no longer an administrator on %{url}.
+        more-info: You now have the same privileges as a regular user and will no longer be able to access any of the Administrator settings.
+        root_link: Sign In
+        subtitle: Administrator Rights Rescinded
+      invite:
+        info: You have been invited to your own personal space by %{name}
+        signup_info: To signup using your email, click the button below and follow the steps.
+        signup_link: Sign Up
+        signup:
+          info: A user that was invited has signed up to use Greenlight.
+          admins_link: Visit the Organization Page
+          subject: New Greenlight User Sign Up
+          username: The user signed up with the name %{name} and the email %{email}.
+        subject: Invitation to join BigBlueButton
+        username: Your username is %{email}.
+      password_reset:
+        title: 'Сброс пароля'
+        welcome: It seems like you forgot your password for %{bigbluebutton}
+        message: 'If this is true, please click the link below to reset your password:'
+        reset_link: Сброс пароля
+        expire: This link will expire in two hours.
+        ignore: You can safely ignore this email if you did not request a password reset.
+      promoted:
+        admins_link: Visit the Organization Page
+        info: You are now an administrator on %{url}.
+        more-info: As an administrator, you can manage users, their role and configure your site settings by changing the logo and brand colour.
+        subtitle: Administrator Rights Granted
+      verify_email:
+        welcome: Welcome to your personal space, %{name}!
+        success: Leveraging %{bigbluebutton}, you can create your own rooms to host sessions and collaborate with others.
+        username: Your username is %{email}.
+        verify: To verify your account, just click the button below.
+        verify_text: 'To verify your account, just follow this link: %{url}'
+        verify_link: Verify Account
+        thanks: Thanks for joining and have a great day!
+  max_concurrent: Достигнуто максимальное количество одновременных подключений!
   modal:
     create_room:
-      auto_join: Автоматически присоединяться к комнате.
-      free_delete: Вы сможете удалить эту комнату в любое время.
+      auto_join: Automatically join me into the room
+      create: Создать комнату
+      free_delete: Вы можете удалить эту комнату в любое время.
       name_placeholder: Введите название комнаты...
-      not_blank: Имя комнаты не может быть пустым.
+      not_blank: Название комнаты не может быть пустым.
       title: Создать новую комнату
     delete_account:
       confirm: "Вы уверены, что хотите удалить свою учетную запись?"
@@ -102,10 +261,16 @@ ru_RU:
       keep: "На самом деле, я сохраню это."
       warning: Это решение окончательное. Вы <b>не</b> сможете восстановить связанные данные.
     delete_room:
-      confirm: "Вы уверены, что хотите удалить %{room}?"
-      delete: "Я уверен, удалите эту комнату."
-      keep: "С другой стороны, я сохраню это."
-      warning: Вы <b>не</b> сможете восстановить эту комнату и любые связанные с ней записи.
+      confirm: Вы действительно хотите удалить комнату %{room}?
+      delete: Да, удалить комнату.
+      keep: On second thought, I'll keep it.
+      warning: You will <b>not</b> be able to recover this room
+      recording_warning: or any of its %{recordings_num} associated recordings.
+    invite_user:
+      email_placeholder: Введите  email пользователя
+      footer: Пользователь получит по email инструкции для присоединения
+      send: Отправить приглашение
+      title: Пригласить пользователя
     login:
       or: или
       with: "Зарегистрироваться используя %{provider}"
@@ -121,24 +286,35 @@ ru_RU:
       flash: Flash
       footer_text: Вы можете в любое время перенастроить Вашу комнату.
     rename_room:
-      name_placeholder: Введите новое название комнаты...
-  name_update_success: Имя комнаты было успешно изменено!
-  no_user_email_exists: "Пользователь с указанным email отсутствует. Пожалуйста, убедитесь, что ввели его правильно."
-  omniauth_error: Ошибка аутентификации с использованием omniauth. Попробуйте еще раз или свяжитесь с администратором!
+      name_placeholder: Введите название новой комнаты...
+  name_update_success: Название комнаты успешно изменено!
+  no_user_email_exists: There is no existing user with the email specified. Please make sure you typed it correctly.
+  omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!
+  pagy:
+    nav:
+      prev: "&lsaquo; Пред"
+      next: "След &rsaquo;"
+      gap: "&hellip;"
   password: Пароль
-  password_empty_notice: Пароль не может быть пустым
-  password_reset_success: Пароль был сброшен
-  password_different_notice: Подтверждение пароля не совпадает.
+  password_empty_notice: Пароль не может быть пустым.
+  password_reset_success: Пароль был сброшен.
+  password_different_notice: Подтерждение пароль не совпадает.
   provider:
     google: Google
     office365: Office 365
     twitter: Twitter
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Oops, we failed to validate your reCAPTCHA response. Please try again.
+      verification_failed: reCAPTCHA verification failed, please try again.
   recording:
-    email: Отправить ссылку на запись
-    no_recordings: "Эта комната не содержит %{inject}записей."
-    no_user_recordings: У Вас сейчас нет записей.
-    no_matched_recordings: "Не далось найти записей соответствующих запросу %{inject}."
-    recorded_on: "Записано %{date}"
+    all_recordings: Все записи
+    email: Email Recording
+    no_recordings: This room has no %{inject}recordings.
+    no_user_recordings: You currently have no recordings.
+    no_matched_recordings: No %{inject} recordings match your search.
+    recorded_on: Recorded on %{date}
     table:
       name: Наименование
       thumbnails: Миниатюры
@@ -147,29 +323,54 @@ ru_RU:
       visibility: Видимость
       formats: Форматы
     visibility:
-      public: Общедоступно
-      unlisted: Не показывать в списке
-  rename: Переименовать
+      public: Публичный
+      unlisted: Unlisted
+    format:
+      presentation: Презентация
+  registration:
+    approval:
+      fail: Your account has not been approved yet. If multiples days have passed since you signed up, please contact your administrator.
+      signup: Your account was successfully created. It has been sent to an administrator for approval.
+    banned:
+      fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator. 
+    deprecated:
+      new_signin: Select a new login method for you account. All your rooms from your old account will be migrated to the new account
+      twitter_signin: Signing in via Twitter has been deprecated and will be removed in the next release. Click <a href="%{link}"> here </a> to move your account to a new authentication method
+      twitter_signup: Sign up via Twitter has been deprecated. Please use a different sign up method
+      merge_success: Successfully merged your twitter account with your new account. Your old twitter account has been deleted
+    invite:
+      fail: Your token is either invalid or has expired. If you believe this is a mistake, please contact your administrator.
+      no_invite: You do not have an invitation to join. Please contact your administrator to receive one.
+  rename: Rename
   reset_password:
     subtitle: Сбросить пароль
     password: Новый пароль
-    confirm: Подтверждение пароля
+    confirm: Подтверждение нового пароля
     update: Обновить пароль
+  roles:
+    administrator: Администратор
+    banned: Забаненные
+    pending: Pending
+    super_admin: СуперАдмин
+    user: Пользователь
   room:
-    create_room_error: При создании комнаты произошла ошибка
+    create_room: Создать комнату
+    create_room_error: Возникла ошибка при создании комнаты
     create_room_success: Комната успешно создана
-    invited: Вы приглашены на встречу
+    invited: You have been invited to join
     invite_participants: Пригласить участников
-    join: Присоединиться
-    last_session: "Последняя сессия была %{session}"
+    join: Войти
+    last_session: Последняя сессия %{session}
     owner: Владелец
-    no_sessions: В этой комнате пока нет сессий!
-    recordings: Записи
-    sessions: Сессии
+    no_sessions: This room has no sessions, yet!
+    recordings: Записи комнаты
+    room_limit: You have reached the maximum number of rooms allowed
+    room_limit_exceeded: You have exceeded the number of rooms allowed. Please delete %{difference} room(s) to access this room.
+    sessions: Сессии 
     settings: Настройки комнаты
     start: Начать
-    unavailable: Эта комната в настоящее время недоступна т.к. электронная почта владельца не подтверждена.
-    update_settings_error: При обновлении настроек комнаты произошла ошибка
+    unavailable: This room is currently unavailable due to the owner's email not being verified.
+    update_settings_error: There was an error updating the room settings
     update_settings_success: Настройки комнаты успешно обновлены
     wait:
       message: Встреча еще не началась.
@@ -193,12 +394,13 @@ ru_RU:
       subtitle: Персонализировать Greenlight
       title: Дизайн
     password:
-      confirmation: Подтверждение пароля
+      confirmation: Подтверждения нового пароля
       new: Новый пароль
       old: Старый пароль
-      subtitle: Изменить пароль
+      subtitle: Сменить ваш пароль
       title: Пароль
-    title: Настройки
+    title: Профиль
+    search: Поиск
   signup:
     password_confirm: Подтверждение пароля
     subtitle: Создать профиль
@@ -209,14 +411,16 @@ ru_RU:
     accept_existing: Я принимаю условия и положения.
     title: Условия и положения.
   test_install: >
-    Эта сборка использует предварительно настроенный тестовый сервер, Вы должны заменить его на свой собственный. Подробности смотрите здесь %{href}.
+    This deployment is using a pre-configured testing server, you should replace this with your own.
+    For details, see the %{href}.
   update: Обновить
   verify:
-    accept: Подтвердить
-    activated: Профиль подтвержден!
-    already_verified: Профиль уже был подтвержден
-    invalid: Неверная ссылка для подтверждения
-    not_verified: Ваш профиль пока не подтвержден.
-    resend: Отправить подтверждение повторно
-    signin: Для доступа к профилю пожалуйста выполните вход.
-    title: Подтвердить Ваш email
+    accept: Verify
+    activated: Account verified!
+    already_verified: Account has already been verified
+    invalid: Invalid verification link
+    not_verified: Your account has not been verified yet.
+    resend: Resend verification email
+    signin: Please sign in to access your account.
+    title: Verify your email
+    verification: Verification
