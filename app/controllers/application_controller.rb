@@ -138,7 +138,7 @@ class ApplicationController < ActionController::Base
 
       # Checks to see if the user exists
       begin
-        retrieve_provider_info(@user_domain + 't', 'api2', 'getUserGreenlightCredentials')
+        retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
       rescue => e
         if e.message.eql? "No user with that id exists"
           render "errors/not_found", locals: { message: I18n.t("errors.not_found.user_not_found.message"),
