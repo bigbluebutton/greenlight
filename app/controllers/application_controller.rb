@@ -23,6 +23,9 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include ThemingHelper
 
+  # Force SSL for loadbalancer configurations.
+  before_action :redirect_to_https
+
   before_action :migration_error?
   before_action :set_locale
   before_action :check_admin_password
@@ -31,9 +34,6 @@ class ApplicationController < ActionController::Base
 
   # Manually handle BigBlueButton errors
   rescue_from BigBlueButton::BigBlueButtonException, with: :handle_bigbluebutton_error
-
-  # Force SSL for loadbalancer configurations.
-  before_action :redirect_to_https
 
   protect_from_forgery with: :exception
 
