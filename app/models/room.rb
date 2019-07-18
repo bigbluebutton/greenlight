@@ -99,7 +99,6 @@ class Room < ApplicationRecord
     # Generate the join URL.
     join_opts = {}
     join_opts[:userID] = uid if uid
-    join_opts[:joinViaHtml5] = options[:join_via_html5] if options[:join_via_html5]
 
     bbb.join_meeting_url(bbb_id, name, password, join_opts)
   end
