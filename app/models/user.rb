@@ -112,9 +112,12 @@ class User < ApplicationRecord
     end
 
     search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
-                   " OR users.#{created_at_query} LIKE :search OR provider LIKE :search"
+                   " OR users.#{created_at_query} LIKE :search OR provider LIKE :search" \
+                   " OR roles.name LIKE :roles_search"
     search_param = "%#{string}%"
-    where(search_query, search: search_param)
+    joins("LEFT OUTER JOIN users_roles ON users_roles.user_id = users.id LEFT OUTER JOIN roles " \
+      "ON roles.id = users_roles.role_id").distinct
+      .where(search_query, search: search_param, roles_search: search_param.downcase)
   end
 
   def self.admins_order(column, direction)

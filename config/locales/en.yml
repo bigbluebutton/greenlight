@@ -348,7 +348,7 @@ en:
     confirm: New Password Confirmation
     update: Update Password
   roles:
-    administrator: Administrator
+    administrator: Admin
     banned: Banned
     pending: Pending
     super_admin: Super Admin
