@@ -117,8 +117,8 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @owner.id
       name = Faker::Games::Pokemon.name
 
-      room_params = { name: name, "client": "html5", "mute_on_join": "1" }
-      json_room_settings = "{\"muteOnStart\":true,\"joinViaHtml5\":true}"
+      room_params = { name: name, "client": "html5", "mute_on_join": "1", "require_moderator_approval": "1" }
+      json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true,\"joinViaHtml5\":true}"
 
       post :create, params: { room: room_params }
 
@@ -315,7 +315,8 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @user.id
 
       room_params = { "client": "html5", "mute_on_join": "1", "name": @secondary_room.name }
-      formatted_room_params = "{\"muteOnStart\":true,\"joinViaHtml5\":true}" # JSON string format
+      formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false,\"joinViaHtml5\":true}"
+      # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }

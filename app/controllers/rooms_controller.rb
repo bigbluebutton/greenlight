@@ -37,7 +37,8 @@ class RoomsController < ApplicationController
 
     @room = Room.new(name: room_params[:name])
     @room.owner = current_user
-    @room.room_settings = create_room_settings_string(room_params[:mute_on_join], room_params[:client])
+    @room.room_settings = create_room_settings_string(room_params[:mute_on_join], room_params[:client],
+      room_params[:require_moderator_approval])
 
     if @room.save
       if room_params[:auto_join] == "1"
@@ -124,6 +125,7 @@ class RoomsController < ApplicationController
       # Check if the user has specified which client to use
       room_settings = JSON.parse(@room[:room_settings])
       opts[:join_via_html5] = room_settings["joinViaHtml5"] if room_settings["joinViaHtml5"]
+      opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
 
       if current_user
         redirect_to @room.join_path(current_user.name, opts, current_user.uid)
@@ -162,6 +164,7 @@ class RoomsController < ApplicationController
     room_settings = JSON.parse(@room[:room_settings])
     opts[:mute_on_start] = room_settings["muteOnStart"] if room_settings["muteOnStart"]
     opts[:join_via_html5] = room_settings["joinViaHtml5"] if room_settings["joinViaHtml5"]
+    opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
 
     begin
       redirect_to @room.join_path(current_user.name, opts, current_user.uid)
@@ -205,15 +208,18 @@ class RoomsController < ApplicationController
       if update_type.eql? "name"
         @room.update_attributes(name: params[:room_name] || room_params[:name])
       elsif update_type.eql? "settings"
-        room_settings_string = create_room_settings_string(room_params[:mute_on_join], room_params[:client])
+        room_settings_string = create_room_settings_string(room_params[:mute_on_join], room_params[:client],
+          room_params[:require_moderator_approval])
         @room.update_attributes(room_settings: room_settings_string)
       end
     end
   end
 
-  def create_room_settings_string(mute_res, client_res)
+  def create_room_settings_string(mute_res, client_res, require_approval_res)
     room_settings = {}
     room_settings["muteOnStart"] = mute_res == "1"
+
+    room_settings["requireModeratorApproval"] = require_approval_res == "1"
 
     if client_res.eql? "html5"
       room_settings["joinViaHtml5"] = true
@@ -225,7 +231,7 @@ class RoomsController < ApplicationController
   end
 
   def room_params
-    params.require(:room).permit(:name, :auto_join, :mute_on_join, :client)
+    params.require(:room).permit(:name, :auto_join, :mute_on_join, :client, :require_moderator_approval)
   end
 
   # Find the room from the uid.
