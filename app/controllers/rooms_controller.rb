@@ -57,7 +57,7 @@ class RoomsController < ApplicationController
   def show
     if current_user && @room.owned_by?(current_user)
       @search, @order_column, @order_direction, recs =
-        recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
+        recordings(@room.bbb_id, @user_domain, params.permit(:search, :column, :direction), true)
 
       @pagy, @recordings = pagy_array(recs)
 
@@ -73,7 +73,7 @@ class RoomsController < ApplicationController
       end
 
       @search, @order_column, @order_direction, pub_recs =
-        public_recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
+        public_recordings(@room.bbb_id, @user_domain, params.permit(:search, :column, :direction), true)
 
       @pagy, @public_recordings = pagy_array(pub_recs)
 
@@ -136,7 +136,7 @@ class RoomsController < ApplicationController
 
       search_params = params[@room.invite_path] || params
       @search, @order_column, @order_direction, pub_recs =
-        public_recordings(@room.bbb_id, search_params.permit(:search, :column, :direction), true)
+        public_recordings(@room.bbb_id, @user_domain, search_params.permit(:search, :column, :direction), true)
 
       @pagy, @public_recordings = pagy_array(pub_recs)
 

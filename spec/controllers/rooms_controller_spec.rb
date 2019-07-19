@@ -41,7 +41,7 @@ describe RoomsController, type: :controller do
 
       get :show, params: { room_uid: @owner.main_room }
 
-      expect(assigns(:recordings)).to eql(recordings(@owner.main_room.bbb_id))
+      expect(assigns(:recordings)).to eql(recordings(@owner.main_room.bbb_id, @owner.provider))
       expect(assigns(:is_running)).to eql(@owner.main_room.running?)
     end
 

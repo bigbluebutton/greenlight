@@ -47,20 +47,14 @@ class AdminsController < ApplicationController
 
   # GET /admins/server_recordings
   def server_recordings
-    server_rooms = []
-    user_list.each do |user|
-      user.rooms.pluck(:bbb_id).each do |room_ids|
-        server_rooms.push(room_ids)
-      end
-    end
-
-    # Include current users rooms
-    current_user.rooms.pluck(:bbb_id).each do |room_ids|
-      server_rooms.push(room_ids)
+    server_rooms = if Rails.configuration.loadbalanced_configuration
+      Room.includes(:owner).where(users: { provider: user_settings_provider }).pluck(:bbb_id)
+    else
+      Room.pluck(:bbb_id)
     end
 
     @search, @order_column, @order_direction, recs =
-      all_recordings(server_rooms, params.permit(:search, :column, :direction), true)
+      all_recordings(server_rooms, @user_domain, params.permit(:search, :column, :direction), true)
     @pagy, @recordings = pagy_array(recs)
   end
 
