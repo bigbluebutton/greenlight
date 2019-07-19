@@ -34,7 +34,7 @@ module Recorder
   end
 
   # Makes paginated API calls to get recordings
-  def all_recordings(room_bbb_ids, provider, search_params = {}, ret_search_params = false)
+  def all_recordings(room_bbb_ids, provider, search_params = {}, ret_search_params = false, search_name = false)
     pag_num = Rails.configuration.pagination_number
 
     pag_loops = room_bbb_ids.length / pag_num - 1
@@ -55,11 +55,11 @@ module Recorder
     full_res = bbb(provider).get_recordings(meetingID: last_pag_room)
     res[:recordings].push(*full_res[:recordings])
 
-    format_recordings(res, search_params, ret_search_params)
+    format_recordings(res, search_params, ret_search_params, search_name)
   end
 
   # Format, filter, and sort recordings to match their current use in the app
-  def format_recordings(api_res, search_params, ret_search_params)
+  def format_recordings(api_res, search_params, ret_search_params, search_name = false)
     search = search_params[:search] || ""
     order_col = search_params[:column] && search_params[:direction] != "none" ? search_params[:column] : "end_time"
     order_dir = search_params[:column] && search_params[:direction] != "none" ? search_params[:direction] : "desc"
@@ -79,7 +79,7 @@ module Recorder
       r.delete(:playback)
     end
 
-    recs = filter_recordings(api_res, search)
+    recs = filter_recordings(api_res, search, search_name)
     recs = sort_recordings(recs, order_col, order_dir)
 
     if ret_search_params
@@ -89,7 +89,7 @@ module Recorder
     end
   end
 
-  def filter_recordings(api_res, search)
+  def filter_recordings(api_res, search, search_name = false)
     api_res[:recordings].select do |r|
              (!r[:metadata].nil? && ((!r[:metadata][:name].nil? &&
                     r[:metadata][:name].downcase.include?(search)) ||
@@ -99,7 +99,7 @@ module Recorder
                  r[:name].downcase.include?(search)) ||
                r[:participants].include?(search) ||
                !r[:playbacks].select { |p| p[:type].downcase.include?(search) }.empty? ||
-               Room.find_by(bbb_id: r[:meetingID]).owner.email.downcase.include?(search)
+               (Room.find_by(bbb_id: r[:meetingID]).owner.email.downcase.include?(search) && search_name)
     end
   end
 
