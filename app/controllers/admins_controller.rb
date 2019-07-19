@@ -20,6 +20,7 @@ class AdminsController < ApplicationController
   include Pagy::Backend
   include Themer
   include Emailer
+  include Recorder
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve]
   site_settings = [:branding, :coloring, :coloring_lighten, :coloring_darken,
@@ -38,6 +39,29 @@ class AdminsController < ApplicationController
     @role = params[:role] || ""
 
     @pagy, @users = pagy(user_list)
+  end
+
+  # GET /admins/site_settings
+  def site_settings
+  end
+
+  # GET /admins/server_recordings
+  def server_recordings
+    server_rooms = []
+    user_list.each do |user|
+      user.rooms.pluck(:bbb_id).each do |room_ids|
+        server_rooms.push(room_ids)
+      end
+    end
+
+    # Include current users rooms
+    current_user.rooms.pluck(:bbb_id).each do |room_ids|
+      server_rooms.push(room_ids)
+    end
+
+    @search, @order_column, @order_direction, recs =
+      all_recordings(server_rooms, params.permit(:search, :column, :direction), true)
+    @pagy, @recordings = pagy_array(recs)
   end
 
   # MANAGE USERS
@@ -111,7 +135,7 @@ class AdminsController < ApplicationController
   # POST /admins/branding
   def branding
     @settings.update_value("Branding Image", params[:url])
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") }
+    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   # POST /admins/color
@@ -119,23 +143,23 @@ class AdminsController < ApplicationController
     @settings.update_value("Primary Color", params[:color])
     @settings.update_value("Primary Color Lighten", color_lighten(params[:color]))
     @settings.update_value("Primary Color Darken", color_darken(params[:color]))
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") }
+    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   def coloring_lighten
     @settings.update_value("Primary Color Lighten", params[:color])
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") }
+    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   def coloring_darken
     @settings.update_value("Primary Color Darken", params[:color])
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") }
+    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   # POST /admins/room_authentication
   def room_authentication
     @settings.update_value("Room Authentication", params[:value])
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") }
+    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   # POST /admins/registration_method/:method
@@ -144,11 +168,11 @@ class AdminsController < ApplicationController
 
     # Only allow change to Join by Invitation if user has emails enabled
     if !Rails.configuration.enable_email_verification && new_method == Rails.configuration.registration_methods[:invite]
-      redirect_to admins_path,
+      redirect_to admin_site_settings_path,
         flash: { alert: I18n.t("administrator.flash.invite_email_verification") }
     else
       @settings.update_value("Registration Method", new_method)
-      redirect_to admins_path,
+      redirect_to admin_site_settings_path,
         flash: { success: I18n.t("administrator.flash.registration_method_updated") }
     end
   end
@@ -156,7 +180,7 @@ class AdminsController < ApplicationController
   # POST /admins/room_limit
   def room_limit
     @settings.update_value("Room Limit", params[:limit])
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") }
+    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   private

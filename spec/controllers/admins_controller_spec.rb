@@ -197,7 +197,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Branding Image")
 
         expect(feature[:value]).to eq(fake_image_url)
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
     end
 
@@ -214,7 +214,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
 
       it "changes the primary-lighten on the page" do
@@ -229,7 +229,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color Lighten")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
 
       it "changes the primary-darken on the page" do
@@ -244,7 +244,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color Darken")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
     end
   end
@@ -264,7 +264,7 @@ describe AdminsController, type: :controller do
 
         expect(feature[:value]).to eq(Rails.configuration.registration_methods[:invite])
         expect(flash[:success]).to be_present
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
 
       it "does not allow the user to change to invite if emails are off" do
@@ -277,7 +277,7 @@ describe AdminsController, type: :controller do
         post :registration_method, params: { method: "invite" }
 
         expect(flash[:alert]).to be_present
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
     end
 
@@ -293,7 +293,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Authentication")
 
         expect(feature[:value]).to eq("true")
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
     end
 
@@ -309,7 +309,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Limit")
 
         expect(feature[:value]).to eq("5")
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
     end
   end

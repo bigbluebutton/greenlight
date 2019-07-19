@@ -19,7 +19,6 @@
 require 'bbb_api'
 
 class Room < ApplicationRecord
-  include ::APIConcern
   include ::BbbApi
 
   before_create :setup
@@ -120,17 +119,8 @@ class Room < ApplicationRecord
     []
   end
 
-  # Fetches all recordings for a room.
-  def recordings(search_params = {}, ret_search_params = false)
-    res = bbb.get_recordings(meetingID: bbb_id)
-
-    format_recordings(res, search_params, ret_search_params)
-  end
-
-  # Fetches a rooms public recordings.
-  def public_recordings(search_params = {}, ret_search_params = false)
-    search, order_col, order_dir, recs = recordings(search_params, ret_search_params)
-    [search, order_col, order_dir, recs.select { |r| r[:metadata][:"gl-listed"] == "true" }]
+  def recording_count
+    bbb.get_recordings(meetingID: bbb_id)[:recordings].length
   end
 
   def update_recording(record_id, meta)
@@ -155,7 +145,7 @@ class Room < ApplicationRecord
 
   # Deletes all recordings associated with the room.
   def delete_all_recordings
-    record_ids = recordings.map { |r| r[:recordID] }
+    record_ids = bbb.get_recordings(meetingID: bbb_id)[:recordings].pluck(:recordID)
     delete_recording(record_ids) unless record_ids.empty?
   end
 

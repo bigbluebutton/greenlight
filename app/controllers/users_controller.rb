@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   include Pagy::Backend
   include Emailer
   include Registrar
+  include Recorder
 
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create]
@@ -165,7 +166,7 @@ class UsersController < ApplicationController
   def recordings
     if current_user && current_user.uid == params[:user_uid]
       @search, @order_column, @order_direction, recs =
-        current_user.all_recordings(params.permit(:search, :column, :direction), true)
+        all_recordings(current_user.rooms.pluck(:bbb_id), params.permit(:search, :column, :direction), true)
       @pagy, @recordings = pagy_array(recs)
     else
       redirect_to root_path

@@ -28,6 +28,8 @@ def random_valid_room_params
 end
 
 describe RoomsController, type: :controller do
+  it_behaves_like "recorder"
+  include Recorder
   describe "GET #show" do
     before do
       @user = create(:user)
@@ -39,7 +41,7 @@ describe RoomsController, type: :controller do
 
       get :show, params: { room_uid: @owner.main_room }
 
-      expect(assigns(:recordings)).to eql(@owner.main_room.recordings)
+      expect(assigns(:recordings)).to eql(recordings(@owner.main_room.bbb_id))
       expect(assigns(:is_running)).to eql(@owner.main_room.running?)
     end
 

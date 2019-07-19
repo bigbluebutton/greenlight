@@ -89,7 +89,7 @@
               <%= render "shared/components/room_block", room: room %>
             <% end %>
           </div>
-          <%= render "shared/modals/delete_room_modal", room: room %>
+          <%= render "shared/modals/delete_room_modal", recording_count: room.recording_count, room: room %>
         <% end %>
       <% end %>
       <% unless room_limit_exceeded %>
