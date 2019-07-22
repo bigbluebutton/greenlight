@@ -26,8 +26,8 @@ class ApplicationController < ActionController::Base
   # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
 
-  before_action :maintenance_mode?
   before_action :set_user_domain
+  before_action :maintenance_mode?
   before_action :migration_error?
   before_action :set_locale
   before_action :check_admin_password
@@ -48,8 +48,6 @@ class ApplicationController < ActionController::Base
 
   def maintenance_mode?
     if ENV["MAINTENANCE_MODE"].present?
-      @user_domain = "greenlight"
-
       render "errors/greenlight_error", status: 503, formats: :html,
         locals: {
           status_code: 503,
