@@ -48,6 +48,12 @@ en:
         regular: Regular
         lighten: Lighten
         Darken: Darken
+      recording_visibility:
+        public: Public
+        private: Private
+        info: Set the default recording visbility for new recordings
+        title: Recording Default Visibility
+        warning: This setting will only be applied to rooms that aren't running
       registration:
         info: Change the way that users register to the website
         title: Registration Method
@@ -73,6 +79,9 @@ en:
       registration_method_updated: Registration method successfully updated
       settings: Site Settings successfully changed
       unauthorized: You are not authorized to perform actions on this user
+    recordings:
+      title: Server Recordings
+      no_recordings: This server has no recordings.
     title: Organization Settings
     users:
       invite: Invite User
@@ -249,6 +258,8 @@ en:
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!
   modal:
     create_room:
+      access_code: Access Code
+      access_code_placeholder: Generate an optional room access code
       auto_join: Automatically join me into the room
       create: Create Room
       free_delete: You will be free to delete this room at any time.
@@ -337,7 +348,7 @@ en:
       new_signin: Select a new login method for you account. All your rooms from your old account will be migrated to the new account
       twitter_signin: Signing in via Twitter has been deprecated and will be removed in the next release. Click <a href="%{link}"> here </a> to move your account to a new authentication method
       twitter_signup: Sign up via Twitter has been deprecated. Please use a different sign up method
-      merge_success: Successfuly merged your twitter account with your new account. Your old twitter account has been deleted
+      merge_success: Successfully merged your twitter account with your new account. Your old twitter account has been deleted
     invite:
       fail: Your token is either invalid or has expired. If you believe this is a mistake, please contact your administrator.
       no_invite: You do not have an invitation to join. Please contact your administrator to receive one.
@@ -354,13 +365,16 @@ en:
     super_admin: Super Admin
     user: User
   room:
+    access_code_required: Please enter a valid access code to join the room
     create_room: Create a Room
     create_room_error: There was an error creating the room
     create_room_success: Room created successfully
+    enter_the_access_code: Enter the room's access code
     invited: You have been invited to join
     invite_participants: Invite Participants
     join: Join
     last_session: Last session on %{session}
+    login: Login
     owner: Owner
     no_sessions: This room has no sessions, yet!
     recordings: Room Recordings
