@@ -22,8 +22,13 @@ class ErrorsController < ApplicationController
   end
 
   def internal_error
-    render "errors/greenlight_error", status: 500, formats: :html, locals: { status_code: 500,
-      message: I18n.t("errors.internal.message"), help: I18n.t("errors.internal.help"), display_back: true }
+    render "errors/greenlight_error", status: 500, formats: :html,
+      locals: {
+        status_code: 500,
+        message: I18n.t("errors.internal.message"),
+        help: I18n.t("errors.internal.help"),
+        display_back: true
+      }
   end
 
   def unauthorized
