@@ -84,6 +84,7 @@ a {
   color: #6e7687 !important;
   &:hover {
     color: $primary-color !important;
+    background-color: $primary-color-lighten !important;
   }
   &:active {
     background-color: $primary-color-lighten !important;
@@ -130,6 +131,7 @@ input:focus, select:focus {
     }
 
     & a {
+      color: $primary-color !important;
       border-color: $primary-color !important;
     }
 

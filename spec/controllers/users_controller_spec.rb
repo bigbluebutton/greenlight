@@ -304,6 +304,7 @@ describe UsersController, type: :controller do
   describe "PATCH #update" do
     it "properly updates user attributes" do
       user = create(:user)
+      @request.session[:user_id] = user.id
 
       params = random_valid_user_params
       patch :update, params: params.merge!(user_uid: user)
@@ -317,6 +318,7 @@ describe UsersController, type: :controller do
 
     it "renders #edit on unsuccessful save" do
       @user = create(:user)
+      @request.session[:user_id] = @user.id
 
       patch :update, params: invalid_params.merge!(user_uid: @user)
       expect(response).to render_template(:edit)

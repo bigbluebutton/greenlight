@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   include Pagy::Backend
   include Emailer
   include Registrar
+  include Recorder
 
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create]
@@ -103,6 +104,8 @@ class UsersController < ApplicationController
 
   # PATCH /u/:user_uid/edit
   def update
+    redirect_path = current_user.admin_of?(@user) ? admins_path : edit_user_path(@user)
+
     if params[:setting] == "password"
       # Update the users password.
       errors = {}
@@ -123,7 +126,7 @@ class UsersController < ApplicationController
       if errors.empty? && @user.save
         # Notify the user that their account has been updated.
         flash[:success] = I18n.t("info_update_success")
-        redirect_to edit_user_path(@user)
+        redirect_to redirect_path
       else
         # Append custom errors.
         errors.each { |k, v| @user.errors.add(k, v) }
@@ -132,11 +135,11 @@ class UsersController < ApplicationController
     elsif user_params[:email] != @user.email && @user.update_attributes(user_params)
       @user.update_attributes(email_verified: false)
       flash[:success] = I18n.t("info_update_success")
-      redirect_to edit_user_path(@user)
+      redirect_to redirect_path
     elsif @user.update_attributes(user_params)
       update_locale(@user)
       flash[:success] = I18n.t("info_update_success")
-      redirect_to edit_user_path(@user)
+      redirect_to redirect_path
     else
       render :edit, params: { settings: params[:settings] }
     end
@@ -165,7 +168,8 @@ class UsersController < ApplicationController
   def recordings
     if current_user && current_user.uid == params[:user_uid]
       @search, @order_column, @order_direction, recs =
-        current_user.all_recordings(params.permit(:search, :column, :direction), true)
+        all_recordings(current_user.rooms.pluck(:bbb_id), current_user.provider,
+         params.permit(:search, :column, :direction), true)
       @pagy, @recordings = pagy_array(recs)
     else
       redirect_to root_path
@@ -185,7 +189,7 @@ class UsersController < ApplicationController
   private
 
   def find_user
-    @user = User.find_by!(uid: params[:user_uid])
+    @user = User.where(uid: params[:user_uid]).includes(:roles).first
   end
 
   def ensure_unauthenticated
