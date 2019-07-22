@@ -23,10 +23,10 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include ThemingHelper
 
+  before_action :set_user_domain
   before_action :migration_error?
   before_action :set_locale
   before_action :check_admin_password
-  before_action :set_user_domain
   before_action :check_user_role
 
   # Manually handle BigBlueButton errors
