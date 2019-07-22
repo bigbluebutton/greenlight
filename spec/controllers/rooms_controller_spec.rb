@@ -203,6 +203,32 @@ describe RoomsController, type: :controller do
       expect(response).to render_template(:wait)
     end
 
+    it "should render wait if the correct access code is supplied" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(false)
+
+      protected_room = Room.new(name: 'test', access_code: "123456")
+      protected_room.owner = @owner
+      protected_room.save
+
+      @request.session[:user_id] = @user.id
+      post :join, params: { room_uid: protected_room, join_name: @user.name }, session: { access_code: "123456" }
+
+      expect(response).to render_template(:wait)
+    end
+
+    it "should redirect to login if the correct access code isn't supplied" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(false)
+
+      protected_room = Room.new(name: 'test', access_code: "123456")
+      protected_room.owner = @owner
+      protected_room.save
+
+      @request.session[:user_id] = @user.id
+      post :join, params: { room_uid: protected_room, join_name: @user.name }, session: { access_code: "123455" }
+
+      expect(response).to redirect_to room_path(protected_room.uid)
+    end
+
     it "should join owner as moderator if meeting running" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
 
@@ -372,6 +398,29 @@ describe RoomsController, type: :controller do
       get :logout, params: { room_uid: @room }
 
       expect(response).to redirect_to(@room)
+    end
+  end
+
+  describe "POST #login" do
+    before do
+      @user = create(:user)
+      @room = @user.main_room
+      @room.access_code = "123456"
+      @room.save
+    end
+
+    it "should redirect to show with valid access code" do
+      post :login, params: { room_uid: @room.uid, room: { access_code: "123456" } }
+
+      expect(response).to redirect_to room_path(@room.uid)
+      expect(flash[:alert]).to be_nil
+    end
+
+    it "should redirect to show with and notify user of invalid access code" do
+      post :login, params: { room_uid: @room.uid, room: { access_code: "123455" } }
+
+      expect(response).to redirect_to room_path(@room.uid)
+      expect(flash[:alert]).to eq(I18n.t("room.access_code_required"))
     end
   end
 end
