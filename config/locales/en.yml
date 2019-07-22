@@ -121,6 +121,9 @@ en:
     internal:
       message: Looks like something went wrong on our end.
       help: The error has been logged, we'll take a look!
+    maintenance:
+      message: Sorry, we're down for maintenance.
+      help: We'll be back soon!
     migration_error:
       contact_admin: If you are not an administrator, please contact one.
       continue: I'd like to stay using 1.0.
