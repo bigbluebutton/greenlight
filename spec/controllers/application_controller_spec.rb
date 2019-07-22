@@ -80,7 +80,7 @@ describe ApplicationController do
       routes.draw { get "user_not_found" => "anonymous#user_not_found" }
 
       get :user_not_found
-      expect(response).to render_template("errors/not_found")
+      expect(response).to render_template("errors/greenlight_error")
     end
 
     it "renders a 404 error if user is not given" do
@@ -92,7 +92,7 @@ describe ApplicationController do
       routes.draw { get "user_not_found" => "anonymous#user_not_found" }
 
       get :user_not_found
-      expect(response).to render_template("errors/not_found")
+      expect(response).to render_template("errors/greenlight_error")
     end
 
     it "renders a 500 error if any other error related to bbb api" do
@@ -104,7 +104,7 @@ describe ApplicationController do
       routes.draw { get "user_not_found" => "anonymous#user_not_found" }
 
       get :user_not_found
-      expect(response).to render_template("errors/internal_error")
+      expect(response).to render_template("errors/greenlight_error")
     end
   end
 end

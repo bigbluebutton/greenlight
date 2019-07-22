@@ -35,7 +35,7 @@ describe AdminsController, type: :controller do
         @request.session[:user_id] = @user.id
         get :index
 
-        expect(response).to render_template(:not_found)
+        expect(response).to render_template(:greenlight_error)
       end
 
       it "renders the admin settings if an admin tries to acccess it" do
