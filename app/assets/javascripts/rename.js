@@ -18,7 +18,10 @@ $(document).on('turbolinks:load', function(){
   var controller = $("body").data('controller');
   var action = $("body").data('action');
 
-  if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update" || controller == "users" && action == "recordings"){
+  if(controller == "rooms" && action == "show" 
+    || controller == "rooms" && action == "update" 
+    || controller == "users" && action == "recordings" 
+    || controller == "admins" && action == "server_recordings"){
 
     // Set a room header rename event
     var configure_room_header = function(room_title){

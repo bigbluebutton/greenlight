@@ -23,7 +23,7 @@
       <div class="d-flex ml-auto">
         <% if current_user %>
 
-          <% if current_user.has_role? :super_admin %>
+          <% if current_user.has_cached_role? :super_admin %>
             <% admins_page = params[:controller] == "admins" && params[:action] == "index" ? "active" : "" %>
             <%= link_to admins_path, class: "px-3 mx-1 mt-1 header-nav #{admins_page}" do %>
               <i class="fas fa-home pr-1 "></i> <%= t("header.dropdown.home") %>
@@ -56,7 +56,7 @@
               <%= link_to edit_user_path(current_user), class: "dropdown-item"  do %>
                 <i class="dropdown-icon fas fa-id-card mr-3"></i><%= t("header.dropdown.settings") %>
               <% end %>
-              <% if current_user.has_role? :admin %>
+              <% if current_user.has_cached_role? :admin %>
                 <%= link_to admins_path, class: "dropdown-item" do %>
                   <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
                 <% end %>
