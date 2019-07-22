@@ -99,7 +99,7 @@ module Recorder
                  r[:name].downcase.include?(search)) ||
                r[:participants].include?(search) ||
                !r[:playbacks].select { |p| p[:type].downcase.include?(search) }.empty? ||
-               (Room.find_by(bbb_id: r[:meetingID]).owner.email.downcase.include?(search) && search_name)
+               (search_name && Room.find_by(bbb_id: r[:meetingID]).owner.email.downcase.include?(search))
     end
   end
 

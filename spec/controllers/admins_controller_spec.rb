@@ -52,7 +52,7 @@ describe AdminsController, type: :controller do
 
         get :edit_user, params: { user_uid: @user.uid }
 
-        expect(response).to render_template(:index)
+        expect(response).to render_template(:edit_user)
       end
     end
 

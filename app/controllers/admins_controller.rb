@@ -62,7 +62,6 @@ class AdminsController < ApplicationController
 
   # GET /admins/edit/:user_uid
   def edit_user
-    render "admins/index", locals: { setting_id: "account" }
   end
 
   # POST /admins/promote/:user_uid

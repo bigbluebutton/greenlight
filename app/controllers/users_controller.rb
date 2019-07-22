@@ -104,6 +104,8 @@ class UsersController < ApplicationController
 
   # PATCH /u/:user_uid/edit
   def update
+    redirect_path = current_user.admin_of?(@user) ? admins_path : edit_user_path(@user)
+
     if params[:setting] == "password"
       # Update the users password.
       errors = {}
@@ -124,7 +126,7 @@ class UsersController < ApplicationController
       if errors.empty? && @user.save
         # Notify the user that their account has been updated.
         flash[:success] = I18n.t("info_update_success")
-        redirect_to edit_user_path(@user)
+        redirect_to redirect_path
       else
         # Append custom errors.
         errors.each { |k, v| @user.errors.add(k, v) }
@@ -133,11 +135,11 @@ class UsersController < ApplicationController
     elsif user_params[:email] != @user.email && @user.update_attributes(user_params)
       @user.update_attributes(email_verified: false)
       flash[:success] = I18n.t("info_update_success")
-      redirect_to edit_user_path(@user)
+      redirect_to redirect_path
     elsif @user.update_attributes(user_params)
       update_locale(@user)
       flash[:success] = I18n.t("info_update_success")
-      redirect_to edit_user_path(@user)
+      redirect_to redirect_path
     else
       render :edit, params: { settings: params[:settings] }
     end
