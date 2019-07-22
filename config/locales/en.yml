@@ -124,6 +124,7 @@ en:
     maintenance:
       message: Sorry, we're down for maintenance.
       help: We'll be back soon!
+      readonly: This application is under maintenance. You will not be able to perform this action
     migration_error:
       contact_admin: If you are not an administrator, please contact one.
       continue: I'd like to stay using 1.0.
