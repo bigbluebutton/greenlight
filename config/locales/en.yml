@@ -137,6 +137,9 @@ en:
       accepted: must be accepted
       confirmation: doesn't match %{attribute}
       inclusion: is not included in the list
+    no_provider:
+      message: The customer you provided doesn't have Greenlight configured
+      help: Please contact Blindside Networks to setup Greenlight
     not_found:
       message: Sorry! The page you are looking for does not exist.
       help: Is it possible its been removed?
