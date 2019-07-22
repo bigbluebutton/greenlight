@@ -126,7 +126,6 @@ class RoomsController < ApplicationController
 
     # create or update cookie with join name
     cookies.encrypted[:greenlight_name] = @join_name unless cookies.encrypted[:greenlight_name] == @join_name
-    room_settings = JSON.parse(@room[:room_settings])
 
     join_room(opts)
   end

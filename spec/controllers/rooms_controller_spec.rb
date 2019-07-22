@@ -216,7 +216,7 @@ describe RoomsController, type: :controller do
 
       expect(response).to redirect_to(room.join_path(@user.name, { user_is_moderator: true }, @user.uid))
     end
-    
+
     it "should render wait if the correct access code is supplied" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(false)
 
