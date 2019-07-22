@@ -21,6 +21,14 @@ ar:
     attributes:
       user:
         accepted_terms: "الأحكام والشروط"
+        email: البريد الإلكتروني
+        name: الاسم
+        password: كلمة السر
+        password_confirmation: تأكيد كلمة السر
+    errors:
+      models:
+        user:
+          confirmation: لا يتطابق مع كلمة السر
   administrator:
     site_settings:
       authentication:
@@ -47,6 +55,9 @@ ar:
           approval: الموافقة/الرفض
           invite: الانضمام عن طريق دعوة
           open: تسجيل مفتوح
+      rooms:
+        info: يحد من عدد الغرف التي يمكن للمستخدم الحصول عليها (بما في ذلك الغرفة المنزلية). لا ينطبق هذا الإعداد على المسؤولين.
+        title: عدد الغرف لكل مستخدم
       subtitle: تخصيص Greenlight
       title: إعدادات الموقع
     flash:
@@ -68,6 +79,8 @@ ar:
       edit:
         title: تحرير تفاصيل المستخدم
       settings:
+        approve: الموافقة
+        decline: الرفض
         ban: حظر المستخدم
         delete: حذف
         demote: تخفيض إلى مستخدم
@@ -106,7 +119,7 @@ ar:
       message: نقطة النهاية والسرية BigBlueButton غير صالحة
       title: خطأ في الخادم
     internal:
-      message: أوه لا! يبدو أن هناك خطأ ما من جانبنا.
+      message: يبدو أن هناك خطأ ما من جانبنا.
       help: لقد تم تسجيل الخطأ ، سنلقي نظرة!
     migration_error:
       contact_admin: إذا لم تكن مسؤولاً ، الرجاء الاتصال بأحد المسؤولين.
@@ -124,15 +137,18 @@ ar:
       confirmation: "لا يتطابق مع %{attribute}"
       inclusion: غير مدرج في القائمة
     not_found:
-      message: أووه! يبدو أننا لا نستطيع العثور على ذلك.
+      message: معذرة! الصفحة التي تبحث عنها غير موجودة.
       help: هل من الممكن حذفه؟
+      user_not_found:
+        help: الرجاء الاتصال بمسؤول.
+        message: عذراً، هذا المستخدم غير مسجل.
+      user_missing:
+        help: الرجاء التحقق من الرابط والمحاولة مرة أخرى
+        message: الرابط الذي أدخلته غير صالح.
     title: أخطاء
     unauthorized:
       message: ليس لديك حق الوصول إلى هذا التطبيق
       help: إذا كنت تعتقد أن هذا خطأ، يرجى الاتصال بمسؤول النظام.
-    unprocessable:
-      message: عفوا! الطلب غير قابل للإجراء.
-      help: للأسف ، هذا ليس طلبًا صحيحا.
   expired_reset_token: انتهت صلاحية رابط إعادة تعيين كلمة المرور!
   features:
     title: الميزات
@@ -189,7 +205,7 @@ ar:
           info: قام مستخدم جديد بالتسجيل لاستخدام Greenlight.
           more-info: للسماح لهذا المستخدم بالوصول إلى Greenlight يجب أن توافق على حسابه في إعدادات المؤسسة.
           admins_link: زيارة صفحة المؤسسة
-          subject: جديد Greenlight المستخدم تسجيل 
+          subject: جديد Greenlight المستخدم تسجيل
           username: "سجل المستخدم اسم %{name} والبريد الإلكتروني %{email}."
         subject: الحساب معتمد
         username: "اسم المستخدم الخاص بك هو %{email}."
@@ -200,12 +216,12 @@ ar:
         subtitle: إلغاء حقوق المسؤول
       invite:
         info: "لقد تمت دعوتك إلى الفضاء الشخصي الخاص بك بواسطة %{name}"
-        signup: To signup using your email, click the button below and follow the steps.
+        signup_info: للاشتراك باستخدام بريدك الإلكتروني، انقر على الزر أدناه واتبع الخطوات.
         signup_link: التسجيل
         signup:
           info: قام مستخدم تمت دعوته بتسجيل الدخول لاستخدام Greenlight.
           admins_link: زيارة صفحة المؤسسة
-          subject: تسجيل مستخدم Greenlight جديد 
+          subject: تسجيل مستخدم Greenlight جديد
           username: "سجل المستخدم اسم %{name} والبريد الإلكتروني %{email}."
         subject: دعوة للانضمام إلى BigBlueButton
         username: "اسم المستخدم الخاص بك هو %{email}."
@@ -286,6 +302,7 @@ ar:
     google: Google
     office365: Office 365
     twitter: Twitter
+    ldap: LDAP
   recaptcha:
     errors:
       recaptcha_unreachable: عفوا، فشلنا في التحقق من صحة ردك reCAPTCHA. الرجاء المحاولة مرة أخرى.
@@ -310,11 +327,16 @@ ar:
     format:
       presentation: العرض التقديمي
   registration:
-    approval: 
+    approval:
       fail: لم تتم الموافقة على حسابك بعد. إذا مرت عدة أيام منذ تسجيل الدخول، الرجاء الاتصال بالمسؤول.
       signup: تم إنشاء حسابك بنجاح. تم إرساله إلى مسؤول للموافقة عليه.
     banned:
       fail: ليس لديك حق الوصول إلى هذا التطبيق. إذا كنت تعتقد أن هذا خطأ، يرجى الاتصال بالمسؤول. 
+    deprecated:
+      new_signin: حدد طريقة تسجيل دخول جديدة لحسابك. سيتم ترحيل جميع الغرف الخاصة بك من حسابك القديم إلى الحساب الجديد
+      twitter_signin: "تم إلغاء الدخول عبر تويتر وسيتم إزالته في الإصدار التالي. انقر <a href=\"%{link}\"> هنا </a> لنقل حسابك إلى طريقة مصادقة جديدة"
+      twitter_signup: تم إلغاء التسجيل عبر تويتر. الرجاء استخدام طريقة تسجيل مختلفة
+      merge_success: نجح دمج حساب تويتر الخاص بك مع حسابك الجديد. تم حذف حساب تويتر القديم الخاص بك
     invite:
       fail: الرمز المميز الخاص بك إما غير صالح أو انتهت صلاحيته. إذا كنت تعتقد أن هذا خطأ، يرجى الاتصال بالمسؤول.
       no_invite: ليس لديك دعوة للانضمام. الرجاء الاتصال بالمسؤول للحصول على واحدة.
@@ -341,6 +363,8 @@ ar:
     owner: مالك
     no_sessions: "ما زالت, لا تحتوي هذه الغرفة على جلسات."
     recordings: التسجيلات
+    room_limit: كنت قد وصلت إلى الحد الأقصى لعدد الغرف المسموح بها
+    room_limit_exceeded: "لقد تجاوزت عدد الغرف المسموح بها. يرجى حذف %{difference} غرفة للدخول إلى هذه الغرفة."
     sessions: الحصص
     settings: إعدادات الغرفة
     start: بداية
