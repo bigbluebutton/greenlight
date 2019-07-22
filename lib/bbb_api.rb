@@ -12,15 +12,9 @@ module BbbApi
   end
 
   # Sets a BigBlueButtonApi object for interacting with the API.
-  def bbb
+  def bbb(user_provider)
     if Rails.configuration.loadbalanced_configuration
-      if instance_of? Room
-        # currently in the Room Model
-        user_domain = retrieve_provider_info(owner.provider)
-      elsif instance_of? User
-        # currently in the User Model
-        user_domain = retrieve_provider_info(provider)
-      end
+      user_domain = retrieve_provider_info(user_provider)
 
       BigBlueButton::BigBlueButtonApi.new(remove_slash(user_domain["apiURL"]), user_domain["secret"], "0.8")
     else

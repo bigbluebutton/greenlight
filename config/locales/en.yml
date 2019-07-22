@@ -73,6 +73,9 @@ en:
       registration_method_updated: Registration method successfully updated
       settings: Site Settings successfully changed
       unauthorized: You are not authorized to perform actions on this user
+    recordings:
+      title: Server Recordings
+      no_recordings: This server has no recordings.
     title: Organization Settings
     users:
       invite: Invite User
