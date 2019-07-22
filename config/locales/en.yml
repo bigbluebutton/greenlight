@@ -47,7 +47,7 @@ en:
         title: Primary Color
         regular: Regular
         lighten: Lighten
-        Darken: Darken
+        darken: Darken
       registration:
         info: Change the way that users register to the website
         title: Registration Method
@@ -332,7 +332,11 @@ en:
       public: Public
       unlisted: Unlisted
     format:
+      notes: Notes
+      podcast: Podcast
       presentation: Presentation
+      statistics: Statitics
+      video: Video
   registration:
     approval:
       fail: Your account has not been approved yet. If multiples days have passed since you signed up, please contact your administrator.
