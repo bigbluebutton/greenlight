@@ -16,11 +16,50 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-module APIConcern
+module Recorder
   extend ActiveSupport::Concern
+  include ::BbbApi
+
+  # Fetches all recordings for a room.
+  def recordings(room_bbb_id, provider, search_params = {}, ret_search_params = false)
+    res = bbb(provider).get_recordings(meetingID: room_bbb_id)
+
+    format_recordings(res, search_params, ret_search_params)
+  end
+
+  # Fetches a rooms public recordings.
+  def public_recordings(room_bbb_id, provider, search_params = {}, ret_search_params = false)
+    search, order_col, order_dir, recs = recordings(room_bbb_id, provider, search_params, ret_search_params)
+    [search, order_col, order_dir, recs.select { |r| r[:metadata][:"gl-listed"] == "true" }]
+  end
+
+  # Makes paginated API calls to get recordings
+  def all_recordings(room_bbb_ids, provider, search_params = {}, ret_search_params = false, search_name = false)
+    pag_num = Rails.configuration.pagination_number
+
+    pag_loops = room_bbb_ids.length / pag_num - 1
+
+    res = { recordings: [] }
+
+    (0..pag_loops).each do |i|
+      pag_rooms = room_bbb_ids[pag_num * i, pag_num]
+
+      # bbb.get_recordings returns an object
+      # take only the array portion of the object that is returned
+      full_res = bbb(provider).get_recordings(meetingID: pag_rooms)
+      res[:recordings].push(*full_res[:recordings])
+    end
+
+    last_pag_room = room_bbb_ids[pag_num * (pag_loops + 1), room_bbb_ids.length % pag_num]
+
+    full_res = bbb(provider).get_recordings(meetingID: last_pag_room)
+    res[:recordings].push(*full_res[:recordings])
+
+    format_recordings(res, search_params, ret_search_params, search_name)
+  end
 
   # Format, filter, and sort recordings to match their current use in the app
-  def format_recordings(api_res, search_params, ret_search_params)
+  def format_recordings(api_res, search_params, ret_search_params, search_name = false)
     search = search_params[:search] || ""
     order_col = search_params[:column] && search_params[:direction] != "none" ? search_params[:column] : "end_time"
     order_dir = search_params[:column] && search_params[:direction] != "none" ? search_params[:direction] : "desc"
@@ -40,7 +79,7 @@ module APIConcern
       r.delete(:playback)
     end
 
-    recs = filter_recordings(api_res, search)
+    recs = filter_recordings(api_res, search, search_name)
     recs = sort_recordings(recs, order_col, order_dir)
 
     if ret_search_params
@@ -50,7 +89,7 @@ module APIConcern
     end
   end
 
-  def filter_recordings(api_res, search)
+  def filter_recordings(api_res, search, search_name = false)
     api_res[:recordings].select do |r|
              (!r[:metadata].nil? && ((!r[:metadata][:name].nil? &&
                     r[:metadata][:name].downcase.include?(search)) ||
@@ -59,7 +98,8 @@ module APIConcern
                ((r[:metadata].nil? || r[:metadata][:name].nil?) &&
                  r[:name].downcase.include?(search)) ||
                r[:participants].include?(search) ||
-               !r[:playbacks].select { |p| p[:type].downcase.include?(search) }.empty?
+               !r[:playbacks].select { |p| p[:type].downcase.include?(search) }.empty? ||
+               (search_name && Room.find_by(bbb_id: r[:meetingID]).owner.email.downcase.include?(search))
     end
   end
 

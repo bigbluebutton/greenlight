@@ -28,8 +28,19 @@
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= f.text_field :name, id: "create-room-name", class: "form-control", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off %>
+              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off %>
               <div class="invalid-feedback text-left"><%= t("modal.create_room.not_blank") %></div>
+            </div>
+
+            <div class="input-icon mb-2">
+              <span onclick="generateAccessCode()" class="input-icon-addon allow-icon-click">
+                <i class="fas fa-dice"></i>
+              </span>
+              <%= f.label :access_code, t("modal.create_room.access_code_placeholder"), id: "create-room-access-code", class: "form-control" %>
+              <%= f.hidden_field :access_code %>
+              <span onclick="ResetAccessCode()" class="input-icon-addon allow-icon-click">
+                <i class="far fa-trash-alt"></i>
+              </span>
             </div>
 
             <% if Rails.configuration.room_features.include? "mute-on-join" %>

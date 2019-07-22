@@ -20,7 +20,6 @@ require 'bbb_api'
 
 class User < ApplicationRecord
   rolify
-  include ::APIConcern
   include ::BbbApi
 
   attr_accessor :reset_token
@@ -118,31 +117,8 @@ class User < ApplicationRecord
   end
 
   def self.admins_order(column, direction)
-    order("#{column} #{direction}")
-  end
-
-  def all_recordings(search_params = {}, ret_search_params = false)
-    pag_num = Rails.configuration.pagination_number
-
-    pag_loops = rooms.length / pag_num - 1
-
-    res = { recordings: [] }
-
-    (0..pag_loops).each do |i|
-      pag_rooms = rooms[pag_num * i, pag_num]
-
-      # bbb.get_recordings returns an object
-      # take only the array portion of the object that is returned
-      full_res = bbb.get_recordings(meetingID: pag_rooms.pluck(:bbb_id))
-      res[:recordings].push(*full_res[:recordings])
-    end
-
-    last_pag_room = rooms[pag_num * (pag_loops + 1), rooms.length % pag_num]
-
-    full_res = bbb.get_recordings(meetingID: last_pag_room.pluck(:bbb_id))
-    res[:recordings].push(*full_res[:recordings])
-
-    format_recordings(res, search_params, ret_search_params)
+    # Arel.sql to avoid sql injection
+    order(Arel.sql("#{column} #{direction}"))
   end
 
   # Activates an account and initialize a users main room
