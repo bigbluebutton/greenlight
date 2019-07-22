@@ -13,6 +13,8 @@ steps:
          'gcr.io/$PROJECT_ID/${_URL}:${TAG_NAME}.${SHORT_SHA}',
          '-t',
          'gcr.io/$PROJECT_ID/${_URL}:latest',
+         '--cache-from',
+         'gcr.io/$PROJECT_ID/${_URL}:latest',
          '.']
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [
