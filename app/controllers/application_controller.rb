@@ -26,10 +26,10 @@ class ApplicationController < ActionController::Base
   # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
 
+  before_action :set_user_domain
   before_action :migration_error?
   before_action :set_locale
   before_action :check_admin_password
-  before_action :set_user_domain
   before_action :check_user_role
 
   # Manually handle BigBlueButton errors
