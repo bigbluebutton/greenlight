@@ -16,9 +16,12 @@ tmp
 public/assets
 public/b
 coverage/
-spec/tmp
 .rvmrc
-.byebug_history
 vendor/bundle
 .bundle
-Jenkinsfile
+Dockerfile
+.gitlab-ci.yml
+.rubocop.yml
+.travis.yml
+spec
+test
