@@ -55,6 +55,15 @@ module AdminsHelper
     end
   end
 
+  def recording_default_visibility_string
+    if Setting.find_or_create_by!(provider: user_settings_provider)
+              .get_value("Default Recording Visibility") == "public"
+      I18n.t("administrator.site_settings.recording_visibility.public")
+    else
+      I18n.t("administrator.site_settings.recording_visibility.private")
+    end
+  end
+
   def registration_method_string
     case registration_method
     when Rails.configuration.registration_methods[:open]

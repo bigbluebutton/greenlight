@@ -48,6 +48,12 @@ en:
         regular: Regular
         lighten: Lighten
         Darken: Darken
+      recording_visibility:
+        public: Public
+        private: Private
+        info: Set the default recording visbility for new recordings
+        title: Recording Default Visibility
+        warning: This setting will only be applied to rooms that aren't running
       registration:
         info: Change the way that users register to the website
         title: Registration Method
