@@ -336,6 +336,7 @@ de_DE:
       new_signin: Wählen Sie eine neue Loginmethode für Ihren Account aus. Alle Ihre Räume und Ihr alter Account werden auf einen neuen Account migriert.
       twitter_signin: "Das Einloggen über Twitter wird bald nicht mehr unterstützt und wird in einer zukünftigen Version ganz entfernt. Klicken Sie <a href=\"%{link}\"> hier </a> um Ihren Account auf eine neue Authentifizierungsmethode umzustellen"
       twitter_signup: Einloggen über Twitter wird abgeschafft. Bitte verwenden Sie eine andere Loginmethode
+      merge_success: Ihr Twitter Account wurde erfolgreich mit dem neuen Account zusammengeführt. Der Zugang über Ihren Twitter Account wurde gelöscht.
     invite:
       fail: "Ihr Token ist entweder ungültig oder er ist abgelaufen. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
       no_invite: "Sie sind nicht zu Teilnahme eingeladen. Bitte kontaktieren Sie Ihren Administrator, um eine Einladung zu erhalten."

@@ -73,6 +73,9 @@ en:
       registration_method_updated: Registration method successfully updated
       settings: Site Settings successfully changed
       unauthorized: You are not authorized to perform actions on this user
+    recordings:
+      title: Server Recordings
+      no_recordings: This server has no recordings.
     title: Organization Settings
     users:
       invite: Invite User
@@ -339,7 +342,7 @@ en:
       new_signin: Select a new login method for you account. All your rooms from your old account will be migrated to the new account
       twitter_signin: Signing in via Twitter has been deprecated and will be removed in the next release. Click <a href="%{link}"> here </a> to move your account to a new authentication method
       twitter_signup: Sign up via Twitter has been deprecated. Please use a different sign up method
-      merge_success: Successfuly merged your twitter account with your new account. Your old twitter account has been deleted
+      merge_success: Successfully merged your twitter account with your new account. Your old twitter account has been deleted
     invite:
       fail: Your token is either invalid or has expired. If you believe this is a mistake, please contact your administrator.
       no_invite: You do not have an invitation to join. Please contact your administrator to receive one.
