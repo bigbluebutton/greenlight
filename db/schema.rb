@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190522195242) do
+ActiveRecord::Schema.define(version: 20190711192033) do
 
   create_table "features", force: :cascade do |t|
     t.integer  "setting_id"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20190522195242) do
     t.string   "room_settings",         default: "{ }"
     t.string   "moderator_pw"
     t.string   "attendee_pw"
+    t.string   "access_code"
     t.index ["bbb_id"], name: "index_rooms_on_bbb_id"
     t.index ["last_session"], name: "index_rooms_on_last_session"
     t.index ["name"], name: "index_rooms_on_name"

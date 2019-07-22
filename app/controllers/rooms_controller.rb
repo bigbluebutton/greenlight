@@ -25,7 +25,7 @@ class RoomsController < ApplicationController
   before_action :validate_verified_email, except: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: :create
-  before_action :verify_room_ownership, except: [:create, :show, :join, :logout]
+  before_action :verify_room_ownership, except: [:create, :show, :join, :logout, :login]
   before_action :verify_room_owner_verified, only: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :verify_user_not_admin, only: [:show]
@@ -36,7 +36,7 @@ class RoomsController < ApplicationController
 
     return redirect_to current_user.main_room, flash: { alert: I18n.t("room.room_limit") } if room_limit_exceeded
 
-    @room = Room.new(name: room_params[:name])
+    @room = Room.new(name: room_params[:name], access_code: room_params[:access_code])
     @room.owner = current_user
     @room.room_settings = create_room_settings_string(room_params[:mute_on_join], room_params[:client],
       room_params[:require_moderator_approval])
@@ -107,6 +107,12 @@ class RoomsController < ApplicationController
 
     opts = default_meeting_options
     unless @room.owned_by?(current_user)
+      # Don't allow users to join unless they have a valid access code or the room doesn't
+      # have an access code
+      if @room.access_code && !@room.access_code.empty? && @room.access_code != session[:access_code]
+        return redirect_to room_path(room_uid: params[:room_uid]), flash: { alert: I18n.t("room.access_code_required") }
+      end
+
       # Assign join name if passed.
       if params[@room.invite_path]
         @join_name = params[@room.invite_path][:join_name]
@@ -119,32 +125,7 @@ class RoomsController < ApplicationController
     # create or update cookie with join name
     cookies.encrypted[:greenlight_name] = @join_name unless cookies.encrypted[:greenlight_name] == @join_name
 
-    if @room.running? || @room.owned_by?(current_user)
-      # Determine if the user needs to join as a moderator.
-      opts[:user_is_moderator] = @room.owned_by?(current_user)
-
-      # Check if the user has specified which client to use
-      room_settings = JSON.parse(@room[:room_settings])
-      opts[:join_via_html5] = room_settings["joinViaHtml5"] if room_settings["joinViaHtml5"]
-      opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
-
-      if current_user
-        redirect_to @room.join_path(current_user.name, opts, current_user.uid)
-      else
-        join_name = params[:join_name] || params[@room.invite_path][:join_name]
-        redirect_to @room.join_path(join_name, opts)
-      end
-    else
-
-      search_params = params[@room.invite_path] || params
-      @search, @order_column, @order_direction, pub_recs =
-        public_recordings(@room.bbb_id, @user_domain, search_params.permit(:search, :column, :direction), true)
-
-      @pagy, @public_recordings = pagy_array(pub_recs)
-
-      # They need to wait until the meeting begins.
-      render :wait
-    end
+    join_room(opts)
   end
 
   # DELETE /:room_uid
@@ -188,6 +169,8 @@ class RoomsController < ApplicationController
       update_room_attributes("settings")
       # Update the rooms name if it has been changed
       update_room_attributes("name") if @room.name != room_params[:name]
+      # Update the room's access code if it has changed
+      update_room_attributes("access_code") if @room.access_code != room_params[:access_code]
     rescue StandardError
       flash[:alert] = I18n.t("room.update_settings_error")
     else
@@ -202,6 +185,15 @@ class RoomsController < ApplicationController
     redirect_to @room
   end
 
+  # POST /:room_uid/login
+  def login
+    session[:access_code] = room_params[:access_code]
+
+    flash[:alert] = I18n.t("room.access_code_required") if session[:access_code] != @room.access_code
+
+    redirect_to room_path(@room.uid)
+  end
+
   private
 
   def update_room_attributes(update_type)
@@ -212,6 +204,8 @@ class RoomsController < ApplicationController
         room_settings_string = create_room_settings_string(room_params[:mute_on_join], room_params[:client],
           room_params[:require_moderator_approval])
         @room.update_attributes(room_settings: room_settings_string)
+      elsif update_type.eql? "access_code"
+        @room.update_attributes(access_code: room_params[:access_code])
       end
     end
   end
@@ -232,7 +226,7 @@ class RoomsController < ApplicationController
   end
 
   def room_params
-    params.require(:room).permit(:name, :auto_join, :mute_on_join, :client, :require_moderator_approval)
+    params.require(:room).permit(:name, :auto_join, :mute_on_join, :client, :access_code, :require_moderator_approval)
   end
 
   # Find the room from the uid.
@@ -297,5 +291,33 @@ class RoomsController < ApplicationController
     return false if current_user&.has_cached_role?(:admin) || limit == 15
 
     current_user.rooms.count >= limit
+  end
+
+  def join_room(opts)
+    if @room.running? || @room.owned_by?(current_user)
+      # Determine if the user needs to join as a moderator.
+      opts[:user_is_moderator] = @room.owned_by?(current_user)
+
+      # Check if the user has specified which client to use
+      room_settings = JSON.parse(@room[:room_settings])
+      opts[:join_via_html5] = room_settings["joinViaHtml5"] if room_settings["joinViaHtml5"]
+      opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
+
+      if current_user
+        redirect_to @room.join_path(current_user.name, opts, current_user.uid)
+      else
+        join_name = params[:join_name] || params[@room.invite_path][:join_name]
+        redirect_to @room.join_path(join_name, opts)
+      end
+    else
+      search_params = params[@room.invite_path] || params
+      @search, @order_column, @order_direction, pub_recs =
+        public_recordings(@room.bbb_id, @user_domain, search_params.permit(:search, :column, :direction), true)
+
+      @pagy, @public_recordings = pagy_array(pub_recs)
+
+      # They need to wait until the meeting begins.
+      render :wait
+    end
   end
 end
