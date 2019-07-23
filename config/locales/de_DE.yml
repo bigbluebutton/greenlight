@@ -47,7 +47,7 @@ de_DE:
         title: Primäre Farbe
         regular: Normal
         lighten: Heller
-        Darken: Dunkler
+        darken: Dunkler
       registration:
         info: Verändern der Weise wie sich Teilnehmer auf der Webseite registrieren
         title: Registrierungsmethode
@@ -121,6 +121,10 @@ de_DE:
     internal:
       message: "Es sieht so aus, als ob irgendwas schiefgelaufen ist."
       help: "Der Fehler wurde gespeichert, wir werden ihn analysieren!"
+    maintenance:
+      message: "Entschuldigung, wir befinden uns im Wartungsmodus."
+      help: Wir sind in Kürze wieder da!
+      readonly: Diese Anwendung befindet sich im Wartungsmodus. Die gewählte Aktion kann deshalb nicht ausgeführt werden.
     migration_error:
       contact_admin: "Wenn Sie kein Administrator sind, kontaktieren Sie bitte einen."
       continue: Ich möchte bleiben und 1.0 verwenden.
@@ -136,6 +140,9 @@ de_DE:
       accepted: muss akzeptiert werden
       confirmation: "passt nicht zu %{attribute}"
       inclusion: ist nicht Teil der Liste
+    no_provider:
+      message: Der angegebene Kunde hat Greenlight nicht konfiguriert.
+      help: Bitte kontaktieren Sie Blindside Networks um Greenlight einzurichten
     not_found:
       message: Tut uns leid! Die aufgerufene Seite existiert nicht.
       help: "Ist es möglich, dass es entfernt wurde?"
@@ -325,7 +332,11 @@ de_DE:
       public: Öffentliche
       unlisted: Nicht gelistet
     format:
+      notes: Notizen
+      podcast: Podcast
       presentation: Präsentation
+      statistics: Statistiken
+      video: Video
   registration:
     approval:
       fail: "Ihr Account wurde noch nicht freigeschaltet. Falls Sie sich bereits vor mehreren Tagen registriert haben, kontaktieren Sie bitte Ihren Administrator."

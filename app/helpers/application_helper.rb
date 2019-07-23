@@ -87,6 +87,7 @@ module ApplicationHelper
   def allow_greenlight_accounts?
     return Rails.configuration.allow_user_signup unless Rails.configuration.loadbalanced_configuration
     return false unless @user_domain && !@user_domain.empty? && Rails.configuration.allow_user_signup
+    return false if @user_domain == "greenlight"
     # Proceed with retrieving the provider info
     begin
       provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
@@ -106,7 +107,7 @@ module ApplicationHelper
   # Returns the page that the logo redirects to when clicked on
   def home_page
     return root_path unless current_user
-    return admins_path if current_user.has_role? :super_admin
+    return admins_path if current_user.has_cached_role? :super_admin
     current_user.main_room
   end
 end

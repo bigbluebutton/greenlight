@@ -13,16 +13,15 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="container text-center pt-9">
-  <div class="display-1 mb-5 text-primary">404</div>
-  <% if defined?(message) && defined?(help) %>
-    <h1 class="h2 mb-3"><%= message %></h1>
-    <p class="h4 text-muted font-weight-normal mb-7"><%= help %></p>
-  <% else %>
-    <h1 class="h2 mb-3"><%= t("errors.not_found.message") %></h1>
-    <p class="h4 text-muted font-weight-normal mb-7"><%= t("errors.not_found.help") %></p>
-    <a class="btn btn-primary" href="javascript:history.back()">
-      <i class="fas fa-arrow-left mr-2"></i><%= t("go_back") %>
-    </a>
-  <% end %>
+<div class="container pt-6">
+  <%= render "shared/components/subtitle", subtitle: t("administrator.title"), search: false %>
+
+  <div class="row">
+    <div class="col-lg-3 mb-4">
+      <%= render "admins/components/menu_buttons" %>
+    </div>
+    <div id="server_recordings" class="col-lg-9">
+        <%= render "admins/components/setting_view", setting_id: "recordings", setting_title: t("administrator.recordings.title"), search: true %>
+    </div>
+  </div>
 </div>

@@ -23,17 +23,21 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include ThemingHelper
 
+  # Force SSL for loadbalancer configurations.
+  before_action :redirect_to_https
+
+  before_action :set_user_domain
+  before_action :maintenance_mode?
   before_action :migration_error?
   before_action :set_locale
   before_action :check_admin_password
-  before_action :set_user_domain
   before_action :check_user_role
 
   # Manually handle BigBlueButton errors
   rescue_from BigBlueButton::BigBlueButtonException, with: :handle_bigbluebutton_error
 
-  # Force SSL for loadbalancer configurations.
-  before_action :redirect_to_https
+  # Manually Handle errors when application is in readonly mode
+  rescue_from ActiveRecord::ReadOnlyRecord, with: :handle_readonly_error
 
   protect_from_forgery with: :exception
 
@@ -43,6 +47,17 @@ class ApplicationController < ActionController::Base
   # Show an information page when migration fails and there is a version error.
   def migration_error?
     render :migration_error unless ENV["DB_MIGRATE_FAILED"].blank?
+  end
+
+  def maintenance_mode?
+    if ENV["MAINTENANCE_MODE"] == "full"
+      render "errors/greenlight_error", status: 503, formats: :html,
+        locals: {
+          status_code: 503,
+          message: I18n.t("errors.maintenance.message"),
+          help: I18n.t("errors.maintenance.help"),
+        }
+    end
   end
 
   # Sets the appropriate locale.
@@ -106,17 +121,20 @@ class ApplicationController < ActionController::Base
       meeting_logout_url: request.base_url + logout_room_path(@room),
       meeting_recorded: true,
       moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
+      host: request.host,
+      recording_default_visibility: Setting.find_or_create_by!(provider: user_settings_provider)
+                                           .get_value("Default Recording Visibility") == "public"
     }
   end
 
   # Manually deal with 401 errors
   rescue_from CanCan::AccessDenied do |_exception|
-    render "errors/not_found"
+    render "errors/greenlight_error"
   end
 
   # Checks to make sure that the admin has changed his password from the default
   def check_admin_password
-    if current_user&.has_role?(:admin) && current_user&.greenlight_account? &&
+    if current_user&.has_cached_role?(:admin) && current_user&.greenlight_account? &&
        current_user&.authenticate(Rails.configuration.admin_password_default)
 
       flash.now[:alert] = I18n.t("default_admin",
@@ -140,14 +158,22 @@ class ApplicationController < ActionController::Base
       begin
         retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
       rescue => e
+        # Use the default site settings
+        @user_domain = "greenlight"
+
         if e.message.eql? "No user with that id exists"
-          render "errors/not_found", locals: { message: I18n.t("errors.not_found.user_not_found.message"),
+          render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_not_found.message"),
             help: I18n.t("errors.not_found.user_not_found.help") }
         elsif e.message.eql? "Provider not included."
-          render "errors/not_found", locals: { message: I18n.t("errors.not_found.user_missing.message"),
+          render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_missing.message"),
             help: I18n.t("errors.not_found.user_missing.help") }
+        elsif e.message.eql? "That user has no configured provider."
+          render "errors/greenlight_error", locals: { status_code: 501,
+            message: I18n.t("errors.no_provider.message"),
+            help: I18n.t("errors.no_provider.help") }
         else
-          render "errors/internal_error"
+          render "errors/greenlight_error", locals: { status_code: 500, message: I18n.t("errors.internal.message"),
+            help: I18n.t("errors.internal.help"), display_back: true }
         end
       end
     end
@@ -156,10 +182,10 @@ class ApplicationController < ActionController::Base
 
   # Checks if the user is banned and logs him out if he is
   def check_user_role
-    if current_user&.has_role? :denied
+    if current_user&.has_cached_role? :denied
       session.delete(:user_id)
       redirect_to root_path, flash: { alert: I18n.t("registration.banned.fail") }
-    elsif current_user&.has_role? :pending
+    elsif current_user&.has_cached_role? :pending
       session.delete(:user_id)
       redirect_to root_path, flash: { alert: I18n.t("registration.approval.fail") }
     end
@@ -169,5 +195,11 @@ class ApplicationController < ActionController::Base
   # Manually Handle BigBlueButton errors
   def handle_bigbluebutton_error
     render "errors/bigbluebutton_error"
+  end
+
+  # Manually Handle errors when application is in readonly mode
+  def handle_readonly_error
+    flash.clear
+    redirect_to request.referrer || root_path, flash: { alert: I18n.t("errors.maintenance.readonly") }
   end
 end
