@@ -57,7 +57,11 @@ class User < ApplicationRecord
       provider = auth['provider'] == "bn_launcher" ? auth['info']['customer'] : auth['provider']
       u = find_by(social_uid: auth['uid'], provider: provider)
 
-      return u if ENV["MAINTENANCE_MODE"] == "readonly"
+      if ENV["MAINTENANCE_MODE"] == "readonly"
+        raise ActiveRecord::ReadOnlyRecord if u.nil?
+
+        return u
+      end
 
       return User.create(
         name: auth_name(auth),
