@@ -17,6 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class ThemesController < ApplicationController
+  skip_before_action :maintenance_mode?
   before_action :provider_settings
 
   # GET /primary

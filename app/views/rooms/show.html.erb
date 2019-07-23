@@ -36,7 +36,7 @@
         <% unless exceeds_limit %>
           <label class="form-label"><%= t("room.invite_participants") %></label>
           <div class="row">
-            <div class="col-lg-5 col-md-12 mt-2 pr-0">
+            <div class="col-lg-7 col-md-12 mt-2 pr-0">
               <div class="input-icon invite-link-input">
                 <span class="input-icon-addon">
                   <i class="fas fa-link"></i>
@@ -44,7 +44,7 @@
                 <input id="invite-url" type="text" class="form-control w-100" value="<%= request.base_url + @room.invite_path %>" readonly="">
               </div>
             </div>
-            <div class="col-lg-7 col-md-12 pr-0">
+            <div class="col-lg-5 col-md-12 pr-0">
               <div class="row">
                 <div class="col-sm-6">
                   <a href="#" id="copy" class="btn btn-primary btn-block mt-2">
@@ -89,7 +89,7 @@
               <%= render "shared/components/room_block", room: room %>
             <% end %>
           </div>
-          <%= render "shared/modals/delete_room_modal", room: room %>
+          <%= render "shared/modals/delete_room_modal", recording_count: room.recording_count, room: room %>
         <% end %>
       <% end %>
       <% unless room_limit_exceeded %>
