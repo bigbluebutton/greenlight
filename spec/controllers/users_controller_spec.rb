@@ -87,6 +87,8 @@ describe UsersController, type: :controller do
     it "allows admins to edit other users" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+      allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
+      controller.instance_variable_set(:@user_domain, "provider1")
 
       user = create(:user, provider: "provider1")
       user.add_role :admin
@@ -339,6 +341,8 @@ describe UsersController, type: :controller do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
       allow_any_instance_of(Room).to receive(:delete_all_recordings).and_return('')
+      allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
+      controller.instance_variable_set(:@user_domain, "provider1")
 
       user = create(:user, provider: "provider1")
       admin = create(:user, provider: "provider1")
@@ -354,6 +358,8 @@ describe UsersController, type: :controller do
     it "doesn't allow admins of other providers to delete users" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+      allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider2")
+      controller.instance_variable_set(:@user_domain, "provider2")
 
       user = create(:user, provider: "provider1")
       admin = create(:user, provider: "provider2")

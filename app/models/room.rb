@@ -56,7 +56,10 @@ class Room < ApplicationRecord
       attendeePW: attendee_pw,
       moderatorOnlyMessage: options[:moderator_message],
       muteOnStart: options[:mute_on_start] || false,
-      "meta_#{META_LISTED}": false,
+      "meta_#{META_LISTED}": options[:recording_default_visibility] || false,
+      "meta_bbb-origin-version": Greenlight::Application::VERSION,
+      "meta_bbb-origin": "Greenlight",
+      "meta_bbb-origin-server-name": options[:host]
     }
 
     # Send the create request.

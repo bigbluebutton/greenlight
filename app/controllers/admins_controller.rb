@@ -24,7 +24,7 @@ class AdminsController < ApplicationController
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve]
   site_settings = [:branding, :coloring, :coloring_lighten, :coloring_darken,
-                   :registration_method, :room_authentication, :room_limit]
+                   :registration_method, :room_authentication, :room_limit, :default_recording_visibility]
 
   authorize_resource class: false
   before_action :find_user, only: manage_users
@@ -176,6 +176,13 @@ class AdminsController < ApplicationController
     redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
+  # POST /admins/default_recording_visibility
+  def default_recording_visibility
+    @settings.update_value("Default Recording Visibility", params[:visibility])
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") + ". " +
+                                               I18n.t("administrator.site_settings.recording_visibility.warning") }
+  end
+
   private
 
   def find_user
@@ -199,15 +206,13 @@ class AdminsController < ApplicationController
       User.without_role(:super_admin).where.not(id: current_user.id).includes(:roles)
     end
 
-    list = @role.present? ? initial_list.with_role(@role.to_sym) : initial_list
-
     if Rails.configuration.loadbalanced_configuration
-      list.where(provider: user_settings_provider)
-          .admins_search(@search)
-          .admins_order(@order_column, @order_direction)
+      initial_list.where(provider: user_settings_provider)
+                  .admins_search(@search, @role)
+                  .admins_order(@order_column, @order_direction)
     else
-      list.admins_search(@search)
-          .admins_order(@order_column, @order_direction)
+      initial_list.admins_search(@search, @role)
+                  .admins_order(@order_column, @order_direction)
     end
   end
 

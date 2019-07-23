@@ -119,8 +119,8 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @owner.id
       name = Faker::Games::Pokemon.name
 
-      room_params = { name: name, "mute_on_join": "1" }
-      json_room_settings = "{\"muteOnStart\":true}"
+      room_params = { name: name, "mute_on_join": "1", "anyone_can_start": "1" }
+      json_room_settings = "{\"muteOnStart\":true,\"anyoneCanStart\":true}"
 
       post :create, params: { room: room_params }
 
@@ -201,6 +201,20 @@ describe RoomsController, type: :controller do
       post :join, params: { room_uid: @room, join_name: @user.name }
 
       expect(response).to render_template(:wait)
+    end
+
+    it "should join the room if the room has the anyone_can_start setting" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(false)
+
+      room = Room.new(name: "test")
+      room.room_settings = "{\"muteOnStart\":false,\"joinViaHtml5\":false,\"anyoneCanStart\":true}"
+      room.owner = @owner
+      room.save
+
+      @request.session[:user_id] = @user.id
+      post :join, params: { room_uid: room, join_name: @user.name }
+
+      expect(response).to redirect_to(room.join_path(@user.name, { user_is_moderator: true }, @user.uid))
     end
 
     it "should render wait if the correct access code is supplied" do
@@ -343,7 +357,7 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @user.id
 
       room_params = { "mute_on_join": "1", "name": @secondary_room.name }
-      formatted_room_params = "{\"muteOnStart\":true}" # JSON string format
+      formatted_room_params = "{\"muteOnStart\":true,\"anyoneCanStart\":false}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }
