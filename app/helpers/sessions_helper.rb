@@ -61,7 +61,17 @@ module SessionsHelper
 
   # Retrieves the current user.
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
+    @current_user ||= User.where(id: session[:user_id]).includes(:roles).first
+
+    if Rails.configuration.loadbalanced_configuration
+      if @current_user && !@current_user.has_role?(:super_admin) &&
+         @current_user.provider != @user_domain
+        @current_user = nil
+        session.clear
+      end
+    end
+
+    @current_user
   end
 
   def generate_checksum(user_domain, redirect_url, secret)

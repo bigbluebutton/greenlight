@@ -22,7 +22,8 @@ $(document).on('turbolinks:load', function(){
       (controller == "rooms" && action == "show") || 
       (controller == "rooms" && action == "update") ||
       (controller == "rooms" && action == "join") || 
-      (controller == "users" && action == "recordings")) {
+      (controller == "users" && action == "recordings") ||
+      (controller == "admins" && action == "server_recordings")) {
     // Submit search if the user hits enter
     $("#search-input").keypress(function(key) {
       var keyPressed = key.which

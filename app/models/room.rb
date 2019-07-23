@@ -19,7 +19,6 @@
 require 'bbb_api'
 
 class Room < ApplicationRecord
-  include ::APIConcern
   include ::BbbApi
 
   before_create :setup
@@ -40,7 +39,7 @@ class Room < ApplicationRecord
 
   # Checks if a room is running on the BigBlueButton server.
   def running?
-    bbb.is_meeting_running?(bbb_id)
+    bbb(owner.provider).is_meeting_running?(bbb_id)
   end
 
   # Determines the invite path for the room.
@@ -57,12 +56,15 @@ class Room < ApplicationRecord
       attendeePW: attendee_pw,
       moderatorOnlyMessage: options[:moderator_message],
       muteOnStart: options[:mute_on_start] || false,
-      "meta_#{META_LISTED}": false,
+      "meta_#{META_LISTED}": options[:recording_default_visibility] || false,
+      "meta_bbb-origin-version": Greenlight::Application::VERSION,
+      "meta_bbb-origin": "Greenlight",
+      "meta_bbb-origin-server-name": options[:host]
     }
 
     # Send the create request.
     begin
-      meeting = bbb.create_meeting(name, bbb_id, create_options)
+      meeting = bbb(owner.provider).create_meeting(name, bbb_id, create_options)
       # Update session info.
       unless meeting[:messageKey] == 'duplicateWarning'
         update_attributes(sessions: sessions + 1,
@@ -85,10 +87,10 @@ class Room < ApplicationRecord
     options[:user_is_moderator] ||= false
     options[:meeting_recorded] ||= false
 
-    return call_invalid_res unless bbb
+    return call_invalid_res unless bbb(owner.provider)
 
     # Get the meeting info.
-    meeting_info = bbb.get_meeting_info(bbb_id, nil)
+    meeting_info = bbb(owner.provider).get_meeting_info(bbb_id, nil)
 
     # Determine the password to use when joining.
     password = if options[:user_is_moderator]
@@ -102,7 +104,7 @@ class Room < ApplicationRecord
     join_opts[:userID] = uid if uid
     join_opts[:joinViaHtml5] = options[:join_via_html5] if options[:join_via_html5]
 
-    bbb.join_meeting_url(bbb_id, name, password, join_opts)
+    bbb(owner.provider).join_meeting_url(bbb_id, name, password, join_opts)
   end
 
   # Notify waiting users that a meeting has started.
@@ -112,7 +114,7 @@ class Room < ApplicationRecord
 
   # Retrieves all the users in a room.
   def participants
-    res = bbb.get_meeting_info(bbb_id, nil)
+    res = bbb(owner.provider).get_meeting_info(bbb_id, nil)
     res[:attendees].map do |att|
       User.find_by(uid: att[:userID], name: att[:fullName])
     end
@@ -121,27 +123,18 @@ class Room < ApplicationRecord
     []
   end
 
-  # Fetches all recordings for a room.
-  def recordings(search_params = {}, ret_search_params = false)
-    res = bbb.get_recordings(meetingID: bbb_id)
-
-    format_recordings(res, search_params, ret_search_params)
-  end
-
-  # Fetches a rooms public recordings.
-  def public_recordings(search_params = {}, ret_search_params = false)
-    search, order_col, order_dir, recs = recordings(search_params, ret_search_params)
-    [search, order_col, order_dir, recs.select { |r| r[:metadata][:"gl-listed"] == "true" }]
+  def recording_count
+    bbb(owner.provider).get_recordings(meetingID: bbb_id)[:recordings].length
   end
 
   def update_recording(record_id, meta)
     meta[:recordID] = record_id
-    bbb.send_api_request("updateRecordings", meta)
+    bbb(owner.provider).send_api_request("updateRecordings", meta)
   end
 
   # Deletes a recording from a room.
   def delete_recording(record_id)
-    bbb.delete_recordings(record_id)
+    bbb(owner.provider).delete_recordings(record_id)
   end
 
   private
@@ -156,7 +149,7 @@ class Room < ApplicationRecord
 
   # Deletes all recordings associated with the room.
   def delete_all_recordings
-    record_ids = recordings.map { |r| r[:recordID] }
+    record_ids = bbb(owner.provider).get_recordings(meetingID: bbb_id)[:recordings].pluck(:recordID)
     delete_recording(record_ids) unless record_ids.empty?
   end
 

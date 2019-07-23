@@ -42,9 +42,13 @@ describe ThemesController, type: :controller do
     it "returns the correct color based on provider" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+      allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
 
       color1 = Faker::Color.hex_color
       provider1 = Faker::Company.name
+
+      controller.instance_variable_set(:@user_domain, provider1)
+
       Setting.create(provider: provider1).features.create(name: "Primary Color", value: color1, enabled: true)
       user1 = create(:user, provider: provider1)
 
