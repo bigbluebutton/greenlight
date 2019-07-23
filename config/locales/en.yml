@@ -47,7 +47,7 @@ en:
         title: Primary Color
         regular: Regular
         lighten: Lighten
-        Darken: Darken
+        darken: Darken
       registration:
         info: Change the way that users register to the website
         title: Registration Method
@@ -121,6 +121,10 @@ en:
     internal:
       message: Looks like something went wrong on our end.
       help: The error has been logged, we'll take a look!
+    maintenance:
+      message: Sorry, we're down for maintenance.
+      help: We'll be back soon!
+      readonly: This application is under maintenance. You will not be able to perform this action
     migration_error:
       contact_admin: If you are not an administrator, please contact one.
       continue: I'd like to stay using 1.0.
@@ -329,7 +333,11 @@ en:
       public: Public
       unlisted: Unlisted
     format:
+      notes: Notes
+      podcast: Podcast
       presentation: Presentation
+      statistics: Statitics
+      video: Video
   registration:
     approval:
       fail: Your account has not been approved yet. If multiples days have passed since you signed up, please contact your administrator.

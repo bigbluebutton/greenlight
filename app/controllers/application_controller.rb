@@ -26,14 +26,18 @@ class ApplicationController < ActionController::Base
   # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
 
+  before_action :set_user_domain
+  before_action :maintenance_mode?
   before_action :migration_error?
   before_action :set_locale
   before_action :check_admin_password
-  before_action :set_user_domain
   before_action :check_user_role
 
   # Manually handle BigBlueButton errors
   rescue_from BigBlueButton::BigBlueButtonException, with: :handle_bigbluebutton_error
+
+  # Manually Handle errors when application is in readonly mode
+  rescue_from ActiveRecord::ReadOnlyRecord, with: :handle_readonly_error
 
   protect_from_forgery with: :exception
 
@@ -43,6 +47,17 @@ class ApplicationController < ActionController::Base
   # Show an information page when migration fails and there is a version error.
   def migration_error?
     render :migration_error unless ENV["DB_MIGRATE_FAILED"].blank?
+  end
+
+  def maintenance_mode?
+    if ENV["MAINTENANCE_MODE"] == "full"
+      render "errors/greenlight_error", status: 503, formats: :html,
+        locals: {
+          status_code: 503,
+          message: I18n.t("errors.maintenance.message"),
+          help: I18n.t("errors.maintenance.help"),
+        }
+    end
   end
 
   # Sets the appropriate locale.
@@ -140,6 +155,9 @@ class ApplicationController < ActionController::Base
       begin
         retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
       rescue => e
+        # Use the default site settings
+        @user_domain = "greenlight"
+
         if e.message.eql? "No user with that id exists"
           render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_not_found.message"),
             help: I18n.t("errors.not_found.user_not_found.help") }
@@ -174,5 +192,11 @@ class ApplicationController < ActionController::Base
   # Manually Handle BigBlueButton errors
   def handle_bigbluebutton_error
     render "errors/bigbluebutton_error"
+  end
+
+  # Manually Handle errors when application is in readonly mode
+  def handle_readonly_error
+    flash.clear
+    redirect_to request.referrer || root_path, flash: { alert: I18n.t("errors.maintenance.readonly") }
   end
 end
