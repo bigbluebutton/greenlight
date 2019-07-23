@@ -47,7 +47,7 @@ en:
         title: Primary Color
         regular: Regular
         lighten: Lighten
-        Darken: Darken
+        darken: Darken
       recording_visibility:
         public: Public
         private: Private
@@ -130,6 +130,10 @@ en:
     internal:
       message: Looks like something went wrong on our end.
       help: The error has been logged, we'll take a look!
+    maintenance:
+      message: Sorry, we're down for maintenance.
+      help: We'll be back soon!
+      readonly: This application is under maintenance. You will not be able to perform this action
     migration_error:
       contact_admin: If you are not an administrator, please contact one.
       continue: I'd like to stay using 1.0.
@@ -146,6 +150,9 @@ en:
       accepted: must be accepted
       confirmation: doesn't match %{attribute}
       inclusion: is not included in the list
+    no_provider:
+      message: The customer you provided doesn't have Greenlight configured
+      help: Please contact Blindside Networks to setup Greenlight
     not_found:
       message: Sorry! The page you are looking for does not exist.
       help: Is it possible its been removed?
@@ -292,6 +299,7 @@ en:
       update: Update Room
       client: Select client type
       mute: Mute users when they join
+      require_approval: Require moderator approval before joining
       start: Allow any user to start this meeting
       footer_text: Adjustment to your room can be done at anytime.
     rename_room:
@@ -335,7 +343,11 @@ en:
       public: Public
       unlisted: Unlisted
     format:
+      notes: Notes
+      podcast: Podcast
       presentation: Presentation
+      statistics: Statitics
+      video: Video
   registration:
     approval:
       fail: Your account has not been approved yet. If multiples days have passed since you signed up, please contact your administrator.

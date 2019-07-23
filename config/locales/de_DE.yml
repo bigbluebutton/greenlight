@@ -136,6 +136,9 @@ de_DE:
       accepted: muss akzeptiert werden
       confirmation: "passt nicht zu %{attribute}"
       inclusion: ist nicht Teil der Liste
+    no_provider:
+      message: Der angegebene Kunde hat Greenlight nicht konfiguriert.
+      help: Bitte kontaktieren Sie Blindside Networks um Greenlight einzurichten
     not_found:
       message: Tut uns leid! Die aufgerufene Seite existiert nicht.
       help: "Ist es möglich, dass es entfernt wurde?"

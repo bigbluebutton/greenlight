@@ -49,6 +49,7 @@ $(document).on('turbolinks:load', function(){
 
     $("#createRoomModal form").attr("action", $("body").data('relative-root'))
     $("#room_mute_on_join").prop("checked", false)
+    $("#room_require_moderator_approval").prop("checked", false)
     $("#room_anyone_can_start").prop("checked", false)
 
     //show all elements & their children with a create-only class
@@ -104,6 +105,12 @@ $(document).on('turbolinks:load', function(){
       $("#room_mute_on_join").prop("checked", false)
     }
 
+    if(settings.requireModeratorApproval){
+      $("#room_require_moderator_approval").prop("checked", true)
+    } else { //default option
+      $("#room_require_moderator_approval").prop("checked", false)
+    }
+    
     if(settings.anyoneCanStart){
       $("#room_anyone_can_start").prop("checked", true)
     } else { //default option

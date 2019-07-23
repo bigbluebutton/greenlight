@@ -62,12 +62,15 @@ class Room < ApplicationRecord
       "meta_bbb-origin-server-name": options[:host]
     }
 
+    create_options[:guestPolicy] = "ASK_MODERATOR" if options[:require_moderator_approval]
+
     # Send the create request.
     begin
       meeting = bbb(owner.provider).create_meeting(name, bbb_id, create_options)
       # Update session info.
       unless meeting[:messageKey] == 'duplicateWarning'
-        update_attributes(sessions: sessions + 1, last_session: DateTime.now)
+        update_attributes(sessions: sessions + 1,
+          last_session: DateTime.now) unless ENV["MAINTENANCE_MODE"] == "readonly"
       end
     rescue BigBlueButton::BigBlueButtonException => e
       puts "BigBlueButton failed on create: #{e.key}: #{e.message}"
@@ -102,6 +105,8 @@ class Room < ApplicationRecord
     join_opts = {}
     join_opts[:userID] = uid if uid
     join_opts[:join_via_html5] = true
+
+    join_opts[:guest] = true if options[:require_moderator_approval] && !options[:user_is_moderator]
 
     bbb(owner.provider).join_meeting_url(bbb_id, name, password, join_opts)
   end
