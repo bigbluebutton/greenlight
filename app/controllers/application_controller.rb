@@ -197,6 +197,6 @@ class ApplicationController < ActionController::Base
   # Manually Handle errors when application is in readonly mode
   def handle_readonly_error
     flash.clear
-    redirect_to request.referrer, flash: { alert: I18n.t("errors.maintenance.readonly") }
+    redirect_to request.referrer || root_path, flash: { alert: I18n.t("errors.maintenance.readonly") }
   end
 end
