@@ -121,6 +121,9 @@ class ApplicationController < ActionController::Base
       meeting_logout_url: request.base_url + logout_room_path(@room),
       meeting_recorded: true,
       moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
+      host: request.host,
+      recording_default_visibility: Setting.find_or_create_by!(provider: user_settings_provider)
+                                           .get_value("Default Recording Visibility") == "public"
     }
   end
 
@@ -131,7 +134,7 @@ class ApplicationController < ActionController::Base
 
   # Checks to make sure that the admin has changed his password from the default
   def check_admin_password
-    if current_user&.has_role?(:admin) && current_user&.greenlight_account? &&
+    if current_user&.has_cached_role?(:admin) && current_user&.greenlight_account? &&
        current_user&.authenticate(Rails.configuration.admin_password_default)
 
       flash.now[:alert] = I18n.t("default_admin",
@@ -179,10 +182,10 @@ class ApplicationController < ActionController::Base
 
   # Checks if the user is banned and logs him out if he is
   def check_user_role
-    if current_user&.has_role? :denied
+    if current_user&.has_cached_role? :denied
       session.delete(:user_id)
       redirect_to root_path, flash: { alert: I18n.t("registration.banned.fail") }
-    elsif current_user&.has_role? :pending
+    elsif current_user&.has_cached_role? :pending
       session.delete(:user_id)
       redirect_to root_path, flash: { alert: I18n.t("registration.approval.fail") }
     end
