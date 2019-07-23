@@ -1,0 +1,39 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="container text-center pt-9">
+  <div class="display-1 text-primary mb-5">
+    <% if defined?(status_code) %>
+        <%= status_code %>
+    <% else %>
+        404
+    <% end %>
+  </div>
+    <% if defined?(message) && defined?(help) %>
+        <h1 class="h2 mb-3"><%= message %></h1>
+        <p class="h4 text-muted font-weight-normal mb-7"><%= help %></p>
+        <% if defined?(display_back) && display_back %>
+            <a class="btn btn-primary" href="javascript:history.back()">
+                <i class="fas fa-arrow-left mr-2"></i><%= t("go_back") %>
+            </a>
+        <% end %>
+    <% else %>
+        <h1 class="h2 mb-3"><%= t("errors.not_found.message") %></h1>
+        <p class="h4 text-muted font-weight-normal mb-7"><%= t("errors.not_found.help") %></p>
+        <a class="btn btn-primary" href="javascript:history.back()">
+            <i class="fas fa-arrow-left mr-2"></i><%= t("go_back") %>
+        </a>
+    <% end %>
+</div>
