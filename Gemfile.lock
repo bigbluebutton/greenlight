@@ -248,7 +248,6 @@ GEM
     recaptcha (5.0.0)
       json
     redcarpet (3.4.0)
-    redis (3.3.5)
     remote_syslog_logger (1.0.4)
       syslog_protocol
     rolify (5.2.0)
@@ -373,7 +372,6 @@ DEPENDENCIES
   random_password
   recaptcha
   redcarpet
-  redis (~> 3.0)
   remote_syslog_logger
   rolify
   rspec-rails (~> 3.7)
