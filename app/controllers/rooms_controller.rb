@@ -38,7 +38,8 @@ class RoomsController < ApplicationController
 
     @room = Room.new(name: room_params[:name], access_code: room_params[:access_code])
     @room.owner = current_user
-    @room.room_settings = create_room_settings_string(room_params[:mute_on_join], room_params[:client])
+    @room.room_settings = create_room_settings_string(room_params[:mute_on_join], room_params[:client],
+      room_params[:anyone_can_start])
 
     if @room.save
       if room_params[:auto_join] == "1"
@@ -55,13 +56,15 @@ class RoomsController < ApplicationController
 
   # GET /:room_uid
   def show
+    @is_running = @room.running?
+    @anyone_can_start = JSON.parse(@room[:room_settings])["anyoneCanStart"]
+
     if current_user && @room.owned_by?(current_user)
       @search, @order_column, @order_direction, recs =
         recordings(@room.bbb_id, @user_domain, params.permit(:search, :column, :direction), true)
 
       @pagy, @recordings = pagy_array(recs)
 
-      @is_running = @room.running?
     else
       # Get users name
       @name = if current_user
@@ -199,7 +202,8 @@ class RoomsController < ApplicationController
       if update_type.eql? "name"
         @room.update_attributes(name: params[:room_name] || room_params[:name])
       elsif update_type.eql? "settings"
-        room_settings_string = create_room_settings_string(room_params[:mute_on_join], room_params[:client])
+        room_settings_string = create_room_settings_string(room_params[:mute_on_join], room_params[:client],
+          room_params[:anyone_can_start])
         @room.update_attributes(room_settings: room_settings_string)
       elsif update_type.eql? "access_code"
         @room.update_attributes(access_code: room_params[:access_code])
@@ -207,7 +211,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  def create_room_settings_string(mute_res, client_res)
+  def create_room_settings_string(mute_res, client_res, start_res)
     room_settings = {}
     room_settings["muteOnStart"] = mute_res == "1"
 
@@ -217,11 +221,13 @@ class RoomsController < ApplicationController
       room_settings["joinViaHtml5"] = false
     end
 
+    room_settings["anyoneCanStart"] = start_res == "1"
+
     room_settings.to_json
   end
 
   def room_params
-    params.require(:room).permit(:name, :auto_join, :mute_on_join, :client, :access_code)
+    params.require(:room).permit(:name, :auto_join, :mute_on_join, :client, :access_code, :anyone_can_start)
   end
 
   # Find the room from the uid.
@@ -289,12 +295,15 @@ class RoomsController < ApplicationController
   end
 
   def join_room(opts)
-    if @room.running? || @room.owned_by?(current_user)
+    room_settings = JSON.parse(@room[:room_settings])
+
+    if @room.running? || @room.owned_by?(current_user) || room_settings["anyoneCanStart"]
+
       # Determine if the user needs to join as a moderator.
-      opts[:user_is_moderator] = @room.owned_by?(current_user)
+      opts[:user_is_moderator] = @room.owned_by?(current_user) ||
+                                 (room_settings["anyoneCanStart"] && !@room.running?)
 
       # Check if the user has specified which client to use
-      room_settings = JSON.parse(@room[:room_settings])
       opts[:join_via_html5] = room_settings["joinViaHtml5"] if room_settings["joinViaHtml5"]
 
       if current_user
