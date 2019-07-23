@@ -43,9 +43,9 @@ $(document).on('turbolinks:load', function(){
     
       window.location.replace(url);
     })
-    
-    /* COLOR SELECTORS */
+  }
 
+  if (controller == "admins" && action == "site_settings") {
     loadColourSelectors()
   }
 

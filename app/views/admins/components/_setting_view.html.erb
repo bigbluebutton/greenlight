@@ -13,11 +13,14 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="container text-center pt-9">
-  <div class="display-1 text-primary mb-5">500</div>
-  <h1 class="h2 mb-3"><%= t("errors.internal.message") %></h1>
-  <p class="h4 text-muted font-weight-normal mb-7"><%= t("errors.internal.help") %></p>
-  <a class="btn btn-primary" href="javascript:history.back()">
-    <i class="fas fa-arrow-left mr-2"></i><%= t("go_back") %>
-  </a>
-</div>
+<%= content_tag(:div, id: setting_id, class: "setting-view card") do %>
+  <div class="card-body p-6">
+    <div class="card-title text-primary">
+      <div class="form-group">
+        <%= render "shared/components/subtitle", subtitle: setting_title, search: search %>
+      </div>
+    </div>
+
+    <%= render "admins/components/#{setting_id}" %>
+  </div>
+<% end %>

@@ -13,8 +13,15 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="container text-center pt-9">
-  <div class="display-1 text-primary mb-5">401</div>
-  <h1 class="h2 mb-3"><%= t("errors.unauthorized.message") %></h1>
-  <p class="h4 text-muted font-weight-normal mb-7"><%= t("errors.unauthorized.help") %></p>
+<div class="container pt-6">
+  <%= render "shared/components/subtitle", subtitle: t("administrator.title"), search: false %>
+
+  <div class="row">
+    <div class="col-lg-3 mb-4">
+      <%= render "admins/components/menu_buttons" %>
+    </div>
+    <div id="edit_user" class="col-lg-9">
+      <%= render "shared/settings/setting_view", setting_id: "account", setting_title: t("settings.account.subtitle") %>
+    </div>
+  </div>
 </div>

@@ -24,7 +24,7 @@ module Themer
     # Uses the built in Sass Engine to lighten the color
 
     dummy_scss = "h1 { color: $lighten; }"
-    compiled = Sass::Engine.new("$lighten:lighten(#{color}, 40%);" + dummy_scss, syntax: :scss).render
+    compiled = SassC::Engine.new("$lighten:lighten(#{color}, 40%);" + dummy_scss, syntax: :scss).render
 
     string_locater = 'color: '
     color_start = compiled.index(string_locater) + string_locater.length
@@ -37,7 +37,7 @@ module Themer
     # Uses the built in Sass Engine to darken the color
 
     dummy_scss = "h1 { color: $darken; }"
-    compiled = Sass::Engine.new("$darken:darken(#{color}, 10%);" + dummy_scss, syntax: :scss).render
+    compiled = SassC::Engine.new("$darken:darken(#{color}, 10%);" + dummy_scss, syntax: :scss).render
 
     string_locater = 'color: '
     color_start = compiled.index(string_locater) + string_locater.length

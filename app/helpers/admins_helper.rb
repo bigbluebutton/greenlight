@@ -19,6 +19,18 @@
 module AdminsHelper
   include Pagy::Frontend
 
+  # Returns the action method of the current page
+  def active_page
+    route = Rails.application.routes.recognize_path(request.env['PATH_INFO'])
+
+    route[:action]
+  end
+
+  # Gets the email of the room owner to which the recording belongs to
+  def recording_owner_email(room_id)
+    Room.find_by(bbb_id: room_id).owner.email
+  end
+
   def display_invite
     current_page?(admins_path) && invite_registration
   end
@@ -40,6 +52,15 @@ module AdminsHelper
       I18n.t("administrator.site_settings.authentication.enabled")
     else
       I18n.t("administrator.site_settings.authentication.disabled")
+    end
+  end
+
+  def recording_default_visibility_string
+    if Setting.find_or_create_by!(provider: user_settings_provider)
+              .get_value("Default Recording Visibility") == "public"
+      I18n.t("administrator.site_settings.recording_visibility.public")
+    else
+      I18n.t("administrator.site_settings.recording_visibility.private")
     end
   end
 

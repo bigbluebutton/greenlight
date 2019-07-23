@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   resources :admins, only: [:index]
 
   scope '/admins' do
+    get '/site_settings', to: 'admins#site_settings', as: :admin_site_settings
+    get '/recordings', to: 'admins#server_recordings', as: :admin_recordings
     post '/branding', to: 'admins#branding', as: :admin_branding
     post '/coloring', to: 'admins#coloring', as: :admin_coloring
     post '/room_authentication', to: 'admins#room_authentication', as: :admin_room_authentication
@@ -52,6 +54,7 @@ Rails.application.routes.draw do
     post '/registration_method/:method', to: 'admins#registration_method', as: :admin_change_registration
     post '/approve/:user_uid', to: 'admins#approve', as: :admin_approve
     post '/room_limit', to: 'admins#room_limit', as: :admin_room_limit
+    post '/default_recording_visibility', to: 'admins#default_recording_visibility', as: :admin_recording_visibility
   end
 
   scope '/themes' do
@@ -100,6 +103,7 @@ Rails.application.routes.draw do
     post '/update_settings', to: 'rooms#update_settings'
     post '/start', to: 'rooms#start', as: :start_room
     get '/logout', to: 'rooms#logout', as: :logout_room
+    post '/login', to: 'rooms#login', as: :login_room
   end
 
   # Recording operations routes

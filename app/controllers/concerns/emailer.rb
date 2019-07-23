@@ -64,13 +64,19 @@ module Emailer
   def send_approval_user_signup_email(user)
     return unless Rails.configuration.enable_email_verification
 
-    UserMailer.approval_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
+    admin_emails = admin_emails()
+    unless admin_emails.empty?
+      UserMailer.approval_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
+    end
   end
 
   def send_invite_user_signup_email(user)
     return unless Rails.configuration.enable_email_verification
 
-    UserMailer.invite_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
+    admin_emails = admin_emails()
+    unless admin_emails.empty?
+      UserMailer.invite_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
+    end
   end
 
   private
