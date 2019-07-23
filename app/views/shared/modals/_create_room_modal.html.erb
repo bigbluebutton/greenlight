@@ -68,6 +68,14 @@
               </label>
             <% end %>
 
+            <% if Rails.configuration.room_features.include? "require-moderator-approval" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+                <span class="custom-switch-description"><%= t("modal.room_settings.require_approval")%></span>
+                <%= f.check_box :require_moderator_approval, class: "custom-switch-input", checked: false %>
+                <span class="custom-switch-indicator float-right"></span>
+              </label>
+            <% end %>
+            
             <% if Rails.configuration.room_features.include? "anyone-can-start" %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
                 <span class="custom-switch-description"><%= t("modal.room_settings.start")%></span>
