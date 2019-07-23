@@ -206,15 +206,13 @@ class AdminsController < ApplicationController
       User.without_role(:super_admin).where.not(id: current_user.id).includes(:roles)
     end
 
-    list = @role.present? ? initial_list.with_role(@role.to_sym) : initial_list
-
     if Rails.configuration.loadbalanced_configuration
-      list.where(provider: user_settings_provider)
-          .admins_search(@search)
-          .admins_order(@order_column, @order_direction)
+      initial_list.where(provider: user_settings_provider)
+                  .admins_search(@search, @role)
+                  .admins_order(@order_column, @order_direction)
     else
-      list.admins_search(@search)
-          .admins_order(@order_column, @order_direction)
+      initial_list.admins_search(@search, @role)
+                  .admins_order(@order_column, @order_direction)
     end
   end
 
