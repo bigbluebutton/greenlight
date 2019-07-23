@@ -299,6 +299,7 @@ en:
       update: Update Room
       client: Select client type
       mute: Mute users when they join
+      require_approval: Require moderator approval before joining
       start: Allow any user to start this meeting
       default: Default
       html: HTML5
