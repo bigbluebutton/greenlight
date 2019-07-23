@@ -51,7 +51,8 @@ $(document).on('turbolinks:load', function(){
     updateDropdown($(".dropdown-item[value='default']"))
     $("#room_mute_on_join").prop("checked", false)
     $("#room_require_moderator_approval").prop("checked", false)
-    
+    $("#room_anyone_can_start").prop("checked", false)
+
     //show all elements & their children with a create-only class
     $(".create-only").each(function() {
       $(this).show()
@@ -109,6 +110,12 @@ $(document).on('turbolinks:load', function(){
       $("#room_require_moderator_approval").prop("checked", true)
     } else { //default option
       $("#room_require_moderator_approval").prop("checked", false)
+    }
+    
+    if(settings.anyoneCanStart){
+      $("#room_anyone_can_start").prop("checked", true)
+    } else { //default option
+      $("#room_anyone_can_start").prop("checked", false)
     }
 
     //set dropdown value

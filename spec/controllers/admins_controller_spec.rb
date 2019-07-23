@@ -20,6 +20,8 @@ require "rails_helper"
 
 describe AdminsController, type: :controller do
   before do
+    allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
+    controller.instance_variable_set(:@user_domain, "provider1")
     @user = create(:user, provider: "provider1")
     @admin = create(:user, provider: "provider1")
     @admin.add_role :admin
@@ -144,7 +146,7 @@ describe AdminsController, type: :controller do
         email = Faker::Internet.email
         post :invite, params: { invite_user: { email: email } }
 
-        invite = Invitation.find_by(email: email, provider: "greenlight")
+        invite = Invitation.find_by(email: email, provider: "provider1")
 
         expect(invite.present?).to eq(true)
         expect(flash[:success]).to be_present
@@ -310,6 +312,22 @@ describe AdminsController, type: :controller do
 
         expect(feature[:value]).to eq("5")
         expect(response).to redirect_to(admin_site_settings_path)
+      end
+    end
+
+    context "POST #default_recording_visibility" do
+      it "changes the default recording visibility setting" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+
+        post :default_recording_visibility, params: { visibility: "public" }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Default Recording Visibility")
+
+        expect(feature[:value]).to eq("public")
+        expect(response).to redirect_to(admins_path)
       end
     end
   end

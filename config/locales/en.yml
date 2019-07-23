@@ -48,6 +48,12 @@ en:
         regular: Regular
         lighten: Lighten
         Darken: Darken
+      recording_visibility:
+        public: Public
+        private: Private
+        info: Set the default recording visbility for new recordings
+        title: Recording Default Visibility
+        warning: This setting will only be applied to rooms that aren't running
       registration:
         info: Change the way that users register to the website
         title: Registration Method
@@ -287,6 +293,7 @@ en:
       client: Select client type
       mute: Mute users when they join
       require_approval: Require moderator approval before joining
+      start: Allow any user to start this meeting
       default: Default
       html: HTML5
       flash: Flash
@@ -354,7 +361,7 @@ en:
     confirm: New Password Confirmation
     update: Update Password
   roles:
-    administrator: Administrator
+    administrator: Admin
     banned: Banned
     pending: Pending
     super_admin: Super Admin

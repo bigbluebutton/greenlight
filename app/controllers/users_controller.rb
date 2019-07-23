@@ -67,6 +67,12 @@ class UsersController < ApplicationController
       flash[:alert] = I18n.t("registration.deprecated.new_signin")
       session[:old_twitter_user_id] = params[:old_twitter_user_id] unless params[:old_twitter_user_id].nil?
     end
+
+    providers = configured_providers
+    if (!allow_user_signup? || !allow_greenlight_accounts?) && providers.count == 1 &&
+       !Rails.configuration.loadbalanced_configuration
+      return redirect_to "#{Rails.configuration.relative_url_root}/auth/#{providers.first}"
+    end
   end
 
   # GET /ldap_signin

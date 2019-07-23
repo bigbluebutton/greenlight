@@ -101,7 +101,7 @@ class User < ApplicationRecord
     end
   end
 
-  def self.admins_search(string)
+  def self.admins_search(string, role)
     active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
     # Postgres requires created_at to be cast to a string
     created_at_query = if active_database == "postgresql"
@@ -110,10 +110,24 @@ class User < ApplicationRecord
       "created_at"
     end
 
-    search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
-                   " OR users.#{created_at_query} LIKE :search OR provider LIKE :search"
+    search_query = ""
+    role_search_param = ""
+    if role.present?
+      search_query = "(users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
+                    " OR users.#{created_at_query} LIKE :search OR provider LIKE :search)" \
+                    " AND roles.name = :roles_search"
+      role_search_param = role
+    else
+      search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
+                    " OR users.#{created_at_query} LIKE :search OR provider LIKE :search" \
+                    " OR roles.name LIKE :roles_search"
+      role_search_param = "%#{string}%".downcase
+    end
+
     search_param = "%#{string}%"
-    where(search_query, search: search_param)
+    joins("LEFT OUTER JOIN users_roles ON users_roles.user_id = users.id LEFT OUTER JOIN roles " \
+      "ON roles.id = users_roles.role_id").distinct
+      .where(search_query, search: search_param, roles_search: role_search_param)
   end
 
   def self.admins_order(column, direction)
