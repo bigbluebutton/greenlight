@@ -48,7 +48,6 @@ $(document).on('turbolinks:load', function(){
     $("#room_access_code").val(null)
 
     $("#createRoomModal form").attr("action", $("body").data('relative-root'))
-    updateDropdown($(".dropdown-item[value='default']"))
     $("#room_mute_on_join").prop("checked", false)
     $("#room_require_moderator_approval").prop("checked", false)
     $("#room_anyone_can_start").prop("checked", false)
@@ -117,23 +116,8 @@ $(document).on('turbolinks:load', function(){
     } else { //default option
       $("#room_anyone_can_start").prop("checked", false)
     }
-
-    //set dropdown value
-    if (settings.joinViaHtml5) {
-      updateDropdown($(".dropdown-item[value='html5']"))
-    } else if (settings.joinViaHtml5 === false) {
-      updateDropdown($(".dropdown-item[value='flash']"))
-    } else { //default option
-      updateDropdown($(".dropdown-item[value='default']"))
-    }
   }
 });
-
-// Updates the dropdown element to show the clicked/correct text
-function updateDropdown(element) {
-  $("#dropdown-trigger").text(element.text())
-  $("#room_client").val(element.val())
-}
 
 function generateAccessCode(){
   const accessCodeLength = 6
