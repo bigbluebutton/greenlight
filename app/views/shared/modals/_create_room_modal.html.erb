@@ -33,12 +33,12 @@
             </div>
 
             <div class="input-icon mb-2">
-              <span onclick="generateAccessCode()" class="input-icon-addon allow-icon-click">
+              <span onclick="generateAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
                 <i class="fas fa-dice"></i>
               </span>
               <%= f.label :access_code, t("modal.create_room.access_code_placeholder"), id: "create-room-access-code", class: "form-control" %>
               <%= f.hidden_field :access_code %>
-              <span onclick="ResetAccessCode()" class="input-icon-addon allow-icon-click">
+              <span onclick="ResetAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
                 <i class="far fa-trash-alt"></i>
               </span>
             </div>
@@ -47,7 +47,7 @@
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
                 <span class="custom-switch-description"><%= t("modal.room_settings.mute")%></span>
                 <%= f.check_box :mute_on_join, class: "custom-switch-input", checked: false %>
-                <span class="custom-switch-indicator float-right"></span>
+                <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
 
@@ -55,7 +55,7 @@
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
                 <span class="custom-switch-description"><%= t("modal.room_settings.require_approval")%></span>
                 <%= f.check_box :require_moderator_approval, class: "custom-switch-input", checked: false %>
-                <span class="custom-switch-indicator float-right"></span>
+                <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
             
@@ -63,14 +63,14 @@
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
                 <span class="custom-switch-description"><%= t("modal.room_settings.start")%></span>
                 <%= f.check_box :anyone_can_start, class: "custom-switch-input", checked: false %>
-                <span class="custom-switch-indicator float-right"></span>
+                <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
 
             <label id="auto-join-label" class="create-only custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
               <span class="custom-switch-description"><%= t("modal.create_room.auto_join") %></span>
               <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>
-              <span class="custom-switch-indicator float-right"></span>
+              <span class="custom-switch-indicator float-right cursor-pointer"></span>
             </label>
           <div class="mt-4">
             <%= f.submit t("modal.create_room.create"), id: "create-room-submit", class: "create-only btn btn-primary btn-block" %>
