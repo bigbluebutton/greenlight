@@ -82,6 +82,23 @@ en:
     recordings:
       title: Server Recordings
       no_recordings: This server has no recordings.
+    roles:
+      can_create_rooms: Can create rooms
+      delete: Delete the role
+      duplicate_name: The role name you provided was a duplicate. All role names must be unique
+      empty_name: All roles must have a non empty name
+      invalid_order: The user role must be the lowest priority role
+      invalid_update: You can't update a role with a higher priority than your own role
+      name: Role Name
+      new_role: Create a new role
+      role_has_users: This role is assigned to %{user_count} accounts. Please remove all accounts from this role before deleting.
+      title: Roles
+      promote_email: Send an email to users when they are assigned this role
+      demote_email: Send an email to users when they are removed from this role
+      administrator_role: Administrator Role
+      edit_site_settings: Allow users with this role to edit site settings
+      edit_roles: Allow users with this role to edit other roles
+      manage_users: Allow users with this role to manage users
     title: Organization Settings
     users:
       invite: Invite User
@@ -264,6 +281,12 @@ en:
         thanks: Thanks for joining and have a great day!
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!
   modal:
+    create_role:
+      create: Create a new Role
+      footer_text: You can edit the individual permissions for this role after you've created it
+      name_placeholder: Enter a role name...
+      not_blank: Role name cannot be blank.
+      title: Create New Role
     create_room:
       access_code: Access Code
       access_code_placeholder: Generate an optional room access code

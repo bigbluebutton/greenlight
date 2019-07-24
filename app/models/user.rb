@@ -245,6 +245,10 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
 
+  def highest_priority_role
+    roles.by_priority.includes(:role_permission).first
+  end
+
   private
 
   def create_reset_activation_digest(token)

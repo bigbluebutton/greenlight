@@ -19,47 +19,63 @@ $(document).on('turbolinks:load', function(){
   var action = $("body").data('action');
 
   // Only run on the admins page.
-  if (controller == "admins" && action == "index") {
-    // show the modal with the correct form action url
-    $(".delete-user").click(function(data){
-      var uid = $(data.target).closest("tr").data("user-uid")
-      var url = $("body").data("relative-root")
-      if (!url.endsWith("/")) {
-        url += "/"
-      }
-      url += "u/" + uid
-      $("#delete-confirm").parent().attr("action", url)
-    })
+  if (controller == "admins") {
+    if(action == "index") {
+      // show the modal with the correct form action url
+      $(".delete-user").click(function(data){
+        var uid = $(data.target).closest("tr").data("user-uid")
+        var url = $("body").data("relative-root")
+        if (!url.endsWith("/")) {
+          url += "/"
+        }
+        url += "u/" + uid
+        $("#delete-confirm").parent().attr("action", url)
+      })
 
-    //clear the role filter if user clicks on the x
-    $(".clear-role").click(function() {
-      var search = new URL(location.href).searchParams.get('search')
+      //clear the role filter if user clicks on the x
+      $(".clear-role").click(function() {
+        var search = new URL(location.href).searchParams.get('search')
 
-      var url = window.location.pathname + "?page=1"
-    
-      if (search) {
-        url += "&search=" + search
-      }  
-    
-      window.location.replace(url);
-    })
-  }
+        var url = window.location.pathname + "?page=1"
+      
+        if (search) {
+          url += "&search=" + search
+        }  
+      
+        window.location.replace(url);
+      })
+    }
+    else if(action == "site_settings"){
+      loadColourSelectors()
+    }
+    // Only run on the admins edit user page.
+    else if (action == "edit_user") {
+      $(".setting-btn").click(function(data){
+        var url = $("body").data("relative-root")
+        if (!url.endsWith("/")) {
+          url += "/"
+        }
+        url += "admins?setting=" + data.target.id
 
-  if (controller == "admins" && action == "site_settings") {
-    loadColourSelectors()
-  }
+        window.location.href = url
+      })
+    }
+    else if (action == "roles"){
+      $("#newRoleButton").click(function(){
+        $("#createRoleName").val("")
+      })
 
-  // Only run on the admins edit user page.
-  if (controller == "admins" && action == "edit_user") {
-    $(".setting-btn").click(function(data){
-      var url = $("body").data("relative-root")
-      if (!url.endsWith("/")) {
-        url += "/"
-      }
-      url += "admins?setting=" + data.target.id
-
-      window.location.href = url
-    })
+      $("#rolesSelect").sortable({
+        items: "a:not(.sort-disabled)",
+        update: function() {
+          $.ajax({
+            url: $(this).data("url"),
+            type: 'PATCH',
+            data: $(this).sortable('serialize')
+          });
+        }
+      });
+    }
   }
 });
 

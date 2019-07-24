@@ -56,8 +56,17 @@
               <%= link_to edit_user_path(current_user), class: "dropdown-item"  do %>
                 <i class="dropdown-icon fas fa-id-card mr-3"></i><%= t("header.dropdown.settings") %>
               <% end %>
-              <% if current_user.has_cached_role? :admin %>
+              <% highest_role = current_user.highest_priority_role.role_permission %>
+              <% if highest_role.can_manage_users %>
                 <%= link_to admins_path, class: "dropdown-item" do %>
+                  <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
+                <% end %>
+              <% elsif highest_role.can_edit_site_settings %>
+                <%= link_to admin_site_settings_path, class: "dropdown-item" do %>
+                  <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
+                <% end %>
+              <% elsif highest_role.can_edit_roles%>
+                <%= link_to admin_roles_path, class: "dropdown-item" do %>
                   <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
                 <% end %>
               <% end %>

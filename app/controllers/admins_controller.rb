@@ -58,6 +58,17 @@ class AdminsController < ApplicationController
     @pagy, @recordings = pagy_array(recs)
   end
 
+  # GET /admins/roles
+  def roles
+    @roles = Role.editable_roles.includes(:role_permission)
+
+    @selected_role = if params[:selected_role].nil?
+                        @roles.find_by(name: 'user')
+                      else
+                        @roles.find(params[:selected_role])
+                     end
+  end
+
   # MANAGE USERS
 
   # GET /admins/edit/:user_uid
@@ -181,6 +192,114 @@ class AdminsController < ApplicationController
     @settings.update_value("Default Recording Visibility", params[:visibility])
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") + ". " +
                                                I18n.t("administrator.site_settings.recording_visibility.warning") }
+  end
+
+  # ROLES
+
+  # POST /admin/role
+  def new_role
+    new_role_name = params[:role][:name]
+
+    if Role.exists?(name: new_role_name)
+      flash[:alert] = I18n.t("administrator.roles.duplicate_name")
+
+      return redirect_to admin_roles_path
+    end
+
+    if new_role_name.strip.empty?
+      flash[:alert] = I18n.t("administrator.roles.empty_name")
+
+      return redirect_to admin_roles_path
+    end
+
+    # You can't just create a new role because creating a new role modifies the User model
+    tmp_user = User.create
+
+    tmp_user.add_role new_role_name.to_sym
+
+    new_role = Role.find_by(name: new_role_name)
+    user_role = Role.find_by(name: 'user')
+
+    new_role.priority = user_role.priority
+    user_role.priority += 1
+
+    new_role.save!
+    user_role.save!
+
+    redirect_to admin_roles_path(selected_role: new_role.id)
+  end
+
+  # PATCH /admin/roles/order
+  def change_role_order
+    user_role = Role.find_by(name: "user")
+
+    if params[:role].include?(user_role.id.to_s)
+      flash[:alert] = I18n.t("administrator.roles.invalid_order")
+
+      return redirect_to admin_roles_path
+    end
+
+    if user_role.priority.positive?
+      params[:role].each do |id|
+        if Role.find(id).priority <= user_role.priority
+          flash[:alert] = I18n.t("administrator.roles.invalid_update")
+          return redirect_to admin_roles_path(selected_role: role.id)
+        end
+      end
+    end
+
+    params[:role].each_with_index do |id, index|
+      Role.where(id: id).update_all(priority: index + user_role.priority)
+    end
+
+    user_role.priority = params[:role].count
+    user_role.save!
+  end
+
+  # PUT /admin/role/:role_id
+  def update_role
+    role = Role.find(params[:role_id])
+    current_user_role = current_user.highest_priority_role
+
+    if role.priority <= current_user_role.priority && current_user_role.priority != 0
+      flash[:alert] = I18n.t("administrator.roles.invalid_update")
+      return redirect_to admin_roles_path(selected_role: role.id)
+    end
+
+    role_params = params.require(:role).permit(:name)
+    permission_params = params.require(:role).require(:role_permission)
+                              .permit(
+                                :can_create_rooms,
+        :send_promoted_email,
+        :send_demoted_email,
+        :administrator_role,
+        :can_edit_site_settings,
+        :can_edit_roles,
+        :can_manage_users
+                              )
+
+    role.name = role_params[:name] if role.name != 'user'
+
+    role.role_permission.update(permission_params)
+
+    role.save!
+
+    redirect_to admin_roles_path(selected_role: role.id)
+  end
+
+  def delete_role
+    role = Role.find(params[:role_id])
+
+    if role.users.count.positive?
+      flash[:alert] = I18n.t("administrator.roles.role_has_users", user_count: role.users.count)
+      return redirect_to admin_roles_path(role.id)
+    elsif role.name == "user"
+      return redirect_to admin_roles_path(role.id)
+    else
+      role.delete
+    end
+
+    redirect_to admin_roles_path
   end
 
   private
