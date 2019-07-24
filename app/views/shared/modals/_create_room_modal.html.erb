@@ -43,23 +43,6 @@
               </span>
             </div>
 
-            <% if Rails.configuration.room_features.include? "default-client" %>
-              <label class="mt-3 mb-3 w-100 text-left d-inline-block">
-                <input type="hidden" name="room[client]" id="room_client">
-                <span id="room-settings-dropdown-label" class="custom-switch-description"><%= t("modal.room_settings.client")%></span>
-                <div id="dropdown-div" class="dropdown float-right">
-                  <button id="dropdown-trigger" type="button" class="btn btn-secondary dropdown-toggle px-4" data-toggle="dropdown">
-                    <%= t("modal.room_settings.default")%>
-                  </button>
-                  <div class="dropdown-menu">
-                    <button type=button class="dropdown-item" onclick="updateDropdown($(this))" value="default"><%= t("modal.room_settings.default")%></button>
-                    <button type=button class="dropdown-item" onclick="updateDropdown($(this))" value="html5"><%= t("modal.room_settings.html")%></button>
-                    <button type=button class="dropdown-item" onclick="updateDropdown($(this))" value="flash"><%= t("modal.room_settings.flash")%></button>
-                  </div>
-                </div>
-              </label>
-            <% end %>
-
             <% if Rails.configuration.room_features.include? "mute-on-join" %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
                 <span class="custom-switch-description"><%= t("modal.room_settings.mute")%></span>

@@ -104,7 +104,7 @@ class Room < ApplicationRecord
     # Generate the join URL.
     join_opts = {}
     join_opts[:userID] = uid if uid
-    join_opts[:joinViaHtml5] = options[:join_via_html5] if options[:join_via_html5]
+    join_opts[:join_via_html5] = true
 
     join_opts[:guest] = true if options[:require_moderator_approval] && !options[:user_is_moderator]
 

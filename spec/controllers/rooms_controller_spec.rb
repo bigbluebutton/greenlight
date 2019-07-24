@@ -119,10 +119,10 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @owner.id
       name = Faker::Games::Pokemon.name
 
-      room_params = { name: name, "client": "html5", "mute_on_join": "1",
+      room_params = { name: name, "mute_on_join": "1",
         "require_moderator_approval": "1", "anyone_can_start": "1" }
       json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
-        "\"joinViaHtml5\":true,\"anyoneCanStart\":true}"
+        "\"anyoneCanStart\":true}"
 
       post :create, params: { room: room_params }
 
@@ -145,7 +145,7 @@ describe RoomsController, type: :controller do
     it "should redirect back to main room with error if it fails" do
       @request.session[:user_id] = @owner.id
 
-      room_params = { name: "", "client": "html5", "mute_on_join": "1" }
+      room_params = { name: "", "mute_on_join": "1" }
 
       post :create, params: { room: room_params }
 
@@ -158,7 +158,7 @@ describe RoomsController, type: :controller do
 
       @request.session[:user_id] = @owner.id
 
-      room_params = { name: Faker::Games::Pokemon.name, "client": "html5", "mute_on_join": "1" }
+      room_params = { name: Faker::Games::Pokemon.name, "mute_on_join": "1" }
 
       post :create, params: { room: room_params }
 
@@ -358,9 +358,9 @@ describe RoomsController, type: :controller do
     it "properly updates room settings through the room settings modal and redirects to current page" do
       @request.session[:user_id] = @user.id
 
-      room_params = { "client": "html5", "mute_on_join": "1", "name": @secondary_room.name }
+      room_params = { "mute_on_join": "1", "name": @secondary_room.name }
       formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
-        "\"joinViaHtml5\":true,\"anyoneCanStart\":false}" # JSON string format
+        "\"anyoneCanStart\":false}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }
