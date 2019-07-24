@@ -4,7 +4,7 @@
 
 if Rails.configuration.loadbalanced_configuration
     Rails.application.config.session_store :cookie_store, key: '_greenlight-2_0_session',
-        domain: ENV['GREENLIGHT_PARENT_DOMAIN'] || 'blindside-dev.com'
+        domain: ENV['GREENLIGHT_SESSION_DOMAIN'] || 'blindside-dev.com'
 else
     Rails.application.config.session_store :cookie_store, key: '_greenlight-2_0_session'
 end
