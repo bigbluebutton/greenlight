@@ -12,7 +12,7 @@ class CreateRolePermissions < ActiveRecord::Migration[5.2]
       t.boolean :can_edit_site_settings, default: false
       t.boolean :can_edit_roles, default: false
       t.boolean :can_manage_users, default: false
-      t.string  :role_colour
+      t.string  :colour
 
       t.timestamps
     end

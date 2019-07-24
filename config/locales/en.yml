@@ -99,6 +99,9 @@ en:
       edit_site_settings: Allow users with this role to edit site settings
       edit_roles: Allow users with this role to edit other roles
       manage_users: Allow users with this role to manage users
+      colour:
+        title: Role Colour
+        info: Set the colour that will be associated with the role
     title: Organization Settings
     users:
       invite: Invite User
@@ -392,11 +395,9 @@ en:
     confirm: New Password Confirmation
     update: Update Password
   roles:
-    administrator: Admin
     banned: Banned
     pending: Pending
     super_admin: Super Admin
-    user: User
   room:
     access_code_required: Please enter a valid access code to join the room
     create_room: Create a Room

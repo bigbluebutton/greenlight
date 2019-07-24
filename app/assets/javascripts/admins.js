@@ -65,6 +65,12 @@ $(document).on('turbolinks:load', function(){
         $("#createRoleName").val("")
       })
 
+      role_colour = $("#role-colorinput-regular").data("colour")
+      $("#role-colorinput-regular").css("background-color", role_colour);
+      $("#role-colorinput-regular").css("border-color", role_colour);
+
+      loadRoleColourSelector(role_colour);
+
       $("#rolesSelect").sortable({
         items: "a:not(.sort-disabled)",
         update: function() {
@@ -176,4 +182,33 @@ function loadColourSelectors() {
       location.reload()
     });
   })
+}
+
+function loadRoleColourSelector(role_colour) { 
+  const pickrRoleRegular = new Pickr({
+    el: '#role-colorinput-regular',
+    theme: 'monolith',
+    useAsButton: true,
+    lockOpacity: true,
+    defaultRepresentation: 'HEX',
+    closeWithKey: 'Enter',
+    default: role_colour,
+
+    components: {
+        palette: true,
+        preview: true,
+        hue: true,
+        interaction: {
+            input: true,
+            save: true,
+        },
+    },
+  });
+
+  pickrRoleRegular.on("save", (color, instance) => {
+    $("#role-colorinput-regular").css("background-color", color.toHEXA().toString());
+    $("#role-colorinput-regular").css("border-color", color.toHEXA().toString());
+    console.log( $("#role-colour"))
+    $("#role-colour").val(color.toHEXA().toString());
+  });
 }

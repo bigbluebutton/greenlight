@@ -58,7 +58,7 @@ Rails.application.routes.draw do
     get '/roles', to: 'admins#roles', as: :admin_roles
     post '/role', to: 'admins#new_role', as: :admin_new_role
     patch 'roles/order', to: 'admins#change_role_order', as: :admin_roles_order
-    put '/role/:role_id', to: 'admins#update_role', as: :admin_update_role
+    post '/role/:role_id', to: 'admins#update_role', as: :admin_update_role
     delete 'role/:role_id', to: 'admins#delete_role', as: :admin_delete_role
   end
 

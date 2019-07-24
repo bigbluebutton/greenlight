@@ -24,11 +24,11 @@ admin_role.priority = 0
 if admin_role.role_permission.nil?
     admin_role.create_role_permission(can_create_rooms: true, send_promoted_email: true,
         send_demoted_email: true, administrator_role: true, can_edit_site_settings: true,
-        can_edit_roles: true, can_manage_users: true)
+        can_edit_roles: true, can_manage_users: true, colour: "#f1c40f")
 else
     admin_role.role_permission.update(can_create_rooms: true, send_promoted_email: true,
         send_demoted_email: true, administrator_role: true, can_edit_site_settings: true,
-        can_edit_roles: true, can_manage_users: true)
+        can_edit_roles: true, can_manage_users: true, colour: "#f1c40f")
 end
 
 admin_role.save!
@@ -36,10 +36,10 @@ admin_role.save!
 user_role = Role.find_by(name: 'user')
 user_role.priority = 1
 
-if admin_role.role_permission.nil?
-    user_role.create_role_permission(can_create_rooms: true)
+if user_role.role_permission.nil?
+    user_role.create_role_permission(can_create_rooms: true, colour: "#868e96")
 else
-    user_role.role_permission.update(can_create_rooms: true)
+    user_role.role_permission.update(can_create_rooms: true, colour: "#868e96")
 end
 
 user_role.save!

@@ -34,43 +34,54 @@
     </div>
     <% edit_disabled = @selected_role.priority <= current_user_role.priority && current_user_role.priority != 0 %>
     <div class="col-lg-9 <%="form-disable" if edit_disabled%>">
-        <%= form_for(@selected_role, url: admin_update_role_path(@selected_role.id), method: 'put') do |f| %>
+        <%= form_for(@selected_role, url: admin_update_role_path(@selected_role.id), method: :post) do |f| %>
             <%= f.label t('administrator.roles.name'), class: "form-label" %>
-            <%= f.text_field :name, class: 'form-control', disabled: edit_disabled || @selected_role.name == "user" %>
-
+            <%= f.text_field :name, class: 'form-control mb-3', disabled: edit_disabled || @selected_role.name == "user" %>
+            
             <%= f.fields_for :role_permission, @selected_role.role_permission do |permissions| %>
+                <%= permissions.hidden_field :colour, id: "role-colour", value: @selected_role.role_permission.colour || Rails.configuration.primary_color_default %>
+                <div class="form-group">
+                    <label class="form-label"><%= t("administrator.roles.colour.title") %></label>
+                    <label class="form-label text-muted"><%= t("administrator.roles.colour.info") %></label>
+                    <div class="color-inputs">
+                        <div id="role-colorinput-regular" class="btn role-colour-picker" data-colour="<%= @selected_role.role_permission.colour || Rails.configuration.primary_color_default %>">
+                            <%= t("administrator.site_settings.color.regular") %>
+                        </div>
+                    </div>
+                </div>
+
                 <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
-                    <span class="custom-switch-description"><%= t("administrator.roles.can_create_rooms")%></span>
+                    <span class="ml-0 custom-switch-description"><%= t("administrator.roles.can_create_rooms")%></span>
                         <%= permissions.check_box :can_create_rooms, class: "custom-switch-input", disabled: edit_disabled %>
                     <span class="custom-switch-indicator float-right"></span>
                 </label>
                 <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
-                    <span class="custom-switch-description"><%= t("administrator.roles.promote_email")%></span>
+                    <span class="ml-0 custom-switch-description"><%= t("administrator.roles.promote_email")%></span>
                         <%= permissions.check_box :send_promoted_email, class: "custom-switch-input", disabled: edit_disabled %>
                     <span class="custom-switch-indicator float-right"></span>
                 </label>
                 <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
-                    <span class="custom-switch-description"><%= t("administrator.roles.demote_email")%></span>
+                    <span class="ml-0 custom-switch-description"><%= t("administrator.roles.demote_email")%></span>
                         <%= permissions.check_box :send_demoted_email, class: "custom-switch-input", disabled: edit_disabled %>
                     <span class="custom-switch-indicator float-right"></span>
                 </label>
                 <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
-                    <span class="custom-switch-description"><%= t("administrator.roles.administrator_role")%></span>
+                    <span class="ml-0 custom-switch-description"><%= t("administrator.roles.administrator_role")%></span>
                         <%= permissions.check_box :administrator_role, class: "custom-switch-input", disabled: edit_disabled %>
                     <span class="custom-switch-indicator float-right"></span>
                 </label>
                 <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
-                    <span class="custom-switch-description"><%= t("administrator.roles.edit_site_settings")%></span>
+                    <span class="ml-0 custom-switch-description"><%= t("administrator.roles.edit_site_settings")%></span>
                         <%= permissions.check_box :can_edit_site_settings, class: "custom-switch-input", disabled: edit_disabled %>
                     <span class="custom-switch-indicator float-right"></span>
                 </label>
                 <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
-                    <span class="custom-switch-description"><%= t("administrator.roles.edit_roles")%></span>
+                    <span class="ml-0 custom-switch-description"><%= t("administrator.roles.edit_roles")%></span>
                         <%= permissions.check_box :can_edit_roles, class: "custom-switch-input", disabled: edit_disabled %>
                     <span class="custom-switch-indicator float-right"></span>
                 </label>
                 <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
-                    <span class="custom-switch-description"><%= t("administrator.roles.manage_users")%></span>
+                    <span class="ml-0 custom-switch-description"><%= t("administrator.roles.manage_users")%></span>
                         <%= permissions.check_box :can_manage_users, class: "custom-switch-input", disabled: edit_disabled %>
                     <span class="custom-switch-indicator float-right"></span>
                 </label>

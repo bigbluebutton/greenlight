@@ -36,7 +36,11 @@ class AdminsController < ApplicationController
     @search = params[:search] || ""
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
-    @role = params[:role] || ""
+    @role = nil
+
+    if params[:role]
+      @role = Role.find_by(name: params[:role])
+    end
 
     @pagy, @users = pagy(user_list)
   end
@@ -256,7 +260,7 @@ class AdminsController < ApplicationController
     user_role.save!
   end
 
-  # PUT /admin/role/:role_id
+  # POST /admin/role/:role_id
   def update_role
     role = Role.find(params[:role_id])
     current_user_role = current_user.highest_priority_role
@@ -275,7 +279,8 @@ class AdminsController < ApplicationController
         :administrator_role,
         :can_edit_site_settings,
         :can_edit_roles,
-        :can_manage_users
+        :can_manage_users,
+        :colour
                               )
 
     role.name = role_params[:name] if role.name != 'user'

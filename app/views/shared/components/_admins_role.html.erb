@@ -13,24 +13,21 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<% if roles.include?("denied")%>
+<% if role.name == "denied"%>
   <button class="user-role btn btn-sm btn-gray-dark" onclick="filterRole('denied')">
     <%= t("roles.banned") %>
   </button>
-<% elsif roles.include?("pending") %>
+<% elsif role.name == "pending" %>
   <button class="user-role btn btn-sm btn-cyan" onclick="filterRole('pending')">
     <%= t("roles.pending") %>
   </button>
-<% elsif roles.include?("super_admin") %>
+<% elsif role.name == "super_admin" %>
   <button class="user-role btn btn-sm btn-red" onclick="filterRole('super_admin')">
     <%= t("roles.super_admin") %>
   </button>
-<% elsif roles.include?("admin") %>
-  <button class="user-role btn btn-sm btn-yellow" onclick="filterRole('admin')">
-    <%= t("roles.administrator") %>
-  </button>
 <% else %>
-  <button class="user-role btn btn-sm btn-gray" onclick="filterRole('user')">
-    <%= t("roles.user") %>
+  <% role_colour = role.role_permission.colour || Rails.configuration.primary_color_default %>
+  <button style="<%= "background-color: #{role_colour};border-color: #{role_colour}" %>" class="user-role btn btn-sm" onclick="filterRole('<%= role.name %>')">
+    <%= role.name %>
   </button>
 <% end %>

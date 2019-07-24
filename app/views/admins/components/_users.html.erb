@@ -28,7 +28,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<% if @role.present? %>
+<% unless @role.nil? %>
   <%= render "shared/components/admins_tags" %>
 <% end %>
 
@@ -88,7 +88,7 @@
                     <td><%= user.provider %></td>
                     <td class="text-center">
                       <% roles = user.roles().pluck(:name) %>
-                      <%= render "shared/components/admins_role", roles: roles %>
+                      <%= render "shared/components/admins_role", role: user.highest_priority_role %>
                     </td>
                     <td>
                       <% if roles.include?("pending") %>

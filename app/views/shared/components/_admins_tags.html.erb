@@ -15,38 +15,32 @@
 
 <div class="form-group">
   <div class="row">
+    <% role_colour = @role.role_permission.colour || Rails.configuration.primary_color_default %>
     <div class="col-12 tags">
-      <% if @role == "denied"%>
+      <% if @role.name == "denied"%>
         <span class="tag tag-gray-dark">
           <%= t("roles.banned") %>
           <a class="tag-addon clear-role">
             <i class="fas fa-times"></i>
           </a>
         </span>
-      <% elsif @role == "pending" %>
+      <% elsif @role.name == "pending" %>
         <span class="tag tag-cyan">
           <%= t("roles.pending") %>
           <a class="tag-addon clear-role">
             <i class="fas fa-times"></i>
           </a>
         </span>
-      <% elsif @role == "super_admin" %>
+      <% elsif @role.name == "super_admin" %>
         <span class="tag tag-red">
           <%= t("roles.super_admin") %>
           <a class="tag-addon clear-role">
             <i class="fas fa-times"></i>
           </a>
         </span>
-      <% elsif @role == "admin" %>
-        <span class="tag tag-yellow">
-          <%= t("roles.administrator") %>
-          <a class="tag-addon clear-role">
-            <i class="fas fa-times"></i>
-          </a>
-        </span>
       <% else %>
-        <span class="tag tag-gray">
-          <%= t("roles.user") %>
+        <span style="<%= "background-color: #{role_colour};" %>" class="tag custom-role-tag">
+          <%= @role.name %>
           <a class="tag-addon clear-role">
             <i class="fas fa-times"></i>
           </a>
