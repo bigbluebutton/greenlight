@@ -120,9 +120,9 @@ describe RoomsController, type: :controller do
       name = Faker::Games::Pokemon.name
 
       room_params = { name: name, "mute_on_join": "1",
-        "require_moderator_approval": "1", "anyone_can_start": "1" }
+        "require_moderator_approval": "1", "anyone_can_start": "1", "all_join_moderator": "1" }
       json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
-        "\"anyoneCanStart\":true}"
+        "\"anyoneCanStart\":true,\"joinModerator\":true}"
 
       post :create, params: { room: room_params }
 
@@ -210,6 +210,20 @@ describe RoomsController, type: :controller do
 
       room = Room.new(name: "test")
       room.room_settings = "{\"muteOnStart\":false,\"joinViaHtml5\":false,\"anyoneCanStart\":true}"
+      room.owner = @owner
+      room.save
+
+      @request.session[:user_id] = @user.id
+      post :join, params: { room_uid: room, join_name: @user.name }
+
+      expect(response).to redirect_to(room.join_path(@user.name, { user_is_moderator: false }, @user.uid))
+    end
+
+    it "should join the room as moderator if room has the all_join_moderator setting" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
+
+      room = Room.new(name: "test")
+      room.room_settings = "{\"joinModerator\":true}"
       room.owner = @owner
       room.save
 
@@ -360,7 +374,7 @@ describe RoomsController, type: :controller do
 
       room_params = { "mute_on_join": "1", "name": @secondary_room.name }
       formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
-        "\"anyoneCanStart\":false}" # JSON string format
+        "\"anyoneCanStart\":false,\"joinModerator\":false}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }
