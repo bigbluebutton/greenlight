@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   end
 
   def maintenance_mode?
-    if ENV["MAINTENANCE_MODE"] == "full"
+    if ENV["MAINTENANCE_MODE"] == "true"
       render "errors/greenlight_error", status: 503, formats: :html,
         locals: {
           status_code: 503,
