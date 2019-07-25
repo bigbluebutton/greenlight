@@ -10,10 +10,8 @@ fi
 
 bundle exec rake db:create
 
-if [ "$MAINTENANCE_MODE" != "readonly" ] && [ "$MAINTENANCE_MODE" != "full" ]; then
-  if ! bundle exec rake db:migrate ; then
-    export DB_MIGRATE_FAILED=1
-  fi
+if ! bundle exec rake db:migrate ; then
+  export DB_MIGRATE_FAILED=1
 fi
 
 bundle exec rake assets:precompile

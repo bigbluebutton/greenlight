@@ -55,31 +55,14 @@ class User < ApplicationRecord
     def from_omniauth(auth)
       # Provider is the customer name if in loadbalanced config mode
       provider = auth['provider'] == "bn_launcher" ? auth['info']['customer'] : auth['provider']
-      u = find_by(social_uid: auth['uid'], provider: provider)
-
-      if ENV["MAINTENANCE_MODE"] == "readonly"
-        raise ActiveRecord::ReadOnlyRecord if u.nil?
-
-        return u
+      find_or_initialize_by(social_uid: auth['uid'], provider: provider).tap do |u|
+        u.name = auth_name(auth) unless u.name
+        u.username = auth_username(auth) unless u.username
+        u.email = auth_email(auth)
+        u.image = auth_image(auth)
+        u.email_verified = true
+        u.save!
       end
-
-      return User.create(
-        name: auth_name(auth),
-        username: auth_username(auth),
-        email: auth_email(auth),
-        social_uid: auth['uid'],
-        provider: provider,
-        image: auth_image(auth),
-        email_verified: true
-      ) if u.nil?
-
-      u.name = auth_name(auth) unless u.name
-      u.username = auth_username(auth) unless u.username
-      u.email = auth_email(auth)
-      u.image = auth_image(auth)
-      u.email_verified = true
-      u.save!
-      u
     end
 
     private
