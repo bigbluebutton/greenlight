@@ -74,53 +74,6 @@ describe AdminsController, type: :controller do
       end
     end
 
-    context "POST #promote" do
-      it "promotes a user to admin" do
-        @request.session[:user_id] = @admin.id
-
-        expect(@user.has_role?(:admin)).to eq(false)
-
-        post :promote, params: { user_uid: @user.uid }
-
-        expect(@user.has_role?(:admin)).to eq(true)
-        expect(flash[:success]).to be_present
-        expect(response).to redirect_to(admins_path)
-      end
-
-      it "sends an email to the user being promoted" do
-        @request.session[:user_id] = @admin.id
-
-        params = { user_uid: @user.uid }
-
-        expect { post :promote, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
-      end
-    end
-
-    context "POST #demote" do
-      it "demotes an admin to user" do
-        @request.session[:user_id] = @admin.id
-
-        @user.add_role :admin
-        expect(@user.has_role?(:admin)).to eq(true)
-
-        post :demote, params: { user_uid: @user.uid }
-
-        expect(@user.has_role?(:admin)).to eq(false)
-        expect(flash[:success]).to be_present
-        expect(response).to redirect_to(admins_path)
-      end
-
-      it "sends an email to the user being demoted" do
-        @request.session[:user_id] = @admin.id
-
-        @user.add_role :admin
-
-        params = { user_uid: @user.uid }
-
-        expect { post :demote, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
-      end
-    end
-
     context "POST #ban" do
       it "bans a user from the application" do
         @request.session[:user_id] = @admin.id

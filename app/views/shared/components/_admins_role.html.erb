@@ -26,8 +26,7 @@
     <%= t("roles.super_admin") %>
   </button>
 <% else %>
-  <% role_colour = role.role_permission.colour || Rails.configuration.primary_color_default %>
-  <button style="<%= "background-color: #{role_colour};border-color: #{role_colour}" %>" class="user-role btn btn-sm" onclick="filterRole('<%= role.name %>')">
+  <button style="<%= "background-color: #{role_colour(role)};border-color: #{role_colour(role)}" %>" class="user-role btn btn-sm" onclick="filterRole('<%= role.name %>')">
     <%= role.name %>
   </button>
 <% end %>

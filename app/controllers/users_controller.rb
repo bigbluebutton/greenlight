@@ -140,10 +140,16 @@ class UsersController < ApplicationController
       end
     elsif user_params[:email] != @user.email && @user.update_attributes(user_params)
       @user.update_attributes(email_verified: false)
+
+      update_roles
+
       flash[:success] = I18n.t("info_update_success")
       redirect_to redirect_path
     elsif @user.update_attributes(user_params)
       update_locale(@user)
+
+      update_roles
+
       flash[:success] = I18n.t("info_update_success")
       redirect_to redirect_path
     else
@@ -248,5 +254,50 @@ class UsersController < ApplicationController
     @user.email_verified = true if invitation[:verified]
 
     invitation[:present]
+  end
+
+  def update_roles
+    if current_user.highest_priority_role.role_permission.can_edit_roles
+      new_roles = params[:user][:role_ids].split(' ').map(&:to_i)
+      old_roles = @user.roles.pluck(:id)
+
+      added_role_ids = new_roles - old_roles
+      removed_role_ids = old_roles - new_roles
+
+      added_roles = []
+      removed_roles = []
+      current_user_role = current_user.highest_priority_role
+
+      added_role_ids.each do |id|
+        role = Role.find(id)
+
+        if role.priority > current_user_role.priority || current_user_role.name == "admin"
+          added_roles << role
+
+          send_user_promoted_email(@user, role.name) if role.role_permission.send_promoted_email
+        else
+          flash[:alert] = I18n.t("administrator.roles.invalid_assignment")
+        end
+      end
+
+      removed_role_ids.each do |id|
+        role = Role.find(id)
+
+        if role.priority > current_user_role.priority || current_user_role.name == "admin"
+          removed_roles << role
+
+          send_user_demoted_email(@user, role.name) if role.role_permission.send_demoted_email
+        else
+          flash[:alert] = I18n.t("administrator.roles.invalid_removal")
+        end
+      end
+
+      @user.roles.delete(removed_roles)
+      @user.roles << added_roles
+
+      @user.roles = [Role.find_by(name: "user")] if @user.roles.count.zero?
+
+      @user.save!
+    end
   end
 end

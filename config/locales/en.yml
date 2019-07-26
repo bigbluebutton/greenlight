@@ -99,6 +99,8 @@ en:
       edit_site_settings: Allow users with this role to edit site settings
       edit_roles: Allow users with this role to edit other roles
       manage_users: Allow users with this role to manage users
+      invalid_assignment: You can't assign a role with a higher priority than your own to a user
+      invalid_removal: You can't remove a role with a higher priority than your own
       colour:
         title: Role Colour
         info: Set the colour that will be associated with the role
@@ -112,9 +114,8 @@ en:
         decline: Decline
         ban: Ban User
         delete: Delete
-        demote: Demote to User
         edit: Edit
-        promote: Promote to Admin
+        edit_roles: Edit the user roles
         unban: Unban User
       table:
         authenticator: Authenticator
@@ -247,10 +248,10 @@ en:
         subject: Account Approved
         username: Your username is %{email}.
       demoted:
-        info: You are no longer an administrator on %{url}.
-        more-info: You now have the same privileges as a regular user and will no longer be able to access any of the Administrator settings.
+        info: You are no longer an %{role} on %{url}.
+        more-info: You now have the same privileges as a regular user.
         root_link: Sign In
-        subtitle: Administrator Rights Rescinded
+        subtitle: "%{role} Rights Rescinded"
       invite:
         info: You have been invited to your own personal space by %{name}
         signup_info: To signup using your email, click the button below and follow the steps.
@@ -271,9 +272,9 @@ en:
         ignore: You can safely ignore this email if you did not request a password reset.
       promoted:
         admins_link: Visit the Organization Page
-        info: You are now an administrator on %{url}.
-        more-info: As an administrator, you can manage users, their role and configure your site settings by changing the logo and brand colour.
-        subtitle: Administrator Rights Granted
+        info: You are now an %{role} on %{url}.
+        more-info: To view your new abilities please visit %{url}.
+        subtitle: "%{role} Rights Granted"
       verify_email:
         welcome: Welcome to your personal space, %{name}!
         success: Leveraging %{bigbluebutton}, you can create your own rooms to host sessions and collaborate with others.
@@ -430,6 +431,7 @@ en:
       provider: Provider
       image: Image
       image_url: Profile Image URL
+      roles: User Roles
       subtitle: Update your Account Info
       title: Account Info
     delete:

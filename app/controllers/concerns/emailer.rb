@@ -35,16 +35,16 @@ module Emailer
     UserMailer.password_reset(@user, reset_link, logo_image, user_color).deliver_now
   end
 
-  def send_user_promoted_email(user)
+  def send_user_promoted_email(user, role)
     return unless Rails.configuration.enable_email_verification
 
-    UserMailer.user_promoted(user, root_url, logo_image, user_color).deliver_now
+    UserMailer.user_promoted(user, role, root_url, logo_image, user_color).deliver_now
   end
 
-  def send_user_demoted_email(user)
+  def send_user_demoted_email(user, role)
     return unless Rails.configuration.enable_email_verification
 
-    UserMailer.user_demoted(user, root_url, logo_image, user_color).deliver_now
+    UserMailer.user_demoted(user, role, root_url, logo_image, user_color).deliver_now
   end
 
   # Sends inivitation to join

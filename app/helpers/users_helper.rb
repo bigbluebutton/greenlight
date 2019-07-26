@@ -20,4 +20,15 @@ module UsersHelper
   def recaptcha_enabled?
     Rails.configuration.recaptcha_enabled
   end
+
+  def disabled_roles(user)
+    current_user_role = current_user.highest_priority_role
+    disallowed_roles = if current_user_role.name == "admin"
+      Role.where("priority < #{current_user_role.priority}").pluck(:id)
+    else
+      Role.where("priority <= #{current_user_role.priority}").pluck(:id)
+                       end
+
+    user.roles.by_priority.pluck(:id) | disallowed_roles
+  end
 end

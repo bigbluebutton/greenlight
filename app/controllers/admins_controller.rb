@@ -38,9 +38,7 @@ class AdminsController < ApplicationController
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
     @role = nil
 
-    if params[:role]
-      @role = Role.find_by(name: params[:role])
-    end
+    @role = Role.find_by(name: params[:role]) if params[:role]
 
     @pagy, @users = pagy(user_list)
   end
@@ -77,24 +75,6 @@ class AdminsController < ApplicationController
 
   # GET /admins/edit/:user_uid
   def edit_user
-  end
-
-  # POST /admins/promote/:user_uid
-  def promote
-    @user.add_role :admin
-
-    send_user_promoted_email(@user)
-
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.promoted") }
-  end
-
-  # POST /admins/demote/:user_uid
-  def demote
-    @user.remove_role :admin
-
-    send_user_demoted_email(@user)
-
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.demoted") }
   end
 
   # POST /admins/ban/:user_uid
@@ -236,27 +216,32 @@ class AdminsController < ApplicationController
   # PATCH /admin/roles/order
   def change_role_order
     user_role = Role.find_by(name: "user")
+    admin_role = Role.find_by(name: "admin")
 
-    if params[:role].include?(user_role.id.to_s)
+    current_user_role = current_user.highest_priority_role
+
+    if params[:role].include?(user_role.id.to_s) || params[:role].include?(admin_role.id.to_s)
       flash[:alert] = I18n.t("administrator.roles.invalid_order")
 
       return redirect_to admin_roles_path
     end
 
-    if user_role.priority.positive?
-      params[:role].each do |id|
-        if Role.find(id).priority <= user_role.priority
-          flash[:alert] = I18n.t("administrator.roles.invalid_update")
-          return redirect_to admin_roles_path(selected_role: role.id)
-        end
+    params[:role].each do |id|
+      if Role.find(id).priority <= current_user_role.priority
+        flash[:alert] = I18n.t("administrator.roles.invalid_update")
+        return redirect_to admin_roles_path
       end
     end
 
+    top_priority = 0
+
     params[:role].each_with_index do |id, index|
-      Role.where(id: id).update_all(priority: index + user_role.priority)
+      new_priority = index + current_user_role.priority + 1
+      top_priority = new_priority
+      Role.where(id: id).update_all(priority: new_priority)
     end
 
-    user_role.priority = params[:role].count
+    user_role.priority = top_priority + 1
     user_role.save!
   end
 
@@ -283,7 +268,7 @@ class AdminsController < ApplicationController
         :colour
                               )
 
-    role.name = role_params[:name] if role.name != 'user'
+    role.name = role_params[:name] if role.name != "user" && role.name != "admin"
 
     role.role_permission.update(permission_params)
 
@@ -298,7 +283,7 @@ class AdminsController < ApplicationController
     if role.users.count.positive?
       flash[:alert] = I18n.t("administrator.roles.role_has_users", user_count: role.users.count)
       return redirect_to admin_roles_path(role.id)
-    elsif role.name == "user"
+    elsif role.name == "user" || role.name == "admin"
       return redirect_to admin_roles_path(role.id)
     else
       role.delete

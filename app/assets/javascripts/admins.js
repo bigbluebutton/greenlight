@@ -48,18 +48,6 @@ $(document).on('turbolinks:load', function(){
     else if(action == "site_settings"){
       loadColourSelectors()
     }
-    // Only run on the admins edit user page.
-    else if (action == "edit_user") {
-      $(".setting-btn").click(function(data){
-        var url = $("body").data("relative-root")
-        if (!url.endsWith("/")) {
-          url += "/"
-        }
-        url += "admins?setting=" + data.target.id
-
-        window.location.href = url
-      })
-    }
     else if (action == "roles"){
       $("#newRoleButton").click(function(){
         $("#createRoleName").val("")
@@ -69,7 +57,7 @@ $(document).on('turbolinks:load', function(){
       $("#role-colorinput-regular").css("background-color", role_colour);
       $("#role-colorinput-regular").css("border-color", role_colour);
 
-      loadRoleColourSelector(role_colour);
+      loadRoleColourSelector(role_colour, $("#role-colorinput-regular").data("disabled"));
 
       $("#rolesSelect").sortable({
         items: "a:not(.sort-disabled)",
@@ -184,31 +172,32 @@ function loadColourSelectors() {
   })
 }
 
-function loadRoleColourSelector(role_colour) { 
-  const pickrRoleRegular = new Pickr({
-    el: '#role-colorinput-regular',
-    theme: 'monolith',
-    useAsButton: true,
-    lockOpacity: true,
-    defaultRepresentation: 'HEX',
-    closeWithKey: 'Enter',
-    default: role_colour,
-
-    components: {
-        palette: true,
-        preview: true,
-        hue: true,
-        interaction: {
-            input: true,
-            save: true,
-        },
-    },
-  });
-
-  pickrRoleRegular.on("save", (color, instance) => {
-    $("#role-colorinput-regular").css("background-color", color.toHEXA().toString());
-    $("#role-colorinput-regular").css("border-color", color.toHEXA().toString());
-    console.log( $("#role-colour"))
-    $("#role-colour").val(color.toHEXA().toString());
-  });
+function loadRoleColourSelector(role_colour, disabled) { 
+  if (!disabled) {
+    const pickrRoleRegular = new Pickr({
+      el: '#role-colorinput-regular',
+      theme: 'monolith',
+      useAsButton: true,
+      lockOpacity: true,
+      defaultRepresentation: 'HEX',
+      closeWithKey: 'Enter',
+      default: role_colour,
+  
+      components: {
+          palette: true,
+          preview: true,
+          hue: true,
+          interaction: {
+              input: true,
+              save: true,
+          },
+      },
+    });
+  
+    pickrRoleRegular.on("save", (color, instance) => {
+      $("#role-colorinput-regular").css("background-color", color.toHEXA().toString());
+      $("#role-colorinput-regular").css("border-color", color.toHEXA().toString());
+      $("#role-colour").val(color.toHEXA().toString());
+    });
+  }
 }

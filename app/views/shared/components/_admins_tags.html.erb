@@ -15,7 +15,6 @@
 
 <div class="form-group">
   <div class="row">
-    <% role_colour = @role.role_permission.colour || Rails.configuration.primary_color_default %>
     <div class="col-12 tags">
       <% if @role.name == "denied"%>
         <span class="tag tag-gray-dark">
@@ -39,7 +38,7 @@
           </a>
         </span>
       <% else %>
-        <span style="<%= "background-color: #{role_colour};" %>" class="tag custom-role-tag">
+        <span style="<%= "background-color: #{role_colour(@role)};border-color: #{role_colour(@role)};" %>" class="tag custom-role-tag">
           <%= @role.name %>
           <a class="tag-addon clear-role">
             <i class="fas fa-times"></i>

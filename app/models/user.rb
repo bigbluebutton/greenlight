@@ -129,16 +129,16 @@ class User < ApplicationRecord
 
     search_query = ""
     role_search_param = ""
-    unless role.nil?
+    if role.nil?
+      search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
+                    " OR users.#{created_at_query} LIKE :search OR provider LIKE :search" \
+                    " OR roles.name LIKE :roles_search"
+      role_search_param = "%#{string}%"
+    else
       search_query = "(users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
                     " OR users.#{created_at_query} LIKE :search OR provider LIKE :search)" \
                     " AND roles.name = :roles_search"
       role_search_param = role.name
-    else
-      search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
-                    " OR users.#{created_at_query} LIKE :search OR provider LIKE :search" \
-                    " OR roles.name LIKE :roles_search"
-      role_search_param = "%#{string}%".downcase
     end
 
     search_param = "%#{string}%"
@@ -227,11 +227,11 @@ class User < ApplicationRecord
       if has_cached_role? :super_admin
         id != user.id
       else
-        (has_cached_role? :admin) && (id != user.id) && (provider == user.provider) &&
+        highest_priority_role.role_permission.can_manage_users && (id != user.id) && (provider == user.provider) &&
           (!user.has_cached_role? :super_admin)
       end
     else
-      ((has_cached_role? :admin) || (has_cached_role? :super_admin)) && (id != user.id)
+      (highest_priority_role.role_permission.can_manage_users || (has_cached_role? :super_admin)) && (id != user.id)
     end
   end
 

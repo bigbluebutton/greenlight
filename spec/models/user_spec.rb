@@ -22,6 +22,17 @@ require 'bigbluebutton_api'
 describe User, type: :model do
   before do
     @user = create(:user)
+
+    admin_role = Role.find_or_create_by(name: "admin")
+
+    admin_role.role_permission.update(
+      can_create_rooms: true, send_promoted_email: true,
+      send_demoted_email: true, administrator_role: true, can_edit_site_settings: true,
+      can_edit_roles: true, can_manage_users: true
+    )
+
+    admin_role.priority = -2
+    admin_role.save!
   end
 
   context 'validations' do

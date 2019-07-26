@@ -122,16 +122,6 @@
                               <button class= "delete-user dropdown-item" data-toggle="modal" data-target="#deleteAccountModal">
                                 <i class="dropdown-icon fas fa-user-minus"></i> <%= t("administrator.users.settings.delete") %>
                               </button>
-
-                              <% if roles.include?("admin") %>
-                                <%= button_to admin_demote_path(user_uid: user.uid), class: "dropdown-item" do %>
-                                  <i class="dropdown-icon fas fa-level-down-alt"></i> <%= t("administrator.users.settings.demote") %>
-                                <% end %>
-                              <% elsif roles.include?("user") %>
-                                <%= button_to admin_promote_path(user_uid: user.uid), class: "dropdown-item" do %>
-                                  <i class="dropdown-icon fas fa-level-up-alt"></i> <%= t("administrator.users.settings.promote") %>
-                                <% end %>
-                              <% end %>
                               <%= button_to admin_ban_path(user_uid: user.uid), class: "dropdown-item" do %>
                                 <i class="dropdown-icon fas fa-lock"></i> <%= t("administrator.users.settings.ban") %>
                               <% end %>

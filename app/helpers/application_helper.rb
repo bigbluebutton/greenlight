@@ -110,4 +110,8 @@ module ApplicationHelper
     return admins_path if current_user.has_cached_role? :super_admin
     current_user.main_room
   end
+
+  def role_colour(role)
+    role.role_permission.colour || Rails.configuration.primary_color_default
+  end
 end
