@@ -24,6 +24,12 @@ namespace :admin do
         admin.add_role(:super_admin)
       else
         admin.add_role(:admin)
+
+        Role.find_by(name: 'admin', provider: 'greenlight').update(
+          can_create_rooms: true, send_promoted_email: true,
+          send_demoted_email: true, can_edit_site_settings: true,
+          can_edit_roles: true, can_manage_users: true, priority: 0
+        )
       end
     end
     puts "Administrator account succesfully created."

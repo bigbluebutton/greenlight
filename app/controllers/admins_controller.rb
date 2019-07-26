@@ -94,6 +94,7 @@ class AdminsController < ApplicationController
   # POST /admins/approve/:user_uid
   def approve
     @user.remove_role :pending
+    @user.add_role :user
 
     send_user_approved_email(@user)
 

@@ -254,11 +254,8 @@ class User < ApplicationRecord
 
       role_provider = provider if Rails.configuration.loadbalanced_configuration
 
-      new_role = Role.find_by(name: role, provider: role_provider)
+      roles << Role.find_or_create_by(name: role, provider: role_provider)
 
-      new_role = Role.create(name: role, provider: role_provider) if new_role.nil?
-
-      roles << new_role
       save!
     end
   end
@@ -281,12 +278,16 @@ class User < ApplicationRecord
   end
 
   def self.with_role(role)
-    User.joins("INNER JOIN users_roles ON users_roles.user_id = users.id INNER JOIN roles " \
-      "ON roles.id = users_roles.role_id").where(roles: { name: role })
+    User.all_users_with_roles.where(roles: { name: role })
   end
 
   def self.without_role(role)
     User.where.not(id: with_role(role).pluck(:id))
+  end
+
+  def self.all_users_with_roles
+    User.joins("INNER JOIN users_roles ON users_roles.user_id = users.id INNER JOIN roles " \
+      "ON roles.id = users_roles.role_id")
   end
 
   private

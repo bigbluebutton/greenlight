@@ -47,16 +47,11 @@ describe UsersController, type: :controller do
   end
 
   before do
-    admin_role = Role.find_or_create_by(name: "admin", provider: "provider1")
-
-    admin_role.update(
+    Role.find_or_create_by(name: "admin", provider: "provider1").update(
       can_create_rooms: true, send_promoted_email: true,
       send_demoted_email: true, can_edit_site_settings: true,
-      can_edit_roles: true, can_manage_users: true
+      can_edit_roles: true, can_manage_users: true, priority: 0
     )
-
-    admin_role.priority = -2
-    admin_role.save!
   end
 
   describe "GET #new" do
@@ -204,6 +199,7 @@ describe UsersController, type: :controller do
           @user = create(:user, provider: "greenlight")
           @admin = create(:user, provider: "greenlight", email: "test@example.com")
           @admin.add_role :admin
+          Role.find_by(name: "admin", provider: @admin.provider).update(can_manage_users: true)
         end
 
         it "should notify admins that user signed up" do
@@ -269,6 +265,7 @@ describe UsersController, type: :controller do
           @user = create(:user, provider: "greenlight")
           @admin = create(:user, provider: "greenlight", email: "test@example.com")
           @admin.add_role :admin
+          Role.find_by(name: "admin", provider: @admin.provider).update(can_manage_users: true)
         end
 
         it "allows any user to sign up" do

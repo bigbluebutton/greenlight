@@ -23,16 +23,11 @@ describe User, type: :model do
   before do
     @user = create(:user)
 
-    admin_role = Role.find_or_create_by(name: "admin", provider: @user.provider)
-
-    admin_role.update(
+    Role.find_or_create_by(name: "admin", provider: @user.provider).update(
       can_create_rooms: true, send_promoted_email: true,
       send_demoted_email: true, can_edit_site_settings: true,
-      can_edit_roles: true, can_manage_users: true
+      can_edit_roles: true, can_manage_users: true, priority: -2
     )
-
-    admin_role.priority = -2
-    admin_role.save!
   end
 
   context 'validations' do

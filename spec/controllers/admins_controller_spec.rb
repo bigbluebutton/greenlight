@@ -32,15 +32,11 @@ describe AdminsController, type: :controller do
     @admin = create(:user, provider: "provider1")
     @admin.add_role :admin
 
-    admin_role = Role.find_by(name: 'admin')
-    admin_role.update(
+    Role.find_by(name: 'admin').update(
       can_create_rooms: true, send_promoted_email: true,
       send_demoted_email: true, can_edit_site_settings: true,
-      can_edit_roles: true, can_manage_users: true
+      can_edit_roles: true, can_manage_users: true, priority: 0
     )
-
-    admin_role.priority = 0
-    admin_role.save!
   end
 
   describe "User Roles" do

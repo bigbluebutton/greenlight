@@ -57,7 +57,7 @@
                 <i class="dropdown-icon fas fa-id-card mr-3"></i><%= t("header.dropdown.settings") %>
               <% end %>
               <% highest_role = current_user.highest_priority_role %>
-              <% if highest_role.can_manage_users %>
+              <% if highest_role.can_manage_users || highest_role.name == "super_admin" %>
                 <%= link_to admins_path, class: "dropdown-item" do %>
                   <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
                 <% end %>

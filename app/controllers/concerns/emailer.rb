@@ -87,7 +87,7 @@ module Emailer
   end
 
   def admin_emails
-    admins = User.with_role(:admin)
+    admins = User.all_users_with_roles.where(roles: { can_manage_users: true })
 
     if Rails.configuration.loadbalanced_configuration
       admins = admins.without_role(:super_admin)
