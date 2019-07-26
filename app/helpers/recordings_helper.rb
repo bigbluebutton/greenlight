@@ -36,7 +36,7 @@ module RecordingsHelper
     elsif len.zero?
       "< 1 min"
     else
-      "#{len} min"
+      "#{len} mins"
     end
   end
 
