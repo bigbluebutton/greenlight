@@ -95,7 +95,6 @@ en:
       title: Roles
       promote_email: Send an email to users when they are assigned this role
       demote_email: Send an email to users when they are removed from this role
-      administrator_role: Administrator Role
       edit_site_settings: Allow users with this role to edit site settings
       edit_roles: Allow users with this role to edit other roles
       manage_users: Allow users with this role to manage users

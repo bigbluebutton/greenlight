@@ -18,25 +18,8 @@
 
 class Role < ApplicationRecord
   has_and_belongs_to_many :users, join_table: :users_roles
-  has_one :role_permission, dependent: :destroy
-  after_create :assign_default_role_permissions
 
   default_scope { order(:priority) }
   scope :by_priority, -> { order(:priority) }
-  scope :editable_roles, -> { where.not(name: %w[super_admin denied pending]) }
-
-  belongs_to :resource,
-    polymorphic: true,
-    optional: true
-
-  validates :resource_type,
-    inclusion: { in: Rolify.resource_types },
-    allow_nil: true
-
-  scopify
-
-  def assign_default_role_permissions
-    create_role_permission
-    save!
-  end
+  scope :editable_roles, ->(provider) { where(provider: provider).where.not(name: %w[super_admin denied pending]) }
 end

@@ -23,7 +23,7 @@ describe AdminsController, type: :controller do
     allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
     controller.instance_variable_set(:@user_domain, "provider1")
     user_role = Role.find_or_create_by(name: 'user')
-    user_role.create_role_permission(can_create_rooms: true)
+    user_role.can_create_rooms = true
 
     user_role.priority = 1
     user_role.save!
@@ -33,9 +33,9 @@ describe AdminsController, type: :controller do
     @admin.add_role :admin
 
     admin_role = Role.find_by(name: 'admin')
-    admin_role.create_role_permission(
+    admin_role.update(
       can_create_rooms: true, send_promoted_email: true,
-      send_demoted_email: true, administrator_role: true, can_edit_site_settings: true,
+      send_demoted_email: true, can_edit_site_settings: true,
       can_edit_roles: true, can_manage_users: true
     )
 

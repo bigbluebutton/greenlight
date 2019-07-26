@@ -39,7 +39,7 @@
     <%= f.select :language, language_options, {}, { class: "form-control custom-select" } %>
 
     <% current_user_role = current_user.highest_priority_role%>
-    <% if current_user_role.role_permission.can_edit_roles %>
+    <% if current_user_role.can_edit_roles %>
       <br>
       <br>
       <%= f.label t("settings.account.roles"), class: "form-label" %>
@@ -55,7 +55,8 @@
           </span>
         <% end %>
       </div>
-      <%= f.select :roles, Role.editable_roles.map{|role| [role.name, role.id, {'data-colour' => role_colour(role)}]}.unshift(["", nil, {'data-colour' => nil}]), {disabled: disabled_roles(@user)}, { class: "form-control custom-select", id: "role-select-dropdown" } %>
+      <% provider = Rails.configuration.loadbalanced_configuration ? current_user.provider : "greenlight" %>
+      <%= f.select :roles, Role.editable_roles(@user_domain).map{|role| [role.name, role.id, {'data-colour' => role_colour(role)}]}.unshift(["", nil, {'data-colour' => nil}]), {disabled: disabled_roles(@user)}, { class: "form-control custom-select", id: "role-select-dropdown" } %>
     <% end %>
     <%= f.hidden_field :role_ids, id: "user_role_ids", value: @user.roles.by_priority.pluck(:id) %>
 

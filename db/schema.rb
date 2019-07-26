@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_23_152837) do
+ActiveRecord::Schema.define(version: 2019_07_26_153012) do
 
   create_table "features", force: :cascade do |t|
     t.integer "setting_id"
@@ -33,31 +33,21 @@ ActiveRecord::Schema.define(version: 2019_07_23_152837) do
     t.index ["provider"], name: "index_invitations_on_provider"
   end
 
-  create_table "role_permissions", force: :cascade do |t|
-    t.integer "role_id"
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.integer "priority", default: 9999
     t.boolean "can_create_rooms", default: false
     t.boolean "send_promoted_email", default: false
     t.boolean "send_demoted_email", default: false
-    t.boolean "administrator_role", default: false
     t.boolean "can_edit_site_settings", default: false
     t.boolean "can_edit_roles", default: false
     t.boolean "can_manage_users", default: false
     t.string "colour"
+    t.string "provider"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["role_id"], name: "index_role_permissions_on_role_id"
-  end
-
-  create_table "roles", force: :cascade do |t|
-    t.string "name"
-    t.string "resource_type"
-    t.integer "resource_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "priority", default: -1
-    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["name", "provider"], name: "index_roles_on_name_and_provider"
     t.index ["name"], name: "index_roles_on_name"
-    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
   create_table "rooms", force: :cascade do |t|

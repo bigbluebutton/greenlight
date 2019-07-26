@@ -14,7 +14,7 @@
 %>
 
 <div class="list-group list-group-transparent mb-0">
-  <% highest_role = current_user.highest_priority_role.role_permission %>
+  <% highest_role = current_user.highest_priority_role %>
   <% if highest_role.can_manage_users%>
     <%= link_to admins_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "index"}" do %>
       <span class="icon mr-3"><i class="fas fa-users"></i></span><%= t("administrator.users.title") %>

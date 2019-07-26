@@ -73,8 +73,6 @@ gem 'redcarpet'
 # For health check endpoint
 gem "health_check"
 
-# For providing user roles
-gem "rolify"
 # For limiting access based on user roles
 gem 'cancancan', '~> 2.0'
 

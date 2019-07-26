@@ -252,7 +252,6 @@ GEM
     redcarpet (3.4.0)
     remote_syslog_logger (1.0.4)
       syslog_protocol
-    rolify (5.2.0)
     rspec-core (3.8.2)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.4)
@@ -376,7 +375,6 @@ DEPENDENCIES
   recaptcha
   redcarpet
   remote_syslog_logger
-  rolify
   rspec-rails (~> 3.7)
   rubocop
   sassc-rails

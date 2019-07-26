@@ -257,7 +257,7 @@ class UsersController < ApplicationController
   end
 
   def update_roles
-    if current_user.highest_priority_role.role_permission.can_edit_roles
+    if current_user.highest_priority_role.can_edit_roles
       new_roles = params[:user][:role_ids].split(' ').map(&:to_i)
       old_roles = @user.roles.pluck(:id)
 
@@ -271,10 +271,11 @@ class UsersController < ApplicationController
       added_role_ids.each do |id|
         role = Role.find(id)
 
-        if role.priority > current_user_role.priority || current_user_role.name == "admin"
+        if (role.priority > current_user_role.priority || current_user_role.name == "admin") &&
+           role.provider == @user_domain
           added_roles << role
 
-          send_user_promoted_email(@user, role.name) if role.role_permission.send_promoted_email
+          send_user_promoted_email(@user, role.name) if role.send_promoted_email
         else
           flash[:alert] = I18n.t("administrator.roles.invalid_assignment")
         end
@@ -283,10 +284,11 @@ class UsersController < ApplicationController
       removed_role_ids.each do |id|
         role = Role.find(id)
 
-        if role.priority > current_user_role.priority || current_user_role.name == "admin"
+        if (role.priority > current_user_role.priority || current_user_role.name == "admin") &&
+           role.provider == @user_domain
           removed_roles << role
 
-          send_user_demoted_email(@user, role.name) if role.role_permission.send_demoted_email
+          send_user_demoted_email(@user, role.name) if role.send_demoted_email
         else
           flash[:alert] = I18n.t("administrator.roles.invalid_removal")
         end
@@ -295,7 +297,7 @@ class UsersController < ApplicationController
       @user.roles.delete(removed_roles)
       @user.roles << added_roles
 
-      @user.roles = [Role.find_by(name: "user")] if @user.roles.count.zero?
+      @user.roles = [Role.find_by(name: "user", provider: @user_domain)] if @user.roles.count.zero?
 
       @user.save!
     end

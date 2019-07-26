@@ -25,7 +25,7 @@ class Ability
     elsif user.has_role? :super_admin
       can :manage, :all
     else
-      highest_role = user.highest_priority_role.role_permission
+      highest_role = user.highest_priority_role
       if highest_role.can_edit_site_settings
         can [:index, :site_settings, :server_recordings, :branding, :coloring, :coloring_lighten, :coloring_darken,
              :room_authentication, :registration_method, :room_limit, :default_recording_visibility], :admin

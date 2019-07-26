@@ -273,7 +273,7 @@ class RoomsController < ApplicationController
   end
 
   def verify_user_not_admin
-    redirect_to admins_path if current_user && current_user&.has_cached_role?(:super_admin)
+    redirect_to admins_path if current_user && current_user&.has_role?(:super_admin)
   end
 
   def auth_required
@@ -286,7 +286,7 @@ class RoomsController < ApplicationController
 
     # Does not apply to admin
     # 15+ option is used as unlimited
-    return false if current_user&.has_cached_role?(:admin) || limit == 15
+    return false if current_user&.has_role?(:admin) || limit == 15
 
     current_user.rooms.count >= limit
   end
