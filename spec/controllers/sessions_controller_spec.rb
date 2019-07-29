@@ -306,7 +306,6 @@ describe SessionsController, type: :controller do
         @user = create(:user, provider: "greenlight")
         @admin = create(:user, provider: "greenlight", email: "test@example.com")
         @admin.add_role :admin
-        Role.find_by(name: "admin", provider: @admin.provider).update(can_manage_users: true)
       end
 
       it "should notify admin on new user signup with approve/reject registration" do

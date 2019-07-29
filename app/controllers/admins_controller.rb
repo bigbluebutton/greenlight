@@ -60,17 +60,6 @@ class AdminsController < ApplicationController
     @pagy, @recordings = pagy_array(recs)
   end
 
-  # GET /admins/roles
-  def roles
-    @roles = Role.editable_roles(@user_domain)
-
-    @selected_role = if params[:selected_role].nil?
-                        @roles.find_by(name: 'user')
-                      else
-                        @roles.find(params[:selected_role])
-                     end
-  end
-
   # MANAGE USERS
 
   # GET /admins/edit/:user_uid
@@ -181,11 +170,27 @@ class AdminsController < ApplicationController
 
   # ROLES
 
+  # GET /admins/roles
+  def roles
+    @roles = Role.editable_roles(@user_domain)
+
+    if @roles.count.zero?
+      Role.create_default_roles(@user_domain)
+      @roles = Role.editable_roles(@user_domain)
+    end
+
+    @selected_role = if params[:selected_role].nil?
+                        @roles.find_by(name: 'user')
+                      else
+                        @roles.find(params[:selected_role])
+                     end
+  end
+
   # POST /admin/role
   def new_role
     new_role_name = params[:role][:name]
 
-    if Role.exists?(name: new_role_name, provider: @user_domain)
+    if Role.duplicate_name(new_role_name, @user_domain)
       flash[:alert] = I18n.t("administrator.roles.duplicate_name")
 
       return redirect_to admin_roles_path
@@ -264,7 +269,14 @@ class AdminsController < ApplicationController
                                 :colour
                               )
 
-    role.name = role_params[:name] if role.name != "user" && role.name != "admin"
+    if role.name != role_params[:name] && !Role.duplicate_name(role_params[:name], @user_domain) &&
+       !role_params[:name].strip.empty?
+      role.name = role_params[:name]
+    elsif role.name != role_params[:name]
+      flash[:alert] = I18n.t("administrator.roles.duplicate_name")
+
+      return redirect_to admin_roles_path(selected_role: role.id)
+    end
 
     role.update(permission_params)
 
@@ -273,13 +285,14 @@ class AdminsController < ApplicationController
     redirect_to admin_roles_path(selected_role: role.id)
   end
 
+  # DELETE admins/role/:role_id
   def delete_role
     role = Role.find(params[:role_id])
 
     if role.users.count.positive?
       flash[:alert] = I18n.t("administrator.roles.role_has_users", user_count: role.users.count)
       return redirect_to admin_roles_path(role.id)
-    elsif role.name == "user" || role.name == "admin" || role.provider != @user_domain
+    elsif Role::RESERVED_ROLE_NAMES.include?(role) || role.provider != @user_domain
       return redirect_to admin_roles_path(role.id)
     else
       role.delete

@@ -39,22 +39,22 @@
     <%= f.select :language, language_options, {}, { class: "form-control custom-select" } %>
 
     <% current_user_role = current_user.highest_priority_role %>
+    <br>
+    <br>
+    <%= f.label t("settings.account.roles"), class: "form-label" %>
+    <div id="role-tag-container" class="tags mb-1">
+      <% @user.roles.by_priority.each do |role| %>
+        <span id="<%= "user-role-tag_#{role.id}" %>" style="<%= "background-color: #{role_colour(role)};border-color: #{role_colour(role)};" %>" class="tag user-role-tag">
+          <%= role.name %>
+          <% if (current_user_role.can_edit_roles || current_user_role.name == "super_admin") && (role.priority > current_user_role.priority || current_user_role.name == "admin") %>
+            <a data-role-id="<%= role.id %>" class="tag-addon clear-role">
+              <i data-role-id="<%= role.id %>" class="fas fa-times"></i>
+            </a>
+          <% end %>
+        </span>
+      <% end %>
+    </div>
     <% if current_user_role.can_edit_roles || current_user_role.name == "super_admin" %>
-      <br>
-      <br>
-      <%= f.label t("settings.account.roles"), class: "form-label" %>
-      <div id="role-tag-container" class="tags mb-1">
-        <% @user.roles.by_priority.each do |role| %>
-          <span id="<%= "user-role-tag_#{role.id}" %>" style="<%= "background-color: #{role_colour(role)};border-color: #{role_colour(role)};" %>" class="tag user-role-tag">
-            <%= role.name %>
-            <% if role.priority >  current_user_role.priority ||  current_user_role.name == "admin" %>
-              <a data-role-id="<%= role.id %>" class="tag-addon clear-role">
-                <i data-role-id="<%= role.id %>" class="fas fa-times"></i>
-              </a>
-            <% end %>
-          </span>
-        <% end %>
-      </div>
       <% provider = Rails.configuration.loadbalanced_configuration ? current_user.provider : "greenlight" %>
       <%= f.select :roles, Role.editable_roles(@user_domain).map{|role| [role.name, role.id, {'data-colour' => role_colour(role)}]}.unshift(["", nil, {'data-colour' => nil}]), {disabled: disabled_roles(@user)}, { class: "form-control custom-select", id: "role-select-dropdown" } %>
     <% end %>

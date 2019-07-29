@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2019_07_26_153012) do
     t.string "provider"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name", "provider"], name: "index_roles_on_name_and_provider"
+    t.index ["name", "provider"], name: "index_roles_on_name_and_provider", unique: true
     t.index ["name"], name: "index_roles_on_name"
   end
 

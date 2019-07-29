@@ -44,7 +44,7 @@ class AddCustomRoles < ActiveRecord::Migration[5.2]
     end
 
     add_index(:roles, :name)
-    add_index(:roles, [:name, :provider])
+    add_index(:roles, [:name, :provider], unique: true)
 
     # Look at all the old role assignments and and for each role create a new role
     # that is scoped to the provider
@@ -53,7 +53,7 @@ class AddCustomRoles < ActiveRecord::Migration[5.2]
 
     old_assignments.each do |assignment|
       user = User.find(assignment["user_id"])
-      new_assignment = { "role_id" => assignment["role_id"], "user_id" => assignment["user_id"] }
+      new_assignment = { "user_id" => assignment["user_id"] }
       if assignment["role_id"] == super_admin_id
         new_assignment["new_role_id"] = generate_scoped_role(user, "super_admin")
       elsif assignment["role_id"] == user_id
@@ -72,31 +72,14 @@ class AddCustomRoles < ActiveRecord::Migration[5.2]
     assign_new_users(new_assignments)
   end
 
-  def generate_scoped_role(user, role_name)
+  def generate_scoped_role(user, _role_name)
     provider = Rails.configuration.loadbalanced_configuration ? user.provider : 'greenlight'
-    new_role = ActiveRecord::Base.connection.execute("select * from roles where name = \'#{role_name}\'" \
-      " and provider = \'#{provider}\'")
+    new_role = Role.find_by(name: new_role, provider: provider)
 
     if new_role.count.zero?
-      if role_name == "user"
-        ActiveRecord::Base.connection.execute("insert into roles (name, provider, can_create_rooms, colour, priority," \
-          " created_at, updated_at) values (\'#{role_name}\',\'" \
-          "#{provider}\', true, \'#868e96\', 1, " \
-          "date(\'now\'), date(\'now\'))")
-      elsif role_name == "admin"
-        ActiveRecord::Base.connection.execute("insert into roles (name, provider, can_create_rooms, " \
-          "send_promoted_email, send_demoted_email, can_edit_site_settings, can_edit_roles, can_manage_users, colour," \
-          " priority, created_at, updated_at) values " \
-          "(\'#{role_name}\',\'#{provider}\'," \
-          " true, true, true, true, true, true, \'#f1c40f\', 0 ,date(\'now\'), date(\'now\'))")
-      else
-        ActiveRecord::Base.connection.execute("insert into roles (name, provider, priority, created_at, updated_at) " \
-          "values (\'#{role_name}\',\'#{provider}" \
-          "\', -1 , date(\'now\'), date(\'now\'))")
-      end
+      Role.create_default_roles(provider)
 
-      new_role = ActiveRecord::Base.connection.execute("select * from roles where name = \'#{role_name}\'" \
-        " and provider = \'#{provider}\'")
+      new_role = Role.find_by(name: new_role, provider: provider)
     end
 
     new_role.first["id"]

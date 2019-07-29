@@ -46,14 +46,6 @@ describe UsersController, type: :controller do
     }
   end
 
-  before do
-    Role.find_or_create_by(name: "admin", provider: "provider1").update(
-      can_create_rooms: true, send_promoted_email: true,
-      send_demoted_email: true, can_edit_site_settings: true,
-      can_edit_roles: true, can_manage_users: true, priority: 0
-    )
-  end
-
   describe "GET #new" do
     it "assigns a blank user to the view" do
       allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
@@ -199,7 +191,6 @@ describe UsersController, type: :controller do
           @user = create(:user, provider: "greenlight")
           @admin = create(:user, provider: "greenlight", email: "test@example.com")
           @admin.add_role :admin
-          Role.find_by(name: "admin", provider: @admin.provider).update(can_manage_users: true)
         end
 
         it "should notify admins that user signed up" do
@@ -265,7 +256,6 @@ describe UsersController, type: :controller do
           @user = create(:user, provider: "greenlight")
           @admin = create(:user, provider: "greenlight", email: "test@example.com")
           @admin.add_role :admin
-          Role.find_by(name: "admin", provider: @admin.provider).update(can_manage_users: true)
         end
 
         it "allows any user to sign up" do

@@ -313,6 +313,12 @@ class User < ApplicationRecord
 
   # Initialize the user to use the default user role
   def assign_default_role
+    role_provider = "greenlight"
+
+    role_provider = provider if Rails.configuration.loadbalanced_configuration
+
+    Role.create_default_roles(role_provider) if Role.where(provider: role_provider).count.zero?
+
     add_role(:user) if roles.blank?
   end
 
