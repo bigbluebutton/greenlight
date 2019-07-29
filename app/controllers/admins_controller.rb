@@ -291,9 +291,10 @@ class AdminsController < ApplicationController
 
     if role.users.count.positive?
       flash[:alert] = I18n.t("administrator.roles.role_has_users", user_count: role.users.count)
-      return redirect_to admin_roles_path(role.id)
-    elsif Role::RESERVED_ROLE_NAMES.include?(role) || role.provider != @user_domain
-      return redirect_to admin_roles_path(role.id)
+      return redirect_to admin_roles_path(selected_role: role.id)
+    elsif Role::RESERVED_ROLE_NAMES.include?(role) || role.provider != @user_domain ||
+          role.priority <= current_user.highest_priority_role.priority
+      return redirect_to admin_roles_path(selected_role: role.id)
     else
       role.delete
     end

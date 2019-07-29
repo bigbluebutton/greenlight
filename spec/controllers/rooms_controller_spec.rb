@@ -61,6 +61,19 @@ describe RoomsController, type: :controller do
       expect(response).to render_template(:join)
     end
 
+    it "should render cant_create_rooms if user doesn't have permission to create rooms" do
+      user_role = @user.highest_priority_role
+
+      user_role.can_create_rooms = false
+      user_role.save!
+
+      @request.session[:user_id] = @user.id
+
+      get :show, params: { room_uid: @user.main_room }
+
+      expect(response).to render_template(:cant_create_rooms)
+    end
+
     it "should be able to search public recordings if user is not owner" do
       @request.session[:user_id] = @user.id
 
@@ -438,6 +451,34 @@ describe RoomsController, type: :controller do
 
       expect(response).to redirect_to room_path(@room.uid)
       expect(flash[:alert]).to eq(I18n.t("room.access_code_required"))
+    end
+  end
+
+  describe "POST join_specific_room" do
+    before do
+      @user = create(:user)
+      @user1 = create(:user)
+    end
+
+    it "should display flash if the user doesn't supply a valid uid" do
+      @request.session[:user_id] = @user.id
+
+      post :join_specific_room, params: { join_room: { url: "abc" } }
+
+      expect(flash[:alert]).to eq(I18n.t("room.no_room.invalid_room_uid"))
+      expect(response).to redirect_to room_path(@user.main_room)
+    end
+
+    it "should redirect the user to the room uid they supplied" do
+      post :join_specific_room, params: { join_room: { url: @user1.main_room } }
+
+      expect(response).to redirect_to room_path(@user1.main_room)
+    end
+
+    it "should redirect the user to the room join url they supplied" do
+      post :join_specific_room, params: { join_room: { url: room_path(@user1.main_room) } }
+
+      expect(response).to redirect_to room_path(@user1.main_room)
     end
   end
 end

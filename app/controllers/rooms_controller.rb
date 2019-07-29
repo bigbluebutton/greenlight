@@ -154,6 +154,11 @@ class RoomsController < ApplicationController
       return redirect_to room_path(current_user.main_room)
     end
 
+    if @room.nil?
+      flash[:alert] = I18n.t("room.no_room.invalid_room_uid")
+      return redirect_to room_path(current_user.main_room)
+    end
+
     redirect_to room_path(@room)
   end
 

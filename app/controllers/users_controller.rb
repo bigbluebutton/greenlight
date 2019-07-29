@@ -138,17 +138,13 @@ class UsersController < ApplicationController
         errors.each { |k, v| @user.errors.add(k, v) }
         render :edit, params: { settings: params[:settings] }
       end
-    elsif user_params[:email] != @user.email && @user.update_attributes(user_params)
+    elsif user_params[:email] != @user.email && @user.update_attributes(user_params) && update_roles
       @user.update_attributes(email_verified: false)
-
-      update_roles
 
       flash[:success] = I18n.t("info_update_success")
       redirect_to redirect_path
-    elsif @user.update_attributes(user_params)
+    elsif @user.update_attributes(user_params) && update_roles
       update_locale(@user)
-
-      update_roles
 
       flash[:success] = I18n.t("info_update_success")
       redirect_to redirect_path
@@ -270,7 +266,6 @@ class UsersController < ApplicationController
 
       added_role_ids.each do |id|
         role = Role.find(id)
-
         if (role.priority > current_user_role.priority || current_user_role.name == "admin") &&
            role.provider == @user_domain
           added_roles << role
@@ -278,6 +273,7 @@ class UsersController < ApplicationController
           send_user_promoted_email(@user, role.name) if role.send_promoted_email
         else
           flash[:alert] = I18n.t("administrator.roles.invalid_assignment")
+          return false
         end
       end
 
@@ -291,6 +287,7 @@ class UsersController < ApplicationController
           send_user_demoted_email(@user, role.name) if role.send_demoted_email
         else
           flash[:alert] = I18n.t("administrator.roles.invalid_removal")
+          return false
         end
       end
 
@@ -300,6 +297,8 @@ class UsersController < ApplicationController
       @user.roles = [Role.find_by(name: "user", provider: @user_domain)] if @user.roles.count.zero?
 
       @user.save!
+    else
+      true
     end
   end
 end
