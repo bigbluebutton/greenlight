@@ -393,10 +393,6 @@ en:
     password: New Password
     confirm: New Password Confirmation
     update: Update Password
-  roles:
-    banned: Banned
-    pending: Pending
-    super_admin: Super Admin
   room:
     access_code_required: Please enter a valid access code to join the room
     create_room: Create a Room

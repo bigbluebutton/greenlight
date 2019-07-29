@@ -65,40 +65,6 @@ class User < ApplicationRecord
       end
     end
 
-    def admins_search(string, role)
-      active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
-      # Postgres requires created_at to be cast to a string
-      created_at_query = if active_database == "postgresql"
-        "created_at::text"
-      else
-        "created_at"
-      end
-
-      search_query = ""
-      role_search_param = ""
-      if role.nil?
-        search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
-                      " OR users.#{created_at_query} LIKE :search OR users.provider LIKE :search" \
-                      " OR roles.name LIKE :roles_search"
-        role_search_param = "%#{string}%"
-      else
-        search_query = "(users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
-                      " OR users.#{created_at_query} LIKE :search OR users.provider LIKE :search)" \
-                      " AND roles.name = :roles_search"
-        role_search_param = role.name
-      end
-
-      search_param = "%#{string}%"
-      joins("LEFT OUTER JOIN users_roles ON users_roles.user_id = users.id LEFT OUTER JOIN roles " \
-        "ON roles.id = users_roles.role_id").distinct
-        .where(search_query, search: search_param, roles_search: role_search_param)
-    end
-
-    def admins_order(column, direction)
-      # Arel.sql to avoid sql injection
-      order(Arel.sql("#{column} #{direction}"))
-    end
-
     private
 
     # Provider attributes.
@@ -134,6 +100,40 @@ class User < ApplicationRecord
         auth['info']['image']
       end
     end
+  end
+
+  def self.admins_search(string, role)
+    active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
+    # Postgres requires created_at to be cast to a string
+    created_at_query = if active_database == "postgresql"
+      "created_at::text"
+    else
+      "created_at"
+    end
+
+    search_query = ""
+    role_search_param = ""
+    if role.nil?
+      search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
+                    " OR users.#{created_at_query} LIKE :search OR users.provider LIKE :search" \
+                    " OR roles.name LIKE :roles_search"
+      role_search_param = "%#{string}%"
+    else
+      search_query = "(users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
+                    " OR users.#{created_at_query} LIKE :search OR users.provider LIKE :search)" \
+                    " AND roles.name = :roles_search"
+      role_search_param = role.name
+    end
+
+    search_param = "%#{string}%"
+    joins("LEFT OUTER JOIN users_roles ON users_roles.user_id = users.id LEFT OUTER JOIN roles " \
+      "ON roles.id = users_roles.role_id").distinct
+      .where(search_query, search: search_param, roles_search: role_search_param)
+  end
+
+  def self.admins_order(column, direction)
+    # Arel.sql to avoid sql injection
+    order(Arel.sql("#{column} #{direction}"))
   end
 
   # Activates an account and initialize a users main room

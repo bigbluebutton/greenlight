@@ -30,14 +30,14 @@ class Role < ApplicationRecord
   end
 
   def self.create_default_roles(provider)
-    Role.create(name: "user", provider: provider, priority: 1, can_create_rooms: true)
+    Role.create(name: "user", provider: provider, priority: 1, can_create_rooms: true, colour: "#868e96")
     Role.create(name: "admin", provider: provider, priority: 0, can_create_rooms: true, send_promoted_email: true,
       send_demoted_email: true, can_edit_site_settings: true,
-      can_edit_roles: true, can_manage_users: true,)
-    Role.create(name: "pending", provider: provider, priority: -1)
-    Role.create(name: "denied", provider: provider, priority: -1)
+      can_edit_roles: true, can_manage_users: true, colour: "#f1c40f")
+    Role.create(name: "pending", provider: provider, priority: -1, colour: "#17a2b8")
+    Role.create(name: "denied", provider: provider, priority: -1, colour: "#343a40")
     Role.create(name: "super_admin", provider: provider, priority: -2, can_create_rooms: true,
       send_promoted_email: true, send_demoted_email: true, can_edit_site_settings: true,
-      can_edit_roles: true, can_manage_users: true,)
+      can_edit_roles: true, can_manage_users: true, colour: "#cd201f")
   end
 end
