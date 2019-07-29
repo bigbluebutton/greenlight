@@ -72,17 +72,17 @@ class AddCustomRoles < ActiveRecord::Migration[5.2]
     assign_new_users(new_assignments)
   end
 
-  def generate_scoped_role(user, _role_name)
+  def generate_scoped_role(user, role_name)
     provider = Rails.configuration.loadbalanced_configuration ? user.provider : 'greenlight'
-    new_role = Role.find_by(name: new_role, provider: provider)
+    new_role = Role.find_by(name: role_name, provider: provider)
 
-    if new_role.count.zero?
+    if new_role.nil?
       Role.create_default_roles(provider)
 
-      new_role = Role.find_by(name: new_role, provider: provider)
+      new_role = Role.find_by(name: role_name, provider: provider)
     end
 
-    new_role.first["id"]
+    new_role.id
   end
 
   def assign_new_users(new_assignments)
