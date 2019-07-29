@@ -238,7 +238,7 @@ class AdminsController < ApplicationController
     top_priority = 0
 
     params[:role].each_with_index do |id, index|
-      new_priority = index + current_user_role.priority + 1
+      new_priority = index + [current_user_role.priority, 0].max + 1
       top_priority = new_priority
       Role.where(id: id).update_all(priority: new_priority)
     end

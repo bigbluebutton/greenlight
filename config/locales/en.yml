@@ -87,11 +87,11 @@ en:
       delete: Delete the role
       duplicate_name: The role name you provided was a duplicate. All role names must be unique
       empty_name: All roles must have a non empty name
-      invalid_order: The user role must be the lowest priority role
+      invalid_order: The user role must be the lowest priority role and the admin role must be the highest priority role
       invalid_update: You can't update a role with a higher priority than your own role
       name: Role Name
       new_role: Create a new role
-      role_has_users: This role is assigned to %{user_count} accounts. Please remove all accounts from this role before deleting.
+      role_has_users: This role is assigned to %{user_count} accounts. Please remove all accounts from this role before deleting it.
       title: Roles
       promote_email: Send an email to users when they are assigned this role
       demote_email: Send an email to users when they are removed from this role
@@ -393,6 +393,11 @@ en:
     password: New Password
     confirm: New Password Confirmation
     update: Update Password
+  roles:
+    admin: Admin
+    banned: Banned
+    pending: Pending
+    user: User
   room:
     access_code_required: Please enter a valid access code to join the room
     create_room: Create a Room

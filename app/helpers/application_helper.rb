@@ -114,4 +114,18 @@ module ApplicationHelper
   def role_colour(role)
     role.colour || Rails.configuration.primary_color_default
   end
+
+  def translated_role_name(role)
+    if role.name == "denied"
+      I18n.t("roles.banned")
+    elsif role.name == "pending"
+      I18n.t("roles.pending")
+    elsif role.name == "admin"
+      I18n.t("roles.admin")
+    elsif role.name == "user"
+      I18n.t("roles.user")
+    else
+      role.name
+    end
+  end
 end

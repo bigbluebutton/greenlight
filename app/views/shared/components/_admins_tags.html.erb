@@ -17,7 +17,7 @@
   <div class="row">
     <div class="col-12 tags">
       <span style="<%= "background-color: #{role_colour(@role)};border-color: #{role_colour(@role)};" %>" class="tag custom-role-tag">
-        <%= @role.name %>
+        <%= translated_role_name(@role) %>
         <a class="tag-addon clear-role">
           <i class="fas fa-times"></i>
         </a>
