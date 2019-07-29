@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   include Recorder
 
   before_action :find_user, only: [:edit, :update, :destroy]
-  before_action :ensure_unauthenticated, only: [:new, :create]
+  before_action :ensure_unauthenticated, only: [:new, :create, :signin]
 
   # POST /u
   def create
