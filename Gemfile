@@ -49,7 +49,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-bn-office365', git: 'https://github.com/blindsidenetworks/omniauth-bn-office365.git', tag: '0.1.0'
-gem 'omniauth-bn-launcher', git: 'https://github.com/blindsidenetworks/omniauth-bn-launcher.git', tag: '0.1.1'
+gem 'omniauth-bn-launcher', git: 'https://github.com/blindsidenetworks/omniauth-bn-launcher.git', tag: '0.1.2'
 gem 'bn-ldap-authentication', git: 'https://github.com/blindsidenetworks/bn-ldap-authentication.git'
 gem 'net-ldap'
 
@@ -79,6 +79,9 @@ gem 'cancancan', '~> 2.0'
 group :production do
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'
+
+  # For a better logging library in production
+  gem "lograge"
 end
 
 # Ruby linting.

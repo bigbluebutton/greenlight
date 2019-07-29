@@ -47,7 +47,13 @@ es_MX:
         title: Color principal
         regular: Regular
         lighten: Aclarar
-        Darken: Oscurecer
+        darken: Oscurecer
+      recording_visibility:
+        public: Pública
+        private: Privada
+        info: Establecer la visibilidad por default en las grabaciones nuevas
+        title: Visibilidad de grabación por default
+        warning: Esta configuración solo será aplicada a las nuevas sesiones
       registration:
         info: Cambiar la forma de registro de usuarios
         title: Método de registro
@@ -73,6 +79,9 @@ es_MX:
       registration_method_updated: Método de registro actualizado
       settings: La configuración de sistema ha sido actualizada
       unauthorized: No estas autorizado para ejecutar operaciones en este usuario.
+    recordings:
+      title: Grabaciones
+      no_recordings: Este servidor no tiene grabaciones.
     title: Configuración de organización
     users:
       invite: Invitar usuario
@@ -121,6 +130,10 @@ es_MX:
     internal:
       message: Parece que algo salió mal de nuestro lado.
       help: "El error ha sido registrado, vamos a revisarlo."
+    maintenance:
+      message: El sistema se encuentra en mantenimiento.
+      help: Estaremos de regreso muy pronto.
+      readonly: Este sitio se encuentra en mantenimiento. No podrás ejecutar esta acción
     migration_error:
       contact_admin: "Sí no eres administrador, contacta a uno."
       continue: Me gustaría seguir utilizando la versión 1.0
@@ -136,6 +149,9 @@ es_MX:
       accepted: debe ser aceptado
       confirmation: "no conicide %{attribute}"
       inclusion: no está incluido en la lista
+    no_provider:
+      message: El sitio que estas tratando de acceder no se encuentra activo
+      help: Contacta al administrador del sistema para habilitar este sitio
     not_found:
       message: "Lo sentimos, la página que estas buscando no existe."
       help: "¿Puede ser que haya sido eliminada?"
@@ -248,6 +264,8 @@ es_MX:
   max_concurrent: Se a alcanzado el número máximo de sesiones permitidas
   modal:
     create_room:
+      access_code: Código de acceso
+      access_code_placeholder: Generar un nuevo código de acceso
       auto_join: Envíame a la sala automáticamente cuando empiece ls sesión
       create: Crear sala
       free_delete: Podrás eliminar la sala en el momento que quieras
@@ -280,9 +298,8 @@ es_MX:
       update: Actualizar la sala
       client: Seleccionar el tipo de cliente
       mute: Deshabilitar micrófono de usuarios al entrar
-      default: Por omisión
-      html: HTML5
-      flash: Flash
+      require_approval: Requerir aprobación del moderador antes de ingresar a la sesión
+      start: Permitir usuarios iniciar esta sesión
       footer_text: Puedes hacer cambios a tu sala en cualquier momento
     rename_room:
       name_placeholder: Introduce un nuevo nombre para la sala...
@@ -325,7 +342,11 @@ es_MX:
       public: Pública
       unlisted: No listada
     format:
+      notes: Notas
+      podcast: Podcast
       presentation: Presentación
+      statistics: Estadísticas
+      video: Video
   registration:
     approval:
       fail: "Tú cuenta de usuario todavía no ha sido autorizada. Si han pasado varios días desde tú registro, te sugerimos contactar al administrador."
@@ -347,19 +368,22 @@ es_MX:
     confirm: Confirmación de nueva contraseña
     update: Actualizar contraseña
   roles:
-    administrator: Administrador
+    administrator: Admin
     banned: Bloqueado
     pending: Pendiente
     super_admin: Super Administrador
     user: Usuario
   room:
+    access_code_required: Introduce un código de acceso valido para ingresar a la sala
     create_room: Crear una sala
     create_room_error: Ocurrió un error al crear la sala
     create_room_success: La sala fue creada exitósamente
+    enter_the_access_code: Introduce el código de acceso de la sala
     invited: Hás sido invitado a ingresar
     invite_participants: Invitar participantes
     join: Entrar
     last_session: "Última sesión en %{session}"
+    login: Ingresar código
     owner: Dueño
     no_sessions: Esta sala todavía no tiene sesiones
     recordings: Grabaciones de sala

@@ -153,7 +153,6 @@ en:
     maintenance:
       message: Sorry, we're down for maintenance.
       help: We'll be back soon!
-      readonly: This application is under maintenance. You will not be able to perform this action
     migration_error:
       contact_admin: If you are not an administrator, please contact one.
       continue: I'd like to stay using 1.0.
@@ -171,8 +170,8 @@ en:
       confirmation: doesn't match %{attribute}
       inclusion: is not included in the list
     no_provider:
-      message: The customer you provided doesn't have Greenlight configured
-      help: Please contact Blindside Networks to setup Greenlight
+      message: The site you are trying to access is not enabled
+      help: Please contact your system administrator to setup Greenlight
     not_found:
       message: Sorry! The page you are looking for does not exist.
       help: Is it possible its been removed?
@@ -408,7 +407,7 @@ en:
     invite_participants: Invite Participants
     join: Join
     last_session: Last session on %{session}
-    login: Login
+    login: Enter
     owner: Owner
     no_room:
       title: Join a Room

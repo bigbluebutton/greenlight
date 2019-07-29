@@ -94,12 +94,20 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
-  # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  # Use Lograge for logging
+  config.lograge.enabled = true
 
-  # Use a different logger for distributed setups.
-  # require 'syslog/logger'
-  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
+  config.lograge.ignore_actions = ["HealthCheck::HealthCheckController#index"]
+
+  config.lograge.custom_options = lambda do |event|
+    # capture some specific timing values you are interested in
+    { host: event.payload[:host] }
+  end
+
+  config.log_formatter = proc do |severity, _time, _progname, msg|
+    "#{severity}: #{msg} \n"
+  end
+  config.log_level = :info
 
   if ENV["RAILS_LOG_TO_STDOUT"] == "true"
     logger = ActiveSupport::Logger.new(STDOUT)
@@ -108,8 +116,10 @@ Rails.application.configure do
   elsif ENV["RAILS_LOG_REMOTE_NAME"] && ENV["RAILS_LOG_REMOTE_PORT"]
     require 'remote_syslog_logger'
     logger_program = ENV["RAILS_LOG_REMOTE_TAG"] || "greenlight-#{ENV['RAILS_ENV']}"
-    config.logger = RemoteSyslogLogger.new(ENV["RAILS_LOG_REMOTE_NAME"],
+    logger = RemoteSyslogLogger.new(ENV["RAILS_LOG_REMOTE_NAME"],
       ENV["RAILS_LOG_REMOTE_PORT"], program: logger_program)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
   # Do not dump schema after migrations.
