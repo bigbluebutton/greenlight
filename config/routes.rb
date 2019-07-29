@@ -99,6 +99,9 @@ Rails.application.routes.draw do
   # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/'
 
+  # Join a room by UID
+  post '/room/join', to: 'rooms#join_specific_room', as: :join_room
+
   # Extended room routes.
   scope '/:room_uid' do
     post '/', to: 'rooms#join'

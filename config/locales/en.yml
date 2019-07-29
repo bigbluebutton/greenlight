@@ -410,6 +410,10 @@ en:
     last_session: Last session on %{session}
     login: Login
     owner: Owner
+    no_room:
+      title: Join a Room
+      placeholder: Enter the room url or the room id for the room you want to join.
+      invalid_room_uid: The room url/uid you entered was invalid.
     no_sessions: This room has no sessions, yet!
     recordings: Room Recordings
     room_limit: You have reached the maximum number of rooms allowed

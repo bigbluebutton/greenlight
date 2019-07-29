@@ -34,9 +34,11 @@
               <i class="fas fa-home pr-1 "></i> <%= t("header.dropdown.home") %>
             <% end %>
 
-            <% all_rec_page = params[:controller] == "users" && params[:action] == "recordings" ? "active" : "" %>
-            <%= link_to get_user_recordings_path(current_user), class: "px-3 mx-1 mt-1 header-nav #{all_rec_page}" do %>
-              <i class="fas fa-video pr-1"></i> <%= t("header.all_recordings") %>
+            <% if current_user.highest_priority_role.can_create_rooms %>
+              <% all_rec_page = params[:controller] == "users" && params[:action] == "recordings" ? "active" : "" %>
+              <%= link_to get_user_recordings_path(current_user), class: "px-3 mx-1 mt-1 header-nav #{all_rec_page}" do %>
+                <i class="fas fa-video pr-1"></i> <%= t("header.all_recordings") %>
+              <% end %>
             <% end %>
           <% end %>
 

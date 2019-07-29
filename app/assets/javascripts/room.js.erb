@@ -39,6 +39,13 @@ $(document).on('turbolinks:load', function(){
         }, 2000)
       }
     });
+
+    console.log($("#cant-create-room-wrapper"))
+
+    if ($("#cant-create-room-wrapper").length){
+    console.log('test')
+      $(".wrapper").css('height', '100%').css('height', '-=130px');
+    }
   }
 
   // Display and update all fields related to creating a room in the createRoomModal
