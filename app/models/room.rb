@@ -66,7 +66,7 @@ class Room < ApplicationRecord
       # Update session info.
       unless meeting[:messageKey] == 'duplicateWarning'
         update_attributes(sessions: sessions + 1,
-          last_session: DateTime.now) unless ENV["MAINTENANCE_MODE"] == "readonly"
+          last_session: DateTime.now)
       end
     rescue BigBlueButton::BigBlueButtonException => e
       puts "BigBlueButton failed on create: #{e.key}: #{e.message}"

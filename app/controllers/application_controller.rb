@@ -36,9 +36,6 @@ class ApplicationController < ActionController::Base
   # Manually handle BigBlueButton errors
   rescue_from BigBlueButton::BigBlueButtonException, with: :handle_bigbluebutton_error
 
-  # Manually Handle errors when application is in readonly mode
-  rescue_from ActiveRecord::ReadOnlyRecord, with: :handle_readonly_error
-
   protect_from_forgery with: :exception
 
   MEETING_NAME_LIMIT = 90
@@ -50,7 +47,7 @@ class ApplicationController < ActionController::Base
   end
 
   def maintenance_mode?
-    if ENV["MAINTENANCE_MODE"] == "full"
+    if ENV["MAINTENANCE_MODE"] == "true"
       render "errors/greenlight_error", status: 503, formats: :html,
         locals: {
           status_code: 503,
@@ -192,11 +189,5 @@ class ApplicationController < ActionController::Base
   # Manually Handle BigBlueButton errors
   def handle_bigbluebutton_error
     render "errors/bigbluebutton_error"
-  end
-
-  # Manually Handle errors when application is in readonly mode
-  def handle_readonly_error
-    flash.clear
-    redirect_to request.referrer || root_path, flash: { alert: I18n.t("errors.maintenance.readonly") }
   end
 end
