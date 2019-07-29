@@ -150,8 +150,8 @@ de_DE:
       confirmation: "passt nicht zu %{attribute}"
       inclusion: ist nicht Teil der Liste
     no_provider:
-      message: Der angegebene Kunde hat Greenlight nicht konfiguriert.
-      help: Bitte kontaktieren Sie Blindside Networks um Greenlight einzurichten
+      message: "Die Seite, auf die Sie versuchen zuzugreifen, ist nicht aktiviert."
+      help: "Bitte kontaktieren Sie Ihren Systemadministrator, damit er Greenlight einrichtet."
     not_found:
       message: Tut uns leid! Die aufgerufene Seite existiert nicht.
       help: "Ist es möglich, dass es entfernt wurde?"
@@ -300,9 +300,6 @@ de_DE:
       mute: Teilnehmer beim Betreten stummschalten
       require_approval: Freigabe durch Moderator bevor der Raum betreten werden kann
       start: Jeder Teilnehmer kann das Meeting starten
-      default: Voreinstellung
-      html: HTML5
-      flash: Flash
       footer_text: Anpassungen des Raums können jederzeit vorgenommen werden.
     rename_room:
       name_placeholder: Neuen Raumnamen eingeben...
@@ -386,7 +383,7 @@ de_DE:
     invite_participants: Teilnehmer einladen
     join: Teilnehmen
     last_session: "Letzte Konferenz am %{session}"
-    login: Login
+    login: Betreten
     owner: Initiator
     no_sessions: In diesem Raum haben noch keine Konferenzen stattgefunden.
     recordings: Aufzeichnungen des Raums

@@ -44,6 +44,12 @@ class ApplicationController < ActionController::Base
   MEETING_NAME_LIMIT = 90
   USER_NAME_LIMIT = 32
 
+  # Include user domain in lograge logs
+  def append_info_to_payload(payload)
+    super
+    payload[:host] = @user_domain
+  end
+
   # Show an information page when migration fails and there is a version error.
   def migration_error?
     render :migration_error unless ENV["DB_MIGRATE_FAILED"].blank?
