@@ -39,7 +39,7 @@ describe RecordingsHelper do
 
     it "returns the time if length between 0 and 60" do
       playbacks = [{ type: "test", length: 45 }]
-      expect(helper.recording_length(playbacks)).to eql("45 mins")
+      expect(helper.recording_length(playbacks)).to eql("45 min")
     end
   end
 end
