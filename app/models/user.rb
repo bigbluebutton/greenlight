@@ -246,9 +246,7 @@ class User < ApplicationRecord
 
   def add_role(role)
     unless has_role?(role)
-      role_provider = "greenlight"
-
-      role_provider = provider if Rails.configuration.loadbalanced_configuration
+      role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
 
       roles << Role.find_or_create_by(name: role, provider: role_provider)
 
@@ -258,9 +256,8 @@ class User < ApplicationRecord
 
   def remove_role(role)
     if has_role?(role)
-      role_provider = "greenlight"
+      role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
 
-      role_provider = provider if Rails.configuration.loadbalanced_configuration
       roles.delete(Role.find_by(name: role, provider: role_provider))
       save!
     end
@@ -309,9 +306,7 @@ class User < ApplicationRecord
 
   # Initialize the user to use the default user role
   def assign_default_role
-    role_provider = "greenlight"
-
-    role_provider = provider if Rails.configuration.loadbalanced_configuration
+    role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
 
     Role.create_default_roles(role_provider) if Role.where(provider: role_provider).count.zero?
 

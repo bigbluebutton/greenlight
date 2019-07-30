@@ -143,21 +143,15 @@ class RoomsController < ApplicationController
 
   # POST room/join
   def join_specific_room
-    parsed_url = params[:join_room][:url].split('/')
-
-    room_uid = parsed_url[parsed_url.length - 1]
+    room_uid = params[:join_room][:url].split('/').last
 
     begin
       @room = Room.find_by(uid: room_uid)
     rescue ActiveRecord::RecordNotFound
-      flash[:alert] = I18n.t("room.no_room.invalid_room_uid")
-      return redirect_to room_path(current_user.main_room)
+      return redirect_to room_path(current_user.main_room), alert: I18n.t("room.no_room.invalid_room_uid")
     end
 
-    if @room.nil?
-      flash[:alert] = I18n.t("room.no_room.invalid_room_uid")
-      return redirect_to room_path(current_user.main_room)
-    end
+    return redirect_to room_path(current_user.main_room), alert: I18n.t("room.no_room.invalid_room_uid") if @room.nil?
 
     redirect_to room_path(@room)
   end
