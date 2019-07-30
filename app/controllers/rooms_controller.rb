@@ -148,10 +148,10 @@ class RoomsController < ApplicationController
     begin
       @room = Room.find_by(uid: room_uid)
     rescue ActiveRecord::RecordNotFound
-      return redirect_to room_path(current_user.main_room), alert: I18n.t("room.no_room.invalid_room_uid")
+      return redirect_to current_user.main_room, alert: I18n.t("room.no_room.invalid_room_uid")
     end
 
-    return redirect_to room_path(current_user.main_room), alert: I18n.t("room.no_room.invalid_room_uid") if @room.nil?
+    return redirect_to current_user.main_room, alert: I18n.t("room.no_room.invalid_room_uid") if @room.nil?
 
     redirect_to room_path(@room)
   end
