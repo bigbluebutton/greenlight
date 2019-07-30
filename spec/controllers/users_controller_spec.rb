@@ -373,6 +373,10 @@ describe UsersController, type: :controller do
 
         admin.add_role :admin
 
+        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight", send_demoted_email: true)
+        user.roles << tmp_role1
+        user.save!
+
         @request.session[:user_id] = admin.id
 
         params = random_valid_user_params
@@ -383,7 +387,7 @@ describe UsersController, type: :controller do
         expect(response).to redirect_to(admins_path)
       end
 
-      it "all users must at least have the user role" do
+      it "should successfuly add roles to the user" do
         user = create(:user)
         admin = create(:user)
 
@@ -391,7 +395,7 @@ describe UsersController, type: :controller do
 
         @request.session[:user_id] = admin.id
 
-        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight")
+        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight", send_promoted_email: true)
         tmp_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight")
 
         params = random_valid_user_params

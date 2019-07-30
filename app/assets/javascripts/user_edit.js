@@ -15,18 +15,18 @@ $(document).on('turbolinks:load', function(){
         $(".clear-role").click(clearRole)
 
         $("#role-select-dropdown").change(function(data){
-            dropdown = $("#role-select-dropdown");
-            select_role_id = dropdown.val();
+            var dropdown = $("#role-select-dropdown");
+            var select_role_id = dropdown.val();
 
             if(select_role_id){
-                selected_role = dropdown.find('[value=\"' + select_role_id + '\"]');
+                var selected_role = dropdown.find('[value=\"' + select_role_id + '\"]');
                 selected_role.prop("disabled", true)
 
-                tag_container = $("#role-tag-container");
+                var tag_container = $("#role-tag-container");
                 tag_container.append("<span id=\"user-role-tag_" + select_role_id + "\" style=\"background-color:" + selected_role.data("colour") + ";\" class=\"tag\">" + 
                     selected_role.text() + "<a data-role-id=\"" + select_role_id + "\" class=\"tag-addon clear-role\"><i data-role-id=\"" + select_role_id + "\" class=\"fas fa-times\"></i></a></span>");
 
-                role_ids = $("#user_role_ids").val()
+                var role_ids = $("#user_role_ids").val()
                 role_ids += " " + select_role_id
                 $("#user_role_ids").val(role_ids)
                 
@@ -38,12 +38,12 @@ $(document).on('turbolinks:load', function(){
 })
 
 function clearRole(data){
-    role_id = $(data.target).data("role-id");
-    role_tag = $("#user-role-tag_" + role_id);
+    var role_id = $(data.target).data("role-id");
+    var role_tag = $("#user-role-tag_" + role_id);
     $(role_tag).remove()
   
-    role_ids = $("#user_role_ids").val()
-    parsed_ids = role_ids.split(' ')
+    var role_ids = $("#user_role_ids").val()
+    var parsed_ids = role_ids.split(' ')
   
     var index = parsed_ids.indexOf(role_id.toString());
   
@@ -53,6 +53,6 @@ function clearRole(data){
   
     $("#user_role_ids").val(parsed_ids.join(' '))
   
-    selected_role = $("#role-select-dropdown").find('[value=\"' + role_id + '\"]');
+    var selected_role = $("#role-select-dropdown").find('[value=\"' + role_id + '\"]');
     selected_role.prop("disabled", false)
 }
