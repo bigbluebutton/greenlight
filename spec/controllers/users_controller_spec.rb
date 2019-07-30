@@ -367,7 +367,31 @@ describe UsersController, type: :controller do
         expect(response).to render_template(:edit)
       end
 
+      it "should successfuly add roles to the user" do
+        allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+
+        user = create(:user)
+        admin = create(:user)
+
+        admin.add_role :admin
+
+        @request.session[:user_id] = admin.id
+
+        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight", send_promoted_email: true)
+        tmp_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight")
+
+        params = random_valid_user_params
+        params = params.merge!(user_uid: user, user: { role_ids: "#{tmp_role1.id} #{tmp_role2.id}" })
+
+        expect { patch :update, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
+        expect(user.roles.count).to eq(2)
+        expect(user.highest_priority_role.name).to eq("test1")
+        expect(response).to redirect_to(admins_path)
+      end
+
       it "all users must at least have the user role" do
+        allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+
         user = create(:user)
         admin = create(:user)
 
@@ -380,29 +404,11 @@ describe UsersController, type: :controller do
         @request.session[:user_id] = admin.id
 
         params = random_valid_user_params
-        patch :update, params: params.merge!(user_uid: user, user: { role_ids: "" })
+        params = params.merge!(user_uid: user, user: { role_ids: "" })
 
+        expect { patch :update, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
         expect(user.roles.count).to eq(1)
         expect(user.highest_priority_role.name).to eq("user")
-        expect(response).to redirect_to(admins_path)
-      end
-
-      it "should successfuly add roles to the user" do
-        user = create(:user)
-        admin = create(:user)
-
-        admin.add_role :admin
-
-        @request.session[:user_id] = admin.id
-
-        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight", send_promoted_email: true)
-        tmp_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight")
-
-        params = random_valid_user_params
-        patch :update, params: params.merge!(user_uid: user, user: { role_ids: "#{tmp_role1.id} #{tmp_role2.id}" })
-
-        expect(user.roles.count).to eq(2)
-        expect(user.highest_priority_role.name).to eq("test1")
         expect(response).to redirect_to(admins_path)
       end
     end

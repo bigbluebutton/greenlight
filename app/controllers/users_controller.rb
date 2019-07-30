@@ -269,8 +269,6 @@ class UsersController < ApplicationController
         if (role.priority > current_user_role.priority || current_user_role.name == "admin") &&
            role.provider == @user_domain
           added_roles << role
-
-          send_user_promoted_email(@user, role.name) if role.send_promoted_email
         else
           flash[:alert] = I18n.t("administrator.roles.invalid_assignment")
           return false
@@ -289,7 +287,7 @@ class UsersController < ApplicationController
         end
       end
 
-      added_roles.each { |role| send_user_demoted_email(@user, role.name) if role.send_demoted_email }
+      added_roles.each { |role| send_user_promoted_email(@user, role.name) if role.send_promoted_email }
       removed_roles.each { |role| send_user_demoted_email(@user, role.name) if role.send_demoted_email }
 
       @user.roles.delete(removed_roles)
