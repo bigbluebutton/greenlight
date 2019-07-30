@@ -49,16 +49,19 @@ $(document).on('turbolinks:load', function(){
       loadColourSelectors()
     }
     else if (action == "roles"){
+      // Refreshes the new role modal
       $("#newRoleButton").click(function(){
         $("#createRoleName").val("")
       })
 
+      // Updates the colour picker to the correct colour
       role_colour = $("#role-colorinput-regular").data("colour")
       $("#role-colorinput-regular").css("background-color", role_colour);
       $("#role-colorinput-regular").css("border-color", role_colour);
 
       loadRoleColourSelector(role_colour, $("#role-colorinput-regular").data("disabled"));
 
+      // Loads the jquery sortable so users can manually sort roles
       $("#rolesSelect").sortable({
         items: "a:not(.sort-disabled)",
         update: function() {
@@ -194,6 +197,7 @@ function loadRoleColourSelector(role_colour, disabled) {
       },
     });
   
+    // On save update the colour input's background colour and update the role colour input
     pickrRoleRegular.on("save", (color, instance) => {
       $("#role-colorinput-regular").css("background-color", color.toHEXA().toString());
       $("#role-colorinput-regular").css("border-color", color.toHEXA().toString());
