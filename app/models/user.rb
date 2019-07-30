@@ -103,12 +103,14 @@ class User < ApplicationRecord
     end
 
     def auth_roles(user, auth)
-      roles = auth['info']['roles'].split(',')
+      unless auth['info']['roles'].nil?
+        roles = auth['info']['roles'].split(',')
 
-      role_provider = auth['provider'] == "bn_launcher" ? auth['info']['customer'] : "greenlight"
-      roles.each do |role_name|
-        role = Role.where(provider: role_provider, name: role_name).first
-        user.roles << role unless role.nil?
+        role_provider = auth['provider'] == "bn_launcher" ? auth['info']['customer'] : "greenlight"
+        roles.each do |role_name|
+          role = Role.where(provider: role_provider, name: role_name).first
+          user.roles << role unless role.nil?
+        end
       end
     end
   end
