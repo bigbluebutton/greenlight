@@ -283,13 +283,14 @@ class UsersController < ApplicationController
         if (role.priority > current_user_role.priority || current_user_role.name == "admin") &&
            role.provider == @user_domain
           removed_roles << role
-
-          send_user_demoted_email(@user, role.name) if role.send_demoted_email
         else
           flash[:alert] = I18n.t("administrator.roles.invalid_removal")
           return false
         end
       end
+
+      added_roles.each { |role| send_user_demoted_email(@user, role.name) if role.send_demoted_email }
+      removed_roles.each { |role| send_user_demoted_email(@user, role.name) if role.send_demoted_email }
 
       @user.roles.delete(removed_roles)
       @user.roles << added_roles
