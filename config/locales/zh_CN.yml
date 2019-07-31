@@ -28,7 +28,7 @@ zh_CN:
     errors:
       models:
         user:
-          confirmation: 不匹配密码
+          confirmation: 和密码不一致
   administrator:
     site_settings:
       authentication:
@@ -36,7 +36,7 @@ zh_CN:
         enabled: 启用
         info: 仅允许经过身份验证的用户加入会议室
         title: 要求对会议室进行身份验证
-        user-info: 你必须登录Greenlight才能加入这个会议室
+        user-info: 您必须登录才能加入这个会议室
       branding:
         change: 修改品牌形象
         info: 更改左上角显示的网站标志
@@ -47,7 +47,13 @@ zh_CN:
         title: 主颜色
         regular: 常规
         lighten: 变亮
-        Darken: 变暗
+        darken: 变暗
+      recording_visibility:
+        public: 公开
+        private: 私有
+        info: 设置新录制录像的默认可见性
+        title: 录像默认可见性
+        warning: 此设置将仅应用于未运行的会议。
       registration:
         info: 更改用户在网站注册的方式
         title: 注册方式
@@ -73,6 +79,9 @@ zh_CN:
       registration_method_updated: 注册方法已成功更新
       settings: 已成功更改网站设置
       unauthorized: 您无权对此用户执行操作
+    recordings:
+      title: 服务器录像
+      no_recordings: 此服务器没有录像。
     title: 组织设置
     users:
       invite: 邀请用户
@@ -121,6 +130,10 @@ zh_CN:
     internal:
       message: 看来服务器这边出了点问题。
       help: 错误信息已经记录了，我们会检查一下!
+    maintenance:
+      message: 对不起，我们正在下线维修中。
+      help: 我们很快就回来！
+      readonly: 此应用程序正在维护中。您将无法执行此操作。
     migration_error:
       contact_admin: 请联系管理员。
       continue: 还是继续使用 1.0吧。
@@ -136,6 +149,9 @@ zh_CN:
       accepted: 必须同意
       confirmation: "不匹配%{attribute}"
       inclusion: 列表中不存在
+    no_provider:
+      message: 您尝试访问的网站未启用
+      help: 请与系统管理员联系以设置Greenlight
     not_found:
       message: 对不起！您要查找的页面不存在。
       help: 它有可能被移除了吗？
@@ -172,7 +188,7 @@ zh_CN:
       home: 首页
       settings: 个人设置
       signout: 退出
-  home_room: 首页会议室
+  home_room: 主会议室
   info_update_success: 信息更新成功。
   invalid_user: 由于找不到用户，登录失败。您确定电子邮件帐户是正确的吗？
   invalid_credentials: 登录失败。输入有误？
@@ -190,7 +206,7 @@ zh_CN:
     welcome: 欢迎来到BigBlueButton在线会议系统
     video: 请看使用说明
     upgrade: 告诉我怎么升级到 2.0!
-    version: 我们发布了新版Greenlight，但你的数据库不兼容。
+    version: 我们发布了新版Greenlight，但您的数据库不兼容。
   language_default: 默认（浏览器语言）
   ldap_error: 无法连接到LDAP服务器，请在env文件中检查LDAP配置，还要确保服务已经启动。
   login: 登录
@@ -248,6 +264,8 @@ zh_CN:
   max_concurrent: 已达到允许的最大并发会话数！
   modal:
     create_room:
+      access_code: 访问代码
+      access_code_placeholder: 生成可选的会议访问代码
       auto_join: 自动进入会议室
       create: 创建会议室
       free_delete: 任何时候都可以删除这个会议室
@@ -280,9 +298,8 @@ zh_CN:
       update: 修改会议室
       client: 选择客户端类型
       mute: 用户加入时静音
-      default: 默认
-      html: HTML5
-      flash: Flash
+      require_approval: 加入前需要主持人批准
+      start: 允许任何用户启动此会议
       footer_text: 您可以随时调整会议室
     rename_room:
       name_placeholder: 这里请输入新会议室名称…
@@ -325,7 +342,11 @@ zh_CN:
       public: 公开
       unlisted: 隐藏
     format:
+      notes: 笔记
+      podcast: 播客
       presentation: 演示
+      statistics: 统计
+      video: 视频
   registration:
     approval:
       fail: 您的帐户尚未批准。如果您注册后已过多天，请与管理员联系。
@@ -347,19 +368,22 @@ zh_CN:
     confirm: 确认新密码
     update: 更新密码
   roles:
-    administrator: 管理员
+    administrator: 管理
     banned: 已禁用
     pending: 待定
     super_admin: 超级管理员
     user: 用户
   room:
+    access_code_required: 请输入有效的访问代码以加入会议
     create_room: 创建会议室
     create_room_error: 创建会议室出错
     create_room_success: 会议室创建成功
+    enter_the_access_code: 输入会议室的访问代码
     invited: 您已被邀请加入
     invite_participants: 邀请参与者的链接
     join: 加入
     last_session: "上一次会议%{session}"
+    login: 加入
     owner: 主持人
     no_sessions: 会议室从未使用！
     recordings: 会议录像
