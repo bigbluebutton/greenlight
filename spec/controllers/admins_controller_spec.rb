@@ -327,7 +327,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Default Recording Visibility")
 
         expect(feature[:value]).to eq("public")
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
     end
   end
