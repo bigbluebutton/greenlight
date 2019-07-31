@@ -21,7 +21,7 @@ module RecordingsHelper
 
   # Helper for converting BigBlueButton dates into the desired format.
   def recording_date(date)
-    date.strftime("%B #{date.day.ordinalize}, %Y.")
+    I18n.l date, format: "%B %d, %Y"
   end
 
   # Helper for converting BigBlueButton dates into a nice length string.
@@ -32,7 +32,7 @@ module RecordingsHelper
 
     len = valid_playbacks.first[:length]
     if len > 60
-      "#{(len / 60).to_i} hrs #{len % 60} mins"
+      "#{(len / 60).to_i} h #{len % 60} min"
     elsif len.zero?
       "< 1 min"
     else

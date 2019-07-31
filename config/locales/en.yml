@@ -113,6 +113,8 @@ en:
     cookie_button: I Agree
   copied: Copied
   copy: Copy
+  date:
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
   default_admin: You are still using the default password for this account. Please click <a href="%{edit_link}">here</a> to change it
   delete: Delete
   delivery_error: An error occured during email delivery. Please contact an administrator!

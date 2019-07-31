@@ -30,7 +30,7 @@
     </div>
   </td>
   <% if recording_thumbnails? %>
-    <td>
+    <td class="overflow-hidden">
       <% p = recording[:playbacks].find do |p| p.key?(:preview) end %>
       <% if p %>
         <% safe_recording_images(p[:preview][:images][:image]).each do |img| %>

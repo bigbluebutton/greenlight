@@ -51,13 +51,6 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = (ENV["ENABLE_SSL"] == "true")
 
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
-  config.log_level = :debug
-
-  # Prepend all log lines with the following tags.
-  config.log_tags = [:request_id]
-
   # Don't wrap form components in field_with_error divs
   ActionView::Base.field_error_proc = proc do |html_tag|
     html_tag.html_safe
@@ -107,7 +100,11 @@ Rails.application.configure do
   config.log_formatter = proc do |severity, _time, _progname, msg|
     "#{severity}: #{msg} \n"
   end
+
   config.log_level = :info
+
+  # Prepend all log lines with the following tags.
+  config.log_tags = [:request_id]
 
   if ENV["RAILS_LOG_TO_STDOUT"] == "true"
     logger = ActiveSupport::Logger.new(STDOUT)
