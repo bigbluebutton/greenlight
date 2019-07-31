@@ -71,7 +71,13 @@ class UsersController < ApplicationController
     providers = configured_providers
     if (!allow_user_signup? || !allow_greenlight_accounts?) && providers.count == 1 &&
        !Rails.configuration.loadbalanced_configuration
-      return redirect_to "#{Rails.configuration.relative_url_root}/auth/#{providers.first}"
+      provider_path = if Rails.configuration.omniauth_ldap
+        ldap_signin_path
+      else
+        "#{Rails.configuration.relative_url_root}/auth/#{providers.first}"
+      end
+
+      return redirect_to provider_path
     end
   end
 
