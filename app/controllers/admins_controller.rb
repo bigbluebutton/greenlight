@@ -162,8 +162,10 @@ class AdminsController < ApplicationController
   # POST /admins/default_recording_visibility
   def default_recording_visibility
     @settings.update_value("Default Recording Visibility", params[:visibility])
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.settings") + ". " +
-                                               I18n.t("administrator.site_settings.recording_visibility.warning") }
+    redirect_to admin_site_settings_path, flash: {
+      success: I18n.t("administrator.flash.settings") + ". " +
+               I18n.t("administrator.site_settings.recording_visibility.warning")
+    }
   end
 
   # ROLES
