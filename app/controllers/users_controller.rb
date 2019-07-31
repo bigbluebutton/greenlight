@@ -261,7 +261,7 @@ class UsersController < ApplicationController
   # Updates as user's roles
   def update_roles
     # Check that the user can manage users
-    if current_user.highest_priority_role.can_manage_roles
+    if current_user.highest_priority_role.can_manage_users
       new_roles = params[:user][:role_ids].split(' ').map(&:to_i)
       old_roles = @user.roles.pluck(:id)
 
