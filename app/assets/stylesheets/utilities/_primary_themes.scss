@@ -162,3 +162,13 @@ input:focus, select:focus {
   border-color: $primary-color-darken !important;
   color: white !important;
 }
+
+.custom-switch-input:checked ~ .custom-switch-indicator {
+  background-color: $primary-color !important;
+  border-color: $primary-color-darken !important;
+}
+
+.custom-switch-input:focus ~ .custom-switch-indicator {
+  box-shadow: 0 0 0 2px $primary-color-lighten;
+  border-color: $primary-color-darken !important;
+}
