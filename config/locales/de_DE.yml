@@ -49,8 +49,6 @@ de_DE:
         lighten: Heller
         darken: Dunkler
       recording_visibility:
-        public: Öffentlich
-        private: Privat
         info: Einstellen der Voreinstellung für die Sichtbarkeit neuer Aufzeichnungen
         title: Voreinstellung der Aufzeichnungssichtbarkeit
         warning: Diese Einstellung wirkt sich nur auf noch nicht laufende Konferenzen aus.
@@ -82,6 +80,27 @@ de_DE:
     recordings:
       title: Serveraufzeichnungen
       no_recordings: Dieser Server hat keine Aufzeichnungen.
+    roles:
+      can_create_rooms: Kann Räume erstellen
+      delete: Rolle löschen
+      duplicate_name: "Der verwendete Rollenname wird bereits verwendet. Alle Rollennamen dürfen nur einmal verwendet werden. "
+      empty_name: Alle Rollen müssen einen nicht leeren Namen haben
+      invalid_order: Die Nutzerrolle muss die niedrigste und die Administratorrolle die höchste Rollenpriorität haben
+      invalid_update: "Sie können keine Rolle ändern, die eine höhere Priorität wie Sie hat"
+      name: Rollenname
+      new_role: Neue Rolle erstellen
+      role_has_users: "Diese Rolle ist %{user_count} Accounts zugewiesen. Bitte entfernen Sie alle Accounts von dieser Rolle, bevor Sie sie löschen."
+      title: Rollen
+      promote_email: "Nutzern eine Email schicken, wenn Ihnen diese Rolle zugewiesen wird"
+      demote_email: "Nutzern eine Email schicken, wenn Ihnen diese Rolle entzogen wird"
+      edit_site_settings: "Nutzern mit dieser Rolle erlauben, die primären Webseiteneinstellungen zu ändern"
+      edit_roles: "Nutzern mit dieser Rolle erlauben, andere Rollen zu verändern"
+      manage_users: "Nutzern mit dieser Rolle erlauben, andere Nutzer zu verwalten"
+      invalid_assignment: "Sie können niemandem eine Rolle zuweisen, deren Priorität über Ihrer eigenen Prioritätsstufe liegt"
+      invalid_removal: "Sie können niemandem eine Rolle entziehen, deren Priorität über Ihrer eigenen Prioritätsstufe liegt"
+      colour:
+        title: Rollenfarbe
+        info: "Die Farbe einstellen, die dieser Rolle zugewiesen wird"
     title: Organisationseinstellungen
     users:
       invite: Teilnehmer einladen
@@ -92,9 +111,8 @@ de_DE:
         decline: Abweisen
         ban: Teilnehmer ausschließen
         delete: Löschen
-        demote: Zum Teilnehmer zurückstufen
         edit: Ändern
-        promote: Zum Administrator hochstufen
+        edit_roles: Nutzerrollen verändern
         unban: Ausschluss des Teilnehmers aufheben.
       table:
         authenticator: Authenticator
@@ -115,6 +133,8 @@ de_DE:
     cookie_button: Ich stimme zu
   copied: Kopiert
   copy: Kopieren
+  date:
+    month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
   default_admin: "Sie verwenden immer noch das voreingestellte Passwort für diesen Account. Bitte klicken Sie  <a href=\"%{edit_link}\">hier</a> um es zu ändern"
   delete: Löschen
   delivery_error: Während der Emailzustellung ist ein Fehler aufgetreten. Bitte kontaktieren Sie einen Administrator!
@@ -133,7 +153,6 @@ de_DE:
     maintenance:
       message: "Entschuldigung, wir befinden uns im Wartungsmodus."
       help: Wir sind in Kürze wieder da!
-      readonly: Diese Anwendung befindet sich im Wartungsmodus. Die gewählte Aktion kann deshalb nicht ausgeführt werden.
     migration_error:
       contact_admin: "Wenn Sie kein Administrator sind, kontaktieren Sie bitte einen."
       continue: Ich möchte bleiben und 1.0 verwenden.
@@ -226,10 +245,10 @@ de_DE:
         subject: Account genehmigt
         username: "Ihr Nutzername ist %{email}."
       demoted:
-        info: "Sie sind nicht länger Administrator auf %{url}."
-        more-info: "Sie haben jetzt die selben Rechte wie normale Nutzer und können nicht länger administrative Einstellungen verändern. "
+        info: "Sie sind nicht länger ein %{role} auf %{url}."
+        more-info: Sie haben nun dieselben Rechte wie alle normalen Nutzer.
         root_link: Einloggen
-        subtitle: Administratorrechte entzogen
+        subtitle: "%{role} Rechte entzogen"
       invite:
         info: "Sie wurden von %{name} in Ihren persönlichen Bereich eingeladen"
         signup_info: "Um sich mit Ihrer Email anzumelden, klicken Sie den untenstehenden Button und folgen Sie den Schritten."
@@ -250,9 +269,9 @@ de_DE:
         ignore: "Sie können diese Email einfach ignorieren, falls Sie keine Passwortzurücksetzung veranlasst haben."
       promoted:
         admins_link: Organisationsseite besuchen
-        info: "Sie sind jetzt Administrator auf %{url}."
-        more-info: "Als Administrator können sie Nutzer verwalten, deren Rolle ändern und die Seiteneinstellungen wie z.B, das Logo oder die Hintergrundfarbe verändern."
-        subtitle: Administratorrechte genehmigt
+        info: "Sie sind jetzt ein %{role} auf %{url}."
+        more-info: "Um sich Ihre neuen Rechte anzusehen, besuchen Sie %{url}."
+        subtitle: "%{role} Rechte erteilt"
       verify_email:
         welcome: "Willkommen zu Ihrem persönlichem Bereich, %{name}!"
         success: "Durch den Einsatz von %{bigbluebutton}, können Sie Ihre eigenen Räume erstellen, dort Konferenzen durchführen und mit anderen zusammenarbeiten."
@@ -263,6 +282,12 @@ de_DE:
         thanks: Danke für Ihre Registrierung. Wir wünschen Ihnen noch einen wunderbaren Tag!
   max_concurrent: Die maximale Anzahl gleichzeitiger Verbindungen ist erreicht!
   modal:
+    create_role:
+      create: Neue Rolle erstellen
+      footer_text: "Sie können die individuellen Rechte für diese Rolle ändern, nachdem Sie die Rolle angelegt haben"
+      name_placeholder: Rollennamen eingeben...
+      not_blank: Der Rollenname darf nicht leer sein.
+      title: Neue Rolle erstellen
     create_room:
       access_code: Zugangscode
       access_code_placeholder: Generieren eines optionalen Raumzugangscodes
@@ -297,6 +322,7 @@ de_DE:
       title: Raumeinstellungen
       update: Raum aktualisieren
       client: Client auswählen
+      join_moderator: Alle Nutzer nehmen als Moderator teil
       mute: Teilnehmer beim Betreten stummschalten
       require_approval: Freigabe durch Moderator bevor der Raum betreten werden kann
       start: Jeder Teilnehmer kann das Meeting starten
@@ -368,10 +394,9 @@ de_DE:
     confirm: Bestätigung Ihres neuen Passworts
     update: Passwort aktualisieren
   roles:
-    administrator: Admin
+    admin: Admin
     banned: Gesperrt
     pending: Noch nicht erledigt
-    super_admin: Super Admin
     user: Benutzer
   room:
     access_code_required: "Bitte geben Sie einen gültigen Zugangscode ein, um den Raum zu betreten"
@@ -385,6 +410,10 @@ de_DE:
     last_session: "Letzte Konferenz am %{session}"
     login: Betreten
     owner: Initiator
+    no_room:
+      title: Raum betreten
+      placeholder: "Geben Sie die Raum-URL oder die Raum-ID des Raums ein, den sie betreten möchten."
+      invalid_room_uid: Die angegebene Raum-URL/ID ist ungülltig.
     no_sessions: In diesem Raum haben noch keine Konferenzen stattgefunden.
     recordings: Aufzeichnungen des Raums
     room_limit: Sie haben die maximale Anzahl von Räumen eingerichtet.
@@ -405,6 +434,7 @@ de_DE:
       provider: Anbieter
       image: Bild
       image_url: URL des Profilbilds
+      roles: Nutzerrollen
       subtitle: Accountinformationen aktualisieren
       title: Accountinformationen
     delete:
