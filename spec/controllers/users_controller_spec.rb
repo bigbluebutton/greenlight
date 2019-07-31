@@ -62,6 +62,16 @@ describe UsersController, type: :controller do
     end
   end
 
+  describe "GET #signin" do
+    it "redirects to main room if already authenticated" do
+      user = create(:user)
+      @request.session[:user_id] = user.id
+
+      post :signin
+      expect(response).to redirect_to(room_path(user.main_room))
+    end
+  end
+
   describe "GET #edit" do
     it "renders the edit template" do
       user = create(:user)
