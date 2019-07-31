@@ -36,7 +36,8 @@ class AdminsController < ApplicationController
     @search = params[:search] || ""
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
-    @role = params[:role] || ""
+
+    @role = params[:role] ? Role.find_by(name: params[:role], provider: @user_domain) : nil
 
     @pagy, @users = pagy(user_list)
   end
@@ -62,24 +63,6 @@ class AdminsController < ApplicationController
 
   # GET /admins/edit/:user_uid
   def edit_user
-  end
-
-  # POST /admins/promote/:user_uid
-  def promote
-    @user.add_role :admin
-
-    send_user_promoted_email(@user)
-
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.promoted") }
-  end
-
-  # POST /admins/demote/:user_uid
-  def demote
-    @user.remove_role :admin
-
-    send_user_demoted_email(@user)
-
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.demoted") }
   end
 
   # POST /admins/ban/:user_uid
@@ -185,6 +168,158 @@ class AdminsController < ApplicationController
     }
   end
 
+  # ROLES
+
+  # GET /admins/roles
+  def roles
+    @roles = Role.editable_roles(@user_domain)
+
+    if @roles.count.zero?
+      Role.create_default_roles(@user_domain)
+      @roles = Role.editable_roles(@user_domain)
+    end
+
+    @selected_role = if params[:selected_role].nil?
+                        @roles.find_by(name: 'user')
+                      else
+                        @roles.find(params[:selected_role])
+                     end
+  end
+
+  # POST /admin/role
+  # This method creates a new role scope to the users provider
+  def new_role
+    new_role_name = params[:role][:name]
+
+    # Make sure that the role name isn't a duplicate or a reserved name like super_admin
+    if Role.duplicate_name(new_role_name, @user_domain)
+      flash[:alert] = I18n.t("administrator.roles.duplicate_name")
+
+      return redirect_to admin_roles_path
+    end
+
+    # Make sure the role name isn't empty
+    if new_role_name.strip.empty?
+      flash[:alert] = I18n.t("administrator.roles.empty_name")
+
+      return redirect_to admin_roles_path
+    end
+
+    # Create the new role with the second highest priority
+    # This means that it will only be more important than the user role
+    # This also updates the user role to have the highest priority
+    new_role = Role.create(name: new_role_name, provider: @user_domain)
+    user_role = Role.find_by(name: 'user', provider: @user_domain)
+
+    new_role.priority = user_role.priority
+    user_role.priority += 1
+
+    new_role.save!
+    user_role.save!
+
+    redirect_to admin_roles_path(selected_role: new_role.id)
+  end
+
+  # PATCH /admin/roles/order
+  # This updates the priority of a site's roles
+  # Note: A lower priority role will always get used before a higher priority one
+  def change_role_order
+    user_role = Role.find_by(name: "user", provider: @user_domain)
+    admin_role = Role.find_by(name: "admin", provider: @user_domain)
+
+    current_user_role = current_user.highest_priority_role
+
+    # Users aren't allowed to update the priority of the admin or user roles
+    if params[:role].include?(user_role.id.to_s) || params[:role].include?(admin_role.id.to_s)
+      flash[:alert] = I18n.t("administrator.roles.invalid_order")
+
+      return redirect_to admin_roles_path
+    end
+
+    # Restrict users to only updating the priority for roles in their domain with a higher
+    # priority
+    params[:role].each do |id|
+      role = Role.find(id)
+      if role.priority <= current_user_role.priority || role.provider != @user_domain
+        flash[:alert] = I18n.t("administrator.roles.invalid_update")
+        return redirect_to admin_roles_path
+      end
+    end
+
+    # Update the roles priority including the user role
+    top_priority = 0
+
+    params[:role].each_with_index do |id, index|
+      new_priority = index + [current_user_role.priority, 0].max + 1
+      top_priority = new_priority
+      Role.where(id: id).update_all(priority: new_priority)
+    end
+
+    user_role.priority = top_priority + 1
+    user_role.save!
+  end
+
+  # POST /admin/role/:role_id
+  # This method updates the permissions assigned to a role
+  def update_role
+    role = Role.find(params[:role_id])
+    current_user_role = current_user.highest_priority_role
+
+    # Checks that it is valid for the provider to update the role
+    if role.priority <= current_user_role.priority || role.provider != @user_domain
+      flash[:alert] = I18n.t("administrator.roles.invalid_update")
+      return redirect_to admin_roles_path(selected_role: role.id)
+    end
+
+    role_params = params.require(:role).permit(:name)
+    permission_params = params.require(:role)
+                              .permit(
+                                :can_create_rooms,
+                                :send_promoted_email,
+                                :send_demoted_email,
+                                :can_edit_site_settings,
+                                :can_edit_roles,
+                                :can_manage_users,
+                                :colour
+                              )
+
+    # Make sure if the user is updating the role name that the role name is valid
+    if role.name != role_params[:name] && !Role.duplicate_name(role_params[:name], @user_domain) &&
+       !role_params[:name].strip.empty?
+      role.name = role_params[:name]
+    elsif role.name != role_params[:name]
+      flash[:alert] = I18n.t("administrator.roles.duplicate_name")
+
+      return redirect_to admin_roles_path(selected_role: role.id)
+    end
+
+    role.update(permission_params)
+
+    role.save!
+
+    redirect_to admin_roles_path(selected_role: role.id)
+  end
+
+  # DELETE admins/role/:role_id
+  # This deletes a role
+  def delete_role
+    role = Role.find(params[:role_id])
+
+    # Make sure no users are assigned to the role and the role isn't a reserved role
+    # before deleting
+    if role.users.count.positive?
+      flash[:alert] = I18n.t("administrator.roles.role_has_users", user_count: role.users.count)
+      return redirect_to admin_roles_path(selected_role: role.id)
+    elsif Role::RESERVED_ROLE_NAMES.include?(role) || role.provider != @user_domain ||
+          role.priority <= current_user.highest_priority_role.priority
+      return redirect_to admin_roles_path(selected_role: role.id)
+    else
+      role.delete
+    end
+
+    redirect_to admin_roles_path
+  end
+
   private
 
   def find_user
@@ -202,10 +337,10 @@ class AdminsController < ApplicationController
 
   # Gets the list of users based on your configuration
   def user_list
-    initial_list = if current_user.has_cached_role? :super_admin
-      User.where.not(id: current_user.id).includes(:roles)
+    initial_list = if current_user.has_role? :super_admin
+      User.where.not(id: current_user.id)
     else
-      User.without_role(:super_admin).where.not(id: current_user.id).includes(:roles)
+      User.without_role(:super_admin).where.not(id: current_user.id)
     end
 
     if Rails.configuration.loadbalanced_configuration

@@ -19,7 +19,6 @@
 require 'bbb_api'
 
 class User < ApplicationRecord
-  rolify
   include ::BbbApi
 
   attr_accessor :reset_token
@@ -32,6 +31,8 @@ class User < ApplicationRecord
 
   has_many :rooms
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
+
+  has_and_belongs_to_many :roles, join_table: :users_roles
 
   validates :name, length: { maximum: 256 }, presence: true
   validates :provider, presence: true
@@ -59,6 +60,7 @@ class User < ApplicationRecord
         u.username = auth_username(auth) unless u.username
         u.email = auth_email(auth)
         u.image = auth_image(auth) unless u.image
+        auth_roles(u, auth)
         u.email_verified = true
         u.save!
       end
@@ -99,6 +101,18 @@ class User < ApplicationRecord
         auth['info']['image']
       end
     end
+
+    def auth_roles(user, auth)
+      unless auth['info']['roles'].nil?
+        roles = auth['info']['roles'].split(',')
+
+        role_provider = auth['provider'] == "bn_launcher" ? auth['info']['customer'] : "greenlight"
+        roles.each do |role_name|
+          role = Role.where(provider: role_provider, name: role_name).first
+          user.roles << role unless role.nil?
+        end
+      end
+    end
   end
 
   def self.admins_search(string, role)
@@ -112,16 +126,16 @@ class User < ApplicationRecord
 
     search_query = ""
     role_search_param = ""
-    if role.present?
-      search_query = "(users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
-                    " OR users.#{created_at_query} LIKE :search OR provider LIKE :search)" \
-                    " AND roles.name = :roles_search"
-      role_search_param = role
-    else
+    if role.nil?
       search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
-                    " OR users.#{created_at_query} LIKE :search OR provider LIKE :search" \
+                    " OR users.#{created_at_query} LIKE :search OR users.provider LIKE :search" \
                     " OR roles.name LIKE :roles_search"
-      role_search_param = "%#{string}%".downcase
+      role_search_param = "%#{string}%"
+    else
+      search_query = "(users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
+                    " OR users.#{created_at_query} LIKE :search OR users.provider LIKE :search)" \
+                    " AND roles.name = :roles_search"
+      role_search_param = role.name
     end
 
     search_param = "%#{string}%"
@@ -204,17 +218,14 @@ class User < ApplicationRecord
 
   def admin_of?(user)
     if Rails.configuration.loadbalanced_configuration
-      # Pulls in the user roles if they weren't request in the original request
-      # So the has_cached_role? doesn't always return false
-      user.roles
-      if has_cached_role? :super_admin
+      if has_role? :super_admin
         id != user.id
       else
-        (has_cached_role? :admin) && (id != user.id) && (provider == user.provider) &&
-          (!user.has_cached_role? :super_admin)
+        highest_priority_role.can_manage_users && (id != user.id) && (provider == user.provider) &&
+          (!user.has_role? :super_admin)
       end
     else
-      ((has_cached_role? :admin) || (has_cached_role? :super_admin)) && (id != user.id)
+      (highest_priority_role.can_manage_users || (has_role? :super_admin)) && (id != user.id)
     end
   end
 
@@ -226,6 +237,50 @@ class User < ApplicationRecord
   # Returns a random token.
   def self.new_token
     SecureRandom.urlsafe_base64
+  end
+
+  # role functions
+  def highest_priority_role
+    roles.by_priority.first
+  end
+
+  def add_role(role)
+    unless has_role?(role)
+      role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
+
+      roles << Role.find_or_create_by(name: role, provider: role_provider)
+
+      save!
+    end
+  end
+
+  def remove_role(role)
+    if has_role?(role)
+      role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
+
+      roles.delete(Role.find_by(name: role, provider: role_provider))
+      save!
+    end
+  end
+
+  # This rule is disabled as the function name must be has_role?
+  # rubocop:disable Naming/PredicateName
+  def has_role?(role)
+    # rubocop:enable Naming/PredicateName
+    roles.exists?(name: role)
+  end
+
+  def self.with_role(role)
+    User.all_users_with_roles.where(roles: { name: role })
+  end
+
+  def self.without_role(role)
+    User.where.not(id: with_role(role).pluck(:id))
+  end
+
+  def self.all_users_with_roles
+    User.joins("INNER JOIN users_roles ON users_roles.user_id = users.id INNER JOIN roles " \
+      "ON roles.id = users_roles.role_id")
   end
 
   private
@@ -251,6 +306,10 @@ class User < ApplicationRecord
 
   # Initialize the user to use the default user role
   def assign_default_role
+    role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
+
+    Role.create_default_roles(role_provider) if Role.where(provider: role_provider).count.zero?
+
     add_role(:user) if roles.blank?
   end
 

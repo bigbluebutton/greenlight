@@ -78,4 +78,8 @@ module AdminsHelper
   def room_limit_number
     Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
   end
+
+  def edit_disabled
+    @edit_disabled ||= @selected_role.priority <= current_user.highest_priority_role.priority
+  end
 end

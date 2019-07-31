@@ -80,6 +80,27 @@ en:
     recordings:
       title: Server Recordings
       no_recordings: This server has no recordings.
+    roles:
+      can_create_rooms: Can create rooms
+      delete: Delete the role
+      duplicate_name: The role name you provided was a duplicate. All role names must be unique
+      empty_name: All roles must have a non empty name
+      invalid_order: The user role must be the lowest priority role and the admin role must be the highest priority role
+      invalid_update: You can't update a role with a higher priority than your own role
+      name: Role Name
+      new_role: Create a new role
+      role_has_users: This role is assigned to %{user_count} accounts. Please remove all accounts from this role before deleting it.
+      title: Roles
+      promote_email: Send an email to users when they are assigned this role
+      demote_email: Send an email to users when they are removed from this role
+      edit_site_settings: Allow users with this role to edit site settings
+      edit_roles: Allow users with this role to edit other roles
+      manage_users: Allow users with this role to manage users
+      invalid_assignment: You can't assign a role with a higher priority than your own to a user
+      invalid_removal: You can't remove a role with a higher priority than your own
+      colour:
+        title: Role Colour
+        info: Set the colour that will be associated with the role
     title: Organization Settings
     users:
       invite: Invite User
@@ -90,9 +111,8 @@ en:
         decline: Decline
         ban: Ban User
         delete: Delete
-        demote: Demote to User
         edit: Edit
-        promote: Promote to Admin
+        edit_roles: Edit the user roles
         unban: Unban User
       table:
         authenticator: Authenticator
@@ -226,10 +246,10 @@ en:
         subject: Account Approved
         username: Your username is %{email}.
       demoted:
-        info: You are no longer an administrator on %{url}.
-        more-info: You now have the same privileges as a regular user and will no longer be able to access any of the Administrator settings.
+        info: You are no longer an %{role} on %{url}.
+        more-info: You now have the same privileges as a regular user.
         root_link: Sign In
-        subtitle: Administrator Rights Rescinded
+        subtitle: "%{role} Rights Rescinded"
       invite:
         info: You have been invited to your own personal space by %{name}
         signup_info: To signup using your email, click the button below and follow the steps.
@@ -250,9 +270,9 @@ en:
         ignore: You can safely ignore this email if you did not request a password reset.
       promoted:
         admins_link: Visit the Organization Page
-        info: You are now an administrator on %{url}.
-        more-info: As an administrator, you can manage users, their role and configure your site settings by changing the logo and brand colour.
-        subtitle: Administrator Rights Granted
+        info: You are now an %{role} on %{url}.
+        more-info: To view your new abilities please visit %{url}.
+        subtitle: "%{role} Rights Granted"
       verify_email:
         welcome: Welcome to your personal space, %{name}!
         success: Leveraging %{bigbluebutton}, you can create your own rooms to host sessions and collaborate with others.
@@ -263,6 +283,12 @@ en:
         thanks: Thanks for joining and have a great day!
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!
   modal:
+    create_role:
+      create: Create a new Role
+      footer_text: You can edit the individual permissions for this role after you've created it
+      name_placeholder: Enter a role name...
+      not_blank: Role name cannot be blank.
+      title: Create New Role
     create_room:
       access_code: Access Code
       access_code_placeholder: Generate an optional room access code
@@ -369,10 +395,9 @@ en:
     confirm: New Password Confirmation
     update: Update Password
   roles:
-    administrator: Admin
+    admin: Admin
     banned: Banned
     pending: Pending
-    super_admin: Super Admin
     user: User
   room:
     access_code_required: Please enter a valid access code to join the room
@@ -386,6 +411,10 @@ en:
     last_session: Last session on %{session}
     login: Enter
     owner: Owner
+    no_room:
+      title: Join a Room
+      placeholder: Enter the room url or the room id for the room you want to join.
+      invalid_room_uid: The room url/uid you entered was invalid.
     no_sessions: This room has no sessions, yet!
     recordings: Room Recordings
     room_limit: You have reached the maximum number of rooms allowed
@@ -406,6 +435,7 @@ en:
       provider: Provider
       image: Image
       image_url: Profile Image URL
+      roles: User Roles
       subtitle: Update your Account Info
       title: Account Info
     delete:

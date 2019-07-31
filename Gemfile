@@ -27,6 +27,7 @@ gem 'mini_racer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 4.3.3'
+gem 'jquery-ui-rails'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
@@ -72,8 +73,6 @@ gem 'redcarpet'
 # For health check endpoint
 gem "health_check"
 
-# For providing user roles
-gem "rolify"
 # For limiting access based on user roles
 gem 'cancancan', '~> 2.0'
 

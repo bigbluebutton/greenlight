@@ -35,20 +35,22 @@ class UserMailer < ApplicationMailer
     mail to: user.email, subject: t('reset_password.subtitle')
   end
 
-  def user_promoted(user, url, image, color)
+  def user_promoted(user, role, url, image, color)
     @url = url
     @admin_url = url + "admins"
     @image = image
     @color = color
-    mail to: user.email, subject: t('mailer.user.promoted.subtitle')
+    @role = role
+    mail to: user.email, subject: t('mailer.user.promoted.subtitle', role: role)
   end
 
-  def user_demoted(user, url, image, color)
+  def user_demoted(user, role, url, image, color)
     @url = url
     @root_url = url
     @image = image
     @color = color
-    mail to: user.email, subject: t('mailer.user.demoted.subtitle')
+    @role = role
+    mail to: user.email, subject: t('mailer.user.demoted.subtitle', role: role)
   end
 
   def invite_email(name, email, url, image, color)

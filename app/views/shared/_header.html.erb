@@ -23,7 +23,7 @@
       <div class="d-flex ml-auto">
         <% if current_user %>
 
-          <% if current_user.has_cached_role? :super_admin %>
+          <% if current_user.has_role? :super_admin %>
             <% admins_page = params[:controller] == "admins" && params[:action] == "index" ? "active" : "" %>
             <%= link_to admins_path, class: "px-3 mx-1 mt-1 header-nav #{admins_page}" do %>
               <i class="fas fa-home pr-1 "></i> <%= t("header.dropdown.home") %>
@@ -34,9 +34,11 @@
               <i class="fas fa-home pr-1 "></i> <%= t("header.dropdown.home") %>
             <% end %>
 
-            <% all_rec_page = params[:controller] == "users" && params[:action] == "recordings" ? "active" : "" %>
-            <%= link_to get_user_recordings_path(current_user), class: "px-3 mx-1 mt-1 header-nav #{all_rec_page}" do %>
-              <i class="fas fa-video pr-1"></i> <%= t("header.all_recordings") %>
+            <% if current_user.highest_priority_role.can_create_rooms %>
+              <% all_rec_page = params[:controller] == "users" && params[:action] == "recordings" ? "active" : "" %>
+              <%= link_to get_user_recordings_path(current_user), class: "px-3 mx-1 mt-1 header-nav #{all_rec_page}" do %>
+                <i class="fas fa-video pr-1"></i> <%= t("header.all_recordings") %>
+              <% end %>
             <% end %>
           <% end %>
 
@@ -56,8 +58,17 @@
               <%= link_to edit_user_path(current_user), class: "dropdown-item"  do %>
                 <i class="dropdown-icon fas fa-id-card mr-3"></i><%= t("header.dropdown.settings") %>
               <% end %>
-              <% if current_user.has_cached_role? :admin %>
+              <% highest_role = current_user.highest_priority_role %>
+              <% if highest_role.can_manage_users || highest_role.name == "super_admin" %>
                 <%= link_to admins_path, class: "dropdown-item" do %>
+                  <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
+                <% end %>
+              <% elsif highest_role.can_edit_site_settings %>
+                <%= link_to admin_site_settings_path, class: "dropdown-item" do %>
+                  <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
+                <% end %>
+              <% elsif highest_role.can_edit_roles%>
+                <%= link_to admin_roles_path, class: "dropdown-item" do %>
                   <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
                 <% end %>
               <% end %>

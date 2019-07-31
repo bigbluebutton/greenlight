@@ -21,11 +21,11 @@
     <%= image_tag(@image, height: '70') %>
 
     <h1 style="margin-bottom:30px">
-      <%= t('mailer.user.demoted.subtitle') %>
+      <%= t('mailer.user.demoted.subtitle', role: @role) %>
     </h1>
 
     <p>
-      <%= t('mailer.user.demoted.info', url: @url) %>
+      <%= t('mailer.user.demoted.info', url: @url, role: @role) %>
     </p>
 
     <p style="margin-bottom:45px;">

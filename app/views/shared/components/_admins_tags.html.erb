@@ -16,42 +16,12 @@
 <div class="form-group">
   <div class="row">
     <div class="col-12 tags">
-      <% if @role == "denied"%>
-        <span class="tag tag-gray-dark">
-          <%= t("roles.banned") %>
-          <a class="tag-addon clear-role">
-            <i class="fas fa-times"></i>
-          </a>
-        </span>
-      <% elsif @role == "pending" %>
-        <span class="tag tag-cyan">
-          <%= t("roles.pending") %>
-          <a class="tag-addon clear-role">
-            <i class="fas fa-times"></i>
-          </a>
-        </span>
-      <% elsif @role == "super_admin" %>
-        <span class="tag tag-red">
-          <%= t("roles.super_admin") %>
-          <a class="tag-addon clear-role">
-            <i class="fas fa-times"></i>
-          </a>
-        </span>
-      <% elsif @role == "admin" %>
-        <span class="tag tag-yellow">
-          <%= t("roles.administrator") %>
-          <a class="tag-addon clear-role">
-            <i class="fas fa-times"></i>
-          </a>
-        </span>
-      <% else %>
-        <span class="tag tag-gray">
-          <%= t("roles.user") %>
-          <a class="tag-addon clear-role">
-            <i class="fas fa-times"></i>
-          </a>
-        </span>
-      <% end %>
+      <span style="<%= "background-color: #{role_colour(@role)};border-color: #{role_colour(@role)};" %>" class="tag custom-role-tag">
+        <%= translated_role_name(@role) %>
+        <a class="tag-addon clear-role">
+          <i class="fas fa-times"></i>
+        </a>
+      </span>
     </div>
   </div>
 </div>

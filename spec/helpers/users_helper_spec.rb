@@ -16,24 +16,29 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-module UsersHelper
-  def recaptcha_enabled?
-    Rails.configuration.recaptcha_enabled
-  end
+require "rails_helper"
 
-  def disabled_roles(user)
-    current_user_role = current_user.highest_priority_role
+describe UsersHelper do
+    describe "disabled roles" do
+        it "should return roles with a less than or equal to priority for non admins" do
+            user = create(:user)
+            allow_any_instance_of(SessionsHelper).to receive(:current_user).and_return(user)
 
-    # Admins are able to remove the admin role from other admins
-    # For all other roles they can only add/remove roles with a higher priority
-    disallowed_roles = if current_user_role.name == "admin"
-                          Role.editable_roles(@user_domain).where("priority < #{current_user_role.priority}")
-                              .pluck(:id)
-                        else
-                          Role.editable_roles(@user_domain).where("priority <= #{current_user_role.priority}")
-                              .pluck(:id)
-                       end
+            disabled_roles = helper.disabled_roles(user)
 
-    user.roles.by_priority.pluck(:id) | disallowed_roles
-  end
+            expect(disabled_roles.count).to eq(1)
+        end
+
+        it "should return roles with a lesser priority for admins" do
+            admin = create(:user)
+            admin.add_role :admin
+            user = create(:user)
+
+            allow_any_instance_of(SessionsHelper).to receive(:current_user).and_return(admin)
+
+            disabled_roles = helper.disabled_roles(user)
+
+            expect(disabled_roles.count).to eq(1)
+        end
+    end
 end

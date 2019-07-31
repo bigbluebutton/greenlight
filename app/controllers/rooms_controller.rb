@@ -24,8 +24,8 @@ class RoomsController < ApplicationController
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :validate_verified_email, except: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
-  before_action :find_room, except: :create
-  before_action :verify_room_ownership, except: [:create, :show, :join, :logout, :login]
+  before_action :find_room, except: [:create, :join_specific_room]
+  before_action :verify_room_ownership, except: [:create, :show, :join, :logout, :login, :join_specific_room]
   before_action :verify_room_owner_verified, only: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :verify_user_not_admin, only: [:show]
@@ -60,11 +60,14 @@ class RoomsController < ApplicationController
     @anyone_can_start = JSON.parse(@room[:room_settings])["anyoneCanStart"]
 
     if current_user && @room.owned_by?(current_user)
-      @search, @order_column, @order_direction, recs =
-        recordings(@room.bbb_id, @user_domain, params.permit(:search, :column, :direction), true)
+      if current_user.highest_priority_role.can_create_rooms
+        @search, @order_column, @order_direction, recs =
+          recordings(@room.bbb_id, @user_domain, params.permit(:search, :column, :direction), true)
 
-      @pagy, @recordings = pagy_array(recs)
-
+        @pagy, @recordings = pagy_array(recs)
+      else
+        render :cant_create_rooms
+      end
     else
       # Get users name
       @name = if current_user
@@ -136,6 +139,21 @@ class RoomsController < ApplicationController
     @room.destroy if @room.owned_by?(current_user) && @room != current_user.main_room
 
     redirect_to current_user.main_room
+  end
+
+  # POST room/join
+  def join_specific_room
+    room_uid = params[:join_room][:url].split('/').last
+
+    begin
+      @room = Room.find_by(uid: room_uid)
+    rescue ActiveRecord::RecordNotFound
+      return redirect_to current_user.main_room, alert: I18n.t("room.no_room.invalid_room_uid")
+    end
+
+    return redirect_to current_user.main_room, alert: I18n.t("room.no_room.invalid_room_uid") if @room.nil?
+
+    redirect_to room_path(@room)
   end
 
   # POST /:room_uid/start
@@ -275,7 +293,7 @@ class RoomsController < ApplicationController
   end
 
   def verify_user_not_admin
-    redirect_to admins_path if current_user && current_user&.has_cached_role?(:super_admin)
+    redirect_to admins_path if current_user && current_user&.has_role?(:super_admin)
   end
 
   def auth_required
@@ -288,7 +306,7 @@ class RoomsController < ApplicationController
 
     # Does not apply to admin
     # 15+ option is used as unlimited
-    return false if current_user&.has_cached_role?(:admin) || limit == 15
+    return false if current_user&.has_role?(:admin) || limit == 15
 
     current_user.rooms.count >= limit
   end

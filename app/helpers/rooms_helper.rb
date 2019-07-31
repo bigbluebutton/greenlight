@@ -37,7 +37,7 @@ module RoomsHelper
 
     # Does not apply to admin or users that aren't signed in
     # 15+ option is used as unlimited
-    return false if current_user&.has_cached_role?(:admin) || limit == 15
+    return false if current_user&.has_role?(:admin) || limit == 15
 
     current_user.rooms.length >= limit
   end
@@ -46,7 +46,7 @@ module RoomsHelper
     # Get how many rooms need to be deleted to reach allowed room number
     limit = Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
 
-    return false if current_user&.has_cached_role?(:admin) || limit == 15
+    return false if current_user&.has_role?(:admin) || limit == 15
 
     @diff = current_user.rooms.count - limit
     @diff.positive? && current_user.rooms.pluck(:id).index(room.id) + 1 > limit
