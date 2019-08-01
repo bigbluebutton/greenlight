@@ -24,8 +24,8 @@ class RoomsController < ApplicationController
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :validate_verified_email, except: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
-  before_action :find_room, except: :create
-  before_action :verify_room_ownership, except: [:create, :show, :join, :logout, :login]
+  before_action :find_room, except: [:create, :join_specific_room]
+  before_action :verify_room_ownership, except: [:create, :show, :join, :logout, :login, :join_specific_room]
   before_action :verify_room_owner_verified, only: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :verify_user_not_admin, only: [:show]
@@ -39,7 +39,7 @@ class RoomsController < ApplicationController
     @room = Room.new(name: room_params[:name], access_code: room_params[:access_code])
     @room.owner = current_user
     @room.room_settings = create_room_settings_string(room_params[:mute_on_join],
-      room_params[:require_moderator_approval], room_params[:anyone_can_start])
+      room_params[:require_moderator_approval], room_params[:anyone_can_start], room_params[:all_join_moderator])
 
     if @room.save
       if room_params[:auto_join] == "1"
@@ -60,11 +60,14 @@ class RoomsController < ApplicationController
     @anyone_can_start = JSON.parse(@room[:room_settings])["anyoneCanStart"]
 
     if current_user && @room.owned_by?(current_user)
-      @search, @order_column, @order_direction, recs =
-        recordings(@room.bbb_id, @user_domain, params.permit(:search, :column, :direction), true)
+      if current_user.highest_priority_role.can_create_rooms
+        @search, @order_column, @order_direction, recs =
+          recordings(@room.bbb_id, @user_domain, params.permit(:search, :column, :direction), true)
 
-      @pagy, @recordings = pagy_array(recs)
-
+        @pagy, @recordings = pagy_array(recs)
+      else
+        render :cant_create_rooms
+      end
     else
       # Get users name
       @name = if current_user
@@ -138,6 +141,21 @@ class RoomsController < ApplicationController
     redirect_to current_user.main_room
   end
 
+  # POST room/join
+  def join_specific_room
+    room_uid = params[:join_room][:url].split('/').last
+
+    begin
+      @room = Room.find_by(uid: room_uid)
+    rescue ActiveRecord::RecordNotFound
+      return redirect_to current_user.main_room, alert: I18n.t("room.no_room.invalid_room_uid")
+    end
+
+    return redirect_to current_user.main_room, alert: I18n.t("room.no_room.invalid_room_uid") if @room.nil?
+
+    redirect_to room_path(@room)
+  end
+
   # POST /:room_uid/start
   def start
     # Join the user in and start the meeting.
@@ -203,7 +221,7 @@ class RoomsController < ApplicationController
         @room.update_attributes(name: params[:room_name] || room_params[:name])
       elsif update_type.eql? "settings"
         room_settings_string = create_room_settings_string(room_params[:mute_on_join],
-          room_params[:require_moderator_approval], room_params[:anyone_can_start])
+          room_params[:require_moderator_approval], room_params[:anyone_can_start], room_params[:all_join_moderator])
         @room.update_attributes(room_settings: room_settings_string)
       elsif update_type.eql? "access_code"
         @room.update_attributes(access_code: room_params[:access_code])
@@ -211,7 +229,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  def create_room_settings_string(mute_res, require_approval_res, start_res)
+  def create_room_settings_string(mute_res, require_approval_res, start_res, join_mod)
     room_settings = {}
     room_settings["muteOnStart"] = mute_res == "1"
 
@@ -219,12 +237,14 @@ class RoomsController < ApplicationController
 
     room_settings["anyoneCanStart"] = start_res == "1"
 
+    room_settings["joinModerator"] = join_mod == "1"
+
     room_settings.to_json
   end
 
   def room_params
     params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
-      :require_moderator_approval, :anyone_can_start)
+      :require_moderator_approval, :anyone_can_start, :all_join_moderator)
   end
 
   # Find the room from the uid.
@@ -273,7 +293,7 @@ class RoomsController < ApplicationController
   end
 
   def verify_user_not_admin
-    redirect_to admins_path if current_user && current_user&.has_cached_role?(:super_admin)
+    redirect_to admins_path if current_user && current_user&.has_role?(:super_admin)
   end
 
   def auth_required
@@ -286,7 +306,7 @@ class RoomsController < ApplicationController
 
     # Does not apply to admin
     # 15+ option is used as unlimited
-    return false if current_user&.has_cached_role?(:admin) || limit == 15
+    return false if current_user&.has_role?(:admin) || limit == 15
 
     current_user.rooms.count >= limit
   end
@@ -297,8 +317,7 @@ class RoomsController < ApplicationController
     if @room.running? || @room.owned_by?(current_user) || room_settings["anyoneCanStart"]
 
       # Determine if the user needs to join as a moderator.
-      opts[:user_is_moderator] = @room.owned_by?(current_user) ||
-                                 (room_settings["anyoneCanStart"] && !@room.running?)
+      opts[:user_is_moderator] = @room.owned_by?(current_user) || room_settings["joinModerator"]
 
       opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
 

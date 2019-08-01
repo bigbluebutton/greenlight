@@ -32,6 +32,9 @@ vendor/bundle
 .env
 env
 
+# Ignore yarn configs
+/node_modules
+
 # IDEs
 .idea
 .idea/**

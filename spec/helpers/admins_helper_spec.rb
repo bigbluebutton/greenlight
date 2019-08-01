@@ -18,28 +18,27 @@
 
 require "rails_helper"
 
-describe RecordingsHelper do
-  describe "#recording_date" do
-    it "formats the date" do
-      date = DateTime.parse("2019-03-28 19:35:15 UTC")
-      expect(helper.recording_date(date)).to eql("March 28, 2019")
-    end
-  end
+describe AdminsHelper do
+  describe "edit_disabled" do
+    it "should disable inputs for roles with a higher priority" do
+        user = create(:user)
+        admin_role = Role.find_by(name: "admin", provider: "greenlight")
+        helper.instance_variable_set(:@selected_role, admin_role)
 
-  describe "#recording_length" do
-    it "returns the time if length > 60" do
-      playbacks = [{ type: "test", length: 85 }]
-      expect(helper.recording_length(playbacks)).to eql("1 h 25 min")
+        allow_any_instance_of(SessionsHelper).to receive(:current_user).and_return(user)
+
+        expect(helper.edit_disabled).to eq(true)
     end
 
-    it "returns the time if length == 0" do
-      playbacks = [{ type: "test", length: 0 }]
-      expect(helper.recording_length(playbacks)).to eql("< 1 min")
-    end
+    it "should enable inputs for roles with a lower priority" do
+        user = create(:user)
+        user.roles << Role.find_by(name: "admin", provider: "greenlight")
+        user_role = Role.find_by(name: "user", provider: "greenlight")
+        helper.instance_variable_set(:@selected_role, user_role)
 
-    it "returns the time if length between 0 and 60" do
-      playbacks = [{ type: "test", length: 45 }]
-      expect(helper.recording_length(playbacks)).to eql("45 min")
+        allow_any_instance_of(SessionsHelper).to receive(:current_user).and_return(user)
+
+        expect(helper.edit_disabled).to eq(false)
     end
   end
 end

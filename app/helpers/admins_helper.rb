@@ -58,9 +58,9 @@ module AdminsHelper
   def recording_default_visibility_string
     if Setting.find_or_create_by!(provider: user_settings_provider)
               .get_value("Default Recording Visibility") == "public"
-      I18n.t("administrator.site_settings.recording_visibility.public")
+      I18n.t("recording.visibility.public")
     else
-      I18n.t("administrator.site_settings.recording_visibility.private")
+      I18n.t("recording.visibility.unlisted")
     end
   end
 
@@ -77,5 +77,9 @@ module AdminsHelper
 
   def room_limit_number
     Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
+  end
+
+  def edit_disabled
+    @edit_disabled ||= @selected_role.priority <= current_user.highest_priority_role.priority
   end
 end

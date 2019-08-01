@@ -61,6 +61,19 @@ describe RoomsController, type: :controller do
       expect(response).to render_template(:join)
     end
 
+    it "should render cant_create_rooms if user doesn't have permission to create rooms" do
+      user_role = @user.highest_priority_role
+
+      user_role.can_create_rooms = false
+      user_role.save!
+
+      @request.session[:user_id] = @user.id
+
+      get :show, params: { room_uid: @user.main_room }
+
+      expect(response).to render_template(:cant_create_rooms)
+    end
+
     it "should be able to search public recordings if user is not owner" do
       @request.session[:user_id] = @user.id
 
@@ -120,9 +133,9 @@ describe RoomsController, type: :controller do
       name = Faker::Games::Pokemon.name
 
       room_params = { name: name, "mute_on_join": "1",
-        "require_moderator_approval": "1", "anyone_can_start": "1" }
+        "require_moderator_approval": "1", "anyone_can_start": "1", "all_join_moderator": "1" }
       json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
-        "\"anyoneCanStart\":true}"
+        "\"anyoneCanStart\":true,\"joinModerator\":true}"
 
       post :create, params: { room: room_params }
 
@@ -210,6 +223,20 @@ describe RoomsController, type: :controller do
 
       room = Room.new(name: "test")
       room.room_settings = "{\"muteOnStart\":false,\"joinViaHtml5\":false,\"anyoneCanStart\":true}"
+      room.owner = @owner
+      room.save
+
+      @request.session[:user_id] = @user.id
+      post :join, params: { room_uid: room, join_name: @user.name }
+
+      expect(response).to redirect_to(room.join_path(@user.name, { user_is_moderator: false }, @user.uid))
+    end
+
+    it "should join the room as moderator if room has the all_join_moderator setting" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
+
+      room = Room.new(name: "test")
+      room.room_settings = "{\"joinModerator\":true}"
       room.owner = @owner
       room.save
 
@@ -360,7 +387,7 @@ describe RoomsController, type: :controller do
 
       room_params = { "mute_on_join": "1", "name": @secondary_room.name }
       formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
-        "\"anyoneCanStart\":false}" # JSON string format
+        "\"anyoneCanStart\":false,\"joinModerator\":false}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }
@@ -438,6 +465,34 @@ describe RoomsController, type: :controller do
 
       expect(response).to redirect_to room_path(@room.uid)
       expect(flash[:alert]).to eq(I18n.t("room.access_code_required"))
+    end
+  end
+
+  describe "POST join_specific_room" do
+    before do
+      @user = create(:user)
+      @user1 = create(:user)
+    end
+
+    it "should display flash if the user doesn't supply a valid uid" do
+      @request.session[:user_id] = @user.id
+
+      post :join_specific_room, params: { join_room: { url: "abc" } }
+
+      expect(flash[:alert]).to eq(I18n.t("room.no_room.invalid_room_uid"))
+      expect(response).to redirect_to room_path(@user.main_room)
+    end
+
+    it "should redirect the user to the room uid they supplied" do
+      post :join_specific_room, params: { join_room: { url: @user1.main_room } }
+
+      expect(response).to redirect_to room_path(@user1.main_room)
+    end
+
+    it "should redirect the user to the room join url they supplied" do
+      post :join_specific_room, params: { join_room: { url: room_path(@user1.main_room) } }
+
+      expect(response).to redirect_to room_path(@user1.main_room)
     end
   end
 end

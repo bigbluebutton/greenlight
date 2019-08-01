@@ -17,10 +17,10 @@
 %>
 
 
-<%= t('mailer.user.promoted.subtitle') %>
+<%= t('mailer.user.promoted.subtitle', role: @role) %>
 
-<%= t('mailer.user.promoted.info', url: @url) %>
+<%= t('mailer.user.promoted.info', url: @url, role: @role) %>
 
-<%= t('mailer.user.promoted.more-info') %>
+<%= t('mailer.user.promoted.more-info', url: @url) %>
 
 <%= @admin_url %>

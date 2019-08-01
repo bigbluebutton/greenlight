@@ -30,7 +30,7 @@
     </div>
   </td>
   <% if recording_thumbnails? %>
-    <td>
+    <td class="overflow-hidden">
       <% p = recording[:playbacks].find do |p| p.key?(:preview) end %>
       <% if p %>
         <% safe_recording_images(p[:preview][:images][:image]).each do |img| %>
@@ -74,9 +74,10 @@
         <i class="fas fa-ellipsis-v px-4"></i>
       </a>
       <div class="dropdown-menu dropdown-menu-right">
-        <% p = recording[:playbacks].find do |p| p.key?(:length) end %>
+        <% recording_links = "" %>
+        <% p = recording[:playbacks].each do |p| recording_links.concat(p[:url] + "\n\n") if p.key?(:length) end %>
         <% if p %>
-          <a class="dropdown-item email-link" data-pres-link="<%= p[:url] %>"><i class="dropdown-icon far fa-envelope"></i> <%= t("recording.email") %></a>
+          <a class="dropdown-item email-link" data-pres-link="<%= recording_links %>"><i class="dropdown-icon far fa-envelope"></i> <%= t("recording.email") %></a>
           <div class="dropdown-divider"></div>
         <% end %>
         <%= button_to delete_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]), method: :delete, class: "dropdown-item" do %>

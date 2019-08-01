@@ -24,7 +24,8 @@
               required: true,
               class: "form-control join-form",
               placeholder: t("room.enter_the_access_code"),
-              value: "" %>
+              value: "" ,
+              autofocus: true %>
         <%= f.submit t("room.login"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
       </div>
     <% end %>
@@ -39,7 +40,9 @@
             class: "form-control join-form",
             placeholder: t("enter_your_name"),
             value: "#{@name}",
-            readonly: !current_user.nil? %>
+            readonly: !current_user.nil?, 
+            autofocus: true
+            %>
         <%= f.submit (!@is_running && @anyone_can_start)? t("room.start") : t("room.join"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
       </div>
     <% end %>

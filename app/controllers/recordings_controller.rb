@@ -50,10 +50,9 @@ class RecordingsController < ApplicationController
 
   # Ensure the user is logged into the room they are accessing.
   def verify_room_ownership
-    if !current_user ||
-       !@room.owned_by?(current_user) ||
-       !current_user.has_cached_role?(:admin) ||
-       !current_user.has_cached_role?(:super_admin)
+    if !current_user || (!@room.owned_by?(current_user) &&
+           !current_user.highest_priority_role.can_edit_site_settings &&
+           !current_user.has_role?(:super_admin))
       redirect_to root_path
     end
   end

@@ -55,3 +55,28 @@
     width: 2rem;
   }
 }
+
+.sort-disabled{
+  background: #e6e6e6 !important;
+  color: rgb(110, 118, 135) !important;
+  opacity: 0.75;
+  &:hover{
+    opacity: 0.9;
+  }
+}
+
+.form-disable{
+  background-color: #e6e6e6;
+}
+
+.role-colour-picker{
+  color: white !important;
+}
+
+.custom-role-tag{
+  color: white !important;
+}
+
+.user-role-tag{
+  color: white !important;
+}

@@ -110,10 +110,10 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="room-auth">
             <%= button_to admin_recording_visibility_path(visibility: "public"), class: "dropdown-item" do %>
-              <%= t("administrator.site_settings.recording_visibility.public") %>
+              <%= t("recording.visibility.public") %>
             <% end %>
             <%= button_to admin_recording_visibility_path(visibility: "private"), class: "dropdown-item" do %>
-              <%= t("administrator.site_settings.recording_visibility.private") %>
+              <%= t("recording.visibility.unlisted") %>
             <% end %>
           </div>
         </div>

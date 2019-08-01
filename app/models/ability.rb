@@ -24,10 +24,25 @@ class Ability
       cannot :manage, AdminsController
     elsif user.has_role? :super_admin
       can :manage, :all
-    elsif user.has_role? :admin
-      can :manage, :all
-    elsif user.has_role? :user
-      cannot :manage, AdminsController
+    else
+      highest_role = user.highest_priority_role
+      if highest_role.can_edit_site_settings
+        can [:index, :site_settings, :server_recordings, :branding, :coloring, :coloring_lighten, :coloring_darken,
+             :room_authentication, :registration_method, :room_limit, :default_recording_visibility], :admin
+      end
+
+      if highest_role.can_edit_roles
+        can [:index, :roles, :new_role, :change_role_order, :update_role, :delete_role], :admin
+      end
+
+      if highest_role.can_manage_users
+        can [:index, :roles, :edit_user, :promote, :demote, :ban_user, :unban_user,
+             :approve, :invite], :admin
+      end
+
+      if !highest_role.can_edit_site_settings && !highest_role.can_edit_roles && !highest_role.can_manage_users
+        cannot :manage, AdminsController
+      end
     end
   end
 end

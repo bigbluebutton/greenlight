@@ -16,36 +16,29 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-module RecordingsHelper
-  include Pagy::Frontend
+require "rails_helper"
 
-  # Helper for converting BigBlueButton dates into the desired format.
-  def recording_date(date)
-    I18n.l date, format: "%B %d, %Y"
-  end
+describe UsersHelper do
+    describe "disabled roles" do
+        it "should return roles with a less than or equal to priority for non admins" do
+            user = create(:user)
+            allow_any_instance_of(SessionsHelper).to receive(:current_user).and_return(user)
 
-  # Helper for converting BigBlueButton dates into a nice length string.
-  def recording_length(playbacks)
-    # Stats format currently doesn't support length.
-    valid_playbacks = playbacks.reject { |p| p[:type] == "statistics" }
-    return "0 min" if valid_playbacks.empty?
+            disabled_roles = helper.disabled_roles(user)
 
-    len = valid_playbacks.first[:length]
-    if len > 60
-      "#{(len / 60).to_i} h #{len % 60} min"
-    elsif len.zero?
-      "< 1 min"
-    else
-      "#{len} min"
+            expect(disabled_roles.count).to eq(1)
+        end
+
+        it "should return roles with a lesser priority for admins" do
+            admin = create(:user)
+            admin.add_role :admin
+            user = create(:user)
+
+            allow_any_instance_of(SessionsHelper).to receive(:current_user).and_return(admin)
+
+            disabled_roles = helper.disabled_roles(user)
+
+            expect(disabled_roles.count).to eq(1)
+        end
     end
-  end
-
-  # Prevents single images from erroring when not passed as an array.
-  def safe_recording_images(images)
-    Array.wrap(images)
-  end
-
-  def room_uid_from_bbb(bbb_id)
-    Room.find_by(bbb_id: bbb_id)[:uid]
-  end
 end

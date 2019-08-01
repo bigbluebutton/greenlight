@@ -107,7 +107,25 @@ module ApplicationHelper
   # Returns the page that the logo redirects to when clicked on
   def home_page
     return root_path unless current_user
-    return admins_path if current_user.has_cached_role? :super_admin
+    return admins_path if current_user.has_role? :super_admin
     current_user.main_room
+  end
+
+  def role_colour(role)
+    role.colour || Rails.configuration.primary_color_default
+  end
+
+  def translated_role_name(role)
+    if role.name == "denied"
+      I18n.t("roles.banned")
+    elsif role.name == "pending"
+      I18n.t("roles.pending")
+    elsif role.name == "admin"
+      I18n.t("roles.admin")
+    elsif role.name == "user"
+      I18n.t("roles.user")
+    else
+      role.name
+    end
   end
 end
