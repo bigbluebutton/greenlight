@@ -138,7 +138,7 @@ class ApplicationController < ActionController::Base
   # Checks to make sure that the admin has changed his password from the default
   def check_admin_password
     if current_user&.has_role?(:admin) && current_user.email == "admin@example.com" &&
-      current_user&.greenlight_account? && current_user&.authenticate(Rails.configuration.admin_password_default)
+       current_user&.greenlight_account? && current_user&.authenticate(Rails.configuration.admin_password_default)
 
       flash.now[:alert] = I18n.t("default_admin",
         edit_link: edit_user_path(user_uid: current_user.uid) + "?setting=password").html_safe
@@ -187,9 +187,9 @@ class ApplicationController < ActionController::Base
       # Check if the session has already checked that the user exists
       # and return true if they did for this domain
       return if session[:provider_exists] == @user_domain
-      
+
       retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
-      
+
       # Add a session variable if the provider exists
       session[:provider_exists] = @user_domain
     rescue => e
