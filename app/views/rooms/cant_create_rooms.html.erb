@@ -21,10 +21,11 @@
             <div class="offset-3 col-6 offset-3">
                 <div class="card">
                     <div class="card-status bg-primary"></div>
-                    <div class="card-header">
+                    <div class="card-header cant-create-rooms-title">
                         <h3 class="card-title"><%= t("room.no_room.title") %></h3>
                     </div>
                     <div class="card-body">
+                        <p><%= t("room.no_room.description") %></p>
                         <%= form_for(:join_room, url: join_room_path) do |f| %>
                             <div class="input-icon mb-2">
                                 <span class="input-icon-addon">

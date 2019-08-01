@@ -341,7 +341,7 @@ describe UsersController, type: :controller do
 
         user_role = user.highest_priority_role
 
-        user_role.can_edit_roles = true
+        user_role.can_manage_users = true
 
         user_role.save!
 
@@ -364,7 +364,7 @@ describe UsersController, type: :controller do
 
         user_role = user.highest_priority_role
 
-        user_role.can_edit_roles = true
+        user_role.can_manage_users = true
 
         user_role.save!
 
