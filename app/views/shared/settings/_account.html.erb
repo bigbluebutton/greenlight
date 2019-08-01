@@ -27,7 +27,7 @@
       <div class="col-6">
         <%= f.label t("email"), class: "form-label" %>
         <div class="input-icon">
-          <%= f.text_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email"), readonly: !current_user.greenlight_account? %>
+          <%= f.text_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email"), readonly: !@user.greenlight_account? %>
         </div>
       </div>
     </div>
@@ -63,10 +63,10 @@
     <%= f.label t("settings.account.image"), class: "form-label mt-5" %>
     <div class="row">
       <div class="col-2">
-        <% if current_user.image.blank? %>
-          <span class="avatar avatar-xxl mr-5 mt-2"><%= current_user.name.first %></span>
+        <% if @user.image.blank? %>
+          <span class="avatar avatar-xxl mr-5 mt-2"><%= @user.name.first %></span>
         <% else %>
-          <span class="avatar avatar-xxl mr-5 mt-2" style="background-image: url(<%= current_user.image %>)"></span>
+          <span class="avatar avatar-xxl mr-5 mt-2" style="background-image: url(<%= @user.image %>)"></span>
         <% end %>
       </div>
       <div class="col-10 mt-5">

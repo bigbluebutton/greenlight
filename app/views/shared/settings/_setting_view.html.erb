@@ -21,10 +21,6 @@
       </div>
     </div>
 
-    <% unless (defined?(admin_view)).nil? %>
-      <%= render "shared/admin_settings/#{setting_id}" %>
-    <% else %>
-      <%= render "shared/settings/#{setting_id}" %>
-    <% end %>
+    <%= render "shared/settings/#{setting_id}" %>
   </div>
 <% end %>
