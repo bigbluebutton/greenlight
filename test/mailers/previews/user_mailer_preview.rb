@@ -53,7 +53,7 @@ class UserMailerPreview < ActionMailer::Preview
   # http://localhost:3000/rails/mailers/user_mailer/user_promoted
   def user_promoted
     user = User.first
-    role = Role.first.name
+    role = Role.first
     url = "http://example.com"
     logo_image = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
     user_color = "#467fcf"
@@ -64,7 +64,7 @@ class UserMailerPreview < ActionMailer::Preview
   # http://localhost:3000/rails/mailers/user_mailer/user_demoted
   def user_demoted
     user = User.first
-    role = Role.first.name
+    role = Role.first
     url = "http://example.com"
     logo_image = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
     user_color = "#467fcf"
