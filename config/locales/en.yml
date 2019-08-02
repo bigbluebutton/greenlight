@@ -412,10 +412,14 @@ en:
     login: Enter
     owner: Owner
     no_room:
-      title: Join a Room
       description: Enter the room url or the room id for the room you want to join.
+      edit_profile: Edit User Profile
+      go_to: Go to the Room
       invalid_room_uid: The room url/uid you entered was invalid.
       placeholder: Room url/uid
+      no_recent_rooms: You don't have any recently joined rooms
+      recent_rooms: Go To a Recently Joined Room
+      title: Join a Room
     no_sessions: This room has no sessions, yet!
     recordings: Room Recordings
     room_limit: You have reached the maximum number of rooms allowed
