@@ -303,8 +303,8 @@ class UsersController < ApplicationController
       end
 
       # Send promoted/demoted emails
-      added_roles.each { |role| send_user_promoted_email(@user, role.name) if role.send_promoted_email }
-      removed_roles.each { |role| send_user_demoted_email(@user, role.name) if role.send_demoted_email }
+      added_roles.each { |role| send_user_promoted_email(@user, role) if role.send_promoted_email }
+      removed_roles.each { |role| send_user_demoted_email(@user, role) if role.send_demoted_email }
 
       # Update the roles
       @user.roles.delete(removed_roles)
