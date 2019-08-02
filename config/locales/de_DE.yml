@@ -412,8 +412,9 @@ de_DE:
     owner: Initiator
     no_room:
       title: Raum betreten
-      placeholder: "Geben Sie die Raum-URL oder die Raum-ID des Raums ein, den sie betreten möchten."
+      description: "Geben Sie die Raum-URL oder die Raum-ID des Raums ein, den Sie betreten möchten."
       invalid_room_uid: Die angegebene Raum-URL/ID ist ungülltig.
+      placeholder: Raum-URL/ID
     no_sessions: In diesem Raum haben noch keine Konferenzen stattgefunden.
     recordings: Aufzeichnungen des Raums
     room_limit: Sie haben die maximale Anzahl von Räumen eingerichtet.
