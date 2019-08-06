@@ -33,7 +33,7 @@ $(document).on('turbolinks:load', function(){
 
         // Add the role tag
         var tag_container = $("#role-tag-container");
-        tag_container.append("<span id=\"user-role-tag_" + select_role_id + "\" style=\"background-color:" + selected_role.data("colour") + ";\" class=\"tag\">" + 
+        tag_container.append("<span id=\"user-role-tag_" + select_role_id + "\" style=\"background-color:" + selected_role.data("colour") + ";\" class=\"tag user-role-tag\">" + 
           selected_role.text() + "<a data-role-id=\"" + select_role_id + "\" class=\"tag-addon clear-role\"><i data-role-id=\"" + select_role_id + "\" class=\"fas fa-times\"></i></a></span>");
 
         // Update the role ids input that gets submited on user update
