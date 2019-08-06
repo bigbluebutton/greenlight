@@ -13,10 +13,6 @@ apt-get update && apt-get install -y nodejs yarn
 # Set an environment variable for the install location.
 ENV RAILS_ROOT /usr/src/app
 
-# Sets the footer of greenlight application with current build version
-ARG version_code
-ENV VERSION_CODE=$version_code
-
 # Make the directory and set as working.
 RUN mkdir -p $RAILS_ROOT
 WORKDIR $RAILS_ROOT
@@ -36,6 +32,10 @@ RUN SECRET_KEY_BASE="$(bundle exec rake secret)" bundle exec rake assets:precomp
 
 # Expose port 80.
 EXPOSE 80
+
+# Sets the footer of greenlight application with current build version
+ARG version_code
+ENV VERSION_CODE=$version_code
 
 # Start the application.
 CMD ["bin/start"]
