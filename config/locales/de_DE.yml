@@ -411,10 +411,14 @@ de_DE:
     login: Betreten
     owner: Initiator
     no_room:
-      title: Raum betreten
       description: "Geben Sie die Raum-URL oder die Raum-ID des Raums ein, den Sie betreten möchten."
+      edit_profile: Nutzerprofil editieren
+      go_to: Raum betreten
       invalid_room_uid: Die angegebene Raum-URL/ID ist ungülltig.
       placeholder: Raum-URL/ID
+      no_recent_rooms: Sie haben keine kürzlich betretenen Räume
+      recent_rooms: Den kürzlich betretenen Raum betreten
+      title: Raum betreten
     no_sessions: In diesem Raum haben noch keine Konferenzen stattgefunden.
     recordings: Aufzeichnungen des Raums
     room_limit: Sie haben die maximale Anzahl von Räumen eingerichtet.
