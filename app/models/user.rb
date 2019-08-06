@@ -248,7 +248,15 @@ class User < ApplicationRecord
     unless has_role?(role)
       role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
 
-      roles << Role.find_or_create_by(name: role, provider: role_provider)
+      new_role = Role.find_by(name: role, provider: role_provider)
+
+      if new_role.nil?
+        return if Role.duplicate_name(role, role_provider) || role.strip.empty?
+
+        new_role = Role.create_new_role(role, role_provider)
+      end
+
+      roles << new_role
 
       save!
     end

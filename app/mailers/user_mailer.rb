@@ -42,7 +42,7 @@ class UserMailer < ApplicationMailer
     @admin_url = url + "admins"
     @image = image
     @color = color
-    @role = role.name
+    @role = translated_role_name(role)
     mail to: user.email, subject: t('mailer.user.promoted.subtitle', role: translated_role_name(role))
   end
 
@@ -51,7 +51,7 @@ class UserMailer < ApplicationMailer
     @root_url = url
     @image = image
     @color = color
-    @role = role.name
+    @role = translated_role_name(role)
     mail to: user.email, subject: t('mailer.user.demoted.subtitle', role: translated_role_name(role))
   end
 
