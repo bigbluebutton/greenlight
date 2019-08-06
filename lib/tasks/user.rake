@@ -4,12 +4,13 @@ require 'bigbluebutton_api'
 
 namespace :user do
   desc "Creates a user account"
-  task :create, [:name, :email, :password, :role] => :environment do |_task, args|
+  task :create, [:name, :email, :password, :role, :provider] => :environment do |_task, args|
     u = {
       name: args[:name],
       password: args[:password],
       email: args[:email],
-      role: args[:role] || "user"
+      role: args[:role] || "user",
+      provider: args[:provider] || "greenlight"
     }
 
     if u[:role] == "admin"
@@ -25,9 +26,9 @@ namespace :user do
     u[:email].prepend "superadmin-" if args[:role] == "super_admin"
 
     # Create account if it doesn't exist
-    if !User.exists?(email: u[:email])
+    if !User.exists?(email: u[:email], provider: u[:provider])
       user = User.create(name: u[:name], email: u[:email], password: u[:password],
-        provider: 'greenlight', email_verified: true)
+        provider: u[:provider], email_verified: true)
 
       unless user.valid?
         puts "Invalid Arguments"
