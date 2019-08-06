@@ -66,6 +66,7 @@ class RoomsController < ApplicationController
 
         @pagy, @recordings = pagy_array(recs)
       else
+        @recent_rooms = Room.where(id: cookies.encrypted["#{current_user.uid}_recently_joined_rooms"])
         render :cant_create_rooms
       end
     else
@@ -129,6 +130,13 @@ class RoomsController < ApplicationController
 
     # create or update cookie with join name
     cookies.encrypted[:greenlight_name] = @join_name unless cookies.encrypted[:greenlight_name] == @join_name
+
+    if current_user
+      # create or update cookie to track the three most recent rooms a user joined
+      recently_joined_rooms = cookies.encrypted["#{current_user.uid}_recently_joined_rooms"].to_a
+      cookies.encrypted["#{current_user.uid}_recently_joined_rooms"] = recently_joined_rooms.prepend(@room.id)
+                                                                                            .uniq[0..2]
+    end
 
     join_room(opts)
   end

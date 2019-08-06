@@ -17,6 +17,8 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class UserMailer < ApplicationMailer
+  include ApplicationHelper
+
   default from: Rails.configuration.smtp_sender
 
   def verify_email(user, url, image, color)
@@ -40,8 +42,8 @@ class UserMailer < ApplicationMailer
     @admin_url = url + "admins"
     @image = image
     @color = color
-    @role = role
-    mail to: user.email, subject: t('mailer.user.promoted.subtitle', role: role)
+    @role = role.name
+    mail to: user.email, subject: t('mailer.user.promoted.subtitle', role: translated_role_name(role))
   end
 
   def user_demoted(user, role, url, image, color)
@@ -49,8 +51,8 @@ class UserMailer < ApplicationMailer
     @root_url = url
     @image = image
     @color = color
-    @role = role
-    mail to: user.email, subject: t('mailer.user.demoted.subtitle', role: role)
+    @role = role.name
+    mail to: user.email, subject: t('mailer.user.demoted.subtitle', role: translated_role_name(role))
   end
 
   def invite_email(name, email, url, image, color)
