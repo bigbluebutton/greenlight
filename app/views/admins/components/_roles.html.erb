@@ -15,12 +15,13 @@
 
 <div class="container">
   <div class="row">
+    <% current_role = current_user.highest_priority_role%>
     <div class="col-lg-3 mb-4">
         <div class="list-group list-group-transparent mb-0">
             <div id="rolesSelect" data-url="<%= admin_roles_order_path %>">
                 <% @roles.each do |role| %>
                     <%= link_to admin_roles_path(selected_role: role.id), 
-                    class: "#{"sort-disabled" if role.name == "user" || role.name == "admin" || role.priority <= current_user.highest_priority_role.priority } dropdown-item list-group-item list-group-item-action #{"active" if @selected_role.id == role.id}", 
+                    class: "#{"sort-disabled" if role.name == "user" || role.name == "admin" || role.priority <= current_role.priority } dropdown-item list-group-item list-group-item-action #{"active" if @selected_role.id == role.id}", 
                     id: dom_id(role) do %>
                         <%= translated_role_name(role) %>
                     <% end %>
@@ -47,34 +48,34 @@
                 </div>
             </div>
 
-            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.can_create_rooms %>">
                 <span class="ml-0 custom-switch-description"><%= t("administrator.roles.can_create_rooms")%></span>
-                    <%= f.check_box :can_create_rooms, class: "custom-switch-input", disabled: edit_disabled %>
+                    <%= f.check_box :can_create_rooms, class: "custom-switch-input", disabled: edit_disabled || !current_role.can_create_rooms %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
-            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.send_promoted_email %>">
                 <span class="ml-0 custom-switch-description"><%= t("administrator.roles.promote_email")%></span>
-                    <%= f.check_box :send_promoted_email, class: "custom-switch-input", disabled: edit_disabled %>
+                    <%= f.check_box :send_promoted_email, class: "custom-switch-input", disabled: edit_disabled || !current_role.send_promoted_email %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
-            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.send_demoted_email %>">
                 <span class="ml-0 custom-switch-description"><%= t("administrator.roles.demote_email")%></span>
-                    <%= f.check_box :send_demoted_email, class: "custom-switch-input", disabled: edit_disabled %>
+                    <%= f.check_box :send_demoted_email, class: "custom-switch-input", disabled: edit_disabled || !current_role.send_demoted_email %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
-            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.can_edit_site_settings %>">
                 <span class="ml-0 custom-switch-description"><%= t("administrator.roles.edit_site_settings")%></span>
-                    <%= f.check_box :can_edit_site_settings, class: "custom-switch-input", disabled: edit_disabled %>
+                    <%= f.check_box :can_edit_site_settings, class: "custom-switch-input", disabled: edit_disabled || !current_role.can_edit_site_settings %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
-            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.can_edit_roles %>">
                 <span class="ml-0 custom-switch-description"><%= t("administrator.roles.edit_roles")%></span>
-                    <%= f.check_box :can_edit_roles, class: "custom-switch-input", disabled: edit_disabled %>
+                    <%= f.check_box :can_edit_roles, class: "custom-switch-input", disabled: edit_disabled || !current_role.can_edit_roles %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
-            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.can_manage_users %>">
                 <span class="ml-0 custom-switch-description"><%= t("administrator.roles.manage_users")%></span>
-                    <%= f.check_box :can_manage_users, class: "custom-switch-input", disabled: edit_disabled %>
+                    <%= f.check_box :can_manage_users, class: "custom-switch-input", disabled: edit_disabled || !current_role.can_manage_users %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
 

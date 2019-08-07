@@ -205,17 +205,7 @@ class AdminsController < ApplicationController
       return redirect_to admin_roles_path
     end
 
-    # Create the new role with the second highest priority
-    # This means that it will only be more important than the user role
-    # This also updates the user role to have the highest priority
-    new_role = Role.create(name: new_role_name, provider: @user_domain)
-    user_role = Role.find_by(name: 'user', provider: @user_domain)
-
-    new_role.priority = user_role.priority
-    user_role.priority += 1
-
-    new_role.save!
-    user_role.save!
+    new_role = Role.create_new_role(new_role_name, @user_domain)
 
     redirect_to admin_roles_path(selected_role: new_role.id)
   end
@@ -282,6 +272,9 @@ class AdminsController < ApplicationController
                                 :can_manage_users,
                                 :colour
                               )
+
+    # Role is a default role so users can't change the name
+    role_params[:name] = role.name if Role::RESERVED_ROLE_NAMES.include?(role.name)
 
     # Make sure if the user is updating the role name that the role name is valid
     if role.name != role_params[:name] && !Role.duplicate_name(role_params[:name], @user_domain) &&

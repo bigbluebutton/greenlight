@@ -40,4 +40,20 @@ class Role < ApplicationRecord
       send_promoted_email: true, send_demoted_email: true, can_edit_site_settings: true,
       can_edit_roles: true, can_manage_users: true, colour: "#cd201f")
   end
+
+  def self.create_new_role(role_name, provider)
+    # Create the new role with the second highest priority
+    # This means that it will only be more important than the user role
+    # This also updates the user role to have the highest priority
+    role = Role.create(name: role_name, provider: provider)
+    user_role = Role.find_by(name: 'user', provider: provider)
+
+    role.priority = user_role.priority
+    user_role.priority += 1
+
+    role.save!
+    user_role.save!
+
+    role
+  end
 end
