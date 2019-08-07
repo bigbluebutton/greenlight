@@ -19,18 +19,16 @@
 require 'bigbluebutton_api'
 
 class ApplicationController < ActionController::Base
+  include BbbApi
   include Authenticator
-  include ApplicationHelper
   include SessionsHelper
   include ThemingHelper
 
-  # Force SSL for loadbalancer configurations.
   before_action :redirect_to_https
-
   before_action :set_user_domain
   before_action :maintenance_mode?
   before_action :migration_error?
-  before_action :set_locale
+  before_action :user_locale
   before_action :check_admin_password
   before_action :check_user_role
 
@@ -39,18 +37,64 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  MEETING_NAME_LIMIT = 90
-  USER_NAME_LIMIT = 32
-
   # Include user domain in lograge logs
   def append_info_to_payload(payload)
     super
     payload[:host] = @user_domain
   end
 
+  # Force SSL
+  def redirect_to_https
+    if Rails.configuration.loadbalanced_configuration && request.headers["X-Forwarded-Proto"] == "http"
+      redirect_to protocol: "https://"
+    end
+  end
+
+  # Sets the user domain variable
+  def set_user_domain
+    if Rails.env.test? || !Rails.configuration.loadbalanced_configuration
+      @user_domain = "greenlight"
+    else
+      @user_domain = parse_user_domain(request.host)
+
+      check_provider_exists
+    end
+  end
+
   # Show an information page when migration fails and there is a version error.
   def migration_error?
     render :migration_error unless ENV["DB_MIGRATE_FAILED"].blank?
+  end
+
+  # Sets the appropriate locale.
+  def user_locale(user = current_user)
+    locale = if user && user.language != 'default'
+      user.language
+    else
+      http_accept_language.language_region_compatible_from(I18n.available_locales)
+    end
+    I18n.locale = locale.tr('-', '_') unless locale.nil?
+  end
+
+  # Checks to make sure that the admin has changed his password from the default
+  def check_admin_password
+    if current_user&.has_role?(:admin) && current_user.email == "admin@example.com" &&
+       current_user&.greenlight_account? && current_user&.authenticate(Rails.configuration.admin_password_default)
+
+      flash.now[:alert] = I18n.t("default_admin",
+        edit_link: edit_user_path(user_uid: current_user.uid) + "?setting=password").html_safe
+    end
+  end
+
+  # Checks if the user is banned and logs him out if he is
+  def check_user_role
+    if current_user&.has_role? :denied
+      session.delete(:user_id)
+      redirect_to root_path, flash: { alert: I18n.t("registration.banned.fail") }
+    elsif current_user&.has_role? :pending
+      session.delete(:user_id)
+      redirect_to root_path, flash: { alert: I18n.t("registration.approval.fail") }
+    end
   end
 
   def maintenance_mode?
@@ -63,30 +107,6 @@ class ApplicationController < ActionController::Base
         }
     end
   end
-
-  # Sets the appropriate locale.
-  def set_locale
-    update_locale(current_user)
-  end
-
-  def update_locale(user)
-    locale = if user && user.language != 'default'
-      user.language
-    else
-      http_accept_language.language_region_compatible_from(I18n.available_locales)
-    end
-    I18n.locale = locale.tr('-', '_') unless locale.nil?
-  end
-
-  def meeting_name_limit
-    MEETING_NAME_LIMIT
-  end
-  helper_method :meeting_name_limit
-
-  def user_name_limit
-    USER_NAME_LIMIT
-  end
-  helper_method :user_name_limit
 
   # Relative root helper (when deploying to subdirectory).
   def relative_root
@@ -106,78 +126,42 @@ class ApplicationController < ActionController::Base
   end
   helper_method :recording_thumbnails?
 
-  def allow_greenlight_users?
-    allow_greenlight_accounts?
+  def allow_greenlight_accounts?
+    return Rails.configuration.allow_user_signup unless Rails.configuration.loadbalanced_configuration
+    return false unless @user_domain && !@user_domain.empty? && Rails.configuration.allow_user_signup
+    return false if @user_domain == "greenlight"
+    # Proceed with retrieving the provider info
+    begin
+      provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
+      provider_info['provider'] == 'greenlight'
+    rescue => e
+      logger.info e
+      false
+    end
   end
-  helper_method :allow_greenlight_users?
+  helper_method :allow_greenlight_accounts?
 
-  # Determines if a form field needs the is-invalid class.
-  def form_is_invalid?(obj, key)
-    'is-invalid' unless obj.errors.messages[key].empty?
+  # Determine if Greenlight is configured to allow user signups.
+  def allow_user_signup?
+    Rails.configuration.allow_user_signup
   end
-  helper_method :form_is_invalid?
+  helper_method :allow_user_signup?
 
-  # Default, unconfigured meeting options.
-  def default_meeting_options
-    invite_msg = I18n.t("invite_message")
-    {
-      user_is_moderator: false,
-      meeting_logout_url: request.base_url + logout_room_path(@room),
-      meeting_recorded: true,
-      moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
-      host: request.host,
-      recording_default_visibility: Setting.find_or_create_by!(provider: user_settings_provider)
-                                           .get_value("Default Recording Visibility") == "public"
-    }
+  # Gets all configured omniauth providers.
+  def configured_providers
+    Rails.configuration.providers.select do |provider|
+      Rails.configuration.send("omniauth_#{provider}")
+    end
+  end
+
+  # Manually Handle BigBlueButton errors
+  def handle_bigbluebutton_error
+    render "errors/bigbluebutton_error"
   end
 
   # Manually deal with 401 errors
   rescue_from CanCan::AccessDenied do |_exception|
     render "errors/greenlight_error"
-  end
-
-  # Checks to make sure that the admin has changed his password from the default
-  def check_admin_password
-    if current_user&.has_role?(:admin) && current_user.email == "admin@example.com" &&
-       current_user&.greenlight_account? && current_user&.authenticate(Rails.configuration.admin_password_default)
-
-      flash.now[:alert] = I18n.t("default_admin",
-        edit_link: edit_user_path(user_uid: current_user.uid) + "?setting=password").html_safe
-    end
-  end
-
-  def redirect_to_https
-    if Rails.configuration.loadbalanced_configuration && request.headers["X-Forwarded-Proto"] == "http"
-      redirect_to protocol: "https://"
-    end
-  end
-
-  def set_user_domain
-    if Rails.env.test? || !Rails.configuration.loadbalanced_configuration
-      @user_domain = "greenlight"
-    else
-      @user_domain = parse_user_domain(request.host)
-
-      check_provider_exists
-    end
-  end
-  helper_method :set_user_domain
-
-  # Checks if the user is banned and logs him out if he is
-  def check_user_role
-    if current_user&.has_role? :denied
-      session.delete(:user_id)
-      redirect_to root_path, flash: { alert: I18n.t("registration.banned.fail") }
-    elsif current_user&.has_role? :pending
-      session.delete(:user_id)
-      redirect_to root_path, flash: { alert: I18n.t("registration.approval.fail") }
-    end
-  end
-  helper_method :check_user_role
-
-  # Manually Handle BigBlueButton errors
-  def handle_bigbluebutton_error
-    render "errors/bigbluebutton_error"
   end
 
   private

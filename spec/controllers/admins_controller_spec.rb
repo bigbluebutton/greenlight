@@ -91,7 +91,7 @@ describe AdminsController, type: :controller do
     context "POST #invite" do
       before do
         allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
-        allow_any_instance_of(ApplicationController).to receive(:allow_greenlight_users?).and_return(true)
+        allow_any_instance_of(ApplicationController).to receive(:allow_greenlight_accounts?).and_return(true)
         allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
       end
 

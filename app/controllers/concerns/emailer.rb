@@ -147,7 +147,7 @@ module Emailer
   end
 
   def invitation_link(token)
-    if allow_greenlight_users?
+    if allow_greenlight_accounts?
       signup_url(invite_token: token)
     else
       root_url(invite_token: token)

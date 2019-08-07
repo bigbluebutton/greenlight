@@ -356,4 +356,18 @@ class RoomsController < ApplicationController
       render :wait
     end
   end
+
+  # Default, unconfigured meeting options.
+  def default_meeting_options
+    invite_msg = I18n.t("invite_message")
+    {
+      user_is_moderator: false,
+      meeting_logout_url: request.base_url + logout_room_path(@room),
+      meeting_recorded: true,
+      moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
+      host: request.host,
+      recording_default_visibility: Setting.find_or_create_by!(provider: user_settings_provider)
+                                           .get_value("Default Recording Visibility") == "public"
+    }
+  end
 end
