@@ -19,6 +19,7 @@
 require 'bigbluebutton_api'
 
 class ApplicationController < ActionController::Base
+  include Authenticator
   include ApplicationHelper
   include SessionsHelper
   include ThemingHelper

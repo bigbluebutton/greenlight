@@ -27,7 +27,7 @@ class AdminsController < ApplicationController
                    :registration_method, :room_authentication, :room_limit, :default_recording_visibility]
 
   authorize_resource class: false
-  before_action :find_user, only: manage_users
+  before_action :find_user_by_uid, only: manage_users
   before_action :verify_admin_of_user, only: manage_users
   before_action :find_setting, only: site_settings
 
@@ -92,16 +92,9 @@ class AdminsController < ApplicationController
   def invite
     email = params[:invite_user][:email]
 
-    begin
-      invitation = create_or_update_invite(email)
+    invitation = create_or_update_invite(email)
 
-      send_invitation_email(current_user.name, email, invitation.invite_token)
-    rescue => e
-      logger.error "Support: Error in email delivery: #{e}"
-      flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
-    else
-      flash[:success] = I18n.t("administrator.flash.invite", email: email)
-    end
+    send_invitation_email(current_user.name, email, invitation.invite_token)
 
     redirect_to admins_path
   end
@@ -322,10 +315,6 @@ class AdminsController < ApplicationController
   end
 
   private
-
-  def find_user
-    @user = User.where(uid: params[:user_uid]).includes(:roles).first
-  end
 
   def find_setting
     @settings = Setting.find_or_create_by!(provider: user_settings_provider)

@@ -20,7 +20,7 @@ class PasswordResetsController < ApplicationController
   include Emailer
 
   before_action :disable_password_reset, unless: -> { Rails.configuration.enable_email_verification }
-  before_action :find_user,   only: [:edit, :update]
+  before_action :find_user_by_email, only: [:edit, :update]
   before_action :valid_user, only: [:edit, :update]
   before_action :check_expiration, only: [:edit, :update]
 
@@ -32,15 +32,11 @@ class PasswordResetsController < ApplicationController
     if @user
       @user.create_reset_digest
       send_password_reset_email(@user)
-      flash[:success] = I18n.t("email_sent", email_type: t("reset_password.subtitle"))
       redirect_to root_path
     else
       flash[:alert] = I18n.t("no_user_email_exists")
       redirect_to new_password_reset_path
     end
-  rescue => e
-    logger.error "Support: Error in email delivery: #{e}"
-    redirect_to root_path, alert: I18n.t(params[:message], default: I18n.t("delivery_error"))
   end
 
   def edit

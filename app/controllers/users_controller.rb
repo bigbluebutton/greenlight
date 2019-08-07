@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   include Registrar
   include Recorder
 
-  before_action :find_user, only: [:edit, :update, :destroy]
+  before_action :find_user_by_uid, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create, :signin]
 
   # POST /u
@@ -53,12 +53,12 @@ class UsersController < ApplicationController
         flash: { success: I18n.t("registration.approval.signup") } unless Rails.configuration.enable_email_verification
     end
 
-    send_registration_email if Rails.configuration.enable_email_verification
+    send_registration_email
 
     # Sign in automatically if email verification is disabled or if user is already verified.
     login(@user) && return if !Rails.configuration.enable_email_verification || @user.email_verified
 
-    send_verification
+    send_activation_email(@user)
 
     redirect_to root_path
   end
@@ -206,10 +206,6 @@ class UsersController < ApplicationController
 
   private
 
-  def find_user
-    @user = User.where(uid: params[:user_uid]).includes(:roles).first
-  end
-
   def ensure_unauthenticated
     redirect_to current_user.main_room if current_user && params[:old_twitter_user_id].nil?
   end
@@ -219,28 +215,11 @@ class UsersController < ApplicationController
       :new_password, :provider, :accepted_terms, :language)
   end
 
-  def send_verification
-    # Start email verification and redirect to root.
-    begin
-      send_activation_email(@user)
-    rescue => e
-      logger.error "Support: Error in email delivery: #{e}"
-      flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
-    else
-      flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
-    end
-  end
-
   def send_registration_email
-    begin
-      if invite_registration
-        send_invite_user_signup_email(@user)
-      elsif approval_registration
-        send_approval_user_signup_email(@user)
-      end
-    rescue => e
-      logger.error "Support: Error in email delivery: #{e}"
-      flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
+    if invite_registration
+      send_invite_user_signup_email(@user)
+    elsif approval_registration
+      send_approval_user_signup_email(@user)
     end
   end
 

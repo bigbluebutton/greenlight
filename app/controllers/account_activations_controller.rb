@@ -20,7 +20,7 @@ class AccountActivationsController < ApplicationController
   include Emailer
 
   before_action :ensure_unauthenticated
-  before_action :find_user
+  before_action :find_user_by_email
 
   # GET /account_activations
   def show
@@ -49,30 +49,15 @@ class AccountActivationsController < ApplicationController
     if @user.activated?
       flash[:alert] = I18n.t("verify.already_verified")
     else
-      begin
-        send_activation_email(@user)
-      rescue => e
-        logger.error "Support: Error in email delivery: #{e}"
-        flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
-      else
-        flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
-      end
+      send_activation_email(@user)
     end
 
-    redirect_to(root_path)
+    redirect_to root_path
   end
 
   private
 
-  def ensure_unauthenticated
-    redirect_to current_user.main_room if current_user
-  end
-
   def email_params
     params.require(:email).permit(:email, :token)
-  end
-
-  def find_user
-    @user = User.find_by!(email: params[:email], provider: @user_domain)
   end
 end

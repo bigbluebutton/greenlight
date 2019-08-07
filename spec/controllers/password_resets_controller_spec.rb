@@ -73,7 +73,9 @@ describe PasswordResetsController, type: :controller do
   end
 
   describe "PATCH #update" do
-    before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(true) }
+    before do
+      allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+    end
 
     context "valid user" do
       it "reloads page with notice if password is empty" do
