@@ -50,7 +50,7 @@ class AdminsController < ApplicationController
   # GET /admins/server_recordings
   def server_recordings
     server_rooms = if Rails.configuration.loadbalanced_configuration
-      Room.includes(:owner).where(users: { provider: user_settings_provider }).pluck(:bbb_id)
+      Room.includes(:owner).where(users: { provider: @user_domain }).pluck(:bbb_id)
     else
       Room.pluck(:bbb_id)
     end
@@ -318,7 +318,7 @@ class AdminsController < ApplicationController
   private
 
   def find_setting
-    @settings = Setting.find_or_create_by!(provider: user_settings_provider)
+    @settings = Setting.find_or_create_by!(provider: @user_domain)
   end
 
   def verify_admin_of_user
@@ -335,7 +335,7 @@ class AdminsController < ApplicationController
     end
 
     if Rails.configuration.loadbalanced_configuration
-      initial_list.where(provider: user_settings_provider)
+      initial_list.where(provider: @user_domain)
                   .admins_search(@search, @role)
                   .admins_order(@order_column, @order_direction)
     else

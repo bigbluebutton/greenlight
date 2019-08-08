@@ -24,7 +24,7 @@ module Emailer
     begin
       return unless Rails.configuration.enable_email_verification
 
-      UserMailer.verify_email(user, user_verification_link(user), logo_image, user_color).deliver
+      UserMailer.verify_email(user, user_verification_link(user), @settings).deliver
     rescue => e
       logger.error "Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
@@ -38,7 +38,7 @@ module Emailer
     begin
       return unless Rails.configuration.enable_email_verification
 
-      UserMailer.password_reset(user, reset_link(user), logo_image, user_color).deliver_now
+      UserMailer.password_reset(user, reset_link(user), @settings).deliver_now
     rescue => e
       logger.error "Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
@@ -51,7 +51,7 @@ module Emailer
     begin
       return unless Rails.configuration.enable_email_verification
 
-      UserMailer.user_promoted(user, role, root_url, logo_image, user_color).deliver_now
+      UserMailer.user_promoted(user, role, root_url, @settings).deliver_now
     rescue => e
       logger.error "Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
@@ -62,7 +62,7 @@ module Emailer
     begin
       return unless Rails.configuration.enable_email_verification
 
-      UserMailer.user_demoted(user, role, root_url, logo_image, user_color).deliver_now
+      UserMailer.user_demoted(user, role, root_url, @settings).deliver_now
     rescue => e
       logger.error "Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
@@ -74,7 +74,7 @@ module Emailer
     begin
       return unless Rails.configuration.enable_email_verification
 
-      UserMailer.invite_email(name, email, invitation_link(token), logo_image, user_color).deliver_now
+      UserMailer.invite_email(name, email, invitation_link(token), @settings).deliver_now
     rescue => e
       logger.error "Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
@@ -87,7 +87,7 @@ module Emailer
     begin
       return unless Rails.configuration.enable_email_verification
 
-      UserMailer.approve_user(user, root_url, logo_image, user_color).deliver_now
+      UserMailer.approve_user(user, root_url, @settings).deliver_now
     rescue => e
       logger.error "Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
@@ -101,9 +101,7 @@ module Emailer
       return unless Rails.configuration.enable_email_verification
 
       admin_emails = admin_emails()
-      unless admin_emails.empty?
-        UserMailer.approval_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
-      end
+      UserMailer.approval_user_signup(user, admins_url, admin_emails, @settings).deliver_now unless admin_emails.empty?
     rescue => e
       logger.error "Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
@@ -115,9 +113,7 @@ module Emailer
       return unless Rails.configuration.enable_email_verification
 
       admin_emails = admin_emails()
-      unless admin_emails.empty?
-        UserMailer.invite_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
-      end
+      UserMailer.invite_user_signup(user, admins_url, admin_emails, @settings).deliver_now unless admin_emails.empty?
     rescue => e
       logger.error "Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
@@ -136,7 +132,7 @@ module Emailer
 
     if Rails.configuration.loadbalanced_configuration
       admins = admins.without_role(:super_admin)
-                     .where(provider: user_settings_provider)
+                     .where(provider: @user_domain)
     end
 
     admins.collect(&:email).join(",")

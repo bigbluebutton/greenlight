@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
 
   before_action :redirect_to_https
   before_action :set_user_domain
+  before_action :set_user_settings
   before_action :maintenance_mode?
   before_action :migration_error?
   before_action :user_locale
@@ -74,6 +75,10 @@ class ApplicationController < ActionController::Base
 
       check_provider_exists
     end
+  end
+
+  def set_user_settings
+    @settings = Setting.find_or_create_by(provider: @user_domain)
   end
 
   # Show an information page when migration fails and there is a version error.

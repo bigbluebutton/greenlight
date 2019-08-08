@@ -20,7 +20,7 @@ module Registrar
   extend ActiveSupport::Concern
 
   def registration_method
-    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Registration Method")
+    Setting.find_or_create_by!(provider: @user_domain).get_value("Registration Method")
   end
 
   def open_registration

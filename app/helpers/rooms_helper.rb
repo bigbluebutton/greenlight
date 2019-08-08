@@ -24,12 +24,12 @@ module RoomsHelper
   end
 
   def room_authentication_required
-    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Authentication") == "true" &&
+    Setting.find_or_create_by!(provider: @user_domain).get_value("Room Authentication") == "true" &&
       current_user.nil?
   end
 
   def room_limit_exceeded
-    limit = Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
+    limit = Setting.find_or_create_by!(provider: @user_domain).get_value("Room Limit").to_i
 
     # Does not apply to admin or users that aren't signed in
     # 15+ option is used as unlimited
@@ -40,7 +40,7 @@ module RoomsHelper
 
   def current_room_exceeds_limit(room)
     # Get how many rooms need to be deleted to reach allowed room number
-    limit = Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
+    limit = Setting.find_or_create_by!(provider: @user_domain).get_value("Room Limit").to_i
 
     return false if current_user&.has_role?(:admin) || limit == 15
 

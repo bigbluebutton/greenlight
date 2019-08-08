@@ -36,7 +36,7 @@ module AdminsHelper
   end
 
   def registration_method
-    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Registration Method")
+    Setting.find_or_create_by!(provider: @user_domain).get_value("Registration Method")
   end
 
   def invite_registration
@@ -48,7 +48,7 @@ module AdminsHelper
   end
 
   def room_authentication_string
-    if Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Authentication") == "true"
+    if Setting.find_or_create_by!(provider: @user_domain).get_value("Room Authentication") == "true"
       I18n.t("administrator.site_settings.authentication.enabled")
     else
       I18n.t("administrator.site_settings.authentication.disabled")
@@ -56,7 +56,7 @@ module AdminsHelper
   end
 
   def recording_default_visibility_string
-    if Setting.find_or_create_by!(provider: user_settings_provider)
+    if Setting.find_or_create_by!(provider: @user_domain)
               .get_value("Default Recording Visibility") == "public"
       I18n.t("recording.visibility.public")
     else
@@ -76,7 +76,7 @@ module AdminsHelper
   end
 
   def room_limit_number
-    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
+    Setting.find_or_create_by!(provider: @user_domain).get_value("Room Limit").to_i
   end
 
   def edit_disabled

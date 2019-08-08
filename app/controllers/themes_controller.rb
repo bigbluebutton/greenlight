@@ -43,6 +43,6 @@ class ThemesController < ApplicationController
   private
 
   def provider_settings
-    @settings = Setting.find_or_create_by(provider: user_settings_provider)
+    @settings = Setting.find_or_create_by(provider: @user_domain)
   end
 end

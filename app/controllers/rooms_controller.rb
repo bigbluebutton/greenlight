@@ -315,12 +315,12 @@ class RoomsController < ApplicationController
   end
 
   def auth_required
-    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Authentication") == "true" &&
+    Setting.find_or_create_by!(provider: @user_domain).get_value("Room Authentication") == "true" &&
       current_user.nil?
   end
 
   def room_limit_exceeded
-    limit = Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
+    limit = Setting.find_or_create_by!(provider: @user_domain).get_value("Room Limit").to_i
 
     # Does not apply to admin
     # 15+ option is used as unlimited
@@ -366,7 +366,7 @@ class RoomsController < ApplicationController
       meeting_recorded: true,
       moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
       host: request.host,
-      recording_default_visibility: Setting.find_or_create_by!(provider: user_settings_provider)
+      recording_default_visibility: Setting.find_or_create_by!(provider: @user_domain)
                                            .get_value("Default Recording Visibility") == "public"
     }
   end
