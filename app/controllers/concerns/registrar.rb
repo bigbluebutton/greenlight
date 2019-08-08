@@ -19,20 +19,12 @@
 module Registrar
   extend ActiveSupport::Concern
 
-  def registration_method
-    Setting.find_or_create_by!(provider: @user_domain).get_value("Registration Method")
-  end
-
-  def open_registration
-     registration_method == Rails.configuration.registration_methods[:open]
-  end
-
   def approval_registration
-     registration_method == Rails.configuration.registration_methods[:approval]
+    @settings.get_value("Registration Method") == Rails.configuration.registration_methods[:approval]
   end
 
   def invite_registration
-     registration_method == Rails.configuration.registration_methods[:invite]
+    @settings.get_value("Registration Method") == Rails.configuration.registration_methods[:invite]
   end
 
   # Returns a hash containing whether the user has been invited and if they

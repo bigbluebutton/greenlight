@@ -31,24 +31,12 @@ module AdminsHelper
     Room.find_by(bbb_id: room_id).owner.email
   end
 
-  def display_invite
-    invite_registration
-  end
-
-  def registration_method
-    Setting.find_or_create_by!(provider: @user_domain).get_value("Registration Method")
-  end
-
   def invite_registration
-    registration_method == Rails.configuration.registration_methods[:invite]
-  end
-
-  def approval_registration
-    registration_method == Rails.configuration.registration_methods[:approval]
+    @settings.get_value("Registration Method") == Rails.configuration.registration_methods[:invite]
   end
 
   def room_authentication_string
-    if Setting.find_or_create_by!(provider: @user_domain).get_value("Room Authentication") == "true"
+    if @settings.get_value("Room Authentication") == "true"
       I18n.t("administrator.site_settings.authentication.enabled")
     else
       I18n.t("administrator.site_settings.authentication.disabled")
@@ -56,8 +44,7 @@ module AdminsHelper
   end
 
   def recording_default_visibility_string
-    if Setting.find_or_create_by!(provider: @user_domain)
-              .get_value("Default Recording Visibility") == "public"
+    if @settings.get_value("Default Recording Visibility") == "public"
       I18n.t("recording.visibility.public")
     else
       I18n.t("recording.visibility.unlisted")
@@ -65,7 +52,7 @@ module AdminsHelper
   end
 
   def registration_method_string
-    case registration_method
+    case @settings.get_value("Registration Method")
     when Rails.configuration.registration_methods[:open]
         I18n.t("administrator.site_settings.registration.methods.open")
     when Rails.configuration.registration_methods[:invite]
@@ -76,7 +63,7 @@ module AdminsHelper
   end
 
   def room_limit_number
-    Setting.find_or_create_by!(provider: @user_domain).get_value("Room Limit").to_i
+    @settings.get_value("Room Limit").to_i
   end
 
   def edit_disabled

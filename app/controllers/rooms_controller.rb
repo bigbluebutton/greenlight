@@ -315,19 +315,20 @@ class RoomsController < ApplicationController
   end
 
   def auth_required
-    Setting.find_or_create_by!(provider: @user_domain).get_value("Room Authentication") == "true" &&
+    @settings.get_value("Room Authentication") == "true" &&
       current_user.nil?
   end
 
   def room_limit_exceeded
-    limit = Setting.find_or_create_by!(provider: @user_domain).get_value("Room Limit").to_i
+    limit = @settings.get_value("Room Limit").to_i
 
-    # Does not apply to admin
+    # Does not apply to admin or users that aren't signed in
     # 15+ option is used as unlimited
     return false if current_user&.has_role?(:admin) || limit == 15
 
-    current_user.rooms.count >= limit
+    current_user.rooms.length >= limit
   end
+  helper_method :room_limit_exceeded
 
   def join_room(opts)
     room_settings = JSON.parse(@room[:room_settings])
@@ -366,8 +367,7 @@ class RoomsController < ApplicationController
       meeting_recorded: true,
       moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
       host: request.host,
-      recording_default_visibility: Setting.find_or_create_by!(provider: @user_domain)
-                                           .get_value("Default Recording Visibility") == "public"
+      recording_default_visibility: @settings.get_value("Default Recording Visibility") == "public"
     }
   end
 end

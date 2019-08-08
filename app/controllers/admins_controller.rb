@@ -318,7 +318,7 @@ class AdminsController < ApplicationController
   private
 
   def find_setting
-    @settings = Setting.find_or_create_by!(provider: @user_domain)
+    @settings = @settings
   end
 
   def verify_admin_of_user

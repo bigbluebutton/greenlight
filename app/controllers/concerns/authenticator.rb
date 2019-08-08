@@ -61,27 +61,6 @@ module Authenticator
     session.delete(:user_id) if current_user
   end
 
-  def omniauth_options(env)
-    if env['omniauth.strategy'].options[:name] == "bn_launcher"
-      protocol = Rails.env.production? ? "https" : env["rack.url_scheme"]
-
-      customer_redirect_url = protocol + "://" + env["SERVER_NAME"] + ":" +
-                              env["SERVER_PORT"]
-      user_domain = parse_user_domain(env["SERVER_NAME"])
-      env['omniauth.strategy'].options[:customer] = user_domain
-      env['omniauth.strategy'].options[:customer_redirect_url] = customer_redirect_url
-      env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
-
-      # This is only used in the old launcher and should eventually be removed
-      env['omniauth.strategy'].options[:checksum] = generate_checksum(user_domain, customer_redirect_url,
-        Rails.configuration.launcher_secret)
-    elsif env['omniauth.strategy'].options[:name] == "google"
-      set_hd(env, ENV['GOOGLE_OAUTH2_HD'])
-    elsif env['omniauth.strategy'].options[:name] == "office365"
-      set_hd(env, ENV['OFFICE365_HD'])
-    end
-  end
-
   private
 
   # Migrates all of the twitter users rooms to the new account
@@ -105,26 +84,5 @@ module Authenticator
 
       flash[:success] = I18n.t("registration.deprecated.merge_success")
     end
-  end
-
-  # Generates a checksum to use alongside the omniauth request
-  def generate_checksum(user_domain, redirect_url, secret)
-    string = user_domain + redirect_url + secret
-    OpenSSL::Digest.digest('sha1', string).unpack1("H*")
-  end
-
-  # Limits the domain that can be used with the provider
-  def set_hd(env, hd)
-    if hd
-      hd_opts = hd.split(',')
-      env['omniauth.strategy'].options[:hd] =
-        if hd_opts.empty?
-          nil
-        elsif hd_opts.length == 1
-          hd_opts[0]
-        else
-          hd_opts
-        end
-      end
   end
 end
