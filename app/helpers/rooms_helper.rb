@@ -28,10 +28,6 @@ module RoomsHelper
       current_user.nil?
   end
 
-  def number_of_rooms_allowed
-    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
-  end
-
   def room_limit_exceeded
     limit = Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
 

@@ -132,7 +132,7 @@ describe ApplicationController do
     it "renders a 404 error if user is not found" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow(Rails.env).to receive(:test?).and_return(false)
-      allow_any_instance_of(SessionsHelper).to receive(:parse_user_domain).and_return("fake_provider")
+      allow_any_instance_of(ApplicationController).to receive(:parse_user_domain).and_return("fake_provider")
       allow_any_instance_of(BbbApi).to receive(:retrieve_provider_info).and_raise("No user with that id exists")
 
       routes.draw { get "user_not_found" => "anonymous#user_not_found" }
@@ -144,7 +144,7 @@ describe ApplicationController do
     it "renders a 404 error if user is not given" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow(Rails.env).to receive(:test?).and_return(false)
-      allow_any_instance_of(SessionsHelper).to receive(:parse_user_domain).and_return("")
+      allow_any_instance_of(ApplicationController).to receive(:parse_user_domain).and_return("")
       allow_any_instance_of(BbbApi).to receive(:retrieve_provider_info).and_raise("Provider not included.")
 
       routes.draw { get "user_not_found" => "anonymous#user_not_found" }
@@ -156,7 +156,7 @@ describe ApplicationController do
     it "renders a 500 error if any other error related to bbb api" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow(Rails.env).to receive(:test?).and_return(false)
-      allow_any_instance_of(SessionsHelper).to receive(:parse_user_domain).and_return("")
+      allow_any_instance_of(ApplicationController).to receive(:parse_user_domain).and_return("")
       allow_any_instance_of(BbbApi).to receive(:retrieve_provider_info).and_raise("Other error")
 
       routes.draw { get "user_not_found" => "anonymous#user_not_found" }

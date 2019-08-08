@@ -20,8 +20,7 @@ require 'bigbluebutton_api'
 
 class ApplicationController < ActionController::Base
   include BbbApi
-  include Authenticator
-  include SessionsHelper
+  include Finder
   include ThemingHelper
 
   before_action :redirect_to_https
@@ -42,6 +41,22 @@ class ApplicationController < ActionController::Base
     super
     payload[:host] = @user_domain
   end
+
+  # Retrieves the current user.
+  def current_user
+    @current_user ||= User.where(id: session[:user_id]).includes(:roles).first
+
+    if Rails.configuration.loadbalanced_configuration
+      if @current_user && !@current_user.has_role?(:super_admin) &&
+         @current_user.provider != @user_domain
+        @current_user = nil
+        session.clear
+      end
+    end
+
+    @current_user
+  end
+  helper_method :current_user
 
   # Force SSL
   def redirect_to_https
@@ -152,6 +167,16 @@ class ApplicationController < ActionController::Base
     Rails.configuration.providers.select do |provider|
       Rails.configuration.send("omniauth_#{provider}")
     end
+  end
+  helper_method :configured_providers
+
+  # Parses the url for the user domain
+  def parse_user_domain(hostname)
+    return hostname.split('.').first if Rails.configuration.url_host.empty?
+    Rails.configuration.url_host.split(',').each do |url_host|
+      return hostname.chomp(url_host).chomp('.') if hostname.include?(url_host)
+    end
+    ''
   end
 
   # Manually Handle BigBlueButton errors

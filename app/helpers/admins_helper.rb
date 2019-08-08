@@ -32,7 +32,7 @@ module AdminsHelper
   end
 
   def display_invite
-    current_page?(admins_path) && invite_registration
+    invite_registration
   end
 
   def registration_method

@@ -16,29 +16,21 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-require "rails_helper"
+module Finder
+  extend ActiveSupport::Concern
 
-describe UsersHelper do
-    describe "disabled roles" do
-        it "should return roles with a less than or equal to priority for non admins" do
-            user = create(:user)
-            allow_any_instance_of(SessionsHelper).to receive(:current_user).and_return(user)
+  # Get user by their uid and include their roles
+  def find_user_by_uid
+    @user = User.where(uid: params[:user_uid]).includes(:roles).first
+  end
 
-            disabled_roles = helper.disabled_roles(user)
+  # Get user by their email scoped to their domain
+  def find_user_by_email
+    @user = User.find_by(email: params[:email], provider: @user_domain)
+  end
 
-            expect(disabled_roles.count).to eq(1)
-        end
-
-        it "should return roles with a lesser priority for admins" do
-            admin = create(:user)
-            admin.add_role :admin
-            user = create(:user)
-
-            allow_any_instance_of(SessionsHelper).to receive(:current_user).and_return(admin)
-
-            disabled_roles = helper.disabled_roles(user)
-
-            expect(disabled_roles.count).to eq(1)
-        end
-    end
+  # Redirects the user to their main room if they are logged in
+  def ensure_unauthenticated
+    redirect_to current_user.main_room if current_user
+  end
 end

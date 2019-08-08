@@ -17,6 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class SessionsController < ApplicationController
+  include Authenticator
   include Registrar
   include Emailer
   include LdapAuthenticator

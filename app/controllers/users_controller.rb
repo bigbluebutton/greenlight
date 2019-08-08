@@ -17,6 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class UsersController < ApplicationController
+  include Authenticator
   include RecordingsHelper
   include Pagy::Backend
   include Emailer

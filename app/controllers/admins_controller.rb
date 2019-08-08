@@ -21,6 +21,7 @@ class AdminsController < ApplicationController
   include Themer
   include Emailer
   include Recorder
+  include RecordingsHelper
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve, :reset]
   site_settings = [:branding, :coloring, :coloring_lighten, :coloring_darken,
