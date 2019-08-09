@@ -25,9 +25,8 @@ $(document).on("turbolinks:load", function(){
       roomuid: $(".background").attr("room"),
       useruid: $(".background").attr("user")
     }, {
-      connected: function(data) {
+      connected: function() {
         console.log("connected");
-        console.log(data);
       },
 
       disconnected: function(data) {
