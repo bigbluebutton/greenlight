@@ -31,7 +31,7 @@ class RecordingsController < ApplicationController
     res = @room.update_recording(params[:record_id], meta)
 
     # Redirects to the page that made the initial request
-    redirect_to request.referrer if res[:updated]
+    redirect_back fallback_location: root_path if res[:updated]
   end
 
   # DELETE /:meetingID/:record_id
@@ -39,7 +39,7 @@ class RecordingsController < ApplicationController
     @room.delete_recording(params[:record_id])
 
     # Redirects to the page that made the initial request
-    redirect_to request.referrer
+    redirect_back fallback_location: root_path
   end
 
   private

@@ -18,7 +18,7 @@
 
 module Recorder
   extend ActiveSupport::Concern
-  include ::BbbApi
+  include RecordingsHelper
 
   # Fetches all recordings for a room.
   def recordings(room_bbb_id, provider, search_params = {}, ret_search_params = false)

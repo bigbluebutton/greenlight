@@ -27,8 +27,8 @@ class Ability
     else
       highest_role = user.highest_priority_role
       if highest_role.can_edit_site_settings
-        can [:index, :site_settings, :server_recordings, :branding, :coloring, :coloring_lighten, :coloring_darken,
-             :room_authentication, :registration_method, :room_limit, :default_recording_visibility], :admin
+        can [:index, :site_settings, :server_recordings, :update_settings,
+             :coloring, :registration_method, :default_recording_visibility], :admin
       end
 
       if highest_role.can_edit_roles

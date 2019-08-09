@@ -20,27 +20,26 @@ class AccountActivationsController < ApplicationController
   include Emailer
 
   before_action :ensure_unauthenticated
-  before_action :find_user_by_email
+  before_action :find_user
 
   # GET /account_activations
   def show
-    render :verify
   end
 
   # GET /account_activations/edit
   def edit
+    # If the user exists and is not verified and provided the correct token
     if @user && !@user.activated? && @user.authenticated?(:activation, params[:token])
+      # Verify user
       @user.activate
 
       # Redirect user to root with account pending flash if account is still pending
       return redirect_to root_path,
         flash: { success: I18n.t("registration.approval.signup") } if @user.has_role?(:pending)
 
-      flash[:success] = I18n.t("verify.activated") + " " + I18n.t("verify.signin")
-      redirect_to signin_path
+      redirect_to signin_path, flash: { success: I18n.t("verify.activated") + " " + I18n.t("verify.signin") }
     else
-      flash[:alert] = I18n.t("verify.invalid")
-      redirect_to root_path
+      redirect_to root_path, flash: { alert: I18n.t("verify.invalid") }
     end
   end
 
@@ -56,6 +55,14 @@ class AccountActivationsController < ApplicationController
   end
 
   private
+
+  def find_user
+    @user = User.find_by!(email: params[:email], provider: @user_domain)
+  end
+
+  def ensure_unauthenticated
+    redirect_to current_user.main_room if current_user
+  end
 
   def email_params
     params.require(:email).permit(:email, :token)

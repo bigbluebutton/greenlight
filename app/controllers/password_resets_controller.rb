@@ -20,41 +20,46 @@ class PasswordResetsController < ApplicationController
   include Emailer
 
   before_action :disable_password_reset, unless: -> { Rails.configuration.enable_email_verification }
-  before_action :find_user_by_email, only: [:edit, :update]
+  before_action :find_user, only: [:edit, :update]
   before_action :valid_user, only: [:edit, :update]
   before_action :check_expiration, only: [:edit, :update]
 
-  def index
+  # POST /password_resets/new
+  def new
   end
 
+  # POST /password_resets
   def create
-    @user = User.find_by(email: params[:password_reset][:email].downcase)
-    if @user
+    begin
+      # Check if user exists and throw an error if he doesn't
+      @user = User.find_by!(email: params[:password_reset][:email].downcase)
+
       @user.create_reset_digest
       send_password_reset_email(@user)
       redirect_to root_path
-    else
-      flash[:alert] = I18n.t("no_user_email_exists")
-      redirect_to new_password_reset_path
+    rescue
+      # User doesn't exist
+      redirect_to new_password_reset_path, flash: { alert: I18n.t("no_user_email_exists") }
     end
   end
 
+  # GET /password_resets/:id/edit
   def edit
   end
 
+  # PATCH /password_resets/:id
   def update
+    # Check if password is valid
     if params[:user][:password].empty?
       flash.now[:alert] = I18n.t("password_empty_notice")
-      render 'edit'
     elsif params[:user][:password] != params[:user][:password_confirmation]
       flash.now[:alert] = I18n.t("password_different_notice")
-      render 'edit'
     elsif @user.update_attributes(user_params)
-      flash[:success] = I18n.t("password_reset_success")
-      redirect_to root_path
-    else
-      render 'edit'
+      # Successfully reset password
+      return redirect_to root_path, flash: { success: I18n.t("password_reset_success") }
     end
+
+    render 'edit'
   end
 
   private

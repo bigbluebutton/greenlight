@@ -122,7 +122,7 @@ describe PasswordResetsController, type: :controller do
 
         allow(controller).to receive(:valid_user).and_return(nil)
         allow(controller).to receive(:check_expiration).and_return(nil)
-        allow(controller).to receive(:current_user).and_return(user)
+        controller.instance_variable_set(:@user, user)
 
         params = {
           id: token,
@@ -131,6 +131,7 @@ describe PasswordResetsController, type: :controller do
             password: :password,
             password_confirmation: :password,
           },
+          email: user.email
         }
 
         patch :update, params: params

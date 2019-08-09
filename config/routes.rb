@@ -37,24 +37,23 @@ Rails.application.routes.draw do
   resources :admins, only: [:index]
 
   scope '/admins' do
-    get '/site_settings', to: 'admins#site_settings', as: :admin_site_settings
+    # Panel Tabs
     get '/recordings', to: 'admins#server_recordings', as: :admin_recordings
-    post '/branding', to: 'admins#branding', as: :admin_branding
-    post '/coloring', to: 'admins#coloring', as: :admin_coloring
-    post '/room_authentication', to: 'admins#room_authentication', as: :admin_room_authentication
-    post '/coloring_lighten', to: 'admins#coloring_lighten', as: :admin_coloring_lighten
-    post '/coloring_darken', to: 'admins#coloring_darken', as: :admin_coloring_darken
-    post '/signup', to: 'admins#signup', as: :admin_signup
+    get '/site_settings', to: 'admins#site_settings', as: :admin_site_settings
+    get '/roles', to: 'admins#roles', as: :admin_roles
+    # Manage Users
     get '/edit/:user_uid', to: 'admins#edit_user', as: :admin_edit_user
     post '/ban/:user_uid', to: 'admins#ban_user', as: :admin_ban
     post '/unban/:user_uid', to: 'admins#unban_user', as: :admin_unban
     post '/invite', to: 'admins#invite', as: :invite_user
-    post '/registration_method/:method', to: 'admins#registration_method', as: :admin_change_registration
     post '/approve/:user_uid', to: 'admins#approve', as: :admin_approve
     get '/reset', to: 'admins#reset', as: :admin_reset
-    post '/room_limit', to: 'admins#room_limit', as: :admin_room_limit
+    # Site Settings
+    post '/update_settings', to: 'admins#update_settings', as: :admin_update_settings
+    post '/registration_method', to: 'admins#registration_method', as: :admin_change_registration
     post '/default_recording_visibility', to: 'admins#default_recording_visibility', as: :admin_recording_visibility
-    get '/roles', to: 'admins#roles', as: :admin_roles
+    post '/coloring', to: 'admins#coloring', as: :admin_coloring
+    # Roles
     post '/role', to: 'admins#new_role', as: :admin_new_role
     patch 'roles/order', to: 'admins#change_role_order', as: :admin_roles_order
     post '/role/:role_id', to: 'admins#update_role', as: :admin_update_role

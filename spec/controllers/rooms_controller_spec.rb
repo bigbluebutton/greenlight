@@ -29,6 +29,7 @@ end
 
 describe RoomsController, type: :controller do
   it_behaves_like "recorder"
+  include BbbApi
   include Recorder
   describe "GET #show" do
     before do

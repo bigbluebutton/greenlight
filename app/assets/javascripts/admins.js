@@ -79,7 +79,7 @@ $(document).on('turbolinks:load', function(){
 // Change the branding image to the image provided
 function changeBrandingImage(path) {
   var url = $("#branding-url").val()
-  $.post(path, {url: url})
+  $.post(path, {value: url})
 }
 
 // Filters by role
@@ -157,19 +157,19 @@ function loadColourSelectors() {
   });
 
   pickrRegular.on("save", (color, instance) => {
-    $.post($("#coloring-path-regular").val(), {color: color.toHEXA().toString()}).done(function() {
+    $.post($("#coloring-path-regular").val(), {value: color.toHEXA().toString()}).done(function() {
       location.reload()
     });
   })
 
   pickrLighten.on("save", (color, instance) => {
-    $.post($("#coloring-path-lighten").val(), {color: color.toHEXA().toString()}).done(function() {
+    $.post($("#coloring-path-lighten").val(), {value: color.toHEXA().toString()}).done(function() {
       location.reload()
     });
   })
 
   pickrDarken.on("save", (color, instance) => {
-    $.post($("#coloring-path-darken").val(), {color: color.toHEXA().toString()}).done(function() {
+    $.post($("#coloring-path-darken").val(), {value: color.toHEXA().toString()}).done(function() {
       location.reload()
     });
   })

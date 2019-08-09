@@ -148,7 +148,7 @@ describe AdminsController, type: :controller do
         @request.session[:user_id] = @admin.id
         fake_image_url = "example.com"
 
-        post :branding, params: { url: fake_image_url }
+        post :update_settings, params: { setting: "Branding Image", value: fake_image_url }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Branding Image")
 
@@ -165,7 +165,7 @@ describe AdminsController, type: :controller do
         @request.session[:user_id] = @admin.id
         primary_color = Faker::Color.hex_color
 
-        post :coloring, params: { color: primary_color }
+        post :coloring, params: { value: primary_color }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color")
 
@@ -180,7 +180,7 @@ describe AdminsController, type: :controller do
         @request.session[:user_id] = @admin.id
         primary_color = Faker::Color.hex_color
 
-        post :coloring_lighten, params: { color: primary_color }
+        post :update_settings, params: { setting: "Primary Color Lighten", value: primary_color }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color Lighten")
 
@@ -195,7 +195,7 @@ describe AdminsController, type: :controller do
         @request.session[:user_id] = @admin.id
         primary_color = Faker::Color.hex_color
 
-        post :coloring_darken, params: { color: primary_color }
+        post :update_settings, params: { setting: "Primary Color Darken", value: primary_color }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color Darken")
 
@@ -214,7 +214,7 @@ describe AdminsController, type: :controller do
 
         @request.session[:user_id] = @admin.id
 
-        post :registration_method, params: { method: "invite" }
+        post :registration_method, params: { value: "invite" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Registration Method")
 
@@ -230,7 +230,7 @@ describe AdminsController, type: :controller do
 
         @request.session[:user_id] = @admin.id
 
-        post :registration_method, params: { method: "invite" }
+        post :registration_method, params: { value: "invite" }
 
         expect(flash[:alert]).to be_present
         expect(response).to redirect_to(admin_site_settings_path)
@@ -244,7 +244,7 @@ describe AdminsController, type: :controller do
 
         @request.session[:user_id] = @admin.id
 
-        post :room_authentication, params: { value: "true" }
+        post :update_settings, params: { setting: "Room Authentication", value: "true" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Authentication")
 
@@ -260,7 +260,7 @@ describe AdminsController, type: :controller do
 
         @request.session[:user_id] = @admin.id
 
-        post :room_limit, params: { limit: 5 }
+        post :update_settings, params: { setting: "Room Limit", value: 5 }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Limit")
 
@@ -276,7 +276,7 @@ describe AdminsController, type: :controller do
 
         @request.session[:user_id] = @admin.id
 
-        post :default_recording_visibility, params: { visibility: "public" }
+        post :default_recording_visibility, params: { value: "public" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Default Recording Visibility")
 

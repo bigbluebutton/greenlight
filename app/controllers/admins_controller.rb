@@ -21,19 +21,16 @@ class AdminsController < ApplicationController
   include Themer
   include Emailer
   include Recorder
-  include RecordingsHelper
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve, :reset]
-  site_settings = [:branding, :coloring, :coloring_lighten, :coloring_darken,
-                   :registration_method, :room_authentication, :room_limit, :default_recording_visibility]
 
   authorize_resource class: false
-  before_action :find_user_by_uid, only: manage_users
+  before_action :find_user, only: manage_users
   before_action :verify_admin_of_user, only: manage_users
-  before_action :find_setting, only: site_settings
 
   # GET /admins
   def index
+    # Initializa the data manipulation variables
     @search = params[:search] || ""
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
@@ -57,6 +54,7 @@ class AdminsController < ApplicationController
 
     @search, @order_column, @order_direction, recs =
       all_recordings(server_rooms, @user_domain, params.permit(:search, :column, :direction), true, true)
+
     @pagy, @recordings = pagy_array(recs)
   end
 
@@ -110,39 +108,23 @@ class AdminsController < ApplicationController
   end
   # SITE SETTINGS
 
-  # POST /admins/branding
-  def branding
-    @settings.update_value("Branding Image", params[:url])
+  # POST /admins/update_settings
+  def update_settings
+    @settings.update_value(params[:setting], params[:value])
     redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   # POST /admins/color
   def coloring
-    @settings.update_value("Primary Color", params[:color])
-    @settings.update_value("Primary Color Lighten", color_lighten(params[:color]))
-    @settings.update_value("Primary Color Darken", color_darken(params[:color]))
-    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
-  end
-
-  def coloring_lighten
-    @settings.update_value("Primary Color Lighten", params[:color])
-    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
-  end
-
-  def coloring_darken
-    @settings.update_value("Primary Color Darken", params[:color])
-    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
-  end
-
-  # POST /admins/room_authentication
-  def room_authentication
-    @settings.update_value("Room Authentication", params[:value])
+    @settings.update_value("Primary Color", params[:value])
+    @settings.update_value("Primary Color Lighten", color_lighten(params[:value]))
+    @settings.update_value("Primary Color Darken", color_darken(params[:value]))
     redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   # POST /admins/registration_method/:method
   def registration_method
-    new_method = Rails.configuration.registration_methods[params[:method].to_sym]
+    new_method = Rails.configuration.registration_methods[params[:value].to_sym]
 
     # Only allow change to Join by Invitation if user has emails enabled
     if !Rails.configuration.enable_email_verification && new_method == Rails.configuration.registration_methods[:invite]
@@ -155,15 +137,9 @@ class AdminsController < ApplicationController
     end
   end
 
-  # POST /admins/room_limit
-  def room_limit
-    @settings.update_value("Room Limit", params[:limit])
-    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
-  end
-
   # POST /admins/default_recording_visibility
   def default_recording_visibility
-    @settings.update_value("Default Recording Visibility", params[:visibility])
+    @settings.update_value("Default Recording Visibility", params[:value])
     redirect_to admin_site_settings_path, flash: {
       success: I18n.t("administrator.flash.settings") + ". " +
                I18n.t("administrator.site_settings.recording_visibility.warning")
@@ -317,8 +293,8 @@ class AdminsController < ApplicationController
 
   private
 
-  def find_setting
-    @settings = @settings
+  def find_user
+    @user = User.where(uid: params[:user_uid]).includes(:roles).first
   end
 
   def verify_admin_of_user

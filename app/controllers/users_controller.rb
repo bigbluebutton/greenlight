@@ -18,13 +18,12 @@
 
 class UsersController < ApplicationController
   include Authenticator
-  include RecordingsHelper
   include Pagy::Backend
   include Emailer
   include Registrar
   include Recorder
 
-  before_action :find_user_by_uid, only: [:edit, :update, :destroy]
+  before_action :find_user, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create, :signin]
 
   # POST /u
@@ -110,11 +109,9 @@ class UsersController < ApplicationController
 
   # GET /u/:user_uid/edit
   def edit
-    if current_user
-      redirect_to current_user.main_room if @user != current_user && !current_user.admin_of?(@user)
-    else
-      redirect_to root_path
-    end
+    return redirect_to root_path unless current_user
+
+    return redirect_to current_user.main_room if @user != current_user && !current_user.admin_of?(@user)
   end
 
   # PATCH /u/:user_uid/edit
@@ -206,6 +203,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def find_user
+    @user = User.where(uid: params[:user_uid]).includes(:roles).first
+  end
 
   def ensure_unauthenticated
     redirect_to current_user.main_room if current_user && params[:old_twitter_user_id].nil?

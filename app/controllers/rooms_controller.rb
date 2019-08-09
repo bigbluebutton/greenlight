@@ -17,7 +17,6 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class RoomsController < ApplicationController
-  include RecordingsHelper
   include Pagy::Backend
   include Recorder
 
@@ -32,27 +31,29 @@ class RoomsController < ApplicationController
 
   # POST /
   def create
-    redirect_to(root_path) && return unless current_user
+    # Return to root if user is not signed in
+    return redirect_to root_path unless current_user
 
+    # Check if the user has not exceeded the room limit
     return redirect_to current_user.main_room, flash: { alert: I18n.t("room.room_limit") } if room_limit_exceeded
 
+    # Create room
     @room = Room.new(name: room_params[:name], access_code: room_params[:access_code])
     @room.owner = current_user
-    @room.room_settings = create_room_settings_string(room_params[:mute_on_join],
-      room_params[:require_moderator_approval], room_params[:anyone_can_start], room_params[:all_join_moderator])
+    @room.room_settings = create_room_settings_string(room_params)
 
+    # Save the room
     if @room.save
       logger.info("Support: #{current_user.email} has created a new room #{@room.uid}.")
 
+      # Start the room if auto join was turned on
       if room_params[:auto_join] == "1"
         start
       else
-        flash[:success] = I18n.t("room.create_room_success")
-        redirect_to @room
+        redirect_to @room, flash: { success: I18n.t("room.create_room_success") }
       end
     else
-      flash[:alert] = I18n.t("room.create_room_error")
-      redirect_to current_user.main_room
+      redirect_to current_user.main_room, flash: { alert: I18n.t("room.create_room_error") }
     end
   end
 
@@ -61,6 +62,7 @@ class RoomsController < ApplicationController
     @is_running = @room.running?
     @anyone_can_start = JSON.parse(@room[:room_settings])["anyoneCanStart"]
 
+    # If its the current user's room
     if current_user && @room.owned_by?(current_user)
       if current_user.highest_priority_role.can_create_rooms
         @search, @order_column, @order_direction, recs =
@@ -92,20 +94,13 @@ class RoomsController < ApplicationController
 
   # PATCH /:room_uid
   def update
-    if params[:setting] == "rename_block"
-      @room = Room.find_by!(uid: params[:room_block_uid])
-      update_room_attributes("name")
-    elsif params[:setting] == "rename_header"
+    if params[:setting] == "rename_header"
       update_room_attributes("name")
     elsif params[:setting] == "rename_recording"
       @room.update_recording(params[:record_id], "meta_name" => params[:record_name])
     end
 
-    if request.referrer
-      redirect_to request.referrer
-    else
-      redirect_to room_path
-    end
+    redirect_back fallback_location: room_path
   end
 
   # POST /:room_uid
@@ -113,7 +108,6 @@ class RoomsController < ApplicationController
     return redirect_to root_path,
       flash: { alert: I18n.t("administrator.site_settings.authentication.user-info") } if auth_required
 
-    opts = default_meeting_options
     unless @room.owned_by?(current_user)
       # Don't allow users to join unless they have a valid access code or the room doesn't
       # have an access code
@@ -136,13 +130,12 @@ class RoomsController < ApplicationController
     if current_user
       # create or update cookie to track the three most recent rooms a user joined
       recently_joined_rooms = cookies.encrypted["#{current_user.uid}_recently_joined_rooms"].to_a
-      cookies.encrypted["#{current_user.uid}_recently_joined_rooms"] = recently_joined_rooms.prepend(@room.id)
-                                                                                            .uniq[0..2]
+      cookies.encrypted["#{current_user.uid}_recently_joined_rooms"] =
+        recently_joined_rooms.prepend(@room.id).uniq[0..2]
     end
 
     logger.info("Support: #{current_user.present? ? current_user.email : @join_name} is joining room #{@room.uid}")
-
-    join_room(opts)
+    join_room(default_meeting_options)
   end
 
   # DELETE /:room_uid
@@ -153,17 +146,15 @@ class RoomsController < ApplicationController
     redirect_to current_user.main_room
   end
 
-  # POST room/join
+  # POST /room/join
   def join_specific_room
     room_uid = params[:join_room][:url].split('/').last
 
     begin
-      @room = Room.find_by(uid: room_uid)
+      @room = Room.find_by!(uid: room_uid)
     rescue ActiveRecord::RecordNotFound
       return redirect_to current_user.main_room, alert: I18n.t("room.no_room.invalid_room_uid")
     end
-
-    return redirect_to current_user.main_room, alert: I18n.t("room.no_room.invalid_room_uid") if @room.nil?
 
     redirect_to room_path(@room)
   end
@@ -206,7 +197,8 @@ class RoomsController < ApplicationController
       update_room_attributes("name") if @room.name != room_params[:name]
       # Update the room's access code if it has changed
       update_room_attributes("access_code") if @room.access_code != room_params[:access_code]
-    rescue StandardError
+    rescue => e
+      logger.error "Error in updating room settings: #{e}"
       flash[:alert] = I18n.t("room.update_settings_error")
     else
       flash[:success] = I18n.t("room.update_settings_success")
@@ -238,8 +230,7 @@ class RoomsController < ApplicationController
       if update_type.eql? "name"
         @room.update_attributes(name: params[:room_name] || room_params[:name])
       elsif update_type.eql? "settings"
-        room_settings_string = create_room_settings_string(room_params[:mute_on_join],
-          room_params[:require_moderator_approval], room_params[:anyone_can_start], room_params[:all_join_moderator])
+        room_settings_string = create_room_settings_string(room_params)
         @room.update_attributes(room_settings: room_settings_string)
       elsif update_type.eql? "access_code"
         @room.update_attributes(access_code: room_params[:access_code])
@@ -247,15 +238,15 @@ class RoomsController < ApplicationController
     end
   end
 
-  def create_room_settings_string(mute_res, require_approval_res, start_res, join_mod)
+  def create_room_settings_string(options)
     room_settings = {}
-    room_settings["muteOnStart"] = mute_res == "1"
+    room_settings["muteOnStart"] = options[:mute_on_join] == "1"
 
-    room_settings["requireModeratorApproval"] = require_approval_res == "1"
+    room_settings["requireModeratorApproval"] = options[:require_moderator_approval] == "1"
 
-    room_settings["anyoneCanStart"] = start_res == "1"
+    room_settings["anyoneCanStart"] = options[:anyone_can_start] == "1"
 
-    room_settings["joinModerator"] = join_mod == "1"
+    room_settings["joinModerator"] = options[:all_join_moderator] == "1"
 
     room_settings.to_json
   end
@@ -287,15 +278,11 @@ class RoomsController < ApplicationController
   end
 
   def validate_accepted_terms
-    if current_user
-      redirect_to terms_path unless current_user.accepted_terms
-    end
+    redirect_to terms_path if current_user && !current_user&.accepted_terms
   end
 
   def validate_verified_email
-    if current_user
-      redirect_to account_activation_path(current_user) unless current_user.activated?
-    end
+    redirect_to account_activation_path(current_user) if current_user && !current_user&.activated?
   end
 
   def verify_room_owner_verified
@@ -311,12 +298,11 @@ class RoomsController < ApplicationController
   end
 
   def verify_user_not_admin
-    redirect_to admins_path if current_user && current_user&.has_role?(:super_admin)
+    redirect_to admins_path if current_user&.has_role?(:super_admin)
   end
 
   def auth_required
-    @settings.get_value("Room Authentication") == "true" &&
-      current_user.nil?
+    @settings.get_value("Room Authentication") == "true" && current_user.nil?
   end
 
   def room_limit_exceeded

@@ -20,7 +20,6 @@ require 'bigbluebutton_api'
 
 class ApplicationController < ActionController::Base
   include BbbApi
-  include Finder
   include ThemingHelper
 
   before_action :redirect_to_https
@@ -77,6 +76,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Sets the settinfs variable
   def set_user_settings
     @settings = Setting.find_or_create_by(provider: @user_domain)
   end
@@ -117,6 +117,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Redirects the user to a Maintenance page if turned on
   def maintenance_mode?
     if ENV["MAINTENANCE_MODE"] == "true"
       render "errors/greenlight_error", status: 503, formats: :html,
@@ -155,7 +156,7 @@ class ApplicationController < ActionController::Base
       provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
       provider_info['provider'] == 'greenlight'
     rescue => e
-      logger.info e
+      logger.error "Error in checking if greenlight accounts are allowed: #{e}"
       false
     end
   end
@@ -208,6 +209,7 @@ class ApplicationController < ActionController::Base
       # Add a session variable if the provider exists
       session[:provider_exists] = @user_domain
     rescue => e
+      logger.error "Error in retrieve provider info: #{e}"
       # Use the default site settings
       @user_domain = "greenlight"
 

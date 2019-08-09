@@ -82,13 +82,9 @@ class SessionsController < ApplicationController
 
     result = send_ldap_request(params[:session], ldap_config)
 
-    if result
-      result = result.first
-    else
-      return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials"))
-    end
+    return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials")) unless result
 
-    @auth = parse_auth(result, ENV['LDAP_ROLE_FIELD'])
+    @auth = parse_auth(result.first, ENV['LDAP_ROLE_FIELD'])
 
     process_signin
   end
