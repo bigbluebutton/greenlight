@@ -25,12 +25,14 @@ $(document).on("turbolinks:load", function(){
       roomuid: $(".background").attr("room"),
       useruid: $(".background").attr("user")
     }, {
-      connected: function() {
+      connected: function(data) {
         console.log("connected");
+        console.log(data);
       },
 
-      disconnected: function() {
+      disconnected: function(data) {
         console.log("disconnected");
+        console.log(data);
       },
 
       rejected: function() {
