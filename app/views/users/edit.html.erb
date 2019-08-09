@@ -47,13 +47,13 @@
 
 
     <div class="col-lg-9">
-      <%= render "shared/settings/setting_view", setting_id: "account", setting_title: t("settings.account.subtitle") %>
+      <%= render "users/components/setting_view", setting_id: "account", setting_title: t("settings.account.subtitle") %>
 
       <% if @user.social_uid.nil? %>
-        <%= render "shared/settings/setting_view", setting_id: "password", setting_title: t("settings.password.subtitle") %>
+        <%= render "users/components/setting_view", setting_id: "password", setting_title: t("settings.password.subtitle") %>
       <% end %>
 
-      <%= render "shared/settings/setting_view", setting_id: "delete", setting_title: t("settings.delete.subtitle") %>
+      <%= render "users/components/setting_view", setting_id: "delete", setting_title: t("settings.delete.subtitle") %>
     </div>
   </div>
 </div>

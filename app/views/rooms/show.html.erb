@@ -80,20 +80,20 @@
       <% if current_user.rooms.length > 1 %>
         <div class="col-lg-4 col-md-6 col-sm-12">
           <%= link_to current_user.main_room do %>
-            <%= render "shared/components/room_block", room: current_user.main_room %>
+            <%= render "rooms/components/room_block", room: current_user.main_room %>
           <% end %>
         </div>
         <% current_user.secondary_rooms.each do |room| %>
           <div class="col-lg-4 col-md-6 col-sm-12">
             <%= link_to room do %>
-              <%= render "shared/components/room_block", room: room %>
+              <%= render "rooms/components/room_block", room: room %>
             <% end %>
           </div>
           <%= render "shared/modals/delete_room_modal", recording_count: room.recording_count, room: room %>
         <% end %>
       <% end %>
       <% unless room_limit_exceeded %>
-        <%= render "shared/components/create_room_block"%>
+        <%= render "rooms/components/create_room_block"%>
       <% end %>
     </div>
   </div>
