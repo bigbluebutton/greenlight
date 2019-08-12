@@ -276,7 +276,7 @@ describe AdminsController, type: :controller do
 
         @request.session[:user_id] = @admin.id
 
-        post :default_recording_visibility, params: { value: "public" }
+        post :update_settings, params: { setting: "Default Recording Visibility", value: "public" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Default Recording Visibility")
 
@@ -324,7 +324,7 @@ describe AdminsController, type: :controller do
         post :new_role, params: { role: { name: "admin" } }
 
         expect(response).to redirect_to admin_roles_path
-        expect(flash[:alert]).to eq(I18n.t("administrator.roles.duplicate_name"))
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_create"))
       end
 
       it "should fail with empty role name" do
@@ -333,7 +333,7 @@ describe AdminsController, type: :controller do
         post :new_role, params: { role: { name: "    " } }
 
         expect(response).to redirect_to admin_roles_path
-        expect(flash[:alert]).to eq(I18n.t("administrator.roles.empty_name"))
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_create"))
       end
 
       it "should create new role and increase user role priority" do
@@ -383,7 +383,7 @@ describe AdminsController, type: :controller do
 
         patch :change_role_order, params: { role: [new_role3.id, new_role2.id] }
 
-        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_update"))
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_order"))
         expect(response).to redirect_to admin_roles_path
       end
 
@@ -403,7 +403,7 @@ describe AdminsController, type: :controller do
 
         patch :change_role_order, params: { role: [new_role3.id, new_role2.id] }
 
-        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_update"))
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_order"))
         expect(response).to redirect_to admin_roles_path
       end
 
@@ -460,7 +460,7 @@ describe AdminsController, type: :controller do
 
         patch :update_role, params: { role_id: new_role.id, role: { name: "admin" } }
 
-        expect(flash[:alert]).to eq(I18n.t("administrator.roles.duplicate_name"))
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_update"))
         expect(response).to redirect_to admin_roles_path(selected_role: new_role.id)
       end
 

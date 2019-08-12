@@ -373,7 +373,7 @@ describe UsersController, type: :controller do
 
         user.reload
 
-        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_removal"))
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_assignment"))
         expect(response).to render_template(:edit)
       end
 

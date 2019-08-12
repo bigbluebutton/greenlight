@@ -21,6 +21,7 @@ class AdminsController < ApplicationController
   include Themer
   include Emailer
   include Recorder
+  include Rolify
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve, :reset]
 
@@ -111,7 +112,14 @@ class AdminsController < ApplicationController
   # POST /admins/update_settings
   def update_settings
     @settings.update_value(params[:setting], params[:value])
-    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
+
+    flash_message = I18n.t("administrator.flash.settings")
+
+    if params[:value] == "Default Recording Visibility"
+      flash_message += ". " + I18n.t("administrator.site_settings.recording_visibility.warning")
+    end
+
+    redirect_to admin_site_settings_path, flash: { success: flash_message }
   end
 
   # POST /admins/color
@@ -137,53 +145,19 @@ class AdminsController < ApplicationController
     end
   end
 
-  # POST /admins/default_recording_visibility
-  def default_recording_visibility
-    @settings.update_value("Default Recording Visibility", params[:value])
-    redirect_to admin_site_settings_path, flash: {
-      success: I18n.t("administrator.flash.settings") + ". " +
-               I18n.t("administrator.site_settings.recording_visibility.warning")
-    }
-  end
-
   # ROLES
 
   # GET /admins/roles
   def roles
-    @roles = Role.editable_roles(@user_domain)
-
-    if @roles.count.zero?
-      Role.create_default_roles(@user_domain)
-      @roles = Role.editable_roles(@user_domain)
-    end
-
-    @selected_role = if params[:selected_role].nil?
-                        @roles.find_by(name: 'user')
-                      else
-                        @roles.find(params[:selected_role])
-                     end
+    @roles = all_roles(params[:selected_role])
   end
 
-  # POST /admin/role
-  # This method creates a new role scope to the users provider
+  # POST /admins/role
+  # This method creates a new role scoped to the users provider
   def new_role
-    new_role_name = params[:role][:name]
+    new_role = create_role(params[:role][:name])
 
-    # Make sure that the role name isn't a duplicate or a reserved name like super_admin
-    if Role.duplicate_name(new_role_name, @user_domain)
-      flash[:alert] = I18n.t("administrator.roles.duplicate_name")
-
-      return redirect_to admin_roles_path
-    end
-
-    # Make sure the role name isn't empty
-    if new_role_name.strip.empty?
-      flash[:alert] = I18n.t("administrator.roles.empty_name")
-
-      return redirect_to admin_roles_path
-    end
-
-    new_role = Role.create_new_role(new_role_name, @user_domain)
+    return redirect_to admin_roles_path, flash: { alert: I18n.t("administrator.roles.invalid_create") } if new_role.nil?
 
     redirect_to admin_roles_path(selected_role: new_role.id)
   end
@@ -192,82 +166,16 @@ class AdminsController < ApplicationController
   # This updates the priority of a site's roles
   # Note: A lower priority role will always get used before a higher priority one
   def change_role_order
-    user_role = Role.find_by(name: "user", provider: @user_domain)
-    admin_role = Role.find_by(name: "admin", provider: @user_domain)
-
-    current_user_role = current_user.highest_priority_role
-
-    # Users aren't allowed to update the priority of the admin or user roles
-    if params[:role].include?(user_role.id.to_s) || params[:role].include?(admin_role.id.to_s)
-      flash[:alert] = I18n.t("administrator.roles.invalid_order")
-
-      return redirect_to admin_roles_path
+    unless update_priority(params[:role])
+      redirect_to admin_roles_path, flash: { alert: I18n.t("administrator.roles.invalid_order") }
     end
-
-    # Restrict users to only updating the priority for roles in their domain with a higher
-    # priority
-    params[:role].each do |id|
-      role = Role.find(id)
-      if role.priority <= current_user_role.priority || role.provider != @user_domain
-        flash[:alert] = I18n.t("administrator.roles.invalid_update")
-        return redirect_to admin_roles_path
-      end
-    end
-
-    # Update the roles priority including the user role
-    top_priority = 0
-
-    params[:role].each_with_index do |id, index|
-      new_priority = index + [current_user_role.priority, 0].max + 1
-      top_priority = new_priority
-      Role.where(id: id).update_all(priority: new_priority)
-    end
-
-    user_role.priority = top_priority + 1
-    user_role.save!
   end
 
   # POST /admin/role/:role_id
   # This method updates the permissions assigned to a role
   def update_role
     role = Role.find(params[:role_id])
-    current_user_role = current_user.highest_priority_role
-
-    # Checks that it is valid for the provider to update the role
-    if role.priority <= current_user_role.priority || role.provider != @user_domain
-      flash[:alert] = I18n.t("administrator.roles.invalid_update")
-      return redirect_to admin_roles_path(selected_role: role.id)
-    end
-
-    role_params = params.require(:role).permit(:name)
-    permission_params = params.require(:role)
-                              .permit(
-                                :can_create_rooms,
-                                :send_promoted_email,
-                                :send_demoted_email,
-                                :can_edit_site_settings,
-                                :can_edit_roles,
-                                :can_manage_users,
-                                :colour
-                              )
-
-    # Role is a default role so users can't change the name
-    role_params[:name] = role.name if Role::RESERVED_ROLE_NAMES.include?(role.name)
-
-    # Make sure if the user is updating the role name that the role name is valid
-    if role.name != role_params[:name] && !Role.duplicate_name(role_params[:name], @user_domain) &&
-       !role_params[:name].strip.empty?
-      role.name = role_params[:name]
-    elsif role.name != role_params[:name]
-      flash[:alert] = I18n.t("administrator.roles.duplicate_name")
-
-      return redirect_to admin_roles_path(selected_role: role.id)
-    end
-
-    role.update(permission_params)
-
-    role.save!
-
+    flash[:alert] = I18n.t("administrator.roles.invalid_update") unless update_permissions(role)
     redirect_to admin_roles_path(selected_role: role.id)
   end
 

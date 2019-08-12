@@ -51,7 +51,6 @@ Rails.application.routes.draw do
     # Site Settings
     post '/update_settings', to: 'admins#update_settings', as: :admin_update_settings
     post '/registration_method', to: 'admins#registration_method', as: :admin_change_registration
-    post '/default_recording_visibility', to: 'admins#default_recording_visibility', as: :admin_recording_visibility
     post '/coloring', to: 'admins#coloring', as: :admin_coloring
     # Roles
     post '/role', to: 'admins#new_role', as: :admin_new_role

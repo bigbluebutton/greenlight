@@ -17,11 +17,12 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class UsersController < ApplicationController
-  include Authenticator
   include Pagy::Backend
+  include Authenticator
   include Emailer
   include Registrar
   include Recorder
+  include Rolify
 
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create, :signin]
@@ -144,17 +145,19 @@ class UsersController < ApplicationController
         errors.each { |k, v| @user.errors.add(k, v) }
         render :edit, params: { settings: params[:settings] }
       end
-    elsif user_params[:email] != @user.email && @user.update_attributes(user_params) && update_roles
-      @user.update_attributes(email_verified: false)
-
-      flash[:success] = I18n.t("info_update_success")
-      redirect_to redirect_path
-    elsif @user.update_attributes(user_params) && update_roles
-      update_locale(@user)
-
-      flash[:success] = I18n.t("info_update_success")
-      redirect_to redirect_path
     else
+      if @user.update_attributes(user_params)
+        @user.update_attributes(email_verified: false) if user_params[:email] != @user.email
+
+        user_locale(@user)
+
+        if update_roles(params[:user][:role_ids])
+          return redirect_to redirect_path, flash: { success: I18n.t("info_update_success") }
+        else
+          flash[:alert] = I18n.t("administrator.roles.invalid_assignment")
+        end
+      end
+
       render :edit, params: { settings: params[:settings] }
     end
   end
@@ -243,66 +246,5 @@ class UsersController < ApplicationController
     @user.email_verified = true if invitation[:verified]
 
     invitation[:present]
-  end
-
-  # Updates as user's roles
-  def update_roles
-    # Check that the user can manage users
-    if current_user.highest_priority_role.can_manage_users
-      new_roles = params[:user][:role_ids].split(' ').map(&:to_i)
-      old_roles = @user.roles.pluck(:id)
-
-      added_role_ids = new_roles - old_roles
-      removed_role_ids = old_roles - new_roles
-
-      added_roles = []
-      removed_roles = []
-      current_user_role = current_user.highest_priority_role
-
-      # Check that the user has the permissions to add all the new roles
-      added_role_ids.each do |id|
-        role = Role.find(id)
-
-        # Admins are able to add the admin role to other users. All other roles may only
-        # add roles with a higher priority
-        if (role.priority > current_user_role.priority || current_user_role.name == "admin") &&
-           role.provider == @user_domain
-          added_roles << role
-        else
-          flash[:alert] = I18n.t("administrator.roles.invalid_assignment")
-          return false
-        end
-      end
-
-      # Check that the user has the permissions to remove all the deleted roles
-      removed_role_ids.each do |id|
-        role = Role.find(id)
-
-        # Admins are able to remove the admin role from other users. All other roles may only
-        # remove roles with a higher priority
-        if (role.priority > current_user_role.priority || current_user_role.name == "admin") &&
-           role.provider == @user_domain
-          removed_roles << role
-        else
-          flash[:alert] = I18n.t("administrator.roles.invalid_removal")
-          return false
-        end
-      end
-
-      # Send promoted/demoted emails
-      added_roles.each { |role| send_user_promoted_email(@user, role) if role.send_promoted_email }
-      removed_roles.each { |role| send_user_demoted_email(@user, role) if role.send_demoted_email }
-
-      # Update the roles
-      @user.roles.delete(removed_roles)
-      @user.roles << added_roles
-
-      # Make sure each user always has at least the user role
-      @user.roles = [Role.find_by(name: "user", provider: @user_domain)] if @user.roles.count.zero?
-
-      @user.save!
-    else
-      true
-    end
   end
 end

@@ -109,10 +109,10 @@
             <%= recording_default_visibility_string %>
           </button>
           <div class="dropdown-menu" aria-labelledby="room-auth">
-            <%= button_to admin_recording_visibility_path(value: "public"), class: "dropdown-item" do %>
+            <%= button_to admin_update_settings_path(setting: "Default Recording Visibility", value: "public"), class: "dropdown-item" do %>
               <%= t("recording.visibility.public") %>
             <% end %>
-            <%= button_to admin_recording_visibility_path(value: "private"), class: "dropdown-item" do %>
+            <%= button_to admin_update_settings_path(setting: "Default Recording Visibility", value: "private"), class: "dropdown-item" do %>
               <%= t("recording.visibility.unlisted") %>
             <% end %>
           </div>
