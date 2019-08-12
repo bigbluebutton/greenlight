@@ -131,9 +131,7 @@ module Greenlight
     config.primary_color_darken_default = "#316cbe"
 
     # Default registration method if the user does not specify one
-    config.registration_method_default = if ENV["DEFAULT_REGISTRATION"] == "open"
-      config.registration_methods[:open]
-    elsif ENV["DEFAULT_REGISTRATION"] == "invite"
+    config.registration_method_default = if ENV["DEFAULT_REGISTRATION"] == "invite"
       config.registration_methods[:invite]
     elsif ENV["DEFAULT_REGISTRATION"] == "approval"
       config.registration_methods[:approval]
