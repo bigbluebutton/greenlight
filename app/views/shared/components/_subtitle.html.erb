@@ -14,10 +14,11 @@
 %>
 
 <div class="row mt-2">
-  <div class="col-4">
-    <p class="subtitle"><%= subtitle %></p>
-  </div>
   <% if search %>
+    <div class="col-4">
+      <p class="subtitle"><%= subtitle %></p>
+    </div>
+
     <div class="col-8">
       <% if invite_registration %>
         <div id="invite-user" class="d-inline-block float-right ml-3">
@@ -42,6 +43,10 @@
           </span>
         </div>
       </div>
+    </div>
+  <% else %>
+    <div class="col-12">
+      <p class="subtitle"><%= subtitle %></p>
     </div>
   <% end %>
 </div>

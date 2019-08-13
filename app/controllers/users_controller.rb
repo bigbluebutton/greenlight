@@ -24,8 +24,9 @@ class UsersController < ApplicationController
   include Recorder
   include Rolify
 
-  before_action :find_user, only: [:edit, :update, :destroy]
+  before_action :find_user, only: [:edit, :change_password, :delete_account, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create, :signin]
+  before_action :check_admin_of, only: [:edit, :change_password, :delete_account]
 
   # POST /u
   def create
@@ -110,9 +111,14 @@ class UsersController < ApplicationController
 
   # GET /u/:user_uid/edit
   def edit
-    return redirect_to root_path unless current_user
+  end
 
-    return redirect_to current_user.main_room if @user != current_user && !current_user.admin_of?(@user)
+  # GET /u/:user_uid/change_password
+  def change_password
+  end
+
+  # GET /u/:user_uid/delete_account
+  def delete_account
   end
 
   # PATCH /u/:user_uid/edit
@@ -138,8 +144,7 @@ class UsersController < ApplicationController
 
       if errors.empty? && @user.save
         # Notify the user that their account has been updated.
-        flash[:success] = I18n.t("info_update_success")
-        redirect_to redirect_path
+        redirect_to redirect_path, flash: { success: I18n.t("info_update_success") }
       else
         # Append custom errors.
         errors.each { |k, v| @user.errors.add(k, v) }
@@ -246,5 +251,10 @@ class UsersController < ApplicationController
     @user.email_verified = true if invitation[:verified]
 
     invitation[:present]
+  end
+
+  # Checks that the user is allowed to edit this user
+  def check_admin_of
+    redirect_to current_user.main_room if @user != current_user && !current_user.admin_of?(@user)
   end
 end

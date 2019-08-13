@@ -205,6 +205,7 @@ class AdminsController < ApplicationController
     @user = User.where(uid: params[:user_uid]).includes(:roles).first
   end
 
+  # Verifies that admin is an administrator of the user in the action
   def verify_admin_of_user
     redirect_to admins_path,
       flash: { alert: I18n.t("administrator.flash.unauthorized") } unless current_user.admin_of?(@user)

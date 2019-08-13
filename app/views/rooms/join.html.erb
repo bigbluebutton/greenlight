@@ -43,7 +43,7 @@
             readonly: !current_user.nil?, 
             autofocus: true
             %>
-        <%= f.submit (!@is_running && @anyone_can_start)? t("room.start") : t("room.join"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
+        <%= f.submit (!@room.running? && @anyone_can_start)? t("room.start") : t("room.join"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
       </div>
     <% end %>
   <% end %>

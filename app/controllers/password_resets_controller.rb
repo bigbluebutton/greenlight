@@ -53,6 +53,7 @@ class PasswordResetsController < ApplicationController
     if params[:user][:password].empty?
       flash.now[:alert] = I18n.t("password_empty_notice")
     elsif params[:user][:password] != params[:user][:password_confirmation]
+      # Password does not match password confirmation
       flash.now[:alert] = I18n.t("password_different_notice")
     elsif @user.update_attributes(user_params)
       # Successfully reset password
@@ -85,6 +86,7 @@ class PasswordResetsController < ApplicationController
     end
   end
 
+  # Redirects to 404 if emails are not enabled
   def disable_password_reset
     redirect_to '/404'
   end

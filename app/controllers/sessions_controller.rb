@@ -24,12 +24,6 @@ class SessionsController < ApplicationController
 
   skip_before_action :verify_authenticity_token, only: [:omniauth, :fail]
 
-  # GET /users/logout
-  def destroy
-    logout
-    redirect_to root_path
-  end
-
   # POST /users/login
   def create
     logger.info("Support: #{session_params[:email]} is attempting to login.")
@@ -49,11 +43,22 @@ class SessionsController < ApplicationController
     login(user)
   end
 
+  # GET /users/logout
+  def destroy
+    logout
+    redirect_to root_path
+  end
+
   # GET/POST /auth/:provider/callback
   def omniauth
     @auth = request.env['omniauth.auth']
 
-    process_signin
+    begin
+      process_signin
+    rescue => e
+      logger.error "Error authenticating via omniauth: #{e}"
+      omniauth_fail
+    end
   end
 
   # POST /auth/failure
@@ -86,7 +91,12 @@ class SessionsController < ApplicationController
 
     @auth = parse_auth(result.first, ENV['LDAP_ROLE_FIELD'])
 
-    process_signin
+    begin
+      process_signin
+    rescue => e
+      logger.error "Error authenticating via omniauth: #{e}"
+      omniauth_fail
+    end
   end
 
   private
@@ -109,46 +119,45 @@ class SessionsController < ApplicationController
   end
 
   def process_signin
-    begin
-      @user_exists = check_user_exists
+    @user_exists = check_user_exists
 
-      if !@user_exists && @auth['provider'] == "twitter"
-        return redirect_to root_path, flash: { alert: I18n.t("registration.deprecated.twitter_signup") }
-      end
+    if !@user_exists && @auth['provider'] == "twitter"
+      return redirect_to root_path, flash: { alert: I18n.t("registration.deprecated.twitter_signup") }
+    end
 
-      # If using invitation registration method, make sure user is invited
-      return redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless passes_invite_reqs
+    # If using invitation registration method, make sure user is invited
+    return redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless passes_invite_reqs
 
-      user = User.from_omniauth(@auth)
+    user = User.from_omniauth(@auth)
 
-      logger.info("Support: Auth user #{user.email} is attempting to login.")
+    logger.info("Support: Auth user #{user.email} is attempting to login.")
 
       # Add pending role if approval method and is a new user
-      if approval_registration && !@user_exists
-        user.add_role :pending
+    if approval_registration && !@user_exists
+      user.add_role :pending
 
-        # Inform admins that a user signed up if emails are turned on
-        send_approval_user_signup_email(user)
+      # Inform admins that a user signed up if emails are turned on
+      send_approval_user_signup_email(user)
 
-        return redirect_to root_path, flash: { success: I18n.t("registration.approval.signup") }
+      return redirect_to root_path, flash: { success: I18n.t("registration.approval.signup") }
+    end
+
+    send_invite_user_signup_email(user) if invite_registration && !@user_exists
+
+    login(user)
+
+    if @auth['provider'] == "twitter"
+      flash[:alert] = if allow_user_signup? && allow_greenlight_accounts?
+        I18n.t("registration.deprecated.twitter_signin", link: signup_path(old_twitter_user_id: user.id))
+      else
+        I18n.t("registration.deprecated.twitter_signin", link: signin_path(old_twitter_user_id: user.id))
       end
-
-      send_invite_user_signup_email(user) if invite_registration && !@user_exists
-
-      login(user)
-
-      if @auth['provider'] == "twitter"
-        flash[:alert] = if allow_user_signup? && allow_greenlight_accounts?
-                          I18n.t("registration.deprecated.twitter_signin",
-                            link: signup_path(old_twitter_user_id: user.id))
-                        else
-                          I18n.t("registration.deprecated.twitter_signin",
-                            link: signin_path(old_twitter_user_id: user.id))
-                        end
-      end
+<<<<<<< HEAD
     rescue => e
         logger.error "Support: Error authenticating via omniauth: #{e}"
         omniauth_fail
+=======
+>>>>>>> 315c506... Restructured profile and code clean up
     end
   end
 end

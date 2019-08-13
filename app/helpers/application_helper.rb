@@ -55,6 +55,13 @@ module ApplicationHelper
     current_user.main_room
   end
 
+  # Returns the action method of the current page
+  def active_page
+    route = Rails.application.routes.recognize_path(request.env['PATH_INFO'])
+
+    route[:action]
+  end
+
   def role_colour(role)
     role.colour || Rails.configuration.primary_color_default
   end

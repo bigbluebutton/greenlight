@@ -142,11 +142,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :bigbluebutton_endpoint_default?
 
-  def recording_thumbnails?
-    Rails.configuration.recording_thumbnails
-  end
-  helper_method :recording_thumbnails?
-
   def allow_greenlight_accounts?
     return Rails.configuration.allow_user_signup unless Rails.configuration.loadbalanced_configuration
     return false unless @user_domain && !@user_domain.empty? && Rails.configuration.allow_user_signup

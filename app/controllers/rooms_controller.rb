@@ -59,17 +59,18 @@ class RoomsController < ApplicationController
 
   # GET /:room_uid
   def show
-    @is_running = @room.running?
     @anyone_can_start = JSON.parse(@room[:room_settings])["anyoneCanStart"]
 
     # If its the current user's room
     if current_user && @room.owned_by?(current_user)
       if current_user.highest_priority_role.can_create_rooms
+        # User is allowed to have rooms
         @search, @order_column, @order_direction, recs =
           recordings(@room.bbb_id, @user_domain, params.permit(:search, :column, :direction), true)
 
         @pagy, @recordings = pagy_array(recs)
       else
+        # Render view for users that cant create rooms
         @recent_rooms = Room.where(id: cookies.encrypted["#{current_user.uid}_recently_joined_rooms"])
         render :cant_create_rooms
       end
@@ -109,8 +110,7 @@ class RoomsController < ApplicationController
       flash: { alert: I18n.t("administrator.site_settings.authentication.user-info") } if auth_required
 
     unless @room.owned_by?(current_user)
-      # Don't allow users to join unless they have a valid access code or the room doesn't
-      # have an access code
+      # Don't allow users to join unless they have a valid access code or the room doesn't have an access code
       if @room.access_code && !@room.access_code.empty? && @room.access_code != session[:access_code]
         return redirect_to room_path(room_uid: params[:room_uid]), flash: { alert: I18n.t("room.access_code_required") }
       end

@@ -19,13 +19,6 @@
 module AdminsHelper
   include Pagy::Frontend
 
-  # Returns the action method of the current page
-  def active_page
-    route = Rails.application.routes.recognize_path(request.env['PATH_INFO'])
-
-    route[:action]
-  end
-
   # Gets the email of the room owner to which the recording belongs to
   def recording_owner_email(room_id)
     Room.find_by(bbb_id: room_id).owner.email
