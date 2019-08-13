@@ -35,25 +35,14 @@ module Recorder
 
   # Makes paginated API calls to get recordings
   def all_recordings(room_bbb_ids, provider, search_params = {}, ret_search_params = false, search_name = false)
-    pag_num = Rails.configuration.pagination_number
-
-    pag_loops = room_bbb_ids.length / pag_num - 1
-
     res = { recordings: [] }
 
-    (0..pag_loops).each do |i|
-      pag_rooms = room_bbb_ids[pag_num * i, pag_num]
-
+    until room_bbb_ids.empty?
       # bbb.get_recordings returns an object
       # take only the array portion of the object that is returned
-      full_res = bbb(provider).get_recordings(meetingID: pag_rooms)
+      full_res = bbb(provider).get_recordings(meetingID: room_bbb_ids.pop(Rails.configuration.pagination_number))
       res[:recordings].push(*full_res[:recordings])
     end
-
-    last_pag_room = room_bbb_ids[pag_num * (pag_loops + 1), room_bbb_ids.length % pag_num]
-
-    full_res = bbb(provider).get_recordings(meetingID: last_pag_room)
-    res[:recordings].push(*full_res[:recordings])
 
     format_recordings(res, search_params, ret_search_params, search_name)
   end
