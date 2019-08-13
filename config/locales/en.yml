@@ -75,6 +75,7 @@ en:
       invite_email_verification: Emails must be enabled in order to use this method. Please contact your system administrator.
       promoted: User has been successfully promoted
       registration_method_updated: Registration method successfully updated
+      reset_password: The user has been sent an email to reset their password. (Please ask them to check their spam folder if they haven't received it)
       settings: Site Settings successfully changed
       unauthorized: You are not authorized to perform actions on this user
     recordings:
@@ -263,11 +264,11 @@ en:
         username: Your username is %{email}.
       password_reset:
         title: 'Password reset'
-        welcome: It seems like you forgot your password for %{bigbluebutton}
-        message: 'If this is true, please click the link below to reset your password:'
+        welcome: A password reset has been requested for the email <b>%{email}</b>
+        message: 'If you requested this reset, then please click the link below to reset your password:'
         reset_link: Reset Password
         expire: This link will expire in two hours.
-        ignore: You can safely ignore this email if you did not request a password reset.
+        ignore: You can safely ignore this email if you did not make this request.
       promoted:
         admins_link: Visit the Organization Page
         info: You are now an %{role} on %{url}.

@@ -53,7 +53,7 @@ class PasswordResetsController < ApplicationController
     elsif params[:user][:password] != params[:user][:password_confirmation]
       flash.now[:alert] = I18n.t("password_different_notice")
       render 'edit'
-    elsif current_user.update_attributes(user_params)
+    elsif @user.update_attributes(user_params)
       flash[:success] = I18n.t("password_reset_success")
       redirect_to root_path
     else
@@ -67,23 +67,19 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by(email: params[:email])
   end
 
-  def current_user
-    @user
-  end
-
   def user_params
     params.require(:user).permit(:password, :password_confirmation)
   end
 
   # Checks expiration of reset token.
   def check_expiration
-    redirect_to new_password_reset_url, alert: I18n.t("expired_reset_token") if current_user.password_reset_expired?
+    redirect_to new_password_reset_url, alert: I18n.t("expired_reset_token") if @user.password_reset_expired?
   end
 
   # Confirms a valid user.
   def valid_user
-    unless current_user.authenticated?(:reset, params[:id])
-      current_user&.activate unless current_user&.activated?
+    unless @user.authenticated?(:reset, params[:id])
+      @user&.activate unless @user&.activated?
       redirect_to root_url
     end
   end

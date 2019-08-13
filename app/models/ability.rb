@@ -37,7 +37,7 @@ class Ability
 
       if highest_role.can_manage_users
         can [:index, :roles, :edit_user, :promote, :demote, :ban_user, :unban_user,
-             :approve, :invite], :admin
+             :approve, :invite, :reset], :admin
       end
 
       if !highest_role.can_edit_site_settings && !highest_role.can_edit_roles && !highest_role.can_manage_users
