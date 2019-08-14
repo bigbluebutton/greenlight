@@ -52,7 +52,7 @@ class AccountActivationsController < ApplicationController
       begin
         send_activation_email(@user)
       rescue => e
-        logger.error "Error in email delivery: #{e}"
+        logger.error "Support: Error in email delivery: #{e}"
         flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
       else
         flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))

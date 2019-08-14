@@ -43,6 +43,8 @@ class UsersController < ApplicationController
     # User has passed all validations required
     @user.save
 
+    logger.info("Support: #{@user.email} user has been created.")
+
     # Set user to pending and redirect if Approval Registration is set
     if approval_registration
       @user.add_role :pending
@@ -161,6 +163,8 @@ class UsersController < ApplicationController
 
   # DELETE /u/:user_uid
   def destroy
+    logger.info("Support: #{current_user.email} is deleting #{@user.email}.")
+
     if current_user && current_user == @user
       @user.destroy
       session.delete(:user_id)
@@ -168,7 +172,7 @@ class UsersController < ApplicationController
       begin
         @user.destroy
       rescue => e
-        logger.error "Error in user deletion: #{e}"
+        logger.error "Support: Error in user deletion: #{e}"
         flash[:alert] = I18n.t(params[:message], default: I18n.t("administrator.flash.delete_fail"))
       else
         flash[:success] = I18n.t("administrator.flash.delete")
@@ -220,7 +224,7 @@ class UsersController < ApplicationController
     begin
       send_activation_email(@user)
     rescue => e
-      logger.error "Error in email delivery: #{e}"
+      logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     else
       flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
@@ -235,7 +239,7 @@ class UsersController < ApplicationController
         send_approval_user_signup_email(@user)
       end
     rescue => e
-      logger.error "Error in email delivery: #{e}"
+      logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     end
   end
@@ -244,6 +248,8 @@ class UsersController < ApplicationController
   def valid_user_or_captcha
     valid_user = @user.valid?
     valid_captcha = Rails.configuration.recaptcha_enabled ? verify_recaptcha(model: @user) : true
+
+    logger.error("Support: #{@user.email} creation failed: User params are not valid.") unless valid_user
 
     valid_user && valid_captcha
   end

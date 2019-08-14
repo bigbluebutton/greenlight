@@ -39,7 +39,7 @@ class PasswordResetsController < ApplicationController
       redirect_to new_password_reset_path
     end
   rescue => e
-    logger.error "Error in email delivery: #{e}"
+    logger.error "Support: Error in email delivery: #{e}"
     redirect_to root_path, alert: I18n.t(params[:message], default: I18n.t("delivery_error"))
   end
 

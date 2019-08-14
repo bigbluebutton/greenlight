@@ -31,6 +31,8 @@ class SessionsController < ApplicationController
 
   # POST /users/login
   def create
+    logger.info("Support: #{session_params[:email]} is attempting to login.")
+
     admin = User.find_by(email: session_params[:email])
     if admin&.has_role? :super_admin
       user = admin
@@ -118,6 +120,8 @@ class SessionsController < ApplicationController
 
       user = User.from_omniauth(@auth)
 
+      logger.info("Support: Auth user #{user.email} is attempting to login.")
+
       # Add pending role if approval method and is a new user
       if approval_registration && !@user_exists
         user.add_role :pending
@@ -143,7 +147,7 @@ class SessionsController < ApplicationController
                         end
       end
     rescue => e
-        logger.error "Error authenticating via omniauth: #{e}"
+        logger.error "Support: Error authenticating via omniauth: #{e}"
         omniauth_fail
     end
   end
