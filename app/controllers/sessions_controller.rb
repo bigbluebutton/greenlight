@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
 
   # POST /users/login
   def create
-    logger.info("#{session_params[:email]} is attempting to login.")
+    logger.info("Support: #{session_params[:email]} is attempting to login.")
 
     admin = User.find_by(email: session_params[:email])
     if admin&.has_role? :super_admin
@@ -120,7 +120,7 @@ class SessionsController < ApplicationController
 
       user = User.from_omniauth(@auth)
 
-      logger.info("Auth user #{user.email} is attempting to login.")
+      logger.info("Support: Auth user #{user.email} is attempting to login.")
 
       # Add pending role if approval method and is a new user
       if approval_registration && !@user_exists

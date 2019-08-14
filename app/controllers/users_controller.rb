@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     # User has passed all validations required
     @user.save
 
-    logger.info("#{@user.email} user has been created.")
+    logger.info("Support: #{@user.email} user has been created.")
 
     # Set user to pending and redirect if Approval Registration is set
     if approval_registration
@@ -163,7 +163,7 @@ class UsersController < ApplicationController
 
   # DELETE /u/:user_uid
   def destroy
-    logger.info("#{current_user.email} is deleting #{@user.email}.")
+    logger.info("Support: #{current_user.email} is deleting #{@user.email}.")
 
     if current_user && current_user == @user
       @user.destroy
@@ -249,7 +249,7 @@ class UsersController < ApplicationController
     valid_user = @user.valid?
     valid_captcha = Rails.configuration.recaptcha_enabled ? verify_recaptcha(model: @user) : true
 
-    logger.info("#{@user.email} creation failed: User params are not valid.") unless valid_user
+    logger.info("Support: #{@user.email} creation failed: User params are not valid.") unless valid_user
 
     valid_user && valid_captcha
   end
