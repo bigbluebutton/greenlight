@@ -131,7 +131,13 @@ module Greenlight
     config.primary_color_darken_default = "#316cbe"
 
     # Default registration method if the user does not specify one
-    config.registration_method_default = config.registration_methods[:open]
+    config.registration_method_default = if ENV["DEFAULT_REGISTRATION"] == "invite"
+      config.registration_methods[:invite]
+    elsif ENV["DEFAULT_REGISTRATION"] == "approval"
+      config.registration_methods[:approval]
+    else
+      config.registration_methods[:open]
+    end
 
     # Default limit on number of rooms users can create
     config.number_of_rooms_default = 15
