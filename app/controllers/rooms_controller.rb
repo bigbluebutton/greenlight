@@ -42,6 +42,8 @@ class RoomsController < ApplicationController
       room_params[:require_moderator_approval], room_params[:anyone_can_start], room_params[:all_join_moderator])
 
     if @room.save
+      logger.info("#{current_user.email} has created a new room #{@room.uid}.")
+
       if room_params[:auto_join] == "1"
         start
       else
@@ -138,6 +140,8 @@ class RoomsController < ApplicationController
                                                                                             .uniq[0..2]
     end
 
+    logger.info("#{current_user.present? ? current_user.email : @join_name} is joining room #{@room.uid}")
+
     join_room(opts)
   end
 
@@ -166,6 +170,8 @@ class RoomsController < ApplicationController
 
   # POST /:room_uid/start
   def start
+    logger.info("#{current_user.email} is starting room #{@room.uid}")
+
     # Join the user in and start the meeting.
     opts = default_meeting_options
     opts[:user_is_moderator] = true
@@ -178,6 +184,8 @@ class RoomsController < ApplicationController
     begin
       redirect_to @room.join_path(current_user.name, opts, current_user.uid)
     rescue BigBlueButton::BigBlueButtonException => e
+      logger.info("#{@room.uid} start failed: #{e}")
+
       redirect_to room_path, alert: I18n.t(e.key.to_s.underscore, default: I18n.t("bigbluebutton_exception"))
     end
 
@@ -208,6 +216,8 @@ class RoomsController < ApplicationController
 
   # GET /:room_uid/logout
   def logout
+    logger.info("#{current_user.present? ? current_user.email : 'Guest'} has left room #{@room.uid}")
+
     # Redirect the correct page.
     redirect_to @room
   end
