@@ -19,6 +19,8 @@ SETUP_PROC = lambda do |env|
   SessionsController.helpers.omniauth_options env
 end
 
+OmniAuth.config.logger = Rails.logger
+
 # Setup the Omniauth middleware.
 Rails.application.config.middleware.use OmniAuth::Builder do
   if Rails.configuration.omniauth_bn_launcher
