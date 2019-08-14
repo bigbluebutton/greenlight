@@ -147,7 +147,7 @@ class SessionsController < ApplicationController
                         end
       end
     rescue => e
-        logger.error "Error authenticating via omniauth: #{e}"
+        logger.error "Support: Error authenticating via omniauth: #{e}"
         omniauth_fail
     end
   end

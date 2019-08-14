@@ -184,7 +184,7 @@ class RoomsController < ApplicationController
     begin
       redirect_to @room.join_path(current_user.name, opts, current_user.uid)
     rescue BigBlueButton::BigBlueButtonException => e
-      logger.info("Support: #{@room.uid} start failed: #{e}")
+      logger.error("Support: #{@room.uid} start failed: #{e}")
 
       redirect_to room_path, alert: I18n.t(e.key.to_s.underscore, default: I18n.t("bigbluebutton_exception"))
     end

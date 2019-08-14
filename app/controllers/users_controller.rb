@@ -172,7 +172,7 @@ class UsersController < ApplicationController
       begin
         @user.destroy
       rescue => e
-        logger.error "Error in user deletion: #{e}"
+        logger.error "Support: Error in user deletion: #{e}"
         flash[:alert] = I18n.t(params[:message], default: I18n.t("administrator.flash.delete_fail"))
       else
         flash[:success] = I18n.t("administrator.flash.delete")
@@ -224,7 +224,7 @@ class UsersController < ApplicationController
     begin
       send_activation_email(@user)
     rescue => e
-      logger.error "Error in email delivery: #{e}"
+      logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     else
       flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
@@ -239,7 +239,7 @@ class UsersController < ApplicationController
         send_approval_user_signup_email(@user)
       end
     rescue => e
-      logger.error "Error in email delivery: #{e}"
+      logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     end
   end
@@ -249,7 +249,7 @@ class UsersController < ApplicationController
     valid_user = @user.valid?
     valid_captcha = Rails.configuration.recaptcha_enabled ? verify_recaptcha(model: @user) : true
 
-    logger.info("Support: #{@user.email} creation failed: User params are not valid.") unless valid_user
+    logger.error("Support: #{@user.email} creation failed: User params are not valid.") unless valid_user
 
     valid_user && valid_captcha
   end

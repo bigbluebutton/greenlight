@@ -97,7 +97,7 @@ class AdminsController < ApplicationController
 
       send_invitation_email(current_user.name, email, invitation.invite_token)
     rescue => e
-      logger.error "Error in email delivery: #{e}"
+      logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     else
       flash[:success] = I18n.t("administrator.flash.invite", email: email)
