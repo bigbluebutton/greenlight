@@ -60,6 +60,7 @@ gem 'bigbluebutton-api-ruby'
 gem 'bootstrap', '~> 4.3.1'
 gem 'tabler-rubygem', git: 'https://github.com/vbalazs/tabler-rubygem.git', branch: 'fix-sass'
 gem 'pagy'
+gem 'font-awesome-sass', '~> 5.9.0'
 
 # For detecting the users preferred language.
 gem 'http_accept_language'

@@ -34,14 +34,18 @@
 @import "bootstrap";
 @import "jquery-ui/sortable";
 @import "tabler-custom";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 @import "utilities/variables";
 @import "admins";
 @import "main";
 @import "rooms";
 @import "sessions";
+@import "monolith.min.css";
 
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500);
 
 * {
   outline: none !important;
