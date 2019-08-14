@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     post '/invite', to: 'admins#invite', as: :invite_user
     post '/registration_method/:method', to: 'admins#registration_method', as: :admin_change_registration
     post '/approve/:user_uid', to: 'admins#approve', as: :admin_approve
+    get '/reset', to: 'admins#reset', as: :admin_reset
     post '/room_limit', to: 'admins#room_limit', as: :admin_room_limit
     post '/default_recording_visibility', to: 'admins#default_recording_visibility', as: :admin_recording_visibility
     get '/roles', to: 'admins#roles', as: :admin_roles

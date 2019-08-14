@@ -22,7 +22,7 @@ class AdminsController < ApplicationController
   include Emailer
   include Recorder
 
-  manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve]
+  manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve, :reset]
   site_settings = [:branding, :coloring, :coloring_lighten, :coloring_darken,
                    :registration_method, :room_authentication, :room_limit, :default_recording_visibility]
 
@@ -106,6 +106,14 @@ class AdminsController < ApplicationController
     redirect_to admins_path
   end
 
+  # GET /admins/reset
+  def reset
+    @user.create_reset_digest
+
+    send_password_reset_email(@user)
+
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.reset_password") }
+  end
   # SITE SETTINGS
 
   # POST /admins/branding

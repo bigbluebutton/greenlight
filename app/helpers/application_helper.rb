@@ -128,4 +128,9 @@ module ApplicationHelper
       role.name
     end
   end
+
+  def can_reset_password
+    # Check if admin is editting user
+    Rails.application.routes.recognize_path(request.env['PATH_INFO'])[:action] == "edit_user"
+  end
 end
