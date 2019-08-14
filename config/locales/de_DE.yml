@@ -75,6 +75,7 @@ de_DE:
       invite_email_verification: "Emailversand muss aktiviert sein, um diese Methode verwenden zu können. Bitte kontaktieren Sie Ihren Systemadministrator."
       promoted: Teilnehmer wurde erfolgreich hochgestuft
       registration_method_updated: Registrierungsmethode erfolgreich aktualisiert
+      reset_password: "Dem Teilnehmer wurde eine Email zum Passwortreset geschickt (Bitte weisen Sie den Teilnehmer darauf hin, im Spamordner danach zu suchen, falls er die Email nicht erhalten hat)"
       settings: Seiteneinstellungen erfolgreich geändert
       unauthorized: "Sie haben nicht die notwendigen Rechte, um diese Änderung bei diesem Teilnehmer vorzunehmen."
     recordings:
@@ -209,8 +210,7 @@ de_DE:
       signout: Abmelden
   home_room: Startraum
   info_update_success: Information erfolgreich aktualisiert.
-  invalid_user: "Login fehlgeschlagen, weil das Benutzerkonto nicht gefunden wurde. Sind Sie sicher, dass die angegebene Emailadresse richtig ist?"
-  invalid_credentials: "Login wegen ungültiger Anmeldedaten fehlgeschlagen. Sind Sie sicher, alles richtig eingegeben zu haben?"
+  invalid_credentials: "Die eingegebene Email und das Passwort sind nicht richtig. Bitte versuchen Sie es erneut oder wählen Sie die Option Ihr Passwort zurückzusetzen, falls Sie es vergessen haben."
   invalid_login_method: Login fehlgeschlagen aufgrund einer Zugangsdiskrepanz. Sie müssen sich mit Omniauth anmelden.
   invite_message: "Um jemanden zur Konferenz einzuladen, schicken Sie ihm diesen Link:"
   javascript:
@@ -262,11 +262,11 @@ de_DE:
         username: "Ihr Nutzername ist %{email}."
       password_reset:
         title: 'Passwort zurücksetzen'
-        welcome: "Es scheint als ob Sie ihr Passwort für %{bigbluebutton} vergessen haben"
-        message: 'Falls dies zutrifft, klicken Sie bitte auf den folgenden Link, um Ihr Passwort zurückzusetzen:'
+        welcome: "Es wurde ein Passwortreset für Emailadresse <b>%{email}</b> ausgelöst."
+        message: 'Falls Sie Ihr Passwort zurücksetzen wollen, klicken Sie bitte auf den folgenden Link:'
         reset_link: Passwort zurücksetzen
         expire: Dieser Link wird in zwei Stunden ungültig.
-        ignore: "Sie können diese Email einfach ignorieren, falls Sie keine Passwortzurücksetzung veranlasst haben."
+        ignore: "Sie können diese Email einfach ignorieren, falls Sie keine Anfrage zum Passwortreset abgeschickt haben."
       promoted:
         admins_link: Organisationsseite besuchen
         info: "Sie sind jetzt ein %{role} auf %{url}."
