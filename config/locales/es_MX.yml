@@ -332,6 +332,7 @@ es_MX:
   name_update_success: El nombre de la sala ha sido actualizado exitósamente
   no_user_email_exists: "No hay ningún usuario existente con el correo electrónico especificado. Por favor, asegúrese de que lo escribió correctamente."
   omniauth_error: Ocurrió un error al intentar ingresar utilizando OmniAuth. Por favor intente nuevamente o contacte un administrador.
+  omniauth_specific_error: "Ocurrió un error al intentar ingresar utilizando omniauth. Por favor intente nuevamente o contacte un administrador."
   pagy:
     nav:
       prev: "&lsaquo; Anterior"
