@@ -130,7 +130,9 @@ module ApplicationHelper
   end
 
   def can_reset_password
-    # Check if admin is editting user
-    Rails.application.routes.recognize_path(request.env['PATH_INFO'])[:action] == "edit_user"
+    # Check if admin is editting user and user is a greenlight account
+    Rails.configuration.enable_email_verification &&
+      Rails.application.routes.recognize_path(request.env['PATH_INFO'])[:action] == "edit_user" &&
+      @user.greenlight_account?
   end
 end
