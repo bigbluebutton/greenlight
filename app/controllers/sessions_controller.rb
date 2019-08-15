@@ -132,7 +132,7 @@ class SessionsController < ApplicationController
 
     logger.info "Support: Auth user #{user.email} is attempting to login."
 
-      # Add pending role if approval method and is a new user
+    # Add pending role if approval method and is a new user
     if approval_registration && !@user_exists
       user.add_role :pending
 

@@ -54,7 +54,7 @@ class AdminsController < ApplicationController
     end
 
     @search, @order_column, @order_direction, recs =
-      all_recordings(server_rooms, @user_domain, params.permit(:search, :column, :direction), true, true)
+      all_recordings(server_rooms, params.permit(:search, :column, :direction), true, true)
 
     @pagy, @recordings = pagy_array(recs)
   end

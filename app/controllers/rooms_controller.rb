@@ -60,13 +60,16 @@ class RoomsController < ApplicationController
   # GET /:room_uid
   def show
     @anyone_can_start = JSON.parse(@room[:room_settings])["anyoneCanStart"]
+    @room_running = room_running?(@room.bbb_id)
 
     # If its the current user's room
     if current_user && @room.owned_by?(current_user)
       if current_user.highest_priority_role.can_create_rooms
         # User is allowed to have rooms
+        @recording_count = all_room_recording_count
+
         @search, @order_column, @order_direction, recs =
-          recordings(@room.bbb_id, @user_domain, params.permit(:search, :column, :direction), true)
+          recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
 
         @pagy, @recordings = pagy_array(recs)
       else
@@ -85,7 +88,7 @@ class RoomsController < ApplicationController
       end
 
       @search, @order_column, @order_direction, pub_recs =
-        public_recordings(@room.bbb_id, @user_domain, params.permit(:search, :column, :direction), true)
+        public_recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
 
       @pagy, @public_recordings = pagy_array(pub_recs)
 
@@ -98,7 +101,7 @@ class RoomsController < ApplicationController
     if params[:setting] == "rename_header"
       update_room_attributes("name")
     elsif params[:setting] == "rename_recording"
-      @room.update_recording(params[:record_id], "meta_name" => params[:record_name])
+      update_recording(params[:record_id], "meta_name" => params[:record_name])
     end
 
     redirect_back fallback_location: room_path
@@ -141,7 +144,10 @@ class RoomsController < ApplicationController
   # DELETE /:room_uid
   def destroy
     # Don't delete the users home room.
-    @room.destroy if @room.owned_by?(current_user) && @room != current_user.main_room
+    if @room.owned_by?(current_user) && @room != current_user.main_room
+      @room.destroy
+      delete_all_recordings(@room.bbb_id)
+    end
 
     redirect_to current_user.main_room
   end
@@ -173,7 +179,7 @@ class RoomsController < ApplicationController
     opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
 
     begin
-      redirect_to @room.join_path(current_user.name, opts, current_user.uid)
+      redirect_to join_path(@room, current_user.name, opts, current_user.uid)
     rescue BigBlueButton::BigBlueButtonException => e
       logger.error("Support: #{@room.uid} start failed: #{e}")
 
@@ -319,7 +325,7 @@ class RoomsController < ApplicationController
   def join_room(opts)
     room_settings = JSON.parse(@room[:room_settings])
 
-    if @room.running? || @room.owned_by?(current_user) || room_settings["anyoneCanStart"]
+    if room_running?(@room.bbb_id) || @room.owned_by?(current_user) || room_settings["anyoneCanStart"]
 
       # Determine if the user needs to join as a moderator.
       opts[:user_is_moderator] = @room.owned_by?(current_user) || room_settings["joinModerator"]
@@ -327,15 +333,15 @@ class RoomsController < ApplicationController
       opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
 
       if current_user
-        redirect_to @room.join_path(current_user.name, opts, current_user.uid)
+        redirect_to join_path(@room, current_user.name, opts, current_user.uid)
       else
         join_name = params[:join_name] || params[@room.invite_path][:join_name]
-        redirect_to @room.join_path(join_name, opts)
+        redirect_to join_path(@room, join_name, opts)
       end
     else
       search_params = params[@room.invite_path] || params
       @search, @order_column, @order_direction, pub_recs =
-        public_recordings(@room.bbb_id, @user_domain, search_params.permit(:search, :column, :direction), true)
+        public_recordings(@room.bbb_id, search_params.permit(:search, :column, :direction), true)
 
       @pagy, @public_recordings = pagy_array(pub_recs)
 
@@ -355,5 +361,15 @@ class RoomsController < ApplicationController
       host: request.host,
       recording_default_visibility: @settings.get_value("Default Recording Visibility") == "public"
     }
+  end
+
+  def all_room_recording_count
+    all_counts = {}
+
+    current_user.rooms.each do |room|
+      all_counts[room.uid.to_s] = recording_count(room.bbb_id)
+    end
+
+    all_counts
   end
 end

@@ -131,7 +131,6 @@ describe PasswordResetsController, type: :controller do
             password: :password,
             password_confirmation: :password,
           },
-          email: user.email
         }
 
         patch :update, params: params

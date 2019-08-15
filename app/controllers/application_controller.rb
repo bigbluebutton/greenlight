@@ -16,15 +16,16 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-require 'bigbluebutton_api'
-
 class ApplicationController < ActionController::Base
-  include BbbApi
+  META_LISTED = "gl-listed"
+
+  include BbbServer
   include ThemingHelper
 
   before_action :redirect_to_https
   before_action :set_user_domain
   before_action :set_user_settings
+  before_action :set_bbb_api
   before_action :maintenance_mode?
   before_action :migration_error?
   before_action :user_locale
@@ -79,6 +80,14 @@ class ApplicationController < ActionController::Base
   # Sets the settinfs variable
   def set_user_settings
     @settings = Setting.find_or_create_by(provider: @user_domain)
+  end
+
+  def set_bbb_api
+    @bbb = if Rails.configuration.loadbalanced_configuration
+      bbb(@user_domain)
+    else
+      bbb("greenlight")
+    end
   end
 
   # Show an information page when migration fails and there is a version error.

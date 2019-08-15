@@ -20,15 +20,13 @@ class RecordingsController < ApplicationController
   before_action :find_room
   before_action :verify_room_ownership
 
-  META_LISTED = "gl-listed"
-
   # POST /:meetingID/:record_id
   def update_recording
     meta = {
       "meta_#{META_LISTED}" => (params[:state] == "public"),
     }
 
-    res = @room.update_recording(params[:record_id], meta)
+    res = update_recording(params[:record_id], meta)
 
     # Redirects to the page that made the initial request
     redirect_back fallback_location: root_path if res[:updated]
@@ -36,7 +34,7 @@ class RecordingsController < ApplicationController
 
   # DELETE /:meetingID/:record_id
   def delete_recording
-    @room.delete_recording(params[:record_id])
+    delete_recording(params[:record_id])
 
     # Redirects to the page that made the initial request
     redirect_back fallback_location: root_path

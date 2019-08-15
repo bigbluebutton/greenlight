@@ -116,23 +116,6 @@ describe Room, type: :model do
     end
   end
 
-  context "#participants" do
-    it "should link participants to accounts" do
-      user1 = create(:user)
-      user2 = create(:user)
-
-      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_meeting_info).and_return(
-        attendees: [
-          { userID: user1.uid, fullName: user1.name },
-          { userID: "non-matching-uid", fullName: "Guest User" },
-          { userID: user2.uid, fullName: user2.name },
-        ],
-      )
-
-      expect(@room.participants).to contain_exactly(user1, nil, user2)
-    end
-  end
-
   context "#recordings" do
     it "deletes the recording" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:delete_recordings).and_return(
