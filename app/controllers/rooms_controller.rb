@@ -44,7 +44,7 @@ class RoomsController < ApplicationController
 
     # Save the room
     if @room.save
-      logger.info("Support: #{current_user.email} has created a new room #{@room.uid}.")
+      logger.info "Support: #{current_user.email} has created a new room #{@room.uid}."
 
       # Start the room if auto join was turned on
       if room_params[:auto_join] == "1"
@@ -134,7 +134,7 @@ class RoomsController < ApplicationController
         recently_joined_rooms.prepend(@room.id).uniq[0..2]
     end
 
-    logger.info("Support: #{current_user.present? ? current_user.email : @join_name} is joining room #{@room.uid}")
+    logger.info "Support: #{current_user.present? ? current_user.email : @join_name} is joining room #{@room.uid}"
     join_room(default_meeting_options)
   end
 
@@ -161,7 +161,7 @@ class RoomsController < ApplicationController
 
   # POST /:room_uid/start
   def start
-    logger.info("Support: #{current_user.email} is starting room #{@room.uid}")
+    logger.info "Support: #{current_user.email} is starting room #{@room.uid}"
 
     # Join the user in and start the meeting.
     opts = default_meeting_options
@@ -208,7 +208,7 @@ class RoomsController < ApplicationController
 
   # GET /:room_uid/logout
   def logout
-    logger.info("Support: #{current_user.present? ? current_user.email : 'Guest'} has left room #{@room.uid}")
+    logger.info "Support: #{current_user.present? ? current_user.email : 'Guest'} has left room #{@room.uid}"
 
     # Redirect the correct page.
     redirect_to @room

@@ -26,7 +26,7 @@ module Emailer
 
       UserMailer.verify_email(user, user_verification_link(user), @settings).deliver
     rescue => e
-      logger.error "Error in email delivery: #{e}"
+      logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     else
       flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
@@ -40,7 +40,7 @@ module Emailer
 
       UserMailer.password_reset(user, reset_link(user), @settings).deliver_now
     rescue => e
-      logger.error "Error in email delivery: #{e}"
+      logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     else
       flash[:success] = I18n.t("email_sent", email_type: t("reset_password.subtitle"))
@@ -53,7 +53,7 @@ module Emailer
 
       UserMailer.user_promoted(user, role, root_url, @settings).deliver_now
     rescue => e
-      logger.error "Error in email delivery: #{e}"
+      logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     end
   end
@@ -64,7 +64,7 @@ module Emailer
 
       UserMailer.user_demoted(user, role, root_url, @settings).deliver_now
     rescue => e
-      logger.error "Error in email delivery: #{e}"
+      logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     end
   end
@@ -76,7 +76,7 @@ module Emailer
 
       UserMailer.invite_email(name, email, invitation_link(token), @settings).deliver_now
     rescue => e
-      logger.error "Error in email delivery: #{e}"
+      logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     else
       flash[:success] = I18n.t("administrator.flash.invite", email: email)
@@ -89,7 +89,7 @@ module Emailer
 
       UserMailer.approve_user(user, root_url, @settings).deliver_now
     rescue => e
-      logger.error "Error in email delivery: #{e}"
+      logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     else
       flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
@@ -103,7 +103,7 @@ module Emailer
       admin_emails = admin_emails()
       UserMailer.approval_user_signup(user, admins_url, admin_emails, @settings).deliver_now unless admin_emails.empty?
     rescue => e
-      logger.error "Error in email delivery: #{e}"
+      logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     end
   end
@@ -115,7 +115,7 @@ module Emailer
       admin_emails = admin_emails()
       UserMailer.invite_user_signup(user, admins_url, admin_emails, @settings).deliver_now unless admin_emails.empty?
     rescue => e
-      logger.error "Error in email delivery: #{e}"
+      logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     end
   end

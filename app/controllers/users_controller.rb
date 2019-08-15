@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     # User has passed all validations required
     @user.save
 
-    logger.info("Support: #{@user.email} user has been created.")
+    logger.info "Support: #{@user.email} user has been created."
 
     # Set user to pending and redirect if Approval Registration is set
     if approval_registration
@@ -169,7 +169,7 @@ class UsersController < ApplicationController
 
   # DELETE /u/:user_uid
   def destroy
-    logger.info("Support: #{current_user.email} is deleting #{@user.email}.")
+    logger.info "Support: #{current_user.email} is deleting #{@user.email}."
 
     if current_user && current_user == @user
       @user.destroy

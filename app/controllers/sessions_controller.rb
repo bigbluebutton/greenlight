@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
 
   # POST /users/login
   def create
-    logger.info("Support: #{session_params[:email]} is attempting to login.")
+    logger.info "Support: #{session_params[:email]} is attempting to login."
 
     admin = User.find_by(email: session_params[:email])
     if admin&.has_role? :super_admin
@@ -94,7 +94,7 @@ class SessionsController < ApplicationController
     begin
       process_signin
     rescue => e
-      logger.error "Error authenticating via omniauth: #{e}"
+      logger.error "Support: Error authenticating via omniauth: #{e}"
       omniauth_fail
     end
   end
@@ -130,7 +130,7 @@ class SessionsController < ApplicationController
 
     user = User.from_omniauth(@auth)
 
-    logger.info("Support: Auth user #{user.email} is attempting to login.")
+    logger.info "Support: Auth user #{user.email} is attempting to login."
 
       # Add pending role if approval method and is a new user
     if approval_registration && !@user_exists
@@ -152,12 +152,6 @@ class SessionsController < ApplicationController
       else
         I18n.t("registration.deprecated.twitter_signin", link: signin_path(old_twitter_user_id: user.id))
       end
-<<<<<<< HEAD
-    rescue => e
-        logger.error "Support: Error authenticating via omniauth: #{e}"
-        omniauth_fail
-=======
->>>>>>> 315c506... Restructured profile and code clean up
     end
   end
 end
