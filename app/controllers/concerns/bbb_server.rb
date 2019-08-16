@@ -20,20 +20,21 @@ require 'bigbluebutton_api'
 
 module BbbServer
   extend ActiveSupport::Concern
-
   include BbbApi
+
+  META_LISTED = "gl-listed"
 
   # Checks if a room is running on the BigBlueButton server.
   def room_running?(bbb_id)
-    @bbb.is_meeting_running?(bbb_id)
+    bbb_server.is_meeting_running?(bbb_id)
   end
 
   def get_recordings(meeting_id)
-    @bbb.get_recordings(meetingID: meeting_id)
+    bbb_server.get_recordings(meetingID: meeting_id)
   end
 
   def get_multiple_recordings(meeting_ids)
-    @bbb.get_recordings(meetingID: meeting_ids)
+    bbb_server.get_recordings(meetingID: meeting_ids)
   end
 
   # Returns a URL to join a user into a meeting.
@@ -50,7 +51,7 @@ module BbbServer
     join_opts[:join_via_html5] = true
     join_opts[:guest] = true if options[:require_moderator_approval] && !options[:user_is_moderator]
 
-    @bbb.join_meeting_url(room.bbb_id, name, password, join_opts)
+    bbb_server.join_meeting_url(room.bbb_id, name, password, join_opts)
   end
 
   # Creates a meeting on the BigBlueButton server.
@@ -72,10 +73,10 @@ module BbbServer
 
     # Send the create request.
     begin
-      meeting = @bbb.create_meeting(room.name, room.bbb_id, create_options)
+      meeting = bbb_server.create_meeting(room.name, room.bbb_id, create_options)
       # Update session info.
       unless meeting[:messageKey] == 'duplicateWarning'
-       room.update_attributes(sessions: sessions + 1,
+       room.update_attributes(sessions: room.sessions + 1,
           last_session: DateTime.now)
       end
     rescue BigBlueButton::BigBlueButtonException => e
@@ -86,23 +87,23 @@ module BbbServer
 
   # Gets the number of recordings for this room
   def recording_count(bbb_id)
-    @bbb.get_recordings(meetingID: bbb_id)[:recordings].length
+    bbb_server.get_recordings(meetingID: bbb_id)[:recordings].length
   end
 
   # Update a recording from a room
   def update_recording(record_id, meta)
     meta[:recordID] = record_id
-    @bbb.send_api_request("updateRecordings", meta)
+    bbb_server.send_api_request("updateRecordings", meta)
   end
 
   # Deletes a recording from a room.
   def delete_recording(record_id)
-    @bbb.delete_recordings(record_id)
+    bbb_server.delete_recordings(record_id)
   end
 
   # Deletes all recordings associated with the room.
   def delete_all_recordings(bbb_id)
-    record_ids = @bbb.get_recordings(meetingID: bbb_id)[:recordings].pluck(:recordID)
-    @bbb.delete_recordings(record_ids) unless record_ids.empty?
+    record_ids = bbb_server.get_recordings(meetingID: bbb_id)[:recordings].pluck(:recordID)
+    bbb_server.delete_recordings(record_ids) unless record_ids.empty?
   end
 end

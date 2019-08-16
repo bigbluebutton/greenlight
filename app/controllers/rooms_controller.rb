@@ -66,8 +66,6 @@ class RoomsController < ApplicationController
     if current_user && @room.owned_by?(current_user)
       if current_user.highest_priority_role.can_create_rooms
         # User is allowed to have rooms
-        @recording_count = all_room_recording_count
-
         @search, @order_column, @order_direction, recs =
           recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
 
@@ -361,15 +359,5 @@ class RoomsController < ApplicationController
       host: request.host,
       recording_default_visibility: @settings.get_value("Default Recording Visibility") == "public"
     }
-  end
-
-  def all_room_recording_count
-    all_counts = {}
-
-    current_user.rooms.each do |room|
-      all_counts[room.uid.to_s] = recording_count(room.bbb_id)
-    end
-
-    all_counts
   end
 end

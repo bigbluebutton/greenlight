@@ -17,15 +17,12 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class ApplicationController < ActionController::Base
-  META_LISTED = "gl-listed"
-
   include BbbServer
   include ThemingHelper
 
   before_action :redirect_to_https
   before_action :set_user_domain
   before_action :set_user_settings
-  before_action :set_bbb_api
   before_action :maintenance_mode?
   before_action :migration_error?
   before_action :user_locale
@@ -35,13 +32,7 @@ class ApplicationController < ActionController::Base
   # Manually handle BigBlueButton errors
   rescue_from BigBlueButton::BigBlueButtonException, with: :handle_bigbluebutton_error
 
-  protect_from_forgery with: :exception
-
-  # Include user domain in lograge logs
-  def append_info_to_payload(payload)
-    super
-    payload[:host] = @user_domain
-  end
+  protect_from_forgery with: :exceptions
 
   # Retrieves the current user.
   def current_user
@@ -58,6 +49,10 @@ class ApplicationController < ActionController::Base
     @current_user
   end
   helper_method :current_user
+
+  def bbb_server
+    @bbb ||= Rails.configuration.loadbalanced_configuration ? bbb(@user_domain) : bbb("greenlight")
+  end
 
   # Force SSL
   def redirect_to_https
@@ -80,14 +75,6 @@ class ApplicationController < ActionController::Base
   # Sets the settinfs variable
   def set_user_settings
     @settings = Setting.find_or_create_by(provider: @user_domain)
-  end
-
-  def set_bbb_api
-    @bbb = if Rails.configuration.loadbalanced_configuration
-      bbb(@user_domain)
-    else
-      bbb("greenlight")
-    end
   end
 
   # Show an information page when migration fails and there is a version error.
@@ -187,6 +174,13 @@ class ApplicationController < ActionController::Base
       return hostname.chomp(url_host).chomp('.') if hostname.include?(url_host)
     end
     ''
+  end
+
+
+  # Include user domain in lograge logs
+  def append_info_to_payload(payload)
+    super
+    payload[:host] = @user_domain
   end
 
   # Manually Handle BigBlueButton errors

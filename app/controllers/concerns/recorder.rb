@@ -22,7 +22,7 @@ module Recorder
 
   # Fetches all recordings for a room.
   def recordings(room_bbb_id, search_params = {}, ret_search_params = false)
-    res = get_recordings(meetingID: room_bbb_id)
+    res = get_recordings(room_bbb_id)
 
     format_recordings(res, search_params, ret_search_params)
   end
@@ -40,7 +40,7 @@ module Recorder
     until room_bbb_ids.empty?
       # bbb.get_recordings returns an object
       # take only the array portion of the object that is returned
-      full_res = get_multiple_recordings(meetingID: room_bbb_ids.pop(Rails.configuration.pagination_number))
+      full_res = get_multiple_recordings(room_bbb_ids.pop(Rails.configuration.pagination_number))
       res[:recordings].push(*full_res[:recordings])
     end
 
