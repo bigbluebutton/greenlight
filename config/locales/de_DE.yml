@@ -332,6 +332,7 @@ de_DE:
   name_update_success: Raumname erfolgreich geändert!
   no_user_email_exists: "Es gibt keinen Nutzer mit der angegebenen Email. Stellen Sie sicher, dass Sie sich nicht vertippt haben."
   omniauth_error: Es ist ein Fehler bei der Authentifizierung über Omniauth aufgetreten. Versuchen Sie es nochmal oder kontaktieren Sie einen Administrator.
+  omniauth_specific_error: "%{error} ist während der Authentifizierung mit Omniauth aufgetreten. Bitte versuchen Sie es nochmal oder kontaktieren Sie einen Administrator!"
   pagy:
     nav:
       prev: "&lsaquo; Vorheriges"
