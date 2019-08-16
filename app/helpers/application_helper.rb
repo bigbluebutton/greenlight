@@ -135,4 +135,8 @@ module ApplicationHelper
       Rails.application.routes.recognize_path(request.env['PATH_INFO'])[:action] == "edit_user" &&
       @user.greenlight_account?
   end
+
+  def google_analytics_url
+    "https://www.googletagmanager.com/gtag/js?id=#{ENV['GOOGLE_ANALYTICS_TRACKING_ID']}"
+  end
 end
