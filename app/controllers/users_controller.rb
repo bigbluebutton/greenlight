@@ -111,6 +111,7 @@ class UsersController < ApplicationController
 
   # GET /u/:user_uid/edit
   def edit
+    redirect_to root_path unless current_user
   end
 
   # GET /u/:user_uid/change_password
@@ -254,6 +255,6 @@ class UsersController < ApplicationController
 
   # Checks that the user is allowed to edit this user
   def check_admin_of
-    redirect_to current_user.main_room if @user != current_user && !current_user.admin_of?(@user)
+    redirect_to current_user.main_room if current_user && @user != current_user && !current_user.admin_of?(@user)
   end
 end

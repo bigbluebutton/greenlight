@@ -22,7 +22,7 @@ require 'bigbluebutton_api'
 describe BbbServer do
   include BbbServer
 
-  let(:bbb_server) { BigBlueButton::BigBlueButtonApi.new("http://bbb.example.com/bigbluebutton/api", "secret","0.8") }
+  let(:bbb_server) { BigBlueButton::BigBlueButtonApi.new("http://bbb.example.com/bigbluebutton/api", "secret", "0.8") }
 
   before do
     @user = create(:user)
@@ -57,7 +57,7 @@ describe BbbServer do
   context "#join_path" do
     it "should return correct join URL for user" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_meeting_info).and_return(
-        attendeePW: "testpass"
+        attendeePW: @room.attendee_pw
       )
 
       endpoint = Rails.configuration.bigbluebutton_endpoint
@@ -65,7 +65,7 @@ describe BbbServer do
       fullname = "fullName=Example"
       join_via_html5 = "&join_via_html5=true"
       meeting_id = "&meetingID=#{@room.bbb_id}"
-      password = "&password=testpass"
+      password = "&password=#{@room.attendee_pw}"
 
       query = fullname + join_via_html5 + meeting_id + password
       checksum_string = "join#{query + secret}"

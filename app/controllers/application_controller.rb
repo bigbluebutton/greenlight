@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def bbb_server
-    @bbb ||= Rails.configuration.loadbalanced_configuration ? bbb(@user_domain) : bbb("greenlight")
+    @bbb_server ||= Rails.configuration.loadbalanced_configuration ? bbb(@user_domain) : bbb("greenlight")
   end
 
   # Force SSL
