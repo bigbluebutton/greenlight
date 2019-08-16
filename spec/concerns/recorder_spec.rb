@@ -19,13 +19,12 @@
 require "rails_helper"
 require 'bigbluebutton_api'
 
-shared_examples_for "recorder" do
-  let(:controller) { described_class } # the class that includes the concern
-
+describe Recorder do
+  include Recorder
+  include BbbServer
   before do
     @user = create(:user)
     @room = @user.main_room
-
     allow_any_instance_of(Room).to receive(:owner).and_return(@user)
   end
 

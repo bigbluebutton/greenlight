@@ -176,7 +176,6 @@ class ApplicationController < ActionController::Base
     ''
   end
 
-
   # Include user domain in lograge logs
   def append_info_to_payload(payload)
     super
