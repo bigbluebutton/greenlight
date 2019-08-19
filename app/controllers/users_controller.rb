@@ -166,20 +166,19 @@ class UsersController < ApplicationController
   def destroy
     logger.info "Support: #{current_user.email} is deleting #{@user.email}."
 
-    if current_user && current_user == @user
-      @user.destroy
-      session.delete(:user_id)
-    elsif current_user.admin_of?(@user)
-      begin
+    self_delete = current_user == @user
+    begin
+      if current_user && (self_delete || current_user.admin_of?(@user))
         @user.destroy
-      rescue => e
-        logger.error "Support: Error in user deletion: #{e}"
-        flash[:alert] = I18n.t(params[:message], default: I18n.t("administrator.flash.delete_fail"))
-      else
-        flash[:success] = I18n.t("administrator.flash.delete")
+        session.delete(:user_id) if self_delete
+
+        return redirect_to admins_path, flash: { success: I18n.t("administrator.flash.delete") } unless self_delete
       end
-      redirect_to(admins_path) && return
+    rescue => e
+      logger.error "Support: Error in user deletion: #{e}"
+      flash[:alert] = I18n.t(params[:message], default: I18n.t("administrator.flash.delete_fail"))
     end
+
     redirect_to root_path
   end
 
@@ -227,36 +226,8 @@ class UsersController < ApplicationController
     end
   end
 
-  # Add validation errors to model if they exist
-  def valid_user_or_captcha
-    valid_user = @user.valid?
-    valid_captcha = Rails.configuration.recaptcha_enabled ? verify_recaptcha(model: @user) : true
-
-    logger.error("Support: #{@user.email} creation failed: User params are not valid.") unless valid_user
-
-    valid_user && valid_captcha
-  end
-
-  # Checks if the user passes the requirements to be invited
-  def passes_invite_reqs
-    # check if user needs to be invited and IS invited
-    invitation = check_user_invited(@user.email, session[:invite_token], @user_domain)
-
-    @user.email_verified = true if invitation[:verified]
-
-    invitation[:present]
-  end
-
   # Checks that the user is allowed to edit this user
   def check_admin_of
     redirect_to current_user.main_room if current_user && @user != current_user && !current_user.admin_of?(@user)
-  end
-
-  def check_if_twitter_account(log_out = false)
-    unless params[:old_twitter_user_id].nil? && session[:old_twitter_user_id].nil?
-      logout if log_out
-      flash.now[:alert] = I18n.t("registration.deprecated.new_signin")
-      session[:old_twitter_user_id] = params[:old_twitter_user_id] unless params[:old_twitter_user_id].nil?
-    end
   end
 end
