@@ -23,6 +23,42 @@ class SessionsController < ApplicationController
   include LdapAuthenticator
 
   skip_before_action :verify_authenticity_token, only: [:omniauth, :fail]
+  before_action :check_user_signup_allowed, only: [:new]
+  before_action :ensure_unauthenticated_except_twitter, only: [:new, :signin]
+
+  # GET /signin
+  def signin
+    check_if_twitter_account
+
+    providers = configured_providers
+    if one_provider
+      provider_path = if Rails.configuration.omniauth_ldap
+        ldap_signin_path
+      else
+        "#{Rails.configuration.relative_url_root}/auth/#{providers.first}"
+      end
+
+      return redirect_to provider_path
+    end
+  end
+
+  # GET /ldap_signin
+  def ldap_signin
+  end
+
+  # GET /signup
+  def new
+    # Check if the user needs to be invited
+    if invite_registration
+      redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless params[:invite_token]
+
+      session[:invite_token] = params[:invite_token]
+    end
+
+    check_if_twitter_account(true)
+
+    @user = User.new
+  end
 
   # POST /users/login
   def create
@@ -101,8 +137,18 @@ class SessionsController < ApplicationController
 
   private
 
+  # Verify that GreenLight is configured to allow user signup.
+  def check_user_signup_allowed
+    redirect_to root_path unless Rails.configuration.allow_user_signup
+  end
+
   def session_params
     params.require(:session).permit(:email, :password)
+  end
+
+  def one_provider
+    (!allow_user_signup? || !allow_greenlight_accounts?) && providers.count == 1 &&
+      !Rails.configuration.loadbalanced_configuration
   end
 
   def check_user_exists

@@ -34,6 +34,13 @@ class RecordingsController < ApplicationController
     redirect_back fallback_location: root_path if res[:updated]
   end
 
+  # PATCH /:meetingID/:record_id
+  def rename
+    update_recording(params[:record_id], "meta_name" => params[:record_name])
+
+    redirect_back fallback_location: room_path(@room)
+  end
+
   # DELETE /:meetingID/:record_id
   def delete
     delete_recording(params[:record_id])
