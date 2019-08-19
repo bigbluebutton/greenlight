@@ -19,8 +19,6 @@
 require 'bbb_api'
 
 class User < ApplicationRecord
-  include ::BbbApi
-
   attr_accessor :reset_token
   after_create :assign_default_role
   after_create :initialize_main_room
@@ -203,12 +201,7 @@ class User < ApplicationRecord
   end
 
   def greenlight_account?
-    return true unless provider # For testing cases when provider is set to null
-    return true if provider == "greenlight"
-    return false unless Rails.configuration.loadbalanced_configuration
-    # Proceed with fetching the provider info
-    provider_info = retrieve_provider_info(provider, 'api2', 'getUserGreenlightCredentials')
-    provider_info['provider'] == 'greenlight'
+    social_uid.nil?
   end
 
   def activation_token

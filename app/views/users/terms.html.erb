@@ -24,7 +24,9 @@
             <%= markdown(Rails.configuration.terms) %>
           </div>
           <% if Rails.configuration.terms && current_user && !current_user.accepted_terms %>
-            <%= render "/shared/components/terms_button" %>
+            <div class="btn-list text-right pt-8">
+              <%= button_to t("terms.accept_existing"), terms_path, params: { accept: true }, class: "btn btn-primary btn-space" %>
+            </div>
           <% end %>
         </form>
       </div>

@@ -13,6 +13,14 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="btn-list text-right pt-8">
-    <%= button_to t("terms.accept_existing"), terms_path, params: { accept: true }, class: "btn btn-primary btn-space" %>
+<div class="list-group list-group-transparent mb-0">
+  <%= link_to edit_user_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "edit"}" do %>
+    <span class="icon mr-3"><i class="fas fa-user"></i></span><%= t("settings.account.title") %>
+  <% end %>
+  <%= link_to change_password_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "change_password"}" do %>
+    <span class="icon mr-3"><i class="fas fa-key"></i></span><%= t("settings.password.title") %>
+  <% end %>
+  <%= link_to delete_account_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "delete_account"}" do %>
+    <span class="icon mr-3"><i class="fas fa-trash-alt"></i></span><%= t("settings.delete.title") %>
+  <% end %>
 </div>

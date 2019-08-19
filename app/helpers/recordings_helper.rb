@@ -17,8 +17,6 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 module RecordingsHelper
-  include Pagy::Frontend
-
   # Helper for converting BigBlueButton dates into the desired format.
   def recording_date(date)
     I18n.l date, format: "%B %d, %Y"
@@ -47,5 +45,10 @@ module RecordingsHelper
 
   def room_uid_from_bbb(bbb_id)
     Room.find_by(bbb_id: bbb_id)[:uid]
+  end
+
+  # returns whether recording thumbnails are enabled on the server
+  def recording_thumbnails?
+    Rails.configuration.recording_thumbnails
   end
 end
