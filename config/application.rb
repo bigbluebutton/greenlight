@@ -116,6 +116,8 @@ module Greenlight
     # Enum containing the different possible registration methods
     config.registration_methods = { open: "0", invite: "1", approval: "2" }
 
+    config.google_analytics = ENV["GOOGLE_ANALYTICS_TRACKING_ID"].present?
+
     # DEFAULTS
 
     # Default branding image if the user does not specify one
