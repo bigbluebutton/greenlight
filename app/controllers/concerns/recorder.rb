@@ -18,29 +18,29 @@
 
 module Recorder
   extend ActiveSupport::Concern
-  include ::BbbApi
+  include RecordingsHelper
 
   # Fetches all recordings for a room.
-  def recordings(room_bbb_id, provider, search_params = {}, ret_search_params = false)
-    res = bbb(provider).get_recordings(meetingID: room_bbb_id)
+  def recordings(room_bbb_id, search_params = {}, ret_search_params = false)
+    res = get_recordings(room_bbb_id)
 
     format_recordings(res, search_params, ret_search_params)
   end
 
   # Fetches a rooms public recordings.
-  def public_recordings(room_bbb_id, provider, search_params = {}, ret_search_params = false)
-    search, order_col, order_dir, recs = recordings(room_bbb_id, provider, search_params, ret_search_params)
+  def public_recordings(room_bbb_id, search_params = {}, ret_search_params = false)
+    search, order_col, order_dir, recs = recordings(room_bbb_id, search_params, ret_search_params)
     [search, order_col, order_dir, recs.select { |r| r[:metadata][:"gl-listed"] == "true" }]
   end
 
   # Makes paginated API calls to get recordings
-  def all_recordings(room_bbb_ids, provider, search_params = {}, ret_search_params = false, search_name = false)
+  def all_recordings(room_bbb_ids, search_params = {}, ret_search_params = false, search_name = false)
     res = { recordings: [] }
 
     until room_bbb_ids.empty?
       # bbb.get_recordings returns an object
       # take only the array portion of the object that is returned
-      full_res = bbb(provider).get_recordings(meetingID: room_bbb_ids.pop(Rails.configuration.pagination_number))
+      full_res = get_multiple_recordings(room_bbb_ids.pop(Rails.configuration.pagination_number))
       res[:recordings].push(*full_res[:recordings])
     end
 
