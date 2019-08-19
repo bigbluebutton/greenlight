@@ -83,16 +83,11 @@ function searchPage() {
 
   var url = window.location.pathname + "?page=1&search=" + search
 
-  if (role) {
-    url += "&role=" + role
-  }  
+  if (role) { url += "&role=" + role } 
 
-  if(controller === "rooms" && action === "show"){
-    window.location.replace(url + "#recordings-table");
-  } else{
-    window.location.replace(url);
-  }
+  if(controller === "rooms" && action === "show") { url += "#recordings-table" }
   
+  window.location.replace(url);
 }
 
 // Clears the search bar
@@ -104,13 +99,9 @@ function clearSearch() {
 
   var url = window.location.pathname + "?page=1"
 
-  if (role) {
-    url += "&role=" + role
-  }  
+  if (role) { url += "&role=" + role } 
 
-  if(controller === "rooms" && action === "show"){
-    window.location.replace(url + "#recordings-table");
-  } else{
-    window.location.replace(url);
-  }
+  if(controller === "rooms" && action === "show") { url += "#recordings-table" }
+  
+  window.location.replace(url);
 }
