@@ -48,6 +48,8 @@ class User < ApplicationRecord
   has_secure_password(validations: false)
 
   class << self
+    include AuthValues
+
     # Generates a user from omniauth.
     def from_omniauth(auth)
       # Provider is the customer name if in loadbalanced config mode
@@ -60,54 +62,6 @@ class User < ApplicationRecord
         auth_roles(u, auth)
         u.email_verified = true
         u.save!
-      end
-    end
-
-    private
-
-    # Provider attributes.
-    def auth_name(auth)
-      case auth['provider']
-      when :office365
-        auth['info']['display_name']
-      else
-        auth['info']['name']
-      end
-    end
-
-    def auth_username(auth)
-      case auth['provider']
-      when :google
-        auth['info']['email'].split('@').first
-      when :bn_launcher
-        auth['info']['username']
-      else
-        auth['info']['nickname']
-      end
-    end
-
-    def auth_email(auth)
-      auth['info']['email']
-    end
-
-    def auth_image(auth)
-      case auth['provider']
-      when :twitter
-        auth['info']['image'].gsub("http", "https").gsub("_normal", "")
-      else
-        auth['info']['image']
-      end
-    end
-
-    def auth_roles(user, auth)
-      unless auth['info']['roles'].nil?
-        roles = auth['info']['roles'].split(',')
-
-        role_provider = auth['provider'] == "bn_launcher" ? auth['info']['customer'] : "greenlight"
-        roles.each do |role_name|
-          role = Role.where(provider: role_provider, name: role_name).first
-          user.roles << role unless role.nil?
-        end
       end
     end
   end
