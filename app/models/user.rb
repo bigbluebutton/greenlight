@@ -20,8 +20,7 @@ require 'bbb_api'
 
 class User < ApplicationRecord
   attr_accessor :reset_token
-  after_create :assign_default_role
-  after_create :initialize_main_room
+  after_create :setup_user
 
   before_save { email.try(:downcase!) }
 
@@ -149,21 +148,17 @@ class User < ApplicationRecord
 
   # Activates an account and initialize a users main room
   def activate
-    update_attribute(:email_verified, true)
-    update_attribute(:activated_at, Time.zone.now)
-    save
+    update_attributes(email_verified: true, activated_at: Time.zone.now)
   end
 
   def activated?
-    return true unless Rails.configuration.enable_email_verification
-    email_verified
+    Rails.configuration.enable_email_verification ? email_verified : true
   end
 
   # Sets the password reset attributes.
   def create_reset_digest
     self.reset_token = User.new_token
-    update_attribute(:reset_digest,  User.digest(reset_token))
-    update_attribute(:reset_sent_at, Time.zone.now)
+    update_attributes(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
   end
 
   # Returns true if the given token matches the digest.
@@ -288,8 +283,7 @@ class User < ApplicationRecord
 
   def create_reset_activation_digest(token)
     # Create the digest and persist it.
-    self.activation_digest = User.digest(token)
-    save
+    update_attribute(:activation_digest, User.digest(token))
     token
   end
 
@@ -298,19 +292,17 @@ class User < ApplicationRecord
     rooms.destroy_all
   end
 
-  # Initializes a room for the user and assign a BigBlueButton user id.
-  def initialize_main_room
-    self.uid = "gl-#{(0...12).map { rand(65..90).chr }.join.downcase}"
-    self.main_room = Room.create!(owner: self, name: I18n.t("home_room"))
-    save
-  end
+  def setup_user
+    # Initializes a room for the user and assign a BigBlueButton user id.
+    id = "gl-#{(0...12).map { rand(65..90).chr }.join.downcase}"
+    room = Room.create!(owner: self, name: I18n.t("home_room"))
 
-  # Initialize the user to use the default user role
-  def assign_default_role
+    update_attributes(uid: id, main_room: room)
+
+    # Initialize the user to use the default user role
     role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
 
     Role.create_default_roles(role_provider) if Role.where(provider: role_provider).count.zero?
-
     add_role(:user) if roles.blank?
   end
 
