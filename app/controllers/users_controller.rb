@@ -17,14 +17,16 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class UsersController < ApplicationController
-  include RecordingsHelper
   include Pagy::Backend
+  include Authenticator
   include Emailer
   include Registrar
   include Recorder
+  include Rolify
 
-  before_action :find_user, only: [:edit, :update, :destroy]
+  before_action :find_user, only: [:edit, :change_password, :delete_account, :update, :destroy]
   before_action :ensure_unauthenticated, only: [:new, :create, :signin]
+  before_action :check_admin_of, only: [:edit, :change_password, :delete_account]
 
   # POST /u
   def create
@@ -43,7 +45,7 @@ class UsersController < ApplicationController
     # User has passed all validations required
     @user.save
 
-    logger.info("Support: #{@user.email} user has been created.")
+    logger.info "Support: #{@user.email} user has been created."
 
     # Set user to pending and redirect if Approval Registration is set
     if approval_registration
@@ -53,12 +55,12 @@ class UsersController < ApplicationController
         flash: { success: I18n.t("registration.approval.signup") } unless Rails.configuration.enable_email_verification
     end
 
-    send_registration_email if Rails.configuration.enable_email_verification
+    send_registration_email
 
     # Sign in automatically if email verification is disabled or if user is already verified.
     login(@user) && return if !Rails.configuration.enable_email_verification || @user.email_verified
 
-    send_verification
+    send_activation_email(@user)
 
     redirect_to root_path
   end
@@ -109,11 +111,15 @@ class UsersController < ApplicationController
 
   # GET /u/:user_uid/edit
   def edit
-    if current_user
-      redirect_to current_user.main_room if @user != current_user && !current_user.admin_of?(@user)
-    else
-      redirect_to root_path
-    end
+    redirect_to root_path unless current_user
+  end
+
+  # GET /u/:user_uid/change_password
+  def change_password
+  end
+
+  # GET /u/:user_uid/delete_account
+  def delete_account
   end
 
   # PATCH /u/:user_uid/edit
@@ -139,31 +145,32 @@ class UsersController < ApplicationController
 
       if errors.empty? && @user.save
         # Notify the user that their account has been updated.
-        flash[:success] = I18n.t("info_update_success")
-        redirect_to redirect_path
+        redirect_to redirect_path, flash: { success: I18n.t("info_update_success") }
       else
         # Append custom errors.
         errors.each { |k, v| @user.errors.add(k, v) }
         render :edit, params: { settings: params[:settings] }
       end
-    elsif user_params[:email] != @user.email && @user.update_attributes(user_params) && update_roles
-      @user.update_attributes(email_verified: false)
-
-      flash[:success] = I18n.t("info_update_success")
-      redirect_to redirect_path
-    elsif @user.update_attributes(user_params) && update_roles
-      update_locale(@user)
-
-      flash[:success] = I18n.t("info_update_success")
-      redirect_to redirect_path
     else
+      if @user.update_attributes(user_params)
+        @user.update_attributes(email_verified: false) if user_params[:email] != @user.email
+
+        user_locale(@user)
+
+        if update_roles(params[:user][:role_ids])
+          return redirect_to redirect_path, flash: { success: I18n.t("info_update_success") }
+        else
+          flash[:alert] = I18n.t("administrator.roles.invalid_assignment")
+        end
+      end
+
       render :edit, params: { settings: params[:settings] }
     end
   end
 
   # DELETE /u/:user_uid
   def destroy
-    logger.info("Support: #{current_user.email} is deleting #{@user.email}.")
+    logger.info "Support: #{current_user.email} is deleting #{@user.email}."
 
     if current_user && current_user == @user
       @user.destroy
@@ -186,8 +193,7 @@ class UsersController < ApplicationController
   def recordings
     if current_user && current_user.uid == params[:user_uid]
       @search, @order_column, @order_direction, recs =
-        all_recordings(current_user.rooms.pluck(:bbb_id), current_user.provider,
-         params.permit(:search, :column, :direction), true)
+        all_recordings(current_user.rooms.pluck(:bbb_id), params.permit(:search, :column, :direction), true)
       @pagy, @recordings = pagy_array(recs)
     else
       redirect_to root_path
@@ -219,28 +225,11 @@ class UsersController < ApplicationController
       :new_password, :provider, :accepted_terms, :language)
   end
 
-  def send_verification
-    # Start email verification and redirect to root.
-    begin
-      send_activation_email(@user)
-    rescue => e
-      logger.error "Support: Error in email delivery: #{e}"
-      flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
-    else
-      flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
-    end
-  end
-
   def send_registration_email
-    begin
-      if invite_registration
-        send_invite_user_signup_email(@user)
-      elsif approval_registration
-        send_approval_user_signup_email(@user)
-      end
-    rescue => e
-      logger.error "Support: Error in email delivery: #{e}"
-      flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
+    if invite_registration
+      send_invite_user_signup_email(@user)
+    elsif approval_registration
+      send_approval_user_signup_email(@user)
     end
   end
 
@@ -264,64 +253,8 @@ class UsersController < ApplicationController
     invitation[:present]
   end
 
-  # Updates as user's roles
-  def update_roles
-    # Check that the user can manage users
-    if current_user.highest_priority_role.can_manage_users
-      new_roles = params[:user][:role_ids].split(' ').map(&:to_i)
-      old_roles = @user.roles.pluck(:id)
-
-      added_role_ids = new_roles - old_roles
-      removed_role_ids = old_roles - new_roles
-
-      added_roles = []
-      removed_roles = []
-      current_user_role = current_user.highest_priority_role
-
-      # Check that the user has the permissions to add all the new roles
-      added_role_ids.each do |id|
-        role = Role.find(id)
-
-        # Admins are able to add the admin role to other users. All other roles may only
-        # add roles with a higher priority
-        if (role.priority > current_user_role.priority || current_user_role.name == "admin") &&
-           role.provider == @user_domain
-          added_roles << role
-        else
-          flash[:alert] = I18n.t("administrator.roles.invalid_assignment")
-          return false
-        end
-      end
-
-      # Check that the user has the permissions to remove all the deleted roles
-      removed_role_ids.each do |id|
-        role = Role.find(id)
-
-        # Admins are able to remove the admin role from other users. All other roles may only
-        # remove roles with a higher priority
-        if (role.priority > current_user_role.priority || current_user_role.name == "admin") &&
-           role.provider == @user_domain
-          removed_roles << role
-        else
-          flash[:alert] = I18n.t("administrator.roles.invalid_removal")
-          return false
-        end
-      end
-
-      # Send promoted/demoted emails
-      added_roles.each { |role| send_user_promoted_email(@user, role) if role.send_promoted_email }
-      removed_roles.each { |role| send_user_demoted_email(@user, role) if role.send_demoted_email }
-
-      # Update the roles
-      @user.roles.delete(removed_roles)
-      @user.roles << added_roles
-
-      # Make sure each user always has at least the user role
-      @user.roles = [Role.find_by(name: "user", provider: @user_domain)] if @user.roles.count.zero?
-
-      @user.save!
-    else
-      true
-    end
+  # Checks that the user is allowed to edit this user
+  def check_admin_of
+    redirect_to current_user.main_room if current_user && @user != current_user && !current_user.admin_of?(@user)
   end
 end

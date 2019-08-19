@@ -373,7 +373,7 @@ describe UsersController, type: :controller do
 
         user.reload
 
-        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_removal"))
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_assignment"))
         expect(response).to render_template(:edit)
       end
 
@@ -439,7 +439,6 @@ describe UsersController, type: :controller do
     it "allows admins to delete users" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
-      allow_any_instance_of(Room).to receive(:delete_all_recordings).and_return('')
       allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
       controller.instance_variable_set(:@user_domain, "provider1")
 
