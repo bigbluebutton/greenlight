@@ -37,26 +37,24 @@ Rails.application.routes.draw do
   resources :admins, only: [:index]
 
   scope '/admins' do
-    get '/site_settings', to: 'admins#site_settings', as: :admin_site_settings
+    # Panel Tabs
     get '/recordings', to: 'admins#server_recordings', as: :admin_recordings
-    post '/branding', to: 'admins#branding', as: :admin_branding
-    post '/coloring', to: 'admins#coloring', as: :admin_coloring
-    post '/room_authentication', to: 'admins#room_authentication', as: :admin_room_authentication
-    post '/coloring_lighten', to: 'admins#coloring_lighten', as: :admin_coloring_lighten
-    post '/coloring_darken', to: 'admins#coloring_darken', as: :admin_coloring_darken
-    post '/signup', to: 'admins#signup', as: :admin_signup
+    get '/site_settings', to: 'admins#site_settings', as: :admin_site_settings
+    get '/roles', to: 'admins#roles', as: :admin_roles
+    # Manage Users
     get '/edit/:user_uid', to: 'admins#edit_user', as: :admin_edit_user
     post '/ban/:user_uid', to: 'admins#ban_user', as: :admin_ban
     post '/unban/:user_uid', to: 'admins#unban_user', as: :admin_unban
     post '/invite', to: 'admins#invite', as: :invite_user
-    post '/registration_method/:method', to: 'admins#registration_method', as: :admin_change_registration
     post '/approve/:user_uid', to: 'admins#approve', as: :admin_approve
     get '/reset', to: 'admins#reset', as: :admin_reset
-    post '/room_limit', to: 'admins#room_limit', as: :admin_room_limit
-    post '/default_recording_visibility', to: 'admins#default_recording_visibility', as: :admin_recording_visibility
+    # Site Settings
+    post '/update_settings', to: 'admins#update_settings', as: :admin_update_settings
+    post '/registration_method', to: 'admins#registration_method', as: :admin_change_registration
+    post '/coloring', to: 'admins#coloring', as: :admin_coloring
     post '/clear_cache', to: 'admins#clear_cache', as: :admin_clear_cache
-    get '/roles', to: 'admins#roles', as: :admin_roles
-    post '/role', to: 'admins#new_role', as: :admin_new_role
+    # Roles
+>>>>>>> b4736b8... GRN2-180: First stages of refactoring code for v2.4 (#748)
     patch 'roles/order', to: 'admins#change_role_order', as: :admin_roles_order
     post '/role/:role_id', to: 'admins#update_role', as: :admin_update_role
     delete 'role/:role_id', to: 'admins#delete_role', as: :admin_delete_role
@@ -86,6 +84,8 @@ Rails.application.routes.draw do
 
     # Account management.
     get '/:user_uid/edit', to: 'users#edit', as: :edit_user
+    get '/:user_uid/change_password', to: 'users#change_password', as: :change_password
+    get '/:user_uid/delete_account', to: 'users#delete_account', as: :delete_account
     patch '/:user_uid/edit', to: 'users#update', as: :update_user
     delete '/:user_uid', to: 'users#destroy', as: :delete_user
 
@@ -118,8 +118,8 @@ Rails.application.routes.draw do
   scope '/:meetingID' do
     # Manage recordings
     scope '/:record_id' do
-      post '/', to: 'recordings#update_recording', as: :update_recording
-      delete '/', to: 'recordings#delete_recording', as: :delete_recording
+      post '/', to: 'recordings#update', as: :update_recording
+      delete '/', to: 'recordings#delete', as: :delete_recording
     end
   end
 

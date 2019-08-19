@@ -17,7 +17,6 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class ApplicationMailer < ActionMailer::Base
-  add_template_helper(ThemingHelper)
   default from: 'from@example.com'
   layout 'mailer'
 end
