@@ -19,13 +19,15 @@
 require "rails_helper"
 require 'bigbluebutton_api'
 
-shared_examples_for "recorder" do
-  let(:controller) { described_class } # the class that includes the concern
+describe Recorder do
+  include Recorder
+  include BbbServer
+
+  let(:bbb_server) { BigBlueButton::BigBlueButtonApi.new("http://bbb.example.com/bigbluebutton/api", "secret", "0.8") }
 
   before do
     @user = create(:user)
     @room = @user.main_room
-
     allow_any_instance_of(Room).to receive(:owner).and_return(@user)
   end
 
@@ -44,7 +46,7 @@ shared_examples_for "recorder" do
       ]
     )
 
-    expect(recordings(@room.bbb_id, @room.owner.provider)).to contain_exactly(
+    expect(recordings(@room.bbb_id)).to contain_exactly(
       name: "Example",
       playbacks:
       [
@@ -118,7 +120,7 @@ shared_examples_for "recorder" do
       ]
     )
 
-    expect(all_recordings(@user.rooms.pluck(:bbb_id), @user.provider, search: "Exam", column: "name",
+    expect(all_recordings(@user.rooms.pluck(:bbb_id), search: "Exam", column: "name",
       direction: "desc")).to eq(
         [
           {
@@ -219,7 +221,7 @@ shared_examples_for "recorder" do
     end
 
     it "should filter recordings on name" do
-      expect(recordings(@room.bbb_id, @room.owner.provider, search: "Exam")).to contain_exactly(
+      expect(recordings(@room.bbb_id, search: "Exam")).to contain_exactly(
         {
           meetingID: @room.bbb_id,
           name: "aExamaaa",
@@ -250,7 +252,7 @@ shared_examples_for "recorder" do
     end
 
     it "should filter recordings on participants" do
-      expect(recordings(@room.bbb_id, @room.owner.provider, search: "5")).to contain_exactly(
+      expect(recordings(@room.bbb_id, search: "5")).to contain_exactly(
         meetingID: @room.bbb_id,
         name: "aExamaaa",
         participants: "5",
@@ -267,7 +269,7 @@ shared_examples_for "recorder" do
     end
 
     it "should filter recordings on format" do
-      expect(recordings(@room.bbb_id, @room.owner.provider, search: "presentation")).to contain_exactly(
+      expect(recordings(@room.bbb_id, search: "presentation")).to contain_exactly(
         {
           meetingID: @room.bbb_id,
           name: "test",
@@ -298,7 +300,7 @@ shared_examples_for "recorder" do
     end
 
     it "should filter recordings on visibility" do
-      expect(recordings(@room.bbb_id, @room.owner.provider, search: "public")).to contain_exactly(
+      expect(recordings(@room.bbb_id, search: "public")).to contain_exactly(
         {
           meetingID: @room.bbb_id,
           name: "test",
@@ -329,7 +331,7 @@ shared_examples_for "recorder" do
     end
 
     it "should filter recordings on metadata name by default" do
-      expect(recordings(@room.bbb_id, @room.owner.provider, search: "metadata")).to contain_exactly(
+      expect(recordings(@room.bbb_id, search: "metadata")).to contain_exactly(
         meetingID: @room.bbb_id,
         name: "Exam",
         participants: "1",
@@ -385,7 +387,7 @@ shared_examples_for "recorder" do
     end
 
     it "should sort recordings on name" do
-      expect(recordings(@room.bbb_id, @room.owner.provider, column: "name", direction: "asc")).to eq(
+      expect(recordings(@room.bbb_id, column: "name", direction: "asc")).to eq(
         [
           {
             meetingID: @room.bbb_id,
@@ -421,7 +423,7 @@ shared_examples_for "recorder" do
     end
 
     it "should sort recordings on participants" do
-      expect(recordings(@room.bbb_id, @room.owner.provider, column: "users", direction: "desc")).to eq(
+      expect(recordings(@room.bbb_id, column: "users", direction: "desc")).to eq(
         [
           {
             meetingID: @room.bbb_id,
@@ -457,7 +459,7 @@ shared_examples_for "recorder" do
     end
 
     it "should sort recordings on visibility" do
-      expect(recordings(@room.bbb_id, @room.owner.provider, column: "visibility", direction: "desc")).to eq(
+      expect(recordings(@room.bbb_id, column: "visibility", direction: "desc")).to eq(
         [
           {
             meetingID: @room.bbb_id,
@@ -493,7 +495,7 @@ shared_examples_for "recorder" do
     end
 
     it "should sort recordings on length" do
-      expect(recordings(@room.bbb_id, @room.owner.provider, column: "length", direction: "asc")).to eq(
+      expect(recordings(@room.bbb_id, column: "length", direction: "asc")).to eq(
         [
           {
             meetingID: @room.bbb_id,
@@ -529,7 +531,7 @@ shared_examples_for "recorder" do
     end
 
     it "should sort recordings on format" do
-      expect(recordings(@room.bbb_id, @room.owner.provider, column: "formats", direction: "desc")).to eq(
+      expect(recordings(@room.bbb_id, column: "formats", direction: "desc")).to eq(
         [
           {
             meetingID: @room.bbb_id,
