@@ -67,10 +67,7 @@ class UsersController < ApplicationController
 
   # GET /signin
   def signin
-    unless params[:old_twitter_user_id].nil? && session[:old_twitter_user_id].nil?
-      flash[:alert] = I18n.t("registration.deprecated.new_signin")
-      session[:old_twitter_user_id] = params[:old_twitter_user_id] unless params[:old_twitter_user_id].nil?
-    end
+    check_if_twitter_account
 
     providers = configured_providers
     if (!allow_user_signup? || !allow_greenlight_accounts?) && providers.count == 1 &&
@@ -100,11 +97,7 @@ class UsersController < ApplicationController
       session[:invite_token] = params[:invite_token]
     end
 
-    unless params[:old_twitter_user_id].nil? && session[:old_twitter_user_id].nil?
-      logout
-      flash.now[:alert] = I18n.t("registration.deprecated.new_signin")
-      session[:old_twitter_user_id] = params[:old_twitter_user_id] unless params[:old_twitter_user_id].nil?
-    end
+    check_if_twitter_account(true)
 
     @user = User.new
   end
@@ -116,6 +109,7 @@ class UsersController < ApplicationController
 
   # GET /u/:user_uid/change_password
   def change_password
+    redirect_to edit_user_path unless current_user.greenlight_account?
   end
 
   # GET /u/:user_uid/delete_account
@@ -256,5 +250,13 @@ class UsersController < ApplicationController
   # Checks that the user is allowed to edit this user
   def check_admin_of
     redirect_to current_user.main_room if current_user && @user != current_user && !current_user.admin_of?(@user)
+  end
+
+  def check_if_twitter_account(log_out = false)
+    unless params[:old_twitter_user_id].nil? && session[:old_twitter_user_id].nil?
+      logout if log_out
+      flash.now[:alert] = I18n.t("registration.deprecated.new_signin")
+      session[:old_twitter_user_id] = params[:old_twitter_user_id] unless params[:old_twitter_user_id].nil?
+    end
   end
 end
