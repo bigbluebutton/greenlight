@@ -12,15 +12,15 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
+<div class="container pt-6">
+  <%= render "shared/components/subtitle", subtitle: t("settings.title"), search: false %>
 
-<%= content_tag(:div, id: setting_id, class: "setting-view card") do %>
-  <div class="card-body p-6">
-    <div class="card-title text-primary">
-      <div class="form-group">
-        <%= render "shared/components/subtitle", subtitle: setting_title, search: setting_id == "users" %>
-      </div>
+  <div class="row">
+    <div class="col-lg-3 mb-4">
+      <%= render "users/components/menu_buttons" %>
     </div>
-
-    <%= render "shared/settings/#{setting_id}" %>
+    <div class="col-lg-9">
+      <%= render "users/components/setting_view", setting_id: "delete", setting_title: t("settings.delete.subtitle") %>
+    </div>
   </div>
-<% end %>
+</div>

@@ -14,7 +14,7 @@
 %>
 
 <% valid_access_code = @room.access_code.nil? || @room.access_code.empty? || @room.access_code == session[:access_code] %>
-<%= render 'shared/room_event', render_recordings: valid_access_code do %>
+<%= render 'rooms/components/room_event', render_recordings: valid_access_code do %>
   <% if room_authentication_required %>
     <h2><%= t("administrator.site_settings.authentication.user-info") %></h2>
   <% elsif !valid_access_code %>
@@ -43,7 +43,7 @@
             readonly: !current_user.nil?, 
             autofocus: true
             %>
-        <%= f.submit (!@is_running && @anyone_can_start)? t("room.start") : t("room.join"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
+        <%= f.submit (!@room_running && @anyone_can_start)? t("room.start") : t("room.join"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
       </div>
     <% end %>
   <% end %>
