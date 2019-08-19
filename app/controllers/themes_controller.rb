@@ -18,7 +18,6 @@
 
 class ThemesController < ApplicationController
   skip_before_action :maintenance_mode?
-  before_action :provider_settings
 
   # GET /primary
   def index
@@ -38,11 +37,5 @@ class ThemesController < ApplicationController
     respond_to do |format|
       format.css { render body: @compiled }
     end
-  end
-
-  private
-
-  def provider_settings
-    @settings = Setting.find_or_create_by(provider: user_settings_provider)
   end
 end

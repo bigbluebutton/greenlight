@@ -88,10 +88,9 @@ en:
     roles:
       can_create_rooms: Can create rooms
       delete: Delete the role
-      duplicate_name: The role name you provided was a duplicate. All role names must be unique
-      empty_name: All roles must have a non empty name
-      invalid_order: The user role must be the lowest priority role and the admin role must be the highest priority role
-      invalid_update: You can't update a role with a higher priority than your own role
+      invalid_create: There was a problem creating a new role. Please check the role values and try again
+      invalid_order: There was a problem updating the priority of the role. Please check the values and try again
+      invalid_update: There was a problem updating the permissions of the role. Please check the values and try again
       name: Role Name
       new_role: Create a new role
       role_has_users: This role is assigned to %{user_count} accounts. Please remove all accounts from this role before deleting it.
@@ -101,8 +100,7 @@ en:
       edit_site_settings: Allow users with this role to edit site settings
       edit_roles: Allow users with this role to edit other roles
       manage_users: Allow users with this role to manage users
-      invalid_assignment: You can't assign a role with a higher priority than your own to a user
-      invalid_removal: You can't remove a role with a higher priority than your own
+      invalid_assignment: There was a problem assigning the roles to the user. Please check the values and try again 
       colour:
         title: Role Colour
         info: Set the colour that will be associated with the role

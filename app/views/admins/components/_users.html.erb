@@ -29,7 +29,7 @@
 %>
 
 <% unless @role.nil? %>
-  <%= render "shared/components/admins_tags" %>
+  <%= render "admins/components/admins_tags" %>
 <% end %>
 
 <div class="form-group">
@@ -88,7 +88,7 @@
                     <td><%= user.provider %></td>
                     <td class="text-center">
                       <% roles = user.roles().pluck(:name) %>
-                      <%= render "shared/components/admins_role", role: user.highest_priority_role %>
+                      <%= render "admins/components/admins_role", role: user.highest_priority_role %>
                     </td>
                     <td>
                       <% if roles.include?("pending") %>
