@@ -118,7 +118,7 @@ class UsersController < ApplicationController
 
   # PATCH /u/:user_uid/edit
   def update
-    profile = params[:setting] == "password" ? edit_user_path(@user) : change_password_path(@user)
+    profile = params[:setting] == "password" ? change_password_path(@user) : edit_user_path(@user)
     redirect_path = current_user.admin_of?(@user) ? admins_path : profile
 
     if params[:setting] == "password"
