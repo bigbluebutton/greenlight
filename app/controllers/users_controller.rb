@@ -118,11 +118,11 @@ class UsersController < ApplicationController
 
   # PATCH /u/:user_uid/edit
   def update
-    redirect_path = current_user.admin_of?(@user) ? admins_path : edit_user_path(@user)
+    profile = params[:setting] == "password" ? edit_user_path(@user) : change_password_path(@user)
+    redirect_path = current_user.admin_of?(@user) ? admins_path : profile
 
     if params[:setting] == "password"
       # Update the users password.
-      errors = {}
 
       if @user.authenticate(user_params[:password])
         # Verify that the new passwords match.
@@ -130,21 +130,18 @@ class UsersController < ApplicationController
           @user.password = user_params[:new_password]
         else
           # New passwords don't match.
-          errors[:password_confirmation] = "doesn't match"
+          @user.errors.add(:password_confirmation, "doesn't match")
         end
       else
         # Original password is incorrect, can't update.
-        errors[:password] = "is incorrect"
+        @user.errors.add(:password, "is incorrect")
       end
 
-      if errors.empty? && @user.save
-        # Notify the user that their account has been updated.
-        redirect_to redirect_path, flash: { success: I18n.t("info_update_success") }
-      else
-        # Append custom errors.
-        errors.each { |k, v| @user.errors.add(k, v) }
-        render :edit, params: { settings: params[:settings] }
-      end
+      # Notify the user that their account has been updated.
+      return redirect_to redirect_path,
+        flash: { success: I18n.t("info_update_success") } if @user.errors.empty? && @user.save
+
+      render :change_password
     else
       if @user.update_attributes(user_params)
         @user.update_attributes(email_verified: false) if user_params[:email] != @user.email
@@ -158,7 +155,7 @@ class UsersController < ApplicationController
         end
       end
 
-      render :edit, params: { settings: params[:settings] }
+      render :edit
     end
   end
 
