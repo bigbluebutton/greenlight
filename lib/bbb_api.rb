@@ -27,6 +27,9 @@ module BbbApi
     # Include Omniauth accounts under the Greenlight provider.
     raise "Provider not included." if !provider || provider.empty?
 
+    cached_provider = Rails.cache.fetch("#{provider}/#{route}")
+    return cached_provider unless cached_provider.nil?
+
     # Build the URI.
     uri = encode_bbb_url(
       Rails.configuration.loadbalancer_endpoint + api + '/',
@@ -48,6 +51,10 @@ module BbbApi
     raise doc['message'] unless response.is_a?(Net::HTTPSuccess)
 
     # Return the user credentials if the request succeeded on the loadbalancer.
+    Rails.cache.fetch("#{provider}/#{route}", expires_in: 1.hours) do
+      doc['user']
+    end
+
     return doc['user'] if doc['returncode'] == 'SUCCESS'
 
     raise "User with provider #{provider} does not exist." if doc['messageKey'] == 'noSuchUser'
