@@ -28,39 +28,57 @@
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= f.text_field :name, id: "create-room-name", class: "form-control", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off %>
+              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off %>
               <div class="invalid-feedback text-left"><%= t("modal.create_room.not_blank") %></div>
             </div>
 
-            <% if Rails.configuration.room_features.include? "default-client" %>
-              <label class="mt-3 mb-3 w-100 text-left d-inline-block">
-                <input type="hidden" name="room[client]" id="room_client">
-                <span id="room-settings-dropdown-label" class="custom-switch-description"><%= t("modal.room_settings.client")%></span>
-                <div id="dropdown-div" class="dropdown float-right">
-                  <button id="dropdown-trigger" type="button" class="btn btn-secondary dropdown-toggle px-4" data-toggle="dropdown">
-                    <%= t("modal.room_settings.default")%>
-                  </button>
-                  <div class="dropdown-menu">
-                    <button type=button class="dropdown-item" onclick="updateDropdown($(this))" value="default"><%= t("modal.room_settings.default")%></button>
-                    <button type=button class="dropdown-item" onclick="updateDropdown($(this))" value="html5"><%= t("modal.room_settings.html")%></button>
-                    <button type=button class="dropdown-item" onclick="updateDropdown($(this))" value="flash"><%= t("modal.room_settings.flash")%></button>
-                  </div>
-                </div>
-              </label>
-            <% end %>
+            <div class="input-icon mb-2">
+              <span onclick="generateAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
+                <i class="fas fa-dice"></i>
+              </span>
+              <%= f.label :access_code, t("modal.create_room.access_code_placeholder"), id: "create-room-access-code", class: "form-control" %>
+              <%= f.hidden_field :access_code %>
+              <span onclick="ResetAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
+                <i class="far fa-trash-alt"></i>
+              </span>
+            </div>
 
             <% if Rails.configuration.room_features.include? "mute-on-join" %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
                 <span class="custom-switch-description"><%= t("modal.room_settings.mute")%></span>
                 <%= f.check_box :mute_on_join, class: "custom-switch-input", checked: false %>
-                <span class="custom-switch-indicator float-right"></span>
+                <span class="custom-switch-indicator float-right cursor-pointer"></span>
+              </label>
+            <% end %>
+
+            <% if Rails.configuration.room_features.include? "require-moderator-approval" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+                <span class="custom-switch-description"><%= t("modal.room_settings.require_approval")%></span>
+                <%= f.check_box :require_moderator_approval, class: "custom-switch-input", checked: false %>
+                <span class="custom-switch-indicator float-right cursor-pointer"></span>
+              </label>
+            <% end %>
+            
+            <% if Rails.configuration.room_features.include? "anyone-can-start" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+                <span class="custom-switch-description"><%= t("modal.room_settings.start")%></span>
+                <%= f.check_box :anyone_can_start, class: "custom-switch-input", checked: false %>
+                <span class="custom-switch-indicator float-right cursor-pointer"></span>
+              </label>
+            <% end %>
+
+            <% if Rails.configuration.room_features.include? "all-join-moderator" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+                <span class="custom-switch-description"><%= t("modal.room_settings.join_moderator")%></span>
+                <%= f.check_box :all_join_moderator, class: "custom-switch-input", checked: false %>
+                <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
 
             <label id="auto-join-label" class="create-only custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
               <span class="custom-switch-description"><%= t("modal.create_room.auto_join") %></span>
               <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>
-              <span class="custom-switch-indicator float-right"></span>
+              <span class="custom-switch-indicator float-right cursor-pointer"></span>
             </label>
           <div class="mt-4">
             <%= f.submit t("modal.create_room.create"), id: "create-room-submit", class: "create-only btn btn-primary btn-block" %>

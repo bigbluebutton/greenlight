@@ -35,16 +35,16 @@ module Emailer
     UserMailer.password_reset(@user, reset_link, logo_image, user_color).deliver_now
   end
 
-  def send_user_promoted_email(user)
+  def send_user_promoted_email(user, role)
     return unless Rails.configuration.enable_email_verification
 
-    UserMailer.user_promoted(user, root_url, logo_image, user_color).deliver_now
+    UserMailer.user_promoted(user, role, root_url, logo_image, user_color).deliver_now
   end
 
-  def send_user_demoted_email(user)
+  def send_user_demoted_email(user, role)
     return unless Rails.configuration.enable_email_verification
 
-    UserMailer.user_demoted(user, root_url, logo_image, user_color).deliver_now
+    UserMailer.user_demoted(user, role, root_url, logo_image, user_color).deliver_now
   end
 
   # Sends inivitation to join
@@ -64,13 +64,19 @@ module Emailer
   def send_approval_user_signup_email(user)
     return unless Rails.configuration.enable_email_verification
 
-    UserMailer.approval_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
+    admin_emails = admin_emails()
+    unless admin_emails.empty?
+      UserMailer.approval_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
+    end
   end
 
   def send_invite_user_signup_email(user)
     return unless Rails.configuration.enable_email_verification
 
-    UserMailer.invite_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
+    admin_emails = admin_emails()
+    unless admin_emails.empty?
+      UserMailer.invite_user_signup(user, admins_url, logo_image, user_color, admin_emails).deliver_now
+    end
   end
 
   private
@@ -81,7 +87,7 @@ module Emailer
   end
 
   def admin_emails
-    admins = User.with_role(:admin)
+    admins = User.all_users_with_roles.where(roles: { can_manage_users: true })
 
     if Rails.configuration.loadbalanced_configuration
       admins = admins.without_role(:super_admin)

@@ -21,12 +21,20 @@ es:
     attributes:
       user:
         accepted_terms: "Términos y condiciones"
+        email: Cuenta de correo
+        name: Nombre
+        password: Contraseña
+        password_confirmation: Confirmación de contraseña
+    errors:
+      models:
+        user:
+          confirmation: Contraseña no coincide
   administrator:
     site_settings:
       authentication:
         disabled: Deshabilitada
         enabled: Habilitada
-        info: Solo permite a los usuarios autenticados ingresar a una sala
+        info: Permitir solo a usuarios autenticados ingresar a una sala
         title: Requerir autenticación para hacer uso de salas
         user-info: Debes iniciar sesión para ingresar a esta sala
       branding:
@@ -47,6 +55,9 @@ es:
           approval: Autorizar/Denegar
           invite: Registro por invitación
           open: Registro abierto
+      rooms:
+        info: Establece el límite de salas que un usuario puede tener (incluyendo la sala principal). Esta configuración no aplica para administradores.
+        title: Número de salas por usuario
       subtitle: Personalizar Greenlight
       title: Configuración del sitio web
     flash:
@@ -68,6 +79,8 @@ es:
       edit:
         title: Editar detalles de usuario
       settings:
+        approve: Autorizar
+        decline: Denegar
         ban: Bloquear usuario
         delete: Eliminar
         demote: Degradar usuario
@@ -103,10 +116,10 @@ es:
   errors:
     bigbluebutton:
       help: "Asegurate de que los pasos han sido seguidos correctamente. <a href=\"%{doc_link}\">Aprender más</a>"
-      message: El punto de acceso o clave secreta de BigBlueButton son invalidos
+      message: El punto de acceso o clave secreta de BigBlueButton son inválidos
       title: Error de servidor
     internal:
-      message: Oh no! Parece que algo falló de tu lado.
+      message: Parece que algo salió mal de nuestro lado.
       help: "El error ha sido registrado, vamos a revisarlo."
     migration_error:
       contact_admin: "Sí no eres administrador, contacta a uno."
@@ -124,15 +137,18 @@ es:
       confirmation: "no conicide %{attribute}"
       inclusion: no está incluido en la lista
     not_found:
-      message: Oh no! parece que no podemos encontrarle.
+      message: "Lo sentimos, la página que estas buscando no existe."
       help: "¿Puede ser que haya sido eliminada?"
+      user_not_found:
+        help: Por favor contacta al administrador.
+        message: "Lo sentimos, este usuario no se encuentra registrado."
+      user_missing:
+        help: Por favor verifica la URL e inténtalo de nuevo.
+        message: La URL que has introducido no es valida.
     title: Errores
     unauthorized:
       message: No tienes acceso a ésta aplicación
       help: "Sí tu crees que este es un error, contacta al administrador del sistema"
-    unprocessable:
-      message: "Oh no!, La acción no puede ser procesada."
-      help: Desafortunadamente esta no es una acción valida
   expired_reset_token: El enlace para reiniciar la contraseña ha expirado
   features:
     title: Funciones
@@ -175,7 +191,6 @@ es:
     video: Ve nuestro tutorial de como utilizar Greenlight
     upgrade: Muestrame como actualizar a versión 2.0
     version: Hemos publicado una nueva version de Greenlight pero tu base de datos no es compatible.
-  language_name: Español
   language_default: Por omisión (idioma del navegador)
   ldap_error: No se puede conectar al servidor LDAP. Compruebe la configuración de LDAP en el archivo "env" y asegúrate de que tu servidor está ejecutándose.
   login: Ingresar
@@ -183,30 +198,30 @@ es:
   mailer:
     user:
       approve:
-        info: Tu cuenta ha sido autorizada
-        signin: "Para acceder tus salas personales, haz click en el botón de abajo e inicia sesión"
+        info: Tu cuenta ha sido autorizada.
+        signin: "Para acceder tus salas personales, haz click en el botón de abajo e inicia sesión."
         signin_link: Iniciar sesión
         signup:
           info: Se ha registrado un usuario nuevo.
           more-info: Para permitir el acceso de este usuario debes aprobar su cuenta de usuario a través de la configuración de la organización.
           admins_link: Ir a la página de la organización
-          subject: Registro de usuario nuevo 
+          subject: Registro de usuario nuevo
           username: "El usuario se ha registrado como %{name} con el email %{email}."
         subject: Cuenta de usuario autorizada
-        username: "Tu nombre de usuario es %{email}"
+        username: "Tu nombre de usuario es %{email}."
       demoted:
         info: "No eres administrador de %{url}."
-        more-info: Tienes los mismos privilegios que un usuario regular y no podrás acceder a las funciones de configuración restringidas para Administradores
+        more-info: Tienes los mismos privilegios que un usuario regular y no podrás acceder a las funciones de configuración restringidas para Administradores.
         root_link: Iniciar sesión
         subtitle: Permisos de administrador revocados
       invite:
         info: "Hás sido invitado a contar con tu espacio personal por %{name}"
-        signup: To signup using your email, click the button below and follow the steps.
+        signup_info: "Para registrarte utilizando tu cuenta de correo, haz click en el botón de abajo y sigue los pasos que se indican."
         signup_link: Registrarse
         signup:
           info: Un usuario que fue invitado a registrarse ha completado su registro.
           admins_link: Ir a la página de la organización
-          subject: Registro de usuario nuevo 
+          subject: Registro de usuario nuevo
           username: "El usuario se ha registrado como %{name} con el email %{email}."
         subject: Invitación a ingresar a BigBlueButton
         username: "Tu nombre de usuario es %{email}."
@@ -285,8 +300,9 @@ es:
   password_different_notice: La confirmación de password no coincide
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
+    ldap: LDAP
   recaptcha:
     errors:
       recaptcha_unreachable: Oh no! La respuesta de tu reCAPTCHA falló. Intentalo de nuevo.
@@ -311,11 +327,16 @@ es:
     format:
       presentation: Presentación
   registration:
-    approval: 
+    approval:
       fail: "Tú cuenta de usuario todavía no ha sido autorizada. Si han pasado varios días desde tú registro, te sugerimos contactar al administrador."
       signup: Tú cuenta de usuario ha sido creada y se le ha enviado una notificación al administrador para su autorización.
     banned:
       fail: "No tienes acceso a esta aplicación. Sí tu crees que este es un error, contacta al administrador del sistema." 
+    deprecated:
+      new_signin: "Selecciona un nuevo método de autenticación. Todas las salas vinculadas a tu cuenta anterior serán migradas a la cuenta nueva "
+      twitter_signin: "El ingreso a través de Twitter es obsoleto y sera eliminado en la siguiente versión. Haz click <a href=\"%{link}\"> aquí </a> para mover tu cuenta de usuario y su contenido a una cuenta ligada a otro método de autentificación"
+      twitter_signup: El registro de nuevas cuentas con Twitter es obsoleto. Por favor utiliza un método de autentificación diferente para registrarte.
+      merge_success: Tu cuenta vinculada a Twitter se fusionó correctamente con tu cuenta nueva. La cuenta vinculada con Twitter ha sido eliminada.
     invite:
       fail: "Tu código ha expirado o es invalido. Sí tu crees que este es un error, contacta al administrador del sistema."
       no_invite: No tienes una invitación para ingresar. Contacta al administrador del sistema para obtener una.
@@ -342,6 +363,8 @@ es:
     owner: Dueño
     no_sessions: Esta sala todavía no tiene sesiones
     recordings: Grabaciones de sala
+    room_limit: Haz alcanzado el número límite de salas permitidas
+    room_limit_exceeded: "Haz alcanzado el número límite de salas permitidas. Por favor elimina %{difference} sala(s) para poder acceder a ésta."
     sessions: Sesiones
     settings: Configuración de sala
     start: Iniciar

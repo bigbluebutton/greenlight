@@ -22,9 +22,24 @@ $(document).on("turbolinks:load", function(){
   if(controller == "rooms" && action == "join"){
     App.waiting = App.cable.subscriptions.create({
       channel: "WaitingChannel",
-      uid: $(".background").attr("room")
+      roomuid: $(".background").attr("room"),
+      useruid: $(".background").attr("user")
     }, {
+      connected: function() {
+        console.log("connected");
+      },
+
+      disconnected: function(data) {
+        console.log("disconnected");
+        console.log(data);
+      },
+
+      rejected: function() {
+        console.log("rejected");
+      },
+
       received: function(data){
+        console.log(data);
         if(data.action = "started"){
           request_to_join_meeting();
         }

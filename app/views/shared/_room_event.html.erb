@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="background pb-9" room="<%= @room.uid %>" join-name="<%= @join_name %>">
+<div class="background pb-9" room="<%= @room.uid %>" user="<%= current_user ? current_user.uid : "anonymous" %>" join-name="<%= @join_name %>">
   <div class="container">
     <div class="row pt-9">
       <div class="col-lg-12 col-sm-12">
@@ -40,4 +40,6 @@
   </div>
 </div>
 
-<%= render "shared/sessions", recordings: @public_recordings, pagy: @pagy, only_public: true, user_recordings: false, title: t("room.recordings") %>
+<% if render_recordings %>
+  <%= render "shared/sessions", recordings: @public_recordings, pagy: @pagy, only_public: true, user_recordings: false, title: t("room.recordings") %>
+<% end %>

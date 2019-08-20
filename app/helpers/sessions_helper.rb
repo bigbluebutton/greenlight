@@ -19,7 +19,11 @@
 module SessionsHelper
   # Logs a user into GreenLight.
   def login(user)
+    migrate_twitter_user(user)
+
     session[:user_id] = user.id
+
+    logger.info("Support: #{user.email} has successfully logged in.")
 
     # If there are not terms, or the user has accepted them, check for email verification
     if !Rails.configuration.terms || user.accepted_terms
@@ -59,7 +63,17 @@ module SessionsHelper
 
   # Retrieves the current user.
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
+    @current_user ||= User.where(id: session[:user_id]).includes(:roles).first
+
+    if Rails.configuration.loadbalanced_configuration
+      if @current_user && !@current_user.has_role?(:super_admin) &&
+         @current_user.provider != @user_domain
+        @current_user = nil
+        session.clear
+      end
+    end
+
+    @current_user
   end
 
   def generate_checksum(user_domain, redirect_url, secret)
@@ -76,25 +90,59 @@ module SessionsHelper
   end
 
   def omniauth_options(env)
-    gl_redirect_url = (Rails.env.production? ? "https" : env["rack.url_scheme"]) + "://" + env["SERVER_NAME"] + ":" +
-                      env["SERVER_PORT"]
-    user_domain = parse_user_domain(env["SERVER_NAME"])
-    env['omniauth.strategy'].options[:customer] = user_domain
-    env['omniauth.strategy'].options[:gl_redirect_url] = gl_redirect_url
-    env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
-    env['omniauth.strategy'].options[:checksum] = generate_checksum(user_domain, gl_redirect_url,
-      Rails.configuration.launcher_secret)
+    if env['omniauth.strategy'].options[:name] == "bn_launcher"
+      protocol = Rails.env.production? ? "https" : env["rack.url_scheme"]
+
+      customer_redirect_url = protocol + "://" + env["SERVER_NAME"] + ":" +
+                              env["SERVER_PORT"]
+      user_domain = parse_user_domain(env["SERVER_NAME"])
+      env['omniauth.strategy'].options[:customer] = user_domain
+      env['omniauth.strategy'].options[:customer_redirect_url] = customer_redirect_url
+      env['omniauth.strategy'].options[:default_callback_url] = Rails.configuration.gl_callback_url
+
+      # This is only used in the old launcher and should eventually be removed
+      env['omniauth.strategy'].options[:checksum] = generate_checksum(user_domain, customer_redirect_url,
+        Rails.configuration.launcher_secret)
+    elsif env['omniauth.strategy'].options[:name] == "google"
+      set_hd(env, ENV['GOOGLE_OAUTH2_HD'])
+    elsif env['omniauth.strategy'].options[:name] == "office365"
+      set_hd(env, ENV['OFFICE365_HD'])
+    end
   end
 
-  def google_omniauth_hd(env, hd)
-    hd_opts = hd.split(',')
-    env['omniauth.strategy'].options[:hd] =
-      if hd_opts.empty?
-        nil
-      elsif hd_opts.length == 1
-        hd_opts[0]
-      else
-        hd_opts
+  def set_hd(env, hd)
+    if hd
+      hd_opts = hd.split(',')
+      env['omniauth.strategy'].options[:hd] =
+        if hd_opts.empty?
+          nil
+        elsif hd_opts.length == 1
+          hd_opts[0]
+        else
+          hd_opts
+        end
       end
+  end
+
+  def migrate_twitter_user(user)
+    if !session["old_twitter_user_id"].nil? && user.provider != "twitter"
+      old_user = User.find(session["old_twitter_user_id"])
+
+      old_user.rooms.each do |room|
+        room.owner = user
+
+        room.name = "Old " + room.name if room.id == old_user.main_room.id
+
+        room.save!
+      end
+
+      # Query for the old user again so the migrated rooms don't get deleted
+      old_user.reload
+      old_user.destroy!
+
+      session["old_twitter_user_id"] = nil
+
+      flash[:success] = I18n.t("registration.deprecated.merge_success")
+    end
   end
 end

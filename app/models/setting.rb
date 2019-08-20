@@ -41,6 +41,8 @@ class Setting < ApplicationRecord
         Rails.configuration.registration_method_default
       when "Room Authentication"
         false
+      when "Room Limit"
+        Rails.configuration.number_of_rooms_default
       end
     end
   end

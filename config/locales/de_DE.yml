@@ -21,6 +21,14 @@ de_DE:
     attributes:
       user:
         accepted_terms: "Teilnahmebedingungen"
+        email: Email
+        name: Name
+        password: Passwort
+        password_confirmation: Passwort Bestätigung
+    errors:
+      models:
+        user:
+          confirmation: stimmt nicht mit dem Passwort überein
   administrator:
     site_settings:
       authentication:
@@ -39,7 +47,11 @@ de_DE:
         title: Primäre Farbe
         regular: Normal
         lighten: Heller
-        Darken: Dunkler
+        darken: Dunkler
+      recording_visibility:
+        info: Einstellen der Voreinstellung für die Sichtbarkeit neuer Aufzeichnungen
+        title: Voreinstellung der Aufzeichnungssichtbarkeit
+        warning: Diese Einstellung wirkt sich nur auf noch nicht laufende Konferenzen aus.
       registration:
         info: Verändern der Weise wie sich Teilnehmer auf der Webseite registrieren
         title: Registrierungsmethode
@@ -47,6 +59,9 @@ de_DE:
           approval: Genehmigen/Verweigern
           invite: Teilnahme durch Einladung
           open: Offene Registrierung
+      rooms:
+        info: "Limitiert die Anzahl der Räume, die Nutzer einrichten können (inklusive des Startraums). Diese Einstellung wirkt sich nicht auf Administratoren aus."
+        title: Anzahl der Räume pro Nutzer
       subtitle: Greenlight individuell anpassen
       title: Seiteneinstellungen
     flash:
@@ -60,19 +75,45 @@ de_DE:
       invite_email_verification: "Emailversand muss aktiviert sein, um diese Methode verwenden zu können. Bitte kontaktieren Sie Ihren Systemadministrator."
       promoted: Teilnehmer wurde erfolgreich hochgestuft
       registration_method_updated: Registrierungsmethode erfolgreich aktualisiert
+      reset_password: "Dem Teilnehmer wurde eine Email zum Passwortreset geschickt (Bitte weisen Sie den Teilnehmer darauf hin, im Spamordner danach zu suchen, falls er die Email nicht erhalten hat)"
       settings: Seiteneinstellungen erfolgreich geändert
       unauthorized: "Sie haben nicht die notwendigen Rechte, um diese Änderung bei diesem Teilnehmer vorzunehmen."
+    recordings:
+      title: Serveraufzeichnungen
+      no_recordings: Dieser Server hat keine Aufzeichnungen.
+    roles:
+      can_create_rooms: Kann Räume erstellen
+      delete: Rolle löschen
+      duplicate_name: "Der verwendete Rollenname wird bereits verwendet. Alle Rollennamen dürfen nur einmal verwendet werden. "
+      empty_name: Alle Rollen müssen einen nicht leeren Namen haben
+      invalid_order: Die Nutzerrolle muss die niedrigste und die Administratorrolle die höchste Rollenpriorität haben
+      invalid_update: "Sie können keine Rolle ändern, die eine höhere Priorität wie Sie hat"
+      name: Rollenname
+      new_role: Neue Rolle erstellen
+      role_has_users: "Diese Rolle ist %{user_count} Accounts zugewiesen. Bitte entfernen Sie alle Accounts von dieser Rolle, bevor Sie sie löschen."
+      title: Rollen
+      promote_email: "Nutzern eine Email schicken, wenn Ihnen diese Rolle zugewiesen wird"
+      demote_email: "Nutzern eine Email schicken, wenn Ihnen diese Rolle entzogen wird"
+      edit_site_settings: "Nutzern mit dieser Rolle erlauben, die primären Webseiteneinstellungen zu ändern"
+      edit_roles: "Nutzern mit dieser Rolle erlauben, andere Rollen zu verändern"
+      manage_users: "Nutzern mit dieser Rolle erlauben, andere Nutzer zu verwalten"
+      invalid_assignment: "Sie können niemandem eine Rolle zuweisen, deren Priorität über Ihrer eigenen Prioritätsstufe liegt"
+      invalid_removal: "Sie können niemandem eine Rolle entziehen, deren Priorität über Ihrer eigenen Prioritätsstufe liegt"
+      colour:
+        title: Rollenfarbe
+        info: "Die Farbe einstellen, die dieser Rolle zugewiesen wird"
     title: Organisationseinstellungen
     users:
       invite: Teilnehmer einladen
       edit:
         title: Teilnehmerdetails editieren
       settings:
+        approve: Freischalten
+        decline: Abweisen
         ban: Teilnehmer ausschließen
         delete: Löschen
-        demote: Zum Teilnehmer zurückstufen
         edit: Ändern
-        promote: Zum Administrator hochstufen
+        edit_roles: Nutzerrollen verändern
         unban: Ausschluss des Teilnehmers aufheben.
       table:
         authenticator: Authenticator
@@ -93,6 +134,8 @@ de_DE:
     cookie_button: Ich stimme zu
   copied: Kopiert
   copy: Kopieren
+  date:
+    month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
   default_admin: "Sie verwenden immer noch das voreingestellte Passwort für diesen Account. Bitte klicken Sie  <a href=\"%{edit_link}\">hier</a> um es zu ändern"
   delete: Löschen
   delivery_error: Während der Emailzustellung ist ein Fehler aufgetreten. Bitte kontaktieren Sie einen Administrator!
@@ -106,8 +149,11 @@ de_DE:
       message: BigBlueButton Endpunkt und Geheimnis ungültig
       title: Serverfehler
     internal:
-      message: Oh nein! Irgendetwas ist schiefgelaufen.
+      message: "Es sieht so aus, als ob irgendwas schiefgelaufen ist."
       help: "Der Fehler wurde gespeichert, wir werden ihn analysieren!"
+    maintenance:
+      message: "Entschuldigung, wir befinden uns im Wartungsmodus."
+      help: Wir sind in Kürze wieder da!
     migration_error:
       contact_admin: "Wenn Sie kein Administrator sind, kontaktieren Sie bitte einen."
       continue: Ich möchte bleiben und 1.0 verwenden.
@@ -123,16 +169,22 @@ de_DE:
       accepted: muss akzeptiert werden
       confirmation: "passt nicht zu %{attribute}"
       inclusion: ist nicht Teil der Liste
+    no_provider:
+      message: "Die Seite, auf die Sie versuchen zuzugreifen, ist nicht aktiviert."
+      help: "Bitte kontaktieren Sie Ihren Systemadministrator, damit er Greenlight einrichtet."
     not_found:
-      message: "Ups! Sieht so aus, als können wir das nicht finden."
+      message: Tut uns leid! Die aufgerufene Seite existiert nicht.
       help: "Ist es möglich, dass es entfernt wurde?"
+      user_not_found:
+        help: Bitte kontaktieren Sie einen Administrator.
+        message: "Tut uns leid, dieser Nutzer ist nicht registriert."
+      user_missing:
+        help: Bitte prüfen Sie die URL und versuchen Sie es erneut
+        message: Die eingegebene URL ist ungültig.
     title: Fehler
     unauthorized:
       message: Sie haben keine Zugriffsberechtigung auf diese Applikation
       help: "Falls Sie glauben, dass hier ein Fehler vorliegt, kontaktieren Sie Ihren Systemadministrator."
-    unprocessable:
-      message: Ups! Anfrage konnte nicht verarbeitet werden.
-      help: Leider ist das keine valide Anfrage.
   expired_reset_token: Passwordresetlink ist abgelaufen!
   features:
     title: Eigenschaften
@@ -158,8 +210,7 @@ de_DE:
       signout: Abmelden
   home_room: Startraum
   info_update_success: Information erfolgreich aktualisiert.
-  invalid_user: "Login fehlgeschlagen, weil das Benutzerkonto nicht gefunden wurde. Sind Sie sicher, dass die angegebene Emailadresse richtig ist?"
-  invalid_credentials: "Login wegen ungültiger Anmeldedaten fehlgeschlagen. Sind Sie sicher, alles richtig eingegeben zu haben?"
+  invalid_credentials: "Die eingegebene Email und das Passwort sind nicht richtig. Bitte versuchen Sie es erneut oder wählen Sie die Option Ihr Passwort zurückzusetzen, falls Sie es vergessen haben."
   invalid_login_method: Login fehlgeschlagen aufgrund einer Zugangsdiskrepanz. Sie müssen sich mit Omniauth anmelden.
   invite_message: "Um jemanden zur Konferenz einzuladen, schicken Sie ihm diesen Link:"
   javascript:
@@ -175,7 +226,6 @@ de_DE:
     video: Schauen Sie sich unsere Anleitung zur Verwendung von Greenlight an
     upgrade: "Zeigen Sie mir, wie ich auf Version 2.0. update!"
     version: "Wir haben eine neue Version von Greenlight veröffentlicht, aber Ihre Datenbank ist damit nicht kompatibel."
-  language_name: Deutsch
   language_default: Voreinstellung (Browsersprache)
   ldap_error: "Verbindung zum LDAP Server konnte nicht hergestellt werden. Bitte überprüfen Sie die LDAP Konfiguration und stellen Sie sicher, dass der LDAP-Server läuft."
   login: Einloggen
@@ -190,38 +240,38 @@ de_DE:
           info: Ein neuer Nutzer hat sich bei Greenlight angemeldet.
           more-info: "Um diesem Nutzer Zugriff auf Greenlight zu geben, müssen Sie seinen Account in den Organisationseinstellungen genehmigen."
           admins_link: Organisationsseite besuchen
-          subject: Neue Greenlight Nutzerregistierung 
+          subject: Neue Greenlight Nutzerregistierung
           username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registiert."
         subject: Account genehmigt
         username: "Ihr Nutzername ist %{email}."
       demoted:
-        info: "Sie sind nicht länger Administrator auf %{url}."
-        more-info: "Sie haben jetzt die selben Rechte wie normale Nutzer und können nicht länger administrative Einstellungen verändern. "
+        info: "Sie sind nicht länger ein %{role} auf %{url}."
+        more-info: Sie haben nun dieselben Rechte wie alle normalen Nutzer.
         root_link: Einloggen
-        subtitle: Administratorrechte entzogen
+        subtitle: "%{role} Rechte entzogen"
       invite:
         info: "Sie wurden von %{name} in Ihren persönlichen Bereich eingeladen"
-        signup: To signup using your email, click the button below and follow the steps.
+        signup_info: "Um sich mit Ihrer Email anzumelden, klicken Sie den untenstehenden Button und folgen Sie den Schritten."
         signup_link: Registieren
         signup:
           info: Ein Nutzer hat Sie dazu eingeladen sich für die Nutzung von Greenlight zu registieren.
           admins_link: Organisationsseite besuchen
-          subject: Registierung neuer Greenlight-Nutzer 
+          subject: Registierung neuer Greenlight-Nutzer
           username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registriert."
         subject: Einladung zur BigBlueButton-Teilnahme
         username: "Ihr Nutzername ist %{email}."
       password_reset:
         title: 'Passwort zurücksetzen'
-        welcome: "Es scheint als ob Sie ihr Passwort für %{bigbluebutton} vergessen haben"
-        message: 'Falls dies zutrifft, klicken Sie bitte auf den folgenden Link, um Ihr Passwort zurückzusetzen:'
+        welcome: "Es wurde ein Passwortreset für Emailadresse <b>%{email}</b> ausgelöst."
+        message: 'Falls Sie Ihr Passwort zurücksetzen wollen, klicken Sie bitte auf den folgenden Link:'
         reset_link: Passwort zurücksetzen
         expire: Dieser Link wird in zwei Stunden ungültig.
-        ignore: "Sie können diese Email einfach ignorieren, falls Sie keine Passwortzurücksetzung veranlasst haben."
+        ignore: "Sie können diese Email einfach ignorieren, falls Sie keine Anfrage zum Passwortreset abgeschickt haben."
       promoted:
         admins_link: Organisationsseite besuchen
-        info: "Sie sind jetzt Administrator auf %{url}."
-        more-info: "Als Administrator können sie Nutzer verwalten, deren Rolle ändern und die Seiteneinstellungen wie z.B, das Logo oder die Hintergrundfarbe verändern."
-        subtitle: Administratorrechte genehmigt
+        info: "Sie sind jetzt ein %{role} auf %{url}."
+        more-info: "Um sich Ihre neuen Rechte anzusehen, besuchen Sie %{url}."
+        subtitle: "%{role} Rechte erteilt"
       verify_email:
         welcome: "Willkommen zu Ihrem persönlichem Bereich, %{name}!"
         success: "Durch den Einsatz von %{bigbluebutton}, können Sie Ihre eigenen Räume erstellen, dort Konferenzen durchführen und mit anderen zusammenarbeiten."
@@ -232,7 +282,15 @@ de_DE:
         thanks: Danke für Ihre Registrierung. Wir wünschen Ihnen noch einen wunderbaren Tag!
   max_concurrent: Die maximale Anzahl gleichzeitiger Verbindungen ist erreicht!
   modal:
+    create_role:
+      create: Neue Rolle erstellen
+      footer_text: "Sie können die individuellen Rechte für diese Rolle ändern, nachdem Sie die Rolle angelegt haben"
+      name_placeholder: Rollennamen eingeben...
+      not_blank: Der Rollenname darf nicht leer sein.
+      title: Neue Rolle erstellen
     create_room:
+      access_code: Zugangscode
+      access_code_placeholder: Generieren eines optionalen Raumzugangscodes
       auto_join: Automatisch dem Raum beitreten
       create: Raum erstellen
       free_delete: Sie können den Raum jederzeit wieder löschen.
@@ -264,16 +322,17 @@ de_DE:
       title: Raumeinstellungen
       update: Raum aktualisieren
       client: Client auswählen
+      join_moderator: Alle Nutzer nehmen als Moderator teil
       mute: Teilnehmer beim Betreten stummschalten
-      default: Voreinstellung
-      html: HTML5
-      flash: Flash
+      require_approval: Freigabe durch Moderator bevor der Raum betreten werden kann
+      start: Jeder Teilnehmer kann das Meeting starten
       footer_text: Anpassungen des Raums können jederzeit vorgenommen werden.
     rename_room:
       name_placeholder: Neuen Raumnamen eingeben...
   name_update_success: Raumname erfolgreich geändert!
   no_user_email_exists: "Es gibt keinen Nutzer mit der angegebenen Email. Stellen Sie sicher, dass Sie sich nicht vertippt haben."
   omniauth_error: Es ist ein Fehler bei der Authentifizierung über Omniauth aufgetreten. Versuchen Sie es nochmal oder kontaktieren Sie einen Administrator.
+  omniauth_specific_error: "%{error} ist während der Authentifizierung mit Omniauth aufgetreten. Bitte versuchen Sie es nochmal oder kontaktieren Sie einen Administrator!"
   pagy:
     nav:
       prev: "&lsaquo; Vorheriges"
@@ -285,8 +344,9 @@ de_DE:
   password_different_notice: Passwortbestätigung ist nicht zutreffend.
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
+    ldap: LDAP
   recaptcha:
     errors:
       recaptcha_unreachable: "Ups, es war nicht möglich die reCAPTCHA Antwort zu überprüfen. Bitte versuchen Sie es nochmals."
@@ -309,13 +369,22 @@ de_DE:
       public: Öffentliche
       unlisted: Nicht gelistet
     format:
+      notes: Notizen
+      podcast: Podcast
       presentation: Präsentation
+      statistics: Statistiken
+      video: Video
   registration:
-    approval: 
+    approval:
       fail: "Ihr Account wurde noch nicht freigeschaltet. Falls Sie sich bereits vor mehreren Tagen registriert haben, kontaktieren Sie bitte Ihren Administrator."
       signup: Ihr Account wurde erfolgreich erzeugt. Er muss noch durch einen Administrator freigeschaltet werden.
     banned:
       fail: "Sie haben keinen Zugriff auf dieses Applikation. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator." 
+    deprecated:
+      new_signin: Wählen Sie eine neue Loginmethode für Ihren Account aus. Alle Ihre Räume und Ihr alter Account werden auf einen neuen Account migriert.
+      twitter_signin: "Das Einloggen über Twitter wird bald nicht mehr unterstützt und wird in einer zukünftigen Version ganz entfernt. Klicken Sie <a href=\"%{link}\"> hier </a> um Ihren Account auf eine neue Authentifizierungsmethode umzustellen"
+      twitter_signup: Einloggen über Twitter wird abgeschafft. Bitte verwenden Sie eine andere Loginmethode
+      merge_success: Ihr Twitter Account wurde erfolgreich mit dem neuen Account zusammengeführt. Der Zugang über Ihren Twitter Account wurde gelöscht.
     invite:
       fail: "Ihr Token ist entweder ungültig oder er ist abgelaufen. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
       no_invite: "Sie sind nicht zu Teilnahme eingeladen. Bitte kontaktieren Sie Ihren Administrator, um eine Einladung zu erhalten."
@@ -326,22 +395,35 @@ de_DE:
     confirm: Bestätigung Ihres neuen Passworts
     update: Passwort aktualisieren
   roles:
-    administrator: Administrator
+    admin: Admin
     banned: Gesperrt
     pending: Noch nicht erledigt
-    super_admin: Super Admin
     user: Benutzer
   room:
+    access_code_required: "Bitte geben Sie einen gültigen Zugangscode ein, um den Raum zu betreten"
     create_room: Raum erstellen
     create_room_error: Bei der Erstellung des Raums ist ein Fehler aufgetreten
     create_room_success: Raum erfolgreich erstellt
+    enter_the_access_code: Eingabe des Raumzugangscodes
     invited: Sie wurden zur Teilnahme eingeladen
     invite_participants: Teilnehmer einladen
     join: Teilnehmen
     last_session: "Letzte Konferenz am %{session}"
+    login: Betreten
     owner: Initiator
+    no_room:
+      description: "Geben Sie die Raum-URL oder die Raum-ID des Raums ein, den Sie betreten möchten."
+      edit_profile: Nutzerprofil editieren
+      go_to: Raum betreten
+      invalid_room_uid: Die angegebene Raum-URL/ID ist ungülltig.
+      placeholder: Raum-URL/ID
+      no_recent_rooms: Sie haben keine kürzlich betretenen Räume
+      recent_rooms: Den kürzlich betretenen Raum betreten
+      title: Raum betreten
     no_sessions: In diesem Raum haben noch keine Konferenzen stattgefunden.
     recordings: Aufzeichnungen des Raums
+    room_limit: Sie haben die maximale Anzahl von Räumen eingerichtet.
+    room_limit_exceeded: "Sie haben die maximale Nummer an einrichtbaren Räumen überschritten. Bitte löschen Sie %{difference} Räume, um auf diesen Raum zuzugreifen."
     sessions: Konferenzen
     settings: Raumeinstellungen
     start: Starten
@@ -358,6 +440,7 @@ de_DE:
       provider: Anbieter
       image: Bild
       image_url: URL des Profilbilds
+      roles: Nutzerrollen
       subtitle: Accountinformationen aktualisieren
       title: Accountinformationen
     delete:

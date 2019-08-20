@@ -13,9 +13,22 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<%= render 'shared/room_event' do %>
+<% valid_access_code = @room.access_code.nil? || @room.access_code.empty? || @room.access_code == session[:access_code] %>
+<%= render 'shared/room_event', render_recordings: valid_access_code do %>
   <% if room_authentication_required %>
     <h2><%= t("administrator.site_settings.authentication.user-info") %></h2>
+  <% elsif !valid_access_code %>
+    <%= form_for :room, url: login_room_path(@room.uid) do |f| %>
+      <div class="input-group join-input">
+        <%= f.text_field :access_code,
+              required: true,
+              class: "form-control join-form",
+              placeholder: t("room.enter_the_access_code"),
+              value: "" ,
+              autofocus: true %>
+        <%= f.submit t("room.login"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
+      </div>
+    <% end %>
   <% else %>
     <%= form_for room_path(@room), method: :post do |f| %>
       <div class="input-group join-input">
@@ -27,8 +40,10 @@
             class: "form-control join-form",
             placeholder: t("enter_your_name"),
             value: "#{@name}",
-            readonly: !current_user.nil? %>
-        <%= f.submit t("room.join"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
+            readonly: !current_user.nil?, 
+            autofocus: true
+            %>
+        <%= f.submit (!@is_running && @anyone_can_start)? t("room.start") : t("room.join"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
       </div>
     <% end %>
   <% end %>

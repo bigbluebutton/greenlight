@@ -32,16 +32,19 @@
 
 @import "tabler/variables";
 @import "bootstrap";
+@import "jquery-ui/sortable";
 @import "tabler-custom";
-@import "colorpicker";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 @import "utilities/variables";
 @import "admins";
 @import "main";
 @import "rooms";
 @import "sessions";
+@import "monolith.min.scss";
 
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i&display=swap&subset=latin-ext);
 
 * {
   outline: none !important;
@@ -167,4 +170,8 @@ table {
       cursor: pointer;
     }
   }
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }

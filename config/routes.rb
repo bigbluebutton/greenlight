@@ -22,13 +22,13 @@ Rails.application.routes.draw do
   # Error routes.
   match '/401', to: 'errors#unauthorized', via: :all, as: :unauthorized
   match '/404', to: 'errors#not_found', via: :all, as: :not_found
-  match '/422', to: 'errors#unprocessable', via: :all
   match '/500', to: 'errors#internal_error', via: :all, as: :internal_error
 
   # Signin/Signup routes.
   get '/signin', to: 'users#signin', as: :signin
   get '/signup', to: 'users#new', as: :signup
   post '/signup', to: 'users#create', as: :create_user
+  get '/ldap_signin', to: 'users#ldap_signin', as: :ldap_signin
 
   # Redirect to terms page
   match '/terms', to: 'users#terms', via: [:get, :post]
@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   resources :admins, only: [:index]
 
   scope '/admins' do
+    get '/site_settings', to: 'admins#site_settings', as: :admin_site_settings
+    get '/recordings', to: 'admins#server_recordings', as: :admin_recordings
     post '/branding', to: 'admins#branding', as: :admin_branding
     post '/coloring', to: 'admins#coloring', as: :admin_coloring
     post '/room_authentication', to: 'admins#room_authentication', as: :admin_room_authentication
@@ -44,13 +46,19 @@ Rails.application.routes.draw do
     post '/coloring_darken', to: 'admins#coloring_darken', as: :admin_coloring_darken
     post '/signup', to: 'admins#signup', as: :admin_signup
     get '/edit/:user_uid', to: 'admins#edit_user', as: :admin_edit_user
-    post '/promote/:user_uid', to: 'admins#promote', as: :admin_promote
-    post '/demote/:user_uid', to: 'admins#demote', as: :admin_demote
     post '/ban/:user_uid', to: 'admins#ban_user', as: :admin_ban
     post '/unban/:user_uid', to: 'admins#unban_user', as: :admin_unban
     post '/invite', to: 'admins#invite', as: :invite_user
     post '/registration_method/:method', to: 'admins#registration_method', as: :admin_change_registration
     post '/approve/:user_uid', to: 'admins#approve', as: :admin_approve
+    get '/reset', to: 'admins#reset', as: :admin_reset
+    post '/room_limit', to: 'admins#room_limit', as: :admin_room_limit
+    post '/default_recording_visibility', to: 'admins#default_recording_visibility', as: :admin_recording_visibility
+    get '/roles', to: 'admins#roles', as: :admin_roles
+    post '/role', to: 'admins#new_role', as: :admin_new_role
+    patch 'roles/order', to: 'admins#change_role_order', as: :admin_roles_order
+    post '/role/:role_id', to: 'admins#update_role', as: :admin_update_role
+    delete 'role/:role_id', to: 'admins#delete_role', as: :admin_delete_role
   end
 
   scope '/themes' do
@@ -87,9 +95,13 @@ Rails.application.routes.draw do
   # Handles Omniauth authentication.
   match '/auth/:provider/callback', to: 'sessions#omniauth', via: [:get, :post], as: :omniauth_session
   get '/auth/failure', to: 'sessions#omniauth_fail'
+  post '/auth/ldap', to: 'sessions#ldap', as: :ldap_callback
 
   # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/'
+
+  # Join a room by UID
+  post '/room/join', to: 'rooms#join_specific_room', as: :join_room
 
   # Extended room routes.
   scope '/:room_uid' do
@@ -98,6 +110,7 @@ Rails.application.routes.draw do
     post '/update_settings', to: 'rooms#update_settings'
     post '/start', to: 'rooms#start', as: :start_room
     get '/logout', to: 'rooms#logout', as: :logout_room
+    post '/login', to: 'rooms#login', as: :login_room
   end
 
   # Recording operations routes

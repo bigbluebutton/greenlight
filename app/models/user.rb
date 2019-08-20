@@ -19,8 +19,6 @@
 require 'bbb_api'
 
 class User < ApplicationRecord
-  rolify
-  include ::APIConcern
   include ::BbbApi
 
   attr_accessor :reset_token
@@ -33,6 +31,8 @@ class User < ApplicationRecord
 
   has_many :rooms
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
+
+  has_and_belongs_to_many :roles, join_table: :users_roles
 
   validates :name, length: { maximum: 256 }, presence: true
   validates :provider, presence: true
@@ -59,7 +59,8 @@ class User < ApplicationRecord
         u.name = auth_name(auth) unless u.name
         u.username = auth_username(auth) unless u.username
         u.email = auth_email(auth)
-        u.image = auth_image(auth)
+        u.image = auth_image(auth) unless u.image
+        auth_roles(u, auth)
         u.email_verified = true
         u.save!
       end
@@ -70,7 +71,7 @@ class User < ApplicationRecord
     # Provider attributes.
     def auth_name(auth)
       case auth['provider']
-      when :microsoft_office365
+      when :office365
         auth['info']['display_name']
       else
         auth['info']['name']
@@ -97,12 +98,24 @@ class User < ApplicationRecord
       when :twitter
         auth['info']['image'].gsub("http", "https").gsub("_normal", "")
       else
-        auth['info']['image'] unless auth['provider'] == :microsoft_office365
+        auth['info']['image']
+      end
+    end
+
+    def auth_roles(user, auth)
+      unless auth['info']['roles'].nil?
+        roles = auth['info']['roles'].split(',')
+
+        role_provider = auth['provider'] == "bn_launcher" ? auth['info']['customer'] : "greenlight"
+        roles.each do |role_name|
+          role = Role.where(provider: role_provider, name: role_name).first
+          user.roles << role unless role.nil?
+        end
       end
     end
   end
 
-  def self.admins_search(string)
+  def self.admins_search(string, role)
     active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
     # Postgres requires created_at to be cast to a string
     created_at_query = if active_database == "postgresql"
@@ -111,38 +124,29 @@ class User < ApplicationRecord
       "created_at"
     end
 
-    search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
-                   " OR users.#{created_at_query} LIKE :search OR provider LIKE :search"
+    search_query = ""
+    role_search_param = ""
+    if role.nil?
+      search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
+                    " OR users.#{created_at_query} LIKE :search OR users.provider LIKE :search" \
+                    " OR roles.name LIKE :roles_search"
+      role_search_param = "%#{string}%"
+    else
+      search_query = "(users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
+                    " OR users.#{created_at_query} LIKE :search OR users.provider LIKE :search)" \
+                    " AND roles.name = :roles_search"
+      role_search_param = role.name
+    end
+
     search_param = "%#{string}%"
-    where(search_query, search: search_param)
+    joins("LEFT OUTER JOIN users_roles ON users_roles.user_id = users.id LEFT OUTER JOIN roles " \
+      "ON roles.id = users_roles.role_id").distinct
+      .where(search_query, search: search_param, roles_search: role_search_param)
   end
 
   def self.admins_order(column, direction)
-    order("#{column} #{direction}")
-  end
-
-  def all_recordings(search_params = {}, ret_search_params = false)
-    pag_num = Rails.configuration.pagination_number
-
-    pag_loops = rooms.length / pag_num - 1
-
-    res = { recordings: [] }
-
-    (0..pag_loops).each do |i|
-      pag_rooms = rooms[pag_num * i, pag_num]
-
-      # bbb.get_recordings returns an object
-      # take only the array portion of the object that is returned
-      full_res = bbb.get_recordings(meetingID: pag_rooms.pluck(:bbb_id))
-      res[:recordings].push(*full_res[:recordings])
-    end
-
-    last_pag_room = rooms[pag_num * (pag_loops + 1), rooms.length % pag_num]
-
-    full_res = bbb.get_recordings(meetingID: last_pag_room.pluck(:bbb_id))
-    res[:recordings].push(*full_res[:recordings])
-
-    format_recordings(res, search_params, ret_search_params)
+    # Arel.sql to avoid sql injection
+    order(Arel.sql("#{column} #{direction}"))
   end
 
   # Activates an account and initialize a users main room
@@ -217,10 +221,11 @@ class User < ApplicationRecord
       if has_role? :super_admin
         id != user.id
       else
-        (has_role? :admin) && (id != user.id) && (provider == user.provider) && (!user.has_role? :super_admin)
+        highest_priority_role.can_manage_users && (id != user.id) && (provider == user.provider) &&
+          (!user.has_role? :super_admin)
       end
     else
-      ((has_role? :admin) || (has_role? :super_admin)) && (id != user.id)
+      (highest_priority_role.can_manage_users || (has_role? :super_admin)) && (id != user.id)
     end
   end
 
@@ -232,6 +237,58 @@ class User < ApplicationRecord
   # Returns a random token.
   def self.new_token
     SecureRandom.urlsafe_base64
+  end
+
+  # role functions
+  def highest_priority_role
+    roles.by_priority.first
+  end
+
+  def add_role(role)
+    unless has_role?(role)
+      role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
+
+      new_role = Role.find_by(name: role, provider: role_provider)
+
+      if new_role.nil?
+        return if Role.duplicate_name(role, role_provider) || role.strip.empty?
+
+        new_role = Role.create_new_role(role, role_provider)
+      end
+
+      roles << new_role
+
+      save!
+    end
+  end
+
+  def remove_role(role)
+    if has_role?(role)
+      role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
+
+      roles.delete(Role.find_by(name: role, provider: role_provider))
+      save!
+    end
+  end
+
+  # This rule is disabled as the function name must be has_role?
+  # rubocop:disable Naming/PredicateName
+  def has_role?(role)
+    # rubocop:enable Naming/PredicateName
+    roles.exists?(name: role)
+  end
+
+  def self.with_role(role)
+    User.all_users_with_roles.where(roles: { name: role })
+  end
+
+  def self.without_role(role)
+    User.where.not(id: with_role(role).pluck(:id))
+  end
+
+  def self.all_users_with_roles
+    User.joins("INNER JOIN users_roles ON users_roles.user_id = users.id INNER JOIN roles " \
+      "ON roles.id = users_roles.role_id")
   end
 
   private
@@ -257,6 +314,10 @@ class User < ApplicationRecord
 
   # Initialize the user to use the default user role
   def assign_default_role
+    role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
+
+    Role.create_default_roles(role_provider) if Role.where(provider: role_provider).count.zero?
+
     add_role(:user) if roles.blank?
   end
 

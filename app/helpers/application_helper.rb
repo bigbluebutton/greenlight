@@ -17,10 +17,12 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 require 'bbb_api'
+require 'i18n/language/mapping'
 
 module ApplicationHelper
   include MeetingsHelper
   include BbbApi
+  include I18n::Language::Mapping
 
   # Gets all configured omniauth providers.
   def configured_providers
@@ -31,12 +33,20 @@ module ApplicationHelper
 
   # Determines which providers can show a login button in the login modal.
   def iconset_providers
-    configured_providers & [:google, :twitter, :microsoft_office365]
+    providers = configured_providers & [:google, :twitter, :office365, :ldap]
+
+    providers.delete(:twitter) if session[:old_twitter_user_id]
+
+    providers
   end
 
   # Generates the login URL for a specific provider.
   def omniauth_login_url(provider)
-    "#{Rails.configuration.relative_url_root}/auth/#{provider}"
+    if provider == :ldap
+      ldap_signin_path
+    else
+      "#{Rails.configuration.relative_url_root}/auth/#{provider}"
+    end
   end
 
   # Determine if Greenlight is configured to allow user signups.
@@ -54,9 +64,8 @@ module ApplicationHelper
     locales = I18n.available_locales
     language_opts = [['<<<< ' + t("language_default") + ' >>>>', "default"]]
     locales.each do |locale|
-      language_name = t("language_name", locale: locale)
-      language_name = locale.to_s if locale != :en && language_name == 'English'
-      language_opts.push([language_name, locale.to_s])
+      language_mapping = I18n::Language::Mapping.language_mapping_list[locale.to_s.gsub("_", "-")]
+      language_opts.push([language_mapping["nativeName"], locale.to_s])
     end
     language_opts.sort
   end
@@ -78,6 +87,7 @@ module ApplicationHelper
   def allow_greenlight_accounts?
     return Rails.configuration.allow_user_signup unless Rails.configuration.loadbalanced_configuration
     return false unless @user_domain && !@user_domain.empty? && Rails.configuration.allow_user_signup
+    return false if @user_domain == "greenlight"
     # Proceed with retrieving the provider info
     begin
       provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
@@ -99,5 +109,34 @@ module ApplicationHelper
     return root_path unless current_user
     return admins_path if current_user.has_role? :super_admin
     current_user.main_room
+  end
+
+  def role_colour(role)
+    role.colour || Rails.configuration.primary_color_default
+  end
+
+  def translated_role_name(role)
+    if role.name == "denied"
+      I18n.t("roles.banned")
+    elsif role.name == "pending"
+      I18n.t("roles.pending")
+    elsif role.name == "admin"
+      I18n.t("roles.admin")
+    elsif role.name == "user"
+      I18n.t("roles.user")
+    else
+      role.name
+    end
+  end
+
+  def can_reset_password
+    # Check if admin is editting user and user is a greenlight account
+    Rails.configuration.enable_email_verification &&
+      Rails.application.routes.recognize_path(request.env['PATH_INFO'])[:action] == "edit_user" &&
+      @user.greenlight_account?
+  end
+
+  def google_analytics_url
+    "https://www.googletagmanager.com/gtag/js?id=#{ENV['GOOGLE_ANALYTICS_TRACKING_ID']}"
   end
 end

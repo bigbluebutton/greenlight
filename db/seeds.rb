@@ -8,4 +8,5 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Role.create_default_roles("greenlight")
 Rake::Task['admin:create'].invoke

@@ -23,26 +23,44 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include ThemingHelper
 
+  # Force SSL for loadbalancer configurations.
+  before_action :redirect_to_https
+
+  before_action :set_user_domain
+  before_action :maintenance_mode?
   before_action :migration_error?
   before_action :set_locale
   before_action :check_admin_password
-  before_action :set_user_domain
   before_action :check_user_role
 
   # Manually handle BigBlueButton errors
   rescue_from BigBlueButton::BigBlueButtonException, with: :handle_bigbluebutton_error
-
-  # Force SSL for loadbalancer configurations.
-  before_action :redirect_to_https
 
   protect_from_forgery with: :exception
 
   MEETING_NAME_LIMIT = 90
   USER_NAME_LIMIT = 32
 
+  # Include user domain in lograge logs
+  def append_info_to_payload(payload)
+    super
+    payload[:host] = @user_domain
+  end
+
   # Show an information page when migration fails and there is a version error.
   def migration_error?
     render :migration_error unless ENV["DB_MIGRATE_FAILED"].blank?
+  end
+
+  def maintenance_mode?
+    if ENV["MAINTENANCE_MODE"] == "true"
+      render "errors/greenlight_error", status: 503, formats: :html,
+        locals: {
+          status_code: 503,
+          message: I18n.t("errors.maintenance.message"),
+          help: I18n.t("errors.maintenance.help"),
+        }
+    end
   end
 
   # Sets the appropriate locale.
@@ -106,18 +124,21 @@ class ApplicationController < ActionController::Base
       meeting_logout_url: request.base_url + logout_room_path(@room),
       meeting_recorded: true,
       moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
+      host: request.host,
+      recording_default_visibility: Setting.find_or_create_by!(provider: user_settings_provider)
+                                           .get_value("Default Recording Visibility") == "public"
     }
   end
 
   # Manually deal with 401 errors
   rescue_from CanCan::AccessDenied do |_exception|
-    render "errors/not_found"
+    render "errors/greenlight_error"
   end
 
   # Checks to make sure that the admin has changed his password from the default
   def check_admin_password
-    if current_user&.has_role?(:admin) && current_user&.greenlight_account? &&
-       current_user&.authenticate(Rails.configuration.admin_password_default)
+    if current_user&.has_role?(:admin) && current_user.email == "admin@example.com" &&
+       current_user&.greenlight_account? && current_user&.authenticate(Rails.configuration.admin_password_default)
 
       flash.now[:alert] = I18n.t("default_admin",
         edit_link: edit_user_path(user_uid: current_user.uid) + "?setting=password").html_safe
@@ -131,10 +152,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_user_domain
-    @user_domain = if Rails.env.test? || !Rails.configuration.loadbalanced_configuration
-      "greenlight"
+    if Rails.env.test? || !Rails.configuration.loadbalanced_configuration
+      @user_domain = "greenlight"
     else
-      parse_user_domain(request.host)
+      @user_domain = parse_user_domain(request.host)
+
+      check_provider_exists
     end
   end
   helper_method :set_user_domain
@@ -154,5 +177,39 @@ class ApplicationController < ActionController::Base
   # Manually Handle BigBlueButton errors
   def handle_bigbluebutton_error
     render "errors/bigbluebutton_error"
+  end
+
+  private
+
+  def check_provider_exists
+    # Checks to see if the user exists
+    begin
+      # Check if the session has already checked that the user exists
+      # and return true if they did for this domain
+      return if session[:provider_exists] == @user_domain
+
+      retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
+
+      # Add a session variable if the provider exists
+      session[:provider_exists] = @user_domain
+    rescue => e
+      # Use the default site settings
+      @user_domain = "greenlight"
+
+      if e.message.eql? "No user with that id exists"
+        render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_not_found.message"),
+          help: I18n.t("errors.not_found.user_not_found.help") }
+      elsif e.message.eql? "Provider not included."
+        render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_missing.message"),
+          help: I18n.t("errors.not_found.user_missing.help") }
+      elsif e.message.eql? "That user has no configured provider."
+        render "errors/greenlight_error", locals: { status_code: 501,
+          message: I18n.t("errors.no_provider.message"),
+          help: I18n.t("errors.no_provider.help") }
+      else
+        render "errors/greenlight_error", locals: { status_code: 500, message: I18n.t("errors.internal.message"),
+          help: I18n.t("errors.internal.help"), display_back: true }
+      end
+    end
   end
 end

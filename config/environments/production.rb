@@ -16,6 +16,15 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  config.cache_store = :memory_store
+  config.public_file_server.headers = {
+    'Cache-Control' => "public, max-age=#{1.years.to_i}"
+  }
+
+  # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
+  # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
+  # config.require_master_key = true
+
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].blank?
@@ -25,7 +34,7 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = true
+  config.assets.compile = false
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -36,6 +45,9 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
+  # Store uploaded files on the local file system (see config/storage.yml for options)
+  config.active_storage.service = :local
+
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
@@ -43,13 +55,6 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = (ENV["ENABLE_SSL"] == "true")
-
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
-  config.log_level = :debug
-
-  # Prepend all log lines with the following tags.
-  config.log_tags = [:request_id]
 
   # Don't wrap form components in field_with_error divs
   ActionView::Base.field_error_proc = proc do |html_tag|
@@ -84,19 +89,27 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation cannot be found).
-  config.i18n.fallbacks = true
-
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
-  # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  # Use Lograge for logging
+  config.lograge.enabled = true
 
-  # Use a different logger for distributed setups.
-  # require 'syslog/logger'
-  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
+  config.lograge.ignore_actions = ["HealthCheck::HealthCheckController#index"]
+
+  config.lograge.custom_options = lambda do |event|
+    # capture some specific timing values you are interested in
+    { host: event.payload[:host] }
+  end
+
+  config.log_formatter = proc do |severity, _time, _progname, msg|
+    "#{severity}: #{msg} \n"
+  end
+
+  config.log_level = :info
+
+  # Prepend all log lines with the following tags.
+  config.log_tags = [:request_id]
 
   if ENV["RAILS_LOG_TO_STDOUT"] == "true"
     logger = ActiveSupport::Logger.new(STDOUT)
@@ -105,8 +118,10 @@ Rails.application.configure do
   elsif ENV["RAILS_LOG_REMOTE_NAME"] && ENV["RAILS_LOG_REMOTE_PORT"]
     require 'remote_syslog_logger'
     logger_program = ENV["RAILS_LOG_REMOTE_TAG"] || "greenlight-#{ENV['RAILS_ENV']}"
-    config.logger = RemoteSyslogLogger.new(ENV["RAILS_LOG_REMOTE_NAME"],
+    logger = RemoteSyslogLogger.new(ENV["RAILS_LOG_REMOTE_NAME"],
       ENV["RAILS_LOG_REMOTE_PORT"], program: logger_program)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
   # Do not dump schema after migrations.

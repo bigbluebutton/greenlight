@@ -29,25 +29,19 @@
     </div>
   </td>
   <% if recording_thumbnails? %>
-    <td>
+    <td class="overflow-hidden">
       <% p = recording[:playbacks].find do |p| p.key?(:preview) end %>
       <% if p %>
-        <% p[:preview][:images][:image].each do |img| %>
+        <% safe_recording_images(p[:preview][:images][:image]).each do |img| %>
           <%= image_tag(img[:content].strip, class: "thumbnail px-2") %>
         <% end %>
       <% end %>
     </td>
   <% end %>
   <td id="recording-length" class="text-left" data-full-length="<%=recording[:playbacks].first[:length]%>">
-    <div class="small text-muted text-uppercase">
-      <%= t("recording.table.length") %>
-    </div>
     <%= recording_length(recording[:playbacks]) %>
   </td>
   <td id="recording-users" class="text-left">
-    <div class="small text-muted text-uppercase">
-      <%= t("recording.table.users") %>
-    </div>
     <%= recording[:participants] %>
   </td>
   <td class="text-left">

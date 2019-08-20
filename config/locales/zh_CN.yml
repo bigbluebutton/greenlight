@@ -21,6 +21,14 @@ zh_CN:
     attributes:
       user:
         accepted_terms: "协议和条款"
+        email: Email
+        name: 姓名
+        password: 密码
+        password_confirmation: 确认密码
+    errors:
+      models:
+        user:
+          confirmation: 和密码不一致
   administrator:
     site_settings:
       authentication:
@@ -28,7 +36,7 @@ zh_CN:
         enabled: 启用
         info: 仅允许经过身份验证的用户加入会议室
         title: 要求对会议室进行身份验证
-        user-info: 你必须登录Greenlight才能加入这个会议室
+        user-info: 您必须登录才能加入这个会议室
       branding:
         change: 修改品牌形象
         info: 更改左上角显示的网站标志
@@ -39,7 +47,13 @@ zh_CN:
         title: 主颜色
         regular: 常规
         lighten: 变亮
-        Darken: 变暗
+        darken: 变暗
+      recording_visibility:
+        public: 公开
+        private: 私有
+        info: 设置新录制录像的默认可见性
+        title: 录像默认可见性
+        warning: 此设置将仅应用于未运行的会议。
       registration:
         info: 更改用户在网站注册的方式
         title: 注册方式
@@ -47,6 +61,9 @@ zh_CN:
           approval: 批准/拒绝
           invite: 邀请加入
           open: 开放式注册
+      rooms:
+        info: 限制用户可以拥有的会议室数量（包括主会议室）。此设置不适用于管理员。
+        title: 每个用户的会议室数量
       subtitle: 自定义Greenlight
       title: 网站设置
     flash:
@@ -57,17 +74,22 @@ zh_CN:
       delete_fail: 删除用户失败
       demoted: 用户已成功降级
       invite: "邀请成功发送到 %{email}"
-      invite_email_verification: ALLOW_MAIL_NOTIFICATIONS 必须设置为true才能使用此方法
+      invite_email_verification: 必须启用电子邮件才能使用此方法。请与系统管理员联系。
       promoted: 用户已成功升级
       registration_method_updated: 注册方法已成功更新
       settings: 已成功更改网站设置
       unauthorized: 您无权对此用户执行操作
-    title: 全局设置
+    recordings:
+      title: 服务器录像
+      no_recordings: 此服务器没有录像。
+    title: 组织设置
     users:
       invite: 邀请用户
       edit:
         title: 编辑用户详细信息
       settings:
+        approve: 批准
+        decline: 拒绝
         ban: 禁止用户
         delete: 删除
         demote: 降级为普通用户
@@ -93,7 +115,7 @@ zh_CN:
     cookie_button: 我同意
   copied: Copied
   copy: 复制
-  default_admin: "您仍在使用此帐户的默认密码。 请点击 <a href=\"%{edit_link}\">这里</a> 修改。"
+  default_admin: "您仍在使用此帐户的初始默认密码。 请点击 <a href=\"%{edit_link}\">这里</a> 修改。"
   delete: 删除
   delivery_error: 电子邮件传递过程中出错。请联系管理员！
   docs: 文档
@@ -106,8 +128,12 @@ zh_CN:
       message: BigBlueButton的Endpoint 和Secret无效
       title: 服务器错误
     internal:
-      message: 哎呀，看起来服务器内部出错了！
+      message: 看来服务器这边出了点问题。
       help: 错误信息已经记录了，我们会检查一下!
+    maintenance:
+      message: 对不起，我们正在下线维修中。
+      help: 我们很快就回来！
+      readonly: 此应用程序正在维护中。您将无法执行此操作。
     migration_error:
       contact_admin: 请联系管理员。
       continue: 还是继续使用 1.0吧。
@@ -123,16 +149,22 @@ zh_CN:
       accepted: 必须同意
       confirmation: "不匹配%{attribute}"
       inclusion: 列表中不存在
+    no_provider:
+      message: 您尝试访问的网站未启用
+      help: 请与系统管理员联系以设置Greenlight
     not_found:
-      message: 哎哟！看来我们找不到它了。
+      message: 对不起！您要查找的页面不存在。
       help: 它有可能被移除了吗？
+      user_not_found:
+        help: 请与管理员联系。
+        message: 抱歉，此用户未注册。
+      user_missing:
+        help: 请验证URL并重试
+        message: 您输入的URL无效。
     title: 错误
     unauthorized:
       message: 您无权访问此应用程序
       help: 如果您认为这是一个错误，请联系您的系统管理员。
-    unprocessable:
-      message: 哎呀！请求无法处理。
-      help: 这不是有效的请求。
   expired_reset_token: 密码重置链接已过期！
   features:
     title: 功能
@@ -151,12 +183,12 @@ zh_CN:
   header:
     all_recordings: 所有录像
     dropdown:
-      account_settings: 全局设置
+      account_settings: 组织
       help: 帮助
       home: 首页
       settings: 个人设置
       signout: 退出
-  home_room: 首页会议室
+  home_room: 主会议室
   info_update_success: 信息更新成功。
   invalid_user: 由于找不到用户，登录失败。您确定电子邮件帐户是正确的吗？
   invalid_credentials: 登录失败。输入有误？
@@ -174,8 +206,7 @@ zh_CN:
     welcome: 欢迎来到BigBlueButton在线会议系统
     video: 请看使用说明
     upgrade: 告诉我怎么升级到 2.0!
-    version: 我们发布了新版Greenlight，但你的数据库不兼容。
-  language_name: 简体中文
+    version: 我们发布了新版Greenlight，但您的数据库不兼容。
   language_default: 默认（浏览器语言）
   ldap_error: 无法连接到LDAP服务器，请在env文件中检查LDAP配置，还要确保服务已经启动。
   login: 登录
@@ -184,13 +215,13 @@ zh_CN:
     user:
       approve:
         info: 您的帐户已被批准。
-        signin: 要访问您的私人会议室，请单击下面的按钮并登录。
+        signin: 要访问您的个人会议室，请单击下面的按钮并登录。
         signin_link: 登录
         signup:
           info: 一个新用户已注册使用Greenlight。
           more-info: 若要允许此用户访问greenlight，您必须在“组织设置”中批准其帐户。
           admins_link: 访问组织页面
-          subject: 新Greenlight用户注册 
+          subject: 新Greenlight用户注册
           username: "用户注册了名称 %{name} 和电子邮箱 %{email}."
         subject: 帐户已批准
         username: "您的用户名是 %{email}."
@@ -198,15 +229,15 @@ zh_CN:
         info: "您不再是 %{url}的管理员."
         more-info: 您现在拥有与普通用户相同的权限，将无法再访问任何管理员设置。
         root_link: 登录
-        subtitle: 管理人权利被撤销了
+        subtitle: 管理人权限已撤销
       invite:
         info: "您被%{name}邀请到您自己的私人空间 "
-        signup: To signup using your email, click the button below and follow the steps.
+        signup_info: 若要使用电子邮件注册，请单击下面的按钮并按照步骤操作。
         signup_link: 注册
         signup:
           info: 被邀请的用户已注册使用greenlight。
           admins_link: 访问组织页面
-          subject: 新Greenlight用户注册 
+          subject: 新Greenlight用户注册
           username: "用户注册了名称%{name} 和电子邮箱 %{email}."
         subject: 邀请加入 BigBlueButton
         username: "您的用户名是 %{email}."
@@ -221,10 +252,10 @@ zh_CN:
         admins_link: 访问组织页面
         info: "您现在是 %{url}的管理员了."
         more-info: 作为管理员，您可以通过更改徽标和品牌颜色来管理用户及其角色并配置站点设置。
-        subtitle: 管理员权利已授权
+        subtitle: 管理员权限已授予
       verify_email:
         welcome: "欢迎来到您的个人空间，%{name}！"
-        success: "使用%{bigbluebutton}，您可以创建私有会议室来主持会议并与其他人协作。"
+        success: "使用%{bigbluebutton}，您可以创建个人会议室来主持会议并与其他人协作。"
         username: "您的用户名是%{email}。"
         verify: 要验证您的帐户，只需单击下面的按钮。
         verify_text: '要验证您的帐户，只需点击以下链接：%{url}'
@@ -233,6 +264,8 @@ zh_CN:
   max_concurrent: 已达到允许的最大并发会话数！
   modal:
     create_room:
+      access_code: 访问代码
+      access_code_placeholder: 生成可选的会议访问代码
       auto_join: 自动进入会议室
       create: 创建会议室
       free_delete: 任何时候都可以删除这个会议室
@@ -248,7 +281,8 @@ zh_CN:
       confirm: "确定要删除%{room}吗?"
       delete: 我确定删除这个会议室
       keep: 我还是留着它吧
-      warning: "您将 <b>不能</b> 恢复这个会议室或任何跟 %{recordings_num} 相关的录像。"
+      warning: 您将<b>无法</b> 恢复这个会议室
+      recording_warning: "或任意 %{recordings_num} 的相关录像"
     invite_user:
       email_placeholder: 输入用户的电子邮件
       footer: 用户将收到一封电子邮件，其中包含如何注册的说明。
@@ -264,9 +298,8 @@ zh_CN:
       update: 修改会议室
       client: 选择客户端类型
       mute: 用户加入时静音
-      default: 默认
-      html: HTML5
-      flash: Flash
+      require_approval: 加入前需要主持人批准
+      start: 允许任何用户启动此会议
       footer_text: 您可以随时调整会议室
     rename_room:
       name_placeholder: 这里请输入新会议室名称…
@@ -281,11 +314,12 @@ zh_CN:
   password: 密码
   password_empty_notice: 密码不能为空。
   password_reset_success: 密码已重置。
-  password_different_notice: 两次新密码不一致。
+  password_different_notice: 确认密码不一致。
   provider:
     google: Google
-    microsoft_office365: Office 365
+    office365: Office 365
     twitter: Twitter
+    ldap: LDAP
   recaptcha:
     errors:
       recaptcha_unreachable: 哎呀，我们未能验证您的reCAPTCHA 响应。请再试一次。
@@ -308,13 +342,22 @@ zh_CN:
       public: 公开
       unlisted: 隐藏
     format:
+      notes: 笔记
+      podcast: 播客
       presentation: 演示
+      statistics: 统计
+      video: 视频
   registration:
-    approval: 
+    approval:
       fail: 您的帐户尚未批准。如果您注册后已过多天，请与管理员联系。
       signup: 您的帐户已成功创建。它已发送给管理员审批。
     banned:
       fail: 您没有访问此应用程序的权限。如果您认为这是一个错误，请联系您的管理员。 
+    deprecated:
+      new_signin: 为您的帐户选择新的登录方法。旧帐户中的所有会议室都将迁移到新帐户。
+      twitter_signin: "通过Twitter登录已被弃用并将在下一版本中删除。 点击 <a href=\"%{link}\"> 这里 </a> 将您的帐户移动到新的身份验证方法。"
+      twitter_signup: 已弃用Twitter注册。请使用其他注册方法。
+      merge_success: 已成功将您的Twitter帐户与新帐户合并。您的旧Twitter帐户已被删除。
     invite:
       fail: 您的令牌无效或已过期。如果您认为这是一个错误，请联系您的管理员。
       no_invite: 您没有被邀请加入。请联系管理员申请邀请。
@@ -322,25 +365,30 @@ zh_CN:
   reset_password:
     subtitle: 重置密码
     password: 新密码
-    confirm: 再次输入新密码
+    confirm: 确认新密码
     update: 更新密码
   roles:
-    administrator: 管理员
-    banned: Banned
+    administrator: 管理
+    banned: 已禁用
     pending: 待定
     super_admin: 超级管理员
     user: 用户
   room:
+    access_code_required: 请输入有效的访问代码以加入会议
     create_room: 创建会议室
     create_room_error: 创建会议室出错
     create_room_success: 会议室创建成功
+    enter_the_access_code: 输入会议室的访问代码
     invited: 您已被邀请加入
     invite_participants: 邀请参与者的链接
     join: 加入
     last_session: "上一次会议%{session}"
+    login: 加入
     owner: 主持人
     no_sessions: 会议室从未使用！
     recordings: 会议录像
+    room_limit: 您已达到允许的最大会议室数量
+    room_limit_exceeded: "您已拥有超过允许的会议室数量。 请删除%{difference} 会议室(s)以访问这个会议室。"
     sessions: 会议
     settings: 会议室设置
     start: 开始
@@ -348,7 +396,7 @@ zh_CN:
     update_settings_error: 修改会议室设置出错
     update_settings_success: 会议室设置修改成功
     wait:
-      message: 会议还没开始呢。
+      message: 会议还没有开始。
       auto: 会议开始后您将自动进入
   settings:
     account:
@@ -365,7 +413,7 @@ zh_CN:
       subtitle: 永久删除您的帐户
       title: 删除帐户
     password:
-      confirmation: 再次输入新密码
+      confirmation: 确认新密码
       new: 新密码
       old: 旧密码
       subtitle: 修改密码
@@ -373,7 +421,7 @@ zh_CN:
     title: 个人设置
     search: 搜索
   signup:
-    password_confirm: 重复输入新密码
+    password_confirm: 确认密码
     subtitle: 创建帐户
     title: 注册
     with: "通过%{provider}注册"

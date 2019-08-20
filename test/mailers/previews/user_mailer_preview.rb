@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserMailerPreview < ActionMailer::Preview
-  def initialize
+  def initialize(_params)
     @logo = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
     @color = "#467fcf"
   end
@@ -53,19 +53,21 @@ class UserMailerPreview < ActionMailer::Preview
   # http://localhost:3000/rails/mailers/user_mailer/user_promoted
   def user_promoted
     user = User.first
+    role = Role.first
     url = "http://example.com"
     logo_image = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
     user_color = "#467fcf"
-    UserMailer.user_promoted(user, url, logo_image, user_color)
+    UserMailer.user_promoted(user, role, url, logo_image, user_color)
   end
 
   # Preview this email at
   # http://localhost:3000/rails/mailers/user_mailer/user_demoted
   def user_demoted
     user = User.first
+    role = Role.first
     url = "http://example.com"
     logo_image = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
     user_color = "#467fcf"
-    UserMailer.user_demoted(user, url, logo_image, user_color)
+    UserMailer.user_demoted(user, role, url, logo_image, user_color)
   end
 end

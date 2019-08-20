@@ -84,6 +84,12 @@ a {
   color: #6e7687 !important;
   &:hover {
     color: $primary-color !important;
+    background-color: $primary-color-lighten !important;
+    &.sort-disabled {
+      background: #e6e6e6 !important;
+      color: rgb(110, 118, 135) !important;
+      opacity: 0.9;
+    }
   }
   &:active {
     background-color: $primary-color-lighten !important;
@@ -100,6 +106,12 @@ input:focus, select:focus {
 
   &, .list-group-item.active * {
     color: $primary-color !important;
+  }
+
+  &.sort-disabled {
+    background: #e6e6e6 !important;
+    color: rgb(110, 118, 135) !important;
+    opacity: 0.9 !important;
   }
 }
 
@@ -130,6 +142,7 @@ input:focus, select:focus {
     }
 
     & a {
+      color: $primary-color !important;
       border-color: $primary-color !important;
     }
 
@@ -159,4 +172,14 @@ input:focus, select:focus {
   background-color: $primary-color-darken !important;
   border-color: $primary-color-darken !important;
   color: white !important;
+}
+
+.custom-switch-input:checked ~ .custom-switch-indicator {
+  background-color: $primary-color !important;
+  border-color: $primary-color-darken !important;
+}
+
+.custom-switch-input:focus ~ .custom-switch-indicator {
+  box-shadow: 0 0 0 2px $primary-color-lighten;
+  border-color: $primary-color-darken !important;
 }

@@ -19,13 +19,41 @@
 class Role < ApplicationRecord
   has_and_belongs_to_many :users, join_table: :users_roles
 
-  belongs_to :resource,
-    polymorphic: true,
-    optional: true
+  default_scope { order(:priority) }
+  scope :by_priority, -> { order(:priority) }
+  scope :editable_roles, ->(provider) { where(provider: provider).where.not(name: %w[super_admin denied pending]) }
 
-  validates :resource_type,
-    inclusion: { in: Rolify.resource_types },
-    allow_nil: true
+  RESERVED_ROLE_NAMES = %w[super_admin admin pending denied user]
 
-  scopify
+  def self.duplicate_name(name, provider)
+    RESERVED_ROLE_NAMES.include?(name) || Role.exists?(name: name, provider: provider)
+  end
+
+  def self.create_default_roles(provider)
+    Role.create(name: "user", provider: provider, priority: 1, can_create_rooms: true, colour: "#868e96")
+    Role.create(name: "admin", provider: provider, priority: 0, can_create_rooms: true, send_promoted_email: true,
+      send_demoted_email: true, can_edit_site_settings: true,
+      can_edit_roles: true, can_manage_users: true, colour: "#f1c40f")
+    Role.create(name: "pending", provider: provider, priority: -1, colour: "#17a2b8")
+    Role.create(name: "denied", provider: provider, priority: -1, colour: "#343a40")
+    Role.create(name: "super_admin", provider: provider, priority: -2, can_create_rooms: true,
+      send_promoted_email: true, send_demoted_email: true, can_edit_site_settings: true,
+      can_edit_roles: true, can_manage_users: true, colour: "#cd201f")
+  end
+
+  def self.create_new_role(role_name, provider)
+    # Create the new role with the second highest priority
+    # This means that it will only be more important than the user role
+    # This also updates the user role to have the highest priority
+    role = Role.create(name: role_name, provider: provider)
+    user_role = Role.find_by(name: 'user', provider: provider)
+
+    role.priority = user_role.priority
+    user_role.priority += 1
+
+    role.save!
+    user_role.save!
+
+    role
+  end
 end

@@ -16,10 +16,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <% if Rails.configuration.google_analytics %>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="<%= google_analytics_url %>"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', "<%= ENV["GOOGLE_ANALYTICS_TRACKING_ID"] %>");
+      </script>
+    <% end %>
+
     <title><%= t("bigbluebutton") %></title>
     <%= csrf_meta_tags %>
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
     <!-- Global javascript variables and helpers. -->
     <script type="text/javascript">
@@ -27,8 +37,6 @@
       window.GreenLight.WEBSOCKET_HOST = "<%= ENV['WEBSOCKET_HOST'] %>"
       window.GreenLight.RELATIVE_ROOT = "<%= relative_root %>"
     </script>
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -66,7 +74,7 @@
           <div class="flash alert d-inline">
             <i class="fas fa-exclamation-triangle"></i>
             <p class="d-inline"><%= t("test_install",
-              href: link_to(t("docs").downcase, "http://docs.bigbluebutton.org/install/greenlight-v2.html#2-install-greenlight", target: "_blank")
+              href: link_to(t("docs").downcase, "http://docs.bigbluebutton.org/install/greenlight-v2.html#2-install-greenlight", target: "_blank", rel: "noopener")
             ).html_safe %>
           </div>
         </div>

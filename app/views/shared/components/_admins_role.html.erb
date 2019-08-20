@@ -13,24 +13,6 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<% if roles.include?("denied")%>
-  <button class="user-role btn btn-sm btn-gray-dark" onclick="filterRole('denied')">
-    <%= t("roles.banned") %>
-  </button>
-<% elsif roles.include?("pending") %>
-  <button class="user-role btn btn-sm btn-cyan" onclick="filterRole('pending')">
-    <%= t("roles.pending") %>
-  </button>
-<% elsif roles.include?("super_admin") %>
-  <button class="user-role btn btn-sm btn-red" onclick="filterRole('super_admin')">
-    <%= t("roles.super_admin") %>
-  </button>
-<% elsif roles.include?("admin") %>
-  <button class="user-role btn btn-sm btn-yellow" onclick="filterRole('admin')">
-    <%= t("roles.administrator") %>
-  </button>
-<% else %>
-  <button class="user-role btn btn-sm btn-gray" onclick="filterRole('user')">
-    <%= t("roles.user") %>
-  </button>
-<% end %>
+<button style="<%= "background-color: #{role_colour(role)};border-color: #{role_colour(role)}" %>" class="user-role btn btn-sm" onclick="filterRole('<%= role.name %>')">
+  <%= translated_role_name(role) %>
+</button>
