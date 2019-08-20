@@ -10,6 +10,10 @@ display_usage() {
   echo -e "  sqlitedb      The path to the sqlite database file to be migrated"
 }
 
+running_in_docker() {
+  cat /proc/1/cgroup | grep docker
+}
+
 # if less than two arguments supplied, display usage
 if [ $# -lt 6 ]; then
 	display_usage
@@ -30,11 +34,18 @@ dbPassword=$5
 sqliteDB=$6
 
 #Install prerequisites
-apt update
-apt -y install libsqlite3-dev sqlite3
+if [ -z $(running_in_docker) ]; then
+    sudo apt update
+    sudo apt -y install libsqlite3-dev sqlite3
+    sudo apt-get update
+    sudo apt-get -y install postgresql 
+else
+    apt update
+    apt -y install libsqlite3-dev sqlite3
+    apt-get update
+    apt-get -y install postgresql 
+fi
 
-apt-get update
-apt-get -y install postgresql 
 
 if [ $? -ne 0 ]; then
     echo "There was an error installing the prerequisites"
@@ -49,6 +60,7 @@ if [ $? -ne 0 ]; then
     exit 0
 fi
 
+# Remove any existing schema/data
 PGPASSWORD=$dbPassword psql -h $dbHost -U $dbUser -p $dbPort $dbName -c 'DROP SCHEMA public CASCADE;CREATE SCHEMA public;'
 
 if [ $? -ne 0 ]; then
@@ -56,6 +68,7 @@ if [ $? -ne 0 ]; then
     exit 0
 fi
 
+# Migrate over the new data
 sequel -C sqlite://$sqliteDB postgres://$dbUser:$dbPassword@$dbHost:$dbPort/$dbName
 
 if [ $? -ne 0 ]; then
