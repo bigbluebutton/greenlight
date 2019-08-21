@@ -54,6 +54,7 @@ Rails.application.routes.draw do
     get '/reset', to: 'admins#reset', as: :admin_reset
     post '/room_limit', to: 'admins#room_limit', as: :admin_room_limit
     post '/default_recording_visibility', to: 'admins#default_recording_visibility', as: :admin_recording_visibility
+    post '/clear_cache', to: 'admins#clear_cache', as: :admin_clear_cache
     get '/roles', to: 'admins#roles', as: :admin_roles
     post '/role', to: 'admins#new_role', as: :admin_new_role
     patch 'roles/order', to: 'admins#change_role_order', as: :admin_roles_order
