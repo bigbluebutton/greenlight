@@ -53,13 +53,18 @@ class ApplicationController < ActionController::Base
   end
 
   def maintenance_mode?
-    if ENV["MAINTENANCE_MODE"] == "true"
+    if Rails.configuration.maintenance_mode
       render "errors/greenlight_error", status: 503, formats: :html,
         locals: {
           status_code: 503,
           message: I18n.t("errors.maintenance.message"),
           help: I18n.t("errors.maintenance.help"),
         }
+    end
+    if Rails.configuration.maintenance_window.present?
+      unless cookies[:maintenance_window] == Rails.configuration.maintenance_window
+        flash.now[:maintenance] = I18n.t("maintenance.window_alert", date: Rails.configuration.maintenance_window)
+      end
     end
   end
 

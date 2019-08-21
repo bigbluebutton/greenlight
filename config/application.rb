@@ -118,6 +118,10 @@ module Greenlight
 
     config.google_analytics = ENV["GOOGLE_ANALYTICS_TRACKING_ID"].present?
 
+    # MAINTENANCE
+    config.maintenance_window = ENV["MAINTENANCE_WINDOW"]
+    config.maintenance_mode = ENV["MAINTENANCE_MODE"] == "true"
+
     # DEFAULTS
 
     # Default branding image if the user does not specify one
