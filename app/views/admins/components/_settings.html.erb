@@ -120,7 +120,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="mb-6 row">
     <div class="col-12">
       <div class="form-group">
         <label class="form-label"><%= t("administrator.site_settings.rooms.title") %></label>
@@ -154,4 +154,14 @@
       </div>
     </div>
   </div>
-</div>
+  <% if current_user.has_role? :super_admin%>
+    <div class="row">
+      <div class="col-12">
+        <div class="mb-6 form-group">
+          <label class="form-label"><%= t("administrator.site_settings.cache.title") %></label>
+          <label class="form-label text-muted"><%= t("administrator.site_settings.cache.info") %></label>
+          <%= button_to t("administrator.site_settings.cache.button"), admin_clear_cache_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
