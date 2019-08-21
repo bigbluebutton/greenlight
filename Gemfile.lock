@@ -184,7 +184,7 @@ GEM
     multipart-post (2.1.1)
     net-ldap (0.16.1)
     nio4r (2.4.0)
-    nokogiri (1.10.3)
+    nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     oauth (0.5.4)
     oauth2 (1.4.1)
