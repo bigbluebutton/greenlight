@@ -130,18 +130,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Redirects the user to a Maintenance page if turned on
-  def maintenance_mode?
-    if ENV["MAINTENANCE_MODE"] == "true"
-      render "errors/greenlight_error", status: 503, formats: :html,
-        locals: {
-          status_code: 503,
-          message: I18n.t("errors.maintenance.message"),
-          help: I18n.t("errors.maintenance.help"),
-        }
-    end
-  end
-
   # Relative root helper (when deploying to subdirectory).
   def relative_root
     Rails.configuration.relative_url_root || ""
