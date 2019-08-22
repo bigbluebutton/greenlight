@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     post '/update_settings', to: 'admins#update_settings', as: :admin_update_settings
     post '/registration_method', to: 'admins#registration_method', as: :admin_change_registration
     post '/coloring', to: 'admins#coloring', as: :admin_coloring
+    post '/clear_cache', to: 'admins#clear_cache', as: :admin_clear_cache
     # Roles
     post '/role', to: 'admins#new_role', as: :admin_new_role
     patch 'roles/order', to: 'admins#change_role_order', as: :admin_roles_order

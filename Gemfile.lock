@@ -140,6 +140,7 @@ GEM
     hashie (3.6.0)
     health_check (3.0.0)
       railties (>= 5.0)
+    hiredis (0.6.3)
     http_accept_language (2.1.1)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
@@ -184,7 +185,7 @@ GEM
     multipart-post (2.1.1)
     net-ldap (0.16.1)
     nio4r (2.4.0)
-    nokogiri (1.10.3)
+    nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     oauth (0.5.4)
     oauth2 (1.4.1)
@@ -257,6 +258,7 @@ GEM
     recaptcha (5.0.0)
       json
     redcarpet (3.4.0)
+    redis (4.1.2)
     remote_syslog_logger (1.0.4)
       syslog_protocol
     request_store (1.4.1)
@@ -363,6 +365,7 @@ DEPENDENCIES
   faker
   font-awesome-sass (~> 5.9.0)
   health_check
+  hiredis
   http_accept_language
   i18n-language-mapping (~> 0.1.0)
   jbuilder (~> 2.5)
@@ -385,6 +388,7 @@ DEPENDENCIES
   random_password
   recaptcha
   redcarpet
+  redis
   remote_syslog_logger
   rspec-rails (~> 3.7)
   rubocop
