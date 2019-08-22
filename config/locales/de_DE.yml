@@ -42,6 +42,10 @@ de_DE:
         info: Das in der linken oberen Ecke dargestellte Markenlogo ändern
         placeholder: Bild URL...
         title: Markenlogo
+      cache:
+        info: "Löscht den Provider-Zwischenspeicher, wodurch bei einer neuen Anfrage Informationen neu eingegeben werden müssen "
+        title: Provider-Zwischenspeicher löschen
+        button: Zwischenspeicher löschen
       color:
         info: Das Ändern der normalen Farbe wird sich auf Heller und Dunkler auswirken. Heller und Dunkler können danach individuell angepasst werden
         title: Primäre Farbe
