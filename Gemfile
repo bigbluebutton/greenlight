@@ -83,6 +83,10 @@ group :production do
 
   # For a better logging library in production
   gem "lograge"
+
+  # Use  for the cache store in production
+  gem 'redis'
+  gem 'hiredis'
 end
 
 # Ruby linting.
