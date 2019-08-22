@@ -42,6 +42,10 @@ es_MX:
         info: Cambiar la imagen personalizada que aparece en la esquina superior izquierda
         placeholder: Enlace de la imagen...
         title: Imagen personalizada
+      cache:
+        info: Limpia el proveedor almacenado en cache lo cual forza todas la actualización de las peticiones nuevas
+        title: Limpiar cache de proveedor
+        button: Limpiar cache
       color:
         info: Cambiar el color regular cambiará tanto el color claro como obscuro. Los valores de Aclarar y Oscurecer se pueden cambiar individualmente
         title: Color principal
@@ -280,6 +284,8 @@ es_MX:
         verify_text: 'Utiliza este enlace para verificar tu cuenta: %{url}'
         verify_link: Verificar la cuenta de usuario
         thanks: Gracias por ingresar!
+  maintenance:
+    window_alert: "Ventana de mantenimiento agendada para %{date}"
   max_concurrent: Se a alcanzado el número máximo de sesiones permitidas
   modal:
     create_role:
@@ -332,7 +338,7 @@ es_MX:
   name_update_success: El nombre de la sala ha sido actualizado exitósamente
   no_user_email_exists: "No hay ningún usuario existente con el correo electrónico especificado. Por favor, asegúrese de que lo escribió correctamente."
   omniauth_error: Ocurrió un error al intentar ingresar utilizando OmniAuth. Por favor intente nuevamente o contacte un administrador.
-  omniauth_specific_error: "Ocurrió un error al intentar ingresar utilizando omniauth. Por favor intente nuevamente o contacte un administrador."
+  omniauth_specific_error: "Error %{error} al intentar ingresar utilizando omniauth. Por favor intente nuevamente o contacte un administrador."
   pagy:
     nav:
       prev: "&lsaquo; Anterior"
