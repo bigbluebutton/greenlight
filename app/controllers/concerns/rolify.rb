@@ -48,7 +48,7 @@ module Rolify
   # Updates a user's roles
   def update_roles(roles)
     # Check that the user can manage users
-    return true unless current_user.highest_priority_role.can_manage_users
+    return true unless current_user.highest_priority_role.get_permission("can_manage_users")
 
     new_roles = roles.split(' ').map(&:to_i)
     old_roles = @user.roles.pluck(:id)
@@ -89,8 +89,8 @@ module Rolify
     end
 
     # Send promoted/demoted emails
-    added_roles.each { |role| send_user_promoted_email(@user, role) if role.send_promoted_email }
-    removed_roles.each { |role| send_user_demoted_email(@user, role) if role.send_demoted_email }
+    added_roles.each { |role| send_user_promoted_email(@user, role) if role.get_permission("send_promoted_email") }
+    removed_roles.each { |role| send_user_demoted_email(@user, role) if role.get_permission("send_demoted_email") }
 
     # Update the roles
     @user.roles.delete(removed_roles)
@@ -143,6 +143,16 @@ module Rolify
     permission_params = params.require(:role).permit(:can_create_rooms, :send_promoted_email,
       :send_demoted_email, :can_edit_site_settings, :can_edit_roles, :can_manage_users, :colour)
 
+    permission_params.transform_values! do |v|
+      if v == "0"
+        "false"
+      elsif v == "1"
+        "true"
+      else
+        v
+      end
+    end
+
     # Role is a default role so users can't change the name
     role_params[:name] = role.name if Role::RESERVED_ROLE_NAMES.include?(role.name)
 
@@ -154,7 +164,8 @@ module Rolify
       return false
     end
 
-    role.update(permission_params)
+    role.update(colour: permission_params[:colour])
+    role.update_all_role_permissions(permission_params)
 
     role.save!
   end

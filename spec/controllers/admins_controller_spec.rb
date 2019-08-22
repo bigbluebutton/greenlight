@@ -369,7 +369,8 @@ describe AdminsController, type: :controller do
 
       it "should fail if a user attempts to edit a role with a higher priority than their own" do
         Role.create(name: "test1", priority: 1, provider: "greenlight")
-        new_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight", can_edit_roles: true)
+        new_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight")
+        new_role2.update_permission("can_edit_roles", "true")
         new_role3 = Role.create(name: "test3", priority: 3, provider: "greenlight")
         user_role = Role.find_by(name: "user", provider: "greenlight")
 
@@ -389,7 +390,8 @@ describe AdminsController, type: :controller do
 
       it "should fail if a user attempts to edit a role with a higher priority than their own" do
         Role.create(name: "test1", priority: 1, provider: "greenlight")
-        new_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight", can_edit_roles: true)
+        new_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight")
+        new_role2.update_permission("can_edit_roles", "true")
         new_role3 = Role.create(name: "test3", priority: 3, provider: "greenlight")
         user_role = Role.find_by(name: "user", provider: "greenlight")
 
@@ -436,7 +438,8 @@ describe AdminsController, type: :controller do
 
       it "should fail to update a role with a lower priority than the user" do
         new_role1 = Role.create(name: "test1", priority: 1, provider: "provider1")
-        new_role2 = Role.create(name: "test2", priority: 2, provider: "provider1", can_edit_roles: true)
+        new_role2 = Role.create(name: "test2", priority: 2, provider: "provider1")
+        new_role2.update_permission("can_edit_roles", "true")
         user_role = Role.find_by(name: "user", provider: "greenlight")
 
         user_role.priority = 3
@@ -454,7 +457,8 @@ describe AdminsController, type: :controller do
       end
 
       it "should fail to update if there is a duplicate name" do
-        new_role = Role.create(name: "test2", priority: 1, provider: "provider1", can_edit_roles: true)
+        new_role = Role.create(name: "test2", priority: 1, provider: "provider1")
+        new_role.update_permission("can_edit_roles", "true")
 
         @request.session[:user_id] = @admin.id
 
@@ -465,7 +469,8 @@ describe AdminsController, type: :controller do
       end
 
       it "should update role permisions" do
-        new_role = Role.create(name: "test2", priority: 1, provider: "provider1", can_edit_roles: true)
+        new_role = Role.create(name: "test2", priority: 1, provider: "provider1")
+        new_role.update_permission("can_edit_roles", "true")
 
         @request.session[:user_id] = @admin.id
 
@@ -474,10 +479,10 @@ describe AdminsController, type: :controller do
 
         new_role.reload
         expect(new_role.name).to eq("test")
-        expect(new_role.can_edit_roles).to eq(false)
+        expect(new_role.get_permission("can_edit_roles")).to eq(false)
         expect(new_role.colour).to eq("#45434")
-        expect(new_role.can_manage_users).to eq(true)
-        expect(new_role.send_promoted_email).to eq(false)
+        expect(new_role.get_permission("can_manage_users")).to eq(true)
+        expect(new_role.get_permission("send_promoted_email")).to eq(false)
         expect(response).to redirect_to admin_roles_path(selected_role: new_role.id)
       end
     end
@@ -509,7 +514,8 @@ describe AdminsController, type: :controller do
       end
 
       it "should successfully delete the role" do
-        new_role = Role.create(name: "test2", priority: 1, provider: "provider1", can_edit_roles: true)
+        new_role = Role.create(name: "test2", priority: 1, provider: "provider1")
+        new_role.update_permission("can_edit_roles", "true")
 
         @request.session[:user_id] = @admin.id
 

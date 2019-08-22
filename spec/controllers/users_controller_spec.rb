@@ -341,7 +341,7 @@ describe UsersController, type: :controller do
 
         user_role = user.highest_priority_role
 
-        user_role.can_manage_users = true
+        user_role.update_permission("can_manage_users", "true")
 
         user_role.save!
 
@@ -364,7 +364,7 @@ describe UsersController, type: :controller do
 
         user_role = user.highest_priority_role
 
-        user_role.can_manage_users = true
+        user_role.update_permission("can_manage_users", "true")
 
         user_role.save!
 
@@ -387,7 +387,8 @@ describe UsersController, type: :controller do
 
         @request.session[:user_id] = admin.id
 
-        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight", send_promoted_email: true)
+        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight")
+        tmp_role1.update_permission("send_promoted_email", "true")
         tmp_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight")
 
         params = random_valid_user_params
@@ -407,7 +408,8 @@ describe UsersController, type: :controller do
 
         admin.add_role :admin
 
-        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight", send_demoted_email: true)
+        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight")
+        tmp_role1.update_permission("send_demoted_email", "true")
         user.roles << tmp_role1
         user.save!
 

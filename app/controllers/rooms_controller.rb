@@ -64,7 +64,7 @@ class RoomsController < ApplicationController
 
     # If its the current user's room
     if current_user && @room.owned_by?(current_user)
-      if current_user.highest_priority_role.can_create_rooms
+      if current_user.highest_priority_role.get_permission("can_create_rooms")
         # User is allowed to have rooms
         @search, @order_column, @order_direction, recs =
           recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
