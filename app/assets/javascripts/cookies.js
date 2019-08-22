@@ -24,4 +24,11 @@ $(document).on('turbolinks:load', function(){
     //hide the banner at the bottom
     $(".cookies-banner").attr("style","display:none !important")
   })
+
+  $("#maintenance-close").click(function(event) {
+    //create a cookie that lasts 1 year
+    var cookieDate = new Date();
+    cookieDate.setFullYear(cookieDate.getFullYear() + 1); //1 year from now
+    document.cookie = "maintenance_window=" + $(event.target).data("date") + "; path=/; expires=" + cookieDate.toUTCString() + ";"
+  })
 })

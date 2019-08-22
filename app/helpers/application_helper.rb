@@ -17,6 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 require 'bbb_api'
+require 'uri'
 
 module ApplicationHelper
   # Determines which providers can show a login button in the login modal.
@@ -89,5 +90,12 @@ module ApplicationHelper
 
   def google_analytics_url
     "https://www.googletagmanager.com/gtag/js?id=#{ENV['GOOGLE_ANALYTICS_TRACKING_ID']}"
+  end
+
+  def valid_url?(input)
+    uri = URI.parse(input)
+    !uri.host.nil?
+  rescue URI::InvalidURIError
+    false
   end
 end
