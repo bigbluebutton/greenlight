@@ -284,6 +284,8 @@ de_DE:
         verify_text: 'Um Ihren Account zu verifizieren, folgen Sie diesem Link: %{url}'
         verify_link: Account verifizieren
         thanks: Danke für Ihre Registrierung. Wir wünschen Ihnen noch einen wunderbaren Tag!
+  maintenance:
+    window_alert: "Wartungszeitfenster für %{date} geplant"
   max_concurrent: Die maximale Anzahl gleichzeitiger Verbindungen ist erreicht!
   modal:
     create_role:
