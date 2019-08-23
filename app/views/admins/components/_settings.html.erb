@@ -99,7 +99,28 @@
       </div>
     </div>
   </div>
-  <div class="row">
+   <div class="mb-6 row">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.recording_visibility.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.recording_visibility.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="room-auth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= recording_default_visibility_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="room-auth">
+            <%= button_to admin_recording_visibility_path(visibility: "public"), class: "dropdown-item" do %>
+              <%= t("recording.visibility.public") %>
+            <% end %>
+            <%= button_to admin_recording_visibility_path(visibility: "private"), class: "dropdown-item" do %>
+              <%= t("recording.visibility.unlisted") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-6 row">
     <div class="col-12">
       <div class="form-group">
         <label class="form-label"><%= t("administrator.site_settings.rooms.title") %></label>
@@ -133,4 +154,14 @@
       </div>
     </div>
   </div>
-</div>
+  <% if current_user.has_role? :super_admin%>
+    <div class="row">
+      <div class="col-12">
+        <div class="mb-6 form-group">
+          <label class="form-label"><%= t("administrator.site_settings.cache.title") %></label>
+          <label class="form-label text-muted"><%= t("administrator.site_settings.cache.info") %></label>
+          <%= button_to t("administrator.site_settings.cache.button"), admin_clear_cache_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>

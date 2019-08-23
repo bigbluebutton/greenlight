@@ -158,6 +158,72 @@ describe User, type: :model do
 
       expect(@admin.admin_of?(@user)).to be false
     end
+
+    it "should get the highest priority role" do
+      @admin = create(:user, provider: @user.provider)
+      @admin.add_role :admin
+
+      expect(@admin.highest_priority_role.name).to eq("admin")
+    end
+
+    it "should skip adding the role if the user already has the role" do
+      @admin = create(:user, provider: @user.provider)
+      @admin.add_role :admin
+      @admin.add_role :admin
+
+      expect(@admin.roles.count).to eq(2)
+    end
+
+    it "should add the role if the user doesn't already have the role" do
+      @admin = create(:user, provider: @user.provider)
+      @admin.add_role :admin
+
+      expect(@admin.roles.count).to eq(2)
+    end
+
+    it "should remove the role if the user has the role assigned to them" do
+      @admin = create(:user, provider: @user.provider)
+      @admin.add_role :admin
+      @admin.remove_role :admin
+
+      expect(@admin.roles.count).to eq(1)
+    end
+
+    it "has_role? should return false if the user doesn't have the role" do
+      expect(@user.has_role?(:admin)).to eq(false)
+    end
+
+    it "has_role? should return true if the user has the role" do
+      @admin = create(:user, provider: @user.provider)
+      @admin.add_role :admin
+
+      expect(@admin.has_role?(:admin)).to eq(true)
+    end
+
+    it "with_role should return all users with the role" do
+      @admin1 = create(:user, provider: @user.provider)
+      @admin2 = create(:user, provider: @user.provider)
+      @admin1.add_role :admin
+      @admin2.add_role :admin
+
+      expect(User.with_role(:admin).count).to eq(2)
+    end
+
+    it "without_role should return all users without the role" do
+      @admin1 = create(:user, provider: @user.provider)
+      @admin2 = create(:user, provider: @user.provider)
+      @admin1.add_role :admin
+      @admin2.add_role :admin
+
+      expect(User.without_role(:admin).count).to eq(1)
+    end
+
+    it "all_users_with_roles should return all users with at least one role" do
+      @admin1 = create(:user, provider: @user.provider)
+      @admin2 = create(:user, provider: @user.provider)
+
+      expect(User.all_users_with_roles.count).to eq(3)
+    end
   end
 
   context 'blank email' do
@@ -171,99 +237,6 @@ describe User, type: :model do
     it "does not allow a blank email if the provider is greenlight" do
       expect { create(:user, email: "", provider: "greenlight") }
         .to raise_exception(ActiveRecord::RecordInvalid, "Validation failed: Email can't be blank")
-    end
-  end
-
-  context '#recordings' do
-    it "gets all filtered and sorted recordings for the user" do
-      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_recordings).and_return(
-        recordings: [
-          {
-            name: "Example",
-            participants: "3",
-            playback: {
-              format:
-              {
-                type: "presentation"
-              }
-            },
-            metadata: {
-              "gl-listed": "true",
-            }
-          },
-          {
-            name: "aExamaaa",
-            participants: "5",
-            playback: {
-              format:
-              {
-                type: "other"
-              }
-            },
-            metadata: {
-              "gl-listed": "false",
-            }
-          },
-          {
-            name: "test",
-            participants: "1",
-            playback: {
-              format:
-              {
-                type: "presentation"
-              }
-            },
-            metadata: {
-              "gl-listed": "true",
-            }
-          },
-          {
-            name: "Exam",
-            participants: "1",
-            playback: {
-              format:
-              {
-                type: "other"
-              }
-            },
-            metadata: {
-              "gl-listed": "false",
-              name: "z",
-            }
-          }
-        ]
-      )
-
-      expect(@user.all_recordings(search: "Exam", column: "name", direction: "desc")).to eq(
-        [
-          {
-            name: "Example",
-            participants: "3",
-            playbacks:
-              [
-                {
-                  type: "presentation"
-                }
-              ],
-            metadata: {
-              "gl-listed": "true",
-            }
-          },
-          {
-            name: "aExamaaa",
-            participants: "5",
-            playbacks:
-              [
-                {
-                  type: "other"
-                }
-              ],
-            metadata: {
-              "gl-listed": "false",
-            }
-          }
-        ]
-      )
     end
   end
 end

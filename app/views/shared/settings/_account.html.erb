@@ -27,7 +27,7 @@
       <div class="col-6">
         <%= f.label t("email"), class: "form-label" %>
         <div class="input-icon">
-          <%= f.text_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email"), readonly: !current_user.greenlight_account? %>
+          <%= f.text_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email"), readonly: !@user.greenlight_account? %>
         </div>
       </div>
     </div>
@@ -38,13 +38,35 @@
     <%= f.label t("settings.account.language"), class: "form-label" %>
     <%= f.select :language, language_options, {}, { class: "form-control custom-select" } %>
 
+    <% current_user_role = current_user.highest_priority_role %>
+    <br>
+    <br>
+    <%= f.label t("settings.account.roles"), class: "form-label" %>
+    <div id="role-tag-container" class="tags mb-1">
+      <% @user.roles.by_priority.each do |role| %>
+        <span id="<%= "user-role-tag_#{role.id}" %>" style="<%= "background-color: #{role_colour(role)};border-color: #{role_colour(role)};" %>" class="tag user-role-tag">
+          <%= translated_role_name(role) %>
+          <% if (current_user_role.can_manage_users || current_user_role.name == "super_admin") && (role.priority > current_user_role.priority || current_user_role.name == "admin") %>
+            <a data-role-id="<%= role.id %>" class="tag-addon clear-role">
+              <i data-role-id="<%= role.id %>" class="fas fa-times"></i>
+            </a>
+          <% end %>
+        </span>
+      <% end %>
+    </div>
+    <% if current_user_role.can_manage_users || current_user_role.name == "super_admin" %>
+      <% provider = Rails.configuration.loadbalanced_configuration ? current_user.provider : "greenlight" %>
+      <%= f.select :roles, Role.editable_roles(@user_domain).map{|role| [translated_role_name(role), role.id, {'data-colour' => role_colour(role)}]}.unshift(["", nil, {'data-colour' => nil}]), {disabled: disabled_roles(@user)}, { class: "form-control custom-select", id: "role-select-dropdown" } %>
+    <% end %>
+    <%= f.hidden_field :role_ids, id: "user_role_ids", value: @user.roles.by_priority.pluck(:id) %>
+
     <%= f.label t("settings.account.image"), class: "form-label mt-5" %>
     <div class="row">
       <div class="col-2">
-        <% if current_user.image.blank? %>
-          <span class="avatar avatar-xxl mr-5 mt-2"><%= current_user.name.first %></span>
+        <% if @user.image.blank? %>
+          <span class="avatar avatar-xxl mr-5 mt-2 bg-primary"><%= @user.name.first %></span>
         <% else %>
-          <span class="avatar avatar-xxl mr-5 mt-2" style="background-image: url(<%= current_user.image %>)"></span>
+          <span class="avatar avatar-xxl mr-5 mt-2" style="background-image: url(<%= @user.image %>)"></span>
         <% end %>
       </div>
       <div class="col-10 mt-5">
@@ -53,6 +75,10 @@
     </div>
   </div>
   <div class="card-footer">
-    <%= f.submit t("update"), class: "btn btn-primary float-right" %>
+    <%= f.submit t("update"), class: "btn btn-primary float-right ml-4" %>
+
+    <% if can_reset_password %>
+      <%= link_to "Reset user password", admin_reset_path(user_uid: @user.uid), class: "btn btn-primary float-right" %>
+    <% end %>
   </div>
 <% end %>

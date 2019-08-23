@@ -31,12 +31,14 @@ class SessionsController < ApplicationController
 
   # POST /users/login
   def create
+    logger.info("Support: #{session_params[:email]} is attempting to login.")
+
     admin = User.find_by(email: session_params[:email])
     if admin&.has_role? :super_admin
       user = admin
     else
       user = User.find_by(email: session_params[:email], provider: @user_domain)
-      redirect_to(signin_path, alert: I18n.t("invalid_user")) && return unless user
+      redirect_to(signin_path, alert: I18n.t("invalid_credentials")) && return unless user
       redirect_to(root_path, alert: I18n.t("invalid_login_method")) && return unless user.greenlight_account?
       redirect_to(account_activation_path(email: user.email)) && return unless user.activated?
     end
@@ -55,7 +57,11 @@ class SessionsController < ApplicationController
 
   # POST /auth/failure
   def omniauth_fail
-    redirect_to root_path, alert: I18n.t(params[:message], default: I18n.t("omniauth_error"))
+    if params[:message].nil?
+      redirect_to root_path, alert: I18n.t("omniauth_error")
+    else
+      redirect_to root_path, alert: I18n.t("omniauth_specific_error", error: params["message"])
+    end
   end
 
   # GET /auth/ldap
@@ -81,7 +87,7 @@ class SessionsController < ApplicationController
       return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials"))
     end
 
-    @auth = parse_auth(result)
+    @auth = parse_auth(result, ENV['LDAP_ROLE_FIELD'])
 
     process_signin
   end
@@ -118,6 +124,8 @@ class SessionsController < ApplicationController
 
       user = User.from_omniauth(@auth)
 
+      logger.info("Support: Auth user #{user.email} is attempting to login.")
+
       # Add pending role if approval method and is a new user
       if approval_registration && !@user_exists
         user.add_role :pending
@@ -143,7 +151,7 @@ class SessionsController < ApplicationController
                         end
       end
     rescue => e
-        logger.error "Error authenticating via omniauth: #{e}"
+        logger.error "Support: Error authenticating via omniauth: #{e}"
         omniauth_fail
     end
   end

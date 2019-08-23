@@ -20,6 +20,9 @@ require "rails_helper"
 
 describe AdminsController, type: :controller do
   before do
+    allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
+    controller.instance_variable_set(:@user_domain, "provider1")
+
     @user = create(:user, provider: "provider1")
     @admin = create(:user, provider: "provider1")
     @admin.add_role :admin
@@ -52,54 +55,7 @@ describe AdminsController, type: :controller do
 
         get :edit_user, params: { user_uid: @user.uid }
 
-        expect(response).to render_template(:index)
-      end
-    end
-
-    context "POST #promote" do
-      it "promotes a user to admin" do
-        @request.session[:user_id] = @admin.id
-
-        expect(@user.has_role?(:admin)).to eq(false)
-
-        post :promote, params: { user_uid: @user.uid }
-
-        expect(@user.has_role?(:admin)).to eq(true)
-        expect(flash[:success]).to be_present
-        expect(response).to redirect_to(admins_path)
-      end
-
-      it "sends an email to the user being promoted" do
-        @request.session[:user_id] = @admin.id
-
-        params = { user_uid: @user.uid }
-
-        expect { post :promote, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
-      end
-    end
-
-    context "POST #demote" do
-      it "demotes an admin to user" do
-        @request.session[:user_id] = @admin.id
-
-        @user.add_role :admin
-        expect(@user.has_role?(:admin)).to eq(true)
-
-        post :demote, params: { user_uid: @user.uid }
-
-        expect(@user.has_role?(:admin)).to eq(false)
-        expect(flash[:success]).to be_present
-        expect(response).to redirect_to(admins_path)
-      end
-
-      it "sends an email to the user being demoted" do
-        @request.session[:user_id] = @admin.id
-
-        @user.add_role :admin
-
-        params = { user_uid: @user.uid }
-
-        expect { post :demote, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
+        expect(response).to render_template(:edit_user)
       end
     end
 
@@ -144,7 +100,7 @@ describe AdminsController, type: :controller do
         email = Faker::Internet.email
         post :invite, params: { invite_user: { email: email } }
 
-        invite = Invitation.find_by(email: email, provider: "greenlight")
+        invite = Invitation.find_by(email: email, provider: "provider1")
 
         expect(invite.present?).to eq(true)
         expect(flash[:success]).to be_present
@@ -197,7 +153,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Branding Image")
 
         expect(feature[:value]).to eq(fake_image_url)
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
     end
 
@@ -214,7 +170,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
 
       it "changes the primary-lighten on the page" do
@@ -229,7 +185,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color Lighten")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
 
       it "changes the primary-darken on the page" do
@@ -244,7 +200,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color Darken")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
     end
   end
@@ -264,7 +220,7 @@ describe AdminsController, type: :controller do
 
         expect(feature[:value]).to eq(Rails.configuration.registration_methods[:invite])
         expect(flash[:success]).to be_present
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
 
       it "does not allow the user to change to invite if emails are off" do
@@ -277,7 +233,7 @@ describe AdminsController, type: :controller do
         post :registration_method, params: { method: "invite" }
 
         expect(flash[:alert]).to be_present
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
     end
 
@@ -293,7 +249,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Authentication")
 
         expect(feature[:value]).to eq("true")
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
       end
     end
 
@@ -309,7 +265,258 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Limit")
 
         expect(feature[:value]).to eq("5")
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_site_settings_path)
+      end
+    end
+
+    context "POST #default_recording_visibility" do
+      it "changes the default recording visibility setting" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+
+        post :default_recording_visibility, params: { visibility: "public" }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Default Recording Visibility")
+
+        expect(feature[:value]).to eq("public")
+        expect(response).to redirect_to(admin_site_settings_path)
+      end
+    end
+  end
+
+  describe "Roles" do
+    context "GET #roles" do
+      it "should render the roles editor with the user role selected" do
+        @request.session[:user_id] = @admin.id
+
+        get :roles
+
+        expect(response).to render_template :roles
+        expect(assigns(:roles).count).to eq(2)
+        expect(assigns(:selected_role).name).to eq("user")
+      end
+
+      it "should render the roles editor with the request role selected" do
+        Role.create_default_roles("provider1")
+
+        new_role = Role.create(name: "test", provider: "provider1")
+
+        @request.session[:user_id] = @admin.id
+
+        get :roles, params: { selected_role: new_role.id }
+
+        expect(response).to render_template :roles
+        expect(assigns(:roles).count).to eq(3)
+        expect(assigns(:selected_role).name).to eq(new_role.name)
+      end
+    end
+
+    context "POST #new_role" do
+      before do
+        Role.create_default_roles("provider1")
+      end
+
+      it "should fail with duplicate role name" do
+        @request.session[:user_id] = @admin.id
+
+        post :new_role, params: { role: { name: "admin" } }
+
+        expect(response).to redirect_to admin_roles_path
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.duplicate_name"))
+      end
+
+      it "should fail with empty role name" do
+        @request.session[:user_id] = @admin.id
+
+        post :new_role, params: { role: { name: "    " } }
+
+        expect(response).to redirect_to admin_roles_path
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.empty_name"))
+      end
+
+      it "should create new role and increase user role priority" do
+        @request.session[:user_id] = @admin.id
+
+        post :new_role, params: { role: { name: "test" } }
+
+        new_role = Role.find_by(name: "test", provider: "provider1")
+        user_role = Role.find_by(name: "user", provider: "provider1")
+
+        expect(new_role.priority).to eq(1)
+        expect(user_role.priority).to eq(2)
+        expect(response).to redirect_to admin_roles_path(selected_role: new_role.id)
+      end
+    end
+
+    context "PATCH #change_role_order" do
+      before do
+        Role.create_default_roles("provider1")
+      end
+
+      it "should fail if user attempts to change the order of the admin or user roles" do
+        @request.session[:user_id] = @admin.id
+
+        user_role = Role.find_by(name: "user", provider: "provider1")
+        admin_role = Role.find_by(name: "admin", provider: "provider1")
+
+        patch :change_role_order, params: { role: [user_role.id, admin_role.id] }
+
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_order"))
+        expect(response).to redirect_to admin_roles_path
+      end
+
+      it "should fail if a user attempts to edit a role with a higher priority than their own" do
+        Role.create(name: "test1", priority: 1, provider: "greenlight")
+        new_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight", can_edit_roles: true)
+        new_role3 = Role.create(name: "test3", priority: 3, provider: "greenlight")
+        user_role = Role.find_by(name: "user", provider: "greenlight")
+
+        user_role.priority = 4
+        user_role.save!
+
+        @user.roles << new_role2
+        @user.save!
+
+        @request.session[:user_id] = @user.id
+
+        patch :change_role_order, params: { role: [new_role3.id, new_role2.id] }
+
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_update"))
+        expect(response).to redirect_to admin_roles_path
+      end
+
+      it "should fail if a user attempts to edit a role with a higher priority than their own" do
+        Role.create(name: "test1", priority: 1, provider: "greenlight")
+        new_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight", can_edit_roles: true)
+        new_role3 = Role.create(name: "test3", priority: 3, provider: "greenlight")
+        user_role = Role.find_by(name: "user", provider: "greenlight")
+
+        user_role.priority = 4
+        user_role.save!
+
+        @user.roles << new_role2
+        @user.save!
+
+        @request.session[:user_id] = @user.id
+
+        patch :change_role_order, params: { role: [new_role3.id, new_role2.id] }
+
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_update"))
+        expect(response).to redirect_to admin_roles_path
+      end
+
+      it "should update the role order" do
+        new_role1 = Role.create(name: "test1", priority: 1, provider: "provider1")
+        new_role2 = Role.create(name: "test2", priority: 2, provider: "provider1")
+        new_role3 = Role.create(name: "test3", priority: 3, provider: "provider1")
+        user_role = Role.find_by(name: "user", provider: "provider1")
+
+        @request.session[:user_id] = @admin.id
+
+        patch :change_role_order, params: { role: [new_role3.id, new_role2.id, new_role1.id] }
+
+        new_role1.reload
+        new_role2.reload
+        new_role3.reload
+        user_role.reload
+
+        expect(new_role3.priority).to eq(1)
+        expect(new_role2.priority).to eq(2)
+        expect(new_role1.priority).to eq(3)
+        expect(user_role.priority).to eq(4)
+      end
+    end
+
+    context 'POST #update_role' do
+      before do
+        Role.create_default_roles("provider1")
+      end
+
+      it "should fail to update a role with a lower priority than the user" do
+        new_role1 = Role.create(name: "test1", priority: 1, provider: "provider1")
+        new_role2 = Role.create(name: "test2", priority: 2, provider: "provider1", can_edit_roles: true)
+        user_role = Role.find_by(name: "user", provider: "greenlight")
+
+        user_role.priority = 3
+        user_role.save!
+
+        @user.roles << new_role2
+        @user.save!
+
+        @request.session[:user_id] = @user.id
+
+        patch :update_role, params: { role_id: new_role1.id }
+
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_update"))
+        expect(response).to redirect_to admin_roles_path(selected_role: new_role1.id)
+      end
+
+      it "should fail to update if there is a duplicate name" do
+        new_role = Role.create(name: "test2", priority: 1, provider: "provider1", can_edit_roles: true)
+
+        @request.session[:user_id] = @admin.id
+
+        patch :update_role, params: { role_id: new_role.id, role: { name: "admin" } }
+
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.duplicate_name"))
+        expect(response).to redirect_to admin_roles_path(selected_role: new_role.id)
+      end
+
+      it "should update role permisions" do
+        new_role = Role.create(name: "test2", priority: 1, provider: "provider1", can_edit_roles: true)
+
+        @request.session[:user_id] = @admin.id
+
+        patch :update_role, params: { role_id: new_role.id, role: { name: "test", can_edit_roles: false,
+          colour: "#45434", can_manage_users: true } }
+
+        new_role.reload
+        expect(new_role.name).to eq("test")
+        expect(new_role.can_edit_roles).to eq(false)
+        expect(new_role.colour).to eq("#45434")
+        expect(new_role.can_manage_users).to eq(true)
+        expect(new_role.send_promoted_email).to eq(false)
+        expect(response).to redirect_to admin_roles_path(selected_role: new_role.id)
+      end
+    end
+
+    context "DELETE delete_role" do
+      before do
+        Role.create_default_roles("provider1")
+      end
+
+      it "should fail to delete the role if it has users assigned to it" do
+        admin_role = Role.find_by(name: "admin", provider: "greenlight")
+
+        @request.session[:user_id] = @admin.id
+
+        delete :delete_role, params: { role_id: admin_role.id }
+
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.role_has_users", user_count: 1))
+        expect(response).to redirect_to admin_roles_path(selected_role: admin_role.id)
+      end
+
+      it "should fail to delete the role if it is a default role" do
+        pending_role = Role.find_by(name: "pending", provider: "provider1")
+
+        @request.session[:user_id] = @admin.id
+
+        delete :delete_role, params: { role_id: pending_role.id }
+
+        expect(response).to redirect_to admin_roles_path(selected_role: pending_role.id)
+      end
+
+      it "should successfully delete the role" do
+        new_role = Role.create(name: "test2", priority: 1, provider: "provider1", can_edit_roles: true)
+
+        @request.session[:user_id] = @admin.id
+
+        delete :delete_role, params: { role_id: new_role.id }
+
+        expect(Role.where(name: "test2", provider: "provider1").count).to eq(0)
+        expect(response).to redirect_to admin_roles_path
       end
     end
   end

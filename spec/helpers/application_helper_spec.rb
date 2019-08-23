@@ -85,4 +85,14 @@ describe ApplicationHelper do
       expect(helper.allow_greenlight_accounts?).to eql(false)
     end
   end
+
+  describe "role_clour" do
+    it "should use default if the user doens't have a role" do
+      expect(helper.role_colour(Role.create(name: "test"))).to eq(Rails.configuration.primary_color_default)
+    end
+
+    it "should use role colour if provided" do
+      expect(helper.role_colour(Role.create(name: "test", colour: "#1234"))).to eq("#1234")
+    end
+  end
 end

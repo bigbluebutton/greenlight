@@ -8,13 +8,13 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.7'
+gem 'rails', '~> 5.2.3'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -27,6 +27,7 @@ gem 'mini_racer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 4.3.3'
+gem 'jquery-ui-rails'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
@@ -35,17 +36,20 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 3.0'
+# gem 'redis', '~> 3.0'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
 
 # Authentication.
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-bn-office365', git: 'https://github.com/blindsidenetworks/omniauth-bn-office365.git', tag: '0.1.0'
-gem 'omniauth-bn-launcher', git: 'https://github.com/blindsidenetworks/omniauth-bn-launcher.git', tag: '0.1.1'
+gem 'omniauth-bn-launcher', git: 'https://github.com/blindsidenetworks/omniauth-bn-launcher.git', tag: '0.1.3'
 gem 'bn-ldap-authentication', git: 'https://github.com/blindsidenetworks/bn-ldap-authentication.git'
 gem 'net-ldap'
 
@@ -54,8 +58,9 @@ gem 'bigbluebutton-api-ruby'
 
 # Front-end.
 gem 'bootstrap', '~> 4.3.1'
-gem 'tabler-rubygem'
+gem 'tabler-rubygem', git: 'https://github.com/vbalazs/tabler-rubygem.git', branch: 'fix-sass'
 gem 'pagy'
+gem 'font-awesome-sass', '~> 5.9.0'
 
 # For detecting the users preferred language.
 gem 'http_accept_language'
@@ -69,14 +74,19 @@ gem 'redcarpet'
 # For health check endpoint
 gem "health_check"
 
-# For providing user roles
-gem "rolify"
 # For limiting access based on user roles
 gem 'cancancan', '~> 2.0'
 
 group :production do
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'
+
+  # For a better logging library in production
+  gem "lograge"
+
+  # Use  for the cache store in production
+  gem 'redis'
+  gem 'hiredis'
 end
 
 # Ruby linting.

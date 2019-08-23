@@ -36,13 +36,16 @@ class ApplicationController < ActionController::Base
   # Manually handle BigBlueButton errors
   rescue_from BigBlueButton::BigBlueButtonException, with: :handle_bigbluebutton_error
 
-  # Manually Handle errors when application is in readonly mode
-  rescue_from ActiveRecord::ReadOnlyRecord, with: :handle_readonly_error
-
   protect_from_forgery with: :exception
 
   MEETING_NAME_LIMIT = 90
   USER_NAME_LIMIT = 32
+
+  # Include user domain in lograge logs
+  def append_info_to_payload(payload)
+    super
+    payload[:host] = @user_domain
+  end
 
   # Show an information page when migration fails and there is a version error.
   def migration_error?
@@ -50,13 +53,18 @@ class ApplicationController < ActionController::Base
   end
 
   def maintenance_mode?
-    if ENV["MAINTENANCE_MODE"] == "full"
+    if Rails.configuration.maintenance_mode
       render "errors/greenlight_error", status: 503, formats: :html,
         locals: {
           status_code: 503,
           message: I18n.t("errors.maintenance.message"),
           help: I18n.t("errors.maintenance.help"),
         }
+    end
+    if Rails.configuration.maintenance_window.present?
+      unless cookies[:maintenance_window] == Rails.configuration.maintenance_window
+        flash.now[:maintenance] = I18n.t("maintenance.window_alert", date: Rails.configuration.maintenance_window)
+      end
     end
   end
 
@@ -121,6 +129,9 @@ class ApplicationController < ActionController::Base
       meeting_logout_url: request.base_url + logout_room_path(@room),
       meeting_recorded: true,
       moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
+      host: request.host,
+      recording_default_visibility: Setting.find_or_create_by!(provider: user_settings_provider)
+                                           .get_value("Default Recording Visibility") == "public"
     }
   end
 
@@ -131,8 +142,8 @@ class ApplicationController < ActionController::Base
 
   # Checks to make sure that the admin has changed his password from the default
   def check_admin_password
-    if current_user&.has_role?(:admin) && current_user&.greenlight_account? &&
-       current_user&.authenticate(Rails.configuration.admin_password_default)
+    if current_user&.has_role?(:admin) && current_user.email == "admin@example.com" &&
+       current_user&.greenlight_account? && current_user&.authenticate(Rails.configuration.admin_password_default)
 
       flash.now[:alert] = I18n.t("default_admin",
         edit_link: edit_user_path(user_uid: current_user.uid) + "?setting=password").html_safe
@@ -151,28 +162,7 @@ class ApplicationController < ActionController::Base
     else
       @user_domain = parse_user_domain(request.host)
 
-      # Checks to see if the user exists
-      begin
-        retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
-      rescue => e
-        # Use the default site settings
-        @user_domain = "greenlight"
-
-        if e.message.eql? "No user with that id exists"
-          render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_not_found.message"),
-            help: I18n.t("errors.not_found.user_not_found.help") }
-        elsif e.message.eql? "Provider not included."
-          render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_missing.message"),
-            help: I18n.t("errors.not_found.user_missing.help") }
-        elsif e.message.eql? "That user has no configured provider."
-          render "errors/greenlight_error", locals: { status_code: 501,
-            message: I18n.t("errors.no_provider.message"),
-            help: I18n.t("errors.no_provider.help") }
-        else
-          render "errors/greenlight_error", locals: { status_code: 500, message: I18n.t("errors.internal.message"),
-            help: I18n.t("errors.internal.help"), display_back: true }
-        end
-      end
+      check_provider_exists
     end
   end
   helper_method :set_user_domain
@@ -194,9 +184,37 @@ class ApplicationController < ActionController::Base
     render "errors/bigbluebutton_error"
   end
 
-  # Manually Handle errors when application is in readonly mode
-  def handle_readonly_error
-    flash.clear
-    redirect_to request.referrer, flash: { alert: I18n.t("errors.maintenance.readonly") }
+  private
+
+  def check_provider_exists
+    # Checks to see if the user exists
+    begin
+      # Check if the session has already checked that the user exists
+      # and return true if they did for this domain
+      return if session[:provider_exists] == @user_domain
+
+      retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
+
+      # Add a session variable if the provider exists
+      session[:provider_exists] = @user_domain
+    rescue => e
+      # Use the default site settings
+      @user_domain = "greenlight"
+
+      if e.message.eql? "No user with that id exists"
+        render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_not_found.message"),
+          help: I18n.t("errors.not_found.user_not_found.help") }
+      elsif e.message.eql? "Provider not included."
+        render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_missing.message"),
+          help: I18n.t("errors.not_found.user_missing.help") }
+      elsif e.message.eql? "That user has no configured provider."
+        render "errors/greenlight_error", locals: { status_code: 501,
+          message: I18n.t("errors.no_provider.message"),
+          help: I18n.t("errors.no_provider.help") }
+      else
+        render "errors/greenlight_error", locals: { status_code: 500, message: I18n.t("errors.internal.message"),
+          help: I18n.t("errors.internal.help"), display_back: true }
+      end
+    end
   end
 end

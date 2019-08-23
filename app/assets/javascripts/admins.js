@@ -19,47 +19,60 @@ $(document).on('turbolinks:load', function(){
   var action = $("body").data('action');
 
   // Only run on the admins page.
-  if (controller == "admins" && action == "index") {
-    // show the modal with the correct form action url
-    $(".delete-user").click(function(data){
-      var uid = $(data.target).closest("tr").data("user-uid")
-      var url = $("body").data("relative-root")
-      if (!url.endsWith("/")) {
-        url += "/"
-      }
-      url += "u/" + uid
-      $("#delete-confirm").parent().attr("action", url)
-    })
+  if (controller == "admins") {
+    if(action == "index") {
+      // show the modal with the correct form action url
+      $(".delete-user").click(function(data){
+        var uid = $(data.target).closest("tr").data("user-uid")
+        var url = $("body").data("relative-root")
+        if (!url.endsWith("/")) {
+          url += "/"
+        }
+        url += "u/" + uid
+        $("#delete-confirm").parent().attr("action", url)
+      })
 
-    //clear the role filter if user clicks on the x
-    $(".clear-role").click(function() {
-      var search = new URL(location.href).searchParams.get('search')
+      //clear the role filter if user clicks on the x
+      $(".clear-role").click(function() {
+        var search = new URL(location.href).searchParams.get('search')
 
-      var url = window.location.pathname + "?page=1"
-    
-      if (search) {
-        url += "&search=" + search
-      }  
-    
-      window.location.replace(url);
-    })
-    
-    /* COLOR SELECTORS */
+        var url = window.location.pathname + "?page=1"
+      
+        if (search) {
+          url += "&search=" + search
+        }  
+      
+        window.location.replace(url);
+      })
+    }
+    else if(action == "site_settings"){
+      loadColourSelectors()
+    }
+    else if (action == "roles"){
+      // Refreshes the new role modal
+      $("#newRoleButton").click(function(){
+        $("#createRoleName").val("")
+      })
 
-    loadColourSelectors()
-  }
+      // Updates the colour picker to the correct colour
+      role_colour = $("#role-colorinput-regular").data("colour")
+      $("#role-colorinput-regular").css("background-color", role_colour);
+      $("#role-colorinput-regular").css("border-color", role_colour);
 
-  // Only run on the admins edit user page.
-  if (controller == "admins" && action == "edit_user") {
-    $(".setting-btn").click(function(data){
-      var url = $("body").data("relative-root")
-      if (!url.endsWith("/")) {
-        url += "/"
-      }
-      url += "admins?setting=" + data.target.id
+      loadRoleColourSelector(role_colour, $("#role-colorinput-regular").data("disabled"));
 
-      window.location.href = url
-    })
+      // Loads the jquery sortable so users can manually sort roles
+      $("#rolesSelect").sortable({
+        items: "a:not(.sort-disabled)",
+        update: function() {
+          $.ajax({
+            url: $(this).data("url"),
+            type: 'PATCH',
+            data: $(this).sortable('serialize')
+          });
+        }
+      });
+    }
   }
 });
 
@@ -160,4 +173,35 @@ function loadColourSelectors() {
       location.reload()
     });
   })
+}
+
+function loadRoleColourSelector(role_colour, disabled) { 
+  if (!disabled) {
+    const pickrRoleRegular = new Pickr({
+      el: '#role-colorinput-regular',
+      theme: 'monolith',
+      useAsButton: true,
+      lockOpacity: true,
+      defaultRepresentation: 'HEX',
+      closeWithKey: 'Enter',
+      default: role_colour,
+  
+      components: {
+          palette: true,
+          preview: true,
+          hue: true,
+          interaction: {
+              input: true,
+              save: true,
+          },
+      },
+    });
+  
+    // On save update the colour input's background colour and update the role colour input
+    pickrRoleRegular.on("save", (color, instance) => {
+      $("#role-colorinput-regular").css("background-color", color.toHEXA().toString());
+      $("#role-colorinput-regular").css("border-color", color.toHEXA().toString());
+      $("#role-colour").val(color.toHEXA().toString());
+    });
+  }
 }

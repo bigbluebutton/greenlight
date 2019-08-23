@@ -65,3 +65,21 @@
     background-color: rgba(0, 0, 0, 0.04);
   }
 }
+
+.allow-icon-click{
+  pointer-events: auto;
+}
+
+.cant-create-rooms-title{
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-xxxl{
+  width: 8rem;
+  height: 8rem;
+  line-height: 8rem;
+  max-width: 8rem;
+  margin-top: -6rem;
+  font-size: 5rem;
+}

@@ -17,6 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 require 'bbb_api'
+require 'uri'
 require 'i18n/language/mapping'
 
 module ApplicationHelper
@@ -87,6 +88,7 @@ module ApplicationHelper
   def allow_greenlight_accounts?
     return Rails.configuration.allow_user_signup unless Rails.configuration.loadbalanced_configuration
     return false unless @user_domain && !@user_domain.empty? && Rails.configuration.allow_user_signup
+    return false if @user_domain == "greenlight"
     # Proceed with retrieving the provider info
     begin
       provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
@@ -108,5 +110,41 @@ module ApplicationHelper
     return root_path unless current_user
     return admins_path if current_user.has_role? :super_admin
     current_user.main_room
+  end
+
+  def role_colour(role)
+    role.colour || Rails.configuration.primary_color_default
+  end
+
+  def translated_role_name(role)
+    if role.name == "denied"
+      I18n.t("roles.banned")
+    elsif role.name == "pending"
+      I18n.t("roles.pending")
+    elsif role.name == "admin"
+      I18n.t("roles.admin")
+    elsif role.name == "user"
+      I18n.t("roles.user")
+    else
+      role.name
+    end
+  end
+
+  def can_reset_password
+    # Check if admin is editting user and user is a greenlight account
+    Rails.configuration.enable_email_verification &&
+      Rails.application.routes.recognize_path(request.env['PATH_INFO'])[:action] == "edit_user" &&
+      @user.greenlight_account?
+  end
+
+  def google_analytics_url
+    "https://www.googletagmanager.com/gtag/js?id=#{ENV['GOOGLE_ANALYTICS_TRACKING_ID']}"
+  end
+
+  def valid_url?(input)
+    uri = URI.parse(input)
+    !uri.host.nil?
+  rescue URI::InvalidURIError
+    false
   end
 end

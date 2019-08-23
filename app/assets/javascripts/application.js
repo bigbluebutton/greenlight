@@ -31,4 +31,7 @@
 //= require tabler
 //= require tabler.plugins
 //= require jquery_ujs
+//= require jquery-ui/widget
+//= require jquery-ui/widgets/sortable
+//= require pickr.min.js
 //= require_tree .

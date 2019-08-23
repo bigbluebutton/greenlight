@@ -19,6 +19,18 @@
 module AdminsHelper
   include Pagy::Frontend
 
+  # Returns the action method of the current page
+  def active_page
+    route = Rails.application.routes.recognize_path(request.env['PATH_INFO'])
+
+    route[:action]
+  end
+
+  # Gets the email of the room owner to which the recording belongs to
+  def recording_owner_email(room_id)
+    Room.find_by(bbb_id: room_id).owner.email
+  end
+
   def display_invite
     current_page?(admins_path) && invite_registration
   end
@@ -43,6 +55,15 @@ module AdminsHelper
     end
   end
 
+  def recording_default_visibility_string
+    if Setting.find_or_create_by!(provider: user_settings_provider)
+              .get_value("Default Recording Visibility") == "public"
+      I18n.t("recording.visibility.public")
+    else
+      I18n.t("recording.visibility.unlisted")
+    end
+  end
+
   def registration_method_string
     case registration_method
     when Rails.configuration.registration_methods[:open]
@@ -56,5 +77,9 @@ module AdminsHelper
 
   def room_limit_number
     Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
+  end
+
+  def edit_disabled
+    @edit_disabled ||= @selected_role.priority <= current_user.highest_priority_role.priority
   end
 end

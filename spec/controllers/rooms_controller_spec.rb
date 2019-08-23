@@ -28,6 +28,8 @@ def random_valid_room_params
 end
 
 describe RoomsController, type: :controller do
+  it_behaves_like "recorder"
+  include Recorder
   describe "GET #show" do
     before do
       @user = create(:user)
@@ -39,7 +41,7 @@ describe RoomsController, type: :controller do
 
       get :show, params: { room_uid: @owner.main_room }
 
-      expect(assigns(:recordings)).to eql(@owner.main_room.recordings)
+      expect(assigns(:recordings)).to eql(recordings(@owner.main_room.bbb_id, @owner.provider))
       expect(assigns(:is_running)).to eql(@owner.main_room.running?)
     end
 
@@ -57,6 +59,19 @@ describe RoomsController, type: :controller do
       get :show, params: { room_uid: @owner.main_room }
 
       expect(response).to render_template(:join)
+    end
+
+    it "should render cant_create_rooms if user doesn't have permission to create rooms" do
+      user_role = @user.highest_priority_role
+
+      user_role.can_create_rooms = false
+      user_role.save!
+
+      @request.session[:user_id] = @user.id
+
+      get :show, params: { room_uid: @user.main_room }
+
+      expect(response).to render_template(:cant_create_rooms)
     end
 
     it "should be able to search public recordings if user is not owner" do
@@ -117,8 +132,10 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @owner.id
       name = Faker::Games::Pokemon.name
 
-      room_params = { name: name, "client": "html5", "mute_on_join": "1" }
-      json_room_settings = "{\"muteOnStart\":true,\"joinViaHtml5\":true}"
+      room_params = { name: name, "mute_on_join": "1",
+        "require_moderator_approval": "1", "anyone_can_start": "1", "all_join_moderator": "1" }
+      json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
+        "\"anyoneCanStart\":true,\"joinModerator\":true}"
 
       post :create, params: { room: room_params }
 
@@ -141,7 +158,7 @@ describe RoomsController, type: :controller do
     it "should redirect back to main room with error if it fails" do
       @request.session[:user_id] = @owner.id
 
-      room_params = { name: "", "client": "html5", "mute_on_join": "1" }
+      room_params = { name: "", "mute_on_join": "1" }
 
       post :create, params: { room: room_params }
 
@@ -154,7 +171,7 @@ describe RoomsController, type: :controller do
 
       @request.session[:user_id] = @owner.id
 
-      room_params = { name: Faker::Games::Pokemon.name, "client": "html5", "mute_on_join": "1" }
+      room_params = { name: Faker::Games::Pokemon.name, "mute_on_join": "1" }
 
       post :create, params: { room: room_params }
 
@@ -199,6 +216,60 @@ describe RoomsController, type: :controller do
       post :join, params: { room_uid: @room, join_name: @user.name }
 
       expect(response).to render_template(:wait)
+    end
+
+    it "should join the room if the room has the anyone_can_start setting" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(false)
+
+      room = Room.new(name: "test")
+      room.room_settings = "{\"muteOnStart\":false,\"joinViaHtml5\":false,\"anyoneCanStart\":true}"
+      room.owner = @owner
+      room.save
+
+      @request.session[:user_id] = @user.id
+      post :join, params: { room_uid: room, join_name: @user.name }
+
+      expect(response).to redirect_to(room.join_path(@user.name, { user_is_moderator: false }, @user.uid))
+    end
+
+    it "should join the room as moderator if room has the all_join_moderator setting" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
+
+      room = Room.new(name: "test")
+      room.room_settings = "{\"joinModerator\":true}"
+      room.owner = @owner
+      room.save
+
+      @request.session[:user_id] = @user.id
+      post :join, params: { room_uid: room, join_name: @user.name }
+
+      expect(response).to redirect_to(room.join_path(@user.name, { user_is_moderator: true }, @user.uid))
+    end
+
+    it "should render wait if the correct access code is supplied" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(false)
+
+      protected_room = Room.new(name: 'test', access_code: "123456")
+      protected_room.owner = @owner
+      protected_room.save
+
+      @request.session[:user_id] = @user.id
+      post :join, params: { room_uid: protected_room, join_name: @user.name }, session: { access_code: "123456" }
+
+      expect(response).to render_template(:wait)
+    end
+
+    it "should redirect to login if the correct access code isn't supplied" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(false)
+
+      protected_room = Room.new(name: 'test', access_code: "123456")
+      protected_room.owner = @owner
+      protected_room.save
+
+      @request.session[:user_id] = @user.id
+      post :join, params: { room_uid: protected_room, join_name: @user.name }, session: { access_code: "123455" }
+
+      expect(response).to redirect_to room_path(protected_room.uid)
     end
 
     it "should join owner as moderator if meeting running" do
@@ -314,8 +385,9 @@ describe RoomsController, type: :controller do
     it "properly updates room settings through the room settings modal and redirects to current page" do
       @request.session[:user_id] = @user.id
 
-      room_params = { "client": "html5", "mute_on_join": "1", "name": @secondary_room.name }
-      formatted_room_params = "{\"muteOnStart\":true,\"joinViaHtml5\":true}" # JSON string format
+      room_params = { "mute_on_join": "1", "name": @secondary_room.name }
+      formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
+        "\"anyoneCanStart\":false,\"joinModerator\":false}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }
@@ -370,6 +442,57 @@ describe RoomsController, type: :controller do
       get :logout, params: { room_uid: @room }
 
       expect(response).to redirect_to(@room)
+    end
+  end
+
+  describe "POST #login" do
+    before do
+      @user = create(:user)
+      @room = @user.main_room
+      @room.access_code = "123456"
+      @room.save
+    end
+
+    it "should redirect to show with valid access code" do
+      post :login, params: { room_uid: @room.uid, room: { access_code: "123456" } }
+
+      expect(response).to redirect_to room_path(@room.uid)
+      expect(flash[:alert]).to be_nil
+    end
+
+    it "should redirect to show with and notify user of invalid access code" do
+      post :login, params: { room_uid: @room.uid, room: { access_code: "123455" } }
+
+      expect(response).to redirect_to room_path(@room.uid)
+      expect(flash[:alert]).to eq(I18n.t("room.access_code_required"))
+    end
+  end
+
+  describe "POST join_specific_room" do
+    before do
+      @user = create(:user)
+      @user1 = create(:user)
+    end
+
+    it "should display flash if the user doesn't supply a valid uid" do
+      @request.session[:user_id] = @user.id
+
+      post :join_specific_room, params: { join_room: { url: "abc" } }
+
+      expect(flash[:alert]).to eq(I18n.t("room.no_room.invalid_room_uid"))
+      expect(response).to redirect_to room_path(@user.main_room)
+    end
+
+    it "should redirect the user to the room uid they supplied" do
+      post :join_specific_room, params: { join_room: { url: @user1.main_room } }
+
+      expect(response).to redirect_to room_path(@user1.main_room)
+    end
+
+    it "should redirect the user to the room join url they supplied" do
+      post :join_specific_room, params: { join_room: { url: room_path(@user1.main_room) } }
+
+      expect(response).to redirect_to room_path(@user1.main_room)
     end
   end
 end

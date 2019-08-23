@@ -12,15 +12,9 @@ module BbbApi
   end
 
   # Sets a BigBlueButtonApi object for interacting with the API.
-  def bbb
+  def bbb(user_provider)
     if Rails.configuration.loadbalanced_configuration
-      if instance_of? Room
-        # currently in the Room Model
-        user_domain = retrieve_provider_info(owner.provider)
-      elsif instance_of? User
-        # currently in the User Model
-        user_domain = retrieve_provider_info(provider)
-      end
+      user_domain = retrieve_provider_info(user_provider)
 
       BigBlueButton::BigBlueButtonApi.new(remove_slash(user_domain["apiURL"]), user_domain["secret"], "0.8")
     else
@@ -32,6 +26,9 @@ module BbbApi
   def retrieve_provider_info(provider, api = 'api', route = 'getUser')
     # Include Omniauth accounts under the Greenlight provider.
     raise "Provider not included." if !provider || provider.empty?
+
+    cached_provider = Rails.cache.fetch("#{provider}/#{route}")
+    return cached_provider unless cached_provider.nil?
 
     # Build the URI.
     uri = encode_bbb_url(
@@ -54,6 +51,10 @@ module BbbApi
     raise doc['message'] unless response.is_a?(Net::HTTPSuccess)
 
     # Return the user credentials if the request succeeded on the loadbalancer.
+    Rails.cache.fetch("#{provider}/#{route}", expires_in: 1.hours) do
+      doc['user']
+    end
+
     return doc['user'] if doc['returncode'] == 'SUCCESS'
 
     raise "User with provider #{provider} does not exist." if doc['messageKey'] == 'noSuchUser'

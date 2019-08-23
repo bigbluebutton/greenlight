@@ -13,7 +13,22 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<% if @role.present? %>
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<% unless @role.nil? %>
   <%= render "shared/components/admins_tags" %>
 <% end %>
 
@@ -73,7 +88,7 @@
                     <td><%= user.provider %></td>
                     <td class="text-center">
                       <% roles = user.roles().pluck(:name) %>
-                      <%= render "shared/components/admins_role", roles: roles %>
+                      <%= render "shared/components/admins_role", role: user.highest_priority_role %>
                     </td>
                     <td>
                       <% if roles.include?("pending") %>
@@ -107,16 +122,6 @@
                               <button class= "delete-user dropdown-item" data-toggle="modal" data-target="#deleteAccountModal">
                                 <i class="dropdown-icon fas fa-user-minus"></i> <%= t("administrator.users.settings.delete") %>
                               </button>
-
-                              <% if roles.include?("admin") %>
-                                <%= button_to admin_demote_path(user_uid: user.uid), class: "dropdown-item" do %>
-                                  <i class="dropdown-icon fas fa-level-down-alt"></i> <%= t("administrator.users.settings.demote") %>
-                                <% end %>
-                              <% elsif roles.include?("user") %>
-                                <%= button_to admin_promote_path(user_uid: user.uid), class: "dropdown-item" do %>
-                                  <i class="dropdown-icon fas fa-level-up-alt"></i> <%= t("administrator.users.settings.promote") %>
-                                <% end %>
-                              <% end %>
                               <%= button_to admin_ban_path(user_uid: user.uid), class: "dropdown-item" do %>
                                 <i class="dropdown-icon fas fa-lock"></i> <%= t("administrator.users.settings.ban") %>
                               <% end %>
@@ -146,3 +151,4 @@
 </div>
 
 <%= render "shared/modals/invite_user_modal" %>
+<%= render "shared/modals/delete_account_modal", delete_location: relative_root %>

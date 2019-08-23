@@ -1,0 +1,79 @@
+
+
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div id="cant-create-room-wrapper" class="background h-100 cant-create-room-wrapper">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="card card-profile h-100">
+                            <div class="card-header bg-primary h-50"></div>
+                            <div class="card-body text-center">
+                                <% if current_user.image.blank? %>
+                                    <span class="avatar avatar-xxxl card-profile-img bg-primary"><%= current_user.name.first %></span>
+                                <% else %>
+                                    <%= image_tag(current_user.image, class: "avatar avatar-xxxl card-profile-img") %>
+                                <% end %>
+                                <h2 class="mb-3"><%= current_user.name %></h2>
+                                <%= link_to edit_user_path(current_user), class: "btn btn-outline-primary mt-2" do %>
+                                    <i class="dropdown-icon fas fa-id-card mr-3"></i><%= t("room.no_room.edit_profile") %>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="card h-100">
+                            <div class="card-status bg-primary"></div>
+                            <div class="card-header cant-create-rooms-title">
+                                <h3 class="card-title"><%= t("room.no_room.title") %></h3>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                                <p class="w-75"><%= t("room.no_room.description") %></p>
+                                <%= form_for(:join_room, url: join_room_path, html: {class: "w-75"}) do |f| %>
+                                    <div class="input-icon mb-2">
+                                        <span class="input-icon-addon">
+                                            <i class="fas fa-link"></i>
+                                        </span>
+                                        <%= f.text_field :url, class: "form-control", value: "", placeholder: t("room.no_room.placeholder"), required: "" %>
+                                    </div>
+                                    <div class="mt-4">
+                                        <%= f.submit t("room.no_room.go_to"), class:"btn btn-primary btn-block" %>
+                                    </div>
+                                <% end %>
+                            </div>
+                            <hr class="mt-0 mb-0">
+                            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <ul class="list-group w-75 text-center">
+                                <li class="list-group-item active"><%= t("room.no_room.recent_rooms") %></li>
+                                <% @recent_rooms.each do |room| %>
+                                    <%= link_to room_path(room), class: "list-group-item list-group-item-action dropdown-item"  do %>
+                                        <%= room.owner.name + " " + room.name %>
+                                    <% end %>
+                                <% end %>
+                                <% if @recent_rooms.count == 0 %>
+                                    <li class="list-group-item"><%= t("room.no_room.no_recent_rooms") %></li>
+                                <% end %>
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

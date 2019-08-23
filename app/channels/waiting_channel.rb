@@ -18,6 +18,11 @@
 
 class WaitingChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "#{params[:uid]}_waiting_channel"
+    Rails.logger.info "subscribed [#{params[:useruid]}:#{params[:roomuid]}]"
+    stream_from "#{params[:roomuid]}_waiting_channel"
+  end
+
+  def unsubscribed
+    Rails.logger.info "unsubscribed [#{params[:useruid]}:#{params[:roomuid]}]"
   end
 end

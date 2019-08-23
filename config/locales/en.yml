@@ -42,12 +42,20 @@ en:
         info: Change the branding image that appears in the top left corner
         placeholder: Image Url...
         title: Branding Image
+      cache:
+        info: Clears the stored provider cache which forces a new request for the updated info
+        title: Clear Provider Cache
+        button: Clear Cache
       color:
         info: Changing the Regular Color will change both Lighten and Darken. Lighten and Darken can then be changed individually
         title: Primary Color
         regular: Regular
         lighten: Lighten
         darken: Darken
+      recording_visibility:
+        info: Set the default recording visbility for new recordings
+        title: Recording Default Visibility
+        warning: This setting will only be applied to rooms that aren't running
       registration:
         info: Change the way that users register to the website
         title: Registration Method
@@ -71,8 +79,33 @@ en:
       invite_email_verification: Emails must be enabled in order to use this method. Please contact your system administrator.
       promoted: User has been successfully promoted
       registration_method_updated: Registration method successfully updated
+      reset_password: The user has been sent an email to reset their password. (Please ask them to check their spam folder if they haven't received it)
       settings: Site Settings successfully changed
       unauthorized: You are not authorized to perform actions on this user
+    recordings:
+      title: Server Recordings
+      no_recordings: This server has no recordings.
+    roles:
+      can_create_rooms: Can create rooms
+      delete: Delete the role
+      duplicate_name: The role name you provided was a duplicate. All role names must be unique
+      empty_name: All roles must have a non empty name
+      invalid_order: The user role must be the lowest priority role and the admin role must be the highest priority role
+      invalid_update: You can't update a role with a higher priority than your own role
+      name: Role Name
+      new_role: Create a new role
+      role_has_users: This role is assigned to %{user_count} accounts. Please remove all accounts from this role before deleting it.
+      title: Roles
+      promote_email: Send an email to users when they are assigned this role
+      demote_email: Send an email to users when they are removed from this role
+      edit_site_settings: Allow users with this role to edit site settings
+      edit_roles: Allow users with this role to edit other roles
+      manage_users: Allow users with this role to manage users
+      invalid_assignment: You can't assign a role with a higher priority than your own to a user
+      invalid_removal: You can't remove a role with a higher priority than your own
+      colour:
+        title: Role Colour
+        info: Set the colour that will be associated with the role
     title: Organization Settings
     users:
       invite: Invite User
@@ -83,9 +116,8 @@ en:
         decline: Decline
         ban: Ban User
         delete: Delete
-        demote: Demote to User
         edit: Edit
-        promote: Promote to Admin
+        edit_roles: Edit the user roles
         unban: Unban User
       table:
         authenticator: Authenticator
@@ -106,6 +138,8 @@ en:
     cookie_button: I Agree
   copied: Copied
   copy: Copy
+  date:
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
   default_admin: You are still using the default password for this account. Please click <a href="%{edit_link}">here</a> to change it
   delete: Delete
   delivery_error: An error occured during email delivery. Please contact an administrator!
@@ -124,7 +158,6 @@ en:
     maintenance:
       message: Sorry, we're down for maintenance.
       help: We'll be back soon!
-      readonly: This application is under maintenance. You will not be able to perform this action
     migration_error:
       contact_admin: If you are not an administrator, please contact one.
       continue: I'd like to stay using 1.0.
@@ -142,8 +175,8 @@ en:
       confirmation: doesn't match %{attribute}
       inclusion: is not included in the list
     no_provider:
-      message: The customer you provided doesn't have Greenlight configured
-      help: Please contact Blindside Networks to setup Greenlight
+      message: The site you are trying to access is not enabled
+      help: Please contact your system administrator to setup Greenlight
     not_found:
       message: Sorry! The page you are looking for does not exist.
       help: Is it possible its been removed?
@@ -182,8 +215,7 @@ en:
       signout: Sign out
   home_room: Home Room
   info_update_success: Information successfully updated.
-  invalid_user: Login failed due to user not found. Are you sure the email account is correct?
-  invalid_credentials: Login failed due to invalid credentials. Are you sure you entered them correctly?
+  invalid_credentials: The email and password you entered did not match our records. Try again or click Forgot Password to reset your password.
   invalid_login_method: Login failed due to account mismatch. You need to log in with omniauth.
   invite_message: "To invite someone to the meeting, send them this link:"
   javascript:
@@ -218,10 +250,10 @@ en:
         subject: Account Approved
         username: Your username is %{email}.
       demoted:
-        info: You are no longer an administrator on %{url}.
-        more-info: You now have the same privileges as a regular user and will no longer be able to access any of the Administrator settings.
+        info: You are no longer an %{role} on %{url}.
+        more-info: You now have the same privileges as a regular user.
         root_link: Sign In
-        subtitle: Administrator Rights Rescinded
+        subtitle: "%{role} Rights Rescinded"
       invite:
         info: You have been invited to your own personal space by %{name}
         signup_info: To signup using your email, click the button below and follow the steps.
@@ -235,16 +267,16 @@ en:
         username: Your username is %{email}.
       password_reset:
         title: 'Password reset'
-        welcome: It seems like you forgot your password for %{bigbluebutton}
-        message: 'If this is true, please click the link below to reset your password:'
+        welcome: A password reset has been requested for the email <b>%{email}</b>
+        message: 'If you requested this reset, then please click the link below to reset your password:'
         reset_link: Reset Password
         expire: This link will expire in two hours.
-        ignore: You can safely ignore this email if you did not request a password reset.
+        ignore: You can safely ignore this email if you did not make this request.
       promoted:
         admins_link: Visit the Organization Page
-        info: You are now an administrator on %{url}.
-        more-info: As an administrator, you can manage users, their role and configure your site settings by changing the logo and brand colour.
-        subtitle: Administrator Rights Granted
+        info: You are now an %{role} on %{url}.
+        more-info: To view your new abilities please visit %{url}.
+        subtitle: "%{role} Rights Granted"
       verify_email:
         welcome: Welcome to your personal space, %{name}!
         success: Leveraging %{bigbluebutton}, you can create your own rooms to host sessions and collaborate with others.
@@ -253,9 +285,19 @@ en:
         verify_text: 'To verify your account, just follow this link: %{url}'
         verify_link: Verify Account
         thanks: Thanks for joining and have a great day!
+  maintenance:
+    window_alert: Maintenance window scheduled for %{date}
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!
   modal:
+    create_role:
+      create: Create a new Role
+      footer_text: You can edit the individual permissions for this role after you've created it
+      name_placeholder: Enter a role name...
+      not_blank: Role name cannot be blank.
+      title: Create New Role
     create_room:
+      access_code: Access Code
+      access_code_placeholder: Generate an optional room access code
       auto_join: Automatically join me into the room
       create: Create Room
       free_delete: You will be free to delete this room at any time.
@@ -287,16 +329,17 @@ en:
       title: Room Settings
       update: Update Room
       client: Select client type
+      join_moderator: All users join as moderators
       mute: Mute users when they join
-      default: Default
-      html: HTML5
-      flash: Flash
+      require_approval: Require moderator approval before joining
+      start: Allow any user to start this meeting
       footer_text: Adjustment to your room can be done at anytime.
     rename_room:
       name_placeholder: Enter a new room name...
   name_update_success: Room name successfully changed!
   no_user_email_exists: There is no existing user with the email specified. Please make sure you typed it correctly.
   omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!
+  omniauth_specific_error: "%{error} occured while authenticating with omniauth. Please try again or contact an administrator!"
   pagy:
     nav:
       prev: "&lsaquo; Prev"
@@ -359,20 +402,31 @@ en:
     confirm: New Password Confirmation
     update: Update Password
   roles:
-    administrator: Administrator
+    admin: Admin
     banned: Banned
     pending: Pending
-    super_admin: Super Admin
     user: User
   room:
+    access_code_required: Please enter a valid access code to join the room
     create_room: Create a Room
     create_room_error: There was an error creating the room
     create_room_success: Room created successfully
+    enter_the_access_code: Enter the room's access code
     invited: You have been invited to join
     invite_participants: Invite Participants
     join: Join
     last_session: Last session on %{session}
+    login: Enter
     owner: Owner
+    no_room:
+      description: Enter the room url or the room id for the room you want to join.
+      edit_profile: Edit User Profile
+      go_to: Go to the Room
+      invalid_room_uid: The room url/uid you entered was invalid.
+      placeholder: Room url/uid
+      no_recent_rooms: You don't have any recently joined rooms
+      recent_rooms: Go To a Recently Joined Room
+      title: Join a Room
     no_sessions: This room has no sessions, yet!
     recordings: Room Recordings
     room_limit: You have reached the maximum number of rooms allowed
@@ -393,6 +447,7 @@ en:
       provider: Provider
       image: Image
       image_url: Profile Image URL
+      roles: User Roles
       subtitle: Update your Account Info
       title: Account Info
     delete:

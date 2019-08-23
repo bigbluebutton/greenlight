@@ -124,6 +124,7 @@ describe PasswordResetsController, type: :controller do
 
         params = {
           id: token,
+          email: user.email,
           user: {
             password: :password,
             password_confirmation: :password,

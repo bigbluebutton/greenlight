@@ -22,8 +22,4 @@ class ApplicationRecord < ActiveRecord::Base
   def to_param
     uid
   end
-
-  def readonly?
-    ENV["MAINTENANCE_MODE"] == "readonly"
-  end
 end

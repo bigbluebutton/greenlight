@@ -20,7 +20,7 @@ $(document).on('turbolinks:load', function(){
   var action = $("body").data('action');
 
   // Only run on the settings page.
-  if ((controller == "users" && action == "edit") || (controller == "users" && action == "update") || (controller == "admins" && action == "index")){
+  if ((controller == "users" && action == "edit") || (controller == "users" && action == "update")){
     var settingsButtons = $('.setting-btn');
     var settingsViews = $('.setting-view');
 
