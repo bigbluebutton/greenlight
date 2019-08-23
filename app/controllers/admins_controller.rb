@@ -153,6 +153,14 @@ class AdminsController < ApplicationController
     redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
+  # POST /admins/clear_cache
+  def clear_cache
+    Rails.cache.delete("#{@user_domain}/getUser")
+    Rails.cache.delete("#{@user_domain}/getUserGreenlightCredentials")
+
+    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
+  end
+
   # ROLES
 
   # GET /admins/roles
