@@ -28,7 +28,7 @@ it:
         enabled: Abilitato
         info: Permettere l'accesso solo ad utenti autenticati
         title: Richiedi autenticazione per ogni stanza
-        user-info: Devi registrarti ad DENTAL LIVE Manager per accedere alla stanza
+        user-info: Devi prima registrarti a BigBlueButton per accedere alla stanza
       branding:
         change: Cambia immagine
         info: Cambia il logo del brand che appare nell'angolo in alto a sinistra
@@ -85,7 +85,7 @@ it:
         username: Nome utente
       title: Gestisci utenti
   add_to_google_calendar: "Aggiungi a Google Calendar"
-  bigbluebutton: GrandeBottoneBlu
+  bigbluebutton: BigBlueButton
   bigbluebutton_exception: "Dannazione, c'è stato un errore nell'avvio del meeting!"
   cancel: Annulla
   cookies:
@@ -147,7 +147,7 @@ it:
     email: Email
     submit: Invia
   go_back: Indietro
-  greenlight: LuceVerde
+  greenlight: GreenLight
   header:
     all_recordings: Tutte le Registrazioni
     dropdown:
