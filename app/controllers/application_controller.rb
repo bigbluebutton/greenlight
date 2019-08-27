@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
 
   # Show an information page when migration fails and there is a version error.
   def migration_error?
-    render :migration_error unless ENV["DB_MIGRATE_FAILED"].blank?
+    render :migration_error, status: 500 unless ENV["DB_MIGRATE_FAILED"].blank?
   end
 
   def maintenance_mode?
