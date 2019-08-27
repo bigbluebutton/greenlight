@@ -44,6 +44,19 @@ describe RecordingsController, type: :controller do
     end
   end
 
+  context "PATCH #rename" do
+    it "properly updates recording name and redirects to current page" do
+      allow_any_instance_of(BbbServer).to receive(:update_recording).and_return(updated: true)
+
+      @request.session[:user_id] = @user.id
+      name = Faker::Games::Pokemon.name
+
+      patch :rename, params: { meetingID: @room.bbb_id, record_id: Faker::IDNumber.valid, record_name: name }
+
+      expect(response).to redirect_to(@room)
+    end
+  end
+
   context "DELETE #delete_recording" do
     it "deletes the recording" do
       allow_any_instance_of(BbbServer).to receive(:delete_recording).and_return(true)

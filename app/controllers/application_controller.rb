@@ -18,16 +18,9 @@
 
 class ApplicationController < ActionController::Base
   include BbbServer
-  include ThemingHelper
 
-  before_action :redirect_to_https
-  before_action :set_user_domain
-  before_action :set_user_settings
-  before_action :maintenance_mode?
-  before_action :migration_error?
-  before_action :user_locale
-  before_action :check_admin_password
-  before_action :check_user_role
+  before_action :redirect_to_https, :set_user_domain, :set_user_settings, :maintenance_mode?, :migration_error?,
+    :user_locale, :check_admin_password, :check_user_role
 
   # Manually handle BigBlueButton errors
   rescue_from BigBlueButton::BigBlueButtonException, with: :handle_bigbluebutton_error
@@ -77,6 +70,23 @@ class ApplicationController < ActionController::Base
     @settings = Setting.find_or_create_by(provider: @user_domain)
   end
 
+  # Redirects the user to a Maintenance page if turned on
+  def maintenance_mode?
+    if ENV["MAINTENANCE_MODE"] == "true"
+      render "errors/greenlight_error", status: 503, formats: :html,
+        locals: {
+          status_code: 503,
+          message: I18n.t("errors.maintenance.message"),
+          help: I18n.t("errors.maintenance.help"),
+        }
+    end
+    if Rails.configuration.maintenance_window.present?
+      unless cookies[:maintenance_window] == Rails.configuration.maintenance_window
+        flash.now[:maintenance] = I18n.t("maintenance.window_alert", date: Rails.configuration.maintenance_window)
+      end
+    end
+  end
+
   # Show an information page when migration fails and there is a version error.
   def migration_error?
     render :migration_error, status: 500 unless ENV["DB_MIGRATE_FAILED"].blank?
@@ -110,23 +120,6 @@ class ApplicationController < ActionController::Base
     elsif current_user&.has_role? :pending
       session.delete(:user_id)
       redirect_to root_path, flash: { alert: I18n.t("registration.approval.fail") }
-    end
-  end
-
-  # Redirects the user to a Maintenance page if turned on
-  def maintenance_mode?
-    if ENV["MAINTENANCE_MODE"] == "true"
-      render "errors/greenlight_error", status: 503, formats: :html,
-        locals: {
-          status_code: 503,
-          message: I18n.t("errors.maintenance.message"),
-          help: I18n.t("errors.maintenance.help"),
-        }
-    end
-    if Rails.configuration.maintenance_window.present?
-      unless cookies[:maintenance_window] == Rails.configuration.maintenance_window
-        flash.now[:maintenance] = I18n.t("maintenance.window_alert", date: Rails.configuration.maintenance_window)
-      end
     end
   end
 

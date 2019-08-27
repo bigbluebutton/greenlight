@@ -50,7 +50,7 @@ describe PasswordResetsController, type: :controller do
         expect(response).to redirect_to(root_path)
       end
 
-      it "reloads the page if no email exists in the database" do
+      it "redirects to root with success flash if email does not exists" do
         params = {
           password_reset: {
             email: nil,
@@ -58,7 +58,8 @@ describe PasswordResetsController, type: :controller do
         }
 
         post :create, params: params
-        expect(response).to redirect_to(new_password_reset_path)
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(root_path)
       end
     end
 

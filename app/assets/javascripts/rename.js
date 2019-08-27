@@ -124,7 +124,7 @@ $(document).on('turbolinks:load', function(){
         submit_update_request({
           setting: "rename_header",
           room_name: element.find('#user-text').text(),
-        }, element.data('path'));
+        }, element.data('path'), "POST");
       }
       else if(element.is('#recording-title')){
         submit_update_request({
@@ -132,16 +132,16 @@ $(document).on('turbolinks:load', function(){
           record_id: element.data('recordid'),
           record_name: element.find('text').text(),
           room_uid: element.data('room-uid'),
-        }, element.data('path'));
+        }, element.data('path'), "PATCH");
       }
     }
 
     // Helper for submitting ajax requests
-    var submit_update_request = function(data, path){
+    var submit_update_request = function(data, path, action){
       // Send ajax request for update
       $.ajax({
         url: path,
-        type: "PATCH",
+        type: action,
         data: data,
       });
     }
