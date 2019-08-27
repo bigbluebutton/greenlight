@@ -25,19 +25,17 @@ class UsersController < ApplicationController
   include Rolify
 
   before_action :find_user, only: [:edit, :change_password, :delete_account, :update, :destroy]
-  before_action :ensure_unauthenticated, only: [:new, :create, :signin]
+  before_action :ensure_unauthenticated_except_twitter, only: [:create]
+  before_action :check_user_signup_allowed, only: [:create]
   before_action :check_admin_of, only: [:edit, :change_password, :delete_account]
 
   # POST /u
   def create
-    # Verify that GreenLight is configured to allow user signup.
-    return unless Rails.configuration.allow_user_signup
-
     @user = User.new(user_params)
     @user.provider = @user_domain
 
     # User or recpatcha is not valid
-    render(:new) && return unless valid_user_or_captcha
+    render("sessions/new") && return unless valid_user_or_captcha
 
     # Redirect to root if user token is either invalid or expired
     return redirect_to root_path, flash: { alert: I18n.t("registration.invite.fail") } unless passes_invite_reqs
@@ -65,50 +63,6 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
-  # GET /signin
-  def signin
-    unless params[:old_twitter_user_id].nil? && session[:old_twitter_user_id].nil?
-      flash[:alert] = I18n.t("registration.deprecated.new_signin")
-      session[:old_twitter_user_id] = params[:old_twitter_user_id] unless params[:old_twitter_user_id].nil?
-    end
-
-    providers = configured_providers
-    if (!allow_user_signup? || !allow_greenlight_accounts?) && providers.count == 1 &&
-       !Rails.configuration.loadbalanced_configuration
-      provider_path = if Rails.configuration.omniauth_ldap
-        ldap_signin_path
-      else
-        "#{Rails.configuration.relative_url_root}/auth/#{providers.first}"
-      end
-
-      return redirect_to provider_path
-    end
-  end
-
-  # GET /ldap_signin
-  def ldap_signin
-  end
-
-  # GET /signup
-  def new
-    return redirect_to root_path unless Rails.configuration.allow_user_signup
-
-    # Check if the user needs to be invited
-    if invite_registration
-      redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless params[:invite_token]
-
-      session[:invite_token] = params[:invite_token]
-    end
-
-    unless params[:old_twitter_user_id].nil? && session[:old_twitter_user_id].nil?
-      logout
-      flash.now[:alert] = I18n.t("registration.deprecated.new_signin")
-      session[:old_twitter_user_id] = params[:old_twitter_user_id] unless params[:old_twitter_user_id].nil?
-    end
-
-    @user = User.new
-  end
-
   # GET /u/:user_uid/edit
   def edit
     redirect_to root_path unless current_user
@@ -116,6 +70,7 @@ class UsersController < ApplicationController
 
   # GET /u/:user_uid/change_password
   def change_password
+    redirect_to edit_user_path unless current_user.greenlight_account?
   end
 
   # GET /u/:user_uid/delete_account
@@ -124,11 +79,11 @@ class UsersController < ApplicationController
 
   # PATCH /u/:user_uid/edit
   def update
-    redirect_path = current_user.admin_of?(@user) ? admins_path : edit_user_path(@user)
+    profile = params[:setting] == "password" ? change_password_path(@user) : edit_user_path(@user)
+    redirect_path = current_user.admin_of?(@user) ? admins_path : profile
 
     if params[:setting] == "password"
       # Update the users password.
-      errors = {}
 
       if @user.authenticate(user_params[:password])
         # Verify that the new passwords match.
@@ -136,21 +91,18 @@ class UsersController < ApplicationController
           @user.password = user_params[:new_password]
         else
           # New passwords don't match.
-          errors[:password_confirmation] = "doesn't match"
+          @user.errors.add(:password_confirmation, "doesn't match")
         end
       else
         # Original password is incorrect, can't update.
-        errors[:password] = "is incorrect"
+        @user.errors.add(:password, "is incorrect")
       end
 
-      if errors.empty? && @user.save
-        # Notify the user that their account has been updated.
-        redirect_to redirect_path, flash: { success: I18n.t("info_update_success") }
-      else
-        # Append custom errors.
-        errors.each { |k, v| @user.errors.add(k, v) }
-        render :edit, params: { settings: params[:settings] }
-      end
+      # Notify the user that their account has been updated.
+      return redirect_to redirect_path,
+        flash: { success: I18n.t("info_update_success") } if @user.errors.empty? && @user.save
+
+      render :change_password
     else
       if @user.update_attributes(user_params)
         @user.update_attributes(email_verified: false) if user_params[:email] != @user.email
@@ -164,7 +116,7 @@ class UsersController < ApplicationController
         end
       end
 
-      render :edit, params: { settings: params[:settings] }
+      render :edit
     end
   end
 
@@ -172,20 +124,19 @@ class UsersController < ApplicationController
   def destroy
     logger.info "Support: #{current_user.email} is deleting #{@user.email}."
 
-    if current_user && current_user == @user
-      @user.destroy
-      session.delete(:user_id)
-    elsif current_user.admin_of?(@user)
-      begin
+    self_delete = current_user == @user
+    begin
+      if current_user && (self_delete || current_user.admin_of?(@user))
         @user.destroy
-      rescue => e
-        logger.error "Support: Error in user deletion: #{e}"
-        flash[:alert] = I18n.t(params[:message], default: I18n.t("administrator.flash.delete_fail"))
-      else
-        flash[:success] = I18n.t("administrator.flash.delete")
+        session.delete(:user_id) if self_delete
+
+        return redirect_to admins_path, flash: { success: I18n.t("administrator.flash.delete") } unless self_delete
       end
-      redirect_to(admins_path) && return
+    rescue => e
+      logger.error "Support: Error in user deletion: #{e}"
+      flash[:alert] = I18n.t(params[:message], default: I18n.t("administrator.flash.delete_fail"))
     end
+
     redirect_to root_path
   end
 
@@ -216,8 +167,9 @@ class UsersController < ApplicationController
     @user = User.where(uid: params[:user_uid]).includes(:roles).first
   end
 
-  def ensure_unauthenticated
-    redirect_to current_user.main_room if current_user && params[:old_twitter_user_id].nil?
+  # Verify that GreenLight is configured to allow user signup.
+  def check_user_signup_allowed
+    redirect_to root_path unless Rails.configuration.allow_user_signup
   end
 
   def user_params
@@ -231,26 +183,6 @@ class UsersController < ApplicationController
     elsif approval_registration
       send_approval_user_signup_email(@user)
     end
-  end
-
-  # Add validation errors to model if they exist
-  def valid_user_or_captcha
-    valid_user = @user.valid?
-    valid_captcha = Rails.configuration.recaptcha_enabled ? verify_recaptcha(model: @user) : true
-
-    logger.error("Support: #{@user.email} creation failed: User params are not valid.") unless valid_user
-
-    valid_user && valid_captcha
-  end
-
-  # Checks if the user passes the requirements to be invited
-  def passes_invite_reqs
-    # check if user needs to be invited and IS invited
-    invitation = check_user_invited(@user.email, session[:invite_token], @user_domain)
-
-    @user.email_verified = true if invitation[:verified]
-
-    invitation[:present]
   end
 
   # Checks that the user is allowed to edit this user

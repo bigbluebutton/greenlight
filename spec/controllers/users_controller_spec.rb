@@ -46,32 +46,6 @@ describe UsersController, type: :controller do
     }
   end
 
-  describe "GET #new" do
-    it "assigns a blank user to the view" do
-      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-
-      get :new
-      expect(assigns(:user)).to be_a_new(User)
-    end
-
-    it "redirects to root if allow_user_signup is false" do
-      allow(Rails.configuration).to receive(:allow_user_signup).and_return(false)
-
-      get :new
-      expect(response).to redirect_to(root_path)
-    end
-  end
-
-  describe "GET #signin" do
-    it "redirects to main room if already authenticated" do
-      user = create(:user)
-      @request.session[:user_id] = user.id
-
-      post :signin
-      expect(response).to redirect_to(room_path(user.main_room))
-    end
-  end
-
   describe "GET #edit" do
     it "renders the edit template" do
       user = create(:user)
@@ -209,13 +183,6 @@ describe UsersController, type: :controller do
           @request.session[:invite_token] = invite.invite_token
 
           expect { post :create, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
-        end
-
-        it "rejects the user if they are not invited" do
-          get :new
-
-          expect(flash[:alert]).to be_present
-          expect(response).to redirect_to(root_path)
         end
 
         it "allows the user to signup if they are invited" do
@@ -491,14 +458,6 @@ describe UsersController, type: :controller do
       get :recordings, params: { current_user: @user2, user_uid: @user1.uid }
 
       expect(response).to redirect_to(root_path)
-    end
-  end
-
-  context 'GET #ldap_signin' do
-    it "should render the ldap signin page" do
-      get :ldap_signin
-
-      expect(response).to render_template(:ldap_signin)
     end
   end
 end

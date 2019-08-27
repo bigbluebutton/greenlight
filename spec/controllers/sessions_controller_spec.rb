@@ -19,6 +19,50 @@
 require "rails_helper"
 
 describe SessionsController, type: :controller do
+  describe "GET #new" do
+    it "assigns a blank user to the view" do
+      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
+
+      get :new
+      expect(assigns(:user)).to be_a_new(User)
+    end
+
+    it "redirects to root if allow_user_signup is false" do
+      allow(Rails.configuration).to receive(:allow_user_signup).and_return(false)
+
+      get :new
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "rejects the user if they are not invited" do
+      allow_any_instance_of(Registrar).to receive(:invite_registration).and_return(true)
+      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
+
+      get :new
+
+      expect(flash[:alert]).to be_present
+      expect(response).to redirect_to(root_path)
+    end
+  end
+
+  describe "GET #signin" do
+    it "redirects to main room if already authenticated" do
+      user = create(:user)
+      @request.session[:user_id] = user.id
+
+      post :signin
+      expect(response).to redirect_to(room_path(user.main_room))
+    end
+  end
+
+  describe 'GET #ldap_signin' do
+    it "should render the ldap signin page" do
+      get :ldap_signin
+
+      expect(response).to render_template(:ldap_signin)
+    end
+  end
+
   describe "GET #destroy" do
     before(:each) do
       user = create(:user, provider: "greenlight")
