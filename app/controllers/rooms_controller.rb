@@ -90,11 +90,13 @@ class RoomsController < ApplicationController
         return redirect_to room_path(room_uid: params[:room_uid]), flash: { alert: I18n.t("room.access_code_required") }
       end
 
-      # Join name not passed.
-      return unless params[:join_name]
-
       # Assign join name if passed.
-      @join_name = params[@room.invite_path][:join_name] if params[@room.invite_path]
+      if params[@room.invite_path]
+        @join_name = params[@room.invite_path][:join_name]
+      elsif !params[:join_name]
+        # Join name not passed.
+        return redirect_to root_path
+      end
     end
 
     # create or update cookie with join name
@@ -238,8 +240,10 @@ class RoomsController < ApplicationController
   end
 
   def verify_room_owner_verified
-    flash[:alert] = t("room.unavailable")
-    redirect_to root_path unless @room.owner.activated?
+    unless @room.owner.activated?
+      flash[:alert] = t("room.unavailable")
+      redirect_to root_path
+    end
   end
 
   def verify_user_not_admin

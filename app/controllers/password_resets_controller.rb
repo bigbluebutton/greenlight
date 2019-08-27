@@ -39,7 +39,7 @@ class PasswordResetsController < ApplicationController
       redirect_to root_path
     rescue
       # User doesn't exist
-      redirect_to new_password_reset_path, flash: { alert: I18n.t("no_user_email_exists") }
+      redirect_to root_path, flash: { success: I18n.t("email_sent", email_type: t("reset_password.subtitle")) }
     end
   end
 
