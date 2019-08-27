@@ -16,12 +16,12 @@
 <div class="list-group list-group-transparent mb-0">
   <% highest_role = current_user.highest_priority_role %>
   <% highest_role.name %>
-  <% if highest_role.can_manage_users || highest_role.name == "super_admin" %>
+  <% if highest_role.get_permission("can_manage_users") || highest_role.name == "super_admin" %>
     <%= link_to admins_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "index"}" do %>
       <span class="icon mr-3"><i class="fas fa-users"></i></span><%= t("administrator.users.title") %>
     <% end %>
   <% end %>
-  <% if highest_role.can_edit_site_settings || highest_role.name == "super_admin" %>
+  <% if highest_role.get_permission("can_edit_site_settings") || highest_role.name == "super_admin" %>
     <%= link_to admin_recordings_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "server_recordings"}" do %>
       <span class="icon mr-4"><i class="fas fa-video"></i></i></span><%= t("administrator.recordings.title") %>
     <% end %>
@@ -29,7 +29,7 @@
       <span class="icon mr-4"><i class="fas fa-cogs"></i></span><%= t("administrator.site_settings.title") %>
     <% end %>
   <% end %>
-  <% if highest_role.can_edit_roles  || highest_role.name == "super_admin" %>
+  <% if highest_role.get_permission("can_edit_roles")  || highest_role.name == "super_admin" %>
     <%= link_to admin_roles_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "roles"}" do %>
       <span class="icon mr-4"><i class="fas fa-user-tag"></i></i></span><%= t("administrator.roles.title") %>
     <% end %>

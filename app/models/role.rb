@@ -18,6 +18,7 @@
 
 class Role < ApplicationRecord
   has_and_belongs_to_many :users, join_table: :users_roles
+  has_many :role_permissions
 
   default_scope { order(:priority) }
   scope :by_priority, -> { order(:priority) }
@@ -30,15 +31,18 @@ class Role < ApplicationRecord
   end
 
   def self.create_default_roles(provider)
-    Role.create(name: "user", provider: provider, priority: 1, can_create_rooms: true, colour: "#868e96")
-    Role.create(name: "admin", provider: provider, priority: 0, can_create_rooms: true, send_promoted_email: true,
+    Role.create(name: "user", provider: provider, priority: 1, colour: "#868e96")
+        .update_all_role_permissions(can_create_rooms: true)
+    Role.create(name: "admin", provider: provider, priority: 0, colour: "#f1c40f")
+        .update_all_role_permissions(can_create_rooms: true, send_promoted_email: true,
       send_demoted_email: true, can_edit_site_settings: true,
-      can_edit_roles: true, can_manage_users: true, colour: "#f1c40f")
-    Role.create(name: "pending", provider: provider, priority: -1, colour: "#17a2b8")
-    Role.create(name: "denied", provider: provider, priority: -1, colour: "#343a40")
-    Role.create(name: "super_admin", provider: provider, priority: -2, can_create_rooms: true,
+      can_edit_roles: true, can_manage_users: true)
+    Role.create(name: "pending", provider: provider, priority: -1, colour: "#17a2b8").update_all_role_permissions
+    Role.create(name: "denied", provider: provider, priority: -1, colour: "#343a40").update_all_role_permissions
+    Role.create(name: "super_admin", provider: provider, priority: -2, colour: "#cd201f")
+        .update_all_role_permissions(can_create_rooms: true,
       send_promoted_email: true, send_demoted_email: true, can_edit_site_settings: true,
-      can_edit_roles: true, can_manage_users: true, colour: "#cd201f")
+      can_edit_roles: true, can_manage_users: true)
   end
 
   def self.create_new_role(role_name, provider)
@@ -55,5 +59,38 @@ class Role < ApplicationRecord
     user_role.save!
 
     role
+  end
+
+  def update_all_role_permissions(permissions = {})
+    update_permission("can_create_rooms", permissions[:can_create_rooms].to_s)
+    update_permission("send_promoted_email", permissions[:send_promoted_email].to_s)
+    update_permission("send_demoted_email", permissions[:send_demoted_email].to_s)
+    update_permission("can_edit_site_settings", permissions[:can_edit_site_settings].to_s)
+    update_permission("can_edit_roles", permissions[:can_edit_roles].to_s)
+    update_permission("can_manage_users", permissions[:can_manage_users].to_s)
+  end
+
+  # Updates the value of the permission and enables it
+  def update_permission(name, value)
+    permission = role_permissions.find_or_create_by!(name: name)
+
+    permission.update_attributes(value: value, enabled: true)
+  end
+
+  # Returns the value if enabled or the default if not enabled
+  def get_permission(name, return_boolean = true)
+    permission = role_permissions.find_or_create_by!(name: name)
+
+    value = if permission[:enabled]
+        permission[:value]
+    else
+      "false"
+    end
+
+    if return_boolean
+      value == "true"
+    else
+      value
+    end
   end
 end
