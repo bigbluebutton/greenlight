@@ -29,7 +29,7 @@ class User < ApplicationRecord
   has_many :rooms
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
 
-  has_and_belongs_to_many :roles, join_table: :users_roles
+  has_and_belongs_to_many :roles, -> { includes :role_permissions }, join_table: :users_roles
 
   validates :name, length: { maximum: 256 }, presence: true
   validates :provider, presence: true
@@ -163,11 +163,11 @@ class User < ApplicationRecord
       if has_role? :super_admin
         id != user.id
       else
-        highest_priority_role.can_manage_users && (id != user.id) && (provider == user.provider) &&
+        highest_priority_role.get_permission("can_manage_users") && (id != user.id) && (provider == user.provider) &&
           (!user.has_role? :super_admin)
       end
     else
-      (highest_priority_role.can_manage_users || (has_role? :super_admin)) && (id != user.id)
+      (highest_priority_role.get_permission("can_manage_users") || (has_role? :super_admin)) && (id != user.id)
     end
   end
 
@@ -230,7 +230,7 @@ class User < ApplicationRecord
 
   def self.all_users_with_roles
     User.joins("INNER JOIN users_roles ON users_roles.user_id = users.id INNER JOIN roles " \
-      "ON roles.id = users_roles.role_id")
+      "ON roles.id = users_roles.role_id INNER JOIN role_permissions ON roles.id = role_permissions.role_id").distinct
   end
 
   private

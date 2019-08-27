@@ -66,7 +66,7 @@ describe RoomsController, type: :controller do
     it "should render cant_create_rooms if user doesn't have permission to create rooms" do
       user_role = @user.highest_priority_role
 
-      user_role.can_create_rooms = false
+      user_role.update_permission("can_create_rooms", "false")
       user_role.save!
 
       @request.session[:user_id] = @user.id
