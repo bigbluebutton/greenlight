@@ -29,8 +29,6 @@ module BbbApi
 
     cached_provider = Rails.cache.fetch("#{provider}/#{route}")
     # Return cached result if the value exists and cache is enabled
-    puts ">>>>>>>>"
-    puts "Returning cached #{provider}/#{route}" if !cached_provider.nil? && Rails.configuration.enable_cache
     return cached_provider if !cached_provider.nil? && Rails.configuration.enable_cache
 
     # Build the URI.
