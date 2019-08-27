@@ -42,6 +42,10 @@ zh_CN:
         info: 更改左上角显示的网站标志
         placeholder: 品牌形象URL地址
         title: 网站标志
+      cache:
+        info: 清除缓存，强制新请求获取已更新的信息
+        title: 清除网站缓存
+        button: 清除缓存
       color:
         info: 改变常规颜色将同时更改明暗。可以单独更改变亮和变暗。
         title: 主颜色
@@ -49,8 +53,6 @@ zh_CN:
         lighten: 变亮
         darken: 变暗
       recording_visibility:
-        public: 公开
-        private: 私有
         info: 设置新录制录像的默认可见性
         title: 录像默认可见性
         warning: 此设置将仅应用于未运行的会议。
@@ -77,11 +79,33 @@ zh_CN:
       invite_email_verification: 必须启用电子邮件才能使用此方法。请与系统管理员联系。
       promoted: 用户已成功升级
       registration_method_updated: 注册方法已成功更新
+      reset_password: 已向用户发送电子邮件以重置其密码。（如果他们还没有收到邮件，请让他们检查他们的垃圾邮件文件夹）
       settings: 已成功更改网站设置
       unauthorized: 您无权对此用户执行操作
     recordings:
       title: 服务器录像
       no_recordings: 此服务器没有录像。
+    roles:
+      can_create_rooms: 可以创建会议室
+      delete: 删除角色
+      duplicate_name: 您提供的角色名称重复了。所有角色名称必须唯一。
+      empty_name: 所有角色必须具有非空名称
+      invalid_order: 用户角色必须是最低优先级角色，管理员角色必须是最高优先级角色。
+      invalid_update: 不能修改优先级高于自己角色的角色
+      name: 角色名称
+      new_role: 创建新角色
+      role_has_users: "此角色已非配给 %{user_count} 等帐户。 请删除此角色中的所有帐户再删除角色。"
+      title: 角色
+      promote_email: 分配此角色后向用户发送电子邮件
+      demote_email: 将用户从此角色中删除后向其发送电子邮件
+      edit_site_settings: 允许具有此角色的用户编辑网站设置
+      edit_roles: 允许具有此角色的用户编辑其他角色
+      manage_users: 允许具有此角色的用户管理用户
+      invalid_assignment: 不能将优先级高于自己的角色分配给用户
+      invalid_removal: 不能删除优先级高于自己的角色
+      colour:
+        title: 角色颜色
+        info: 设置将与角色关联的颜色
     title: 组织设置
     users:
       invite: 邀请用户
@@ -92,9 +116,8 @@ zh_CN:
         decline: 拒绝
         ban: 禁止用户
         delete: 删除
-        demote: 降级为普通用户
         edit: 编辑
-        promote: 提升为管理员
+        edit_roles: 编辑用户角色
         unban: 取消禁止用户
       table:
         authenticator: 认证方式
@@ -115,6 +138,8 @@ zh_CN:
     cookie_button: 我同意
   copied: Copied
   copy: 复制
+  date:
+    month_names: [~, 一月, 二月, 三月, 四月, 五月, 六月, 七月, 八月, 九月, 十月, 十一月, 十二月]
   default_admin: "您仍在使用此帐户的初始默认密码。 请点击 <a href=\"%{edit_link}\">这里</a> 修改。"
   delete: 删除
   delivery_error: 电子邮件传递过程中出错。请联系管理员！
@@ -133,7 +158,6 @@ zh_CN:
     maintenance:
       message: 对不起，我们正在下线维修中。
       help: 我们很快就回来！
-      readonly: 此应用程序正在维护中。您将无法执行此操作。
     migration_error:
       contact_admin: 请联系管理员。
       continue: 还是继续使用 1.0吧。
@@ -190,8 +214,7 @@ zh_CN:
       signout: 退出
   home_room: 主会议室
   info_update_success: 信息更新成功。
-  invalid_user: 由于找不到用户，登录失败。您确定电子邮件帐户是正确的吗？
-  invalid_credentials: 登录失败。输入有误？
+  invalid_credentials: 您输入的电子邮件和密码与我们的记录不匹配。请重试或单击“忘记密码”重置密码。
   invalid_login_method: 由于帐户不匹配，登录失败。您需要使用Omniauth登录。
   invite_message: "邀请他人参加会议，请发送以下链接："
   javascript:
@@ -226,10 +249,10 @@ zh_CN:
         subject: 帐户已批准
         username: "您的用户名是 %{email}."
       demoted:
-        info: "您不再是 %{url}的管理员."
-        more-info: 您现在拥有与普通用户相同的权限，将无法再访问任何管理员设置。
+        info: "您不再是 %{role} 在 %{url}中."
+        more-info: 您现在拥有与普通用户相同的权限。
         root_link: 登录
-        subtitle: 管理人权限已撤销
+        subtitle: "%{role} 权限已撤销"
       invite:
         info: "您被%{name}邀请到您自己的私人空间 "
         signup_info: 若要使用电子邮件注册，请单击下面的按钮并按照步骤操作。
@@ -243,16 +266,16 @@ zh_CN:
         username: "您的用户名是 %{email}."
       password_reset:
         title: '重置密码'
-        welcome: "好像您忘了%{bigbluebutton}的密码"
-        message: '如属实，请单击下面的链接重置密码：'
+        welcome: "已请求发送密码重置邮件到 <b>%{email}</b>"
+        message: '如果是您请求此重置，请单击下面的链接重置密码：'
         reset_link: 重置密码
         expire: 此链接将在两小时后过期。
-        ignore: 如果您没有请求密码重置，安全的做法是忽略此电子邮件。
+        ignore: 如果您没有提出此请求，您可以安全地忽略此电子邮件。
       promoted:
         admins_link: 访问组织页面
-        info: "您现在是 %{url}的管理员了."
-        more-info: 作为管理员，您可以通过更改徽标和品牌颜色来管理用户及其角色并配置站点设置。
-        subtitle: 管理员权限已授予
+        info: "您现在是 %{role} 在 %{url}中."
+        more-info: "要查看您的新权限，请访问 %{url}."
+        subtitle: "%{role} 权限已授予"
       verify_email:
         welcome: "欢迎来到您的个人空间，%{name}！"
         success: "使用%{bigbluebutton}，您可以创建个人会议室来主持会议并与其他人协作。"
@@ -261,8 +284,16 @@ zh_CN:
         verify_text: '要验证您的帐户，只需点击以下链接：%{url}'
         verify_link: 验证帐户
         thanks: 感谢您的加入，祝您拥有美好的一天！
+  maintenance:
+    window_alert: "计划的维护时段 %{date}"
   max_concurrent: 已达到允许的最大并发会话数！
   modal:
+    create_role:
+      create: 创建新角色
+      footer_text: 创建此角色后，可以编辑其个人权限
+      name_placeholder: 输入角色名称…
+      not_blank: 角色名称不能为空。
+      title: 创建新角色
     create_room:
       access_code: 访问代码
       access_code_placeholder: 生成可选的会议访问代码
@@ -297,6 +328,7 @@ zh_CN:
       title: 会议室设置
       update: 修改会议室
       client: 选择客户端类型
+      join_moderator: 所有用户以主持人身份加入
       mute: 用户加入时静音
       require_approval: 加入前需要主持人批准
       start: 允许任何用户启动此会议
@@ -306,6 +338,7 @@ zh_CN:
   name_update_success: 会议室名称修改成功！
   no_user_email_exists: 没有指定电子邮件的现有用户。请确保输入正确。
   omniauth_error: 与omniauth进行身份验证时出错。请再试一次，或与管理员联系！
+  omniauth_specific_error: "进行omniauth身份验证时发生%{error} 。请重试或与管理员联系！"
   pagy:
     nav:
       prev: "&lsaquo; 上一页"
@@ -368,10 +401,9 @@ zh_CN:
     confirm: 确认新密码
     update: 更新密码
   roles:
-    administrator: 管理
+    admin: 管理
     banned: 已禁用
     pending: 待定
-    super_admin: 超级管理员
     user: 用户
   room:
     access_code_required: 请输入有效的访问代码以加入会议
@@ -385,6 +417,15 @@ zh_CN:
     last_session: "上一次会议%{session}"
     login: 加入
     owner: 主持人
+    no_room:
+      description: 输入要加入会议室的URL或UID。
+      edit_profile: 编辑用户配置文件
+      go_to: 进入会议室
+      invalid_room_uid: 您输入的会议室URL/UID无效。
+      placeholder: 会议室URL/UID
+      no_recent_rooms: 您没有最近加入过的会议室
+      recent_rooms: 进入最近加入过的会议室
+      title: 加入一个会议室
     no_sessions: 会议室从未使用！
     recordings: 会议录像
     room_limit: 您已达到允许的最大会议室数量
@@ -405,6 +446,7 @@ zh_CN:
       provider: 应用平台
       image: 头像
       image_url: 个人头像URL
+      roles: 用户角色
       subtitle: 更新帐户信息
       title: 帐户信息
     delete:
