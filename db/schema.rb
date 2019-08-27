@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_26_153012) do
+ActiveRecord::Schema.define(version: 2019_08_22_134205) do
 
   create_table "features", force: :cascade do |t|
     t.integer "setting_id"
@@ -33,15 +33,19 @@ ActiveRecord::Schema.define(version: 2019_07_26_153012) do
     t.index ["provider"], name: "index_invitations_on_provider"
   end
 
+  create_table "role_permissions", force: :cascade do |t|
+    t.string "name"
+    t.string "value", default: ""
+    t.boolean "enabled", default: false
+    t.integer "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_role_permissions_on_role_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.integer "priority", default: 9999
-    t.boolean "can_create_rooms", default: false
-    t.boolean "send_promoted_email", default: false
-    t.boolean "send_demoted_email", default: false
-    t.boolean "can_edit_site_settings", default: false
-    t.boolean "can_edit_roles", default: false
-    t.boolean "can_manage_users", default: false
     t.string "colour"
     t.string "provider"
     t.datetime "created_at", null: false
