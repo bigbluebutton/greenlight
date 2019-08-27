@@ -56,6 +56,10 @@ module Authenticator
     end
   end
 
+  def ensure_unauthenticated_except_twitter
+    redirect_to current_user.main_room if current_user && params[:old_twitter_user_id].nil?
+  end
+
   # Logs current user out of GreenLight.
   def logout
     session.delete(:user_id) if current_user
