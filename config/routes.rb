@@ -25,10 +25,10 @@ Rails.application.routes.draw do
   match '/500', to: 'errors#internal_error', via: :all, as: :internal_error
 
   # Signin/Signup routes.
-  get '/signin', to: 'users#signin', as: :signin
-  get '/signup', to: 'users#new', as: :signup
+  get '/signin', to: 'sessions#signin', as: :signin
+  get '/signup', to: 'sessions#new', as: :signup
   post '/signup', to: 'users#create', as: :create_user
-  get '/ldap_signin', to: 'users#ldap_signin', as: :ldap_signin
+  get '/ldap_signin', to: 'sessions#ldap_signin', as: :ldap_signin
 
   # Redirect to terms page
   match '/terms', to: 'users#terms', via: [:get, :post]
@@ -119,6 +119,7 @@ Rails.application.routes.draw do
     # Manage recordings
     scope '/:record_id' do
       post '/', to: 'recordings#update', as: :update_recording
+      patch '/', to: 'recordings#rename', as: :rename_recording
       delete '/', to: 'recordings#delete', as: :delete_recording
     end
   end

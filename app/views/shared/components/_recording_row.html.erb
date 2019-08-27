@@ -15,7 +15,7 @@
 
 <tr>
   <td>
-    <div id="recording-title" class="form-inline edit_hover_class" data-recordid="<%= recording[:recordID] %>" data-room-uid="<%= room_uid_from_bbb(recording[:meetingID]) %>" data-path="<%= update_room_path(room_uid: room_uid_from_bbb(recording[:meetingID])) %>">
+    <div id="recording-title" class="form-inline edit_hover_class" data-recordid="<%= recording[:recordID] %>" data-room-uid="<%= room_uid_from_bbb(recording[:meetingID]) %>" data-path="<%= rename_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]) %>">
       <text id='recording-text'>
         <% if recording[:metadata][:name] %>
           <%= recording[:metadata][:name] %>
