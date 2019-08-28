@@ -13,7 +13,7 @@ class CreateRolePermissions < ActiveRecord::Migration[5.2]
 
     Role.all.each do |role|
       role.role_permissions.create(name: "can_create_rooms", value: role.can_create_rooms.to_s, enabled: true)
-      role.role_permissions.create(name: "send_promoted_email", value: role.send_promoted_email.to_s, enabled: true)as
+      role.role_permissions.create(name: "send_promoted_email", value: role.send_promoted_email.to_s, enabled: true)
       role.role_permissions.create(name: "send_demoted_email", value: role.send_demoted_email.to_s, enabled: true)
       role.role_permissions.create(name: "can_edit_site_settings", value: role.can_edit_site_settings.to_s,
         enabled: true)
