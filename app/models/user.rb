@@ -19,6 +19,8 @@
 require 'bbb_api'
 
 class User < ApplicationRecord
+  include Deleteable
+
   attr_accessor :reset_token
   after_create :setup_user
 
