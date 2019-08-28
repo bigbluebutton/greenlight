@@ -30,7 +30,6 @@ class SessionsController < ApplicationController
   def signin
     check_if_twitter_account
 
-    providers = configured_providers
     if one_provider
       provider_path = if Rails.configuration.omniauth_ldap
         ldap_signin_path
@@ -147,6 +146,8 @@ class SessionsController < ApplicationController
   end
 
   def one_provider
+    providers = configured_providers
+
     (!allow_user_signup? || !allow_greenlight_accounts?) && providers.count == 1 &&
       !Rails.configuration.loadbalanced_configuration
   end

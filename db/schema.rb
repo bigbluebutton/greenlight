@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_22_134205) do
+ActiveRecord::Schema.define(version: 2019_08_28_153347) do
 
   create_table "features", force: :cascade do |t|
     t.integer "setting_id"
@@ -46,6 +46,12 @@ ActiveRecord::Schema.define(version: 2019_08_22_134205) do
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.integer "priority", default: 9999
+    t.boolean "can_create_rooms", default: false
+    t.boolean "send_promoted_email", default: false
+    t.boolean "send_demoted_email", default: false
+    t.boolean "can_edit_site_settings", default: false
+    t.boolean "can_edit_roles", default: false
+    t.boolean "can_manage_users", default: false
     t.string "colour"
     t.string "provider"
     t.datetime "created_at", null: false
@@ -67,7 +73,9 @@ ActiveRecord::Schema.define(version: 2019_08_22_134205) do
     t.string "moderator_pw"
     t.string "attendee_pw"
     t.string "access_code"
+    t.boolean "deleted", default: false, null: false
     t.index ["bbb_id"], name: "index_rooms_on_bbb_id"
+    t.index ["deleted"], name: "index_rooms_on_deleted"
     t.index ["last_session"], name: "index_rooms_on_last_session"
     t.index ["name"], name: "index_rooms_on_name"
     t.index ["sessions"], name: "index_rooms_on_sessions"
@@ -101,7 +109,9 @@ ActiveRecord::Schema.define(version: 2019_08_22_134205) do
     t.datetime "reset_sent_at"
     t.string "activation_digest"
     t.datetime "activated_at"
+    t.boolean "deleted", default: false, null: false
     t.index ["created_at"], name: "index_users_on_created_at"
+    t.index ["deleted"], name: "index_users_on_deleted"
     t.index ["email"], name: "index_users_on_email"
     t.index ["password_digest"], name: "index_users_on_password_digest", unique: true
     t.index ["provider"], name: "index_users_on_provider"

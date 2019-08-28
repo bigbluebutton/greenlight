@@ -195,6 +195,7 @@ class AdminsController < ApplicationController
           role.priority <= current_user.highest_priority_role.priority
       return redirect_to admin_roles_path(selected_role: role.id)
     else
+      role.role_permissions.delete_all
       role.delete
     end
 
