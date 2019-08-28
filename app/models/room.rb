@@ -19,6 +19,8 @@
 require 'bbb_api'
 
 class Room < ApplicationRecord
+  include Deleteable
+
   before_create :setup
 
   validates :name, presence: true
