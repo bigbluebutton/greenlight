@@ -18,6 +18,15 @@
   <div class="row">
     <div class="col-lg-3 mb-4">
       <%= render "users/components/menu_buttons" %>
+
+      <% if @user.errors.any? %>
+        <h5 class="mt-8"><%= t("errors.title") %>:</h5>
+        <ul>
+        <% @user.errors.full_messages.each do |err| %>
+          <li class="text-danger"><%= err %>.</li>
+        <% end %>
+        </ul>
+      <% end %>
     </div>
     <div class="col-lg-9">
       <%= render "users/components/setting_view", setting_id: "account", setting_title: t("settings.account.subtitle") %>
