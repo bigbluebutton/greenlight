@@ -140,10 +140,7 @@ class RoomsController < ApplicationController
   # DELETE /:room_uid
   def destroy
     # Don't delete the users home room.
-    if @room.owned_by?(current_user) && @room != current_user.main_room
-      @room.destroy
-      delete_all_recordings(@room.bbb_id)
-    end
+    @room.destroy if @room.owned_by?(current_user) && @room != current_user.main_room
 
     redirect_to current_user.main_room
   end
