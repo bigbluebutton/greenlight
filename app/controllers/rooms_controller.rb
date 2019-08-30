@@ -167,6 +167,8 @@ class RoomsController < ApplicationController
         @room.update_attributes(room_settings: room_settings_string)
       end
 
+      byebug
+
       # Update the rooms name if it has been changed
       @room.update_attributes(name: params[:room_name] || room_params[:name]) if @room.name != room_params[:name]
       # Update the room's access code if it has changed
