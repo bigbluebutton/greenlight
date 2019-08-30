@@ -94,10 +94,10 @@ $(document).on('turbolinks:load', function(){
     accessCode = $(this).closest("#room-block").data("room-access-code")
 
     if(accessCode){
-      $("#create-room-access-code").text("<%= I18n.t("modal.create_room.access_code") %>: " + accessCode)
+      $("#create-room-access-code").text("<%= I18n.t('modal.create_room.access_code') %>: " + accessCode)
       $("#room_access_code").val(accessCode)
     } else{
-      $("#create-room-access-code").text("<%= I18n.t("modal.create_room.access_code_placeholder") %>")
+      $("#create-room-access-code").text("<%= I18n.t('modal.create_room.access_code_placeholder') %>")
       $("#room_access_code").val(null)
     }
   })
