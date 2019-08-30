@@ -25,6 +25,8 @@ module Authenticator
 
     session[:user_id] = user.id
 
+    logger.info("Support: #{user.email} has successfully logged in.")
+
     # If there are not terms, or the user has accepted them, check for email verification
     if !Rails.configuration.terms || user.accepted_terms
       check_email_verified(user)
