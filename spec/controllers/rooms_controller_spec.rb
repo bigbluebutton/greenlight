@@ -121,6 +121,19 @@ describe RoomsController, type: :controller do
 
       expect(response).to redirect_to(admins_path)
     end
+
+    it "redirects to root if the providers dont match" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+
+      @owner.update_attribute(:provider, "provider1")
+      @user.update_attribute(:provider, "provider2")
+
+      @request.session[:user_id] = @user.id
+      get :show, params: { room_uid: @owner.main_room }
+
+      expect(flash[:alert]).to be_present
+      expect(response).to redirect_to(root_path)
+    end
   end
 
   describe "POST #create" do
