@@ -187,19 +187,18 @@ class RoomsController < ApplicationController
   # POST /:room_uid/update_settings
   def update_settings
     begin
-      raise "Room name can't be blank" if room_params[:name].empty?
+      options = params[:room].nil? ? params : params[:room]
+      raise "Room name can't be blank" if options[:name].blank?
       raise "Unauthorized Request" if !@room.owned_by?(current_user) || @room == current_user.main_room
 
       # Update the rooms settings
-      if room_params
-        room_settings_string = create_room_settings_string(room_params)
-        @room.update_attributes(room_settings: room_settings_string)
-      end
+      room_settings_string = create_room_settings_string(options)
+      @room.update_attributes(room_settings: room_settings_string) if @room.room_settings != room_settings_string
 
       # Update the rooms name if it has been changed
-      @room.update_attributes(name: params[:room_name] || room_params[:name]) if @room.name != room_params[:name]
+      @room.update_attributes(name: options[:name]) if @room.name != options[:name]
       # Update the room's access code if it has changed
-      @room.update_attributes(access_code: room_params[:access_code]) if @room.access_code != room_params[:access_code]
+      @room.update_attributes(access_code: options[:access_code]) if @room.access_code != options[:access_code]
 
       flash[:success] = I18n.t("room.update_settings_success")
     rescue => e
