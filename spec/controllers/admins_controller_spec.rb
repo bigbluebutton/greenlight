@@ -114,6 +114,35 @@ describe AdminsController, type: :controller do
         params = { invite_user: { email: email } }
         expect { post :invite, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
+
+      it "invites multiple users" do
+        @request.session[:user_id] = @admin.id
+        email = "#{Faker::Internet.email},#{Faker::Internet.email},#{Faker::Internet.email},#{Faker::Internet.email}"
+        post :invite, params: { invite_user: { email: email } }
+
+        invite = Invitation.find_by(email: email.split(",")[0], provider: "provider1")
+        expect(invite.present?).to eq(true)
+
+        invite1 = Invitation.find_by(email: email.split(",")[1], provider: "provider1")
+        expect(invite1.present?).to eq(true)
+
+        invite2 = Invitation.find_by(email: email.split(",")[2], provider: "provider1")
+        expect(invite2.present?).to eq(true)
+
+        invite3 = Invitation.find_by(email: email.split(",")[3], provider: "provider1")
+        expect(invite3.present?).to eq(true)
+
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(admins_path)
+      end
+
+      it "sends multiple invitation emails" do
+        @request.session[:user_id] = @admin.id
+        email = "#{Faker::Internet.email},#{Faker::Internet.email},#{Faker::Internet.email},#{Faker::Internet.email}"
+
+        params = { invite_user: { email: email } }
+        expect { post :invite, params: params }.to change { ActionMailer::Base.deliveries.count }.by(4)
+      end
     end
 
     context "POST #approve" do
