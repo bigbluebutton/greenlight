@@ -32,10 +32,10 @@ $(document).on('turbolinks:load', function(){
       if (success) {
         inviteURL.blur();
         copy.addClass('btn-success');
-        copy.html("<i class='fas fa-check'></i> <%= I18n.t("copied") %>")
+        copy.html("<i class='fas fa-check'></i>" + I18n["copied"])
         setTimeout(function(){
           copy.removeClass('btn-success');
-          copy.html("<i class='fas fa-copy'></i> <%= I18n.t("copy") %>")
+          copy.html("<i class='fas fa-copy'></i>" + I18n["copy"])
         }, 2000)
       }
     });
@@ -49,7 +49,7 @@ $(document).on('turbolinks:load', function(){
   // Display and update all fields related to creating a room in the createRoomModal
   $("#create-room-block").click(function(){
     $("#create-room-name").val("")
-    $("#create-room-access-code").text("<%= I18n.t("modal.create_room.access_code_placeholder") %>")
+    $("#create-room-access-code").text(I18n["modal"]["create_room"]["access_code_placeholder"])
     $("#room_access_code").val(null)
 
     $("#createRoomModal form").attr("action", $("body").data('relative-root'))
@@ -94,10 +94,10 @@ $(document).on('turbolinks:load', function(){
     accessCode = $(this).closest("#room-block").data("room-access-code")
 
     if(accessCode){
-      $("#create-room-access-code").text("<%= I18n.t('modal.create_room.access_code') %>: " + accessCode)
+      $("#create-room-access-code").text(I18n["modal"]["create_room"]["access_code"] + ": " + accessCode)
       $("#room_access_code").val(accessCode)
     } else{
-      $("#create-room-access-code").text("<%= I18n.t('modal.create_room.access_code_placeholder') %>")
+      $("#create-room-access-code").text(I18n["modal"]["create_room"]["access_code_placeholder"])
       $("#room_access_code").val(null)
     }
   })
@@ -140,11 +140,11 @@ function generateAccessCode(){
     accessCode += validCharacters.charAt(Math.floor(Math.random() * validCharacters.length));
   }
 
-  $("#create-room-access-code").text("<%= I18n.t("modal.create_room.access_code") %>: " + accessCode)
+  $("#create-room-access-code").text(I18n["modal"]["create_room"]["access_code"] + ": " + accessCode)
   $("#room_access_code").val(accessCode)
 }
 
 function ResetAccessCode(){
-  $("#create-room-access-code").text("<%= I18n.t("modal.create_room.access_code_placeholder") %>")
+  $("#create-room-access-code").text(I18n["modal"]["create_room"]["access_code_placeholder"])
   $("#room_access_code").val(null)
 }
