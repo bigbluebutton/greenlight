@@ -316,7 +316,7 @@ en:
       warning: You will <b>not</b> be able to recover this room
       recording_warning: or any of its %{recordings_num} associated recordings.
     invite_user:
-      email_placeholder: Enter the user's email
+      email_placeholder: Enter the users' emails (seperated by commas)
       footer: The user will receive an email with instructions on how to sign up
       send: Send Invite
       title: Invite User
