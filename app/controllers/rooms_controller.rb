@@ -72,6 +72,8 @@ class RoomsController < ApplicationController
         render :cant_create_rooms
       end
     else
+      return redirect_to root_path, flash: { alert: I18n.t("room.invalid_provider") } if incorrect_user_domain
+
       # Get users name
       @name = if current_user
         current_user.name
@@ -355,5 +357,9 @@ class RoomsController < ApplicationController
       # They need to wait until the meeting begins.
       render :wait
     end
+  end
+
+  def incorrect_user_domain
+    Rails.configuration.loadbalanced_configuration && @room.owner.provider != @user_domain
   end
 end
