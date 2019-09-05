@@ -315,7 +315,7 @@ de_DE:
       warning: "Sie werden <b>nicht</b> in der Lage sein, diesen Raum wiederherzustellen"
       recording_warning: "oder jegliche seiner %{recordings_num} verknüpften Aufzeichnungen."
     invite_user:
-      email_placeholder: Nutzeremail eingeben
+      email_placeholder: Emailadressen der Nutzer (durch Kommas getrennt)
       footer: "Der Nutzer wird eine Email mit dazu Anweisungen erhalten, wie er sich registrieren kann "
       send: Einladung schicken
       title: Nutzer einladen
