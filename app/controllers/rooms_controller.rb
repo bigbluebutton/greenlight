@@ -141,7 +141,7 @@ class RoomsController < ApplicationController
 
     # Include the user's choices for the room settings
     room_settings = JSON.parse(@room[:room_settings])
-    opts[:mute_on_start] = room_settings["muteOnStart"] if room_settings["muteOnStart"]
+    opts[:mute_on_start] = room_settings["muteOnStart"]
     opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
 
     begin
@@ -164,14 +164,14 @@ class RoomsController < ApplicationController
       raise "Room name can't be blank" if options[:name].blank?
       raise "Unauthorized Request" if !@room.owned_by?(current_user) || @room == current_user.main_room
 
-      # Update the rooms settings
+      # Update the rooms values
       room_settings_string = create_room_settings_string(options)
-      @room.update_attributes(room_settings: room_settings_string) if @room.room_settings != room_settings_string
 
-      # Update the rooms name if it has been changed
-      @room.update_attributes(name: options[:name]) if @room.name != options[:name]
-      # Update the room's access code if it has changed
-      @room.update_attributes(access_code: options[:access_code]) if @room.access_code != options[:access_code]
+      @room.update_attributes(
+        name: options[:name],
+        room_settings: room_settings_string,
+        access_code: options[:access_code]
+      )
 
       flash[:success] = I18n.t("room.update_settings_success")
     rescue => e
@@ -202,14 +202,12 @@ class RoomsController < ApplicationController
   private
 
   def create_room_settings_string(options)
-    room_settings = {}
-    room_settings["muteOnStart"] = options[:mute_on_join] == "1"
-
-    room_settings["requireModeratorApproval"] = options[:require_moderator_approval] == "1"
-
-    room_settings["anyoneCanStart"] = options[:anyone_can_start] == "1"
-
-    room_settings["joinModerator"] = options[:all_join_moderator] == "1"
+    room_settings = {
+      "muteOnStart": options[:mute_on_join] == "1",
+      "requireModeratorApproval": options[:require_moderator_approval] == "1",
+      "anyoneCanStart": options[:anyone_can_start] == "1",
+      "joinModerator": options[:all_join_moderator] == "1",
+    }
 
     room_settings.to_json
   end
