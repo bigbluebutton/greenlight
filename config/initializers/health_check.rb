@@ -24,10 +24,15 @@ HealthCheck.setup do |config|
   config.http_status_for_error_object = 500
 
   # You can customize which checks happen on a standard health check, eg to set an explicit list use:
-  config.standard_checks = %w(database migrations emailconf)
+  config.standard_checks = %w(database migrations emailconf db-migration)
 
   # You can set what tests are run with the 'full' or 'all' parameter
   config.full_checks = %w(database migrations email cache)
+
+  config.add_custom_check('db-migration') do
+    # any code that returns blank on success and non blank string upon failure
+    ENV["DB_MIGRATE_FAILED"].blank? ? "" : "Database migration failed"
+  end
 
   # max-age of response in seconds
   # cache-control is public when max_age > 1 and basic_auth_username is not set
