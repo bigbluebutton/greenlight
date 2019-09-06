@@ -90,17 +90,19 @@ class AdminsController < ApplicationController
 
   # POST /admins/invite
   def invite
-    email = params[:invite_user][:email]
+    emails = params[:invite_user][:email].split(",")
 
     begin
-      invitation = create_or_update_invite(email)
+      emails.each do |email|
+        invitation = create_or_update_invite(email)
 
-      send_invitation_email(current_user.name, email, invitation.invite_token)
+        send_invitation_email(current_user.name, email, invitation.invite_token)
+      end
     rescue => e
       logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
     else
-      flash[:success] = I18n.t("administrator.flash.invite", email: email)
+      flash[:success] = I18n.t("administrator.flash.invite", email: emails.join(', '))
     end
 
     redirect_to admins_path
