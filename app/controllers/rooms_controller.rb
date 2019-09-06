@@ -75,36 +75,9 @@ class RoomsController < ApplicationController
         render :cant_create_rooms
       end
     else
-<<<<<<< HEAD
       return redirect_to root_path, flash: { alert: I18n.t("room.invalid_provider") } if incorrect_user_domain
 
-      # Get users name
-      @name = if current_user
-        current_user.name
-      elsif cookies.encrypted[:greenlight_name]
-        cookies.encrypted[:greenlight_name]
-      else
-        ""
-      end
-
-      @search, @order_column, @order_direction, pub_recs =
-        public_recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
-
-      @pagy, @public_recordings = pagy_array(pub_recs)
-
-      render :join
-    end
-  end
-
-  # PATCH /:room_uid
-  def update
-    if params[:setting] == "rename_header"
-      update_room_attributes("name")
-    elsif params[:setting] == "rename_recording"
-      update_recording(params[:record_id], "meta_name" => params[:record_name])
-=======
       show_user_join
->>>>>>> GRN2-196: Fixed issues that scrutinizer is complaining about (#765)
     end
   end
 

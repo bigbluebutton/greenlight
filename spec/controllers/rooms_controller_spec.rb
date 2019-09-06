@@ -126,7 +126,7 @@ describe RoomsController, type: :controller do
 
     it "redirects to root if the providers dont match" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
-      allow_any_instance_of(Room).to receive(:running?).and_return(false)
+      allow_any_instance_of(BbbServer).to receive(:room_running?).and_return(true)
 
       @owner.update_attribute(:provider, "provider1")
       @user.update_attribute(:provider, "provider2")
