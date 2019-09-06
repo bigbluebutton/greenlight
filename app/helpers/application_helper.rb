@@ -102,7 +102,13 @@ module ApplicationHelper
   # Return all the translations available in the client side through javascript
   def current_translations
     @translations ||= I18n.backend.send(:translations)
-    @translations[I18n.locale].with_indifferent_access
+    @translations[I18n.locale]
+  end
+
+  # Return the fallback translations available in the client side through javascript
+  def fallback_translations
+    @fallback_translations ||= I18n.backend.send(:translations)
+    @fallback_translations[I18n.default_locale]
   end
 
   # Returns the page that the logo redirects to when clicked on
