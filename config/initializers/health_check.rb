@@ -31,7 +31,7 @@ HealthCheck.setup do |config|
 
   config.add_custom_check('db-migration') do
     # any code that returns blank on success and non blank string upon failure
-    ENV["DB_MIGRATE_FAILED"].nil? ? "" : "Database migration failed"
+    ENV["DB_MIGRATE_FAILED"].blank? ? "" : "Database migration failed"
   end
 
   # max-age of response in seconds
