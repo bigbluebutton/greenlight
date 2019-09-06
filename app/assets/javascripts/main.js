@@ -33,7 +33,7 @@ function getLocalizedString(key) {
   })
 
   // If key is not found, search the fallback language for the key
-  if (translated == undefined) { 
+  if (translated === undefined) { 
     translated = I18nFallback
 
     keyArr.forEach(function(k) {
