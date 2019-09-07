@@ -411,6 +411,7 @@ de_DE:
     create_room_error: Bei der Erstellung des Raums ist ein Fehler aufgetreten
     create_room_success: Raum erfolgreich erstellt
     enter_the_access_code: Eingabe des Raumzugangscodes
+    invalid_provider: "Sie haben eine ungültige URL eingegeben, bitte überprüfen Sie die URL und versuchen Sie es erneut."
     invited: Sie wurden zur Teilnahme eingeladen
     invite_participants: Teilnehmer einladen
     join: Teilnehmen
