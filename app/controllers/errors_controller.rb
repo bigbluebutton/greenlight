@@ -27,7 +27,8 @@ class ErrorsController < ApplicationController
         status_code: 500,
         message: I18n.t("errors.internal.message"),
         help: I18n.t("errors.internal.help"),
-        display_back: true
+        display_back: true,
+        report_issue: true
       }
   end
 
