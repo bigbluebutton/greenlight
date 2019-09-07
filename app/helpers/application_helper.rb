@@ -104,8 +104,4 @@ module ApplicationHelper
   rescue URI::InvalidURIError
     false
   end
-
-  def report_issue_url
-
-  end
 end
