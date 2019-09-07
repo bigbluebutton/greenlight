@@ -125,6 +125,8 @@ module Greenlight
     config.maintenance_window = ENV["MAINTENANCE_WINDOW"]
     config.maintenance_mode = ENV["MAINTENANCE_MODE"] == "true"
 
+    config.report_issue_url = ENV["REPORT_ISSUE_URL"]
+
     # DEFAULTS
 
     # Default branding image if the user does not specify one
