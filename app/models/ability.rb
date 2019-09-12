@@ -27,7 +27,8 @@ class Ability
     else
       highest_role = user.highest_priority_role
       if highest_role.get_permission("can_edit_site_settings")
-        can [:index, :site_settings, :server_recordings, :update_settings, :coloring, :registration_method], :admin
+        can [:index, :site_settings, :site_appearance, :server_recordings, :update_settings, :update_appearance,
+             :coloring, :registration_method], :admin
       end
 
       if highest_role.get_permission("can_edit_roles")

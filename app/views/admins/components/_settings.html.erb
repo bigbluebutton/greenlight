@@ -15,47 +15,7 @@
 
 <div class="form-group">
   <div class="row">
-    <div class="col-12">
-      <div class="mb-6 form-group">
-        <label class="form-label"><%= t("administrator.site_settings.branding.title") %></label>
-        <label class="form-label text-muted"><%= t("administrator.site_settings.branding.info") %></label>
-        <div class="input-group">
-          <input id="branding-url" type="text" class="form-control" value="<%= logo_image %>">
-          <span class="input-group-append">
-            <button id="branding-image" onclick="changeBrandingImage('<%= admin_update_settings_path(setting: 'Branding Image') %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.branding.change") %></button>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <div class="mb-6 form-group">
-        <label class="form-label"><%= t("administrator.site_settings.color.title") %></label>
-        <label class="form-label text-muted"><%= t("administrator.site_settings.color.info") %></label>
-          <div class="color-inputs">
-            <input id="coloring-path-regular" type="hidden" value="<%= admin_coloring_path %>">
-            <input id="coloring-path-lighten" type="hidden" value="<%= admin_update_settings_path(setting: "Primary Color Lighten") %>">
-            <input id="coloring-path-darken" type="hidden" value="<%= admin_update_settings_path(setting: "Primary Color Darken") %>">
-
-            <div id="colorinput-regular" class="btn primary-regular mr-3">
-              <%= t("administrator.site_settings.color.regular") %>
-            </div>
-
-            <div id="colorinput-lighten" class="btn primary-lighten mr-3">
-              <%= t("administrator.site_settings.color.lighten") %>
-            </div>
-
-            <div id="colorinput-darken" class="btn primary-darken">
-              <%= t("administrator.site_settings.color.darken") %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="mb-6 col-12">
+    <div class="mb-6 col-6">
       <div class="form-group">
         <label class="form-label"><%= t("administrator.site_settings.registration.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.registration.info") %></label>
@@ -77,9 +37,7 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="mb-6 row">
-    <div class="col-12">
+    <div class="col-6">
       <div class="form-group">
         <label class="form-label"><%= t("administrator.site_settings.authentication.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.authentication.info") %></label>
@@ -98,9 +56,7 @@
         </div>
       </div>
     </div>
-  </div>
-   <div class="mb-6 row">
-    <div class="col-12">
+    <div class="col-6">
       <div class="form-group">
         <label class="form-label"><%= t("administrator.site_settings.recording_visibility.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.recording_visibility.info") %></label>
@@ -119,9 +75,7 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="mb-6 row">
-    <div class="col-12">
+    <div class="col-6">
       <div class="form-group">
         <label class="form-label"><%= t("administrator.site_settings.rooms.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.rooms.info") %></label>
@@ -153,15 +107,14 @@
         </div>
       </div>
     </div>
-  </div>
-  <% if current_user.has_role? :super_admin%>
-    <div class="row">
-      <div class="col-12">
+    <% if current_user.has_role? :super_admin %>
+      <div class="col-6">
         <div class="mb-6 form-group">
           <label class="form-label"><%= t("administrator.site_settings.cache.title") %></label>
           <label class="form-label text-muted"><%= t("administrator.site_settings.cache.info") %></label>
           <%= button_to t("administrator.site_settings.cache.button"), admin_clear_cache_path, class: "btn btn-primary" %>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
+</div>

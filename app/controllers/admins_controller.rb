@@ -45,6 +45,10 @@ class AdminsController < ApplicationController
   def site_settings
   end
 
+  # GET /admins/site_appearance
+  def site_appearance
+  end
+
   # GET /admins/server_recordings
   def server_recordings
     server_rooms = if Rails.configuration.loadbalanced_configuration
@@ -124,12 +128,19 @@ class AdminsController < ApplicationController
     redirect_to admin_site_settings_path, flash: { success: flash_message }
   end
 
+  # POST /admins/update_appearance
+  def update_appearance
+    @settings.update_value(params[:setting], params[:value])
+
+    redirect_to admin_site_appearance_path, flash: { success: I18n.t("administrator.flash.appearance") }
+  end
+
   # POST /admins/color
   def coloring
     @settings.update_value("Primary Color", params[:value])
     @settings.update_value("Primary Color Lighten", color_lighten(params[:value]))
     @settings.update_value("Primary Color Darken", color_darken(params[:value]))
-    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
+    redirect_to admin_site_appearance_path, flash: { success: I18n.t("administrator.flash.appearance") }
   end
 
   # POST /admins/registration_method/:method

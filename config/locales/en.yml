@@ -30,6 +30,8 @@ en:
         user:
           confirmation: doesn't match Password
   administrator:
+    site_appearance:
+      title: Site Appearance
     site_settings:
       authentication:
         disabled: Disabled
@@ -69,6 +71,7 @@ en:
       subtitle: Customize Greenlight
       title: Site Settings
     flash:
+      appearance: Site Appearance successfully updated
       approved: User has been successfully approved.
       banned: User has been successfully banned.
       unbanned: User has been successfully unbanned.

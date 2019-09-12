@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     # Panel Tabs
     get '/recordings', to: 'admins#server_recordings', as: :admin_recordings
     get '/site_settings', to: 'admins#site_settings', as: :admin_site_settings
+    get '/site_appearance', to: 'admins#site_appearance', as: :admin_site_appearance
     get '/roles', to: 'admins#roles', as: :admin_roles
     # Manage Users
     get '/edit/:user_uid', to: 'admins#edit_user', as: :admin_edit_user
@@ -51,8 +52,10 @@ Rails.application.routes.draw do
     # Site Settings
     post '/update_settings', to: 'admins#update_settings', as: :admin_update_settings
     post '/registration_method', to: 'admins#registration_method', as: :admin_change_registration
-    post '/coloring', to: 'admins#coloring', as: :admin_coloring
     post '/clear_cache', to: 'admins#clear_cache', as: :admin_clear_cache
+    # Site Appearance
+    post '/update_appearance', to: 'admins#update_appearance', as: :admin_update_appearance
+    post '/coloring', to: 'admins#coloring', as: :admin_coloring
     # Roles
     post '/role', to: 'admins#new_role', as: :admin_new_role
     patch 'roles/order', to: 'admins#change_role_order', as: :admin_roles_order

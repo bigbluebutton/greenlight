@@ -199,7 +199,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_appearance_path)
       end
 
       it "changes the primary-lighten on the page" do

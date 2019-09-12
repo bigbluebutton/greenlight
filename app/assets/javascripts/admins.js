@@ -45,7 +45,7 @@ $(document).on('turbolinks:load', function(){
         window.location.replace(url);
       })
     }
-    else if(action == "site_settings"){
+    else if(action == "site_appearance"){
       loadColourSelectors()
     }
     else if (action == "roles"){
