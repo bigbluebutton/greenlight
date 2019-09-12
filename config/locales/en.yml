@@ -153,6 +153,7 @@ en:
     internal:
       message: Looks like something went wrong on our end.
       help: The error has been logged, we'll take a look!
+      report: Report Issue
     maintenance:
       message: Sorry, we're down for maintenance.
       help: We'll be back soon!
