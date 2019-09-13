@@ -315,7 +315,7 @@ es_MX:
       warning: <b>No</b> podrás recuperar esta sala
       recording_warning: "o cualquiera de sus %{recordings_num} grabaciones asociadas."
     invite_user:
-      email_placeholder: Introducir el email del usuario
+      email_placeholder: Introduce los emails de usuarios (separados por comas)
       footer: El usuario recibirá un email con instrucciones de como registrarse
       send: Enviar invitación
       title: Invitar usuario
@@ -411,6 +411,7 @@ es_MX:
     create_room_error: Ocurrió un error al crear la sala
     create_room_success: La sala fue creada exitósamente
     enter_the_access_code: Introduce el código de acceso de la sala
+    invalid_provider: La URL introducida es invalida. Revísala e inténtalo de nuevo.
     invited: Hás sido invitado a ingresar
     invite_participants: Invitar participantes
     join: Entrar
