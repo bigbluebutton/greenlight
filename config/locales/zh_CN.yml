@@ -106,7 +106,7 @@ zh_CN:
       colour:
         title: 角色颜色
         info: 设置将与角色关联的颜色
-    title: 组织设置
+    title: 网站管理
     users:
       invite: 邀请用户
       edit:
@@ -207,7 +207,7 @@ zh_CN:
   header:
     all_recordings: 所有录像
     dropdown:
-      account_settings: 组织
+      account_settings: 网站管理
       help: 帮助
       home: 首页
       settings: 个人设置
@@ -242,8 +242,8 @@ zh_CN:
         signin_link: 登录
         signup:
           info: 一个新用户已注册使用Greenlight。
-          more-info: 若要允许此用户访问greenlight，您必须在“组织设置”中批准其帐户。
-          admins_link: 访问组织页面
+          more-info: 若要允许此用户访问greenlight，您必须在“网站管理”中批准其帐户。
+          admins_link: 访问网站管理页面
           subject: 新Greenlight用户注册
           username: "用户注册了名称 %{name} 和电子邮箱 %{email}."
         subject: 帐户已批准
@@ -259,7 +259,7 @@ zh_CN:
         signup_link: 注册
         signup:
           info: 被邀请的用户已注册使用greenlight。
-          admins_link: 访问组织页面
+          admins_link: 访问网站管理页面
           subject: 新Greenlight用户注册
           username: "用户注册了名称%{name} 和电子邮箱 %{email}."
         subject: 邀请加入 BigBlueButton
@@ -272,7 +272,7 @@ zh_CN:
         expire: 此链接将在两小时后过期。
         ignore: 如果您没有提出此请求，您可以安全地忽略此电子邮件。
       promoted:
-        admins_link: 访问组织页面
+        admins_link: 访问网站管理页面
         info: "您现在是 %{role} 在 %{url}中."
         more-info: "要查看您的新权限，请访问 %{url}."
         subtitle: "%{role} 权限已授予"
@@ -315,7 +315,7 @@ zh_CN:
       warning: 您将<b>无法</b> 恢复这个会议室
       recording_warning: "或任意 %{recordings_num} 的相关录像"
     invite_user:
-      email_placeholder: 输入用户的电子邮件
+      email_placeholder: 输入用户的电子邮箱（用逗号分隔）
       footer: 用户将收到一封电子邮件，其中包含如何注册的说明。
       send: 发送邀请
       title: 邀请用户
@@ -383,7 +383,7 @@ zh_CN:
   registration:
     approval:
       fail: 您的帐户尚未批准。如果您注册后已过多天，请与管理员联系。
-      signup: 您的帐户已成功创建。它已发送给管理员审批。
+      signup: 您的帐户创建完成，稍后管理员会审批。
     banned:
       fail: 您没有访问此应用程序的权限。如果您认为这是一个错误，请联系您的管理员。 
     deprecated:
@@ -401,7 +401,7 @@ zh_CN:
     confirm: 确认新密码
     update: 更新密码
   roles:
-    admin: 管理
+    admin: 管理员
     banned: 已禁用
     pending: 待定
     user: 用户
@@ -411,6 +411,7 @@ zh_CN:
     create_room_error: 创建会议室出错
     create_room_success: 会议室创建成功
     enter_the_access_code: 输入会议室的访问代码
+    invalid_provider: 您输入的URL无效。请检查URL并重试。
     invited: 您已被邀请加入
     invite_participants: 邀请参与者的链接
     join: 加入
