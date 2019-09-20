@@ -25,10 +25,10 @@ GIT
 
 GIT
   remote: https://github.com/blindsidenetworks/tabler-rubygem.git
-  revision: 790a801f9e104240234162f4404a3b977893ae18
-  branch: sassc-fix
+  revision: 4c16e6dc930f6b92dec093abaf9652d768b46d97
+  tag: 0.1.4.1
   specs:
-    tabler-rubygem (0.1.4)
+    tabler-rubygem (0.1.4.1)
       autoprefixer-rails (>= 6.0.3)
 
 GEM
