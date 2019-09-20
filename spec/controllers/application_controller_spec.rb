@@ -80,6 +80,20 @@ describe ApplicationController do
     end
   end
 
+  context "setters" do
+    it "sets the user locale correctly" do
+      user = create(:user, language: "ru-RU")
+
+      expect(controller.user_locale(user)).to eql("ru_RU")
+    end
+
+    it "defaults to English locale if invalid language is set" do
+      user = create(:user, language: "ru")
+
+      expect(controller.user_locale(user)).to eql("en")
+    end
+  end
+
   context "allow_greenlight_accounts" do
     it "allows if user sign up is turned on" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(false)
