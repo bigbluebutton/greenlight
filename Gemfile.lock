@@ -24,13 +24,12 @@ GIT
       omniauth-oauth2 (>= 1.5.0)
 
 GIT
-  remote: https://github.com/vbalazs/tabler-rubygem.git
-  revision: 1360795a174f6e6317eb6c81461597ddc965c2ce
-  branch: fix-sass
+  remote: https://github.com/blindsidenetworks/tabler-rubygem.git
+  revision: 4c16e6dc930f6b92dec093abaf9652d768b46d97
+  tag: 0.1.4.1
   specs:
-    tabler-rubygem (0.1.4)
+    tabler-rubygem (0.1.4.1)
       autoprefixer-rails (>= 6.0.3)
-      bootstrap (~> 4.3.1)
 
 GEM
   remote: https://rubygems.org/
