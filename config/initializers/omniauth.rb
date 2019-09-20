@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 require 'office365'
+require 'omniauth_options'
+
+include OmniauthOptions
 
 # List of supported Omniauth providers.
 Rails.application.config.providers = []
@@ -16,7 +19,7 @@ Rails.application.config.omniauth_office365 = ENV['OFFICE365_KEY'].present? &&
                                               ENV['OFFICE365_SECRET'].present?
 
 SETUP_PROC = lambda do |env|
-  SessionsController.helpers.omniauth_options env
+  OmniauthOptions.omniauth_options env
 end
 
 OmniAuth.config.logger = Rails.logger

@@ -16,7 +16,11 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
+require 'i18n/language/mapping'
+
 module UsersHelper
+  include I18n::Language::Mapping
+
   def recaptcha_enabled?
     Rails.configuration.recaptcha_enabled
   end
@@ -35,5 +39,30 @@ module UsersHelper
                        end
 
     user.roles.by_priority.pluck(:id) | disallowed_roles
+  end
+
+  # Returns language selection options for user edit
+  def language_options
+    locales = I18n.available_locales
+    language_opts = [['<<<< ' + t("language_default") + ' >>>>', "default"]]
+    locales.each do |locale|
+      language_mapping = I18n::Language::Mapping.language_mapping_list[locale.to_s.gsub("_", "-")]
+      language_opts.push([language_mapping["nativeName"], locale.to_s])
+    end
+    language_opts.sort
+  end
+
+  # Parses markdown for rendering.
+  def markdown(text)
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
+      no_intra_emphasis: true,
+      fenced_code_blocks: true,
+      disable_indented_code_blocks: true,
+      autolink: true,
+      tables: true,
+      underline: true,
+      highlight: true)
+
+    markdown.render(text).html_safe
   end
 end

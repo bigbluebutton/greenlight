@@ -1,6 +1,9 @@
-<%
+# frozen_string_literal: true
+
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
 # This program is free software; you can redistribute it and/or modify it under the
 # terms of the GNU Lesser General Public License as published by the Free Software
 # Foundation; either version 3.0 of the License, or (at your option) any later
@@ -9,20 +12,34 @@
 # BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-%>
 
-<div class="container pt-5">
-  <div class="col-md-8 offset-2">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%= t("verify.title") %></h3>
-      </div>
-      <div class="card-body">
-        <p><%= t("verify.not_verified") %></p>
-        <%= render "/shared/components/resend_button" %>
-      </div>
-    </div>
-  </div>
-</div>
+module Deleteable
+  extend ActiveSupport::Concern
+
+  included do
+    # By default don't include deleted
+    default_scope { where(deleted: false) }
+    scope :include_deleted, -> { unscope(where: :deleted) }
+    scope :deleted, -> { include_deleted.where(deleted: true) }
+  end
+
+  def destroy
+    run_callbacks :destroy
+    update_attribute(:deleted, true)
+  end
+
+  def delete
+    destroy
+  end
+
+  def undelete
+    assign_attributes(deleted: false)
+  end
+
+  def undelete!
+    update_attribute(:deleted, false)
+  end
+end

@@ -37,7 +37,7 @@ describe AccountActivationsController, type: :controller do
 
       get :show, params: { email: user.email }
 
-      expect(response).to render_template(:verify)
+      expect(response).to render_template(:show)
     end
   end
 

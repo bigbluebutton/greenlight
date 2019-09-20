@@ -17,21 +17,51 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class SessionsController < ApplicationController
+  include Authenticator
   include Registrar
   include Emailer
   include LdapAuthenticator
 
   skip_before_action :verify_authenticity_token, only: [:omniauth, :fail]
+  before_action :check_user_signup_allowed, only: [:new]
+  before_action :ensure_unauthenticated_except_twitter, only: [:new, :signin]
 
-  # GET /users/logout
-  def destroy
-    logout
-    redirect_to root_path
+  # GET /signin
+  def signin
+    check_if_twitter_account
+
+    if one_provider
+      provider_path = if Rails.configuration.omniauth_ldap
+        ldap_signin_path
+      else
+        "#{Rails.configuration.relative_url_root}/auth/#{providers.first}"
+      end
+
+      return redirect_to provider_path
+    end
+  end
+
+  # GET /ldap_signin
+  def ldap_signin
+  end
+
+  # GET /signup
+  def new
+    # Check if the user needs to be invited
+    if invite_registration
+      redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless params[:invite_token]
+
+      session[:invite_token] = params[:invite_token]
+    end
+
+    check_if_twitter_account(true)
+
+    @user = User.new
   end
 
   # POST /users/login
   def create
-    logger.info("Support: #{session_params[:email]} is attempting to login.")
+    logger.info "Support: #{session_params[:email]} is attempting to login."
 
     admin = User.find_by(email: session_params[:email])
     if admin&.has_role? :super_admin
@@ -48,11 +78,22 @@ class SessionsController < ApplicationController
     login(user)
   end
 
+  # GET /users/logout
+  def destroy
+    logout
+    redirect_to root_path
+  end
+
   # GET/POST /auth/:provider/callback
   def omniauth
     @auth = request.env['omniauth.auth']
 
-    process_signin
+    begin
+      process_signin
+    rescue => e
+      logger.error "Error authenticating via omniauth: #{e}"
+      omniauth_fail
+    end
   end
 
   # POST /auth/failure
@@ -81,21 +122,34 @@ class SessionsController < ApplicationController
 
     result = send_ldap_request(params[:session], ldap_config)
 
-    if result
-      result = result.first
-    else
-      return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials"))
+    return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials")) unless result
+
+    @auth = parse_auth(result.first, ENV['LDAP_ROLE_FIELD'])
+
+    begin
+      process_signin
+    rescue => e
+      logger.error "Support: Error authenticating via omniauth: #{e}"
+      omniauth_fail
     end
-
-    @auth = parse_auth(result, ENV['LDAP_ROLE_FIELD'])
-
-    process_signin
   end
 
   private
 
+  # Verify that GreenLight is configured to allow user signup.
+  def check_user_signup_allowed
+    redirect_to root_path unless Rails.configuration.allow_user_signup
+  end
+
   def session_params
     params.require(:session).permit(:email, :password)
+  end
+
+  def one_provider
+    providers = configured_providers
+
+    (!allow_user_signup? || !allow_greenlight_accounts?) && providers.count == 1 &&
+      !Rails.configuration.loadbalanced_configuration
   end
 
   def check_user_exists
@@ -112,47 +166,39 @@ class SessionsController < ApplicationController
   end
 
   def process_signin
-    begin
-      @user_exists = check_user_exists
+    @user_exists = check_user_exists
 
-      if !@user_exists && @auth['provider'] == "twitter"
-        return redirect_to root_path, flash: { alert: I18n.t("registration.deprecated.twitter_signup") }
+    if !@user_exists && @auth['provider'] == "twitter"
+      return redirect_to root_path, flash: { alert: I18n.t("registration.deprecated.twitter_signup") }
+    end
+
+    # If using invitation registration method, make sure user is invited
+    return redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless passes_invite_reqs
+
+    user = User.from_omniauth(@auth)
+
+    logger.info "Support: Auth user #{user.email} is attempting to login."
+
+    # Add pending role if approval method and is a new user
+    if approval_registration && !@user_exists
+      user.add_role :pending
+
+      # Inform admins that a user signed up if emails are turned on
+      send_approval_user_signup_email(user)
+
+      return redirect_to root_path, flash: { success: I18n.t("registration.approval.signup") }
+    end
+
+    send_invite_user_signup_email(user) if invite_registration && !@user_exists
+
+    login(user)
+
+    if @auth['provider'] == "twitter"
+      flash[:alert] = if allow_user_signup? && allow_greenlight_accounts?
+        I18n.t("registration.deprecated.twitter_signin", link: signup_path(old_twitter_user_id: user.id))
+      else
+        I18n.t("registration.deprecated.twitter_signin", link: signin_path(old_twitter_user_id: user.id))
       end
-
-      # If using invitation registration method, make sure user is invited
-      return redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless passes_invite_reqs
-
-      user = User.from_omniauth(@auth)
-
-      logger.info("Support: Auth user #{user.email} is attempting to login.")
-
-      # Add pending role if approval method and is a new user
-      if approval_registration && !@user_exists
-        user.add_role :pending
-
-        # Inform admins that a user signed up if emails are turned on
-        send_approval_user_signup_email(user) if Rails.configuration.enable_email_verification
-
-        return redirect_to root_path, flash: { success: I18n.t("registration.approval.signup") }
-      end
-
-      send_invite_user_signup_email(user) if Rails.configuration.enable_email_verification &&
-                                             invite_registration && !@user_exists
-
-      login(user)
-
-      if @auth['provider'] == "twitter"
-        flash[:alert] = if allow_user_signup? && allow_greenlight_accounts?
-                          I18n.t("registration.deprecated.twitter_signin",
-                            link: signup_path(old_twitter_user_id: user.id))
-                        else
-                          I18n.t("registration.deprecated.twitter_signin",
-                            link: signin_path(old_twitter_user_id: user.id))
-                        end
-      end
-    rescue => e
-        logger.error "Support: Error authenticating via omniauth: #{e}"
-        omniauth_fail
     end
   end
 end
