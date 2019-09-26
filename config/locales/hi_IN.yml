@@ -21,23 +21,142 @@ hi_IN:
     attributes:
       user:
         accepted_terms: "नियम और शर्तें"
+        email:
+        name:
+        password:
+        password_confirmation:
+    errors:
+      models:
+        user:
+          confirmation:
+  administrator:
+    site_settings:
+      authentication:
+        disabled:
+        enabled:
+        info:
+        title:
+        user-info:
+      branding:
+        change:
+        info:
+        placeholder:
+        title:
+      cache:
+        info:
+        title:
+        button:
+      color:
+        info:
+        title:
+        regular:
+        lighten:
+        darken:
+      recording_visibility:
+        info:
+        title:
+        warning:
+      registration:
+        info:
+        title:
+        methods:
+          approval:
+          invite:
+          open:
+      rooms:
+        info:
+        title:
+      subtitle:
+      title:
+    flash:
+      approved:
+      banned:
+      unbanned:
+      delete:
+      delete_fail:
+      demoted:
+      invite:
+      invite_email_verification:
+      promoted:
+      registration_method_updated:
+      reset_password:
+      settings:
+      unauthorized:
+    recordings:
+      title:
+      no_recordings:
+    roles:
+      can_create_rooms:
+      delete:
+      invalid_create:
+      invalid_order:
+      invalid_update:
+      name:
+      new_role:
+      role_has_users:
+      title:
+      promote_email:
+      demote_email:
+      edit_site_settings:
+      edit_roles:
+      manage_users:
+      invalid_assignment: 
+      colour:
+        title:
+        info:
+    title:
+    users:
+      invite:
+      edit:
+        title:
+      settings:
+        approve:
+        decline:
+        ban:
+        delete:
+        edit:
+        edit_roles:
+        unban:
+      table:
+        authenticator:
+        created:
+        name:
+        not_found:
+        no_users:
+        role:
+        uid:
+        username:
+      title:
+  add_to_google_calendar:
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: "ओह, मीटिंग शुरू करते समय एक एरर हुई!"
   cancel: रद्द करना
   cookies:
     cookie_info: "कुकीज़ हमें अपनी सेवाएं देने में मदद करती हैं। हमारी सेवाओं का उपयोग करके, आप कुकी के हमारे उपयोग के लिए सहमत हैं।"
     cookie_button: मैं सहमत हूँ
+  copied:
   copy: कापी
+  date:
+    month_names:
+  default_admin:
   delete: मिटाना
   delivery_error: ईमेल वितरण के दौरान एक त्रुटि हुई। एक व्यवस्थापक से संपर्क करें!
   docs: प्रलेखन
   email: ईमेल
-  email_sent: ईमेल भेजा! (यदि आपने इसे प्राप्त नहीं किया है तो कृपया अपना स्पैम फ़ोल्डर देखें)
+  email_sent:
   enter_your_name: अपना नाम दर्ज करें!
   errors:
+    bigbluebutton:
+      help:
+      message:
+      title:
     internal:
-      message: अरे नहीं! लग रहा है कि हमारी ओर से गलत हो गया।
+      message:
       help: "त्रुटि लॉग की गई है, हम देख लेंगे!"
+      report:
+    maintenance:
+      message:
+      help:
     migration_error:
       contact_admin: "यदि आप एक व्यवस्थापक नहीं हैं, तो कृपया व्यवस्थापक से संपर्क करें।"
       continue: मैं संस्करण 1.0 का उपयोग करना चाहता हूं।
@@ -45,13 +164,30 @@ hi_IN:
         ग्रीनलाइट को डेटाबेस माइग्रेशन त्रुटि का सामना करना पड़ा। ऐसा इसलिए हो सकता है क्योंकि आपने ग्रीनलाइट 2.0 में अपडेट नहीं किया है।
       upgrade: मुझे 2.0 में अपग्रेड करने का तरीका दिखाएं!
       version: "हमने ग्रीनलाइट का एक नया संस्करण जारी किया है, लेकिन आपका डेटाबेस संगत नहीं है।"
+    messages:
+      blank:
+      too_short:
+      invalid:
+      taken:
+      accepted:
+      confirmation:
+      inclusion:
+    no_provider:
+      message:
+      help:
     not_found:
-      message: ओह! लगता है कि हम ऐसा नहीं कर सकते।
+      message:
       help: "क्या यह संभव है कि इसे हटा दिया गया है?"
+      user_not_found:
+        help:
+        message:
+      user_missing:
+        help:
+        message:
     title: त्रुटियाँ
-    unprocessable:
-      message: अनुरोध अप्राप्य है।
-      help: दुर्भाग्य से यह एक वैध अनुरोध नहीं है।
+    unauthorized:
+      message:
+      help:
   expired_reset_token: पासवर्ड रीसेट लिंक की समय सीमा समाप्त हो गई है!
   features:
     title: विशेषताएं
@@ -68,16 +204,16 @@ hi_IN:
   go_back: वापस जाना
   greenlight: "ग्रीनलाइट "
   header:
-    create_room: "कमरा बनाना "
+    all_recordings:
     dropdown:
+      account_settings:
       help: "मदद चाहिए क्या ?"
-      home: घर का कमरा
-      settings: सेटिंग्स
+      home:
+      settings:
       signout: साइन आउट
   home_room: घर का कमरा
   info_update_success: जानकारी सफलतापूर्वक अपडेट की गई।
-  invalid_user: "उपयोगकर्ता नहीं मिलने के कारण लॉगिन विफल हुआ। क्या आप सुनिश्चित हैं कि ईमेल सही है?"
-  invalid_credentials: "उपयोगकर्ता नहीं मिलने के कारण लॉगिन विफल हुआ। क्या आप सुनिश्चित हैं कि ईमेल सही है?"
+  invalid_credentials:
   invalid_login_method: खाता मिसमैच के कारण लॉगिन विफल रहा। आपको omniauth के साथ लॉग इन करना होगा।
   invite_message: "किसी को बैठक में आमंत्रित करने के लिए, उन्हें यह लिंक भेजें:"
   javascript:
@@ -96,40 +232,92 @@ hi_IN:
   language_default: डिफ़ॉल्ट (ब्राउज़र भाषा)
   ldap_error: LDAP सर्वर से कनेक्ट करने में असमर्थ। कृपया env फ़ाइल में अपना LDAP कॉन्फ़िगरेशन जांचें और सुनिश्चित करें कि आपका सर्वर चल रहा है।
   login: प्रवेश करने देना
+  login_title:
   mailer:
     user:
+      approve:
+        info:
+        signin:
+        signin_link:
+        signup:
+          info:
+          more-info:
+          admins_link:
+          subject:
+          username:
+        subject:
+        username:
+      demoted:
+        info:
+        more-info:
+        root_link:
+        subtitle:
+      invite:
+        info:
+        signup_info:
+        signup_link:
+        signup:
+          info:
+          admins_link:
+          subject:
+          username:
+        subject:
+        username:
       password_reset:
         title: 'पासवर्ड रीसेट'
-        welcome: "ऐसा लगता है जैसे आप अपना पासवर्ड भूल गए हैं 1%{bigbluebutton}"
-        message: 'यदि यह सही है, तो कृपया अपना पासवर्ड रीसेट करने के लिए नीचे दिए गए लिंक पर क्लिक करें:'
+        welcome:
+        message: ''
         reset_link: पासवर्ड रीसेट
         expire: यह लिंक दो घंटे में समाप्त हो जाएगा।
-        ignore: यदि आप पासवर्ड रीसेट का अनुरोध नहीं करते हैं तो आप इस ईमेल को सुरक्षित रूप से अनदेखा कर सकते हैं।
+        ignore:
+      promoted:
+        admins_link:
+        info:
+        more-info:
+        subtitle:
       verify_email:
-        welcome: "1%{bigbluebutton} में स्वागत , 2%{name}!"
-        success: "आपने सफलतापूर्वक अपना पंजीकरण करा लिया है 1%{bigbluebutton} लेखा। आपका यूज़रनेम है  2%{email} । "
+        welcome:
+        success:
+        username:
         verify: "अपने खाते को सत्यापित करने के लिए, बस नीचे दिए गए बटन पर क्लिक करें।"
         verify_text: 'अपने खाते को सत्यापित करने के लिए, बस इस लिंक का पालन करें: 1%{url}'
         verify_link: खाता सत्यापित करें
         thanks: जुड़ने के लिए धन्यवाद और आपका दिन मंगलमय हो!
+  maintenance:
+    window_alert:
   max_concurrent: अधिकतम समवर्ती सत्रों की अनुमति दी गई है!
   modal:
+    create_role:
+      create:
+      footer_text:
+      name_placeholder:
+      not_blank:
+      title:
     create_room:
-      auto_join: अधिकतम समवर्ती सत्रों की अनुमति दी गई है!
+      access_code:
+      access_code_placeholder:
+      auto_join:
+      create:
       free_delete: आप किसी भी समय इस कमरे को हटाने के लिए स्वतंत्र होंगे।
       name_placeholder: एक कमरे का नाम दर्ज करें ...
       not_blank: कमरे का नाम रिक्त नहीं हो सकता।
       title: नया कक्ष बनाएँ
     delete_account:
-      confirm: "क्या आप इस खाते को हटाने के लिए सुनिश्चित हैं?"
-      delete: "मुझे यकीन है, मेरा खाता हटा दें"
+      confirm:
+      delete:
       keep: "वास्तव में, मैं इसे रखूंगा।"
       warning: यह निर्णय अंतिम है। आप संबंधित डेटा को पुनर्प्राप्त नहीं कर पाएंगे।
     delete_room:
       confirm: "क्या आप पक्का इसे हटाना चाहते हैं 1%{room} ?"
       delete: "मुझे यकीन है, इस कमरे को हटा दें।"
       keep: "दूसरे विचार पर, मैं इसे रखूँगा।"
-      warning: आप इस कमरे या इसकी किसी भी संबंधित रिकॉर्डिंग को पुनर्प्राप्त नहीं कर पाएंगे।
+      warning:
+      recording_warning:
+    invite_user:
+      email_placeholder:
+      footer:
+      send:
+      title:
     login:
       or: या
       with: "के साथ साइन इन करें 1%{provider}"
@@ -139,25 +327,37 @@ hi_IN:
       title: कक्ष सेटिंग्स
       update: अद्यतन कक्ष
       client: क्लाइंट प्रकार का चयन करें
+      join_moderator:
       mute: जब वे जुड़ते हैं तो उपयोगकर्ताओं को म्यूट करें
-      default: डिफोल्ट
-      html: HTML5
-      flash: Flash
+      require_approval:
+      start:
       footer_text: अपने कमरे में समायोजन किसी भी समय किया जा सकता है
     rename_room:
       name_placeholder: एक नया कमरा नाम दर्ज करें ...
   name_update_success: कमरे का नाम सफलतापूर्वक बदल गया!
   no_user_email_exists: निर्दिष्ट ईमेल के साथ कोई मौजूदा उपयोगकर्ता नहीं है। कृपया सुनिश्चित करें कि आपने इसे सही तरीके से टाइप किया है।
   omniauth_error: ओम्निथ के साथ प्रमाणित करते समय एक त्रुटि हुई। कृपया पुनः प्रयास करें या किसी व्यवस्थापक से संपर्क करें!
+  omniauth_specific_error:
+  pagy:
+    nav:
+      prev:
+      next:
+      gap:
   password: "पासवर्ड "
   password_empty_notice: पासवर्ड खाली नहीं हो सकता
   password_reset_success: पासवर्ड रीसेट कर दिया गया है।
   password_different_notice: पासवर्ड की पुष्टि मेल नहीं खाती।
   provider:
     google: गूगल
-    office365: ऑफिस 365
+    office365:
     twitter: ट्विटर
+    ldap:
+  recaptcha:
+    errors:
+      recaptcha_unreachable:
+      verification_failed:
   recording:
+    all_recordings:
     email: ईमेल रिकॉर्डिंग
     no_recordings: "1%{inject} इस कमरे में कोई रिकॉर्डिंग नहीं है।"
     no_user_recordings: वर्तमान में आपके पास कोई रिकॉर्डिंग नहीं है।
@@ -173,22 +373,63 @@ hi_IN:
     visibility:
       public: जनता
       unlisted: " लिस्ट में नहीं है "
+    format:
+      notes:
+      podcast:
+      presentation:
+      statistics:
+      video:
+  registration:
+    approval:
+      fail:
+      signup:
+    banned:
+      fail: 
+    deprecated:
+      new_signin:
+      twitter_signin:
+      twitter_signup:
+      merge_success:
+    invite:
+      fail:
+      no_invite:
   rename: नाम बदलें
   reset_password:
     subtitle: पासवर्ड रीसेट
     password: नया पासवर्ड
     confirm: नया पासवर्ड पुष्टि
     update: पासवर्ड अपडेट करें
+  roles:
+    admin:
+    banned:
+    pending:
+    user:
   room:
+    access_code_required:
+    create_room:
     create_room_error: कमरा बनाते समय एक त्रुटि हुई
     create_room_success: कक्ष सफलतापूर्वक बनाया गया
+    enter_the_access_code:
+    invalid_provider:
     invited: आपको शामिल होने के लिए आमंत्रित किया गया है
     invite_participants: प्रतिभागियों को आमंत्रित करें
     join: शामिल हों
     last_session: "अंतिम सत्र 1%{session}"
+    login:
     owner: मालिक
+    no_room:
+      description:
+      edit_profile:
+      go_to:
+      invalid_room_uid:
+      placeholder:
+      no_recent_rooms:
+      recent_rooms:
+      title:
     no_sessions: "इस कमरे में कोई सत्र नहीं है, फिर भी!"
-    recordings: रिकॉर्डिंग
+    recordings:
+    room_limit:
+    room_limit_exceeded:
     sessions: सत्र
     settings: कक्ष सेटिंग्स
     start: शुरु
@@ -196,15 +437,16 @@ hi_IN:
     update_settings_error: कमरे की सेटिंग को अपडेट करने में एक त्रुटि हुई
     update_settings_success: कक्ष सेटिंग सफलतापूर्वक अपडेट की गईं
     wait:
-      message: बैठक अभी तक शुरू नहीं हुई है।
+      message:
       auto: मीटिंग शुरू होने पर आप स्वचालित रूप से शामिल हो जाएंगे।
   settings:
     account:
-      fullname: पूरा नाम
+      fullname:
       language: भाषा
       provider: प्रदाता
       image: छवि
       image_url: प्रोफ़ाइल छवि URL
+      roles:
       subtitle: अपने खाते की जानकारी अपडेट करें
       title: खाता जानकारी
     delete:
@@ -212,17 +454,14 @@ hi_IN:
       disclaimer: "यदि आप अपना खाता हटाना चाहते हैं, तो यह पुनर्प्राप्त करने योग्य <b>नहीं </b>होगा। सेटिंग्स, कमरे और रिकॉर्डिंग सहित आपके खाते से संबंधित सभी जानकारी हटा दी जाएगी।"
       subtitle: अपना खाता स्थायी रूप से हटाएं
       title: खाता हटा दो
-    design:
-      not_supported: वर्तमान में कस्टमाइज़ेशन समर्थित नहीं है।
-      subtitle: ग्रीनलाइट को अनुकूलित करें
-      title: डिज़ाइन
     password:
       confirmation: नया पासवर्ड पुष्टि
       new: नया पासवर्ड
       old: पुराना पासवर्ड
       subtitle: अपना पासवर्ड बदलें
       title: पासवर्ड
-    title: सेटिंग्स
+    title:
+    search:
   signup:
     password_confirm: पासवर्ड पुष्टि
     subtitle: खाता बनाएं
@@ -244,3 +483,4 @@ hi_IN:
     resend: सत्यापन ईमेल पुनः भेजे
     signin: कृपया अपने खाते तक पहुंचने के लिए प्रवेश करें।
     title: अपना ई मेल सत्यापित करें
+    verification:

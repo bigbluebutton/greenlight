@@ -42,12 +42,20 @@ pl_PL:
         info: "Zmień logo, które pojawia się w lewym górnym rogu"
         placeholder: Adres URL obrazu...
         title: Obrazek logo
+      cache:
+        info:
+        title:
+        button:
       color:
         info: "Zmiana koloru podstawowego zmieni również kolor jaśniejszy, jak i Ciemniejszy. Kolor jaśniejszy i ciemniejszy może być zmieniany indywidualnie."
         title: Kolor główny
         regular: Kolor zwykłý
         lighten: Kolor jaśniejszy
-        Darken: Kolor ciemniejszy
+        darken:
+      recording_visibility:
+        info:
+        title:
+        warning:
       registration:
         info: Zmień sposób rejestracji na stronie
         title: Metoda rejestracji
@@ -71,8 +79,31 @@ pl_PL:
       invite_email_verification: "Aby korzystać z tej metody, należy włączyć wiadomości e-mail. Skontaktuj się z administratorem systemu."
       promoted: Użytkownikowi zwiększono uprawnienia.
       registration_method_updated: Zaktualizowano metodę rejestracji.
+      reset_password:
       settings: Ustawienia strony pomyślnie zmienione.
       unauthorized: Nie posiadasz uprawnień do przeprowadzenia operacji na tym użytkowniku.
+    recordings:
+      title:
+      no_recordings:
+    roles:
+      can_create_rooms:
+      delete:
+      invalid_create:
+      invalid_order:
+      invalid_update:
+      name:
+      new_role:
+      role_has_users:
+      title:
+      promote_email:
+      demote_email:
+      edit_site_settings:
+      edit_roles:
+      manage_users:
+      invalid_assignment: 
+      colour:
+        title:
+        info:
     title: Ustawienia organizacji
     users:
       invite: Zaproś użytkownika
@@ -83,9 +114,8 @@ pl_PL:
         decline: Odrzuć
         ban: Zablokuj użytkownika
         delete: Skasuj
-        demote: Odbierz uprawnienia użytkownika
         edit: Edytuj
-        promote: Dodaj uprawnienia Administatora
+        edit_roles:
         unban: Odblokuj użytkownika
       table:
         authenticator: Uwierzytelniający
@@ -106,6 +136,8 @@ pl_PL:
     cookie_button: Zgadzam się
   copied: Skopiowano
   copy: Kopiuj
+  date:
+    month_names:
   default_admin: "Nadal używasz domyślnego hasła dla tego konta. Proszę kliknąć <a href=\"%{edit_link}\">tutaj</a> aby je zmienić."
   delete: Skasuj
   delivery_error: Nastąpił błąd podczas wysyłki emaila. Proszę się skontaktować z administratorem
@@ -121,6 +153,10 @@ pl_PL:
     internal:
       message: "Wygląda na to, że coś poszło nie tak po naszej stronie."
       help: "Błąd został zarejestrowany, zapoznamy się z nim!"
+      report:
+    maintenance:
+      message:
+      help:
     migration_error:
       contact_admin: "Jeżeli nie jesteś administratorem, proszę się z nim skontaktuj."
       continue: Chciałbym nadal używać wersji 1.0.
@@ -136,6 +172,9 @@ pl_PL:
       accepted: musi zostać zaakceptowane
       confirmation: "nie pasuje %{attribute}"
       inclusion: nie znajduje się na liście
+    no_provider:
+      message:
+      help:
     not_found:
       message: "Przykro mi! Strona, której szukasz, nie istnieje."
       help: "Czy to możliwe, że zostało usunięte?"
@@ -174,8 +213,7 @@ pl_PL:
       signout: Wyloguj
   home_room: Pokój Domowy
   info_update_success: Informacje zostały pomyślnie zaktualizowane.
-  invalid_user: "Logowanie nie powiodło się z powodu nieznalezienia użytkownika. Czy na pewno konto e-mail jest poprawne?"
-  invalid_credentials: "Logowanie nie powiodło się z powodu nieprawidłowych poświadczeń. Czy na pewno wprowadziłeś je poprawnie?"
+  invalid_credentials:
   invalid_login_method: Logowanie nie powiodło się z powodu niezgodności konta. Musisz zalogować się za pomocą omniauth.
   invite_message: "Aby zaprosić kogoś na spotkanie, wyślij im ten link:"
   javascript:
@@ -210,10 +248,10 @@ pl_PL:
         subject: Konto zatwierdzone
         username: "Twoja nazwa użytkownika to %{email}."
       demoted:
-        info: "Nie jesteś już dłużej administratorem strony %{url}."
-        more-info: Masz teraz takie same uprawnienia jak zwykły użytkownik i nie będziesz mógł uzyskać dostępu do żadnych ustawień administratora.
+        info:
+        more-info:
         root_link: Zaloguj
-        subtitle: Odebrano uprawnienia administratora.
+        subtitle:
       invite:
         info: "Zostałeś zaproszony do własnej przestrzeni osobistej przez %{name}"
         signup_info: "Aby zarejestrować się za pomocą swojego e-maila, kliknij przycisk poniżej i postępuj zgodnie z instrukcjami."
@@ -227,16 +265,16 @@ pl_PL:
         username: "Twoja nazwa użytkownika to %{email}."
       password_reset:
         title: 'Resetuj hasło'
-        welcome: "Wygląda na to, że zapomniałeś hasła do %{bigbluebutton}"
-        message: 'Jeśli to prawda, kliknij poniższy link, aby zresetować hasło:'
+        welcome:
+        message: ''
         reset_link: Zresetuj hasło
         expire: Ten link straci ważność po dwóch godzinach.
-        ignore: "Możesz bezpiecznie zignorować tę wiadomość e-mail, jeśli nie zażądałeś zresetowania hasła."
+        ignore:
       promoted:
         admins_link: Odwiedź stronę organizacji
-        info: "Zostałeś administratorem strony %{url}."
-        more-info: "Jako administrator możesz zarządzać użytkownikami, ich rolą i konfigurować ustawienia witryny, zmieniając logo i kolor marki."
-        subtitle: Przyznano prawa administratora
+        info:
+        more-info:
+        subtitle:
       verify_email:
         welcome: "Witaj w osobistej przestrzeni, %{name}!"
         success: "Wykorzystując %{bigbluebutton}, możesz tworzyć własne pokoje do prowadzenia sesji i współpracy z innymi."
@@ -245,9 +283,19 @@ pl_PL:
         verify_text: 'Aby zweryfikować swoje konto, wystarczy kliknąć ten link: %{url}'
         verify_link: Zweryfikuj konto
         thanks: Dzięki za dołączenie i życzę miłego dnia!
+  maintenance:
+    window_alert:
   max_concurrent: Osiągnięto maksymalną liczbę jednoczesnych sesji!
   modal:
+    create_role:
+      create:
+      footer_text:
+      name_placeholder:
+      not_blank:
+      title:
     create_room:
+      access_code:
+      access_code_placeholder:
       auto_join: Automatycznie dołącz mnie do pokoju
       create: Stwórz pokój
       free_delete: Możesz w dowolnym momencie usunąć ten pokój.
@@ -266,7 +314,7 @@ pl_PL:
       warning: <b>Nie</b> będziesz w stanie odzyskać tego pokoju
       recording_warning: "ani żadnego z %{recordings_num} powiązanych nagrań."
     invite_user:
-      email_placeholder: Wprowadź nazwę użytkownika
+      email_placeholder:
       footer: "Użytkownik otrzyma wiadomość e-mail z instrukcjami, jak się zarejestrowaćWprowadź nazwę użytkownika"
       send: Wyślij zaproszenie
       title: Zaproś użytkownika
@@ -279,16 +327,17 @@ pl_PL:
       title: Ustawienia pokoju
       update: Aktualizuj ustawienia pokoju
       client: Wybierz typ klienta
+      join_moderator:
       mute: "Wycisz użytkowników, gdy dołączą"
-      default: Domyślne
-      html: HTML5
-      flash: Flash
+      require_approval:
+      start:
       footer_text: Dostosowanie do Twojego pokoju można wykonać w dowolnym momencie.
     rename_room:
       name_placeholder: Wprowadź nową nazwę pokoju...
   name_update_success: Nazwa pokoju została pomyślnie zmieniona!
   no_user_email_exists: "Brak określonego użytkownika z określonym adresem e-mail. Upewnij się, że wpisałeś go poprawnie."
   omniauth_error: Wystąpił błąd podczas uwierzytelniania z wykorzystaniem omniauth. Spróbuj ponownie lub skontaktuj się z administratorem!
+  omniauth_specific_error:
   pagy:
     nav:
       prev: "&lsaquo; Poprzedni"
@@ -325,7 +374,11 @@ pl_PL:
       public: Publiczny
       unlisted: Nie katalogowany
     format:
+      notes:
+      podcast:
       presentation: Prezentacja
+      statistics:
+      video:
   registration:
     approval:
       fail: "Twoje konto nie zostało jeszcze zatwierdzone. Jeśli minęło wiele dni od rejestracji, skontaktuj się z administratorem."
@@ -347,20 +400,32 @@ pl_PL:
     confirm: Potwierdzenie nowego hasła
     update: Aktualizuj hasło
   roles:
-    administrator: Administrator
+    admin:
     banned: Zablokowany
     pending: Oczekujący
-    super_admin: Super Admin
     user: Użytkownik
   room:
+    access_code_required:
     create_room: Stwórz pokój
     create_room_error: Podczas tworzenia pokoju wystąpił błąd
     create_room_success: Pokój utworzony pomyślnie
+    enter_the_access_code:
+    invalid_provider:
     invited: Zostałeś zaproszony do przyłączenia się
     invite_participants: Zaproś uczestników
     join: Dołącz
     last_session: "Ostatnia sesja dn. %{session}"
+    login:
     owner: Właściciel
+    no_room:
+      description:
+      edit_profile:
+      go_to:
+      invalid_room_uid:
+      placeholder:
+      no_recent_rooms:
+      recent_rooms:
+      title:
     no_sessions: Ten pokój nie ma jeszcze sesji!
     recordings: Nagrania z pokojów.
     room_limit: Osiągnięto maksymalną dozwoloną liczbę pokoi.
@@ -381,6 +446,7 @@ pl_PL:
       provider: Dostawca
       image: Obraz
       image_url: URL obrazu profilowego
+      roles:
       subtitle: Zaktualizuj informacje o swoim koncie
       title: Informacje o koncie
     delete:

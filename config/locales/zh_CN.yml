@@ -88,10 +88,9 @@ zh_CN:
     roles:
       can_create_rooms: 可以创建会议室
       delete: 删除角色
-      duplicate_name: 您提供的角色名称重复了。所有角色名称必须唯一。
-      empty_name: 所有角色必须具有非空名称
-      invalid_order: 用户角色必须是最低优先级角色，管理员角色必须是最高优先级角色。
-      invalid_update: 不能修改优先级高于自己角色的角色
+      invalid_create:
+      invalid_order:
+      invalid_update:
       name: 角色名称
       new_role: 创建新角色
       role_has_users: "此角色已非配给 %{user_count} 等帐户。 请删除此角色中的所有帐户再删除角色。"
@@ -101,8 +100,7 @@ zh_CN:
       edit_site_settings: 允许具有此角色的用户编辑网站设置
       edit_roles: 允许具有此角色的用户编辑其他角色
       manage_users: 允许具有此角色的用户管理用户
-      invalid_assignment: 不能将优先级高于自己的角色分配给用户
-      invalid_removal: 不能删除优先级高于自己的角色
+      invalid_assignment: 
       colour:
         title: 角色颜色
         info: 设置将与角色关联的颜色
@@ -155,6 +153,7 @@ zh_CN:
     internal:
       message: 看来服务器这边出了点问题。
       help: 错误信息已经记录了，我们会检查一下!
+      report:
     maintenance:
       message: 对不起，我们正在下线维修中。
       help: 我们很快就回来！

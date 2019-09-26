@@ -88,10 +88,9 @@ es:
     roles:
       can_create_rooms: Puede crear salas
       delete: Eliminar rol
-      duplicate_name: El nombre de rol proporcionado esta duplicado. Todos los nombres de rol deben ser únicos.
-      empty_name: Debes asignar un nombre al rol
-      invalid_order: El rol del usuario debe ser de menor nivel y el rol de administrador debe ser el de mayor nivel
-      invalid_update: No puedes cambiar un rol de un nivel superior al que posees
+      invalid_create:
+      invalid_order:
+      invalid_update:
       name: Nombre de rol
       new_role: Crear un rol nuevo
       role_has_users: "Este rol se encuentra asignado a %{user_count}cuentas de usuario. Debes remover todas las cuentas asociadas a este rol antes de eliminarlo."
@@ -101,8 +100,7 @@ es:
       edit_site_settings: Permitir a los usuarios con este rol editar configuraciones
       edit_roles: Permitir a los usuarios con este rol editar otros roles
       manage_users: Permitir a los usuarios con este rol manejar otros usuarios
-      invalid_assignment: No puedes asignar un rol de un nivel superior al que posees
-      invalid_removal: No puedes eliminar un rol de un nivel superior al que posees
+      invalid_assignment: 
       colour:
         title: Color de rol
         info: Define el color que sera asociado con el rol
@@ -155,6 +153,7 @@ es:
     internal:
       message: Parece que algo salió mal de nuestro lado.
       help: "El error ha sido registrado, vamos a revisarlo."
+      report:
     maintenance:
       message: El sistema se encuentra en mantenimiento.
       help: Estaremos de regreso muy pronto.
