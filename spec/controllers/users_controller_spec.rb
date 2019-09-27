@@ -396,16 +396,17 @@ describe UsersController, type: :controller do
   describe "DELETE #user" do
     before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
 
-    it "properly deletes user" do
+    it "permanently deletes user" do
       user = create(:user)
       @request.session[:user_id] = user.id
 
       delete :destroy, params: { user_uid: user.uid }
 
+      expect(User.include_deleted.find_by(uid: user.uid)).to be_nil
       expect(response).to redirect_to(root_path)
     end
 
-    it "allows admins to delete users" do
+    it "allows admins to tombstone users" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
       allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
@@ -418,6 +419,25 @@ describe UsersController, type: :controller do
 
       delete :destroy, params: { user_uid: user.uid }
 
+      expect(User.deleted.find_by(uid: user.uid)).to be_present
+      expect(flash[:success]).to be_present
+      expect(response).to redirect_to(admins_path)
+    end
+
+    it "allows admins to permanently delete users" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+      allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
+      controller.instance_variable_set(:@user_domain, "provider1")
+
+      user = create(:user, provider: "provider1")
+      admin = create(:user, provider: "provider1")
+      admin.add_role :admin
+      @request.session[:user_id] = admin.id
+
+      delete :destroy, params: { user_uid: user.uid, permanent: "true" }
+
+      expect(User.include_deleted.find_by(uid: user.uid)).to be_nil
       expect(flash[:success]).to be_present
       expect(response).to redirect_to(admins_path)
     end

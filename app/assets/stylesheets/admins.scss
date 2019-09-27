@@ -75,8 +75,17 @@
 
 .custom-role-tag{
   color: white !important;
+  // Make it consistent with the manage users tab tags
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 .user-role-tag{
   color: white !important;
+}
+
+.manage-users-tab {
+  &:hover {
+    cursor: pointer;
+  }
 }

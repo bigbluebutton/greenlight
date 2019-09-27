@@ -175,3 +175,7 @@ table {
 .cursor-pointer{
   cursor: pointer;
 }
+
+#delete-confirm:disabled {
+  cursor: not-allowed;
+}

@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   include Recorder
   include Rolify
 
-  before_action :find_user, only: [:edit, :change_password, :delete_account, :update, :destroy]
+  before_action :find_user, only: [:edit, :change_password, :delete_account, :update]
   before_action :ensure_unauthenticated_except_twitter, only: [:create]
   before_action :check_user_signup_allowed, only: [:create]
   before_action :check_admin_of, only: [:edit, :change_password, :delete_account]
@@ -122,12 +122,17 @@ class UsersController < ApplicationController
 
   # DELETE /u/:user_uid
   def destroy
+    # Include deleted users in the check
+    @user = User.include_deleted.find_by(uid: params[:user_uid])
+
     logger.info "Support: #{current_user.email} is deleting #{@user.email}."
 
     self_delete = current_user == @user
     begin
       if current_user && (self_delete || current_user.admin_of?(@user))
-        @user.destroy
+        # Permanently delete if the user is deleting themself
+        perm_delete = self_delete || (params[:permanent].present? && params[:permanent] == "true")
+        @user.destroy(perm_delete)
         session.delete(:user_id) if self_delete
 
         return redirect_to admins_path, flash: { success: I18n.t("administrator.flash.delete") } unless self_delete

@@ -48,6 +48,7 @@ Rails.application.routes.draw do
     post '/invite', to: 'admins#invite', as: :invite_user
     post '/approve/:user_uid', to: 'admins#approve', as: :admin_approve
     get '/reset', to: 'admins#reset', as: :admin_reset
+    post '/undelete', to: 'admins#undelete', as: :admin_undelete
     # Site Settings
     post '/update_settings', to: 'admins#update_settings', as: :admin_update_settings
     post '/registration_method', to: 'admins#registration_method', as: :admin_change_registration

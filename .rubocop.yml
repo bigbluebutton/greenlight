@@ -97,6 +97,9 @@ Layout/AlignArguments:
 Layout/IndentationWidth:
   Enabled: false
 
+Layout/CaseIndentation:
+  Enabled: false
+
 # Checks for ambiguous block association with method when param passed without parentheses.
 Lint/AmbiguousBlockAssociation:
   Enabled: false
