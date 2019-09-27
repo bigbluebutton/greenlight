@@ -17,16 +17,16 @@
   <div class="row">
     <div class="col-12 tags">
       <span id="active" class="btn btn-sm tag manage-users-tab <%= 'selected' if @tab == 'active' %>">
-        Active
+        <%= t("roles.active") %>
       </span>
       <span id="pending" class="btn btn-sm tag manage-users-tab <%= 'selected' if @tab == 'pending' %>">
-        Pending
+        <%= t("roles.pending") %>
       </span>
       <span id="denied" class="btn btn-sm tag manage-users-tab <%= 'selected' if @tab == 'denied' %>">
-        Banned
+        <%= t("roles.banned") %>
       </span>
       <span id="deleted" class="btn btn-sm tag manage-users-tab <%= 'selected' if @tab == 'deleted' %>">
-        Deleted
+        <%= t("roles.deleted") %>
       </span>
     </div>
   </div>

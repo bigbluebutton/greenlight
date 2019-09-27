@@ -406,8 +406,10 @@ en:
     confirm: New Password Confirmation
     update: Update Password
   roles:
+    active: Active
     admin: Admin
     banned: Banned
+    deleted: Deleted
     pending: Pending
     user: User
   room:
