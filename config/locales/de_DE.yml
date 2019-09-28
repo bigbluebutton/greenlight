@@ -256,11 +256,11 @@ de_DE:
       invite:
         info: "Sie wurden von %{name} in Ihren persönlichen Bereich eingeladen"
         signup_info: "Um sich mit Ihrer Email anzumelden, klicken Sie den untenstehenden Button und folgen Sie den Schritten."
-        signup_link: Registieren
+        signup_link: Registrieren
         signup:
           info: Ein Nutzer hat Sie dazu eingeladen sich für die Nutzung von Greenlight zu registieren.
           admins_link: Organisationsseite besuchen
-          subject: Registierung neuer Greenlight-Nutzer
+          subject: Registrierung neuer Greenlight-Nutzer
           username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registriert."
         subject: Einladung zur BigBlueButton-Teilnahme
         username: "Ihr Nutzername ist %{email}."
