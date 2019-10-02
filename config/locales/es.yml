@@ -372,8 +372,8 @@ es:
       visibility: Visibilidad
       formats: Formatos
     visibility:
-      public: Pública
-      unlisted: No listada
+      public: Públicas
+      unlisted: No listadas
     format:
       notes: Notas
       podcast: Podcast
