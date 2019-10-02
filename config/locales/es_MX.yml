@@ -297,7 +297,7 @@ es_MX:
     create_room:
       access_code: Código de acceso
       access_code_placeholder: Generar un nuevo código de acceso
-      auto_join: Envíame a la sala automáticamente cuando empiece ls sesión
+      auto_join: Envíame a la sala automáticamente después de crear la sesión
       create: Crear sala
       free_delete: Podrás eliminar la sala en el momento que quieras
       name_placeholder: Introduce un nombre para la sala
@@ -439,7 +439,7 @@ es_MX:
     update_settings_success: La configuración de la sala fue actualizada exitósamente
     wait:
       message: La sesión todavía no ha comenzado.
-      auto: Serás enviado a la sala automáticamente cuando empiece ls sesión
+      auto: Serás enviado a la sala automáticamente cuando empiece la sesión
   settings:
     account:
       fullname: Nombre completo
