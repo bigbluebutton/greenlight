@@ -9,6 +9,9 @@ AllCops:
 Bundler/OrderedGems:
   Enabled: false
 
+Style/BlockDelimiters:
+  Enabled: false
+
 # Checks if uses of quotes match the configured preference.
 Style/StringLiterals:
   Enabled: false

@@ -92,7 +92,9 @@ class AdminsController < ApplicationController
 
   # POST /admins/approve/:user_uid
   def undelete
+    # Undelete the user and all of his rooms
     @user.undelete!
+    @user.rooms.deleted.each(&:undelete!)
 
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.restored") }
   end

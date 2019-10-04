@@ -181,6 +181,21 @@ describe AdminsController, type: :controller do
         expect(flash[:success]).to be_present
         expect(response).to redirect_to(admins_path)
       end
+
+      it "undeletes the users rooms" do
+        @request.session[:user_id] = @admin.id
+
+        @user.main_room.delete
+        @user.delete
+
+        expect(Room.find_by(uid: @user.main_room.uid)).to be_nil
+
+        post :undelete, params: { user_uid: @user.uid }
+
+        expect(Room.find_by(uid: @user.main_room.uid)).to be_present
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(admins_path)
+      end
     end
   end
 

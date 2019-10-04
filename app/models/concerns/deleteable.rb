@@ -30,7 +30,7 @@ module Deleteable
     if permanent
       super()
     else
-      run_callbacks :destroy
+      run_callbacks :destroy do end
       update_attribute(:deleted, true)
     end
   end
