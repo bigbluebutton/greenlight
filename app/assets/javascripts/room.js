@@ -47,17 +47,18 @@ $(document).on('turbolinks:load', function(){
 
     // Display and update all fields related to creating a room in the createRoomModal
     $("#create-room-block").click(function(){
-      showCreateRoom()
+      showCreateRoom(this)
     })
 
     // Display and update all fields related to creating a room in the createRoomModal
     $(".update-room").click(function(){
-      showUpdateRoom()
+      showUpdateRoom(this)
     })
   }
 });
 
-function showCreateRoom() {
+function showCreateRoom(target) {
+  var modal = $(target)
   $("#create-room-name").val("")
   $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
   $("#room_access_code").val(null)
@@ -81,9 +82,10 @@ function showCreateRoom() {
   })
 }
 
-function showUpdateRoom() {
-  var room_block_uid = $(this).closest("#room-block").data("room-uid")
-  $("#create-room-name").val($(this).closest("tbody").find("#room-name h4").text())
+function showUpdateRoom(target) {
+  var modal = $(target)
+  var room_block_uid = modal.closest("#room-block").data("room-uid")
+  $("#create-room-name").val(modal.closest("tbody").find("#room-name h4").text())
   $("#createRoomModal form").attr("action", room_block_uid + "/update_settings")
 
   //show all elements & their children with a update-only class
@@ -98,9 +100,9 @@ function showUpdateRoom() {
     if($(this).children().length > 0) { $(this).children().attr('style',"display:none !important") }
   })
 
-  updateCurrentSettings($(this).closest("#room-block").data("room-settings"))
+  updateCurrentSettings(modal.closest("#room-block").data("room-settings"))
   
-  var accessCode = $(this).closest("#room-block").data("room-access-code")
+  var accessCode = modal.closest("#room-block").data("room-access-code")
 
   if(accessCode){
     $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code") + ": " + accessCode)
