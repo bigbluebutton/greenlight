@@ -21,17 +21,6 @@ $(document).on('turbolinks:load', function(){
   // Only run on the admins page.
   if (controller == "admins") {
     if(action == "index") {
-      // show the modal with the correct form action url
-      $(".delete-user").click(function(data){
-        var uid = $(data.target).closest("tr").data("user-uid")
-        var url = $("body").data("relative-root")
-        if (!url.endsWith("/")) {
-          url += "/"
-        }
-        url += "u/" + uid
-        $("#delete-confirm").parent().attr("action", url)
-      })
-
       //clear the role filter if user clicks on the x
       $(".clear-role").click(function() {
         var search = new URL(location.href).searchParams.get('search')
@@ -43,6 +32,14 @@ $(document).on('turbolinks:load', function(){
         }  
       
         window.location.replace(url);
+      })
+
+      // Handle selected user tags
+      $(".manage-users-tab").click(function() {
+        $(".manage-users-tab").removeClass("selected")
+        $(this).addClass("selected")
+
+        updateTabParams(this.id)
       })
     }
     else if(action == "site_settings"){
@@ -93,6 +90,20 @@ function filterRole(role) {
   }  
 
   window.location.replace(url);
+}
+
+function updateTabParams(tab) {
+  var search_params = new URLSearchParams(window.location.search)
+
+  if (window.location.href.includes("tab=")) {
+    search_params.set("tab", tab)
+  } else {
+    search_params.append("tab", tab)
+  }
+
+  search_params.delete("page")
+
+  window.location.search = search_params.toString()
 }
 
 function loadColourSelectors() {

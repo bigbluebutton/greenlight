@@ -166,6 +166,37 @@ describe AdminsController, type: :controller do
         expect { post :approve, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
     end
+
+    context "POST #undelete" do
+      it "undeletes a user" do
+        @request.session[:user_id] = @admin.id
+
+        @user.delete
+
+        expect(User.find_by(uid: @user.uid)).to be_nil
+
+        post :undelete, params: { user_uid: @user.uid }
+
+        expect(User.find_by(uid: @user.uid)).to be_present
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(admins_path)
+      end
+
+      it "undeletes the users rooms" do
+        @request.session[:user_id] = @admin.id
+
+        @user.main_room.delete
+        @user.delete
+
+        expect(Room.find_by(uid: @user.main_room.uid)).to be_nil
+
+        post :undelete, params: { user_uid: @user.uid }
+
+        expect(Room.find_by(uid: @user.main_room.uid)).to be_present
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(admins_path)
+      end
+    end
   end
 
   describe "User Design" do
