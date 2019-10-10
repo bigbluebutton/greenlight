@@ -54,6 +54,10 @@ $(document).on('turbolinks:load', function(){
     $(".update-room").click(function(){
       showUpdateRoom(this)
     })
+
+    $(".delete-room").click(function() {
+      showDeleteRoom(this)
+    })
   }
 });
 
@@ -111,6 +115,11 @@ function showUpdateRoom(target) {
     $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
     $("#room_access_code").val(null)
   }
+}
+
+function showDeleteRoom(target) {
+  $("#delete-header").text(getLocalizedString("modal.delete_room.confirm").replace("%{room}", $(target).data("name")))
+  $("#delete-confirm").parent().attr("action", $(target).data("path"))
 }
 
 //Update the createRoomModal to show the correct current settings

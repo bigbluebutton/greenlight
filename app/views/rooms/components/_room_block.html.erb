@@ -54,7 +54,7 @@
               <a href="" data-toggle="modal" data-target="#createRoomModal" class="update-room dropdown-item">
                 <i class="dropdown-icon fas fa-cog"></i> <%= t("room.settings") %>
               </a>
-              <a href="" data-toggle="modal" data-target="#deleteRoomModal_<%= room.uid %>"class="dropdown-item">
+              <a href="" data-toggle="modal" data-target="#deleteRoomModal" data-path="<%= room_path(room) %>" data-name="<%= room.name %>" class="delete-room dropdown-item">
                 <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
               </a>
             </div>
