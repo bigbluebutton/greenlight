@@ -24,10 +24,11 @@ class AdminsController < ApplicationController
   include Rolify
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve, :reset]
-
+  manage_deleted_users = [:undelete]
   authorize_resource class: false
   before_action :find_user, only: manage_users
-  before_action :verify_admin_of_user, only: manage_users
+  before_action :find_deleted_user, only: manage_deleted_users
+  before_action :verify_admin_of_user, only: [manage_users, manage_deleted_users]
 
   # GET /admins
   def index
@@ -37,6 +38,7 @@ class AdminsController < ApplicationController
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
 
     @role = params[:role] ? Role.find_by(name: params[:role], provider: @user_domain) : nil
+    @tab = params[:tab] || "active"
 
     @pagy, @users = pagy(user_list)
   end
@@ -86,6 +88,15 @@ class AdminsController < ApplicationController
     send_user_approved_email(@user)
 
     redirect_to admins_path, flash: { success: I18n.t("administrator.flash.approved") }
+  end
+
+  # POST /admins/approve/:user_uid
+  def undelete
+    # Undelete the user and all of his rooms
+    @user.undelete!
+    @user.rooms.deleted.each(&:undelete!)
+
+    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.restored") }
   end
 
   # POST /admins/invite
@@ -208,6 +219,10 @@ class AdminsController < ApplicationController
     @user = User.where(uid: params[:user_uid]).includes(:roles).first
   end
 
+  def find_deleted_user
+    @user = User.deleted.where(uid: params[:user_uid]).includes(:roles).first
+  end
+
   # Verifies that admin is an administrator of the user in the action
   def verify_admin_of_user
     redirect_to admins_path,
@@ -216,18 +231,31 @@ class AdminsController < ApplicationController
 
   # Gets the list of users based on your configuration
   def user_list
+    current_role = @role
+
+    initial_user = case @tab
+      when "active"
+        User.without_role(:pending).without_role(:denied)
+      when "deleted"
+        User.deleted
+      else
+        User
+    end
+
+    current_role = Role.find_by(name: @tab, provider: @user_domain) if @tab == "pending" || @tab == "denied"
+
     initial_list = if current_user.has_role? :super_admin
-      User.where.not(id: current_user.id)
+      initial_user.where.not(id: current_user.id)
     else
-      User.without_role(:super_admin).where.not(id: current_user.id)
+      initial_user.without_role(:super_admin).where.not(id: current_user.id)
     end
 
     if Rails.configuration.loadbalanced_configuration
       initial_list.where(provider: @user_domain)
-                  .admins_search(@search, @role)
+                  .admins_search(@search, current_role)
                   .admins_order(@order_column, @order_direction)
     else
-      initial_list.admins_search(@search, @role)
+      initial_list.admins_search(@search, current_role)
                   .admins_order(@order_column, @order_direction)
     end
   end
