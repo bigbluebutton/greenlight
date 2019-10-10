@@ -77,9 +77,11 @@ en:
       demoted: User has been successfully demoted
       invite: Invite successfully sent to %{email}
       invite_email_verification: Emails must be enabled in order to use this method. Please contact your system administrator.
+      perm_deleted: User has been permanently deleted
       promoted: User has been successfully promoted
       registration_method_updated: Registration method successfully updated
       reset_password: The user has been sent an email to reset their password. (Please ask them to check their spam folder if they haven't received it)
+      restored: User has been successfully restored
       settings: Site Settings successfully changed
       unauthorized: You are not authorized to perform actions on this user
     recordings:
@@ -116,7 +118,9 @@ en:
         delete: Delete
         edit: Edit
         edit_roles: Edit the user roles
+        perm_delete: Permanently Delete
         unban: Unban User
+        undelete: Undelete
       table:
         authenticator: Authenticator
         created: Created
@@ -307,6 +311,7 @@ en:
       confirm: Are you sure you want to delete this account?
       delete: I'm sure, delete this account.
       keep: Actually, I'll keep it.
+      delete_warning: This will deactivate the user's account. All deactived users can be found under the deleted tab.
       warning: This decision is final. You will <b>not</b> be able to recover associated data.
     delete_room:
       confirm: Are you sure you want to delete %{room}?
@@ -401,8 +406,10 @@ en:
     confirm: New Password Confirmation
     update: Update Password
   roles:
+    active: Active
     admin: Admin
     banned: Banned
+    deleted: Deleted
     pending: Pending
     user: User
   room:

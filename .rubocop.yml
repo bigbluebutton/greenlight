@@ -9,6 +9,9 @@ AllCops:
 Bundler/OrderedGems:
   Enabled: false
 
+Style/BlockDelimiters:
+  Enabled: false
+
 # Checks if uses of quotes match the configured preference.
 Style/StringLiterals:
   Enabled: false
@@ -95,6 +98,9 @@ Layout/AlignArguments:
 
 #
 Layout/IndentationWidth:
+  Enabled: false
+
+Layout/CaseIndentation:
   Enabled: false
 
 # Checks for ambiguous block association with method when param passed without parentheses.

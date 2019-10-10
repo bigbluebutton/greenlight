@@ -63,17 +63,22 @@ class SessionsController < ApplicationController
   def create
     logger.info "Support: #{session_params[:email]} is attempting to login."
 
-    admin = User.find_by(email: session_params[:email])
-    if admin&.has_role? :super_admin
-      user = admin
-    else
-      user = User.find_by(email: session_params[:email], provider: @user_domain)
-      redirect_to(signin_path, alert: I18n.t("invalid_credentials")) && return unless user
-      redirect_to(root_path, alert: I18n.t("invalid_login_method")) && return unless user.greenlight_account?
-      redirect_to(account_activation_path(email: user.email)) && return unless user.activated?
-    end
-    redirect_to(signin_path, alert: I18n.t("invalid_credentials")) && return unless user.try(:authenticate,
+    user = User.include_deleted.find_by(email: session_params[:email], provider: @user_domain)
+
+    # Check user with that email exists
+    return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user
+    # Check correct password was entered
+    return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user.try(:authenticate,
       session_params[:password])
+    # Check that the user is not deleted
+    return redirect_to root_path, flash: { alert: I18n.t("registration.banned.fail") } if user.deleted?
+
+    unless user.has_role? :super_admin
+      # Check that the user is a Greenlight account
+      return redirect_to(root_path, alert: I18n.t("invalid_login_method")) unless user.greenlight_account?
+      # Check that the user has verified their account
+      return redirect_to(account_activation_path(email: user.email)) unless user.activated?
+    end
 
     login(user)
   end
@@ -153,8 +158,19 @@ class SessionsController < ApplicationController
   end
 
   def check_user_exists
-    provider = @auth['provider'] == "bn_launcher" ? @auth['info']['customer'] : @auth['provider']
-    User.exists?(social_uid: @auth['uid'], provider: provider)
+    User.exists?(social_uid: @auth['uid'], provider: current_provider)
+  end
+
+  def check_user_deleted(email)
+    User.deleted.exists?(email: email, provider: @user_domain)
+  end
+
+  def check_auth_deleted
+    User.deleted.exists?(social_uid: @auth['uid'], provider: current_provider)
+  end
+
+  def current_provider
+    @auth['provider'] == "bn_launcher" ? @auth['info']['customer'] : @auth['provider']
   end
 
   # Check if the user already exists, if not then check for invitation
@@ -171,6 +187,9 @@ class SessionsController < ApplicationController
     if !@user_exists && @auth['provider'] == "twitter"
       return redirect_to root_path, flash: { alert: I18n.t("registration.deprecated.twitter_signup") }
     end
+
+    # Check if user is deleted
+    return redirect_to root_path, flash: { alert: I18n.t("registration.banned.fail") } if check_auth_deleted
 
     # If using invitation registration method, make sure user is invited
     return redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless passes_invite_reqs

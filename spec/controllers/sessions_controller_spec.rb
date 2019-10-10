@@ -134,6 +134,26 @@ describe SessionsController, type: :controller do
       expect(response).to redirect_to(account_activation_path(email: @user3.email))
     end
 
+    it "should not login user if account is deleted" do
+      user = create(:user, provider: "greenlight",
+        password: "example", password_confirmation: 'example')
+
+      user.delete
+      user.reload
+      expect(user.deleted?).to be true
+
+      post :create, params: {
+        session: {
+          email: user.email,
+          password: 'example',
+        },
+      }
+
+      expect(@request.session[:user_id]).to be_nil
+      expect(flash[:alert]).to eq(I18n.t("registration.banned.fail"))
+      expect(response).to redirect_to(root_path)
+    end
+
     it "redirects the user to the page they clicked sign in from" do
       user = create(:user, provider: "greenlight",
         password: "example", password_confirmation: 'example')
@@ -287,6 +307,27 @@ describe SessionsController, type: :controller do
       expect(u.provider).to eql("customer1")
       expect(u.email).to eql("user@google.com")
       expect(@request.session[:user_id]).to eql(u.id)
+    end
+
+    it "redirects a deleted user to the root page" do
+      # Create the user first
+      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
+      get :omniauth, params: { provider: 'bn_launcher' }
+
+      # Delete the user
+      user = User.find_by(social_uid: "bn-launcher-user")
+
+      @request.session[:user_id] = nil
+      user.delete
+      user.reload
+      expect(user.deleted?).to be true
+
+      # Try to sign back in
+      get :omniauth, params: { provider: 'bn_launcher' }
+
+      expect(@request.session[:user_id]).to be_nil
+      expect(flash[:alert]).to eq(I18n.t("registration.banned.fail"))
+      expect(response).to redirect_to(root_path)
     end
 
     it "should redirect to root on invalid omniauth login" do
