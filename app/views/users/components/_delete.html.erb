@@ -19,7 +19,7 @@
       <center>
         <%= t("settings.delete.disclaimer").html_safe %>
         <br>
-        <a href="" data-toggle="modal" data-target="#deleteAccountModal" class="btn btn-danger mt-6">
+        <a href="" data-toggle="modal" data-path="<%= delete_user_path(user_uid: current_user.uid) %>" data-target="#deleteAccountModal" class="btn btn-danger mt-6 delete-user">
           <%= t("settings.delete.button") %>
         </a>
       </center>

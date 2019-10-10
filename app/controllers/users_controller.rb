@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   include Recorder
   include Rolify
 
-  before_action :find_user, only: [:edit, :change_password, :delete_account, :update, :destroy]
+  before_action :find_user, only: [:edit, :change_password, :delete_account, :update]
   before_action :ensure_unauthenticated_except_twitter, only: [:create]
   before_action :check_user_signup_allowed, only: [:create]
   before_action :check_admin_of, only: [:edit, :change_password, :delete_account]
@@ -122,22 +122,41 @@ class UsersController < ApplicationController
 
   # DELETE /u/:user_uid
   def destroy
+    # Include deleted users in the check
+    @user = User.include_deleted.find_by(uid: params[:user_uid])
+
     logger.info "Support: #{current_user.email} is deleting #{@user.email}."
 
     self_delete = current_user == @user
+    redirect_url = self_delete ? root_path : admins_path
+
     begin
       if current_user && (self_delete || current_user.admin_of?(@user))
-        @user.destroy
+        # Permanently delete if the user is deleting themself
+        perm_delete = self_delete || (params[:permanent].present? && params[:permanent] == "true")
+
+        # Permanently delete the rooms under the user if they have not been reassigned
+        if perm_delete
+          @user.rooms.include_deleted.each do |room|
+            room.destroy(true)
+          end
+        end
+
+        @user.destroy(perm_delete)
+
+        # Log the user out if they are deleting themself
         session.delete(:user_id) if self_delete
 
-        return redirect_to admins_path, flash: { success: I18n.t("administrator.flash.delete") } unless self_delete
+        return redirect_to redirect_url, flash: { success: I18n.t("administrator.flash.delete") } unless self_delete
+      else
+        flash[:alert] = I18n.t("administrator.flash.delete_fail")
       end
     rescue => e
       logger.error "Support: Error in user deletion: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("administrator.flash.delete_fail"))
     end
 
-    redirect_to root_path
+    redirect_to redirect_url
   end
 
   # GET /u/:user_uid/recordings
