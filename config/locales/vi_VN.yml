@@ -21,36 +21,101 @@ vi_VN:
     attributes:
       user:
         accepted_terms: "Điều khoản và điều kiện"
+        email:
+        name:
+        password:
+        password_confirmation:
+    errors:
+      models:
+        user:
+          confirmation:
   administrator:
     site_settings:
+      authentication:
+        disabled:
+        enabled:
+        info:
+        title:
+        user-info:
       branding:
         change: Đổi hình ảnh
         info: Thay đổi logo góc trái
         placeholder: URL hình ảnh...
         title: Hình ảnh thương hiệu
+      cache:
+        info:
+        title:
+        button:
       color:
-        info: Thay đổi màu chủ đạo được sử dụng trên trang web
+        info:
         title: Màu chủ đạo
+        regular:
+        lighten:
+        darken:
+      recording_visibility:
+        info:
+        title:
+        warning:
+      registration:
+        info:
+        title:
+        methods:
+          approval:
+          invite:
+          open:
+      rooms:
+        info:
+        title:
       subtitle: Thiết lập Greenlight
       title: Cài đặt trang
     flash:
+      approved:
       banned: Người dùng đã bị cấm thành công.
       unbanned: Người dùng được bỏ cấm thành công.
       delete: Người dùng đã xóa thành công
       delete_fail: Không thể xóa người dùng
       demoted: Người dùng đã được hạ bậc thành công
+      invite:
+      invite_email_verification:
       promoted: Người dùng đã được thăng bậc thành công
+      registration_method_updated:
+      reset_password:
+      settings:
       unauthorized: Bạn không được phép thực hiện hành động đối với người dùng này
+    recordings:
+      title:
+      no_recordings:
+    roles:
+      can_create_rooms:
+      delete:
+      invalid_create:
+      invalid_order:
+      invalid_update:
+      name:
+      new_role:
+      role_has_users:
+      title:
+      promote_email:
+      demote_email:
+      edit_site_settings:
+      edit_roles:
+      manage_users:
+      invalid_assignment: 
+      colour:
+        title:
+        info:
     title: Cài đặt tổ chức
     users:
+      invite:
       edit:
         title: Chỉnh sửa chi tiết người dùng
       settings:
+        approve:
+        decline:
         ban: Cấm người dùng
         delete: Xóa
-        demote: Hạ bậc người dùng
         edit: Chỉnh sửa
-        promote: Nâng bậc thành người quản trị
+        edit_roles:
         unban: Hủy cấm người dùng
       table:
         authenticator: Trình xác thực
@@ -71,6 +136,8 @@ vi_VN:
     cookie_button: Tôi đồng ý
   copied: Đã sao chép
   copy: Sao chép
+  date:
+    month_names:
   default_admin: "Bạn vẫn đang sử dụng mật khẩu mặc định cho tài khoản này. Vui lòng bấm vào <a href=\"%{edit_link}\">đây</a> để thay đổi mật khẩu."
   delete: Xóa
   delivery_error: Xảy ra lỗi trong quá trình gửi email. Vui lòng liên hệ với quản trị viên!
@@ -79,9 +146,17 @@ vi_VN:
   email_sent: "Email %{email_type} của bạn đã được gửi! (Vui lòng kiểm tra thư mục Spam nếu bạn chưa nhận được)"
   enter_your_name: Điền họ tên!
   errors:
+    bigbluebutton:
+      help:
+      message:
+      title:
     internal:
-      message: Ồ không! Có vẻ như đã xảy ra sự cố.
+      message:
       help: "Lỗi đã được ghi lại, chúng tôi sẽ xem xét!"
+      report:
+    maintenance:
+      message:
+      help:
     migration_error:
       contact_admin: "Nếu bạn không phải là quản trị viên, xin vui lòng liên hệ với người quản lý."
       continue: Tôi muốn tiếp tục sử dụng 1.0.
@@ -97,16 +172,22 @@ vi_VN:
       accepted: phải được chấp nhận
       confirmation: "Không trùng với %{attribute}"
       inclusion: không có trong danh sách
+    no_provider:
+      message:
+      help:
     not_found:
-      message: Rất tiếc! Có vẻ như chúng ta không thể tìm thấy.
+      message:
       help: "Có thể nó đã được gỡ bỏ?"
+      user_not_found:
+        help:
+        message:
+      user_missing:
+        help:
+        message:
     title: Lỗi
     unauthorized:
       message: Bạn không có quyền truy cập vào ứng dụng này
       help: "Nếu bạn nghĩ đây là một lỗi, vui lòng liên hệ với quản trị viên hệ thống."
-    unprocessable:
-      message: Rất tiếc! Yêu cầu là không thể xử lý.
-      help: "Thật không may, đây không phải là một yêu cầu hợp lệ."
   expired_reset_token: Liên kết đặt lại mật khẩu đã hết hạn!
   features:
     title: Tính năng
@@ -132,8 +213,7 @@ vi_VN:
       signout: Đăng xuất
   home_room: Phòng Chính
   info_update_success: Thông tin đã được cập nhật thành công.
-  invalid_user: "Đăng nhập thất bại do không tìm thấy người dùng. Bạn có chắc chắn tài khoản email là chính xác?"
-  invalid_credentials: "Đăng nhập thất bại do thông tin không hợp lệ. Bạn có chắc chắn bạn đã nhập chính xác?"
+  invalid_credentials:
   invalid_login_method: Đăng nhập thất bại do không khớp tài khoản. Bạn cần đăng nhập bằng Omniauth.
   invite_message: "Để mời ai đó tham gia phòng, hãy gửi cho họ liên kết này:"
   javascript:
@@ -142,11 +222,11 @@ vi_VN:
         subject: 'đã mời bạn xem một bản ghi hình.'
         body: 'Để xem bản ghi, hãy theo liên kết dưới đây:'
         autogenerated: 'Email này được tự động tạo bởi hệ thống LiveRoom.'
-        footer: 'BigBlueButton is an open source web conferencing system. For more information on BigBlueButton, see https://bigbluebutton.org/.'
+        footer: 'BigBlueButton là hệ thống hội nghị trực tuyến mã nguồn mở. Để biết thêmt thông tin chi tiết về BigBlueButton, vui lòng truy cập https://bigbluebutton.org/.'
   landing:
-    about: "LiveRoom là giao điện quản lý đơn giản cho hệ thống phòng học và hội thảo online được đựa trên nền tảng phát triển BigBlueButton. Bạn có thể tạo phòng riêng của mình để tổ chức các buổi dạy học, hội thảo từ xa hoặc tham gia với người khắc thông qua một đường dẫn liên kết ngắn gọn."
-    welcome: Chào mừng đến với LiveRoom
-    video: Xem thêm hướng dẫn sử dụng LiveRoom
+    about: "%{href} là một giao diện cơ bản dành cho máy chủ hội nghị trực tuyến mã nguồn mở BigBlueButton của bạn. Bạn có thể tạo những phòng riêng của mình để tổ chức các phiên hoặc tham gia với những người khác bằng cách sử dụng một liên kết ngắn và thuận tiện."
+    welcome: Chào mừng đến với BigBlueButton.
+    video: Xem thêm hướng dẫn sử dụng Greenlight
     upgrade: Hãy chỉ cho tôi cách nâng cấp lên 2.0!
     version: "Chúng tôi đã phát hành phiên bản mới của Greenlight, nhưng cơ sở dữ liệu của bạn không tương thích."
   language_default: Mặc định (ngôn ngữ từ trình duyệt)
@@ -155,13 +235,46 @@ vi_VN:
   login_title: Đăng nhập vào tài khoản của bạn
   mailer:
     user:
+      approve:
+        info:
+        signin:
+        signin_link:
+        signup:
+          info:
+          more-info:
+          admins_link:
+          subject:
+          username:
+        subject:
+        username:
+      demoted:
+        info:
+        more-info:
+        root_link:
+        subtitle:
+      invite:
+        info:
+        signup_info:
+        signup_link:
+        signup:
+          info:
+          admins_link:
+          subject:
+          username:
+        subject:
+        username:
       password_reset:
         title: 'Đặt lại mật khẩu'
-        welcome: "Có vẻ như bạn đã quên mật khẩu của mình cho %{bigbluebutton}"
-        message: 'Nếu đã quên, vui lòng nhấp vào liên kết bên dưới để đặt lại mật khẩu của bạn:'
+        welcome:
+        message: ''
         reset_link: Đặt lại mật khẩu
         expire: Liên kết này sẽ hết hạn trong hai giờ.
-        ignore: Bạn có thể bỏ qua email này hoàn toàn nếu bạn không yêu cầu đặt lại mật khẩu.
+        ignore:
+      promoted:
+        admins_link:
+        info:
+        more-info:
+        subtitle:
       verify_email:
         welcome: "Chào mừng đến với không gian cá nhân của bạn, %{name}!"
         success: "Tận dụng %{bigbluebutton}, bạn có thể tạo phòng riêng để tổ chức các phiên và cộng tác với những người khác."
@@ -170,9 +283,19 @@ vi_VN:
         verify_text: 'Để xác minh tài khoản của bạn, cần vào liên kết sau: %{url}'
         verify_link: Xác nhận Tài khoản
         thanks: Cảm ơn bạn đã tham gia và chúc một ngày tuyệt vời!
+  maintenance:
+    window_alert:
   max_concurrent: Số lượng phiên đồng thời tối đa được phép đã đạt được!
   modal:
+    create_role:
+      create:
+      footer_text:
+      name_placeholder:
+      not_blank:
+      title:
     create_room:
+      access_code:
+      access_code_placeholder:
       auto_join: Tự động tham gia vào phòng
       create: Tạo Phòng
       free_delete: Bạn sẽ được tự do xóa căn phòng này bất cứ lúc nào.
@@ -188,7 +311,13 @@ vi_VN:
       confirm: "Bạn có chắc chắn muốn xóa %{room}?"
       delete: "Tôi chắc chắn, hãy xóa phòng này."
       keep: "Ngược lại, tôi sẽ giữ nó."
-      warning: "Bạn sẽ <b>không thể</b> khôi phục phòng này hoặc bất kỳ %{recordings_num} bản ghi hình liên quan."
+      warning:
+      recording_warning:
+    invite_user:
+      email_placeholder:
+      footer:
+      send:
+      title:
     login:
       or: hoặc
       with: "Đăng nhập bằng %{provider}"
@@ -198,16 +327,17 @@ vi_VN:
       title: Cài đặt Phòng
       update: Cập nhật Phòng
       client: Chọn chế độ sử dụng
+      join_moderator:
       mute: Tắt tiếng người dùng khi tham gia
-      default: Mặc định
-      html: HTML5
-      flash: Flash
+      require_approval:
+      start:
       footer_text: Điều chỉnh phòng của bạn có thể được thực hiện bất cứ lúc nào.
     rename_room:
       name_placeholder: "Nhập mới tên phòng... "
   name_update_success: Tên phòng đã được thay đổi thành công!
   no_user_email_exists: Không có người dùng hiện tại với email được chỉ định. Hãy chắc chắn rằng bạn đã gõ nó chính xác.
   omniauth_error: Một lỗi xảy ra trong khi xác thực với omniauth. Vui lòng thử lại hoặc liên hệ với quản trị viên!
+  omniauth_specific_error:
   pagy:
     nav:
       prev: "&lsaquo; Trở về"
@@ -219,8 +349,9 @@ vi_VN:
   password_different_notice: Xác nhận mật khẩu không khớp.
   provider:
     google: Google
-    office365: Office 365
+    office365:
     twitter: Twitter
+    ldap:
   recaptcha:
     errors:
       recaptcha_unreachable: "Rất tiếc, chúng tôi không thể xác thực phản hồi reCAPTCHA. Vui lòng thử lại."
@@ -243,7 +374,25 @@ vi_VN:
       public: Công khai
       unlisted: Không liệt kê
     format:
+      notes:
+      podcast:
       presentation: Bản trình chiếu
+      statistics:
+      video:
+  registration:
+    approval:
+      fail:
+      signup:
+    banned:
+      fail: 
+    deprecated:
+      new_signin:
+      twitter_signin:
+      twitter_signup:
+      merge_success:
+    invite:
+      fail:
+      no_invite:
   rename: Đổi tên
   reset_password:
     subtitle: Đặt lại mật khẩu
@@ -251,21 +400,36 @@ vi_VN:
     confirm: Xác nhận mật khẩu mới
     update: Cập nhật Mật khẩu
   roles:
-    administrator: Quản trị viên
+    admin:
     banned: Bị cấm
-    super_admin: Super Admin
+    pending:
     user: Người dùng
   room:
+    access_code_required:
     create_room: Tạo Phòng
     create_room_error: Có lỗi khi tạo phòng
     create_room_success: Phòng được tạo thành công
+    enter_the_access_code:
+    invalid_provider:
     invited: Bạn đã được mời tham gia
     invite_participants: Mời Người tham gia
     join: Tham gia
     last_session: "Phiên cuối cùng trên %{session}"
+    login:
     owner: Người sở hữu
+    no_room:
+      description:
+      edit_profile:
+      go_to:
+      invalid_room_uid:
+      placeholder:
+      no_recent_rooms:
+      recent_rooms:
+      title:
     no_sessions: Phòng này chưa có phiên nào!
     recordings: Bản ghi hình của Phòng
+    room_limit:
+    room_limit_exceeded:
     sessions: Phiên
     settings: Cài đặt Phòng
     start: Bắt đầu
@@ -273,7 +437,7 @@ vi_VN:
     update_settings_error: Có lỗi khi cập nhật cài đặt phòng
     update_settings_success: Cài đặt phòng được cập nhật thành công
     wait:
-      message: Phòng chưa bắt đầu.
+      message:
       auto: Bạn sẽ tự động tham gia khi phòng bắt đầu.
   settings:
     account:
@@ -282,6 +446,7 @@ vi_VN:
       provider: Đối tác cấp tài khoản
       image: Hình ảnh
       image_url: Đường đẫn URL hình ảnh hồ sơ
+      roles:
       subtitle: Cập nhật thông tin Tài khoản
       title: Thông tin Tài khoản
     delete:
