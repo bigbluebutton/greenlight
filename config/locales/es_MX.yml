@@ -309,7 +309,7 @@ es_MX:
     delete_account:
       confirm: "¿Estas seguro de querer eliminar esta cuenta de usuario?"
       delete: Estoy seguro de eliminar ésta cuenta
-      keep: "De hecho, la conserbaré"
+      keep: "De hecho, la conservaré"
       delete_warning: Esta acción desactivará la cuenta de usuario. Todos los usuarios desactivados pueden verse en la pestaña de eliminados.
       warning: "Esta decisión es final, <b>No</b> podrás recuperar la información asociada"
     delete_room:
