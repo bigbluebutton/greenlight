@@ -88,10 +88,9 @@ sv_SE:
     roles:
       can_create_rooms: Kan skapa rum
       delete: Radera rollen
-      duplicate_name: Rollnamnet du angav var ett duplikat. Alla rollnamn måste vara unika
-      empty_name: Alla roller måste ha ett icke tomt namn
-      invalid_order: Användarrollen måste vara den lägsta prioriterade rollen och adminrollen måste vara den högsta prioriterade rollen
-      invalid_update: Du kan inte uppdatera en roll med högre prioritet än din egen roll
+      invalid_create:
+      invalid_order:
+      invalid_update:
       name: Rollnamn
       new_role: Skapa en ny roll
       role_has_users: "Denna roll tilldelas %{user_count} konton. Ta bort alla konton från den här rollen innan du tar bort den."
@@ -101,8 +100,7 @@ sv_SE:
       edit_site_settings: Låt användare med den här rollen redigera webbplatsinställningar
       edit_roles: Låt användare med den här rollen redigera andra roller
       manage_users: Låt användare med den här rollen hantera användare
-      invalid_assignment: Du kan inte tilldela en roll med högre prioritet än din egen till en användare
-      invalid_removal: Du kan inte ta bort en roll med högre prioritet än din egen
+      invalid_assignment: 
       colour:
         title: Rollfärg
         info: Ställ in färgen som ska associeras med rollen
@@ -155,6 +153,7 @@ sv_SE:
     internal:
       message: Ser ut som något gick fel på vår ände.
       help: "Felet har loggats, vi tar en titt!"
+      report:
     maintenance:
       message: Vi är tyvärr stängd för underhåll.
       help: Vi kommer snart tillbaka!

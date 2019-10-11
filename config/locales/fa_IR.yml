@@ -42,6 +42,10 @@ fa_IR:
         info: تغییر تصویر شخصی سازی که در گوشه بالای سمت چپ به نمایش در می آید
         placeholder: ادرس تصویر ...
         title: تصویر شخصی سازی
+      cache:
+        info:
+        title:
+        button:
       color:
         info: تغییر مرتب رنگ هم میزان روشنایی و هم میزان تاریکی را تغییر می دهد. روشنایی و تاریکی به صورت مجزا می توانند تغییرکنند.
         title: رنگ اصلی
@@ -49,8 +53,6 @@ fa_IR:
         lighten: روشن تر
         darken: تیره
       recording_visibility:
-        public: عمومی
-        private: شخصی
         info: اعمال وضعیت نمایش جلسات ضبط شده جدید
         title: وضعیت نمایش پبش فرض جلسات ضبط شده
         warning: این تنظیم تنها به جلساتی که در حال اجرا نیستند اعمال خواهد شد
@@ -77,11 +79,31 @@ fa_IR:
       invite_email_verification: برای استفاده از این امکان می بایست ایمیل فعال شود. لطفا با مدیر سیستم خود تماس بگیرید.
       promoted: کاربر با موفقیت ارتقا نقش داده شد
       registration_method_updated: روش ثبت نام با موفقیت به روز رسانی شد
+      reset_password:
       settings: تنظیمات سایت با موفقیت تغییر یافت
       unauthorized: شما مجاز به انجام این عمل روی این کاربر نیستید
     recordings:
       title: جلسات ضبط شده سرور
       no_recordings: در سرور جلسه ضبط شده ای وجود ندارد.
+    roles:
+      can_create_rooms:
+      delete:
+      invalid_create:
+      invalid_order:
+      invalid_update:
+      name:
+      new_role:
+      role_has_users:
+      title:
+      promote_email:
+      demote_email:
+      edit_site_settings:
+      edit_roles:
+      manage_users:
+      invalid_assignment: 
+      colour:
+        title:
+        info:
     title: تنظیمات سازمان
     users:
       invite: دعوت کاربر
@@ -92,9 +114,8 @@ fa_IR:
         decline: رد
         ban: منع کردن کاربر
         delete: حذف
-        demote: تغییر نقش به کاربر عادی
         edit: ویرایش
-        promote: ارتقا به مدیر
+        edit_roles:
         unban: رفع ممنوعیت کاربر
       table:
         authenticator: احراز کننده هویت
@@ -115,6 +136,8 @@ fa_IR:
     cookie_button: موافق هستم
   copied: کپی شد
   copy: کپی
+  date:
+    month_names:
   default_admin: "شما هنوز از رمز عبور پیش فرض استفاده میکنید. لطفا برای تغییر آن <a href=\"%{edit_link}\"> اینجا </a> را کلیک کنید"
   delete: حذف
   delivery_error: خطایی در هنگام تحویل ایمیل رخ داده است، لطفا با مدیر تماس بگیرید!
@@ -130,10 +153,10 @@ fa_IR:
     internal:
       message: به نظر می رسد چیزی سمت ما به مشکل بر خورده است
       help: خطا لاگ شده است، ما نگاهی به آن خواهیم انداخت!
+      report:
     maintenance:
       message: متاسفانه بابت نگهداشت سیستم در دسترس نیست
       help: به زودی بر میگردیم
-      readonly: این برنامه در وضعیت نگهداشت قرار دارد. شما امکان انجام این عملیات را ندارد
     migration_error:
       contact_admin: اگر شما مدیر نیستید، لطفا با یک مدیر تماس بگیرید.
       continue: ما تمایل به ماندن در نسخه 1.0 را دارم.
@@ -150,8 +173,8 @@ fa_IR:
       confirmation: "با %{attribute} تطابق ندارد"
       inclusion: در لیست قرار داده نشده است
     no_provider:
-      message: برنامه گرین لایت برای مشتری که شما اعلام کرده اید، پیکربندی نشده است
-      help: لطفا با شرکت Blindside Network بابت نصب گرین لایت تماس بگیرید
+      message:
+      help:
     not_found:
       message: متاسفانه، صفحه ای که دنبال آن میگردید وجود ندارد.
       help: آیا ممکن است حذف شده باشد؟
@@ -190,8 +213,7 @@ fa_IR:
       signout: خروج
   home_room: اتاق خانه
   info_update_success: اطلاعات با موفقیت بارگزاری شد
-  invalid_user: ورود به دلیل پیدا نشدن کاربر با خطا مواجه شد. آیا مطمئنید که حساب ایمیل درست است؟
-  invalid_credentials: ورود به دلیل اشتباه بودن نام کاربری/رمز عبور با خطا مواجه شد. آیا مطمئنید که آنها را درست وارد کرده اید؟
+  invalid_credentials:
   invalid_login_method: ورود به دلیل عدم تطابق حساب کاربری با خطا مواجه شد. شما می بایست توسط مکانیزم omniauth وارد شوید.
   invite_message: "برای دعوت کسی به جلسه، این ادرس را برای آنها بفرستید"
   javascript:
@@ -226,10 +248,10 @@ fa_IR:
         subject: حساب کاربری تایید شد
         username: "نام کاربری شما %{email} است."
       demoted:
-        info: "شما دیگر در %{url} مدیر نیستید."
-        more-info: شما در حال حاضر دسترسی هایی مانند یک کاربر عادی دارید و در ادامه دسترسی به امکانات مدیریتی را نخواهید داشت.
+        info:
+        more-info:
         root_link: ورود
-        subtitle: دسترسی های مدیریتی لغو شدند
+        subtitle:
       invite:
         info: "شما به فضای شخصی خود توسط %{name} دعوت شده اید"
         signup_info: برای ثبت نام از طریق ادرس ایمیلتان، روی دکمه زیر کلیک کرده و مراحل را انجام دهید.
@@ -243,16 +265,16 @@ fa_IR:
         username: "نام کاربری شما %{email} است."
       password_reset:
         title: 'بازنشانی رمز عبور'
-        welcome: "به نظر میرسد شما رمز عبور خود را برای %{bigbluebutton} فراموش کرده اید"
-        message: 'اگر این درست است، لطفا روی ادرس زیر کلیک کنید تا رمز عبوز خود را بازنشانی کنید.'
+        welcome:
+        message: ''
         reset_link: رمز عبور را بازنشانی کن
         expire: این ادرس در دو ساعت آینده خاتمه خواهد یافت.
-        ignore: اگر شما درخواست بازنشانی رمز عبور را نداده اید، با اطمینان می توانید این ایمیل را نادیده بگیرید.
+        ignore:
       promoted:
         admins_link: مشاهده صفحه شرکت
-        info: "شما در حال حاضر در %{url} مدیر هستید."
-        more-info: "به عنوان مدیر، شما می توانید کاربران، نقش های آنها و تنظیمات سایت خود را به وسیله تغییر لوگو و رنگ شخصی سازی مدیریت کنید، "
-        subtitle: امکانات مدیر واگذار شد
+        info:
+        more-info:
+        subtitle:
       verify_email:
         welcome: "%{name}! به فضای شخصی خود خوش آمده اید."
         success: "با استفاده از %{bigbluebutton}، شما میتوانید اتاق های شخصی برای میزبابی جلسات و همکاری با دیگران برای خود ایجاد کنید."
@@ -261,8 +283,16 @@ fa_IR:
         verify_text: 'برای تایید حساب کاربری خود، تنها کافی است از زیر استفاده کنید: %{url}'
         verify_link: حساب کاربری را تایید کنید
         thanks: با تشکر از پیوستن شما و روز خوبی داشته باشید!
+  maintenance:
+    window_alert:
   max_concurrent: به سقف مجاز تعداد بیشینه  جلسات همزمان رسیده اید!
   modal:
+    create_role:
+      create:
+      footer_text:
+      name_placeholder:
+      not_blank:
+      title:
     create_room:
       access_code: کد دسترسی
       access_code_placeholder: ایجاد کد دسترسی اختیاری برای جلسه
@@ -284,7 +314,7 @@ fa_IR:
       warning: شما قادر به بازیابی جلسه <b>نخواهید</b> بود
       recording_warning: "یا هر کدام از %{recordings_num} جلسات مربوطه"
     invite_user:
-      email_placeholder: نام ایمیل کاربر را وارد کنید
+      email_placeholder:
       footer: کاربر ایمیلی شامل دستورالعمل چگونگی ثبت نام را دریافت خواهد کرد
       send: ارسال دعوت نامه
       title: دعوت کاربر
@@ -297,18 +327,17 @@ fa_IR:
       title: تنظیمات اتاق
       update: به روز رسانی اتاق
       client: انتخاب نوع کلاینت
+      join_moderator:
       mute: کاربران هنگام ورود به صورت بی صدا وارد شدند
       require_approval: نیازمند موافقت مدیر قبل از ورود می باشد
       start: هر کاربری اجازه شروع این جلسه را دارد
-      default: پیش فرض
-      html: مبتنی بر HTML5
-      flash: مبتنی بر فلش
       footer_text: تنظیمات مربوط به اتاق شما در هر زمانی قابل انجام خواهد بود.
     rename_room:
       name_placeholder: وارد کردن نام اتاق جدید...
   name_update_success: نام اتاق با موفقیت تغییر یافت!
   no_user_email_exists: کاربری با ایمیل مشخص شده وجود ندارد. لطفا مطمئن شوید آن را درست تایپ کرده اید.
   omniauth_error: خطایی در هنگام احراز هویت با مکانیزم omniauth به وجود آمده است. لطفا دوباره تلاش کنید یا با مدیر تماس بگیرید!
+  omniauth_specific_error:
   pagy:
     nav:
       prev: "&lsaquo; قبلی"
@@ -371,10 +400,9 @@ fa_IR:
     confirm: تایید رمز عبور جدید
     update: به روز رسانی رمز عبور
   roles:
-    administrator: مدیر
+    admin:
     banned: منع شده
     pending: در انتظار تایید
-    super_admin: ابر مدیر
     user: کاربر
   room:
     access_code_required: لطفا کد دسترسی معتبر برای ورود به جلسه را وارد کنید
@@ -382,12 +410,22 @@ fa_IR:
     create_room_error: خطایی در هنگام ایجاد اتاق به وجود آمده است
     create_room_success: اتاق با موفقیت ایجاد شد
     enter_the_access_code: کد دسترسی به اتاق را وارد کنید
+    invalid_provider:
     invited: شما برای ملحق شدن دعوت شده اید
     invite_participants: دعوت شرکت کنندگان
     join: پیوستن
     last_session: "آخرین جلسه در %{session}"
-    login: ورود
+    login:
     owner: مالک
+    no_room:
+      description:
+      edit_profile:
+      go_to:
+      invalid_room_uid:
+      placeholder:
+      no_recent_rooms:
+      recent_rooms:
+      title:
     no_sessions: این اتاق هنوز جلسه ای ندارد!
     recordings: موارد ضبط شده اتاق
     room_limit: شما به تعداد ماکسیمم اتاق های مجاز رسیدید.
@@ -408,6 +446,7 @@ fa_IR:
       provider: ارائه کننده
       image: تصویر
       image_url: آدرس تصویر پروفایل
+      roles:
       subtitle: به روز رسانی اطلاعات حساب کاربری
       title: اطلاعات حساب کاربری
     delete:
