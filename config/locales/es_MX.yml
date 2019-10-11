@@ -405,10 +405,10 @@ es_MX:
     confirm: Confirmación de nueva contraseña
     update: Actualizar contraseña
   roles:
-    active: Activo
+    active: Activos
     admin: Admin
     banned: Bloqueado
-    deleted: Eliminado
+    deleted: Eliminados
     pending: Pendiente
     user: Usuario
   room:
