@@ -8,10 +8,15 @@ if [ "$RAILS_ENV" = "production" ] && [ "$DB_ADAPTER" = "postgresql" ]; then
   done
 fi
 
-bundle exec rake db:create
+db_create=$(RAILS_ENV=$RAILS_ENV bundle exec rake db:create)
+echo $db_create
 
-if ! bundle exec rake db:migrate ; then
-  export DB_MIGRATE_FAILED=1
+if [[ $db_create == *"ERROR"* ]]; then
+  echo ">>> Database migration"
+  bundle exec rake db:migrate
+else
+  echo ">>> Database initialization"
+  bundle exec rake db:setup
 fi
 
 bundle exec rake assets:precompile
