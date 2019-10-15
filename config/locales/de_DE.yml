@@ -24,7 +24,7 @@ de_DE:
         email: Email
         name: Name
         password: Passwort
-        password_confirmation: Passwort Bestätigung
+        password_confirmation: Passwortbestätigung
     errors:
       models:
         user:
@@ -77,9 +77,11 @@ de_DE:
       demoted: "Teilnehmer wurde erfolgreich zurückgestuft "
       invite: "Einladung erfolgreich an %{email} geschickt"
       invite_email_verification: "Emailversand muss aktiviert sein, um diese Methode verwenden zu können. Bitte kontaktieren Sie Ihren Systemadministrator."
+      perm_deleted: Nutzer wurde dauerhaft gelöscht
       promoted: Teilnehmer wurde erfolgreich hochgestuft
       registration_method_updated: Registrierungsmethode erfolgreich aktualisiert
       reset_password: "Dem Teilnehmer wurde eine Email zum Passwortreset geschickt (Bitte weisen Sie den Teilnehmer darauf hin, im Spamordner danach zu suchen, falls er die Email nicht erhalten hat)"
+      restored: Nutzer wurde erfolgreich wiederhergestellt
       settings: Seiteneinstellungen erfolgreich geändert
       unauthorized: "Sie haben nicht die notwendigen Rechte, um diese Änderung bei diesem Teilnehmer vorzunehmen."
     recordings:
@@ -116,7 +118,9 @@ de_DE:
         delete: Löschen
         edit: Ändern
         edit_roles: Nutzerrollen verändern
+        perm_delete: Dauerhaft löschen
         unban: Ausschluss des Teilnehmers aufheben.
+        undelete: Löschung rückgängig machen
       table:
         authenticator: Authenticator
         created: Erzeugt
@@ -243,8 +247,8 @@ de_DE:
           info: Ein neuer Nutzer hat sich bei Greenlight angemeldet.
           more-info: "Um diesem Nutzer Zugriff auf Greenlight zu geben, müssen Sie seinen Account in den Organisationseinstellungen genehmigen."
           admins_link: Organisationsseite besuchen
-          subject: Neue Greenlight Nutzerregistierung
-          username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registiert."
+          subject: Neue Greenlight Nutzerregistrierung
+          username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registriert."
         subject: Account genehmigt
         username: "Ihr Nutzername ist %{email}."
       demoted:
@@ -255,11 +259,11 @@ de_DE:
       invite:
         info: "Sie wurden von %{name} in Ihren persönlichen Bereich eingeladen"
         signup_info: "Um sich mit Ihrer Email anzumelden, klicken Sie den untenstehenden Button und folgen Sie den Schritten."
-        signup_link: Registieren
+        signup_link: Registrieren
         signup:
-          info: Ein Nutzer hat Sie dazu eingeladen sich für die Nutzung von Greenlight zu registieren.
+          info: Ein eingeladener Nutzer hat sich bei Greenlight registriert.
           admins_link: Organisationsseite besuchen
-          subject: Registierung neuer Greenlight-Nutzer
+          subject: Registrierung neuer Greenlight-Nutzer
           username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registriert."
         subject: Einladung zur BigBlueButton-Teilnahme
         username: "Ihr Nutzername ist %{email}."
@@ -306,6 +310,7 @@ de_DE:
       confirm: "Sind Sie sicher, dass Sie diesen Account löschen wollen?"
       delete: "Ich bin sicher, der Account soll gelöscht werden."
       keep: Ich behalte ihn doch.
+      delete_warning: Dies deaktiviert den Nutzeraccount. Alle deaktivierten Nutzer findet man unter dem Tab Gelöscht.
       warning: "Diese Entscheidung ist endgültig. Sie werden <b>nicht</b> in der Lage sein, damit verbundene Daten wiederherzustellen."
     delete_room:
       confirm: "Sind Sie sicher, dass Sie %{room}löschen wollen?"
@@ -400,8 +405,10 @@ de_DE:
     confirm: Bestätigung Ihres neuen Passworts
     update: Passwort aktualisieren
   roles:
+    active: Aktiv
     admin: Admin
     banned: Gesperrt
+    deleted: Gelöscht
     pending: Noch nicht erledigt
     user: Benutzer
   room:
