@@ -43,3 +43,5 @@ env
 
 config/terms.md
 coverage*
+
+/atom-sftp-sync.json
