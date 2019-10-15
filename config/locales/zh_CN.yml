@@ -77,9 +77,11 @@ zh_CN:
       demoted: 用户已成功降级
       invite: "邀请成功发送到 %{email}"
       invite_email_verification: 必须启用电子邮件才能使用此方法。请与系统管理员联系。
+      perm_deleted: 用户已被永久删除
       promoted: 用户已成功升级
       registration_method_updated: 注册方法已成功更新
       reset_password: 已向用户发送电子邮件以重置其密码。（如果他们还没有收到邮件，请让他们检查他们的垃圾邮件文件夹）
+      restored: 用户已成功还原
       settings: 已成功更改网站设置
       unauthorized: 您无权对此用户执行操作
     recordings:
@@ -116,7 +118,9 @@ zh_CN:
         delete: 删除
         edit: 编辑
         edit_roles: 编辑用户角色
+        perm_delete: 永久删除
         unban: 取消禁止用户
+        undelete: 撤消删除
       table:
         authenticator: 认证方式
         created: 创建于
@@ -306,6 +310,7 @@ zh_CN:
       confirm: 确实要删除此帐户吗？
       delete: 我确定要删除这个帐户。
       keep: 我还是留着吧。
+      delete_warning: 这将停用用户的帐户。在“已删除”选项卡下可以找到所有未激活的用户。
       warning: 这是最终决定，您将<b>无法</b>恢复相关数据。
     delete_room:
       confirm: "确定要删除%{room}吗?"
@@ -400,8 +405,10 @@ zh_CN:
     confirm: 确认新密码
     update: 更新密码
   roles:
+    active: 激活
     admin: 管理员
     banned: 已禁用
+    deleted: 已删除
     pending: 待定
     user: 用户
   room:
