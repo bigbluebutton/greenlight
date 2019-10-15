@@ -16,7 +16,7 @@ if [[ $db_create == *"ERROR"* ]]; then
   bundle exec rake db:migrate
 else
   echo ">>> Database initialization"
-  bundle exec rake db:setup
+  bundle exec rake db:schema:load
 fi
 
 bundle exec rake assets:precompile
