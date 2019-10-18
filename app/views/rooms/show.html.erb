@@ -36,7 +36,7 @@
         <% unless exceeds_limit %>
           <label class="form-label"><%= t("room.invite_participants") %></label>
           <div class="row">
-            <div class="col-lg-7 col-md-12 mt-2 pr-0">
+            <div class="col-lg-7 col-md-12 mt-2">
               <div class="input-icon invite-link-input">
                 <span class="input-icon-addon">
                   <i class="fas fa-link"></i>
@@ -44,7 +44,7 @@
                 <input id="invite-url" type="text" class="form-control w-100" value="<%= request.base_url + @room.invite_path %>" readonly="">
               </div>
             </div>
-            <div class="col-lg-5 col-md-12 pr-0">
+            <div class="col-lg-5 col-md-12">
               <div class="row">
                 <div class="col-sm-6">
                   <a href="#" id="copy" class="btn btn-primary btn-block mt-2">
@@ -65,7 +65,7 @@
           </div>
         <% end %>
       </div>
-      <div class="offset-lg-1 col-lg-3 col-sm-12 force-bottom mt-5 pr-0">
+      <div class="offset-lg-1 col-lg-3 col-sm-12 force-bottom mt-5">
         <% if @room_running %>
           <%= button_to t("room.join"), room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right" %>
         <% else %>
