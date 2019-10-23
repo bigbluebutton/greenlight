@@ -68,6 +68,11 @@
                     <%= f.check_box :can_edit_site_settings, checked: @selected_role.get_permission("can_edit_site_settings"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_edit_site_settings") %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_manage_rooms_recordings") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.manage_rooms_recordings")%></span>
+                    <%= f.check_box :can_manage_rooms_recordings, checked: @selected_role.get_permission("can_manage_rooms_recordings"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_manage_rooms_recordings") %>
+                <span class="custom-switch-indicator float-right"></span>
+            </label>
             <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_edit_roles") %>">
                 <span class="ml-0 custom-switch-description"><%= t("administrator.roles.edit_roles")%></span>
                     <%= f.check_box :can_edit_roles, checked: @selected_role.get_permission("can_edit_roles"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_edit_roles") %>

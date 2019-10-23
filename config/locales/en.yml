@@ -106,6 +106,14 @@ en:
       colour:
         title: Role Colour
         info: Set the colour that will be associated with the role
+    rooms:
+      title: Server Rooms
+      table:
+        id: ID
+        not_running: Not Running
+        running: Running
+        status: Status
+        view: View
     title: Organization Settings
     users:
       invite: Invite User

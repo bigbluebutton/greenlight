@@ -27,6 +27,30 @@ class Room < ApplicationRecord
 
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
 
+  def self.admins_search(string)
+    active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
+    # Postgres requires created_at to be cast to a string
+    created_at_query = if active_database == "postgresql"
+      "created_at::text"
+    else
+      "created_at"
+    end
+
+    search_query = "rooms.name LIKE :search OR rooms.uid LIKE :search OR users.email LIKE :search" \
+    " OR users.#{created_at_query} LIKE :search"
+
+    search_param = "%#{string}%"
+
+    joins(:owner).where(search_query, search: search_param)
+  end
+
+  def self.admins_order(column, direction)
+    # Include the owner of the table
+    table = joins(:owner)
+    return table.order(Arel.sql("#{column} #{direction}")) if table.column_names.include?(column) || column == "users.name"
+    return table
+  end
+
   # Determines if a user owns a room.
   def owned_by?(user)
     return false if user.nil?

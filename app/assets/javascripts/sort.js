@@ -52,15 +52,12 @@ $(document).on('turbolinks:load', function(){
     // Modify the ui for the tables
     var configure_order = function(header_elem){
       if(header_elem.data('order') === 'asc'){ // asc
-        header_elem.text(header_elem.data("header") + " ↓");
         header_elem.data('order', 'desc');
       }
       else if(header_elem.data('order') === 'desc'){ // desc
-        header_elem.text(header_elem.data("header"));
         header_elem.data('order', 'none');
       }
       else{ // none
-        header_elem.text(header_elem.data("header") + " ↑");
         header_elem.data('order', 'asc');
       }
     }

@@ -25,7 +25,8 @@ class RoomsController < ApplicationController
   before_action :validate_verified_email, except: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: [:create, :join_specific_room]
-  before_action :verify_room_ownership, only: [:destroy, :start, :update_settings]
+  before_action :verify_room_ownership, only: [:destroy]
+  before_action :verify_room_ownership_or_admin, only: [:start, :update_settings]
   before_action :verify_room_owner_verified, only: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :verify_user_not_admin, only: [:show]
@@ -162,7 +163,7 @@ class RoomsController < ApplicationController
     begin
       options = params[:room].nil? ? params : params[:room]
       raise "Room name can't be blank" if options[:name].blank?
-      raise "Unauthorized Request" if !@room.owned_by?(current_user) || @room == current_user.main_room
+      raise "Unauthorized Request" if @room == current_user.main_room
 
       # Update the rooms values
       room_settings_string = create_room_settings_string(options)
@@ -179,7 +180,7 @@ class RoomsController < ApplicationController
       flash[:alert] = I18n.t("room.update_settings_error")
     end
 
-    redirect_to room_path
+    redirect_back fallback_location: room_path(@room)
   end
 
   # GET /:room_uid/logout
@@ -225,6 +226,11 @@ class RoomsController < ApplicationController
   # Ensure the user is logged into the room they are accessing.
   def verify_room_ownership
     return redirect_to root_path unless @room.owned_by?(current_user)
+  end
+
+  # Ensure the user either owns the room or is an admin of the room owner
+  def verify_room_ownership_or_admin
+    return redirect_to root_path if !@room.owned_by?(current_user) && !current_user.admin_of?(@room.owner)
   end
 
   def validate_accepted_terms
