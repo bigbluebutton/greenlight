@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MigrationProduct < ActiveRecord::Base
   self.table_name = :roles
 end
@@ -11,7 +13,8 @@ class AddManageRoomRecordingsToPermissions < ActiveRecord::Migration[5.2]
     reversible do |dir|
       dir.up do
         MigrationProduct.all.each do |role|
-          SubMigrationProduct.create(role_id: role.id, name: "can_manage_rooms_recordings", value: SubMigrationProduct.find_by(role_id: role.id, name: "can_manage_users").value, enabled: true)
+          SubMigrationProduct.create(role_id: role.id, name: "can_manage_rooms_recordings",
+            value: SubMigrationProduct.find_by(role_id: role.id, name: "can_manage_users").value, enabled: true)
         end
       end
 

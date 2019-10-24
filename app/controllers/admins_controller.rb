@@ -68,7 +68,9 @@ class AdminsController < ApplicationController
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
 
     server_rooms = if Rails.configuration.loadbalanced_configuration
-      Room.includes(:owner).where(users: { provider: @user_domain }).admins_search(@search).admins_order(@order_column, @order_direction)
+      Room.includes(:owner).where(users: { provider: @user_domain })
+          .admins_search(@search)
+          .admins_order(@order_column, @order_direction)
     else
       Room.all.admins_search(@search).admins_order(@order_column, @order_direction)
     end

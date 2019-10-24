@@ -47,8 +47,12 @@ class Room < ApplicationRecord
   def self.admins_order(column, direction)
     # Include the owner of the table
     table = joins(:owner)
-    return table.order(Arel.sql("#{column} #{direction}")) if table.column_names.include?(column) || column == "users.name"
-    return table
+
+    if table.column_names.include?(column) || column == "users.name"
+      return table.order(Arel.sql("#{column} #{direction}"))
+    end
+
+    table
   end
 
   # Determines if a user owns a room.

@@ -230,7 +230,7 @@ class RoomsController < ApplicationController
 
   # Ensure the user either owns the room or is an admin of the room owner
   def verify_room_ownership_or_admin
-    return redirect_to root_path if !@room.owned_by?(current_user) && !current_user.admin_of?(@room.owner)
+    return redirect_to root_path if !@room.owned_by?(current_user) && !current_user&.admin_of?(@room.owner)
   end
 
   def validate_accepted_terms
