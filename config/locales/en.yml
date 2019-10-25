@@ -93,6 +93,7 @@ en:
       invalid_create: There was a problem creating a new role. Please check the role values and try again
       invalid_order: There was a problem updating the priority of the role. Please check the values and try again
       invalid_update: There was a problem updating the permissions of the role. Please check the values and try again
+      manage_rooms_recordings: Allow users with this role to manage server rooms and recordings
       name: Role Name
       new_role: Create a new role
       role_has_users: This role is assigned to %{user_count} accounts. Please remove all accounts from this role before deleting it.
