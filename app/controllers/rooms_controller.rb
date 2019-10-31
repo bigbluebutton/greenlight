@@ -116,8 +116,8 @@ class RoomsController < ApplicationController
       # Don't delete the users home room.
       raise I18n.t("room.delete.home_room") if @room == @room.owner.main_room
       @room.destroy
-    rescue => ex
-      flash[:alert] = I18n.t("room.delete.fail", error: ex)
+    rescue => e
+      flash[:alert] = I18n.t("room.delete.fail", error: e)
     else
       flash[:success] = I18n.t("room.delete.success")
     end
