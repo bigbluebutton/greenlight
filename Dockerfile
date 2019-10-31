@@ -4,16 +4,8 @@ FROM ruby:2.5.1-alpine
 RUN apk update \
 && apk upgrade \
 && apk add --update --no-cache \
-build-base curl-dev git postgresql-dev \
-yaml-dev zlib-dev nodejs yarn
-# RUN apt-get update -qq && apt-get install -y build-essential libpq-dev curl
-
-# ADD https://dl.yarnpkg.com/debian/pubkey.gpg /tmp/yarn-pubkey.gpg
-
-# RUN apt-key add /tmp/yarn-pubkey.gpg && rm /tmp/yarn-pubkey.gpg && \
-# echo 'deb http://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list &&  \
-# curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
-# apt-get update && apt-get install -y nodejs yarn
+build-base curl-dev bash tzdata git postgresql-dev \
+yaml-dev sqlite-dev zlib-dev nodejs yarn
 
 # Set an environment variable for the install location.
 ENV RAILS_ROOT /usr/src/app
@@ -30,10 +22,6 @@ RUN bundle install --without development test --deployment --clean
 
 # Adding project files.
 COPY . .
-
-# Precompile assets
-# RUN SECRET_KEY_BASE="$(bundle exec rake secret)" bundle exec rake assets:clean
-# RUN SECRET_KEY_BASE="$(bundle exec rake secret)" bundle exec rake assets:precompile
 
 # Expose port 80.
 EXPOSE 80
