@@ -23,7 +23,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+# gem 'mini_racer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 4.3.3'
@@ -75,7 +75,6 @@ gem 'redcarpet'
 gem 'cancancan', '~> 2.0'
 
 group :production do
-  gem 'sqlite3', '~> 1.3.6'
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'
 
