@@ -426,6 +426,10 @@ en:
     create_room: Create a Room
     create_room_error: There was an error creating the room
     create_room_success: Room created successfully
+    delete:
+      home_room: Can't delete user's Home Room
+      success: Room deleted successfully
+      fail: Failed to delete room (%{error})
     enter_the_access_code: Enter the room's access code
     invalid_provider: You have entered an invalid url. Please check the url and try again.
     invited: You have been invited to join

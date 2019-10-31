@@ -25,8 +25,7 @@ class RoomsController < ApplicationController
   before_action :validate_verified_email, except: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: [:create, :join_specific_room]
-  before_action :verify_room_ownership, only: [:destroy]
-  before_action :verify_room_ownership_or_admin, only: [:start, :update_settings]
+  before_action :verify_room_ownership_or_admin, only: [:start, :update_settings, :destroy]
   before_action :verify_room_owner_verified, only: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :verify_user_not_admin, only: [:show]
@@ -113,10 +112,16 @@ class RoomsController < ApplicationController
 
   # DELETE /:room_uid
   def destroy
-    # Don't delete the users home room.
-    @room.destroy if @room.owned_by?(current_user) && @room != current_user.main_room
-
-    redirect_to current_user.main_room
+    begin
+      # Don't delete the users home room.
+      raise I18n.t("room.delete.home_room") if @room == @room.owner.main_room
+      @room.destroy
+    rescue => ex
+      flash[:alert] = I18n.t("room.delete.fail", error: ex)
+    else
+      flash[:success] = I18n.t("room.delete.success")
+    end
+    redirect_back fallback_location: current_user.main_room
   end
 
   # POST /room/join
@@ -221,11 +226,6 @@ class RoomsController < ApplicationController
   # Find the room from the uid.
   def find_room
     @room = Room.find_by!(uid: params[:room_uid])
-  end
-
-  # Ensure the user is logged into the room they are accessing.
-  def verify_room_ownership
-    return redirect_to root_path unless @room.owned_by?(current_user)
   end
 
   # Ensure the user either owns the room or is an admin of the room owner
