@@ -365,6 +365,7 @@ en:
   recording:
     all_recordings: All Recordings
     email: Email Recording
+    error: There was an error retrieving %{count} recording(s)
     no_recordings: This room has no %{inject}recordings.
     no_user_recordings: You currently have no recordings.
     no_matched_recordings: No %{inject} recordings match your search.
