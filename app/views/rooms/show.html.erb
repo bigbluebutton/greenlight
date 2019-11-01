@@ -21,7 +21,7 @@
 <% end %>
 <div class="background pb-1">
   <div class="container">
-    <div class="row pt-9">
+    <div class="row pt-7 pt-sm-9">
       <div class="col-lg-8 col-sm-12">
         <div id="room-title" class="display-3 form-inline <%= 'edit_hover_class' if current_user.main_room != @room %>" data-path="<%= update_settings_path(@room) %>">
           <% if current_user.main_room == @room %>
