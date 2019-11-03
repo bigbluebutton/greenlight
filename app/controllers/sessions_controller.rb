@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
 
   skip_before_action :verify_authenticity_token, only: [:omniauth, :fail]
   before_action :check_user_signup_allowed, only: [:new]
-  before_action :ensure_unauthenticated_except_twitter, only: [:new, :signin]
+  before_action :ensure_unauthenticated_except_twitter, only: [:new, :signin, :ldap_signin]
 
   # GET /signin
   def signin
