@@ -61,16 +61,28 @@
     <%= f.hidden_field :role_ids, id: "user_role_ids", value: @user.roles.by_priority.pluck(:id).uniq %>
 
     <%= f.label t("settings.account.image"), class: "form-label mt-5" %>
+    <p class="invalid-message invalid-feedback mb-0"><%= t("file_upload.invalid", formats: "[jpg, jpeg, png, bmp]") %></p>
     <div class="row">
       <div class="col-2">
-        <% if @user.image.blank? %>
-          <span class="avatar avatar-xxl mr-5 mt-2 bg-primary"><%= @user.name.first %></span>
+        <% image_attached = @user.avatar.attached? %>
+        <% if image_attached %>
+          <%= image_tag(@user.avatar, id: "avatar-image", class: "avatar avatar-xxl mr-5 mt-2") %>
         <% else %>
-          <span class="avatar avatar-xxl mr-5 mt-2" style="background-image: url(<%= @user.image %>)"></span>
+          <span id="avatar-letter" class="avatar avatar-xxl mr-5 mt-2 bg-primary"><%= @user.name.first %></span>
         <% end %>
       </div>
-      <div class="col-10 mt-5">
-        <%= f.text_field :image, class: "form-control #{form_is_invalid?(@user, :image)}", placeholder: t("settings.account.image_url") %>
+      <div class="col-10 my-auto">
+        <%= f.file_field :avatar, class: "file_upload", accept: "image/*" %>
+        <label for="user_avatar" class="btn btn-outline-primary mb-0">
+          <i class="pr-1 fas fa-images"></i> Choose Image
+        </label>
+
+        <% if image_attached %>
+          <input id="clear-avatar" value="false" type="hidden" name="clear_avatar">
+          <button id="remove-image" type="button" class="btn btn-outline-primary ml-4" data-first="<%= @user.name.first %>">
+            <i class="pr-1 fas fa-trash-alt"></i> Remove Image
+          </button>
+        <% end %>
       </div>
     </div>
   </div>

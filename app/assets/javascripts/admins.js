@@ -44,6 +44,31 @@ $(document).on('turbolinks:load', function(){
     }
     else if(action == "site_settings"){
       loadColourSelectors()
+
+      //Preview the image in the profile to the new image when a file is uploaded
+      $("#image_upload").change(function() {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          var file = e.target.result
+
+          // Format of file is 'data:image/*;...'
+          let colonLocation = file.indexOf(":") + 1
+          var incomingFileType = file.substr(colonLocation, file.indexOf(";")-colonLocation)
+
+          // check to see that the incoming file type is accepted
+          if (incomingFileType.startsWith("image/")) {
+            $(".invalid-message").hide()
+
+            $("#branding-image-preview").attr("src", file)
+          } else {
+            $(".invalid-message").show()
+            $("#image_upload").val("")
+          }
+        }
+
+        reader.readAsDataURL(this.files[0]);
+      })
     }
     else if (action == "roles"){
       // Refreshes the new role modal
@@ -72,12 +97,6 @@ $(document).on('turbolinks:load', function(){
     }
   }
 });
-
-// Change the branding image to the image provided
-function changeBrandingImage(path) {
-  var url = $("#branding-url").val()
-  $.post(path, {value: url})
-}
 
 // Filters by role
 function filterRole(role) {

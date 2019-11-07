@@ -16,8 +16,27 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-class Feature < ApplicationRecord
-  belongs_to :setting
+require 'open-uri'
 
-  has_one_attached :image
+module Uploader
+  extend ActiveSupport::Concern
+
+  # Converts the users image link to an avatar file stored
+  def convert_image_to_avatar(user)
+    begin
+      # Get the last part of the url
+      name = user.image.split("/").last
+
+      file = File.open(user.image)
+
+      # Upload file if its an image
+      user.avatar.attach(io: file, filename: name) if file.content_type.start_with?("image/")
+    rescue e
+      logger.error("Support: Image URL is not valid/available - #{user.uid} - #{user.image}")
+    end
+  end
+
+  def invalid_image_upload(avatar)
+    avatar.present? && !avatar.content_type.start_with?("image/")
+  end
 end

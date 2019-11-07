@@ -110,7 +110,8 @@ Rails.application.configure do
   # Use Lograge for logging
   config.lograge.enabled = true
 
-  config.lograge.ignore_actions = ["HealthCheck::HealthCheckController#index"]
+  config.lograge.ignore_actions = ["HealthCheck::HealthCheckController#index",
+                                   "ActiveStorage::DiskController#show", "ActiveStorage::BlobsController#show"]
 
   config.lograge.custom_options = lambda do |event|
     # capture some specific timing values you are interested in

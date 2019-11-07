@@ -44,11 +44,10 @@
 
           <div class="dropdown">
             <a href="#" class="nav-link pr-0" data-toggle="dropdown">
-              <% if current_user.image.blank? || !valid_url?(current_user.image) %>
-                <span class="avatar"><%= current_user.name.first %></span>
+              <% if current_user.avatar.attached? %>
+                <%= image_tag(current_user.avatar, id: "user-image", class: "avatar") %>
               <% else %>
-                <span id="user-avatar" class="avatar d-none"><%= current_user.name.first %></span>
-                <%= image_tag(current_user.image, id: "user-image", class: "avatar") %>
+                <span class="avatar"><%= current_user.name.first %></span>
               <% end %>
               <span class="ml-2 d-none d-lg-block">
                 <span class="text-default username"><%= current_user.name %></span>

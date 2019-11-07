@@ -122,6 +122,19 @@ class AdminsController < ApplicationController
   end
   # SITE SETTINGS
 
+  # POST /admins/branding_image
+  def branding_image
+    begin
+      # Upload file if its an image
+      flash[:success] = "test"
+    rescue e
+      logger.error("Support: Image URL is not valid/available - #{user.uid} - #{user.image}")
+      flash[:alert] = "test"
+    end
+
+    redirect_to admin_site_settings_path
+  end
+
   # POST /admins/update_settings
   def update_settings
     @settings.update_value(params[:setting], params[:value])

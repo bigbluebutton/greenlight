@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     get '/reset', to: 'admins#reset', as: :admin_reset
     post '/undelete', to: 'admins#undelete', as: :admin_undelete
     # Site Settings
+    post '/branding_image', to: 'admins#branding_image', as: :admin_branding_image
     post '/update_settings', to: 'admins#update_settings', as: :admin_update_settings
     post '/registration_method', to: 'admins#registration_method', as: :admin_change_registration
     post '/coloring', to: 'admins#coloring', as: :admin_coloring

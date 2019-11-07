@@ -200,6 +200,11 @@ en:
     recordings: Recording Management
     designs: Custom Designs
     authentication: User Authentication
+  file_upload:
+    invalid: Invalid file format. Accepted file types are %{formats}
+    convert: Convert Image
+    choose: Choose Image
+    update: Update Image
   footer:
     powered_by: Powered by %{href}.
   forgot_password:

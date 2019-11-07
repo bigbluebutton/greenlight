@@ -24,10 +24,10 @@
                         <div class="card card-profile h-100">
                             <div class="card-header bg-primary h-50"></div>
                             <div class="card-body text-center">
-                                <% if current_user.image.blank? %>
-                                    <span class="avatar avatar-xxxl card-profile-img bg-primary"><%= current_user.name.first %></span>
+                                <% if @user.avatar.attached? %>
+                                    <%= image_tag(current_user.avatar, class: "avatar avatar-xxxl card-profile-img") %>
                                 <% else %>
-                                    <%= image_tag(current_user.image, class: "avatar avatar-xxxl card-profile-img") %>
+                                    <span class="avatar avatar-xxxl card-profile-img bg-primary"><%= current_user.name.first %></span>
                                 <% end %>
                                 <h2 class="mb-3"><%= current_user.name %></h2>
                                 <%= link_to edit_user_path(current_user), class: "btn btn-outline-primary mt-2" do %>

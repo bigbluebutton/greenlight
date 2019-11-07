@@ -18,6 +18,47 @@ $(document).on('turbolinks:load', function(){
   var controller = $("body").data('controller');
   var action = $("body").data('action');
   if ((controller == "admins" && action == "edit_user") || (controller == "users" && action == "edit")) {
+    // Reset the value of the form element that allows the user to clear their avatar
+    $("#clear-avatar").val("false")
+
+    //Preview the image in the profile to the new image when a file is uploaded
+    $("#user_avatar").change(function() {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        var file = e.target.result
+
+        // Format of file is 'data:image/*;...'
+        let colonLocation = file.indexOf(":") + 1
+        var incomingFileType = file.substr(colonLocation, file.indexOf(";")-colonLocation)
+
+        // check to see that the incoming file type is accepted
+        if (incomingFileType.startsWith("image/")) {
+          $(".invalid-message").hide()
+
+          // If its the first image they upload, remove the letter avatar and preview the image avatar
+          if ($("#avatar-letter").length > 0) {
+            $("#clear-avatar").val("false")
+
+            document.getElementById("avatar-letter").outerHTML = "<img id='avatar-image' class='avatar avatar-xxl mr-5 mt-2'></img>"
+          }
+
+          $("#avatar-image").attr("src", file)
+        } else {
+          $(".invalid-message").show()
+          $("#user_avatar").val("")
+        }
+      }
+
+      reader.readAsDataURL(this.files[0]);
+    })
+
+    // Preview the default avatar if the user clicks the remove image button
+    $("#remove-image").click(function() {
+      $("#clear-avatar").val("true")
+      document.getElementById("avatar-image").outerHTML = "<span id='avatar-letter' class='avatar avatar-xxl mr-5 mt-2 bg-primary'>" + $("#remove-image").data("first") + "</span>"
+    })
+
     // Clear the role when the user clicks the x
     $(".clear-role").click(clearRole)
 

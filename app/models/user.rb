@@ -22,6 +22,7 @@ class User < ApplicationRecord
   include Deleteable
 
   attr_accessor :reset_token
+  has_one_attached :avatar
   after_create :setup_user
 
   before_save { email.try(:downcase!) }

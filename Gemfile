@@ -131,3 +131,6 @@ gem 'random_password'
 gem "recaptcha"
 
 gem 'i18n-language-mapping', '~> 0.1.0'
+
+# Active Storage gems
+gem "google-cloud-storage", "~> 1.11", require: false

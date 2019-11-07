@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   include Emailer
   include Registrar
   include Recorder
+  include Uploader
   include Rolify
 
   before_action :find_user, only: [:edit, :change_password, :delete_account, :update]
@@ -85,18 +86,7 @@ class UsersController < ApplicationController
     if params[:setting] == "password"
       # Update the users password.
 
-      if @user.authenticate(user_params[:password])
-        # Verify that the new passwords match.
-        if user_params[:new_password] == user_params[:password_confirmation]
-          @user.password = user_params[:new_password]
-        else
-          # New passwords don't match.
-          @user.errors.add(:password_confirmation, "doesn't match")
-        end
-      else
-        # Original password is incorrect, can't update.
-        @user.errors.add(:password, "is incorrect")
-      end
+      check_user_passwords
 
       # Notify the user that their account has been updated.
       return redirect_to redirect_path,
@@ -104,8 +94,18 @@ class UsersController < ApplicationController
 
       render :change_password
     else
+      # Check to make sure file is of type image
+      if invalid_image_upload(user_params[:avatar])
+        flash[:alert] = I18n.t("file_upload.invalid", formats: "[jpg, jpeg, png, bmp]")
+        return render :edit
+      end
+
       if @user.update_attributes(user_params)
+        # Set the user to unverified if they changed their email
         @user.update_attributes(email_verified: false) if user_params[:email] != @user.email
+
+        # Remove the users image if they clicked the clear image button
+        @user.avatar.purge if params[:clear_avatar] == "true"
 
         user_locale(@user)
 
@@ -193,7 +193,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :image, :password, :password_confirmation,
-      :new_password, :provider, :accepted_terms, :language)
+      :new_password, :provider, :accepted_terms, :language, :avatar)
   end
 
   def send_registration_email
@@ -201,6 +201,22 @@ class UsersController < ApplicationController
       send_invite_user_signup_email(@user)
     elsif approval_registration
       send_approval_user_signup_email(@user)
+    end
+  end
+
+  # Checks the password fields and adds an error if any are invalid
+  def check_user_passwords
+    if @user.authenticate(user_params[:password])
+      # Verify that the new passwords match.
+      if user_params[:new_password] == user_params[:password_confirmation]
+        @user.password = user_params[:new_password]
+      else
+        # New passwords don't match.
+        @user.errors.add(:password_confirmation, "doesn't match")
+      end
+    else
+      # Original password is incorrect, can't update.
+      @user.errors.add(:password, "is incorrect")
     end
   end
 

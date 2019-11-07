@@ -15,6 +15,7 @@ tmp
 /db/production
 public/assets
 public/b
+storage
 coverage/
 .rvmrc
 vendor/bundle

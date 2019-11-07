@@ -21,6 +21,7 @@ class SessionsController < ApplicationController
   include Registrar
   include Emailer
   include LdapAuthenticator
+  include Uploader
 
   skip_before_action :verify_authenticity_token, only: [:omniauth, :fail]
   before_action :check_user_signup_allowed, only: [:new]
@@ -79,6 +80,9 @@ class SessionsController < ApplicationController
       # Check that the user has verified their account
       return redirect_to(account_activation_path(email: user.email)) unless user.activated?
     end
+
+    # Convert the user's image to avatar if they have an image and no avatar
+    convert_image_to_avatar(user) if user.image.present? && !user.avatar.attached?
 
     login(user)
   end

@@ -33,8 +33,6 @@ class Setting < ApplicationRecord
       feature[:value]
     else
       case name
-      when "Branding Image"
-        Rails.configuration.branding_image_default
       when "Primary Color"
         Rails.configuration.primary_color_default
       when "Registration Method"
@@ -43,6 +41,20 @@ class Setting < ApplicationRecord
         false
       when "Room Limit"
         Rails.configuration.number_of_rooms_default
+      end
+    end
+  end
+
+  # Returns an image that is stored locally
+  def get_image(name)
+    feature = features.find_or_create_by!(name: name)
+
+    if feature[:enabled] && feature.image.attached?
+      feature.image
+    else
+      case name
+      when "Branding Image"
+        Rails.configuration.branding_image_default
       end
     end
   end

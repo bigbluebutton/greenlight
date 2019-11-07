@@ -25,10 +25,10 @@
 
     <div class="row">
       <div class="col-lg-6 col-md-8 col-sm-12 form-inline mb-5 align-top">
-        <% if @room.owner.image.blank? %>
-          <span class="avatar"><%= @room.owner.name.first %></span>
+        <% if @room.owner.avatar.attached? %>
+          <%= image_tag(@room.owner.avatar, class: "avatar") %>
         <% else %>
-          <span class="avatar" style="background-image: url(<%= @room.owner.image %>)"></span>
+          <span class="avatar"><%= @room.owner.name.first %></span>
         <% end %>
         <h5 class="font-weight-normal ml-4 mt-3"><%= @room.owner.name %> (<%= t("room.owner") %>)</h5>
       </div>

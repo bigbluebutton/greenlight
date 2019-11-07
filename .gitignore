@@ -35,6 +35,9 @@ env
 # Ignore yarn configs
 /node_modules
 
+# Ignore file storage
+/storage
+
 # IDEs
 .idea
 .idea/**
