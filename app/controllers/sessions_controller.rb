@@ -63,17 +63,22 @@ class SessionsController < ApplicationController
   def create
     logger.info "Support: #{session_params[:email]} is attempting to login."
 
-    user = User.include_deleted.find_by(email: session_params[:email], provider: @user_domain)
+    user = User.include_deleted.find_by(email: session_params[:email])
 
     # Check user with that email exists
     return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user
+
+    is_super_admin = user.has_role? :super_admin
+
+    # Scope user to domain if the user is not a super admin
+    user = User.include_deleted.find_by(email: session_params[:email], provider: @user_domain) unless is_super_admin
     # Check correct password was entered
     return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user.try(:authenticate,
       session_params[:password])
     # Check that the user is not deleted
     return redirect_to root_path, flash: { alert: I18n.t("registration.banned.fail") } if user.deleted?
 
-    unless user.has_role? :super_admin
+    unless is_super_admin
       # Check that the user is a Greenlight account
       return redirect_to(root_path, alert: I18n.t("invalid_login_method")) unless user.greenlight_account?
       # Check that the user has verified their account
