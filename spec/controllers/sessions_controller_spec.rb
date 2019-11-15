@@ -80,7 +80,11 @@ describe SessionsController, type: :controller do
   end
 
   describe "POST #create" do
-    before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(true) }
+    before do
+      allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+      allow_any_instance_of(SessionsController).to receive(:auth_changed_to_local?).and_return(false)
+    end
+
     before(:each) do
       @user1 = create(:user, provider: 'greenlight', password: 'example', password_confirmation: 'example')
       @user2 = create(:user, password: 'example', password_confirmation: "example")

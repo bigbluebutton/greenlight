@@ -406,6 +406,7 @@ en:
     password: New Password
     confirm: New Password Confirmation
     update: Update Password
+    auth_change: The authentication method has changed. Please check your email to set your password.
   roles:
     active: Active
     admin: Admin

@@ -72,6 +72,10 @@ class SessionsController < ApplicationController
 
     # Check user with that email exists
     return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user
+
+    # Check if authenticators have switched
+    return switch_account_to_local(user) if !is_super_admin && auth_changed_to_local?(user)
+
     # Check correct password was entered
     return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user.try(:authenticate,
       session_params[:password])
@@ -224,5 +228,18 @@ class SessionsController < ApplicationController
         I18n.t("registration.deprecated.twitter_signin", link: signin_path(old_twitter_user_id: user.id))
       end
     end
+  end
+
+  # Send the user a password reset email to allow them to set their password
+  def switch_account_to_local(user)
+    user.create_reset_digest
+
+    # Send the user a reset password email
+    send_password_reset_email(user)
+
+    # Overwrite the flash with a more descriptive message
+    flash[:success] = I18n.t("reset_password.auth_change") if flash[:success].present?
+
+    redirect_to signin_path
   end
 end

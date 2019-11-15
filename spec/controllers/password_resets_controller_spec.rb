@@ -115,7 +115,7 @@ describe PasswordResetsController, type: :controller do
       end
 
       it "updates attributes if the password update is a success" do
-        user = create(:user)
+        user = create(:user, provider: "greenlight")
         token = "reset_token"
 
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
