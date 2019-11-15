@@ -65,13 +65,13 @@ class SessionsController < ApplicationController
 
     user = User.include_deleted.find_by(email: session_params[:email])
 
-    # Check user with that email exists
-    return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user
-
-    is_super_admin = user.has_role? :super_admin
+    is_super_admin = user&.has_role? :super_admin
 
     # Scope user to domain if the user is not a super admin
     user = User.include_deleted.find_by(email: session_params[:email], provider: @user_domain) unless is_super_admin
+
+    # Check user with that email exists
+    return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user
     # Check correct password was entered
     return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user.try(:authenticate,
       session_params[:password])
