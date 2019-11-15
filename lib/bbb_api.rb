@@ -28,7 +28,8 @@ module BbbApi
     raise "Provider not included." if !provider || provider.empty?
 
     cached_provider = Rails.cache.fetch("#{provider}/#{route}")
-    return cached_provider unless cached_provider.nil?
+    # Return cached result if the value exists and cache is enabled
+    return cached_provider if !cached_provider.nil? && Rails.configuration.enable_cache
 
     # Build the URI.
     uri = encode_bbb_url(

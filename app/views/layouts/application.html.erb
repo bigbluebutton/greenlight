@@ -29,6 +29,13 @@
     <% end %>
 
     <title><%= t("bigbluebutton") %></title>
+    <meta property="og:title" content="<%= t("bigbluebutton", locale: :en) %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="<%= t("landing.about", href: "Greenlight", locale: :en) %>" />
+    <meta property="og:url" content="<%= request.base_url %>" />
+    <meta property="og:image" content="<%= logo_image %>" />
+
+    <meta name="viewport" content= "width=device-width, user-scalable=no">
     <%= csrf_meta_tags %>
 
     <!-- Global javascript variables and helpers. -->
@@ -45,23 +52,9 @@
     <%= stylesheet_link_tag themes_primary_path %>
 
     <script type="text/javascript">
-      // Rail-ish function to translate a string, according to the Rails locales
-      window.t = function t(key) {
-        if (!key) {
-          return "";
-        }
-
-        var keys = key.split('.');
-        var value = <%= current_translations.to_json.html_safe %>; // Add I18n variables
-
-        keys.forEach(key => {
-          if (value) {
-            value = value[key];
-          }
-        });
-
-        return value ? value : "";
-      }
+      // Include the correct translated strings for Javascript
+      window.I18n = <%= current_translations.to_json.html_safe %>
+      window.I18nFallback = <%= fallback_translations.to_json.html_safe %>
     </script>
   </head>
 

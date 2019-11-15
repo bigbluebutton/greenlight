@@ -9,6 +9,9 @@ AllCops:
 Bundler/OrderedGems:
   Enabled: false
 
+Style/BlockDelimiters:
+  Enabled: false
+
 # Checks if uses of quotes match the configured preference.
 Style/StringLiterals:
   Enabled: false
@@ -97,6 +100,9 @@ Layout/AlignArguments:
 Layout/IndentationWidth:
   Enabled: false
 
+Layout/CaseIndentation:
+  Enabled: false
+
 # Checks for ambiguous block association with method when param passed without parentheses.
 Lint/AmbiguousBlockAssociation:
   Enabled: false
@@ -115,10 +121,13 @@ Metrics/ClassLength:
 
 # Limit lines to 80 characters.
 Metrics/LineLength:
-  Max: 120
+  Max: 130
 
 # Avoid methods longer than 10 lines of code.
 Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
   Enabled: false
 
 # A calculated magnitude based on number of assignments,

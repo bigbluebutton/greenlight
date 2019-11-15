@@ -118,9 +118,14 @@ module Greenlight
 
     config.google_analytics = ENV["GOOGLE_ANALYTICS_TRACKING_ID"].present?
 
+    # Will always be true unless explicitly set to false
+    config.enable_cache = ENV["ENABLE_CACHED_PROVIDER"] != "false"
+
     # MAINTENANCE
     config.maintenance_window = ENV["MAINTENANCE_WINDOW"]
     config.maintenance_mode = ENV["MAINTENANCE_MODE"] == "true"
+
+    config.report_issue_url = ENV["REPORT_ISSUE_URL"]
 
     # DEFAULTS
 

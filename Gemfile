@@ -58,7 +58,7 @@ gem 'bigbluebutton-api-ruby'
 
 # Front-end.
 gem 'bootstrap', '~> 4.3.1'
-gem 'tabler-rubygem', git: 'https://github.com/vbalazs/tabler-rubygem.git', branch: 'fix-sass'
+gem 'tabler-rubygem', git: 'https://github.com/blindsidenetworks/tabler-rubygem.git', tag: '0.1.4.1'
 gem 'pagy'
 gem 'font-awesome-sass', '~> 5.9.0'
 
@@ -70,9 +70,6 @@ gem 'http_accept_language'
 
 # Markdown parsing.
 gem 'redcarpet'
-
-# For health check endpoint
-gem "health_check"
 
 # For limiting access based on user roles
 gem 'cancancan', '~> 2.0'

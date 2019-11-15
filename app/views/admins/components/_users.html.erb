@@ -28,8 +28,10 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<% unless @role.nil? %>
-  <%= render "shared/components/admins_tags" %>
+<% if @role.nil? %>
+  <%= render "admins/components/manage_users_tags" %>
+<% else %>
+  <%= render "admins/components/admins_tags" %>
 <% end %>
 
 <div class="form-group">
@@ -88,43 +90,46 @@
                     <td><%= user.provider %></td>
                     <td class="text-center">
                       <% roles = user.roles().pluck(:name) %>
-                      <%= render "shared/components/admins_role", role: user.highest_priority_role %>
+                      <%= render "admins/components/admins_role", role: user.highest_priority_role %>
                     </td>
                     <td>
-                      <% if roles.include?("pending") %>
+                      <% if !roles.include?("super_admin") %>
                         <div class="item-action dropdown">
                           <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
                             <i class="fas fa-ellipsis-v px-4"></i>
                           </a>
                           <div class="dropdown-menu dropdown-menu">
-                            <%= button_to admin_approve_path(user_uid: user.uid), class: "dropdown-item" do %>
-                              <i class="dropdown-icon far fa-check-circle"></i> <%= t("administrator.users.settings.approve") %>
-                            <% end %>
-                            <%= button_to admin_ban_path(user_uid: user.uid), class: "dropdown-item" do %>
-                              <i class="dropdown-icon far fa-times-circle"></i> <%= t("administrator.users.settings.decline") %>
-                            <% end %>
-                          </div>
-                        </div>
-                      <% elsif !roles.include?("super_admin") %>
-                        <div class="item-action dropdown">
-                          <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
-                            <i class="fas fa-ellipsis-v px-4"></i>
-                          </a>
-                          <div class="dropdown-menu dropdown-menu">
-                            <% if roles.include?("denied") %>
+                            <% if user.deleted? %>
+                              <%= button_to admin_undelete_path(user_uid: user.uid), class: "dropdown-item" do %>
+                                <i class="dropdown-icon fas fa-recycle"></i> <%= t("administrator.users.settings.undelete") %>
+                              <% end %>
+                              <button class="delete-user dropdown-item" data-path="<%= delete_user_path(user_uid: user.uid, permanent: "true") %>" data-toggle="modal" data-target="#deleteAccountModal">
+                                <i class="dropdown-icon fas fa-skull-crossbones"></i> <%= t("administrator.users.settings.perm_delete") %>
+                              </button>
+                            <% elsif roles.include?("denied") %>
                               <%= button_to admin_unban_path(user_uid: user.uid), class: "dropdown-item" do %>
                                 <i class="dropdown-icon fas fa-lock-open"></i> <%= t("administrator.users.settings.unban") %>
+                              <% end %>
+                              <button class= "delete-user dropdown-item" data-path="<%= delete_user_path(user_uid: user.uid) %>" data-delete="temp-delete" data-toggle="modal" data-target="#deleteAccountModal">
+                                <i class="dropdown-icon fas fa-user-minus"></i> <%= t("administrator.users.settings.delete") %>
+                              </button>
+                            <% elsif roles.include?("pending") %>
+                              <%= button_to admin_approve_path(user_uid: user.uid), class: "dropdown-item" do %>
+                                <i class="dropdown-icon far fa-check-circle"></i> <%= t("administrator.users.settings.approve") %>
+                              <% end %>
+                              <%= button_to admin_ban_path(user_uid: user.uid), class: "dropdown-item" do %>
+                                <i class="dropdown-icon far fa-times-circle"></i> <%= t("administrator.users.settings.decline") %>
                               <% end %>
                             <% else %>
                               <%= link_to admin_edit_user_path(user_uid: user.uid), class: "dropdown-item" do %>
                                 <i class="dropdown-icon fas fa-user-edit"></i> <%= t("administrator.users.settings.edit") %>
                               <% end %>
-                              <button class= "delete-user dropdown-item" data-toggle="modal" data-target="#deleteAccountModal">
-                                <i class="dropdown-icon fas fa-user-minus"></i> <%= t("administrator.users.settings.delete") %>
-                              </button>
                               <%= button_to admin_ban_path(user_uid: user.uid), class: "dropdown-item" do %>
                                 <i class="dropdown-icon fas fa-lock"></i> <%= t("administrator.users.settings.ban") %>
                               <% end %>
+                              <button class= "delete-user dropdown-item" data-path="<%= delete_user_path(user_uid: user.uid) %>" data-delete="temp-delete" data-toggle="modal" data-target="#deleteAccountModal">
+                                <i class="dropdown-icon fas fa-user-minus"></i> <%= t("administrator.users.settings.delete") %>
+                              </button>
                             <% end %>
                           </div>
                         </div>

@@ -24,7 +24,7 @@ de_DE:
         email: Email
         name: Name
         password: Passwort
-        password_confirmation: Passwort Bestätigung
+        password_confirmation: Passwortbestätigung
     errors:
       models:
         user:
@@ -77,9 +77,11 @@ de_DE:
       demoted: "Teilnehmer wurde erfolgreich zurückgestuft "
       invite: "Einladung erfolgreich an %{email} geschickt"
       invite_email_verification: "Emailversand muss aktiviert sein, um diese Methode verwenden zu können. Bitte kontaktieren Sie Ihren Systemadministrator."
+      perm_deleted: Nutzer wurde dauerhaft gelöscht
       promoted: Teilnehmer wurde erfolgreich hochgestuft
       registration_method_updated: Registrierungsmethode erfolgreich aktualisiert
       reset_password: "Dem Teilnehmer wurde eine Email zum Passwortreset geschickt (Bitte weisen Sie den Teilnehmer darauf hin, im Spamordner danach zu suchen, falls er die Email nicht erhalten hat)"
+      restored: Nutzer wurde erfolgreich wiederhergestellt
       settings: Seiteneinstellungen erfolgreich geändert
       unauthorized: "Sie haben nicht die notwendigen Rechte, um diese Änderung bei diesem Teilnehmer vorzunehmen."
     recordings:
@@ -88,10 +90,9 @@ de_DE:
     roles:
       can_create_rooms: Kann Räume erstellen
       delete: Rolle löschen
-      duplicate_name: "Der verwendete Rollenname wird bereits verwendet. Alle Rollennamen dürfen nur einmal verwendet werden. "
-      empty_name: Alle Rollen müssen einen nicht leeren Namen haben
-      invalid_order: Die Nutzerrolle muss die niedrigste und die Administratorrolle die höchste Rollenpriorität haben
-      invalid_update: "Sie können keine Rolle ändern, die eine höhere Priorität wie Sie hat"
+      invalid_create: Es kam zu einem Problem beim Erzeugen einer neuen Rolle. Bitte prüfen Sie die Rollenwerte und versuchen Sie es erneut
+      invalid_order: Es kam zu einem Problem beim Aktualisieren der Rollenpriorität. Bitte prüfen Sie die Werte und versuchen Sie es erneut
+      invalid_update: Es kam zu einem Problem beim Aktualisieren der Rollenrechte. Bitte prüfen Sie die Werte und versuchen Sie es erneut
       name: Rollenname
       new_role: Neue Rolle erstellen
       role_has_users: "Diese Rolle ist %{user_count} Accounts zugewiesen. Bitte entfernen Sie alle Accounts von dieser Rolle, bevor Sie sie löschen."
@@ -101,8 +102,7 @@ de_DE:
       edit_site_settings: "Nutzern mit dieser Rolle erlauben, die primären Webseiteneinstellungen zu ändern"
       edit_roles: "Nutzern mit dieser Rolle erlauben, andere Rollen zu verändern"
       manage_users: "Nutzern mit dieser Rolle erlauben, andere Nutzer zu verwalten"
-      invalid_assignment: "Sie können niemandem eine Rolle zuweisen, deren Priorität über Ihrer eigenen Prioritätsstufe liegt"
-      invalid_removal: "Sie können niemandem eine Rolle entziehen, deren Priorität über Ihrer eigenen Prioritätsstufe liegt"
+      invalid_assignment: Es kam zu einem Problem bei der Zuweisung der Rollen zu einem Nutzer. Bitte prüfen Sie die Werte und versuchen Sie es erneut 
       colour:
         title: Rollenfarbe
         info: "Die Farbe einstellen, die dieser Rolle zugewiesen wird"
@@ -118,7 +118,9 @@ de_DE:
         delete: Löschen
         edit: Ändern
         edit_roles: Nutzerrollen verändern
+        perm_delete: Dauerhaft löschen
         unban: Ausschluss des Teilnehmers aufheben.
+        undelete: Löschung rückgängig machen
       table:
         authenticator: Authenticator
         created: Erzeugt
@@ -155,6 +157,7 @@ de_DE:
     internal:
       message: "Es sieht so aus, als ob irgendwas schiefgelaufen ist."
       help: "Der Fehler wurde gespeichert, wir werden ihn analysieren!"
+      report: Problem melden
     maintenance:
       message: "Entschuldigung, wir befinden uns im Wartungsmodus."
       help: Wir sind in Kürze wieder da!
@@ -244,8 +247,8 @@ de_DE:
           info: Ein neuer Nutzer hat sich bei Greenlight angemeldet.
           more-info: "Um diesem Nutzer Zugriff auf Greenlight zu geben, müssen Sie seinen Account in den Organisationseinstellungen genehmigen."
           admins_link: Organisationsseite besuchen
-          subject: Neue Greenlight Nutzerregistierung
-          username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registiert."
+          subject: Neue Greenlight Nutzerregistrierung
+          username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registriert."
         subject: Account genehmigt
         username: "Ihr Nutzername ist %{email}."
       demoted:
@@ -256,11 +259,11 @@ de_DE:
       invite:
         info: "Sie wurden von %{name} in Ihren persönlichen Bereich eingeladen"
         signup_info: "Um sich mit Ihrer Email anzumelden, klicken Sie den untenstehenden Button und folgen Sie den Schritten."
-        signup_link: Registieren
+        signup_link: Registrieren
         signup:
-          info: Ein Nutzer hat Sie dazu eingeladen sich für die Nutzung von Greenlight zu registieren.
+          info: Ein eingeladener Nutzer hat sich bei Greenlight registriert.
           admins_link: Organisationsseite besuchen
-          subject: Registierung neuer Greenlight-Nutzer
+          subject: Registrierung neuer Greenlight-Nutzer
           username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registriert."
         subject: Einladung zur BigBlueButton-Teilnahme
         username: "Ihr Nutzername ist %{email}."
@@ -284,6 +287,8 @@ de_DE:
         verify_text: 'Um Ihren Account zu verifizieren, folgen Sie diesem Link: %{url}'
         verify_link: Account verifizieren
         thanks: Danke für Ihre Registrierung. Wir wünschen Ihnen noch einen wunderbaren Tag!
+  maintenance:
+    window_alert: "Wartungszeitfenster für %{date} geplant"
   max_concurrent: Die maximale Anzahl gleichzeitiger Verbindungen ist erreicht!
   modal:
     create_role:
@@ -305,6 +310,7 @@ de_DE:
       confirm: "Sind Sie sicher, dass Sie diesen Account löschen wollen?"
       delete: "Ich bin sicher, der Account soll gelöscht werden."
       keep: Ich behalte ihn doch.
+      delete_warning: Dies deaktiviert den Nutzeraccount. Alle deaktivierten Nutzer findet man unter dem Tab Gelöscht.
       warning: "Diese Entscheidung ist endgültig. Sie werden <b>nicht</b> in der Lage sein, damit verbundene Daten wiederherzustellen."
     delete_room:
       confirm: "Sind Sie sicher, dass Sie %{room}löschen wollen?"
@@ -313,7 +319,7 @@ de_DE:
       warning: "Sie werden <b>nicht</b> in der Lage sein, diesen Raum wiederherzustellen"
       recording_warning: "oder jegliche seiner %{recordings_num} verknüpften Aufzeichnungen."
     invite_user:
-      email_placeholder: Nutzeremail eingeben
+      email_placeholder: Emailadressen der Nutzer (durch Kommas getrennt)
       footer: "Der Nutzer wird eine Email mit dazu Anweisungen erhalten, wie er sich registrieren kann "
       send: Einladung schicken
       title: Nutzer einladen
@@ -399,8 +405,10 @@ de_DE:
     confirm: Bestätigung Ihres neuen Passworts
     update: Passwort aktualisieren
   roles:
+    active: Aktiv
     admin: Admin
     banned: Gesperrt
+    deleted: Gelöscht
     pending: Noch nicht erledigt
     user: Benutzer
   room:
@@ -409,6 +417,7 @@ de_DE:
     create_room_error: Bei der Erstellung des Raums ist ein Fehler aufgetreten
     create_room_success: Raum erfolgreich erstellt
     enter_the_access_code: Eingabe des Raumzugangscodes
+    invalid_provider: "Sie haben eine ungültige URL eingegeben, bitte überprüfen Sie die URL und versuchen Sie es erneut."
     invited: Sie wurden zur Teilnahme eingeladen
     invite_participants: Teilnehmer einladen
     join: Teilnehmen

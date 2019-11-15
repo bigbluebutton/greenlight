@@ -18,20 +18,8 @@
 
 require 'bbb_api'
 require 'uri'
-require 'i18n/language/mapping'
 
 module ApplicationHelper
-  include MeetingsHelper
-  include BbbApi
-  include I18n::Language::Mapping
-
-  # Gets all configured omniauth providers.
-  def configured_providers
-    Rails.configuration.providers.select do |provider|
-      Rails.configuration.send("omniauth_#{provider}")
-    end
-  end
-
   # Determines which providers can show a login button in the login modal.
   def iconset_providers
     providers = configured_providers & [:google, :twitter, :office365, :ldap]
@@ -50,59 +38,21 @@ module ApplicationHelper
     end
   end
 
-  # Determine if Greenlight is configured to allow user signups.
-  def allow_user_signup?
-    Rails.configuration.allow_user_signup
-  end
-
-  # Determines if the BigBlueButton endpoint is the default.
-  def bigbluebutton_endpoint_default?
-    Rails.configuration.bigbluebutton_endpoint_default == Rails.configuration.bigbluebutton_endpoint
-  end
-
-  # Returns language selection options
-  def language_options
-    locales = I18n.available_locales
-    language_opts = [['<<<< ' + t("language_default") + ' >>>>', "default"]]
-    locales.each do |locale|
-      language_mapping = I18n::Language::Mapping.language_mapping_list[locale.to_s.gsub("_", "-")]
-      language_opts.push([language_mapping["nativeName"], locale.to_s])
-    end
-    language_opts.sort
-  end
-
-  # Parses markdown for rendering.
-  def markdown(text)
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
-      no_intra_emphasis: true,
-      fenced_code_blocks: true,
-      disable_indented_code_blocks: true,
-      autolink: true,
-      tables: true,
-      underline: true,
-      highlight: true)
-
-    markdown.render(text).html_safe
-  end
-
-  def allow_greenlight_accounts?
-    return Rails.configuration.allow_user_signup unless Rails.configuration.loadbalanced_configuration
-    return false unless @user_domain && !@user_domain.empty? && Rails.configuration.allow_user_signup
-    return false if @user_domain == "greenlight"
-    # Proceed with retrieving the provider info
-    begin
-      provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
-      provider_info['provider'] == 'greenlight'
-    rescue => e
-      logger.info e
-      false
-    end
+  # Determines if a form field needs the is-invalid class.
+  def form_is_invalid?(obj, key)
+    'is-invalid' unless obj.errors.messages[key].empty?
   end
 
   # Return all the translations available in the client side through javascript
   def current_translations
     @translations ||= I18n.backend.send(:translations)
-    @translations[I18n.locale].with_indifferent_access[:javascript] || {}
+    @translations[I18n.locale]
+  end
+
+  # Return the fallback translations available in the client side through javascript
+  def fallback_translations
+    @fallback_translations ||= I18n.backend.send(:translations)
+    @fallback_translations[I18n.default_locale]
   end
 
   # Returns the page that the logo redirects to when clicked on
@@ -110,6 +60,13 @@ module ApplicationHelper
     return root_path unless current_user
     return admins_path if current_user.has_role? :super_admin
     current_user.main_room
+  end
+
+  # Returns the action method of the current page
+  def active_page
+    route = Rails.application.routes.recognize_path(request.env['PATH_INFO'])
+
+    route[:action]
   end
 
   def role_colour(role)

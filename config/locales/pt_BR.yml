@@ -42,12 +42,20 @@ pt_BR:
         info: Altera a imagem da marca que aparece no canto superior esquerdo
         placeholder: URL da Imagem
         title: Imagem da Marca
+      cache:
+        info:
+        title:
+        button:
       color:
         info: "Alterar a cor regular irá alterar ambas as cores Iluminada e Escurecida. Iluminada e Escurecida poderão ser alteradas individualmentes, após isso."
         title: Cor primária
         regular: Regular
         lighten: Iluminada
-        Darken: Escurecida
+        darken:
+      recording_visibility:
+        info:
+        title:
+        warning:
       registration:
         info: Altera a maneira com a qual os usuários se registram no site
         title: Método de Registro
@@ -71,8 +79,31 @@ pt_BR:
       invite_email_verification: "E-mails precisam estar habilitados para poder utilizar esse método. Por favor, contate o seu administrador do sistema."
       promoted: Usuário foi promovido com sucesso.
       registration_method_updated: Método de registro atualizado com sucesso.
+      reset_password:
       settings: Configurações do Site alteradas com sucesso.
       unauthorized: Você não possui permissão para realizar ações nesse usuário.
+    recordings:
+      title:
+      no_recordings:
+    roles:
+      can_create_rooms:
+      delete:
+      invalid_create:
+      invalid_order:
+      invalid_update:
+      name:
+      new_role:
+      role_has_users:
+      title:
+      promote_email:
+      demote_email:
+      edit_site_settings:
+      edit_roles:
+      manage_users:
+      invalid_assignment: 
+      colour:
+        title:
+        info:
     title: Configurações da Organização
     users:
       invite: Convidar Usuário
@@ -83,9 +114,8 @@ pt_BR:
         decline: Recusar
         ban: Banir Usuário
         delete: Apagar
-        demote: Rebaixar Usuário
         edit: Editar
-        promote: Promover para Admin
+        edit_roles:
         unban: Desbanir Usuário
       table:
         authenticator: Autenticador
@@ -95,7 +125,7 @@ pt_BR:
         no_users: Nenhum usuário encontrado
         role: Função
         uid: ID de Usuário
-        username: Username
+        username: Identificação
       title: Administrar Usuários
   add_to_google_calendar: "Adicionar ao Google Calendar"
   bigbluebutton: BigBlueButton
@@ -106,6 +136,8 @@ pt_BR:
     cookie_button: Eu concordo
   copied: Copiado
   copy: Copiar
+  date:
+    month_names:
   default_admin: "Você ainda está utilizado a senha padrão para essa conta.  Por favor clique <a href=\"%{edit_link}\">aqui</a> para alterar isso."
   delete: Apagar
   delivery_error: "Um erro ocorreu no envio do e-mail. Por favor, contate um administrador."
@@ -115,12 +147,16 @@ pt_BR:
   enter_your_name: Insira seu nome
   errors:
     bigbluebutton:
-      help: "Por favor, tenha certeza que as etapas apropriadas foram finalizadas.. <a href=\"%{doc_link}\">Saiba mais</a>"
+      help: "Por favor, tenha certeza que as etapas apropriadas foram finalizadas. <a href=\"%{doc_link}\">Saiba mais</a>"
       message: BigBlueButton Endpoint ou Chave Secret inválida
       title: Erro no Servidor
     internal:
-      message: Parece que acontecei alguma coisa errada no nosso lado.
+      message: Parece que aconteceu alguma coisa errada no nosso lado.
       help: "O erro foi registrado, daremos uma olhada."
+      report:
+    maintenance:
+      message:
+      help:
     migration_error:
       contact_admin: "Se você não é um administrador, por favor contate um administrador."
       continue: Gostaria de permanecer usando 1.0.
@@ -136,6 +172,9 @@ pt_BR:
       accepted: precisa ser aceitado
       confirmation: "não corresponde %{attribute}"
       inclusion: não está incluso na lista
+    no_provider:
+      message:
+      help:
     not_found:
       message: Desculpa! A página que você está procurando não existe.
       help: "É possível que isso tenha sido removido?"
@@ -147,7 +186,7 @@ pt_BR:
         message: A URL inserida não é válida.
     title: Erros
     unauthorized:
-      message: Você não possui acesso a essa aplicação.
+      message: Você não possui permissão para visualizar essa página.
       help: "Se você acredita que isso é um erro, por favor, contate o seu administrador do sistema."
   expired_reset_token: O link para resetar a sua senha expirou.
   features:
@@ -165,17 +204,16 @@ pt_BR:
   go_back: Voltar
   greenlight: Greenlight
   header:
-    all_recordings: Todas Gravações.
+    all_recordings: Gravações
     dropdown:
       account_settings: Organização
       help: "Precisa de ajuda?"
-      home: Home
+      home: Sala Inicial
       settings: Perfil
       signout: Sair
   home_room: Sala inicial
   info_update_success: Informações atualizadas com sucesso.
-  invalid_user: "O login falhou por que não encontramos esse usuário no nosso banco de dados. Tem certeza que a conta de e-mail está correta?"
-  invalid_credentials: "O login falhou porque a credencial utilizada é inválida. Tem certeza que inseriu as informações corretamente?"
+  invalid_credentials:
   invalid_login_method: O login falhou porque sua conta foi criada utilizando login social. Selecione a opção de login social para continuar.
   invite_message: "Para convidar alguém para a reunião, envie este link:"
   javascript:
@@ -208,12 +246,12 @@ pt_BR:
           subject: Novo cadastro de conta do Greenlight
           username: "Esse usuário se cadastrou com o nome %{name} e o e-mail %{email}."
         subject: Conta Aprovada
-        username: "Seu username é %{email}."
+        username: "Sua identificação é %{email}."
       demoted:
-        info: "Você não é mais um administrador em %{url}."
-        more-info: Agora você possui os mesmos privilégios que um usuário normal e não poderá mais acessar as configurações de Administrador.
+        info:
+        more-info:
         root_link: Entrar
-        subtitle: Direitos de Administrador Removidos.
+        subtitle:
       invite:
         info: "Você foi convidado para possuir um espaço pessoal por %{name}"
         signup_info: "Para se cadastrar utilizado o seu e-mail, clique no botão abaixo e siga os passos."
@@ -224,31 +262,41 @@ pt_BR:
           subject: Novo Cadastro de Usuário no Greenlight
           username: "Esse usuário se cadastrou com o nome %{name} e o e-mail %{email}."
         subject: Convite para se juntar ao BigBlueButton.
-        username: "Seu username é %{email}."
+        username: "Sua identificação é %{email}."
       password_reset:
         title: 'Reset de senha'
-        welcome: "Parece que você esqueceu sua senha para%{bigbluebutton}"
-        message: 'Se isso for verdade, por favor clique no link abaixo para resetar a sua senha:'
+        welcome:
+        message: ''
         reset_link: Reset de senha
         expire: Esse link expirará em duas horas.
-        ignore: Você pode ignorar esse e-mail caso você não tenha solicitado esse reset de senha.
+        ignore:
       promoted:
         admins_link: Visite a Página da Organização.
-        info: "Agora você é um administrador em %{url}."
-        more-info: "Como administrador, você pode administrar usuários, suas funções e alterar as configurações do site, podendo alterar seu logo e a cor."
-        subtitle: Direitos de Administrador concedidos.
+        info:
+        more-info:
+        subtitle:
       verify_email:
         welcome: "Bem vindo ao seu espaço pessoal, %{name}!"
         success: "Aproveitando %{bigbluebutton}, você pode criar suas próprias salas para hospedar sessões de video-conferências e colaborar com outros."
-        username: "Seu username é %{email}."
+        username: "Sua identificação é %{email}."
         verify: "Para verificar sua conta, clique no link abaixo."
         verify_text: 'Para verificar sua conta, siga esse link: %{url}'
         verify_link: Verificar Conta
         thanks: "Obrigado por se juntar a nós, tenha um ótimo dia!"
+  maintenance:
+    window_alert:
   max_concurrent: O número máximo de sessões simultâneas foi alcançado.
   modal:
+    create_role:
+      create:
+      footer_text:
+      name_placeholder:
+      not_blank:
+      title:
     create_room:
-      auto_join: "Automaticamente, me junte a sala."
+      access_code:
+      access_code_placeholder:
+      auto_join: Entrar na sala automaticamente.
       create: Criar Sala
       free_delete: Você poderá apagar esta sala a qualquer momento.
       name_placeholder: Insira o nome da sala...
@@ -266,7 +314,7 @@ pt_BR:
       warning: Você <b>não</b> será capaz de recuperar essa sala
       recording_warning: "ou qualquer um de suas %{recordings_num} gravações associadas."
     invite_user:
-      email_placeholder: Insira o e-mail do usuário
+      email_placeholder:
       footer: O usuário receberá um e-mail com instruções sobre como se cadastrar
       send: Enviar Convit
       title: Convidar Usuário
@@ -279,16 +327,17 @@ pt_BR:
       title: Configurações da sala
       update: Atualizar sala
       client: Selecione o tipo de cliente
+      join_moderator:
       mute: Usuários entram em mudo
-      default: Padrão
-      html: HTML5
-      flash: Flash
+      require_approval:
+      start:
       footer_text: Você pode editar as configurações da sala a qualquer momento.
     rename_room:
       name_placeholder: Digite o novo nome da sala...
   name_update_success: Nome da sala modificado com sucesso.
   no_user_email_exists: Nenhum usuário foi encontrado com o e-mail especificado. Por favor confirme os dados informados.
   omniauth_error: Um erro ocorreu enquanto autenticava com omniauth. Tente novamente ou contate um administrador.
+  omniauth_specific_error:
   pagy:
     nav:
       prev: "&lsaquo; Anterior"
@@ -308,7 +357,7 @@ pt_BR:
       recaptcha_unreachable: "Oops, não conseguimos validar seu reCAPTCHA. Por favor, tente novamente."
       verification_failed: "Verificação do reCAPTCHA falhou, por favor, tente novamente."
   recording:
-    all_recordings: Todas Gravações
+    all_recordings: Gravações
     email: Enviar link da gravação por e-mail
     no_recordings: "Esta sala não possui %{inject} gravações."
     no_user_recordings: Você não possui gravações.
@@ -325,13 +374,17 @@ pt_BR:
       public: Público
       unlisted: Não listado
     format:
+      notes:
+      podcast:
       presentation: Apresentação
+      statistics:
+      video:
   registration:
     approval:
       fail: "Sua conta ainda não foi aprovada. Se vários dias se passaram desde que você se cadastrou, por favor, contate o seu administrador."
       signup: Sua conta foi criada com sucesso. Ela foi enviada para um administrador para aprovação.
     banned:
-      fail: "Você não possui acesso a essa aplicação. Se você acredita que isso seja um engano, por favor, contate o seu administrador." 
+      fail: "Você não possui permissão para visualizar essa página. Se você acredita que isso seja um engano, por favor, contate o seu administrador." 
     deprecated:
       new_signin: Selecione um novo método de login para a sua conta. Todas as salas de sua antiga conta serão migradas para a nova conta.
       twitter_signin: "Entrar pelo Twitter foi descontinuado e será removido na próxima versão. Clique <a href=\"%{link}\"> aqui </a> para mover a sua conta para um novo método de autenticação."
@@ -347,20 +400,32 @@ pt_BR:
     confirm: Confirmação da nova senha
     update: Atualizar senha
   roles:
-    administrator: Administrador
-    banned: Banid
-    pending: Pendent
-    super_admin: Super Administrador
+    admin:
+    banned: Banido
+    pending: Pendente
     user: Usuário
   room:
+    access_code_required:
     create_room: Criar uma Sala
     create_room_error: Ocorreu um erro ao criar a sala
     create_room_success: Sala criada com sucesso
+    enter_the_access_code:
+    invalid_provider:
     invited: Você foi convidado a participar
     invite_participants: Convidar participantes
     join: Participar
     last_session: "Última sessão em %{session}"
+    login:
     owner: Dono
+    no_room:
+      description:
+      edit_profile:
+      go_to:
+      invalid_room_uid:
+      placeholder:
+      no_recent_rooms:
+      recent_rooms:
+      title:
     no_sessions: Nenhuma sessão foi realizada nesta sala.
     recordings: Gravações da Sala
     room_limit: Você atingiu o número máximo de salas permitido
@@ -372,7 +437,7 @@ pt_BR:
     update_settings_error: Ocorreu um erro ao atualizar as configurações da sala
     update_settings_success: Configurações da sala atualizadas com sucesso
     wait:
-      message: Esse encontro ainda não começou.
+      message: Essa reunião ainda não começou.
       auto: Você será automaticamente inserido na reunião quando ela começar.
   settings:
     account:
@@ -381,6 +446,7 @@ pt_BR:
       provider: Fornecedor
       image: Imagem
       image_url: URL da imagem de perfil
+      roles:
       subtitle: Atualizar suas informações da conta
       title: Informações da conta
     delete:

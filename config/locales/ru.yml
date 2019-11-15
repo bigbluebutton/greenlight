@@ -1,0 +1,486 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+ru:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Условия и положения"
+        email: Email
+        name: Имя
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+    errors:
+      models:
+        user:
+          confirmation: Не совпадает с паролем
+  administrator:
+    site_settings:
+      authentication:
+        disabled: Выключено
+        enabled: Включено
+        info: Только аутентифицированные пользователи могут присоединиться к комнате
+        title: Требуется аутентификация для комнаты
+        user-info: Вы должны войти в Greenlight для присоединения к комнате
+      branding:
+        change: Сменить изображение
+        info: "Сменить фирменное изображение, размещенное в левом верхнем углу"
+        placeholder: Url изображения...
+        title: Фирменное изображение
+      cache:
+        info:
+        title:
+        button:
+      color:
+        info:
+        title: Основной цвет
+        regular:
+        lighten:
+        darken:
+      recording_visibility:
+        info:
+        title:
+        warning:
+      registration:
+        info: Смена способа регистрации пользователей на сайте
+        title: Метод регистрации
+        methods:
+          approval: Удтвердить/Отклонить
+          invite: Присоединиться по приглашению
+          open: Открытая регистрация
+      rooms:
+        info:
+        title: Количество комнат на пользователя
+      subtitle: Изменить Greenlight
+      title: Настройки сайта
+    flash:
+      approved: Пользователь одобрен успешно.
+      banned: Пользователь был успешно забанен
+      unbanned: Пользователь был успешно разбанен
+      delete: Пользователь успешно удален
+      delete_fail: Ошибка удаления пользователя
+      demoted: Пользователь понижен успешно
+      invite: "Приглашение успешно отправлено на адрес%{email}"
+      invite_email_verification:
+      promoted: Пользователь повышен успешно
+      registration_method_updated: Метод регистрации обновлен успешно
+      reset_password:
+      settings: Настройки сайта изменены успешно
+      unauthorized:
+    recordings:
+      title:
+      no_recordings:
+    roles:
+      can_create_rooms:
+      delete:
+      invalid_create:
+      invalid_order:
+      invalid_update:
+      name:
+      new_role:
+      role_has_users:
+      title:
+      promote_email:
+      demote_email:
+      edit_site_settings:
+      edit_roles:
+      manage_users:
+      invalid_assignment: 
+      colour:
+        title:
+        info:
+    title: Настройки организации
+    users:
+      invite: Пригласить пользователя
+      edit:
+        title: Изменить детали пользователя
+      settings:
+        approve: Удтвердить
+        decline: Отклонить
+        ban: Забанить пользователя
+        delete: Удалить
+        edit: Править
+        edit_roles:
+        unban: Разбанить пользователя
+      table:
+        authenticator:
+        created: Создано
+        name: Имя
+        not_found: По вашему поиску пользователи не найдены
+        no_users: Пользователи не найдены
+        role: Роль
+        uid: ID пользователя
+        username: Имя пользователя
+      title: Управление пользователями
+  add_to_google_calendar: "Добавить в Google Calendar"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: "Упс, произошла ошибка при попытке запуска встречи!"
+  cancel: Отмена
+  cookies:
+    cookie_info:
+    cookie_button: Я согласен
+  copied: Скопировано
+  copy: Копировать
+  date:
+    month_names:
+  default_admin: "Вы продолжаете использовать пароль по умолчанию для этого аккаунта. Пожалуйста, нажмите <a href=\"%{edit_link}\">сюда</a> для его смены"
+  delete: Удалить
+  delivery_error: "Произошла ошибка во время доставки электронной почты. Пожалуйста, свяжитесь с администратором!"
+  docs: Документация
+  email: Электронная почта
+  email_sent:
+  enter_your_name: Введите ваше имя!
+  errors:
+    bigbluebutton:
+      help: "Пожалуйста, убедитесь, что были приняты правильные меры. <a href=\"%{doc_link}\">Ознакомиться</a>"
+      message:
+      title: Ошибка сервера
+    internal:
+      message:
+      help: "Ошибка была зарегистрирована, мы посмотрим!"
+      report:
+    maintenance:
+      message:
+      help:
+    migration_error:
+      contact_admin: "Если вы не являетесь администратором, пожалуйста, свяжитесь с одним из них."
+      continue: Я бы хотел продолжать использовать 1.0.
+      notice: >
+        Greenlight обнаружил ошибку переноса базы данных.<br> Это может быть из-за того что вы не обновились до Greenlight 2.0.
+      upgrade: "Покажите мне, как обновить до 2.0!"
+      version: "Мы выпустили новую версию Greenlight, но ваша база данных не совместима."
+    messages:
+      blank: не может быть пустым
+      too_short: слишком короткий
+      invalid:
+      taken:
+      accepted: должен быть принят
+      confirmation: "не совпадает с %{attribute}"
+      inclusion: не входит в список
+    no_provider:
+      message:
+      help:
+    not_found:
+      message: "Извините! Страница, которую вы ищете, не существует."
+      help: "Возможно ли что его удалили?"
+      user_not_found:
+        help: "Пожалуйста, сообщите администратору"
+        message: "Извините, этот пользователь не зарегистрирован"
+      user_missing:
+        help: "Пожалуйста, проверьте URL и попробуйте снова"
+        message: Введенный вами URL неверный
+    title: Ошибки
+    unauthorized:
+      message: У вас нет доступа к этому приложению
+      help: "Если вы считаете, что это ошибка, обратитесь к системному администратору."
+  expired_reset_token: Ссылка на сброс пароля просрочена!
+  features:
+    title: Возможности
+    rooms: Персонализированные комнаты
+    recordings: Управление записями
+    designs: Изменение внешнего вида
+    authentication: Аутентификация пользователей
+  footer:
+    powered_by: "Работает под управлением %{href}."
+  forgot_password:
+    subtitle: Забыли пароль
+    email: Email
+    submit: Отправить
+  go_back: Вернуться
+  greenlight: Greenlight
+  header:
+    all_recordings: Все записи
+    dropdown:
+      account_settings: Организация
+      help: "Требуется помощь?"
+      home:
+      settings: Профиль
+      signout: Выход
+  home_room: Домашняя комната
+  info_update_success: Информация успешно обновлена.
+  invalid_credentials:
+  invalid_login_method: Ошибка входа в систему из-за несоответствия аккаунта. Вы должны войти в систему с помощью omniauth.
+  invite_message: "Чтобы пригласить собеседника, отправьте ему эту ссылку:"
+  javascript:
+    room:
+      mailer:
+        subject: 'был приглашен вами для просмотра записи'
+        body: 'Для просмотра записи следуйте по ссылке ниже:'
+        autogenerated: 'Это письмо автоматически сгенерировано при помощи BigBlueButton'
+        footer: ''
+  landing:
+    about: "%{href} это простой веб интерфейс для вашего сервера веб конференций с открытым исходным кодом BigBlueButton. Вы можете создавать свои собственные комнаты для размещения сессий или присоединяться к другим, используя короткую и удобную ссылку."
+    welcome: Добро пожаловать в BigBlueButton.
+    video: Ознакомьтесь с нашим учебником по использованию Greenlight
+    upgrade: "Покажите мне, как обновить до 2.0!"
+    version: "Мы выпустили новую версию Greenlight, но ваша база данных не совместима."
+  language_default: По умолчанию (язык браузера)
+  ldap_error: "Невозможно подключиться к серверу LDAP. Пожалуйста, проверьте свою конфигурацию LDAP в файле env и убедитесь, что ваш сервер работает."
+  login: Войти
+  login_title: Войдите в свой аккаунт
+  mailer:
+    user:
+      approve:
+        info: Ваш аккаунт был одобрен.
+        signin: "Чтобы получить доступ к вашим личным комнатам, нажмите кнопку ниже и войдите в систему."
+        signin_link: Войти
+        signup:
+          info:
+          more-info:
+          admins_link: Посетить страничку орагнизации
+          subject:
+          username:
+        subject: Аккаунт подтвержден
+        username:
+      demoted:
+        info:
+        more-info:
+        root_link: Войти
+        subtitle:
+      invite:
+        info:
+        signup_info:
+        signup_link:
+        signup:
+          info:
+          admins_link: Посетить страничку орагнизации
+          subject:
+          username:
+        subject: Приглашение присоединиться к BigBlueButton
+        username:
+      password_reset:
+        title: 'Сброс пароля'
+        welcome:
+        message: ''
+        reset_link: Сброс пароля
+        expire: Срок действия этой ссылки истекает через два часа.
+        ignore:
+      promoted:
+        admins_link: Посетить страничку орагнизации
+        info:
+        more-info:
+        subtitle:
+      verify_email:
+        welcome:
+        success:
+        username:
+        verify: "Чтобы подтвердить свой аккаунт, просто нажмите кнопку ниже."
+        verify_text: ''
+        verify_link: Подтверждение аккаунта
+        thanks: Спасибо за присоединение и хорошего дня!
+  maintenance:
+    window_alert:
+  max_concurrent: Достигнуто максимальное количество одновременно разрешенных сессий!
+  modal:
+    create_role:
+      create:
+      footer_text:
+      name_placeholder:
+      not_blank:
+      title:
+    create_room:
+      access_code:
+      access_code_placeholder:
+      auto_join:
+      create: Создать комнату
+      free_delete: Вы можете удалить эту комнату в любое время.
+      name_placeholder: Введите название комнаты...
+      not_blank: Название комнаты не может быть пустым.
+      title: Создать новую комнату
+    delete_account:
+      confirm: "Вы уверены, что хотите удалить этот аккаунт?"
+      delete: "Я уверен, удалите этот аккаунт."
+      keep: Отмена.
+      warning: Это решение является окончательным. Вы <b>не</b> сможете восстановить связанные данные.
+    delete_room:
+      confirm: "Вы уверены, что хотите удалить %{room}?"
+      delete: Удалить.
+      keep: Отмена.
+      warning:
+      recording_warning:
+    invite_user:
+      email_placeholder:
+      footer:
+      send: Выслать приглашение
+      title: Пригласить пользователя
+    login:
+      or: или
+      with: "Войти с помощью %{provider}"
+      forgot_password: "Забыли пароль?"
+    rename_recording:
+    room_settings:
+      title: Настройки комнаты
+      update: Обновить комнату
+      client: Выберите тип клиента
+      join_moderator:
+      mute: Выключить звук пользователей в момент их присоединения
+      require_approval:
+      start:
+      footer_text:
+    rename_room:
+      name_placeholder: Введите название комнаты...
+  name_update_success: "Название комнаты успешно изменено! "
+  no_user_email_exists:
+  omniauth_error: "Произошла ошибка при аутентификации с помощью omniauth. Пожалуйста, попробуйте еще раз или свяжитесь с администратором!"
+  omniauth_specific_error:
+  pagy:
+    nav:
+      prev: "&lsaquo; Пред."
+      next: "След. &rsaquo;"
+      gap:
+  password: Пароль
+  password_empty_notice: Пароль не может быть пустым
+  password_reset_success: Пароль был сброшен
+  password_different_notice: Подтверждение пароля не совпадает.
+  provider:
+    google: Google
+    office365: Office 365
+    twitter: Twitter
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable:
+      verification_failed: "Проверка reCAPTCHA неудачна, пожалуйста, попробуйте еще."
+  recording:
+    all_recordings: Все записи
+    email: Отправить ссылку на e-mail
+    no_recordings: "В этой комнате нет %{inject}записей."
+    no_user_recordings: В настоящее время у вас нет записей.
+    no_matched_recordings:
+    recorded_on: "Записано %{date}"
+    table:
+      name: Название
+      thumbnails: Эскиз
+      length: Продолжительность
+      users: Пользователи
+      visibility: Доступность
+      formats: Формат
+    visibility:
+      public: Публичная
+      unlisted: Личная
+    format:
+      notes:
+      podcast:
+      presentation: Презентация
+      statistics:
+      video:
+  registration:
+    approval:
+      fail:
+      signup:
+    banned:
+      fail: 
+    deprecated:
+      new_signin:
+      twitter_signin:
+      twitter_signup:
+      merge_success:
+    invite:
+      fail:
+      no_invite:
+  rename: Переименовать
+  reset_password:
+    subtitle: Сброс пароля
+    password: Новый пароль
+    confirm: Подтверждение нового пароля
+    update: Обновить пароль
+  roles:
+    admin:
+    banned: Забаненные
+    pending:
+    user: Пользователь
+  room:
+    access_code_required:
+    create_room: Создать комнату
+    create_room_error: Произошла ошибка при создании комнаты
+    create_room_success: Комната создана успешно
+    enter_the_access_code:
+    invalid_provider:
+    invited: Вы были приглашены присоединиться
+    invite_participants: Пригласить участников
+    join: Присоединиться
+    last_session: "Последняя сессия: %{session}"
+    login:
+    owner: Владелец
+    no_room:
+      description:
+      edit_profile:
+      go_to:
+      invalid_room_uid:
+      placeholder:
+      no_recent_rooms:
+      recent_rooms:
+      title:
+    no_sessions: В этой комнате еще нет сессий!
+    recordings: Записи комнаты
+    room_limit: Вы превысили максимальное число разрешенных комнат
+    room_limit_exceeded:
+    sessions: Сесс.
+    settings: Настройки комнаты
+    start: Старт
+    unavailable:
+    update_settings_error:
+    update_settings_success: Настройки комнаты обновлены успешно
+    wait:
+      message: Встреча еще не началась
+      auto: "Вы автоматически присоединитесь, когда начнется встреча."
+  settings:
+    account:
+      fullname: Полное имя
+      language: Язык
+      provider: Провайдер
+      image: Образ
+      image_url: URL изображения профиля
+      roles:
+      subtitle: Обновите информацию о своем аккаунте
+      title: Информация об аккаунте
+    delete:
+      button: "Да, я хочу удалить свой аккаунт."
+      disclaimer: "Если вы решите удалить свой аккаунт, он <b>НЕ</b> сможет быть восстановлен. Вся информация, касающаяся вашего аккаунта, включая настройки, комнаты и записи, будет удалена."
+      subtitle: Удалить мой аккаунт навсегда
+      title: Удалить аккаунт
+    password:
+      confirmation: Подтверждение нового пароля
+      new: Новый пароль
+      old: Старый пароль
+      subtitle: Изменить свой пароль
+      title: Пароль
+    title: Профиль
+    search: Поиск
+  signup:
+    password_confirm: Подтверждение пароля
+    subtitle: Создать аккаунт
+    title: Зарегистрироваться
+    with: "Зарегистрироваться с помощью %{provider}"
+  terms:
+    accept: "Я принимаю %{href}"
+    accept_existing: Я принимаю правила и условия
+    title: Правила и условия
+  test_install: >
+    В этом развертывании используется предварительно настроенный тестовый сервер, его следует заменить своим. Для получения дополнительной информации см. %{href}.
+  update: Обновить
+  verify:
+    accept: Подтвердить
+    activated:
+    already_verified: Аккаунт был подтвержден
+    invalid: Неверная ссылка подтверждения
+    not_verified:
+    resend: Повторно отправить письмо с подтверждением
+    signin:
+    title: Подтвердите Ваш электронный адрес
+    verification:

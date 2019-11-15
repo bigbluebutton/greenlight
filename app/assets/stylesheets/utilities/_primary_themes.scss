@@ -183,3 +183,13 @@ input:focus, select:focus {
   box-shadow: 0 0 0 2px $primary-color-lighten;
   border-color: $primary-color-darken !important;
 }
+
+.custom-control-label::before {
+  border-color: $primary-color-darken !important;
+}
+
+.manage-users-tab {
+  &.selected {
+    @extend .btn-primary;
+  }
+}

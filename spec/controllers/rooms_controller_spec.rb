@@ -28,8 +28,11 @@ def random_valid_room_params
 end
 
 describe RoomsController, type: :controller do
-  it_behaves_like "recorder"
   include Recorder
+  include BbbServer
+
+  let(:bbb_server) { BigBlueButton::BigBlueButtonApi.new("http://bbb.example.com/bigbluebutton/api", "secret", "0.8") }
+
   describe "GET #show" do
     before do
       @user = create(:user)
@@ -41,8 +44,7 @@ describe RoomsController, type: :controller do
 
       get :show, params: { room_uid: @owner.main_room }
 
-      expect(assigns(:recordings)).to eql(recordings(@owner.main_room.bbb_id, @owner.provider))
-      expect(assigns(:is_running)).to eql(@owner.main_room.running?)
+      expect(assigns(:recordings)).to eql(recordings(@owner.main_room.bbb_id))
     end
 
     it "should be able to search recordings if user is owner" do
@@ -64,7 +66,7 @@ describe RoomsController, type: :controller do
     it "should render cant_create_rooms if user doesn't have permission to create rooms" do
       user_role = @user.highest_priority_role
 
-      user_role.can_create_rooms = false
+      user_role.update_permission("can_create_rooms", "false")
       user_role.save!
 
       @request.session[:user_id] = @user.id
@@ -120,6 +122,20 @@ describe RoomsController, type: :controller do
       get :show, params: { room_uid: @owner.main_room, search: :none }
 
       expect(response).to redirect_to(admins_path)
+    end
+
+    it "redirects to root if the providers dont match" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow_any_instance_of(BbbServer).to receive(:room_running?).and_return(true)
+
+      @owner.update_attribute(:provider, "provider1")
+      @user.update_attribute(:provider, "provider2")
+
+      @request.session[:user_id] = @user.id
+      get :show, params: { room_uid: @owner.main_room }
+
+      expect(flash[:alert]).to be_present
+      expect(response).to redirect_to(root_path)
     end
   end
 
@@ -185,11 +201,6 @@ describe RoomsController, type: :controller do
       @user = create(:user)
       @owner = create(:user)
       @room = @owner.main_room
-
-      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_meeting_info).and_return(
-        moderatorPW: "modpass",
-        attendeePW: "attpass",
-      )
     end
 
     it "should use account name if user is logged in and meeting running" do
@@ -198,7 +209,7 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @user.id
       post :join, params: { room_uid: @room, join_name: @user.name }
 
-      expect(response).to redirect_to(@owner.main_room.join_path(@user.name, {}, @user.uid))
+      expect(response).to redirect_to(join_path(@owner.main_room, @user.name, {}, @user.uid))
     end
 
     it "should use join name if user is not logged in and meeting running" do
@@ -206,7 +217,7 @@ describe RoomsController, type: :controller do
 
       post :join, params: { room_uid: @room, join_name: "Join Name" }
 
-      expect(response).to redirect_to(@owner.main_room.join_path("Join Name", {}))
+      expect(response).to redirect_to(join_path(@owner.main_room, "Join Name", {}))
     end
 
     it "should render wait if meeting isn't running" do
@@ -229,7 +240,7 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @user.id
       post :join, params: { room_uid: room, join_name: @user.name }
 
-      expect(response).to redirect_to(room.join_path(@user.name, { user_is_moderator: false }, @user.uid))
+      expect(response).to redirect_to(join_path(room, @user.name, { user_is_moderator: false }, @user.uid))
     end
 
     it "should join the room as moderator if room has the all_join_moderator setting" do
@@ -243,7 +254,7 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @user.id
       post :join, params: { room_uid: room, join_name: @user.name }
 
-      expect(response).to redirect_to(room.join_path(@user.name, { user_is_moderator: true }, @user.uid))
+      expect(response).to redirect_to(join_path(room, @user.name, { user_is_moderator: true }, @user.uid))
     end
 
     it "should render wait if the correct access code is supplied" do
@@ -278,7 +289,7 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @owner.id
       post :join, params: { room_uid: @room, join_name: @owner.name }
 
-      expect(response).to redirect_to(@owner.main_room.join_path(@owner.name, { user_is_moderator: true }, @owner.uid))
+      expect(response).to redirect_to(join_path(@owner.main_room, @owner.name, { user_is_moderator: true }, @owner.uid))
     end
 
     it "redirects to root if owner of room is not verified" do
@@ -348,14 +359,14 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @user.id
       post :start, params: { room_uid: @user.main_room }
 
-      expect(response).to redirect_to(@user.main_room.join_path(@user.name, { user_is_moderator: true }, @user.uid))
+      expect(response).to redirect_to(join_path(@user.main_room, @user.name, { user_is_moderator: true }, @user.uid))
     end
 
     it "should bring to room if not owner" do
       @request.session[:user_id] = @user.id
       post :start, params: { room_uid: @other_room }
 
-      expect(response).to redirect_to(@user.main_room)
+      expect(response).to redirect_to(root_path)
     end
 
     it "should bring to root if not authenticated" do
@@ -394,37 +405,11 @@ describe RoomsController, type: :controller do
         .from(@secondary_room.room_settings).to(formatted_room_params)
       expect(response).to redirect_to(@secondary_room)
     end
-  end
-
-  describe "PATCH #update" do
-    before do
-      @user = create(:user)
-      @secondary_room = create(:room, owner: @user)
-      @editable_room = create(:room, owner: @user)
-    end
-
-    it "properly updates room name through room block and redirects to current page" do
-      @request.session[:user_id] = @user.id
-
-      patch :update, params: { room_uid: @secondary_room, room_block_uid: @editable_room,
-                               setting: :rename_block, room_name: :name }
-
-      expect(response).to redirect_to(@secondary_room)
-    end
 
     it "properly updates room name through room header and redirects to current page" do
       @request.session[:user_id] = @user.id
 
-      patch :update, params: { room_uid: @secondary_room, setting: :rename_header, room_name: :name }
-
-      expect(response).to redirect_to(@secondary_room)
-    end
-
-    it "properly updates recording name and redirects to current page" do
-      @request.session[:user_id] = @user.id
-
-      patch :update, params: { room_uid: @secondary_room, recordid: :recordid,
-                               setting: :rename_recording, record_name: :name }
+      patch :update_settings, params: { room_uid: @secondary_room, setting: :rename_header, room_name: :name }
 
       expect(response).to redirect_to(@secondary_room)
     end

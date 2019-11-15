@@ -43,14 +43,14 @@
 @import "rooms";
 @import "sessions";
 @import "monolith.min.scss";
-
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i&display=swap&subset=latin-ext);
+@import "utilities/fonts";
 
 * {
   outline: none !important;
 }
 
 html, body {
+  font-family: "Source Sans Pro" !important;
   position: relative;
   width: 100%;
   height: 100%;
@@ -174,4 +174,8 @@ table {
 
 .cursor-pointer{
   cursor: pointer;
+}
+
+#delete-confirm:disabled {
+  cursor: not-allowed;
 }

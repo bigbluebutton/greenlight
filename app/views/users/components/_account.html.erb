@@ -1,0 +1,84 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<%= form_for @user, url: update_user_path, method: :patch do |f|  %>
+  <%= hidden_field_tag :setting, "account" %>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-6">
+        <%= f.label t("settings.account.fullname"), class: "form-label" %>
+        <div class="input-icon">
+          <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: t("settings.account.fullname") %>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <%= f.label t("email"), class: "form-label" %>
+        <div class="input-icon">
+          <%= f.text_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email"), readonly: !@user.greenlight_account? %>
+        </div>
+      </div>
+    </div>
+    <br>
+    <%= f.label t("settings.account.provider"), class: "form-label" %>
+    <%= f.text_field :provider, class: "form-control", readonly: "" %>
+    <br>
+    <%= f.label t("settings.account.language"), class: "form-label" %>
+    <%= f.select :language, language_options, {}, { class: "form-control custom-select" } %>
+
+    <% current_user_role = current_user.highest_priority_role %>
+    <br>
+    <br>
+    <%= f.label t("settings.account.roles"), class: "form-label" %>
+    <div id="role-tag-container" class="tags mb-1">
+      <% @user.roles.by_priority.each do |role| %>
+        <span id="<%= "user-role-tag_#{role.id}" %>" style="<%= "background-color: #{role_colour(role)};border-color: #{role_colour(role)};" %>" class="tag user-role-tag">
+          <%= translated_role_name(role) %>
+          <% if (current_user_role.get_permission("can_manage_users") || current_user_role.name == "super_admin") && (role.priority > current_user_role.priority || current_user_role.name == "admin") %>
+            <a data-role-id="<%= role.id %>" class="tag-addon clear-role">
+              <i data-role-id="<%= role.id %>" class="fas fa-times"></i>
+            </a>
+          <% end %>
+        </span>
+      <% end %>
+    </div>
+    <% if current_user_role.get_permission("can_manage_users") || current_user_role.name == "super_admin" %>
+      <% provider = Rails.configuration.loadbalanced_configuration ? current_user.provider : "greenlight" %>
+      <%= f.select :roles, Role.editable_roles(@user_domain).map{|role| [translated_role_name(role), role.id, {'data-colour' => role_colour(role)}]}.unshift(["", nil, {'data-colour' => nil}]), {disabled: disabled_roles(@user)}, { class: "form-control custom-select", id: "role-select-dropdown" } %>
+    <% end %>
+    <%= f.hidden_field :role_ids, id: "user_role_ids", value: @user.roles.by_priority.pluck(:id).uniq %>
+
+    <%= f.label t("settings.account.image"), class: "form-label mt-5" %>
+    <div class="row">
+      <div class="col-2">
+        <% if @user.image.blank? %>
+          <span class="avatar avatar-xxl mr-5 mt-2 bg-primary"><%= @user.name.first %></span>
+        <% else %>
+          <span class="avatar avatar-xxl mr-5 mt-2" style="background-image: url(<%= @user.image %>)"></span>
+        <% end %>
+      </div>
+      <div class="col-10 mt-5">
+        <%= f.text_field :image, class: "form-control #{form_is_invalid?(@user, :image)}", placeholder: t("settings.account.image_url") %>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <%= f.submit t("update"), class: "btn btn-primary float-right ml-4" %>
+
+    <% if can_reset_password %>
+      <%= link_to "Reset user password", admin_reset_path(user_uid: @user.uid), class: "btn btn-primary float-right" %>
+    <% end %>
+  </div>
+<% end %>

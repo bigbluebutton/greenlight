@@ -26,8 +26,7 @@ $(document).on('turbolinks:load', function(){
       (controller == "admins" && action == "server_recordings")) {
     // Submit search if the user hits enter
     $("#search-input").keypress(function(key) {
-      var keyPressed = key.which
-      if (keyPressed == 13) {
+      if (key.which == 13) {
         searchPage()
       }
     })
@@ -35,8 +34,6 @@ $(document).on('turbolinks:load', function(){
     // Add listeners for sort
     $("th[data-order]").click(function(data){
       var header_elem = $(data.target)
-      var controller = $("body").data('controller');
-      var action = $("body").data('action');
 
       if(header_elem.data('order') === 'asc'){ // asc
         header_elem.data('order', 'desc');
@@ -50,15 +47,10 @@ $(document).on('turbolinks:load', function(){
 
       var search = $("#search-input").val();
 
-      if(controller === "rooms" && action === "show"){
-        window.location.replace(window.location.pathname + "?page=1&search=" + search + 
-          "&column=" + header_elem.data("header") + "&direction="+ header_elem.data('order') + 
-          "#recordings-table");
-      }
-      else{
-        window.location.replace(window.location.pathname + "?page=1&search=" + search + 
-          "&column=" + header_elem.data("header") + "&direction="+ header_elem.data('order'));
-      }
+      var url = window.location.pathname + "?page=1&search=" + search + "&column=" + header_elem.data("header") +
+       "&direction=" + header_elem.data('order')
+
+      window.location.replace(addRecordingTable(url))
     })
 
     if(controller === "rooms" && action === "show"){
@@ -75,42 +67,36 @@ $(document).on('turbolinks:load', function(){
 function searchPage() {
   var search = $("#search-input").val();
 
-  var controller = $("body").data('controller');
-  var action = $("body").data('action');
-
   // Check if the user filtered by role
   var role = new URL(location.href).searchParams.get('role')
+  var tab = new URL(location.href).searchParams.get('tab')
 
   var url = window.location.pathname + "?page=1&search=" + search
 
-  if (role) {
-    url += "&role=" + role
-  }  
+  if (role) { url += "&role=" + role } 
+  if (tab) { url += "&tab=" + tab } 
 
-  if(controller === "rooms" && action === "show"){
-    window.location.replace(url + "#recordings-table");
-  } else{
-    window.location.replace(url);
-  }
-  
+  window.location.replace(addRecordingTable(url));
 }
 
 // Clears the search bar
 function clearSearch() {
-  var controller = $("body").data('controller');
-  var action = $("body").data('action');
-
   var role = new URL(location.href).searchParams.get('role')
+  var tab = new URL(location.href).searchParams.get('tab')
 
   var url = window.location.pathname + "?page=1"
 
-  if (role) {
-    url += "&role=" + role
-  }  
+  if (role) { url += "&role=" + role } 
+  if (tab) { url += "&tab=" + tab } 
+  
+  window.location.replace(addRecordingTable(url));
 
-  if(controller === "rooms" && action === "show"){
-    window.location.replace(url + "#recordings-table");
-  } else{
-    window.location.replace(url);
+  var search_params = new URLSearchParams(window.location.search)
+}
+
+function addRecordingTable(url) {
+  if($("body").data('controller') === "rooms" && $("body").data('action') === "show") { 
+    url += "#recordings-table"
   }
+  return url
 }
