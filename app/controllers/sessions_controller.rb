@@ -203,6 +203,9 @@ class SessionsController < ApplicationController
     # If using invitation registration method, make sure user is invited
     return redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless passes_invite_reqs
 
+    # Switch the user to a social account if they exist under the same email with no social uid
+    switch_account_to_social if !@user_exists && auth_changed_to_social?(@auth['info']['email'])
+
     user = User.from_omniauth(@auth)
 
     logger.info "Support: Auth user #{user.email} is attempting to login."
@@ -232,14 +235,25 @@ class SessionsController < ApplicationController
 
   # Send the user a password reset email to allow them to set their password
   def switch_account_to_local(user)
-    user.create_reset_digest
+    logger.info "Switching social account to local account for #{user.uid}"
 
     # Send the user a reset password email
+    user.create_reset_digest
     send_password_reset_email(user)
 
-    # Overwrite the flash with a more descriptive message
+    # Overwrite the flash with a more descriptive message if successful
     flash[:success] = I18n.t("reset_password.auth_change") if flash[:success].present?
 
     redirect_to signin_path
+  end
+
+  # Set the user's social id to the new id being passed
+  def switch_account_to_social
+    user = User.find_by(email: @auth['info']['email'], provider: @user_domain, social_uid: nil)
+
+    logger.info "Switching account to social account for #{user.uid}"
+
+    # Set the user's social id to the one being returned from auth
+    user.update_atrribute(:social_uid, @auth['uid'])
   end
 end
