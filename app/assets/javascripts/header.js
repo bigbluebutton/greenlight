@@ -17,7 +17,9 @@
 $(document).on('turbolinks:load', function(){
   // Stores the current url when the user clicks the sign in button
   $(".sign-in-button").click(function(){
-    var url = [location.protocol, '//', location.host, location.pathname].join('');
+    var url = location.href
+    // Add the slash at the end if it's missing
+    url += url.endsWith("/") ? "" : "/"
     document.cookie ="return_to=" + url
   })
 

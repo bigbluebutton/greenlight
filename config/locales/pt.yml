@@ -21,23 +21,142 @@ pt:
     attributes:
       user:
         accepted_terms: "Termos e Condições"
+        email:
+        name:
+        password:
+        password_confirmation:
+    errors:
+      models:
+        user:
+          confirmation:
+  administrator:
+    site_settings:
+      authentication:
+        disabled:
+        enabled:
+        info:
+        title:
+        user-info:
+      branding:
+        change:
+        info:
+        placeholder:
+        title:
+      cache:
+        info:
+        title:
+        button:
+      color:
+        info:
+        title:
+        regular:
+        lighten:
+        darken:
+      recording_visibility:
+        info:
+        title:
+        warning:
+      registration:
+        info:
+        title:
+        methods:
+          approval:
+          invite:
+          open:
+      rooms:
+        info:
+        title:
+      subtitle:
+      title:
+    flash:
+      approved:
+      banned:
+      unbanned:
+      delete:
+      delete_fail:
+      demoted:
+      invite:
+      invite_email_verification:
+      promoted:
+      registration_method_updated:
+      reset_password:
+      settings:
+      unauthorized:
+    recordings:
+      title:
+      no_recordings:
+    roles:
+      can_create_rooms:
+      delete:
+      invalid_create:
+      invalid_order:
+      invalid_update:
+      name:
+      new_role:
+      role_has_users:
+      title:
+      promote_email:
+      demote_email:
+      edit_site_settings:
+      edit_roles:
+      manage_users:
+      invalid_assignment: 
+      colour:
+        title:
+        info:
+    title:
+    users:
+      invite:
+      edit:
+        title:
+      settings:
+        approve:
+        decline:
+        ban:
+        delete:
+        edit:
+        edit_roles:
+        unban:
+      table:
+        authenticator:
+        created:
+        name:
+        not_found:
+        no_users:
+        role:
+        uid:
+        username:
+      title:
+  add_to_google_calendar:
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: "Oops, aconteceu um erro ao tentar começar a reunião."
   cancel: Cancelar
   cookies:
     cookie_info: "Cookies ajudam a gente a entregar os nossos serviços. Ao usar nossos serviços, você aceita o nosso uso de cookies."
     cookie_button: Eu concordo
+  copied:
   copy: Copiar
+  date:
+    month_names:
+  default_admin:
   delete: Deletar
   delivery_error: Um erro aconteceu durante a entrega de e-mail. Por favor contante um administrador.
   docs: Documentação
   email: E-mail
-  email_sent: "E-mail enviado! (Por favor, verifique a sua pasta de Spam se você não o recebeu)"
+  email_sent:
   enter_your_name: Insira seu nome!
   errors:
+    bigbluebutton:
+      help:
+      message:
+      title:
     internal:
-      message: "Ah, não! Parece que algo deu errado no fim."
+      message:
       help: "O erro foi registrado, daremos uma olhada!"
+      report:
+    maintenance:
+      message:
+      help:
     migration_error:
       contact_admin: "Se você não é um administrador, por favor contate algum."
       continue: Gostaria de permanecer usando 1.0.
@@ -45,13 +164,30 @@ pt:
         Greenlight encontrou um erro de migração no banco de dados.<br> Isso pode ser porque você não atualizou para o Greenlight 2.0.
       upgrade: Mostre-me como atualizar para 2.0!
       version: "Lançamos uma nova versão do Greenlight, entretanto sua base de dados é incompatível."
+    messages:
+      blank:
+      too_short:
+      invalid:
+      taken:
+      accepted:
+      confirmation:
+      inclusion:
+    no_provider:
+      message:
+      help:
     not_found:
-      message: Epa! Parece que não conseguimos encontrar isto.
+      message:
       help: "É possível que tenha sido removido?"
+      user_not_found:
+        help:
+        message:
+      user_missing:
+        help:
+        message:
     title: Erros
-    unprocessable:
-      message: Oops! Solicitação é improcessável.
-      help: Infelizmente esta não é uma solicitação válida.
+    unauthorized:
+      message:
+      help:
   expired_reset_token: O link de reset de senha expirou!
   features:
     title: Características
@@ -68,16 +204,16 @@ pt:
   go_back: Voltar
   greenlight: Greenlight
   header:
-    create_room: Criar Sala
+    all_recordings:
     dropdown:
+      account_settings:
       help: "Precisa de Ajuda?"
-      home: Sala Inicial
-      settings: Configurações
+      home:
+      settings:
       signout: Sair
   home_room: Sala Inicial
   info_update_success: Informações atualizadas com sucesso.
-  invalid_user: "O login falhou devido à credenciais inválidas. Tem certeza que inseriu corretamente?"
-  invalid_credentials: "O login falhou devido à credenciais inválidas. Tem certeza que inseriu corretamente?"
+  invalid_credentials:
   invalid_login_method: Seu login falhou por causa de erro de conta. Você precisa entrar utilizando o Omniauth.
   invite_message: "Para convidar alguém para a reunião, envie este link:"
   javascript:
@@ -96,40 +232,92 @@ pt:
   language_default: Padrão (idioma do navegador)
   ldap_error: Não é possível conectar-se ao servidor LDAP. Verifique sua configuração LDAP no arquivo ENV e certifique-se de que seu servidor está funcionando.
   login: Login
+  login_title:
   mailer:
     user:
+      approve:
+        info:
+        signin:
+        signin_link:
+        signup:
+          info:
+          more-info:
+          admins_link:
+          subject:
+          username:
+        subject:
+        username:
+      demoted:
+        info:
+        more-info:
+        root_link:
+        subtitle:
+      invite:
+        info:
+        signup_info:
+        signup_link:
+        signup:
+          info:
+          admins_link:
+          subject:
+          username:
+        subject:
+        username:
       password_reset:
         title: 'Reset de senha'
-        welcome: "Parece que você esqueceu sua senha do %{bigbluebutton}"
-        message: 'Se isso for verdade, por favor clique no link abaixo para resetar a sua senha:'
+        welcome:
+        message: ''
         reset_link: Reset de Senha
         expire: Esse link expirará em duas horas.
-        ignore: Você pode ignorar esse e-mail se você não solicitou um reset de senha.
+        ignore:
+      promoted:
+        admins_link:
+        info:
+        more-info:
+        subtitle:
       verify_email:
-        welcome: "Bem-vindo ao %{bigbluebutton}, %{name}!"
-        success: "Você registrou com sucesso a sua conta do %{bigbluebutton}. O seu nome de usuário é %{email}."
+        welcome:
+        success:
+        username:
         verify: "Para verificar sua conta, clique no botão abaixo."
         verify_text: 'Para verificar a sua conta, apenas siga esse link: %{url}'
         verify_link: Verificar Conta
         thanks: "Obrigado por se juntar a nós, tenha um ótimo dia!"
+  maintenance:
+    window_alert:
   max_concurrent: O número máximo de sessões concorrentes permitidas foi alcançado!
   modal:
+    create_role:
+      create:
+      footer_text:
+      name_placeholder:
+      not_blank:
+      title:
     create_room:
-      auto_join: Entrar automaticamente na sala.
+      access_code:
+      access_code_placeholder:
+      auto_join:
+      create:
       free_delete: Você será livre para deletar esta sala a qualquer tempo.
       name_placeholder: Insira o nome da sala...
       not_blank: O nome da sala não pode ficar vazio.
       title: Criar Nova Sala
     delete_account:
-      confirm: "Tem certeza que deseja deletar sua conta?"
-      delete: "Estou certo, deletar minha conta."
+      confirm:
+      delete:
       keep: No momento irei mantê-la.
       warning: Esta é uma decisão final. Você <b>não</b> será capaz de recuperar os dados associados.
     delete_room:
       confirm: "Você tem certeza de que deseja deletar %{room}?"
       delete: "Estou certo, deletar esta sala."
       keep: "Em um segundo pensamento, irei mantê-la."
-      warning: Você <b>não</b> será capaz de recuperar esta sala ou qualquer uma das gravações associadas a ela.
+      warning:
+      recording_warning:
+    invite_user:
+      email_placeholder:
+      footer:
+      send:
+      title:
     login:
       or: ou
       with: "Login com %{provider}"
@@ -139,25 +327,37 @@ pt:
       title: Configurações da Sala
       update: Atualizar Sala
       client: Selecione o tipo de client
+      join_moderator:
       mute: Mute usuários quando eles entrarem
-      default: Padrão
-      html: HTML5
-      flash: Flas
+      require_approval:
+      start:
       footer_text: Ajustes à sua sala podem ser feito a qualquer momento.
     rename_room:
       name_placeholder: Entre um novo nome para a sala...
   name_update_success: O nome da sala foi alterado com sucesso!
   no_user_email_exists: "Não existe um usuário com o e-mail especificado. Por favor, tenha certeza que você o digitou corretamente."
   omniauth_error: Um erro ocorreu enquanto autenticava com omniauth. Tente novamente ou contate um administrador!
+  omniauth_specific_error:
+  pagy:
+    nav:
+      prev:
+      next:
+      gap:
   password: Senha
   password_empty_notice: A senha não pode ficar vazia.
   password_reset_success: A sua senha foi resetada.
   password_different_notice: A Confirmação de Senha não corresponde a Senha inserida acima.
   provider:
     google: Google
-    office365: Office 365
+    office365:
     twitter: Twitter
+    ldap:
+  recaptcha:
+    errors:
+      recaptcha_unreachable:
+      verification_failed:
   recording:
+    all_recordings:
     email: Enviar Gravação por E-mail
     no_recordings: "Esta sala não possui %{inject} gravações."
     no_user_recordings: Você não possui nenhuma gravação.
@@ -174,23 +374,62 @@ pt:
       public: Público
       unlisted: Privado
     format:
+      notes:
+      podcast:
       presentation: Apresentação
+      statistics:
+      video:
+  registration:
+    approval:
+      fail:
+      signup:
+    banned:
+      fail: 
+    deprecated:
+      new_signin:
+      twitter_signin:
+      twitter_signup:
+      merge_success:
+    invite:
+      fail:
+      no_invite:
   rename: Renomear
   reset_password:
     subtitle: Resetar Senha
     password: Nova Senha
     confirm: Nova Confirmação de Senha
     update: Atualizar Senha
+  roles:
+    admin:
+    banned:
+    pending:
+    user:
   room:
+    access_code_required:
+    create_room:
     create_room_error: Ocorreu um erro na criação da sala
     create_room_success: Sala criada com sucesso
+    enter_the_access_code:
+    invalid_provider:
     invited: Você foi convidado a participar
     invite_participants: Convidar participantes
     join: Participar
     last_session: "Última sessão em %{session}"
+    login:
     owner: Proprietário
+    no_room:
+      description:
+      edit_profile:
+      go_to:
+      invalid_room_uid:
+      placeholder:
+      no_recent_rooms:
+      recent_rooms:
+      title:
     no_sessions: "Esta sala não possui sessões, ainda!"
-    recordings: Gravações
+    recordings:
+    room_limit:
+    room_limit_exceeded:
     sessions: Sessões
     settings: Configurações da Sala
     start: Iniciar
@@ -198,15 +437,16 @@ pt:
     update_settings_error: Aconteceu um erro ao tentar atualizar as configurações da sala
     update_settings_success: Configurações da sala atualizadas com sucesso.
     wait:
-      message: A reunião ainda não iniciou.
+      message:
       auto: Você será automaticamente inserido na reunião quando ela começar.
   settings:
     account:
-      fullname: Nome Completo
+      fullname:
       language: Linguage
       provider: Fornecedor
       image: Imagem
       image_url: URL da Imagem de Perfil
+      roles:
       subtitle: Atualizar suas Informações de Conta
       title: Informações de Conta
     delete:
@@ -214,17 +454,14 @@ pt:
       disclaimer: "Se você escolher deletar sua conta, isto <b>NÃO</b> poderá ser desfeito. Todas as informações relacionadas a sua conta, incluindo configurações, salas e gravações serão removidas."
       subtitle: Deletar conta Permanentemente
       title: Deletar Conta
-    design:
-      not_supported: Personalização atualmente não suportada.
-      subtitle: Personalizar Greenlight
-      title: Design
     password:
       confirmation: Confirmação da Nova Senha
       new: Nova Senha
       old: Senha Antiga
       subtitle: Alterar sua Senha
       title: Senha
-    title: Configurações
+    title:
+    search:
   signup:
     password_confirm: Confirmação de Senha
     subtitle: Criar uma Conta
@@ -246,3 +483,4 @@ pt:
     resend: Reenviar e-mail de verificação
     signin: "Por favor, entre para acessar sua conta."
     title: Verifique seu e-mail
+    verification:

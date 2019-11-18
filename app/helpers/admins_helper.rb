@@ -19,36 +19,18 @@
 module AdminsHelper
   include Pagy::Frontend
 
-  # Returns the action method of the current page
-  def active_page
-    route = Rails.application.routes.recognize_path(request.env['PATH_INFO'])
-
-    route[:action]
-  end
-
   # Gets the email of the room owner to which the recording belongs to
   def recording_owner_email(room_id)
     Room.find_by(bbb_id: room_id).owner.email
   end
 
-  def display_invite
-    current_page?(admins_path) && invite_registration
-  end
-
-  def registration_method
-    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Registration Method")
-  end
-
-  def invite_registration
-    registration_method == Rails.configuration.registration_methods[:invite]
-  end
-
-  def approval_registration
-    registration_method == Rails.configuration.registration_methods[:approval]
+  def admin_invite_registration
+    controller_name == "admins" && action_name == "index" &&
+      @settings.get_value("Registration Method") == Rails.configuration.registration_methods[:invite]
   end
 
   def room_authentication_string
-    if Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Authentication") == "true"
+    if @settings.get_value("Room Authentication") == "true"
       I18n.t("administrator.site_settings.authentication.enabled")
     else
       I18n.t("administrator.site_settings.authentication.disabled")
@@ -56,8 +38,7 @@ module AdminsHelper
   end
 
   def recording_default_visibility_string
-    if Setting.find_or_create_by!(provider: user_settings_provider)
-              .get_value("Default Recording Visibility") == "public"
+    if @settings.get_value("Default Recording Visibility") == "public"
       I18n.t("recording.visibility.public")
     else
       I18n.t("recording.visibility.unlisted")
@@ -65,7 +46,7 @@ module AdminsHelper
   end
 
   def registration_method_string
-    case registration_method
+    case @settings.get_value("Registration Method")
     when Rails.configuration.registration_methods[:open]
         I18n.t("administrator.site_settings.registration.methods.open")
     when Rails.configuration.registration_methods[:invite]
@@ -76,7 +57,7 @@ module AdminsHelper
   end
 
   def room_limit_number
-    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
+    @settings.get_value("Room Limit").to_i
   end
 
   def edit_disabled

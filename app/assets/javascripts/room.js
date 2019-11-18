@@ -44,92 +44,92 @@ $(document).on('turbolinks:load', function(){
     if ($("#cant-create-room-wrapper").length){
       $(".wrapper").css('height', '100%').css('height', '-=130px');
     }
-  }
 
-  // Display and update all fields related to creating a room in the createRoomModal
-  $("#create-room-block").click(function(){
-    $("#create-room-name").val("")
-    $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
-    $("#room_access_code").val(null)
-
-    $("#createRoomModal form").attr("action", $("body").data('relative-root'))
-    $("#room_mute_on_join").prop("checked", false)
-    $("#room_require_moderator_approval").prop("checked", false)
-    $("#room_anyone_can_start").prop("checked", false)
-    $("#room_all_join_moderator").prop("checked", false)
-
-    //show all elements & their children with a create-only class
-    $(".create-only").each(function() {
-      $(this).show()
-      if($(this).children().length > 0) { $(this).children().show() }
+    // Display and update all fields related to creating a room in the createRoomModal
+    $("#create-room-block").click(function(){
+      showCreateRoom(this)
     })
 
-    //hide all elements & their children with a update-only class
-    $(".update-only").each(function() {
-      $(this).attr('style',"display:none !important")
-      if($(this).children().length > 0) { $(this).children().attr('style',"display:none !important") }
-    })
-  })
-
-  // Display and update all fields related to creating a room in the createRoomModal
-  $(".update-room").click(function(){
-    var room_block_uid = $(this).closest("#room-block").data("room-uid")
-    $("#create-room-name").val($(this).closest("tbody").find("#room-name h4").text())
-    $("#createRoomModal form").attr("action", room_block_uid + "/update_settings")
-
-    //show all elements & their children with a update-only class
-    $(".update-only").each(function() {
-      $(this).show()
-      if($(this).children().length > 0) { $(this).children().show() }
+    // Display and update all fields related to creating a room in the createRoomModal
+    $(".update-room").click(function(){
+      showUpdateRoom(this)
     })
 
-    //hide all elements & their children with a create-only class
-    $(".create-only").each(function() {
-      $(this).attr('style',"display:none !important")
-      if($(this).children().length > 0) { $(this).children().attr('style',"display:none !important") }
+    $(".delete-room").click(function() {
+      showDeleteRoom(this)
     })
-
-    updateCurrentSettings($(this).closest("#room-block").data("room-settings"))
-    
-    accessCode = $(this).closest("#room-block").data("room-access-code")
-
-    if(accessCode){
-      $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code") + ": " + accessCode)
-      $("#room_access_code").val(accessCode)
-    } else{
-      $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
-      $("#room_access_code").val(null)
-    }
-  })
-
-  //Update the createRoomModal to show the correct current settings
-  function updateCurrentSettings(settings){
-    //set checkbox
-    if(settings.muteOnStart){
-      $("#room_mute_on_join").prop("checked", true)
-    } else { //default option
-      $("#room_mute_on_join").prop("checked", false)
-    }
-
-    if(settings.requireModeratorApproval){
-      $("#room_require_moderator_approval").prop("checked", true)
-    } else { //default option
-      $("#room_require_moderator_approval").prop("checked", false)
-    }
-    
-    if(settings.anyoneCanStart){
-      $("#room_anyone_can_start").prop("checked", true)
-    } else { //default option
-      $("#room_anyone_can_start").prop("checked", false)
-    }
-
-    if(settings.joinModerator){
-      $("#room_all_join_moderator").prop("checked", true)
-    } else { //default option
-      $("#room_all_join_moderator").prop("checked", false)
-    }
   }
 });
+
+function showCreateRoom(target) {
+  var modal = $(target)
+  $("#create-room-name").val("")
+  $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
+  $("#room_access_code").val(null)
+
+  $("#createRoomModal form").attr("action", $("body").data('relative-root'))
+  $("#room_mute_on_join").prop("checked", false)
+  $("#room_require_moderator_approval").prop("checked", false)
+  $("#room_anyone_can_start").prop("checked", false)
+  $("#room_all_join_moderator").prop("checked", false)
+
+  //show all elements & their children with a create-only class
+  $(".create-only").each(function() {
+    $(this).show()
+    if($(this).children().length > 0) { $(this).children().show() }
+  })
+
+  //hide all elements & their children with a update-only class
+  $(".update-only").each(function() {
+    $(this).attr('style',"display:none !important")
+    if($(this).children().length > 0) { $(this).children().attr('style',"display:none !important") }
+  })
+}
+
+function showUpdateRoom(target) {
+  var modal = $(target)
+  var room_block_uid = modal.closest("#room-block").data("room-uid")
+  $("#create-room-name").val(modal.closest("tbody").find("#room-name h4").text())
+  $("#createRoomModal form").attr("action", room_block_uid + "/update_settings")
+
+  //show all elements & their children with a update-only class
+  $(".update-only").each(function() {
+    $(this).show()
+    if($(this).children().length > 0) { $(this).children().show() }
+  })
+
+  //hide all elements & their children with a create-only class
+  $(".create-only").each(function() {
+    $(this).attr('style',"display:none !important")
+    if($(this).children().length > 0) { $(this).children().attr('style',"display:none !important") }
+  })
+
+  updateCurrentSettings(modal.closest("#room-block").data("room-settings"))
+  
+  var accessCode = modal.closest("#room-block").data("room-access-code")
+
+  if(accessCode){
+    $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code") + ": " + accessCode)
+    $("#room_access_code").val(accessCode)
+  } else {
+    $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
+    $("#room_access_code").val(null)
+  }
+}
+
+function showDeleteRoom(target) {
+  $("#delete-header").text(getLocalizedString("modal.delete_room.confirm").replace("%{room}", $(target).data("name")))
+  $("#delete-confirm").parent().attr("action", $(target).data("path"))
+}
+
+//Update the createRoomModal to show the correct current settings
+function updateCurrentSettings(settings){
+  //set checkbox
+  $("#room_mute_on_join").prop("checked", settings.muteOnStart)
+  $("#room_require_moderator_approval").prop("checked", settings.requireModeratorApproval)
+  $("#room_anyone_can_start").prop("checked", settings.anyoneCanStart)
+  $("#room_all_join_moderator").prop("checked", settings.joinModerator)
+}
 
 function generateAccessCode(){
   const accessCodeLength = 6

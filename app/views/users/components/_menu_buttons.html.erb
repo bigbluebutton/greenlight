@@ -1,0 +1,28 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="list-group list-group-transparent mb-0">
+  <%= link_to edit_user_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "edit"}" do %>
+    <span class="icon mr-3"><i class="fas fa-user"></i></span><%= t("settings.account.title") %>
+  <% end %>
+  <% if current_user.greenlight_account? %>
+    <%= link_to change_password_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "change_password"}" do %>
+      <span class="icon mr-3"><i class="fas fa-key"></i></span><%= t("settings.password.title") %>
+    <% end %>
+  <% end %>
+  <%= link_to delete_account_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "delete_account"}" do %>
+    <span class="icon mr-3"><i class="fas fa-trash-alt"></i></span><%= t("settings.delete.title") %>
+  <% end %>
+</div>

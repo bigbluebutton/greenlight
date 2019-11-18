@@ -77,9 +77,11 @@ zh_CN:
       demoted: 用户已成功降级
       invite: "邀请成功发送到 %{email}"
       invite_email_verification: 必须启用电子邮件才能使用此方法。请与系统管理员联系。
+      perm_deleted: 用户已被永久删除
       promoted: 用户已成功升级
       registration_method_updated: 注册方法已成功更新
       reset_password: 已向用户发送电子邮件以重置其密码。（如果他们还没有收到邮件，请让他们检查他们的垃圾邮件文件夹）
+      restored: 用户已成功还原
       settings: 已成功更改网站设置
       unauthorized: 您无权对此用户执行操作
     recordings:
@@ -88,10 +90,9 @@ zh_CN:
     roles:
       can_create_rooms: 可以创建会议室
       delete: 删除角色
-      duplicate_name: 您提供的角色名称重复了。所有角色名称必须唯一。
-      empty_name: 所有角色必须具有非空名称
-      invalid_order: 用户角色必须是最低优先级角色，管理员角色必须是最高优先级角色。
-      invalid_update: 不能修改优先级高于自己角色的角色
+      invalid_create: 创建新角色时出现问题。请检查角色赋值并重试。
+      invalid_order: 更新角色的优先级时出现问题。请检查赋值并重试。
+      invalid_update: 更新角色的权限时出现问题。请检查赋值并重试。
       name: 角色名称
       new_role: 创建新角色
       role_has_users: "此角色已非配给 %{user_count} 等帐户。 请删除此角色中的所有帐户再删除角色。"
@@ -101,8 +102,7 @@ zh_CN:
       edit_site_settings: 允许具有此角色的用户编辑网站设置
       edit_roles: 允许具有此角色的用户编辑其他角色
       manage_users: 允许具有此角色的用户管理用户
-      invalid_assignment: 不能将优先级高于自己的角色分配给用户
-      invalid_removal: 不能删除优先级高于自己的角色
+      invalid_assignment: 将角色分配给用户时出现问题。请检查赋值并重试。 
       colour:
         title: 角色颜色
         info: 设置将与角色关联的颜色
@@ -118,7 +118,9 @@ zh_CN:
         delete: 删除
         edit: 编辑
         edit_roles: 编辑用户角色
+        perm_delete: 永久删除
         unban: 取消禁止用户
+        undelete: 撤消删除
       table:
         authenticator: 认证方式
         created: 创建于
@@ -155,6 +157,7 @@ zh_CN:
     internal:
       message: 看来服务器这边出了点问题。
       help: 错误信息已经记录了，我们会检查一下!
+      report: 报告问题
     maintenance:
       message: 对不起，我们正在下线维修中。
       help: 我们很快就回来！
@@ -307,6 +310,7 @@ zh_CN:
       confirm: 确实要删除此帐户吗？
       delete: 我确定要删除这个帐户。
       keep: 我还是留着吧。
+      delete_warning: 这将停用用户的帐户。在“已删除”选项卡下可以找到所有未激活的用户。
       warning: 这是最终决定，您将<b>无法</b>恢复相关数据。
     delete_room:
       confirm: "确定要删除%{room}吗?"
@@ -401,8 +405,10 @@ zh_CN:
     confirm: 确认新密码
     update: 更新密码
   roles:
+    active: 激活
     admin: 管理员
     banned: 已禁用
+    deleted: 已删除
     pending: 待定
     user: 用户
   room:

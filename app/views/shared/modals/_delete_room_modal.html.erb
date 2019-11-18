@@ -13,30 +13,28 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="modal fade" id="deleteRoomModal_<%= room.uid %>" tabindex="-1" role="dialog">
+<div class="modal fade" id="deleteRoomModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content text-center">
       <div class="modal-body">
         <div class="card-body p-6">
           <div class="card-title">
-            <h3><%= t("modal.delete_room.confirm", room: room.name) %></h3>
+            <h3 id="delete-header"></h3>
           </div>
 
           <button type="button" class="btn btn-info my-1 btn-del-room" data-dismiss="modal">
             <%= t("modal.delete_room.keep") %>
           </button>
 
-          <%= button_to room, method: :delete, id: "delete-confirm", class: "btn btn-danger my-1 btn-del-room" do %>
+          <%= button_to "/", method: :delete, id: "delete-confirm", class: "btn btn-danger my-1 btn-del-room" do %>
             <%= t("modal.delete_room.delete") %>
           <% end %>
 
         </div>
         <div class="card-footer">
-          <p>
+          <p id="delete-footer">
             <%= t("modal.delete_room.warning").html_safe %>
-            <% if recording_count > 0 %>
-              <%= t("modal.delete_room.recording_warning", recordings_num: recording_count).html_safe %>
-            <% end %>
+            <%= t("modal.delete_room.recording_warning", recordings_num:"").html_safe %>
           </p>
         </div>
       </div>

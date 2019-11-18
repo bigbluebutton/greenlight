@@ -21,6 +21,14 @@ it:
     attributes:
       user:
         accepted_terms: "Termini e condizioni"
+        email:
+        name: Nome
+        password:
+        password_confirmation: Conferma della Password
+    errors:
+      models:
+        user:
+          confirmation: La password non coincide
   administrator:
     site_settings:
       authentication:
@@ -28,18 +36,26 @@ it:
         enabled: Abilitato
         info: Permettere l'accesso solo ad utenti autenticati
         title: Richiedi autenticazione per ogni stanza
-        user-info: Devi registrarti ad DENTAL LIVE Manager per accedere alla stanza
+        user-info: Devi prima registrarti a BigBlueButton per accedere alla stanza
       branding:
         change: Cambia immagine
         info: Cambia il logo del brand che appare nell'angolo in alto a sinistra
         placeholder: Indirizzo immagine...
         title: Logo
+      cache:
+        info:
+        title:
+        button:
       color:
         info: "Cambiando il valore del colore di base, verranno cambiati sia la versione chiara che scura. Le due versioni possono essere modificate individualmente"
         title: Colore primario
         regular: Colore di base
         lighten: Chiaro
-        Darken: Scuro
+        darken: Scuro
+      recording_visibility:
+        info: Imposta la visibilità di default per ogni nuova registrazione video
+        title: Visibilità di default della registrazione video
+        warning: Questa impostazione sarà applicata unicamente alle stanze che in questo momento non sono già avviate
       registration:
         info: Cambiare il modo in cui gli utenti si registrano al sito web
         title: Metodo di registrazione
@@ -47,6 +63,9 @@ it:
           approval: Approva/Rifiuta
           invite: Accesso tramite invito
           open: Registrazione libera
+      rooms:
+        info: Limita il numero di stanze che un utente può avere (inclusa la stanza Home). Questa impostazione non si applica agli utenti Amministratori
+        title: Numero di stanze per utente
       subtitle: Personalizza Greenlight
       title: Impostazioni Sito
     flash:
@@ -57,22 +76,46 @@ it:
       delete_fail: Errore nell'eliminazione utente
       demoted: L'utente è stato declassato
       invite: "L'invito è stato inviato a %{email}"
-      invite_email_verification: ""
+      invite_email_verification: L'email deve essere abilitata per poter usare questo metodo. Prego contatta il tuo amministratore di sistema
       promoted: L'utente è stato promosso
       registration_method_updated: Il metodo di registrazione è stato aggiornato con successo
+      reset_password: Agli utenti è stata inviata una mail per procedere con il reset della password (Prego avvisali di controllare anche la loro cartella di spam se non dovessero ricevere tale mail)
       settings: Le impostazioni web sono state modificate con successo
       unauthorized: Non sei autorizzato ad effettuare modifiche sull'utente
+    recordings:
+      title: Registrazioni video sul server
+      no_recordings: Il server non ha registrazioni video
+    roles:
+      can_create_rooms: Non posso creare la stanza
+      delete: Cancella il ruolo
+      invalid_create:
+      invalid_order:
+      invalid_update:
+      name: Nome del Ruolo
+      new_role: Crea un nuovo ruolo
+      role_has_users: "Questo ruolo è ancora assegnato a %{user_count} utenti. Prego rimuovi tutti gli utenti con quel ruolo prima di eliminare il ruolo stesso"
+      title: Ruoli
+      promote_email: Manda una email agli Utenti quando gli viene hanno assegnato questo ruolo
+      demote_email: Manda una email agli Utenti quando sono rimossi da questo ruolo
+      edit_site_settings: Consenti agli Utenti con questo ruolo di modificare le impostazioni del sito
+      edit_roles: Consenti agli Utenti con questo ruolo di modificare altri ruoli
+      manage_users: Consenti agli Utenti di questo ruolo di gestire il profilo di altri utenti
+      invalid_assignment: 
+      colour:
+        title: Colore associato al ruolo
+        info: Imposta il colore che sarà associato al ruolo
     title: Impostazioni dell'organizzazione
     users:
       invite: Invita utente
       edit:
         title: Modifica dettagli utente
       settings:
+        approve: Approva
+        decline: Rifiuta
         ban: Blocca utente
         delete: Elimina
-        demote: Declassa utente
         edit: Modifica
-        promote: Rendi amministratore
+        edit_roles: Modifica i ruoli dell'utente
         unban: Sblocca utente
       table:
         authenticator: Gestore di autenticazione
@@ -85,7 +128,7 @@ it:
         username: Nome utente
       title: Gestisci utenti
   add_to_google_calendar: "Aggiungi a Google Calendar"
-  bigbluebutton: GrandeBottoneBlu
+  bigbluebutton: BigBlueButton
   bigbluebutton_exception: "Dannazione, c'è stato un errore nell'avvio del meeting!"
   cancel: Annulla
   cookies:
@@ -93,6 +136,8 @@ it:
     cookie_button: Accetto
   copied: Copiato
   copy: Copia
+  date:
+    month_names: [~, Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre]
   default_admin: "Stai utilizzando la password di default per l'account. Clicca <a href=\"%{edit_link}\">qui</a> per cambiarla"
   delete: Elimina
   delivery_error: Si è verificato un'errore nella consegna della mail. Contatta un amministratore!
@@ -106,8 +151,12 @@ it:
       message: "Impostazioni di collegamento, Endpoint e Secret, errati"
       title: Errore del server
     internal:
-      message: Diamine! Sembra che qualcosa non funzioni qui da noi.
-      help: "L'errore è stato salvato, abbiamo inviato un gruppo di scimmie per risolvere il problema."
+      message:
+      help: L'errore è stato salvato nel file di log per poter essere analizzato
+      report:
+    maintenance:
+      message: "Ci dispiace, siamo offline per operazioni tecniche di manutenzione"
+      help: Torneremo presto online!
     migration_error:
       contact_admin: "Non sei un amministratore, dovresti contattarne uno serio."
       continue: Voglio restare con la verisione 1.0.
@@ -123,16 +172,22 @@ it:
       accepted: devono essere accettati
       confirmation: "non corrisponde a %{attribute}"
       inclusion: non è nella lista
+    no_provider:
+      message: Il sito a cui stai provando ad accedere non è abilitato
+      help: Prego contatta l'amministratore di sistema affinché configuri Greenlight
     not_found:
-      message: Maledizione! Non riusciamo a trovarlo.
-      help: "Possibile che sia stato rimosso?"
+      message: Spiacente! La pagina che stai cercando non esiste.
+      help: "Possibile che sia stato rimossa?"
+      user_not_found:
+        help: Prego contatta un amministratore.
+        message: "Spiacente, questo Utente non è registrato."
+      user_missing:
+        help: "Prego, verifica l'esattezza dell'indirizzo URL e riprova"
+        message: L'indirizzo URL che hai inserito non è valido.
     title: Errori
     unauthorized:
       message: Non hai accesso a questa applicazione
       help: "Se credi che sia un errore, contatta il tuo amministratore."
-    unprocessable:
-      message: Cavolo! Non possiamo processare la richiesta.
-      help: Sfortunatamente non è una richiesta valida.
   expired_reset_token: Il link per il reset della password è scaduto!
   features:
     title: Caratteristiche
@@ -147,7 +202,7 @@ it:
     email: Email
     submit: Invia
   go_back: Indietro
-  greenlight: LuceVerde
+  greenlight: Greenlight
   header:
     all_recordings: Tutte le Registrazioni
     dropdown:
@@ -158,8 +213,7 @@ it:
       signout: Esci
   home_room: Stanza principale
   info_update_success: Le informazioni sono state aggiornate.
-  invalid_user: "Accesso fallito: utente non trovato. Sicuro che l'email sia corretta?"
-  invalid_credentials: "Accesso fallito: credenziali errate. Sicuro che le credenziali siano corrette?"
+  invalid_credentials: L'email e/o la password che hai fornito non hanno riscontro in archivio. Prova ancora o clicca su "Ho dimenticato la password" per resettare e reimpostare la tua password attuale
   invalid_login_method: "Accesso fallito: account non corretto. Devi effettuare l'accesso con omniauth."
   invite_message: "Per invitare qualcuno a partecipare, inviagli questo link: "
   javascript:
@@ -187,40 +241,40 @@ it:
         signin_link: Entra
         signup:
           info: "Un nuovo utente si è registrato "
-          more-info: ""
-          admins_link: ""
-          subject: ""
-          username: ""
-        subject: ""
-        username: ""
+          more-info:
+          admins_link:
+          subject:
+          username:
+        subject:
+        username:
       demoted:
-        info: ""
-        more-info: ""
-        root_link: ""
-        subtitle: ""
+        info:
+        more-info:
+        root_link:
+        subtitle:
       invite:
-        info: ""
-        signup: To signup using your email, click the button below and follow the steps.
-        signup_link: ""
+        info:
+        signup_info:
+        signup_link:
         signup:
-          info: ""
-          admins_link: ""
-          subject: ""
-          username: ""
-        subject: ""
-        username: ""
+          info:
+          admins_link:
+          subject:
+          username:
+        subject:
+        username:
       password_reset:
         title: 'Reimposta password'
-        welcome: "Sembra che tu abbia dimenticato la password per %{bigbluebutton}"
-        message: 'Se è così, clicca sul link seguente per reimpostare la tua password:'
+        welcome:
+        message: ''
         reset_link: Reimposta Password
         expire: Questo link scadrà tra 2 ore.
-        ignore: Se non hai richiesto tu di reimpostare la password puoi ignorare questa email.
+        ignore:
       promoted:
-        admins_link: ""
-        info: ""
-        more-info: ""
-        subtitle: ""
+        admins_link:
+        info:
+        more-info:
+        subtitle:
       verify_email:
         welcome: "Benvenuti nel vostro spazio personale, %{name}!"
         success: "Supporta %{bigbluebutton}, puoi creare le tue stanze e ospitare meeting per collaborare con altri utenti."
@@ -229,9 +283,19 @@ it:
         verify_text: 'Per verificare il tuo account, visita questo indirizzo: %{url}'
         verify_link: Verifica Account
         thanks: "Grazie per aver participato, buona giornata!"
+  maintenance:
+    window_alert:
   max_concurrent: E' stato raggiunto il massimo numero di sessioni contemporanee!
   modal:
+    create_role:
+      create:
+      footer_text:
+      name_placeholder:
+      not_blank:
+      title:
     create_room:
+      access_code:
+      access_code_placeholder:
       auto_join: Aggiungimi automaticamente alla stanza
       create: Crea Stanza
       free_delete: Puoi eliminare la stanza in qualsiasi momento.
@@ -247,13 +311,13 @@ it:
       confirm: "Sicuro di voler eliminare %{room}?"
       delete: "Sono sicuro, elimina la stanza."
       keep: "Ripensandoci, penso che la terrò."
-      warning: ""
-      recording_warning: ""
+      warning:
+      recording_warning:
     invite_user:
-      email_placeholder: ""
-      footer: ""
-      send: ""
-      title: ""
+      email_placeholder:
+      footer:
+      send:
+      title:
     login:
       or: o
       with: "Entra con %{provider}"
@@ -263,16 +327,17 @@ it:
       title: Impostazioni della stanza
       update: Aggiorna Stanza
       client: Seleziona il tipo di interfaccia
+      join_moderator:
       mute: Silenzia utenti quando entrano nella stanza
-      default: Predefinito
-      html: HTML5
-      flash: Flash
+      require_approval:
+      start:
       footer_text: Le impostazioni della stanza possono essere cambiate in qualsiasi momento.
     rename_room:
       name_placeholder: Inserisci il nome della nuova stanza...
   name_update_success: Il nome della stanza è stato cambiato con successo!
   no_user_email_exists: Non esistono utenti con la email specificata. Controlla di averla inserita correttamente.
   omniauth_error: Si è verificato un errore con l'autenticazione omniauth. Prova ancora o contatta un amministratore!
+  omniauth_specific_error:
   pagy:
     nav:
       prev: "&lsaquo; Precedente"
@@ -284,8 +349,9 @@ it:
   password_different_notice: La conferma della password non coincide.
   provider:
     google: Google
-    office365: Office 365
+    office365:
     twitter: Twitter
+    ldap:
   recaptcha:
     errors:
       recaptcha_unreachable: "Accidenti, la verifica reCAPTCHA è fallita. Riprova."
@@ -308,16 +374,25 @@ it:
       public: Pubblica
       unlisted: Non in elenco
     format:
+      notes:
+      podcast:
       presentation: Presentazione
+      statistics:
+      video:
   registration:
     approval:
-      fail: ""
-      signup: ""
+      fail:
+      signup:
     banned:
-      fail: ""
+      fail: 
+    deprecated:
+      new_signin:
+      twitter_signin:
+      twitter_signup:
+      merge_success:
     invite:
-      fail: ""
-      no_invite: ""
+      fail:
+      no_invite:
   rename: Rinomina
   reset_password:
     subtitle: Reimposta password
@@ -325,22 +400,36 @@ it:
     confirm: Conferma nuova password
     update: Aggiorna password
   roles:
-    administrator: Amministratore
+    admin:
     banned: Bloccato
-    pending: ""
-    super_admin: Super Amministratore
+    pending: In attesa
     user: Utente
   room:
+    access_code_required: Prego immettere un codice valido per entrare nella stanza
     create_room: Crea una stanza
     create_room_error: Si è verificato un errore nella creazione della stanza
     create_room_success: La stanza è stata creata correttamente
+    enter_the_access_code: Immetti il codice di accesso alla stanza
+    invalid_provider:
     invited: Hai ricevuto un invito per partecipare
     invite_participants: Invita partecipanti
     join: Partecipa
     last_session: "Ultima sessione: %{session}"
+    login:
     owner: Proprietario
+    no_room:
+      description:
+      edit_profile:
+      go_to:
+      invalid_room_uid:
+      placeholder:
+      no_recent_rooms:
+      recent_rooms:
+      title: Entra in una stanza
     no_sessions: Questa stanza non ha ancora una sessione attiva!
     recordings: Registrazioni della stanza
+    room_limit: Hai raggiunto il numero massimo di stanze consentito
+    room_limit_exceeded:
     sessions: Sessioni
     settings: Impostazioni Stanza
     start: Avvia
@@ -348,7 +437,7 @@ it:
     update_settings_error: Si è verificato un errore nell'aggiornamento dei dettagli della stanza
     update_settings_success: Impostazioni della stanza aggiornate correttamente
     wait:
-      message: ""
+      message: Il meeting non è stato ancora avviato
       auto: Verrai inserito nella stanza non appena il meeting avrà inizio.
   settings:
     account:
@@ -357,6 +446,7 @@ it:
       provider: Fornitore
       image: Immagine
       image_url: Indirizzo immagine del profilo
+      roles: Ruoli dell'Utente
       subtitle: Aggiorna le informazioni del tuo account
       title: Informazioni account
     delete:

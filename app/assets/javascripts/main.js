@@ -28,12 +28,18 @@ function getLocalizedString(key) {
   var translated = I18n
 
   // Search current language for the key
-  keyArr.forEach(function(k) {
-    translated = translated[k]
-  })
+  try {
+    keyArr.forEach(function(k) {
+      translated = translated[k]
+    })
+  } catch (e) {
+    // Key is missing in selected language so default to english
+    translated = undefined;
+  }
+
 
   // If key is not found, search the fallback language for the key
-  if (translated == undefined) { 
+  if (translated === null || translated === undefined) { 
     translated = I18nFallback
 
     keyArr.forEach(function(k) {

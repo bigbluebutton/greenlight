@@ -26,21 +26,21 @@ class Ability
       can :manage, :all
     else
       highest_role = user.highest_priority_role
-      if highest_role.can_edit_site_settings
-        can [:index, :site_settings, :server_recordings, :branding, :coloring, :coloring_lighten, :coloring_darken,
-             :room_authentication, :registration_method, :room_limit, :default_recording_visibility], :admin
+      if highest_role.get_permission("can_edit_site_settings")
+        can [:index, :site_settings, :server_recordings, :update_settings, :coloring, :registration_method], :admin
       end
 
-      if highest_role.can_edit_roles
+      if highest_role.get_permission("can_edit_roles")
         can [:index, :roles, :new_role, :change_role_order, :update_role, :delete_role], :admin
       end
 
-      if highest_role.can_manage_users
+      if highest_role.get_permission("can_manage_users")
         can [:index, :roles, :edit_user, :promote, :demote, :ban_user, :unban_user,
-             :approve, :invite, :reset], :admin
+             :approve, :invite, :reset, :undelete], :admin
       end
 
-      if !highest_role.can_edit_site_settings && !highest_role.can_edit_roles && !highest_role.can_manage_users
+      if !highest_role.get_permission("can_edit_site_settings") && !highest_role.get_permission("can_edit_roles") &&
+         !highest_role.get_permission("can_manage_users")
         cannot :manage, AdminsController
       end
     end

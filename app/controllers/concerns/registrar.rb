@@ -19,20 +19,12 @@
 module Registrar
   extend ActiveSupport::Concern
 
-  def registration_method
-    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Registration Method")
-  end
-
-  def open_registration
-     registration_method == Rails.configuration.registration_methods[:open]
-  end
-
   def approval_registration
-     registration_method == Rails.configuration.registration_methods[:approval]
+    @settings.get_value("Registration Method") == Rails.configuration.registration_methods[:approval]
   end
 
   def invite_registration
-     registration_method == Rails.configuration.registration_methods[:invite]
+    @settings.get_value("Registration Method") == Rails.configuration.registration_methods[:invite]
   end
 
   # Returns a hash containing whether the user has been invited and if they
@@ -49,6 +41,35 @@ module Registrar
       { present: true, verified: same_email }
     else
       { present: false, verified: false }
+    end
+  end
+
+  # Checks if the user passes the requirements to be invited
+  def passes_invite_reqs
+    # check if user needs to be invited and IS invited
+    invitation = check_user_invited(@user.email, session[:invite_token], @user_domain)
+
+    @user.email_verified = true if invitation[:verified]
+
+    invitation[:present]
+  end
+
+  # Add validation errors to model if they exist
+  def valid_user_or_captcha
+    valid_user = @user.valid?
+    valid_captcha = Rails.configuration.recaptcha_enabled ? verify_recaptcha(model: @user) : true
+
+    logger.error("Support: #{@user.email} creation failed: User params are not valid.") unless valid_user
+
+    valid_user && valid_captcha
+  end
+
+  # Checks if the user trying to sign in with twitter account
+  def check_if_twitter_account(log_out = false)
+    unless params[:old_twitter_user_id].nil? && session[:old_twitter_user_id].nil?
+      logout if log_out
+      flash.now[:alert] = I18n.t("registration.deprecated.new_signin")
+      session[:old_twitter_user_id] = params[:old_twitter_user_id] unless params[:old_twitter_user_id].nil?
     end
   end
 end

@@ -12,28 +12,12 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
-
 <div class="container pt-6">
   <%= render "shared/components/subtitle", subtitle: t("settings.title"), search: false %>
 
   <div class="row">
     <div class="col-lg-3 mb-4">
-      <div class="list-group list-group-transparent mb-0">
-
-        <button id="account" class="list-group-item list-group-item-action dropdown-item setting-btn <%= "active" if !params[:setting] || params[:setting] == "account"%>">
-          <span class="icon mr-3"><i class="fas fa-user"></i></span><%= t("settings.account.title") %>
-        </button>
-
-        <% if @user.social_uid.nil? %>
-          <button id="password" class="list-group-item list-group-item-action dropdown-item setting-btn <%= "active" if params[:setting] == "password"%>">
-            <span class="icon mr-3"><i class="fas fa-lock"></i></span><%= t("settings.password.title") %>
-          </button>
-        <% end %>
-
-        <button id="delete" class="list-group-item list-group-item-action dropdown-item setting-btn <%= "active" if params[:setting] == "delete"%>">
-          <span class="icon mr-3"><i class="fas fa-trash-alt"></i></span><%= t("settings.delete.title") %>
-        </button>
-      </div>
+      <%= render "users/components/menu_buttons" %>
 
       <% if @user.errors.any? %>
         <h5 class="mt-8"><%= t("errors.title") %>:</h5>
@@ -44,16 +28,8 @@
         </ul>
       <% end %>
     </div>
-
-
     <div class="col-lg-9">
-      <%= render "shared/settings/setting_view", setting_id: "account", setting_title: t("settings.account.subtitle") %>
-
-      <% if @user.social_uid.nil? %>
-        <%= render "shared/settings/setting_view", setting_id: "password", setting_title: t("settings.password.subtitle") %>
-      <% end %>
-
-      <%= render "shared/settings/setting_view", setting_id: "delete", setting_title: t("settings.delete.subtitle") %>
+      <%= render "users/components/setting_view", setting_id: "account", setting_title: t("settings.account.subtitle") %>
     </div>
   </div>
 </div>

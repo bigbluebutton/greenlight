@@ -91,12 +91,24 @@
                     </td>
                   </tr>
                 <% else %>
+                  <% failed_recordings = 0 %>
                   <% recordings.each do |recording| %>
-                    <% if only_public %>
-                      <%= render "shared/components/public_recording_row", recording: recording %>
-                    <% else %>
-                      <%= render "shared/components/recording_row", recording: recording %>
+                    <% begin %>
+                      <% if only_public %>
+                        <%= render "shared/components/public_recording_row", recording: recording %>
+                      <% else %>
+                        <%= render "shared/components/recording_row", recording: recording %>
+                      <% end %>
+                    <% rescue => e %>
+                      <% logger.error "Error retrieving recording #{recording[:meetingID]}: #{e} -> #{e.backtrace[0]}" %>
+                      <% failed_recordings += 1 %>
                     <% end %>
+                  <% end %>
+
+                  <% if failed_recordings > 0 %>
+                    <div class="alert alert-danger alert-dismissible text-center mb-0">
+                      <%= t("recording.error", count: failed_recordings) %>
+                    </div>
                   <% end %>
                 <% end %>
               </tbody>

@@ -13,18 +13,18 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="form-group">
-  <div class="row">
-    <div class="col-12">
-      <center>
-        <%= t("settings.delete.disclaimer").html_safe %>
-        <br>
-        <a href="" data-toggle="modal" data-target="#deleteAccountModal" class="btn btn-danger mt-6">
-          <%= t("settings.delete.button") %>
-        </a>
-      </center>
+<div class="container pt-5">
+  <div class="col-md-8 offset-2">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><%= t("verify.title") %></h3>
+      </div>
+      <div class="card-body">
+        <p><%= t("verify.not_verified") %></p>
+        <div class="btn-list text-right pt-8">
+          <%= button_to t("verify.resend"), resend_email_path, params: { email: params['email'], email_verified: false }, class: "btn btn-primary btn-space" %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-<%= render "shared/modals/delete_account_modal", delete_location: delete_user_path %>

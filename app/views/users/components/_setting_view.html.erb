@@ -13,16 +13,14 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="container pt-5">
-  <div class="col-md-8 offset-2">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%= t("verify.title") %></h3>
-      </div>
-      <div class="card-body">
-        <p><%= t("verify.not_verified") %></p>
-        <%= render "/shared/components/resend_button" %>
+<%= content_tag(:div, id: setting_id, class: "setting-view card") do %>
+  <div class="card-body p-6">
+    <div class="card-title text-primary">
+      <div class="form-group">
+        <%= render "shared/components/subtitle", subtitle: setting_title, search: false %>
       </div>
     </div>
+
+    <%= render "users/components/#{setting_id}" %>
   </div>
-</div>
+<% end %>

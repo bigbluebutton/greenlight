@@ -46,32 +46,6 @@ describe UsersController, type: :controller do
     }
   end
 
-  describe "GET #new" do
-    it "assigns a blank user to the view" do
-      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-
-      get :new
-      expect(assigns(:user)).to be_a_new(User)
-    end
-
-    it "redirects to root if allow_user_signup is false" do
-      allow(Rails.configuration).to receive(:allow_user_signup).and_return(false)
-
-      get :new
-      expect(response).to redirect_to(root_path)
-    end
-  end
-
-  describe "GET #signin" do
-    it "redirects to main room if already authenticated" do
-      user = create(:user)
-      @request.session[:user_id] = user.id
-
-      post :signin
-      expect(response).to redirect_to(room_path(user.main_room))
-    end
-  end
-
   describe "GET #edit" do
     it "renders the edit template" do
       user = create(:user)
@@ -211,13 +185,6 @@ describe UsersController, type: :controller do
           expect { post :create, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
         end
 
-        it "rejects the user if they are not invited" do
-          get :new
-
-          expect(flash[:alert]).to be_present
-          expect(response).to redirect_to(root_path)
-        end
-
         it "allows the user to signup if they are invited" do
           allow(Rails.configuration).to receive(:enable_email_verification).and_return(false)
 
@@ -341,7 +308,7 @@ describe UsersController, type: :controller do
 
         user_role = user.highest_priority_role
 
-        user_role.can_manage_users = true
+        user_role.update_permission("can_manage_users", "true")
 
         user_role.save!
 
@@ -364,7 +331,7 @@ describe UsersController, type: :controller do
 
         user_role = user.highest_priority_role
 
-        user_role.can_manage_users = true
+        user_role.update_permission("can_manage_users", "true")
 
         user_role.save!
 
@@ -373,7 +340,7 @@ describe UsersController, type: :controller do
 
         user.reload
 
-        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_removal"))
+        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_assignment"))
         expect(response).to render_template(:edit)
       end
 
@@ -387,7 +354,8 @@ describe UsersController, type: :controller do
 
         @request.session[:user_id] = admin.id
 
-        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight", send_promoted_email: true)
+        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight")
+        tmp_role1.update_permission("send_promoted_email", "true")
         tmp_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight")
 
         params = random_valid_user_params
@@ -407,7 +375,8 @@ describe UsersController, type: :controller do
 
         admin.add_role :admin
 
-        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight", send_demoted_email: true)
+        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight")
+        tmp_role1.update_permission("send_demoted_email", "true")
         user.roles << tmp_role1
         user.save!
 
@@ -427,19 +396,19 @@ describe UsersController, type: :controller do
   describe "DELETE #user" do
     before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
 
-    it "properly deletes user" do
+    it "permanently deletes user" do
       user = create(:user)
       @request.session[:user_id] = user.id
 
       delete :destroy, params: { user_uid: user.uid }
 
+      expect(User.include_deleted.find_by(uid: user.uid)).to be_nil
       expect(response).to redirect_to(root_path)
     end
 
-    it "allows admins to delete users" do
+    it "allows admins to tombstone users" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
-      allow_any_instance_of(Room).to receive(:delete_all_recordings).and_return('')
       allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
       controller.instance_variable_set(:@user_domain, "provider1")
 
@@ -450,6 +419,46 @@ describe UsersController, type: :controller do
 
       delete :destroy, params: { user_uid: user.uid }
 
+      expect(User.deleted.find_by(uid: user.uid)).to be_present
+      expect(flash[:success]).to be_present
+      expect(response).to redirect_to(admins_path)
+    end
+
+    it "allows admins to permanently delete users" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+      allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
+      controller.instance_variable_set(:@user_domain, "provider1")
+
+      user = create(:user, provider: "provider1")
+      admin = create(:user, provider: "provider1")
+      admin.add_role :admin
+      @request.session[:user_id] = admin.id
+
+      delete :destroy, params: { user_uid: user.uid, permanent: "true" }
+
+      expect(User.include_deleted.find_by(uid: user.uid)).to be_nil
+      expect(flash[:success]).to be_present
+      expect(response).to redirect_to(admins_path)
+    end
+
+    it "permanently deletes the users rooms if the user is permanently deleted" do
+      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+      allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
+      controller.instance_variable_set(:@user_domain, "provider1")
+
+      user = create(:user, provider: "provider1")
+      admin = create(:user, provider: "provider1")
+      admin.add_role :admin
+      @request.session[:user_id] = admin.id
+      uid = user.main_room.uid
+
+      expect(Room.find_by(uid: uid)).to be_present
+
+      delete :destroy, params: { user_uid: user.uid, permanent: "true" }
+
+      expect(Room.include_deleted.find_by(uid: uid)).to be_nil
       expect(flash[:success]).to be_present
       expect(response).to redirect_to(admins_path)
     end
@@ -467,7 +476,8 @@ describe UsersController, type: :controller do
 
       delete :destroy, params: { user_uid: user.uid }
 
-      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to be_present
+      expect(response).to redirect_to(admins_path)
     end
   end
 
@@ -492,14 +502,6 @@ describe UsersController, type: :controller do
       get :recordings, params: { current_user: @user2, user_uid: @user1.uid }
 
       expect(response).to redirect_to(root_path)
-    end
-  end
-
-  context 'GET #ldap_signin' do
-    it "should render the ldap signin page" do
-      get :ldap_signin
-
-      expect(response).to render_template(:ldap_signin)
     end
   end
 end

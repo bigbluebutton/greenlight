@@ -19,6 +19,50 @@
 require "rails_helper"
 
 describe SessionsController, type: :controller do
+  describe "GET #new" do
+    it "assigns a blank user to the view" do
+      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
+
+      get :new
+      expect(assigns(:user)).to be_a_new(User)
+    end
+
+    it "redirects to root if allow_user_signup is false" do
+      allow(Rails.configuration).to receive(:allow_user_signup).and_return(false)
+
+      get :new
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "rejects the user if they are not invited" do
+      allow_any_instance_of(Registrar).to receive(:invite_registration).and_return(true)
+      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
+
+      get :new
+
+      expect(flash[:alert]).to be_present
+      expect(response).to redirect_to(root_path)
+    end
+  end
+
+  describe "GET #signin" do
+    it "redirects to main room if already authenticated" do
+      user = create(:user)
+      @request.session[:user_id] = user.id
+
+      post :signin
+      expect(response).to redirect_to(room_path(user.main_room))
+    end
+  end
+
+  describe 'GET #ldap_signin' do
+    it "should render the ldap signin page" do
+      get :ldap_signin
+
+      expect(response).to render_template(:ldap_signin)
+    end
+  end
+
   describe "GET #destroy" do
     before(:each) do
       user = create(:user, provider: "greenlight")
@@ -88,6 +132,26 @@ describe SessionsController, type: :controller do
 
       expect(@request.session[:user_id]).to be_nil
       expect(response).to redirect_to(account_activation_path(email: @user3.email))
+    end
+
+    it "should not login user if account is deleted" do
+      user = create(:user, provider: "greenlight",
+        password: "example", password_confirmation: 'example')
+
+      user.delete
+      user.reload
+      expect(user.deleted?).to be true
+
+      post :create, params: {
+        session: {
+          email: user.email,
+          password: 'example',
+        },
+      }
+
+      expect(@request.session[:user_id]).to be_nil
+      expect(flash[:alert]).to eq(I18n.t("registration.banned.fail"))
+      expect(response).to redirect_to(root_path)
     end
 
     it "redirects the user to the page they clicked sign in from" do
@@ -243,6 +307,27 @@ describe SessionsController, type: :controller do
       expect(u.provider).to eql("customer1")
       expect(u.email).to eql("user@google.com")
       expect(@request.session[:user_id]).to eql(u.id)
+    end
+
+    it "redirects a deleted user to the root page" do
+      # Create the user first
+      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
+      get :omniauth, params: { provider: 'bn_launcher' }
+
+      # Delete the user
+      user = User.find_by(social_uid: "bn-launcher-user")
+
+      @request.session[:user_id] = nil
+      user.delete
+      user.reload
+      expect(user.deleted?).to be true
+
+      # Try to sign back in
+      get :omniauth, params: { provider: 'bn_launcher' }
+
+      expect(@request.session[:user_id]).to be_nil
+      expect(flash[:alert]).to eq(I18n.t("registration.banned.fail"))
+      expect(response).to redirect_to(root_path)
     end
 
     it "should redirect to root on invalid omniauth login" do
