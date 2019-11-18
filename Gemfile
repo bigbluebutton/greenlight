@@ -78,6 +78,7 @@ gem "health_check"
 gem 'cancancan', '~> 2.0'
 
 group :production do
+  gem 'sqlite3', '~> 1.3.6'
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'
 
