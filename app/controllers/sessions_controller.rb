@@ -254,6 +254,6 @@ class SessionsController < ApplicationController
     logger.info "Switching account to social account for #{user.uid}"
 
     # Set the user's social id to the one being returned from auth
-    user.update_atrribute(:social_uid, @auth['uid'])
+    user.update_attribute(:social_uid, @auth['uid'])
   end
 end
