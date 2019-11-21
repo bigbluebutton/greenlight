@@ -46,6 +46,10 @@ en:
         info: Clears the stored provider cache which forces a new request for the updated info
         title: Clear Provider Cache
         button: Clear Cache
+      clear_auth:
+        info: Clears the current authenticator for users allowing them to sign back in using a different authentication method
+        title: Clear Current Authenticator
+        button: Clear Auth
       color:
         info: Changing the Regular Color will change both Lighten and Darken. Lighten and Darken can then be changed individually
         title: Primary Color
