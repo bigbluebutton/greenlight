@@ -3,7 +3,7 @@ version: '3'
 services:
   app:
     entrypoint: [bin/start]
-    image: bigbluebutton/greenlight:v2
+    image: litewhat/greenlight:release-v2
     container_name: greenlight-v2
     env_file: .env
     restart: unless-stopped
@@ -19,18 +19,20 @@ services:
       - ./log:/usr/src/app/log
 # When using sqlite3 as the database
       - ./db/production:/usr/src/app/db/production
-# When using postgresql as the database
-#    links:
-#      - db
-#  db:
-#    image: postgres:9.5
-#    restart: on-failure
-#    ports:
-#      - 127.0.0.1:5432:5432
-#    volumes:
-#      - ./db/production:/var/lib/postgresql/data
-#    environment:
-#      - PGHOST=postgres
-#      - PGDATABASE=postgres
-#      - PGUSER=postgres
-#      - PGPASSWORD=password
+
+    # links:
+    #   - db
+
+  # db:
+  #   image: postgres:9.5
+  #   container_name: greenlight-db
+  #   restart: on-failure
+  #   ports:
+  #     - 127.0.0.1:5432:5432
+  #   volumes:
+  #     - ./db/production:/var/lib/postgresql/data
+  #   environment:
+  #     - PGHOST=postgres
+  #     - PGDATABASE=postgres
+  #     - PGUSER=postgres
+  #     - PGPASSWORD=password
