@@ -1,6 +1,6 @@
 #!/bin/bash
 
-image_name=litewhat/greenlight
+image_name=cambioscience/greenlight
 image_version=release-v2
 
 cd /home/ubuntu/greenlight
