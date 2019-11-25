@@ -484,3 +484,4 @@ pl_PL:
     signin: "Proszę się zalogować, aby uzyskać dostęp do swojego konta."
     title: Zweryfikuj swój adres email
     verification: Weryfikacja
+  virtualroom: "Virtual Room"
