@@ -225,7 +225,7 @@ pl_PL:
         footer: 'BigBlueButton to system konferencji internetowych o otwartym kodzie źródłowym. Więcej informacji na temat BigBlueButton można znaleźć na stronie https://bigbluebutton.org/.'
   landing:
     about: "%{href} to prosty front-end dla twojego serwera konferencji internetowych typu open-source. Możesz tworzyć własne pokoje do prowadzenia sesji lub dołączać do innych za pomocą krótkiego i wygodnego łącza."
-    welcome: Witamy w BigBlueButton.
+    welcome: Witamy w Virtual Room.
     video: Obejrzyj nasz samouczek na temat korzystania z Greenlight
     upgrade: "Pokaż, jak uaktualnić do wersji 2.0!"
     version: "Wydaliśmy nową wersję Greenlight, ale twoja baza danych nie jest kompatybilna."

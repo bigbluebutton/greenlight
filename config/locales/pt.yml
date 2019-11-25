@@ -225,7 +225,7 @@ pt:
         footer: 'BigBlueButton é um sistema de conferências web de código aberto. Para mais informações sobre o BigBlueButton, acesse https://bigbluebutton.org/.'
   landing:
     about: "Greenlight é um front-end simples para seu servidor de webconferências %{href}. Você pode criar suas próprias salas para hospedar sessões, ou se juntar a outras utilizando um link curto e conveniente."
-    welcome: Bem vindo ao <span class="green-grad">Greenlight</span>.
+    welcome: Bem vindo ao <span class="green-grad">Virtual Room</span>.
     video: Assista ao nosso tutorial sobre como utilizar o Greenlight
     upgrade: Mostre-me como atualizar para o 2.0!
     version: "Lançamos uma nova versão do Greenlight, entretanto sua base de dados é incompatível."

@@ -225,7 +225,7 @@ ar:
         footer: 'BigBlueButton هو نظام مؤتمرات ويب مفتوح المصدر. لمزيد من المعلومات حول BigBlueButton ، راجع https://bigbluebutton.org/.'
   landing:
     about: "%{href} هو واجهة أمامية بسيطة لخادم مؤتمرات الويب المفتوح المصدر BigBlueButton الخاص بك. يمكنك إنشاء غرف خاصة بك لاستضافة الجلسات، أو الانضمام إلى الآخرين باستخدام رابط قصير ومريح. "
-    welcome: مرحبًا بك في BigBlueButton
+    welcome: مرحبًا بك في Virtual Room
     video: شاهد برنامجنا التعليمي حول استخدام Greenlight
     upgrade: أرني كيفية الترقية إلى 2.0!
     version: لقد أصدرنا إصدارًا جديدًا من Greenlight ، لكن قاعدة البيانات غير متوافقة.

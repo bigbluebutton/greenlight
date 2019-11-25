@@ -225,7 +225,7 @@ hu_HU:
         footer: 'A BigBlueButton egy nyílt forráskódú, webkonferencia-rendszer. További információért, látogass el a https://bigbluebutton.org/ oldalra.'
   landing:
     about: "%{href}egy egyszerű front-end a nyílt forráskódú BigBlueButton webkonferencia-rendszerhez. Saját magadnak szobákat hozhatsz létre, illetve mások csatlakozhatnak egy rövid link használatával."
-    welcome: A BigBlueButton üdvözöl.
+    welcome: A Virtual Room üdvözöl.
     video: Nézd meg az ismertetőnket a  Greenlight használatáról
     upgrade: "Mutasd, hogyan tudok frissíteni a 2.0-ás verzióra!"
     version: "A Greenlight új verziója jelent meg, de az adatbázisod nem kompatibilis."

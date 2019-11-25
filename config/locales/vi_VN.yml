@@ -225,7 +225,7 @@ vi_VN:
         footer: 'BigBlueButton là hệ thống hội nghị trực tuyến mã nguồn mở. Để biết thêmt thông tin chi tiết về BigBlueButton, vui lòng truy cập https://bigbluebutton.org/.'
   landing:
     about: "%{href} là một giao diện cơ bản dành cho máy chủ hội nghị trực tuyến mã nguồn mở BigBlueButton của bạn. Bạn có thể tạo những phòng riêng của mình để tổ chức các phiên hoặc tham gia với những người khác bằng cách sử dụng một liên kết ngắn và thuận tiện."
-    welcome: Chào mừng đến với BigBlueButton.
+    welcome: Chào mừng đến với Virtual Room.
     video: Xem thêm hướng dẫn sử dụng Greenlight
     upgrade: Hãy chỉ cho tôi cách nâng cấp lên 2.0!
     version: "Chúng tôi đã phát hành phiên bản mới của Greenlight, nhưng cơ sở dữ liệu của bạn không tương thích."

@@ -225,7 +225,7 @@ sv_SE:
         footer: 'BigBlueButton är ett open source webbkonferenssystem. För mer information om BigBlueButton, se https://bigbluebutton.org/.'
   landing:
     about: "%{href} är ett enkelt front-end för din BigBlueButton open-source webbkonferensserver. Du kan skapa egna rum för att vara värd sessioner, eller gå med andra med en kort och bekväm länk."
-    welcome: Välkommen till BigBlueButton.
+    welcome: Välkommen till Virtual Room.
     video: Titta på vår handledning om att använda Greenlight
     upgrade: Visa mig hur man uppgraderar till 2.0!
     version: "Vi har släppt en ny version av Greenlight, men din databas är inte kompatibel."

@@ -225,7 +225,7 @@ it:
         footer: 'BigBlueButton è un sistema di videoconferenza basato su software libero. Per maggiori informazioni su BigBlueButton, visita https://bigbluebutton.org/.'
   landing:
     about: "%{href} è una semplice interfaccia per il software di video-conferenza open source BigBlueButton. Puoi creare Stanze per ospitare i meeting, o partecipare ad altri meeting utilizzando collegamenti brevi."
-    welcome: Benvenuti su BigBlueButton.
+    welcome: Benvenuti su Virtual Room.
     video: Guarda il tutorial sull'utilizzo di GreenLight
     upgrade: Mostrami come aggiornare alla versione 2.0!
     version: "E' stata rilasciata una nuova versione di GreenLight, ma il tuo database non è compatibile."
