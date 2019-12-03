@@ -364,6 +364,7 @@ es_MX:
   recording:
     all_recordings: Todas las grabaciones
     email: Enviar correo electrónico con la grabación
+    error: "Ocurrió un error al recuperar %{count} grabaciones."
     no_recordings: "Esta sala no tiene grabaciones %{inject}"
     no_user_recordings: No tienes grabaciones
     no_matched_recordings: "No hay %{inject} grabaciones que coincidan con tu busqueda."
