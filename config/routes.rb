@@ -98,6 +98,11 @@ Rails.application.routes.draw do
   get '/auth/failure', to: 'sessions#omniauth_fail'
   post '/auth/ldap', to: 'sessions#ldap', as: :ldap_callback
 
+  # Handles Omniauth authentication from external application (web extension with Google)
+  match '/external_application/start', to: 'external_applications#start', via: [:get, :post]
+  match '/external_application/start', to: 'external_applications#http_options', via: [:options]
+  get '/external_applications/auto_close', to: 'external_applications#auto_close', as: :auto_close
+
   # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/'
 
