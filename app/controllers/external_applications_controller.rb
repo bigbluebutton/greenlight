@@ -19,7 +19,6 @@
 require 'net/http'
 
 class ExternalApplicationsController < ApplicationController
-
   skip_before_action :verify_authenticity_token, only: [:start, :http_options]
   before_action :token_to_omniauth_user, only: [:start]
   before_action :set_user, only: [:start]
@@ -52,7 +51,7 @@ class ExternalApplicationsController < ApplicationController
     response.headers['Access-Control-Allow-Origin'] = request.headers['Origin'] || '*'
     response.headers['Access-Control-Allow-Credentials'] = 'true'
     response.headers['Access-Control-Allow-Headers'] = 'accept, content-type'
-  end 
+  end
 
   def token_to_omniauth_user
     token = params[:oauth_token]
@@ -65,7 +64,6 @@ class ExternalApplicationsController < ApplicationController
       request.add_field 'Authorization', 'Bearer ' + token
       request['Accept'] = 'application/json'
       request.body = nil
-        
       response = http.request(request)
 
       @oauth_response_code = response.code.to_i
@@ -99,13 +97,11 @@ class ExternalApplicationsController < ApplicationController
   end
 
   def room_opts
-    # Join the user in and start the meeting.
     opts = default_meeting_options
+    room_settings = JSON.parse(@room[:room_settings])
+
     opts[:user_is_moderator] = true
     opts[:meeting_logout_url] = auto_close_url
-
-    # Include the user's choices for the room settings
-    room_settings = JSON.parse(@room[:room_settings])
     opts[:mute_on_start] = room_settings["muteOnStart"] if room_settings["muteOnStart"]
     opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
     opts
