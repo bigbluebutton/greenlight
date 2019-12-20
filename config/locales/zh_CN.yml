@@ -364,6 +364,7 @@ zh_CN:
   recording:
     all_recordings: 所有录像
     email: 通过Email发送录像
+    error: "检索 %{count} 录像时出错。"
     no_recordings: "这个会议室没有%{inject}录像"
     no_user_recordings: 您当前没有录像。
     no_matched_recordings: "没有搜索到 %{inject} 录像"

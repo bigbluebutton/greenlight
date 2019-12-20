@@ -364,6 +364,7 @@ de_DE:
   recording:
     all_recordings: Alle Aufzeichnungen
     email: Aufzeichnungslink per Email
+    error: "Beim Abruf von %{count} Aufzeichnung(en) ist ein Fehler aufgetreten."
     no_recordings: "Dieser Raum hat keine %{inject}Aufzeichnungen."
     no_user_recordings: Momentan sind keine Aufzeichnungen verfügbar.
     no_matched_recordings: "Keine %{inject} Aufzeichnungen passen zu Ihrer Suche."
