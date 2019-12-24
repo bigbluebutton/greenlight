@@ -54,13 +54,13 @@ module Greenlight
     config.bigbluebutton_endpoint = if ENV["BIGBLUEBUTTON_ENDPOINT"].present?
        ENV["BIGBLUEBUTTON_ENDPOINT"]
     else
-      config.bigbluebutton_endpoint_default
+      Rails.application.credentials.dig(:bigbluebutton, :endpoint) || config.bigbluebutton_endpoint_default
     end
 
     config.bigbluebutton_secret = if ENV["BIGBLUEBUTTON_SECRET"].present?
       ENV["BIGBLUEBUTTON_SECRET"]
     else
-      config.bigbluebutton_secret_default
+      Rails.application.credentials.dig(:bigbluebutton, :secret) || config.bigbluebutton_secret_default
     end
 
     # Fix endpoint format if required.
