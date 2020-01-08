@@ -158,7 +158,6 @@ class AdminsController < ApplicationController
     end
   end
 
-
   # POST /admins/clear_auth
   def clear_auth
     User.include_deleted.where(provider: @user_domain).update_all(social_uid: nil)
