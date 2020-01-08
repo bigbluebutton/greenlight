@@ -43,9 +43,9 @@ hu_HU:
         placeholder: Kép URL-je...
         title: Arculati kép
       cache:
-        info:
-        title:
-        button:
+        info: "Üríti a szolgáltatói gyorsítótárat, ami az információk frissítése érdekében új kérést kényszerít ki"
+        title: Szolgáltatói gyorsítótár ürítése
+        button: Gyorsítótár ürítése
       color:
         info: "A Szokásos szín változtatásával módosul a Világosabb és a Sötétebb is, de ezek egyénileg is módosíthatóak."
         title: Elsődleges szín
@@ -64,7 +64,7 @@ hu_HU:
           invite: Belépés meghívásra
           open: Regisztráció megnyitása
       rooms:
-        info:
+        info: Ez a beállítás korlátozza egy felhasználó szobáinak számát (beleértve a Saját Szobát is). Az üzemeltetőkre nincs hatással.
         title: Szobák száma felhasználónként
       subtitle: Greenlight személy szabása
       title: Weboldal beállításai
@@ -77,9 +77,11 @@ hu_HU:
       demoted: A felhasználót sikeresen lefokoztad
       invite: "A meghívót sikeresen elküldtük %{email}"
       invite_email_verification: "Ennek a használatához az e-maileket engedélyezni kell. Kérjük, ezt jelezd a rendszerüzemeltetőnek."
+      perm_deleted: A felhasználót véglegesen törölted
       promoted: A felhasználót sikeresen előléptetted
       registration_method_updated: A regisztráció módját sikeresen megváltoztattad
-      reset_password:
+      reset_password: "A felhasználó e-mailt kapott a jelszó visszaállításához. (Ha még nem kapták meg, kérd meg őket, hogy ellenőrizzék a spam mappájukat)"
+      restored: A felhasználót sikeresen visszaállítottad
       settings: A weboldal beállításait sikeresen módosítottad
       unauthorized: "Nincs jogosultságod, hogy műveletet hajts végre ezen a felhasználón"
     recordings:
@@ -88,35 +90,37 @@ hu_HU:
     roles:
       can_create_rooms: Létrehozhat szobákat
       delete: A szerep törlése
-      invalid_create:
-      invalid_order:
-      invalid_update:
+      invalid_create: "Hiba történt az új szerep létrehozása közben. Kérem, ellenőrizd a szerep értékeit és próbáld újra"
+      invalid_order: "Hiba történt a szerep prioritásának módosítása közben. Kérem, ellenőrizd a szerep értékeit és próbáld újra"
+      invalid_update: "Hiba történt az új szerep jogosultságainak módosítása közben. Kérem, ellenőrizd a szerep értékeit és próbáld újra"
       name: Szerep megnevezése
       new_role: Új szerep létrehozása
-      role_has_users:
+      role_has_users: "Ez a szerep %{user_count} fiókhoz van hozzárendelve. Ezeket mind el kell távolítanod a szerep törlése előtt."
       title: Szerepek
-      promote_email:
-      demote_email:
-      edit_site_settings:
-      edit_roles:
-      manage_users:
-      invalid_assignment: 
+      promote_email: A felhasználók e-mailt kapnak a szerephez rendelésükről
+      demote_email: A felhasználók e-mailt kapnak a szerepből eltávolításukról
+      edit_site_settings: Evvel a szereppel bírók módosíthatják az weboldal beállításait
+      edit_roles: Ezen szerep tagjai módosíthatják a többi szerepet
+      manage_users: Ezen szerep tagjai kezelhetik a felhasználókat
+      invalid_assignment: "Hiba a szerep felhasználóhoz rendelésekor. Kérem, ellenőrizd az értékeket és próbáld újra." 
       colour:
-        title:
-        info:
+        title: Szerep színe
+        info: Állítsd be a szerep színét
     title: Szervezet beállításai
     users:
       invite: Felhasználó meghívása
       edit:
         title: Felhasználó adatainak módosítása
       settings:
-        approve:
-        decline:
+        approve: Jóváhagyás
+        decline: Elutasítás
         ban: Felhasználó kizárása
         delete: Törlés
         edit: Módosítás
-        edit_roles:
+        edit_roles: A felhasználó szerepeinek módosítása
+        perm_delete: Végleges törlés
         unban: Felhasználó kizárásának vsszavonása
+        undelete: Törlés visszavonása
       table:
         authenticator: Hitelesítő
         created: Létrehozva
@@ -151,12 +155,12 @@ hu_HU:
       message: Érvénytelen BigBlueButton Endpoint és Secret
       title: Szerverhiba
     internal:
-      message:
+      message: "Úgy tűnik, valami rosszul ment a végén."
       help: "A hibát naplóztuk, hamarosan megnézzük!"
-      report:
+      report: Probléma jelentése
     maintenance:
-      message:
-      help:
+      message: "Sajnáljuk, karbantartás miatt az oldal jelenleg nem üzemel."
+      help: Hamarosan visszajövünk!
     migration_error:
       contact_admin: "Te nem vagy üzemeltető, keress egyet."
       continue: Inkább maradnék az 1.0-ás használatánál.
@@ -173,17 +177,17 @@ hu_HU:
       confirmation: "nem egyezik %{attribute}"
       inclusion: nincs benne ebben a listában
     no_provider:
-      message:
-      help:
+      message: "A webhely, amelyhez megpróbálsz hozzáférni, nincs bekapcsolva"
+      help: "Kérjük, keresd a rendszer üzemeltetőjét a Greenlight telepítéséhez"
     not_found:
-      message:
+      message: Sajnáljuk! A keresett oldal nem létezik.
       help: "Lehetséges, hogy már eltávolították?"
       user_not_found:
-        help:
-        message:
+        help: "Kérjük, vegye fel a kapcsolatot egy üzemeltetővel."
+        message: "Sajnáljuk, ilyen felhasználó nincs a rendszerben."
       user_missing:
-        help:
-        message:
+        help: Ellenőrizd az URL-t és próbáld újra
+        message: A megadott URL nem érvényes.
     title: Hibák
     unauthorized:
       message: Nincs hozzáférésed ehhez az alkalmazáshoz
@@ -213,7 +217,7 @@ hu_HU:
       signout: Kijelentkezés
   home_room: Saját szobám
   info_update_success: Az információt sikeresen módosítottad.
-  invalid_credentials:
+  invalid_credentials: "Az e-mail és a jelszó nem egyezik a náluk rögzítettekkel. Próbáld újra, vagy kattints az Elfelejtett jelszó lehetőségre."
   invalid_login_method: "Bejelentkezési hiba, mert a fiók nem megfelelő. Jelentkezz be omniauth-szal."
   invite_message: "Az előadásra meghíváshoz, küldd el ezt a linket:"
   javascript:
@@ -248,13 +252,13 @@ hu_HU:
         subject: Jóváhagyott fiók
         username: "A felhasználóneved %{email}."
       demoted:
-        info:
-        more-info:
+        info: "Már nem vagy %{role} %{url} weboldalon."
+        more-info: Mostantól egy átlagos felhasználóval azonos jogokkal bírsz.
         root_link: Bejelentkezés
-        subtitle:
+        subtitle: "%{role} jogosultságok megvonva"
       invite:
         info: "%{name} meghívott a személyes területedre."
-        signup_info:
+        signup_info: Az e-maileddel regisztrációhoz kattints az alábbi lehetőségre és hajtsd végre a lépéseket.
         signup_link: Regisztráció
         signup:
           info: "Egy meghívott felhasználó regisztrált, hogy használhassa a Greenlight-ot."
@@ -265,16 +269,16 @@ hu_HU:
         username: "A felhasználóneved %{email}."
       password_reset:
         title: 'Jelszó alaphelyzetbe állítása'
-        welcome:
-        message: ''
+        welcome: "<b>%{email}</b> e-mail címhez egy jelszómódosítás kérés érkezett."
+        message: 'Ha ezt a kérést te indítottad, kérjük, a jelszavad lecseréléséhez kattints az alábbi linkre:'
         reset_link: Jelszó alaphelyzetbe állítása
         expire: Ez a link kettő óra múlva lejár.
-        ignore:
+        ignore: "Ha ezt a kérést nem te indítottad, ezt az e-mail kérjük, hagyd fegyelmen kívül."
       promoted:
         admins_link: A Szervezeti oldal megtekintése
-        info:
-        more-info:
-        subtitle:
+        info: "Te most %{role} vagy %{url}weboldalon."
+        more-info: "Az új képességeid megtekintéséhez látogass el a %{url} oldalra."
+        subtitle: "%{role} jogosultságok biztosítva"
       verify_email:
         welcome: "%{name}, üdvözlünk a személyes területeden!"
         success: "Használd ki a %{bigbluebutton} rendszert, hogy saját szobákat hozz létre és együttműködhess másokkal."
@@ -284,18 +288,18 @@ hu_HU:
         verify_link: Fiók visszaigazolása
         thanks: "Köszönjük, hogy csatlakoztál. További szép napot!"
   maintenance:
-    window_alert:
+    window_alert: "%{date}-ig karbantartási ablak ütemezése"
   max_concurrent: Elértük a maximálisan megengedett munkamenetek számát!
   modal:
     create_role:
-      create:
-      footer_text:
-      name_placeholder:
-      not_blank:
-      title:
+      create: Új szerep létrehozása
+      footer_text: A szerep létrehozás után annak egyéni jogosultságait módosíthatod.
+      name_placeholder: Add meg a szerep nevét...
+      not_blank: A szerep neve nem lehet üres.
+      title: Új szerep létrehozása
     create_room:
-      access_code:
-      access_code_placeholder:
+      access_code: Hozzáférési kód
+      access_code_placeholder: "Opcionális szoba hozzáférési kód generálása "
       auto_join: Automatikusan belépek a szobába
       create: Szoba létrehozása
       free_delete: Ezt a szobát bármikor törölheted.
@@ -306,6 +310,7 @@ hu_HU:
       confirm: "Biztos, hogy töröd ezt a fiókot?"
       delete: "Biztos, hogy törlöm ezt a fiókot."
       keep: Inkább megtartom.
+      delete_warning: Ez inaktiválja a felhasználó fiókját. Az össze inaktív felhasználó a töröltek fül alatt található meg.
       warning: Ez egy végleges döntés. A kapcsolódó adatokat később már <b>nem</b> lehet visszaállítani.
     delete_room:
       confirm: "Biztos, hogy töröld %{room} szobát?"
@@ -314,7 +319,7 @@ hu_HU:
       warning: Ezt a szobát <b>nem</b> lehet majd visszaállítani
       recording_warning: ", illetve a hozzá tartozó %{recordings_num} felvételt sem."
     invite_user:
-      email_placeholder:
+      email_placeholder: Add meg a felhasználók e-mail címet (veszővel elválasztva)
       footer: "A felhasználónak egy, a regisztrációhoz szükséges útmutatót tartalmazó e-mailt fogunk küldeni."
       send: Meghívó küldése
       title: Felhasználó meghívása
@@ -327,17 +332,17 @@ hu_HU:
       title: Szoba beállításai
       update: Szoba módosítása
       client: Válaszd ki a kliens típusát
-      join_moderator:
+      join_moderator: Az összes felhasználó csatlakoztatása moderátorként
       mute: Felhasználók némítása csatlakozáskor
-      require_approval:
-      start:
+      require_approval: Moderátori jóváhagyás szükséges a csatlakozás előtt
+      start: Bármelyik felhasználó elindíthatja ezt a beszélgetést
       footer_text: A szobád beállításai bármikor módosíthatóak.
     rename_room:
       name_placeholder: Add meg egy új szoba nevét ...
   name_update_success: A szoba nevét sikeresen módosítottad!
   no_user_email_exists: "Jelenleg nincs ilyen e-mail című felhasználó. Kérjük, ellenőrizd, hogy nem gépelted el."
   omniauth_error: "Hiba az omniauth-szal történő hitelesítés közben. Kérem, próbálja újra, illetve lépjen kapcsolatba az üzemeltetővel!"
-  omniauth_specific_error:
+  omniauth_specific_error: "%{error}hiba történt az omniauth hitelesítéskor. Kérjük, próbáld újra, vagy lépj kapcsolatba egy üzemeltetővel."
   pagy:
     nav:
       prev: "&lsaquo; Előző"
@@ -359,6 +364,7 @@ hu_HU:
   recording:
     all_recordings: Összes felvétel
     email: E-mail felvétel
+    error: "Hiba történt %{count} felvétel lekérésekor"
     no_recordings: "Ennek a szobának egy %{inject} felvétele sincs."
     no_user_recordings: Jelenleg egy felvételed sincs.
     no_matched_recordings: "Egy %{inject} felvétel sem felel meg a keresési feltételnek."
@@ -386,10 +392,10 @@ hu_HU:
     banned:
       fail: "Nincs hozzáférésed ehhez az alkalmazáshoz. Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd az üzemeltetőnek." 
     deprecated:
-      new_signin:
-      twitter_signin:
-      twitter_signup:
-      merge_success:
+      new_signin: Válassz a fiókodhoz egy új bejelentkezési módot. A régi fiókodból származó összes szobát áthelyezzük az új fiókodra.
+      twitter_signin: "A Twitter-en keresztüli bejelentkezés elavult és nem lesz elérhető a következő verzióban. A fiókod átállításához egy új hitelesítési módszerre  kattints <a href=\"%{link}\"> erre linkre </a>."
+      twitter_signup: "A Twitter-en keresztüli regisztráció elavult. Kérjük, használj másik regisztrációs módszert"
+      merge_success: "A Twitter fiókodat sikeresen egyesítettük az új fiókoddal. A régi, Twitter fiókod töröltük."
     invite:
       fail: "A tokened nem érvényes vagy lejárt. Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd az üzemeltetőnek."
       no_invite: Neked nem küldtünk meghívót. Kérhetsz egyet az üzemeltetőktől.
@@ -400,36 +406,38 @@ hu_HU:
     confirm: Új jelszó újra
     update: Jelszó módosítása
   roles:
-    admin:
+    active: Aktív
+    admin: Üzemeltető
     banned: Kizárva
+    deleted: Törölt
     pending: Függőben
     user: Felhasználó
   room:
-    access_code_required:
+    access_code_required: Érvényes kódot adj meg a csatlakozáshoz
     create_room: Szoba létrehozása
     create_room_error: Hiba a szoba létrehozásakor
     create_room_success: A szobát sikeresen létrehoztad
-    enter_the_access_code:
-    invalid_provider:
+    enter_the_access_code: Add meg a szoba hozzáférési kódját
+    invalid_provider: "Érvénytelen URL-t adtál meg. Kérem, ellenőrizd, majd próbáld újra."
     invited: "Meghívtak, hogy belépj"
     invite_participants: Résztvevők meghívása
     join: Belépés
     last_session: "Utolsó munkamenet időpontja %{session}"
-    login:
+    login: Belépés
     owner: Tulajdonos
     no_room:
-      description:
-      edit_profile:
-      go_to:
-      invalid_room_uid:
+      description: Add meg a szoba URL-jét vagy ID-jét a csatlakozáshoz.
+      edit_profile: Felhasználói profil módosítása
+      go_to: Ugrás a szobába
+      invalid_room_uid: Az általad megadott szoba url/uid nem érvényes.
       placeholder: Szoba url/uid
-      no_recent_rooms:
-      recent_rooms:
+      no_recent_rooms: Egy mostanában csatlakozott szobája sincs
+      recent_rooms: Menj a Mostanában Csatlakozott Szobákhoz
       title: Csatlakozás egy szobához
     no_sessions: Ennek a szobának még nincs munkamenete!
     recordings: Felvétel
-    room_limit:
-    room_limit_exceeded:
+    room_limit: Elérted a maximálisan engedélyezett szobák számát
+    room_limit_exceeded: "Meghalattad a megengedett szobák számát. Kérjük, törölj %{difference} szobát a szoba eléréséhez."
     sessions: Munkamenet
     settings: Szoba beállításai
     start: Indítás
