@@ -153,7 +153,7 @@ es_MX:
     bigbluebutton:
       help: "Asegurate de que los pasos han sido seguidos correctamente. <a href=\"%{doc_link}\">Aprender más</a>"
       message: La URL o clave secreta del servidor BigBlueButton son inválidos
-      title: Error de servidor
+      title: Error del servidor
     internal:
       message: Parece que algo salió mal de nuestro lado.
       help: "El error ha sido registrado, vamos a revisarlo."
