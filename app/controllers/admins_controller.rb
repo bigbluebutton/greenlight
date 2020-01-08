@@ -161,7 +161,7 @@ class AdminsController < ApplicationController
   # POST /admins/clear_auth
   def clear_auth
     User.include_deleted.where(provider: @user_domain).update_all(social_uid: nil)
-    
+
     redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
