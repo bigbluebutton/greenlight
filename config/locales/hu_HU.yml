@@ -437,7 +437,7 @@ hu_HU:
     no_sessions: Ennek a szobának még nincs munkamenete!
     recordings: Felvétel
     room_limit: Elérted a maximálisan engedélyezett szobák számát
-    room_limit_exceeded: "Meghalattad a megengedett szobák számát. Kérjük, törölj %{difference} szobát a szoba eléréséhez."
+    room_limit_exceeded: "Meghaladtad a megengedett szobák számát. Kérjük, törölj %{difference} szobát a szoba eléréséhez."
     sessions: Munkamenet
     settings: Szoba beállításai
     start: Indítás
