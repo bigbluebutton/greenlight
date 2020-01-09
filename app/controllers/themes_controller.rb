@@ -26,7 +26,7 @@ class ThemesController < ApplicationController
     lighten_color = @settings.get_value("Primary Color Lighten") || Rails.configuration.primary_color_lighten_default
     darken_color = @settings.get_value("Primary Color Darken") || Rails.configuration.primary_color_darken_default
 
-    file_name = Rails.root.join('app', 'assets', 'stylesheets', 'utilities', '_primary_themes.scss')
+    file_name = Rails.root.join('lib', 'assets', '_primary_themes.scss')
     @file_contents = File.read(file_name)
 
     # Include the variables and covert scss file to css
