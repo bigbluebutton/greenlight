@@ -49,7 +49,9 @@ $(document).on('turbolinks:load', function(){
     $("#create-room-block").click(function(){
       showCreateRoom(this)
     })
+  }
 
+  if (controller == "rooms" && action == "show" || controller == "admins" && action == "server_rooms"){
     // Display and update all fields related to creating a room in the createRoomModal
     $(".update-room").click(function(){
       showUpdateRoom(this)
@@ -88,9 +90,9 @@ function showCreateRoom(target) {
 
 function showUpdateRoom(target) {
   var modal = $(target)
-  var room_block_uid = modal.closest("#room-block").data("room-uid")
-  $("#create-room-name").val(modal.closest("tbody").find("#room-name h4").text())
-  $("#createRoomModal form").attr("action", room_block_uid + "/update_settings")
+  var update_path = modal.closest("#room-block").data("path")
+  $("#create-room-name").val(modal.closest("#room-block").find("#room-name-text").text())
+  $("#createRoomModal form").attr("action", update_path)
 
   //show all elements & their children with a update-only class
   $(".update-only").each(function() {

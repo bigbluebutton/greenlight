@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div id="<%= if room == current_user.main_room then 'home_room_block' else 'room-block' end %>" data-room-uid="<%= room.uid %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>" class="card">
+<div id="<%= if room == current_user.main_room then 'home_room_block' else 'room-block' end %>" data-path="<%= update_settings_path(room) %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>" class="card">
   <div class="card-body p-1">
     <table class="table table-hover table-vcenter text-wrap table-no-border">
       <tbody class="no-border-top">
@@ -29,9 +29,9 @@
         <td>
           <div id="room-name">
             <% if room == current_user.main_room %>
-              <h4 contenteditable="false" class="m-0 force-text-normal" ><%= t("home_room") %></h4>
+              <h4 id="room-name-text" contenteditable="false" class="m-0 force-text-normal" ><%= t("home_room") %></h4>
             <% else %>
-              <h4 contenteditable="false" class="m-0 force-text-normal" ><%= room.name %></h4>
+              <h4 id="room-name-text" contenteditable="false" class="m-0 force-text-normal" ><%= room.name %></h4>
             <% end %>
           </div>
           <div id="room-name-editable" style="display: none">

@@ -68,6 +68,7 @@ class Role < ApplicationRecord
     update_permission("can_edit_site_settings", permissions[:can_edit_site_settings].to_s)
     update_permission("can_edit_roles", permissions[:can_edit_roles].to_s)
     update_permission("can_manage_users", permissions[:can_manage_users].to_s)
+    update_permission("can_manage_rooms_recordings", permissions[:can_manage_rooms_recordings].to_s)
   end
 
   # Updates the value of the permission and enables it

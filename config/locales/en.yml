@@ -93,6 +93,7 @@ en:
       invalid_create: There was a problem creating a new role. Please check the role values and try again
       invalid_order: There was a problem updating the priority of the role. Please check the values and try again
       invalid_update: There was a problem updating the permissions of the role. Please check the values and try again
+      manage_rooms_recordings: Allow users with this role to manage server rooms and recordings
       name: Role Name
       new_role: Create a new role
       role_has_users: This role is assigned to %{user_count} accounts. Please remove all accounts from this role before deleting it.
@@ -106,6 +107,14 @@ en:
       colour:
         title: Role Colour
         info: Set the colour that will be associated with the role
+    rooms:
+      title: Server Rooms
+      table:
+        id: ID
+        not_running: Not Running
+        running: Running
+        status: Status
+        view: View
     title: Organization Settings
     users:
       invite: Invite User
@@ -418,6 +427,10 @@ en:
     create_room: Create a Room
     create_room_error: There was an error creating the room
     create_room_success: Room created successfully
+    delete:
+      home_room: Can't delete user's Home Room
+      success: Room deleted successfully
+      fail: Failed to delete room (%{error})
     enter_the_access_code: Enter the room's access code
     invalid_provider: You have entered an invalid url. Please check the url and try again.
     invited: You have been invited to join

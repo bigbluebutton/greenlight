@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_28_153347) do
+ActiveRecord::Schema.define(version: 2019_10_23_172511) do
 
   create_table "features", force: :cascade do |t|
     t.integer "setting_id"
