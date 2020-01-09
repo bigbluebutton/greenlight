@@ -364,7 +364,7 @@ zh_CN:
   recording:
     all_recordings: 所有录像
     email: 通过Email发送录像
-    error: "检索 %{count} 录像时出错。"
+    error: "检索 %{count} 录像(s)时出错。"
     no_recordings: "这个会议室没有%{inject}录像"
     no_user_recordings: 您当前没有录像。
     no_matched_recordings: "没有搜索到 %{inject} 录像"
@@ -383,7 +383,7 @@ zh_CN:
       notes: 笔记
       podcast: 播客
       presentation: 演示
-      statistics: 统计
+      statistics: 统计信息
       video: 视频
   registration:
     approval:

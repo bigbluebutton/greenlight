@@ -131,10 +131,8 @@ class User < ApplicationRecord
 
   # Retrives a list of all a users rooms that are not the main room, sorted by last session date.
   def secondary_rooms
-    secondary = (rooms - [main_room])
-    no_session, session = secondary.partition { |r| r.last_session.nil? }
-    sorted = session.sort_by(&:last_session)
-    sorted + no_session
+    room_list = rooms.where.not(uid: main_room.uid)
+    room_list.where.not(last_session: nil).order("last_session desc") + room_list.where(last_session: nil)
   end
 
   def name_chunk
