@@ -11,7 +11,7 @@ RUN mkdir -p $RAILS_ROOT
 WORKDIR $RAILS_ROOT
 
 ARG BUILD_PACKAGES="build-base curl-dev git"
-ARG DEV_PACKAGES="postgresql-dev sqlite-dev yaml-dev zlib-dev nodejs yarn"
+ARG DEV_PACKAGES="postgresql-dev sqlite-libs sqlite-dev yaml-dev zlib-dev nodejs yarn"
 ARG RUBY_PACKAGES="tzdata"
 
 # Install app dependencies.
@@ -42,7 +42,7 @@ FROM ruby:2.5.1-alpine
 
 # Set a variable for the install location.
 ARG RAILS_ROOT=/usr/src/app
-ARG PACKAGES="tzdata postgresql-client nodejs bash"
+ARG PACKAGES="tzdata postgresql-client sqlite-libs nodejs bash"
 
 ENV RAILS_ENV=production
 ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
