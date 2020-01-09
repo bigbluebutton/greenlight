@@ -23,7 +23,8 @@ $(document).on('turbolinks:load', function(){
       (controller == "rooms" && action == "update") ||
       (controller == "rooms" && action == "join") || 
       (controller == "users" && action == "recordings") ||
-      (controller == "admins" && action == "server_recordings")) {
+      (controller == "admins" && action == "server_recordings") ||
+      (controller == "admins" && action == "server_rooms")) {
     // Submit search if the user hits enter
     $("#search-input").keypress(function(key) {
       if (key.which == 13) {

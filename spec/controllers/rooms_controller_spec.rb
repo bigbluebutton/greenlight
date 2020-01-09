@@ -342,6 +342,45 @@ describe RoomsController, type: :controller do
         delete :destroy, params: { room_uid: @user.main_room }
       end.to change { Room.count }.by(0)
     end
+
+    it "allows admin to delete room" do
+      @admin = create(:user)
+      @admin.add_role :admin
+      @request.session[:user_id] = @admin.id
+
+      expect do
+        delete :destroy, params: { room_uid: @secondary_room }
+      end.to change { Room.count }.by(-1)
+
+      expect(response).to redirect_to(@admin.main_room)
+    end
+
+    it "does not allow admin to delete a users home room" do
+      @admin = create(:user)
+      @admin.add_role :admin
+      @request.session[:user_id] = @admin.id
+
+      expect do
+        delete :destroy, params: { room_uid: @user.main_room }
+      end.to change { Room.count }.by(0)
+
+      expect(flash[:alert]).to be_present
+      expect(response).to redirect_to(@admin.main_room)
+    end
+
+    it "does not allow an admin from a different context to delete room" do
+      allow_any_instance_of(User).to receive(:admin_of?).and_return(false)
+
+      @admin = create(:user)
+      @admin.add_role :admin
+      @request.session[:user_id] = @admin.id
+
+      expect do
+        delete :destroy, params: { room_uid: @secondary_room }
+      end.to change { Room.count }.by(0)
+
+      expect(response).to redirect_to(root_path)
+    end
   end
 
   describe "POST #start" do
@@ -371,6 +410,27 @@ describe RoomsController, type: :controller do
 
     it "should bring to root if not authenticated" do
       post :start, params: { room_uid: @other_room }
+
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "redirects to join path if admin" do
+      @admin = create(:user)
+      @admin.add_role :admin
+      @request.session[:user_id] = @admin.id
+
+      post :start, params: { room_uid: @user.main_room }
+
+      expect(response).to redirect_to(join_path(@user.main_room, @admin.name, { user_is_moderator: true }, @admin.uid))
+    end
+
+    it "redirects to root path if not admin of current user" do
+      allow_any_instance_of(User).to receive(:admin_of?).and_return(false)
+      @admin = create(:user)
+      @admin.add_role :admin
+      @request.session[:user_id] = @admin.id
+
+      post :start, params: { room_uid: @user.main_room }
 
       expect(response).to redirect_to(root_path)
     end
@@ -412,6 +472,35 @@ describe RoomsController, type: :controller do
       patch :update_settings, params: { room_uid: @secondary_room, setting: :rename_header, room_name: :name }
 
       expect(response).to redirect_to(@secondary_room)
+    end
+
+    it "allows admin to update room settings" do
+      @admin = create(:user)
+      @admin.add_role :admin
+      @request.session[:user_id] = @admin.id
+
+      room_params = { "mute_on_join": "1", "name": @secondary_room.name }
+      formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
+        "\"anyoneCanStart\":false,\"joinModerator\":false}" # JSON string format
+
+      expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
+        .to change { @secondary_room.reload.room_settings }
+        .from(@secondary_room.room_settings).to(formatted_room_params)
+      expect(response).to redirect_to(@secondary_room)
+    end
+
+    it "does not allow admins from a different context to update room settings" do
+      allow_any_instance_of(User).to receive(:admin_of?).and_return(false)
+      @admin = create(:user)
+      @admin.add_role :admin
+      @request.session[:user_id] = @admin.id
+
+      room_params = { "mute_on_join": "1", "name": @secondary_room.name }
+
+      expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
+        .not_to change { @secondary_room.reload.room_settings }
+
+      expect(response).to redirect_to(root_path)
     end
   end
 
