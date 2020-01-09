@@ -32,10 +32,10 @@ sk_SK:
   administrator:
     site_settings:
       authentication:
-        disabled: Povolené
-        enabled: Zakázané
-        info: Pripojenie neregistrovaných užívateľov do miestnosti
-        title: Vyžadovanie autentifikácie pre miestnosti
+        disabled: Nevyžadované
+        enabled: Nutné
+        info: Zmena nutnosti prihlásenia užívateľa pre vstup do miestnosti
+        title: Prihlasovanie do miestnosti
         user-info: Musíte byť prihlásený užívateľ pre vstup do tejto miestnosti
       branding:
         change: Zmena loga
@@ -48,23 +48,23 @@ sk_SK:
         button: Vyčistiť medzipamäť
       color:
         info: Zmena základnej farby ovplyvní aj Svetlú a Tmavú. Svetlú a Tmavú farbu je možné zmeniť samostatne
-        title: Základná farba
+        title: Nastavenie farieb
         regular: Základná
         lighten: Svetlá
         darken: Tmavá
       recording_visibility:
-        info: Nastaví štandardnú viditeľnosť pre nové nahrávky
+        info: Zmena štandardnej viditeľnosti pre nové nahrávky
         title: Štandardná viditeľnosť nahrávok
         warning: "Toto nastavenie bude aplikované na miestnosti, v ktorých práve neprebieha konferencia"
       registration:
-        info: Zmeňte spôsob registrácie na tomto servri
+        info: Zmena spôsobu registrácie na tomto servri
         title: Spôsob registrácie
         methods:
           approval: Povoliť/Zakázať
           invite: Vstup na pozvánky
           open: Otvorená registrácia
       rooms:
-        info: Obmedzí celkový počet miestností užívateľa (vrátane Domovskej). Toto nastavenie sa nevzťahuje na administrátorov.
+        info: Zmena celkového počtu miestností užívateľa (vrátane Domovskej). Toto nastavenie sa nevzťahuje na administrátorov.
         title: Počet miestností na užívateľa
       subtitle: Nastavenia servra
       title: Nastavenia servra
@@ -77,7 +77,7 @@ sk_SK:
       demoted: Užívateľ bol úspešne degradovaný
       invite: "Pozvánka úspešne odoslaná na %{email}"
       invite_email_verification: Zasielanie emailov musí byť povolené pre použitie tejto metódy. Kontaktujte prosím Vášho systémového administrátora.
-      perm_deleted: Užívateľ bol permanentne vymazaný
+      perm_deleted: Užívateľ bol permanentne zmazaný
       promoted: Užívateľ bol úspešne povýšený
       registration_method_updated: Spôsob registrácie bol úspešne zmenený
       reset_password: "Užívateľovi bol odoslaný email na zresetovanie jeho hesla. (Prosím požiadajte ho o kontrolu priečinka SPAM, ak ho nedostal)"
@@ -118,7 +118,7 @@ sk_SK:
         delete: Zmazať
         edit: Upraviť
         edit_roles: Prideliť role
-        perm_delete: Permanentne vymazať
+        perm_delete: Permanentne zmazať
         unban: Odblokovať užívateľa
         undelete: Obnoviť
       table:
@@ -310,7 +310,7 @@ sk_SK:
       confirm: "Určite chcete zmazať tento účet?"
       delete: "Som si istý, účet chcem zmazať."
       keep: "Zmenil som názor, účet chcem zachovať."
-      delete_warning: Týmto bude deaktivovaný užívateľov účet. Všstky deaktivované účty nájdete v záložke vymazané.
+      delete_warning: Týmto bude deaktivovaný užívateľov účet. Všetky deaktivované účty nájdete v záložke Zmazaní.
       warning: Toto rozhodnutie je konečné. Už <b>nebude</b> možné obnoviť žiadne súvisiace dáta.
     delete_room:
       confirm: "Určite chcete zmazať miestnosť %{room}?"
@@ -383,7 +383,7 @@ sk_SK:
       notes: Poznámky
       podcast: Podcast
       presentation: Prezentácia
-      statistics: Štatistiky
+      statistics: Štatistika
       video: Video
   registration:
     approval:
@@ -406,10 +406,10 @@ sk_SK:
     confirm: Potvrdenie nového hesla
     update: Zmena hesla
   roles:
-    active: Aktívny
+    active: Aktívni
     admin: Administrátor
-    banned: Zablokovaný
-    deleted: Vymazaný
+    banned: Zablokovaní
+    deleted: Zmazaní
     pending: Čakajúci
     user: Užívateľ
   room:
