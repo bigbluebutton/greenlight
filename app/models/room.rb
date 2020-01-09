@@ -48,9 +48,7 @@ class Room < ApplicationRecord
     # Include the owner of the table
     table = joins(:owner)
 
-    if table.column_names.include?(column) || column == "users.name"
-      return table.order(Arel.sql("#{column} #{direction}"))
-    end
+    return table.order(Arel.sql("#{column} #{direction}")) if table.column_names.include?(column) || column == "users.name"
 
     table
   end
