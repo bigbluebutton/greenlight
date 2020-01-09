@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   scope '/admins' do
     # Panel Tabs
+    get '/rooms', to: 'admins#server_rooms', as: :admin_rooms
     get '/recordings', to: 'admins#server_recordings', as: :admin_recordings
     get '/site_settings', to: 'admins#site_settings', as: :admin_site_settings
     get '/roles', to: 'admins#roles', as: :admin_roles

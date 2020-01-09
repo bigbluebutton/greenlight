@@ -61,6 +61,23 @@ class AdminsController < ApplicationController
     @pagy, @recordings = pagy_array(recs)
   end
 
+  # GET /admins/rooms
+  def server_rooms
+    @search = params[:search] || ""
+    @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
+    @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
+
+    server_rooms = if Rails.configuration.loadbalanced_configuration
+      Room.includes(:owner).where(users: { provider: @user_domain })
+          .admins_search(@search)
+          .admins_order(@order_column, @order_direction)
+    else
+      Room.all.admins_search(@search).admins_order(@order_column, @order_direction)
+    end
+
+    @pagy, @rooms = pagy_array(server_rooms)
+  end
+
   # MANAGE USERS
 
   # GET /admins/edit/:user_uid
@@ -283,4 +300,10 @@ class AdminsController < ApplicationController
 
     invite
   end
+
+  # Get the room status to display in the Server Rooms table
+  def room_is_running(id)
+    room_running?(id)
+  end
+  helper_method :room_is_running
 end
