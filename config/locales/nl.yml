@@ -422,7 +422,7 @@ nl:
     invited: Je bent uitgenodigd om lid te worden
     invite_participants: Deelnemers uitnodigen
     join: Toetreden
-    last_session: "Laatste sessie op %{sessie}"
+    last_session: "Laatste sessie op %{session}"
     login: Deelnemen
     owner: Eigenaar
     no_room:
