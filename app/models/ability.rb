@@ -39,9 +39,7 @@ class Ability
              :approve, :invite, :reset, :undelete], :admin
       end
 
-      if highest_role.get_permission("can_manage_rooms_recordings")
-        can [:index, :server_recordings, :server_rooms], :admin
-      end
+      can [:index, :server_recordings, :server_rooms], :admin if highest_role.get_permission("can_manage_rooms_recordings")
 
       if !highest_role.get_permission("can_edit_site_settings") && !highest_role.get_permission("can_edit_roles") &&
          !highest_role.get_permission("can_manage_users") && !highest_role.get_permission("can_manage_rooms_recordings")
