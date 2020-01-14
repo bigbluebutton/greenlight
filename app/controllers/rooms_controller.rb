@@ -28,6 +28,7 @@ class RoomsController < ApplicationController
   before_action :verify_room_ownership_or_admin, only: [:start, :update_settings, :destroy]
   before_action :verify_room_owner_verified, only: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
+  before_action :verify_room_owner_valid, only: [:show, :join]
   before_action :verify_user_not_admin, only: [:show]
 
   # POST /
@@ -242,10 +243,12 @@ class RoomsController < ApplicationController
   end
 
   def verify_room_owner_verified
-    unless @room.owner.activated?
-      flash[:alert] = t("room.unavailable")
-      redirect_to root_path
-    end
+    redirect_to root_path, alert: t("room.unavailable") unless @room.owner.activated?
+  end
+
+  # Check to make sure the room owner is not pending or banned
+  def verify_room_owner_valid
+    redirect_to root_path, alert: t("room.unavailable") if @room.owner.has_role?(:pending) || @room.owner.has_role?(:denied)
   end
 
   def verify_user_not_admin
