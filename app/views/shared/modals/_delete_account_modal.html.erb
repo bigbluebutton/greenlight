@@ -26,7 +26,7 @@
             <%= t("modal.delete_account.keep") %>
           </button>
 
-          <%= button_to delete_location, method: :delete, id: "delete-confirm", class: "btn btn-danger my-1 btn-del-room", disabled:"" do %>
+          <%= button_to delete_location, method: :delete, id: "delete-confirm", class: "btn btn-danger my-1 btn-del-room", disabled:"", "data-disable": "" do %>
             <%= t("modal.delete_account.delete") %>
           <% end %>
 

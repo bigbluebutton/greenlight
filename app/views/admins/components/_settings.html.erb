@@ -64,13 +64,13 @@
             <%= registration_method_string %>
           </button>
           <div class="dropdown-menu" aria-labelledby="registrationMethods">
-            <%= button_to admin_change_registration_path(value: "open"), class: "dropdown-item" do %>
+            <%= button_to admin_change_registration_path(value: "open"), class: "dropdown-item", "data-disable": "" do %>
               <%= t("administrator.site_settings.registration.methods.open") %>
             <% end %>
-            <%= button_to admin_change_registration_path(value: "invite"), class: "dropdown-item" do %>
+            <%= button_to admin_change_registration_path(value: "invite"), class: "dropdown-item", "data-disable": "" do %>
               <%= t("administrator.site_settings.registration.methods.invite") %>
             <% end %>
-            <%= button_to admin_change_registration_path(value: "approval"), class: "dropdown-item" do %>
+            <%= button_to admin_change_registration_path(value: "approval"), class: "dropdown-item", "data-disable": "" do %>
               <%= t("administrator.site_settings.registration.methods.approval") %>
             <% end %>
           </div>
@@ -88,10 +88,10 @@
             <%= room_authentication_string %>
           </button>
           <div class="dropdown-menu" aria-labelledby="room-auth">
-            <%= button_to admin_update_settings_path(setting: "Room Authentication", value: "true"), class: "dropdown-item" do %>
+            <%= button_to admin_update_settings_path(setting: "Room Authentication", value: "true"), class: "dropdown-item", "data-disable": "" do %>
               <%= t("administrator.site_settings.authentication.enabled") %>
             <% end %>
-            <%= button_to admin_update_settings_path(setting: "Room Authentication", value: "false"), class: "dropdown-item" do %>
+            <%= button_to admin_update_settings_path(setting: "Room Authentication", value: "false"), class: "dropdown-item", "data-disable": "" do %>
               <%= t("administrator.site_settings.authentication.disabled") %>
             <% end %>
           </div>
@@ -109,10 +109,10 @@
             <%= recording_default_visibility_string %>
           </button>
           <div class="dropdown-menu" aria-labelledby="room-auth">
-            <%= button_to admin_update_settings_path(setting: "Default Recording Visibility", value: "public"), class: "dropdown-item" do %>
+            <%= button_to admin_update_settings_path(setting: "Default Recording Visibility", value: "public"), class: "dropdown-item", "data-disable": "" do %>
               <%= t("recording.visibility.public") %>
             <% end %>
-            <%= button_to admin_update_settings_path(setting: "Default Recording Visibility", value: "private"), class: "dropdown-item" do %>
+            <%= button_to admin_update_settings_path(setting: "Default Recording Visibility", value: "private"), class: "dropdown-item", "data-disable": "" do %>
               <%= t("recording.visibility.unlisted") %>
             <% end %>
           </div>
@@ -128,25 +128,25 @@
         <div class="row gutters-xs">
           <div class="col-auto">
             <label class="colorinput">
-              <%= button_to admin_update_settings_path(setting: "Room Limit", value: 1), class: "colorinput-input" do %><% end %>
+              <%= button_to admin_update_settings_path(setting: "Room Limit", value: 1), class: "colorinput-input", "data-disable": "" do %><% end %>
               <span class="colorinput-color <%= room_limit_number == 1 ? "btn-primary" : "btn-outline-primary" %>">1</span>
             </label>
           </div>
           <div class="col-auto">
             <label class="colorinput">
-              <%= button_to admin_update_settings_path(setting: "Room Limit", value: 5), class: "colorinput-input" do %><% end %>
+              <%= button_to admin_update_settings_path(setting: "Room Limit", value: 5), class: "colorinput-input", "data-disable": "" do %><% end %>
               <span class="colorinput-color <%= room_limit_number == 5 ? "btn-primary" : "btn-outline-primary" %>">5</span>
             </label>
           </div>
           <div class="col-auto">
             <label class="colorinput">
-              <%= button_to admin_update_settings_path(setting: "Room Limit", value: 10), class: "colorinput-input" do %><% end %>
+              <%= button_to admin_update_settings_path(setting: "Room Limit", value: 10), class: "colorinput-input", "data-disable": "" do %><% end %>
               <span class="colorinput-color <%= room_limit_number == 10 ? "btn-primary" : "btn-outline-primary" %>">10</span>
             </label>
           </div>
           <div class="col-auto">
             <label class="colorinput">
-              <%= button_to admin_update_settings_path(setting: "Room Limit", value: 15), class: "colorinput-input" do %><% end %>
+              <%= button_to admin_update_settings_path(setting: "Room Limit", value: 15), class: "colorinput-input", "data-disable": "" do %><% end %>
               <span class="colorinput-color <%= room_limit_number == 15 ? "btn-primary" : "btn-outline-primary" %>">15+</span>
             </label>
           </div>
@@ -160,7 +160,7 @@
         <div class="mb-6 form-group">
           <label class="form-label"><%= t("administrator.site_settings.cache.title") %></label>
           <label class="form-label text-muted"><%= t("administrator.site_settings.cache.info") %></label>
-          <%= button_to t("administrator.site_settings.cache.button"), admin_clear_cache_path, class: "btn btn-primary" %>
+          <%= button_to t("administrator.site_settings.cache.button"), admin_clear_cache_path, class: "btn btn-primary", "data-disable": "" %>
         </div>
       </div>
     </div>
