@@ -456,6 +456,7 @@ en:
     settings: Room Settings
     start: Start
     unavailable: This room is currently unavailable due to the owner's email not being verified.
+    unavailable_banned: This room is currently unavailable
     update_settings_error: There was an error updating the room settings
     update_settings_success: Room settings successfully updated
     wait:
