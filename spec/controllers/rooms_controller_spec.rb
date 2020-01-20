@@ -575,7 +575,7 @@ describe RoomsController, type: :controller do
       @user = create(:user)
       @room = create(:room, owner: @user)
       @user1 = create(:user)
-      # allow(Rails.configuration).to receive(:shared_access_default).and_return(true)
+      allow(Rails.configuration).to receive(:shared_access_default).and_return("true")
     end
 
     it "shares a room with another user" do
@@ -659,7 +659,7 @@ describe RoomsController, type: :controller do
       @user = create(:user)
       @room = create(:room, owner: @user)
       @user1 = create(:user)
-      # allow(Rails.configuration).to receive(:shared_access_default).and_return(true)
+      allow(Rails.configuration).to receive(:shared_access_default).and_return("true")
     end
 
     it "unshares a room from the user if they click the remove button" do
