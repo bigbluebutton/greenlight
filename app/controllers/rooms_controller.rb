@@ -20,12 +20,15 @@ class RoomsController < ApplicationController
   include Pagy::Backend
   include Recorder
   include Joiner
+  include Populator
 
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :validate_verified_email, except: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: [:create, :join_specific_room]
-  before_action :verify_room_ownership_or_admin, only: [:start, :update_settings, :destroy]
+  before_action :verify_room_ownership_or_admin_or_shared, only: [:start, :shared_access]
+  before_action :verify_room_ownership_or_admin, only: [:update_settings, :destroy]
+  before_action :verify_room_ownership_or_shared, only: [:remove_shared_access]
   before_action :verify_room_owner_verified, only: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :verify_user_not_admin, only: [:show]
@@ -60,13 +63,16 @@ class RoomsController < ApplicationController
   def show
     @anyone_can_start = JSON.parse(@room[:room_settings])["anyoneCanStart"]
     @room_running = room_running?(@room.bbb_id)
+    @shared_room = room_shared_with_user
 
     # If its the current user's room
-    if current_user && @room.owned_by?(current_user)
+    if current_user && (@room.owned_by?(current_user) || @shared_room)
       if current_user.highest_priority_role.get_permission("can_create_rooms")
         # User is allowed to have rooms
         @search, @order_column, @order_direction, recs =
           recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
+
+        @user_list = shared_user_list if shared_access_allowed
 
         @pagy, @recordings = pagy_array(recs)
       else
@@ -188,6 +194,55 @@ class RoomsController < ApplicationController
     redirect_back fallback_location: room_path(@room)
   end
 
+  # POST /:room_uid/update_shared_access
+  def shared_access
+    begin
+      current_list = @room.shared_users.pluck(:id)
+      new_list = User.where(uid: params[:add]).pluck(:id)
+
+      # Get the list of users that used to be in the list but were removed
+      users_to_remove = current_list - new_list
+      # Get the list of users that are in the new list but not in the current list
+      users_to_add = new_list - current_list
+
+      # Remove users that are removed
+      SharedAccess.where(room_id: @room.id, user_id: users_to_remove).delete_all unless users_to_remove.empty?
+
+      # Add users that are added
+      users_to_add.each do |id|
+        SharedAccess.create(room_id: @room.id, user_id: id)
+      end
+
+      flash[:success] = I18n.t("room.shared_access_success")
+    rescue => e
+      logger.error "Support: Error in updating room shared access: #{e}"
+      flash[:alert] = I18n.t("room.shared_access_error")
+    end
+
+    redirect_back fallback_location: room_path
+  end
+
+  # POST /:room_uid/remove_shared_access
+  def remove_shared_access
+    begin
+      SharedAccess.find_by!(room_id: @room.id, user_id: params[:user_id]).destroy
+      flash[:success] = I18n.t("room.remove_shared_access_success")
+    rescue => e
+      logger.error "Support: Error in removing room shared access: #{e}"
+      flash[:alert] = I18n.t("room.remove_shared_access_error")
+    end
+
+    redirect_to current_user.main_room
+  end
+
+  # GET /:room_uid/shared_users
+  def shared_users
+    # Respond with JSON object of users that have access to the room
+    respond_to do |format|
+      format.json { render body: @room.shared_users.to_json }
+    end
+  end
+
   # GET /:room_uid/logout
   def logout
     logger.info "Support: #{current_user.present? ? current_user.email : 'Guest'} has left room #{@room.uid}"
@@ -228,9 +283,21 @@ class RoomsController < ApplicationController
     @room = Room.find_by!(uid: params[:room_uid])
   end
 
+  # Ensure the user either owns the room or is an admin of the room owner or the room is shared with him
+  def verify_room_ownership_or_admin_or_shared
+    return redirect_to root_path unless @room.owned_by?(current_user) ||
+                                        room_shared_with_user ||
+                                        current_user&.admin_of?(@room.owner)
+  end
+
   # Ensure the user either owns the room or is an admin of the room owner
   def verify_room_ownership_or_admin
     return redirect_to root_path if !@room.owned_by?(current_user) && !current_user&.admin_of?(@room.owner)
+  end
+
+  # Ensure the user owns the room or is allowed to start it
+  def verify_room_ownership_or_shared
+   return redirect_to root_path unless @room.owned_by?(current_user) || room_shared_with_user
   end
 
   def validate_accepted_terms
@@ -254,6 +321,11 @@ class RoomsController < ApplicationController
 
   def auth_required
     @settings.get_value("Room Authentication") == "true" && current_user.nil?
+  end
+
+  # Checks if the room is shared with the user and room sharing is enabled
+  def room_shared_with_user
+    shared_access_allowed ? @room.shared_with?(current_user) : false
   end
 
   def room_limit_exceeded

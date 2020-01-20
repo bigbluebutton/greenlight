@@ -344,6 +344,22 @@ describe AdminsController, type: :controller do
         expect(response).to redirect_to(admin_site_settings_path)
       end
     end
+
+    context "POST #shared_access" do
+      it "changes the shared access setting" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+
+        post :update_settings, params: { setting: "Shared Access", value: "false" }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Shared Access")
+
+        expect(feature[:value]).to eq("false")
+        expect(response).to redirect_to(admin_site_settings_path)
+      end
+    end
   end
 
   describe "Roles" do

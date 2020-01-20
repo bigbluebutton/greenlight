@@ -60,6 +60,69 @@ $(document).on('turbolinks:load', function(){
     $(".delete-room").click(function() {
       showDeleteRoom(this)
     })
+
+    $('.selectpicker').selectpicker({
+      liveSearchPlaceholder: "Start searching..."
+    });
+    // Fixes turbolinks issue with bootstrap select
+    $(window).trigger('load.bs.select.data-api');
+
+    $(".share-room").click(function() {
+      // Update the path of save button
+      $("#save-access").attr("data-path", $(this).data("path"))
+
+      // Get list of users shared with and display them
+      displaySharedUsers($(this).data("users-path"))
+    })
+
+    $("#shareRoomModal").on("show.bs.modal", function() {
+      $(".selectpicker").selectpicker('val','')
+    })
+
+    $(".bootstrap-select").on("click", function() {
+      $(".bs-searchbox").siblings().hide()
+    })
+
+    $(".bs-searchbox input").on("input", function() {
+      if ($(".bs-searchbox input").val() == '' || $(".bs-searchbox input").val().length < 3) {
+        $(".bs-searchbox").siblings().hide()
+      } else {
+        $(".bs-searchbox").siblings().show()
+      }
+    })
+
+    $(".remove-share-room").click(function() {
+      $("#remove-shared-confirm").parent().attr("action", $(this).data("path"))
+    })
+
+    // User selects an option from the Room Access dropdown
+    $(".bootstrap-select").on("changed.bs.select", function(){
+      // Get the uid of the selected user
+      let uid = $(".selectpicker").selectpicker('val')
+
+      // If the value was changed to blank, ignore it
+      if (uid == "") return
+
+      let currentListItems = $("#user-list li").toArray().map(user => $(user).data("uid"))
+
+      // Check to make sure that the user is not already there
+      if (!currentListItems.includes(uid)) {
+        // Create the faded list item and display it
+        let option = $("option[value='" + uid + "']")
+
+        let listItem = document.createElement("li")
+        listItem.setAttribute('class', 'list-group-item text-left not-saved add-access');
+        listItem.setAttribute("data-uid", uid)
+  
+        let spanItem = "<span class='avatar float-left mr-2'>" + option.text().charAt(0) + "</span> <span class='shared-user'>" +
+          option.text() + " <span class='text-muted'>" + option.data("subtext") + "</span></span>" + 
+          "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+        
+        listItem.innerHTML = spanItem
+  
+        $("#user-list").append(listItem)
+      }
+    })
   }
 });
 
@@ -149,4 +212,45 @@ function generateAccessCode(){
 function ResetAccessCode(){
   $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
   $("#room_access_code").val(null)
+}
+
+function saveAccessChanges() {
+  let listItemsToAdd = $("#user-list li:not(.remove-shared)").toArray().map(user => $(user).data("uid"))
+
+  $.post($("#save-access").data("path"), {add: listItemsToAdd})
+}
+
+// Get list of users shared with and display them
+function displaySharedUsers(path) {
+  $.get(path, function(users) {
+    // Create list element and add to user list
+    var user_list_html = ""
+
+    users.forEach(function(user) {
+      user_list_html += "<li class='list-group-item text-left' data-uid='" + user.uid + "'>"
+
+      if (user.image) {
+        user_list_html += "<img id='user-image' class='avatar float-left mr-2' src='" + user.image + "'></img>"
+      } else {
+        user_list_html += "<span class='avatar float-left mr-2'>" + user.name.charAt(0) + "</span>"
+      }
+      user_list_html += "<span class='shared-user'>" + user.name + "<span class='text-muted ml-1'>" + user.uid + "</span></span>"
+      user_list_html += "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+      user_list_html += "</li>"
+    })
+    
+    $("#user-list").html(user_list_html)
+  });
+}
+
+// Removes the user from the list of shared users
+function removeSharedUser(target) {
+  let parentLI = target.closest("li")
+
+  if (parentLI.classList.contains("not-saved")) {
+    parentLI.parentNode.removeChild(parentLI)
+  } else {
+    parentLI.removeChild(target)
+    parentLI.classList.add("remove-shared")
+  }
 }

@@ -22,6 +22,7 @@ class AdminsController < ApplicationController
   include Emailer
   include Recorder
   include Rolify
+  include Populator
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve, :reset]
   manage_deleted_users = [:undelete]
@@ -49,11 +50,7 @@ class AdminsController < ApplicationController
 
   # GET /admins/server_recordings
   def server_recordings
-    server_rooms = if Rails.configuration.loadbalanced_configuration
-      Room.includes(:owner).where(users: { provider: @user_domain }).pluck(:bbb_id)
-    else
-      Room.pluck(:bbb_id)
-    end
+    server_rooms = rooms_list_for_recordings
 
     @search, @order_column, @order_direction, recs =
       all_recordings(server_rooms, params.permit(:search, :column, :direction), true, true)
@@ -67,13 +64,9 @@ class AdminsController < ApplicationController
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
 
-    server_rooms = if Rails.configuration.loadbalanced_configuration
-      Room.includes(:owner).where(users: { provider: @user_domain })
-          .admins_search(@search)
-          .admins_order(@order_column, @order_direction)
-    else
-      Room.all.admins_search(@search).admins_order(@order_column, @order_direction)
-    end
+    server_rooms = server_rooms_list
+
+    @user_list = shared_user_list if shared_access_allowed
 
     @pagy, @rooms = pagy_array(server_rooms)
   end

@@ -91,7 +91,8 @@ a {
       opacity: 0.9;
     }
   }
-  &:active {
+  &:active, &.active {
+    color: $primary-color !important;
     background-color: $primary-color-lighten !important;
   }
 }

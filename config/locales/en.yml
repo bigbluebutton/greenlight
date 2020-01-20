@@ -66,6 +66,9 @@ en:
       rooms:
         info: Limits the number of rooms that a user can have (including Home Room). This setting does not apply to administrators.
         title: Number of Rooms per User
+      shared_access:
+        info: Setting to disabled will remove the button from the Room options dropdown, preventing users from sharing rooms
+        title: Allow Users to Share Rooms
       subtitle: Customize Greenlight
       title: Site Settings
     flash:
@@ -338,6 +341,10 @@ en:
       with: Sign in with %{provider}
       forgot_password: Forgot Password?
     rename_recording:
+    remove_shared:
+      title: Are you sure you want to remove this room from your room list?
+      delete: I'm sure, remove this room.
+      warning: You will <b>not</b> be able to access this room anymore.
     room_settings:
       title: Room Settings
       update: Update Room
@@ -349,6 +356,13 @@ en:
       footer_text: Adjustment to your room can be done at anytime.
     rename_room:
       name_placeholder: Enter a new room name...
+    share_access:
+      footer: Sharing a room with a user allows them to start the room and view the room's recordings
+      list: Shared With
+      title: Share Room Access
+      save: Save Changes
+      cancel_changes: Cancel Changes
+      select: Select User
   name_update_success: Room name successfully changed!
   no_user_email_exists: There is no existing user with the email specified. Please make sure you typed it correctly.
   omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!
@@ -409,6 +423,7 @@ en:
     invite:
       fail: Your token is either invalid or has expired. If you believe this is a mistake, please contact your administrator.
       no_invite: You do not have an invitation to join. Please contact your administrator to receive one.
+  remove: Remove
   rename: Rename
   reset_password:
     subtitle: Reset Password
@@ -454,6 +469,12 @@ en:
     room_limit_exceeded: You have exceeded the number of rooms allowed. Please delete %{difference} room(s) to access this room.
     sessions: Sessions
     settings: Room Settings
+    share: Manage Access
+    shared_by: Shared by %{email}
+    remove_shared_access_success: Successfully removed shared room from your room list
+    remove_shared_access_error: There was an error removing the shared room from your list
+    shared_access_success: Room shared successfully
+    shared_access_error: There was an error sharing the room
     start: Start
     unavailable: This room is currently unavailable due to the owner's email not being verified.
     update_settings_error: There was an error updating the room settings
