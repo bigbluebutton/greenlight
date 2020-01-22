@@ -524,6 +524,51 @@ describe SessionsController, type: :controller do
       expect(@request.session[:user_id]).to eql(u.id)
     end
 
+    it "should defaults the users image to blank if actual image is provided" do
+      entry = Net::LDAP::Entry.new("cn=Test User,ou=people,dc=planetexpress,dc=com")
+      entry[:cn] = "Test User"
+      entry[:givenName] = "Test"
+      entry[:sn] = "User"
+      entry[:mail] = "test@example.com"
+      entry[:jpegPhoto] = "\FF\F8" # Pretend image
+      allow_any_instance_of(Net::LDAP).to receive(:bind_as).and_return([entry])
+
+      post :ldap, params: {
+        session: {
+          user: "test",
+          password: 'password',
+        },
+      }
+
+      u = User.last
+      expect(u.provider).to eql("ldap")
+      expect(u.image).to eql("")
+      expect(@request.session[:user_id]).to eql(u.id)
+    end
+
+    it "uses the users image if a url is provided" do
+      image = Faker::Internet.url
+      entry = Net::LDAP::Entry.new("cn=Test User,ou=people,dc=planetexpress,dc=com")
+      entry[:cn] = "Test User"
+      entry[:givenName] = "Test"
+      entry[:sn] = "User"
+      entry[:mail] = "test@example.com"
+      entry[:jpegPhoto] = image
+      allow_any_instance_of(Net::LDAP).to receive(:bind_as).and_return([entry])
+
+      post :ldap, params: {
+        session: {
+          user: "test",
+          password: 'password',
+        },
+      }
+
+      u = User.last
+      expect(u.provider).to eql("ldap")
+      expect(u.image).to eql(image)
+      expect(@request.session[:user_id]).to eql(u.id)
+    end
+
     it "should redirect to signin on invalid credentials" do
       allow_any_instance_of(Net::LDAP).to receive(:bind_as).and_return(false)
 
