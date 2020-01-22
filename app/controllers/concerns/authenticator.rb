@@ -42,7 +42,8 @@ module Authenticator
       redirect_to admins_path
     elsif user.activated?
       # Dont redirect to any of these urls
-      dont_redirect_to = [root_url, signin_url, signup_url, unauthorized_url, internal_error_url, not_found_url]
+      dont_redirect_to = [root_url, signin_url, ldap_signin_url, signup_url, unauthorized_url,
+                          internal_error_url, not_found_url]
       url = if cookies[:return_to] && !dont_redirect_to.include?(cookies[:return_to])
         cookies[:return_to]
       else
