@@ -88,7 +88,11 @@ describe SessionsController, type: :controller do
   end
 
   describe "POST #create" do
-    before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(true) }
+    before do
+      allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+      allow_any_instance_of(SessionsController).to receive(:auth_changed_to_local?).and_return(false)
+    end
+
     before(:each) do
       @user1 = create(:user, provider: 'greenlight', password: 'example', password_confirmation: 'example')
       @user2 = create(:user, password: 'example', password_confirmation: "example")
@@ -250,6 +254,22 @@ describe SessionsController, type: :controller do
       expect(@user1.rooms.count).to eq(3)
       expect(@user1.rooms.find { |r| r.name == "Old Home Room" }).to_not be_nil
       expect(@user1.rooms.find { |r| r.name == "Test" }).to_not be_nil
+    end
+
+    it "sends the user a reset password email if the authentication method is changing to local" do
+      allow_any_instance_of(SessionsController).to receive(:auth_changed_to_local?).and_return(true)
+      email = Faker::Internet.email
+
+      create(:user, email: email, provider: "greenlight", social_uid: "google-user")
+
+      expect {
+        post :create, params: {
+          session: {
+            email: email,
+            password: 'example',
+          },
+        }
+      }.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
   end
 
@@ -427,6 +447,66 @@ describe SessionsController, type: :controller do
       get :omniauth, params: { provider: 'bn_launcher' }
 
       expect(response).to redirect_to(root_path)
+    end
+
+    it "switches a social account to a different social account if the authentication method changed" do
+      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:bn_launcher]
+      get :omniauth, params: { provider: 'bn_launcher' }
+
+      u = User.find_by(social_uid: "bn-launcher-user")
+      u.social_uid = nil
+      users_old_uid = u.uid
+      u.save!
+
+      new_user = OmniAuth::AuthHash.new(
+        provider: "bn_launcher",
+        uid: "bn-launcher-user-new",
+        info: {
+          email: "user@google.com",
+          name: "Office User",
+          nickname: "googleuser",
+          image: "touch.png",
+          customer: 'customer1',
+        }
+      )
+
+      allow_any_instance_of(SessionsController).to receive(:auth_changed_to_social?).and_return(true)
+      allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("customer1")
+      controller.instance_variable_set(:@user_domain, "customer1")
+
+      request.env["omniauth.auth"] = new_user
+      get :omniauth, params: { provider: 'bn_launcher' }
+
+      new_u = User.find_by(social_uid: "bn-launcher-user-new")
+      expect(users_old_uid).to eq(new_u.uid)
+    end
+
+    it "switches a local account to a different social account if the authentication method changed" do
+      email = Faker::Internet.email
+      user = create(:user, email: email, provider: "customer1")
+      users_old_uid = user.uid
+
+      new_user = OmniAuth::AuthHash.new(
+        provider: "bn_launcher",
+        uid: "bn-launcher-user-new",
+        info: {
+          email: email,
+          name: "Office User",
+          nickname: "googleuser",
+          image: "touch.png",
+          customer: 'customer1',
+        }
+      )
+
+      allow_any_instance_of(SessionsController).to receive(:auth_changed_to_social?).and_return(true)
+      allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("customer1")
+      controller.instance_variable_set(:@user_domain, "customer1")
+
+      request.env["omniauth.auth"] = new_user
+      get :omniauth, params: { provider: 'bn_launcher' }
+
+      new_u = User.find_by(social_uid: "bn-launcher-user-new")
+      expect(users_old_uid).to eq(new_u.uid)
     end
   end
 

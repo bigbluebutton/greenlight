@@ -68,6 +68,18 @@ module Authenticator
     session.delete(:user_id) if current_user
   end
 
+  # Check if the user is using local accounts
+  def auth_changed_to_local?(user)
+    Rails.configuration.loadbalanced_configuration && user.social_uid.present? && allow_greenlight_accounts?
+  end
+
+  # Check if the user exists under the same email with no social uid and that social accounts are allowed
+  def auth_changed_to_social?(email)
+    Rails.configuration.loadbalanced_configuration &&
+      User.exists?(email: email, provider: @user_domain, social_uid: nil) &&
+      !allow_greenlight_accounts?
+  end
+
   private
 
   # Migrates all of the twitter users rooms to the new account
