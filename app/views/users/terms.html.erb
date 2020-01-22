@@ -25,7 +25,7 @@
           </div>
           <% if Rails.configuration.terms && current_user && !current_user.accepted_terms %>
             <div class="btn-list text-right pt-8">
-              <%= button_to t("terms.accept_existing"), terms_path, params: { accept: true }, class: "btn btn-primary btn-space" %>
+              <%= button_to t("terms.accept_existing"), terms_path, params: { accept: true }, class: "btn btn-primary btn-space", "data-disable": "" %>
             </div>
           <% end %>
         </form>

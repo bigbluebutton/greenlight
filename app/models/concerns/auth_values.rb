@@ -48,6 +48,9 @@ module AuthValues
     case auth['provider']
     when :twitter
       auth['info']['image'].gsub("http", "https").gsub("_normal", "")
+    when :ldap
+      return auth['info']['image'] if auth['info']['image']&.starts_with?("http")
+      ""
     else
       auth['info']['image']
     end

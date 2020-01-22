@@ -24,7 +24,7 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-6 col-md-8 col-sm-12 form-inline mb-5 align-top">
+      <div class="col-lg-6 col-md-6 col-sm-12 form-inline mb-5 align-top">
         <% if @room.owner.image.blank? %>
           <span class="avatar"><%= @room.owner.name.first %></span>
         <% else %>
@@ -33,7 +33,7 @@
         <h5 class="font-weight-normal ml-4 mt-3"><%= @room.owner.name %> (<%= t("room.owner") %>)</h5>
       </div>
 
-      <div class="col-lg-6 col-md-4 col-sm-12">
+      <div class="col-lg-6 col-md-6 col-sm-12">
         <%= yield %>
       </div>
     </div>

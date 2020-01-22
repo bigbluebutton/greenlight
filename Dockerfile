@@ -31,10 +31,8 @@ RUN bundle config --global frozen 1 \
 # Adding project files.
 COPY . .
 
-RUN SECRET_KEY_BASE="1" bin/rails assets:precompile
-
 # Remove folders not needed in resulting image
-RUN rm -rf tmp/cache app/assets vendor/assets spec
+RUN rm -rf tmp/cache spec
 
 ############### Build step done ###############
 
@@ -42,7 +40,7 @@ FROM ruby:2.5.1-alpine
 
 # Set a variable for the install location.
 ARG RAILS_ROOT=/usr/src/app
-ARG PACKAGES="tzdata postgresql-client sqlite-libs nodejs bash"
+ARG PACKAGES="tzdata curl postgresql-client sqlite-libs yarn nodejs bash"
 
 ENV RAILS_ENV=production
 ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
