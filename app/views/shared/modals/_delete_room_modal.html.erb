@@ -26,7 +26,7 @@
             <%= t("modal.delete_room.keep") %>
           </button>
 
-          <%= button_to "/", method: :delete, id: "delete-confirm", class: "btn btn-danger my-1 btn-del-room" do %>
+          <%= button_to "/", method: :delete, id: "delete-confirm", class: "btn btn-danger my-1 btn-del-room", "data-disable": "" do %>
             <%= t("modal.delete_room.delete") %>
           <% end %>
 
