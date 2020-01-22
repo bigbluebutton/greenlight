@@ -444,6 +444,7 @@ en:
     last_session: Last session on %{session}
     login: Enter
     owner: Owner
+    owner_banned: This room is currently unavailable
     no_room:
       description: Enter the room url or the room id for the room you want to join.
       edit_profile: Edit User Profile

@@ -137,6 +137,24 @@ describe RoomsController, type: :controller do
       expect(flash[:alert]).to be_present
       expect(response).to redirect_to(root_path)
     end
+
+    it "redirects to root if owner is pending" do
+      @request.session[:user_id] = @owner.id
+      @owner.add_role :pending
+
+      get :show, params: { room_uid: @owner.main_room, search: :none }
+
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "redirects to root if owner is banned" do
+      @request.session[:user_id] = @owner.id
+      @owner.add_role :denied
+
+      get :show, params: { room_uid: @owner.main_room, search: :none }
+
+      expect(response).to redirect_to(root_path)
+    end
   end
 
   describe "POST #create" do
@@ -308,6 +326,24 @@ describe RoomsController, type: :controller do
       post :join, params: { room_uid: @room }
 
       expect(flash[:alert]).to be_present
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "redirects to root if owner is pending" do
+      @request.session[:user_id] = @owner.id
+      @owner.add_role :pending
+
+      post :join, params: { room_uid: @room }
+
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "redirects to root if owner is banned" do
+      @request.session[:user_id] = @owner.id
+      @owner.add_role :denied
+
+      post :join, params: { room_uid: @room }
+
       expect(response).to redirect_to(root_path)
     end
   end
