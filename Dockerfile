@@ -40,7 +40,7 @@ FROM ruby:2.5.1-alpine
 
 # Set a variable for the install location.
 ARG RAILS_ROOT=/usr/src/app
-ARG PACKAGES="tzdata postgresql-client sqlite-libs yarn nodejs bash"
+ARG PACKAGES="tzdata curl postgresql-client sqlite-libs yarn nodejs bash"
 
 ENV RAILS_ENV=production
 ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
