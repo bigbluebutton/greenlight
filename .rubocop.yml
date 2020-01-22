@@ -121,7 +121,7 @@ Metrics/ClassLength:
 
 # Limit lines to 80 characters.
 Metrics/LineLength:
-  Max: 120
+  Max: 130
 
 # Avoid methods longer than 10 lines of code.
 Metrics/MethodLength:
