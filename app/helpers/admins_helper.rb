@@ -71,4 +71,9 @@ module AdminsHelper
   def edit_disabled
     @edit_disabled ||= @selected_role.priority <= current_user.highest_priority_role.priority
   end
+
+  # Get the room status to display in the Server Rooms table
+  def room_is_running(id)
+    @running_room_bbb_ids.include?(id)
+  end
 end

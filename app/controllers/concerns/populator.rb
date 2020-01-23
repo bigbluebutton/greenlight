@@ -19,6 +19,37 @@
 module Populator
   extend ActiveSupport::Concern
 
+  # Returns a list of users that are in the same context of the current user
+  def manage_users_list
+    current_role = @role
+
+    initial_user = case @tab
+      when "active"
+        User.without_role(:pending).without_role(:denied)
+      when "deleted"
+        User.deleted
+      else
+        User
+    end
+
+    current_role = Role.find_by(name: @tab, provider: @user_domain) if @tab == "pending" || @tab == "denied"
+
+    initial_list = if current_user.has_role? :super_admin
+      initial_user.where.not(id: current_user.id)
+    else
+      initial_user.without_role(:super_admin).where.not(id: current_user.id)
+    end
+
+    if Rails.configuration.loadbalanced_configuration
+      initial_list.where(provider: @user_domain)
+                  .admins_search(@search, current_role)
+                  .admins_order(@order_column, @order_direction)
+    else
+      initial_list.admins_search(@search, current_role)
+                  .admins_order(@order_column, @order_direction)
+    end
+  end
+
   # Returns a list of rooms that are in the same context of the current user
   def server_rooms_list
     if Rails.configuration.loadbalanced_configuration
