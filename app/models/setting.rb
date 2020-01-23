@@ -43,6 +43,8 @@ class Setting < ApplicationRecord
         false
       when "Room Limit"
         Rails.configuration.number_of_rooms_default
+      when "Shared Access"
+        Rails.configuration.shared_access_default
       end
     end
   end

@@ -345,34 +345,52 @@ describe AdminsController, type: :controller do
       end
     end
 
-    it "clears all users social uids if clear auth button is clicked" do
-      allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
-      controller.instance_variable_set(:@user_domain, "provider1")
+    context "POST #shared_access" do
+      it "changes the shared access setting" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
 
-      @request.session[:user_id] = @admin.id
+        @request.session[:user_id] = @admin.id
 
-      @admin.add_role :super_admin
-      @admin.update_attribute(:provider, "greenlight")
-      @user2 = create(:user, provider: "provider1")
-      @user3 = create(:user, provider: "provider1")
+        post :update_settings, params: { setting: "Shared Access", value: "false" }
 
-      @user.update_attribute(:social_uid, Faker::Internet.password)
-      @user2.update_attribute(:social_uid, Faker::Internet.password)
-      @user3.update_attribute(:social_uid, Faker::Internet.password)
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Shared Access")
 
-      expect(@user.social_uid).not_to be(nil)
-      expect(@user2.social_uid).not_to be(nil)
-      expect(@user3.social_uid).not_to be(nil)
+        expect(feature[:value]).to eq("false")
+        expect(response).to redirect_to(admin_site_settings_path)
+      end
+    end
 
-      post :clear_auth
+    context "POST #clear_auth" do
+      it "clears all users social uids if clear auth button is clicked" do
+        allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
+        controller.instance_variable_set(:@user_domain, "provider1")
 
-      @user.reload
-      @user2.reload
-      @user3.reload
+        @request.session[:user_id] = @admin.id
 
-      expect(@user.social_uid).to be(nil)
-      expect(@user2.social_uid).to be(nil)
-      expect(@user3.social_uid).to be(nil)
+        @admin.add_role :super_admin
+        @admin.update_attribute(:provider, "greenlight")
+        @user2 = create(:user, provider: "provider1")
+        @user3 = create(:user, provider: "provider1")
+
+        @user.update_attribute(:social_uid, Faker::Internet.password)
+        @user2.update_attribute(:social_uid, Faker::Internet.password)
+        @user3.update_attribute(:social_uid, Faker::Internet.password)
+
+        expect(@user.social_uid).not_to be(nil)
+        expect(@user2.social_uid).not_to be(nil)
+        expect(@user3.social_uid).not_to be(nil)
+
+        post :clear_auth
+
+        @user.reload
+        @user2.reload
+        @user3.reload
+
+        expect(@user.social_uid).to be(nil)
+        expect(@user2.social_uid).to be(nil)
+        expect(@user3.social_uid).to be(nil)
+      end
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_23_172511) do
+ActiveRecord::Schema.define(version: 2019_11_28_212935) do
 
   create_table "features", force: :cascade do |t|
     t.integer "setting_id"
@@ -88,6 +88,15 @@ ActiveRecord::Schema.define(version: 2019_10_23_172511) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["provider"], name: "index_settings_on_provider"
+  end
+
+  create_table "shared_accesses", force: :cascade do |t|
+    t.integer "room_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_shared_accesses_on_room_id"
+    t.index ["user_id"], name: "index_shared_accesses_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

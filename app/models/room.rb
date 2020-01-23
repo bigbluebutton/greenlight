@@ -26,6 +26,7 @@ class Room < ApplicationRecord
   validates :name, presence: true
 
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
+  has_many :shared_access
 
   def self.admins_search(string)
     active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
@@ -57,6 +58,15 @@ class Room < ApplicationRecord
   def owned_by?(user)
     return false if user.nil?
     user.rooms.include?(self)
+  end
+
+  def shared_users
+    User.where(id: shared_access.pluck(:user_id))
+  end
+
+  def shared_with?(user)
+    return false if user.nil?
+    shared_users.include?(user)
   end
 
   # Determines the invite path for the room.
