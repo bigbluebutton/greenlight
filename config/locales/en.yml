@@ -95,6 +95,7 @@ en:
       title: Server Recordings
       no_recordings: This server has no recordings.
     roles:
+      appear_in_share_list: Include users with this role in the dropdown for sharing rooms
       can_create_rooms: Can create rooms
       delete: Delete the role
       invalid_create: There was a problem creating a new role. Please check the role values and try again

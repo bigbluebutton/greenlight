@@ -41,7 +41,7 @@ class AdminsController < ApplicationController
     @role = params[:role] ? Role.find_by(name: params[:role], provider: @user_domain) : nil
     @tab = params[:tab] || "active"
 
-    @pagy, @users = pagy(user_list)
+    @pagy, @users = pagy(manage_users_list)
   end
 
   # GET /admins/site_settings
@@ -64,11 +64,11 @@ class AdminsController < ApplicationController
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
 
-    server_rooms = server_rooms_list
+    @running_room_bbb_ids = all_running_meetings[:meetings].pluck(:meetingID)
 
     @user_list = shared_user_list if shared_access_allowed
 
-    @pagy, @rooms = pagy_array(server_rooms)
+    @pagy, @rooms = pagy_array(server_rooms_list)
   end
 
   # MANAGE USERS
@@ -254,37 +254,6 @@ class AdminsController < ApplicationController
       flash: { alert: I18n.t("administrator.flash.unauthorized") } unless current_user.admin_of?(@user)
   end
 
-  # Gets the list of users based on your configuration
-  def user_list
-    current_role = @role
-
-    initial_user = case @tab
-      when "active"
-        User.without_role(:pending).without_role(:denied)
-      when "deleted"
-        User.deleted
-      else
-        User
-    end
-
-    current_role = Role.find_by(name: @tab, provider: @user_domain) if @tab == "pending" || @tab == "denied"
-
-    initial_list = if current_user.has_role? :super_admin
-      initial_user.where.not(id: current_user.id)
-    else
-      initial_user.without_role(:super_admin).where.not(id: current_user.id)
-    end
-
-    if Rails.configuration.loadbalanced_configuration
-      initial_list.where(provider: @user_domain)
-                  .admins_search(@search, current_role)
-                  .admins_order(@order_column, @order_direction)
-    else
-      initial_list.admins_search(@search, current_role)
-                  .admins_order(@order_column, @order_direction)
-    end
-  end
-
   # Creates the invite if it doesn't exist, or updates the updated_at time if it does
   def create_or_update_invite(email)
     invite = Invitation.find_by(email: email, provider: @user_domain)
@@ -300,10 +269,4 @@ class AdminsController < ApplicationController
 
     invite
   end
-
-  # Get the room status to display in the Server Rooms table
-  def room_is_running(id)
-    room_running?(id)
-  end
-  helper_method :room_is_running
 end
