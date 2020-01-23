@@ -46,19 +46,26 @@
           </div>
         </td>
         <td class="text-right">
-          <div class="item-action dropdown" data-display="static">
-            <a href="javascript:void(0)" data-toggle="dropdown" data-display="static" class="icon <%= 'invisible' if room == current_user.main_room %>">
-              <i class="fas fa-ellipsis-v px-4"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-md-left">
-              <a href="" data-toggle="modal" data-target="#createRoomModal" class="update-room dropdown-item">
-                <i class="dropdown-icon fas fa-cog"></i> <%= t("room.settings") %>
+          <% unless room == current_user.main_room %>
+            <div class="item-action dropdown" data-display="static">
+              <a href="javascript:void(0)" data-toggle="dropdown" data-display="static" class="icon">
+                <i class="fas fa-ellipsis-v px-4"></i>
               </a>
-              <a href="" data-toggle="modal" data-target="#deleteRoomModal" data-path="<%= room_path(room) %>" data-name="<%= room.name %>" class="delete-room dropdown-item">
-                <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
-              </a>
+              <div class="dropdown-menu dropdown-menu-right dropdown-menu-md-left">
+                <a href="" data-toggle="modal" data-target="#createRoomModal" class="update-room dropdown-item">
+                  <i class="dropdown-icon fas fa-cog"></i> <%= t("room.settings") %>
+                </a>
+                <% if shared_access_allowed %>
+                  <a href="" data-toggle="modal" data-target="#shareRoomModal" class="share-room dropdown-item" data-path="<%= room_shared_access_path(room) %>" data-users-path="<%= room_shared_users_path(room) %>">
+                    <i class="dropdown-icon fas fa-users"></i> <%= t("room.share") %>
+                  </a>
+                <% end %>
+                <a href="" data-toggle="modal" data-target="#deleteRoomModal" data-path="<%= room_path(room) %>" data-name="<%= room.name %>" class="delete-room dropdown-item">
+                  <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
+                </a>
+              </div>
             </div>
-          </div>
+          <% end %>
         </td>
       </tbody>
     </table>

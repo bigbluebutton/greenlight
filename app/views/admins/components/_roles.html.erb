@@ -73,6 +73,11 @@
                     <%= f.check_box :can_edit_roles, checked: @selected_role.get_permission("can_edit_roles"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_edit_roles") %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_appear_in_share_list") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.appear_in_share_list")%></span>
+                    <%= f.check_box :can_appear_in_share_list, checked: @selected_role.get_permission("can_appear_in_share_list"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_appear_in_share_list") %>
+                <span class="custom-switch-indicator float-right"></span>
+            </label>
             <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("send_promoted_email")  %>">
                 <span class="ml-0 custom-switch-description"><%= t("administrator.roles.promote_email")%></span>
                     <%= f.check_box :send_promoted_email, checked: @selected_role.get_permission("send_promoted_email"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("send_promoted_email")  %>

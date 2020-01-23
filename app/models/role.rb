@@ -42,7 +42,7 @@ class Role < ApplicationRecord
     Role.create(name: "super_admin", provider: provider, priority: -2, colour: "#cd201f")
         .update_all_role_permissions(can_create_rooms: true,
       send_promoted_email: true, send_demoted_email: true, can_edit_site_settings: true,
-      can_edit_roles: true, can_manage_users: true)
+      can_edit_roles: true, can_manage_users: true, can_appear_in_share_list: true)
   end
 
   def self.create_new_role(role_name, provider)
@@ -69,6 +69,7 @@ class Role < ApplicationRecord
     update_permission("can_edit_roles", permissions[:can_edit_roles].to_s)
     update_permission("can_manage_users", permissions[:can_manage_users].to_s)
     update_permission("can_manage_rooms_recordings", permissions[:can_manage_rooms_recordings].to_s)
+    update_permission("can_appear_in_share_list", permissions[:can_appear_in_share_list].to_s)
   end
 
   # Updates the value of the permission and enables it
@@ -85,7 +86,12 @@ class Role < ApplicationRecord
     value = if permission[:enabled]
         permission[:value]
     else
-      "false"
+      case name
+      when "can_appear_in_share_list"
+        Rails.configuration.shared_access_default.to_s
+      else
+        "false"
+      end
     end
 
     if return_boolean

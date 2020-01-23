@@ -37,6 +37,14 @@ module AdminsHelper
     end
   end
 
+  def shared_access_string
+    if @settings.get_value("Shared Access") == "true"
+      I18n.t("administrator.site_settings.authentication.enabled")
+    else
+      I18n.t("administrator.site_settings.authentication.disabled")
+    end
+  end
+
   def recording_default_visibility_string
     if @settings.get_value("Default Recording Visibility") == "public"
       I18n.t("recording.visibility.public")

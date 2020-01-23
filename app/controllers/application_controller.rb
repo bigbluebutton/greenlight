@@ -172,6 +172,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :configured_providers
 
+  # Indicates whether users are allowed to share rooms
+  def shared_access_allowed
+    @settings.get_value("Shared Access") == "true"
+  end
+  helper_method :shared_access_allowed
+
   # Parses the url for the user domain
   def parse_user_domain(hostname)
     return hostname.split('.').first if Rails.configuration.url_host.empty?

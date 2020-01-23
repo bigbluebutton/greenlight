@@ -13,21 +13,27 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="container pt-6">
-  <%= render "shared/components/subtitle", subtitle: t("administrator.title"), search: false %>
+<div class="modal fade" id="removeAccessModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <div class="card-body p-6">
+          <div class="card-title">
+            <h3><%= t("modal.remove_shared.title")%></h3>
+          </div>
 
-  <div class="row">
-    <div class="col-lg-3 mb-4">
-      <%= render "admins/components/menu_buttons" %>
-    </div>
-    <div id="server_recordings" class="col-lg-9">
-        <%= render "admins/components/setting_view", setting_id: "rooms", setting_title: t("administrator.rooms.title"), search: true %>
+          <%= button_to "/", method: :delete, id: "remove-shared-confirm", class: "btn btn-danger my-1 btn-del-room" do %>
+            <%= hidden_field_tag :user_id, current_user.id %>
+            <%= t("modal.remove_shared.delete") %>
+          <% end %>
+
+        </div>
+        <div class="card-footer">
+          <p id="delete-footer">
+            <%= t("modal.remove_shared.warning").html_safe %>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-<%= render "shared/modals/delete_room_modal" %> 
-<%= render "shared/modals/create_room_modal" %>
-<% if shared_access_allowed %>
-  <%= render "shared/modals/share_room_modal" %>
-<% end %>

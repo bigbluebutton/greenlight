@@ -29,6 +29,7 @@ class User < ApplicationRecord
   before_destroy :destroy_rooms
 
   has_many :rooms
+  has_many :shared_access
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
 
   has_and_belongs_to_many :roles, -> { includes :role_permissions }, join_table: :users_roles
@@ -135,6 +136,11 @@ class User < ApplicationRecord
     room_list.where.not(last_session: nil).order("last_session desc") + room_list.where(last_session: nil)
   end
 
+  # Retrieves a list of rooms that are shared with the user
+  def shared_rooms
+    Room.where(id: shared_access.pluck(:room_id))
+  end
+
   def name_chunk
     charset = ("a".."z").to_a - %w(b i l o s) + ("2".."9").to_a - %w(5 8)
     chunk = name.parameterize[0...3]
@@ -228,9 +234,20 @@ class User < ApplicationRecord
     User.where.not(id: with_role(role).pluck(:id))
   end
 
+  def self.with_highest_priority_role(role)
+    User.all_users_highest_priority_role.where(roles: { name: role })
+  end
+
   def self.all_users_with_roles
     User.joins("INNER JOIN users_roles ON users_roles.user_id = users.id INNER JOIN roles " \
       "ON roles.id = users_roles.role_id INNER JOIN role_permissions ON roles.id = role_permissions.role_id").distinct
+  end
+
+  def self.all_users_highest_priority_role
+    User.joins("INNER JOIN (SELECT user_id, role_id, min(roles.priority) FROM users_roles " \
+      "INNER JOIN roles ON users_roles.role_id = roles.id GROUP BY user_id) as a ON " \
+      "a.user_id = users.id INNER JOIN roles ON roles.id = a.role_id " \
+      " INNER JOIN role_permissions ON roles.id = role_permissions.role_id").distinct
   end
 
   private
