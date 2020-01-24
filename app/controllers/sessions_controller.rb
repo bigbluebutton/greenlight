@@ -34,7 +34,8 @@ class SessionsController < ApplicationController
       provider_path = if Rails.configuration.omniauth_ldap
         ldap_signin_path
       else
-        "#{Rails.configuration.relative_url_root}/auth/#{providers.first}"
+        relative = Rails.configuration.relative_url_root == "/" ? "" : Rails.configuration.relative_url_root
+        "#{relative}/auth/#{providers.first}"
       end
 
       return redirect_to provider_path
