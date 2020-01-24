@@ -158,11 +158,5 @@ module Greenlight
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
-
-    config.action_cable.log_tags = [
-      ->(request) { request.session['user_id'] || "no-account" },
-      :action_cable,
-      ->(request) { request.uuid }
-    ]
   end
 end
