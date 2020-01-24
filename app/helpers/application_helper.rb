@@ -34,8 +34,7 @@ module ApplicationHelper
     if provider == :ldap
       ldap_signin_path
     else
-      relative = Rails.configuration.relative_url_root == "/" ? "" : Rails.configuration.relative_url_root
-      "#{relative}/auth/#{provider}"
+      "#{relative_root}/auth/#{provider}"
     end
   end
 
