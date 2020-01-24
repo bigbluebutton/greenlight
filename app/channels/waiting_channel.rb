@@ -20,7 +20,4 @@ class WaitingChannel < ApplicationCable::Channel
   def subscribed
     stream_from "#{params[:roomuid]}_waiting_channel"
   end
-
-  def unsubscribed
-  end
 end
