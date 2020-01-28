@@ -69,6 +69,7 @@ $(document).on('turbolinks:load', function(){
     })
 
     $('.selectpicker').selectpicker({
+      // LOCALIZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
       liveSearchPlaceholder: "Start searching..."
     });
     // Fixes turbolinks issue with bootstrap select

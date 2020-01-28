@@ -197,6 +197,42 @@ describe AdminsController, type: :controller do
         expect(response).to redirect_to(admins_path)
       end
     end
+
+    context "POST #merge_user" do
+      it "merges the users room to the primary account and deletes the old user" do
+        @request.session[:user_id] = @admin.id
+
+        @user2 = create(:user)
+        room1 = create(:room, owner: @user2)
+        room2 = create(:room, owner: @user2)
+        room3 = @user2.main_room
+
+        post :merge_user, params: { user_uid: @user.uid, merge: @user2.uid }
+
+        room1.reload
+        room2.reload
+        room3.reload
+
+        expect(User.exists?(uid: @user2.uid)).to be false
+        expect(room1.name).to start_with("(Merged)")
+        expect(room2.name).to start_with("(Merged)")
+        expect(room3.name).to start_with("(Merged)")
+        expect(room1.owner).to eq(@user)
+        expect(room2.owner).to eq(@user)
+        expect(room3.owner).to eq(@user)
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(admins_path)
+      end
+
+      it "does not merge if trying to merge the same user into themself" do
+        @request.session[:user_id] = @admin.id
+
+        post :merge_user, params: { user_uid: @user.uid, merge: @user.uid }
+
+        expect(flash[:alert]).to be_present
+        expect(response).to redirect_to(admins_path)
+      end
+    end
   end
 
   describe "User Design" do

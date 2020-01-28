@@ -84,6 +84,8 @@ en:
       demoted: User has been successfully demoted
       invite: Invite successfully sent to %{email}
       invite_email_verification: Emails must be enabled in order to use this method. Please contact your system administrator.
+      merge_fail: There was an issue merging the user accounts. Please check the users selected and try again 
+      merge_success: User accounts merged successfully
       perm_deleted: User has been permanently deleted
       promoted: User has been successfully promoted
       registration_method_updated: Registration method successfully updated
@@ -308,6 +310,7 @@ en:
   maintenance:
     window_alert: Maintenance window scheduled for %{date}
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!
+  merged: Merged
   modal:
     create_role:
       create: Create a new Role
@@ -368,6 +371,13 @@ en:
       save: Save Changes
       cancel_changes: Cancel Changes
       select: Select User
+    merge_user:
+      cancel: Cancel
+      from: Account to be Merged
+      title: Merge User Accounts
+      to: Primary Account
+      save: Merge
+      footer: The rooms of the account to be merged will be transfered over to the Primary Account's room list and then the account will be deleted.
   name_update_success: Room name successfully changed!
   no_user_email_exists: There is no existing user with the email specified. Please make sure you typed it correctly.
   omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!

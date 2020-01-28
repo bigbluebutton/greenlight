@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     post '/approve/:user_uid', to: 'admins#approve', as: :admin_approve
     get '/reset', to: 'admins#reset', as: :admin_reset
     post '/undelete', to: 'admins#undelete', as: :admin_undelete
+    post '/merge/:user_uid', to: 'admins#merge_user', as: :merge_user
     # Site Settings
     post '/update_settings', to: 'admins#update_settings', as: :admin_update_settings
     post '/registration_method', to: 'admins#registration_method', as: :admin_change_registration

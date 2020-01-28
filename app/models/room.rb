@@ -60,6 +60,11 @@ class Room < ApplicationRecord
     user.rooms.include?(self)
   end
 
+  # Determines whether room is a home room
+  def home_room?
+    owner.main_room == self
+  end
+
   def shared_users
     User.where(id: shared_access.pluck(:user_id))
   end
