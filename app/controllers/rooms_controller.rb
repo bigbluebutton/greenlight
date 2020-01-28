@@ -128,6 +128,11 @@ class RoomsController < ApplicationController
     else
       flash[:success] = I18n.t("room.delete.success")
     end
+
+    # Redirect to home room if the redirect_back location is the deleted room
+    return redirect_to @current_user.main_room if request.referer == room_url(@room)
+
+    # Redirect to the location that the user deleted the room from
     redirect_back fallback_location: current_user.main_room
   end
 
