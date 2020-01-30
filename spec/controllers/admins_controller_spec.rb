@@ -476,11 +476,11 @@ describe AdminsController, type: :controller do
       end
 
       it "should fail if a user attempts to edit a role with a higher priority than their own" do
-        Role.create(name: "test1", priority: 1, provider: "greenlight")
-        new_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight")
+        Role.create(name: "test1", priority: 1, provider: "provider2")
+        new_role2 = Role.create(name: "test2", priority: 2, provider: "provider2")
         new_role2.update_permission("can_edit_roles", "true")
-        new_role3 = Role.create(name: "test3", priority: 3, provider: "greenlight")
-        user_role = Role.find_by(name: "user", provider: "greenlight")
+        new_role3 = Role.create(name: "test3", priority: 3, provider: "provider2")
+        user_role = Role.find_by(name: "user", provider: "provider2")
 
         user_role.priority = 4
         user_role.save!
