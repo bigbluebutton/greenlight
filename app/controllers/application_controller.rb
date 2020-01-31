@@ -220,7 +220,8 @@ class ApplicationController < ActionController::Base
       logger.error "Error in retrieve provider info: #{e}"
       # Use the default site settings
       @user_domain = "greenlight"
-
+      @settings = Setting.find_or_create_by(provider: @user_domain)
+      
       if e.message.eql? "No user with that id exists"
         render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_not_found.message"),
           help: I18n.t("errors.not_found.user_not_found.help") }
