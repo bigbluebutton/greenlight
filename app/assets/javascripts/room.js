@@ -130,7 +130,6 @@ function showCreateRoom(target) {
   $('#createRoomModal').on('shown.bs.modal', function () {
     $('#create-room-name').trigger('focus')
   })
-  
   var modal = $(target)
   $("#create-room-name").val("")
   $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
