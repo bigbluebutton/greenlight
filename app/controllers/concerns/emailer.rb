@@ -101,7 +101,7 @@ module Emailer
       return unless Rails.configuration.enable_email_verification
 
       admin_emails = admin_emails()
-      UserMailer.approval_user_signup(user, admins_url(tab: "pending"), 
+      UserMailer.approval_user_signup(user, admins_url(tab: "pending"),
       admin_emails, @settings).deliver_now unless admin_emails.empty?
     rescue => e
       logger.error "Support: Error in email delivery: #{e}"
