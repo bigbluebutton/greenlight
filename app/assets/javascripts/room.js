@@ -56,7 +56,6 @@ $(document).on('turbolinks:load', function(){
       if ($(".create-only").css("display") == "block"){
        $('#create-room-name').focus() }})
   
-
   if (controller == "rooms" && action == "show" || controller == "admins" && action == "server_rooms"){
     // Display and update all fields related to creating a room in the createRoomModal
     $(".update-room").click(function(){
