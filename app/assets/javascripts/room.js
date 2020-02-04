@@ -52,9 +52,10 @@ $(document).on('turbolinks:load', function(){
   }
 
     // Autofocus on the Room Name label when creating a room only
-    $('#createRoomModal').on('shown.bs.modal', function () {
-      if ($(".create-only").css("display") == "block"){
-       $('#create-room-name').focus() }})
+  $('#createRoomModal').on('shown.bs.modal', function (){
+    if ($(".create-only").css("display") == "block"){
+      $('#create-room-name').focus()
+    }})
   
   if (controller == "rooms" && action == "show" || controller == "admins" && action == "server_rooms"){
     // Display and update all fields related to creating a room in the createRoomModal
