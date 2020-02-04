@@ -51,6 +51,12 @@ $(document).on('turbolinks:load', function(){
     })
   }
 
+    // Autofocus on the Room Name label when creating a room only
+    $('#createRoomModal').on('shown.bs.modal', function () {
+      if ($(".create-only").css("display") == "block"){
+       $('#create-room-name').focus() }})
+  
+
   if (controller == "rooms" && action == "show" || controller == "admins" && action == "server_rooms"){
     // Display and update all fields related to creating a room in the createRoomModal
     $(".update-room").click(function(){
@@ -127,9 +133,6 @@ $(document).on('turbolinks:load', function(){
 });
 
 function showCreateRoom(target) {
-  $('#createRoomModal').on('shown.bs.modal', function () {
-    $('#create-room-name').trigger('focus')
-  })
   var modal = $(target)
   $("#create-room-name").val("")
   $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
