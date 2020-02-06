@@ -60,7 +60,7 @@ class AccountActivationsController < ApplicationController
   private
 
   def find_user
-    @user = User.find_by!(email: params[:email], provider: @user_domain)
+    @user = User.find_by!(uid: params[:uid], provider: @user_domain)
   end
 
   def ensure_unauthenticated
@@ -68,6 +68,6 @@ class AccountActivationsController < ApplicationController
   end
 
   def email_params
-    params.require(:email).permit(:email, :token)
+    params.require(:uid).permit(:uid, :token)
   end
 end
