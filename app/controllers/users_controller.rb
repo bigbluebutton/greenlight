@@ -83,12 +83,11 @@ class UsersController < ApplicationController
     if session[:prev_url].present?
       path = session[:prev_url]
       session.delete(:prev_url)
-    else 
+    else
       path = admins_path
     end
 
     redirect_path = current_user.admin_of?(@user) ? path : profile
-
 
     if params[:setting] == "password"
       # Update the users password.

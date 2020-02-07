@@ -82,7 +82,7 @@ class AdminsController < ApplicationController
   def ban_user
     @user.roles = []
     @user.add_role :denied
-    
+
     redirect_back fallback_location: admins_path, flash: { success: I18n.t("administrator.flash.banned") }
   end
 
@@ -90,7 +90,7 @@ class AdminsController < ApplicationController
   def unban_user
     @user.remove_role :denied
     @user.add_role :user
-  
+
     redirect_back fallback_location: admins_path, flash: { success: I18n.t("administrator.flash.unbanned") }
   end
 
@@ -134,12 +134,11 @@ class AdminsController < ApplicationController
     if session[:prev_url].present?
       redirect_path = session[:prev_url]
       session.delete(:prev_url)
-    else 
+    else
       redirect_path = admins_path
     end
 
     redirect_to redirect_path, flash: { success: I18n.t("administrator.flash.reset_password") }
-
   end
   # SITE SETTINGS
 
