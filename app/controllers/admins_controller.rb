@@ -75,20 +75,23 @@ class AdminsController < ApplicationController
 
   # GET /admins/edit/:user_uid
   def edit_user
+    session[:prev_url] = request.referer if request.referer.present?
   end
 
   # POST /admins/ban/:user_uid
   def ban_user
     @user.roles = []
     @user.add_role :denied
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.banned") }
+
+    redirect_back fallback_location: admins_path, flash: { success: I18n.t("administrator.flash.banned") }
   end
 
   # POST /admins/unban/:user_uid
   def unban_user
     @user.remove_role :denied
     @user.add_role :user
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.unbanned") }
+
+    redirect_back fallback_location: admins_path, flash: { success: I18n.t("administrator.flash.unbanned") }
   end
 
   # POST /admins/approve/:user_uid
@@ -97,7 +100,7 @@ class AdminsController < ApplicationController
 
     send_user_approved_email(@user)
 
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.approved") }
+    redirect_back fallback_location: admins_path, flash: { success: I18n.t("administrator.flash.approved") }
   end
 
   # POST /admins/approve/:user_uid
@@ -106,7 +109,7 @@ class AdminsController < ApplicationController
     @user.undelete!
     @user.rooms.deleted.each(&:undelete!)
 
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.restored") }
+    redirect_back fallback_location: admins_path, flash: { success: I18n.t("administrator.flash.restored") }
   end
 
   # POST /admins/invite
@@ -128,7 +131,14 @@ class AdminsController < ApplicationController
 
     send_password_reset_email(@user)
 
-    redirect_to admins_path, flash: { success: I18n.t("administrator.flash.reset_password") }
+    if session[:prev_url].present?
+      redirect_path = session[:prev_url]
+      session.delete(:prev_url)
+    else
+      redirect_path = admins_path
+    end
+
+    redirect_to redirect_path, flash: { success: I18n.t("administrator.flash.reset_password") }
   end
   # SITE SETTINGS
 
