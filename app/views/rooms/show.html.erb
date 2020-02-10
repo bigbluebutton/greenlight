@@ -25,7 +25,7 @@
       <div class="col-lg-8 col-sm-12">
         <div id="room-title" class="display-3 form-inline <%= 'edit_hover_class' if current_user.main_room != @room %>" data-path="<%= update_settings_path(@room) %>">
           <% if current_user.main_room == @room %>
-            <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= t("home_room") %></h1>
+            <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= @room.name %></h1>
             <a class="disable-click"><i class="fas fa-home align-top home-indicator ml-2"></i></a>
           <% else %>
             <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= @room.name %></h1>
@@ -77,11 +77,9 @@
     </div>
 
     <div id="room_block_container" class="row pt-7 pb-5">
-      <% if current_user.rooms.length > 1 %>
         <div class="col-lg-4 col-md-6 col-sm-12">
           <%= link_to current_user.main_room do %>
-            <%= render "rooms/components/room_block", room: current_user.main_room %>
-          <% end %>
+            <%= render "rooms/components/room_block", room: current_user.main_room %>      
         </div>
         <% current_user.secondary_rooms.each do |room| %>
           <div class="col-lg-4 col-md-6 col-sm-12">
