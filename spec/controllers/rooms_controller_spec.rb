@@ -173,7 +173,7 @@ describe RoomsController, type: :controller do
 
       post :create, params: { room: room_params }
 
-      r = @owner.secondary_rooms.last
+      r = @owner.rooms.last
       expect(r.name).to eql(name)
       expect(r.owner).to eql(@owner)
       expect(r.room_settings).to eql(json_room_settings)
