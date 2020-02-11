@@ -180,7 +180,6 @@ class RoomsController < ApplicationController
     begin
       options = params[:room].nil? ? params : params[:room]
       raise "Room name can't be blank" if options[:name].blank?
-      raise "Unauthorized Request" if @room == current_user.main_room
 
       # Update the rooms values
       room_settings_string = create_room_settings_string(options)

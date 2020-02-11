@@ -130,12 +130,6 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  # Retrives a list of all a users rooms that are not the main room, sorted by last session date.
-  def secondary_rooms
-    room_list = rooms.where.not(uid: main_room.uid)
-    room_list.where.not(last_session: nil).order("last_session desc") + room_list.where(last_session: nil)
-  end
-
   # Retrieves a list of rooms that are shared with the user
   def shared_rooms
     Room.where(id: shared_access.pluck(:room_id))
