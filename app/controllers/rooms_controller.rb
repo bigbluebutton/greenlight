@@ -248,6 +248,14 @@ class RoomsController < ApplicationController
     end
   end
 
+  # GET /:room_uid/room_settings
+  def room_settings
+    # Respond with JSON object of users that have access to the room
+    respond_to do |format|
+      format.json { render body: @room.room_settings.to_json }
+    end
+  end
+
   # GET /:room_uid/logout
   def logout
     logger.info "Support: #{current_user.present? ? current_user.email : 'Guest'} has left room #{@room.uid}"
