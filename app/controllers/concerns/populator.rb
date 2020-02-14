@@ -77,7 +77,18 @@ module Populator
       roles_can_appear << role.name if role.get_permission("can_appear_in_share_list") && role.name != "super_admin"
     end
 
-    initial_list = User.where.not(uid: current_user.uid).with_highest_priority_role(roles_can_appear)
+    initial_list = User.where.not(uid: current_user.uid)
+                       .without_role(:pending)
+                       .without_role(:denied)
+                       .with_highest_priority_role(roles_can_appear)
+
+    return initial_list unless Rails.configuration.loadbalanced_configuration
+    initial_list.where(provider: @user_domain)
+  end
+
+  # Returns a list of users that can merged into another user
+  def merge_user_list
+    initial_list = User.where.not(uid: current_user.uid).without_role(:super_admin)
 
     return initial_list unless Rails.configuration.loadbalanced_configuration
     initial_list.where(provider: @user_domain)

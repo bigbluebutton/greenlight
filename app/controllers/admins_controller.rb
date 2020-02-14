@@ -24,7 +24,7 @@ class AdminsController < ApplicationController
   include Rolify
   include Populator
 
-  manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve, :reset]
+  manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve, :reset, :merge_user]
   manage_deleted_users = [:undelete]
   authorize_resource class: false
   before_action :find_user, only: manage_users
@@ -40,6 +40,8 @@ class AdminsController < ApplicationController
 
     @role = params[:role] ? Role.find_by(name: params[:role], provider: @user_domain) : nil
     @tab = params[:tab] || "active"
+
+    @user_list = merge_user_list
 
     @pagy, @users = pagy(manage_users_list)
   end
@@ -140,6 +142,45 @@ class AdminsController < ApplicationController
 
     redirect_to redirect_path, flash: { success: I18n.t("administrator.flash.reset_password") }
   end
+
+  # POST /admins/merge/:user_uid
+  def merge_user
+    begin
+      # Get uid of user that will be merged into the other account
+      uid_to_merge = params[:merge]
+      logger.info "#{current_user.uid} is attempting to merge #{uid_to_merge} into #{@user.uid}"
+
+      # Check to make sure the 2 users are unique
+      raise "Can not merge the user into themself" if uid_to_merge == @user.uid
+
+      # Find user to merge
+      user_to_merge = User.find_by(uid: uid_to_merge)
+
+      # Move over user's rooms
+      user_to_merge.rooms.each do |room|
+        room.owner = @user
+
+        room.name = "(#{I18n.t('merged')}) #{room.name}"
+
+        room.save!
+      end
+
+      # Reload user to update merge rooms
+      user_to_merge.reload
+
+      # Delete merged user
+      user_to_merge.destroy(true)
+    rescue => e
+      logger.info "Failed to merge #{uid_to_merge} into #{@user.uid}: #{e}"
+      flash[:alert] = I18n.t("administrator.flash.merge_fail")
+    else
+      logger.info "#{current_user.uid} successfully merged #{uid_to_merge} into #{@user.uid}"
+      flash[:success] = I18n.t("administrator.flash.merge_success")
+    end
+
+    redirect_to admins_path
+  end
+
   # SITE SETTINGS
 
   # POST /admins/update_settings

@@ -41,6 +41,49 @@ $(document).on('turbolinks:load', function(){
 
         updateTabParams(this.id)
       })
+
+      $('.selectpicker').selectpicker({
+        liveSearchPlaceholder: getLocalizedString('javascript.search.start')
+      });
+      // Fixes turbolinks issue with bootstrap select
+      $(window).trigger('load.bs.select.data-api');
+      
+      // Display merge accounts modal with correct info
+      $(".merge-user").click(function() {
+        // Update the path of save button
+        $("#merge-save-access").attr("data-path", $(this).data("path"))
+
+        let userInfo = $(this).data("info")
+
+        $("#merge-to").html("<span>" + userInfo.name + "</span>" + "<span class='text-muted d-block'>" + userInfo.email + "</span>" + "<span class='text-muted d-block'>" + userInfo.uid + "</span>")
+ 
+      })
+
+      $("#mergeUserModal").on("show.bs.modal", function() {
+        $(".selectpicker").selectpicker('val','')
+      })
+  
+      $(".bootstrap-select").on("click", function() {
+        $(".bs-searchbox").siblings().hide()
+      })
+  
+      $(".bs-searchbox input").on("input", function() {
+        if ($(".bs-searchbox input").val() == '' || $(".bs-searchbox input").val().length < 3) {
+          $(".bs-searchbox").siblings().hide()
+        } else {
+          $(".bs-searchbox").siblings().show()
+        }
+      })
+
+      // User selects an option from the Room Access dropdown
+      $(".bootstrap-select").on("changed.bs.select", function(){
+        // Get the uid of the selected user
+        let user = $(".selectpicker").selectpicker('val')
+        if (user != "") {
+          userInfo = JSON.parse(user)
+          $("#merge-from").html("<span>" + userInfo.name + "</span>" + "<span class='text-muted d-block'>" + userInfo.email + "</span>" + "<span id='from-uid' class='text-muted d-block'>" + userInfo.uid + "</span>")
+        }
+      })
     }
     else if(action == "site_settings"){
       loadColourSelectors()
@@ -77,6 +120,11 @@ $(document).on('turbolinks:load', function(){
 function changeBrandingImage(path) {
   var url = $("#branding-url").val()
   $.post(path, {value: url})
+}
+
+function mergeUsers() {
+  let userToMerge = $("#from-uid").text()
+  $.post($("#merge-save-access").data("path"), {merge: userToMerge})
 }
 
 // Filters by role
