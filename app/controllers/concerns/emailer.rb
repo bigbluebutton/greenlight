@@ -125,7 +125,7 @@ module Emailer
 
   # Returns the link the user needs to click to verify their account
   def user_verification_link(user)
-    edit_account_activation_url(token: user.activation_token, uid: user.uid)
+    edit_account_activation_url(token: user.activation_token)
   end
 
   def admin_emails
