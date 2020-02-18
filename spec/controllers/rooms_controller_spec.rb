@@ -195,7 +195,7 @@ describe RoomsController, type: :controller do
 
       expect(JSON.parse(response.body)).to eql(json_room_settings)
     end
-    
+
     it "should redirect to root if not logged in" do
       expect do
         name = Faker::Games::Pokemon.name
