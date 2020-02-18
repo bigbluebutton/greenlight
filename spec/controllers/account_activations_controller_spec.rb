@@ -45,7 +45,7 @@ describe AccountActivationsController, type: :controller do
     it "activates a user if they have the correct activation token" do
       @user = create(:user, email_verified: false, provider: "greenlight")
 
-      get :edit, params: { uid: @user.uid, token: @user.activation_token }
+      get :edit, params: { token: @user.activation_token }
       @user.reload
 
       expect(@user.email_verified).to eq(true)
@@ -53,10 +53,16 @@ describe AccountActivationsController, type: :controller do
       expect(response).to redirect_to(signin_path)
     end
 
+    it "should not find user when given fake activation token" do
+      @user = create(:user, email_verified: false, provider: "greenlight")
+
+      expect { get :edit, params: { token: "fake_token" } }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
     it "does not allow the user to click the verify link again" do
       @user = create(:user, provider: "greenlight")
 
-      get :edit, params: { uid: @user.uid, token: @user.activation_token }
+      get :edit, params: { token: @user.activation_token }
       expect(flash[:alert]).to be_present
       expect(response).to redirect_to(root_path)
     end
@@ -66,7 +72,7 @@ describe AccountActivationsController, type: :controller do
 
       @user.add_role :pending
 
-      get :edit, params: { uid: @user.uid, token: @user.activation_token }
+      get :edit, params: { token: @user.activation_token }
 
       expect(flash[:success]).to be_present
       expect(response).to redirect_to(root_path)
