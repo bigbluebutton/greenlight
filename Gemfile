@@ -77,6 +77,7 @@ gem 'cancancan', '~> 2.0'
 group :production do
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'
+  gem 'sequel'
 
   # For a better logging library in production
   gem "lograge"

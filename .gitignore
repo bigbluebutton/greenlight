@@ -19,6 +19,7 @@ vendor/bundle
 
 # Ignore production paths.
 /db/production
+/db/production-postgres
 
 # Ignore all logfiles and tempfiles.
 /log/*

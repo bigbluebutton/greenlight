@@ -13,6 +13,7 @@ tmp
 /db/**/*.sqlite3
 /db/**/*.sqlite3-journal
 /db/production
+/db/production-postgres
 public/assets
 public/b
 coverage/
