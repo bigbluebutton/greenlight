@@ -250,7 +250,7 @@ class RoomsController < ApplicationController
 
   # GET /:room_uid/room_settings
   def room_settings
-    # Respond with JSON object of users that have access to the room
+    # Respond with JSON object of the room_settings
     respond_to do |format|
       format.json { render body: @room.room_settings.to_json }
     end
