@@ -38,8 +38,8 @@ class Role < ApplicationRecord
       send_demoted_email: true, can_edit_site_settings: true, can_manage_rooms_recordings: true,
       can_edit_roles: true, can_manage_users: true)
     Role.create(name: "pending", provider: provider, priority: -1, colour: "#17a2b8").update_all_role_permissions
-    Role.create(name: "denied", provider: provider, priority: -1, colour: "#343a40").update_all_role_permissions
-    Role.create(name: "super_admin", provider: provider, priority: -2, colour: "#cd201f")
+    Role.create(name: "denied", provider: provider, priority: -2, colour: "#343a40").update_all_role_permissions
+    Role.create(name: "super_admin", provider: provider, priority: -3, colour: "#cd201f")
         .update_all_role_permissions(can_create_rooms: true,
       send_promoted_email: true, send_demoted_email: true, can_edit_site_settings: true,
       can_edit_roles: true, can_manage_users: true, can_manage_rooms_recordings: true,
@@ -56,8 +56,8 @@ class Role < ApplicationRecord
     role.priority = user_role.priority
     user_role.priority += 1
 
-    role.save!
     user_role.save!
+    role.save!
 
     role
   end

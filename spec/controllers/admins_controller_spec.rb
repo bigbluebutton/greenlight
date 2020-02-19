@@ -497,6 +497,7 @@ describe AdminsController, type: :controller do
     context "PATCH #change_role_order" do
       before do
         Role.create_default_roles("provider1")
+        @user.roles.delete(Role.find_by(name: "user", provider: "greenlight"))
       end
 
       it "should fail if user attempts to change the order of the admin or user roles" do
@@ -512,35 +513,9 @@ describe AdminsController, type: :controller do
       end
 
       it "should fail if a user attempts to edit a role with a higher priority than their own" do
-        Role.create(name: "test1", priority: 1, provider: "greenlight")
-        new_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight")
+        new_role3 = Role.create_new_role("test3", "provider1")
+        new_role2 = Role.create_new_role("test2", "provider1")
         new_role2.update_permission("can_edit_roles", "true")
-        new_role3 = Role.create(name: "test3", priority: 3, provider: "greenlight")
-        user_role = Role.find_by(name: "user", provider: "greenlight")
-
-        user_role.priority = 4
-        user_role.save!
-
-        @user.roles << new_role2
-        @user.save!
-
-        @request.session[:user_id] = @user.id
-
-        patch :change_role_order, params: { role: [new_role3.id, new_role2.id] }
-
-        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_order"))
-        expect(response).to redirect_to admin_roles_path
-      end
-
-      it "should fail if a user attempts to edit a role with a higher priority than their own" do
-        Role.create(name: "test1", priority: 1, provider: "greenlight")
-        new_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight")
-        new_role2.update_permission("can_edit_roles", "true")
-        new_role3 = Role.create(name: "test3", priority: 3, provider: "greenlight")
-        user_role = Role.find_by(name: "user", provider: "greenlight")
-
-        user_role.priority = 4
-        user_role.save!
 
         @user.roles << new_role2
         @user.save!
@@ -554,10 +529,11 @@ describe AdminsController, type: :controller do
       end
 
       it "should update the role order" do
+        user_role = Role.find_by(name: "user", provider: "provider1")
+        user_role.update_attribute(:priority, 4)
         new_role1 = Role.create(name: "test1", priority: 1, provider: "provider1")
         new_role2 = Role.create(name: "test2", priority: 2, provider: "provider1")
         new_role3 = Role.create(name: "test3", priority: 3, provider: "provider1")
-        user_role = Role.find_by(name: "user", provider: "provider1")
 
         @request.session[:user_id] = @admin.id
 
@@ -578,16 +554,15 @@ describe AdminsController, type: :controller do
     context 'POST #update_role' do
       before do
         Role.create_default_roles("provider1")
+        @user.roles.delete(Role.find_by(name: "user", provider: "greenlight"))
       end
 
       it "should fail to update a role with a lower priority than the user" do
+        user_role = Role.find_by(name: "user", provider: "provider1")
+        user_role.update_attribute(:priority, 3)
         new_role1 = Role.create(name: "test1", priority: 1, provider: "provider1")
         new_role2 = Role.create(name: "test2", priority: 2, provider: "provider1")
         new_role2.update_permission("can_edit_roles", "true")
-        user_role = Role.find_by(name: "user", provider: "greenlight")
-
-        user_role.priority = 3
-        user_role.save!
 
         @user.roles << new_role2
         @user.save!
@@ -601,7 +576,7 @@ describe AdminsController, type: :controller do
       end
 
       it "should fail to update if there is a duplicate name" do
-        new_role = Role.create(name: "test2", priority: 1, provider: "provider1")
+        new_role = Role.create(name: "test2", priority: 2, provider: "provider1")
         new_role.update_permission("can_edit_roles", "true")
 
         @request.session[:user_id] = @admin.id
@@ -613,7 +588,7 @@ describe AdminsController, type: :controller do
       end
 
       it "should update role permisions" do
-        new_role = Role.create(name: "test2", priority: 1, provider: "provider1")
+        new_role = Role.create(name: "test2", priority: 2, provider: "provider1")
         new_role.update_permission("can_edit_roles", "true")
 
         @request.session[:user_id] = @admin.id
@@ -658,7 +633,7 @@ describe AdminsController, type: :controller do
       end
 
       it "should successfully delete the role" do
-        new_role = Role.create(name: "test2", priority: 1, provider: "provider1")
+        new_role = Role.create(name: "test2", priority: 2, provider: "provider1")
         new_role.update_permission("can_edit_roles", "true")
 
         @request.session[:user_id] = @admin.id

@@ -238,9 +238,9 @@ class User < ApplicationRecord
   end
 
   def self.all_users_highest_priority_role
-    User.joins("INNER JOIN (SELECT user_id, role_id, min(roles.priority) FROM users_roles " \
+    User.joins("INNER JOIN (SELECT user_id, min(roles.priority) as role_priority FROM users_roles " \
       "INNER JOIN roles ON users_roles.role_id = roles.id GROUP BY user_id) as a ON " \
-      "a.user_id = users.id INNER JOIN roles ON roles.id = a.role_id " \
+      "a.user_id = users.id INNER JOIN roles ON roles.priority = a.role_priority " \
       " INNER JOIN role_permissions ON roles.id = role_permissions.role_id").distinct
   end
 

@@ -74,7 +74,7 @@ module Populator
   def shared_user_list
     roles_can_appear = []
     Role.where(provider: @user_domain).each do |role|
-      roles_can_appear << role.name if role.get_permission("can_appear_in_share_list") && role.name != "super_admin"
+      roles_can_appear << role.name if role.get_permission("can_appear_in_share_list") && role.priority >= 0
     end
 
     initial_list = User.where.not(uid: current_user.uid)

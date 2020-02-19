@@ -312,7 +312,7 @@ describe UsersController, type: :controller do
 
         user_role.save!
 
-        tmp_role = Role.create(name: "test", priority: -2, provider: "greenlight")
+        tmp_role = Role.create(name: "test", priority: -4, provider: "greenlight")
 
         params = random_valid_user_params
         patch :update, params: params.merge!(user_uid: user, user: { role_ids: tmp_role.id.to_s })
@@ -354,9 +354,9 @@ describe UsersController, type: :controller do
 
         @request.session[:user_id] = admin.id
 
-        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight")
+        tmp_role1 = Role.create(name: "test1", priority: 2, provider: "greenlight")
         tmp_role1.update_permission("send_promoted_email", "true")
-        tmp_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight")
+        tmp_role2 = Role.create(name: "test2", priority: 3, provider: "greenlight")
 
         params = random_valid_user_params
         params = params.merge!(user_uid: user, user: { role_ids: "#{tmp_role1.id} #{tmp_role2.id}" })
@@ -375,7 +375,7 @@ describe UsersController, type: :controller do
 
         admin.add_role :admin
 
-        tmp_role1 = Role.create(name: "test1", priority: 1, provider: "greenlight")
+        tmp_role1 = Role.create(name: "test1", priority: 2, provider: "greenlight")
         tmp_role1.update_permission("send_demoted_email", "true")
         user.roles << tmp_role1
         user.save!
