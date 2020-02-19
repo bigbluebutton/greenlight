@@ -121,8 +121,7 @@ class User < ApplicationRecord
   # Returns true if the given token matches the digest.
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
-    return false if digest.nil?
-    BCrypt::Password.new(digest).is_password?(token)
+    return digest == Digest::SHA256.base64digest(token) unless digest.nil?
   end
 
   # Return true if password reset link expires
@@ -172,8 +171,7 @@ class User < ApplicationRecord
   end
 
   def self.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
+    Digest::SHA256.base64digest(string)
   end
 
   # Returns a random token.
