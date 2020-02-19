@@ -182,16 +182,14 @@ describe RoomsController, type: :controller do
 
     it "should respond with JSON object of the room_settings" do
       @request.session[:user_id] = @owner.id
-      name = Faker::Games::Pokemon.name
 
-      room_params = { name: name, "mute_on_join": "1",
-        "require_moderator_approval": "1", "anyone_can_start": "1", "all_join_moderator": "1" }
+      @owner.main_room.update_attribute(:room_settings, { "muteOnStart": true, "requireModeratorApproval": true,
+      "anyoneCanStart": true, "joinModerator": true }.to_json)
 
       json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
         "\"anyoneCanStart\":true,\"joinModerator\":true}"
 
-      post :create, params: { room: room_params }
-      get :room_settings, params: { room_uid: @owner.rooms.last.uid }, format: :json
+      get :room_settings, params: { room_uid: @owner.main_room }, format: :json
 
       expect(JSON.parse(response.body)).to eql(json_room_settings)
     end
