@@ -118,8 +118,8 @@ describe PasswordResetsController, type: :controller do
         user = create(:user, provider: "greenlight")
         token = "reset_token"
 
-        cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-        user.reset_digest = BCrypt::Password.create(token, cost: cost)
+        user.reset_digest = Digest::SHA256.base64digest(token)
+        user.update_attribute(:reset_digest, user.reset_digest)
 
         allow(controller).to receive(:valid_user).and_return(nil)
         allow(controller).to receive(:check_expiration).and_return(nil)
@@ -127,7 +127,6 @@ describe PasswordResetsController, type: :controller do
 
         params = {
           id: token,
-          uid: user.uid,
           user: {
             password: :password,
             password_confirmation: :password,

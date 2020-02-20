@@ -140,7 +140,7 @@ module Emailer
   end
 
   def reset_link(user)
-    edit_password_reset_url(user.reset_token, uid: user.uid)
+    edit_password_reset_url(user.reset_token)
   end
 
   def invitation_link(token)
