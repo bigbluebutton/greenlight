@@ -180,6 +180,20 @@ describe RoomsController, type: :controller do
       expect(response).to redirect_to(r)
     end
 
+    it "should respond with JSON object of the room_settings" do
+      @request.session[:user_id] = @owner.id
+
+      @owner.main_room.update_attribute(:room_settings, { "muteOnStart": true, "requireModeratorApproval": true,
+      "anyoneCanStart": true, "joinModerator": true }.to_json)
+
+      json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
+        "\"anyoneCanStart\":true,\"joinModerator\":true}"
+
+      get :room_settings, params: { room_uid: @owner.main_room }, format: :json
+
+      expect(JSON.parse(response.body)).to eql(json_room_settings)
+    end
+
     it "should redirect to root if not logged in" do
       expect do
         name = Faker::Games::Pokemon.name

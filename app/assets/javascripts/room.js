@@ -161,6 +161,7 @@ function showCreateRoom(target) {
 function showUpdateRoom(target) {
   var modal = $(target)
   var update_path = modal.closest("#room-block").data("path")
+  var settings_path = modal.data("settings-path")
   $("#create-room-name").val(modal.closest("#room-block").find("#room-name-text").text())
   $("#createRoomModal form").attr("action", update_path)
 
@@ -176,7 +177,7 @@ function showUpdateRoom(target) {
     if($(this).children().length > 0) { $(this).children().attr('style',"display:none !important") }
   })
 
-  updateCurrentSettings(modal.closest("#room-block").data("room-settings"))
+  updateCurrentSettings(settings_path)
   
   var accessCode = modal.closest("#room-block").data("room-access-code")
 
@@ -195,12 +196,15 @@ function showDeleteRoom(target) {
 }
 
 //Update the createRoomModal to show the correct current settings
-function updateCurrentSettings(settings){
-  //set checkbox
-  $("#room_mute_on_join").prop("checked", settings.muteOnStart)
-  $("#room_require_moderator_approval").prop("checked", settings.requireModeratorApproval)
-  $("#room_anyone_can_start").prop("checked", settings.anyoneCanStart)
-  $("#room_all_join_moderator").prop("checked", settings.joinModerator)
+function updateCurrentSettings(settings_path){
+  // Get current room settings and set checkbox
+  $.get(settings_path, function(room_settings) {
+    var settings = JSON.parse(room_settings) 
+    $("#room_mute_on_join").prop("checked", settings.muteOnStart)
+    $("#room_require_moderator_approval").prop("checked", settings.requireModeratorApproval)
+    $("#room_anyone_can_start").prop("checked", settings.anyoneCanStart)
+    $("#room_all_join_moderator").prop("checked", settings.joinModerator)
+  })
 }
 
 function generateAccessCode(){
