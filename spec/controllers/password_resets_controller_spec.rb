@@ -116,17 +116,14 @@ describe PasswordResetsController, type: :controller do
 
       it "updates attributes if the password update is a success" do
         user = create(:user, provider: "greenlight")
-        token = "reset_token"
-
-        user.reset_digest = Digest::SHA256.base64digest(token)
-        user.update_attribute(:reset_digest, user.reset_digest)
+        user.create_reset_digest
+        old_digest = user.password_digest
 
         allow(controller).to receive(:valid_user).and_return(nil)
         allow(controller).to receive(:check_expiration).and_return(nil)
-        controller.instance_variable_set(:@user, user)
 
         params = {
-          id: token,
+          id: user.reset_token,
           user: {
             password: :password,
             password_confirmation: :password,
@@ -134,6 +131,10 @@ describe PasswordResetsController, type: :controller do
         }
 
         patch :update, params: params
+
+        user.reload
+
+        expect(old_digest.eql?(user.password_digest)).to be false
         expect(response).to redirect_to(root_path)
       end
     end

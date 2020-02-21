@@ -51,6 +51,7 @@ class AccountActivationsController < ApplicationController
       flash[:alert] = I18n.t("verify.already_verified")
     else
       # Resend
+      @user.create_activation_token
       send_activation_email(@user)
     end
 

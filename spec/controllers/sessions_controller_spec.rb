@@ -131,6 +131,22 @@ describe SessionsController, type: :controller do
       expect(@request.session[:user_id]).to be_nil
     end
 
+    it "should not login user if account is not verified" do
+      @user3 = create(:user, email_verified: false, provider: "greenlight",
+        password: "example", password_confirmation: 'example')
+
+      post :create, params: {
+        session: {
+          email: @user3.email,
+          password: 'example',
+        },
+      }
+
+      expect(@request.session[:user_id]).to be_nil
+      # Expect to redirect to activation path since token is not known here
+      expect(response.location.start_with?(account_activation_url(token: ""))).to be true
+    end
+
     it "should not login user if account is deleted" do
       user = create(:user, provider: "greenlight",
         password: "example", password_confirmation: 'example')
