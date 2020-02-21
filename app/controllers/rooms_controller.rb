@@ -293,7 +293,7 @@ class RoomsController < ApplicationController
 
   # Find the room from the uid.
   def find_room
-    @room = Room.find_by!(uid: params[:room_uid])
+    @room = Room.includes(:owner).find_by!(uid: params[:room_uid])
   end
 
   # Ensure the user either owns the room or is an admin of the room owner or the room is shared with him

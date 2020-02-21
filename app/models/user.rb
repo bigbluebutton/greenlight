@@ -32,7 +32,7 @@ class User < ApplicationRecord
   has_many :shared_access
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
 
-  has_and_belongs_to_many :roles, -> { includes :role_permissions }, join_table: :users_roles
+  has_and_belongs_to_many :roles, join_table: :users_roles
 
   validates :name, length: { maximum: 256 }, presence: true
   validates :provider, presence: true
@@ -183,7 +183,7 @@ class User < ApplicationRecord
 
   # role functions
   def highest_priority_role
-    roles.by_priority.first
+    roles.min_by(&:priority)
   end
 
   def add_role(role)
@@ -217,7 +217,11 @@ class User < ApplicationRecord
   # rubocop:disable Naming/PredicateName
   def has_role?(role)
     # rubocop:enable Naming/PredicateName
-    roles.exists?(name: role)
+    roles.each do |single_role|
+      return true if single_role.name.eql? role.to_s
+    end
+
+    false
   end
 
   def self.with_role(role)

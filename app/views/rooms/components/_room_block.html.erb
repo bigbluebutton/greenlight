@@ -55,7 +55,7 @@
                   <i class="dropdown-icon fas fa-users"></i> <%= t("room.share") %>
                 </a>
               <% end %>
-              <% unless room == room.owner.main_room %>
+              <% unless room == current_user.main_room %>
                 <a href="" data-toggle="modal" data-target="#deleteRoomModal" data-path="<%= room_path(room) %>" data-name="<%= room.name %>" class="delete-room dropdown-item">
                   <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
                 </a>

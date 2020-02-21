@@ -190,7 +190,7 @@ class UsersController < ApplicationController
   private
 
   def find_user
-    @user = User.where(uid: params[:user_uid]).includes(:roles).first
+    @user = User.find_by(uid: params[:user_uid])
   end
 
   # Verify that GreenLight is configured to allow user signup.

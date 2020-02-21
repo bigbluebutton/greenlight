@@ -25,11 +25,11 @@ module Populator
 
     initial_user = case @tab
       when "active"
-        User.without_role(:pending).without_role(:denied)
+        User.includes(:roles).without_role(:pending).without_role(:denied)
       when "deleted"
-        User.deleted
+        User.includes(:roles).deleted
       else
-        User
+        User.includes(:roles)
     end
 
     current_role = Role.find_by(name: @tab, provider: @user_domain) if @tab == "pending" || @tab == "denied"
@@ -57,7 +57,7 @@ module Populator
           .admins_search(@search)
           .admins_order(@order_column, @order_direction)
     else
-      Room.all.admins_search(@search).admins_order(@order_column, @order_direction)
+      Room.includes(:owner).all.admins_search(@search).admins_order(@order_column, @order_direction)
     end
   end
 

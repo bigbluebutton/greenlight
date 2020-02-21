@@ -362,6 +362,8 @@ describe UsersController, type: :controller do
         params = params.merge!(user_uid: user, user: { role_ids: "#{tmp_role1.id} #{tmp_role2.id}" })
 
         expect { patch :update, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
+
+        user.reload
         expect(user.roles.count).to eq(2)
         expect(user.highest_priority_role.name).to eq("test1")
         expect(response).to redirect_to(admins_path)

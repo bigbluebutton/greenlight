@@ -67,6 +67,8 @@ describe AdminsController, type: :controller do
 
         post :ban_user, params: { user_uid: @user.uid }
 
+        @user.reload
+
         expect(@user.has_role?(:denied)).to eq(true)
         expect(flash[:success]).to be_present
         expect(response).to redirect_to(admins_path)
@@ -81,6 +83,8 @@ describe AdminsController, type: :controller do
         expect(@user.has_role?(:denied)).to eq(true)
 
         post :unban_user, params: { user_uid: @user.uid }
+
+        @user.reload
 
         expect(@user.has_role?(:denied)).to eq(false)
         expect(flash[:success]).to be_present
@@ -152,6 +156,8 @@ describe AdminsController, type: :controller do
         @user.add_role :pending
 
         post :approve, params: { user_uid: @user.uid }
+
+        @user.reload
 
         expect(@user.has_role?(:pending)).to eq(false)
         expect(flash[:success]).to be_present
