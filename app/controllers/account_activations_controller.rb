@@ -66,8 +66,4 @@ class AccountActivationsController < ApplicationController
   def ensure_unauthenticated
     redirect_to current_user.main_room if current_user
   end
-
-  def email_params
-    params.require(:activation_digest).permit(:activation_digest, :token)
-  end
 end

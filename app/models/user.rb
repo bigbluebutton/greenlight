@@ -121,7 +121,8 @@ class User < ApplicationRecord
   # Returns true if the given token matches the digest.
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
-    return digest == Digest::SHA256.base64digest(token) unless digest.nil?
+    return false if digest.nil?
+    digest == Digest::SHA256.base64digest(token)
   end
 
   # Return true if password reset link expires
