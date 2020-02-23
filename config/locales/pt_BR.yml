@@ -43,19 +43,19 @@ pt_BR:
         placeholder: URL da Imagem
         title: Imagem da Marca
       cache:
-        info:
-        title:
-        button:
+        info: "Limpe a cache do provedor, assim uma nova requisição será gerada com informações atualizadas"
+        title: Limpe a cache do provedor
+        button: Limpar cache
       color:
         info: "Alterar a cor regular irá alterar ambas as cores Iluminada e Escurecida. Iluminada e Escurecida poderão ser alteradas individualmentes, após isso."
         title: Cor primária
         regular: Regular
         lighten: Iluminada
-        darken:
+        darken: Escuro
       recording_visibility:
-        info:
-        title:
-        warning:
+        info: Configura a visibilidade padrão para novas gravações
+        title: Visibilidade padrão da gravação
+        warning: Essa configuração só será aplicada em salas que não estão abertas
       registration:
         info: Altera a maneira com a qual os usuários se registram no site
         title: Método de Registro
@@ -77,33 +77,35 @@ pt_BR:
       demoted: Usuário foi rebaixado com sucesso.
       invite: "Convite enviado para %{email} com sucesso"
       invite_email_verification: "E-mails precisam estar habilitados para poder utilizar esse método. Por favor, contate o seu administrador do sistema."
+      perm_deleted: Usuário foi permanentemente apagado
       promoted: Usuário foi promovido com sucesso.
       registration_method_updated: Método de registro atualizado com sucesso.
-      reset_password:
+      reset_password: "O usuário enviou um e-mail para resetar sua senha. (Se o e-mail não foi recebido, ele pode ter caído na caixa de spam)"
+      restored: O usuário foi restaurado com sucesso
       settings: Configurações do Site alteradas com sucesso.
       unauthorized: Você não possui permissão para realizar ações nesse usuário.
     recordings:
-      title:
-      no_recordings:
+      title: Gravações do servidor
+      no_recordings: Esse servidor não possui gravações
     roles:
-      can_create_rooms:
-      delete:
-      invalid_create:
-      invalid_order:
-      invalid_update:
-      name:
-      new_role:
-      role_has_users:
-      title:
-      promote_email:
-      demote_email:
-      edit_site_settings:
-      edit_roles:
-      manage_users:
-      invalid_assignment: 
+      can_create_rooms: Pode criar salas
+      delete: Remover o papel
+      invalid_create: Ocorreu um erro ao criar um novo papel. Por favor verifique os valores inseridos e tente novamente
+      invalid_order: Ocorreu um erro ao atualizar a prioridade do papel. Por favor verifique os valores inseridos e tente novamente
+      invalid_update: Ocorreu um erro ao atualizar as permissões do papel. Por favor verifique os valores inseridos e tente novamente
+      name: Nome do papel
+      new_role: Criar novo papel
+      role_has_users: "Este papel está atribuído às contas %{user_count}. Por favor remova o papel de todas as contas antes de apagá-lo."
+      title: Papéis
+      promote_email: Enviar e-mail aos usuários quando um novo papel for atribuído
+      demote_email: Enviar e-mail aos usuários quando eles forem removidos de um papel
+      edit_site_settings: Permitir que usuários com este papel editem configurações do site
+      edit_roles: Permitir que usuários com este papel editem outros papéis
+      manage_users: Permitir que usuários com este papel gerenciem usuários
+      invalid_assignment: Ocorreu um erro ao atribuir os papéis ao usuário. Por favor verifique os valores inseridos e tente novamente 
       colour:
-        title:
-        info:
+        title: Cor do papel
+        info: Configura a cor associada a um papel
     title: Configurações da Organização
     users:
       invite: Convidar Usuário
@@ -115,8 +117,10 @@ pt_BR:
         ban: Banir Usuário
         delete: Apagar
         edit: Editar
-        edit_roles:
+        edit_roles: Editar papéis do usuário
+        perm_delete: Apagar permanentemente
         unban: Desbanir Usuário
+        undelete: Restaurar
       table:
         authenticator: Autenticador
         created: Criado
@@ -137,7 +141,7 @@ pt_BR:
   copied: Copiado
   copy: Copiar
   date:
-    month_names:
+    month_names: [~, Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro]
   default_admin: "Você ainda está utilizado a senha padrão para essa conta.  Por favor clique <a href=\"%{edit_link}\">aqui</a> para alterar isso."
   delete: Apagar
   delivery_error: "Um erro ocorreu no envio do e-mail. Por favor, contate um administrador."
@@ -153,10 +157,10 @@ pt_BR:
     internal:
       message: Parece que aconteceu alguma coisa errada no nosso lado.
       help: "O erro foi registrado, daremos uma olhada."
-      report:
+      report: Relatar problema
     maintenance:
-      message:
-      help:
+      message: "Desculpe, estamos em manutenção"
+      help: Em breve estaremos de volta
     migration_error:
       contact_admin: "Se você não é um administrador, por favor contate um administrador."
       continue: Gostaria de permanecer usando 1.0.
@@ -173,8 +177,8 @@ pt_BR:
       confirmation: "não corresponde %{attribute}"
       inclusion: não está incluso na lista
     no_provider:
-      message:
-      help:
+      message: O site que você está tentando acessar não está ativado
+      help: Por favor contate o administrador do sistema
     not_found:
       message: Desculpa! A página que você está procurando não existe.
       help: "É possível que isso tenha sido removido?"
@@ -213,7 +217,7 @@ pt_BR:
       signout: Sair
   home_room: Sala inicial
   info_update_success: Informações atualizadas com sucesso.
-  invalid_credentials:
+  invalid_credentials: E-mail ou senha inválidos. Tente novamente ou clicke em Esqueci minha senha.
   invalid_login_method: O login falhou porque sua conta foi criada utilizando login social. Selecione a opção de login social para continuar.
   invite_message: "Para convidar alguém para a reunião, envie este link:"
   javascript:
@@ -248,10 +252,10 @@ pt_BR:
         subject: Conta Aprovada
         username: "Sua identificação é %{email}."
       demoted:
-        info:
-        more-info:
+        info: "Você não é mais %{role} em %{url}."
+        more-info: Você possui os mesmos privilégios que um usuário comum
         root_link: Entrar
-        subtitle:
+        subtitle: "%{role} Permissões revogadas"
       invite:
         info: "Você foi convidado para possuir um espaço pessoal por %{name}"
         signup_info: "Para se cadastrar utilizado o seu e-mail, clique no botão abaixo e siga os passos."
@@ -265,16 +269,16 @@ pt_BR:
         username: "Sua identificação é %{email}."
       password_reset:
         title: 'Reset de senha'
-        welcome:
-        message: ''
+        welcome: "Sua solicitação de resetar senha foi enviada para o endereço <b>%{email}</b>"
+        message: 'Se você solicitou que sua senha seja resetada, clique no link abaixo para prosseguir:'
         reset_link: Reset de senha
         expire: Esse link expirará em duas horas.
-        ignore:
+        ignore: Você pode ignorar essa mensgem se não solicitou que sua senha seja resetada.
       promoted:
         admins_link: Visite a Página da Organização.
-        info:
-        more-info:
-        subtitle:
+        info: "Você agora é %{role} em %{url}."
+        more-info: "Para visualizar suas atribuições, acesse %{url}."
+        subtitle: "%{role} Permissões concedidas"
       verify_email:
         welcome: "Bem vindo ao seu espaço pessoal, %{name}!"
         success: "Aproveitando %{bigbluebutton}, você pode criar suas próprias salas para hospedar sessões de video-conferências e colaborar com outros."
@@ -284,18 +288,18 @@ pt_BR:
         verify_link: Verificar Conta
         thanks: "Obrigado por se juntar a nós, tenha um ótimo dia!"
   maintenance:
-    window_alert:
+    window_alert: "Janela de manutenção agendada para %{date}"
   max_concurrent: O número máximo de sessões simultâneas foi alcançado.
   modal:
     create_role:
-      create:
-      footer_text:
-      name_placeholder:
-      not_blank:
-      title:
+      create: Criar novo papel
+      footer_text: Você pode modificar permissões individualmente para este papel depois de criá-lo
+      name_placeholder: Insira o nome do papel...
+      not_blank: Nome do papel não pode ser vazio.
+      title: Criar novo papel
     create_room:
-      access_code:
-      access_code_placeholder:
+      access_code: Código de acesso
+      access_code_placeholder: Gerar um código de acesso opcional para a sala
       auto_join: Entrar na sala automaticamente.
       create: Criar Sala
       free_delete: Você poderá apagar esta sala a qualquer momento.
@@ -306,6 +310,7 @@ pt_BR:
       confirm: "Você tem certeza que quer excluir essa conta?"
       delete: "Tenho certeza, apague a conta."
       keep: "Não, irei mantê-la."
+      delete_warning: Isto irá desativar a conta do usuário. Todos os usuários desativados poderão ser visualizados na aba Apagados
       warning: Esta é uma decisão final. Você <b>não</b> será capaz de recuperar os dados associados.
     delete_room:
       confirm: "Você tem certeza de que deseja apagar %{room}?"
@@ -314,7 +319,7 @@ pt_BR:
       warning: Você <b>não</b> será capaz de recuperar essa sala
       recording_warning: "ou qualquer um de suas %{recordings_num} gravações associadas."
     invite_user:
-      email_placeholder:
+      email_placeholder: Insira os e-mails dos usuários (separados por vírgula)
       footer: O usuário receberá um e-mail com instruções sobre como se cadastrar
       send: Enviar Convit
       title: Convidar Usuário
@@ -327,17 +332,17 @@ pt_BR:
       title: Configurações da sala
       update: Atualizar sala
       client: Selecione o tipo de cliente
-      join_moderator:
+      join_moderator: Todos os usuários acessam a sala como moderadores
       mute: Usuários entram em mudo
-      require_approval:
-      start:
+      require_approval: Solicitar aprovação do moderador antes de entrar na sala
+      start: Permitir que qualquer usuário inicie esta sala
       footer_text: Você pode editar as configurações da sala a qualquer momento.
     rename_room:
       name_placeholder: Digite o novo nome da sala...
   name_update_success: Nome da sala modificado com sucesso.
   no_user_email_exists: Nenhum usuário foi encontrado com o e-mail especificado. Por favor confirme os dados informados.
   omniauth_error: Um erro ocorreu enquanto autenticava com omniauth. Tente novamente ou contate um administrador.
-  omniauth_specific_error:
+  omniauth_specific_error: "Ocorreu um erro na autenticação: %{error}. Por favor tente novamente ou entre em contato com o administrador"
   pagy:
     nav:
       prev: "&lsaquo; Anterior"
@@ -359,6 +364,7 @@ pt_BR:
   recording:
     all_recordings: Gravações
     email: Enviar link da gravação por e-mail
+    error: "Ocorreu um erro ao recuperar %{count} gravações"
     no_recordings: "Esta sala não possui %{inject} gravações."
     no_user_recordings: Você não possui gravações.
     no_matched_recordings: "Nenhuma gravação corresponde à sua busca %{inject}."
@@ -374,11 +380,11 @@ pt_BR:
       public: Público
       unlisted: Não listado
     format:
-      notes:
-      podcast:
+      notes: Notas
+      podcast: Podcast
       presentation: Apresentação
-      statistics:
-      video:
+      statistics: Estatísticas
+      video: Vídeo
   registration:
     approval:
       fail: "Sua conta ainda não foi aprovada. Se vários dias se passaram desde que você se cadastrou, por favor, contate o seu administrador."
@@ -400,32 +406,34 @@ pt_BR:
     confirm: Confirmação da nova senha
     update: Atualizar senha
   roles:
-    admin:
+    active: Ativo
+    admin: Administrador
     banned: Banido
+    deleted: Apagados
     pending: Pendente
     user: Usuário
   room:
-    access_code_required:
+    access_code_required: Por favor insira o código de acesso para entrar na sala
     create_room: Criar uma Sala
     create_room_error: Ocorreu um erro ao criar a sala
     create_room_success: Sala criada com sucesso
-    enter_the_access_code:
-    invalid_provider:
+    enter_the_access_code: Insira o código de acesso da sala
+    invalid_provider: Você inseriu uma URL inválida. Por favor verifique a URL e tente novamente
     invited: Você foi convidado a participar
     invite_participants: Convidar participantes
     join: Participar
     last_session: "Última sessão em %{session}"
-    login:
+    login: Entrar
     owner: Dono
     no_room:
-      description:
-      edit_profile:
-      go_to:
-      invalid_room_uid:
-      placeholder:
-      no_recent_rooms:
-      recent_rooms:
-      title:
+      description: Insira a URL da sala ou o ID da sala que você quer entrar.
+      edit_profile: Modificar perfil de usuário
+      go_to: Ir para a sala
+      invalid_room_uid: A URL ou ID que você inseriu é inválido.
+      placeholder: URL/ID da sala
+      no_recent_rooms: Você não tem nenhuma sala recente
+      recent_rooms: Ir para uma sala recente
+      title: Entrar na sala
     no_sessions: Nenhuma sessão foi realizada nesta sala.
     recordings: Gravações da Sala
     room_limit: Você atingiu o número máximo de salas permitido
@@ -446,7 +454,7 @@ pt_BR:
       provider: Fornecedor
       image: Imagem
       image_url: URL da imagem de perfil
-      roles:
+      roles: Papéis de usuário
       subtitle: Atualizar suas informações da conta
       title: Informações da conta
     delete:

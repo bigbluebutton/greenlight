@@ -75,38 +75,38 @@ es:
       delete: El usuario ha sido eliminado.
       delete_fail: El usuario no pudo ser eliminado.
       demoted: El usuario ha sido degradado.
-      invite: "Invitación enviada exitósamente a %{email}"
-      invite_email_verification: El envío de emails debe estar habilitado para poder hacer uso de este método de registro. Contacta al administrador del sistema
+      invite: "Invitación enviada exitosamente a %{email}"
+      invite_email_verification: "El envío de emails debe estar habilitado para poder hacer uso de este método de registro. Por favor, contacte con el administrador del sistema."
       perm_deleted: El usuario ha sido eliminado permanentemente
       promoted: El usuario ha sido promovido.
       registration_method_updated: Método de registro actualizado
-      reset_password: Se ha envido al usuario un mensaje de correo para recuperar la contraseña. (Pídele revisar su carpeta de Spam sí no lo ha recibido)
-      restored: El usuario ha sido recuperado éxitosamente
+      reset_password: Se ha envido al usuario un mensaje de correo para recuperar la contraseña. (Pídale revisar su carpeta de Spam si no lo ha recibido)
+      restored: El usuario ha sido recuperado exitosamente
       settings: La configuración de sistema ha sido actualizada
-      unauthorized: No estas autorizado para ejecutar operaciones en este usuario.
+      unauthorized: No está autorizado para ejecutar operaciones sobre este usuario.
     recordings:
       title: Grabaciones
       no_recordings: Este servidor no tiene grabaciones.
     roles:
       can_create_rooms: Puede crear salas
       delete: Eliminar rol
-      invalid_create: Ocurró un error al crear el nuevo rol. Verifique los valores assignados e intente nuevamente
-      invalid_order: Ocurró un error al actualizar la prioridad del rol. Verifique los valores assignados e intente nuevamente
-      invalid_update: Ocurró un error al actualizar los permisos del rol. Verifique los valores assignados e intente nuevamente
-      name: Nombre de rol
+      invalid_create: Ocurrió un error al crear el nuevo rol. Verifique los valores asignados e inténtelo nuevamente
+      invalid_order: Ocurrió un error al actualizar la prioridad del rol. Verifique los valores asignados e inténtelo nuevamente
+      invalid_update: Ocurrió un error al actualizar los permisos del rol. Verifique los valores asignados e inténtelo nuevamente
+      name: Nombre del rol
       new_role: Crear un rol nuevo
-      role_has_users: "Este rol se encuentra asignado a %{user_count}cuentas de usuario. Debes remover todas las cuentas asociadas a este rol antes de eliminarlo."
+      role_has_users: "Este rol se encuentra asignado a %{user_count}cuentas de usuario. Debe borrar todas las cuentas asociadas a este rol antes de eliminarlo."
       title: Roles
-      promote_email: "Enviar un mensaje a los usuarios que hayan sido asignados con este rol "
-      demote_email: "Enviar un mensaje a los usuarios que hayan sido removidos de este rol "
+      promote_email: "Enviar un mensaje a los usuarios a los que se les haya asignado este rol "
+      demote_email: "Enviar un mensaje a los usuarios a los que se les haya quitado este rol "
       edit_site_settings: Permitir a los usuarios con este rol editar configuraciones
       edit_roles: Permitir a los usuarios con este rol editar otros roles
       manage_users: Permitir a los usuarios con este rol manejar otros usuarios
-      invalid_assignment: Ocurró un error al asignar el o los roles al usuario. Verifique los valores assignados e intente nuevamente 
+      invalid_assignment: Ocurrió un error al asignar el rol o los roles al usuario. Verifique los valores asignados e inténtelo nuevamente 
       colour:
-        title: Color de rol
-        info: Define el color que sera asociado con el rol
-    title: Configuración de organización
+        title: Color del rol
+        info: Defina el color que será asociado al rol
+    title: Configuración de la organización
     users:
       invite: Invitar usuario
       edit:
@@ -122,7 +122,7 @@ es:
         unban: Desbloquear usuario
         undelete: Recuperar
       table:
-        authenticator: Autenificador
+        authenticator: Verificador
         created: Creado
         name: Nombre
         not_found: No se encontraron usuarios con ese criterio
@@ -131,29 +131,29 @@ es:
         uid: Identificador de usuario
         username: Nombre de usuario
       title: Administrar usuarios
-  add_to_google_calendar: "Agregar a calendario de Google"
+  add_to_google_calendar: "Agregar al Calendario de Google"
   bigbluebutton: BigBlueButton
-  bigbluebutton_exception: Oh no! Ocurrió un error al iniciar la sesión.
+  bigbluebutton_exception: ¡Oh no! Ocurrió un error al iniciar la sesión.
   cancel: Cancelar
   cookies:
-    cookie_info: "Las cookies nos ayudan a proveer nuestros servicios. Al utilizar nuestros servicios, usted acepta nuestro uso de cookies."
+    cookie_info: "Las cookies nos ayudan a proveer nuestros servicios. Al utilizar nuestros servicios, usted acepta nuestro uso de las cookies."
     cookie_button: Acepto
   copied: Copiada
   copy: Copiar
   date:
     month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
-  default_admin: "Estas usilizando la contraseña por omisión para esta cuenta de usuario. Haz click <a href=\"%{edit_link}\">aquí </a> para cambiarla"
+  default_admin: "Está utilizando la contraseña por defecto para esta cuenta de usuario. Haga click <a href=\"%{edit_link}\">aquí </a> para cambiarla"
   delete: Eliminar
-  delivery_error: Ocurrió un error durante el envío de correo electrónico. Por favor contacte un administrador.
+  delivery_error: "Ocurrió un error durante el envío de correo electrónico. Por favor, contacte con un administrador."
   docs: Documentación
   email: Cuenta de correo
-  email_sent: "Tu email de %{email_type} ha sido enviado. (Revisa tu carpeta de Spam sí no lo has recibido)"
-  enter_your_name: Introduce tu nombre
+  email_sent: "Sus %{email_type} emails han sido enviados. (Revise su carpeta de Spam si no los ha recibido)"
+  enter_your_name: Introduzca su nombre
   errors:
     bigbluebutton:
-      help: "Asegurate de que los pasos han sido seguidos correctamente. <a href=\"%{doc_link}\">Aprender más</a>"
+      help: "Asegúrese de que los pasos han sido seguidos correctamente. <a href=\"%{doc_link}\">Saber más</a>"
       message: La URL o clave secreta del servidor BigBlueButton son inválidos
-      title: Error de servidor
+      title: Error del servidor
     internal:
       message: Parece que algo salió mal de nuestro lado.
       help: "El error ha sido registrado, vamos a revisarlo."
@@ -162,37 +162,37 @@ es:
       message: El sistema se encuentra en mantenimiento.
       help: Estaremos de regreso muy pronto.
     migration_error:
-      contact_admin: "Sí no eres administrador, contacta a uno."
+      contact_admin: "Si no es administrador, por favor, contacte con uno."
       continue: Me gustaría seguir utilizando la versión 1.0
       notice: >
-        Greenlight encontro un error al migrar la base de datos. <br>Esto puede deberse a que no hás actualizado a Greenlight versión 2.0
-      upgrade: Muestrame como actualizar a la verisión 2.0
-      version: Hemos publicado una nueva version de Greenlight pero tu base de datos no es compatible.
+        Greenlight encontró un error al migrar la base de datos. <br>Esto puede deberse a que no ha actualizado Greenlight a la versión 2.0
+      upgrade: Muéstrame cómo actualizar a la versión 2.0
+      version: "Hemos publicado una nueva versión de Greenlight, pero la base de datos instalada no es compatible."
     messages:
       blank: el valor no puede estar vacío
       too_short: es demasiado corta
-      invalid: es invalida
+      invalid: es inválida
       taken: ya existe
       accepted: debe ser aceptado
-      confirmation: "no conicide %{attribute}"
+      confirmation: "no coincide %{attribute}"
       inclusion: no está incluido en la lista
     no_provider:
-      message: El sitio al cual estas intentando acceder no se encuentra activo
-      help: Contacta al administrador del sistema para configurar Greenlight
+      message: El sitio al que está intentando acceder no se encuentra activo
+      help: "Por favor, contacte con el administrador del sistema para configurar Greenlight"
     not_found:
-      message: "Lo sentimos, la página que estas buscando no existe."
-      help: "¿Puede ser que haya sido eliminada?"
+      message: "Lo sentimos, la página que está buscando no existe."
+      help: "¿Es posible que haya sido eliminada?"
       user_not_found:
-        help: Por favor contacta al administrador.
-        message: "Lo sentimos, este usuario no se encuentra registrado."
+        help: "Por favor, contacte con el administrador."
+        message: "Lo sentimos, este usuario no está registrado."
       user_missing:
-        help: Por favor verifica la URL e inténtalo de nuevo.
-        message: La URL que has introducido no es valida.
+        help: "Por favor, verifique la URL e inténtelo de nuevo."
+        message: La URL que ha introducido no es válida.
     title: Errores
     unauthorized:
-      message: No tienes acceso a ésta aplicación
-      help: "Sí tu crees que este es un error, contacta al administrador del sistema"
-  expired_reset_token: El enlace para reiniciar la contraseña ha expirado
+      message: No tiene acceso a esta aplicación
+      help: "Si cree que es un error, por favor, contacte con el administrador del sistema."
+  expired_reset_token: El enlace para recuperar la contraseña ha expirado.
   features:
     title: Funciones
     rooms: Salas personalizadas
@@ -211,28 +211,28 @@ es:
     all_recordings: Todas las grabaciones
     dropdown:
       account_settings: Organización
-      help: "¿Necesitas ayuda?"
+      help: "¿Necesita ayuda?"
       home: Inicio
       settings: Perfil de usuario
       signout: Salir
   home_room: Sala principal
-  info_update_success: La información ha sido actualizada exitósamente
-  invalid_credentials: El correo electrónico y contraseña introducidas no coincide con los registros. Inténtalo de nuevo o haz click en recuperar contraseña.
+  info_update_success: Información actualizada con éxito.
+  invalid_credentials: El correo electrónico y contraseña introducidos no coinciden con los registros. Inténtelo de nuevo o haga click en recuperar contraseña.
   invalid_login_method: El inicio de sesión falló debido a la falta de coincidencia de cuenta. Necesitas iniciar sesión con uno de los proveedores.
-  invite_message: "Para invitar a alquien a la sesión, enviale este enlace:"
+  invite_message: "Para invitar a alguien a la sesión, envíele este enlace:"
   javascript:
     room:
       mailer:
-        subject: 'te ha invitado a ver una grabación'
-        body: 'Sigue el enlace para ver la grabación'
+        subject: 'le ha invitado a ver una grabación.'
+        body: 'Siga el enlace para ver la grabación:'
         autogenerated: 'Este correo electrónico es generado automáticamente por BigBlueButton'
-        footer: 'BigBlueButton es un sistema open source para video conferencia basado en web. Para mayor información visita https://bigbluebutton.org/.'
+        footer: 'BigBlueButton es un sistema open source, basado en web, para videoconferencia. Para mayor información, visite https://bigbluebutton.org/.'
   landing:
-    about: "Greenlight es una interface web para tu servidor %{href}de conferencias de fuentes libres. Puedes crear tus propias salas y ser anfitrión de sesiones o ingresar a las de otros utilizando un corto y conveniente enlace."
+    about: "Greenlight es una interface web para su servidor %{href}de conferencias, de código abierto. Usted puede crear sus propias salas y ser anfitrión de sesiones o ingresar a las de otros utilizando un corto enlace al efecto."
     welcome: Bienvenido a <span class="green-grad">Greenlight</span>.
-    video: Ve nuestro tutorial de como utilizar Greenlight
-    upgrade: Muestrame como actualizar a versión 2.0
-    version: Hemos publicado una nueva version de Greenlight pero tu base de datos no es compatible.
+    video: Vea nuestro tutorial sobre cómo utilizar Greenlight
+    upgrade: Muéstrame cómo actualizar a la versión 2.0
+    version: "Hemos publicado una nueva versión de Greenlight, pero la base de datos del sistema instalado no es compatible."
   language_default: Por omisión (idioma del navegador)
   ldap_error: No se puede conectar al servidor LDAP. Compruebe la configuración de LDAP en el archivo "env" y asegúrate de que tu servidor está ejecutándose.
   login: Ingresar
@@ -364,6 +364,7 @@ es:
   recording:
     all_recordings: Todas las grabaciones
     email: Enviar correo electrónico con la grabación
+    error: "Ocurrió un error al recuperar %{count} grabación(es)."
     no_recordings: "Esta sala no tiene grabaciones %{inject}"
     no_user_recordings: No tienes grabaciones
     no_matched_recordings: "No hay %{inject} grabaciones que coincidan con tu busqueda."

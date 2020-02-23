@@ -61,6 +61,14 @@ describe SessionsController, type: :controller do
 
       expect(response).to render_template(:ldap_signin)
     end
+
+    it "redirects user to main room if already signed in" do
+      user = create(:user)
+      @request.session[:user_id] = user.id
+
+      post :signin
+      expect(response).to redirect_to(room_path(user.main_room))
+    end
   end
 
   describe "GET #destroy" do

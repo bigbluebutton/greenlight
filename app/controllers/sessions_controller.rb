@@ -24,17 +24,19 @@ class SessionsController < ApplicationController
 
   skip_before_action :verify_authenticity_token, only: [:omniauth, :fail]
   before_action :check_user_signup_allowed, only: [:new]
-  before_action :ensure_unauthenticated_except_twitter, only: [:new, :signin]
+  before_action :ensure_unauthenticated_except_twitter, only: [:new, :signin, :ldap_signin]
 
   # GET /signin
   def signin
     check_if_twitter_account
 
+    @providers = configured_providers
+
     if one_provider
       provider_path = if Rails.configuration.omniauth_ldap
         ldap_signin_path
       else
-        "#{Rails.configuration.relative_url_root}/auth/#{providers.first}"
+        "#{Rails.configuration.relative_url_root}/auth/#{@providers.first}"
       end
 
       return redirect_to provider_path
@@ -65,13 +67,13 @@ class SessionsController < ApplicationController
 
     user = User.include_deleted.find_by(email: session_params[:email])
 
-    # Check user with that email exists
-    return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user
-
-    is_super_admin = user.has_role? :super_admin
+    is_super_admin = user&.has_role? :super_admin
 
     # Scope user to domain if the user is not a super admin
     user = User.include_deleted.find_by(email: session_params[:email], provider: @user_domain) unless is_super_admin
+
+    # Check user with that email exists
+    return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user
     # Check correct password was entered
     return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user.try(:authenticate,
       session_params[:password])
@@ -156,9 +158,7 @@ class SessionsController < ApplicationController
   end
 
   def one_provider
-    providers = configured_providers
-
-    (!allow_user_signup? || !allow_greenlight_accounts?) && providers.count == 1 &&
+    (!allow_user_signup? || !allow_greenlight_accounts?) && @providers.count == 1 &&
       !Rails.configuration.loadbalanced_configuration
   end
 
