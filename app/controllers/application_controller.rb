@@ -200,7 +200,23 @@ class ApplicationController < ActionController::Base
 
   # Manually deal with 401 errors
   rescue_from CanCan::AccessDenied do |_exception|
-    render "errors/greenlight_error"
+    if current_user
+      render "errors/greenlight_error"
+    else
+      # Store the current url as a cookie to redirect to after sigining in
+      cookies[:return_to] = request.url
+
+      # Get the correct signin path
+      path = if allow_greenlight_accounts?
+        signin_path
+      elsif Rails.configuration.loadbalanced_configuration
+        omniauth_login_url(:bn_launcher)
+      else
+        signin_path
+      end
+
+      redirect_to path
+    end
   end
 
   private
