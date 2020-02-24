@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 
   # Retrieves the current user.
   def current_user
-    @current_user ||= User.where(id: session[:user_id]).includes(:roles).first
+    @current_user ||= User.includes(:roles, :main_room).find_by(id: session[:user_id])
 
     if Rails.configuration.loadbalanced_configuration
       if @current_user && !@current_user.has_role?(:super_admin) &&
@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
 
   # Sets the settinfs variable
   def set_user_settings
-    @settings = Setting.find_or_create_by(provider: @user_domain)
+    @settings = Setting.includes(:features).find_or_create_by(provider: @user_domain)
   end
 
   # Redirects the user to a Maintenance page if turned on

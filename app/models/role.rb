@@ -20,7 +20,7 @@ class Role < ApplicationRecord
   has_and_belongs_to_many :users, join_table: :users_roles
   has_many :role_permissions
 
-  default_scope { order(:priority) }
+  default_scope { includes(:role_permissions) }
   scope :by_priority, -> { order(:priority) }
   scope :editable_roles, ->(provider) { where(provider: provider).where.not(name: %w[super_admin denied pending]) }
 
@@ -85,23 +85,36 @@ class Role < ApplicationRecord
 
   # Returns the value if enabled or the default if not enabled
   def get_permission(name, return_boolean = true)
-    permission = role_permissions.find_or_create_by!(name: name)
+    value = nil
 
-    value = if permission[:enabled]
-        permission[:value]
-    else
-      case name
-      when "can_appear_in_share_list"
-        Rails.configuration.shared_access_default.to_s
+    role_permissions.each do |permission|
+      next if permission.name != name
+
+      value = if permission.enabled
+        permission.value
       else
-        "false"
+        default_value(name)
       end
     end
+
+    # Create the role_permissions since it doesn't exist
+    role_permissions.create(name: name) if value.nil?
 
     if return_boolean
       value == "true"
     else
       value
+    end
+  end
+
+  private
+
+  def default_value(name)
+    case name
+    when "can_appear_in_share_list"
+      Rails.configuration.shared_access_default.to_s
+    else
+      "false"
     end
   end
 end

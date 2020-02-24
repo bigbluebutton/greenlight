@@ -292,11 +292,11 @@ class AdminsController < ApplicationController
   private
 
   def find_user
-    @user = User.where(uid: params[:user_uid]).includes(:roles).first
+    @user = User.find_by(uid: params[:user_uid])
   end
 
   def find_deleted_user
-    @user = User.deleted.where(uid: params[:user_uid]).includes(:roles).first
+    @user = User.deleted.find_by(uid: params[:user_uid])
   end
 
   # Verifies that admin is an administrator of the user in the action

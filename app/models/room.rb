@@ -42,27 +42,21 @@ class Room < ApplicationRecord
 
     search_param = "%#{string}%"
 
-    joins(:owner).where(search_query, search: search_param)
+    where(search_query, search: search_param)
   end
 
   def self.admins_order(column, direction)
     # Include the owner of the table
     table = joins(:owner)
 
-    return table.order(Arel.sql("#{column} #{direction}")) if table.column_names.include?(column) || column == "users.name"
+    return table.order(Arel.sql("rooms.#{column} #{direction}")) if table.column_names.include?(column) || column == "users.name"
 
     table
   end
 
   # Determines if a user owns a room.
   def owned_by?(user)
-    return false if user.nil?
-    user.rooms.include?(self)
-  end
-
-  # Determines whether room is a home room
-  def home_room?
-    owner.main_room == self
+    user_id == user&.id
   end
 
   def shared_users
