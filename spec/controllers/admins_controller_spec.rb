@@ -428,6 +428,18 @@ describe AdminsController, type: :controller do
         expect(@user3.social_uid).to be(nil)
       end
     end
+
+    context "POST #log_level" do
+      it "changes the log level" do
+        @request.session[:user_id] = @admin.id
+
+        @admin.add_role :super_admin
+
+        expect(Rails.logger.level).to eq(0)
+        post :log_level, params: { value: 2 }
+        expect(Rails.logger.level).to eq(2)
+      end
+    end
   end
 
   describe "Roles" do

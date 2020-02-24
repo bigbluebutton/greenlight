@@ -234,6 +234,13 @@ class AdminsController < ApplicationController
     redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
+  # POST /admins/log_level
+  def log_level
+    Rails.logger.level = params[:value].to_i
+
+    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
+  end
+
   # ROLES
 
   # GET /admins/roles

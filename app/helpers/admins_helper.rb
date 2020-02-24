@@ -64,6 +64,23 @@ module AdminsHelper
       end
   end
 
+  def log_level_string
+    case Rails.logger.level
+    when 0
+      t("administrator.site_settings.log_level.debug")
+    when 1
+      t("administrator.site_settings.log_level.info")
+    when 2
+      t("administrator.site_settings.log_level.warn")
+    when 3
+      t("administrator.site_settings.log_level.error")
+    when 4
+      t("administrator.site_settings.log_level.fatal")
+    when 5
+      t("administrator.site_settings.log_level.unknown")
+    end
+  end
+
   def room_limit_number
     @settings.get_value("Room Limit").to_i
   end

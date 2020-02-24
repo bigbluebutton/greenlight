@@ -56,6 +56,15 @@ en:
         regular: Regular
         lighten: Lighten
         darken: Darken
+      log_level:
+        title: Log Level
+        information: Change the Log Level for the entire deployment
+        debug: Debug
+        info: Info
+        warn: Warn
+        error: Error
+        fatal: Fatal
+        unknown: Unknown
       recording_visibility:
         info: Set the default recording visbility for new recordings
         title: Recording Default Visibility
