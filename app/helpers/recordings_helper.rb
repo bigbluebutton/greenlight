@@ -25,8 +25,8 @@ module RecordingsHelper
   # Helper for converting BigBlueButton dates into a nice length string.
   def recording_length(playbacks)
     # Looping through playbacks array and returning first non-zero length value
-    playbacks.each do |i|
-      length = i[:length]
+    playbacks.each do |playback|
+      length = playback[:length]
       return recording_length_string(length) unless length.zero?
     end
     # Return '< 1 min' if length values are zero
