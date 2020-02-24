@@ -68,7 +68,7 @@ class PasswordResetsController < ApplicationController
   private
 
   def find_user
-    @user = User.find_by(email: params[:email], provider: @user_domain)
+    @user = User.find_by(reset_digest: User.digest(params[:id]), provider: @user_domain)
   end
 
   def user_params

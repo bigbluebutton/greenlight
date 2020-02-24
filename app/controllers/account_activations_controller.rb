@@ -51,6 +51,7 @@ class AccountActivationsController < ApplicationController
       flash[:alert] = I18n.t("verify.already_verified")
     else
       # Resend
+      @user.create_activation_token
       send_activation_email(@user)
     end
 
@@ -60,14 +61,10 @@ class AccountActivationsController < ApplicationController
   private
 
   def find_user
-    @user = User.find_by!(email: params[:email], provider: @user_domain)
+    @user = User.find_by!(activation_digest: User.digest(params[:token]), provider: @user_domain)
   end
 
   def ensure_unauthenticated
     redirect_to current_user.main_room if current_user
-  end
-
-  def email_params
-    params.require(:email).permit(:email, :token)
   end
 end

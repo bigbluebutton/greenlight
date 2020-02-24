@@ -21,7 +21,7 @@ require 'bbb_api'
 class User < ApplicationRecord
   include Deleteable
 
-  attr_accessor :reset_token
+  attr_accessor :reset_token, :activation_token
   after_create :setup_user
 
   before_save { email.try(:downcase!) }
@@ -122,7 +122,7 @@ class User < ApplicationRecord
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
     return false if digest.nil?
-    BCrypt::Password.new(digest).is_password?(token)
+    digest == Digest::SHA256.base64digest(token)
   end
 
   # Return true if password reset link expires
@@ -153,9 +153,9 @@ class User < ApplicationRecord
     social_uid.nil?
   end
 
-  def activation_token
-    # Create the token.
-    create_reset_activation_digest(User.new_token)
+  def create_activation_token
+    self.activation_token = User.new_token
+    update_attributes(activation_digest: User.digest(activation_token))
   end
 
   def admin_of?(user)
@@ -172,8 +172,7 @@ class User < ApplicationRecord
   end
 
   def self.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
+    Digest::SHA256.base64digest(string)
   end
 
   # Returns a random token.
@@ -249,12 +248,6 @@ class User < ApplicationRecord
   end
 
   private
-
-  def create_reset_activation_digest(token)
-    # Create the digest and persist it.
-    update_attribute(:activation_digest, User.digest(token))
-    token
-  end
 
   # Destory a users rooms when they are removed.
   def destroy_rooms
