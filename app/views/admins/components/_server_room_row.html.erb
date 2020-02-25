@@ -16,6 +16,9 @@
 <tr id="room-block" data-path="<%= update_settings_path(room) %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>">
   <td>
     <div id="room-title" class="form-inline edit_hover_class">
+      <% if room.id == room.owner.room_id %>
+        <i class="fas fa-home pr-1"></i>
+      <% end %>
       <text id="room-name-text">
         <%= room.name %>
       </text>
@@ -58,9 +61,11 @@
             <i class="dropdown-icon fas fa-users"></i> <%= t("room.share") %>
           </a>
         <% end %>
-        <a href="" data-toggle="modal" data-target="#deleteRoomModal" data-path="<%= room_path(room) %>" data-name="<%= room.name %>" class="delete-room dropdown-item">
-          <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
-        </a>
+        <% if room.id != room.owner.room_id %>
+          <a href="" data-toggle="modal" data-target="#deleteRoomModal" data-path="<%= room_path(room) %>" data-name="<%= room.name %>" class="delete-room dropdown-item">
+            <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
+          </a>
+        <% end %>
       </div>
     </div>
   </td>
