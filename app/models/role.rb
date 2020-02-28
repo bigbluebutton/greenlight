@@ -20,7 +20,7 @@ class Role < ApplicationRecord
   has_and_belongs_to_many :users, join_table: :users_roles
   has_many :role_permissions
 
-  default_scope { includes(:role_permissions) }
+  default_scope { includes(:role_permissions).order(:priority) }
   scope :by_priority, -> { order(:priority) }
   scope :editable_roles, ->(provider) { where(provider: provider).where.not(name: %w[super_admin denied pending]) }
 
@@ -42,8 +42,7 @@ class Role < ApplicationRecord
     Role.create(name: "super_admin", provider: provider, priority: -3, colour: "#cd201f")
         .update_all_role_permissions(can_create_rooms: true,
       send_promoted_email: true, send_demoted_email: true, can_edit_site_settings: true,
-      can_edit_roles: true, can_manage_users: true, can_manage_rooms_recordings: true,
-      can_appear_in_share_list: true)
+      can_edit_roles: true, can_manage_users: true, can_manage_rooms_recordings: true)
   end
 
   def self.create_new_role(role_name, provider)

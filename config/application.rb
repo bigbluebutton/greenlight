@@ -154,7 +154,7 @@ module Greenlight
     config.number_of_rooms_default = 15
 
     # Allow users to share rooms by default
-    config.shared_access_default = (ENV["SHARED_ACCESS"] == "true").to_s
+    config.shared_access_default = "true"
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
