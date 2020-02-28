@@ -177,8 +177,8 @@ class AdminsController < ApplicationController
       logger.info "#{current_user.uid} successfully merged #{uid_to_merge} into #{@user.uid}"
       flash[:success] = I18n.t("administrator.flash.merge_success")
     end
-
-    redirect_to admins_path
+    
+    redirect_back fallback_location: admins_path
   end
 
   # SITE SETTINGS
