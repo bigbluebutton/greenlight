@@ -30,7 +30,6 @@ services:
     volumes:
       - ./db/production:/var/lib/postgresql/data
     environment:
-      - PGHOST=postgres
-      - PGDATABASE=postgres
-      - PGUSER=postgres
-      - PGPASSWORD=password
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
