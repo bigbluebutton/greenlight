@@ -53,14 +53,14 @@
                     <%= f.check_box :can_create_rooms, checked: @selected_role.get_permission("can_create_rooms"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_create_rooms") %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
-            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("send_promoted_email")  %>">
-                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.promote_email")%></span>
-                    <%= f.check_box :send_promoted_email, checked: @selected_role.get_permission("send_promoted_email"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("send_promoted_email")  %>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_manage_users") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.manage_users")%></span>
+                    <%= f.check_box :can_manage_users, checked: @selected_role.get_permission("can_manage_users"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_manage_users") %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
-            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("send_demoted_email") %>">
-                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.demote_email")%></span>
-                    <%= f.check_box :send_demoted_email, checked: @selected_role.get_permission("send_demoted_email"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("send_demoted_email") %>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_manage_rooms_recordings") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.manage_rooms_recordings")%></span>
+                    <%= f.check_box :can_manage_rooms_recordings, checked: @selected_role.get_permission("can_manage_rooms_recordings"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_manage_rooms_recordings") %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
             <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_edit_site_settings") %>">
@@ -73,9 +73,19 @@
                     <%= f.check_box :can_edit_roles, checked: @selected_role.get_permission("can_edit_roles"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_edit_roles") %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
-            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_manage_users") %>">
-                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.manage_users")%></span>
-                    <%= f.check_box :can_manage_users, checked: @selected_role.get_permission("can_manage_users"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_manage_users") %>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_appear_in_share_list") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.appear_in_share_list")%></span>
+                    <%= f.check_box :can_appear_in_share_list, checked: @selected_role.get_permission("can_appear_in_share_list"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_appear_in_share_list") %>
+                <span class="custom-switch-indicator float-right"></span>
+            </label>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("send_promoted_email")  %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.promote_email")%></span>
+                    <%= f.check_box :send_promoted_email, checked: @selected_role.get_permission("send_promoted_email"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("send_promoted_email")  %>
+                <span class="custom-switch-indicator float-right"></span>
+            </label>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("send_demoted_email") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.demote_email")%></span>
+                    <%= f.check_box :send_demoted_email, checked: @selected_role.get_permission("send_demoted_email"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("send_demoted_email") %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
 

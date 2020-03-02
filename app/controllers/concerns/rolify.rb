@@ -119,17 +119,32 @@ module Rolify
       return false if role.priority <= current_user_role.priority || role.provider != @user_domain
     end
 
-    # Update the roles priority including the user role
-    top_priority = 0
+    # Get the priority of the current user's role and start with 1 higher
+    new_priority = [current_user_role.priority, 0].max + 1
 
-    role_to_update.each_with_index do |id, index|
-      new_priority = index + [current_user_role.priority, 0].max + 1
-      top_priority = new_priority
-      Role.where(id: id).update_all(priority: new_priority)
+    begin
+      # Save the old priorities incase something fails
+      old_priority = Role.where(id: role_to_update).select(:id, :priority).index_by(&:id)
+
+      # Set all the priorities to nil to avoid unique column issues
+      Role.where(id: role_to_update).update_all(priority: nil)
+
+      # Starting at the starting priority, increase by 1 every time
+      role_to_update.each_with_index do |id, index|
+        Role.find(id).update_attribute(:priority, new_priority + index)
+      end
+
+      true
+    rescue => e
+      # Reset to old prorities
+      role_to_update.each_with_index do |id, _index|
+        Role.find(id).update_attribute(:priority, old_priority[id.to_i].priority)
+      end
+
+      logger.error "#{current_user} failed to update role priorities: #{e}"
+
+      false
     end
-
-    user_role.priority = top_priority + 1
-    user_role.save!
   end
 
   # Update Permissions
@@ -141,7 +156,8 @@ module Rolify
 
     role_params = params.require(:role).permit(:name)
     permission_params = params.require(:role).permit(:can_create_rooms, :send_promoted_email,
-      :send_demoted_email, :can_edit_site_settings, :can_edit_roles, :can_manage_users, :colour)
+      :send_demoted_email, :can_edit_site_settings, :can_edit_roles, :can_manage_users,
+      :can_manage_rooms_recordings, :can_appear_in_share_list, :colour)
 
     permission_params.transform_values! do |v|
       if v == "0"

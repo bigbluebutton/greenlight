@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 
   # Retrieves the current user.
   def current_user
-    @current_user ||= User.where(id: session[:user_id]).includes(:roles).first
+    @current_user ||= User.includes(:roles, :main_room).find_by(id: session[:user_id])
 
     if Rails.configuration.loadbalanced_configuration
       if @current_user && !@current_user.has_role?(:super_admin) &&
@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
 
   # Sets the settinfs variable
   def set_user_settings
-    @settings = Setting.find_or_create_by(provider: @user_domain)
+    @settings = Setting.includes(:features).find_or_create_by(provider: @user_domain)
   end
 
   # Redirects the user to a Maintenance page if turned on
@@ -172,6 +172,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :configured_providers
 
+  # Indicates whether users are allowed to share rooms
+  def shared_access_allowed
+    @settings.get_value("Shared Access") == "true"
+  end
+  helper_method :shared_access_allowed
+
   # Parses the url for the user domain
   def parse_user_domain(hostname)
     return hostname.split('.').first if Rails.configuration.url_host.empty?
@@ -194,7 +200,23 @@ class ApplicationController < ActionController::Base
 
   # Manually deal with 401 errors
   rescue_from CanCan::AccessDenied do |_exception|
-    render "errors/greenlight_error"
+    if current_user
+      render "errors/greenlight_error"
+    else
+      # Store the current url as a cookie to redirect to after sigining in
+      cookies[:return_to] = request.url
+
+      # Get the correct signin path
+      path = if allow_greenlight_accounts?
+        signin_path
+      elsif Rails.configuration.loadbalanced_configuration
+        omniauth_login_url(:bn_launcher)
+      else
+        signin_path
+      end
+
+      redirect_to path
+    end
   end
 
   private
@@ -214,6 +236,7 @@ class ApplicationController < ActionController::Base
       logger.error "Error in retrieve provider info: #{e}"
       # Use the default site settings
       @user_domain = "greenlight"
+      @settings = Setting.find_or_create_by(provider: @user_domain)
 
       if e.message.eql? "No user with that id exists"
         render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_not_found.message"),

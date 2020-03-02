@@ -37,6 +37,14 @@ module AdminsHelper
     end
   end
 
+  def shared_access_string
+    if @settings.get_value("Shared Access") == "true"
+      I18n.t("administrator.site_settings.authentication.enabled")
+    else
+      I18n.t("administrator.site_settings.authentication.disabled")
+    end
+  end
+
   def recording_default_visibility_string
     if @settings.get_value("Default Recording Visibility") == "public"
       I18n.t("recording.visibility.public")
@@ -56,11 +64,33 @@ module AdminsHelper
       end
   end
 
+  def log_level_string
+    case Rails.logger.level
+    when 0
+      t("administrator.site_settings.log_level.debug")
+    when 1
+      t("administrator.site_settings.log_level.info")
+    when 2
+      t("administrator.site_settings.log_level.warn")
+    when 3
+      t("administrator.site_settings.log_level.error")
+    when 4
+      t("administrator.site_settings.log_level.fatal")
+    when 5
+      t("administrator.site_settings.log_level.unknown")
+    end
+  end
+
   def room_limit_number
     @settings.get_value("Room Limit").to_i
   end
 
   def edit_disabled
     @edit_disabled ||= @selected_role.priority <= current_user.highest_priority_role.priority
+  end
+
+  # Get the room status to display in the Server Rooms table
+  def room_is_running(id)
+    @running_room_bbb_ids.include?(id)
   end
 end

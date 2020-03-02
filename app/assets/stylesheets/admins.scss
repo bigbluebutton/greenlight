@@ -89,3 +89,11 @@
     cursor: pointer;
   }
 }
+
+#merge-account-arrow {
+  position: absolute;
+  top: 47%;
+  right: 47%;
+  z-index: 999;
+  background: white;
+}

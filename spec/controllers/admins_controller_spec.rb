@@ -67,6 +67,8 @@ describe AdminsController, type: :controller do
 
         post :ban_user, params: { user_uid: @user.uid }
 
+        @user.reload
+
         expect(@user.has_role?(:denied)).to eq(true)
         expect(flash[:success]).to be_present
         expect(response).to redirect_to(admins_path)
@@ -81,6 +83,8 @@ describe AdminsController, type: :controller do
         expect(@user.has_role?(:denied)).to eq(true)
 
         post :unban_user, params: { user_uid: @user.uid }
+
+        @user.reload
 
         expect(@user.has_role?(:denied)).to eq(false)
         expect(flash[:success]).to be_present
@@ -153,6 +157,8 @@ describe AdminsController, type: :controller do
 
         post :approve, params: { user_uid: @user.uid }
 
+        @user.reload
+
         expect(@user.has_role?(:pending)).to eq(false)
         expect(flash[:success]).to be_present
         expect(response).to redirect_to(admins_path)
@@ -194,6 +200,42 @@ describe AdminsController, type: :controller do
 
         expect(Room.find_by(uid: @user.main_room.uid)).to be_present
         expect(flash[:success]).to be_present
+        expect(response).to redirect_to(admins_path)
+      end
+    end
+
+    context "POST #merge_user" do
+      it "merges the users room to the primary account and deletes the old user" do
+        @request.session[:user_id] = @admin.id
+
+        @user2 = create(:user)
+        room1 = create(:room, owner: @user2)
+        room2 = create(:room, owner: @user2)
+        room3 = @user2.main_room
+
+        post :merge_user, params: { user_uid: @user.uid, merge: @user2.uid }
+
+        room1.reload
+        room2.reload
+        room3.reload
+
+        expect(User.exists?(uid: @user2.uid)).to be false
+        expect(room1.name).to start_with("(Merged)")
+        expect(room2.name).to start_with("(Merged)")
+        expect(room3.name).to start_with("(Merged)")
+        expect(room1.owner).to eq(@user)
+        expect(room2.owner).to eq(@user)
+        expect(room3.owner).to eq(@user)
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(admins_path)
+      end
+
+      it "does not merge if trying to merge the same user into themself" do
+        @request.session[:user_id] = @admin.id
+
+        post :merge_user, params: { user_uid: @user.uid, merge: @user.uid }
+
+        expect(flash[:alert]).to be_present
         expect(response).to redirect_to(admins_path)
       end
     end
@@ -344,6 +386,66 @@ describe AdminsController, type: :controller do
         expect(response).to redirect_to(admin_site_settings_path)
       end
     end
+
+    context "POST #shared_access" do
+      it "changes the shared access setting" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+
+        post :update_settings, params: { setting: "Shared Access", value: "false" }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Shared Access")
+
+        expect(feature[:value]).to eq("false")
+        expect(response).to redirect_to(admin_site_settings_path)
+      end
+    end
+
+    context "POST #clear_auth" do
+      it "clears all users social uids if clear auth button is clicked" do
+        allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
+        controller.instance_variable_set(:@user_domain, "provider1")
+
+        @request.session[:user_id] = @admin.id
+
+        @admin.add_role :super_admin
+        @admin.update_attribute(:provider, "greenlight")
+        @user2 = create(:user, provider: "provider1")
+        @user3 = create(:user, provider: "provider1")
+
+        @user.update_attribute(:social_uid, Faker::Internet.password)
+        @user2.update_attribute(:social_uid, Faker::Internet.password)
+        @user3.update_attribute(:social_uid, Faker::Internet.password)
+
+        expect(@user.social_uid).not_to be(nil)
+        expect(@user2.social_uid).not_to be(nil)
+        expect(@user3.social_uid).not_to be(nil)
+
+        post :clear_auth
+
+        @user.reload
+        @user2.reload
+        @user3.reload
+
+        expect(@user.social_uid).to be(nil)
+        expect(@user2.social_uid).to be(nil)
+        expect(@user3.social_uid).to be(nil)
+      end
+    end
+
+    context "POST #log_level" do
+      it "changes the log level" do
+        @request.session[:user_id] = @admin.id
+
+        @admin.add_role :super_admin
+
+        expect(Rails.logger.level).to eq(0)
+        post :log_level, params: { value: 2 }
+        expect(Rails.logger.level).to eq(2)
+      end
+    end
   end
 
   describe "Roles" do
@@ -413,6 +515,7 @@ describe AdminsController, type: :controller do
     context "PATCH #change_role_order" do
       before do
         Role.create_default_roles("provider1")
+        @user.roles.delete(Role.find_by(name: "user", provider: "greenlight"))
       end
 
       it "should fail if user attempts to change the order of the admin or user roles" do
@@ -428,35 +531,9 @@ describe AdminsController, type: :controller do
       end
 
       it "should fail if a user attempts to edit a role with a higher priority than their own" do
-        Role.create(name: "test1", priority: 1, provider: "greenlight")
-        new_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight")
+        new_role3 = Role.create_new_role("test3", "provider1")
+        new_role2 = Role.create_new_role("test2", "provider1")
         new_role2.update_permission("can_edit_roles", "true")
-        new_role3 = Role.create(name: "test3", priority: 3, provider: "greenlight")
-        user_role = Role.find_by(name: "user", provider: "greenlight")
-
-        user_role.priority = 4
-        user_role.save!
-
-        @user.roles << new_role2
-        @user.save!
-
-        @request.session[:user_id] = @user.id
-
-        patch :change_role_order, params: { role: [new_role3.id, new_role2.id] }
-
-        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_order"))
-        expect(response).to redirect_to admin_roles_path
-      end
-
-      it "should fail if a user attempts to edit a role with a higher priority than their own" do
-        Role.create(name: "test1", priority: 1, provider: "greenlight")
-        new_role2 = Role.create(name: "test2", priority: 2, provider: "greenlight")
-        new_role2.update_permission("can_edit_roles", "true")
-        new_role3 = Role.create(name: "test3", priority: 3, provider: "greenlight")
-        user_role = Role.find_by(name: "user", provider: "greenlight")
-
-        user_role.priority = 4
-        user_role.save!
 
         @user.roles << new_role2
         @user.save!
@@ -470,10 +547,11 @@ describe AdminsController, type: :controller do
       end
 
       it "should update the role order" do
+        user_role = Role.find_by(name: "user", provider: "provider1")
+        user_role.update_attribute(:priority, 4)
         new_role1 = Role.create(name: "test1", priority: 1, provider: "provider1")
         new_role2 = Role.create(name: "test2", priority: 2, provider: "provider1")
         new_role3 = Role.create(name: "test3", priority: 3, provider: "provider1")
-        user_role = Role.find_by(name: "user", provider: "provider1")
 
         @request.session[:user_id] = @admin.id
 
@@ -494,16 +572,15 @@ describe AdminsController, type: :controller do
     context 'POST #update_role' do
       before do
         Role.create_default_roles("provider1")
+        @user.roles.delete(Role.find_by(name: "user", provider: "greenlight"))
       end
 
       it "should fail to update a role with a lower priority than the user" do
+        user_role = Role.find_by(name: "user", provider: "provider1")
+        user_role.update_attribute(:priority, 3)
         new_role1 = Role.create(name: "test1", priority: 1, provider: "provider1")
         new_role2 = Role.create(name: "test2", priority: 2, provider: "provider1")
         new_role2.update_permission("can_edit_roles", "true")
-        user_role = Role.find_by(name: "user", provider: "greenlight")
-
-        user_role.priority = 3
-        user_role.save!
 
         @user.roles << new_role2
         @user.save!
@@ -517,7 +594,7 @@ describe AdminsController, type: :controller do
       end
 
       it "should fail to update if there is a duplicate name" do
-        new_role = Role.create(name: "test2", priority: 1, provider: "provider1")
+        new_role = Role.create(name: "test2", priority: 2, provider: "provider1")
         new_role.update_permission("can_edit_roles", "true")
 
         @request.session[:user_id] = @admin.id
@@ -529,7 +606,7 @@ describe AdminsController, type: :controller do
       end
 
       it "should update role permisions" do
-        new_role = Role.create(name: "test2", priority: 1, provider: "provider1")
+        new_role = Role.create(name: "test2", priority: 2, provider: "provider1")
         new_role.update_permission("can_edit_roles", "true")
 
         @request.session[:user_id] = @admin.id
@@ -574,7 +651,7 @@ describe AdminsController, type: :controller do
       end
 
       it "should successfully delete the role" do
-        new_role = Role.create(name: "test2", priority: 1, provider: "provider1")
+        new_role = Role.create(name: "test2", priority: 2, provider: "provider1")
         new_role.update_permission("can_edit_roles", "true")
 
         @request.session[:user_id] = @admin.id

@@ -36,14 +36,16 @@
 @import "tabler-custom";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import "monolith.min.scss";
+@import "bootstrap-select.min";
 
 @import "utilities/variables";
 @import "admins";
 @import "main";
 @import "rooms";
 @import "sessions";
-@import "monolith.min.scss";
 @import "utilities/fonts";
+@import "users";
 
 * {
   outline: none !important;

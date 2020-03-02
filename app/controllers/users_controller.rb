@@ -58,6 +58,8 @@ class UsersController < ApplicationController
     # Sign in automatically if email verification is disabled or if user is already verified.
     login(@user) && return if !Rails.configuration.enable_email_verification || @user.email_verified
 
+    @user.create_activation_token
+
     send_activation_email(@user)
 
     redirect_to root_path
@@ -80,7 +82,14 @@ class UsersController < ApplicationController
   # PATCH /u/:user_uid/edit
   def update
     profile = params[:setting] == "password" ? change_password_path(@user) : edit_user_path(@user)
-    redirect_path = current_user.admin_of?(@user) ? admins_path : profile
+    if session[:prev_url].present?
+      path = session[:prev_url]
+      session.delete(:prev_url)
+    else
+      path = admins_path
+    end
+
+    redirect_path = current_user.admin_of?(@user) ? path : profile
 
     if params[:setting] == "password"
       # Update the users password.
@@ -123,12 +132,13 @@ class UsersController < ApplicationController
   # DELETE /u/:user_uid
   def destroy
     # Include deleted users in the check
+    admin_path = request.referer.present? ? request.referer : admins_path
     @user = User.include_deleted.find_by(uid: params[:user_uid])
 
     logger.info "Support: #{current_user.email} is deleting #{@user.email}."
 
     self_delete = current_user == @user
-    redirect_url = self_delete ? root_path : admins_path
+    redirect_url = self_delete ? root_path : admin_path
 
     begin
       if current_user && (self_delete || current_user.admin_of?(@user))
@@ -183,7 +193,7 @@ class UsersController < ApplicationController
   private
 
   def find_user
-    @user = User.where(uid: params[:user_uid]).includes(:roles).first
+    @user = User.find_by(uid: params[:user_uid])
   end
 
   # Verify that GreenLight is configured to allow user signup.

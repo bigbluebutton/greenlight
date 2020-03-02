@@ -101,7 +101,8 @@ module Emailer
       return unless Rails.configuration.enable_email_verification
 
       admin_emails = admin_emails()
-      UserMailer.approval_user_signup(user, admins_url, admin_emails, @settings).deliver_now unless admin_emails.empty?
+      UserMailer.approval_user_signup(user, admins_url(tab: "pending"),
+      admin_emails, @settings).deliver_now unless admin_emails.empty?
     rescue => e
       logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
@@ -124,7 +125,7 @@ module Emailer
 
   # Returns the link the user needs to click to verify their account
   def user_verification_link(user)
-    edit_account_activation_url(token: user.activation_token, email: user.email)
+    edit_account_activation_url(token: user.activation_token)
   end
 
   def admin_emails
@@ -139,7 +140,7 @@ module Emailer
   end
 
   def reset_link(user)
-    edit_password_reset_url(user.reset_token, email: user.email)
+    edit_password_reset_url(user.reset_token)
   end
 
   def invitation_link(token)

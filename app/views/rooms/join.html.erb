@@ -31,7 +31,7 @@
     <% end %>
   <% else %>
     <%= form_for room_path(@room), method: :post do |f| %>
-      <div class="input-group join-input">
+      <div class="input-group">
         <%= f.hidden_field(:search, :value => params[:search])%>
         <%= f.hidden_field(:column, :value => params[:column])%>
         <%= f.hidden_field(:direction, :value => params[:direction])%>
@@ -43,7 +43,11 @@
             readonly: !current_user.nil?, 
             autofocus: true
             %>
-        <%= f.submit (!@room_running && @anyone_can_start)? t("room.start") : t("room.join"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
+        <span class="input-group-append">
+          <button type="submit" class="btn btn-primary btn-sm px-7 form-control join-form">
+            <%= (!@room_running && @anyone_can_start) ? t("room.start") : t("room.join") %>
+          </button>
+        </span>
       </div>
     <% end %>
   <% end %>
