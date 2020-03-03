@@ -32,7 +32,7 @@ class PasswordResetsController < ApplicationController
   def create
     begin
       # Check if user exists and throw an error if he doesn't
-      @user = User.find_by!(email: params[:password_reset][:email].downcase)
+      @user = User.find_by!(email: params[:password_reset][:email].downcase, provider: @user_domain)
 
       @user.create_reset_digest
       send_password_reset_email(@user)
