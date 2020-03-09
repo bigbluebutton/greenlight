@@ -443,6 +443,7 @@ it:
     account:
       fullname: Nome completo
       language: Lingua
+      timezone: Fuso orario
       provider: Fornitore
       image: Immagine
       image_url: Indirizzo immagine del profilo

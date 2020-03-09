@@ -84,7 +84,7 @@
                   <tr data-user-uid="<%= user.uid %>">
                     <td>
                       <div><%= user.name %></div>
-                      <div class="small text-muted"><%= [t("administrator.users.table.created"), ": ", user.created_at].join %></div>
+                      <div class="small text-muted"><%= [t("administrator.users.table.created"), ": ", date_formatter(user_local_time(user.created_at))].join %></div>
                     </td>
                     <td class="user-email"><%= user.email && user.email != "" ? user.email : user.username%></td>
                     <td><%= user.provider %></td>

@@ -451,6 +451,7 @@ ru:
     account:
       fullname: Полное имя
       language: Язык
+      timezone: Часовой пояс
       provider: Провайдер
       image: Изображение
       image_url: URL изображения профиля

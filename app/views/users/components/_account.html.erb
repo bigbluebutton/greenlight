@@ -37,9 +37,12 @@
     <br>
     <%= f.label t("settings.account.language"), class: "form-label" %>
     <%= f.select :language, language_options, {}, { class: "form-control custom-select" } %>
-
-    <% current_user_role = current_user.highest_priority_role %>
     <br>
+    <br>
+    <%= f.label t("settings.account.timezone"), class: "form-label" %>
+    <%= f.select :time_zone, timezone_options, {}, { class: "form-control custom-select" } %>
+    <br>
+    <% current_user_role = current_user.highest_priority_role %>
     <br>
     <%= f.label t("settings.account.roles"), class: "form-label" %>
     <div id="role-tag-container" class="tags mb-1">

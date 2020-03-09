@@ -26,7 +26,7 @@
       <a><i id="edit-record" class="fa fa-edit align-top ml-2" data-edit-recordid="<%= recording[:recordID] %>"></i></a>
     </div>
     <div class="small text-muted">
-      <%= t("recording.recorded_on", date: recording_date(recording[:startTime])) %>
+      <%= t("recording.recorded_on", date: recording_date(user_local_time(recording[:startTime]))) %>
     </div>
   </td>
   <% if recording_thumbnails? %>

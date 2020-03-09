@@ -443,6 +443,7 @@ ar:
     account:
       fullname: الاسم الكامل
       language: لغة
+      timezone: وحدة زمنية
       provider: مزود
       image: صورة
       image_url: عنوان URL لصورة الملف الشخصي

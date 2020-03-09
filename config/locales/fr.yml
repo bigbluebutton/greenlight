@@ -443,6 +443,7 @@ fr:
     account:
       fullname: Nom complet
       language: Langue
+      timezone: Fuseau horaire
       provider: Fournisseur
       image: Image
       image_url: URL de l'image profil

@@ -25,6 +25,8 @@ module Authenticator
 
     session[:user_id] = user.id
 
+    set_time_zone(user)
+
     logger.info("Support: #{user.email} has successfully logged in.")
 
     # If there are not terms, or the user has accepted them, check for email verification
@@ -81,6 +83,19 @@ module Authenticator
   end
 
   private
+
+  # Sets a user's time zone when they sign in if the attribute is empty
+  def set_time_zone(user)
+    time_zone = session[:time_zone]    
+    unless user.time_zone.present?
+        if (TZInfo::Timezone.all_country_zone_identifiers).include? time_zone
+          user.time_zone = time_zone
+        else
+          user.time_zone = "Etc/UTC"
+        end
+        user.save
+    end
+  end
 
   # Migrates all of the twitter users rooms to the new account
   def migrate_twitter_user(user)

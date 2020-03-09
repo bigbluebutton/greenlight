@@ -35,7 +35,7 @@
           </div>
           <div class="small text-muted">
             <% if room.sessions > 0 %>
-              <i><%= t("room.last_session", session: recording_date(room.last_session)) %></i>
+              <i><%= t("room.last_session", session: recording_date(user_local_time(room.last_session))) %></i>
             <% else %>
               <i><%= t("room.no_sessions") %></i>
             <% end %>

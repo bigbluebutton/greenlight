@@ -514,6 +514,7 @@ en:
     account:
       fullname: Full name
       language: Language
+      timezone: Time zone
       provider: Provider
       image: Image
       image_url: Profile Image URL

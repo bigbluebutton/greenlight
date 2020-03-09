@@ -451,6 +451,7 @@ es:
     account:
       fullname: Nombre completo
       language: Idioma
+      timezone: Zona horaria
       provider: Proveedor
       image: Imagen
       image_url: "Enlace a imagén de perfil "
