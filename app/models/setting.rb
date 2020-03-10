@@ -28,22 +28,36 @@ class Setting < ApplicationRecord
 
   # Returns the value if enabled or the default if not enabled
   def get_value(name)
-    feature = features.find_or_create_by!(name: name)
-    if feature[:enabled]
-      feature[:value]
-    else
-      case name
-      when "Branding Image"
-        Rails.configuration.branding_image_default
-      when "Primary Color"
-        Rails.configuration.primary_color_default
-      when "Registration Method"
-        Rails.configuration.registration_method_default
-      when "Room Authentication"
-        false
-      when "Room Limit"
-        Rails.configuration.number_of_rooms_default
-      end
+    # Return feature value if already exists
+    features.each do |feature|
+      next if feature.name != name
+
+      return feature.value if feature.enabled
+      return default_value(name)
+    end
+
+    # Create the feature since it doesn't exist
+    features.create(name: name)
+    default_value(name)
+  end
+
+  private
+
+  def default_value(name)
+    # return default value
+    case name
+    when "Branding Image"
+      Rails.configuration.branding_image_default
+    when "Primary Color"
+      Rails.configuration.primary_color_default
+    when "Registration Method"
+      Rails.configuration.registration_method_default
+    when "Room Authentication"
+      false
+    when "Room Limit"
+      Rails.configuration.number_of_rooms_default
+    when "Shared Access"
+      Rails.configuration.shared_access_default
     end
   end
 end

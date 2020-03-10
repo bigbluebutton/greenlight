@@ -153,13 +153,10 @@ module Greenlight
     # Default limit on number of rooms users can create
     config.number_of_rooms_default = 15
 
+    # Allow users to share rooms by default
+    config.shared_access_default = "true"
+
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
-
-    config.action_cable.log_tags = [
-      ->(request) { request.session['user_id'] || "no-account" },
-      :action_cable,
-      ->(request) { request.uuid }
-    ]
   end
 end

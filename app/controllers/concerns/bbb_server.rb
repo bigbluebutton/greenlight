@@ -29,6 +29,11 @@ module BbbServer
     bbb_server.is_meeting_running?(bbb_id)
   end
 
+  # Returns a list of all running meetings
+  def all_running_meetings
+    bbb_server.get_meetings
+  end
+
   def get_recordings(meeting_id)
     bbb_server.get_recordings(meetingID: meeting_id)
   end

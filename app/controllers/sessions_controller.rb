@@ -74,6 +74,10 @@ class SessionsController < ApplicationController
 
     # Check user with that email exists
     return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user
+
+    # Check if authenticators have switched
+    return switch_account_to_local(user) if !is_super_admin && auth_changed_to_local?(user)
+
     # Check correct password was entered
     return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user.try(:authenticate,
       session_params[:password])
@@ -84,7 +88,10 @@ class SessionsController < ApplicationController
       # Check that the user is a Greenlight account
       return redirect_to(root_path, alert: I18n.t("invalid_login_method")) unless user.greenlight_account?
       # Check that the user has verified their account
-      return redirect_to(account_activation_path(email: user.email)) unless user.activated?
+      unless user.activated?
+        user.create_activation_token
+        return redirect_to(account_activation_path(token: user.activation_token))
+      end
     end
 
     login(user)
@@ -199,6 +206,9 @@ class SessionsController < ApplicationController
     # If using invitation registration method, make sure user is invited
     return redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless passes_invite_reqs
 
+    # Switch the user to a social account if they exist under the same email with no social uid
+    switch_account_to_social if !@user_exists && auth_changed_to_social?(@auth['info']['email'])
+
     user = User.from_omniauth(@auth)
 
     logger.info "Support: Auth user #{user.email} is attempting to login."
@@ -224,5 +234,29 @@ class SessionsController < ApplicationController
         I18n.t("registration.deprecated.twitter_signin", link: signin_path(old_twitter_user_id: user.id))
       end
     end
+  end
+
+  # Send the user a password reset email to allow them to set their password
+  def switch_account_to_local(user)
+    logger.info "Switching social account to local account for #{user.uid}"
+
+    # Send the user a reset password email
+    user.create_reset_digest
+    send_password_reset_email(user)
+
+    # Overwrite the flash with a more descriptive message if successful
+    flash[:success] = I18n.t("reset_password.auth_change") if flash[:success].present?
+
+    redirect_to signin_path
+  end
+
+  # Set the user's social id to the new id being passed
+  def switch_account_to_social
+    user = User.find_by(email: @auth['info']['email'], provider: @user_domain, social_uid: nil)
+
+    logger.info "Switching account to social account for #{user.uid}"
+
+    # Set the user's social id to the one being returned from auth
+    user.update_attribute(:social_uid, @auth['uid'])
   end
 end

@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   scope '/admins' do
     # Panel Tabs
+    get '/rooms', to: 'admins#server_rooms', as: :admin_rooms
     get '/recordings', to: 'admins#server_recordings', as: :admin_recordings
     get '/site_settings', to: 'admins#site_settings', as: :admin_site_settings
     get '/roles', to: 'admins#roles', as: :admin_roles
@@ -49,11 +50,14 @@ Rails.application.routes.draw do
     post '/approve/:user_uid', to: 'admins#approve', as: :admin_approve
     get '/reset', to: 'admins#reset', as: :admin_reset
     post '/undelete', to: 'admins#undelete', as: :admin_undelete
+    post '/merge/:user_uid', to: 'admins#merge_user', as: :merge_user
     # Site Settings
     post '/update_settings', to: 'admins#update_settings', as: :admin_update_settings
     post '/registration_method', to: 'admins#registration_method', as: :admin_change_registration
     post '/coloring', to: 'admins#coloring', as: :admin_coloring
     post '/clear_cache', to: 'admins#clear_cache', as: :admin_clear_cache
+    post '/clear_auth', to: 'admins#clear_auth', as: :admin_clear_auth
+    post '/log_level', to: 'admins#log_level', as: :admin_log_level
     # Roles
     post '/role', to: 'admins#new_role', as: :admin_new_role
     patch 'roles/order', to: 'admins#change_role_order', as: :admin_roles_order
@@ -109,7 +113,11 @@ Rails.application.routes.draw do
   scope '/:room_uid' do
     post '/', to: 'rooms#join'
     patch '/', to: 'rooms#update', as: :update_room
+    get '/room_settings', to: 'rooms#room_settings'
     post '/update_settings', to: 'rooms#update_settings'
+    post '/update_shared_access', to: 'rooms#shared_access', as: :room_shared_access
+    delete '/remove_shared_access', to: 'rooms#remove_shared_access', as: :room_remove_shared_access
+    get '/shared_users', to: 'rooms#shared_users', as: :room_shared_users
     post '/start', to: 'rooms#start', as: :start_room
     get '/logout', to: 'rooms#logout', as: :logout_room
     post '/login', to: 'rooms#login', as: :login_room

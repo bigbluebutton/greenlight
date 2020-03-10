@@ -13,4 +13,8 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.precompile += %w(pickr.min.js monolith.min.scss)
+Rails.application.config.assets.precompile += %w(_primary_theme.scss
+                                                 pickr.min.js
+                                                 monolith.min.scss
+                                                 bootstrap-select.min.js
+                                                 bootstrap-select.min.css)

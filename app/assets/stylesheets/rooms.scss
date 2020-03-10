@@ -83,3 +83,20 @@
   margin-top: -6rem;
   font-size: 5rem;
 }
+
+.bootstrap-select .dropdown-menu li.active small.text-muted{
+  color: #9aa0ac !important
+}
+
+.not-saved {
+  color: grey;
+  background: rgba(0, 40, 100, 0.12);
+}
+
+.dropdown-menu.show {
+  min-height: 0px !important;
+}
+
+.remove-shared {
+  text-decoration: line-through;
+}

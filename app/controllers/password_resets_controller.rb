@@ -32,7 +32,7 @@ class PasswordResetsController < ApplicationController
   def create
     begin
       # Check if user exists and throw an error if he doesn't
-      @user = User.find_by!(email: params[:password_reset][:email].downcase)
+      @user = User.find_by!(email: params[:password_reset][:email].downcase, provider: @user_domain)
 
       @user.create_reset_digest
       send_password_reset_email(@user)
@@ -56,6 +56,8 @@ class PasswordResetsController < ApplicationController
       # Password does not match password confirmation
       flash.now[:alert] = I18n.t("password_different_notice")
     elsif @user.update_attributes(user_params)
+      # Clear the user's social uid if they are switching from a social to a local account
+      @user.update_attribute(:social_uid, nil) if @user.social_uid.present?
       # Successfully reset password
       return redirect_to root_path, flash: { success: I18n.t("password_reset_success") }
     end
@@ -66,7 +68,7 @@ class PasswordResetsController < ApplicationController
   private
 
   def find_user
-    @user = User.find_by(email: params[:email])
+    @user = User.find_by(reset_digest: User.digest(params[:id]), provider: @user_domain)
   end
 
   def user_params

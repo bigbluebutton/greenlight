@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div id="<%= if room == current_user.main_room then 'home_room_block' else 'room-block' end %>" data-room-uid="<%= room.uid %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>" class="card">
+<div id="room-block" data-path="<%= update_settings_path(room) %>" data-room-access-code="<%= room.access_code %>" class="card">
   <div class="card-body p-1">
     <table class="table table-hover table-vcenter text-wrap table-no-border">
       <tbody class="no-border-top">
@@ -28,11 +28,7 @@
         </td>
         <td>
           <div id="room-name">
-            <% if room == current_user.main_room %>
-              <h4 contenteditable="false" class="m-0 force-text-normal" ><%= t("home_room") %></h4>
-            <% else %>
-              <h4 contenteditable="false" class="m-0 force-text-normal" ><%= room.name %></h4>
-            <% end %>
+            <h4 id="room-name-text" contenteditable="false" class="m-0 force-text-normal" ><%= room.name %></h4>
           </div>
           <div id="room-name-editable" style="display: none">
             <input id="room-name-editable-input" class="form-control input-sm w-100 h-4" value="<%= room.name %>">
@@ -45,20 +41,27 @@
             <% end %>
           </div>
         </td>
-        <td class="text-right">
+        <td class="text-right">          
           <div class="item-action dropdown" data-display="static">
-            <a href="javascript:void(0)" data-toggle="dropdown" data-display="static" class="icon <%= 'invisible' if room == current_user.main_room %>">
+            <a href="javascript:void(0)" data-toggle="dropdown" data-display="static" class="icon">
               <i class="fas fa-ellipsis-v px-4"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-md-left">
-              <a href="" data-toggle="modal" data-target="#createRoomModal" class="update-room dropdown-item">
+              <a href="" data-toggle="modal" data-target="#createRoomModal" class="update-room dropdown-item" data-settings-path="<%= room_settings_path(room) %>">
                 <i class="dropdown-icon fas fa-cog"></i> <%= t("room.settings") %>
               </a>
-              <a href="" data-toggle="modal" data-target="#deleteRoomModal" data-path="<%= room_path(room) %>" data-name="<%= room.name %>" class="delete-room dropdown-item">
-                <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
-              </a>
+              <% if shared_access_allowed %>
+                <a href="" data-toggle="modal" data-target="#shareRoomModal" class="share-room dropdown-item" data-path="<%= room_shared_access_path(room) %>" data-users-path="<%= room_shared_users_path(room) %>">
+                  <i class="dropdown-icon fas fa-users"></i> <%= t("room.share") %>
+                </a>
+              <% end %>
+              <% unless room == current_user.main_room %>
+                <a href="" data-toggle="modal" data-target="#deleteRoomModal" data-path="<%= room_path(room) %>" data-name="<%= room.name %>" class="delete-room dropdown-item">
+                  <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
+                </a>
+              <% end %>
             </div>
-          </div>
+          </div>         
         </td>
       </tbody>
     </table>

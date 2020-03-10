@@ -21,7 +21,7 @@ require 'bbb_api'
 class User < ApplicationRecord
   include Deleteable
 
-  attr_accessor :reset_token
+  attr_accessor :reset_token, :activation_token
   after_create :setup_user
 
   before_save { email.try(:downcase!) }
@@ -29,9 +29,10 @@ class User < ApplicationRecord
   before_destroy :destroy_rooms
 
   has_many :rooms
+  has_many :shared_access
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
 
-  has_and_belongs_to_many :roles, -> { includes :role_permissions }, join_table: :users_roles
+  has_and_belongs_to_many :roles, join_table: :users_roles
 
   validates :name, length: { maximum: 256 }, presence: true
   validates :provider, presence: true
@@ -102,6 +103,11 @@ class User < ApplicationRecord
     order(Arel.sql("#{column} #{direction}"))
   end
 
+  # Returns a list of rooms ordered by last session (with nil rooms last)
+  def ordered_rooms
+    [main_room] + rooms.where.not(id: main_room.id).order(Arel.sql("last_session IS NULL, last_session desc"))
+  end
+
   # Activates an account and initialize a users main room
   def activate
     update_attributes(email_verified: true, activated_at: Time.zone.now)
@@ -121,7 +127,7 @@ class User < ApplicationRecord
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
     return false if digest.nil?
-    BCrypt::Password.new(digest).is_password?(token)
+    digest == Digest::SHA256.base64digest(token)
   end
 
   # Return true if password reset link expires
@@ -129,10 +135,9 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  # Retrives a list of all a users rooms that are not the main room, sorted by last session date.
-  def secondary_rooms
-    room_list = rooms.where.not(uid: main_room.uid)
-    room_list.where.not(last_session: nil).order("last_session desc") + room_list.where(last_session: nil)
+  # Retrieves a list of rooms that are shared with the user
+  def shared_rooms
+    Room.where(id: shared_access.pluck(:room_id))
   end
 
   def name_chunk
@@ -153,9 +158,9 @@ class User < ApplicationRecord
     social_uid.nil?
   end
 
-  def activation_token
-    # Create the token.
-    create_reset_activation_digest(User.new_token)
+  def create_activation_token
+    self.activation_token = User.new_token
+    update_attributes(activation_digest: User.digest(activation_token))
   end
 
   def admin_of?(user)
@@ -172,8 +177,7 @@ class User < ApplicationRecord
   end
 
   def self.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
+    Digest::SHA256.base64digest(string)
   end
 
   # Returns a random token.
@@ -183,7 +187,7 @@ class User < ApplicationRecord
 
   # role functions
   def highest_priority_role
-    roles.by_priority.first
+    roles.min_by(&:priority)
   end
 
   def add_role(role)
@@ -217,7 +221,11 @@ class User < ApplicationRecord
   # rubocop:disable Naming/PredicateName
   def has_role?(role)
     # rubocop:enable Naming/PredicateName
-    roles.exists?(name: role)
+    roles.each do |single_role|
+      return true if single_role.name.eql? role.to_s
+    end
+
+    false
   end
 
   def self.with_role(role)
@@ -228,18 +236,23 @@ class User < ApplicationRecord
     User.where.not(id: with_role(role).pluck(:id))
   end
 
+  def self.with_highest_priority_role(role)
+    User.all_users_highest_priority_role.where(roles: { name: role })
+  end
+
   def self.all_users_with_roles
     User.joins("INNER JOIN users_roles ON users_roles.user_id = users.id INNER JOIN roles " \
       "ON roles.id = users_roles.role_id INNER JOIN role_permissions ON roles.id = role_permissions.role_id").distinct
   end
 
-  private
-
-  def create_reset_activation_digest(token)
-    # Create the digest and persist it.
-    update_attribute(:activation_digest, User.digest(token))
-    token
+  def self.all_users_highest_priority_role
+    User.joins("INNER JOIN (SELECT user_id, min(roles.priority) as role_priority FROM users_roles " \
+      "INNER JOIN roles ON users_roles.role_id = roles.id GROUP BY user_id) as a ON " \
+      "a.user_id = users.id INNER JOIN roles ON roles.priority = a.role_priority " \
+      " INNER JOIN role_permissions ON roles.id = role_permissions.role_id").distinct
   end
+
+  private
 
   # Destory a users rooms when they are removed.
   def destroy_rooms
