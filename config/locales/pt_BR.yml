@@ -451,7 +451,6 @@ pt_BR:
     account:
       fullname: Nome Completo
       language: Idioma
-      timezone: Fuso horário
       provider: Fornecedor
       image: Imagem
       image_url: URL da imagem de perfil

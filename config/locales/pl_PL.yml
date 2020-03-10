@@ -443,7 +443,6 @@ pl_PL:
     account:
       fullname: Pełna nazwa
       language: Język
-      timezone: Strefa czasowa
       provider: Dostawca
       image: Obraz
       image_url: URL obrazu profilowego

@@ -24,7 +24,7 @@
       </text>
     </div>
     <div class="small text-muted">
-      <%= [t("administrator.users.table.created"), ": ", room.created_at].join %>
+      <%= [t("administrator.users.table.created"), ": ", date_formatter(user_local_time(room.created_at))].join %>
     </div>
   </td>
   <td class="text-left">

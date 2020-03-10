@@ -451,7 +451,6 @@ nb:
     account:
       fullname: Fullt navn
       language: Språk
-      timezone: Tidssone
       provider: Leverandør
       image: Bilde
       image_url: URL til profilbilde

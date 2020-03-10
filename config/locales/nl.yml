@@ -451,7 +451,6 @@ nl:
     account:
       fullname: Voor- en achternaam
       language: Taal
-      timezone: Tijdzone
       provider: Leverancier
       image: Afbeelding
       image_url: URL van profielafbeelding

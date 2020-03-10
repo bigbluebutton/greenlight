@@ -94,7 +94,7 @@ describe SessionsController, type: :controller do
     end
 
     before(:each) do
-      @user1 = create(:user, provider: 'greenlight', password: 'example', password_confirmation: 'example')
+      @user1 = create(:user, provider: 'greenlight', password: 'example', password_confirmation: 'example', time_zone: nil)
       @user2 = create(:user, password: 'example', password_confirmation: "example")
     end
 
@@ -271,6 +271,56 @@ describe SessionsController, type: :controller do
           },
         }
       }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+
+    it "should set time zone to 'Etc/UTC' (UTC) on sign in if no prior time zone was set & new time zone is invalid" do
+      post :create, params: {
+        session: {
+          email: @user1.email,
+          password: 'example',
+          time_zone: "invalid/timezone",
+        },
+      }
+      @user1.reload
+      expect(@user1.time_zone).to eql('Etc/UTC')
+    end
+
+    it "should set time zone to 'Etc/UTC' (UTC) on sign in if no prior time zone was set & new time zone is nil" do
+      post :create, params: {
+        session: {
+          email: @user1.email,
+          password: 'example',
+          time_zone: nil,
+        },
+      }
+      @user1.reload
+      expect(@user1.time_zone).to eql('Etc/UTC')
+    end
+
+    it "should set time zone on sign in if no prior time zone was set & new time zone is valid" do
+      post :create, params: {
+        session: {
+          email: @user1.email,
+          password: 'example',
+          time_zone: "America/Toronto",
+        },
+      }
+      @user1.reload
+      expect(@user1.time_zone).to eql("America/Toronto")
+    end
+
+    it "should not set time zone on sign if time zone is already set" do
+      @user3 = create(:user, provider: 'greenlight', password: 'example',
+      password_confirmation: 'example', time_zone: 'America/Vancouver')
+      post :create, params: {
+        session: {
+          email: @user3.email,
+          password: 'example',
+          time_zone: "Europe/Paris",
+        },
+      }
+      @user3.reload
+      expect(@user3.time_zone).to eql("America/Vancouver")
     end
   end
 

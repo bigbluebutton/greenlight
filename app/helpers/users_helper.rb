@@ -50,7 +50,6 @@ module UsersHelper
       language_opts.push([language_mapping["nativeName"], locale.to_s])
     end
     language_opts.sort
-    
   end
 
   # Returns time zone selection options for user edit
@@ -67,10 +66,10 @@ module UsersHelper
         timezone_opts2.push([timezone_mapping, locale])
       end
     end
-    timezone_opts2 = timezone_opts2.sort {|a,b| b <=> a}
+    timezone_opts2 = timezone_opts2.sort { |a, b| b <=> a }
     timezone_opts2 + timezone_opts1.sort
   end
-  
+
   # Parses markdown for rendering.
   def markdown(text)
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
@@ -85,18 +84,13 @@ module UsersHelper
     markdown.render(text).html_safe
   end
 
-  # Returns users local time  
+  # Returns user local time
   def user_local_time(time)
-    utc_time = time
-    time_zone = ActiveSupport::TimeZone.new(current_user.time_zone)
-
-    local_time = utc_time.in_time_zone(time_zone)
-      
-    return local_time
+    time.in_time_zone(ActiveSupport::TimeZone.new(current_user.time_zone))
   end
 
   # Returns a cleaner date
   def date_formatter(date)
-    return date.strftime('%a, %d %b %Y %H:%M')
+    date.strftime('%a, %d %b %Y %H:%M')
   end
 end

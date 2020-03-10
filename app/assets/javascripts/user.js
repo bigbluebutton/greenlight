@@ -15,13 +15,13 @@
 // with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 $(document).on('turbolinks:load', function() {
-    $.rails.refreshCSRFTokens();
 
     var controller = $("body").data('controller');
     var action = $("body").data('action');
 
+    //Only run on signin page
     if (controller == "sessions"&& action == "signin") {
-        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-        document.getElementById('session_time_zone').value = timezone
+        //Finds Time zone from browser
+        document.getElementById('session_time_zone').value = Intl.DateTimeFormat().resolvedOptions().timeZone
     }   
 })

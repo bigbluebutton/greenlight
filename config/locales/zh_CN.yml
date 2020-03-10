@@ -451,7 +451,6 @@ zh_CN:
     account:
       fullname: 全名
       language: 语言
-      timezone: 时区
       provider: 应用平台
       image: 头像
       image_url: 个人头像URL

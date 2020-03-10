@@ -443,7 +443,6 @@ vi_VN:
     account:
       fullname: Họ và tên
       language: Ngôn ngữ
-      timezone: Múi giờ
       provider: Đối tác cấp tài khoản
       image: Hình ảnh
       image_url: Đường đẫn URL hình ảnh hồ sơ

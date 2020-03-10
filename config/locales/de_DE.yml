@@ -451,7 +451,6 @@ de_DE:
     account:
       fullname: Vollständiger Name
       language: Sprache
-      timezone: Zeitzone
       provider: Anbieter
       image: Bild
       image_url: URL des Profilbilds
