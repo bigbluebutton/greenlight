@@ -93,4 +93,9 @@ module AdminsHelper
   def room_is_running(id)
     @running_room_bbb_ids.include?(id)
   end
+
+  def can_edit_maintenance_flash
+    (Rails.configuration.loadbalanced_configuration && current_user.has_role?(:super_admin)) ||
+      (!Rails.configuration.loadbalanced_configuration && current_user.has_role?(:admin))
+  end
 end

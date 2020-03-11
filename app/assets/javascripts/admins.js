@@ -122,6 +122,17 @@ function changeBrandingImage(path) {
   $.post(path, {value: url})
 }
 
+// Display the maintenance window flash
+function displayMaintenanceFlash(path) {
+  var message = $("#maintenance-flash").val()
+  $.post(path, {value: message})
+}
+
+// Clear the maintenance window flash
+function clearMaintenanceFlash(path) {
+  $.post(path, {value: ""})
+}
+
 function mergeUsers() {
   let userToMerge = $("#from-uid").text()
   $.post($("#merge-save-access").data("path"), {merge: userToMerge})

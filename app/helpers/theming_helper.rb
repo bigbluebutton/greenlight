@@ -26,4 +26,8 @@ module ThemingHelper
   def user_color
     @settings.get_value("Primary Color") || Rails.configuration.primary_color_default
   end
+
+  def maintenance_flash
+    @settings.get_value("Maintenance Flash")
+  end
 end

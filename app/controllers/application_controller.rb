@@ -80,9 +80,9 @@ class ApplicationController < ActionController::Base
           help: I18n.t("errors.maintenance.help"),
         }
     end
-    if Rails.configuration.maintenance_window.present?
-      unless cookies[:maintenance_window] == Rails.configuration.maintenance_window
-        flash.now[:maintenance] = I18n.t("maintenance.window_alert", date: Rails.configuration.maintenance_window)
+    if @settings.get_value("Maintenance Flash").present?
+      unless cookies[:maintenance_window] == @settings.get_value("Maintenance Flash")
+        flash.now[:maintenance] = I18n.t("maintenance.window_alert", date: @settings.get_value("Maintenance Flash"))
       end
     end
   end

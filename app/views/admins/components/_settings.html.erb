@@ -22,7 +22,7 @@
         <div class="input-group">
           <input id="branding-url" type="text" class="form-control" value="<%= logo_image %>">
           <span class="input-group-append">
-            <button id="branding-image" onclick="changeBrandingImage('<%= admin_update_settings_path(setting: 'Branding Image') %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.branding.change") %></button>
+            <button id="settings-button" onclick="changeBrandingImage('<%= admin_update_settings_path(setting: 'Branding Image') %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.branding.change") %></button>
           </span>
         </div>
       </div>
@@ -141,6 +141,25 @@
       </div>
     </div>
   </div>
+  <% if can_edit_maintenance_flash %>
+   <div class="mb-6 row">
+     <div class="col-12">
+       <div class="form-group">
+         <label class="form-label"><%= t("administrator.site_settings.maintenance_window.title") %></label>
+         <label class="form-label text-muted"><%= t("administrator.site_settings.maintenance_window.info") %></label>
+         <div class="input-group">
+           <input id="maintenance-flash" type="text" class="form-control" value="<%= maintenance_flash %>" placeholder="e.g. Friday, August 18 at 6-10pm EST">
+           <span class="input-group-append">
+             <div>
+              <button id="settings-button" onclick="displayMaintenanceFlash('<%= admin_update_settings_path(setting: 'Maintenance Flash') %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.maintenance_window.display") %></button>
+              <button id="settings-button" onclick="clearMaintenanceFlash('<%= admin_update_settings_path(setting: 'Maintenance Flash') %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.maintenance_window.clear") %></button>
+             </div>
+           </span>
+         </div>
+       </div>
+     </div>
+   </div>
+  <% end %>
   <div class="mb-6 row">
     <div class="col-12">
       <div class="form-group">
