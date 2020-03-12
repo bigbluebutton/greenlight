@@ -293,6 +293,19 @@ describe UsersController, type: :controller do
       expect(response).to redirect_to(edit_user_path(user))
     end
 
+    it "properly updates user's time zone attribute" do
+      user = create(:user)
+      @request.session[:user_id] = user.id
+
+      params = { user: { time_zone: "America/Toronto" } }
+      patch :update, params: params.merge!(user_uid: user)
+      user.reload
+
+      expect(user.time_zone).to eql(params[:user][:time_zone])
+      expect(flash[:success]).to be_present
+      expect(response).to redirect_to(edit_user_path(user))
+    end
+
     it "renders #edit on unsuccessful save" do
       @user = create(:user)
       @request.session[:user_id] = @user.id
