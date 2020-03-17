@@ -23,7 +23,7 @@ module OmniauthOptions
     if env['omniauth.strategy'].options[:name] == "bn_launcher"
       protocol = Rails.env.production? ? "https" : env["rack.url_scheme"]
 
-      customer_redirect_url = protocol + "://" + env["SERVER_NAME"] + ":" +
+      customer_redirect_url = "https://" + env["SERVER_NAME"] + ":" +
                               env["SERVER_PORT"]
       user_domain = parse_user_domain(env["SERVER_NAME"])
       env['omniauth.strategy'].options[:customer] = user_domain
