@@ -90,6 +90,9 @@ a {
 
 .background {
   background-color: $background-color;
+    background-image: url(asset_path('hintergrund.jpg'));
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 .error-section {
