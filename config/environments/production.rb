@@ -82,8 +82,8 @@ Rails.application.configure do
   # Tell Action Mailer to use smtp server, if configured
   config.action_mailer.delivery_method = ENV['SMTP_SERVER'].present? ? :smtp : :sendmail
 
-  if ENV['SMTP_AUTH'].present? && ENV['SMTP_AUTH'] != "none"
-    ActionMailer::Base.smtp_settings = {
+  ActionMailer::Base.smtp_settings = if ENV['SMTP_AUTH'].present? && ENV['SMTP_AUTH'] != "none"
+    {
       address: ENV['SMTP_SERVER'],
       port: ENV["SMTP_PORT"],
       domain: ENV['SMTP_DOMAIN'],
@@ -93,7 +93,7 @@ Rails.application.configure do
       enable_starttls_auto: ENV['SMTP_STARTTLS_AUTO'],
     }
   else
-    ActionMailer::Base.smtp_settings = {
+    {
       address: ENV['SMTP_SERVER'],
       port: ENV["SMTP_PORT"],
       domain: ENV['SMTP_DOMAIN'],
