@@ -144,10 +144,10 @@ fr:
         ban: Bannir l'utilisateur
         delete: Supprimer
         edit: Modifier
-        edit_roles: Modifier les rôles de l'utilisateur
-	perm_delete: Effacer pour de bon
-        unban: Dé-bannir
-	undelete: Restaurer
+        edit_roles: "Modifier les rôles de l'utilisateur"
+        perm_delete: Effacer pour de bon
+        unban: "Dé-bannir"
+        undelete: Restaurer
       table:
         authenticator: Mode d'authentification
         created: Créé
