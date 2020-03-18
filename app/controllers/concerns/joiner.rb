@@ -56,6 +56,7 @@ module Joiner
       opts[:user_is_moderator] = @room.owned_by?(current_user) || room_settings["joinModerator"]
 
       opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
+      opts[:mute_on_start] = room_settings["muteOnStart"]
 
       if current_user
         redirect_to join_path(@room, current_user.name, opts, current_user.uid)
