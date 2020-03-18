@@ -103,9 +103,9 @@ class User < ApplicationRecord
     order(Arel.sql("#{column} #{direction}"))
   end
 
-  # Returns a list of rooms ordered by last session
+  # Returns a list of rooms ordered by last session (with nil rooms last)
   def ordered_rooms
-    [main_room] + rooms.where.not(id: main_room.id).order("last_session desc")
+    [main_room] + rooms.where.not(id: main_room.id).order(Arel.sql("last_session IS NULL, last_session desc"))
   end
 
   # Activates an account and initialize a users main room

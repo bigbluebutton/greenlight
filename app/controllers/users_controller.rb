@@ -132,12 +132,13 @@ class UsersController < ApplicationController
   # DELETE /u/:user_uid
   def destroy
     # Include deleted users in the check
+    admin_path = request.referer.present? ? request.referer : admins_path
     @user = User.include_deleted.find_by(uid: params[:user_uid])
 
     logger.info "Support: #{current_user.email} is deleting #{@user.email}."
 
     self_delete = current_user == @user
-    redirect_url = self_delete ? root_path : admins_path
+    redirect_url = self_delete ? root_path : admin_path
 
     begin
       if current_user && (self_delete || current_user.admin_of?(@user))
