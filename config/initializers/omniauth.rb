@@ -46,12 +46,14 @@ Rails.application.config.middleware.use OmniAuth::Builder do
         scope: %w(profile email),
         access_type: 'online',
         name: 'google',
+        redirect_uri: ENV['OAUTH2_REDIRECT'].presence || nil,
         setup: SETUP_PROC
     end
     if Rails.configuration.omniauth_office365
       Rails.application.config.providers << :office365
 
       provider :office365, ENV['OFFICE365_KEY'], ENV['OFFICE365_SECRET'],
+      redirect_uri: ENV['OAUTH2_REDIRECT'].presence || nil,
       setup: SETUP_PROC
     end
   end
