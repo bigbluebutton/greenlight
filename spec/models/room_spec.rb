@@ -61,12 +61,4 @@ describe Room, type: :model do
       expect(@room.owned_by?(create(:user))).to be false
     end
   end
-
-  context "#notify_waiting" do
-    it "should broadcast to waiting channel with started action" do
-      expect do
-        @room.notify_waiting
-      end.to have_broadcasted_to("#{@room.uid}_waiting_channel").with(a_hash_including(action: "started"))
-    end
-  end
 end
