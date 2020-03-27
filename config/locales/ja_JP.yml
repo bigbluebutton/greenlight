@@ -414,7 +414,7 @@ ja_JP:
     all_recordings: すべての録画
     email: 録画情報をメールする
     error: "%{count} 件の録画取得中にエラーが発生しました"
-    no_recordings: "この会議室には %{inject} の録画はありません。"
+    no_recordings: "この会議室には %{inject} 録画はありません。"
     no_user_recordings: 現在、録画はありません。
     no_matched_recordings: "検索に一致する %{inject} 録画はありません。"
     recorded_on: "録画日は %{date} です"
