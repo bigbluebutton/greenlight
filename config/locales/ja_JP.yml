@@ -80,8 +80,8 @@ ja_JP:
         info: ユーザが所有できる会議室の数を制限します(主会議室を含む)。 この設定は管理者には適用されません。
         title: ユーザあたりの会議室数
       shared_access:
-        info: 無効に設定すると［会議室のオプション］ドロップダウンからボタンが削除され、ユーザが会議室を共有できなくなります
-        title: ユーザが会議室を共有できるようにする
+        info: 無効に設定すると、［会議室のオプション］ドロップダウンからボタンが削除され、ユーザが会議室を共有できなくなります
+        title: ユーザが会議室を共有できるようにします
       subtitle: Greenlightのカスタマイズ
       title: サイトの設定
     flash:
@@ -99,7 +99,7 @@ ja_JP:
       promoted: ユーザが昇格しました
       registration_method_updated: 登録方法が更新されました
       reset_password: パスワードをリセットするためのメールがユーザに送信されました。 (受信していない場合は、迷惑メールフォルダを確認してみてください)
-      restored: ユーザーが復元されました
+      restored: ユーザが復元されました
       settings: サイト設定が変更されました
       unauthorized: このユーザにアクションを実行する権限がありません
     recordings:
@@ -125,7 +125,7 @@ ja_JP:
       invalid_assignment: ユーザへの役割設定中に問題が発生しました。 設定を確認して再度お試しください 
       colour:
         title: 役割の色
-        info: ロールに関連付ける色を設定します
+        info: 役割に関連付ける色を設定します
     rooms:
       title: サーバの会議室
       table:
@@ -141,7 +141,7 @@ ja_JP:
         title: ユーザ詳細の編集
       settings:
         approve: 承認する
-        decline: 拒否する
+        decline: 却下する
         ban: ユーザを禁止する
         delete: 削除する
         edit: 編集する
@@ -153,7 +153,7 @@ ja_JP:
         authenticator: 認証者
         created: 作成
         name: 名前
-        not_found: 検索にマッチするユーザはいません
+        not_found: 検索に一致するユーザはいません
         no_users: ユーザが見つかりません
         role: 役割
         uid: ユーザID
@@ -183,7 +183,7 @@ ja_JP:
       message: BigBlueButtonのエンドポイントとシークレットが無効です
       title: サーバエラー
     internal:
-      message: 何か問題が発生したようです。
+      message: 何らかの問題が発生したようです。
       help: エラーが記録されました。 確認してください！
       report: 問題を報告する
     maintenance:
@@ -192,9 +192,9 @@ ja_JP:
     migration_error:
       contact_admin: あなたが管理者でない場合は、管理者に連絡してください。
       continue: 1.0を使い続けたいです。
-      notice: >2
-         Greenlightでデータベース移行エラーが発生しました。<br>Greenlight 2.0に更新していない可能性があります。
-      upgrade: 2.0にアップグレードした方法を教えてください！
+      notice: >
+        Greenlightでデータベース移行エラーが発生しました。<br> Greenlight 2.0に更新していない可能性があります。
+      upgrade: 2.0にアップグレードする方法を教えて！
       version: Greenlightの新しいバージョンをリリースしましたが、データベースには互換性がありません。
     messages:
       blank: 空白にすることはできません
@@ -211,10 +211,10 @@ ja_JP:
       message: お探しのページは存在しません。
       help: 削除されている可能性はありませんか？
       user_not_found:
-        help: 管理者に連絡してください。
+        help: 管理者にお問い合わせください。
         message: このユーザーは登録されていません。
       user_missing:
-        help: URLを確認して、もう一度お試しください
+        help: URLを確認して再度お試しください
         message: 入力されたURLは無効です。
     title: エラー
     unauthorized:
@@ -275,17 +275,17 @@ ja_JP:
         signin_link: サインイン
         signup:
           info: 新しいユーザがGreenlightを利用するためにサインアップしました。
-          more-info: このユーザーがGreenlightにアクセスできるようにするには［構成の設定］でアカウントを承認する必要があります。
-          admins_link: 構成のページを見る
+          more-info: このユーザーがGreenlightにアクセスできるようにするには、［構成の設定］でアカウントを承認する必要があります。
+          admins_link: 構成ページを見る
           subject: 新しいGreenlightユーザのサインアップ
           username: "ユーザは名前 %{name} とメールアドレス %{email} でサインアップしました。"
         subject: アカウントが承認されました
-        username: "ユーザ名は %{email} です。"
+        username: "あなたのユーザ名は %{email} です。"
       demoted:
         info: "あなたは %{url} の %{role} ではなくなりました。"
         more-info: これで通常のユーザと同じ権限が与えられるようになりました。
         root_link: サインイン
-        subtitle: "%{role} の権利が取り消されました"
+        subtitle: "%{role} の権限が取り消されました"
       invite:
         info: "%{name} があなたのパーソナルスペースに招待されました"
         signup_info: メールを使ってサインアップするには、以下のボタンをクリックして、手順に従ってください。
@@ -296,10 +296,10 @@ ja_JP:
           subject: 新しいGreenlightユーザのサインアップ
           username: "ユーザは名前 %{name} とメールアドレス %{email} でサインアップしました。"
         subject: BigBlueButtonへの招待
-        username: "あなたのユーザ名は %{email} です"
+        username: "あなたのユーザ名は %{email} です。"
       password_reset:
         title: 'パスワードのリセット'
-        welcome: "メール <b>%{email}</b> のパスワードリセットが要求されました。"
+        welcome: "メールアドレス <b>%{email}</b> のパスワードリセットが要求されました。"
         message: 'リセットをご希望の場合は、以下のリンクをクリックしてパスワードをリセットしてください：'
         reset_link: パスワードのリセット
         expire: このリンクは2時間で期限切れになります。
@@ -345,7 +345,7 @@ ja_JP:
       warning: この決定は最終的なものです。 関連するデータを回復することは<b>できません</b>。
     delete_room:
       confirm: "%{room} を削除してもよろしいですか？"
-      delete: はい、この会議室を削除します。
+      delete: この会議室を削除します。
       keep: やっぱり削除しません。
       warning: この会議室を回復することは<b>できません</b>
       recording_warning: "同様に %{recordings_num} 個の関連する録画も同じです。"
@@ -365,12 +365,12 @@ ja_JP:
       warning: この会議室にアクセス<b>できなく</b>なります。
     room_settings:
       title: 会議室の設定
-      update: 更新
+      update: 会議室の更新
       client: クライアントの種類を選択
       join_moderator: すべてのユーザがモデレータとして参加します
       mute: 参加時にユーザをミュートします
       require_approval: 参加する前にモデレータの承認が必要です
-      start: すべてのユーザーにこの会議の開始を許可します
+      start: すべてのユーザにこの会議の開始を許可します
       footer_text: 会議室の設定はいつでも変更可能です。
     rename_room:
       name_placeholder: 新しい会議室名を入力してください...
@@ -388,7 +388,7 @@ ja_JP:
       to: プライマリアカウント
       save: マージ
       footer: マージされるアカウントの会議室は、アカウント削除前にプライマリアカウントの会議室一覧に転送されます。
-  name_update_success: 会議室名が正常に変更されました！
+  name_update_success: 会議室名が変更されました！
   no_user_email_exists: 指定されたメールアドレスを持つ既存のユーザはいません。 入力内容を確認してください。
   omniauth_error: OmniAuthで認証中にエラーが発生しました。 再試行するか、管理者に連絡してください！
   omniauth_specific_error: "OmniAuthで認証中に %{error} が発生しました。再試行するか、管理者に連絡してください！"
@@ -521,14 +521,14 @@ ja_JP:
       title: アカウント情報
     delete:
       button: はい、アカウントを削除します
-      disclaimer: アカウントを削除した場合アカウントを回復することは<b>できません</b>。 設定、会議室、録画など、アカウントに関するすべての情報が削除されます。
+      disclaimer: アカウントを削除した場合、アカウントを回復することは<b>できません</b>。 設定、会議室、録画など、アカウントに関するすべての情報が削除されます。
       subtitle: アカウントを完全に削除する
       title: アカウントの削除
     password:
       confirmation: 新しいパスワードの確認
       new: 新しいパスワード
       old: 古いパスワード
-      subtitle: パスワード変更
+      subtitle: パスワードの変更
       title: パスワード
     title: プロフィール
     search: 検索
@@ -536,15 +536,13 @@ ja_JP:
     password_confirm: パスワード確認
     subtitle: アカウントを作成する
     title: サインアップ
-    with: "%{provider} にサインアップ"
+    with: "%{provider} でサインアップ"
   terms:
     accept: "%{href} を受け入れます"
     accept_existing: 利用規約に同意します
     title: 利用規約
   test_install: >
-    この構成では、事前に構成されたテストサーバを使用しています。これを独自のものに置き換える必要があります。
-
-    詳細については %{href} をご覧ください。
+    この構成では、事前に構成されたテストサーバを使用しています。これを独自のものに置き換える必要があります。 詳細については %{href} をご覧ください。
   update: 更新
   verify:
     accept: 確認
@@ -554,5 +552,5 @@ ja_JP:
     not_verified: あなたのアカウントはまだ確認されていません。
     resend: 確認メールを再送
     signin: アカウントにアクセスするにはサインインしてください。
-    title: メールを確認する
+    title: メールを確認します
     verification: 検証
