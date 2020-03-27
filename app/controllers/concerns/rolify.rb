@@ -51,7 +51,7 @@ module Rolify
     return true unless current_user.highest_priority_role.get_permission("can_manage_users")
 
     new_roles = roles.split(' ').map(&:to_i)
-    old_roles = @user.roles.pluck(:id)
+    old_roles = @user.roles.pluck(:id).uniq
 
     added_role_ids = new_roles - old_roles
     removed_role_ids = old_roles - new_roles
