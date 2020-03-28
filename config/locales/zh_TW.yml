@@ -1,0 +1,556 @@
+﻿# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+zh_TW:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "協議和條款"
+        email: Email
+        name: 姓名
+        password: 密碼
+        password_confirmation: 確認密碼
+    errors:
+      models:
+        user:
+          confirmation: 和密碼不一致
+  administrator:
+    site_settings:
+      authentication:
+        disabled: 禁用
+        enabled: 啟用
+        info: 僅允許經過身份驗證的用戶加入會議室
+        title: 要求對會議室進行身份驗證
+        user-info: 您必須登錄才能加入這個會議室
+      branding:
+        change: 修改品牌形象
+        info: 更改左上角顯示的網站標誌
+        placeholder: 品牌形象URL地址
+        title: 網站標誌
+      cache:
+        info: 清除緩存，強制新請求獲取已更新的資訊
+        title: 清除網站緩存
+        button: 清除緩存
+      clear_auth:
+        info: 清除使用者當前的身份驗證程式，以允許他們使用不同的身份驗證方法重新登錄
+        title: 清除當前驗證器
+        button: 清除身份驗證
+      color:
+        info: 改變常規顏色將同時更改明暗。可以單獨更改變亮和變暗。
+        title: 主顏色
+        regular: 常規
+        lighten: 變亮
+        darken: 變暗
+      log_level:
+        title: 日誌級別
+        information: 更改整個部署的日誌級別
+        debug: 調試
+        info: 信息
+        warn: 警告
+        error: 錯誤
+        fatal: 致命
+        unknown: 未知
+      recording_visibility:
+        info: 設置新錄製錄影的預設可見性
+        title: 錄影預設可見性
+        warning: 此設置將僅應用於未運行的會議。
+      registration:
+        info: 更改使用者在網站註冊的方式
+        title: 註冊方式
+        methods:
+          approval: 批准/拒絕
+          invite: 邀請加入
+          open: 開放式註冊
+      rooms:
+        info: 限制用戶可以擁有的會議室數量（包括主會議室）。此設置不適用於管理員。
+        title: 每個用戶的會議室數量
+      shared_access:
+        info: 設置為“禁用”將從“會議室選項”下拉清單中刪除按鈕，以防止使用者共用會議室
+        title: 允許用戶共用會議室
+      subtitle: 自訂Greenlight
+      title: 網站設置
+    flash:
+      approved: 已成功批准用戶。
+      banned: 已成功禁止用戶。
+      unbanned: 已成功取消對用戶的禁止。
+      delete: 已成功刪除用戶
+      delete_fail: 刪除用戶失敗
+      demoted: 用戶已成功降級
+      invite: "邀請成功發送到 %{email}"
+      invite_email_verification: 必須啟用電子郵件才能使用此方法。請與系統管理員聯繫。
+      merge_fail: 合併使用者帳戶時出現問題，請檢查選定的用戶並重試。
+      merge_success: 使用者帳戶成功合併
+      perm_deleted: 用戶已被永久刪除
+      promoted: 用戶已成功升級
+      registration_method_updated: 註冊方法已成功更新
+      reset_password: 已向使用者發送電子郵件以重置其密碼。（如果他們還沒有收到郵件，請讓他們檢查他們的垃圾郵件資料夾）
+      restored: 用戶已成功還原
+      settings: 已成功更改網站設置
+      unauthorized: 您無權對此用戶執行操作
+    recordings:
+      title: 伺服器錄影
+      no_recordings: 此伺服器沒有錄影。
+    roles:
+      appear_in_share_list: Include users with this role in the dropdown for sharing rooms
+      can_create_rooms: 可以創建會議室
+      delete: 刪除角色
+      invalid_create: 創建新角色時出現問題。請檢查角色賦值並重試。
+      invalid_order: 更新角色的優先順序時出現問題。請檢查賦值並重試。
+      invalid_update: 更新角色的許可權時出現問題。請檢查賦值並重試。
+      manage_rooms_recordings: 允許具有此角色的用戶管理伺服器所有會議室和錄影
+      name: 角色名稱
+      new_role: 創建新角色
+      role_has_users: "此角色已非配給 %{user_count} 等帳戶。 請刪除此角色中的所有帳戶再刪除角色。"
+      title: 角色
+      promote_email: 分配此角色後向使用者發送電子郵件
+      demote_email: 將用戶從此角色中刪除後向其發送電子郵件
+      edit_site_settings: 允許具有此角色的用戶編輯網站設置
+      edit_roles: 允許具有此角色的用戶編輯其他角色
+      manage_users: 允許具有此角色的用戶管理用戶
+      invalid_assignment: 將角色分配給用戶時出現問題。請檢查賦值並重試。
+      colour:
+        title: 角色顏色
+        info: 設置將與角色關聯的顏色
+    rooms:
+      title: 伺服器所有會議室
+      table:
+        id: ID
+        not_running: 沒有運行
+        running: 運行中
+        status: 狀態
+        view: 查看
+    title: 網站管理
+    users:
+      invite: 邀請用戶
+      edit:
+        title: 編輯使用者詳細資訊
+      settings:
+        approve: 批准
+        decline: 拒絕
+        ban: 禁止用戶
+        delete: 刪除
+        edit: 編輯
+        edit_roles: 編輯用戶角色
+        perm_delete: 永久刪除
+        unban: 取消禁止用戶
+        undelete: 撤銷刪除
+      table:
+        authenticator: 認證方式
+        created: 創建於
+        name: 名字
+        not_found: 沒有與您的搜索匹配的用戶
+        no_users: 沒有找到用戶
+        role: 角色
+        uid: 用戶ID
+        username: 用戶名
+      title: 管理用戶
+  add_to_google_calendar: "添加到穀歌日曆"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: 哎呀，啟動會議出錯！
+  cancel: 取消
+  cookies:
+    cookie_info: Cookies?明我們提供服務。您同意我們使用cookies才能使用這些服務。
+    cookie_button: 我同意
+  copied: Copied
+  copy: 複製
+  date:
+    month_names: [~, 一月, 二月, 三月, 四月, 五月, 六月, 七月, 八月, 九月, 十月, 十一月, 十二月]
+  default_admin: "您仍在使用此帳戶的初始預設密碼。 請點擊 <a href=\"%{edit_link}\">這裡</a> 修改。"
+  delete: 刪除
+  delivery_error: 電子郵件傳遞過程中出錯。請聯繫管理員！
+  docs: 文檔
+  email: Email
+  email_sent: "您的 %{email_type} 郵件已經發送！（如果您沒有收到郵件，請檢查您的垃圾郵件資料夾）"
+  enter_your_name: 輸入您的名字！
+  errors:
+    bigbluebutton:
+      help: "請確保採取了正確的步驟. <a href=\"%{doc_link}\">瞭解更多資訊</a>"
+      message: BigBlueButton的Endpoint 和Secret無效
+      title: 伺服器錯誤
+    internal:
+      message: 看來伺服器這邊出了點問題。
+      help: 錯誤資訊已經記錄了，我們會檢查一下!
+      report: 報告問題
+    maintenance:
+      message: 對不起，我們正在下線維修中。
+      help: 我們很快就回來！
+    migration_error:
+      contact_admin: 請聯繫管理員。
+      continue: 還是繼續使用 1.0吧。
+      notice: >
+        Greenlight 遇到資料庫遷移錯誤。<br>可能因為您還沒有更新到 Greenlight 2.0。
+      upgrade: 告訴我如何升級到 2.0!
+      version: 我們已經發佈了新版Greenlight，但您的資料庫不相容。
+    messages:
+      blank: 不能是空白的
+      too_short: 太短了
+      invalid: 無效
+      taken: 已經有人用了
+      accepted: 必須同意
+      confirmation: "不匹配%{attribute}"
+      inclusion: 列表中不存在
+    no_provider:
+      message: 您嘗試訪問的網站未啟用
+      help: 請與系統管理員聯繫以設置Greenlight
+    not_found:
+      message: 對不起！您要查找的頁面不存在。
+      help: 它有可能被移除了嗎？
+      user_not_found:
+        help: 請與管理員聯繫。
+        message: 抱歉，此用戶未註冊。
+      user_missing:
+        help: 請驗證URL並重試
+        message: 您輸入的URL無效。
+    title: 錯誤
+    unauthorized:
+      message: 您無權訪問此應用程式
+      help: 如果您認為這是一個錯誤，請聯繫您的系統管理員。
+  expired_reset_token: 密碼重置連結已過期！
+  features:
+    title: 功能
+    rooms: 個人會議室
+    recordings: 錄影管理
+    designs: 定制設計
+    authentication: 用戶認證
+  footer:
+    powered_by: "Powered by%{href}"
+  forgot_password:
+    subtitle: 忘記密碼
+    email: Email
+    submit: 提交
+  go_back: 返回
+  greenlight: Greenlight
+  header:
+    all_recordings: 所有錄影
+    dropdown:
+      account_settings: 網站管理
+      help: 幫助
+      home: 首頁
+      settings: 個人設置
+      signout: 退出
+  home_room: 主會議室
+  info_update_success: 資訊更新成功。
+  invalid_credentials: 您輸入的電子郵件和密碼與我們的記錄不匹配。請重試或按一下“忘記密碼”重置密碼。
+  invalid_login_method: 由於帳戶不匹配，登錄失敗。您需要使用Omniauth登錄。
+  invite_message: "邀請他人參加會議，請發送以下連結："
+  javascript:
+    room:
+      mailer:
+        subject: '已邀請您查看錄影'
+        body: '要查看錄影，請點擊以下連結：'
+        autogenerated: '此電子郵件由BigBlueButton自動生成。'
+        footer: 'BigBlueButton是一個開源的Web會議系統。有關BigBlueButton的更多資訊，請參閱https://bigBlueButton.org/。'
+    search:
+      start: 開始搜索...
+  landing:
+    about: "%{href} 是開源Web會議伺服器BigBluebutton的簡易前端。我們可以創建並主持會議，或通過連結加入其他會議。"
+    welcome: 歡迎來到BigBlueButton線上會議系統
+    video: 請看使用說明
+    upgrade: 告訴我怎麼升級到 2.0!
+    version: 我們發佈了新版Greenlight，但您的資料庫不相容。
+  language_default: 預設（流覽器語言）
+  ldap_error: 無法連接到LDAP伺服器，請在env檔中檢查LDAP配置，還要確保服務已經啟動。
+  login: 登錄
+  login_title: 登錄到您的帳戶
+  mailer:
+    user:
+      approve:
+        info: 您的帳戶已被批准。
+        signin: 要訪問您的個人會議室，請按一下下面的按鈕並登錄。
+        signin_link: 登錄
+        signup:
+          info: 一個新用戶已註冊使用Greenlight。
+          more-info: 若要允許此用戶訪問greenlight，您必須在“網站管理”中批准其帳戶。
+          admins_link: 訪問網站管理頁面
+          subject: 新Greenlight用戶註冊
+          username: "用戶註冊了名稱 %{name} 和電子郵箱 %{email}."
+        subject: 帳戶已批准
+        username: "您的用戶名是 %{email}."
+      demoted:
+        info: "您不再是 %{role} 在 %{url}中."
+        more-info: 您現在擁有與普通用戶相同的許可權。
+        root_link: 登錄
+        subtitle: "%{role} 許可權已撤銷"
+      invite:
+        info: "您被%{name}邀請到您自己的私人空間 "
+        signup_info: 若要使用電子郵件註冊，請按一下下面的按鈕並按照步驟操作。
+        signup_link: 註冊
+        signup:
+          info: 被邀請的用戶已註冊使用greenlight。
+          admins_link: 訪問網站管理頁面
+          subject: 新Greenlight用戶註冊
+          username: "用戶註冊了名稱%{name} 和電子郵箱 %{email}."
+        subject: 邀請加入 BigBlueButton
+        username: "您的用戶名是 %{email}."
+      password_reset:
+        title: '重置密碼'
+        welcome: "已請求發送密碼重置郵件到 <b>%{email}</b>"
+        message: '如果是您請求此重置，請按一下下面的連結重置密碼：'
+        reset_link: 重置密碼
+        expire: 此連結將在兩小時後過期。
+        ignore: 如果您沒有提出此請求，您可以安全地忽略此電子郵件。
+      promoted:
+        admins_link: 訪問網站管理頁面
+        info: "您現在是 %{role} 在 %{url}中."
+        more-info: "要查看您的新許可權，請訪問 %{url}."
+        subtitle: "%{role} 許可權已授予"
+      verify_email:
+        welcome: "歡迎來到您的個人空間，%{name}！"
+        success: "使用%{bigbluebutton}，您可以創建個人會議室來主持會議並與其他人協作。"
+        username: "您的用戶名是%{email}。"
+        verify: 要驗證您的帳戶，只需按一下下麵的按鈕。
+        verify_text: '要驗證您的帳戶，只需點擊以下連結：%{url}'
+        verify_link: 驗證帳戶
+        thanks: 感謝您的加入，祝您擁有美好的一天！
+  maintenance:
+    window_alert: "計畫的維護時段 %{date}"
+  max_concurrent: 已達到允許的最大併發會話數！
+  merged: 已合併
+  modal:
+    create_role:
+      create: 創建新角色
+      footer_text: 創建此角色後，可以編輯其個人許可權
+      name_placeholder: 輸入角色名稱…
+      not_blank: 角色名稱不能為空。
+      title: 創建新角色
+    create_room:
+      access_code: 存取碼
+      access_code_placeholder: 生成可選的會議存取碼
+      auto_join: 自動進入會議室
+      create: 創建會議室
+      free_delete: 任何時候都可以刪除這個會議室
+      name_placeholder: 這裡請輸入會議室名稱...
+      not_blank: 會議室名稱不能為空
+      title: 創建新的會議室
+    delete_account:
+      confirm: 確實要刪除此帳戶嗎？
+      delete: 我確定要刪除這個帳戶。
+      keep: 我還是留著吧。
+      delete_warning: 這將停用用戶的帳戶。在“已刪除”選項卡下可以找到所有未啟動的用戶。
+      warning: 這是最終決定，您將<b>無法</b>恢復相關資料。
+    delete_room:
+      confirm: "確定要刪除%{room}嗎?"
+      delete: 我確定刪除這個會議室
+      keep: 我還是留著它吧
+      warning: 您將<b>無法</b> 恢復這個會議室
+      recording_warning: "或任意 %{recordings_num} 的相關錄影"
+    invite_user:
+      email_placeholder: 輸入使用者的電子郵箱（用逗號分隔）
+      footer: 使用者將收到一封電子郵件，其中包含如何註冊的說明。
+      send: 發送邀請
+      title: 邀請用戶
+    login:
+      or: 或
+      with: "通過 %{provider}登錄"
+      forgot_password: 忘記密碼？
+    rename_recording:
+    remove_shared:
+      title: 確實要從您的會議室列表中刪除此會議室嗎？
+      delete: 我確定，請刪除這個會議室。
+      warning: 你將<b>不能</b> 繼續訪問這個會議室！
+    room_settings:
+      title: 會議室設置
+      update: 修改會議室
+      client: 選擇用戶端類型
+      join_moderator: 所有用戶以主持人身份加入
+      mute: 用戶加入時靜音
+      require_approval: 加入前需要主持人批准
+      start: 允許任何用戶啟動此會議
+      footer_text: 您可以隨時調整會議室
+    rename_room:
+      name_placeholder: 這裡請輸入新會議室名稱…
+    share_access:
+      footer: 與用戶共用會議室將允許他們啟動會議室並查看會議室錄影
+      list: 共用給
+      title: 共用會議訪問
+      save: 保存更改
+      cancel_changes: 取消更改
+      select: 選擇用戶
+    merge_user:
+      cancel: 取消
+      from: 要合併的帳戶
+      title: 合併用戶的帳戶
+      to: 主帳戶
+      save: 合併
+      footer: 要合併的帳戶的會議室將轉移到主帳戶的會議室列表，然後刪除該帳戶。
+  name_update_success: 會議室名稱修改成功！
+  no_user_email_exists: 沒有指定電子郵件的現有使用者。請確保輸入正確。
+  omniauth_error: 與omniauth進行身份驗證時出錯。請再試一次，或與管理員聯繫！
+  omniauth_specific_error: "進行omniauth身份驗證時發生%{error} 。請重試或與管理員聯繫！"
+  pagy:
+    nav:
+      prev: "&lsaquo; 上一頁"
+      next: "下一頁 &rsaquo;"
+      gap: "&hellip;"
+  password: 密碼
+  password_empty_notice: 密碼不能為空。
+  password_reset_success: 密碼已重置。
+  password_different_notice: 確認密碼不一致。
+  provider:
+    google: Google
+    office365: Office 365
+    twitter: Twitter
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable: 哎呀，我們未能驗證您的reCAPTCHA 響應。請再試一次。
+      verification_failed: reCAPTCHA 驗證失敗，請再試一次。
+  recording:
+    all_recordings: 所有錄影
+    email: 通過Email發送錄影
+    error: "檢索 %{count} 錄影(s)時出錯。"
+    no_recordings: "這個會議室沒有%{inject}錄影"
+    no_user_recordings: 您當前沒有錄影。
+    no_matched_recordings: "沒有搜索到 %{inject} 錄影"
+    recorded_on: "錄製於%{date}"
+    table:
+      name: 名字
+      thumbnails: 預覽圖
+      length: 長度
+      users: 用戶數
+      visibility: 可見性
+      formats: 格式
+    visibility:
+      public: 公開
+      unlisted: 隱藏
+    format:
+      notes: 筆記
+      podcast: 播客
+      presentation: 演示
+      statistics: 統計資料
+      video: 視頻
+  registration:
+    approval:
+      fail: 您的帳戶尚未批准。如果您註冊後已過多天，請與管理員聯繫。
+      signup: 您的帳戶創建完成，稍後管理員會審批。
+    banned:
+      fail: 您沒有訪問此應用程式的許可權。如果您認為這是一個錯誤，請聯繫您的管理員。
+    deprecated:
+      new_signin: 為您的帳戶選擇新的登錄方法。舊帳戶中的所有會議室都將遷移到新帳戶。
+      twitter_signin: "通過Twitter登錄已被棄用並將在下一版本中刪除。 點擊 <a href=\"%{link}\"> 這裡 </a> 將您的帳戶移動到新的身份驗證方法。"
+      twitter_signup: 已棄用Twitter註冊。請使用其他註冊方法。
+      merge_success: 已成功將您的Twitter帳戶與新帳戶合併。您的舊Twitter帳戶已被刪除。
+    invite:
+      fail: 您的權杖無效或已過期。如果您認為這是一個錯誤，請聯繫您的管理員。
+      no_invite: 您沒有被邀請加入。請聯繫管理員申請邀請。
+  remove: 刪除
+  rename: 重命名
+  reset_password:
+    subtitle: 重置密碼
+    password: 新密碼
+    confirm: 確認新密碼
+    update: 更新密碼
+    auth_change: 身份驗證方法已更改。請檢查您的電子郵件以設置密碼。
+  roles:
+    active: 啟動
+    admin: 管理員
+    banned: 已禁用
+    deleted: 已刪除
+    pending: 待定
+    user: 用戶
+  room:
+    access_code_required: 請輸入有效的存取碼以加入會議
+    create_room: 創建會議室
+    create_room_error: 創建會議室出錯
+    create_room_success: 會議室創建成功
+    delete:
+      home_room: 不能刪除用戶的主會議室
+      success: 會議室刪除成功
+      fail: "會議室(%{error})刪除失敗"
+    enter_the_access_code: 輸入會議室的存取碼
+    invalid_provider: 您輸入的URL無效。請檢查URL並重試。
+    invited: 您已被邀請加入
+    invite_participants: 邀請參與者的連結
+    join: 加入
+    last_session: "上一次會議%{session}"
+    login: 加入
+    owner: 主持人
+    owner_banned: 會議室當前不可用
+    no_room:
+      description: 輸入要加入會議室的URL或UID。
+      edit_profile: 編輯使用者設定檔
+      go_to: 進入會議室
+      invalid_room_uid: 您輸入的會議室URL/UID無效。
+      placeholder: 會議室URL/UID
+      no_recent_rooms: 您沒有最近加入過的會議室
+      recent_rooms: 進入最近加入過的會議室
+      title: 加入一個會議室
+    no_sessions: 會議室從未使用！
+    recordings: 會議錄影
+    room_limit: 您已達到允許的最大會議室數量
+    room_limit_exceeded: "您已擁有超過允許的會議室數量。 請刪除%{difference} 會議室(s)以訪問這個會議室。"
+    sessions: 會議
+    settings: 會議室設置
+    share: 管理訪問
+    shared_by: "通過%{email}共用"
+    remove_shared_access_success: 從會議室列表中刪除共用會議室成功
+    remove_shared_access_error: 從列表中刪除共用會議室時出錯
+    shared_access_success: 會議室共用成功
+    shared_access_error: 共用會議室出錯
+    start: 開始
+    unavailable: 由於未驗證所有者的電子郵件，此會議室當前不可用。
+    update_settings_error: 修改會議室設置出錯
+    update_settings_success: 會議室設置修改成功
+    wait:
+      message: 會議還沒有開始。
+      auto: 會議開始後您將自動進入
+  settings:
+    account:
+      fullname: 全名
+      language: 語言
+      provider: 應用平臺
+      image: 頭像
+      image_url: 個人頭像URL
+      roles: 用戶角色
+      subtitle: 更新帳號資訊
+      title: 帳號資訊
+    delete:
+      button: 我確定要刪除我的帳戶
+      disclaimer: 刪除帳戶後<b>無法</b>恢復。帳戶所有相關資訊都會被移除，包括設置、會議室和錄影。
+      subtitle: 永久刪除您的帳戶
+      title: 刪除帳戶
+    password:
+      confirmation: 確認新密碼
+      new: 新密碼
+      old: 舊密碼
+      subtitle: 修改密碼
+      title: 密碼
+    title: 個人設置
+    search: 搜索
+  signup:
+    password_confirm: 確認密碼
+    subtitle: 創建帳戶
+    title: 註冊
+    with: "通過%{provider}註冊"
+  terms:
+    accept: "我同意%{href}"
+    accept_existing: 我接受協議和條款。
+    title: 協議和條款
+  test_install: >
+    此部署使用的是預配置的測試伺服器，您應該用自己的伺服器來替換它。 詳細資訊請看 %{href}。
+  update: 更新
+  verify:
+    accept: 驗證
+    activated: 帳戶驗證成功！
+    already_verified: 帳戶已經驗證過了
+    invalid: 無效的驗證連結
+    not_verified: 您的帳戶尚未驗證。
+    resend: 重新發送驗證電子郵件
+    signin: 請登錄以訪問您的帳戶。
+    title: 驗證您的電子郵箱
+    verification: Verification
