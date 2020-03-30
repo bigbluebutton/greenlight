@@ -3,6 +3,7 @@
 require 'net/http'
 require 'nokogiri'
 require 'digest/sha1'
+require 'mailfactory'
 
 namespace :conf do
   desc "Check Configuration"
@@ -46,7 +47,12 @@ def test_smtp
 
   smtp.start(ENV['SMTP_DOMAIN'], ENV['SMTP_USERNAME'], ENV['SMTP_PASSWORD'],
     ENV['SMTP_AUTH']) do |s|
-    s.sendmail('test', ENV['SMTP_USERNAME'], 'notifications@example.com')
+      mail = MailFactory.new()
+      mail.to = ENV['SMTP_SENDER']
+      mail.from = ENV['SMTP_SENDER']
+      mail.subject = "Greenlight Email Test"
+      mail.text = "This is what people with plain text mail readers will see"
+    s.send_message(mail.to_s, ENV['SMTP_SENDER'], ENV['SMTP_SENDER'])
   end
 rescue => e
   failed("Error connecting to SMTP - #{e}")
