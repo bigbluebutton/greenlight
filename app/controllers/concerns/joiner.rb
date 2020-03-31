@@ -53,7 +53,7 @@ module Joiner
     if room_running?(@room.bbb_id) || @room.owned_by?(current_user) || room_settings["anyoneCanStart"]
 
       # Determine if the user needs to join as a moderator.
-      opts[:user_is_moderator] = @room.owned_by?(current_user) || room_settings["joinModerator"]
+      opts[:user_is_moderator] = @room.owned_by?(current_user) || room_settings["joinModerator"] || @shared_room
 
       opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
       opts[:mute_on_start] = room_settings["muteOnStart"]

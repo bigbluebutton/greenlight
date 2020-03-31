@@ -167,18 +167,18 @@ describe User, type: :model do
       @admin = create(:user, provider: @user.provider)
       @admin.add_role :admin
 
-      expect(@admin.admin_of?(@user)).to be true
+      expect(@admin.admin_of?(@user, "can_manage_users")).to be true
 
       @super_admin = create(:user, provider: "test")
       @super_admin.add_role :super_admin
 
-      expect(@super_admin.admin_of?(@user)).to be true
+      expect(@super_admin.admin_of?(@user, "can_manage_users")).to be true
     end
 
     it "returns false if the user is NOT an admin of another" do
       @admin = create(:user)
 
-      expect(@admin.admin_of?(@user)).to be false
+      expect(@admin.admin_of?(@user, "can_manage_users")).to be false
     end
 
     it "should get the highest priority role" do
