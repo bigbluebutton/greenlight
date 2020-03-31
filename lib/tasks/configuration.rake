@@ -44,8 +44,8 @@ def test_smtp
     smtp.enable_starttls_auto if smtp.respond_to?(:enable_starttls_auto)
   end
 
-  user = ENV['SMTP_USERNAME'].present? ? ENV['SMTP_USERNAME'] : nil
-  password = ENV['SMTP_PASSWORD'].present? ? ENV['SMTP_PASSWORD'] : nil
+  user = ENV['SMTP_USERNAME'].presence || nil
+  password = ENV['SMTP_PASSWORD'].presence || nil
   authtype = ENV['SMTP_AUTH'].present? && ENV['SMTP_AUTH'] != "none" ? ENV['SMTP_AUTH'] : nil
   smtp.start(ENV['SMTP_DOMAIN'], user, password, authtype) do |s|
     s.sendmail('test', ENV['SMTP_USERNAME'], 'notifications@example.com')
