@@ -242,8 +242,7 @@ describe AdminsController, type: :controller do
 
     context "POST permissions" do
       it "allows a user with the correct permission to manage users" do
-        Role.create(name: "test", provider: "greenlight", priority: 0, colour: "#f1c40f")
-            .update_all_role_permissions(can_manage_users: true)
+        Role.create_new_role("test", "greenlight").update_all_role_permissions(can_manage_users: true)
 
         @user2 = create(:user)
         @user2.add_role(:test)
@@ -264,8 +263,7 @@ describe AdminsController, type: :controller do
       end
 
       it "doesn't allow a user with the incorrect permission to manage users" do
-        Role.create(name: "test", provider: "greenlight", priority: 0, colour: "#f1c40f")
-            .update_all_role_permissions(can_manage_users: false)
+        Role.create_new_role("test", "greenlight").update_all_role_permissions(can_manage_users: false)
 
         @user2 = create(:user)
         @user2.add_role(:test)
@@ -491,8 +489,7 @@ describe AdminsController, type: :controller do
 
     context "POST permissions" do
       it "allows a user with the correct permission to edit site settings" do
-        Role.create(name: "test", provider: "greenlight", priority: 0, colour: "#f1c40f")
-            .update_all_role_permissions(can_edit_site_settings: true)
+        Role.create_new_role("test", "greenlight").update_all_role_permissions(can_edit_site_settings: true)
 
         @user2 = create(:user)
         @user2.add_role(:test)
@@ -510,8 +507,7 @@ describe AdminsController, type: :controller do
       end
 
       it "doesn't allow a user with the incorrect permission to edit site settings" do
-        Role.create(name: "test", provider: "greenlight", priority: 0, colour: "#f1c40f")
-            .update_all_role_permissions(can_manage_users: true)
+        Role.create_new_role("test", "greenlight").update_all_role_permissions(can_manage_users: true)
 
         @user2 = create(:user)
         @user2.add_role(:test)
@@ -744,8 +740,7 @@ describe AdminsController, type: :controller do
 
     context "POST permissions" do
       it "allows a user with the correct permission to edit roles" do
-        Role.create(name: "test", provider: "greenlight", priority: 0, colour: "#f1c40f")
-            .update_all_role_permissions(can_edit_roles: true)
+        Role.create_new_role("test", "greenlight").update_all_role_permissions(can_edit_roles: true)
 
         @user2 = create(:user)
         @user2.add_role(:test)
@@ -766,8 +761,7 @@ describe AdminsController, type: :controller do
       end
 
       it "doesn't allow a user with the incorrect permission to edit roles" do
-        Role.create(name: "test", provider: "greenlight", priority: 0, colour: "#f1c40f")
-            .update_all_role_permissions(can_manage_users: false)
+        Role.create_new_role("test", "greenlight").update_all_role_permissions(can_manage_users: false)
 
         @user2 = create(:user)
         @user2.add_role(:test)
