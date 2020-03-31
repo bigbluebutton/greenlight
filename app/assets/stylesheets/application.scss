@@ -59,6 +59,11 @@ html, body {
   background-color: white;
 }
 
+@media (max-width: 992px)
+.h-100 {
+    height: auto !important;
+}
+
 a {
   text-decoration: none !important;
   cursor: pointer;
