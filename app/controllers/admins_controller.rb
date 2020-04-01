@@ -309,7 +309,7 @@ class AdminsController < ApplicationController
   # Verifies that admin is an administrator of the user in the action
   def verify_admin_of_user
     redirect_to admins_path,
-      flash: { alert: I18n.t("administrator.flash.unauthorized") } unless current_user.admin_of?(@user)
+      flash: { alert: I18n.t("administrator.flash.unauthorized") } unless current_user.admin_of?(@user, "can_manage_users")
   end
 
   # Creates the invite if it doesn't exist, or updates the updated_at time if it does
