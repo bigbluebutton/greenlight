@@ -42,16 +42,22 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     if Rails.configuration.omniauth_google
       Rails.application.config.providers << :google
 
+      redirect = ENV['OAUTH2_REDIRECT'].present? ? File.join(ENV['OAUTH2_REDIRECT'], "auth", "google", "callback") : nil
+
       provider :google_oauth2, ENV['GOOGLE_OAUTH2_ID'], ENV['GOOGLE_OAUTH2_SECRET'],
         scope: %w(profile email),
         access_type: 'online',
         name: 'google',
+        redirect_uri: redirect,
         setup: SETUP_PROC
     end
     if Rails.configuration.omniauth_office365
       Rails.application.config.providers << :office365
 
+      redirect = ENV['OAUTH2_REDIRECT'].present? ? File.join(ENV['OAUTH2_REDIRECT'], "auth", "office365", "callback") : nil
+
       provider :office365, ENV['OFFICE365_KEY'], ENV['OFFICE365_SECRET'],
+      redirect_uri: redirect,
       setup: SETUP_PROC
     end
   end

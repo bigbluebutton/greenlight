@@ -22,9 +22,6 @@ class ApplicationController < ActionController::Base
   before_action :redirect_to_https, :set_user_domain, :set_user_settings, :maintenance_mode?, :migration_error?,
     :user_locale, :check_admin_password, :check_user_role
 
-  # Manually handle BigBlueButton errors
-  rescue_from BigBlueButton::BigBlueButtonException, with: :handle_bigbluebutton_error
-
   protect_from_forgery with: :exceptions
 
   # Retrieves the current user.
@@ -82,7 +79,7 @@ class ApplicationController < ActionController::Base
     end
     if Rails.configuration.maintenance_window.present?
       unless cookies[:maintenance_window] == Rails.configuration.maintenance_window
-        flash.now[:maintenance] = I18n.t("maintenance.window_alert", date: Rails.configuration.maintenance_window)
+        flash.now[:maintenance] = Rails.configuration.maintenance_window
       end
     end
   end
@@ -193,8 +190,9 @@ class ApplicationController < ActionController::Base
     payload[:host] = @user_domain
   end
 
-  # Manually Handle BigBlueButton errors
-  def handle_bigbluebutton_error
+  # Manually handle BigBlueButton errors
+  rescue_from BigBlueButton::BigBlueButtonException do |ex|
+    logger.error "BigBlueButtonException: #{ex}"
     render "errors/bigbluebutton_error"
   end
 
