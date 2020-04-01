@@ -17,7 +17,11 @@
   <div class="container">
     <div class="d-flex">
       <%= link_to (current_user ? home_page : root_path), class: "header-brand" do %>
-        <%= image_tag(logo_image, class: "header-brand-img", alt:"") %>
+        <% begin %>
+          <%= image_tag(logo_image, class: "header-brand-img", alt:"") %>
+        <% rescue %>
+          <%= t("administrator.site_settings.branding.invalid") %>
+        <% end %>
       <% end %>
 
       <div class="d-flex ml-auto">
