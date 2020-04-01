@@ -132,6 +132,3 @@ gem 'random_password'
 gem "recaptcha"
 
 gem 'i18n-language-mapping', '~> 0.1.0'
-
-# Testing smtp
-gem "mailfactory"

@@ -166,14 +166,9 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    mailfactory (1.4.0)
-      mime-types (>= 1.13.1)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (0.9.2)
-    mime-types (3.3.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2019.1009)
     mimemagic (0.3.3)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
@@ -374,7 +369,6 @@ DEPENDENCIES
   jquery-ui-rails
   listen (~> 3.0.5)
   lograge
-  mailfactory
   net-ldap
   omniauth
   omniauth-bn-launcher!
