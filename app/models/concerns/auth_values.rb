@@ -57,7 +57,6 @@ module AuthValues
   end
 
   def auth_roles(user, auth)
-    auth['info']['roles'] = "Viewer"
     unless auth['info']['roles'].nil?
       roles = auth['info']['roles'].split(',')
 
