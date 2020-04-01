@@ -75,8 +75,8 @@ end
 
 class TestMailer < ActionMailer::Base
   def test_email(email_address)
-    mail(to: email_address, 
-      from: email_address, 
+    mail(to: email_address,
+      from: email_address,
       subject: "Greenlight Email Test",
       body: "This is what people with plain text mail readers will see.",
       content_type: "text/plain",)
