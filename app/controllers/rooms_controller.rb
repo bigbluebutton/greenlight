@@ -352,5 +352,14 @@ class RoomsController < ApplicationController
 
     current_user.rooms.length >= limit
   end
+
+  # def room_limit_exceeded # eductors
+  #   limit = @settings.get_value("Room Limit").to_i
+  #   # Does not apply to admin or educator 
+  #   # limited to 4
+  #   return false if current_user&.has_role?(:admin) 
+  #   current_user.rooms.length <= 4
+  # end
+
   helper_method :room_limit_exceeded
 end
