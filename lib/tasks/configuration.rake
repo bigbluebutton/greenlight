@@ -3,7 +3,6 @@
 require 'net/http'
 require 'nokogiri'
 require 'digest/sha1'
-require 'mailfactory'
 
 namespace :conf do
   desc "Check Configuration"
@@ -40,20 +39,7 @@ namespace :conf do
 end
 
 def test_smtp
-  smtp = Net::SMTP.new(ENV['SMTP_SERVER'], ENV['SMTP_PORT'])
-  if ENV['SMTP_STARTTLS_AUTO']
-    smtp.enable_starttls_auto if smtp.respond_to?(:enable_starttls_auto)
-  end
-
-  smtp.start(ENV['SMTP_DOMAIN'], ENV['SMTP_USERNAME'], ENV['SMTP_PASSWORD'],
-    ENV['SMTP_AUTH']) do |s|
-      mail = MailFactory.new()
-      mail.to = ENV['SMTP_SENDER']
-      mail.from = ENV['SMTP_SENDER']
-      mail.subject = "Greenlight Email Test"
-      mail.text = "This is what people with plain text mail readers will see"
-    s.send_message(mail.to_s, ENV['SMTP_SENDER'], ENV['SMTP_SENDER'])
-  end
+  TestMailer.test_email(ENV['SMTP_SENDER']).deliver
 rescue => e
   failed("Error connecting to SMTP - #{e}")
 end
@@ -85,4 +71,14 @@ end
 
 def passed
   print(": Passed\n")
+end
+
+class TestMailer < ActionMailer::Base
+  def test_email(email_address)
+    mail(to: email_address, 
+      from: email_address, 
+      subject: "Greenlight Email Test",
+      body: "This is what people with plain text mail readers will see.",
+      content_type: "text/plain",)
+  end
 end
