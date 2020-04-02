@@ -37,25 +37,24 @@
 
     <meta name="viewport" content= "width=device-width, user-scalable=no">
     <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
     <!-- Global javascript variables and helpers. -->
-    <script type="text/javascript">
+    <%= javascript_tag nonce: true do %>
       window.GreenLight = {};
       window.GreenLight.WEBSOCKET_HOST = "<%= ENV['WEBSOCKET_HOST'] %>"
       window.GreenLight.RELATIVE_ROOT = "<%= relative_root %>"
-    </script>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-    <!-- Primary color styling -->
-    <%= stylesheet_link_tag themes_primary_path %>
-
-    <script type="text/javascript">
       // Include the correct translated strings for Javascript
       window.I18n = <%= current_translations.to_json.html_safe %>
       window.I18nFallback = <%= fallback_translations.to_json.html_safe %>
-    </script>
+    <% end %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', nonce: true %>
+
+    <!-- Primary color styling -->
+    <%= stylesheet_link_tag themes_primary_path %>
   </head>
 
   <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>" data-relative-root="<%= Rails.configuration.relative_url_root || "/" %>">
