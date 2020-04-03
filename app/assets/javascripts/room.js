@@ -162,7 +162,7 @@ function showUpdateRoom(target) {
   var modal = $(target)
   var update_path = modal.closest("#room-block").data("path")
   var settings_path = modal.data("settings-path")
-  $("#create-room-name").val(modal.closest("#room-block").find("#room-name-text").text())
+  $("#create-room-name").val(modal.closest("#room-block").find("#room-name-text").text().trim())
   $("#createRoomModal form").attr("action", update_path)
 
   //show all elements & their children with a update-only class

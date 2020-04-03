@@ -163,17 +163,12 @@ class User < ApplicationRecord
     update_attributes(activation_digest: User.digest(activation_token))
   end
 
-  def admin_of?(user)
-    if Rails.configuration.loadbalanced_configuration
-      if has_role? :super_admin
-        id != user.id
-      else
-        highest_priority_role.get_permission("can_manage_users") && (id != user.id) && (provider == user.provider) &&
-          (!user.has_role? :super_admin)
-      end
-    else
-      (highest_priority_role.get_permission("can_manage_users") || (has_role? :super_admin)) && (id != user.id)
-    end
+  def admin_of?(user, permission)
+    has_correct_permission = highest_priority_role.get_permission(permission) && id != user.id
+
+    return has_correct_permission unless Rails.configuration.loadbalanced_configuration
+    return id != user.id if has_role? :super_admin
+    has_correct_permission && provider == user.provider && !user.has_role?(:super_admin)
   end
 
   def self.digest(string)
