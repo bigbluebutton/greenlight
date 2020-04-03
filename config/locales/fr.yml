@@ -390,7 +390,7 @@ fr:
       twitter_signin:
       twitter_signup:
       merge_success:
-    invite: Vous avez été invité dans votre espace personnel par %{name}
+    invite: "Vous avez été invité dans votre espace personnel par %{name}"
       fail:
       no_invite:
   rename: Renommer
