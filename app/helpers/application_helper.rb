@@ -22,7 +22,7 @@ require 'uri'
 module ApplicationHelper
   # Determines which providers can show a login button in the login modal.
   def iconset_providers
-    providers = configured_providers & [:google, :twitter, :office365, :ldap]
+    providers = configured_providers & [:google, :twitter, :office365, :openid_connect, :ldap]
 
     providers.delete(:twitter) if session[:old_twitter_user_id]
 

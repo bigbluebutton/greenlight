@@ -7,7 +7,7 @@
 
 Greenlight is a simple front-end interface for your BigBlueButton server. At it's heart, Greenlight provides a minimalistic web-based application that allows users to:
 
-  * Signup/Login with Google, Office365, or through the application itself.
+  * Signup/Login with Google, Office365, OpenID Connect, or through the application itself.
   * Manage your account settings and user preferences.
   * Create and manage your own personal rooms ([BigBlueButton](https://github.com/bigbluebutton/bigbluebutton) sessions).
   * Invite others to your room using a simple URL.
