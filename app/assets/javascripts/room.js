@@ -61,7 +61,7 @@ $(document).on('turbolinks:load', function(){
       $('#create-room-name').focus()
     }
   })
-  
+
   if (controller == "rooms" && action == "show" || controller == "admins" && action == "server_rooms"){
     // Display and update all fields related to creating a room in the createRoomModal
     $(".update-room").click(function(){
@@ -124,13 +124,13 @@ $(document).on('turbolinks:load', function(){
         let listItem = document.createElement("li")
         listItem.setAttribute('class', 'list-group-item text-left not-saved add-access');
         listItem.setAttribute("data-uid", uid)
-  
+
         let spanItem = "<span class='avatar float-left mr-2'>" + option.text().charAt(0) + "</span> <span class='shared-user'>" +
-          option.text() + " <span class='text-muted'>" + option.data("subtext") + "</span></span>" + 
+          option.text() + " <span class='text-muted'>" + option.data("subtext") + "</span></span>" +
           "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
-        
+
         listItem.innerHTML = spanItem
-  
+
         $("#user-list").append(listItem)
       }
     })
@@ -203,7 +203,7 @@ function showDeleteRoom(target) {
 function updateCurrentSettings(settings_path){
   // Get current room settings and set checkbox
   $.get(settings_path, function(room_settings) {
-    var settings = JSON.parse(room_settings) 
+    var settings = JSON.parse(room_settings)
     $("#room_mute_on_join").prop("checked", settings.muteOnStart)
     $("#room_require_moderator_approval").prop("checked", settings.requireModeratorApproval)
     $("#room_anyone_can_start").prop("checked", settings.anyoneCanStart)
@@ -253,7 +253,7 @@ function displaySharedUsers(path) {
       user_list_html += "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
       user_list_html += "</li>"
     })
-    
+
     $("#user-list").html(user_list_html)
   });
 }
