@@ -57,6 +57,18 @@
   padding-top: 12px;
 }
 
+.room-block {
+  &.current {
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  }
+
+  &:not(.current) {
+    .stamp {
+      opacity: 0.5;
+    }
+  }
+}
+
 #create-room-block {
   border: 1px dashed lightgray;
 

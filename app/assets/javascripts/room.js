@@ -19,6 +19,10 @@ $(document).on('turbolinks:load', function(){
   var controller = $("body").data('controller');
   var action = $("body").data('action');
 
+  // highlight current room
+  $('.room-block').removeClass('current');
+  $('a[href="' + window.location.pathname + '"] .room-block').addClass('current');
+
   // Only run on room pages.
   if (controller == "rooms" && action == "show"){
     var copy = $('#copy');
@@ -160,9 +164,9 @@ function showCreateRoom(target) {
 
 function showUpdateRoom(target) {
   var modal = $(target)
-  var update_path = modal.closest("#room-block").data("path")
+  var update_path = modal.closest(".room-block").data("path")
   var settings_path = modal.data("settings-path")
-  $("#create-room-name").val(modal.closest("#room-block").find("#room-name-text").text().trim())
+  $("#create-room-name").val(modal.closest(".room-block").find(".room-name-text").text().trim())
   $("#createRoomModal form").attr("action", update_path)
 
   //show all elements & their children with a update-only class
@@ -178,8 +182,8 @@ function showUpdateRoom(target) {
   })
 
   updateCurrentSettings(settings_path)
-  
-  var accessCode = modal.closest("#room-block").data("room-access-code")
+
+  var accessCode = modal.closest(".room-block").data("room-access-code")
 
   if(accessCode){
     $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code") + ": " + accessCode)
