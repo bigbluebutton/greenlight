@@ -27,11 +27,11 @@
           </span>
         </td>
         <td>
-          <div id="room-name">
-            <h4 id="room-name-text" contenteditable="false" class="m-0 force-text-normal" ><%= room.name %></h4>
+          <div>
+            <h4 contenteditable="false" class="m-0 force-text-normal room-name-text" ><%= room.name %></h4>
           </div>
-          <div id="room-name-editable" style="display: none">
-            <input id="room-name-editable-input" class="form-control input-sm w-100 h-4" value="<%= room.name %>">
+          <div style="display: none">
+            <input class="form-control input-sm w-100 h-4 room-name-editable" value="<%= room.name %>">
           </div>
           <div class="small text-muted">
             <% if room.sessions > 0 %>
