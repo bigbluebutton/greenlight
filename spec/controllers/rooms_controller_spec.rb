@@ -262,6 +262,7 @@ describe RoomsController, type: :controller do
 
     it "should join the room if the room has the anyone_can_start setting" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(false)
+      allow_any_instance_of(Setting).to receive(:get_value).and_return("optional")
 
       room = Room.new(name: "test")
       room.room_settings = "{\"muteOnStart\":false,\"joinViaHtml5\":false,\"anyoneCanStart\":true}"
@@ -275,6 +276,7 @@ describe RoomsController, type: :controller do
     end
 
     it "should join the room as moderator if room has the all_join_moderator setting" do
+      allow_any_instance_of(Setting).to receive(:get_value).and_return("optional")
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
 
       room = Room.new(name: "test")
