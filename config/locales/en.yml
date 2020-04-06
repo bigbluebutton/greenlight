@@ -150,6 +150,7 @@ en:
         perm_delete: Permanently Delete
         unban: Unban User
         undelete: Undelete
+        merge: Merge
       table:
         authenticator: Authenticator
         created: Created
