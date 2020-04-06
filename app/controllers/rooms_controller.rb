@@ -62,7 +62,8 @@ class RoomsController < ApplicationController
 
   # GET /:room_uid
   def show
-    @anyone_can_start = JSON.parse(@room[:room_settings])["anyoneCanStart"]
+    @room_settings = @room[:room_settings]
+    @anyone_can_start = room_setting_with_config("anyoneCanStart")
     @room_running = room_running?(@room.bbb_id)
     @shared_room = room_shared_with_user
 
