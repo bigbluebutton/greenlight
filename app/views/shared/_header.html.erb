@@ -1,17 +1,3 @@
-<%
-# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
-# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
-# This program is free software; you can redistribute it and/or modify it under the
-# terms of the GNU Lesser General Public License as published by the Free Software
-# Foundation; either version 3.0 of the License, or (at your option) any later
-# version.
-#
-# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
-# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-# You should have received a copy of the GNU Lesser General Public License along
-# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-%>
 
 <div class="header py-4">
   <div class="container">
@@ -77,11 +63,11 @@
                 <% end %>
               <% end %>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="http://docs.bigbluebutton.org/install/greenlight-v2.html" target="_blank" rel="noopener">
+              <a class="dropdown-item" href="http://liveclass.site/b/" target="_blank" rel="noopener">
                 <i class="dropdown-icon far fa-question-circle"></i> <%= t("header.dropdown.help") %>
               </a>
               <% if Rails.configuration.report_issue_url.present? %>
-                <a class="dropdown-item" href="<%= Rails.configuration.report_issue_url %>" target="_blank" rel="noopener">
+                <a class="dropdown-item" href="http://liveclass.site/b/" target="_blank" rel="noopener">
                   <i class="dropdown-icon fas fa-exclamation mr-3"></i><%= t("errors.internal.report") %>
                 </a>
               <% end %>
