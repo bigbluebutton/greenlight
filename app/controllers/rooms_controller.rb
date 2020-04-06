@@ -160,9 +160,9 @@ class RoomsController < ApplicationController
     opts[:user_is_moderator] = true
 
     # Include the user's choices for the room settings
-    room_settings = JSON.parse(@room[:room_settings])
-    opts[:mute_on_start] = room_settings["muteOnStart"]
-    opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
+    @room_settings = JSON.parse(@room[:room_settings])
+    opts[:mute_on_start] = room_setting_with_config("muteOnStart")
+    opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
 
     begin
       redirect_to join_path(@room, current_user.name, opts, current_user.uid)
