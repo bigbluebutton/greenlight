@@ -158,7 +158,7 @@ de_DE:
         no_users: Kein Teilnehmer gefunden
         role: Rolle
         uid: Teilnehmer ID
-        username: Teilnehmername
+        username: THM-Kennung
       title: Teilnehmer verwalten
   add_to_google_calendar: "Zum Google Kalender hinzufügen"
   bigbluebutton: BigBlueButton
