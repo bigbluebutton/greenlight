@@ -95,11 +95,6 @@
           <% else %>
             <%= link_to t("login"), signin_path, :class => "btn btn-outline-primary mx-2 sign-in-button" %>
           <% end %>
-
-          <% if allow_user_signup? && allow_greenlight_accounts %>
-            <%= link_to t("signup.title"), signup_path, :class => "btn btn-outline-primary mx-2 sign-in-button" %>
-          <% end %>
-        <% end %>
       </div>
     </div>
   </div>
