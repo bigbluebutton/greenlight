@@ -357,7 +357,7 @@ de_DE:
       title: Nutzer einladen
     login:
       or: oder
-      with: "Einloggen mit %{provider}"
+      with: "Anmelden mit THM-Daten"
       forgot_password: "Passwort vergessen?"
     rename_recording:
     remove_shared:
