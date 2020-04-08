@@ -30,7 +30,7 @@ Rails.application.config.content_security_policy do |policy|
   policy.default_src :self
   policy.style_src   :self, "'unsafe-inline'"
   policy.img_src     :self, :data, :https
-  policy.script_src  :self
+  policy.script_src  :self, "'unsafe-inline'"
 end
 
-Rails.application.config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(32) }
+# Rails.application.config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(32) }
