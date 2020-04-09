@@ -84,8 +84,16 @@ class Room < ApplicationRecord
 
   # Generates a uid for the room and BigBlueButton.
   def setup
+    begin
+      # Generate a random id and make sure it isn't already used
+      unique_id = SecureRandom.hex(20)
+      raise if Room.exists?(bbb_id: unique_id)
+      self.bbb_id = unique_id
+    rescue
+      retry
+    end
+
     self.uid = random_room_uid
-    self.bbb_id = Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base] + Time.now.to_i.to_s).to_s
     self.moderator_pw = RandomPassword.generate(length: 12)
     self.attendee_pw = RandomPassword.generate(length: 12)
   end
