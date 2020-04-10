@@ -93,7 +93,9 @@ class RoomsController < ApplicationController
     return redirect_to root_path,
       flash: { alert: I18n.t("administrator.site_settings.authentication.user-info") } if auth_required
 
-    unless @room.owned_by?(current_user) || room_shared_with_user
+    @shared_room = room_shared_with_user
+
+    unless @room.owned_by?(current_user) || @shared_room
       # Don't allow users to join unless they have a valid access code or the room doesn't have an access code
       if @room.access_code && !@room.access_code.empty? && @room.access_code != session[:access_code]
         return redirect_to room_path(room_uid: params[:room_uid]), flash: { alert: I18n.t("room.access_code_required") }
@@ -300,12 +302,13 @@ class RoomsController < ApplicationController
   def verify_room_ownership_or_admin_or_shared
     return redirect_to root_path unless @room.owned_by?(current_user) ||
                                         room_shared_with_user ||
-                                        current_user&.admin_of?(@room.owner)
+                                        current_user&.admin_of?(@room.owner, "can_manage_rooms_recordings")
   end
 
   # Ensure the user either owns the room or is an admin of the room owner
   def verify_room_ownership_or_admin
-    return redirect_to root_path if !@room.owned_by?(current_user) && !current_user&.admin_of?(@room.owner)
+    return redirect_to root_path if !@room.owned_by?(current_user) &&
+                                    !current_user&.admin_of?(@room.owner, "can_manage_rooms_recordings")
   end
 
   # Ensure the user owns the room or is allowed to start it

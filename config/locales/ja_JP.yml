@@ -42,6 +42,7 @@ ja_JP:
         info: 左上に表示されるブランド画像を変更する
         placeholder: 画像のURL...
         title: ブランド画像
+        invalid: 無効なURL
       cache:
         info: 保存されているサービス提供元のキャッシュをクリアして情報の更新された新しいリクエストを強制する
         title: サービス提供元キャッシュのクリア
@@ -383,7 +384,7 @@ ja_JP:
       select: ユーザの選択
     merge_user:
       cancel: キャンセル
-      from: アカウントをマージする
+      from: マージするアカウント
       title: ユーザアカウントのマージ
       to: プライマリアカウント
       save: マージ

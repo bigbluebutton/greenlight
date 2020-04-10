@@ -239,6 +239,46 @@ describe AdminsController, type: :controller do
         expect(response).to redirect_to(admins_path)
       end
     end
+
+    context "POST permissions" do
+      it "allows a user with the correct permission to manage users" do
+        Role.create_new_role("test", "greenlight").update_all_role_permissions(can_manage_users: true)
+
+        @user2 = create(:user)
+        @user2.add_role(:test)
+
+        # Random manage user action test
+
+        @request.session[:user_id] = @user2.id
+
+        expect(@user.has_role?(:denied)).to eq(false)
+
+        post :ban_user, params: { user_uid: @user.uid }
+
+        @user.reload
+
+        expect(@user.has_role?(:denied)).to eq(true)
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(admins_path)
+      end
+
+      it "doesn't allow a user with the incorrect permission to manage users" do
+        Role.create_new_role("test", "greenlight").update_all_role_permissions(can_manage_users: false)
+
+        @user2 = create(:user)
+        @user2.add_role(:test)
+
+        # Random manage user action test
+
+        @request.session[:user_id] = @user2.id
+
+        expect(@user.has_role?(:denied)).to eq(false)
+
+        post :ban_user, params: { user_uid: @user.uid }
+
+        expect(response).to render_template "errors/greenlight_error"
+      end
+    end
   end
 
   describe "User Design" do
@@ -444,6 +484,41 @@ describe AdminsController, type: :controller do
         expect(Rails.logger.level).to eq(0)
         post :log_level, params: { value: 2 }
         expect(Rails.logger.level).to eq(2)
+      end
+    end
+
+    context "POST permissions" do
+      it "allows a user with the correct permission to edit site settings" do
+        Role.create_new_role("test", "greenlight").update_all_role_permissions(can_edit_site_settings: true)
+
+        @user2 = create(:user)
+        @user2.add_role(:test)
+
+        # Random edit site settings action test
+
+        @request.session[:user_id] = @user2.id
+
+        post :update_settings, params: { setting: "Shared Access", value: "false" }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Shared Access")
+
+        expect(feature[:value]).to eq("false")
+        expect(response).to redirect_to(admin_site_settings_path)
+      end
+
+      it "doesn't allow a user with the incorrect permission to edit site settings" do
+        Role.create_new_role("test", "greenlight").update_all_role_permissions(can_manage_users: true)
+
+        @user2 = create(:user)
+        @user2.add_role(:test)
+
+        # Random edit site settings action test
+
+        @request.session[:user_id] = @user2.id
+
+        post :update_settings, params: { setting: "Shared Access", value: "false" }
+
+        expect(response).to render_template "errors/greenlight_error"
       end
     end
   end
@@ -660,6 +735,48 @@ describe AdminsController, type: :controller do
 
         expect(Role.where(name: "test2", provider: "provider1").count).to eq(0)
         expect(response).to redirect_to admin_roles_path
+      end
+    end
+
+    context "POST permissions" do
+      it "allows a user with the correct permission to edit roles" do
+        Role.create_new_role("test", "greenlight").update_all_role_permissions(can_edit_roles: true)
+
+        @user2 = create(:user)
+        @user2.add_role(:test)
+
+        # Random edit roles action test
+
+        new_role = Role.create(name: "test2", priority: 2, provider: "provider1")
+        new_role.update_permission("can_edit_roles", "true")
+
+        @request.session[:user_id] = @user2.id
+
+        patch :update_role, params: { role_id: new_role.id, role: { name: "test3", can_edit_roles: false,
+          colour: "#45434", can_manage_users: true } }
+
+        new_role.reload
+        expect(new_role.name).to eq("test3")
+        expect(response).to redirect_to admin_roles_path(selected_role: new_role.id)
+      end
+
+      it "doesn't allow a user with the incorrect permission to edit roles" do
+        Role.create_new_role("test", "greenlight").update_all_role_permissions(can_manage_users: false)
+
+        @user2 = create(:user)
+        @user2.add_role(:test)
+
+        # Random edit roles action test
+
+        new_role = Role.create(name: "test2", priority: 2, provider: "provider1")
+        new_role.update_permission("can_edit_roles", "true")
+
+        @request.session[:user_id] = @user2.id
+
+        patch :update_role, params: { role_id: new_role.id, role: { name: "test3", can_edit_roles: false,
+          colour: "#45434", can_manage_users: true } }
+
+        expect(response).to render_template "errors/greenlight_error"
       end
     end
   end

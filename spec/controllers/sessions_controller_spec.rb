@@ -591,5 +591,19 @@ describe SessionsController, type: :controller do
       expect(response).to redirect_to(ldap_signin_path)
       expect(flash[:alert]).to eq(I18n.t("invalid_credentials"))
     end
+
+    it "redirects to signin if no password provided" do
+      allow_any_instance_of(Net::LDAP).to receive(:bind_as).and_return(false)
+
+      post :ldap, params: {
+        session: {
+          user: "test",
+          password: '',
+        },
+      }
+
+      expect(response).to redirect_to(ldap_signin_path)
+      expect(flash[:alert]).to eq(I18n.t("invalid_credentials"))
+    end
   end
 end

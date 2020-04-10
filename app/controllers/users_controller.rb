@@ -89,7 +89,7 @@ class UsersController < ApplicationController
       path = admins_path
     end
 
-    redirect_path = current_user.admin_of?(@user) ? path : profile
+    redirect_path = current_user.admin_of?(@user, "can_manage_users") ? path : profile
 
     if params[:setting] == "password"
       # Update the users password.
@@ -141,7 +141,7 @@ class UsersController < ApplicationController
     redirect_url = self_delete ? root_path : admin_path
 
     begin
-      if current_user && (self_delete || current_user.admin_of?(@user))
+      if current_user && (self_delete || current_user.admin_of?(@user, "can_manage_users"))
         # Permanently delete if the user is deleting themself
         perm_delete = self_delete || (params[:permanent].present? && params[:permanent] == "true")
 
@@ -216,6 +216,8 @@ class UsersController < ApplicationController
 
   # Checks that the user is allowed to edit this user
   def check_admin_of
-    redirect_to current_user.main_room if current_user && @user != current_user && !current_user.admin_of?(@user)
+    redirect_to current_user.main_room if current_user &&
+                                          @user != current_user &&
+                                          !current_user.admin_of?(@user, "can_manage_users")
   end
 end
