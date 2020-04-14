@@ -56,7 +56,6 @@
               <% end %>
               <span class="ml-2 d-none d-lg-block">
                 <span class="text-default username d-lg-block"><%= current_user.name %></span>
-                <br>
                 <span class="text-default d-lg-block" style="font-size: 12px;line-height:0.5;"><%= translated_role_name(current_user.highest_priority_role) %></span>
               </span>
             </a>
@@ -65,7 +64,7 @@
                 <i class="dropdown-icon fas fa-id-card mr-3"></i><%= t("header.dropdown.settings") %>
               <% end %>
               <% highest_role = current_user.highest_priority_role %>
-              <% if highest_role.get_permissiosshn("can_manage_users") || highest_role.name == "super_admin" %>
+              <% if highest_role.get_permission("can_manage_users") || highest_role.name == "super_admin" %>
                 <%= link_to admins_path, class: "dropdown-item" do %>
                   <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
                 <% end %>
