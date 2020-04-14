@@ -38,7 +38,7 @@
     <%= f.label t("settings.account.language"), class: "form-label" %>
     <%= f.select :language, language_options, {}, { class: "form-control custom-select" } %>
 
-    <% current_user_role = current_user.highest_priority_role %>
+    <% current_user_role = current_user.role %>
     <br>
     <br>
     <%= f.label t("settings.account.roles"), class: "form-label" %>

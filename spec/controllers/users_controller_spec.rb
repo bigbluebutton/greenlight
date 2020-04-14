@@ -75,7 +75,7 @@ describe UsersController, type: :controller do
       controller.instance_variable_set(:@user_domain, "provider1")
 
       user = create(:user, provider: "provider1")
-      user.add_role :admin
+      user.set_role :admin
       user2 = create(:user, provider: "provider1")
 
       @request.session[:user_id] = user.id
@@ -174,7 +174,7 @@ describe UsersController, type: :controller do
           allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
           @user = create(:user, provider: "greenlight")
           @admin = create(:user, provider: "greenlight", email: "test@example.com")
-          @admin.add_role :admin
+          @admin.set_role :admin
         end
 
         it "should notify admins that user signed up" do
@@ -232,7 +232,7 @@ describe UsersController, type: :controller do
           allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
           @user = create(:user, provider: "greenlight")
           @admin = create(:user, provider: "greenlight", email: "test@example.com")
-          @admin.add_role :admin
+          @admin.set_role :admin
         end
 
         it "allows any user to sign up" do
@@ -306,7 +306,7 @@ describe UsersController, type: :controller do
         user = create(:user)
         @request.session[:user_id] = user.id
 
-        user_role = user.highest_priority_role
+        user_role = user.role
 
         user_role.update_permission("can_manage_users", "true")
 
@@ -325,11 +325,11 @@ describe UsersController, type: :controller do
         user = create(:user)
         admin = create(:user)
 
-        admin.add_role :admin
+        admin.set_role :admin
 
         @request.session[:user_id] = user.id
 
-        user_role = user.highest_priority_role
+        user_role = user.role
 
         user_role.update_permission("can_manage_users", "true")
 
@@ -350,7 +350,7 @@ describe UsersController, type: :controller do
         user = create(:user)
         admin = create(:user)
 
-        admin.add_role :admin
+        admin.set_role :admin
 
         @request.session[:user_id] = admin.id
 
@@ -365,7 +365,7 @@ describe UsersController, type: :controller do
 
         user.reload
         expect(user.roles.count).to eq(2)
-        expect(user.highest_priority_role.name).to eq("test1")
+        expect(user.role.name).to eq("test1")
         expect(response).to redirect_to(admins_path)
       end
 
@@ -375,7 +375,7 @@ describe UsersController, type: :controller do
         user = create(:user)
         admin = create(:user)
 
-        admin.add_role :admin
+        admin.set_role :admin
 
         tmp_role1 = Role.create(name: "test1", priority: 2, provider: "greenlight")
         tmp_role1.update_permission("send_demoted_email", "true")
@@ -389,7 +389,7 @@ describe UsersController, type: :controller do
 
         expect { patch :update, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
         expect(user.roles.count).to eq(1)
-        expect(user.highest_priority_role.name).to eq("user")
+        expect(user.role.name).to eq("user")
         expect(response).to redirect_to(admins_path)
       end
     end
@@ -416,7 +416,7 @@ describe UsersController, type: :controller do
 
       user = create(:user, provider: "provider1")
       admin = create(:user, provider: "provider1")
-      admin.add_role :admin
+      admin.set_role :admin
       @request.session[:user_id] = admin.id
 
       delete :destroy, params: { user_uid: user.uid }
@@ -434,7 +434,7 @@ describe UsersController, type: :controller do
 
       user = create(:user, provider: "provider1")
       admin = create(:user, provider: "provider1")
-      admin.add_role :admin
+      admin.set_role :admin
       @request.session[:user_id] = admin.id
 
       delete :destroy, params: { user_uid: user.uid, permanent: "true" }
@@ -452,7 +452,7 @@ describe UsersController, type: :controller do
 
       user = create(:user, provider: "provider1")
       admin = create(:user, provider: "provider1")
-      admin.add_role :admin
+      admin.set_role :admin
       @request.session[:user_id] = admin.id
       uid = user.main_room.uid
 
@@ -473,7 +473,7 @@ describe UsersController, type: :controller do
 
       user = create(:user, provider: "provider1")
       admin = create(:user, provider: "provider2")
-      admin.add_role :admin
+      admin.set_role :admin
       @request.session[:user_id] = admin.id
 
       delete :destroy, params: { user_uid: user.uid }

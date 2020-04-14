@@ -26,7 +26,7 @@ module UsersHelper
   end
 
   def disabled_roles(user)
-    current_user_role = current_user.highest_priority_role
+    current_user_role = current_user.role
 
     # Admins are able to remove the admin role from other admins
     # For all other roles they can only add/remove roles with a higher priority
@@ -38,7 +38,7 @@ module UsersHelper
                               .pluck(:id)
                        end
 
-    user.roles.by_priority.pluck(:id) | disallowed_roles
+    user.role.pluck(:id) | disallowed_roles
   end
 
   # Returns language selection options for user edit

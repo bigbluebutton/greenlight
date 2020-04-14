@@ -221,7 +221,7 @@ describe SessionsController, type: :controller do
     it "redirects to the admins page for admins" do
       user = create(:user, provider: "greenlight",
         password: "example", password_confirmation: 'example')
-      user.add_role :super_admin
+      user.set_role :super_admin
 
       post :create, params: {
         session: {
@@ -419,7 +419,7 @@ describe SessionsController, type: :controller do
         allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
         @user = create(:user, provider: "greenlight")
         @admin = create(:user, provider: "greenlight", email: "test@example.com")
-        @admin.add_role :admin
+        @admin.set_role :admin
       end
 
       it "should notify admin on new user signup with approve/reject registration" do

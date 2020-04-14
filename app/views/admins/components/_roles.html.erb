@@ -15,7 +15,7 @@
 
 <div class="container">
   <div class="row">
-    <% current_role = current_user.highest_priority_role%>
+    <% current_role = current_user.role%>
     <div class="col-lg-3 mb-4">
         <div class="list-group list-group-transparent mb-0">
             <div id="rolesSelect" data-url="<%= admin_roles_order_path %>">
