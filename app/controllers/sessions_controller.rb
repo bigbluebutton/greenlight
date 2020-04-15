@@ -137,6 +137,7 @@ class SessionsController < ApplicationController
                                     'start_tls'
                                 end
     ldap_config[:base] = ENV['LDAP_BASE']
+    ldap_config[:filter] = ENV['LDAP_FILTER']
     ldap_config[:uid] = ENV['LDAP_UID']
 
     return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials")) unless session_params[:password].present?
