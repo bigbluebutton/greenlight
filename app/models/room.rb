@@ -104,7 +104,7 @@ class Room < ApplicationRecord
   # Generates a unique bbb_id based on uuid.
   def unique_bbb_id
     loop do
-      bbb_id = SecureRandom.uuid
+      bbb_id = SecureRandom.hex(20)
       break bbb_id unless Room.exists?(bbb_id: bbb_id)
     end
   end
