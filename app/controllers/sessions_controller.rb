@@ -131,6 +131,7 @@ class SessionsController < ApplicationController
     ldap_config[:port] = ENV['LDAP_PORT'].to_i != 0 ? ENV['LDAP_PORT'].to_i : 389
     ldap_config[:bind_dn] = ENV['LDAP_BIND_DN']
     ldap_config[:password] = ENV['LDAP_PASSWORD']
+    ldap_config[:auth_method] = ENV['LDAP_AUTH']
     ldap_config[:encryption] = if ENV['LDAP_METHOD'] == 'ssl'
                                     'simple_tls'
                                 elsif ENV['LDAP_METHOD'] == 'tls'
