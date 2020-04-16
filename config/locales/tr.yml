@@ -42,6 +42,7 @@ tr:
         info: Sol üst köşede görünen resmi kendi markanızın resmi ile değiştirme
         placeholder: Resimin bulunduğu link ...
         title: Marka Resmi
+        invalid: Geçersiz URL
       cache:
         info: Güncellenmiş bilgiler için yeni bir istekte bulunan depolanmış sağlayıcı önbelleğini temizler
         title: Sağlayıcı Önbelleğini Temizle
