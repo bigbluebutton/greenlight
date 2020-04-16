@@ -140,7 +140,9 @@ class SessionsController < ApplicationController
     ldap_config[:base] = ENV['LDAP_BASE']
     ldap_config[:uid] = ENV['LDAP_UID']
 
-    return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials")) unless session_params[:password].present?
+    if params[:session][:username].blank? || session_params[:password].blank?
+      return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials"))
+    end
 
     result = send_ldap_request(params[:session], ldap_config)
 

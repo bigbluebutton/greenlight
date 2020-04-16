@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div id="room-block" data-path="<%= update_settings_path(room) %>" data-room-access-code="<%= room.access_code %>" class="card">
+<div data-path="<%= update_settings_path(room) %>" data-room-access-code="<%= room.access_code %>" class="card room-block">
   <div class="card-body p-1">
     <table class="table table-hover table-vcenter text-wrap table-no-border">
       <tbody class="no-border-top">
@@ -27,11 +27,11 @@
           </span>
         </td>
         <td>
-          <div id="room-name">
-            <h4 id="room-name-text" contenteditable="false" class="m-0 force-text-normal" ><%= room.name %></h4>
+          <div>
+            <h4 contenteditable="false" class="m-0 force-text-normal room-name-text" ><%= room.name %></h4>
           </div>
-          <div id="room-name-editable" style="display: none">
-            <input id="room-name-editable-input" class="form-control input-sm w-100 h-4" value="<%= room.name %>">
+          <div style="display: none">
+            <input class="form-control input-sm w-100 h-4 room-name-editable" value="<%= room.name %>">
           </div>
           <div class="small text-muted">
             <% if room.sessions > 0 %>
@@ -41,9 +41,9 @@
             <% end %>
           </div>
         </td>
-        <td class="text-right">          
+        <td class="text-right">
           <div class="item-action dropdown" data-display="static">
-            <a href="javascript:void(0)" data-toggle="dropdown" data-display="static" class="icon">
+            <a href="#" data-toggle="dropdown" data-display="static" class="icon">
               <i class="fas fa-ellipsis-v px-4"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-md-left">
@@ -61,7 +61,7 @@
                 </a>
               <% end %>
             </div>
-          </div>         
+          </div>
         </td>
       </tbody>
     </table>
