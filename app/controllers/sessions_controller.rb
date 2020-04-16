@@ -138,6 +138,7 @@ class SessionsController < ApplicationController
                                     'start_tls'
                                 end
     ldap_config[:base] = ENV['LDAP_BASE']
+    ldap_config[:filter] = ENV['LDAP_FILTER']
     ldap_config[:uid] = ENV['LDAP_UID']
 
     if params[:session][:username].blank? || session_params[:password].blank?
