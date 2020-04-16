@@ -84,16 +84,8 @@ class Room < ApplicationRecord
 
   # Generates a uid for the room and BigBlueButton.
   def setup
-    begin
-      # Generate a random id and make sure it isn't already used
-      unique_id = SecureRandom.hex(20)
-      raise if Room.exists?(bbb_id: unique_id)
-      self.bbb_id = unique_id
-    rescue
-      retry
-    end
-
     self.uid = random_room_uid
+    self.bbb_id = unique_bbb_id
     self.moderator_pw = RandomPassword.generate(length: 12)
     self.attendee_pw = RandomPassword.generate(length: 12)
   end
@@ -107,5 +99,13 @@ class Room < ApplicationRecord
   # Generates a random room uid that uses the users name.
   def random_room_uid
     [owner.name_chunk, uid_chunk, uid_chunk].join('-').downcase
+  end
+
+  # Generates a unique bbb_id based on uuid.
+  def unique_bbb_id
+    loop do
+      bbb_id = SecureRandom.uuid
+      break bbb_id unless Room.exists?(bbb_id: bbb_id)
+    end
   end
 end
