@@ -42,6 +42,7 @@ tr_TR:
         info: Sol üst köşedeki marka logosunu değiştirin
         placeholder: Resim Url...
         title: Marka Resmi
+        invalid: Geçersiz URL
       cache:
         info: Güncellenmiş bilgiler için yeni bir istekte bulunan depolanmış sağlayıcı önbelleğini temizler
         title: Sağlayıcı Önbelleğini Temizle
@@ -114,7 +115,7 @@ tr_TR:
       invalid_update: Role atanmış izinlerin güncellenmesinde bir hata oluştu. Lütfen değerleri kontrol edip yeniden deneyiniz.
       manage_rooms_recordings: Bu role sahip kullanıcıların sunucu odalarını ve kayıtları yönetmesine izin ver
       name: Rol ismi
-      new_role: Rolü sil
+      new_role: "Yeni bir rol oluştur "
       role_has_users: "Bu rol %{user_count} hesabına atanmıştır. silmeden önce lütfen tüm hesapları kaldırınız."
       title: Roller
       promote_email: Bu rol atandığında kullanıcılara bir e-posta gönder
@@ -493,7 +494,7 @@ tr_TR:
     no_sessions: Bu odada henüz bir oturum yok!
     recordings: Oda kayıtları
     room_limit: İzin verilen maksimum oda sayısına ulaştınız
-    room_limit_exceeded: "İzin verilen maksimum oda sayısını aştınız. Bu odaya girebilmek için  %{difference} lütfen siliniz"
+    room_limit_exceeded: "İzin verilen maksimum oda sayısını aştınız. Bu odaya(lara) girebilmek için  %{difference} lütfen siliniz"
     sessions: Oturumlar
     settings: Oda ayarları
     share: Girişi Yönet

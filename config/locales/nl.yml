@@ -42,6 +42,7 @@ nl:
         info: Wijzig de merkafbeelding die in de linkerbovenhoek wordt weergegeven
         placeholder: Afbeelding URL...
         title: Branding afbeelding
+        invalid: Ongeldige URL
       cache:
         info: Wist de opgeslagen cache van de provider die een nieuw verzoek voor de bijgewerkte info afdwingt
         title: Cache van provider wissen
@@ -436,7 +437,7 @@ nl:
       video: Video
   registration:
     approval:
-      fail: Uw account is nog niet goedgekeurd. Neem contact op met uw beheerder als er meerdere dagen zijn verstreken sinds u zich heeft aangemeld.
+      fail: Uw account is nog niet goedgekeurd. Neem contact op met uw beheerder als er meerdere dagen zijn verstreken sinds u zich heeft geregistreerd.
       signup: Uw account is succesvol aangemaakt. Het is ter goedkeuring naar een beheerder verzonden.
     banned:
       fail: U hebt geen toegang tot deze applicatie. Neem contact op met uw beheerder als u denkt dat dit een vergissing is. 
@@ -535,7 +536,7 @@ nl:
   signup:
     password_confirm: Wachtwoordbevestiging
     subtitle: Account aanmaken
-    title: Aanmelden
+    title: Registreren
     with: "Meld u aan bij %{provider}"
   terms:
     accept: "Ik accepteer de %{href}"
