@@ -81,9 +81,11 @@
                 <% end %>
               <% end %>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="http://docs.bigbluebutton.org/install/greenlight-v2.html" target="_blank" rel="noopener">
-                <i class="dropdown-icon far fa-question-circle"></i> <%= t("header.dropdown.help") %>
-              </a>
+              <% if Rails.configuration.help_url.present? %>
+                <a class="dropdown-item" href="<%= Rails.configuration.help_url %>" target="_blank" rel="noopener">
+                  <i class="dropdown-icon far fa-question-circle"></i> <%= t("header.dropdown.help") %>
+                </a>
+              <% end %>
               <% if Rails.configuration.report_issue_url.present? %>
                 <a class="dropdown-item" href="<%= Rails.configuration.report_issue_url %>" target="_blank" rel="noopener">
                   <i class="dropdown-icon fas fa-exclamation mr-3"></i><%= t("errors.internal.report") %>
