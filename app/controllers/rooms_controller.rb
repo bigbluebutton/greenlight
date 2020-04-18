@@ -67,9 +67,7 @@ class RoomsController < ApplicationController
     @shared_room = room_shared_with_user
 
     # Accept access code as part of the URL
-    if params.key?(:code)
-      session[:access_code] = params[:code]
-    end
+    session[:access_code] = params[:code] if params.key?(:code)
 
     # If its the current user's room
     if current_user && (@room.owned_by?(current_user) || @shared_room)
