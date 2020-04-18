@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
 
   # Sets the appropriate locale.
   def user_locale(user = current_user)
-    locale = if user && user.language != 'default'
+    locale = if user && user.language != 'en'
       user.language
     else
       http_accept_language.language_region_compatible_from(I18n.available_locales)
