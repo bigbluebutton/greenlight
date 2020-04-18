@@ -37,4 +37,13 @@ module RoomsHelper
     @diff = current_user.rooms.count - limit
     @diff.positive? && current_user.rooms.pluck(:id).index(room.id) + 1 > limit
   end
+
+  def room_join_url
+    if @room.access_code.nil? || @room.access_code.empty?
+      return request.base_url + @room.invite_path
+    else
+      return request.base_url + @room.invite_path + "?code=" + @room.access_code
+    end
+  end
+
 end
