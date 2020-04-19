@@ -78,6 +78,10 @@
   pointer-events: auto;
 }
 
+.cant-create-room-wrapper {
+  min-height: calc(100vh - 130px);
+}
+
 .cant-create-rooms-title{
   align-items: center;
   justify-content: center;
