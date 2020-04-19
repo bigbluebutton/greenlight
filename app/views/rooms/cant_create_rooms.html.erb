@@ -40,9 +40,9 @@
                     <div class="card-header cant-create-rooms-title">
                         <h3 class="card-title"><%= t("room.no_room.title") %></h3>
                     </div>
-                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                        <p class="w-75"><%= t("room.no_room.description") %></p>
-                        <%= form_for(:join_room, url: join_room_path, html: {class: "w-75"}) do |f| %>
+                    <div class="card-body mx-auto col-sm-9 col-12">
+                        <p><%= t("room.no_room.description") %></p>
+                        <%= form_for(:join_room, url: join_room_path) do |f| %>
                             <div class="input-icon mb-2">
                                 <span class="input-icon-addon">
                                     <i class="fas fa-link"></i>
@@ -55,8 +55,8 @@
                         <% end %>
                     </div>
                     <hr class="mt-0 mb-0">
-                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                    <ul class="list-group w-75 text-center">
+                    <div class="card-body mx-auto col-sm-9 col-12">
+                    <ul class="list-group text-center">
                         <li class="list-group-item active"><%= t("room.no_room.recent_rooms") %></li>
                         <% @recent_rooms.each do |room| %>
                             <%= link_to room_path(room), class: "list-group-item list-group-item-action dropdown-item"  do %>
