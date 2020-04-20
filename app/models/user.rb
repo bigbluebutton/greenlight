@@ -181,11 +181,13 @@ class User < ApplicationRecord
     create_home_room if main_room.nil? && new_role.get_permission("can_create_rooms")
 
     update_attribute(:role, new_role)
+
+    new_role
   end
 
   # This rule is disabled as the function name must be has_role?
   def has_role?(role_name)  # rubocop:disable Naming/PredicateName
-    role.name == role_name.to_s
+    role&.name == role_name.to_s
   end
 
   def self.with_role(role)
