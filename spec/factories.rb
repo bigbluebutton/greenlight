@@ -29,7 +29,7 @@ FactoryBot.define do
     accepted_terms { true }
     email_verified { true }
     activated_at { Time.zone.now }
-    role { Role.find_by(name: "user") }
+    role { Role.find_by(name: "user", provider: "greenlight") }
   end
 
   factory :room do

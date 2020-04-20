@@ -33,7 +33,7 @@ class User < ApplicationRecord
 
   has_and_belongs_to_many :roles, join_table: :users_roles # obsolete
 
-  belongs_to :role
+  belongs_to :role, required: false
 
   validates :name, length: { maximum: 256 }, presence: true
   validates :provider, presence: true
@@ -180,7 +180,7 @@ class User < ApplicationRecord
 
     create_home_room if main_room.nil? && new_role.get_permission("can_create_rooms")
 
-    role = new_role
+    update_attribute(:role, new_role)
   end
 
   # This rule is disabled as the function name must be has_role?

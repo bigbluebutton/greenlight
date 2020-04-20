@@ -58,6 +58,7 @@ class UsersController < ApplicationController
     # Sign in automatically if email verification is disabled or if user is already verified.
     if !Rails.configuration.enable_email_verification || @user.email_verified
       @user.set_role :user
+
       login(@user) && return 
     end
 
