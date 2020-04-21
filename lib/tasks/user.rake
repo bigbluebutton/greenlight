@@ -10,7 +10,7 @@ namespace :user do
       password: args[:password],
       email: args[:email],
       role: args[:role] || "user",
-      provider: args[:provider] || "greenlight",
+      provider: args[:provider] || "greenlight"
     }
 
     if u[:role] == "admin"
