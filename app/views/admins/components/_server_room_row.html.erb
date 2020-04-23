@@ -48,7 +48,7 @@
       </a>
       <div class="dropdown-menu dropdown-menu-right">
         <%= link_to room_path(room), class: "dropdown-item" do %>
-          <i class="dropdown-icon far fa-eye"></i> <%= t("administrator.rooms.view") %>
+          <i class="dropdown-icon far fa-eye"></i> <%= t("administrator.rooms.table.view") %>
         <% end %>
         <%= button_to start_room_path(room), class: "dropdown-item", "data-disable": "" do %>
           <i class="dropdown-icon fas fa-door-open"></i> <%= running ? t("room.join") : t("room.start") %>
