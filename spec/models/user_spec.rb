@@ -193,27 +193,11 @@ describe User, type: :model do
       expect(@admin.role.name).to eq("admin")
     end
 
-    it "should skip adding the role if the user already has the role" do
-      @admin = create(:user, provider: @user.provider)
-      @admin.set_role :admin
-      @admin.set_role :admin
-
-      expect(@admin.roles.count).to eq(2)
-    end
-
     it "should add the role if the user doesn't already have the role" do
       @admin = create(:user, provider: @user.provider)
       @admin.set_role :admin
 
-      expect(@admin.roles.count).to eq(2)
-    end
-
-    it "should remove the role if the user has the role assigned to them" do
-      @admin = create(:user, provider: @user.provider)
-      @admin.set_role :admin
-      @admin.remove_role :admin
-
-      expect(@admin.roles.count).to eq(1)
+      expect(@admin.has_role?(:admin)).to eq(true)
     end
 
     it "has_role? should return false if the user doesn't have the role" do
@@ -243,13 +227,6 @@ describe User, type: :model do
       @admin2.set_role :admin
 
       expect(User.without_role(:admin).count).to eq(1)
-    end
-
-    it "all_users_with_roles should return all users with at least one role" do
-      @admin1 = create(:user, provider: @user.provider)
-      @admin2 = create(:user, provider: @user.provider)
-
-      expect(User.all_users_with_roles.count).to eq(3)
     end
   end
 

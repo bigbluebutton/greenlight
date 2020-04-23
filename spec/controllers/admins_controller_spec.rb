@@ -610,7 +610,7 @@ describe AdminsController, type: :controller do
         new_role2 = Role.create_new_role("test2", "provider1")
         new_role2.update_permission("can_edit_roles", "true")
 
-        @user.roles << new_role2
+        @user.role = new_role2
         @user.save!
 
         @request.session[:user_id] = @user.id
@@ -657,7 +657,7 @@ describe AdminsController, type: :controller do
         new_role2 = Role.create(name: "test2", priority: 2, provider: "provider1")
         new_role2.update_permission("can_edit_roles", "true")
 
-        @user.roles << new_role2
+        @user.role = new_role2
         @user.save!
 
         @request.session[:user_id] = @user.id

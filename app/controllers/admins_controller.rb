@@ -93,7 +93,6 @@ class AdminsController < ApplicationController
 
   # POST /admins/unban/:user_uid
   def unban_user
-    @user.remove_role :denied
     @user.set_role :user
 
     redirect_back fallback_location: admins_path, flash: { success: I18n.t("administrator.flash.unbanned") }
@@ -101,7 +100,7 @@ class AdminsController < ApplicationController
 
   # POST /admins/approve/:user_uid
   def approve
-    @user.remove_role :pending
+    @user.set_role :user
 
     send_user_approved_email(@user)
 
