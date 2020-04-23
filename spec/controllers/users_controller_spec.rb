@@ -396,8 +396,11 @@ describe UsersController, type: :controller do
   end
 
   describe "DELETE #user" do
-    before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
-
+    before do
+      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
+      Role.create_default_roles("provider1")
+    end
+  
     it "permanently deletes user" do
       user = create(:user)
       @request.session[:user_id] = user.id

@@ -38,7 +38,7 @@ module UsersHelper
                               .pluck(:id)
                        end
 
-    user.role.pluck(:id) | disallowed_roles
+    [user.role.id] + disallowed_roles
   end
 
   # Returns language selection options for user edit

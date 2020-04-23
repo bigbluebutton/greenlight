@@ -235,7 +235,7 @@ describe SessionsController, type: :controller do
     end
 
     it "should migrate old rooms from the twitter account to the new user" do
-      twitter_user = User.create(name: "Twitter User", email: "user@twitter.com", image: "example.png",
+      twitter_user = create(:user, name: "Twitter User", email: "user@twitter.com", image: "example.png",
         username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
 
       room = Room.new(name: "Test")
@@ -383,7 +383,7 @@ describe SessionsController, type: :controller do
 
       it "should notify twitter users that twitter is deprecated" do
         allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-        twitter_user = User.create(name: "Twitter User", email: "user@twitter.com", image: "example.png",
+        twitter_user = create(:user, name: "Twitter User", email: "user@twitter.com", image: "example.png",
           username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
 
         request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
@@ -394,7 +394,7 @@ describe SessionsController, type: :controller do
       end
 
       it "should migrate rooms from the twitter account to the google account" do
-        twitter_user = User.create(name: "Twitter User", email: "user@twitter.com", image: "example.png",
+        twitter_user = create(:user, name: "Twitter User", email: "user@twitter.com", image: "example.png",
           username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
 
         room = Room.new(name: "Test")
