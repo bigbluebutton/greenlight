@@ -37,6 +37,16 @@ module OmniauthOptions
       set_hd(env, ENV['GOOGLE_OAUTH2_HD'])
     elsif env['omniauth.strategy'].options[:name] == "office365"
       set_hd(env, ENV['OFFICE365_HD'])
+    elsif env['omniauth.strategy'].options[:name] == "apple"
+      set_hd(env, ENV['APPLE_HD'])
+    elsif env['omniauth.strategy'].options[:name] == "facebook"
+      set_hd(env, ENV['FACEBOOK_HD'])
+    elsif env['omniauth.strategy'].options[:name] == "github"
+      set_hd(env, ENV['GITHUB_HD'])
+    elsif env['omniauth.strategy'].options[:name] == "instagram"
+      set_hd(env, ENV['INSTAGRAM_HD'])
+    elsif env['omniauth.strategy'].options[:name] == "linkedin"
+      set_hd(env, ENV['LINKEDIN_HD'])
     elsif env['omniauth.strategy'].options[:name] == "openid_connect"
       set_hd(env, ENV['OPENID_CONNECT_HD'])
     end

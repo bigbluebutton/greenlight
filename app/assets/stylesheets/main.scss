@@ -133,6 +133,73 @@
   }
 }
 
+.customBtn-facebook {
+  @extend .customBtn;
+  background: #4267b2;
+
+  .customBtn-image {
+    background: #ffffff image-url("facebook-logo.png") no-repeat left top;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
+.customBtn-linkedin {
+  @extend .customBtn;
+  background: #4377b1;
+
+  .customBtn-image {
+    background: #ffffff image-url("linkedin-logo.png") no-repeat left top;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
+.customBtn-github {
+  @extend .customBtn;
+  background: #000000;
+
+  .customBtn-image {
+    background: #ffffff image-url("github-logo.png") no-repeat left top;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
+.customBtn-instagram {
+  @extend .customBtn;
+  background: linear-gradient(90deg, #c6002d, #6a0975);
+
+  .customBtn-image {
+    background: #ffffff image-url("instagram-logo.png") no-repeat left top;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
+.customBtn-apple {
+  @extend .customBtn;
+  background: #000000;
+
+  .customBtn-image {
+    background: #ffffff image-url("apple-logo.png") no-repeat left top;
+    transform: scale(2.2);
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
+.customBtn-openid_connect {
+  @extend .customBtn;
+  background: #f7931e;
+
+  .customBtn-image {
+    background: #ffffff image-url("openid-logo.png") no-repeat left top;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
 .customBtn-microsoft_windows {
   @extend .customBtn;
   background: #00a1f1;

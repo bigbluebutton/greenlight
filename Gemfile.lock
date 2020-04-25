@@ -16,15 +16,6 @@ GIT
       omniauth-oauth2 (= 1.5.0)
 
 GIT
-  remote: https://github.com/blindsidenetworks/omniauth-bn-office365.git
-  revision: d6640b37b5df50b5ed80e1271518bfb5dfb2a966
-  tag: 0.1.0
-  specs:
-    omniauth-bn-office365 (1.0.0)
-      omniauth (>= 1.3.2)
-      omniauth-oauth2 (>= 1.5.0)
-
-GIT
   remote: https://github.com/blindsidenetworks/tabler-rubygem.git
   revision: 4c16e6dc930f6b92dec093abaf9652d768b46d97
   tag: 0.1.4.1
@@ -200,10 +191,6 @@ GEM
     omniauth (1.9.0)
       hashie (>= 3.4.6, < 3.7.0)
       rack (>= 1.6.2, < 3)
-    omniauth-google-oauth2 (0.7.0)
-      jwt (>= 2.0)
-      omniauth (>= 1.1.1)
-      omniauth-oauth2 (>= 1.5)
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
@@ -414,8 +401,6 @@ DEPENDENCIES
   net-ldap
   omniauth
   omniauth-bn-launcher!
-  omniauth-bn-office365!
-  omniauth-google-oauth2
   omniauth-twitter
   omniauth_openid_connect
   pagy
