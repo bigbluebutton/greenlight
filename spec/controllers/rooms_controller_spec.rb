@@ -248,7 +248,7 @@ describe RoomsController, type: :controller do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
       post :join, params: { room_uid: @room, join_name: "Join Name" }
 
-      expect(response).to redirect_to(join_path(@owner.main_room, "Join Name", {}))
+      expect(response).to redirect_to(join_path(@owner.main_room, "Join Name", {}, response.cookies["guest_id"]))
     end
 
     it "should render wait if meeting isn't running" do

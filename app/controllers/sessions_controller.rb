@@ -65,12 +65,12 @@ class SessionsController < ApplicationController
   def create
     logger.info "Support: #{session_params[:email]} is attempting to login."
 
-    user = User.include_deleted.find_by(email: session_params[:email])
+    user = User.include_deleted.find_by(email: session_params[:email].downcase)
 
     is_super_admin = user&.has_role? :super_admin
 
     # Scope user to domain if the user is not a super admin
-    user = User.include_deleted.find_by(email: session_params[:email], provider: @user_domain) unless is_super_admin
+    user = User.include_deleted.find_by(email: session_params[:email].downcase, provider: @user_domain) unless is_super_admin
 
     # Check user with that email exists
     return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user
@@ -131,15 +131,19 @@ class SessionsController < ApplicationController
     ldap_config[:port] = ENV['LDAP_PORT'].to_i != 0 ? ENV['LDAP_PORT'].to_i : 389
     ldap_config[:bind_dn] = ENV['LDAP_BIND_DN']
     ldap_config[:password] = ENV['LDAP_PASSWORD']
+    ldap_config[:auth_method] = ENV['LDAP_AUTH']
     ldap_config[:encryption] = if ENV['LDAP_METHOD'] == 'ssl'
                                     'simple_tls'
                                 elsif ENV['LDAP_METHOD'] == 'tls'
                                     'start_tls'
                                 end
     ldap_config[:base] = ENV['LDAP_BASE']
+    ldap_config[:filter] = ENV['LDAP_FILTER']
     ldap_config[:uid] = ENV['LDAP_UID']
 
-    return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials")) unless session_params[:password].present?
+    if params[:session][:username].blank? || session_params[:password].blank?
+      return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials"))
+    end
 
     result = send_ldap_request(params[:session], ldap_config)
 

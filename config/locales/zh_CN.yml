@@ -42,6 +42,7 @@ zh_CN:
         info: 更改左上角显示的网站标志
         placeholder: 品牌形象URL地址
         title: 网站标志
+        invalid: 无效的URL
       cache:
         info: 清除缓存，强制新请求获取已更新的信息
         title: 清除网站缓存
@@ -426,7 +427,7 @@ zh_CN:
       visibility: 可见性
       formats: 格式
     visibility:
-      public: 公开
+      public: 公开的
       unlisted: 隐藏
     format:
       notes: 笔记
