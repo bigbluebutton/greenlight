@@ -72,7 +72,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
         discovery: true,
         scope: [:email, :profile],
         response_type: :code,
-        uid_field: "preferred_username",
+        uid_field: ENV["OPENID_CONNECT_UID_FIELD"] || "preferred_username",
         client_options: {
           identifier: ENV['OPENID_CONNECT_CLIENT_ID'],
           secret: ENV['OPENID_CONNECT_CLIENT_SECRET'],
