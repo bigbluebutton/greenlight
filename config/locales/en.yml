@@ -408,6 +408,7 @@ en:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: Oops, we failed to validate your reCAPTCHA response. Please try again.
