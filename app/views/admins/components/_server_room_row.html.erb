@@ -19,9 +19,9 @@
       <% if room.id == room.owner.room_id %>
         <i class="fas fa-home pr-1"></i>
       <% end %>
-      <text class="room-name-text">
+      <span class="room-name-text">
         <%= room.name %>
-      </text>
+      </span>
     </div>
     <div class="small text-muted">
       <%= [t("administrator.users.table.created"), ": ", room.created_at].join %>
