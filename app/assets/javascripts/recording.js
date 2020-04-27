@@ -45,4 +45,11 @@ $(document).on('turbolinks:load', function(){
 
     
   }
+
+  // For keyboard to be able to edit recording
+  $(".recording-data").keyup(function(event) {
+    if (event.keyCode === 13) {
+      $(this).find("#edit-record").click();
+    }
+  });
 });

@@ -14,7 +14,7 @@
 %>
 
 <tr>
-  <td>
+  <td tabindex="0" class="recording-data" aria-labelledby="recording-text <%= recording[:recordID] %>_time">
     <div id="recording-title" class="edit_hover_class" data-recordid="<%= recording[:recordID] %>" data-room-uid="<%= room_uid_from_bbb(recording[:meetingID]) %>" data-path="<%= rename_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]) %>">
       <span id='recording-text' title="<%= recording[:name] %>">
         <% if recording[:metadata][:name] %>
@@ -25,8 +25,9 @@
       </span>
       <a><i id="edit-record" class="fa fa-edit align-top ml-2" data-edit-recordid="<%= recording[:recordID] %>"></i></a>
     </div>
-    <div class="small text-muted">
+    <div class="small text-muted" id="<%= recording[:recordID] %>_time">
       <%= t("recording.recorded_on", date: recording_date(recording[:startTime])) %>
+      <p hidden>press enter to edit name</p>
     </div>
     <div class="small text-muted">
       <%= recording_owner_email(recording[:meetingID]) %>
@@ -63,14 +64,14 @@
   </td>
   <td class="text-center">
     <div class="item-action dropdown">
-      <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
+      <a href="javascript:void(0)" data-toggle="dropdown" class="icon" tabindex="0" title="more action">
         <i class="fas fa-ellipsis-v px-4"></i>
       </a>
       <div class="dropdown-menu dropdown-menu-right">
         <% recording_links = "" %>
         <% p = recording[:playbacks].each do |p| recording_links.concat(p[:url] + "\n\n") if p.key?(:length) end %>
         <% if p %>
-          <a class="dropdown-item email-link" data-pres-link="<%= recording_links %>"><i class="dropdown-icon far fa-envelope"></i> <%= t("recording.email") %></a>
+          <a tabindex="0" class="dropdown-item email-link" data-pres-link="<%= recording_links %>"><i class="dropdown-icon far fa-envelope"></i> <%= t("recording.email") %></a>
           <div class="dropdown-divider"></div>
         <% end %>
         <a href="" data-toggle="modal" data-target="#deleteRecordingModal" data-path="<%= delete_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]) %>" class="delete-rec dropdown-item">

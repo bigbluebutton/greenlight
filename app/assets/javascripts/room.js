@@ -44,16 +44,82 @@ $(document).on('turbolinks:load', function(){
       }
     });
 
+    // For keyboard users
+    copy.keyup(function(event) {
+      if (event.keyCode === 13 || event.keyCode === 32) {
+          this.click();
+      }
+    });
+
+    // Forces the wrapper to take the entire screen height if the user can't create rooms
+    if ($("#cant-create-room-wrapper").length){
+      $(".wrapper").css('height', '100%').css('height', '-=130px');
+    }
+
     // Display and update all fields related to creating a room in the createRoomModal
     $("#create-room-block").click(function(){
       showCreateRoom(this)
     })
 
     checkIfAutoJoin()
+    
+    // Fix nested <a> link
+    $(".room_block_btn").click(function(){
+      goToRoom(this);
+    })
+    
+    // For keyboard users
+    $(".room_block_btn").keyup(function(event) {
+      if (event.keyCode === 13) {
+          this.click();
+      }
+    })
+
+    // a bit hack to fix nested button / link and maintain the style
+    $(".menu-btn").keyup(function(event) {
+      if (event.keyCode === 13) {
+        var parent = $(this).closest('button');
+        parent.prop('disabled', true);
+      }
+    })
+
+    $("#room_block_container .item-action").find("*").hover(function(){//On mouse enter
+      var parent = $(this).closest('button');
+      parent.unbind('click');//Disable the parent
+    }, function(){//On mouse leave
+        var parent = $(this).closest('button');
+        $(".room_block_btn").click(function(){
+          goToRoom(this);
+        })        
+        parent.blur();//Unfocus the element
+    })
+
+    $("#room_block_container .item-action").find("*").focus(function(){//On mouse enter
+      var parent = $(this).closest('button');
+      parent.unbind('click');//Disable the parent
+    })
+    
+    $("#room_block_container .item-action").find("*").blur(function(){
+      if ($("#room_block_container .show")[0]) {
+        var parent = $(this).closest('button');
+        $(".room_block_btn").click(function(){
+          goToRoom(this);
+        })
+        parent.prop('disabled', false)
+      }
+    })
+
   }
 
     // Autofocus on the Room Name label when creating a room only
   $('#createRoomModal').on('shown.bs.modal', function (){
+    if ($(".create-only").css("display") == "block"){
+      $('#create-room-name').focus()
+    }
+  })
+  
+  // Room block clicked
+  $('.room_block_btn').click('shown.bs.modal', function (){
     if ($(".create-only").css("display") == "block"){
       $('#create-room-name').focus()
     }
@@ -69,6 +135,46 @@ $(document).on('turbolinks:load', function(){
       showDeleteRoom(this)
     })
 
+    // For keyboard users
+    $("#generate-room-access-code").keyup(function(event) {
+      if (event.keyCode === 13 || event.keyCode === 32) {
+          generateAccessCode();
+      }
+    })
+    $("#reset-access-code").keyup(function(event) {
+      if (event.keyCode === 13 || event.keyCode === 32) {
+          ResetAccessCode();
+      }
+    })
+    var holdModal = false;
+    // A bit hack to handle user search results and select without changing
+    $("#shareRoomModal").on("show.bs.modal", function() {
+      $("#shareRoomModal .form-control").attr("role", "alert");
+      $("#shareRoomModal .form-control").attr("aria-atomic", true);
+      $("#shareRoomModal .dropdown-menu div.inner").attr("role", "alert");
+      $("#shareRoomModal ul.dropdown-menu").attr("role", "listbox");
+      $("#shareRoomModal div.dropdown-menu").find("*").keyup(function(event) {
+        $("#shareRoomModal ul.dropdown-menu li").attr("role", "option");
+        $("#shareRoomModal ul.dropdown-menu li").attr("aria-selected", false);
+        $("#shareRoomModal ul.dropdown-menu li.active").attr("aria-selected", true);
+        $("#shareRoomModal ul.dropdown-menu li.active a").attr("aria-selected", true);
+      });           
+                         
+      $("#shareRoomModal div.dropdown-menu input").keydown(function(event) {
+        if (event.keyCode === 27) {                                             
+          holdModal = true;   
+        }                                 
+      }); 
+    });
+
+    $("#shareRoomModal").on("hide.bs.modal", function(e) {
+      if (holdModal) {
+        holdModal = false;
+        e.stopPropagation();
+        return false;   
+      }            
+    });
+    
     $('.selectpicker').selectpicker({
       liveSearchPlaceholder: getLocalizedString('javascript.search.start')
     });
@@ -124,7 +230,8 @@ $(document).on('turbolinks:load', function(){
 
         let spanItemAvatar = document.createElement("span"),
             spanItemName = document.createElement("span"),
-            spanItemUser = document.createElement("span");
+            spanItemUser = document.createElement("span"),
+            buttonItem = document.createElement("button");
         spanItemAvatar.setAttribute('class', 'avatar float-left mr-2');
         spanItemAvatar.innerText = option.text().charAt(0);
         spanItemName.setAttribute('class', 'shared-user');
@@ -132,8 +239,12 @@ $(document).on('turbolinks:load', function(){
         spanItemUser.setAttribute('class', 'text-muted');
         spanItemUser.innerText = option.data('subtext');
         spanItemName.append(spanItemUser);
+        buttonItem.setAttribute('aria-label', 'remove ' + option.text() + ' from list');
+        buttonItem.setAttribute('class', 'btn text-primary float-right shared-user cursor-pointer');
+        buttonItem.setAttribute('onclick', 'removeSharedUser(this)');
+        buttonItem.innerHTML = "<i class='fas fa-times'></i>";
 
-        listItem.innerHTML = "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+        listItem.append(buttonItem);
         listItem.prepend(spanItemName);
         listItem.prepend(spanItemAvatar);
 
@@ -213,7 +324,7 @@ function showUpdateRoom(target) {
   var accessCode = modal.closest(".room-block").data("room-access-code")
 
   if(accessCode){
-    $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code") + ": " + accessCode)
+    $("#create-room-access-code").html(getLocalizedString("modal.create_room.access_code") + ": <label tabindex=0>" + accessCode + "</label>")
     $("#room_access_code").val(accessCode)
   } else {
     $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
@@ -247,7 +358,7 @@ function generateAccessCode(){
     accessCode += validCharacters.charAt(Math.floor(Math.random() * validCharacters.length));
   }
 
-  $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code") + ": " + accessCode)
+  $("#create-room-access-code").html(getLocalizedString("modal.create_room.access_code") + ": <label tabindex=0>" + accessCode + "</label>")
   $("#room_access_code").val(accessCode)
 }
 
@@ -277,12 +388,17 @@ function displaySharedUsers(path) {
         user_list_html += "<span class='avatar float-left mr-2'>" + user.name.charAt(0) + "</span>"
       }
       user_list_html += "<span class='shared-user'>" + user.name + "<span class='text-muted ml-1'>" + user.uid + "</span></span>"
-      user_list_html += "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+      user_list_html += "<button aria-label='remove " + user.name + " from list' class='btn text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></button>"
       user_list_html += "</li>"
     })
 
     $("#user-list").html(user_list_html)
   });
+}
+
+function goToRoom(node) {
+  var url = $( node ).data('link');
+  window.location = url;
 }
 
 // Removes the user from the list of shared users
