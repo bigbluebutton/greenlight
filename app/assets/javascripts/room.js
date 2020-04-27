@@ -48,10 +48,61 @@ $(document).on('turbolinks:load', function(){
     $("#create-room-block").click(function(){
       showCreateRoom(this)
     })
+    
+    $(".room_block_btn").click(function(){
+      goToRoom(this);
+    })
+    
+    // Display and update all fields related to creating a room in the createRoomModal
+    $(".room_block_btn").keyup(function(event) {
+      if (event.keyCode === 13) {
+          this.click();
+      }
+    })
+
+    $(".menu-btn").keyup(function(event) {
+      var parent = $(this).closest('button');
+      if (event.keyCode === 13) {
+
+        parent.prop('disabled', true);
+      }
+    })
+
+    $(".item-action").hover(function(){//On mouse enter
+      var parent = $(this).closest('button');
+      parent.unbind('click');//Disable the parent
+    }, function(){//On mouse leave
+        var parent = $(this).closest('button');
+        $(".room_block_btn").click(function(){
+          goToRoom(this);
+        })        
+        parent.blur();//Unfocus the element
+    })
+
+    $(".menu-btn").focus(function(){//On mouse enter
+      var parent = $(this).closest('button');
+      parent.unbind('click');//Disable the parent
+    })
+    
+    $(".menu-btn").blur(function(){
+        var parent = $(this).closest('button');
+        $(".room_block_btn").click(function(){
+          goToRoom(this);
+        })
+        parent.prop('disabled', false)
+      })
+
   }
 
     // Autofocus on the Room Name label when creating a room only
   $('#createRoomModal').on('shown.bs.modal', function (){
+    if ($(".create-only").css("display") == "block"){
+      $('#create-room-name').focus()
+    }
+  })
+  
+  // Room block clicked
+  $('.room_block_btn').click('shown.bs.modal', function (){
     if ($(".create-only").css("display") == "block"){
       $('#create-room-name').focus()
     }
@@ -251,6 +302,11 @@ function displaySharedUsers(path) {
 
     $("#user-list").html(user_list_html)
   });
+}
+
+function goToRoom(node) {
+  var url = $( node ).data('link');
+  window.location = url;
 }
 
 // Removes the user from the list of shared users

@@ -67,6 +67,7 @@
 
 #create-room-block {
   border: 1px dashed lightgray;
+  width: 100%;
 
   &:hover {
     cursor: pointer;
@@ -113,3 +114,17 @@
   background: lightgray;
   pointer-events: none;
 }
+.room_block_btn {
+  padding: unset;
+  width: 100%;
+  letter-spacing: unset;
+}
+
+.room_block_btn:disabled {
+  opacity: 1;
+}
+
+.room_block_btn i {
+  font-size: 87.5% !important;
+}
+

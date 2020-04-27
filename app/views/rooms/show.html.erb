@@ -90,9 +90,7 @@
       <% if shared_access_allowed %>
         <% current_user.shared_rooms.each do |room| %>
           <div class="col-lg-4 col-md-6 col-sm-12">
-            <%= link_to room do %>
-              <%= render "rooms/components/shared_room_block", room: room %>
-            <% end %>
+            <%= render "rooms/components/shared_room_block", room: room %>
           </div>
         <% end %>
       <% end %>
