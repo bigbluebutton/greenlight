@@ -68,7 +68,7 @@ $(document).on('turbolinks:load', function(){
       }
     })
 
-    $(".item-action").hover(function(){//On mouse enter
+    $("#room_block_container .item-action").find("*").hover(function(){//On mouse enter
       var parent = $(this).closest('button');
       parent.unbind('click');//Disable the parent
     }, function(){//On mouse leave
@@ -79,18 +79,20 @@ $(document).on('turbolinks:load', function(){
         parent.blur();//Unfocus the element
     })
 
-    $(".menu-btn").focus(function(){//On mouse enter
+    $("#room_block_container .item-action").find("*").focus(function(){//On mouse enter
       var parent = $(this).closest('button');
       parent.unbind('click');//Disable the parent
     })
     
-    $(".menu-btn").blur(function(){
+    $("#room_block_container .item-action").find("*").blur(function(){
+      if ($("#room_block_container .show")[0]) {
         var parent = $(this).closest('button');
         $(".room_block_btn").click(function(){
           goToRoom(this);
         })
         parent.prop('disabled', false)
-      })
+      }
+    })
 
   }
 
