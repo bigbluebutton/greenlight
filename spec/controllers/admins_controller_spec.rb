@@ -326,7 +326,7 @@ describe AdminsController, type: :controller do
 
         post :update_settings, params: { setting: "Privacy Policy URL", value: fake_url }
 
-        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Imprint URL")
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Privacy Policy URL")
 
         expect(feature[:value]).to eq(fake_url)
         expect(response).to redirect_to(admin_site_settings_path)
