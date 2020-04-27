@@ -43,6 +43,18 @@ de_DE:
         placeholder: Bild URL...
         title: Markenlogo
         invalid: Ungültige URL
+      imprint:
+        change: URL ändern
+        info: Die URL für den Link zum Impressum am Seitenende ändern
+        placeholder: Impressums-URL...
+        title: Impressum
+        invalid: Ungültige URL
+      privpolicy:
+        change: URL ändern
+        info: Die URL für den Link zur Datenschutzerklärung am Seitenende ändern
+        placeholder: Datenschutzerklärungs-URL...
+        title: Datenschutzerklärung
+        invalid: Ungültige URL
       cache:
         info: "Löscht den Provider-Zwischenspeicher, wodurch bei einer neuen Anfrage Informationen neu eingegeben werden müssen "
         title: Provider-Zwischenspeicher löschen
@@ -229,6 +241,8 @@ de_DE:
     designs: Eigene Designs
     authentication: Nutzerauthentifizierung
   footer:
+    imprint: Impressum
+    privpolicy: Datenschutzerklärung
     powered_by: "Bereitgestellt durch %{href}."
   forgot_password:
     subtitle: Passwort vergessen

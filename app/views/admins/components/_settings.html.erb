@@ -31,6 +31,34 @@
   <div class="row">
     <div class="col-12">
       <div class="mb-6 form-group">
+        <label class="form-label"><%= t("administrator.site_settings.imprint.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.imprint.info") %></label>
+        <div class="input-group">
+          <input id="imprint-url" type="text" class="form-control" value="<%= imprint_url %>">
+          <span class="input-group-append">
+            <button id="imprint-url" onclick="changeImprintURL('<%= admin_update_settings_path(setting: 'Imprint URL') %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.imprint.change") %></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="mb-6 form-group">
+        <label class="form-label"><%= t("administrator.site_settings.privpolicy.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.privpolicy.info") %></label>
+        <div class="input-group">
+          <input id="privpolicy-url" type="text" class="form-control" value="<%= privpolicy_url %>">
+          <span class="input-group-append">
+            <button id="privpolicy-url" onclick="changePrivacyPolicyURL('<%= admin_update_settings_path(setting: 'Privacy Policy URL') %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.privpolicy.change") %></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="mb-6 form-group">
         <label class="form-label"><%= t("administrator.site_settings.color.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.color.info") %></label>
           <div class="color-inputs">
