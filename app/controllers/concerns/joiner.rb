@@ -62,7 +62,8 @@ module Joiner
         redirect_to join_path(@room, current_user.name, opts, current_user.uid)
       else
         join_name = params[:join_name] || params[@room.invite_path][:join_name]
-        redirect_to join_path(@room, join_name, opts)
+
+        redirect_to join_path(@room, join_name, opts, fetch_guest_id)
       end
     else
       search_params = params[@room.invite_path] || params
@@ -114,5 +115,19 @@ module Joiner
     when "disabled"
       false
     end
+
+  private
+
+  def fetch_guest_id
+    return cookies[:guest_id] if cookies[:guest_id].present?
+
+    guest_id = "gl-guest-#{SecureRandom.hex(12)}"
+
+    cookies[:guest_id] = {
+      value: guest_id,
+      expires: 1.day.from_now
+    }
+
+    guest_id
   end
 end
