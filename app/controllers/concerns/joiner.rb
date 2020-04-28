@@ -115,6 +115,7 @@ module Joiner
     when "disabled"
       false
     end
+  end
 
   private
 
