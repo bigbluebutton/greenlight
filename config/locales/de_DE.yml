@@ -101,6 +101,7 @@ de_DE:
       registration_method_updated: Registrierungsmethode erfolgreich aktualisiert
       reset_password: "Dem Teilnehmer wurde eine E-Mail zur Passwortrücksetzung geschickt. (Bitte weisen Sie ihn darauf hin, den Spamordner zu überprüfen, falls er sie nicht erhalten hat)"
       restored: Nutzer wurde erfolgreich wiederhergestellt
+      room_configuration: Raum-Konfiguration erfolgreich geändert
       settings: Seiteneinstellungen erfolgreich geändert
       unauthorized: "Sie haben nicht die notwendigen Rechte, um diese Änderung bei diesem Teilnehmer vorzunehmen."
     recordings:
@@ -127,6 +128,20 @@ de_DE:
       colour:
         title: Rollenfarbe
         info: "Die Farbe einstellen, die dieser Rolle zugewiesen wird"
+    room_configuration:
+      title: Raum-Konfiguration
+      mute:
+        info: "Automatisches Stummschalten des Teilnehmers, wenn er der BigBlueButton-Konferenz beitritt"
+      require_moderator:
+        info: "Informiert den Moderator der BigBlueButton-Konferenz, wenn ein Teilnehmer versucht, dem Meeting beizutreten. Wenn der Teilnehmer zugelassen wird, kann er dem Meeting beitreten."
+      allow_any:
+        info: "Ermöglicht es jedem Teilnehmer, die Konferenz jederzeit zu starten. Standardmäßig kann nur der Rauminitiator die Besprechung starten."
+      all_moderator:
+        info: "Gewährt allen Teilnehmern Moderatorenrechte in BigBlueButton, wenn sie an der Konferenz teilnehmen."
+      options:
+        disabled: Deaktiviert
+        enabled: Immer aktiviert
+        optional: Optional
     rooms:
       title: Serverräume
       table:
@@ -505,7 +520,7 @@ de_DE:
     shared_access_success: Raum erfolgreich geteilt
     shared_access_error: Beim Teilen des Raums ist ein Fehler aufgetreten
     start: Starten
-    unavailable: "Der Raum ist aktuell nicht verfügbar, weil die E-Mail des Raumbesitzers noch nicht verifiziert wurde."
+    unavailable: "Der Raum ist aktuell nicht verfügbar, weil die E-Mail des Rauminitiators noch nicht verifiziert wurde."
     update_settings_error: Bei der Aktualisierung der Raumeinstellungen ist ein Fehler aufgetreten.
     update_settings_success: Raumeinstellungen erfolgreich aktualisiert
     wait:
