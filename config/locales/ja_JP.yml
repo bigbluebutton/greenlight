@@ -147,6 +147,7 @@ ja_JP:
         delete: 削除する
         edit: 編集する
         edit_roles: ユーザの役割を編集する
+        merge: マージ
         perm_delete: 完全に削除する
         unban: ユーザの禁止を解除
         undelete: 削除の取消
