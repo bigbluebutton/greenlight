@@ -144,10 +144,11 @@ function showCreateRoom(target) {
   $("#room_access_code").val(null)
 
   $("#createRoomModal form").attr("action", $("body").data('relative-root'))
-  $("#room_mute_on_join").prop("checked", false)
-  $("#room_require_moderator_approval").prop("checked", false)
-  $("#room_anyone_can_start").prop("checked", false)
-  $("#room_all_join_moderator").prop("checked", false)
+
+  $("#room_mute_on_join").prop("checked", $("#room_mute_on_join").data("default"))
+  $("#room_require_moderator_approval").prop("checked", $("#room_require_moderator_approval").data("default"))
+  $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default"))
+  $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default"))
 
   //show all elements & their children with a create-only class
   $(".create-only").each(function() {
@@ -203,11 +204,11 @@ function showDeleteRoom(target) {
 function updateCurrentSettings(settings_path){
   // Get current room settings and set checkbox
   $.get(settings_path, function(room_settings) {
-    var settings = JSON.parse(room_settings)
-    $("#room_mute_on_join").prop("checked", settings.muteOnStart)
-    $("#room_require_moderator_approval").prop("checked", settings.requireModeratorApproval)
-    $("#room_anyone_can_start").prop("checked", settings.anyoneCanStart)
-    $("#room_all_join_moderator").prop("checked", settings.joinModerator)
+    var settings = JSON.parse(room_settings) 
+    $("#room_mute_on_join").prop("checked", $("#room_mute_on_join").data("default") || settings.muteOnStart)
+    $("#room_require_moderator_approval").prop("checked", $("#room_require_moderator_approval").data("default") || settings.requireModeratorApproval)
+    $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default") || settings.anyoneCanStart)
+    $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default") || settings.joinModerator)
   })
 }
 
