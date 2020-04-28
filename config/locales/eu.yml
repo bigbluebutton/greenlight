@@ -147,6 +147,7 @@ eu:
         delete: Ezabatu
         edit: Aldatu
         edit_roles: Aldatu erabiltzailearen rolak
+        merge: Batu
         perm_delete: Iraunkorki ezabatu
         unban: Birgaitu erabiltzailea
         undelete: Desezabatu
