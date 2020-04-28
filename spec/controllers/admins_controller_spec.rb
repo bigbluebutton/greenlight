@@ -299,17 +299,17 @@ describe AdminsController, type: :controller do
       end
     end
 
-    context "POST #imprint" do
-      it "changes the imprint link on the page" do
+    context "POST #legal" do
+      it "changes the legal link on the page" do
         allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
         allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
 
         @request.session[:user_id] = @admin.id
         fake_url = "example.com"
 
-        post :update_settings, params: { setting: "Imprint URL", value: fake_url }
+        post :update_settings, params: { setting: "Legal URL", value: fake_url }
 
-        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Imprint URL")
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Legal URL")
 
         expect(feature[:value]).to eq(fake_url)
         expect(response).to redirect_to(admin_site_settings_path)

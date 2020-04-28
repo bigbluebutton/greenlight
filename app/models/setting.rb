@@ -48,7 +48,7 @@ class Setting < ApplicationRecord
     case name
     when "Branding Image"
       Rails.configuration.branding_image_default
-    when "Imprint URL"
+    when "Legal URL"
       nil
     when "Privacy Policy URL"
       nil

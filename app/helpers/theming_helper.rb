@@ -22,9 +22,9 @@ module ThemingHelper
     @settings.get_value("Branding Image") || Rails.configuration.branding_image_default
   end
 
-  # Returns the imprint URL based on user's provider
-  def imprint_url
-    @settings.get_value("Imprint URL") || ""
+  # Returns the legal URL based on user's provider
+  def legal_url
+    @settings.get_value("Legal URL") || ""
   end
 
   # Returns the logo based on user's provider

@@ -122,9 +122,9 @@ function changeBrandingImage(path) {
   $.post(path, {value: url})
 }
 
-// Change the Imprint URL to the one provided
-function changeImprintURL(path) {
-  var url = $("#imprint-url").val()
+// Change the Legal URL to the one provided
+function changeLegalURL(path) {
+  var url = $("#legal-url").val()
   $.post(path, {value: url})
 }
 

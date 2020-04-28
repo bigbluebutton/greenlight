@@ -43,11 +43,11 @@ en:
         placeholder: Image Url...
         title: Branding Image
         invalid: Invalid URL
-      imprint:
+      legal:
         change: Change URL
-        info: Change the Imprint Link that appears in the bottom of the page
-        placeholder: Imprint URL...
-        title: Imprint
+        info: Change the Legal Link that appears in the bottom of the page
+        placeholder: Legal URL...
+        title: Legal
         invalid: Invalid URL
       privpolicy:
         change: Change URL
@@ -258,7 +258,7 @@ en:
     designs: Custom Designs
     authentication: User Authentication
   footer:
-    imprint: Imprint
+    legal: Legal
     privpolicy: Privacy Policy
     powered_by: Powered by %{href}.
   forgot_password:
