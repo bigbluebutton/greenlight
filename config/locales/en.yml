@@ -147,6 +147,7 @@ en:
         delete: Delete
         edit: Edit
         edit_roles: Edit the user roles
+        merge: Merge
         perm_delete: Permanently Delete
         unban: Unban User
         undelete: Undelete
