@@ -44,26 +44,39 @@ $(document).on('turbolinks:load', function(){
       }
     });
 
+    // For keyboard users
+    copy.keyup(function(event) {
+      if (event.keyCode === 13 || event.keyCode === 32) {
+          this.click();
+      }
+    });
+
+    // Forces the wrapper to take the entire screen height if the user can't create rooms
+    if ($("#cant-create-room-wrapper").length){
+      $(".wrapper").css('height', '100%').css('height', '-=130px');
+    }
+
     // Display and update all fields related to creating a room in the createRoomModal
     $("#create-room-block").click(function(){
       showCreateRoom(this)
     })
     
+    // Fix nested <a> link
     $(".room_block_btn").click(function(){
       goToRoom(this);
     })
     
-    // Display and update all fields related to creating a room in the createRoomModal
+    // For keyboard users
     $(".room_block_btn").keyup(function(event) {
       if (event.keyCode === 13) {
           this.click();
       }
     })
 
+    // a bit hack to fix nested button / link and maintain the style
     $(".menu-btn").keyup(function(event) {
-      var parent = $(this).closest('button');
       if (event.keyCode === 13) {
-
+        var parent = $(this).closest('button');
         parent.prop('disabled', true);
       }
     })
@@ -120,16 +133,18 @@ $(document).on('turbolinks:load', function(){
       showDeleteRoom(this)
     })
 
+    // For keyboard users
     $("#create-room-access-code").keyup(function(event) {
-      if (event.keyCode === 13) {
+      if (event.keyCode === 13 || event.keyCode === 32) {
           generateAccessCode();
       }
     })
 
+    // A bit hack to handle user search results and select without changing
     $("#shareRoomModal").on("show.bs.modal", function() {
       $("#shareRoomModal .form-control").attr("role", "status");
       $("#shareRoomModal .form-control").attr("aria-atomic", true);
-      $("#shareRoomModal .dropdown-menu div.inner").attr("role", "alert");
+      $("#shareRoomModal .dropdown-menu div.inner").attr("role", "status");
       $("#shareRoomModal ul.dropdown-menu").attr("role", "listbox");
       $("#shareRoomModal div.dropdown-menu").find("*").keyup(function(event) {
         $("#shareRoomModal ul.dropdown-menu li").attr("role", "option");
@@ -193,7 +208,7 @@ $(document).on('turbolinks:load', function(){
 
         let spanItem = "<span class='avatar float-left mr-2'>" + option.text().charAt(0) + "</span> <span class='shared-user'>" +
           option.text() + " <span class='text-muted'>" + option.data("subtext") + "</span></span>" +
-          "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+          "<button aria-label='remove " + option.text() + " from list' class='btn text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></button>"
 
         listItem.innerHTML = spanItem
 
@@ -316,7 +331,7 @@ function displaySharedUsers(path) {
         user_list_html += "<span class='avatar float-left mr-2'>" + user.name.charAt(0) + "</span>"
       }
       user_list_html += "<span class='shared-user'>" + user.name + "<span class='text-muted ml-1'>" + user.uid + "</span></span>"
-      user_list_html += "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+      user_list_html += "<button aria-label='remove " + user.name + " from list' class='btn text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></button>"
       user_list_html += "</li>"
     })
 
