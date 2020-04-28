@@ -159,5 +159,8 @@ module Greenlight
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
+
+    # Default guest policy
+    config.guest_policy = ENV['GUEST_POLICY'] || 'ALWAYS_ACCEPT'
   end
 end

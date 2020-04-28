@@ -59,8 +59,10 @@ module Joiner
       opts[:mute_on_start] = room_setting_with_config("muteOnStart")
 
       if current_user
+        opts[:guest] = false
         redirect_to join_path(@room, current_user.name, opts, current_user.uid)
       else
+        opts[:guest] = true
         join_name = params[:join_name] || params[@room.invite_path][:join_name]
 
         redirect_to join_path(@room, join_name, opts, fetch_guest_id)

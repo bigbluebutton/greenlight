@@ -54,7 +54,10 @@ module BbbServer
     join_opts = {}
     join_opts[:userID] = uid if uid
     join_opts[:join_via_html5] = true
-    join_opts[:guest] = true if options[:require_moderator_approval] && !options[:user_is_moderator]
+    if options.key?(:guest)
+      join_opts[:guest] = options[:guest]
+      join_opts[:auth] = !options[:guest]
+    end
 
     bbb_server.join_meeting_url(room.bbb_id, name, password, join_opts)
   end
@@ -74,7 +77,7 @@ module BbbServer
       "meta_bbb-origin-server-name": options[:host]
     }
 
-    create_options[:guestPolicy] = "ASK_MODERATOR" if options[:require_moderator_approval]
+    create_options[:guestPolicy] = options[:require_moderator_approval] ? "ASK_MODERATOR" : Rails.configuration.guest_policy
 
     # Send the create request.
     begin
