@@ -147,6 +147,7 @@ da:
         delete: Slet
         edit: Rediger
         edit_roles: Rediger brugerens roller
+        merge: Fusioner
         perm_delete: Slet Permanent
         unban: Træk Bortvisning Tilbage
         undelete: Træk Sletning Tilbage

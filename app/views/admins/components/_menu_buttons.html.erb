@@ -33,6 +33,9 @@
     <%= link_to admin_site_settings_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "site_settings"}" do %>
       <span class="icon mr-4"><i class="fas fa-cogs"></i></span><%= t("administrator.site_settings.title") %>
     <% end %>
+    <%= link_to admin_room_configuration_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "room_configuration"}" do %>
+      <span class="icon mr-4"><i class="fas fa-sliders-h"></i></span><%= t("administrator.room_configuration.title") %>
+    <% end %>
   <% end %>
   <% if highest_role.get_permission("can_edit_roles")  || highest_role.name == "super_admin" %>
     <%= link_to admin_roles_path, class: "list-group-item list-group-item-action dropdown-item #{"active" if active_page == "roles"}" do %>
