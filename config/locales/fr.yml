@@ -147,6 +147,7 @@ fr:
         delete: Supprimer
         edit: Modifier
         edit_roles: Modifier les rôles de l'utilisateur
+        merge: Fusionner
         perm_delete: Supprimer définitivement
         unban: Supprimer bannir
         undelete: Annuler la suppression
