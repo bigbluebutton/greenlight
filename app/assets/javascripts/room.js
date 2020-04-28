@@ -120,6 +120,24 @@ $(document).on('turbolinks:load', function(){
       showDeleteRoom(this)
     })
 
+    $("#create-room-access-code").keyup(function(event) {
+      if (event.keyCode === 13) {
+          generateAccessCode();
+      }
+    })
+
+    $("#shareRoomModal").on("show.bs.modal", function() {
+      $("#shareRoomModal .form-control").attr("role", "status");
+      $("#shareRoomModal .form-control").attr("aria-atomic", true);
+      $("#shareRoomModal .dropdown-menu div.inner").attr("role", "alert");
+      $("#shareRoomModal ul.dropdown-menu").attr("role", "listbox");
+      $("#shareRoomModal div.dropdown-menu").find("*").keyup(function(event) {
+        $("#shareRoomModal ul.dropdown-menu li").attr("role", "option");
+        $("#shareRoomModal ul.dropdown-menu li").attr("aria-selected", false);
+        $("#shareRoomModal ul.dropdown-menu li.active").attr("aria-selected", true);
+      });
+    })
+
     $('.selectpicker').selectpicker({
       liveSearchPlaceholder: getLocalizedString('javascript.search.start')
     });

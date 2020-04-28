@@ -36,7 +36,7 @@
               <span onclick="generateAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
                 <i class="fas fa-dice"></i>
               </span>
-              <%= f.label :access_code, t("modal.create_room.access_code_placeholder"), id: "create-room-access-code", class: "form-control" %>
+              <%= f.label :access_code, t("modal.create_room.access_code_placeholder"), id: "create-room-access-code", class: "form-control", tabindex: "0", role: "log" %>
               <%= f.hidden_field :access_code %>
               <span onclick="ResetAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
                 <i class="far fa-trash-alt"></i>
