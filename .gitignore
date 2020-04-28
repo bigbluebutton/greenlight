@@ -46,3 +46,8 @@ config/terms.md
 coverage*
 
 /atom-sftp-sync.json
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+
+config/credentials.yml.enc
