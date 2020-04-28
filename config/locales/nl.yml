@@ -147,6 +147,7 @@ nl:
         delete: Verwijder
         edit: Bewerk
         edit_roles: Bewerk de gebruikersrollen
+        merge: Voeg samen
         perm_delete: Permanent verwijderen
         unban: Unban gebruiker
         undelete: Undelete
