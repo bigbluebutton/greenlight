@@ -133,9 +133,7 @@ class AdminsController < ApplicationController
 
   # GET /admins/reset
   def reset
-    @user.create_reset_digest
-
-    send_password_reset_email(@user)
+    send_password_reset_email(@user, @user.create_reset_digest)
 
     if session[:prev_url].present?
       redirect_path = session[:prev_url]

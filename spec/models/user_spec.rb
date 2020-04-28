@@ -138,8 +138,13 @@ describe User, type: :model do
     it 'creates token and respective reset digest' do
       user = create(:user)
 
-      reset_digest_success = user.create_reset_digest
-      expect(reset_digest_success).to eq(true)
+      expect(user.create_reset_digest).to be_truthy
+    end
+
+    it 'correctly verifies the token' do
+      user = create(:user)
+      token = user.create_reset_digest
+      expect(User.exists?(reset_digest: User.hash_token(token))).to be true
     end
 
     it 'verifies if password reset link expired' do
