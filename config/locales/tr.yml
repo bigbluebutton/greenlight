@@ -147,6 +147,7 @@ tr:
         delete: Sil
         edit: Düzenle
         edit_roles: Üye yetkisini düzenle
+        merge: Birleştir
         perm_delete: Kalıcı olarak silmek
         unban: Kullanıcının Yasağını Kaldır
         undelete: Geri Al
