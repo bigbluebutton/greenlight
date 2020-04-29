@@ -18,7 +18,7 @@
     <div class="d-flex">
       <%= link_to (current_user ? home_page : root_path), class: "header-brand" do %>
         <% begin %>
-          <%= image_tag(logo_image, class: "header-brand-img", alt:"") %>
+          <img src="https://meetwdh-hawks.s3-ap-southeast-1.amazonaws.com/meet-wdh-black.png" class="header-brand-img" alt="">
         <% rescue %>
           <%= t("administrator.site_settings.branding.invalid") %>
         <% end %>
