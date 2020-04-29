@@ -22,5 +22,8 @@ class MainController < ApplicationController
   def index
     # Store invite token
     session[:invite_token] = params[:invite_token] if params[:invite_token] && invite_registration
+
+    # Redirect logged in users to the home page
+    redirect_to helpers.home_page if current_user
   end
 end
