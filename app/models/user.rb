@@ -109,7 +109,7 @@ class User < ApplicationRecord
 
   # Activates an account and initialize a users main room
   def activate
-    update_attributes(email_verified: true, activated_at: Time.zone.now)
+    update_attributes(email_verified: true, activated_at: Time.zone.now, activation_digest: nil)
   end
 
   def activated?
@@ -131,10 +131,6 @@ class User < ApplicationRecord
     new_token = SecureRandom.urlsafe_base64
     update_attributes(activation_digest: User.hash_token(new_token))
     new_token
-  end
-
-  def valid_activation_token(given_token)
-    activation_digest == User.hash_token(given_token)
   end
 
   # Return true if password reset link expires

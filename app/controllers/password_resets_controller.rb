@@ -21,7 +21,6 @@ class PasswordResetsController < ApplicationController
 
   before_action :disable_password_reset, unless: -> { Rails.configuration.enable_email_verification }
   before_action :find_user, only: [:edit, :update]
-  before_action :valid_user, only: [:edit, :update]
   before_action :check_expiration, only: [:edit, :update]
 
   # POST /password_resets/new
@@ -77,14 +76,6 @@ class PasswordResetsController < ApplicationController
   # Checks expiration of reset token.
   def check_expiration
     redirect_to new_password_reset_url, alert: I18n.t("expired_reset_token") if @user.password_reset_expired?
-  end
-
-  # Confirms a valid user.
-  def valid_user
-    unless @user.authenticated?(:reset, params[:id])
-      @user&.activate unless @user&.activated?
-      redirect_to root_url
-    end
   end
 
   # Redirects to 404 if emails are not enabled

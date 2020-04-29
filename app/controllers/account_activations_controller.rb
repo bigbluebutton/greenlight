@@ -29,7 +29,7 @@ class AccountActivationsController < ApplicationController
   # GET /account_activations/edit
   def edit
     # If the user exists and is not verified and provided the correct token
-    if @user && !@user.activated? && @user.valid_activation_token(params[:token])
+    if @user && !@user.activated?
       # Verify user
       @user.activate
 
