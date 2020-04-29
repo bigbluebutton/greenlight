@@ -43,34 +43,38 @@
               </span>
             </div>
 
-            <% if Rails.configuration.room_features.include? "mute-on-join" %>
-              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <% mute = room_configuration("Room Configuration Mute On Join") %>
+            <% if mute != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if mute == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.mute")%></span>
-                <%= f.check_box :mute_on_join, class: "custom-switch-input", checked: false %>
+                <%= f.check_box :mute_on_join, class: "custom-switch-input", data: { default: mute == "enabled" }, checked: false %>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
 
-            <% if Rails.configuration.room_features.include? "require-moderator-approval" %>
-              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <% require_approval = room_configuration("Room Configuration Require Moderator") %>
+            <% if require_approval != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if require_approval == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.require_approval")%></span>
-                <%= f.check_box :require_moderator_approval, class: "custom-switch-input", checked: false %>
+                <%= f.check_box :require_moderator_approval, class: "custom-switch-input", data: { default: require_approval == "enabled" }, checked: false %>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
             
-            <% if Rails.configuration.room_features.include? "anyone-can-start" %>
-              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <% any_start = room_configuration("Room Configuration Allow Any Start") %>
+            <% if any_start != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if any_start == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.start")%></span>
-                <%= f.check_box :anyone_can_start, class: "custom-switch-input", checked: false %>
+                <%= f.check_box :anyone_can_start, class: "custom-switch-input", data: { default: any_start == "enabled" }, checked: false %>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
 
-            <% if Rails.configuration.room_features.include? "all-join-moderator" %>
-              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <% moderator = room_configuration("Room Configuration All Join Moderator") %>
+            <% if moderator != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if moderator == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.join_moderator")%></span>
-                <%= f.check_box :all_join_moderator, class: "custom-switch-input", checked: false %>
+                <%= f.check_box :all_join_moderator, class: "custom-switch-input", data: { default: moderator == "enabled" }, checked: false %>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
@@ -81,8 +85,8 @@
               <span class="custom-switch-indicator float-right cursor-pointer"></span>
             </label>
           <div class="mt-4">
-            <%= f.submit t("modal.create_room.create"), id: "create-room-submit", class: "create-only btn btn-primary btn-block" %>
-            <%= f.submit t("modal.room_settings.update"), id: "create-room-submit", class: "update-only btn btn-primary btn-block" %>
+            <%= f.submit t("modal.create_room.create"), class: "create-only btn btn-primary btn-block" %>
+            <%= f.submit t("modal.room_settings.update"), class: "update-only btn btn-primary btn-block" %>
           </div>
           <% end %>
         </div>

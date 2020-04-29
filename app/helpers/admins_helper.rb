@@ -19,10 +19,19 @@
 module AdminsHelper
   include Pagy::Frontend
 
+  # Server Rooms
+
   # Gets the email of the room owner to which the recording belongs to
   def recording_owner_email(room_id)
-    Room.find_by(bbb_id: room_id).owner.email
+    Room.find_by(bbb_id: room_id).owner.email.presence || Room.find_by(bbb_id: room_id).owner.username
   end
+
+  # Get the room status to display in the Server Rooms table
+  def room_is_running(id)
+    @running_room_bbb_ids.include?(id)
+  end
+
+  # Site Settings
 
   def admin_invite_registration
     controller_name == "admins" && action_name == "index" &&
@@ -85,12 +94,22 @@ module AdminsHelper
     @settings.get_value("Room Limit").to_i
   end
 
-  def edit_disabled
-    @edit_disabled ||= @selected_role.priority <= current_user.highest_priority_role.priority
+  # Room Configuration
+
+  def room_configuration_string(name)
+    case @settings.get_value(name)
+    when "enabled"
+      t("administrator.room_configuration.options.enabled")
+    when "optional"
+      t("administrator.room_configuration.options.optional")
+    when "disabled"
+      t("administrator.room_configuration.options.disabled")
+    end
   end
 
-  # Get the room status to display in the Server Rooms table
-  def room_is_running(id)
-    @running_room_bbb_ids.include?(id)
+  # Roles
+
+  def edit_disabled
+    @edit_disabled ||= @selected_role.priority <= current_user.highest_priority_role.priority
   end
 end

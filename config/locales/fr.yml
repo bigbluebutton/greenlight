@@ -21,104 +21,138 @@ fr:
     attributes:
       user:
         accepted_terms: "Termes et Conditions"
-        email:
-        name:
-        password:
-        password_confirmation:
+        email: E-mail
+        name: Nom
+        password: Mot de passe
+        password_confirmation: Confirmation du mot de passe
     errors:
       models:
         user:
-          confirmation:
+          confirmation: ne correspond pas au mot de passe
   administrator:
     site_settings:
       authentication:
         disabled: Désactivé
         enabled: Activé
-        info:
-        title:
-        user-info:
+        info: Autoriser uniquement les utilisateurs authentifiés à rejoindre une salle
+        title: Authentification requise pour rejoindre les salles
+        user-info: Vous devez être connecté à Greenlight pour rejoindre cette salle
       branding:
         change: Changer l'image
-        info:
+        info: Change l'image qui apparaît en haut à gauche
         placeholder: URL de l'image...
-        title:
+        title: Logo
+        invalid: URL invalide
       cache:
-        info:
-        title:
-        button:
+        info: "Efface le cache distant, forçant ainsi la récupération des informations courantes"
+        title: Vider le cache fournisseur
+        button: Vider le cache
+      clear_auth:
+        info: Supprimer le mode d'authentification actuelle afin de permettre aux utilisateurs de choisir un autre mode d'authentification
+        title: Supprimer le mode d'authentification
+        button: Supprimer Auth.
       color:
-        info:
+        info: "Modifier la couleur \"Base\" modifiera également les couleurs \"Clair\" et \"Sombre\". Par la suite, les couleurs \"Clair\" et \"Sombre\" peuvent être modifiées individuellement."
         title: Couleur principale
-        regular: Normal
+        regular: Base
         lighten: Plus clair
-        darken:
+        darken: Plus sombre
+      log_level:
+        title: Verbosité du journal
+        information: Changer la verbosité du journal pour tout le déploiement
+        debug: Déboguage
+        info: Infos
+        warn: Attention
+        error: Erreur
+        fatal: Erreur Fatale
+        unknown: Inconnu
       recording_visibility:
-        info:
-        title:
-        warning:
+        info: Modifier la visibilité par défaut pour les nouveaux enregistrements
+        title: Visibilité d'un enregistrement par défaut
+        warning: Ce réglage sera appliqué qu'aux salles actuellement inactives.
       registration:
-        info:
-        title:
+        info: Modifier le mode d'inscription pour le site
+        title: Méthode d'inscription
         methods:
-          approval:
-          invite:
-          open:
+          approval: Approuver/Refuser
+          invite: Invitation
+          open: Inscription ouverte
       rooms:
-        info:
-        title:
+        info: Limiter le nombre de salles maximum qu'un utilisateur peut avoir (Salle d'Accueil incluse). Ce réglage n'affecte pas les administrateurs.
+        title: Nombre de salles par utilisateur
+      shared_access:
+        info: "Désactiver: supprimera de la liste déroulante des options du Salon, le bouton de partage, empêchant ainsi les utilisateurs de partager des Salons"
+        title: Autorise les utilisateurs à partager le Salon
       subtitle: Personnaliser Greenlight
       title: Paramètres du site
     flash:
-      approved:
-      banned:
-      unbanned:
-      delete:
+      approved: L'utilisateur a été approuvé.
+      banned: L'utilisateur a été banni.
+      unbanned: L'utilisateur a été dé-banni.
+      delete: Utilisateur supprimé.
       delete_fail: Impossible de supprimer l'utilisateur
-      demoted:
-      invite:
-      invite_email_verification:
-      promoted:
-      registration_method_updated:
-      reset_password:
+      demoted: L'utilisateur a été rétrogradé.
+      invite: "Invitation envoyé à %{email}"
+      invite_email_verification: Les emails doivent être activés pour utiliser cette méthode. Veuillez contacter votre administrateur système.
+      merge_fail: Un problème est survenu lors de la fusion des comptes utilisateurs. Veuillez vérifier les utilisateurs sélectionnés et réessayer 
+      merge_success: Les comptes utilisateurs ont été fusionné avec succès
+      perm_deleted: L'utilisateur a été définitivement supprimé
+      promoted: L'utilisateur a bien été promu.
+      registration_method_updated: Méthode d'inscription mise à jour.
+      reset_password: "Un email a été envoyé à l'utilisateur afin de réinitialiser son mot de passe. (S'il ne l'a pas reçu, dites-lui de vérifier son dossier \"spam\")"
+      restored: L'utilisateur a bien été restauré
       settings: Les paramètres du site ont bien été modifiés
-      unauthorized:
+      unauthorized: Vous n'êtes pas autorisé à effectuer cette action sur cet utilisateur.
     recordings:
-      title:
-      no_recordings:
+      title: Enregistrements du serveur
+      no_recordings: Ce serveur n'a pas d'enregistrement.
     roles:
-      can_create_rooms:
-      delete:
-      invalid_create:
-      invalid_order:
-      invalid_update:
-      name:
-      new_role:
-      role_has_users:
-      title:
-      promote_email:
-      demote_email:
-      edit_site_settings:
-      edit_roles:
-      manage_users:
-      invalid_assignment: 
+      appear_in_share_list: Inclure les utilisateurs ayant ce rôle dans la liste déroulante de partage des salons
+      can_create_rooms: Peut créer des salles
+      delete: Supprimer le rôle
+      invalid_create: Il y a eu un problème lors de la création du nouveau rôle. Veuillez vérifier les valeurs entrées et réessayez.
+      invalid_order: Il y a eu un problème lors de la mise à jour de la priorité du rôle. Veuillez vérifier les valeurs et réessayer.
+      invalid_update: Il y a eu un problème lors de la mise à jour des permissions du rôle. Veuillez vérifier les valeurs et réessayer.
+      manage_rooms_recordings: Autoriser les utilisateurs ayant de ce rôle à gérer les Salons et les enregistrements
+      name: Nom du rôle
+      new_role: Créer un nouveau rôle
+      role_has_users: "Ce rôle est utilisé par %{user_count} comptes. Veuillez enlever ce rôle de ces comptes avant de le supprimer."
+      title: Rôles
+      promote_email: Envoyer un e-mail aux utilisateurs quand ce rôle leur est appliqué
+      demote_email: Envoyer un e-mail aux utilisateurs quand ce rôle leur est retiré
+      edit_site_settings: Permet aux utilisateurs ayant ce rôle de modifier les paramètres du site
+      edit_roles: Permet aux utilisateurs ayant ce rôle de modifier les autres rôles
+      manage_users: Permet aux utilisateurs ayant ce rôle de gérer les utilisateurs
+      invalid_assignment: Un problème a été rencontré alors de l'attribution du rôle à l'utilisateur. Veuillez vérifier les valeurs entrées et réessayer. 
       colour:
-        title:
-        info:
+        title: Couleur du rôle
+        info: Définir la couleur qui sera associée au rôle
+    rooms:
+      title: Serveur des Salons
+      table:
+        id: ID
+        not_running: Pas ouvert
+        running: Ouvert
+        status: Statut
+        view: Voir
     title: Paramètres de l'organisation
     users:
-      invite:
+      invite: Inviter utilisateur
       edit:
         title: Modifier les détails de l'utilisateur
       settings:
-        approve:
-        decline:
+        approve: Approuver
+        decline: Décliner
         ban: Bannir l'utilisateur
         delete: Supprimer
         edit: Modifier
-        edit_roles:
-        unban:
+        edit_roles: Modifier les rôles de l'utilisateur
+        merge: Fusionner
+        perm_delete: Supprimer définitivement
+        unban: Supprimer bannir
+        undelete: Annuler la suppression
       table:
-        authenticator:
+        authenticator: Authentificateur
         created: Créé
         name: Nom
         not_found: Aucun utilisateur correspondant à votre recherche
@@ -137,26 +171,26 @@ fr:
   copied: Copié
   copy: Copier
   date:
-    month_names:
+    month_names: [~, Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
   default_admin: "Vous utilisez toujours le mot de passe par défaut pour ce compte. Veuillez cliquer <a href=\"%{edit_link}\">ici</a> pour le modifier"
   delete: Supprimer
   delivery_error: Une erreur s'est produite lors de la livraison du courrier électronique. Veuillez contacter un administrateur !
   docs: Documentation
   email: Email
-  email_sent:
+  email_sent: "Votre demande de %{email_type} a bien été envoyé! (Vérifiez votre dossier anti-spam si vous ne le trouver pas)"
   enter_your_name: Entrez votre nom !
   errors:
     bigbluebutton:
-      help:
-      message:
+      help: "Veuillez vous assurer que les mesures appropriées ont été prises.<a href=\"%{doc_link}\">En savoir plus</a>"
+      message: BigBlueButton cible et secret invalid
       title: Erreur serveur
     internal:
-      message:
+      message: Il semblerait que quelque chose se soit mal passé de notre côté.
       help: "L'erreur a été enregistrée, nous allons jeter un coup d’œil !"
-      report:
+      report: Signaler un problème
     maintenance:
-      message:
-      help:
+      message: "Désolé, nous sommes coupés pour maintenance."
+      help: Nous serons bientôt de retour !
     migration_error:
       contact_admin: "Si vous n’êtes pas un administrateur, veuillez en contacter un."
       continue: Je veux rester sur la 1.0.
@@ -173,21 +207,21 @@ fr:
       confirmation: "ne correspond pas à %{attribute}"
       inclusion: n'est pas inclus dans la liste
     no_provider:
-      message:
-      help:
+      message: Le site auquel vous essayez d'accéder n'est pas activé
+      help: Veuillez contacter votre administrateur système pour installer GreenLight
     not_found:
-      message:
+      message: Désolé ! La page que vous cherchez n'existe pas.
       help: "Est-il possible qu'il ait été supprimé ?"
       user_not_found:
-        help:
-        message:
+        help: Veuillez contacter un administrateur.
+        message: "Désolé, cet utilisateur n'est pas enregistré."
       user_missing:
-        help:
-        message:
+        help: Veuillez vérifier l'URL et réessayer
+        message: L'URL que vous avez saisie n'est pas valide.
     title: Erreurs
     unauthorized:
-      message:
-      help:
+      message: Vous n'avez pas accès à cette application
+      help: "Si vous pensez que c'est une erreur, veuillez contacter votre administrateur système."
   expired_reset_token: Le lien de réinitialisation du mot de passe a expiré !
   features:
     title: "Fonctionnalités "
@@ -213,7 +247,7 @@ fr:
       signout: Déconnexion
   home_room: Salle d’Accueil
   info_update_success: Informations mises à jour avec succès.
-  invalid_credentials:
+  invalid_credentials: "Les informations d'identification que vous avez indiquées sont erronées. Veuillez réessayer ou cliquez sur « Mot de passe oublié ? » pour réinitialiser votre mot de passe."
   invalid_login_method: La connexion a échoué en raison d'une incompatibilité de compte. Vous devez vous connecter avec omniauth.
   invite_message: "Pour inviter quelqu'un à la réunion, envoyez-lui ce lien :"
   javascript:
@@ -223,6 +257,8 @@ fr:
         body: 'Pour visionner l''enregistrement, suivez le lien ci-dessous :'
         autogenerated: 'Cet e-mail est généré automatiquement par BigBlueButton.'
         footer: 'BigBlueButton est un système Open Source de Web Conférence. Pour plus d''informations sur BigBlueButton, voir https://bigbluebutton.org/.'
+    search:
+      start: Commencer la recherche...
   landing:
     about: "%{href} est une interface simple pour votre serveur open-source de Web conférence BigBlueButton. Vous pouvez créer vos propres salles pour héberger des sessions ou rejoindre d'autres utilisateurs via un lien court et pratique. "
     welcome: Bienvenue sur BigBlueButton.
@@ -237,67 +273,68 @@ fr:
     user:
       approve:
         info: Votre compte a été approuvé.
-        signin:
-        signin_link:
+        signin: " Pour accéder à vos salons personnelles, cliquez sur le bouton ci-dessous et connectez-vous."
+        signin_link: Connexion
         signup:
-          info:
-          more-info:
-          admins_link: Visitez la page de l'organisation
-          subject:
-          username:
+          info: Un nouvel utilisateur s'est inscrit pour utiliser Greenlight.
+          more-info: "Pour autoriser cet utilisateur à accéder à Greenlight, vous devez approuver son compte depuis la page \"Organisation\"."
+          admins_link: Visitez la page "Organisation"
+          subject: Inscription d'un nouvel utilisateur Greenlight
+          username: "L'utilisateur s'est inscrit avec le nom %{name} et l'adresse email %{email}. "
         subject: Compte approuvé
         username: "Votre nom d'utilisateur est %{email}."
       demoted:
-        info:
-        more-info:
-        root_link:
-        subtitle:
+        info: "Vous n'êtes plus %{role} sur %{url}."
+        more-info: Vous avez désormais les mêmes privilèges qu'un utilisateur régulier.
+        root_link: Connexion
+        subtitle: "Droits pour %{role} annulés"
       invite:
-        info:
-        signup_info:
-        signup_link:
+        info: "Vous avez été invité dans votre espace personnel par %{name}"
+        signup_info: "Pour vous inscrire utilisez votre e-mail, cliquez sur le bouton ci-dessous et suivez les étapes."
+        signup_link: Inscription
         signup:
-          info:
-          admins_link: Visitez la page de l'organisation
-          subject:
-          username:
+          info: Un utilisateur invité s'est inscrit pour utiliser Greenlight.
+          admins_link: Visitez la page "Organisation"
+          subject: Inscription d'un nouvel utilisateur Greenlight
+          username: "L'utilisateur s'est inscrit avec le nom %{name} et l'adresse email %{email}."
         subject: Invitation à joindre BigBlueButton
         username: "Votre nom d'utilisateur est %{email}."
       password_reset:
         title: 'Réinitialiser le mot de passe'
-        welcome:
-        message: ''
+        welcome: "Une réinitialisation du mot de passe a été demandée pour l'e-mail <b>%{email}</b>"
+        message: 'Si vous avez demandé cette réinitialisation, veuillez cliquer sur le lien ci-dessous pour réinitialiser votre mot de passe:'
         reset_link: Réinitialiser le mot de passe
         expire: Ce lien expirera dans deux heures.
-        ignore:
+        ignore: Vous pouvez ignorer cette demande si vous n'êtes pas à l'origine de celle-ci.
       promoted:
         admins_link: Visitez la page de l'organisation
-        info:
-        more-info:
-        subtitle:
+        info: "Vous êtes maintenant un %{role} sur %{url}."
+        more-info: "Pour voir vos nouvelles possibilités, veuillez visiter %{url}"
+        subtitle: "%{role} droits attribués"
       verify_email:
         welcome: "Bienvenue sur votre espace personnel, %{name}!"
-        success:
+        success: "Profitez pleinement de %{bigbluebutton}, vous pouvez créer vos propres salons pour héberger des sessions et collaborer avec d'autres personnes."
         username: "Votre nom d'utilisateur est %{email}."
         verify: "Pour vérifier votre compte, cliquez simplement sur le bouton ci-dessous."
         verify_text: 'Pour vérifier votre compte, suivez ce lien : %{url}'
         verify_link: Vérification du compte
         thanks: Merci de votre participation et bonne journée !
   maintenance:
-    window_alert:
+    window_alert: "Période de maintenance prévue pour %{date}"
   max_concurrent: Le nombre maximum de sessions simultanées autorisées a été atteint !
+  merged: Fusionné
   modal:
     create_role:
-      create:
-      footer_text:
-      name_placeholder:
-      not_blank:
-      title:
+      create: Créer un nouveau rôle
+      footer_text: Vous pouvez modifier les autorisations individuelles pour ce rôle après l'avoir créé
+      name_placeholder: Saisissez un nom de rôle...
+      not_blank: Le nom du rôle ne peut pas être vide.
+      title: Créer un nouveau rôle
     create_room:
-      access_code:
-      access_code_placeholder:
-      auto_join:
-      create:
+      access_code: Code d'accès
+      access_code_placeholder: Générer un code d'accès au salon - optionnel
+      auto_join: Me rejoindre automatiquement dans le salon
+      create: Créer une salle
       free_delete: Vous serez libre de supprimer cette salle à tout moment.
       name_placeholder: Entrez un nom de salle...
       not_blank: Le nom de salle ne peut être vide.
@@ -306,16 +343,17 @@ fr:
       confirm: "Voulez-vous vraiment supprimer ce compte ?"
       delete: "Je confirme, supprimez ce compte."
       keep: "En fait, je vais le garder."
+      delete_warning: Cela désactivera le compte de l'utilisateur. Tous les utilisateurs désactivés se trouvent sous l'onglet supprimé.
       warning: Cette décision est définitive. Vous ne pourrez <b>pas</b>  récupérer les données associées.
     delete_room:
       confirm: "Êtes-vous sûr de vouloir supprimer %{room}?"
       delete: "Je suis sûr, supprimer cette salle."
       keep: "À bien y réfléchir, je vais la garder."
-      warning:
-      recording_warning:
+      warning: Vous <b>ne pourrez pas</b> récupérer ce salon
+      recording_warning: "ou aucun de ses %{recordings_num} enregistrements associés"
     invite_user:
-      email_placeholder:
-      footer:
+      email_placeholder: Saisissez les e-mails des utilisateurs (séparés par des virgules)
+      footer: L'utilisateur recevra un e-mail avec des instructions sur la façon de s'inscrire
       send: Envoyer invitation
       title: Inviter utilisateur
     login:
@@ -323,42 +361,61 @@ fr:
       with: "Connexion via %{provider}"
       forgot_password: "Mot de passe oublié ?"
     rename_recording:
+    remove_shared:
+      title: "Voulez-vous vraiment supprimer ce salon de votre liste?"
+      delete: "Je suis sûr, supprimez ce Salon."
+      warning: <b>Vous ne pourrez plus</b> accéder à cette salle.
     room_settings:
       title: Paramètres du Salon
       update: Mise à jour du Salon
       client: Sélectionnez le type de client
-      join_moderator:
+      join_moderator: " Tous les utilisateurs joignent le salon en tant que modérateurs"
       mute: Mettre les utilisateurs en sourdine lors de la connexion
-      require_approval:
-      start:
+      require_approval: Exiger l'approbation du modérateur avant de rejoindre
+      start: Autoriser tout utilisateur à démarrer cette réunion
       footer_text: L’ajustement de votre Salon peut être fait à tout moment.
     rename_room:
       name_placeholder: Entrez un nouveau nom de salon...
+    share_access:
+      footer: Partager un salon avec un utilisateur lui permet d'accéder au salon et de visualiser les enregistrements de ce dernier
+      list: Partager avec
+      title: Partager l'accès au salon
+      save: Enregistrer les modifications
+      cancel_changes: Annuler les modifications
+      select: Sélectionnez utilisateur
+    merge_user:
+      cancel: Annuler
+      from: Compte à fusionner
+      title: Fusionner les comptes d'utilisateurs
+      to: Compte principal
+      save: Fusionner
+      footer: "Les salles du compte à fusionner seront transférées sur la liste des salles du compte principal, puis le compte sera supprimé."
   name_update_success: Le nom du salon a été changé avec succès !
   no_user_email_exists: Aucun utilisateur n'existe avec l'e-mail spécifié. Veuillez vérifier que vous l'avez saisi correctement.
   omniauth_error: Une erreur est survenue lors de l'authentification avec omniauth. Veuillez réessayer ou contacter un administrateur !
-  omniauth_specific_error:
+  omniauth_specific_error: "%{error} s'est produite lors de l'authentification avec omniauth. Veuillez réessayer ou contacter un administrateur !"
   pagy:
     nav:
       prev: "&lsaquo; Précédent"
       next: "Suivant &rsaquo;"
-      gap:
+      gap: "&hellip;"
   password: Mot de passe
   password_empty_notice: Le mot de passe ne peut être vide.
   password_reset_success: Le mot de passe a été réinitialisé.
   password_different_notice: La confirmation du mot de passe ne correspond pas.
   provider:
     google: Google
-    office365: 
+    office365: Office 365
     twitter: Twitter
-    ldap:
+    ldap: LDAP
   recaptcha:
     errors:
-      recaptcha_unreachable:
-      verification_failed:
+      recaptcha_unreachable: "Oups, nous n'avons pas réussi à valider votre réponse reCAPTCHA. Veuillez réessayer."
+      verification_failed: "La vérification de reCAPTCHA a échoué, veuillez réessayer."
   recording:
     all_recordings: Tous les enregistrements
     email: Envoyer l'enregistrement par Email
+    error: "Il y a eu une erreur lors de la récupération de %{count}enregistrement(s)"
     no_recordings: "Cette salle n'a pas d'enregistrement%{inject}."
     no_user_recordings: "Actuellement, vous n'avez  aucun enregistrement."
     no_matched_recordings: "Aucun enregistrement %{inject} ne correspond à votre recherche."
@@ -374,70 +431,85 @@ fr:
       public: Publique
       unlisted: Non Listé
     format:
-      notes:
-      podcast:
+      notes: Notes
+      podcast: Podcast
       presentation: Présentation
-      statistics:
-      video:
+      statistics: statistiques
+      video: Vidéo
   registration:
     approval:
-      fail:
-      signup:
+      fail: "Votre compte n'a pas encore été validé. Si plusieurs jours se sont découlés depuis votre inscription, veuillez contacter votre administrateur."
+      signup: Votre compte a été créé avec succès. Il a été envoyé à un administrateur pour validation.
     banned:
-      fail: 
+      fail: "Vous n'avez pas accès à cette application. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter votre administrateur." 
     deprecated:
-      new_signin:
-      twitter_signin:
-      twitter_signup:
-      merge_success:
+      new_signin: Veuillez sélectionner une nouvelle méthode de connexion pour votre compte. Toutes les salles de votre ancien compte seront transférées sur le nouveau compte
+      twitter_signin: "La connexion par Twitter est obsolète et va être enlevée de la prochaine version. Veuillez cliquer <a href=\"%{link}\">ici</a> afin de changer la méthode d'authentification de votre compte"
+      twitter_signup: L'inscription par Twitter est obsolète. Veuillez utiliser une autre méthode d'inscription
+      merge_success: Intégration du compte Twitter avec votre nouveau compte réussie. Votre ancien compte Twitter a été enlevé
     invite:
-      fail:
-      no_invite:
+      fail: "Votre jeton d'authentification a expiré ou n'est pas valide. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter votre administrateur."
+      no_invite: Vous n'avez pas d'invitation. Veuillez contacter votre administrateur afin d'en recevoir une.
+  remove: Enlever
   rename: Renommer
   reset_password:
     subtitle: Réinitialiser le mot de passe
     password: Nouveau mot de passe
     confirm: Confirmation du nouveau mot de passe
     update: Mettre à jour le mot de passe
+    auth_change: La méthode d'authentification a changé. Veuillez consulter votre e-mail afin de définir votre mot de passe.
   roles:
-    admin:
+    active: Actif
+    admin: Admin
     banned: Banni
-    pending:
+    deleted: Supprimé
+    pending: En attente
     user: Utilisateur
   room:
-    access_code_required:
+    access_code_required: Veuillez introduire un code d'accès valide afin de rejoindre la salle
     create_room: Créer un salon
     create_room_error: Une erreur s'est produite lors de la création du salon
     create_room_success: Salon créé avec succès
-    enter_the_access_code:
-    invalid_provider:
+    delete:
+      home_room: Impossible de supprimer la Salle d'Accueil de l'utilisateur
+      success: Salle supprimée
+      fail: "Erreur lors de la suppression de la salle (%{error})"
+    enter_the_access_code: Veuillez introduire le code d'accès de la salle
+    invalid_provider: Vous avez introduit une url non valide. Veuillez vérifier l'url et essayez à nouveau.
     invited: Vous avez été invité à rejoindre
     invite_participants: Inviter des participants
     join: Rejoindre
     last_session: "Dernière session le %{session}"
-    login:
+    login: Entrer
     owner: Propriétaire
+    owner_banned: Cette salle est pour l'instant indisponible
     no_room:
-      description:
-      edit_profile:
-      go_to:
-      invalid_room_uid:
-      placeholder:
-      no_recent_rooms:
-      recent_rooms:
-      title:
+      description: Veuillez introduire l'url ou l'identifiant de la salle que vous voulez rejoindre.
+      edit_profile: Modifier le profil utilisateur
+      go_to: Aller à la salle
+      invalid_room_uid: "L'url/uid de la salle que vous avez introduit n'est pas valide. "
+      placeholder: url/uid de la salle
+      no_recent_rooms: Vous n'avez pas de salles récemment rejointes
+      recent_rooms: Rejoindre une Salle Récente
+      title: Joindre une salle
     no_sessions: Cette salle n'a pas encore de sessions !
     recordings: Enregistrements du salon
-    room_limit:
-    room_limit_exceeded:
+    room_limit: Vous avez atteint le nombre maximum permis de salles
+    room_limit_exceeded: "Vous avez dépassé le nombre permis de salles. Veuillez en supprimer %{difference}pour pouvor accéder à cette salle."
     sessions: Sessions
     settings: Paramètres Salle
+    share: "Gérer les accès "
+    shared_by: "Partagé par %{email}"
+    remove_shared_access_success: Salle partagée supprimée avec succès de votre liste de salles
+    remove_shared_access_error: Une erreur est survenue lors de la suppression de la salle partagée de votre liste
+    shared_access_success: Chambre partagée avec succès
+    shared_access_error: Il y a eu une erreur lors du partage de la salle
     start: Démarrer
     unavailable: Ce salon est actuellement indisponible car le courrier électronique du propriétaire n'a pas été vérifié.
     update_settings_error: Une erreur s'est produite lors de la mise à jour des paramètres du salon.
     update_settings_success: Paramètres du salon mis à jour avec succès
     wait:
-      message:
+      message: La réunion n'a pas encore commencé.
       auto: "Vous serez automatiquement connecté à la réunion, dès son démarrage."
   settings:
     account:
@@ -446,7 +518,7 @@ fr:
       provider: Fournisseur
       image: Image
       image_url: URL de l'image profil
-      roles:
+      roles: Rôles de l'utilisateur
       subtitle: Mettre à jour les informations de votre compte
       title: Informations de compte
     delete:

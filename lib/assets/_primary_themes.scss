@@ -194,3 +194,9 @@ input:focus, select:focus {
     @extend .btn-primary;
   }
 }
+
+.room-block {
+  &.current {
+    box-shadow: 0 0 10px $primary-color-lighten;
+  }
+}
