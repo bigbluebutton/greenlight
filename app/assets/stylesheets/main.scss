@@ -158,3 +158,14 @@
 .signin-button {
   font-size: 16px;
 }
+
+.table-responsive tbody td:first-child > *:first-child {
+  max-height: 3em;
+  overflow: hidden;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  display: flex;
+  white-space: normal !important;
+  -webkit-box-align: unset;
+  align-items: normal;
+}
