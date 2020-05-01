@@ -52,6 +52,25 @@ describe BbbServer do
 
       expect(@room.last_session).not_to be nil
     end
+
+    it "should set guestPolicy ASK_MODERATOR if require_moderator_approval is set" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:create_meeting) do |_api, _name, _bbb_id, create_options|
+        expect(create_options[:guestPolicy]).to eql("ASK_MODERATOR")
+        { messageKey: "" }
+      end
+
+      start_session(@room, require_moderator_approval: true)
+    end
+
+    it "should set guestPolicy from config if require_moderator_approval is not set" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:create_meeting) do |_api, _name, _bbb_id, create_options|
+        expect(create_options[:guestPolicy]).to eql("ALWAYS_ACCEPT_AUTH")
+        { messageKey: "" }
+      end
+
+      Rails.configuration.guest_policy = "ALWAYS_ACCEPT_AUTH"
+      start_session(@room)
+    end
   end
 
   context "#join_path" do

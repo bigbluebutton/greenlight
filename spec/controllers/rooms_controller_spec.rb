@@ -241,14 +241,18 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @user.id
       post :join, params: { room_uid: @room, join_name: @user.name }
 
-      expect(response).to redirect_to(join_path(@owner.main_room, @user.name, {}, @user.uid))
+      expect(response).to redirect_to(
+        join_path(@owner.main_room, @user.name, { guest: false, auth: true }, @user.uid)
+      )
     end
 
     it "should use join name if user is not logged in and meeting running" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
       post :join, params: { room_uid: @room, join_name: "Join Name" }
 
-      expect(response).to redirect_to(join_path(@owner.main_room, "Join Name", {}, response.cookies["guest_id"]))
+      expect(response).to redirect_to(
+        join_path(@owner.main_room, "Join Name", { guest: true, auth: false }, response.cookies["guest_id"])
+      )
     end
 
     it "should render wait if meeting isn't running" do
@@ -272,7 +276,9 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @user.id
       post :join, params: { room_uid: room, join_name: @user.name }
 
-      expect(response).to redirect_to(join_path(room, @user.name, { user_is_moderator: false }, @user.uid))
+      expect(response).to redirect_to(
+        join_path(room, @user.name, { guest: false, auth: true, user_is_moderator: false }, @user.uid)
+      )
     end
 
     it "doesn't join the room if the room has the anyone_can_start setting but config is disabled" do
@@ -317,7 +323,9 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @user.id
       post :join, params: { room_uid: room, join_name: @user.name }
 
-      expect(response).to redirect_to(join_path(room, @user.name, { user_is_moderator: true }, @user.uid))
+      expect(response).to redirect_to(
+        join_path(room, @user.name, { guest: false, auth: true, user_is_moderator: true }, @user.uid)
+      )
     end
 
     it "joins the room as moderator if room doesn't have all_join_moderator but config is set to enabled" do
@@ -382,7 +390,9 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @owner.id
       post :join, params: { room_uid: @room, join_name: @owner.name }
 
-      expect(response).to redirect_to(join_path(@owner.main_room, @owner.name, { user_is_moderator: true }, @owner.uid))
+      expect(response).to redirect_to(
+        join_path(@owner.main_room, @owner.name, { guest: false, auth: true, user_is_moderator: true }, @owner.uid)
+      )
     end
 
     it "redirects to root if owner of room is not verified" do
