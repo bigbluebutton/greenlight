@@ -308,7 +308,9 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @user.id
       post :join, params: { room_uid: room, join_name: @user.name }
 
-      expect(response).to redirect_to(join_path(room, @user.name, { user_is_moderator: true }, @user.uid))
+      expect(response).to redirect_to(
+        join_path(room, @user.name, { guest: false, auth: true, user_is_moderator: true }, @user.uid)
+      )
     end
 
     it "joins the room as moderator if room has the all_join_moderator setting" do
@@ -340,7 +342,9 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @user.id
       post :join, params: { room_uid: room, join_name: @user.name }
 
-      expect(response).to redirect_to(join_path(room, @user.name, { user_is_moderator: true }, @user.uid))
+      expect(response).to redirect_to(
+        join_path(room, @user.name, { guest: false, auth: true, user_is_moderator: true }, @user.uid)
+      )
     end
 
     it "doesn't join the room as moderator if room has the all_join_moderator setting but config is set to disabled" do
@@ -355,7 +359,9 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @user.id
       post :join, params: { room_uid: room, join_name: @user.name }
 
-      expect(response).to redirect_to(join_path(room, @user.name, { user_is_moderator: false }, @user.uid))
+      expect(response).to redirect_to(
+        join_path(room, @user.name, { guest: false, auth: true, user_is_moderator: false }, @user.uid)
+      )
     end
 
     it "should render wait if the correct access code is supplied" do
