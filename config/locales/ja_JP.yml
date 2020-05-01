@@ -137,7 +137,7 @@ ja_JP:
       allow_any:
         info: 全てのユーザがいつでも会議を開始することを許可します。通常は会議室のオーナーだけが会議を開始できます。
       all_moderator:
-        info: 会議参加時、全てのユーザにモデレータ特権を与えます
+        info: すべてのユーザに、会議に参加した時点で司会者の権限をあたえます。
       options:
         disabled: 無効
         enabled: 常に有効
@@ -260,7 +260,7 @@ ja_JP:
       home: ホーム
       settings: プロフィール
       signout: サインアウト
-  home_room: 主会議室
+  home_room: メイン会議室
   info_update_success: 情報を更新しました。
   invalid_credentials: 入力されたメールアドレスとパスワードが登録内容と一致しませんでした。 もう一度試すか［パスワードを忘れた場合］をクリックしてパスワードをリセットしてください。
   invalid_login_method: アカウントが一致しないため、ログインに失敗しました。 Omniauthでログインする必要があります。
@@ -448,7 +448,7 @@ ja_JP:
     format:
       notes: ノート
       podcast: ポッドキャスト
-      presentation: 再生する
+      presentation: プレゼン再生
       statistics: 統計情報
       video: ビデオ
   registration:
@@ -486,7 +486,7 @@ ja_JP:
     create_room_error: 会議室の作成中にエラーが発生しました
     create_room_success: 会議室が作成されました
     delete:
-      home_room: 主会議室は削除できません
+      home_room: メイン会議室は削除できません
       success: 会議室を削除しました
       fail: "会議室の削除に失敗しました(%{error})"
     enter_the_access_code: 会議室のアクセスコードを入力してください
