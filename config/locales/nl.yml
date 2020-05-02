@@ -36,7 +36,7 @@ nl:
         enabled: Ingeschakeld
         info: Sta alleen geverifieerde gebruikers toe om deel te nemen aan een ruimte
         title: Verificatie vereist voor kamers
-        user-info: Je moet je aanmelden bij Greenlight om lid te worden van deze kamer
+        user-info: Je moet bij Greenlight inloggen om lid te kunnen worden van deze kamer
       branding:
         change: Wijzig afbeelding
         info: Wijzig de merkafbeelding die in de linkerbovenhoek wordt weergegeven
@@ -48,7 +48,7 @@ nl:
         title: Cache van provider wissen
         button: Cache wissen
       clear_auth:
-        info: Wist de huidige authenticator voor gebruikers zodat ze zich opnieuw kunnen aanmelden met een andere authenticatiemethode
+        info: Wist de huidige authenticator voor gebruikers zodat ze opnieuw kunnen inloggen met een andere authenticatiemethode
         title: Wis Huidige Authenticator
         button: Wis Auth
       color:
@@ -101,6 +101,7 @@ nl:
       registration_method_updated: Registratiemethode succesvol bijgewerkt
       reset_password: De gebruiker heeft een e-mail ontvangen om zijn wachtwoord opnieuw in te stellen. (Vraag hen om hun spammap te controleren als ze deze niet hebben ontvangen)
       restored: Gebruiker is succesvol hersteld
+      room_configuration: Kamerinstellingen succesvol gewijzigd
       settings: Site-instellingen succesvol gewijzigd
       unauthorized: U bent niet gemachtigd om acties uit te voeren op deze gebruiker
     recordings:
@@ -127,6 +128,20 @@ nl:
       colour:
         title: Rol kleur
         info: Stel de kleur in die aan de rol wordt gekoppeld
+    room_configuration:
+      title: Kamerinstellingen
+      mute:
+        info: Dempt automatisch de gebruiker wanneer ze deelnemen aan de BigBlueButton-vergadering
+      require_moderator:
+        info: "Vraagt de moderator van de BigBlueButton-vergadering wanneer een gebruiker probeert deel te nemen. Als de gebruiker is goedgekeurd, kunnen ze deelnemen aan de vergadering."
+      allow_any:
+        info: Hiermee kan elke gebruiker de vergadering op elk moment starten. Standaard kan alleen de kamer eigenaar de vergadering starten.
+      all_moderator:
+        info: Geeft alle gebruikers moderatorrechten in BigBlueButton wanneer ze deelnemen aan de vergadering.
+      options:
+        disabled: Uitgeschakeld
+        enabled: Altijd ingeschakeld
+        optional: Optioneel
     rooms:
       title: Server Kamers
       table:
@@ -147,6 +162,7 @@ nl:
         delete: Verwijder
         edit: Bewerk
         edit_roles: Bewerk de gebruikersrollen
+        merge: Voeg samen
         perm_delete: Permanent verwijderen
         unban: Unban gebruiker
         undelete: Undelete
@@ -266,35 +282,35 @@ nl:
     version: "We hebben een nieuwe versie van Greenlight uitgebracht, maar uw database is niet compatibel."
   language_default: Standaard (browsertaal)
   ldap_error: Kan geen verbinding maken met de LDAP-server. Controleer uw LDAP-configuratie in het env-bestand en zorg ervoor dat uw server actief is.
-  login: Aanmelden
+  login: Inloggen
   login_title: Meld u aan bij uw account
   mailer:
     user:
       approve:
         info: Uw account is goedgekeurd.
         signin: "Om toegang te krijgen tot uw persoonlijke kamers, klikt u op de onderstaande knop en logt u in."
-        signin_link: Aanmelden
+        signin_link: Inloggen
         signup:
           info: Een nieuwe gebruiker heeft zich aangemeld om Greenlight te gebruiken.
           more-info: "Om deze gebruiker toegang te geven tot Greenlight, moet u zijn account goedkeuren in de organisatie-instellingen."
           admins_link: Bezoek de organisatiepagina
-          subject: Nieuwe Greenlight gebruiker aanmelden
+          subject: Nieuwe registratie van een Greenlightgebruiker
           username: "De gebruiker heeft zich aangemeld met de naam %{name} en het e-mailadres %{email}."
         subject: Account goedgekeurd
         username: "Uw gebruikersnaam is %{email}."
       demoted:
         info: "U bent niet langer een %{role} op %{url}."
         more-info: U hebt nu dezelfde rechten als een gewone gebruiker.
-        root_link: Aanmelden
+        root_link: Inloggen
         subtitle: "%{role} rechten ingetrokken"
       invite:
         info: "Je bent uitgenodigd voor je eigen persoonlijke ruimte door %{name}"
         signup_info: Klik op de onderstaande knop om u aan te melden met uw e-mail en volg de stappen.
-        signup_link: Aanmelden
+        signup_link: Registreren
         signup:
           info: Een uitgenodigde gebruiker heeft zich aangemeld om Greenlight te gebruiken.
           admins_link: Bezoek de organisatiepagina
-          subject: Nieuwe Greenlight gebruiker aanmelden
+          subject: Nieuwe registratie van een Greenlightgebruiker
           username: "De gebruiker heeft zich aangemeld met de naam %{name} en het e-mailadres %{email}."
         subject: Uitnodiging om lid te worden van BigBlueButton
         username: "Uw gebruikersnaam is %{email}."
@@ -352,7 +368,7 @@ nl:
       recording_warning: "of een van de %{recordings_num} bijbehorende opnames."
     invite_user:
       email_placeholder: Voer de e-mails van de gebruikers in (gescheiden door komma's)
-      footer: De gebruiker ontvangt een e-mail met instructies voor het aanmelden
+      footer: De gebruiker ontvangt een e-mail met instructies hoe zich te registreren
       send: Uitnodiging sturen
       title: Gebruiker uitnodigen
     login:
@@ -443,8 +459,8 @@ nl:
       fail: U hebt geen toegang tot deze applicatie. Neem contact op met uw beheerder als u denkt dat dit een vergissing is. 
     deprecated:
       new_signin: Selecteer een nieuwe inlogmethode voor uw account. Al uw kamers van uw oude account worden gemigreerd naar het nieuwe account
-      twitter_signin: "Aanmelden via Twitter is verouderd en wordt in de volgende release verwijderd. Klik <a href=\"%{link}\"> hier </a> om uw account naar een nieuwe authenticatiemethode te verplaatsen"
-      twitter_signup: Aanmelden via Twitter is verouderd. Gebruik een andere aanmeldingsmethode
+      twitter_signin: "Inloggen via Twitter is verouderd en wordt in de volgende release verwijderd. Klik <a href=\"%{link}\"> hier </a> om uw account naar een nieuwe authenticatiemethode te verplaatsen"
+      twitter_signup: Registreren via Twitter is verouderd. Gebruik een andere aanmeldingsmethode
       merge_success: Uw Twitter-account is succesvol samengevoegd met uw nieuwe account. Je oude twitter-account is verwijderd
     invite:
       fail: Uw token is ongeldig of is verlopen. Neem contact op met uw beheerder als u denkt dat dit een vergissing is.
