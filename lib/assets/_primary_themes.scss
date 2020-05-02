@@ -125,6 +125,10 @@ input:focus, select:focus {
   color: white !important;
 }
 
+.border-primary {
+  border-color: $primary-color !important;
+}
+
 .btn-danger {
   color: white !important;
 }

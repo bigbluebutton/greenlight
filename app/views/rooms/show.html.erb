@@ -80,7 +80,7 @@
       <% current_user.ordered_rooms.each do |room| %>
         <div class="col-lg-4 col-md-6 col-sm-12">
           <%= link_to room do %>
-            <%= render "rooms/components/room_block", room: room %>
+            <%= render "rooms/components/room_block", room: room, selected: @room == room %>
           <% end %>
         </div>
       <% end %>
@@ -89,7 +89,7 @@
         <% current_user.shared_rooms.each do |room| %>
           <div class="col-lg-4 col-md-6 col-sm-12">
             <%= link_to room do %>
-              <%= render "rooms/components/shared_room_block", room: room %>
+              <%= render "rooms/components/shared_room_block", room: room, selected: @room == room %>
             <% end %>
           </div>
         <% end %>
