@@ -147,6 +147,7 @@ it:
         delete: Elimina
         edit: Modifica
         edit_roles: Modifica i ruoli dell'utente
+        merge: Incorpora
         perm_delete: Elimina Definitivamente
         unban: Sblocca utente
         undelete: Ripristina

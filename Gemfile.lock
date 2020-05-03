@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/blindsidenetworks/bn-ldap-authentication.git
-  revision: 121445ad7c76de602f2ff449a58e3f53818b5595
-  tag: 0.1.1
+  revision: 9cd1f4d195f0c49abc30b52d23607b770823a9a5
+  tag: 0.1.2
   specs:
-    bn-ldap-authentication (1.0.1)
+    bn-ldap-authentication (0.1.2)
       net-ldap
 
 GIT

@@ -101,6 +101,7 @@ en:
       registration_method_updated: Registration method successfully updated
       reset_password: The user has been sent an email to reset their password. (Please ask them to check their spam folder if they haven't received it)
       restored: User has been successfully restored
+      room_configuration: Room Configuration successfully changed
       settings: Site Settings successfully changed
       unauthorized: You are not authorized to perform actions on this user
     recordings:
@@ -127,6 +128,20 @@ en:
       colour:
         title: Role Colour
         info: Set the colour that will be associated with the role
+    room_configuration:
+      title: Room Configuration
+      mute:
+        info: Automatically mutes the user when they join the BigBlueButton meeting
+      require_moderator:
+        info: Prompts the moderator of the BigBlueButton meeting when a user tries to join. If the user is approved, they will be able to join the meeting.
+      allow_any:
+        info: Allows any user to start the meeting at any time. By default, only the room owner can start the meeting.
+      all_moderator:
+        info: Gives all users moderator privileges in BigBlueButton when they join the meeting.
+      options:
+        disabled: Disabled
+        enabled: Always Enabled
+        optional: Optional
     rooms:
       title: Server Rooms
       table:
@@ -147,6 +162,7 @@ en:
         delete: Delete
         edit: Edit
         edit_roles: Edit the user roles
+        merge: Merge
         perm_delete: Permanently Delete
         unban: Unban User
         undelete: Undelete

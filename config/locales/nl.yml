@@ -101,6 +101,7 @@ nl:
       registration_method_updated: Registratiemethode succesvol bijgewerkt
       reset_password: De gebruiker heeft een e-mail ontvangen om zijn wachtwoord opnieuw in te stellen. (Vraag hen om hun spammap te controleren als ze deze niet hebben ontvangen)
       restored: Gebruiker is succesvol hersteld
+      room_configuration: Kamerinstellingen succesvol gewijzigd
       settings: Site-instellingen succesvol gewijzigd
       unauthorized: U bent niet gemachtigd om acties uit te voeren op deze gebruiker
     recordings:
@@ -127,6 +128,20 @@ nl:
       colour:
         title: Rol kleur
         info: Stel de kleur in die aan de rol wordt gekoppeld
+    room_configuration:
+      title: Kamerinstellingen
+      mute:
+        info: Dempt automatisch de gebruiker wanneer ze deelnemen aan de BigBlueButton-vergadering
+      require_moderator:
+        info: "Vraagt de moderator van de BigBlueButton-vergadering wanneer een gebruiker probeert deel te nemen. Als de gebruiker is goedgekeurd, kunnen ze deelnemen aan de vergadering."
+      allow_any:
+        info: Hiermee kan elke gebruiker de vergadering op elk moment starten. Standaard kan alleen de kamer eigenaar de vergadering starten.
+      all_moderator:
+        info: Geeft alle gebruikers moderatorrechten in BigBlueButton wanneer ze deelnemen aan de vergadering.
+      options:
+        disabled: Uitgeschakeld
+        enabled: Altijd ingeschakeld
+        optional: Optioneel
     rooms:
       title: Server Kamers
       table:
@@ -147,6 +162,7 @@ nl:
         delete: Verwijder
         edit: Bewerk
         edit_roles: Bewerk de gebruikersrollen
+        merge: Voeg samen
         perm_delete: Permanent verwijderen
         unban: Unban gebruiker
         undelete: Undelete

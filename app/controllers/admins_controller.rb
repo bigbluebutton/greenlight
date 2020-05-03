@@ -73,6 +73,10 @@ class AdminsController < ApplicationController
     @pagy, @rooms = pagy_array(server_rooms_list)
   end
 
+  # GET /admins/room_configuration
+  def room_configuration
+  end
+
   # MANAGE USERS
 
   # GET /admins/edit/:user_uid
@@ -129,9 +133,7 @@ class AdminsController < ApplicationController
 
   # GET /admins/reset
   def reset
-    @user.create_reset_digest
-
-    send_password_reset_email(@user)
+    send_password_reset_email(@user, @user.create_reset_digest)
 
     if session[:prev_url].present?
       redirect_path = session[:prev_url]
@@ -239,6 +241,16 @@ class AdminsController < ApplicationController
     Rails.logger.level = params[:value].to_i
 
     redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
+  end
+
+  # ROOM CONFIGURATION
+  # POST /admins/update_room_configuration
+  def update_room_configuration
+    @settings.update_value(params[:setting], params[:value])
+
+    flash_message = I18n.t("administrator.flash.room_configuration")
+
+    redirect_to admin_room_configuration_path, flash: { success: flash_message }
   end
 
   # ROLES

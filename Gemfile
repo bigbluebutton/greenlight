@@ -49,7 +49,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth_openid_connect'
 gem 'omniauth-bn-launcher', git: 'https://github.com/blindsidenetworks/omniauth-bn-launcher.git', tag: '0.1.3'
-gem 'bn-ldap-authentication', git: 'https://github.com/blindsidenetworks/bn-ldap-authentication.git', tag: '0.1.1'
+gem 'bn-ldap-authentication', git: 'https://github.com/blindsidenetworks/bn-ldap-authentication.git', tag: '0.1.2'
 gem 'net-ldap'
 
 # BigBlueButton API wrapper.

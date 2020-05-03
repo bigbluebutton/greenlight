@@ -88,10 +88,7 @@ class SessionsController < ApplicationController
       # Check that the user is a Greenlight account
       return redirect_to(root_path, alert: I18n.t("invalid_login_method")) unless user.greenlight_account?
       # Check that the user has verified their account
-      unless user.activated?
-        user.create_activation_token
-        return redirect_to(account_activation_path(token: user.activation_token))
-      end
+      return redirect_to(account_activation_path(token: user.create_activation_token)) unless user.activated?
     end
 
     login(user)
@@ -247,8 +244,7 @@ class SessionsController < ApplicationController
     logger.info "Switching social account to local account for #{user.uid}"
 
     # Send the user a reset password email
-    user.create_reset_digest
-    send_password_reset_email(user)
+    send_password_reset_email(user, user.create_reset_digest)
 
     # Overwrite the flash with a more descriptive message if successful
     flash[:success] = I18n.t("reset_password.auth_change") if flash[:success].present?
