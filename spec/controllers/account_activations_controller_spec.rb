@@ -69,7 +69,7 @@ describe AccountActivationsController, type: :controller do
 
     it "redirects a pending user to root with a flash" do
       @user = create(:user, email_verified: false, provider: "greenlight")
-      
+
       @user.set_role :pending
       @user.reload
 

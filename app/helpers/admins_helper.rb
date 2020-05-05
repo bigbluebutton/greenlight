@@ -106,7 +106,7 @@ module AdminsHelper
       t("administrator.room_configuration.options.disabled")
     end
   end
-  
+
   # Roles
 
   def edit_disabled

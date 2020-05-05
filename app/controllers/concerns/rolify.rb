@@ -46,8 +46,23 @@ module Rolify
   end
 
   # Updates a user's roles
-  def update_roles(roles)
-    
+  def update_roles(role_id)
+    return true if role_id.blank?
+    # Check to make sure user can edit roles
+    return false unless current_user.role.get_permission("can_manage_users")
+
+    return true if @user.role_id == role_id
+
+    new_role = Role.find_by(id: role_id, provider: @user_domain)
+    # Return false if new role doesn't exist
+    return false if new_role.nil?
+
+    return false if new_role.priority < current_user.role.priority
+
+    # Send promoted/demoted emails
+    send_user_promoted_email(@user, new_role) if new_role.get_permission("send_promoted_email")
+
+    @user.update_attribute(:role_id, role_id)
   end
 
   # Updates a roles priority

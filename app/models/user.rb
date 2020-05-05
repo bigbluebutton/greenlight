@@ -109,7 +109,7 @@ class User < ApplicationRecord
 
   # Activates an account and initialize a users main room
   def activate
-    set_role :user
+    set_role :user if role_id.nil?
     update_attributes(email_verified: true, activated_at: Time.zone.now, activation_digest: nil)
   end
 
@@ -171,7 +171,7 @@ class User < ApplicationRecord
   end
 
   # role functions
-  def set_role(role)
+  def set_role(role) # rubocop:disable Naming/AccessorMethodName
     return if has_role?(role)
 
     new_role = Role.find_by(name: role, provider: role_provider)
@@ -186,16 +186,16 @@ class User < ApplicationRecord
   end
 
   # This rule is disabled as the function name must be has_role?
-  def has_role?(role_name)  # rubocop:disable Naming/PredicateName
+  def has_role?(role_name) # rubocop:disable Naming/PredicateName
     role&.name == role_name.to_s
   end
 
   def self.with_role(role)
-    User.includes(:role).where(roles: {name: role})
+    User.includes(:role).where(roles: { name: role })
   end
 
   def self.without_role(role)
-    User.includes(:role).where.not(roles: {name: role})
+    User.includes(:role).where.not(roles: { name: role })
   end
 
   private

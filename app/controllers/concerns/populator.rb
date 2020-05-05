@@ -37,7 +37,7 @@ module Populator
     initial_list = initial_user.without_role(:super_admin) unless current_user.has_role? :super_admin
 
     initial_list = initial_list.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
-    
+
     initial_list.where.not(id: current_user.id)
                 .admins_search(@search, current_role)
                 .admins_order(@order_column, @order_direction)
@@ -67,7 +67,9 @@ module Populator
   def shared_user_list
     roles_can_appear = []
     Role.where(provider: @user_domain).each do |role|
-      roles_can_appear << role.name if role.get_permission("can_appear_in_share_list") && role.get_permission("can_create_rooms") && role.priority >= 0
+      if role.get_permission("can_appear_in_share_list") && role.get_permission("can_create_rooms") && role.priority >= 0
+        roles_can_appear << role.name
+      end
     end
 
     initial_list = User.where.not(uid: current_user.uid).with_role(roles_can_appear)

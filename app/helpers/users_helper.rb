@@ -52,6 +52,11 @@ module UsersHelper
     language_opts.sort
   end
 
+  # Returns a list of roles that the user can have
+  def role_options
+    Role.editable_roles(@user_domain).where("priority >= ?", current_user.role.priority)
+  end
+
   # Parses markdown for rendering.
   def markdown(text)
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,

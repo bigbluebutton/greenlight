@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     if !Rails.configuration.enable_email_verification || @user.email_verified
       @user.set_role :user
 
-      login(@user) && return 
+      login(@user) && return
     end
 
     send_activation_email(@user, @user.create_activation_token)
@@ -120,7 +120,7 @@ class UsersController < ApplicationController
 
         user_locale(@user)
 
-        if update_roles(params[:user][:role_ids])
+        if update_roles(params[:user][:role_id])
           return redirect_to redirect_path, flash: { success: I18n.t("info_update_success") }
         else
           flash[:alert] = I18n.t("administrator.roles.invalid_assignment")

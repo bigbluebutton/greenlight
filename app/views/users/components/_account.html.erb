@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<%= form_for @user, url: update_user_path, method: :patch do |f|  %>
+<%= form_for @user, url: update_user_path, method: :post do |f|  %>
   <%= hidden_field_tag :setting, "account" %>
   <div class="form-group">
     <div class="row">
@@ -39,8 +39,20 @@
     <%= f.select :language, language_options, {}, { class: "form-control custom-select" } %>
 
     <%= f.label t("settings.account.roles"), class: "form-label mt-5" %>
-    
-  
+
+    <% if current_user.role.get_permission("can_manage_users") %>
+      <select id="role-dropdown" class="selectpicker show-tick" >
+        <% role_options.each do |role| %>
+          <option value="<%=role.id%>"><%= translated_role_name(role) %></option>
+        <% end %>
+      </select>
+
+      <%= f.hidden_field :role_id, id: "user_role_id", value: @user.role.id %>
+    <% else %>
+      <span style="<%= "background-color: #{role_colour(@user.role)};border-color: #{role_colour(@user.role)};" %>" class="tag custom-role-tag">
+        <%= translated_role_name(@user.role) %>
+      </span>
+    <% end %>
     <%= f.label t("settings.account.image"), class: "form-label mt-5" %>
     <div class="row">
       <div class="col-2">

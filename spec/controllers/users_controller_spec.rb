@@ -278,13 +278,13 @@ describe UsersController, type: :controller do
     end
   end
 
-  describe "PATCH #update" do
+  describe "POST #update" do
     it "properly updates user attributes" do
       user = create(:user)
       @request.session[:user_id] = user.id
 
       params = random_valid_user_params
-      patch :update, params: params.merge!(user_uid: user)
+      post :update, params: params.merge!(user_uid: user)
       user.reload
 
       expect(user.name).to eql(params[:user][:name])
@@ -297,7 +297,7 @@ describe UsersController, type: :controller do
       @user = create(:user)
       @request.session[:user_id] = @user.id
 
-      patch :update, params: invalid_params.merge!(user_uid: @user)
+      post :update, params: invalid_params.merge!(user_uid: @user)
       expect(response).to render_template(:edit)
     end
 
@@ -315,30 +315,7 @@ describe UsersController, type: :controller do
         tmp_role = Role.create(name: "test", priority: -4, provider: "greenlight")
 
         params = random_valid_user_params
-        patch :update, params: params.merge!(user_uid: user, user: { role_ids: tmp_role.id.to_s })
-
-        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_assignment"))
-        expect(response).to render_template(:edit)
-      end
-
-      it "should fail to update roles if a user tries to remove a role with a higher priority than their own" do
-        user = create(:user)
-        admin = create(:user)
-
-        admin.set_role :admin
-
-        @request.session[:user_id] = user.id
-
-        user_role = user.role
-
-        user_role.update_permission("can_manage_users", "true")
-
-        user_role.save!
-
-        params = random_valid_user_params
-        patch :update, params: params.merge!(user_uid: admin, user: { role_ids: "" })
-
-        user.reload
+        post :update, params: params.merge!(user_uid: user, user: { role_id: tmp_role.id.to_s })
 
         expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_assignment"))
         expect(response).to render_template(:edit)
@@ -356,40 +333,14 @@ describe UsersController, type: :controller do
 
         tmp_role1 = Role.create(name: "test1", priority: 2, provider: "greenlight")
         tmp_role1.update_permission("send_promoted_email", "true")
-        tmp_role2 = Role.create(name: "test2", priority: 3, provider: "greenlight")
 
         params = random_valid_user_params
-        params = params.merge!(user_uid: user, user: { role_ids: "#{tmp_role1.id} #{tmp_role2.id}" })
+        params = params.merge!(user_uid: user, user: { role_id: tmp_role1.id.to_s })
 
-        expect { patch :update, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
+        expect { post :update, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
 
         user.reload
-        expect(user.roles.count).to eq(2)
         expect(user.role.name).to eq("test1")
-        expect(response).to redirect_to(admins_path)
-      end
-
-      it "all users must at least have the user role" do
-        allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
-
-        user = create(:user)
-        admin = create(:user)
-
-        admin.set_role :admin
-
-        tmp_role1 = Role.create(name: "test1", priority: 2, provider: "greenlight")
-        tmp_role1.update_permission("send_demoted_email", "true")
-        user.roles << tmp_role1
-        user.save!
-
-        @request.session[:user_id] = admin.id
-
-        params = random_valid_user_params
-        params = params.merge!(user_uid: user, user: { role_ids: "" })
-
-        expect { patch :update, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
-        expect(user.roles.count).to eq(1)
-        expect(user.role.name).to eq("user")
         expect(response).to redirect_to(admins_path)
       end
     end
@@ -400,7 +351,7 @@ describe UsersController, type: :controller do
       allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
       Role.create_default_roles("provider1")
     end
-  
+
     it "permanently deletes user" do
       user = create(:user)
       @request.session[:user_id] = user.id
