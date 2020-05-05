@@ -37,4 +37,8 @@ module RoomsHelper
     @diff = current_user.rooms.count - limit
     @diff.positive? && current_user.rooms.pluck(:id).index(room.id) + 1 > limit
   end
+
+  def room_configuration(name)
+    @settings.get_value(name)
+  end
 end

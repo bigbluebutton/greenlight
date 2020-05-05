@@ -81,8 +81,6 @@ describe PasswordResetsController, type: :controller do
     context "valid user" do
       it "reloads page with notice if password is empty" do
         token = "reset_token"
-
-        allow(controller).to receive(:valid_user).and_return(nil)
         allow(controller).to receive(:check_expiration).and_return(nil)
 
         params = {
@@ -99,7 +97,6 @@ describe PasswordResetsController, type: :controller do
       it "reloads page with notice if password is confirmation doesn't match" do
         token = "reset_token"
 
-        allow(controller).to receive(:valid_user).and_return(nil)
         allow(controller).to receive(:check_expiration).and_return(nil)
 
         params = {
@@ -116,14 +113,12 @@ describe PasswordResetsController, type: :controller do
 
       it "updates attributes if the password update is a success" do
         user = create(:user, provider: "greenlight")
-        user.create_reset_digest
         old_digest = user.password_digest
 
-        allow(controller).to receive(:valid_user).and_return(nil)
         allow(controller).to receive(:check_expiration).and_return(nil)
 
         params = {
-          id: user.reset_token,
+          id: user.create_reset_digest,
           user: {
             password: :password,
             password_confirmation: :password,

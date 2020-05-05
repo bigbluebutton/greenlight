@@ -58,6 +58,23 @@ class Setting < ApplicationRecord
       Rails.configuration.number_of_rooms_default
     when "Shared Access"
       Rails.configuration.shared_access_default
+    when "Room Configuration Mute On Join"
+      room_config_setting("mute-on-join")
+    when "Room Configuration Require Moderator"
+      room_config_setting("require-moderator-approval")
+    when "Room Configuration Allow Any Start"
+      room_config_setting("anyone-can-start")
+    when "Room Configuration All Join Moderator"
+      room_config_setting("all-join-moderator")
+    end
+  end
+
+  # Check if the room setting is currently enabled in .env, return disabled if not and return optional if it is
+  def room_config_setting(name)
+    if Rails.configuration.room_features.include?(name)
+      "optional"
+    else
+      "disabled"
     end
   end
 end

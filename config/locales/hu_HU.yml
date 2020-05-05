@@ -147,6 +147,7 @@ hu_HU:
         delete: Törlés
         edit: Módosítás
         edit_roles: A felhasználó szerepeinek módosítása
+        merge: Összevonás
         perm_delete: Végleges törlés
         unban: Felhasználó kizárásának vsszavonása
         undelete: Törlés visszavonása
