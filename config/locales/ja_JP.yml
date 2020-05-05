@@ -67,8 +67,8 @@ ja_JP:
         fatal: 致命的
         unknown: 不明
       recording_visibility:
-        info: 新しい録画に対する標準の可視性を設定する
-        title: 録画に対する標準の可視性
+        info: 新しい録画の標準の公開方法を設定する
+        title: 録画の公開方法
         warning: この設定は実行していない会議室にのみ適用されます
       registration:
         info: ユーザがWebサイトに登録する方法を変更する
@@ -101,10 +101,11 @@ ja_JP:
       registration_method_updated: 登録方法が更新されました
       reset_password: パスワードをリセットするためのメールがユーザに送信されました。 (受信していない場合は、迷惑メールフォルダを確認してみてください)
       restored: ユーザが復元されました
+      room_configuration: 会議室の設定が変更されました。
       settings: サイト設定が変更されました
       unauthorized: このユーザにアクションを実行する権限がありません
     recordings:
-      title: サーバの録画
+      title: 全ての録画
       no_recordings: このサーバには録画がありません。
     roles:
       appear_in_share_list: 会議室を共有するためのドロップダウンにこの役割を持つユーザを含める
@@ -113,7 +114,7 @@ ja_JP:
       invalid_create: 新しい役割の作成中に問題が発生しました。 設定を確認して再度お試しください
       invalid_order: 役割の優先度を更新中に問題が発生しました。 設定を確認して再度お試しください
       invalid_update: 役割の権限を更新中に問題が発生しました。 設定を確認して再度お試しください
-      manage_rooms_recordings: この役割を持つユーザがサーバ会議室と録画を管理できるようにします
+      manage_rooms_recordings: この役割を持つユーザがサーバに存在する全ての会議室と録画を管理できるようにします
       name: 役割の名前
       new_role: 新しい役割を作成する
       role_has_users: "この役割は %{user_count} アカウントに割り当てられています。 削除する前に、この役割からすべてのアカウントを削除してください。"
@@ -127,15 +128,29 @@ ja_JP:
       colour:
         title: 役割の色
         info: 役割に関連付ける色を設定します
+    room_configuration:
+      title: 会議室の設定
+      mute:
+        info: ユーザが会議に参加した時、自動的にミュートします。
+      require_moderator:
+        info: ユーザが会議に参加しようとした時、モデレータに問い合わせます。許可が得られたときにユーザは参加できます。
+      allow_any:
+        info: 全てのユーザがいつでも会議を開始することを許可します。通常は会議室のオーナーだけが会議を開始できます。
+      all_moderator:
+        info: 会議参加時、全てのユーザにモデレータ特権を与えます
+      options:
+        disabled: 無効
+        enabled: 常に有効
+        optional: 任意
     rooms:
-      title: サーバの会議室
+      title: 全ての会議室
       table:
         id: ID
         not_running: 実行されていません
         running: 実行中
         status: ステータス
         view: 表示
-    title: 構成の設定
+    title: 設定
     users:
       invite: ユーザを招待する
       edit:
@@ -143,12 +158,13 @@ ja_JP:
       settings:
         approve: 承認する
         decline: 却下する
-        ban: ユーザを禁止する
+        ban: ユーザをロックする
         delete: 削除する
         edit: 編集する
         edit_roles: ユーザの役割を編集する
+        merge: マージ
         perm_delete: 完全に削除する
-        unban: ユーザの禁止を解除
+        unban: ユーザのロックを解除
         undelete: 削除の取消
       table:
         authenticator: 認証者
@@ -224,7 +240,7 @@ ja_JP:
   expired_reset_token: パスワードリセットのリンクが切れています！
   features:
     title: の特長
-    rooms: 会議室のパーソナライズ
+    rooms: 会議室の作成
     recordings: 録画の管理
     designs: デザインの調整
     authentication: ユーザの認証
@@ -239,7 +255,7 @@ ja_JP:
   header:
     all_recordings: すべての録画
     dropdown:
-      account_settings: 構成の設定
+      account_settings: 設定
       help: ヘルプが必要ですか？
       home: ホーム
       settings: プロフィール
@@ -259,7 +275,7 @@ ja_JP:
     search:
       start: 検索開始...
   landing:
-    about: "%{href}は、オープンソースWeb会議サーバ BigBlueButton のシンプルなフロントエンドです。 自分の会議室を作成してセッションを主催したり、便利なリンクを使用して他のユーザが参加したりできます。"
+    about: "%{href}は、オープンソースWeb会議サーバ BigBlueButton のシンプルなフロントエンドです。 自分の会議室を作成してセッションを主催したり、簡単なリンクを使用して他のユーザが参加したりできます。"
     welcome: BigBlueButton へようこそ
     video: Greenlightの使い方に関するチュートリアルを見る
     upgrade: 2.0にアップグレードする方法を教えて！
@@ -306,7 +322,7 @@ ja_JP:
         expire: このリンクは2時間で期限切れになります。
         ignore: パスワードリセットを行わなかった場合は、このメールを無視しても問題ありません。
       promoted:
-        admins_link: 構成ページにアクセス
+        admins_link: 設定ページにアクセス
         info: "あなたは %{url} の %{role} になりました。"
         more-info: "新しい機能を確認するには、 %{url} にアクセスしてください。"
         subtitle: "%{role} 権限の付与"
@@ -432,7 +448,7 @@ ja_JP:
     format:
       notes: ノート
       podcast: ポッドキャスト
-      presentation: プレゼンテーション
+      presentation: 再生する
       statistics: 統計情報
       video: ビデオ
   registration:
@@ -460,7 +476,7 @@ ja_JP:
   roles:
     active: アクティブ
     admin: 管理者
-    banned: 禁止
+    banned: ロック
     deleted: 削除
     pending: 保留
     user: ユーザ

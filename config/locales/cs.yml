@@ -21,7 +21,7 @@ cs:
     attributes:
       user:
         accepted_terms: "Podmínky"
-        email: e-mail
+        email: E-mail
         name: Jméno
         password: Heslo
         password_confirmation: Potvrzení hesla
@@ -42,6 +42,7 @@ cs:
         info: "Změna loga, které se zobrazuje v levém horním rohu obrazovky"
         placeholder: Odkaz na obrázek ...
         title: Obrázek loga
+        invalid: Neplatné URL
       cache:
         info: "Vyčistit mezipaměť poskytovatele, což vynutí požadavek na aktualizaci dat"
         title: Vyčistit mezipaměť poskytovatele
@@ -92,14 +93,15 @@ cs:
       delete_fail: Odstranění uživatele se nezdařilo
       demoted: Uživatel byl úspěšně degradován
       invite: "Pozvánka úspěšně odeslána na %{email}"
-      invite_email_verification: Zasílání emailů musí být povoleno pro použití této metody. Kontaktujte prosím administrátora tohoto systému.
+      invite_email_verification: Zasílání e-mailů musí být povoleno pro použití této metody. Kontaktujte prosím administrátora tohoto systému.
       merge_fail: Nastal problém se spojením uživatelských účtů. Prosím zkontrolujte vybrané uživatele a zkuste to ještě jednou 
       merge_success: Spojení uživatelských účtů proběhlo úspěšně.
       perm_deleted: Uživatel byl permanentně smazán
       promoted: Uživatel byl úspěšně povýšen
       registration_method_updated: Způsob registrace byl úspěšně změněn
-      reset_password: "Uživateli byl odeslán email na zresetování jeho hesla. (Pokud zpráva nedorazila, požádejte o kontrolu složky se spamem)"
+      reset_password: "Uživateli byl odeslán e-mail na zresetování jeho hesla. (Pokud zpráva nedorazila, požádejte o kontrolu složky se spamem)"
       restored: Uživatel byl úspěšně obnoven
+      room_configuration: Nastavení úspěšně uloženo
       settings: Nastavení serveru úspěšně změněno
       unauthorized: Nemáte dostatečná oprávnění k provedení akce.
     recordings:
@@ -117,8 +119,8 @@ cs:
       new_role: Vytvořit novou roli
       role_has_users: "Tato role je přidělena k %{user_count} účtem. Prosím odstraňte z role všechny účty před jejím smazáním"
       title: Role
-      promote_email: "Odeslat email uživatelům, když jim je přidělena tato role"
-      demote_email: "Odeslat email uživatelům, když jim je odebrána tato role"
+      promote_email: "Odeslat e-mail uživatelům, když jim je přidělena tato role"
+      demote_email: "Odeslat e-mail uživatelům, když jim je odebrána tato role"
       edit_site_settings: Povolit uživatelům s touto rolí měnit nastavení serveru
       edit_roles: Povolit uživatelům s touto rolí měnit jiné role
       manage_users: Povolit uživatelům s touto rolí spravovat uživatele
@@ -126,6 +128,20 @@ cs:
       colour:
         title: Barva role
         info: Nastavte barvu role
+    room_configuration:
+      title: Nastavení místnosti
+      mute:
+        info: Automaticky vypnout mikrofon nově připojeným uživatelům
+      require_moderator:
+        info: "Upozorni moderátora místnosti ve chvíli, kdy se uživatel snaží připojit. Uživatel je vpuštěn do místnosti až po schválení."
+      allow_any:
+        info: "Povolit kdykoliv aktivaci místnosti jakémukoliv uživateli. Ve výchozím stavu může místnost aktivovat pouze její vlastník. "
+      all_moderator:
+        info: Přiděl práva moderátora všem uživatelům ihned po připojení.
+      options:
+        disabled: Vypnuto
+        enabled: Vždy zapnuto
+        optional: Volitelný
     rooms:
       title: Místnosti
       table:
@@ -146,6 +162,7 @@ cs:
         delete: Smazat
         edit: Upravit
         edit_roles: Editace uživatelských rolí
+        merge: Spojit
         perm_delete: Permanentně smazat
         unban: Odblokovat uživatele
         undelete: Obnovit uživatele
@@ -172,10 +189,10 @@ cs:
     month_names: [~, Leden, Únor, Březen, Duben, Květen, Červen, Červenec, Srpen, Září, Říjen, Listopad, Prosinec]
   default_admin: "Stále používáte prvotní heslo. Prosím klikněte <a href='%{edit_link}'> sem </a> a změňte si ho"
   delete: Smazat
-  delivery_error: Nastala chyba při odesílání emailu. Kontaktujte správce systému.
+  delivery_error: Nastala chyba při odesílání e-mailu. Kontaktujte správce systému.
   docs: Dokumentace
   email: e-mail
-  email_sent: "Váš%{email_type} email byl odeslán! (Pokud zpráva nedorazila, požádejte o kontrolu složky se spamem)"
+  email_sent: "Váš%{email_type} e-mail byl odeslán! (Pokud zpráva nedorazila, požádejte o kontrolu složky se spamem)"
   enter_your_name: Zadejte své jméno
   errors:
     bigbluebutton:
@@ -245,7 +262,7 @@ cs:
       signout: Odhlásit se
   home_room: Domovská místnost
   info_update_success: Informace byly úspěšně uloženy.
-  invalid_credentials: "Zadané přihlašování jméno nebo heslo je nesprávné. Zkuste to znovu, nebo klikněte na možnost 'Zapomenuté heslo' pro znovu nastavení hesla."
+  invalid_credentials: "Zadané přihlašování jméno nebo heslo je nesprávné. Zkuste to znovu, nebo klikněte na možnost 'Zapomenuté heslo' pro reset hesla."
   invalid_login_method: Přihlášení selhalo z důvodu problému s účtem. Musíte se přihlásit přes omniauth.
   invite_message: "Další osoby pozvete na konferenci tím, že jim zašlete následující odkaz:"
   javascript:
@@ -303,7 +320,7 @@ cs:
         message: 'Pokud jste požadovali reset hesla, tak prosím klikněte na následující odkaz:'
         reset_link: Resetovat heslo
         expire: Platnost odkazu vyprší za dvě hodiny.
-        ignore: "Pokud jste o reset hesla nežádali, tak můžete tento email bezpečně ignorovat."
+        ignore: "Pokud jste o reset hesla nežádali, tak můžete tento e-mail bezpečně ignorovat."
       promoted:
         admins_link: Navštivte stránku Organizace
         info: "Byla Vám přidána role %{role} na %{url}."
@@ -350,8 +367,8 @@ cs:
       warning: <b>Nebude</b> možné obnovit tuto místnost.
       recording_warning: "ani žádnou %{recordings_num} přidruženou nahrávku."
     invite_user:
-      email_placeholder: Zadejte emailové adresy uživatelů (oddělené čárkami)
-      footer: "Každý uživatel obdrží email s instrukcemi, jak se registrovat"
+      email_placeholder: Zadejte e-mailové adresy uživatelů (oddělené čárkami)
+      footer: "Každý uživatel obdrží e-mail s instrukcemi, jak se registrovat"
       send: Odeslat pozvánku
       title: Pozvat uživatele
     login:
@@ -389,7 +406,7 @@ cs:
       save: Spojit
       footer: Místnosti z původního účtu budou přeneseny do primárního účtu a potom bude původní účet smazán.
   name_update_success: Název místnosti byl úspěšně změněn.
-  no_user_email_exists: "Uživatel s tímto emailem neexistuje. Prosím zkontrolujte, že byl správně zadán."
+  no_user_email_exists: "Uživatel s tímto e-mailem neexistuje. Prosím zkontrolujte, že byl správně zadán."
   omniauth_error: "Nastala chyba při přihlašování přes omniauth. Prosím zkuste to znovu, nebo kontaktujte administrátora."
   omniauth_specific_error: "Nastala chyba %{error} při přihlašování přes omniauth. Prosím zkuste to znovu, nebo kontaktujte administrátora."
   pagy:
@@ -412,7 +429,7 @@ cs:
       verification_failed: "Ověření reCAPTCHA selhalo, zkuste to prosím znovu."
   recording:
     all_recordings: Všechny nahrávky
-    email: Poslat nahrávku emailem
+    email: Poslat nahrávku e-mailem
     error: " Nastala chyba při stahování%{count} nahrávek"
     no_recordings: "Tato místnost nemá %{inject}nahrávky."
     no_user_recordings: Nemáte žádné nahrávky.
@@ -455,7 +472,7 @@ cs:
     password: Nové heslo
     confirm: Potvrzení nového hesla
     update: Změna hesla
-    auth_change: Změnila se metoda ověření. Prosím zkontrolujte emaily.
+    auth_change: Změnila se metoda ověření. Prosím zkontrolujte e-maily.
   roles:
     active: Aktivní
     admin: Admin
@@ -503,7 +520,7 @@ cs:
     shared_access_success: Místnost je sdílena
     shared_access_error: Nastala chyba při nastavení sdílení místnosti
     start: Spustit
-    unavailable: "Tato místnost je momentálně nedostupná, protože email vlastníka nebyl dosud ověřen."
+    unavailable: "Tato místnost je momentálně nedostupná, protože e-mail vlastníka nebyl dosud ověřen."
     update_settings_error: Nastala chyba při aktualizaci nastavení místnosti
     update_settings_success: Nastavení místnosti bylo aktualizováno
     wait:
@@ -550,7 +567,7 @@ cs:
     already_verified: Účet byl již ověřen
     invalid: Nesprávný ověřovací odkaz
     not_verified: Váš účet ještě nebyl ověřen
-    resend: Znovu poslat ověřovací email
+    resend: Znovu poslat ověřovací e-mail
     signin: Pro přístup k Vašemu účtu se musíte přihlásit.
-    title: Ověření Vašeho emailu
+    title: Ověření Vašeho e-mailu
     verification: Ověření
