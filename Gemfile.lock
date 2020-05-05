@@ -1,8 +1,9 @@
 GIT
   remote: https://github.com/blindsidenetworks/bn-ldap-authentication.git
-  revision: 9b93c64f106675755577f45d1fe520ca5405d522
+  revision: 9cd1f4d195f0c49abc30b52d23607b770823a9a5
+  tag: 0.1.2
   specs:
-    bn-ldap-authentication (1.0.1)
+    bn-ldap-authentication (0.1.2)
       net-ldap
 
 GIT
@@ -141,7 +142,7 @@ GEM
     http_accept_language (2.1.1)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
-    i18n-language-mapping (0.1.0)
+    i18n-language-mapping (0.1.1)
     jaro_winkler (1.5.3)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
@@ -363,7 +364,7 @@ DEPENDENCIES
   font-awesome-sass (~> 5.9.0)
   hiredis
   http_accept_language
-  i18n-language-mapping (~> 0.1.0)
+  i18n-language-mapping (~> 0.1.1)
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3.3)
   jquery-ui-rails

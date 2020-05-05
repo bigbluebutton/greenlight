@@ -19,6 +19,10 @@ $(document).on('turbolinks:load', function(){
   var controller = $("body").data('controller');
   var action = $("body").data('action');
 
+  // highlight current room
+  $('.room-block').removeClass('current');
+  $('a[href="' + window.location.pathname + '"] .room-block').addClass('current');
+
   // Only run on room pages.
   if (controller == "rooms" && action == "show"){
     var copy = $('#copy');
@@ -57,7 +61,7 @@ $(document).on('turbolinks:load', function(){
       $('#create-room-name').focus()
     }
   })
-  
+
   if (controller == "rooms" && action == "show" || controller == "admins" && action == "server_rooms"){
     // Display and update all fields related to creating a room in the createRoomModal
     $(".update-room").click(function(){
@@ -120,13 +124,13 @@ $(document).on('turbolinks:load', function(){
         let listItem = document.createElement("li")
         listItem.setAttribute('class', 'list-group-item text-left not-saved add-access');
         listItem.setAttribute("data-uid", uid)
-  
+
         let spanItem = "<span class='avatar float-left mr-2'>" + option.text().charAt(0) + "</span> <span class='shared-user'>" +
-          option.text() + " <span class='text-muted'>" + option.data("subtext") + "</span></span>" + 
+          option.text() + " <span class='text-muted'>" + option.data("subtext") + "</span></span>" +
           "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
-        
+
         listItem.innerHTML = spanItem
-  
+
         $("#user-list").append(listItem)
       }
     })
@@ -140,10 +144,11 @@ function showCreateRoom(target) {
   $("#room_access_code").val(null)
 
   $("#createRoomModal form").attr("action", $("body").data('relative-root'))
-  $("#room_mute_on_join").prop("checked", false)
-  $("#room_require_moderator_approval").prop("checked", false)
-  $("#room_anyone_can_start").prop("checked", false)
-  $("#room_all_join_moderator").prop("checked", false)
+
+  $("#room_mute_on_join").prop("checked", $("#room_mute_on_join").data("default"))
+  $("#room_require_moderator_approval").prop("checked", $("#room_require_moderator_approval").data("default"))
+  $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default"))
+  $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default"))
 
   //show all elements & their children with a create-only class
   $(".create-only").each(function() {
@@ -160,9 +165,9 @@ function showCreateRoom(target) {
 
 function showUpdateRoom(target) {
   var modal = $(target)
-  var update_path = modal.closest("#room-block").data("path")
+  var update_path = modal.closest(".room-block").data("path")
   var settings_path = modal.data("settings-path")
-  $("#create-room-name").val(modal.closest("#room-block").find("#room-name-text").text().trim())
+  $("#create-room-name").val(modal.closest(".room-block").find(".room-name-text").text().trim())
   $("#createRoomModal form").attr("action", update_path)
 
   //show all elements & their children with a update-only class
@@ -178,8 +183,8 @@ function showUpdateRoom(target) {
   })
 
   updateCurrentSettings(settings_path)
-  
-  var accessCode = modal.closest("#room-block").data("room-access-code")
+
+  var accessCode = modal.closest(".room-block").data("room-access-code")
 
   if(accessCode){
     $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code") + ": " + accessCode)
@@ -200,10 +205,10 @@ function updateCurrentSettings(settings_path){
   // Get current room settings and set checkbox
   $.get(settings_path, function(room_settings) {
     var settings = JSON.parse(room_settings) 
-    $("#room_mute_on_join").prop("checked", settings.muteOnStart)
-    $("#room_require_moderator_approval").prop("checked", settings.requireModeratorApproval)
-    $("#room_anyone_can_start").prop("checked", settings.anyoneCanStart)
-    $("#room_all_join_moderator").prop("checked", settings.joinModerator)
+    $("#room_mute_on_join").prop("checked", $("#room_mute_on_join").data("default") || settings.muteOnStart)
+    $("#room_require_moderator_approval").prop("checked", $("#room_require_moderator_approval").data("default") || settings.requireModeratorApproval)
+    $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default") || settings.anyoneCanStart)
+    $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default") || settings.joinModerator)
   })
 }
 
@@ -249,7 +254,7 @@ function displaySharedUsers(path) {
       user_list_html += "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
       user_list_html += "</li>"
     })
-    
+
     $("#user-list").html(user_list_html)
   });
 }

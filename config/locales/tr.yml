@@ -42,6 +42,7 @@ tr:
         info: Sol üst köşede görünen resmi kendi markanızın resmi ile değiştirme
         placeholder: Resimin bulunduğu link ...
         title: Marka Resmi
+        invalid: Geçersiz URL
       cache:
         info: Güncellenmiş bilgiler için yeni bir istekte bulunan depolanmış sağlayıcı önbelleğini temizler
         title: Sağlayıcı Önbelleğini Temizle
@@ -146,6 +147,7 @@ tr:
         delete: Sil
         edit: Düzenle
         edit_roles: Üye yetkisini düzenle
+        merge: Birleştir
         perm_delete: Kalıcı olarak silmek
         unban: Kullanıcının Yasağını Kaldır
         undelete: Geri Al
