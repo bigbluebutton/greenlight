@@ -128,8 +128,7 @@ module Emailer
   end
 
   def admin_emails
-    roles = Role.includes(:role_permissions)
-                .where(provider: @user_domain, role_permissions: { name: "can_manage_users", value: "true" })
+    roles = Role.where(provider: @user_domain, role_permissions: { name: "can_manage_users", value: "true" })
                 .pluck(:name)
 
     admins = User.with_role(roles - ["super_admin"])
