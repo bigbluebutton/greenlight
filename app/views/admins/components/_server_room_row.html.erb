@@ -13,13 +13,13 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<tr id="room-block" data-path="<%= update_settings_path(room) %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>">
+<tr class="room-block" data-path="<%= update_settings_path(room) %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>">
   <td>
     <div id="room-title" class="form-inline edit_hover_class">
       <% if room.id == room.owner.room_id %>
         <i class="fas fa-home pr-1"></i>
       <% end %>
-      <text id="room-name-text">
+      <text class="room-name-text">
         <%= room.name %>
       </text>
     </div>
@@ -36,9 +36,9 @@
   <td class="text-left">
     <% running = room_is_running(room.bbb_id) %>
     <% if running %>
-      <%= t("administrator.rooms.running") %>
+      <%= t("administrator.rooms.table.running") %>
     <% else %>
-      <%= t("administrator.rooms.not_running") %>
+      <%= t("administrator.rooms.table.not_running") %>
     <% end %>
   </td>
   <td class="text-center">
@@ -48,7 +48,7 @@
       </a>
       <div class="dropdown-menu dropdown-menu-right">
         <%= link_to room_path(room), class: "dropdown-item" do %>
-          <i class="dropdown-icon far fa-eye"></i> <%= t("administrator.rooms.view") %>
+          <i class="dropdown-icon far fa-eye"></i> <%= t("administrator.rooms.table.view") %>
         <% end %>
         <%= button_to start_room_path(room), class: "dropdown-item", "data-disable": "" do %>
           <i class="dropdown-icon fas fa-door-open"></i> <%= running ? t("room.join") : t("room.start") %>

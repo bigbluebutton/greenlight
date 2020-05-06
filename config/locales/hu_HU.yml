@@ -42,6 +42,7 @@ hu_HU:
         info: A bal felső sarokban megjelenő arculati kép cseréje
         placeholder: Kép URL-je...
         title: Arculati kép
+        invalid: Érvénytelen URL
       cache:
         info: "Üríti a szolgáltatói gyorsítótárat, ami az információk frissítése érdekében új kérést kényszerít ki"
         title: Szolgáltatói gyorsítótár ürítése
@@ -94,7 +95,7 @@ hu_HU:
       invite: "A meghívót sikeresen elküldtük %{email}"
       invite_email_verification: "Ennek a használatához az e-maileket engedélyezni kell. Kérjük, ezt jelezd a rendszerüzemeltetőnek."
       merge_fail: "Hiba történt a felhasználói fiókok összevonásakor. Kérem, ellenőrizd a felhasználókat, majd próbáld újra." 
-      merge_success: A felhasználói fiókokat sikeresen összevontuk
+      merge_success: A felhasználói fiókokat sikeresen összevontad
       perm_deleted: A felhasználót véglegesen törölted
       promoted: A felhasználót sikeresen előléptetted
       registration_method_updated: A regisztráció módját sikeresen megváltoztattad
@@ -146,6 +147,7 @@ hu_HU:
         delete: Törlés
         edit: Módosítás
         edit_roles: A felhasználó szerepeinek módosítása
+        merge: Összevonás
         perm_delete: Végleges törlés
         unban: Felhasználó kizárásának vsszavonása
         undelete: Törlés visszavonása
@@ -176,7 +178,7 @@ hu_HU:
   docs: Dokumentáció
   email: E-mail cím
   email_sent: "%{email_type} címre e-mail küldtünk. (Kérjük, ellenőrizd a SPAM mappát is)"
-  enter_your_name: Add meg az e-mail címed!
+  enter_your_name: Add meg a neved!
   errors:
     bigbluebutton:
       help: "Kérjük, ellenőrizd, hogy a szükséges lépéseket megtetted. <a href=\"%{doc_link}\"> Bővebb információk</a>"
@@ -191,7 +193,7 @@ hu_HU:
       help: Hamarosan visszajövünk!
     migration_error:
       contact_admin: "Te nem vagy üzemeltető, keress egyet."
-      continue: Inkább maradnék az 1.0-ás használatánál.
+      continue: Inkább maradnék az 1.0-s használatánál.
       notice: >
         Greenlight adatbázis-migrációs hiba. <br>Ellenőrizd, frissítetted-e a Greenlight 2.0-ás verziójára.
       upgrade: "Mutasd, hogyan tudok frissíteni a 2.0-ás verzióra!"
@@ -258,7 +260,7 @@ hu_HU:
     search:
       start: Keresés indítása...
   landing:
-    about: "%{href}egy egyszerű front-end a nyílt forráskódú BigBlueButton webkonferencia-rendszerhez. Saját magadnak szobákat hozhatsz létre, illetve mások csatlakozhatnak egy rövid link használatával."
+    about: "%{href} egy egyszerű front-end a nyílt forráskódú BigBlueButton webkonferencia-rendszerhez. Saját magadnak szobákat hozhatsz létre, illetve mások csatlakozhatnak egy rövid link használatával."
     welcome: A BigBlueButton üdvözöl.
     video: Nézd meg az ismertetőnket a  Greenlight használatáról
     upgrade: "Mutasd, hogyan tudok frissíteni a 2.0-ás verzióra!"
@@ -320,7 +322,7 @@ hu_HU:
   maintenance:
     window_alert: "%{date}-ig karbantartási ablak ütemezése"
   max_concurrent: Elértük a maximálisan megengedett munkamenetek számát!
-  merged: Sikeresen összevontad
+  merged: Összevonva
   modal:
     create_role:
       create: Új szerep létrehozása
@@ -387,7 +389,7 @@ hu_HU:
       title: Felhasználói fiókok összevonása
       to: Elsődleges fiók
       save: Összevonás
-      footer: "Az összevonandó fiók szobái átkerülnek az elsődleges fiók szobalistájába, utána a fiókot törlödik."
+      footer: "Az összevonandó fiók szobái átkerülnek az elsődleges fiók szobalistájába, utána a fiókot törlődik."
   name_update_success: A szoba nevét sikeresen módosítottad!
   no_user_email_exists: "Jelenleg nincs ilyen e-mail című felhasználó. Kérjük, ellenőrizd, hogy nem gépelted el."
   omniauth_error: "Hiba az omniauth-szal történő hitelesítés közben. Kérem, próbálja újra, illetve lépjen kapcsolatba az üzemeltetővel!"
@@ -444,7 +446,7 @@ hu_HU:
       new_signin: Válassz a fiókodhoz egy új bejelentkezési módot. A régi fiókodból származó összes szobát áthelyezzük az új fiókodra.
       twitter_signin: "A Twitter-en keresztüli bejelentkezés elavult és nem lesz elérhető a következő verzióban. A fiókod átállításához egy új hitelesítési módszerre  kattints <a href=\"%{link}\"> erre linkre </a>."
       twitter_signup: "A Twitter-en keresztüli regisztráció elavult. Kérjük, használj másik regisztrációs módszert"
-      merge_success: "A Twitter fiókodat sikeresen egyesítettük az új fiókoddal. A régi, Twitter fiókod töröltük."
+      merge_success: "A Twitter-fiókodat sikeresen összevontuk az új fiókoddal. A régi, Twitter-fiókodat töröltük."
     invite:
       fail: "A tokened nem érvényes vagy lejárt. Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd az üzemeltetőnek."
       no_invite: Neked nem küldtünk meghívót. Kérhetsz egyet az üzemeltetőktől.

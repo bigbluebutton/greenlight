@@ -48,21 +48,22 @@ module Joiner
   end
 
   def join_room(opts)
-    room_settings = JSON.parse(@room[:room_settings])
+    @room_settings = JSON.parse(@room[:room_settings])
 
-    if room_running?(@room.bbb_id) || @room.owned_by?(current_user) || room_settings["anyoneCanStart"]
+    if room_running?(@room.bbb_id) || @room.owned_by?(current_user) || room_setting_with_config("anyoneCanStart")
 
       # Determine if the user needs to join as a moderator.
-      opts[:user_is_moderator] = @room.owned_by?(current_user) || room_settings["joinModerator"] || @shared_room
+      opts[:user_is_moderator] = @room.owned_by?(current_user) || room_setting_with_config("joinModerator") || @shared_room
 
-      opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
-      opts[:mute_on_start] = room_settings["muteOnStart"]
+      opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
+      opts[:mute_on_start] = room_setting_with_config("muteOnStart")
 
       if current_user
         redirect_to join_path(@room, current_user.name, opts, current_user.uid)
       else
         join_name = params[:join_name] || params[@room.invite_path][:join_name]
-        redirect_to join_path(@room, join_name, opts)
+
+        redirect_to join_path(@room, join_name, opts, fetch_guest_id)
       end
     else
       search_params = params[@room.invite_path] || params
@@ -91,5 +92,43 @@ module Joiner
       host: request.host,
       recording_default_visibility: @settings.get_value("Default Recording Visibility") == "public"
     }
+  end
+
+  # Gets the room setting based on the option set in the room configuration
+  def room_setting_with_config(name)
+    config = case name
+    when "muteOnStart"
+      "Room Configuration Mute On Join"
+    when "requireModeratorApproval"
+      "Room Configuration Require Moderator"
+    when "joinModerator"
+      "Room Configuration All Join Moderator"
+    when "anyoneCanStart"
+      "Room Configuration Allow Any Start"
+    end
+
+    case @settings.get_value(config)
+    when "enabled"
+      true
+    when "optional"
+      @room_settings[name]
+    when "disabled"
+      false
+    end
+  end
+
+  private
+
+  def fetch_guest_id
+    return cookies[:guest_id] if cookies[:guest_id].present?
+
+    guest_id = "gl-guest-#{SecureRandom.hex(12)}"
+
+    cookies[:guest_id] = {
+      value: guest_id,
+      expires: 1.day.from_now
+    }
+
+    guest_id
   end
 end

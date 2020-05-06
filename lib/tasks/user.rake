@@ -38,9 +38,9 @@ namespace :user do
 
       if u[:role] == "super_admin"
         user.remove_role(:user)
-        user.add_role(:super_admin)
+        user.set_role(:super_admin)
       elsif u[:role] == "admin"
-        user.add_role(:admin)
+        user.set_role(:admin)
       end
 
       puts "Account succesfully created."

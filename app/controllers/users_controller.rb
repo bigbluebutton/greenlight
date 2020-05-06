@@ -47,7 +47,7 @@ class UsersController < ApplicationController
 
     # Set user to pending and redirect if Approval Registration is set
     if approval_registration
-      @user.add_role :pending
+      @user.set_role :pending
 
       return redirect_to root_path,
         flash: { success: I18n.t("registration.approval.signup") } unless Rails.configuration.enable_email_verification
@@ -56,11 +56,13 @@ class UsersController < ApplicationController
     send_registration_email
 
     # Sign in automatically if email verification is disabled or if user is already verified.
-    login(@user) && return if !Rails.configuration.enable_email_verification || @user.email_verified
+    if !Rails.configuration.enable_email_verification || @user.email_verified
+      @user.set_role :user
 
-    @user.create_activation_token
+      login(@user) && return
+    end
 
-    send_activation_email(@user)
+    send_activation_email(@user, @user.create_activation_token)
 
     redirect_to root_path
   end
@@ -118,7 +120,7 @@ class UsersController < ApplicationController
 
         user_locale(@user)
 
-        if update_roles(params[:user][:role_ids])
+        if update_roles(params[:user][:role_id])
           return redirect_to redirect_path, flash: { success: I18n.t("info_update_success") }
         else
           flash[:alert] = I18n.t("administrator.roles.invalid_assignment")

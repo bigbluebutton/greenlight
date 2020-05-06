@@ -64,7 +64,7 @@ describe RoomsController, type: :controller do
     end
 
     it "should render cant_create_rooms if user doesn't have permission to create rooms" do
-      user_role = @user.highest_priority_role
+      user_role = @user.role
 
       user_role.update_permission("can_create_rooms", "false")
       user_role.save!
@@ -117,7 +117,7 @@ describe RoomsController, type: :controller do
 
     it "redirects to admin if user is a super_admin" do
       @request.session[:user_id] = @owner.id
-      @owner.add_role :super_admin
+      @owner.set_role :super_admin
 
       get :show, params: { room_uid: @owner.main_room, search: :none }
 
@@ -140,7 +140,7 @@ describe RoomsController, type: :controller do
 
     it "redirects to root if owner is pending" do
       @request.session[:user_id] = @owner.id
-      @owner.add_role :pending
+      @owner.set_role :pending
 
       get :show, params: { room_uid: @owner.main_room, search: :none }
 
@@ -149,7 +149,7 @@ describe RoomsController, type: :controller do
 
     it "redirects to root if owner is banned" do
       @request.session[:user_id] = @owner.id
-      @owner.add_role :denied
+      @owner.set_role :denied
 
       get :show, params: { room_uid: @owner.main_room, search: :none }
 
@@ -248,7 +248,7 @@ describe RoomsController, type: :controller do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
       post :join, params: { room_uid: @room, join_name: "Join Name" }
 
-      expect(response).to redirect_to(join_path(@owner.main_room, "Join Name", {}))
+      expect(response).to redirect_to(join_path(@owner.main_room, "Join Name", {}, response.cookies["guest_id"]))
     end
 
     it "should render wait if meeting isn't running" do
@@ -262,6 +262,7 @@ describe RoomsController, type: :controller do
 
     it "should join the room if the room has the anyone_can_start setting" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(false)
+      allow_any_instance_of(Setting).to receive(:get_value).and_return("optional")
 
       room = Room.new(name: "test")
       room.room_settings = "{\"muteOnStart\":false,\"joinViaHtml5\":false,\"anyoneCanStart\":true}"
@@ -274,7 +275,38 @@ describe RoomsController, type: :controller do
       expect(response).to redirect_to(join_path(room, @user.name, { user_is_moderator: false }, @user.uid))
     end
 
-    it "should join the room as moderator if room has the all_join_moderator setting" do
+    it "doesn't join the room if the room has the anyone_can_start setting but config is disabled" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(false)
+      allow_any_instance_of(Setting).to receive(:get_value).and_return("disabled")
+
+      room = Room.new(name: "test")
+      room.room_settings = "{\"muteOnStart\":false,\"joinViaHtml5\":false,\"anyoneCanStart\":true}"
+      room.owner = @owner
+      room.save
+
+      @request.session[:user_id] = @user.id
+      post :join, params: { room_uid: room, join_name: @user.name }
+
+      expect(response).to render_template(:wait)
+    end
+
+    it "joins the room if the room doesn't have the anyone_can_start setting but config is set to enabled" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(false)
+      allow_any_instance_of(Setting).to receive(:get_value).and_return("enabled")
+
+      room = Room.new(name: "test")
+      room.room_settings = "{\"anyoneCanStart\":false}"
+      room.owner = @owner
+      room.save
+
+      @request.session[:user_id] = @user.id
+      post :join, params: { room_uid: room, join_name: @user.name }
+
+      expect(response).to redirect_to(join_path(room, @user.name, { user_is_moderator: true }, @user.uid))
+    end
+
+    it "joins the room as moderator if room has the all_join_moderator setting" do
+      allow_any_instance_of(Setting).to receive(:get_value).and_return("optional")
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
 
       room = Room.new(name: "test")
@@ -286,6 +318,36 @@ describe RoomsController, type: :controller do
       post :join, params: { room_uid: room, join_name: @user.name }
 
       expect(response).to redirect_to(join_path(room, @user.name, { user_is_moderator: true }, @user.uid))
+    end
+
+    it "joins the room as moderator if room doesn't have all_join_moderator but config is set to enabled" do
+      allow_any_instance_of(Setting).to receive(:get_value).and_return("enabled")
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
+
+      room = Room.new(name: "test")
+      room.room_settings = "{ }"
+      room.owner = @owner
+      room.save
+
+      @request.session[:user_id] = @user.id
+      post :join, params: { room_uid: room, join_name: @user.name }
+
+      expect(response).to redirect_to(join_path(room, @user.name, { user_is_moderator: true }, @user.uid))
+    end
+
+    it "doesn't join the room as moderator if room has the all_join_moderator setting but config is set to disabled" do
+      allow_any_instance_of(Setting).to receive(:get_value).and_return("disabled")
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
+
+      room = Room.new(name: "test")
+      room.room_settings = "{\"joinModerator\":true}"
+      room.owner = @owner
+      room.save
+
+      @request.session[:user_id] = @user.id
+      post :join, params: { room_uid: room, join_name: @user.name }
+
+      expect(response).to redirect_to(join_path(room, @user.name, { user_is_moderator: false }, @user.uid))
     end
 
     it "should render wait if the correct access code is supplied" do
@@ -344,7 +406,7 @@ describe RoomsController, type: :controller do
 
     it "redirects to root if owner is pending" do
       @request.session[:user_id] = @owner.id
-      @owner.add_role :pending
+      @owner.set_role :pending
 
       post :join, params: { room_uid: @room }
 
@@ -353,7 +415,7 @@ describe RoomsController, type: :controller do
 
     it "redirects to root if owner is banned" do
       @request.session[:user_id] = @owner.id
-      @owner.add_role :denied
+      @owner.set_role :denied
 
       post :join, params: { room_uid: @room }
 
@@ -394,7 +456,7 @@ describe RoomsController, type: :controller do
 
     it "allows admin to delete room" do
       @admin = create(:user)
-      @admin.add_role :admin
+      @admin.set_role :admin
       @request.session[:user_id] = @admin.id
 
       expect do
@@ -406,7 +468,7 @@ describe RoomsController, type: :controller do
 
     it "does not allow admin to delete a users home room" do
       @admin = create(:user)
-      @admin.add_role :admin
+      @admin.set_role :admin
       @request.session[:user_id] = @admin.id
 
       expect do
@@ -421,7 +483,7 @@ describe RoomsController, type: :controller do
       allow_any_instance_of(User).to receive(:admin_of?).and_return(false)
 
       @admin = create(:user)
-      @admin.add_role :admin
+      @admin.set_role :admin
       @request.session[:user_id] = @admin.id
 
       expect do
@@ -465,7 +527,7 @@ describe RoomsController, type: :controller do
 
     it "redirects to join path if admin" do
       @admin = create(:user)
-      @admin.add_role :admin
+      @admin.set_role :admin
       @request.session[:user_id] = @admin.id
 
       post :start, params: { room_uid: @user.main_room }
@@ -476,7 +538,7 @@ describe RoomsController, type: :controller do
     it "redirects to root path if not admin of current user" do
       allow_any_instance_of(User).to receive(:admin_of?).and_return(false)
       @admin = create(:user)
-      @admin.add_role :admin
+      @admin.set_role :admin
       @request.session[:user_id] = @admin.id
 
       post :start, params: { room_uid: @user.main_room }
@@ -525,7 +587,7 @@ describe RoomsController, type: :controller do
 
     it "allows admin to update room settings" do
       @admin = create(:user)
-      @admin.add_role :admin
+      @admin.set_role :admin
       @request.session[:user_id] = @admin.id
 
       room_params = { "mute_on_join": "1", "name": @secondary_room.name }
@@ -541,7 +603,7 @@ describe RoomsController, type: :controller do
     it "does not allow admins from a different context to update room settings" do
       allow_any_instance_of(User).to receive(:admin_of?).and_return(false)
       @admin = create(:user)
-      @admin.add_role :admin
+      @admin.set_role :admin
       @request.session[:user_id] = @admin.id
 
       room_params = { "mute_on_join": "1", "name": @secondary_room.name }
@@ -681,7 +743,7 @@ describe RoomsController, type: :controller do
 
     it "allows admins to update room access" do
       @admin = create(:user)
-      @admin.add_role :admin
+      @admin.set_role :admin
       @request.session[:user_id] = @admin.id
 
       post :shared_access, params: { room_uid: @room.uid, add: [@user1.uid] }
@@ -694,7 +756,7 @@ describe RoomsController, type: :controller do
     it "redirects to root path if not admin of current user" do
       allow_any_instance_of(User).to receive(:admin_of?).and_return(false)
       @admin = create(:user)
-      @admin.add_role :admin
+      @admin.set_role :admin
       @request.session[:user_id] = @admin.id
 
       post :shared_access, params: { room_uid: @room.uid, add: [] }

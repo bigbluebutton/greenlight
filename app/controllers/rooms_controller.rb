@@ -62,13 +62,14 @@ class RoomsController < ApplicationController
 
   # GET /:room_uid
   def show
-    @anyone_can_start = JSON.parse(@room[:room_settings])["anyoneCanStart"]
+    @room_settings = @room[:room_settings]
+    @anyone_can_start = room_setting_with_config("anyoneCanStart")
     @room_running = room_running?(@room.bbb_id)
     @shared_room = room_shared_with_user
 
     # If its the current user's room
     if current_user && (@room.owned_by?(current_user) || @shared_room)
-      if current_user.highest_priority_role.get_permission("can_create_rooms")
+      if current_user.role.get_permission("can_create_rooms")
         # User is allowed to have rooms
         @search, @order_column, @order_direction, recs =
           recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
@@ -160,9 +161,9 @@ class RoomsController < ApplicationController
     opts[:user_is_moderator] = true
 
     # Include the user's choices for the room settings
-    room_settings = JSON.parse(@room[:room_settings])
-    opts[:mute_on_start] = room_settings["muteOnStart"]
-    opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
+    @room_settings = JSON.parse(@room[:room_settings])
+    opts[:mute_on_start] = room_setting_with_config("muteOnStart")
+    opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
 
     begin
       redirect_to join_path(@room, current_user.name, opts, current_user.uid)

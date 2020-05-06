@@ -65,12 +65,12 @@ class SessionsController < ApplicationController
   def create
     logger.info "Support: #{session_params[:email]} is attempting to login."
 
-    user = User.include_deleted.find_by(email: session_params[:email])
+    user = User.include_deleted.find_by(email: session_params[:email].downcase)
 
     is_super_admin = user&.has_role? :super_admin
 
     # Scope user to domain if the user is not a super admin
-    user = User.include_deleted.find_by(email: session_params[:email], provider: @user_domain) unless is_super_admin
+    user = User.include_deleted.find_by(email: session_params[:email].downcase, provider: @user_domain) unless is_super_admin
 
     # Check user with that email exists
     return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user
@@ -88,10 +88,7 @@ class SessionsController < ApplicationController
       # Check that the user is a Greenlight account
       return redirect_to(root_path, alert: I18n.t("invalid_login_method")) unless user.greenlight_account?
       # Check that the user has verified their account
-      unless user.activated?
-        user.create_activation_token
-        return redirect_to(account_activation_path(token: user.activation_token))
-      end
+      return redirect_to(account_activation_path(token: user.create_activation_token)) unless user.activated?
     end
 
     login(user)
@@ -131,15 +128,19 @@ class SessionsController < ApplicationController
     ldap_config[:port] = ENV['LDAP_PORT'].to_i != 0 ? ENV['LDAP_PORT'].to_i : 389
     ldap_config[:bind_dn] = ENV['LDAP_BIND_DN']
     ldap_config[:password] = ENV['LDAP_PASSWORD']
+    ldap_config[:auth_method] = ENV['LDAP_AUTH']
     ldap_config[:encryption] = if ENV['LDAP_METHOD'] == 'ssl'
                                     'simple_tls'
                                 elsif ENV['LDAP_METHOD'] == 'tls'
                                     'start_tls'
                                 end
     ldap_config[:base] = ENV['LDAP_BASE']
+    ldap_config[:filter] = ENV['LDAP_FILTER']
     ldap_config[:uid] = ENV['LDAP_UID']
 
-    return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials")) unless session_params[:password].present?
+    if params[:session][:username].blank? || session_params[:password].blank?
+      return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials"))
+    end
 
     result = send_ldap_request(params[:session], ldap_config)
 
@@ -217,7 +218,7 @@ class SessionsController < ApplicationController
 
     # Add pending role if approval method and is a new user
     if approval_registration && !@user_exists
-      user.add_role :pending
+      user.set_role :pending
 
       # Inform admins that a user signed up if emails are turned on
       send_approval_user_signup_email(user)
@@ -226,6 +227,8 @@ class SessionsController < ApplicationController
     end
 
     send_invite_user_signup_email(user) if invite_registration && !@user_exists
+
+    user.set_role :user unless @user_exists
 
     login(user)
 
@@ -243,8 +246,7 @@ class SessionsController < ApplicationController
     logger.info "Switching social account to local account for #{user.uid}"
 
     # Send the user a reset password email
-    user.create_reset_digest
-    send_password_reset_email(user)
+    send_password_reset_email(user, user.create_reset_digest)
 
     # Overwrite the flash with a more descriptive message if successful
     flash[:success] = I18n.t("reset_password.auth_change") if flash[:success].present?
