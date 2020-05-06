@@ -22,7 +22,7 @@
         </div>
         <div class="card-body background">
           <%= form_for(:password_reset, url: password_resets_path) do |f| %>
-            <%= f.label t("forgot_password.email"), class: "form-label" %>
+            <%= f.label :email, t("forgot_password.email"), class: "form-label" %>
             <%= f.email_field :email, class: "form-control" %>
             <br>
       
