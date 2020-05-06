@@ -38,7 +38,7 @@
               <i class="fas fa-home pr-1 "></i><span class="d-none d-sm-inline-block"><%= t("header.dropdown.home") %></span>
             <% end %>
 
-            <% if current_user.highest_priority_role.get_permission("can_create_rooms") %>
+            <% if current_user.role.get_permission("can_create_rooms") %>
               <% all_rec_page = params[:controller] == "users" && params[:action] == "recordings" ? "active" : "" %>
               <%= link_to get_user_recordings_path(current_user), class: "px-3 mx-1 mt-1 header-nav #{all_rec_page}" do %>
                 <i class="fas fa-video pr-1"></i><span class="d-none d-sm-inline-block"><%= t("header.all_recordings") %></span>
@@ -62,7 +62,7 @@
               <%= link_to edit_user_path(current_user), class: "dropdown-item"  do %>
                 <i class="dropdown-icon fas fa-id-card mr-3"></i><%= t("header.dropdown.settings") %>
               <% end %>
-              <% highest_role = current_user.highest_priority_role %>
+              <% highest_role = current_user.role %>
               <% if highest_role.get_permission("can_manage_users") || highest_role.name == "super_admin" %>
                 <%= link_to admins_path, class: "dropdown-item" do %>
                   <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
