@@ -534,7 +534,7 @@ en:
       provider: Provider
       image: Image
       image_url: Profile Image URL
-      roles: User Roles
+      roles: User Role
       subtitle: Update your Account Info
       title: Account Info
     delete:

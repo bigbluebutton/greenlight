@@ -86,23 +86,21 @@ class AdminsController < ApplicationController
 
   # POST /admins/ban/:user_uid
   def ban_user
-    @user.roles = []
-    @user.add_role :denied
+    @user.set_role :denied
 
     redirect_back fallback_location: admins_path, flash: { success: I18n.t("administrator.flash.banned") }
   end
 
   # POST /admins/unban/:user_uid
   def unban_user
-    @user.remove_role :denied
-    @user.add_role :user
+    @user.set_role :user
 
     redirect_back fallback_location: admins_path, flash: { success: I18n.t("administrator.flash.unbanned") }
   end
 
   # POST /admins/approve/:user_uid
   def approve
-    @user.remove_role :pending
+    @user.set_role :user
 
     send_user_approved_email(@user)
 
@@ -298,7 +296,7 @@ class AdminsController < ApplicationController
       flash[:alert] = I18n.t("administrator.roles.role_has_users", user_count: role.users.count)
       return redirect_to admin_roles_path(selected_role: role.id)
     elsif Role::RESERVED_ROLE_NAMES.include?(role) || role.provider != @user_domain ||
-          role.priority <= current_user.highest_priority_role.priority
+          role.priority <= current_user.role.priority
       return redirect_to admin_roles_path(selected_role: role.id)
     else
       role.role_permissions.delete_all

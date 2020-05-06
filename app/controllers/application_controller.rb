@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   # Retrieves the current user.
   def current_user
-    @current_user ||= User.includes(:roles, :main_room).find_by(id: session[:user_id])
+    @current_user ||= User.includes(:role, :main_room).find_by(id: session[:user_id])
 
     if Rails.configuration.loadbalanced_configuration
       if @current_user && !@current_user.has_role?(:super_admin) &&
