@@ -45,9 +45,22 @@ class Room < ApplicationRecord
     where(search_query, search: search_param)
   end
 
-  def self.admins_order(column, direction)
+  def self.admins_order(column, direction, running_ids)
     # Include the owner of the table
     table = joins(:owner)
+
+    # Rely on manual ordering if trying to sort by status
+    if column == "status"
+      order_string = "CASE bbb_id "
+
+      running_ids.each_with_index do |id, index|
+        order_string += "WHEN '#{id}' THEN #{index} "
+      end
+
+      order_string += "ELSE #{running_ids.length} END"
+
+      return table.order(order_string)
+    end
 
     return table.order(Arel.sql("rooms.#{column} #{direction}")) if table.column_names.include?(column)
 

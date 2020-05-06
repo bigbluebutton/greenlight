@@ -63,7 +63,7 @@ class AdminsController < ApplicationController
   # GET /admins/rooms
   def server_rooms
     @search = params[:search] || ""
-    @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
+    @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "status"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
 
     @running_room_bbb_ids = all_running_meetings[:meetings].pluck(:meetingID)
