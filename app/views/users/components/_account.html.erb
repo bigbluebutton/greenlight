@@ -71,7 +71,7 @@
     <%= f.submit t("update"), class: "btn btn-primary float-right ml-4" %>
 
     <% if can_reset_password %>
-      <%= link_to "Reset user password", admin_reset_path(user_uid: @user.uid), class: "btn btn-primary float-right" %>
+      <%= link_to t("settings.account.reset_password"), admin_reset_path(user_uid: @user.uid), class: "btn btn-primary float-right" %>
     <% end %>
   </div>
 <% end %>
