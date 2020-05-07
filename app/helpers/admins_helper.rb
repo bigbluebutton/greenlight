@@ -110,6 +110,6 @@ module AdminsHelper
   # Roles
 
   def edit_disabled
-    @edit_disabled ||= @selected_role.priority <= current_user.highest_priority_role.priority
+    @edit_disabled ||= @selected_role.priority <= current_user.role.priority
   end
 end

@@ -133,7 +133,6 @@ $(document).on('turbolinks:load', function(){
 });
 
 function showCreateRoom(target) {
-  var modal = $(target)
   $("#create-room-name").val("")
   $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
   $("#room_access_code").val(null)
