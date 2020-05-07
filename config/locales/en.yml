@@ -145,9 +145,11 @@ en:
     rooms:
       title: Server Rooms
       table:
+        ended: "Ended: %{session}"
         id: ID
         not_running: Not Running
         running: Running
+        started: "Started: %{session}"
         status: Status
         view: View
     title: Organization Settings
