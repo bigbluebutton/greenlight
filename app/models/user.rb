@@ -21,7 +21,6 @@ require 'bbb_api'
 class User < ApplicationRecord
   include Deleteable
 
-  attr_accessor :reset_token, :activation_token
   after_create :setup_user
 
   before_save { email.try(:downcase!) }
@@ -110,24 +109,28 @@ class User < ApplicationRecord
 
   # Activates an account and initialize a users main room
   def activate
-    update_attributes(email_verified: true, activated_at: Time.zone.now)
+    update_attributes(email_verified: true, activated_at: Time.zone.now, activation_digest: nil)
   end
 
   def activated?
     Rails.configuration.enable_email_verification ? email_verified : true
   end
 
-  # Sets the password reset attributes.
-  def create_reset_digest
-    self.reset_token = User.new_token
-    update_attributes(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
+  def self.hash_token(token)
+    Digest::SHA2.hexdigest(token)
   end
 
-  # Returns true if the given token matches the digest.
-  def authenticated?(attribute, token)
-    digest = send("#{attribute}_digest")
-    return false if digest.nil?
-    digest == Digest::SHA256.base64digest(token)
+  # Sets the password reset attributes.
+  def create_reset_digest
+    new_token = SecureRandom.urlsafe_base64
+    update_attributes(reset_digest: User.hash_token(new_token), reset_sent_at: Time.zone.now)
+    new_token
+  end
+
+  def create_activation_token
+    new_token = SecureRandom.urlsafe_base64
+    update_attributes(activation_digest: User.hash_token(new_token))
+    new_token
   end
 
   # Return true if password reset link expires
@@ -158,26 +161,12 @@ class User < ApplicationRecord
     social_uid.nil?
   end
 
-  def create_activation_token
-    self.activation_token = User.new_token
-    update_attributes(activation_digest: User.digest(activation_token))
-  end
-
   def admin_of?(user, permission)
     has_correct_permission = highest_priority_role.get_permission(permission) && id != user.id
 
     return has_correct_permission unless Rails.configuration.loadbalanced_configuration
     return id != user.id if has_role? :super_admin
     has_correct_permission && provider == user.provider && !user.has_role?(:super_admin)
-  end
-
-  def self.digest(string)
-    Digest::SHA256.base64digest(string)
-  end
-
-  # Returns a random token.
-  def self.new_token
-    SecureRandom.urlsafe_base64
   end
 
   # role functions
