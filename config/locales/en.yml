@@ -137,7 +137,7 @@ en:
       allow_any:
         info: Allows any user to start the meeting at any time. By default, only the room owner can start the meeting.
       all_moderator:
-        info: Gives all users moderator priveleges in BigBlueButton when they join the meeting.
+        info: Gives all users moderator privileges in BigBlueButton when they join the meeting.
       options:
         disabled: Disabled
         enabled: Always Enabled
