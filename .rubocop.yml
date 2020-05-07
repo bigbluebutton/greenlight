@@ -113,7 +113,7 @@ Metrics/BlockLength:
 
 # A complexity metric geared towards measuring complexity for a human reader.
 Metrics/PerceivedComplexity:
-  Max: 17
+  Max: 18
 
 # Avoid classes longer than 100 lines of code.
 Metrics/ClassLength:
@@ -133,7 +133,7 @@ Metrics/ModuleLength:
 # A calculated magnitude based on number of assignments,
 # branches, and conditions.
 Metrics/AbcSize:
-  Max: 60
+  Max: 65
 
 # A complexity metric that is strongly correlated to the number
 # of test cases needed to validate a method.

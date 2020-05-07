@@ -293,6 +293,21 @@ describe UsersController, type: :controller do
       expect(response).to redirect_to(edit_user_path(user))
     end
 
+    it "properly updates user attributes" do
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(false)
+      user = create(:user)
+      @request.session[:user_id] = user.id
+
+      params = random_valid_user_params
+      post :update, params: params.merge!(user_uid: user)
+      user.reload
+
+      expect(user.name).not_to eql(params[:user][:name])
+      expect(user.email).not_to eql(params[:user][:email])
+      expect(flash[:success]).to be_present
+      expect(response).to redirect_to(edit_user_path(user))
+    end
+
     it "renders #edit on unsuccessful save" do
       @user = create(:user)
       @request.session[:user_id] = @user.id
