@@ -40,6 +40,9 @@
   <td class="text-left">
     <%= room.uid %>
   </td>
+  <td class="text-center">
+    <%= @participants_count[room.bbb_id].presence || "-" %>
+  </td>
   <td class="text-left">
     <% if running %>
       <%= t("administrator.rooms.table.running") %>

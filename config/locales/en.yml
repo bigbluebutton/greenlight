@@ -148,6 +148,7 @@ en:
         ended: "Ended: %{session}"
         id: ID
         not_running: Not Running
+        participants: Participants
         running: Running
         started: "Started: %{session}"
         status: Status
