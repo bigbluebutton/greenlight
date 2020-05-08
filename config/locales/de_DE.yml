@@ -84,7 +84,7 @@ de_DE:
         info: "Wenn diese Option deaktiviert wird, wird dadurch der Button aus den Raumoptionen entfernt und verhindert, dass Nutzer Räume teilen können"
         title: Nutzern erlauben Räume zu teilen
       subtitle: Greenlight individuell anpassen
-      title: Seiteneinstellungen
+      title: Grundeinstellungen
     flash:
       approved: Teilnehmer wurde erfolgreich genehmigt.
       banned: Teilnehmer wurde erfolgreich gesperrt.
@@ -102,11 +102,11 @@ de_DE:
       reset_password: "Dem Teilnehmer wurde eine E-Mail zur Passwortrücksetzung geschickt. (Bitte weisen Sie ihn darauf hin, den Spamordner zu überprüfen, falls er sie nicht erhalten hat)"
       restored: Nutzer wurde erfolgreich wiederhergestellt
       room_configuration: Raumkonfiguration erfolgreich geändert
-      settings: Seiteneinstellungen erfolgreich geändert
+      settings: Grundeinstellungen erfolgreich geändert
       unauthorized: "Sie haben nicht die notwendigen Rechte, um diese Änderung bei diesem Teilnehmer vorzunehmen."
     recordings:
       title: Serveraufzeichnungen
-      no_recordings: Dieser Raum hat keine Aufzeichnungen.
+      no_recordings: Keine Aufzeichnungen vorhanden.
     roles:
       appear_in_share_list: Nutzer mit dieser Rolle im Dropdown-Menü zum Teilen von Räumen einschließen
       can_create_rooms: Kann Räume erstellen
@@ -121,7 +121,7 @@ de_DE:
       title: Rollen
       promote_email: "Nutzern eine E-Mail schicken, wenn Ihnen diese Rolle zugewiesen wird"
       demote_email: "Nutzern eine E-Mail schicken, wenn Ihnen diese Rolle entzogen wird"
-      edit_site_settings: "Nutzern mit dieser Rolle erlauben, die primären Webseiteneinstellungen zu ändern"
+      edit_site_settings: "Nutzern mit dieser Rolle erlauben, die Grundeinstellungen zu ändern"
       edit_roles: "Nutzern mit dieser Rolle erlauben, andere Rollen zu verändern"
       manage_users: "Nutzern mit dieser Rolle erlauben, andere Nutzer zu verwalten"
       invalid_assignment: Es kam zu einem Problem bei der Zuweisung der Rollen zu einem Nutzer. Bitte prüfen Sie die Werte und versuchen Sie es erneut 
