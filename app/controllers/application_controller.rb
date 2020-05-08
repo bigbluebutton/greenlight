@@ -48,9 +48,8 @@ class ApplicationController < ActionController::Base
   # Block unknown hosts to mitigate host header injection attacks
   def block_unknown_hosts
     return unless Rails.env.production?
-    valid_hosts = ENV["SAFE_HOSTS"]
-    return raise UnsafeHostError, "SAFE_HOSTS not set in .env" if valid_hosts.blank?
-    raise UnsafeHostError, "#{request.host} is not a safe host" unless host_is_valid(valid_hosts)
+    return if config.hosts.blank?
+    raise UnsafeHostError, "#{request.host} is not a safe host" unless config.hosts.include?(request.host)
   end
 
   # Force SSL
@@ -260,16 +259,5 @@ class ApplicationController < ActionController::Base
           help: I18n.t("errors.internal.help"), display_back: true }
       end
     end
-  end
-
-  def host_is_valid(hosts)
-    hosts.split(",").each do |url|
-      # convert to regex
-      reg_url = url.gsub(".", "\\.")
-      sub_url = reg_url.gsub("*", ".{1,}")
-
-      return true if request.host.match(sub_url)
-    end
-    false
   end
 end
