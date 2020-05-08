@@ -57,6 +57,10 @@ class AdminsController < ApplicationController
     @search, @order_column, @order_direction, recs =
       all_recordings(server_rooms, params.permit(:search, :column, :direction), true, true)
 
+    @recording_statuses = RecordingStatus.where(
+      record_id: recs.map { |rec| rec[:recordID] }
+    )
+
     @pagy, @recordings = pagy_array(recs)
   end
 

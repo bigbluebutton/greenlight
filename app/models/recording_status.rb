@@ -1,0 +1,2 @@
+class RecordingStatus < ApplicationRecord
+end

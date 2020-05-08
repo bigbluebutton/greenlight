@@ -67,6 +67,10 @@
     <% sorted_formats.each do |p| %>
       <%= link_to t("recording.format.#{p[:type]}"), p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
     <% end %>
+
+    <% if @recording_statuses.present? && @recording_statuses.where(record_id: recording[:recordID]).any? %>
+      <%= link_to 'MP4 Download', RecordingChecker.recording_link(recording[:recordID]), download: '', class: "btn btn-sm btn-primary", target: "_blank" %>
+    <% end %>
   </td>
   <td class="text-center">
     <div class="item-action dropdown">

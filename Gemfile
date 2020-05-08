@@ -29,6 +29,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails', '~> 4.3.3'
 gem 'jquery-ui-rails'
 
+
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 
@@ -52,6 +53,8 @@ gem 'omniauth-bn-office365', git: 'https://github.com/blindsidenetworks/omniauth
 gem 'omniauth-bn-launcher', git: 'https://github.com/blindsidenetworks/omniauth-bn-launcher.git', tag: '0.1.3'
 gem 'bn-ldap-authentication', git: 'https://github.com/blindsidenetworks/bn-ldap-authentication.git', tag: '0.1.2'
 gem 'net-ldap'
+
+gem 'whenever', require: false
 
 # BigBlueButton API wrapper.
 gem 'bigbluebutton-api-ruby'
@@ -91,6 +94,7 @@ end
 gem 'rubocop'
 
 group :development, :test do
+  gem 'pry'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   # Environment configuration.

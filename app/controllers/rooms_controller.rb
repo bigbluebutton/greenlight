@@ -74,6 +74,10 @@ class RoomsController < ApplicationController
         @search, @order_column, @order_direction, recs =
           recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
 
+        @recording_statuses = RecordingStatus.where(
+          record_id: recs.map { |rec| rec[:recordID] }
+        )
+
         @user_list = shared_user_list if shared_access_allowed
 
         @pagy, @recordings = pagy_array(recs)
