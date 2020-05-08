@@ -18,9 +18,10 @@
 
 class ApplicationController < ActionController::Base
   include BbbServer
+  include Errors
 
-  before_action :redirect_to_https, :set_user_domain, :set_user_settings, :maintenance_mode?, :migration_error?,
-    :user_locale, :check_admin_password, :check_user_role
+  before_action :block_unknown_hosts, :redirect_to_https, :set_user_domain, :set_user_settings, :maintenance_mode?,
+  :migration_error?, :user_locale, :check_admin_password, :check_user_role
 
   protect_from_forgery with: :exceptions
 
@@ -42,6 +43,14 @@ class ApplicationController < ActionController::Base
 
   def bbb_server
     @bbb_server ||= Rails.configuration.loadbalanced_configuration ? bbb(@user_domain) : bbb("greenlight")
+  end
+
+  # Block unknown hosts to mitigate host header injection attacks
+  def block_unknown_hosts
+    return unless Rails.env.production?
+    valid_hosts = ENV["SAFE_HOSTS"]
+    return raise UnsafeHostError, "SAFE_HOSTS not set in .env" if valid_hosts.blank?
+    raise UnsafeHostError, "#{request.host} is not a safe host" unless host_is_valid(valid_hosts)
   end
 
   # Force SSL
@@ -251,5 +260,16 @@ class ApplicationController < ActionController::Base
           help: I18n.t("errors.internal.help"), display_back: true }
       end
     end
+  end
+
+  def host_is_valid(hosts)
+    hosts.split(",").each do |url|
+      # convert to regex
+      reg_url = url.gsub(".", "\\.")
+      sub_url = reg_url.gsub("*", ".{1,}")
+
+      return true if request.host.match(sub_url)
+    end
+    false
   end
 end

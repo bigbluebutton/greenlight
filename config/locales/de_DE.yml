@@ -39,7 +39,7 @@ de_DE:
         user-info: "Sie müssen in Greenlight eingeloggt sein, um diesen Raum zu betreten"
       branding:
         change: Bild ändern
-        info: Das in der linken oberen Ecke dargestellte Markenlogo ändern
+        info: Das in der linken oberen Ecke dargestellte Logo ändern
         placeholder: Bild URL...
         title: Logo
         invalid: Ungültige URL
@@ -71,7 +71,7 @@ de_DE:
         title: Voreinstellung der Aufzeichnungssichtbarkeit
         warning: Diese Einstellung wirkt sich nur auf noch nicht laufende Konferenzen aus.
       registration:
-        info: Verändern der Weise wie sich Teilnehmer auf der Webseite registrieren
+        info: "Methode ändern, wie sich Benutzer auf der Website registrieren"
         title: Registrierungsmethode
         methods:
           approval: Genehmigen/Verweigern
@@ -84,9 +84,9 @@ de_DE:
         info: "Wenn diese Option deaktiviert wird, wird dadurch der Button aus den Raumoptionen entfernt und verhindert, dass Nutzer Räume teilen können"
         title: Nutzern erlauben Räume zu teilen
       subtitle: Greenlight individuell anpassen
-      title: Seiteneinstellungen
+      title: Grundeinstellungen
     flash:
-      approved: Teilnehmer wurde erfolgreich genehmigt
+      approved: Teilnehmer wurde erfolgreich genehmigt.
       banned: Teilnehmer wurde erfolgreich gesperrt.
       unbanned: Teilnehmer wurde erfolgreich entsperrt.
       delete: Teilnehmer erfolgreich gelöscht
@@ -94,19 +94,19 @@ de_DE:
       demoted: "Teilnehmer wurde erfolgreich zurückgestuft "
       invite: "Einladung erfolgreich an %{email} geschickt"
       invite_email_verification: "E-Mail-Versand muss aktiviert sein, um diese Methode verwenden zu können. Bitte kontaktieren Sie Ihren Systemadministrator."
-      merge_fail: Beim Zusammenführen ist ein Problem aufgetreten. Bitte überprüfen Sie die ausgewählten Nutzer und versuchen Sie es erneut 
+      merge_fail: Beim Zusammenführen der Nutzerkonten ist ein Problem aufgetreten. Bitte überprüfen Sie die ausgewählten Nutzer und versuchen Sie es erneut 
       merge_success: Nutzerkonten erfolgreich zusammengeführt
       perm_deleted: Nutzer wurde dauerhaft gelöscht
       promoted: Teilnehmer wurde erfolgreich hochgestuft
       registration_method_updated: Registrierungsmethode erfolgreich aktualisiert
       reset_password: "Dem Teilnehmer wurde eine E-Mail zur Passwortrücksetzung geschickt. (Bitte weisen Sie ihn darauf hin, den Spamordner zu überprüfen, falls er sie nicht erhalten hat)"
       restored: Nutzer wurde erfolgreich wiederhergestellt
-      room_configuration: Raum-Konfiguration erfolgreich geändert
-      settings: Seiteneinstellungen erfolgreich geändert
+      room_configuration: Raumkonfiguration erfolgreich geändert
+      settings: Grundeinstellungen erfolgreich geändert
       unauthorized: "Sie haben nicht die notwendigen Rechte, um diese Änderung bei diesem Teilnehmer vorzunehmen."
     recordings:
       title: Serveraufzeichnungen
-      no_recordings: Dieser Raum hat keine Aufzeichnungen.
+      no_recordings: Keine Aufzeichnungen vorhanden.
     roles:
       appear_in_share_list: Nutzer mit dieser Rolle im Dropdown-Menü zum Teilen von Räumen einschließen
       can_create_rooms: Kann Räume erstellen
@@ -114,14 +114,14 @@ de_DE:
       invalid_create: Es kam zu einem Problem beim Erzeugen einer neuen Rolle. Bitte prüfen Sie die Rollenwerte und versuchen Sie es erneut
       invalid_order: Es kam zu einem Problem beim Aktualisieren der Rollenpriorität. Bitte prüfen Sie die Werte und versuchen Sie es erneut
       invalid_update: Es kam zu einem Problem beim Aktualisieren der Rollenrechte. Bitte prüfen Sie die Werte und versuchen Sie es erneut
-      manage_rooms_recordings: "Erlaube Nutzern mit dieser Rolle, Serverräume und deren Aufzeichnungen zu verwalten"
+      manage_rooms_recordings: "Nutzern mit dieser Rolle erlauben, Serverräume und deren Aufzeichnungen zu verwalten"
       name: Rollenname
       new_role: Neue Rolle erstellen
       role_has_users: "Diese Rolle ist %{user_count} Konten zugewiesen. Bitte entfernen Sie alle Konten dieser Rolle, bevor Sie sie löschen."
       title: Rollen
       promote_email: "Nutzern eine E-Mail schicken, wenn Ihnen diese Rolle zugewiesen wird"
       demote_email: "Nutzern eine E-Mail schicken, wenn Ihnen diese Rolle entzogen wird"
-      edit_site_settings: "Nutzern mit dieser Rolle erlauben, die primären Webseiteneinstellungen zu ändern"
+      edit_site_settings: "Nutzern mit dieser Rolle erlauben, die Grundeinstellungen zu ändern"
       edit_roles: "Nutzern mit dieser Rolle erlauben, andere Rollen zu verändern"
       manage_users: "Nutzern mit dieser Rolle erlauben, andere Nutzer zu verwalten"
       invalid_assignment: Es kam zu einem Problem bei der Zuweisung der Rollen zu einem Nutzer. Bitte prüfen Sie die Werte und versuchen Sie es erneut 
@@ -129,7 +129,7 @@ de_DE:
         title: Rollenfarbe
         info: "Die Farbe einstellen, die dieser Rolle zugewiesen wird"
     room_configuration:
-      title: Raum-Konfiguration
+      title: Raumkonfiguration
       mute:
         info: "Automatisches Stummschalten des Teilnehmers, wenn er der BigBlueButton-Konferenz beitritt"
       require_moderator:
@@ -193,7 +193,7 @@ de_DE:
   docs: Dokumentation
   email: E-Mail
   email_sent: "%{email_type}: Es wurde eine E-Mail an Sie verschickt! (Bitte prüfen Sie Ihren Spamordner, falls Sie die E-Mail nicht erhalten haben)"
-  enter_your_name: Geben Sie Ihren Namen ein!
+  enter_your_name: Name bitte eingeben!
   errors:
     bigbluebutton:
       help: "Bitte stellen Sie sicher, dass die notwendigen Schritte durchgeführt wurden. <a href=\"%{doc_link}\">Mehr erfahren</a>"
@@ -461,7 +461,7 @@ de_DE:
       new_signin: Wählen Sie eine neue Loginmethode für Ihr Konto aus. Alle Ihre Räume und Ihr altes Konto werden auf einen neues Konto migriert.
       twitter_signin: "Das Einloggen über Twitter wird bald nicht mehr unterstützt und wird in einer zukünftigen Version ganz entfernt. Klicken Sie <a href=\"%{link}\"> hier </a> um Ihren Account auf eine neue Authentifizierungsmethode umzustellen"
       twitter_signup: Einloggen über Twitter wird abgeschafft. Bitte verwenden Sie eine andere Loginmethode
-      merge_success: Ihr Twitter Account wurde erfolgreich mit dem neuen Account zusammengeführt. Der Zugang über Ihren Twitter Account wurde gelöscht.
+      merge_success: Ihr Twitter-Konto wurde erfolgreich mit dem neuen Konto zusammengeführt. Der Zugang über Ihr Twitter-Konto wurde gelöscht.
     invite:
       fail: "Ihr Token ist entweder ungültig oder er ist abgelaufen. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
       no_invite: "Sie sind nicht zu Teilnahme eingeladen. Bitte kontaktieren Sie Ihren Administrator, um eine Einladung zu erhalten."
@@ -489,7 +489,7 @@ de_DE:
       home_room: Der Startraum des Users kann nicht gelöscht werden
       success: Raum erfolgreich gelöscht
       fail: "Raum konnte nicht gelöscht werden (%{error})"
-    enter_the_access_code: Eingabe des Raumzugangscodes
+    enter_the_access_code: Raumzugangscode bitte eingeben
     invalid_provider: "Sie haben eine ungültige URL eingegeben, bitte überprüfen Sie die URL und versuchen Sie es erneut."
     invited: Sie wurden zur Teilnahme eingeladen
     invite_participants: Teilnehmer einladen
