@@ -21,7 +21,6 @@ class PasswordResetsController < ApplicationController
 
   before_action :disable_password_reset, unless: -> { Rails.configuration.enable_email_verification }
   before_action :find_user, only: [:edit, :update]
-  before_action :valid_user, only: [:edit, :update]
   before_action :check_expiration, only: [:edit, :update]
 
   # POST /password_resets/new
@@ -34,8 +33,7 @@ class PasswordResetsController < ApplicationController
       # Check if user exists and throw an error if he doesn't
       @user = User.find_by!(email: params[:password_reset][:email].downcase, provider: @user_domain)
 
-      @user.create_reset_digest
-      send_password_reset_email(@user)
+      send_password_reset_email(@user, @user.create_reset_digest)
       redirect_to root_path
     rescue
       # User doesn't exist
@@ -68,7 +66,7 @@ class PasswordResetsController < ApplicationController
   private
 
   def find_user
-    @user = User.find_by(reset_digest: User.digest(params[:id]), provider: @user_domain)
+    @user = User.find_by(reset_digest: User.hash_token(params[:id]), provider: @user_domain)
   end
 
   def user_params
@@ -78,14 +76,6 @@ class PasswordResetsController < ApplicationController
   # Checks expiration of reset token.
   def check_expiration
     redirect_to new_password_reset_url, alert: I18n.t("expired_reset_token") if @user.password_reset_expired?
-  end
-
-  # Confirms a valid user.
-  def valid_user
-    unless @user.authenticated?(:reset, params[:id])
-      @user&.activate unless @user&.activated?
-      redirect_to root_url
-    end
   end
 
   # Redirects to 404 if emails are not enabled
