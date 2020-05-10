@@ -47,6 +47,7 @@ coverage*
 
 /atom-sftp-sync.json
 
-# Ignore production files / passwords, etc..
+# Ignore production files / passwords, custom scripts, etc..
 
 docker-production.yml
+rebuild-greenlight.sh
