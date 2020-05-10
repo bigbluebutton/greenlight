@@ -46,3 +46,7 @@ config/terms.md
 coverage*
 
 /atom-sftp-sync.json
+
+# Ignore production files / passwords, etc..
+
+docker-production.yml
