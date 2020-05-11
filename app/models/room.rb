@@ -45,9 +45,12 @@ class Room < ApplicationRecord
     where(search_query, search: search_param)
   end
 
-  def self.admins_order(column, direction)
+  def self.admins_order(column, direction, running_ids)
     # Include the owner of the table
     table = joins(:owner)
+
+    # Rely on manual ordering if trying to sort by status
+    return order_by_status(table, running_ids) if column == "status"
 
     return table.order(Arel.sql("rooms.#{column} #{direction}")) if table.column_names.include?(column)
 
@@ -78,6 +81,21 @@ class Room < ApplicationRecord
   # Notify waiting users that a meeting has started.
   def notify_waiting
     ActionCable.server.broadcast("#{uid}_waiting_channel", action: "started")
+  end
+
+  # Return table with the running rooms first
+  def self.order_by_status(table, ids)
+    return table if ids.blank?
+
+    order_string = "CASE bbb_id "
+
+    ids.each_with_index do |id, index|
+      order_string += "WHEN '#{id}' THEN #{index} "
+    end
+
+    order_string += "ELSE #{ids.length} END"
+
+    table.order(Arel.sql(order_string))
   end
 
   private

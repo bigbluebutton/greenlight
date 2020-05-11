@@ -63,10 +63,16 @@ class AdminsController < ApplicationController
   # GET /admins/rooms
   def server_rooms
     @search = params[:search] || ""
-    @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
+    @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "status"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
 
-    @running_room_bbb_ids = all_running_meetings[:meetings].pluck(:meetingID)
+    meetings = all_running_meetings[:meetings]
+    @running_room_bbb_ids = meetings.pluck(:meetingID)
+
+    @participants_count = {}
+    meetings.each do |meet|
+      @participants_count[meet[:meetingID]] = meet[:participantCount]
+    end
 
     @user_list = shared_user_list if shared_access_allowed
 
