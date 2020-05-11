@@ -122,6 +122,18 @@ function changeBrandingImage(path) {
   $.post(path, {value: url})
 }
 
+// Change the Legal URL to the one provided
+function changeLegalURL(path) {
+  var url = $("#legal-url").val()
+  $.post(path, {value: url})
+}
+
+// Change the Privacy Policy URL to the one provided
+function changePrivacyPolicyURL(path) {
+  var url = $("#privpolicy-url").val()
+  $.post(path, {value: url})
+}
+
 function mergeUsers() {
   let userToMerge = $("#from-uid").text()
   $.post($("#merge-save-access").data("path"), {merge: userToMerge})

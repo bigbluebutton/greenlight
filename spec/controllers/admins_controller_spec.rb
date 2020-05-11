@@ -299,6 +299,40 @@ describe AdminsController, type: :controller do
       end
     end
 
+    context "POST #legal" do
+      it "changes the legal link on the page" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+        fake_url = "example.com"
+
+        post :update_settings, params: { setting: "Legal URL", value: fake_url }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Legal URL")
+
+        expect(feature[:value]).to eq(fake_url)
+        expect(response).to redirect_to(admin_site_settings_path)
+      end
+    end
+
+    context "POST #privpolicy" do
+      it "changes the privacy policy on the page" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+        fake_url = "example.com"
+
+        post :update_settings, params: { setting: "Privacy Policy URL", value: fake_url }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Privacy Policy URL")
+
+        expect(feature[:value]).to eq(fake_url)
+        expect(response).to redirect_to(admin_site_settings_path)
+      end
+    end
+
     context "POST #coloring" do
       it "changes the primary on the page" do
         allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)

@@ -43,6 +43,18 @@ en:
         placeholder: Image Url...
         title: Branding Image
         invalid: Invalid URL
+      legal:
+        change: Change URL
+        info: Change the Legal Link that appears in the bottom of the page
+        placeholder: Legal URL...
+        title: Legal
+        invalid: Invalid URL
+      privpolicy:
+        change: Change URL
+        info: Change the Privacy Policy Link that appears in the bottom of the page
+        placeholder: Privacy Policy URL...
+        title: Privacy Policy
+        invalid: Invalid URL
       cache:
         info: Clears the stored provider cache which forces a new request for the updated info
         title: Clear Provider Cache
@@ -249,6 +261,8 @@ en:
     designs: Custom Designs
     authentication: User Authentication
   footer:
+    legal: Legal
+    privpolicy: Privacy Policy
     powered_by: Powered by %{href}.
   forgot_password:
     subtitle: Forgot Password
