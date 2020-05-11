@@ -48,10 +48,10 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
-gem 'omniauth-bn-office365', git: 'https://github.com/blindsidenetworks/omniauth-bn-office365.git', tag: '0.1.0'
-gem 'omniauth-bn-launcher', git: 'https://github.com/blindsidenetworks/omniauth-bn-launcher.git', tag: '0.1.3'
-gem 'bn-ldap-authentication', git: 'https://github.com/blindsidenetworks/bn-ldap-authentication.git', tag: '0.1.2'
+gem 'omniauth-bn-launcher', '~> 0.1.3'
 gem 'net-ldap'
+gem 'bn-ldap-authentication', '~> 0.1.2'
+gem 'omniauth-bn-office365', '~> 0.1.1'
 
 # BigBlueButton API wrapper.
 gem 'bigbluebutton-api-ruby'

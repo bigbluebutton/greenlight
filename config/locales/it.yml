@@ -101,6 +101,7 @@ it:
       registration_method_updated: Il metodo di registrazione è stato aggiornato con successo
       reset_password: Agli utenti è stata inviata una mail per procedere con il reset della password (Prego avvisali di controllare anche la loro cartella di spam se non dovessero ricevere tale mail)
       restored: Utente recuperato con successo
+      room_configuration: Configurazione Stanza cambiata correttamente
       settings: Le impostazioni web sono state modificate con successo
       unauthorized: Non sei autorizzato ad effettuare modifiche sull'utente
     recordings:
@@ -127,6 +128,20 @@ it:
       colour:
         title: Colore associato al ruolo
         info: Imposta il colore che sarà associato al ruolo
+    room_configuration:
+      title: Configurazione Stanza
+      mute:
+        info: Muta automaticamente l'utente quando entra nel meeting BigBlueButton
+      require_moderator:
+        info: "Chiede al moderatore del meeting BigBlueButton quando un utente prova ad entrare. Se l'utente è approvato, gli sarà possibile entrare nel meeting."
+      allow_any:
+        info: "Permetti a qualsiasi utente di iniziare il meeting. Normalmente, solo il proprietario della stanza può iniziare il meeting."
+      all_moderator:
+        info: Dà a tutti gli utenti i privilegi di moderatore su BigBlueButton quando entrano nel meeting.
+      options:
+        disabled: Disabilitato
+        enabled: Sempre Abilitata
+        optional: Opzionale
     rooms:
       title: Stanze
       table:
