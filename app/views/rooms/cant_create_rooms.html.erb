@@ -13,12 +13,10 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div id="cant-create-room-wrapper" class="background h-100 cant-create-room-wrapper">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-5">
+<div id="cant-create-room-wrapper" class="d-flex align-content-md-center flex-wrap background h-100 cant-create-room-wrapper">
+    <div class="container">
+                <div class="row my-7">
+                    <div class="col-lg-5 d-none d-lg-flex">
                         <div class="card card-profile h-100">
                             <div class="card-header bg-primary h-50"></div>
                             <div class="card-body text-center">
@@ -34,7 +32,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-7">
+                    <div class="col-lg-7 col-sm-12">
                         <div class="card h-100">
                             <div class="card-status bg-primary"></div>
                             <div class="card-header cant-create-rooms-title">
@@ -67,8 +65,6 @@
                                     <li class="list-group-item"><%= t("room.no_room.no_recent_rooms") %></li>
                                 <% end %>
                             </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
