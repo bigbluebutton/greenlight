@@ -31,6 +31,11 @@ module AdminsHelper
     @running_room_bbb_ids.include?(id)
   end
 
+  # Returns a more friendly/readable date time object
+  def friendly_time(date)
+    I18n.l date, format: "%B %d, %Y %H:%M UTC"
+  end
+
   # Site Settings
 
   def admin_invite_registration
@@ -110,6 +115,6 @@ module AdminsHelper
   # Roles
 
   def edit_disabled
-    @edit_disabled ||= @selected_role.priority <= current_user.highest_priority_role.priority
+    @edit_disabled ||= @selected_role.priority <= current_user.role.priority
   end
 end

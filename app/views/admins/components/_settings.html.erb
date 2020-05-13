@@ -31,6 +31,34 @@
   <div class="row">
     <div class="col-12">
       <div class="mb-6 form-group">
+        <label class="form-label"><%= t("administrator.site_settings.legal.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.legal.info") %></label>
+        <div class="input-group">
+          <input id="legal-url" type="text" class="form-control" value="<%= legal_url %>">
+          <span class="input-group-append">
+            <button id="legal-url" onclick="changeLegalURL('<%= admin_update_settings_path(setting: 'Legal URL') %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.legal.change") %></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="mb-6 form-group">
+        <label class="form-label"><%= t("administrator.site_settings.privpolicy.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.privpolicy.info") %></label>
+        <div class="input-group">
+          <input id="privpolicy-url" type="text" class="form-control" value="<%= privpolicy_url %>">
+          <span class="input-group-append">
+            <button id="privpolicy-url" onclick="changePrivacyPolicyURL('<%= admin_update_settings_path(setting: 'Privacy Policy URL') %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.privpolicy.change") %></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="mb-6 form-group">
         <label class="form-label"><%= t("administrator.site_settings.color.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.color.info") %></label>
           <div class="color-inputs">

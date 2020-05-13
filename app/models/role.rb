@@ -17,10 +17,12 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class Role < ApplicationRecord
-  has_and_belongs_to_many :users, join_table: :users_roles
+  has_and_belongs_to_many :users, join_table: :users_roles # Obsolete -- not used anymore
   has_many :role_permissions
 
-  default_scope { includes(:role_permissions).order(:priority) }
+  has_many :users
+
+  default_scope { includes(:role_permissions).distinct.order(:priority) }
   scope :by_priority, -> { order(:priority) }
   scope :editable_roles, ->(provider) { where(provider: provider).where.not(name: %w[super_admin denied pending]) }
 
