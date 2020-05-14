@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   include Recorder
   include Rolify
 
-  before_action :find_user, only: [:edit, :change_password, :delete_account, :update]
+  before_action :find_user, only: [:edit, :change_password, :delete_account, :update, :update_password]
   before_action :ensure_unauthenticated_except_twitter, only: [:create]
   before_action :check_user_signup_allowed, only: [:create]
   before_action :check_admin_of, only: [:edit, :change_password, :delete_account]
@@ -81,9 +81,8 @@ class UsersController < ApplicationController
   def delete_account
   end
 
-  # PATCH /u/:user_uid/edit
+  # POST /u/:user_uid/edit
   def update
-    profile = params[:setting] == "password" ? change_password_path(@user) : edit_user_path(@user)
     if session[:prev_url].present?
       path = session[:prev_url]
       session.delete(:prev_url)
@@ -91,49 +90,50 @@ class UsersController < ApplicationController
       path = admins_path
     end
 
-    redirect_path = current_user.admin_of?(@user, "can_manage_users") ? path : profile
+    redirect_path = current_user.admin_of?(@user, "can_manage_users") ? path : edit_user_path(@user)
 
-    if params[:setting] == "password"
-      # Update the users password.
-
-      if @user.authenticate(user_params[:password])
-        # Verify that the new passwords match.
-        if user_params[:new_password] == user_params[:password_confirmation]
-          @user.password = user_params[:new_password]
-        else
-          # New passwords don't match.
-          @user.errors.add(:password_confirmation, "doesn't match")
-        end
-      else
-        # Original password is incorrect, can't update.
-        @user.errors.add(:password, "is incorrect")
-      end
-
-      # Notify the user that their account has been updated.
-      return redirect_to redirect_path,
-        flash: { success: I18n.t("info_update_success") } if @user.errors.empty? && @user.save
-
-      render :change_password
-    else
-      unless @user.greenlight_account?
-        params[:user][:name] = @user.name
-        params[:user][:email] = @user.email
-      end
-
-      if @user.update_attributes(user_params)
-        @user.update_attributes(email_verified: false) if user_params[:email] != @user.email
-
-        user_locale(@user)
-
-        if update_roles(params[:user][:role_id])
-          return redirect_to redirect_path, flash: { success: I18n.t("info_update_success") }
-        else
-          flash[:alert] = I18n.t("administrator.roles.invalid_assignment")
-        end
-      end
-
-      render :edit
+    unless @user.greenlight_account?
+      params[:user][:name] = @user.name
+      params[:user][:email] = @user.email
     end
+
+    if @user.update_attributes(user_params)
+      @user.update_attributes(email_verified: false) if user_params[:email] != @user.email
+
+      user_locale(@user)
+
+      if update_roles(params[:user][:role_id])
+        return redirect_to redirect_path, flash: { success: I18n.t("info_update_success") }
+      else
+        flash[:alert] = I18n.t("administrator.roles.invalid_assignment")
+      end
+    end
+
+    render :edit
+  end
+
+  # POST /u/:user_uid/change_password
+  def update_password
+    # Update the users password.
+    if @user.authenticate(user_params[:password])
+      # Verify that the new passwords match.
+      if user_params[:new_password] == user_params[:password_confirmation]
+        @user.password = user_params[:new_password]
+      else
+        # New passwords don't match.
+        @user.errors.add(:password_confirmation, "doesn't match")
+      end
+    else
+      # Original password is incorrect, can't update.
+      @user.errors.add(:password, "is incorrect")
+    end
+
+    # Notify the user that their account has been updated.
+    return redirect_to change_password_path,
+      flash: { success: I18n.t("info_update_success") } if @user.errors.empty? && @user.save
+
+    # redirect_to change_password_path
+    render :change_password
   end
 
   # DELETE /u/:user_uid

@@ -361,6 +361,64 @@ describe UsersController, type: :controller do
     end
   end
 
+  describe "POST #update_password" do
+    before do
+      @user = create(:user)
+      @password = Faker::Internet.password(8)
+    end
+
+    it "properly updates users password" do
+      @request.session[:user_id] = @user.id
+
+      params = {
+        user: {
+          password: @user.password,
+          new_password: @password,
+          password_confirmation: @password,
+        }
+      }
+      post :update_password, params: params.merge!(user_uid: @user)
+      @user.reload
+
+      expect(@user.authenticate(@password)).not_to be false
+      expect(@user.errors).to be_empty
+      expect(flash[:success]).to be_present
+      expect(response).to redirect_to(change_password_path(@user))
+    end
+
+    it "doesn't update the users password if initial password is incorrect" do
+      @request.session[:user_id] = @user.id
+
+      params = {
+        user: {
+          password: "incorrect_password",
+          new_password: @password,
+          password_confirmation: @password,
+        }
+      }
+      post :update_password, params: params.merge!(user_uid: @user)
+      @user.reload
+      expect(@user.authenticate(@password)).to be false
+      expect(response).to render_template(:change_password)
+    end
+
+    it "doesn't update the users password if new passwords don't match" do
+      @request.session[:user_id] = @user.id
+
+      params = {
+        user: {
+          password: "incorrect_password",
+          new_password: @password,
+          password_confirmation: @password + "_random_string",
+        }
+      }
+      post :update_password, params: params.merge!(user_uid: @user)
+      @user.reload
+      expect(@user.authenticate(@password)).to be false
+      expect(response).to render_template(:change_password)
+    end
+  end
+
   describe "DELETE #user" do
     before do
       allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
