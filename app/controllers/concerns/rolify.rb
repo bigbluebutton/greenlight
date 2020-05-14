@@ -51,7 +51,7 @@ module Rolify
     # Check to make sure user can edit roles
     return false unless current_user.role.get_permission("can_manage_users")
 
-    return true if @user.role_id == role_id
+    return true if @user.role_id == role_id.to_i
 
     new_role = Role.find_by(id: role_id, provider: @user_domain)
     # Return false if new role doesn't exist
