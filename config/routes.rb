@@ -94,7 +94,8 @@ Rails.application.routes.draw do
     get '/:user_uid/edit', to: 'users#edit', as: :edit_user
     get '/:user_uid/change_password', to: 'users#change_password', as: :change_password
     get '/:user_uid/delete_account', to: 'users#delete_account', as: :delete_account
-    patch '/:user_uid/edit', to: 'users#update', as: :update_user
+    post '/:user_uid/edit', to: 'users#update', as: :update_user
+    post '/:user_uid/change_password', to: 'users#update_password', as: :update_password
     delete '/:user_uid', to: 'users#destroy', as: :delete_user
 
     # All user recordings
