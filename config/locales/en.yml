@@ -240,13 +240,13 @@ en:
       help: If you believe this is a mistake, please contact your system administrator.
   expired_reset_token: Password reset link has expired!
   features:
-    title: Features
-    rooms: Personalized Rooms
-    recordings: Recording Management
-    designs: Custom Designs
+    title: Fasilitas
+    rooms: Personal Meeting
+    recordings: Record Manajemen
+    designs: Jadwal Meeting
     authentication: User Authentication
   footer:
-    powered_by: Powered by %{href}.
+    powered_by: Powered by MPU -
   forgot_password:
     subtitle: Forgot Password
     email: Email
@@ -276,9 +276,9 @@ en:
     search:
       start: Start searching...
   landing:
-    about: "%{href} is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link."
-    welcome: Welcome to BigBlueButton.
-    video: Watch our tutorial on using Greenlight
+    about: "Server video konferensi FKDMPU. Anda dapat memesan room sendiri untuk menyelenggarakan sesi atau rapat, atau bergabung dengan orang lain menggunakan layanan kami."
+    welcome: Forum Kerjasama Diskusi Mitra Praja Utama.
+    video: Watch our tutorial on using vCall MPU
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
   language_default: Default (browser language)
