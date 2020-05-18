@@ -101,6 +101,7 @@ eu:
       registration_method_updated: Erregistratze-modua ongi eguneratu da
       reset_password: "Erabiltzaileari e-mail bat bidali zaio pasahitza berrezartzeko. (Jaso ez badute spam karpetan begiratzeko eskatu, mesedez)"
       restored: Erabiltzailea ongi berrezarri da
+      room_configuration: Gelaren Ezarpenak ongi eguneratu dira
       settings: Guneko Ezarpenak ongi aldatu dira
       unauthorized: Ez zaude baimenduta erabiltzaile honetan ekintzak gauzatzeko
     recordings:
@@ -127,6 +128,20 @@ eu:
       colour:
         title: Rolaren Kolorea
         info: Ezarri rolari lotuta egongo den kolorea
+    room_configuration:
+      title: Gelaren Ezarpenak
+      mute:
+        info: Automatikoki mututu erabiltzailea BigBlueButtoneko bilera batetara batzean
+      require_moderator:
+        info: "BigBlueButtoneko bileraren moderatzaileari abisua bidaltzen dio erabiltzaile bat batzen saiatzen. Erabiltzailea onartzen bada, bilerara batzeko aukera izango du."
+      allow_any:
+        info: "Onartu edozein erabiltzailek bilera hastean edozein momentutan. Modu lehenetsian, gelaren jabeak bakarrik has dezake bilera."
+      all_moderator:
+        info: Eman erabiltzaile guztiei moderatzaile pribilegioak BigBlueButtonen bilera batetara batzean
+      options:
+        disabled: Desgaituta
+        enabled: Beti Gaituta
+        optional: Hautazkoa
     rooms:
       title: Zerbitzariko Gelak
       table:

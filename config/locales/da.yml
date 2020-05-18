@@ -101,6 +101,7 @@ da:
       registration_method_updated: Registreringsmetoden er blevet opdateret med succes
       reset_password: "Brugeren har fået tilsendt en e-mail for at nulstille adgangskoden. (Bed dem om at tjekke deres spam-mappe, hvis de ikke har modtaget den)"
       restored: Bruger er blevet genskabt med succes
+      room_configuration: Rum Konfigurationen blev ændret med succes.
       settings: Sidens indstillinger er blevet ændret med succes
       unauthorized: Du er ikke godkendt til at lave denne handling på brugeren
     recordings:
@@ -127,6 +128,20 @@ da:
       colour:
         title: Rolle Farve
         info: Tilføj farven som vil blive tilføjet til rollen
+    room_configuration:
+      title: Rum Konfiguration
+      mute:
+        info: "Muter brugeren automatisk, når de deltager i BigBlueButton mødet"
+      require_moderator:
+        info: "Fortæller moderatoren af BigBlueButton mødet, når en bruger prøver at deltage. Hvis brugeren er godkendt, kan de deltage i mødet."
+      allow_any:
+        info: "Tillader enhver bruger at starte mødet når som helst. Som standard er det kun ejeren af rummet, der kan starte mødet."
+      all_moderator:
+        info: "Giver alle brugernes moderatorrettigheder i BigBlueButton, når de deltager i mødet."
+      options:
+        disabled: Deaktiver
+        enabled: Altid Aktiveret
+        optional: Valgfri
     rooms:
       title: Server Rum
       table:
@@ -260,7 +275,7 @@ da:
     search:
       start: Start søgning...
   landing:
-    about: "%{href} er et simpelt front.end system til BigBlueButton open-source web konference server. Du kan oprette dine egne rum og hoste sessioner, eller tilslutte andre ved brug af korte og nemme links."
+    about: "%{href} er et simpelt front-end system til BigBlueButton open-source web konference server. Du kan oprette dine egne rum og hoste sessioner, eller tilslutte andre ved brug af korte og nemme links."
     welcome: Velkommen til BigBlueButton.
     video: Se vores vejledninger om hvordan man bruger Greenlight
     upgrade: Vis mig hvordan man opgradere til 2.0!

@@ -155,4 +155,6 @@ Rails.application.configure do
 
   # Set the relative url root for deployment to a subdirectory.
   config.relative_url_root = ENV['RELATIVE_URL_ROOT'] || "/b" if ENV['RELATIVE_URL_ROOT'] != "/"
+
+  config.hosts = ENV['SAFE_HOSTS'].presence || nil
 end

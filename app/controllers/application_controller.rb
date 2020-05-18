@@ -18,9 +18,10 @@
 
 class ApplicationController < ActionController::Base
   include BbbServer
+  include Errors
 
-  before_action :redirect_to_https, :set_user_domain, :set_user_settings, :maintenance_mode?, :migration_error?,
-    :user_locale, :check_admin_password, :check_user_role
+  before_action :block_unknown_hosts, :redirect_to_https, :set_user_domain, :set_user_settings, :maintenance_mode?,
+  :migration_error?, :user_locale, :check_admin_password, :check_user_role
 
   protect_from_forgery with: :exceptions
 
@@ -42,6 +43,12 @@ class ApplicationController < ActionController::Base
 
   def bbb_server
     @bbb_server ||= Rails.configuration.loadbalanced_configuration ? bbb(@user_domain) : bbb("greenlight")
+  end
+
+  # Block unknown hosts to mitigate host header injection attacks
+  def block_unknown_hosts
+    return if Rails.configuration.hosts.blank?
+    raise UnsafeHostError, "#{request.host} is not a safe host" unless Rails.configuration.hosts.include?(request.host)
   end
 
   # Force SSL
