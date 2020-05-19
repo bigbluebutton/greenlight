@@ -1,5 +1,7 @@
 stages:
   - test
+  - build
+  - deploy
 
 cache:
   paths:
