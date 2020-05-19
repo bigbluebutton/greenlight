@@ -67,6 +67,8 @@ class PasswordResetsController < ApplicationController
 
   def find_user
     @user = User.find_by(reset_digest: User.hash_token(params[:id]), provider: @user_domain)
+
+    return redirect_to new_password_reset_url, alert: I18n.t("reset_password.invalid_token") unless @user
   end
 
   def user_params
