@@ -79,6 +79,15 @@
               </label>
             <% end %>
 
+            <% gen_name = room_configuration("Room Configuration Generate Unauthenticated Name") %>
+            <% if gen_name != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if gen_name == "enabled" %>">
+                <span class="custom-switch-description"><%= t("modal.room_settings.generate_name")%></span>
+                <%= f.check_box :generate_unauthed_name, class: "custom-switch-input", data: { default: gen_name == "enabled" }, checked: false %>
+                <span class="custom-switch-indicator float-right cursor-pointer"></span>
+              </label>
+            <% end %>
+
             <label id="auto-join-label" class="create-only custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
               <span class="custom-switch-description"><%= t("modal.create_room.auto_join") %></span>
               <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>

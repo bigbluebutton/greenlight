@@ -98,4 +98,29 @@
       </div>
     </div>
   </div>
+
+  <div class="mb-6 row">
+    <div class="col-12">
+     <div class="form-group">
+        <label class="form-label"><%= t("modal.room_settings.generate_name") %></label>
+        <label class="form-label text-muted"><%= t("administrator.room_configuration.generate_name.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= room_configuration_string("Room Configuration Generate Unauthenticated Name") %>
+          </button>
+          <div class="dropdown-menu">
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Generate Unauthenticated Name", value: "enabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.enabled") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Generate Unauthenticated Name", value: "optional"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.optional") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Generate Unauthenticated Name", value: "disabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

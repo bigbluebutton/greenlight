@@ -26,6 +26,8 @@ module Joiner
       current_user.name
     elsif cookies.encrypted[:greenlight_name]
       cookies.encrypted[:greenlight_name]
+    elsif room_setting_with_config("generateUnauthedName")
+      "ibr-random"
     else
       ""
     end
@@ -105,6 +107,8 @@ module Joiner
       "Room Configuration All Join Moderator"
     when "anyoneCanStart"
       "Room Configuration Allow Any Start"
+    when "generateUnauthedName"
+      "Room Configuration Generate Unauthenticated Name"
     end
 
     case @settings.get_value(config)

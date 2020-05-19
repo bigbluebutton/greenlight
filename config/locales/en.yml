@@ -138,6 +138,8 @@ en:
         info: Allows any user to start the meeting at any time. By default, only the room owner can start the meeting.
       all_moderator:
         info: Gives all users moderator privileges in BigBlueButton when they join the meeting.
+      generate_name:
+        info: "Generates names for all users that were not authenticated."
       options:
         disabled: Disabled
         enabled: Always Enabled
@@ -386,6 +388,7 @@ en:
       update: Update Room
       client: Select client type
       join_moderator: All users join as moderators
+      generate_name: Names of unauthenticated users are generated
       mute: Mute users when they join
       require_approval: Require moderator approval before joining
       start: Allow any user to start this meeting

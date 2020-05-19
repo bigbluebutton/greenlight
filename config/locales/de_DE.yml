@@ -138,6 +138,8 @@ de_DE:
         info: "Ermöglicht es jedem Teilnehmer, die Konferenz jederzeit zu starten. Standardmäßig kann nur der Rauminitiator die Besprechung starten."
       all_moderator:
         info: "Gewährt allen Teilnehmern Moderatorenrechte in BigBlueButton, wenn sie an der Konferenz teilnehmen."
+      generate_name:
+        info: "Generiert automatisch Namen für nicht authentisierte Teilnehmer."
       options:
         disabled: Deaktiviert
         enabled: Immer aktiviert
@@ -385,6 +387,7 @@ de_DE:
       update: Raum aktualisieren
       client: Client auswählen
       join_moderator: Alle Nutzer nehmen als Moderator teil
+      generate_name: Namen unauthentiserter Teilnehmer werden generiert
       mute: Teilnehmer beim Betreten stummschalten
       require_approval: Freigabe durch Moderator bevor der Raum betreten werden kann
       start: Jeder Teilnehmer kann das Meeting starten
