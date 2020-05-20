@@ -75,7 +75,7 @@ describe SessionsController, type: :controller do
     before(:each) do
       user = create(:user, provider: "greenlight")
       @request.session[:user_id] = user.id
-      get :destroy
+      post :destroy
     end
 
     it "should logout user" do
