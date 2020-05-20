@@ -94,7 +94,7 @@ class SessionsController < ApplicationController
     login(user)
   end
 
-  # GET /users/logout
+  # POST /users/logout
   def destroy
     logout
     redirect_to root_path

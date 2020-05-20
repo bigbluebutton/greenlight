@@ -91,7 +91,7 @@
                   <i class="dropdown-icon fas fa-exclamation mr-3"></i><%= t("errors.internal.report") %>
                 </a>
               <% end %>
-              <%= link_to logout_path, class: "dropdown-item" do %>
+              <%= button_to logout_path, class: "dropdown-item" do %>
                 <i class="dropdown-icon fas fa-sign-out-alt"></i> <%= t("header.dropdown.signout") %>
               <% end %>
             </div>
