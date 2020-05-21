@@ -30,6 +30,7 @@
             <%= t("room.shared_by", email: room.owner.name) %>
           </div>
         </td>
+        <% if current_user.role.get_permission("can_create_rooms") %>
         <td class="text-right">
           <div class="item-action dropdown" data-display="static">
             <a href="javascript:void(0)" data-toggle="dropdown" data-display="static" class="icon">
@@ -42,6 +43,7 @@
             </div>
           </div>
         </td>
+        <% end %>
       </tbody>
     </table>
   </div>
