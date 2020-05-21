@@ -32,10 +32,10 @@
             <a><i id="edit-room" class="fa fa-edit align-top home-indicator ml-2" data-edit-room="<%= @room.uid %>"></i></a>
           <% end %>
         </div>
-        <h4 class="text-left mb-6"><%= @room.sessions %> <%= t("room.sessions") %> | <%= @recordings.length %> <%= t("room.recordings") %></h4>
+        <h4 class="text-left mb-0"><%= @room.sessions %> <%= t("room.sessions") %> | <%= @recordings.length %> <%= t("room.recordings") %></h4>
         <% unless exceeds_limit %>
         <% if current_user.role.get_permission("can_create_rooms") %>
-          <label class="form-label"><%= t("room.invite_participants") %></label>
+          <label class="form-label mt-6"><%= t("room.invite_participants") %></label>
           <div class="row">
             <div class="col-lg-7 col-md-12 mt-2">
               <div class="input-icon invite-link-input">
