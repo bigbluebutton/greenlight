@@ -63,19 +63,6 @@ describe RoomsController, type: :controller do
       expect(response).to render_template(:join)
     end
 
-    it "should render cant_create_rooms if user doesn't have permission to create rooms" do
-      user_role = @user.role
-
-      user_role.update_permission("can_create_rooms", "false")
-      user_role.save!
-
-      @request.session[:user_id] = @user.id
-
-      get :show, params: { room_uid: @user.main_room }
-
-      expect(response).to render_template(:cant_create_rooms)
-    end
-
     it "should be able to search public recordings if user is not owner" do
       @request.session[:user_id] = @user.id
 
@@ -154,6 +141,35 @@ describe RoomsController, type: :controller do
       get :show, params: { room_uid: @owner.main_room, search: :none }
 
       expect(response).to redirect_to(root_path)
+    end
+  end
+
+  describe "GET #cant_create_rooms" do
+    before do
+      @user = create(:user)
+      @owner = create(:user)
+    end
+
+    it "renders cant_create_rooms if user doesn't have permission to create rooms and has no shared rooms" do
+      @user.role.update_permission("can_create_rooms", "false")
+
+      @request.session[:user_id] = @user.id
+
+      get :cant_create_rooms
+
+      expect(response).to render_template(:cant_create_rooms)
+    end
+
+    it "displays the room if the user can't create rooms but has a shared room" do
+      @user.role.update_permission("can_create_rooms", "false")
+
+      SharedAccess.create(room_id: @owner.main_room.id, user_id: @user.id)
+
+      @request.session[:user_id] = @user.id
+
+      get :cant_create_rooms
+
+      expect(response).to redirect_to(@owner.main_room)
     end
   end
 
