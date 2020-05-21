@@ -70,6 +70,8 @@ class Setting < ApplicationRecord
       room_config_setting("anyone-can-start")
     when "Room Configuration All Join Moderator"
       room_config_setting("all-join-moderator")
+    when "Room Configuration Recording"
+      room_config_setting("recording")
     end
   end
 

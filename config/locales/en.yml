@@ -150,6 +150,8 @@ en:
         info: Allows any user to start the meeting at any time. By default, only the room owner can start the meeting.
       all_moderator:
         info: Gives all users moderator privileges in BigBlueButton when they join the meeting.
+      recordings:
+        info: Records a recording of the room and enables moderators to set recording markers
       options:
         disabled: Disabled
         enabled: Always Enabled
@@ -403,10 +405,13 @@ en:
       update: Update Room
       client: Select client type
       join_moderator: All users join as moderators
+      recordings: Enable room recordings
       mute: Mute users when they join
       require_approval: Require moderator approval before joining
       start: Allow any user to start this meeting
       footer_text: Adjustment to your room can be done at anytime.
+      recording: Record sessions
+      session_active: Active session
     rename_room:
       name_placeholder: Enter a new room name...
     share_access:
@@ -511,6 +516,7 @@ en:
     enter_the_access_code: Enter the room's access code
     invalid_provider: You have entered an invalid url. Please check the url and try again.
     invited: You have been invited to join
+    recording_present: The session is going to be recorded. This includes voice and video from your side.
     invite_participants: Invite Participants
     join: Join
     last_session: Last session on %{session}

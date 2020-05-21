@@ -98,6 +98,14 @@ class Room < ApplicationRecord
     table.order(Arel.sql(order_string))
   end
 
+  def settings_hash
+    JSON.parse(room_settings || "{}")
+  end
+
+  def recording?
+    settings_hash["recording"]
+  end
+
   private
 
   # Generates a uid for the room and BigBlueButton.
