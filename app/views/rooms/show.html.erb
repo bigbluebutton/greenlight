@@ -23,10 +23,10 @@
   <div class="container">
     <div class="row pt-7 pt-sm-9">
       <div class="col-lg-8 col-sm-12">
-        <div id="room-title" class="display-3 form-inline <%= 'edit_hover_class' if current_user.main_room != @room %>" data-path="<%= update_settings_path(@room) %>">
-          <% if current_user.main_room == @room %>
+        <div id="room-title" class="display-3 form-inline <%= 'edit_hover_class' if current_user.shared_rooms != @room %>" data-path="<%= update_settings_path(@room) %>">
+          <% if current_user.shared_rooms == @room %>
             <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= @room.name %></h1>
-            <a class="disable-click"><i class="fas fa-home align-top home-indicator ml-2"></i></a>
+            <a class="disable-click"><i class="fas fa-share-alt align-top home-indicator ml-2"></i></a>
           <% else %>
             <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= @room.name %></h1>
             <a><i id="edit-room" class="fa fa-edit align-top home-indicator ml-2" data-edit-room="<%= @room.uid %>"></i></a>
