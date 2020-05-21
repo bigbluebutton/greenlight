@@ -58,7 +58,16 @@ module ApplicationHelper
   # Returns the page that the logo redirects to when clicked on
   def home_page
     return admins_path if current_user.has_role? :super_admin
-    current_user.main_room
+    return current_user.main_room if current_user.role.get_permission("can_create_rooms")
+    cant_create_rooms_path
+  end
+
+  # Returns 'active' if the current page is the users home page (used to style header)
+  def active_home
+    home_actions = %w[show cant_create_rooms]
+    return "active" if params[:controller] == "admins" && params[:action] == "index" && current_user.has_role?(:super_admin)
+    return "active" if params[:controller] == "rooms" && home_actions.include?(params[:action])
+    ""
   end
 
   # Returns the action method of the current page

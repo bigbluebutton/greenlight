@@ -77,12 +77,14 @@
     </div>
 
     <div id="room_block_container" class="row pt-7 pb-5">
-      <% current_user.ordered_rooms.each do |room| %>
-        <div class="col-lg-4 col-md-6 col-sm-12">
-          <%= link_to room do %>
-            <%= render "rooms/components/room_block", room: room %>
-          <% end %>
-        </div>
+      <% if current_user.role.get_permission("can_create_rooms") %>
+        <% current_user.ordered_rooms.each do |room| %>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <%= link_to room do %>
+              <%= render "rooms/components/room_block", room: room %>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
 
       <% if shared_access_allowed %>
@@ -95,7 +97,7 @@
         <% end %>
       <% end %>
 
-      <% unless room_limit_exceeded %>
+      <% if current_user.role.get_permission("can_create_rooms") && !room_limit_exceeded %>
         <%= render "rooms/components/create_room_block"%>
       <% end %>
     </div>

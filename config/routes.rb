@@ -107,6 +107,9 @@ Rails.application.routes.draw do
   get '/auth/failure', to: 'sessions#omniauth_fail'
   post '/auth/ldap', to: 'sessions#ldap', as: :ldap_callback
 
+  # Users who can't create rooms
+  get '/rooms', to: 'rooms#cant_create_rooms', as: :cant_create_rooms
+
   # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/'
 
