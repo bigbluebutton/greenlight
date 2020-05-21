@@ -23,8 +23,8 @@
   <div class="container">
     <div class="row pt-7 pt-sm-9">
       <div class="col-lg-8 col-sm-12">
-        <div id="room-title" class="display-3 form-inline <%= 'edit_hover_class' if current_user.main_room != @room %>" data-path="<%= update_settings_path(@room) %>">
-          <% if current_user.main_room == @room %>
+        <div id="room-title" class="display-3 form-inline <%= 'edit_hover_class' if current_user.shared_room != @room %>" data-path="<%= update_settings_path(@room) %>">
+          <% if current_user.shared_room == @room %>
             <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= @room.name %></h1>
             <a class="disable-click"><i class="fas fa-home align-top home-indicator ml-2"></i></a>
           <% else %>
@@ -34,6 +34,7 @@
         </div>
         <h4 class="text-left mb-6"><%= @room.sessions %> <%= t("room.sessions") %> | <%= @recordings.length %> <%= t("room.recordings") %></h4>
         <% unless exceeds_limit %>
+        <% if current_user.role.get_permission("can_create_rooms") %>
           <label class="form-label"><%= t("room.invite_participants") %></label>
           <div class="row">
             <div class="col-lg-7 col-md-12 mt-2">
@@ -63,6 +64,7 @@
               </div>
             </div>
           </div>
+        <% end %>
         <% end %>
       </div>
       <div class="offset-lg-1 col-lg-3 col-sm-12 force-bottom mt-5">
