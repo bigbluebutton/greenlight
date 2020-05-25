@@ -130,9 +130,9 @@ ru:
       title: Комнаты сервера
       table:
         id: ID
+        status: Статус
       not_running: Не запущена
       running: Запущена
-      status: Статус
       view: Посмотреть
     title: Настройки организации
     users:
