@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
         "#{Rails.configuration.relative_url_root}/auth/#{@providers.first}"
       end
 
-      return redirect_to provider_path
+      redirect_to provider_path
     end
   end
 
