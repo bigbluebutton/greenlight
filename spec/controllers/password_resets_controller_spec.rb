@@ -19,7 +19,7 @@
 require "rails_helper"
 
 def random_valid_user_params
-  pass = Faker::Internet.password(8)
+  pass = Faker::Internet.password(min_length: 8)
   {
     user: {
       name: Faker::Name.first_name,
