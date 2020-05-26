@@ -28,7 +28,7 @@ namespace :user do
     # Create account if it doesn't exist
     if !User.exists?(email: u[:email], provider: u[:provider])
       user = User.create(name: u[:name], email: u[:email], password: u[:password],
-        provider: u[:provider], email_verified: true)
+        provider: u[:provider], email_verified: true, accepted_terms: true)
 
       unless user.valid?
         puts "Invalid Arguments"
@@ -38,9 +38,9 @@ namespace :user do
 
       if u[:role] == "super_admin"
         user.remove_role(:user)
-        user.add_role(:super_admin)
+        user.set_role(:super_admin)
       elsif u[:role] == "admin"
-        user.add_role(:admin)
+        user.set_role(:admin)
       end
 
       puts "Account succesfully created."

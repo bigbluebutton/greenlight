@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
         "#{Rails.configuration.relative_url_root}/auth/#{@providers.first}"
       end
 
-      return redirect_to provider_path
+      redirect_to provider_path
     end
   end
 
@@ -94,7 +94,7 @@ class SessionsController < ApplicationController
     login(user)
   end
 
-  # GET /users/logout
+  # POST /users/logout
   def destroy
     logout
     redirect_to root_path
@@ -218,7 +218,7 @@ class SessionsController < ApplicationController
 
     # Add pending role if approval method and is a new user
     if approval_registration && !@user_exists
-      user.add_role :pending
+      user.set_role :pending
 
       # Inform admins that a user signed up if emails are turned on
       send_approval_user_signup_email(user)
@@ -227,6 +227,8 @@ class SessionsController < ApplicationController
     end
 
     send_invite_user_signup_email(user) if invite_registration && !@user_exists
+
+    user.set_role :user unless @user_exists
 
     login(user)
 

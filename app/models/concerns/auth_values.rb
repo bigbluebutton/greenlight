@@ -63,7 +63,7 @@ module AuthValues
       role_provider = auth['provider'] == "bn_launcher" ? auth['info']['customer'] : "greenlight"
       roles.each do |role_name|
         role = Role.find_by(provider: role_provider, name: role_name)
-        user.roles << role if !role.nil? && !user.has_role?(role_name)
+        user.role = role if !role.nil? && !user.has_role?(role_name)
       end
     end
   end

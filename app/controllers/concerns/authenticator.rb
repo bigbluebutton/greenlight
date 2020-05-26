@@ -46,8 +46,10 @@ module Authenticator
                           internal_error_url, not_found_url]
       url = if cookies[:return_to] && !dont_redirect_to.include?(cookies[:return_to])
         cookies[:return_to]
-      else
+      elsif user.role.get_permission("can_create_rooms")
         user.main_room
+      else
+        cant_create_rooms_path
       end
 
       # Delete the cookie if it exists

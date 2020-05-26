@@ -19,7 +19,7 @@
 require "rails_helper"
 
 def random_valid_user_params
-  pass = Faker::Internet.password(8)
+  pass = Faker::Internet.password(min_length: 8)
   {
     user: {
       name: Faker::Name.first_name,
@@ -75,7 +75,7 @@ describe UsersController, type: :controller do
       controller.instance_variable_set(:@user_domain, "provider1")
 
       user = create(:user, provider: "provider1")
-      user.add_role :admin
+      user.set_role :admin
       user2 = create(:user, provider: "provider1")
 
       @request.session[:user_id] = user.id
@@ -174,7 +174,7 @@ describe UsersController, type: :controller do
           allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
           @user = create(:user, provider: "greenlight")
           @admin = create(:user, provider: "greenlight", email: "test@example.com")
-          @admin.add_role :admin
+          @admin.set_role :admin
         end
 
         it "should notify admins that user signed up" do
@@ -232,7 +232,7 @@ describe UsersController, type: :controller do
           allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
           @user = create(:user, provider: "greenlight")
           @admin = create(:user, provider: "greenlight", email: "test@example.com")
-          @admin.add_role :admin
+          @admin.set_role :admin
         end
 
         it "allows any user to sign up" do
@@ -278,13 +278,13 @@ describe UsersController, type: :controller do
     end
   end
 
-  describe "PATCH #update" do
+  describe "POST #update" do
     it "properly updates user attributes" do
       user = create(:user)
       @request.session[:user_id] = user.id
 
       params = random_valid_user_params
-      patch :update, params: params.merge!(user_uid: user)
+      post :update, params: params.merge!(user_uid: user)
       user.reload
 
       expect(user.name).to eql(params[:user][:name])
@@ -293,11 +293,26 @@ describe UsersController, type: :controller do
       expect(response).to redirect_to(edit_user_path(user))
     end
 
+    it "properly updates user attributes" do
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(false)
+      user = create(:user)
+      @request.session[:user_id] = user.id
+
+      params = random_valid_user_params
+      post :update, params: params.merge!(user_uid: user)
+      user.reload
+
+      expect(user.name).not_to eql(params[:user][:name])
+      expect(user.email).not_to eql(params[:user][:email])
+      expect(flash[:success]).to be_present
+      expect(response).to redirect_to(edit_user_path(user))
+    end
+
     it "renders #edit on unsuccessful save" do
       @user = create(:user)
       @request.session[:user_id] = @user.id
 
-      patch :update, params: invalid_params.merge!(user_uid: @user)
+      post :update, params: invalid_params.merge!(user_uid: @user)
       expect(response).to render_template(:edit)
     end
 
@@ -306,7 +321,7 @@ describe UsersController, type: :controller do
         user = create(:user)
         @request.session[:user_id] = user.id
 
-        user_role = user.highest_priority_role
+        user_role = user.role
 
         user_role.update_permission("can_manage_users", "true")
 
@@ -315,30 +330,7 @@ describe UsersController, type: :controller do
         tmp_role = Role.create(name: "test", priority: -4, provider: "greenlight")
 
         params = random_valid_user_params
-        patch :update, params: params.merge!(user_uid: user, user: { role_ids: tmp_role.id.to_s })
-
-        expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_assignment"))
-        expect(response).to render_template(:edit)
-      end
-
-      it "should fail to update roles if a user tries to remove a role with a higher priority than their own" do
-        user = create(:user)
-        admin = create(:user)
-
-        admin.add_role :admin
-
-        @request.session[:user_id] = user.id
-
-        user_role = user.highest_priority_role
-
-        user_role.update_permission("can_manage_users", "true")
-
-        user_role.save!
-
-        params = random_valid_user_params
-        patch :update, params: params.merge!(user_uid: admin, user: { role_ids: "" })
-
-        user.reload
+        post :update, params: params.merge!(user_uid: user, user: { role_id: tmp_role.id.to_s })
 
         expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_assignment"))
         expect(response).to render_template(:edit)
@@ -350,53 +342,88 @@ describe UsersController, type: :controller do
         user = create(:user)
         admin = create(:user)
 
-        admin.add_role :admin
+        admin.set_role :admin
 
         @request.session[:user_id] = admin.id
 
         tmp_role1 = Role.create(name: "test1", priority: 2, provider: "greenlight")
         tmp_role1.update_permission("send_promoted_email", "true")
-        tmp_role2 = Role.create(name: "test2", priority: 3, provider: "greenlight")
 
         params = random_valid_user_params
-        params = params.merge!(user_uid: user, user: { role_ids: "#{tmp_role1.id} #{tmp_role2.id}" })
+        params = params.merge!(user_uid: user, user: { role_id: tmp_role1.id.to_s })
 
-        expect { patch :update, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
+        expect { post :update, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
 
         user.reload
-        expect(user.roles.count).to eq(2)
-        expect(user.highest_priority_role.name).to eq("test1")
-        expect(response).to redirect_to(admins_path)
-      end
-
-      it "all users must at least have the user role" do
-        allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
-
-        user = create(:user)
-        admin = create(:user)
-
-        admin.add_role :admin
-
-        tmp_role1 = Role.create(name: "test1", priority: 2, provider: "greenlight")
-        tmp_role1.update_permission("send_demoted_email", "true")
-        user.roles << tmp_role1
-        user.save!
-
-        @request.session[:user_id] = admin.id
-
-        params = random_valid_user_params
-        params = params.merge!(user_uid: user, user: { role_ids: "" })
-
-        expect { patch :update, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
-        expect(user.roles.count).to eq(1)
-        expect(user.highest_priority_role.name).to eq("user")
+        expect(user.role.name).to eq("test1")
         expect(response).to redirect_to(admins_path)
       end
     end
   end
 
+  describe "POST #update_password" do
+    before do
+      @user = create(:user)
+      @password = Faker::Internet.password(min_length: 8)
+    end
+
+    it "properly updates users password" do
+      @request.session[:user_id] = @user.id
+
+      params = {
+        user: {
+          password: @user.password,
+          new_password: @password,
+          password_confirmation: @password,
+        }
+      }
+      post :update_password, params: params.merge!(user_uid: @user)
+      @user.reload
+
+      expect(@user.authenticate(@password)).not_to be false
+      expect(@user.errors).to be_empty
+      expect(flash[:success]).to be_present
+      expect(response).to redirect_to(change_password_path(@user))
+    end
+
+    it "doesn't update the users password if initial password is incorrect" do
+      @request.session[:user_id] = @user.id
+
+      params = {
+        user: {
+          password: "incorrect_password",
+          new_password: @password,
+          password_confirmation: @password,
+        }
+      }
+      post :update_password, params: params.merge!(user_uid: @user)
+      @user.reload
+      expect(@user.authenticate(@password)).to be false
+      expect(response).to render_template(:change_password)
+    end
+
+    it "doesn't update the users password if new passwords don't match" do
+      @request.session[:user_id] = @user.id
+
+      params = {
+        user: {
+          password: "incorrect_password",
+          new_password: @password,
+          password_confirmation: @password + "_random_string",
+        }
+      }
+      post :update_password, params: params.merge!(user_uid: @user)
+      @user.reload
+      expect(@user.authenticate(@password)).to be false
+      expect(response).to render_template(:change_password)
+    end
+  end
+
   describe "DELETE #user" do
-    before { allow(Rails.configuration).to receive(:allow_user_signup).and_return(true) }
+    before do
+      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
+      Role.create_default_roles("provider1")
+    end
 
     it "permanently deletes user" do
       user = create(:user)
@@ -416,7 +443,7 @@ describe UsersController, type: :controller do
 
       user = create(:user, provider: "provider1")
       admin = create(:user, provider: "provider1")
-      admin.add_role :admin
+      admin.set_role :admin
       @request.session[:user_id] = admin.id
 
       delete :destroy, params: { user_uid: user.uid }
@@ -434,7 +461,7 @@ describe UsersController, type: :controller do
 
       user = create(:user, provider: "provider1")
       admin = create(:user, provider: "provider1")
-      admin.add_role :admin
+      admin.set_role :admin
       @request.session[:user_id] = admin.id
 
       delete :destroy, params: { user_uid: user.uid, permanent: "true" }
@@ -452,7 +479,7 @@ describe UsersController, type: :controller do
 
       user = create(:user, provider: "provider1")
       admin = create(:user, provider: "provider1")
-      admin.add_role :admin
+      admin.set_role :admin
       @request.session[:user_id] = admin.id
       uid = user.main_room.uid
 
@@ -473,7 +500,7 @@ describe UsersController, type: :controller do
 
       user = create(:user, provider: "provider1")
       admin = create(:user, provider: "provider2")
-      admin.add_role :admin
+      admin.set_role :admin
       @request.session[:user_id] = admin.id
 
       delete :destroy, params: { user_uid: user.uid }

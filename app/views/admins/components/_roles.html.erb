@@ -15,7 +15,7 @@
 
 <div class="container">
   <div class="row">
-    <% current_role = current_user.highest_priority_role%>
+    <% current_role = current_user.role%>
     <div class="col-lg-3 mb-4">
         <div class="list-group list-group-transparent mb-0">
             <div id="rolesSelect" data-url="<%= admin_roles_order_path %>">
@@ -34,7 +34,7 @@
     </div>
     <div class="col-lg-9 <%="form-disable" if edit_disabled %>">
         <%= form_with model: @selected_role, url: admin_update_role_path(@selected_role.id), method: :post do |f| %>
-            <%= f.label t('administrator.roles.name'), class: "form-label" %>
+            <%= f.label :name, t('administrator.roles.name'), class: "form-label" %>
             <%= f.text_field :name, class: 'form-control mb-3', value: translated_role_name(@selected_role), readonly: edit_disabled || @selected_role.name == "user" || @selected_role.name == "admin", required: true  %>
             
             <%= f.hidden_field :colour, id: "role-colour", value: role_colour(@selected_role) %>
