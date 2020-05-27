@@ -13,21 +13,6 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<%
-# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
-# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
-# This program is free software; you can redistribute it and/or modify it under the
-# terms of the GNU Lesser General Public License as published by the Free Software
-# Foundation; either version 3.0 of the License, or (at your option) any later
-# version.
-#
-# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
-# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-# You should have received a copy of the GNU Lesser General Public License along
-# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-%>
-
 <% if @role.nil? %>
   <%= render "admins/components/manage_users_tags" %>
 <% else %>
@@ -89,11 +74,10 @@
                     <td class="user-email"><%= user.email && user.email != "" ? user.email : user.username%></td>
                     <td><%= user.provider %></td>
                     <td class="text-center">
-                      <% roles = user.roles().pluck(:name) %>
-                      <%= render "admins/components/admins_role", role: user.highest_priority_role %>
+                      <%= render "admins/components/admins_role", role: user.role %>
                     </td>
                     <td>
-                      <% if !roles.include?("super_admin") %>
+                      <% if !user.has_role?("super_admin") %>
                         <div class="item-action dropdown">
                           <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
                             <i class="fas fa-ellipsis-v px-4"></i>
@@ -106,14 +90,14 @@
                               <button class="delete-user dropdown-item" data-path="<%= delete_user_path(user_uid: user.uid, permanent: "true") %>" data-toggle="modal" data-target="#deleteAccountModal">
                                 <i class="dropdown-icon fas fa-skull-crossbones"></i> <%= t("administrator.users.settings.perm_delete") %>
                               </button>
-                            <% elsif roles.include?("denied") %>
+                            <% elsif user.has_role?("denied") %>
                               <%= button_to admin_unban_path(user_uid: user.uid), class: "dropdown-item", "data-disable": "" do %>
                                 <i class="dropdown-icon fas fa-lock-open"></i> <%= t("administrator.users.settings.unban") %>
                               <% end %>
                               <button class= "delete-user dropdown-item" data-path="<%= delete_user_path(user_uid: user.uid) %>" data-delete="temp-delete" data-toggle="modal" data-target="#deleteAccountModal">
                                 <i class="dropdown-icon fas fa-user-minus"></i> <%= t("administrator.users.settings.delete") %>
                               </button>
-                            <% elsif roles.include?("pending") %>
+                            <% elsif user.has_role?("pending") %>
                               <%= button_to admin_approve_path(user_uid: user.uid), class: "dropdown-item", "data-disable": "" do %>
                                 <i class="dropdown-icon far fa-check-circle"></i> <%= t("administrator.users.settings.approve") %>
                               <% end %>
@@ -150,7 +134,7 @@
             <% end %>
           </tbody>
         </table>
-        <div class="float-right mt-4">
+        <div class="float-md-right mt-4">
           <%== pagy_bootstrap_nav(@pagy) %>
         </div>
       </div>

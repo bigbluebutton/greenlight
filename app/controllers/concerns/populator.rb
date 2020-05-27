@@ -25,29 +25,22 @@ module Populator
 
     initial_user = case @tab
       when "active"
-        User.includes(:roles).without_role(:pending).without_role(:denied)
+        User.without_role([:pending, :denied])
       when "deleted"
-        User.includes(:roles).deleted
+        User.deleted
       else
-        User.includes(:roles)
+        User.all
     end
 
     current_role = Role.find_by(name: @tab, provider: @user_domain) if @tab == "pending" || @tab == "denied"
 
-    initial_list = if current_user.has_role? :super_admin
-      initial_user.where.not(id: current_user.id)
-    else
-      initial_user.without_role(:super_admin).where.not(id: current_user.id)
-    end
+    initial_list = initial_user.without_role(:super_admin) unless current_user.has_role? :super_admin
 
-    if Rails.configuration.loadbalanced_configuration
-      initial_list.where(provider: @user_domain)
-                  .admins_search(@search, current_role)
-                  .admins_order(@order_column, @order_direction)
-    else
-      initial_list.admins_search(@search, current_role)
-                  .admins_order(@order_column, @order_direction)
-    end
+    initial_list = initial_list.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
+
+    initial_list.where.not(id: current_user.id)
+                .admins_search(@search, current_role)
+                .admins_order(@order_column, @order_direction)
   end
 
   # Returns a list of rooms that are in the same context of the current user
@@ -55,9 +48,9 @@ module Populator
     if Rails.configuration.loadbalanced_configuration
       Room.includes(:owner).where(users: { provider: @user_domain })
           .admins_search(@search)
-          .admins_order(@order_column, @order_direction)
+          .admins_order(@order_column, @order_direction, @running_room_bbb_ids)
     else
-      Room.includes(:owner).all.admins_search(@search).admins_order(@order_column, @order_direction)
+      Room.includes(:owner).admins_search(@search).admins_order(@order_column, @order_direction, @running_room_bbb_ids)
     end
   end
 
@@ -77,10 +70,7 @@ module Populator
       roles_can_appear << role.name if role.get_permission("can_appear_in_share_list") && role.priority >= 0
     end
 
-    initial_list = User.where.not(uid: current_user.uid)
-                       .without_role(:pending)
-                       .without_role(:denied)
-                       .with_highest_priority_role(roles_can_appear)
+    initial_list = User.where.not(uid: current_user.uid).with_role(roles_can_appear)
 
     return initial_list unless Rails.configuration.loadbalanced_configuration
     initial_list.where(provider: @user_domain)
@@ -88,7 +78,7 @@ module Populator
 
   # Returns a list of users that can merged into another user
   def merge_user_list
-    initial_list = User.where.not(uid: current_user.uid).without_role(:super_admin)
+    initial_list = User.without_role(:super_admin).where.not(uid: current_user.uid)
 
     return initial_list unless Rails.configuration.loadbalanced_configuration
     initial_list.where(provider: @user_domain)

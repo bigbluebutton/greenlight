@@ -43,6 +43,18 @@ en:
         placeholder: Image Url...
         title: Branding Image
         invalid: Invalid URL
+      legal:
+        change: Change URL
+        info: Change the Legal Link that appears in the bottom of the page
+        placeholder: Legal URL...
+        title: Legal
+        invalid: Invalid URL
+      privpolicy:
+        change: Change URL
+        info: Change the Privacy Policy Link that appears in the bottom of the page
+        placeholder: Privacy Policy URL...
+        title: Privacy Policy
+        invalid: Invalid URL
       cache:
         info: Clears the stored provider cache which forces a new request for the updated info
         title: Clear Provider Cache
@@ -145,9 +157,12 @@ en:
     rooms:
       title: Server Rooms
       table:
+        ended: "Ended: %{session}"
         id: ID
         not_running: Not Running
+        participants: Participants
         running: Running
+        started: "Started: %{session}"
         status: Status
         view: View
     title: Organization Settings
@@ -246,6 +261,8 @@ en:
     designs: Custom Designs
     authentication: User Authentication
   footer:
+    legal: Legal
+    privpolicy: Privacy Policy
     powered_by: Powered by %{href}.
   forgot_password:
     subtitle: Forgot Password
@@ -368,7 +385,7 @@ en:
       warning: You will <b>not</b> be able to recover this room
       recording_warning: or any of its %{recordings_num} associated recordings.
     invite_user:
-      email_placeholder: Enter the users' emails (seperated by commas)
+      email_placeholder: Enter the users' emails (separated by commas)
       footer: The user will receive an email with instructions on how to sign up
       send: Send Invite
       title: Invite User
@@ -469,6 +486,7 @@ en:
   remove: Remove
   rename: Rename
   reset_password:
+    invalid_token: Password reset token is invalid. Please try resetting your password again.
     subtitle: Reset Password
     password: New Password
     confirm: New Password Confirmation
@@ -534,9 +552,10 @@ en:
       provider: Provider
       image: Image
       image_url: Profile Image URL
-      roles: User Roles
+      roles: User Role
       subtitle: Update your Account Info
       title: Account Info
+      reset_password: Reset user password
     delete:
       button: Yes, I would like to delete my account.
       disclaimer: If you choose to delete your account, it will <b>NOT</b> be recoverable. All information regarding your account, including settings, rooms, and recording will be removed.
