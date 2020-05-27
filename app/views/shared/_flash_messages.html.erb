@@ -17,22 +17,22 @@
   <% if key.eql? "success" %>
     <div class="alert alert-success alert-dismissible text-center mb-0">
       <button type="button" class="close" data-dismiss="alert">&times</button>
-      <%= value.html_safe %>
+      <%= value %>
     </div>
   <% elsif key.eql? "alert" %>
     <div class="alert alert-danger alert-dismissible text-center mb-0">
       <button type="button" class="close" data-dismiss="alert">&times</button>
-      <%= value.html_safe %>
+      <%= value %>
     </div>
   <% elsif key.eql? "maintenance" %>
     <div class="alert alert-info alert-dismissible text-center mb-0">
-      <%= value.html_safe %>
+      <%= value %>
       <button id="maintenance-close" type="button" data-date="<%= Rails.configuration.maintenance_window %>" class="close" data-dismiss="alert">&times</button>
     </div>
   <% elsif key.eql? "info" %>
     <div class="alert alert-info alert-dismissible text-center mb-0">
       <button type="button" class="close" data-dismiss="alert">&times</button>
-      <%= value.html_safe %>
+      <%= value %>
     </div>
   <% end %>
 <% end %>

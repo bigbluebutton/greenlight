@@ -88,13 +88,14 @@ Rails.application.routes.draw do
     post '/login', to: 'sessions#create', as: :create_session
 
     # Log the user out of the session.
-    get '/logout', to: 'sessions#destroy'
+    post '/logout', to: 'sessions#destroy'
 
     # Account management.
     get '/:user_uid/edit', to: 'users#edit', as: :edit_user
     get '/:user_uid/change_password', to: 'users#change_password', as: :change_password
     get '/:user_uid/delete_account', to: 'users#delete_account', as: :delete_account
-    patch '/:user_uid/edit', to: 'users#update', as: :update_user
+    post '/:user_uid/edit', to: 'users#update', as: :update_user
+    post '/:user_uid/change_password', to: 'users#update_password', as: :update_password
     delete '/:user_uid', to: 'users#destroy', as: :delete_user
 
     # All user recordings
@@ -105,6 +106,9 @@ Rails.application.routes.draw do
   match '/auth/:provider/callback', to: 'sessions#omniauth', via: [:get, :post], as: :omniauth_session
   get '/auth/failure', to: 'sessions#omniauth_fail'
   post '/auth/ldap', to: 'sessions#ldap', as: :ldap_callback
+
+  # Users who can't create rooms
+  get '/rooms', to: 'rooms#cant_create_rooms', as: :cant_create_rooms
 
   # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/'

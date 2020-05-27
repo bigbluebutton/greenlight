@@ -145,6 +145,7 @@ input:focus, select:focus {
     & a {
       color: $primary-color !important;
       border-color: $primary-color !important;
+      white-space: nowrap;
     }
 
     & a:hover {

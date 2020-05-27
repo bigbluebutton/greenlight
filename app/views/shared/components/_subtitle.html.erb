@@ -15,11 +15,11 @@
 
 <div class="row mt-2">
   <% if search %>
-    <div class="col-4">
+    <div class="col-md-6">
       <p class="subtitle"><%= subtitle %></p>
     </div>
 
-    <div class="col-8">
+    <div class="col-md-6 mb-4">
       <% if admin_invite_registration %>
         <div id="invite-user" class="d-inline-block float-right ml-3">
           <%= link_to "#inviteModal", :class => "btn btn-primary", "data-toggle": "modal" do %>

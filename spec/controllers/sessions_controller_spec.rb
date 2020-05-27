@@ -75,7 +75,7 @@ describe SessionsController, type: :controller do
     before(:each) do
       user = create(:user, provider: "greenlight")
       @request.session[:user_id] = user.id
-      get :destroy
+      post :destroy
     end
 
     it "should logout user" do
@@ -221,7 +221,7 @@ describe SessionsController, type: :controller do
     it "redirects to the admins page for admins" do
       user = create(:user, provider: "greenlight",
         password: "example", password_confirmation: 'example')
-      user.add_role :super_admin
+      user.set_role :super_admin
 
       post :create, params: {
         session: {
@@ -235,7 +235,7 @@ describe SessionsController, type: :controller do
     end
 
     it "should migrate old rooms from the twitter account to the new user" do
-      twitter_user = User.create(name: "Twitter User", email: "user@twitter.com", image: "example.png",
+      twitter_user = create(:user, name: "Twitter User", email: "user@twitter.com", image: "example.png",
         username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
 
       room = Room.new(name: "Test")
@@ -383,7 +383,7 @@ describe SessionsController, type: :controller do
 
       it "should notify twitter users that twitter is deprecated" do
         allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-        twitter_user = User.create(name: "Twitter User", email: "user@twitter.com", image: "example.png",
+        twitter_user = create(:user, name: "Twitter User", email: "user@twitter.com", image: "example.png",
           username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
 
         request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
@@ -394,7 +394,7 @@ describe SessionsController, type: :controller do
       end
 
       it "should migrate rooms from the twitter account to the google account" do
-        twitter_user = User.create(name: "Twitter User", email: "user@twitter.com", image: "example.png",
+        twitter_user = create(:user, name: "Twitter User", email: "user@twitter.com", image: "example.png",
           username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
 
         room = Room.new(name: "Test")
@@ -419,7 +419,7 @@ describe SessionsController, type: :controller do
         allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
         @user = create(:user, provider: "greenlight")
         @admin = create(:user, provider: "greenlight", email: "test@example.com")
-        @admin.add_role :admin
+        @admin.set_role :admin
       end
 
       it "should notify admin on new user signup with approve/reject registration" do

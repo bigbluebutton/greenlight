@@ -73,11 +73,11 @@ Style/RescueStandardError:
   Enabled: false
 
 # Align the elements of a hash literal if they span more than one line.
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 
 # Align the parameters of a method definition if they span more than one line.
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: false
 
 # Align ends corresponding to defs correctly.
@@ -93,7 +93,7 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false
 
 # Align the arguments of a method call if they span more than one line.
-Layout/AlignArguments:
+Layout/ArgumentAlignment:
   Enabled: false
 
 #
@@ -120,7 +120,7 @@ Metrics/ClassLength:
   Enabled: false
 
 # Limit lines to 80 characters.
-Metrics/LineLength:
+Layout/LineLength:
   Max: 130
 
 # Avoid methods longer than 10 lines of code.
@@ -141,5 +141,39 @@ Metrics/CyclomaticComplexity:
   Max: 17
 
 # Checks for method parameter names that contain capital letters, end in numbers, or do not meet a minimal length.
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false
+
+Lint/LiteralInInterpolation:
+  Enabled: false
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+  
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+  
+Lint/RaiseException:
+  Enabled: true
+  
+Lint/StructNewOverride:
+  Enabled: true
+  
+Style/ExponentialNotation:
+  Enabled: true
+  
+Style/HashEachMethods:
+  Enabled: true
+  
+Style/HashTransformKeys:
+  Enabled: true
+   
+Style/HashTransformValues:
+  Enabled: true
+  
+Style/SlicingWithRange:
+  Enabled: true
+  
