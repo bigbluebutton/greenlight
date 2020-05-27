@@ -158,3 +158,10 @@
 .signin-button {
   font-size: 16px;
 }
+
+.table-responsive tbody td:first-child > *:first-child {
+  max-height: 3em;
+  overflow: hidden;
+  max-width: 200px;
+  display: flex;
+}

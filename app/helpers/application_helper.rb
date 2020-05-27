@@ -58,7 +58,16 @@ module ApplicationHelper
   # Returns the page that the logo redirects to when clicked on
   def home_page
     return admins_path if current_user.has_role? :super_admin
-    current_user.main_room
+    return current_user.main_room if current_user.role.get_permission("can_create_rooms")
+    cant_create_rooms_path
+  end
+
+  # Returns 'active' if the current page is the users home page (used to style header)
+  def active_home
+    home_actions = %w[show cant_create_rooms]
+    return "active" if params[:controller] == "admins" && params[:action] == "index" && current_user.has_role?(:super_admin)
+    return "active" if params[:controller] == "rooms" && home_actions.include?(params[:action])
+    ""
   end
 
   # Returns the action method of the current page
@@ -97,10 +106,22 @@ module ApplicationHelper
     "https://www.googletagmanager.com/gtag/js?id=#{ENV['GOOGLE_ANALYTICS_TRACKING_ID']}"
   end
 
+  # Checks to make sure the image url returns 200 and is of type image
   def valid_url?(input)
-    uri = URI.parse(input)
-    !uri.host.nil?
-  rescue URI::InvalidURIError
+    url = URI.parse(input)
+
+    # Don't allow reference to own site
+    return false if url.host == request.host
+
+    # Make a GET request and validate content type
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = (url.scheme == "https")
+
+    http.start do |web|
+      response = web.head(url.request_uri)
+      return response.code == "200" && response['Content-Type'].start_with?('image')
+    end
+  rescue
     false
   end
 end

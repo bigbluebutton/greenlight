@@ -101,6 +101,7 @@ fr:
       registration_method_updated: Méthode d'inscription mise à jour.
       reset_password: "Un email a été envoyé à l'utilisateur afin de réinitialiser son mot de passe. (S'il ne l'a pas reçu, dites-lui de vérifier son dossier \"spam\")"
       restored: L'utilisateur a bien été restauré
+      room_configuration: Configuration du salon modifiée avec succès
       settings: Les paramètres du site ont bien été modifiés
       unauthorized: Vous n'êtes pas autorisé à effectuer cette action sur cet utilisateur.
     recordings:
@@ -123,10 +124,24 @@ fr:
       edit_site_settings: Permet aux utilisateurs ayant ce rôle de modifier les paramètres du site
       edit_roles: Permet aux utilisateurs ayant ce rôle de modifier les autres rôles
       manage_users: Permet aux utilisateurs ayant ce rôle de gérer les utilisateurs
-      invalid_assignment: Un problème a été rencontré alors de l'attribution du rôle à l'utilisateur. Veuillez vérifier les valeurs entrées et réessayer. 
+      invalid_assignment: Un problème a été rencontré lors de l'attribution du rôle à l'utilisateur. Veuillez vérifier les valeurs entrées et réessayer. 
       colour:
         title: Couleur du rôle
         info: Définir la couleur qui sera associée au rôle
+    room_configuration:
+      title: Configuration du salon
+      mute:
+        info: Automatiquement mettre en sourdine les utilisateurs lorsqu'ils rejoignent la réunion BigBlueButton
+      require_moderator:
+        info: "Averti le modérateur d'une conférence BigBlueButton lorsqu'un utilisateur essaye de se connecter. Si l'utilisateur est approuvé, il pourra joindre la conférence."
+      allow_any:
+        info: "Permet à n'importe quel utilisateur de démarrer la conférence à n'importe quel moment. Par défaut, seul le propriétaire peut démarrer la conférence."
+      all_moderator:
+        info: Donne à tous les utilisateurs les droits de modérateur dans BigBlueButton lors de la connexion à une conférence.
+      options:
+        disabled: Désactivé
+        enabled: Toujours activé
+        optional: Facultatif
     rooms:
       title: Serveur des Salons
       table:
