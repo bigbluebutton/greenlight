@@ -43,7 +43,7 @@ describe ApplicationController do
     end
 
     it "redirects a banned user to a 401 and logs them out" do
-      @user.add_role :denied
+      @user.set_role :denied
       @request.session[:user_id] = @user.id
 
       get :index
@@ -53,7 +53,7 @@ describe ApplicationController do
     end
 
     it "redirects a pending user to a 401 and logs them out" do
-      @user.add_role :pending
+      @user.set_role :pending
       @request.session[:user_id] = @user.id
 
       get :index

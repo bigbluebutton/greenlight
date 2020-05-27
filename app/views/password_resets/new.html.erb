@@ -15,14 +15,14 @@
 
 <div class="container">
   <div class="row pt-7">
-    <div class="col col-4 offset-4">
+    <div class="col col-md-4 col-sm-12 mx-auto">
       <div class="card">
         <div class="card-header background">
           <h4 class="mt-2"><%= t("forgot_password.subtitle") %></h4>
         </div>
         <div class="card-body background">
           <%= form_for(:password_reset, url: password_resets_path) do |f| %>
-            <%= f.label t("forgot_password.email"), class: "form-label" %>
+            <%= f.label :email, t("forgot_password.email"), class: "form-label" %>
             <%= f.email_field :email, class: "form-control" %>
             <br>
       
