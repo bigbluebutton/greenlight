@@ -33,6 +33,8 @@ module AdminsHelper
 
   # Returns a more friendly/readable date time object
   def friendly_time(date)
+    return "" if date.nil? # Handle invalid dates
+
     I18n.l date, format: "%B %d, %Y %H:%M UTC"
   end
 
