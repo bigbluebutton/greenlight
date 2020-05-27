@@ -43,6 +43,18 @@ nl:
         placeholder: Afbeelding URL...
         title: Branding afbeelding
         invalid: Ongeldige URL
+      legal:
+        change: Wijzig URL
+        info: Wijzig de juridische link die onder aan de pagina wordt weergegeven
+        placeholder: Juridische URL...
+        title: Juridisch
+        invalid: Ongeldige URL
+      privpolicy:
+        change: Wijzig URL
+        info: Wijzig de link naar het privacybeleid die onderaan de pagina wordt weergegeven
+        placeholder: Privacy Beleid URL...
+        title: Privacy Beleid
+        invalid: Ongeldige URL
       cache:
         info: Wist de opgeslagen cache van de provider die een nieuw verzoek voor de bijgewerkte info afdwingt
         title: Cache van provider wissen
@@ -145,9 +157,12 @@ nl:
     rooms:
       title: Server Kamers
       table:
+        ended: "Beëindigd: %{session}"
         id: ID
         not_running: Niet Draaiend
+        participants: Deelnemers
         running: Draaiend
+        started: "Gestart: %{session}"
         status: Status
         view: Bekijk
     title: Organisatie-instellingen
@@ -245,6 +260,8 @@ nl:
     designs: Aangepaste ontwerpen
     authentication: Gebruikersverificatie
   footer:
+    legal: Juridisch
+    privpolicy: Privacy Beleid
     powered_by: "Mogelijk gemaakt door %{href}."
   forgot_password:
     subtitle: Wachtwoord vergeten
@@ -468,6 +485,7 @@ nl:
   remove: Verwijder
   rename: Hernoem
   reset_password:
+    invalid_token: Token voor wachtwoordherstel is ongeldig. Probeer je wachtwoord opnieuw in te stellen.
     subtitle: Reset wachtwoord
     password: Nieuw wachtwoord
     confirm: Bevestiging van nieuwe wachtwoord
@@ -533,9 +551,10 @@ nl:
       provider: Leverancier
       image: Afbeelding
       image_url: URL van profielafbeelding
-      roles: Gebruikersrollen
+      roles: Gebruikersrol
       subtitle: Update uw accountinfo
       title: Account informatie
+      reset_password: Gebruikerswachtwoord resetten
     delete:
       button: "Ja, ik wil mijn account verwijderen."
       disclaimer: "Als u ervoor kiest uw account te verwijderen, kan deze <b>NIET</b> worden hersteld. Alle informatie met betrekking tot uw account, inclusief instellingen, ruimtes en opname wordt verwijderd."
