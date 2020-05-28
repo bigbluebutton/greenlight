@@ -47,15 +47,12 @@
 @import "utilities/fonts";
 @import "users";
 
-@font-face { font-family: "TitilliumWeb-SemiBold"; src: url(https://demo-client-colada-77c.colada365.page/font-event-20191220T1131-13b7/css/font-faces/5e4ff9ab4aa6950001673b3a) format('truetype'); }
-@font-face { font-family: "titillium-web-v6-latin-regular"; src: url(https://demo-client-colada-77c.colada365.page/font-event-20191220T1131-13b7/css/font-faces/5e4ff9a74aa6950001673b2f) format('truetype'); }
-
 * {
   outline: none !important;
 }
 
 html, body {
-  font-family: "titillium-web-v6-latin-regular" !important;
+  font-family: "TitilliumWeb" !important;
   position: relative;
   width: 100%;
   height: 100%;
