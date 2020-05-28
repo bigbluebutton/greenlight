@@ -276,9 +276,9 @@ en:
     search:
       start: Start searching...
   landing:
-    about: "%{href} is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link."
-    welcome: Welcome to BigBlueButton.
-    video: Watch our tutorial on using Greenlight
+    about: "Abiomed Webinars is a simple webinar Solution that allows to create, schedule and attend User and Guests collaborate within virtual Meeting Rooms. Provided by colada using Big Blue Button Open Source Webconferencing"
+    welcome: Welcome to Abiomed Webinars.
+    video: Watch the tutorial on using the Greenlight User Interface.
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
   language_default: Default (browser language)
