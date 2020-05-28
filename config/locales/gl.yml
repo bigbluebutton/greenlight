@@ -34,15 +34,27 @@ gl:
       authentication:
         disabled: Desactivado
         enabled: Activado
-        info: Só os usuarios autenticados teñen permiso para entrar nunha sala
+        info: Só os usuarios autenticados teñen permiso para unirse a unha sala
         title: Requirir autenticación para as salas
-        user-info: Debe iniciar sesión en Greenlight para entrar nesta sala
+        user-info: Debe iniciar sesión en Greenlight para unirse a esta sala
       branding:
         change: Cambiar a imaxe
         info: Cambiar a imaxe de marca que aparece no canto superior esquerdo
         placeholder: URL da imaxe…
         title: Imaxe de marca
-        invalid: URL non válida
+        invalid: URL non válido
+      legal:
+        change: Cambiar o URL
+        info: Cambiar a ligazón da directiva de legal que aparece ao final da páxina
+        placeholder: URL directiva legal…
+        title: Directiva legal
+        invalid: URL non válido
+      privpolicy:
+        change: Cambiar o URL
+        info: Cambiar a ligazón da directiva de privacidade que aparece ao final da páxina
+        placeholder: URL da directiva de privacidade…
+        title: Directiva de privacidade
+        invalid: URL non válido
       cache:
         info: "Limpa a caché almacenada do fornecedor, o que obriga a unha nova solicitude de información actualizada"
         title: Limpar a caché do fornecedor
@@ -62,7 +74,7 @@ gl:
         information: Cambiar o nivel de rexistro para o despregamento completo
         debug: Depuración
         info: Info
-        warn: Aviso
+        warn: Advertencia
         error: Erro
         fatal: Fatal
         unknown: Descoñecido
@@ -75,7 +87,7 @@ gl:
         title: Método de rexistro
         methods:
           approval: Aprobar/rexeitar
-          invite: Entrar por convite
+          invite: Unirse por convite
           open: Rexistro aberto
       rooms:
         info: Limitar o número de salas que pode ter un usuario (incluída a sala principal). Esta configuración non se aplica aos administradores.
@@ -133,11 +145,11 @@ gl:
       mute:
         info: Silenciar automaticamente ao usuario cando se une á xuntanza BigBlueButton
       require_moderator:
-        info: "Pregúntalle ao moderador da reunión BigBlueButton cando un usuario tenta entrar. Se o usuario é aprobado, poderá entrar na xuntanza."
+        info: "Pregúntalle ao moderador da xuntanza BigBlueButton cando un usuario tenta unirse. Se o usuario é aprobado, poderá unirse á xuntanza."
       allow_any:
         info: "Permite a calquera usuario iniciar a xuntanza en calquera momento. De xeito predeterminado, só o propietario da sala pode iniciar a xuntanza."
       all_moderator:
-        info: Dálle a todos os usuarios os privilexios de moderador en BigBlueButton cando entran na xuntanza.
+        info: Dárlle a todos os usuarios os privilexios de moderador en BigBlueButton cando se unen á xuntanza.
       options:
         disabled: Desactivado
         enabled: Activado sempre
@@ -145,9 +157,12 @@ gl:
     rooms:
       title: Salas no servidor
       table:
+        ended: "Rematada: %{session}"
         id: ID
         not_running: Sen iniciar
-        running: Iniciada
+        participants: Participantes
+        running: En proceso
+        started: "Iniciada: %{session}"
         status: Estado
         view: Ver
     title: Axustes da organización
@@ -182,7 +197,7 @@ gl:
   cancel: Cancelar
   cookies:
     cookie_info: "As cookies axúdanos a prestar os nosos servizos. Ao usar os nosos servizos, acepta o noso uso de cookies."
-    cookie_button: " Estou de acordo"
+    cookie_button: " Concordo"
   copied: Copiado
   copy: Copiar
   date:
@@ -233,7 +248,7 @@ gl:
       user_missing:
         help: Verifique o URL e ténteo de novo
         message: O URL que introduciu non é válido.
-    title: Errores
+    title: Erros
     unauthorized:
       message: Non ten acceso a esta aplicación
       help: "Se cre que é un erro, póñase en contacto co administrador do sistema."
@@ -245,6 +260,8 @@ gl:
     designs: Deseños personalizados
     authentication: Autenticación do usuario
   footer:
+    legal: Directiva legal
+    privpolicy: Directiva de privacidade
     powered_by: "Coa tecnoloxía de %{href}."
   forgot_password:
     subtitle: Esquecín o contrasinal
@@ -275,7 +292,7 @@ gl:
     search:
       start: Comezar a busca…
   landing:
-    about: "%{href} é unha interface sinxela para o servidor de conferencia web de código aberto BigBlueButton. Pode crear as súas propias salas para acoller sesións ou entrar noutras usando unha ligazón curta e cómoda."
+    about: "%{href} é unha interface sinxela para o servidor de conferencia web de código aberto BigBlueButton. Pode crear as súas propias salas para acoller sesións ou unirse a outras usando unha ligazón curta e cómoda."
     welcome: Benvido/a a BigBlueButton.
     video: Vexa o noso titorial sobre como usar Greenlight
     upgrade: Amósame como actualizar á versión 2.0!
@@ -312,7 +329,7 @@ gl:
           admins_link: Visite a páxina da organización
           subject: Rexistro de novo usuario de Greenlight
           username: "O usuario rexistrouse co nome %{name} e o correo %{email}."
-        subject: Convite para entrar en BigBlueButton
+        subject: Convite para unirse ao BigBlueButton
         username: "O seu nome de usuario é %{email}."
       password_reset:
         title: 'Restableceuse o contrasinal.'
@@ -333,7 +350,7 @@ gl:
         verify: "Para verificar a súa conta, só ten que premer no botón seguinte."
         verify_text: 'Para verificar a súa conta, só ten que seguir esta ligazón %{url}:'
         verify_link: Verificar a conta
-        thanks: Grazas por entrar e que teña un gran día!
+        thanks: Grazas por unirse e que teña un bo día!
   maintenance:
     window_alert: "Xanela de mantemento prevista para %{date}"
   max_concurrent: Acadouse o número máximo de sesións simultáneas permitidas.
@@ -348,7 +365,7 @@ gl:
     create_room:
       access_code: Código de acceso
       access_code_placeholder: Xerar un código de acceso á sala opcional
-      auto_join: Entra automaticamente comigo na sala
+      auto_join: Unirse automaticamente comigo na sala
       create: Crear unha sala
       free_delete: Será libre de eliminar esta sala en calquera momento.
       name_placeholder: Escriba o nome da sala…
@@ -384,9 +401,9 @@ gl:
       title: Axustes da sala
       update: Actualizar a sala
       client: Seleccionar o tipo de cliente
-      join_moderator: Todos os usuarios entran como moderadores
-      mute: Silenciar aos usuarios cando entran
-      require_approval: Precisa a aprobación do moderador antes de entrar
+      join_moderator: Todos os usuarios únense como moderadores
+      mute: Silenciar aos usuarios cando se unen
+      require_approval: Precisa a aprobación do moderador antes de unirse
       start: Permitir a calquera usuario iniciar esta xuntanza
       footer_text: Pode facer axustes na súa sala en calquera momento.
     rename_room:
@@ -464,10 +481,11 @@ gl:
       merge_success: "Combinouse correctamente a súa conta de twitter coa súa nova conta. Eliminouse a súa antiga conta de twitter\n\n \nA súa conta vinculada a Twitter combinouse correctamente coa súa nova conta. A conta vinculada con Twitter foi eliminada."
     invite:
       fail: "A súa testemuña caducou ou non é válida. Se cre que é un erro, póñase en contacto co administrador do sistema. "
-      no_invite: "Non ten un convite para entrar. Contacte co administrador do sistema para obter un. "
+      no_invite: "Non ten un convite para unirse. Contacte co administrador do sistema para obter un. "
   remove: Retirar
   rename: Renomear
   reset_password:
+    invalid_token: A testemuña de restablecemento de contrasinal non é válida. Tente restabelecer o seu contrasinal de novo.
     subtitle: Restabelecer o contrasinal
     password: Novo contrasinal
     confirm: Confirmación do novo contrasinal
@@ -481,7 +499,7 @@ gl:
     pending: Pendente
     user: Usuario
   room:
-    access_code_required: Introduza un código de acceso válido para participar na sala
+    access_code_required: Introduza un código de acceso válido para unirse á sala
     create_room: Crear unha sala
     create_room_error: Produciuse un erro ao crear a sala
     create_room_success: Creouse correctamente a sala
@@ -491,22 +509,22 @@ gl:
       fail: "Non foi posíbel eliminar a sala (%{error})"
     enter_the_access_code: Introduza o código de acceso á sala
     invalid_provider: Introduciu un URL non válido. Comprobe o URL e ténteo de novo.
-    invited: Foi convidado a entrar
+    invited: Foi convidado a unirse
     invite_participants: Convidar a participantes
-    join: Entrar
+    join: Unirse
     last_session: " Última sesión o %{session}"
     login: Entrar
     owner: Propietario
     owner_banned: Esta sala non está dispoñíbel actualmente
     no_room:
-      description: Introduza o URL da sala ou o ID da sala na que quere entrar.
+      description: Introduza o URL da sala ou o ID da sala a que quere unirse.
       edit_profile: Editar o perfil de usuario
       go_to: Ir á sala
       invalid_room_uid: O URL/UID da sala que introduciu non é válido.
       placeholder: " URL/UID da sala"
-      no_recent_rooms: Non ten utilizado ningunha sala recentemente
-      recent_rooms: Ir a salas utilizadas recentemente
-      title: Entrar na sala
+      no_recent_rooms: Non ten participado en ningunha sala recentemente
+      recent_rooms: Ir a salas nas que participou recentemente
+      title: Unirse á sala
     no_sessions: Esta sala aínda non ten sesións.
     recordings: Gravacións da sala
     room_limit: Acadou o número máximo de salas permitido
@@ -525,7 +543,7 @@ gl:
     update_settings_success: Os axustes da sala foron actualizados correctamente
     wait:
       message: A xuntanza aínda non comezou.
-      auto: Entrará automaticamente na sala cando comece a xuntanza.
+      auto: Unirse automaticamente á sala cando comece a xuntanza.
   settings:
     account:
       fullname: Nome completo
@@ -533,9 +551,10 @@ gl:
       provider: Fornecedor
       image: Imaxe
       image_url: URL da imaxe de perfil
-      roles: Roles de usuario
+      roles: Rol do usuario
       subtitle: Actualizar a súa información da conta
       title: Información da conta
+      reset_password: Restabelecer o contrasinal do usuario
     delete:
       button: "Si, gustaríame eliminar a miña conta."
       disclaimer: "Se decide eliminar a súa conta, xa <b>NON</b> se poderá recuperar. Eliminarase toda a información relativa á súa conta, incluídos os axustes e as salas e a gravacións serán retiradas."

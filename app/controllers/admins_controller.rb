@@ -67,6 +67,7 @@ class AdminsController < ApplicationController
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
 
     meetings = all_running_meetings[:meetings]
+    @order_column = "created_at" if meetings.empty?
     @running_room_bbb_ids = meetings.pluck(:meetingID)
 
     @participants_count = {}

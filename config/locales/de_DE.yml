@@ -43,6 +43,18 @@ de_DE:
         placeholder: Bild URL...
         title: Logo
         invalid: Ungültige URL
+      legal:
+        change: URL ändern
+        info: "Ändern Sie den Impressum-Link, der unten auf der Seite erscheint"
+        placeholder: Impressum URL...
+        title: Impressum
+        invalid: Ungültige URL
+      privpolicy:
+        change: URL ändern
+        info: "Ändern Sie den Datenschutzerklärung-Link, der unten auf der Seite erscheint"
+        placeholder: Datenschutzerklärung URL...
+        title: Datenschutzerklärung
+        invalid: Ungültige URL
       cache:
         info: "Löscht den Provider-Zwischenspeicher, wodurch bei einer neuen Anfrage Informationen neu eingegeben werden müssen "
         title: Provider-Zwischenspeicher löschen
@@ -145,9 +157,12 @@ de_DE:
     rooms:
       title: Serverräume
       table:
+        ended: "Beendet: %{session}"
         id: ID
         not_running: Läuft nicht
+        participants: Teilnehmer
         running: Läuft
+        started: "Gestartet: %{session}"
         status: Status
         view: Ansehen
     title: Organisationseinstellungen
@@ -245,6 +260,8 @@ de_DE:
     designs: Eigene Designs
     authentication: Nutzerauthentifizierung
   footer:
+    legal: Impressum
+    privpolicy: Datenschutzerklärung
     powered_by: "Bereitgestellt durch %{href}."
   forgot_password:
     subtitle: Passwort vergessen
@@ -468,6 +485,7 @@ de_DE:
   remove: Entfernen
   rename: Umbenennen
   reset_password:
+    invalid_token: "Der Token zum Zurücksetzen des Passworts ist ungültig. Bitte versuchen Sie erneut, Ihr Passwort zurückzusetzen."
     subtitle: Passwort zurücksetzen
     password: Neues Passwort
     confirm: Bestätigung Ihres neuen Passworts
@@ -533,9 +551,10 @@ de_DE:
       provider: Anbieter
       image: Bild
       image_url: URL des Profilbilds
-      roles: Nutzerrollen
+      roles: Nutzer-Rolle
       subtitle: Kontoinformationen aktualisieren
       title: Kontoinformationen
+      reset_password: Benutzer-Passwort zurücksetzen
     delete:
       button: "Ja, ich möchte mein Konto löschen."
       disclaimer: "Wenn Sie Ihr Konto löschen, können Sie es <b>NICHT</b> wiederherstellen. Alle mit Ihrem Konto verbundenen Informationen - wie Einstellungen, Räume und Aufzeichnungen - werden gelöscht."
