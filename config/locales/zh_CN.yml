@@ -43,6 +43,18 @@ zh_CN:
         placeholder: 品牌形象URL地址
         title: 网站标志
         invalid: 无效的URL
+      legal:
+        change: 更改URL
+        info: 更改页面底部显示的声明链接
+        placeholder: 合法URL...
+        title: 合法的
+        invalid: 无效的URL
+      privpolicy:
+        change: 更改URL
+        info: 更改页面底部显示的隐私策略链接
+        placeholder: 隐私政策URL...
+        title: 隐私政策
+        invalid: 无效的URL
       cache:
         info: 清除缓存，强制新请求获取已更新的信息
         title: 清除网站缓存
@@ -145,9 +157,12 @@ zh_CN:
     rooms:
       title: 服务器所有会议室
       table:
+        ended: "已结束: %{session}"
         id: ID
         not_running: 没有运行
+        participants: 参与者
         running: 运行中
+        started: "已开始: %{session}"
         status: 状态
         view: 查看
     title: 网站管理
@@ -245,6 +260,8 @@ zh_CN:
     designs: 定制设计
     authentication: 用户认证
   footer:
+    legal: 合法的
+    privpolicy: 隐私政策
     powered_by: "Powered by%{href}"
   forgot_password:
     subtitle: 忘记密码
@@ -367,7 +384,7 @@ zh_CN:
       warning: 您将<b>无法</b> 恢复这个会议室
       recording_warning: "或任意 %{recordings_num} 的相关录像"
     invite_user:
-      email_placeholder: 输入用户的电子邮箱（用逗号分隔）
+      email_placeholder: 输入用户的电子邮件（用逗号分隔）
       footer: 用户将收到一封电子邮件，其中包含如何注册的说明。
       send: 发送邀请
       title: 邀请用户
@@ -468,6 +485,7 @@ zh_CN:
   remove: 删除
   rename: 重命名
   reset_password:
+    invalid_token: 密码重置令牌无效。请再次尝试重置密码。
     subtitle: 重置密码
     password: 新密码
     confirm: 确认新密码
@@ -536,6 +554,7 @@ zh_CN:
       roles: 用户角色
       subtitle: 更新帐户信息
       title: 帐户信息
+      reset_password: 重置用户密码
     delete:
       button: 我确定要删除我的帐户
       disclaimer: 删除帐户后<b>无法</b>恢复。帐户所有相关信息都会被移除，包括设置、会议室和录像。
