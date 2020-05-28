@@ -44,6 +44,8 @@ module BbbApi
     # Make the request.
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == 'https')
+    # don't verify, so it works with own CA or self signed cert
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     response = http.get(uri.request_uri)
 
     # Parse XML.
