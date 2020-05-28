@@ -38,7 +38,7 @@
         <h4 class="text-left mb-3"><%= @room.sessions %> <%= t("room.sessions") %> | <%= @recordings.length %> <%= t("room.recordings") %></h4>
         <% unless exceeds_limit %>
           <div class="row">
-            <div class="col-lg-8 col-md-12 mt-6">
+            <div class="col-lg-8 col-md-12 mt-4">
               <label for="invite-url" class="form-label"><%= t("room.invite_participants") %></label>
               <div class="input-group invite-link-input">
                 <input id="invite-url" type="text" class="form-control" value="<%= request.base_url + @room.invite_path %>" readonly>
@@ -50,12 +50,12 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-12 mt-6">
+            <div class="col-lg-4 col-md-12 mt-4 force-bottom">
               <div class="row">
-                <div class="col pl-0">
+                <div class="col">
                   <% if Rails.configuration.enable_google_calendar_button %>
                     <a href="<%= google_calendar_path %>" target="__blank" id="schedule" class="btn btn-primary btn-block">
-                      <i class="fas fa-calendar-plus"></i>
+                      <i class="fas fa-calendar-plus mr-1"></i>
                       <%= t("add_to_google_calendar") %>
                     </a>
                   <% end %>
@@ -65,7 +65,7 @@
           </div>
         <% end %>
       </div>
-      <div class="offset-lg-1 col-lg-3 col-sm-12 force-bottom mt-lg-0 mt-5">
+      <div class="offset-lg-1 col-lg-3 col-sm-12 force-bottom mt-lg-0 mt-4">
         <% if @room_running %>
           <%= button_to t("room.join"), room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right", "data-disable": "" %>
         <% else %>

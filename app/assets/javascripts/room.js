@@ -36,10 +36,10 @@ $(document).on('turbolinks:load', function(){
       if (success) {
         inviteURL.blur();
         copy.addClass('btn-success');
-        copy.html("<i class='fas fa-check'></i>" + getLocalizedString("copied"))
+        copy.html("<i class='fas fa-check mr-1'></i>" + getLocalizedString("copied"))
         setTimeout(function(){
           copy.removeClass('btn-success');
-          copy.html("<i class='fas fa-copy'></i>" + getLocalizedString("copy"))
+          copy.html("<i class='fas fa-copy mr-1'></i>" + getLocalizedString("copy"))
         }, 2000)
       }
     });
@@ -198,7 +198,7 @@ function showDeleteRoom(target) {
 function updateCurrentSettings(settings_path){
   // Get current room settings and set checkbox
   $.get(settings_path, function(room_settings) {
-    var settings = JSON.parse(room_settings) 
+    var settings = JSON.parse(room_settings)
     $("#room_mute_on_join").prop("checked", $("#room_mute_on_join").data("default") || settings.muteOnStart)
     $("#room_require_moderator_approval").prop("checked", $("#room_require_moderator_approval").data("default") || settings.requireModeratorApproval)
     $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default") || settings.anyoneCanStart)
