@@ -82,7 +82,8 @@ Rails.application.configure do
   # Tell Action Mailer to use smtp server, if configured
   config.action_mailer.delivery_method = ENV['SMTP_SERVER'].present? ? :smtp : :sendmail
 
-  ActionMailer::Base.smtp_settings = if ENV['SMTP_AUTH'].present? && ENV['SMTP_AUTH'] != "none" && ENV['SMTP_OPENSSL_VERIFY_MODE'].present?
+  ActionMailer::Base.smtp_settings =
+  if ENV['SMTP_AUTH'].present? && ENV['SMTP_AUTH'] != "none" && ENV['SMTP_OPENSSL_VERIFY_MODE'].present?
     {
       address: ENV['SMTP_SERVER'],
       port: ENV["SMTP_PORT"],
