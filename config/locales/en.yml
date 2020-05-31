@@ -36,24 +36,12 @@ en:
         enabled: Enabled
         info: Only allow authenticated users to join a room
         title: Require Authentication for Rooms
-        user-info: You must sign in to Greenlight to join this room
+        user-info: You must sign in to ictCloud Conference to join this room
       branding:
         change: Change Image
         info: Change the branding image that appears in the top left corner
         placeholder: Image Url...
         title: Branding Image
-        invalid: Invalid URL
-      legal:
-        change: Change URL
-        info: Change the Legal Link that appears in the bottom of the page
-        placeholder: Legal URL...
-        title: Legal
-        invalid: Invalid URL
-      privpolicy:
-        change: Change URL
-        info: Change the Privacy Policy Link that appears in the bottom of the page
-        placeholder: Privacy Policy URL...
-        title: Privacy Policy
         invalid: Invalid URL
       cache:
         info: Clears the stored provider cache which forces a new request for the updated info
@@ -95,7 +83,7 @@ en:
       shared_access:
         info: Setting to disabled will remove the button from the Room options dropdown, preventing users from sharing rooms
         title: Allow Users to Share Rooms
-      subtitle: Customize Greenlight
+      subtitle: Customize ictCloud Conference
       title: Site Settings
     flash:
       approved: User has been successfully approved.
@@ -143,13 +131,13 @@ en:
     room_configuration:
       title: Room Configuration
       mute:
-        info: Automatically mutes the user when they join the BigBlueButton meeting
+        info: Automatically mutes the user when they join the ictCloud Conference meeting
       require_moderator:
-        info: Prompts the moderator of the BigBlueButton meeting when a user tries to join. If the user is approved, they will be able to join the meeting.
+        info: Prompts the moderator of the ictCloud Conference meeting when a user tries to join. If the user is approved, they will be able to join the meeting.
       allow_any:
         info: Allows any user to start the meeting at any time. By default, only the room owner can start the meeting.
       all_moderator:
-        info: Gives all users moderator privileges in BigBlueButton when they join the meeting.
+        info: Gives all users moderator privileges in ictCloud Conference when they join the meeting.
       options:
         disabled: Disabled
         enabled: Always Enabled
@@ -157,12 +145,9 @@ en:
     rooms:
       title: Server Rooms
       table:
-        ended: "Ended: %{session}"
         id: ID
         not_running: Not Running
-        participants: Participants
         running: Running
-        started: "Started: %{session}"
         status: Status
         view: View
     title: Organization Settings
@@ -192,7 +177,7 @@ en:
         username: Username
       title: Manage Users
   add_to_google_calendar: "Add to Google Calendar"
-  bigbluebutton: BigBlueButton
+  bigbluebutton: ictCloud Conference
   bigbluebutton_exception: Oops, there was an error when starting the meeting!
   cancel: Cancel
   cookies:
@@ -212,7 +197,7 @@ en:
   errors:
     bigbluebutton:
       help: Please make sure the proper steps have been taken. <a href="%{doc_link}">Learn more</a>
-      message: Invalid BigBlueButton Endpoint and Secret
+      message: Invalid ictCloud Conference Endpoint and Secret
       title: Server Error
     internal:
       message: Looks like something went wrong on our end.
@@ -225,10 +210,10 @@ en:
       contact_admin: If you are not an administrator, please contact one.
       continue: I'd like to stay using 1.0.
       notice: >
-        Greenlight encountered a database migration error.<br>
-        This may be because you haven't updated to Greenlight 2.0.
+        ictCloud Conference encountered a database migration error.<br>
+        This may be because you haven't updated to ictCloud Conference 2.0.
       upgrade: Show me how to upgrade to 2.0!
-      version: We've released a new version of Greenlight, but your database isn't compatible.
+      version: We've released a new version of ictCloud Conference, but your database isn't compatible.
     messages:
       blank: can't be blank
       too_short: is too short
@@ -239,7 +224,7 @@ en:
       inclusion: is not included in the list
     no_provider:
       message: The site you are trying to access is not enabled
-      help: Please contact your system administrator to setup Greenlight
+      help: Please contact your system administrator to setup ictCloud Conference
     not_found:
       message: Sorry! The page you are looking for does not exist.
       help: Is it possible its been removed?
@@ -256,20 +241,18 @@ en:
   expired_reset_token: Password reset link has expired!
   features:
     title: Features
-    rooms: Personalized Rooms
-    recordings: Recording Management
-    designs: Custom Designs
-    authentication: User Authentication
+    rooms: Screen Sharing
+    recordings: Record & Playback
+    designs: Whiteboard & Presentation
+    authentication: Breakout Rooms
   footer:
-    legal: Legal
-    privpolicy: Privacy Policy
     powered_by: Powered by %{href}.
   forgot_password:
     subtitle: Forgot Password
     email: Email
     submit: Submit
   go_back: Go back
-  greenlight: Greenlight
+  greenlight: ictCloud Conference
   header:
     all_recordings: All Recordings
     dropdown:
@@ -288,16 +271,16 @@ en:
       mailer:
         subject: 'has invited you to view a recording.'
         body: 'To view the recording, follow the link below:'
-        autogenerated: 'This e-mail is auto-generated by BigBlueButton.'
-        footer: 'BigBlueButton is an open source web conferencing system. For more information on BigBlueButton, see https://bigbluebutton.org/.'
+        autogenerated: 'This e-mail is auto-generated by ictCloud Conference.'
+        footer: 'ictCloud Conference is an open source web conferencing system. For more information on ictCloud Conference, see https://ictcloud.ca/.'
     search:
       start: Start searching...
   landing:
-    about: "%{href} is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link."
-    welcome: Welcome to BigBlueButton.
-    video: Watch our tutorial on using Greenlight
+    about: "%{href} is browser-based and works on all operating systems and devices. No IT skills, installation, or setup are necessary. We make webinars and meetings simple to organize, run, and join, and our features help you before, during, and after your session. "
+    welcome: Welcome to ictCloud Conference.
+    video: Watch our tutorials on using ictCloud Conference
     upgrade: Show me how to upgrade to 2.0!
-    version: We've released a new version of Greenlight, but your database isn't compatible.
+    version: We've released a new version of ictCloud Conference, but your database isn't compatible.
   language_default: Default (browser language)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   login: Sign in
@@ -309,10 +292,10 @@ en:
         signin: To access your personal rooms, click the button below and sign in.
         signin_link: Sign In
         signup:
-          info: A new user has signed up to use Greenlight.
-          more-info: To allow this user to access Greenlight you must approve their account in organization settings.
+          info: A new user has signed up to use ictCloud Conference.
+          more-info: To allow this user to access ictCloud Conference you must approve their account in organization settings.
           admins_link: Visit the Organization Page
-          subject: New Greenlight User Sign Up
+          subject: New ictCloud Conference User Sign Up
           username: The user signed up with the name %{name} and the email %{email}.
         subject: Account Approved
         username: Your username is %{email}.
@@ -326,11 +309,11 @@ en:
         signup_info: To signup using your email, click the button below and follow the steps.
         signup_link: Sign Up
         signup:
-          info: A user that was invited has signed up to use Greenlight.
+          info: A user that was invited has signed up to use ictCloud Conference.
           admins_link: Visit the Organization Page
-          subject: New Greenlight User Sign Up
+          subject: New ictCloud Conference User Sign Up
           username: The user signed up with the name %{name} and the email %{email}.
-        subject: Invitation to join BigBlueButton
+        subject: Invitation to join ictCloud Conference
         username: Your username is %{email}.
       password_reset:
         title: 'Password reset'
@@ -385,7 +368,7 @@ en:
       warning: You will <b>not</b> be able to recover this room
       recording_warning: or any of its %{recordings_num} associated recordings.
     invite_user:
-      email_placeholder: Enter the users' emails (separated by commas)
+      email_placeholder: Enter the users' emails (seperated by commas)
       footer: The user will receive an email with instructions on how to sign up
       send: Send Invite
       title: Invite User
@@ -486,7 +469,6 @@ en:
   remove: Remove
   rename: Rename
   reset_password:
-    invalid_token: Password reset token is invalid. Please try resetting your password again.
     subtitle: Reset Password
     password: New Password
     confirm: New Password Confirmation
@@ -552,10 +534,9 @@ en:
       provider: Provider
       image: Image
       image_url: Profile Image URL
-      roles: User Role
+      roles: User Roles
       subtitle: Update your Account Info
       title: Account Info
-      reset_password: Reset user password
     delete:
       button: Yes, I would like to delete my account.
       disclaimer: If you choose to delete your account, it will <b>NOT</b> be recoverable. All information regarding your account, including settings, rooms, and recording will be removed.
