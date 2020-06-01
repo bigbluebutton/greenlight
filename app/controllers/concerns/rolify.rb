@@ -21,7 +21,7 @@ module Rolify
 
   # Gets all roles
   def all_roles(selected_role)
-    @roles = Role.editable_roles(@user_domain)
+    @roles = Role.editable_roles(@user_domain).by_priority
 
     if @roles.count.zero?
       Role.create_default_roles(@user_domain)
