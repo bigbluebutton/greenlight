@@ -3,7 +3,7 @@ version: '3'
 services:
   app:
     entrypoint: [bin/start]
-    image: icts-ca:release-v2.6.2
+    image: cylan:release-v2.6.2
     container_name: greenlight-v2
     env_file: .env
     restart: unless-stopped
@@ -32,4 +32,4 @@ services:
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=e363770082b840d6
