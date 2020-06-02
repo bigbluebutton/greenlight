@@ -731,6 +731,24 @@ describe AdminsController, type: :controller do
         expect(new_role.get_permission("send_promoted_email")).to eq(false)
         expect(response).to redirect_to admin_roles_path(selected_role: new_role.id)
       end
+
+      it "creates the users home room if can_create_rooms is enabled" do
+        new_role = Role.create(name: "test2", priority: 2, provider: "provider1")
+        new_role.update_permission("can_create_rooms", "false")
+
+        @request.session[:user_id] = @admin.id
+
+        new_user = create(:user, role: new_role)
+        expect(new_user.role.get_permission("can_create_rooms")).to eq(false)
+        expect(new_user.main_room).to be_nil
+
+        patch :update_role, params: { role_id: new_role.id, role: { name: "test", can_create_rooms: true,
+          colour: "#45434" } }
+
+        new_user.reload
+        expect(new_user.role.get_permission("can_create_rooms")).to eq(true)
+        expect(new_user.main_room).not_to be_nil
+      end
     end
 
     context "DELETE delete_role" do

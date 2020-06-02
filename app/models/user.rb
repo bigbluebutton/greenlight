@@ -198,6 +198,11 @@ class User < ApplicationRecord
     User.includes(:role).where.not(roles: { name: role })
   end
 
+  def create_home_room
+    room = Room.create!(owner: self, name: I18n.t("home_room"))
+    update_attributes(main_room: room)
+  end
+
   private
 
   # Destory a users rooms when they are removed.
@@ -225,11 +230,6 @@ class User < ApplicationRecord
         errors.add(:email, I18n.t("errors.messages.blank"))
       end
     end
-  end
-
-  def create_home_room
-    room = Room.create!(owner: self, name: I18n.t("home_room"))
-    update_attributes(main_room: room)
   end
 
   def role_provider

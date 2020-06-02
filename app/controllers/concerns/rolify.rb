@@ -21,7 +21,7 @@ module Rolify
 
   # Gets all roles
   def all_roles(selected_role)
-    @roles = Role.editable_roles(@user_domain)
+    @roles = Role.editable_roles(@user_domain).by_priority
 
     if @roles.count.zero?
       Role.create_default_roles(@user_domain)
@@ -146,6 +146,18 @@ module Rolify
     role.update(colour: permission_params[:colour])
     role.update_all_role_permissions(permission_params)
 
+    # Create home rooms for all users with this role if users with this role are now able to create rooms
+    create_home_rooms(role.name) if !role.get_permission("can_create_rooms") && permission_params["can_create_rooms"] == "true"
+
     role.save!
+  end
+
+  private
+
+  # Create home rooms for users since they are now able to create rooms
+  def create_home_rooms(role_name)
+    User.with_role(role_name).each do |user|
+      user.create_home_room if user.main_room.nil?
+    end
   end
 end
