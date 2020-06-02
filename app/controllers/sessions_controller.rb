@@ -228,7 +228,7 @@ class SessionsController < ApplicationController
 
     send_invite_user_signup_email(user) if invite_registration && !@user_exists
 
-    user.set_role :user unless @user_exists
+    user.set_role :user if !@user_exists && user.role.nil?
 
     login(user)
 
