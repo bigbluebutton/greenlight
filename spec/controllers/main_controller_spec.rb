@@ -24,5 +24,14 @@ describe MainController, type: :controller do
       get :index
       expect(response).to be_successful
     end
+
+    it "redirects signed in user to their home page" do
+      user = create(:user)
+      @request.session[:user_id] = user.id
+
+      get :index
+
+      expect(response).to redirect_to(user.main_room)
+    end
   end
 end
