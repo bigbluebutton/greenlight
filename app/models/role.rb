@@ -22,7 +22,7 @@ class Role < ApplicationRecord
 
   has_many :users
 
-  default_scope { includes(:role_permissions).distinct.order(:priority) }
+  default_scope { includes(:role_permissions) }
   scope :by_priority, -> { order(:priority) }
   scope :editable_roles, ->(provider) { where(provider: provider).where.not(name: %w[super_admin denied pending]) }
 

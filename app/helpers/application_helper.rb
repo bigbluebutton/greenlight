@@ -55,13 +55,6 @@ module ApplicationHelper
     @fallback_translations[I18n.default_locale]
   end
 
-  # Returns the page that the logo redirects to when clicked on
-  def home_page
-    return admins_path if current_user.has_role? :super_admin
-    return current_user.main_room if current_user.role.get_permission("can_create_rooms")
-    cant_create_rooms_path
-  end
-
   # Returns 'active' if the current page is the users home page (used to style header)
   def active_home
     home_actions = %w[show cant_create_rooms]

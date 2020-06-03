@@ -54,7 +54,7 @@ module UsersHelper
 
   # Returns a list of roles that the user can have
   def role_options
-    Role.editable_roles(@user_domain).where("priority >= ?", current_user.role.priority)
+    Role.editable_roles(@user_domain).where("priority >= ?", current_user.role.priority).by_priority
   end
 
   # Parses markdown for rendering.
