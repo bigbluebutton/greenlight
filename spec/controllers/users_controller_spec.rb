@@ -358,6 +358,34 @@ describe UsersController, type: :controller do
         expect(user.role.name).to eq("test1")
         expect(response).to redirect_to(admins_path)
       end
+
+      it "creates the home room for a user if needed" do
+        old_role = Role.create(name: "test1", priority: 2, provider: "greenlight")
+        old_role.update_permission("can_create_rooms", "false")
+
+        new_role = Role.create(name: "test2", priority: 3, provider: "greenlight")
+        new_role.update_permission("can_create_rooms", "true")
+
+        user = create(:user, role: old_role)
+        admin = create(:user)
+
+        admin.set_role :admin
+
+        @request.session[:user_id] = admin.id
+
+        params = random_valid_user_params
+        params = params.merge!(user_uid: user, user: { role_id: new_role.id.to_s })
+
+        expect(user.role.name).to eq("test1")
+        expect(user.main_room).to be_nil
+
+        post :update, params: params
+
+        user.reload
+        expect(user.role.name).to eq("test2")
+        expect(user.main_room).not_to be_nil
+        expect(response).to redirect_to(admins_path)
+      end
     end
   end
 
