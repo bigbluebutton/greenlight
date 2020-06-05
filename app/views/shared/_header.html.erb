@@ -16,15 +16,7 @@
 <div class="header py-4">
   <div class="container">
     <div class="d-flex">
-      <%= link_to (current_user ? home_page : root_path), class: "header-brand" do %>
-        <% begin %>
-          <%= image_tag(logo_image, class: "header-brand-img", alt:"") %>
-        <% rescue %>
-          <%= t("administrator.site_settings.branding.invalid") %>
-        <% end %>
-      <% end %>
-
-      <div class="d-flex ml-auto">
+      <div class="d-flex mr-auto">
         <% if current_user %>
 
           <%= link_to home_page, class: "px-3 mx-1 mt-1 header-nav #{active_home}" do %>
@@ -103,6 +95,14 @@
           <% end %>
         <% end %>
       </div>
+
+      <%= link_to (current_user ? home_page : root_path), class: "header-brand" do %>
+        <% begin %>
+          <%= image_tag(logo_image, class: "header-brand-img", alt:"") %>
+        <% rescue %>
+          <%= t("administrator.site_settings.branding.invalid") %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
