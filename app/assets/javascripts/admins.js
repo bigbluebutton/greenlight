@@ -134,6 +134,17 @@ function changePrivacyPolicyURL(path) {
   $.post(path, {value: url})
 }
 
+// Display the maintenance Banner
+function displayMaintenanceBanner(path) {
+  var message = $("#maintenance-banner").val()
+  $.post(path, {value: message})
+}
+
+// Clear the maintenance Banner
+function clearMaintenanceBanner(path) {
+  $.post(path, {value: ""})
+}
+
 function mergeUsers() {
   let userToMerge = $("#from-uid").text()
   $.post($("#merge-save-access").data("path"), {merge: userToMerge})
