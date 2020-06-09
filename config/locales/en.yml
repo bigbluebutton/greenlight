@@ -434,6 +434,9 @@ en:
       mute: Mute users when they join
       require_approval: Require moderator approval before joining
       start: Allow any user to start this meeting
+      lock_mic_disable: Disable Microphone sharing
+      lock_webcam_disable: Disable Webcam sharing
+      webcams_for_moderator_only: Allow only moderators to see Webcams
       footer_text: Adjustment to your room can be done at anytime.
       recording: Allow room to be recorded
     rename_room:
