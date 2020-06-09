@@ -176,6 +176,9 @@ class RoomsController < ApplicationController
     opts[:mute_on_start] = room_setting_with_config("muteOnStart")
     opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
     opts[:record] = record_meeting
+    opts[:locksettings_disable_microphone] = room_setting_with_config("lockSettingsDisableMic")
+    opts[:locksettings_disable_webcam] = room_setting_with_config("lockSettingsDisableCam")
+    opts[:webcams_for_moderator_only] = room_setting_with_config("webcamsOnlyForModerator")
 
     begin
       redirect_to join_path(@room, current_user.name, opts, current_user.uid)
@@ -336,6 +339,9 @@ class RoomsController < ApplicationController
       "anyoneCanStart": options[:anyone_can_start] == "1",
       "joinModerator": options[:all_join_moderator] == "1",
       "recording": options[:recording] == "1",
+      "lockSettingsDisableMic": options[:locksettings_disable_microphone] == "1",
+      "lockSettingsDisableCam": options[:locksettings_disable_webcam] == "1",
+      "webcamsOnlyForModerator": options[:webcams_for_moderator_only] == "1",
     }
 
     room_settings.to_json
@@ -344,6 +350,7 @@ class RoomsController < ApplicationController
   def room_params
     params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
       :require_moderator_approval, :anyone_can_start, :all_join_moderator,
+      :locksettings_disable_microphone, :locksettings_disable_webcam, :webcams_for_moderator_only,
       :recording, :presentation)
   end
 

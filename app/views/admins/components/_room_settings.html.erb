@@ -125,4 +125,78 @@
     </div>
   <% end %>
 
+  <div class="mb-6 row">
+    <div class="col-12">
+     <div class="form-group">
+        <label class="form-label"><%= t("modal.room_settings.locksettings-disable-microphone") %></label>
+        <label class="form-label text-muted"><%= t("administrator.room_configuration.all_moderator.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= room_configuration_string("Room Configuration Disable Microphone") %>
+          </button>
+          <div class="dropdown-menu">
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Disable Microphone", value: "enabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.enabled") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Disable Microphone", value: "optional"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.optional") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Disable Microphone", value: "disabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-6 row">
+    <div class="col-12">
+     <div class="form-group">
+        <label class="form-label"><%= t("modal.room_settings.locksettings-disable-webcam") %></label>
+        <label class="form-label text-muted"><%= t("administrator.room_configuration.all_moderator.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= room_configuration_string("Room Configuration Disable Webcam") %>
+          </button>
+          <div class="dropdown-menu">
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Disable Webcam", value: "enabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.enabled") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Disable Webcam", value: "optional"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.optional") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Disable Webcam", value: "disabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-6 row">
+    <div class="col-12">
+     <div class="form-group">
+        <label class="form-label"><%= t("modal.room_settings.webcams-for-moderator-only") %></label>
+        <label class="form-label text-muted"><%= t("administrator.room_configuration.all_moderator.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= room_configuration_string("Room Configuration Webcam for Moderator only") %>
+          </button>
+          <div class="dropdown-menu">
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Webcam for Moderator only", value: "enabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.enabled") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Webcam for Moderator only", value: "optional"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.optional") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Webcam for Moderator only", value: "disabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

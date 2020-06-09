@@ -57,6 +57,9 @@ module Joiner
       opts[:record] = record_meeting
       opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
       opts[:mute_on_start] = room_setting_with_config("muteOnStart")
+      opts[:locksettings_disable_microphone] = room_setting_with_config("lockSettingsDisableMic")
+      opts[:locksettings_disable_webcam] = room_setting_with_config("lockSettingsDisableCam")
+      opts[:webcams_for_moderator_only] = room_setting_with_config("webcamsOnlyForModerator")
 
       if current_user
         redirect_to join_path(@room, current_user.name, opts, current_user.uid)

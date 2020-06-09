@@ -183,9 +183,13 @@ describe RoomsController, type: :controller do
       name = Faker::Games::Pokemon.name
 
       room_params = { name: name, "mute_on_join": "1",
-        "require_moderator_approval": "1", "anyone_can_start": "1", "all_join_moderator": "1" }
+        "require_moderator_approval": "1", "anyone_can_start": "1", "all_join_moderator": "1",
+        "lockSettingsDisableMic": "1",
+        "lockSettingsDisableCam": "1",
+        "webcamsOnlyForModerator": "1" }
       json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
-        "\"anyoneCanStart\":true,\"joinModerator\":true,\"recording\":false}"
+        "\"anyoneCanStart\":true,\"joinModerator\":true,\"recording\":false,"
+	"\"lockSettingsDisableMic\":true,\"lockSettingsDisableCam\":true,\"webcamsOnlyForModerator\":true}"
 
       post :create, params: { room: room_params }
 
@@ -200,12 +204,17 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @owner.id
 
       @owner.main_room.update_attribute(:room_settings, { "muteOnStart": true, "requireModeratorApproval": true,
-      "anyoneCanStart": true, "joinModerator": true }.to_json)
+      "anyoneCanStart": true, "joinModerator": true, "lockSettingsDisableMic": true, "lockSettingsDisableCam": true,
+      "webcamsOnlyForModerator": true }.to_json)
 
       json_room_settings = { "anyoneCanStart" => true,
                              "joinModerator" => true,
                              "muteOnStart" => true,
-                             "requireModeratorApproval" => true }
+                             "requireModeratorApproval" => true,
+      			     "lockSettingsDisableMic" => true,
+			     "lockSettingsDisableCam" => true,
+			     "webcamsOnlyForModerator" => true
+      			}
 
       get :room_settings, params: { room_uid: @owner.main_room }, format: :json
 

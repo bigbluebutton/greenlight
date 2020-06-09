@@ -85,6 +85,30 @@
                 <span class="custom-switch-indicator not-running-only float-right cursor-pointer"></span>
             </label>
             <% end %>
+            <% lockmic = room_configuration("Room Configuration Disable Microphone") %>
+            <% if lockmic != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if lockmic == "enabled" %>">
+                <span class="custom-switch-description"><%= t("modal.room_settings.lock_mic_disable")%></span>
+                <%= f.check_box :locksettings_disable_microphone, class: "custom-switch-input", data: { default: lockmic == "enabled" }, checked: false %>
+                <span class="custom-switch-indicator float-right cursor-pointer"></span>
+              </label>
+            <% end %>
+            <% lockcam = room_configuration("Room Configuration Disable Webcam") %>
+            <% if lockcam != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if lockcam == "enabled" %>">
+                <span class="custom-switch-description"><%= t("modal.room_settings.lock_webcam_disable")%></span>
+                <%= f.check_box :locksettings_disable_webcam, class: "custom-switch-input", data: { default: lockcam == "enabled" }, checked: false %>
+                <span class="custom-switch-indicator float-right cursor-pointer"></span>
+              </label>
+            <% end %>
+            <% webcams_only_mod = room_configuration("Room Configuration Webcam for Moderator only") %>
+            <% if webcams_only_mod != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if webcams_only_mod == "enabled" %>">
+                <span class="custom-switch-description"><%= t("modal.room_settings.webcams_for_moderator_only")%></span>
+                <%= f.check_box :webcams_for_moderator_only, class: "custom-switch-input", data: { default: webcams_only_mod == "enabled" }, checked: false %>
+                <span class="custom-switch-indicator float-right cursor-pointer"></span>
+              </label>
+            <% end %>
             <label id="auto-join-label" class="create-only custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
               <span class="custom-switch-description"><%= t("modal.create_room.auto_join") %></span>
               <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>

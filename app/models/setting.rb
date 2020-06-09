@@ -76,6 +76,12 @@ class Setting < ApplicationRecord
       room_config_setting("all-join-moderator")
     when "Room Configuration Recording"
       room_config_setting("recording")
+    when "Room Configuration Disable Microphone"
+      room_config_setting("locksettings-disable-microphone")
+    when "Room Configuration Disable Webcam"
+      room_config_setting("locksettings-disable-webcam")
+    when "Room Configuration Webcam for Moderator only"
+      room_config_setting("webcams-for-moderator-only")
     end
   end
 
