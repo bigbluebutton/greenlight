@@ -45,9 +45,12 @@ class Room < ApplicationRecord
     where(search_query, search: search_param)
   end
 
-  def self.admins_order(column, direction)
+  def self.admins_order(column, direction, running_ids)
     # Include the owner of the table
     table = joins(:owner)
+
+    # Rely on manual ordering if trying to sort by status
+    return order_by_status(table, running_ids) if column == "status"
 
     return table.order(Arel.sql("rooms.#{column} #{direction}")) if table.column_names.include?(column)
 
@@ -80,6 +83,21 @@ class Room < ApplicationRecord
     ActionCable.server.broadcast("#{uid}_waiting_channel", action: "started")
   end
 
+  # Return table with the running rooms first
+  def self.order_by_status(table, ids)
+    return table if ids.blank?
+
+    order_string = "CASE bbb_id "
+
+    ids.each_with_index do |id, index|
+      order_string += "WHEN '#{id}' THEN #{index} "
+    end
+
+    order_string += "ELSE #{ids.length} END"
+
+    table.order(Arel.sql(order_string))
+  end
+
   private
 
   # Generates a uid for the room and BigBlueButton.
@@ -90,21 +108,18 @@ class Room < ApplicationRecord
     self.attendee_pw = RandomPassword.generate(length: 12)
   end
 
-  # Generates a three character uid chunk.
-  def uid_chunk
-    charset = ("a".."z").to_a - %w(b i l o s) + ("2".."9").to_a - %w(5 8)
-    (0...3).map { charset.to_a[rand(charset.size)] }.join
-  end
-
-  # Generates a random room uid that uses the users name.
+  # Generates a fully random room uid.
   def random_room_uid
-    [owner.name_chunk, uid_chunk, uid_chunk].join('-').downcase
+    # 6 character long random string of chars from a..z and 0..9
+    full_chunk = SecureRandom.alphanumeric(6).downcase
+
+    [owner.name_chunk, full_chunk[0..2], full_chunk[3..5]].join("-")
   end
 
   # Generates a unique bbb_id based on uuid.
   def unique_bbb_id
     loop do
-      bbb_id = SecureRandom.hex(20)
+      bbb_id = SecureRandom.alphanumeric(40).downcase
       break bbb_id unless Room.exists?(bbb_id: bbb_id)
     end
   end

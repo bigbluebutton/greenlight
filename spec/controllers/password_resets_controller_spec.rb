@@ -19,7 +19,7 @@
 require "rails_helper"
 
 def random_valid_user_params
-  pass = Faker::Internet.password(8)
+  pass = Faker::Internet.password(min_length: 8)
   {
     user: {
       name: Faker::Name.first_name,
@@ -76,11 +76,12 @@ describe PasswordResetsController, type: :controller do
   describe "PATCH #update" do
     before do
       allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+      @user = create(:user, provider: "greenlight")
     end
 
     context "valid user" do
       it "reloads page with notice if password is empty" do
-        token = "reset_token"
+        token = @user.create_reset_digest
         allow(controller).to receive(:check_expiration).and_return(nil)
 
         params = {
@@ -95,7 +96,7 @@ describe PasswordResetsController, type: :controller do
       end
 
       it "reloads page with notice if password is confirmation doesn't match" do
-        token = "reset_token"
+        token = @user.create_reset_digest
 
         allow(controller).to receive(:check_expiration).and_return(nil)
 

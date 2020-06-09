@@ -44,11 +44,6 @@ $(document).on('turbolinks:load', function(){
       }
     });
 
-    // Forces the wrapper to take the entire screen height if the user can't create rooms
-    if ($("#cant-create-room-wrapper").length){
-      $(".wrapper").css('height', '100%').css('height', '-=130px');
-    }
-
     // Display and update all fields related to creating a room in the createRoomModal
     $("#create-room-block").click(function(){
       showCreateRoom(this)
@@ -138,7 +133,6 @@ $(document).on('turbolinks:load', function(){
 });
 
 function showCreateRoom(target) {
-  var modal = $(target)
   $("#create-room-name").val("")
   $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
   $("#room_access_code").val(null)

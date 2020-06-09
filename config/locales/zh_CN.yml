@@ -43,6 +43,18 @@ zh_CN:
         placeholder: 品牌形象URL地址
         title: 网站标志
         invalid: 无效的URL
+      legal:
+        change: 更改URL
+        info: 更改页面底部显示的声明链接
+        placeholder: 合法URL...
+        title: 合法的
+        invalid: 无效的URL
+      privpolicy:
+        change: 更改URL
+        info: 更改页面底部显示的隐私策略链接
+        placeholder: 隐私政策URL...
+        title: 隐私政策
+        invalid: 无效的URL
       cache:
         info: 清除缓存，强制新请求获取已更新的信息
         title: 清除网站缓存
@@ -101,6 +113,7 @@ zh_CN:
       registration_method_updated: 注册方法已成功更新
       reset_password: 已向用户发送电子邮件以重置其密码。（如果他们还没有收到邮件，请让他们检查他们的垃圾邮件文件夹）
       restored: 用户已成功还原
+      room_configuration: 已成功更改会议室配置
       settings: 已成功更改网站设置
       unauthorized: 您无权对此用户执行操作
     recordings:
@@ -127,12 +140,29 @@ zh_CN:
       colour:
         title: 角色颜色
         info: 设置将与角色关联的颜色
+    room_configuration:
+      title: 会议室配置
+      mute:
+        info: 当用户加入会议时自动使其静音
+      require_moderator:
+        info: 当用户尝试加入时，提示会议的主持人。如果用户被批准，他们将能够加入会议。
+      allow_any:
+        info: 允许任何用户随时开始会议。默认情况下，只有会议室所有者可以开始会议。
+      all_moderator:
+        info: 任意用户加入会议时就自动授予他们主持人权限。
+      options:
+        disabled: 禁用
+        enabled: 始终启用
+        optional: 可选的
     rooms:
       title: 服务器所有会议室
       table:
+        ended: "已结束: %{session}"
         id: ID
         not_running: 没有运行
+        participants: 参与者
         running: 运行中
+        started: "已开始: %{session}"
         status: 状态
         view: 查看
     title: 网站管理
@@ -230,6 +260,8 @@ zh_CN:
     designs: 定制设计
     authentication: 用户认证
   footer:
+    legal: 合法的
+    privpolicy: 隐私政策
     powered_by: "Powered by%{href}"
   forgot_password:
     subtitle: 忘记密码
@@ -352,7 +384,7 @@ zh_CN:
       warning: 您将<b>无法</b> 恢复这个会议室
       recording_warning: "或任意 %{recordings_num} 的相关录像"
     invite_user:
-      email_placeholder: 输入用户的电子邮箱（用逗号分隔）
+      email_placeholder: 输入用户的电子邮件（用逗号分隔）
       footer: 用户将收到一封电子邮件，其中包含如何注册的说明。
       send: 发送邀请
       title: 邀请用户
@@ -453,6 +485,7 @@ zh_CN:
   remove: 删除
   rename: 重命名
   reset_password:
+    invalid_token: 密码重置令牌无效。请再次尝试重置密码。
     subtitle: 重置密码
     password: 新密码
     confirm: 确认新密码
@@ -521,6 +554,7 @@ zh_CN:
       roles: 用户角色
       subtitle: 更新帐户信息
       title: 帐户信息
+      reset_password: 重置用户密码
     delete:
       button: 我确定要删除我的帐户
       disclaimer: 删除帐户后<b>无法</b>恢复。帐户所有相关信息都会被移除，包括设置、会议室和录像。

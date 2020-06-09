@@ -31,7 +31,9 @@ class User < ApplicationRecord
   has_many :shared_access
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
 
-  has_and_belongs_to_many :roles, join_table: :users_roles
+  has_and_belongs_to_many :roles, join_table: :users_roles # obsolete
+
+  belongs_to :role, required: false
 
   validates :name, length: { maximum: 256 }, presence: true
   validates :provider, presence: true
@@ -92,14 +94,12 @@ class User < ApplicationRecord
     end
 
     search_param = "%#{string}%"
-    joins("LEFT OUTER JOIN users_roles ON users_roles.user_id = users.id LEFT OUTER JOIN roles " \
-      "ON roles.id = users_roles.role_id").distinct
-      .where(search_query, search: search_param, roles_search: role_search_param)
+    where(search_query, search: search_param, roles_search: role_search_param)
   end
 
   def self.admins_order(column, direction)
     # Arel.sql to avoid sql injection
-    order(Arel.sql("#{column} #{direction}"))
+    order(Arel.sql("users.#{column} #{direction}"))
   end
 
   # Returns a list of rooms ordered by last session (with nil rooms last)
@@ -109,6 +109,7 @@ class User < ApplicationRecord
 
   # Activates an account and initialize a users main room
   def activate
+    set_role :user if role_id.nil?
     update_attributes(email_verified: true, activated_at: Time.zone.now, activation_digest: nil)
   end
 
@@ -162,7 +163,7 @@ class User < ApplicationRecord
   end
 
   def admin_of?(user, permission)
-    has_correct_permission = highest_priority_role.get_permission(permission) && id != user.id
+    has_correct_permission = role.get_permission(permission) && id != user.id
 
     return has_correct_permission unless Rails.configuration.loadbalanced_configuration
     return id != user.id if has_role? :super_admin
@@ -170,70 +171,36 @@ class User < ApplicationRecord
   end
 
   # role functions
-  def highest_priority_role
-    roles.min_by(&:priority)
-  end
+  def set_role(role) # rubocop:disable Naming/AccessorMethodName
+    return if has_role?(role)
 
-  def add_role(role)
-    unless has_role?(role)
-      role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
+    new_role = Role.find_by(name: role, provider: role_provider)
 
-      new_role = Role.find_by(name: role, provider: role_provider)
+    return if new_role.nil?
 
-      if new_role.nil?
-        return if Role.duplicate_name(role, role_provider) || role.strip.empty?
+    create_home_room if main_room.nil? && new_role.get_permission("can_create_rooms")
 
-        new_role = Role.create_new_role(role, role_provider)
-      end
+    update_attribute(:role, new_role)
 
-      roles << new_role
-
-      save!
-    end
-  end
-
-  def remove_role(role)
-    if has_role?(role)
-      role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
-
-      roles.delete(Role.find_by(name: role, provider: role_provider))
-      save!
-    end
+    new_role
   end
 
   # This rule is disabled as the function name must be has_role?
-  # rubocop:disable Naming/PredicateName
-  def has_role?(role)
-    # rubocop:enable Naming/PredicateName
-    roles.each do |single_role|
-      return true if single_role.name.eql? role.to_s
-    end
-
-    false
+  def has_role?(role_name) # rubocop:disable Naming/PredicateName
+    role&.name == role_name.to_s
   end
 
   def self.with_role(role)
-    User.all_users_with_roles.where(roles: { name: role })
+    User.includes(:role).where(roles: { name: role })
   end
 
   def self.without_role(role)
-    User.where.not(id: with_role(role).pluck(:id))
+    User.includes(:role).where.not(roles: { name: role })
   end
 
-  def self.with_highest_priority_role(role)
-    User.all_users_highest_priority_role.where(roles: { name: role })
-  end
-
-  def self.all_users_with_roles
-    User.joins("INNER JOIN users_roles ON users_roles.user_id = users.id INNER JOIN roles " \
-      "ON roles.id = users_roles.role_id INNER JOIN role_permissions ON roles.id = role_permissions.role_id").distinct
-  end
-
-  def self.all_users_highest_priority_role
-    User.joins("INNER JOIN (SELECT user_id, min(roles.priority) as role_priority FROM users_roles " \
-      "INNER JOIN roles ON users_roles.role_id = roles.id GROUP BY user_id) as a ON " \
-      "a.user_id = users.id INNER JOIN roles ON roles.priority = a.role_priority " \
-      " INNER JOIN role_permissions ON roles.id = role_permissions.role_id").distinct
+  def create_home_room
+    room = Room.create!(owner: self, name: I18n.t("home_room"))
+    update_attributes(main_room: room)
   end
 
   private
@@ -246,15 +213,13 @@ class User < ApplicationRecord
   def setup_user
     # Initializes a room for the user and assign a BigBlueButton user id.
     id = "gl-#{(0...12).map { rand(65..90).chr }.join.downcase}"
-    room = Room.create!(owner: self, name: I18n.t("home_room"))
 
-    update_attributes(uid: id, main_room: room)
+    update_attributes(uid: id)
 
     # Initialize the user to use the default user role
     role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
 
     Role.create_default_roles(role_provider) if Role.where(provider: role_provider).count.zero?
-    add_role(:user) if roles.blank?
   end
 
   def check_if_email_can_be_blank
@@ -265,5 +230,9 @@ class User < ApplicationRecord
         errors.add(:email, I18n.t("errors.messages.blank"))
       end
     end
+  end
+
+  def role_provider
+    Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
   end
 end

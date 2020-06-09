@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   # Retrieves the current user.
   def current_user
-    @current_user ||= User.includes(:roles, :main_room).find_by(id: session[:user_id])
+    @current_user ||= User.includes(:role, :main_room).find_by(id: session[:user_id])
 
     if Rails.configuration.loadbalanced_configuration
       if @current_user && !@current_user.has_role?(:super_admin) &&
@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
        current_user&.greenlight_account? && current_user&.authenticate(Rails.configuration.admin_password_default)
 
       flash.now[:alert] = I18n.t("default_admin",
-        edit_link: edit_user_path(user_uid: current_user.uid) + "?setting=password").html_safe
+        edit_link: change_password_path(user_uid: current_user.uid)).html_safe
     end
   end
 
@@ -181,6 +181,14 @@ class ApplicationController < ActionController::Base
     @settings.get_value("Shared Access") == "true"
   end
   helper_method :shared_access_allowed
+
+  # Returns the page that the logo redirects to when clicked on
+  def home_page
+    return admins_path if current_user.has_role? :super_admin
+    return current_user.main_room if current_user.role.get_permission("can_create_rooms")
+    cant_create_rooms_path
+  end
+  helper_method :home_page
 
   # Parses the url for the user domain
   def parse_user_domain(hostname)
