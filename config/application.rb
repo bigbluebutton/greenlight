@@ -159,5 +159,9 @@ module Greenlight
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
+
+    # Matomo integration
+    config.matomo = ENV["MATOMO_URL"].present?
+
   end
 end
