@@ -21,13 +21,15 @@ module Joiner
 
   # Displays the join room page to the user
   def show_user_join
+    @room_settings = JSON.parse(@room[:room_settings])
+
     # Get users name
     @name = if current_user
       current_user.name
+    elsif room_setting_with_config("generateUnauthenticatedName")
+      "user-" + (0...4).map { (65 + rand(26)).chr }.join
     elsif cookies.encrypted[:greenlight_name]
       cookies.encrypted[:greenlight_name]
-    elsif room_setting_with_config("generateUnauthedName")
-      "ibr-random"
     else
       ""
     end
@@ -107,7 +109,7 @@ module Joiner
       "Room Configuration All Join Moderator"
     when "anyoneCanStart"
       "Room Configuration Allow Any Start"
-    when "generateUnauthedName"
+    when "generateUnauthenticatedName"
       "Room Configuration Generate Unauthenticated Name"
     end
 

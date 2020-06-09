@@ -167,9 +167,9 @@ describe RoomsController, type: :controller do
       name = Faker::Games::Pokemon.name
 
       room_params = { name: name, "mute_on_join": "1",
-        "require_moderator_approval": "1", "anyone_can_start": "1", "all_join_moderator": "1", "generate_unauthed_name": "1" }
+        "require_moderator_approval": "1", "anyone_can_start": "1", "all_join_moderator": "1", "generate_unauthenticated_name": "1" }
       json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
-        "\"anyoneCanStart\":true,\"joinModerator\":true}"
+        "\"anyoneCanStart\":true,\"joinModerator\":true,\"generateUnauthenticatedName\":true}"
 
       post :create, params: { room: room_params }
 
@@ -184,10 +184,10 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @owner.id
 
       @owner.main_room.update_attribute(:room_settings, { "muteOnStart": true, "requireModeratorApproval": true,
-      "anyoneCanStart": true, "joinModerator": true }.to_json)
+      "anyoneCanStart": true, "joinModerator": true, "generateUnauthenticatedName": true }.to_json)
 
       json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
-        "\"anyoneCanStart\":true,\"joinModerator\":true}"
+        "\"anyoneCanStart\":true,\"joinModerator\":true,\"generateUnauthenticatedName\":true}"
 
       get :room_settings, params: { room_uid: @owner.main_room }, format: :json
 

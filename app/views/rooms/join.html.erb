@@ -40,7 +40,7 @@
             class: "form-control join-form",
             placeholder: t("enter_your_name"),
             value: "#{@name}",
-            readonly: !current_user.nil? || @generate_aunauthed_name,
+            readonly: !current_user.nil? || @room_settings["generateUnauthenticatedName"], 
             autofocus: true
             %>
         <span class="input-group-append">

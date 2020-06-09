@@ -83,7 +83,7 @@
             <% if gen_name != "disabled" %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if gen_name == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.generate_name")%></span>
-                <%= f.check_box :generate_unauthed_name, class: "custom-switch-input", data: { default: gen_name == "enabled" }, checked: false %>
+                <%= f.check_box :generate_unauthenticated_name, class: "custom-switch-input", data: { default: gen_name == "enabled" }, checked: false %>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
