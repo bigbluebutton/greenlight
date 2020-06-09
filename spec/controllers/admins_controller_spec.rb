@@ -461,6 +461,24 @@ describe AdminsController, type: :controller do
       end
     end
 
+    context "POST #maintenance_banner" do
+      it "displays a banner with the maintenance string" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+        fake_banner_string = "Maintenance work at 2 pm"
+
+        post :update_settings, params: { setting: "Maintenance Banner", value: fake_banner_string }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Maintenance Banner")
+
+        expect(flash[:success]).to be_present
+        expect(feature[:value]).to eq(fake_banner_string)
+        expect(response).to redirect_to(admin_site_settings_path)
+      end
+    end
+
     context "POST #shared_access" do
       it "changes the shared access setting" do
         allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
