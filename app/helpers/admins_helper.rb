@@ -121,6 +121,7 @@ module AdminsHelper
   end
 
   def can_edit_maintenance_banner
-  (Rails.configuration.loadbalanced_configuration && current_user.has_role?(:super_admin)) || (!Rails.configuration.loadbalanced_configuration && current_user.has_role?(:admin))
+  (Rails.configuration.loadbalanced_configuration && current_user.has_role?(:super_admin)) ||
+      (!Rails.configuration.loadbalanced_configuration && current_user.has_role?(:admin))
   end
 end
