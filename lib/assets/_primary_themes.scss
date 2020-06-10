@@ -80,6 +80,14 @@ a {
   }
 }
 
+.nav-tabs .nav-link:not(.active){
+  color: #9aa0ac !important;
+  &:hover:not(.disabled) {
+    border-color: $primary-color;
+    color: $primary-color !important;
+  }
+}
+
 .dropdown-item {
   color: #6e7687 !important;
   &:hover {
