@@ -157,7 +157,7 @@ ru:
     rooms:
       title: Комнаты сервера
       table:
-        ended: "Закончена: 1%{session}"
+        ended: "Закончена: %{session}"
         id: ID
         not_running: Не запущена
         participants: Участники
