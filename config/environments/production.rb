@@ -101,6 +101,10 @@ Rails.application.configure do
     }
   end
 
+  # If configured to 'none' don't check the smtp servers certificate
+  ActionMailer::Base.smtp_settings[:openssl_verify_mode] =
+    ENV['SMTP_OPENSSL_VERIFY_MODE'] if ENV['SMTP_OPENSSL_VERIFY_MODE'].present?
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
 
@@ -155,4 +159,6 @@ Rails.application.configure do
 
   # Set the relative url root for deployment to a subdirectory.
   config.relative_url_root = ENV['RELATIVE_URL_ROOT'] || "/b" if ENV['RELATIVE_URL_ROOT'] != "/"
+
+  config.hosts = ENV['SAFE_HOSTS'].presence || nil
 end

@@ -63,14 +63,25 @@ class AdminsController < ApplicationController
   # GET /admins/rooms
   def server_rooms
     @search = params[:search] || ""
-    @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
+    @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "status"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
 
-    @running_room_bbb_ids = all_running_meetings[:meetings].pluck(:meetingID)
+    meetings = all_running_meetings[:meetings]
+    @order_column = "created_at" if meetings.empty?
+    @running_room_bbb_ids = meetings.pluck(:meetingID)
+
+    @participants_count = {}
+    meetings.each do |meet|
+      @participants_count[meet[:meetingID]] = meet[:participantCount]
+    end
 
     @user_list = shared_user_list if shared_access_allowed
 
     @pagy, @rooms = pagy_array(server_rooms_list)
+  end
+
+  # GET /admins/room_configuration
+  def room_configuration
   end
 
   # MANAGE USERS
@@ -82,23 +93,21 @@ class AdminsController < ApplicationController
 
   # POST /admins/ban/:user_uid
   def ban_user
-    @user.roles = []
-    @user.add_role :denied
+    @user.set_role :denied
 
     redirect_back fallback_location: admins_path, flash: { success: I18n.t("administrator.flash.banned") }
   end
 
   # POST /admins/unban/:user_uid
   def unban_user
-    @user.remove_role :denied
-    @user.add_role :user
+    @user.set_role :user
 
     redirect_back fallback_location: admins_path, flash: { success: I18n.t("administrator.flash.unbanned") }
   end
 
   # POST /admins/approve/:user_uid
   def approve
-    @user.remove_role :pending
+    @user.set_role :user
 
     send_user_approved_email(@user)
 
@@ -129,9 +138,7 @@ class AdminsController < ApplicationController
 
   # GET /admins/reset
   def reset
-    @user.create_reset_digest
-
-    send_password_reset_email(@user)
+    send_password_reset_email(@user, @user.create_reset_digest)
 
     if session[:prev_url].present?
       redirect_path = session[:prev_url]
@@ -241,6 +248,16 @@ class AdminsController < ApplicationController
     redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
   end
 
+  # ROOM CONFIGURATION
+  # POST /admins/update_room_configuration
+  def update_room_configuration
+    @settings.update_value(params[:setting], params[:value])
+
+    flash_message = I18n.t("administrator.flash.room_configuration")
+
+    redirect_to admin_room_configuration_path, flash: { success: flash_message }
+  end
+
   # ROLES
 
   # GET /admins/roles
@@ -286,7 +303,7 @@ class AdminsController < ApplicationController
       flash[:alert] = I18n.t("administrator.roles.role_has_users", user_count: role.users.count)
       return redirect_to admin_roles_path(selected_role: role.id)
     elsif Role::RESERVED_ROLE_NAMES.include?(role) || role.provider != @user_domain ||
-          role.priority <= current_user.highest_priority_role.priority
+          role.priority <= current_user.role.priority
       return redirect_to admin_roles_path(selected_role: role.id)
     else
       role.role_permissions.delete_all

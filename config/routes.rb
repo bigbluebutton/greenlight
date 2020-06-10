@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     get '/rooms', to: 'admins#server_rooms', as: :admin_rooms
     get '/recordings', to: 'admins#server_recordings', as: :admin_recordings
     get '/site_settings', to: 'admins#site_settings', as: :admin_site_settings
+    get '/room_configuration', to: 'admins#room_configuration', as: :admin_room_configuration
     get '/roles', to: 'admins#roles', as: :admin_roles
     # Manage Users
     get '/edit/:user_uid', to: 'admins#edit_user', as: :admin_edit_user
@@ -58,6 +59,8 @@ Rails.application.routes.draw do
     post '/clear_cache', to: 'admins#clear_cache', as: :admin_clear_cache
     post '/clear_auth', to: 'admins#clear_auth', as: :admin_clear_auth
     post '/log_level', to: 'admins#log_level', as: :admin_log_level
+    # Room Configuration
+    post '/update_room_configuration', to: 'admins#update_room_configuration', as: :admin_update_room_configuration
     # Roles
     post '/role', to: 'admins#new_role', as: :admin_new_role
     patch 'roles/order', to: 'admins#change_role_order', as: :admin_roles_order
@@ -85,13 +88,14 @@ Rails.application.routes.draw do
     post '/login', to: 'sessions#create', as: :create_session
 
     # Log the user out of the session.
-    get '/logout', to: 'sessions#destroy'
+    post '/logout', to: 'sessions#destroy'
 
     # Account management.
     get '/:user_uid/edit', to: 'users#edit', as: :edit_user
     get '/:user_uid/change_password', to: 'users#change_password', as: :change_password
     get '/:user_uid/delete_account', to: 'users#delete_account', as: :delete_account
-    patch '/:user_uid/edit', to: 'users#update', as: :update_user
+    post '/:user_uid/edit', to: 'users#update', as: :update_user
+    post '/:user_uid/change_password', to: 'users#update_password', as: :update_password
     delete '/:user_uid', to: 'users#destroy', as: :delete_user
 
     # All user recordings
@@ -102,6 +106,9 @@ Rails.application.routes.draw do
   match '/auth/:provider/callback', to: 'sessions#omniauth', via: [:get, :post], as: :omniauth_session
   get '/auth/failure', to: 'sessions#omniauth_fail'
   post '/auth/ldap', to: 'sessions#ldap', as: :ldap_callback
+
+  # Users who can't create rooms
+  get '/rooms', to: 'rooms#cant_create_rooms', as: :cant_create_rooms
 
   # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/'
