@@ -23,6 +23,15 @@ namespace :user do
       puts "Missing Arguments"
       exit
     end
+
+    # Create the default roles if not already created
+    Role.create_default_roles(u[:provider]) if Role.where(provider: u[:provider]).count.zero?
+
+    unless Role.exists?(name: u[:role], provider: u[:provider])
+      puts "Invalid Role - Role does not exist"
+      exit
+    end
+
     u[:email].prepend "superadmin-" if args[:role] == "super_admin"
 
     # Create account if it doesn't exist
@@ -33,11 +42,6 @@ namespace :user do
       unless user.valid?
         puts "Invalid Arguments"
         puts user.errors.messages
-        exit
-      end
-
-      unless Role.exists?(name: u[:role], provider: u[:provider])
-        puts "Invalid Role - Role does not exist"
         exit
       end
 
