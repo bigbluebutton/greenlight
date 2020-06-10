@@ -43,6 +43,18 @@ da:
         placeholder: Billede adresse
         title: Eget logo
         invalid: Ugyldig URL
+      legal:
+        change: Skift URL
+        info: "Skift det juridiske link, der vises nederst på siden"
+        placeholder: Juridisk URL...
+        title: Juridisk
+        invalid: Ugyldig URL
+      privpolicy:
+        change: Skift URL
+        info: "Skift linket til privatlivspolitik, der vises nederst på siden"
+        placeholder: Privatlivspolitik URL...
+        title: Privatlivspolitik
+        invalid: Ugyldig URL
       cache:
         info: "Rydder den gemte udbyderscache, som tvinger en ny anmodning før den opdaterede info kan ses"
         title: Ryd Udbyders Cache
@@ -145,9 +157,12 @@ da:
     rooms:
       title: Server Rum
       table:
+        ended: "Sluttede: %{session}"
         id: ID
         not_running: Ikke Igang
+        participants: Deltagere
         running: Igang
+        started: "Startede: %{session}"
         status: Status
         view: Kig
     title: Sidens indstillinger
@@ -245,6 +260,8 @@ da:
     designs: Egne Designs
     authentication: Brugergodkendelse
   footer:
+    legal: Juridisk
+    privpolicy: Privatlivspolitik
     powered_by: "Lavet af %{href}."
   forgot_password:
     subtitle: Glemt Adgangskode
@@ -367,7 +384,7 @@ da:
       warning: Du vil <b>ikke</b> have mulighed for at genskabe dette rum
       recording_warning: "eller noget af %{recordings_num} som er optaget."
     invite_user:
-      email_placeholder: Indtast brugernes emails (separeret med kommaer)
+      email_placeholder: " \nIndtast brugernes e-mails (adskilt med kommaer)"
       footer: Denne bruger vil modtage en email med vejledning i hvordan man opretter en konto
       send: Send Invitation
       title: Inviter Bruger
@@ -443,8 +460,8 @@ da:
       visibility: Synlighed
       formats: Formater
     visibility:
-      public: Offentlig
-      unlisted: Unoteret
+      public: Synlig
+      unlisted: Skjult
     format:
       notes: Noter
       podcast: Podcast
@@ -468,6 +485,7 @@ da:
   remove: Fjern
   rename: Omdøb
   reset_password:
+    invalid_token: Token til nulstilling af adgangskode er ugyldigt. Prøv at nulstille din adgangskode igen.
     subtitle: Nulstil Adgangskode
     password: Ny Adgangskode
     confirm: Bekræftelse af Ny Adgangskode
@@ -533,9 +551,10 @@ da:
       provider: Udbyder
       image: Billede
       image_url: Profilbillede URL
-      roles: Bruger Roller
+      roles: Bruger Rolle
       subtitle: Opdater dine Kontooplysninger
       title: Kontooplysninger
+      reset_password: Nulstil brugeradgangskode
     delete:
       button: "Ja, jeg vil gerne slette min konto."
       disclaimer: "Hvis du vælger at slette din konto, kan den <b>IKKE</b> gendannes. Alle informationer der vedrører din konto, inklusiv indstillinger, rum, og optagelser vil blive slettet."

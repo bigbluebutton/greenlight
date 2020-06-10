@@ -21,7 +21,7 @@ module Rolify
 
   # Gets all roles
   def all_roles(selected_role)
-    @roles = Role.editable_roles(@user_domain)
+    @roles = Role.editable_roles(@user_domain).by_priority
 
     if @roles.count.zero?
       Role.create_default_roles(@user_domain)
@@ -62,7 +62,7 @@ module Rolify
     # Send promoted/demoted emails
     send_user_promoted_email(@user, new_role) if new_role.get_permission("send_promoted_email")
 
-    @user.update_attribute(:role_id, role_id)
+    @user.set_role(new_role.name)
   end
 
   # Updates a roles priority

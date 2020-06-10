@@ -43,6 +43,18 @@ hu_HU:
         placeholder: Kép URL-je...
         title: Arculati kép
         invalid: Érvénytelen URL
+      legal:
+        change: URL cseréje
+        info: Az oldal tetején lévő Jogi link módosítása
+        placeholder: Jogi URL...
+        title: Jogi
+        invalid: Érvénytelen URL
+      privpolicy:
+        change: URL cseréje
+        info: "Az oldal alján lévő Adatvédelmi Irányelvek link módosítása "
+        placeholder: Adatvédelmi irányelvek URL-je...
+        title: Adatvédelmi irányelvek
+        invalid: Érvénytelen URL
       cache:
         info: "Üríti a szolgáltatói gyorsítótárat, ami az információk frissítése érdekében új kérést kényszerít ki"
         title: Szolgáltatói gyorsítótár ürítése
@@ -101,6 +113,7 @@ hu_HU:
       registration_method_updated: A regisztráció módját sikeresen megváltoztattad
       reset_password: "A felhasználó e-mailt kapott a jelszó visszaállításához. (Ha még nem kapták meg, kérd meg őket, hogy ellenőrizzék a spam mappájukat)"
       restored: A felhasználót sikeresen visszaállítottad
+      room_configuration: A szoba beállításait sikeresen módosította
       settings: A weboldal beállításait sikeresen módosítottad
       unauthorized: "Nincs jogosultságod, hogy műveletet hajts végre ezen a felhasználón"
     recordings:
@@ -127,12 +140,29 @@ hu_HU:
       colour:
         title: Szerep színe
         info: Állítsd be a szerep színét
+    room_configuration:
+      title: Szoba beállításai
+      mute:
+        info: A felhasználó automatikus némítása amikor csatlakozik a megbeszéléshez
+      require_moderator:
+        info: "Felhasználó csatlakozáskor megerősítő ablak a moderátornak. Ha a moderátor jóváhagyja, a felhasználó csatlakozhat a megbeszéléshez."
+      allow_any:
+        info: Bármelyik felhasználó bármikor elindíthatja megbeszélést. Alapértelmezett csak a szoba tulajdonosa indíthat megbeszélést.
+      all_moderator:
+        info: Moderátori jogosultság az összes felhasználónak amikor csatlakoznak a megbeszéléshez.
+      options:
+        disabled: Kikapcsolva
+        enabled: Mindig bekapcsolva
+        optional: Opcionális
     rooms:
       title: Szerverszobák
       table:
+        ended: "Befejezve: %{session}"
         id: ID
         not_running: Nem fut
+        participants: Résztvevők
         running: Fut
+        started: "Elindítva: %{session}"
         status: Állapot
         view: Megtekintés
     title: Szervezet beállításai
@@ -230,6 +260,8 @@ hu_HU:
     designs: Egyéni kinézet
     authentication: Felhasználók hitelesítése
   footer:
+    legal: Jogi
+    privpolicy: Adatvédelmi irányelvek
     powered_by: "Powered by %{href}."
   forgot_password:
     subtitle: Elfelejtett jelszó
@@ -453,6 +485,7 @@ hu_HU:
   remove: Eltávolítás
   rename: Átnevezés
   reset_password:
+    invalid_token: A jelszómódosítása token érvénytelen. Próbáld újra a jelszó reszetelését.
     subtitle: Jelszó alaphelyzetbe állítása
     password: Új jelszó
     confirm: Új jelszó újra
@@ -518,9 +551,10 @@ hu_HU:
       provider: Szolgáltató
       image: Kép
       image_url: Profilkép URL-je
-      roles: Felhasználói szerepek
+      roles: Felhasználói szerep
       subtitle: Fiókinformációim módosítása
       title: Fiókinformációk
+      reset_password: Felhasználó jelszavának alaphelyzetbe állítása
     delete:
       button: "Igen, törlöm a fiókom."
       disclaimer: "Amennyiben törlöd a fiókod, azt később már <b>NEM</b> lehet visszaállítani. A fiókodhoz kapcsolódó összes adatot, a beállításokat, a szobákat és a felvételeket is véglegesen törlöd."

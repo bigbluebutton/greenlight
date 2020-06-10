@@ -34,14 +34,26 @@ ja_JP:
       authentication:
         disabled: 無効
         enabled: 有効
-        info: 認証されたユーザのみが会議室に参加できるようにします
-        title: 会議室の認証を要求する
+        info: サインインしたユーザのみが会議に参加できるようにします
+        title: 入室を認証ユーザに限定
         user-info: この会議に参加するには、サインインする必要があります
       branding:
         change: 画像の変更
         info: 左上に表示されるブランド画像を変更する
         placeholder: 画像のURL...
         title: ブランド画像
+        invalid: 無効なURL
+      legal:
+        change: URLの変更
+        info: ページの下方に表示される利用規約へのリンクを変更する
+        placeholder: 利用規約のURL...
+        title: 利用規約
+        invalid: 無効なURL
+      privpolicy:
+        change: URLの変更
+        info: ページの下方に表示されるプライベートポリシーへのリンクを変更する
+        placeholder: プライバシーポリシーのURL...
+        title: プライバシーポリシー
         invalid: 無効なURL
       cache:
         info: 保存されているサービス提供元のキャッシュをクリアして情報の更新された新しいリクエストを強制する
@@ -52,11 +64,11 @@ ja_JP:
         title: 現在の認証システムをクリア
         button: 認証のクリア
       color:
-        info: 通常色の明暗を変更します。明暗を個別に変更できます
-        title: 原色
-        regular: 通常色
-        lighten: 明るい
-        darken: 暗い
+        info: 基調色を変更すると、明色と暗色もそれに応じて変わります。明色と暗色を個別に変更することもできます
+        title: 色
+        regular: 基調色
+        lighten: 明色
+        darken: 暗色
       log_level:
         title: ログレベル
         information: 配置されたすべてのログレベルを変更する
@@ -68,27 +80,27 @@ ja_JP:
         unknown: 不明
       recording_visibility:
         info: 新しい録画の標準の公開方法を設定する
-        title: 録画の公開方法
+        title: 標準の録画公開度
         warning: この設定は実行していない会議室にのみ適用されます
       registration:
         info: ユーザがWebサイトに登録する方法を変更する
         title: 登録方法
         methods:
-          approval: 承認/却下
-          invite: 招待で参加
-          open: 登録は自由
+          approval: 承認制
+          invite: 招待制
+          open: 自由登録
       rooms:
-        info: ユーザが所有できる会議室の数を制限します(主会議室を含む)。 この設定は管理者には適用されません。
+        info: ユーザが所有できる会議室の数を制限します(メイン会議室を含む)。 この設定は管理者には適用されません。
         title: ユーザあたりの会議室数
       shared_access:
-        info: 無効に設定すると、［会議室のオプション］ドロップダウンからボタンが削除され、ユーザが会議室を共有できなくなります
-        title: ユーザが会議室を共有できるようにします
+        info: 無効に設定すると、各会議室のドロップダウンから「アクセス管理」ボタンが削除され、ユーザが会議室を共有できなくなります
+        title: 会議室の共有を許可
       subtitle: Greenlightのカスタマイズ
       title: サイトの設定
     flash:
       approved: ユーザが承認されました。
-      banned: ユーザが禁止されました。
-      unbanned: ユーザの禁止が解除されました。
+      banned: ユーザがロックされました。
+      unbanned: ユーザのロックが解除されました。
       delete: ユーザが削除されました
       delete_fail: ユーザを削除できませんでした
       demoted: ユーザが降格されました
@@ -105,25 +117,25 @@ ja_JP:
       settings: サイト設定が変更されました
       unauthorized: このユーザにアクションを実行する権限がありません
     recordings:
-      title: 全ての録画
+      title: すべての録画
       no_recordings: このサーバには録画がありません。
     roles:
-      appear_in_share_list: 会議室を共有するためのドロップダウンにこの役割を持つユーザを含める
-      can_create_rooms: 会議室の作成
+      appear_in_share_list: 会議室共有のドロップダウンにこの役割を割り当てられたユーザを含める
+      can_create_rooms: 会議室の作成権
       delete: 役割の削除
       invalid_create: 新しい役割の作成中に問題が発生しました。 設定を確認して再度お試しください
       invalid_order: 役割の優先度を更新中に問題が発生しました。 設定を確認して再度お試しください
       invalid_update: 役割の権限を更新中に問題が発生しました。 設定を確認して再度お試しください
-      manage_rooms_recordings: この役割を持つユーザがサーバに存在する全ての会議室と録画を管理できるようにします
+      manage_rooms_recordings: サーバに存在する全ての会議室と録画の管理権を許可
       name: 役割の名前
       new_role: 新しい役割を作成する
       role_has_users: "この役割は %{user_count} アカウントに割り当てられています。 削除する前に、この役割からすべてのアカウントを削除してください。"
       title: 役割
       promote_email: ユーザにこの役割が割り当てられたときにメールを送信する
-      demote_email: ユーザがこの役割から削除されたときにメールを送信する
-      edit_site_settings: この役割を持つユーザにサイト設定の編集を許可する
-      edit_roles: この役割を持つユーザに他の役割の編集を許可する
-      manage_users: この役割を持つユーザにユーザ管理を許可する
+      demote_email: ユーザがこの役割を解除されたときにメールを送信する
+      edit_site_settings: サイト設定の編集権
+      edit_roles: 役割の編集権
+      manage_users: ユーザの管理権
       invalid_assignment: ユーザへの役割設定中に問題が発生しました。 設定を確認して再度お試しください 
       colour:
         title: 役割の色
@@ -133,21 +145,24 @@ ja_JP:
       mute:
         info: ユーザが会議に参加した時、自動的にミュートします。
       require_moderator:
-        info: ユーザが会議に参加しようとした時、モデレータに問い合わせます。許可が得られたときにユーザは参加できます。
+        info: ユーザが会議に参加しようとした時、モデレータに問い合わせが行きます。許可が得られればユーザは参加できます。
       allow_any:
         info: 全てのユーザがいつでも会議を開始することを許可します。通常は会議室のオーナーだけが会議を開始できます。
       all_moderator:
         info: すべてのユーザに、会議に参加した時点で司会者の権限をあたえます。
       options:
-        disabled: 無効
+        disabled: 常に無効
         enabled: 常に有効
-        optional: 任意
+        optional: 会議室ごとに設定
     rooms:
-      title: 全ての会議室
+      title: すべての会議室
       table:
+        ended: "会議終了: %{session}"
         id: ID
         not_running: 実行されていません
+        participants: 参加者
         running: 実行中
+        started: "会議開始: %{session}"
         status: ステータス
         view: 表示
     title: 設定
@@ -167,7 +182,7 @@ ja_JP:
         unban: ユーザのロックを解除
         undelete: 削除の取消
       table:
-        authenticator: 認証者
+        authenticator: 認証元
         created: 作成
         name: 名前
         not_found: 検索に一致するユーザはいません
@@ -181,7 +196,7 @@ ja_JP:
   bigbluebutton_exception: 会議を開始するときにエラーが発生しました！
   cancel: キャンセル
   cookies:
-    cookie_info: Cookieはサービスを提供するのに役立ちます。 このサービスを使用することによりCookieの使用に同意したことになります。
+    cookie_info: Cookieはこのサービスの提供に使われています。 このサービスの利用によりCookieの使用に同意したことになります。
     cookie_button: 同意する
   copied: コピーされた
   copy: コピー
@@ -201,11 +216,11 @@ ja_JP:
       title: サーバエラー
     internal:
       message: 何らかの問題が発生したようです。
-      help: エラーが記録されました。 確認してください！
-      report: 問題を報告する
+      help: エラーがログに記録されました。こちらで調べてみます！
+      report: 問題を報告
     maintenance:
-      message: 申し訳ありません、メンテナンスのために停止しています。
-      help: すぐに復旧します！
+      message: 申し訳ありませんが、メンテナンスのために停止しています。
+      help: まもなく復旧します！
     migration_error:
       contact_admin: あなたが管理者でない場合は、管理者に連絡してください。
       continue: 1.0を使い続けたいです。
@@ -245,6 +260,8 @@ ja_JP:
     designs: デザインの調整
     authentication: ユーザの認証
   footer:
+    legal: 利用規約
+    privpolicy: プライバシーポリシー
     powered_by: "フロントエンド %{href}"
   forgot_password:
     subtitle: パスワードを忘れた場合
@@ -256,7 +273,7 @@ ja_JP:
     all_recordings: すべての録画
     dropdown:
       account_settings: 設定
-      help: ヘルプが必要ですか？
+      help: ヘルプ
       home: ホーム
       settings: プロフィール
       signout: サインアウト
@@ -347,7 +364,7 @@ ja_JP:
       title: 新しい役割を作成
     create_room:
       access_code: アクセスコード
-      access_code_placeholder: オプションの会議室アクセスコードを生成する
+      access_code_placeholder: 会議室のアクセスコードを生成する
       auto_join: 会議に自動的に参加する
       create: 会議室の作成
       free_delete: この会議室はいつでも自由に削除できます。
@@ -359,7 +376,7 @@ ja_JP:
       delete: このアカウントを削除します。
       keep: やっぱり削除しません
       delete_warning: これによりユーザのアカウントが無効になります。 無効化されたすべてのユーザは［削除］タブに表示されます。
-      warning: この決定は最終的なものです。 関連するデータを回復することは<b>できません</b>。
+      warning: この決定は最終的なものです。 関連するデータを回復することは<b>二度と</b>できません。
     delete_room:
       confirm: "%{room} を削除してもよろしいですか？"
       delete: この会議室を削除します。
@@ -367,7 +384,7 @@ ja_JP:
       warning: この会議室を回復することは<b>できません</b>
       recording_warning: "同様に %{recordings_num} 個の関連する録画も同じです。"
     invite_user:
-      email_placeholder: ユーザのメールアドレスを入力します(カンマ区切)
+      email_placeholder: ユーザーのメールアドレスを入力してください（複数の場合はコンマ区切り）
       footer: ユーザーには、サインアップ方法の説明が記載されたメールが届きます
       send: 招待状を送る
       title: ユーザを招待
@@ -384,10 +401,10 @@ ja_JP:
       title: 会議室の設定
       update: 会議室の更新
       client: クライアントの種類を選択
-      join_moderator: すべてのユーザがモデレータとして参加します
-      mute: 参加時にユーザをミュートします
-      require_approval: 参加する前にモデレータの承認が必要です
-      start: すべてのユーザにこの会議の開始を許可します
+      join_moderator: すべてのユーザがモデレータとして参加
+      mute: 参加時にユーザをミュート
+      require_approval: 会議参加にモデレータの承認を必要とする
+      start: すべてのユーザに会議の開始を許可
       footer_text: 会議室の設定はいつでも変更可能です。
     rename_room:
       name_placeholder: 新しい会議室名を入力してください...
@@ -440,15 +457,15 @@ ja_JP:
       thumbnails: サムネイル
       length: 録画時間
       users: 参加人数
-      visibility: 可視性
-      formats: フォーマット
+      visibility: 公開方法
+      formats: 再生フォーマット
     visibility:
       public: 公開
       unlisted: 限定公開
     format:
       notes: ノート
       podcast: ポッドキャスト
-      presentation: プレゼン再生
+      presentation: プレゼン
       statistics: 統計情報
       video: ビデオ
   registration:
@@ -468,6 +485,7 @@ ja_JP:
   remove: 削除
   rename: 名前の変更
   reset_password:
+    invalid_token: パスワードの再設定トークンが正しくありません。パスワードの再設定をもう一度行ってみてください。
     subtitle: パスワードを再設定する
     password: 新しいパスワード
     confirm: 新しいパスワードの確認
@@ -491,7 +509,7 @@ ja_JP:
       fail: "会議室の削除に失敗しました(%{error})"
     enter_the_access_code: 会議室のアクセスコードを入力してください
     invalid_provider: 無効なURLを入力しました。 URLを確認して、もう一度試してみてください。
-    invited: 参加するよう招待されました
+    invited: 招待されています
     invite_participants: 参加者を招待
     join: 参加する
     last_session: "%{session} ：最後のセッション"
@@ -507,7 +525,7 @@ ja_JP:
       no_recent_rooms: 最近参加した会議室はありません
       recent_rooms: 最近参加した会議室に移動
       title: 会議に参加
-    no_sessions: この会議室にはまだセッションがありません！
+    no_sessions: この会議室にはまだ(！)セッションがありません
     recordings: 会議室の録画
     room_limit: 許可された会議室数の上限に達しました
     room_limit_exceeded: "許可された会議室数を超えています。 この会議室にアクセスするには、会議室を %{difference} 削除してください。"
@@ -530,12 +548,13 @@ ja_JP:
     account:
       fullname: フルネーム
       language: 言語
-      provider: 認証者
+      provider: 認証元
       image: プロフィール画像
       image_url: プロフィール画像のURL
-      roles: 役割
+      roles: ユーザーの役割
       subtitle: アカウント情報を更新する
       title: アカウント情報
+      reset_password: ユーザーのパスワードを再設定する
     delete:
       button: はい、アカウントを削除します
       disclaimer: アカウントを削除した場合、アカウントを回復することは<b>できません</b>。 設定、会議室、録画など、アカウントに関するすべての情報が削除されます。
