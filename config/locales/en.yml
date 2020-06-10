@@ -168,6 +168,12 @@ en:
         info: Gives all users moderator privileges in BigBlueButton when they join the meeting.
       recordings:
         info: Allows room owners to specify whether they want the option to record a room or not. If enabled, the moderator must still click the "Record" button once the meeting has started.
+      webcam_for_moderator:
+        info: User's Webcams are visible to moderators only.
+      lock_webcam:
+        info: Do not allow viewers to use the webcam.
+      lock_mic:
+        info: Do not allow viewers to use the microphone.
       options:
         disabled: Disabled
         enabled: Always Enabled
