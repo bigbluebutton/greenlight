@@ -184,9 +184,9 @@ describe RoomsController, type: :controller do
 
       room_params = { name: name, "mute_on_join": "1",
         "require_moderator_approval": "1", "anyone_can_start": "1", "all_join_moderator": "1",
-        "lockSettingsDisableMic": "1",
-        "lockSettingsDisableCam": "1",
-        "webcamsOnlyForModerator": "1" }
+        "locksettings_disable_microphone": "1",
+        "locksettings_disable_webcam": "1",
+        "webcams_for_moderator_only": "1" }
       json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
         "\"anyoneCanStart\":true,\"joinModerator\":true,\"recording\":false,"
 	"\"lockSettingsDisableMic\":true,\"lockSettingsDisableCam\":true,\"webcamsOnlyForModerator\":true}"
@@ -596,7 +596,8 @@ describe RoomsController, type: :controller do
 
       room_params = { "mute_on_join": "1", "name": @secondary_room.name, "recording": "1" }
       formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
-        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":true}" # JSON string format
+        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":true," \
+        "\"lockSettingsDisableMic\":false,\"lockSettingsDisableCam\":false,\"webcamsOnlyForModerator\":false}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }
@@ -618,8 +619,10 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @admin.id
 
       room_params = { "mute_on_join": "1", "name": @secondary_room.name }
+
       formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
-        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":false}" # JSON string format
+        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":true," \
+        "\"lockSettingsDisableMic\":false,\"lockSettingsDisableCam\":false,\"webcamsOnlyForModerator\":false}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }
