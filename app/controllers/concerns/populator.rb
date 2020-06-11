@@ -23,7 +23,7 @@ module Populator
   def manage_users_list
     current_role = @role
 
-    initial_user = case @tab
+    initial_list = case @tab
       when "active"
         User.without_role([:pending, :denied])
       when "deleted"
@@ -34,7 +34,7 @@ module Populator
 
     current_role = Role.find_by(name: @tab, provider: @user_domain) if @tab == "pending" || @tab == "denied"
 
-    initial_list = initial_user.without_role(:super_admin) unless current_user.has_role? :super_admin
+    initial_list = initial_list.without_role(:super_admin) unless current_user.has_role? :super_admin
 
     initial_list = initial_list.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
 
