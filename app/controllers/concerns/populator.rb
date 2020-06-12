@@ -36,7 +36,7 @@ module Populator
 
     initial_list = initial_list.with_role(@role.name) if @role.present?
 
-    initial_list = initial_list.without_role(:super_admin) unless current_user.has_role? :super_admin
+    initial_list = initial_list.without_role(:super_admin)
 
     initial_list = initial_list.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
 
