@@ -37,9 +37,8 @@ class AdminsController < ApplicationController
     @search = params[:search] || ""
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
-
-    @role = params[:role] ? Role.find_by(name: params[:role], provider: @user_domain) : nil
     @tab = params[:tab] || "active"
+    @role = params[:role] ? Role.find_by(name: params[:role], provider: @user_domain) : nil
 
     @user_list = merge_user_list
 
