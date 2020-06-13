@@ -24,6 +24,9 @@ namespace :user do
       exit
     end
 
+    # Create the default roles if not already created
+    Role.create_default_roles(u[:provider]) if Role.where(provider: u[:provider]).count.zero?
+
     unless Role.exists?(name: u[:role], provider: u[:provider])
       puts "Invalid Role - Role does not exist"
       exit
