@@ -1,18 +1,18 @@
-# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Yendesk open source conferencing system - http://www.Yendesk.org/.
 #
-# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# Copyright (c) 2018 Yendesk Inc. and by respective authors (see below).
 #
 # This program is free software; you can redistribute it and/or modify it under the
 # terms of the GNU Lesser General Public License as published by the Free Software
 # Foundation; either version 3.0 of the License, or (at your option) any later
 # version.
 #
-# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# Yendesk is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public License along
-# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+# with Yendesk; if not, see <http://www.gnu.org/licenses/>.
 
 # Locale.
 
@@ -36,7 +36,7 @@ en:
         enabled: Enabled
         info: Only allow authenticated users to join a room
         title: Require Authentication for Rooms
-        user-info: You must sign in to Greenlight to join this room
+        user-info: You must sign in to Yendesk to join this room
       branding:
         change: Change Image
         info: Change the branding image that appears in the top left corner
@@ -83,7 +83,7 @@ en:
       shared_access:
         info: Setting to disabled will remove the button from the Room options dropdown, preventing users from sharing rooms
         title: Allow Users to Share Rooms
-      subtitle: Customize Greenlight
+      subtitle: Customize Yendesk
       title: Site Settings
     flash:
       approved: User has been successfully approved.
@@ -131,13 +131,13 @@ en:
     room_configuration:
       title: Room Configuration
       mute:
-        info: Automatically mutes the user when they join the BigBlueButton meeting
+        info: Automatically mutes the user when they join the Yendesk meeting
       require_moderator:
-        info: Prompts the moderator of the BigBlueButton meeting when a user tries to join. If the user is approved, they will be able to join the meeting.
+        info: Prompts the moderator of the Yendesk meeting when a user tries to join. If the user is approved, they will be able to join the meeting.
       allow_any:
         info: Allows any user to start the meeting at any time. By default, only the room owner can start the meeting.
       all_moderator:
-        info: Gives all users moderator privileges in BigBlueButton when they join the meeting.
+        info: Gives all users moderator privileges in Yendesk when they join the meeting.
       options:
         disabled: Disabled
         enabled: Always Enabled
@@ -177,7 +177,7 @@ en:
         username: Username
       title: Manage Users
   add_to_google_calendar: "Add to Google Calendar"
-  bigbluebutton: BigBlueButton
+  Yendesk: Yendesk
   bigbluebutton_exception: Oops, there was an error when starting the meeting!
   cancel: Cancel
   cookies:
@@ -197,7 +197,7 @@ en:
   errors:
     bigbluebutton:
       help: Please make sure the proper steps have been taken. <a href="%{doc_link}">Learn more</a>
-      message: Invalid BigBlueButton Endpoint and Secret
+      message: Invalid Yendesk Endpoint and Secret
       title: Server Error
     internal:
       message: Looks like something went wrong on our end.
@@ -210,10 +210,10 @@ en:
       contact_admin: If you are not an administrator, please contact one.
       continue: I'd like to stay using 1.0.
       notice: >
-        Greenlight encountered a database migration error.<br>
-        This may be because you haven't updated to Greenlight 2.0.
+        Yendesk encountered a database migration error.<br>
+        This may be because you haven't updated to Yendesk 2.0.
       upgrade: Show me how to upgrade to 2.0!
-      version: We've released a new version of Greenlight, but your database isn't compatible.
+      version: We've released a new version of Yendesk, but your database isn't compatible.
     messages:
       blank: can't be blank
       too_short: is too short
@@ -224,7 +224,7 @@ en:
       inclusion: is not included in the list
     no_provider:
       message: The site you are trying to access is not enabled
-      help: Please contact your system administrator to setup Greenlight
+      help: Please contact your system administrator to setup Yendesk
     not_found:
       message: Sorry! The page you are looking for does not exist.
       help: Is it possible its been removed?
@@ -252,7 +252,7 @@ en:
     email: Email
     submit: Submit
   go_back: Go back
-  greenlight: Greenlight
+  Yendesk: Yendesk
   header:
     all_recordings: All Recordings
     dropdown:
@@ -271,16 +271,16 @@ en:
       mailer:
         subject: 'has invited you to view a recording.'
         body: 'To view the recording, follow the link below:'
-        autogenerated: 'This e-mail is auto-generated by BigBlueButton.'
-        footer: 'BigBlueButton is an open source web conferencing system. For more information on BigBlueButton, see https://bigbluebutton.org/.'
+        autogenerated: 'This e-mail is auto-generated by Yendesk.'
+        footer: 'Yendesk is an open source web conferencing system. For more information on Yendesk, see https://Yendesk.org/.'
     search:
       start: Start searching...
   landing:
-    about: "%{href} is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link."
-    welcome: Welcome to BigBlueButton.
-    video: Watch our tutorial on using Greenlight
+    about: "%{href} is a simple front-end for your Yendesk open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link."
+    welcome: Welcome to Yendesk.
+    video: Watch our tutorial on using Yendesk
     upgrade: Show me how to upgrade to 2.0!
-    version: We've released a new version of Greenlight, but your database isn't compatible.
+    version: We've released a new version of Yendesk, but your database isn't compatible.
   language_default: Default (browser language)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   login: Sign in
@@ -292,10 +292,10 @@ en:
         signin: To access your personal rooms, click the button below and sign in.
         signin_link: Sign In
         signup:
-          info: A new user has signed up to use Greenlight.
-          more-info: To allow this user to access Greenlight you must approve their account in organization settings.
+          info: A new user has signed up to use Yendesk.
+          more-info: To allow this user to access Yendesk you must approve their account in organization settings.
           admins_link: Visit the Organization Page
-          subject: New Greenlight User Sign Up
+          subject: New Yendesk User Sign Up
           username: The user signed up with the name %{name} and the email %{email}.
         subject: Account Approved
         username: Your username is %{email}.
@@ -309,11 +309,11 @@ en:
         signup_info: To signup using your email, click the button below and follow the steps.
         signup_link: Sign Up
         signup:
-          info: A user that was invited has signed up to use Greenlight.
+          info: A user that was invited has signed up to use Yendesk.
           admins_link: Visit the Organization Page
-          subject: New Greenlight User Sign Up
+          subject: New Yendesk User Sign Up
           username: The user signed up with the name %{name} and the email %{email}.
-        subject: Invitation to join BigBlueButton
+        subject: Invitation to join Yendesk
         username: Your username is %{email}.
       password_reset:
         title: 'Password reset'
@@ -329,7 +329,7 @@ en:
         subtitle: "%{role} Rights Granted"
       verify_email:
         welcome: Welcome to your personal space, %{name}!
-        success: Leveraging %{bigbluebutton}, you can create your own rooms to host sessions and collaborate with others.
+        success: Leveraging %{Yendesk}, you can create your own rooms to host sessions and collaborate with others.
         username: Your username is %{email}.
         verify: To verify your account, just click the button below.
         verify_text: 'To verify your account, just follow this link: %{url}'
