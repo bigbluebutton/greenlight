@@ -14,7 +14,8 @@
 %>
 
 <footer class="footer pt-3">
-  <p class="text-center mb-1"><%= t("footer.powered_by", href: link_to(t("greenlight"), "https://ictcloud.ca", target: "_blank", rel: "noopener")).html_safe %> <%= Greenlight::Application::VERSION %></p>
+  <p class="text-center mb-1">
+<%= t("footer.powered_by", href: link_to(t("greenlight"), "https://ictcloud.ca", target: "_blank", rel: "noopener")).html_safe %> <%= Greenlight::Application::VERSION %>
 <% if legal_url.present? %>
       <span>
         |
