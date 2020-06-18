@@ -134,25 +134,45 @@ $(document).on('turbolinks:load', function(){
     })
 
     // For keyboard users
-    $("#create-room-access-code").keyup(function(event) {
+    $("#generate-room-access-code").keyup(function(event) {
       if (event.keyCode === 13 || event.keyCode === 32) {
           generateAccessCode();
       }
     })
-
+    $("#reset-access-code").keyup(function(event) {
+      if (event.keyCode === 13 || event.keyCode === 32) {
+          ResetAccessCode();
+      }
+    })
+    var holdModal = false;
     // A bit hack to handle user search results and select without changing
     $("#shareRoomModal").on("show.bs.modal", function() {
-      $("#shareRoomModal .form-control").attr("role", "status");
+      $("#shareRoomModal .form-control").attr("role", "alert");
       $("#shareRoomModal .form-control").attr("aria-atomic", true);
-      $("#shareRoomModal .dropdown-menu div.inner").attr("role", "status");
+      $("#shareRoomModal .dropdown-menu div.inner").attr("role", "alert");
       $("#shareRoomModal ul.dropdown-menu").attr("role", "listbox");
       $("#shareRoomModal div.dropdown-menu").find("*").keyup(function(event) {
         $("#shareRoomModal ul.dropdown-menu li").attr("role", "option");
         $("#shareRoomModal ul.dropdown-menu li").attr("aria-selected", false);
         $("#shareRoomModal ul.dropdown-menu li.active").attr("aria-selected", true);
-      });
-    })
+        $("#shareRoomModal ul.dropdown-menu li.active a").attr("aria-selected", true);
+      });           
+                         
+      $("#shareRoomModal div.dropdown-menu input").keydown(function(event) {
+        if (event.keyCode === 27) {                                             
+          holdModal = true;   
+        }                                 
+      }); 
+    });
 
+    $("#shareRoomModal").on("hide.bs.modal", function(e) {
+      if (holdModal) {
+        holdModal = false;
+        e.stopPropagation();
+        return false;   
+      }            
+    });
+    
     $('.selectpicker').selectpicker({
       liveSearchPlaceholder: getLocalizedString('javascript.search.start')
     });
@@ -267,7 +287,7 @@ function showUpdateRoom(target) {
   var accessCode = modal.closest(".room-block").data("room-access-code")
 
   if(accessCode){
-    $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code") + ": " + accessCode)
+    $("#create-room-access-code").html(getLocalizedString("modal.create_room.access_code") + ": <label tabindex=0>" + accessCode + "</label>")
     $("#room_access_code").val(accessCode)
   } else {
     $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
@@ -301,7 +321,7 @@ function generateAccessCode(){
     accessCode += validCharacters.charAt(Math.floor(Math.random() * validCharacters.length));
   }
 
-  $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code") + ": " + accessCode)
+  $("#create-room-access-code").html(getLocalizedString("modal.create_room.access_code") + ": <label tabindex=0>" + accessCode + "</label>")
   $("#room_access_code").val(accessCode)
 }
 
