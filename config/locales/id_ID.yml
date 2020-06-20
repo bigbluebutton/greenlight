@@ -35,7 +35,7 @@ id_ID:
         disabled: Tidak aktif
         enabled: Aktif
         info: Hanya ijinkan anggota yang sudah ter-otentikasi untuk masuk ruang pertemuan
-        title: Syaratkan Otentikasi untuk bergabung
+        title: Syaratkan Otentikasi untuk masuk ruang pertemuan
         user-info: Anda harus Login untuk bergabung di ruang pertemuan ini
       branding:
         change: Ubah Logo
