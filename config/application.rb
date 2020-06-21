@@ -96,7 +96,7 @@ module Greenlight
     config.banner_message = ENV['BANNER_MESSAGE']
 
     # Enable/disable recording thumbnails.
-    config.recording_thumbnails = (ENV['RECORDING_THUMBNAILS'] != "false")
+    config.recording_thumbnails = (ENV['RECORDING_THUMBNAILS'] != "true")
 
     # Configure which settings are available to user on room creation/edit after creation
     config.room_features = ENV['ROOM_FEATURES'] || ""
