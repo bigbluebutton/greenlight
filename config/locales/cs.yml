@@ -43,6 +43,18 @@ cs:
         placeholder: Odkaz na obrázek ...
         title: Obrázek loga
         invalid: Neplatné URL
+      legal:
+        change: Změna URL
+        info: Změnit odkaz na Podmínky užívání v patičce webové stránky
+        placeholder: Podmínky užívání URL...
+        title: Podmínky užívání
+        invalid: Neplatné URL
+      privpolicy:
+        change: Změň URL
+        info: Změnit odkaz na Zásady ochrany osobních údajů v patičce webové schránky
+        placeholder: Zásady ochrany osobních údajů URL...
+        title: Zásady ochrany osobních údajů
+        invalid: Neplatné URL
       cache:
         info: "Vyčistit mezipaměť poskytovatele, což vynutí požadavek na aktualizaci dat"
         title: Vyčistit mezipaměť poskytovatele
@@ -145,9 +157,12 @@ cs:
     rooms:
       title: Místnosti
       table:
+        ended: "Ukončeno: %{session}"
         id: ID
         not_running: Neaktivní
+        participants: Účastníci
         running: Aktivní
+        started: "Zahájeno: %{session}"
         status: Stav
         view: Nahlédnout do místnosti
     title: Nastavení
@@ -245,6 +260,8 @@ cs:
     designs: Přizpůsobení vzhledu
     authentication: Ověřování uživatelů
   footer:
+    legal: Podmínky užívání
+    privpolicy: Zásady ochrany osobních údajů
     powered_by: "Powered by %{href}."
   forgot_password:
     subtitle: Zapomenuté heslo
@@ -367,7 +384,7 @@ cs:
       warning: <b>Nebude</b> možné obnovit tuto místnost.
       recording_warning: "ani žádnou %{recordings_num} přidruženou nahrávku."
     invite_user:
-      email_placeholder: Zadejte e-mailové adresy uživatelů (oddělené čárkami)
+      email_placeholder: Vlož uživatelské e-maily (oddělené čárkou)
       footer: "Každý uživatel obdrží e-mail s instrukcemi, jak se registrovat"
       send: Odeslat pozvánku
       title: Pozvat uživatele
@@ -468,6 +485,7 @@ cs:
   remove: Odstranit
   rename: Přejmenovat
   reset_password:
+    invalid_token: Token resetu hesla je neplatný. Prosím proveďte reset svého hesla ještě jednou.
     subtitle: Resetovat heslo
     password: Nové heslo
     confirm: Potvrzení nového hesla
@@ -533,9 +551,10 @@ cs:
       provider: Poskytovatel
       image: Obrázek
       image_url: URL adresa profilového obrázku
-      roles: Role uživatele
+      roles: Uživatelská role
       subtitle: Aktualizujte svůj profil
       title: Údaje o účtu
+      reset_password: Reset hesla
     delete:
       button: "Ano, chci smazat svůj účet."
       disclaimer: " Pokud se rozhodnete smazat svůj účet, je to <b>NEVRATNÝ</b> proces. Všechny informace o Vašem účtu, včetně nastavení, místností a nahrávek budou odstraněny."
