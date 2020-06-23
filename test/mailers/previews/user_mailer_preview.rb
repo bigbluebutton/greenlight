@@ -55,7 +55,7 @@ class UserMailerPreview < ActionMailer::Preview
     user = User.first
     role = Role.first
     url = "http://example.com"
-    logo_image = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
+    logo_image = "https://raw.githubusercontent.com/Pallavi-Saha/greenlight/testsc/app/assets/images/logo_with_text.png"
     user_color = "#467fcf"
     UserMailer.user_promoted(user, role, url, logo_image, user_color)
   end
@@ -66,7 +66,7 @@ class UserMailerPreview < ActionMailer::Preview
     user = User.first
     role = Role.first
     url = "http://example.com"
-    logo_image = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
+    logo_image = "https://raw.githubusercontent.com/Pallavi-Saha/greenlight/testsc/app/assets/images/logo_with_text.png"
     user_color = "#467fcf"
     UserMailer.user_demoted(user, role, url, logo_image, user_color)
   end
