@@ -20,7 +20,7 @@ fr:
   activerecord:
     attributes:
       user:
-        accepted_terms: "Termes et Conditions"
+        accepted_terms: "Conditions générales d'utilisation"
         email: E-mail
         name: Nom
         password: Mot de passe
@@ -64,10 +64,10 @@ fr:
         title: Supprimer le mode d'authentification
         button: Supprimer Auth
       color:
-        info: "Modifier la couleur \"Base\" modifiera également les couleurs \"Clair\" et \"Sombre\". Par la suite, les couleurs \"Clair\" et \"Sombre\" peuvent être modifiées individuellement."
+        info: "Modifier la couleur \"Base\" modifiera également les couleurs \"Claire\" et \"Sombre\". Par la suite, les couleurs \"Claire\" et \"Sombre\" peuvent être modifiées individuellement."
         title: Couleur principale
         regular: Base
-        lighten: Plus clair
+        lighten: Plus claire
         darken: Plus sombre
       log_level:
         title: Verbosité du journal
@@ -90,7 +90,7 @@ fr:
           invite: Invitation
           open: Inscription ouverte
       rooms:
-        info: Limiter le nombre de salles maximum qu'un utilisateur peut avoir (Salle d'Accueil incluse). Ce réglage n'affecte pas les administrateurs.
+        info: Limiter le nombre maximum de salles qu'un utilisateur peut avoir (Salle d'Accueil incluse). Ce réglage n'affecte pas les administrateurs.
         title: Nombre de salles par utilisateur
       shared_access:
         info: "Désactiver : supprimera de la liste déroulante des options du Salon, le bouton de partage, empêchant ainsi les utilisateurs de partager des Salons"
@@ -100,7 +100,7 @@ fr:
     flash:
       approved: L'utilisateur a été approuvé.
       banned: L'utilisateur a été banni.
-      unbanned: L'utilisateur a été dé-banni.
+      unbanned: L'utilisateur n'est plus banni.
       delete: Utilisateur supprimé
       delete_fail: Impossible de supprimer l'utilisateur
       demoted: L'utilisateur a été rétrogradé
@@ -145,7 +145,7 @@ fr:
       mute:
         info: Automatiquement mettre en sourdine les utilisateurs lorsqu'ils rejoignent la réunion BigBlueButton
       require_moderator:
-        info: "Averti le modérateur d'une conférence BigBlueButton lorsqu'un utilisateur essaye de se connecter. Si l'utilisateur est approuvé, il pourra joindre la conférence."
+        info: "Avertit le modérateur d'une conférence BigBlueButton lorsqu'un utilisateur essaye de se connecter. Si l'utilisateur est approuvé, il pourra joindre la conférence."
       allow_any:
         info: "Permet à n'importe quel utilisateur de démarrer la conférence à n'importe quel moment. Par défaut, seul le propriétaire peut démarrer la conférence."
       all_moderator:
@@ -162,7 +162,7 @@ fr:
         not_running: Pas ouvert
         participants: Participants
         running: Ouvert
-        started: "Démarrage de:%{session}"
+        started: "Démarrage de : %{session}"
         status: Statut
         view: Voir
     title: Paramètres de l'organisation
@@ -179,7 +179,7 @@ fr:
         edit_roles: Modifier les rôles de l'utilisateur
         merge: Fusionner
         perm_delete: Supprimer définitivement
-        unban: Supprimer bannir
+        unban: Ne plus bannir l'utilisateur
         undelete: Annuler la suppression
       table:
         authenticator: Authentificateur
@@ -212,14 +212,14 @@ fr:
   errors:
     bigbluebutton:
       help: "Veuillez vous assurer que les mesures appropriées ont été prises.<a href=\"%{doc_link}\">En savoir plus</a>"
-      message: BigBlueButton cible et secret invalid
+      message: BigBlueButton cible et secret invalide
       title: Erreur serveur
     internal:
       message: Il semblerait que quelque chose se soit mal passé de notre côté.
       help: "L'erreur a été enregistrée, nous allons jeter un coup d’œil !"
       report: Signaler un problème
     maintenance:
-      message: "Désolé, nous sommes coupés pour maintenance."
+      message: "Désolé, nous sommes indisponibles pour maintenance."
       help: Nous serons bientôt de retour !
     migration_error:
       contact_admin: "Si vous n’êtes pas un administrateur, veuillez en contacter un."
@@ -460,7 +460,7 @@ fr:
       visibility: Visibilité
       formats: Formats
     visibility:
-      public: Publique
+      public: Public
       unlisted: Non Listé
     format:
       notes: Notes
