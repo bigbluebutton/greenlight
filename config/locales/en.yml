@@ -36,7 +36,7 @@ en:
         enabled: Enabled
         info: Only allow authenticated users to join a room
         title: Require Authentication for Rooms
-        user-info: You must sign in to Greenlight to join this room
+        user-info: You must sign in to Scholar Classroom to join this room
       branding:
         change: Change Image
         info: Change the branding image that appears in the top left corner
@@ -269,7 +269,7 @@ en:
     email: Email
     submit: Submit
   go_back: Go back
-  greenlight: Greenlight
+  greenlight: Scholar Classroom
   header:
     all_recordings: All Recordings
     dropdown:
@@ -278,7 +278,7 @@ en:
       home: Home
       settings: Profile
       signout: Sign out
-  home_room: Home Room
+  home_room: Scholar Classroom
   info_update_success: Information successfully updated.
   invalid_credentials: The email and password you entered did not match our records. Try again or click Forgot Password to reset your password.
   invalid_login_method: Login failed due to account mismatch. You need to log in with omniauth.
@@ -294,7 +294,7 @@ en:
       start: Start searching...
   landing:
     about: "%{href} Plsazz Change hojaaaa!!!!"
-    welcome: Welcome to BigBlueButton.
+    welcome: Welcome to Scholar Classroom.
     video: Watch our tutorial on using Greenlight
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
@@ -500,23 +500,23 @@ en:
     pending: Pending
     user: User
   room:
-    access_code_required: Please enter a valid access code to join the room
-    create_room: Create a Room
-    create_room_error: There was an error creating the room
-    create_room_success: Room created successfully
+    access_code_required: Please enter a valid access code to join the classroom
+    create_room: Create a Classroom
+    create_room_error: There was an error creating the classroom
+    create_room_success: Classroom created successfully
     delete:
       home_room: Can't delete user's Home Room
       success: Room deleted successfully
       fail: Failed to delete room (%{error})
-    enter_the_access_code: Enter the room's access code
+    enter_the_access_code: Enter the classroom's access code
     invalid_provider: You have entered an invalid url. Please check the url and try again.
     invited: You have been invited to join
-    invite_participants: Invite Participants
+    invite_participants: Invite Students
     join: Join
     last_session: Last session on %{session}
     login: Enter
     owner: Owner
-    owner_banned: This room is currently unavailable
+    owner_banned: This classroom is currently unavailable
     no_room:
       description: Enter the room url or the room id for the room you want to join.
       edit_profile: Edit User Profile
