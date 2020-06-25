@@ -129,6 +129,14 @@ $(document).on('turbolinks:load', function(){
         $("#user-list").append(listItem)
       }
     })
+
+    $("#presentation-upload").change(function(data) {
+      $("#presentation-upload-label").text(data.target.files[0].name)
+    })
+
+    $(".preupload-room").click(function() {
+      updatePreuploadPresentationModal(this)
+    })
   }
 });
 
@@ -263,4 +271,21 @@ function removeSharedUser(target) {
     parentLI.removeChild(target)
     parentLI.classList.add("remove-shared")
   }
+}
+
+function updatePreuploadPresentationModal(target) {
+  $.get($(target).data("settings-path"), function(presentation) {
+    if(presentation.attached) {
+      $("#current-presentation").show()
+      $("#presentation-name").text(presentation.name)
+      $("#change-pres").show()
+      $("#use-pres").hide()
+    } else {
+      $("#current-presentation").hide()
+      $("#change-pres").hide()
+      $("#use-pres").show()
+    }
+  });
+  
+  $("#preuploadPresentationModal form").attr("action", $(target).data("path"))
 }
