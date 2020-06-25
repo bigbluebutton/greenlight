@@ -101,6 +101,7 @@ tr:
       registration_method_updated: Kayıt yöntemi başarıyla güncellendi
       reset_password: Kullanıcıya parolasını sıfırlaması için bir e-posta gönderildi. (Lütfen almadılarsa spam klasörlerini kontrol etmelerini isteyin)
       restored: Kullanıcı başarıyla geri yüklendi
+      room_configuration: Sınıf Yapılandırması başarıyla değiştirildi
       settings: Site Ayarları başarıyla değiştirildi
       unauthorized: Bu kullanıcı üzerinde işlem yapma yetkiniz yok
     recordings:
@@ -127,6 +128,20 @@ tr:
       colour:
         title: Yetki Gruplarının Rengi
         info: Yetkilerle ilişkilendirilecek rengi ayarlayın
+    room_configuration:
+      title: Sınıf Yapılandırması
+      mute:
+        info: BigBlueButton görüşmesine katılan kullanıcıların sesini otomatik olarak kapatır
+      require_moderator:
+        info: BigBlueButton görüşmesinin sorumlusuna bir kullanıcının katılmak istediğini bildirir. Kullanıcı kabul edilirse görüşmeye katılabilir.
+      allow_any:
+        info: İsteyen her kullanıcının istediği zaman görüşmeye katılabilmesini sağlar. Varsayılan olarak yalnız oda sahibi görüşmeyi başlatabilir.
+      all_moderator:
+        info: BigBlueButton görüşmesine katılan tüm kullanıcılara sorumlu yetkileri verir.
+      options:
+        disabled: Etkin Değil
+        enabled: Her Zaman Etkin
+        optional: Seçimlik
     rooms:
       title: Sanal Sınıflar
       table:
@@ -249,7 +264,7 @@ tr:
   info_update_success: Bilgiler başarıyla güncellendi.
   invalid_credentials: Girdiğiniz e-posta ve şifre kayıtlarımızla eşleşmedi. Tekrar deneyin veya şifrenizi sıfırlamak için Şifremi Unuttum'u tıklayın.
   invalid_login_method: Hesap uyuşmazlığı nedeniyle giriş başarısız oldu. Kimlik doğrulama sistemi ile giriş yapmanız gerekiyor.
-  invite_message: "Birini toplantıya davet etmek için bu bağlantıyı gönderin:"
+  invite_message: "Birini görüşmeye davet etmek için bu bağlantıyı gönderin:"
   javascript:
     room:
       mailer:
@@ -372,7 +387,7 @@ tr:
       join_moderator: Tüm kullanıcılar moderatör olarak katılır
       mute: Kullanıcıları katıldıklarında sessize al
       require_approval: Katılmadan önce moderatör onayı iste
-      start: Kullanıcılardan herhangi birini bu toplantıyı başlatmasına izin ver
+      start: Kullanıcılardan herhangi birini bu görüşmeyi başlatabilsin
       footer_text: Sınıfınızın ayarları her zaman yapılabilir.
     rename_room:
       name_placeholder: Yeni bir sınıf adı girin ...
@@ -509,8 +524,8 @@ tr:
     update_settings_error: Sınıf ayarları güncellenirken bir hata oluştu
     update_settings_success: Sınıf ayarları başarıyla güncellendi
     wait:
-      message: Ders henüz başlamadı.
-      auto: Ders başladığında otomatik olarak katılacaksınız.
+      message: Görüşme henüz başlatılmamış.
+      auto: Görüşme başlatıldığında otomatik olarak katılacaksınız.
   settings:
     account:
       fullname: Ad Soyad

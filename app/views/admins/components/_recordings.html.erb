@@ -16,7 +16,7 @@
 <div class="row">
   <div class="col-12">
     <div class="table-responsive">
-      <table id="recordings-table" class="table table-hover table-outline table-vcenter text-nowrap card-table">
+      <table id="recordings-table" class="table table-hover table-outline table-vcenter card-table">
         <thead>
           <tr>
             <th data-header="name" data-order="<%= @order_column == "name" ? @order_direction : "none" %>">
@@ -94,7 +94,7 @@
         </tbody>
       </table>
       <% if !@recordings.empty?%>
-        <div class="float-right mr-4 mt-4">
+        <div class="float-md-right mt-4">
           <%== pagy_bootstrap_nav(@pagy) %>
         </div>
       <% end %>

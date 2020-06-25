@@ -27,22 +27,14 @@
       <div class="d-flex ml-auto">
         <% if current_user %>
 
-          <% if current_user.has_role? :super_admin %>
-            <% admins_page = params[:controller] == "admins" && params[:action] == "index" ? "active" : "" %>
-            <%= link_to admins_path, class: "px-3 mx-1 mt-1 header-nav #{admins_page}" do %>
-              <i class="fas fa-home pr-1 "></i><span class="d-none d-sm-inline-block"><%= t("header.dropdown.home") %></span>
-            <% end %>
-          <% else %>
-            <% rooms_page = params[:controller] == "rooms" && params[:action] == "show" ? "active" : "" %>
-            <%= link_to current_user.main_room, class: "px-3 mx-1 mt-1 header-nav #{rooms_page}" do %>
-              <i class="fas fa-home pr-1 "></i><span class="d-none d-sm-inline-block"><%= t("header.dropdown.home") %></span>
-            <% end %>
+          <%= link_to home_page, class: "px-3 mx-1 mt-1 header-nav #{active_home}" do %>
+            <i class="fas fa-home pr-1 "></i><span class="d-none d-sm-inline-block"><%= t("header.dropdown.home") %></span>
+          <% end %>
 
-            <% if current_user.highest_priority_role.get_permission("can_create_rooms") %>
-              <% all_rec_page = params[:controller] == "users" && params[:action] == "recordings" ? "active" : "" %>
-              <%= link_to get_user_recordings_path(current_user), class: "px-3 mx-1 mt-1 header-nav #{all_rec_page}" do %>
-                <i class="fas fa-video pr-1"></i><span class="d-none d-sm-inline-block"><%= t("header.all_recordings") %></span>
-              <% end %>
+          <% if current_user.role.get_permission("can_create_rooms") && !current_user.has_role?(:super_admin) %>
+            <% all_rec_page = params[:controller] == "users" && params[:action] == "recordings" ? "active" : "" %>
+            <%= link_to get_user_recordings_path(current_user), class: "px-3 mx-1 mt-1 header-nav #{all_rec_page}" do %>
+              <i class="fas fa-video pr-1"></i><span class="d-none d-sm-inline-block"><%= t("header.all_recordings") %></span>
             <% end %>
           <% end %>
 
@@ -62,7 +54,7 @@
               <%= link_to edit_user_path(current_user), class: "dropdown-item"  do %>
                 <i class="dropdown-icon fas fa-id-card mr-3"></i><%= t("header.dropdown.settings") %>
               <% end %>
-              <% highest_role = current_user.highest_priority_role %>
+              <% highest_role = current_user.role %>
               <% if highest_role.get_permission("can_manage_users") || highest_role.name == "super_admin" %>
                 <%= link_to admins_path, class: "dropdown-item" do %>
                   <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
@@ -91,7 +83,7 @@
                   <i class="dropdown-icon fas fa-exclamation mr-3"></i><%= t("errors.internal.report") %>
                 </a>
               <% end %>
-              <%= link_to logout_path, class: "dropdown-item" do %>
+              <%= button_to logout_path, class: "dropdown-item" do %>
                 <i class="dropdown-icon fas fa-sign-out-alt"></i> <%= t("header.dropdown.signout") %>
               <% end %>
             </div>
