@@ -209,6 +209,30 @@ class RoomsController < ApplicationController
     redirect_back fallback_location: room_path(@room)
   end
 
+  # GET /:room_uid/current_presentation
+  def current_presentation
+    attached = @room.presentation.attached?
+
+    # Respond with JSON object of presentation name
+    respond_to do |format|
+      format.json { render body: { attached: attached, name: attached ? @room.presentation.filename.to_s : "" }.to_json }
+    end
+  end
+
+  # POST /:room_uid/preupload_presenstation
+  def preupload_presentation
+    begin
+      @room.presentation.attach(room_params[:presentation])
+
+      flash[:success] = I18n.t("room.preupload_success")
+    rescue => e
+      logger.error "Support: Error in updating room presentation: #{e}"
+      flash[:alert] = I18n.t("room.preupload_error")
+    end
+
+    redirect_back fallback_location: room_path(@room)
+  end
+
   # POST /:room_uid/update_shared_access
   def shared_access
     begin
@@ -302,7 +326,7 @@ class RoomsController < ApplicationController
   def room_params
     params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
       :require_moderator_approval, :anyone_can_start, :all_join_moderator,
-      :recording)
+      :recording, :presentation)
   end
 
   # Find the room from the uid.

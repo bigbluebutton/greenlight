@@ -405,6 +405,14 @@ en:
       or: or
       with: Sign in with %{provider}
       forgot_password: Forgot Password?
+    preupload:
+      change: Change Presentation
+      choose: Choose a file...
+      current: "Current Presentation:"
+      footer: "Allowed file types: .doc, .docx, .pptx, .pdf"
+      footer_bottom: "Maximum file size: 30 MB or 150 pages"
+      title: Add Presentation
+      use: Use Presentation
     rename_recording:
     remove_shared:
       title: Are you sure you want to remove this room from your room list?
@@ -543,6 +551,8 @@ en:
       recent_rooms: Go To a Recently Joined Room
       title: Join a Room
     no_sessions: This room has no sessions, yet!
+    preupload_success: Successfully added presentation
+    preupload_error: There was an error updating the room presentation
     recordings: Room Recordings
     room_limit: You have reached the maximum number of rooms allowed
     room_limit_exceeded: You have exceeded the number of rooms allowed. Please delete %{difference} room(s) to access this room.

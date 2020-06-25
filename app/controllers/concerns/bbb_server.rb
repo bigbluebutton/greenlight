@@ -77,11 +77,16 @@ module BbbServer
 
     # Send the create request.
     begin
-      meeting = bbb_server.create_meeting(room.name, room.bbb_id, create_options)
-      # Update session info.
+      meeting = if room.presentation.attached?
+        modules = BigBlueButton::BigBlueButtonModules.new
+        modules.add_presentation(:base64, presentation_file(room), room.presentation.filename)
+        bbb_server.create_meeting(room.name, room.bbb_id, create_options, modules)
+      else
+        bbb_server.create_meeting(room.name, room.bbb_id, create_options)
+      end
+
       unless meeting[:messageKey] == 'duplicateWarning'
-       room.update_attributes(sessions: room.sessions + 1,
-          last_session: DateTime.now)
+        room.update_attributes(sessions: room.sessions + 1, last_session: DateTime.now)
       end
     rescue BigBlueButton::BigBlueButtonException => e
       puts "BigBlueButton failed on create: #{e.key}: #{e.message}"
@@ -109,5 +114,16 @@ module BbbServer
   def delete_all_recordings(bbb_id)
     record_ids = bbb_server.get_recordings(meetingID: bbb_id)[:recordings].pluck(:recordID)
     bbb_server.delete_recordings(record_ids) unless record_ids.empty?
+  end
+
+  private
+
+  def presentation_file(room)
+    path = ActiveStorage::Blob.service.send(:path_for, room.presentation.key)
+    file_content = ""
+    File.open(path, "r") do |file|
+      file_content = Base64.encode64(file.read)
+    end
+    file_content
   end
 end
