@@ -40,7 +40,7 @@ $(document).on("turbolinks:load", function(){
 
       received: function(data){
         console.log(data);
-        if(data.action = "started"){
+        if(data.action == "started"){
           request_to_join_meeting();
         }
       }
