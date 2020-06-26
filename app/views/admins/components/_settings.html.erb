@@ -203,7 +203,6 @@
       </div>
     </div>
   </div>
-  <% if can_edit_maintenance_banner %>
    <div class="mb-6 row">
      <div class="col-12">
        <div class="form-group">
@@ -219,7 +218,6 @@
        </div>
      </div>
    </div>
-   <% end %>
   <% if current_user.has_role? :super_admin%>
     <hr>
     <div class="row">
