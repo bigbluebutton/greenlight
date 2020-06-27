@@ -196,7 +196,7 @@ de_DE:
   bigbluebutton_exception: "Ups, beim Start der Konferenz ist ein Fehler aufgetreten!"
   cancel: Abbrechen
   cookies:
-    cookie_info: Cookies sind notwendig für die Bereitstellung unserer Dienste. Durch die Nutzung der Dienste stimmen Sie der Nutzung von technisch notwendigen Cookies zu. Weitere Informationen:: <a href=\"https://www.kibichat.com/files/datenschutz.pdf\">Datenschutzerklärung</a>
+    cookie_info: Cookies sind notwendig für die Bereitstellung unserer Dienste. Durch die Nutzung der Dienste stimmen Sie der Nutzung von technisch notwendigen Cookies zu. Weitere Informationen&#58; <a href=\"https://www.kibichat.com/files/datenschutz.pdf\">Datenschutzerklärung</a>
     cookie_button: Ich stimme zu
   copied: Kopiert
   copy: Kopieren
