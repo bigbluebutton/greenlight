@@ -42,19 +42,33 @@ es_MX:
         info: Cambiar la imagen personalizada que aparece en la esquina superior izquierda
         placeholder: Enlace de la imagen...
         title: Imagen personalizada
+        invalid: URL invalida
       cache:
         info: Limpia el proveedor almacenado en cache lo cual forza todas la actualización de las peticiones nuevas
         title: Limpiar cache de proveedor
         button: Limpiar cache
+      clear_auth:
+        info: "Limpia el autentificador actual para los usuarios, permitiendoles ingresar nuevamente utilizando un metodo de autentificación distinto"
+        title: Limpiar el autentificador actual
+        button: Limpiar autentificación
       color:
         info: Cambiar el color regular cambiará tanto el color claro como obscuro. Los valores de Aclarar y Oscurecer se pueden cambiar individualmente
         title: Color principal
         regular: Regular
         lighten: Aclarar
         darken: Oscurecer
+      log_level:
+        title: Nivel de mensajes
+        information: Cambiar el nivel de mensajes del servidor
+        debug: Depuración
+        info: Información
+        warn: Advertencia
+        error: Error
+        fatal: Fatal
+        unknown: Desconocido
       recording_visibility:
-        info: Establecer la visibilidad por default en las grabaciones nuevas
-        title: Visibilidad de grabación por default
+        info: Establecer la visibilidad por omisión en las grabaciones nuevas
+        title: Visibilidad de grabación por omisión
         warning: Esta configuración solo será aplicada a las nuevas sesiones
       registration:
         info: Cambiar la forma de registro de usuarios
@@ -66,6 +80,9 @@ es_MX:
       rooms:
         info: Establece el límite de salas que un usuario puede tener (incluyendo la sala principal). Esta configuración no aplica para administradores.
         title: Número de salas por usuario
+      shared_access:
+        info: "Al deshabilitar esta opción se eliminara el botón de la lista de opciones para la sala, con lo cual los usuarios no podrán compartir salas"
+        title: Permitir a los usuarios compartir salas
       subtitle: Personalizar Greenlight
       title: Configuración del sitio web
     flash:
@@ -75,8 +92,10 @@ es_MX:
       delete: El usuario ha sido eliminado.
       delete_fail: El usuario no pudo ser eliminado.
       demoted: El usuario ha sido degradado.
-      invite: "Invitación enviada exitósamente a %{email}"
+      invite: "Invitación enviada exitosamente a %{email}"
       invite_email_verification: El envío de emails debe estar habilitado para poder hacer uso de este método de registro. Contacta al administrador del sistema
+      merge_fail: Ocurrió un error al combinar las cuentas de usuario. Por favor revisa los usuarios seleccionados e intentalo de nuevo 
+      merge_success: Cuentas de usuario combinadas exitosamente
       perm_deleted: El usuario ha sido eliminado permanentemente.
       promoted: El usuario ha sido promovido.
       registration_method_updated: Método de registro actualizado
@@ -88,11 +107,13 @@ es_MX:
       title: Grabaciones
       no_recordings: Este servidor no tiene grabaciones.
     roles:
+      appear_in_share_list: Incluir usuarios con este rol en la lista de selección para compartir salas
       can_create_rooms: Puede crear salas
       delete: Eliminar rol
       invalid_create: Ocurrió un error al crear un nuevo rol. Verifica su valor e intentalo de nuevo.
       invalid_order: Ocurrió un error al actualizar la prioridad del rol. Verifica su valor e intentalo de nuevo.
       invalid_update: Ocurrió un error al cambiar los permisos del rol. Verifica su valor e intentalo de nuevo.
+      manage_rooms_recordings: Permitir a los usuarios con este rol administrar salas y grabaciones en el servidor
       name: Nombre de rol
       new_role: Crear un rol nuevo
       role_has_users: "Este rol se encuentra asignado a %{user_count}cuentas de usuario. Debes remover todas las cuentas asociadas a este rol antes de eliminarlo."
@@ -106,6 +127,14 @@ es_MX:
       colour:
         title: Color de rol
         info: Define el color que sera asociado con el rol
+    rooms:
+      title: Salas en el servidor
+      table:
+        id: ID
+        not_running: No en marcha
+        running: En marcha
+        status: Estado
+        view: Vista
     title: Configuración de organización
     users:
       invite: Invitar usuario
@@ -118,6 +147,7 @@ es_MX:
         delete: Eliminar
         edit: Editar
         edit_roles: Editar los roles de usuario
+        merge: Combinar
         perm_delete: Eliminar permanentemente
         unban: Desbloquear usuario
         undelete: Recuperar
@@ -216,7 +246,7 @@ es_MX:
       settings: Perfil de usuario
       signout: Salir
   home_room: Sala principal
-  info_update_success: La información ha sido actualizada exitósamente
+  info_update_success: La información ha sido actualizada exitosamente
   invalid_credentials: El correo electrónico y contraseña introducidas no coincide con los registros. Inténtalo de nuevo o haz click en recuperar contraseña.
   invalid_login_method: El inicio de sesión falló debido a la falta de coincidencia de cuenta. Necesitas iniciar sesión con uno de los proveedores.
   invite_message: "Para invitar a alquien a la sesión, enviale este enlace:"
@@ -227,6 +257,8 @@ es_MX:
         body: 'Sigue el enlace para ver la grabación'
         autogenerated: 'Este correo electrónico es generado automáticamente por BigBlueButton'
         footer: 'BigBlueButton es un sistema open source para video conferencia basado en web. Para mayor información visita https://bigbluebutton.org/.'
+    search:
+      start: Iniciar busqueda...
   landing:
     about: "Greenlight es una interface web para tu servidor %{href}de conferencias de fuentes libres. Puedes crear tus propias salas y ser anfitrión de sesiones o ingresar a las de otros utilizando un corto y conveniente enlace."
     welcome: Bienvenido a <span class="green-grad">Greenlight</span>.
@@ -290,6 +322,7 @@ es_MX:
   maintenance:
     window_alert: "Ventana de mantenimiento agendada para %{date}"
   max_concurrent: Se a alcanzado el número máximo de sesiones permitidas
+  merged: Combinado
   modal:
     create_role:
       create: Crear un rol nuevo
@@ -328,6 +361,10 @@ es_MX:
       with: "Ingresar con %{provider}"
       forgot_password: "Olvidaste tu contraseña?"
     rename_recording:
+    remove_shared:
+      title: "¿Estás seguro de querer eliminar esta sala de la lista?"
+      delete: Estoy seguro de eliminar ésta sala.
+      warning: <b>No</b> podrás acceder a esta sala nunca más.
     room_settings:
       title: Configuración de la sala
       update: Actualizar la sala
@@ -339,7 +376,21 @@ es_MX:
       footer_text: Puedes hacer cambios a tu sala en cualquier momento
     rename_room:
       name_placeholder: Introduce un nuevo nombre para la sala...
-  name_update_success: El nombre de la sala ha sido actualizado exitósamente
+    share_access:
+      footer: Compartir una sala con un usuario le permite iniciar la sesión y ver las grabaciones.
+      list: Compartir con
+      title: Compartir acceso a salas
+      save: Guardar cambios
+      cancel_changes: Cancelar cambios
+      select: Seleccionar usuario
+    merge_user:
+      cancel: Cancelar
+      from: Cuenta de usuario a combinar
+      title: Combinar cuentas de usuario
+      to: Cuenta principal de usuario
+      save: Combinar
+      footer: Las salas de la cuenta a combinar será tranferida a la lista de salas de la cuenta de usuario principal y después eliminada.
+  name_update_success: El nombre de la sala ha sido actualizado exitosamente
   no_user_email_exists: "No hay ningún usuario existente con el correo electrónico especificado. Por favor, asegúrese de que lo escribió correctamente."
   omniauth_error: Ocurrió un error al intentar ingresar utilizando OmniAuth. Por favor intente nuevamente o contacte un administrador.
   omniauth_specific_error: "Error %{error} al intentar ingresar utilizando omniauth. Por favor intente nuevamente o contacte un administrador."
@@ -399,12 +450,14 @@ es_MX:
     invite:
       fail: "Tu código ha expirado o es invalido. Sí tu crees que este es un error, contacta al administrador del sistema."
       no_invite: No tienes una invitación para ingresar. Contacta al administrador del sistema para obtener una.
+  remove: Eliminar
   rename: Cambiar nombre
   reset_password:
     subtitle: Reiniciar contraseña
     password: Nueva contraseña
     confirm: Confirmación de nueva contraseña
     update: Actualizar contraseña
+    auth_change: El metodo de autentificación ha cambiado. Por favor revisa tu correo electrónico para cambiar la contraseña.
   roles:
     active: Activos
     admin: Admin
@@ -416,7 +469,11 @@ es_MX:
     access_code_required: Introduce un código de acceso valido para ingresar a la sala
     create_room: Crear una sala
     create_room_error: Ocurrió un error al crear la sala
-    create_room_success: La sala fue creada exitósamente
+    create_room_success: La sala fue creada exitosamente
+    delete:
+      home_room: La sala principal no puede ser eliminada
+      success: La sala fue eliminada exitosamente
+      fail: "La sala no pudo ser eliminada (%{error})"
     enter_the_access_code: Introduce el código de acceso de la sala
     invalid_provider: La URL introducida es invalida. Revísala e inténtalo de nuevo.
     invited: Hás sido invitado a ingresar
@@ -425,6 +482,7 @@ es_MX:
     last_session: "Última sesión en %{session}"
     login: Entrar
     owner: Dueño
+    owner_banned: Esta sala no está disponible actualmente
     no_room:
       description: Ingresa la url o id de la sala a la que quieres acceder
       edit_profile: Editar perfil de usuario
@@ -440,10 +498,16 @@ es_MX:
     room_limit_exceeded: "Haz alcanzado el número límite de salas permitidas. Por favor elimina %{difference} sala(s) para poder acceder a ésta."
     sessions: Sesiones
     settings: Configuración de sala
+    share: Administrar el acceso
+    shared_by: "Compartida con %{email}"
+    remove_shared_access_success: La sala compartida fue exitosamente eliminada de la lista
+    remove_shared_access_error: Ocurrió un error al eliminar la sala compartida de la lista
+    shared_access_success: La sala fue compartida exitosamente
+    shared_access_error: Ocurrió un error al compartir la sala
     start: Iniciar
     unavailable: Esta sala no se encuentra disponible debido a que la cuenta de correo  de su propietario no ha sido verificado.
     update_settings_error: Ocurrió un error al actualizar la configuración de la sala
-    update_settings_success: La configuración de la sala fue actualizada exitósamente
+    update_settings_success: La configuración de la sala fue actualizada exitosamente
     wait:
       message: La sesión todavía no ha comenzado.
       auto: Serás enviado a la sala automáticamente cuando empiece ls sesión

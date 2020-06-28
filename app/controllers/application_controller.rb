@@ -18,18 +18,16 @@
 
 class ApplicationController < ActionController::Base
   include BbbServer
+  include Errors
 
-  before_action :redirect_to_https, :set_user_domain, :set_user_settings, :maintenance_mode?, :migration_error?,
-    :user_locale, :check_admin_password, :check_user_role
-
-  # Manually handle BigBlueButton errors
-  rescue_from BigBlueButton::BigBlueButtonException, with: :handle_bigbluebutton_error
+  before_action :block_unknown_hosts, :redirect_to_https, :set_user_domain, :set_user_settings, :maintenance_mode?,
+  :migration_error?, :user_locale, :check_admin_password, :check_user_role
 
   protect_from_forgery with: :exceptions
 
   # Retrieves the current user.
   def current_user
-    @current_user ||= User.includes(:roles, :main_room).find_by(id: session[:user_id])
+    @current_user ||= User.includes(:role, :main_room).find_by(id: session[:user_id])
 
     if Rails.configuration.loadbalanced_configuration
       if @current_user && !@current_user.has_role?(:super_admin) &&
@@ -45,6 +43,12 @@ class ApplicationController < ActionController::Base
 
   def bbb_server
     @bbb_server ||= Rails.configuration.loadbalanced_configuration ? bbb(@user_domain) : bbb("greenlight")
+  end
+
+  # Block unknown hosts to mitigate host header injection attacks
+  def block_unknown_hosts
+    return if Rails.configuration.hosts.blank?
+    raise UnsafeHostError, "#{request.host} is not a safe host" unless Rails.configuration.hosts.include?(request.host)
   end
 
   # Force SSL
@@ -82,7 +86,7 @@ class ApplicationController < ActionController::Base
     end
     if Rails.configuration.maintenance_window.present?
       unless cookies[:maintenance_window] == Rails.configuration.maintenance_window
-        flash.now[:maintenance] = I18n.t("maintenance.window_alert", date: Rails.configuration.maintenance_window)
+        flash.now[:maintenance] = Rails.configuration.maintenance_window
       end
     end
   end
@@ -115,7 +119,7 @@ class ApplicationController < ActionController::Base
        current_user&.greenlight_account? && current_user&.authenticate(Rails.configuration.admin_password_default)
 
       flash.now[:alert] = I18n.t("default_admin",
-        edit_link: edit_user_path(user_uid: current_user.uid) + "?setting=password").html_safe
+        edit_link: change_password_path(user_uid: current_user.uid)).html_safe
     end
   end
 
@@ -178,6 +182,14 @@ class ApplicationController < ActionController::Base
   end
   helper_method :shared_access_allowed
 
+  # Returns the page that the logo redirects to when clicked on
+  def home_page
+    return admins_path if current_user.has_role? :super_admin
+    return current_user.main_room if current_user.role.get_permission("can_create_rooms")
+    cant_create_rooms_path
+  end
+  helper_method :home_page
+
   # Parses the url for the user domain
   def parse_user_domain(hostname)
     return hostname.split('.').first if Rails.configuration.url_host.empty?
@@ -193,8 +205,9 @@ class ApplicationController < ActionController::Base
     payload[:host] = @user_domain
   end
 
-  # Manually Handle BigBlueButton errors
-  def handle_bigbluebutton_error
+  # Manually handle BigBlueButton errors
+  rescue_from BigBlueButton::BigBlueButtonException do |ex|
+    logger.error "BigBlueButtonException: #{ex}"
     render "errors/bigbluebutton_error"
   end
 

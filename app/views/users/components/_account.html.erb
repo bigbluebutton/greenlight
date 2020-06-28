@@ -13,63 +13,56 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<%= form_for @user, url: update_user_path, method: :patch do |f|  %>
+<%= form_for @user, url: update_user_path, method: :post do |f|  %>
   <%= hidden_field_tag :setting, "account" %>
   <div class="form-group">
     <div class="row">
-      <div class="col-6">
-        <%= f.label t("settings.account.fullname"), class: "form-label" %>
+      <div class="col-sm-6 mb-4">
+        <%= f.label :name, t("settings.account.fullname"), class: "form-label" %>
         <div class="input-icon">
-          <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: t("settings.account.fullname") %>
+          <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: t("settings.account.fullname"), readonly: !@user.greenlight_account? %>
         </div>
       </div>
 
-      <div class="col-6">
-        <%= f.label t("email"), class: "form-label" %>
+      <div class="col-sm-6 mb-4">
+        <%= f.label :email, t("email"), class: "form-label" %>
         <div class="input-icon">
-          <%= f.text_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email"), readonly: !@user.greenlight_account? %>
+          <%= f.email_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email"), readonly: !@user.greenlight_account? %>
         </div>
       </div>
     </div>
-    <br>
-    <%= f.label t("settings.account.provider"), class: "form-label" %>
+    
+    <%= f.label :provider, t("settings.account.provider"), class: "form-label" %>
     <%= f.text_field :provider, class: "form-control", readonly: "" %>
     <br>
-    <%= f.label t("settings.account.language"), class: "form-label" %>
+    <%= f.label :language, t("settings.account.language"), class: "form-label" %>
     <%= f.select :language, language_options, {}, { class: "form-control custom-select" } %>
 
-    <% current_user_role = current_user.highest_priority_role %>
-    <br>
-    <br>
-    <%= f.label t("settings.account.roles"), class: "form-label" %>
-    <div id="role-tag-container" class="tags mb-1">
-      <% @user.roles.by_priority.each do |role| %>
-        <span id="<%= "user-role-tag_#{role.id}" %>" style="<%= "background-color: #{role_colour(role)};border-color: #{role_colour(role)};" %>" class="tag user-role-tag">
-          <%= translated_role_name(role) %>
-          <% if (current_user_role.get_permission("can_manage_users") || current_user_role.name == "super_admin") && (role.priority > current_user_role.priority || current_user_role.name == "admin") %>
-            <a data-role-id="<%= role.id %>" class="tag-addon clear-role">
-              <i data-role-id="<%= role.id %>" class="fas fa-times"></i>
-            </a>
-          <% end %>
-        </span>
-      <% end %>
-    </div>
-    <% if current_user_role.get_permission("can_manage_users") || current_user_role.name == "super_admin" %>
-      <% provider = Rails.configuration.loadbalanced_configuration ? current_user.provider : "greenlight" %>
-      <%= f.select :roles, Role.editable_roles(@user_domain).map{|role| [translated_role_name(role), role.id, {'data-colour' => role_colour(role)}]}.unshift(["", nil, {'data-colour' => nil}]), {disabled: disabled_roles(@user)}, { class: "form-control custom-select", id: "role-select-dropdown" } %>
-    <% end %>
-    <%= f.hidden_field :role_ids, id: "user_role_ids", value: @user.roles.by_priority.pluck(:id).uniq %>
+    <%= f.label :roles, t("settings.account.roles"), class: "form-label mt-5" %>
+    <% if current_user.role.get_permission("can_manage_users") %>
+      <select id="role-dropdown" class="selectpicker show-tick" >
+        <% role_options.each do |role| %>
+          <option value="<%=role.id%>"><%= translated_role_name(role) %></option>
+        <% end %>
+      </select>
 
-    <%= f.label t("settings.account.image"), class: "form-label mt-5" %>
+      <%= f.hidden_field :role_id, id: "user_role_id", value: @user.role.id %>
+    <% else %>
+      <span style="<%= "background-color: #{role_colour(@user.role)};border-color: #{role_colour(@user.role)};" %>" class="tag custom-role-tag">
+        <%= translated_role_name(@user.role) %>
+      </span>
+    <% end %>
+
+    <%= f.label :image, t("settings.account.image"), class: "form-label mt-5" %>
     <div class="row">
-      <div class="col-2">
-        <% if @user.image.blank? %>
+      <div class="col-5 col-sm-2">
+        <% if @user.image.blank? || !valid_url?(@user.image) %>
           <span class="avatar avatar-xxl mr-5 mt-2 bg-primary"><%= @user.name.first %></span>
         <% else %>
-          <span class="avatar avatar-xxl mr-5 mt-2" style="background-image: url(<%= @user.image %>)"></span>
+          <%= image_tag(@user.image, class: "avatar avatar-xxl mr-5 mt-2") %>
         <% end %>
       </div>
-      <div class="col-10 mt-5">
+      <div class="col-7 col-sm-10 mt-5">
         <%= f.text_field :image, class: "form-control #{form_is_invalid?(@user, :image)}", placeholder: t("settings.account.image_url") %>
       </div>
     </div>
@@ -78,7 +71,7 @@
     <%= f.submit t("update"), class: "btn btn-primary float-right ml-4" %>
 
     <% if can_reset_password %>
-      <%= link_to "Reset user password", admin_reset_path(user_uid: @user.uid), class: "btn btn-primary float-right" %>
+      <%= link_to t("settings.account.reset_password"), admin_reset_path(user_uid: @user.uid), class: "btn btn-primary float-right" %>
     <% end %>
   </div>
 <% end %>

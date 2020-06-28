@@ -25,7 +25,7 @@ class RoomsController < ApplicationController
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :validate_verified_email, except: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
-  before_action :find_room, except: [:create, :join_specific_room]
+  before_action :find_room, except: [:create, :join_specific_room, :cant_create_rooms]
   before_action :verify_room_ownership_or_admin_or_shared, only: [:start, :shared_access]
   before_action :verify_room_ownership_or_admin, only: [:update_settings, :destroy]
   before_action :verify_room_ownership_or_shared, only: [:remove_shared_access]
@@ -62,29 +62,37 @@ class RoomsController < ApplicationController
 
   # GET /:room_uid
   def show
-    @anyone_can_start = JSON.parse(@room[:room_settings])["anyoneCanStart"]
+    @room_settings = @room[:room_settings]
+    @anyone_can_start = room_setting_with_config("anyoneCanStart")
     @room_running = room_running?(@room.bbb_id)
     @shared_room = room_shared_with_user
 
     # If its the current user's room
     if current_user && (@room.owned_by?(current_user) || @shared_room)
-      if current_user.highest_priority_role.get_permission("can_create_rooms")
-        # User is allowed to have rooms
-        @search, @order_column, @order_direction, recs =
-          recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
+      # User is allowed to have rooms
+      @search, @order_column, @order_direction, recs =
+        recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
 
-        @user_list = shared_user_list if shared_access_allowed
+      @user_list = shared_user_list if shared_access_allowed
 
-        @pagy, @recordings = pagy_array(recs)
-      else
-        # Render view for users that cant create rooms
-        @recent_rooms = Room.where(id: cookies.encrypted["#{current_user.uid}_recently_joined_rooms"])
-        render :cant_create_rooms
-      end
+      @pagy, @recordings = pagy_array(recs)
     else
       return redirect_to root_path, flash: { alert: I18n.t("room.invalid_provider") } if incorrect_user_domain
 
       show_user_join
+    end
+  end
+
+  # GET /rooms
+  def cant_create_rooms
+    shared_rooms = current_user.shared_rooms
+
+    if current_user.shared_rooms.empty?
+      # Render view for users that cant create rooms
+      @recent_rooms = Room.where(id: cookies.encrypted["#{current_user.uid}_recently_joined_rooms"])
+      render :cant_create_rooms
+    else
+      redirect_to shared_rooms[0]
     end
   end
 
@@ -93,7 +101,9 @@ class RoomsController < ApplicationController
     return redirect_to root_path,
       flash: { alert: I18n.t("administrator.site_settings.authentication.user-info") } if auth_required
 
-    unless @room.owned_by?(current_user) || room_shared_with_user
+    @shared_room = room_shared_with_user
+
+    unless @room.owned_by?(current_user) || @shared_room
       # Don't allow users to join unless they have a valid access code or the room doesn't have an access code
       if @room.access_code && !@room.access_code.empty? && @room.access_code != session[:access_code]
         return redirect_to room_path(room_uid: params[:room_uid]), flash: { alert: I18n.t("room.access_code_required") }
@@ -158,9 +168,9 @@ class RoomsController < ApplicationController
     opts[:user_is_moderator] = true
 
     # Include the user's choices for the room settings
-    room_settings = JSON.parse(@room[:room_settings])
-    opts[:mute_on_start] = room_settings["muteOnStart"]
-    opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
+    @room_settings = JSON.parse(@room[:room_settings])
+    opts[:mute_on_start] = room_setting_with_config("muteOnStart")
+    opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
 
     begin
       redirect_to join_path(@room, current_user.name, opts, current_user.uid)
@@ -300,12 +310,13 @@ class RoomsController < ApplicationController
   def verify_room_ownership_or_admin_or_shared
     return redirect_to root_path unless @room.owned_by?(current_user) ||
                                         room_shared_with_user ||
-                                        current_user&.admin_of?(@room.owner)
+                                        current_user&.admin_of?(@room.owner, "can_manage_rooms_recordings")
   end
 
   # Ensure the user either owns the room or is an admin of the room owner
   def verify_room_ownership_or_admin
-    return redirect_to root_path if !@room.owned_by?(current_user) && !current_user&.admin_of?(@room.owner)
+    return redirect_to root_path if !@room.owned_by?(current_user) &&
+                                    !current_user&.admin_of?(@room.owner, "can_manage_rooms_recordings")
   end
 
   # Ensure the user owns the room or is allowed to start it

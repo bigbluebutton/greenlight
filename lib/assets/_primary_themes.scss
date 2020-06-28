@@ -145,6 +145,7 @@ input:focus, select:focus {
     & a {
       color: $primary-color !important;
       border-color: $primary-color !important;
+      white-space: nowrap;
     }
 
     & a:hover {
@@ -192,5 +193,11 @@ input:focus, select:focus {
 .manage-users-tab {
   &.selected {
     @extend .btn-primary;
+  }
+}
+
+.room-block {
+  &.current {
+    box-shadow: 0 0 10px $primary-color-lighten;
   }
 }
