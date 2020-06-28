@@ -261,6 +261,8 @@ en:
     designs: Whiteboard & Presentation
     authentication: Breakout Rooms
   footer:
+    legal: Legal
+    privpolicy: Privacy Policy
     powered_by: Powered by %{href}.
   forgot_password:
     subtitle: Forgot Password
