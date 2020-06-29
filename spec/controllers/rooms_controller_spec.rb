@@ -202,12 +202,12 @@ describe RoomsController, type: :controller do
       @owner.main_room.update_attribute(:room_settings, { "muteOnStart": true, "requireModeratorApproval": true,
       "anyoneCanStart": true, "joinModerator": true }.to_json)
 
-      json_room_settings = "{\"running\":false,\"muteOnStart\":true,\"requireModeratorApproval\":true," \
+      json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
         "\"anyoneCanStart\":true,\"joinModerator\":true}"
 
       get :room_settings, params: { room_uid: @owner.main_room }, format: :json
 
-      expect(JSON.parse(response.body).to_json).to eql(json_room_settings)
+      expect(JSON.parse(response.body)).to eql(json_room_settings)
     end
 
     it "should redirect to root if not logged in" do
