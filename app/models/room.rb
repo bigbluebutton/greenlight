@@ -40,8 +40,7 @@ class Room < ApplicationRecord
     search_query = "rooms.name LIKE :search OR rooms.uid LIKE :search OR users.email LIKE :search" \
     " OR users.#{created_at_query} LIKE :search"
 
-    search_param = "%#{string}%"
-
+    search_param = "%#{sanitize_sql_like(string)}%"
     where(search_query, search: search_param)
   end
 

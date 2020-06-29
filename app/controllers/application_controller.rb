@@ -182,6 +182,14 @@ class ApplicationController < ActionController::Base
   end
   helper_method :shared_access_allowed
 
+  # Returns the page that the logo redirects to when clicked on
+  def home_page
+    return admins_path if current_user.has_role? :super_admin
+    return current_user.main_room if current_user.role.get_permission("can_create_rooms")
+    cant_create_rooms_path
+  end
+  helper_method :home_page
+
   # Parses the url for the user domain
   def parse_user_domain(hostname)
     return hostname.split('.').first if Rails.configuration.url_host.empty?

@@ -43,14 +43,26 @@ fr:
         placeholder: URL de l'image...
         title: Logo
         invalid: URL invalide
+      legal:
+        change: Changer d'URL
+        info: Modifier le lien juridique qui apparaît en bas de la page
+        placeholder: URL juridique ...
+        title: Légal
+        invalid: URL invalide
+      privpolicy:
+        change: Changer d'URL
+        info: Modifier le lien de la politique de confidentialité qui apparaît au bas de la page
+        placeholder: Politique de confidentialité URL ...
+        title: Politique de confidentialité
+        invalid: URL invalide
       cache:
         info: "Efface le cache distant, forçant ainsi la récupération des informations courantes"
         title: Vider le cache fournisseur
         button: Vider le cache
       clear_auth:
-        info: Supprimer le mode d'authentification actuelle afin de permettre aux utilisateurs de choisir un autre mode d'authentification
+        info: Supprimer le mode d'authentification actuel afin de permettre aux utilisateurs de choisir un autre mode d'authentification
         title: Supprimer le mode d'authentification
-        button: Supprimer Auth.
+        button: Supprimer Auth
       color:
         info: "Modifier la couleur \"Base\" modifiera également les couleurs \"Clair\" et \"Sombre\". Par la suite, les couleurs \"Clair\" et \"Sombre\" peuvent être modifiées individuellement."
         title: Couleur principale
@@ -69,7 +81,7 @@ fr:
       recording_visibility:
         info: Modifier la visibilité par défaut pour les nouveaux enregistrements
         title: Visibilité d'un enregistrement par défaut
-        warning: Ce réglage sera appliqué qu'aux salles actuellement inactives.
+        warning: Ce réglage ne sera appliqué qu'aux salles actuellement inactives
       registration:
         info: Modifier le mode d'inscription pour le site
         title: Méthode d'inscription
@@ -81,7 +93,7 @@ fr:
         info: Limiter le nombre de salles maximum qu'un utilisateur peut avoir (Salle d'Accueil incluse). Ce réglage n'affecte pas les administrateurs.
         title: Nombre de salles par utilisateur
       shared_access:
-        info: "Désactiver: supprimera de la liste déroulante des options du Salon, le bouton de partage, empêchant ainsi les utilisateurs de partager des Salons"
+        info: "Désactiver : supprimera de la liste déroulante des options du Salon, le bouton de partage, empêchant ainsi les utilisateurs de partager des Salons"
         title: Autorise les utilisateurs à partager le Salon
       subtitle: Personnaliser Greenlight
       title: Paramètres du site
@@ -89,13 +101,13 @@ fr:
       approved: L'utilisateur a été approuvé.
       banned: L'utilisateur a été banni.
       unbanned: L'utilisateur a été dé-banni.
-      delete: Utilisateur supprimé.
+      delete: Utilisateur supprimé
       delete_fail: Impossible de supprimer l'utilisateur
-      demoted: L'utilisateur a été rétrogradé.
-      invite: "Invitation envoyé à %{email}"
+      demoted: L'utilisateur a été rétrogradé
+      invite: "Invitation envoyée à %{email}"
       invite_email_verification: Les emails doivent être activés pour utiliser cette méthode. Veuillez contacter votre administrateur système.
       merge_fail: Un problème est survenu lors de la fusion des comptes utilisateurs. Veuillez vérifier les utilisateurs sélectionnés et réessayer 
-      merge_success: Les comptes utilisateurs ont été fusionné avec succès
+      merge_success: Les comptes utilisateurs ont bien été fusionnés
       perm_deleted: L'utilisateur a été définitivement supprimé
       promoted: L'utilisateur a bien été promu.
       registration_method_updated: Méthode d'inscription mise à jour.
@@ -111,7 +123,7 @@ fr:
       appear_in_share_list: Inclure les utilisateurs ayant ce rôle dans la liste déroulante de partage des salons
       can_create_rooms: Peut créer des salles
       delete: Supprimer le rôle
-      invalid_create: Il y a eu un problème lors de la création du nouveau rôle. Veuillez vérifier les valeurs entrées et réessayez.
+      invalid_create: Il y a eu un problème lors de la création du nouveau rôle. Veuillez vérifier les valeurs entrées et réessayer.
       invalid_order: Il y a eu un problème lors de la mise à jour de la priorité du rôle. Veuillez vérifier les valeurs et réessayer.
       invalid_update: Il y a eu un problème lors de la mise à jour des permissions du rôle. Veuillez vérifier les valeurs et réessayer.
       manage_rooms_recordings: Autoriser les utilisateurs ayant de ce rôle à gérer les Salons et les enregistrements
@@ -145,9 +157,12 @@ fr:
     rooms:
       title: Serveur des Salons
       table:
+        ended: "Terminé:%{session}"
         id: ID
         not_running: Pas ouvert
+        participants: Participants
         running: Ouvert
+        started: "Démarrage de:%{session}"
         status: Statut
         view: Voir
     title: Paramètres de l'organisation
@@ -192,7 +207,7 @@ fr:
   delivery_error: Une erreur s'est produite lors de la livraison du courrier électronique. Veuillez contacter un administrateur !
   docs: Documentation
   email: Email
-  email_sent: "Votre demande de %{email_type} a bien été envoyé! (Vérifiez votre dossier anti-spam si vous ne le trouver pas)"
+  email_sent: "Votre demande de %{email_type} a bien été envoyée ! (Vérifiez votre dossier anti-spam si vous ne le trouvez pas)"
   enter_your_name: Entrez votre nom !
   errors:
     bigbluebutton:
@@ -245,6 +260,8 @@ fr:
     designs: Designs personnalisés
     authentication: Authentification d'utilisateur
   footer:
+    legal: Légal
+    privpolicy: Politique de confidentialité
     powered_by: "Alimenté par %{href}."
   forgot_password:
     subtitle: Mot de passe oublié
@@ -288,7 +305,7 @@ fr:
     user:
       approve:
         info: Votre compte a été approuvé.
-        signin: " Pour accéder à vos salons personnelles, cliquez sur le bouton ci-dessous et connectez-vous."
+        signin: " Pour accéder à vos salons personnels, cliquez sur le bouton ci-dessous et connectez-vous."
         signin_link: Connexion
         signup:
           info: Un nouvel utilisateur s'est inscrit pour utiliser Greenlight.
@@ -317,7 +334,7 @@ fr:
       password_reset:
         title: 'Réinitialiser le mot de passe'
         welcome: "Une réinitialisation du mot de passe a été demandée pour l'e-mail <b>%{email}</b>"
-        message: 'Si vous avez demandé cette réinitialisation, veuillez cliquer sur le lien ci-dessous pour réinitialiser votre mot de passe:'
+        message: 'Si vous avez demandé cette réinitialisation, veuillez cliquer sur le lien ci-dessous pour réinitialiser votre mot de passe :'
         reset_link: Réinitialiser le mot de passe
         expire: Ce lien expirera dans deux heures.
         ignore: Vous pouvez ignorer cette demande si vous n'êtes pas à l'origine de celle-ci.
@@ -377,7 +394,7 @@ fr:
       forgot_password: "Mot de passe oublié ?"
     rename_recording:
     remove_shared:
-      title: "Voulez-vous vraiment supprimer ce salon de votre liste?"
+      title: "Voulez-vous vraiment supprimer ce salon de votre liste ?"
       delete: "Je suis sûr, supprimez ce Salon."
       warning: <b>Vous ne pourrez plus</b> accéder à cette salle.
     room_settings:
@@ -449,7 +466,7 @@ fr:
       notes: Notes
       podcast: Podcast
       presentation: Présentation
-      statistics: statistiques
+      statistics: Statistiques
       video: Vidéo
   registration:
     approval:
@@ -468,6 +485,7 @@ fr:
   remove: Enlever
   rename: Renommer
   reset_password:
+    invalid_token: Le jeton de réinitialisation du mot de passe n'est pas valide. Veuillez essayer de réinitialiser votre mot de passe à nouveau.
     subtitle: Réinitialiser le mot de passe
     password: Nouveau mot de passe
     confirm: Confirmation du nouveau mot de passe
@@ -504,20 +522,20 @@ fr:
       go_to: Aller à la salle
       invalid_room_uid: "L'url/uid de la salle que vous avez introduit n'est pas valide. "
       placeholder: url/uid de la salle
-      no_recent_rooms: Vous n'avez pas de salles récemment rejointes
+      no_recent_rooms: Vous n'avez pas de salle récemment rejointe
       recent_rooms: Rejoindre une Salle Récente
       title: Joindre une salle
-    no_sessions: Cette salle n'a pas encore de sessions !
+    no_sessions: Cette salle n'a pas encore de session !
     recordings: Enregistrements du salon
-    room_limit: Vous avez atteint le nombre maximum permis de salles
-    room_limit_exceeded: "Vous avez dépassé le nombre permis de salles. Veuillez en supprimer %{difference}pour pouvor accéder à cette salle."
+    room_limit: Vous avez atteint le nombre maximum de salles autorisé
+    room_limit_exceeded: "Vous avez dépassé le nombre de salles autorisé. Veuillez en supprimer %{difference}pour pouvoir accéder à cette salle."
     sessions: Sessions
     settings: Paramètres Salle
     share: "Gérer les accès "
     shared_by: "Partagé par %{email}"
     remove_shared_access_success: Salle partagée supprimée avec succès de votre liste de salles
     remove_shared_access_error: Une erreur est survenue lors de la suppression de la salle partagée de votre liste
-    shared_access_success: Chambre partagée avec succès
+    shared_access_success: Salle partagée avec succès
     shared_access_error: Il y a eu une erreur lors du partage de la salle
     start: Démarrer
     unavailable: Ce salon est actuellement indisponible car le courrier électronique du propriétaire n'a pas été vérifié.
@@ -533,9 +551,10 @@ fr:
       provider: Fournisseur
       image: Image
       image_url: URL de l'image profil
-      roles: Rôles de l'utilisateur
+      roles: Rôle de l'utilisateur
       subtitle: Mettre à jour les informations de votre compte
       title: Informations de compte
+      reset_password: Réinitialiser le mot de passe de l'utilisateur
     delete:
       button: "Oui, je souhaiterais supprimer mon compte."
       disclaimer: "Si vous choisissez de supprimer votre compte, il NE sera <b>PAS</b> récupérable. Toutes les informations concernant votre compte, y compris les paramètres, les salons et les enregistrements seront supprimées."
