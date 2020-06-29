@@ -13,8 +13,6 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<% content_for :page_title do %><%= @room.name %><% end %>
-
 <% exceeds_limit = current_room_exceeds_limit(@room)%>
 <% if exceeds_limit%>
   <div class="alert alert-danger alert-dismissible text-center mb-0">

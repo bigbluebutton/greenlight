@@ -14,7 +14,7 @@
 %>
 
 <!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns#">
+<html>
   <head>
     <% if Rails.configuration.google_analytics %>
       <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -28,9 +28,8 @@
       </script>
     <% end %>
 
-    <title><%= (yield(:page_title) + " - ") if content_for?(:page_title) + t("bigbluebutton") %></title>
-
-    <meta property="og:title" content="<%= (yield(:page_title) + " - ") if content_for?(:page_title) + t("bigbluebutton", locale: :en) %>" />
+    <title><%= t("bigbluebutton") %></title>
+    <meta property="og:title" content="<%= t("bigbluebutton", locale: :en) %>" />
     <meta property="og:type" content="website" />
     <meta property="og:description" content="<%= t("landing.about", href: "Greenlight", locale: :en) %>" />
     <meta property="og:url" content="<%= request.base_url %>" />
