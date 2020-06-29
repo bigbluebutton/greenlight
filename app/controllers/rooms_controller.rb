@@ -171,7 +171,7 @@ class RoomsController < ApplicationController
     @room_settings = JSON.parse(@room[:room_settings])
     opts[:mute_on_start] = room_setting_with_config("muteOnStart")
     opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
-
+    opts[:record] = room_setting_with_config("recording")
     begin
       redirect_to join_path(@room, current_user.name, opts, current_user.uid)
     rescue BigBlueButton::BigBlueButtonException => e
@@ -261,8 +261,10 @@ class RoomsController < ApplicationController
   # GET /:room_uid/room_settings
   def room_settings
     # Respond with JSON object of the room_settings
+    status = { running: room_running?(@room.bbb_id) }
+    settings = @room.settings_hash
     respond_to do |format|
-      format.json { render body: @room.room_settings.to_json }
+      format.json { render body: status.merge(settings).to_json }
     end
   end
 
@@ -291,6 +293,7 @@ class RoomsController < ApplicationController
       "requireModeratorApproval": options[:require_moderator_approval] == "1",
       "anyoneCanStart": options[:anyone_can_start] == "1",
       "joinModerator": options[:all_join_moderator] == "1",
+      "recording": options[:recording] == "1",
     }
 
     room_settings.to_json
@@ -298,7 +301,8 @@ class RoomsController < ApplicationController
 
   def room_params
     params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
-      :require_moderator_approval, :anyone_can_start, :all_join_moderator)
+      :require_moderator_approval, :anyone_can_start, :all_join_moderator,
+      :recording)
   end
 
   # Find the room from the uid.

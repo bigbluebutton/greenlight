@@ -52,16 +52,16 @@ module Greenlight
 
     # Use standalone BigBlueButton server.
     config.bigbluebutton_endpoint = if ENV["BIGBLUEBUTTON_ENDPOINT"].present?
-       ENV["BIGBLUEBUTTON_ENDPOINT"]
-    else
-      config.bigbluebutton_endpoint_default
-    end
+                                      ENV["BIGBLUEBUTTON_ENDPOINT"]
+                                    else
+                                      config.bigbluebutton_endpoint_default
+                                    end
 
     config.bigbluebutton_secret = if ENV["BIGBLUEBUTTON_SECRET"].present?
-      ENV["BIGBLUEBUTTON_SECRET"]
-    else
-      config.bigbluebutton_secret_default
-    end
+                                    ENV["BIGBLUEBUTTON_SECRET"]
+                                  else
+                                    config.bigbluebutton_secret_default
+                                  end
 
     # Fix endpoint format if required.
     config.bigbluebutton_endpoint += "/" unless config.bigbluebutton_endpoint.ends_with?('/')
@@ -144,12 +144,12 @@ module Greenlight
 
     # Default registration method if the user does not specify one
     config.registration_method_default = if ENV["DEFAULT_REGISTRATION"] == "invite"
-      config.registration_methods[:invite]
-    elsif ENV["DEFAULT_REGISTRATION"] == "approval"
-      config.registration_methods[:approval]
-    else
-      config.registration_methods[:open]
-    end
+                                           config.registration_methods[:invite]
+                                         elsif ENV["DEFAULT_REGISTRATION"] == "approval"
+                                           config.registration_methods[:approval]
+                                         else
+                                           config.registration_methods[:open]
+                                         end
 
     # Default limit on number of rooms users can create
     config.number_of_rooms_default = 15
