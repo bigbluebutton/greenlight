@@ -47,6 +47,7 @@ class AdminsController < ApplicationController
 
   # GET /admins/site_settings
   def site_settings
+    @tab = params[:tab] || "appearance"
   end
 
   # GET /admins/server_recordings
