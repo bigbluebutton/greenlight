@@ -16,7 +16,7 @@
 <div class="row mt-2">
   <% if search %>
     <div class="col-md-6">
-      <p class="subtitle"><%= subtitle %></p>
+      <p class="subtitle"><%= title(subtitle) %></p>
     </div>
 
     <div class="col-md-6 mb-4">
@@ -38,7 +38,7 @@
     </div>
   <% else %>
     <div class="col-12">
-      <p class="subtitle"><%= subtitle %></p>
+      <p class="subtitle"><%= title(subtitle) %></p>
     </div>
   <% end %>
 </div>
