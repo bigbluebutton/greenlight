@@ -1,0 +1,13 @@
+#!/bin/bash
+
+docker-compose down
+
+./scripts/image_build.sh cylan release-v2.6.4
+
+docker-compose up -d
+
+bbb-conf --restart
+
+bbb-conf --check
+
+bbb-conf --status
