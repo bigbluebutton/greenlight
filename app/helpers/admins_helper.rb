@@ -97,6 +97,10 @@ module AdminsHelper
     end
   end
 
+  def show_log_dropdown
+    current_user.has_role?(:super_admin) || !Rails.configuration.loadbalanced_configuration
+  end
+
   def room_limit_number
     @settings.get_value("Room Limit").to_i
   end
