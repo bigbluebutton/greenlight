@@ -15,18 +15,18 @@
 
 <div class="form-group mt-n3">
   <nav class="row m-0">
-    <div class="nav col nav-tabs m-0 p-0" >
+    <div class="nav col nav-tabs admin-tabs m-0 p-0" >
       <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'appearance' %>" href="?tab=appearance" role="tab" aria-selected="true">
         <i class="fas mr-3 fa-palette"></i>
-        Appearance
+        <%= t("administrator.site_settings.tabs.appearance") %>
       </a>
       <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'administration' %>" href="?tab=administration" role="tab" aria-selected="false">
         <i class="fas mr-3 fa-toolbox"></i>
-        Administration
+        <%= t("administrator.site_settings.tabs.administration") %>
       </a>
       <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'settings' %>"  href="?tab=settings" role="tab" aria-selected="false">
        <i class="fas mr-3 fa-tools"></i>
-        Settings
+        <%= t("administrator.site_settings.tabs.settings") %>
       </a>
     </div>
   </nav>

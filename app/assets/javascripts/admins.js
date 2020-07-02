@@ -119,30 +119,30 @@ $(document).on('turbolinks:load', function(){
 // Change the branding image to the image provided
 function changeBrandingImage(path) {
   var url = $("#branding-url").val()
-  $.post(path, {value: url})
+  $.post(path, {value: url, tab: "appearance"})
 }
 
 // Change the Legal URL to the one provided
 function changeLegalURL(path) {
   var url = $("#legal-url").val()
-  $.post(path, {value: url})
+  $.post(path, {value: url, tab: "administration"})
 }
 
 // Change the Privacy Policy URL to the one provided
 function changePrivacyPolicyURL(path) {
   var url = $("#privpolicy-url").val()
-  $.post(path, {value: url})
+  $.post(path, {value: url, tab: "administration"})
 }
 
 // Display the maintenance Banner
 function displayMaintenanceBanner(path) {
   var message = $("#maintenance-banner").val()
-  $.post(path, {value: message})
+  $.post(path, {value: message, tab: "administration"})
 }
 
 // Clear the maintenance Banner
 function clearMaintenanceBanner(path) {
-  $.post(path, {value: ""})
+  $.post(path, {value: "", tab: "administration"})
 }
 
 function mergeUsers() {
