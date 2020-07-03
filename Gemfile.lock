@@ -6,6 +6,20 @@ GIT
     tabler-rubygem (0.1.4.1)
       autoprefixer-rails (>= 6.0.3)
 
+GIT
+  remote: https://github.com/mconf/bigbluebutton-api-ruby.git
+  revision: 91dc495324a6b7e162773227ec3650f8a5b39c50
+  branch: master
+  specs:
+    bigbluebutton-api-ruby (1.7.0)
+      childprocess (>= 1.0.1)
+      ffi (>= 1.9.24)
+      json (>= 1.8.6)
+      nokogiri (>= 1.10.4)
+      rack (>= 1.6.11)
+      rubyzip (>= 1.3.0)
+      xml-simple (~> 1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -59,8 +73,6 @@ GEM
     autoprefixer-rails (9.7.6)
       execjs
     bcrypt (3.1.13)
-    bigbluebutton-api-ruby (1.7.0)
-      xml-simple (~> 1.1)
     bindex (0.8.1)
     bn-ldap-authentication (0.1.4)
       net-ldap (~> 0)
@@ -73,6 +85,7 @@ GEM
     builder (3.2.4)
     byebug (11.1.3)
     cancancan (2.3.0)
+    childprocess (4.0.0)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -268,6 +281,7 @@ GEM
     rubocop-ast (0.0.3)
       parser (>= 2.7.0.1)
     ruby-progressbar (1.10.1)
+    rubyzip (2.3.0)
     safe_yaml (1.0.5)
     sassc (2.3.0)
       ffi (~> 1.9)
@@ -336,7 +350,7 @@ PLATFORMS
 DEPENDENCIES
   action-cable-testing
   bcrypt (~> 3.1.7)
-  bigbluebutton-api-ruby
+  bigbluebutton-api-ruby!
   bn-ldap-authentication (~> 0.1.4)
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.3.1)
