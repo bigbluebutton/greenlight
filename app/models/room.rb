@@ -28,6 +28,8 @@ class Room < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
   has_many :shared_access
 
+  has_one_attached :presentation
+
   def self.admins_search(string)
     active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
     # Postgres requires created_at to be cast to a string
