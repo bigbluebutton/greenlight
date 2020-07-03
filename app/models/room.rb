@@ -23,6 +23,8 @@ class Room < ApplicationRecord
 
   before_create :setup
 
+  before_destroy :destroy_presentation
+
   validates :name, presence: true
 
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
@@ -131,5 +133,10 @@ class Room < ApplicationRecord
       bbb_id = SecureRandom.alphanumeric(40).downcase
       break bbb_id unless Room.exists?(bbb_id: bbb_id)
     end
+  end
+
+  # Before destroying the room, make sure you also destroy the presentation attached
+  def destroy_presentation
+    presentation.purge if presentation.attached?
   end
 end
