@@ -56,7 +56,7 @@ gem 'bn-ldap-authentication', '~> 0.1.4'
 gem 'omniauth-bn-office365', '~> 0.1.1'
 
 # BigBlueButton API wrapper.
-gem 'bigbluebutton-api-ruby'
+gem 'bigbluebutton-api-ruby', git: 'https://github.com/mconf/bigbluebutton-api-ruby.git', branch: 'master'
 
 # Front-end.
 gem 'bootstrap', '~> 4.3.1'
