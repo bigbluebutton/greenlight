@@ -551,6 +551,7 @@ en:
       recent_rooms: Go To a Recently Joined Room
       title: Join a Room
     no_sessions: This room has no sessions, yet!
+    add_presentation: Add presentation
     preupload_success: Successfully added presentation
     preupload_error: There was an error updating the room presentation
     recordings: Room Recordings
