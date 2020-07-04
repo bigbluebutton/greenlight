@@ -118,3 +118,8 @@
   word-break: break-all;
   white-space: normal;
 }
+
+.custom-file-label::after {
+font-family: 'Font Awesome 5 Free';
+content: "\f574";
+}
