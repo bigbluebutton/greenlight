@@ -27,7 +27,7 @@ module ThemingHelper
     @settings.get_value("Legal URL") || ""
   end
 
-  # Returns the logo based on user's provider
+  # Returns the privacy policy URL based on user's provider
   def privpolicy_url
     @settings.get_value("Privacy Policy URL") || ""
   end
