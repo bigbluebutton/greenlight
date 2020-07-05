@@ -28,7 +28,7 @@
       </script>
     <% end %>
 
-    <title><%= t("greenlight") %></title>
+    <title><%= t("bigbluebutton") %></title>
     <meta property="og:title" content="<%= t("bigbluebutton", locale: :en) %>" />
     <meta property="og:type" content="website" />
     <meta property="og:description" content="<%= t("landing.about", href: "Greenlight", locale: :en) %>" />
@@ -67,7 +67,7 @@
           <div class="flash alert d-inline">
             <i class="fas fa-exclamation-triangle"></i>
             <p class="d-inline"><%= t("test_install",
-              href: link_to(t("docs").downcase, "https://nglc.co.in", target: "_blank", rel: "noopener")
+              href: link_to(t("docs").downcase, "http://docs.bigbluebutton.org/install/greenlight-v2.html#2-install-greenlight", target: "_blank", rel: "noopener")
             ).html_safe %>
           </div>
         </div>

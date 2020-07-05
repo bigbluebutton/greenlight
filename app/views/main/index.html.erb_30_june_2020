@@ -20,7 +20,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>E-Baithak-India's free video conference platform</title>
-        <link rel="icon" type="image/x-icon" href="https://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" />
+        <link rel="icon" type="image/x-icon" href="http://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
@@ -35,9 +35,9 @@
     <body id="page-top">
         <!-- Navigation-->
        <!-- <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav"> -->
-            <nav class="navbar  navbar-expand-sm navbar-light bg-light justify-content-center" id="mainNav" >
+            <nav class="navbar  navbar-expand-sm bg-dark navbar-dark justify-content-center" id="mainNav" >
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger navbar-text" href="#page-top"><img src="https://www.nglc.co.in/wp-content/uploads/2020/07/we_are_togather_shape_converted-1.svg" alt="" /></a>
+                <a class="navbar-brand js-scroll-trigger navbar-text" href="#page-top"><img src="http://www.nglc.co.in/wp-content/uploads/2020/06/navbar-logo.svg" alt="" /></a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ml-1"></i>
@@ -45,11 +45,11 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                   
                     <ul class="navbar-nav text-uppercase ml-auto">
-                        <li class="nav-item"><a class="nav-link bold-me js-scroll-trigger" href="#services">Services</a></li>
-                        <li class="nav-item"><a class="nav-link bold-me js-scroll-trigger" href="#portfolio">Solutions</a></li>
-                        <li class="nav-item"><a class="nav-link bold-me js-scroll-trigger" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link bold-me js-scroll-trigger" href="#team">Team</a></li>
-                        <li class="nav-item"><a class="nav-link bold-me js-scroll-trigger" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Team</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -57,9 +57,8 @@
         <!-- Masthead-->
         <header class="masthead">
             <div class="container">
-                <div class="masthead-subheading font-properties">Free Video Conference platform for everyone</div>
-                <div class="masthead-subheading font-properties">Unlimited Meetings - Unlimited Hours - Unlimited Users</div>
-               <!-- <div class="masthead-heading text-uppercase">sighn-up now its free</div> -->
+                <div class="masthead-subheading">Free Video Conference platform for everyone</div>
+                <div class="masthead-heading text-uppercase">sighn-up now its free</div>
                <!-- <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/b/signup">Tell Me More</a> -->
                <!-- <a class="btn btn-outline-primary mx-2 sign-in-button" href="/b/signup"> Free Sighup </a> -->
                <a class="btn btn-primary btn-xl text-uppercase sign-in-button" href="/b/signup"> Free Sign-Up </a>
@@ -74,7 +73,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="trusted-section-heading">
-              <h4>TRUSTED BY MORE HAPPY CUSTOMERS WORLDWIDE</h4>
+              <h4>TRUSTED BY 1,250+ HAPPY CUSTOMERS WORLDWIDE</h4>
             </div>
           </div>
                     <div class="col-md-3 col-sm-6 my-3">
@@ -103,45 +102,45 @@
         <div class="row">
           <div class="col-md-8 offset-md-2">
             <div class="section-heading">
-              <h2>Our Cloud Meeting Pricing</h2>
-              <p>Our Meeting plans are designed very flexible and much effordable for your needs.Get started with our Free basic package and avail best video conference facility. Hassle free connectivity anyone can join anywhere where at any time.</p>
+              <h2>Cloud Hosting Plans</h2>
+              <p>Lorem ipsum dolor amet taxidermy sriracha cardigan salvia actually vice migas enamel pin sustainable carry scenester lomo hot chicken farm table actually kinfolk.</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="pricing-item">
-              <h4>Basic Meeting Cloud</h4>
+              <h4>Basic Cloud 5x</h4>
               <div class="price">
-                <h6>Rs. 0.0 Per Host</h6>
+                <h6>$15.50</h6>
                 <span>monthly</span>
               </div>
-              <p>Get started with our Free plan.Mostly used by individuals and small business community.</p>
+              <p>Etiam sit amet placerat lacus, sed placerat mauris. Vestibulum malesuada vehicula sapien non tempus.</p>
               <div class="dev"></div>
               <ul>
-                <li><i class="fa fa-check"></i>2000 people in each meeting</li>
-                <li><i class="fa fa-check"></i>Host unlimited Meetings</li>
-                <li><i class="fa fa-check"></i>Create Unlimited Rooms</li>
-                <li><i class="fa fa-check"></i>connect from any where from any devise</li>
-                <li><i class="fa fa-check"></i>24x7 Support</li>
+                <li><i class="fa fa-check"></i>500 GB Storage Space</li>
+                <li><i class="fa fa-check"></i>3 TB Data Transfer</li>
+                <li><i class="fa fa-check"></i>Basic Managed Panel</li>
+                <li><i class="fa fa-check"></i>24/7 Fast Support</li>
+                <li><i class="fa fa-check"></i>100 Premium Themes</li>
                 <li><i class="fa fa-check"></i>Cancel or Upgrade Anytime</li>
               </ul>
-              <a href="/b/signup" class="main-button">Start Plan</a>
+              <a href="#" class="main-button">Start Plan</a>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="pricing-item">
-              <h4>PowerHouse Meeting Cloud</h4>
+              <h4>Cloud VPS 10x</h4>
               <div class="price price-gradient">
-                <h6>Rs. 999.00 Per Host</h6>
+                <h6>$30.00</h6>
                 <span>monthly</span>
               </div>
-              <p>Fast Moving package. Mostly used by small and medium business community.</p>
+              <p>Etiam sit amet placerat lacus, sed placerat mauris. Vestibulum malesuada vehicula sapien non tempus.</p>
               <div class="dev"></div>
               <ul>
-                <li><i class="fa fa-check"></i>3000 people Per meeting</li>
-                <li><i class="fa fa-check"></i>Unlimited meetings</li>
-                <li><i class="fa fa-check"></i>Create unlimited rooms</li>
-                <li><i class="fa fa-check"></i>connect anyone from any where from any devise</li>
-                <li><i class="fa fa-check"></i>24x7 Support</li>
+                <li><i class="fa fa-check"></i>1 TB Cloud Space</li>
+                <li><i class="fa fa-check"></i>8 TB Data Transfer</li>
+                <li><i class="fa fa-check"></i>Fully Managed Panel</li>
+                <li><i class="fa fa-check"></i>15-minute Quick Support</li>
+                <li><i class="fa fa-check"></i>Unlimted Web Addons</li>
                 <li><i class="fa fa-check"></i>Cancel or Upgrade Anytime</li>
               </ul>
               <a href="#" class="gradient-button">Select Plan</a>
@@ -149,20 +148,20 @@
           </div>
           <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="pricing-item">
-              <h4>Dedicated Meeting Cloud</h4>
+              <h4>Advanced Cloud</h4>
               <div class="price">
-                <h6>Rs. 1200 Per Host</h6>
+                <h6>$72.25</h6>
                 <span>monthly</span>
               </div>
-              <p>We arranged a dedicated meeting cloud server tailored your organisation requirement.For more details please email us at - support@E-Baithak.com</p>
+              <p>Etiam sit amet placerat lacus, sed placerat mauris. Vestibulum malesuada vehicula sapien non tempus.</p>
               <div class="dev"></div>
               <ul>
-                <li><i class="fa fa-check"></i>You only pay for your Server Maintainence. Rest we will take care.</li>
-                <li><i class="fa fa-check"></i>No need to buy Hardware or software</li>
-                <li><i class="fa fa-check"></i>Easy get started process</li>
-                <li><i class="fa fa-check"></i>unlimited meetings with unlimited rooms</li>
-                <li><i class="fa fa-check"></i>connect from any where any devise</li>
-                <li><i class="fa fa-check"></i>24x7 Dedicated support</li>
+                <li><i class="fa fa-check"></i>4 TB Cloud Space</li>
+                <li><i class="fa fa-check"></i>20 TB Data Transfer</li>
+                <li><i class="fa fa-check"></i>Fully Managed Panel</li>
+                <li><i class="fa fa-check"></i>15-minute Quick Support</li>
+                <li><i class="fa fa-check"></i>Top Notch Web Apps</li>
+                <li><i class="fa fa-check"></i>Advanced Scalable</li>
               </ul>
               <a href="#" class="main-button">Take it now</a>
             </div>
@@ -171,54 +170,51 @@
       </div>
     </div>
     <!-- Pricing Ends Here -->
-        
-<!-- kumar new services code starts here -->
+<!-- kumar disabled services section to check if we can disable
 
-<!-- Services Starts Here -->
-<section class="page-section services-section" id="services">
-   <div class="services-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="section-heading">
-              <!-- <span>Hosting Services</span> -->
-              <h2>Services we provide</h2>
-              <p> When world needs to connect, we are here to help you connected. India's best online video conferencing platform available 24x7 at your service.</p>
+        <!-- Services-->
+        <section class="page-section" id="services">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Services</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">E-Commerce</h4>
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">Responsive Design</h4>
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">Web Security</h4>
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="service-item">
-              <i class="fa fa-database"></i>
-              <h4>High Definition Video Conferencing</h4>
-              <p>E-Baithak Meetings provides you a hassle free video and audio hosting environment where you can host unlimited meetings with HD video, audio and screen sharing facility.</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="service-item">
-              <i class="fa fa-database"></i>
-              <h4>Team Collaboration</h4>
-              <p>E-Baithak help your teams connected through messaging, file sharing, Trainings, whiteboarding and calling. contact us support@ebaithak.com if you want to.</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="service-item">
-              <i class="fa fa-database"></i>
-              <h4>Online Event Management</h4>
-              <p>You can host multiple online event's for hosting interactive webinars or large-scale virtual events.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Services Ends Here -->
+        </section>
 
-<!-- kumar services new code ends here -->
+-->
         <!-- Portfolio Grid-->
         <section class="page-section bg-light" id="portfolio">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Solutions</h2>
-                    <h3 class="section-subheading text-muted">We have wide variety of solutions tailored for your needs</h3>
+                    <h2 class="section-heading text-uppercase">Portfolio</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-sm-6 mb-4">
@@ -227,11 +223,11 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                               <img class="img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/07/1.person-holding-silver-iphone-6-3746946-scaled.jpg" alt="" />
+                               <img class="img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/06/01-thumbnail.jpg" alt="" />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Devise Support</div>
-                                <div class="portfolio-caption-subheading text-muted">Connect from Any Devise</div>
+                                <div class="portfolio-caption-heading">Threads</div>
+                                <div class="portfolio-caption-subheading text-muted">Illustration</div>
                             </div>
                         </div>
                     </div>
@@ -241,11 +237,11 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="https://www.nglc.co.in/wp-content/uploads/2020/07/3.-people-on-a-video-call-4226256-scaled.jpg" alt="" />
+                                <img class="img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/06/02-thumbnail.jpg" alt="" />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Video Conferencing</div>
-                                <div class="portfolio-caption-subheading text-muted">Host unlimited meetings for Free</div>
+                                <div class="portfolio-caption-heading">Explore</div>
+                                <div class="portfolio-caption-subheading text-muted">Graphic Design</div>
                             </div>
                         </div>
                     </div>
@@ -255,11 +251,11 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="https://www.nglc.co.in/wp-content/uploads/2020/07/Meeting_rooms.png" alt="" />
+                                <img class="img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/06/03-thumbnail.jpg" alt="" />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Meeting Rooms</div>
-                                <div class="portfolio-caption-subheading text-muted">Unlimited Meeting Rooms</div>
+                                <div class="portfolio-caption-heading">Finish</div>
+                                <div class="portfolio-caption-subheading text-muted">Identity</div>
                             </div>
                         </div>
                     </div>
@@ -269,11 +265,11 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/07/online-learning-5163039_1280.jpg" alt="" />
+                                <img class="img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/06/04-thumbnail.jpg" alt="" />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Online Training</div>
-                                <div class="portfolio-caption-subheading text-muted">conduct online trainings for free</div>
+                                <div class="portfolio-caption-heading">Lines</div>
+                                <div class="portfolio-caption-subheading text-muted">Branding</div>
                             </div>
                         </div>
                     </div>
@@ -283,11 +279,11 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/07/video-conference-5162927_1280.jpg" alt="" />
+                                <img class="img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/06/04-thumbnail.jpg" alt="" />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Webinars</div>
-                                <div class="portfolio-caption-subheading text-muted">Can host unlimited webinars for Free</div>
+                                <div class="portfolio-caption-heading">Southwest</div>
+                                <div class="portfolio-caption-subheading text-muted">Website Design</div>
                             </div>
                         </div>
                     </div>
@@ -297,11 +293,11 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/07/meeting-1019875_1280.jpg" alt="" />
+                                <img class="img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/06/04-thumbnail.jpg" alt="" />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Team Collaboration</div>
-                                <div class="portfolio-caption-subheading text-muted">Unlimited hassle free team colloboration</div>
+                                <div class="portfolio-caption-heading">Window</div>
+                                <div class="portfolio-caption-subheading text-muted">Photography</div>
                             </div>
                         </div>
                     </div>
@@ -312,58 +308,58 @@
         <section class="page-section" id="about">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Why E-Baithak</h2>
-                    <h3 class="section-subheading text-muted">E-Baithak - a customer Engagement Platform</h3>
+                    <h2 class="section-heading text-uppercase">About</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
                 <ul class="timeline">
                     <li>
-                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="https://www.nglc.co.in/wp-content/uploads/2020/06/about1.jpg" alt="" /></div>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/06/about1.jpg" alt="" /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>Bandwidth Required</h4>
-                                <h4 class="subheading">Low Bandwidth</h4>
+                                <h4>2009-2011</h4>
+                                <h4 class="subheading">Our Humble Beginnings</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">Our Connections work in week Bandwidth</p></div>
+                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
                         </div>
                     </li>
                     <li class="timeline-inverted">
-                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="https://www.nglc.co.in/wp-content/uploads/2020/06/about2.jpg" alt="" /></div>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/06/about2.jpg" alt="" /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>Global Connectivity</h4>
-                                <h4 class="subheading">From Any place</h4>
+                                <h4>March 2011</h4>
+                                <h4 class="subheading">An Agency is Born</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">E-Baithak platform is global. You can connect through us from any where in the world</p></div>
+                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
                         </div>
                     </li>
                     <li>
-                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="https://www.nglc.co.in/wp-content/uploads/2020/06/about3.jpg" alt="" /></div>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/06/about3.jpg" alt="" /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>Connectivity</h4>
-                                <h4 class="subheading">Simple Connectivity</h4>
+                                <h4>December 2012</h4>
+                                <h4 class="subheading">Transition to Full Service</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">No Application or Mobile app required. Just connect from any devise with a simple url</p></div>
+                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
                         </div>
                     </li>
                     <li class="timeline-inverted">
-                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="https://www.nglc.co.in/wp-content/uploads/2020/06/about4.jpg" alt="" /></div>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="http://www.nglc.co.in/wp-content/uploads/2020/06/about4.jpg" alt="" /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>Unlimited Connections</h4>
+                                <h4>July 2014</h4>
                                 <h4 class="subheading">Phase Two Expansion</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">Sky is not a limit for us. You can launch unlimited meetings 24x7 - 365 Days</p></div>
+                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
                         </div>
                     </li>
                     <li class="timeline-inverted">
                         <div class="timeline-image">
                             <h4>
-                                We Support
+                                Be Part
                                 <br />
-                                When you are in
+                                Of Our
                                 <br />
-                                Need!
+                                Story!
                             </h4>
                         </div>
                     </li>
@@ -374,34 +370,43 @@
         <section class="page-section bg-light" id="team">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Covid-19 Special Support</h2>
-                    <h3 class="section-subheading text-muted">We hear you and We care about you.We are hear to support in this COVID-19 Pandemic period for everyone</h3>
+                    <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="https://www.nglc.co.in/wp-content/uploads/2020/07/remote_work.png" alt="" />
-                            <h4>Remote Work</h4>
-                            <p class="text-muted">We help you to handle your work Remotely during this Pandemic Period</p>
+                            <img class="mx-auto rounded-circle" src="http://www.nglc.co.in/wp-content/uploads/2020/06/1-1.jpg" alt="" />
+                            <h4>Kay Garland</h4>
+                            <p class="text-muted">Lead Designer</p>
+                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="https://www.nglc.co.in/wp-content/uploads/2020/07/industry_support.png" alt="" />
-                            <h4>Global Industrial Support</h4>
-                            <p class="text-muted">Any Industry</p>
+                            <img class="mx-auto rounded-circle" src="http://www.nglc.co.in/wp-content/uploads/2020/06/2-1.jpg" alt="" />
+                            <h4>Larry Parker</h4>
+                            <p class="text-muted">Lead Marketer</p>
+                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="http://www.nglc.co.in/wp-content/uploads/2020/07/education_support.png" alt="" />
-                            <h4>Education Support</h4>
-                            <p class="text-muted">A Special Support for Education</p>
-                      </div>
+                            <img class="mx-auto rounded-circle" src="http://www.nglc.co.in/wp-content/uploads/2020/06/3-1.jpg" alt="" />
+                            <h4>Diana Petersen</h4>
+                            <p class="text-muted">Lead Developer</p>
+                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">E-Baithak - a Product of India - VOCAL FOR LOCAL</p></div>
+                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p></div>
                 </div>
             </div>
         </section>
@@ -429,7 +434,7 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Contact Us</h2>
-                   <h3 class="section-subheading text-muted">we are hear to support you, when you need to connect</h3>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
                 <form id="contactForm" name="sentMessage" novalidate="novalidate">
                     <div class="row align-items-stretch mb-5">
@@ -483,16 +488,21 @@
         <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="close-modal" data-dismiss="modal"><img src="https://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" alt="Close modal" /></div>
+                    <div class="close-modal" data-dismiss="modal"><img src="http://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" alt="Close modal" /></div>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project Details Go Here-->
-                                    <h2 class="text-uppercase">Devise Support</h2>
-                                    <p class="item-intro text-muted">Connect from Any Devise</p>
-                                    <img class="img-fluid d-block mx-auto" src="https://www.nglc.co.in/wp-content/uploads/2020/07/1.person-holding-silver-iphone-6-3746946-scaled.jpg" alt="" />
-                                    <p>E-Baithak is very simple and easy to connect with any Devise - mobile/laptop/desktop with simple URL. No need of any mobile app.!</p>
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="http://www.nglc.co.in/wp-content/uploads/2020/06/01-full.jpg" alt="" />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>Date: January 2020</li>
+                                        <li>Client: Threads</li>
+                                        <li>Category: Illustration</li>
+                                    </ul>
                                     <button class="btn btn-primary" data-dismiss="modal" type="button">
                                         <i class="fas fa-times mr-1"></i>
                                         Close Project
@@ -508,16 +518,21 @@
         <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="close-modal" data-dismiss="modal"><img src="https://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" alt="Close modal" /></div>
+                    <div class="close-modal" data-dismiss="modal"><img src="http://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" alt="Close modal" /></div>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project Details Go Here-->
-                                    <h2 class="text-uppercase">Video & Audio Conferencing</h2>
-                                    <p class="item-intro text-muted">Host unlimited meetings for Free</p>
-                                    <img class="img-fluid d-block mx-auto" src="https://www.nglc.co.in/wp-content/uploads/2020/07/3.-people-on-a-video-call-4226256-scaled.jpg" alt="" />
-                                    <p>You can host multiple High definition video and Audio meetings for free!</p>
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="http://www.nglc.co.in/wp-content/uploads/2020/06/02-full.jpg" alt="" />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>Date: January 2020</li>
+                                        <li>Client: Explore</li>
+                                        <li>Category: Graphic Design</li>
+                                    </ul>
                                     <button class="btn btn-primary" data-dismiss="modal" type="button">
                                         <i class="fas fa-times mr-1"></i>
                                         Close Project
@@ -533,16 +548,21 @@
         <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="close-modal" data-dismiss="modal"><img src="https://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" alt="Close modal" /></div>
+                    <div class="close-modal" data-dismiss="modal"><img src="http://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" alt="Close modal" /></div>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project Details Go Here-->
-                                    <h2 class="text-uppercase">Meeting Rooms</h2>
-                                    <p class="item-intro text-muted">Unlimited Meeting Rooms.</p>
-                                    <img class="img-fluid d-block mx-auto" src="https://www.nglc.co.in/wp-content/uploads/2020/07/Meeting_rooms.png" alt="" />
-                                    <p>You can create unlimited meeting rooms with multiple organiser promotions with no restrictions.!</p>
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="http://www.nglc.co.in/wp-content/uploads/2020/06/03-full.jpg" alt="" />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>Date: January 2020</li>
+                                        <li>Client: Finish</li>
+                                        <li>Category: Identity</li>
+                                    </ul>
                                     <button class="btn btn-primary" data-dismiss="modal" type="button">
                                         <i class="fas fa-times mr-1"></i>
                                         Close Project
@@ -558,16 +578,21 @@
         <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="close-modal" data-dismiss="modal"><img src="https://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" alt="Close modal" /></div>
+                    <div class="close-modal" data-dismiss="modal"><img src="http://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" alt="Close modal" /></div>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project Details Go Here-->
-                                    <h2 class="text-uppercase">Online Training</h2>
-                                    <p class="item-intro text-muted">Host Multiple Online trainings For Free.</p>
-                                    <img class="img-fluid d-block mx-auto" src="http://www.nglc.co.in/wp-content/uploads/2020/07/online-learning-5163039_1280.jpg" alt="" />
-                                    <p>conduct online trainings for free!</p>
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="http://www.nglc.co.in/wp-content/uploads/2020/06/04-full.jpg" alt="" />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>Date: January 2020</li>
+                                        <li>Client: Lines</li>
+                                        <li>Category: Branding</li>
+                                    </ul>
                                     <button class="btn btn-primary" data-dismiss="modal" type="button">
                                         <i class="fas fa-times mr-1"></i>
                                         Close Project
@@ -583,16 +608,21 @@
         <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="close-modal" data-dismiss="modal"><img src="https://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" alt="Close modal" /></div>
+                    <div class="close-modal" data-dismiss="modal"><img src="http://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" alt="Close modal" /></div>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project Details Go Here-->
-                                    <h2 class="text-uppercase">Webinars</h2>
-                                    <p class="item-intro text-muted">Host unlimited Webinars.No Restrictions</p>
-                                    <img class="img-fluid d-block mx-auto" src="http://www.nglc.co.in/wp-content/uploads/2020/07/video-conference-5162927_1280.jpg" alt="" />
-                                    <p>Can host unlimited webinars for Free with unlimited capacity!</p>
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="http://www.nglc.co.in/wp-content/uploads/2020/06/05-full.jpg" alt="" />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>Date: January 2020</li>
+                                        <li>Client: Southwest</li>
+                                        <li>Category: Website Design</li>
+                                    </ul>
                                     <button class="btn btn-primary" data-dismiss="modal" type="button">
                                         <i class="fas fa-times mr-1"></i>
                                         Close Project
@@ -608,16 +638,21 @@
         <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="close-modal" data-dismiss="modal"><img src="https://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" alt="Close modal" /></div>
+                    <div class="close-modal" data-dismiss="modal"><img src="http://www.nglc.co.in/wp-content/uploads/2020/06/close-icon.svg" alt="Close modal" /></div>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project Details Go Here-->
-                                    <h2 class="text-uppercase">Team Collaboration</h2>
-                                    <p class="item-intro text-muted">Host hassle free video and Audio conferences for your team colloboration.</p>
-                                    <img class="img-fluid d-block mx-auto" src="http://www.nglc.co.in/wp-content/uploads/2020/07/meeting-1019875_1280.jpg" alt="" />
-                                    <p>Unlimited hassle free team colloboration!</p>
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="http://www.nglc.co.in/wp-content/uploads/2020/06/06-full.jpg" alt="" />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>Date: January 2020</li>
+                                        <li>Client: Window</li>
+                                        <li>Category: Photography</li>
+                                    </ul>
                                     <button class="btn btn-primary" data-dismiss="modal" type="button">
                                         <i class="fas fa-times mr-1"></i>
                                         Close Project
@@ -635,10 +670,10 @@
         <!-- Third party plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
         <!-- Contact form JS-->
-        <script src="assets/javascripts/jqBootstrapValidation.js"></script>
-        <script src="assets/javascripts/contact_me.js"></script>
+        <script src="assets/mail/jqBootstrapValidation.js"></script>
+        <script src="assets/mail/contact_me.js"></script>
         <!-- Core theme JS-->
-        <script src="assets/javascripts/scripts.js"></script>
+        <script src="js/scripts.js"></script>
     </body>
 </html>
 

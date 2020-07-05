@@ -1,209 +1,3 @@
-/* BigBlueButtonpplication.scss open source conferencing system - http://www.bigbluebutton.org/.
-*
-* Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
-*
-* This program is free software; you can redistribute it and/or modify it under the
-* terms of the GNU Lesser General Public License as published by the Free Software
-* Foundation; either version 3.0 of the License, or (at your option) any later
-* version.
-*
-* BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
-* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-*
-* You should have received a copy of the GNU Lesser General Public License along
-* with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-*/
-
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_self
- */
-@import "tabler/variables";
-@import "bootstrap";
-@import "jquery-ui/sortable";
-@import "tabler-custom";
-@import "font-awesome-sprockets";
-@import "font-awesome";
-@import "monolith.min.scss";
-@import "bootstrap-select.min";
-
-@import "utilities/variables";
-@import "admins";
-@import "main";
-@import "rooms";
-@import "sessions";
-@import "utilities/fonts";
-@import "users";
-
-.color-me{
-    color:blue !important; 
-
-}
-
-.font-properties{
-  color:black !important;
-  //position: absolute;
-  float: right;
-  //padding: 70px 0;
-  //right: 10px;
-  //width: 700px;
-  //border: 3px solid #73AD21;
-  //padding: 80px;
-}
-
-
-.bold-me{
-   font-weight: bold !important;
-}
-
-* {
-  outline: none !important;
-}
-
-html, body {
-  font-family: "Source Sans Pro" !important;
-  position: relative;
-  width: 100%;
-  height: 100%;
- background-color: white;
-}
-
-a {
-  text-decoration: none !important;
-  cursor: pointer;
-}
-
-.dotted_underline {
-  border-bottom: 3px dashed #d3d3d3;
-  width: 100%;
-}
-
-.disable-click {
-  pointer-events: none;
-}
-
-.header {
-  height: $header-height;
-}
-
-.wrapper {
-  position: relative;
-  height: auto;
-  min-height: calc(100% - #{$header-height} - #{$footer-height});
-}
-
-.footer {
-  height: $footer-height;
-  width: 100%;
-}
-
-.background {
-  background-color: $background-color;
-}
-
-.error-section {
-  background-color: $error-background-color;
-}
-
-.font-weight-400 {
-  font-weight: 400;
-}
-
-.subtitle {
-  font-size: 25px;
-}
-
-.force-bottom {
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
-}
-
-.invite-link-input {
-  width: 100%;
-}
-
-.no-border-top {
-  td {
-    border-top: none;
-  }
-}
-
-
-.force-text-normal {
-  color: #495057;
-}
-
-.terms {
-  overflow: scroll;
-  height: 55vh;
-}
-
-[contenteditable]:focus {
-  outline: 0px solid transparent;
-}
-
-.cookies-banner {
-  color: white;
-  background-color: $button-color-blue;
-  #cookies-agree-button {
-    margin: 0;
-  }
-}
-
-input:focus {
-    border-color: $primary !important;
-}
-
-.list-group-item-action.active {
-  color: $primary;
-}
-
-.header .header-nav {
-  color: $text-muted !important;
-
-  &:hover {
-    padding-bottom: 21px;
-    border-bottom: 1px solid $primary;
-  }
-
-  &.active {
-    color: $primary !important;
-    padding-bottom: 21px;
-    border-bottom: 1px solid $primary;
-  }
-}
-
-table {
-  thead {
-    th[data-order]:hover {
-      cursor: pointer;
-    }
-  }
-}
-
-.cursor-pointer{
-  cursor: pointer;
-}
-
-#delete-confirm:disabled {
-  cursor: not-allowed;
-}
-
-
-/* kumar code for testing styles css pasted here */
-
 @charset "UTF-8";
 /*!
 * Start Bootstrap - Agency v6.0.2 (https://startbootstrap.com/template-overviews/agency)
@@ -216,7 +10,6 @@ table {
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -4115,7 +3908,7 @@ input[type=button].btn-block {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
-} 
+}
 .nav-link:hover, .nav-link:focus {
   text-decoration: none;
 }
@@ -4297,7 +4090,7 @@ input[type=button].btn-block {
 .navbar-expand-sm > .container-md,
 .navbar-expand-sm > .container-lg,
 .navbar-expand-sm > .container-xl {
-    flex-wrap: nowrap; 
+    flex-wrap: nowrap;
   }
   .navbar-expand-sm .navbar-collapse {
     display: flex !important;
@@ -10214,7 +10007,7 @@ p {
 }
 
 .page-section {
-  padding:0px 0;
+  padding: 6rem 0;
 }
 .page-section h2.section-heading {
   font-size: 2.5rem;
@@ -10347,7 +10140,7 @@ header.masthead {
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  background-image: url('http://www.nglc.co.in/wp-content/uploads/2020/07/2.iStock-1164645437.jpg');
+  background-image: url("../assets/header-bg.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
@@ -10359,7 +10152,6 @@ header.masthead .masthead-subheading {
   line-height: 1.5rem;
   margin-bottom: 25px;
   font-family: "Droid Serif", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  
 }
 header.masthead .masthead-heading {
   font-size: 3.25rem;
@@ -10654,7 +10446,7 @@ header.masthead .masthead-heading {
 
 section#contact {
   background-color: #212529;
-  background-image: url('https://www.nglc.co.in/wp-content/uploads/2020/06/map-image.png');
+  background-image: url("../assets/map-image.png");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -10711,211 +10503,3 @@ section#contact form#contactForm :-ms-input-placeholder {
   font-size: 0.9rem;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-
-/* kumar Trusted style starts here */
-
-/* Trusted Style */
-.trusted-section {
-	padding: 50px 0px 40px 0px;
-	background-color: #f7f7f7;
-}
-.trusted-section-heading {
-	text-align: center;
-}
-.trusted-section-heading h4 {
-	font-size: 17px;
-	text-transform: uppercase;
-	font-weight: 600;
-	color: #1e1e1e;
-	margin-bottom: 50px;
-}
-.trusted-item img {
-	max-width: 156px;
-	margin: 0 auto;
-}
-
-/* kumar trusted style ends here */
-
-/* kumar pricing module starts here */
-
-/* Pricing Style */
-.pricing-section {
-	margin-top:1%;
-}
-.background-image-pricing {
-	background-image: url('https://www.nglc.co.in/wp-content/uploads/2020/06/pricing-bg.jpg');
-	background-size: cover;
-	background-repeat: no-repeat;
-	min-height: 500px;
-	position: absolute;
-	width: 100%;
-}
-.pricing-section .section-heading {
-	text-align: center;
-	margin-top: 80px;
-}
-.pricing-section .section-heading h2,
-.pricing-section .section-heading p {
-	color: #fff;
-}
-.pricing-item {
-	background-color: #fff;
-	text-align: center;
-	padding: 50px 50px 30px 50px;
-	position: relative;
-	box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-}
-.pricing-item h4 {
-	text-transform: uppercase;
-	font-size: 17px;
-	font-weight: 700;
-	color: #1e1e1e;
-	letter-spacing: 0.5px;
-	margin-bottom: 45px;
-}
-.pricing-item .price-gradient {
-	background: rgb(114,2,187);
-    background: linear-gradient(145deg, rgba(114,2,187,1) 0%, rgba(50,100,245,1) 100%);
-}
-.pricing-item .price {
-	background-color: #00bcd4;
-	width: 100%;
-	padding: 30px 0px;
-	margin-bottom: 35px;
-}
-.pricing-item .price h6 {
-	font-size: 32px;
-	color: #fff;
-	font-weight: 900;
-	letter-spacing: 0.5px;
-	margin-top: 0px;
-	margin-bottom: 0px;
-}
-.pricing-item .price span {
-	display: inline-block;
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 14px;
-	font-weight: 700;
-}
-.pricing-item .dev {
-	width: 100%;
-	height: 1px;
-	background-color: #eee;
-	margin: 35px 0px 30px 0px;
-}
-.pricing-item ul {
-	padding: 0;
-	margin: 0;
-	list-style: none;
-	text-align: left;
-}
-.pricing-item ul li {
-	display: inline-block;
-	margin-bottom: 20px;
-	font-size: 16px;
-	color: #6a6a6a;
-}
-.pricing-item ul li i {
-	font-size: 14px;
-	margin-right: 8px;
-	color: #491bb1;
-}
-.pricing-item ul li:last-child {
-	margin-bottom: 40px;
-}
-.pricing-item a.main-button,
-.pricing-item a.gradient-button {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-	bottom: -25px;
-}
-/* kumar pricing mode ends here */
-
-/* kumar services css code starts here */
-/* Services Style */
-.services-section {
-	margin-top: 140px;
-}
-.services-section .section-heading h2 {
-	color: #1e1e1e;
-        text-align: center;
-}
-.services-section .service-item {
-	background-color: #f7f7f7;
-	border-radius: 5px;
-	padding: 50px 40px;
-	text-align: center;
-	margin-bottom: 30px;
-}
-.services-page .service-item {
-	margin-bottom: 30px;
-}
-.services-section .service-item i {
-	color: #fff;
-	background-color: #00bcd4;
-	display: inline-block;
-	width: 100px;
-	height: 100px;
-	line-height: 100px;
-	text-align: center;
-	border-radius: 50%;
-	font-size: 32px;
-}
-.services-section .service-item h4 {
-	margin-top: 35px;
-	font-size: 19px;
-	color: #1e1e1e;
-	text-transform: capitalize;
-	font-weight: 500;
-	letter-spacing: 0.5px;
-	margin-bottom: 30px;
-}
-
-/* kumar services css code ends here */
-
-/* kumar main button and gradient button css starts here */
-a.main-button {
-	outline: none;
-	cursor: pointer;
-	display: inline-block;
-	height: 50px;
-	line-height: 50px;
-	padding: 0px 25px;
-	border: none;
-	margin-left: 10px;
-	background-color: #00bcd4;
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 15px;
-	font-weight: 500;
-	letter-spacing: 0.5px;
-	transition: all 0.5s;
-}
-a.main-button:hover {
-	background-color: #00a4b9;
-}
-a.gradient-button {
-	outline: none;
-	cursor: pointer;
-	display: inline-block;
-	height: 50px;
-	line-height: 50px;
-	padding: 0px 25px;
-	border: none;
-	margin-left: 10px;
-	background: rgb(114,2,187);
-    background: linear-gradient(145deg, rgba(114,2,187,1) 0%, rgba(50,100,245,1) 100%);
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 15px;
-	font-weight: 500;
-	letter-spacing: 0.5px;
-	transition: all 0.5s;
-}
-a.gradient-button:hover {
-	background: rgb(114,2,187);
-    background: linear-gradient(145deg, rgba(50,100,245,1) 0%, rgba(114,2,187,1) 100%);
-}
-/* kumar main button and gradient button css ends here */

@@ -1,0 +1,180 @@
+/* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+*
+* Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 3.0 of the License, or (at your option) any later
+* version.
+*
+* BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+*/
+
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+@import "tabler/variables";
+@import "bootstrap";
+@import "jquery-ui/sortable";
+@import "tabler-custom";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "monolith.min.scss";
+@import "bootstrap-select.min";
+
+@import "utilities/variables";
+@import "admins";
+@import "main";
+@import "rooms";
+@import "sessions";
+@import "utilities/fonts";
+@import "users";
+
+* {
+  outline: none !important;
+}
+
+html, body {
+  font-family: "Source Sans Pro" !important;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+a {
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.dotted_underline {
+  border-bottom: 3px dashed #d3d3d3;
+  width: 100%;
+}
+
+.disable-click {
+  pointer-events: none;
+}
+
+.header {
+  height: $header-height;
+}
+
+.wrapper {
+  position: relative;
+  height: auto;
+  min-height: calc(100% - #{$header-height} - #{$footer-height});
+}
+
+.footer {
+  height: $footer-height;
+  width: 100%;
+}
+
+.background {
+  background-color: $background-color;
+}
+
+.error-section {
+  background-color: $error-background-color;
+}
+
+.font-weight-400 {
+  font-weight: 400;
+}
+
+.subtitle {
+  font-size: 25px;
+}
+
+.force-bottom {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.invite-link-input {
+  width: 100%;
+}
+
+.no-border-top {
+  td {
+    border-top: none;
+  }
+}
+
+.force-text-normal {
+  color: #495057;
+}
+
+.terms {
+  overflow: scroll;
+  height: 55vh;
+}
+
+[contenteditable]:focus {
+  outline: 0px solid transparent;
+}
+
+.cookies-banner {
+  color: white;
+  background-color: $button-color-blue;
+  #cookies-agree-button {
+    margin: 0;
+  }
+}
+
+input:focus {
+    border-color: $primary !important;
+}
+
+.list-group-item-action.active {
+  color: $primary;
+}
+
+.header .header-nav {
+  color: $text-muted !important;
+
+  &:hover {
+    padding-bottom: 21px;
+    border-bottom: 1px solid $primary;
+  }
+
+  &.active {
+    color: $primary !important;
+    padding-bottom: 21px;
+    border-bottom: 1px solid $primary;
+  }
+}
+
+table {
+  thead {
+    th[data-order]:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+#delete-confirm:disabled {
+  cursor: not-allowed;
+}
