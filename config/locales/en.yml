@@ -411,6 +411,7 @@ en:
       current: "Current Presentation:"
       footer: "Allowed file types: .doc, .docx, .pptx, .pdf"
       footer_bottom: "Maximum file size: 30 MB or 150 pages"
+      invalid: Invalid size/file type. Please see the restrictions below.
       title: Add Presentation
       use: Use Presentation
     rename_recording:
