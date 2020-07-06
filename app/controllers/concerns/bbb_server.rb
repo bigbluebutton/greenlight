@@ -79,7 +79,7 @@ module BbbServer
     begin
       meeting = if room.presentation.attached?
         modules = BigBlueButton::BigBlueButtonModules.new
-        modules.add_presentation(:base64, presentation_file(room), room.presentation.filename)
+        modules.add_presentation(:url, rails_blob_url(room.presentation, disposition: "attachment"))
         bbb_server.create_meeting(room.name, room.bbb_id, create_options, modules)
       else
         bbb_server.create_meeting(room.name, room.bbb_id, create_options)
