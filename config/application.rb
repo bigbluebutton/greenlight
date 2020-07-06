@@ -114,7 +114,7 @@ module Greenlight
     config.enable_google_calendar_button = (ENV['ENABLE_GOOGLE_CALENDAR_BUTTON'] == "true")
 
     # Enum containing the different possible registration methods
-    config.registration_methods = { open: "0", invite: "1", approval: "2" }
+    config.registration_methods = { invite: "1", approval: "2" }
 
     config.google_analytics = ENV["GOOGLE_ANALYTICS_TRACKING_ID"].present?
 
@@ -152,7 +152,7 @@ module Greenlight
     end
 
     # Default limit on number of rooms users can create
-    config.number_of_rooms_default = 15
+    config.number_of_rooms_default = 10
 
     # Allow users to share rooms by default
     config.shared_access_default = "true"
