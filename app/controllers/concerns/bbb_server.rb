@@ -79,7 +79,8 @@ module BbbServer
     begin
       meeting = if room.presentation.attached?
         modules = BigBlueButton::BigBlueButtonModules.new
-        modules.add_presentation(:url, room.presentation.service_url)
+        logger.info("Creating a meeting with url #{rails_blob_url(room.presentation)}")
+        modules.add_presentation(:url, rails_blob_url(room.presentation))
         bbb_server.create_meeting(room.name, room.bbb_id, create_options, modules)
       else
         bbb_server.create_meeting(room.name, room.bbb_id, create_options)
@@ -114,16 +115,5 @@ module BbbServer
   def delete_all_recordings(bbb_id)
     record_ids = bbb_server.get_recordings(meetingID: bbb_id)[:recordings].pluck(:recordID)
     bbb_server.delete_recordings(record_ids) unless record_ids.empty?
-  end
-
-  private
-
-  def presentation_file(room)
-    path = ActiveStorage::Blob.service.send(:path_for, room.presentation.key)
-    file_content = ""
-    File.open(path, "r") do |file|
-      file_content = Base64.encode64(file.read)
-    end
-    file_content
   end
 end
