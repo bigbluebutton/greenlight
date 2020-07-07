@@ -79,7 +79,7 @@ module BbbServer
     begin
       meeting = if room.presentation.attached?
         modules = BigBlueButton::BigBlueButtonModules.new
-        logger.info("Creating a meeting with url #{rails_blob_url(room.presentation)}")
+        logger.info("Support: Room #{room.uid} starting using presentation: #{rails_blob_url(room.presentation)}")
         modules.add_presentation(:url, rails_blob_url(room.presentation))
         bbb_server.create_meeting(room.name, room.bbb_id, create_options, modules)
       else
