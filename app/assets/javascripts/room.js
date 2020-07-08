@@ -325,6 +325,5 @@ function updatePreuploadPresentationModal(target) {
 }
 
 function validFileUpload(file) {
-  console.log(file.size/1024/1024)
   return file.size/1024/1024 <= 30
 }
