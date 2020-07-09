@@ -26,7 +26,7 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'mini_racer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '~> 4.3.3'
+gem 'jquery-rails', '~> 4.4'
 gem 'jquery-ui-rails'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
