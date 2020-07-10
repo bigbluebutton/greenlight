@@ -91,6 +91,9 @@ en:
         display: Set
         clear: Clear
         time: "Example: Update scheduled on December 13 @ 23:00 ET. Users may experience problems signing in."        
+      preupload:
+        info: Users can preupload a presentation to be used as the default presentation for that specific room
+        title: Allow Users to Preupload Presentations
       registration:
         info: Change the way that users register to the website
         title: Registration Method

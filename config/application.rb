@@ -160,6 +160,9 @@ module Greenlight
     # Don't require recording consent by default
     config.require_consent_default = "false"
 
+    # Don't allow users to preupload presentations by default
+    config.preupload_presentation_default = "false"
+
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
   end

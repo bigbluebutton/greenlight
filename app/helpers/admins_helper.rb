@@ -61,6 +61,14 @@ module AdminsHelper
     end
   end
 
+  def preupload_string
+    if @settings.get_value("Preupload Presentation") == "true"
+      I18n.t("administrator.site_settings.authentication.enabled")
+    else
+      I18n.t("administrator.site_settings.authentication.disabled")
+    end
+  end
+
   def recording_default_visibility_string
     if @settings.get_value("Default Recording Visibility") == "public"
       I18n.t("recording.visibility.public")
