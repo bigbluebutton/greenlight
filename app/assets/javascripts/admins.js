@@ -245,13 +245,13 @@ function loadColourSelectors() {
   })
 
   pickrLighten.on("save", (color, instance) => {
-    $.post($("#coloring-path-lighten").val(), {value: color.toHEXA().toString()}).done(function() {
+    $.post($("#coloring-path-lighten").val(), {value: color.toHEXA().toString(), tab: "appearance"}).done(function() {
       location.reload()
     });
   })
 
   pickrDarken.on("save", (color, instance) => {
-    $.post($("#coloring-path-darken").val(), {value: color.toHEXA().toString()}).done(function() {
+    $.post($("#coloring-path-darken").val(), {value: color.toHEXA().toString(), tab: "appearance"}).done(function() {
       location.reload()
     });
   })
