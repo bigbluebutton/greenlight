@@ -240,7 +240,7 @@ class RoomsController < ApplicationController
   # POST /:room_uid/remove_shared_access
   def remove_shared_access
     begin
-      SharedAccess.find_by!(room_id: @room.id, user_id: params[:user_id]).destroy
+      SharedAccess.find_by!(room_id: @room.id, user_id: current_user).destroy
       flash[:success] = I18n.t("room.remove_shared_access_success")
     rescue => e
       logger.error "Support: Error in removing room shared access: #{e}"
