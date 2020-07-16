@@ -86,15 +86,13 @@ class Room < ApplicationRecord
   def self.order_by_status(table, ids)
     return table if ids.blank?
 
-    order_string = "CASE bbb_id "
+    # Get active rooms first
+    t1 = table.where(bbb_id: ids)
 
-    ids.each_with_index do |id, index|
-      order_string += "WHEN '#{id}' THEN #{index} "
-    end
+    # Get other rooms sorted by last session date || created at date (whichever is higher)
+    t2 = table.where.not(bbb_id: ids).order("COALESCE(rooms.last_session,rooms.created_at) DESC")
 
-    order_string += "ELSE #{ids.length} END"
-
-    table.order(Arel.sql(order_string))
+    t1 + t2
   end
 
   def settings_hash
