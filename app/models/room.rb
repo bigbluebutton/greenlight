@@ -51,6 +51,8 @@ class Room < ApplicationRecord
     # Rely on manual ordering if trying to sort by status
     return order_by_status(table, running_ids) if column == "status"
 
+    return table.order("COALESCE(rooms.last_session,rooms.created_at) DESC") if column == "created_at"
+
     return table.order(Arel.sql("rooms.#{column} #{direction}")) if table.column_names.include?(column)
 
     return table.order(Arel.sql("#{column} #{direction}")) if column == "users.name"
@@ -87,12 +89,12 @@ class Room < ApplicationRecord
     return table if ids.blank?
 
     # Get active rooms first
-    t1 = table.where(bbb_id: ids)
+    active_rooms = table.where(bbb_id: ids)
 
     # Get other rooms sorted by last session date || created at date (whichever is higher)
-    t2 = table.where.not(bbb_id: ids).order("COALESCE(rooms.last_session,rooms.created_at) DESC")
+    inactive_rooms = table.where.not(bbb_id: ids).order("COALESCE(rooms.last_session,rooms.created_at) DESC")
 
-    t1 + t2
+    active_rooms + inactive_rooms
   end
 
   def settings_hash
