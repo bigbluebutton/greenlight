@@ -182,6 +182,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :shared_access_allowed
 
+  # Indicates whether users are allowed to share rooms
+  def recording_consent_required?
+    @settings.get_value("Require Recording Consent") == "true"
+  end
+  helper_method :recording_consent_required?
+
   # Returns the page that the logo redirects to when clicked on
   def home_page
     return admins_path if current_user.has_role? :super_admin

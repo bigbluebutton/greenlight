@@ -202,7 +202,7 @@ function updateCurrentSettings(settings_path){
     $("#room_require_moderator_approval").prop("checked", $("#room_require_moderator_approval").data("default") || settings.requireModeratorApproval)
     $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default") || settings.anyoneCanStart)
     $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default") || settings.joinModerator)
-    $("#room_recording").prop("checked", $("#room_recording").data("default") || settings.recording)
+    $("#room_recording").prop("checked", $("#room_recording").data("default") || Boolean(settings.recording))
   })
 }
 

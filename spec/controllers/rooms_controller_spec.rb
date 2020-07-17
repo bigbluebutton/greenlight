@@ -202,8 +202,10 @@ describe RoomsController, type: :controller do
       @owner.main_room.update_attribute(:room_settings, { "muteOnStart": true, "requireModeratorApproval": true,
       "anyoneCanStart": true, "joinModerator": true }.to_json)
 
-      json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
-        "\"anyoneCanStart\":true,\"joinModerator\":true}"
+      json_room_settings = { "anyoneCanStart" => true,
+                             "joinModerator" => true,
+                             "muteOnStart" => true,
+                             "requireModeratorApproval" => true }
 
       get :room_settings, params: { room_uid: @owner.main_room }, format: :json
 

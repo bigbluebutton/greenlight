@@ -98,7 +98,7 @@ class Room < ApplicationRecord
   end
 
   def recording_enabled?
-    room_settings["recording"]
+    JSON.parse(room_settings)["recording"]
   end
 
   private

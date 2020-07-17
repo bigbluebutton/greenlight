@@ -30,8 +30,6 @@ module Joiner
       ""
     end
 
-    flash.now[:info] = t("room.recording_present") if room_setting_with_config("recording")
-
     @search, @order_column, @order_direction, pub_recs =
       public_recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
 

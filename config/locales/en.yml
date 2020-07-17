@@ -82,6 +82,9 @@ en:
         info: Set the default recording visbility for new recordings
         title: Recording Default Visibility
         warning: This setting will only be applied to rooms that aren't running
+      require_consent:
+        info: This setting enables a room setting that allows room owners to specify which rooms can be recorded. Users joining a recorded room must consent before joining.
+        title: Require Room Owner and Joiner Consent to Recording
       maintenance_banner:
         info: Displays a Banner to inform the user of a scheduled maintenance
         title: Maintenance Banner

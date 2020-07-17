@@ -157,6 +157,9 @@ module Greenlight
     # Allow users to share rooms by default
     config.shared_access_default = "true"
 
+    # Don't require recording consent by default
+    config.require_consent_default = "false"
+
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
   end
