@@ -97,12 +97,8 @@ class Room < ApplicationRecord
     active_rooms + inactive_rooms
   end
 
-  def settings_hash
-    JSON.parse(room_settings || "{}")
-  end
-
-  def recording?
-    settings_hash["recording"]
+  def recording_enabled?
+    JSON.parse(room_settings)["recording"]
   end
 
   private

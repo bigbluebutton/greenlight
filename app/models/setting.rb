@@ -58,6 +58,8 @@ class Setting < ApplicationRecord
       Rails.configuration.registration_method_default
     when "Room Authentication"
       false
+    when "Require Recording Consent"
+      Rails.configuration.require_consent_default
     when "Room Limit"
       Rails.configuration.number_of_rooms_default
     when "Shared Access"

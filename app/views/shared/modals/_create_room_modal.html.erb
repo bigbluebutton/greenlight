@@ -78,11 +78,10 @@
               </label>
             <% end %>
             <% recording = room_configuration("Room Configuration Recording") %>
-            <% if recording != "disabled" %>
+            <% if recording_consent_required? && recording != "disabled" %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if recording == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.recording")%></span>
                 <%= f.check_box :recording, class: "not-running-only custom-switch-input", data: { default: recording == "enabled" }, checked: false %>
-                <span class="float-right cursor-pointer running-only text-danger" style="display: none"><%= t("modal.room_settings.session_active")%></span>
                 <span class="custom-switch-indicator not-running-only float-right cursor-pointer"></span>
             </label>
             <% end %>
