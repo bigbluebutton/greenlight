@@ -13,6 +13,8 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
+<% content_for(:page_desc) { t("room.invitation_description", name: @room.name) } %>
+
 <% valid_access_code = @room.access_code.nil? || @room.access_code.empty? || @room.access_code == session[:access_code] %>
 <%= render 'rooms/components/room_event', render_recordings: valid_access_code do %>
   <% if room_authentication_required %>
