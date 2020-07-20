@@ -45,9 +45,9 @@ en:
         invalid: Invalid URL
       legal:
         change: Change URL
-        info: Change the Legal Link that appears in the bottom of the page
-        placeholder: Legal URL...
-        title: Legal
+        info: Change the Terms Link that appears in the bottom of the page
+        placeholder: Terms URL...
+        title: Terms
         invalid: Invalid URL
       privpolicy:
         change: Change URL
@@ -276,7 +276,7 @@ en:
     designs: Custom Designs
     authentication: User Authentication
   footer:
-    legal: Legal
+    legal: Terms
     privpolicy: Privacy Policy
     powered_by: Powered by %{href}.
   forgot_password:
