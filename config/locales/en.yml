@@ -526,6 +526,7 @@ en:
       fail: Failed to delete room (%{error})
     enter_the_access_code: Enter the room's access code
     invalid_provider: You have entered an invalid url. Please check the url and try again.
+    invitation_description: You have been invited to join %{name} using BigBlueButton. To join, click the link above and enter your name.  
     invited: You have been invited to join
     recording_present: The session is going to be recorded. This may include voice and video from your side.
     invite_participants: Invite Participants
