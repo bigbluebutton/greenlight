@@ -27,7 +27,7 @@
   <% elsif key.eql? "maintenance" %>
     <div class="alert alert-info alert-dismissible text-center mb-0">
       <%= value %>
-      <button id="maintenance-close" type="button" data-date="<%= Rails.configuration.maintenance_window %>" class="close" data-dismiss="alert">&times</button>
+      <button id="maintenance-close" type="button" data-date="<%= URI.encode(value) %>" class="close" data-dismiss="alert">&times</button>
     </div>
   <% elsif key.eql? "info" %>
     <div class="alert alert-info alert-dismissible text-center mb-0">

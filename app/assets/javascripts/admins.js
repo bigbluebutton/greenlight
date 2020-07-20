@@ -86,7 +86,11 @@ $(document).on('turbolinks:load', function(){
       })
     }
     else if(action == "site_settings"){
-      loadColourSelectors()
+      var urlParams = new URLSearchParams(window.location.search);
+      // Only load the colour selectors if on the appearance tab
+      if (urlParams.get("tab") == null || urlParams.get("tab") == "appearance") {
+        loadColourSelectors()
+      }
     }
     else if (action == "roles"){
       // Refreshes the new role modal

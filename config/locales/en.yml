@@ -90,7 +90,7 @@ en:
         title: Maintenance Banner
         display: Set
         clear: Clear
-        time: "Maintenance: On Friday, there may be disruptions in service starting at 6 p.m."
+        time: "Example: Update scheduled on December 13 @ 23:00 ET. Users may experience problems signing in."        
       registration:
         info: Change the way that users register to the website
         title: Registration Method
