@@ -137,6 +137,7 @@ class SessionsController < ApplicationController
     ldap_config[:base] = ENV['LDAP_BASE']
     ldap_config[:filter] = ENV['LDAP_FILTER']
     ldap_config[:uid] = ENV['LDAP_UID']
+    ldap_config[:domain] = ENV['LDAP_DOMAIN']
 
     if params[:session][:username].blank? || session_params[:password].blank?
       return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials"))
