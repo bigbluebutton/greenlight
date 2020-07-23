@@ -223,6 +223,7 @@ class RoomsController < ApplicationController
   # POST /:room_uid/preupload_presenstation
   def preupload_presentation
     begin
+      raise "Invalid file type" unless valid_file_type
       @room.presentation.attach(room_params[:presentation])
 
       flash[:success] = I18n.t("room.preupload_success")
@@ -392,6 +393,12 @@ class RoomsController < ApplicationController
   end
   helper_method :room_limit_exceeded
 
+  # Returns a list of allowed file types
+  def allowed_file_types
+    Rails.configuration.allowed_file_types
+  end
+  helper_method :allowed_file_types
+
   def record_meeting
     # If the require consent setting is checked, then check the room setting, else, set to true
     if recording_consent_required?
@@ -399,5 +406,10 @@ class RoomsController < ApplicationController
     else
       true
     end
+  end
+
+  # Checks if the file extension is allowed
+  def valid_file_type
+    Rails.configuration.allowed_file_types.split(",").include?(File.extname(room_params[:presentation].original_filename))
   end
 end
