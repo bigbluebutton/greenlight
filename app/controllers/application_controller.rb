@@ -188,6 +188,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :recording_consent_required?
 
+  # Returns a list of allowed file types
+  def allowed_file_types
+    Rails.configuration.allowed_file_types
+  end
+  helper_method :allowed_file_types
+
   # Returns the page that the logo redirects to when clicked on
   def home_page
     return admins_path if current_user.has_role? :super_admin

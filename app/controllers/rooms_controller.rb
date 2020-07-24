@@ -27,7 +27,7 @@ class RoomsController < ApplicationController
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: [:create, :join_specific_room, :cant_create_rooms]
   before_action :verify_room_ownership_or_admin_or_shared, only: [:start, :shared_access]
-  before_action :verify_room_ownership_or_admin, only: [:update_settings, :destroy, :preupload_presentation]
+  before_action :verify_room_ownership_or_admin, only: [:update_settings, :destroy, :preupload_presentation, :remove_presentation]
   before_action :verify_room_ownership_or_shared, only: [:remove_shared_access]
   before_action :verify_room_owner_verified, only: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
@@ -235,6 +235,20 @@ class RoomsController < ApplicationController
     redirect_back fallback_location: room_path(@room)
   end
 
+  # POST /:room_uid/remove_presenstation
+  def remove_presentation
+    begin
+      @room.presentation.purge
+
+      flash[:success] = I18n.t("room.preupload_remove_success")
+    rescue => e
+      logger.error "Support: Error in removing room presentation: #{e}"
+      flash[:alert] = I18n.t("room.preupload_remove_error")
+    end
+
+    redirect_back fallback_location: room_path(@room)
+  end
+
   # POST /:room_uid/update_shared_access
   def shared_access
     begin
@@ -392,12 +406,6 @@ class RoomsController < ApplicationController
     current_user.rooms.length >= limit
   end
   helper_method :room_limit_exceeded
-
-  # Returns a list of allowed file types
-  def allowed_file_types
-    Rails.configuration.allowed_file_types
-  end
-  helper_method :allowed_file_types
 
   def record_meeting
     # If the require consent setting is checked, then check the room setting, else, set to true

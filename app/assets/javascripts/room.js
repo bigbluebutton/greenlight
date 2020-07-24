@@ -146,6 +146,10 @@ $(document).on('turbolinks:load', function(){
     $(".preupload-room").click(function() {
       updatePreuploadPresentationModal(this)
     })
+
+    $("#remove-presentation").click(function(data) {
+      removePreuploadPresentation($(this).data("remove"))
+    })
   }
 });
 
@@ -297,11 +301,16 @@ function updatePreuploadPresentationModal(target) {
   });
   
   $("#preuploadPresentationModal form").attr("action", $(target).data("path"))
+  $("#remove-presentation").data("remove",  $(target).data("remove"))
   
   // Reset values to original to prevent confusion
   $("#presentation-upload").val("")
   $("#presentation-upload-label").text($("#presentation-upload-label").data("placeholder"))
   $("#invalid-file-type").hide()
+}
+
+function removePreuploadPresentation(path) {
+  $.post(path, {})
 }
 
 function validFileUpload(file) {

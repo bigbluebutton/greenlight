@@ -528,6 +528,7 @@ en:
     user: User
   room:
     access_code_required: Please enter a valid access code to join the room
+    add_presentation: Add Presentation
     create_room: Create a Room
     create_room_error: There was an error creating the room
     create_room_success: Room created successfully
@@ -558,6 +559,8 @@ en:
     no_sessions: This room has no sessions, yet!
     preupload_success: Successfully added presentation
     preupload_error: There was an error updating the room presentation
+    preupload_remove_success: Successfully removed presentation
+    preupload_remove_error: There was an error removing the room presentation
     recordings: Room Recordings
     room_limit: You have reached the maximum number of rooms allowed
     room_limit_exceeded: You have exceeded the number of rooms allowed. Please delete %{difference} room(s) to access this room.
