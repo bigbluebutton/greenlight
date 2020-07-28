@@ -46,14 +46,14 @@
             autofocus: true
             %>
         <span class="input-group-append">
-          <button type="submit" class="btn btn-primary btn-sm px-7 form-control join-form">
+          <button id="room-join" type="submit" class="btn btn-primary btn-sm px-7 form-control join-form">
             <%= (!@room_running && @anyone_can_start) ? t("room.start") : t("room.join") %>
           </button>
         </span>
       </div>
       <% if recording_consent_required? && @room.recording_enabled? %>
         <label class="custom-control custom-checkbox">
-          <input id="delete-checkbox" type="checkbox" class="custom-control-input" required>
+          <input id="joiner-consent" type="checkbox" class="custom-control-input" required>
           <h4 class="text-left text-danger mt-4 custom-control-label"><%= t("room.recording_present") %></h4>
         </label>
       <% end %>
