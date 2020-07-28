@@ -27,6 +27,7 @@ $(document).on("turbolinks:load", function(){
     }, {
       connected: function() {
         console.log("connected");
+        setTimeout(startRefreshTimeout, 120000);
       },
 
       disconnected: function(data) {
@@ -67,4 +68,11 @@ var request_to_join_meeting = function(){
       join_attempts++;
     }
   });
+}
+
+// Refresh the page after 2 mins and attempt to reconnect to ActionCable 
+function startRefreshTimeout() {
+  var url = new URL(window.location.href)
+  url.searchParams.set("reload","true")
+  window.location.href = url.href
 }
