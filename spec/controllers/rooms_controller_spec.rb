@@ -573,7 +573,7 @@ describe RoomsController, type: :controller do
 
     it "properly updates room name through the room settings modal and redirects to current page" do
       @request.session[:user_id] = @user.id
-      name = Faker::Games::Pokemon.name
+      name = Faker::Name.first_name
 
       room_params = { room_uid: @secondary_room.uid, room: { "name": name } }
 
