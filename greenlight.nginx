@@ -24,3 +24,10 @@ location /b/cable {
   client_body_timeout 6h;
   send_timeout        6h;
 }
+
+# Only needed if using presentations and deployed at a relative root (ex "/b")
+# If deploying at "/", delete the section below
+
+location /rails/active_storage {
+  return 301 /b$request_uri;
+}

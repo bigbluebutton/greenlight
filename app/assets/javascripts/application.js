@@ -27,7 +27,7 @@
 // about supported directives.
 //
 //= require turbolinks
-//= require jquery
+//= require jquery3
 //= require tabler
 //= require tabler.plugins
 //= require jquery_ujs
