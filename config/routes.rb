@@ -122,6 +122,9 @@ Rails.application.routes.draw do
     patch '/', to: 'rooms#update', as: :update_room
     get '/room_settings', to: 'rooms#room_settings'
     post '/update_settings', to: 'rooms#update_settings'
+    get '/current_presentation', to: 'rooms#current_presentation'
+    post '/preupload_presentation', to: 'rooms#preupload_presentation'
+    post '/remove_presentation', to: 'rooms#remove_presentation'
     post '/update_shared_access', to: 'rooms#shared_access', as: :room_shared_access
     delete '/remove_shared_access', to: 'rooms#remove_shared_access', as: :room_remove_shared_access
     get '/shared_users', to: 'rooms#shared_users', as: :room_shared_users
