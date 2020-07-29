@@ -61,6 +61,14 @@ module AdminsHelper
     end
   end
 
+  def preupload_string
+    if @settings.get_value("Preupload Presentation") == "true"
+      I18n.t("administrator.site_settings.authentication.enabled")
+    else
+      I18n.t("administrator.site_settings.authentication.disabled")
+    end
+  end
+
   def recording_default_visibility_string
     if @settings.get_value("Default Recording Visibility") == "public"
       I18n.t("recording.visibility.public")
@@ -80,6 +88,14 @@ module AdminsHelper
       end
   end
 
+  def require_consent_string
+    if @settings.get_value("Require Recording Consent") == "true"
+      I18n.t("administrator.site_settings.authentication.enabled")
+    else
+      I18n.t("administrator.site_settings.authentication.disabled")
+    end
+  end
+
   def log_level_string
     case Rails.logger.level
     when 0
@@ -95,6 +111,10 @@ module AdminsHelper
     when 5
       t("administrator.site_settings.log_level.unknown")
     end
+  end
+
+  def show_log_dropdown
+    current_user.has_role?(:super_admin) || !Rails.configuration.loadbalanced_configuration
   end
 
   def room_limit_number

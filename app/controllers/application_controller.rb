@@ -84,9 +84,9 @@ class ApplicationController < ActionController::Base
           help: I18n.t("errors.maintenance.help"),
         }
     end
-    if Rails.configuration.maintenance_window.present?
-      unless cookies[:maintenance_window] == Rails.configuration.maintenance_window
-        flash.now[:maintenance] = Rails.configuration.maintenance_window
+    if @settings.get_value("Maintenance Banner").present?
+      unless cookies[:maintenance_window] == @settings.get_value("Maintenance Banner")
+        flash.now[:maintenance] = @settings.get_value("Maintenance Banner")
       end
     end
   end
@@ -181,6 +181,18 @@ class ApplicationController < ActionController::Base
     @settings.get_value("Shared Access") == "true"
   end
   helper_method :shared_access_allowed
+
+  # Indicates whether users are allowed to share rooms
+  def recording_consent_required?
+    @settings.get_value("Require Recording Consent") == "true"
+  end
+  helper_method :recording_consent_required?
+
+  # Returns a list of allowed file types
+  def allowed_file_types
+    Rails.configuration.allowed_file_types
+  end
+  helper_method :allowed_file_types
 
   # Returns the page that the logo redirects to when clicked on
   def home_page

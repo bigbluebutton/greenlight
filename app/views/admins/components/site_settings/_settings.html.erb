@@ -1,0 +1,201 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="form-group">
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.registration.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.registration.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="registrationMethods" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= registration_method_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="registrationMethods">
+            <%= button_to admin_change_registration_path(value: "open"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.site_settings.registration.methods.open") %>
+            <% end %>
+            <%= button_to admin_change_registration_path(value: "invite"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.site_settings.registration.methods.invite") %>
+            <% end %>
+            <%= button_to admin_change_registration_path(value: "approval"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.site_settings.registration.methods.approval") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.authentication.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.authentication.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="room-auth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= room_authentication_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="room-auth">
+            <%= button_to admin_update_settings_path(setting: "Room Authentication", value: "true"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.site_settings.authentication.enabled") %>
+            <% end %>
+            <%= button_to admin_update_settings_path(setting: "Room Authentication", value: "false"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.site_settings.authentication.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.shared_access.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.shared_access.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="room-auth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= shared_access_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="room-auth">
+            <%= button_to admin_update_settings_path(setting: "Shared Access", value: "true"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.authentication.enabled") %>
+            <% end %>
+            <%= button_to admin_update_settings_path(setting: "Shared Access", value: "false"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.authentication.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.preupload.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.preupload.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="room-auth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= preupload_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="room-auth">
+            <%= button_to admin_update_settings_path(setting: "Preupload Presentation", value: "true"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.authentication.enabled") %>
+            <% end %>
+            <%= button_to admin_update_settings_path(setting: "Preupload Presentation", value: "false"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.authentication.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.recording_visibility.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.recording_visibility.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="room-auth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= recording_default_visibility_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="room-auth">
+            <%= button_to admin_update_settings_path(setting: "Default Recording Visibility", value: "public"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("recording.visibility.public") %>
+            <% end %>
+            <%= button_to admin_update_settings_path(setting: "Default Recording Visibility", value: "private"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("recording.visibility.unlisted") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.require_consent.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.require_consent.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= require_consent_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="room-auth">
+            <%= button_to admin_update_settings_path(setting: "Require Recording Consent", value: "true"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.site_settings.authentication.enabled") %>
+            <% end %>
+            <%= button_to admin_update_settings_path(setting: "Require Recording Consent", value: "false"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.site_settings.authentication.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.rooms.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.rooms.info") %></label>
+        <div class="row gutters-xs">
+          <div class="col-auto">
+            <label class="colorinput">
+              <%= button_to admin_update_settings_path(setting: "Room Limit", value: 1), class: "colorinput-input", "data-disable": "" do %><% end %>
+              <span class="colorinput-color <%= room_limit_number == 1 ? "btn-primary" : "btn-outline-primary" %>">1</span>
+            </label>
+          </div>
+          <div class="col-auto">
+            <label class="colorinput">
+              <%= button_to admin_update_settings_path(setting: "Room Limit", value: 5), class: "colorinput-input", "data-disable": "" do %><% end %>
+              <span class="colorinput-color <%= room_limit_number == 5 ? "btn-primary" : "btn-outline-primary" %>">5</span>
+            </label>
+          </div>
+          <div class="col-auto">
+            <label class="colorinput">
+              <%= button_to admin_update_settings_path(setting: "Room Limit", value: 10), class: "colorinput-input", "data-disable": "" do %><% end %>
+              <span class="colorinput-color <%= room_limit_number == 10 ? "btn-primary" : "btn-outline-primary" %>">10</span>
+            </label>
+          </div>
+          <div class="col-auto">
+            <label class="colorinput">
+              <%= button_to admin_update_settings_path(setting: "Room Limit", value: 15), class: "colorinput-input", "data-disable": "" do %><% end %>
+              <span class="colorinput-color <%= room_limit_number == 15 ? "btn-primary" : "btn-outline-primary" %>">15+</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if current_user.has_role? :super_admin %>
+    <hr>
+    <div class="row mb-2">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="form-label"><%= t("administrator.site_settings.cache.title") %></label>
+          <label class="form-label text-muted"><%= t("administrator.site_settings.cache.info") %></label>
+          <%= button_to t("administrator.site_settings.cache.button"), admin_clear_cache_path, class: "btn btn-primary", "data-disable": "" %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="form-label"><%= t("administrator.site_settings.clear_auth.title") %></label>
+          <label class="form-label text-muted"><%= t("administrator.site_settings.clear_auth.info") %></label>
+          <%= button_to t("administrator.site_settings.clear_auth.button"), admin_clear_auth_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
