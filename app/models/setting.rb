@@ -64,6 +64,8 @@ class Setting < ApplicationRecord
       Rails.configuration.number_of_rooms_default
     when "Shared Access"
       Rails.configuration.shared_access_default
+    when "Preupload Presentation"
+      Rails.configuration.preupload_presentation_default
     when "Room Configuration Mute On Join"
       room_config_setting("mute-on-join")
     when "Room Configuration Require Moderator"

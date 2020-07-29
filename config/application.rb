@@ -128,6 +128,9 @@ module Greenlight
     config.report_issue_url = ENV["REPORT_ISSUE_URL"]
     config.help_url = ENV["HELP_URL"].nil? ? "https://docs.bigbluebutton.org/greenlight/gl-overview.html" : ENV["HELP_URL"]
 
+    # File types allowed in preupload presentation
+    config.allowed_file_types = ".doc,.docx,.pptx,.pdf"
+
     # DEFAULTS
 
     # Default branding image if the user does not specify one
@@ -159,6 +162,9 @@ module Greenlight
 
     # Don't require recording consent by default
     config.require_consent_default = "false"
+
+    # Don't allow users to preupload presentations by default
+    config.preupload_presentation_default = "false"
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'

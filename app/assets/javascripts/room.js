@@ -131,6 +131,27 @@ $(document).on('turbolinks:load', function(){
         $("#user-list").append(listItem)
       }
     })
+
+    $("#presentation-upload").change(function(data) {
+      var file = data.target.files[0]
+      
+      // Check file type and size to make sure they aren't over the limit
+      if (validFileUpload(file)) {
+        $("#presentation-upload-label").text(file.name)
+      } else {
+        $("#invalid-file-type").show()
+        $("#presentation-upload").val("")
+        $("#presentation-upload-label").text($("#presentation-upload-label").data("placeholder"))
+      }
+    })
+
+    $(".preupload-room").click(function() {
+      updatePreuploadPresentationModal(this)
+    })
+
+    $("#remove-presentation").click(function(data) {
+      removePreuploadPresentation($(this).data("remove"))
+    })
   }
 });
 
@@ -265,6 +286,37 @@ function removeSharedUser(target) {
     parentLI.removeChild(target)
     parentLI.classList.add("remove-shared")
   }
+}
+
+function updatePreuploadPresentationModal(target) {
+  $.get($(target).data("settings-path"), function(presentation) {
+    if(presentation.attached) {
+      $("#current-presentation").show()
+      $("#presentation-name").text(presentation.name)
+      $("#change-pres").show()
+      $("#use-pres").hide()
+    } else {
+      $("#current-presentation").hide()
+      $("#change-pres").hide()
+      $("#use-pres").show()
+    }
+  });
+  
+  $("#preuploadPresentationModal form").attr("action", $(target).data("path"))
+  $("#remove-presentation").data("remove",  $(target).data("remove"))
+  
+  // Reset values to original to prevent confusion
+  $("#presentation-upload").val("")
+  $("#presentation-upload-label").text($("#presentation-upload-label").data("placeholder"))
+  $("#invalid-file-type").hide()
+}
+
+function removePreuploadPresentation(path) {
+  $.post(path, {})
+}
+
+function validFileUpload(file) {
+  return file.size/1024/1024 <= 30
 }
 
 // Automatically click the join button if this is an action cable reload

@@ -41,4 +41,8 @@ module RoomsHelper
   def room_configuration(name)
     @settings.get_value(name)
   end
+
+  def preupload_allowed?
+    @settings.get_value("Preupload Presentation") == "true"
+  end
 end

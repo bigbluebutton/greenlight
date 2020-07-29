@@ -27,7 +27,7 @@ class RoomsController < ApplicationController
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: [:create, :join_specific_room, :cant_create_rooms]
   before_action :verify_room_ownership_or_admin_or_shared, only: [:start, :shared_access]
-  before_action :verify_room_ownership_or_admin, only: [:update_settings, :destroy]
+  before_action :verify_room_ownership_or_admin, only: [:update_settings, :destroy, :preupload_presentation, :remove_presentation]
   before_action :verify_room_ownership_or_shared, only: [:remove_shared_access]
   before_action :verify_room_owner_verified, only: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
@@ -210,6 +210,45 @@ class RoomsController < ApplicationController
     redirect_back fallback_location: room_path(@room)
   end
 
+  # GET /:room_uid/current_presentation
+  def current_presentation
+    attached = @room.presentation.attached?
+
+    # Respond with JSON object of presentation name
+    respond_to do |format|
+      format.json { render body: { attached: attached, name: attached ? @room.presentation.filename.to_s : "" }.to_json }
+    end
+  end
+
+  # POST /:room_uid/preupload_presenstation
+  def preupload_presentation
+    begin
+      raise "Invalid file type" unless valid_file_type
+      @room.presentation.attach(room_params[:presentation])
+
+      flash[:success] = I18n.t("room.preupload_success")
+    rescue => e
+      logger.error "Support: Error in updating room presentation: #{e}"
+      flash[:alert] = I18n.t("room.preupload_error")
+    end
+
+    redirect_back fallback_location: room_path(@room)
+  end
+
+  # POST /:room_uid/remove_presenstation
+  def remove_presentation
+    begin
+      @room.presentation.purge
+
+      flash[:success] = I18n.t("room.preupload_remove_success")
+    rescue => e
+      logger.error "Support: Error in removing room presentation: #{e}"
+      flash[:alert] = I18n.t("room.preupload_remove_error")
+    end
+
+    redirect_back fallback_location: room_path(@room)
+  end
+
   # POST /:room_uid/update_shared_access
   def shared_access
     begin
@@ -301,7 +340,7 @@ class RoomsController < ApplicationController
   def room_params
     params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
       :require_moderator_approval, :anyone_can_start, :all_join_moderator,
-      :recording)
+      :recording, :presentation)
   end
 
   # Find the room from the uid.
@@ -375,5 +414,10 @@ class RoomsController < ApplicationController
     else
       true
     end
+  end
+
+  # Checks if the file extension is allowed
+  def valid_file_type
+    Rails.configuration.allowed_file_types.split(",").include?(File.extname(room_params[:presentation].original_filename))
   end
 end

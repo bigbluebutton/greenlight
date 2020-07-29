@@ -83,6 +83,27 @@
   <div class="row mb-2">
     <div class="col-12">
       <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.preupload.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.preupload.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="room-auth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= preupload_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="room-auth">
+            <%= button_to admin_update_settings_path(setting: "Preupload Presentation", value: "true"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.authentication.enabled") %>
+            <% end %>
+            <%= button_to admin_update_settings_path(setting: "Preupload Presentation", value: "false"), class: "dropdown-item" do %>
+              <%= t("administrator.site_settings.authentication.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-group">
         <label class="form-label"><%= t("administrator.site_settings.recording_visibility.title") %></label>
         <label class="form-label text-muted"><%= t("administrator.site_settings.recording_visibility.info") %></label>
         <div class="dropdown">
