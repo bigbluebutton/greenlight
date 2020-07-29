@@ -290,12 +290,12 @@ describe AdminsController, type: :controller do
         @request.session[:user_id] = @admin.id
         fake_image_url = "example.com"
 
-        post :update_settings, params: { setting: "Branding Image", value: fake_image_url }
+        post :update_settings, params: { setting: "Branding Image", value: fake_image_url, tab: "appearance" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Branding Image")
 
         expect(feature[:value]).to eq(fake_image_url)
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "appearance"))
       end
     end
 
@@ -307,12 +307,12 @@ describe AdminsController, type: :controller do
         @request.session[:user_id] = @admin.id
         fake_url = "example.com"
 
-        post :update_settings, params: { setting: "Legal URL", value: fake_url }
+        post :update_settings, params: { setting: "Legal URL", value: fake_url, tab: "administration" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Legal URL")
 
         expect(feature[:value]).to eq(fake_url)
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "administration"))
       end
     end
 
@@ -324,12 +324,12 @@ describe AdminsController, type: :controller do
         @request.session[:user_id] = @admin.id
         fake_url = "example.com"
 
-        post :update_settings, params: { setting: "Privacy Policy URL", value: fake_url }
+        post :update_settings, params: { setting: "Privacy Policy URL", value: fake_url, tab: "administration" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Privacy Policy URL")
 
         expect(feature[:value]).to eq(fake_url)
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "administration"))
       end
     end
 
@@ -346,7 +346,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "appearance"))
       end
 
       it "changes the primary-lighten on the page" do
@@ -356,12 +356,12 @@ describe AdminsController, type: :controller do
         @request.session[:user_id] = @admin.id
         primary_color = Faker::Color.hex_color
 
-        post :update_settings, params: { setting: "Primary Color Lighten", value: primary_color }
+        post :update_settings, params: { setting: "Primary Color Lighten", value: primary_color, tab: "appearance" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color Lighten")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "appearance"))
       end
 
       it "changes the primary-darken on the page" do
@@ -371,12 +371,12 @@ describe AdminsController, type: :controller do
         @request.session[:user_id] = @admin.id
         primary_color = Faker::Color.hex_color
 
-        post :update_settings, params: { setting: "Primary Color Darken", value: primary_color }
+        post :update_settings, params: { setting: "Primary Color Darken", value: primary_color, tab: "appearance" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color Darken")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "appearance"))
       end
     end
   end
@@ -396,7 +396,7 @@ describe AdminsController, type: :controller do
 
         expect(feature[:value]).to eq(Rails.configuration.registration_methods[:invite])
         expect(flash[:success]).to be_present
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
       end
 
       it "does not allow the user to change to invite if emails are off" do
@@ -409,7 +409,7 @@ describe AdminsController, type: :controller do
         post :registration_method, params: { value: "invite" }
 
         expect(flash[:alert]).to be_present
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
       end
     end
 
@@ -425,7 +425,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Authentication")
 
         expect(feature[:value]).to eq("true")
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
       end
     end
 
@@ -441,7 +441,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Limit")
 
         expect(feature[:value]).to eq("5")
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
       end
     end
 
@@ -457,7 +457,25 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Default Recording Visibility")
 
         expect(feature[:value]).to eq("public")
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
+      end
+    end
+
+    context "POST #maintenance_banner" do
+      it "displays a banner with the maintenance string" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+        fake_banner_string = "Maintenance work at 2 pm"
+
+        post :update_settings, params: { setting: "Maintenance Banner", value: fake_banner_string, tab: "administration" }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Maintenance Banner")
+
+        expect(flash[:success]).to be_present
+        expect(feature[:value]).to eq(fake_banner_string)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "administration"))
       end
     end
 
@@ -473,7 +491,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Shared Access")
 
         expect(feature[:value]).to eq("false")
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
       end
     end
 
@@ -537,7 +555,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Shared Access")
 
         expect(feature[:value]).to eq("false")
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
       end
 
       it "doesn't allow a user with the incorrect permission to edit site settings" do

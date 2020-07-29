@@ -105,6 +105,8 @@ module Joiner
       "Room Configuration All Join Moderator"
     when "anyoneCanStart"
       "Room Configuration Allow Any Start"
+    when "recording"
+     "Room Configuration Recording"
     end
 
     case @settings.get_value(config)
