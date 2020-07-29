@@ -58,10 +58,14 @@ class Setting < ApplicationRecord
       Rails.configuration.registration_method_default
     when "Room Authentication"
       false
+    when "Require Recording Consent"
+      Rails.configuration.require_consent_default
     when "Room Limit"
       Rails.configuration.number_of_rooms_default
     when "Shared Access"
       Rails.configuration.shared_access_default
+    when "Preupload Presentation"
+      Rails.configuration.preupload_presentation_default
     when "Room Configuration Mute On Join"
       room_config_setting("mute-on-join")
     when "Room Configuration Require Moderator"
@@ -70,6 +74,8 @@ class Setting < ApplicationRecord
       room_config_setting("anyone-can-start")
     when "Room Configuration All Join Moderator"
       room_config_setting("all-join-moderator")
+    when "Room Configuration Recording"
+      room_config_setting("recording")
     end
   end
 

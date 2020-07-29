@@ -17,6 +17,9 @@ vendor/bundle
 /public/assets/**
 /public/b/**
 
+# Ignore uploaded files
+/storage
+
 # Ignore production paths.
 /db/production
 /db/production-postgres
