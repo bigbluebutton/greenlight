@@ -62,7 +62,7 @@ class RoomsController < ApplicationController
 
   # GET /:room_uid
   def show
-    @room_settings = @room[:room_settings]
+    @room_settings = JSON.parse(@room[:room_settings])
     @anyone_can_start = room_setting_with_config("anyoneCanStart")
     @room_running = room_running?(@room.bbb_id)
     @shared_room = room_shared_with_user
@@ -420,4 +420,30 @@ class RoomsController < ApplicationController
   def valid_file_type
     Rails.configuration.allowed_file_types.split(",").include?(File.extname(room_params[:presentation].original_filename))
   end
+
+  # Gets the room setting based on the option set in the room configuration
+  def room_setting_with_config(name)
+    config = case name
+    when "muteOnStart"
+      "Room Configuration Mute On Join"
+    when "requireModeratorApproval"
+      "Room Configuration Require Moderator"
+    when "joinModerator"
+      "Room Configuration All Join Moderator"
+    when "anyoneCanStart"
+      "Room Configuration Allow Any Start"
+    when "recording"
+      "Room Configuration Recording"
+    end
+
+    case @settings.get_value(config)
+    when "enabled"
+      true
+    when "optional"
+      @room_settings[name]
+    when "disabled"
+      false
+    end
+  end
+  helper_method :room_setting_with_config
 end
