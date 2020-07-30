@@ -45,4 +45,13 @@ module RoomsHelper
   def preupload_allowed?
     @settings.get_value("Preupload Presentation") == "true"
   end
+
+  def display_joiner_consent
+    # If the require consent setting is checked, then check the room setting, else, set to false
+    if recording_consent_required?
+      room_setting_with_config("recording")
+    else
+      false
+    end
+  end
 end

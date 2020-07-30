@@ -101,10 +101,6 @@ class Room < ApplicationRecord
     active_rooms + inactive_rooms
   end
 
-  def recording_enabled?
-    JSON.parse(room_settings)["recording"]
-  end
-
   private
 
   # Generates a uid for the room and BigBlueButton.
