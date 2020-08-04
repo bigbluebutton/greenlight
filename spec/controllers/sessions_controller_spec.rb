@@ -144,7 +144,7 @@ describe SessionsController, type: :controller do
 
       expect(@request.session[:user_id]).to be_nil
       # Expect to redirect to activation path since token is not known here
-      expect(response.location.start_with?(account_activation_url(token: ""))).to be true
+      expect(response.location.start_with?(account_activation_url(digest: @user3.activation_digest))).to be true
     end
 
     it "should not login user if account is deleted" do

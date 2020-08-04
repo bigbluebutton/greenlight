@@ -371,7 +371,7 @@ class RoomsController < ApplicationController
   end
 
   def validate_verified_email
-    redirect_to account_activation_path(current_user) if current_user && !current_user&.activated?
+    redirect_to account_activation_path(digest: current_user.activation_digest) if current_user && !current_user&.activated?
   end
 
   def verify_room_owner_verified
