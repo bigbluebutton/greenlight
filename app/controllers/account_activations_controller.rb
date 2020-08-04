@@ -20,7 +20,8 @@ class AccountActivationsController < ApplicationController
   include Emailer
 
   before_action :ensure_unauthenticated
-  before_action :find_user
+  before_action :find_user, except: :show
+  before_action :find_user_by_digest, only: :show
 
   # GET /account_activations
   def show
@@ -61,6 +62,10 @@ class AccountActivationsController < ApplicationController
 
   def find_user
     @user = User.find_by!(activation_digest: User.hash_token(params[:token]), provider: @user_domain)
+  end
+
+  def find_user_by_digest
+    @user = User.find_by!(activation_digest: params[:digest], provider: @user_domain)
   end
 
   def ensure_unauthenticated
