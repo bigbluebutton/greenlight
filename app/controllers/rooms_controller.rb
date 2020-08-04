@@ -418,7 +418,8 @@ class RoomsController < ApplicationController
 
   # Checks if the file extension is allowed
   def valid_file_type
-    Rails.configuration.allowed_file_types.split(",").include?(File.extname(room_params[:presentation].original_filename.downcase))
+    Rails.configuration.allowed_file_types.split(",")
+         .include?(File.extname(room_params[:presentation].original_filename.downcase))
   end
 
   # Gets the room setting based on the option set in the room configuration
