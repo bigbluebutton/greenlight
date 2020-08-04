@@ -371,7 +371,7 @@ class RoomsController < ApplicationController
   end
 
   def validate_verified_email
-    redirect_to account_activation_path(current_user) if current_user && !current_user&.activated?
+    redirect_to account_activation_path(digest: current_user.activation_digest) if current_user && !current_user&.activated?
   end
 
   def verify_room_owner_verified
@@ -418,7 +418,8 @@ class RoomsController < ApplicationController
 
   # Checks if the file extension is allowed
   def valid_file_type
-    Rails.configuration.allowed_file_types.split(",").include?(File.extname(room_params[:presentation].original_filename))
+    Rails.configuration.allowed_file_types.split(",")
+         .include?(File.extname(room_params[:presentation].original_filename.downcase))
   end
 
   # Gets the room setting based on the option set in the room configuration
