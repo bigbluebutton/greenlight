@@ -129,7 +129,7 @@ module Greenlight
     config.help_url = ENV["HELP_URL"].nil? ? "https://docs.bigbluebutton.org/greenlight/gl-overview.html" : ENV["HELP_URL"]
 
     # File types allowed in preupload presentation
-    config.allowed_file_types = ".doc,.docx,.pptx,.pdf"
+    config.allowed_file_types = ".doc,.docx,.ppt,.pptx,.pdf,.xls,.xlsx,.txt,.rtf,.odt,.ods,.odp,.odg,.odc,.odi,.jpg,.jpeg,.png"
 
     # DEFAULTS
 

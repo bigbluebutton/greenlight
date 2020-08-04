@@ -411,7 +411,7 @@ en:
       forgot_password: Forgot Password?
     preupload:
       change: Replace Presentation
-      choose: Choose a file (%{type})
+      choose: Choose a file...
       current: "Current Presentation:"
       footer: Depending on the size of the presentation, it may require additional time to upload before it can be used.
       invalid: Invalid size/file type. Please see the restrictions below.
