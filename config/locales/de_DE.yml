@@ -537,7 +537,7 @@ de_DE:
       fail: "Raum konnte nicht gelöscht werden (%{error})"
     enter_the_access_code: Raumzugangscode bitte eingeben
     invalid_provider: "Sie haben eine ungültige URL eingegeben, bitte überprüfen Sie die URL und versuchen Sie es erneut."
-    invitation_description: "Sie wurden zu%{name} über BigBlueButton zur Teilnahme eingeladen. Um beizutreten, klicken Sie auf den obigen Link und geben Sie Ihren Namen ein."  
+    invitation_description: "Sie wurden zu %{name} über BigBlueButton zur Teilnahme eingeladen. Um beizutreten, klicken Sie auf den obigen Link und geben Sie Ihren Namen ein."  
     invited: Sie wurden zur Teilnahme eingeladen
     recording_present: "Ich bestätige, dass diese Sitzung aufgezeichnet wird. Dies kann meine Sprach- und Videoaufnahmen beinhalten, wenn dies aktiviert ist."
     invite_participants: Teilnehmer einladen
