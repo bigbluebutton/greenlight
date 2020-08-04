@@ -40,6 +40,6 @@
   </div>
 </div>
 
-<% if render_recordings %>
+<% if render_recordings && !hide_recording_tables %>
   <%= render "shared/sessions", recordings: @public_recordings, pagy: @pagy, only_public: true, user_recordings: false, title: t("room.recordings") %>
 <% end %>
