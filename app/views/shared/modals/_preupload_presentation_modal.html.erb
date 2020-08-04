@@ -34,7 +34,7 @@
               <p id="invalid-file-type" class="text-danger"><%= t("modal.preupload.invalid") %></p>
               <div class="input-group mb-3">
                 <div class="custom-file text-left">
-                  <%= f.label :presentation, t("modal.preupload.choose", type: allowed_file_types), id:"presentation-upload-label",  class: "custom-file-label", "data-placeholder": t("modal.preupload.choose", type: allowed_file_types) %>
+                  <%= f.label :presentation, t("modal.preupload.choose"), id:"presentation-upload-label",  class: "custom-file-label", "data-placeholder": t("modal.preupload.choose", type: allowed_file_types) %>
                   <%= f.file_field :presentation, id: "presentation-upload", class: "custom-file-input cursor-pointer", accept: allowed_file_types, required: "true" %>
                 </div>
               </div>
