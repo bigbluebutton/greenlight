@@ -117,4 +117,11 @@ module ApplicationHelper
   rescue
     false
   end
+
+  # Specifies which title should be the tab title and returns original string
+  def title(page_title)
+    # Only set the content_for if not already set on the page so that only the first title appears as the tab title
+    content_for(:page_title) { page_title } if content_for(:page_title).blank?
+    page_title
+  end
 end
