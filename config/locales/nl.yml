@@ -36,7 +36,7 @@ nl:
         enabled: Ingeschakeld
         info: Sta alleen geverifieerde gebruikers toe om deel te nemen aan een ruimte
         title: Verificatie vereist voor kamers
-        user-info: Je moet bij hierboven inloggen om lid te kunnen worden van deze kamer.
+        user-info: Je moet hierboven inloggen om lid te kunnen worden van deze kamer.
       branding:
         change: Wijzig afbeelding
         info: Wijzig de merkafbeelding die in de linkerbovenhoek wordt weergegeven
@@ -369,8 +369,6 @@ nl:
         verify_text: 'Volg deze link om uw account te verifiëren: %{url}'
         verify_link: Verifieer Account
         thanks: Bedankt voor je deelname en een fijne dag verder!
-  maintenance:
-    window_alert: "Onderhoudsvenster gepland voor %{date}"
   max_concurrent: Het maximum aantal toegestane gelijktijdige sessies is bereikt!
   merged: Samengevoegd
   modal:
@@ -412,7 +410,7 @@ nl:
       forgot_password: "Wachtwoord vergeten?"
     preupload:
       change: Presentatie vervangen
-      choose: "Kies een bestand (%{type})"
+      choose: Kies een bestand...
       current: "Huidige presentatie:"
       footer: "Afhankelijk van de grootte van de presentatie, kan het uploaden extra tijd vergen voordat deze kan worden gebruikt."
       invalid: Ongeldige grootte/bestandstype. Zie de beperkingen onderaan.
@@ -539,7 +537,7 @@ nl:
     invalid_provider: U heeft een ongeldige URL ingevoerd. Controleer de URL en probeer het opnieuw.
     invitation_description: "Je bent uitgenodigd om deel te nemen aan %{name} via BigBlueButton. Klik op bovenstaande link en voert u uw naam in om te beginnen."  
     invited: Je bent uitgenodigd om lid te worden
-    recording_present: De sessie wordt opgenomen. Dit kan spraak en video van uw kant zijn.
+    recording_present: Ik erken dat deze sessie zal worden opgenomen. Deze opname kan mijn stem en video bevatten indien dit is ingeschakeld.
     invite_participants: Deelnemers uitnodigen
     join: Toetreden
     last_session: "Laatste sessie op %{session}"
