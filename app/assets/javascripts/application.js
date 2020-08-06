@@ -27,8 +27,12 @@
 // about supported directives.
 //
 //= require turbolinks
-//= require jquery
+//= require jquery3
 //= require tabler
 //= require tabler.plugins
 //= require jquery_ujs
+//= require jquery-ui/widget
+//= require jquery-ui/widgets/sortable
+//= require pickr.min.js
+//= require bootstrap-select.min.js
 //= require_tree .

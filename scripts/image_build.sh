@@ -50,7 +50,7 @@ if [ -z $CD_REF_NAME ]; then
   export CD_REF_NAME=$(git branch | grep \* | cut -d ' ' -f2)
 fi
 
-if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && ( [ -z "$CD_BUILD_ALL" ] || [ "$CD_BUILD_ALL" != "true" ] ); then
+if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && [[ "$CD_REF_NAME" != *"alpha"* ]] && ( [ -z "$CD_BUILD_ALL" ] || [ "$CD_BUILD_ALL" != "true" ] ); then
   echo "#### Docker image for $CD_REF_SLUG:$CD_REF_NAME won't be built"
   exit 0
 fi
@@ -86,8 +86,8 @@ docker login -u="$CD_DOCKER_USERNAME" -p="$CD_DOCKER_PASSWORD"
 echo "#### Docker image $CD_DOCKER_REPO:$CD_REF_NAME is being published"
 docker push $CD_DOCKER_REPO
 
-# Publish latest and v2 if it id a release
-if [[ "$CD_REF_NAME" == *"release"* ]]; then
+# Publish image as latest and v2 if it is a release (excluding alpha and beta)
+if [[ "$CD_REF_NAME" == *"release"* ]] && [[ "$CD_REF_NAME" != *"alpha"* ]] && [[ "$CD_REF_NAME" != *"beta"* ]]; then
   docker_image_id=$(docker images | grep -E "^$CD_DOCKER_REPO.*$CD_REF_NAME" | awk -e '{print $3}')
   docker tag $docker_image_id $CD_DOCKER_REPO:latest
   docker push $CD_DOCKER_REPO:latest

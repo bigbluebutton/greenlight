@@ -1,34 +1,65 @@
-FROM ruby:2.5
+FROM ruby:2.5.1-alpine AS base
 
-# Install app dependencies.
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
-
-# Set an environment variable for the install location.
-ENV RAILS_ROOT /usr/src/app
-
-# Sets the footer of greenlight application with current build version
-ARG version_code
-ENV VERSION_CODE=$version_code
+# Set a variable for the install location.
+ARG RAILS_ROOT=/usr/src/app
+# Set Rails environment.
+ENV RAILS_ENV production
+ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
 
 # Make the directory and set as working.
 RUN mkdir -p $RAILS_ROOT
 WORKDIR $RAILS_ROOT
 
-# Set Rails environment.
-ENV RAILS_ENV production
+ARG BUILD_PACKAGES="build-base curl-dev git"
+ARG DEV_PACKAGES="postgresql-dev sqlite-libs sqlite-dev yaml-dev zlib-dev nodejs yarn"
+ARG RUBY_PACKAGES="tzdata"
+
+# Install app dependencies.
+RUN apk update \
+    && apk upgrade \
+    && apk add --update --no-cache $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES
 
 COPY Gemfile* ./
-RUN bundle install --without development test --deployment --clean
+COPY Gemfile Gemfile.lock $RAILS_ROOT/
+
+RUN bundle config --global frozen 1 \
+    && bundle install --deployment --without development:test:assets -j4 --path=vendor/bundle \
+    && rm -rf vendor/bundle/ruby/2.5.0/cache/*.gem \
+    && find vendor/bundle/ruby/2.5.0/gems/ -name "*.c" -delete \
+    && find vendor/bundle/ruby/2.5.0/gems/ -name "*.o" -delete
 
 # Adding project files.
 COPY . .
 
-# Precompile assets.
-RUN bundle exec rake assets:clean
-RUN bundle exec rake assets:precompile
+# Remove folders not needed in resulting image
+RUN rm -rf tmp/cache spec
+
+############### Build step done ###############
+
+FROM ruby:2.5.1-alpine
+
+# Set a variable for the install location.
+ARG RAILS_ROOT=/usr/src/app
+ARG PACKAGES="tzdata curl postgresql-client sqlite-libs yarn nodejs bash"
+
+ENV RAILS_ENV=production
+ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
+
+WORKDIR $RAILS_ROOT
+
+RUN apk update \
+    && apk upgrade \
+    && apk add --update --no-cache $PACKAGES
+
+
+COPY --from=base $RAILS_ROOT $RAILS_ROOT
 
 # Expose port 80.
 EXPOSE 80
+
+# Sets the footer of greenlight application with current build version
+ARG version_code
+ENV VERSION_CODE=$version_code
 
 # Start the application.
 CMD ["bin/start"]

@@ -17,8 +17,8 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class ThemesController < ApplicationController
-  skip_before_action :maintenance_mode?
-  before_action :provider_settings
+  skip_before_action :block_unknown_hosts, :redirect_to_https, :maintenance_mode?, :migration_error?, :user_locale,
+    :check_admin_password, :check_user_role
 
   # GET /primary
   def index
@@ -26,11 +26,11 @@ class ThemesController < ApplicationController
     lighten_color = @settings.get_value("Primary Color Lighten") || Rails.configuration.primary_color_lighten_default
     darken_color = @settings.get_value("Primary Color Darken") || Rails.configuration.primary_color_darken_default
 
-    file_name = Rails.root.join('app', 'assets', 'stylesheets', 'utilities', '_primary_themes.scss')
+    file_name = Rails.root.join('lib', 'assets', '_primary_themes.scss')
     @file_contents = File.read(file_name)
 
     # Include the variables and covert scss file to css
-    @compiled = Sass::Engine.new("$primary-color:#{color};" \
+    @compiled = SassC::Engine.new("$primary-color:#{color};" \
                                  "$primary-color-lighten:#{lighten_color};" \
                                  "$primary-color-darken:#{darken_color};" +
                                  @file_contents, syntax: :scss).render
@@ -38,11 +38,5 @@ class ThemesController < ApplicationController
     respond_to do |format|
       format.css { render body: @compiled }
     end
-  end
-
-  private
-
-  def provider_settings
-    @settings = Setting.find_or_create_by(provider: user_settings_provider)
   end
 end

@@ -24,31 +24,34 @@ module RoomsHelper
   end
 
   def room_authentication_required
-    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Authentication") == "true" &&
+    @settings.get_value("Room Authentication") == "true" &&
       current_user.nil?
-  end
-
-  def number_of_rooms_allowed
-    Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
-  end
-
-  def room_limit_exceeded
-    limit = Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
-
-    # Does not apply to admin or users that aren't signed in
-    # 15+ option is used as unlimited
-    return false if current_user&.has_role?(:admin) || limit == 15
-
-    current_user.rooms.length >= limit
   end
 
   def current_room_exceeds_limit(room)
     # Get how many rooms need to be deleted to reach allowed room number
-    limit = Setting.find_or_create_by!(provider: user_settings_provider).get_value("Room Limit").to_i
+    limit = @settings.get_value("Room Limit").to_i
 
     return false if current_user&.has_role?(:admin) || limit == 15
 
     @diff = current_user.rooms.count - limit
     @diff.positive? && current_user.rooms.pluck(:id).index(room.id) + 1 > limit
+  end
+
+  def room_configuration(name)
+    @settings.get_value(name)
+  end
+
+  def preupload_allowed?
+    @settings.get_value("Preupload Presentation") == "true"
+  end
+
+  def display_joiner_consent
+    # If the require consent setting is checked, then check the room setting, else, set to false
+    if recording_consent_required?
+      room_setting_with_config("recording")
+    else
+      false
+    end
   end
 end

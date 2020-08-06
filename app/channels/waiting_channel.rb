@@ -18,6 +18,6 @@
 
 class WaitingChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "#{params[:uid]}_waiting_channel"
+    stream_from "#{params[:roomuid]}_waiting_channel"
   end
 end

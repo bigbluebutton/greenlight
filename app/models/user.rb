@@ -19,20 +19,21 @@
 require 'bbb_api'
 
 class User < ApplicationRecord
-  rolify
-  include ::APIConcern
-  include ::BbbApi
+  include Deleteable
 
-  attr_accessor :reset_token
-  after_create :assign_default_role
-  after_create :initialize_main_room
+  after_create :setup_user
 
   before_save { email.try(:downcase!) }
 
   before_destroy :destroy_rooms
 
   has_many :rooms
+  has_many :shared_access
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
+
+  has_and_belongs_to_many :roles, join_table: :users_roles # obsolete
+
+  belongs_to :role, required: false
 
   validates :name, length: { maximum: 256 }, presence: true
   validates :provider, presence: true
@@ -51,75 +52,27 @@ class User < ApplicationRecord
   has_secure_password(validations: false)
 
   class << self
+    include AuthValues
+
     # Generates a user from omniauth.
     def from_omniauth(auth)
       # Provider is the customer name if in loadbalanced config mode
       provider = auth['provider'] == "bn_launcher" ? auth['info']['customer'] : auth['provider']
-      u = find_by(social_uid: auth['uid'], provider: provider)
-
-      if ENV["MAINTENANCE_MODE"] == "readonly"
-        raise ActiveRecord::ReadOnlyRecord if u.nil?
-
-        return u
-      end
-
-      return User.create(
-        name: auth_name(auth),
-        username: auth_username(auth),
-        email: auth_email(auth),
-        social_uid: auth['uid'],
-        provider: provider,
-        image: auth_image(auth),
-        email_verified: true
-      ) if u.nil?
-
-      u.name = auth_name(auth) unless u.name
-      u.username = auth_username(auth) unless u.username
-      u.email = auth_email(auth)
-      u.image = auth_image(auth)
-      u.email_verified = true
-      u.save!
-      u
-    end
-
-    private
-
-    # Provider attributes.
-    def auth_name(auth)
-      case auth['provider']
-      when :office365
-        auth['info']['display_name']
-      else
-        auth['info']['name']
-      end
-    end
-
-    def auth_username(auth)
-      case auth['provider']
-      when :google
-        auth['info']['email'].split('@').first
-      when :bn_launcher
-        auth['info']['username']
-      else
-        auth['info']['nickname']
-      end
-    end
-
-    def auth_email(auth)
-      auth['info']['email']
-    end
-
-    def auth_image(auth)
-      case auth['provider']
-      when :twitter
-        auth['info']['image'].gsub("http", "https").gsub("_normal", "")
-      else
-        auth['info']['image']
+      find_or_initialize_by(social_uid: auth['uid'], provider: provider).tap do |u|
+        u.name = auth_name(auth) unless u.name
+        u.username = auth_username(auth) unless u.username
+        u.email = auth_email(auth)
+        u.image = auth_image(auth) unless u.image
+        auth_roles(u, auth)
+        u.email_verified = true
+        u.save!
       end
     end
   end
 
   def self.admins_search(string)
+    return all if string.blank?
+
     active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
     # Postgres requires created_at to be cast to a string
     created_at_query = if active_database == "postgresql"
@@ -129,63 +82,48 @@ class User < ApplicationRecord
     end
 
     search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
-                   " OR users.#{created_at_query} LIKE :search OR provider LIKE :search"
-    search_param = "%#{string}%"
+                  " OR users.#{created_at_query} LIKE :search OR users.provider LIKE :search" \
+                  " OR roles.name LIKE :search"
+
+    search_param = "%#{sanitize_sql_like(string)}%"
     where(search_query, search: search_param)
   end
 
   def self.admins_order(column, direction)
-    order("#{column} #{direction}")
+    # Arel.sql to avoid sql injection
+    order(Arel.sql("users.#{column} #{direction}"))
   end
 
-  def all_recordings(search_params = {}, ret_search_params = false)
-    pag_num = Rails.configuration.pagination_number
-
-    pag_loops = rooms.length / pag_num - 1
-
-    res = { recordings: [] }
-
-    (0..pag_loops).each do |i|
-      pag_rooms = rooms[pag_num * i, pag_num]
-
-      # bbb.get_recordings returns an object
-      # take only the array portion of the object that is returned
-      full_res = bbb.get_recordings(meetingID: pag_rooms.pluck(:bbb_id))
-      res[:recordings].push(*full_res[:recordings])
-    end
-
-    last_pag_room = rooms[pag_num * (pag_loops + 1), rooms.length % pag_num]
-
-    full_res = bbb.get_recordings(meetingID: last_pag_room.pluck(:bbb_id))
-    res[:recordings].push(*full_res[:recordings])
-
-    format_recordings(res, search_params, ret_search_params)
+  # Returns a list of rooms ordered by last session (with nil rooms last)
+  def ordered_rooms
+    [main_room] + rooms.where.not(id: main_room.id).order(Arel.sql("last_session IS NULL, last_session desc"))
   end
 
   # Activates an account and initialize a users main room
   def activate
-    update_attribute(:email_verified, true)
-    update_attribute(:activated_at, Time.zone.now)
-    save
+    set_role :user if role_id.nil?
+    update_attributes(email_verified: true, activated_at: Time.zone.now, activation_digest: nil)
   end
 
   def activated?
-    return true unless Rails.configuration.enable_email_verification
-    email_verified
+    Rails.configuration.enable_email_verification ? email_verified : true
+  end
+
+  def self.hash_token(token)
+    Digest::SHA2.hexdigest(token)
   end
 
   # Sets the password reset attributes.
   def create_reset_digest
-    self.reset_token = User.new_token
-    update_attribute(:reset_digest,  User.digest(reset_token))
-    update_attribute(:reset_sent_at, Time.zone.now)
+    new_token = SecureRandom.urlsafe_base64
+    update_attributes(reset_digest: User.hash_token(new_token), reset_sent_at: Time.zone.now)
+    new_token
   end
 
-  # Returns true if the given token matches the digest.
-  def authenticated?(attribute, token)
-    digest = send("#{attribute}_digest")
-    return false if digest.nil?
-    BCrypt::Password.new(digest).is_password?(token)
+  def create_activation_token
+    new_token = SecureRandom.urlsafe_base64
+    update_attributes(activation_digest: User.hash_token(new_token))
+    new_token
   end
 
   # Return true if password reset link expires
@@ -193,12 +131,9 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  # Retrives a list of all a users rooms that are not the main room, sorted by last session date.
-  def secondary_rooms
-    secondary = (rooms - [main_room])
-    no_session, session = secondary.partition { |r| r.last_session.nil? }
-    sorted = session.sort_by(&:last_session)
-    sorted + no_session
+  # Retrieves a list of rooms that are shared with the user
+  def shared_rooms
+    Room.where(id: shared_access.pluck(:room_id))
   end
 
   def name_chunk
@@ -216,65 +151,67 @@ class User < ApplicationRecord
   end
 
   def greenlight_account?
-    return true unless provider # For testing cases when provider is set to null
-    return true if provider == "greenlight"
-    return false unless Rails.configuration.loadbalanced_configuration
-    # Proceed with fetching the provider info
-    provider_info = retrieve_provider_info(provider, 'api2', 'getUserGreenlightCredentials')
-    provider_info['provider'] == 'greenlight'
+    social_uid.nil?
   end
 
-  def activation_token
-    # Create the token.
-    create_reset_activation_digest(User.new_token)
+  def admin_of?(user, permission)
+    has_correct_permission = role.get_permission(permission) && id != user.id
+
+    return has_correct_permission unless Rails.configuration.loadbalanced_configuration
+    return id != user.id if has_role? :super_admin
+    has_correct_permission && provider == user.provider && !user.has_role?(:super_admin)
   end
 
-  def admin_of?(user)
-    if Rails.configuration.loadbalanced_configuration
-      if has_role? :super_admin
-        id != user.id
-      else
-        (has_role? :admin) && (id != user.id) && (provider == user.provider) && (!user.has_role? :super_admin)
-      end
-    else
-      ((has_role? :admin) || (has_role? :super_admin)) && (id != user.id)
-    end
+  # role functions
+  def set_role(role) # rubocop:disable Naming/AccessorMethodName
+    return if has_role?(role)
+
+    new_role = Role.find_by(name: role, provider: role_provider)
+
+    return if new_role.nil?
+
+    create_home_room if main_room.nil? && new_role.get_permission("can_create_rooms")
+
+    update_attribute(:role, new_role)
+
+    new_role
   end
 
-  def self.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
+  # This rule is disabled as the function name must be has_role?
+  def has_role?(role_name) # rubocop:disable Naming/PredicateName
+    role&.name == role_name.to_s
   end
 
-  # Returns a random token.
-  def self.new_token
-    SecureRandom.urlsafe_base64
+  def self.with_role(role)
+    User.includes(:role).where(roles: { name: role })
+  end
+
+  def self.without_role(role)
+    User.includes(:role).where.not(roles: { name: role })
+  end
+
+  def create_home_room
+    room = Room.create!(owner: self, name: I18n.t("home_room"))
+    update_attributes(main_room: room)
   end
 
   private
-
-  def create_reset_activation_digest(token)
-    # Create the digest and persist it.
-    self.activation_digest = User.digest(token)
-    save
-    token
-  end
 
   # Destory a users rooms when they are removed.
   def destroy_rooms
     rooms.destroy_all
   end
 
-  # Initializes a room for the user and assign a BigBlueButton user id.
-  def initialize_main_room
-    self.uid = "gl-#{(0...12).map { rand(65..90).chr }.join.downcase}"
-    self.main_room = Room.create!(owner: self, name: I18n.t("home_room"))
-    save
-  end
+  def setup_user
+    # Initializes a room for the user and assign a BigBlueButton user id.
+    id = "gl-#{(0...12).map { rand(65..90).chr }.join.downcase}"
 
-  # Initialize the user to use the default user role
-  def assign_default_role
-    add_role(:user) if roles.blank?
+    update_attributes(uid: id)
+
+    # Initialize the user to use the default user role
+    role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
+
+    Role.create_default_roles(role_provider) if Role.where(provider: role_provider).count.zero?
   end
 
   def check_if_email_can_be_blank
@@ -285,5 +222,9 @@ class User < ApplicationRecord
         errors.add(:email, I18n.t("errors.messages.blank"))
       end
     end
+  end
+
+  def role_provider
+    Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
   end
 end

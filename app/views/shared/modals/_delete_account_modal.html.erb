@@ -26,13 +26,17 @@
             <%= t("modal.delete_account.keep") %>
           </button>
 
-          <%= button_to delete_location, method: :delete, id: "delete-confirm", class: "btn btn-danger my-1 btn-del-room" do %>
+          <%= button_to delete_location, method: :delete, id: "delete-confirm", class: "btn btn-danger my-1 btn-del-room", disabled:"", "data-disable": "" do %>
             <%= t("modal.delete_account.delete") %>
           <% end %>
 
         </div>
         <div class="card-footer">
-          <p><%= t("modal.delete_account.warning").html_safe %></p>
+          <label class="custom-control custom-checkbox">
+            <input id="delete-checkbox" type="checkbox" class="custom-control-input">
+            <p id="perm-delete" class="custom-control-label"><%= t("modal.delete_account.warning").html_safe %></p>
+            <p id="delete-warning" class="custom-control-label"><%= t("modal.delete_account.delete_warning").html_safe %></p>
+          </label>
         </div>
       </div>
     </div>

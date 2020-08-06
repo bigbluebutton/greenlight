@@ -1,0 +1,558 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+lv:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Noteikumi un nosacījumi"
+        email: E-pasts
+        name: Vārds
+        password: Parole
+        password_confirmation: Parole (vēlreiz)
+    errors:
+      models:
+        user:
+          confirmation: ievadītās paroles nesakrīt
+  administrator:
+    site_settings:
+      authentication:
+        disabled: Izslēgts/atspējots
+        enabled: Ieslēgts/iespējots
+        info: Tikai autentificēti lietotāji varēs pievienoties sapulces telpai
+        title: "Lai pievienotos sapulču telpām, nepieciešams autentificēties"
+        user-info: "Lai pievienotos šai sapulces telpai, jums jāierakstās Greenligh lietotnē"
+      branding:
+        change: Nomainīt attēlu
+        info: "Mainīt zīmola attēlu, kurš redzams augšējā kreisajā stūrī"
+        placeholder: Attēla URL...
+        title: Zīmološanas attēls
+        invalid: Nederīgs URL
+      cache:
+        info: Iztīra pakalpojumu sniedzēja kešatmiņu un par jaunu pieprasa aktualizēt informāciju
+        title: Iztīrīt pakalpojumu sniedzēja kešatmiņu
+        button: Iztīrīt kešatmiņu
+      clear_auth:
+        info: "Notīra lietotāju pašreizējo autentifikatoru, ļaujot viņiem vēlreiz ierakstīties sistēmā, izvēloties citu autentifikācijas metodi"
+        title: Notīrīt pašreizējo autentifikatoru
+        button: Notīrīt
+      color:
+        info: "Mainot pamatkrāsu, tiks izmainītas arī abas nokrāsas: 'Gaišāka' un 'Tumšāka'. Abas šīs nokrāsas var mainīt arī individuāli."
+        title: Primārā krāsa
+        regular: Pamatkrāsa
+        lighten: Gaišāka
+        darken: Tumšāka
+      log_level:
+        title: Žurnalēšanas līmenis
+        information: Mainīt žurnalēšanas kopējo līmeni
+        debug: Atkļūdošana
+        info: Informācija
+        warn: Brīdinājums
+        error: Kļūme
+        fatal: Liktenīgs/Fatāls
+        unknown: Nezināms
+      recording_visibility:
+        info: Jaunajiem ierakstiem iestata noklusējuma piekļuves līmeni
+        title: Piekļuve ierakstiem (pēc noklusējuma)
+        warning: "Šis iestatījums neattieksies uz telpām, kuras pašreiz aktīvas."
+      registration:
+        info: Mainīt lietotāju reģistrācijas metodi vietnē
+        title: Reģistrācijas metode
+        methods:
+          approval: Manuāli Apstiprināt/Noraidīt
+          invite: Reģistrācija tikai ar uzaicinājumu
+          open: Neierobežota/vispārpieejama reģistrācija
+      rooms:
+        info: Ierobežo lietotāja telpu (ieskaitot galveno telpu) skaitu. Šis iestatījums neattiecas uz administratoriem.
+        title: Telpu skaits vienam lietotājam
+      shared_access:
+        info: "Atspējojot opciju, poga tiks izvākta no nolaižamās izvēlnes <Telpas> <Telpas> un liegs lietotājiem koplietot telpas"
+        title: Ļaut lietotājiem koplietot telpas
+      subtitle: Pielāgot Greenlight (interfeisa) iestatījumus
+      title: Vietnes iestatījumi
+    flash:
+      approved: Lietotājs apstiprināts.
+      banned: Lietotājs nobanots (liegta pieeja).
+      unbanned: Lietotājs atbanots (pieejas liegums atcelts).
+      delete: Lietotājs dzēsts.
+      delete_fail: Neizdevās dzēst lietotāju
+      demoted: Lietotāja loma ir pazemināta
+      invite: "Uzaicinājums sekmīgi nosūtīts uz %{email}"
+      invite_email_verification: "Lai izmantotu šo metodi, jāiespējo e-pasta paziņojumi. Sazinieties ar sistēmas administratoru."
+      merge_fail: "Apvienojot lietotāju kontus, radās kļūme. Pārbaudiet izvēlētos lietotājus un mēģiniet vēlreiz" 
+      merge_success: Lietotāja konti tika sekmīgi apvienoti
+      perm_deleted: Lietotājs tika neatgriezeniski (bez atgriešanas iespējas) izdzēsts
+      promoted: Lietotāja loma paaugstināta
+      registration_method_updated: Reģistrācijas metode ir aktualizēta
+      reset_password: "Lai atstatītu Lietotāja paroli, viņam tika nosūtīts e-pasts. (Ja lietotājs teic, ka neko nav saņēmis, palūdziet, lai viņš pārbauda pastkastes mapi “Mēstules”)"
+      restored: Lietotājs ir veiksmīgi atgriezts sistēmā
+      settings: Vietnes iestatījumi sekmīgi nomainīti
+      unauthorized: "Jums nav pietiekamu tiesību/privilēģiju, lai veiktu darbības ar šo lietotāju."
+    recordings:
+      title: Sapulču ieraksti
+      no_recordings: Šajā serverī nav sapulču ierakstu.
+    roles:
+      appear_in_share_list: Telpas koplietošanas izvēlnē parādīt lietotājus ar šo lomu
+      can_create_rooms: Telpu izveidošana
+      delete: Dzēst šo lomu
+      invalid_create: "Radot jaunu lomu, radās problēma. Lūdzu, pārbaudiet vērtības un mēģiniet vēlreiz."
+      invalid_order: "Atjauninot lomas prioritāti, radās problēma. Lūdzu, pārbaudiet vērtības un mēģiniet vēlreiz."
+      invalid_update: "Atjauninot lomas tiesības, radās problēma. Lūdzu, pārbaudiet vērtības un mēģiniet vēlreiz."
+      manage_rooms_recordings: Lietotājiem ar šo lomu ļaut pārvaldīt telpas un ierakstus uz servera
+      name: Lomas nosaukums
+      new_role: Izveidot lomu
+      role_has_users: "Ir %{user_count} lietotāju kontu ar šo lomu. Pirms lomas dzēšanas atņemiet šo lomu visiem lietotājiem."
+      title: Lomas
+      promote_email: "Piešķirot šo lomu, lietotājam nosūtīt e-pasta ziņu"
+      demote_email: "Noņemot šo lomu, lietotājam nosūtīt e-pasta ziņu"
+      edit_site_settings: Lietotājiem ar šo lomu ļaut rediģēt vietnes iestatījumus
+      edit_roles: Lietotājiem ar šo lomu ļaut rediģēt citas lomas
+      manage_users: Lietotājiem ar šo lomu ļaut pārvaldīt lietotājus
+      invalid_assignment: "Piešķirot lomu lietotājam, gadījās ķibele. Lūdzu, pārbaudiet vērtības un mēģiniet vēlreiz" 
+      colour:
+        title: Lomas krāsa
+        info: Iestatiet šai lomai krāsu
+    rooms:
+      title: Sapulču telpas
+      table:
+        id: ID
+        not_running: NENOTIEK sapulce
+        running: NOTIEK sapulce
+        status: Statuss
+        view: Skats
+    title: Administrēšanas iestatījumi
+    users:
+      invite: Uzaicināt lietotāju
+      edit:
+        title: Mainīt lietotāja datus
+      settings:
+        approve: Apstiprināt
+        decline: Noraidīt
+        ban: Nobanot
+        delete: Dzēst
+        edit: Rediģēt
+        edit_roles: Rediģēt lietotāja lomas
+        merge: Apvienot
+        perm_delete: Dzēst lietotāju bez atgriešanas iespējas (neatgriezeniski)
+        unban: Atbanot
+        undelete: Atgriezt/Atdzēst
+      table:
+        authenticator: Autentifikators
+        created: Izveidota
+        name: Vārds
+        not_found: Jūsu pieprasījumam atbilstoši lietotāji nav atrasti
+        no_users: Nav atrasts neviens lietotājs
+        role: Loma
+        uid: Lietotāja ID
+        username: Lietotājvārds
+      title: Lietotāju pārvaldība
+  add_to_google_calendar: "Pievienot manam Google kalendāram"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: "Hmm, mēģinot sākt sapulci, gadījās ķibele!"
+  cancel: Atcelt
+  cookies:
+    cookie_info: "Sīkdatnes palīdz nodrošināt pakalpojumus. Izmantojot mūsu pakalpojumus, jūs piekrītat sīkdatņu izmantošanai."
+    cookie_button: Piekrītu
+  copied: Kopēts
+  copy: Kopēt
+  date:
+    month_names: [~, janvāris, februāris, marts, aprīlis, maijs, jūnijs, jūlijs, augusts, septembris, oktobris, novembris, decembris]
+  default_admin: "Jūs joprojām izmantojat šī konta noklusējuma paroli. Lūdzu, noklikšķiniet uz <a href=\"%{edit_link}\">šeit</a>, lai to nomainītu"
+  delete: Dzēst
+  delivery_error: "E-pasta piegādes laikā gadījās kļūme. Lūdzu, sazinieties ar administratoru!"
+  docs: Dokumentācija
+  email: E-pasts
+  email_sent: "Jūsu %{email_type} e-pasts ir nosūtīts! (Lūdzu, pārbaudiet mapi “Mēstules”, ja to nesaņēmāt)"
+  enter_your_name: Ievadiet savu vārdu!
+  errors:
+    bigbluebutton:
+      help: "Lūdzu, pārliecinieties, ka nepieciešamās darbības veiktas. <a href=\\\"%{doc_link}\\\">Pārliecināties</a>\""
+      message: Nederīgs BigBlueButton Endpoint (galapunkts) un Secret (noslēpums)
+      title: Servera kļūme
+    internal:
+      message: "Izskatās, ka mūsu pusē kaut kas misējās."
+      help: "Kļūme tika reģistrēta, mēs paskatīsim!"
+      report: Iesniegt kļūmes aprakstu
+    maintenance:
+      message: "Atvainojiet, pašreiz tiek veikti uzkopšanas darbi."
+      help: Drīz viss darbosies!
+    migration_error:
+      contact_admin: "Ja neesat administrators, lūdzu, sazinieties ar kādu no viņiem."
+      continue: Es vēlos turpināt izmantot Greenlight versiju 1.0.
+      notice: >
+        Greenlight-am gadījās datu bāzes migrācijas kļūda. <br> Iespējams tāpēc, ka neveicāt versijas paaugstināšanu uz Greenlight 2.0.
+      upgrade: "Parādiet man, kā paaugstināt uz versiju 2.0!"
+      version: "Ir izlaista jauna Greenlight versija, taču jūsu datu bāze ar to nav saderīga."
+    messages:
+      blank: nevar būt tukšs
+      too_short: pārāk īss
+      invalid: nepareizs
+      taken: jau paņemts/aizņemts
+      accepted: der/jāakaceptē
+      confirmation: "neatbilst/nesakrīt ar %{attribute}"
+      inclusion: nav sarakstā
+    no_provider:
+      message: "Vietne, kurai mēģināt piekļūt, nav iespējota"
+      help: "Lūdzu, sazinieties ar sistēmas administratoru, lai instalētu Greenlight."
+    not_found:
+      message: "Piedodiet, Jūsu meklētā lapa neeksistē."
+      help: "Varbūt tā ir izdzēsta?"
+      user_not_found:
+        help: "Lūdzu, sazinieties ar administratoru"
+        message: "Atvainojiet, šāds lietotājs nav reģistrēts."
+      user_missing:
+        help: "Lūdzu, pārbaudiet URL un mēģiniet vēlreiz"
+        message: Ievadītais URL nav pareizs
+    title: Kļūmes
+    unauthorized:
+      message: Jums nav piekļuves šai lietotnei.
+      help: "Ja uzskatiet, ka tā ir kļūme, sazinieties ar sistēmas administratoru."
+  expired_reset_token: Paroles atstatīšanas saites termiņš ir beidzies!
+  features:
+    title: sniegtās iespējas
+    rooms: Personalizētas sapulču telpas
+    recordings: Sapulču ierakstu pārvaldība
+    designs: Pielāgots izskats
+    authentication: Lietotāju kontrole
+  footer:
+    powered_by: "Darbina %{href}."
+  forgot_password:
+    subtitle: Aizmirsu paroli
+    email: E-pasts
+    submit: Iesniegt/Nosūtīt
+  go_back: Atpakaļ/Atgriezties
+  greenlight: Greenlight
+  header:
+    all_recordings: Visi ieraksti
+    dropdown:
+      account_settings: Administrēšana
+      help: "Vajadzīga palīdzība?"
+      home: Galvenā telpa
+      settings: Profils
+      signout: Izrakstīties/Iziet
+  home_room: Galvenā telpa
+  info_update_success: Informācija ir veiksmīgi aktualizēta.
+  invalid_credentials: "Ievadītais e-pasts un parole netika atrasti. Mēģiniet vēlreiz vai sekojiet saitei “Aizmirta parole”, lai atstatītu paroli."
+  invalid_login_method: "Ierakstīšanās neizdevās konta autentifikācijas rīka neatbilstības dēļ. Jums jāierakstās, izmantojot omniauth."
+  invite_message: "Lai kādu uzaicinātu uz sapulci/sarunu, nosūtiet viņam šo saiti:"
+  javascript:
+    room:
+      mailer:
+        subject: 'ir uzaicinājis jūs apskatīt ierakstu'
+        body: 'Lai skatītu ierakstu, izmantojiet saiti:'
+        autogenerated: 'Šis e-pasta sūtījums ir BigBlueButton automātiski ģenerēts.'
+        footer: 'BigBlueButton ir populāra atklātā koda sapulču (videokonferenču) lietotne. Sīkākai informācijai par BigBlueButton, skatiet vietni https://bigbluebutton.org/.'
+    search:
+      start: Sākam meklēšanu ...
+  landing:
+    about: "%{href} ir atklātā koda video sapulču servera BigBlueButton vienkārša saskarne (gui). Izmantojot īsu un ērtu saiti, varat izveidot savas video sapulču telpas, rīkot video sapulces vai piedalīties citu rīkotās."
+    welcome: Laipni lūgti video sapulču serverī BigBlueButton!
+    video: Iepazīstieties ar Greenlight videopamācību
+    upgrade: "Parādiet man, kā versiju paaugstināt uz 2.0!"
+    version: "Ir izlaista augstāka Greenlight versija, taču jūsu datu bāze ar to nav saderīga."
+  language_default: Noklusējums (pārlūka valoda)
+  ldap_error: "Neizdodas izveidot savienojumu ar LDAP serveri. Lūdzu, pārbaudiet savu LDAP konfigurāciju env failā un pārliecinieties, ka serveris LDAP darbojas."
+  login: Ierakstīties
+  login_title: Ierakstieties savā kontā
+  mailer:
+    user:
+      approve:
+        info: Jūsu konts ir apstiprināts.
+        signin: "Lai Jūs piekļūtu savu telpu sarakstam, noklikšķiniet uz zemāk esošās pogas un ierakstieties sistēmā."
+        signin_link: Ierakstīties(ienākt)
+        signup:
+          info: Ir reģistrējies/pieteicies jauns Greenlight lietotājs.
+          more-info: "Lai lietotājam ļautu (pabeigt reģistrāciju un) piekļūt Grenlight, jums jāapstiprina viņa konts Administrēšanas iestatījumos."
+          admins_link: Apmeklēt Administrēšanas lapu
+          subject: Jauna Greenlight lietotāja reģistrācija
+          username: "Piereģistrējās lietotājs %{name} ar e-pastu %{email}."
+        subject: Konts ir apstiprināts
+        username: "Jūsu lietotājvārds ir %{email}."
+      demoted:
+        info: "Jūs vairs neesat %{url} \\\"%{role}\\\" ."
+        more-info: Pašlaik jums ir parasta lietotāja tiesības.
+        root_link: Ierakstīties
+        subtitle: "%{role} tiesības ir anulētas/noņemtas"
+      invite:
+        info: "Lietotājs %{name} jūs uzaicināja doties uz jūsu konta paneli"
+        signup_info: "Lai ierakstītos, izmantojiet savu e-pastu, noklikšķiniet uz zemāk esošās pogas un izpildiet norādījumus."
+        signup_link: Reģistrācija
+        signup:
+          info: "Lietotājs, kurš tika uzaicināts, ir reģistrējies Greenlight lietošanai."
+          admins_link: Apmeklējiet Administrēšanas lapu
+          subject: Jauna Greenlight lietotāja reģistrācija.
+          username: "Reģistrēts lietotājs %{name} ar e-pastu %{email}."
+        subject: Uzaicinājums pievienoties video sapulču sistēmai BigBlueButton
+        username: "Jūsu lietotājvārds ir %{email}."
+      password_reset:
+        title: 'Paroles atstatīšana'
+        welcome: "Tika saņemts paroles atstatīšanas pieprasījums e-pastam <b>%{email}</b>\""
+        message: 'Ja Jūs veicāt šo pieprasījumu, noklikšķiniet uz saites, lai atstatītu paroli:'
+        reset_link: Atstatīt paroli
+        expire: Šī saite ir aktīva 2 stundas.
+        ignore: "Ja Jūs neveicāt šo pieprasījumu, šo vēstuli varat droši ignorēt."
+      promoted:
+        admins_link: Apmeklējiet Administrēšanas lapu
+        info: "Jūs tagad esat %{url} %{role}."
+        more-info: "Lai iepazītu jaunās iespējas un funkcijas, apmeklējiet vietni %{url}."
+        subtitle: "Piešķirtas %{role} tiesības"
+      verify_email:
+        welcome: "%{name}, laipni lūdzam jūsu konta panelī!"
+        success: "Izmantojot% {bigbluebutton}, jūs pats varat izveidot video sapulču telpas, noturēt tajās sapulces, kā arī sadarboties ar citiem."
+        username: "Jūsu lietotājvārds %{email}."
+        verify: "Lai verificētu/apstiprinātu savu kontu, noklikšķiniet uz zemāk esošās pogas."
+        verify_text: 'Lai verificētu/apstiprinātu savu kontu, izmantojiet saiti: %{url}'
+        verify_link: Verificēt/apstiprināt kontu
+        thanks: Paldies par pievienošanos un lai patīkama diena!
+  maintenance:
+    window_alert: "Plānoto servera uzturēšanas darbu laiks: %{date}"
+  max_concurrent: Sasniegts maksimālais atļauto paralēlo (vienlaicīgi aktīvo) sesiju skaits!
+  merged: Apvienots/Sapludināts
+  modal:
+    create_role:
+      create: Izveidot jaunu lomu
+      footer_text: Šīs lomas atļaujas varat rediģēt pēc izveidošanas
+      name_placeholder: Ievadiet lomas nosaukumu...
+      not_blank: Lomas nosaukuma lauks nedrīkst būt tukšs.
+      title: Izveidot jaunu lomu
+    create_room:
+      access_code: Piekļuves kods
+      access_code_placeholder: Ģenerēt telpas piekļuves kodu (nav obligāts)
+      auto_join: Mani automātiski pievienot šai sapulces telpai
+      create: Izveidot sapulces telpu
+      free_delete: Jūs varat izdzēst šo telpu jebkurā laikā.
+      name_placeholder: Ievadiet telpas nosaukumu...
+      not_blank: Telpas nosaukuma lauks nedrīkst būt tukšs.
+      title: Jaunas telpas izveide
+    delete_account:
+      confirm: "Tiešām vēlaties dzēst šo kontu?"
+      delete: "Tiešām vēlos, DZĒŠAM šo kontu."
+      keep: "Nē, kontu tomēr ATSTĀJAM."
+      delete_warning: Ar šo darbību tiks dzēsts/atspējots lietotāja konts. Visi atspējotie lietotāji atrodami cilnē "Dzēstie".
+      warning: Šis lēmums ir galīgs. Jūs <b>nevarēsiet</b> atgūt ar šo lietotāju saistītos datus.
+    delete_room:
+      confirm: "Vai tiešām vēlaties izdzēst sapulces telpu %{room}?"
+      delete: "Esmu pārliecināts, DZĒŠAM šo sapulces telpu."
+      keep: Padomāju un nolēmu atstāt.
+      warning: Jūs <b>ne</b>varēsiet atjaunot šo sapulces telpu
+      recording_warning: "un visus %{recordings_num} saistītos ierakstus."
+    invite_user:
+      email_placeholder: Ievadiet lietotāju e-pastus (atdalot tos ar komatu)
+      footer: "Potenciālais lietotājs saņems e-pastu ar norādījumiem, kā reģistrēties."
+      send: Nosūtīt uzaicinājumu
+      title: Uzaicināt lietotāju
+    login:
+      or: vai
+      with: "Ierakstīties, izmantojot %{provider}"
+      forgot_password: "Aizmirsāt paroli?"
+    rename_recording:
+    remove_shared:
+      title: "Tiešām vēlaties dzēst šo telpu no sava telpu saraksta?"
+      delete: "Jā vēlos, DZĒŠAM šo sapulces telpu."
+      warning: Jūs <b> nekad </b> vairs nevarēsiet ieiet šajā telpā.
+    room_settings:
+      title: Telpas iestatījumi
+      update: Aktualizēt telpu
+      client: Izvēlieties klienta tipu
+      join_moderator: Visi lietotāji pievienojas kā moderatori.
+      mute: "Noklusināt lietotājus (izslēgt skaņu) brīdī, kad viņi pievienojas"
+      require_approval: "Lai pievienotos, jāsaņem moderatora apstiprinājums"
+      start: Ikvienam lietotājam ļaut šajā telpā sākt sapulci
+      footer_text: Jūsu telpas iestatījumi var tikt mainīti jebkurā laikā.
+    rename_room:
+      name_placeholder: Ievadiet sapulces telpas nosaukumu ...
+    share_access:
+      footer: Telpas koplietošana ļauj citiem lietotājiem sākt telpā sapulci un apskatīt telpas ierakstus
+      list: Kopīgota ar
+      title: Telpas koplietošana
+      save: Saglabāt izmaiņas
+      cancel_changes: Atmest izmaiņas
+      select: Atlasīt lietotāju(s)
+    merge_user:
+      cancel: Atcelt
+      from: Apvienojamie konti
+      title: Apvienojiet lietotāju kontus
+      to: Primārais konts (kuram pievieno)
+      save: Apvienot
+      footer: "Apvienotā konta sapulču telpas tiks pārceltas uz Primārā konta telpu sarakstu, un pēc tam otrs konts tiks dzēsts."
+  name_update_success: Telpas nosaukums sekmīgi nomainīts!
+  no_user_email_exists: "Lietotājs ar norādīto e-pastu netika atrasts. Pārbaudiet, vai e-pasts ir ievadīts pareizi."
+  omniauth_error: "Autentificējot ar omniauth, gadījās kļūme. Lūdzu, mēģiniet vēlreiz vai sazinieties ar administratoru!"
+  omniauth_specific_error: "Omniauth autentifikācijas kļūme: %{error}. Lūdzu, mēģiniet vēlreiz vai sazinieties ar administratoru!"
+  pagy:
+    nav:
+      prev: "&lsaquo; Iepr."
+      next: "Nākoš. &rsaquo;"
+      gap: "&hellip;"
+  password: Parole
+  password_empty_notice: Paroles lauks nedrīkst būt tukšs.
+  password_reset_success: Parole sekmīgi atstatīta.
+  password_different_notice: Paroles nesakrīt.
+  provider:
+    google: Google
+    office365: Mazmīksto Office 365
+    twitter: Čivekli (Twitter)
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable: "Hmm, mēs nevarējām validēt jūsu reCAPTCHA atbildi. Lūdzu, mēģiniet vēlreiz."
+      verification_failed: "ReCAPTCHA verifikācija neizdevās (ievade nesekmīga). Lūdzu, mēģiniet vēlreiz."
+  recording:
+    all_recordings: Visi sapulču ieraksti
+    email: Nosūtīt ierakstu (saiti) uz e-pastu
+    error: "Piekļūstot %{count} ierakstiem, gadījās kļūme."
+    no_recordings: "Šai telpai nav %{inject} ierakstu."
+    no_user_recordings: Pašlaik jums nav sapulču ierakstu.
+    no_matched_recordings: "Nav jūsu meklēšanas kritērijiem atbilstošu %{inject} sapulču ierakstu."
+    recorded_on: "Ierakstīts %{date}"
+    table:
+      name: Nosaukums
+      thumbnails: Priekšskati
+      length: Ilgums
+      users: Dalībnieki
+      visibility: Pieejamība
+      formats: Formāts
+    visibility:
+      public: publisks
+      unlisted: privāts
+    format:
+      notes: piezīmes
+      podcast: podkāsts
+      presentation: prezentācija
+      statistics: statistika
+      video: video
+  registration:
+    approval:
+      fail: "Jūsu konts vēl nav apstiprināts. Ja pēc reģistrācijas ir pagājušas vairākas dienas, sazinieties ar administratoru."
+      signup: Jūsu konts ir sekmīgi izveidots. Paziņojums ir nosūtīts apstiprināšanai administratoram.
+    banned:
+      fail: "Jums nav piekļuves lietotnei. Ja esat pārliecināti, ka tā ir kļūme, lūdzu, sazinieties ar administratoru." 
+    deprecated:
+      new_signin: Izvēlieties savam kontam jaunu ierakstīšanās metodi. Visas vecā konta telpas tiks pārceltas uz jauno kontu.
+      twitter_signin: "Ierakstīšanās, izmantojot Twitter, ir novecojusi, un nākotnē tā tiks noņemta. Dodieties uz <a href=\\\"%{link}\\\"> šejieni </a>, lai mainītu sava konta autentifikācijas metodi."
+      twitter_signup: "Reģistrācija, izmantojot Twitter, ir novecojusi. Lūdzu, izmantojiet citu reģistrācijas metodi."
+      merge_success: Jūsu Twitter piesaistītais konts ir sekmīgi apvienots ar jauno (primāro) kontu. Jūsu vecais Twitter konts tiks dzēsts.
+    invite:
+      fail: "Jūsu tokens/marķieris neder vai tā lietošanas termiņš ir beidzies. Ja esat pārliecināts, ka tā ir kļūme, lūdzu, sazinieties ar administratoru."
+      no_invite: "Jums nav uzaicinājuma pievienoties. Lai saņemtu uzaicinājumu, lūdzu, sazinieties ar administratoru."
+  remove: Dzēst
+  rename: Pārdēvēt
+  reset_password:
+    subtitle: Paroles atstatīšana
+    password: Jauna parole
+    confirm: Jaunās paroles apstiprināšana
+    update: Aktualizēt paroli
+    auth_change: "Autentifikācijas metode ir mainījusies. Pārbaudiet savu e-pastu, lai iestatītu paroli."
+  roles:
+    active: Aktīvs
+    admin: Administrators
+    banned: Nobanots
+    deleted: Dzēsts
+    pending: Apstiprinājumu gaidošs (pagaidām neapstiprināts)
+    user: Reģistrēts lietotājs
+  room:
+    access_code_required: "Lai ieietu sapulces telpā, ievadiet saņemto piekļuves kodu"
+    create_room: Sapulces telpas izveide
+    create_room_error: "Veidojot telpu, gadījās kļūme"
+    create_room_success: Telpa sekmīgi izveidota
+    delete:
+      home_room: Nav iespējams dzēst lietotāja Galveno telpu
+      success: Telpa ir izdzēsta
+      fail: "Neizdevās izdzēst telpu (%{error})"
+    enter_the_access_code: Ievadiet sapulces telpas piekļuves kodu
+    invalid_provider: "Jūs norādījāt nederīgu URL. Lūdzu, pārbaudiet URL un mēģiniet vēlreiz."
+    invited: Jūs esat uzaicināts pievienoties
+    invite_participants: Uzaicināt dalībniekus
+    join: Pievienoties
+    last_session: "Pēdējā sapulce: %{session}"
+    login: Ieiet/Ierakstīšanās
+    owner: Īpašnieks
+    owner_banned: Šī telpa pašlaik nav pieejama
+    no_room:
+      description: "Ievadiet tās telpas URL vai ID, kurai vēlaties pievienoties."
+      edit_profile: Rediģēt lietotāja profilu
+      go_to: Doties uz sapulces telpu
+      invalid_room_uid: Ievadītās telpas URL/UID nav derīgs.
+      placeholder: URL/UID telpas
+      no_recent_rooms: Pēdējā laikā Jūs neesat pievienojies (apmeklējis) telpām.
+      recent_rooms: Pāriet uz nesen apmeklētajām telpām
+      title: Pievienoties telpai
+    no_sessions: Šajā telpā sapulces vēl nav notikušas!
+    recordings: telpā notikušo sapulču ieraksti
+    room_limit: Jūs esat sasniedzis maksimālo atļauto telpu skaitu
+    room_limit_exceeded: "Jūs esat pārsniedzis atļauto telpu limitu! Lai piekļūtu šai telpai, lūdzu, dzēsiet %{difference} telpu(as).\""
+    sessions: sapulces
+    settings: Telpas iestatījumi
+    share: Piekļuves vadība
+    shared_by: "Kopīgoja %{email}"
+    remove_shared_access_success: Koplietojamā telpa tika noņemta no jūsu telpu saraksta.
+    remove_shared_access_error: "Mēģinot noņemt koplietoto telpu no jūsu telpu saraksta, gadījās kļūme."
+    shared_access_success: Telpa veiksmīgi kopīgota (padarīta par koplietojamu)
+    shared_access_error: "Kopīgojot telpu, gadījās kļūme"
+    start: Sākt
+    unavailable: "Telpa šobrīd nav pieejama, jo īpašnieka e-pasts nav verificēts."
+    update_settings_error: "Aktualizējot telpas iestatījumus, gadījās kļūme."
+    update_settings_success: Telpas iestatījumi sekmīgi aktualizēti
+    wait:
+      message: Sapulce vēl nav sākusies
+      auto: "Sākoties sapulcei, jūs tiksiet pievienots automātiski."
+  settings:
+    account:
+      fullname: Pilns vārds
+      language: Valoda
+      provider: Pakalpojuma sniedzējs
+      image: Attēls
+      image_url: Profila attēla URL
+      roles: Lietotāja lomas
+      subtitle: Aktualizēt sava konta informāciju
+      title: Konta informācija
+    delete:
+      button: "Jā, es gribu izdzēst savu kontu."
+      disclaimer: "Ja nolemsiet izdzēst savu kontu, to <b> NEBŪS </b> iespējams atgriezt (atjaunot). Tiks dzēsta visa Jūsu konta informācija, ieskaitot iestatījumus, sapulču telpas un to sesiju ierakstus."
+      subtitle: Dzēst neatgriezeniski Jūsu kontu
+      title: Dzēst kontu
+    password:
+      confirmation: Jaunās paroles apstiprināšana
+      new: Jaunā parole
+      old: Iepriekšējā (vecā) parole
+      subtitle: Nomainīt paroli
+      title: Parole
+    title: Profils
+    search: Meklēt
+  signup:
+    password_confirm: Paroles apstiprināšana
+    subtitle: Izveidot kontu
+    title: Reģistrēties
+    with: "Reģistrēties, izmantojot %{provider}"
+  terms:
+    accept: "Es piekrītu %{href}"
+    accept_existing: Es piekrītu noteikumiem un nosacījumiem
+    title: Noteikumi un nosacījumi
+  test_install: >
+    Pašreiz Jūs izmantojat iepriekš konfigurētu testa serveri, kurš ir jāaizstāj ar jūsu pašu serveri. Lai iegūtu papildinformāciju, skat. %{href}.
+  update: Aktualizēt/Atsvaidzināt
+  verify:
+    accept: Verificēt (apstiprināt)
+    activated: Konts verificēts!
+    already_verified: Konts jau iepriekš bija verificēts
+    invalid: Nederīga verificēšanas saite
+    not_verified: Jūsu konts vēl nav verificēts.
+    resend: Nosūtīt verifikācijas/apstiprinājuma e-pastu vēlreiz
+    signin: "Lūdzu, ierakstieties sistēmā, lai piekļūtu savam kontam."
+    title: "Verificējiet/apstipriniet savu e-pasta adresi %{email}"
+    verification: Verifikācija

@@ -20,21 +20,6 @@ require "rails_helper"
 
 describe ApplicationHelper do
   describe "#getter functions" do
-    it "returns whether user signup is allowed" do
-      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-
-      expect(helper.allow_user_signup?).to eql(true)
-    end
-
-    it "returns whether the default bbb endpoint is being used" do
-      allow(Rails.configuration).to receive(:bigbluebutton_endpoint)
-        .and_return("http://test-install.blindsidenetworks.com/bigbluebutton/api/")
-      allow(Rails.configuration).to receive(:bigbluebutton_endpoint_default)
-        .and_return("http://test-install.blindsidenetworks.com/bigbluebutton/api/")
-
-      expect(helper.bigbluebutton_endpoint_default?).to eql(true)
-    end
-
     it "returns the correct omniauth login url" do
       allow(Rails.configuration).to receive(:relative_url_root).and_return("/b")
       provider = Faker::Company.name
@@ -43,46 +28,13 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#allow_greenlight_accounts" do
-    it "allows if user sign up is turned on" do
-      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(false)
-      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-
-      expect(helper.allow_greenlight_accounts?).to eql(true)
+  describe "role_colur" do
+    it "should use default if the user doesn't have a role" do
+      expect(helper.role_colour(Role.create(name: "test"))).to eq(Rails.configuration.primary_color_default)
     end
 
-    it "doesn't allow if user sign up is turned off" do
-      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(false)
-      allow(Rails.configuration).to receive(:allow_user_signup).and_return(false)
-
-      expect(helper.allow_greenlight_accounts?).to eql(false)
-    end
-
-    it "doesn't allow if user_domain is blank" do
-      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
-      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-
-      expect(helper.allow_greenlight_accounts?).to eql(false)
-    end
-
-    it "allows if user provider is set to greenlight" do
-      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
-      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-      allow(helper).to receive(:retrieve_provider_info).and_return("provider" => "greenlight")
-
-      @user_domain = "provider1"
-
-      expect(helper.allow_greenlight_accounts?).to eql(true)
-    end
-
-    it "doesnt allow if user provider is not set to greenlight" do
-      allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
-      allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-      allow(helper).to receive(:retrieve_provider_info).and_return("provider" => "google")
-
-      @user_domain = "provider1"
-
-      expect(helper.allow_greenlight_accounts?).to eql(false)
+    it "should use role colour if provided" do
+      expect(helper.role_colour(Role.create(name: "test", colour: "#1234"))).to eq("#1234")
     end
   end
 end

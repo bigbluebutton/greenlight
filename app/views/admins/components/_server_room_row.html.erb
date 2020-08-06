@@ -1,0 +1,86 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<tr class="room-block" data-path="<%= update_settings_path(room) %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>">
+  <td>
+    <div id="room-title" class="edit_hover_class">
+      <% if room.id == room.owner.room_id %>
+        <i class="fas fa-home pr-1"></i>
+      <% end %>
+      <span class="room-name-text" title="<%= room.name %>">
+        <%= room.name %>
+      </span>
+    </div>
+    <div class="small text-muted">
+      <% running = room_is_running(room.bbb_id) %>
+      <% if running %>
+         <%= t("administrator.rooms.table.started", session: friendly_time(room.last_session)) %>
+      <% elsif room.last_session.present? %>
+        <%= t("administrator.rooms.table.ended", session: friendly_time(room.last_session)) %>
+      <% else %>
+        <%= [t("administrator.users.table.created"), ": ", friendly_time(room.created_at)].join %>
+      <% end %>
+    </div>
+  </td>
+  <td class="text-left">
+    <%= room.owner.name %>
+  </td>
+  <td class="text-left">
+    <%= room.uid %>
+  </td>
+  <td class="text-center">
+    <%= @participants_count[room.bbb_id].presence || "-" %>
+  </td>
+  <td class="text-left">
+    <% if running %>
+      <%= t("administrator.rooms.table.running") %>
+    <% else %>
+      <%= t("administrator.rooms.table.not_running") %>
+    <% end %>
+  </td>
+  <td class="text-center">
+    <div class="item-action dropdown">
+      <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
+        <i class="fas fa-ellipsis-v px-4"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <%= link_to room_path(room), class: "dropdown-item" do %>
+          <i class="dropdown-icon far fa-eye"></i> <%= t("administrator.rooms.table.view") %>
+        <% end %>
+        <%= button_to start_room_path(room), class: "dropdown-item", "data-disable": "" do %>
+          <i class="dropdown-icon fas fa-door-open"></i> <%= running ? t("room.join") : t("room.start") %>
+        <% end %>
+        <a href="" data-toggle="modal" data-target="#createRoomModal" class="update-room dropdown-item" data-settings-path="<%= room_settings_path(room) %>">
+          <i class="dropdown-icon fas fa-cog"></i> <%= t("room.settings") %>
+        </a>
+        <% if preupload_allowed? %>
+          <a href="" data-toggle="modal" data-target="#preuploadPresentationModal" class="preupload-room dropdown-item" data-path="<%= preupload_presentation_path(room) %>" data-settings-path="<%= current_presentation_path(room) %>" data-remove="<%= remove_presentation_path(room) %>">
+            <i class="dropdown-icon fas fa-file-upload"></i> <%= t("room.add_presentation") %>
+          </a>
+        <% end %>
+        <% if shared_access_allowed %>
+          <a href="" data-toggle="modal" data-target="#shareRoomModal" class="share-room dropdown-item" data-path="<%= room_shared_access_path(room) %>" data-users-path="<%= room_shared_users_path(room) %>">
+            <i class="dropdown-icon fas fa-users"></i> <%= t("room.share") %>
+          </a>
+        <% end %>
+        <% if room.id != room.owner.room_id %>
+          <a href="" data-toggle="modal" data-target="#deleteRoomModal" data-path="<%= room_path(room) %>" data-name="<%= room.name %>" class="delete-room dropdown-item">
+            <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
+          </a>
+        <% end %>
+      </div>
+    </div>
+  </td>
+</tr>

@@ -1,0 +1,36 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="container pt-6">
+  <%= render "shared/components/subtitle", subtitle: t("administrator.title"), search: false %>
+
+  <div class="row">
+    <div class="col-lg-3 mb-4">
+      <%= render "admins/components/menu_buttons" %>
+    </div>
+    <div id="server_recordings" class="col-lg-9">
+        <%= render "admins/components/setting_view", setting_id: "rooms", setting_title: t("administrator.rooms.title"), search: true %>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/modals/delete_room_modal" %> 
+<%= render "shared/modals/create_room_modal" %>
+<% if preupload_allowed? %>
+  <%= render "shared/modals/preupload_presentation_modal" %>
+<% end %>
+<% if shared_access_allowed %>
+  <%= render "shared/modals/share_room_modal" %>
+<% end %>

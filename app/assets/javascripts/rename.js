@@ -18,7 +18,10 @@ $(document).on('turbolinks:load', function(){
   var controller = $("body").data('controller');
   var action = $("body").data('action');
 
-  if(controller == "rooms" && action == "show" || controller == "rooms" && action == "update" || controller == "users" && action == "recordings"){
+  if(controller == "rooms" && action == "show" 
+    || controller == "rooms" && action == "update" 
+    || controller == "users" && action == "recordings" 
+    || controller == "admins" && action == "server_recordings"){
 
     // Set a room header rename event
     var configure_room_header = function(room_title){
@@ -68,8 +71,8 @@ $(document).on('turbolinks:load', function(){
 
         recording_title.addClass("dotted_underline");
         recording_title.fadeTo('medium', 0.7);
-        recording_title.find('text').attr("contenteditable", true);
-        recording_title.find('text').focus();
+        recording_title.find('span').attr("contenteditable", true);
+        recording_title.find('span').focus();
 
         // Stop automatic refresh
         e.preventDefault();
@@ -120,25 +123,25 @@ $(document).on('turbolinks:load', function(){
       if(element.is('#room-title')){
         submit_update_request({
           setting: "rename_header",
-          room_name: element.find('#user-text').text(),
-        }, element.data('path'));
+          name: element.find('#user-text').text(),
+        }, element.data('path'), "POST");
       }
       else if(element.is('#recording-title')){
         submit_update_request({
           setting: "rename_recording",
           record_id: element.data('recordid'),
-          record_name: element.find('text').text(),
+          record_name: element.find('span').text(),
           room_uid: element.data('room-uid'),
-        }, element.data('path'));
+        }, element.data('path'), "PATCH");
       }
     }
 
     // Helper for submitting ajax requests
-    var submit_update_request = function(data, path){
+    var submit_update_request = function(data, path, action){
       // Send ajax request for update
       $.ajax({
         url: path,
-        type: "PATCH",
+        type: action,
         data: data,
       });
     }

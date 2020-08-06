@@ -1,0 +1,103 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="row">
+  <div class="col-12">
+    <div class="table-responsive">
+      <table id="recordings-table" class="table table-hover table-outline table-vcenter card-table">
+        <thead>
+          <tr>
+            <th data-header="name" data-order="<%= @order_column == "name" ? @order_direction : "none" %>">
+              <%= t("recording.table.name") %>
+              <% if @order_column == "name" && @order_direction == "desc" %>
+                ↓
+              <% elsif @order_column == "name" && @order_direction == "asc" %>
+                ↑
+              <% end %>
+            </th>
+            <th class="text-left" data-header="length" data-order="<%= @order_column == "length" ? @order_direction : "none" %>">
+              <%= t("recording.table.length") %>
+              <% if @order_column == "length" && @order_direction == "desc" %>
+                ↓
+              <% elsif @order_column == "length" && @order_direction == "asc" %>
+                ↑
+              <% end %>
+            </th>
+            <th class="text-left" data-header="users" data-order="<%= @order_column == "users" ? @order_direction : "none" %>">
+              <%= t("recording.table.users") %>
+              <% if @order_column == "users" && @order_direction == "desc" %>
+                ↓
+              <% elsif @order_column == "users" && @order_direction == "asc" %>
+                ↑
+              <% end %>
+            </th>
+            <th class="text-left" data-header="visibility" data-order="<%= @order_column == "visibility" ? @order_direction : "none" %>">
+              <%= t("recording.table.visibility") %>
+              <% if @order_column == "visibility" && @order_direction == "desc" %>
+                ↓
+              <% elsif @order_column == "visibility" && @order_direction == "asc" %>
+                ↑
+              <% end %>
+            </th>
+            <th data-header="formats" data-order="<%= @order_column == "formats" ? @order_direction : "none" %>">
+              <%= t("recording.table.formats") %>
+              <% if @order_column == "formats" && @order_direction == "desc" %>
+                ↓
+              <% elsif @order_column == "formats" && @order_direction == "asc" %>
+                ↑
+              <% end %>
+            </th>
+            <th class="text-center"><i class="icon-settings"></i></th>
+          </tr>
+        </thead>
+        <tbody id="recording-table">
+          <tr id="no_recordings_found" style="display: none;">
+            <td colspan="7" class="text-center h4 p-6 font-weight-normal" >
+              <%= t("recording.no_matched_recordings", inject:"") %>
+            </td>
+          </tr>
+          <% if @recordings.empty? %>
+            <tr>
+              <td colspan="7" class="text-center h4 p-6 font-weight-normal">
+                <%= t("administrator.recordings.no_recordings") %>
+              </td>
+            </tr>
+          <% else %>
+            <% failed_recordings = 0 %>
+            <% @recordings.each do |recording| %>
+              <% begin %>
+                <%= render "admins/components/server_recording_row", recording: recording %>
+              <% rescue => e %>
+                <% logger.error "Error retrieving recording #{recording[:meetingID]}: #{e} -> #{e.backtrace[0]}" %>
+                <% failed_recordings += 1 %>
+              <% end %>
+            <% end %>
+
+            <% if failed_recordings > 0 %>
+              <div class="alert alert-danger alert-dismissible text-center mb-0">
+                <%= t("recording.error", count: failed_recordings) %>
+              </div>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+      <% if !@recordings.empty?%>
+        <div class="float-md-right mt-4">
+          <%== pagy_bootstrap_nav(@pagy) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

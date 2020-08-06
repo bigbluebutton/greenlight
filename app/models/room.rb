@@ -19,28 +19,63 @@
 require 'bbb_api'
 
 class Room < ApplicationRecord
-  include ::APIConcern
-  include ::BbbApi
+  include Deleteable
 
   before_create :setup
 
-  before_destroy :delete_all_recordings
+  before_destroy :destroy_presentation
 
   validates :name, presence: true
 
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
+  has_many :shared_access
 
-  META_LISTED = "gl-listed"
+  has_one_attached :presentation
+
+  def self.admins_search(string)
+    active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
+    # Postgres requires created_at to be cast to a string
+    created_at_query = if active_database == "postgresql"
+      "created_at::text"
+    else
+      "created_at"
+    end
+
+    search_query = "rooms.name LIKE :search OR rooms.uid LIKE :search OR users.email LIKE :search" \
+    " OR users.#{created_at_query} LIKE :search"
+
+    search_param = "%#{sanitize_sql_like(string)}%"
+    where(search_query, search: search_param)
+  end
+
+  def self.admins_order(column, direction, running_ids)
+    # Include the owner of the table
+    table = joins(:owner)
+
+    # Rely on manual ordering if trying to sort by status
+    return order_by_status(table, running_ids) if column == "status"
+
+    return table.order("COALESCE(rooms.last_session,rooms.created_at) DESC") if column == "created_at"
+
+    return table.order(Arel.sql("rooms.#{column} #{direction}")) if table.column_names.include?(column)
+
+    return table.order(Arel.sql("#{column} #{direction}")) if column == "users.name"
+
+    table
+  end
 
   # Determines if a user owns a room.
   def owned_by?(user)
-    return false if user.nil?
-    user.rooms.include?(self)
+    user_id == user&.id
   end
 
-  # Checks if a room is running on the BigBlueButton server.
-  def running?
-    bbb.is_meeting_running?(bbb_id)
+  def shared_users
+    User.where(id: shared_access.pluck(:user_id))
+  end
+
+  def shared_with?(user)
+    return false if user.nil?
+    shared_users.include?(user)
   end
 
   # Determines the invite path for the room.
@@ -48,100 +83,22 @@ class Room < ApplicationRecord
     "#{Rails.configuration.relative_url_root}/#{CGI.escape(uid)}"
   end
 
-  # Creates a meeting on the BigBlueButton server.
-  def start_session(options = {})
-    create_options = {
-      record: options[:meeting_recorded].to_s,
-      logoutURL: options[:meeting_logout_url] || '',
-      moderatorPW: moderator_pw,
-      attendeePW: attendee_pw,
-      moderatorOnlyMessage: options[:moderator_message],
-      muteOnStart: options[:mute_on_start] || false,
-      "meta_#{META_LISTED}": false,
-    }
-
-    # Send the create request.
-    begin
-      meeting = bbb.create_meeting(name, bbb_id, create_options)
-      # Update session info.
-      unless meeting[:messageKey] == 'duplicateWarning'
-        update_attributes(sessions: sessions + 1,
-          last_session: DateTime.now) unless ENV["MAINTENANCE_MODE"] == "readonly"
-      end
-    rescue BigBlueButton::BigBlueButtonException => e
-      puts "BigBlueButton failed on create: #{e.key}: #{e.message}"
-      raise e
-    end
-  end
-
-  # Returns a URL to join a user into a meeting.
-  def join_path(name, options = {}, uid = nil)
-    # Create the meeting, even if it's running
-    start_session(options)
-
-    # Set meeting options.
-    options[:meeting_logout_url] ||= nil
-    options[:moderator_message] ||= ''
-    options[:user_is_moderator] ||= false
-    options[:meeting_recorded] ||= false
-
-    return call_invalid_res unless bbb
-
-    # Get the meeting info.
-    meeting_info = bbb.get_meeting_info(bbb_id, nil)
-
-    # Determine the password to use when joining.
-    password = if options[:user_is_moderator]
-      meeting_info[:moderatorPW]
-    else
-      meeting_info[:attendeePW]
-    end
-
-    # Generate the join URL.
-    join_opts = {}
-    join_opts[:userID] = uid if uid
-    join_opts[:joinViaHtml5] = options[:join_via_html5] if options[:join_via_html5]
-
-    bbb.join_meeting_url(bbb_id, name, password, join_opts)
-  end
-
   # Notify waiting users that a meeting has started.
   def notify_waiting
     ActionCable.server.broadcast("#{uid}_waiting_channel", action: "started")
   end
 
-  # Retrieves all the users in a room.
-  def participants
-    res = bbb.get_meeting_info(bbb_id, nil)
-    res[:attendees].map do |att|
-      User.find_by(uid: att[:userID], name: att[:fullName])
-    end
-  rescue BigBlueButton::BigBlueButtonException
-    # The meeting is most likely not running.
-    []
-  end
+  # Return table with the running rooms first
+  def self.order_by_status(table, ids)
+    return table if ids.blank?
 
-  # Fetches all recordings for a room.
-  def recordings(search_params = {}, ret_search_params = false)
-    res = bbb.get_recordings(meetingID: bbb_id)
+    # Get active rooms first
+    active_rooms = table.where(bbb_id: ids)
 
-    format_recordings(res, search_params, ret_search_params)
-  end
+    # Get other rooms sorted by last session date || created at date (whichever is higher)
+    inactive_rooms = table.where.not(bbb_id: ids).order("COALESCE(rooms.last_session,rooms.created_at) DESC")
 
-  # Fetches a rooms public recordings.
-  def public_recordings(search_params = {}, ret_search_params = false)
-    search, order_col, order_dir, recs = recordings(search_params, ret_search_params)
-    [search, order_col, order_dir, recs.select { |r| r[:metadata][:"gl-listed"] == "true" }]
-  end
-
-  def update_recording(record_id, meta)
-    meta[:recordID] = record_id
-    bbb.send_api_request("updateRecordings", meta)
-  end
-
-  # Deletes a recording from a room.
-  def delete_recording(record_id)
-    bbb.delete_recordings(record_id)
+    active_rooms + inactive_rooms
   end
 
   private
@@ -149,25 +106,29 @@ class Room < ApplicationRecord
   # Generates a uid for the room and BigBlueButton.
   def setup
     self.uid = random_room_uid
-    self.bbb_id = Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base] + Time.now.to_i.to_s).to_s
+    self.bbb_id = unique_bbb_id
     self.moderator_pw = RandomPassword.generate(length: 12)
     self.attendee_pw = RandomPassword.generate(length: 12)
   end
 
-  # Deletes all recordings associated with the room.
-  def delete_all_recordings
-    record_ids = recordings.map { |r| r[:recordID] }
-    delete_recording(record_ids) unless record_ids.empty?
-  end
-
-  # Generates a three character uid chunk.
-  def uid_chunk
-    charset = ("a".."z").to_a - %w(b i l o s) + ("2".."9").to_a - %w(5 8)
-    (0...3).map { charset.to_a[rand(charset.size)] }.join
-  end
-
-  # Generates a random room uid that uses the users name.
+  # Generates a fully random room uid.
   def random_room_uid
-    [owner.name_chunk, uid_chunk, uid_chunk].join('-').downcase
+    # 6 character long random string of chars from a..z and 0..9
+    full_chunk = SecureRandom.alphanumeric(9).downcase
+
+    [owner.name_chunk, full_chunk[0..2], full_chunk[3..5], full_chunk[6..8]].join("-")
+  end
+
+  # Generates a unique bbb_id based on uuid.
+  def unique_bbb_id
+    loop do
+      bbb_id = SecureRandom.alphanumeric(40).downcase
+      break bbb_id unless Room.exists?(bbb_id: bbb_id)
+    end
+  end
+
+  # Before destroying the room, make sure you also destroy the presentation attached
+  def destroy_presentation
+    presentation.purge if presentation.attached?
   end
 end

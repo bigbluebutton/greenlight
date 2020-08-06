@@ -17,8 +17,12 @@ vendor/bundle
 /public/assets/**
 /public/b/**
 
+# Ignore uploaded files
+/storage
+
 # Ignore production paths.
 /db/production
+/db/production-postgres
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -32,6 +36,9 @@ vendor/bundle
 .env
 env
 
+# Ignore yarn configs
+/node_modules
+
 # IDEs
 .idea
 .idea/**
@@ -40,3 +47,5 @@ env
 
 config/terms.md
 coverage*
+
+/atom-sftp-sync.json

@@ -86,12 +86,11 @@
   }
 
   .customBtn-text {
-    font-size: 16px;
+    font-size: 19px;
     line-height: 48px;
     font-weight: 600;
     letter-spacing: .21px;
     padding:0 25px;
-    font-family: 'Roboto', sans-serif;
   }
 
   .customBtn-image {
@@ -158,4 +157,11 @@
 
 .signin-button {
   font-size: 16px;
+}
+
+.table-responsive tbody td:first-child > *:first-child {
+  max-height: 3em;
+  overflow: hidden;
+  max-width: 200px;
+  display: flex;
 }

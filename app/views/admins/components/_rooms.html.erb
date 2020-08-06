@@ -1,0 +1,68 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="row">
+  <div class="col-12">
+    <div class="table-responsive">
+      <table id="rooms-table" class="table table-hover table-outline table-vcenter card-table">
+        <thead>
+          <tr>
+            <th data-header="name" data-order="<%= @order_column == "name" ? @order_direction : "none" %>">
+              <%= t("administrator.users.table.name") %>
+              <% if @order_column == "name" && @order_direction == "desc" %>
+                ↓
+              <% elsif @order_column == "name" && @order_direction == "asc" %>
+                ↑
+              <% end %>
+            </th>
+            <th data-header="users.name" data-order="<%= @order_column == "users.name" ? @order_direction : "none" %>">
+              <%= t("room.owner") %>
+              <% if @order_column == "users.name" && @order_direction == "desc" %>
+                ↓
+              <% elsif @order_column == "users.name" && @order_direction == "asc" %>
+                ↑
+              <% end %>
+            </th>
+            <th data-header="uid" data-order="<%= @order_column == "uid" ? @order_direction : "none" %>">
+              <%= t("administrator.rooms.table.id") %>
+              <% if @order_column == "uid" && @order_direction == "desc" %>
+                ↓
+              <% elsif @order_column == "uid" && @order_direction == "asc" %>
+                ↑
+              <% end %>
+            </th>
+            <th>
+              <%= t("administrator.rooms.table.participants") %>
+            </th>
+            <th>
+              <%= t("administrator.rooms.table.status") %>
+            </th>
+            <th class="text-center"><i class="icon-settings"></i></th>
+          </tr>
+        </thead>
+        <tbody id="rooms-table">
+          <% @rooms.each do |room| %>
+            <%= render "admins/components/server_room_row", room: room %>
+          <% end %>
+        </tbody>
+      </table>
+      <% if !@rooms.empty?%>
+        <div class="float-md-right mt-4">
+          <%== pagy_bootstrap_nav(@pagy) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

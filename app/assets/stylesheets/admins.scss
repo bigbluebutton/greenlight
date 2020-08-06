@@ -55,3 +55,47 @@
     width: 2rem;
   }
 }
+
+.sort-disabled{
+  background: #e6e6e6 !important;
+  color: rgb(110, 118, 135) !important;
+  opacity: 0.75;
+  &:hover{
+    opacity: 0.9;
+  }
+}
+
+.form-disable{
+  background-color: #e6e6e6;
+}
+
+.role-colour-picker{
+  color: white !important;
+}
+
+.custom-role-tag{
+  color: white !important;
+  // Make it consistent with the manage users tab tags
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.user-role-tag{
+  color: white !important;
+}
+
+#manage-users-nav.nav-tabs .nav-item {
+  margin-bottom: -1px;
+}
+
+#merge-account-arrow {
+  position: absolute;
+  top: 47%;
+  right: 47%;
+  z-index: 999;
+  background: white;
+}
+
+.admin-tabs {
+  justify-content: space-around;
+}

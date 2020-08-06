@@ -1,0 +1,74 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div data-path="<%= update_settings_path(room) %>" data-room-access-code="<%= room.access_code %>" class="card room-block">
+  <div class="card-body p-1">
+    <table class="table table-hover table-vcenter text-wrap table-no-border">
+      <tbody class="no-border-top">
+        <td>
+          <span class="stamp stamp-md bg-primary">
+            <% if room == current_user.main_room %>
+              <i class="fas fa-home"></i>
+            <% else %>
+              <i class="fas fa-chalkboard-teacher"></i>
+            <% end %>
+          </span>
+        </td>
+        <td>
+          <div>
+            <h4 contenteditable="false" class="m-0 force-text-normal room-name-text" ><%= room.name %></h4>
+          </div>
+          <div style="display: none">
+            <input class="form-control input-sm w-100 h-4 room-name-editable" value="<%= room.name %>">
+          </div>
+          <div class="small text-muted">
+            <% if room.sessions > 0 %>
+              <i><%= t("room.last_session", session: recording_date(room.last_session)) %></i>
+            <% else %>
+              <i><%= t("room.no_sessions") %></i>
+            <% end %>
+          </div>
+        </td>
+        <td class="text-right">
+          <div class="item-action dropdown" data-display="static">
+            <a href="#" data-toggle="dropdown" data-display="static" class="icon">
+              <i class="fas fa-ellipsis-v px-4"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-md-left">
+              <a href="" data-toggle="modal" data-target="#createRoomModal" class="update-room dropdown-item" data-settings-path="<%= room_settings_path(room) %>">
+                <i class="dropdown-icon fas fa-cog"></i> <%= t("room.settings") %>
+              </a>
+              <% if preupload_allowed? %>
+                <a href="" data-toggle="modal" data-target="#preuploadPresentationModal" class="preupload-room dropdown-item" data-path="<%= preupload_presentation_path(room) %>" data-settings-path="<%= current_presentation_path(room) %>"  data-remove="<%= remove_presentation_path(room) %>">
+                  <i class="dropdown-icon fas fa-file-upload"></i> <%= t("room.add_presentation") %>
+                </a>
+              <% end %>
+              <% if shared_access_allowed %>
+                <a href="" data-toggle="modal" data-target="#shareRoomModal" class="share-room dropdown-item" data-path="<%= room_shared_access_path(room) %>" data-users-path="<%= room_shared_users_path(room) %>">
+                  <i class="dropdown-icon fas fa-users"></i> <%= t("room.share") %>
+                </a>
+              <% end %>
+              <% unless room == current_user.main_room %>
+                <a href="" data-toggle="modal" data-target="#deleteRoomModal" data-path="<%= room_path(room) %>" data-name="<%= room.name %>" class="delete-room dropdown-item">
+                  <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
+                </a>
+              <% end %>
+            </div>
+          </div>
+        </td>
+      </tbody>
+    </table>
+  </div>
+</div>

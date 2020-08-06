@@ -26,6 +26,9 @@ Bundler.require(*Rails.groups)
 
 module Greenlight
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.2
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -49,7 +52,7 @@ module Greenlight
 
     # Use standalone BigBlueButton server.
     config.bigbluebutton_endpoint = if ENV["BIGBLUEBUTTON_ENDPOINT"].present?
-       ENV["BIGBLUEBUTTON_ENDPOINT"]
+      ENV["BIGBLUEBUTTON_ENDPOINT"]
     else
       config.bigbluebutton_endpoint_default
     end
@@ -113,6 +116,21 @@ module Greenlight
     # Enum containing the different possible registration methods
     config.registration_methods = { open: "0", invite: "1", approval: "2" }
 
+    config.google_analytics = ENV["GOOGLE_ANALYTICS_TRACKING_ID"].present?
+
+    # Will always be true unless explicitly set to false
+    config.enable_cache = ENV["ENABLE_CACHED_PROVIDER"] != "false"
+
+    # MAINTENANCE
+    config.maintenance_window = ENV["MAINTENANCE_WINDOW"]
+    config.maintenance_mode = ENV["MAINTENANCE_MODE"] == "true"
+
+    config.report_issue_url = ENV["REPORT_ISSUE_URL"]
+    config.help_url = ENV["HELP_URL"].nil? ? "https://docs.bigbluebutton.org/greenlight/gl-overview.html" : ENV["HELP_URL"]
+
+    # File types allowed in preupload presentation
+    config.allowed_file_types = ".doc,.docx,.ppt,.pptx,.pdf,.xls,.xlsx,.txt,.rtf,.odt,.ods,.odp,.odg,.odc,.odi,.jpg,.jpeg,.png"
+
     # DEFAULTS
 
     # Default branding image if the user does not specify one
@@ -128,10 +146,25 @@ module Greenlight
     config.primary_color_darken_default = "#316cbe"
 
     # Default registration method if the user does not specify one
-    config.registration_method_default = config.registration_methods[:open]
+    config.registration_method_default = if ENV["DEFAULT_REGISTRATION"] == "invite"
+      config.registration_methods[:invite]
+    elsif ENV["DEFAULT_REGISTRATION"] == "approval"
+      config.registration_methods[:approval]
+    else
+      config.registration_methods[:open]
+    end
 
     # Default limit on number of rooms users can create
     config.number_of_rooms_default = 15
+
+    # Allow users to share rooms by default
+    config.shared_access_default = "true"
+
+    # Don't require recording consent by default
+    config.require_consent_default = "false"
+
+    # Don't allow users to preupload presentations by default
+    config.preupload_presentation_default = "false"
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'

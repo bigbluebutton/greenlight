@@ -20,55 +20,55 @@ class PasswordResetsController < ApplicationController
   include Emailer
 
   before_action :disable_password_reset, unless: -> { Rails.configuration.enable_email_verification }
-  before_action :find_user,   only: [:edit, :update]
-  before_action :valid_user, only: [:edit, :update]
+  before_action :find_user, only: [:edit, :update]
   before_action :check_expiration, only: [:edit, :update]
 
-  def index
+  # POST /password_resets/new
+  def new
   end
 
+  # POST /password_resets
   def create
-    @user = User.find_by(email: params[:password_reset][:email].downcase)
-    if @user
-      @user.create_reset_digest
-      send_password_reset_email(@user)
-      flash[:success] = I18n.t("email_sent", email_type: t("reset_password.subtitle"))
+    begin
+      # Check if user exists and throw an error if he doesn't
+      @user = User.find_by!(email: params[:password_reset][:email].downcase, provider: @user_domain)
+
+      send_password_reset_email(@user, @user.create_reset_digest)
       redirect_to root_path
-    else
-      flash[:alert] = I18n.t("no_user_email_exists")
-      redirect_to new_password_reset_path
+    rescue
+      # User doesn't exist
+      redirect_to root_path, flash: { success: I18n.t("email_sent", email_type: t("reset_password.subtitle")) }
     end
-  rescue => e
-    logger.error "Error in email delivery: #{e}"
-    redirect_to root_path, alert: I18n.t(params[:message], default: I18n.t("delivery_error"))
   end
 
+  # GET /password_resets/:id/edit
   def edit
   end
 
+  # PATCH /password_resets/:id
   def update
+    # Check if password is valid
     if params[:user][:password].empty?
       flash.now[:alert] = I18n.t("password_empty_notice")
-      render 'edit'
     elsif params[:user][:password] != params[:user][:password_confirmation]
+      # Password does not match password confirmation
       flash.now[:alert] = I18n.t("password_different_notice")
-      render 'edit'
-    elsif current_user.update_attributes(user_params)
-      flash[:success] = I18n.t("password_reset_success")
-      redirect_to root_path
-    else
-      render 'edit'
+    elsif @user.update_attributes(user_params)
+      # Clear the user's social uid if they are switching from a social to a local account
+      @user.update_attribute(:social_uid, nil) if @user.social_uid.present?
+      # Successfully reset password
+      return redirect_to root_path, flash: { success: I18n.t("password_reset_success") }
     end
+
+    render 'edit'
   end
 
   private
 
   def find_user
-    @user = User.find_by(email: params[:email])
-  end
+    @user = User.find_by(reset_digest: User.hash_token(params[:id]), provider: @user_domain)
 
-  def current_user
-    @user
+    return redirect_to new_password_reset_url, alert: I18n.t("reset_password.invalid_token") unless @user
   end
 
   def user_params
@@ -77,17 +77,10 @@ class PasswordResetsController < ApplicationController
 
   # Checks expiration of reset token.
   def check_expiration
-    redirect_to new_password_reset_url, alert: I18n.t("expired_reset_token") if current_user.password_reset_expired?
+    redirect_to new_password_reset_url, alert: I18n.t("expired_reset_token") if @user.password_reset_expired?
   end
 
-  # Confirms a valid user.
-  def valid_user
-    unless current_user.authenticated?(:reset, params[:id])
-      current_user&.activate unless current_user&.activated?
-      redirect_to root_url
-    end
-  end
-
+  # Redirects to 404 if emails are not enabled
   def disable_password_reset
     redirect_to '/404'
   end

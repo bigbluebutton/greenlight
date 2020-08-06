@@ -14,19 +14,12 @@
 %>
 
 <div class="row mt-2">
-  <div class="col-4">
-    <p class="subtitle"><%= subtitle %></p>
-  </div>
   <% if search %>
-    <div class="col-8">
-      <% if display_invite %>
-        <div id="invite-user" class="d-inline-block float-right ml-3">
-          <%= link_to "#inviteModal", :class => "btn btn-primary", "data-toggle": "modal" do %>
-            <%= t("administrator.users.invite") %> <i class="fas fa-paper-plane ml-1"></i>
-          <% end %>
-        </div>
-      <% end %>
+    <div class="col-md-6">
+      <p class="subtitle"><%= title(subtitle) %></p>
+    </div>
 
+    <div class="col-md-6 mb-4">
       <div id="search-bar" class="d-inline-block float-right">
         <div class="input-group">
           <input id="search-input" type="text" class="form-control" placeholder="<%= t("settings.search") %>..." value="<%= @search %>">
@@ -42,6 +35,10 @@
           </span>
         </div>
       </div>
+    </div>
+  <% else %>
+    <div class="col-12">
+      <p class="subtitle"><%= title(subtitle) %></p>
     </div>
   <% end %>
 </div>

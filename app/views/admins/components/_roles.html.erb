@@ -1,0 +1,105 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="container">
+  <div class="row">
+    <% current_role = current_user.role%>
+    <div class="col-lg-3 mb-4">
+        <div class="list-group list-group-transparent mb-0">
+            <div id="rolesSelect" data-url="<%= admin_roles_order_path %>">
+                <% @roles.each do |role| %>
+                    <%= link_to admin_roles_path(selected_role: role.id), 
+                    class: "#{"sort-disabled" if role.name == "user" || role.name == "admin" || role.priority <= current_role.priority } dropdown-item list-group-item list-group-item-action #{"active" if @selected_role.id == role.id}", 
+                    id: dom_id(role) do %>
+                        <%= translated_role_name(role) %>
+                    <% end %>
+                <% end %>
+            </div>
+            <%= link_to "#", id: "newRoleButton", class: "list-group-item list-group-item-action", "data-toggle" => "modal", "data-target" => '#createRoleModal' do %>
+                <span class="icon mr-4"><i class="fas fa-plus-circle"></i></span><%= t("administrator.roles.new_role") %>
+            <% end %>
+        </div>
+    </div>
+    <div class="col-lg-9 <%="form-disable" if edit_disabled %>">
+        <%= form_with model: @selected_role, url: admin_update_role_path(@selected_role.id), method: :post do |f| %>
+            <%= f.label :name, t('administrator.roles.name'), class: "form-label" %>
+            <%= f.text_field :name, class: 'form-control mb-3', value: translated_role_name(@selected_role), readonly: edit_disabled || @selected_role.name == "user" || @selected_role.name == "admin", required: true  %>
+            
+            <%= f.hidden_field :colour, id: "role-colour", value: role_colour(@selected_role) %>
+            <div class="form-group">
+                <label class="form-label"><%= t("administrator.roles.colour.title") %></label>
+                <label class="form-label text-muted"><%= t("administrator.roles.colour.info") %></label>
+                <div class="color-inputs">
+                    <div id="role-colorinput-regular" class="btn role-colour-picker" data-disabled="<%= edit_disabled %>" data-colour="<%= role_colour(@selected_role) %>">
+                        <%= t("administrator.site_settings.color.regular") %>
+                    </div>
+                </div>
+            </div>
+
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_create_rooms") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.can_create_rooms")%></span>
+                    <%= f.check_box :can_create_rooms, checked: @selected_role.get_permission("can_create_rooms"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_create_rooms") %>
+                <span class="custom-switch-indicator float-right"></span>
+            </label>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_manage_users") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.manage_users")%></span>
+                    <%= f.check_box :can_manage_users, checked: @selected_role.get_permission("can_manage_users"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_manage_users") %>
+                <span class="custom-switch-indicator float-right"></span>
+            </label>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_manage_rooms_recordings") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.manage_rooms_recordings")%></span>
+                    <%= f.check_box :can_manage_rooms_recordings, checked: @selected_role.get_permission("can_manage_rooms_recordings"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_manage_rooms_recordings") %>
+                <span class="custom-switch-indicator float-right"></span>
+            </label>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_edit_site_settings") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.edit_site_settings")%></span>
+                    <%= f.check_box :can_edit_site_settings, checked: @selected_role.get_permission("can_edit_site_settings"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_edit_site_settings") %>
+                <span class="custom-switch-indicator float-right"></span>
+            </label>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_edit_roles") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.edit_roles")%></span>
+                    <%= f.check_box :can_edit_roles, checked: @selected_role.get_permission("can_edit_roles"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_edit_roles") %>
+                <span class="custom-switch-indicator float-right"></span>
+            </label>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_appear_in_share_list") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.appear_in_share_list")%></span>
+                    <%= f.check_box :can_appear_in_share_list, checked: @selected_role.get_permission("can_appear_in_share_list"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_appear_in_share_list") %>
+                <span class="custom-switch-indicator float-right"></span>
+            </label>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("send_promoted_email")  %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.promote_email")%></span>
+                    <%= f.check_box :send_promoted_email, checked: @selected_role.get_permission("send_promoted_email"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("send_promoted_email")  %>
+                <span class="custom-switch-indicator float-right"></span>
+            </label>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("send_demoted_email") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.demote_email")%></span>
+                    <%= f.check_box :send_demoted_email, checked: @selected_role.get_permission("send_demoted_email"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("send_demoted_email") %>
+                <span class="custom-switch-indicator float-right"></span>
+            </label>
+
+            <div class="mt-4">
+                <%= f.submit t("update"), class: "btn btn-primary float-right ml-2 mb-2", disabled: edit_disabled %>
+                <% if @selected_role.name != "user" && @selected_role.name != "admin" && !edit_disabled %>
+                    <%= link_to admin_delete_role_path(@selected_role.id), method: :delete, class: "float-right btn btn-danger" do %>
+                        <%= t("administrator.roles.delete") %>
+                    <% end %>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/modals/create_role_modal" %>

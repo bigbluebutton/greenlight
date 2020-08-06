@@ -112,12 +112,39 @@ describe User, type: :model do
     end
   end
 
+  context '#ordered_rooms' do
+    it 'correctly orders the users rooms' do
+      user = create(:user)
+      room1 = create(:room, owner: user)
+      room2 = create(:room, owner: user)
+      room3 = create(:room, owner: user)
+      room4 = create(:room, owner: user)
+
+      room4.update_attributes(sessions: 1, last_session: "2020-02-24 19:52:57")
+      room3.update_attributes(sessions: 1, last_session: "2020-01-25 19:52:57")
+      room2.update_attributes(sessions: 1, last_session: "2019-09-05 19:52:57")
+      room1.update_attributes(sessions: 1, last_session: "2015-02-24 19:52:57")
+
+      rooms = user.ordered_rooms
+      expect(rooms[0]).to eq(user.main_room)
+      expect(rooms[1]).to eq(room4)
+      expect(rooms[2]).to eq(room3)
+      expect(rooms[3]).to eq(room2)
+      expect(rooms[4]).to eq(room1)
+    end
+  end
+
   context 'password reset' do
     it 'creates token and respective reset digest' do
       user = create(:user)
 
-      reset_digest_success = user.create_reset_digest
-      expect(reset_digest_success).to eq(true)
+      expect(user.create_reset_digest).to be_truthy
+    end
+
+    it 'correctly verifies the token' do
+      user = create(:user)
+      token = user.create_reset_digest
+      expect(User.exists?(reset_digest: User.hash_token(token))).to be true
     end
 
     it 'verifies if password reset link expired' do
@@ -143,20 +170,63 @@ describe User, type: :model do
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
 
       @admin = create(:user, provider: @user.provider)
-      @admin.add_role :admin
+      @admin.set_role :admin
 
-      expect(@admin.admin_of?(@user)).to be true
+      expect(@admin.admin_of?(@user, "can_manage_users")).to be true
 
       @super_admin = create(:user, provider: "test")
-      @super_admin.add_role :super_admin
+      @super_admin.set_role :super_admin
 
-      expect(@super_admin.admin_of?(@user)).to be true
+      expect(@super_admin.admin_of?(@user, "can_manage_users")).to be true
     end
 
     it "returns false if the user is NOT an admin of another" do
       @admin = create(:user)
 
-      expect(@admin.admin_of?(@user)).to be false
+      expect(@admin.admin_of?(@user, "can_manage_users")).to be false
+    end
+
+    it "should get the highest priority role" do
+      @admin = create(:user, provider: @user.provider)
+      @admin.set_role :admin
+
+      expect(@admin.role.name).to eq("admin")
+    end
+
+    it "should add the role if the user doesn't already have the role" do
+      @admin = create(:user, provider: @user.provider)
+      @admin.set_role :admin
+
+      expect(@admin.has_role?(:admin)).to eq(true)
+    end
+
+    it "has_role? should return false if the user doesn't have the role" do
+      expect(@user.has_role?(:admin)).to eq(false)
+    end
+
+    it "has_role? should return true if the user has the role" do
+      @admin = create(:user, provider: @user.provider)
+      @admin.set_role :admin
+
+      expect(@admin.has_role?(:admin)).to eq(true)
+    end
+
+    it "with_role should return all users with the role" do
+      @admin1 = create(:user, provider: @user.provider)
+      @admin2 = create(:user, provider: @user.provider)
+      @admin1.set_role :admin
+      @admin2.set_role :admin
+
+      expect(User.with_role(:admin).count).to eq(2)
+    end
+
+    it "without_role should return all users without the role" do
+      @admin1 = create(:user, provider: @user.provider)
+      @admin2 = create(:user, provider: @user.provider)
+      @admin1.set_role :admin
+      @admin2.set_role :admin
+
+      expect(User.without_role(:admin).count).to eq(1)
     end
   end
 
@@ -171,99 +241,6 @@ describe User, type: :model do
     it "does not allow a blank email if the provider is greenlight" do
       expect { create(:user, email: "", provider: "greenlight") }
         .to raise_exception(ActiveRecord::RecordInvalid, "Validation failed: Email can't be blank")
-    end
-  end
-
-  context '#recordings' do
-    it "gets all filtered and sorted recordings for the user" do
-      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_recordings).and_return(
-        recordings: [
-          {
-            name: "Example",
-            participants: "3",
-            playback: {
-              format:
-              {
-                type: "presentation"
-              }
-            },
-            metadata: {
-              "gl-listed": "true",
-            }
-          },
-          {
-            name: "aExamaaa",
-            participants: "5",
-            playback: {
-              format:
-              {
-                type: "other"
-              }
-            },
-            metadata: {
-              "gl-listed": "false",
-            }
-          },
-          {
-            name: "test",
-            participants: "1",
-            playback: {
-              format:
-              {
-                type: "presentation"
-              }
-            },
-            metadata: {
-              "gl-listed": "true",
-            }
-          },
-          {
-            name: "Exam",
-            participants: "1",
-            playback: {
-              format:
-              {
-                type: "other"
-              }
-            },
-            metadata: {
-              "gl-listed": "false",
-              name: "z",
-            }
-          }
-        ]
-      )
-
-      expect(@user.all_recordings(search: "Exam", column: "name", direction: "desc")).to eq(
-        [
-          {
-            name: "Example",
-            participants: "3",
-            playbacks:
-              [
-                {
-                  type: "presentation"
-                }
-              ],
-            metadata: {
-              "gl-listed": "true",
-            }
-          },
-          {
-            name: "aExamaaa",
-            participants: "5",
-            playbacks:
-              [
-                {
-                  type: "other"
-                }
-              ],
-            metadata: {
-              "gl-listed": "false",
-            }
-          }
-        ]
-      )
     end
   end
 end

@@ -17,24 +17,25 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class UsersController < ApplicationController
-  include RecordingsHelper
   include Pagy::Backend
+  include Authenticator
   include Emailer
   include Registrar
+  include Recorder
+  include Rolify
 
-  before_action :find_user, only: [:edit, :update, :destroy]
-  before_action :ensure_unauthenticated, only: [:new, :create]
+  before_action :find_user, only: [:edit, :change_password, :delete_account, :update, :update_password]
+  before_action :ensure_unauthenticated_except_twitter, only: [:create]
+  before_action :check_user_signup_allowed, only: [:create]
+  before_action :check_admin_of, only: [:edit, :change_password, :delete_account]
 
   # POST /u
   def create
-    # Verify that GreenLight is configured to allow user signup.
-    return unless Rails.configuration.allow_user_signup
-
     @user = User.new(user_params)
     @user.provider = @user_domain
 
     # User or recpatcha is not valid
-    render(:new) && return unless valid_user_or_captcha
+    render("sessions/new") && return unless valid_user_or_captcha
 
     # Redirect to root if user token is either invalid or expired
     return redirect_to root_path, flash: { alert: I18n.t("registration.invite.fail") } unless passes_invite_reqs
@@ -42,130 +43,144 @@ class UsersController < ApplicationController
     # User has passed all validations required
     @user.save
 
+    logger.info "Support: #{@user.email} user has been created."
+
     # Set user to pending and redirect if Approval Registration is set
     if approval_registration
-      @user.add_role :pending
+      @user.set_role :pending
 
       return redirect_to root_path,
         flash: { success: I18n.t("registration.approval.signup") } unless Rails.configuration.enable_email_verification
     end
 
-    send_registration_email if Rails.configuration.enable_email_verification
+    send_registration_email
 
     # Sign in automatically if email verification is disabled or if user is already verified.
-    login(@user) && return if !Rails.configuration.enable_email_verification || @user.email_verified
+    if !Rails.configuration.enable_email_verification || @user.email_verified
+      @user.set_role :user
 
-    send_verification
+      login(@user) && return
+    end
+
+    send_activation_email(@user, @user.create_activation_token)
 
     redirect_to root_path
-  end
-
-  # GET /signin
-  def signin
-    unless params[:old_twitter_user_id].nil? && session[:old_twitter_user_id].nil?
-      flash[:alert] = I18n.t("registration.deprecated.new_signin")
-      session[:old_twitter_user_id] = params[:old_twitter_user_id] unless params[:old_twitter_user_id].nil?
-    end
-  end
-
-  # GET /ldap_signin
-  def ldap_signin
-  end
-
-  # GET /signup
-  def new
-    return redirect_to root_path unless Rails.configuration.allow_user_signup
-
-    # Check if the user needs to be invited
-    if invite_registration
-      redirect_to root_path, flash: { alert: I18n.t("registration.invite.no_invite") } unless params[:invite_token]
-
-      session[:invite_token] = params[:invite_token]
-    end
-
-    unless params[:old_twitter_user_id].nil? && session[:old_twitter_user_id].nil?
-      logout
-      flash.now[:alert] = I18n.t("registration.deprecated.new_signin")
-      session[:old_twitter_user_id] = params[:old_twitter_user_id] unless params[:old_twitter_user_id].nil?
-    end
-
-    @user = User.new
   end
 
   # GET /u/:user_uid/edit
   def edit
-    if current_user
-      redirect_to current_user.main_room if @user != current_user && !current_user.admin_of?(@user)
-    else
-      redirect_to root_path
-    end
+    redirect_to root_path unless current_user
   end
 
-  # PATCH /u/:user_uid/edit
+  # GET /u/:user_uid/change_password
+  def change_password
+    redirect_to edit_user_path unless current_user.greenlight_account?
+  end
+
+  # GET /u/:user_uid/delete_account
+  def delete_account
+  end
+
+  # POST /u/:user_uid/edit
   def update
-    if params[:setting] == "password"
-      # Update the users password.
-      errors = {}
-
-      if @user.authenticate(user_params[:password])
-        # Verify that the new passwords match.
-        if user_params[:new_password] == user_params[:password_confirmation]
-          @user.password = user_params[:new_password]
-        else
-          # New passwords don't match.
-          errors[:password_confirmation] = "doesn't match"
-        end
-      else
-        # Original password is incorrect, can't update.
-        errors[:password] = "is incorrect"
-      end
-
-      if errors.empty? && @user.save
-        # Notify the user that their account has been updated.
-        flash[:success] = I18n.t("info_update_success")
-        redirect_to edit_user_path(@user)
-      else
-        # Append custom errors.
-        errors.each { |k, v| @user.errors.add(k, v) }
-        render :edit, params: { settings: params[:settings] }
-      end
-    elsif user_params[:email] != @user.email && @user.update_attributes(user_params)
-      @user.update_attributes(email_verified: false)
-      flash[:success] = I18n.t("info_update_success")
-      redirect_to edit_user_path(@user)
-    elsif @user.update_attributes(user_params)
-      update_locale(@user)
-      flash[:success] = I18n.t("info_update_success")
-      redirect_to edit_user_path(@user)
+    if session[:prev_url].present?
+      path = session[:prev_url]
+      session.delete(:prev_url)
     else
-      render :edit, params: { settings: params[:settings] }
+      path = admins_path
     end
+
+    redirect_path = current_user.admin_of?(@user, "can_manage_users") ? path : edit_user_path(@user)
+
+    unless @user.greenlight_account?
+      params[:user][:name] = @user.name
+      params[:user][:email] = @user.email
+    end
+
+    if @user.update_attributes(user_params)
+      @user.update_attributes(email_verified: false) if user_params[:email] != @user.email
+
+      user_locale(@user)
+
+      if update_roles(params[:user][:role_id])
+        return redirect_to redirect_path, flash: { success: I18n.t("info_update_success") }
+      else
+        flash[:alert] = I18n.t("administrator.roles.invalid_assignment")
+      end
+    end
+
+    render :edit
+  end
+
+  # POST /u/:user_uid/change_password
+  def update_password
+    # Update the users password.
+    if @user.authenticate(user_params[:password])
+      # Verify that the new passwords match.
+      if user_params[:new_password] == user_params[:password_confirmation]
+        @user.password = user_params[:new_password]
+      else
+        # New passwords don't match.
+        @user.errors.add(:password_confirmation, "doesn't match")
+      end
+    else
+      # Original password is incorrect, can't update.
+      @user.errors.add(:password, "is incorrect")
+    end
+
+    # Notify the user that their account has been updated.
+    return redirect_to change_password_path,
+      flash: { success: I18n.t("info_update_success") } if @user.errors.empty? && @user.save
+
+    # redirect_to change_password_path
+    render :change_password
   end
 
   # DELETE /u/:user_uid
   def destroy
-    if current_user && current_user == @user
-      @user.destroy
-      session.delete(:user_id)
-    elsif current_user.admin_of?(@user)
-      begin
-        @user.destroy
-      rescue => e
-        logger.error "Error in user deletion: #{e}"
-        flash[:alert] = I18n.t(params[:message], default: I18n.t("administrator.flash.delete_fail"))
+    # Include deleted users in the check
+    admin_path = request.referer.present? ? request.referer : admins_path
+    @user = User.include_deleted.find_by(uid: params[:user_uid])
+
+    logger.info "Support: #{current_user.email} is deleting #{@user.email}."
+
+    self_delete = current_user == @user
+    redirect_url = self_delete ? root_path : admin_path
+
+    begin
+      if current_user && (self_delete || current_user.admin_of?(@user, "can_manage_users"))
+        # Permanently delete if the user is deleting themself
+        perm_delete = self_delete || (params[:permanent].present? && params[:permanent] == "true")
+
+        # Permanently delete the rooms under the user if they have not been reassigned
+        if perm_delete
+          @user.rooms.include_deleted.each do |room|
+            room.destroy(true)
+          end
+        end
+
+        @user.destroy(perm_delete)
+
+        # Log the user out if they are deleting themself
+        session.delete(:user_id) if self_delete
+
+        return redirect_to redirect_url, flash: { success: I18n.t("administrator.flash.delete") } unless self_delete
       else
-        flash[:success] = I18n.t("administrator.flash.delete")
+        flash[:alert] = I18n.t("administrator.flash.delete_fail")
       end
-      redirect_to(admins_path) && return
+    rescue => e
+      logger.error "Support: Error in user deletion: #{e}"
+      flash[:alert] = I18n.t(params[:message], default: I18n.t("administrator.flash.delete_fail"))
     end
-    redirect_to root_path
+
+    redirect_to redirect_url
   end
 
   # GET /u/:user_uid/recordings
   def recordings
     if current_user && current_user.uid == params[:user_uid]
       @search, @order_column, @order_direction, recs =
-        current_user.all_recordings(params.permit(:search, :column, :direction), true)
+        all_recordings(current_user.rooms.pluck(:bbb_id), params.permit(:search, :column, :direction), true)
       @pagy, @recordings = pagy_array(recs)
     else
       redirect_to root_path
@@ -185,11 +200,12 @@ class UsersController < ApplicationController
   private
 
   def find_user
-    @user = User.find_by!(uid: params[:user_uid])
+    @user = User.find_by(uid: params[:user_uid])
   end
 
-  def ensure_unauthenticated
-    redirect_to current_user.main_room if current_user && params[:old_twitter_user_id].nil?
+  # Verify that GreenLight is configured to allow user signup.
+  def check_user_signup_allowed
+    redirect_to root_path unless Rails.configuration.allow_user_signup
   end
 
   def user_params
@@ -197,46 +213,18 @@ class UsersController < ApplicationController
       :new_password, :provider, :accepted_terms, :language)
   end
 
-  def send_verification
-    # Start email verification and redirect to root.
-    begin
-      send_activation_email(@user)
-    rescue => e
-      logger.error "Error in email delivery: #{e}"
-      flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
-    else
-      flash[:success] = I18n.t("email_sent", email_type: t("verify.verification"))
-    end
-  end
-
   def send_registration_email
-    begin
-      if invite_registration
-        send_invite_user_signup_email(@user)
-      elsif approval_registration
-        send_approval_user_signup_email(@user)
-      end
-    rescue => e
-      logger.error "Error in email delivery: #{e}"
-      flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
+    if invite_registration
+      send_invite_user_signup_email(@user)
+    elsif approval_registration
+      send_approval_user_signup_email(@user)
     end
   end
 
-  # Add validation errors to model if they exist
-  def valid_user_or_captcha
-    valid_user = @user.valid?
-    valid_captcha = Rails.configuration.recaptcha_enabled ? verify_recaptcha(model: @user) : true
-
-    valid_user && valid_captcha
-  end
-
-  # Checks if the user passes the requirements to be invited
-  def passes_invite_reqs
-    # check if user needs to be invited and IS invited
-    invitation = check_user_invited(@user.email, session[:invite_token], @user_domain)
-
-    @user.email_verified = true if invitation[:verified]
-
-    invitation[:present]
+  # Checks that the user is allowed to edit this user
+  def check_admin_of
+    redirect_to current_user.main_room if current_user &&
+                                          @user != current_user &&
+                                          !current_user.admin_of?(@user, "can_manage_users")
   end
 end

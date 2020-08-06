@@ -17,32 +17,30 @@
   <div class="container">
     <div class="d-flex">
       <%= link_to (current_user ? home_page : root_path), class: "header-brand" do %>
-        <%= image_tag(logo_image, class: "header-brand-img", alt:"") %>
+        <% begin %>
+          <%= image_tag(logo_image, class: "header-brand-img", alt:"") %>
+        <% rescue %>
+          <%= t("administrator.site_settings.branding.invalid") %>
+        <% end %>
       <% end %>
 
       <div class="d-flex ml-auto">
         <% if current_user %>
 
-          <% if current_user.has_role? :super_admin %>
-            <% admins_page = params[:controller] == "admins" && params[:action] == "index" ? "active" : "" %>
-            <%= link_to admins_path, class: "px-3 mx-1 mt-1 header-nav #{admins_page}" do %>
-              <i class="fas fa-home pr-1 "></i> <%= t("header.dropdown.home") %>
-            <% end %>
-          <% else %>
-            <% rooms_page = params[:controller] == "rooms" && params[:action] == "show" ? "active" : "" %>
-            <%= link_to current_user.main_room, class: "px-3 mx-1 mt-1 header-nav #{rooms_page}" do %>
-              <i class="fas fa-home pr-1 "></i> <%= t("header.dropdown.home") %>
-            <% end %>
+          <%= link_to home_page, class: "px-3 mx-1 mt-1 header-nav #{active_home}" do %>
+            <i class="fas fa-home pr-1 "></i><span class="d-none d-sm-inline-block"><%= t("header.dropdown.home") %></span>
+          <% end %>
 
+          <% if current_user.role.get_permission("can_create_rooms") && !current_user.has_role?(:super_admin) && !hide_recording_tables %>
             <% all_rec_page = params[:controller] == "users" && params[:action] == "recordings" ? "active" : "" %>
             <%= link_to get_user_recordings_path(current_user), class: "px-3 mx-1 mt-1 header-nav #{all_rec_page}" do %>
-              <i class="fas fa-video pr-1"></i> <%= t("header.all_recordings") %>
+              <i class="fas fa-video pr-1"></i><span class="d-none d-sm-inline-block"><%= t("header.all_recordings") %></span>
             <% end %>
           <% end %>
 
           <div class="dropdown">
             <a href="#" class="nav-link pr-0" data-toggle="dropdown">
-              <% if current_user.image.blank? %>
+              <% if current_user.image.blank? || !valid_url?(current_user.image) %>
                 <span class="avatar"><%= current_user.name.first %></span>
               <% else %>
                 <span id="user-avatar" class="avatar d-none"><%= current_user.name.first %></span>
@@ -56,16 +54,36 @@
               <%= link_to edit_user_path(current_user), class: "dropdown-item"  do %>
                 <i class="dropdown-icon fas fa-id-card mr-3"></i><%= t("header.dropdown.settings") %>
               <% end %>
-              <% if current_user.has_role? :admin %>
+              <% highest_role = current_user.role %>
+              <% if highest_role.get_permission("can_manage_users") || highest_role.name == "super_admin" %>
                 <%= link_to admins_path, class: "dropdown-item" do %>
+                  <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
+                <% end %>
+              <% elsif highest_role.get_permission("can_manage_rooms_recordings")%>
+                <%= link_to admin_rooms_path, class: "dropdown-item" do %>
+                  <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
+                <% end %>
+              <% elsif highest_role.get_permission("can_edit_site_settings") %>
+                <%= link_to admin_site_settings_path, class: "dropdown-item" do %>
+                  <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
+                <% end %>
+              <% elsif highest_role.get_permission("can_edit_roles")%>
+                <%= link_to admin_roles_path, class: "dropdown-item" do %>
                   <i class="dropdown-icon fas fa-user-tie mr-3"></i><%= t("header.dropdown.account_settings") %>
                 <% end %>
               <% end %>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="http://docs.bigbluebutton.org/install/greenlight-v2.html" target="_blank">
-                <i class="dropdown-icon far fa-question-circle"></i> <%= t("header.dropdown.help") %>
-              </a>
-              <%= link_to logout_path, class: "dropdown-item" do %>
+              <% if Rails.configuration.help_url.present? %>
+                <a class="dropdown-item" href="<%= Rails.configuration.help_url %>" target="_blank" rel="noopener">
+                  <i class="dropdown-icon far fa-question-circle"></i> <%= t("header.dropdown.help") %>
+                </a>
+              <% end %>
+              <% if Rails.configuration.report_issue_url.present? %>
+                <a class="dropdown-item" href="<%= Rails.configuration.report_issue_url %>" target="_blank" rel="noopener">
+                  <i class="dropdown-icon fas fa-exclamation mr-3"></i><%= t("errors.internal.report") %>
+                </a>
+              <% end %>
+              <%= button_to logout_path, class: "dropdown-item" do %>
                 <i class="dropdown-icon fas fa-sign-out-alt"></i> <%= t("header.dropdown.signout") %>
               <% end %>
             </div>

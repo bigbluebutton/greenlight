@@ -1,0 +1,73 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="container">
+  <div class="row pt-7">
+    <div class="col col-lg-6 offset-lg-3">
+      <div class="card">
+        <div class="card-header background">
+          <h4 class="mt-2"><%= t("login_title") %></h4>
+        </div>
+        <div class="card-body background">
+          <% unless iconset_providers.length.zero? %>
+            <% iconset_providers.each do |provider| %>
+              <%= link_to omniauth_login_url(provider), class: "customBtn-#{provider} oauth-signin" do %>
+                <span class="customBtn-icon ">
+                  <img class="customBtn-image"></img>
+                </span>
+                <span class="customBtn-text"><%= t("modal.login.with", provider: t("provider.#{provider}")) %></span>
+              <% end %>
+            <% end %>
+            <div class="or-line my-6">
+              <div>
+                <span class="text-uppercase" style="background-color: #F5F7FB;">
+                  <%= t("modal.login.or") %>
+                </span>
+              </div>
+            </div>
+          <% end %>
+          <%= form_for(:session, url: create_session_path) do |f| %>
+            <div class="form-group">
+              <div class="input-icon">
+                <span class="input-icon-addon">
+                  <i class="fas fa-at"></i>
+                </span>
+                <%= f.email_field :email, class: "form-control", placeholder: t("email"), value: "" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-icon">
+                <span class="input-icon-addon">
+                  <i class="fas fa-key"></i>
+                </span>
+                <%= f.password_field :password, class: "form-control", placeholder: t("password"), value: "" %>
+              </div>
+            </div>
+            <% if Rails.configuration.enable_email_verification %>
+              <div class="form-group">
+                <div class="input-icon">
+                  <%= link_to t("modal.login.forgot_password"), new_password_reset_path %>
+                </div>
+              </div>
+            <% end %>
+            <div class="card-footer px-0">
+              <%= f.submit t("login"), class: "btn btn-primary btn-block signin-button" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

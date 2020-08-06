@@ -17,20 +17,9 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 require 'bbb_api'
-require 'i18n/language/mapping'
+require 'uri'
 
 module ApplicationHelper
-  include MeetingsHelper
-  include BbbApi
-  include I18n::Language::Mapping
-
-  # Gets all configured omniauth providers.
-  def configured_providers
-    Rails.configuration.providers.select do |provider|
-      Rails.configuration.send("omniauth_#{provider}")
-    end
-  end
-
   # Determines which providers can show a login button in the login modal.
   def iconset_providers
     providers = configured_providers & [:google, :twitter, :office365, :ldap]
@@ -49,64 +38,96 @@ module ApplicationHelper
     end
   end
 
-  # Determine if Greenlight is configured to allow user signups.
-  def allow_user_signup?
-    Rails.configuration.allow_user_signup
-  end
-
-  # Determines if the BigBlueButton endpoint is the default.
-  def bigbluebutton_endpoint_default?
-    Rails.configuration.bigbluebutton_endpoint_default == Rails.configuration.bigbluebutton_endpoint
-  end
-
-  # Returns language selection options
-  def language_options
-    locales = I18n.available_locales
-    language_opts = [['<<<< ' + t("language_default") + ' >>>>', "default"]]
-    locales.each do |locale|
-      language_mapping = I18n::Language::Mapping.language_mapping_list[locale.to_s.gsub("_", "-")]
-      language_opts.push([language_mapping["nativeName"], locale.to_s])
-    end
-    language_opts.sort
-  end
-
-  # Parses markdown for rendering.
-  def markdown(text)
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
-      no_intra_emphasis: true,
-      fenced_code_blocks: true,
-      disable_indented_code_blocks: true,
-      autolink: true,
-      tables: true,
-      underline: true,
-      highlight: true)
-
-    markdown.render(text).html_safe
-  end
-
-  def allow_greenlight_accounts?
-    return Rails.configuration.allow_user_signup unless Rails.configuration.loadbalanced_configuration
-    return false unless @user_domain && !@user_domain.empty? && Rails.configuration.allow_user_signup
-    # Proceed with retrieving the provider info
-    begin
-      provider_info = retrieve_provider_info(@user_domain, 'api2', 'getUserGreenlightCredentials')
-      provider_info['provider'] == 'greenlight'
-    rescue => e
-      logger.info e
-      false
-    end
+  # Determines if a form field needs the is-invalid class.
+  def form_is_invalid?(obj, key)
+    'is-invalid' unless obj.errors.messages[key].empty?
   end
 
   # Return all the translations available in the client side through javascript
   def current_translations
     @translations ||= I18n.backend.send(:translations)
-    @translations[I18n.locale].with_indifferent_access[:javascript] || {}
+    @translations[I18n.locale]
   end
 
-  # Returns the page that the logo redirects to when clicked on
-  def home_page
-    return root_path unless current_user
-    return admins_path if current_user.has_role? :super_admin
-    current_user.main_room
+  # Return the fallback translations available in the client side through javascript
+  def fallback_translations
+    @fallback_translations ||= I18n.backend.send(:translations)
+    @fallback_translations[I18n.default_locale]
+  end
+
+  # Returns 'active' if the current page is the users home page (used to style header)
+  def active_home
+    home_actions = %w[show cant_create_rooms]
+    return "active" if params[:controller] == "admins" && params[:action] == "index" && current_user.has_role?(:super_admin)
+    return "active" if params[:controller] == "rooms" && home_actions.include?(params[:action])
+    ""
+  end
+
+  # Returns the action method of the current page
+  def active_page
+    route = Rails.application.routes.recognize_path(request.env['PATH_INFO'])
+
+    route[:action]
+  end
+
+  def role_colour(role)
+    role.colour || Rails.configuration.primary_color_default
+  end
+
+  def translated_role_name(role)
+    if role.name == "denied"
+      I18n.t("roles.banned")
+    elsif role.name == "pending"
+      I18n.t("roles.pending")
+    elsif role.name == "admin"
+      I18n.t("roles.admin")
+    elsif role.name == "user"
+      I18n.t("roles.user")
+    else
+      role.name
+    end
+  end
+
+  def can_reset_password
+    # Check if admin is editting user and user is a greenlight account
+    Rails.configuration.enable_email_verification &&
+      Rails.application.routes.recognize_path(request.env['PATH_INFO'])[:action] == "edit_user" &&
+      @user.greenlight_account?
+  end
+
+  def google_analytics_url
+    "https://www.googletagmanager.com/gtag/js?id=#{ENV['GOOGLE_ANALYTICS_TRACKING_ID']}"
+  end
+
+  # Checks to make sure the image url returns 200 and is of type image
+  def valid_url?(input)
+    url = URI.parse(input)
+
+    # Don't allow reference to own site
+    return false if url.host == request.host
+
+    # Make a GET request and validate content type
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = (url.scheme == "https")
+
+    http.start do |web|
+      response = web.head(url.request_uri)
+      return response.code == "200" && response['Content-Type'].start_with?('image')
+    end
+  rescue
+    false
+  end
+
+  # Specifies which title should be the tab title and returns original string
+  def title(page_title)
+    # Only set the content_for if not already set on the page so that only the first title appears as the tab title
+    content_for(:page_title) { page_title } if content_for(:page_title).blank?
+    page_title
+  end
+
+  # Indicates whether the recording tables should be hidden
+  def hide_recording_tables
+    return false unless recording_consent_required?
+    @settings.get_value("Room Configuration Recording") == "disabled"
   end
 end

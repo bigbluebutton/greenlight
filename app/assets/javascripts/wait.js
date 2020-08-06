@@ -22,10 +22,26 @@ $(document).on("turbolinks:load", function(){
   if(controller == "rooms" && action == "join"){
     App.waiting = App.cable.subscriptions.create({
       channel: "WaitingChannel",
-      uid: $(".background").attr("room")
+      roomuid: $(".background").attr("room"),
+      useruid: $(".background").attr("user")
     }, {
+      connected: function() {
+        console.log("connected");
+        setTimeout(startRefreshTimeout, 120000);
+      },
+
+      disconnected: function(data) {
+        console.log("disconnected");
+        console.log(data);
+      },
+
+      rejected: function() {
+        console.log("rejected");
+      },
+
       received: function(data){
-        if(data.action = "started"){
+        console.log(data);
+        if(data.action == "started"){
           request_to_join_meeting();
         }
       }
@@ -52,4 +68,11 @@ var request_to_join_meeting = function(){
       join_attempts++;
     }
   });
+}
+
+// Refresh the page after 2 mins and attempt to reconnect to ActionCable 
+function startRefreshTimeout() {
+  var url = new URL(window.location.href)
+  url.searchParams.set("reload","true")
+  window.location.href = url.href
 }

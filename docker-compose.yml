@@ -17,20 +17,20 @@ services:
 #        tag: $LOG_TAG
     volumes:
       - ./log:/usr/src/app/log
+      - ./storage:/usr/src/app/storage
 # When using sqlite3 as the database
-      - ./db/production:/usr/src/app/db/production
+#      - ./db/production:/usr/src/app/db/production
 # When using postgresql as the database
-#    links:
-#      - db
-#  db:
-#    image: postgres:9.5
-#    restart: on-failure
-#    ports:
-#      - 127.0.0.1:5432:5432
-#    volumes:
-#      - ./db/production:/var/lib/postgresql/data
-#    environment:
-#      - PGHOST=postgres
-#      - PGDATABASE=postgres
-#      - PGUSER=postgres
-#      - PGPASSWORD=password
+    links:
+      - db
+  db:
+    image: postgres:9.5
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:5432:5432
+    volumes:
+      - ./db/production:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
