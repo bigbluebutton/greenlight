@@ -18,7 +18,7 @@
 
 FactoryBot.define do
   factory :user do
-    password = Faker::Internet.password(8)
+    password = Faker::Internet.password(min_length: 8)
     provider { %w(google twitter).sample }
     uid { rand(10**8) }
     name { Faker::Name.first_name }
@@ -29,6 +29,7 @@ FactoryBot.define do
     accepted_terms { true }
     email_verified { true }
     activated_at { Time.zone.now }
+    role { set_role(:user) }
   end
 
   factory :room do

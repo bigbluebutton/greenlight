@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   # Retrieves the current user.
   def current_user
-    @current_user ||= User.includes(:roles, :main_room).find_by(id: session[:user_id])
+    @current_user ||= User.includes(:role, :main_room).find_by(id: session[:user_id])
 
     if Rails.configuration.loadbalanced_configuration
       if @current_user && !@current_user.has_role?(:super_admin) &&
@@ -84,9 +84,9 @@ class ApplicationController < ActionController::Base
           help: I18n.t("errors.maintenance.help"),
         }
     end
-    if Rails.configuration.maintenance_window.present?
-      unless cookies[:maintenance_window] == Rails.configuration.maintenance_window
-        flash.now[:maintenance] = Rails.configuration.maintenance_window
+    if @settings.get_value("Maintenance Banner").present?
+      unless cookies[:maintenance_window] == @settings.get_value("Maintenance Banner")
+        flash.now[:maintenance] = @settings.get_value("Maintenance Banner")
       end
     end
   end
@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
        current_user&.greenlight_account? && current_user&.authenticate(Rails.configuration.admin_password_default)
 
       flash.now[:alert] = I18n.t("default_admin",
-        edit_link: edit_user_path(user_uid: current_user.uid) + "?setting=password").html_safe
+        edit_link: change_password_path(user_uid: current_user.uid)).html_safe
     end
   end
 
@@ -181,6 +181,26 @@ class ApplicationController < ActionController::Base
     @settings.get_value("Shared Access") == "true"
   end
   helper_method :shared_access_allowed
+
+  # Indicates whether users are allowed to share rooms
+  def recording_consent_required?
+    @settings.get_value("Require Recording Consent") == "true"
+  end
+  helper_method :recording_consent_required?
+
+  # Returns a list of allowed file types
+  def allowed_file_types
+    Rails.configuration.allowed_file_types
+  end
+  helper_method :allowed_file_types
+
+  # Returns the page that the logo redirects to when clicked on
+  def home_page
+    return admins_path if current_user.has_role? :super_admin
+    return current_user.main_room if current_user.role.get_permission("can_create_rooms")
+    cant_create_rooms_path
+  end
+  helper_method :home_page
 
   # Parses the url for the user domain
   def parse_user_domain(hostname)

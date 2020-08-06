@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
         "#{Rails.configuration.relative_url_root}/auth/#{@providers.first}"
       end
 
-      return redirect_to provider_path
+      redirect_to provider_path
     end
   end
 
@@ -88,13 +88,13 @@ class SessionsController < ApplicationController
       # Check that the user is a Greenlight account
       return redirect_to(root_path, alert: I18n.t("invalid_login_method")) unless user.greenlight_account?
       # Check that the user has verified their account
-      return redirect_to(account_activation_path(token: user.create_activation_token)) unless user.activated?
+      return redirect_to(account_activation_path(digest: user.activation_digest)) unless user.activated?
     end
 
     login(user)
   end
 
-  # GET /users/logout
+  # POST /users/logout
   def destroy
     logout
     redirect_to root_path
@@ -146,7 +146,7 @@ class SessionsController < ApplicationController
 
     return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials")) unless result
 
-    @auth = parse_auth(result.first, ENV['LDAP_ROLE_FIELD'])
+    @auth = parse_auth(result.first, ENV['LDAP_ROLE_FIELD'], ENV['LDAP_ATTRIBUTE_MAPPING'])
 
     begin
       process_signin
@@ -218,7 +218,7 @@ class SessionsController < ApplicationController
 
     # Add pending role if approval method and is a new user
     if approval_registration && !@user_exists
-      user.add_role :pending
+      user.set_role :pending
 
       # Inform admins that a user signed up if emails are turned on
       send_approval_user_signup_email(user)
@@ -227,6 +227,8 @@ class SessionsController < ApplicationController
     end
 
     send_invite_user_signup_email(user) if invite_registration && !@user_exists
+
+    user.set_role :user if !@user_exists && user.role.nil?
 
     login(user)
 

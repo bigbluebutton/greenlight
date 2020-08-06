@@ -13,6 +13,8 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
+<% content_for(:page_desc) { t("room.invitation_description", name: @room.name) } %>
+
 <% valid_access_code = @room.access_code.nil? || @room.access_code.empty? || @room.access_code == session[:access_code] %>
 <%= render 'rooms/components/room_event', render_recordings: valid_access_code do %>
   <% if room_authentication_required %>
@@ -44,11 +46,17 @@
             autofocus: true
             %>
         <span class="input-group-append">
-          <button type="submit" class="btn btn-primary btn-sm px-7 form-control join-form">
+          <button id="room-join" type="submit" class="btn btn-primary btn-sm px-7 form-control join-form">
             <%= (!@room_running && @anyone_can_start) ? t("room.start") : t("room.join") %>
           </button>
         </span>
       </div>
+      <% if display_joiner_consent %>
+        <label class="custom-control custom-checkbox">
+          <input id="joiner-consent" type="checkbox" class="custom-control-input" required>
+          <h4 class="text-left text-danger mt-4 custom-control-label"><%= t("room.recording_present") %></h4>
+        </label>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

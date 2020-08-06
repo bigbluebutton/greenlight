@@ -28,6 +28,9 @@
 
 <%= render "shared/modals/delete_room_modal" %> 
 <%= render "shared/modals/create_room_modal" %>
+<% if preupload_allowed? %>
+  <%= render "shared/modals/preupload_presentation_modal" %>
+<% end %>
 <% if shared_access_allowed %>
   <%= render "shared/modals/share_room_modal" %>
 <% end %>

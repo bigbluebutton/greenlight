@@ -37,9 +37,8 @@ class AdminsController < ApplicationController
     @search = params[:search] || ""
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
-
-    @role = params[:role] ? Role.find_by(name: params[:role], provider: @user_domain) : nil
     @tab = params[:tab] || "active"
+    @role = params[:role] ? Role.find_by(name: params[:role], provider: @user_domain) : nil
 
     @user_list = merge_user_list
 
@@ -48,6 +47,7 @@ class AdminsController < ApplicationController
 
   # GET /admins/site_settings
   def site_settings
+    @tab = params[:tab] || "appearance"
   end
 
   # GET /admins/server_recordings
@@ -63,10 +63,17 @@ class AdminsController < ApplicationController
   # GET /admins/rooms
   def server_rooms
     @search = params[:search] || ""
-    @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "created_at"
+    @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "status"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
 
-    @running_room_bbb_ids = all_running_meetings[:meetings].pluck(:meetingID)
+    meetings = all_running_meetings[:meetings]
+    @order_column = "created_at" if meetings.empty?
+    @running_room_bbb_ids = meetings.pluck(:meetingID)
+
+    @participants_count = {}
+    meetings.each do |meet|
+      @participants_count[meet[:meetingID]] = meet[:participantCount]
+    end
 
     @user_list = shared_user_list if shared_access_allowed
 
@@ -86,23 +93,21 @@ class AdminsController < ApplicationController
 
   # POST /admins/ban/:user_uid
   def ban_user
-    @user.roles = []
-    @user.add_role :denied
+    @user.set_role :denied
 
     redirect_back fallback_location: admins_path, flash: { success: I18n.t("administrator.flash.banned") }
   end
 
   # POST /admins/unban/:user_uid
   def unban_user
-    @user.remove_role :denied
-    @user.add_role :user
+    @user.set_role :user
 
     redirect_back fallback_location: admins_path, flash: { success: I18n.t("administrator.flash.unbanned") }
   end
 
   # POST /admins/approve/:user_uid
   def approve
-    @user.remove_role :pending
+    @user.set_role :user
 
     send_user_approved_email(@user)
 
@@ -187,6 +192,7 @@ class AdminsController < ApplicationController
 
   # POST /admins/update_settings
   def update_settings
+    tab = params[:tab] || "settings"
     @settings.update_value(params[:setting], params[:value])
 
     flash_message = I18n.t("administrator.flash.settings")
@@ -195,7 +201,7 @@ class AdminsController < ApplicationController
       flash_message += ". " + I18n.t("administrator.site_settings.recording_visibility.warning")
     end
 
-    redirect_to admin_site_settings_path, flash: { success: flash_message }
+    redirect_to admin_site_settings_path(tab: tab), flash: { success: flash_message }
   end
 
   # POST /admins/color
@@ -203,7 +209,7 @@ class AdminsController < ApplicationController
     @settings.update_value("Primary Color", params[:value])
     @settings.update_value("Primary Color Lighten", color_lighten(params[:value]))
     @settings.update_value("Primary Color Darken", color_darken(params[:value]))
-    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
+    redirect_to admin_site_settings_path(tab: "appearance"), flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   # POST /admins/registration_method/:method
@@ -212,11 +218,11 @@ class AdminsController < ApplicationController
 
     # Only allow change to Join by Invitation if user has emails enabled
     if !Rails.configuration.enable_email_verification && new_method == Rails.configuration.registration_methods[:invite]
-      redirect_to admin_site_settings_path,
+      redirect_to admin_site_settings_path(tab: "settings"),
         flash: { alert: I18n.t("administrator.flash.invite_email_verification") }
     else
       @settings.update_value("Registration Method", new_method)
-      redirect_to admin_site_settings_path,
+      redirect_to admin_site_settings_path(tab: "settings"),
         flash: { success: I18n.t("administrator.flash.registration_method_updated") }
     end
   end
@@ -225,7 +231,7 @@ class AdminsController < ApplicationController
   def clear_auth
     User.include_deleted.where(provider: @user_domain).update_all(social_uid: nil)
 
-    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
+    redirect_to admin_site_settings_path(tab: "settings"), flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   # POST /admins/clear_cache
@@ -233,14 +239,14 @@ class AdminsController < ApplicationController
     Rails.cache.delete("#{@user_domain}/getUser")
     Rails.cache.delete("#{@user_domain}/getUserGreenlightCredentials")
 
-    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
+    redirect_to admin_site_settings_path(tab: "settings"), flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   # POST /admins/log_level
   def log_level
     Rails.logger.level = params[:value].to_i
 
-    redirect_to admin_site_settings_path, flash: { success: I18n.t("administrator.flash.settings") }
+    redirect_to admin_site_settings_path(tab: "administration"), flash: { success: I18n.t("administrator.flash.settings") }
   end
 
   # ROOM CONFIGURATION
@@ -298,7 +304,7 @@ class AdminsController < ApplicationController
       flash[:alert] = I18n.t("administrator.roles.role_has_users", user_count: role.users.count)
       return redirect_to admin_roles_path(selected_role: role.id)
     elsif Role::RESERVED_ROLE_NAMES.include?(role) || role.provider != @user_domain ||
-          role.priority <= current_user.highest_priority_role.priority
+          role.priority <= current_user.role.priority
       return redirect_to admin_roles_path(selected_role: role.id)
     else
       role.role_permissions.delete_all
