@@ -74,6 +74,7 @@ module BbbServer
     }
 
     create_options[:guestPolicy] = "ASK_MODERATOR" if options[:require_moderator_approval]
+    create_options[:voiceBridge] = options[:voice_bridge] if options[:voice_bridge]
 
     # Send the create request.
     begin

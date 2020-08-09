@@ -388,6 +388,10 @@ en:
       name_placeholder: Enter a room name...
       not_blank: Room name cannot be blank.
       title: Create New Room
+      voice_bridge_pin: Voice Conference PIN
+      voice_bridge_pin_placeholder: Generate an optional Voice Conference PIN
+      voice_bridge_pin_btn_label: Generate new Voice Conference PIN
+      voice_bridge_pin_reset_label: Reset Voice Conference PIN
     delete_account:
       confirm: Are you sure you want to delete this account?
       delete: I'm sure, delete this account.

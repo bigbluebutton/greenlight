@@ -176,6 +176,9 @@ function showCreateRoom(target) {
   $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default"))
   $("#room_recording").prop("checked", $("#room_recording").data("default"))
 
+  $("#create-voice-bridge-pin").text(getLocalizedString("modal.create_room.voice_bridge_pin_placeholder"))
+  $("#room_voice_bridge_pin").val(null)
+
   //show all elements & their children with a create-only class
   $(".create-only").each(function() {
     $(this).show()
@@ -235,6 +238,14 @@ function updateCurrentSettings(settings_path){
     $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default") || settings.anyoneCanStart)
     $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default") || settings.joinModerator)
     $("#room_recording").prop("checked", $("#room_recording").data("default") || Boolean(settings.recording))
+    $("#room_voice_bridge_pin").val(settings.voiceBridgePin)
+    if (settings.voiceBridgePin) {
+      $("#create-voice-bridge-pin").html(getLocalizedString("modal.create_room.voice_bridge_pin") + ": <label tabindex=0>" + settings.voiceBridgePin + "</label>")
+      $("#room_voice_bridge_pin").val(voiceBridgePin)
+    } else {
+      $("#create-voice-bridge-pin").text(getLocalizedString("modal.create_room.voice_bridge_pin_placeholder"))
+      $("#room_voice_bridge_pin").val(null)
+    }
   })
 }
 
@@ -251,9 +262,20 @@ function generateAccessCode(){
   $("#room_access_code").val(accessCode)
 }
 
+function generateVoiceBridgePin() {
+  var pin = Math.floor(Math.random() * 90000) + 10000;
+  $("#create-voice-bridge-pin").html(getLocalizedString("modal.create_room.voice_bridge_pin") + ": <label tabindex=0>" + pin + "</label>")
+  $("#room_voice_bridge_pin").val(pin)
+}
+
 function ResetAccessCode(){
   $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
   $("#room_access_code").val(null)
+}
+
+function resetVoiceBridgePin() {
+  $("#create-voice-bridge-pin").text(getLocalizedString("modal.create_room.voice_bridge_pin_placeholder"))
+  $("#room_voice_bridge_pin").val(null)
 }
 
 function saveAccessChanges() {

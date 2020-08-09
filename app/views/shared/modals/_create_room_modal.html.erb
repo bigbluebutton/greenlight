@@ -43,6 +43,17 @@
               </span>
             </div>
 
+            <div class="input-icon mb-2">
+              <span id="generate-voice-bridge-pin" onclick="generateVoiceBridgePin()" class="input-icon-addon allow-icon-click cursor-pointer" tabindex="0" aria-label="<%= t("modal.create_room.voice_bridge_pin_btn_label") %>">
+                <i class="fas fa-dice"></i>
+              </span>
+              <%= f.label :voice_bridge_pin, t("modal.create_room.voice_bridge_pin_placeholder"), id: "create-voice-bridge-pin", class: "form-control" %>
+              <%= f.hidden_field :voice_bridge_pin, id: "room_voice_bridge_pin", value: "" %>
+              <span id="reset-voice-bridge-pin" onclick="resetVoiceBridgePin()" class="input-icon-addon allow-icon-click cursor-pointer" tabindex="0" aria-label="<%= t("modal.create_room.voice_bridge_pin_reset_label") %>">
+                <i class="far fa-trash-alt"></i>
+              </span>
+            </div>
+
             <% mute = room_configuration("Room Configuration Mute On Join") %>
             <% if mute != "disabled" %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if mute == "enabled" %>">
