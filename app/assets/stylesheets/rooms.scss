@@ -114,6 +114,7 @@
   background: lightgray;
   pointer-events: none;
 }
+
 .room_block_btn {
   padding: unset;
   width: 100%;
@@ -132,3 +133,11 @@
   padding: unset;
 }
 
+#recording-table .edit_hover_class {
+  word-break: break-all;
+  white-space: normal;
+}
+
+#room-owner-name {
+  line-height: 12px;
+}

@@ -52,7 +52,7 @@ module Greenlight
 
     # Use standalone BigBlueButton server.
     config.bigbluebutton_endpoint = if ENV["BIGBLUEBUTTON_ENDPOINT"].present?
-       ENV["BIGBLUEBUTTON_ENDPOINT"]
+      ENV["BIGBLUEBUTTON_ENDPOINT"]
     else
       config.bigbluebutton_endpoint_default
     end
@@ -128,6 +128,9 @@ module Greenlight
     config.report_issue_url = ENV["REPORT_ISSUE_URL"]
     config.help_url = ENV["HELP_URL"].nil? ? "https://docs.bigbluebutton.org/greenlight/gl-overview.html" : ENV["HELP_URL"]
 
+    # File types allowed in preupload presentation
+    config.allowed_file_types = ".doc,.docx,.ppt,.pptx,.pdf,.xls,.xlsx,.txt,.rtf,.odt,.ods,.odp,.odg,.odc,.odi,.jpg,.jpeg,.png"
+
     # DEFAULTS
 
     # Default branding image if the user does not specify one
@@ -156,6 +159,12 @@ module Greenlight
 
     # Allow users to share rooms by default
     config.shared_access_default = "true"
+
+    # Don't require recording consent by default
+    config.require_consent_default = "false"
+
+    # Don't allow users to preupload presentations by default
+    config.preupload_presentation_default = "false"
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'

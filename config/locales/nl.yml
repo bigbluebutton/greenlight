@@ -36,7 +36,7 @@ nl:
         enabled: Ingeschakeld
         info: Sta alleen geverifieerde gebruikers toe om deel te nemen aan een ruimte
         title: Verificatie vereist voor kamers
-        user-info: Je moet bij Greenlight inloggen om lid te kunnen worden van deze kamer
+        user-info: Je moet hierboven inloggen om lid te kunnen worden van deze kamer.
       branding:
         change: Wijzig afbeelding
         info: Wijzig de merkafbeelding die in de linkerbovenhoek wordt weergegeven
@@ -45,9 +45,9 @@ nl:
         invalid: Ongeldige URL
       legal:
         change: Wijzig URL
-        info: Wijzig de juridische link die onder aan de pagina wordt weergegeven
-        placeholder: Juridische URL...
-        title: Juridisch
+        info: Wijzig de link naar de voorwaarden die onderaan de pagina wordt weergegeven
+        placeholder: URL naar algemene voorwaarden...
+        title: Algemene voorwaarden
         invalid: Ongeldige URL
       privpolicy:
         change: Wijzig URL
@@ -82,6 +82,18 @@ nl:
         info: Stel de standaardzichtbaarheid van de opname in voor nieuwe opnames
         title: Standaard opname zichtbaarheid
         warning: Deze instelling wordt alleen toegepast op ruimtes die niet actief zijn
+      require_consent:
+        info: "Deze instelling maakt een kamerinstelling mogelijk waarmee kamereigenaren kunnen specifiëren welke kamers kunnen worden opgenomen. Gebruikers die willen deelnemen aan een opgenomen kamer, moeten toestemming geven voordat ze kunnen deelnemen."
+        title: Vereis dat de kamereigenaar en de deelnemer toestemming geven voor opname
+      maintenance_banner:
+        info: Geeft een banner weer om de gebruiker te informeren over een gepland onderhoud
+        title: Onderhoudsbanner
+        display: Aan
+        clear: Uit
+        time: "Voorbeeld: update gepland op 13 december om 23:00 ET. Gebruikers kunnen problemen ondervinden bij het inloggen."        
+      preupload:
+        info: Gebruikers kunnen een presentatie vooraf uploaden om als standaardpresentatie voor die specifieke ruimte te gebruiken
+        title: Sta gebruikers toe presentaties vooraf te uploaden
       registration:
         info: Verander de manier waarop gebruikers zich registreren op de website
         title: Registratie methode
@@ -96,6 +108,10 @@ nl:
         info: "Als u dit instelt op uitgeschakeld, wordt de knop verwijderd uit de keuzelijst Kameropties, waardoor gebruikers geen kamers kunnen delen"
         title: Gebruikers toestaan kamers te delen
       subtitle: Greenlight aanpassen
+      tabs:
+        appearance: Uiterlijk
+        administration: Administratie
+        settings: Instellingen
       title: Site-instellingen
     flash:
       approved: Gebruiker is succesvol goedgekeurd.
@@ -106,7 +122,7 @@ nl:
       demoted: Gebruiker is succesvol gedegradeerd
       invite: "Uitnodiging succesvol verzonden naar %{email}"
       invite_email_verification: E-mails moeten ingeschakeld zijn om deze methode te gebruiken. Neem contact op met uw systeembeheerder.
-      merge_fail: Er is een probleem opgetreden bij het samenvoegen van de gebruikersaccounts. Controleer de geselecteerde gebruikers en probeer het opnieuw 
+      merge_fail: Er is een probleem opgetreden bij het samenvoegen van de gebruikersaccounts. Controleer de geselecteerde gebruikers en probeer het opnieuw
       merge_success: Gebruikersaccounts succesvol samengevoegd
       perm_deleted: Gebruiker is permanent verwijderd
       promoted: Gebruiker is succesvol gepromoveerd
@@ -136,7 +152,7 @@ nl:
       edit_site_settings: Gebruikers met deze rol toestaan ​​om site-instellingen te bewerken
       edit_roles: Gebruikers met deze rol toestaan ​​andere rollen te bewerken
       manage_users: Gebruikers met deze rol toestaan ​​gebruikers te beheren
-      invalid_assignment: Er is een probleem opgetreden bij het toewijzen van de rollen aan de gebruiker. Controleer de waarden en probeer het opnieuw 
+      invalid_assignment: Er is een probleem opgetreden bij het toewijzen van de rollen aan de gebruiker. Controleer de waarden en probeer het opnieuw
       colour:
         title: Rol kleur
         info: Stel de kleur in die aan de rol wordt gekoppeld
@@ -150,6 +166,8 @@ nl:
         info: Hiermee kan elke gebruiker de vergadering op elk moment starten. Standaard kan alleen de kamer eigenaar de vergadering starten.
       all_moderator:
         info: Geeft alle gebruikers moderatorrechten in BigBlueButton wanneer ze deelnemen aan de vergadering.
+      recordings:
+        info: "Hiermee kunnen kamereigenaren aangeven of ze de optie willen om een kamer op te nemen of niet. Indien ingeschakeld, moet de moderator nog steeds op de knop \"Opnemen\" klikken nadat de vergadering is begonnen."
       options:
         disabled: Uitgeschakeld
         enabled: Altijd ingeschakeld
@@ -260,7 +278,7 @@ nl:
     designs: Aangepaste ontwerpen
     authentication: Gebruikersverificatie
   footer:
-    legal: Juridisch
+    legal: Algemene voorwaarden
     privpolicy: Privacy Beleid
     powered_by: "Mogelijk gemaakt door %{href}."
   forgot_password:
@@ -351,8 +369,6 @@ nl:
         verify_text: 'Volg deze link om uw account te verifiëren: %{url}'
         verify_link: Verifieer Account
         thanks: Bedankt voor je deelname en een fijne dag verder!
-  maintenance:
-    window_alert: "Onderhoudsvenster gepland voor %{date}"
   max_concurrent: Het maximum aantal toegestane gelijktijdige sessies is bereikt!
   merged: Samengevoegd
   modal:
@@ -392,6 +408,14 @@ nl:
       or: of
       with: "Log in met %{provider}"
       forgot_password: "Wachtwoord vergeten?"
+    preupload:
+      change: Presentatie vervangen
+      choose: Kies een bestand...
+      current: "Huidige presentatie:"
+      footer: "Afhankelijk van de grootte van de presentatie, kan het uploaden extra tijd vergen voordat deze kan worden gebruikt."
+      invalid: Ongeldige grootte/bestandstype. Zie de beperkingen onderaan.
+      title: Presentatie toevoegen
+      use: Gebruik presentatie
     rename_recording:
     remove_shared:
       title: "Weet je zeker dat je deze kamer uit je kamerlijst wilt verwijderen?"
@@ -406,6 +430,7 @@ nl:
       require_approval: Vereist goedkeuring van moderator voordat u lid wordt
       start: Sta toe dat elke gebruiker deze vergadering kan starten
       footer_text: Aanpassing aan uw kamer kunnen op elk moment worden gedaan.
+      recording: Sta toe dat de ruimte wordt opgenomen
     rename_room:
       name_placeholder: Voer een nieuwe kamernaam in...
     share_access:
@@ -473,7 +498,7 @@ nl:
       fail: Uw account is nog niet goedgekeurd. Neem contact op met uw beheerder als er meerdere dagen zijn verstreken sinds u zich heeft geregistreerd.
       signup: Uw account is succesvol aangemaakt. Het is ter goedkeuring naar een beheerder verzonden.
     banned:
-      fail: U hebt geen toegang tot deze applicatie. Neem contact op met uw beheerder als u denkt dat dit een vergissing is. 
+      fail: U hebt geen toegang tot deze applicatie. Neem contact op met uw beheerder als u denkt dat dit een vergissing is.
     deprecated:
       new_signin: Selecteer een nieuwe inlogmethode voor uw account. Al uw kamers van uw oude account worden gemigreerd naar het nieuwe account
       twitter_signin: "Inloggen via Twitter is verouderd en wordt in de volgende release verwijderd. Klik <a href=\"%{link}\"> hier </a> om uw account naar een nieuwe authenticatiemethode te verplaatsen"
@@ -500,6 +525,7 @@ nl:
     user: Gebruiker
   room:
     access_code_required: Voer een geldige toegangscode in om toegang te krijgen tot de kamer
+    add_presentation: Presentatie toevoegen
     create_room: Maak een kamer
     create_room_error: Er is een fout opgetreden bij het maken van de kamer
     create_room_success: Kamer met succes gemaakt
@@ -509,7 +535,9 @@ nl:
       fail: "Kan kamer niet verwijderen (%{error})"
     enter_the_access_code: Voer de toegangscode van de kamer in
     invalid_provider: U heeft een ongeldige URL ingevoerd. Controleer de URL en probeer het opnieuw.
+    invitation_description: "Je bent uitgenodigd om deel te nemen aan %{name} via BigBlueButton. Klik op bovenstaande link en voert u uw naam in om te beginnen."  
     invited: Je bent uitgenodigd om lid te worden
+    recording_present: Ik erken dat deze sessie zal worden opgenomen. Deze opname kan mijn stem en video bevatten indien dit is ingeschakeld.
     invite_participants: Deelnemers uitnodigen
     join: Toetreden
     last_session: "Laatste sessie op %{session}"
@@ -526,6 +554,10 @@ nl:
       recent_rooms: Ga naar een recent toegetreden kamer
       title: Word lid van een kamer
     no_sessions: Deze kamer heeft nog geen sessies!
+    preupload_success: Presentatie succesvol toegevoegd
+    preupload_error: Er is een fout opgetreden bij het bijwerken van de kamerpresentatie
+    preupload_remove_success: Presentatie is verwijderd
+    preupload_remove_error: Er is een fout opgetreden bij het verwijderen van de kamerpresentatie
     recordings: Kameropnames
     room_limit: Je hebt het maximale aantal toegestane kamers bereikt
     room_limit_exceeded: "Je hebt het toegestane aantal kamers overschreden. Verwijder %{difference} kamer(s) om toegang te krijgen tot deze kamer."

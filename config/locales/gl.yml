@@ -36,7 +36,7 @@ gl:
         enabled: Activado
         info: Só os usuarios autenticados teñen permiso para unirse a unha sala
         title: Requirir autenticación para as salas
-        user-info: Debe iniciar sesión en Greenlight para unirse a esta sala
+        user-info: Debe iniciar sesión enriba para unirse a esta sala
       branding:
         change: Cambiar a imaxe
         info: Cambiar a imaxe de marca que aparece no canto superior esquerdo
@@ -45,13 +45,13 @@ gl:
         invalid: URL non válido
       legal:
         change: Cambiar o URL
-        info: Cambiar a ligazón da directiva de legal que aparece ao final da páxina
-        placeholder: URL directiva legal…
-        title: Directiva legal
+        info: Cambiar a ligazón dos termos que aparece na fin da páxina
+        placeholder: URL dos termos…
+        title: Termos
         invalid: URL non válido
       privpolicy:
         change: Cambiar o URL
-        info: Cambiar a ligazón da directiva de privacidade que aparece ao final da páxina
+        info: Cambiar a ligazón da directiva de privacidade que aparece na fin da páxina
         placeholder: URL da directiva de privacidade…
         title: Directiva de privacidade
         invalid: URL non válido
@@ -82,6 +82,18 @@ gl:
         info: Estabelecer a visibilidade predeterminada para novas gravacións
         title: "Visibilidade predeterminada da gravación "
         warning: Esta configuración só se aplicará a salas que non se estean executando
+      require_consent:
+        info: Este axuste activa un axuste da sala que permite aos propietarios de salas especificar que salas poden ser gravadas. Os usuarios que se unen a unha sala que está a ser gravada deben facer antes o consentimento.
+        title: Esixir o consentimento do propietario da sala e do usuario entrante para gravar
+      maintenance_banner:
+        info: Amosar un cartel para informar o usuario dun mantemento programado
+        title: Cartel de mantemento
+        display: Estabelecer
+        clear: Limpar
+        time: "Exemplo: Actualización programada para o 13 de decembro ás 23:00 ET. Os usuarios poden ter problemas para iniciar sesión."        
+      preupload:
+        info: Os usuarios poden cargar previamente unha presentación para que a utilicen como presentación predeterminada para esa sala específica
+        title: Permitirlle aos usuarios precargar as presentacións
       registration:
         info: Cambiar a forma na que os usuarios se rexistran no sitio web
         title: Método de rexistro
@@ -96,6 +108,10 @@ gl:
         info: "Se se configura como desactivado, eliminarase o botón Compartir do menú despregábel  de opcións da sala, impedindo que os usuarios compartan salas"
         title: Permitirlle aos usuarios compartir salas
       subtitle: Personalizar Greenlight
+      tabs:
+        appearance: Aparencia
+        administration: Administración
+        settings: Axustes
       title: Axustes do sitio
     flash:
       approved: O usuario foi aprobado.
@@ -103,12 +119,12 @@ gl:
       unbanned: O usuario foi readmitido.
       delete: O usuario foi eliminado.
       delete_fail: Non foi posíbel eliminar o usuario.
-      demoted: O usuario foi degradado.
+      demoted: O usuario foi relegado.
       invite: "O convite foi enviado a %{email}"
       invite_email_verification: Para poder empregar este método hai que activar os correos-e. Póñase en contacto co administrador do sistema.
-      merge_fail: Produciuse un problema de fusión das contas de usuario. Comprobe os usuarios seleccionados e ténteo de novo 
+      merge_fail: Produciuse un problema de fusión das contas de usuario. Comprobe os usuarios seleccionados e ténteo de novo
       merge_success: As contas de usuario combináronse correctamente
-      perm_deleted: O usuario foi eliminado permanentemente
+      perm_deleted: O usuario foi eliminado de xeito permanente
       promoted: O usuario foi promovido correctamente
       registration_method_updated: Actualizouse correctamente o método de rexistro
       reset_password: O usuario envioulle un correo electrónico para restabelecer o seu contrasinal. (Pídalle que comprobe o seu cartafol de correo non desexado se non o recibiu).
@@ -136,7 +152,7 @@ gl:
       edit_site_settings: Permitirlle aos usuarios con este rol editar a configuración do sitio
       edit_roles: Permitirlle aos usuarios con este rol editar outros roles
       manage_users: Permitirlle aos usuarios con este rol administrar outros usuarios
-      invalid_assignment: Produciuse un problema ao asignar o(s) rol(es) ao usuario. Comprobe os valores e ténteo de novo 
+      invalid_assignment: Produciuse un problema ao asignar o(s) rol(es) ao usuario. Comprobe os valores e ténteo de novo
       colour:
         title: Cor do rol
         info: Estabelecer a cor que estará asociada ao rol
@@ -150,6 +166,8 @@ gl:
         info: "Permite a calquera usuario iniciar a xuntanza en calquera momento. De xeito predeterminado, só o propietario da sala pode iniciar a xuntanza."
       all_moderator:
         info: Dárlle a todos os usuarios os privilexios de moderador en BigBlueButton cando se unen á xuntanza.
+      recordings:
+        info: "Permitirlle aos propietarios de salas especificar se queren a opción para gravar unha sala ou non. Se está activado, o moderador aínda debe premer no botón «Gravar» unha vez iniciada a xuntanza."
       options:
         disabled: Desactivado
         enabled: Activado sempre
@@ -178,7 +196,7 @@ gl:
         edit: Editar
         edit_roles: Editar os roles de usuario
         merge: Combinar
-        perm_delete: Eliminar permanentemente
+        perm_delete: Eliminar de xeito permanente
         unban: Readmitir ao usuario
         undelete: Recuperar
       table:
@@ -225,7 +243,7 @@ gl:
       contact_admin: "Se non é un administrador, póñase en contacto cun."
       continue: Gustaríame seguir usando 1.0.
       notice: >
-        Greenlight atopou un erro de migración da base de datos. Isto pode deberse a que non actualizou a Greenlight 2.0.
+        Greenlight atopou un erro de migración da base de datos.<br> Isto pode deberse a que non actualizou a Greenlight 2.0.
       upgrade: Amósame como actualizar á versión 2.0!
       version: "Temos publicada unha nova versión de Greenlight, mais a súa base de datos non é compatíbel."
     messages:
@@ -260,7 +278,7 @@ gl:
     designs: Deseños personalizados
     authentication: Autenticación do usuario
   footer:
-    legal: Directiva legal
+    legal: Condicións
     privpolicy: Directiva de privacidade
     powered_by: "Coa tecnoloxía de %{href}."
   forgot_password:
@@ -351,8 +369,6 @@ gl:
         verify_text: 'Para verificar a súa conta, só ten que seguir esta ligazón %{url}:'
         verify_link: Verificar a conta
         thanks: Grazas por unirse e que teña un bo día!
-  maintenance:
-    window_alert: "Xanela de mantemento prevista para %{date}"
   max_concurrent: Acadouse o número máximo de sesións simultáneas permitidas.
   merged: Combinado
   modal:
@@ -392,6 +408,14 @@ gl:
       or: ou
       with: "Acceder con %{provider}"
       forgot_password: "Esqueceu o contrasinal?"
+    preupload:
+      change: Substituír a presentación
+      choose: Escolla un ficheiro…
+      current: "Presentación actual:"
+      footer: "Dependendo do tamaño da presentación, pode requirir tempo adicional para cargala antes de que poida utilizarse."
+      invalid: Tamaño/tipo de ficheiro non válido. Vexa as restricións a continuación.
+      title: Engadir presentación
+      use: Usar a presentación
     rename_recording:
     remove_shared:
       title: "Confirma que quere eliminar esta sala da súa lista de salas?"
@@ -406,6 +430,7 @@ gl:
       require_approval: Precisa a aprobación do moderador antes de unirse
       start: Permitir a calquera usuario iniciar esta xuntanza
       footer_text: Pode facer axustes na súa sala en calquera momento.
+      recording: Permitir a gravación da sala
     rename_room:
       name_placeholder: Escriba o nome da nova sala…
     share_access:
@@ -473,19 +498,19 @@ gl:
       fail: "A súa conta aínda non foi aprobada. Se pasaron varios días dende que se rexistrou, póñase en contacto co administrador do sistema."
       signup: A súa conta foi creada e enviada a un administrador para a súa aprobación.
     banned:
-      fail: "Non ten acceso a esta aplicación. Se cre que é un erro, póñase en contacto co administrador do sistema." 
+      fail: "Non ten acceso a esta aplicación. Se cre que é un erro, póñase en contacto co administrador do sistema."
     deprecated:
       new_signin: Seleccione un novo método de acceso para a súa conta. Todas as salas da súa conta antiga serán migradas á nova conta
       twitter_signin: "O acceso mediante Twitter quedou en desuso e eliminarase na próxima versión. Prema <a href=\"%{link}\">aquí</a> para mover a súa conta a un novo método de autenticación"
       twitter_signup: O rexistro mediante Twitter quedou en desuso. Use un método de autenticación diferente para autenticarse.
-      merge_success: "Combinouse correctamente a súa conta de twitter coa súa nova conta. Eliminouse a súa antiga conta de twitter\n\n \nA súa conta vinculada a Twitter combinouse correctamente coa súa nova conta. A conta vinculada con Twitter foi eliminada."
+      merge_success: A súa conta vinculada a Twitter foi combinada correctamente coa súa nova conta. A conta vinculada con Twitter foi eliminada.
     invite:
-      fail: "A súa testemuña caducou ou non é válida. Se cre que é un erro, póñase en contacto co administrador do sistema. "
+      fail: "O seu testemuño caducou ou non é válido. Se cre que é un erro, póñase en contacto co administrador do sistema. "
       no_invite: "Non ten un convite para unirse. Contacte co administrador do sistema para obter un. "
   remove: Retirar
   rename: Renomear
   reset_password:
-    invalid_token: A testemuña de restablecemento de contrasinal non é válida. Tente restabelecer o seu contrasinal de novo.
+    invalid_token: O testemuño de restablecemento de contrasinal non é válido. Tente restabelecer o seu contrasinal de novo.
     subtitle: Restabelecer o contrasinal
     password: Novo contrasinal
     confirm: Confirmación do novo contrasinal
@@ -500,6 +525,7 @@ gl:
     user: Usuario
   room:
     access_code_required: Introduza un código de acceso válido para unirse á sala
+    add_presentation: Engadir presentación
     create_room: Crear unha sala
     create_room_error: Produciuse un erro ao crear a sala
     create_room_success: Creouse correctamente a sala
@@ -509,7 +535,9 @@ gl:
       fail: "Non foi posíbel eliminar a sala (%{error})"
     enter_the_access_code: Introduza o código de acceso á sala
     invalid_provider: Introduciu un URL non válido. Comprobe o URL e ténteo de novo.
+    invitation_description: "Foi convidado a unirse a %{name} empregando BigBlueButton. Para unirse, prema na ligazón superior e escriba o seu nome."  
     invited: Foi convidado a unirse
+    recording_present: Declaro ser coñecedor de que se vai gravar esta sesión. Isto pode incluír a miña voz e imaxe de vídeo se están activados.
     invite_participants: Convidar a participantes
     join: Unirse
     last_session: " Última sesión o %{session}"
@@ -526,6 +554,10 @@ gl:
       recent_rooms: Ir a salas nas que participou recentemente
       title: Unirse á sala
     no_sessions: Esta sala aínda non ten sesións.
+    preupload_success: A presentación foi engadida correctamente
+    preupload_error: Produciuse un erro ao actualizar a presentación da sala
+    preupload_remove_success: A presentación foi retirada correctamente
+    preupload_remove_error: Produciuse un erro ao retirar a presentación da sala
     recordings: Gravacións da sala
     room_limit: Acadou o número máximo de salas permitido
     room_limit_exceeded: "Acadou o número de salas permitidas. Elimine %{difference} sala(s) para acceder a esta sala."

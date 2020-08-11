@@ -20,7 +20,7 @@ de_DE:
   activerecord:
     attributes:
       user:
-        accepted_terms: "Teilnahmebedingungen"
+        accepted_terms: "Allgemeine Nutzungsbedingungen"
         email: E-Mail
         name: Name
         password: Passwort
@@ -36,7 +36,7 @@ de_DE:
         enabled: Aktiviert
         info: Nur authentifizierte Nutzer dürfen diesen Raum betreten
         title: Betreten des Raums erfordert Authentifizierung
-        user-info: "Sie müssen in Greenlight eingeloggt sein, um diesen Raum zu betreten"
+        user-info: "Sie müssen sich oben anmelden, um diesem Raum beitreten zu können."
       branding:
         change: Bild ändern
         info: Das in der linken oberen Ecke dargestellte Logo ändern
@@ -45,14 +45,14 @@ de_DE:
         invalid: Ungültige URL
       legal:
         change: URL ändern
-        info: "Ändern Sie den Impressum-Link, der unten auf der Seite erscheint"
-        placeholder: Impressum URL...
-        title: Impressum
+        info: Die URL für den Link zu den Nutzungsbedingungen am Seitenende ändern
+        placeholder: URL der Nutzungsbedingungen
+        title: Nutzungsbedingungen
         invalid: Ungültige URL
       privpolicy:
         change: URL ändern
-        info: "Ändern Sie den Datenschutzerklärung-Link, der unten auf der Seite erscheint"
-        placeholder: Datenschutzerklärung URL...
+        info: Die URL für den Link zur Datenschutzerklärung am Seitenende ändern
+        placeholder: URL der Datenschutzerklärung
         title: Datenschutzerklärung
         invalid: Ungültige URL
       cache:
@@ -82,11 +82,23 @@ de_DE:
         info: Einstellen der Voreinstellung für die Sichtbarkeit neuer Aufzeichnungen
         title: Voreinstellung der Aufzeichnungssichtbarkeit
         warning: Diese Einstellung wirkt sich nur auf noch nicht laufende Konferenzen aus.
+      require_consent:
+        info: "Diese Einstellung ermöglicht eine Raumeinstellung, bei der Rauminitiatoren festlegen können, welche Räume aufgezeichnet werden können. Teilnehmer, die einem aufgezeichneten Raum beitreten, müssen vor dem Beitritt zustimmen."
+        title: Erfordert die Zustimmung des Rauminitiators und der Teilnehmer zur Aufzeichnung
+      maintenance_banner:
+        info: "Zeigt ein Banner an, um die Nutzer über eine geplante Wartungsarbeit zu informieren"
+        title: Banner für Wartungsarbeiten
+        display: Setzen
+        clear: Löschen
+        time: "Beispiel: Aktualisierung geplant am 13. Dezember um 23:00 Uhr MEZ. Nutzer könnten Probleme bei der Anmeldung haben."        
+      preupload:
+        info: "Nutzer können eine Präsentation vorab hochladen, die als Standardpräsentation für diesen speziellen Raum verwendet werden soll"
+        title: "Nutzern erlauben, Präsentationen vorab hochzuladen"
       registration:
         info: "Methode ändern, wie sich Benutzer auf der Website registrieren"
         title: Registrierungsmethode
         methods:
-          approval: Genehmigen/Verweigern
+          approval: Zulassen/Ablehnen
           invite: Teilnahme durch Einladung
           open: Offene Registrierung
       rooms:
@@ -96,22 +108,26 @@ de_DE:
         info: "Wenn diese Option deaktiviert wird, wird dadurch der Button aus den Raumoptionen entfernt und verhindert, dass Nutzer Räume teilen können"
         title: Nutzern erlauben Räume zu teilen
       subtitle: Greenlight individuell anpassen
+      tabs:
+        appearance: Darstellung
+        administration: Administration
+        settings: Einstellungen
       title: Grundeinstellungen
     flash:
-      approved: Teilnehmer wurde erfolgreich genehmigt.
-      banned: Teilnehmer wurde erfolgreich gesperrt.
-      unbanned: Teilnehmer wurde erfolgreich entsperrt.
-      delete: Teilnehmer erfolgreich gelöscht
-      delete_fail: Löschen des Teilnehmers fehlgeschlagen
-      demoted: "Teilnehmer wurde erfolgreich zurückgestuft "
+      approved: Nutzer wurde erfolgreich genehmigt.
+      banned: Nutzer wurde erfolgreich gesperrt.
+      unbanned: Nutzer wurde erfolgreich entsperrt.
+      delete: Nutzer erfolgreich gelöscht
+      delete_fail: Löschen des Nutzers fehlgeschlagen
+      demoted: "Nutzer wurde erfolgreich zurückgestuft "
       invite: "Einladung erfolgreich an %{email} geschickt"
       invite_email_verification: "E-Mail-Versand muss aktiviert sein, um diese Methode verwenden zu können. Bitte kontaktieren Sie Ihren Systemadministrator."
-      merge_fail: Beim Zusammenführen der Nutzerkonten ist ein Problem aufgetreten. Bitte überprüfen Sie die ausgewählten Nutzer und versuchen Sie es erneut 
+      merge_fail: Beim Zusammenführen der Nutzerkonten ist ein Problem aufgetreten. Bitte überprüfen Sie die ausgewählten Nutzer und versuchen Sie es erneut
       merge_success: Nutzerkonten erfolgreich zusammengeführt
       perm_deleted: Nutzer wurde dauerhaft gelöscht
-      promoted: Teilnehmer wurde erfolgreich hochgestuft
+      promoted: Nutzer wurde erfolgreich hochgestuft
       registration_method_updated: Registrierungsmethode erfolgreich aktualisiert
-      reset_password: "Dem Teilnehmer wurde eine E-Mail zur Passwortrücksetzung geschickt. (Bitte weisen Sie ihn darauf hin, den Spamordner zu überprüfen, falls er sie nicht erhalten hat)"
+      reset_password: "Dem Nutzer wurde eine E-Mail zur Passwortrücksetzung geschickt. (Bitte weisen Sie ihn darauf hin, den Spamordner zu überprüfen, falls er sie nicht erhalten hat)"
       restored: Nutzer wurde erfolgreich wiederhergestellt
       room_configuration: Raumkonfiguration erfolgreich geändert
       settings: Grundeinstellungen erfolgreich geändert
@@ -136,7 +152,7 @@ de_DE:
       edit_site_settings: "Nutzern mit dieser Rolle erlauben, die Grundeinstellungen zu ändern"
       edit_roles: "Nutzern mit dieser Rolle erlauben, andere Rollen zu verändern"
       manage_users: "Nutzern mit dieser Rolle erlauben, andere Nutzer zu verwalten"
-      invalid_assignment: Es kam zu einem Problem bei der Zuweisung der Rollen zu einem Nutzer. Bitte prüfen Sie die Werte und versuchen Sie es erneut 
+      invalid_assignment: Es kam zu einem Problem bei der Zuweisung der Rollen zu einem Nutzer. Bitte prüfen Sie die Werte und versuchen Sie es erneut
       colour:
         title: Rollenfarbe
         info: "Die Farbe einstellen, die dieser Rolle zugewiesen wird"
@@ -145,11 +161,13 @@ de_DE:
       mute:
         info: "Automatisches Stummschalten des Teilnehmers, wenn er der BigBlueButton-Konferenz beitritt"
       require_moderator:
-        info: "Informiert den Moderator der BigBlueButton-Konferenz, wenn ein Teilnehmer versucht, dem Meeting beizutreten. Wenn der Teilnehmer zugelassen wird, kann er dem Meeting beitreten."
+        info: "Informiert den Moderator der BigBlueButton-Konferenz, wenn ein Teilnehmer beitreten möchte. Wenn der Teilnehmer zugelassen wird, kann er der Konferenz beitreten."
       allow_any:
-        info: "Ermöglicht es jedem Teilnehmer, die Konferenz jederzeit zu starten. Standardmäßig kann nur der Rauminitiator die Besprechung starten."
+        info: "Ermöglicht es jedem Teilnehmer, die Konferenz jederzeit zu starten. Standardmäßig kann nur der Rauminitiator die Konferenz starten."
       all_moderator:
         info: "Gewährt allen Teilnehmern Moderatorenrechte in BigBlueButton, wenn sie an der Konferenz teilnehmen."
+      recordings:
+        info: "Ermöglicht Rauminitiatoren die Festlegung, ob sie die Option zum Aufzeichnen eines Raums wünschen oder nicht. Wenn diese Option aktiviert ist, muss der Moderator auch nach Beginn der Konferenz auf den Button \"Aufzeichnen\" klicken."
       options:
         disabled: Deaktiviert
         enabled: Immer aktiviert
@@ -167,16 +185,16 @@ de_DE:
         view: Ansehen
     title: Organisationseinstellungen
     users:
-      invite: Teilnehmer einladen
+      invite: Nutzer einladen
       edit:
-        title: Teilnehmerdetails editieren
+        title: Nutzerdetails bearbeiten
       settings:
         approve: Freischalten
         decline: Abweisen
         ban: Sperren
         delete: Löschen
         edit: Ändern
-        edit_roles: Nutzerrollen verändern
+        edit_roles: Nutzerrollen bearbeiten
         merge: Zusammenführen
         perm_delete: Dauerhaft löschen
         unban: Konto freischalten
@@ -190,7 +208,7 @@ de_DE:
         role: Rolle
         uid: Teilnehmer ID
         username: Teilnehmername
-      title: Teilnehmer verwalten
+      title: Nutzer verwalten
   add_to_google_calendar: "Zum Google Kalender hinzufügen"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: "Ups, beim Start der Konferenz ist ein Fehler aufgetreten!"
@@ -219,7 +237,7 @@ de_DE:
       help: "Der Fehler wurde gespeichert, wir werden ihn analysieren!"
       report: Problem melden
     maintenance:
-      message: "Entschuldigung, wir befinden uns im Wartungsmodus."
+      message: "Entschuldigung, wir sind mit Wartungsarbeiten beschäftigt."
       help: Wir sind in Kürze wieder da!
     migration_error:
       contact_admin: "Wenn Sie kein Administrator sind, kontaktieren Sie bitte einen."
@@ -260,7 +278,7 @@ de_DE:
     designs: Eigene Designs
     authentication: Nutzerauthentifizierung
   footer:
-    legal: Impressum
+    legal: Nutzungsbedingungen
     privpolicy: Datenschutzerklärung
     powered_by: "Bereitgestellt durch %{href}."
   forgot_password:
@@ -351,8 +369,6 @@ de_DE:
         verify_text: 'Um Ihr Konto zu verifizieren, folgen Sie diesem Link: %{url}'
         verify_link: Konto verifizieren
         thanks: Danke für Ihre Registrierung. Wir wünschen Ihnen noch einen wunderbaren Tag!
-  maintenance:
-    window_alert: "Wartung geplant für %{date}."
   max_concurrent: Die maximale Anzahl gleichzeitiger Verbindungen ist erreicht!
   merged: Zusammengeführt
   modal:
@@ -392,6 +408,14 @@ de_DE:
       or: oder
       with: "Einloggen mit %{provider}"
       forgot_password: "Passwort vergessen?"
+    preupload:
+      change: Präsentation ersetzen
+      choose: Wählen Sie eine Datei...
+      current: "Aktuelle Präsentation:"
+      footer: "Abhängig von der Größe der Präsentation kann das Hochladen zusätzliche Zeit in Anspruch nehmen, bevor sie verwendet werden kann."
+      invalid: Ungültige Größe/Dateityp. Bitte beachten Sie die untenstehenden Beschränkungen.
+      title: Präsentation hinzufügen
+      use: Präsentation nutzen
     rename_recording:
     remove_shared:
       title: "Sind Sie sicher, dass Sie diesen Raum aus Ihrer Raumliste entfernen wollen?"
@@ -401,11 +425,12 @@ de_DE:
       title: Raumeinstellungen
       update: Raum aktualisieren
       client: Client auswählen
-      join_moderator: Alle Nutzer nehmen als Moderator teil
+      join_moderator: Alle Teilnehmer nehmen als Moderator teil
       mute: Teilnehmer beim Betreten stummschalten
       require_approval: Freigabe durch Moderator bevor der Raum betreten werden kann
-      start: Jeder Teilnehmer kann das Meeting starten
+      start: Jeder Teilnehmer kann die Konferenz starten
       footer_text: Anpassungen des Raums können jederzeit vorgenommen werden.
+      recording: Aufnahme des Raumes erlauben
     rename_room:
       name_placeholder: Neuen Raumnamen eingeben...
     share_access:
@@ -473,7 +498,7 @@ de_DE:
       fail: "Ihr Konto wurde noch nicht freigeschaltet. Falls Sie sich bereits vor mehreren Tagen registriert haben, kontaktieren Sie bitte Ihren Administrator."
       signup: Ihr Konto wurde erfolgreich erstellt. Es wurde an einen Administrator zur Freigabe geschickt.
     banned:
-      fail: "Sie haben keinen Zugriff auf dieses Applikation. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator." 
+      fail: "Sie haben keinen Zugriff auf dieses Applikation. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
     deprecated:
       new_signin: Wählen Sie eine neue Loginmethode für Ihr Konto aus. Alle Ihre Räume und Ihr altes Konto werden auf einen neues Konto migriert.
       twitter_signin: "Das Einloggen über Twitter wird bald nicht mehr unterstützt und wird in einer zukünftigen Version ganz entfernt. Klicken Sie <a href=\"%{link}\"> hier </a> um Ihren Account auf eine neue Authentifizierungsmethode umzustellen"
@@ -481,7 +506,7 @@ de_DE:
       merge_success: Ihr Twitter-Konto wurde erfolgreich mit dem neuen Konto zusammengeführt. Der Zugang über Ihr Twitter-Konto wurde gelöscht.
     invite:
       fail: "Ihr Token ist entweder ungültig oder er ist abgelaufen. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
-      no_invite: "Sie sind nicht zu Teilnahme eingeladen. Bitte kontaktieren Sie Ihren Administrator, um eine Einladung zu erhalten."
+      no_invite: "Sie sind nicht zur Teilnahme eingeladen. Bitte kontaktieren Sie Ihren Administrator, um eine Einladung zu erhalten."
   remove: Entfernen
   rename: Umbenennen
   reset_password:
@@ -500,6 +525,7 @@ de_DE:
     user: Benutzer
   room:
     access_code_required: "Bitte geben Sie einen gültigen Zugangscode ein, um den Raum zu betreten"
+    add_presentation: Präsentation hinzufügen
     create_room: Raum erstellen
     create_room_error: Bei der Erstellung des Raums ist ein Fehler aufgetreten
     create_room_success: Raum erfolgreich erstellt
@@ -509,7 +535,9 @@ de_DE:
       fail: "Raum konnte nicht gelöscht werden (%{error})"
     enter_the_access_code: Raumzugangscode bitte eingeben
     invalid_provider: "Sie haben eine ungültige URL eingegeben, bitte überprüfen Sie die URL und versuchen Sie es erneut."
+    invitation_description: "Sie wurden zu %{name} über BigBlueButton zur Teilnahme eingeladen. Um beizutreten, klicken Sie auf den obigen Link und geben Sie Ihren Namen ein."  
     invited: Sie wurden zur Teilnahme eingeladen
+    recording_present: "Ich bestätige, dass diese Sitzung aufgezeichnet wird. Dies kann meine Sprach- und Videoaufnahmen beinhalten, wenn dies aktiviert ist."
     invite_participants: Teilnehmer einladen
     join: Teilnehmen
     last_session: "Letzte Konferenz am %{session}"
@@ -518,7 +546,7 @@ de_DE:
     owner_banned: Dieser Raum ist aktuell nicht verfügbar
     no_room:
       description: "Geben Sie die Raum-URL oder die Raum-ID des Raums ein, den Sie betreten möchten."
-      edit_profile: Nutzerprofil editieren
+      edit_profile: Nutzerprofil bearbeiten
       go_to: Raum betreten
       invalid_room_uid: Die angegebene Raum-URL/ID ist ungülltig.
       placeholder: Raum-URL/ID
@@ -526,6 +554,10 @@ de_DE:
       recent_rooms: Den kürzlich betretenen Raum betreten
       title: Raum betreten
     no_sessions: In diesem Raum haben noch keine Konferenzen stattgefunden.
+    preupload_success: Präsentation erfolgreich hinzugefügt
+    preupload_error: Es gab einen Fehler bei der Aktualisierung der Raumpräsentation
+    preupload_remove_success: Präsentation erfolgreich entfernt
+    preupload_remove_error: Es gab einen Fehler beim Entfernen der Raumpräsentation
     recordings: Aufzeichnungen des Raums
     room_limit: Sie haben die maximale Anzahl von Räumen eingerichtet.
     room_limit_exceeded: "Sie haben die Anzahl der erlaubten Räume überschritten. Bitte löschen Sie %{difference} Räume, um diesen Raum zu betreten."
@@ -575,7 +607,7 @@ de_DE:
     with: "Registrieren mit %{provider}"
   terms:
     accept: "Ich akzeptiere die %{href}"
-    accept_existing: Ich akzeptiere die Teilnahmebedingungen
+    accept_existing: Ich akzeptiere die Nutzungsbedingungen
     title: Allgemeine Nutzungsbedingungen
   test_install: >
     Diese Installation verwendet einen vorkonfigurierten Testserver. Sie sollten diesen durch Ihren eigenen Server ersetzen. Weitere Informationen dazu unter %{href}.

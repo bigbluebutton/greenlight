@@ -36,7 +36,7 @@ en:
         enabled: Enabled
         info: Only allow authenticated users to join a room
         title: Require Authentication for Rooms
-        user-info: You must sign in to Greenlight to join this room
+        user-info: You must sign in above to join this room.
       branding:
         change: Change Image
         info: Change the branding image that appears in the top left corner
@@ -45,9 +45,9 @@ en:
         invalid: Invalid URL
       legal:
         change: Change URL
-        info: Change the Legal Link that appears in the bottom of the page
-        placeholder: Legal URL...
-        title: Legal
+        info: Change the Terms Link that appears in the bottom of the page
+        placeholder: Terms URL...
+        title: Terms
         invalid: Invalid URL
       privpolicy:
         change: Change URL
@@ -82,6 +82,18 @@ en:
         info: Set the default recording visbility for new recordings
         title: Recording Default Visibility
         warning: This setting will only be applied to rooms that aren't running
+      require_consent:
+        info: This setting enables a room setting that allows room owners to specify which rooms can be recorded. Users joining a recorded room must consent before joining.
+        title: Require Room Owner and Joiner Consent to Recording
+      maintenance_banner:
+        info: Displays a Banner to inform the user of a scheduled maintenance
+        title: Maintenance Banner
+        display: Set
+        clear: Clear
+        time: "Example: Update scheduled on December 13 @ 23:00 ET. Users may experience problems signing in."        
+      preupload:
+        info: Users can preupload a presentation to be used as the default presentation for that specific room
+        title: Allow Users to Preupload Presentations
       registration:
         info: Change the way that users register to the website
         title: Registration Method
@@ -96,6 +108,10 @@ en:
         info: Setting to disabled will remove the button from the Room options dropdown, preventing users from sharing rooms
         title: Allow Users to Share Rooms
       subtitle: Customize Greenlight
+      tabs:
+        appearance: Appearance
+        administration: Administration
+        settings: Settings
       title: Site Settings
     flash:
       approved: User has been successfully approved.
@@ -106,7 +122,7 @@ en:
       demoted: User has been successfully demoted
       invite: Invite successfully sent to %{email}
       invite_email_verification: Emails must be enabled in order to use this method. Please contact your system administrator.
-      merge_fail: There was an issue merging the user accounts. Please check the users selected and try again 
+      merge_fail: There was an issue merging the user accounts. Please check the users selected and try again
       merge_success: User accounts merged successfully
       perm_deleted: User has been permanently deleted
       promoted: User has been successfully promoted
@@ -136,7 +152,7 @@ en:
       edit_site_settings: Allow users with this role to edit site settings
       edit_roles: Allow users with this role to edit other roles
       manage_users: Allow users with this role to manage users
-      invalid_assignment: There was a problem assigning the roles to the user. Please check the values and try again 
+      invalid_assignment: There was a problem assigning the roles to the user. Please check the values and try again
       colour:
         title: Role Colour
         info: Set the colour that will be associated with the role
@@ -150,6 +166,8 @@ en:
         info: Allows any user to start the meeting at any time. By default, only the room owner can start the meeting.
       all_moderator:
         info: Gives all users moderator privileges in BigBlueButton when they join the meeting.
+      recordings:
+        info: Allows room owners to specify whether they want the option to record a room or not. If enabled, the moderator must still click the "Record" button once the meeting has started.
       options:
         disabled: Disabled
         enabled: Always Enabled
@@ -261,7 +279,7 @@ en:
     designs: Custom Designs
     authentication: User Authentication
   footer:
-    legal: Legal
+    legal: Terms
     privpolicy: Privacy Policy
     powered_by: Powered by %{href}.
   forgot_password:
@@ -352,8 +370,6 @@ en:
         verify_text: 'To verify your account, just follow this link: %{url}'
         verify_link: Verify Account
         thanks: Thanks for joining and have a great day!
-  maintenance:
-    window_alert: Maintenance window scheduled for %{date}
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!
   merged: Merged
   modal:
@@ -393,6 +409,14 @@ en:
       or: or
       with: Sign in with %{provider}
       forgot_password: Forgot Password?
+    preupload:
+      change: Replace Presentation
+      choose: Choose a file...
+      current: "Current Presentation:"
+      footer: Depending on the size of the presentation, it may require additional time to upload before it can be used.
+      invalid: Invalid size/file type. Please see the restrictions below.
+      title: Add Presentation
+      use: Use Presentation
     rename_recording:
     remove_shared:
       title: Are you sure you want to remove this room from your room list?
@@ -407,6 +431,7 @@ en:
       require_approval: Require moderator approval before joining
       start: Allow any user to start this meeting
       footer_text: Adjustment to your room can be done at anytime.
+      recording: Allow room to be recorded
     rename_room:
       name_placeholder: Enter a new room name...
     share_access:
@@ -474,7 +499,7 @@ en:
       fail: Your account has not been approved yet. If multiples days have passed since you signed up, please contact your administrator.
       signup: Your account was successfully created. It has been sent to an administrator for approval.
     banned:
-      fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator. 
+      fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator.
     deprecated:
       new_signin: Select a new login method for you account. All your rooms from your old account will be migrated to the new account
       twitter_signin: Signing in via Twitter has been deprecated and will be removed in the next release. Click <a href="%{link}"> here </a> to move your account to a new authentication method
@@ -501,6 +526,7 @@ en:
     user: User
   room:
     access_code_required: Please enter a valid access code to join the room
+    add_presentation: Add Presentation
     create_room: Create a Room
     create_room_error: There was an error creating the room
     create_room_success: Room created successfully
@@ -510,7 +536,9 @@ en:
       fail: Failed to delete room (%{error})
     enter_the_access_code: Enter the room's access code
     invalid_provider: You have entered an invalid url. Please check the url and try again.
+    invitation_description: You have been invited to join %{name} using BigBlueButton. To join, click the link above and enter your name.  
     invited: You have been invited to join
+    recording_present: I acknowledge that this session is going to be recorded. This may include my voice and video if enabled.
     invite_participants: Invite Participants
     join: Join
     last_session: Last session on %{session}
@@ -527,6 +555,10 @@ en:
       recent_rooms: Go To a Recently Joined Room
       title: Join a Room
     no_sessions: This room has no sessions, yet!
+    preupload_success: Successfully added presentation
+    preupload_error: There was an error updating the room presentation
+    preupload_remove_success: Successfully removed presentation
+    preupload_remove_error: There was an error removing the room presentation
     recordings: Room Recordings
     room_limit: You have reached the maximum number of rooms allowed
     room_limit_exceeded: You have exceeded the number of rooms allowed. Please delete %{difference} room(s) to access this room.
