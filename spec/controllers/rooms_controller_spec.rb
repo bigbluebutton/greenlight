@@ -821,7 +821,7 @@ describe RoomsController, type: :controller do
     before do
       @user = create(:user)
       @file = fixture_file_upload('files/sample.pdf', 'application/pdf')
-      @invalid_file = fixture_file_upload('files/invalid.jpg', 'image/jpg')
+      @invalid_file = fixture_file_upload('files/invalid.bmp', 'image/bmp')
       allow(Rails.configuration).to receive(:preupload_presentation_default).and_return("true")
     end
 

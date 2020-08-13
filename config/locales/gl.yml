@@ -369,8 +369,6 @@ gl:
         verify_text: 'Para verificar a súa conta, só ten que seguir esta ligazón %{url}:'
         verify_link: Verificar a conta
         thanks: Grazas por unirse e que teña un bo día!
-  maintenance:
-    window_alert: "Xanela de mantemento prevista para %{date}"
   max_concurrent: Acadouse o número máximo de sesións simultáneas permitidas.
   merged: Combinado
   modal:
@@ -412,7 +410,7 @@ gl:
       forgot_password: "Esqueceu o contrasinal?"
     preupload:
       change: Substituír a presentación
-      choose: "Escolla un ficheiro (%{type})"
+      choose: Escolla un ficheiro…
       current: "Presentación actual:"
       footer: "Dependendo do tamaño da presentación, pode requirir tempo adicional para cargala antes de que poida utilizarse."
       invalid: Tamaño/tipo de ficheiro non válido. Vexa as restricións a continuación.
@@ -539,7 +537,7 @@ gl:
     invalid_provider: Introduciu un URL non válido. Comprobe o URL e ténteo de novo.
     invitation_description: "Foi convidado a unirse a %{name} empregando BigBlueButton. Para unirse, prema na ligazón superior e escriba o seu nome."  
     invited: Foi convidado a unirse
-    recording_present: A sesión será gravada. Isto pode incluír voz e vídeo dende o seu lado.
+    recording_present: Declaro ser coñecedor de que se vai gravar esta sesión. Isto pode incluír a miña voz e imaxe de vídeo se están activados.
     invite_participants: Convidar a participantes
     join: Unirse
     last_session: " Última sesión o %{session}"
