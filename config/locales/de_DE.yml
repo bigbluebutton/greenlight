@@ -537,7 +537,7 @@ de_DE:
     invalid_provider: "Sie haben eine ungültige URL eingegeben, bitte überprüfen Sie die URL und versuchen Sie es erneut."
     invitation_description: "Sie wurden zu %{name} über BigBlueButton zur Teilnahme eingeladen. Um beizutreten, klicken Sie auf den obigen Link und geben Sie Ihren Namen ein."  
     invited: Sie wurden zur Teilnahme eingeladen
-    recording_present: "Ich bestätige, dass diese Sitzung aufgezeichnet wird. Dies kann meine Sprach- und Videoaufnahmen beinhalten, wenn dies aktiviert ist."
+    recording_present: "Ich willige ein, dass diese Sitzung aufgezeichnet werden kann. Dies kann meine Sprach- und Videoaufnahmen beinhalten, wenn diese aktiviert sind."
     invite_participants: Teilnehmer einladen
     join: Teilnehmen
     last_session: "Letzte Konferenz am %{session}"
