@@ -171,5 +171,8 @@ module Greenlight
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
+
+    # Phone number
+    config.voice_bridge_phone_number = ENV['VOICE_BRIDGE_PHONE_NUMBER']
   end
 end

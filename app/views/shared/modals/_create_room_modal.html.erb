@@ -53,6 +53,9 @@
                 <i class="far fa-trash-alt"></i>
               </span>
             </div>
+            <% if Rails.configuration.voice_bridge_phone_number %>
+              <span id="voice_bridge_phone_number" class="form-control">Phone number: <%= Rails.configuration.voice_bridge_phone_number %></span>
+            <% end %>
 
             <% mute = room_configuration("Room Configuration Mute On Join") %>
             <% if mute != "disabled" %>
