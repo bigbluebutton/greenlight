@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+      <loc>http://shule.webshule.com/</loc>
+      <lastmod>2018-07-20</lastmod>
+      <changefreq>weekly</changefreq>
+    </url>
+    <url>
+      <loc>http://shule.webshule.com/signup</loc>
+      <lastmod>2018-07-20</lastmod>
+      <changefreq>weekly</changefreq>
+    </url>
+    <url>
+      <loc>http://shule.webshule.com/auth/google</loc>
+      <lastmod>2018-07-20</lastmod>
+      <changefreq>weekly</changefreq>
+    </url>
+    <url>
+      <loc>http://shule.webshule.com/auth/twitter</loc>
+      <lastmod>2018-07-20</lastmod>
+      <changefreq>weekly</changefreq>
+    </url>
+  </urlset>

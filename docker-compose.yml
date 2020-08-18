@@ -3,8 +3,8 @@ version: '3'
 services:
   app:
     entrypoint: [bin/start]
-    image: bigbluebutton/greenlight:v2
-    container_name: greenlight-v2
+    image: webshule/shule:release-v1
+    container_name: Shule-V1
     env_file: .env
     restart: unless-stopped
     ports:

@@ -1,0 +1,9 @@
+User-agent: Googlebot
+Allow:
+User-agent: googlebot-image
+Allow:
+User-agent: googlebot-mobile
+Allow:
+User-agent: *
+Allow:
+Sitemap: https://shule.webshule.com/sitemap.xml

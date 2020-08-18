@@ -1,41 +1,123 @@
-<%
-# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
-# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
-# This program is free software; you can redistribute it and/or modify it under the
-# terms of the GNU Lesser General Public License as published by the Free Software
-# Foundation; either version 3.0 of the License, or (at your option) any later
-# version.
-#
-# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
-# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-# You should have received a copy of the GNU Lesser General Public License along
-# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-%>
-
-
 <div class="container mt-8 mb-6 text-center">
-
-  <h2 class="mb-6"><%= t("greenlight") %> <%= t("features.title") %></h2>
-
-  <div class="row feature-stamp">
-    <div class="col-lg-3 col-md-6">
-      <div class="feature-item">
-        <div class="stamp bg-primary"><i class="fas fa-chalkboard-teacher fa-2x"></i></div>
-        <h4 class="mt-4"><%= t("features.rooms") %></h4>
+  <h2 class="mb-6">Shule <%= t("features.title") %></h2>
+  <div class="bbb-features">
+    <div class="row">
+      <div class="span four first">
+        <i class="fa fa-play-circle-o"></i>
+        <div class="bbb-features-content">
+          <h3 class="featTito">Record and Playback</h3>
+          <p>
+            WebShule can record your sessions for later playback by students.
+          </p>
+        </div>
+      </div>
+      <div class="span four">
+        <i class="fa fa-pencil-square-o"></i>
+        <div class="bbb-features-content">
+          <h3 class="featTito">Whiteboard</h3>
+          <p>
+            The whiteboard controls let you annotate key parts of your
+            presentation.
+          </p>
+        </div>
+      </div>
+      <div class="span four last">
+        <i class="fa fa-desktop"></i>
+        <div class="bbb-features-content">
+          <h3 class="featTito">Desktop Sharing</h3>
+          <p>
+            You can broadcast your desktop for all users to see without use of any plugins or extensions.
+          </p>
+        </div>
       </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-      <span class="stamp bg-primary"><i class="fas fa-film fa-2x"></i></span>
-      <h4 class="mt-4"><%= t("features.recordings") %></h4>
+    <div class="row">
+      <div class="span four first">
+        <i class="fa fa-microphone"></i>
+        <div class="bbb-features-content">
+          <h3 class="featTito">WebRTC Audio</h3>
+          <p>
+            Users of Chrome and FireFox browsers will benefit from high-quality,
+            low-latency WebRTC audio.
+          </p>
+        </div>
+      </div>
+      <div class="span four">
+        <i class="fa fa-bar-chart-o"></i>
+        <div class="bbb-features-content">
+          <h3 class="featTito">Presentation</h3>
+          <p>
+            You can upload any PDF presentation or MS office document. WebShule
+            keeps everyone in sync with your current slide, zoom, pan,
+            annotations, and mouse pointer.
+          </p>
+        </div>
+      </div>
+      <div class="span four last">
+        <i class="fa fa-video-camera"></i>
+        <div class="bbb-features-content">
+          <h3 class="featTito">Web Cam</h3>
+          <p>
+            Multiple users can share their webcam at the same time. There is no
+            built-in limit on the number of simultaneously active webcams.
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-      <span class="stamp bg-primary"><i class="fas fa-pencil-alt fa-2x"></i></span>
-      <h4 class="mt-4"><%= t("features.designs") %></h4>
+    <div class="row">
+      <div class="span four first">
+        <i class="fa fa-smile-o"></i>
+        <div class="bbb-features-content">
+          <h3 class="featTito">Emoji</h3>
+          <p>Students can raise hand and use emoji icons for feedback.</p>
+        </div>
+      </div>
+      <div class="span four">
+        <i class="fa fa-check-square-o"></i>
+        <div class="bbb-features-content">
+          <h3 class="featTito">Polling</h3>
+          <p>You can poll students anytime to increase engagement.</p>
+        </div>
+      </div>
+      <div class="span four last">
+        <i class="fa fa-comments-o"></i>
+        <div class="bbb-features-content">
+          <h3 class="featTito">Chat</h3>
+          <p>You can interact with students through public and private chat.</p>
+        </div>
+      </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-      <span class="stamp bg-primary"><i class="fas fa-door-open fa-2x"></i></span>
-      <h4 class="mt-4"><%= t("features.authentication") %></h4>
+    <div class="row">
+      <div class="span four first">
+        <i class="fa fa-cc"></i>
+        <div class="bbb-features-content">
+          <h3 class="featTito">Live Captioning</h3>
+          <p>
+            You can enter live captions for students. These captions will later
+            appear as subtitles in recordings.
+          </p>
+        </div>
+      </div>
+      <div class="span four">
+        <i class="fa fa-users"></i>
+        <div class="bbb-features-content">
+          <h3 class="featTito">Breakout Rooms</h3>
+          <p>
+            You can group and place students into breakout rooms (full WebShule
+            Lessions) for give number of minutes for increased collaboration.
+          </p>
+        </div>
+      </div>
+      <div class="span four last">
+        <i class="fa fa-blind"></i>
+        <div class="bbb-features-content">
+          <h3 class="featTito">Screen Reader</h3>
+          <p>
+            Students with visual disabilities can use JAWS screen reader to
+            interact with WebShule.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
