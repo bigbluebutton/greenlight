@@ -117,4 +117,17 @@ module ApplicationHelper
   rescue
     false
   end
+
+  # Specifies which title should be the tab title and returns original string
+  def title(page_title)
+    # Only set the content_for if not already set on the page so that only the first title appears as the tab title
+    content_for(:page_title) { page_title } if content_for(:page_title).blank?
+    page_title
+  end
+
+  # Indicates whether the recording tables should be hidden
+  def hide_recording_tables
+    return false unless recording_consent_required?
+    @settings.get_value("Room Configuration Recording") == "disabled"
+  end
 end

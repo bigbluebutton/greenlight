@@ -26,7 +26,7 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'mini_racer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '~> 4.3.3'
+gem 'jquery-rails', '~> 4.4'
 gem 'jquery-ui-rails'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -52,11 +52,11 @@ gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-bn-launcher', '~> 0.1.3'
 gem 'net-ldap'
-gem 'bn-ldap-authentication', '~> 0.1.3'
+gem 'bn-ldap-authentication', '~> 0.1.4'
 gem 'omniauth-bn-office365', '~> 0.1.1'
 
 # BigBlueButton API wrapper.
-gem 'bigbluebutton-api-ruby'
+gem 'bigbluebutton-api-ruby', git: 'https://github.com/mconf/bigbluebutton-api-ruby.git', branch: 'master'
 
 # Front-end.
 gem 'bootstrap', '~> 4.3.1'
@@ -75,6 +75,10 @@ gem 'redcarpet'
 
 # For limiting access based on user roles
 gem 'cancancan', '~> 2.0'
+
+# Active Storage gems
+gem 'aws-sdk-s3', '~> 1.75'
+gem 'google-cloud-storage', '~> 1.26'
 
 group :production do
   # Use a postgres database in production.

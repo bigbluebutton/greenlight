@@ -27,7 +27,7 @@ module ThemingHelper
     @settings.get_value("Legal URL") || ""
   end
 
-  # Returns the logo based on user's provider
+  # Returns the privacy policy URL based on user's provider
   def privpolicy_url
     @settings.get_value("Privacy Policy URL") || ""
   end
@@ -35,5 +35,9 @@ module ThemingHelper
   # Returns the primary color based on user's provider
   def user_color
     @settings.get_value("Primary Color") || Rails.configuration.primary_color_default
+  end
+
+  def maintenance_banner
+    @settings.get_value("Maintenance Banner")
   end
 end

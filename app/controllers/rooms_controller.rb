@@ -27,7 +27,7 @@ class RoomsController < ApplicationController
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :find_room, except: [:create, :join_specific_room, :cant_create_rooms]
   before_action :verify_room_ownership_or_admin_or_shared, only: [:start, :shared_access]
-  before_action :verify_room_ownership_or_admin, only: [:update_settings, :destroy]
+  before_action :verify_room_ownership_or_admin, only: [:update_settings, :destroy, :preupload_presentation, :remove_presentation]
   before_action :verify_room_ownership_or_shared, only: [:remove_shared_access]
   before_action :verify_room_owner_verified, only: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
@@ -62,7 +62,7 @@ class RoomsController < ApplicationController
 
   # GET /:room_uid
   def show
-    @room_settings = @room[:room_settings]
+    @room_settings = JSON.parse(@room[:room_settings])
     @anyone_can_start = room_setting_with_config("anyoneCanStart")
     @room_running = room_running?(@room.bbb_id)
     @shared_room = room_shared_with_user
@@ -171,6 +171,7 @@ class RoomsController < ApplicationController
     @room_settings = JSON.parse(@room[:room_settings])
     opts[:mute_on_start] = room_setting_with_config("muteOnStart")
     opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
+    opts[:record] = record_meeting
 
     begin
       redirect_to join_path(@room, current_user.name, opts, current_user.uid)
@@ -209,6 +210,45 @@ class RoomsController < ApplicationController
     redirect_back fallback_location: room_path(@room)
   end
 
+  # GET /:room_uid/current_presentation
+  def current_presentation
+    attached = @room.presentation.attached?
+
+    # Respond with JSON object of presentation name
+    respond_to do |format|
+      format.json { render body: { attached: attached, name: attached ? @room.presentation.filename.to_s : "" }.to_json }
+    end
+  end
+
+  # POST /:room_uid/preupload_presenstation
+  def preupload_presentation
+    begin
+      raise "Invalid file type" unless valid_file_type
+      @room.presentation.attach(room_params[:presentation])
+
+      flash[:success] = I18n.t("room.preupload_success")
+    rescue => e
+      logger.error "Support: Error in updating room presentation: #{e}"
+      flash[:alert] = I18n.t("room.preupload_error")
+    end
+
+    redirect_back fallback_location: room_path(@room)
+  end
+
+  # POST /:room_uid/remove_presenstation
+  def remove_presentation
+    begin
+      @room.presentation.purge
+
+      flash[:success] = I18n.t("room.preupload_remove_success")
+    rescue => e
+      logger.error "Support: Error in removing room presentation: #{e}"
+      flash[:alert] = I18n.t("room.preupload_remove_error")
+    end
+
+    redirect_back fallback_location: room_path(@room)
+  end
+
   # POST /:room_uid/update_shared_access
   def shared_access
     begin
@@ -240,7 +280,7 @@ class RoomsController < ApplicationController
   # POST /:room_uid/remove_shared_access
   def remove_shared_access
     begin
-      SharedAccess.find_by!(room_id: @room.id, user_id: params[:user_id]).destroy
+      SharedAccess.find_by!(room_id: @room.id, user_id: current_user).destroy
       flash[:success] = I18n.t("room.remove_shared_access_success")
     rescue => e
       logger.error "Support: Error in removing room shared access: #{e}"
@@ -262,7 +302,7 @@ class RoomsController < ApplicationController
   def room_settings
     # Respond with JSON object of the room_settings
     respond_to do |format|
-      format.json { render body: @room.room_settings.to_json }
+      format.json { render body: @room.room_settings }
     end
   end
 
@@ -291,6 +331,7 @@ class RoomsController < ApplicationController
       "requireModeratorApproval": options[:require_moderator_approval] == "1",
       "anyoneCanStart": options[:anyone_can_start] == "1",
       "joinModerator": options[:all_join_moderator] == "1",
+      "recording": options[:recording] == "1",
     }
 
     room_settings.to_json
@@ -298,7 +339,8 @@ class RoomsController < ApplicationController
 
   def room_params
     params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
-      :require_moderator_approval, :anyone_can_start, :all_join_moderator)
+      :require_moderator_approval, :anyone_can_start, :all_join_moderator,
+      :recording, :presentation)
   end
 
   # Find the room from the uid.
@@ -329,7 +371,7 @@ class RoomsController < ApplicationController
   end
 
   def validate_verified_email
-    redirect_to account_activation_path(current_user) if current_user && !current_user&.activated?
+    redirect_to account_activation_path(digest: current_user.activation_digest) if current_user && !current_user&.activated?
   end
 
   def verify_room_owner_verified
@@ -364,4 +406,45 @@ class RoomsController < ApplicationController
     current_user.rooms.length >= limit
   end
   helper_method :room_limit_exceeded
+
+  def record_meeting
+    # If the require consent setting is checked, then check the room setting, else, set to true
+    if recording_consent_required?
+      room_setting_with_config("recording")
+    else
+      true
+    end
+  end
+
+  # Checks if the file extension is allowed
+  def valid_file_type
+    Rails.configuration.allowed_file_types.split(",")
+         .include?(File.extname(room_params[:presentation].original_filename.downcase))
+  end
+
+  # Gets the room setting based on the option set in the room configuration
+  def room_setting_with_config(name)
+    config = case name
+    when "muteOnStart"
+      "Room Configuration Mute On Join"
+    when "requireModeratorApproval"
+      "Room Configuration Require Moderator"
+    when "joinModerator"
+      "Room Configuration All Join Moderator"
+    when "anyoneCanStart"
+      "Room Configuration Allow Any Start"
+    when "recording"
+      "Room Configuration Recording"
+    end
+
+    case @settings.get_value(config)
+    when "enabled"
+      true
+    when "optional"
+      @room_settings[name]
+    when "disabled"
+      false
+    end
+  end
+  helper_method :room_setting_with_config
 end

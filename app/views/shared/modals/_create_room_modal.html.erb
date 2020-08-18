@@ -69,7 +69,6 @@
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
-
             <% moderator = room_configuration("Room Configuration All Join Moderator") %>
             <% if moderator != "disabled" %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if moderator == "enabled" %>">
@@ -78,7 +77,14 @@
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
-
+            <% recording = room_configuration("Room Configuration Recording") %>
+            <% if recording_consent_required? && recording != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if recording == "enabled" %>">
+                <span class="custom-switch-description"><%= t("modal.room_settings.recording")%></span>
+                <%= f.check_box :recording, class: "not-running-only custom-switch-input", data: { default: recording == "enabled" }, checked: false %>
+                <span class="custom-switch-indicator not-running-only float-right cursor-pointer"></span>
+            </label>
+            <% end %>
             <label id="auto-join-label" class="create-only custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
               <span class="custom-switch-description"><%= t("modal.create_room.auto_join") %></span>
               <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>

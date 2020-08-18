@@ -47,7 +47,7 @@ namespace :user do
 
       user.set_role(u[:role])
 
-      puts "Account succesfully created."
+      puts "Account successfully created."
       puts "Email: #{u[:email]}"
       puts "Password: #{u[:password]}"
       puts "Role: #{u[:role]}"
