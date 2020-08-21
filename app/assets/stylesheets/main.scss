@@ -133,6 +133,17 @@
   }
 }
 
+.customBtn-saml {
+  @extend .customBtn;
+  background: $button-color-blue;
+
+  .customBtn-image {
+    background: #ffffff image-url("saml-logo.png") no-repeat left top;
+    background-size: 18px 18px;
+    padding:10px 10px 10px 10px;
+  }
+}
+
 .customBtn-microsoft_windows {
   @extend .customBtn;
   background: #00a1f1;
