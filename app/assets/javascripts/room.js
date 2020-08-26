@@ -122,11 +122,20 @@ $(document).on('turbolinks:load', function(){
         listItem.setAttribute('class', 'list-group-item text-left not-saved add-access');
         listItem.setAttribute("data-uid", uid)
 
-        let spanItem = "<span class='avatar float-left mr-2'>" + option.text().charAt(0) + "</span> <span class='shared-user'>" +
-          option.text() + " <span class='text-muted'>" + option.data("subtext") + "</span></span>" +
-          "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+        let spanItemAvatar = document.createElement("span"),
+            spanItemName = document.createElement("span"),
+            spanItemUser = document.createElement("span");
+        spanItemAvatar.setAttribute('class', 'avatar float-left mr-2');
+        spanItemAvatar.innerText = option.text().charAt(0);
+        spanItemName.setAttribute('class', 'shared-user');
+        spanItemName.innerText = option.text();
+        spanItemUser.setAttribute('class', 'text-muted');
+        spanItemUser.innerText = option.data('subtext');
+        spanItemName.append(spanItemUser);
 
-        listItem.innerHTML = spanItem
+        listItem.innerHTML = "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+        listItem.prepend(spanItemName);
+        listItem.prepend(spanItemAvatar);
 
         $("#user-list").append(listItem)
       }
@@ -134,7 +143,7 @@ $(document).on('turbolinks:load', function(){
 
     $("#presentation-upload").change(function(data) {
       var file = data.target.files[0]
-      
+
       // Check file type and size to make sure they aren't over the limit
       if (validFileUpload(file)) {
         $("#presentation-upload-label").text(file.name)
