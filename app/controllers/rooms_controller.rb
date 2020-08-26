@@ -33,6 +33,7 @@ class RoomsController < ApplicationController
                 unless: -> { !Rails.configuration.enable_email_verification }
   before_action :verify_room_owner_valid, only: [:show, :join]
   before_action :verify_user_not_admin, only: [:show]
+  skip_before_action :verify_authenticity_token, only: [:join]
 
   # POST /
   def create
