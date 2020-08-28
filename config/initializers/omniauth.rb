@@ -67,13 +67,15 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       provider :saml,
         assertion_consumer_service_url: ENV['SAML_CALLBACK_URL'],
         issuer: ENV['SAML_ISSUER'],
-        idp_sso_target_url: ENV['SAML_IDP_URL'],
+        idp_sso_target_url: ENV['SAML_IDP_SSO_URL'],
+        idp_slo_target_url: ENV['SAML_IDP_SLO_URL'],
         idp_cert_fingerprint: ENV['SAML_IDP_CERT_FINGERPRINT'],
         name_identifier_format: ENV['SAML_NAME_IDENTIFIER'],
         attribute_statements: {
           nickname: [ENV['SAML_USERNAME_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:eduPersonPrincipalName'],
           email: [ENV['SAML_EMAIL_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:mail'],
-          name: [ENV['SAML_COMMONNAME_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:cn']
+          name: [ENV['SAML_COMMONNAME_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:cn'],
+          roles: [ENV['SAML_ROLES_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:eduPersonAffiliation']
         },
         uid_attribute: ENV['SAML_UID_ATTRIBUTE']
     end
