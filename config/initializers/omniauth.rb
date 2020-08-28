@@ -65,6 +65,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       Rails.application.config.providers << :saml
 
       provider :saml,
+        assertion_consumer_service_url: ENV['SAML_CALLBACK_URL'],
         issuer: ENV['SAML_ISSUER'],
         idp_sso_target_url: ENV['SAML_IDP_URL'],
         idp_cert_fingerprint: ENV['SAML_IDP_CERT_FINGERPRINT'],
