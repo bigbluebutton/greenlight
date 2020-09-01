@@ -27,7 +27,7 @@ display_usage() {
   echo "This script should be used as part of a CI strategy."
   echo -e "Usage:\n  build_image.sh [ARGUMENTS]"
   echo -e "\nMandatory arguments \n"
-  echo -e "  repo_slug     The git repository  (e.g. bigbluebutton/greenlight)"
+  echo -e "  repo_slug     The git repository  (e.g. adimpp7/greenlight)"
   echo -e "  branch | tag  The branch (e.g. master | release-2.0.5)"
   echo -e "  commit_sha    The sha for the current commit (e.g. 750615dd479c23c8873502d45158b10812ea3274)"
 }
