@@ -70,6 +70,11 @@ class RoomsController < ApplicationController
 
     # If its the current user's room
     if current_user && (@room.owned_by?(current_user) || @shared_room)
+      # If the user is trying to access their own room but is not allowed to
+      if @room.owned_by?(current_user) && !current_user.role.get_permission("can_create_rooms")
+        return redirect_to cant_create_rooms_path
+      end
+
       # User is allowed to have rooms
       @search, @order_column, @order_direction, recs =
         recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
