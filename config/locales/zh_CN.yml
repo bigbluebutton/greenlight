@@ -36,7 +36,7 @@ zh_CN:
         enabled: 启用
         info: 仅允许经过身份验证的用户加入会议室
         title: 要求对会议室进行身份验证
-        user-info: 您必须登录才能加入这个会议室
+        user-info: 你必须在上面登录才能加入这个会议室。
       branding:
         change: 修改品牌形象
         info: 更改左上角显示的网站标志
@@ -45,9 +45,9 @@ zh_CN:
         invalid: 无效的URL
       legal:
         change: 更改URL
-        info: 更改页面底部显示的声明链接
-        placeholder: 合法URL...
-        title: 合法的
+        info: 更改出现在页面底部的条款链接
+        placeholder: 条款URL...
+        title: 条款
         invalid: 无效的URL
       privpolicy:
         change: 更改URL
@@ -82,6 +82,18 @@ zh_CN:
         info: 设置新录制录像的默认可见性
         title: 录像默认可见性
         warning: 此设置将仅应用于未运行的会议。
+      require_consent:
+        info: 该设置允许会议室所有者指定可以录制的会议。用户在加入前必须同意才能加入录制会议室。
+        title: 要求会议所有者和参加者同意录制
+      maintenance_banner:
+        info: 显示横幅广告，将维护计划通知用户。
+        title: 维护计划的横幅广告
+        display: 设置
+        clear: 清除
+        time: "示例：计划在北京时间12月13日23:00更新。用户可能在登录时遇到问题。"        
+      preupload:
+        info: 用户可以预先上传演示文稿作为该会议室的默认演示文稿
+        title: 允许用户预先上传演示文稿
       registration:
         info: 更改用户在网站注册的方式
         title: 注册方式
@@ -96,6 +108,10 @@ zh_CN:
         info: 设置为“禁用”将从“会议室选项”下拉列表中删除按钮，以防止用户共享会议室
         title: 允许用户共享会议室
       subtitle: 自定义Greenlight
+      tabs:
+        appearance: 外观
+        administration: 管理
+        settings: 设置
       title: 网站设置
     flash:
       approved: 已成功批准用户。
@@ -106,7 +122,7 @@ zh_CN:
       demoted: 用户已成功降级
       invite: "邀请成功发送到 %{email}"
       invite_email_verification: 必须启用电子邮件才能使用此方法。请与系统管理员联系。
-      merge_fail: 合并用户帐户时出现问题，请检查选定的用户并重试。 
+      merge_fail: 合并用户帐户时出现问题，请检查选定的用户并重试。
       merge_success: 用户帐户成功合并
       perm_deleted: 用户已被永久删除
       promoted: 用户已成功升级
@@ -136,7 +152,7 @@ zh_CN:
       edit_site_settings: 允许具有此角色的用户编辑网站设置
       edit_roles: 允许具有此角色的用户编辑其他角色
       manage_users: 允许具有此角色的用户管理用户
-      invalid_assignment: 将角色分配给用户时出现问题。请检查赋值并重试。 
+      invalid_assignment: 将角色分配给用户时出现问题。请检查赋值并重试。
       colour:
         title: 角色颜色
         info: 设置将与角色关联的颜色
@@ -150,6 +166,8 @@ zh_CN:
         info: 允许任何用户随时开始会议。默认情况下，只有会议室所有者可以开始会议。
       all_moderator:
         info: 任意用户加入会议时就自动授予他们主持人权限。
+      recordings:
+        info: 允许会议所有者指定会议能否录制。启用后，会议开始后主持人仍必须点击“录制”按钮才会录制。
       options:
         disabled: 禁用
         enabled: 始终启用
@@ -260,7 +278,7 @@ zh_CN:
     designs: 定制设计
     authentication: 用户认证
   footer:
-    legal: 合法的
+    legal: 条款
     privpolicy: 隐私政策
     powered_by: "Powered by%{href}"
   forgot_password:
@@ -351,8 +369,6 @@ zh_CN:
         verify_text: '要验证您的帐户，只需点击以下链接：%{url}'
         verify_link: 验证帐户
         thanks: 感谢您的加入，祝您拥有美好的一天！
-  maintenance:
-    window_alert: "计划的维护时段 %{date}"
   max_concurrent: 已达到允许的最大并发会话数！
   merged: 已合并
   modal:
@@ -392,6 +408,14 @@ zh_CN:
       or: 或
       with: "通过 %{provider}登录"
       forgot_password: 忘记密码？
+    preupload:
+      change: 更换演示文稿
+      choose: 选择一个文件...
+      current: "当前演示文稿:"
+      footer: 根据演示文稿的大小，可能需要额外的时间来上传才能使用。
+      invalid: 大小/文件类型无效。请参阅以下限制。
+      title: 添加演示文稿
+      use: 使用演示文稿
     rename_recording:
     remove_shared:
       title: 确实要从您的会议室列表中删除此会议室吗？
@@ -406,6 +430,7 @@ zh_CN:
       require_approval: 加入前需要主持人批准
       start: 允许任何用户启动此会议
       footer_text: 您可以随时调整会议室
+      recording: 允许录制会议
     rename_room:
       name_placeholder: 这里请输入新会议室名称…
     share_access:
@@ -473,7 +498,7 @@ zh_CN:
       fail: 您的帐户尚未批准。如果您注册后已过多天，请与管理员联系。
       signup: 您的帐户创建完成，稍后管理员会审批。
     banned:
-      fail: 您没有访问此应用程序的权限。如果您认为这是一个错误，请联系您的管理员。 
+      fail: 您没有访问此应用程序的权限。如果您认为这是一个错误，请联系您的管理员。
     deprecated:
       new_signin: 为您的帐户选择新的登录方法。旧帐户中的所有会议室都将迁移到新帐户。
       twitter_signin: "通过Twitter登录已被弃用并将在下一版本中删除。 点击 <a href=\"%{link}\"> 这里 </a> 将您的帐户移动到新的身份验证方法。"
@@ -500,6 +525,7 @@ zh_CN:
     user: 用户
   room:
     access_code_required: 请输入有效的访问代码以加入会议
+    add_presentation: 添加演示文稿
     create_room: 创建会议室
     create_room_error: 创建会议室出错
     create_room_success: 会议室创建成功
@@ -509,7 +535,9 @@ zh_CN:
       fail: "会议室(%{error})删除失败"
     enter_the_access_code: 输入会议室的访问代码
     invalid_provider: 您输入的URL无效。请检查URL并重试。
+    invitation_description: "您已被邀请参加 %{name} 会议. 若要加入，请单击上面的链接并输入您的姓名。"  
     invited: 您已被邀请加入
+    recording_present: 我已知悉这次会议将被记录下来。启用录制将包括我的语音和视频。
     invite_participants: 邀请参与者的链接
     join: 加入
     last_session: "上一次会议%{session}"
@@ -526,6 +554,10 @@ zh_CN:
       recent_rooms: 进入最近加入过的会议室
       title: 加入一个会议室
     no_sessions: 会议室从未使用！
+    preupload_success: 已成功添加演示文稿
+    preupload_error: 更新会议室演示文稿时出错
+    preupload_remove_success: 已成功删除演示文稿
+    preupload_remove_error: 删除会议室演示文稿时出错
     recordings: 会议录像
     room_limit: 您已达到允许的最大会议室数量
     room_limit_exceeded: "您已拥有超过允许的会议室数量。 请删除%{difference} 会议室(s)以访问这个会议室。"
