@@ -55,9 +55,10 @@
     </div>
   </td>
   <td>
-    <% sorted_formats =  recording[:playbacks].sort_by! {|p| p[:type]} %>
+    <% sorted_formats = recording[:playbacks].sort_by! {|p| p[:type]} %>
     <% p = recording[:playbacks].find do |p| p.key?(:length) end %>
     <% sorted_formats.each do |p| %>
+      <% next if hidden_format_public.include?(p[:type].downcase)%>
       <%= link_to t("recording.format.#{p[:type]}"), p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
     <% end %>
   </td>
