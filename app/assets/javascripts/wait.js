@@ -52,22 +52,7 @@ $(document).on("turbolinks:load", function(){
 var join_attempts = 0;
 
 var request_to_join_meeting = function(){
-  $.ajax({
-    url: window.location.pathname,
-    type: 'POST',
-    data: {
-      join_name: $(".background").attr("join-name")
-    },
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-    },
-    success: function(){
-      // Enqueue another trial just incase they didn't actually join.
-      if(join_attempts < 4){ setTimeout(request_to_join_meeting, 10000); }
-      join_attempts++;
-    }
-  });
+  $.post(window.location.pathname, { join_name: $(".background").attr("join-name") })
 }
 
 // Refresh the page after 2 mins and attempt to reconnect to ActionCable 

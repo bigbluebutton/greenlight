@@ -6,3 +6,5 @@ test:
 
 production:
   adapter: <%= ENV['CABLE_ADAPTER'] || 'async' %>
+  url: <%= ENV['REDIS_URL'] %>
+  channel_prefix: greenlight_production
