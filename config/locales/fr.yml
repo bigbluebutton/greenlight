@@ -1,18 +1,18 @@
-# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# OWH VISIO open source conferencing system - http://www.bigbluebutton.org/.
 #
-# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# Copyright (c) 2018 OWH VISIO Inc. and by respective authors (see below).
 #
 # This program is free software; you can redistribute it and/or modify it under the
 # terms of the GNU Lesser General Public License as published by the Free Software
 # Foundation; either version 3.0 of the License, or (at your option) any later
 # version.
 #
-# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# OWH VISIO is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public License along
-# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+# with OWH VISIO; if not, see <http://www./>.
 
 # Locale.
 
@@ -36,7 +36,7 @@ fr:
         enabled: Activé
         info: Autoriser uniquement les utilisateurs authentifiés à rejoindre une salle
         title: Authentification requise pour rejoindre les salles
-        user-info: Vous devez être connecté à Greenlight pour rejoindre cette salle
+        user-info: Vous devez être connecté à OWH VISIO pour rejoindre cette salle
       branding:
         change: Changer l'image
         info: Change l'image qui apparaît en haut à gauche
@@ -95,7 +95,7 @@ fr:
       shared_access:
         info: "Désactiver : supprimera de la liste déroulante des options du Salon, le bouton de partage, empêchant ainsi les utilisateurs de partager des Salons"
         title: Autorise les utilisateurs à partager le Salon
-      subtitle: Personnaliser Greenlight
+      subtitle: Personnaliser OWH VISIO
       title: Paramètres du site
     flash:
       approved: L'utilisateur a été approuvé.
@@ -143,13 +143,13 @@ fr:
     room_configuration:
       title: Configuration du salon
       mute:
-        info: Automatiquement mettre en sourdine les utilisateurs lorsqu'ils rejoignent la réunion BigBlueButton
+        info: Automatiquement mettre en sourdine les utilisateurs lorsqu'ils rejoignent la réunion OWH VISIO
       require_moderator:
-        info: "Averti le modérateur d'une conférence BigBlueButton lorsqu'un utilisateur essaye de se connecter. Si l'utilisateur est approuvé, il pourra joindre la conférence."
+        info: "Averti le modérateur d'une conférence OWH VISIO lorsqu'un utilisateur essaye de se connecter. Si l'utilisateur est approuvé, il pourra joindre la conférence."
       allow_any:
         info: "Permet à n'importe quel utilisateur de démarrer la conférence à n'importe quel moment. Par défaut, seul le propriétaire peut démarrer la conférence."
       all_moderator:
-        info: Donne à tous les utilisateurs les droits de modérateur dans BigBlueButton lors de la connexion à une conférence.
+        info: Donne à tous les utilisateurs les droits de modérateur dans OWH VISIO lors de la connexion à une conférence.
       options:
         disabled: Désactivé
         enabled: Toujours activé
@@ -192,7 +192,7 @@ fr:
         username: Nom d'utilisateur
       title: Gérer les utilisateurs
   add_to_google_calendar: "Ajouter au calendrier Google"
-  bigbluebutton: BigBlueButton
+  bigbluebutton: OWH VISIO
   bigbluebutton_exception: "Oups, une erreur s'est produite lors du démarrage de la réunion !"
   cancel: Annuler
   cookies:
@@ -212,7 +212,7 @@ fr:
   errors:
     bigbluebutton:
       help: "Veuillez vous assurer que les mesures appropriées ont été prises.<a href=\"%{doc_link}\">En savoir plus</a>"
-      message: BigBlueButton cible et secret invalid
+      message: OWH VISIO cible et secret invalid
       title: Erreur serveur
     internal:
       message: Il semblerait que quelque chose se soit mal passé de notre côté.
@@ -225,9 +225,9 @@ fr:
       contact_admin: "Si vous n’êtes pas un administrateur, veuillez en contacter un."
       continue: Je veux rester sur la 1.0.
       notice: >
-        Greenlight a rencontré une erreur de migration de base de données.<br> C'est peut-être parce que vous n'avez pas mis à jour Greenlight 2.0.
+        OWH VISIO a rencontré une erreur de migration de base de données.<br> C'est peut-être parce que vous n'avez pas mis à jour OWH VISIO 2.0.
       upgrade: Montrez-moi comment passer à la version 2.0 !
-      version: "Nous avons publié une nouvelle version de Greenlight, mais votre base de données n'est pas compatible."
+      version: "Nous avons publié une nouvelle version de OWH VISIO, mais votre base de données n'est pas compatible."
     messages:
       blank: ne peut pas être vide
       too_short: est trop court
@@ -238,7 +238,7 @@ fr:
       inclusion: n'est pas inclus dans la liste
     no_provider:
       message: Le site auquel vous essayez d'accéder n'est pas activé
-      help: Veuillez contacter votre administrateur système pour installer GreenLight
+      help: Veuillez contacter votre administrateur système pour installer OWH VISIO
     not_found:
       message: Désolé ! La page que vous cherchez n'existe pas.
       help: "Est-il possible qu'il ait été supprimé ?"
@@ -268,7 +268,7 @@ fr:
     email: Email
     submit: Soumettre
   go_back: Retour
-  greenlight: Greenlight
+  greenlight: OWH VISIO
   header:
     all_recordings: Tous les enregistrements
     dropdown:
@@ -287,16 +287,16 @@ fr:
       mailer:
         subject: 'vous a invité à visionner un enregistrement.'
         body: 'Pour visionner l''enregistrement, suivez le lien ci-dessous :'
-        autogenerated: 'Cet e-mail est généré automatiquement par BigBlueButton.'
-        footer: 'BigBlueButton est un système Open Source de Web Conférence. Pour plus d''informations sur BigBlueButton, voir https://bigbluebutton.org/.'
+        autogenerated: 'Cet e-mail est généré automatiquement par OWH VISIO.'
+        footer: 'OWH VISIO est un système Open Source de Web Conférence. Pour plus d''informations sur OWH VISIO, voir https://bigbluebutton.org/.'
     search:
       start: Commencer la recherche...
   landing:
-    about: "%{href} est une interface simple pour votre serveur open-source de Web conférence BigBlueButton. Vous pouvez créer vos propres salles pour héberger des sessions ou rejoindre d'autres utilisateurs via un lien court et pratique. "
-    welcome: Bienvenue sur BigBlueButton.
-    video: Regardez notre tutoriel sur l'utilisation de Greenlight
+    about: "%{href} est une interface simple pour votre serveur open-source de Web conférence OWH VISIO. Vous pouvez créer vos propres salles pour héberger des sessions ou rejoindre d'autres utilisateurs via un lien court et pratique. "
+    welcome: Bienvenue sur OWH VISIO.
+    video: Regardez notre tutoriel sur l'utilisation de OWH VISIO
     upgrade: Montrez-moi comment passer à la version 2.0 !
-    version: "Nous avons publié une nouvelle version de Greenlight, mais votre base de données n'est pas compatible."
+    version: "Nous avons publié une nouvelle version de OWH VISIO, mais votre base de données n'est pas compatible."
   language_default: Par défaut (langue du navigateur)
   ldap_error: Impossible de se connecter au serveur LDAP. Veuillez vérifier votre configuration LDAP dans le fichier env et vous assurer que votre serveur est en cours d'exécution.
   login: Connexion
@@ -308,10 +308,10 @@ fr:
         signin: " Pour accéder à vos salons personnels, cliquez sur le bouton ci-dessous et connectez-vous."
         signin_link: Connexion
         signup:
-          info: Un nouvel utilisateur s'est inscrit pour utiliser Greenlight.
-          more-info: "Pour autoriser cet utilisateur à accéder à Greenlight, vous devez approuver son compte depuis la page \"Organisation\"."
+          info: Un nouvel utilisateur s'est inscrit pour utiliser OWH VISIO.
+          more-info: "Pour autoriser cet utilisateur à accéder à OWH VISIO, vous devez approuver son compte depuis la page \"Organisation\"."
           admins_link: Visitez la page "Organisation"
-          subject: Inscription d'un nouvel utilisateur Greenlight
+          subject: Inscription d'un nouvel utilisateur OWH VISIO
           username: "L'utilisateur s'est inscrit avec le nom %{name} et l'adresse email %{email}. "
         subject: Compte approuvé
         username: "Votre nom d'utilisateur est %{email}."
@@ -325,11 +325,11 @@ fr:
         signup_info: "Pour vous inscrire utilisez votre e-mail, cliquez sur le bouton ci-dessous et suivez les étapes."
         signup_link: Inscription
         signup:
-          info: Un utilisateur invité s'est inscrit pour utiliser Greenlight.
+          info: Un utilisateur invité s'est inscrit pour utiliser OWH VISIO.
           admins_link: Visitez la page "Organisation"
-          subject: Inscription d'un nouvel utilisateur Greenlight
+          subject: Inscription d'un nouvel utilisateur OWH VISIO
           username: "L'utilisateur s'est inscrit avec le nom %{name} et l'adresse email %{email}."
-        subject: Invitation à joindre BigBlueButton
+        subject: Invitation à joindre OWH VISIO
         username: "Votre nom d'utilisateur est %{email}."
       password_reset:
         title: 'Réinitialiser le mot de passe'
