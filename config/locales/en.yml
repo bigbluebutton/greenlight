@@ -525,6 +525,8 @@ en:
     deleted: Deleted
     pending: Pending
     user: User
+    teacher: Teacher
+    administrator: Administrator
   room:
     access_code_required: Please enter a valid access code to join the room
     add_presentation: Add Presentation
