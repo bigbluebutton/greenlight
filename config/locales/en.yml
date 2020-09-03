@@ -394,6 +394,10 @@ en:
       keep: Actually, I'll keep it.
       delete_warning: This will deactivate the user's account. All deactived users can be found under the deleted tab.
       warning: This decision is final. You will <b>not</b> be able to recover associated data.
+    delete_rec:
+      delete: I'm sure, delete this recording.
+      header: Are you sure you want to delete this recording?
+      warning: You will <b>not</b> be able to recover this recording
     delete_room:
       confirm: Are you sure you want to delete %{room}?
       delete: I'm sure, delete this room.
