@@ -216,6 +216,15 @@ Use [documentation](https://docs.bigbluebutton.org/greenlight/gl-customize.html#
 #### Start
 `docker-compose up -d`
 
+#### Stop
+`docker-compose down`
+
+
+#### In case of code changes:
+    1. docker-compose down
+    2. ./scripts/image_build.sh <image name> release-v2
+    3. docker-compose up -d
+
 
 ## Help
 use [Documentation](https://docs.bigbluebutton.org/greenlight/gl-customize.html) if you need a help
