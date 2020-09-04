@@ -16,7 +16,7 @@ Rails.application.config.omniauth_twitter = ENV['TWITTER_ID'].present? && ENV['T
 Rails.application.config.omniauth_google = ENV['GOOGLE_OAUTH2_ID'].present? && ENV['GOOGLE_OAUTH2_SECRET'].present?
 Rails.application.config.omniauth_office365 = ENV['OFFICE365_KEY'].present? &&
                                               ENV['OFFICE365_SECRET'].present?
-Rails.application.config.omniauth_saml = ENV['SAML_ISSUER'].present? && ENV['SAML_IDP_URL'].present? &&
+Rails.application.config.omniauth_saml = ENV['SAML_ISSUER'].present? && ENV['SAML_IDP_SSO_URL'].present? &&
                                          ENV['SAML_IDP_CERT_FINGERPRINT'].present?
 
 SETUP_PROC = lambda do |env|
@@ -65,14 +65,17 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       Rails.application.config.providers << :saml
 
       provider :saml,
+        assertion_consumer_service_url: ENV['SAML_CALLBACK_URL'],
         issuer: ENV['SAML_ISSUER'],
-        idp_sso_target_url: ENV['SAML_IDP_URL'],
+        idp_sso_target_url: ENV['SAML_IDP_SSO_URL'],
+        idp_slo_target_url: ENV['SAML_IDP_SLO_URL'],
         idp_cert_fingerprint: ENV['SAML_IDP_CERT_FINGERPRINT'],
         name_identifier_format: ENV['SAML_NAME_IDENTIFIER'],
         attribute_statements: {
           nickname: [ENV['SAML_USERNAME_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:eduPersonPrincipalName'],
           email: [ENV['SAML_EMAIL_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:mail'],
-          name: [ENV['SAML_COMMONNAME_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:cn']
+          name: [ENV['SAML_COMMONNAME_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:cn'],
+          roles: [ENV['SAML_ROLES_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:eduPersonAffiliation']
         },
         uid_attribute: ENV['SAML_UID_ATTRIBUTE']
     end
