@@ -524,6 +524,8 @@ de_DE:
     deleted: Gelöscht
     pending: Wartend
     user: Benutzer
+    teacher: Lehrer/in
+    administrator: Administrator
   room:
     access_code_required: "Bitte geben Sie einen gültigen Zugangscode ein, um den Raum zu betreten"
     add_presentation: Präsentation hinzufügen
