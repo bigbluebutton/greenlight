@@ -2,7 +2,7 @@
 
 Greenlight is a Service Provider, that connects to IdP to get authentification.
 
-Unfortunatly, Greenlight not supported SAML out of the box. But there is a [PR Request](https://github.com/bigbluebutton/greenlight/pull/1334) thet gives needed functionality.
+Unfortunatly, Greenlight does not support SAML out of the box. But there is a [PR Request](https://github.com/bigbluebutton/greenlight/pull/1334) that gives needed functionality.
 
 After all code changes merged - you should configure the SAML.
 
@@ -55,14 +55,14 @@ Example:
 ## SAML configuration
 SAML configuration required configuration from both sides. 
 1. Greenlight required uniq identifier of SP, that should be stored in IdP. 
-The best way is to set SAML_ISSUER variable in .env and then lookup greenlight metadata from IpD.
+The best way is to set SAML_ISSUER variable in .env and then lookup greenlight metadata from IdP.
 
-2. Set SAML_IDP_URL variable. SAML_IDP_URL is the URL to which the authentication request should be sent. This would be on the identity provider. It can be found in the IDP's metadata in the <md:SingleSignOnService> tag. Get this tag from IdP metadata.
+2. Set SAML_IDP_URL variable. SAML_IDP_URL is the URL to which the authentication request should be sent. This would be on the identity provider. It can be found in the IdP's metadata in the <md:SingleSignOnService> tag. Get this tag from IdP metadata.
 
-3. SAML_IDP_CERT_FINGERPRINT is the fingerprint of the certificate used by the IDP in sha1, for example "25:72:85:66:C9:94:22:98:36:84:11:E1:88:C7:AC:40:98:F9:E7:82"(without "). 
+3. SAML_IDP_CERT_FINGERPRINT is the fingerprint of the certificate used by the IdP in sha1, for example "25:72:85:66:C9:94:22:98:36:84:11:E1:88:C7:AC:40:98:F9:E7:82"(without "). 
 4. SAML_NAME_IDENTIFIER - could get from IdP metadata. by default it is "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
-5. All others variables needed to map SAML response fields to user fields in the Greenlight.
-To get all available fields check IdP or record network activity in developer console in your browser. Try to sign in using SAML, copy encoded SAML Response, decode it using [decoder](https://www.samltool.com/decode.php) and map values from responce by name fields to variables in .env
+5. All others variables needed to map SAML response fields to the user fields in the Greenlight.
+To get all available fields check IdP or record network activity in developer console in your browser. Try to sign in using SAML, copy encoded SAML Response, decode it using [decoder](https://www.samltool.com/decode.php) and map values from the response by name fields to variables in .env
 Example:
 ```xml
 <samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
