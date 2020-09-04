@@ -66,7 +66,7 @@ Use [documentation](https://docs.bigbluebutton.org/greenlight/gl-customize.html#
 `docker-compose down`
 
 
-# In case of code changes:
+## In case of code changes:
     1. docker-compose down
     2. ./scripts/image_build.sh <image name> release-v2
     3. docker-compose up -d
