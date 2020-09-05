@@ -393,6 +393,10 @@ ja_JP:
       keep: やっぱり残します。
       delete_warning: これによりユーザのアカウントが無効になります。 無効化されたすべてのユーザは［削除］タブに表示されます。
       warning: この決定は最終的なものです。 関連するデータを回復することは<b>二度と</b>できません。
+    delete_rec:
+      delete: はい、削除します。
+      header: この録画を本当に削除してもよろしいですか？
+      warning: この録画を復活させることは<b>二度と</b>できません。
     delete_room:
       confirm: "%{room} を削除してもよろしいですか？"
       delete: この会議室を削除します。
@@ -558,7 +562,7 @@ ja_JP:
     preupload_error: 会議室のプレゼン資料をアップデートする際にエラーが起こりました
     preupload_remove_success: プレゼン資料の消去に成功
     preupload_remove_error: 会議室のプレゼン資料を消去する際にエラーが起こりました
-    recordings: 会議室の録画
+    recordings: 録画
     room_limit: 許可された会議室数の上限に達しました
     room_limit_exceeded: "許可された会議室数を超えています。 この会議室にアクセスするには、会議室を %{difference} 個削除してください。"
     sessions: セッション
