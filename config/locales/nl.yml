@@ -393,6 +393,10 @@ nl:
       keep: Eigenlijk zal ik het houden.
       delete_warning: Dit zal het gebruikersaccount deactiveren. Alle gedeactiveerde gebruikers zijn te vinden op het verwijderde tabblad.
       warning: Deze beslissing is definitief. U kunt bijbehorende gegevens <b>niet</b> meer herstellen.
+    delete_rec:
+      delete: "Ik ben zeker, verwijder deze opname."
+      header: "Weet u zeker dat u deze opname wilt verwijderen?"
+      warning: Je zal deze opname <b>niet<b> meer kunnen terugkrijgen
     delete_room:
       confirm: "Weet u zeker dat u %{room} wilt verwijderen?"
       delete: "Ik ben zeker, verwijder deze kamer maar."
