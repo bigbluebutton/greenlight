@@ -188,8 +188,8 @@ describe RoomsController, type: :controller do
         "locksettings_disable_webcam": "1",
         "webcams_for_moderator_only": "1" }
       json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
-        "\"anyoneCanStart\":true,\"joinModerator\":true,\"recording\":false,"
-	"\"lockSettingsDisableMic\":true,\"lockSettingsDisableCam\":true,\"webcamsOnlyForModerator\":true}"
+        "\"anyoneCanStart\":true,\"joinModerator\":true,\"recording\":false," \
+        "\"lockSettingsDisableMic\":true,\"lockSettingsDisableCam\":true,\"webcamsOnlyForModerator\":true}"
 
       post :create, params: { room: room_params }
 
@@ -211,10 +211,9 @@ describe RoomsController, type: :controller do
                              "joinModerator" => true,
                              "muteOnStart" => true,
                              "requireModeratorApproval" => true,
-      			     "lockSettingsDisableMic" => true,
-			     "lockSettingsDisableCam" => true,
-			     "webcamsOnlyForModerator" => true
-      			}
+                             "lockSettingsDisableMic" => true,
+                             "lockSettingsDisableCam" => true,
+                             "webcamsOnlyForModerator" => true }
 
       get :room_settings, params: { room_uid: @owner.main_room }, format: :json
 
@@ -597,7 +596,8 @@ describe RoomsController, type: :controller do
       room_params = { "mute_on_join": "1", "name": @secondary_room.name, "recording": "1" }
       formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
         "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":true," \
-        "\"lockSettingsDisableMic\":false,\"lockSettingsDisableCam\":false,\"webcamsOnlyForModerator\":false}" # JSON string format
+        "\"lockSettingsDisableMic\":false,\"lockSettingsDisableCam\":false," \
+        "\"webcamsOnlyForModerator\":false}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }
@@ -622,7 +622,8 @@ describe RoomsController, type: :controller do
 
       formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
         "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":true," \
-        "\"lockSettingsDisableMic\":false,\"lockSettingsDisableCam\":false,\"webcamsOnlyForModerator\":false}" # JSON string format
+        "\"lockSettingsDisableMic\":false,\"lockSettingsDisableCam\":false," \
+        "\"webcamsOnlyForModerator\":false}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }

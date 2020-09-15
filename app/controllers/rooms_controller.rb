@@ -446,6 +446,12 @@ class RoomsController < ApplicationController
       "Room Configuration Allow Any Start"
     when "recording"
       "Room Configuration Recording"
+    when "lockSettingsDisableMic"
+      "Room Configuration Disable Microphone"
+    when "lockSettingsDisableCam"
+      "Room Configuration Disable Webcam"
+    when "webcamsOnlyForModerator"
+      "Room Configuration Webcams for Moderator only"
     end
 
     case @settings.get_value(config)
