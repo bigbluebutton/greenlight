@@ -683,7 +683,7 @@ describe RoomsController, type: :controller do
       post :join_specific_room, params: { join_room: { url: "abc" } }
 
       expect(flash[:alert]).to eq(I18n.t("room.no_room.invalid_room_uid"))
-      expect(response).to redirect_to room_path(@user.main_room)
+      expect(response).to redirect_to cant_create_rooms_path
     end
 
     it "should redirect the user to the room uid they supplied" do
