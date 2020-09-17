@@ -47,4 +47,69 @@ namespace :room do
       end
     end
   end
+
+  desc "Creates a user room"
+  task :create, [:roomname, :email, :room_settings] => :environment do |_task, args|
+    u = {
+        roomname: args[:roomname],
+        email: args[:email],
+        room_settings: args[:room_settings]
+    }
+    user = User.find_by(email: u[:email] )
+    unless user != nil
+      puts "User : #{u[:email]} not found"
+      exit
+    end
+
+    userId = user.id
+    room = Room.create(user_id: userId, name: u[:roomname], room_settings: u[:room_settings])
+
+    unless room.valid?
+      puts "Invalid Arguments"
+      puts room.errors.messages
+      exit
+    end
+
+    puts "Room successfully created."
+    puts "Roomname: #{u[:roomname]}"
+    puts "User: #{u[:email]}"
+    puts "Room Settings: #{u[:room_settings]}"
+  end
+
+  desc "Creates a user room and shares it with users"
+  task :createAndShare, [:roomname, :email, :users, :room_settings] => :environment do |_task, args|
+    u = {
+        roomname: args[:roomname],
+        email: args[:email],
+        users: args[:users],
+        room_settings: args[:room_settings]
+    }
+    user = User.find_by(email: u[:email] )
+    unless user != nil
+      puts "User : #{u[:email]} not found"
+      exit
+    end
+
+    userId = user.id
+    room = Room.create(user_id: userId, name: u[:roomname], room_settings: u[:room_settings])
+
+    unless room.valid?
+      puts "Invalid Arguments"
+      puts room.errors.messages
+      exit
+    end
+
+    puts "Room successfully created."
+    puts "Roomname: #{u[:roomname]}"
+    puts "User: #{u[:email]}"
+    puts "Room Settings: #{u[:room_settings]}"
+
+    ids = u[:users].split ' '
+    ids.each { |useremail|
+      user = User.find_by(email: useremail)
+      userid = user.id
+      SharedAccess.create(room_id: room.id, user_id: userid)
+      puts "Share room #{u[:roomname]} with user #{useremail}."
+    }
+  end
 end
