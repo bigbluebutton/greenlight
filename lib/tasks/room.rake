@@ -51,12 +51,12 @@ namespace :room do
   desc "Creates a user room"
   task :create, [:roomname, :email, :room_settings] => :environment do |_task, args|
     u = {
-        roomname: args[:roomname],
-        email: args[:email],
-        room_settings: args[:room_settings]
+      roomname: args[:roomname],
+      email: args[:email],
+      room_settings: args[:room_settings]
     }
-    user = User.find_by(email: u[:email] )
-    unless !user.nil?
+    user = User.find_by(email: u[:email])
+    if !user.nil?
       puts "User : #{u[:email]} not found"
       exit
     end
@@ -79,13 +79,13 @@ namespace :room do
   desc "Creates a user room and shares it with users"
   task :createAndShare, [:roomname, :email, :users, :room_settings] => :environment do |_task, args|
     u = {
-        roomname: args[:roomname],
-        email: args[:email],
-        users: args[:users],
-        room_settings: args[:room_settings]
+      roomname: args[:roomname],
+      email: args[:email],
+      users: args[:users],
+      room_settings: args[:room_settings]
     }
     user = User.find_by(email: u[:email])
-    unless !user.nil?
+    if !user.nil?
       puts "User : #{u[:email]} not found"
       exit
     end
