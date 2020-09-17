@@ -91,6 +91,7 @@ class RoomsController < ApplicationController
 
   # GET /rooms
   def cant_create_rooms
+    return redirect_to root_path unless current_user
     shared_rooms = current_user.shared_rooms
 
     if current_user.shared_rooms.empty?
@@ -156,11 +157,8 @@ class RoomsController < ApplicationController
   def join_specific_room
     room_uid = params[:join_room][:url].split('/').last
 
-    begin
-      @room = Room.find_by!(uid: room_uid)
-    rescue ActiveRecord::RecordNotFound
-      return redirect_to current_user.main_room, alert: I18n.t("room.no_room.invalid_room_uid")
-    end
+    @room = Room.find_by(uid: room_uid)
+    return redirect_to cant_create_rooms_path, alert: I18n.t("room.no_room.invalid_room_uid") unless @room
 
     redirect_to room_path(@room)
   end

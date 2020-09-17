@@ -235,7 +235,7 @@ class ApplicationController < ActionController::Base
       path = if allow_greenlight_accounts?
         signin_path
       elsif Rails.configuration.loadbalanced_configuration
-        omniauth_login_url(:bn_launcher)
+        "#{Rails.configuration.relative_url_root}/auth/bn_launcher"
       else
         signin_path
       end
