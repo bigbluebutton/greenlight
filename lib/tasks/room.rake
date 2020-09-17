@@ -56,13 +56,13 @@ namespace :room do
         room_settings: args[:room_settings]
     }
     user = User.find_by(email: u[:email] )
-    unless user != nil
+    unless !user.nil?
       puts "User : #{u[:email]} not found"
       exit
     end
 
-    userId = user.id
-    room = Room.create(user_id: userId, name: u[:roomname], room_settings: u[:room_settings])
+    user_id = user.id
+    room = Room.create(user_id: user_id, name: u[:roomname], room_settings: u[:room_settings])
 
     unless room.valid?
       puts "Invalid Arguments"
@@ -84,14 +84,14 @@ namespace :room do
         users: args[:users],
         room_settings: args[:room_settings]
     }
-    user = User.find_by(email: u[:email] )
-    unless user != nil
+    user = User.find_by(email: u[:email])
+    unless !user.nil?
       puts "User : #{u[:email]} not found"
       exit
     end
 
-    userId = user.id
-    room = Room.create(user_id: userId, name: u[:roomname], room_settings: u[:room_settings])
+    user_id = user.id
+    room = Room.create(user_id: user_id, name: u[:roomname], room_settings: u[:room_settings])
 
     unless room.valid?
       puts "Invalid Arguments"
@@ -107,8 +107,8 @@ namespace :room do
     ids = u[:users].split ' '
     ids.each { |useremail|
       user = User.find_by(email: useremail)
-      userid = user.id
-      SharedAccess.create(room_id: room.id, user_id: userid)
+      user_id = user.id
+      SharedAccess.create(room_id: room.id, user_id: user_id)
       puts "Share room #{u[:roomname]} with user #{useremail}."
     }
   end
