@@ -51,8 +51,12 @@ $(document).on("turbolinks:load", function(){
 
 var join_attempts = 0;
 
-var request_to_join_meeting = function(){
-  $.post(window.location.pathname, { join_name: $(".background").attr("join-name") })
+function request_to_join_meeting() {
+  $.post(window.location.pathname, { join_name: $(".background").attr("join-name") }, function() {
+    //Successful post - set up retry incase
+    if(join_attempts < 4){ setTimeout(request_to_join_meeting, 10000); }
+    join_attempts++;
+  })
 }
 
 // Refresh the page after 2 mins and attempt to reconnect to ActionCable 
