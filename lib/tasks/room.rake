@@ -56,7 +56,7 @@ namespace :room do
       room_settings: args[:room_settings]
     }
     user = User.find_by(email: u[:email])
-    if !user.nil?
+    unless !user.nil?
       puts "User : #{u[:email]} not found"
       exit
     end
@@ -85,7 +85,7 @@ namespace :room do
       room_settings: args[:room_settings]
     }
     user = User.find_by(email: u[:email])
-    if !user.nil?
+    unless !user.nil?
       puts "User : #{u[:email]} not found"
       exit
     end
