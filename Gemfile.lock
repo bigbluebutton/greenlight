@@ -181,6 +181,8 @@ GEM
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     i18n-language-mapping (0.1.2)
+    invisible_captcha (1.1.0)
+      rails (>= 4.2)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     jmespath (1.4.0)
@@ -430,6 +432,7 @@ DEPENDENCIES
   hiredis
   http_accept_language
   i18n-language-mapping (~> 0.1.1)
+  invisible_captcha
   jbuilder (~> 2.5)
   jquery-rails (~> 4.4)
   jquery-ui-rails

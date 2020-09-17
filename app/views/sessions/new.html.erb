@@ -59,6 +59,7 @@
               <%= f.password_field :password_confirmation, class: "form-control #{form_is_invalid?(@user, :password_confirmation)}", placeholder: t("signup.password_confirm") %>
               <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:password_confirmation).first %></div>
             </div>
+            <%= invisible_captcha %>
             <% if Rails.configuration.terms %>
               <div class="form-inline">
                 <label class="custom-switch">

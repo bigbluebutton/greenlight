@@ -136,5 +136,7 @@ gem 'random_password'
 
 # Adds helpers for the Google reCAPTCHA API
 gem "recaptcha"
+# Basic Spam protection with honeypot captcha
+gem 'invisible_captcha'
 
 gem 'i18n-language-mapping', '~> 0.1.1'
