@@ -107,9 +107,13 @@ namespace :room do
     ids = u[:users].split ' '
     ids.each { |useremail|
       user = User.find_by(email: useremail)
-      user_id = user.id
-      SharedAccess.create(room_id: room.id, user_id: user_id)
-      puts "Share room #{u[:roomname]} with user #{useremail}."
+      if user != nil
+        user_id = user.id
+        SharedAccess.create(room_id: room.id, user_id: user_id)
+        puts "Share room #{u[:roomname]} with user #{useremail}."
+      else
+        puts "User : #{useremail} not found"
+      end
     }
   end
 end
