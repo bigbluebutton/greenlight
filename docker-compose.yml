@@ -3,12 +3,12 @@ version: '3'
 services:
   app:
     entrypoint: [bin/start]
-    image: bigbluebutton/greenlight:v2
-    container_name: greenlight-v2
+    image: greenlight-deoranjerie:release-v2
+    container_name: greenlight-v2-deoranjerie
     env_file: .env
     restart: unless-stopped
     ports:
-      - 127.0.0.1:5000:80
+      - 127.0.0.1:5001:80
 # When using external logging
 #    logging:
 #      driver: $LOG_DRIVER
@@ -21,12 +21,15 @@ services:
 #      - ./db/production:/usr/src/app/db/production
 # When using postgresql as the database
     links:
-      - db
-  db:
+      - db-deoranjerie
+    extra_hosts:
+      - "DC18DST.deoranjerie.lan:10.122.0.12"
+      - "scalelite.adite.be:10.122.222.26"
+  db-deoranjerie:
     image: postgres:9.5
     restart: unless-stopped
     ports:
-      - 127.0.0.1:5432:5432
+      - 127.0.0.1:6432:5432
     volumes:
       - ./db/production:/var/lib/postgresql/data
     environment:
