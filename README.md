@@ -54,6 +54,7 @@ By default, your Greenlight instance will automatically connect to test-install.
 In your .env file, set the BIGBLUEBUTTON_ENDPOINT to the URL, and set BIGBLUEBUTTON_SECRET to the secret.
 
 #### Change DB connection settings in .env file
+If Greenlight should work not on the default settings of the database, please, change the DB connection settings in the .env file.
 #### Configure Nginx to Route To Greenlight
 Use [documentation](https://docs.bigbluebutton.org/greenlight/gl-customize.html#4-configure-nginx-to-route-to-greenlight) 
 #### Build docker image
