@@ -25,7 +25,7 @@ describe AdminsController, type: :controller do
 
     @user = create(:user, provider: "provider1")
     @admin = create(:user, provider: "provider1")
-    @admin.add_role :admin
+    @admin.set_role :admin
   end
 
   describe "User Roles" do
@@ -78,7 +78,7 @@ describe AdminsController, type: :controller do
     context "POST #unban" do
       it "unbans the user from the application" do
         @request.session[:user_id] = @admin.id
-        @user.add_role :denied
+        @user.set_role :denied
 
         expect(@user.has_role?(:denied)).to eq(true)
 
@@ -153,7 +153,7 @@ describe AdminsController, type: :controller do
       it "approves a pending user" do
         @request.session[:user_id] = @admin.id
 
-        @user.add_role :pending
+        @user.set_role :pending
 
         post :approve, params: { user_uid: @user.uid }
 
@@ -167,7 +167,7 @@ describe AdminsController, type: :controller do
       it "sends the user an email telling them theyre approved" do
         @request.session[:user_id] = @admin.id
 
-        @user.add_role :pending
+        @user.set_role :pending
         params = { user_uid: @user.uid }
         expect { post :approve, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
@@ -245,7 +245,7 @@ describe AdminsController, type: :controller do
         Role.create_new_role("test", "greenlight").update_all_role_permissions(can_manage_users: true)
 
         @user2 = create(:user)
-        @user2.add_role(:test)
+        @user2.set_role(:test)
 
         # Random manage user action test
 
@@ -266,7 +266,7 @@ describe AdminsController, type: :controller do
         Role.create_new_role("test", "greenlight").update_all_role_permissions(can_manage_users: false)
 
         @user2 = create(:user)
-        @user2.add_role(:test)
+        @user2.set_role(:test)
 
         # Random manage user action test
 
@@ -290,12 +290,46 @@ describe AdminsController, type: :controller do
         @request.session[:user_id] = @admin.id
         fake_image_url = "example.com"
 
-        post :update_settings, params: { setting: "Branding Image", value: fake_image_url }
+        post :update_settings, params: { setting: "Branding Image", value: fake_image_url, tab: "appearance" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Branding Image")
 
         expect(feature[:value]).to eq(fake_image_url)
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "appearance"))
+      end
+    end
+
+    context "POST #legal" do
+      it "changes the legal link on the page" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+        fake_url = "example.com"
+
+        post :update_settings, params: { setting: "Legal URL", value: fake_url, tab: "administration" }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Legal URL")
+
+        expect(feature[:value]).to eq(fake_url)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "administration"))
+      end
+    end
+
+    context "POST #privpolicy" do
+      it "changes the privacy policy on the page" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+        fake_url = "example.com"
+
+        post :update_settings, params: { setting: "Privacy Policy URL", value: fake_url, tab: "administration" }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Privacy Policy URL")
+
+        expect(feature[:value]).to eq(fake_url)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "administration"))
       end
     end
 
@@ -312,7 +346,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "appearance"))
       end
 
       it "changes the primary-lighten on the page" do
@@ -322,12 +356,12 @@ describe AdminsController, type: :controller do
         @request.session[:user_id] = @admin.id
         primary_color = Faker::Color.hex_color
 
-        post :update_settings, params: { setting: "Primary Color Lighten", value: primary_color }
+        post :update_settings, params: { setting: "Primary Color Lighten", value: primary_color, tab: "appearance" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color Lighten")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "appearance"))
       end
 
       it "changes the primary-darken on the page" do
@@ -337,12 +371,12 @@ describe AdminsController, type: :controller do
         @request.session[:user_id] = @admin.id
         primary_color = Faker::Color.hex_color
 
-        post :update_settings, params: { setting: "Primary Color Darken", value: primary_color }
+        post :update_settings, params: { setting: "Primary Color Darken", value: primary_color, tab: "appearance" }
 
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Primary Color Darken")
 
         expect(feature[:value]).to eq(primary_color)
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "appearance"))
       end
     end
   end
@@ -362,7 +396,7 @@ describe AdminsController, type: :controller do
 
         expect(feature[:value]).to eq(Rails.configuration.registration_methods[:invite])
         expect(flash[:success]).to be_present
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
       end
 
       it "does not allow the user to change to invite if emails are off" do
@@ -375,7 +409,7 @@ describe AdminsController, type: :controller do
         post :registration_method, params: { value: "invite" }
 
         expect(flash[:alert]).to be_present
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
       end
     end
 
@@ -391,7 +425,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Authentication")
 
         expect(feature[:value]).to eq("true")
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
       end
     end
 
@@ -407,7 +441,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Room Limit")
 
         expect(feature[:value]).to eq("5")
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
       end
     end
 
@@ -423,7 +457,25 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Default Recording Visibility")
 
         expect(feature[:value]).to eq("public")
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
+      end
+    end
+
+    context "POST #maintenance_banner" do
+      it "displays a banner with the maintenance string" do
+        allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
+        allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+
+        @request.session[:user_id] = @admin.id
+        fake_banner_string = "Maintenance work at 2 pm"
+
+        post :update_settings, params: { setting: "Maintenance Banner", value: fake_banner_string, tab: "administration" }
+
+        feature = Setting.find_by(provider: "provider1").features.find_by(name: "Maintenance Banner")
+
+        expect(flash[:success]).to be_present
+        expect(feature[:value]).to eq(fake_banner_string)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "administration"))
       end
     end
 
@@ -439,7 +491,7 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Shared Access")
 
         expect(feature[:value]).to eq("false")
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
       end
     end
 
@@ -450,7 +502,7 @@ describe AdminsController, type: :controller do
 
         @request.session[:user_id] = @admin.id
 
-        @admin.add_role :super_admin
+        @admin.set_role :super_admin
         @admin.update_attribute(:provider, "greenlight")
         @user2 = create(:user, provider: "provider1")
         @user3 = create(:user, provider: "provider1")
@@ -479,7 +531,7 @@ describe AdminsController, type: :controller do
       it "changes the log level" do
         @request.session[:user_id] = @admin.id
 
-        @admin.add_role :super_admin
+        @admin.set_role :super_admin
 
         expect(Rails.logger.level).to eq(0)
         post :log_level, params: { value: 2 }
@@ -492,7 +544,7 @@ describe AdminsController, type: :controller do
         Role.create_new_role("test", "greenlight").update_all_role_permissions(can_edit_site_settings: true)
 
         @user2 = create(:user)
-        @user2.add_role(:test)
+        @user2.set_role(:test)
 
         # Random edit site settings action test
 
@@ -503,14 +555,14 @@ describe AdminsController, type: :controller do
         feature = Setting.find_by(provider: "provider1").features.find_by(name: "Shared Access")
 
         expect(feature[:value]).to eq("false")
-        expect(response).to redirect_to(admin_site_settings_path)
+        expect(response).to redirect_to(admin_site_settings_path(tab: "settings"))
       end
 
       it "doesn't allow a user with the incorrect permission to edit site settings" do
         Role.create_new_role("test", "greenlight").update_all_role_permissions(can_manage_users: true)
 
         @user2 = create(:user)
-        @user2.add_role(:test)
+        @user2.set_role(:test)
 
         # Random edit site settings action test
 
@@ -610,7 +662,7 @@ describe AdminsController, type: :controller do
         new_role2 = Role.create_new_role("test2", "provider1")
         new_role2.update_permission("can_edit_roles", "true")
 
-        @user.roles << new_role2
+        @user.role = new_role2
         @user.save!
 
         @request.session[:user_id] = @user.id
@@ -657,7 +709,7 @@ describe AdminsController, type: :controller do
         new_role2 = Role.create(name: "test2", priority: 2, provider: "provider1")
         new_role2.update_permission("can_edit_roles", "true")
 
-        @user.roles << new_role2
+        @user.role = new_role2
         @user.save!
 
         @request.session[:user_id] = @user.id
@@ -696,6 +748,24 @@ describe AdminsController, type: :controller do
         expect(new_role.get_permission("can_manage_users")).to eq(true)
         expect(new_role.get_permission("send_promoted_email")).to eq(false)
         expect(response).to redirect_to admin_roles_path(selected_role: new_role.id)
+      end
+
+      it "creates the users home room if can_create_rooms is enabled" do
+        new_role = Role.create(name: "test2", priority: 2, provider: "provider1")
+        new_role.update_permission("can_create_rooms", "false")
+
+        @request.session[:user_id] = @admin.id
+
+        new_user = create(:user, role: new_role)
+        expect(new_user.role.get_permission("can_create_rooms")).to eq(false)
+        expect(new_user.main_room).to be_nil
+
+        patch :update_role, params: { role_id: new_role.id, role: { name: "test", can_create_rooms: true,
+          colour: "#45434" } }
+
+        new_user.reload
+        expect(new_user.role.get_permission("can_create_rooms")).to eq(true)
+        expect(new_user.main_room).not_to be_nil
       end
     end
 
@@ -743,7 +813,7 @@ describe AdminsController, type: :controller do
         Role.create_new_role("test", "greenlight").update_all_role_permissions(can_edit_roles: true)
 
         @user2 = create(:user)
-        @user2.add_role(:test)
+        @user2.set_role(:test)
 
         # Random edit roles action test
 
@@ -764,7 +834,7 @@ describe AdminsController, type: :controller do
         Role.create_new_role("test", "greenlight").update_all_role_permissions(can_manage_users: false)
 
         @user2 = create(:user)
-        @user2.add_role(:test)
+        @user2.set_role(:test)
 
         # Random edit roles action test
 

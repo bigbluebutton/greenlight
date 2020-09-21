@@ -26,9 +26,12 @@ $(document).on('turbolinks:load', function(){
   })
 
   $("#maintenance-close").click(function(event) {
-    //create a cookie that lasts 1 year
-    var cookieDate = new Date();
-    cookieDate.setFullYear(cookieDate.getFullYear() + 1); //1 year from now
+    //create a cookie that lasts 1 day
+
+    var cookieDate = new Date()
+    cookieDate.setDate(cookieDate.getDate() + 1) //1 day from now
+    console.log("maintenance_window=" + $(event.target).data("date") + "; path=/; expires=" + cookieDate.toUTCString() + ";")
+
     document.cookie = "maintenance_window=" + $(event.target).data("date") + "; path=/; expires=" + cookieDate.toUTCString() + ";"
   })
 })

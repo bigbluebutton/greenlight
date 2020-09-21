@@ -47,6 +47,10 @@ class UserMailer < ApplicationMailer
     @image = logo_image
     @color = user_color
     @role = translated_role_name(role)
+    @admin_role = role.get_permission("can_manage_users") ||
+                  role.get_permission("can_manage_rooms_recordings") ||
+                  role.get_permission("can_edit_site_settings") ||
+                  role.get_permission("can_edit_roles")
     mail to: user.email, subject: t('mailer.user.promoted.subtitle', role: translated_role_name(role))
   end
 

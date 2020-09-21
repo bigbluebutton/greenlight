@@ -147,6 +147,7 @@ es_MX:
         delete: Eliminar
         edit: Editar
         edit_roles: Editar los roles de usuario
+        merge: Combinar
         perm_delete: Eliminar permanentemente
         unban: Desbloquear usuario
         undelete: Recuperar

@@ -1,0 +1,56 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="form-group">
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.branding.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.branding.info") %></label>
+        <div class="input-group">
+          <input id="branding-url" type="text" class="form-control" value="<%= logo_image %>">
+          <span class="input-group-append">
+            <button id="branding-image" onclick="changeBrandingImage('<%= admin_update_settings_path(setting: 'Branding Image') %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.branding.change") %></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.color.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.color.info") %></label>
+        <div class="color-inputs">
+          <input id="coloring-path-regular" type="hidden" value="<%= admin_coloring_path %>">
+          <input id="coloring-path-lighten" type="hidden" value="<%= admin_update_settings_path(setting: "Primary Color Lighten") %>">
+          <input id="coloring-path-darken" type="hidden" value="<%= admin_update_settings_path(setting: "Primary Color Darken") %>">
+
+          <div id="colorinput-regular" class="btn primary-regular mr-3">
+            <%= t("administrator.site_settings.color.regular") %>
+          </div>
+
+          <div id="colorinput-lighten" class="btn primary-lighten mr-3">
+            <%= t("administrator.site_settings.color.lighten") %>
+          </div>
+
+          <div id="colorinput-darken" class="btn primary-darken">
+            <%= t("administrator.site_settings.color.darken") %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
