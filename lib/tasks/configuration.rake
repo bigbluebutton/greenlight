@@ -49,7 +49,7 @@ def test_smtp
   authtype = ENV['SMTP_AUTH'].present? && ENV['SMTP_AUTH'] != "none" ? ENV['SMTP_AUTH'] : nil
 
   smtp.start(ENV['SMTP_DOMAIN'], user, password, authtype) do |s|
-    s.sendmail('test', ENV['SMTP_USERNAME'], ENV['SMTP_TEST_RECIPIENT'])
+    s.sendmail('test', ENV['SMTP_USERNAME'], ENV.fetch('SMTP_TEST_RECIPIENT', 'notifications@example.com'))
   end
 rescue => e
   failed("Error connecting to SMTP - #{e}")
