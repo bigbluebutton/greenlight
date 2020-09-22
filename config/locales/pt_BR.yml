@@ -24,7 +24,7 @@ pt_BR:
         email: E-mail
         name: Nome
         password: Senha
-        password_confirmation: Confirmação de Senha
+        password_confirmation: Confirmação de Senhas
     errors:
       models:
         user:
