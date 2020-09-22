@@ -20,7 +20,7 @@
                         <div class="card card-profile h-100">
                             <div class="card-header bg-primary h-50"></div>
                             <div class="card-body text-center">
-                                <% if current_user.image.blank? %>
+                                <% if current_user.image.blank? || !valid_url?(current_user.image) %>
                                     <span class="avatar avatar-xxxl card-profile-img bg-primary"><%= current_user.name.first %></span>
                                 <% else %>
                                     <%= image_tag(current_user.image, class: "avatar avatar-xxxl card-profile-img") %>

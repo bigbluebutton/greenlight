@@ -35,7 +35,8 @@ class User < ApplicationRecord
 
   belongs_to :role, required: false
 
-  validates :name, length: { maximum: 256 }, presence: true
+  validates :name, length: { maximum: 256 }, presence: true,
+                   format: { without: %r{https?://}i }
   validates :provider, presence: true
   validate :check_if_email_can_be_blank
   validates :email, length: { maximum: 256 }, allow_blank: true,
