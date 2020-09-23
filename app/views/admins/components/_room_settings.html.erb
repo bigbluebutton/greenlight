@@ -1,0 +1,128 @@
+<div>
+  <div class="mb-6 row">
+    <div class="col-12">
+     <div class="form-group">
+        <label class="form-label"><%= t("modal.room_settings.mute") %></label>
+        <label class="form-label text-muted"><%= t("administrator.room_configuration.mute.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= room_configuration_string("Room Configuration Mute On Join") %>
+          </button>
+          <div class="dropdown-menu">
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Mute On Join", value: "enabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.enabled") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Mute On Join", value: "optional"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.optional") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Mute On Join", value: "disabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-6 row">
+    <div class="col-12">
+     <div class="form-group">
+        <label class="form-label"><%= t("modal.room_settings.require_approval") %></label>
+        <label class="form-label text-muted"><%= t("administrator.room_configuration.require_moderator.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= room_configuration_string("Room Configuration Require Moderator") %>
+          </button>
+          <div class="dropdown-menu">
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Require Moderator", value: "enabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.enabled") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Require Moderator", value: "optional"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.optional") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Require Moderator", value: "disabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-6 row">
+    <div class="col-12">
+     <div class="form-group">
+        <label class="form-label"><%= t("modal.room_settings.start") %></label>
+        <label class="form-label text-muted"><%= t("administrator.room_configuration.allow_any.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= room_configuration_string("Room Configuration Allow Any Start") %>
+          </button>
+          <div class="dropdown-menu">
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Allow Any Start", value: "enabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.enabled") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Allow Any Start", value: "optional"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.optional") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Allow Any Start", value: "disabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-6 row">
+    <div class="col-12">
+     <div class="form-group">
+        <label class="form-label"><%= t("modal.room_settings.join_moderator") %></label>
+        <label class="form-label text-muted"><%= t("administrator.room_configuration.all_moderator.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= room_configuration_string("Room Configuration All Join Moderator") %>
+          </button>
+          <div class="dropdown-menu">
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration All Join Moderator", value: "enabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.enabled") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration All Join Moderator", value: "optional"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.optional") %>
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration All Join Moderator", value: "disabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if recording_consent_required? %>
+    <div class="mb-6 row">
+      <div class="col-12">
+      <div class="form-group">
+          <label class="form-label"><%= t("modal.room_settings.recording") %></label>
+          <label class="form-label text-muted"><%= t("administrator.room_configuration.recordings.info") %></label>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= room_configuration_string("Room Configuration Recording") %>
+            </button>
+            <div class="dropdown-menu">
+              <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Recording", value: "enabled"), class: "dropdown-item", "data-disable": "" do %>
+                <%= t("administrator.room_configuration.options.enabled") %>
+              <% end %>
+              <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Recording", value: "optional"), class: "dropdown-item", "data-disable": "" do %>
+                <%= t("administrator.room_configuration.options.optional") %>
+              <% end %>
+              <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Recording", value: "disabled"), class: "dropdown-item", "data-disable": "" do %>
+                <%= t("administrator.room_configuration.options.disabled") %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+</div>

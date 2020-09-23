@@ -15,14 +15,15 @@
 
 <tr>
   <td>
-    <div id="recording-title" class="form-inline edit_hover_class" data-recordid="<%= recording[:recordID] %>" data-room-uid="<%= room_uid_from_bbb(recording[:meetingID]) %>" data-path="<%= rename_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]) %>">
-      <text>
-        <% if recording[:metadata][:name] %>
+    <div id="recording-title" class="edit_hover_class" data-recordid="<%= recording[:recordID] %>" data-room-uid="<%= room_uid_from_bbb(recording[:meetingID]) %>" data-path="<%= rename_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]) %>">
+      <% if recording[:metadata][:name] %>
+        <span id="recording-text" title="<%= recording[:metadata][:name] %>">
           <%= recording[:metadata][:name] %>
-        <% else %>
+      <% else %>
+        <span id="recording-text" title="<%= recording[:name] %>">
           <%= recording[:name] %>
-        <% end %>
-      </text>
+      <% end %>
+        </span>
     </div>
     <div class="small text-muted">
       <%= t("recording.recorded_on", date: recording_date(recording[:startTime])) %>
@@ -54,9 +55,10 @@
     </div>
   </td>
   <td>
-    <% sorted_formats =  recording[:playbacks].sort_by! {|p| p[:type]} %>
+    <% sorted_formats = recording[:playbacks].sort_by! {|p| p[:type]} %>
     <% p = recording[:playbacks].find do |p| p.key?(:length) end %>
     <% sorted_formats.each do |p| %>
+      <% next if hidden_format_public.include?(p[:type].downcase)%>
       <%= link_to t("recording.format.#{p[:type]}"), p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
     <% end %>
   </td>

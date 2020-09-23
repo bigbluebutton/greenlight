@@ -23,4 +23,4 @@
 
 <%= t('mailer.user.promoted.more-info', url: @url) %>
 
-<%= @admin_url %>
+<%= @admin_role ? @admin_url : @url %>

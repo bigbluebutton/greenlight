@@ -1,0 +1,556 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+th:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "ข้อกำหนดและเงื่อนไข"
+        email: อีเมล์
+        name: ชื่อ
+        password: รหัสผ่าน
+        password_confirmation: ยืนยันรหัสผ่าน
+    errors:
+      models:
+        user:
+          confirmation: รหัสผ่านไม่ตรงกัน
+  administrator:
+    site_settings:
+      authentication:
+        disabled: ปิดใช้งาน
+        enabled: เปิดใช้งาน
+        info: อนุญาตเฉพาะผู้ที่ลงชื่อเข้าระบบเข้าร่วมห้อง
+        title: ต้องการตรวจสอบสิทธิ์สำหรับห้อง
+        user-info: กรุณาเข้าสู่ระบบ เพื่อเข้าร่วมห้องประชุม
+      branding:
+        change: เปลี่ยนภาพ
+        info: เปลี่ยนภาพสัญลักษณ์ที่มุมซ้ายบน
+        placeholder: URL ของภาพ
+        title: ภาพสัญลักษณ์
+      cache:
+        info: ล้างแคชของผูให้บริการเพื่อข้อมูลที่อัปเดตใหม่
+        title: ล้างแคชของผู้ให้บริการ
+        button: ล้างแคช
+      clear_auth:
+        info: ล้างที่ยืนยันตัวตนปัจจุบันสำหรับผู้ใช้ที่ได้รับอนุญาตเพื่อให้กลับเข้าสู่ระบบแล้วใช้การยืนยันตัวตนแบบอื่น
+        title: ล้างตัวตรวจสอบปัจจุบัน
+        button: ล้างการตรวจสอบสิทธิ์
+      color:
+        info: "การเปลียนสีปกติแล้วจะเปลี่ยนได้ทั้งสองแบบทั้งสีจางและสีเข้ม ,สีจางและสีเข้ม สามารถเปลี่ยนได้เป็นรายบุคคล"
+        title: สีหลัก
+        regular: ปกติ
+        lighten: สีจาง
+        darken: สีเข้ม
+      log_level:
+        title: ระดับการบันทึก
+        information: เปลี่ยนระดับการบันทึกสำหรับการปรับใช้ทั้งหมด
+        debug: ตรวจแก้จุดบกพร่อง
+        info: ข้อมูล
+        warn: เตือน
+        error: ข้อผิดพลาด
+        fatal: ร้ายแรง
+        unknown: ไม่รู้จัก
+      recording_visibility:
+        info: ตั้งค่าเริ่มต้นสำหรับการบันทึกที่เปิดเผย สำหรับการบันทึกใหม่
+        title: บันทึกการมองเห็นเริ่มต้น
+        warning: การตั้งค่าจะไม่มีผลต่อห้องประชุมที่ไม่ได้ใช้งานอยู่ในขณะนี้
+      registration:
+        info: เปลี่ยนวิธีการสมัครของผู้ใช้
+        title: วิธีการสมัคร
+        methods:
+          approval: อนุญาต/ปฏิเสธ
+          invite: เข้าร่วมโดยการเชิญ
+          open: เปิดรับการสมัคร
+      rooms:
+        info: จำกัดจำนวนห้องที่ผู้ใช้สามารถมีได้(รวมห้องหลัก) การตั้งค่านี้ไม่มีผลกับผู้ดูแลระบบ
+        title: จำนวนห้องต่อผู้ใช้
+      shared_access:
+        info: ตั้งค่าเป็น "ปิดการใช้งาน" เพื่อลบปุ่มจากเมนูห้องประชุม เพื่อป้องกันไม่ให้ผู้ใช้แชร์ห้องประชุม
+        title: อนุญาตให้ผู้ใช้แชร์ห้องประชุม
+      subtitle: ตกแต่ง Greenlight
+      title: ตั้งค่าเว็บไซต์
+    flash:
+      approved: ผู้ใช้ได้รับการอนุมัติเรียบร้อยแล้ว
+      banned: ผู้ใช้ถูกแบนเรียบร้อยแล้ว
+      unbanned: ยกเลิกการแบนผู้ใช้เรียบร้อยแล้ว
+      delete: ลบผู้ใช้เรียบร้อยแล้ว
+      delete_fail: การลบผู้ใช้ล้มเหลว
+      demoted: ลดระดับผู้ใช้เรียบร้อยแล้ว
+      invite: "ส่งคำเชิญถึง %{email} แล้ว"
+      invite_email_verification: ต้องเปิดใช้งานอีเมลเพื่อใช้วิธีนี้ กรุณาติดต่อผู้ดูแลระบบของคุณ
+      merge_fail: มีปัญหาในการรวมบัญชีผู้ใช้ โปรดตรวจสอบผู้ใช้ที่เลือกและลองอีกครั้ง 
+      merge_success: รวมบัญชีผู้ใช้สำเร็จแล้ว
+      perm_deleted: ผู้ใช้ถูกลบอย่างถาวร
+      promoted: เพิ่มระดับผู้ใช้เรียบร้อยแล้ว
+      registration_method_updated: อัปเดตวิธีการสมัครสำเร็จแล้ว
+      reset_password: ส่งอีเมลเพื่อรีเซ็ตรหัสผ่านของผู้ใช้แล้ว (โปรดให้พวกเขาตรวจสอบโฟลเดอร์สแปมหากพวกเขาไม่ได้รับอีเมล)
+      restored: กู้คืนบัญชีผู้ใช้สำเร็จแล้ว
+      settings: เปลี่ยนการตั้งค่าเว็บไซต์สำเร็จแล้ว
+      unauthorized: คุณไม่ได้รับอนุญาตให้ดำเนินการกับผู้ใช้รายนี้
+    recordings:
+      title: บันทึกการประชุม
+      no_recordings: ไม่มีบันทึกการประชุม
+    roles:
+      appear_in_share_list: ในดรอปดาวน์นี้รวมผู้ใช้ที่มีบทบาทสำหรับการแชร์ห้อง
+      can_create_rooms: สามารถสร้างห้องประชุม
+      delete: ลบกลุ่มผู้ใช้
+      invalid_create: มีปัญหาในการกำหนดกลุ่มผู้ใช้ใหม่ โปรดตรวจสอบการตั้งค่า และลองอีกครั้ง
+      invalid_order: เกิดปัญหาในการอัปเดตลำดับความสำคัญของกลุ่มผู้ใช้ โปรดตรวจสอบการตั้งค่า แล้วลองอีกครั้ง
+      invalid_update: เกิดปัญหาในการอัปเดตสิทธิ์ของกลุ่มผู้ใช้ โปรดตรวจสอบการตั้งค่าแล้วลองอีกครั้ง
+      manage_rooms_recordings: อนุญาตให้ผู้ใช้กลุ่มนี้นี้จัดการห้องเซิร์ฟเวอร์และการบันทึก
+      name: ชื่อกลุ่มผู้ใช้
+      new_role: สร้างกลุ่มผู้ใช้ใหม่
+      role_has_users: "กลุ่มผู้ใช้นี้ถูกกำหนดให้บัญชีผู้ใช้ %{user_count} กรุณาลบกลุ่มผู้ใช้นี้ออกจากบัญชีก่อนลบ"
+      title: กลุ่มผู้ใช้
+      promote_email: ส่งอีเมลไปยังผู้ใช้เมื่อพวกเขาถูกกำหนดกลุ่มผู้ใช้
+      demote_email: ส่งอีเมลถึงผู้ใช้เมื่อพวกเขาถูกนำออกจากกลุ่มผู้ใช้
+      edit_site_settings: อนุญาตให้กลุ่มผู้ใช้ที่มีบทบาทนี้แก้ไขการตั้งค่าเว็บไซต์
+      edit_roles: อนุญาตให้กลุ่มผู้ใช้นี้แก้ไขกลุ่มผู้ใช้อื่นได้
+      manage_users: อนุญาตให้กลุ่มผู้ใช้นี้จัดการบัญชีผู้ใช้
+      invalid_assignment: มีปัญหาในการกำหนดกลุ่มให้กับผู้ใช้ โปรดตรวจสอบการตั้งค่าแล้วลองอีกครั้ง 
+      colour:
+        title: สีของกลุ่มผู้ใช้
+        info: กำหนดสีให้กับกลุ่มผู้ใช้
+    rooms:
+      title: ห้องประชุม
+      table:
+        id: รหัส
+        not_running: ไม่ได้ทำงาน
+        running: กำลังทำงาน
+        status: สถานะ
+        view: ดู
+    title: การตั้งค่าองค์กร
+    users:
+      invite: เชิญผู้ใช้
+      edit:
+        title: แก้ไขรายละเอียดผู้ใช้
+      settings:
+        approve: อนุญาต
+        decline: ปฏิเสธ
+        ban: แบนผู้ใช้
+        delete: ลบ
+        edit: แก้ไข
+        edit_roles: แก้ไขกลุ่มผู้ใช้
+        perm_delete: ลบถาวร
+        unban: ยกเลิกการแบนผู้ใช้
+        undelete: ยกเลิกการลบ
+      table:
+        authenticator: การตรวจสอบสิทธิ์
+        created: สร้างแล้ว
+        name: ชื่อ
+        not_found: ไม่พบผู้ใช้ที่ค้นหา
+        no_users: ไม่พบผู้ใช้
+        role: กลุ่มผู้ใช้
+        uid: รหัสผู้ใช้
+        username: ชื่อผู้ใช้
+      title: จัดการบัญชีผู้ใช้
+  add_to_google_calendar: "เพิ่มลงในปฎิทิน Google"
+  bigbluebutton: ONE Conference
+  bigbluebutton_exception: เกิดข้อผิดพลาดในการเริ่มการประชุม!
+  cancel: ยกเลิก
+  cookies:
+    cookie_info: เราได้ใช้คุกกี้เพิ่มความสามารถในการให้บริการของเรา โดยการใช้บริการของเราเท่ากับคุณยอมรับการใช้คุกกี้
+    cookie_button: ฉันเห็นด้วย
+  copied: คัดลอกแล้ว
+  copy: คัดลอก
+  date:
+    month_names: [~, มกราคม, กุมภาพันธ์, มีนาคม, เมษายน, พฤษภาคม, มิถุนายน, กรกฎาคม, สิงหาคม, กันยายน, ตุลาคม, พฤศจิกายน, ธ้นวาคม]
+  default_admin: "คุณยังใช้รหัสผ่านดั้งเดิมสำหรับบัญชีนี้ โปรดกดที่<a href=\"%{edit_link}\">ตรงนี้</a>เพื่อเปลี่ยนรหัส"
+  delete: ลบ
+  delivery_error: เกิดข้อผิดพลาดระหว่างการส่งอีเมล กรุณาติดต่อผู้ดูแลระบบ!
+  docs: เอกสาร
+  email: อีเมล์
+  email_sent: "อีเมล%{email_type}ของคุณถูกส่งแล้ว (โปรดตรวจสอบในโฟลเดอร์อีเมลขยะหากคุณไม่ได้รับอีเมล)"
+  enter_your_name: กรุณาใส่ชื่อ
+  errors:
+    bigbluebutton:
+      help: "โปรดตรวจสอบให้แน่ใจว่าได้ดำเนินการขั้นตอนที่เหมาะสมแล้ว<a href=\"%{doc_link}\">เรียนรู้เพิ่มเติม</a>"
+      message: BigBlueButton Endpoint and Secret ไม่ถูกต้อง
+      title: เซิร์ฟเวอร์ผิดพลาด
+    internal:
+      message: รู้สึกเหมือนมีบางอย่างผิดพลาดในตอนสุดท้าย
+      help: "ข้อผิดพลาดถูกบันถึงไว้ , พวกเราจะลองดู"
+      report: แจ้งปัญหา
+    maintenance:
+      message: ขออภัยเราไม่สามารถทำการบำรุงรักษาได้
+      help: พวกเราจะกลับมาเร็วๆนี้ !
+    migration_error:
+      contact_admin: ถ้าหากคุณไม่ใช่ผู้ดูแล โปรดติดต่อผู้รับผิดชอบ
+      continue: ฉันยังต้องการที่จะใช้ 1.0.
+      notice: >
+        Greenlight พบข้อผิดพลาดในการย้ายฐานข้อมูล<br> อาจเป็นเพราะคุณไม่ได้อัปเดตเป็น Greenlight 2.0
+      upgrade: แสดงวิธีอัปเกรดเกรดเป็น 2.0!
+      version: เราได้เปิดตัว Greenlight เวอร์ชันใหม่ แต่ฐานข้อมูลของคุณไม่สามารถใช้งานร่วมกันได้
+    messages:
+      blank: ห้ามเว้นว่าง
+      too_short: สั้นเกินไป
+      invalid: ไม่ถูกต้อง
+      taken: ถูกใช้แล้ว
+      accepted: ต้องยอมรับ
+      confirmation: "ไม่ตรงกับ %{attribute}"
+      inclusion: ไม่อยู่ในรายการ
+    no_provider:
+      message: หน้าเว็บไซต์ที่คุณพยายามเข้าถึงไม่ได้เปิดใช้งาน
+      help: กรุณาติดต่อผู้ดูแลระบบของคุณเพื่อตั้งค่า Greenlight
+    not_found:
+      message: ขออภัย! หน้าที่คุณกำลังค้นหาไม่มีอยู่
+      help: "เป็นไปได้ไหมที่มันจะถูกลบ?"
+      user_not_found:
+        help: กรุณาติดต่อผู้ดูแลระบบ
+        message: ขออภัย ผู้ใช้ไม่ได้ลงทะเบียน
+      user_missing:
+        help: กรุณาตรวจสอบ URL และลองอีกครั้ง
+        message: URL ที่คุณป้อนไม่ถูกต้อง
+    title: ผิดพลาด
+    unauthorized:
+      message: คุณไม่มีสิทธิ์เข้าถึงแอปพลิเคชันนี้
+      help: หากคุณเชื่อว่านี่เป็นข้อผิดพลาดโปรดติดต่อผู้ดูแลระบบของคุณ
+  expired_reset_token: ลิงก์รีเซ็ตรหัสผ่านหมดอายุแล้ว!
+  features:
+    title: คุณสมบัติ
+    rooms: ตั้งค่าห้องประชุม
+    recordings: จัดการบันทึกประชุม
+    designs: ตั้งค่าการออกแบบ
+    authentication: การตรวจสอบผู้ใช้
+  footer:
+    powered_by: "ขับเคลื่อนโดย %{href}."
+  forgot_password:
+    subtitle: ลืมรหัสผ่าน
+    email: อีเมล์
+    submit: ส่ง
+  go_back: กลับ
+  greenlight: Greenlight
+  header:
+    all_recordings: บันทึกการประชุม
+    dropdown:
+      account_settings: การตั้งค่าองค์กร
+      help: "ต้องการความช่วยเหลือ?"
+      home: หน้าหลัก
+      settings: ข้อมูลส่วนตัว
+      signout: ออกจากระบบ
+  home_room: ห้องหลัก
+  info_update_success: อัปเดตข้อมูลสำเร็จแล้ว
+  invalid_credentials: อีเมล และรหัสผ่านของคุณไม่ถูกต้อง กรุณาลองอีกครั้ง หรือกดลืมรหัสผ่านเพื่อรีเซ็ตรหัสผ่านของคุณ
+  invalid_login_method: "เข้าสู่ระบบไม่สำเร็จเนื่องจากบัญชีไม่ตรงกัน , คุณต้องเข้าสู่ระบบด้วย omniauth."
+  invite_message: "เชิญผู้อื่นเข้าร่วมการประชุมโดยส่งลิงค์นี้ให้พวกเขา:"
+  javascript:
+    room:
+      mailer:
+        subject: 'เชิญคุณให้ดูบันทึกการประชุม'
+        body: 'ดูบันทึกการประชุม:'
+        autogenerated: 'อีเมลนี้ถูกสร้างขึ้นอัตโนมัติ โดย BigBlueButton.'
+        footer: 'BigBlueButton เป็นระบบการประชุมผ่านเว็บแบบโอเพ่นซอร์ส สำหรับข้อมูลเพิ่มเติมเกี่ยวกับ BigBlueButton ดู https://bigbluebutton.org/'
+    search:
+      start: เริ่มการค้นหา...
+  landing:
+    about: "%{href}เป็นฟรอนต์เอ็นด์ที่เรียบง่ายสำหรับเซิร์ฟเวอร์การประชุมผ่านเว็บโอเพ่นซอร์ส BigBlueButton ของคุณ คุณสามารถสร้างห้องของคุณเองเพื่อโฮสต์เซสชันหรือเข้าร่วมผู้อื่นโดยใช้ลิงก์ที่สั้นและสะดวก"
+    welcome: ยินดีต้อนรับสู่ BigBlueButton
+    video: ดูการแนะนำการใช้งาน Greenlight
+    upgrade: แสดงวิธีอัปเกรดเป็น 2.0!
+    version: "เราได้ปล่อย Greenlight เวอร์ชั่นใหม่ , แต่ ฐานข้อมูลของคุณไม่สามารถใช้ร่วมกันได้"
+  language_default: ค่าเริ่มต้น (ภาษาที่แสดงบนเบราว์เซอร์)
+  ldap_error: ไม่สามารถเชื่อมต่อไปยัง LDRP Server ได้ โปรดตรวจสอบการตั้งค่า LDRP ของคุณใน ไฟล์ env และแน่ใจว่า เซิฟเวอร์ของคุณทำงานอยู่
+  login: เข้าสู่ระบบ
+  login_title: ลงชื่อเข้าใช้บัญชีของคุณ
+  mailer:
+    user:
+      approve:
+        info: บัญชีของคุณได้รับการอนุมัติ
+        signin: ในการเข้าถึงห้องส่วนตัวของคุณ คลิกปุ่มด้านล่างเพื่อลงชื่อเข้าใช้
+        signin_link: เข้าสู่ระบบ
+        signup:
+          info: ผู้ใช้ใหม่ได้ลงทะเบียนเพื่อใช้ Greenlight
+          more-info: ในการอนุญาตให้ผู้ใช้รายนี้เข้าถึง Greenlight คุณต้องอนุมัติบัญชีของพวกเขาในการตั้งค่าองค์กร
+          admins_link: เยี่ยมชมหน้าเพจขององค์กร
+          subject: ลงชื่อผู้ใช้ Greenlight ใหม่
+          username: "ผู้ใช้ลงทะเบียนด้วยชื่อ %{name}ชื่อ และอีเมล %{email}."
+        subject: อนุมัติบัญชีแล้ว
+        username: "ชื่อผู้ใช้ของคุณคือ%{email}."
+      demoted:
+        info: "คุณไม่ได้เป็น%{role}บน%{url}"
+        more-info: ตอนนี้คุณมีสิทธิ์เท่ากับผู้ใช้ทั่วไป
+        root_link: เข้าสู่ระบบ
+        subtitle: "%{role}ยกเลิกสิทธิ์"
+      invite:
+        info: "คุณได้รับเชิญไปยังพื้นที่ส่วนตัวของคุณโดย%{name}"
+        signup_info: ในการลงทะเบียนโดยใช้อีเมลของคุณคลิกปุ่มด้านล่างและทำตามขั้นตอน
+        signup_link: ลงชื่อ
+        signup:
+          info: ผู้ที่ได้รับเชิญลงทะเบียนเพื่อใช้งาน Greenlight.
+          admins_link: เยี่ยมชมหน้าองค์กร
+          subject: ลงชื่อผู้ใช้ Greenlight ใหม่
+          username: "ผู้ใช้ลงทะเบียนด้วยชื่อ %{name}ชื่อ และอีเมล %{email}อีเมล."
+        subject: คำเชิญให้เข้าร่วม BigBlueButton
+        username: "ชื่อผู้ใช้ของคุณคือ %{email}."
+      password_reset:
+        title: 'รีเซ็ตรหัสผ่าน'
+        welcome: "มีการร้องขอการรีเซ็ตรหัสผ่านสำหรับ อีเมล <b>%{email}</b>"
+        message: 'หากคุณเป็นคนดำเนินการร้องขอการตั่งค่ารหัสผ่านใหม่ โปรดคลิกที่ลิงค์นี้ เพื่อตั้งค่ารหัสผ่านใหม่'
+        reset_link: รีเซ็ตรหัสผ่าน
+        expire: ลิงก์นี้จะหมดอายุในอีกสองชั่วโมง
+        ignore: คุณสามารถละเว้นอีเมลนี้ได้อย่างปลอดภัย ถ้าคุณไม่ได้ทำการร้องขอ
+      promoted:
+        admins_link: เยี่ยมชมห้าขององค์กร
+        info: "ตอนนี้คุณเป็น %{role} บน %{url}."
+        more-info: "เพื่อดูความสามารถใหม่ของคุณ กรุณาเยี่ยมชม%{url}."
+        subtitle: "%{role}ได้รับสิทธิ์"
+      verify_email:
+        welcome: "ยินดีต้อนรับสู่พื้นที่ส่วนตัวของคุณ %{name}!"
+        success: "ใช้ประโยชน์จาก %{bigbluebutton}คุณสามารถสร้างห้องของคุณเองเพื่อโฮสต์เซสชันและทำงานร่วมกับผู้อื่น"
+        username: "ชื่อผู้ใช้ของคุณคือ%{email}."
+        verify: หากต้องการยืนยันบัญชีของคุณเพียงคลิกปุ่มด้านล่าง
+        verify_text: 'หากต้องการยืนยันตัวตนคลิกไปที่ ลิงค์นี้%{url}'
+        verify_link: ตรวจสอบบัญชี
+        thanks: ขอบคุณที่เข้าร่วมกับเรา ขอให้เป็นวันที่ดี
+  maintenance:
+    window_alert: "กำหนดการปรับปรุงระบบปฎิบัติการ%{date}"
+  max_concurrent: ถึงกำหนดจำนวนสูงสุดของเซสชันที่อนุญาตแล้ว
+  merged: รวม
+  modal:
+    create_role:
+      create: กำหนดบทบาทใหม่
+      footer_text: คุณสามารแก้ไขสิทธ์ส่วนบุคคลได้หลังจากที่สร้างบทบาทแล้ว
+      name_placeholder: ใส่ชื่อบทบาท
+      not_blank: ชื่อบทบาท ไม่สามารถปล่อยว่างได้
+      title: สร้างบทบาทใหม่
+    create_room:
+      access_code: รหัสการเข้าถึง
+      access_code_placeholder: สร้างรหัสการเข้าถึงห้องเพิ่มเติม
+      auto_join: ให้ฉันเข้าร่วมห้องประชุมโดยอัตโนมัติ
+      create: สร้างห้อง
+      free_delete: คุณสามารถลบห้องประชุมนี้ได้ทุกเมื่อ
+      name_placeholder: กรอกชื่อห้องประชุมของคุณ...
+      not_blank: ชื่อห้องต้องไม่ว่างเปล่า
+      title: สร้างห้องใหม่
+    delete_account:
+      confirm: "คุณแน่ใจหรือว่าต้องการลบบัญชีนี้?"
+      delete: ฉันแน่ใจว่าจะลบบัญชีนี้
+      keep: ยกเลิก
+      delete_warning: นี่จะเป็นการปิดบัญชีของผู้ใช้ บัญชีผู้ใช้ที่ที่ถูกปิดจะอยู่ในแท็บที่ถูกลบ
+      warning: คุณจะ<b>ไม่สามารถ</b>กู้คืนข้อมูลที่เกี่ยวข้อง
+    delete_room:
+      confirm: "คุณแน่ใจที่จะลบ %{room} ใช่หรือไม่?"
+      delete: ฉันแน่ใจ
+      keep: ยกเลิก
+      warning: คุณจะ<b>ไม่สามารถ</b>กู้คืนห้องประชุมนี้
+      recording_warning: "หรือทุกอย่างของ%{recordings_num}การบันทึกที่เกี่ยวข้อง"
+    invite_user:
+      email_placeholder: "กรอกอีเมลของผู้ใช้ (คั่นด้วย Comma \",\")"
+      footer: ผู้ใช้จะได้รับอีเมลพร้อมคำแนะนำในการสมัคร
+      send: ส่งคำเชิญ
+      title: เชิญผู้ใช้
+    login:
+      or: หรือ
+      with: "เข้าสู่ระบบด้วย %{provider}"
+      forgot_password: "ลืมรหัสผ่าน?"
+    rename_recording:
+    remove_shared:
+      title: คุณแน่ใจหรือไม่ว่าต้องการลบห้องประชุมออกจากรายการของคุณ
+      delete: แน่ใจที่จะลบ
+      warning: คุณจะ<b>ไม่สามารถ</b>เข้าห้องประชุมนี้ได้อีก
+    room_settings:
+      title: การตั้งค่าห้อง
+      update: ปรับปรุงห้อง
+      client: เลือกประเภทผู้ใช้
+      join_moderator: ผู้ใช้ทั้งหมดเข้าร่วมเป็นผู้ดูแล
+      mute: ปิดเสียงผู้ใช้เมื่อเข้าร่วม
+      require_approval: ต้องการการอนุมัติจากผู้ดูแลก่อนเข้าร่วม
+      start: อนุญาตให้ผู้ใช้ใด ๆ เริ่มการประชุมนี้
+      footer_text: การปรับเปลี่ยนห้องของคุณสามารถทำได้ตลอดเวลา
+    rename_room:
+      name_placeholder: ป้อนชื่อห้องใหม่ ...
+    share_access:
+      footer: การแชร์ห้องกับผู้ใช้อนุญาตให้เริ่มห้องและดูการบันทึกของห้อง
+      list: แชร์กับ
+      title: แบ่งปันการเข้าถึงห้อง
+      save: บันทึกการเปลี่ยนแปลง
+      cancel_changes: ยกเลิกการเปลี่ยนแปลง
+      select: เลือกผู้ใช้
+    merge_user:
+      cancel: ยกเลิก
+      from: บัญชีผู้ใช้ที่จะรวมเข้าด้วยกัน
+      title: รวมบัญชีผู้ใช้
+      to: บัญชีหลัก
+      save: รวม
+      footer: ห้องของบัญชีผู้ใช้นี้จะถูกโอนไปยังรายการห้องประชุมของบัญชีหลัก และจากนั้นบัญชีผู้ใช้จะถูกลบ
+  name_update_success: เปลี่ยนชื่อห้องเรียบร้อยแล้ว!
+  no_user_email_exists: ไม่พบผู้ใช้อีเมลที่ระบุ โปรดตรวจสอบว่าคุณพิมพ์ถูกต้อง
+  omniauth_error: เกิดข้อผิดพลาดระหว่างการตรวจสอบสิทธิ์กับ omniauth. โปรดลองอีกครั้งหรือติดต่อผู้ดูแล
+  omniauth_specific_error: "%{error}เกิดข้อผิดพลาดระหว่างการตรวจสอบสิทธิ์กับ omniauth. โปรดลองอีกครั้งหรือติดต่อผู้ดูแล"
+  pagy:
+    nav:
+      prev: "&lsaquo; ก่อนหน้า"
+      next: "ถัดไป &rsaquo;"
+      gap: "&hellip;"
+  password: รหัสผ่าน
+  password_empty_notice: รหัสผ่านต้องไม่ว่างเปล่า
+  password_reset_success: รีเซ็ตรหัสผ่านแล้ว
+  password_different_notice: การยืนยันรหัสผ่านไม่ตรงกัน
+  provider:
+    google: Google
+    office365: Office 365
+    twitter: Twitter
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable: เราไม่สามารถตรวจสอบ reCAPTCHA ของคุณ กรุณาลองอีกครั้ง
+      verification_failed: การตรวจสอบ reCAPTCHA ล้มเหลวโปรดลองอีกครั้ง
+  recording:
+    all_recordings: บันทึกการประชุม
+    email: การบันทึกอีเมล์
+    error: "มีข้อผิดพลาดในการเรียกข้อมูล%{count}บันทึก (s)"
+    no_recordings: "ห้องประชุมนี้ไม่มีบันทึกการประชุม %{inject}"
+    no_user_recordings: ขณะนี้คุณไม่มีการบันทึก
+    no_matched_recordings: "ไม่พบบันทึกการประชุม %{inject} ที่คุณค้นหา"
+    recorded_on: "บันทึกเมื่อ %{date}"
+    table:
+      name: ชื่อ
+      thumbnails: ภาพย่อ
+      length: ความยาว
+      users: ผู้ใช้
+      visibility: การมองเห็น
+      formats: รูปแบบ
+    visibility:
+      public: สาธารณะ
+      unlisted: ไม่แสดง
+    format:
+      notes: หมายเหตุ
+      podcast: พ็อดคาสท์
+      presentation: การนำเสนอ
+      statistics: สถิติ
+      video: วีดีโอ
+  registration:
+    approval:
+      fail: บัญชีของคุณยังไม่ได้รับการอนุมัติ หากหลายวันผ่านไปนับตั้งแต่ที่คุณสมัครโปรดติดต่อผู้ดูแลระบบของคุณ
+      signup: สร้างบัญชีของคุณสำเร็จแล้ว มันถูกส่งไปยังผู้ดูแลระบบเพื่อขออนุมัติ
+    banned:
+      fail: คุณไม่มีสิทธิ์ที่จะเชื่อว่านี่เป็นข้อผิดพลาดโปรดติดต่อผู้ดูแลระบบของคุณ 
+    deprecated:
+      new_signin: เลือกวิธีการเข้าสู่ระบบใหม่สำหรับบัญชีของคุณ ห้องทั้งหมดของคุณจากบัญชีเก่าของคุณจะถูกย้ายไปยังบัญชีใหม่
+      twitter_signin: "การลงชื่อเข้าใช้ผ่าน Twitter เลิกใช้แล้วและจะถูกลบออกในรุ่นถัดไป คลิก<a href=\"%{link}\">ที่นี่</a> เพื่อย้ายบัญชีของคุณไปยังวิธีการรับรองความถูกต้องใหม่"
+      twitter_signup: การสมัครผ่าน Twitter เลิกใช้แล้วโปรดใช้วิธีการสมัครอื่น
+      merge_success: รวมบัญชี Twitter ของคุณเข้ากับบัญชีใหม่ของคุณสำเร็จแล้ว บัญชี Twitter ของคุณถูกลบไปแล้ว
+    invite:
+      fail: โทเค็นของคุณไม่ถูกต้องหรือหมดอายุแล้ว หากคุณเชื่อว่านี่เป็นข้อผิดพลาดโปรดติดต่อผู้ดูแลระบบของคุณ
+      no_invite: คุณไม่มีคำเชิญให้เข้าร่วม โปรดติดต่อผู้ดูแลระบบของคุณเพื่อรับคำเชิญ
+  remove: ลบ
+  rename: เปลี่ยนชื่อ
+  reset_password:
+    subtitle: รีเซ็ตรหัสผ่าน
+    password: รหัสผ่านใหม่
+    confirm: ยืนยันรหัสผ่านใหม่
+    update: อัปเดตรหัสผ่าน
+    auth_change: วิธีการรับรองความถูกต้องมีการเปลี่ยนแปลง โปรดตรวจสอบอีเมลของคุณเพื่อตั้งรหัสผ่านของคุณ
+  roles:
+    active: ทำงาน
+    admin: ผู้ดูแลระบบ
+    banned: ถูกแบน
+    deleted: ลบ
+    pending: รอดำเนินการ
+    user: ผู้ใช้งาน
+  room:
+    access_code_required: กรุณาใส่รหัสที่ถูกต้องเพื่อเข้าร่วมห้อง
+    create_room: สร้างห้อง
+    create_room_error: เกิดข้อผิดพลาดในการสร้างห้อง
+    create_room_success: สร้างห้องสำเร็จแล้ว
+    delete:
+      home_room: ไม่สามารถลบห้องโฮมของผู้ใช้
+      success: ลบห้องสำเร็จแล้ว
+      fail: "ไม่สามารถลบห้อง (%{error})"
+    enter_the_access_code: ป้อนรหัสการเข้าถึงของห้อง
+    invalid_provider: คุณป้อน URL ที่ไม่ถูกต้องโปรดตรวจสอบ URL แล้วลองอีกครั้ง
+    invited: คุณได้รับเชิญให้เข้าร่วม
+    invite_participants: เชิญผู้เข้าร่วม
+    join: ร่วม
+    last_session: "เซสชั่นล่าสุดเมื่อ %{session}"
+    login: เข้าสู่
+    owner: เจ้าของ
+    owner_banned: ห้องนี้ไม่สามารถใช้งานได้ในขณะนี้
+    no_room:
+      description: ป้อน URL ห้องหรือ ID ห้องของห้องที่คุณต้องการเข้าร่วม
+      edit_profile: แก้ไขโปรไฟล์ผู้ใช้
+      go_to: ไปที่ห้อง
+      invalid_room_uid: url/uid ห้องที่คุณป้อนไม่ถูกต้อง
+      placeholder: url/uid ของห้อง
+      no_recent_rooms: คุณไม่มีห้องที่เพิ่งเข้าร่วม
+      recent_rooms: ไปที่ห้องที่เพิ่งเข้าร่วม
+      title: เข้าร่วมห้อง
+    no_sessions: ห้องนี้ไม่มีการประชุมเลย!
+    recordings: บันทึกห้อง
+    room_limit: คุณมีจำนวนห้องถึงจำนวนสูงสุดที่อนุญาตแล้ว
+    room_limit_exceeded: "คุณมีจำนวนห้องเกินจำนวนที่กรุณาลบ%{difference}ความแตกต่างต่างประเทศห้องเพื่อเข้าถึงห้องนี้"
+    sessions: การประชุม
+    settings: การตั้งค่าห้อง
+    share: จัดการการเข้าถึง
+    shared_by: "แชร์โดย %{email}"
+    remove_shared_access_success: ลบห้องที่ใช้ร่วมกันออกจากรายการห้องของคุณสำเร็จแล้ว
+    remove_shared_access_error: มีข้อผิดพลาดในการลบห้องที่ใช้ร่วมกันจากรายการของคุณ
+    shared_access_success: แชร์ห้องสำเร็จ
+    shared_access_error: เกิดข้อผิดพลาดในการแชร์ห้อง
+    start: เริ่มต้น
+    unavailable: ห้องนี้ไม่สามารถใช้งานได้ในขณะนี้เนื่องจากอีเมลของเจ้าของไม่ได้รับการยืนยัน
+    update_settings_error: เกิดข้อผิดพลาดในการอัปเดตการตั้งค่าห้อง
+    update_settings_success: อัปเดตการตั้งค่าห้องพักสำเร็จแล้ว
+    wait:
+      message: การประชุมยังไม่เริ่ม
+      auto: คุณจะเข้าร่วมโดยอัตโนมัติเมื่อการประชุมเริ่มต้นขึ้น
+  settings:
+    account:
+      fullname: ชื่อเต็ม
+      language: ภาษา
+      provider: ผู้ให้บริการ
+      image: ภาพ
+      image_url: URL ภาพโปรไฟล์
+      roles: บทบาทผู้ใช้
+      subtitle: อัปเดตข้อมูลบัญชีของคุณ
+      title: ข้อมูลบัญชี
+    delete:
+      button: ใช่ ฉันต้องการลบบัญชีของฉัน
+      disclaimer: หากคุณเลือกที่จะลบบัญชีของคุณ จะ<b>ไม่</b>สามารถกู้คืนข้อมูลได้ทั้งหมดเกี่ยวกับบัญชีของคุณรวมถึงการตั้งค่าห้องและการบันทึกจะถูกลบออก
+      subtitle: ลบบัญชีของคุณอย่างถาวร
+      title: ลบบัญชี
+    password:
+      confirmation: ยืนยันรหัสผ่านใหม่
+      new: รหัสผ่านใหม่
+      old: รหัสผ่านเดิม
+      subtitle: เปลี่ยนรหัสผ่านของคุณ
+      title: รหัสผ่าน
+    title: ข้อมูลส่วนตัว
+    search: ค้นหา
+  signup:
+    password_confirm: การยืนยันรหัสผ่าน
+    subtitle: สร้างบัญชี
+    title: ลงชื่อ
+    with: "ลงทะเบียนกับ %{provider}"
+  terms:
+    accept: "ฉันยอมรับ %{href}"
+    accept_existing: ฉันยอมรับข้อกำหนดและเงื่อนไขต่างๆ
+    title: ข้อกำหนดและเงื่อนไข
+  test_install: >
+    การปรับใช้นี้ใช้เซิร์ฟเวอร์ทดสอบที่กำหนดค่าไว้ล่วงหน้าคุณควรแทนที่ด้วยเซิร์ฟเวอร์ของคุณเอง สำหรับรายละเอียดโปรดดูที่%{href}.
+  update: ปรับปรุง
+  verify:
+    accept: ตรวจสอบ
+    activated: ยืนยันบัญชีแล้ว!
+    already_verified: บัญชีได้รับการยืนยันแล้ว
+    invalid: ลิงก์ยืนยันไม่ถูกต้อง
+    not_verified: บัญชีของคุณยังไม่ได้รับการยืนยัน
+    resend: ส่งอีเมล์ยืนยันอีกครั้ง
+    signin: โปรดลงชื่อเข้าใช้เพื่อเข้าถึงบัญชีของคุณ
+    title: ยืนยันอีเมลของคุณ
+    verification: การตรวจสอบ

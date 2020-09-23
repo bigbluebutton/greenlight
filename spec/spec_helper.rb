@@ -108,6 +108,8 @@ RSpec.configure do |config|
             <GOOGLE_HD/>
           </user>
         </response>", headers: {}) if ENV['LOADBALANCER_ENDPOINT']
+
+    Role.create_default_roles("greenlight")
   end
 
   # rspec-expectations config goes here. You can use an alternate

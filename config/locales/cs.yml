@@ -1,0 +1,592 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+cs:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Podmínky"
+        email: E-mail
+        name: Jméno
+        password: Heslo
+        password_confirmation: Potvrzení hesla
+    errors:
+      models:
+        user:
+          confirmation: Hesla nejsou shodná
+  administrator:
+    site_settings:
+      authentication:
+        disabled: Vypnuto
+        enabled: Zapnuto
+        info: Nastavení omezení přístupu do mísnosti
+        title: Pro přístup je vyžadováno ověření
+        user-info: Pro vstup do této místnosti musí být uživatel přihlášen.
+      branding:
+        change: Změna loga
+        info: "Změna loga, které se zobrazuje v levém horním rohu obrazovky"
+        placeholder: Odkaz na obrázek ...
+        title: Obrázek loga
+        invalid: Neplatné URL
+      legal:
+        change: Změna URL
+        info: Změnit odkaz na Podmínky užívání v patičce webové stránky
+        placeholder: Podmínky užívání URL...
+        title: Podmínky užívání
+        invalid: Neplatné URL
+      privpolicy:
+        change: Změň URL
+        info: Změnit odkaz na Zásady ochrany osobních údajů v patičce webové schránky
+        placeholder: Zásady ochrany osobních údajů URL...
+        title: Zásady ochrany osobních údajů
+        invalid: Neplatné URL
+      cache:
+        info: "Vyčistit mezipaměť poskytovatele, což vynutí požadavek na aktualizaci dat"
+        title: Vyčistit mezipaměť poskytovatele
+        button: Vyčistit mezipaměť
+      clear_auth:
+        info: "Pročištení aktuálního autentikátoru, abychom uživatelům umožnili přihlášení jinou metodou ověření"
+        title: Smazat aktuální ověření
+        button: Smazat ověření
+      color:
+        info: Změna hlavní barvy změní nastavení světlé i tmavé barvy. Světlá i tmává barva může být potom nastavena na požadovanou barvu.
+        title: Volba barevného schéma
+        regular: Hlavní barva
+        lighten: Světlá barva
+        darken: Tmavá barva
+      log_level:
+        title: Úroveň logování
+        information: "Změní úroveň pro celý server "
+        debug: Debug
+        info: Info
+        warn: Warn
+        error: Error
+        fatal: Fatal
+        unknown: Neznámá
+      recording_visibility:
+        info: Změna standardní viditelnosti pro nové nahrávky
+        title: Standardní viditelnost nahrávek
+        warning: "Toto nastavení bude aplikováno na místnosti, v nichž právě neprobíhá konference"
+      registration:
+        info: Změna způsobu registrace na tomto serveru
+        title: Způsob registrace
+        methods:
+          approval: Schvalování registrací
+          invite: Vstup na pozvánky
+          open: Otevřená registrace
+      rooms:
+        info: Omezení počtu místností uživatele (včetně domovské místnosti). Toto nastavení se nevztahuje na administrátory.
+        title: Počet místností na uživatele
+      shared_access:
+        info: "Nastavení na vypnuto odstraní místnost ze seznamu, čímž zabrání uživatelům místnost sdílet"
+        title: Povolit uživatelům sdílet místnost
+      subtitle: Přizpůsobit Greenlight
+      title: Nastavení serveru
+    flash:
+      approved: Uživatel byl úspěšně schválen
+      banned: Uživatel byl úspěšně zablokován
+      unbanned: Uživatel byl úspěšně odblokován
+      delete: Uživatel byl úspěšně odstraněn
+      delete_fail: Odstranění uživatele se nezdařilo
+      demoted: Uživatel byl úspěšně degradován
+      invite: "Pozvánka úspěšně odeslána na %{email}"
+      invite_email_verification: Zasílání e-mailů musí být povoleno pro použití této metody. Kontaktujte prosím administrátora tohoto systému.
+      merge_fail: Nastal problém se spojením uživatelských účtů. Prosím zkontrolujte vybrané uživatele a zkuste to ještě jednou 
+      merge_success: Spojení uživatelských účtů proběhlo úspěšně.
+      perm_deleted: Uživatel byl permanentně smazán
+      promoted: Uživatel byl úspěšně povýšen
+      registration_method_updated: Způsob registrace byl úspěšně změněn
+      reset_password: "Uživateli byl odeslán e-mail na zresetování jeho hesla. (Pokud zpráva nedorazila, požádejte o kontrolu složky se spamem)"
+      restored: Uživatel byl úspěšně obnoven
+      room_configuration: Nastavení úspěšně uloženo
+      settings: Nastavení serveru úspěšně změněno
+      unauthorized: Nemáte dostatečná oprávnění k provedení akce.
+    recordings:
+      title: Uložené nahrávky
+      no_recordings: Na serveru dosud nejsou uloženy žádné nahrávky
+    roles:
+      appear_in_share_list: Uživatelé s touto rolí mohou sdílet místnost.
+      can_create_rooms: Uživatel může vytvářet místnosti
+      delete: Smazat roli
+      invalid_create: Nastal problém při vytváření nové role. Zkontrolujte prosím vstupní údaje a zkuste to znovu
+      invalid_order: Nastal problém při změně priority role. Zkontrolujte nastavené hodnoty a zkuste to znovu
+      invalid_update: Nastal problém se změnou oprávnění role. Zkontrolujte nastavené hodnoty a zkuste to znovu
+      manage_rooms_recordings: Povolit uživatelům s touto rolí spravovat místnosti a nahrávky
+      name: Název role
+      new_role: Vytvořit novou roli
+      role_has_users: "Tato role je přidělena k %{user_count} účtem. Prosím odstraňte z role všechny účty před jejím smazáním"
+      title: Role
+      promote_email: "Odeslat e-mail uživatelům, když jim je přidělena tato role"
+      demote_email: "Odeslat e-mail uživatelům, když jim je odebrána tato role"
+      edit_site_settings: Povolit uživatelům s touto rolí měnit nastavení serveru
+      edit_roles: Povolit uživatelům s touto rolí měnit jiné role
+      manage_users: Povolit uživatelům s touto rolí spravovat uživatele
+      invalid_assignment: "Nastal problém s přiřazením role. Zkontrolujte nastavení a zkuste to znovu.\nNemůžete uživateli přidělit roli s vyšší prioritou, než je Vaše vlastní" 
+      colour:
+        title: Barva role
+        info: Nastavte barvu role
+    room_configuration:
+      title: Nastavení místnosti
+      mute:
+        info: Automaticky vypnout mikrofon nově připojeným uživatelům
+      require_moderator:
+        info: "Upozorni moderátora místnosti ve chvíli, kdy se uživatel snaží připojit. Uživatel je vpuštěn do místnosti až po schválení."
+      allow_any:
+        info: "Povolit kdykoliv aktivaci místnosti jakémukoliv uživateli. Ve výchozím stavu může místnost aktivovat pouze její vlastník. "
+      all_moderator:
+        info: Přiděl práva moderátora všem uživatelům ihned po připojení.
+      options:
+        disabled: Vypnuto
+        enabled: Vždy zapnuto
+        optional: Volitelný
+    rooms:
+      title: Místnosti
+      table:
+        ended: "Ukončeno: %{session}"
+        id: ID
+        not_running: Neaktivní
+        participants: Účastníci
+        running: Aktivní
+        started: "Zahájeno: %{session}"
+        status: Stav
+        view: Nahlédnout do místnosti
+    title: Nastavení
+    users:
+      invite: Pozvat uživatele
+      edit:
+        title: Upravit detaily
+      settings:
+        approve: Schválit
+        decline: Zamítnout
+        ban: Zakázat uživatele
+        delete: Smazat
+        edit: Upravit
+        edit_roles: Editace uživatelských rolí
+        merge: Spojit
+        perm_delete: Permanentně smazat
+        unban: Odblokovat uživatele
+        undelete: Obnovit uživatele
+      table:
+        authenticator: Ověřen přes
+        created: Vytvořen
+        name: Jméno
+        not_found: Vašemu hledání nevyhovují žádní uživatelé
+        no_users: Žádný uživatel nenalezen
+        role: Role
+        uid: ID uživatele
+        username: Přihlašovací jméno
+      title: Spravovat uživatele
+  add_to_google_calendar: "Přidat do Google Calendar"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: Při startu konference nastala chyba!
+  cancel: Zrušit
+  cookies:
+    cookie_info: Cookies nám pomáhají poskytovat naše služby. Používáním našich služeb souhlasíte s jejich použitím.
+    cookie_button: Souhlasím
+  copied: Zkopírováno
+  copy: Kopírovat
+  date:
+    month_names: [~, Leden, Únor, Březen, Duben, Květen, Červen, Červenec, Srpen, Září, Říjen, Listopad, Prosinec]
+  default_admin: "Stále používáte prvotní heslo. Prosím klikněte <a href='%{edit_link}'> sem </a> a změňte si ho"
+  delete: Smazat
+  delivery_error: Nastala chyba při odesílání e-mailu. Kontaktujte správce systému.
+  docs: Dokumentace
+  email: e-mail
+  email_sent: "Váš%{email_type} e-mail byl odeslán! (Pokud zpráva nedorazila, požádejte o kontrolu složky se spamem)"
+  enter_your_name: Zadejte své jméno
+  errors:
+    bigbluebutton:
+      help: "Ujistěte se, že jste vše provedli správně. <a href=\"%{doc_link}\">Dokumentace</a>"
+      message: Neplatný BigBlueButton Endpoint a Secret
+      title: Chyba serveru
+    internal:
+      message: "Vypadá to, že došlo k problému na serveru."
+      help: Chybová zpráva se uložila. Správci se problémem budou zabývat.
+      report: Nahlásit problém
+    maintenance:
+      message: "Omlouváme se, probíhá údržba serveru."
+      help: Služba bude brzy k dispozici.
+    migration_error:
+      contact_admin: "Pokud nejste správce, tak jej prosím kontaktujte."
+      continue: Rád bych nadále používal Greenlight verze 1.0.
+      notice: >
+        Greenlight zaznamenal chybu při migraci databáze. <br> Možným důvodem je, že neproběhl upgrade na Greenlight verze 2.0
+      upgrade: Návod jak provést upgrade na Greenlight verze 2.0.
+      version: "K dispozici je nová verze Greenlight, ale Vaše databáze není kompatibilní."
+    messages:
+      blank: nesmí být prázdný
+      too_short: je příliš krátké
+      invalid: je neplatné
+      taken: je již použito
+      accepted: musí být odsouhlaseno
+      confirmation: "nejsou shodná %{attribute}"
+      inclusion: není v seznamu
+    no_provider:
+      message: Stránka není aktivní
+      help: "Kontaktujte prosím administrátora, aby nastavil Greenlight"
+    not_found:
+      message: "Promiňte! Stránka, kterou hledáte, neexistuje."
+      help: "Je možné, že byla odstraněna?"
+      user_not_found:
+        help: Prosím kontaktujte administrátora.
+        message: "Promiňte, tento uživatel není registrován."
+      user_missing:
+        help: Prosím zkontrolujte odkaz a zkuste to znovu
+        message: Zadaný odkaz je neplatný.
+    title: Chyby
+    unauthorized:
+      message: Nemáte přístup k této aplikaci
+      help: "Pokud si myslíte, že jde o omyl, kontaktujte prosím administrátora."
+  expired_reset_token: Platnost odkazu pro reset hesla vypršela!
+  features:
+    title: Vlastnosti
+    rooms: Osobní místnosti
+    recordings: Správa nahrávek
+    designs: Přizpůsobení vzhledu
+    authentication: Ověřování uživatelů
+  footer:
+    legal: Podmínky užívání
+    privpolicy: Zásady ochrany osobních údajů
+    powered_by: "Powered by %{href}."
+  forgot_password:
+    subtitle: Zapomenuté heslo
+    email: e-mail
+    submit: Odeslat
+  go_back: Zpět
+  greenlight: Greenlight
+  header:
+    all_recordings: Všechny nahrávky
+    dropdown:
+      account_settings: Organizace
+      help: "Potřebujete pomoc?"
+      home: Domů
+      settings: Profil
+      signout: Odhlásit se
+  home_room: Domovská místnost
+  info_update_success: Informace byly úspěšně uloženy.
+  invalid_credentials: "Zadané přihlašování jméno nebo heslo je nesprávné. Zkuste to znovu, nebo klikněte na možnost 'Zapomenuté heslo' pro reset hesla."
+  invalid_login_method: Přihlášení selhalo z důvodu problému s účtem. Musíte se přihlásit přes omniauth.
+  invite_message: "Další osoby pozvete na konferenci tím, že jim zašlete následující odkaz:"
+  javascript:
+    room:
+      mailer:
+        subject: 'Vás pozval ke zhlédnutí nahrávky.'
+        body: 'Nahrávku si můžete prohlédnout kliknutím na odkaz uvedený níže:'
+        autogenerated: 'Tento e-mail je generovaný systémem BigBlueButton.'
+        footer: 'BigBlueButton je open source webový konferenční systém. Více informací naleznete na stránce https://bigbluebutton.org/.'
+    search:
+      start: Vyhledávám...
+  landing:
+    about: "%{href} je jednoduchá nadstavba pro Váš open source webový konferenční server BigBlueButton. Můžete vytvářet vlastní virtuální místnosti pro pořádání konferencí, nebo se můžete připojit ke konferencím ostatních uživatelů jednoduchým a pohodlným kliknutím na přijatý odkaz."
+    welcome: Vítejte v BigBlueButton.
+    video: "Zhlédněte naše instruktážní video, jak používat Greenlight"
+    upgrade: Návod jak provést upgrade na Greenlight verze 2.0.
+    version: "K dispozici je nová verze Greenlight, ale Vaše databáze není kompatibilní."
+  language_default: Výchozí (jazyk webového prohlížeče)
+  ldap_error: "Není možné připojit se k LDAP serveru. Prosím zkontrolujte LDAP konfiguraci v souboru .env a zkontrolujte, že LDAP server běží."
+  login: Přihlásit
+  login_title: Přihlašte se ke svému účtu
+  mailer:
+    user:
+      approve:
+        info: Váš účet byl schválen.
+        signin: Pro přístup do Vašich místností klikněte na tlačítko níže a přihlaste se.
+        signin_link: Přihlášení
+        signup:
+          info: Nový Greenlight uživatel byl zaregistrován.
+          more-info: Pro aktivaci přístupu uživatele do systému je nutné schválit jeho účet administrátorem v nastavení Organizace.
+          admins_link: Navštivte stránku Organizace
+          subject: Registrace nového uživatele Greenlight
+          username: "Byl zaregistrován nový uživatel se jménem %{name} a e-mail adresou %{email}."
+        subject: Účet schválen
+        username: "Vaše uživatelské jméno je %{email}."
+      demoted:
+        info: "Byla Vám odebrána role %{role} na %{url}."
+        more-info: Nyní máte práva běžného uživatele.
+        root_link: Přihlášení
+        subtitle: "%{role} práva byly odebrána"
+      invite:
+        info: " Byl jste pozván do Vašeho osobního prostoru uživatelem %{name}"
+        signup_info: "Pro registraci Vaším emailem, klikněte na tlačítko níže a postupujte podle předepsaných kroků."
+        signup_link: Registrace
+        signup:
+          info: Pozvaný Greenlight uživatel se zaregistroval.
+          admins_link: Navštivte stránku Organizace
+          subject: Registrace nového uživatele Greenlight
+          username: "Byl zaregistrován nový uživatel se jménem %{name} a e-mail adresou %{email}."
+        subject: Pozvánka na přístup k systému BigBlueButton
+        username: "Vaše uživatelské jméno je %{email}."
+      password_reset:
+        title: 'Reset hesla'
+        welcome: "Systém zaregistroval požadavek na reset hesla pro e-mail<b>%{email}</b>."
+        message: 'Pokud jste požadovali reset hesla, tak prosím klikněte na následující odkaz:'
+        reset_link: Resetovat heslo
+        expire: Platnost odkazu vyprší za dvě hodiny.
+        ignore: "Pokud jste o reset hesla nežádali, tak můžete tento e-mail bezpečně ignorovat."
+      promoted:
+        admins_link: Navštivte stránku Organizace
+        info: "Byla Vám přidána role %{role} na %{url}."
+        more-info: "Vaše nové možnosti uvidíte po návštěvě odkazu %{url}."
+        subtitle: "%{role} práva přidána"
+      verify_email:
+        welcome: "Vítejte ve Vašem osobním prostoru, %{name}!"
+        success: "Systém %{bigbluebutton}, Vám umožní vytvořit vlastní místnosti, ve kterých můžete pořádat konference a spolupracovat s ostatními."
+        username: "Vaše uživatelské jméno je %{email}."
+        verify: Pro ověření Vašeho účtu klikněte na tlačítko níže.
+        verify_text: 'Pro ověření Vašeho účtu pouze následujte tento odkaz: %{url}'
+        verify_link: Ověření účtu
+        thanks: "Děkujeme, že jste se k nám přidali a přejeme hezký den!"
+  maintenance:
+    window_alert: "Údržba systému byla naplánována na %{date}"
+  max_concurrent: Byl dosažen maximální povolený počet současně aktivních připojení!
+  merged: Spojeno
+  modal:
+    create_role:
+      create: Vytvořit novou roli
+      footer_text: Jednotlivé práva pro tuto roli lze nastavovat až po jejím vytvoření
+      name_placeholder: Zadejte název role ...
+      not_blank: Název role nemůže být prázdný.
+      title: Vytvořit novou roli
+    create_room:
+      access_code: Přístupový kód
+      access_code_placeholder: Vygenerovat volitelný přístupový kód
+      auto_join: Připojit mne automaticky do místnosti
+      create: Vytvořit místnost
+      free_delete: Tuto místnost můžete kdykoliv odstranit.
+      name_placeholder: Zadejte název místnosti...
+      not_blank: Název místnosti nemůže být prázdný.
+      title: Vytvořit novou místnost
+    delete_account:
+      confirm: "Určitě chcete smazat tento účet?"
+      delete: "Jsem si jistý, účet chci smazat."
+      keep: "Změnil jsem názor, účet chci zachovat."
+      delete_warning: Tímto bude deaktivován účet uživatele. Všechny deaktivované účty najdete v záložce smazáné.
+      warning: Toto rozhodnutí je konečné. Už <b>nebude</b> možné obnovit žádná související data.
+    delete_room:
+      confirm: "Určitě chcete smazat místnost %{room}?"
+      delete: "Jsem si jistý, místnost chci smazat."
+      keep: "Změnil jsem názor, místnost chci zachovat."
+      warning: <b>Nebude</b> možné obnovit tuto místnost.
+      recording_warning: "ani žádnou %{recordings_num} přidruženou nahrávku."
+    invite_user:
+      email_placeholder: Vlož uživatelské e-maily (oddělené čárkou)
+      footer: "Každý uživatel obdrží e-mail s instrukcemi, jak se registrovat"
+      send: Odeslat pozvánku
+      title: Pozvat uživatele
+    login:
+      or: nebo
+      with: "Přihlášení přes %{provider}"
+      forgot_password: "Zapomenuté heslo?"
+    rename_recording:
+    remove_shared:
+      title: "Určitě chcete odstranit místnost ze seznamu místností?"
+      delete: "Jsem si jistý, místnost chci smazat."
+      warning: " <b>Nebudete</b> moci přistupovat do této místnosti."
+    room_settings:
+      title: Nastavení místnosti
+      update: Aktualizovat místnost
+      client: Vyberte typ klienta
+      join_moderator: Všichni uživatelé se připojí jako moderátoři
+      mute: Ztlumit zvuk uživatelů při připojení
+      require_approval: Požadovat povolení moderátora před připojením
+      start: Povolit každému uživateli zahájit konferenci
+      footer_text: Nastavení Vaší místnosti můžete kdykoliv změnit.
+    rename_room:
+      name_placeholder: Zadejte nový název místnosti...
+    share_access:
+      footer: Sdílení místnosti s uživateli jim automaticky dává právo nastartovat místnost a vidět uložené nahrávky
+      list: Sdílet s
+      title: Sdílet přístup do místnosti
+      save: Uložit změny
+      cancel_changes: Zrušit změny
+      select: Vybrat uživatele
+    merge_user:
+      cancel: Zrušit
+      from: Účty ke spojení
+      title: Spoj uživatelské účty
+      to: Primární účet
+      save: Spojit
+      footer: Místnosti z původního účtu budou přeneseny do primárního účtu a potom bude původní účet smazán.
+  name_update_success: Název místnosti byl úspěšně změněn.
+  no_user_email_exists: "Uživatel s tímto e-mailem neexistuje. Prosím zkontrolujte, že byl správně zadán."
+  omniauth_error: "Nastala chyba při přihlašování přes omniauth. Prosím zkuste to znovu, nebo kontaktujte administrátora."
+  omniauth_specific_error: "Nastala chyba %{error} při přihlašování přes omniauth. Prosím zkuste to znovu, nebo kontaktujte administrátora."
+  pagy:
+    nav:
+      prev: "&lsaquo; Předchozí"
+      next: "Následující &rsaquo;"
+      gap: "&hellip;"
+  password: Heslo
+  password_empty_notice: Heslo nemůže být prázdné.
+  password_reset_success: Heslo bylo zresetováno.
+  password_different_notice: Potvrzovací heslo nesouhlasí.
+  provider:
+    google: Google
+    office365: Office 365
+    twitter: Twitter
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Nepodařilo se nám ověřit Vaši odpověď na reCAPTCHA. Zkuste to prosím znovu.
+      verification_failed: "Ověření reCAPTCHA selhalo, zkuste to prosím znovu."
+  recording:
+    all_recordings: Všechny nahrávky
+    email: Poslat nahrávku e-mailem
+    error: " Nastala chyba při stahování%{count} nahrávek"
+    no_recordings: "Tato místnost nemá %{inject}nahrávky."
+    no_user_recordings: Nemáte žádné nahrávky.
+    no_matched_recordings: " Nenalezeny vyhovující%{inject} nahrávky."
+    recorded_on: "Záznam z %{date}"
+    table:
+      name: Jméno
+      thumbnails: Náhledy
+      length: Délka
+      users: Uživatelé
+      visibility: Viditelnost
+      formats: Formáty
+    visibility:
+      public: Veřejný
+      unlisted: Neveřejné
+    format:
+      notes: Poznámky
+      podcast: Podcast
+      presentation: Prezentace
+      statistics: Statistiky
+      video: Video
+  registration:
+    approval:
+      fail: "Váš účet zatím nebyl ověřen. Jestliže od Vaší registrace už uběhlo několik dní, kontaktujte prosím administrátora."
+      signup: Váš účet byl úspěšně vytvořen. Byl odeslán administrátorovi ke schválení.
+    banned:
+      fail: "Váš přístup k této aplikaci byl zakázán. Pokud si myslíte, že jde o omyl, kontaktujte prosím administrátora." 
+    deprecated:
+      new_signin: Vyberte si nový způsob přihlašování pro Váš účet. Všechny místnosti Vašeho starého účtu budou přesunuty do nového účtu
+      twitter_signin: "Přihlašování přes Twitter bylo pozastaveno a bude odstraněno v další verzi. Klikněte <a href=\"%{link}\"> sem </a> pro přesun Vašeho účtu na nový způsob přihlašování"
+      twitter_signup: Přihlašování přes Twitter bylo pozastaveno. Použijte prosím jiný způsob přihlašování
+      merge_success: Váš twitter účet byl úspěšně spojen s Vaším novým účtem. Váš původní twitter účet byl smazán
+    invite:
+      fail: "Váš token je neplatný, nebo jeho platnost vypršela. Pokud si myslíte, že jde o omyl, kontaktujte prosím administrátora."
+      no_invite: "Nemáte pozvánku k registraci. Abyste ji získali, kontaktujte prosím administrátora."
+  remove: Odstranit
+  rename: Přejmenovat
+  reset_password:
+    invalid_token: Token resetu hesla je neplatný. Prosím proveďte reset svého hesla ještě jednou.
+    subtitle: Resetovat heslo
+    password: Nové heslo
+    confirm: Potvrzení nového hesla
+    update: Změna hesla
+    auth_change: Změnila se metoda ověření. Prosím zkontrolujte e-maily.
+  roles:
+    active: Aktivní
+    admin: Admin
+    banned: Zablokovaní
+    deleted: Smazaní
+    pending: Čekající
+    user: Uživatel
+  room:
+    access_code_required: Prosím zadejte platný přístupový kód pro vstup do místnosti
+    create_room: Vytvořit místnost
+    create_room_error: Při vytváření místnosti nastala chyba
+    create_room_success: Místnost byla úspěšně vytvořena
+    delete:
+      home_room: Nelze smazat domovskou místnost
+      success: Místnost byla smazána
+      fail: "Nepodařilo se smazat místnost (%{error})"
+    enter_the_access_code: Vložte přístupový kód do místnosti
+    invalid_provider: Vložili jste neplatné url. Prosím zkontrolujte url a zkuste to znovu.
+    invited: Byl jste pozván na konferenci v místnosti
+    invite_participants: Pozvánka pro účastníky
+    join: Připojit
+    last_session: " Poslední konference dne %{session}"
+    login: Vstoupit
+    owner: Vlastník
+    owner_banned: Místnost je nyní nedostupná
+    no_room:
+      description: "Zadejte odkaz na místnost nebo identifikátor místnosti, ke které se chcete připojit."
+      edit_profile: Upravit uživatelský profil
+      go_to: Vstupte do místnosti
+      invalid_room_uid: Zadali jste neplatný odkaz nebo identifikátor místnosti.
+      placeholder: Odkaz / Identifikátor místnosti
+      no_recent_rooms: Zatím jste nenavštívili žádnou místnost
+      recent_rooms: Vstoupit do poslední navštívené místosti
+      title: Vstup do místnosti
+    no_sessions: Tato místnost nemá zatím žádné konference.
+    recordings: Nahrávky
+    room_limit: Dosáhli jste maximální povolený počet místností
+    room_limit_exceeded: " Překročili jste maximální povolený počet místností. Prosím smažte%{difference} místnosti pro vstup do této místnosti."
+    sessions: Konference
+    settings: Nastavení místnosti
+    share: Spravovat přístup
+    shared_by: "Sdíleno%{email}"
+    remove_shared_access_success: Sdílená místnost úspešně  odstraněna ze seznamu místností
+    remove_shared_access_error: Nastala chyba při odstraňování místnosti ze seznamu místností
+    shared_access_success: Místnost je sdílena
+    shared_access_error: Nastala chyba při nastavení sdílení místnosti
+    start: Spustit
+    unavailable: "Tato místnost je momentálně nedostupná, protože e-mail vlastníka nebyl dosud ověřen."
+    update_settings_error: Nastala chyba při aktualizaci nastavení místnosti
+    update_settings_success: Nastavení místnosti bylo aktualizováno
+    wait:
+      message: Konference ještě nezačala.
+      auto: "Budete automaticky připojen, až konference začne."
+  settings:
+    account:
+      fullname: Celé jméno
+      language: Jazyk
+      provider: Poskytovatel
+      image: Obrázek
+      image_url: URL adresa profilového obrázku
+      roles: Uživatelská role
+      subtitle: Aktualizujte svůj profil
+      title: Údaje o účtu
+      reset_password: Reset hesla
+    delete:
+      button: "Ano, chci smazat svůj účet."
+      disclaimer: " Pokud se rozhodnete smazat svůj účet, je to <b>NEVRATNÝ</b> proces. Všechny informace o Vašem účtu, včetně nastavení, místností a nahrávek budou odstraněny."
+      subtitle: Permanentně odstranit účet
+      title: Odstranit účet
+    password:
+      confirmation: Potvrzení nového hesla
+      new: Nové heslo
+      old: Staré heslo
+      subtitle: Změnit heslo
+      title: Heslo
+    title: Profil
+    search: Hledat
+  signup:
+    password_confirm: Potvrzení hesla
+    subtitle: Vytvořit účet
+    title: Registrovat
+    with: "Registrovat přes%{provider}"
+  terms:
+    accept: "Souhlasím s  %{href}"
+    accept_existing: Souhlasím s podmínkami
+    title: Podmínky
+  test_install: >
+    Tato instalace používá konfiguraci testovacího serveru, měli byste ji nahradit vlastní. Pro více detailů si pozorně %{href}.
+  update: Aktualizovat
+  verify:
+    accept: Ověřit
+    activated: Účet ověřen!
+    already_verified: Účet byl již ověřen
+    invalid: Nesprávný ověřovací odkaz
+    not_verified: Váš účet ještě nebyl ověřen
+    resend: Znovu poslat ověřovací e-mail
+    signin: Pro přístup k Vašemu účtu se musíte přihlásit.
+    title: Ověření Vašeho e-mailu
+    verification: Ověření

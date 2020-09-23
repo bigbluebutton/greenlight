@@ -39,7 +39,8 @@ namespace :conf do
 end
 
 def test_smtp
-  TestMailer.test_email(ENV['SMTP_SENDER']).deliver
+  TestMailer.test_email(ENV.fetch('SMTP_TEST_RECIPIENT', 'notifications@example.com'),
+                        ENV.fetch('SMTP_SENDER', 'notifications@example.com')).deliver
 rescue => e
   failed("Error connecting to SMTP - #{e}")
 end
@@ -74,9 +75,9 @@ def passed
 end
 
 class TestMailer < ActionMailer::Base
-  def test_email(email_address)
-    mail(to: email_address,
-      from: email_address,
+  def test_email(sender, recipient)
+    mail(to: recipient,
+      from: sender,
       subject: "Greenlight Email Test",
       body: "This is what people with plain text mail readers will see.",
       content_type: "text/plain",)

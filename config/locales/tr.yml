@@ -1,0 +1,573 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+tr:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Şartlar ve koşullar"
+        email: E-posta
+        name: İsim
+        password: Parola
+        password_confirmation: Parola Doğrulama
+    errors:
+      models:
+        user:
+          confirmation: Parola eşleşme hatası
+  administrator:
+    site_settings:
+      authentication:
+        disabled: Etkin Değil
+        enabled: Etkin
+        info: Sadece kimliği doğrulanmış kullanıcılar bir sınıfa katılabilir
+        title: Sınıflar için kimlik doğrulaması iste
+        user-info: Bu sınıfa katılmak için oturum açmalısınız
+      branding:
+        change: Resmi değiştir
+        info: Sol üst köşede görünen resmi kendi markanızın resmi ile değiştirme
+        placeholder: Resimin bulunduğu link ...
+        title: Marka Resmi
+        invalid: Geçersiz URL
+      cache:
+        info: Güncellenmiş bilgiler için yeni bir istekte bulunan depolanmış sağlayıcı önbelleğini temizler
+        title: Sağlayıcı Önbelleğini Temizle
+        button: Önbelleği Temizle
+      clear_auth:
+        info: Kullanıcılar için geçerli kimlik doğrulayıcıyı temizler ve farklı bir kimlik doğrulama yöntemi kullanarak tekrar oturum açmalarına izin verir
+        title: Geçerli Kimlik Doğrulayıcıyı Temizle
+        button: Yetkilendirme
+      color:
+        info: Tema Rengi değiştirmek hem Açıklaştır hem de Koyulaştırma. Açıklaştırma ve Koyulaştırma sonra  değiştirilebilir
+        title: Ana Renk
+        regular: Düzenli
+        lighten: Açıklaştırma
+        darken: Koyulaştırma
+      log_level:
+        title: Günlük Düzeyi
+        information: Tüm dağıtım için Günlük Seviyesini değiştirme
+        debug: Onarma
+        info: Bilgi
+        warn: Uyarı
+        error: Hata
+        fatal: Büyük Hata
+        unknown: Bilinmeyen
+      recording_visibility:
+        info: Yeni kayıtlar için varsayılan kayıt görünürlüğünü ayarlama
+        title: Varsayılan Görünürlüğü Kaydetme
+        warning: Bu ayar yalnızca açık olmayan sınıflara uygulanacak
+      registration:
+        info: Kullanıcıların web sitesine kayıt olma şeklini değiştirme
+        title: Kayıt Yöntemi
+        methods:
+          approval: Kabul et / Reddet
+          invite: Daveti kabul et
+          open: Açık Kayıt
+      rooms:
+        info: Kullanıcının sahip olabileceği sınıf sayısını sınırlar (Ana Sınıf dahil). Bu ayar yöneticiler için geçerli değildir.
+        title: Herbir Kullanıcı için Sınıf Sayısı
+      shared_access:
+        info: "Sınıf seçenekleri değiştirme butonunu devre dışı olarak ayarlamak, böylece kullanıcıların yetkisi kısıtlanıp sınıf paylaşmasını önler."
+        title: Kullanıcıların Sınıf  Paylaşmasına İzin Ver
+      subtitle: Sistemi Özelleştir
+      title: Site Ayarları
+    flash:
+      approved: Kullanıcı başarıyla onaylandı.
+      banned: Kullanıcı başarıyla engellendi.
+      unbanned: Kullanıcının engeli başarıyla kaldırıldı.
+      delete: Kullanıcı başarıyla silindi.
+      delete_fail: Kullanıcı silinemedi
+      demoted: Kullanıcının yetkisi başarıyla azaltıldı.
+      invite: "Davet %{email} adresine başarıyla gönderildi "
+      invite_email_verification: Bu yöntemi kullanabilmek için e-postaların etkinleştirilmesi gerekir. Lütfen sistem yöneticinize başvurun.
+      merge_fail: Kullanıcı hesapları birleştirilirken bir sorun oluştu. Lütfen seçilen kullanıcıları kontrol edip tekrar deneyin 
+      merge_success: Kullanıcı hesapları başarıyla birleştirildi
+      perm_deleted: Kullanıcı kalıcı olarak silindi
+      promoted: Kullanıcı başarıyla tanıtıldı
+      registration_method_updated: Kayıt yöntemi başarıyla güncellendi
+      reset_password: Kullanıcıya parolasını sıfırlaması için bir e-posta gönderildi. (Lütfen almadılarsa spam klasörlerini kontrol etmelerini isteyin)
+      restored: Kullanıcı başarıyla geri yüklendi
+      room_configuration: Sınıf Yapılandırması başarıyla değiştirildi
+      settings: Site Ayarları başarıyla değiştirildi
+      unauthorized: Bu kullanıcı üzerinde işlem yapma yetkiniz yok
+    recordings:
+      title: Sunucu Kayıtları
+      no_recordings: Bu Sunucuda kayıt yok
+    roles:
+      appear_in_share_list: Sınıf paylaşma açılır listesine bu yetkiye sahip kullanıcıları dahil et
+      can_create_rooms: Sınıflar oluşturabilir
+      delete: Yetkiyi Sil
+      invalid_create: Yeni bir yetki oluşturulurken bir sorun oluştu. Lütfen yetki değerlerini kontrol edip tekrar deneyin
+      invalid_order: Yetkinin önceliği güncellenirken bir sorun oluştu. Lütfen değerleri kontrol edip tekrar deneyin
+      invalid_update: Yetkinin izinleri güncellenirken bir sorun oluştu. Lütfen değerleri kontrol edip tekrar deneyin
+      manage_rooms_recordings: Bu yetkiye sahip kullanıcıların sanal sınıfları ve kayıtları yönetmesine izin ver
+      name: Yetki İsmi
+      new_role: Yeni yetki grubu oluştur
+      role_has_users: "Bu yetki %{user_count} hesabına atandı. Lütfen silmeden önce bu yetkideki tüm hesapları kaldırın."
+      title: Yetki Grupları
+      promote_email: Bu yetkiye atandıklarında kullanıcılara bir e-posta gönderin
+      demote_email: Bu yetkiden çıkarıldıklarında kullanıcılara bir e-posta gönderin
+      edit_site_settings: Bu yetkiye sahip kullanıcıların site ayarlarını düzenlemesine izin ver
+      edit_roles: Bu yetkiye sahip kullanıcıların diğer yetkileri düzenlemesine izin ver
+      manage_users: Bu yetkiye sahip kullanıcıların kullanıcıları yönetmesine izin ver
+      invalid_assignment: Kullanıcıya yetkiler atanırken bir sorun oluştu. Lütfen değerleri kontrol edip tekrar deneyin 
+      colour:
+        title: Yetki Gruplarının Rengi
+        info: Yetkilerle ilişkilendirilecek rengi ayarlayın
+    room_configuration:
+      title: Sınıf Yapılandırması
+      mute:
+        info: BigBlueButton görüşmesine katılan kullanıcıların sesini otomatik olarak kapatır
+      require_moderator:
+        info: BigBlueButton görüşmesinin sorumlusuna bir kullanıcının katılmak istediğini bildirir. Kullanıcı kabul edilirse görüşmeye katılabilir.
+      allow_any:
+        info: İsteyen her kullanıcının istediği zaman görüşmeye katılabilmesini sağlar. Varsayılan olarak yalnız oda sahibi görüşmeyi başlatabilir.
+      all_moderator:
+        info: BigBlueButton görüşmesine katılan tüm kullanıcılara sorumlu yetkileri verir.
+      options:
+        disabled: Etkin Değil
+        enabled: Her Zaman Etkin
+        optional: Seçimlik
+    rooms:
+      title: Sanal Sınıflar
+      table:
+        id: "Sanal Kimlik No:"
+        not_running: Çalışmıyor
+        running: Çalışmıyor
+        status: Durum
+        view: Görünüş
+    title: Sistem Ayarları
+    users:
+      invite: Kullanıcıyı davet et
+      edit:
+        title: Kullanıcı Ayrıntılarını Düzenle
+      settings:
+        approve: Onaylamak
+        decline: Kısıtlama
+        ban: Engelli Üye
+        delete: Sil
+        edit: Düzenle
+        edit_roles: Üye yetkisini düzenle
+        merge: Birleştir
+        perm_delete: Kalıcı olarak silmek
+        unban: Kullanıcının Yasağını Kaldır
+        undelete: Geri Al
+      table:
+        authenticator: Şifrematik
+        created: Düzenlendi
+        name: İsim
+        not_found: Aramanızla eşleşen kullanıcı yok
+        no_users: Kullanıcı bulunamadı
+        role: Yetkisi
+        uid: Kullancı No
+        username: Kullanıcı Adı
+      title: Kullanıcıları Yönetin
+  add_to_google_calendar: "Google Takvim Ekleme"
+  bigbluebutton: Sanal Okulumuz
+  bigbluebutton_exception: Hata! Toplantı başlatılırken bir hata oluştu!
+  cancel: İptal
+  cookies:
+    cookie_info: "Çerezler hizmetlerimizi sunmamıza yardımcı olur. Hizmetlerimizi kullanarak, çerezleri kullanmamızı kabul edersiniz."
+    cookie_button: Kabul Ediyorum
+  copied: Kopyalandı
+  copy: Kopyala
+  date:
+    month_names: [~, Ocak, Şubat, Mart, Nisan, Mayıs, Haziran, Temmuz, Ağustos, Eylül, Ekim, Kasım, Aralık]
+  default_admin: "Bu hesap için hala varsayılan şifreyi kullanıyorsunuz. Değiştirmek için lütfen<a href=\"%{edit_link}\">burayı</a> tıklayın."
+  delete: Sil
+  delivery_error: E-posta teslimi sırasında bir hata oluştu. Lütfen bir yöneticiye başvurun!
+  docs: Belgeler
+  email: E-Posta
+  email_sent: "%{email_type} e-postanız gönderildi! (Eğer almadıysanız lütfen Spam klasörünüzü kontrol edin)"
+  enter_your_name: İsminizi girin!
+  errors:
+    bigbluebutton:
+      help: "Lütfen uygun adımların atıldığından emin olun.<a href=\"%{doc_link}\">Daha fazla bilgi için...</a>"
+      message: Geçersiz Sanal Okul Bitiş Noktası ve Gizli
+      title: Server Hatası
+    internal:
+      message: Sonunda bir şeyler ters gitti görülüyor.
+      help: "Hata günlüğe kaydedildi, bir göz atalım!"
+      report: Sorunu Bildir
+    maintenance:
+      message: "Üzgünüz, bakım aşamasındayız."
+      help: Yakında döneceğiz!
+    migration_error:
+      contact_admin: "Yönetici değilseniz, lütfen bir tane ile iletişime geçin."
+      continue: 1.0 sürümü kullanmaya devam etmek istiyorum.
+      notice: >
+        Sistem bir veritabanı taşıma hatasıyla karşılaştı.<br>Bunun nedeni Greenlight 2.0 sürümünü kullanmadığınızdan olabilir. 2.0 sürümüne nasıl yükselteceğimi göster!
+      upgrade: "2,0 Sürümüne nasıl yükselteceğimi göster!"
+      version: "Greenlight'ın yeni bir sürümünü çıkardık, ancak veritabanınız uyumlu değil."
+    messages:
+      blank: Boş bırakılamaz
+      too_short: Çok kısa
+      invalid: Geçersiz
+      taken: Daha önce alındı
+      accepted: kabul edilmeli
+      confirmation: "%{attribute} ile eşleşmiyor"
+      inclusion: listeye dahil değil
+    no_provider:
+      message: Erişmeye çalıştığınız site etkin değil
+      help: Greenlight'ı kurmak için lütfen sistem yöneticinize başvurun
+    not_found:
+      message: Üzgünüz! Aradığınız sayfa mevcut değil.
+      help: "Kaldırılması mümkün mü?"
+      user_not_found:
+        help: Lütfen bir yöneticiye başvurun.
+        message: "Üzgünüz, bu kullanıcı kayıtlı değil."
+      user_missing:
+        help: Lütfen Linki doğrulayın ve tekrar deneyin
+        message: Girdiğiniz Link geçerli değil.
+    title: Hatalar
+    unauthorized:
+      message: Bu uygulamaya erişiminiz yok
+      help: "Bunun bir hata olduğunu düşünüyorsanız, lütfen sistem yöneticinize başvurun."
+  expired_reset_token: Şifre sıfırlama bağlantısının süresi doldu!
+  features:
+    title: Özellikler
+    rooms: Kişiselleştirilmiş Sınıflar
+    recordings: Kayıt Yönetimi
+    designs: Özel Tasarımlar
+    authentication: Kullanıcı Kimlik Doğrulaması
+  footer:
+    powered_by: "%{href} tarafından desteklenmektedir."
+  forgot_password:
+    subtitle: Şifremi Unuttum
+    email: E-Posta
+    submit: Konu
+  go_back: Geri Git
+  greenlight: Sanal Sınıf
+  header:
+    all_recordings: Tüm Kayıtlar
+    dropdown:
+      account_settings: Sistem
+      help: "Yardıma mı ihtiyacınız var?"
+      home: Ana Sayfa
+      settings: Profil
+      signout: Kayıt Ol
+  home_room: Ana Sınıf
+  info_update_success: Bilgiler başarıyla güncellendi.
+  invalid_credentials: Girdiğiniz e-posta ve şifre kayıtlarımızla eşleşmedi. Tekrar deneyin veya şifrenizi sıfırlamak için Şifremi Unuttum'u tıklayın.
+  invalid_login_method: Hesap uyuşmazlığı nedeniyle giriş başarısız oldu. Kimlik doğrulama sistemi ile giriş yapmanız gerekiyor.
+  invite_message: "Birini görüşmeye davet etmek için bu bağlantıyı gönderin:"
+  javascript:
+    room:
+      mailer:
+        subject: 'Bir kaydı görüntülemeye davetlisiniz'
+        body: 'Kaydı görüntülemek için aşağıdaki bağlantıyı izleyin:'
+        autogenerated: 'Bu e-posta Sanal Okul tarafından otomatik olarak oluşturulur.'
+        footer: 'Sanal Okul açık kaynaklı bir web konferans sistemidir. Sabal Okul hakkında daha fazla bilgi için bkz. https://bigbluebutton.org/.'
+    search:
+      start: Aramaya başla ...
+  landing:
+    about: "%{href}, Sanal Okul açık kaynaklı web konferans sunucunuz için basit bir kullanıcı arabirimidir. Oturumları düzenlemek için kendi sınıflarınız oluşturabilir veya kısa ve rahat bir bağlantı kullanarak diğer sınıflara katılabilirsiniz."
+    welcome: Sanal Okulumuza hoş geldiniz.
+    video: Sistemi kullanma ile ilgili eğitici videomuzu izleyebilirsiniz.
+    upgrade: Bana 2.0 sürümüne nasıl yükseltileceğini göster!
+    version: "Sanal Sınıf Sisteminin yeni bir sürümünü çıkardık, ancak veritabanınız uyumlu değil."
+  language_default: Varsayılan (programın orjinal dili)
+  ldap_error: LDAP sunucusuna bağlanılamıyor. Lütfen env dosyasındaki LDAP yapılandırmanızı kontrol edin ve sunucunuzun çalıştığından emin olun.
+  login: Oturum Aç
+  login_title: Hesabınızda oturum açın
+  mailer:
+    user:
+      approve:
+        info: Hesabınız onaylandı.
+        signin: Kişisel sınıflarınıza erişmek için aşağıdaki butonu tıklayın ve oturum açın.
+        signin_link: Oturum Aç
+        signup:
+          info: Sanal Sınıfı kullanmak için yeni bir kullanıcı kaydoldu.
+          more-info: Bu kullanıcının Sanal Sınıfa erişmesine izin vermek için hesabını kuruluş ayarlarında onaylamanız gerekir.
+          admins_link: Sistem Sayfasını ziyaret edin
+          subject: Yeni Sanal Sınıf Kullanıcı Kaydı
+          username: "Kullanıcı %{name} adıyla ve %{email} e-postası ile kaydoldu."
+        subject: Hesap Onaylandı
+        username: "Kullanıcı adınız %{email}."
+      demoted:
+        info: "Artık %{url} üzerinde %{rol} değilsiniz."
+        more-info: Artık normal bir kullanıcıyla aynı yetkiye sahipsiniz.
+        root_link: Oturum Aç
+        subtitle: "%{role} Yetkiniz İptal Edildi"
+      invite:
+        info: "%{name} tarafından kendi kişisel alanınıza davet edildiniz"
+        signup_info: E-postanızı kullanarak kaydolmak için aşağıdaki butona tıklayın ve adımları izleyin.
+        signup_link: Kayıt Ol
+        signup:
+          info: Davet edilen bir kullanıcı Sanal Sınıfı kullanmak için kaydoldu.
+          admins_link: Sistem sayfasını ziyaret edin
+          subject: Yeni Sanal Sınıf Kullanıcı Kaydı
+          username: "Kullanıcı %{name} adıyla ve %{email} e-postası ile kaydoldu."
+        subject: Sanal Okul'a davet
+        username: "Kullanıcı adınız %{email}."
+      password_reset:
+        title: 'Şifre sıfırlama'
+        welcome: "<b>%{email}</b> e-postası için bir şifre sıfırlaması istendi."
+        message: 'Bu sıfırlamayı talep ettiyseniz, lütfen şifrenizi sıfırlamak için aşağıdaki bağlantıyı tıklayın:'
+        reset_link: Şifreyi Sıfırla
+        expire: Bu bağlantının süresi iki saat içinde dolacak.
+        ignore: "Bu isteği siz yapmadıysanız, bu e-postayı güvenle yok sayabilirsiniz."
+      promoted:
+        admins_link: Sistem Ayar Sayfasını Ziyaret Edin
+        info: "Artık %{url} üzerinde bir %{role} oldunuz."
+        more-info: "Yeni yetkilerinizi görüntülemek için lütfen %{url} adresini ziyaret edin."
+        subtitle: "%{role} Yetkisi Verildi"
+      verify_email:
+        welcome: "Sayın %{name} , kişisel alanınıza hoş geldiniz!"
+        success: "%{bigbluebutton} özelliğinden yararlanarak, oturumlara yöneticilik yapmak ve diğerleriyle işbirliği yapmak için kendi sınıflarınızı oluşturabilirsiniz."
+        username: "Kullanıcı adınız %{email}."
+        verify: Hesabınızı doğrulamak için aşağıdaki butona tıklamanız yeterlidir.
+        verify_text: 'Hesabınızı doğrulamak için şu bağlantıyı izlemeniz yeterlidir: %{url}'
+        verify_link: Hesabı Doğrula
+        thanks: Katıldığınız için teşekkürler ve iyi günler!
+  maintenance:
+    window_alert: "%{date}tarihi için bakım çalışması planlandı"
+  max_concurrent: İzin verilen maksimum eşzamanlı oturum sayısına ulaşıldı!
+  merged: Birleştirilmiş
+  modal:
+    create_role:
+      create: Yeni bir Yetki Grubu oluştur
+      footer_text: Oluşturduktan sonra bu rol için ayrı ayrı izinleri düzenleyebilirsiniz
+      name_placeholder: Bir Yetki adı girin ...
+      not_blank: Yetki adı boş bırakılamaz.
+      title: Yeni Yetki Oluştur
+    create_room:
+      access_code: Giriş kodu
+      access_code_placeholder: İsteğe bağlı bir sınıfa erişim kodu oluşturun
+      auto_join: Sınıfa girişimi otomatik olarak yap
+      create: Sınıf Oluştur
+      free_delete: Bu sınıfı istediğiniz zaman silebilirsiniz.
+      name_placeholder: Bir sınıf adı girin ...
+      not_blank: Sınıf adı boş bırakılamaz.
+      title: Yeni Sınıf Oluştur
+    delete_account:
+      confirm: "Bu hesabı silmek istediğinizden emin misiniz?"
+      delete: "Eminim, bu hesabı silin."
+      keep: "Kesinlikle , ben saklayacağım."
+      delete_warning: "Bu, kullanıcının hesabını devre dışı bırakır. Devre dışı bırakılan tüm kullanıcılar silinen sekmenin altında bulunabilir."
+      warning: Bu karar kesindir. İlişkili verileri <b>kurtaramazsınız</b>.
+    delete_room:
+      confirm: "%{room} dosyasını silmek istediğinizden emin misiniz?"
+      delete: "Eminim, bu sınıfı sil."
+      keep: "İkinci düşüncede, ben saklayacağım."
+      warning: "Bu sınıfı <b> kurtaramayacaksınız</b> "
+      recording_warning: "veya %{recordings_num} ile  kayıtlarından biri birleştirildi."
+    invite_user:
+      email_placeholder: Kullanıcıların e-postalarını girin (virgülle ayırarak)
+      footer: Kullanıcıya nasıl kaydolacağıyla ilgili talimatları içeren bir e-posta alacak
+      send: Davet Gönder
+      title: Kullanıcıyı Davet Et
+    login:
+      or: veya
+      with: "%{provider} ile oturum açın"
+      forgot_password: "Şifreni mi Unuttun ?"
+    rename_recording:
+    remove_shared:
+      title: "Bu Sınıfı, sınıf listenizden kaldırmak istediğinizden emin misiniz?"
+      delete: "Eminim, bu sınıfı kaldır."
+      warning: Bu sınıfa artık <b>erişemeyeceksiniz</b>.
+    room_settings:
+      title: Sınıf Ayarları
+      update: Güncelleme Sınıfı
+      client: İstemci türünü seçin
+      join_moderator: Tüm kullanıcılar moderatör olarak katılır
+      mute: Kullanıcıları katıldıklarında sessize al
+      require_approval: Katılmadan önce moderatör onayı iste
+      start: Kullanıcılardan herhangi birini bu görüşmeyi başlatabilsin
+      footer_text: Sınıfınızın ayarları her zaman yapılabilir.
+    rename_room:
+      name_placeholder: Yeni bir sınıf adı girin ...
+    share_access:
+      footer: "Bir sınıfı bir kullanıcıyla paylaşmak, sınıfı başlatmalarına ve sınıfın kayıtlarını görüntülemelerine olanak tanır"
+      list: Paylaşımla Bağlantılı
+      title: Sınıf Erişimini Paylaş
+      save: Değişikliği Kaydet
+      cancel_changes: Değişikliği İptal Et
+      select: Kullanıcı Seç
+    merge_user:
+      cancel: İptal Et
+      from: Birleştirilecek Hesap
+      title: Kullanıcı Hesaplarını Birleştir
+      to: Ana Hesap
+      save: Birleştir
+      footer: "Birleştirilecek hesabın sınıfları, Birincil Hesabın sınıf listesine aktarılacak ve daha sonra hesap silinecektir."
+  name_update_success: Sınıf ismi başarı ile değiştirildi!
+  no_user_email_exists: Belirtilen e-postaya sahip mevcut bir kullanıcı yok. Lütfen doğru yazdığınızdan emin olun.
+  omniauth_error: Kimlik doğrulma sisemi ile  kimlik doğrulaması yapılırken bir hata oluştu. Lütfen tekrar deneyin veya bir yöneticiye başvurun!
+  omniauth_specific_error: "Kimlik doğrulama sistemi ile kimlik doğrulaması yapılırken %{error} oluştu. Lütfen tekrar deneyin veya bir yöneticiye başvurun!"
+  pagy:
+    nav:
+      prev: "&lsaquo; Önceki"
+      next: "Sonraki &rsaquo;"
+      gap: "&hellip;"
+  password: Şifre
+  password_empty_notice: Şifre boş bırakılamaz.
+  password_reset_success: Şifre sıfırlandı.
+  password_different_notice: Parola Onayı eşleşmiyor.
+  provider:
+    google: Google
+    office365: Office 365
+    twitter: Twitter
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Hata! Gerçek kişi yanıtınızı doğrulayamadık. Lütfen tekrar deneyin.
+      verification_failed: "Gerçek kişi doğrulaması başarısız oldu, lütfen deneyin"
+  recording:
+    all_recordings: Tüm Kayıtlar
+    email: E-posta Kaydediliyor
+    error: " kayıt alınırken %{count} hatası oluştu"
+    no_recordings: "Bu sınıfta %{inject} kayıt yok."
+    no_user_recordings: Şu anda hiç kaydınız yok.
+    no_matched_recordings: "Aramanızla eşleşen %{inject} kayıt yok."
+    recorded_on: "%{date} tarihinde kaydedildi"
+    table:
+      name: İsim
+      thumbnails: Küçük resimler
+      length: Uzunluk
+      users: Kullanıcılar
+      visibility: Görünürlük
+      formats: Biçimleri
+    visibility:
+      public: Halka açık
+      unlisted: Liste dışı
+    format:
+      notes: Notlar
+      podcast: Dijital ses dosyası
+      presentation: Sunum
+      statistics: İstatistik
+      video: Video
+  registration:
+    approval:
+      fail: Hesabınız henüz onaylanmadı. Kaydolduğunuzdan bu yana birden fazla gün geçtiyse lütfen yöneticinize başvurun.
+      signup: Hesabınız başarılı bir şekilde oluşturulmuştur. Onay için bir yöneticiye gönderildi.
+    banned:
+      fail: "Bu uygulamaya erişiminiz yok. Bunun bir hata olduğunu düşünüyorsanız, lütfen yöneticinize başvurun." 
+    deprecated:
+      new_signin: Hesabınız için yeni bir giriş yöntemi seçin. Eski hesabınızdaki tüm sınıflarınız yeni hesaba taşınacak
+      twitter_signin: "Twitter üzerinden oturum açma onaylanmadı ve bir sonraki sürümde kaldırılacak. Hesabınızı yeni bir kimlik doğrulama yöntemine taşımak için <a href=\"%{link}\"> buraya </a> tıklayın"
+      twitter_signup: Twitter üzerinden kayıt reddedildi. Lütfen farklı bir kayıt yöntemi kullanın
+      merge_success: Twitter hesabınızı yeni hesabınızla başarıyla birleştirdi. Eski twitter hesabınız silindi
+    invite:
+      fail: "Simgeniz geçersiz veya süresi dolmuş. Bunun bir hata olduğunu düşünüyorsanız, lütfen yöneticinize başvurun."
+      no_invite: Katılmak için bir davetiyeniz yok. Lütfen bir davet almak için yöneticinize başvurun.
+  remove: Kaldırmak
+  rename: Adını değiştirmek
+  reset_password:
+    subtitle: Şifreyi yenile
+    password: Yeni Şifre
+    confirm: Yeni şifre onayı
+    update: Şifre Güncelle
+    auth_change: Kimlik doğrulama yöntemi değişti. Şifrenizi ayarlamak için lütfen e-postanızı kontrol edin.
+  roles:
+    active: Aktif
+    admin: Yönetici
+    banned: Engellendi
+    deleted: Silindi
+    pending: Beklemede
+    user: Kullanıcı
+  room:
+    access_code_required: Lütfen Sınıfa katılmak için geçerli bir erişim kodu girin
+    create_room: Sınıf Oluşturun
+    create_room_error: Sınıf oluşturulurken bir hata oluştu
+    create_room_success: Sınıf başarıyla oluşturuldu
+    delete:
+      home_room: Kullanıcının Ana Sınıfı silinemiyor
+      success: Sınıf başarıyla silindi
+      fail: "Sınıf silinemedi (%{error})"
+    enter_the_access_code: Sınıfın erişim kodunu girin
+    invalid_provider: Geçersiz bir Link girdiniz. Lütfen Linki kontrol edip tekrar deneyin.
+    invited: Katılıma davet edildin
+    invite_participants: Katılımcıları Davet Et
+    join: Katıl
+    last_session: "%{session} üzerindeki son oturum"
+    login: Giriş
+    owner: Sahibi
+    owner_banned: Bu sınıf şu anda kullanılamıyor
+    no_room:
+      description: Katılmak istediğiniz sınıfın sınıf Linkini veya sınıf kimliğini girin.
+      edit_profile: Kullanıcı Profili düzenle
+      go_to: Sınıfa Git
+      invalid_room_uid: Girdiğiniz Sınıf Linki / kullanıcı kimliği geçersizdi.
+      placeholder: Sınıf Linki / kullanıcı kimliği
+      no_recent_rooms: Yeni katıldığınız sınıf yok
+      recent_rooms: En Son Katılınan Sınıfa Git
+      title: Sınıfa Katılın
+    no_sessions: Bu sınıfta henüz oturum yok!
+    recordings: Sınıf Kayıtları
+    room_limit: İzin verilen maksimum sınıf mevcuduna ulaştınız
+    room_limit_exceeded: "İzin verilen sınıf sayısını aştınız. Bu sınıfa erişmek için lütfen %{difference} sınıf(lar)ı silin."
+    sessions: Oturumlar
+    settings: Sınıf Ayarları
+    share: Erişimi Yönet
+    shared_by: "%{email} tarafından paylaşıldı"
+    remove_shared_access_success: "Paylaşılan sınıf, sınıf listenizden başarıyla kaldırıldı"
+    remove_shared_access_error: Paylaşılan sınıf listenizden kaldırılırken bir hata oluştu
+    shared_access_success: Sınıf başarıyla paylaşıldı
+    shared_access_error: Sınıf paylaşılırken bir hata oluştu
+    start: Başlat
+    unavailable: "Bu sınıf, yetkilisinin e-postası doğrulanmadığı için şu anda kullanılamıyor."
+    update_settings_error: Sınıf ayarları güncellenirken bir hata oluştu
+    update_settings_success: Sınıf ayarları başarıyla güncellendi
+    wait:
+      message: Görüşme henüz başlatılmamış.
+      auto: Görüşme başlatıldığında otomatik olarak katılacaksınız.
+  settings:
+    account:
+      fullname: Ad Soyad
+      language: Dil
+      provider: Sağlayıcı
+      image: Resim
+      image_url: Profil Resmi Linki
+      roles: Kullanıcı Yetkisi
+      subtitle: Hesap Bilgilerinizi güncelleyin
+      title: Hesap bilgisi
+    delete:
+      button: "Evet, hesabımı silmek istiyorum."
+      disclaimer: "Eğer hesabınızı silmeyi seçerseniz, hesabınız <b>KURTARILAMAZ</b> olacaktır. Ayarlar, sınıflar ve kayıt dahil olmak üzere hesabınızla ilgili tüm bilgiler kaldırılacaktır."
+      subtitle: Hesabınızı Kalıcı Olarak Silin
+      title: Hesabı sil
+    password:
+      confirmation: Yeni şifre onayı
+      new: Yeni Şifre
+      old: Eski Şifre
+      subtitle: Şifreni Değiştir
+      title: Şifre
+    title: Profil
+    search: Arama
+  signup:
+    password_confirm: Şifre onayı
+    subtitle: Bir Hesap Oluştur
+    title: Kayıt Ol
+    with: " %{provider} ile kaydolun"
+  terms:
+    accept: "%{href} kabul ediyorum"
+    accept_existing: Şartları ve koşulları kabul ediyorum
+    title: Şartlar ve Koşullar
+  test_install: >
+    Bu dağıtım önceden yapılandırılmış bir test sunucusu kullanıyor, bunu kendi sunucunuzla değiştirmeniz gerekir. Ayrıntılar için %{href} sayfasına bakın.
+  update: Güncelleme
+  verify:
+    accept: Doğrulayın
+    activated: Hesap doğrulandı!
+    already_verified: Hesap daha önce doğrulandı
+    invalid: Geçersiz doğrulama linki
+    not_verified: Hesabınız henüz doğrulanmadı.
+    resend: Doğrulama e-postasını tekrar gönder
+    signin: Hesabınıza erişmek için lütfen oturum açın.
+    title: Eposta adresinizi doğrulayın
+    verification: Doğrulama

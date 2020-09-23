@@ -2,6 +2,7 @@
 .git
 .gitignore
 README.md
+SECURITY.md
 
 # Rails
 .env

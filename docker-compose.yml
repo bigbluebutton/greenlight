@@ -17,6 +17,7 @@ services:
 #        tag: $LOG_TAG
     volumes:
       - ./log:/usr/src/app/log
+      - ./storage:/usr/src/app/storage
 # When using sqlite3 as the database
 #      - ./db/production:/usr/src/app/db/production
 # When using postgresql as the database
@@ -24,7 +25,7 @@ services:
       - db
   db:
     image: postgres:9.5
-    restart: on-failure
+    restart: unless-stopped
     ports:
       - 127.0.0.1:5432:5432
     volumes:

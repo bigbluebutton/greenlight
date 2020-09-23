@@ -42,6 +42,7 @@ es_MX:
         info: Cambiar la imagen personalizada que aparece en la esquina superior izquierda
         placeholder: Enlace de la imagen...
         title: Imagen personalizada
+        invalid: URL invalida
       cache:
         info: Limpia el proveedor almacenado en cache lo cual forza todas la actualización de las peticiones nuevas
         title: Limpiar cache de proveedor
@@ -146,6 +147,7 @@ es_MX:
         delete: Eliminar
         edit: Editar
         edit_roles: Editar los roles de usuario
+        merge: Combinar
         perm_delete: Eliminar permanentemente
         unban: Desbloquear usuario
         undelete: Recuperar
