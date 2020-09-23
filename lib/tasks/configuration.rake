@@ -39,8 +39,8 @@ namespace :conf do
 end
 
 def test_smtp
-  TestMailer.test_email(ENV.fetch('SMTP_TEST_RECIPIENT', 'notifications@example.com'),
-                        ENV.fetch('SMTP_SENDER', 'notifications@example.com')).deliver
+  TestMailer.test_email(ENV.fetch('SMTP_SENDER', 'notifications@example.com'),
+                        ENV.fetch('SMTP_TEST_RECIPIENT', 'notifications@example.com')).deliver
 rescue => e
   failed("Error connecting to SMTP - #{e}")
 end
