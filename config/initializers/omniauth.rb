@@ -80,6 +80,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
           roles: [ENV['SAML_ROLES_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:eduPersonAffiliation']
         },
         uid_attribute: ENV['SAML_UID_ATTRIBUTE'],
+        single_logout_service_url: ENV['SINGLE_LOGOUT_SERVICE_URL'],
         security: {
           authn_requests_signed: (ENV['AUTHN_REQUESTS_SIGNED'] == "true") || false,
           logout_requests_signed: ENV['LOGOUT_REQUESTS_SIGNED'] == "true" || false,
@@ -90,7 +91,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
           signature_method: XMLSecurity::Document::RSA_SHA1,
           embed_sign: ENV['EMBED_SIGN'] == "true" || false,
           check_idp_cert_expiration: ENV['CHECK_IDP_CERT_EXPIRATION'] == "true" || false,
-          check_sp_cert_expiration: ENV['CHECK_SP_CERT_EXPIRATION'] == "true" || false,
+          check_sp_cert_expiration: ENV['CHECK_SP_CERT_EXPIRATION'] == "true" || false
         }
     end
   end
