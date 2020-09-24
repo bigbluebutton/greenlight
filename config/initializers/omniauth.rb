@@ -71,13 +71,27 @@ Rails.application.config.middleware.use OmniAuth::Builder do
         idp_slo_target_url: ENV['SAML_IDP_SLO_URL'],
         idp_cert_fingerprint: ENV['SAML_IDP_CERT_FINGERPRINT'],
         name_identifier_format: ENV['SAML_NAME_IDENTIFIER'],
+        certificate: File.read( "./cert/" + ENV['SP_CERTIFICATE']),
+        private_key: File.read( "./cert/" + ENV['SP_CERTIFICATE_PRIVATE_KEY']),
         attribute_statements: {
           nickname: [ENV['SAML_USERNAME_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:eduPersonPrincipalName'],
           email: [ENV['SAML_EMAIL_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:mail'],
           name: [ENV['SAML_COMMONNAME_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:cn'],
           roles: [ENV['SAML_ROLES_ATTRIBUTE'] || 'urn:mace:dir:attribute-def:eduPersonAffiliation']
         },
-        uid_attribute: ENV['SAML_UID_ATTRIBUTE']
+        uid_attribute: ENV['SAML_UID_ATTRIBUTE'],
+        security: {
+          authn_requests_signed: (ENV['AUTHN_REQUESTS_SIGNED'] == "true") || false,
+          logout_requests_signed: ENV['LOGOUT_REQUESTS_SIGNED'] == "true" || false,
+          logout_responses_signed: ENV['LOGOUT_RESPONSES_SIGNED'] == "true" || false,
+          want_assertions_signed: ENV['WANT_ASSERTIONS_SIGNED'] == "true" || false,
+          metadata_signed: ENV['METADATA_SIGNED'] == "true" || false,
+          digest_method:  XMLSecurity::Document::SHA1,
+          signature_method: XMLSecurity::Document::RSA_SHA1,
+          embed_sign: ENV['EMBED_SIGN'] == "true" || false,
+          check_idp_cert_expiration: ENV['CHECK_IDP_CERT_EXPIRATION'] == "true" || false,
+          check_sp_cert_expiration: ENV['CHECK_SP_CERT_EXPIRATION'] == "true" || false,
+        }
     end
   end
 end
