@@ -44,15 +44,12 @@ $(document).on('turbolinks:load', function(){
       }
     });
 
-    // Forces the wrapper to take the entire screen height if the user can't create rooms
-    if ($("#cant-create-room-wrapper").length){
-      $(".wrapper").css('height', '100%').css('height', '-=130px');
-    }
-
     // Display and update all fields related to creating a room in the createRoomModal
     $("#create-room-block").click(function(){
       showCreateRoom(this)
     })
+
+    checkIfAutoJoin()
   }
 
     // Autofocus on the Room Name label when creating a room only
@@ -125,30 +122,59 @@ $(document).on('turbolinks:load', function(){
         listItem.setAttribute('class', 'list-group-item text-left not-saved add-access');
         listItem.setAttribute("data-uid", uid)
 
-        let spanItem = "<span class='avatar float-left mr-2'>" + option.text().charAt(0) + "</span> <span class='shared-user'>" +
-          option.text() + " <span class='text-muted'>" + option.data("subtext") + "</span></span>" +
-          "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+        let spanItemAvatar = document.createElement("span"),
+            spanItemName = document.createElement("span"),
+            spanItemUser = document.createElement("span");
+        spanItemAvatar.setAttribute('class', 'avatar float-left mr-2');
+        spanItemAvatar.innerText = option.text().charAt(0);
+        spanItemName.setAttribute('class', 'shared-user');
+        spanItemName.innerText = option.text();
+        spanItemUser.setAttribute('class', 'text-muted');
+        spanItemUser.innerText = option.data('subtext');
+        spanItemName.append(spanItemUser);
 
-        listItem.innerHTML = spanItem
+        listItem.innerHTML = "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+        listItem.prepend(spanItemName);
+        listItem.prepend(spanItemAvatar);
 
         $("#user-list").append(listItem)
       }
+    })
+
+    $("#presentation-upload").change(function(data) {
+      var file = data.target.files[0]
+
+      // Check file type and size to make sure they aren't over the limit
+      if (validFileUpload(file)) {
+        $("#presentation-upload-label").text(file.name)
+      } else {
+        $("#invalid-file-type").show()
+        $("#presentation-upload").val("")
+        $("#presentation-upload-label").text($("#presentation-upload-label").data("placeholder"))
+      }
+    })
+
+    $(".preupload-room").click(function() {
+      updatePreuploadPresentationModal(this)
+    })
+
+    $("#remove-presentation").click(function(data) {
+      removePreuploadPresentation($(this).data("remove"))
     })
   }
 });
 
 function showCreateRoom(target) {
-  var modal = $(target)
   $("#create-room-name").val("")
   $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
   $("#room_access_code").val(null)
 
   $("#createRoomModal form").attr("action", $("body").data('relative-root'))
-
   $("#room_mute_on_join").prop("checked", $("#room_mute_on_join").data("default"))
   $("#room_require_moderator_approval").prop("checked", $("#room_require_moderator_approval").data("default"))
   $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default"))
   $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default"))
+  $("#room_recording").prop("checked", $("#room_recording").data("default"))
 
   //show all elements & their children with a create-only class
   $(".create-only").each(function() {
@@ -203,12 +229,12 @@ function showDeleteRoom(target) {
 //Update the createRoomModal to show the correct current settings
 function updateCurrentSettings(settings_path){
   // Get current room settings and set checkbox
-  $.get(settings_path, function(room_settings) {
-    var settings = JSON.parse(room_settings) 
+  $.get(settings_path, function(settings) {
     $("#room_mute_on_join").prop("checked", $("#room_mute_on_join").data("default") || settings.muteOnStart)
     $("#room_require_moderator_approval").prop("checked", $("#room_require_moderator_approval").data("default") || settings.requireModeratorApproval)
     $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default") || settings.anyoneCanStart)
     $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default") || settings.joinModerator)
+    $("#room_recording").prop("checked", $("#room_recording").data("default") || Boolean(settings.recording))
   })
 }
 
@@ -268,5 +294,46 @@ function removeSharedUser(target) {
   } else {
     parentLI.removeChild(target)
     parentLI.classList.add("remove-shared")
+  }
+}
+
+function updatePreuploadPresentationModal(target) {
+  $.get($(target).data("settings-path"), function(presentation) {
+    if(presentation.attached) {
+      $("#current-presentation").show()
+      $("#presentation-name").text(presentation.name)
+      $("#change-pres").show()
+      $("#use-pres").hide()
+    } else {
+      $("#current-presentation").hide()
+      $("#change-pres").hide()
+      $("#use-pres").show()
+    }
+  });
+  
+  $("#preuploadPresentationModal form").attr("action", $(target).data("path"))
+  $("#remove-presentation").data("remove",  $(target).data("remove"))
+  
+  // Reset values to original to prevent confusion
+  $("#presentation-upload").val("")
+  $("#presentation-upload-label").text($("#presentation-upload-label").data("placeholder"))
+  $("#invalid-file-type").hide()
+}
+
+function removePreuploadPresentation(path) {
+  $.post(path, {})
+}
+
+function validFileUpload(file) {
+  return file.size/1024/1024 <= 30
+}
+
+// Automatically click the join button if this is an action cable reload
+function checkIfAutoJoin() {
+  var url = new URL(window.location.href)
+
+  if (url.searchParams.get("reload") == "true") {
+    $("#joiner-consent").click()
+    $("#room-join").click()
   }
 }

@@ -13,6 +13,6 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<button style="<%= "background-color: #{role_colour(role)};border-color: #{role_colour(role)}" %>" class="user-role btn btn-sm" onclick="filterRole('<%= role.name %>')">
+<button style="<%= "background-color: #{role_colour(role)};border-color: #{role_colour(role)}" %>" class="user-role btn btn-sm" onclick="filterRole('<%= escape_javascript(role.name) %>')">
   <%= translated_role_name(role) %>
 </button>
