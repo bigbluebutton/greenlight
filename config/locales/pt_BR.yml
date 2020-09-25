@@ -293,7 +293,7 @@ pt_BR:
       start: Iniciar pesquisa...
   landing:
     about: "%{href} é um front-end para seu servidor BigBlueButton. Você pode criar suas salas para realizar sessões, ou entrar em salas de outras pessoas utilizando um link curto."
-    welcome: Bem-vindo ao BigBlueButton.
+    welcome: Bem-vindo ao COTIC CHANIS.
     video: Assista ao nosso tutorial sobre como utilizar o Greenlight
     upgrade: Mostre-me como atualizar para o 2.0!
     version: "Lançamos uma nova versão do Greenlight, entretanto sua base de dados é incompatível."
