@@ -53,11 +53,13 @@ class AdminsController < ApplicationController
   # GET /admins/server_recordings
   def server_recordings
     server_rooms = rooms_list_for_recordings
+    @page = (params[:page].presence || 1).to_i
 
-    @search, @order_column, @order_direction, recs =
-      all_recordings(server_rooms, params.permit(:search, :column, :direction), true, true)
+    @search, @order_column, @order_direction, @recordings =
+      limited_recordings(server_rooms, @page, 25, params.permit(:search, :column, :direction), true, true)
 
-    @pagy, @recordings = pagy_array(recs)
+    # If the page has gone too far (no more recordings), then redirect back to the last page
+    return redirect_to admin_recordings_path(page: @page - 1) if @recordings == -1
   end
 
   # GET /admins/rooms

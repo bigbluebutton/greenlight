@@ -47,6 +47,37 @@ module Recorder
     format_recordings(res, search_params, ret_search_params, search_name)
   end
 
+  # Makes paginated API calls to get recordings
+  def limited_recordings(room_bbb_ids, page, limit, search_params = {}, ret_search_params = false, search_name = false)
+    res = { recordings: [] }
+    temp_recs = []
+
+    # All recordings needed to display the current page
+    # If on page 3, and limit is 25, we need 75 recordings
+    total_recordings_needed = page * limit
+
+    until temp_recs.size >= total_recordings_needed
+      # No rooms left to check
+      break if room_bbb_ids.empty?
+      # bbb.get_recordings returns an object
+      # take only the array portion of the object that is returned
+      full_res = get_multiple_recordings(room_bbb_ids.pop(Rails.configuration.pagination_number))
+      temp_recs.push(*full_res[:recordings])
+    end
+
+    # Using example from above, start at index 50
+    starting_point = ((page - 1) * limit)
+
+    (0..limit - 1).each do |i|
+      res[:recordings] << temp_recs[i + starting_point] unless temp_recs[i + starting_point].nil?
+    end
+
+    # Really ugly way to indicate that there are no recordings left (page number gone too far)
+    return [-1, -1, -1, -1] if res[:recordings].empty?
+
+    format_recordings(res, search_params, ret_search_params, search_name)
+  end
+
   # Format, filter, and sort recordings to match their current use in the app
   def format_recordings(api_res, search_params, ret_search_params, search_name = false)
     search = search_params[:search] || ""

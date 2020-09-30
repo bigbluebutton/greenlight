@@ -95,7 +95,9 @@
       </table>
       <% if !@recordings.empty?%>
         <div class="float-md-right mt-4">
-          <%== pagy_bootstrap_nav(@pagy) %>
+          <%= link_to t("pagy.nav.prev").html_safe, admin_recordings_path(page: @page - 1), class: "btn btn-outline-primary #{"disabled" if @page == 1}" %>
+          <div class="btn btn-outline-primary"><%= @page %></div>
+          <%= link_to t("pagy.nav.next").html_safe, admin_recordings_path(page: @page + 1), class: "btn btn-outline-primary" %>
         </div>
       <% end %>
     </div>
