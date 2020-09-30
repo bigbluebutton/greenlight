@@ -39,7 +39,8 @@
         <script type="text/javascript">
           function Jump(){
             var b = location.href.match(/b\/$/) ? '' : 'b/';
-            location.href = b + document.myForm.mID.value;
+            var rid = document.myForm.mID.value.replace(/-/g,'').replace(/(...)(?!$)/g, '$1-');
+            location.href = b + rid;
             return;
         }
         </script>
