@@ -56,7 +56,8 @@ class AdminsController < ApplicationController
     @page = (params[:page].presence || 1).to_i
 
     @search, @order_column, @order_direction, @recordings =
-      limited_recordings(server_rooms, @page, 25, params.permit(:search, :column, :direction), true, true)
+      limited_recordings(server_rooms, @page, Rails.configuration.pagination_rows,
+        params.permit(:search, :column, :direction), true, true)
 
     # If the page has gone too far (no more recordings), then redirect back to the last page
     return redirect_to admin_recordings_path(page: @page - 1) if @recordings == -1
