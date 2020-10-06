@@ -531,6 +531,7 @@ en:
   room:
     access_code_required: Please enter a valid access code to join the room
     add_presentation: Add Presentation
+    copy_access: Copy Access Code
     create_room: Create a Room
     create_room_error: There was an error creating the room
     create_room_success: Room created successfully
