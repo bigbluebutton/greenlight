@@ -23,12 +23,12 @@
             <h3 class="font-weight-normal ml-4 mt-3 text-right"><%= t("landing.enterid") %></h3>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12">
-            <form name="myForm" onsubmit="Jump()">
+            <form name="myForm">
               <div class="input-group">
                 <input required="required" value="" class="form-control join-form" placeholder="aaa-bbb-ccc" value="" autofocus="autofocus" type="text" name="mID">
                 <input type="text" name="dummy" style="display:none;">
                 <span class="input-group-append">
-                  <input type="button" value=<%= t("room.join") %> onclick="Jump()" class="btn btn-primary btn-sm px-7 form-control join-form">
+                  <input type="button" value=<%= t("room.join") %> onclick="Jump();" class="btn btn-primary btn-sm px-7 form-control join-form">
                 </span>
               </div>
             </form>
