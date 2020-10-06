@@ -25,25 +25,6 @@ $(document).on('turbolinks:load', function(){
 
   // Only run on room pages.
   if (controller == "rooms" && action == "show"){
-    var copy = $('#copy');
-
-    // Handle copy button.
-    copy.on('click', function(){
-      var inviteURL = $('#invite-url');
-      inviteURL.select();
-
-      var success = document.execCommand("copy");
-      if (success) {
-        inviteURL.blur();
-        copy.addClass('btn-success');
-        copy.html("<i class='fas fa-check'></i>" + getLocalizedString("copied"))
-        setTimeout(function(){
-          copy.removeClass('btn-success');
-          copy.html("<i class='fas fa-copy'></i>" + getLocalizedString("copy"))
-        }, 2000)
-      }
-    });
-
     // Display and update all fields related to creating a room in the createRoomModal
     $("#create-room-block").click(function(){
       showCreateRoom(this)
@@ -163,6 +144,35 @@ $(document).on('turbolinks:load', function(){
     })
   }
 });
+
+function copyInvite() {
+  $('#invite-url').select()
+  if (document.execCommand("copy")) {
+    $('#invite-url').blur();
+    copy = $("#copy-invite")
+    copy.addClass('btn-success');
+    copy.html("<i class='fas fa-check mr-1'></i>" + getLocalizedString("copied"))
+    setTimeout(function(){
+      copy.removeClass('btn-success');
+      copy.html("<i class='fas fa-copy mr-1'></i>" + getLocalizedString("copy"))
+    }, 1000)
+  }
+}
+
+function copyAccess() {
+  $('#copy-code').attr("type", "text")
+  $('#copy-code').select()
+  if (document.execCommand("copy")) {
+    $('#copy-code').attr("type", "hidden")
+    copy = $("#copy-access")
+    copy.addClass('btn-success');
+    copy.html("<i class='fas fa-check mr-1'></i>" + getLocalizedString("copied"))
+    setTimeout(function(){
+      copy.removeClass('btn-success');
+      copy.html("<i class='fas fa-copy mr-1'></i>" + getLocalizedString("room.copy_access"))
+    }, 1000)
+  }
+}
 
 function showCreateRoom(target) {
   $("#create-room-name").val("")
