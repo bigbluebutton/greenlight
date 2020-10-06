@@ -43,6 +43,7 @@
               </span>
             </div>
 
+            <% if Rails.configuration.voice_bridge_phone_number %>
             <div class="input-icon mb-2">
               <span id="generate-voice-bridge-pin" onclick="generateVoiceBridgePin()" class="input-icon-addon allow-icon-click cursor-pointer" tabindex="0" aria-label="<%= t("modal.create_room.voice_bridge_pin_btn_label") %>">
                 <i class="fas fa-dice"></i>
@@ -53,8 +54,7 @@
                 <i class="far fa-trash-alt"></i>
               </span>
             </div>
-            <% if Rails.configuration.voice_bridge_phone_number %>
-              <span id="voice_bridge_phone_number" class="form-control">Phone number: <%= Rails.configuration.voice_bridge_phone_number %></span>
+            <span id="voice_bridge_phone_number" class="form-control">Phone number: <%= Rails.configuration.voice_bridge_phone_number %></span>
             <% end %>
 
             <% mute = room_configuration("Room Configuration Mute On Join") %>
