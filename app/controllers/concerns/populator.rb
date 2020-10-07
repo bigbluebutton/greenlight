@@ -94,6 +94,6 @@ module Populator
       Invitation.all
     end
 
-    list.order(updated_at: :desc)
+    list.admins_search(@search).order(updated_at: :desc)
   end
 end
