@@ -399,7 +399,7 @@ de_DE:
       warning: Sie werden diese Aufzeichnung <b>nicht</b> wiederherstellen können.
     delete_room:
       confirm: "Sind Sie sicher, dass Sie %{room} löschen wollen?"
-      delete: Ich will diesen Raum löschen.
+      delete: "Ich bin sicher, dieser Raum soll gelöscht werden."
       keep: Ich will ihn doch nicht löschen.
       warning: "Sie werden <b>nicht</b> in der Lage sein, diesen Raum wiederherzustellen"
       recording_warning: "oder jegliche seiner %{recordings_num} verknüpften Aufzeichnungen."
@@ -423,8 +423,8 @@ de_DE:
     rename_recording:
     remove_shared:
       title: "Sind Sie sicher, dass Sie diesen Raum aus Ihrer Raumliste entfernen wollen?"
-      delete: Ich bin mir sicher. Der Raum soll entfernt werden.
-      warning: Sie werden  <b>keinen</b> Zugriff mehr auf diesen Raum haben.
+      delete: "Ich bin sicher, der Raum soll entfernt werden."
+      warning: Sie werden <b>keinen</b> Zugriff mehr auf diesen Raum haben.
     room_settings:
       title: Raumeinstellungen
       update: Raum aktualisieren
@@ -530,6 +530,7 @@ de_DE:
   room:
     access_code_required: "Bitte geben Sie einen gültigen Zugangscode ein, um den Raum zu betreten"
     add_presentation: Präsentation hinzufügen
+    copy_access: Zugangscode kopieren
     create_room: Raum erstellen
     create_room_error: Bei der Erstellung des Raums ist ein Fehler aufgetreten
     create_room_success: Raum erfolgreich erstellt
