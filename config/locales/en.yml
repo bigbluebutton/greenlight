@@ -202,12 +202,14 @@ en:
       table:
         authenticator: Authenticator
         created: Created
+        time: Time Sent
         name: Name
         not_found: No users match your search
         no_users: No users found
         role: Role
         uid: User ID
         username: Username
+        valid: Valid
       title: Manage Users
   add_to_google_calendar: "Add to Google Calendar"
   bigbluebutton: BigBlueButton
