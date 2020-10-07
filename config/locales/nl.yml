@@ -530,6 +530,7 @@ nl:
   room:
     access_code_required: Voer een geldige toegangscode in om toegang te krijgen tot de kamer
     add_presentation: Presentatie toevoegen
+    copy_access: Kopieer Toegangscode
     create_room: Maak een kamer
     create_room_error: Er is een fout opgetreden bij het maken van de kamer
     create_room_success: Kamer met succes gemaakt
