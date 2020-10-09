@@ -20,7 +20,7 @@ fr:
   activerecord:
     attributes:
       user:
-        accepted_terms: "Termes et Conditions"
+        accepted_terms: "Termes et conditions"
         email: E-mail
         name: Nom
         password: Mot de passe
@@ -76,7 +76,7 @@ fr:
         info: Infos
         warn: Attention
         error: Erreur
-        fatal: Erreur Fatale
+        fatal: Erreur fatale
         unknown: Inconnu
       recording_visibility:
         info: Modifier la visibilité par défaut pour les nouveaux enregistrements
@@ -161,7 +161,7 @@ fr:
       mute:
         info: Automatiquement mettre en sourdine les utilisateurs lorsqu'ils rejoignent la réunion BigBlueButton
       require_moderator:
-        info: "Avertit le modérateur d'une conférence BigBlueButton lorsqu'un utilisateur essaye de se connecter. Si l'utilisateur est approuvé, il pourra joindre la conférence."
+        info: "Avertit le modérateur d'une conférence BigBlueButton lorsqu'un utilisateur essaye de se connecter. Si l'utilisateur est approuvé, il pourra rejoindre la conférence."
       allow_any:
         info: "Permet à n'importe quel utilisateur de démarrer la conférence à n'importe quel moment. Par défaut, seul le propriétaire peut démarrer la conférence."
       all_moderator:
@@ -243,7 +243,7 @@ fr:
       contact_admin: "Si vous n’êtes pas un administrateur, veuillez en contacter un."
       continue: Je veux rester sur la 1.0.
       notice: >
-        Greenlight a rencontré une erreur de migration de base de données.<br> C'est peut-être parce que vous n'avez pas mis à jour Greenlight 2.0.
+        Greenlight a rencontré une erreur de migration de base de données.<br/> C'est peut-être parce que vous n'avez pas mis à jour Greenlight 2.0.
       upgrade: Montrez-moi comment passer à la version 2.0 !
       version: "Nous avons publié une nouvelle version de Greenlight, mais votre base de données n'est pas compatible."
     messages:
@@ -273,7 +273,7 @@ fr:
   expired_reset_token: Le lien de réinitialisation du mot de passe a expiré !
   features:
     title: "Fonctionnalités "
-    rooms: "Salons Personnalisés "
+    rooms: "Salons personnalisés "
     recordings: Gestion des enregistrements
     designs: Designs personnalisés
     authentication: Authentification d'utilisateur
@@ -297,7 +297,7 @@ fr:
       signout: Déconnexion
   home_room: Salle d’Accueil
   info_update_success: Informations mises à jour avec succès.
-  invalid_credentials: "Les informations d'identification que vous avez indiquées sont erronées. Veuillez réessayer ou cliquez sur « Mot de passe oublié ? » pour réinitialiser votre mot de passe."
+  invalid_credentials: "Les informations d'identification que vous avez indiquées sont erronées. Veuillez réessayer ou cliquer sur « Mot de passe oublié ? » pour réinitialiser votre mot de passe."
   invalid_login_method: La connexion a échoué en raison d'une incompatibilité de compte. Vous devez vous connecter avec omniauth.
   invite_message: "Pour inviter quelqu'un à la réunion, envoyez-lui ce lien :"
   javascript:
@@ -475,7 +475,7 @@ fr:
       verification_failed: "La vérification de reCAPTCHA a échoué, veuillez réessayer."
   recording:
     all_recordings: Tous les enregistrements
-    email: Envoyer l'enregistrement par Email
+    email: Envoyer l'enregistrement par email
     error: "Il y a eu une erreur lors de la récupération de %{count}  enregistrement(s)"
     no_recordings: "Cette salle n'a pas d'enregistrement %{inject}."
     no_user_recordings: "Actuellement, vous n'avez  aucun enregistrement."
@@ -499,7 +499,7 @@ fr:
       video: Vidéo
   registration:
     approval:
-      fail: "Votre compte n'a pas encore été validé. Si plusieurs jours se sont découlés depuis votre inscription, veuillez contacter votre administrateur."
+      fail: "Votre compte n'a pas encore été validé. Si plusieurs jours se sont écoulés depuis votre inscription, veuillez contacter votre administrateur."
       signup: Votre compte a été créé avec succès. Il a été envoyé à un administrateur pour validation.
     banned:
       fail: "Vous n'avez pas accès à cette application. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter votre administrateur."
@@ -593,26 +593,26 @@ fr:
       reset_password: Réinitialiser le mot de passe de l'utilisateur
     delete:
       button: "Oui, je souhaiterais supprimer mon compte."
-      disclaimer: "Si vous choisissez de supprimer votre compte, il NE sera <b>PAS</b> récupérable. Toutes les informations concernant votre compte, y compris les paramètres, les salons et les enregistrements seront supprimées."
-      subtitle: Supprimer Définitivement votre Compte
-      title: Supprimer Compte
+      disclaimer: "Si vous choisissez de supprimer votre compte, il NE sera <b>PAS</b> récupérable. Toutes les informations concernant votre compte, y compris les paramètres, les salons et les enregistrements seront supprimés."
+      subtitle: Supprimer définitivement votre compte
+      title: Supprimer compte
     password:
       confirmation: Confirmation du nouveau mot de passe
-      new: Nouveau Mot de passe
-      old: Ancien Mot de passe
-      subtitle: Changer votre Mot de passe
+      new: Nouveau mot de passe
+      old: Ancien mot de passe
+      subtitle: Changer votre mot de passe
       title: Mot de passe
     title: Profil
     search: Chercher
   signup:
-    password_confirm: Confirmation Mot de passe
+    password_confirm: Confirmation mot de passe
     subtitle: Créer un Compte
     title: S’inscrire
     with: "S'inscrire via %{provider}"
   terms:
     accept: "J'accepte les %{href}"
     accept_existing: J'accepte les termes et conditions
-    title: Termes et Conditions
+    title: Termes et conditions
   test_install: >
     Ce déploiement utilise un serveur de test pré-configuré, vous devez le remplacer par le vôtre. Pour plus de détails, voir le %{href}.
   update: Mise à jour
