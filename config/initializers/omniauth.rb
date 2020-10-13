@@ -17,7 +17,7 @@ Rails.application.config.omniauth_google = ENV['GOOGLE_OAUTH2_ID'].present? && E
 Rails.application.config.omniauth_office365 = ENV['OFFICE365_KEY'].present? &&
                                               ENV['OFFICE365_SECRET'].present?
 Rails.application.config.omniauth_saml = ENV['SAML_ISSUER'].present? && ENV['SAML_IDP_SSO_URL'].present? &&
-                                         ENV['SAML_IDP_CERT_FINGERPRINT'].present?
+                                         ENV['IDP_CERTIFICATE'].present?
 
 SETUP_PROC = lambda do |env|
   OmniauthOptions.omniauth_options env
@@ -69,7 +69,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
         issuer: ENV['SAML_ISSUER'],
         idp_sso_target_url: ENV['SAML_IDP_SSO_URL'],
         idp_slo_target_url: ENV['SAML_IDP_SLO_URL'],
-        idp_cert_fingerprint: ENV['SAML_IDP_CERT_FINGERPRINT'],
+        idp_cert: File.read( "./cert/idp/" + ENV['IDP_CERTIFICATE']),
+        # idp_cert_fingerprint: ENV['SAML_IDP_CERT_FINGERPRINT'],
         name_identifier_format: ENV['SAML_NAME_IDENTIFIER'],
         certificate: File.read( "./cert/" + ENV['SP_CERTIFICATE']),
         private_key: File.read( "./cert/" + ENV['SP_CERTIFICATE_PRIVATE_KEY']),
@@ -81,14 +82,15 @@ Rails.application.config.middleware.use OmniAuth::Builder do
         },
         uid_attribute: ENV['SAML_UID_ATTRIBUTE'],
         single_logout_service_url: ENV['SINGLE_LOGOUT_SERVICE_URL'],
+        soft: (ENV['SOFT_MODE'] == "true") || false,
         security: {
           authn_requests_signed: (ENV['AUTHN_REQUESTS_SIGNED'] == "true") || false,
           logout_requests_signed: ENV['LOGOUT_REQUESTS_SIGNED'] == "true" || false,
           logout_responses_signed: ENV['LOGOUT_RESPONSES_SIGNED'] == "true" || false,
           want_assertions_signed: ENV['WANT_ASSERTIONS_SIGNED'] == "true" || false,
           metadata_signed: ENV['METADATA_SIGNED'] == "true" || false,
-          digest_method:  XMLSecurity::Document::SHA1,
-          signature_method: XMLSecurity::Document::RSA_SHA1,
+          digest_method:  XMLSecurity::Document::SHA256,
+          signature_method: XMLSecurity::Document::RSA_SHA256,
           embed_sign: ENV['EMBED_SIGN'] == "true" || false,
           check_idp_cert_expiration: ENV['CHECK_IDP_CERT_EXPIRATION'] == "true" || false,
           check_sp_cert_expiration: ENV['CHECK_SP_CERT_EXPIRATION'] == "true" || false

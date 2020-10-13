@@ -59,9 +59,38 @@ The best way is to set SAML_ISSUER variable in .env and then lookup greenlight m
 
 2. Set SAML_IDP_URL variable. SAML_IDP_URL is the URL to which the authentication request should be sent. This would be on the identity provider. It can be found in the IdP's metadata in the <md:SingleSignOnService> tag. Get this tag from IdP metadata.
 
-3. SAML_IDP_CERT_FINGERPRINT is the fingerprint of the certificate used by the IdP in sha1, for example "25:72:85:66:C9:94:22:98:36:84:11:E1:88:C7:AC:40:98:F9:E7:82"(without "). 
+3. IDP_CERTIFICATE is the filename of the certificate used by the IDP that located in cert/idp folder. 
 4. SAML_NAME_IDENTIFIER - could get from IdP metadata. by default it is "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
-5. All others variables needed to map SAML response fields to the user fields in the Greenlight.
+5. The information about this SP (metadata) can be found on your server http://<example.com>/auth/saml/metadata
+
+   5.1 SINGLE_LOGOUT_SERVICE_URL - link of the single logout service that used with IdP initiated logout. See https://github.com/omniauth/omniauth-saml#single-logout
+
+   5.2 Certificate and Security settings:
+
+        SP_CERTIFICATE is a filename of the used certificate with file extention. Ex: test.cert
+
+        SP_CERTIFICATE_PRIVATE_KEY is a filename of the used private key of selected certificate with file extension. Ex: test.key
+
+        ### ALL SP's CERTIFICATES AND PRIVATE KEYS SHOULD BE IN cert FOLDER!!! ###
+
+        AUTHN_REQUESTS_SIGNED is a boolean value that enable or not signature on AuthNRequest.
+                              By default is false. For signaturte recomended value is true.
+        LOGOUT_REQUESTS_SIGNED is a boolean value that enable or not signature on Logout Request.
+                              By default is false. For signaturte recomended value is true.
+        LOGOUT_RESPONSES_SIGNED is a boolean value that enable or not signature on Logout Response.
+                              By default is false. For signaturte recomended value is true.
+        WANT_ASSERTIONS_SIGNED is a boolean value that enable or not the requirement of signed assertion.
+                              By default is false. For signaturte recomended value is true.
+        METADATA_SIGNED is a boolean value that enable or not signature on Metadata.
+                              By default is false. For signaturte recomended value is true.
+        EMBED_SIGN is a boolean value that represent embeded signature or HTTP GET parameter signature.
+                              By default is false. For signaturte recomended value is false.
+        CHECK_IDP_CERT_EXPIRATION is a boolean value that enable or not IdP x509 cert expiration check.
+                              By default is false. For signaturte recomended value is false.
+        CHECK_SP_CERT_EXPIRATION is a boolean value that enable or not SP x509 cert expiration check.
+                              By default is false. For signaturte recomended value is false.
+   For more details check documentation in https://github.com/onelogin/ruby-saml and https://github.com/omniauth/omniauth-saml
+6. All other variables that are required to map SAML response fields to the user fields in the Greenlight.
 To get all available fields check IdP or record network activity in developer console in your browser. Try to sign in using SAML, copy encoded SAML Response, decode it using [decoder](https://www.samltool.com/decode.php) and map values from the response by name fields to variables in .env
 Example:
 ```xml
