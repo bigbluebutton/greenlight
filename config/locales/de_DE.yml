@@ -210,7 +210,7 @@ de_DE:
         username: Teilnehmername
       title: Nutzer verwalten
   add_to_google_calendar: "Zum Google Kalender hinzufügen"
-  bigbluebutton: BigBlueButton
+  bigbluebutton: UAW-Webkonferenz
   bigbluebutton_exception: "Ups, beim Start der Konferenz ist ein Fehler aufgetreten!"
   cancel: Abbrechen
   cookies:
@@ -295,10 +295,10 @@ de_DE:
       home: Startseite
       settings: Profil
       signout: Abmelden
-  home_room: Startraum
+  home_room: Persönlicher Raum
   info_update_success: Information erfolgreich aktualisiert.
-  invalid_credentials: "Die eingegebene E-Mail und das Passwort sind nicht richtig. Bitte versuchen Sie es erneut oder wählen Sie die Option Ihr Passwort zurückzusetzen, falls Sie es vergessen haben."
-  invalid_login_method: Die Anmeldung scheiterte aufgrund einer Unstimmigkeit mit dem Konto. Sie müssen sich mit Omniauth anmelden.
+  invalid_credentials: "Das eingegebene Kürzel und das Passwort sind nicht richtig. Bitte versuchen Sie es erneut oder kontaktieren Sie die IT-Abteilung."
+  invalid_login_method: Die Anmeldung scheiterte aufgrund einer Unstimmigkeit mit dem Konto. Melden Sie sich bitte bei ihrem lokalen Administrator für weitere Informationen.
   invite_message: "Um jemanden zur Konferenz einzuladen, schicken Sie ihm diesen Link:"
   javascript:
     room:

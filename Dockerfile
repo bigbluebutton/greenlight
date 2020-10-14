@@ -57,6 +57,9 @@ COPY --from=base $RAILS_ROOT $RAILS_ROOT
 # Expose port 80.
 EXPOSE 80
 
+COPY ./root-ca.crt /usr/local/share/ca-certificates/root-ca.crt
+RUN update-ca-certificates
+
 # Sets the footer of greenlight application with current build version
 ARG version_code
 ENV VERSION_CODE=$version_code

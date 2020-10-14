@@ -49,3 +49,6 @@ config/terms.md
 coverage*
 
 /atom-sftp-sync.json
+
+# root-ca
+root-ca.crt
