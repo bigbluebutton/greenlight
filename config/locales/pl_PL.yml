@@ -21,7 +21,7 @@ pl_PL:
     attributes:
       user:
         accepted_terms: "Regulamin"
-        email: Email
+        email: E-mail
         name: Imię
         password: Hasło
         password_confirmation: Potwierdzenie hasła
@@ -34,76 +34,155 @@ pl_PL:
       authentication:
         disabled: Wyłączone
         enabled: Włączone
-        info: Pozwól tylko uwierzytelnionym użytkownikom dołączyć do pokoju
+        info: Zezwalaj tylko uwierzytelnionym użytkownikom dołączyć do pokoju.
         title: Wymagaj uwierzytelnienia dla pokoi
-        user-info: "Aby dołączyć do tego pokoju, musisz się zalogować do Greenlight"
+        user-info: Aby dołączyć do tego pokoju, musisz się zalogować do Greenlight.
       branding:
         change: Zmień obraz
-        info: "Zmień logo, które pojawia się w lewym górnym rogu"
+        info: Zmień logo, które widoczne jest w lewym górnym rogu.
         placeholder: Adres URL obrazu...
-        title: Obrazek logo
+        title: Logo
+        invalid: Nieprawidłowy adres
+      legal:
+        change: Zmień adres
+        info: Zmień adres regulaminu, który widoczny jest na dole strony.
+        placeholder: Adres URL regulaminu...
+        title: Regulamin
+        invalid: Nieprawidłowy adres
+      privpolicy:
+        change: Zmień adres
+        info: Zmień adres polityki prywatności, który widoczny jest na dole strony.
+        placeholder: Adres URL polityki prywatności...
+        title: Polityka prywatności
+        invalid: Nieprawidłowy adres
       cache:
-        info: Usuwa zachowane w cache dane co skutkuje żądaniem zaktualizowania informacji
+        info: Usuwa zachowane w cache dostawcy dane, co skutkuje żądaniem zaktualizowania informacji.
         title: Wyczyść cache dostawcy
         button: Wyczyść cache
+      clear_auth:
+        info: Usuwa aktualną metodę uwierzytelnienia użytkowników, pozwalając zalogować się im używając innej metody uwierzytelnienia.
+        title: Wyczyść aktualne uwierzytelnienie
+        button: Wyczyść metodę
       color:
-        info: "Zmiana koloru podstawowego zmieni również kolor jaśniejszy, jak i Ciemniejszy. Kolor jaśniejszy i ciemniejszy może być zmieniany indywidualnie."
+        info: Zmiana koloru podstawowego zmieni również kolor jaśniejszy, jak i ciemniejszy. Kolor jaśniejszy i ciemniejszy może być zmieniany indywidualnie.
         title: Kolor główny
         regular: Kolor zwykły
         lighten: Kolor jaśniejszy
         darken: Kolor ciemniejszy
+      log_level:
+        title: Poziom logów
+        information: Zmień poziom logowania zdarzeń dla całej instalacji.
+        debug: Debug
+        info: Info
+        warn: Warn
+        error: Error
+        fatal: Fatal
+        unknown: Unknown
       recording_visibility:
-        info: Ustaw domyślną widoczność nowych nagrań
+        info: Ustaw domyślną widoczność nowych nagrań.
         title: Domyślna widoczność nagrań
-        warning: To ustawienie będzie zastosowane tylko do nie uruchomionych pokoi
+        warning: To ustawienie będzie zastosowane tylko pokoi, które aktualnie nie są uruchomione
+      require_consent:
+        info: To ustawienie pozwala ustalić właścicielom, które pokoje mogą być nagrywane. Użytkownicy dołączający do nagrywanego pokoju muszą wyrazić zgodę przed dołączeniem.
+        title: Wymagaj zgody właściciela pokoju i dołączających na nagrywanie
+      maintenance_banner:
+        info: Wyświetla komunikat informujący użytkowników o planowanych pracach konserwacyjnych.
+        title: Komunikat o konserwacji
+        display: Ustaw
+        clear: Wyczyść
+        time: "Przykład: Aktualizacja zaplanowana na 13 grudnia o godzinie 23:00. Użytkownicy mogą doświadczyć problemów z logowaniem."
+      preupload:
+        info: Użytkownicy mogą przesłać prezentację wykorzystywaną jako domyślna dla danego pokoju.
+        title: Zezwalaj użytkownikom przesyłać prezentacje
       registration:
-        info: Zmień sposób rejestracji na stronie
+        info: Zmień sposób rejestracji na stronie.
         title: Metoda rejestracji
         methods:
           approval: Zatwierdź/Odrzuć
-          invite: Dołącz przez Zaproszenie
+          invite: Dołącz przez zaproszenie
           open: Otwarta rejestracja
       rooms:
-        info: "Ogranicz liczbę pokoi, które może posiadać użytkownik (w tym pokój domowy). To ustawienie nie dotyczy administratorów."
+        info: Ogranicz liczbę pokoi, które może posiadać użytkownik (w tym pokój domowy). To ustawienie nie dotyczy administratorów.
         title: Liczba pokoi na użytkownika
+      shared_access:
+        info: Wyłączenie spowoduje usunięcie przycisku z menu rozwijanego pokoju, nie pozwalając użytkownikom udostępniać pokoi.
+        title: Zezwalaj użytkownikom udostępniać pokoje
       subtitle: Dostosuj Greenlight
-      title: Ustawienia Strony
+      tabs:
+        appearance: Wygląd
+        administration: Administracja
+        settings: Ustawienia
+      title: Ustawienia strony
     flash:
-      approved: Użytkownik został pomyślnie zatwierdzony.
-      banned: Użytkownik został pomyślnie zablokowany.
-      unbanned: Użytkownik został pomyślnie odblokowany.
-      delete: Użytkownik został pomyślnie usunięty.
-      delete_fail: Odmowa usunięcia użytkownika.
-      demoted: Odebrano pomyślnie uprawnienia użytkownikowi.
+      approved: Użytkownik został pomyślnie zatwierdzony
+      banned: Użytkownik został pomyślnie zablokowany
+      unbanned: Użytkownik został pomyślnie odblokowany
+      delete: Użytkownik został pomyślnie usunięty
+      delete_fail: Usunięcie użytkownika nie powiodło się
+      demoted: Pomyślnie odebrano uprawnienia użytkownikowi
       invite: "Zaproszenie pomyślnie wysłane do %{email}"
-      invite_email_verification: "Aby korzystać z tej metody, należy włączyć wiadomości e-mail. Skontaktuj się z administratorem systemu."
-      promoted: Użytkownikowi zwiększono uprawnienia.
-      registration_method_updated: Zaktualizowano metodę rejestracji.
+      invite_email_verification: Aby korzystać z tej metody, należy włączyć wiadomości e-mail. Skontaktuj się z administratorem systemu.
+      merge_fail: Przy łączeniu kont wystąpił problem. Sprawdź wybranych użytkowników i spróbuj ponownie
+      merge_success: Konta zostały pomyślnie połączone
+      perm_deleted: Użytkownik został trwale usunięty
+      promoted: Pomyślnie zwiększono uprawnienia użytkownikowi
+      registration_method_updated: Pomyślnie zaktualizowano metodę rejestracji
       reset_password: Wysłano e-mail z linkiem do strony resetowania hasła. (Poproś użytkowników aby sprawdzili folder spamu jeśli go nie otrzymali)
-      settings: Ustawienia strony pomyślnie zmienione.
-      unauthorized: Nie posiadasz uprawnień do przeprowadzenia operacji na tym użytkowniku.
+      restored: Użytkownik został pomyślnie przywrócony
+      room_configuration: Konfiguracja pokoju pomyślnie zmieniona
+      settings: Ustawienia strony pomyślnie zmienione
+      unauthorized: Nie posiadasz uprawnień do przeprowadzenia operacji na tym użytkowniku
     recordings:
       title: Nagrania
-      no_recordings: Na tym serwerze nie ma żadnych nagrań
+      no_recordings: Na tym serwerze nie ma nagrań
     roles:
+      appear_in_share_list: Dołącz użytkowników z tą rolą do listy rozwijanej przy udostępnianiu pokoi
       can_create_rooms: Może tworzyć pokoje
       delete: Usuń rolę
-      invalid_create: Wystąpił problem przy tworzeniu roli. Sprawdź proszę wartości i spróbuj ponownie
-      invalid_order: Wystąpił problem z aktualizacją priorytetów roli. Sprawdź proszę wartości i spróbuj ponownie
-      invalid_update: Wystąpił problem z aktualizacją uprawnień roli. Sprawdź proszę wartości i spróbuj ponownie
+      invalid_create: Wystąpił problem przy tworzeniu roli. Sprawdź wartości i spróbuj ponownie
+      invalid_order: Wystąpił problem z aktualizacją priorytetów roli. Sprawdź wartości i spróbuj ponownie
+      invalid_update: Wystąpił problem z aktualizacją uprawnień roli. Sprawdź wartości i spróbuj ponownie
+      manage_rooms_recordings: Zezwalaj użytkownikom z tą rolą na zarządzanie pokojami i nagraniami na serwerze
       name: Nazwa roli
       new_role: Utwórz nową rolę
-      role_has_users: "Liczba użytkowników posiadająca tą rolę - %{user_count}. Odbierz ją najpierw wszystkim użytkownikom, aby można było ją usunąć."
+      role_has_users: Liczba użytkowników posiadająca tę rolę - %{user_count}. Odbierz ją najpierw wszystkim użytkownikom, aby można było ją usunąć.
       title: Role
       promote_email: Wyślij e-maila do użytkownika kiedy zostanie mu przypisana ta rola
       demote_email: Wyślij e-maila do użytkownika kiedy zostanie mu odebrana ta rola
       edit_site_settings: Pozwól użytkownikom z tą rolą na edycję ustawień strony
-      edit_roles: Pozwól użytkownikom z tą rolą na edycję innych ról
-      manage_users: Pozwól użytkownikom z tą rolą na zarządzanie innymi użytkownikami
-      invalid_assignment: Wystąpił problem z przydzieleniem roli użytkownikowi. Sprawdź czy wartości są poprawne i spróbuj ponownie. 
+      edit_roles: Zezwalaj użytkownikom z tą rolą na edycję innych ról
+      manage_users: Zezwalaj użytkownikom z tą rolą na zarządzanie innymi użytkownikami
+      invalid_assignment: Wystąpił problem z przydzieleniem roli użytkownikowi. Sprawdź czy wartości są poprawne i spróbuj ponownie
       colour:
         title: Kolor roli
-        info: Ustaw kolor który będzie skojarzony z tą rolą
+        info: Ustaw kolor który będzie skojarzony z tą rolą.
+    room_configuration:
+      title: Ustawienia pokoi
+      mute:
+        info: Automatycznie wycisza użytkowników, gdy dołączają do spotkania BigBlueButton.
+      require_moderator:
+        info: "Pyta moderatora spotkania BigBlueButton, gdy użytkownik próbuje dołączyć. Jeżeli użytkownik zostanie zatwierdzony, będzie mógł dołączyć do spotkania."
+      allow_any:
+        info: Zezwala dowolnemu użytkownikowi rozpocząć spotkanie w dowolnym momencie. Domyślnie tylko właściciel pokoju może rozpocząć spotkanie.
+      all_moderator:
+        info: Przyznaje prawa moderatora każdemu użytkownikowi dołączającemu do spotkania.
+      recordings:
+        info: Zezwala właścicielom pokoi określić, czy chcą możliwość nagrywania pokoju, czy nie. Jeżeli włączone, moderator wciąż musi kliknąć przycisk "Nagrywaj", kiedy spotkanie się rozpocznie.
+      options:
+        disabled: Wyłączone
+        enabled: Zawsze włączone
+        optional: Opcjonalnie
+    rooms:
+      title: Pokoje na serwerze
+      table:
+        ended: "Zakończono: %{session}"
+        id: ID
+        not_running: Nieaktywny
+        participants: Uczestnicy
+        running: Aktywny
+        started: "Rozpoczęto: %{session}"
+        status: Status
+        view: Zajrzyj
     title: Ustawienia organizacji
     users:
       invite: Zaproś użytkownika
@@ -113,184 +192,193 @@ pl_PL:
         approve: Zatwierdź
         decline: Odrzuć
         ban: Zablokuj użytkownika
-        delete: Skasuj
+        delete: Usuń
         edit: Edytuj
         edit_roles: Edytuj role użytkownika
+        merge: Połącz
+        perm_delete: Trwale usuń
         unban: Odblokuj użytkownika
+        undelete: Przywróć
       table:
-        authenticator: Uwierzytelniający
+        authenticator: Uwierzytelnienie
         created: Utworzono
-        name: Imię
+        time: Czas wysłania
+        name: Nazwa
         not_found: Brak użytkowników odpowiadających twojemu wyszukiwaniu
         no_users: Nie znaleziono użytkowników
         role: Rola
         uid: ID użytkownika
         username: Nazwa użytkownika
+        valid: Ważny
       title: Zarządzaj użytkownikami
   add_to_google_calendar: "Dodaj do Kalendarza Google"
   bigbluebutton: BigBlueButton
-  bigbluebutton_exception: "Ups, wystąpił błąd podczas rozpoczynania spotkania!"
+  bigbluebutton_exception: Ups, wystąpił błąd podczas rozpoczynania spotkania!
   cancel: Anuluj
   cookies:
-    cookie_info: "Ciasteczka pomagają nam dostarczyć nasze usługi. Korzystając z naszych usług, zgadzasz się na korzystanie z ciasteczek."
+    cookie_info: Ciasteczka pomagają nam dostarczyć nasze usługi. Korzystając z naszych usług, zgadzasz się na korzystanie z ciasteczek.
     cookie_button: Zgadzam się
   copied: Skopiowano
   copy: Kopiuj
   date:
     month_names: [~, Styczeń, Luty, Marzec, Kwiecień, Maj, Czerwiec, Lipiec, Sierpień, Wrzesień, Październik, Listopad, Grudzień]
-  default_admin: "Nadal używasz domyślnego hasła dla tego konta. Proszę kliknąć <a href=\"%{edit_link}\">tutaj</a> aby je zmienić."
-  delete: Skasuj
-  delivery_error: Nastąpił błąd podczas wysyłki emaila. Proszę się skontaktować z administratorem
+  default_admin: Nadal używasz domyślnego hasła dla tego konta. Kliknij <a href="%{edit_link}">tutaj</a> aby je zmienić.
+  delete: Usuń
+  delivery_error: Nastąpił błąd podczas wysyłania e-maila. Proszę skontaktować się z administratorem!
   docs: Dokumentacja
-  email: Email
-  email_sent: "Twój %{email_type} email został wysłany! (Sprawdź folder Spam, jeśli go nie otrzymałeś)"
+  email: E-mail
+  email_sent: Twój %{email_type} e-mail został wysłany! (Sprawdź folder Spam, jeśli go nie otrzymałeś)
   enter_your_name: Wprowadź swoje imię!
   errors:
     bigbluebutton:
-      help: "Upewnij się, że podjęto odpowiednie kroki. <a href=\"%{doc_link}\">Dowiedz się więcej</a>"
-      message: Błędny BigBlueButton Endpoint i Secret
+      help: Upewnij się, że podjęto odpowiednie kroki. <a href="%{doc_link}">Dowiedz się więcej</a>
+      message: Błędny Endpoint i Secret aplikacji BigBlueButton.
       title: Błąd serwera
     internal:
-      message: "Wygląda na to, że coś poszło nie tak po naszej stronie."
-      help: "Błąd został zarejestrowany, zapoznamy się z nim!"
+      message: Wygląda na to, że coś poszło nie tak po naszej stronie.
+      help: Błąd został zarejestrowany, zapoznamy się z nim!
       report: Zgłoś problem
     maintenance:
-      message: "Przepraszamy, konserwacja strony"
-      help: Powrócimy wkrótce!
+      message: Przepraszamy, trwa konserwacja strony.
+      help: Wrócimy wkrótce!
     migration_error:
-      contact_admin: "Jeżeli nie jesteś administratorem, proszę się z nim skontaktuj."
+      contact_admin: Jeżeli nie jesteś administratorem, proszę się z nim skontaktować.
       continue: Chciałbym nadal używać wersji 1.0.
       notice: >
-        Greenlight napotkał błąd migracji bazy danych. <br> Może to być spowodowane brakiem aktualizacji do Greenlight 2.0.
-      upgrade: "Pokaż, jak uaktualnić do wersji 2.0!"
-      version: "Wydaliśmy nową wersję Greenlight, ale twoja baza danych nie jest kompatybilna."
+        Greenlight napotkał błąd migracji bazy danych.<br>
+        Może to być spowodowane brakiem aktualizacji do Greenlight 2.0.
+      upgrade: Pokaż, jak uaktualnić do wersji 2.0!
+      version: Wydaliśmy nową wersję Greenlight, ale twoja baza danych nie jest kompatybilna.
     messages:
       blank: nie może być puste
       too_short: jest za krótkie
       invalid: jest nieprawidłowe
       taken: zostało już zrobione
       accepted: musi zostać zaakceptowane
-      confirmation: "nie pasuje %{attribute}"
+      confirmation: nie pasuje %{attribute}
       inclusion: nie znajduje się na liście
     no_provider:
-      message: "Strona, na którą próbujesz wejść jest wyłączona"
-      help: "Aby skonfigurować Greenlight, skontaktuj się z administratorem"
+      message: Strona, na którą próbujesz wejść jest wyłączona.
+      help: Aby skonfigurować Greenlight, skontaktuj się z administratorem
     not_found:
-      message: "Przykro mi! Strona, której szukasz, nie istnieje."
-      help: "Czy to możliwe, że zostało usunięte?"
+      message: Przykro nam! Strona, której szukasz, nie istnieje.
+      help: Czy to możliwe, że zostało usunięte?
       user_not_found:
         help: Skontaktuj się z administratorem.
-        message: "Przepraszamy, ten użytkownik nie jest zarejestrowany."
+        message: Przepraszamy, ten użytkownik nie jest zarejestrowany.
       user_missing:
         help: Sprawdź adres URL i spróbuj ponownie
         message: Wprowadzony adres URL jest nieprawidłowy.
     title: Błędy
     unauthorized:
-      message: Nie masz dostępu do tej aplikacji
-      help: "Jeśli uważasz, że to pomyłka, skontaktuj się z administratorem systemu."
+      message: Nie masz dostępu do tej aplikacji.
+      help: Jeśli uważasz, że to pomyłka, skontaktuj się z administratorem systemu.
   expired_reset_token: Link do resetowania hasła wygasł!
   features:
     title: Funkcjonalności
-    rooms: Spersonalizowane Pokoje
+    rooms: Spersonalizowane pokoje
     recordings: Zarządzanie nagraniami
-    designs: Własny Wygląd
-    authentication: Uwierzytelnianie Użytkownika
+    designs: Własny wygląd
+    authentication: Uwierzytelnianie użytkownika
   footer:
-    powered_by: "Zasilany przez %{href}."
+    legal: Regulamin
+    privpolicy: Polityka prywatności
+    powered_by: "Powered by %{href}."
   forgot_password:
-    subtitle: Zapomniane hasło
-    email: Email
-    submit: Prześlij
+    subtitle: Nie pamiętam hasła
+    email: E-mail
+    submit: Wyślij
   go_back: Wróć
   greenlight: Greenlight
   header:
     all_recordings: Wszystkie nagrania
     dropdown:
       account_settings: Organizacja
-      help: "Potrzebujesz pomocy?"
+      help: Potrzebujesz pomocy?
       home: Strona główna
       settings: Profil
       signout: Wyloguj
-  home_room: Pokój Domowy
+  home_room: Pokój domowy
   info_update_success: Informacje zostały pomyślnie zaktualizowane.
-  invalid_credentials: Adres e-mail i hasło nie zostało odnalezione w naszej bazie. Spróbuj ponownie lub kliknij Zapomniane hasło
+  invalid_credentials: Adres e-mail i hasło nie zostało odnalezione w naszej bazie. Spróbuj ponownie lub kliknij "Nie pamiętam hasła", aby je zresetować.
   invalid_login_method: Logowanie nie powiodło się z powodu niezgodności konta. Musisz zalogować się za pomocą omniauth.
-  invite_message: "Aby zaprosić kogoś na spotkanie, wyślij im ten link:"
+  invite_message: "Aby zaprosić kogoś na spotkanie, wyślij mu ten link:"
   javascript:
     room:
       mailer:
         subject: 'zaprosił Cię do obejrzenia nagrania.'
         body: 'Aby wyświetlić nagranie, kliknij poniższy link:'
-        autogenerated: 'Ten email jest generowany automatycznie przez BigBlueButton.'
+        autogenerated: 'Ten e-mail został wygenerowany automatycznie przez BigBlueButton.'
         footer: 'BigBlueButton to system konferencji internetowych o otwartym kodzie źródłowym. Więcej informacji na temat BigBlueButton można znaleźć na stronie https://bigbluebutton.org/.'
+    search:
+      start: Rozpocznij wyszukiwanie...
   landing:
-    about: "%{href} to prosty front-end dla twojego serwera konferencji internetowych typu open-source. Możesz tworzyć własne pokoje do prowadzenia sesji lub dołączać do innych za pomocą krótkiego i wygodnego łącza."
+    about: "%{href} to prosty front-end dla Twojego otwartoźródłowego serwera konferencji internetowych BigBlueButton. Możesz tworzyć własne pokoje do prowadzenia sesji lub dołączać do innych za pomocą krótkiego i wygodnego linku."
     welcome: Witamy w BigBlueButton.
     video: Obejrzyj nasz samouczek na temat korzystania z Greenlight
-    upgrade: "Pokaż, jak uaktualnić do wersji 2.0!"
-    version: "Wydaliśmy nową wersję Greenlight, ale twoja baza danych nie jest kompatybilna."
+    upgrade: Pokaż, jak uaktualnić do wersji 2.0!
+    version: Wydaliśmy nową wersję Greenlight, ale twoja baza danych nie jest kompatybilna.
   language_default: Domyślny (język przeglądarki)
-  ldap_error: "Nie można połączyć się z serwerem LDAP. Sprawdź konfigurację LDAP w pliku env i upewnij się, że serwer działa."
+  ldap_error: Nie można połączyć się z serwerem LDAP. Sprawdź konfigurację LDAP w pliku env i upewnij się, że serwer działa.
   login: Zaloguj
   login_title: Zaloguj się
   mailer:
     user:
       approve:
         info: Twoje konto zostało zatwierdzone.
-        signin: "Aby uzyskać dostęp do pokoi osobistych, kliknij poniższy przycisk i zaloguj się."
+        signin: Aby uzyskać dostęp do pokoi osobistych, kliknij poniższy przycisk i zaloguj się.
         signin_link: Zaloguj
         signup:
-          info: Nowy użytkownik zapisał się do korzystania z Greenlight.
-          more-info: "Aby umożliwić temu użytkownikowi dostęp do Greenlight, musisz zatwierdzić jego konto w ustawieniach organizacji."
+          info: Nowy użytkownik zarejestrował się do korzystania z Greenlight.
+          more-info: Aby umożliwić temu użytkownikowi dostęp do Greenlight, musisz zatwierdzić jego konto w ustawieniach organizacji.
           admins_link: Odwiedź stronę organizacji
-          subject: Nowy użytkownik Greenlight (Zapis)
-          username: "Zapisał się nowy użytkownik o nazwie %{name} i adresie email %{email}."
+          subject: Nowy użytkownik Greenlight
+          username: Zarejestrował się nowy użytkownik o nazwie %{name} i adresie e-mail %{email}.
         subject: Konto zatwierdzone
-        username: "Twoja nazwa użytkownika to %{email}."
+        username: Twoja nazwa użytkownika to %{email}.
       demoted:
-        info: "Nie pełnisz już roli %{role}na %{url}"
-        more-info: Masz teraz takie uprawnienia jak zwykły użytkownik
+        info: Nie pełnisz już roli %{role} na %{url}.
+        more-info: Masz teraz takie same uprawnienia jak zwykły użytkownik
         root_link: Zaloguj
-        subtitle: "Odebrano uprawnienia %{role}"
+        subtitle: "Odebrano uprawnienia: %{role}"
       invite:
-        info: "Zostałeś zaproszony do własnej przestrzeni osobistej przez %{name}"
-        signup_info: "Aby zarejestrować się za pomocą swojego e-maila, kliknij przycisk poniżej i postępuj zgodnie z instrukcjami."
-        signup_link: Zapisz się
+        info: Zostałeś zaproszony do własnej przestrzeni osobistej przez %{name}.
+        signup_info: Aby zarejestrować się za pomocą swojego e-maila, kliknij przycisk poniżej i postępuj zgodnie z instrukcjami.
+        signup_link: Zarejestruj się
         signup:
-          info: "Użytkownik, który został zaproszony, zapisał się do korzystania z Greenlight."
+          info: Użytkownik, który został zaproszony, zarejestrował się do korzystania z Greenlight.
           admins_link: Odwiedź stronę organizacji
-          subject: Nowy użytkownik Greenlight (Zapis)
-          username: "Zapisał się nowy użytkownik o nazwie %{name} i adresie email %{email}."
+          subject: Nowy użytkownik Greenlight
+          username: Zarejestrował się nowy użytkownik o nazwie %{name} i adresie e-mail %{email}.
         subject: Zaproszenie do korzystania z systemu wideokonferencji.
-        username: "Twoja nazwa użytkownika to %{email}."
+        username: Twoja nazwa użytkownika to %{email}.
       password_reset:
-        title: 'Resetuj hasło'
-        welcome: "Zażądano resetu hasła dla adresu e-mail %{email} "
-        message: 'Jeśli zażądałeś(łaś) zresetowania hasła kliknij na link poniżej'
+        title: 'Reset hasła'
+        welcome: Zażądano resetu hasła dla adresu e-mail <b>%{email}</b>
+        message: 'Jeśli zażądałeś(łaś) zresetowania hasła kliknij na link poniżej:'
         reset_link: Zresetuj hasło
         expire: Ten link straci ważność po dwóch godzinach.
-        ignore: "Jeśli nie prosiłeś(łaś) o zresetowanie hasła, możesz zignorować tą wiadomość"
+        ignore: Jeśli nie prosiłeś(łaś) o zresetowanie hasła, możesz zignorować tą wiadomość.
       promoted:
         admins_link: Odwiedź stronę organizacji
-        info: "Przydzielono Ci rolę %{role} na %{url}"
-        more-info: "Aby zobaczyć Twoje nowe możliwości odwiedź %{url}"
-        subtitle: "Uprawnienia przydzielono"
+        info: Przydzielono Ci rolę %{role} na %{url}.
+        more-info: Aby zobaczyć Twoje nowe możliwości odwiedź %{url}.
+        subtitle: "Przydzielono uprawnienia: %{role}"
       verify_email:
-        welcome: "Witaj w osobistej przestrzeni, %{name}!"
-        success: "Wykorzystując %{bigbluebutton}, możesz tworzyć własne pokoje do prowadzenia sesji i współpracy z innymi."
-        username: "Twoja nazwa użytkownika to %{email}."
-        verify: "Aby zweryfikować swoje konto, kliknij przycisk poniżej."
+        welcome: Witaj w osobistej przestrzeni, %{name}!
+        success: Wykorzystując %{bigbluebutton}, możesz tworzyć własne pokoje do prowadzenia sesji i współpracy z innymi.
+        username: Twoja nazwa użytkownika to %{email}.
+        verify: Aby zweryfikować swoje konto, kliknij przycisk poniżej.
         verify_text: 'Aby zweryfikować swoje konto, wystarczy kliknąć ten link: %{url}'
         verify_link: Zweryfikuj konto
-        thanks: Dzięki za dołączenie i życzę miłego dnia!
-  maintenance:
-    window_alert: "Okno konserwacji zaplanowano na %{date}"
+        thanks: Dzięki za dołączenie, życzymy miłego dnia!
   max_concurrent: Osiągnięto maksymalną liczbę jednoczesnych sesji!
+  merged: Połączono
   modal:
     create_role:
       create: Utwórz nową rolę
-      footer_text: Po utworzeniu roli możesz edytować jej szczegółowe uprawnienia
-      name_placeholder: Wprowadź nazwę roli
+      footer_text: Po utworzeniu roli możesz edytować jej szczegółowe uprawnienia.
+      name_placeholder: Wprowadź nazwę roli...
       not_blank: Nazwa roli nie może być pusta
       title: Utwórz nową rolę
     create_room:
@@ -303,41 +391,73 @@ pl_PL:
       not_blank: Nazwa pokoju nie może być pusta.
       title: Stwórz nowy pokój
     delete_account:
-      confirm: "Czy na pewno chcesz usunąć to konto?"
-      delete: "Jestem pewien, usuń to konto."
-      keep: Zostawiam to konto.
+      confirm: Czy na pewno chcesz usunąć to konto?
+      delete: Jestem pewien, usuń to konto
+      keep: Jednak nie, zostawiam je
+      delete_warning: Spowoduje to wyłączenie konta tego użytkownika. Wszystkich wyłączonych użytkowników można znaleźć w zakładce usuniętych.
       warning: Decyzja jest ostateczna. <b>Nie</b> będziesz w stanie odzyskać powiązanych danych.
+    delete_rec:
+      delete: Jestem pewien, usuń to nagranie
+      header: Czy na pewno chcesz usunąć to nagranie?
+      warning: <b>Nie</b> będziesz w stanie odzyskać tego nagrania
     delete_room:
-      confirm: "Czy jesteś pewny że chcesz usunąć %{room}?"
-      delete: "Jestem pewien, usuń ten pokój."
-      keep: Zostawiam go.
+      confirm: Czy na pewno chcesz usunąć %{room}?
+      delete: Jestem pewien, usuń ten pokój
+      keep: Chwileczkę, zostawiam go
       warning: <b>Nie</b> będziesz w stanie odzyskać tego pokoju
-      recording_warning: "ani żadnego z %{recordings_num} powiązanych nagrań."
+      recording_warning: ani żadnego z %{recordings_num} powiązanych nagrań.
     invite_user:
       email_placeholder: Wprowadź adresy e-mail użytkowników (oddzielone przecinkami)
-      footer: "Użytkownik otrzyma wiadomość e-mail z instrukcjami, jak się zarejestrowaćWprowadź nazwę użytkownika"
+      footer: Użytkownik otrzyma wiadomość e-mail z instrukcjami, jak się zarejestrować.
       send: Wyślij zaproszenie
       title: Zaproś użytkownika
     login:
       or: lub
-      with: "Zaloguj się przy pomocy %{provider}"
-      forgot_password: "Zapomniane hasło?"
+      with: Zaloguj się przy pomocy %{provider}
+      forgot_password: Nie pamiętasz hasła?
+    preupload:
+      change: Zastąp prezentację
+      choose: Wybierz plik...
+      current: "Aktualna prezentacja:"
+      footer: W zależności od rozmiaru prezentacji, jej przesłanie może wymagać dodatkowego czasu zanim będzie mogła zostać użyta.
+      invalid: Nieprawidłowy rozmiar/typ pliku. Zobacz ograniczenia poniżej.
+      title: Dodaj prezentację
+      use: Użyj prezentacji
     rename_recording:
+    remove_shared:
+      title: Czy na pewno chcesz usunąć ten pokój z listy Twoich pokoi?
+      delete: Jestem pewien, usuń ten pokój
+      warning: <b>Nie</b> będziesz mieć dłużej dostępu do tego pokoju.
     room_settings:
       title: Ustawienia pokoju
       update: Aktualizuj ustawienia pokoju
       client: Wybierz typ klienta
-      join_moderator: Użytkownicy dołączają jako moderatorzy
-      mute: "Wycisz użytkowników, gdy dołączą"
+      join_moderator: Wszyscy użytkownicy dołączają jako moderatorzy
+      mute: Wycisz użytkowników, gdy dołączą
       require_approval: Wymagaj zgody moderatora przed dołączeniem
-      start: Pozwalaj dowolnemu użytkownikowi na rozpoczęcie spotkania
-      footer_text: Dostosowanie do Twojego pokoju można wykonać w dowolnym momencie.
+      start: Zezwalaj dowolnemu użytkownikowi na rozpoczęcie spotkania
+      footer_text: Zmianę ustawień pokoju można wykonać w dowolnym momencie.
+      recording: Zezwalaj na nagrywanie pokoju
     rename_room:
       name_placeholder: Wprowadź nową nazwę pokoju...
+    share_access:
+      footer: Udostępnienie pokoju innym użytkownikom pozwoli im rozpoczynać spotkania i wyświetlać nagrania tego pokoju.
+      list: Udostępniony dla
+      title: Dostęp do pokoju
+      save: Zapisz zmiany
+      cancel_changes: Anuluj zmiany
+      select: Wybierz użytkownika
+    merge_user:
+      cancel: Anuluj
+      from: Konto do połączenia
+      title: Połącz konta użytkowników
+      to: Konto główne
+      save: Połącz
+      footer: Pokoje z konta do połączenia zostaną przypisane do listy pokoi konta głównego, a następnie zostanie ono usunięte.
   name_update_success: Nazwa pokoju została pomyślnie zmieniona!
-  no_user_email_exists: "Brak określonego użytkownika z określonym adresem e-mail. Upewnij się, że wpisałeś go poprawnie."
+  no_user_email_exists: Brak użytkownika z określonym adresem e-mail. Upewnij się, że wpisałeś go poprawnie.
   omniauth_error: Wystąpił błąd podczas uwierzytelniania z wykorzystaniem omniauth. Spróbuj ponownie lub skontaktuj się z administratorem!
-  omniauth_specific_error: "Wystąpił błąd %{error}podczas autoryzacji omniauth. Spróbuj ponownie lub skontaktuj się z administratorem"
+  omniauth_specific_error: "Wystąpił błąd %{error} podczas autoryzacji omniauth. Spróbuj ponownie lub skontaktuj się z administratorem!"
   pagy:
     nav:
       prev: "&lsaquo; Poprzedni"
@@ -354,25 +474,26 @@ pl_PL:
     ldap: LDAP
   recaptcha:
     errors:
-      recaptcha_unreachable: "Ups, nie udało się zweryfikować Twojej odpowiedzi reCAPTCHA. Proszę spróbuj ponownie."
-      verification_failed: "Weryfikacja reCAPTCHA nie powiodła się, spróbuj ponownie."
+      recaptcha_unreachable: Ups, nie udało się zweryfikować Twojej odpowiedzi reCAPTCHA. Spróbuj ponownie.
+      verification_failed: Weryfikacja reCAPTCHA nie powiodła się, spróbuj ponownie.
   recording:
     all_recordings: Wszystkie nagrania
-    email: Prześlij emailem nagranie.
-    no_recordings: "Ten pokój nie ma %{inject}nagrań."
-    no_user_recordings: Obecnie nie masz żadnych nagrań.
-    no_matched_recordings: "Brak %{inject} nagrań powiązanych z twoim wyszukiwaniem."
-    recorded_on: "Nagrano dn. %{date}"
+    email: Prześlij nagranie e-mailem
+    error: Wystąpił błąd przy pobieraniu %{count} nagrań
+    no_recordings: Ten pokój nie ma %{inject}nagrań.
+    no_user_recordings: Obecnie nie masz nagrań.
+    no_matched_recordings: Brak %{inject} nagrań pasujących do Twojego wyszukiwania.
+    recorded_on: Nagrano %{date}
     table:
-      name: Imię
+      name: Nazwa
       thumbnails: Miniatury
       length: Długość
       users: Użytkownicy
       visibility: Widoczność
       formats: Formaty
     visibility:
-      public: Publiczny
-      unlisted: Nie katalogowany
+      public: Publiczne
+      unlisted: Ukryte
     format:
       notes: Notatki
       podcast: Podcast
@@ -381,64 +502,88 @@ pl_PL:
       video: Wideo
   registration:
     approval:
-      fail: "Twoje konto nie zostało jeszcze zatwierdzone. Jeśli minęło wiele dni od rejestracji, skontaktuj się z administratorem."
+      fail: Twoje konto nie zostało jeszcze zatwierdzone. Jeśli minęło wiele dni od rejestracji, skontaktuj się z administratorem.
       signup: Twoje konto zostało pomyślnie utworzone. Został wysłany do administratora w celu zatwierdzenia.
     banned:
-      fail: "Nie masz dostępu do tej aplikacji. Jeśli uważasz, że to pomyłka, skontaktuj się z administratorem." 
+      fail: Nie masz dostępu do tej aplikacji. Jeśli uważasz, że to pomyłka, skontaktuj się z administratorem.
     deprecated:
       new_signin: Wybierz nową metodę logowania dla swojego konta. Wszystkie twoje pokoje ze starego konta zostaną przeniesione na nowe konto
-      twitter_signin: "Logowanie za pomocą Twittera jest w trakcie wycofywania z użytkowania i zostanie usunięte w następnej wersji. Kliknij <a href=\"%{link}\">tutaj</a> aby przenieść swoje konto do nowej metody uwierzytelniania."
+      twitter_signin: Logowanie za pomocą Twittera jest w trakcie wycofywania z użytkowania i zostanie usunięte w następnej wersji. Kliknij <a href="%{link}">tutaj</a> aby przenieść swoje konto do nowej metody uwierzytelniania.
       twitter_signup: Rejestracja za pośrednictwem Twittera została wycofana. Użyj innej metody rejestracji.
-      merge_success: Pomyślnie połączyłeś swoje konto Twitter z nowym kontem. woje stare konto Twitter zostało usunięte.
+      merge_success: Pomyślnie połączyłeś swoje konto Twitter z nowym kontem. Twoje stare konto Twitter zostało usunięte.
     invite:
-      fail: "Twój token jest nieprawidłowy lub wygasł. Jeśli uważasz, że to pomyłka, skontaktuj się z administratorem."
-      no_invite: "Nie masz zaproszenia do przyłączenia się. Skontaktuj się z administratorem, aby je otrzymać."
+      fail: Twój token jest nieprawidłowy lub wygasł. Jeśli uważasz, że to pomyłka, skontaktuj się z administratorem.
+      no_invite: Nie masz zaproszenia do przyłączenia się. Skontaktuj się z administratorem, aby je otrzymać.
+  remove: Usuń
   rename: Zmień nazwę
   reset_password:
+    invalid_token: Token resetu hasła jest nieprawidłowy. Proszę próbować zresetować hasło jeszcze raz.
     subtitle: Zresetuj hasło
     password: Nowe hasło
     confirm: Potwierdzenie nowego hasła
     update: Aktualizuj hasło
+    auth_change: Metoda uwierzytelnienia zmieniła się. Proszę sprawdzić wiadomość e-mail, aby ustawić nowe hasło.
   roles:
+    active: Aktywni
     admin: Administrator
-    banned: Zablokowany
+    banned: Zablokowani
+    deleted: Usunięci
     pending: Oczekujący
     user: Użytkownik
   room:
-    access_code_required: Aby dołączyć do pokoju wprowadź proszę poprawny kod
+    access_code_required: Aby dołączyć do pokoju, proszę wprowadzić prawidłowy kod
+    add_presentation: Dodaj prezentację
+    copy_access: Kopiuj kod dostępu
     create_room: Stwórz pokój
     create_room_error: Podczas tworzenia pokoju wystąpił błąd
     create_room_success: Pokój utworzony pomyślnie
+    delete:
+      home_room: Nie można usunąć pokoju domowego użytkownika
+      success: Pokój usunięty pomyślnie
+      fail: Usuwanie pokoju nie powiodło się (%{error})
     enter_the_access_code: Wprowadź kod dostępu do pokoju
-    invalid_provider: Wprowadzony adres url jest nieprawidłowy. Sprawdź go proszę i spróbuj ponownie.
+    invalid_provider: Wprowadzony adres URL jest nieprawidłowy. Sprawdź go i spróbuj ponownie.
+    invitation_description: Zostałeś zaproszony do przyłączenia się do pokoju %{name} używając aplikacji BigBlueButton. Aby dołączyć, kliknij link poniżej i wprowadź swoje imię.
     invited: Zostałeś zaproszony do przyłączenia się
+    recording_present: Zgadzam się, że to spotkanie może być nagrywane. Zarejestrowany zostanie mój głos i wideo, jeżeli je włączę.
     invite_participants: Zaproś uczestników
     join: Dołącz
-    last_session: "Ostatnia sesja dn. %{session}"
+    last_session: "Ostatnia sesja: %{session}"
     login: Wejdź
     owner: Właściciel
+    owner_banned: Ten pokój aktualnie jest niedostępny
     no_room:
-      description: "Wprowadź adres url lub id pokoju, do którego chcesz dołączyć"
+      description: Wprowadź adres URL lub ID pokoju, do którego chcesz dołączyć
       edit_profile: Edytuj profil użytkownika
-      go_to: Idź do pokoju
-      invalid_room_uid: Wprowadzony adres url lub id jest nieppoprawny.
-      placeholder: Adres url/id pokoju
+      go_to: Przejdź do pokoju
+      invalid_room_uid: Wprowadzony adres URL lub ID jest nieprawidłowy.
+      placeholder: Adres URL/ID pokoju
       no_recent_rooms: Nie dołączyłeś(łaś) ostatnio do żadnego pokoju
-      recent_rooms: "Przejdź do pokoju, do którego ostatnio dołaczyłeś(łaś)"
+      recent_rooms: Przejdź do pokoju, do którego ostatnio dołaczyłeś(łaś)
       title: Dołącz do pokoju
     no_sessions: Ten pokój nie ma jeszcze sesji!
-    recordings: Nagrania z pokojów.
-    room_limit: Osiągnięto maksymalną dozwoloną liczbę pokoi.
-    room_limit_exceeded: "Przekroczyłeś dozwoloną liczbę pokoi. Proszę skasuj %{difference} pokój(pokoje) aby uzyskać dostęp do tego pokoju."
+    preupload_success: Pomyślnie dodano prezentację
+    preupload_error: Wystąpił błąd przy aktualizowaniu prezentacji
+    preupload_remove_success: Pomyślnie usunięto prezentację
+    preupload_remove_error: Wystąpił błąd przy usuwaniu prezentacji
+    recordings: Nagrania pokoju
+    room_limit: Osiągnięto maksymalną dozwoloną liczbę pokoi
+    room_limit_exceeded: Przekroczyłeś dozwoloną liczbę pokoi. Skasuj %{difference} pokój(pokoje) aby uzyskać dostęp do tego pokoju.
     sessions: Sesje
-    settings: Ustawienia Pokoju
-    start: Start
+    settings: Ustawienia pokoju
+    share: Zarządzaj dostępem
+    shared_by: Udostępniony dla %{email}
+    remove_shared_access_success: Pomyślnie usunięto udostępniony pokój z Twojej listy pokoi
+    remove_shared_access_error: Wystąpił błąd przy usuwaniu udostępnionego pokoju z Twojej listy
+    shared_access_success: Pomyślnie udostępniono pokój
+    shared_access_error: Wystąpił błąd przy udostępnianiu pokoju
+    start: Rozpocznij
     unavailable: Ten pokój jest obecnie niedostępny z powodu braku weryfikacji adresu e-mail właściciela.
     update_settings_error: Podczas aktualizacji ustawień pokoju wystąpił błąd
     update_settings_success: Ustawienia pokoju zostały pomyślnie zaktualizowane
     wait:
       message: Spotkanie jeszcze się nie rozpoczęło.
-      auto: "Przyłączysz się automatycznie, gdy rozpocznie się spotkanie."
+      auto: Przyłączysz się automatycznie, gdy spotkanie się rozpocznie.
   settings:
     account:
       fullname: Pełna nazwa
@@ -446,33 +591,35 @@ pl_PL:
       provider: Dostawca
       image: Obraz
       image_url: URL obrazu profilowego
-      roles: Role użytkownika
-      subtitle: Zaktualizuj informacje o swoim koncie
+      roles: Rola użytkownika
+      subtitle: Zaktualizuj informacje o koncie
       title: Informacje o koncie
+      reset_password: Resetuj hasło użytkownika
     delete:
-      button: "Tak, chciałbym usunąć moje konto."
-      disclaimer: "Jeśli zdecydujesz się usunąć konto, <b> NIE </b> będzie można go odzyskać. Wszystkie informacje dotyczące konta, w tym ustawienia, pokoje i nagrania zostaną usunięte."
+      button: Tak, chciałbym usunąć moje konto
+      disclaimer: Jeśli zdecydujesz się usunąć konto, <b>NIE</b> będzie można go odzyskać. Wszystkie informacje dotyczące konta, w tym ustawienia, pokoje i nagrania zostaną usunięte.
       subtitle: Trwale usuń swoje konto
-      title: Skasuj konto
+      title: Usuń konto
     password:
       confirmation: Potwierdzenie nowego hasła
       new: Nowe hasło
       old: Stare hasło
-      subtitle: " Zmień swoje hasło"
+      subtitle: Zmień swoje hasło
       title: Hasło
     title: Profil
     search: Szukaj
   signup:
     password_confirm: Potwierdzenie hasła
     subtitle: Załóż konto
-    title: Zapisz się
-    with: "Zapisz się korzystając z %{provider}"
+    title: Zarejestruj się
+    with: Zarejestruj się korzystając z %{provider}
   terms:
-    accept: "Akceptuję %{href}"
-    accept_existing: Akceptuję warunki regulaminu korzystania z usługi.
+    accept: Akceptuję %{href}
+    accept_existing: Akceptuję warunki regulaminu korzystania z usługi
     title: Regulamin
   test_install: >
-    To wdrożenie używa wstępnie skonfigurowanego serwera testowego, należy go zastąpić własnym. Dla zapoznania się z szczegółami, spójrz %{href}.
+    Ta instalacja używa wstępnie skonfigurowanego serwera testowego, należy go zastąpić własnym.
+    Dla zapoznania się z szczegółami, zobacz %{href}.
   update: Aktualizuj
   verify:
     accept: Sprawdź
@@ -480,7 +627,7 @@ pl_PL:
     already_verified: Konto już zostało sprawdzone
     invalid: Błędny link weryfikacji
     not_verified: Twoje konto nie zostało jeszcze zweryfikowane.
-    resend: Wyślij ponownie email weryfikacyjny
-    signin: "Proszę się zalogować, aby uzyskać dostęp do swojego konta."
-    title: Zweryfikuj swój adres email
+    resend: Wyślij ponownie e-mail weryfikacyjny
+    signin: Proszę się zalogować, aby uzyskać dostęp do swojego konta.
+    title: Zweryfikuj swój adres e-mail
     verification: Weryfikacja
