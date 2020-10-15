@@ -283,7 +283,7 @@ pl_PL:
   footer:
     legal: Regulamin
     privpolicy: Polityka prywatności
-    powered_by: "Powered by %{href}."
+    powered_by: "Powered by %{href}"
   forgot_password:
     subtitle: Nie pamiętam hasła
     email: E-mail
