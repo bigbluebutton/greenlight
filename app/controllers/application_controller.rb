@@ -284,7 +284,7 @@ class ApplicationController < ActionController::Base
       else
         set_default_settings
 
-        return render "errors/greenlight_error", locals: { status_code: 500, message: I18n.t("errors.internal.message"),
+        render "errors/greenlight_error", locals: { status_code: 500, message: I18n.t("errors.internal.message"),
           help: I18n.t("errors.internal.help"), display_back: true }
       end
     end

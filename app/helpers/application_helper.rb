@@ -133,7 +133,6 @@ module ApplicationHelper
 
   # Hide the signin buttons if there is an error on the page
   def show_signin
-    byebug
     !@hide_signin.present?
   end
 end
