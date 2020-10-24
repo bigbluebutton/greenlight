@@ -312,9 +312,9 @@ de_DE:
     search:
       start: Suche beginnen...
   landing:
-    about: "%{href} ist eine benutzerfreundliche Oberfläche für das Open-Source-Webkonferenzsystem BigBlueButton. Sie können Ihre eigenen Räume erstellen, um Konferenzen zu veranstalten oder können bestehenden Konferenzen über einen kurzen und bequemen Link beitreten."
-    welcome: Willkommen zu BigBlueButton.
-    video: Schauen Sie sich unsere Anleitung zur Verwendung von Greenlight an
+    about: "<strong>Karl-Theodor-v.-Dalberg-Gymnasium</strong><br>Musisches und Sprachliches Gymnasium<br>Grünewaldstraße 18<br>63739 Aschaffenburg<br><br>Beratung und Unterstützung bei der Nutzung des Systems:<br>StD U. Martin<br><i>Systembetreuer</i><br><br>+49 6021 22402<br><a href=\"mailto:videokonferenz@dalberg-gymnasium.de\">videokonferenz@dalberg-gymnasium.de</a>"
+    welcome: Herzlich willkommen in einem unserer Video-Konferenz-Systeme!
+    video:
     upgrade: "Zeigen Sie mir, wie ich auf Version 2.0. update!"
     version: "Wir haben eine neue Version von Greenlight veröffentlicht, aber Ihre Datenbank ist damit nicht kompatibel."
   language_default: Voreinstellung (Browsersprache)
