@@ -5,7 +5,7 @@ You can find some general information about the Greenlight in its [official repo
 ## Installing Greenlight with SAML support
 First, create the Greenlight directory for its configuration to live in.
 
-`mkdir ~/greenlight && mkdir ~/greenlight/cert mkdir ~/greenlight/cert/idp && cd ~/greenlight`
+`mkdir ~/greenlight && mkdir ~/greenlight/cert && mkdir ~/greenlight/cert/idp && cd ~/greenlight`
 
 Greenlight will read its environment configuration from the .env file. To generate this file and install the Greenlight Docker image, run:
 
