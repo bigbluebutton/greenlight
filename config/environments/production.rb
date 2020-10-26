@@ -138,8 +138,8 @@ Rails.application.configure do
     { host: event.payload[:host] }
   end
 
-  config.log_formatter = proc do |severity, _time, _progname, msg|
-    "#{severity}: #{msg} \n"
+  config.log_formatter = proc do |severity, time, _progname, msg|
+    "#{time} - #{severity}: #{msg} \n"
   end
 
   config.log_level = :info

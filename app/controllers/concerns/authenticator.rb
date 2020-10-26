@@ -42,7 +42,7 @@ module Authenticator
       redirect_to admins_path
     elsif user.activated?
       # Dont redirect to any of these urls
-      dont_redirect_to = [root_url, signin_url, ldap_signin_url, signup_url, unauthorized_url,
+      dont_redirect_to = [root_url, signin_url, ldap_signin_url, ldap_callback_url, signup_url, unauthorized_url,
                           internal_error_url, not_found_url]
       url = if cookies[:return_to] && !dont_redirect_to.include?(cookies[:return_to])
         cookies[:return_to]
@@ -62,7 +62,7 @@ module Authenticator
   end
 
   def ensure_unauthenticated_except_twitter
-    redirect_to current_user.main_room if current_user && params[:old_twitter_user_id].nil?
+    redirect_to current_user.main_room || root_path if current_user && params[:old_twitter_user_id].nil?
   end
 
   # Logs current user out of GreenLight.

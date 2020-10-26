@@ -478,7 +478,7 @@ fr:
   recording:
     all_recordings: Tous les enregistrements
     email: Envoyer l'enregistrement par courriel
-    error: "Il y a eu une erreur lors de la récupération de %{count}  enregistrement(s)"
+    error: "Il y a eu une erreur lors de la récupération de %{count} enregistrement(s)"
     no_recordings: "Ce salon n'a pas d'enregistrement %{inject}."
     no_user_recordings: "Actuellement, vous n'avez  aucun enregistrement."
     no_matched_recordings: "Aucun enregistrement %{inject} ne correspond à votre recherche."

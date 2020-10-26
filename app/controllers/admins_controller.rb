@@ -40,9 +40,14 @@ class AdminsController < ApplicationController
     @tab = params[:tab] || "active"
     @role = params[:role] ? Role.find_by(name: params[:role], provider: @user_domain) : nil
 
-    @user_list = merge_user_list
+    if @tab == "invited"
+      users = invited_users_list
+    else
+      users = manage_users_list
+      @user_list = merge_user_list
+    end
 
-    @pagy, @users = pagy(manage_users_list)
+    @pagy, @users = pagy(users)
   end
 
   # GET /admins/site_settings
@@ -133,7 +138,7 @@ class AdminsController < ApplicationController
       send_invitation_email(current_user.name, email, invitation.invite_token)
     end
 
-    redirect_to admins_path
+    redirect_back fallback_location: admins_path
   end
 
   # GET /admins/reset

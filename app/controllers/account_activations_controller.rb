@@ -20,8 +20,7 @@ class AccountActivationsController < ApplicationController
   include Emailer
 
   before_action :ensure_unauthenticated
-  before_action :find_user, except: :show
-  before_action :find_user_by_digest, only: :show
+  before_action :find_user
 
   # GET /account_activations
   def show
@@ -45,7 +44,7 @@ class AccountActivationsController < ApplicationController
     end
   end
 
-  # GET /account_activations/resend
+  # POST /account_activations/resend
   def resend
     if @user.activated?
       # User is already verified
@@ -61,11 +60,15 @@ class AccountActivationsController < ApplicationController
   private
 
   def find_user
-    @user = User.find_by!(activation_digest: User.hash_token(params[:token]), provider: @user_domain)
-  end
+    digest = if params[:token].present?
+      User.hash_token(params[:token])
+    elsif params[:digest].present?
+      params[:digest]
+    else
+      raise "Missing token/digest params"
+    end
 
-  def find_user_by_digest
-    @user = User.find_by!(activation_digest: params[:digest], provider: @user_domain)
+    @user = User.find_by!(activation_digest: digest, provider: @user_domain)
   end
 
   def ensure_unauthenticated

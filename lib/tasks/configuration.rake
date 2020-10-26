@@ -39,18 +39,8 @@ namespace :conf do
 end
 
 def test_smtp
-  smtp = Net::SMTP.new(ENV['SMTP_SERVER'], ENV['SMTP_PORT'])
-  if ENV['SMTP_STARTTLS_AUTO']
-    smtp.enable_starttls_auto if smtp.respond_to?(:enable_starttls_auto)
-  end
-
-  user = ENV['SMTP_USERNAME'].presence || nil
-  password = ENV['SMTP_PASSWORD'].presence || nil
-  authtype = ENV['SMTP_AUTH'].present? && ENV['SMTP_AUTH'] != "none" ? ENV['SMTP_AUTH'] : nil
-
-  smtp.start(ENV['SMTP_DOMAIN'], user, password, authtype) do |s|
-    s.sendmail('test', ENV['SMTP_USERNAME'], 'notifications@example.com')
-  end
+  TestMailer.test_email(ENV.fetch('SMTP_SENDER', 'notifications@example.com'),
+                        ENV.fetch('SMTP_TEST_RECIPIENT', 'notifications@example.com')).deliver
 rescue => e
   failed("Error connecting to SMTP - #{e}")
 end
@@ -82,4 +72,14 @@ end
 
 def passed
   print(": Passed\n")
+end
+
+class TestMailer < ActionMailer::Base
+  def test_email(sender, recipient)
+    mail(to: recipient,
+      from: sender,
+      subject: "Greenlight Email Test",
+      body: "This is what people with plain text mail readers will see.",
+      content_type: "text/plain",)
+  end
 end
