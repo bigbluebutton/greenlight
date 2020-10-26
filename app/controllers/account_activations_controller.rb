@@ -44,7 +44,7 @@ class AccountActivationsController < ApplicationController
     end
   end
 
-  # GET /account_activations/resend
+  # POST /account_activations/resend
   def resend
     if @user.activated?
       # User is already verified
@@ -60,7 +60,15 @@ class AccountActivationsController < ApplicationController
   private
 
   def find_user
-    @user = User.find_by!(activation_digest: User.hash_token(params[:token]), provider: @user_domain)
+    digest = if params[:token].present?
+      User.hash_token(params[:token])
+    elsif params[:digest].present?
+      params[:digest]
+    else
+      raise "Missing token/digest params"
+    end
+
+    @user = User.find_by!(activation_digest: digest, provider: @user_domain)
   end
 
   def ensure_unauthenticated

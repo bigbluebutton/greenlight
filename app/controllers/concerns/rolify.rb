@@ -21,7 +21,7 @@ module Rolify
 
   # Gets all roles
   def all_roles(selected_role)
-    @roles = Role.editable_roles(@user_domain)
+    @roles = Role.editable_roles(@user_domain).by_priority
 
     if @roles.count.zero?
       Role.create_default_roles(@user_domain)
@@ -46,60 +46,23 @@ module Rolify
   end
 
   # Updates a user's roles
-  def update_roles(roles)
-    # Check that the user can manage users
-    return true unless current_user.highest_priority_role.get_permission("can_manage_users")
+  def update_roles(role_id)
+    return true if role_id.blank?
+    # Check to make sure user can edit roles
+    return false unless current_user.role.get_permission("can_manage_users")
 
-    new_roles = roles.split(' ').map(&:to_i)
-    old_roles = @user.roles.pluck(:id).uniq
+    return true if @user.role_id == role_id.to_i
 
-    added_role_ids = new_roles - old_roles
-    removed_role_ids = old_roles - new_roles
+    new_role = Role.find_by(id: role_id, provider: @user_domain)
+    # Return false if new role doesn't exist
+    return false if new_role.nil?
 
-    added_roles = []
-    removed_roles = []
-    current_user_role = current_user.highest_priority_role
-
-    # Check that the user has the permissions to add all the new roles
-    added_role_ids.each do |id|
-      role = Role.find(id)
-
-      # Admins are able to add the admin role to other users. All other roles may only
-      # add roles with a higher priority
-      if (role.priority > current_user_role.priority || current_user_role.name == "admin") &&
-         role.provider == @user_domain
-        added_roles << role
-      else
-        return false
-      end
-    end
-
-    # Check that the user has the permissions to remove all the deleted roles
-    removed_role_ids.each do |id|
-      role = Role.find(id)
-
-      # Admins are able to remove the admin role from other users. All other roles may only
-      # remove roles with a higher priority
-      if (role.priority > current_user_role.priority || current_user_role.name == "admin") &&
-         role.provider == @user_domain
-        removed_roles << role
-      else
-        return false
-      end
-    end
+    return false if new_role.priority < current_user.role.priority
 
     # Send promoted/demoted emails
-    added_roles.each { |role| send_user_promoted_email(@user, role) if role.get_permission("send_promoted_email") }
-    removed_roles.each { |role| send_user_demoted_email(@user, role) if role.get_permission("send_demoted_email") }
+    send_user_promoted_email(@user, new_role) if new_role.get_permission("send_promoted_email")
 
-    # Update the roles
-    @user.roles.delete(removed_roles)
-    @user.roles << added_roles
-
-    # Make sure each user always has at least the user role
-    @user.roles = [Role.find_by(name: "user", provider: @user_domain)] if @user.roles.count.zero?
-
-    @user.save!
+    @user.set_role(new_role.name)
   end
 
   # Updates a roles priority
@@ -107,7 +70,7 @@ module Rolify
     user_role = Role.find_by(name: "user", provider: @user_domain)
     admin_role = Role.find_by(name: "admin", provider: @user_domain)
 
-    current_user_role = current_user.highest_priority_role
+    current_user_role = current_user.role
 
     # Users aren't allowed to update the priority of the admin or user roles
     return false if role_to_update.include?(user_role.id.to_s) || role_to_update.include?(admin_role.id.to_s)
@@ -149,7 +112,7 @@ module Rolify
 
   # Update Permissions
   def update_permissions(role)
-    current_user_role = current_user.highest_priority_role
+    current_user_role = current_user.role
 
     # Checks that it is valid for the provider to update the role
     return false if role.priority <= current_user_role.priority || role.provider != @user_domain
@@ -183,6 +146,18 @@ module Rolify
     role.update(colour: permission_params[:colour])
     role.update_all_role_permissions(permission_params)
 
+    # Create home rooms for all users with this role if users with this role are now able to create rooms
+    create_home_rooms(role.name) if !role.get_permission("can_create_rooms") && permission_params["can_create_rooms"] == "true"
+
     role.save!
+  end
+
+  private
+
+  # Create home rooms for users since they are now able to create rooms
+  def create_home_rooms(role_name)
+    User.with_role(role_name).each do |user|
+      user.create_home_room if user.main_room.nil?
+    end
   end
 end

@@ -1,0 +1,96 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="form-group">
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.legal.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.legal.info") %></label>
+        <div class="input-group">
+          <input id="legal-url" type="text" class="form-control" value="<%= legal_url %>">
+          <span class="input-group-append">
+            <button id="legal-url" onclick="changeLegalURL('<%= admin_update_settings_path(setting: 'Legal URL') %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.legal.change") %></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.privpolicy.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.privpolicy.info") %></label>
+        <div class="input-group">
+          <input id="privpolicy-url" type="text" class="form-control" value="<%= privpolicy_url %>">
+          <span class="input-group-append">
+            <button id="privpolicy-url" onclick="changePrivacyPolicyURL('<%= admin_update_settings_path(setting: 'Privacy Policy URL') %>')" class="btn btn-primary" type="button"><%= t("administrator.site_settings.privpolicy.change") %></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if show_log_dropdown %>
+    <div class="row mb-2">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="form-label"><%= t("administrator.site_settings.maintenance_banner.title") %></label>
+          <label class="form-label text-muted"><%= t("administrator.site_settings.maintenance_banner.info") %></label>
+          <div class="input-group">
+            <input id="maintenance-banner" type="text" class="form-control" value="<%= maintenance_banner %>" placeholder="<%= t("administrator.site_settings.maintenance_banner.time") %>">
+            <span class="input-group-append">
+                <button onclick="displayMaintenanceBanner('<%= admin_update_settings_path(setting: 'Maintenance Banner') %>')" class="settings-button btn btn-primary" type="button"><%= t("administrator.site_settings.maintenance_banner.display") %></button>
+                <button onclick="clearMaintenanceBanner('<%= admin_update_settings_path(setting: 'Maintenance Banner') %>')" class="settings-button btn btn-danger" type="button"><%= t("administrator.site_settings.maintenance_banner.clear") %></button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="form-label"><%= t("administrator.site_settings.log_level.title") %></label>
+          <label class="form-label text-muted"><%= t("administrator.site_settings.log_level.information") %></label>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="room-auth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= log_level_string %>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="room-auth">
+              <%= button_to admin_log_level_path(value: 0), class: "dropdown-item", "data-disable": "" do %>
+                <%= t("administrator.site_settings.log_level.debug") %>
+              <% end %>
+              <%= button_to admin_log_level_path(value: 1), class: "dropdown-item", "data-disable": "" do %>
+                <%= t("administrator.site_settings.log_level.info") %>
+              <% end %>
+              <%= button_to admin_log_level_path(value: 2), class: "dropdown-item", "data-disable": "" do %>
+                <%= t("administrator.site_settings.log_level.warn") %>
+              <% end %>
+              <%= button_to admin_log_level_path(value: 3), class: "dropdown-item", "data-disable": "" do %>
+                <%= t("administrator.site_settings.log_level.error") %>
+              <% end %>
+              <%= button_to admin_log_level_path(value: 4), class: "dropdown-item", "data-disable": "" do %>
+                <%= t("administrator.site_settings.log_level.fatal") %>
+              <% end %>
+              <%= button_to admin_log_level_path(value: 5), class: "dropdown-item", "data-disable": "" do %>
+                <%= t("administrator.site_settings.log_level.unknown") %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -28,7 +28,7 @@
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off %>
+              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off, required: true %>
               <div class="invalid-feedback text-left"><%= t("modal.create_room.not_blank") %></div>
             </div>
 
@@ -69,7 +69,6 @@
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
-
             <% moderator = room_configuration("Room Configuration All Join Moderator") %>
             <% if moderator != "disabled" %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if moderator == "enabled" %>">
@@ -78,15 +77,26 @@
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
-
+            <% recording = room_configuration("Room Configuration Recording") %>
+            <% if recording_consent_required? && recording != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if recording == "enabled" %>">
+                <span class="custom-switch-description"><%= t("modal.room_settings.recording")%></span>
+                <%= f.check_box :recording, class: "not-running-only custom-switch-input", data: { default: recording == "enabled" }, checked: false %>
+                <span class="custom-switch-indicator not-running-only float-right cursor-pointer"></span>
+            </label>
+            <% end %>
             <label id="auto-join-label" class="create-only custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
               <span class="custom-switch-description"><%= t("modal.create_room.auto_join") %></span>
               <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>
               <span class="custom-switch-indicator float-right cursor-pointer"></span>
             </label>
           <div class="mt-4">
-            <%= f.submit t("modal.create_room.create"), class: "create-only btn btn-primary btn-block" %>
-            <%= f.submit t("modal.room_settings.update"), class: "update-only btn btn-primary btn-block" %>
+            <%= f.submit t("modal.create_room.create"), class: "create-only btn btn-primary create-room-button" %>
+            <%= f.submit t("modal.room_settings.update"), class: "update-only btn btn-primary create-room-button" %>
+
+            <button type="button" class="btn btn-secondary create-room-button" data-dismiss="modal">
+              <%= t("cancel") %>
+            </button>
           </div>
           <% end %>
         </div>
