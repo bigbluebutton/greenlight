@@ -74,7 +74,7 @@ class AdminsController < ApplicationController
     begin
       meetings = all_running_meetings[:meetings]
     rescue
-      flash[:alert] = I18n.t("administrator.rooms.timeout")
+      flash[:alert] = I18n.t("administrator.rooms.timeout", server: I18n.t("bigbluebutton"))
       meetings = []
     end
 
