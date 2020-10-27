@@ -52,11 +52,19 @@ $(document).on('turbolinks:load', function(){
       $(".merge-user").click(function() {
         // Update the path of save button
         $("#merge-save-access").attr("data-path", $(this).data("path"))
-
         let userInfo = $(this).data("info")
+        $("#merge-to").html("") // Clear current inputs
 
-        $("#merge-to").html("<span>" + userInfo.name + "</span>" + "<span class='text-muted d-block'>" + userInfo.email + "</span>" + "<span class='text-muted d-block'>" + userInfo.uid + "</span>")
- 
+        let spanName = document.createElement("span"),
+        spanEmail = document.createElement("span"),
+        spanUid = document.createElement("span");
+        spanName.innerText = userInfo.name
+        spanEmail.setAttribute('class', 'text-muted d-block')
+        spanEmail.innerText = userInfo.email
+        spanUid.setAttribute('class', 'text-muted d-block')
+        spanUid.innerText = userInfo.uid
+
+        $("#merge-to").append(spanName, spanEmail, spanUid)
       })
 
       $("#mergeUserModal").on("show.bs.modal", function() {
@@ -81,7 +89,19 @@ $(document).on('turbolinks:load', function(){
         let user = $(".selectpicker").selectpicker('val')
         if (user != "") {
           let userInfo = JSON.parse(user)
-          $("#merge-from").html("<span>" + userInfo.name + "</span>" + "<span class='text-muted d-block'>" + userInfo.email + "</span>" + "<span id='from-uid' class='text-muted d-block'>" + userInfo.uid + "</span>")
+          $("#merge-from").html("") // Clear current input
+
+          let spanName = document.createElement("span"),
+          spanEmail = document.createElement("span"),
+          spanUid = document.createElement("span");
+          spanName.innerText = userInfo.name
+          spanEmail.setAttribute('class', 'text-muted d-block')
+          spanEmail.innerText = userInfo.email
+          spanUid.setAttribute('class', 'text-muted d-block')
+          spanUid.id = 'from-uid'
+          spanUid.innerText = userInfo.uid
+
+          $("#merge-from").append(spanName, spanEmail, spanUid)
         }
       })
     }

@@ -21,7 +21,7 @@ fr:
     attributes:
       user:
         accepted_terms: "Termes et Conditions"
-        email: E-mail
+        email: Adresse électronique
         name: Nom
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
@@ -76,7 +76,7 @@ fr:
         info: Infos
         warn: Attention
         error: Erreur
-        fatal: Erreur Fatale
+        fatal: Erreur fatale
         unknown: Inconnu
       recording_visibility:
         info: Modifier la visibilité par défaut pour les nouveaux enregistrements
@@ -173,7 +173,7 @@ fr:
         enabled: Toujours activé
         optional: Facultatif
     rooms:
-      title: Serveur des Salons
+      title: Serveur des salons
       table:
         ended: "Terminé:%{session}"
         id: ID
@@ -202,12 +202,14 @@ fr:
       table:
         authenticator: Authentificateur
         created: Créé
+        time: Heure d'envoi
         name: Nom
         not_found: Aucun utilisateur correspondant à votre recherche
         no_users: Aucun utilisateur trouvé
         role: Rôle
         uid: ID utilisateur
         username: Nom d'utilisateur
+        valid: Valide
       title: Gérer les utilisateurs
   add_to_google_calendar: "Ajouter au calendrier Google"
   bigbluebutton: BigBlueButton
@@ -475,9 +477,9 @@ fr:
       verification_failed: "La vérification de reCAPTCHA a échoué, veuillez réessayer."
   recording:
     all_recordings: Tous les enregistrements
-    email: Envoyer l'enregistrement par Email
-    error: "Il y a eu une erreur lors de la récupération de %{count}  enregistrement(s)"
-    no_recordings: "Cette salle n'a pas d'enregistrement %{inject}."
+    email: Envoyer l'enregistrement par courriel
+    error: "Il y a eu une erreur lors de la récupération de %{count} enregistrement(s)"
+    no_recordings: "Ce salon n'a pas d'enregistrement %{inject}."
     no_user_recordings: "Actuellement, vous n'avez  aucun enregistrement."
     no_matched_recordings: "Aucun enregistrement %{inject} ne correspond à votre recherche."
     recorded_on: "Enregistré le %{date}"
@@ -530,6 +532,7 @@ fr:
   room:
     access_code_required: Veuillez introduire un code d'accès valide afin de rejoindre la salle
     add_presentation: Ajouter présentation
+    copy_access: Copier le code d'accès
     create_room: Créer un salon
     create_room_error: Une erreur s'est produite lors de la création du salon
     create_room_success: Salon créé avec succès
