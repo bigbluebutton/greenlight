@@ -261,7 +261,7 @@ es_MX:
       start: Iniciar busqueda...
   landing:
     about: "Greenlight es una interface web para tu servidor %{href}de conferencias de fuentes libres. Puedes crear tus propias salas y ser anfitrión de sesiones o ingresar a las de otros utilizando un corto y conveniente enlace."
-    welcome: Bienvenido a <span class="green-grad">Greenlight</span>.
+    welcome: Bienvenido a <span class="green-grad">WEBINARS HEDERA</span>.
     video: Ve nuestro tutorial de como utilizar Greenlight
     upgrade: Muestrame como actualizar a versión 2.0
     version: Hemos publicado una nueva version de Greenlight pero tu base de datos no es compatible.
