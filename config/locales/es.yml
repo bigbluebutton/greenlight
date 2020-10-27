@@ -310,7 +310,7 @@ es:
     search:
       start: Comenzar búsqueda...
   landing:
-    about: "%{href} es una interface web para su servidor de conferencias de código abierto, BigBlueButton. Usted puede crear sus propias salas y ser anfitrión de sesiones o unirse a otras sólamente usando un enlace corto."
+    about: "%{href} es el frontEnd que usamos desde HEDERA para administrar nuestras propias salas de videoconferencia. Usted puede crear sus propias salas y ser anfitrión de sesiones o unirse a otras sólamente usando un enlace corto."
     welcome: Bienvenido a <span class="green-grad">WEBINARS HEDERA</span>.
     video: Vea nuestro tutorial sobre cómo utilizar Greenlight
     upgrade: Muéstrame cómo actualizar a la versión 2.0
