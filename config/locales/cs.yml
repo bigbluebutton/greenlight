@@ -127,7 +127,7 @@ cs:
       perm_deleted: Uživatel byl permanentně smazán
       promoted: Uživatel byl úspěšně povýšen
       registration_method_updated: Způsob registrace byl úspěšně změněn
-      reset_password: "Uživateli byl odeslán e-mail na zresetování jeho hesla. (Pokud zpráva nedorazila, požádejte o kontrolu složky se spamem)"
+      reset_password: "Uživateli byl odeslán e-mail na zresetování jeho hesla. (Pokud zpráva nedorazila, požádejte uživatele o kontrolu složky se spamem)"
       restored: Uživatel byl úspěšně obnoven
       room_configuration: Nastavení úspěšně uloženo
       settings: Nastavení serveru úspěšně změněno
@@ -145,7 +145,7 @@ cs:
       manage_rooms_recordings: Povolit uživatelům s touto rolí spravovat místnosti a nahrávky
       name: Název role
       new_role: Vytvořit novou roli
-      role_has_users: "Tato role je přidělena k %{user_count} účtem. Prosím odstraňte z role všechny účty před jejím smazáním"
+      role_has_users: "Tato role je přidělena k %{user_count} účtům. Prosím odstraňte z role všechny účty před jejím smazáním"
       title: Role
       promote_email: "Odeslat e-mail uživatelům, když jim je přidělena tato role"
       demote_email: "Odeslat e-mail uživatelům, když jim je odebrána tato role"
@@ -202,12 +202,14 @@ cs:
       table:
         authenticator: Ověřen přes
         created: Vytvořen
+        time: Odeslaný čas
         name: Jméno
-        not_found: Vašemu hledání nevyhovují žádní uživatelé
+        not_found: Vašemu zadání nevyhovují žádní uživatelé
         no_users: Žádný uživatel nenalezen
         role: Role
         uid: ID uživatele
         username: Přihlašovací jméno
+        valid: Platné
       title: Spravovat uživatele
   add_to_google_calendar: "Přidat do Google Calendar"
   bigbluebutton: BigBlueButton
@@ -225,7 +227,7 @@ cs:
   delivery_error: Nastala chyba při odesílání e-mailu. Kontaktujte správce systému.
   docs: Dokumentace
   email: e-mail
-  email_sent: "Váš%{email_type} e-mail byl odeslán! (Pokud zpráva nedorazila, požádejte o kontrolu složky se spamem)"
+  email_sent: "Zpráva byla odeslána na Váš %{email_type}! (Pokud zpráva nedorazila, zkontrolujte si prosím složku se spamem)"
   enter_your_name: Zadejte své jméno
   errors:
     bigbluebutton:
@@ -530,6 +532,7 @@ cs:
   room:
     access_code_required: Prosím zadejte platný přístupový kód pro vstup do místnosti
     add_presentation: Přidat prezentaci
+    copy_access: Zkopíruj přístupový kód
     create_room: Vytvořit místnost
     create_room_error: Při vytváření místnosti nastala chyba
     create_room_success: Místnost byla úspěšně vytvořena
