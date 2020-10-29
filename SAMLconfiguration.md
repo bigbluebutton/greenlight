@@ -1,12 +1,12 @@
-# SAML
+﻿# SAML
 
-Greenlight is a Service Provider, that connects to IdP to get authentification.
+Greenlight is a Service Provider, that connects to IdP to get authentication.
 
-Unfortunatly, Greenlight does not support SAML out of the box. But there is a [PR Request](https://github.com/bigbluebutton/greenlight/pull/1334) that gives needed functionality.
+Unfortunately, Greenlight does not support SAML out of the box. But there is a [PR Request](https://github.com/bigbluebutton/greenlight/pull/1334) that gives needed functionality.
 
 After all code changes merged - you should configure the SAML.
 
-## Usefull links:
+## Useful links:
 To get metadata of Greenlight use [\<Greenlight homepage Link\>/auth/saml/metadata]()
 
 By default:
@@ -54,44 +54,47 @@ Example:
 ```
 ## SAML configuration
 SAML configuration required configuration from both sides. 
-1. Greenlight required uniq identifier of SP, that should be stored in IdP. 
+1. Greenlight required unique identifier of SP, that should be stored in IdP. 
 The best way is to set SAML_ISSUER variable in .env and then lookup greenlight metadata from IdP.
 
-2. Set SAML_IDP_URL variable. SAML_IDP_URL is the URL to which the authentication request should be sent. This would be on the identity provider. It can be found in the IdP's metadata in the <md:SingleSignOnService> tag. Get this tag from IdP metadata.
+2. Set SAML_IDP_SSO_URL variable. SAML_IDP_SSO_URL is the URL to which the authentication request should be sent. This would be on the identity provider. It can be found in the IdP's metadata in the <md:SingleSignOnService> tag. Get this tag from IdP metadata.
 
-3. IDP_CERTIFICATE is the filename of the certificate used by the IDP that located in cert/idp folder. 
-4. SAML_NAME_IDENTIFIER - could get from IdP metadata. by default it is "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
-5. The information about this SP (metadata) can be found on your server http://<example.com>/auth/saml/metadata
+3. Set SAML_IDP_SLO_URL variable. SAML_IDP_SLO_URL is the URL to which the logout request should be sent. This would be on the identity provider. It can be found in the IdP's metadata in the <md:SingleLogoutService> tag. Get this tag from IdP metadata.
+4. SAML_CALLBACK_URL is the URL on which the authentication response are waiting. By default, "http:/<greenlight domain>/auth/saml/callback"
 
-   5.1 SINGLE_LOGOUT_SERVICE_URL - link of the single logout service that used with IdP initiated logout. See https://github.com/omniauth/omniauth-saml#single-logout
+5. IDP_CERTIFICATE is the filename of the certificate used by the IDP that located in cert/idp folder. 
+6. SAML_NAME_IDENTIFIER - could get from IdP metadata. by default it is "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+7. The information about this SP (metadata) can be found on your server http://<example.com>/auth/saml/metadata
 
-   5.2 Certificate and Security settings:
+   7.1 SINGLE_LOGOUT_SERVICE_URL - link of the single logout service that used with IdP initiated logout. See https://github.com/omniauth/omniauth-saml#single-logout
 
-        SP_CERTIFICATE is a filename of the used certificate with file extention. Ex: test.cert
+   7.2 Certificate and Security settings:
+
+        SP_CERTIFICATE is a filename of the used certificate with file extension. Ex: test.cert
 
         SP_CERTIFICATE_PRIVATE_KEY is a filename of the used private key of selected certificate with file extension. Ex: test.key
 
         ### ALL SP's CERTIFICATES AND PRIVATE KEYS SHOULD BE IN cert FOLDER!!! ###
 
         AUTHN_REQUESTS_SIGNED is a boolean value that enable or not signature on AuthNRequest.
-                              By default is false. For signaturte recomended value is true.
+                              By default is false. For signature recommended value is true.
         LOGOUT_REQUESTS_SIGNED is a boolean value that enable or not signature on Logout Request.
-                              By default is false. For signaturte recomended value is true.
+                              By default is false. For signature recommended value is true.
         LOGOUT_RESPONSES_SIGNED is a boolean value that enable or not signature on Logout Response.
-                              By default is false. For signaturte recomended value is true.
+                              By default is false. For signature recommended value is true.
         WANT_ASSERTIONS_SIGNED is a boolean value that enable or not the requirement of signed assertion.
-                              By default is false. For signaturte recomended value is true.
+                              By default is false. For signature recommended value is true.
         METADATA_SIGNED is a boolean value that enable or not signature on Metadata.
-                              By default is false. For signaturte recomended value is true.
+                              By default is false. For signature recommended value is true.
         EMBED_SIGN is a boolean value that represent embeded signature or HTTP GET parameter signature.
-                              By default is false. For signaturte recomended value is false.
+                              By default is false. For signature recommended value is false.
         CHECK_IDP_CERT_EXPIRATION is a boolean value that enable or not IdP x509 cert expiration check.
-                              By default is false. For signaturte recomended value is false.
+                              By default is false. For signature recommended value is false.
         CHECK_SP_CERT_EXPIRATION is a boolean value that enable or not SP x509 cert expiration check.
-                              By default is false. For signaturte recomended value is false.
+                              By default is false. For signature recommended value is false.
    For more details check documentation in https://github.com/onelogin/ruby-saml and https://github.com/omniauth/omniauth-saml
-6. All other variables that are required to map SAML response fields to the user fields in the Greenlight.
-To get all available fields check IdP or record network activity in developer console in your browser. Try to sign in using SAML, copy encoded SAML Response, decode it using [decoder](https://www.samltool.com/decode.php) and map values from the response by name fields to variables in .env
+8. All other variables that are required to map SAML response fields to the user fields in the Greenlight.
+To get all available fields check IdP or record network activity in developer console in your browser. Try to sign in using SAML, copy encoded SAML Response, decode it using [decoder](https://www.samltool.com/decode.php) and map values from the response by name fields to variables in .env.
 Example:
 ```xml
 <samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
@@ -176,3 +179,4 @@ Example:
     </saml:Assertion>
 </samlp:Response>
 ```
+9. Further information about configuration parameters could be found in the .env file.
