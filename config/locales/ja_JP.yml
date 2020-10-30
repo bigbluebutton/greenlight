@@ -173,6 +173,7 @@ ja_JP:
         enabled: 常に有効
         optional: 会議室ごとに設定
     rooms:
+      timeout: "%{server}サーバへのリクエストがタイムアウトしたため、 ステータスと参加者の情報は正確でない可能性があります。"
       title: すべての会議室
       table:
         ended: "会議終了: %{session}"
