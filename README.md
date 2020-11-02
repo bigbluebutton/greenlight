@@ -13,9 +13,6 @@ Greenlight will read its environment configuration from the .env file. To genera
   
 ### Configuration
 
-#### Create .env configuration
-In `greenlight` folder use command `cp sample.env .env`
-
 #### Generating a Secret Key
 Greenlight needs a secret key in order to run in production. To generate this, run:
 
