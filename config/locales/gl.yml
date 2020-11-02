@@ -173,6 +173,7 @@ gl:
         enabled: Activado sempre
         optional: Opcional
     rooms:
+      timeout: "Por mor do tempo de espera da solicitude do servidor %{server}, é posíbel que a información do estado e dos participantes non sexa exacta"
       title: Salas no servidor
       table:
         ended: "Rematada: %{session}"

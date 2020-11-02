@@ -173,6 +173,7 @@ en:
         enabled: Always Enabled
         optional: Optional
     rooms:
+      timeout: Due to the %{server} Server request timing out, the information for status and participants may not be accurate
       title: Server Rooms
       table:
         ended: "Ended: %{session}"

@@ -71,7 +71,13 @@ class AdminsController < ApplicationController
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "status"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
 
-    meetings = all_running_meetings[:meetings]
+    begin
+      meetings = all_running_meetings[:meetings]
+    rescue BigBlueButton::BigBlueButtonException
+      flash[:alert] = I18n.t("administrator.rooms.timeout", server: I18n.t("bigbluebutton"))
+      meetings = []
+    end
+
     @order_column = "created_at" if meetings.empty?
     @running_room_bbb_ids = meetings.pluck(:meetingID)
 

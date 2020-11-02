@@ -173,6 +173,7 @@ nl:
         enabled: Altijd ingeschakeld
         optional: Optioneel
     rooms:
+      timeout: "Door de time-out van het serververzoek %{server} is de informatie over de status en deelnemers mogelijk niet correct"
       title: Server Kamers
       table:
         ended: "Beëindigd: %{session}"

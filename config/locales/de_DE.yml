@@ -173,6 +173,7 @@ de_DE:
         enabled: Immer aktiviert
         optional: Optional
     rooms:
+      timeout: "Aufgrund der Zeitüberschreitung der %{server} Server-Anfrage sind die Informationen zum Status und zu den Teilnehmern möglicherweise nicht korrekt"
       title: Serverräume
       table:
         ended: "Beendet: %{session}"

@@ -271,7 +271,7 @@ class ApplicationController < ActionController::Base
         render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_missing.message"),
           help: I18n.t("errors.not_found.user_missing.help") }
       elsif e.message.eql? "That user has no configured provider."
-        if Setting.exists(provider: @user_domain)
+        if Setting.exists?(provider: @user_domain)
           # Keep the branding
           @settings = Setting.find_by(provider: @user_domain)
         else
