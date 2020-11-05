@@ -66,7 +66,7 @@ The best way is to set SAML_ISSUER variable in .env and then lookup greenlight m
 6. SAML_NAME_IDENTIFIER - could get from IdP metadata. by default it is "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
 7. The information about this SP (metadata) can be found on your server http://<example.com>/auth/saml/metadata
 
-   7.1 SINGLE_LOGOUT_SERVICE_URL - link of the single logout service that used with IdP initiated logout. See https://github.com/omniauth/omniauth-saml#single-logout
+   7.1 SINGLE_LOGOUT_SERVICE_URL - link of the single logout service that used with IdP initiated logout. For example: "http://<greenlight_domain>/auth/saml/slo". For more details see https://github.com/omniauth/omniauth-saml#single-logout
 
    7.2 Certificate and Security settings:
 
