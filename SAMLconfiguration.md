@@ -93,9 +93,15 @@ The best way is to set SAML_ISSUER variable in .env and then lookup greenlight m
         CHECK_SP_CERT_EXPIRATION is a boolean value that enable or not SP x509 cert expiration check.
                               By default is false. For signature recommended value is false.
    For more details check documentation in https://github.com/onelogin/ruby-saml and https://github.com/omniauth/omniauth-saml
-8. All other variables that are required to map SAML response fields to the user fields in the Greenlight.
-To get all available fields check IdP or record network activity in developer console in your browser. Try to sign in using SAML, copy encoded SAML Response, decode it using [decoder](https://www.samltool.com/decode.php) and map values from the response by name fields to variables in .env.
-Example:
+8. Set other variables that are required to map SAML response fields to the user fields in the Greenlight:
+   - SAML_UID_ATTRIBUTE,
+   - SAML_USERNAME_ATTRIBUTE,
+   - SAML_EMAIL_ATTRIBUTE,
+   - SAML_COMMONNAME_ATTRIBUTE,
+   - SAML_ROLES_ATTRIBUTE.
+   
+All required values could be found in the IdP configuration. Alternatively, you could find them in the SAML response from IdP using, for example, network activity in a developer console of a web browser or using SAML-tracer extention. To do so, sign in using SAML, copy encoded SAML Response, decode it using [decoder](https://www.samltool.com/decode.php) and map values from the response by the field names to the variables in the .env file.
+SAML response example:
 ```xml
 <samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="_c698df5088d9d2760948b7efefc4f82f0de07e51dc" Version="2.0" IssueInstant="2020-08-19T12:43:05Z" Destination="http://localhost/b/auth/saml/callback" InResponseTo="_7113c56a-17dd-46a6-a54d-0e293d2e457e">
