@@ -21,7 +21,7 @@ fr:
     attributes:
       user:
         accepted_terms: "Termes et Conditions"
-        email: E-mail
+        email: Adresse électronique
         name: Nom
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
@@ -36,7 +36,7 @@ fr:
         enabled: Activé
         info: Autoriser uniquement les utilisateurs authentifiés à rejoindre une salle
         title: Authentification requise pour rejoindre les salles
-        user-info: Vous devez être connecté à Greenlight pour rejoindre cette salle
+        user-info: Vous devez vous inscrire ci-dessus pour rejoindre cette salle.
       branding:
         change: Changer l'image
         info: Change l'image qui apparaît en haut à gauche
@@ -45,9 +45,9 @@ fr:
         invalid: URL invalide
       legal:
         change: Changer d'URL
-        info: Modifier le lien juridique qui apparaît en bas de la page
-        placeholder: URL juridique ...
-        title: Légal
+        info: Modifier le lien des conditions qui apparaît au bas de la page
+        placeholder: Lien vers les conditions...
+        title: Conditions
         invalid: URL invalide
       privpolicy:
         change: Changer d'URL
@@ -76,12 +76,24 @@ fr:
         info: Infos
         warn: Attention
         error: Erreur
-        fatal: Erreur Fatale
+        fatal: Erreur fatale
         unknown: Inconnu
       recording_visibility:
         info: Modifier la visibilité par défaut pour les nouveaux enregistrements
         title: Visibilité d'un enregistrement par défaut
         warning: Ce réglage ne sera appliqué qu'aux salles actuellement inactives
+      require_consent:
+        info: Ce paramètre permet aux propriétaires de salles de spécifier celles qui peuvent être enregistrées. Les utilisateurs qui se joignent à une salle enregistrée doivent donner leur accord avant de la rejoindre.
+        title: Requiert les consentements du propriétaire de la salle et de celui qui la rejoint pour l'enregistrement
+      maintenance_banner:
+        info: Affiche une bannière informant l'utilisateur d'une maintenance programmée
+        title: Bannière de maintenance
+        display: Définir
+        clear: Effacer
+        time: "Exemple : Mise à jour prévue le 13 décembre à 23:00. Les utilisateurs peuvent rencontrer des problèmes pour se connecter."        
+      preupload:
+        info: Les utilisateurs peuvent précharger une présentation qui sera utilisée comme présentation par défaut pour cette salle spécifique
+        title: Permettre aux utilisateurs de précharger des présentations
       registration:
         info: Modifier le mode d'inscription pour le site
         title: Méthode d'inscription
@@ -90,23 +102,27 @@ fr:
           invite: Invitation
           open: Inscription ouverte
       rooms:
-        info: Limiter le nombre de salles maximum qu'un utilisateur peut avoir (Salle d'Accueil incluse). Ce réglage n'affecte pas les administrateurs.
+        info: Limiter le nombre maximum de salles qu'un utilisateur peut avoir (Salle d'Accueil incluse). Ce réglage n'affecte pas les administrateurs.
         title: Nombre de salles par utilisateur
       shared_access:
         info: "Désactiver : supprimera de la liste déroulante des options du Salon, le bouton de partage, empêchant ainsi les utilisateurs de partager des Salons"
         title: Autorise les utilisateurs à partager le Salon
       subtitle: Personnaliser Greenlight
+      tabs:
+        appearance: Apparence
+        administration: Administration
+        settings: "Paramètres "
       title: Paramètres du site
     flash:
       approved: L'utilisateur a été approuvé.
       banned: L'utilisateur a été banni.
-      unbanned: L'utilisateur a été dé-banni.
+      unbanned: L'utilisateur n'est plus banni.
       delete: Utilisateur supprimé
       delete_fail: Impossible de supprimer l'utilisateur
       demoted: L'utilisateur a été rétrogradé
       invite: "Invitation envoyée à %{email}"
       invite_email_verification: Les emails doivent être activés pour utiliser cette méthode. Veuillez contacter votre administrateur système.
-      merge_fail: Un problème est survenu lors de la fusion des comptes utilisateurs. Veuillez vérifier les utilisateurs sélectionnés et réessayer 
+      merge_fail: Un problème est survenu lors de la fusion des comptes utilisateurs. Veuillez vérifier les utilisateurs sélectionnés et réessayer
       merge_success: Les comptes utilisateurs ont bien été fusionnés
       perm_deleted: L'utilisateur a été définitivement supprimé
       promoted: L'utilisateur a bien été promu.
@@ -136,7 +152,7 @@ fr:
       edit_site_settings: Permet aux utilisateurs ayant ce rôle de modifier les paramètres du site
       edit_roles: Permet aux utilisateurs ayant ce rôle de modifier les autres rôles
       manage_users: Permet aux utilisateurs ayant ce rôle de gérer les utilisateurs
-      invalid_assignment: Un problème a été rencontré lors de l'attribution du rôle à l'utilisateur. Veuillez vérifier les valeurs entrées et réessayer. 
+      invalid_assignment: Un problème a été rencontré lors de l'attribution du rôle à l'utilisateur. Veuillez vérifier les valeurs entrées et réessayer.
       colour:
         title: Couleur du rôle
         info: Définir la couleur qui sera associée au rôle
@@ -145,24 +161,26 @@ fr:
       mute:
         info: Automatiquement mettre en sourdine les utilisateurs lorsqu'ils rejoignent la réunion BigBlueButton
       require_moderator:
-        info: "Averti le modérateur d'une conférence BigBlueButton lorsqu'un utilisateur essaye de se connecter. Si l'utilisateur est approuvé, il pourra joindre la conférence."
+        info: "Avertit le modérateur d'une conférence BigBlueButton lorsqu'un utilisateur essaye de se connecter. Si l'utilisateur est approuvé, il pourra joindre la conférence."
       allow_any:
         info: "Permet à n'importe quel utilisateur de démarrer la conférence à n'importe quel moment. Par défaut, seul le propriétaire peut démarrer la conférence."
       all_moderator:
         info: Donne à tous les utilisateurs les droits de modérateur dans BigBlueButton lors de la connexion à une conférence.
+      recordings:
+        info: "Permet aux propriétaires d'une salle de préciser s'ils souhaitent ou non avoir la possibilité de l'enregistrer. Si cette option est activée, le modérateur doit toujours cliquer sur le bouton « Enregistrer » une fois que la réunion a commencé."
       options:
         disabled: Désactivé
         enabled: Toujours activé
         optional: Facultatif
     rooms:
-      title: Serveur des Salons
+      title: Serveur des salons
       table:
         ended: "Terminé:%{session}"
         id: ID
         not_running: Pas ouvert
         participants: Participants
         running: Ouvert
-        started: "Démarrage de:%{session}"
+        started: "Démarrage de :%{session}"
         status: Statut
         view: Voir
     title: Paramètres de l'organisation
@@ -179,17 +197,19 @@ fr:
         edit_roles: Modifier les rôles de l'utilisateur
         merge: Fusionner
         perm_delete: Supprimer définitivement
-        unban: Supprimer bannir
+        unban: Ne plus bannir l'utilisateur
         undelete: Annuler la suppression
       table:
         authenticator: Authentificateur
         created: Créé
+        time: Heure d'envoi
         name: Nom
         not_found: Aucun utilisateur correspondant à votre recherche
         no_users: Aucun utilisateur trouvé
         role: Rôle
         uid: ID utilisateur
         username: Nom d'utilisateur
+        valid: Valide
       title: Gérer les utilisateurs
   add_to_google_calendar: "Ajouter au calendrier Google"
   bigbluebutton: BigBlueButton
@@ -212,14 +232,14 @@ fr:
   errors:
     bigbluebutton:
       help: "Veuillez vous assurer que les mesures appropriées ont été prises.<a href=\"%{doc_link}\">En savoir plus</a>"
-      message: BigBlueButton cible et secret invalid
+      message: BigBlueButton cible et secret invalide
       title: Erreur serveur
     internal:
       message: Il semblerait que quelque chose se soit mal passé de notre côté.
       help: "L'erreur a été enregistrée, nous allons jeter un coup d’œil !"
       report: Signaler un problème
     maintenance:
-      message: "Désolé, nous sommes coupés pour maintenance."
+      message: "Désolé, nous sommes indisponibles pour maintenance."
       help: Nous serons bientôt de retour !
     migration_error:
       contact_admin: "Si vous n’êtes pas un administrateur, veuillez en contacter un."
@@ -260,7 +280,7 @@ fr:
     designs: Designs personnalisés
     authentication: Authentification d'utilisateur
   footer:
-    legal: Légal
+    legal: Conditions
     privpolicy: Politique de confidentialité
     powered_by: "Alimenté par %{href}."
   forgot_password:
@@ -351,8 +371,6 @@ fr:
         verify_text: 'Pour vérifier votre compte, suivez ce lien : %{url}'
         verify_link: Vérification du compte
         thanks: Merci de votre participation et bonne journée !
-  maintenance:
-    window_alert: "Période de maintenance prévue pour %{date}"
   max_concurrent: Le nombre maximum de sessions simultanées autorisées a été atteint !
   merged: Fusionné
   modal:
@@ -377,6 +395,10 @@ fr:
       keep: "En fait, je vais le garder."
       delete_warning: Cela désactivera le compte de l'utilisateur. Tous les utilisateurs désactivés se trouvent sous l'onglet supprimé.
       warning: Cette décision est définitive. Vous ne pourrez <b>pas</b>  récupérer les données associées.
+    delete_rec:
+      delete: "Oui, supprimer cet enregistrement."
+      header: "Voulez-vous vraiment supprimer cet enregistrement ?"
+      warning: Vous ne pourrez pas récupérer cet enregistrement
     delete_room:
       confirm: "Êtes-vous sûr de vouloir supprimer %{room}?"
       delete: "Je suis sûr, supprimer cette salle."
@@ -392,6 +414,14 @@ fr:
       or: ou
       with: "Connexion via %{provider}"
       forgot_password: "Mot de passe oublié ?"
+    preupload:
+      change: Remplacer présentation
+      choose: Choisissez un fichier...
+      current: "Présentation courante :"
+      footer: "Selon la taille de la présentation, son téléchargement peut nécessiter un délai supplémentaire avant qu'elle puisse être utilisée."
+      invalid: Taille/type de fichier non valable. Veuillez consulter les restrictions ci-dessous.
+      title: Ajouter présentation
+      use: Utiliser présentation
     rename_recording:
     remove_shared:
       title: "Voulez-vous vraiment supprimer ce salon de votre liste ?"
@@ -406,6 +436,7 @@ fr:
       require_approval: Exiger l'approbation du modérateur avant de rejoindre
       start: Autoriser tout utilisateur à démarrer cette réunion
       footer_text: L’ajustement de votre Salon peut être fait à tout moment.
+      recording: Autoriser l'enregistrement d'une salle
     rename_room:
       name_placeholder: Entrez un nouveau nom de salon...
     share_access:
@@ -446,9 +477,9 @@ fr:
       verification_failed: "La vérification de reCAPTCHA a échoué, veuillez réessayer."
   recording:
     all_recordings: Tous les enregistrements
-    email: Envoyer l'enregistrement par Email
-    error: "Il y a eu une erreur lors de la récupération de %{count}enregistrement(s)"
-    no_recordings: "Cette salle n'a pas d'enregistrement%{inject}."
+    email: Envoyer l'enregistrement par courriel
+    error: "Il y a eu une erreur lors de la récupération de %{count} enregistrement(s)"
+    no_recordings: "Ce salon n'a pas d'enregistrement %{inject}."
     no_user_recordings: "Actuellement, vous n'avez  aucun enregistrement."
     no_matched_recordings: "Aucun enregistrement %{inject} ne correspond à votre recherche."
     recorded_on: "Enregistré le %{date}"
@@ -460,7 +491,7 @@ fr:
       visibility: Visibilité
       formats: Formats
     visibility:
-      public: Publique
+      public: Public
       unlisted: Non Listé
     format:
       notes: Notes
@@ -473,7 +504,7 @@ fr:
       fail: "Votre compte n'a pas encore été validé. Si plusieurs jours se sont découlés depuis votre inscription, veuillez contacter votre administrateur."
       signup: Votre compte a été créé avec succès. Il a été envoyé à un administrateur pour validation.
     banned:
-      fail: "Vous n'avez pas accès à cette application. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter votre administrateur." 
+      fail: "Vous n'avez pas accès à cette application. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter votre administrateur."
     deprecated:
       new_signin: Veuillez sélectionner une nouvelle méthode de connexion pour votre compte. Toutes les salles de votre ancien compte seront transférées sur le nouveau compte
       twitter_signin: "La connexion par Twitter est obsolète et va être enlevée de la prochaine version. Veuillez cliquer <a href=\"%{link}\">ici</a> afin de changer la méthode d'authentification de votre compte"
@@ -500,6 +531,8 @@ fr:
     user: Utilisateur
   room:
     access_code_required: Veuillez introduire un code d'accès valide afin de rejoindre la salle
+    add_presentation: Ajouter présentation
+    copy_access: Copier le code d'accès
     create_room: Créer un salon
     create_room_error: Une erreur s'est produite lors de la création du salon
     create_room_success: Salon créé avec succès
@@ -509,7 +542,9 @@ fr:
       fail: "Erreur lors de la suppression de la salle (%{error})"
     enter_the_access_code: Veuillez introduire le code d'accès de la salle
     invalid_provider: Vous avez introduit une url non valide. Veuillez vérifier l'url et essayez à nouveau.
+    invitation_description: "Vous avez été invité à rejoindre 1%{name} en utilisant le BigBlueButton. Pour le faire, cliquez sur le lien ci-dessus et saisissez votre nom."  
     invited: Vous avez été invité à rejoindre
+    recording_present: Je reconnais que cette session va être enregistrée. Cela peut inclure ma voix et la vidéo si elle est activée.
     invite_participants: Inviter des participants
     join: Rejoindre
     last_session: "Dernière session le %{session}"
@@ -526,6 +561,10 @@ fr:
       recent_rooms: Rejoindre une Salle Récente
       title: Joindre une salle
     no_sessions: Cette salle n'a pas encore de session !
+    preupload_success: Présentation ajoutée avec succès
+    preupload_error: Erreur lors du chargement de la présentation
+    preupload_remove_success: Présentation supprimée avec succès
+    preupload_remove_error: "Erreur lors de la suppression de la présentation "
     recordings: Enregistrements du salon
     room_limit: Vous avez atteint le nombre maximum de salles autorisé
     room_limit_exceeded: "Vous avez dépassé le nombre de salles autorisé. Veuillez en supprimer %{difference}pour pouvoir accéder à cette salle."

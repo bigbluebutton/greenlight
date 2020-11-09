@@ -65,7 +65,7 @@ describe UsersController, type: :controller do
 
       get :edit, params: { user_uid: user2.uid }
 
-      expect(response).to redirect_to(user.main_room)
+      expect(response).to redirect_to(root_path)
     end
 
     it "allows admins to edit other users" do

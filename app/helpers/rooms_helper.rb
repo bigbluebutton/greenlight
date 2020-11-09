@@ -54,4 +54,9 @@ module RoomsHelper
       false
     end
   end
+
+  # Array of recording formats not to show for public recordings
+  def hidden_format_public
+    ENV.fetch("HIDDEN_FORMATS_PUBLIC", "").split(",")
+  end
 end

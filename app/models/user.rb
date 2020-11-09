@@ -35,12 +35,13 @@ class User < ApplicationRecord
 
   belongs_to :role, required: false
 
-  validates :name, length: { maximum: 256 }, presence: true
+  validates :name, length: { maximum: 256 }, presence: true,
+                   format: { without: %r{https?://}i }
   validates :provider, presence: true
   validate :check_if_email_can_be_blank
   validates :email, length: { maximum: 256 }, allow_blank: true,
                     uniqueness: { case_sensitive: false, scope: :provider },
-                    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+                    format: { with: /\A[\w+\-\'.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
   validates :password, length: { minimum: 6 }, confirmation: true, if: :greenlight_account?, on: :create
 

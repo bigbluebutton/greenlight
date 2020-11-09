@@ -5,6 +5,6 @@ test:
   adapter: test
 
 production:
-  adapter: <%= ENV['CABLE_ADAPTER'] || 'async' %>
+  adapter: <%= ENV['CABLE_ADAPTER'] || 'postgresql' %>
   url: <%= ENV['REDIS_URL'] %>
   channel_prefix: greenlight_production
