@@ -1,52 +1,37 @@
 # Greenlight
 
-You can find some general information about the Greenlight in its [official repository](https://github.com/bigbluebutton/greenlight).
+![Travis CI](https://travis-ci.org/bigbluebutton/greenlight.svg?branch=master)
+![Coverage
+!Status](https://coveralls.io/repos/github/bigbluebutton/greenlight/badge.svg?branch=master)
+![Docker Pulls](https://img.shields.io/docker/pulls/bigbluebutton/greenlight.svg)
 
-## Installing Greenlight with SAML support
-First, create the Greenlight directory for its configuration to live in.
+Greenlight is a simple front-end interface for your BigBlueButton server. At it's heart, Greenlight provides a minimalistic web-based application that allows users to:
 
-`mkdir ~/greenlight && mkdir ~/greenlight/cert && mkdir ~/greenlight/cert/idp && cd ~/greenlight`
+  * Signup/Login with Google, Office365, or through the application itself.
+  * Manage your account settings and user preferences.
+  * Create and manage your own personal rooms ([BigBlueButton](https://github.com/bigbluebutton/bigbluebutton) sessions).
+  * Invite others to your room using a simple URL.
+  * View recordings and share them with others.
 
-Greenlight will read its environment configuration from the .env file. To generate this file and install the Greenlight Docker image, run:
+Interested? Try Greenlight out on our [demo server](https://demo.bigbluebutton.org/gl)!
 
-`docker run --rm intecsoft/greenlight-saml:v2 cat ./sample.env > .env`
-  
-### Configuration
+Greenlight is also completely configurable. This means you can turn on/off features to make Greenlight fit your specific use case. For more information on Greenlight and its features, see our [documentation](http://docs.bigbluebutton.org/greenlight/gl-install.html).
 
-#### Generating a Secret Key
-Greenlight needs a secret key in order to run in production. To generate this, run:
+For a overview of how Greenlight works, checkout our Introduction to Greenlight Video:
 
-`docker run --rm intecsoft/greenlight-saml:v2 bundle exec rake secret`
+[![GreenLight Overview](https://img.youtube.com/vi/Hso8yLzkqj8/0.jpg)](https://youtu.be/Hso8yLzkqj8)
 
-Inside your .env file, set the SECRET_KEY_BASE option to the last line in the output this command. You don’t need to wrap it in quotation marks.
+## Installation on a BigBlueButton Server
 
-#### Setting BigBlueButton Credentials
-By default, your Greenlight instance will automatically connect to the test-install.blindsidenetworks.com if no BigBlueButton credentials are specified. To set Greenlight to connect to your BigBlueButton server (the one it’s installed on), you need to give Greenlight the endpoint and the secret. 
+Greenlight is designed to work on a [BigBlueButton 2.0](https://github.com/bigbluebutton/bigbluebutton) (or later) server.
 
-`bbb-conf --secret`
+For information on installing Greenlight, checkout our [Installing Greenlight on a BigBlueButton Server](http://docs.bigbluebutton.org/greenlight/gl-install.html#installing-on-a-bigbluebutton-server) documentation.
 
-In your .env file, set the BIGBLUEBUTTON_ENDPOINT to the URL, and set BIGBLUEBUTTON_SECRET to the secret.
+## Source Code & Contributing
 
-#### Set SAML configuration
-See [SAMLconfiguration.md](https://github.com/intecsoft/greenlight/blob/master/SAMLconfiguration.md) 
+Greenlight is built using Ruby on Rails. Many developers already know Rails well, and we wanted to create both a full front-end to BigBlueButton but also a reference implementation of how to fully leverage the [BigBlueButton API](http://docs.bigbluebutton.org/dev/api.html).
 
-#### Configure Nginx to Route To Greenlight
-Use [documentation](https://docs.bigbluebutton.org/greenlight/gl-customize.html#4-configure-nginx-to-route-to-greenlight) 
+We invite you to build upon Greenlight and help make it better. See [Contributing to BigBlueButton](http://docs.bigbluebutton.org/support/faq.html#contributing-to-bigbluebutton).
 
-#### Get docker-compose file
-`docker run --rm intecsoft/greenlight-saml:v2 cat ./docker-compose.yml > docker-compose.yml`
+We invite your feedback, questions, and suggests about Greenlight too. Please post them to the [developer mailing list](https://groups.google.com/forum/#!forum/bigbluebutton-dev).
 
-#### Configure docker-compose file for your settings
-Change environment variables for PostgreSQL container with login, password, and database name.
-
-#### Change DB connection settings in .env file
-If Greenlight should work not with the default settings of the database, please, change the DB connection settings in the .env file.
-
-## Start
-`docker-compose up -d`
-
-## Stop
-`docker-compose down`
-
-## Help
-Use [Documentation](https://docs.bigbluebutton.org/greenlight/gl-customize.html) if you need any further help.

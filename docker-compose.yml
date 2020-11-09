@@ -3,7 +3,7 @@ version: '3'
 services:
   app:
     entrypoint: [bin/start]
-    image: intecsoft/greenlight-saml:release-v2
+    image: bigbluebutton/greenlight:v2
     container_name: greenlight-v2
     env_file: .env
     restart: unless-stopped
@@ -18,7 +18,8 @@ services:
     volumes:
       - ./log:/usr/src/app/log
       - ./storage:/usr/src/app/storage
-      - ./cert:/usr/src/app/cert
+# When using SAML authentication 
+#      - ./cert:/usr/src/app/cert
 # When using sqlite3 as the database
 #      - ./db/production:/usr/src/app/db/production
 # When using postgresql as the database

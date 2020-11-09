@@ -83,10 +83,6 @@ module ApplicationHelper
       I18n.t("roles.admin")
     elsif role.name == "user"
       I18n.t("roles.user")
-    elsif role.name == "teacher"
-      I18n.t("roles.teacher")
-    elsif role.name == "administrator"
-      I18n.t("roles.administrator")
     else
       role.name
     end

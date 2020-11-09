@@ -445,7 +445,7 @@ DEPENDENCIES
   omniauth-bn-launcher (~> 0.1.3)
   omniauth-bn-office365 (~> 0.1.1)
   omniauth-google-oauth2
-  omniauth-saml-fix-slo-intecsoft
+  omniauth-saml
   omniauth-twitter
   pagy
   pg (~> 0.18)

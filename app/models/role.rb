@@ -26,22 +26,15 @@ class Role < ApplicationRecord
   scope :by_priority, -> { order(:priority) }
   scope :editable_roles, ->(provider) { where(provider: provider).where.not(name: %w[super_admin denied pending]) }
 
-  RESERVED_ROLE_NAMES = %w[super_admin admin pending denied administrator teacher user]
+  RESERVED_ROLE_NAMES = %w[super_admin admin pending denied user]
 
   def self.duplicate_name(name, provider)
     RESERVED_ROLE_NAMES.include?(name) || Role.exists?(name: name, provider: provider)
   end
 
   def self.create_default_roles(provider)
-    Role.create(name: "user", provider: provider, priority: 3, colour: "#868e96")
+    Role.create(name: "user", provider: provider, priority: 1, colour: "#868e96")
         .update_all_role_permissions(can_create_rooms: true)
-    Role.create(name: "teacher", provider: provider, priority: 2, colour: "#278F37")
-        .update_all_role_permissions(can_create_rooms: true, send_promoted_email: true,
-          send_demoted_email: true)
-    Role.create(name: "administrator", provider: provider, priority: 1, colour: "#f1c40f")
-        .update_all_role_permissions(can_create_rooms: true, send_promoted_email: true,
-        send_demoted_email: true, can_edit_site_settings: true, can_manage_rooms_recordings: true,
-        can_edit_roles: true, can_manage_users: true)
     Role.create(name: "admin", provider: provider, priority: 0, colour: "#f1c40f")
         .update_all_role_permissions(can_create_rooms: true, send_promoted_email: true,
       send_demoted_email: true, can_edit_site_settings: true, can_manage_rooms_recordings: true,
