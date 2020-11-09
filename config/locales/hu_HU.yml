@@ -36,7 +36,7 @@ hu_HU:
         enabled: Bekapcsolva
         info: Csak hitelesített felhasználók léphetnek be a szobába
         title: Hitelesítés megkövetelése a szobákhoz
-        user-info: Ebbe a szobába a belépéshez a Greenlight-ba be kell jelentkezned
+        user-info: Ebbe a szobába a belépéshez előbb be kell jelentkezned.
       branding:
         change: Kép cseréje
         info: A bal felső sarokban megjelenő arculati kép cseréje
@@ -45,13 +45,13 @@ hu_HU:
         invalid: Érvénytelen URL
       legal:
         change: URL cseréje
-        info: Az oldal tetején lévő Jogi link módosítása
-        placeholder: Jogi URL...
-        title: Jogi
+        info: Az oldal alján megjelenő Feltételek link módosítása
+        placeholder: Feltételek URL-je...
+        title: Feltételek
         invalid: Érvénytelen URL
       privpolicy:
         change: URL cseréje
-        info: "Az oldal alján lévő Adatvédelmi Irányelvek link módosítása "
+        info: "Az oldal alján megjelenő Adatvédelmi Irányelvek link módosítása "
         placeholder: Adatvédelmi irányelvek URL-je...
         title: Adatvédelmi irányelvek
         invalid: Érvénytelen URL
@@ -82,6 +82,18 @@ hu_HU:
         info: Állítsd be az új felvétel alapértelmezett láthatóságát
         title: A felvétele alapértelmezett láthatósága
         warning: Ez a beállítás csak a még jelenleg nem futó szobákra lesz érvényes
+      require_consent:
+        info: "Ez a beállítás lehetővé teszi a szoba tulajdonosának, hogy beállítása, hogy a szobáról készüljön felvétel. Az ilyen szobába csatlakozóknak beleegyezésüket kell adniuk."
+        title: Felvétel készítéséhez a szoba tulajdonosa és csatlakozók hozzájárulása szükséges
+      maintenance_banner:
+        info: Az időzített karbantartásról banner tájékoztatja a felhazsnálókat
+        title: Karbantartási banner
+        display: Beállítás
+        clear: Törlés
+        time: "Például: A tervezett frissítés időpontja december 13 23:00. A frissítés alatt bejelentkezési problémákat tapasztalhatnak."        
+      preupload:
+        info: "A felhasználók előre feltölthetnek prezentációt, ami a megadott szoba alapértelmezett prezentációja lesz"
+        title: A felhasználók előre feltölthetnek prezentációt
       registration:
         info: A felhasználók weboldalra hitelesítési módjának módosítása
         title: Regisztráció módja
@@ -96,6 +108,10 @@ hu_HU:
         info: "Ha kikapcsolod, akkor a gombot eltávolítod a Szobabeállítások legördülő menüből, megakadályozva ezzel, hogy a felhasználók megosszák a szobákat"
         title: A felhasználók megoszthatnak szobákat
       subtitle: Greenlight személy szabása
+      tabs:
+        appearance: Megjelenés
+        administration: Üzemeltetés
+        settings: Beállítások
       title: Weboldal beállításai
     flash:
       approved: A felhasználót sikeresen jóváhagytad.
@@ -106,7 +122,7 @@ hu_HU:
       demoted: A felhasználót sikeresen lefokoztad
       invite: "A meghívót sikeresen elküldtük %{email}"
       invite_email_verification: "Ennek a használatához az e-maileket engedélyezni kell. Kérjük, ezt jelezd a rendszerüzemeltetőnek."
-      merge_fail: "Hiba történt a felhasználói fiókok összevonásakor. Kérem, ellenőrizd a felhasználókat, majd próbáld újra." 
+      merge_fail: "Hiba történt a felhasználói fiókok összevonásakor. Kérem, ellenőrizd a felhasználókat, majd próbáld újra."
       merge_success: A felhasználói fiókokat sikeresen összevontad
       perm_deleted: A felhasználót véglegesen törölted
       promoted: A felhasználót sikeresen előléptetted
@@ -136,7 +152,7 @@ hu_HU:
       edit_site_settings: Evvel a szereppel bírók módosíthatják az weboldal beállításait
       edit_roles: Ezen szerep tagjai módosíthatják a többi szerepet
       manage_users: Ezen szerep tagjai kezelhetik a felhasználókat
-      invalid_assignment: "Hiba a szerep felhasználóhoz rendelésekor. Kérem, ellenőrizd az értékeket és próbáld újra." 
+      invalid_assignment: "Hiba a szerep felhasználóhoz rendelésekor. Kérem, ellenőrizd az értékeket és próbáld újra."
       colour:
         title: Szerep színe
         info: Állítsd be a szerep színét
@@ -150,6 +166,8 @@ hu_HU:
         info: Bármelyik felhasználó bármikor elindíthatja megbeszélést. Alapértelmezett csak a szoba tulajdonosa indíthat megbeszélést.
       all_moderator:
         info: Moderátori jogosultság az összes felhasználónak amikor csatlakoznak a megbeszéléshez.
+      recordings:
+        info: "Engedélyezi a szoba tulajdonosainak, hogy szeretnének-e lehetőséget a szoba rögzítéséről. Amennyiben be van kapcsolva, a moderátornak még egyszer rá kell kattintana a Rögzítés gombra a rögzítés megkezdéséhez."
       options:
         disabled: Kikapcsolva
         enabled: Mindig bekapcsolva
@@ -252,7 +270,7 @@ hu_HU:
     unauthorized:
       message: Nincs hozzáférésed ehhez az alkalmazáshoz
       help: "Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd a rendszerüzemeltetőnek."
-  expired_reset_token: A jelszómódosító-link már lejárt!
+  expired_reset_token: A jelszóvisszaállító-link már lejárt!
   features:
     title: Tulajdonságok
     rooms: Személyre szabott szobák
@@ -260,7 +278,7 @@ hu_HU:
     designs: Egyéni kinézet
     authentication: Felhasználók hitelesítése
   footer:
-    legal: Jogi
+    legal: Feltételek
     privpolicy: Adatvédelmi irányelvek
     powered_by: "Powered by %{href}."
   forgot_password:
@@ -332,10 +350,10 @@ hu_HU:
         subject: Meghívás a BigBlueButton használatára
         username: "A felhasználóneved %{email}."
       password_reset:
-        title: 'Jelszó alaphelyzetbe állítása'
-        welcome: "<b>%{email}</b> e-mail címhez egy jelszómódosítás kérés érkezett."
-        message: 'Ha ezt a kérést te indítottad, kérjük, a jelszavad lecseréléséhez kattints az alábbi linkre:'
-        reset_link: Jelszó alaphelyzetbe állítása
+        title: 'Jelszó visszaállítása'
+        welcome: "<b>%{email}</b> e-mail címre egy jelszóvisszaállítási kérés érkezett."
+        message: 'Ha ezt a kérést te indítottad, kérjük, a jelszavad visszaállításához kattints az alábbi linkre:'
+        reset_link: Jelszó visszaállítása
         expire: Ez a link kettő óra múlva lejár.
         ignore: "Ha ezt a kérést nem te indítottad, ezt az e-mail kérjük, hagyd fegyelmen kívül."
       promoted:
@@ -351,8 +369,6 @@ hu_HU:
         verify_text: 'A fiókod visszaigazolásához kattints a linkre: %{url}'
         verify_link: Fiók visszaigazolása
         thanks: "Köszönjük, hogy csatlakoztál. További szép napot!"
-  maintenance:
-    window_alert: "%{date}-ig karbantartási ablak ütemezése"
   max_concurrent: Elértük a maximálisan megengedett munkamenetek számát!
   merged: Összevonva
   modal:
@@ -392,6 +408,14 @@ hu_HU:
       or: vagy
       with: "%{provider} bejelentkezés"
       forgot_password: "Elfejtetted a jelszavad?"
+    preupload:
+      change: Prezentáció cseréje
+      choose: Válassz egy fájlt...
+      current: "Jelenlegi prezentáció:"
+      footer: A prezentáció használata előtt annak méretétől függőn időbe telik a feltöltés.
+      invalid: A méret vagy a típus érvénytelen. A tiltásokat alább ellenőrizd.
+      title: Prezentáció hozzáadása
+      use: Prezentáció használata
     rename_recording:
     remove_shared:
       title: "Biztos, hogy törlöd ez a szobát a listádról?"
@@ -406,6 +430,7 @@ hu_HU:
       require_approval: Moderátori jóváhagyás szükséges a csatlakozás előtt
       start: Bármelyik felhasználó elindíthatja ezt a beszélgetést
       footer_text: A szobád beállításai bármikor módosíthatóak.
+      recording: Szoba felvételének engedélyezése
     rename_room:
       name_placeholder: Add meg egy új szoba nevét ...
     share_access:
@@ -433,7 +458,7 @@ hu_HU:
       gap: "&hellip;"
   password: Jelszó
   password_empty_notice: A jelszó nem lehet üres.
-  password_reset_success: A jelszót alaphelyzetbe állítottuk.
+  password_reset_success: A jelszót visszaállítottuk.
   password_different_notice: A két új jelszó eltér egymástól.
   provider:
     google: Google
@@ -473,7 +498,7 @@ hu_HU:
       fail: "A fiókodat még nem hagyták jóvá. Ha már többi nap eltelt a regisztrációd óta, lépj kapcsolatba az üzemeltetőkkel."
       signup: "A fiókodat sikeresen létrehoztuk, várunk az üzemeltető jóváhagyására."
     banned:
-      fail: "Nincs hozzáférésed ehhez az alkalmazáshoz. Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd az üzemeltetőnek." 
+      fail: "Nincs hozzáférésed ehhez az alkalmazáshoz. Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd az üzemeltetőnek."
     deprecated:
       new_signin: Válassz a fiókodhoz egy új bejelentkezési módot. A régi fiókodból származó összes szobát áthelyezzük az új fiókodra.
       twitter_signin: "A Twitter-en keresztüli bejelentkezés elavult és nem lesz elérhető a következő verzióban. A fiókod átállításához egy új hitelesítési módszerre  kattints <a href=\"%{link}\"> erre linkre </a>."
@@ -485,8 +510,8 @@ hu_HU:
   remove: Eltávolítás
   rename: Átnevezés
   reset_password:
-    invalid_token: A jelszómódosítása token érvénytelen. Próbáld újra a jelszó reszetelését.
-    subtitle: Jelszó alaphelyzetbe állítása
+    invalid_token: A jelszóvisszaállítási token érvénytelen. Próbáld újra a jelszó visszaállítását.
+    subtitle: Jelszó visszaállítása
     password: Új jelszó
     confirm: Új jelszó újra
     update: Jelszó módosítása
@@ -500,6 +525,7 @@ hu_HU:
     user: Felhasználó
   room:
     access_code_required: Érvényes kódot adj meg a csatlakozáshoz
+    add_presentation: Prezentáció hozzáadása
     create_room: Szoba létrehozása
     create_room_error: Hiba a szoba létrehozásakor
     create_room_success: A szobát sikeresen létrehoztad
@@ -509,7 +535,9 @@ hu_HU:
       fail: "A szoba törlése sikertelen (%{error})"
     enter_the_access_code: Add meg a szoba hozzáférési kódját
     invalid_provider: "Érvénytelen URL-t adtál meg. Kérem, ellenőrizd, majd próbáld újra."
+    invitation_description: "Meghívtak, hogy csatlakozz a BigBlueButton használatával ide: %{name}. Kattints az alábbi linkre és add meg a neved."  
     invited: "Meghívtak, hogy belépj"
+    recording_present: "Tudomásul veszem, hogy erről a munkamenetről felvétel készül, ami tartalmazhatja a hangomat és a képmásomat."
     invite_participants: Résztvevők meghívása
     join: Belépés
     last_session: "Utolsó munkamenet időpontja %{session}"
@@ -526,6 +554,10 @@ hu_HU:
       recent_rooms: Menj a Mostanában Csatlakozott Szobákhoz
       title: Csatlakozás egy szobához
     no_sessions: Ennek a szobának még nincs munkamenete!
+    preupload_success: Sikeresen hozzáadtad a prezentációt
+    preupload_error: Hiba a szoba prezentációjának frissítésekor
+    preupload_remove_success: A prezentációt sikeresen törölted
+    preupload_remove_error: Hiba a szoba prezentációjának törlésekor
     recordings: Felvétel
     room_limit: Elérted a maximálisan engedélyezett szobák számát
     room_limit_exceeded: "Meghaladtad a megengedett szobák számát. Kérjük, törölj %{difference} szobát a szoba eléréséhez."
@@ -554,7 +586,7 @@ hu_HU:
       roles: Felhasználói szerep
       subtitle: Fiókinformációim módosítása
       title: Fiókinformációk
-      reset_password: Felhasználó jelszavának alaphelyzetbe állítása
+      reset_password: Felhasználó jelszavának visszaállítása
     delete:
       button: "Igen, törlöm a fiókom."
       disclaimer: "Amennyiben törlöd a fiókod, azt később már <b>NEM</b> lehet visszaállítani. A fiókodhoz kapcsolódó összes adatot, a beállításokat, a szobákat és a felvételeket is véglegesen törlöd."

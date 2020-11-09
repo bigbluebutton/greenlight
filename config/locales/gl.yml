@@ -173,6 +173,7 @@ gl:
         enabled: Activado sempre
         optional: Opcional
     rooms:
+      timeout: "Por mor do tempo de espera da solicitude do servidor %{server}, é posíbel que a información do estado e dos participantes non sexa exacta"
       title: Salas no servidor
       table:
         ended: "Rematada: %{session}"
@@ -202,12 +203,14 @@ gl:
       table:
         authenticator: Autenticador
         created: Creado
+        time: Hora de envío
         name: Nome
         not_found: Non hai usuarios que coincidan coa súa busca
         no_users: Non se atoparon usuarios
         role: Rol
         uid: ID do usuario
         username: Nome de usuario
+        valid: Válido
       title: Administrar usuarios
   add_to_google_calendar: "Engadir ao calendario de Google"
   bigbluebutton: BigBlueButton
@@ -215,7 +218,7 @@ gl:
   cancel: Cancelar
   cookies:
     cookie_info: "As cookies axúdanos a prestar os nosos servizos. Ao usar os nosos servizos, acepta o noso uso de cookies."
-    cookie_button: " Concordo"
+    cookie_button: " Acepto"
   copied: Copiado
   copy: Copiar
   date:
@@ -393,6 +396,10 @@ gl:
       keep: "De feito, mantereina."
       delete_warning: Isto desactivará a conta do usuario. Na lapela eliminada pódense atopar todos os usuarios desactivados.
       warning: Esta decisión é definitiva. <b>Non</b> poderá recuperar a información asociada.
+    delete_rec:
+      delete: "Si, confirmo que quero eliminar esta gravación."
+      header: "Confirma que quere eliminar esta gravación?"
+      warning: <b>Non</b> poderá recuperar esta gravación
     delete_room:
       confirm: "Confirma que quere eliminar a sala %{room}?"
       delete: "Estou seguro, eliminar esta sala."
@@ -476,16 +483,16 @@ gl:
     no_recordings: "Esta sala non ten gravacións %{inject}."
     no_user_recordings: Non ten gravacións.
     no_matched_recordings: "Non hai %{inject} gravacións que coincidan coa súa busca."
-    recorded_on: "Gravado o %{date}"
+    recorded_on: "Gravada o %{date}"
     table:
       name: Nome
       thumbnails: Miniaturas
-      length: Lonxitude
+      length: Duración
       users: Usuarios
       visibility: Visibilidade
       formats: Formatos
     visibility:
-      public: Público
+      public: Pública
       unlisted: Sen listar
     format:
       notes: Notas
@@ -526,6 +533,7 @@ gl:
   room:
     access_code_required: Introduza un código de acceso válido para unirse á sala
     add_presentation: Engadir presentación
+    copy_access: Copiar o código de acceso
     create_room: Crear unha sala
     create_room_error: Produciuse un erro ao crear a sala
     create_room_success: Creouse correctamente a sala
@@ -536,7 +544,7 @@ gl:
     enter_the_access_code: Introduza o código de acceso á sala
     invalid_provider: Introduciu un URL non válido. Comprobe o URL e ténteo de novo.
     invitation_description: "Foi convidado a unirse a %{name} empregando BigBlueButton. Para unirse, prema na ligazón superior e escriba o seu nome."  
-    invited: Foi convidado a unirse
+    invited: Foi convidado a unirse a
     recording_present: Declaro ser coñecedor de que se vai gravar esta sesión. Isto pode incluír a miña voz e imaxe de vídeo se están activados.
     invite_participants: Convidar a participantes
     join: Unirse

@@ -25,25 +25,6 @@ $(document).on('turbolinks:load', function(){
 
   // Only run on room pages.
   if (controller == "rooms" && action == "show"){
-    var copy = $('#copy');
-
-    // Handle copy button.
-    copy.on('click', function(){
-      var inviteURL = $('#invite-url');
-      inviteURL.select();
-
-      var success = document.execCommand("copy");
-      if (success) {
-        inviteURL.blur();
-        copy.addClass('btn-success');
-        copy.html("<i class='fas fa-check'></i>" + getLocalizedString("copied"))
-        setTimeout(function(){
-          copy.removeClass('btn-success');
-          copy.html("<i class='fas fa-copy'></i>" + getLocalizedString("copy"))
-        }, 2000)
-      }
-    });
-
     // Display and update all fields related to creating a room in the createRoomModal
     $("#create-room-block").click(function(){
       showCreateRoom(this)
@@ -122,11 +103,20 @@ $(document).on('turbolinks:load', function(){
         listItem.setAttribute('class', 'list-group-item text-left not-saved add-access');
         listItem.setAttribute("data-uid", uid)
 
-        let spanItem = "<span class='avatar float-left mr-2'>" + option.text().charAt(0) + "</span> <span class='shared-user'>" +
-          option.text() + " <span class='text-muted'>" + option.data("subtext") + "</span></span>" +
-          "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+        let spanItemAvatar = document.createElement("span"),
+            spanItemName = document.createElement("span"),
+            spanItemUser = document.createElement("span");
+        spanItemAvatar.setAttribute('class', 'avatar float-left mr-2');
+        spanItemAvatar.innerText = option.text().charAt(0);
+        spanItemName.setAttribute('class', 'shared-user');
+        spanItemName.innerText = option.text();
+        spanItemUser.setAttribute('class', 'text-muted');
+        spanItemUser.innerText = option.data('subtext');
+        spanItemName.append(spanItemUser);
 
-        listItem.innerHTML = spanItem
+        listItem.innerHTML = "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+        listItem.prepend(spanItemName);
+        listItem.prepend(spanItemAvatar);
 
         $("#user-list").append(listItem)
       }
@@ -134,7 +124,7 @@ $(document).on('turbolinks:load', function(){
 
     $("#presentation-upload").change(function(data) {
       var file = data.target.files[0]
-      
+
       // Check file type and size to make sure they aren't over the limit
       if (validFileUpload(file)) {
         $("#presentation-upload-label").text(file.name)
@@ -154,6 +144,35 @@ $(document).on('turbolinks:load', function(){
     })
   }
 });
+
+function copyInvite() {
+  $('#invite-url').select()
+  if (document.execCommand("copy")) {
+    $('#invite-url').blur();
+    copy = $("#copy-invite")
+    copy.addClass('btn-success');
+    copy.html("<i class='fas fa-check mr-1'></i>" + getLocalizedString("copied"))
+    setTimeout(function(){
+      copy.removeClass('btn-success');
+      copy.html("<i class='fas fa-copy mr-1'></i>" + getLocalizedString("copy"))
+    }, 1000)
+  }
+}
+
+function copyAccess() {
+  $('#copy-code').attr("type", "text")
+  $('#copy-code').select()
+  if (document.execCommand("copy")) {
+    $('#copy-code').attr("type", "hidden")
+    copy = $("#copy-access")
+    copy.addClass('btn-success');
+    copy.html("<i class='fas fa-check mr-1'></i>" + getLocalizedString("copied"))
+    setTimeout(function(){
+      copy.removeClass('btn-success');
+      copy.html("<i class='fas fa-copy mr-1'></i>" + getLocalizedString("room.copy_access"))
+    }, 1000)
+  }
+}
 
 function showCreateRoom(target) {
   $("#create-room-name").val("")

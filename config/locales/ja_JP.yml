@@ -83,16 +83,16 @@ ja_JP:
         title: 標準の録画公開度
         warning: この設定は実行していない会議室にのみ適用されます
       require_consent:
-        info: これにより、会議室のオーナーが、部屋ごとの録画の可否を設定できるようになります。録画される会議に参加するユーザーからは、同意を得る必要があります。
+        info: これにより、会議室のオーナーが、部屋ごとの録画の可否を設定できるようになります。録画される会議に参加するユーザからは、同意を得る必要があります。
         title: 会議室のオーナーと参加者に、録画への同意を求める
       maintenance_banner:
-        info: メンテナンスの予定を通知するバナーを表示します
+        info: メンテナンスの予定をユーザに通知するバナーを表示します
         title: メンテナンスバナー
         display: セットする
         clear: 消去する
         time: "例: アップデートが日本時間の12月13日23:00から予定されています。その間サインインがうまくできない可能性があります。"        
       preupload:
-        info: ユーザーがプレゼン資料を事前にアップロードできるようになります。この資料は、会議室固有の標準資料として使用されます。
+        info: ユーザがプレゼン資料を事前にアップロードできるようになります。この資料は、会議室固有の標準資料として使用されます。
         title: プレゼン資料の事前アップロードを許可
       registration:
         info: ユーザがWebサイトに登録する方法を変更する
@@ -173,6 +173,7 @@ ja_JP:
         enabled: 常に有効
         optional: 会議室ごとに設定
     rooms:
+      timeout: "%{server}サーバへのリクエストがタイムアウトしたため、 ステータスと参加者の情報は正確でない可能性があります。"
       title: すべての会議室
       table:
         ended: "会議終了: %{session}"
@@ -202,12 +203,14 @@ ja_JP:
       table:
         authenticator: 認証元
         created: 作成
+        time: 送付時刻
         name: 名前
         not_found: 検索に一致するユーザはいません
         no_users: ユーザが見つかりません
         role: 役割
         uid: ユーザID
         username: ユーザ名
+        valid: 有効
       title: ユーザ管理
   add_to_google_calendar: "Googleカレンダーに追加"
   bigbluebutton: BigBlueButton
@@ -262,7 +265,7 @@ ja_JP:
       help: 削除されている可能性はありませんか？
       user_not_found:
         help: 管理者にお問い合わせください。
-        message: このユーザーは登録されていません。
+        message: このユーザは登録されていません。
       user_missing:
         help: URLを確認して再度お試しください
         message: 入力されたURLは無効です。
@@ -327,7 +330,7 @@ ja_JP:
         signin_link: サインイン
         signup:
           info: 新しいユーザがGreenlightを利用するためにサインアップしました。
-          more-info: このユーザーがGreenlightにアクセスできるようにするには、［構成の設定］でアカウントを承認する必要があります。
+          more-info: このユーザがGreenlightにアクセスできるようにするには、［構成の設定］でアカウントを承認する必要があります。
           admins_link: 構成ページを見る
           subject: 新しいGreenlightユーザのサインアップ
           username: "ユーザは名前 %{name} とメールアドレス %{email} でサインアップしました。"
@@ -393,6 +396,10 @@ ja_JP:
       keep: やっぱり残します。
       delete_warning: これによりユーザのアカウントが無効になります。 無効化されたすべてのユーザは［削除］タブに表示されます。
       warning: この決定は最終的なものです。 関連するデータを回復することは<b>二度と</b>できません。
+    delete_rec:
+      delete: はい、削除します。
+      header: この録画を本当に削除してもよろしいですか？
+      warning: この録画を復活させることは<b>二度と</b>できません。
     delete_room:
       confirm: "%{room} を削除してもよろしいですか？"
       delete: この会議室を削除します。
@@ -400,8 +407,8 @@ ja_JP:
       warning: この会議室を復活させることは<b>できません</b>　
       recording_warning: "また、これに関連した　 %{recordings_num} 個の録画も同様です。"
     invite_user:
-      email_placeholder: ユーザーのメールアドレスを入力してください（複数の場合はコンマ区切り）
-      footer: ユーザーには、サインアップ方法の説明が記載されたメールが届きます
+      email_placeholder: ユーザのメールアドレスを入力してください（複数の場合はコンマ区切り）
+      footer: ユーザには、サインアップ方法の説明が記載されたメールが届きます
       send: 招待状を送る
       title: ユーザを招待
     login:
@@ -526,6 +533,7 @@ ja_JP:
   room:
     access_code_required: 会議に参加するには、有効なアクセスコードを入力してください
     add_presentation: プレゼン資料を追加
+    copy_access: アクセスコードをコピー
     create_room: 会議室の作成
     create_room_error: 会議室の作成中にエラーが発生しました
     create_room_success: 会議室が作成されました
@@ -542,7 +550,7 @@ ja_JP:
     join: 参加する
     last_session: "%{session} ：最後のセッション"
     login: 入力
-    owner: オーナ
+    owner: オーナー
     owner_banned: この会議室は現在利用できません
     no_room:
       description: 参加する会議室のURLまたはIDを入力します。
@@ -553,12 +561,12 @@ ja_JP:
       no_recent_rooms: 最近参加した会議室はありません
       recent_rooms: 最近参加した会議室に移動
       title: 会議に参加
-    no_sessions: この会議室にはまだ(！)セッションがありません
+    no_sessions: まだ会議は一度も開催されていません！
     preupload_success: プレゼン資料の追加に成功
     preupload_error: 会議室のプレゼン資料をアップデートする際にエラーが起こりました
     preupload_remove_success: プレゼン資料の消去に成功
     preupload_remove_error: 会議室のプレゼン資料を消去する際にエラーが起こりました
-    recordings: 会議室の録画
+    recordings: 録画
     room_limit: 許可された会議室数の上限に達しました
     room_limit_exceeded: "許可された会議室数を超えています。 この会議室にアクセスするには、会議室を %{difference} 個削除してください。"
     sessions: セッション
@@ -570,7 +578,7 @@ ja_JP:
     shared_access_success: 会議室を共有しました
     shared_access_error: 会議室の共有設定中にエラーが発生しました
     start: 開始
-    unavailable: この会議室はオーナのメールが確認されていないため、現在利用できません。
+    unavailable: この会議室はオーナーのメールが確認されていないため、現在利用できません。
     update_settings_error: 会議室の設定更新中にエラーが発生しました
     update_settings_success: 会議室の設定を更新しました
     wait:
@@ -583,10 +591,10 @@ ja_JP:
       provider: 認証元
       image: プロフィール画像
       image_url: プロフィール画像のURL
-      roles: ユーザーの役割
+      roles: ユーザの役割
       subtitle: アカウント情報を更新する
       title: アカウント情報
-      reset_password: ユーザーのパスワードを再設定する
+      reset_password: ユーザのパスワードを再設定する
     delete:
       button: はい、アカウントを削除します
       disclaimer: アカウントを削除した場合、アカウントを回復することは<b>できません</b>。 設定、会議室、録画など、アカウントに関するすべての情報が削除されます。

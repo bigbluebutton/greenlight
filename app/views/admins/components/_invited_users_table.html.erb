@@ -1,0 +1,49 @@
+<div class="form-group">
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-hover table-outline table-vcenter card-table">
+          <thead>
+            <tr>
+              <th>
+                <%= t("email") %>
+              </th>
+              <th>
+                <%= t("administrator.users.table.time") %>
+              </th>
+              <th>
+                <%= t("administrator.users.table.valid") %>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @users %>
+              <% @users.each do |user| %>
+                <tr>
+                    <td>
+                      <div><%= user.email %></div>
+                    </td>
+                    <td>
+                      <div><%= friendly_time(user.updated_at) %></div>
+                    </td>
+                    <td>
+                      <div>
+                        <% if ((Time.now - 48.hours)..Time.now).cover?(user.updated_at) %>
+                          <i class="fas fa-check ml-3 text-success"></i>
+                        <% else %>
+                          <i class="fas fa-times ml-3 text-danger"></i>
+                        <% end %>
+                      </div>
+                    </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="float-md-right mt-4">
+          <%== pagy_bootstrap_nav(@pagy) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

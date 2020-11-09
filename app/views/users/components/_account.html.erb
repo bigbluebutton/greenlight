@@ -36,7 +36,13 @@
     <%= f.text_field :provider, class: "form-control", readonly: "" %>
     <br>
     <%= f.label :language, t("settings.account.language"), class: "form-label" %>
-    <%= f.select :language, language_options, {}, { class: "form-control custom-select" } %>
+    <select id="language-dropdown" class="selectpicker show-tick w-50">
+      <% language_options.each do |lang| %>
+        <option value="<%=lang[1]%>" <%= 'selected' if lang[1] == @user.language %>><%= lang[0] %></option>
+      <% end %>
+    </select>
+    <%= f.hidden_field :language, id: "user_language", value: @user.language %>
+
 
     <%= f.label :roles, t("settings.account.roles"), class: "form-label mt-5" %>
     <% if current_user.role.get_permission("can_manage_users") %>

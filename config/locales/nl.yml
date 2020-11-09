@@ -173,6 +173,7 @@ nl:
         enabled: Altijd ingeschakeld
         optional: Optioneel
     rooms:
+      timeout: "Door de time-out van het serververzoek %{server} is de informatie over de status en deelnemers mogelijk niet correct"
       title: Server Kamers
       table:
         ended: "Beëindigd: %{session}"
@@ -202,12 +203,14 @@ nl:
       table:
         authenticator: Authenticator
         created: Gemaakt
+        time: Tijd Verzonden
         name: Naam
         not_found: Geen gebruikers komen overeen met uw zoekopdracht
         no_users: Geen gebruikers gevonden
         role: Rol
         uid: Gebruiker ID
         username: Gebruikersnaam
+        valid: Geldig
       title: Gebruikers beheren
   add_to_google_calendar: "Toevoegen aan Google Agenda"
   bigbluebutton: BigBlueButton
@@ -393,6 +396,10 @@ nl:
       keep: Eigenlijk zal ik het houden.
       delete_warning: Dit zal het gebruikersaccount deactiveren. Alle gedeactiveerde gebruikers zijn te vinden op het verwijderde tabblad.
       warning: Deze beslissing is definitief. U kunt bijbehorende gegevens <b>niet</b> meer herstellen.
+    delete_rec:
+      delete: "Ik ben zeker, verwijder deze opname."
+      header: "Weet u zeker dat u deze opname wilt verwijderen?"
+      warning: Je zal deze opname <b>niet<b> meer kunnen terugkrijgen
     delete_room:
       confirm: "Weet u zeker dat u %{room} wilt verwijderen?"
       delete: "Ik ben zeker, verwijder deze kamer maar."
@@ -526,6 +533,7 @@ nl:
   room:
     access_code_required: Voer een geldige toegangscode in om toegang te krijgen tot de kamer
     add_presentation: Presentatie toevoegen
+    copy_access: Kopieer Toegangscode
     create_room: Maak een kamer
     create_room_error: Er is een fout opgetreden bij het maken van de kamer
     create_room_success: Kamer met succes gemaakt
