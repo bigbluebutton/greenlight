@@ -59,7 +59,7 @@ The best way is to set SAML_ISSUER variable in .env and then lookup greenlight m
 
 2. Set SAML_IDP_SSO_URL variable. SAML_IDP_SSO_URL is the URL to which the authentication request should be sent. This would be on the identity provider. It can be found in the IdP's metadata in the <md:SingleSignOnService> tag. Get this tag from IdP metadata.
 
-3. Set SAML_IDP_SLO_URL variable. SAML_IDP_SLO_URL is the URL to which the logout request should be sent. This would be on the identity provider. It can be found in the IdP's metadata in the <md:SingleLogoutService> tag. Get this tag from IdP metadata.
+3. Set SAML_IDP_SLO_URL variable. SAML_IDP_SLO_URL is the URL to which the logout request and response should be sent. This would be on the identity provider. It can be found in the IdP's metadata in the <md:SingleLogoutService> tag. Get this tag from IdP metadata.
 4. Set SAML_CALLBACK_URL which is the URL on which the authentication response is expected. For example: "http://<greenlight_domain>/auth/saml/callback"
 
 5. IDP_CERTIFICATE is the filename of the certificate used by the IDP that located in cert/idp folder. 
