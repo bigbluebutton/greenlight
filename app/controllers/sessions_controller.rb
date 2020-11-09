@@ -97,7 +97,7 @@ class SessionsController < ApplicationController
   # POST /users/logout
   def destroy
     logout
-    redirect_to ENV['LOGOUT_REDIRECT_URL'].present? ? ENV['LOGOUT_REDIRECT_URL'] :  root_path
+    redirect_to ENV['LOGOUT_REDIRECT_URL'].present? ? ENV['LOGOUT_REDIRECT_URL'] : root_path
   end
 
   # GET/POST /auth/:provider/callback
