@@ -23,8 +23,6 @@ class ApplicationController < ActionController::Base
   before_action :block_unknown_hosts, :redirect_to_https, :set_user_domain, :set_user_settings, :maintenance_mode?,
   :migration_error?, :user_locale, :check_admin_password, :check_user_role
 
-  protect_from_forgery with: :exceptions
-
   # Retrieves the current user.
   def current_user
     @current_user ||= User.includes(:role, :main_room).find_by(id: session[:user_id])

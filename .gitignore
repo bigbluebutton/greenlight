@@ -11,6 +11,7 @@ vendor/bundle
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
+/db/*.sqlite3-*
 
 # Ignore static assets.
 /public/system/**
@@ -26,12 +27,21 @@ vendor/bundle
 
 # Ignore all logfiles and tempfiles.
 /log/*
-/tmp
+/tmp/*
 !/log/.keep
+!/tmp/.keep
 
 # Ignore Byebug command history file.
 .byebug_history
 
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore uploaded files in development.
+/storage/*
+!/storage/.keep
 # Ignore environment configuration.
 .env
 env
@@ -49,3 +59,9 @@ config/terms.md
 coverage*
 
 /atom-sftp-sync.json
+
+/public/assets
+.byebug_history
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
