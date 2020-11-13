@@ -199,7 +199,7 @@ class RoomsController < ApplicationController
       # Update the rooms values
       room_settings_string = create_room_settings_string(options)
 
-      @room.update_attributes(
+      @room.update(
         name: options[:name],
         room_settings: room_settings_string,
         access_code: options[:access_code]
