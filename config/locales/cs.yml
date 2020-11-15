@@ -173,6 +173,7 @@ cs:
         enabled: Vždy zapnuto
         optional: Volitelný
     rooms:
+      timeout: "Protože %{server} Požadavku vypršel časový limit, informace o stavu a účastnících nemusí být přesná"
       title: Místnosti
       table:
         ended: "Ukončeno: %{session}"
@@ -491,7 +492,7 @@ cs:
       visibility: Viditelnost
       formats: Formáty
     visibility:
-      public: Veřejný
+      public: Veřejné
       unlisted: Neveřejné
     format:
       notes: Poznámky
