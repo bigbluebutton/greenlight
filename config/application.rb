@@ -137,7 +137,8 @@ module Greenlight
     # DEFAULTS
 
     # Default branding image if the user does not specify one
-    config.branding_image_default = ENV["DEFAULT_LOGO"].nil? ? "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png" : ENV["DEFAULT_LOGO"]
+    config.branding_image_default = ENV["DEFAULT_LOGO"].nil? ? 
+     "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png" : ENV["DEFAULT_LOGO"]
 
     # Default primary color if the user does not specify one
     config.primary_color_default = "#467fcf"
