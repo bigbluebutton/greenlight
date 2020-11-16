@@ -22,7 +22,7 @@
       <div class="card-body">
         <p><%= t("verify.not_verified") %></p>
         <div class="btn-list text-right pt-8">
-          <%= button_to t("verify.resend"), resend_email_path, params: { token: params['token'], email_verified: false }, class: "btn btn-primary btn-space", "data-disable": "" %>
+          <%= button_to t("verify.resend"), resend_email_path, params: { digest: params[:digest], email_verified: false }, class: "btn btn-primary btn-space", "data-disable": "" %>
         </div>
       </div>
     </div>

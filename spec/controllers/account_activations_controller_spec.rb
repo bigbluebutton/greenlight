@@ -34,8 +34,9 @@ describe AccountActivationsController, type: :controller do
 
     it "renders the verify view if the user is not signed in and is not verified" do
       user = create(:user, email_verified: false,  provider: "greenlight")
+      user.create_activation_token
 
-      get :show, params: { token: user.create_activation_token }
+      get :show, params: { digest: user.activation_digest }
 
       expect(response).to render_template(:show)
     end
@@ -70,7 +71,8 @@ describe AccountActivationsController, type: :controller do
     it "redirects a pending user to root with a flash" do
       @user = create(:user, email_verified: false, provider: "greenlight")
 
-      @user.add_role :pending
+      @user.set_role :pending
+      @user.reload
 
       get :edit, params: { token: @user.create_activation_token }
 

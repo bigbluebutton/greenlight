@@ -99,7 +99,6 @@ module Emailer
   def send_approval_user_signup_email(user)
     begin
       return unless Rails.configuration.enable_email_verification
-
       admin_emails = admin_emails()
       UserMailer.approval_user_signup(user, admins_url(tab: "pending"),
       admin_emails, @settings).deliver_now unless admin_emails.empty?
@@ -129,12 +128,12 @@ module Emailer
   end
 
   def admin_emails
-    admins = User.all_users_with_roles.where(roles: { role_permissions: { name: "can_manage_users", value: "true" } })
+    roles = Role.where(provider: @user_domain, role_permissions: { name: "can_manage_users", value: "true" })
+                .pluck(:name)
 
-    if Rails.configuration.loadbalanced_configuration
-      admins = admins.without_role(:super_admin)
-                     .where(provider: @user_domain)
-    end
+    admins = User.with_role(roles - ["super_admin"])
+
+    admins = admins.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
 
     admins.collect(&:email).join(",")
   end
