@@ -280,7 +280,7 @@ es_MX:
           more-info: Para permitir el acceso de este usuario debes aprobar su cuenta de usuario a través de la configuración de la organización.
           admins_link: Ir a la página de la organización
           subject: Registro de usuario nuevo
-          username: "El usuario se ha registrado como %{name}con el email %{email}."
+          username: "El usuario se ha registrado como %{name} con el email %{email}."
         subject: Cuenta de usuario autorizada
         username: "Tu nombre de usuario es %{email}."
       demoted:
@@ -296,7 +296,7 @@ es_MX:
           info: Un usuario que fue invitado a registrarse ha completado su registro.
           admins_link: Ir a la página de la organización
           subject: Registro de usuario nuevo
-          username: "El usuario se ha registrado como%{name} con el email %{email}. "
+          username: "El usuario se ha registrado como %{name} con el email %{email}. "
         subject: Invitación a ingresar a BigBlueButton
         username: "Tu nombre de usuario es %{email}."
       password_reset:
