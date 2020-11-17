@@ -349,7 +349,7 @@ es:
           info: Un usuario que fue invitado a registrarse ha completado su registro.
           admins_link: Ir a la página de la organización
           subject: Registro de usuario nuevo
-          username: "El usuario se ha registrado como%{name} con el correo electrónico %{email}. "
+          username: "El usuario se ha registrado como %{name} con el correo electrónico %{email}. "
         subject: Invitación para unirse a BigBlueButton
         username: "Tu nombre de usuario es %{email}."
       password_reset:
