@@ -5,14 +5,13 @@
 # in the CI/CD Env variable declaration, while others should be passed as parameters.
 #
 #------------------------------------------------------------------------------
-#_build.sh Defined as part of the CD/CI Env Variables:
+# Defined as part of the CD/CI Env Variables:
 #
- CD_DOCKER_USERNAME=1803lxn
-# A DockerHub username to be used for uploading the build.
-#
- CD_DOCKER_PASSWORD=Lxn1803ed
+# CD_DOCKER_USERNAME
+# A DockerHub username to be used for uploading the build
+# CD_DOCKER_PASSWORD
 # A DockerHub password to be used for uploading the build.
-#
+#Lxn1803ed
 # CD_DOCKER_REPO
 # A DockerHub repository. By default the CD_REF_SLUG is also used as the docker repo.
 #
