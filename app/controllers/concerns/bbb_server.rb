@@ -54,6 +54,7 @@ module BbbServer
     join_opts = {}
     join_opts[:userID] = uid if uid
     join_opts[:join_via_html5] = true
+    join_opts[:avatarURL] = current_user.image
 
     bbb_server.join_meeting_url(room.bbb_id, name, password, join_opts)
   end
