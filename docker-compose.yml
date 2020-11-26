@@ -4,7 +4,8 @@ services:
   app:
     entrypoint: [bin/start]
 #    image: bigbluebutton/greenlight:v2
-    build: ./
+    image: webconf:release-v2
+#    build: ./
     container_name: greenlight-v2
     env_file: .env
     restart: unless-stopped
