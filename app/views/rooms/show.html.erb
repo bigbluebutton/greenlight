@@ -82,6 +82,21 @@
       </div>
     </div>
 
+    <% if current_user.ordered_rooms.length > 6 %>
+      <div class="input-icon invite-link-input">
+        <span class="input-icon-addon">
+          <i class="fas fa-search"></i>
+        </span>
+        <input id="room-search"
+               type="text"
+               placeholder="<%= t("room.search") %>"
+               class="form-control w-100"
+               onChange="filterRooms()"
+               onKeyUp="filterRooms()"
+               style="margin: 50px 0 25px 0">
+      </div>
+    <% end %>
+
     <div id="room_block_container" class="row pt-7 pb-5">
       <% if current_user.role.get_permission("can_create_rooms") %>
         <% current_user.ordered_rooms.each do |room| %>

@@ -347,3 +347,16 @@ function checkIfAutoJoin() {
     $("#room-join").click()
   }
 }
+
+function filterRooms() {
+  const search_term = document.getElementById('room-search').value.toLowerCase(),
+        create_room = document.getElementById('create-room-block').parentNode,
+        container = document.getElementById('room_block_container');
+
+  container.childNodes.forEach(r => {
+    let text = r.innerText;
+    if (r != create_room && text !== undefined) {
+      r.style.display = (text.toLowerCase().indexOf(search_term) < 0) ? 'none' : 'block';
+    }
+  })
+}
