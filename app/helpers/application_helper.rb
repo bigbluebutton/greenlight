@@ -130,4 +130,9 @@ module ApplicationHelper
     return false unless recording_consent_required?
     @settings.get_value("Room Configuration Recording") == "disabled"
   end
+
+  # Hide the signin buttons if there is an error on the page
+  def show_signin
+    !@hide_signin.present?
+  end
 end

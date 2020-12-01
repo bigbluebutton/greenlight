@@ -85,4 +85,15 @@ module Populator
     return initial_list unless Rails.configuration.loadbalanced_configuration
     initial_list.where(provider: @user_domain)
   end
+
+  # Returns a list off all current invitations
+  def invited_users_list
+    list = if Rails.configuration.loadbalanced_configuration
+      Invitation.where(provider: @user_domain)
+    else
+      Invitation.all
+    end
+
+    list.admins_search(@search).order(updated_at: :desc)
+  end
 end

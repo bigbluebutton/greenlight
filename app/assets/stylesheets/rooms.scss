@@ -141,3 +141,13 @@
   padding: unset;
 }
 
+.create-room-button {
+  width: 49%;
+}
+
+#presentation-upload-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-right: 75px;
+}

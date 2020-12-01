@@ -275,6 +275,35 @@ $(document).on('turbolinks:load', function(){
   }
 });
 
+function copyInvite() {
+  $('#invite-url').select()
+  if (document.execCommand("copy")) {
+    $('#invite-url').blur();
+    copy = $("#copy-invite")
+    copy.addClass('btn-success');
+    copy.html("<i class='fas fa-check mr-1'></i>" + getLocalizedString("copied"))
+    setTimeout(function(){
+      copy.removeClass('btn-success');
+      copy.html("<i class='fas fa-copy mr-1'></i>" + getLocalizedString("copy"))
+    }, 1000)
+  }
+}
+
+function copyAccess() {
+  $('#copy-code').attr("type", "text")
+  $('#copy-code').select()
+  if (document.execCommand("copy")) {
+    $('#copy-code').attr("type", "hidden")
+    copy = $("#copy-access")
+    copy.addClass('btn-success');
+    copy.html("<i class='fas fa-check mr-1'></i>" + getLocalizedString("copied"))
+    setTimeout(function(){
+      copy.removeClass('btn-success');
+      copy.html("<i class='fas fa-copy mr-1'></i>" + getLocalizedString("room.copy_access"))
+    }, 1000)
+  }
+}
+
 function showCreateRoom(target) {
   $("#create-room-name").val("")
   $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))

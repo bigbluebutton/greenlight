@@ -173,6 +173,7 @@ gl:
         enabled: Activado sempre
         optional: Opcional
     rooms:
+      timeout: "Por mor do tempo de espera da solicitude do servidor %{server}, é posíbel que a información do estado e dos participantes non sexa exacta"
       title: Salas no servidor
       table:
         ended: "Rematada: %{session}"
@@ -202,12 +203,14 @@ gl:
       table:
         authenticator: Autenticador
         created: Creado
+        time: Hora de envío
         name: Nome
         not_found: Non hai usuarios que coincidan coa súa busca
         no_users: Non se atoparon usuarios
         role: Rol
         uid: ID do usuario
         username: Nome de usuario
+        valid: Válido
       title: Administrar usuarios
   add_to_google_calendar: "Engadir ao calendario de Google"
   bigbluebutton: BigBlueButton
@@ -394,7 +397,7 @@ gl:
       delete_warning: Isto desactivará a conta do usuario. Na lapela eliminada pódense atopar todos os usuarios desactivados.
       warning: Esta decisión é definitiva. <b>Non</b> poderá recuperar a información asociada.
     delete_rec:
-      delete: Confirmo que quero eliminar esta gravación.
+      delete: "Si, confirmo que quero eliminar esta gravación."
       header: "Confirma que quere eliminar esta gravación?"
       warning: <b>Non</b> poderá recuperar esta gravación
     delete_room:
@@ -530,6 +533,7 @@ gl:
   room:
     access_code_required: Introduza un código de acceso válido para unirse á sala
     add_presentation: Engadir presentación
+    copy_access: Copiar o código de acceso
     create_room: Crear unha sala
     create_room_error: Produciuse un erro ao crear a sala
     create_room_success: Creouse correctamente a sala

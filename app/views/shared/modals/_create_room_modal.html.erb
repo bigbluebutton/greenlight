@@ -28,7 +28,7 @@
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off %>
+              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off, required: true %>
               <div class="invalid-feedback text-left"><%= t("modal.create_room.not_blank") %></div>
             </div>
 
@@ -91,8 +91,12 @@
               <span class="custom-switch-indicator float-right cursor-pointer"></span>
             </label>
           <div class="mt-4">
-            <%= f.submit t("modal.create_room.create"), class: "create-only btn btn-primary btn-block" %>
-            <%= f.submit t("modal.room_settings.update"), class: "update-only btn btn-primary btn-block" %>
+            <%= f.submit t("modal.create_room.create"), class: "create-only btn btn-primary create-room-button" %>
+            <%= f.submit t("modal.room_settings.update"), class: "update-only btn btn-primary create-room-button" %>
+
+            <button type="button" class="btn btn-secondary create-room-button" data-dismiss="modal">
+              <%= t("cancel") %>
+            </button>
           </div>
           <% end %>
         </div>

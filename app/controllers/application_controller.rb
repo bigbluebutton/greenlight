@@ -101,7 +101,7 @@ class ApplicationController < ActionController::Base
     locale = if user && user.language != 'default'
       user.language
     else
-      http_accept_language.language_region_compatible_from(I18n.available_locales)
+      Rails.configuration.default_locale.presence || http_accept_language.language_region_compatible_from(I18n.available_locales)
     end
 
     begin
@@ -259,24 +259,40 @@ class ApplicationController < ActionController::Base
       session[:provider_exists] = @user_domain
     rescue => e
       logger.error "Error in retrieve provider info: #{e}"
-      # Use the default site settings
-      @user_domain = "greenlight"
-      @settings = Setting.find_or_create_by(provider: @user_domain)
-
+      @hide_signin = true
       if e.message.eql? "No user with that id exists"
+        set_default_settings
+
         render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_not_found.message"),
           help: I18n.t("errors.not_found.user_not_found.help") }
       elsif e.message.eql? "Provider not included."
+        set_default_settings
+
         render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_missing.message"),
           help: I18n.t("errors.not_found.user_missing.help") }
       elsif e.message.eql? "That user has no configured provider."
+        if Setting.exists?(provider: @user_domain)
+          # Keep the branding
+          @settings = Setting.find_by(provider: @user_domain)
+        else
+          set_default_settings
+        end
+
         render "errors/greenlight_error", locals: { status_code: 501,
           message: I18n.t("errors.no_provider.message"),
           help: I18n.t("errors.no_provider.help") }
       else
+        set_default_settings
+
         render "errors/greenlight_error", locals: { status_code: 500, message: I18n.t("errors.internal.message"),
           help: I18n.t("errors.internal.help"), display_back: true }
       end
     end
+  end
+
+  def set_default_settings
+    # Use the default site settings
+    @user_domain = "greenlight"
+    @settings = Setting.find_or_create_by(provider: @user_domain)
   end
 end
