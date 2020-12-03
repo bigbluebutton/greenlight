@@ -266,6 +266,24 @@ function ResetAccessCode(){
   $("#room_access_code").val(null)
 }
 
+function generateModeratorAccessCode(){
+  const accessCodeLength = 6
+  var validCharacters = "abcdefghijklmopqrstuvwxyz"
+  var accessCode = ""
+
+  for( var i = 0; i < accessCodeLength; i++){
+    accessCode += validCharacters.charAt(Math.floor(Math.random() * validCharacters.length));
+  }
+
+  $("#create-room-moderator-access-code").text(getLocalizedString("modal.create_room.moderator_access_code") + ": " + accessCode)
+  $("#room_moderator_access_code").val(accessCode)
+}
+
+function ResetModeratorAccessCode(){
+  $("#create-room-moderator-access-code").text(getLocalizedString("modal.create_room.moderator_access_code_placeholder"))
+  $("#room_moderator_access_code").val(null)
+}
+
 function saveAccessChanges() {
   let listItemsToAdd = $("#user-list li:not(.remove-shared)").toArray().map(user => $(user).data("uid"))
 
