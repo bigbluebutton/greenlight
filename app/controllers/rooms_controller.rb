@@ -44,7 +44,9 @@ class RoomsController < ApplicationController
     return redirect_to current_user.main_room, flash: { alert: I18n.t("room.room_limit") } if room_limit_exceeded
 
     # Create room
-    @room = Room.new(name: room_params[:name], access_code: room_params[:access_code])
+    @room = Room.new(name: room_params[:name], 
+                     access_code: room_params[:access_code], 
+                     moderator_access_code: room_params[:moderator_access_code])
     @room.owner = current_user
     @room.room_settings = create_room_settings_string(room_params)
 
@@ -202,7 +204,8 @@ class RoomsController < ApplicationController
       @room.update_attributes(
         name: options[:name],
         room_settings: room_settings_string,
-        access_code: options[:access_code]
+        access_code: options[:access_code],
+        moderator_access_code: options[:moderator_access_code]
       )
 
       flash[:success] = I18n.t("room.update_settings_success")
@@ -344,7 +347,7 @@ class RoomsController < ApplicationController
   def room_params
     params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
       :require_moderator_approval, :anyone_can_start, :all_join_moderator,
-      :recording, :presentation)
+      :recording, :presentation, :moderator_access_code)
   end
 
   # Find the room from the uid.
