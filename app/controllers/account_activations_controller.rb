@@ -20,7 +20,8 @@ class AccountActivationsController < ApplicationController
   include Emailer
 
   before_action :ensure_unauthenticated
-  before_action :find_user
+  before_action :find_user_by_token, only: :edit
+  before_action :find_user_by_digest, only: :resend
 
   # GET /account_activations
   def show
@@ -59,19 +60,17 @@ class AccountActivationsController < ApplicationController
 
   private
 
-  def find_user
-    digest = if params[:token].present?
-      User.hash_token(params[:token])
-    elsif params[:digest].present?
-      params[:digest]
-    else
-      raise "Missing token/digest params"
-    end
+  def find_user_by_token
+    return redirect_to root_path, flash: { alert: I18n.t("verify.invalid") } unless params[:token].present?
 
-    @user = User.find_by!(activation_digest: digest, provider: @user_domain)
+    @user = User.find_by!(activation_digest: User.hash_token(params[:token]), provider: @user_domain)
+  end
+
+  def find_user_by_digest
+    @user = User.find_by!(activation_digest: params[:digest], provider: @user_domain)
   end
 
   def ensure_unauthenticated
-    redirect_to current_user.main_room if current_user
+    redirect_to current_user.main_room || root_path if current_user
   end
 end
