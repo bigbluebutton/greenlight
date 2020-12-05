@@ -142,6 +142,9 @@ $(document).on('turbolinks:load', function(){
     $("#remove-presentation").click(function(data) {
       removePreuploadPresentation($(this).data("remove"))
     })
+
+    // trigger initial room filter
+    filterRooms();
   }
 });
 
@@ -349,14 +352,18 @@ function checkIfAutoJoin() {
 }
 
 function filterRooms() {
-  const search_term = document.getElementById('room-search').value.toLowerCase(),
-        create_room = document.getElementById('create-room-block').parentNode,
-        container = document.getElementById('room_block_container');
+  const search_term = $('#room-search').val().toLowerCase(),
+        rooms = $('#room_block_container > div:not(:last-child)');
+        clear_room_search = $('#clear-room-search');
 
-  container.childNodes.forEach(r => {
-    let text = r.innerText;
-    if (r != create_room && text !== undefined) {
-      r.style.display = (text.toLowerCase().indexOf(search_term) < 0) ? 'none' : 'block';
-    }
+  if (search_term) {
+    clear_room_search.show();
+  } else {
+    clear_room_search.hide();
+  }
+
+  rooms.each(function(i, room) {
+    let text = $(this).find('h4').text();
+    room.style.display = (text.toLowerCase().indexOf(search_term) < 0) ? 'none' : 'block';
   })
 }

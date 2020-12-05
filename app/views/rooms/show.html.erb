@@ -83,17 +83,16 @@
     </div>
 
     <% if current_user.ordered_rooms.length > 6 %>
-      <div class="input-icon invite-link-input">
-        <span class="input-icon-addon">
-          <i class="fas fa-search"></i>
+      <div class="input-group room-search">
+        <input id="room-search" type="text" class="form-control" placeholder="<%= t("room.search") %>" onChange="filterRooms()" onKeyUp="filterRooms()"></input>
+        <span id="clear-room-search" class="text-primary" onclick="$('#room-search').val(''); filterRooms()">
+          <i class="fas fa-times"></i>
         </span>
-        <input id="room-search"
-               type="text"
-               placeholder="<%= t("room.search") %>"
-               class="form-control w-100"
-               onChange="filterRooms()"
-               onKeyUp="filterRooms()"
-               style="margin: 50px 0 25px 0">
+        <span class="input-group-append">
+          <button class="btn btn-outline-primary" type="button" onclick="filterRooms()">
+            <i class="fas fa-search"></i>
+          </button>
+        </span>
       </div>
     <% end %>
 
