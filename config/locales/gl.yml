@@ -229,19 +229,19 @@ gl:
   docs: Documentación
   email: Correo-e
   email_sent: "Enviouselle un correo-e %{email_type}. (Comprobe o seu cartafol de correo non desexado, se non o recibiu)"
-  enter_your_name: Escriba o seu nome!
+  enter_your_name: Escriba o seu nome
   errors:
     bigbluebutton:
       help: "Asegúrese de que se tomaron as medidas axeitadas. <a href=\"%{doc_link}\">Saber máis</a>"
       message: Punto final e segredo de BigBlueButton incorrectos
-      title: Erro do servidor
+      title: Produciuse un erro no servidor
     internal:
       message: Parece que algo saíu mal no noso lado.
       help: "Rexistrouse o erro, botaremoslle unha ollada!"
       report: Informar dun problema
     maintenance:
       message: "Sentímolo, estamos en mantemento."
-      help: Volveremos cedo!
+      help: Volveremos logo!
     migration_error:
       contact_admin: "Se non é un administrador, póñase en contacto cun."
       continue: Gustaríame seguir usando 1.0.
@@ -482,7 +482,7 @@ gl:
     error: "Produciuse un erro ao recuperar %{count} gravación(s)"
     no_recordings: "Esta sala non ten gravacións %{inject}."
     no_user_recordings: Non ten gravacións.
-    no_matched_recordings: "Non hai %{inject} gravacións que coincidan coa súa busca."
+    no_matched_recordings: "Non hai  gravacións %{inject} que coincidan coa súa busca."
     recorded_on: "Gravada o %{date}"
     table:
       name: Nome
@@ -569,15 +569,16 @@ gl:
     recordings: Gravacións da sala
     room_limit: Acadou o número máximo de salas permitido
     room_limit_exceeded: "Acadou o número de salas permitidas. Elimine %{difference} sala(s) para acceder a esta sala."
-    sessions: Sessiones
+    sessions: Sesións
     settings: Axustes da sala
-    share: Administrar o acceso
+    share: Xestionar o acceso
     shared_by: "Compartido por %{email}"
     remove_shared_access_success: Retirouse correctamente a sala compartida da súa lista
     remove_shared_access_error: Produciuse un erro ao retirar a sala compartida da súa lista
     shared_access_success: A sala foi compartida correctamente
     shared_access_error: Produciuse un erro ao compartir a sala
     start: Iniciar
+    search: Buscar sala…
     unavailable: Esta sala non está dispoñíbel actualmente por mor de que o correo-e do propietario non foi verificado.
     update_settings_error: Produciuse un erro ao actualizar os axustes da sala
     update_settings_success: Os axustes da sala foron actualizados correctamente
