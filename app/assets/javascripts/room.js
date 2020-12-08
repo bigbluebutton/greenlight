@@ -142,6 +142,9 @@ $(document).on('turbolinks:load', function(){
     $("#remove-presentation").click(function(data) {
       removePreuploadPresentation($(this).data("remove"))
     })
+
+    // trigger initial room filter
+    filterRooms();
   }
 });
 
@@ -346,4 +349,21 @@ function checkIfAutoJoin() {
     $("#joiner-consent").click()
     $("#room-join").click()
   }
+}
+
+function filterRooms() {
+  const search_term = $('#room-search').val().toLowerCase(),
+        rooms = $('#room_block_container > div:not(:last-child)');
+        clear_room_search = $('#clear-room-search');
+
+  if (search_term) {
+    clear_room_search.show();
+  } else {
+    clear_room_search.hide();
+  }
+
+  rooms.each(function(i, room) {
+    let text = $(this).find('h4').text();
+    room.style.display = (text.toLowerCase().indexOf(search_term) < 0) ? 'none' : 'block';
+  })
 }

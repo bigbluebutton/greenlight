@@ -82,6 +82,20 @@
       </div>
     </div>
 
+    <% if current_user.ordered_rooms.length > 6 %>
+      <div class="input-group room-search">
+        <input id="room-search" type="text" class="form-control" placeholder="<%= t("room.search") %>" onChange="filterRooms()" onKeyUp="filterRooms()"></input>
+        <span id="clear-room-search" class="text-primary" onclick="$('#room-search').val(''); filterRooms()">
+          <i class="fas fa-times"></i>
+        </span>
+        <span class="input-group-append">
+          <button class="btn btn-outline-primary" type="button" onclick="filterRooms()">
+            <i class="fas fa-search"></i>
+          </button>
+        </span>
+      </div>
+    <% end %>
+
     <div id="room_block_container" class="row pt-7 pb-5">
       <% if current_user.role.get_permission("can_create_rooms") %>
         <% current_user.ordered_rooms.each do |room| %>

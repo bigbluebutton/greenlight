@@ -85,7 +85,7 @@ describe AccountActivationsController, type: :controller do
     it "resends the email to the current user if the resend button is clicked" do
       user = create(:user, email_verified: false, provider: "greenlight")
 
-      expect { get :resend, params: { token: user.create_activation_token } }
+      expect { get :resend, params: { digest: User.hash_token(user.create_activation_token) } }
         .to change { ActionMailer::Base.deliveries.count }.by(1)
       expect(flash[:success]).to be_present
       expect(response).to redirect_to(root_path)
@@ -94,7 +94,7 @@ describe AccountActivationsController, type: :controller do
     it "redirects a verified user to the root path" do
       user = create(:user, provider: "greenlight")
 
-      get :resend, params: { token: user.create_activation_token }
+      get :resend, params: { digest: User.hash_token(user.create_activation_token) }
 
       expect(flash[:alert]).to be_present
       expect(response).to redirect_to(root_path)
