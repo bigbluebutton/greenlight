@@ -578,6 +578,7 @@ de_DE:
     shared_access_success: Raum erfolgreich geteilt
     shared_access_error: Beim Teilen des Raums ist ein Fehler aufgetreten
     start: Starten
+    search: Suche nach Raum…
     unavailable: "Der Raum ist aktuell nicht verfügbar, weil die E-Mail des Rauminitiators noch nicht verifiziert wurde."
     update_settings_error: Bei der Aktualisierung der Raumeinstellungen ist ein Fehler aufgetreten.
     update_settings_success: Raumeinstellungen erfolgreich aktualisiert
