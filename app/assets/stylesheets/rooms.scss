@@ -133,3 +133,14 @@
   text-overflow: ellipsis;
   padding-right: 75px;
 }
+
+#clear-room-search {
+  z-index: 9;
+  position: absolute;
+  right: 15px;
+  top: 8px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

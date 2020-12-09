@@ -24,7 +24,7 @@
   }
 }
 
-#clear-search, #clear-room-search {
+#clear-search {
   z-index: 9;
   position: absolute;
   right: 55px;
@@ -33,10 +33,6 @@
   &:hover {
     cursor: pointer;
   }
-}
-
-.room-search {
-  margin: 50px 0 25px 0;
 }
 
 .tag i {
