@@ -203,7 +203,7 @@ es:
       table:
         authenticator: Verificador
         created: Creado
-        time: Tiempo de envio
+        time: Tiempo de envío
         name: Nombre
         not_found: No se encontraron usuarios con ese criterio
         no_users: No se encontraron usuarios
@@ -578,6 +578,7 @@ es:
     shared_access_success: Sala compartida correctamente
     shared_access_error: Ha habido un error compartiendo la sala
     start: Iniciar
+    search: Buscar por grupo...
     unavailable: Esta sala no se encuentra disponible debido a que la cuenta de correo  de su propietario no ha sido verificado.
     update_settings_error: Ocurrió un error al actualizar la configuración de la sala
     update_settings_success: La configuración de la sala fue actualizada exitósamente
