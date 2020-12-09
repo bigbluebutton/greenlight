@@ -352,7 +352,11 @@ function checkIfAutoJoin() {
 }
 
 function filterRooms() {
-  const search_term = $('#room-search').val().toLowerCase(),
+  let search = $('#room-search').val()
+
+  if (search == undefined) { return }
+
+  let search_term = search.toLowerCase(),
         rooms = $('#room_block_container > div:not(:last-child)');
         clear_room_search = $('#clear-room-search');
 
@@ -366,4 +370,9 @@ function filterRooms() {
     let text = $(this).find('h4').text();
     room.style.display = (text.toLowerCase().indexOf(search_term) < 0) ? 'none' : 'block';
   })
+}
+
+function clearRoomSearch() {
+  $('#room-search').val(''); 
+  filterRooms()
 }
