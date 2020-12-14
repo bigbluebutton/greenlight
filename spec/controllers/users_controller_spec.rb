@@ -139,6 +139,15 @@ describe UsersController, type: :controller do
         expect(flash[:success]).to be_present
         expect(response).to redirect_to(root_path)
       end
+
+      it "correctly sets the last_login field after the user is created" do
+        params = random_valid_user_params
+        post :create, params: params
+
+        u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+
+        expect(u.last_login).to_not be_nil
+      end
     end
 
     context "disallow greenlight accounts" do
