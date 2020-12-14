@@ -97,6 +97,8 @@ class User < ApplicationRecord
 
   # Returns a list of rooms ordered by last session (with nil rooms last)
   def ordered_rooms
+    return [] if main_room.nil?
+
     [main_room] + rooms.where.not(id: main_room.id).order(Arel.sql("last_session IS NULL, last_session desc"))
   end
 
