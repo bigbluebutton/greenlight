@@ -65,8 +65,12 @@ class HealthCheckController < ApplicationController
       smtp.enable_starttls_auto if smtp.respond_to?(:enable_starttls_auto)
     end
 
-    smtp.start(settings[:domain]) do |s|
-      s.authenticate(settings[:user_name], settings[:password], settings[:authentication])
+    if settings[:authentication].present? && settings[:authentication] != "none"
+      smtp.start(settings[:domain]) do |s|
+        s.authenticate(settings[:user_name], settings[:password], settings[:authentication])
+      end
+    else
+      smtp.start(settings[:domain])
     end
   rescue => e
     raise "Unable to connect to SMTP Server - #{e}"

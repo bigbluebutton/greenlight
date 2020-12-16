@@ -272,6 +272,19 @@ describe SessionsController, type: :controller do
         }
       }.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
+
+    it "correctly sets the last_login field after the user is created" do
+      post :create, params: {
+        session: {
+          email: @user1.email,
+          password: 'example',
+        },
+      }
+
+      @user1.reload
+
+      expect(@user1.last_login).to_not be_nil
+    end
   end
 
   describe "GET/POST #omniauth" do
@@ -370,6 +383,15 @@ describe SessionsController, type: :controller do
       get :omniauth, params: { provider: 'google' }
 
       expect(response).to redirect_to(root_path)
+    end
+
+    it "correctly sets the last_login field after the user is created" do
+      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google]
+      get :omniauth, params: { provider: :google }
+
+      u = User.last
+
+      expect(u.last_login).to_not be_nil
     end
 
     context 'twitter deprecation' do

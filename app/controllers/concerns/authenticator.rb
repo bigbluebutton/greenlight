@@ -24,6 +24,7 @@ module Authenticator
     migrate_twitter_user(user)
 
     session[:user_id] = user.id
+    user.update(last_login: Time.zone.now)
 
     logger.info("Support: #{user.email} has successfully logged in.")
 
