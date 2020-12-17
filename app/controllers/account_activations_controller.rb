@@ -18,6 +18,7 @@
 
 class AccountActivationsController < ApplicationController
   include Emailer
+  include Authenticator
 
   before_action :ensure_unauthenticated
   before_action :find_user_by_token, only: :edit
@@ -32,6 +33,7 @@ class AccountActivationsController < ApplicationController
     # If the user exists and is not verified and provided the correct token
     if @user && !@user.activated?
       # Verify user
+      @user.set_role(initial_user_role(@user.email)) if @user.role.nil?
       @user.activate
 
       # Redirect user to root with account pending flash if account is still pending

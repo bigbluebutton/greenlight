@@ -148,6 +148,47 @@ describe UsersController, type: :controller do
 
         expect(u.last_login).to_not be_nil
       end
+
+      context "email mapping" do
+        before do
+          @role1 = Role.create(name: "role1", priority: 2, provider: "greenlight")
+          @role2 = Role.create(name: "role2", priority: 3, provider: "greenlight")
+          allow_any_instance_of(Setting).to receive(:get_value).and_return("-123@test.com=role1,@testing.com=role2")
+        end
+
+        it "correctly sets users role if email mapping is set" do
+          params = random_valid_user_params
+          params[:user][:email] = "test-123@test.com"
+
+          post :create, params: params
+
+          u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+
+          expect(u.role).to eq(@role1)
+        end
+
+        it "correctly sets users role if email mapping is set (second test)" do
+          params = random_valid_user_params
+          params[:user][:email] = "test@testing.com"
+
+          post :create, params: params
+
+          u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+
+          expect(u.role).to eq(@role2)
+        end
+
+        it "defaults to user if no mapping matches" do
+          params = random_valid_user_params
+          params[:user][:email] = "test@testing1.com"
+
+          post :create, params: params
+
+          u = User.find_by(name: params[:user][:name], email: params[:user][:email])
+
+          expect(u.role).to eq(Role.find_by(name: "user", provider: "greenlight"))
+        end
+      end
     end
 
     context "disallow greenlight accounts" do
