@@ -83,6 +83,19 @@ module Authenticator
       !allow_greenlight_accounts?
   end
 
+  # Sets the initial user role based on the email mapping
+  def initial_user_role(email)
+    mapping = @settings.get_value("Email Mapping")
+    return "user" unless mapping.present?
+
+    mapping.split(",").each do |map|
+      email_role = map.split("=")
+      return email_role[1] if email.ends_with?(email_role[0])
+    end
+
+    "user" # default to user if role not found
+  end
+
   private
 
   # Migrates all of the twitter users rooms to the new account
