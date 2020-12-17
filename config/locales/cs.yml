@@ -578,6 +578,7 @@ cs:
     shared_access_success: Místnost je sdílena
     shared_access_error: Nastala chyba při nastavení sdílení místnosti
     start: Spustit
+    search: Hledat místnost ...
     unavailable: "Tato místnost je momentálně nedostupná, protože e-mail vlastníka nebyl dosud ověřen."
     update_settings_error: Nastala chyba při aktualizaci nastavení místnosti
     update_settings_success: Nastavení místnosti bylo aktualizováno

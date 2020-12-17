@@ -69,6 +69,10 @@ de_DE:
         regular: Normal
         lighten: Heller
         darken: Dunkler
+      email_mapping:
+        info: "Ordnen Sie den Nutzer anhand seiner E-Mail einer Rolle zu. Muss im Format email1=Rolle1,email2=Rolle2 erfolgen"
+        title: Rollenzuordnung per E-Mail
+        update: 
       log_level:
         title: Log-Level
         information: Log-Level für die gesamte Anwendung ändern
@@ -111,6 +115,7 @@ de_DE:
       tabs:
         appearance: Darstellung
         administration: Administration
+        registration: Registrierung
         settings: Einstellungen
       title: Grundeinstellungen
     flash:
