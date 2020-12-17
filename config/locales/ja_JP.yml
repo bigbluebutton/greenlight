@@ -69,6 +69,10 @@ ja_JP:
         regular: 基調色
         lighten: 明色
         darken: 暗色
+      email_mapping:
+        info: "メールアドレスを使用してユーザに役割を割り当てる。メールアドレス1=役割1,メールアドレス2=役割2の形式で記述する必要があります"
+        title: メールアドレスによる役割の割り当て
+        update: 
       log_level:
         title: ログレベル
         information: 配置されたすべてのログレベルを変更する
@@ -111,6 +115,7 @@ ja_JP:
       tabs:
         appearance: 表示
         administration: 管理
+        registration: 登録
         settings: 設定
       title: サイトの設定
     flash:
@@ -578,6 +583,7 @@ ja_JP:
     shared_access_success: 会議室を共有しました
     shared_access_error: 会議室の共有設定中にエラーが発生しました
     start: 開始
+    search: 会議室を探す...
     unavailable: この会議室はオーナーのメールが確認されていないため、現在利用できません。
     update_settings_error: 会議室の設定更新中にエラーが発生しました
     update_settings_success: 会議室の設定を更新しました
