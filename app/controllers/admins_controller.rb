@@ -86,8 +86,6 @@ class AdminsController < ApplicationController
       @participants_count[meet[:meetingID]] = meet[:participantCount]
     end
 
-    @user_list = shared_user_list if shared_access_allowed
-
     @pagy, @rooms = pagy_array(server_rooms_list)
   end
 

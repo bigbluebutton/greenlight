@@ -110,6 +110,9 @@ Rails.application.routes.draw do
   # Users who can't create rooms
   get '/rooms', to: 'rooms#cant_create_rooms', as: :cant_create_rooms
 
+  # Returns a list of users for the shared access list
+  get '/shared_access_list', to: 'users#shared_access_list'
+
   # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/'
 

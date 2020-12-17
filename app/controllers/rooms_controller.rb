@@ -79,8 +79,6 @@ class RoomsController < ApplicationController
       @search, @order_column, @order_direction, recs =
         recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
 
-      @user_list = shared_user_list if shared_access_allowed
-
       @pagy, @recordings = pagy_array(recs)
     else
       return redirect_to root_path, flash: { alert: I18n.t("room.invalid_provider") } if incorrect_user_domain
