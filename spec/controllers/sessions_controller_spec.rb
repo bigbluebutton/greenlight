@@ -531,6 +531,53 @@ describe SessionsController, type: :controller do
       new_u = User.find_by(social_uid: "bn-launcher-user-new")
       expect(users_old_uid).to eq(new_u.uid)
     end
+
+    context "email mapping" do
+      before do
+        @role1 = Role.create(name: "role1", priority: 2, provider: "greenlight")
+        @role2 = Role.create(name: "role2", priority: 3, provider: "greenlight")
+        allow_any_instance_of(Setting).to receive(:get_value).and_return("-123@test.com=role1,@testing.com=role2")
+      end
+
+      it "correctly sets users role if email mapping is set" do
+        params = OmniAuth.config.mock_auth[:google]
+        params[:info][:email] = "test-123@test.com"
+
+        request.env["omniauth.auth"] = params
+
+        get :omniauth, params: { provider: :google }
+
+        u = User.last
+
+        expect(u.role).to eq(@role1)
+      end
+
+      it "correctly sets users role if email mapping is set (second test)" do
+        params = OmniAuth.config.mock_auth[:google]
+        params[:info][:email] = "test-123@testing.com"
+
+        request.env["omniauth.auth"] = params
+
+        get :omniauth, params: { provider: :google }
+
+        u = User.last
+
+        expect(u.role).to eq(@role2)
+      end
+
+      it "defaults to user if no mapping matches" do
+        params = OmniAuth.config.mock_auth[:google]
+        params[:info][:email] = "test@test.com"
+
+        request.env["omniauth.auth"] = params
+
+        get :omniauth, params: { provider: :google }
+
+        u = User.last
+
+        expect(u.role).to eq(Role.find_by(name: "user", provider: "greenlight"))
+      end
+    end
   end
 
   describe "POST #ldap" do

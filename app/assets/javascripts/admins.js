@@ -169,6 +169,12 @@ function clearMaintenanceBanner(path) {
   $.post(path, {value: "", tab: "administration"})
 }
 
+// Change the email mapping to the string provided
+function changeEmailMapping(path) {
+  var url = $("#email-mapping").val()
+  $.post(path, {value: url, tab: "registration"})
+}
+
 function mergeUsers() {
   let userToMerge = $("#from-uid").text()
   $.post($("#merge-save-access").data("path"), {merge: userToMerge})

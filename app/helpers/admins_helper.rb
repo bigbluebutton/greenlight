@@ -121,6 +121,10 @@ module AdminsHelper
     @settings.get_value("Room Limit").to_i
   end
 
+  def email_mapping
+    @settings.get_value("Email Mapping")
+  end
+
   # Room Configuration
 
   def room_configuration_string(name)
