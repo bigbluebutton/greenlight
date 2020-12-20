@@ -104,6 +104,15 @@ class User < ApplicationRecord
     where(search_query, search: search_param)
   end
 
+  def self.merge_list_search(string)
+    return all if string.blank?
+
+    search_query = "users.name LIKE :search OR users.email LIKE :search"
+
+    search_param = "%#{sanitize_sql_like(string)}%"
+    where(search_query, search: search_param)
+  end
+
   # Returns a list of rooms ordered by last session (with nil rooms last)
   def ordered_rooms
     return [] if main_room.nil?

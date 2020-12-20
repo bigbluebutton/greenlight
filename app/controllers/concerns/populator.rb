@@ -65,14 +65,6 @@ module Populator
     end
   end
 
-  # Returns a list of users that can merged into another user
-  def merge_user_list
-    initial_list = User.without_role(:super_admin).where.not(uid: current_user.uid)
-
-    return initial_list unless Rails.configuration.loadbalanced_configuration
-    initial_list.where(provider: @user_domain)
-  end
-
   # Returns a list off all current invitations
   def invited_users_list
     list = if Rails.configuration.loadbalanced_configuration
