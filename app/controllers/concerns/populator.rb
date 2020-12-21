@@ -65,27 +65,6 @@ module Populator
     end
   end
 
-  # Returns a list of users that are in the same context of the current user
-  def shared_user_list
-    roles_can_appear = []
-    Role.where(provider: @user_domain).each do |role|
-      roles_can_appear << role.name if role.get_permission("can_appear_in_share_list") && role.priority >= 0
-    end
-
-    initial_list = User.where.not(uid: current_user.uid).with_role(roles_can_appear)
-
-    return initial_list unless Rails.configuration.loadbalanced_configuration
-    initial_list.where(provider: @user_domain)
-  end
-
-  # Returns a list of users that can merged into another user
-  def merge_user_list
-    initial_list = User.without_role(:super_admin).where.not(uid: current_user.uid)
-
-    return initial_list unless Rails.configuration.loadbalanced_configuration
-    initial_list.where(provider: @user_domain)
-  end
-
   # Returns a list off all current invitations
   def invited_users_list
     list = if Rails.configuration.loadbalanced_configuration
