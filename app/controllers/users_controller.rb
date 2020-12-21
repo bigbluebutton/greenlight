@@ -197,6 +197,29 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /shared_access_list
+  def shared_access_list
+    # Don't allow searchs unless atleast 3 characters are passed
+    return redirect_to '/404' if params[:search].length < 3
+
+    roles_can_appear = []
+    Role.where(provider: @user_domain).each do |role|
+      roles_can_appear << role.name if role.get_permission("can_appear_in_share_list") && role.priority >= 0
+    end
+
+    initial_list = User.select(:uid, :name)
+                       .where.not(uid: current_user.uid)
+                       .with_role(roles_can_appear)
+                       .shared_list_search(params[:search])
+
+    initial_list = initial_list.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
+
+    # Respond with JSON object of users
+    respond_to do |format|
+      format.json { render body: initial_list.to_json }
+    end
+  end
+
   private
 
   def find_user
