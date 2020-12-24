@@ -550,6 +550,7 @@ describe UsersController, type: :controller do
     it "allows admins to permanently delete users" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+      allow_any_instance_of(BbbServer).to receive(:delete_all_recordings).and_return("")
       allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
       controller.instance_variable_set(:@user_domain, "provider1")
 
@@ -568,6 +569,7 @@ describe UsersController, type: :controller do
     it "permanently deletes the users rooms if the user is permanently deleted" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+      allow_any_instance_of(BbbServer).to receive(:delete_all_recordings).and_return("")
       allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
       controller.instance_variable_set(:@user_domain, "provider1")
 
