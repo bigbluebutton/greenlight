@@ -155,6 +155,8 @@ class UsersController < ApplicationController
         # Permanently delete the rooms under the user if they have not been reassigned
         if perm_delete
           @user.rooms.include_deleted.each do |room|
+            # Destroy all recordings then permanently delete the room
+            delete_all_recordings(room.bbb_id)
             room.destroy(true)
           end
         end
