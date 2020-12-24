@@ -70,11 +70,4 @@ module UsersHelper
 
     markdown.render(text).html_safe
   end
-
-  # Allows admins to edit a user's details
-  def can_edit_user?(user_to_edit, editting_user)
-    return !user_to_edit.greenlight_account? if user_to_edit == editting_user
-
-    editting_user.admin_of?(user_to_edit, "can_manage_users")
-  end
 end

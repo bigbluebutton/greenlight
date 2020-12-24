@@ -92,7 +92,7 @@ class UsersController < ApplicationController
 
     redirect_path = current_user.admin_of?(@user, "can_manage_users") ? path : edit_user_path(@user)
 
-    unless @user.greenlight_account?
+    unless can_edit_user?(@user, current_user)
       params[:user][:name] = @user.name
       params[:user][:email] = @user.email
     end
