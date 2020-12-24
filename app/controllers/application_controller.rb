@@ -194,6 +194,14 @@ class ApplicationController < ActionController::Base
   end
   helper_method :allowed_file_types
 
+  # Allows admins to edit a user's details
+  def can_edit_user?(user_to_edit, editting_user)
+    return user_to_edit.greenlight_account? if user_to_edit == editting_user
+
+    editting_user.admin_of?(user_to_edit, "can_manage_users")
+  end
+  helper_method :can_edit_user?
+
   # Returns the page that the logo redirects to when clicked on
   def home_page
     return admins_path if current_user.has_role? :super_admin

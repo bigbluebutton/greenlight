@@ -329,7 +329,7 @@ describe UsersController, type: :controller do
   end
 
   describe "POST #update" do
-    it "properly updates user attributes" do
+    it "properly updates usser attributes" do
       user = create(:user)
       @request.session[:user_id] = user.id
 
@@ -356,6 +356,22 @@ describe UsersController, type: :controller do
       expect(user.email).not_to eql(params[:user][:email])
       expect(flash[:success]).to be_present
       expect(response).to redirect_to(edit_user_path(user))
+    end
+
+    it "allows admins to update a non local accounts name/email" do
+      allow_any_instance_of(User).to receive(:greenlight_account?).and_return(false)
+      user = create(:user)
+      admin = create(:user).set_role :admin
+      @request.session[:user_id] = admin.id
+
+      params = random_valid_user_params
+      post :update, params: params.merge!(user_uid: user)
+      user.reload
+
+      expect(user.name).to eql(params[:user][:name])
+      expect(user.email).to eql(params[:user][:email])
+      expect(flash[:success]).to be_present
+      expect(response).to redirect_to(admins_path)
     end
 
     it "renders #edit on unsuccessful save" do
@@ -534,6 +550,7 @@ describe UsersController, type: :controller do
     it "allows admins to permanently delete users" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+      allow_any_instance_of(BbbServer).to receive(:delete_all_recordings).and_return("")
       allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
       controller.instance_variable_set(:@user_domain, "provider1")
 
@@ -552,6 +569,7 @@ describe UsersController, type: :controller do
     it "permanently deletes the users rooms if the user is permanently deleted" do
       allow(Rails.configuration).to receive(:loadbalanced_configuration).and_return(true)
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(true)
+      allow_any_instance_of(BbbServer).to receive(:delete_all_recordings).and_return("")
       allow_any_instance_of(ApplicationController).to receive(:set_user_domain).and_return("provider1")
       controller.instance_variable_set(:@user_domain, "provider1")
 
