@@ -69,6 +69,10 @@ gl:
         regular: Normal
         lighten: Clarexar
         darken: Escurecer
+      email_mapping:
+        info: "Asignar o usuario a un rol usando o seu correo-e. Debe ter o formato email1=rol1,email2=rol2"
+        title: Asignación de roles por correo-e
+        update: 
       log_level:
         title: Nivel de rexistro
         information: Cambiar o nivel de rexistro para o despregamento completo
@@ -111,6 +115,7 @@ gl:
       tabs:
         appearance: Aparencia
         administration: Administración
+        registration: Rexistro
         settings: Axustes
       title: Axustes do sitio
     flash:
