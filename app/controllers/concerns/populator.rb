@@ -56,12 +56,16 @@ module Populator
     end
   end
 
-  # Returns list of rooms needed to get the recordings on the server
-  def rooms_list_for_recordings
-    if Rails.configuration.loadbalanced_configuration
-      Room.includes(:owner).where(users: { provider: @user_domain }).pluck(:bbb_id)
-    else
-      Room.pluck(:bbb_id)
+  # Returns the correct recordings based on the users inputs
+  def recordings_to_show(user, room)
+    if user.present?
+      # Find user and get his recordings
+      all_recordings(User.find_by(email: user)&.rooms&.pluck(:bbb_id))
+    elsif room.present?
+      # Find room and get its recordings
+      all_recordings([Room.find_by(uid: room)&.bbb_id])
+    else 
+      latest_recordings
     end
   end
 
@@ -74,5 +78,20 @@ module Populator
     end
 
     list.admins_search(@search).order(updated_at: :desc)
+  end
+
+  private
+
+  # Returns exactly 1 page of the latest recordings
+  def latest_recordings
+    return_length = Rails.configuration.pagination_number
+
+    rooms = if Rails.configuration.loadbalanced_configuration
+      Room.includes(:owner).where(users: { provider: @user_domain }).order(last_session: :desc).limit(return_length).pluck(:bbb_id)
+    else
+      Room.order(last_session: :desc).limit(return_length).pluck(:bbb_id)
+    end
+
+    return all_recordings(rooms)
   end
 end
