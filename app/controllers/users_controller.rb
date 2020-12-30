@@ -209,10 +209,10 @@ class UsersController < ApplicationController
       roles_can_appear << role.name if role.get_permission("can_appear_in_share_list") && role.priority >= 0
     end
 
-    initial_list = User.select(:uid, :name)
-                       .where.not(uid: current_user.uid)
+    initial_list = User.where.not(uid: current_user.uid)
                        .with_role(roles_can_appear)
                        .shared_list_search(params[:search])
+                       .pluck_to_hash(:uid, :name)
 
     initial_list = initial_list.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
 

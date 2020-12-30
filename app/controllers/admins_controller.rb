@@ -199,10 +199,10 @@ class AdminsController < ApplicationController
   # GET /admins/merge_list
   def merge_list
     # Returns a list of users that can merged into another user
-    initial_list = User.select(:uid, :name, :email)
-                       .without_role(:super_admin)
+    initial_list = User.without_role(:super_admin)
                        .where.not(uid: current_user.uid)
                        .merge_list_search(params[:search])
+                       .pluck_to_hash(:uid, :name, :email)
 
     initial_list = initial_list.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
 
