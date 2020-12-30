@@ -140,6 +140,7 @@ en:
     recordings:
       title: Server Recordings
       no_recordings: This server has no recordings.
+      search_info: Enter a user's full email or a room's uid
     roles:
       appear_in_share_list: Include users with this role in the dropdown for sharing rooms
       can_create_rooms: Can create rooms

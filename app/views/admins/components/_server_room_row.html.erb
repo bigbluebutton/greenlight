@@ -65,7 +65,7 @@
         <a href="" data-toggle="modal" data-target="#createRoomModal" class="update-room dropdown-item" data-settings-path="<%= room_settings_path(room) %>">
           <i class="dropdown-icon fas fa-cog"></i> <%= t("room.settings") %>
         </a>
-        <%= link_to admin_recordings_path(room_uid: room.uid), class: "dropdown-item" do %>
+        <%= link_to admin_recordings_path(search: room.uid), class: "dropdown-item" do %>
           <i class="dropdown-icon fas fa-video"></i> <%= t("administrator.rooms.table.recordings") %>
         <% end %>
         <% if preupload_allowed? %>

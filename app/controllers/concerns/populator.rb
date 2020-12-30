@@ -57,14 +57,14 @@ module Populator
   end
 
   # Returns the correct recordings based on the users inputs
-  def recordings_to_show(user, room)
+  def recordings_to_show(user = nil, room = nil)
     if user.present?
       # Find user and get his recordings
-      all_recordings(User.find_by(email: user)&.rooms&.pluck(:bbb_id))
+      all_recordings(User.find_by(email: user)&.rooms&.pluck(:bbb_id) || [])
     elsif room.present?
       # Find room and get its recordings
       all_recordings([Room.find_by(uid: room)&.bbb_id])
-    else 
+    else
       latest_recordings
     end
   end
@@ -87,11 +87,15 @@ module Populator
     return_length = Rails.configuration.pagination_number
 
     rooms = if Rails.configuration.loadbalanced_configuration
-      Room.includes(:owner).where(users: { provider: @user_domain }).order(last_session: :desc).limit(return_length).pluck(:bbb_id)
+      Room.includes(:owner)
+          .where(users: { provider: @user_domain })
+          .order(last_session: :desc)
+          .limit(return_length)
+          .pluck(:bbb_id)
     else
       Room.order(last_session: :desc).limit(return_length).pluck(:bbb_id)
     end
 
-    return all_recordings(rooms)
+    all_recordings(rooms)
   end
 end

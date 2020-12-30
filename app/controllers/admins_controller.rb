@@ -56,10 +56,18 @@ class AdminsController < ApplicationController
 
   # GET /admins/server_recordings
   def server_recordings
-    @room_uid = params[:room_uid] || ""
-    @user_email = params[:user_email] || ""
-    
-    @pagy, @recordings = pagy_array(recordings_to_show(@user_email, @room_uid))
+    @search = params[:search] || ""
+
+    if @search.present?
+      if @search.include? "@"
+        user_email = @search
+      else
+        room_uid = @search
+      end
+    end
+
+    @pagy, @recordings = pagy_array(recordings_to_show(user_email, room_uid))
+    # @pagy, @recordings = pagy_array([])
   end
 
   # GET /admins/rooms

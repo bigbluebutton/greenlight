@@ -14,43 +14,6 @@
 %>
 
 <div class="row">
-  <div class="col-md-6 mb-4">
-    <div id="search-bar" class="d-inline-block float-left">
-      <div class="input-group">
-        <input id="search-input" type="text" class="form-control" placeholder="<%= t("settings.search") %>..." value="<%= @user_email %>">
-        <% unless @user_email.blank? %>
-          <span id="clear-search" class="text-primary" onclick="clearSearch()">
-            <i class="fas fa-times"></i>
-          </span>
-        <% end %>
-        <span class="input-group-append">
-          <button class="btn btn-outline-primary" type="button" onclick="searchPage()">
-            <i class="fas fa-search"></i>
-          </button>
-        </span>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6 mb-4">
-    <div id="search-bar" class="d-inline-block float-right">
-      <div class="input-group">
-        <input id="search-input" type="text" class="form-control" placeholder="<%= t("settings.search") %>..." value="<%= @room_uid %>">
-        <% unless @room_uid.blank? %>
-          <span id="clear-search" class="text-primary" onclick="clearSearch()">
-            <i class="fas fa-times"></i>
-          </span>
-        <% end %>
-        <span class="input-group-append">
-          <button class="btn btn-outline-primary" type="button" onclick="searchPage()">
-            <i class="fas fa-search"></i>
-          </button>
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
   <div class="col-12">
     <div class="table-responsive">
       <table id="recordings-table" class="table table-hover table-outline table-vcenter card-table">

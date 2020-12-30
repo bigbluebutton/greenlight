@@ -91,7 +91,7 @@
                                 <i class="dropdown-icon fas fa-user-friends"></i> <%= t("administrator.users.settings.merge") %>
                               </button>
                               <% unless user.rooms.length.zero? %>
-                                <%= link_to admin_recordings_path(user_email: user.email), class: "dropdown-item" do %>
+                                <%= link_to admin_recordings_path(search: user.email), class: "dropdown-item" do %>
                                   <i class="dropdown-icon fas fa-video"></i> <%= t("administrator.rooms.table.recordings") %>
                                 <% end %>
                               <% end %>
