@@ -162,17 +162,19 @@ function copyInvite() {
   }
 }
 
-function copyAccess() {
-  $('#copy-code').attr("type", "text")
-  $('#copy-code').select()
+function copyAccess(target) {
+  input = target ? $("#copy-" + target + "-code") : $("#copy-code")
+  input.attr("type", "text")
+  input.select()
   if (document.execCommand("copy")) {
-    $('#copy-code').attr("type", "hidden")
-    copy = $("#copy-access")
+    input.attr("type", "hidden")
+    copy = target ? $("#copy-" + target + "-access") : $("#copy-access")
     copy.addClass('btn-success');
     copy.html("<i class='fas fa-check mr-1'></i>" + getLocalizedString("copied"))
     setTimeout(function(){
       copy.removeClass('btn-success');
-      copy.html("<i class='fas fa-copy mr-1'></i>" + getLocalizedString("room.copy_access"))
+      originalString = target ? getLocalizedString("room.copy_" + target + "_access") : getLocalizedString("room.copy_access")
+      copy.html("<i class='fas fa-copy mr-1'></i>" + originalString)
     }, 1000)
   }
 }
