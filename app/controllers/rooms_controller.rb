@@ -112,7 +112,7 @@ class RoomsController < ApplicationController
 
     @shared_room = room_shared_with_user
 
-    unless @room.owned_by?(current_user) || @shared_room
+    unless @room.owned_by?(current_user) || @shared_room || session[:moderator_access_code] == @room.moderator_access_code
       # Don't allow users to join unless they have a valid access code or the room doesn't have an access code
       if @room.access_code && !@room.access_code.empty? && @room.access_code != session[:access_code]
         return redirect_to room_path(room_uid: params[:room_uid]), flash: { alert: I18n.t("room.access_code_required") }
@@ -323,9 +323,13 @@ class RoomsController < ApplicationController
 
   # POST /:room_uid/login
   def login
-    session[:access_code] = room_params[:access_code]
+    if room_params[:access_code] == @room.moderator_access_code
+      session[:moderator_access_code] = room_params[:access_code]
+    else
+      session[:access_code] = room_params[:access_code]
+    end
 
-    flash[:alert] = I18n.t("room.access_code_required") if session[:access_code] != @room.access_code
+    flash[:alert] = I18n.t("room.access_code_required") if session[:access_code] != @room.access_code && session[:moderator_access_code] != @room.moderator_access_code
 
     redirect_to room_path(@room.uid)
   end
