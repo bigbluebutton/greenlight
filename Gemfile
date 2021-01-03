@@ -80,6 +80,8 @@ gem 'cancancan', '~> 2.0'
 gem 'aws-sdk-s3', '~> 1.75'
 gem 'google-cloud-storage', '~> 1.26'
 
+gem 'pluck_to_hash', '~> 1.0.2'
+
 group :production do
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'

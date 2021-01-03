@@ -74,12 +74,33 @@ $(document).on('turbolinks:load', function(){
       $(".bootstrap-select").on("click", function() {
         $(".bs-searchbox").siblings().hide()
       })
+
+      $("#merge-user-select ~ button").on("click", function() {
+        $(".bs-searchbox").siblings().hide()
+      })
   
       $(".bs-searchbox input").on("input", function() {
         if ($(".bs-searchbox input").val() == '' || $(".bs-searchbox input").val().length < 3) {
+          $(".select-options").remove()
           $(".bs-searchbox").siblings().hide()
         } else {
-          $(".bs-searchbox").siblings().show()
+          // Manually populate the dropdown
+          $.get($("#merge-user-select").data("path"), { search: $(".bs-searchbox input").val() }, function(users) {
+            $(".select-options").remove()
+            if (users.length > 0) {
+              users.forEach(function(user) {
+                let opt = document.createElement("option")
+                $(opt).val(JSON.stringify({uid: user.uid, email: user.email, name: user.name}))
+                $(opt).text(user.name)
+                $(opt).addClass("select-options")
+                $(opt).attr("data-subtext", user.email)
+                $("#merge-user-select").append(opt)
+              })
+              // Only refresh the select dropdown if there are results to show
+              $('#merge-user-select').selectpicker('refresh');
+            } 
+            $(".bs-searchbox").siblings().show()
+          })     
         }
       })
 
@@ -167,6 +188,12 @@ function displayMaintenanceBanner(path) {
 // Clear the maintenance Banner
 function clearMaintenanceBanner(path) {
   $.post(path, {value: "", tab: "administration"})
+}
+
+// Change the email mapping to the string provided
+function changeEmailMapping(path) {
+  var url = $("#email-mapping").val()
+  $.post(path, {value: url, tab: "registration"})
 }
 
 function mergeUsers() {

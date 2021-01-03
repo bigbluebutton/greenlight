@@ -5,7 +5,7 @@
 !Status](https://coveralls.io/repos/github/bigbluebutton/greenlight/badge.svg?branch=master)
 ![Docker Pulls](https://img.shields.io/docker/pulls/bigbluebutton/greenlight.svg)
 
-Greenlight is a simple front-end interface for your BigBlueButton server. At it's heart, Greenlight provides a minimalistic web-based application that allows users to:
+Greenlight is a simple front-end interface for your BigBlueButton server. At its heart, Greenlight provides a minimalistic web-based application that allows users to:
 
   * Signup/Login with Google, Office365, or through the application itself.
   * Manage your account settings and user preferences.

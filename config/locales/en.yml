@@ -69,6 +69,10 @@ en:
         regular: Regular
         lighten: Lighten
         darken: Darken
+      email_mapping:
+        info: Map the user to a role using their email. Must be in the format email1=role1,email2=role2
+        title: Role Mapping by Email
+        update: 
       log_level:
         title: Log Level
         information: Change the Log Level for the entire deployment
@@ -111,6 +115,7 @@ en:
       tabs:
         appearance: Appearance
         administration: Administration
+        registration: Registration
         settings: Settings
       title: Site Settings
     flash:

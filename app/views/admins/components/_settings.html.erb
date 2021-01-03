@@ -28,15 +28,13 @@
        <i class="fas mr-3 fa-tools"></i>
         <%= t("administrator.site_settings.tabs.settings") %>
       </a>
+      <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'registration' %>"  href="?tab=registration" role="tab" aria-selected="false">
+       <i class="far mr-3 fa-newspaper"></i>
+        <%= t("administrator.site_settings.tabs.registration") %>
+      </a>
     </div>
   </nav>
 </div>
 
-<% if @tab == "appearance"%>
-  <%= render "admins/components/site_settings/appearance" %>
-<% elsif @tab == "administration"%>
-  <%= render "admins/components/site_settings/administration" %>
-<% else %>
-  <%= render "admins/components/site_settings/settings" %>
-<% end %>
-   
+<%= render "admins/components/site_settings/#{@tab}" %>
+
