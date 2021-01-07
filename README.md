@@ -7,7 +7,7 @@
 
 Greenlight is a simple front-end interface for your BigBlueButton server. At its heart, Greenlight provides a minimalistic web-based application that allows users to:
 
-  * Signup/Login with Google, Office365, or through the application itself.
+  * Signup/Login with Google, Office365, OpenID Connect, or through the application itself.
   * Manage your account settings and user preferences.
   * Create and manage your own personal rooms ([BigBlueButton](https://github.com/bigbluebutton/bigbluebutton) sessions).
   * Invite others to your room using a simple URL.
@@ -34,4 +34,3 @@ Greenlight is built using Ruby on Rails. Many developers already know Rails well
 We invite you to build upon Greenlight and help make it better. See [Contributing to BigBlueButton](http://docs.bigbluebutton.org/support/faq.html#contributing-to-bigbluebutton).
 
 We invite your feedback, questions, and suggests about Greenlight too. Please post them to the [developer mailing list](https://groups.google.com/forum/#!forum/bigbluebutton-dev).
-
