@@ -110,9 +110,9 @@ class RoomsController < ApplicationController
 
     @shared_room = room_shared_with_user
 
-    unless @room.owned_by?(current_user) || @shared_room || session[:moderator_access_code] == @room.moderator_access_code
-      # Don't allow users to join unless they have a valid access code or the room doesn't have an access code
-      if @room.access_code && !@room.access_code.empty? && @room.access_code != session[:access_code]
+    unless @room.owned_by?(current_user) || @shared_room 
+      # Don't allow users to join unless they have a valid access code or the room doesn't have an access codes
+      if (@room.access_code && !@room.access_code.empty? && @room.access_code != session[:access_code]) && !valid_moderator_access_code(session[:moderator_access_code])
         return redirect_to room_path(room_uid: params[:room_uid]), flash: { alert: I18n.t("room.access_code_required") }
       end
 
@@ -324,13 +324,14 @@ class RoomsController < ApplicationController
 
   # POST /:room_uid/login
   def login
-    if room_params[:access_code] == @room.moderator_access_code
+    # use same form for access_code and moderator_access_code
+    if valid_moderator_access_code(room_params[:access_code])
       session[:moderator_access_code] = room_params[:access_code]
     else
       session[:access_code] = room_params[:access_code]
     end
 
-    flash[:alert] = I18n.t("room.access_code_required") if session[:access_code] != @room.access_code && session[:moderator_access_code] != @room.moderator_access_code
+    flash[:alert] = I18n.t("room.access_code_required") if session[:access_code] != @room.access_code && !valid_moderator_access_code(session[:moderator_access_code])
 
     redirect_to room_path(@room.uid)
   end
@@ -418,6 +419,10 @@ class RoomsController < ApplicationController
     current_user.rooms.length >= limit
   end
   helper_method :room_limit_exceeded
+
+  def valid_moderator_access_code(code)
+    code == @room.moderator_access_code && !@room.moderator_access_code.blank? && moderator_code_allowed?
+  end
 
   def record_meeting
     # If the require consent setting is checked, then check the room setting, else, set to true
