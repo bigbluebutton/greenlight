@@ -59,7 +59,7 @@
                       <%= t("room.copy_access") %>
                     </button>
                   <% end %>
-                  <% if @room.moderator_access_code.present? %>
+                  <% if moderator_code_allowed? && @room.moderator_access_code.present? %>
                     <input id="copy-moderator-code" value="<%= @room.moderator_access_code %>" type="hidden">
                     <button id="copy-moderator-access" class="btn btn-secondary btn-block" onclick="copyAccess('moderator')">
                       <i class="fas fa-copy mr-1"></i>
