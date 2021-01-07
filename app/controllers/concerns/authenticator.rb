@@ -24,6 +24,7 @@ module Authenticator
     migrate_twitter_user(user)
 
     session[:user_id] = user.id
+    user.update(last_login: Time.zone.now)
 
     logger.info("Support: #{user.email} has successfully logged in.")
 
@@ -80,6 +81,19 @@ module Authenticator
     Rails.configuration.loadbalanced_configuration &&
       User.exists?(email: email, provider: @user_domain, social_uid: nil) &&
       !allow_greenlight_accounts?
+  end
+
+  # Sets the initial user role based on the email mapping
+  def initial_user_role(email)
+    mapping = @settings.get_value("Email Mapping")
+    return "user" unless mapping.present?
+
+    mapping.split(",").each do |map|
+      email_role = map.split("=")
+      return email_role[1] if email.ends_with?(email_role[0])
+    end
+
+    "user" # default to user if role not found
   end
 
   private

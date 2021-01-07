@@ -40,11 +40,10 @@ class AdminsController < ApplicationController
     @tab = params[:tab] || "active"
     @role = params[:role] ? Role.find_by(name: params[:role], provider: @user_domain) : nil
 
-    if @tab == "invited"
-      users = invited_users_list
+    users = if @tab == "invited"
+      invited_users_list
     else
-      users = manage_users_list
-      @user_list = merge_user_list
+      manage_users_list
     end
 
     @pagy, @users = pagy(users)
@@ -85,8 +84,6 @@ class AdminsController < ApplicationController
     meetings.each do |meet|
       @participants_count[meet[:meetingID]] = meet[:participantCount]
     end
-
-    @user_list = shared_user_list if shared_access_allowed
 
     @pagy, @rooms = pagy_array(server_rooms_list)
   end
@@ -197,6 +194,22 @@ class AdminsController < ApplicationController
     end
 
     redirect_back fallback_location: admins_path
+  end
+
+  # GET /admins/merge_list
+  def merge_list
+    # Returns a list of users that can merged into another user
+    initial_list = User.without_role(:super_admin)
+                       .where.not(uid: current_user.uid)
+                       .merge_list_search(params[:search])
+                       .pluck_to_hash(:uid, :name, :email)
+
+    initial_list = initial_list.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
+
+    # Respond with JSON object of users
+    respond_to do |format|
+      format.json { render body: initial_list.to_json }
+    end
   end
 
   # SITE SETTINGS

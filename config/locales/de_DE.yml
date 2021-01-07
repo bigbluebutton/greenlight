@@ -69,6 +69,10 @@ de_DE:
         regular: Normal
         lighten: Heller
         darken: Dunkler
+      email_mapping:
+        info: "Ordnen Sie den Nutzer anhand seiner E-Mail einer Rolle zu. Muss im Format email1=Rolle1,email2=Rolle2 erfolgen"
+        title: Rollenzuordnung per E-Mail
+        update: 
       log_level:
         title: Log-Level
         information: Log-Level für die gesamte Anwendung ändern
@@ -111,6 +115,7 @@ de_DE:
       tabs:
         appearance: Darstellung
         administration: Administration
+        registration: Registrierung
         settings: Einstellungen
       title: Grundeinstellungen
     flash:
@@ -578,6 +583,7 @@ de_DE:
     shared_access_success: Raum erfolgreich geteilt
     shared_access_error: Beim Teilen des Raums ist ein Fehler aufgetreten
     start: Starten
+    search: Suche nach Raum…
     unavailable: "Der Raum ist aktuell nicht verfügbar, weil die E-Mail des Rauminitiators noch nicht verifiziert wurde."
     update_settings_error: Bei der Aktualisierung der Raumeinstellungen ist ein Fehler aufgetreten.
     update_settings_success: Raumeinstellungen erfolgreich aktualisiert

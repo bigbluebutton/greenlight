@@ -21,10 +21,7 @@
           <div class="card-title">
             <h3><%= t("modal.share_access.title") %></h3>
           </div>
-          <select class="selectpicker" title="<%= t("modal.share_access.select") %>" data-live-search="true" data-virtual-scroll="true" >
-            <% @user_list.each do |user| %>
-                <option value="<%= user.uid %>" data-subtext="<%= user.uid %>" ><%= user.name %></option>
-              <% end %>
+          <select id="share-room-select" class="selectpicker" title="<%= t("modal.share_access.select") %>" data-live-search="true" data-virtual-scroll="true" data-path="<%= shared_access_list_path %>" >
           </select>
           <div class="mt-5 text-left">
             <label class="form-label"><%= t("modal.share_access.list") %></label>

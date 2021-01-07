@@ -69,6 +69,10 @@ en:
         regular: Regular
         lighten: Lighten
         darken: Darken
+      email_mapping:
+        info: Map the user to a role using their email. Must be in the format email1=role1,email2=role2
+        title: Role Mapping by Email
+        update: 
       log_level:
         title: Log Level
         information: Change the Log Level for the entire deployment
@@ -111,6 +115,7 @@ en:
       tabs:
         appearance: Appearance
         administration: Administration
+        registration: Registration
         settings: Settings
       title: Site Settings
     flash:
@@ -579,6 +584,7 @@ en:
     shared_access_success: Room shared successfully
     shared_access_error: There was an error sharing the room
     start: Start
+    search: Search for room…
     unavailable: This room is currently unavailable due to the owner's email not being verified.
     update_settings_error: There was an error updating the room settings
     update_settings_success: Room settings successfully updated
@@ -587,7 +593,7 @@ en:
       auto: You will automatically join when the meeting starts.
   settings:
     account:
-      fullname: Full name
+      fullname: Full Name
       language: Language
       provider: Provider
       image: Image
