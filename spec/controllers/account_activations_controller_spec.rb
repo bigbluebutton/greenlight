@@ -34,9 +34,9 @@ describe AccountActivationsController, type: :controller do
 
     it "renders the verify view if the user is not signed in and is not verified" do
       user = create(:user, email_verified: false,  provider: "greenlight")
-
       user.create_activation_token
-      get :show, params: { token: user.activation_token }
+
+      get :show, params: { digest: user.activation_digest }
 
       expect(response).to render_template(:show)
     end
@@ -46,8 +46,7 @@ describe AccountActivationsController, type: :controller do
     it "activates a user if they have the correct activation token" do
       @user = create(:user, email_verified: false, provider: "greenlight")
 
-      @user.create_activation_token
-      get :edit, params: { token: @user.activation_token }
+      get :edit, params: { token: @user.create_activation_token }
       @user.reload
 
       expect(@user.email_verified).to eq(true)
@@ -64,8 +63,7 @@ describe AccountActivationsController, type: :controller do
     it "does not allow the user to click the verify link again" do
       @user = create(:user, provider: "greenlight")
 
-      @user.create_activation_token
-      get :edit, params: { token: @user.activation_token }
+      get :edit, params: { token: @user.create_activation_token }
       expect(flash[:alert]).to be_present
       expect(response).to redirect_to(root_path)
     end
@@ -73,13 +71,58 @@ describe AccountActivationsController, type: :controller do
     it "redirects a pending user to root with a flash" do
       @user = create(:user, email_verified: false, provider: "greenlight")
 
-      @user.add_role :pending
+      @user.set_role :pending
+      @user.reload
 
-      @user.create_activation_token
-      get :edit, params: { token: @user.activation_token }
+      get :edit, params: { token: @user.create_activation_token }
 
       expect(flash[:success]).to be_present
       expect(response).to redirect_to(root_path)
+    end
+
+    context "email mapping" do
+      before do
+        @role1 = Role.create(name: "role1", priority: 2, provider: "greenlight")
+        @role2 = Role.create(name: "role2", priority: 3, provider: "greenlight")
+        allow_any_instance_of(Setting).to receive(:get_value).and_return("-123@test.com=role1,@testing.com=role2")
+      end
+
+      it "correctly sets users role if email mapping is set" do
+        @user = create(:user, email: "test-123@test.com", email_verified: false, provider: "greenlight", role: nil)
+
+        get :edit, params: { token: @user.create_activation_token }
+
+        u = User.last
+        expect(u.role).to eq(@role1)
+      end
+
+      it "correctly sets users role if email mapping is set (second test)" do
+        @user = create(:user, email: "test@testing.com", email_verified: false, provider: "greenlight", role: nil)
+
+        get :edit, params: { token: @user.create_activation_token }
+
+        u = User.last
+        expect(u.role).to eq(@role2)
+      end
+
+      it "does not replace the role if already set" do
+        pending = Role.find_by(name: "pending", provider: "greenlight")
+        @user = create(:user, email: "test@testing.com", email_verified: false, provider: "greenlight", role: pending)
+
+        get :edit, params: { token: @user.create_activation_token }
+
+        u = User.last
+        expect(u.role).to eq(pending)
+      end
+
+      it "defaults to user if no mapping matches" do
+        @user = create(:user, email: "test@testing1.com", email_verified: false, provider: "greenlight")
+
+        get :edit, params: { token: @user.create_activation_token }
+
+        u = User.last
+        expect(u.role).to eq(Role.find_by(name: "user", provider: "greenlight"))
+      end
     end
   end
 
@@ -87,8 +130,8 @@ describe AccountActivationsController, type: :controller do
     it "resends the email to the current user if the resend button is clicked" do
       user = create(:user, email_verified: false, provider: "greenlight")
 
-      user.create_activation_token
-      expect { get :resend, params: { token: user.activation_token } }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect { get :resend, params: { digest: User.hash_token(user.create_activation_token) } }
+        .to change { ActionMailer::Base.deliveries.count }.by(1)
       expect(flash[:success]).to be_present
       expect(response).to redirect_to(root_path)
     end
@@ -96,8 +139,7 @@ describe AccountActivationsController, type: :controller do
     it "redirects a verified user to the root path" do
       user = create(:user, provider: "greenlight")
 
-      user.create_activation_token
-      get :resend, params: { token: user.activation_token }
+      get :resend, params: { digest: User.hash_token(user.create_activation_token) }
 
       expect(flash[:alert]).to be_present
       expect(response).to redirect_to(root_path)

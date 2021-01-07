@@ -21,22 +21,21 @@
 <% end %>
 <div class="background pb-1">
   <div class="container">
-    <div class="row pt-7 pt-sm-9">
-      <div class="col-lg-8 col-sm-12">
+    <div class="row pt-7 pt-sm-9 mb-7">
+      <div class="col-lg-9 col-sm-12">
         <div id="room-title" class="display-3 form-inline <%= 'edit_hover_class' if current_user.main_room != @room %>" data-path="<%= update_settings_path(@room) %>">
+           <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= title(@room.name) %></h1>
           <% if current_user.main_room == @room %>
-            <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= @room.name %></h1>
             <a class="disable-click"><i class="fas fa-home align-top home-indicator ml-2"></i></a>
           <% else %>
-            <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= @room.name %></h1>
             <a><i id="edit-room" class="fa fa-edit align-top home-indicator ml-2" data-edit-room="<%= @room.uid %>"></i></a>
           <% end %>
         </div>
-        <h4 class="text-left mb-6"><%= @room.sessions %> <%= t("room.sessions") %> | <%= @recordings.length %> <%= t("room.recordings") %></h4>
+        <h4 class="text-left mb-6"><%= @room.sessions %> <%= t("room.sessions") %><% unless hide_recording_tables %> | <%= @recordings.length %> <%= t("room.recordings") %><% end %></h4>
         <% unless exceeds_limit %>
           <label class="form-label"><%= t("room.invite_participants") %></label>
           <div class="row">
-            <div class="col-lg-7 col-md-12 mt-2">
+            <div class="col-lg-6 col-md-12 mt-2">
               <div class="input-icon invite-link-input">
                 <span class="input-icon-addon">
                   <i class="fas fa-link"></i>
@@ -44,15 +43,22 @@
                 <input id="invite-url" type="text" class="form-control w-100" value="<%= request.base_url + @room.invite_path %>" readonly="">
               </div>
             </div>
-            <div class="col-lg-5 col-md-12">
+            <div class="col-lg-6 pr-lg-7 col-md-12 pl-lg-0">
               <div class="row">
-                <div class="col-sm-6">
-                  <a id="copy" class="btn btn-primary btn-block mt-2">
-                    <i class="fas fa-copy"></i>
+                <div class="col-sm-6 mt-2">
+                  <button id="copy-invite" class="btn btn-primary btn-block" onclick="copyInvite()">
+                    <i class="fas fa-copy mr-1"></i>
                     <%= t("copy") %>
-                  </a>
+                  </button>
                 </div>
-                <div class="col-sm-6 pl-0">
+                <div class="col-sm-6 pl-0 mt-2">
+                  <% if @room.access_code.present? %>
+                    <input id="copy-code" value="<%= @room.access_code %>" type="hidden">
+                    <button id="copy-access" class="btn btn-secondary btn-block" onclick="copyAccess()">
+                      <i class="fas fa-copy mr-1"></i>
+                      <%= t("room.copy_access") %>
+                    </button>
+                  <% end %>
                   <% if Rails.configuration.enable_google_calendar_button %>
                     <a href="<%= google_calendar_path %>" target="__blank" id="schedule" class="btn btn-primary btn-block mt-2">
                       <i class="fas fa-calendar-plus"></i>
@@ -65,7 +71,7 @@
           </div>
         <% end %>
       </div>
-      <div class="offset-lg-1 col-lg-3 col-sm-12 force-bottom mt-5">
+      <div class="col-lg-3 col-sm-12 force-bottom mt-5">
         <% if @room_running %>
           <%= button_to t("room.join"), room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right", "data-disable": "" %>
         <% else %>
@@ -76,13 +82,27 @@
       </div>
     </div>
 
-    <div id="room_block_container" class="row pt-7 pb-5">
-      <% current_user.ordered_rooms.each do |room| %>
-        <div class="col-lg-4 col-md-6 col-sm-12">
-          <%= link_to room do %>
-            <%= render "rooms/components/room_block", room: room %>
-          <% end %>
-        </div>
+    <% if current_user.ordered_rooms.length > 5 %>
+      <div class="input-icon invite-link-input mb-3">
+        <span class="input-icon-addon">
+          <i class="fas fa-search"></i>
+          </span>
+        <input id="room-search" type="text" placeholder="<%= t("room.search") %>" class="form-control w-100" onChange="filterRooms()" onKeyUp="filterRooms()">
+        <span id="clear-room-search" class="text-primary" onclick="clearRoomSearch()">
+          <i class="fas fa-times"></i>
+        </span>
+      </div>
+    <% end %>
+
+    <div id="room_block_container" class="row mb-5">
+      <% if current_user.role.get_permission("can_create_rooms") %>
+        <% current_user.ordered_rooms.each do |room| %>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <%= link_to room do %>
+              <%= render "rooms/components/room_block", room: room %>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
 
       <% if shared_access_allowed %>
@@ -95,18 +115,24 @@
         <% end %>
       <% end %>
 
-      <% unless room_limit_exceeded %>
+      <% if current_user.role.get_permission("can_create_rooms") && !room_limit_exceeded %>
         <%= render "rooms/components/create_room_block"%>
       <% end %>
     </div>
   </div>
 </div>
 
-<%= render "shared/sessions", recordings: @recordings, pagy: @pagy, only_public: false, shared_room: @shared_room, user_recordings: false, title: t("room.recordings")%>
+<% unless hide_recording_tables %>
+  <%= render "shared/sessions", recordings: @recordings, pagy: @pagy, only_public: false, shared_room: @shared_room, user_recordings: false, title: t("room.recordings")%>
+<% end %>
 
 <%= render "shared/modals/delete_room_modal" %>
 
 <%= render "shared/modals/create_room_modal" %>
+
+<% if preupload_allowed? %>
+  <%= render "shared/modals/preupload_presentation_modal" %>
+<% end %>
 
 <% if shared_access_allowed %>
   <%= render "shared/modals/share_room_modal" %>

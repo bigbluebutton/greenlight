@@ -1,0 +1,592 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+id_ID:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Syarat dan Ketentuan"
+        email: Email
+        name: Nama
+        password: Password
+        password_confirmation: Tulis Ulang Password
+    errors:
+      models:
+        user:
+          confirmation: tidak sesuai dengan Password
+  administrator:
+    site_settings:
+      authentication:
+        disabled: Tidak aktif
+        enabled: Aktif
+        info: Hanya ijinkan anggota yang sudah ter-otentikasi untuk masuk ruang pertemuan
+        title: Syaratkan Otentikasi untuk masuk ruang pertemuan
+        user-info: Anda harus Login untuk bergabung di ruang pertemuan ini
+      branding:
+        change: Ubah Logo
+        info: Ganti logo yang ada di kiri atas
+        placeholder: URL logo ...
+        title: Logo
+        invalid: URL tidak berlaku
+      legal:
+        change: Ubah URL
+        info: Ubah URL Legal yang muncul di bagian bawah halaman
+        placeholder: URL Legal ...
+        title: Legal
+        invalid: URL tidak berlaku
+      privpolicy:
+        change: Ubah URL
+        info: Ubah URL Kebijakan Privasi yang muncul di bagian bawah halaman
+        placeholder: URL Kebijakan Privasi ...
+        title: Kebijakan Privasi
+        invalid: URL tidak berlaku
+      cache:
+        info: Mengosongkan cache penyedia layanan data untuk mendapatkan data terbaru
+        title: Kosongkan Cache Penyedia Layanan Data
+        button: Kosongkan Cache
+      clear_auth:
+        info: Mengosongkan otentikasi saat ini agar anggota dapat kembali Sign-In menggunakan otentikasi lain
+        title: Kosongkan Otentikasi Saat Ini
+        button: Kosongkan Otentikasi
+      color:
+        info: Mengubah warna Keseluruhan akan mengubah sekaligus wana Terang dan Gelap. Warna Terang dan Gelap dapat diubah sendiri-sendiri.
+        title: Warna Utama
+        regular: Keseluruhan
+        lighten: Terang
+        darken: Gelap
+      log_level:
+        title: Tingkatan Catatan
+        information: Ubah Tingkatan Catatan untuk keseluruhan
+        debug: Telusuri
+        info: Info
+        warn: Peringatan
+        error: Kejanggalan
+        fatal: Fatal
+        unknown: Tidak jelas
+      recording_visibility:
+        info: Tentukan siapa  yang dapat melihat rekaman
+        title: Default yang dapat melihat rekaman
+        warning: Pengaturan ini hanya akan diterapkan terhadap ruang pertemuan yang sedang tidak berlangsung
+      registration:
+        info: Ubah cara daftar
+        title: Cara Daftar
+        methods:
+          approval: Persetujuan Admin
+          invite: Perlu Undangan
+          open: Bebas
+      rooms:
+        info: "Batas jumlah ruang pertemuan yang dapat diadakan anggota (termasuk Ruang Utama), tidak berlaku bagi administrator."
+        title: Jumlah Ruang Pertemuan per Anggota
+      shared_access:
+        info: "Menonaktifkan ini akan meniadakan menu pilihan Pengaturan Ruang Pertemuan, mencegah anggota berbagi ruang pertemuan"
+        title: Ijinkan Anggota Berbagi Ruang Pertemuan
+      subtitle: Ubah-suai Greenlight
+      title: Pengaturan Situs
+    flash:
+      approved: Keanggotaan disetujui
+      banned: Anggota dilarang masuk
+      unbanned: Anggota diijinkan masuk kembali
+      delete: Anggota dihapus
+      delete_fail: Gagal menghapus anggota
+      demoted: Anggota dikurangi haknya
+      invite: "Undangan terkirim ke %{email}"
+      invite_email_verification: Sarana pengiriman email belum diaktifkan. Hubungi administrator.
+      merge_fail: Ada masalah dalam penggabungan akun anggota. Silakan cek kembali detil anggota lalu coba lagi 
+      merge_success: Akun anggota berhasil digabung
+      perm_deleted: Anggota sudah dihapus permanen
+      promoted: Anggota ditambah haknya
+      registration_method_updated: Cara daftar berhasil diubah
+      reset_password: Email penggantian Password sudah dikirim ke anggota. (Arahkan anggota untuk periksa juga folder spam)
+      restored: Anggota berhasil diaktifkan kembali
+      room_configuration: Pengaturan ruang pertemuan berhasil diubah
+      settings: Modifikasi berhasil disimpan
+      unauthorized: Anda dilarang melakukan tindakan apapun terhadap anggota ini
+    recordings:
+      title: Tinjau Rekaman
+      no_recordings: Tidak ada rekaman di server
+    roles:
+      appear_in_share_list: Berbagi ruang pertemuan
+      can_create_rooms: Menyelenggarakan pertemuan
+      delete: Hapus peran
+      invalid_create: Gagal mengadakan peran baru. Silakan periksa lalu coba lagi.
+      invalid_order: Gagal memperbarui prioritas peran baru. Silakan periksa lalu coba lagi.
+      invalid_update: Gagal memperbarui hak peran ini. Silakan periksa lalu coba lagi.
+      manage_rooms_recordings: Kelola ruang pertemuan dan rekaman
+      name: Nama Peran
+      new_role: Peran baru
+      role_has_users: "Peran ini diberikan kepada %{user_count} akun. Sebelum menghapus peran ini, silakan hapus akun-akun terkait."
+      title: Pengaturan Peran
+      promote_email: Kabari via email saat anggota diberikan peran ini
+      demote_email: Kabari via email saat peran ini dicabut dari anggota
+      edit_site_settings: Ubah pengaturan situs
+      edit_roles: Kelola peran-peran lain
+      manage_users: Kelola anggota
+      invalid_assignment: Gagal memberikan peran kepada anggota. Silakan periksa dan coba lagi. 
+      colour:
+        title: Warna Penanda Peran
+        info: Tentukan warna penanda peran
+    room_configuration:
+      title: Pengaturan Ruang Pertemuan
+      mute:
+        info: Matikan mic peserta saat masuk ruang pertemuan
+      require_moderator:
+        info: Kabari tuan rumah saat ada calon peserta di Ruang Tunggu untuk disetujui/ditolak mengikuti pertemuan.
+      allow_any:
+        info: Peserta boleh memulai pertemuan setiap saat. Default-nya hanya tuan rumah pertemuan yang dapat memulai.
+      all_moderator:
+        info: Memberikan hak sebagai tuan rumah kepada semua peserta pertemuan
+      options:
+        disabled: Tidak aktif
+        enabled: Aktif
+        optional: Diatur Anggota
+    rooms:
+      title: Tinjau Ruang Pertemuan
+      table:
+        ended: "Berakhir: %{session}"
+        id: ID
+        not_running: Tidak Berlangsung
+        participants: Peserta
+        running: Berlangsung
+        started: "Berlangsung: %{session}"
+        status: Status
+        view: Lihat
+    title: Administrasi
+    users:
+      invite: Ajak Jadi Anggota
+      edit:
+        title: Ubah Rincian Anggota
+      settings:
+        approve: Setujui
+        decline: Tolak
+        ban: Blokir Anggota
+        delete: Hapus
+        edit: Ubah
+        edit_roles: Ubah peran anggota
+        merge: Gabungkan
+        perm_delete: Hapus permanen
+        unban: Buka blokir anggota
+        undelete: Batalkan penghapusan
+      table:
+        authenticator: Otentikasi Melalui
+        created: Dibuat
+        name: Nama
+        not_found: Anggota yang Anda cari tidak ditemukan
+        no_users: Anggota tidak ditemukan
+        role: Peran
+        uid: ID Anggota
+        username: Username
+      title: Tinjau Anggota
+  add_to_google_calendar: " Catat di Google Calendar"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: Ada kejanggalan saat mencoba mememulai pertemuan.
+  cancel: Batalkan
+  cookies:
+    cookie_info: Penggunaan Cookies menambah kemudahan dan kenyamanan bagi Anda mengakses layanan kami. Mohon setujui penerapan Cookies pada perangkat Anda.
+    cookie_button: Setuju
+  copied: Tersalin
+  copy: Salin
+  date:
+    month_names: [~, Januari, Februari, Maret, April, Mei, Juni, Juli, Agustus, September, Oktober, November, Desember]
+  default_admin: "Anda masih menggunakan password default untuk akun ini. Silakan klik <a href=\"%{edit_link}\">di sini</a> untuk mengubah"
+  delete: Hapus
+  delivery_error: Gagal mengirim email. Hubungi administrator.
+  docs: Dokumentasi
+  email: Email
+  email_sent: "Silakan cek email Anda untuk %{email_type}. Cek folder Spam bila email kami tidak masuk di Inbox Anda."
+  enter_your_name: NAMA Anda
+  errors:
+    bigbluebutton:
+      help: Mohon tunggu beberapa menit lalu coba kembali
+      message: Sedang ada proses perbaikan
+      title: Akses Ditutup
+    internal:
+      message: Sepertinya ada masalah di sisi kami.
+      help: "Kejanggalan tercatat, segera kami telusuri."
+      report: Lapor masalah
+    maintenance:
+      message: "Maaf, Anda belum bisa masuk %{bigbluebutton}. Sedang ada proses perawatan rutin."
+      help: Kami akan segera tampil kembali.
+    migration_error:
+      contact_admin: Hubungi administrator.
+      continue: Saya tetap pakai versi 1.0.
+      notice: >
+        Greenlight menemui kejanggalan perpindahan database.<br> Mungkin karena Anda belum update ke Greenlight 2.0.
+      upgrade: Cara upgrade ke versi 2.0!
+      version: "WGreenlight versi baru sudah ada, tapi database Anda tidak cocok."
+    messages:
+      blank: harus diisi
+      too_short: terlalu pendek
+      invalid: tidak berlaku
+      taken: "ini sudah tercatat di %{bigbluebutton}. Gunakan email lain."
+      accepted: harus diterima
+      confirmation: "tidak sesuai %{attribute}"
+      inclusion: tidak ada di daftar
+    no_provider:
+      message: Situs yang ingin Anda akses tidak aktif
+      help: Hubungi administrator untuk mengkonfigurasi
+    not_found:
+      message: "Maaf, halaman yang Anda cari tidak ditemukan"
+      help: "Mungkinkah sudah dihapus?"
+      user_not_found:
+        help: Hubungi administrator
+        message: Anggota ini tidak terdaftar
+      user_missing:
+        help: Pastikan URL sudah benar lalu coba lagi
+        message: URL yang Anda masukkan tidak berlaku
+    title: Kejanggalan
+    unauthorized:
+      message: Anda tidak dapat mengakses aplikasi ini
+      help: Silakan hubungi administrator
+  expired_reset_token: Tautan untuk penggantian password sudah kedaluarsa
+  features:
+    title: Sarana pendukung
+    rooms: Ruang Pertemuan Kelompok
+    recordings: Tampilkan Layar atau Video
+    designs: Presentasi dan Catatan Pertemuan
+    authentication: Ruang Tunggu
+  footer:
+    legal: Legal
+    privpolicy: Kebijakan Privasi
+    powered_by: "Menggunakan %{href}."
+  forgot_password:
+    subtitle: Atur Password
+    email: Email
+    submit: Kirim
+  go_back: Kembali
+  greenlight: Greenlight
+  header:
+    all_recordings: Semua Rekaman
+    dropdown:
+      account_settings: Administrasi
+      help: Panduan
+      home: Teras
+      settings: Data Anda
+      signout: Log Out
+  home_room: Ruang Depan
+  info_update_success: Informasi berhasil diperbarui
+  invalid_credentials: Kombinasi Email dan Password tidak sesuai dengan catatan kami. Coba lagi atau klik Atur Password untuk mengatur ulang Password.
+  invalid_login_method: Login gagal karena ketidakcocokan akun. Anda harus login melalui omniauth.
+  invite_message: "Tautan untuk undang peserta:"
+  javascript:
+    room:
+      mailer:
+        subject: 'mengajak Anda melihat rekaman.'
+        body: 'Klik tautan ini untuk melihat rekaman:'
+        autogenerated: 'Ini adalah email otomatis dari BigBlueButton'
+        footer: 'BigBlueButton adalah sistem pertemuan online open source. Lebih lengkap tentang BigBlueButton, kunjungi https://bigbluebutton.org/.'
+    search:
+      start: Temukan ...
+  landing:
+    about: "%{href} adalah antar-muka untuk server BigBlueButton yang memungkinkan Anda membentuk ruang-ruang pertemuan, atau bergabung ke ruang pertemuan lain melalui tautan yang singkat dan nyaman digunakan."
+    welcome: Selamat datang di BigBlueButton.
+    video: Saksiksan video petunjuk penggunaan Greenlight
+    upgrade: Cara upgrade ke versi 2.0!
+    version: "Greenlight versi baru sudah ada, tapi database Anda tidak cocok."
+  language_default: Default (mengikuti bahasa peramban)
+  ldap_error: Gagal tersambung dengan server LDAP. Periksa konfigurasi LDAP Anda di file .env dan pastikan server Anda berfungsi.
+  login: Login
+  login_title: Login Tuan Rumah
+  mailer:
+    user:
+      approve:
+        info: Akun Anda sudah disetujui.
+        signin: "Untuk masuk ke ruang pertemuan Anda, klik tombol di bawah ini lalu Login. Jika tidak dapat di-klik, tandai email Bukan Phishing dan Bukan Spam."
+        signin_link: Login Tuan Rumah
+        signup:
+          info: Ada yang daftar
+          more-info: Setujui agar pendaftar dapat masuk ke Greenlight.
+          admins_link: Masuk ke Halaman Administrasi
+          subject: Ada Pendaftaran Anggota Baru
+          username: "Pendaftar bernama %{name} dengan email %{email}."
+        subject: Akun Disetujui
+        username: "Gunakan alamat email %{email} untuk Login"
+      demoted:
+        info: "Anda bukan lagi %{role} di %{url}."
+        more-info: Hak Anda sekarang sama dengan peserta.
+        root_link: Login
+        subtitle: "Hak %{role} Dicabut"
+      invite:
+        info: "Anda diajak untuk membuka ruang pertemuan virtual pribadi oleh %{name}"
+        signup_info: "Untuk daftar silakan klik tombol Daftar di bawah ini lalu ikuti petunjuk selanjutnya. Jika tidak dapat di-klik, tandai email Bukan Phishing dan Bukan Spam."
+        signup_link: Daftar
+        signup:
+          info: Orang yang Anda undang sudah mendaftar di BigBlueButton.
+          admins_link: Masuk ke Halaman Administrasi
+          subject: Ada Pendaftaran Anggota Baru
+          username: "Pendaftar bernama %{name} dengan email %{email}."
+        subject: Undangan untuk Bergabung di BigBlueButton
+        username: "Email untuk Login Anda adalah %{email}."
+      password_reset:
+        title: 'Ganti Password'
+        welcome: "Anda terdaftar di BigBlueButton dengan email <b>%{email}</b>."
+        message: 'Untuk keamanan akun Anda, silakan klik tombol Ganti Password di bawah ini:'
+        reset_link: Ganti Password
+        expire: Tautan ini berlaku hingga 2 jam sejak terkirim dari sistem kami. Jika Anda tidak meng-klik Ganti Password maka password Anda tidak berubah.
+        ignore: "Jika tidak dapat di-klik, tandai email Bukan Phishing dan  Bukan Spam."
+      promoted:
+        admins_link: Masuk ke Halaman Administrasi
+        info: "Sekarang Anda sebagai %{role} di %{url}."
+        more-info: "Wewenang Anda dapat dilihat di %{url}."
+        subtitle: "Hak %{role} Diberikan"
+      verify_email:
+        welcome: "Selamat datang di BigBlueButton, %{name}!"
+        success: "Gunakan BigBlueButton untuk jaga komunikasi, kerjasama, dan kinerja."
+        username: "Email untuk Login Anda adalah %{email}."
+        verify: "Klik tombil Verifikasi di bawah ini. Jika tidak dapat di-klik, tandai email Bukan Phishing dan Bukan Spam."
+        verify_text: 'Untuk verifikasi pendaftaran, klik tautan ini: %{url}'
+        verify_link: Verifikasi
+        thanks: Terimakasih untuk minat Anda menggunakan BigBlueButton.
+  maintenance:
+    window_alert: "Maintenance window scheduled for %{date}"
+  max_concurrent: Jumlah pertemuan maksimum sudah tercapai.
+  merged: Digabung
+  modal:
+    create_role:
+      create: Adakan Peran Baru
+      footer_text: Hak-hak tiap peran dapat Anda ubah setelah Peran terbentuk
+      name_placeholder: Tulis nama peran ...
+      not_blank: Nama peran harus diisi
+      title: Adakan Peran Baru
+    create_room:
+      access_code: Kode Akses
+      access_code_placeholder: << Tampilkan/pilih - KODE AKSES - Hapus >>
+      auto_join: Langsung masukkan saya ke ruang pertemuan ini
+      create: Laksanakan!
+      free_delete: Ruang pertemuan dapat Anda hapus kapanpun Anda mau
+      name_placeholder: Nama ruang pertemuan ...
+      not_blank: Nama ruang pertemuan harus diisi
+      title: Tambah Ruang Pertemuan
+    delete_account:
+      confirm: "Yakin hapus akun ini?"
+      delete: Yakin. Hapus akun ini
+      keep: "Tidak jadi hapus, biarkan saja"
+      delete_warning: Ini akan me-non-aktifkan akun anggota. Anggota yang sudah dihapus ada di halaman Dihapus.
+      warning: Hati-hati. Anda <b>tidak bisa</b> mengaktifkan kembali data anggota terkait.
+    delete_room:
+      confirm: "Yakin hapus %{room}?"
+      delete: Yakin. Hapus ruang pertemuan ini
+      keep: "Setelah dipikir-pikir, jangan dihapus deh"
+      warning: Anda <b>tidak bisa</b> mengaktifkan kembali ruang pertemuan ini
+      recording_warning: "atau %{recordings_num} rekaman terkait."
+    invite_user:
+      email_placeholder: Tulis email calon anggota (pisahkan dengan tanda koma)
+      footer: Calon anggota akan menerima email yang isinya panduan untuk mendaftar
+      send: Kirim undangan
+      title: Undang anggota
+    login:
+      or: atau
+      with: "Daftar melalui %{provider}"
+      forgot_password: "Lupa Password? Klik di sini untuk mengganti password."
+    rename_recording:
+    remove_shared:
+      title: "Yakin hapus ruang pertemuan ini?"
+      delete: "Ya, hapus."
+      warning: Anda <b>tidak akan dapat</b> masuk ruang pertemuan ini
+    room_settings:
+      title: Pengaturan Ruang Pertemuan
+      update: Perbarui Pengaturan Ruang Pertemuan
+      client: Tentukan jenis klien
+      join_moderator: Semua peserta jadi tuan rumah
+      mute: Matikan mic peserta saat masuk
+      require_approval: Sediakan Ruang Tunggu
+      start: Peserta boleh memulai pertemuan
+      footer_text: Pengaturan ulang / penyesuaian ruang pertemuan dapat dilakukan kapanpun
+    rename_room:
+      name_placeholder: Tulis nama ruang pertemuan baru ...
+    share_access:
+      footer: "Dengan berbagi ruang pertemuan, maka anggota lain dapat memulai pertemuan dan melihat rekaman ruang pertemuan"
+      list: Berbagi dengan
+      title: Berbagi Akses Ruang Pertemuan
+      save: Simpan Perubahan
+      cancel_changes: Batalkan Perubahan
+      select: Pilih Anggota
+    merge_user:
+      cancel: Batalkan
+      from: Akun untuk Digabung
+      title: Gabungkan Akun Anggota
+      to: Akun Utama
+      save: Gabungkan
+      footer: Ruang-ruang pertemuan akun yang akan digabung akan dipindahkan ke daftar ruangan Akun Utama dan akun akan dihapus
+  name_update_success: Nama ruang pertemuan berhasil diubah
+  no_user_email_exists: Tidak ada pengguna dengan email tersebut. Pastikan Anda sudah menuliskannya dengan benar.
+  omniauth_error: Gagal otentikasi melalui omniauth. Silakan coba kembali atau hubungi administrator
+  omniauth_specific_error: "%{error} terjadi saat otentikasi melalui omniauth. Silakan coba kembali atau hubungi administrator."
+  pagy:
+    nav:
+      prev: "&lsaquo; Sblm"
+      next: "Brkt &rsaquo;"
+      gap: "&hellip;"
+  password: Password
+  password_empty_notice: Password harus diisi
+  password_reset_success: Password sudah diganti
+  password_different_notice: Pengulangan password tidak cocok
+  provider:
+    google: Google
+    office365: Office 365
+    twitter: Twitter
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Gagal memvalidasi respon reCAPTCHA Anda. Silakan coba lagi.
+      verification_failed: Verifikasi reCAPTCHA gagal. Silakan coba lagi.
+  recording:
+    all_recordings: Semua Rekaman
+    email: Kirim tautan
+    error: "Gagal mengambil %{count} rekaman"
+    no_recordings: "Belum ada rekaman %{inject} untuk ruang pertemuan ini"
+    no_user_recordings: Saat ini tidak ada rekaman di server
+    no_matched_recordings: "Rekaman %{inject} yang Anda cari tidak ditemukan"
+    recorded_on: "Direkam pada %{date}"
+    table:
+      name: Nama
+      thumbnails: Keluku
+      length: Durasi
+      users: Anggota
+      visibility: Dapat dilihat Oleh
+      formats: Format
+    visibility:
+      public: Umum
+      unlisted: Tertutup
+    format:
+      notes: Catatan
+      podcast: Podcast
+      presentation: Presentasi
+      statistics: Statistik
+      video: Video
+  registration:
+    approval:
+      fail: "Akun Anda belum disetujui. Jika sudah berhari-hari sejak Anda daftar, silakan hubungi administrator."
+      signup: Akun Anda berhasil dibuat dan sudah disampaikan ke administrator untuk disetujui.
+    banned:
+      fail: Anda tidak dapat masuk. Silakan hubungi administrator jika menurut Anda tidak seharusnya demikian. 
+    deprecated:
+      new_signin: Tentukan metode login baru untuk akun Anda. Semua ruang pertemuan Anda dari akun sebelumnya akan dipindahkan ke akun baru.
+      twitter_signin: "Login melalui Twitter akan segera dihapus di versi berikutnya. Klik <a href=\"%{link}\"> di sini </a> untuk memindahkan akun Anda ke metode login baru."
+      twitter_signup: Pendaftaran melalui Twitter akan segera dihapus di versi berikutnya. Silakan gunakan cara daftar lain.
+      merge_success: Successfully merged your twitter account with your new account. Your old twitter account has been deleted
+    invite:
+      fail: Kode Anda tidak sah atau sudah kedaluarsa. Silakan hubungi administrator.
+      no_invite: Anda perlu undangan untuk daftar menjadi tuan rumah pertemuan. Dapatkan tautan pendaftaran dari administrator.
+  remove: Hapus
+  rename: Ganti nama
+  reset_password:
+    invalid_token: Kode pengaturan ulang password tidak berlaku. Silakan ulangi prosesnya.
+    subtitle: Password
+    password: Password Baru
+    confirm: Tulis Ulang Password Baru
+    update: Perbarui Password
+    auth_change: Metode otentikasi sudah diubah. Silakan cek email Anda untuk mengatur password.
+  roles:
+    active: Aktif
+    admin: Admin
+    banned: Diblokir
+    deleted: Dihapus
+    pending: Menunggu
+    user: Peserta
+  room:
+    access_code_required: Tulis kode akses yang berlaku - Enter valid access code
+    create_room: Tambah ruang pertemuan
+    create_room_error: Gagal mengadakan ruang pertemuan
+    create_room_success: Ruang pertemuan berhasil diadakan
+    delete:
+      home_room: Ruang Utama anggota tidak bisa dihapus
+      success: Ruang pertemuan berhasil dihapus
+      fail: "Gagal menghapus ruang pertemuan (%{error})"
+    enter_the_access_code: KODE AKSES
+    invalid_provider: URL yang Anda tulis tidak berlaku. Silakan periksa dan coba kembali.
+    invited: Anda akan memasuki ruang pertemuan
+    invite_participants: Undang peserta ke pertemuan Anda menggunakan tautan berikut
+    join: Masuk - Join
+    last_session: "Pertemuan sebelumnya %{session}"
+    login: Lanjut - Next
+    owner: Tuan Rumah
+    owner_banned: Ruang pertemuan saat ini tidak aktif
+    no_room:
+      description: Tulis URL atau identitas ruang pertemuan yang hendak Anda masuki
+      edit_profile: Ubah Data Anggota
+      go_to: Masuk
+      invalid_room_uid: URL atau identitas ruang pertemuan yang Anda tulis tidak berlaku
+      placeholder: URL/identitas ruang pertemuan
+      no_recent_rooms: Tidak ada pertemuan yang Anda ikuti baru-baru ini
+      recent_rooms: Masuk ke ruang pertemuan yang baru-baru ini Anda ikuti
+      title: Masuk Ruang Pertemuan
+    no_sessions: Belum pernah ada pertemuan di ruangan ini
+    recordings: Rekaman Pertemuan
+    room_limit: Ruang pertemuan Anda sudah mencapai jumlah maksimum yang diperbolehkan
+    room_limit_exceeded: "Jumlah Ruang Pertemuan Anda lebih dari batas kami. Silakan hapus %{difference} ruangan untuk dapat masuk ke ruangan ini."
+    sessions: Pernah diadakan
+    settings: Pengaturan Ruangan
+    share: Pengaturan Akses
+    shared_by: "Akses diijinkan oleh %{email}"
+    remove_shared_access_success: Berhasil menghapus Ruang Pertemuan Bersama dari daftar ruang pertemuan Anda
+    remove_shared_access_error: Gagal menghapus Ruang Pertemuan Bersama dari daftar ruang pertemuan Anda
+    shared_access_success: Berhasil berbagi ruang pertemuan
+    shared_access_error: Gagal berbagi ruang pertemuan
+    start: Masuk
+    unavailable: Ruang pertemuan belum terbentuk karena email tuan rumah belum diverifikasi
+    update_settings_error: Gagal memperbarui pengaturan ruang pertemuan
+    update_settings_success: Pengaturan ruang pertemuan berhasil diperbarui
+    wait:
+      message: Pertemuan belum dibuka
+      auto: "Jika sudah terjadwal, tunggu kehadiran tuan rumah"
+  settings:
+    account:
+      fullname: Nama lengkap
+      language: Bahasa
+      provider: Penyedia layanan
+      image: Foto
+      image_url: URL Foto
+      roles: Berperan sebagai
+      subtitle: Perbarui Data Anggota
+      title: Data Anda
+      reset_password: Atur ulang password anggota
+    delete:
+      button: Hapus akun saya
+      disclaimer: "Jika dihapus, maka akun Anda ini <b>TIDAK DAPAT</b> kembali diaktifkan. Semua informasi terkait akun Anda, termasuk pengaturan, ruang pertemuan, dan rekaman akan turut terhapus."
+      subtitle: Hapus Permanen Akun Anda
+      title: Hapus Akun
+    password:
+      confirmation: Tulis Ulang Password Baru
+      new: Password Baru
+      old: Password Saat Ini
+      subtitle: Ganti Password Anda
+      title: Ganti Password
+    title: Data Anda
+    search: Cari
+  signup:
+    password_confirm: Tulis Ulang Password
+    subtitle: Daftar Sebagai Tuan Rumah Pertemuan
+    title: Daftar
+    with: "Daftar melalui %{provider}"
+  terms:
+    accept: "Saya menyetujui %{href}"
+    accept_existing: Saya menyetujui Syarat dan Ketentuan
+    title: Syarat dan Ketentuan
+  test_install: >
+    Penerapan ini menggunakan server yang sudah dikonfigurasi sebelummnya. Silakan ganti dengan server Anda sendiri. Lebih rinci silakan lihat %{href}.
+  update: Perbarui
+  verify:
+    accept: Verifikasi
+    activated: Akun terverifikasi!
+    already_verified: Akun sudah diverifikasi
+    invalid: Tautan verifikasi tidak berlaku
+    not_verified: Anda belum dapat masuk karena belum melakukan verifikasi email. Silakan verifikasi email yang telah kami kirimkan.
+    resend: Kirim ulang email verifikasi
+    signin: Silakan login untuk masuk ke akun Anda
+    title: Verifikasi Email Anda
+    verification: Verifikasi

@@ -24,6 +24,7 @@ module Authenticator
     migrate_twitter_user(user)
 
     session[:user_id] = user.id
+    user.update(last_login: Time.zone.now)
 
     logger.info("Support: #{user.email} has successfully logged in.")
 
@@ -42,12 +43,14 @@ module Authenticator
       redirect_to admins_path
     elsif user.activated?
       # Dont redirect to any of these urls
-      dont_redirect_to = [root_url, signin_url, ldap_signin_url, signup_url, unauthorized_url,
+      dont_redirect_to = [root_url, signin_url, ldap_signin_url, ldap_callback_url, signup_url, unauthorized_url,
                           internal_error_url, not_found_url]
       url = if cookies[:return_to] && !dont_redirect_to.include?(cookies[:return_to])
         cookies[:return_to]
-      else
+      elsif user.role.get_permission("can_create_rooms")
         user.main_room
+      else
+        cant_create_rooms_path
       end
 
       # Delete the cookie if it exists
@@ -60,7 +63,7 @@ module Authenticator
   end
 
   def ensure_unauthenticated_except_twitter
-    redirect_to current_user.main_room if current_user && params[:old_twitter_user_id].nil?
+    redirect_to current_user.main_room || root_path if current_user && params[:old_twitter_user_id].nil?
   end
 
   # Logs current user out of GreenLight.
@@ -78,6 +81,19 @@ module Authenticator
     Rails.configuration.loadbalanced_configuration &&
       User.exists?(email: email, provider: @user_domain, social_uid: nil) &&
       !allow_greenlight_accounts?
+  end
+
+  # Sets the initial user role based on the email mapping
+  def initial_user_role(email)
+    mapping = @settings.get_value("Email Mapping")
+    return "user" unless mapping.present?
+
+    mapping.split(",").each do |map|
+      email_role = map.split("=")
+      return email_role[1] if email.ends_with?(email_role[0])
+    end
+
+    "user" # default to user if role not found
   end
 
   private

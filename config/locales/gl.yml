@@ -1,0 +1,638 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+gl:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Termos e condicións"
+        email: Correo-e
+        name: Nome
+        password: Contrasinal
+        password_confirmation: Confirmación do contrasinal
+    errors:
+      models:
+        user:
+          confirmation: o contrasinal non coincide
+  administrator:
+    site_settings:
+      authentication:
+        disabled: Desactivado
+        enabled: Activado
+        info: Só os usuarios autenticados teñen permiso para unirse a unha sala
+        title: Requirir autenticación para as salas
+        user-info: Debe iniciar sesión enriba para unirse a esta sala
+      branding:
+        change: Cambiar a imaxe
+        info: Cambiar a imaxe de marca que aparece no canto superior esquerdo
+        placeholder: URL da imaxe…
+        title: Imaxe de marca
+        invalid: URL non válido
+      legal:
+        change: Cambiar o URL
+        info: Cambiar a ligazón dos termos que aparece na fin da páxina
+        placeholder: URL dos termos…
+        title: Termos
+        invalid: URL non válido
+      privpolicy:
+        change: Cambiar o URL
+        info: Cambiar a ligazón da directiva de privacidade que aparece na fin da páxina
+        placeholder: URL da directiva de privacidade…
+        title: Directiva de privacidade
+        invalid: URL non válido
+      cache:
+        info: "Limpa a caché almacenada do fornecedor, o que obriga a unha nova solicitude de información actualizada"
+        title: Limpar a caché do fornecedor
+        button: Limpar a caché
+      clear_auth:
+        info: Limpar o autenticador actual para os usuarios permitíndolles que volvan iniciar sesión usando un método de autenticación diferente
+        title: Limpar o autenticador actual
+        button: "Limpar autenticador "
+      color:
+        info: O cambio da cor normal cambiará tanto a clara como a escura. Clarexar e escurecer poden cambiarse individualmente
+        title: Cor primaria
+        regular: Normal
+        lighten: Clarexar
+        darken: Escurecer
+      email_mapping:
+        info: "Asignar o usuario a un rol usando o seu correo-e. Debe ter o formato email1=rol1,email2=rol2"
+        title: Asignación de roles por correo-e
+        update: 
+      log_level:
+        title: Nivel de rexistro
+        information: Cambiar o nivel de rexistro para o despregamento completo
+        debug: Depuración
+        info: Info
+        warn: Advertencia
+        error: Erro
+        fatal: Fatal
+        unknown: Descoñecido
+      recording_visibility:
+        info: Estabelecer a visibilidade predeterminada para novas gravacións
+        title: "Visibilidade predeterminada da gravación "
+        warning: Esta configuración só se aplicará a salas que non se estean executando
+      require_consent:
+        info: Este axuste activa un axuste da sala que permite aos propietarios de salas especificar que salas poden ser gravadas. Os usuarios que se unen a unha sala que está a ser gravada deben facer antes o consentimento.
+        title: Esixir o consentimento do propietario da sala e do usuario entrante para gravar
+      maintenance_banner:
+        info: Amosar un cartel para informar o usuario dun mantemento programado
+        title: Cartel de mantemento
+        display: Estabelecer
+        clear: Limpar
+        time: "Exemplo: Actualización programada para o 13 de decembro ás 23:00 ET. Os usuarios poden ter problemas para iniciar sesión."        
+      preupload:
+        info: Os usuarios poden cargar previamente unha presentación para que a utilicen como presentación predeterminada para esa sala específica
+        title: Permitirlle aos usuarios precargar as presentacións
+      registration:
+        info: Cambiar a forma na que os usuarios se rexistran no sitio web
+        title: Método de rexistro
+        methods:
+          approval: Aprobar/rexeitar
+          invite: Unirse por convite
+          open: Rexistro aberto
+      rooms:
+        info: Limitar o número de salas que pode ter un usuario (incluída a sala principal). Esta configuración non se aplica aos administradores.
+        title: Número de salas por usuario
+      shared_access:
+        info: "Se se configura como desactivado, eliminarase o botón Compartir do menú despregábel  de opcións da sala, impedindo que os usuarios compartan salas"
+        title: Permitirlle aos usuarios compartir salas
+      subtitle: Personalizar Greenlight
+      tabs:
+        appearance: Aparencia
+        administration: Administración
+        registration: Rexistro
+        settings: Axustes
+      title: Axustes do sitio
+    flash:
+      approved: O usuario foi aprobado.
+      banned: O usuario foi expulsado.
+      unbanned: O usuario foi readmitido.
+      delete: O usuario foi eliminado.
+      delete_fail: Non foi posíbel eliminar o usuario.
+      demoted: O usuario foi relegado.
+      invite: "O convite foi enviado a %{email}"
+      invite_email_verification: Para poder empregar este método hai que activar os correos-e. Póñase en contacto co administrador do sistema.
+      merge_fail: Produciuse un problema de fusión das contas de usuario. Comprobe os usuarios seleccionados e ténteo de novo
+      merge_success: As contas de usuario combináronse correctamente
+      perm_deleted: O usuario foi eliminado de xeito permanente
+      promoted: O usuario foi promovido correctamente
+      registration_method_updated: Actualizouse correctamente o método de rexistro
+      reset_password: O usuario envioulle un correo electrónico para restabelecer o seu contrasinal. (Pídalle que comprobe o seu cartafol de correo non desexado se non o recibiu).
+      restored: O usuario foi recuperado correctamente
+      room_configuration: A configuración da sala foi cambiada correctamente
+      settings: Os axustes do sitio foron cambiados correctamente
+      unauthorized: Non está autorizado para executar accións sobre este usuario
+    recordings:
+      title: Gravacións do servidor
+      no_recordings: Este servidor non ten gravacións.
+    roles:
+      appear_in_share_list: Incluír usuarios con este rol no menú despregábel para compartir salas
+      can_create_rooms: Pode crear salas
+      delete: Eliminar o rol
+      invalid_create: Produciuse un problema ao crear un novo rol. Comprobe os valores dos roles e ténteo de novo
+      invalid_order: Produciuse un problema ao actualizar a prioridade do rol. Comprobe os valores dos roles e ténteo de novo
+      invalid_update: Produciuse un problema ao actualizar os permisos do rol. Comprobe os valores dos roles e ténteo de novo
+      manage_rooms_recordings: Permitirlle aos usuarios con este rol administrar salas e gravacións
+      name: Nome do rol
+      new_role: Crea un novo rol
+      role_has_users: "Este rol está asignado a %{user_count} contas de usuario. Elimine todas as contas asociadas a este rol antes de eliminalo."
+      title: Roles
+      promote_email: Envíar un correo-e aos usuarios cando se lles asigne este rol
+      demote_email: Envíar un correo-e aos usuarios cando se lles retire este rol
+      edit_site_settings: Permitirlle aos usuarios con este rol editar a configuración do sitio
+      edit_roles: Permitirlle aos usuarios con este rol editar outros roles
+      manage_users: Permitirlle aos usuarios con este rol administrar outros usuarios
+      invalid_assignment: Produciuse un problema ao asignar o(s) rol(es) ao usuario. Comprobe os valores e ténteo de novo
+      colour:
+        title: Cor do rol
+        info: Estabelecer a cor que estará asociada ao rol
+    room_configuration:
+      title: Configuración da sala
+      mute:
+        info: Silenciar automaticamente ao usuario cando se une á xuntanza BigBlueButton
+      require_moderator:
+        info: "Pregúntalle ao moderador da xuntanza BigBlueButton cando un usuario tenta unirse. Se o usuario é aprobado, poderá unirse á xuntanza."
+      allow_any:
+        info: "Permite a calquera usuario iniciar a xuntanza en calquera momento. De xeito predeterminado, só o propietario da sala pode iniciar a xuntanza."
+      all_moderator:
+        info: Dárlle a todos os usuarios os privilexios de moderador en BigBlueButton cando se unen á xuntanza.
+      recordings:
+        info: "Permitirlle aos propietarios de salas especificar se queren a opción para gravar unha sala ou non. Se está activado, o moderador aínda debe premer no botón «Gravar» unha vez iniciada a xuntanza."
+      options:
+        disabled: Desactivado
+        enabled: Activado sempre
+        optional: Opcional
+    rooms:
+      timeout: "Por mor do tempo de espera da solicitude do servidor %{server}, é posíbel que a información do estado e dos participantes non sexa exacta"
+      title: Salas no servidor
+      table:
+        ended: "Rematada: %{session}"
+        id: ID
+        not_running: Sen iniciar
+        participants: Participantes
+        running: En proceso
+        started: "Iniciada: %{session}"
+        status: Estado
+        view: Ver
+    title: Axustes da organización
+    users:
+      invite: Convidar a un usuario
+      edit:
+        title: Editar os detalles do usuario
+      settings:
+        approve: Aprobar
+        decline: Rexeitar
+        ban: Expulsar ao usuario
+        delete: Eliminar
+        edit: Editar
+        edit_roles: Editar os roles de usuario
+        merge: Combinar
+        perm_delete: Eliminar de xeito permanente
+        unban: Readmitir ao usuario
+        undelete: Recuperar
+      table:
+        authenticator: Autenticador
+        created: Creado
+        time: Hora de envío
+        name: Nome
+        not_found: Non hai usuarios que coincidan coa súa busca
+        no_users: Non se atoparon usuarios
+        role: Rol
+        uid: ID do usuario
+        username: Nome de usuario
+        valid: Válido
+      title: Administrar usuarios
+  add_to_google_calendar: "Engadir ao calendario de Google"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: Ouh! produciuse un erro ao comezar a xuntanza.
+  cancel: Cancelar
+  cookies:
+    cookie_info: "As cookies axúdanos a prestar os nosos servizos. Ao usar os nosos servizos, acepta o noso uso de cookies."
+    cookie_button: " Acepto"
+  copied: Copiado
+  copy: Copiar
+  date:
+    month_names: [~, xaneiro, febreiro, marzo, abril, maio, xuño, xullo, agosto, setembro, outubro, novembro, decembro]
+  default_admin: "Aínda está a usar o contrasinal predeterminado desta conta. prema <a href=\"%{edit_link}\">aquí</a> para cambialo"
+  delete: Eliminar
+  delivery_error: Produciuse un erro durante a entrega de correo-e. Póñase en contacto cun administrador.
+  docs: Documentación
+  email: Correo-e
+  email_sent: "Enviouselle un correo-e %{email_type}. (Comprobe o seu cartafol de correo non desexado, se non o recibiu)"
+  enter_your_name: Escriba o seu nome
+  errors:
+    bigbluebutton:
+      help: "Asegúrese de que se tomaron as medidas axeitadas. <a href=\"%{doc_link}\">Saber máis</a>"
+      message: Punto final e segredo de BigBlueButton incorrectos
+      title: Produciuse un erro no servidor
+    internal:
+      message: Parece que algo saíu mal no noso lado.
+      help: "Rexistrouse o erro, botaremoslle unha ollada!"
+      report: Informar dun problema
+    maintenance:
+      message: "Sentímolo, estamos en mantemento."
+      help: Volveremos logo!
+    migration_error:
+      contact_admin: "Se non é un administrador, póñase en contacto cun."
+      continue: Gustaríame seguir usando 1.0.
+      notice: >
+        Greenlight atopou un erro de migración da base de datos.<br> Isto pode deberse a que non actualizou a Greenlight 2.0.
+      upgrade: Amósame como actualizar á versión 2.0!
+      version: "Temos publicada unha nova versión de Greenlight, mais a súa base de datos non é compatíbel."
+    messages:
+      blank: non pode estar baleiro
+      too_short: é demasiado curto
+      invalid: non é válido
+      taken: xa existe
+      accepted: ten que ser aceptado
+      confirmation: "%{attribute} non coincide"
+      inclusion: non está incluído na lista
+    no_provider:
+      message: O sitio ao que está tentando acceder non está activo
+      help: Póñase en contacto co administrador do sistema para configurar Greenlight
+    not_found:
+      message: Sentímolo! A páxina que está a buscar non existe.
+      help: "É posíbel que fose retirado?"
+      user_not_found:
+        help: Póñase en contacto cun administrador.
+        message: "Sentímolo, este usuario non está rexistrado."
+      user_missing:
+        help: Verifique o URL e ténteo de novo
+        message: O URL que introduciu non é válido.
+    title: Erros
+    unauthorized:
+      message: Non ten acceso a esta aplicación
+      help: "Se cre que é un erro, póñase en contacto co administrador do sistema."
+  expired_reset_token: A ligazón para restabelecer o contrasinal caducou!
+  features:
+    title: Características
+    rooms: Salas personalizadas
+    recordings: Administración das gravacións
+    designs: Deseños personalizados
+    authentication: Autenticación do usuario
+  footer:
+    legal: Condicións
+    privpolicy: Directiva de privacidade
+    powered_by: "Coa tecnoloxía de %{href}."
+  forgot_password:
+    subtitle: Esquecín o contrasinal
+    email: Correo-e
+    submit: Enviar
+  go_back: Ir atrás
+  greenlight: Greenlight
+  header:
+    all_recordings: Todas as gravacións
+    dropdown:
+      account_settings: Organización
+      help: "Preciso axuda?"
+      home: Inicio
+      settings: Perfil
+      signout: Saír
+  home_room: Sala principal
+  info_update_success: Actualizouse correctamente a información
+  invalid_credentials: O correo e o contrasinal que introduciu non coinciden cos nosos rexistros. Tenteo de novo ou prema en «Esquecín o contrasinal» para restabelecer o seu contrasinal.
+  invalid_login_method: Produciuse un fallo no acceso por mor da non coincidencia da conta. Debe acceder con omniauth.
+  invite_message: "Para convidar a alguén á xuntanza, envíelle esta ligazón:"
+  javascript:
+    room:
+      mailer:
+        subject: 'convidouno a ver unha gravación.'
+        body: 'Para ver a gravación, siga a seguinte ligazón:'
+        autogenerated: 'Este correo foi xerado automaticamente por BigBlueButton'
+        footer: 'BigBlueButton é un sistema de conferencia web de código aberto. Para obter máis información sobre BigBlueButton, vexa https://bigbluebutton.org/.'
+    search:
+      start: Comezar a busca…
+  landing:
+    about: "%{href} é unha interface sinxela para o servidor de conferencia web de código aberto BigBlueButton. Pode crear as súas propias salas para acoller sesións ou unirse a outras usando unha ligazón curta e cómoda."
+    welcome: Benvido/a a BigBlueButton.
+    video: Vexa o noso titorial sobre como usar Greenlight
+    upgrade: Amósame como actualizar á versión 2.0!
+    version: "Temos publicada unha nova versión de Greenlight, mais a súa base de datos non é compatíbel."
+  language_default: Por omisión (idioma do navegador)
+  ldap_error: Non foi posíbel conectar co servidor LDAP. Verifique a súa configuración LDAP no ficheiro «env» e asegúrese de que o seu servidor estea a funcionar.
+  login: Acceder
+  login_title: Acceder á súa conta
+  mailer:
+    user:
+      approve:
+        info: A súa conta foi aprobada
+        signin: "Para acceder ás súas salas persoais, prema no seguinte botón e acceda."
+        signin_link: Acceder
+        signup:
+          info: Rexistrouse un novo usuario para usar Greenlight.
+          more-info: "Para permitir que este usuario acceda a Greenlight, debe aprobar a súa conta nos axustes da organización."
+          admins_link: Visite a páxina da organización
+          subject: Rexistro de novo usuario do Greenlight
+          username: "O usuario rexistrouse co nome %{name} e o correo %{email}."
+        subject: Conta aprobada
+        username: "O seu nome de usuario é %{email}."
+      demoted:
+        info: "Vostede xa non é %{role} en %{url}."
+        more-info: Agora ten os mesmos privilexios que un usuario normal.
+        root_link: Acceder
+        subtitle: "Permisos de %{role} rescindidos"
+      invite:
+        info: "Foi convidado ao seu propio espazo persoal por %{name}"
+        signup_info: "Para rexistrarse usando o seu correo-e, prema no seguinte botón e siga os pasos."
+        signup_link: Rexistrarse
+        signup:
+          info: Un usuario que foi convidado rexistrouse para usar Greenlight.
+          admins_link: Visite a páxina da organización
+          subject: Rexistro de novo usuario de Greenlight
+          username: "O usuario rexistrouse co nome %{name} e o correo %{email}."
+        subject: Convite para unirse ao BigBlueButton
+        username: "O seu nome de usuario é %{email}."
+      password_reset:
+        title: 'Restableceuse o contrasinal.'
+        welcome: "Solicitouse un restabelecemento de contrasinal para o correo electrónico <b>%{email}</b>"
+        message: 'Se solicitou este restabelecemento, prema na ligazón a seguir para restabelecer o seu contrasinal:'
+        reset_link: Restabelecer o contrasinal
+        expire: Esta ligazón caducará en dúas horas.
+        ignore: "Se non fixo esta solicitude, pode ignorar este correo con seguridade."
+      promoted:
+        admins_link: Visite a páxina da organización
+        info: "Agora é un %{role} en %{url}."
+        more-info: "Para ver as súas novas habilidades, visite %{url}."
+        subtitle: "Permisos de %{role} asignados"
+      verify_email:
+        welcome: "Benvido ao seu espazo persoal, %{name}!"
+        success: "Tirando proveito do %{bigbluebutton}, pode crear as súas propias salas para acoller sesións e colaborar con outras."
+        username: "O seu nome de usuario é %{email}."
+        verify: "Para verificar a súa conta, só ten que premer no botón seguinte."
+        verify_text: 'Para verificar a súa conta, só ten que seguir esta ligazón %{url}:'
+        verify_link: Verificar a conta
+        thanks: Grazas por unirse e que teña un bo día!
+  max_concurrent: Acadouse o número máximo de sesións simultáneas permitidas.
+  merged: Combinado
+  modal:
+    create_role:
+      create: Crear un novo rol
+      footer_text: Pode editar os permisos individuais para este rol após crealo
+      name_placeholder: Escriba o nome do rol…
+      not_blank: O nome do rol non pode estar baleiro.
+      title: Crear un novo rol
+    create_room:
+      access_code: Código de acceso
+      access_code_placeholder: Xerar un código de acceso á sala opcional
+      auto_join: Unirse automaticamente comigo na sala
+      create: Crear unha sala
+      free_delete: Será libre de eliminar esta sala en calquera momento.
+      name_placeholder: Escriba o nome da sala…
+      not_blank: O nome da habitación non pode estar baleiro.
+      title: Crear unha nova sala
+    delete_account:
+      confirm: "Confirma que quere eliminar esta conta?"
+      delete: "Estou seguro, eliminar esta conta."
+      keep: "De feito, mantereina."
+      delete_warning: Isto desactivará a conta do usuario. Na lapela eliminada pódense atopar todos os usuarios desactivados.
+      warning: Esta decisión é definitiva. <b>Non</b> poderá recuperar a información asociada.
+    delete_rec:
+      delete: "Si, confirmo que quero eliminar esta gravación."
+      header: "Confirma que quere eliminar esta gravación?"
+      warning: <b>Non</b> poderá recuperar esta gravación
+    delete_room:
+      confirm: "Confirma que quere eliminar a sala %{room}?"
+      delete: "Estou seguro, eliminar esta sala."
+      keep: "Pensándoo ben, mantereina."
+      warning: <b>Non</b> poderá recuperar esta sala
+      recording_warning: "ou calquera das súas %{recordings_num} gravacións asociadas."
+    invite_user:
+      email_placeholder: Introduza os correos-e dos usuarios (separados por comas)
+      footer: O usuario recibirá un correo-e con instrucións sobre como rexistrarse
+      send: Enviar o convite
+      title: Convidar a un usuario
+    login:
+      or: ou
+      with: "Acceder con %{provider}"
+      forgot_password: "Esqueceu o contrasinal?"
+    preupload:
+      change: Substituír a presentación
+      choose: Escolla un ficheiro…
+      current: "Presentación actual:"
+      footer: "Dependendo do tamaño da presentación, pode requirir tempo adicional para cargala antes de que poida utilizarse."
+      invalid: Tamaño/tipo de ficheiro non válido. Vexa as restricións a continuación.
+      title: Engadir presentación
+      use: Usar a presentación
+    rename_recording:
+    remove_shared:
+      title: "Confirma que quere eliminar esta sala da súa lista de salas?"
+      delete: "Estou seguro, retirar esta sala."
+      warning: Xa <b>non</b> poderá acceder a esta sala.
+    room_settings:
+      title: Axustes da sala
+      update: Actualizar a sala
+      client: Seleccionar o tipo de cliente
+      join_moderator: Todos os usuarios únense como moderadores
+      mute: Silenciar aos usuarios cando se unen
+      require_approval: Precisa a aprobación do moderador antes de unirse
+      start: Permitir a calquera usuario iniciar esta xuntanza
+      footer_text: Pode facer axustes na súa sala en calquera momento.
+      recording: Permitir a gravación da sala
+    rename_room:
+      name_placeholder: Escriba o nome da nova sala…
+    share_access:
+      footer: Compartir unha sala cun usuario permítelle iniciar a sala e ver as gravacións da sala
+      list: Compartido con
+      title: Acceso á sala compartida
+      save: Gardar os cambios
+      cancel_changes: Cancelar os cambios
+      select: " Seleccionar usuario"
+    merge_user:
+      cancel: Cancelar
+      from: Conta para combinar
+      title: Combinar contas de usuario
+      to: Conta principal
+      save: Combinar
+      footer: As salas da conta que se combinará serán transferidas á lista de salas da conta principal e entón a seguir eliminarase a conta.
+  name_update_success: O nome da sala foi cambiado correctamente
+  no_user_email_exists: Non existe ningún usuario co correo especificado. Asegúrese de que o escribiu correctamente.
+  omniauth_error: Produciuse un erro ao autenticarse con omniauth. Ténteo de novo ou póñase en contacto cun administrador.
+  omniauth_specific_error: "Produciuse o erro %{error} ao autenticarse con omniauto. Ténteo de novo ou póñase en contacto cun administrador. "
+  pagy:
+    nav:
+      prev: "&lsaquo; Ant."
+      next: "Seg. &rsaquo;"
+      gap: "&hellip;"
+  password: Contrasinal
+  password_empty_notice: O contrasinal non pode estar baleiro.
+  password_reset_success: Restabeleceuse o contrasinal.
+  password_different_notice: A confirmación de contrasinal non coincide.
+  provider:
+    google: Google
+    office365: Office 365
+    twitter: Twitter
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Ouh! non podemos validar a resposta de reCAPTCHA. Tenteo de novo.
+      verification_failed: "Produciuse un fallo na verificación de reCAPTCHA, ténteo de novo."
+  recording:
+    all_recordings: Todas as gravacións
+    email: " Enviar correo coa gravación"
+    error: "Produciuse un erro ao recuperar %{count} gravación(s)"
+    no_recordings: "Esta sala non ten gravacións %{inject}."
+    no_user_recordings: Non ten gravacións.
+    no_matched_recordings: "Non hai  gravacións %{inject} que coincidan coa súa busca."
+    recorded_on: "Gravada o %{date}"
+    table:
+      name: Nome
+      thumbnails: Miniaturas
+      length: Duración
+      users: Usuarios
+      visibility: Visibilidade
+      formats: Formatos
+    visibility:
+      public: Pública
+      unlisted: Sen listar
+    format:
+      notes: Notas
+      podcast: Podcast
+      presentation: Presentación
+      statistics: Estatísticas
+      video: Vídeo
+  registration:
+    approval:
+      fail: "A súa conta aínda non foi aprobada. Se pasaron varios días dende que se rexistrou, póñase en contacto co administrador do sistema."
+      signup: A súa conta foi creada e enviada a un administrador para a súa aprobación.
+    banned:
+      fail: "Non ten acceso a esta aplicación. Se cre que é un erro, póñase en contacto co administrador do sistema."
+    deprecated:
+      new_signin: Seleccione un novo método de acceso para a súa conta. Todas as salas da súa conta antiga serán migradas á nova conta
+      twitter_signin: "O acceso mediante Twitter quedou en desuso e eliminarase na próxima versión. Prema <a href=\"%{link}\">aquí</a> para mover a súa conta a un novo método de autenticación"
+      twitter_signup: O rexistro mediante Twitter quedou en desuso. Use un método de autenticación diferente para autenticarse.
+      merge_success: A súa conta vinculada a Twitter foi combinada correctamente coa súa nova conta. A conta vinculada con Twitter foi eliminada.
+    invite:
+      fail: "O seu testemuño caducou ou non é válido. Se cre que é un erro, póñase en contacto co administrador do sistema. "
+      no_invite: "Non ten un convite para unirse. Contacte co administrador do sistema para obter un. "
+  remove: Retirar
+  rename: Renomear
+  reset_password:
+    invalid_token: O testemuño de restablecemento de contrasinal non é válido. Tente restabelecer o seu contrasinal de novo.
+    subtitle: Restabelecer o contrasinal
+    password: Novo contrasinal
+    confirm: Confirmación do novo contrasinal
+    update: Actualizar o contrasinal
+    auth_change: Cambiou o método de autenticación. Comprobe o seu correo electrónico para estabelecer o seu contrasinal.
+  roles:
+    active: Activo
+    admin: Admin
+    banned: Expulsado
+    deleted: Eliminado
+    pending: Pendente
+    user: Usuario
+  room:
+    access_code_required: Introduza un código de acceso válido para unirse á sala
+    add_presentation: Engadir presentación
+    copy_access: Copiar o código de acceso
+    create_room: Crear unha sala
+    create_room_error: Produciuse un erro ao crear a sala
+    create_room_success: Creouse correctamente a sala
+    delete:
+      home_room: Non é posíbel eliminar a sala de principal do usuario
+      success: Eliminouse correctamente a sala
+      fail: "Non foi posíbel eliminar a sala (%{error})"
+    enter_the_access_code: Introduza o código de acceso á sala
+    invalid_provider: Introduciu un URL non válido. Comprobe o URL e ténteo de novo.
+    invitation_description: "Foi convidado a unirse a %{name} empregando BigBlueButton. Para unirse, prema na ligazón superior e escriba o seu nome."  
+    invited: Foi convidado a unirse a
+    recording_present: Declaro ser coñecedor de que se vai gravar esta sesión. Isto pode incluír a miña voz e imaxe de vídeo se están activados.
+    invite_participants: Convidar a participantes
+    join: Unirse
+    last_session: " Última sesión o %{session}"
+    login: Entrar
+    owner: Propietario
+    owner_banned: Esta sala non está dispoñíbel actualmente
+    no_room:
+      description: Introduza o URL da sala ou o ID da sala a que quere unirse.
+      edit_profile: Editar o perfil de usuario
+      go_to: Ir á sala
+      invalid_room_uid: O URL/UID da sala que introduciu non é válido.
+      placeholder: " URL/UID da sala"
+      no_recent_rooms: Non ten participado en ningunha sala recentemente
+      recent_rooms: Ir a salas nas que participou recentemente
+      title: Unirse á sala
+    no_sessions: Esta sala aínda non ten sesións.
+    preupload_success: A presentación foi engadida correctamente
+    preupload_error: Produciuse un erro ao actualizar a presentación da sala
+    preupload_remove_success: A presentación foi retirada correctamente
+    preupload_remove_error: Produciuse un erro ao retirar a presentación da sala
+    recordings: Gravacións da sala
+    room_limit: Acadou o número máximo de salas permitido
+    room_limit_exceeded: "Acadou o número de salas permitidas. Elimine %{difference} sala(s) para acceder a esta sala."
+    sessions: Sesións
+    settings: Axustes da sala
+    share: Xestionar o acceso
+    shared_by: "Compartido por %{email}"
+    remove_shared_access_success: Retirouse correctamente a sala compartida da súa lista
+    remove_shared_access_error: Produciuse un erro ao retirar a sala compartida da súa lista
+    shared_access_success: A sala foi compartida correctamente
+    shared_access_error: Produciuse un erro ao compartir a sala
+    start: Iniciar
+    search: Buscar sala…
+    unavailable: Esta sala non está dispoñíbel actualmente por mor de que o correo-e do propietario non foi verificado.
+    update_settings_error: Produciuse un erro ao actualizar os axustes da sala
+    update_settings_success: Os axustes da sala foron actualizados correctamente
+    wait:
+      message: A xuntanza aínda non comezou.
+      auto: Unirse automaticamente á sala cando comece a xuntanza.
+  settings:
+    account:
+      fullname: Nome completo
+      language: Idioma
+      provider: Fornecedor
+      image: Imaxe
+      image_url: URL da imaxe de perfil
+      roles: Rol do usuario
+      subtitle: Actualizar a súa información da conta
+      title: Información da conta
+      reset_password: Restabelecer o contrasinal do usuario
+    delete:
+      button: "Si, gustaríame eliminar a miña conta."
+      disclaimer: "Se decide eliminar a súa conta, xa <b>NON</b> se poderá recuperar. Eliminarase toda a información relativa á súa conta, incluídos os axustes e as salas e a gravacións serán retiradas."
+      subtitle: Eliminar definitivamente a súa conta
+      title: Eliminar conta
+    password:
+      confirmation: Confirmación do novo contrasinal
+      new: Novo contrasinal
+      old: Contrasinal antigo
+      subtitle: Cambiar o seu contrasinal
+      title: Contrasinal
+    title: Perfil
+    search: Buscar
+  signup:
+    password_confirm: Confirmación do contrasinal
+    subtitle: Crear unha conta
+    title: Rexistrarse
+    with: "Rexistrarse con %{provider}"
+  terms:
+    accept: "Acepto o %{href}"
+    accept_existing: Acepto os termos e condicións
+    title: Termos e condicións
+  test_install: >
+    Esta instalación está a usar un servidor para probas preconfigurado. Debe substituílo polo seu propio servidor. Para obter máis detalles, consulte %{href}.
+  update: Actualizar
+  verify:
+    accept: Verificar
+    activated: Conta verificada!
+    already_verified: A conta xa foi verificada
+    invalid: A ligazón de verificación non é válida
+    not_verified: A súa conta aínda non foi verificada.
+    resend: Reenvíar un correo electrónico de verificación
+    signin: Inicie sesión para acceder á súa conta.
+    title: Verifique o seu correo-e
+    verification: Verificación

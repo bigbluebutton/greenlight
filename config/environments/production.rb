@@ -61,7 +61,13 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
+  config.active_storage.service = if ENV["AWS_ACCESS_KEY_ID"].present?
+                                    :amazon
+                                  elsif ENV["GCS_PRIVATE_KEY_ID"].present?
+                                    :google
+                                  else
+                                    :local
+                                  end
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
@@ -101,6 +107,10 @@ Rails.application.configure do
     }
   end
 
+  # If configured to 'none' don't check the smtp servers certificate
+  ActionMailer::Base.smtp_settings[:openssl_verify_mode] =
+    ENV['SMTP_OPENSSL_VERIFY_MODE'] if ENV['SMTP_OPENSSL_VERIFY_MODE'].present?
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
 
@@ -128,8 +138,8 @@ Rails.application.configure do
     { host: event.payload[:host] }
   end
 
-  config.log_formatter = proc do |severity, _time, _progname, msg|
-    "#{severity}: #{msg} \n"
+  config.log_formatter = proc do |severity, time, _progname, msg|
+    "#{time} - #{severity}: #{msg} \n"
   end
 
   config.log_level = :info
@@ -155,4 +165,6 @@ Rails.application.configure do
 
   # Set the relative url root for deployment to a subdirectory.
   config.relative_url_root = ENV['RELATIVE_URL_ROOT'] || "/b" if ENV['RELATIVE_URL_ROOT'] != "/"
+
+  config.hosts = ENV['SAFE_HOSTS'].presence || nil
 end

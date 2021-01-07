@@ -75,7 +75,7 @@ describe SessionsController, type: :controller do
     before(:each) do
       user = create(:user, provider: "greenlight")
       @request.session[:user_id] = user.id
-      get :destroy
+      post :destroy
     end
 
     it "should logout user" do
@@ -144,7 +144,7 @@ describe SessionsController, type: :controller do
 
       expect(@request.session[:user_id]).to be_nil
       # Expect to redirect to activation path since token is not known here
-      expect(response.location.start_with?(account_activation_url(token: ""))).to be true
+      expect(response.location.start_with?(account_activation_url(digest: @user3.activation_digest))).to be true
     end
 
     it "should not login user if account is deleted" do
@@ -221,7 +221,7 @@ describe SessionsController, type: :controller do
     it "redirects to the admins page for admins" do
       user = create(:user, provider: "greenlight",
         password: "example", password_confirmation: 'example')
-      user.add_role :super_admin
+      user.set_role :super_admin
 
       post :create, params: {
         session: {
@@ -235,7 +235,7 @@ describe SessionsController, type: :controller do
     end
 
     it "should migrate old rooms from the twitter account to the new user" do
-      twitter_user = User.create(name: "Twitter User", email: "user@twitter.com", image: "example.png",
+      twitter_user = create(:user, name: "Twitter User", email: "user@twitter.com", image: "example.png",
         username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
 
       room = Room.new(name: "Test")
@@ -271,6 +271,19 @@ describe SessionsController, type: :controller do
           },
         }
       }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+
+    it "correctly sets the last_login field after the user is created" do
+      post :create, params: {
+        session: {
+          email: @user1.email,
+          password: 'example',
+        },
+      }
+
+      @user1.reload
+
+      expect(@user1.last_login).to_not be_nil
     end
   end
 
@@ -372,6 +385,15 @@ describe SessionsController, type: :controller do
       expect(response).to redirect_to(root_path)
     end
 
+    it "correctly sets the last_login field after the user is created" do
+      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google]
+      get :omniauth, params: { provider: :google }
+
+      u = User.last
+
+      expect(u.last_login).to_not be_nil
+    end
+
     context 'twitter deprecation' do
       it "should not allow new user sign up with omniauth twitter" do
         request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
@@ -383,7 +405,7 @@ describe SessionsController, type: :controller do
 
       it "should notify twitter users that twitter is deprecated" do
         allow(Rails.configuration).to receive(:allow_user_signup).and_return(true)
-        twitter_user = User.create(name: "Twitter User", email: "user@twitter.com", image: "example.png",
+        twitter_user = create(:user, name: "Twitter User", email: "user@twitter.com", image: "example.png",
           username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
 
         request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
@@ -394,7 +416,7 @@ describe SessionsController, type: :controller do
       end
 
       it "should migrate rooms from the twitter account to the google account" do
-        twitter_user = User.create(name: "Twitter User", email: "user@twitter.com", image: "example.png",
+        twitter_user = create(:user, name: "Twitter User", email: "user@twitter.com", image: "example.png",
           username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
 
         room = Room.new(name: "Test")
@@ -419,7 +441,7 @@ describe SessionsController, type: :controller do
         allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
         @user = create(:user, provider: "greenlight")
         @admin = create(:user, provider: "greenlight", email: "test@example.com")
-        @admin.add_role :admin
+        @admin.set_role :admin
       end
 
       it "should notify admin on new user signup with approve/reject registration" do
@@ -508,6 +530,53 @@ describe SessionsController, type: :controller do
 
       new_u = User.find_by(social_uid: "bn-launcher-user-new")
       expect(users_old_uid).to eq(new_u.uid)
+    end
+
+    context "email mapping" do
+      before do
+        @role1 = Role.create(name: "role1", priority: 2, provider: "greenlight")
+        @role2 = Role.create(name: "role2", priority: 3, provider: "greenlight")
+        allow_any_instance_of(Setting).to receive(:get_value).and_return("-123@test.com=role1,@testing.com=role2")
+      end
+
+      it "correctly sets users role if email mapping is set" do
+        params = OmniAuth.config.mock_auth[:google]
+        params[:info][:email] = "test-123@test.com"
+
+        request.env["omniauth.auth"] = params
+
+        get :omniauth, params: { provider: :google }
+
+        u = User.last
+
+        expect(u.role).to eq(@role1)
+      end
+
+      it "correctly sets users role if email mapping is set (second test)" do
+        params = OmniAuth.config.mock_auth[:google]
+        params[:info][:email] = "test-123@testing.com"
+
+        request.env["omniauth.auth"] = params
+
+        get :omniauth, params: { provider: :google }
+
+        u = User.last
+
+        expect(u.role).to eq(@role2)
+      end
+
+      it "defaults to user if no mapping matches" do
+        params = OmniAuth.config.mock_auth[:google]
+        params[:info][:email] = "test@test.com"
+
+        request.env["omniauth.auth"] = params
+
+        get :omniauth, params: { provider: :google }
+
+        u = User.last
+
+        expect(u.role).to eq(Role.find_by(name: "user", provider: "greenlight"))
+      end
     end
   end
 

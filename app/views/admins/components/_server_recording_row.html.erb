@@ -15,14 +15,14 @@
 
 <tr>
   <td>
-    <div id="recording-title" class="form-inline edit_hover_class" data-recordid="<%= recording[:recordID] %>" data-room-uid="<%= room_uid_from_bbb(recording[:meetingID]) %>" data-path="<%= rename_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]) %>">
-      <text id='recording-text'>
+    <div id="recording-title" class="edit_hover_class" data-recordid="<%= recording[:recordID] %>" data-room-uid="<%= room_uid_from_bbb(recording[:meetingID]) %>" data-path="<%= rename_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]) %>">
+      <span id='recording-text' title="<%= recording[:name] %>">
         <% if recording[:metadata][:name] %>
           <%= recording[:metadata][:name] %>
         <% else %>
           <%= recording[:name] %>
         <% end %>
-      </text>
+      </span>
       <a><i id="edit-record" class="fa fa-edit align-top ml-2" data-edit-recordid="<%= recording[:recordID] %>"></i></a>
     </div>
     <div class="small text-muted">
@@ -73,9 +73,9 @@
           <a class="dropdown-item email-link" data-pres-link="<%= recording_links %>"><i class="dropdown-icon far fa-envelope"></i> <%= t("recording.email") %></a>
           <div class="dropdown-divider"></div>
         <% end %>
-        <%= button_to delete_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]), method: :delete, class: "dropdown-item", "data-disable": "" do %>
+        <a href="" data-toggle="modal" data-target="#deleteRecordingModal" data-path="<%= delete_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]) %>" class="delete-rec dropdown-item">
           <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
-        <% end %>
+        </a>
       </div>
     </div>
   </td>

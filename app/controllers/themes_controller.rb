@@ -17,7 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class ThemesController < ApplicationController
-  skip_before_action :redirect_to_https, :maintenance_mode?, :migration_error?, :user_locale,
+  skip_before_action :block_unknown_hosts, :redirect_to_https, :maintenance_mode?, :migration_error?, :user_locale,
     :check_admin_password, :check_user_role
 
   # GET /primary

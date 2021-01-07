@@ -42,16 +42,42 @@ sk_SK:
         info: "Zmena obrazového loga, ktoré sa zobrazuje v ľavom hornom rohu obrazovky"
         placeholder: Odkaz na obrázok...
         title: Obrázok loga
+        invalid: Neplatný URL odkaz
+      legal:
+        change: Zmeňte URL odkaz
+        info: "Zmeňte URL odkaz na registračné údaje firmy, ktoré sa zobrazujú na spodnom okraji stránky"
+        placeholder: URL odkaz na registračné údaje firmy
+        title: Registračné údaje firmy
+        invalid: Neplatný URL odkaz
+      privpolicy:
+        change: Zmeňte URL odkaz
+        info: "Zmeňte URL odkaz na pravidlá pre ochranu osobných údajov, ktoré sa zobrazujú na spodnom okraji stránky"
+        placeholder: URL odkaz na pravidlá pre ochranu osobných údajov
+        title: Pravidlá pre ochranu osobných údajov
+        invalid: Neplatný URL odkaz
       cache:
         info: "Vyčistiť medzipamäť poskytovateľa, čo vynúti požiadavku na aktualizáciu dát"
         title: Vyčistiť medzipamäť poskytovateľa
         button: Vyčistiť medzipamäť
+      clear_auth:
+        info: Vymaže aktuálny spôsob overovania užívateľov a umožní im opätovne sa prihlásiť inou metódou overovania
+        title: Vymazať aktuálny spôsob overovania
+        button: Vymazať overovanie
       color:
         info: Zmena základnej farby ovplyvní aj Svetlú a Tmavú. Svetlú a Tmavú farbu je možné zmeniť samostatne
         title: Nastavenie farieb
         regular: Základná
         lighten: Svetlá
         darken: Tmavá
+      log_level:
+        title: Úroveň logovania
+        information: Zmeňte úroveň logovania pre celý systém
+        debug: Ladenie
+        info: Informácie
+        warn: Varovania
+        error: Chyby
+        fatal: Fatálne chyby
+        unknown: Neznáme
       recording_visibility:
         info: Zmena štandardnej viditeľnosti pre nové nahrávky
         title: Štandardná viditeľnosť nahrávok
@@ -66,6 +92,9 @@ sk_SK:
       rooms:
         info: Zmena celkového počtu miestností užívateľa (vrátane Domovskej). Toto nastavenie sa nevzťahuje na administrátorov.
         title: Počet miestností na užívateľa
+      shared_access:
+        info: Nastavenie na "Zakázané" odstráni tlačítko z nastavení miestností a zabráni užívateľom zdieľanie miestností
+        title: Povoliť užívateľom zdieľanie miestností
       subtitle: Nastavenia servra
       title: Nastavenia servra
     flash:
@@ -77,22 +106,27 @@ sk_SK:
       demoted: Užívateľ bol úspešne degradovaný
       invite: "Pozvánka úspešne odoslaná na %{email}"
       invite_email_verification: Zasielanie emailov musí byť povolené pre použitie tejto metódy. Kontaktujte prosím Vášho systémového administrátora.
+      merge_fail: Pri pokuse o zlúčenie užívateľských účtov nastal problém. Skontrolujte prosím vybrané účty a skúste to znova 
+      merge_success: Užívateľské účty boli úspešne zlúčené
       perm_deleted: Užívateľ bol permanentne zmazaný
       promoted: Užívateľ bol úspešne povýšený
       registration_method_updated: Spôsob registrácie bol úspešne zmenený
       reset_password: "Užívateľovi bol odoslaný email na zresetovanie jeho hesla. (Prosím požiadajte ho o kontrolu priečinka SPAM, ak ho nedostal)"
       restored: Užívateľ bol úspešne obnovený
+      room_configuration: Nastavenia miestnosti boli úspešne zmenené
       settings: Nastavenia servra úspešne zmenené
       unauthorized: Nie ste autorizovaný na vykonávanie zmien na tomto užívateľovi
     recordings:
       title: Nahrávky servra
       no_recordings: Tento server nemá nahrávky.
     roles:
+      appear_in_share_list: Užívateľov s touto rolou zaradiť do zoznamu pre zdieľanie miestností
       can_create_rooms: Môže vytvárať miestnosti
       delete: Zmazať túto rolu
       invalid_create: Nastal problém pri vytváraní novej role. Skontrolujte prosím vstupné údaje a skúste to znova
       invalid_order: Rola user musí mať najnižšiu prioritu a rola admin musí mať najvyššiu prioritu
       invalid_update: "Nemôžete prideliť roli vyššiu prioritu, ako je Vaša vlastná"
+      manage_rooms_recordings: Užívateľom s touto rolou povoliť prístup do manažmentu miestností a nahrávok
       name: Názov role
       new_role: Vytvoriť novú rolu
       role_has_users: "Táto rola je pridelená k %{user_count} účtom. Prosím odstráňte z role všetky účty pred jej zmazaním."
@@ -106,6 +140,31 @@ sk_SK:
       colour:
         title: Farba role
         info: "Nastaviť farbu, ktorá bude pridelená roli"
+    room_configuration:
+      title: Nastavenia miestností
+      mute:
+        info: "Automaticky stlmiť užívateľov, keď vstupujú do audio konferencie"
+      require_moderator:
+        info: "Žiadať moderátora konferencie o potvrdenie, keď sa užívateľ pokúša pripojiť. Ak bude prístup potvrdený, úžívateľ sa môže pripojiť ku konferencii."
+      allow_any:
+        info: Povoliť každému užívateľovi začať konferenciu kedykoľvek. Obvykle môže začať konferenciu iba majiteľ miestnosti.
+      all_moderator:
+        info: "Prideliť práva moderátora každému užívateľovi, ktorý sa pripojí do konferencie."
+      options:
+        disabled: Nevyžadované
+        enabled: Vždy Povolené
+        optional: Voliteľné
+    rooms:
+      title: Miestnosti servra
+      table:
+        ended: "Ukončených: %{session}"
+        id: ID
+        not_running: Neprebieha
+        participants: Účastníkov
+        running: Prebieha
+        started: "Ukončených: %{session}"
+        status: Stav
+        view: Prezrieť
     title: Nastavenia organizácie
     users:
       invite: Pozvať užívateľa
@@ -118,6 +177,7 @@ sk_SK:
         delete: Zmazať
         edit: Upraviť
         edit_roles: Prideliť role
+        merge: Zlúčiť
         perm_delete: Permanentne zmazať
         unban: Odblokovať užívateľa
         undelete: Obnoviť
@@ -200,6 +260,8 @@ sk_SK:
     designs: Zákaznícky dizajn
     authentication: Overovanie užívateľov
   footer:
+    legal: Registračné údaje firmy
+    privpolicy: Zásady ochrany osobných údajov
     powered_by: "Powered by %{href}."
   forgot_password:
     subtitle: Zabudnuté heslo
@@ -227,6 +289,8 @@ sk_SK:
         body: 'Nahrávku si môžete pozrieť kliknutím na odkaz uvedený nižšie:'
         autogenerated: 'Tento e-mail je automaticky-generovaný systémom BigBlueButton.'
         footer: 'BigBlueButton je open-source webový konferenčný systém. Viac informácií nájdete na stránke https://bigbluebutton.org/.'
+    search:
+      start: Začať vyhľadávanie
   landing:
     about: "%{href} je jednoduchá nadstavba pre Váš open-source webový konferenčný server BigBlueButton. Môžete vytvárať vlastné virtuálne miestnosti pre organizovanie konferencií, alebo sa môžete pripojiť ku konferenciám ostatných užívateľov jednoduchým a pohodlným kliknutím na prijatý odkaz."
     welcome: Vitajte na servri BigBlueButton.
@@ -290,6 +354,7 @@ sk_SK:
   maintenance:
     window_alert: "Údržba bola naplánovaná na %{date}"
   max_concurrent: Bol dosiahnutý maximálny povolený počet súčasne aktívnych pripojení!
+  merged: Zlúčených
   modal:
     create_role:
       create: Vytvoriť novú rolu
@@ -328,6 +393,10 @@ sk_SK:
       with: "Prihlásenie cez %{provider}"
       forgot_password: "Zabudnuté heslo?"
     rename_recording:
+    remove_shared:
+      title: "Určite chcete odstrániť túto miestnosť z vášho zoznamu miestností?"
+      delete: "Som si istý, miestnosť chcem odstrániť."
+      warning: "Už <b>nebude</b> možné, aby ste znova vstúpili do tejto miestnosti."
     room_settings:
       title: Nastavenia miestnosti
       update: Aktualizovať miestnosť
@@ -339,6 +408,20 @@ sk_SK:
       footer_text: Nastavenia Vašej miestnosti môžete zmeniť kedykoľvek.
     rename_room:
       name_placeholder: Zadajte nový názov miestnosti...
+    share_access:
+      footer: Zdieľaním miestnosti s iným užívateľom mu povolíte začínať konferenie a sledovať nahrávky miestnosti.
+      list: "Zdieľaná s "
+      title: Zdieľať prístup k miestnosti
+      save: Uložiť zmeny
+      cancel_changes: Zrušiť zmeny
+      select: Vybrať užívateľa
+    merge_user:
+      cancel: Zrušiť
+      from: Účet vybraný k zlúčeniu
+      title: Zlúčiť účty užívateľov
+      to: Primárny účet
+      save: Zlúčiť
+      footer: Miestnosti účtu určeného k zlúčeniu budú presunuté do zoznamu miestností primárneho účtu a následne bude účet zmazaný.
   name_update_success: Názov miestnosti bol úspešne zmenený!
   no_user_email_exists: "Užívateľ s týmto emailom neexistuje. Prosím skontrolujte si, že bol správne zadaný."
   omniauth_error: "Nastala chyba pri prihlasovaní cez omniauth. Prosím skúste to znova, alebo kontaktujte administrátora!"
@@ -399,12 +482,15 @@ sk_SK:
     invite:
       fail: "Vaša značka je neplatná, alebo jej platnosť vypršala. Ak si myslíte, že ide o omyl, kontaktujte prosím Vášho administrátora."
       no_invite: "Nemáte pozvánku k registrácii. Aby ste ju získali, kontaktujte prosím Vášho administrátora."
+  remove: Odstrániť
   rename: Premenovať
   reset_password:
+    invalid_token: Značka pre reset hesla je neplatná. Prosím skúste resetnúť svoje heslo znova.
     subtitle: Reset hesla
     password: Nové heslo
     confirm: Potvrdenie nového hesla
     update: Zmena hesla
+    auth_change: Metóda overovania užívateľa bola zmenená. Prosím skontrolujte svoj email pre nastavenie hesla.
   roles:
     active: Aktívni
     admin: Administrátor
@@ -417,6 +503,10 @@ sk_SK:
     create_room: Vytvoriť miestnosť
     create_room_error: Pri vytváraní miestnosti nastala chyba
     create_room_success: Miestnosť bola úspešne vytvorená
+    delete:
+      home_room: Nie je možné zmazať domovskú miestnosť užívateľa
+      success: Miestnosť bola úspešne vymazaná
+      fail: "Nastala chyba pri mazaní miestnosti (%{error})"
     enter_the_access_code: zadajte prístupový kód miestnoti
     invalid_provider: Zadali ste neplatný odkaz. Prosím skontrolujte odkaz a skúste to znova.
     invited: Boli ste pozvaný(á) na konferenciu v miestnosti
@@ -425,6 +515,7 @@ sk_SK:
     last_session: "Posledná konferencia dňa %{session}"
     login: Vstúpiť
     owner: Majiteľ
+    owner_banned: Miestnosť je momentálne nedostupná
     no_room:
       description: "Zadajte odkaz na miestnosť alebo identifikátor miestnosti, ku ktorej sa chcete pripojiť."
       edit_profile: Upraviť uživateľský profil
@@ -440,6 +531,12 @@ sk_SK:
     room_limit_exceeded: "Prekročili ste maximálny povolený počet miestností. Prosím zmažte %{difference} miestnost(i) pre vstup do tejto miestnosti."
     sessions: Konferencie
     settings: Nastavenia miestnosti
+    share: Manažovať prístup
+    shared_by: "Zdieľaná s %{email}"
+    remove_shared_access_success: Zdieľaná miestnosť bola úspešne odstránená z Vášho zoznamu miestností
+    remove_shared_access_error: Nastala chyba pri pokuse o odstránenie zdieľanej miestnosti z Vášho zoznamu miestností
+    shared_access_success: Miestnosť je úspešne zdieľaná
+    shared_access_error: Nastala chyba pri pokuse o zdieľanie miestnosti
     start: Začať konferenciu
     unavailable: "Táto miestnosť je momentálne nedostupná, pretože majiteľov email nebol overený."
     update_settings_error: Pri aktualizácii nastavení miestnosti nastala chyba
@@ -454,9 +551,10 @@ sk_SK:
       provider: Poskytovateľ
       image: Obrázok
       image_url: URL adresa profilového obrázka
-      roles: Role užívateľa
+      roles: Užívateľská rola
       subtitle: Aktualizujte svoj profil
       title: Údaje o účte
+      reset_password: Resetnúť heslo užívateľa
     delete:
       button: "Áno, chcem zmazať svoj účet."
       disclaimer: "Ak sa rozhodnete zmazať svoj účet, je to <b>NEVRATNÝ</b> proces. Všetky informácie o Vašom účte, vrátane nastavení, miestností a nahrávok budú odstránené."

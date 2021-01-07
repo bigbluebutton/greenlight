@@ -8,7 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 5.2.4.4'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.12'
@@ -26,7 +26,7 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'mini_racer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '~> 4.3.3'
+gem 'jquery-rails', '~> 4.4'
 gem 'jquery-ui-rails'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -44,6 +44,8 @@ gem 'bcrypt', '~> 3.1.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'sprockets', '< 4.0.0'
+
 # Authentication.
 gem 'omniauth'
 gem 'omniauth-twitter'
@@ -53,9 +55,11 @@ gem 'omniauth-bn-office365', git: 'https://github.com/blindsidenetworks/omniauth
 gem 'omniauth-bn-launcher', git: 'https://github.com/blindsidenetworks/omniauth-bn-launcher.git', tag: '0.1.3'
 gem 'bn-ldap-authentication', git: 'https://github.com/blindsidenetworks/bn-ldap-authentication.git', tag: '0.1.1'
 gem 'net-ldap'
+gem 'bn-ldap-authentication', '~> 0.1.4'
+gem 'omniauth-bn-office365', '~> 0.1.1'
 
 # BigBlueButton API wrapper.
-gem 'bigbluebutton-api-ruby'
+gem 'bigbluebutton-api-ruby', git: 'https://github.com/mconf/bigbluebutton-api-ruby.git', branch: 'master'
 
 # Front-end.
 gem 'bootstrap', '~> 4.3.1'
@@ -74,6 +78,12 @@ gem 'redcarpet'
 
 # For limiting access based on user roles
 gem 'cancancan', '~> 2.0'
+
+# Active Storage gems
+gem 'aws-sdk-s3', '~> 1.75'
+gem 'google-cloud-storage', '~> 1.26'
+
+gem 'pluck_to_hash', '~> 1.0.2'
 
 group :production do
   # Use a postgres database in production.

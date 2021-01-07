@@ -1,0 +1,592 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+eu:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Zehaztapenak eta Baldintzak"
+        email: Email
+        name: Izena
+        password: Pasahitza
+        password_confirmation: Pasahitz Berrespena
+    errors:
+      models:
+        user:
+          confirmation: Pasahitza ez dator bat
+  administrator:
+    site_settings:
+      authentication:
+        disabled: Desgaituta
+        enabled: Gaituta
+        info: Soilik autentikatutako erabiltzaileei utzi geletara sartzen
+        title: Autentikatzea behartu geletarako
+        user-info: Greenlighten erregistratu behar zara gela honetara batzeko
+      branding:
+        change: Irudia Aldatu
+        info: Aldatu goiko ezkerreko txokoan agertzen den marka-irudia
+        placeholder: Irudiaren Url-a...
+        title: Marka-irudia
+        invalid: URL baliogabea
+      legal:
+        change: Aldatu URLa
+        info: Aldatu orriaren behealdean agertzen den Esteka Legala
+        placeholder: URL Legala...
+        title: Legala
+        invalid: URL baliogabea
+      privpolicy:
+        change: Aldatu URLa
+        info: Aldatu orriaren behealdean agertzen den Pribatutasun Baldintzak
+        placeholder: Pribatutasun Baldintzen URLa...
+        title: Pribatutasun Baldintzak
+        invalid: URL baliogabea
+      cache:
+        info: "Biltegiratutako hornitzailearen cachea garbitzen du, eguneratutako informazioaren eskaera berri bat egitera behartzen duena"
+        title: Hornitzailearen cachea garbitu
+        button: Garbitu Cachea
+      clear_auth:
+        info: "Erabiltzaileen uneko autentikadorea garbitzen du saioa berriz hasteko aukera emanez autentikazio metodo desberdin bat erabiliz "
+        title: Garbitu Uneko Autentikadorea
+        button: Garbitu Autentikazioa
+      color:
+        info: Kolore Normala aldatzean Argia eta Iluna aldatuko ditu. Argia eta Iluna bakoitza bere aldetik alda daitezke
+        title: Kolore Nagusia
+        regular: Normala
+        lighten: Argia
+        darken: Iluna
+      log_level:
+        title: Log Maila
+        information: Aldatu inplementazio osoaren Log Maila
+        debug: Debug
+        info: Info
+        warn: Kontuz
+        error: Error
+        fatal: Fatal
+        unknown: Ezezaguna
+      recording_visibility:
+        info: Ezarri lehenetsitako ikusgaitasuna grabazio berrietarako
+        title: Grabazioen Lehenetsitako Ikusgaitasuna
+        warning: Ezarpen hau soilik martxan ez dauden geletara aplikatuko da
+      registration:
+        info: Aldatu erabiltzaileak webgunean erregistratzen diren modua
+        title: Erregistratzeko Modua
+        methods:
+          approval: Onartu/Ukatu
+          invite: Gonbidapen bidez Batu
+          open: Erregistro Irekia
+      rooms:
+        info: Mugatu erabiltzaile batek eduki dezakeen gela kopurua (Gela Nagusia barne). Ezarpen hau ez zaio administratzaileei aplikatzen.
+        title: Erabiltzaileko Gela Kopurua
+      shared_access:
+        info: "Desgaituz Gelaren aukeren zerrendatik kenduko du botoia, erabiltzaileek gela partekatzeko aukera saihestuz"
+        title: Baimendu Erabiltzeek Gelak Partekatzea
+      subtitle: Greenlight pertsonalizatu
+      title: Gunearen Ezarpenak
+    flash:
+      approved: Erabiltzailea ongi onartu da.
+      banned: Erabiltzailea ongi debekatu da.
+      unbanned: Erabiltzailea ongi baimendu da.
+      delete: Erabiltzailea ongi ezabatu da
+      delete_fail: Akatsa erabiltzailea ezabatzerakoan
+      demoted: Erabiltzailea ongi degradatu da
+      invite: "Gonbidapena ongi bidali da %{email}-(er)i"
+      invite_email_verification: "Emailak gaituta egon behar dute modu hau erabili ahal izateko. Zure sistema administratzailearekin jarri harremanetan, mesedez."
+      merge_fail: "Arazo bat egon da erabiltzaile kontuak batzean. Berrikusi aukeratutako erabiltzaileak eta saiatu berriro, mesedez" 
+      merge_success: Erabiltzaile kontuak ongi batu dira
+      perm_deleted: Erabiltzailea iraunkorki ezabatu da
+      promoted: Erabiltzailea ongi goratu da
+      registration_method_updated: Erregistratze-modua ongi eguneratu da
+      reset_password: "Erabiltzaileari e-mail bat bidali zaio pasahitza berrezartzeko. (Jaso ez badute spam karpetan begiratzeko eskatu, mesedez)"
+      restored: Erabiltzailea ongi berrezarri da
+      room_configuration: Gelaren Ezarpenak ongi eguneratu dira
+      settings: Guneko Ezarpenak ongi aldatu dira
+      unauthorized: Ez zaude baimenduta erabiltzaile honetan ekintzak gauzatzeko
+    recordings:
+      title: Zerbitzariko Grabazioak
+      no_recordings: Zerbitzari honek ez du grabaziorik.
+    roles:
+      appear_in_share_list: Sartu rol hau duten erabiltzaileak gelak partekatzeko goitik beherako menuan
+      can_create_rooms: Gelak sor ditzake
+      delete: Rola ezabatu
+      invalid_create: "Arazo bat egon da rol berria sortzean. Rolaren balioak egiaztatu eta saiatu berriro, mesedez"
+      invalid_order: "Arazo bat egon da rolaren lehentasuna eguneratzean. Balioak egiaztatu eta saiatu berriro, mesedez"
+      invalid_update: "Arazo bat egon da rolaren baimenak eguneratzean. Egiaztatu balioak eta saiatu berriro, mesedez"
+      manage_rooms_recordings: Onartu rol hau duten erabiltzaileek zerbitzariko gelak eta grabazioak kudeatzea
+      name: Rol Izena
+      new_role: Rol berria sortu
+      role_has_users: "Rol hau %{user_count}konturi esleituta dago. Kendu kontu guztiak rol honetatik ezabatu aurretik, mesedez."
+      title: Rolak
+      promote_email: Bidali email bat erabiltzaileei rol honetara esleituak direnean
+      demote_email: Bidali email bat erabiltzaileei rol honetatik kenduak direnean
+      edit_site_settings: Onartu rol hau duten erabiltzaileei guneko ezarpenak aldatzea
+      edit_roles: Onartu rol hau duten erabiltzaileei beste rolak aldatzea
+      manage_users: Onartu rol hau duten erabiltzaileei erabiltzaileak kudeatzea
+      invalid_assignment: "Arazo bat egon da rolak erabiltzaileari esleitzean. Egiaztatu balioak eta saiatu berriro, mesedez" 
+      colour:
+        title: Rolaren Kolorea
+        info: Ezarri rolari lotuta egongo den kolorea
+    room_configuration:
+      title: Gelaren Ezarpenak
+      mute:
+        info: Automatikoki mututu erabiltzailea BigBlueButtoneko bilera batetara batzean
+      require_moderator:
+        info: "BigBlueButtoneko bileraren moderatzaileari abisua bidaltzen dio erabiltzaile bat batzen saiatzen. Erabiltzailea onartzen bada, bilerara batzeko aukera izango du."
+      allow_any:
+        info: "Onartu edozein erabiltzailek bilera hastean edozein momentutan. Modu lehenetsian, gelaren jabeak bakarrik has dezake bilera."
+      all_moderator:
+        info: Eman erabiltzaile guztiei moderatzaile pribilegioak BigBlueButtonen bilera batetara batzean
+      options:
+        disabled: Desgaituta
+        enabled: Beti Gaituta
+        optional: Hautazkoa
+    rooms:
+      title: Zerbitzariko Gelak
+      table:
+        ended: "Bukatuta: %{session}"
+        id: ID
+        not_running: Geldirik
+        participants: Partaideak
+        running: Martxan
+        started: "Hasita: %{session}"
+        status: Egoera
+        view: Ikusi
+    title: Erakundearen Ezarpenak
+    users:
+      invite: Gonbidatu Erabiltzailea
+      edit:
+        title: Aldatu Erabiltzailearen Xehetasunak
+      settings:
+        approve: Onartu
+        decline: Ukatu
+        ban: Debekatu Erabiltzailea
+        delete: Ezabatu
+        edit: Aldatu
+        edit_roles: Aldatu erabiltzailearen rolak
+        merge: Batu
+        perm_delete: Iraunkorki ezabatu
+        unban: Birgaitu erabiltzailea
+        undelete: Desezabatu
+      table:
+        authenticator: Autentikadorea
+        created: Sortua
+        name: Izena
+        not_found: Ez dator bat erabiltzailerik zure bilaketarekin
+        no_users: Ez da erabiltzailerik aurkitu
+        role: Rola
+        uid: Erabiltzaile IDa
+        username: Erabiltzaile izena
+      title: Kudeatu Erabiltzaileak
+  add_to_google_calendar: "Gehitu Google Calendarrera"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: "Kontxo, errore bat egon da bilera hastean!"
+  cancel: Ezeztatu
+  cookies:
+    cookie_info: "Cookiek gure zerbitzua eskaintzen laguntzen digute. Gure zerbitzuak erabiliz, gure cookieak erabiltzea onartzen duzu."
+    cookie_button: Onartzen dut
+  copied: Kopiatuta
+  copy: Kopiatu
+  date:
+    month_names: [~, Urtarrila, Otsaila, Martxoa, Apirila, Maiatza, Ekaina, Uztaila, Abuztua, Iraila, Urria, Azaroa, Abendua]
+  default_admin: "Oraindik lehenetsitako pasahitza erabiltzen ari zara kontu honetan. Klikatu <a href=\"%{edit_link}\">hemen</a> aldatzeko, mesedez"
+  delete: Ezabatu
+  delivery_error: "Errore bat gertatu da mezua bidaltzean. Administratzaile batekin harremanetan jarri, mesedez!"
+  docs: Dokumentazioa
+  email: Email
+  email_sent: "Zure %{email_type} emaila bidali da! (Begiratu zure Spam karpeta jaso ez baduzu, mesedez)"
+  enter_your_name: Sartu zure izena!
+  errors:
+    bigbluebutton:
+      help: "Ziurtatu urrats egokiak egin direla, mesedez. <a href=\"%{doc_link}\">Gehiago ikasi</a>"
+      message: Baliogabeko BigBlueButton Helburu eta Sekretua
+      title: Zerbitzariko Errorea
+    internal:
+      message: Badirudi gure aldean zerbait gaizki joan dela.
+      help: "Errorea erregistratu da, begiratuko dugu!"
+      report: Jakinarazi Arazoa
+    maintenance:
+      message: "Barkatu, mantentze lanetan gabiltza."
+      help: Aurki gara bueltan!
+    migration_error:
+      contact_admin: "Ez bazara administratzailea, kontaktatu batekin mesedez."
+      continue: 1.0 erabiltzen jarraitu nahi dut.
+      notice: >
+        Greenlightek datu-base migrazio errore bat topatu du. <br> Greenlight 2.0ra eguneratu ez duzulako izan daiteke.
+      upgrade: Erakutsi nola eguneratu 2.0ra!
+      version: "Greenlighteko bertsio berri bat atera dugu, baina zure datu-basea ez da bateragarria."
+    messages:
+      blank: ezin du hutsik egon
+      too_short: oso motza da
+      invalid: ez da baliozkoa
+      taken: jada hartuta dago
+      accepted: onartu beharra dauka
+      confirmation: "ez dator bat %{attribute}-(re)kin"
+      inclusion: ez dago zerrendan
+    no_provider:
+      message: Atzitu nahi duzun gunea ez dago gaituta
+      help: "Zure sistema administratzailearekin harremanetan jarri Greenlight konfiguratzeko, mesedez"
+    not_found:
+      message: Sentitzen dut! Bila zabiltzan orria ez da existitzen.
+      help: "Posible da ezabatu izana?"
+      user_not_found:
+        help: "Administratzailearekin harremanetan jarri, mesedez."
+        message: "Sentitzen dut, erabiltzaile hau ez dago erregistratuta."
+      user_missing:
+        help: "Egiaztatu URLa eta saiatu berriro, mesedez"
+        message: Sartu duzun URLa ez da baliozkoa.
+    title: Erroreak
+    unauthorized:
+      message: Ez daukazu sarbiderik aplikazio hontara
+      help: "Nahaste bat dela uste baduzu, jarri harremanetan zure sistema administratzailearekin, mesedez."
+  expired_reset_token: Pasahitza berrezartzeko esteka iraungi egin da!
+  features:
+    title: Ezaugarriak
+    rooms: Gela Pertsonalizatuak
+    recordings: Grabazio Kudeaketa
+    designs: Diseinu Pertsonalizatuak
+    authentication: Erabiltzaile Autentikazioa
+  footer:
+    legal: Legala
+    privpolicy: Pribatutasun Baldintzak
+    powered_by: "%{href} erabiliz."
+  forgot_password:
+    subtitle: Pasahitza ahaztu dut
+    email: Email
+    submit: Bidali
+  go_back: Atzera
+  greenlight: Greenlight
+  header:
+    all_recordings: Grabazio Guztiak
+    dropdown:
+      account_settings: Erakundea
+      help: "Laguntzarik behar?"
+      home: Etxea
+      settings: Profila
+      signout: Saioa itxi
+  home_room: Etxeko Gela
+  info_update_success: Informazioa ongi eguneratu da.
+  invalid_credentials: Sartu dituzun email eta pasahitzak ez datoz bat gureekin. Saiatu berriro edo sakatu "Pasahitza ahaztu dut" zure pasahitza berrezartzeko.
+  invalid_login_method: Saio hasieran akatsa eman du kontuaren desberdintasunagatik. Saioa omniauthekin hasi beharra duzu.
+  invite_message: "Norbait bilerara gonbidatzeko, bidali iezaiozu esteka hau:"
+  javascript:
+    room:
+      mailer:
+        subject: 'grabazio bat ikustera gonbidatu zaitu.'
+        body: 'Grabazioa ikusteko, jarraitu beheko esteka:'
+        autogenerated: 'Mezu hau BigBlueButtonek auto-generatua da.'
+        footer: 'BigBlueButton kore irekiko konferentzia sistema da. BigBlueButtonen informazio gehiagorako, ikusi https://bigbluebutton.org/.'
+    search:
+      start: Hasi bilatzen...
+  landing:
+    about: "%{href} zure kode irekiko BigBlueButton konferentzia zerbitzurako front-end sinple bat da. Zure gela propioak sor ditzakezu saioak ostatatzeko, edo beste batzuenera batu esteka labur eta praktiko bat erabiliz."
+    welcome: Ongi etorri BigBlueButtonera.
+    video: Ikusi Greenlight erabiltzeko gure tutoriala.
+    upgrade: Erakutsi nola eguneratu 2.0ra!
+    version: "Greenlighteko bertsio berri bat atera dugu, baina zure datu-basea ez da bateragarria."
+  language_default: Lehenetsia (nabigatzailearen hizkuntza)
+  ldap_error: "Ezin izan da LDAP zerbitzarira konektatu. Begiratu env fitxategiko LDAP ezarpenak eta ziurtatu zerbitzaria martxan dagoela, mesedez."
+  login: Saioa hasi
+  login_title: Zure kontuan hasi saioa
+  mailer:
+    user:
+      approve:
+        info: Zure kontua onartu da.
+        signin: "Zure gela pertsonaletara sartzeko, klikatu beheko botoian eta hasi saioa."
+        signin_link: Saioa Hasi
+        signup:
+          info: Erabiltzaile berri batek izena eman du Greenlight erabiltzeko.
+          more-info: Erabiltzaile honi Greenlight atzitzeko baimena emateko bere kontua onartu behar duzu erakundearen ezarpenetan.
+          admins_link: Joan Erakundearen Orrira
+          subject: Greenlighteko Erabiltzaile Izen Emate Berria
+          username: "Erabiltzailea %{name} izena eta %{email} posta kontuarekin erregistratu da."
+        subject: Kontua Onartuta
+        username: "Zure erabiltzailea %{email} da."
+      demoted:
+        info: "Ez zara gehiago %{role} bat %{url}-n."
+        more-info: Erabiltzaile normal bat baimen berdinak dituzu orain.
+        root_link: Saioa Hasi
+        subtitle: "%{role} Baimenak Deuseztatuta"
+      invite:
+        info: "Zure espazio pertsonalera gonbidatu zaitu %{name}-k"
+        signup_info: "Zure posta kontuarekin erregistratzeko, klikatu beheko botoia eta urratsak jarraitu."
+        signup_link: Izena Eman
+        signup:
+          info: Gonbidatua izan den erabiltzaile batek Greenlight erabiltzeko izena eman du.
+          admins_link: Joan Erakundearen Orrira
+          subject: "Greenlight Erabiltzaile Izen Emate Berria "
+          username: "Erabiltzaileak %{name} izenarekin eta %{email} posta kontuarekin eman du izena."
+        subject: BigBlueButton-era batzeko gonbidapena
+        username: "Zure erabiltzailea %{email} da."
+      password_reset:
+        title: 'Pasahitza berrezartzea'
+        welcome: "Pasahitz berrezarpen bat eskatu da <b>%{email}</b> posta kontuarentzat"
+        message: 'Zuk eskatu baduzu berrezarpen hau, klikatu beheko esteko zure pasahitza berrezartzeko:'
+        reset_link: Berrezarri Pasahitza
+        expire: Esteka bi ordutan iraungiko da.
+        ignore: Modu seguruan ez ikusi dezakezu mezu hau eskaera hau ez baduzu egin
+      promoted:
+        admins_link: Joan Erakundearen Orrira
+        info: "Orain %{role} zara %{url}-n."
+        more-info: "Zure gaitasun berriak ikusteko bisitatu %{url}, mesedez."
+        subtitle: "%{role} Baimenak Emanak"
+      verify_email:
+        welcome: "Ongi etorri zure espazio pertsonalera, %{name}!"
+        success: "%{bigbluebutton} erabiliz, zure gela propioak sor ditzakezu saioak ostatatzeko eta gainontzekoekin kolaboratzeko."
+        username: "Zure erabiltzailea %{email} da."
+        verify: "Zure kontua egiaztatzeko, beheko botoian sakatu."
+        verify_text: 'Zure kontua egiaztatzeko, ondoko esteka jarraitu: %{url}'
+        verify_link: Egiaztatu Kontua
+        thanks: Eskerrik asko batzeagatik eta egun ona izan!
+  maintenance:
+    window_alert: "Mantentze lanak programatuta %{date}-rako"
+  max_concurrent: Aldi bereko saio kopuru maximora iritsi da!
+  merged: Batuta
+  modal:
+    create_role:
+      create: Sortu Rol berria
+      footer_text: Rol honen banakako baimenak alda ditzakezu sortu ondoren
+      name_placeholder: Sartu rol izena...
+      not_blank: Rol izena ezin da hutsi egon.
+      title: Sortu Rol Berria
+    create_room:
+      access_code: Sarbide Kodea
+      access_code_placeholder: Sortu hautazko gelaren sarbide kodea
+      auto_join: Automatikoki batu nazazu gelan
+      create: Sortu Gela
+      free_delete: Gela edozein unetan ezabatu ahalko duzu.
+      name_placeholder: Sartu gela izena...
+      not_blank: Gela izena ezin da hutsik egon.
+      title: Sortu Gela Berria
+    delete_account:
+      confirm: "Ziur zaude kontu hau ezabatu nahi duzula?"
+      delete: "Ziur nago, ezabatu kontu hau."
+      keep: "Hobeto pentsatuta, mantendu egingo dut."
+      delete_warning: Honek kontua desaktibatuko du. Desaktibatutako kontu guztiak ezabatuen fitxan topatu daitezke.
+      warning: Aukera behin-betikoa da. <b>Ez</b> zara gai izango lotutako datuak berreskuratzeko.
+    delete_room:
+      confirm: "Ziur zaude %{room} ezabatu nahi duzula?"
+      delete: "Ziur nago, ezabatu gela hau."
+      keep: "Hobeto pentsatuta, mantendu egingo dut."
+      warning: <b>Ez</b> zara gai izango gela hau berreskuratzeko
+      recording_warning: "edo berarekin lotutako %{recordings_num} grabazioetatik bat ere ez."
+    invite_user:
+      email_placeholder: Sartu erabiltzaileen posta kontuak (komaz bananduta)
+      footer: Erabiltzaileak posta kontu bat jasoko du izena emateko jarraibideekin
+      send: Bidali Gonbidapena
+      title: Gonbidatu Erabiltzailea
+    login:
+      or: edo
+      with: "Saioa hasi %{provider}-(re)kin"
+      forgot_password: "Pasahitza Ahaztuta?"
+    rename_recording:
+    remove_shared:
+      title: "Ziur zaude gela hau zure gelen zerrendatik kendu nahi duzula?"
+      delete: "Ziur nago, kendu gela hau."
+      warning: <b>Ez</b> zara gai izango gela hau atzitzeko gehiago.
+    room_settings:
+      title: Gelaren Ezarpenak
+      update: Gela Eguneratu
+      client: Aukeratu bezero mota
+      join_moderator: Erabiltzaile guztiak moderatzaile bezala batzen dira
+      mute: Mututu erabiltzaileak batzen direnean
+      require_approval: Moderatzailearen onarpena behartu batu aurretik
+      start: Edozein erabiltzaileri utzi bilera hau hasten
+      footer_text: Zure gelaren doikuntzak edozein momentutan egin ditzakezu.
+    rename_room:
+      name_placeholder: Sartu gela izen berri bat...
+    share_access:
+      footer: Gela bat erabiltzaile batekin partekatzeak gela martxan jarri eta gelaren grabazioak ikustea baimentzen die
+      list: Partekatua honekin
+      title: Partekatu Gelaren Sarbidea
+      save: Gorde Aldaketak
+      cancel_changes: Ezeztatu Aldaketak
+      select: Aukeratu Erabiltzailea
+    merge_user:
+      cancel: Ezeztatu
+      from: Batzeko dagoen Kontua
+      title: Batu Erabiltzaile Kontuak
+      to: Kontu Nagusia
+      save: Batu
+      footer: Batzeko dagoen kontuaren gelak Kontu Nagusiaren gela zerrendara pasako dira eta ondoren kontua ezabatu egingo da.
+  name_update_success: Gelaren izena ongi aldatu da!
+  no_user_email_exists: "Ez da existitzen erabiltzailerik zehaztutako posta konturako. Ziurtatu ondo idatzi duzula, mesedez."
+  omniauth_error: "Errore bat gertatu da omniauthekin autentikatzerakoan. Saiatu berriro edo jarri harremanetan administratzailearekin, mesedez!"
+  omniauth_specific_error: "%{error} gertatu da omniauthekin autentikatzerakoan. Saiatu berriro edo jarri harremanetan administratzailearekin, mesedez!"
+  pagy:
+    nav:
+      prev: "&lsaquo; Aurrekoa"
+      next: "Hurrengoa &rsaquo;"
+      gap: "&hellip;"
+  password: Pasahitza
+  password_empty_notice: Pasahitza ezin da hutsik egon.
+  password_reset_success: Pasahitza berrezarri da.
+  password_different_notice: Pasahitzaren Egiaztapena ez dator bat.
+  provider:
+    google: Google
+    office365: Office 365
+    twitter: Twitter
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable: "Kontxo, zure reCAPTCHA erantzuna balioztatzen huts egin dugu. Saiatu berriro, mesedez."
+      verification_failed: "reCAPTCHA baliotzatzeak huts egin du, saiatu berriro mesedez."
+  recording:
+    all_recordings: Grabazio Guztiak
+    email: Bidali Postaz Grabazioa
+    error: "Errore bat egon da %{count} grabazio eskuratzen"
+    no_recordings: "Gela honek ez du %{inject} den grabaziorik."
+    no_user_recordings: Ez daukazu grabaziorik une honetan.
+    no_matched_recordings: "%{inject} grabaziorik ez dator bat zure bilaketarekin."
+    recorded_on: "%{date}-en grabatua"
+    table:
+      name: Izena
+      thumbnails: Miniaturak
+      length: Luzera
+      users: Erabiltzaileak
+      visibility: Ikusgaitasuna
+      formats: Formatuak
+    visibility:
+      public: Publikoa
+      unlisted: Zerrendatu gabea
+    format:
+      notes: Oharrak
+      podcast: Podcasta
+      presentation: Aurkezpena
+      statistics: Estatistikak
+      video: Bideoa
+  registration:
+    approval:
+      fail: "Zure kontua ez da onartu oraindik. Egun batzuk pasa badira izena eman zenuenetik, jarri harremanetan zure administratzailearekin, mesedez."
+      signup: Zure kontua ongi sortu da. Administratzailearen onarpenerako bidali da.
+    banned:
+      fail: "Ez daukazu sarbiderik aplikazio honetara. Nahaste bat dela uste baduzu, jarri harremanetan zure administratzailearekin." 
+    deprecated:
+      new_signin: Aukeratu zure konturako saioa hasteko modu berri bat. Zure kontu zaharreko gela guztiak kontu berrira migratuko dira
+      twitter_signin: "Twitter bidez saioa hasteari sustengua eten zaio eta hurrengo bertsioan kenduko da. Sakatu <a href=\"%{link}\">hemen</a> zure kontua autentikazio modu berrira mugitzeko"
+      twitter_signup: "Twitter bidez izena emateari sustengua eten zaio. Erabiliz izena emateko beste modu bat, mesedez"
+      merge_success: Ondo batu da zure twitter kontua zure kontu berriarekin.  Zure twitter kontu zaharra ezabatu da
+    invite:
+      fail: "Zure tokena ez da baliozkoa edo iraungi egin da. Nahaste bat dela uste baduzu, jarri harremanetan zure sistema administratzailearekin, mesedez."
+      no_invite: "Ez daukazu batzeko gonbidapenik. Jarri harremanetan zure administratzailearekin bat jasotzeko, mesedez."
+  remove: Kendu
+  rename: Berrizendatu
+  reset_password:
+    invalid_token: "Pasahitza berrezartzeko lekukoa ez da baliozkoa. Saiatu zure pasahitza berriro berrezartzen, mesedez."
+    subtitle: Berrezarri Pasahitza
+    password: Pasahitz Berria
+    confirm: Pasahitz Berriaren Egiaztapena
+    update: Eguneratu Pasahitza
+    auth_change: "Autentikazio modua aldatu da. Posta kontua begiratu zure pasahitza ezartzeko, mesedez."
+  roles:
+    active: Aktibo
+    admin: Admin
+    banned: Debekatuta
+    deleted: Ezabatuta
+    pending: Zain
+    user: Erabiltzailea
+  room:
+    access_code_required: "Sartu baliozko sarbide gakoa gela honetara batzeko, mesedez"
+    create_room: Sortu Gela bat
+    create_room_error: Errore bat gertatu da gela sortzean
+    create_room_success: Gela ongi sortu da
+    delete:
+      home_room: Ezin da erabiltzailearen Gela Nagusia ezabatu
+      success: Gela ongi ezabatu da
+      fail: "Gela ezabatzen akatsa (%{error})"
+    enter_the_access_code: Sartu gelaren sarbide kodea
+    invalid_provider: "Baliozkoa ez den url bat sartu duzu. Url-a egiaztatu eta saiatu berriro, mesedez."
+    invited: Batzeko gonbidatua izan zara
+    invite_participants: Gonbidatu partaideak
+    join: Batu
+    last_session: "Azken saioa %{session}-n"
+    login: Sartu
+    owner: Jabea
+    owner_banned: Gela hau ez dago erabilgarri une honetan
+    no_room:
+      description: "Sartu batu nahi zaren gelaren url-a edo edo gelaren id-a "
+      edit_profile: Aldatu Erabiltzailearen Profila
+      go_to: Joan Gelara
+      invalid_room_uid: Sartutako gelaren url/id-a ez da baliozkoa.
+      placeholder: Gelaren url/uid-a
+      no_recent_rooms: Ez daukazu azken aldian batutako gelarik
+      recent_rooms: Joan Azken Aldian Batutako Gelara
+      title: Batu Gela batera
+    no_sessions: "Gela honek ez dauka saiorik, oraingoz!"
+    recordings: Gelaren Grabazioak
+    room_limit: Onartutako gela kopuru maximora iritsi zara
+    room_limit_exceeded: "Onartutako gela kopurua pasa duzu. Ezabatu %{difference} gela gela honetara sartzeko."
+    sessions: Saioak
+    settings: Gelaren Ezarpenak
+    share: Kudeatu Sarbidea
+    shared_by: "%{email}-ek elkarbanatuta"
+    remove_shared_access_success: Elkarbanatutako gela ondo kendu da zure gela zerrendatik
+    remove_shared_access_error: Errore bat egon da elkarbanatutako gela zure zerrendatik kentzen
+    shared_access_success: Gela ondo elkarbanatu da
+    shared_access_error: Errore bat eman da gela elkarbanatzean
+    start: Hasi
+    unavailable: Gela momentu honetan ez dago erabilgarri jabearen posta kontua ez baitago egiaztatua.
+    update_settings_error: Errore bat eman da gelaren ezarpenak eguneratzean
+    update_settings_success: Gelaren ezarpenak ondo eguneratu dira
+    wait:
+      message: Bilera ez da hasi oraindik.
+      auto: Automatikoki batuko zara bilera hasten denean.
+  settings:
+    account:
+      fullname: Izen osoa
+      language: Hizkuntza
+      provider: Hornitzailea
+      image: Irudia
+      image_url: Profilaren Irudiaren URL
+      roles: Erabiltzailearen Rola
+      subtitle: Eguneratu zure Kontuaren informazioa
+      title: Kontuaren Informazioa
+      reset_password: Berrezarri erabiltzailearen pasahitza
+    delete:
+      button: "Bai, nire kontua ezabatu nahiko nuke."
+      disclaimer: "Zure kontua ezabatzea aukeratzen baduzu, <b>EZINGO DA</b> berreskuratu. Zure kontuarekin loturako informazio guztia, ezarpenak, gelak eta grabazioak barne ezabatu egingo dira."
+      subtitle: Behin betiko Ezabatu zure Kontua
+      title: Ezabatu Kontua
+    password:
+      confirmation: Pasahitz Berriaren Egiaztapena
+      new: Pasahitz Berria
+      old: Pasahitz Zaharra
+      subtitle: Aldatu Zure Pasahitza
+      title: Pasahitza
+    title: Profila
+    search: Bilatu
+  signup:
+    password_confirm: Pasahitz Berrespena
+    subtitle: Sortu Kontua
+    title: Izena eman
+    with: "Izena eman %{provider}-ekin"
+  terms:
+    accept: "Onartzen dut %{href}"
+    accept_existing: Zehaztapenak eta Baldintzak onartzen ditut
+    title: Zehaztapenak eta Baldintzak
+  test_install: >
+    Inplementazio hau aurrez konfiguratutako probetako zerbitzari bat erabiltzen ari da, zure propioarekin ordezkatu beharko zenuke. Xehetasun gehiagorako, ikusi %{href}.
+  update: Eguneratu
+  verify:
+    accept: Egiaztatu
+    activated: Kontua egiaztatu da!
+    already_verified: Kontua jada egiaztatuta dago
+    invalid: Egiaztatzeko esteka okerra
+    not_verified: Zure kontua ez da oraindik egiaztatu
+    resend: Birbidali egiaztatzeko mezua
+    signin: "Hasi saioa zure kontura sartzeko, mesedez"
+    title: Egiaztatu zure posta kontua
+    verification: Egiaztapena
