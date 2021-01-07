@@ -50,10 +50,10 @@ module Joiner
   def join_room(opts)
     @room_settings = JSON.parse(@room[:room_settings])
 
-    if room_running?(@room.bbb_id) || @room.owned_by?(current_user) || room_setting_with_config("anyoneCanStart") || user_has_moderator_access_code?
+    if room_running?(@room.bbb_id) || @room.owned_by?(current_user) || room_setting_with_config("anyoneCanStart") || valid_moderator_access_code(session[:moderator_access_code])
 
       # Determine if the user needs to join as a moderator.
-      opts[:user_is_moderator] = @room.owned_by?(current_user) || room_setting_with_config("joinModerator") || @shared_room || user_has_moderator_access_code?
+      opts[:user_is_moderator] = @room.owned_by?(current_user) || room_setting_with_config("joinModerator") || @shared_room || valid_moderator_access_code(session[:moderator_access_code])
       opts[:record] = record_meeting
       opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
       opts[:mute_on_start] = room_setting_with_config("muteOnStart")
@@ -106,9 +106,5 @@ module Joiner
     }
 
     guest_id
-  end
-
-  def user_has_moderator_access_code?
-    return session[:moderator_access_code] == @room.moderator_access_code
   end
 end
