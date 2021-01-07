@@ -271,6 +271,8 @@ describe RoomsController, type: :controller do
 
     it "should use join name if user is not logged in and meeting running and moderator access code is enabled and set" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
+      allow_any_instance_of(Setting).to receive(:get_value).and_call_original
+      allow_any_instance_of(Setting).to receive(:get_value).with("Moderator Access Codes").and_return("true")
 
       room = Room.new(name: "test", moderator_access_code: "abcdef")
       room.room_settings = "{ }"
@@ -409,6 +411,8 @@ describe RoomsController, type: :controller do
 
     it "should join the room as moderator if the user has the moderator_access code (and regular access code is not set)" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
+      allow_any_instance_of(Setting).to receive(:get_value).and_call_original
+      allow_any_instance_of(Setting).to receive(:get_value).with("Moderator Access Codes").and_return("true")
 
       room = Room.new(name: "test", moderator_access_code: "abcdef")
       room.room_settings = "{ }"
@@ -422,6 +426,8 @@ describe RoomsController, type: :controller do
 
     it "should join the room as moderator if the user has the moderator_access code (and regular access code is set)" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
+      allow_any_instance_of(Setting).to receive(:get_value).and_call_original
+      allow_any_instance_of(Setting).to receive(:get_value).with("Moderator Access Codes").and_return("true")
 
       room = Room.new(name: "test", access_code: "123456", moderator_access_code: "abcdef")
       room.room_settings = "{ }"
@@ -503,20 +509,6 @@ describe RoomsController, type: :controller do
       post :join, params: { room_uid: @room }
 
       expect(response).to redirect_to(root_path)
-    end
-
-    it "it should redirect to show with correct moderator access code is supplied, but disabled in settings" do
-      allow_any_instance_of(Setting).to receive(:get_value).and_return("false")
-
-      room = Room.new(name: "test", access_code: "123456", moderator_access_code: "abcdef")
-      room.room_settings = "{ }"
-      room.owner = @owner
-      room.save
-
-      post :join, params: { room_uid: room, join_name: "Join Name" }, session: { moderator_access_code: "abcdef" }
-
-      expect(response).to redirect_to room_path(@room.uid)
-      expect(flash[:alert]).to eq(I18n.t("room.access_code_required"))
     end
   end
 
@@ -743,6 +735,9 @@ describe RoomsController, type: :controller do
     end
 
     it "should redirect to show with valid moderator_access_code as regular access_code" do
+      allow_any_instance_of(Setting).to receive(:get_value).and_call_original
+      allow_any_instance_of(Setting).to receive(:get_value).with("Moderator Access Codes").and_return("true")
+
       @room.moderator_access_code = "abcdef"
       @room.save
 
@@ -755,6 +750,29 @@ describe RoomsController, type: :controller do
 
     it "should redirect to show with and notify user of invalid access code" do
       post :login, params: { room_uid: @room.uid, room: { access_code: "123455" } }
+
+      expect(response).to redirect_to room_path(@room.uid)
+      expect(flash[:alert]).to eq(I18n.t("room.access_code_required"))
+    end
+
+    it "should redirect to show and notify user of invalid moderator access code" do
+      @room.moderator_access_code = "abcdef"
+      @room.save
+
+      post :login, params: { room_uid: @room.uid, room: { moderator_access_code: "abcdee" } }
+
+      expect(response).to redirect_to room_path(@room.uid)
+      expect(flash[:alert]).to eq(I18n.t("room.access_code_required"))
+    end
+
+    it "it should redirect to show with valid moderator access code and disabled moderator codes setting" do
+      allow_any_instance_of(Setting).to receive(:get_value).and_call_original
+      allow_any_instance_of(Setting).to receive(:get_value).with("Moderator Access Codes").and_return("false")
+
+      @room.moderator_access_code = "abcdef"
+      @room.save
+
+      post :join, params: { room_uid: @room, join_name: "Join Name" }, session: { moderator_access_code: "abcdef" }
 
       expect(response).to redirect_to room_path(@room.uid)
       expect(flash[:alert]).to eq(I18n.t("room.access_code_required"))
