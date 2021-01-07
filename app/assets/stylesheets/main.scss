@@ -157,10 +157,10 @@
 
 .customBtn-openid_connect {
   @extend .customBtn;
-  background: #d61515;
+  background: #ef8e1f;
 
   .customBtn-image {
-    background: #ffffff image-url("ldap-logo.png") no-repeat left top;
+    background: #ffffff image-url("openid-logo.png") no-repeat left top;
     background-size: 18px 18px;
     padding:10px 10px 10px 10px;
   }
