@@ -20,7 +20,7 @@ class UserMailer < ApplicationMailer
   include ApplicationHelper
   include ThemingHelper
 
-  default from: ENV['EMAIL_FROM'] #Greenlight customization, Your email here
+  default from: Rails.configuration.smtp_sender
 
   def verify_email(user, url, settings)
     @settings = settings
@@ -29,12 +29,6 @@ class UserMailer < ApplicationMailer
     @image = logo_image
     @color = user_color
     mail(to: @user.email, subject: t('landing.welcome'))
-  end
-    #Greenlight customization,email welcome
-
-  def welcome_email(user)
-    @user = user
-    mail(to: @user.email, subject: 'BigBlueButton Trial @ HigherEdLab')
   end
 
   def password_reset(user, url, settings)
