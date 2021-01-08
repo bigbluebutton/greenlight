@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
+
 <div class="container">
   <div class="row pt-7">
     <div class="col col-lg-6 offset-lg-3">
@@ -38,20 +39,11 @@
             </div>
           <% end %>
           <%= form_for @user, url: create_user_path, method: :post do |f|  %>
-
             <div class="form-group">
               <%= f.label :name, t("settings.account.fullname"), class: "form-label" %>
               <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: t("settings.account.fullname") %>
               <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:name).first %></div>
             </div>
-            <!-- change -->
-            <div class="form-group">
-              <%= f.label :mobile,"Phone number with country code" , class: "form-label" %>
-              <%= f.text_field :mobile, class: "form-control #{form_is_invalid?(@user, :mobile)}", placeholder: "Enter your number" %>
-              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:mobile).first %></div>
-            </div>
-            <!-- change end -->
-
             <div class="form-group">
               <%= f.label :email, t("email"), class: "form-label" %>
               <%= f.email_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email") %>
@@ -64,7 +56,7 @@
             </div>
             <div class="form-group">
               <%= f.label :password_confirmation, t("signup.password_confirm"), class: "form-label" %>
-              <%= f.password_field :p1assword_confirmation, class: "form-control #{form_is_invalid?(@user, :password_confirmation)}", placeholder: t("signup.password_confirm") %>
+              <%= f.password_field :password_confirmation, class: "form-control #{form_is_invalid?(@user, :password_confirmation)}", placeholder: t("signup.password_confirm") %>
               <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:password_confirmation).first %></div>
             </div>
             <% if Rails.configuration.terms %>
@@ -83,7 +75,6 @@
                   <%= recaptcha_tags %>
                   <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:base).first %></div>
                 </div>
-
               <% end %>
               <%= f.submit t("signup.title"), class: "btn btn-primary btn-block signin-button" %>
             </div>
