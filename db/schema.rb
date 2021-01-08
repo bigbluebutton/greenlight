@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 2020_04_13_150518) do
 
   create_table "users", force: :cascade do |t|
     t.integer "room_id"
+    t.string "mobile"
     t.string "provider"
     t.string "uid"
     t.string "name"
