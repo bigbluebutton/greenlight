@@ -111,6 +111,11 @@ en:
       shared_access:
         info: Setting to disabled will remove the button from the Room options dropdown, preventing users from sharing rooms
         title: Allow Users to Share Rooms
+      moderator_codes:
+        info: "With valid moderator codes, users can join a room as a moderator without having to create an account and receive access individually. The setting can be made separately for each room."
+        title: Enables the generation of moderator codes
+        enabled: Enabled
+        disabled: Disabled
       subtitle: Customize Greenlight
       tabs:
         appearance: Appearance
@@ -389,7 +394,7 @@ en:
       title: Create New Role
     create_room:
       access_code: Access Code
-      moderator_access_code: Moderator Access Code
+      moderator_access_code: Moderator Code
       access_code_placeholder: Generate an optional room access code
       moderator_access_code_placeholder: Generate an optional code for moderators
       auto_join: Automatically join me into the room
@@ -542,6 +547,7 @@ en:
     access_code_required: Please enter a valid access code to join the room
     add_presentation: Add Presentation
     copy_access: Copy Access Code
+    copy_moderator_access: Copy Moderator Code
     create_room: Create a Room
     create_room_error: There was an error creating the room
     create_room_success: Room created successfully
@@ -550,6 +556,8 @@ en:
       success: Room deleted successfully
       fail: Failed to delete room (%{error})
     enter_the_access_code: Enter the room's access code
+    enter_the_moderator_access_code: Enter the room's moderator code!
+    optional_moderator_access_code: "Optional Moderator Code:"
     invalid_provider: You have entered an invalid url. Please check the url and try again.
     invitation_description: You have been invited to join %{name} using BigBlueButton. To join, click the link above and enter your name.  
     invited: You have been invited to join
