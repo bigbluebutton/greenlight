@@ -42,6 +42,7 @@
                  ↑
                 <% end %>
               </th>
+              <!--greenlight Custumization, Uncomment this to show "provider" in user manage table
               <th class="text-left" data-header="provider" data-order="<%= @order_column == "provider" ? @order_direction : "none" %>">
                 <%= t("administrator.users.table.authenticator") %>
                 <% if @order_column == "provider" && @order_direction == "desc" %>
@@ -50,6 +51,14 @@
                  ↑
                 <% end %>
               </th>
+              -->
+
+                <!--==== greenlight Custumization,  added mobile no ==== -->
+               <th data-header="mobile">
+                 <%= t("administrator.users.table.mobile") %>
+               </th>
+
+              <!--====greenlight Custumization ends here==== -->
               <th class="text-center">
                 <%= t("administrator.users.table.role") %>
               </th>
@@ -72,7 +81,11 @@
                       <div class="small text-muted"><%= [t("administrator.users.table.created"), ": ", user.created_at].join %></div>
                     </td>
                     <td class="user-email"><%= user.email && user.email != "" ? user.email : user.username%></td>
-                    <td><%= user.provider %></td>
+
+                     <!--====greenlight Custumization,added mobile no,to see provider in user manage table uncomment provider==== -->
+                     <!-- <td><%= user.provider %></td> -->
+                          <td><%= user.mobile %></td>
+                     <!--====greenlight Custumization ends here==== -->
                     <td class="text-center">
                       <%= render "admins/components/admins_role", role: user.role %>
                     </td>
