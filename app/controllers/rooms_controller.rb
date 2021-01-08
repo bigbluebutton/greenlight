@@ -423,6 +423,7 @@ class RoomsController < ApplicationController
   def valid_moderator_access_code(code)
     code == @room.moderator_access_code && !@room.moderator_access_code.blank? && moderator_code_allowed?
   end
+  helper_method :valid_moderator_access_code
 
   def record_meeting
     # If the require consent setting is checked, then check the room setting, else, set to true
