@@ -52,7 +52,8 @@
       <% end %>
     <% end %>
     <% if moderator_access_code_set && !valid_moderator_access_code %>
-      <label class="form-label"><%= t("room.optional_moderator_access_code") %></label>
+      <!-- <hr class="mt-2 float-right w-100 moderator-code-hr"> -->
+      <label class="moderator-code-label form-label"><%= t("room.optional_moderator_access_code") %></label>
       <%= render "rooms/components/enter_access_code_form", access_code_type: 'moderator' %>
     <% end %>
   <% else %>

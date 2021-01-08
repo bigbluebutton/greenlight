@@ -20,7 +20,10 @@
           class: "form-control join-form",
           placeholder: access_code_type == 'moderator' ? t("room.enter_the_moderator_access_code") : t("room.enter_the_access_code"),
           value: "" ,
-          autofocus: true %>
-    <%= f.submit t("room.login"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
+          autofocus: true,
+          maxlength: 26 %>
+	<span class="input-group-append">
+	  <%= f.button t("room.login"), type: :submit, class: "btn btn-primary btn-sm px-7 form-control join-form" %>
+	</span>
   </div>
 <% end %>
