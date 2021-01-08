@@ -20,6 +20,8 @@ class CreateUsers < ActiveRecord::Migration[5.0]
   def change
     create_table :users do |t|
       t.belongs_to :room, index: true
+  #GreenLight Custumization By Arunkumar Added extra fiedls for Queston and answer in admin viwe "mobile for scale"
+      t.string :mobile
       t.string :provider
       t.string :uid
       t.string :name
@@ -29,7 +31,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :image
       t.string :password_digest, index: { unique: true }
       t.boolean :accepted_terms, default: false
-
+      
       t.timestamps
     end
   end

@@ -43,6 +43,14 @@ class UsersController < ApplicationController
     # User has passed all validations required
     @user.save
 
+    #Greenlight Customization Send the Welcome Mail Upon successfully Saving user
+    if @user.save
+      UserMailer.welcome_email(@user).deliver_now
+      logger.info "Support: #{@user.email} mail has been sent."
+    else
+      logger.info "Support: #{@user.email} Error ! mail not sent."
+    end
+
     logger.info "Support: #{@user.email} user has been created."
 
     # Set user to pending and redirect if Approval Registration is set
@@ -209,7 +217,8 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :image, :password, :password_confirmation,
+  #GreenLight Custumization By Arunkumar Added extra param for mobile no (:mobile) in admin view 
+    params.require(:user).permit(:name, :email, :image, :mobile, :password, :password_confirmation,
       :new_password, :provider, :accepted_terms, :language)
   end
 
