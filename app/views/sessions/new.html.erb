@@ -53,7 +53,7 @@
 
             <div class="form-group">
               <%= f.label :email, t("email"), class: "form-label" %>
-               <!--Greenlight customization,added id="emailautofill"  -->
+               <!--Greenlight customization,added id="email"  -->
               <%= f.email_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email")  %>
               <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:email).first %></div>
               <script>
@@ -67,8 +67,8 @@
                 );
                 };
                 $('#email').appendVal(email)
+                console.log(url)
                 }
-
               </script>
                 <!--Greenlight customization end  -->
             </div>
