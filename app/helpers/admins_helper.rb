@@ -104,7 +104,6 @@ module AdminsHelper
     end
   end
 
-
   def log_level_string
     case Rails.logger.level
     when 0

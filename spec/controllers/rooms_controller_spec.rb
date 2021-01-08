@@ -741,7 +741,7 @@ describe RoomsController, type: :controller do
       @room.moderator_access_code = "abcdef"
       @room.save
 
-      post :login, params: { room_uid: @room.uid, room: { access_code: "abcdef"} }
+      post :login, params: { room_uid: @room.uid, room: { access_code: "abcdef" } }
 
       expect(response).to redirect_to room_path(@room.uid)
       expect(flash[:alert]).to be_nil
