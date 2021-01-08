@@ -113,7 +113,7 @@ class RoomsController < ApplicationController
     unless @room.owned_by?(current_user) || @shared_room
       # Don't allow users to join unless they have a valid access code or the room doesn't have an access codes
       valid_access_code = !@room.access_code.present? || @room.access_code == session[:access_code]
-      if  !valid_access_code && !valid_moderator_access_code(session[:moderator_access_code])
+      if !valid_access_code && !valid_moderator_access_code(session[:moderator_access_code])
         return redirect_to room_path(room_uid: params[:room_uid]), flash: { alert: I18n.t("room.access_code_required") }
       end
 
