@@ -60,10 +60,16 @@ module Populator
   def recordings_to_show(user = nil, room = nil)
     if user.present?
       # Find user and get his recordings
-      all_recordings(User.find_by(email: user)&.rooms&.pluck(:bbb_id) || [])
+      rooms = User.find_by(email: user)&.rooms&.pluck(:bbb_id)
+      return all_recordings(rooms) if user.present?
+
+      [] # return no recs if room not found
     elsif room.present?
       # Find room and get its recordings
-      all_recordings([Room.find_by(uid: room)&.bbb_id])
+      room = Room.find_by(uid: room)&.bbb_id
+      return all_recordings([room]) if room.present?
+
+      []
     else
       latest_recordings
     end

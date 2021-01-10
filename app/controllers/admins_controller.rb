@@ -64,10 +64,11 @@ class AdminsController < ApplicationController
       else
         room_uid = @search
       end
+    else
+      @latest = true
     end
 
     @pagy, @recordings = pagy_array(recordings_to_show(user_email, room_uid))
-    # @pagy, @recordings = pagy_array([])
   end
 
   # GET /admins/rooms

@@ -138,6 +138,7 @@ en:
       settings: Site Settings successfully changed
       unauthorized: You are not authorized to perform actions on this user
     recordings:
+      latest: Latest Recordings
       title: Server Recordings
       no_recordings: This server has no recordings.
       search_info: Enter a user's full email or a room's uid
