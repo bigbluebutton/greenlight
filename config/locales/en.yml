@@ -548,6 +548,7 @@ en:
   settings:
     account:
       fullname: Full name
+      mobile: Mobile with Country Code
       language: Language
       provider: Provider
       image: Image

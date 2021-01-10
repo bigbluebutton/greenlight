@@ -24,6 +24,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :uid
       t.string :name
       t.string :username
+      t.string :mobile
       t.string :email
       t.string :social_uid
       t.string :image

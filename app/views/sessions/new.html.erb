@@ -44,6 +44,15 @@
               <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: t("settings.account.fullname") %>
               <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:name).first %></div>
             </div>
+            
+
+           <!-- Adding mobile -->
+           <div class="form-group">
+              <%= f.label :mobile, t("settings.account.mobile"), class: "form-label" %>
+              <%= f.text_field :mobile, class: "form-control #{form_is_invalid?(@user, :mobile)}", placeholder: t("settings.account.mobile") %>
+              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:mobile).first %></div>
+            </div>
+
             <div class="form-group">
               <%= f.label :email, t("email"), class: "form-label" %>
                <!--Greenlight customization,added id="email"  -->
