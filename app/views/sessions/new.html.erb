@@ -46,8 +46,18 @@
             </div>
             <div class="form-group">
               <%= f.label :email, t("email"), class: "form-label" %>
-              <%= f.email_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email") %>
+               <!--Greenlight customization,added id="email"  -->
+              <%= f.email_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email")  %>
               <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:email).first %></div>
+              <script>
+                window.onload = function(){
+                    var url_string = window.location.href;
+                    var url = new URL(url_string);
+                    var email = url.searchParams.get("email");
+                    document.getElementById("user_email").value = email;
+                };
+                </script>
+                <!--Greenlight customization end  -->
             </div>
             <div class="form-group">
               <%= f.label :password, t("password"), class: "form-label" %>
