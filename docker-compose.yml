@@ -19,6 +19,7 @@ services:
       - ./log:/usr/src/app/log
 # When using sqlite3 as the database
       - ./db/production:/usr/src/app/db/production
+      - ${PWD}/hel/favicon.ico:/usr/src/app/app/assets/images/favicon.ico
 # When using postgresql as the database
 #    links:
 #      - db
