@@ -37,8 +37,8 @@ class User < ApplicationRecord
 
   validates :name, length: { maximum: 256 }, presence: true
   validates :provider, presence: true
-  # greenlight custumization validation for mobile number goes here
-  validates :mobile,presence:true 
+  # validation for mobile number - not working
+  #validates :mobile,presence:flase 
   validate :check_if_email_can_be_blank
   validates :email, length: { maximum: 256 }, allow_blank: true,
                     uniqueness: { case_sensitive: false, scope: :provider },

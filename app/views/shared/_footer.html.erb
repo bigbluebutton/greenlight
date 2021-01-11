@@ -15,23 +15,17 @@
 
 <footer class="footer pt-3">
   <p class="text-center mb-1">
-    <%
-=begin%>
- <%= t("footer.powered_by", href: link_to(t("greenlight"), "https://bigbluebutton.org/2018/07/09/greenlight-2-0/", target: "_blank", rel: "noopener")).html_safe %> <%= Greenlight::Application::VERSION %> 
-<%
-=end%>
-    <% if legal_url.present? %>
-      <span>
-        |
-        <%= link_to(t("footer.legal"), legal_url) %>
-      </span> 
-    <% end %>
-    <% if privpolicy_url.present? %>
-      <span>
-        |
-        <%= link_to(t("footer.privpolicy"), privpolicy_url)  %>
-      </span>
-    <% end %>
+    <span>
+      <a href="https://higheredlab.com/">Home</a>
+    |
+    </span>
+    <span>
+      <a href="https://higheredlab.com/blog/">Blog</a>
+    |
+    </span>
+    <span>
+      <a href="https://higheredlab.com/contact/">Contact</a>
+    </span>
   </p>
 </footer>
 

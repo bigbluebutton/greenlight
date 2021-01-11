@@ -12,12 +12,13 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
+
 <div class="container">
   <div class="row pt-7">
     <div class="col col-lg-6 offset-lg-3">
       <div class="card">
         <div class="card-header background">
-          <h4 class="mt-2"><%= t("signup.subtitle") %></h4>
+          <h1 class="mt-2"><%= t("signup.subtitle") %></h1>
         </div>
         <div class="card-body background">
           <% unless iconset_providers.length.zero? %>
@@ -38,19 +39,6 @@
             </div>
           <% end %>
           <%= form_for @user, url: create_user_path, method: :post do |f|  %>
-
-            <div class="form-group">
-              <%= f.label :name, t("settings.account.fullname"), class: "form-label" %>
-              <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: t("settings.account.fullname") %>
-              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:name).first %></div>
-            </div>
-            <!--Greenlight customization, added mobile number fiels  -->
-            <div class="form-group">
-              <%= f.label :mobile,"Phone number" , class: "form-label" %>
-              <%= f.text_field :mobile, class: "form-control #{form_is_invalid?(@user, :mobile)}", placeholder: "Phone number" %>
-              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:mobile).first %></div>
-            </div>
-
             <div class="form-group">
               <%= f.label :email, t("email"), class: "form-label" %>
                <!--Greenlight customization,added id="email"  -->
@@ -66,7 +54,20 @@
                 </script>
                 <!--Greenlight customization end  -->
             </div>
-            
+            <div class="form-group">
+              <%= f.label :name, t("settings.account.fullname"), class: "form-label" %>
+              <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: t("settings.account.fullname") %>
+              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:name).first %></div>
+            </div>
+
+
+           <!-- Adding mobile -->
+           <div class="form-group">
+              <%= f.label :mobile, t("settings.account.mobile"), class: "form-label" %>
+              <%= f.text_field :mobile,:required => true, class: "form-control #{form_is_invalid?(@user, :mobile)}", placeholder: t("settings.account.mobile_placeholder") %>
+              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:mobile).first %></div>
+            </div>
+
             <div class="form-group">
               <%= f.label :password, t("password"), class: "form-label" %>
               <%= f.password_field :password, class: "form-control #{form_is_invalid?(@user, :password)}", placeholder: t("password") %>
@@ -74,7 +75,7 @@
             </div>
             <div class="form-group">
               <%= f.label :password_confirmation, t("signup.password_confirm"), class: "form-label" %>
-              <%= f.password_field :p1assword_confirmation, class: "form-control #{form_is_invalid?(@user, :password_confirmation)}", placeholder: t("signup.password_confirm") %>
+              <%= f.password_field :password_confirmation, class: "form-control #{form_is_invalid?(@user, :password_confirmation)}", placeholder: t("signup.password_confirm") %>
               <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:password_confirmation).first %></div>
             </div>
             <% if Rails.configuration.terms %>
@@ -93,7 +94,6 @@
                   <%= recaptcha_tags %>
                   <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:base).first %></div>
                 </div>
-
               <% end %>
               <%= f.submit t("signup.title"), class: "btn btn-primary btn-block signin-button" %>
             </div>

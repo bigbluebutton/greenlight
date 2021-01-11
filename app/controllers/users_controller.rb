@@ -217,7 +217,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-  #GreenLight Custumization By Arunkumar Added extra param for mobile no (:mobile) in admin view 
     params.require(:user).permit(:name, :email, :image, :mobile, :password, :password_confirmation,
       :new_password, :provider, :accepted_terms, :language)
   end

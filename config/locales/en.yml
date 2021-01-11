@@ -548,6 +548,8 @@ en:
   settings:
     account:
       fullname: Full name
+      mobile: Mobile with Country Code
+      mobile_placeholder: +91 xxxxx xxxxx
       language: Language
       provider: Provider
       image: Image
@@ -571,8 +573,8 @@ en:
     search: Search
   signup:
     password_confirm: Password Confirmation
-    subtitle: Create an Account
-    title: Sign up
+    subtitle: Create an Account to Start Free Trial
+    title: Start Free Trial
     with: Sign up with %{provider}
   terms:
     accept: I accept the %{href}
