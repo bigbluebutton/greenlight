@@ -20,7 +20,7 @@ class UserMailer < ApplicationMailer
   include ApplicationHelper
   include ThemingHelper
 
-  default from: ENV['EMAIL_FROM'] #Greenlight customization, Your email here
+  default from: Rails.configuration.smtp_sender #Greenlight customization, Your email here
 
   def verify_email(user, url, settings)
     @settings = settings
@@ -30,7 +30,8 @@ class UserMailer < ApplicationMailer
     @color = user_color
     mail(to: @user.email, subject: t('landing.welcome'))
   end
-    #Greenlight customization,email welcome
+
+  #Greenlight customization,email welcome
 
   def welcome_email(user)
     @user = user

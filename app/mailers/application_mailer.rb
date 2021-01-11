@@ -17,6 +17,6 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 class ApplicationMailer < ActionMailer::Base
-  default from: ENV['EMAIL_FROM'] #Greenlight customization, Your email here
+  default from: ENV['SMTP_SENDER'] #Greenlight customization, Your email here
   layout 'mailer'
 end
