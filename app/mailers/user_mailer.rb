@@ -35,7 +35,7 @@ class UserMailer < ApplicationMailer
 
   def welcome_email(user)
     @user = user
-    mail(to: @user.email, subject: 'BigBlueButton Trial @ HigherEdLab')
+    mail(to: @user.email, subject: 'Free Trial BigBlueButton @ HigherEdLab')
   end
 
   def password_reset(user, url, settings)
