@@ -1,0 +1,30 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="form-group">
+  <div class="row">
+    <div class="col-12">
+      <center>
+        <%= t("settings.delete.disclaimer").html_safe %>
+        <br>
+        <a href="" data-toggle="modal" data-path="<%= delete_user_path(user_uid: current_user.uid) %>" data-target="#deleteAccountModal" class="btn btn-danger mt-6 delete-user">
+          <%= t("settings.delete.button") %>
+        </a>
+      </center>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/modals/delete_account_modal", delete_location: delete_user_path %>
