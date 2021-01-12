@@ -93,7 +93,7 @@
           <% end %>
         </tbody>
       </table>
-      <% if !@recordings.empty?%>
+      <% if !@recordings.empty? && !@latest%>
         <div class="float-md-right mt-4">
           <%== pagy_bootstrap_nav(@pagy) %>
         </div>

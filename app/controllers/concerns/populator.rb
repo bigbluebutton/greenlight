@@ -56,12 +56,22 @@ module Populator
     end
   end
 
-  # Returns list of rooms needed to get the recordings on the server
-  def rooms_list_for_recordings
-    if Rails.configuration.loadbalanced_configuration
-      Room.includes(:owner).where(users: { provider: @user_domain }).pluck(:bbb_id)
+  # Returns the correct recordings based on the users inputs
+  def recordings_to_show(user = nil, room = nil)
+    if user.present?
+      # Find user and get his recordings
+      rooms = User.find_by(email: user)&.rooms&.pluck(:bbb_id)
+      return all_recordings(rooms) if user.present?
+
+      [] # return no recs if room not found
+    elsif room.present?
+      # Find room and get its recordings
+      room = Room.find_by(uid: room)&.bbb_id
+      return all_recordings([room]) if room.present?
+
+      []
     else
-      Room.pluck(:bbb_id)
+      latest_recordings
     end
   end
 
@@ -74,5 +84,37 @@ module Populator
     end
 
     list.admins_search(@search).order(updated_at: :desc)
+  end
+
+  private
+
+  # Returns exactly 1 page of the latest recordings
+  def latest_recordings
+    return_length = Rails.configuration.pagination_number
+    recordings = []
+    counter = 0
+
+    # Manually paginate through the rooms
+    while recordings.length < return_length
+      rooms = if Rails.configuration.loadbalanced_configuration
+        Room.includes(:owner)
+            .where(users: { provider: @user_domain })
+            .order(last_session: :desc)
+            .limit(return_length)
+            .offset(counter * return_length)
+            .pluck(:bbb_id)
+      else
+        Room.order(last_session: :desc)
+            .limit(return_length)
+            .offset(counter * return_length)
+            .pluck(:bbb_id)
+      end
+
+      break if rooms.blank?
+      counter += 1
+      recordings.push(*all_recordings(rooms))
+    end
+
+    recordings[0..return_length]
   end
 end

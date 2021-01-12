@@ -51,7 +51,7 @@ class Room < ApplicationRecord
       # Rely on manual ordering if trying to sort by status
       return order_by_status(table, running_ids) if column == "status"
 
-      return table.order("COALESCE(rooms.last_session,rooms.created_at) DESC") if column == "created_at"
+      return table.order(Arel.sql("COALESCE(rooms.last_session,rooms.created_at) DESC")) if column == "created_at"
 
       return table.order(Arel.sql("rooms.#{column} #{direction}")) if table.column_names.include?(column)
 
