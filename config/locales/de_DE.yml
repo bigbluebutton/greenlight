@@ -138,8 +138,10 @@ de_DE:
       settings: Grundeinstellungen erfolgreich geändert
       unauthorized: "Sie haben nicht die notwendigen Rechte, um diese Änderung bei diesem Teilnehmer vorzunehmen."
     recordings:
+      latest: Aktuelle Aufzeichnungen
       title: Serveraufzeichnungen
       no_recordings: Keine Aufzeichnungen vorhanden.
+      search_info: Geben Sie die vollständige E-Mail eines Nutzers oder die Raum-ID ein
     roles:
       appear_in_share_list: Nutzer mit dieser Rolle im Dropdown-Menü zum Teilen von Räumen einschließen
       can_create_rooms: Kann Räume erstellen

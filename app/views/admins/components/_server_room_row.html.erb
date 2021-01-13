@@ -65,6 +65,9 @@
         <a href="" data-toggle="modal" data-target="#createRoomModal" class="update-room dropdown-item" data-settings-path="<%= room_settings_path(room) %>">
           <i class="dropdown-icon fas fa-cog"></i> <%= t("room.settings") %>
         </a>
+        <%= link_to admin_recordings_path(search: room.uid), class: "dropdown-item" do %>
+          <i class="dropdown-icon fas fa-video"></i> <%= t("administrator.rooms.table.recordings") %>
+        <% end %>
         <% if preupload_allowed? %>
           <a href="" data-toggle="modal" data-target="#preuploadPresentationModal" class="preupload-room dropdown-item" data-path="<%= preupload_presentation_path(room) %>" data-settings-path="<%= current_presentation_path(room) %>" data-remove="<%= remove_presentation_path(room) %>">
             <i class="dropdown-icon fas fa-file-upload"></i> <%= t("room.add_presentation") %>
