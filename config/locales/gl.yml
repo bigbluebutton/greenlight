@@ -138,8 +138,10 @@ gl:
       settings: Os axustes do sitio foron cambiados correctamente
       unauthorized: Non está autorizado para executar accións sobre este usuario
     recordings:
+      latest: Últimas gravacións
       title: Gravacións do servidor
       no_recordings: Este servidor non ten gravacións.
+      search_info: Introduza o correo-e completo dun usuario ou o UID dunha sala
     roles:
       appear_in_share_list: Incluír usuarios con este rol no menú despregábel para compartir salas
       can_create_rooms: Pode crear salas
