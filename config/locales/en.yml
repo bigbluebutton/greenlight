@@ -293,9 +293,9 @@ en:
     search:
       start: Start searching...
   landing:
-    about: "%{href} is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link."
-    welcome: Welcome to BigBlueButton.
-    video: Watch our tutorial on using Greenlight
+    about: "BigBlueButton is like-Zoom for online classes but at a much lower cost.<br>You get full control over your students’ data. Offer classes with your URL and branding. Quickly start and scale as you need with our monthly subscription."
+    welcome: Start Free Trial of BigBlueButton
+    video: Start Free Trial
     upgrade: Show me how to upgrade to 2.0!
     version: We've released a new version of Greenlight, but your database isn't compatible.
   language_default: Default (browser language)
@@ -549,6 +549,7 @@ en:
     account:
       fullname: Full name
       mobile: Mobile with Country Code
+      Mobile_number: Mobile Number
       mobile_placeholder: +91 xxxxx xxxxx
       language: Language
       provider: Provider
