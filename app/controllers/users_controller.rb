@@ -23,6 +23,8 @@ class UsersController < ApplicationController
   include Registrar
   include Recorder
   include Rolify
+  require 'faraday'
+
 
   before_action :find_user, only: [:edit, :change_password, :delete_account, :update, :update_password]
   before_action :ensure_unauthenticated_except_twitter, only: [:create]
@@ -39,17 +41,14 @@ class UsersController < ApplicationController
 
     # Redirect to root if user token is either invalid or expired
     return redirect_to root_path, flash: { alert: I18n.t("registration.invite.fail") } unless passes_invite_reqs
-
-    # User has passed all validations required
     @user.save
 
-    #Greenlight Customization Send the Welcome Mail Upon successfully Saving user
-    if @user.save
-      UserMailer.welcome_email(@user).deliver_now
-      logger.info "Support: #{@user.email} mail has been sent."
-    else
-      logger.info "Support: #{@user.email} Error ! mail not sent."
-    end
+    #Greenlight Customization subscribe to sendy
+    conn = Faraday.new('https://sendy.higheredlab.com')
+    conn.post('/subscribe',api_key:"cKoFCdddFM9YIdSdvzmH", name:@user.name, email:@user.email,
+      list:"892T763OdMvL6nGW3bMJs7cKYA", "Content-Type" => "application/x-www-form-urlencoded")
+
+    logger.info "Support: POST #{@user.name} #{@user.email} successful"
 
     logger.info "Support: #{@user.email} user has been created."
 
