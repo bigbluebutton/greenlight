@@ -138,8 +138,10 @@ nl:
       settings: Site-instellingen succesvol gewijzigd
       unauthorized: U bent niet gemachtigd om acties uit te voeren op deze gebruiker
     recordings:
+      latest: Nieuwste opnames
       title: Serveropnames
       no_recordings: Deze server heeft geen opnames.
+      search_info: Voer het volledige e-mailadres van een gebruiker of het uid van een kamer in
     roles:
       appear_in_share_list: Neem gebruikers met deze rol op in de keuzelijst voor het delen van kamers
       can_create_rooms: Kan kamers maken
