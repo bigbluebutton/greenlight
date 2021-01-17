@@ -60,13 +60,298 @@
               <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:name).first %></div>
             </div>
 
-           <!-- Adding mobile -->
+           <!-- Adding mobile-->
            <div class="form-group">
-              <%= f.label :mobile, t("settings.account.mobile"), class: "form-label" %>
-              <%= f.text_field :mobile, class: "form-control #{form_is_invalid?(@user, :mobile)}", placeholder: t("settings.account.mobile_placeholder") %>
-              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:mobile).first %></div>
+            <%= f.label :mobile, t("settings.account.Mobile_number"), class: "form-label" %>
+            <div class="input-group">
+            <div class="input-group-prepend">
+              <button id="dp-btn" class="btn btn-outline-primary dropdown-toggle" style="width:10em;overflow: hidden;text-overflow: ellipsis;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Country </button>
+               <div class="dropdown-menu pre-scrollable" id="country-codes" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                <input class="form-control"type="text" placeholder="Search Country.." id="myInput" onkeyup="filterFunction()">
+                <a class="dropdown-item" value="+93">Afghanistan (+93)</a>
+                <a class="dropdown-item" value="+355">Albania (+355)</a>
+                <a class="dropdown-item" value="+213">Algeria (+213)</a>
+                <a class="dropdown-item" value="+376">Andorra (+376)</a>
+                <a class="dropdown-item" value="+244">Angola (+244)</a>
+                <a class="dropdown-item" value="+1264">Anguilla (+1264)</a>
+                <a class="dropdown-item" value="+1268">Antigua &amp; Barbuda (+1268)</a>
+                <a class="dropdown-item" value="+54">Argentina (+54)</a>
+                <a class="dropdown-item" value="+374">Armenia (+374)</a>
+                <a class="dropdown-item" value="+297">Aruba (+297)</a>
+                <a class="dropdown-item" value="+247">Ascension Island (+247)</a>
+                <a class="dropdown-item" value="+61">Australia (+61)</a>
+                <a class="dropdown-item" value="+43">Austria (+43)</a>
+                <a class="dropdown-item" value="+994">Azerbaijan (+994)</a>
+                <a class="dropdown-item" value="+1242">Bahamas (+1242)</a>
+                <a class="dropdown-item" value="+973">Bahrain (+973)</a>
+                <a class="dropdown-item" value="+880">Bangladesh (+880)</a>
+                <a class="dropdown-item" value="+1246">Barbados (+1246)</a>
+                <a class="dropdown-item" value="+375">Belarus (+375)</a>
+                <a class="dropdown-item" value="+32">Belgium (+32)</a>
+                <a class="dropdown-item" value="+501">Belize (+501)</a>
+                <a class="dropdown-item" value="+229">Benin (+229)</a>
+                <a class="dropdown-item" value="+1441">Bermuda (+1441)</a>
+                <a class="dropdown-item" value="+975">Bhutan (+975)</a>
+                <a class="dropdown-item" value="+591">Bolivia (+591)</a>
+                <a class="dropdown-item" value="+599">Bonaire, Saba and Sint Eustatius (+599)</a>
+                <a class="dropdown-item" value="+387">Bosnia Herzegovina (+387)</a>
+                <a class="dropdown-item" value="+267">Botswana (+267)</a>
+                <a class="dropdown-item" value="+55">Brazil (+55)</a>
+                <a class="dropdown-item" value="+246">British Indian Ocean Territory (+246)</a>
+                <a class="dropdown-item" value="+673">Brunei (+673)</a>
+                <a class="dropdown-item" value="+359">Bulgaria (+359)</a>
+                <a class="dropdown-item" value="+226">Burkina Faso (+226)</a>
+                <a class="dropdown-item" value="+257">Burundi (+257)</a>
+                <a class="dropdown-item" value="+855">Cambodia (+855)</a>
+                <a class="dropdown-item" value="+237">Cameroon (+237)</a>
+                <a class="dropdown-item" value="+1">Canada (+1)</a>
+                <a class="dropdown-item" value="+238">Cape Verde Islands (+238)</a>
+                <a class="dropdown-item" value="+1345">Cayman Islands (+1345)</a>
+                <a class="dropdown-item" value="+236">Central African Republic (+236)</a>
+                <a class="dropdown-item" value="+235">Chad (+235)</a>
+                <a class="dropdown-item" value="+56">Chile (+56)</a>
+                <a class="dropdown-item" value="+86">China (+86)</a>
+                <a class="dropdown-item" value="+57">Colombia (+57)</a>
+                <a class="dropdown-item" value="+269">Comoros (+269)</a>
+                <a class="dropdown-item" value="+242">Congo (+242)</a>
+                <a class="dropdown-item" value="+243">Congo, Democratic Republic of the (+243)</a>
+                <a class="dropdown-item" value="+682">Cook Islands (+682)</a>
+                <a class="dropdown-item" value="+506">Costa Rica (+506)</a>
+                <a class="dropdown-item" value="+385">Croatia (+385)</a>
+                <a class="dropdown-item" value="+53">Cuba (+53)</a>
+                <a class="dropdown-item" value="+5999">Curaçao (+5999)</a>
+                <a class="dropdown-item" value="+357">Cyprus (+357)</a>
+                <a class="dropdown-item" value="+420">Czech Republic (+420)</a>
+                <a class="dropdown-item" value="+45">Denmark (+45)</a>
+                <a class="dropdown-item" value="+253">Djibouti (+253)</a>
+                <a class="dropdown-item" value="+1767">Dominica (+1767)</a>
+                <a class="dropdown-item" value="+1809">Dominican Republic (+1809)</a>
+                <a class="dropdown-item" value="+670">East Timor (+670)</a>
+                <a class="dropdown-item" value="+593">Ecuador (+593)</a>
+                <a class="dropdown-item" value="+20">Egypt (+20)</a>
+                <a class="dropdown-item" value="+503">El Salvador (+503)</a>
+                <a class="dropdown-item" value="+240">Equatorial Guinea (+240)</a>
+                <a class="dropdown-item" value="+291">Eritrea (+291)</a>
+                <a class="dropdown-item" value="+372">Estonia (+372)</a>
+                <a class="dropdown-item" value="+268">Eswatini (+268)</a>
+                <a class="dropdown-item" value="+251">Ethiopia (+251)</a>
+                <a class="dropdown-item" value="+500">Falkland Islands (+500)</a>
+                <a class="dropdown-item" value="+298">Faroe Islands (+298)</a>
+                <a class="dropdown-item" value="+679">Fiji (+679)</a>
+                <a class="dropdown-item" value="+358">Finland (+358)</a>
+                <a class="dropdown-item" value="+33">France (+33)</a>
+                <a class="dropdown-item" value="+594">French Guiana (+594)</a>
+                <a class="dropdown-item" value="+689">French Polynesia (+689)</a>
+                <a class="dropdown-item" value="+241">Gabon (+241)</a>
+                <a class="dropdown-item" value="+220">Gambia (+220)</a>
+                <a class="dropdown-item" value="+995">Georgia (+995)</a>
+                <a class="dropdown-item" value="+49">Germany (+49)</a>
+                <a class="dropdown-item" value="+233">Ghana (+233)</a>
+                <a class="dropdown-item" value="+350">Gibraltar (+350)</a>
+                <a class="dropdown-item" value="+30">Greece (+30)</a>
+                <a class="dropdown-item" value="+299">Greenland (+299)</a>
+                <a class="dropdown-item" value="+1473">Grenada (+1473)</a>
+                <a class="dropdown-item" value="+590">Guadeloupe (+590)</a>
+                <a class="dropdown-item" value="+1671">Guam (+1671)</a>
+                <a class="dropdown-item" value="+502">Guatemala (+502)</a>
+                <a class="dropdown-item" value="+224">Guinea (+224)</a>
+                <a class="dropdown-item" value="+245">Guinea - Bissau (+245)</a>
+                <a class="dropdown-item" value="+592">Guyana (+592)</a>
+                <a class="dropdown-item" value="+509">Haiti (+509)</a>
+                <a class="dropdown-item" value="+504">Honduras (+504)</a>
+                <a class="dropdown-item" value="+852">Hong Kong (+852)</a>
+                <a class="dropdown-item" value="+36">Hungary (+36)</a>
+                <a class="dropdown-item" value="+354">Iceland (+354)</a>
+                <a class="dropdown-item" value="+91">India (+91)</a>
+                <a class="dropdown-item" value="+62">Indonesia (+62)</a>
+                <a class="dropdown-item" value="+98">Iran (+98)</a>
+                <a class="dropdown-item" value="+964">Iraq (+964)</a>
+                <a class="dropdown-item" value="+353">Ireland (+353)</a>
+                <a class="dropdown-item" value="+972">Israel (+972)</a>
+                <a class="dropdown-item" value="+39">Italy (+39)</a>
+                <a class="dropdown-item" value="+225">Ivory Coast (+225)</a>
+                <a class="dropdown-item" value="+1876">Jamaica (+1876)</a>
+                <a class="dropdown-item" value="+81">Japan (+81)</a>
+                <a class="dropdown-item" value="+962">Jordan (+962)</a>
+                <a class="dropdown-item" value="+7">Kazakhstan (+7)</a>
+                <a class="dropdown-item" value="+254">Kenya (+254)</a>
+                <a class="dropdown-item" value="+686">Kiribati (+686)</a>
+                <a class="dropdown-item" value="+850">Korea, North (+850)</a>
+                <a class="dropdown-item" value="+82">Korea, South (+82)</a>
+                <a class="dropdown-item" value="+383">Kosovo (+383)</a>
+                <a class="dropdown-item" value="+965">Kuwait (+965)</a>
+                <a class="dropdown-item" value="+996">Kyrgyzstan (+996)</a>
+                <a class="dropdown-item" value="+856">Laos (+856)</a>
+                <a class="dropdown-item" value="+371">Latvia (+371)</a>
+                <a class="dropdown-item" value="+961">Lebanon (+961)</a>
+                <a class="dropdown-item" value="+266">Lesotho (+266)</a>
+                <a class="dropdown-item" value="+231">Liberia (+231)</a>
+                <a class="dropdown-item" value="+218">Libya (+218)</a>
+                <a class="dropdown-item" value="+423">Liechtenstein (+423)</a>
+                <a class="dropdown-item" value="+370">Lithuania (+370)</a>
+                <a class="dropdown-item" value="+352">Luxembourg (+352)</a>
+                <a class="dropdown-item" value="+853">Macao (+853)</a>
+                <a class="dropdown-item" value="+389">Macedonia (+389)</a>
+                <a class="dropdown-item" value="+261">Madagascar (+261)</a>
+                <a class="dropdown-item" value="+265">Malawi (+265)</a>
+                <a class="dropdown-item" value="+60">Malaysia (+60)</a>
+                <a class="dropdown-item" value="+960">Maldives (+960)</a>
+                <a class="dropdown-item" value="+223">Mali (+223)</a>
+                <a class="dropdown-item" value="+356">Malta (+356)</a>
+                <a class="dropdown-item" value="+692">Marshall Islands (+692)</a>
+                <a class="dropdown-item" value="+596">Martinique (+596)</a>
+                <a class="dropdown-item" value="+222">Mauritania (+222)</a>
+                <a class="dropdown-item" value="+230">Mauritius (+230)</a>
+                <a class="dropdown-item" value="+262">Mayotte (+262)</a>
+                <a class="dropdown-item" value="+52">Mexico (+52)</a>
+                <a class="dropdown-item" value="+691">Micronesia (+691)</a>
+                <a class="dropdown-item" value="+373">Moldova (+373)</a>
+                <a class="dropdown-item" value="+377">Monaco (+377)</a>
+                <a class="dropdown-item" value="+976">Mongolia (+976)</a>
+                <a class="dropdown-item" value="+382">Montenegro (+382)</a>
+                <a class="dropdown-item" value="+1664">Montserrat (+1664)</a>
+                <a class="dropdown-item" value="+212">Morocco (+212)</a>
+                <a class="dropdown-item" value="+258">Mozambique (+258)</a>
+                <a class="dropdown-item" value="+95">Myanmar (+95)</a>
+                <a class="dropdown-item" value="+264">Namibia (+264)</a>
+                <a class="dropdown-item" value="+674">Nauru (+674)</a>
+                <a class="dropdown-item" value="+977">Nepal (+977)</a>
+                <a class="dropdown-item" value="+31">Netherlands (+31)</a>
+                <a class="dropdown-item" value="+687">New Caledonia (+687)</a>
+                <a class="dropdown-item" value="+64">New Zealand (+64)</a>
+                <a class="dropdown-item" value="+505">Nicaragua (+505)</a>
+                <a class="dropdown-item" value="+227">Niger (+227)</a>
+                <a class="dropdown-item" value="+234">Nigeria (+234)</a>
+                <a class="dropdown-item" value="+683">Niue (+683)</a>
+                <a class="dropdown-item" value="+672">Norfolk Islands (+672)</a>
+                <a class="dropdown-item" value="+1670">Northern Mariana Islands (+1670)</a>
+                <a class="dropdown-item" value="+47">Norway (+47)</a>
+                <a class="dropdown-item" value="+968">Oman (+968)</a>
+                <a class="dropdown-item" value="+92">Pakistan (+92)</a>
+                <a class="dropdown-item" value="+680">Palau (+680)</a>
+                <a class="dropdown-item" value="+970">Palestine (+970)</a>
+                <a class="dropdown-item" value="+507">Panama (+507)</a>
+                <a class="dropdown-item" value="+675">Papua New Guinea (+675)</a>
+                <a class="dropdown-item" value="+595">Paraguay (+595)</a>
+                <a class="dropdown-item" value="+51">Peru (+51)</a>
+                <a class="dropdown-item" value="+63">Philippines (+63)</a>
+                <a class="dropdown-item" value="+48">Poland (+48)</a>
+                <a class="dropdown-item" value="+351">Portugal (+351)</a>
+                <a class="dropdown-item" value="+1787">Puerto Rico (+1787)</a>
+                <a class="dropdown-item" value="+974">Qatar (+974)</a>
+                <a class="dropdown-item" value="+262">Réunion (+262)</a>
+                <a class="dropdown-item" value="+40">Romania (+40)</a>
+                <a class="dropdown-item" value="+7">Russia (+7)</a>
+                <a class="dropdown-item" value="+250">Rwanda (+250)</a>
+                <a class="dropdown-item" value="+685">Samoa (+685)</a>
+                <a class="dropdown-item" value="+378">San Marino (+378)</a>
+                <a class="dropdown-item" value="+239">São Tomé &amp; Principe (+239)</a>
+                <a class="dropdown-item" value="+966">Saudi Arabia (+966)</a>
+                <a class="dropdown-item" value="+221">Senegal (+221)</a>
+                <a class="dropdown-item" value="+381">Serbia (+381)</a>
+                <a class="dropdown-item" value="+248">Seychelles (+248)</a>
+                <a class="dropdown-item" value="+232">Sierra Leone (+232)</a>
+                <a class="dropdown-item" value="+65">Singapore (+65)</a>
+                <a class="dropdown-item" value="+421">Slovakia (+421)</a>
+                <a class="dropdown-item" value="+386">Slovenia (+386)</a>
+                <a class="dropdown-item" value="+677">Solomon Islands (+677)</a>
+                <a class="dropdown-item" value="+252">Somalia (+252)</a>
+                <a class="dropdown-item" value="+27">South Africa (+27)</a>
+                <a class="dropdown-item" value="+211">South Sudan (+211)</a>
+                <a class="dropdown-item" value="+34">Spain (+34)</a>
+                <a class="dropdown-item" value="+94">Sri Lanka (+94)</a>
+                <a class="dropdown-item" value="+290">St. Helena (+290)</a>
+                <a class="dropdown-item" value="+1869">St. Kitts and Nevis (+1869)</a>
+                <a class="dropdown-item" value="+1758">St. Lucia (+1758)</a>
+                <a class="dropdown-item" value="+508">St. Pierre and Miquelon (+508)</a>
+                <a class="dropdown-item" value="+249">Sudan (+249)</a>
+                <a class="dropdown-item" value="+597">Suriname (+597)</a>
+                <a class="dropdown-item" value="+46">Sweden (+46)</a>
+                <a class="dropdown-item" value="+41">Switzerland (+41)</a>
+                <a class="dropdown-item" value="+963">Syria (+963)</a>
+                <a class="dropdown-item" value="+886">Taiwan (+886)</a>
+                <a class="dropdown-item" value="+992">Tajikstan (+992)</a>
+                <a class="dropdown-item" value="+255">Tanzania (+255)</a>
+                <a class="dropdown-item" value="+66">Thailand (+66)</a>
+                <a class="dropdown-item" value="+228">Togo (+228)</a>
+                <a class="dropdown-item" value="+690">Tokelau (+690)</a>
+                <a class="dropdown-item" value="+676">Tonga (+676)</a>
+                <a class="dropdown-item" value="+1868">Trinidad &amp; Tobago (+1868)</a>
+                <a class="dropdown-item" value="+216">Tunisia (+216)</a>
+                <a class="dropdown-item" value="+90">Turkey (+90)</a>
+                <a class="dropdown-item" value="+993">Turkmenistan (+993)</a>
+                <a class="dropdown-item" value="+1649">Turks &amp; Caicos Islands (+1649)</a>
+                <a class="dropdown-item" value="+688">Tuvalu (+688)</a>
+                <a class="dropdown-item" value="+256">Uganda (+256)</a>
+                <a class="dropdown-item" value="+380">Ukraine (+380)</a>
+                <a class="dropdown-item" value="+971">United Arab Emirates (+971)</a>
+                <a class="dropdown-item" value="+44">United Kingdom (+44)</a>
+                <a class="dropdown-item" value="+1">United States of America (+1)</a>
+                <a class="dropdown-item" value="+598">Uruguay (+598)</a>
+                <a class="dropdown-item" value="+998">Uzbekistan (+998)</a>
+                <a class="dropdown-item" value="+678">Vanuatu (+678)</a>
+                <a class="dropdown-item" value="+39">Vatican City (+39)</a>
+                <a class="dropdown-item" value="+58">Venezuela (+58)</a>
+                <a class="dropdown-item" value="+84">Vietnam (+84)</a>
+                <a class="dropdown-item" value="+1284">Virgin Islands - British (+1284)</a>
+                <a class="dropdown-item" value="+1340">Virgin Islands - US (+1340)</a>
+                <a class="dropdown-item" value="+681">Wallis &amp; Futuna (+681)</a>
+                <a class="dropdown-item" value="+967">Western Sahara (+212)</a>
+                <a class="dropdown-item" value="+967">Yemen (+967)</a>
+                <a class="dropdown-item" value="+260">Zambia (+260)</a>
+                <a class="dropdown-item" value="+263">Zimbabwe (+263)</a>
+              </div>
             </div>
+            <%= f.text_field :mobile, class: "form-control #{form_is_invalid?(@user, :mobile)}", value:"", "aria-labe" =>"Text input with dropdown button", placeholder: t("settings.account.mobile_placeholder") %>
+          </div>
+              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:mobile).first %></div>
+          <style>
+            
+        /* width */
+        ::-webkit-scrollbar {
+          width: 5px;
+        }
+        /* Track */
+        ::-webkit-scrollbar-track {
+          background: white; 
+        }
+         
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: #0275d8; 
+          
+          
+        }
+        
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: #0275d8; }
+          </style>
+      <script>
+          $('#country-codes a').on('click', function() {
+          $('#user_mobile').val($(this).attr('value'));
+          $('#dp-btn').text($(this).text())
+           });
+      </script>
+       <script>
+  function filterFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("country-codes");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+      </script>
 
+            </div>
             <div class="form-group">
               <%= f.label :password, t("password"), class: "form-label" %>
               <%= f.password_field :password, class: "form-control #{form_is_invalid?(@user, :password)}", placeholder: t("password") %>

@@ -548,7 +548,6 @@ en:
   settings:
     account:
       fullname: Full name
-      mobile: Mobile with Country Code
       Mobile_number: Mobile Number
       mobile_placeholder: +91 xxxxx xxxxx
       language: Language
