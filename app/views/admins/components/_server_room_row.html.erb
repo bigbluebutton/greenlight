@@ -26,11 +26,11 @@
     <div class="small text-muted">
       <% running = room_is_running(room.bbb_id) %>
       <% if running %>
-         <%= t("administrator.rooms.table.started", session: friendly_time(room.last_session)) %>
+         <%= t("administrator.rooms.table.started", session: view_date(room.last_session)).html_safe %>
       <% elsif room.last_session.present? %>
-        <%= t("administrator.rooms.table.ended", session: friendly_time(room.last_session)) %>
+        <%= t("administrator.rooms.table.ended", session: view_date(room.last_session)).html_safe %>
       <% else %>
-        <%= [t("administrator.users.table.created"), ": ", friendly_time(room.created_at)].join %>
+        <%= [t("administrator.users.table.created"), ": ", view_date(room.created_at)].join.html_safe %>
       <% end %>
     </div>
   </td>
