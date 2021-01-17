@@ -17,11 +17,6 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 module RecordingsHelper
-  # Helper for converting BigBlueButton dates into the desired format.
-  def recording_date(date)
-    I18n.l date, format: "%B %d, %Y"
-  end
-
   # Helper for converting BigBlueButton dates into a nice length string.
   def recording_length(playbacks)
     # Looping through playbacks array and returning first non-zero length value
