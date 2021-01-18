@@ -59,6 +59,7 @@ $(document).on('turbolinks:load', function(){
     $(".share-room").click(function() {
       // Update the path of save button
       $("#save-access").attr("data-path", $(this).data("path"))
+      $("#room-owner-uid").val($(this).data("owner"))
 
       // Get list of users shared with and display them
       displaySharedUsers($(this).data("users-path"))
@@ -82,7 +83,7 @@ $(document).on('turbolinks:load', function(){
         $(".bs-searchbox").siblings().hide()
       } else {
         // Manually populate the dropdown
-        $.get($("#share-room-select").data("path"), { search: $(".bs-searchbox input").val() }, function(users) {
+        $.get($("#share-room-select").data("path"), { search: $(".bs-searchbox input").val(), owner_uid: $("#room-owner-uid").val() }, function(users) {
           $(".select-options").remove()
           if (users.length > 0) {
             users.forEach(function(user) {
