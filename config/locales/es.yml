@@ -34,7 +34,7 @@ es:
       authentication:
         disabled: Deshabilitada
         enabled: Habilitada
-        info: Permitir solo a usuarios autenticados unirse a una sala
+        info: Permitir solo a usuarixs autenticadxs unirse a una sala
         title: Requerir autenticación para hacer uso de salas
         user-info: Debe registrarse en la parte superior para acceder a esta sala
       branding:
@@ -60,7 +60,7 @@ es:
         title: Limpiar cache de proveedor
         button: Limpiar cache
       clear_auth:
-        info: "Borra el autenticador actual para los usuarios, permitiéndoles volver a iniciar sesión con un método de autenticación diferente"
+        info: "Borra el autenticador actual para lxs usuarixs, permitiéndoles volver a iniciar sesión con un método de autenticación diferente"
         title: Limpiar el autenticador actual
         button: Limpiar autenticación
       color:
@@ -70,7 +70,7 @@ es:
         lighten: Aclarar
         darken: Oscurecer
       email_mapping:
-        info: "Asigna al usuario a un rol usando su correo electrónico. Debe estar en el formato email1=rol1,email2=rol2"
+        info: "Asigna lx usuarix a un rol usando su correo electrónico. Debe estar en el formato email1=rol1,email2=rol2"
         title: "Asignación de rol por correo electrónico "
         update:
       log_level:
@@ -87,14 +87,14 @@ es:
         title: Visibilidad por defecto de grabaciones
         warning: Esta configuración solo será aplicada a las nuevas sesiones
       require_consent:
-        info: "Esta configuración habilita una configuración de sala, que permite a los propietarios de salas especificar qué salas pueden ser grabadas. Los usuarios que acceden a una sala con grabación deben dar su consentimiento antes de unirse."
+        info: Esta configuración habilita una configuración de sala que permite a lxs propietarixs de salas especificar qué salas pueden ser grabadas. Lxs usuarixs que acceden a una sala con grabación deben dar su consentimiento antes de unirse.
         title: Requerir el consentimiento del propietario de la sala y la persona que accede para realizar la grabación
       maintenance_banner:
-        info: Muestra un banner para informar al usuario de un mantenimiento programado
+        info: Muestra un aviso para informar a lx usuarix de un mantenimiento programado
         title: Banner de mantenimiento
         display: Establece
         clear: Limpia
-        time: "Ejemplo: actualización programada para el 13 de diciembre a las 23:00h. Los usuarios pueden experimentar problemas para iniciar sesión."
+        time: "Ejemplo: actualización programada para el 13 de diciembre a las 23:00h. Lxs usuarixs pueden experimentar problemas para iniciar sesión."
       preupload:
         info: Los usuarios pueden cargar previamente una presentación para usarla como presentación predeterminada para esa sala específica
         title: Permitir a los usuarios cargar previamente presentaciones
@@ -138,8 +138,10 @@ es:
       settings: La configuración de sistema ha sido actualizada
       unauthorized: No está autorizado para ejecutar operaciones sobre este usuario.
     recordings:
+      latest: Más reciente grabación
       title: Grabaciones
       no_recordings: Este servidor no tiene grabaciones.
+      search_info: Introduce un Email o un identificador (UID) de sala.
     roles:
       appear_in_share_list: Incluir usuarios con este rol en el menú desplegable para compartir salas
       can_create_rooms: Puede crear salas
@@ -396,7 +398,7 @@ es:
       not_blank: El nombre de la sala no puede estar vacío
       title: Crear una sala nueva
     delete_account:
-      confirm: "¿Estas seguro de querer eliminar esta cuenta de usuario?"
+      confirm: "¿Estás seguro de querer eliminar esta cuenta de usuario?"
       delete: Estoy seguro de eliminar ésta cuenta
       keep: "De hecho, la conservaré"
       delete_warning: Esta acción desactiva la cuenta de usuario. Todos los usuarios desactivados son listados en la pestaña de eliminados.
@@ -415,7 +417,7 @@ es:
       email_placeholder: Introduce los correos electrónicos de usuario (separados por coma)
       footer: El usuario recibirá un correo electrónico con instrucciones de como registrarse
       send: Enviar invitación
-      title: Invitar usuario
+      title: Invitar usuarix
     login:
       or: o
       with: "Iniciar sesión con %{provider}"
@@ -437,30 +439,30 @@ es:
       title: Configuración de la sala
       update: Actualizar la sala
       client: Seleccionar el tipo de cliente
-      join_moderator: Todos los usuarios se unen como moderadores
-      mute: Deshabilitar micrófono de usuarios al entrar
+      join_moderator: Todxs lxs usuarixs se unen como moderadorxs
+      mute: Deshabilitar micrófono de usuarixs al entrar
       require_approval: Requerir aprobación del moderador antes de unirse a la sesión
-      start: Permitir usuarios iniciar esta sesión
+      start: Permitir usuarixs iniciar esta sesión
       footer_text: Puedes hacer cambios a tu sala en cualquier momento
       recording: Permitir a esta sala ser grabada
     rename_room:
       name_placeholder: Introduce un nuevo nombre para la sala...
     share_access:
-      footer: Compartir una sala con un usuario Lesser permite iniciar la sala y ver las grabaciones de la sala.
+      footer: Compartir una sala con unx usuarix permite iniciar la sala y ver las grabaciones de la sala.
       list: Compartido con
       title: Compartir acceso a sala
       save: Guardar cambios
       cancel_changes: Cancelar cambios
-      select: Seleccionar usuario
+      select: Seleccionar usuarix
     merge_user:
       cancel: Cancelar
       from: Cuenta para ser fusionada
-      title: Fusionar cuentas de usuario
+      title: Fusionar cuentas de usuarix
       to: Cuenta principal
       save: Fusionar
       footer: Las salas de la cuenta que se fusionará se transferirán a la lista de salas de la cuenta principal y luego se eliminará la cuenta.
   name_update_success: El nombre de la sala ha sido actualizado exitósamente
-  no_user_email_exists: "No hay ningún usuario existente con el correo electrónico especificado. Por favor, asegúrese de que lo escribió correctamente."
+  no_user_email_exists: "No hay ningunx usuarix existente con el correo electrónico especificado. Por favor, asegúrese de que lo escribió correctamente."
   omniauth_error: Ocurrió un error al intentar autentificar usando OmniAuth. ¡Inténtelo de nuevo o contacte con un administrador!
   omniauth_specific_error: "Error %{error} al intentar autenticación usand OmniAuth. ¡Inténtelo de nuevo o contacte con un administrador!"
   pagy:
@@ -494,7 +496,7 @@ es:
       name: Nombre
       thumbnails: Imagenes miniatura
       length: Duración
-      users: Usuarios
+      users: Usuarixs
       visibility: Visibilidad
       formats: Formatos
     visibility:
@@ -535,7 +537,7 @@ es:
     banned: Bloqueado
     deleted: Eliminado
     pending: Pendiente
-    user: Usuario
+    user: Usuarix
   room:
     access_code_required: Introduce un código de acceso válido para unirse a la sala
     add_presentation: Añadir presentación
@@ -560,7 +562,7 @@ es:
     owner_banned: Esta sala no es accesible actualmente
     no_room:
       description: Introduzca el enlace o ID de la sala a la que quiere unirse.
-      edit_profile: Editar perfil de usuario
+      edit_profile: Editar perfil de usuarix
       go_to: Ir a sala
       invalid_room_uid: El enlace o UID que introdujo no son válidos.
       placeholder: Enlace/uid de la sala
@@ -598,10 +600,10 @@ es:
       provider: Proveedor
       image: Imagen
       image_url: "Enlace a imagén de perfil "
-      roles: Rol de usuario
+      roles: Rol de usuarix
       subtitle: Actualizar información de usuario
       title: Información de la cuenta
-      reset_password: Restablecer contraseña de usuario
+      reset_password: Restablecer contraseña de usuarix
     delete:
       button: "Si, me gustaría eleiminar mi cuenta de usuario."
       disclaimer: "Sí elijes eliminar tu cuenta de usuario, <b>NO</b> podrá ser recuperada. Toda la información relacionada con tu cuenta, incluyendo configuración, salas y grabaciones, será eliminada."
