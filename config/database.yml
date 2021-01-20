@@ -1,5 +1,5 @@
 default: &default
-  pool: 9
+  pool: 5
   timeout: 5000
 
 development:
@@ -22,3 +22,5 @@ production:
   username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
   pool: <%= ENV['DB_POOL_SIZE'] || '9' %>
+  connect_timeout: <%= ENV['DB_CONNECT_TIMEOUT'] || '5' %>
+  read_timeout: <%= ENV['DB_READ_TIMEOUT'] || '120' %>
