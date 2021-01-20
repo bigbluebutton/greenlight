@@ -209,13 +209,12 @@ class AdminsController < ApplicationController
     initial_list = User.without_role(:super_admin)
                        .where.not(uid: current_user.uid)
                        .merge_list_search(params[:search])
-                       .pluck_to_hash(:uid, :name, :email)
 
     initial_list = initial_list.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
 
     # Respond with JSON object of users
     respond_to do |format|
-      format.json { render body: initial_list.to_json }
+      format.json { render body: initial_list.pluck_to_hash(:uid, :name, :email).to_json }
     end
   end
 
