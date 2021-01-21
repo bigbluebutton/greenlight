@@ -54,10 +54,16 @@
                 </script>
                 <!--Greenlight customization end  -->
             </div>
+            <!--added firstname and lastname -->
             <div class="form-group">
-              <%= f.label :name, t("settings.account.fullname"), class: "form-label" %>
-              <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: t("settings.account.fullname") %>
-              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:name).first %></div>
+              <%= f.label :firstname, t("settings.account.firstname"), class: "form-label" %>
+              <%= f.text_field :firstname, class: "form-control #{form_is_invalid?(@user, :firstname)}", placeholder: t("settings.account.firstname") %>
+              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:firstname).first %></div>
+            </div>
+            <div class="form-group">
+              <%= f.label :lastname, t("settings.account.lastname"), class: "form-label" %>
+              <%= f.text_field :lastname, class: "form-control #{form_is_invalid?(@user, :lastname)}", placeholder: t("settings.account.lastname") %>
+              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:lastname).first %></div>
             </div>
 
            <!-- Adding mobile-->
@@ -68,7 +74,10 @@
               <button id="dp-btn" class="btn btn-outline-primary dropdown-toggle" style="width:10em;overflow: hidden;text-overflow: ellipsis;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Country </button>
                <div class="dropdown-menu pre-scrollable" id="country-codes" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
                 <input class="form-control"type="text" placeholder="Search Country.." id="myInput" onkeyup="filterFunction()">
-                <a class="dropdown-item" value="+93">Afghanistan (+93)</a>
+                <a class="dropdown-item" value="+91">India (+91)</a>
+                <a class="dropdown-item" value="+1">United States of America (+1)</a>
+                <a class="dropdown-item" value="+44">United Kingdom (+44)</a>
+                <a class="dropdown-item" value="+1">Canada (+1)</a>
                 <a class="dropdown-item" value="+355">Albania (+355)</a>
                 <a class="dropdown-item" value="+213">Algeria (+213)</a>
                 <a class="dropdown-item" value="+376">Andorra (+376)</a>
@@ -78,6 +87,7 @@
                 <a class="dropdown-item" value="+54">Argentina (+54)</a>
                 <a class="dropdown-item" value="+374">Armenia (+374)</a>
                 <a class="dropdown-item" value="+297">Aruba (+297)</a>
+                <a class="dropdown-item" value="+93">Afghanistan (+93)</a>
                 <a class="dropdown-item" value="+247">Ascension Island (+247)</a>
                 <a class="dropdown-item" value="+61">Australia (+61)</a>
                 <a class="dropdown-item" value="+43">Austria (+43)</a>
@@ -104,7 +114,6 @@
                 <a class="dropdown-item" value="+257">Burundi (+257)</a>
                 <a class="dropdown-item" value="+855">Cambodia (+855)</a>
                 <a class="dropdown-item" value="+237">Cameroon (+237)</a>
-                <a class="dropdown-item" value="+1">Canada (+1)</a>
                 <a class="dropdown-item" value="+238">Cape Verde Islands (+238)</a>
                 <a class="dropdown-item" value="+1345">Cayman Islands (+1345)</a>
                 <a class="dropdown-item" value="+236">Central African Republic (+236)</a>
@@ -161,8 +170,7 @@
                 <a class="dropdown-item" value="+504">Honduras (+504)</a>
                 <a class="dropdown-item" value="+852">Hong Kong (+852)</a>
                 <a class="dropdown-item" value="+36">Hungary (+36)</a>
-                <a class="dropdown-item" value="+354">Iceland (+354)</a>
-                <a class="dropdown-item" value="+91">India (+91)</a>
+                <a class="dropdown-item" value="+354">Iceland (+354)</a> 
                 <a class="dropdown-item" value="+62">Indonesia (+62)</a>
                 <a class="dropdown-item" value="+98">Iran (+98)</a>
                 <a class="dropdown-item" value="+964">Iraq (+964)</a>
@@ -285,8 +293,6 @@
                 <a class="dropdown-item" value="+256">Uganda (+256)</a>
                 <a class="dropdown-item" value="+380">Ukraine (+380)</a>
                 <a class="dropdown-item" value="+971">United Arab Emirates (+971)</a>
-                <a class="dropdown-item" value="+44">United Kingdom (+44)</a>
-                <a class="dropdown-item" value="+1">United States of America (+1)</a>
                 <a class="dropdown-item" value="+598">Uruguay (+598)</a>
                 <a class="dropdown-item" value="+998">Uzbekistan (+998)</a>
                 <a class="dropdown-item" value="+678">Vanuatu (+678)</a>

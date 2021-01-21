@@ -16,23 +16,35 @@
 <%= form_for @user, url: update_user_path, method: :post do |f|  %>
   <%= hidden_field_tag :setting, "account" %>
   <div class="form-group">
-    <div class="row">
-      <div class="col-sm-6 mb-4">
-        <%= f.label :name, t("settings.account.fullname"), class: "form-label" %>
-        <div class="input-icon">
-          <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: t("settings.account.fullname"), readonly: !@user.greenlight_account? %>
-        </div>
-      </div>
 
-      <div class="col-sm-6 mb-4">
+  <!-- email field now takes full width-->
+   <div class="mb-4">
         <%= f.label :email, t("email"), class: "form-label" %>
         <div class="input-icon">
           <%= f.email_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email"), readonly: !@user.greenlight_account? %>
         </div>
       </div>
+
+      <!-- added field for firstname and lastname -->
+
+    <div class="row">
+      <div class="col-sm-6 mb-4">
+        <%= f.label :firstname, t("settings.account.firstname"), class: "form-label" %>
+        <div class="input-icon">
+          <%= f.text_field :firstname, class: "form-control #{form_is_invalid?(@user, :firstname)}", placeholder: t("settings.account.firstname"), readonly: !@user.greenlight_account? %>
+        </div>
+      </div>
+
+      <div class="col-sm-6 mb-4">
+        <%= f.label :lastname, t("settings.account.lastname"), class: "form-label" %>
+        <div class="input-icon">
+          <%= f.text_field :lastname, class: "form-control #{form_is_invalid?(@user, :lastname)}", placeholder: t("settings.account.lastname"), readonly: !@user.greenlight_account? %>
+        </div>
+      </div>
     </div>
 
     <!-- added field for mobile number -->
+
     <div class="row">
       <div class="col-sm-6 mb-4">
         <%= f.label :mobile, t("settings.account.mobile_number"), class: "form-label" %>
@@ -47,9 +59,6 @@
         </div>
       </div>
     </div>
-    
-    <%= f.label :provider, t("settings.account.provider"), class: "form-label" %>
-    <%= f.text_field :provider, class: "form-control", readonly: "" %>
     <br>
     <%= f.label :language, t("settings.account.language"), class: "form-label" %>
     <%= f.select :language, language_options, {}, { class: "form-control custom-select" } %>

@@ -547,7 +547,9 @@ en:
       auto: You will automatically join when the meeting starts.
   settings:
     account:
-      fullname: Full name
+      fullname: Full Name
+      firstname: First Name
+      lastname: Last Name
       Mobile_number: Mobile Number
       mobile_placeholder: +91 xxxxx xxxxx
       language: Language

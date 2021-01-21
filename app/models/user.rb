@@ -25,6 +25,9 @@ class User < ApplicationRecord
 
   before_save { email.try(:downcase!) }
 
+  # adding first and last name to create fullname
+  before_save :setfullname
+
   before_destroy :destroy_rooms
 
   has_many :rooms
@@ -34,8 +37,10 @@ class User < ApplicationRecord
   has_and_belongs_to_many :roles, join_table: :users_roles # obsolete
 
   belongs_to :role, required: false
-
-  validates :name, length: { maximum: 256 }, presence: true
+  # added "firstname" "lastname"
+  validates :firstname, length: { maximum: 256 }, presence: true
+  validates :lastname, length: { maximum: 256 }, presence: true
+ 
   validates :provider, presence: true
   # validation for mobile number
   validates :mobile,presence:true 
@@ -84,12 +89,12 @@ class User < ApplicationRecord
     search_query = ""
     role_search_param = ""
     if role.nil?
-      search_query = "users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
+      search_query = "users.name LIKE :search OR users.firstname LIKE :search OR users.lastname LIKE :search OR email LIKE :search OR username LIKE :search" \
                     " OR users.#{created_at_query} LIKE :search OR users.provider LIKE :search" \
                     " OR roles.name LIKE :roles_search"
       role_search_param = "%#{string}%"
     else
-      search_query = "(users.name LIKE :search OR email LIKE :search OR username LIKE :search" \
+      search_query = "(users.name LIKE :search OR users.firstname LIKE :search OR users.lastname LIKE :search OR email LIKE :search OR username LIKE :search" \
                     " OR users.#{created_at_query} LIKE :search OR users.provider LIKE :search)" \
                     " AND roles.name = :roles_search"
       role_search_param = role.name
@@ -203,6 +208,11 @@ class User < ApplicationRecord
   def create_home_room
     room = Room.create!(owner: self, name: I18n.t("home_room"))
     update_attributes(main_room: room)
+  end
+
+  # add firstname and lastname to produce fullname
+  def setfullname
+    self.name = "#{firstname} #{lastname}"
   end
 
   private

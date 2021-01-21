@@ -22,6 +22,8 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.belongs_to :room, index: true
       t.string :provider
       t.string :uid
+      t.string :firstname
+      t.string :lastname
       t.string :name
       t.string :username
       t.string :mobile

@@ -104,6 +104,8 @@ ActiveRecord::Schema.define(version: 2020_04_13_150518) do
     t.integer "room_id"
     t.string "provider"
     t.string "uid"
+    t.string "firstname"
+    t.string "lastname"
     t.string "name"
     t.string "username"
     t.string "mobile"

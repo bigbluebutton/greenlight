@@ -24,6 +24,8 @@ class UsersController < ApplicationController
   include Recorder
   include Rolify
   require 'faraday'
+  require 'uri'
+
 
 
   before_action :find_user, only: [:edit, :change_password, :delete_account, :update, :update_password]
@@ -45,18 +47,29 @@ class UsersController < ApplicationController
 
     #Greenlight Customization subscribe to sendy
     conn = Faraday.new('https://sendy.higheredlab.com')
-    conn.post('/subscribe',api_key:"cKoFCdddFM9YIdSdvzmH", name:@user.name, email:@user.email,
+    conn.post('/subscribe',api_key:"cKoFCdddFM9YIdSdvzmH", name:@user.name, email:@user.email, FirstName:@user.firstname, LastName:@user.lastname,
       list:"892T763OdMvL6nGW3bMJs7cKYA", "Content-Type" => "application/x-www-form-urlencoded")
 
-    conn.post('/subscribe',api_key:"cKoFCdddFM9YIdSdvzmH", name:@user.name, email:@user.email,
+    conn.post('/subscribe',api_key:"cKoFCdddFM9YIdSdvzmH", name:@user.name, email:@user.email, FirstName:@user.firstname, LastName:@user.lastname,
       list:"cjYRUzEyfNFjFMmD6dKIbQ", "Content-Type" => "application/x-www-form-urlencoded")
 
-    logger.info "Support: POST name:#{@user.name} email:#{@user.email} successful for list 1"
-    logger.info "Support: POST name:#{@user.name} email:#{@user.email} successful for list 2"
+    # Greenlight Customization HubSpot Forms POST
+    data = {
+      :email => @user.email,
+      :firstname => @user.firstname,
+      :lastname => @user.lastname,
+      :phone => @user.mobile
+    }
+    url = "https://forms.hubspot.com/uploads/form/v2/8247873/ac75bcf8-58ce-40c2-a8ac-299093c8871a"
     
-    logger.info "Support: POST #{@user.name} #{@user.email} successful"
-
-    logger.info "Support: #{@user.email} user has been created."
+    response = Faraday.post(url) do |req|
+      req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+      req.body = URI.encode_www_form(data)
+    end
+    logger.info "Support: POST email:#{@user.email} successful for list 1"
+    logger.info "Support: POST email:#{@user.email} successful for list 2"
+    logger.info "Support: POST email:#{@user.email} successful for hubspot"
+    logger.info "Support: firstname:#{@user.firstname} lastname:#{@user.lastname} name:#{@user.name} email:#{@user.email} user has been created."
 
     # Set user to pending and redirect if Approval Registration is set
     if approval_registration
@@ -85,6 +98,7 @@ class UsersController < ApplicationController
     redirect_to root_path unless current_user
   end
 
+  
   # GET /u/:user_uid/change_password
   def change_password
     redirect_to edit_user_path unless current_user.greenlight_account?
@@ -222,7 +236,8 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :image, :mobile, :password, :password_confirmation,
+    # added firstname and lastname 
+    params.require(:user).permit(:name, :email, :firstname, :lastname, :image, :mobile, :password, :password_confirmation,
       :new_password, :provider, :accepted_terms, :language)
   end
 

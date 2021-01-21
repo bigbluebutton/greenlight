@@ -77,9 +77,9 @@ gem 'redcarpet'
 gem 'cancancan', '~> 2.0'
 
 group :production do
-  gem 'sqlite3', '~> 1.3.6'
+  gem 'sqlite3'
   # Use a postgres database in production.
-  gem 'pg', '~> 0.18'
+  gem 'pg'
   gem 'sequel'
 
   # For a better logging library in production
@@ -99,7 +99,7 @@ group :development, :test do
   # Environment configuration.
   gem 'dotenv-rails'
   # Use a sqlite database in test and development.
-  gem 'sqlite3', '~> 1.3.6'
+  gem 'sqlite3'
 end
 
 group :test do
@@ -138,3 +138,6 @@ gem 'i18n-language-mapping', '~> 0.1.1'
 
 # this gem is used to make http post request
 gem "faraday"
+
+# This gem is used for urlencoding  
+gem 'uri'

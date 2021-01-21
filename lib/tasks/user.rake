@@ -4,9 +4,12 @@ require 'bigbluebutton_api'
 
 namespace :user do
   desc "Creates a user account"
-  task :create, [:name, :email, :mobile, :password, :role, :provider] => :environment do |_task, args|
+  
+  # added first name and lastname
+  task :create, [:firstname, :laststname, :email, :mobile, :password, :role, :provider] => :environment do |_task, args|
     u = {
-      name: args[:name],
+      firstname: args[:firstname],
+      lastname: args[:laststname],
       password: args[:password],
       email: args[:email],
       mobile: args[:mobile],
@@ -16,11 +19,12 @@ namespace :user do
 
     if u[:role] == "admin"
       # Set default variables
-      u[:name] = "Administrator" if u[:name].blank?
+      u[:firstname] = "Administrator" if u[:firstname].blank?
+      u[:lastname] = "lastname" if u[:lastname].blank?
       u[:password] = Rails.configuration.admin_password_default if u[:password].blank?
       u[:email] = "admin@example.com" if u[:email].blank?
       u[:mobile] = "9999999999" if u[:mobile].blank?
-    elsif u[:name].blank? || u[:password].blank? || u[:email].blank? || u[:mobile].blank?
+    elsif u[:firstname].blank? || u[:lastname].blank? || u[:password].blank? || u[:email].blank? || u[:mobile].blank?
       # Check that all fields exist
       puts "Missing Arguments"
       exit
@@ -35,7 +39,7 @@ namespace :user do
 
     # Create account if it doesn't exist
     if !User.exists?(email: u[:email], provider: u[:provider])
-      user = User.create(name: u[:name], email: u[:email], mobile: u[:mobile], password: u[:password],
+      user = User.create(firstname: u[:firstname],lastname: u[:lastname], email: u[:email], mobile: u[:mobile], password: u[:password],
         provider: u[:provider], email_verified: true, accepted_terms: true)
 
       unless user.valid?
