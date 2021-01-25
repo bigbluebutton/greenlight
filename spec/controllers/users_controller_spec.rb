@@ -227,6 +227,13 @@ describe UsersController, type: :controller do
           @admin.set_role :admin
         end
 
+        it "should only allow mail addresses in email field of invitation" do
+          invite = Invitation.create(email: "foobar", provider: "greenlight")
+
+          expect(invite).to_not be_valid
+          expect(invite.errors.messages[:email]).to eq ['is invalid']
+        end
+
         it "should notify admins that user signed up" do
           params = random_valid_user_params
           invite = Invitation.create(email: params[:user][:email], provider: "greenlight")
@@ -239,7 +246,7 @@ describe UsersController, type: :controller do
           allow(Rails.configuration).to receive(:enable_email_verification).and_return(false)
 
           params = random_valid_user_params
-          invite = Invitation.create(email: params[:user][:name], provider: "greenlight")
+          invite = Invitation.create(email: params[:user][:email], provider: "greenlight")
           @request.session[:invite_token] = invite.invite_token
 
           post :create, params: params

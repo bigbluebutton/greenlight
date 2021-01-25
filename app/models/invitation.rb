@@ -19,6 +19,9 @@
 class Invitation < ApplicationRecord
   has_secure_token :invite_token
 
+  validates :email, length: { maximum: 256 },
+                    format: { with: /\A[\w+\-\'.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+
   scope :valid, -> { where(updated_at: (Time.now - 48.hours)..Time.now) }
 
   def self.admins_search(string)

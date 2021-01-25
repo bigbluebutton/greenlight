@@ -22,7 +22,7 @@
   <% elsif key.eql? "alert" %>
     <div class="alert alert-danger alert-dismissible text-center mb-0">
       <button type="button" class="close" data-dismiss="alert">&times</button>
-      <%= value %>
+      <%= sanitize value %>
     </div>
   <% elsif key.eql? "maintenance" %>
     <div class="alert alert-info alert-dismissible text-center mb-0">

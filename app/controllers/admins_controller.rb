@@ -141,12 +141,19 @@ class AdminsController < ApplicationController
   # POST /admins/invite
   def invite
     emails = params[:invite_user][:email].split(",")
+    errors = ""
 
     emails.each do |email|
       invitation = create_or_update_invite(email)
 
-      send_invitation_email(current_user.name, email, invitation.invite_token)
+      if invitation.valid?
+        send_invitation_email(current_user.name, email, invitation.invite_token)
+      else
+        errors += "#{email}: #{invitation.errors.full_messages[0]}<br/>"
+      end
     end
+
+    flash[:alert] = errors unless errors.empty?
 
     redirect_back fallback_location: admins_path
   end
