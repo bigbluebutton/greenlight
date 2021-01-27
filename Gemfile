@@ -86,6 +86,7 @@ gem 'pluck_to_hash', '~> 1.0.2'
 gem 'local_time', '~> 2.1.0'
 
 group :production do
+  gem 'sqlite3', '~> 1.3.6'
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'
   gem 'sequel'
