@@ -525,6 +525,7 @@ ja_JP:
   remove: 削除
   rename: 名前の変更
   reset_password:
+    captcha: reCAPTCHAの検証に失敗しました。 もう一度お試しください。
     invalid_token: パスワードの再設定トークンが正しくありません。パスワードの再設定をもう一度行ってみてください。
     subtitle: パスワードを再設定する
     password: 新しいパスワード
