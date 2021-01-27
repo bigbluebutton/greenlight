@@ -439,6 +439,34 @@ describe RoomsController, type: :controller do
 
       expect(response).to redirect_to(root_path)
     end
+
+    it "should have correct user setting params" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
+
+      @request.session[:user_id] = @user.id
+      allow(Rails.configuration).to receive(:join_settings_features).and_return("userdata-bbb_listen_only_mode")
+
+      @user.update_setting("userdata-bbb_listen_only_mode", "true")
+
+      post :join, params: { room_uid: @room, join_name: @user.name }
+
+      expect(response).to redirect_to(join_path(@owner.main_room, @user.name,
+        { "userdata-bbb_listen_only_mode": true }, @user.uid))
+    end
+
+    it "should ignore user setting params when env is config" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
+
+      @request.session[:user_id] = @user.id
+      allow(Rails.configuration).to receive(:join_settings_features).and_return("")
+
+      @user.update_setting("userdata-bbb_listen_only_mode", "true")
+
+      post :join, params: { room_uid: @room, join_name: @user.name }
+
+      expect(response).to redirect_to(join_path(@owner.main_room, @user.name,
+        {}, @user.uid))
+    end
   end
 
   describe "DELETE #destroy" do
@@ -562,6 +590,30 @@ describe RoomsController, type: :controller do
       post :start, params: { room_uid: @user.main_room }
 
       expect(response).to redirect_to(root_path)
+    end
+
+    it "should have correct user setting params" do
+      @request.session[:user_id] = @user.id
+      allow(Rails.configuration).to receive(:join_settings_features).and_return("userdata-bbb_listen_only_mode")
+
+      @user.update_setting("userdata-bbb_listen_only_mode", "true")
+
+      post :start, params: { room_uid: @user.main_room }
+
+      expect(response).to redirect_to(join_path(@user.main_room, @user.name,
+        { user_is_moderator: true, "userdata-bbb_listen_only_mode": true }, @user.uid))
+    end
+
+    it "should ignore user setting params when not in config" do
+      @request.session[:user_id] = @user.id
+      allow(Rails.configuration).to receive(:join_settings_features).and_return("")
+
+      @user.update_setting("userdata-bbb_listen_only_mode", "true")
+
+      post :start, params: { room_uid: @user.main_room }
+
+      expect(response).to redirect_to(join_path(@user.main_room, @user.name,
+        { user_is_moderator: true }, @user.uid))
     end
   end
 
