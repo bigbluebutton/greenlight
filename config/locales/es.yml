@@ -138,8 +138,10 @@ es:
       settings: La configuración de sistema ha sido actualizada
       unauthorized: No está autorizado para ejecutar operaciones sobre este usuario.
     recordings:
+      latest: Más reciente grabación
       title: Grabaciones
       no_recordings: Este servidor no tiene grabaciones.
+      search_info: Introduce un email o un identificador de sala.
     roles:
       appear_in_share_list: Incluir usuarios con este rol en el menú desplegable para compartir salas
       can_create_rooms: Puede crear salas
@@ -396,7 +398,7 @@ es:
       not_blank: El nombre de la sala no puede estar vacío
       title: Crear una sala nueva
     delete_account:
-      confirm: "¿Estas seguro de querer eliminar esta cuenta de usuario?"
+      confirm: "¿Estás seguro de querer eliminar esta cuenta de usuario?"
       delete: Estoy seguro de eliminar ésta cuenta
       keep: "De hecho, la conservaré"
       delete_warning: Esta acción desactiva la cuenta de usuario. Todos los usuarios desactivados son listados en la pestaña de eliminados.
@@ -446,7 +448,7 @@ es:
     rename_room:
       name_placeholder: Introduce un nuevo nombre para la sala...
     share_access:
-      footer: Compartir una sala con un usuario Lesser permite iniciar la sala y ver las grabaciones de la sala.
+      footer: Compartir una sala con un usuario permite iniciar la sala y ver las grabaciones de la sala.
       list: Compartido con
       title: Compartir acceso a sala
       save: Guardar cambios

@@ -83,6 +83,8 @@ gem 'google-cloud-storage', '~> 1.26'
 
 gem 'pluck_to_hash', '~> 1.0.2'
 
+gem 'local_time', '~> 2.1.0'
+
 group :production do
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'

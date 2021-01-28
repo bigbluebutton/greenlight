@@ -80,24 +80,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
         },
         setup: SETUP_PROC
     end
-    if Rails.configuration.omniauth_openid_connect
-      Rails.application.config.providers << :openid_connect
-
-      redirect = ENV['OAUTH2_REDIRECT'].present? ? File.join(ENV['OAUTH2_REDIRECT'], "auth", "openid_connect", "callback") : nil
-
-      provider :openid_connect,
-        issuer: ENV["OPENID_CONNECT_ISSUER"],
-        discovery: true,
-        scope: [:email, :profile],
-        response_type: :code,
-        uid_field: ENV["OPENID_CONNECT_UID_FIELD"] || "preferred_username",
-        client_options: {
-          identifier: ENV['OPENID_CONNECT_CLIENT_ID'],
-          secret: ENV['OPENID_CONNECT_CLIENT_SECRET'],
-          redirect_uri: redirect
-        },
-        setup: SETUP_PROC
-    end
   end
 end
 

@@ -26,7 +26,7 @@
         </span>
     </div>
     <div class="small text-muted">
-      <%= t("recording.recorded_on", date: recording_date(recording[:startTime])) %>
+      <%= t("recording.recorded_on", date: view_date(recording[:startTime])).html_safe %>
     </div>
   </td>
   <% if recording_thumbnails? %>
