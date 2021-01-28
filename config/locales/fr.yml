@@ -525,6 +525,7 @@ fr:
   remove: Enlever
   rename: Renommer
   reset_password:
+    captcha: "La vérification de reCAPTCHA a échoué, veuillez réessayer."
     invalid_token: Le jeton de réinitialisation du mot de passe n'est pas valide. Veuillez essayer de réinitialiser votre mot de passe à nouveau.
     subtitle: Réinitialiser le mot de passe
     password: Nouveau mot de passe
