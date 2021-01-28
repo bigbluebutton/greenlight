@@ -58,6 +58,7 @@ module BbbServer
       join_opts[k] = v
     end
     join_opts[:createTime] = room.last_session.to_datetime.strftime("%Q")
+
     bbb_server.join_meeting_url(room.bbb_id, name, password, join_opts)
   end
 
