@@ -251,6 +251,10 @@ describe RoomsController, type: :controller do
       @user = create(:user)
       @owner = create(:user)
       @room = @owner.main_room
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:create_meeting).and_return(
+        messageKey: "",
+        createTime: "1611793449622"
+      )
     end
 
     it "should use account name if user is logged in and meeting running" do
@@ -520,6 +524,10 @@ describe RoomsController, type: :controller do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_meeting_info).and_return(
         moderatorPW: "modpass",
         attendeePW: "attpass",
+      )
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:create_meeting).and_return(
+        messageKey: "",
+        createTime: "1611793449622"
       )
     end
 

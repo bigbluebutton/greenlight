@@ -43,7 +43,8 @@ describe BbbServer do
   context "#start_session" do
     it "should update latest session info" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:create_meeting).and_return(
-        messageKey: ""
+        messageKey: "",
+        createTime: "1611793449622"
       )
 
       expect do
@@ -57,17 +58,22 @@ describe BbbServer do
   context "#join_path" do
     it "should return correct join URL for user" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:get_meeting_info).and_return(
-        attendeePW: @room.attendee_pw
+        attendeePW: @room.attendee_pw,
+      )
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:create_meeting).and_return(
+        messageKey: "",
+        createTime: "1611793449622"
       )
 
       endpoint = Rails.configuration.bigbluebutton_endpoint
       secret = Rails.configuration.bigbluebutton_secret
-      fullname = "fullName=Example"
+      fullname = "&fullName=Example"
       join_via_html5 = "&join_via_html5=true"
       meeting_id = "&meetingID=#{@room.bbb_id}"
       password = "&password=#{@room.attendee_pw}"
+      time = "createTime=1611793449622"
 
-      query = fullname + join_via_html5 + meeting_id + password
+      query = time + fullname + join_via_html5 + meeting_id + password
       checksum_string = "join#{query + secret}"
 
       checksum = OpenSSL::Digest.digest('sha1', checksum_string).unpack1("H*")
