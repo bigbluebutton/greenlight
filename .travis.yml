@@ -5,14 +5,6 @@ rvm:
 - 2.5.1
 jobs:
   include:
-  - stage: test
-    name: rubocop
-    script: bundle exec rubocop
-    if: env(CD_TEST_IGNORE) IS NOT present
-  - stage: test
-    name: rspec
-    script: gem install bundler & bundle exec rspec
-    if: env(CD_TEST_IGNORE) IS NOT present
   - stage: build
     name: build docker image
     script: bash scripts/image_build.sh $TRAVIS_REPO_SLUG $TRAVIS_BRANCH
