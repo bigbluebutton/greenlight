@@ -1,6 +1,11 @@
 env:
   RUBY_VERSION: 2.7.2
-  DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+  DB_ADAPTER: postgresql
+  DB_HOST: localhost
+  DB_NAME: postgres
+  DB_USERNAME: postgres
+  DB_PASSWORD: postgres
+  DB_PORT: 5432
 
 name: CI
 on:
