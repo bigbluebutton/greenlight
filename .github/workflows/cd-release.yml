@@ -25,7 +25,7 @@ jobs:
         with:
           push: true
           tags: |
-            greenlight:latest
-            greenlight:v2
-            greenlight:${GITHUB_REF}
+            bigbluebutton/greenlight:latest
+            bigbluebutton/greenlight:v2
+            bigbluebutton/greenlight:${GITHUB_REF##*/}
           build-args: version_code=${GITHUB_REF##*/release-}

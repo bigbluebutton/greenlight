@@ -25,5 +25,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: greenlight:latest
+          tags: |
+            bigbluebutton/greenlight:master
+            bigbluebutton/greenlight:latest
           build-args: version_code=${GITHUB_SHA::8}
