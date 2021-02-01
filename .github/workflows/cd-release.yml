@@ -29,5 +29,4 @@ jobs:
             greenlight:latest
             greenlight:v2
             greenlight:${GITHUB_REF}
-          build-args: |
-            version_code=${GITHUB_REF##*/release-}
+          build-args: version_code=${GITHUB_REF##*/release-}
