@@ -59,7 +59,7 @@ jobs:
           bundler exec rails db:create RAILS_ENV=test
           bundler exec rails db:migrate RAILS_ENV=test
       - name: Run Rubocop
-        run: bundle exec rubocop --fail-level F
+        run: bundle exec rubocop --parallel --fail-level F
 
       - name: Run RSpec
         run: bundle exec rspec
