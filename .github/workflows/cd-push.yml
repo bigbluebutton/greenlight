@@ -21,8 +21,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Step Short SHA
-        run: echo "::set-output short_sha=${GITHUB_SHA::8}"
+      - name: Compute Short SHA
+        uses: benjlevesque/short-sha@v1.2
+        id: short-sha
+        with:
+          length: 7
 
       - name: Build and Push latest
         uses: docker/build-push-action@v2
@@ -31,4 +34,4 @@ jobs:
           tags: |
             bigbluebutton/greenlight:master
             bigbluebutton/greenlight:latest
-          build-args: version_code=${{ steps.vars.outputs.short_sha  }}
+          build-args: version_code=${{ steps.short-sha.outputs.sha }}

@@ -27,5 +27,5 @@ jobs:
           tags: |
             bigbluebutton/greenlight:latest
             bigbluebutton/greenlight:v2
-            bigbluebutton/greenlight:${{ GITHUB_REF##*/ }}
-          build-args: version_code=${{ GITHUB_REF##*/release- }}
+            bigbluebutton/greenlight:${{ github.event.release.tag_name }}
+          build-args: version_code=${{ github.event.release.tag_name }}
