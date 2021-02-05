@@ -542,7 +542,7 @@ de_DE:
     invitation_description: "Sie wurden zu %{name} über BigBlueButton zur Teilnahme eingeladen. Um beizutreten, klicken Sie auf den obigen Link und geben Sie Ihren Namen ein."  
     invited: Sie wurden zur Teilnahme eingeladen
     recording_present: "Ich bestätige, dass diese Sitzung aufgezeichnet wird. Dies kann meine Sprach- und Videoaufnahmen beinhalten, wenn diese geteilt werden."
-    invite_participants: Teilnehmer einladen
+    invite_participants: "Verschicken Sie diesen Link um Teilnehmer einzuladen:"
     join: Teilnehmen
     last_session: "Letzte Konferenz am %{session}"
     login: Betreten
