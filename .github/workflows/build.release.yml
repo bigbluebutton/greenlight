@@ -2,7 +2,7 @@ env:
   RUBY_VERSION: 2.7.2
 
 
-name: CD Release
+name: Build Release
 on:
   release:
 
