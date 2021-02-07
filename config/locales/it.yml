@@ -36,12 +36,24 @@ it:
         enabled: Abilitato
         info: Permettere l'accesso solo ad utenti autenticati
         title: Richiedi autenticazione per ogni stanza
-        user-info: Devi prima registrarti a BigBlueButton per accedere alla stanza
+        user-info: Devi eseguire il login per accedere alla stanza.
       branding:
         change: Cambia immagine
         info: Cambia il logo del brand che appare nell'angolo in alto a sinistra
         placeholder: Indirizzo immagine...
         title: Logo
+        invalid: URL non valida
+      legal:
+        change: Cambia URL
+        info: Cambia il link dei Termini che appare in basso nella pagina
+        placeholder: URL Termini...
+        title: Termini
+        invalid: URL non valida
+      privpolicy:
+        change: Cambia URL
+        info: Cambia il Link della Politica della Privacy che appare in basso nella pagina
+        placeholder: URL Politica della Privacy...
+        title: Politica della Privacy
         invalid: URL non valida
       cache:
         info: "Svuota la cache memorizzata del provider, con conseguente forzatura di una nuova richiesta di informazioni aggiornate "
@@ -70,6 +82,18 @@ it:
         info: Imposta la visibilità di default per ogni nuova registrazione video
         title: Visibilità di default della registrazione video
         warning: Questa impostazione sarà applicata unicamente alle stanze che in questo momento non sono già avviate
+      require_consent:
+        info: Questa impostazione abilita un'impostazione della stanza che consente ai proprietari di specificare quali stanze possono essere registrate. Gli utenti che accedono ad una stanza registrata devono dare consenso prima di partecipare.
+        title: Richiedi al proprietario della stanza e agli ospiti di acconsentire alla registrazione.
+      maintenance_banner:
+        info: Mostra un Banner per informare gli utenti di una manutenzione programmata
+        title: Banner Manutenzione
+        display: Imposta
+        clear: Pulisci
+        time: "Esempio: Aggiornamento schedulato il 13 Dicembre @ 23:00 ET. Gli utenti potrebbero riscontrare problemi nel loggare."        
+      preupload:
+        info: Gli utenti possono precaricare una presentazione per essere usata come presentazione di default per una stanza specifica
+        title: Permetti agli Utenti di precaricare le Presentazioni
       registration:
         info: Cambiare il modo in cui gli utenti si registrano al sito web
         title: Metodo di registrazione
@@ -84,6 +108,10 @@ it:
         info: "Impostando su disabilitato, verra' rimossa l'opzione dal menu a discesa delle Opzioni Stanza, impedendo agli utenti di condividere le Stanze"
         title: Consenti agli Utenti di condividere Stanze
       subtitle: Personalizza Greenlight
+      tabs:
+        appearance: Aspetto
+        administration: Amministrazione
+        settings: Impostazioni
       title: Impostazioni Sito
     flash:
       approved: L'utente è stato approvato con successo
@@ -94,7 +122,7 @@ it:
       demoted: L'utente è stato declassato
       invite: "L'invito è stato inviato a %{email}"
       invite_email_verification: L'email deve essere abilitata per poter usare questo metodo. Prego contatta il tuo amministratore di sistema
-      merge_fail: Si e' verificato un problema in fase di accorpamento degli accounts utente. Per favore verifica gli utenti selezionati e riprova. 
+      merge_fail: Si e' verificato un problema in fase di accorpamento degli accounts utente. Per favore verifica gli utenti selezionati e riprova.
       merge_success: Accounts utente accorpati con successo
       perm_deleted: L'utente e' stato eliminato definitivamente
       promoted: L'utente è stato promosso
@@ -124,7 +152,7 @@ it:
       edit_site_settings: Consenti agli Utenti con questo ruolo di modificare le impostazioni del sito
       edit_roles: Consenti agli Utenti con questo ruolo di modificare altri ruoli
       manage_users: Consenti agli Utenti di questo ruolo di gestire il profilo di altri utenti
-      invalid_assignment: Si e' verificato un problema assegnando il ruolo all'utente. Per favore verifica i valori e riprova 
+      invalid_assignment: Si e' verificato un problema assegnando il ruolo all'utente. Per favore verifica i valori e riprova
       colour:
         title: Colore associato al ruolo
         info: Imposta il colore che sarà associato al ruolo
@@ -138,6 +166,8 @@ it:
         info: "Permetti a qualsiasi utente di iniziare il meeting. Normalmente, solo il proprietario della stanza può iniziare il meeting."
       all_moderator:
         info: Dà a tutti gli utenti i privilegi di moderatore su BigBlueButton quando entrano nel meeting.
+      recordings:
+        info: "Permetti ai proprietari delle stanze di specificare se vogliono poter registrare la stanza o meno. Se abilitata, il moderatore deve comunque cliccare il pulsante \"Registra\" una volta avviato il meeting."
       options:
         disabled: Disabilitato
         enabled: Sempre Abilitata
@@ -145,9 +175,12 @@ it:
     rooms:
       title: Stanze
       table:
+        ended: "Terminata: %{session}"
         id: ID
         not_running: Non avviata
+        participants: Partecipanti
         running: Avviata
+        started: "Avviata: %{session}"
         status: Stato
         view: Vedi
     title: Impostazioni Organizzazione
@@ -245,6 +278,8 @@ it:
     designs: Grafiche personalizzate
     authentication: Autenticazione Utente
   footer:
+    legal: Termini
+    privpolicy: Politica della Privacy
     powered_by: "Questo progetto utilizza %{href}."
   forgot_password:
     subtitle: Password dimenticata
@@ -334,8 +369,6 @@ it:
         verify_text: 'Per verificare il tuo account, visita questo indirizzo: %{url}'
         verify_link: Verifica Account
         thanks: "Grazie per aver participato, buona giornata!"
-  maintenance:
-    window_alert: "Periodo di manutenzione pianificato per %{date}"
   max_concurrent: E' stato raggiunto il massimo numero di sessioni contemporanee!
   merged: Accorpato
   modal:
@@ -360,6 +393,10 @@ it:
       keep: "mmmh no dai, NON eliminarlo."
       delete_warning: Questo disabilitera' l'account utente. Tutti gli account utente disabilitati si trovano sotto il tab cancellati.
       warning: Questa è la tua ultima possibilità. <b>Non</b> sarai in grado di recuperare i dati associati.
+    delete_rec:
+      delete: "Sono sicuro, elimina questa registrazione."
+      header: "Sei sicuro di voler eliminare questa registrazione?"
+      warning: <b>Non</b> sarà possibile ripristinare la registrazione
     delete_room:
       confirm: "Sicuro di voler eliminare %{room}?"
       delete: "Sono sicuro, elimina la stanza."
@@ -367,7 +404,7 @@ it:
       warning: <b>Non</b>c'e' modo di recuperare questa stanza
       recording_warning: "o ciascuna delle sue %{recordings_num} relative registrazioni."
     invite_user:
-      email_placeholder: Inserisci le emails utente (separate da virgole)
+      email_placeholder: Inserisci le email degli utenti (separate da virgola)
       footer: L'utente ricevera' un'email contenente le istruzioni per accedere
       send: Spedisci Invito
       title: Invita utente
@@ -375,6 +412,14 @@ it:
       or: o
       with: "Entra con %{provider}"
       forgot_password: "Hai dimenticato la password?"
+    preupload:
+      change: Cambia Presentazione
+      choose: Scegli un file...
+      current: "Presentazione Corrente:"
+      footer: "A seconda della dimensione della presentazione, potrebbe essere richiesto tempo addizionale prima che possa essere usata."
+      invalid: Tipo file/grandezza non validi. Controlla le restrizioni.
+      title: Aggiungi Presentazione
+      use: Usa Presentazione
     rename_recording:
     remove_shared:
       title: "Confermi di voler rimuovere questa stanza dalla tua lista stanze?"
@@ -389,6 +434,7 @@ it:
       require_approval: E' richiesta l'approvazione del moderatore per accedere
       start: Consenti a qualsiasi utente di avviare questo meeting
       footer_text: Le impostazioni della stanza possono essere cambiate in qualsiasi momento.
+      recording: Permetti la registrazione della stanza
     rename_room:
       name_placeholder: Inserisci il nome della nuova stanza...
     share_access:
@@ -456,7 +502,7 @@ it:
       fail: "Il tuo account non e' ancora stato approvato. Se sono passati diversi giorni da quando ti sei registrato, contatta per favore il tuo amministratore."
       signup: Il tuo account e' stato creato con successo. E' stato inviato ad un amministratore per l'approvazione.
     banned:
-      fail: "Non hai accesso a questa applicazione. Se ritieni si tratti di un errore, contatta per favore il tuo amministratore." 
+      fail: "Non hai accesso a questa applicazione. Se ritieni si tratti di un errore, contatta per favore il tuo amministratore."
     deprecated:
       new_signin: Seleziona un metodo per l'accesso al tuo account. Tutte le stanze collegate al tuo vecchio account saranno migrate al nuovo account.
       twitter_signin: "L'accesso via Twitter e' deprecato e verra' rimosso nella prossima release. Clicca <a href=\"%{link}\"> qui </a> per consentire al tuo account un nuovo metodo di autenticazione"
@@ -468,6 +514,7 @@ it:
   remove: Elimina
   rename: Rinomina
   reset_password:
+    invalid_token: Il token di reset della password non è valido. Riprova a richiedere il reset nuovamente.
     subtitle: Reimposta password
     password: Nuova password
     confirm: Conferma nuova password
@@ -482,6 +529,7 @@ it:
     user: Utente
   room:
     access_code_required: Prego immettere un codice valido per entrare nella stanza
+    add_presentation: Aggiungi Presentazione
     create_room: Crea una stanza
     create_room_error: Si è verificato un errore nella creazione della stanza
     create_room_success: La stanza è stata creata correttamente
@@ -491,7 +539,9 @@ it:
       fail: "Stanza non eliminata a causa dell'errore seguente: %{error}"
     enter_the_access_code: Immetti il codice di accesso alla stanza
     invalid_provider: Hai inserito una url non valida. Per favore verifica e riprova.
+    invitation_description: "Sei stato invitato ad entrare in %{name} usando BigBlueButton. Per entrare, clicca sul link sopra e inserisci il tuo nome."  
     invited: Hai ricevuto un invito per partecipare
+    recording_present: Accetto che questa sessione verrà registrata. Questo può includere la mia voce e il video se abilitati.
     invite_participants: Invita partecipanti
     join: Partecipa
     last_session: "Ultima sessione: %{session}"
@@ -508,6 +558,10 @@ it:
       recent_rooms: Entra in una stanza visitata recentemente
       title: Entra in una stanza
     no_sessions: Questa stanza non ha ancora una sessione attiva!
+    preupload_success: Presentazione aggiunta correttamente
+    preupload_error: Si è verificato un errore aggiornando la presentazione della stanza
+    preupload_remove_success: Presentazione rimossa correttamente
+    preupload_remove_error: Si è verificato un errore rimuovendo la presentazione
     recordings: Registrazioni della stanza
     room_limit: Hai raggiunto il numero massimo di stanze consentito
     room_limit_exceeded: "Hai superato il numero di stanze concesse. Per favore elimina %{difference} stanza/e per accedere a questa stanza."
@@ -533,9 +587,10 @@ it:
       provider: Fornitore
       image: Immagine
       image_url: Indirizzo immagine del profilo
-      roles: Ruoli dell'Utente
+      roles: Ruolo Utente
       subtitle: Aggiorna le informazioni del tuo account
       title: Informazioni account
+      reset_password: Reimposta password dell'utente
     delete:
       button: "Si, voglio eliminare il mio account."
       disclaimer: "Se scegli di eliminare il tuo account, <b>NON</b> sarà possibile recuperarlo. Tutte le informazioni riguardo l'account, incluse impostazioni, stanze e registrazioni, verranno eliminate."

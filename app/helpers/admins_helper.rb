@@ -31,13 +31,6 @@ module AdminsHelper
     @running_room_bbb_ids.include?(id)
   end
 
-  # Returns a more friendly/readable date time object
-  def friendly_time(date)
-    return "" if date.nil? # Handle invalid dates
-
-    I18n.l date, format: "%B %d, %Y %H:%M UTC"
-  end
-
   # Site Settings
 
   def admin_invite_registration
@@ -119,6 +112,10 @@ module AdminsHelper
 
   def room_limit_number
     @settings.get_value("Room Limit").to_i
+  end
+
+  def email_mapping
+    @settings.get_value("Email Mapping")
   end
 
   # Room Configuration

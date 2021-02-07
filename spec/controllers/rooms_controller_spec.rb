@@ -251,6 +251,10 @@ describe RoomsController, type: :controller do
       @user = create(:user)
       @owner = create(:user)
       @room = @owner.main_room
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:create_meeting).and_return(
+        messageKey: "",
+        createTime: "1611793449622"
+      )
     end
 
     it "should use account name if user is logged in and meeting running" do
@@ -521,6 +525,10 @@ describe RoomsController, type: :controller do
         moderatorPW: "modpass",
         attendeePW: "attpass",
       )
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:create_meeting).and_return(
+        messageKey: "",
+        createTime: "1611793449622"
+      )
     end
 
     it "should redirect to join path if owner" do
@@ -683,7 +691,7 @@ describe RoomsController, type: :controller do
       post :join_specific_room, params: { join_room: { url: "abc" } }
 
       expect(flash[:alert]).to eq(I18n.t("room.no_room.invalid_room_uid"))
-      expect(response).to redirect_to room_path(@user.main_room)
+      expect(response).to redirect_to cant_create_rooms_path
     end
 
     it "should redirect the user to the room uid they supplied" do

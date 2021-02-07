@@ -28,14 +28,14 @@
         </td>
         <td>
           <div>
-            <h4 contenteditable="false" class="m-0 force-text-normal room-name-text" ><%= room.name %></h4>
+            <h4 contenteditable="false" class="m-0 force-text-normal room-name-text text-break" ><%= room.name %></h4>
           </div>
           <div style="display: none">
             <input class="form-control input-sm w-100 h-4 room-name-editable" value="<%= room.name %>">
           </div>
           <div class="small text-muted">
             <% if room.sessions > 0 %>
-              <i><%= t("room.last_session", session: recording_date(room.last_session)) %></i>
+              <i><%= t("room.last_session", session: view_date(room.last_session)).html_safe %></i>
             <% else %>
               <i><%= t("room.no_sessions") %></i>
             <% end %>
@@ -56,7 +56,7 @@
                 </a>
               <% end %>
               <% if shared_access_allowed %>
-                <a href="" data-toggle="modal" data-target="#shareRoomModal" class="share-room dropdown-item" data-path="<%= room_shared_access_path(room) %>" data-users-path="<%= room_shared_users_path(room) %>">
+                <a href="" data-toggle="modal" data-target="#shareRoomModal" class="share-room dropdown-item" data-path="<%= room_shared_access_path(room) %>" data-users-path="<%= room_shared_users_path(room) %>" data-owner="<%= room.owner.uid %>">
                   <i class="dropdown-icon fas fa-users"></i> <%= t("room.share") %>
                 </a>
               <% end %>
