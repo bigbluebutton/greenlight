@@ -299,7 +299,7 @@ class RoomsController < ApplicationController
   def shared_users
     # Respond with JSON object of users that have access to the room
     respond_to do |format|
-      format.json { render body: @room.shared_users.to_json }
+      format.json { render body: @room.shared_users.pluck_to_hash(:uid, :name, :image).to_json }
     end
   end
 

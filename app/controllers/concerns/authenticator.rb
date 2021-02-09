@@ -63,7 +63,9 @@ module Authenticator
 
       redirect_to url
     else
-      redirect_to resend_path
+      session[:user_id] = nil
+      user.create_activation_token
+      redirect_to account_activation_path(digest: user.activation_digest)
     end
   end
 
