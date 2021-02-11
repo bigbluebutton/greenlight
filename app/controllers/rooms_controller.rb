@@ -328,6 +328,10 @@ class RoomsController < ApplicationController
     redirect_to room_path(@room.uid)
   end
 
+  def participant_reports
+    raise params
+  end  
+
   private
 
   def create_room_settings_string(options)

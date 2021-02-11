@@ -125,6 +125,7 @@ Rails.application.routes.draw do
     post '/', to: 'rooms#join'
     patch '/', to: 'rooms#update', as: :update_room
     get '/room_settings', to: 'rooms#room_settings'
+    get '/participant_reports', to: 'rooms#participant_reports'
     post '/update_settings', to: 'rooms#update_settings'
     get '/current_presentation', to: 'rooms#current_presentation'
     post '/preupload_presentation', to: 'rooms#preupload_presentation'

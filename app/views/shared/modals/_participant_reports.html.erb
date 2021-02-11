@@ -1,0 +1,39 @@
+
+<div class="modal fade" id="participantReportModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <div class="card-body p-6">
+          <div class="card-title">
+            <h3><%= t("modal.participant_reports.title") %></h3>
+          </div>
+
+
+          <%= form_for(:room, url: participant_reports_path(room_uid: params[:room_uid])) do |f| %>
+            <div class="input-icon mb-2">
+              <span class="input-icon-addon">
+                <i class="fas fa-user-tag"></i>
+              </span>
+              <%= f.date_select :name, id: "createRoleName", class: "form-control text-center", placeholder: t("modal.create_role.name_placeholder"), autocomplete: :off, required: true %>
+              <div class="invalid-feedback text-left"><%= t("modal.create_role.not_blank") %></div>
+            </div>
+            <div class="mt-4">
+                <%= f.submit t("modal.create_role.create"), class: "btn btn-primary btn-block" %>
+            </div>
+          <% end %>
+
+
+
+
+
+          <div class="mt-5 text-left">
+            <label class="form-label"><%= t("modal.participant_reports.list") %></label>
+            <ul id="user-list" class="list-group">
+            </ul>
+          </div>
+          <input id="room-owner-uid" type="hidden">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

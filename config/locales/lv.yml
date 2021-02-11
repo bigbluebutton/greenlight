@@ -390,6 +390,10 @@ lv:
       to: Primārais konts (kuram pievieno)
       save: Apvienot
       footer: "Apvienotā konta sapulču telpas tiks pārceltas uz Primārā konta telpu sarakstu, un pēc tam otrs konts tiks dzēsts."
+    participant_reports:
+      title: Dalībnieku atskaite
+      cancel_changes: Atcelt
+      fetch: Iegūt
   name_update_success: Telpas nosaukums sekmīgi nomainīts!
   no_user_email_exists: "Lietotājs ar norādīto e-pastu netika atrasts. Pārbaudiet, vai e-pasts ir ievadīts pareizi."
   omniauth_error: "Autentificējot ar omniauth, gadījās kļūme. Lūdzu, mēģiniet vēlreiz vai sazinieties ar administratoru!"
@@ -511,6 +515,7 @@ lv:
     wait:
       message: Sapulce vēl nav sākusies
       auto: "Sākoties sapulcei, jūs tiksiet pievienots automātiski."
+    participant_reports: Dalībnieku atskaite  
   settings:
     account:
       fullname: Pilns vārds

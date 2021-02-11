@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_14_232153) do
+ActiveRecord::Schema.define(version: 2021_02_10_143131) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -80,6 +80,15 @@ ActiveRecord::Schema.define(version: 2020_12_14_232153) do
     t.index ["name", "provider"], name: "index_roles_on_name_and_provider", unique: true
     t.index ["name"], name: "index_roles_on_name"
     t.index ["priority", "provider"], name: "index_roles_on_priority_and_provider", unique: true
+  end
+
+  create_table "room_join_logs", force: :cascade do |t|
+    t.integer "room_id"
+    t.string "username"
+    t.string "ip_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_room_join_logs_on_room_id"
   end
 
   create_table "rooms", force: :cascade do |t|
