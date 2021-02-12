@@ -48,7 +48,7 @@
                   <tr data-user-uid="<%= user.uid %>">
                     <td>
                       <div><%= user.name %></div>
-                      <div class="small text-muted"><%= [t("administrator.users.table.created"), ": ", user.created_at].join %></div>
+                      <div class="small text-muted"><%= [t("administrator.users.table.created"), ": ", view_date(user.created_at)].join.html_safe %></div>
                     </td>
                     <td class="user-email"><%= user.email && user.email != "" ? user.email : user.username%></td>
                     <td><%= user.provider %></td>
@@ -90,6 +90,11 @@
                               <button class= "merge-user dropdown-item" data-path="<%= merge_user_path(user_uid: user.uid) %>" data-info="<%= user.slice(:name, :email, :uid).to_json %>" data-toggle="modal" data-target="#mergeUserModal">
                                 <i class="dropdown-icon fas fa-user-friends"></i> <%= t("administrator.users.settings.merge") %>
                               </button>
+                              <% unless user.rooms.length.zero? %>
+                                <%= link_to admin_recordings_path(search: user.email), class: "dropdown-item" do %>
+                                  <i class="dropdown-icon fas fa-video"></i> <%= t("administrator.rooms.table.recordings") %>
+                                <% end %>
+                              <% end %>
                               <%= button_to admin_ban_path(user_uid: user.uid), class: "dropdown-item", "data-disable": "" do %>
                                 <i class="dropdown-icon fas fa-lock"></i> <%= t("administrator.users.settings.ban") %>
                               <% end %>

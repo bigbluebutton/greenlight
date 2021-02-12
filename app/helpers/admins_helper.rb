@@ -31,13 +31,6 @@ module AdminsHelper
     @running_room_bbb_ids.include?(id)
   end
 
-  # Returns a more friendly/readable date time object
-  def friendly_time(date)
-    return "" if date.nil? # Handle invalid dates
-
-    I18n.l date, format: "%B %d, %Y %H:%M UTC"
-  end
-
   # Site Settings
 
   def admin_invite_registration

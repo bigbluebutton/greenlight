@@ -69,6 +69,10 @@ es:
         regular: Regular
         lighten: Aclarar
         darken: Oscurecer
+      email_mapping:
+        info: "Asigna al usuario a un rol usando su correo electrónico. Debe estar en el formato email1=rol1,email2=rol2"
+        title: "Asignación de rol por correo electrónico "
+        update:
       log_level:
         title: Nivel de registro
         information: Cambiar el nivel de registro para toda la implementación
@@ -90,7 +94,7 @@ es:
         title: Banner de mantenimiento
         display: Establece
         clear: Limpia
-        time: "Ejemplo: actualización programada para el 13 de diciembre a las 23:00h. Los usuarios pueden experimentar problemas para iniciar sesión."        
+        time: "Ejemplo: actualización programada para el 13 de diciembre a las 23:00h. Los usuarios pueden experimentar problemas para iniciar sesión."
       preupload:
         info: Los usuarios pueden cargar previamente una presentación para usarla como presentación predeterminada para esa sala específica
         title: Permitir a los usuarios cargar previamente presentaciones
@@ -111,6 +115,7 @@ es:
       tabs:
         appearance: Apariencia
         administration: Administración
+        registration: Registro
         settings: Configuración
       title: Configuración del sitio web
     flash:
@@ -133,8 +138,10 @@ es:
       settings: La configuración de sistema ha sido actualizada
       unauthorized: No está autorizado para ejecutar operaciones sobre este usuario.
     recordings:
+      latest: Más reciente grabación
       title: Grabaciones
       no_recordings: Este servidor no tiene grabaciones.
+      search_info: Introduce un email o un identificador de sala.
     roles:
       appear_in_share_list: Incluir usuarios con este rol en el menú desplegable para compartir salas
       can_create_rooms: Puede crear salas
@@ -391,9 +398,9 @@ es:
       not_blank: El nombre de la sala no puede estar vacío
       title: Crear una sala nueva
     delete_account:
-      confirm: "¿Estas seguro de querer eliminar esta cuenta de usuario?"
+      confirm: "¿Estás seguro de querer eliminar esta cuenta de usuario?"
       delete: Estoy seguro de eliminar ésta cuenta
-      keep: "De hecho, la conserbaré"
+      keep: "De hecho, la conservaré"
       delete_warning: Esta acción desactiva la cuenta de usuario. Todos los usuarios desactivados son listados en la pestaña de eliminados.
       warning: "Esta decisión es final, <b>No</b> podrás recuperar la información asociada"
     delete_rec:
@@ -441,7 +448,7 @@ es:
     rename_room:
       name_placeholder: Introduce un nuevo nombre para la sala...
     share_access:
-      footer: Compartir una sala con un usuario Lesser permite iniciar la sala y ver las grabaciones de la sala.
+      footer: Compartir una sala con un usuario permite iniciar la sala y ver las grabaciones de la sala.
       list: Compartido con
       title: Compartir acceso a sala
       save: Guardar cambios
@@ -472,6 +479,7 @@ es:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: Oh no! La respuesta de tu reCAPTCHA falló. Intentalo de nuevo.
@@ -517,6 +525,7 @@ es:
   remove: Eliminar
   rename: Cambiar nombre
   reset_password:
+    captcha: "La verificación reCAPTCHA ha falado, intentalo nuevamente."
     invalid_token: El token de restablecimiento de contraseña no es válido. Intente restablecer su contraseña nuevamente.
     subtitle: Reiniciar contraseña
     password: Nueva contraseña
@@ -543,7 +552,7 @@ es:
       fail: "Se ha producido un error al eliminar la sala (%{error})"
     enter_the_access_code: Introduce el código de acceso de la sala
     invalid_provider: El enlace introducido no es válido. Revísalo e inténtalo de nuevo.
-    invitation_description: "Ha sido invitado a unirse a %{name} usando BigBlueButton. Para unirse, haga clic en el enlace superior e introduzca su nombre."  
+    invitation_description: "Ha sido invitado a unirse a %{name} usando BigBlueButton. Para unirse, haga clic en el enlace superior e introduzca su nombre."
     invited: Ha sido invitado a unirse
     recording_present: Reconozco que esta sesión se va a grabar. Esto puede incluir mi voz y vídeo si está habilitado.
     invite_participants: Invitar participantes
@@ -578,7 +587,7 @@ es:
     shared_access_success: Sala compartida correctamente
     shared_access_error: Ha habido un error compartiendo la sala
     start: Iniciar
-    search: Buscar por grupo...
+    search: Buscar por sala...
     unavailable: Esta sala no se encuentra disponible debido a que la cuenta de correo  de su propietario no ha sido verificado.
     update_settings_error: Ocurrió un error al actualizar la configuración de la sala
     update_settings_success: La configuración de la sala fue actualizada exitósamente

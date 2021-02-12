@@ -50,6 +50,7 @@ gem 'sprockets', '< 4.0.0'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
+gem 'omniauth_openid_connect'
 gem 'omniauth-bn-launcher', '~> 0.1.3'
 gem 'net-ldap'
 gem 'bn-ldap-authentication', '~> 0.1.4'
@@ -81,6 +82,8 @@ gem 'aws-sdk-s3', '~> 1.75'
 gem 'google-cloud-storage', '~> 1.26'
 
 gem 'pluck_to_hash', '~> 1.0.2'
+
+gem 'local_time', '~> 2.1.0'
 
 group :production do
   # Use a postgres database in production.

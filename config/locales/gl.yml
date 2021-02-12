@@ -72,7 +72,7 @@ gl:
       email_mapping:
         info: "Asignar o usuario a un rol usando o seu correo-e. Debe ter o formato email1=rol1,email2=rol2"
         title: Asignación de roles por correo-e
-        update: 
+        update:
       log_level:
         title: Nivel de rexistro
         information: Cambiar o nivel de rexistro para o despregamento completo
@@ -94,7 +94,7 @@ gl:
         title: Cartel de mantemento
         display: Estabelecer
         clear: Limpar
-        time: "Exemplo: Actualización programada para o 13 de decembro ás 23:00 ET. Os usuarios poden ter problemas para iniciar sesión."        
+        time: "Exemplo: Actualización programada para o 13 de decembro ás 23:00 ET. Os usuarios poden ter problemas para iniciar sesión."
       preupload:
         info: Os usuarios poden cargar previamente unha presentación para que a utilicen como presentación predeterminada para esa sala específica
         title: Permitirlle aos usuarios precargar as presentacións
@@ -138,8 +138,10 @@ gl:
       settings: Os axustes do sitio foron cambiados correctamente
       unauthorized: Non está autorizado para executar accións sobre este usuario
     recordings:
+      latest: Últimas gravacións
       title: Gravacións do servidor
       no_recordings: Este servidor non ten gravacións.
+      search_info: Introduza o correo-e completo dun usuario ou o UID dunha sala
     roles:
       appear_in_share_list: Incluír usuarios con este rol no menú despregábel para compartir salas
       can_create_rooms: Pode crear salas
@@ -477,6 +479,7 @@ gl:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: Conectar con OpenID
   recaptcha:
     errors:
       recaptcha_unreachable: Ouh! non podemos validar a resposta de reCAPTCHA. Tenteo de novo.
@@ -522,6 +525,7 @@ gl:
   remove: Retirar
   rename: Renomear
   reset_password:
+    captcha: "Produciuse un fallo na verificación de reCAPTCHA, ténteo de novo."
     invalid_token: O testemuño de restablecemento de contrasinal non é válido. Tente restabelecer o seu contrasinal de novo.
     subtitle: Restabelecer o contrasinal
     password: Novo contrasinal
@@ -548,7 +552,7 @@ gl:
       fail: "Non foi posíbel eliminar a sala (%{error})"
     enter_the_access_code: Introduza o código de acceso á sala
     invalid_provider: Introduciu un URL non válido. Comprobe o URL e ténteo de novo.
-    invitation_description: "Foi convidado a unirse a %{name} empregando BigBlueButton. Para unirse, prema na ligazón superior e escriba o seu nome."  
+    invitation_description: "Foi convidado a unirse a %{name} empregando BigBlueButton. Para unirse, prema na ligazón superior e escriba o seu nome."
     invited: Foi convidado a unirse a
     recording_present: Declaro ser coñecedor de que se vai gravar esta sesión. Isto pode incluír a miña voz e imaxe de vídeo se están activados.
     invite_participants: Convidar a participantes
