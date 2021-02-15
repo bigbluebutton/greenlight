@@ -2,6 +2,8 @@
 .git
 .gitignore
 README.md
+SECURITY.md
+.github
 
 # Rails
 .env
@@ -23,6 +25,5 @@ vendor/bundle
 Dockerfile
 .gitlab-ci.yml
 .rubocop.yml
-.travis.yml
 spec
 test

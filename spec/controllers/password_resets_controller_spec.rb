@@ -71,6 +71,43 @@ describe PasswordResetsController, type: :controller do
         expect(response).to redirect_to("/404")
       end
     end
+
+    context "reCAPTCHA enabled" do
+      before do
+        allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+        allow(Rails.configuration).to receive(:recaptcha_enabled).and_return(true)
+      end
+
+      it "sends a reset email if the recaptcha was passed" do
+        allow(controller).to receive(:valid_captcha).and_return(true)
+
+        user = create(:user, provider: "greenlight")
+
+        params = {
+          password_reset: {
+            email: user.email,
+          },
+        }
+
+        expect { post :create, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
+
+      it "doesn't send an email if the recaptcha was failed" do
+        allow(controller).to receive(:valid_captcha).and_return(false)
+
+        user = create(:user)
+
+        params = {
+          password_reset: {
+            email: user.email,
+          },
+        }
+
+        post :create, params: params
+        expect(response).to redirect_to(new_password_reset_path)
+        expect(flash[:alert]).to be_present
+      end
+    end
   end
 
   describe "PATCH #update" do

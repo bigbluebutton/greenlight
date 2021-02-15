@@ -131,6 +131,9 @@ module Greenlight
     # File types allowed in preupload presentation
     config.allowed_file_types = ".doc,.docx,.ppt,.pptx,.pdf,.xls,.xlsx,.txt,.rtf,.odt,.ods,.odp,.odg,.odc,.odi,.jpg,.jpeg,.png"
 
+    # Default locale
+    config.default_locale = ENV["DEFAULT_LOCALE"]
+
     # DEFAULTS
 
     # Default branding image if the user does not specify one

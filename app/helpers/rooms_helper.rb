@@ -54,4 +54,16 @@ module RoomsHelper
       false
     end
   end
+
+  # Array of recording formats not to show for public recordings
+  def hidden_format_public
+    ENV.fetch("HIDDEN_FORMATS_PUBLIC", "").split(",")
+  end
+
+  # Returns the total number of visibile rooms for the current user
+  def total_room_count(user)
+    total = user.rooms.length
+    total += user.shared_rooms.length if shared_access_allowed
+    total
+  end
 end

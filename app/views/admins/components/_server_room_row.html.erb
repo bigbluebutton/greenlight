@@ -26,11 +26,11 @@
     <div class="small text-muted">
       <% running = room_is_running(room.bbb_id) %>
       <% if running %>
-         <%= t("administrator.rooms.table.started", session: friendly_time(room.last_session)) %>
+         <%= t("administrator.rooms.table.started", session: view_date(room.last_session)).html_safe %>
       <% elsif room.last_session.present? %>
-        <%= t("administrator.rooms.table.ended", session: friendly_time(room.last_session)) %>
+        <%= t("administrator.rooms.table.ended", session: view_date(room.last_session)).html_safe %>
       <% else %>
-        <%= [t("administrator.users.table.created"), ": ", friendly_time(room.created_at)].join %>
+        <%= [t("administrator.users.table.created"), ": ", view_date(room.created_at)].join.html_safe %>
       <% end %>
     </div>
   </td>
@@ -65,13 +65,16 @@
         <a href="" data-toggle="modal" data-target="#createRoomModal" class="update-room dropdown-item" data-settings-path="<%= room_settings_path(room) %>">
           <i class="dropdown-icon fas fa-cog"></i> <%= t("room.settings") %>
         </a>
+        <%= link_to admin_recordings_path(search: room.uid), class: "dropdown-item" do %>
+          <i class="dropdown-icon fas fa-video"></i> <%= t("administrator.rooms.table.recordings") %>
+        <% end %>
         <% if preupload_allowed? %>
           <a href="" data-toggle="modal" data-target="#preuploadPresentationModal" class="preupload-room dropdown-item" data-path="<%= preupload_presentation_path(room) %>" data-settings-path="<%= current_presentation_path(room) %>" data-remove="<%= remove_presentation_path(room) %>">
             <i class="dropdown-icon fas fa-file-upload"></i> <%= t("room.add_presentation") %>
           </a>
         <% end %>
         <% if shared_access_allowed %>
-          <a href="" data-toggle="modal" data-target="#shareRoomModal" class="share-room dropdown-item" data-path="<%= room_shared_access_path(room) %>" data-users-path="<%= room_shared_users_path(room) %>">
+          <a href="" data-toggle="modal" data-target="#shareRoomModal" class="share-room dropdown-item" data-path="<%= room_shared_access_path(room) %>" data-users-path="<%= room_shared_users_path(room) %>" data-owner="<%= room.owner.uid %>">
             <i class="dropdown-icon fas fa-users"></i> <%= t("room.share") %>
           </a>
         <% end %>

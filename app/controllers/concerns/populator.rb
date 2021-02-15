@@ -56,33 +56,65 @@ module Populator
     end
   end
 
-  # Returns list of rooms needed to get the recordings on the server
-  def rooms_list_for_recordings
-    if Rails.configuration.loadbalanced_configuration
-      Room.includes(:owner).where(users: { provider: @user_domain }).pluck(:bbb_id)
+  # Returns the correct recordings based on the users inputs
+  def recordings_to_show(user = nil, room = nil)
+    if user.present?
+      # Find user and get his recordings
+      rooms = User.find_by(email: user)&.rooms&.pluck(:bbb_id)
+      return all_recordings(rooms) if user.present?
+
+      [] # return no recs if room not found
+    elsif room.present?
+      # Find room and get its recordings
+      room = Room.find_by(uid: room)&.bbb_id
+      return all_recordings([room]) if room.present?
+
+      []
     else
-      Room.pluck(:bbb_id)
+      latest_recordings
     end
   end
 
-  # Returns a list of users that are in the same context of the current user
-  def shared_user_list
-    roles_can_appear = []
-    Role.where(provider: @user_domain).each do |role|
-      roles_can_appear << role.name if role.get_permission("can_appear_in_share_list") && role.priority >= 0
+  # Returns a list off all current invitations
+  def invited_users_list
+    list = if Rails.configuration.loadbalanced_configuration
+      Invitation.where(provider: @user_domain)
+    else
+      Invitation.all
     end
 
-    initial_list = User.where.not(uid: current_user.uid).with_role(roles_can_appear)
-
-    return initial_list unless Rails.configuration.loadbalanced_configuration
-    initial_list.where(provider: @user_domain)
+    list.admins_search(@search).order(updated_at: :desc)
   end
 
-  # Returns a list of users that can merged into another user
-  def merge_user_list
-    initial_list = User.without_role(:super_admin).where.not(uid: current_user.uid)
+  private
 
-    return initial_list unless Rails.configuration.loadbalanced_configuration
-    initial_list.where(provider: @user_domain)
+  # Returns exactly 1 page of the latest recordings
+  def latest_recordings
+    return_length = Rails.configuration.pagination_number
+    recordings = []
+    counter = 0
+
+    # Manually paginate through the rooms
+    while recordings.length < return_length
+      rooms = if Rails.configuration.loadbalanced_configuration
+        Room.includes(:owner)
+            .where(users: { provider: @user_domain })
+            .order(last_session: :desc)
+            .limit(return_length)
+            .offset(counter * return_length)
+            .pluck(:bbb_id)
+      else
+        Room.order(last_session: :desc)
+            .limit(return_length)
+            .offset(counter * return_length)
+            .pluck(:bbb_id)
+      end
+
+      break if rooms.blank?
+      counter += 1
+      recordings.push(*all_recordings(rooms))
+    end
+
+    recordings[0..return_length]
   end
 end

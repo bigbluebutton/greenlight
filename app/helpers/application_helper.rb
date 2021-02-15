@@ -22,7 +22,7 @@ require 'uri'
 module ApplicationHelper
   # Determines which providers can show a login button in the login modal.
   def iconset_providers
-    providers = configured_providers & [:google, :twitter, :office365, :ldap]
+    providers = configured_providers & [:google, :twitter, :office365, :openid_connect, :ldap]
 
     providers.delete(:twitter) if session[:old_twitter_user_id]
 
@@ -129,5 +129,16 @@ module ApplicationHelper
   def hide_recording_tables
     return false unless recording_consent_required?
     @settings.get_value("Room Configuration Recording") == "disabled"
+  end
+
+  # Hide the signin buttons if there is an error on the page
+  def show_signin
+    !@hide_signin.present?
+  end
+
+  # Returns a more friendly/readable date time object
+  def view_date(date)
+    return "" if date.nil? # Handle invalid dates
+    local_time(date, "%b %d, %Y %-I:%M%P")
   end
 end

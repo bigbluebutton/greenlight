@@ -43,7 +43,8 @@
             placeholder: t("enter_your_name"),
             value: "#{@name}",
             readonly: !current_user.nil?, 
-            autofocus: true
+            autofocus: true,
+            maxlength: 26
             %>
         <span class="input-group-append">
           <button id="room-join" type="submit" class="btn btn-primary btn-sm px-7 form-control join-form">

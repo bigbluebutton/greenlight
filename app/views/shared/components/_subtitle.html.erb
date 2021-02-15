@@ -35,6 +35,14 @@
           </span>
         </div>
       </div>
+      <% if defined?(search_info) && search_info.present? %>
+        <div class="float-right mt-5">
+          <small>
+            <i class="fas fa-info-circle"></i>
+            <%= search_info %>
+          </small>
+        </div>
+      <% end %>
     </div>
   <% else %>
     <div class="col-12">
