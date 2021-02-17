@@ -178,6 +178,8 @@ GEM
       signet (~> 0.14)
     hashdiff (1.0.1)
     hashie (4.1.0)
+    hcaptcha (7.1.0)
+      json
     hiredis (0.6.3)
     http_accept_language (2.1.1)
     httpclient (2.8.3)
@@ -473,6 +475,7 @@ DEPENDENCIES
   faker
   font-awesome-sass (~> 5.9.0)
   google-cloud-storage (~> 1.26)
+  hcaptcha
   hiredis
   http_accept_language
   i18n-language-mapping (~> 0.1.1)

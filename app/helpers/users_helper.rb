@@ -25,6 +25,10 @@ module UsersHelper
     Rails.configuration.recaptcha_enabled
   end
 
+  def hcaptcha_enabled?
+    Rails.configuration.hcaptcha_enabled
+  end
+
   def disabled_roles(user)
     current_user_role = current_user.role
 

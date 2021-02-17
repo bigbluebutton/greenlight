@@ -31,6 +31,12 @@
                 <%= recaptcha_tags %>
               </div>
             <% end %>
+
+            <% if hcaptcha_enabled? %>
+              <div class="form-group">
+                <%= hcaptcha_tags(theme: "light") %>
+              </div>
+            <% end %>
       
             <%= f.submit t("forgot_password.submit"), class: "btn btn-primary" %>
           <% end %>

@@ -76,6 +76,12 @@
                   <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:base).first %></div>
                 </div>
               <% end %>
+              <% if hcaptcha_enabled? %>
+                <div class="form-group">
+                  <%= hcaptcha_tags(theme: "light") %>
+                  <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:base).first %></div>
+                </div>
+              <% end %>
               <%= f.submit t("signup.title"), class: "btn btn-primary btn-block signin-button" %>
             </div>
           <% end %>
