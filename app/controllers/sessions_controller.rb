@@ -97,7 +97,8 @@ class SessionsController < ApplicationController
   # POST /users/logout
   def destroy
     logout
-    redirect_to root_path
+  # After sign out, the user will get redirected to the main website: https://higheredlab.com
+    redirect_to "http://higheredlab.com/"
   end
 
   # GET/POST /auth/:provider/callback
