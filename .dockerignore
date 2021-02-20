@@ -25,6 +25,5 @@ vendor/bundle
 Dockerfile
 .gitlab-ci.yml
 .rubocop.yml
-.travis.yml
 spec
 test
