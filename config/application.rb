@@ -83,6 +83,9 @@ module Greenlight
       config.url_host = ENV['URL_HOST'] || ''
     end
 
+    # Specify the log level
+    config.log_level = ENV['RAILS_LOG_LEVEL'].to_sym
+
     # Specify the email address that all mail is sent from
     config.smtp_sender = ENV['SMTP_SENDER'] || "notifications@example.com"
 
