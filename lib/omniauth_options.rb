@@ -37,6 +37,8 @@ module OmniauthOptions
       set_hd(env, ENV['GOOGLE_OAUTH2_HD'])
     elsif env['omniauth.strategy'].options[:name] == "office365"
       set_hd(env, ENV['OFFICE365_HD'])
+    elsif env['omniauth.strategy'].options[:name] == "openid_connect"
+      set_hd(env, ENV['OPENID_CONNECT_HD'])
     end
   end
 

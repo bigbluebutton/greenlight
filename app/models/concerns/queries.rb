@@ -16,23 +16,26 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
-require "rails_helper"
+module Queries
+  extend ActiveSupport::Concern
 
-describe RecordingsHelper do
-  describe "#recording_length" do
-    it "returns the time if length > 60" do
-      playbacks = [{ type: "test", length: 85 }]
-      expect(helper.recording_length(playbacks)).to eql("1 h 25 min")
+  def created_at_text
+    active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
+    # Postgres requires created_at to be cast to a string
+    if active_database == "postgresql"
+      "created_at::text"
+    else
+      "created_at"
     end
+  end
 
-    it "returns the time if length == 0" do
-      playbacks = [{ type: "test", length: 0 }]
-      expect(helper.recording_length(playbacks)).to eql("< 1 min")
-    end
-
-    it "returns the time if length between 0 and 60" do
-      playbacks = [{ type: "test", length: 45 }]
-      expect(helper.recording_length(playbacks)).to eql("45 min")
+  def like_text
+    active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
+    # Use postgres case insensitive like
+    if active_database == "postgresql"
+      "ILIKE"
+    else
+      "LIKE"
     end
   end
 end

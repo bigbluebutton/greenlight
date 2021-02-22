@@ -50,6 +50,7 @@ gem 'sprockets', '< 4.0.0'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
+gem 'omniauth_openid_connect'
 gem 'omniauth-bn-launcher', '~> 0.1.3'
 gem 'net-ldap'
 gem 'bn-ldap-authentication', '~> 0.1.4'
@@ -80,6 +81,13 @@ gem 'cancancan', '~> 2.0'
 gem 'aws-sdk-s3', '~> 1.75'
 gem 'google-cloud-storage', '~> 1.26'
 
+gem 'pluck_to_hash', '~> 1.0.2'
+
+gem 'local_time', '~> 2.1.0'
+
+# Use a sqlite database in test and development.
+gem 'sqlite3', '~> 1.3.6'
+
 group :production do
   # Use a postgres database in production.
   gem 'pg', '~> 0.18'
@@ -101,8 +109,6 @@ group :development, :test do
   gem 'byebug', platform: :mri
   # Environment configuration.
   gem 'dotenv-rails'
-  # Use a sqlite database in test and development.
-  gem 'sqlite3', '~> 1.3.6'
 end
 
 group :test do

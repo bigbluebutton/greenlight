@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     get '/reset', to: 'admins#reset', as: :admin_reset
     post '/undelete', to: 'admins#undelete', as: :admin_undelete
     post '/merge/:user_uid', to: 'admins#merge_user', as: :merge_user
+    get '/merge_list', to: 'admins#merge_list', as: :merge_list
     # Site Settings
     post '/update_settings', to: 'admins#update_settings', as: :admin_update_settings
     post '/registration_method', to: 'admins#registration_method', as: :admin_change_registration
@@ -109,6 +110,9 @@ Rails.application.routes.draw do
 
   # Users who can't create rooms
   get '/rooms', to: 'rooms#cant_create_rooms', as: :cant_create_rooms
+
+  # Returns a list of users for the shared access list
+  get '/shared_access_list', to: 'users#shared_access_list'
 
   # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/'
