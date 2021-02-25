@@ -109,6 +109,7 @@ module ApplicationHelper
     # Make a GET request and validate content type
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = (url.scheme == "https")
+    http.read_timeout = 10
 
     http.start do |web|
       response = web.head(url.request_uri)
