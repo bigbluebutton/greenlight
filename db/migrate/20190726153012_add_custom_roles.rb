@@ -12,15 +12,16 @@ class AddCustomRoles < ActiveRecord::Migration[5.2]
 
     # Determine what ids corresponded to what roles in the old table
     old_roles.each do |role|
-      if role["name"] == "super_admin"
+      case role["name"]
+      when "super_admin"
         super_admin_id = role["id"]
-      elsif role["name"] == "user"
+      when "user"
         user_id = role["id"]
-      elsif role["name"] == "admin"
+      when "admin"
         admin_id = role["id"]
-      elsif role["name"] == "denied"
+      when "denied"
         denied_id = role["id"]
-      elsif role["name"] == "pending"
+      when "pending"
         pending_id = role["id"]
       end
     end
