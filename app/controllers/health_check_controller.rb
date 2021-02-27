@@ -47,9 +47,7 @@ class HealthCheckController < ApplicationController
   end
 
   def database_check
-    if defined?(ActiveRecord)
-      raise "Database not responding" unless ActiveRecord::Migrator.current_version
-    end
+    raise "Database not responding" if defined?(ActiveRecord) && !ActiveRecord::Migrator.current_version
     raise "Pending migrations" unless ActiveRecord::Migration.check_pending!.nil?
   end
 
@@ -61,12 +59,14 @@ class HealthCheckController < ApplicationController
     settings = ActionMailer::Base.smtp_settings
 
     smtp = Net::SMTP.new(settings[:address], settings[:port])
-    if settings[:enable_starttls_auto] == "true"
-      smtp.enable_starttls_auto if smtp.respond_to?(:enable_starttls_auto)
-    end
+    smtp.enable_starttls_auto if settings[:enable_starttls_auto] == ("true") && smtp.respond_to?(:enable_starttls_auto)
 
-    smtp.start(settings[:domain]) do |s|
-      s.authenticate(settings[:user_name], settings[:password], settings[:authentication])
+    if settings[:authentication].present? && settings[:authentication] != "none"
+      smtp.start(settings[:domain]) do |s|
+        s.authenticate(settings[:user_name], settings[:password], settings[:authentication])
+      end
+    else
+      smtp.start(settings[:domain])
     end
   rescue => e
     raise "Unable to connect to SMTP Server - #{e}"

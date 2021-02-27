@@ -69,6 +69,10 @@ de_DE:
         regular: Normal
         lighten: Heller
         darken: Dunkler
+      email_mapping:
+        info: "Ordnen Sie den Nutzer anhand seiner E-Mail einer Rolle zu. Muss im Format email1=Rolle1,email2=Rolle2 erfolgen"
+        title: Rollenzuordnung per E-Mail
+        update:
       log_level:
         title: Log-Level
         information: Log-Level für die gesamte Anwendung ändern
@@ -90,7 +94,7 @@ de_DE:
         title: Banner für Wartungsarbeiten
         display: Setzen
         clear: Löschen
-        time: "Beispiel: Aktualisierung geplant am 13. Dezember um 23:00 Uhr MEZ. Nutzer könnten Probleme bei der Anmeldung haben."        
+        time: "Beispiel: Aktualisierung geplant am 13. Dezember um 23:00 Uhr MEZ. Nutzer könnten Probleme bei der Anmeldung haben."
       preupload:
         info: "Nutzer können eine Präsentation vorab hochladen, die als Standardpräsentation für diesen speziellen Raum verwendet werden soll"
         title: "Nutzern erlauben, Präsentationen vorab hochzuladen"
@@ -111,6 +115,7 @@ de_DE:
       tabs:
         appearance: Darstellung
         administration: Administration
+        registration: Registrierung
         settings: Einstellungen
       title: Grundeinstellungen
     flash:
@@ -133,8 +138,10 @@ de_DE:
       settings: Grundeinstellungen erfolgreich geändert
       unauthorized: "Sie haben nicht die notwendigen Rechte, um diese Änderung bei diesem Teilnehmer vorzunehmen."
     recordings:
+      latest: Aktuelle Aufzeichnungen
       title: Serveraufzeichnungen
       no_recordings: Keine Aufzeichnungen vorhanden.
+      search_info: Geben Sie die vollständige E-Mail eines Nutzers oder die Raum-ID ein
     roles:
       appear_in_share_list: Nutzer mit dieser Rolle im Dropdown-Menü zum Teilen von Räumen einschließen
       can_create_rooms: Kann Räume erstellen
@@ -173,6 +180,7 @@ de_DE:
         enabled: Immer aktiviert
         optional: Optional
     rooms:
+      timeout: "Aufgrund der Zeitüberschreitung der %{server} Server-Anfrage sind die Informationen zum Status und zu den Teilnehmern möglicherweise nicht korrekt"
       title: Serverräume
       table:
         ended: "Beendet: %{session}"
@@ -471,6 +479,7 @@ de_DE:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: "Ups, es war nicht möglich die reCAPTCHA Antwort zu überprüfen. Bitte versuchen Sie es nochmals."
@@ -516,6 +525,7 @@ de_DE:
   remove: Entfernen
   rename: Umbenennen
   reset_password:
+    captcha: "reCAPTCHA Verifikation fehlgeschlagen, bitte nochmals versuchen."
     invalid_token: "Der Token zum Zurücksetzen des Passworts ist ungültig. Bitte versuchen Sie erneut, Ihr Passwort zurückzusetzen."
     subtitle: Passwort zurücksetzen
     password: Neues Passwort
@@ -542,7 +552,7 @@ de_DE:
       fail: "Raum konnte nicht gelöscht werden (%{error})"
     enter_the_access_code: Raumzugangscode bitte eingeben
     invalid_provider: "Sie haben eine ungültige URL eingegeben, bitte überprüfen Sie die URL und versuchen Sie es erneut."
-    invitation_description: "Sie wurden zu %{name} über BigBlueButton zur Teilnahme eingeladen. Um beizutreten, klicken Sie auf den obigen Link und geben Sie Ihren Namen ein."  
+    invitation_description: "Sie wurden zu %{name} über BigBlueButton zur Teilnahme eingeladen. Um beizutreten, klicken Sie auf den obigen Link und geben Sie Ihren Namen ein."
     invited: Sie wurden zur Teilnahme eingeladen
     recording_present: "Ich bestätige, dass diese Sitzung aufgezeichnet wird. Dies kann meine Sprach- und Videoaufnahmen beinhalten, wenn diese geteilt werden."
     invite_participants: Teilnehmer einladen
@@ -577,6 +587,7 @@ de_DE:
     shared_access_success: Raum erfolgreich geteilt
     shared_access_error: Beim Teilen des Raums ist ein Fehler aufgetreten
     start: Starten
+    search: Suche nach Raum…
     unavailable: "Der Raum ist aktuell nicht verfügbar, weil die E-Mail des Rauminitiators noch nicht verifiziert wurde."
     update_settings_error: Bei der Aktualisierung der Raumeinstellungen ist ein Fehler aufgetreten.
     update_settings_success: Raumeinstellungen erfolgreich aktualisiert

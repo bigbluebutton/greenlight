@@ -16,6 +16,9 @@ Rails.application.config.omniauth_twitter = ENV['TWITTER_ID'].present? && ENV['T
 Rails.application.config.omniauth_google = ENV['GOOGLE_OAUTH2_ID'].present? && ENV['GOOGLE_OAUTH2_SECRET'].present?
 Rails.application.config.omniauth_office365 = ENV['OFFICE365_KEY'].present? &&
                                               ENV['OFFICE365_SECRET'].present?
+Rails.application.config.omniauth_openid_connect = ENV['OPENID_CONNECT_CLIENT_ID'].present? &&
+                                                   ENV['OPENID_CONNECT_CLIENT_SECRET'].present? &&
+                                                   ENV['OPENID_CONNECT_ISSUER'].present?
 
 SETUP_PROC = lambda do |env|
   OmniauthOptions.omniauth_options env
@@ -56,8 +59,26 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       redirect = ENV['OAUTH2_REDIRECT'].present? ? File.join(ENV['OAUTH2_REDIRECT'], "auth", "office365", "callback") : nil
 
       provider :office365, ENV['OFFICE365_KEY'], ENV['OFFICE365_SECRET'],
-      redirect_uri: redirect,
-      setup: SETUP_PROC
+        redirect_uri: redirect,
+        setup: SETUP_PROC
+    end
+    if Rails.configuration.omniauth_openid_connect
+      Rails.application.config.providers << :openid_connect
+
+      redirect = ENV['OAUTH2_REDIRECT'].present? ? File.join(ENV['OAUTH2_REDIRECT'], "auth", "openid_connect", "callback") : nil
+
+      provider :openid_connect,
+        issuer: ENV["OPENID_CONNECT_ISSUER"],
+        discovery: true,
+        scope: [:email, :profile],
+        response_type: :code,
+        uid_field: ENV["OPENID_CONNECT_UID_FIELD"] || "preferred_username",
+        client_options: {
+          identifier: ENV['OPENID_CONNECT_CLIENT_ID'],
+          secret: ENV['OPENID_CONNECT_CLIENT_SECRET'],
+          redirect_uri: redirect
+        },
+        setup: SETUP_PROC
     end
   end
 end

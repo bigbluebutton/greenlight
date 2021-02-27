@@ -13,6 +13,8 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
+<% readonly = !can_edit_user?(@user, current_user) %>
+
 <%= form_for @user, url: update_user_path, method: :post do |f|  %>
   <%= hidden_field_tag :setting, "account" %>
   <div class="form-group">
@@ -20,14 +22,14 @@
       <div class="col-sm-6 mb-4">
         <%= f.label :name, t("settings.account.fullname"), class: "form-label" %>
         <div class="input-icon">
-          <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: t("settings.account.fullname"), readonly: !@user.greenlight_account? %>
+          <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: t("settings.account.fullname"), readonly: readonly %>
         </div>
       </div>
 
       <div class="col-sm-6 mb-4">
         <%= f.label :email, t("email"), class: "form-label" %>
         <div class="input-icon">
-          <%= f.email_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email"), readonly: !@user.greenlight_account? %>
+          <%= f.email_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email"), readonly: readonly %>
         </div>
       </div>
     </div>

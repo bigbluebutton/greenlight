@@ -1,0 +1,31 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="form-group">
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.email_mapping.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.email_mapping.info") %></label>
+        <div class="input-group">
+          <input id="email-mapping" type="text" class="form-control" value="<%= email_mapping %>">
+          <span class="input-group-append">
+            <button id="branding-image" onclick="changeEmailMapping('<%= admin_update_settings_path(setting: 'Email Mapping') %>')" class="btn btn-primary" type="button"><%= t("update") %></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -21,10 +21,10 @@
 <% end %>
 <div class="background pb-1">
   <div class="container">
-    <div class="row pt-7 pt-sm-9">
+    <div class="row pt-7 pt-sm-9 mb-7">
       <div class="col-lg-9 col-sm-12">
         <div id="room-title" class="display-3 form-inline <%= 'edit_hover_class' if current_user.main_room != @room %>" data-path="<%= update_settings_path(@room) %>">
-           <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= title(@room.name) %></h1>
+           <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400 text-break"><%= title(@room.name) %></h1>
           <% if current_user.main_room == @room %>
             <a class="disable-click"><i class="fas fa-home align-top home-indicator ml-2"></i></a>
           <% else %>
@@ -82,7 +82,19 @@
       </div>
     </div>
 
-    <div id="room_block_container" class="row pt-7 pb-5">
+    <% if total_room_count(current_user) > 5 %>
+      <div class="input-icon invite-link-input mb-3">
+        <span class="input-icon-addon">
+          <i class="fas fa-search"></i>
+          </span>
+        <input id="room-search" type="text" placeholder="<%= t("room.search") %>" class="form-control w-100" onChange="filterRooms()" onKeyUp="filterRooms()">
+        <span id="clear-room-search" class="text-primary" onclick="clearRoomSearch()">
+          <i class="fas fa-times"></i>
+        </span>
+      </div>
+    <% end %>
+
+    <div id="room_block_container" class="row mb-5">
       <% if current_user.role.get_permission("can_create_rooms") %>
         <% current_user.ordered_rooms.each do |room| %>
           <div class="col-lg-4 col-md-6 col-sm-12">
