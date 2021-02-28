@@ -525,6 +525,7 @@ nl:
   remove: Verwijder
   rename: Hernoem
   reset_password:
+    captcha: "reCAPTCHA-verificatie is mislukt, probeer het opnieuw."
     invalid_token: Token voor wachtwoordherstel is ongeldig. Probeer je wachtwoord opnieuw in te stellen.
     subtitle: Reset wachtwoord
     password: Nieuw wachtwoord
