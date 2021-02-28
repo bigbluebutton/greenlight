@@ -108,9 +108,7 @@ Rails.application.configure do
   end
 
   # enable SMTPS: SMTP over direct TLS connection
-  if ENV['SMTP_TLS'].present? && ENV['SMTP_TLS'] != "false"
-    ActionMailer::Base.smtp_settings[:tls] = true
-  end
+  ActionMailer::Base.smtp_settings[:tls] = true if ENV['SMTP_TLS'].present? && ENV['SMTP_TLS'] != "false"
 
   # If configured to 'none' don't check the smtp servers certificate
   ActionMailer::Base.smtp_settings[:openssl_verify_mode] =
