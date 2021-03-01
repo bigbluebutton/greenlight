@@ -41,7 +41,7 @@ class AccountActivationsController < ApplicationController
         flash: { success: I18n.t("registration.approval.signup") } if @user.has_role?(:pending)
 
       # Redirect user to sign in path with success flash
-      redirect_to signin_path, flash: { success: I18n.t("verify.activated") + " " + I18n.t("verify.signin") }
+      redirect_to signin_path, flash: { success: "#{I18n.t('verify.activated')} #{I18n.t('verify.signin')}" }
     else
       redirect_to root_path, flash: { alert: I18n.t("verify.invalid") }
     end

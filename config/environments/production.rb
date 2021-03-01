@@ -148,7 +148,7 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   if ENV["RAILS_LOG_TO_STDOUT"] == "true"
-    logger = ActiveSupport::Logger.new(STDOUT)
+    logger = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   elsif ENV["RAILS_LOG_REMOTE_NAME"] && ENV["RAILS_LOG_REMOTE_PORT"]

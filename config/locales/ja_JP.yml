@@ -72,7 +72,7 @@ ja_JP:
       email_mapping:
         info: "メールアドレスを使用してユーザに役割を割り当てる。メールアドレス1=役割1,メールアドレス2=役割2の形式で記述する必要があります"
         title: メールアドレスによる役割の割り当て
-        update: 
+        update:
       log_level:
         title: ログレベル
         information: 配置されたすべてのログレベルを変更する
@@ -94,7 +94,7 @@ ja_JP:
         title: メンテナンスバナー
         display: セットする
         clear: 消去する
-        time: "例: アップデートが日本時間の12月13日23:00から予定されています。その間サインインがうまくできない可能性があります。"        
+        time: "例: アップデートが日本時間の12月13日23:00から予定されています。その間サインインがうまくできない可能性があります。"
       preupload:
         info: ユーザがプレゼン資料を事前にアップロードできるようになります。この資料は、会議室固有の標準資料として使用されます。
         title: プレゼン資料の事前アップロードを許可
@@ -106,7 +106,7 @@ ja_JP:
           invite: 招待制
           open: 自由登録
       rooms:
-        info: ユーザが所有できる会議室の数を制限します(メイン会議室を含む)。 この設定は管理者には適用されません。
+        info: ユーザが所有できる会議室の数を制限します(主会議室を含む)。 この設定は管理者には適用されません。
         title: ユーザあたりの会議室数
       shared_access:
         info: 無効に設定すると、各会議室のドロップダウンから「アクセス管理」ボタンが削除され、ユーザが会議室を共有できなくなります
@@ -138,8 +138,10 @@ ja_JP:
       settings: サイト設定が変更されました
       unauthorized: このユーザにアクションを実行する権限がありません
     recordings:
+      latest: 最新の録画
       title: すべての録画
       no_recordings: このサーバには録画がありません。
+      search_info: ユーザの電子メールアドレスか、会議室のuidを入力して下さい。
     roles:
       appear_in_share_list: 会議室共有のドロップダウンにこの役割を割り当てられたユーザを含める
       can_create_rooms: 会議室の作成権
@@ -303,7 +305,7 @@ ja_JP:
       home: ホーム
       settings: プロフィール
       signout: サインアウト
-  home_room: メイン会議室
+  home_room: 主会議室
   info_update_success: 情報を更新しました。
   invalid_credentials: 入力されたメールアドレスとパスワードが登録内容と一致しませんでした。 もう一度試すか［パスワードを忘れた場合］をクリックしてパスワードをリセットしてください。
   invalid_login_method: アカウントが一致しないため、ログインに失敗しました。 Omniauthでログインする必要があります。
@@ -347,7 +349,7 @@ ja_JP:
         root_link: サインイン
         subtitle: "%{role} の権限が取り消されました"
       invite:
-        info: "%{name} があなたのパーソナルスペースに招待されました"
+        info: "%{name} があなたをパーソナルスペースに招待しました"
         signup_info: メールを使ってサインアップするには、以下のボタンをクリックして、手順に従ってください。
         signup_link: サインアップ
         signup:
@@ -477,6 +479,7 @@ ja_JP:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID接続
   recaptcha:
     errors:
       recaptcha_unreachable: reCAPTCHA応答の検証に失敗しました。 もう一度お試しください。
@@ -522,6 +525,7 @@ ja_JP:
   remove: 削除
   rename: 名前の変更
   reset_password:
+    captcha: reCAPTCHAの検証に失敗しました。 もう一度お試しください。
     invalid_token: パスワードの再設定トークンが正しくありません。パスワードの再設定をもう一度行ってみてください。
     subtitle: パスワードを再設定する
     password: 新しいパスワード
@@ -543,12 +547,12 @@ ja_JP:
     create_room_error: 会議室の作成中にエラーが発生しました
     create_room_success: 会議室が作成されました
     delete:
-      home_room: メイン会議室は削除できません
+      home_room: 主会議室は削除できません
       success: 会議室を削除しました
       fail: "会議室の削除に失敗しました(%{error})"
     enter_the_access_code: 会議室のアクセスコードを入力してください
     invalid_provider: 無効なURLを入力しました。 URLを確認して、もう一度試してみてください。
-    invitation_description: "BigBlueButtonを使用して%{name}に参加するよう招待されました。参加するためには下のリンクをクリックし、名前を入力してください。"  
+    invitation_description: "BigBlueButtonを使用して%{name}に参加するよう招待されました。参加するためには下のリンクをクリックし、名前を入力してください。"
     invited: 招待されています
     recording_present: このセッションが録画されるかもしれないこと、その場合自分の声や動画が録画に含まれうることを承知しています。
     invite_participants: 参加者を招待
@@ -571,7 +575,7 @@ ja_JP:
     preupload_error: 会議室のプレゼン資料をアップデートする際にエラーが起こりました
     preupload_remove_success: プレゼン資料の消去に成功
     preupload_remove_error: 会議室のプレゼン資料を消去する際にエラーが起こりました
-    recordings: 録画
+    recordings: 件の録画
     room_limit: 許可された会議室数の上限に達しました
     room_limit_exceeded: "許可された会議室数を超えています。 この会議室にアクセスするには、会議室を %{difference} 個削除してください。"
     sessions: セッション

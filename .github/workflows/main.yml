@@ -1,0 +1,65 @@
+env:
+  RUBY_VERSION: 2.7.2
+  DB_ADAPTER: postgresql
+  DB_HOST: localhost
+  DB_NAME: postgres
+  DB_USERNAME: postgres
+  DB_PASSWORD: postgres
+  DB_PORT: 5432
+
+name: CI
+on:
+  push:
+    branches: "master"
+  pull_request:
+    branches: "*"
+
+jobs:
+  test:
+    name: Rubocop + RSpec
+    runs-on: ubuntu-18.04
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        # Health checks to wait until postgres is ready
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Ruby ${{ env.RUBY_VERSION }}
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+
+      - name: Bundle cache
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Bundle install
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+      - name: Setup database
+        run:  |
+          bundler exec rails db:create RAILS_ENV=test
+          bundler exec rails db:migrate RAILS_ENV=test
+      - name: Run Rubocop
+        run: bundle exec rubocop --parallel --fail-level F
+
+      - name: Run RSpec
+        run: bundle exec rspec
