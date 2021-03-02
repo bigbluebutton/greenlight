@@ -525,6 +525,7 @@ gl:
   remove: Retirar
   rename: Renomear
   reset_password:
+    captcha: "Produciuse un fallo na verificación de reCAPTCHA, ténteo de novo."
     invalid_token: O testemuño de restablecemento de contrasinal non é válido. Tente restabelecer o seu contrasinal de novo.
     subtitle: Restabelecer o contrasinal
     password: Novo contrasinal

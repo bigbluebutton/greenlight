@@ -525,6 +525,7 @@ de_DE:
   remove: Entfernen
   rename: Umbenennen
   reset_password:
+    captcha: "reCAPTCHA Verifikation fehlgeschlagen, bitte nochmals versuchen."
     invalid_token: "Der Token zum Zurücksetzen des Passworts ist ungültig. Bitte versuchen Sie erneut, Ihr Passwort zurückzusetzen."
     subtitle: Passwort zurücksetzen
     password: Neues Passwort

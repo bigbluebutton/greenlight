@@ -42,7 +42,7 @@ class User < ApplicationRecord
   validate :check_domain, if: :greenlight_account?, on: :create
   validates :email, length: { maximum: 256 }, allow_blank: true,
                     uniqueness: { case_sensitive: false, scope: :provider },
-                    format: { with: /\A[\w+\-\'.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+                    format: { with: /\A[\w+\-'.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
   validates :password, length: { minimum: 6 }, confirmation: true, if: :greenlight_account?, on: :create
 

@@ -43,7 +43,7 @@ class UserMailer < ApplicationMailer
   def user_promoted(user, role, url, settings)
     @settings = settings
     @url = url
-    @admin_url = url + "admins"
+    @admin_url = "#{url}admins"
     @image = logo_image
     @color = user_color
     @role = translated_role_name(role)

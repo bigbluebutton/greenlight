@@ -525,6 +525,7 @@ es:
   remove: Eliminar
   rename: Cambiar nombre
   reset_password:
+    captcha: "La verificación reCAPTCHA ha falado, intentalo nuevamente."
     invalid_token: El token de restablecimiento de contraseña no es válido. Intente restablecer su contraseña nuevamente.
     subtitle: Reiniciar contraseña
     password: Nueva contraseña
