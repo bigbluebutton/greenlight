@@ -113,7 +113,7 @@ module Authenticator
       old_user.rooms.each do |room|
         room.owner = user
 
-        room.name = "Old " + room.name if room.id == old_user.main_room.id
+        room.name = "Old #{room.name}" if room.id == old_user.main_room.id
 
         room.save!
       end

@@ -107,6 +107,9 @@ Rails.application.configure do
     }
   end
 
+  # enable SMTPS: SMTP over direct TLS connection
+  ActionMailer::Base.smtp_settings[:tls] = true if ENV['SMTP_TLS'].present? && ENV['SMTP_TLS'] != "false"
+
   # If configured to 'none' don't check the smtp servers certificate
   ActionMailer::Base.smtp_settings[:openssl_verify_mode] =
     ENV['SMTP_OPENSSL_VERIFY_MODE'] if ENV['SMTP_OPENSSL_VERIFY_MODE'].present?
@@ -148,7 +151,7 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   if ENV["RAILS_LOG_TO_STDOUT"] == "true"
-    logger = ActiveSupport::Logger.new(STDOUT)
+    logger = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   elsif ENV["RAILS_LOG_REMOTE_NAME"] && ENV["RAILS_LOG_REMOTE_PORT"]

@@ -1,6 +1,5 @@
 # Greenlight
 
-![Travis CI](https://travis-ci.org/bigbluebutton/greenlight.svg?branch=master)
 ![Coverage
 !Status](https://coveralls.io/repos/github/bigbluebutton/greenlight/badge.svg?branch=master)
 ![Docker Pulls](https://img.shields.io/docker/pulls/bigbluebutton/greenlight.svg)
@@ -33,4 +32,4 @@ Greenlight is built using Ruby on Rails. Many developers already know Rails well
 
 We invite you to build upon Greenlight and help make it better. See [Contributing to BigBlueButton](http://docs.bigbluebutton.org/support/faq.html#contributing-to-bigbluebutton).
 
-We invite your feedback, questions, and suggests about Greenlight too. Please post them to the [developer mailing list](https://groups.google.com/forum/#!forum/bigbluebutton-dev).
+We invite your feedback, questions, and suggests about Greenlight too. Please post them to the [Greenlight mailing list](https://groups.google.com/forum/#!forum/bigbluebutton-greenlight).
