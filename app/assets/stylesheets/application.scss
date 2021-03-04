@@ -46,13 +46,14 @@
 @import "sessions";
 @import "utilities/fonts";
 @import "users";
+@import "rtl";
 
 * {
   outline: none !important;
 }
 
 html, body {
-  font-family: "Source Sans Pro" !important;
+  font-family: "Yekan" !important;
   position: relative;
   width: 100%;
   height: 100%;

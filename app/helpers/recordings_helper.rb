@@ -30,7 +30,7 @@ module RecordingsHelper
       return recording_length_string(length) unless length.zero?
     end
     # Return '< 1 min' if length values are zero
-    "< 1 min"
+    "< 1 دقیقه"
   end
 
   # Prevents single images from erroring when not passed as an array.
@@ -52,9 +52,9 @@ module RecordingsHelper
   # Returns length of the recording as a string
   def recording_length_string(len)
     if len > 60
-      "#{(len / 60).to_i} h #{len % 60} min"
+      "#{(len / 60).to_i} ساعت #{len % 60} دقیقه"
     else
-      "#{len} min"
+      "#{len} دقیقه"
     end
   end
 end
