@@ -22,13 +22,13 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Compute Short SHA
-        uses: benjlevesque/short-sha@v1.2
+        uses: farhatahmad/short-sha@v1.2
         id: short-sha
         with:
           length: 7
 
       - name: Get Branch Name
-        uses: tj-actions/branch-names@v2
+        uses: farhatahmad/branch-names@v2
         id: branch-name
 
       - name: Build and Push latest
