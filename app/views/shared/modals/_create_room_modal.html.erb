@@ -43,6 +43,19 @@
               </span>
             </div>
 
+            <% if moderator_code_allowed? %>
+              <div class="input-icon mb-2">
+                <span onclick="generateModeratorAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
+                  <i class="fas fa-dice"></i>
+                </span>
+                <%= f.label :moderator_access_code, t("modal.create_room.moderator_access_code_placeholder"), id: "create-room-moderator-access-code", class: "form-control" %>
+                <%= f.hidden_field :moderator_access_code %>
+                <span onclick="ResetModeratorAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
+                  <i class="far fa-trash-alt"></i>
+                </span>
+              </div>
+            <% end %>
+
             <% mute = room_configuration("Room Configuration Mute On Join") %>
             <% if mute != "disabled" %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if mute == "enabled" %>">
