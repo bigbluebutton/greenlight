@@ -33,6 +33,11 @@ module Greenlight
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    def parse_bool(val, default = false)
+      val = ActiveModel::Type::Boolean.new.cast(val)
+      val.nil? ? default : val
+    end
+
     # Use custom error routes.
     config.exceptions_app = routes
 
@@ -87,16 +92,16 @@ module Greenlight
     config.smtp_sender = ENV['SMTP_SENDER'] || "notifications@example.com"
 
     # Determine if GreenLight should enable email verification
-    config.enable_email_verification = (ENV['ALLOW_MAIL_NOTIFICATIONS'] == "true")
+    config.enable_email_verification = parse_bool(ENV['ALLOW_MAIL_NOTIFICATIONS'])
 
     # Determine if GreenLight should allow non-omniauth signup/login.
-    config.allow_user_signup = (ENV['ALLOW_GREENLIGHT_ACCOUNTS'] == "true")
+    config.allow_user_signup = parse_bool(ENV['ALLOW_GREENLIGHT_ACCOUNTS'])
 
     # Configure custom banner message.
     config.banner_message = ENV['BANNER_MESSAGE']
 
     # Enable/disable recording thumbnails.
-    config.recording_thumbnails = (ENV['RECORDING_THUMBNAILS'] != "false")
+    config.recording_thumbnails = parse_bool(ENV['RECORDING_THUMBNAILS'], true)
 
     # Configure which settings are available to user on room creation/edit after creation
     config.room_features = ENV['ROOM_FEATURES'] || ""
@@ -111,7 +116,7 @@ module Greenlight
     config.recaptcha_enabled = ENV['RECAPTCHA_SITE_KEY'].present? && ENV['RECAPTCHA_SECRET_KEY'].present?
 
     # Show/hide "Add to Google Calendar" button in the room page
-    config.enable_google_calendar_button = (ENV['ENABLE_GOOGLE_CALENDAR_BUTTON'] == "true")
+    config.enable_google_calendar_button = parse_bool(ENV['ENABLE_GOOGLE_CALENDAR_BUTTON'])
 
     # Enum containing the different possible registration methods
     config.registration_methods = { open: "0", invite: "1", approval: "2" }
@@ -119,11 +124,11 @@ module Greenlight
     config.google_analytics = ENV["GOOGLE_ANALYTICS_TRACKING_ID"].present?
 
     # Will always be true unless explicitly set to false
-    config.enable_cache = ENV["ENABLE_CACHED_PROVIDER"] != "false"
+    config.enable_cache = parse_bool(ENV["ENABLE_CACHED_PROVIDER"], true)
 
     # MAINTENANCE
     config.maintenance_window = ENV["MAINTENANCE_WINDOW"]
-    config.maintenance_mode = ENV["MAINTENANCE_MODE"] == "true"
+    config.maintenance_mode = parse_bool(ENV["MAINTENANCE_MODE"])
 
     config.report_issue_url = ENV["REPORT_ISSUE_URL"]
     config.help_url = ENV["HELP_URL"].nil? ? "https://docs.bigbluebutton.org/greenlight/gl-overview.html" : ENV["HELP_URL"]
@@ -149,9 +154,10 @@ module Greenlight
     config.primary_color_darken_default = "#316cbe"
 
     # Default registration method if the user does not specify one
-    config.registration_method_default = if ENV["DEFAULT_REGISTRATION"] == "invite"
+    config.registration_method_default = case ENV["DEFAULT_REGISTRATION"]
+                                         when "invite"
       config.registration_methods[:invite]
-    elsif ENV["DEFAULT_REGISTRATION"] == "approval"
+    when "approval"
       config.registration_methods[:approval]
     else
       config.registration_methods[:open]
