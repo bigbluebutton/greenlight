@@ -111,6 +111,11 @@ ja_JP:
       shared_access:
         info: 無効に設定すると、各会議室のドロップダウンから「アクセス管理」ボタンが削除され、ユーザが会議室を共有できなくなります
         title: 会議室の共有を許可
+      moderator_codes:
+        info: "モデレーターからの正規のコードがあれば、ユーザーはアカウントを作成しなくてもモデレーターとして会議に参加でき、個別にアクセスを受けることができます。この設定は会議室ごとに可能です。"
+        title: モデレーターコードの作成を許可
+        enabled: 有効
+        disabled: 常に無効
       subtitle: Greenlightのカスタマイズ
       tabs:
         appearance: 表示
@@ -390,7 +395,9 @@ ja_JP:
       title: 新しい役割を作成
     create_room:
       access_code: アクセスコード
+      moderator_access_code: モデレーターコード
       access_code_placeholder: 会議室のアクセスコードを生成する
+      moderator_access_code_placeholder: 予備のモデレーターコードを作成する
       auto_join: 会議に自動的に参加する
       create: 会議室の作成
       free_delete: この会議室はいつでも自由に削除できます。
@@ -543,6 +550,7 @@ ja_JP:
     access_code_required: 会議に参加するには、有効なアクセスコードを入力してください
     add_presentation: プレゼン資料を追加
     copy_access: アクセスコードをコピー
+    copy_moderator_access: モデレーターコードをコピーする
     create_room: 会議室の作成
     create_room_error: 会議室の作成中にエラーが発生しました
     create_room_success: 会議室が作成されました
@@ -551,6 +559,8 @@ ja_JP:
       success: 会議室を削除しました
       fail: "会議室の削除に失敗しました(%{error})"
     enter_the_access_code: 会議室のアクセスコードを入力してください
+    enter_the_moderator_access_code: モデレーターコードを使用して会議室に入室する
+    optional_moderator_access_code: "予備のモデレーターコード"
     invalid_provider: 無効なURLを入力しました。 URLを確認して、もう一度試してみてください。
     invitation_description: "BigBlueButtonを使用して%{name}に参加するよう招待されました。参加するためには下のリンクをクリックし、名前を入力してください。"
     invited: 招待されています
