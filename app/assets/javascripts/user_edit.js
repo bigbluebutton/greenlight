@@ -32,5 +32,15 @@ $(document).on('turbolinks:load', function(){
     $("#role-dropdown").on("changed.bs.select", function(){
       $("#user_role_id").val($("#role-dropdown").selectpicker('val'))
     })
+
+    // Update hidden field with new value
+    // $("#language-dropdown").on("show.bs.select", function(){
+    //   $("#language-dropdown").selectpicker('val', $("#user_language").val())
+    // })
+    
+    // Update hidden field with new value
+    $("#language-dropdown").on("changed.bs.select", function(){
+      $("#user_language").val($("#language-dropdown").selectpicker('val'))
+    })
   }
 })

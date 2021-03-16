@@ -69,6 +69,10 @@ en:
         regular: Regular
         lighten: Lighten
         darken: Darken
+      email_mapping:
+        info: Map the user to a role using their email. Must be in the format email1=role1,email2=role2
+        title: Role Mapping by Email
+        update:
       log_level:
         title: Log Level
         information: Change the Log Level for the entire deployment
@@ -90,7 +94,7 @@ en:
         title: Maintenance Banner
         display: Set
         clear: Clear
-        time: "Example: Update scheduled on December 13 @ 23:00 ET. Users may experience problems signing in."        
+        time: "Example: Update scheduled on December 13 @ 23:00 ET. Users may experience problems signing in."
       preupload:
         info: Users can preupload a presentation to be used as the default presentation for that specific room
         title: Allow Users to Preupload Presentations
@@ -107,10 +111,16 @@ en:
       shared_access:
         info: Setting to disabled will remove the button from the Room options dropdown, preventing users from sharing rooms
         title: Allow Users to Share Rooms
+      moderator_codes:
+        info: "With valid moderator codes, users can join a room as a moderator without having to create an account and receive access individually. The setting can be made separately for each room."
+        title: Enables the generation of moderator codes
+        enabled: Enabled
+        disabled: Disabled
       subtitle: Customize Greenlight
       tabs:
         appearance: Appearance
         administration: Administration
+        registration: Registration
         settings: Settings
       title: Site Settings
     flash:
@@ -133,8 +143,10 @@ en:
       settings: Site Settings successfully changed
       unauthorized: You are not authorized to perform actions on this user
     recordings:
+      latest: Latest Recordings
       title: Server Recordings
       no_recordings: This server has no recordings.
+      search_info: Enter a user's full email or a room's uid
     roles:
       appear_in_share_list: Include users with this role in the dropdown for sharing rooms
       can_create_rooms: Can create rooms
@@ -173,6 +185,7 @@ en:
         enabled: Always Enabled
         optional: Optional
     rooms:
+      timeout: Due to the %{server} Server request timing out, the information for status and participants may not be accurate
       title: Server Rooms
       table:
         ended: "Ended: %{session}"
@@ -202,12 +215,14 @@ en:
       table:
         authenticator: Authenticator
         created: Created
+        time: Time Sent
         name: Name
         not_found: No users match your search
         no_users: No users found
         role: Role
         uid: User ID
         username: Username
+        valid: Valid
       title: Manage Users
   add_to_google_calendar: "Add to Google Calendar"
   bigbluebutton: BigBlueButton
@@ -381,7 +396,9 @@ en:
       title: Create New Role
     create_room:
       access_code: Access Code
+      moderator_access_code: Moderator Code
       access_code_placeholder: Generate an optional room access code
+      moderator_access_code_placeholder: Generate an optional code for moderators
       auto_join: Automatically join me into the room
       create: Create Room
       free_delete: You will be free to delete this room at any time.
@@ -470,6 +487,7 @@ en:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: Oops, we failed to validate your reCAPTCHA response. Please try again.
@@ -515,6 +533,7 @@ en:
   remove: Remove
   rename: Rename
   reset_password:
+    captcha: reCAPTCHA verification failed, please try again.
     invalid_token: Password reset token is invalid. Please try resetting your password again.
     subtitle: Reset Password
     password: New Password
@@ -531,6 +550,8 @@ en:
   room:
     access_code_required: Please enter a valid access code to join the room
     add_presentation: Add Presentation
+    copy_access: Copy Access Code
+    copy_moderator_access: Copy Moderator Code
     create_room: Create a Room
     create_room_error: There was an error creating the room
     create_room_success: Room created successfully
@@ -539,8 +560,10 @@ en:
       success: Room deleted successfully
       fail: Failed to delete room (%{error})
     enter_the_access_code: Enter the room's access code
+    enter_the_moderator_access_code: Enter the room's moderator code!
+    optional_moderator_access_code: "Optional Moderator Code:"
     invalid_provider: You have entered an invalid url. Please check the url and try again.
-    invitation_description: You have been invited to join %{name} using BigBlueButton. To join, click the link above and enter your name.  
+    invitation_description: You have been invited to join %{name} using BigBlueButton. To join, click the link above and enter your name.
     invited: You have been invited to join
     recording_present: I acknowledge that this session is going to be recorded. This may include my voice and video if enabled.
     invite_participants: Invite Participants
@@ -575,6 +598,7 @@ en:
     shared_access_success: Room shared successfully
     shared_access_error: There was an error sharing the room
     start: Start
+    search: Search for room…
     unavailable: This room is currently unavailable due to the owner's email not being verified.
     update_settings_error: There was an error updating the room settings
     update_settings_success: Room settings successfully updated
@@ -583,7 +607,7 @@ en:
       auto: You will automatically join when the meeting starts.
   settings:
     account:
-      fullname: Full name
+      fullname: Full Name
       language: Language
       provider: Provider
       image: Image
