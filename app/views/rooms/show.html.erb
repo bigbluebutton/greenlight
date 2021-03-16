@@ -51,12 +51,19 @@
                     <%= t("copy") %>
                   </button>
                 </div>
-                <div class="col-sm-6 pl-0 mt-2">
+                <div class="btn-group-vertical col-sm-6 pl-0 mt-2">
                   <% if @room.access_code.present? %>
                     <input id="copy-code" value="<%= @room.access_code %>" type="hidden">
                     <button id="copy-access" class="btn btn-secondary btn-block" onclick="copyAccess()">
                       <i class="fas fa-copy mr-1"></i>
                       <%= t("room.copy_access") %>
+                    </button>
+                  <% end %>
+                  <% if moderator_code_allowed? && @room.moderator_access_code.present? %>
+                    <input id="copy-moderator-code" value="<%= @room.moderator_access_code %>" type="hidden">
+                    <button id="copy-moderator-access" class="btn btn-secondary btn-block" onclick="copyAccess('moderator')">
+                      <i class="fas fa-copy mr-1"></i>
+                      <%= t("room.copy_moderator_access") %>
                     </button>
                   <% end %>
                   <% if Rails.configuration.enable_google_calendar_button %>

@@ -39,7 +39,7 @@ namespace :room do
       next if room.uid.split("-").length > 3
 
       begin
-        new_uid = room.uid + "-" + SecureRandom.alphanumeric(3).downcase
+        new_uid = "#{room.uid}-#{SecureRandom.alphanumeric(3).downcase}"
         puts "Updating #{room.uid} to #{new_uid}"
         room.update_attributes(uid: new_uid)
       rescue => e

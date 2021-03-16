@@ -416,7 +416,7 @@ describe UsersController, type: :controller do
         tmp_role1.update_permission("send_promoted_email", "true")
 
         params = random_valid_user_params
-        params = params.merge!(user_uid: user, user: { role_id: tmp_role1.id.to_s })
+        params.merge!(user_uid: user, user: { role_id: tmp_role1.id.to_s })
 
         expect { post :update, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
 
@@ -440,7 +440,7 @@ describe UsersController, type: :controller do
         @request.session[:user_id] = admin.id
 
         params = random_valid_user_params
-        params = params.merge!(user_uid: user, user: { role_id: new_role.id.to_s })
+        params.merge!(user_uid: user, user: { role_id: new_role.id.to_s })
 
         expect(user.role.name).to eq("test1")
         expect(user.main_room).to be_nil
@@ -503,7 +503,7 @@ describe UsersController, type: :controller do
         user: {
           password: "incorrect_password",
           new_password: @password,
-          password_confirmation: @password + "_random_string",
+          password_confirmation: "#{@password}_random_string",
         }
       }
       post :update_password, params: params.merge!(user_uid: @user)
