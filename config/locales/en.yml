@@ -177,7 +177,7 @@ en:
         info: Allows room owners to specify whether they want the option to record a room or not. If enabled, the moderator must still click the "Record" button once the meeting has started.
       moderator_codes:
         info: Allows room owners to optionally generate a moderator pin which allows other users to join directly as moderators.
-        title: Enables the generation of moderator codes
+        title: Moderator Access Code
       options:
         disabled: Disabled
         enabled: Always Enabled
