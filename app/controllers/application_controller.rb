@@ -188,7 +188,7 @@ class ApplicationController < ActionController::Base
 
   # Indicates whether users are allowed to add moderator access codes to rooms
   def moderator_code_allowed?
-    @settings.get_value("Moderator Access Codes") == "true"
+    @settings.get_value("Room Configuration Moderator Access Codes") == "optional"
   end
   helper_method :moderator_code_allowed?
 
