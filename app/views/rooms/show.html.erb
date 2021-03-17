@@ -14,6 +14,7 @@
 %>
 
 <% exceeds_limit = current_room_exceeds_limit(@room)%>
+<% can_create = current_user.role.get_permission("can_create_rooms") %>
 <% if exceeds_limit%>
   <div class="alert alert-danger alert-dismissible text-center mb-0">
     <%= t("room.room_limit_exceeded", difference: @diff) %>
@@ -29,13 +30,18 @@
             <a class="disable-click"><i class="fas fa-home align-top home-indicator ml-2"></i></a>
           <% else %>
             <h1 contenteditable=false id="user-text" class="display-3 text-left mb-3 font-weight-400"><%= @room.name %></h1>
+            <% if can_create %>
             <a><i id="edit-room" class="fa fa-edit align-top home-indicator ml-2" data-edit-room="<%= @room.uid %>"></i></a>
+          <% end %>
           <% end %>
         </div>
         <h4 class="text-left mb-6"><%= @room.sessions %> <%= t("room.sessions") %> | <%= @recordings.length %> <%= t("room.recordings") %></h4>
         <% unless exceeds_limit %>
+        <% if can_create %>
           <label class="form-label"><%= t("room.invite_participants") %></label>
+          <% end %>
           <div class="row">
+           <% if can_create %>
             <div class="col-lg-7 col-md-12 mt-2">
               <div class="input-icon invite-link-input">
                 <span class="input-icon-addon">
@@ -44,14 +50,17 @@
                 <input id="invite-url" type="text" class="form-control w-100" value="<%= request.base_url + @room.invite_path %>" readonly="">
               </div>
             </div>
+        <% end %>
             <div class="col-lg-5 col-md-12">
               <div class="row">
+               <% if can_create %>
                 <div class="col-sm-6">
                   <a id="copy" class="btn btn-primary btn-block mt-2">
                     <i class="fas fa-copy"></i>
                     <%= t("copy") %>
                   </a>
                 </div>
+                 <% end %>
                 <div class="col-sm-6 pl-0">
                   <% if Rails.configuration.enable_google_calendar_button %>
                     <a href="<%= google_calendar_path %>" target="__blank" id="schedule" class="btn btn-primary btn-block mt-2">
@@ -68,10 +77,12 @@
       <div class="offset-lg-1 col-lg-3 col-sm-12 force-bottom mt-5">
         <% if @room_running %>
           <%= button_to t("room.join"), room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right", "data-disable": "" %>
-        <% else %>
+        <% elsif can_create %>
           <% unless exceeds_limit %>
             <%= button_to t("room.start"), start_room_path(@room), class: "btn btn-primary btn-block px-7 start-button float-right", "data-disable": "" %>
           <% end %>
+         <% else %>
+          <button type="button" onclick="location.reload();" class="btn btn-primary btn-block px-7 start-button float-right">Refresh</button>
         <% end %>
       </div>
     </div>

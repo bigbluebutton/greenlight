@@ -8,7 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.4.3'
+gem 'rails', '~> 5.2.4.4'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.12'
@@ -26,7 +26,7 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'mini_racer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '~> 4.3.3'
+gem 'jquery-rails', '~> 4.4'
 gem 'jquery-ui-rails'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -50,13 +50,14 @@ gem 'sprockets', '< 4.0.0'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
+gem 'omniauth_openid_connect'
 gem 'omniauth-bn-launcher', '~> 0.1.3'
 gem 'net-ldap'
-gem 'bn-ldap-authentication', '~> 0.1.3'
+gem 'bn-ldap-authentication', '~> 0.1.4'
 gem 'omniauth-bn-office365', '~> 0.1.1'
 
 # BigBlueButton API wrapper.
-gem 'bigbluebutton-api-ruby'
+gem 'bigbluebutton-api-ruby', git: 'https://github.com/mconf/bigbluebutton-api-ruby.git', branch: 'master'
 
 # Front-end.
 gem 'bootstrap', '~> 4.3.1'
@@ -76,10 +77,20 @@ gem 'redcarpet'
 # For limiting access based on user roles
 gem 'cancancan', '~> 2.0'
 
+# Active Storage gems
+gem 'aws-sdk-s3', '~> 1.75'
+gem 'google-cloud-storage', '~> 1.26'
+
+gem 'pluck_to_hash', '~> 1.0.2'
+
+gem 'local_time', '~> 2.1.0'
+
+# Use a sqlite database in test and development.
+gem 'sqlite3', '~> 1.3.6'
+
 group :production do
-  gem 'sqlite3'
   # Use a postgres database in production.
-  gem 'pg'
+  gem 'pg', '~> 0.18'
   gem 'sequel'
 
   # For a better logging library in production
@@ -98,8 +109,6 @@ group :development, :test do
   gem 'byebug', platform: :mri
   # Environment configuration.
   gem 'dotenv-rails'
-  # Use a sqlite database in test and development.
-  gem 'sqlite3'
 end
 
 group :test do

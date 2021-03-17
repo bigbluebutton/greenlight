@@ -16,8 +16,8 @@
 <div class="header py-4">
   <div class="container">
     <div class="d-flex">
-      <!-- linked branding logo with our main site -->
-      <%= link_to ("https://higheredlab.com/"), class: "header-brand" do %>
+      <!-- linked branding logo with main site -->
+      <%= link_to (Rails.configuration.logo_url), class: "header-brand" do %>
         <% begin %>
           <%= image_tag(logo_image, class: "header-brand-img", alt:"") %>
         <% rescue %>

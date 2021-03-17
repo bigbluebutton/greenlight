@@ -159,5 +159,11 @@ module Greenlight
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
+
+    #Defalt logo url
+    config.logo_url = ENV['LOGO_URL']
+
+    #Default logout url
+    config.signout_redirect_url = ENV['SIGNOUT_REDIRECT_URL'] || 'root_path'
   end
 end
