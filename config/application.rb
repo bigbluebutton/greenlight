@@ -176,7 +176,7 @@ module Greenlight
     config.preupload_presentation_default = "false"
 
     # Don't show option to generate moderator access codes
-    config.moderator_codes_default = "false"
+    config.moderator_codes_default = "disabled"
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
