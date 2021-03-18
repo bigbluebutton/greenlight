@@ -180,7 +180,7 @@ class ApplicationController < ActionController::Base
   end
   helper_method :shared_access_allowed
 
-  # Indicates whether users are allowed to share rooms
+  # Indicates whether users should consent recoding when joining rooms
   def recording_consent_required?
     @settings.get_value("Require Recording Consent") == "true"
   end
