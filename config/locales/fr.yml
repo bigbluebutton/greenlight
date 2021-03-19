@@ -145,6 +145,7 @@ fr:
     roles:
       appear_in_share_list: Inclure les utilisateurs ayant ce rôle dans la liste déroulante de partage des salons
       can_create_rooms: Peut créer des salles
+      can_launch_recording: Permet aux utilisateurs ayant ce rôle d'effectuer des enregistrements
       delete: Supprimer le rôle
       invalid_create: Il y a eu un problème lors de la création du nouveau rôle. Veuillez vérifier les valeurs entrées et réessayer.
       invalid_order: Il y a eu un problème lors de la mise à jour de la priorité du rôle. Veuillez vérifier les valeurs et réessayer.

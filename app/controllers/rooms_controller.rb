@@ -431,11 +431,21 @@ class RoomsController < ApplicationController
   def record_meeting
     # If the require consent setting is checked, then check the room setting, else, set to true
     if recording_consent_required?
-      room_setting_with_config("recording")
+      room_setting_with_config("recording") && current_user&.role&.get_permission("can_launch_recording")
     else
-      true
+      current_user&.role&.get_permission("can_launch_recording")
     end
   end
+
+  def perm_to_record_meeting
+    # define perm without init config of room setting
+    if recording_consent_required?
+      @settings.get_value("Room Configuration Recording") != "disabled" && current_user&.role&.get_permission("can_launch_recording")
+    else
+      current_user&.role&.get_permission("can_launch_recording")
+    end
+  end
+  helper_method :perm_to_record_meeting
 
   # Checks if the file extension is allowed
   def valid_file_type
