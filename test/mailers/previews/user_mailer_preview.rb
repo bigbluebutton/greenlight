@@ -3,8 +3,7 @@
 class UserMailerPreview < ActionMailer::Preview
   def initialize(_params)
     super
-    @logo = "https://raw.githubusercontent.com/bigbluebutton/greenlight/master/app/assets/images/logo_with_text.png"
-    @color = "#467fcf"
+    @settings = Setting.find_by(provider: "greenlight")
   end
 
   # Preview this email at
@@ -27,7 +26,7 @@ class UserMailerPreview < ActionMailer::Preview
   # Preview this email at
   # http://localhost:3000/rails/mailers/user_mailer/invite_email
   def invite_email
-    UserMailer.invite_email("Example User", "from@example.com", "http://example.com/signup", @logo, @color)
+    UserMailer.invite_email("Example User", "from@example.com", DateTime.now, "http://example.com/signup", @settings)
   end
 
   # Preview this email at
