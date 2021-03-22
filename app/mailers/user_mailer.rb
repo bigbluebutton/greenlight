@@ -64,13 +64,14 @@ class UserMailer < ApplicationMailer
     mail to: user.email, subject: t('mailer.user.demoted.subtitle', role: translated_role_name(role))
   end
 
-  def invite_email(name, email, url, settings)
+  def invite_email(name, email, invite_date, url, settings)
     @settings = settings
     @name = name
     @email = email
     @url = url
     @image = logo_image
     @color = user_color
+    @date = "#{(invite_date + 2.days).strftime('%b %d, %Y %-I:%M%P')} UTC"
     mail to: email, subject: t('mailer.user.invite.subject')
   end
 
