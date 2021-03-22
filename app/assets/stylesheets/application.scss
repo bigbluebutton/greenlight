@@ -134,10 +134,13 @@ a {
 }
 
 .cookies-banner {
-  color: white;
-  background-color: $button-color-blue;
   #cookies-agree-button {
     margin: 0;
+  }
+  .cookies-warning-text, .cookies-warning-button {
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0.75rem;
   }
 }
 
