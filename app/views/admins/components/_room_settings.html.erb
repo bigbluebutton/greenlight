@@ -124,5 +124,26 @@
       </div>
     </div>
   <% end %>
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.room_configuration.moderator_codes.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.room_configuration.moderator_codes.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= room_configuration_string("Room Configuration Moderator Access Codes") %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="room-auth">
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Moderator Access Codes", value: "optional"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.optional") %>            
+            <% end %>
+            <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Moderator Access Codes", value: "disabled"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.room_configuration.options.disabled") %>   
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
