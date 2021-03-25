@@ -66,7 +66,7 @@ class NeelzController < ApplicationController
     return redirect_to("#{Rails.configuration.instance_url}", alert: 'invalid request') unless @neelz_room
     session[:neelz_join_name] = cookies.encrypted[:greenlight_name] = @neelz_room.proband_alias
     session[:neelz_role] = 'proband'
-    redirect_to "#{Rails.configuration.instance_url}#{neelz_room.uid}"
+    redirect_to "#{Rails.configuration.instance_url}#{@neelz_room.uid}"
   end
 
   # GET /neelz
