@@ -1,0 +1,31 @@
+// Declare all variables here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$background-image-landing-page: url('https://bigblue-dev2.konkret-mafo.cloud/bg-landing-earth.gif');
+
+$logo-url: url('https://bigblue-dev2.konkret-mafo.cloud/logo.png');
+$logo-with-text-url: url('https://bigblue-dev2.konkret-mafo.cloud/logo_with_text.png');
+
+$background-color: #94948F;
+$background-color-wrapper: white;
+$error-background-color: #EFE6E6;
+$header-background-color: black;
+$footer-background-color: $header-background-color;
+$button-color-blue: #467FCF;
+
+$cookies-banner-color: white;
+$cookies-banner-background-color: #467FCF;
+$cookies-agree-button-color: inherit;
+$cookies-agree-button-background-color: green;
+
+$main-text-color: white;
+$main-text-text-shadow: 8px 6px 5px black;
+$main-text-font-weight: bold;
+
+$header-height: 46px;
+$footer-height: 40px;
+
+$client-viewport-side-border: 8px solid $header-background-color;
+
+$width-logo: 125px;
