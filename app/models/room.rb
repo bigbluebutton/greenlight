@@ -102,7 +102,7 @@ class Room < ApplicationRecord
     self.uid = unique_id
   end
 
-  private
+  protected
 
   # Generates a uid for the room and BigBlueButton.
   def setup
@@ -111,6 +111,8 @@ class Room < ApplicationRecord
     self.moderator_pw = RandomPassword.generate(length: 12)
     self.attendee_pw = RandomPassword.generate(length: 12)
   end
+
+  private
 
   # Generates a fully random room uid.
   def random_room_uid
