@@ -103,6 +103,29 @@ Rails.application.routes.draw do
     get '/:user_uid/recordings', to: 'users#recordings', as: :get_user_recordings
   end
 
+  scope '/neelz' do
+    get '/', to: 'neelz#preform', as: :neelz_preform
+    get '/gate', to: 'neelz#gate', param: [:qvid,
+                                           :url_interviewer,
+                                           :url_proband,
+                                           :interviewer_personal_nr,
+                                           :interviewer_name,
+                                           :proband_readonly,
+                                           :studie_name,
+                                           :cs], as: :neelz_gate
+    post '/waiting', to: 'neelz#waiting', as: :neelz_waiting
+    get '/cgate/:proband_qvid', to: 'neelz#cgate', as: :neelz_cgate
+    post '/share', to: 'neelz#share', as: :neelz_share
+    post '/unshare', to: 'neelz#unshare', as: :neelz_unshare
+    post '/refresh', to: 'neelz#refresh', as: :neelz_refresh
+    post '/i_share', to: "neelz#i_share", as: :neelz_i_share
+    get '/thank_you/:qvid', to: 'neelz#thank_you', as: :neelz_thank_you
+    get '/i_inside', to: 'neelz#i_inside', as: :neelz_i_inside
+    get '/p_inside', to: 'neelz#p_inside', as: :neelz_p_inside
+  end
+
+  get '/inside', to: 'rooms#inside', as: :inside
+
   # Handles Omniauth authentication.
   match '/auth/:provider/callback', to: 'sessions#omniauth', via: [:get, :post], as: :omniauth_session
   get '/auth/failure', to: 'sessions#omniauth_fail'

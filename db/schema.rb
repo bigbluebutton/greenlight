@@ -10,28 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_08_032132) do
-
-  create_table "active_storage_attachments", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
-    t.datetime "created_at", null: false
-    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
-  end
-
-  create_table "active_storage_blobs", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
-    t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
-    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
-  end
+ActiveRecord::Schema.define(version: 2020_01_30_144841) do
 
   create_table "features", force: :cascade do |t|
     t.integer "setting_id"
@@ -96,7 +75,6 @@ ActiveRecord::Schema.define(version: 2021_01_08_032132) do
     t.string "attendee_pw"
     t.string "access_code"
     t.boolean "deleted", default: false, null: false
-    t.string "moderator_access_code"
     t.index ["bbb_id"], name: "index_rooms_on_bbb_id"
     t.index ["deleted"], name: "index_rooms_on_deleted"
     t.index ["last_session"], name: "index_rooms_on_last_session"
@@ -142,14 +120,11 @@ ActiveRecord::Schema.define(version: 2021_01_08_032132) do
     t.string "activation_digest"
     t.datetime "activated_at"
     t.boolean "deleted", default: false, null: false
-    t.integer "role_id"
-    t.datetime "last_login"
     t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["deleted"], name: "index_users_on_deleted"
     t.index ["email"], name: "index_users_on_email"
     t.index ["password_digest"], name: "index_users_on_password_digest", unique: true
     t.index ["provider"], name: "index_users_on_provider"
-    t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["room_id"], name: "index_users_on_room_id"
   end
 
@@ -159,6 +134,31 @@ ActiveRecord::Schema.define(version: 2021_01_08_032132) do
     t.index ["role_id"], name: "index_users_roles_on_role_id"
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
     t.index ["user_id"], name: "index_users_roles_on_user_id"
+  end
+
+  create_table "neelz_attributes", force: :cascade do |t|
+    t.integer "neelz_room_id", null: false
+    t.integer "qvid", null: false
+    t.string "name_of_study", null: false
+    t.string "interviewer_name"
+    t.string "proband_alias"
+    t.boolean "interviewer_browses", default: true
+    t.boolean "proband_browses", default: true
+    t.string "interviewer_url"
+    t.string "proband_url"
+    t.boolean "proband_readonly", default: false
+    t.boolean "co_browsing_externally_triggered", default: false
+    t.integer "interviewer_screen_split_mode_on_login", default: 5
+    t.integer "proband_screen_split_mode_on_login", default: 1
+    t.integer "proband_screen_split_mode_on_share", default: 5
+    t.integer "external_frame_min_width", default: 1024
+    t.boolean "show_participants_on_login", default: true
+    t.boolean "show_chat_on_login", default: false
+    t.boolean "always_record", default: false
+    t.boolean "allow_start_stop_record", default: true
+    t.datetime "updated_at", null: false
+    t.index ["neelz_room_id"], name: "index_neelz_attributes_on_room_id", unique: true
+    t.index ["qvid"], name: "index_neelz_attributes_on_qvid", unique: true
   end
 
 end

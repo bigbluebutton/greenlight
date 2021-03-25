@@ -551,6 +551,8 @@ de_DE:
       success: Raum erfolgreich gelöscht
       fail: "Raum konnte nicht gelöscht werden (%{error})"
     enter_the_access_code: Raumzugangscode bitte eingeben
+    warn_fullname: Aus datenschutzrechtlichen Gründen bitten wir Sie darum, nicht Ihren vollständigen Namen einzugeben.
+    warn_fullname_sub: Wenn Leerzeichen innerhalb des eingegebenen Namens enthalten sind, werden alle Buchstaben ab dem ersten Leerzeichen automatisch vom System abgeschnitten. Sollten Sie einen zusammengesetzten Vornamen wie z.B. "Eva Maria" verwenden wollen, so geben Sie bitte "Eva-Maria" oder "Eva_Maria" ein.
     invalid_provider: "Sie haben eine ungültige URL eingegeben, bitte überprüfen Sie die URL und versuchen Sie es erneut."
     invitation_description: "Sie wurden zu %{name} über BigBlueButton zur Teilnahme eingeladen. Um beizutreten, klicken Sie auf den obigen Link und geben Sie Ihren Namen ein."
     invited: Sie wurden zur Teilnahme eingeladen

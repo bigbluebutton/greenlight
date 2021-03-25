@@ -14,7 +14,7 @@
 %>
 
 <div class="background pb-9" room="<%= @room.uid %>" user="<%= current_user ? current_user.uid : "anonymous" %>" join-name="<%= @join_name %>">
-  <div class="container">
+  <div class="container" style="margin-bottom: 3em;">
     <div class="row pt-9">
       <div class="col-lg-12 col-sm-12">
         <h4 class="text-left"><%= t("room.invited") %></h4>
@@ -26,7 +26,8 @@
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12 mb-5">
         <% if @room.owner.image.blank? %>
-          <span class="avatar"><%= @room.owner.name.first %></span>
+          <span class="avatar" style='background-image: url(<%= "https://robohash.org/set_set1/#{@room.owner.email}?size=128x128" %>')></span>
+          <!-- <span class="avatar"><%= @room.owner.name.first %></span> -->
         <% else %>
           <span class="avatar" style="background-image: url(<%= @room.owner.image %>)"></span>
         <% end %>

@@ -19,4 +19,17 @@
 class ApplicationMailer < ActionMailer::Base
   default from: 'from@example.com'
   layout 'mailer'
+
+  # Retrieves the instance name.
+  def inst_name
+    Rails.configuration.instance_name
+  end
+  helper_method :inst_name
+
+  # wrapper for I18n.t which injects instance_name variable automatically.
+  def tra(key_var)
+    I18n.t(key_var, instance_name: inst_name)
+  end
+  helper_method :tra
+  
 end

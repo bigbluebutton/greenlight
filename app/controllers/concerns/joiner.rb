@@ -24,6 +24,8 @@ module Joiner
     # Get users name
     @name = if current_user
       current_user.name
+    elsif session['neelz_join_name']
+      session['neelz_join_name']
     elsif cookies.encrypted[:greenlight_name]
       cookies.encrypted[:greenlight_name]
     else
@@ -51,21 +53,44 @@ module Joiner
     @room_settings = JSON.parse(@room[:room_settings])
 
     moderator_privileges = @room.owned_by?(current_user) || valid_moderator_access_code(session[:moderator_access_code])
-    if room_running?(@room.bbb_id) || room_setting_with_config("anyoneCanStart") || moderator_privileges
+    if room_running?(@room.bbb_id) || room_setting_with_config("anyoneCanStart") || moderator_privileges || session[:neelz_role] === 'interviewer'
 
       # Determine if the user needs to join as a moderator.
-      opts[:user_is_moderator] = room_setting_with_config("joinModerator") || @shared_room || moderator_privileges
+      opts[:user_is_moderator] = room_setting_with_config("joinModerator") || @shared_room || moderator_privileges || session[:neelz_role] === 'interviewer'
+
       opts[:record] = record_meeting
       opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
       opts[:mute_on_start] = room_setting_with_config("muteOnStart")
 
       if current_user
-        redirect_to join_path(@room, current_user.name, opts, current_user.uid)
+        join_response = join_path(@room, current_user.name, opts, current_user.uid)
       else
         join_name = params[:join_name] || params[@room.invite_path][:join_name]
-
-        redirect_to join_path(@room, join_name, opts, fetch_guest_id)
+        join_name = join_name.strip
+        if Rails.configuration.warn_participants_not_to_provide_fullname
+          if join_name.include? ' '
+            join_name = join_name[0..(join_name.index(' ')-1)]
+          end
+        end
+        join_response = join_path(@room, join_name, opts, fetch_guest_id)
       end
+
+      session['target_url_client'] = redirect_url = join_response
+
+      if NeelzRoom.is_neelz_room?(@room)
+        if session[:neelz_role] == 'interviewer'
+          redirect_url = '/neelz/i_inside'
+        elsif session[:neelz_role] == 'proband'
+          redirect_url = '/neelz/p_inside'
+        else
+          return redirect_to('/', alert: 'invalid request')
+        end
+      end
+
+      redirect_to redirect_url
+
+      NotifyUserWaitingJob.set(wait: 5.seconds).perform_later(@room)
+
     else
       search_params = params[@room.invite_path] || params
       @search, @order_column, @order_direction, pub_recs =
@@ -90,6 +115,7 @@ module Joiner
       meeting_logout_url: request.base_url + logout_room_path(@room),
       moderator_message: "#{invite_msg}<br> #{request.base_url + room_path(@room)}",
       host: request.host,
+      meeting_recorded: true,
       recording_default_visibility: @settings.get_value("Default Recording Visibility") == "public"
     }
   end

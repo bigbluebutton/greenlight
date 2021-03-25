@@ -47,6 +47,7 @@
 @import "utilities/fonts";
 @import "users";
 
+
 * {
   outline: none !important;
 }
@@ -57,6 +58,14 @@ html, body {
   width: 100%;
   height: 100%;
   background-color: white;
+}
+
+
+body {
+
+  visibility: hidden;
+  overflow: auto;
+
 }
 
 a {
@@ -75,21 +84,46 @@ a {
 
 .header {
   height: $header-height;
+  padding-bottom: 3px !important;
+  padding-top: 3px !important;
+  background-color: $header-background-color;
 }
 
 .wrapper {
   position: relative;
   height: auto;
   min-height: calc(100% - #{$header-height} - #{$footer-height});
+  display: grid;
+  background-color: $background-color-wrapper;
 }
 
 .footer {
   height: $footer-height;
   width: 100%;
+  background-color: $footer-background-color;
+}
+
+.bg-landing {
+  background-image: $background-image-landing-page;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .background {
   background-color: $background-color;
+}
+
+.pb-5, .background {
+  max-width: 100vw;
+  padding-bottom: 0 !important;
+}
+
+#client_viewport {
+  border-left: $client-viewport-side-border;
+  border-right: $client-viewport-side-border;
+  border-top: 0;
+  border-bottom: 0;
 }
 
 .error-section {
@@ -134,10 +168,14 @@ a {
 }
 
 .cookies-banner {
-  color: white;
-  background-color: $button-color-blue;
+  height: auto;
+  color: $cookies-banner-color;
+  background-color: $cookies-banner-background-color;
+
   #cookies-agree-button {
-    margin: 0;
+    background-color: $cookies-agree-button-background-color !important;
+    color: $cookies-agree-button-color !important;
+    margin-bottom: 14px !important;
   }
 }
 
@@ -153,8 +191,10 @@ input:focus {
   color: $primary;
 }
 
+
 .header .header-nav {
   color: $text-muted !important;
+  padding-top: 3px;
 
   &:hover {
     padding-bottom: 21px;
@@ -182,6 +222,246 @@ table {
 
 #delete-confirm:disabled {
   cursor: not-allowed;
+}
+
+#main-text {
+  color: $main-text-color;
+  text-shadow: $main-text-text-shadow;
+  font-weight: $main-text-font-weight;
+  padding: 5px;
+}
+
+.header-brand-img {
+  height: 40px !important;
+  line-height: 2rem;
+  vertical-align: bottom;
+  margin-right: .5rem;
+  width: auto;
+  min-width: $width-logo;
+  display: none;
+}
+
+.header-brand {
+  height: calc(#{$header-height} - 6px) !important;
+  min-width: $width-logo;
+  width: $width-logo;
+  background-image: $logo-with-text-url;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+@media screen and (max-width: calc(#{$width-logo} * 2.5)) {
+  .header-brand {
+    background-image: $logo-url;
+    min-width: calc(#{$header-height} + 10px);
+    width: calc(#{$header-height} + 10px);
+  }
+}
+
+.footer {
+  padding-top: 7px;
+  overflow: hidden;
+}
+
+element {
+  max-width: 100%;
+}
+.header > .container {
+  max-width: 100% !important;
+  width: 100% !important;
+  min-width: 100% !important;
+}
+
+.cookies-banner-content.py-3 {
+  padding-bottom: 0 !important;
+  margin: 0 !important;
+  height: auto;
+}
+
+#inside_parent{
+  position:absolute;
+  height:100%;
+  margin:0;
+  padding:0;
+  width:100%;
+}
+#inside_external_frame{
+  position:relative;
+  border: none;
+}
+
+#inside_video_frame{
+  position:relative;
+  overflow: hidden;
+  border: none;
+}
+
+
+#curtain_layer{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("/bg-landing-earth.gif");
+  background-size: cover;
+  background-position: center;
+  opacity: 1.0;
+  z-index: 110;
+  pointer-events: none;
+}
+
+.inside_frame_vertical{
+  max-height: 100%;
+  width:100%;
+}
+.inside_frame_horizontal{
+  max-width: 100%;
+  float: left;
+  height:100%;
+}
+
+#client_viewport {
+  width: 100%;
+  height: 100%;
+}
+
+#external_viewport_1,
+#external_viewport_2{
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+}
+
+.inside_attendee_external_iframe{
+  height: 100%;
+}
+
+.inside_external_frame_container{
+  position: absolute;
+  top: 0;
+  height: 425%;
+  width: 100%
+}
+
+#external_viewport_2{
+  z-index: 3090;
+  opacity: 0.0;
+  pointer-events: none;
+}
+
+#inside_external_frame_iframe_container{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+
+#client_viewport {
+  overflow: hidden;
+}
+
+.half_height{
+  height: 50%;
+}
+.half_width{
+  width: 50%;
+}
+
+.one_third_height{
+  height: 34%;
+}
+.one_third_width{
+  width: 34%;
+}
+
+.two_thirds_height{
+  height: 66%;
+}
+.two_thirds_width{
+  width: 66%;
+}
+
+.three_quarter_height{
+  height: 75%;
+}
+
+.three_quarter_width{
+  width: 75%;
+}
+
+.one_quarter_height{
+  height: 25%;
+}
+
+.one_quarter_width{
+  width: 25%;
+}
+
+.full_height{
+  height: 100%;
+}
+
+.full_width{
+  width: 100%;
+}
+
+.zero_height{
+  height: 0;
+}
+
+.zero_width{
+  width: 0;
+}
+
+.neelz-button-toggle{
+  padding: 0;
+  vertical-align: top;
+  border: 0 !important;
+}
+
+.fa-eye:before{
+  color: greenyellow;
+}
+
+.fa-eye-slash:before{
+  color: darkorange;
+}
+
+.neelz-button-toggle.neelz_screen_split_btn_down {
+  background-color: blueviolet !important;
+}
+
+#inside_video_frame.inside_frame_vertical {
+  border-top: 7px solid black;
+}
+
+.neelz_header_section_headline {
+  padding: 0;
+  margin: 0;
+  font-size: 0.8em;
+  line-height: 1.2em;
+  color: white;
+  text-align: center;
+}
+
+.neelz_co_browsing_div,
+.neelz_screen_split_div {
+  padding-left: 2px;
+  padding-right: 2px;
+  border-radius: 2px;
+}
+
+.neelz_co_browsing_div{
+  background-color: darkorange !important;
+  color: darkblue !important;
+}
+
+.neelz_screen_split_div{
+  background-color: darkblue !important;
+  color: white !important;
+  margin-left: 7px;
 }
 
 .btn i {

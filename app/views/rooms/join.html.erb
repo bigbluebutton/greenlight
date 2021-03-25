@@ -24,6 +24,12 @@
   <% if room_authentication_required %>
     <h2><%= t("administrator.site_settings.authentication.user-info") %></h2>
   <% elsif valid_moderator_access_code || valid_access_code || !access_code_set %>
+
+    <% if !current_user && Rails.configuration.warn_participants_not_to_provide_fullname %>
+      <h2 contenteditable=false id="warn-fullname" class="display-3 text-left mb-3" style="font-size: 25px;font-weight: 600; color: darkblue;"><%= tra("room.warn_fullname") %></h2>
+      <p contenteditable=false class="subtitle text-left" style="font-size: 20px; line-height: 1.25em; color: snow;"><%= tra("room.warn_fullname_sub") %></p>
+    <% end %>
+
     <%= form_for room_path(@room), method: :post do |f| %>
       <div class="input-group">
         <%= f.hidden_field(:search, :value => params[:search])%>

@@ -43,6 +43,19 @@ class ApplicationController < ActionController::Base
     @bbb_server ||= Rails.configuration.loadbalanced_configuration ? bbb(@user_domain) : bbb("greenlight")
   end
 
+  # Retrieves the instance name.
+  def inst_name
+    Rails.configuration.instance_name
+  end
+  helper_method :inst_name
+
+  # wrapper for I18n.t which injects instance_name variable automatically.
+  def tra(key_var)
+    I18n.t(key_var, instance_name: inst_name)
+  end
+  helper_method :tra
+  
+
   # Block unknown hosts to mitigate host header injection attacks
   def block_unknown_hosts
     return if Rails.configuration.hosts.blank?

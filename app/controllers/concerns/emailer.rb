@@ -120,6 +120,18 @@ module Emailer
     end
   end
 
+  def send_neelz_participation_email(email,url,code,interviewer_name,proband_name,study_name)
+    begin
+      NeelzMailer.participation_invite_email(email,url,code,interviewer_name,proband_name,study_name).deliver_now
+    rescue => e
+      logger.error "Support: Error in email delivery: #{e}"
+      flash[:alert] = "Fehler bei der E-Mail-Zustellung an die Adresse #{email}"
+      redirect_to '/neelz'
+    else
+      flash[:success] = "E-Mail mit den Zugangsdaten zum Interview wurde an #{email} versendet."
+    end
+  end
+
   private
 
   # Returns the link the user needs to click to verify their account

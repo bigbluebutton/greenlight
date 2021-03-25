@@ -560,6 +560,8 @@ en:
     enter_the_access_code: Enter the room's access code
     enter_the_moderator_access_code: Enter the room's moderator code!
     optional_moderator_access_code: "Optional Moderator Code:"
+    warn_fullname: For reasons of privacy please do not enter your full name.
+    warn_fullname_sub: If the system detects whitespace characters within your name all characters starting with the leftmost whitespace will be removed.
     invalid_provider: You have entered an invalid url. Please check the url and try again.
     invitation_description: You have been invited to join %{name} using BigBlueButton. To join, click the link above and enter your name.
     invited: You have been invited to join

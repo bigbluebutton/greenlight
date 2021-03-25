@@ -22,6 +22,11 @@ module ThemingHelper
     @settings.get_value("Branding Image") || Rails.configuration.branding_image_default
   end
 
+  # Returns the email logo
+  def logo_image_email
+    Rails.configuration.branding_image_email
+  end
+
   # Returns the legal URL based on user's provider
   def legal_url
     @settings.get_value("Legal URL") || ""

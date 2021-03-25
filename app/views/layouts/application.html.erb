@@ -88,5 +88,22 @@
     </div>
 
     <%= render "shared/footer" %>
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            if (document.referrer.indexOf("<%= Rails.configuration.bbb_server_origin %>") !== -1) {
+
+                window.top.location.href = window.location.href;
+
+            } else {
+
+                document.body.style = 'visibility: visible;';
+
+            }
+        });
+
+    </script>
   </body>
 </html>

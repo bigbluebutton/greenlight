@@ -26,7 +26,7 @@ class UserMailer < ApplicationMailer
     @settings = settings
     @user = user
     @url = url
-    @image = logo_image
+    @image = logo_image_email
     @color = user_color
     mail(to: @user.email, subject: t('landing.welcome'))
   end
@@ -35,7 +35,7 @@ class UserMailer < ApplicationMailer
     @settings = settings
     @user = user
     @url = url
-    @image = logo_image
+    @image = logo_image_email
     @color = user_color
     mail to: user.email, subject: t('reset_password.subtitle')
   end
@@ -44,7 +44,7 @@ class UserMailer < ApplicationMailer
     @settings = settings
     @url = url
     @admin_url = "#{url}admins"
-    @image = logo_image
+    @image = logo_image_email
     @color = user_color
     @role = translated_role_name(role)
     @admin_role = role.get_permission("can_manage_users") ||
@@ -58,7 +58,7 @@ class UserMailer < ApplicationMailer
     @settings = settings
     @url = url
     @root_url = url
-    @image = logo_image
+    @image = logo_image_email
     @color = user_color
     @role = translated_role_name(role)
     mail to: user.email, subject: t('mailer.user.demoted.subtitle', role: translated_role_name(role))
@@ -69,7 +69,7 @@ class UserMailer < ApplicationMailer
     @name = name
     @email = email
     @url = url
-    @image = logo_image
+    @image = logo_image_email
     @color = user_color
     mail to: email, subject: t('mailer.user.invite.subject')
   end
@@ -78,7 +78,7 @@ class UserMailer < ApplicationMailer
     @settings = settings
     @user = user
     @url = url
-    @image = logo_image
+    @image = logo_image_email
     @color = user_color
     mail to: user.email, subject: t('mailer.user.approve.subject')
   end
@@ -87,7 +87,7 @@ class UserMailer < ApplicationMailer
     @settings = settings
     @user = user
     @url = url
-    @image = logo_image
+    @image = logo_image_email
     @color = user_color
 
     mail to: admin_emails, subject: t('mailer.user.approve.signup.subject')
@@ -97,7 +97,7 @@ class UserMailer < ApplicationMailer
     @settings = settings
     @user = user
     @url = url
-    @image = logo_image
+    @image = logo_image_email
     @color = user_color
 
     mail to: admin_emails, subject: t('mailer.user.invite.signup.subject')

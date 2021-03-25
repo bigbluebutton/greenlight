@@ -82,7 +82,10 @@ class RoomsController < ApplicationController
         recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
 
       @pagy, @recordings = pagy_array(recs)
+
+      @is_neelz_room = false
     else
+      session[:is_neelz_room] = @is_neelz_room =  NeelzRoom.is_neelz_room?(@room)
       return redirect_to root_path, flash: { alert: I18n.t("room.invalid_provider") } if incorrect_user_domain
 
       show_user_join
@@ -182,7 +185,21 @@ class RoomsController < ApplicationController
     opts[:record] = record_meeting
 
     begin
-      redirect_to join_path(@room, current_user.name, opts, current_user.uid)
+
+      session['target_url_client'] = redirect_url = join_path(@room, current_user.name, opts, current_user.uid)
+
+      if NeelzRoom.is_neelz_room?(@room)
+        if session[:neelz_role] == 'interviewer'
+          redirect_url = '/neelz/i_inside'
+        elsif session[:neelz_role] == 'proband'
+          redirect_url = '/neelz/p_inside'
+        else
+          return redirect_to('/', alert: 'invalid request')
+        end
+      end
+
+      redirect_to redirect_url
+
     rescue BigBlueButton::BigBlueButtonException => e
       logger.error("Support: #{@room.uid} start failed: #{e}")
 
@@ -192,6 +209,12 @@ class RoomsController < ApplicationController
     # Notify users that the room has started.
     # Delay 5 seconds to allow for server start, although the request will retry until it succeeds.
     NotifyUserWaitingJob.set(wait: 5.seconds).perform_later(@room)
+  end
+
+  # GET /inside
+  def inside
+    @cache_expire = 10.seconds
+    @target_url_client = session['target_url_client']
   end
 
   # POST /:room_uid/update_settings

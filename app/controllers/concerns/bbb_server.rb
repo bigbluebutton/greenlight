@@ -56,20 +56,53 @@ module BbbServer
     join_opts[:join_via_html5] = true
     join_opts[:createTime] = room.last_session.to_datetime.strftime("%Q")
 
+    join_opts[:guest] = true if options[:require_moderator_approval] && !options[:user_is_moderator] && !uid
+    join_opts["userdata-bbb_force_restore_presentation_on_new_events"] = true
+
+    if NeelzRoom.is_neelz_room?(room)
+      neelz_room = NeelzRoom.convert_to_neelz_room(room)
+      join_opts["userdata-bbb_show_participants_on_login"] = neelz_room.show_participants_on_login?
+      join_opts["userdata-bbb_auto_swap_layout"] = true
+      join_opts["userdata-bbb_hide_presentation"] = true
+    else
+      join_opts["userdata-bbb_display_branding_area"] = true
+      join_opts["userdata-bbb_custom_style_url"] = Rails.configuration.html5_client_custom_css_url.to_json
+    end
+
+    ##test magic_cap_user ...
+    mcu_prefix = Rails.configuration.mcu_prefix
+    if name[0..(mcu_prefix.length-1)] === mcu_prefix
+      join_opts["userdata-bbb_magic_cap_user"] = true
+      if name[(mcu_prefix.length)..(mcu_prefix.length+3)] === Rails.configuration.mcu_prefix_mod
+        password = room.moderator_pw
+        join_opts["userdata-bbb_magic_cap_user_visible_for_herself"] = true
+      else
+        join_opts["userdata-bbb_magic_cap_user_visible_for_moderator"] = true
+        #join_opts["userdata-bbb_enable_video"] = false
+        join_opts["userdata-bbb_force_listen_only"] = true
+        join_opts["userdata-bbb_auto_join_audio"] = true
+        join_opts["userdata-bbb_custom_style_url"] = 'https://bbb.konkret-mafo.cloud/css/mcu_custom_style.css'
+        join_opts["userdata-bbb_shortcuts"] = '%5B%5D'
+        join_opts["userdata-bbb_enable_screen_sharing"] = false
+      end
+    end
+
     bbb_server.join_meeting_url(room.bbb_id, name, password, join_opts)
   end
 
   # Creates a meeting on the BigBlueButton server.
   def start_session(room, options = {})
     create_options = {
-      record: options[:record].to_s,
+      record: NeelzRoom.is_neelz_room?(room) ? false.to_s : true.to_s,
+      allowStartStopRecording: NeelzRoom.is_neelz_room?(room) ? false.to_s : true.to_s,
       logoutURL: options[:meeting_logout_url] || '',
+      logo: NeelzRoom.is_neelz_room?(room) ? '' : Rails.configuration.html5_client_branding_logo_url.to_json,
       moderatorPW: room.moderator_pw,
       attendeePW: room.attendee_pw,
       moderatorOnlyMessage: options[:moderator_message],
       "meta_#{META_LISTED}": options[:recording_default_visibility] || false,
       "meta_bbb-origin-version": Greenlight::Application::VERSION,
-      "meta_bbb-origin": "Greenlight",
+      "meta_bbb-origin": Rails.configuration.instance_name,
       "meta_bbb-origin-server-name": options[:host]
     }
 
