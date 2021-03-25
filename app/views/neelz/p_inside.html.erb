@@ -1,0 +1,48 @@
+<%
+  # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+  # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+  # This program is free software; you can redistribute it and/or modify it under the
+  # terms of the GNU Lesser General Public License as published by the Free Software
+  # Foundation; either version 3.0 of the License, or (at your option) any later
+  # version.
+  #
+  # BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+  # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+  # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+  # You should have received a copy of the GNU Lesser General Public License along
+  # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="background pb-1" is_moderator="no" is_neelz_room="yes" room="<%= @neelz_room.uid %>" user="<%= current_user ? current_user.uid : "anonymous" %>">
+
+  <% if @neelz_room.proband_browses? %>
+
+    <div id="inside_parent">
+
+      <div id="inside_external_frame" style="display: block;">
+
+        <div id="curtain_layer"></div>
+
+        <div id="inside_external_frame_iframe_container">
+
+          <iframe title="<%= @neelz_room.name_of_study %>" class="inside_attendee_external_iframe" id="external_viewport_1"  <% if @neelz_room.proband_readonly? %> sandbox="allow-unsafe allow-scripts" <% end %> src="" allowfullscreen allow="autoplay *; fullscreen *; display-capture *; geolocation *; microphone *; camera *; midi *; encrypted-media *; vr *;" width="100%" height="100%" importance="high">
+          </iframe>
+
+        </div>
+
+      </div>
+
+      <div id="inside_video_frame">
+
+  <% end %>
+
+  <iframe title="<%= @neelz_room.name %>" id="client_viewport" allowfullscreen allow="autoplay *; fullscreen *; display-capture *; geolocation *; microphone *; camera *; midi *; encrypted-media *; vr *;" src="<%= @target_url_client %>" width="100%" height="100%" importance="high" referrer-policy="unsafe-url">
+  </iframe>
+
+  <% if @neelz_room.proband_browses? %>
+
+    </div></div>
+
+  <% end %>
+
+</div>

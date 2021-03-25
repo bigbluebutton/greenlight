@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="row pt-7">
+    <div class="col col-lg-6 offset-lg-3">
+      <div class="card">
+        <div class="card-header background" style="display: block;">
+          <h4 class="mt-2">Hallo <%= @neelz_interviewer_name %>,</h4>
+          <div>
+            <b>Sie starten eine Befragung im Rahmen unserer Studie:<br><i><%= @neelz_name_of_study %></i>.</b> <br><br>
+            Entweder k&ouml;nnen Sie unten die E-Mail-Adresse Ihrer/s Proband/in eintragen
+            (dann wird automatisch eine Mail mit dem Link zur Befragung und dem Zugangscode an diese Adresse gesendet),
+            oder Sie kopieren den untenstehenden Vorlagetext mit dem Link und dem Zugangscode in die Zwischenablage und
+            lassen Ihrer/m Proband/in diesen auf anderem Wege zukommen.
+          </div>
+        </div>
+        <div class="card-body background">
+          <%= form_for(:session, url: '/neelz/waiting') do |f| %>
+            <div class="form-group">
+              <div class="input-icon">
+                <span class="input-icon-addon">
+                  <i class="fas fa-user"></i>
+                </span>
+                <%= f.text_field :name_proband, onchange: "updateState()", class: "form-control", placeholder: "(Vor-)Name des Probanden", value: @neelz_proband_name %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-icon">
+                <span class="input-icon-addon">
+                  <i class="fas fa-at"></i>
+                </span>
+                <%= f.email_field :email_proband, onchange: "updateState()", class: "form-control", placeholder: "E-Mail-Adresse des Probanden (optional)", value: @neelz_proband_email %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-icon" style="background-color: darkgray;border-radius:3px;">
+                <span class="input-icon-addon" style="top:40%;bottom: 40%;">
+                  <i class="far fa-comment-dots"></i>
+                </span>
+                <span id="copy_message_template" onclick="copy_message_template()" style="left:unset;right:0;pointer-events:all; top:40%;bottom: 40%;" class="input-icon-addon btn btn-primary" style="pointer-events: all;color:white;">
+                  <i class="far fa-clipboard"></i>
+                </span>
+                <textarea id="message_template" readonly style="border-radius:3px; padding-top: 0.8rem; padding-bottom: 0.8rem; padding-right: 0.8rem; border:none;resize: none;height:15rem;width:calc(100% - 2.5rem);margin-right:2.5rem;padding-left: 2.5rem;"  data-content="Text in die Zwischenablagde kopieren" data-original="Text in die Zwischenablagde kopieren" data-success="Text kopiert!">
+<%= @neelz_interviewer_name %> hat Sie zur Teilnahme an einem Interview
+im Rahmen der Studie <%= @neelz_name_of_study %> eingeladen.
+
+Bitte &ouml;ffnen Sie daf&uuml;r folgenden Link in Ihrem Webbrowser[*]:
+
+                  <%= @neelz_proband_access_url %>
+
+                  Ihr f&uuml;nfstelliger Zugangscode lautet:
+
+                  <%= @neelz_room_access_code %>
+
+                  Vielen Dank f&uuml;r Ihr Interesse an unserer Studie!
+
+[*] Hinweis: Am Besten funktioniert es mit dem Mozilla Firefox, Google Chrome oder Opera.</textarea>
+                <script type="text/javascript">
+
+                    var copied = {done: false};
+
+                    function updateState() {
+                        if (($('#session_name_proband').val().length >= 2)
+                            && (
+                                (copied.done===true) ||
+                                ($('#session_email_proband').val().length >= 7))) {
+                            $('#start-button').prop('disabled',false);
+                        }else{
+                            $('#start-button').prop('disabled',true);
+                        }
+                    }
+
+                    function copy_message_template() {
+                        /* Get the text field */
+                        let copyText = document.getElementById("message_template");
+                        /* Select the text field */
+                        copyText.select();
+                        copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+                        /* Copy the text inside the text field */
+                        document.execCommand("copy");
+                        $('.fa-clipboard').removeClass('fa-clipboard').removeClass('far')
+                            .addClass('fas').addClass('fa-clipboard-check');
+                        copied.done = true;
+                        updateState();
+                    }
+                </script>
+              </div>
+            </div>
+            <div class="card-footer px-0">
+              <%= f.submit "Weiter", class: "btn btn-primary btn-block signin-button", id: "start-button" %>
+            </div>
+            <script type="text/javascript">
+
+            </script>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

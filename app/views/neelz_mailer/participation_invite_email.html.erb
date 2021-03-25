@@ -1,0 +1,48 @@
+<%
+  # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+  #
+  # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+  #
+  # This program is free software; you can redistribute it and/or modify it under the
+  # terms of the GNU Lesser General Public License as published by the Free Software
+  # Foundation; either version 3.0 of the License, or (at your option) any later
+  # version.
+  #
+  # BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+  # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+  # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+  #
+  # You should have received a copy of the GNU Lesser General Public License along
+  # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div style="text-align:center; font-family:'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+  <div style="display:inline-block; background-color:#F5F7FB; border:1px solid #d3d3d3; padding: 25px 70px">
+    <%= image_tag(@image, height: '70') %>
+
+    <h1><%= @interviewer_name %> hat Sie zu einem Interview im Rahmen der Studie <i><%= @study_name %></i> eingeladen.</h1>
+    <br>
+    <p>
+    <h2>Bitte &ouml;ffnen Sie daf&uuml;r folgenden Link in Ihrem Webbrowser[*]:</h2>
+    <br>
+    <h2><b><a href="<%= @url %>"><%= @url %></a></b></h2>
+    <br>
+    <h2>Ihr f&uuml;nfstelliger Zugangscode lautet:</h2>
+    <br>
+    <h2><b><%= @code %></b></h2>
+    <br>
+    <h3><i>Vielen Dank f&uuml;r Ihr Interesse an unserer Studie!</i></h3>
+    <h3>Ihr Team von konkret Marktforschung Bremen</h3>
+    <br>
+    <h4>[*] Hinweis: Am Besten funktioniert es mit dem Mozilla Firefox, Google Chrome oder Opera.</h4>
+    </p>
+    <br>
+    <hr>
+    <sub>
+      konkret Institut f&uuml;r innovative Markt- und Meinungsforschung GmbH, Obernstra&szlig;e 76, D-28195 Bremen, Germany<br>
+      Gesch&auml;ftsf&uuml;hrender Gesellschafter: Robert Schulze<br>
+      Bitte beachten Sie, dass diese Mail und alle mit ihr uebertragenen Dateien vertraulich und ausschliesslich fuer den benannten Empfaenger bestimmt sind. Wenn Sie nicht der richtige Empfaenger sind, informieren Sie bitte den Absender und vernichten Sie diese Mail. Aufgrund der begrenzten Sicherheit im Internet besteht ausserdem die Moeglichkeit, dass der Absendername dieser Mail gefaelscht wurde. Zudem kann der Zugriff von Dritten auf E-Mails grundsaetzlich nicht ausgeschlossen werden. Bitte treffen Sie darum wichtige Entscheidungen aufgrund von E-Mails nur dann, wenn Ihnen die Echtheit vom Absender auf anderem Weg (z.B. per Telefon) bestaetigt wurde.
+    </sub>
+
+  </div>
+</div>

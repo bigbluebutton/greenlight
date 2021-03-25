@@ -1,0 +1,85 @@
+<%
+  # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+  # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+  # This program is free software; you can redistribute it and/or modify it under the
+  # terms of the GNU Lesser General Public License as published by the Free Software
+  # Foundation; either version 3.0 of the License, or (at your option) any later
+  # version.
+  #
+  # BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+  # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+  # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+  # You should have received a copy of the GNU Lesser General Public License along
+  # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="neelz_co_browsing_div">
+  <div class="neelz_header_section_headline">Co-Browsing</div>
+  <div class="neelz_header_section">
+    <span class="neelz-button-toggle btn btn-primary" id="neelz_btn_toggle_share">
+      <i id="neelz_share_icon" class="fas fa-eye-slash"></i>
+    </span>
+    <span class="neelz-button-toggle btn btn-primary" id="neelz_btn_refresh_share">
+      <i class="fas fa-sync"></i>
+    </span>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+    let co_browsing = {active: false};
+
+    function co_browsing_state_changed(activated){
+        if (activated) {
+            co_browsing.active = true;
+            $('#neelz_share_icon').removeClass('fa-eye-slash').addClass('fa-eye');
+            $('.fa-sync:before').css('color', 'white');
+        }else{
+            co_browsing.active = false;
+            $('#neelz_share_icon').removeClass('fa-eye').addClass('fa-eye-slash');
+            $('.fa-sync:before').css('color','gray');
+        }
+    }
+
+    function toggle_co_browsing_share(){
+        if (co_browsing.active){
+            $.post( "/neelz/unshare", function( data ) {
+                co_browsing_state_changed(false);
+            });
+        }else {
+            $.post("/neelz/share", function (data) {
+                co_browsing_state_changed(true);
+            });
+        }
+    }
+
+    function refresh_co_browsing(){
+        if (co_browsing.active){
+            $.post("/neelz/refresh", function( data ) {
+
+            });
+        }
+    }
+
+    <% if neelz_room.co_browsing_externally_triggered? %>
+
+    window.addEventListener("message", function(event) {
+        if (event.origin !== '<%= Rails.configuration.neelz_i_share_base_url %>') {
+            return;
+        }
+        if (event.data.t !== 'cobrowsing'){
+            return;
+        }
+        let posting = $.post('/neelz/i_share', JSON.parse(event.data));
+        posting.done(function (data) {
+            co_browsing_state_changed(true);
+        });
+    });
+
+    <% end %>
+
+
+    $('#neelz_btn_toggle_share').click(toggle_co_browsing_share);
+    $('#neelz_btn_refresh_share').click(refresh_co_browsing);
+
+</script>

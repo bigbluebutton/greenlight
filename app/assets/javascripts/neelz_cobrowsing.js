@@ -19,9 +19,86 @@ $(document).on("turbolinks:load", function(){
     let body = $("body"),
         controller = body.data('controller'),
         action = body.data('action');
+
     let bg = $('.background'),
         is_moderator = bg.attr('is_moderator') === 'yes';
-    if(controller === "inside_room" && action === "inside" && !is_moderator){
+
+    if(controller === "neelz" && action === "p_inside" && !is_moderator){
+
+        let coBrowsingState = {
+            blocked: false,
+            refreshRequired: false,
+            activeIFrame: 0,
+            active: false,
+            url: '',
+            scrollTop: 0
+        };
+
+        let startCoBrowsing = function(url,readonly){
+
+            if (!readonly && url === coBrowsingState.url && coBrowsingState.active){
+                return;
+            }
+
+            if (!url || url.trim() === ''){
+                return;
+            }
+
+            coBrowsingState.url = url;
+            coBrowsingState.active = true;
+
+            set_screen_split_layout(7);
+
+            let show_vp = function () {
+                $('#curtain_layer').animate(
+                    {
+                        opacity: 0.0
+                    },500,
+                    function () {
+                    }
+                ).css('pointer-events','none');
+            };
+            let set_url_vp = function () {
+                $('#external_viewport_1').attr('src',url);
+                setTimeout(show_vp,500);
+            };
+
+            $('#curtain_layer').animate(
+                {
+                    opacity: 1.0
+                }, 500,
+                function () { //complete
+                    $('#external_viewport_1').attr('src','');
+                    setTimeout(set_url_vp, 100);
+                }
+            ).css('pointer-events','all');
+        };
+
+        let stopCoBrowsing = function(){
+            coBrowsingState.active = false;
+            coBrowsingState.url = '';
+            $('#curtain_layer').animate(
+                {
+                    opacity: 1.0
+                }, 500,
+                function () { //complete
+                    set_screen_split_layout(1);
+                }
+            ).css('pointer-events','all');
+
+        };
+
+        let refreshCoBrowsing = function () {
+            if (coBrowsingState.active) {
+                startCoBrowsing(coBrowsingState.url,true);
+            }
+        };
+
+        let processRefreshOffer = function () {
+            if (coBrowsingState.active) {
+                refreshCoBrowsing();
+            }
+        };
 
         App.waiting = App.cable.subscriptions.create({
             channel: "CoBrowsingChannel",
@@ -59,150 +136,3 @@ $(document).on("turbolinks:load", function(){
     }
 });
 
-let neelz_iFrames = [null, null];
-
-let coBrowsingState = {
-    blocked: false,
-    refreshRequired: false,
-    activeIFrame: 0,
-    active: false,
-    url: '',
-    scrollTop: 0
-};
-
-let startCoBrowsing = function(url,readonly){
-
-    coBrowsingState.active = true;
-    coBrowsingState.url = url;
-
-    console.log('url',url);
-    console.log('CBS',coBrowsingState);
-
-
-    let show_vp = function () {
-        $('#curtain_layer').animate(
-            {
-                opacity: 0.0
-            },1500,
-            function () {
-            }
-        );
-    };
-    let set_url_vp = function () {
-        $('#external_viewport_'+(coBrowsingState.activeIFrame+1)).attr('src',url);
-        setTimeout(show_vp,1000);
-    };
-
-    $('#curtain_layer').animate(
-        {
-            opacity: 1.0
-        }, 250,
-        function () { //complete
-            $('#external_viewport_'+(coBrowsingState.activeIFrame+1)).attr('src','');
-            setTimeout(set_url_vp, 250);
-        }
-    );
-};
-
-let stopCoBrowsing = function(){
-    coBrowsingState.active = false;
-
-    $('#curtain_layer').animate(
-        {
-            opacity: 1.0
-        }, 1000,
-        function () { //complete
-        }
-    );
-
-};
-
-function toggle_iframes_1(){
-    $('#external_viewport_2')
-        .css('pointer-events', 'all')
-        .animate({opacity: 1.0}, 700, function () {
-            //$('#inside_external_frame_iframe_container').scrollTop(coBrowsingState.scrollTop);
-        });
-    $('#external_viewport_1').animate({opacity: 0.0}, 2750, function () {
-        //$('#inside_external_frame_iframe_container').scrollTop(coBrowsingState.scrollTop);
-    });
-    //$('#inside_external_frame_iframe_container').scrollTop(coBrowsingState.scrollTop);
-}
-
-function toggle_iframes_2(){
-    $('#external_viewport_2')
-        .css('pointer-events', 'none')
-        .animate({opacity: 0.0}, 2750, function () {
-        });
-    $('#external_viewport_1').animate({opacity: 1.0}, 700, function () {
-    });
-}
-
-let refreshCoBrowsing = function () {
-    if (coBrowsingState.active) {
-        if (coBrowsingState.activeIFrame === 0) {
-            $('#external_viewport_2')
-                .attr('src', '')
-                .attr('src', coBrowsingState.url);
-            setTimeout(toggle_iframes_1, 2500);
-            coBrowsingState.activeIFrame = 1;
-        } else {
-            $('#external_viewport_1')
-                .attr('src', '')
-                .attr('src', coBrowsingState.url);
-            setTimeout(toggle_iframes_2, 2500);
-            coBrowsingState.activeIFrame = 0;
-        }
-        coBrowsingState.refreshRequired = false;
-        coBrowsingState.blocked = false;
-    }
-};
-
-let processRefreshOffer = function () {
-    if (coBrowsingState.active) {
-        if (coBrowsingState.blocked) {
-            coBrowsingState.refreshRequired = true;
-        } else {
-            refreshCoBrowsing();
-        }
-    }
-};
-
-let refreshJob = function(){
-    if (coBrowsingState.active) {
-        coBrowsingState.blocked = false;
-        refreshCoBrowsing();
-    }
-};
-
-let scrollState = {
-    top: 0
-};
-
-$(document).ready(function () {
-    neelz_iFrames[0] = $('#external_viewport_1');
-    neelz_iFrames[1] = $('#external_viewport_2');
-    setInterval(refreshJob, 6500);
-    /*$('#inside_external_frame_iframe_container').scroll(function () {
-      let st = $(this).scrollTop();
-      console.log('st',st);
-      if (st > 0 || scrollState.top <= 5) {
-        scrollState.top = st;
-      }else{
-        $(this).scrollTop(scrollState.top);
-      }
-    });*/
-
-    const infc = document.getElementById('inside_external_frame_iframe_container');
-    infc.addEventListener('scroll',function () {
-        let st = infc.scrollTop;
-        console.log('st',st, scrollState.top);
-        if (Math.abs(scrollState.top-st) < 250) {
-            scrollState.top = st;
-        }else{
-            infc.scrollTop = scrollState.top;
-        }
-        console.log('st2',infc.scrollTop, scrollState.top);
-    });
-
-});

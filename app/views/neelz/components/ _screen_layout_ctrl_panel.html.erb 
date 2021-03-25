@@ -1,0 +1,176 @@
+<%
+  # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+  # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+  # This program is free software; you can redistribute it and/or modify it under the
+  # terms of the GNU Lesser General Public License as published by the Free Software
+  # Foundation; either version 3.0 of the License, or (at your option) any later
+  # version.
+  #
+  # BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+  # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+  # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+  # You should have received a copy of the GNU Lesser General Public License along
+  # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="neelz_screen_split_div">
+  <div class="neelz_header_section_headline">Bildschirm-Aufteilung</div>
+  <div class="neelz_header_section">
+    <span class="neelz-button-toggle btn btn-primary" id="neelz_btn_split_1">
+      <b>0:1</b>
+    </span>
+    <span class="neelz-button-toggle btn btn-primary" id="neelz_btn_split_2">
+      <b>1:3</b>
+    </span>
+    <span class="neelz-button-toggle btn btn-primary" id="neelz_btn_split_3">
+      <b>1:2</b>
+    </span>
+    <span class="neelz-button-toggle btn btn-primary" id="neelz_btn_split_4">
+      <b>1:1</b>
+    </span>
+    <span class="neelz-button-toggle btn btn-primary" id="neelz_btn_split_5">
+      <b>2:1</b>
+    </span>
+    <span class="neelz-button-toggle btn btn-primary" id="neelz_btn_split_6">
+      <b>3:1</b>
+    </span>
+    <span class="neelz-button-toggle btn btn-primary" id="neelz_btn_split_7">
+    <b>1:0</b>
+  </span>
+  </div>
+
+  <script type="text/javascript">
+      let inside_parent, inside_video_frame, inside_external_frame,
+          orientation_dim = {   dim: 'unset',
+                                class_h1: 'unset', class_h2: 'unset', class_v1: 'unset', class_v2: 'unset',
+                                size_external: 0   };
+
+      function set_screen_split_layout(layout,no_update){
+          switch (layout) {
+              case 1:
+                  orientation_dim.class_h1 = 'zero_width';
+                  orientation_dim.class_h2 = 'full_width';
+                  orientation_dim.class_v1 = 'zero_height';
+                  orientation_dim.class_v2 = 'full_height';
+                  orientation_dim.size_external = 0.0;
+                  break;
+              case 2:
+                  orientation_dim.class_h1 = 'one_quarter_width';
+                  orientation_dim.class_h2 = 'three_quarter_width';
+                  orientation_dim.class_v1 = 'one_quarter_height';
+                  orientation_dim.class_v2 = 'three_quarter_height';
+                  orientation_dim.size_external = 0.25;
+                  break;
+              case 3:
+                  orientation_dim.class_h1 = 'one_third_width';
+                  orientation_dim.class_h2 = 'two_thirds_width';
+                  orientation_dim.class_v1 = 'one_third_height';
+                  orientation_dim.class_v2 = 'two_thirds_height';
+                  orientation_dim.size_external = 0.33;
+                  break;
+              case 4:
+                  orientation_dim.class_h1 = 'half_width';
+                  orientation_dim.class_h2 = 'half_width';
+                  orientation_dim.class_v1 = 'half_height';
+                  orientation_dim.class_v2 = 'half_height';
+                  orientation_dim.size_external = 0.5;
+                  break;
+              case 5:
+                  orientation_dim.class_h2 = 'one_third_width';
+                  orientation_dim.class_h1 = 'two_thirds_width';
+                  orientation_dim.class_v2 = 'one_third_height';
+                  orientation_dim.class_v1 = 'two_thirds_height';
+                  orientation_dim.size_external = 0.66;
+                  break;
+              case 6:
+                  orientation_dim.class_h2 = 'one_quarter_width';
+                  orientation_dim.class_h1 = 'three_quarter_width';
+                  orientation_dim.class_v2 = 'one_quarter_height';
+                  orientation_dim.class_v1 = 'three_quarter_height';
+                  orientation_dim.size_external = 0.75;
+                  break;
+              case 7:
+                  orientation_dim.class_h2 = 'zero_width';
+                  orientation_dim.class_h1 = 'full_width';
+                  orientation_dim.class_v2 = 'zero_height';
+                  orientation_dim.class_v1 = 'full_height';
+                  orientation_dim.size_external = 1.0;
+                  break;
+
+          }
+          if (!no_update) {
+              update_layout();
+              check_orientation();
+          }
+          $('.neelz-button-toggle').removeClass('neelz_screen_split_btn_down');
+          $('#neelz_btn_split_'+layout).addClass('neelz_screen_split_btn_down');
+      }
+
+      function update_layout(){
+          $('#inside_video_frame, #inside_external_frame')
+              .removeClass('half_width').removeClass('half_height')
+              .removeClass('one_third_width').removeClass('one_third_height')
+              .removeClass('two_thirds_width').removeClass('two_thirds_height')
+              .removeClass('one_quarter_width').removeClass('one_quarter_height')
+              .removeClass('three_quarter_width').removeClass('three_quarter_height')
+              .removeClass('zero_width').removeClass('zero_height')
+              .removeClass('full_width').removeClass('full_height');
+          if (orientation_dim.dim === 'vertical'){
+              $('#inside_external_frame').addClass(orientation_dim.class_v1);
+              $('#inside_video_frame').addClass(orientation_dim.class_v2);
+          }else{
+              $('#inside_external_frame').addClass(orientation_dim.class_h1);
+              $('#inside_video_frame').addClass(orientation_dim.class_h2);
+          }
+      }
+
+      function check_orientation() {
+          if ((inside_parent.width() * orientation_dim.size_external  >= <%= neelz_room.external_frame_min_width %>)
+              && (inside_parent.width() > inside_parent.height())) {
+              if (orientation_dim.dim === 'vertical' || orientation_dim.dim === 'unset'){
+                  $('#inside_video_frame, #inside_external_frame')
+                      .addClass('inside_frame_horizontal')
+                      .removeClass('inside_frame_vertical');
+                  orientation_dim.dim = 'horizontal';
+                  update_layout();
+              }
+          } else {
+              if (orientation_dim.dim === 'horizontal' || orientation_dim.dim === 'unset'){
+                  $('#inside_video_frame, #inside_external_frame')
+                      .addClass('inside_frame_vertical')
+                      .removeClass('inside_frame_horizontal');
+                  orientation_dim.dim = 'vertical';
+                  update_layout();
+              }
+          }
+      }
+
+      $(window).resize(function(){
+          check_orientation();
+      });
+
+      $(document).ready(function () {
+
+          inside_parent = $("#inside_parent");
+          inside_video_frame = $('#inside_video_frame');
+          inside_external_frame = $("#inside_external_frame");
+
+          <% if neelz_role == 'interviewer' %>
+            set_screen_split_layout(<%= neelz_room.interviewer_screen_split_mode_on_login %>, true);
+          <% elsif neelz_role == 'proband' %>
+            set_screen_split_layout(<%= neelz_room.proband_screen_split_mode_on_login %>, true);
+          <% end %>
+
+          check_orientation();
+
+          for (let i=1;i<=7;i++){
+              $('#neelz_btn_split_'+i).click((function(_i){
+                  return function () {
+                      set_screen_split_layout(_i);
+                  }})(i));
+          }
+      });
+
+  </script>
+
+</div>
