@@ -55,7 +55,7 @@ class NeelzController < ApplicationController
     session[:neelz_role] = 'interviewer'
     session[:neelz_interviewer_for] = @neelz_room.uid
     session[:access_code] = @neelz_room.access_code
-    redirect_to '/neelz'
+    redirect_to 'neelz'
   end
 
   # GET /neelz/cgate/:proband_qvid
@@ -66,7 +66,7 @@ class NeelzController < ApplicationController
     return redirect_to('/', alert: 'invalid request') unless @neelz_room
     session[:neelz_join_name] = cookies.encrypted[:greenlight_name] = @neelz_room.proband_alias
     session[:neelz_role] = 'proband'
-    redirect_to '/'+@neelz_room.uid
+    redirect_to @neelz_room.uid
   end
 
   # GET /neelz
@@ -88,7 +88,7 @@ class NeelzController < ApplicationController
     @neelz_proband_name = params[:session][:name_proband]
     @neelz_proband_email = params[:session][:email_proband]
     @neelz_room = NeelzRoom.get_room(qvid: session[:neelz_qvid])
-    return redirect_to '/neelz' unless @neelz_room
+    return redirect_to 'neelz' unless @neelz_room
     @neelz_room.set_proband_alias(@neelz_proband_name)
     @neelz_room.save
     @neelz_proband_access_url = @neelz_room.proband_access_url
@@ -100,7 +100,7 @@ class NeelzController < ApplicationController
                                      @neelz_room_access_code,@neelz_interviewer_name,
                                      @neelz_proband_name,@neelz_name_of_study)
     end
-    redirect_to '/'+@neelz_room.uid
+    redirect_to @neelz_room.uid
   end
 
   # POST /neelz/share

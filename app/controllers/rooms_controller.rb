@@ -190,9 +190,9 @@ class RoomsController < ApplicationController
 
       if NeelzRoom.is_neelz_room?(@room)
         if session[:neelz_role] == 'interviewer'
-          redirect_url = '/neelz/i_inside'
+          redirect_url = 'neelz/i_inside'
         elsif session[:neelz_role] == 'proband'
-          redirect_url = '/neelz/p_inside'
+          redirect_url = 'neelz/p_inside'
         else
           return redirect_to('/', alert: 'invalid request')
         end
