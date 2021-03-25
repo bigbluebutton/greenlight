@@ -102,8 +102,6 @@ class Room < ApplicationRecord
     self.uid = unique_id
   end
 
-  protected
-
   # Generates a uid for the room and BigBlueButton.
   def setup
     self.uid = random_room_uid unless self.uid
