@@ -19,8 +19,6 @@ RUN apk update \
     && apk upgrade \
     && apk add --update --no-cache $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES
 
-RUN gem install mimemagic -v '0.3.8' --source 'https://rubygems.org/'
-
 COPY Gemfile* ./
 COPY Gemfile Gemfile.lock $RAILS_ROOT/
 
