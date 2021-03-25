@@ -8,11 +8,7 @@ env:
   DB_PORT: 5432
 
 name: CI
-on:
-  push:
-    branches: "master"
-  pull_request:
-    branches: "*"
+on: [push, pull_request]
 
 jobs:
   test:
