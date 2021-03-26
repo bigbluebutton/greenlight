@@ -27,7 +27,7 @@ RUN bundle config --global frozen 1 \
     && rm -rf vendor/bundle/ruby/2.7.0/cache/*.gem \
     && find vendor/bundle/ruby/2.7.0/gems/ -name "*.c" -delete \
     && find vendor/bundle/ruby/2.7.0/gems/ -name "*.o" -delete \
-    && find vendor/bundle/ruby/2.7.0/gems -depth 1 -name "activestorage*" -exec cp config/activestorage/routes.rb "{}/config/" \;
+    && find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "activestorage*" -exec cp config/activestorage/routes.rb "{}/config/" \;
 
 # Adding project files.
 COPY . .
