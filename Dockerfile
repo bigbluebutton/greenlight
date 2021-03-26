@@ -34,8 +34,10 @@ COPY . .
 # Remove folders not needed in resulting image
 RUN rm -rf tmp/cache spec
 
-# Replace routes.rb in activestorage gem folder
+# Replace files in activestorage gem folder
 RUN find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "activestorage*" -exec cp config/activestorage/routes.rb "{}/config/" \;
+RUN find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "activestorage*" -exec cp config/activestorage/active_storage.rb "{}/lib/" \;
+RUN find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "activestorage*" -exec cp config/activestorage/engine.rb "{}/lib/active_storage/" \;
 
 
 ############### Build step done ###############
