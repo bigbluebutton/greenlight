@@ -17,7 +17,7 @@
     <div class="primary-lighten cookies-banner fixed-bottom text-center d-inline-block">
       <div class="cookies-banner-content">
         <span class="cookies-warning-text">
-          <%= t("cookies.cookie_info") %><% if legal_url.present? || privpolicy_url.present? %><br><% end %><% if legal_url.present? %><%= link_to(t("footer.legal"), legal_url) %><% end %><% if legal_url.present? && privpolicy_url.present? %> | <% end %><% if privpolicy_url.present? %><%= link_to(t("footer.privpolicy"), privpolicy_url)  %><% end %>
+          <%= t("cookies.cookie_info") %> <% if privpolicy_url.present? %><%= link_to(t("cookies.cookie_more"), privpolicy_url) %><% end %>
         </span>
         <span class="cookies-warning-button">
           <button id="cookies-agree-button" class="btn customBtn primary-regular"><%= t("cookies.cookie_button") %></button>
