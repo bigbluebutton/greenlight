@@ -2,8 +2,6 @@
 
 Rails.application.routes.draw do
   get "/surveys/rails/active_storage/blobs/:signed_id/*filename" => "active_storage/blobs#show", as: :rails_service_blob
-  get "/rails/active_storage/blobs/:signed_id/*filename" => "active_storage/blobs#show", as: :rails_service_blob_intern
-
 
   direct :rails_blob do |blob, options|
     route_for(:rails_service_blob, blob.signed_id, blob.filename, options)
@@ -14,7 +12,7 @@ Rails.application.routes.draw do
 
 
   get "/surveys/rails/active_storage/representations/:signed_blob_id/:variation_key/*filename" => "active_storage/representations#show", as: :rails_blob_representation
-  get "/rails/active_storage/representations/:signed_blob_id/:variation_key/*filename" => "active_storage/representations#show", as: :rails_blob_representation_intern
+
   direct :rails_representation do |representation, options|
     signed_blob_id = representation.blob.signed_id
     variation_key  = representation.variation.key
@@ -28,9 +26,7 @@ Rails.application.routes.draw do
 
 
   get  "/surveys/rails/active_storage/disk/:encoded_key/*filename" => "active_storage/disk#show", as: :rails_disk_service
-  get  "/rails/active_storage/disk/:encoded_key/*filename" => "active_storage/disk#show", as: :rails_disk_service_intern
   put  "/surveys/rails/active_storage/disk/:encoded_token" => "active_storage/disk#update", as: :update_rails_disk_service
-  put  "/rails/active_storage/disk/:encoded_token" => "active_storage/disk#update", as: :update_rails_disk_service_intern
   post "/surveys/rails/active_storage/direct_uploads" => "active_storage/direct_uploads#create", as: :rails_direct_uploads
-  post "/rails/active_storage/direct_uploads" => "active_storage/direct_uploads#create", as: :rails_direct_uploads_intern
+
 end
