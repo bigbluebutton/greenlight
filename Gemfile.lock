@@ -57,7 +57,7 @@ GEM
       activemodel (= 5.2.4.5)
       activesupport (= 5.2.4.5)
       arel (>= 9.0)
-    activestorage (5.2.4.5)
+    activestorage (6.0)
       actionpack (= 5.2.4.5)
       activerecord (= 5.2.4.5)
       marcel (~> 0.3.1)
