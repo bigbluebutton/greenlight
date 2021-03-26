@@ -35,10 +35,12 @@ COPY . .
 RUN rm -rf tmp/cache spec
 
 # Replace files in activestorage gem folder
-RUN find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "activestorage*" -exec cp config/activestorage/routes.rb "{}/config/" \;
-RUN find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "activestorage*" -exec cp config/activestorage/active_storage.rb "{}/lib/" \;
-RUN find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "activestorage*" -exec cp config/activestorage/engine.rb "{}/lib/active_storage/" \;
+RUN find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "activestorage-*" -exec cp config/activestorage/routes.rb "{}/config/" \;
+RUN find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "activestorage-*" -exec cp config/activestorage/active_storage.rb "{}/lib/" \;
+RUN find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "activestorage-*" -exec cp config/activestorage/engine.rb "{}/lib/active_storage/" \;
 
+# Replace files in i18n gem folder
+RUN find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "i18n-*" -exec cp config/i18n/i18n.rb "{}/lib/" \;
 
 ############### Build step done ###############
 
