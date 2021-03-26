@@ -15,17 +15,17 @@
   # You should have received a copy of the GNU Lesser General Public License along
   # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
-<%= @interviewer_name %> hat Sie zur Teilnahme an einem Interview
-im Rahmen der Studie <%= @study_name %> eingeladen.
+<%= t('mailer.neelz.you_have_been_invited_info', interviewer: @interviewer_name, study: @study_name) %>
 
-Bitte öffnen Sie dafür folgenden Link in Ihrem Webbrowser[*]:
+<%= t('mailer.neelz.please_open_link_info') %>
 
 <%= @url %>>
 
-Ihr fünfstelliger Zugangscode lautet:
+<%= t('mailer.neelz.access_code_info') %>
 
 <%= @code %>
 
-Vielen Dank für Ihr Interesse an unserer Studie!
+<%= t('mailer.neelz.thanks') %>
+<%= t('mailer.neelz.konkret_signature') %>
 
-[*] Hinweis: Am Besten funktioniert es mit dem Mozilla Firefox, Google Chrome oder Opera.
+<%= t('mailer.neelz.browser_recommendation') %>

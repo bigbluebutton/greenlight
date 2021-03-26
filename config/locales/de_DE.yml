@@ -379,6 +379,14 @@ de_DE:
         verify_text: 'Um Ihr Konto zu verifizieren, folgen Sie diesem Link: %{url}'
         verify_link: Konto verifizieren
         thanks: Danke für Ihre Registrierung. Wir wünschen Ihnen noch einen wunderbaren Tag!
+    neelz:
+      invite_participant:
+        you_have_been_invited_info: '%{interviewer} hat Sie zur Teilnahme an der Befragung %{study} eingeladen.'
+        please_open_link_info: 'Bitte öffnen Sie dafür folgenden Link in Ihrem Webbrowser (*)'
+        browser_recommendation: '(*) Hinweis: Am Besten funktioniert es mit dem Mozilla Firefox, Google Chrome oder Opera.'
+        access_code_info: 'Ihr fünfstelliger Zugangscode lautet:'
+        thanks: 'Vielen Dank für Ihr Interesse an unserer Studie!'
+        konkret_signature: 'Ihr Team von konkret Marktforschung Bremen'
   max_concurrent: Die maximale Anzahl gleichzeitiger Verbindungen ist erreicht!
   merged: Zusammengeführt
   modal:
