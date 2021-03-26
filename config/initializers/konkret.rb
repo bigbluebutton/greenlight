@@ -13,6 +13,8 @@ Rails.application.configure do
     config.bbb_server_origin_default
   end
 
+  config.active_storage.routes_prefix = ENV["ACTIVE_STORAGE_ROUTES_PREFIX"] if ENV["ACTIVE_STORAGE_ROUTES_PREFIX"].present?
+
   # Default branding image if the user does not specify one
   config.branding_image_default = if ENV['LOGO_URL'].present?
     ENV['LOGO_URL']
