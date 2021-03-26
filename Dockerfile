@@ -26,14 +26,16 @@ RUN bundle config --global frozen 1 \
     && bundle install --deployment --without development:test:assets -j4 --path=vendor/bundle \
     && rm -rf vendor/bundle/ruby/2.7.0/cache/*.gem \
     && find vendor/bundle/ruby/2.7.0/gems/ -name "*.c" -delete \
-    && find vendor/bundle/ruby/2.7.0/gems/ -name "*.o" -delete \
-    && find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "activestorage*" -exec cp config/activestorage/routes.rb "{}/config/" \;
+    && find vendor/bundle/ruby/2.7.0/gems/ -name "*.o" -delete
 
 # Adding project files.
 COPY . .
 
 # Remove folders not needed in resulting image
 RUN rm -rf tmp/cache spec
+
+# Replace routes.rb in activestorage gem folder
+RUN find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "activestorage*" -exec cp config/activestorage/routes.rb "{}/config/" \;
 
 ############### Build step done ###############
 
