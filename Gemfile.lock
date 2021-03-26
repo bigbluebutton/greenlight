@@ -57,7 +57,7 @@ GEM
       activemodel (= 5.2.4.5)
       activesupport (= 5.2.4.5)
       arel (>= 9.0)
-    activestorage (6.0)
+    activestorage (5.2.4.5)
       actionpack (= 5.2.4.5)
       activerecord (= 5.2.4.5)
       marcel (~> 0.3.1)
@@ -220,7 +220,7 @@ GEM
       mimemagic (~> 0.3.2)
     memoist (0.16.2)
     method_source (1.0.0)
-    mimemagic (0.3.6)
+    mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
     minitest (5.14.4)
@@ -520,3 +520,4 @@ DEPENDENCIES
   uglifier (~> 4.2.0)
   web-console (~> 3.7)
   webmock (~> 3.11)
+
