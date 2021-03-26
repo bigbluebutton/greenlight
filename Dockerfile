@@ -37,10 +37,6 @@ RUN rm -rf tmp/cache spec
 # Replace routes.rb in activestorage gem folder
 RUN find vendor/bundle/ruby/2.7.0/gems -maxdepth 1 -name "activestorage*" -exec cp config/activestorage/routes.rb "{}/config/" \;
 
-# Copy freedesktop.org.xml into place
-#RUN mkdir /usr/share/mime \
-#    && mkdir /usr/share/mime/packages \
-#    && cp config/activestorage/freedesktop.org.xml /usr/share/mime/packages/
 
 ############### Build step done ###############
 
