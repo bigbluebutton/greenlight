@@ -194,8 +194,12 @@ module I18n
       if result.is_a?(MissingTranslation)
         handle_exception((throw && :throw || raise && :raise), result, locale, key, options)
       else
-        result.gsub(/greenlight/i, "#{Rails.configuration.instance_name}")
-              .gsub(/bigbluebutton/i, "bigBLUE")
+        if result.instance_of?(String)
+          result.gsub(/greenlight/i, "#{Rails.configuration.instance_name}")
+                .gsub(/bigbluebutton/i, "bigBLUE")
+        else
+          result
+        end
       end
     end
     alias :t :translate
