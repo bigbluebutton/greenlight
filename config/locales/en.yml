@@ -385,7 +385,7 @@ en:
         thanks: Thanks for joining and have a great day!
     neelz:
       invite_participant:
-        you_have_been_invited_info: '%{interviewer} has invited you to to participate in the survey %{study}.'
+        you_have_been_invited_info: '%{interviewer} has invited you to participate in the survey %{study}.'
         please_open_link_info: 'To participate, please open the link below in a web browser (*)'
         browser_recommendation: '(*) We recommend using Mozilla Firefox, Google Chrome (or any Chromium driven web browser like Opera)'
         access_code_info: 'Your 5-digit access code:'
