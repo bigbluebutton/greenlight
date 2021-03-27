@@ -20,21 +20,21 @@
   <div style="display:inline-block; background-color:#F5F7FB; border:1px solid #d3d3d3; padding: 25px 70px">
     <%= image_tag(@image, height: '70') %>
 
-    <h1><%= t('mailer.neelz.you_have_been_invited_info', interviewer: @interviewer_name, study: @study_name) %></h1>
+    <h1><%= t('mailer.neelz.invite_participant.you_have_been_invited_info', interviewer: @interviewer_name, study: @study_name) %></h1>
     <br>
     <p>
-      <h2><%= t('mailer.neelz.please_open_link_info') %></h2>
+      <h2><%= t('mailer.neelz.invite_participant.please_open_link_info') %></h2>
       <br>
       <h2><strong><a href="<%= @url %>"><%= @url %></a></strong></h2>
       <br>
-      <h2><%= t('mailer.neelz.access_code_info') %></h2>
+      <h2><%= t('mailer.neelz.invite_participant.access_code_info') %></h2>
       <br>
       <h2><strong><%= @code %></strong></h2>
       <br>
-      <h3><em><%= t('mailer.neelz.thanks') %></em></h3>
-      <h3><%= t('mailer.neelz.konkret_signature') %></h3>
+      <h3><em><%= t('mailer.neelz.invite_participant.thanks') %></em></h3>
+      <h3><%= t('mailer.neelz.invite_participant.konkret_signature') %></h3>
       <br>
-      <h4><%= t('mailer.neelz.browser_recommendation') %></h4>
+      <h4><%= t('mailer.neelz.invite_participant.browser_recommendation') %></h4>
     </p>
     <br>
     <hr>
