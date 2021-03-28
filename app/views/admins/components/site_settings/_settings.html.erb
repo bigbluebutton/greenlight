@@ -143,27 +143,6 @@
       </div>
     </div>
   </div>
-  <div class="row mb-2">
-    <div class="col-12">
-      <div class="form-group">
-        <label class="form-label"><%= t("administrator.site_settings.moderator_codes.title") %></label>
-        <label class="form-label text-muted"><%= t("administrator.site_settings.moderator_codes.info") %></label>
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= moderator_codes_string %>
-          </button>
-          <div class="dropdown-menu" aria-labelledby="room-auth">
-            <%= button_to admin_update_settings_path(setting: "Moderator Access Codes", value: "true"), class: "dropdown-item", "data-disable": "" do %>
-              <%= t("administrator.site_settings.moderator_codes.enabled") %>
-            <% end %>
-            <%= button_to admin_update_settings_path(setting: "Moderator Access Codes", value: "false"), class: "dropdown-item", "data-disable": "" do %>
-              <%= t("administrator.site_settings.moderator_codes.disabled") %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="row">
     <div class="col-12">
       <div class="form-group">

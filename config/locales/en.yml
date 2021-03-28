@@ -111,11 +111,6 @@ en:
       shared_access:
         info: Setting to disabled will remove the button from the Room options dropdown, preventing users from sharing rooms
         title: Allow Users to Share Rooms
-      moderator_codes:
-        info: "With valid moderator codes, users can join a room as a moderator without having to create an account and receive access individually. The setting can be made separately for each room."
-        title: Enables the generation of moderator codes
-        enabled: Enabled
-        disabled: Disabled
       subtitle: Customize Greenlight
       tabs:
         appearance: Appearance
@@ -180,6 +175,9 @@ en:
         info: Gives all users moderator privileges in BigBlueButton when they join the meeting.
       recordings:
         info: Allows room owners to specify whether they want the option to record a room or not. If enabled, the moderator must still click the "Record" button once the meeting has started.
+      moderator_codes:
+        info: Allows room owners to optionally generate a moderator pin which allows other users to join directly as moderators.
+        title: Moderator Access Code
       options:
         disabled: Disabled
         enabled: Always Enabled
@@ -358,6 +356,7 @@ en:
         info: You have been invited to your own personal space by %{name}
         signup_info: To signup using your email, click the button below and follow the steps.
         signup_link: Sign Up
+        valid: "The invite is valid until: %{date}"
         signup:
           info: A user that was invited has signed up to use Greenlight.
           admins_link: Visit the Organization Page

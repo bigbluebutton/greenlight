@@ -148,7 +148,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [:request_id]
+  config.log_tags = [:request_id, :remote_ip]
 
   if ENV["RAILS_LOG_TO_STDOUT"] == "true"
     logger = ActiveSupport::Logger.new($stdout)
