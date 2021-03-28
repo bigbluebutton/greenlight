@@ -355,6 +355,7 @@ ja_JP:
         info: "%{name} があなたをパーソナルスペースに招待しました"
         signup_info: メールを使ってサインアップするには、以下のボタンをクリックして、手順に従ってください。
         signup_link: サインアップ
+        valid: "招待の有効期限: %{date}"
         signup:
           info: 招待されたユーザがGreenlightを使用するためにサインアップしました。
           admins_link: 構成ページにアクセス
