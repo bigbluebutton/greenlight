@@ -355,6 +355,7 @@ de_DE:
         info: "Sie wurden von %{name} in Ihren persönlichen Bereich eingeladen"
         signup_info: "Um sich mit Ihrer E-Mail anzumelden, klicken Sie den untenstehenden Button und folgen Sie den Schritten."
         signup_link: Registrieren
+        valid: "Die Einladung ist gültig bis: %{date}"
         signup:
           info: Ein eingeladener Nutzer hat sich bei Greenlight registriert.
           admins_link: Organisationsseite besuchen
