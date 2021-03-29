@@ -175,6 +175,9 @@ en:
         info: Gives all users moderator privileges in BigBlueButton when they join the meeting.
       recordings:
         info: Allows room owners to specify whether they want the option to record a room or not. If enabled, the moderator must still click the "Record" button once the meeting has started.
+      moderator_codes:
+        info: Allows room owners to optionally generate a moderator pin which allows other users to join directly as moderators.
+        title: Moderator Access Code
       options:
         disabled: Disabled
         enabled: Always Enabled
@@ -353,6 +356,7 @@ en:
         info: You have been invited to your own personal space by %{name}
         signup_info: To signup using your email, click the button below and follow the steps.
         signup_link: Sign Up
+        valid: "The invite is valid until: %{date}"
         signup:
           info: A user that was invited has signed up to use Greenlight.
           admins_link: Visit the Organization Page
@@ -391,7 +395,9 @@ en:
       title: Create New Role
     create_room:
       access_code: Access Code
+      moderator_access_code: Moderator Code
       access_code_placeholder: Generate an optional room access code
+      moderator_access_code_placeholder: Generate an optional code for moderators
       auto_join: Automatically join me into the room
       create: Create Room
       free_delete: You will be free to delete this room at any time.
@@ -544,6 +550,7 @@ en:
     access_code_required: Please enter a valid access code to join the room
     add_presentation: Add Presentation
     copy_access: Copy Access Code
+    copy_moderator_access: Copy Moderator Code
     create_room: Create a Room
     create_room_error: There was an error creating the room
     create_room_success: Room created successfully
@@ -552,6 +559,8 @@ en:
       success: Room deleted successfully
       fail: Failed to delete room (%{error})
     enter_the_access_code: Enter the room's access code
+    enter_the_moderator_access_code: Enter the room's moderator code!
+    optional_moderator_access_code: "Optional Moderator Code:"
     invalid_provider: You have entered an invalid url. Please check the url and try again.
     invitation_description: You have been invited to join %{name} using BigBlueButton. To join, click the link above and enter your name.
     invited: You have been invited to join

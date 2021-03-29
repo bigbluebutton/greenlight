@@ -1,8 +1,6 @@
 <%
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
-#
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
-#
 # This program is free software; you can redistribute it and/or modify it under the
 # terms of the GNU Lesser General Public License as published by the Free Software
 # Foundation; either version 3.0 of the License, or (at your option) any later
@@ -11,17 +9,21 @@
 # BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-#
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<%= t('mailer.user.invite.subject') %>
-
-<%= t('mailer.user.invite.info', name: @name) %>
-
-<%= t('mailer.user.invite.username', email: @email) %>
-
-<%= t('mailer.user.invite.signup_info') %>
-
-<%= @url %>
+<%= form_for :room, url: login_room_path(@room.uid) do |f| %>
+  <div class="input-group join-input">
+    <%= f.text_field :access_code,
+          required: true,
+          class: "form-control join-form",
+          placeholder: access_code_type == 'moderator' ? t("room.enter_the_moderator_access_code") : t("room.enter_the_access_code"),
+          value: "" ,
+          autofocus: true,
+          maxlength: 26 %>
+	<span class="input-group-append">
+	  <%= f.button t("room.login"), type: :submit, class: "btn btn-primary btn-sm px-7 form-control join-form" %>
+	</span>
+  </div>
+<% end %>

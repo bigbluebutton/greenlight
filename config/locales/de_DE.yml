@@ -175,6 +175,9 @@ de_DE:
         info: "Gewährt allen Teilnehmern Moderatorenrechte in BigBlueButton, wenn sie an der Konferenz teilnehmen."
       recordings:
         info: "Ermöglicht Rauminitiatoren die Festlegung, ob sie die Option zum Aufzeichnen eines Raums wünschen oder nicht. Wenn diese Option aktiviert ist, muss der Moderator auch nach Beginn der Konferenz auf den Button \"Aufzeichnen\" klicken."
+      moderator_codes:
+        info: "Ermöglicht es Rauminitiatoren, optional einen Moderatoren-PIN zu generieren, der es anderen Teilnehmern ermöglicht, direkt als Moderator beizutreten."
+        title: Moderatoren-Zugangscode
       options:
         disabled: Deaktiviert
         enabled: Immer aktiviert
@@ -352,6 +355,7 @@ de_DE:
         info: "Sie wurden von %{name} in Ihren persönlichen Bereich eingeladen"
         signup_info: "Um sich mit Ihrer E-Mail anzumelden, klicken Sie den untenstehenden Button und folgen Sie den Schritten."
         signup_link: Registrieren
+        valid: "Die Einladung ist gültig bis: %{date}"
         signup:
           info: Ein eingeladener Nutzer hat sich bei Greenlight registriert.
           admins_link: Organisationsseite besuchen
@@ -390,7 +394,9 @@ de_DE:
       title: Neue Rolle erstellen
     create_room:
       access_code: Zugangscode
+      moderator_access_code: Moderatoren-Code
       access_code_placeholder: Generieren eines optionalen Raumzugangscodes
+      moderator_access_code_placeholder: Optionalen Code für Moderatoren generieren
       auto_join: Automatisch dem Raum beitreten
       create: Raum erstellen
       free_delete: Sie können den Raum jederzeit wieder löschen.
@@ -543,6 +549,7 @@ de_DE:
     access_code_required: "Bitte geben Sie einen gültigen Zugangscode ein, um den Raum zu betreten"
     add_presentation: Präsentation hinzufügen
     copy_access: Zugangscode kopieren
+    copy_moderator_access: Moderatoren-Code kopieren
     create_room: Raum erstellen
     create_room_error: Bei der Erstellung des Raums ist ein Fehler aufgetreten
     create_room_success: Raum erfolgreich erstellt
@@ -551,6 +558,8 @@ de_DE:
       success: Raum erfolgreich gelöscht
       fail: "Raum konnte nicht gelöscht werden (%{error})"
     enter_the_access_code: Raumzugangscode bitte eingeben
+    enter_the_moderator_access_code: Geben Sie den Moderatoren-Code des Raums ein!
+    optional_moderator_access_code: "Optionaler Moderatoren-Code:"
     invalid_provider: "Sie haben eine ungültige URL eingegeben, bitte überprüfen Sie die URL und versuchen Sie es erneut."
     invitation_description: "Sie wurden zu %{name} über BigBlueButton zur Teilnahme eingeladen. Um beizutreten, klicken Sie auf den obigen Link und geben Sie Ihren Namen ein."
     invited: Sie wurden zur Teilnahme eingeladen

@@ -175,6 +175,9 @@ ja_JP:
         info: すべてのユーザに、会議に参加した時点で司会者の権限をあたえます。
       recordings:
         info: 会議室のオーナーが、会議を録画させるかどうかの選択肢を提供できるようになります。これをオンにしたとしても、録画を開始するためには、司会者は"録画"ボタンを押す必要があります。
+      moderator_codes:
+        info: 会議室の所有者に、モデレーターPINコードの発行を許可します。このコードがあれば、他のユーザーが直接モデレーターとして会議に参加できます。
+        title: モデレーターPINコード
       options:
         disabled: 常に無効
         enabled: 常に有効
@@ -352,6 +355,7 @@ ja_JP:
         info: "%{name} があなたをパーソナルスペースに招待しました"
         signup_info: メールを使ってサインアップするには、以下のボタンをクリックして、手順に従ってください。
         signup_link: サインアップ
+        valid: "招待の有効期限: %{date}"
         signup:
           info: 招待されたユーザがGreenlightを使用するためにサインアップしました。
           admins_link: 構成ページにアクセス
@@ -390,7 +394,9 @@ ja_JP:
       title: 新しい役割を作成
     create_room:
       access_code: アクセスコード
+      moderator_access_code: モデレーターコード
       access_code_placeholder: 会議室のアクセスコードを生成する
+      moderator_access_code_placeholder: 予備のモデレーターコードを作成する
       auto_join: 会議に自動的に参加する
       create: 会議室の作成
       free_delete: この会議室はいつでも自由に削除できます。
@@ -543,6 +549,7 @@ ja_JP:
     access_code_required: 会議に参加するには、有効なアクセスコードを入力してください
     add_presentation: プレゼン資料を追加
     copy_access: アクセスコードをコピー
+    copy_moderator_access: モデレーターコードをコピーする
     create_room: 会議室の作成
     create_room_error: 会議室の作成中にエラーが発生しました
     create_room_success: 会議室が作成されました
@@ -551,6 +558,8 @@ ja_JP:
       success: 会議室を削除しました
       fail: "会議室の削除に失敗しました(%{error})"
     enter_the_access_code: 会議室のアクセスコードを入力してください
+    enter_the_moderator_access_code: モデレーターコードを使用して会議室に入室する
+    optional_moderator_access_code: "予備のモデレーターコード"
     invalid_provider: 無効なURLを入力しました。 URLを確認して、もう一度試してみてください。
     invitation_description: "BigBlueButtonを使用して%{name}に参加するよう招待されました。参加するためには下のリンクをクリックし、名前を入力してください。"
     invited: 招待されています

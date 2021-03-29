@@ -145,7 +145,7 @@ class AdminsController < ApplicationController
     emails.each do |email|
       invitation = create_or_update_invite(email)
 
-      send_invitation_email(current_user.name, email, invitation.invite_token)
+      send_invitation_email(current_user.name, email, invitation)
     end
 
     redirect_back fallback_location: admins_path
@@ -228,7 +228,7 @@ class AdminsController < ApplicationController
     flash_message = I18n.t("administrator.flash.settings")
 
     if params[:value] == "Default Recording Visibility"
-      flash_message += ". " + I18n.t("administrator.site_settings.recording_visibility.warning")
+      flash_message += ". #{I18n.t('administrator.site_settings.recording_visibility.warning')}"
     end
 
     redirect_to admin_site_settings_path(tab: tab), flash: { success: flash_message }

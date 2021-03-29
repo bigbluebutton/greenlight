@@ -75,13 +75,14 @@ module ApplicationHelper
   end
 
   def translated_role_name(role)
-    if role.name == "denied"
+    case role.name
+    when "denied"
       I18n.t("roles.banned")
-    elsif role.name == "pending"
+    when "pending"
       I18n.t("roles.pending")
-    elsif role.name == "admin"
+    when "admin"
       I18n.t("roles.admin")
-    elsif role.name == "user"
+    when "user"
       I18n.t("roles.user")
     else
       role.name
@@ -109,6 +110,8 @@ module ApplicationHelper
     # Make a GET request and validate content type
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = (url.scheme == "https")
+    http.read_timeout = 10
+    http.open_timeout = 10
 
     http.start do |web|
       response = web.head(url.request_uri)

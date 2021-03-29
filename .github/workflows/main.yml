@@ -10,7 +10,7 @@ env:
 name: CI
 on:
   push:
-    branches: "master"
+    branches-ignore: "master"
   pull_request:
     branches: "*"
 
@@ -21,7 +21,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres
+        image: postgres:13.2-alpine
         env:
           POSTGRES_DB: postgres
           POSTGRES_PASSWORD: postgres
