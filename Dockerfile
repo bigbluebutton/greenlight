@@ -10,7 +10,7 @@ ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
 RUN mkdir -p $RAILS_ROOT
 WORKDIR $RAILS_ROOT
 
-ARG BUILD_PACKAGES="build-base curl-dev git shared-mime-info"
+ARG BUILD_PACKAGES="build-base curl-dev git"
 ARG DEV_PACKAGES="postgresql-dev sqlite-libs sqlite-dev yaml-dev zlib-dev nodejs yarn"
 ARG RUBY_PACKAGES="tzdata"
 
@@ -40,7 +40,7 @@ FROM ruby:2.7.2-alpine
 
 # Set a variable for the install location.
 ARG RAILS_ROOT=/usr/src/app
-ARG PACKAGES="tzdata curl postgresql-client sqlite-libs yarn nodejs bash shared-mime-info"
+ARG PACKAGES="tzdata curl postgresql-client sqlite-libs yarn nodejs bash"
 
 ENV RAILS_ENV=production
 ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
