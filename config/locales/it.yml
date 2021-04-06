@@ -69,6 +69,10 @@ it:
         regular: Colore di base
         lighten: Chiaro
         darken: Scuro
+      email_mapping:
+        info: "Associa un ruolo all'utente usando la sua email. Deve essere nel formato email1=ruolo1,email2=ruolo2"
+        title: Associazione del ruolo con email
+        update:
       log_level:
         title: Livello di Log
         information: Modifica il livello di Log per l'intera installazione
@@ -90,7 +94,7 @@ it:
         title: Banner Manutenzione
         display: Imposta
         clear: Pulisci
-        time: "Esempio: Aggiornamento schedulato il 13 Dicembre @ 23:00 ET. Gli utenti potrebbero riscontrare problemi nel loggare."        
+        time: "Esempio: Aggiornamento schedulato il 13 Dicembre @ 23:00 ET. Gli utenti potrebbero riscontrare problemi nel loggare."
       preupload:
         info: Gli utenti possono precaricare una presentazione per essere usata come presentazione di default per una stanza specifica
         title: Permetti agli Utenti di precaricare le Presentazioni
@@ -111,6 +115,7 @@ it:
       tabs:
         appearance: Aspetto
         administration: Amministrazione
+        registration: Registrazione
         settings: Impostazioni
       title: Impostazioni Sito
     flash:
@@ -133,8 +138,10 @@ it:
       settings: Le impostazioni web sono state modificate con successo
       unauthorized: Non sei autorizzato ad effettuare modifiche sull'utente
     recordings:
+      latest: Ultime registrazioni
       title: Registrazioni video sul server
       no_recordings: Il server non ha registrazioni video
+      search_info: Inserisci l'email completa di un utente oppure l'uid di una stanza
     roles:
       appear_in_share_list: Includi utenti con questo ruolo nel menu a discesa per la condivisione Stanze
       can_create_rooms: Non posso creare la stanza
@@ -168,11 +175,15 @@ it:
         info: Dà a tutti gli utenti i privilegi di moderatore su BigBlueButton quando entrano nel meeting.
       recordings:
         info: "Permetti ai proprietari delle stanze di specificare se vogliono poter registrare la stanza o meno. Se abilitata, il moderatore deve comunque cliccare il pulsante \"Registra\" una volta avviato il meeting."
+      moderator_codes:
+        info: Permette ai proprietari di una stanza di generare facoltativamente un pin moderatore che permette agli altri utenti di entrare direttamente come moderatori.
+        title: Codice accesso moderatore
       options:
         disabled: Disabilitato
         enabled: Sempre Abilitata
         optional: Opzionale
     rooms:
+      timeout: "A causa del timeout della richiesta sul server 1%{server}, le informazioni riguardanti lo stato e i partecipanti potrebbero non essere accurate"
       title: Stanze
       table:
         ended: "Terminata: %{session}"
@@ -202,12 +213,14 @@ it:
       table:
         authenticator: Gestore di autenticazione
         created: Creato
+        time: Tempo d'invio
         name: Nome
         not_found: Nessun utente corrisponde alla ricerca
         no_users: Nessun utente trovato
         role: Ruolo
         uid: ID Utente
         username: Nome utente
+        valid: Valido
       title: Gestisci utenti
   add_to_google_calendar: "Aggiungi a Google Calendar"
   bigbluebutton: BigBlueButton
@@ -342,6 +355,7 @@ it:
         info: "Sei stato invitato sul tuo spazio personale da %{name}"
         signup_info: "Per accedere utilizzando la tua email, clicca il pulsante e segui i passaggi seguenti."
         signup_link: Accesso
+        valid: "L'invito è valido fino al: %{date}"
         signup:
           info: Un utente che e' stato invitato ha avuto accesso a Greenlight.
           admins_link: Visita la pagina Organizzazione
@@ -380,7 +394,9 @@ it:
       title: Crea Nuovo Ruolo
     create_room:
       access_code: Codice Accesso
+      moderator_access_code: Codice moderatore
       access_code_placeholder: Genera un codice opzionale di accesso
+      moderator_access_code_placeholder: Genera un codice facoltativo per moderatori
       auto_join: Aggiungimi automaticamente alla stanza
       create: Crea Stanza
       free_delete: Puoi eliminare la stanza in qualsiasi momento.
@@ -469,6 +485,7 @@ it:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: Collegati con OpenID
   recaptcha:
     errors:
       recaptcha_unreachable: "Accidenti, la verifica reCAPTCHA è fallita. Riprova."
@@ -514,6 +531,7 @@ it:
   remove: Elimina
   rename: Rinomina
   reset_password:
+    captcha: "Accidenti, la verifica reCAPTCHA è fallita. Riprova."
     invalid_token: Il token di reset della password non è valido. Riprova a richiedere il reset nuovamente.
     subtitle: Reimposta password
     password: Nuova password
@@ -530,6 +548,8 @@ it:
   room:
     access_code_required: Prego immettere un codice valido per entrare nella stanza
     add_presentation: Aggiungi Presentazione
+    copy_access: Copia codice di accesso
+    copy_moderator_access: Copia codice moderatore
     create_room: Crea una stanza
     create_room_error: Si è verificato un errore nella creazione della stanza
     create_room_success: La stanza è stata creata correttamente
@@ -538,8 +558,10 @@ it:
       success: Stanza eliminata con successo
       fail: "Stanza non eliminata a causa dell'errore seguente: %{error}"
     enter_the_access_code: Immetti il codice di accesso alla stanza
+    enter_the_moderator_access_code: Inserire il codice moderatore della stanza!
+    optional_moderator_access_code: "Codice moderatore facoltativo:"
     invalid_provider: Hai inserito una url non valida. Per favore verifica e riprova.
-    invitation_description: "Sei stato invitato ad entrare in %{name} usando BigBlueButton. Per entrare, clicca sul link sopra e inserisci il tuo nome."  
+    invitation_description: "Sei stato invitato ad entrare in %{name} usando BigBlueButton. Per entrare, clicca sul link sopra e inserisci il tuo nome."
     invited: Hai ricevuto un invito per partecipare
     recording_present: Accetto che questa sessione verrà registrata. Questo può includere la mia voce e il video se abilitati.
     invite_participants: Invita partecipanti
@@ -574,6 +596,7 @@ it:
     shared_access_success: Stanza condivisa con successo
     shared_access_error: Si e' verificato un errore condividendo la stanza
     start: Avvia
+    search: Ricerca della stanza…
     unavailable: La stanza non è disponibile finché il proprietario non verifica il suo indirizzo email.
     update_settings_error: Si è verificato un errore nell'aggiornamento dei dettagli della stanza
     update_settings_success: Impostazioni della stanza aggiornate correttamente

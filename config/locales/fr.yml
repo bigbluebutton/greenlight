@@ -20,7 +20,7 @@ fr:
   activerecord:
     attributes:
       user:
-        accepted_terms: "Termes et Conditions"
+        accepted_terms: "Conditions générales d'utilisation"
         email: Adresse électronique
         name: Nom
         password: Mot de passe
@@ -69,6 +69,10 @@ fr:
         regular: Base
         lighten: Plus clair
         darken: Plus sombre
+      email_mapping:
+        info: "Associez l'utilisateur à un role en utilisant son adresse électronique. Doit être au format email1=role1,email2=role2"
+        title: Mapping des rôles par adresse électronique
+        update:
       log_level:
         title: Verbosité du journal
         information: Changer la verbosité du journal pour tout le déploiement
@@ -90,7 +94,7 @@ fr:
         title: Bannière de maintenance
         display: Définir
         clear: Effacer
-        time: "Exemple : Mise à jour prévue le 13 décembre à 23:00. Les utilisateurs peuvent rencontrer des problèmes pour se connecter."        
+        time: "Exemple : Mise à jour prévue le 13 décembre à 23:00. Les utilisateurs peuvent rencontrer des problèmes pour se connecter."
       preupload:
         info: Les utilisateurs peuvent précharger une présentation qui sera utilisée comme présentation par défaut pour cette salle spécifique
         title: Permettre aux utilisateurs de précharger des présentations
@@ -111,6 +115,7 @@ fr:
       tabs:
         appearance: Apparence
         administration: Administration
+        registration: Inscription
         settings: "Paramètres "
       title: Paramètres du site
     flash:
@@ -133,8 +138,10 @@ fr:
       settings: Les paramètres du site ont bien été modifiés
       unauthorized: Vous n'êtes pas autorisé à effectuer cette action sur cet utilisateur.
     recordings:
+      latest: Derniers enregistrements
       title: Enregistrements du serveur
       no_recordings: Ce serveur n'a pas d'enregistrement.
+      search_info: Saisissez l'adresse électronique complète d'un utilisateur ou l'identifiant d'une salle
     roles:
       appear_in_share_list: Inclure les utilisateurs ayant ce rôle dans la liste déroulante de partage des salons
       can_create_rooms: Peut créer des salles
@@ -173,6 +180,7 @@ fr:
         enabled: Toujours activé
         optional: Facultatif
     rooms:
+      timeout: "En raison du délai de  %{server}  du serveur, les informations relatives au statut et aux participants peuvent ne pas être exactes"
       title: Serveur des salons
       table:
         ended: "Terminé:%{session}"
@@ -471,6 +479,7 @@ fr:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: "Oups, nous n'avons pas réussi à valider votre réponse reCAPTCHA. Veuillez réessayer."
@@ -478,7 +487,7 @@ fr:
   recording:
     all_recordings: Tous les enregistrements
     email: Envoyer l'enregistrement par courriel
-    error: "Il y a eu une erreur lors de la récupération de %{count} enregistrement(s)"
+    error: "Il y a eu une erreur lors de la récupération de %{count}  enregistrement(s)"
     no_recordings: "Ce salon n'a pas d'enregistrement %{inject}."
     no_user_recordings: "Actuellement, vous n'avez  aucun enregistrement."
     no_matched_recordings: "Aucun enregistrement %{inject} ne correspond à votre recherche."
@@ -516,6 +525,7 @@ fr:
   remove: Enlever
   rename: Renommer
   reset_password:
+    captcha: "La vérification de reCAPTCHA a échoué, veuillez réessayer."
     invalid_token: Le jeton de réinitialisation du mot de passe n'est pas valide. Veuillez essayer de réinitialiser votre mot de passe à nouveau.
     subtitle: Réinitialiser le mot de passe
     password: Nouveau mot de passe
@@ -542,7 +552,7 @@ fr:
       fail: "Erreur lors de la suppression de la salle (%{error})"
     enter_the_access_code: Veuillez introduire le code d'accès de la salle
     invalid_provider: Vous avez introduit une url non valide. Veuillez vérifier l'url et essayez à nouveau.
-    invitation_description: "Vous avez été invité à rejoindre 1%{name} en utilisant le BigBlueButton. Pour le faire, cliquez sur le lien ci-dessus et saisissez votre nom."  
+    invitation_description: "Vous avez été invité à rejoindre 1%{name} en utilisant le BigBlueButton. Pour le faire, cliquez sur le lien ci-dessus et saisissez votre nom."
     invited: Vous avez été invité à rejoindre
     recording_present: Je reconnais que cette session va être enregistrée. Cela peut inclure ma voix et la vidéo si elle est activée.
     invite_participants: Inviter des participants
@@ -565,7 +575,7 @@ fr:
     preupload_error: Erreur lors du chargement de la présentation
     preupload_remove_success: Présentation supprimée avec succès
     preupload_remove_error: "Erreur lors de la suppression de la présentation "
-    recordings: Enregistrements du salon
+    recordings: Enregistrements de salon
     room_limit: Vous avez atteint le nombre maximum de salles autorisé
     room_limit_exceeded: "Vous avez dépassé le nombre de salles autorisé. Veuillez en supprimer %{difference}pour pouvoir accéder à cette salle."
     sessions: Sessions
@@ -577,7 +587,8 @@ fr:
     shared_access_success: Salle partagée avec succès
     shared_access_error: Il y a eu une erreur lors du partage de la salle
     start: Démarrer
-    unavailable: Ce salon est actuellement indisponible car le courrier électronique du propriétaire n'a pas été vérifié.
+    search: Rechercher une salle...
+    unavailable: Ce salon est actuellement indisponible car l'adresse électronique du propriétaire n'a pas été vérifié.
     update_settings_error: Une erreur s'est produite lors de la mise à jour des paramètres du salon.
     update_settings_success: Paramètres du salon mis à jour avec succès
     wait:
@@ -589,7 +600,7 @@ fr:
       language: Langue
       provider: Fournisseur
       image: Image
-      image_url: URL de l'image profil
+      image_url: URL de l'image du profil
       roles: Rôle de l'utilisateur
       subtitle: Mettre à jour les informations de votre compte
       title: Informations de compte
@@ -603,19 +614,19 @@ fr:
       confirmation: Confirmation du nouveau mot de passe
       new: Nouveau Mot de passe
       old: Ancien Mot de passe
-      subtitle: Changer votre Mot de passe
+      subtitle: Modifier votre mot de passe
       title: Mot de passe
     title: Profil
     search: Chercher
   signup:
-    password_confirm: Confirmation Mot de passe
+    password_confirm: Confirmation du mot de passe
     subtitle: Créer un Compte
     title: S’inscrire
     with: "S'inscrire via %{provider}"
   terms:
     accept: "J'accepte les %{href}"
-    accept_existing: J'accepte les termes et conditions
-    title: Termes et Conditions
+    accept_existing: J'accepte les conditions générales d'utilisation
+    title: Conditions générales d'utilisation
   test_install: >
     Ce déploiement utilise un serveur de test pré-configuré, vous devez le remplacer par le vôtre. Pour plus de détails, voir le %{href}.
   update: Mise à jour
@@ -625,7 +636,7 @@ fr:
     already_verified: Le compte a déjà été vérifié
     invalid: Lien de vérification invalide
     not_verified: Votre compte n'a pas encore été vérifié.
-    resend: Renvoyer l'e-mail de vérification
+    resend: Renvoyer le courriel de vérification
     signin: Veuillez vous connecter pour accéder à votre compte.
-    title: Vérifiez votre e-mail
+    title: Vérifiez votre adresse électronique
     verification: Vérification

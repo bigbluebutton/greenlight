@@ -72,7 +72,7 @@ nl:
       email_mapping:
         info: "Wijs de gebruiker een rol toe met behulp van zijn e-mailadres. Moet de indeling email1=rol1,email2=rol2 hebben"
         title: Roltoewijzing via e-mail
-        update: 
+        update:
       log_level:
         title: Log Niveau
         information: Wijzig het Log Niveau voor de hele installatie
@@ -94,7 +94,7 @@ nl:
         title: Onderhoudsbanner
         display: Aan
         clear: Uit
-        time: "Voorbeeld: update gepland op 13 december om 23:00 ET. Gebruikers kunnen problemen ondervinden bij het inloggen."        
+        time: "Voorbeeld: update gepland op 13 december om 23:00 ET. Gebruikers kunnen problemen ondervinden bij het inloggen."
       preupload:
         info: Gebruikers kunnen een presentatie vooraf uploaden om als standaardpresentatie voor die specifieke ruimte te gebruiken
         title: Sta gebruikers toe presentaties vooraf te uploaden
@@ -138,8 +138,10 @@ nl:
       settings: Site-instellingen succesvol gewijzigd
       unauthorized: U bent niet gemachtigd om acties uit te voeren op deze gebruiker
     recordings:
+      latest: Nieuwste opnames
       title: Serveropnames
       no_recordings: Deze server heeft geen opnames.
+      search_info: Voer het volledige e-mailadres van een gebruiker of het uid van een kamer in
     roles:
       appear_in_share_list: Neem gebruikers met deze rol op in de keuzelijst voor het delen van kamers
       can_create_rooms: Kan kamers maken
@@ -477,6 +479,7 @@ nl:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: "Oeps, we hebben uw reCAPTCHA-antwoord niet kunnen valideren. Probeer het opnieuw."
@@ -522,6 +525,7 @@ nl:
   remove: Verwijder
   rename: Hernoem
   reset_password:
+    captcha: "reCAPTCHA-verificatie is mislukt, probeer het opnieuw."
     invalid_token: Token voor wachtwoordherstel is ongeldig. Probeer je wachtwoord opnieuw in te stellen.
     subtitle: Reset wachtwoord
     password: Nieuw wachtwoord
@@ -548,7 +552,7 @@ nl:
       fail: "Kan kamer niet verwijderen (%{error})"
     enter_the_access_code: Voer de toegangscode van de kamer in
     invalid_provider: U heeft een ongeldige URL ingevoerd. Controleer de URL en probeer het opnieuw.
-    invitation_description: "Je bent uitgenodigd om deel te nemen aan %{name} via BigBlueButton. Klik op bovenstaande link en voert u uw naam in om te beginnen."  
+    invitation_description: "Je bent uitgenodigd om deel te nemen aan %{name} via BigBlueButton. Klik op bovenstaande link en voert u uw naam in om te beginnen."
     invited: Je bent uitgenodigd om lid te worden
     recording_present: Ik erken dat deze sessie zal worden opgenomen. Deze opname kan mijn stem en video bevatten indien dit is ingeschakeld.
     invite_participants: Deelnemers uitnodigen

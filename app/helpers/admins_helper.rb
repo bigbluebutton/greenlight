@@ -31,13 +31,6 @@ module AdminsHelper
     @running_room_bbb_ids.include?(id)
   end
 
-  # Returns a more friendly/readable date time object
-  def friendly_time(date)
-    return "" if date.nil? # Handle invalid dates
-
-    I18n.l date, format: "%B %d, %Y %H:%M UTC"
-  end
-
   # Site Settings
 
   def admin_invite_registration
@@ -93,6 +86,14 @@ module AdminsHelper
       I18n.t("administrator.site_settings.authentication.enabled")
     else
       I18n.t("administrator.site_settings.authentication.disabled")
+    end
+  end
+
+  def moderator_codes_string
+    if @settings.get_value("Moderator Access Codes") == "true"
+      I18n.t("administrator.site_settings.moderator_codes.enabled")
+    else
+      I18n.t("administrator.site_settings.moderator_codes.disabled")
     end
   end
 

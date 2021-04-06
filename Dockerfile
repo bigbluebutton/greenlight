@@ -1,4 +1,4 @@
-FROM ruby:2.5.1-alpine AS base
+FROM ruby:2.7.2-alpine AS base
 
 # Set a variable for the install location.
 ARG RAILS_ROOT=/usr/src/app
@@ -10,7 +10,7 @@ ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
 RUN mkdir -p $RAILS_ROOT
 WORKDIR $RAILS_ROOT
 
-ARG BUILD_PACKAGES="build-base curl-dev git"
+ARG BUILD_PACKAGES="build-base curl-dev git shared-mime-info"
 ARG DEV_PACKAGES="postgresql-dev sqlite-libs sqlite-dev yaml-dev zlib-dev nodejs yarn"
 ARG RUBY_PACKAGES="tzdata"
 
@@ -24,9 +24,9 @@ COPY Gemfile Gemfile.lock $RAILS_ROOT/
 
 RUN bundle config --global frozen 1 \
     && bundle install --deployment --without development:test:assets -j4 --path=vendor/bundle \
-    && rm -rf vendor/bundle/ruby/2.5.0/cache/*.gem \
-    && find vendor/bundle/ruby/2.5.0/gems/ -name "*.c" -delete \
-    && find vendor/bundle/ruby/2.5.0/gems/ -name "*.o" -delete
+    && rm -rf vendor/bundle/ruby/2.7.0/cache/*.gem \
+    && find vendor/bundle/ruby/2.7.0/gems/ -name "*.c" -delete \
+    && find vendor/bundle/ruby/2.7.0/gems/ -name "*.o" -delete
 
 # Adding project files.
 COPY . .
@@ -36,11 +36,11 @@ RUN rm -rf tmp/cache spec
 
 ############### Build step done ###############
 
-FROM ruby:2.5.1-alpine
+FROM ruby:2.7.2-alpine
 
 # Set a variable for the install location.
 ARG RAILS_ROOT=/usr/src/app
-ARG PACKAGES="tzdata curl postgresql-client sqlite-libs yarn nodejs bash"
+ARG PACKAGES="tzdata curl postgresql-client sqlite-libs yarn nodejs bash shared-mime-info"
 
 ENV RAILS_ENV=production
 ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"

@@ -57,6 +57,7 @@ module BbbServer
     if current_user
       join_opts[:avatarURL] = current_user.image
     end
+    join_opts[:createTime] = room.last_session.to_datetime.strftime("%Q")
 
     bbb_server.join_meeting_url(room.bbb_id, name, password, join_opts)
   end
@@ -91,7 +92,7 @@ module BbbServer
       end
 
       unless meeting[:messageKey] == 'duplicateWarning'
-        room.update_attributes(sessions: room.sessions + 1, last_session: DateTime.now)
+        room.update_attributes(sessions: room.sessions + 1, last_session: DateTime.strptime(meeting[:createTime].to_s, "%Q"))
       end
     rescue BigBlueButton::BigBlueButtonException => e
       puts "BigBlueButton failed on create: #{e.key}: #{e.message}"

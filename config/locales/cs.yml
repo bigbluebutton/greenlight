@@ -69,6 +69,10 @@ cs:
         regular: Hlavní barva
         lighten: Světlá barva
         darken: Tmavá barva
+      email_mapping:
+        info: "Přiřaď uživateli roli podle e-mailu. Musí být ve formátu: email1=role1,email2=role2"
+        title: Mapování rolí podle e-mailu
+        update:
       log_level:
         title: Úroveň logování
         information: "Změní úroveň pro celý server "
@@ -90,7 +94,7 @@ cs:
         title: Informace o údržbě
         display: Nastavit
         clear: Vyčistit
-        time: "Příklad: Údržba systému je naplánovaná na 13. prosince ve 23:00.\nUživatelé mohou mít potíže s přihlášením do systému."        
+        time: "Příklad: Údržba systému je naplánovaná na 13. prosince ve 23:00.\nUživatelé mohou mít potíže s přihlášením do systému."
       preupload:
         info: "Uživatelé mohou nahrát prezentaci, která bude použita jako výchozí prezentace pro vybranou místnost."
         title: Povolit uživatelům nahrát výchozí prezentaci
@@ -111,6 +115,7 @@ cs:
       tabs:
         appearance: Vzhled
         administration: Administrace
+        registration: Registrace
         settings: Nastavení
       title: Nastavení serveru
     flash:
@@ -133,8 +138,10 @@ cs:
       settings: Nastavení serveru úspěšně změněno
       unauthorized: Nemáte dostatečná oprávnění k provedení akce.
     recordings:
+      latest: Poslední nahrávky
       title: Uložené nahrávky
       no_recordings: Na serveru dosud nejsou uloženy žádné nahrávky
+      search_info: Vložte uživatelův e-mail nebo identifikátor místnosti
     roles:
       appear_in_share_list: Uživatelé s touto rolí mohou sdílet místnost.
       can_create_rooms: Uživatel může vytvářet místnosti
@@ -472,6 +479,7 @@ cs:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: Nepodařilo se nám ověřit Vaši odpověď na reCAPTCHA. Zkuste to prosím znovu.
@@ -517,6 +525,7 @@ cs:
   remove: Odstranit
   rename: Přejmenovat
   reset_password:
+    captcha: "Ověření reCAPTCHA selhalo, zkuste to prosím znovu."
     invalid_token: Token resetu hesla je neplatný. Prosím proveďte reset svého hesla ještě jednou.
     subtitle: Resetovat heslo
     password: Nové heslo
@@ -543,7 +552,7 @@ cs:
       fail: "Nepodařilo se smazat místnost (%{error})"
     enter_the_access_code: Vložte přístupový kód do místnosti
     invalid_provider: Vložili jste neplatné url. Prosím zkontrolujte url a zkuste to znovu.
-    invitation_description: "Byl jste pozván na videokonferenci%{name} v BigBlueButton. K připojení do místnosti klikněte na odkaz výše a zadejte svoje jméno."  
+    invitation_description: "Byl jste pozván na videokonferenci%{name} v BigBlueButton. K připojení do místnosti klikněte na odkaz výše a zadejte svoje jméno."
     invited: Byl jste pozván na konferenci v místnosti
     recording_present: Souhlasím s nahráváním sezení v místnosti včetně mého hlasu a web kamery pokud jsou zapnuté.
     invite_participants: Pozvánka pro účastníky

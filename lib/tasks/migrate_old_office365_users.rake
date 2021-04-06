@@ -20,7 +20,7 @@ namespace :office365 do
         old_user.save!
       else
         old_main_room = old_user.main_room
-        old_main_room.name = "Old " + old_main_room.name
+        old_main_room.name = "Old #{old_main_room.name}"
         old_main_room.save!
 
         new_user.rooms << old_user.rooms

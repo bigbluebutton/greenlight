@@ -56,12 +56,19 @@ class AdminsController < ApplicationController
 
   # GET /admins/server_recordings
   def server_recordings
-    server_rooms = rooms_list_for_recordings
+    @search = params[:search] || ""
 
-    @search, @order_column, @order_direction, recs =
-      all_recordings(server_rooms, params.permit(:search, :column, :direction), true, true)
+    if @search.present?
+      if @search.include? "@"
+        user_email = @search
+      else
+        room_uid = @search
+      end
+    else
+      @latest = true
+    end
 
-    @pagy, @recordings = pagy_array(recs)
+    @pagy, @recordings = pagy_array(recordings_to_show(user_email, room_uid))
   end
 
   # GET /admins/rooms
@@ -138,7 +145,7 @@ class AdminsController < ApplicationController
     emails.each do |email|
       invitation = create_or_update_invite(email)
 
-      send_invitation_email(current_user.name, email, invitation.invite_token)
+      send_invitation_email(current_user.name, email, invitation)
     end
 
     redirect_back fallback_location: admins_path
@@ -202,13 +209,12 @@ class AdminsController < ApplicationController
     initial_list = User.without_role(:super_admin)
                        .where.not(uid: current_user.uid)
                        .merge_list_search(params[:search])
-                       .pluck_to_hash(:uid, :name, :email)
 
     initial_list = initial_list.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
 
     # Respond with JSON object of users
     respond_to do |format|
-      format.json { render body: initial_list.to_json }
+      format.json { render body: initial_list.pluck_to_hash(:uid, :name, :email).to_json }
     end
   end
 
@@ -222,7 +228,7 @@ class AdminsController < ApplicationController
     flash_message = I18n.t("administrator.flash.settings")
 
     if params[:value] == "Default Recording Visibility"
-      flash_message += ". " + I18n.t("administrator.site_settings.recording_visibility.warning")
+      flash_message += ". #{I18n.t('administrator.site_settings.recording_visibility.warning')}"
     end
 
     redirect_to admin_site_settings_path(tab: tab), flash: { success: flash_message }

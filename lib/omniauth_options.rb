@@ -20,11 +20,11 @@ module OmniauthOptions
   module_function
 
   def omniauth_options(env)
-    if env['omniauth.strategy'].options[:name] == "bn_launcher"
+    case env['omniauth.strategy'].options[:name]
+    when "bn_launcher"
       protocol = Rails.env.production? ? "https" : env["rack.url_scheme"]
 
-      customer_redirect_url = protocol + "://" + env["SERVER_NAME"] + ":" +
-                              env["SERVER_PORT"]
+      customer_redirect_url = "#{protocol}://#{env['SERVER_NAME']}:#{env['SERVER_PORT']}"
       user_domain = parse_user_domain(env["SERVER_NAME"])
       env['omniauth.strategy'].options[:customer] = user_domain
       env['omniauth.strategy'].options[:customer_redirect_url] = customer_redirect_url
@@ -33,10 +33,12 @@ module OmniauthOptions
       # This is only used in the old launcher and should eventually be removed
       env['omniauth.strategy'].options[:checksum] = generate_checksum(user_domain, customer_redirect_url,
         Rails.configuration.launcher_secret)
-    elsif env['omniauth.strategy'].options[:name] == "google"
+    when "google"
       set_hd(env, ENV['GOOGLE_OAUTH2_HD'])
-    elsif env['omniauth.strategy'].options[:name] == "office365"
+    when "office365"
       set_hd(env, ENV['OFFICE365_HD'])
+    when "openid_connect"
+      set_hd(env, ENV['OPENID_CONNECT_HD'])
     end
   end
 

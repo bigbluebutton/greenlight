@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_14_232153) do
+ActiveRecord::Schema.define(version: 2021_01_08_032132) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 2020_12_14_232153) do
     t.string "attendee_pw"
     t.string "access_code"
     t.boolean "deleted", default: false, null: false
+    t.string "moderator_access_code"
     t.index ["bbb_id"], name: "index_rooms_on_bbb_id"
     t.index ["deleted"], name: "index_rooms_on_deleted"
     t.index ["last_session"], name: "index_rooms_on_last_session"
