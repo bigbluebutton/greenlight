@@ -25,29 +25,12 @@ $(document).on('turbolinks:load', function(){
 
   // Only run on room pages.
   if (controller == "rooms" && action == "show"){
-    var copy = $('#copy');
-
-    // Handle copy button.
-    copy.on('click', function(){
-      var inviteURL = $('#invite-url');
-      inviteURL.select();
-
-      var success = document.execCommand("copy");
-      if (success) {
-        inviteURL.blur();
-        copy.addClass('btn-success');
-        copy.html("<i class='fas fa-check'></i>" + getLocalizedString("copied"))
-        setTimeout(function(){
-          copy.removeClass('btn-success');
-          copy.html("<i class='fas fa-copy'></i>" + getLocalizedString("copy"))
-        }, 2000)
-      }
-    });
-
     // Display and update all fields related to creating a room in the createRoomModal
     $("#create-room-block").click(function(){
       showCreateRoom(this)
     })
+
+    checkIfAutoJoin()
   }
 
     // Autofocus on the Room Name label when creating a room only
@@ -76,6 +59,7 @@ $(document).on('turbolinks:load', function(){
     $(".share-room").click(function() {
       // Update the path of save button
       $("#save-access").attr("data-path", $(this).data("path"))
+      $("#room-owner-uid").val($(this).data("owner"))
 
       // Get list of users shared with and display them
       displaySharedUsers($(this).data("users-path"))
@@ -89,11 +73,32 @@ $(document).on('turbolinks:load', function(){
       $(".bs-searchbox").siblings().hide()
     })
 
+    $("#share-room-select ~ button").on("click", function() {
+      $(".bs-searchbox").siblings().hide()
+    })
+
     $(".bs-searchbox input").on("input", function() {
       if ($(".bs-searchbox input").val() == '' || $(".bs-searchbox input").val().length < 3) {
+        $(".select-options").remove()
         $(".bs-searchbox").siblings().hide()
       } else {
-        $(".bs-searchbox").siblings().show()
+        // Manually populate the dropdown
+        $.get($("#share-room-select").data("path"), { search: $(".bs-searchbox input").val(), owner_uid: $("#room-owner-uid").val() }, function(users) {
+          $(".select-options").remove()
+          if (users.length > 0) {
+            users.forEach(function(user) {
+              let opt = document.createElement("option")
+              $(opt).val(user.uid)
+              $(opt).text(user.name)
+              $(opt).addClass("select-options")
+              $(opt).attr("data-subtext", user.uid)
+              $("#share-room-select").append(opt)
+            })
+            // Only refresh the select dropdown if there are results to show
+            $('#share-room-select').selectpicker('refresh');
+          } 
+          $(".bs-searchbox").siblings().show()
+        })     
       }
     })
 
@@ -120,29 +125,95 @@ $(document).on('turbolinks:load', function(){
         listItem.setAttribute('class', 'list-group-item text-left not-saved add-access');
         listItem.setAttribute("data-uid", uid)
 
-        let spanItem = "<span class='avatar float-left mr-2'>" + option.text().charAt(0) + "</span> <span class='shared-user'>" +
-          option.text() + " <span class='text-muted'>" + option.data("subtext") + "</span></span>" +
-          "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+        let spanItemAvatar = document.createElement("span"),
+            spanItemName = document.createElement("span"),
+            spanItemUser = document.createElement("span");
+        spanItemAvatar.setAttribute('class', 'avatar float-left mr-2');
+        spanItemAvatar.innerText = option.text().charAt(0);
+        spanItemName.setAttribute('class', 'shared-user');
+        spanItemName.innerText = option.text();
+        spanItemUser.setAttribute('class', 'text-muted');
+        spanItemUser.innerText = option.data('subtext');
+        spanItemName.append(spanItemUser);
 
-        listItem.innerHTML = spanItem
+        listItem.innerHTML = "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
+        listItem.prepend(spanItemName);
+        listItem.prepend(spanItemAvatar);
 
         $("#user-list").append(listItem)
       }
     })
+
+    $("#presentation-upload").change(function(data) {
+      var file = data.target.files[0]
+
+      // Check file type and size to make sure they aren't over the limit
+      if (validFileUpload(file)) {
+        $("#presentation-upload-label").text(file.name)
+      } else {
+        $("#invalid-file-type").show()
+        $("#presentation-upload").val("")
+        $("#presentation-upload-label").text($("#presentation-upload-label").data("placeholder"))
+      }
+    })
+
+    $(".preupload-room").click(function() {
+      updatePreuploadPresentationModal(this)
+    })
+
+    $("#remove-presentation").click(function(data) {
+      removePreuploadPresentation($(this).data("remove"))
+    })
+
+    // trigger initial room filter
+    filterRooms();
   }
 });
+
+function copyInvite() {
+  $('#invite-url').select()
+  if (document.execCommand("copy")) {
+    $('#invite-url').blur();
+    copy = $("#copy-invite")
+    copy.addClass('btn-success');
+    copy.html("<i class='fas fa-check mr-1'></i>" + getLocalizedString("copied"))
+    setTimeout(function(){
+      copy.removeClass('btn-success');
+      copy.html("<i class='fas fa-copy mr-1'></i>" + getLocalizedString("copy"))
+    }, 1000)
+  }
+}
+
+function copyAccess(target) {
+  input = target ? $("#copy-" + target + "-code") : $("#copy-code")
+  input.attr("type", "text")
+  input.select()
+  if (document.execCommand("copy")) {
+    input.attr("type", "hidden")
+    copy = target ? $("#copy-" + target + "-access") : $("#copy-access")
+    copy.addClass('btn-success');
+    copy.html("<i class='fas fa-check mr-1'></i>" + getLocalizedString("copied"))
+    setTimeout(function(){
+      copy.removeClass('btn-success');
+      originalString = target ? getLocalizedString("room.copy_" + target + "_access") : getLocalizedString("room.copy_access")
+      copy.html("<i class='fas fa-copy mr-1'></i>" + originalString)
+    }, 1000)
+  }
+}
 
 function showCreateRoom(target) {
   $("#create-room-name").val("")
   $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
+  $("#create-room-moderator-access-code").text(getLocalizedString("modal.create_room.moderator_access_code_placeholder"))
   $("#room_access_code").val(null)
+  $("#room_moderator_access_code").val(null)
 
   $("#createRoomModal form").attr("action", $("body").data('relative-root'))
-
   $("#room_mute_on_join").prop("checked", $("#room_mute_on_join").data("default"))
   $("#room_require_moderator_approval").prop("checked", $("#room_require_moderator_approval").data("default"))
   $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default"))
   $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default"))
+  $("#room_recording").prop("checked", $("#room_recording").data("default"))
 
   //show all elements & their children with a create-only class
   $(".create-only").each(function() {
@@ -187,6 +258,16 @@ function showUpdateRoom(target) {
     $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
     $("#room_access_code").val(null)
   }
+
+  var moderatorAccessCode = modal.closest(".room-block").data("room-moderator-access-code")
+
+  if(moderatorAccessCode){
+    $("#create-room-moderator-access-code").text(getLocalizedString("modal.create_room.moderator_access_code") + ": " + moderatorAccessCode)
+    $("#room_moderator_access_code").val(moderatorAccessCode)
+  } else {
+    $("#create-room-moderator-access-code").text(getLocalizedString("modal.create_room.moderator_access_code_placeholder"))
+    $("#room_moderator_access_code").val(null)
+  }
 }
 
 function showDeleteRoom(target) {
@@ -197,12 +278,12 @@ function showDeleteRoom(target) {
 //Update the createRoomModal to show the correct current settings
 function updateCurrentSettings(settings_path){
   // Get current room settings and set checkbox
-  $.get(settings_path, function(room_settings) {
-    var settings = JSON.parse(room_settings) 
+  $.get(settings_path, function(settings) {
     $("#room_mute_on_join").prop("checked", $("#room_mute_on_join").data("default") || settings.muteOnStart)
     $("#room_require_moderator_approval").prop("checked", $("#room_require_moderator_approval").data("default") || settings.requireModeratorApproval)
     $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default") || settings.anyoneCanStart)
     $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default") || settings.joinModerator)
+    $("#room_recording").prop("checked", $("#room_recording").data("default") || Boolean(settings.recording))
   })
 }
 
@@ -222,6 +303,24 @@ function generateAccessCode(){
 function ResetAccessCode(){
   $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
   $("#room_access_code").val(null)
+}
+
+function generateModeratorAccessCode(){
+  const accessCodeLength = 6
+  var validCharacters = "abcdefghijklmopqrstuvwxyz"
+  var accessCode = ""
+
+  for( var i = 0; i < accessCodeLength; i++){
+    accessCode += validCharacters.charAt(Math.floor(Math.random() * validCharacters.length));
+  }
+
+  $("#create-room-moderator-access-code").text(getLocalizedString("modal.create_room.moderator_access_code") + ": " + accessCode)
+  $("#room_moderator_access_code").val(accessCode)
+}
+
+function ResetModeratorAccessCode(){
+  $("#create-room-moderator-access-code").text(getLocalizedString("modal.create_room.moderator_access_code_placeholder"))
+  $("#room_moderator_access_code").val(null)
 }
 
 function saveAccessChanges() {
@@ -263,4 +362,71 @@ function removeSharedUser(target) {
     parentLI.removeChild(target)
     parentLI.classList.add("remove-shared")
   }
+}
+
+function updatePreuploadPresentationModal(target) {
+  $.get($(target).data("settings-path"), function(presentation) {
+    if(presentation.attached) {
+      $("#current-presentation").show()
+      $("#presentation-name").text(presentation.name)
+      $("#change-pres").show()
+      $("#use-pres").hide()
+    } else {
+      $("#current-presentation").hide()
+      $("#change-pres").hide()
+      $("#use-pres").show()
+    }
+  });
+  
+  $("#preuploadPresentationModal form").attr("action", $(target).data("path"))
+  $("#remove-presentation").data("remove",  $(target).data("remove"))
+  
+  // Reset values to original to prevent confusion
+  $("#presentation-upload").val("")
+  $("#presentation-upload-label").text($("#presentation-upload-label").data("placeholder"))
+  $("#invalid-file-type").hide()
+}
+
+function removePreuploadPresentation(path) {
+  $.post(path, {})
+}
+
+function validFileUpload(file) {
+  return file.size/1024/1024 <= 30
+}
+
+// Automatically click the join button if this is an action cable reload
+function checkIfAutoJoin() {
+  var url = new URL(window.location.href)
+
+  if (url.searchParams.get("reload") == "true") {
+    $("#joiner-consent").click()
+    $("#room-join").click()
+  }
+}
+
+function filterRooms() {
+  let search = $('#room-search').val()
+
+  if (search == undefined) { return }
+
+  let search_term = search.toLowerCase(),
+        rooms = $('#room_block_container > div:not(:last-child)');
+        clear_room_search = $('#clear-room-search');
+
+  if (search_term) {
+    clear_room_search.show();
+  } else {
+    clear_room_search.hide();
+  }
+
+  rooms.each(function(i, room) {
+    let text = $(this).find('h4').text();
+    room.style.display = (text.toLowerCase().indexOf(search_term) < 0) ? 'none' : 'block';
+  })
+}
+
+function clearRoomSearch() {
+  $('#room-search').val(''); 
+  filterRooms()
 }

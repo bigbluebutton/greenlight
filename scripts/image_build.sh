@@ -50,16 +50,9 @@ if [ -z $CD_REF_NAME ]; then
   export CD_REF_NAME=$(git branch | grep \* | cut -d ' ' -f2)
 fi
 
-if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && ( [ -z "$CD_BUILD_ALL" ] || [ "$CD_BUILD_ALL" != "true" ] ); then
+if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && [[ "$CD_REF_NAME" != *"alpha"* ]] && ( [ -z "$CD_BUILD_ALL" ] || [ "$CD_BUILD_ALL" != "true" ] ); then
   echo "#### Docker image for $CD_REF_SLUG:$CD_REF_NAME won't be built"
   exit 0
-fi
-
-# Include sqlite for production
-sqliteCount="$(grep "gem 'sqlite3'" Gemfile | wc -l)"
-
-if [ $sqliteCount -lt 2 ]; then
-  sed -i "/^group :production do/a\ \ gem 'sqlite3', '~> 1.3.6'" Gemfile
 fi
 
 # Set the version tag when it is a release or the commit sha was included.

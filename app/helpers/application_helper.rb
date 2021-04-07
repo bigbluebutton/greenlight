@@ -22,7 +22,7 @@ require 'uri'
 module ApplicationHelper
   # Determines which providers can show a login button in the login modal.
   def iconset_providers
-    providers = configured_providers & [:google, :twitter, :office365, :ldap]
+    providers = configured_providers & [:google, :twitter, :office365, :openid_connect, :ldap]
 
     providers.delete(:twitter) if session[:old_twitter_user_id]
 
@@ -75,13 +75,14 @@ module ApplicationHelper
   end
 
   def translated_role_name(role)
-    if role.name == "denied"
+    case role.name
+    when "denied"
       I18n.t("roles.banned")
-    elsif role.name == "pending"
+    when "pending"
       I18n.t("roles.pending")
-    elsif role.name == "admin"
+    when "admin"
       I18n.t("roles.admin")
-    elsif role.name == "user"
+    when "user"
       I18n.t("roles.user")
     else
       role.name
@@ -109,6 +110,8 @@ module ApplicationHelper
     # Make a GET request and validate content type
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = (url.scheme == "https")
+    http.read_timeout = 10
+    http.open_timeout = 10
 
     http.start do |web|
       response = web.head(url.request_uri)
@@ -116,5 +119,29 @@ module ApplicationHelper
     end
   rescue
     false
+  end
+
+  # Specifies which title should be the tab title and returns original string
+  def title(page_title)
+    # Only set the content_for if not already set on the page so that only the first title appears as the tab title
+    content_for(:page_title) { page_title } if content_for(:page_title).blank?
+    page_title
+  end
+
+  # Indicates whether the recording tables should be hidden
+  def hide_recording_tables
+    return false unless recording_consent_required?
+    @settings.get_value("Room Configuration Recording") == "disabled"
+  end
+
+  # Hide the signin buttons if there is an error on the page
+  def show_signin
+    !@hide_signin.present?
+  end
+
+  # Returns a more friendly/readable date time object
+  def view_date(date)
+    return "" if date.nil? # Handle invalid dates
+    local_time(date, "%b %d, %Y %-I:%M%P")
   end
 end

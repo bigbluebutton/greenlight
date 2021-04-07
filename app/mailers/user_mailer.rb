@@ -43,10 +43,14 @@ class UserMailer < ApplicationMailer
   def user_promoted(user, role, url, settings)
     @settings = settings
     @url = url
-    @admin_url = url + "admins"
+    @admin_url = "#{url}admins"
     @image = logo_image
     @color = user_color
     @role = translated_role_name(role)
+    @admin_role = role.get_permission("can_manage_users") ||
+                  role.get_permission("can_manage_rooms_recordings") ||
+                  role.get_permission("can_edit_site_settings") ||
+                  role.get_permission("can_edit_roles")
     mail to: user.email, subject: t('mailer.user.promoted.subtitle', role: translated_role_name(role))
   end
 
@@ -60,13 +64,14 @@ class UserMailer < ApplicationMailer
     mail to: user.email, subject: t('mailer.user.demoted.subtitle', role: translated_role_name(role))
   end
 
-  def invite_email(name, email, url, settings)
+  def invite_email(name, email, invite_date, url, settings)
     @settings = settings
     @name = name
     @email = email
     @url = url
     @image = logo_image
     @color = user_color
+    @date = "#{(invite_date + 2.days).strftime('%b %d, %Y %-I:%M%P')} UTC"
     mail to: email, subject: t('mailer.user.invite.subject')
   end
 

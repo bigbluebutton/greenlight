@@ -1,0 +1,632 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+ca_ES:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Termes i condicions d'ús"
+        email: Compte de correu
+        name: Nom
+        password: Contrasenya
+        password_confirmation: Confirmació de contrasenya
+    errors:
+      models:
+        user:
+          confirmation: no coindeix amb la contrasenya
+  administrator:
+    site_settings:
+      authentication:
+        disabled: Deshabilitada
+        enabled: Habilitada
+        info: Permetre només a usuaris autenticats unir-se a una sala
+        title: Requerir autenticació per a utilitzar les sales
+        user-info: Cal registrar-se a la part superior pare a accedir a aquesta sala
+      branding:
+        change: Canviar imatge
+        info: Canviar la imatge personalitzada que es mostra a la cantonada superior esquerra
+        placeholder: Enllaç de la imatge...
+        title: Imatge personalitzada
+        invalid: Enllaç no vàlid
+      legal:
+        change: Canvia l'enllaç
+        info: Canvia l'enllaç de termes legals que es mostra a la part inferior de la pàgina
+        placeholder: Enllaç de termes legals...
+        title: Termes legals
+        invalid: Enllaç no vàlid
+      privpolicy:
+        change: Canvia l'enllaç
+        info: Canvia l'enllaç de política de privacitat que es mostra a la part inferior de la pàgina
+        placeholder: Enllaç de política de privacitat
+        title: Política de privacitat
+        invalid: Enllaç no vàlid
+      cache:
+        info: "Neteja la memòria cau de proveïdors emmagatzemats, el que força una petició de la informació actualitzada"
+        title: Netejar memòria cau de proveïdor
+        button: Netejar memòria cau
+      clear_auth:
+        info: "Esborra l'autenticador actual pels usuaris, permetent-els tornar a iniciar sessió amb un mètode d'autenticació diferent"
+        title: Netejar l'autenticador actual
+        button: Netejar autenticació
+      color:
+        info: Netejar el color regular cambiarà tant el color clar como el fosc. Els valors d'Aclarir i Enfosquir es poden canviar individualment
+        title: Color principal
+        regular: Regular
+        lighten: Aclarir
+        darken: Enfosquir
+      log_level:
+        title: Nivell de registre
+        information: Canviar el nivell de registre per a toda la implementació
+        debug: Depurar
+        info: Informació
+        warn: Advertència
+        error: Error
+        fatal: Fatal
+        unknown: Desconegut
+      recording_visibility:
+        info: Establir la visibilitat per defecte de les noves gravacions
+        title: Visibilitat per defecte de gravacions
+        warning: Aquesta configuració només serà aplicada a les noves sessiones
+      require_consent:
+        info: "Aquesta configuració habilita una configuració de sala, que permet als propietaris de sales especificar quines sales poden ser gravades. Els usuaris que accedeixen a una sala amb gravació han de donar el seu consentiment abans d'unir-se."
+        title: Requerir el consentiment del propietari de la sala i la persona que accedeix per a realitzar la gravació
+      maintenance_banner:
+        info: Mostra un banner per a informar a l'usuari d'un manteniment programat
+        title: Banner de manteniment
+        display: Estableix
+        clear: Neteja
+        time: "Exemple: actualització programada pel 13 de desembre a las 23:00h. Els usuaris poden experimentar problemes per a iniciar sessió."        
+      preupload:
+        info: Els usuaris poden carregar prèviament una presentació per a utilitzar-la com a presentació predeterminada per a aquesta sala específica
+        title: Permetre als usuaris carregar prèviament presentacions
+      registration:
+        info: Canviar la forma de registre d'usuaris
+        title: Mètode de registre
+        methods:
+          approval: Autoritzar/Denegar
+          invite: Registre per invitació
+          open: Registre obert
+      rooms:
+        info: Estableix el límit de sales que un usuari pot tenir (incloent la sala principal). Aquesta configuració no s'aplica als administradors.
+        title: Número de sales per usuari
+      shared_access:
+        info: "Si s'estableix en deshabilitat, s'eliminarà el botó del menú desplegable d'opcions de sala, el que evitarà que els usuaris comparteixin sales"
+        title: Permetre els usuaris compartir sales
+      subtitle: Personalitzar Greenlight
+      tabs:
+        appearance: Apariència
+        administration: Administració
+        settings: Configuració
+      title: Configuració del lloc web
+    flash:
+      approved: L'usuari ha estat autoritzat
+      banned: L'usuari ha estat bloquejat.
+      unbanned: L'usuari ha estat desbloquejat.
+      delete: L'usuari ha estat eliminat.
+      delete_fail: L'usuari no s'ha pogut eliminar.
+      demoted: L'usuari ha estat degradat.
+      invite: "Invitació enviada correctament a %{email}"
+      invite_email_verification: "L'enviament de correus electrònics ha d'estar habilitat per a poder fer ús d'aquest mètode de registre. Si us plau, contacta amb l'administrador del sistema."
+      merge_fail: S'ha produït un problema al fusionar els comptes d'usuari. Comprova els usuaris seleccionats i torna a provar-ho
+      merge_success: Els comptes d'usuari s'han fusionat correctament
+      perm_deleted: L'usuari ha estat eliminat permanentement
+      promoted: L'usuari ha estat promogut.
+      registration_method_updated: Mètode de registre actualitzat
+      reset_password: S'ha enviat a l'usuari un missatge de correu per a recuperar la contrasenya. (Demana-li revisar la carpeta de correu brossa si no l'ha rebut)
+      restored: L'usuari ha estat recuperat amb èxit
+      room_configuration: La configuració de la sala s'ha modificat correctament
+      settings: La configuració de sistema ha estat actualitzada
+      unauthorized: No està autoritzat per a executar operacions sobre aquest usuari.
+    recordings:
+      title: Gravacions
+      no_recordings: Aquest servidor no te gravacions.
+    roles:
+      appear_in_share_list: Aquest servidor no te gravacions
+      can_create_rooms: Pot crear sales
+      delete: Eliminar rol
+      invalid_create: Ha hagut un error al crear el nou rol. Verifica els valors assignats i torna a intentar-ho
+      invalid_order: Ha hagut un error a l'actualitzar la prioritat del rol. Verifica els valors assignats i torna a intentar-ho
+      invalid_update: Ha hagut un error a l'actualitzar els permissos del rol. Verifica els valors assignats i torna a intentar-ho
+      manage_rooms_recordings: Permetre que els usuaris amb aquest rol administrin servidors de sala i gravacions
+      name: Nom del rol
+      new_role: Crea un nou rol
+      role_has_users: "Aquest rol es troba assignado a %{user_count} comptes d'usuari. Cal esborrar tots els comptes associats a aquest rol abans d'eliminar-lo."
+      title: Rols
+      promote_email: Enviar un missatge als usuaris als que s'hagi assignat aquest rol
+      demote_email: Enviar un missatge als usuaris als que s'hagi eliminat aquest rol
+      edit_site_settings: Permetre als usuaris amb aquest rol editar configuracions
+      edit_roles: Permetre als usuaris amb aquest rol editar altres rols
+      manage_users: Permetre als usuaris amb aquest rol gestionar altres usuaris
+      invalid_assignment: Ha hagut un error a l'assignar el rol o els rols a l'usuari. Verifica els valors assignats i torna a provar
+      colour:
+        title: Color del rol
+        info: Defineix el color que s'associarà al rol
+    room_configuration:
+      title: Configuració de la sala
+      mute:
+        info: Silencia automàticament a l'usuari quan s'uneixi a la reunió de BigBlueButton
+      require_moderator:
+        info: "Avisa el moderador de la reunió de BigBlueButton quan un usuari intenta unir-se. Si s'aprova l'usuari, podrà unir-se a la reunió."
+      allow_any:
+        info: "Permet a qualsevol usuari iniciar la reunió en qualsevol moment. De forma predeterminada, només el propietari de la sala pot iniciar la reunió."
+      all_moderator:
+        info: Otorga a tots els usuaris els privilegis d'usuari moderador a BigBlueButton quan s'uneixen a la reunió.
+      recordings:
+        info: "Permet als propietaris de sales especificar si desitgen l'opció de gravar una sala o no. Si está habilitada, el moderador encara ha de fer hacer clic al botó \"Grava\" una vegada hagi començat la reunió."
+      options:
+        disabled: Deshabilitada
+        enabled: Sempre habilitada
+        optional: Opcional
+    rooms:
+      timeout: "Degut a un excés de temps de funcionament de consulta al servidor %{server}, la informació d'estat i participants pot no estar actualitzada"
+      title: Sales del servidor
+      table:
+        ended: "Finalitzada: %{session}"
+        id: ID
+        not_running: Aturada
+        participants: Participants
+        running: En funcionamient
+        started: "Iniciada: %{session}"
+        status: Estat
+        view: Mostrar
+    title: Configuració de l'organització
+    users:
+      invite: Convidar usuari
+      edit:
+        title: Editar detalls d'usuari
+      settings:
+        approve: Autoritzar
+        decline: Denegar
+        ban: Bloquejar usuari
+        delete: Eliminar
+        edit: Editar
+        edit_roles: Editar els rols d'usuari
+        merge: Fusionar
+        perm_delete: Eliminar permanentment
+        unban: Desbloquejar usuari
+        undelete: Recuperar
+      table:
+        authenticator: Verificador
+        created: Creat
+        time: Temps enviat
+        name: Nom
+        not_found: No s'han trobat usuaris amb aquest criteri
+        no_users: No s'han trobat usuaris
+        role: Rol
+        uid: Identificador d'usuari
+        username: Nom d'usuari
+        valid: Valid
+      title: Administrar usuaris
+  add_to_google_calendar: "Afegir al Calendari de Google"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: Os pedrer! Ha hagut un error a l'iniciar la sessió.
+  cancel: Cancel·lar
+  cookies:
+    cookie_info: "Les cookies (galetes) ens ajuden a proveir els nostres serveis. En utilitzar els nostres serveis, aceptes la nostra utlització de les cookies."
+    cookie_button: Accepto
+  copied: Copiada
+  copy: Copiar
+  date:
+    month_names: [~, Gener, Febrer, Març, Abril, Maig, Juny, Juliol, Agost, Setembre, Octubre, Novembre, Decembre]
+  default_admin: "Estàs utilitzant la contrasenya per defecte per aquest compte d'usuari. Fes clic <a href=\"%{edit_link}\">aquí</a> per a canviar-la"
+  delete: Eliminar
+  delivery_error: "Ha hagut un error durant l'enviament de correu electrònic. Si us plau, contacta amb un administrador."
+  docs: Documentació
+  email: Compte de correu
+  email_sent: "El seu %{email_type} correu electrònic ha estat enviat. (Revisa la teva carpeta de correu brossa si no l'has rebut)"
+  enter_your_name: Introdueix el teu nom
+  errors:
+    bigbluebutton:
+      help: "Assegura't de que has seguit els passos correctament. <a href=\"%{doc_link}\">Més informació</a>"
+      message: La URL o clau secreta del servidor BigBlueButton no són vàlids
+      title: Error del servidor
+    internal:
+      message: Sembla que alguna cosa ha fallat del nostre costat.
+      help: "L'error ha estat registrat, el revisarem en breu."
+      report: Reportar problema
+    maintenance:
+      message: El sistema es troba en manteniment.
+      help: Tornarem aviat.
+    migration_error:
+      contact_admin: "Si no ets administrador, si us plau, contacta amb un d'ells."
+      continue: M'agradaria continuar utilitzant la versió 1.0
+      notice: >
+        Greenlight ha trobat un error al migrar la base de dades. <br>Això pot estar provocat perquè no ha actualitzat Greenlight a la versió 2.0
+      upgrade: Mostra com actualitzar a la versió 2.0
+      version: "Hem publicat una nova versió de Greenlight, però la base de dades instal·lada no és compatible."
+    messages:
+      blank: el valor no pot estar buit
+      too_short: és massa curta
+      invalid: es invàlida
+      taken: ja existeix
+      accepted: ha de ser aceptat
+      confirmation: "no coincideix %{attribute}"
+      inclusion: no està inclòs a la lista
+    no_provider:
+      message: El lloc al que està intentant accedir no es troba actiu
+      help: "Si us plau, contacta amb l'administrador del sistema per a configurar Greenlight"
+    not_found:
+      message: "Ens sap greu, la pàgina que estàs buscant no existe."
+      help: "¿És possible que hagi estat eliminada?"
+      user_not_found:
+        help: "Si us plau, contacta amb l'administrador."
+        message: "Ens sap greu, aquest usuari no està registrat."
+      user_missing:
+        help: "Si us plau, verifica l'enllaç i torna a provar."
+        message: L'enllaç que introduït no és vàlid.
+    title: Errors
+    unauthorized:
+      message: No te accés a aquesta aplicació
+      help: "Si creus que és un error, si us plau, contacta amb l'administrador del sistema."
+  expired_reset_token: L'enllaç per a recuperar la contrasenya ha caducat.
+  features:
+    title: Funcions
+    rooms: Sales personalitzades
+    recordings: Administració de gravacions
+    designs: Diseny personalitzat
+    authentication: Autenticació d'usuari
+  footer:
+    legal: Termes legales
+    privpolicy: Política de privacitat
+    powered_by: "Funciona amb %{href}"
+  forgot_password:
+    subtitle: He oblidat la contrasenya
+    email: Compte de correu
+    submit: Enviar
+  go_back: Enrera
+  greenlight: Greenlight
+  header:
+    all_recordings: Totes les gravacions
+    dropdown:
+      account_settings: Organització
+      help: "Necessites ajuda?"
+      home: Inici
+      settings: Perfil d'usuari
+      signout: Sortir
+  home_room: Sala principal
+  info_update_success: Informació actualitzada amb èxit.
+  invalid_credentials: El correu electrònic i contrasenya introduïts no coincideixen amb els registres. Inténtelo de nou o haga clic en recuperar contrasenya.
+  invalid_login_method: L'inici de sessió ha fallat per la falta de coincidència de compte. Necessites iniciar sessió amb un dels proveïdors.
+  invite_message: "Per a convidar a algú a la sessió, envia-li aquest enllaç:"
+  javascript:
+    room:
+      mailer:
+        subject: 'convidat a veure una gravació.'
+        body: 'Fes clic a enllaç per a veure la gravació:'
+        autogenerated: 'Aquest correu electrònic s ha generat automàticament per BigBlueButton'
+        footer: 'BigBlueButton és un sistema open source, basat en web, per a videoconferència. Per a més informació, visita https://bigbluebutton.org/.'
+    search:
+      start: Començar la cerca...
+  landing:
+    about: "%{href} és una interfície web per al teu servidor de conferències de codi obert BigBlueButton. Pots crear les teves pròpies sales per a ser anfitrió de sessions o unir-te a altres utilitzant un enllaç curt adequat."
+    welcome: Benvingut a <span class="green-grad">Greenlight</span>.
+    video: Mira el nostre tutorial sobre com utilizar Greenlight
+    upgrade: Mostra'm com actualitzar a la versió 2.0
+    version: "Hem publicat una nova versió de Greenlight, però la teva base de dades no és compatible."
+  language_default: Per omissió (idioma del navegador)
+  ldap_error: No es pot connectar al servidor LDAP. Comprova la configuració de LDAP a l'arxiu "env" i assegurat de que el teu servidor s'està executant.
+  login: Iniciar sessió
+  login_title: Iniciar sessió al teu compte
+  mailer:
+    user:
+      approve:
+        info: El teu compte ha estat autoritzat.
+        signin: "Per accedir a les teves sales personals, fes clic al botó inferior i inicia sessió."
+        signin_link: Iniciar sessió
+        signup:
+          info: S'ha registrat un nou usuari.
+          more-info: Per a permetre l'accés d'aquest usuari has d'aprovar el seu compte d'usuari a través de la configuració de l'organització.
+          admins_link: Anar a la pàgina de l'organització
+          subject: Registre d'usuari nou
+          username: "L'usuari s'ha registrat com a %{name} amb el correu electrònic %{email}."
+        subject: Compte d'usuari autoritzat
+        username: "El teu nom d'usuari és %{email}."
+      demoted:
+        info: "Ja no ets %{role} a %{url}."
+        more-info: Des d'aquest moment tens els mateixos privilegis que un usuari regular.
+        root_link: Iniciar sessió
+        subtitle: "Permís de %{role} eliminat"
+      invite:
+        info: "Has estat convidat a tenir el teu espai personal amb %{name}"
+        signup_info: "Per a registrar-te utilizant el teu compte de correu, fes clic al botó inferior i segueix els passos indicats."
+        signup_link: Registrar-se
+        signup:
+          info: Un usuari que va ser convidat a registrar-se ha completat el seu registre.
+          admins_link: Anar a la pàgina de l'organització
+          subject: Registre d'usuari nou
+          username: "L'usuari s'ha registrado com a %{name} amb el correu electrònic %{email}. "
+        subject: Invitació per a unir-se a BigBlueButton
+        username: "El teu nom d'usuari és %{email}."
+      password_reset:
+        title: 'La contrasenya ha estat reiniciada'
+        welcome: "S'ha sol·licitat un canvi de contrasenya pel correu electrònic <b>%{email}</b>"
+        message: 'Si vas fer una sol·licitud per a reiniciar la teva contrasenya, fes clic a aquest enllaç per a iniciar el procés.'
+        reset_link: Reiniciar la contrasenya
+        expire: Aquest enllaç caduca en dues hores
+        ignore: Pots ignorar aquest missatge sense problemes si no has estat tu qui va sol·licitar el canvi de contrasenya.
+      promoted:
+        admins_link: Anar a la pàgina de l'organització
+        info: "El teu rol ha canviat a %{role} a %{url}."
+        more-info: "Per a veure les noves funcions que se t'han activat visita %{url}"
+        subtitle: "Permisos de %{role} assignats"
+      verify_email:
+        welcome: "Benvingut al teu espa personal %{name}"
+        success: "Fent ús de %{bigbluebutton}, pots crear les teves pròpies sales per a realitzar reunions i col·laborar amb altres."
+        username: "El teu nom d'usuari és %{email}"
+        verify: "Per a verificar el compte, fes clic al botó inferior."
+        verify_text: 'Utiliza aquest enllaç per a verificar el teu compte: %{url}'
+        verify_link: Verificar el compte d'usuari
+        thanks: Gràcies per unir-te i que tinguis bon dia!
+  max_concurrent: S'ha arribat al número màxim de sessions permeses
+  merged: Fusionat
+  modal:
+    create_role:
+      create: Crear un nou rol
+      footer_text: Pots modificar els permisos per a aquest rol de manera individual una vez que haya estat creado
+      name_placeholder: Introdueix el nom del rol
+      not_blank: El nom de rol no pot estar buit
+      title: Crear un nou rol
+    create_room:
+      access_code: Codi d'accés
+      access_code_placeholder: Generar un nou codi d'accés
+      auto_join: Envia'm a la sala automàticament quan comenci la sessió
+      create: Crea sala
+      free_delete: Podràs eliminar la sala en el moment que vulguis
+      name_placeholder: Introdueix un nom per a la sala
+      not_blank: El nom de la sala no pot estar buit
+      title: Crear una sala nova
+    delete_account:
+      confirm: "Estàs segur d'eliminar aquest compte d'usuari?"
+      delete: Estic segur d'eliminar aquest compte
+      keep: "De fet, la mantindré"
+      delete_warning: Aquesta acció desactiva el compte d'usuari. Tos els usuaris desactivats es mostren a la pestanya d'eliminats.
+      warning: "Aquesta decisió és irrevesible, <b>No</b> podràs recuperar la informació associada"
+    delete_rec:
+      delete: "Estic segur, elimina aquesta gravació."
+      header: "Estàs segur de voler eliminar aquesta gravació?"
+      warning: <b>No</b> podràs recuperar aquesta gravació
+    delete_room:
+      confirm: "Estàs segur de voler eliminar %{room}?"
+      delete: "Estc segur, elimina aquesta sala"
+      keep: "He canviat de parer, la mantindré"
+      warning: <b>No</b> podràs recuperar aquesta sala
+      recording_warning: "o qualsevol de les teves %{recordings_num} gravacions associades."
+    invite_user:
+      email_placeholder: Introdueix els correus electrònics d'usuari (separats per coma)
+      footer: L'usuari rebrà un correu electrònic amb instruccions de com registrar-se
+      send: Enviar invitació
+      title: Convidar usuari
+    login:
+      or: o
+      with: "Iniciar sessió amb %{provider}"
+      forgot_password: "Has oblidat la teva contrasenya?"
+    preupload:
+      change: Substitueix la presentació
+      choose: Selecciona un arxiu
+      current: "Presentació actual:"
+      footer: "En funció de la mida de la presentació, és possible que es necessiti més temps per a carregar-la abans de poder utilitzar-la."
+      invalid: "Mida o tipus d'arxiu no vàlids. Si us plau, consulta les restriccions a continuación."
+      title: Afegir presentació
+      use: Utilitzar presentació
+    rename_recording:
+    remove_shared:
+      title: "Estàs segur de voler eliminar aquesta sala de la teva llista de sales?"
+      delete: "Estic segur, elimina aquesta sala."
+      warning: <b>NO</b> podràs accedir a aquesta sala en el futur.
+    room_settings:
+      title: Configuració de la sala
+      update: Actualitzar la sala
+      client: Seleccionar el tipus de client
+      join_moderator: Tots els usuaris s'uneixen com a moderadors
+      mute: Deshabilitar micròfon d'usuaris al entrar
+      require_approval: Requerir aprovació del moderador abans de unir-se a la sessió
+      start: Permetre als usuaris iniciar aquesta sessió
+      footer_text: Pots fer canvis a la teva sala en qualsevol moment
+      recording: Permetre a aquesta sala ser gravada
+    rename_room:
+      name_placeholder: Introdueix un nou nom per a la sala...
+    share_access:
+      footer: Compartir una sala amb un usuari permet que iniciï la sala i veure les gravacions de la sala.
+      list: Compartit amb
+      title: Compartir accés a la sala
+      save: Guardar canvis
+      cancel_changes: Cancel·lar canvis
+      select: Seleccionar usuari
+    merge_user:
+      cancel: Cancel·lar
+      from: Compte per a ser fusionada
+      title: Fusionar comptes d'usuari
+      to: Compte principal
+      save: Fusionar
+      footer: Les sales del compte que es fusionarà es transferiran a la llista de sales del compte principal i posteriorment s'eliminarà el compte.
+  name_update_success: El nom de la sala ha estat actualitzat correctament
+  no_user_email_exists: "No hi ha cap usuari existent amb el correu electrònic especificat. Si us plau, assegura't de que l'has escrit correctament."
+  omniauth_error: "Ha hagut un error a l'intentar autenticar utilitzant OmniAuth. Si us plau, torna a intentar-ho o contacta amb un administrador!"
+  omniauth_specific_error: "Error %{error} a l'intentar autenticar utilitzant OmniAuth. Si us plau, torna a intentar-ho o contacta amb un administrador!"
+  pagy:
+    nav:
+      prev: "&lsaquo; Anterior"
+      next: "Següent &rsaquo;"
+      gap: "&hellip;"
+  password: Contrasenya
+  password_empty_notice: La contrasenya no pot estar buida
+  password_reset_success: La contrasenya ha estat canviada
+  password_different_notice: La contrasenyes introduïdes no coincideix
+  provider:
+    google: Google
+    office365: Office 365
+    twitter: Twitter
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable: Os pedrer! La resposta del teu reCAPTCHA ha fallat. Torna a intentar-ho.
+      verification_failed: "La verificació reCAPTCHA ha fallat, torna a intentar-ho."
+  recording:
+    all_recordings: Totes les gravacions
+    email: Enviar correu electrònic amb la gravació
+    error: "Ha hagut un error al recuperar %{count} gravació(ns)."
+    no_recordings: "Aquesta sala no te gravacions %{inject}"
+    no_user_recordings: No tens gravacions
+    no_matched_recordings: "No hi ha %{inject} gravacions que coincideixin amb la teva cerca."
+    recorded_on: "Gravada el %{date}"
+    table:
+      name: Nom
+      thumbnails: Miniatures d'imatge
+      length: Durada
+      users: Usuaris
+      visibility: Visibilitat
+      formats: Formats
+    visibility:
+      public: Pública
+      unlisted: No llistada
+    format:
+      notes: Notes
+      podcast: Podcast
+      presentation: Presentació
+      statistics: Estadístiques
+      video: Vídeo
+  registration:
+    approval:
+      fail: "El teu compte d'usuari encara no ha estat autorizat. Si han passat varis dies des del teu registre, et recomanem contactar amb l'administrador."
+      signup: El teu compte d'usuari ha estat creat i se li ha enviat una notificació a l'administrador per a la seva autorització.
+    banned:
+      fail: "No tens accés a aquesta aplicació. Si creus que es tracta d'un error, contacta l'administrador del sistema."
+    deprecated:
+      new_signin: Selecciona un nou mètode de autenticació. Todes les sales vinculades al teu compte anterior seran migrades al nou compte
+      twitter_signin: "L'accés a través de Twitter és obsolet i serà eliminat a la següent versió. Fes clic <a href=\"%{link}\">aquí</a> per a moure el teu compte d'usuari i el seu contingut a un compte vinculat a un altre mètode d'autenticació"
+      twitter_signup: "El registre de nous comptes amb Twitter és obsolet. Si us plau, utiliza un mètode d'autenticació diferent per a registrar-te."
+      merge_success: El teu compte vinculat a Twitter s'ha fusionat correctament amb el teu nou compte. El compte vinculat amb Twitter ha estat eliminat.
+    invite:
+      fail: "El teu codi ha caducat o no és vàlid. Si creus que es tracta d'un error, contacta amb l'administrador del sistema."
+      no_invite: No tens una invitació per a ingresar. Contacta amb l'administrador del sistema per a obtenir-ne una.
+  remove: Eliminar
+  rename: Canviar nom
+  reset_password:
+    invalid_token: El token de restabliment de contrasenya no és vàlid. Intenta restablir la teva contrasenya de nou.
+    subtitle: Reiniciar contrasenya
+    password: Nova contrasenya
+    confirm: Confirmació de nova contrasenya
+    update: Actualitzar contrasenya
+    auth_change: "El mètode d'autenticación ha canviat. Si us plau, consulta el teu correu electrònic per a configurar la teva contrasenya."
+  roles:
+    active: Actiu
+    admin: Administrador
+    banned: Bloquejat
+    deleted: Eliminat
+    pending: Pendent
+    user: Usuari
+  room:
+    access_code_required: Introdueix un codi d'accés vàlid per a unir-te a la sala
+    add_presentation: Afegir presentació
+    copy_access: Copia el codi d'accés
+    create_room: Crear una sala
+    create_room_error: Ha hagut un error al crear la sala
+    create_room_success: La sala s'ha creat correctament
+    delete:
+      home_room: No és possible eliminar la sala principal
+      success: Sala eliminada correctament
+      fail: "S'ha produït un error a l'eliminar la sala (%{error})"
+    enter_the_access_code: Introdueix el codi d'accés de la sala
+    invalid_provider: L'enllaç introduït no és vàlid. Comprova'l i torna a intentar-ho.
+    invitation_description: "Ha estat convidat a unir-te a %{name} utilitzant BigBlueButton. Per a unir-te, fes clic a l'enllaç superior i introdueix el teu nom."  
+    invited: Ha estat convidat a unir-te
+    recording_present: Reconec que aquesta sessió es gravarà. Això pot incloure la meva veu i el meu vídeo si està activat.
+    invite_participants: Convidar participants
+    join: Entrar
+    last_session: "Última sessió a %{session}"
+    login: Entrar
+    owner: Propietari
+    owner_banned: Aquesta sala no és accessible actualment
+    no_room:
+      description: Introdueix l'enllaç o ID de la sala a la que vols unir-te.
+      edit_profile: Edita el perfil d'usuari
+      go_to: Anar a sala
+      invalid_room_uid: L'enllaç o UID que has introduït no és vàlid.
+      placeholder: Enllaç/uid de la sala
+      no_recent_rooms: No has utilitzat cap sala recientement
+      recent_rooms: Ves a Sales utilizadas recentement
+      title: Uneix-te a una Sala
+    no_sessions: Aquesta sala encara no te sessions
+    preupload_success: Presentació afegida correctament
+    preupload_error: Ha hagut un error actualitzant la presentació de la sala
+    preupload_remove_success: Eliminació de presentació correcta
+    preupload_remove_error: Ha hagut un error eliminant la presentació de la sala
+    recordings: Gravacions de sala
+    room_limit: Has arribat al número límit de sales permeses
+    room_limit_exceeded: "Has arribat al número límit de sales permeses. Si us plau, elimina %{difference} sala(es) per poder accedir a aquesta."
+    sessions: Sessions
+    settings: Configuració de sala
+    share: Gestionar accés
+    shared_by: "Compartit per %{email}"
+    remove_shared_access_success: S'ha eliminat correctament la sala compartida de la teva llista de sales
+    remove_shared_access_error: Ha hagut un error eliminant la sala compartida de la teva llista de sales
+    shared_access_success: Sala compartida correctament
+    shared_access_error: Ha hagut un error compartint la sala
+    start: Inicia
+    unavailable: Aquesta sala no es troba disponible perquè el compte de correu del seu propietari no ha estat verificat.
+    update_settings_error: Ha hagut un error a l'actualitzar la configuració de la sala
+    update_settings_success: La configuració de la sala ha estat actualitzada correctament
+    wait:
+      message: La sessió encara no ha començat.
+      auto: Seràs enviat a la sala automàticament quan comenci la sessió
+  settings:
+    account:
+      fullname: Nom complet
+      language: Idioma
+      provider: Proveïdor
+      image: Imatge
+      image_url: Enllaç a la imatge de perfil
+      roles: Rol d'usuari
+      subtitle: Actualitzar informació d'usuari
+      title: Informació del compte
+      reset_password: Restablir contrasenya d'usuari
+    delete:
+      button: "Sí, m'agradaria eliminar el meu compte d'usuari."
+      disclaimer: "Si tries eliminar el teu compte d'usuari, <b>no</b> podrà recuperar-se. Tota la informació relacionada amb el teu compte, incloses configuració, sales y gravacions, serà eliminada."
+      subtitle: Eliminar el compte de forma permanent
+      title: Eliminar compte
+    password:
+      confirmation: Confirmació de contrasenya nova
+      new: Contrasenya nova
+      old: Contrasenya anterior
+      subtitle: Canviar la teva contrasenya
+      title: Contrasenya
+    title: Perfil d'usuari
+    search: Cerca
+  signup:
+    password_confirm: Confirmació de contrasenya
+    subtitle: Crear un compte
+    title: Registrar-se
+    with: "Registrar-se utilitzant %{provider}"
+  terms:
+    accept: Accepto els termes y condicions d'ús
+    accept_existing: Accepto els termes y condicions d'ús
+    title: Termes y condicions d'ús
+  test_install: >
+    Aquesta instal·lació està utilitzant el servidor de proves pre-configurat. Hauria de ser substituït amb el teu propi servidor. Per a més detalls consulta %{href}.
+  update: Actualitza
+  verify:
+    accept: Verifica
+    activated: Compte de correu verificada.
+    already_verified: Compte de correu verificada amb anterioritat
+    invalid: Enllaç de verificació no vàlid
+    not_verified: El teu compte de correu no ha estat verificat
+    resend: Reenviar enllaç per a verificació de compte de correu
+    signin: "Inicia sessió per a tenir accés al teu compte "
+    title: Verifica el teu compte de correu
+    verification: Verificació

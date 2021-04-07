@@ -23,39 +23,42 @@ class Room < ApplicationRecord
 
   before_create :setup
 
+  before_destroy :destroy_presentation
+
   validates :name, presence: true
 
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
   has_many :shared_access
 
-  def self.admins_search(string)
-    active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
-    # Postgres requires created_at to be cast to a string
-    created_at_query = if active_database == "postgresql"
-      "created_at::text"
-    else
-      "created_at"
+  has_one_attached :presentation
+
+  class << self
+    include Queries
+
+    def admins_search(string)
+      like = like_text
+      search_query = "rooms.name #{like} :search OR rooms.uid #{like} :search OR users.email #{like} :search" \
+      " OR users.#{created_at_text} #{like} :search"
+
+      search_param = "%#{sanitize_sql_like(string)}%"
+      where(search_query, search: search_param)
     end
 
-    search_query = "rooms.name LIKE :search OR rooms.uid LIKE :search OR users.email LIKE :search" \
-    " OR users.#{created_at_query} LIKE :search"
+    def admins_order(column, direction, running_ids)
+      # Include the owner of the table
+      table = joins(:owner)
 
-    search_param = "%#{sanitize_sql_like(string)}%"
-    where(search_query, search: search_param)
-  end
+      # Rely on manual ordering if trying to sort by status
+      return order_by_status(table, running_ids) if column == "status"
 
-  def self.admins_order(column, direction, running_ids)
-    # Include the owner of the table
-    table = joins(:owner)
+      return table.order(Arel.sql("COALESCE(rooms.last_session,rooms.created_at) DESC")) if column == "created_at"
 
-    # Rely on manual ordering if trying to sort by status
-    return order_by_status(table, running_ids) if column == "status"
+      return table.order(Arel.sql("rooms.#{column} #{direction}")) if table.column_names.include?(column)
 
-    return table.order(Arel.sql("rooms.#{column} #{direction}")) if table.column_names.include?(column)
+      return table.order(Arel.sql("#{column} #{direction}")) if column == "users.name"
 
-    return table.order(Arel.sql("#{column} #{direction}")) if column == "users.name"
-
-    table
+      table
+    end
   end
 
   # Determines if a user owns a room.
@@ -86,15 +89,13 @@ class Room < ApplicationRecord
   def self.order_by_status(table, ids)
     return table if ids.blank?
 
-    order_string = "CASE bbb_id "
+    # Get active rooms first
+    active_rooms = table.where(bbb_id: ids)
 
-    ids.each_with_index do |id, index|
-      order_string += "WHEN '#{id}' THEN #{index} "
-    end
+    # Get other rooms sorted by last session date || created at date (whichever is higher)
+    inactive_rooms = table.where.not(bbb_id: ids).order("COALESCE(rooms.last_session,rooms.created_at) DESC")
 
-    order_string += "ELSE #{ids.length} END"
-
-    table.order(Arel.sql(order_string))
+    active_rooms + inactive_rooms
   end
 
   private
@@ -110,9 +111,9 @@ class Room < ApplicationRecord
   # Generates a fully random room uid.
   def random_room_uid
     # 6 character long random string of chars from a..z and 0..9
-    full_chunk = SecureRandom.alphanumeric(6).downcase
+    full_chunk = SecureRandom.alphanumeric(9).downcase
 
-    [owner.name_chunk, full_chunk[0..2], full_chunk[3..5]].join("-")
+    [owner.name_chunk, full_chunk[0..2], full_chunk[3..5], full_chunk[6..8]].join("-")
   end
 
   # Generates a unique bbb_id based on uuid.
@@ -121,5 +122,10 @@ class Room < ApplicationRecord
       bbb_id = SecureRandom.alphanumeric(40).downcase
       break bbb_id unless Room.exists?(bbb_id: bbb_id)
     end
+  end
+
+  # Before destroying the room, make sure you also destroy the presentation attached
+  def destroy_presentation
+    presentation.purge if presentation.attached?
   end
 end

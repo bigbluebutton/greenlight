@@ -1,0 +1,52 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="modal fade" id="preuploadPresentationModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <div class="card-body p-sm-6">
+          <div class="card-title">
+            <h3><%= t("modal.preupload.title") %></h3>
+          </div>
+          
+          <div id="current-presentation" class='mt-5 text-left'>
+            <label class='form-label'><%= t('modal.preupload.current') %></label>
+            <div class='list-group-item text-left'>
+              <span id="presentation-name"></span>
+              <span id="remove-presentation" class="text-primary float-right cursor-pointer"><i class="fas fa-trash-alt"></i></span>
+            </div>
+          </div>
+          <div class="mt-5">
+            <%= form_for(:room, method: :post, url: "/") do |f| %>
+              <p id="invalid-file-type" class="text-danger"><%= t("modal.preupload.invalid") %></p>
+              <div class="input-group mb-3">
+                <div class="custom-file text-left">
+                  <%= f.label :presentation, t("modal.preupload.choose"), id:"presentation-upload-label",  class: "custom-file-label", "data-placeholder": t("modal.preupload.choose", type: allowed_file_types) %>
+                  <%= f.file_field :presentation, id: "presentation-upload", class: "custom-file-input cursor-pointer", accept: allowed_file_types, required: "true" %>
+                </div>
+              </div>
+              <%= f.submit t("modal.preupload.change"), id: "change-pres", class: "btn btn-primary btn-block" %>
+              <%= f.submit t("modal.preupload.use"), id: "use-pres", class: "btn btn-primary btn-block" %>
+            <% end %>
+          </div>
+        </div>
+        <div class="card-footer">
+          <p><%= t("modal.preupload.footer") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

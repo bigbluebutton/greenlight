@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     get '/reset', to: 'admins#reset', as: :admin_reset
     post '/undelete', to: 'admins#undelete', as: :admin_undelete
     post '/merge/:user_uid', to: 'admins#merge_user', as: :merge_user
+    get '/merge_list', to: 'admins#merge_list', as: :merge_list
     # Site Settings
     post '/update_settings', to: 'admins#update_settings', as: :admin_update_settings
     post '/registration_method', to: 'admins#registration_method', as: :admin_change_registration
@@ -110,6 +111,9 @@ Rails.application.routes.draw do
   # Users who can't create rooms
   get '/rooms', to: 'rooms#cant_create_rooms', as: :cant_create_rooms
 
+  # Returns a list of users for the shared access list
+  get '/shared_access_list', to: 'users#shared_access_list'
+
   # Room resources.
   resources :rooms, only: [:create, :show, :destroy], param: :room_uid, path: '/'
 
@@ -122,6 +126,9 @@ Rails.application.routes.draw do
     patch '/', to: 'rooms#update', as: :update_room
     get '/room_settings', to: 'rooms#room_settings'
     post '/update_settings', to: 'rooms#update_settings'
+    get '/current_presentation', to: 'rooms#current_presentation'
+    post '/preupload_presentation', to: 'rooms#preupload_presentation'
+    post '/remove_presentation', to: 'rooms#remove_presentation'
     post '/update_shared_access', to: 'rooms#shared_access', as: :room_shared_access
     delete '/remove_shared_access', to: 'rooms#remove_shared_access', as: :room_remove_shared_access
     get '/shared_users', to: 'rooms#shared_users', as: :room_shared_users

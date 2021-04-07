@@ -24,3 +24,21 @@ location /b/cable {
   client_body_timeout 6h;
   send_timeout        6h;
 }
+
+# Allow larger body size for uploading presentations
+location ~ /preupload_presentation$ {
+  client_max_body_size 30m;
+
+  proxy_pass          http://127.0.0.1:5000;
+  proxy_set_header    Host              $host;
+  proxy_set_header    X-Forwarded-For   $proxy_add_x_forwarded_for;
+  proxy_set_header    X-Forwarded-Proto $scheme;
+  proxy_http_version  1.1;
+}
+
+# Only needed if using presentations and deployed at a relative root (ex "/b")
+# If deploying at "/", delete the section below
+
+location /rails/active_storage {
+  return 301 /b$request_uri;
+}

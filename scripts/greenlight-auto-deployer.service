@@ -1,5 +1,10 @@
 [Unit]
 Description=Greenlight Auto Deployer
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 ExecStart=/bin/bash /usr/local/bin/greenlight-deploy
+
+[Install]
+WantedBy=greenlight.target
