@@ -88,7 +88,10 @@ class SessionsController < ApplicationController
       # Check that the user is a Greenlight account
       return redirect_to(root_path, alert: I18n.t("invalid_login_method")) unless user.greenlight_account?
       # Check that the user has verified their account
-      return redirect_to(account_activation_path(digest: user.activation_digest)) unless user.activated?
+      unless user.activated?
+        user.create_activation_token if user.activation_digest.nil?
+        return redirect_to(account_activation_path(digest: user.activation_digest))
+      end
     end
 
     login(user)

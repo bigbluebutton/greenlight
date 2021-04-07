@@ -32,8 +32,12 @@
         <%= t('mailer.user.invite.username', email: @email) %>
       </p>
 
-      <p style="margin-bottom:35px;">
+      <p>
         <%= t('mailer.user.invite.signup_info') %>
+      </p>
+
+      <p style="margin-bottom:35px;">
+        <%= t('mailer.user.invite.valid', date: @date) %>
       </p>
 
       <a style="background: <%= @color %>;color: #ffffff; padding: 10px 15px; box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);border: 1px solid transparent;text-decoration:none;" href="<%= @url %>">

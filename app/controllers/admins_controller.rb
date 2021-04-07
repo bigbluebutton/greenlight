@@ -145,7 +145,7 @@ class AdminsController < ApplicationController
     emails.each do |email|
       invitation = create_or_update_invite(email)
 
-      send_invitation_email(current_user.name, email, invitation.invite_token)
+      send_invitation_email(current_user.name, email, invitation)
     end
 
     redirect_back fallback_location: admins_path

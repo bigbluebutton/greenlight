@@ -355,6 +355,7 @@ it:
         info: "Sei stato invitato sul tuo spazio personale da %{name}"
         signup_info: "Per accedere utilizzando la tua email, clicca il pulsante e segui i passaggi seguenti."
         signup_link: Accesso
+        valid: "L'invito è valido fino al: %{date}"
         signup:
           info: Un utente che e' stato invitato ha avuto accesso a Greenlight.
           admins_link: Visita la pagina Organizzazione
