@@ -78,8 +78,6 @@ module Emailer
     rescue => e
       logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
-    else
-      flash[:success] = I18n.t("administrator.flash.invite", email: email)
     end
   end
 
