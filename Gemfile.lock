@@ -518,4 +518,3 @@ DEPENDENCIES
   uglifier (~> 4.2.0)
   web-console (~> 3.7)
   webmock (~> 3.11)
-  
