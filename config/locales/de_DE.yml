@@ -229,6 +229,7 @@ de_DE:
   cookies:
     cookie_info: Cookies helfen uns bei der Bereitstellung unserer Dienste. Durch die Nutzung der Dienste stimmen Sie der Nutzung von Cookies zu.
     cookie_button: Ich stimme zu
+    policy: "Weitere Informationen finden Sie in unserer <a href=\"%{privacy_link}\"><u>Datenschutzerklärung</u></a>."
   copied: Kopiert
   copy: Kopieren
   date:
@@ -544,6 +545,7 @@ de_DE:
     banned: Gesperrt
     deleted: Gelöscht
     pending: Wartend
+    invited: Eingeladen
     user: Nutzer
   room:
     access_code_required: "Bitte geben Sie einen gültigen Zugangscode ein, um den Raum zu betreten"
