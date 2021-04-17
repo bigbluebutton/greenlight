@@ -175,6 +175,9 @@ fr:
         info: Donne à tous les utilisateurs les droits de modérateur dans BigBlueButton lors de la connexion à une conférence.
       recordings:
         info: "Permet aux propriétaires d'une salle de préciser s'ils souhaitent ou non avoir la possibilité de l'enregistrer. Si cette option est activée, le modérateur doit toujours cliquer sur le bouton « Enregistrer » une fois que la réunion a commencé."
+      moderator_codes:
+        info: Autoriser les propriétaires de salles la possibilité de générer un code qui permet aux autres utilisateurs de rejoindre directement en tant que modérateur
+        title: Code d'accès modérateur
       options:
         disabled: Désactivé
         enabled: Toujours activé
@@ -226,6 +229,7 @@ fr:
   cookies:
     cookie_info: "Les cookies nous aident à fournir nos services. En utilisant nos services, vous acceptez notre utilisation des cookies."
     cookie_button: Je suis d'accord
+    policy: "Pour plus d'informations, voir notre <a href=\"%{privacy_link}\"><u>politique de confidentialité</u></a>."
   copied: Copié
   copy: Copier
   date:
@@ -352,6 +356,7 @@ fr:
         info: "Vous avez été invité dans votre espace personnel par %{name}"
         signup_info: "Pour vous inscrire utilisez votre e-mail, cliquez sur le bouton ci-dessous et suivez les étapes."
         signup_link: Inscription
+        valid: "L'invitation est valable jusqu'à: %{date}"
         signup:
           info: Un utilisateur invité s'est inscrit pour utiliser Greenlight.
           admins_link: Visitez la page "Organisation"
@@ -390,7 +395,9 @@ fr:
       title: Créer un nouveau rôle
     create_room:
       access_code: Code d'accès
+      moderator_access_code: Code modérateur
       access_code_placeholder: Générer un code d'accès au salon - optionnel
+      moderator_access_code_placeholder: "Générer un code optionnel pour les modérateurs "
       auto_join: Me rejoindre automatiquement dans le salon
       create: Créer une salle
       free_delete: Vous serez libre de supprimer cette salle à tout moment.
@@ -538,11 +545,13 @@ fr:
     banned: Banni
     deleted: Supprimé
     pending: En attente
+    invited: Invité
     user: Utilisateur
   room:
     access_code_required: Veuillez introduire un code d'accès valide afin de rejoindre la salle
     add_presentation: Ajouter présentation
     copy_access: Copier le code d'accès
+    copy_moderator_access: Copier le code modérateur
     create_room: Créer un salon
     create_room_error: Une erreur s'est produite lors de la création du salon
     create_room_success: Salon créé avec succès
@@ -551,6 +560,8 @@ fr:
       success: Salle supprimée
       fail: "Erreur lors de la suppression de la salle (%{error})"
     enter_the_access_code: Veuillez introduire le code d'accès de la salle
+    enter_the_moderator_access_code: Saisissez le code modérateur !
+    optional_moderator_access_code: "Code modérateur optionnel:"
     invalid_provider: Vous avez introduit une url non valide. Veuillez vérifier l'url et essayez à nouveau.
     invitation_description: "Vous avez été invité à rejoindre 1%{name} en utilisant le BigBlueButton. Pour le faire, cliquez sur le lien ci-dessus et saisissez votre nom."
     invited: Vous avez été invité à rejoindre
