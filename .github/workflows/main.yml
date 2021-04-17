@@ -36,11 +36,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Ruby Setup + Bundle Install
+      - name: Ruby Setup
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
-          bundler-cache: true 
+
+      - name: Bundle cache
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Bundle install
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
 
       - name: Setup database
         run:  |
