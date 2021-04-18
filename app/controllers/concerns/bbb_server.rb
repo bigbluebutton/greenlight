@@ -43,7 +43,7 @@ module BbbServer
   end
 
   # Returns a URL to join a user into a meeting.
-  def join_path(room, name, options = {}, uid = nil)
+  def join_path(room, name, options = {}, uid = nil, avatar_image = nil)
     # Create the meeting, even if it's running
     start_session(room, options)
 
@@ -54,7 +54,7 @@ module BbbServer
     join_opts = {}
     join_opts[:userID] = uid if uid
     join_opts[:join_via_html5] = true
-    join_opts[:avatarURL] = current_user.image if current_user && current_user.image.present?
+    join_opts[:avatarURL] = avatar_image if avatar_image.present?
     join_opts[:createTime] = room.last_session.to_datetime.strftime("%Q")
 
     bbb_server.join_meeting_url(room.bbb_id, name, password, join_opts)
