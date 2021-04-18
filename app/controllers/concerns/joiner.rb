@@ -60,11 +60,11 @@ module Joiner
       opts[:mute_on_start] = room_setting_with_config("muteOnStart")
 
       if current_user
-        redirect_to join_path(@room, current_user.name, opts, current_user.uid)
+        redirect_to join_path(@room, current_user.name, opts, current_user.uid, current_user.image)
       else
         join_name = params[:join_name] || params[@room.invite_path][:join_name]
 
-        redirect_to join_path(@room, join_name, opts, fetch_guest_id)
+        redirect_to join_path(@room, join_name, opts, fetch_guest_id, nil)
       end
     else
       search_params = params[@room.invite_path] || params
