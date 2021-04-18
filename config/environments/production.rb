@@ -127,7 +127,7 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
 
   # Specify the log level
-  config.log_level = ENV["RAILS_LOG_LEVEL"].present? ? ENV['RAILS_LOG_LEVEL'].to_sym : :debug
+  config.log_level = ENV["RAILS_LOG_LEVEL"].present? ? ENV['RAILS_LOG_LEVEL'].to_sym : :info
 
   # Use Lograge for logging
   config.lograge.enabled = true
