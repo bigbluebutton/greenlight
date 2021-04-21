@@ -640,6 +640,9 @@ de_DE:
     title: Allgemeine Nutzungsbedingungen
   test_install: >
     Diese Installation verwendet einen vorkonfigurierten Testserver. Sie sollten diesen durch Ihren eigenen Server ersetzen. Weitere Informationen dazu unter %{href}.
+  time:
+    formats:
+      default: "%d.%m.%Y, %H:%M"
   update: Aktualisieren
   verify:
     accept: Verifizieren
