@@ -32,4 +32,10 @@ Shule is built using Ruby on Rails. Many developers already know Rails well, and
 
 We invite you to build upon Shule and help make it better. See [Contributing to WebShule](http://docs.bigbluebutton.org/support/faq.html#contributing-to-bigbluebutton).
 
+<<<<<<< HEAD
 We invite your feedback, questions, and suggests about Shule too. Please post them to the [ mailing list](https://groups.google.com/forum/#!forum/bigbluebutton-greenlight).
+=======
+We invite your feedback, questions, and suggests about Greenlight too. Please post them to the [Greenlight mailing list](https://groups.google.com/forum/#!forum/bigbluebutton-greenlight).
+
+To help with organization and consistency, we have implemented a Pull Request template that must be used for all Pull Requests. This template helps ensure that the project maintainers can review all PRs in a timely manner. When creating a Pull Request, please provide as much information as possible.
+>>>>>>> a894a4e6a811109c28757cf498c20c9366c29f2b

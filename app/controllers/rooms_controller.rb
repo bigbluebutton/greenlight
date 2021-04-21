@@ -203,12 +203,17 @@ class RoomsController < ApplicationController
       # Update the rooms values
       room_settings_string = create_room_settings_string(options)
 
-      @room.update_attributes(
+      attributes = {
         name: options[:name],
-        room_settings: room_settings_string,
-        access_code: options[:access_code],
-        moderator_access_code: options[:moderator_access_code]
-      )
+      }
+
+      unless params[:setting] == "rename_header"
+        attributes[:room_settings] = room_settings_string
+        attributes[:access_code] = options[:access_code]
+        attributes[:moderator_access_code] = options[:moderator_access_code]
+      end
+
+      @room.update(attributes)
 
       flash[:success] = I18n.t("room.update_settings_success")
     rescue => e

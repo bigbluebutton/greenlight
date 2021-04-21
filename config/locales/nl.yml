@@ -175,6 +175,9 @@ nl:
         info: Geeft alle gebruikers moderatorrechten in BigBlueButton wanneer ze deelnemen aan de vergadering.
       recordings:
         info: "Hiermee kunnen kamereigenaren aangeven of ze de optie willen om een kamer op te nemen of niet. Indien ingeschakeld, moet de moderator nog steeds op de knop \"Opnemen\" klikken nadat de vergadering is begonnen."
+      moderator_codes:
+        info: Zorgt ervoor dat kamer eigenaars optioneel een moderator pin code kunnen genereren waarmee andere gebruikers direct als moderator kunnen deelnemen.
+        title: Moderator Toegangscode
       options:
         disabled: Uitgeschakeld
         enabled: Altijd ingeschakeld
@@ -226,6 +229,7 @@ nl:
   cookies:
     cookie_info: "Cookies helpen ons onze diensten te leveren. Door onze services te gebruiken, gaat u akkoord met ons gebruik van cookies."
     cookie_button: Daar ben ik het mee eens
+    policy: "Voor meer information, consulteer onze <a href=\"%{privacy_link}\"><u>privacy policy</u></a>."
   copied: Gekopieerd
   copy: Kopiëren
   date:
@@ -352,6 +356,7 @@ nl:
         info: "Je bent uitgenodigd voor je eigen persoonlijke ruimte door %{name}"
         signup_info: Klik op de onderstaande knop om u aan te melden met uw e-mail en volg de stappen.
         signup_link: Registreren
+        valid: "De uitnodiging is geldig tot: %{date}"
         signup:
           info: Een uitgenodigde gebruiker heeft zich aangemeld om Greenlight te gebruiken.
           admins_link: Bezoek de organisatiepagina
@@ -390,7 +395,9 @@ nl:
       title: Nieuwe rol maken
     create_room:
       access_code: Toegangscode
+      moderator_access_code: Moderator Code
       access_code_placeholder: Genereer een optionele toegangscode voor de kamer
+      moderator_access_code_placeholder: Genereer een optionele code voor moderatoren
       auto_join: Ga automatisch mee naar binnen
       create: Ruimte creëren
       free_delete: U kunt deze ruimte op elk gewenst moment verwijderen.
@@ -538,11 +545,13 @@ nl:
     banned: Verbannen
     deleted: Verwijderd
     pending: In afwachting
+    invited: Uitgenodigd
     user: Gebruiker
   room:
     access_code_required: Voer een geldige toegangscode in om toegang te krijgen tot de kamer
     add_presentation: Presentatie toevoegen
     copy_access: Kopieer Toegangscode
+    copy_moderator_access: "Kopieer Moderator Code  "
     create_room: Maak een kamer
     create_room_error: Er is een fout opgetreden bij het maken van de kamer
     create_room_success: Kamer met succes gemaakt
@@ -551,6 +560,8 @@ nl:
       success: Kamer succesvol verwijderd
       fail: "Kan kamer niet verwijderen (%{error})"
     enter_the_access_code: Voer de toegangscode van de kamer in
+    enter_the_moderator_access_code: Vul de moderator code van de kamer in!
+    optional_moderator_access_code: "Optionele Moderator Code"
     invalid_provider: U heeft een ongeldige URL ingevoerd. Controleer de URL en probeer het opnieuw.
     invitation_description: "Je bent uitgenodigd om deel te nemen aan %{name} via BigBlueButton. Klik op bovenstaande link en voert u uw naam in om te beginnen."
     invited: Je bent uitgenodigd om lid te worden
