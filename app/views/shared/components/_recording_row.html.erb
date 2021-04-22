@@ -84,6 +84,13 @@
         <a href="" data-toggle="modal" data-target="#deleteRecordingModal" data-path="<%= delete_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]) %>" class="delete-rec dropdown-item">
           <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
         </a>
+
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/video/webcams.webm" data-pres-link="/download/<%= recording[:recordID] %>/video/webcams.webm" download="<%= recording[:metadata][:name] %>"><i class="dropdown-icon fas fa-file-video"></i> Download Video-File (webcams only)</a>
+
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/audio/recording.opus" data-pres-link="/download/<%= recording[:recordID] %>/audio/recording.opus" download="<%= recording[:metadata][:name] %>"><i class="dropdown-icon fas fa-file-audio"></i> Download Video-File (webcams only)</a>
+
       </div>
     </div>
   </td>
