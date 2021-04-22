@@ -35,11 +35,43 @@ module BbbServer
   end
 
   def get_recordings(meeting_id)
-    bbb_server.get_recordings(meetingID: meeting_id)
+    #bbb_server.deep_get_recordings(meetingID: meeting_id)
+    deep_get_recordings(meetingID: meeting_ids)
+  end
+
+  def deep_get_recordings(meeting_id)
+    options = {}
+    options[:meetingID] = meeting_id
+
+    response = bbb_server.send_api_request(:getRecordings, options)
+
+    formatter = BigBlueButtonFormatter.new(response)
+    formatter.flatten_objects(:recordings, :recording)
+
+    recordings_with_breakouts = []
+    response[:recordings].each do |rec|
+      recordings_with_breakouts.push(rec)
+      if rec[:breakoutRooms]
+        rec[:breakoutRooms].each do |key, value|
+          breakout_room_options = {}
+          breakout_room_options[:meetingID] = value
+          response_sub = bbb_server.send_api_request(:getRecordings, breakout_room_options)
+          formatter_sub = BigBlueButtonFormatter.new(response_sub)
+          formatter_sub.flatten_objects(:recordings, :recording)
+          response_sub[:recordings].each do |rec_sub|
+            recordings_with_breakouts.push(rec_sub)
+          end
+        end
+      end
+    end
+
+    recordings_with_breakouts.each { |r| BigBlueButtonFormatter.format_recording(r) }
+    recordings_with_breakouts
   end
 
   def get_multiple_recordings(meeting_ids)
-    bbb_server.get_recordings(meetingID: meeting_ids)
+    #bbb_server.get_recordings(meetingID: meeting_ids)
+    deep_get_recordings(meetingID: meeting_ids)
   end
 
   # Returns a URL to join a user into a meeting.
