@@ -17,6 +17,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 
 require 'bigbluebutton_api'
+require 'bigbluebutton_formatter'
 
 module BbbServer
   extend ActiveSupport::Concern
