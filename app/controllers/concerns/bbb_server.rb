@@ -49,7 +49,7 @@ module BbbServer
     formatter = BigBlueButton::BigBlueButtonFormatter.new(response)
     formatter.flatten_objects(:recordings, :recording)
 
-    recordings_with_breakouts = {}
+    recordings_with_breakouts = []
     response[:recordings].each do |rec|
       recordings_with_breakouts.push(rec)
       if rec[:breakoutRooms]
