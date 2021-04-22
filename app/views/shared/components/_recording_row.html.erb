@@ -86,13 +86,13 @@
         </a>
 
         <div class="dropdown-divider"></div> -->
-        <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/video/presentation.webm" data-pres-link="/download/<%= recording[:recordID] %>/video/presentation.webm" download="<%= recording[:name] %>"><i class="dropdown-icon far fa-file-video"></i> Download Video-Recording (presentation)</a>
+        <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/video/presentation.webm" data-pres-link="/download/<%= recording[:recordID] %>/video/presentation.webm" download="<%= CGI.escape(recording[:name]) %>"><i class="dropdown-icon far fa-file-video"></i> Download Video-Recording (presentation)</a>
 
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/video/webcams.webm" data-pres-link="/download/<%= recording[:recordID] %>/video/webcams.webm" download="<%= recording[:name] %>"><i class="dropdown-icon fas fa-file-video"></i> Download Video-Recording (webcams only)</a>
+        <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/video/webcams.webm" data-pres-link="/download/<%= recording[:recordID] %>/video/webcams.webm" download="<%= CGI.escape(recording[:name]) %>"><i class="dropdown-icon fas fa-file-video"></i> Download Video-Recording (webcams only)</a>
 
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/audio/recording.opus" data-pres-link="/download/<%= recording[:recordID] %>/audio/recording.opus" download="<%= recording[:name] %>"><i class="dropdown-icon far fa-file-audio"></i> Download Audio-Recording</a>
+        <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/audio/recording.opus" data-pres-link="/download/<%= recording[:recordID] %>/audio/recording.opus" download="<%= CGI.escape(recording[:name]) %>"><i class="dropdown-icon far fa-file-audio"></i> Download Audio-Recording</a>
 
       </div>
     </div>
