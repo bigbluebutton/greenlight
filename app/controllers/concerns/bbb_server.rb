@@ -66,9 +66,9 @@ module BbbServer
         end
       end
     end
-
-    recordings_with_breakouts.each { |r| BigBlueButton::BigBlueButtonFormatter.format_recording(r) }
-    recordings_with_breakouts
+    response[:recordings] = recordings_with_breakouts
+    response[:recordings].each { |r| BigBlueButton::BigBlueButtonFormatter.format_recording(r) }
+    response
   end
 
   def get_multiple_recordings(meeting_ids)
