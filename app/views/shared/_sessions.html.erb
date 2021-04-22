@@ -95,7 +95,7 @@
                   <% recordings.each do |recording| %>
                     <% begin %>
                       <% if only_public || (defined?(shared_room) && shared_room) %>
-                        <%= render "shared/components/public_recording_row", recording: recording %>
+                        <%= render "shared/components/recording_row", recording: recording %>
                       <% else %>
                         <%= render "shared/components/recording_row", recording: recording %>
                       <% end %>
