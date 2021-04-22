@@ -54,6 +54,7 @@ module BbbServer
       recordings_with_breakouts.push(rec)
       if rec[:breakoutRooms]
         rec[:breakoutRooms].each do |key, value|
+          logger.error value
           breakout_room_options = {}
           breakout_room_options[:meetingID] = value
           response_sub = bbb_server.send_api_request(:getRecordings, breakout_room_options)
