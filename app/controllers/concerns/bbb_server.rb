@@ -37,7 +37,7 @@ module BbbServer
 
   def get_recordings(meeting_id)
     #bbb_server.deep_get_recordings(meetingID: meeting_id)
-    deep_get_recordings(meetingID: meeting_ids)
+    deep_get_recordings(meetingID: meeting_id)
   end
 
   def deep_get_recordings(meeting_id)
