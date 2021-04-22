@@ -46,7 +46,7 @@ module BbbServer
 
     response = bbb_server.send_api_request(:getRecordings, options)
 
-    formatter = BigBlueButtonFormatter.new(response)
+    formatter = BigBlueButton::BigBlueButtonFormatter.new(response)
     formatter.flatten_objects(:recordings, :recording)
 
     recordings_with_breakouts = []
@@ -57,7 +57,7 @@ module BbbServer
           breakout_room_options = {}
           breakout_room_options[:meetingID] = value
           response_sub = bbb_server.send_api_request(:getRecordings, breakout_room_options)
-          formatter_sub = BigBlueButtonFormatter.new(response_sub)
+          formatter_sub = BigBlueButton::BigBlueButtonFormatter.new(response_sub)
           formatter_sub.flatten_objects(:recordings, :recording)
           response_sub[:recordings].each do |rec_sub|
             recordings_with_breakouts.push(rec_sub)
@@ -66,7 +66,7 @@ module BbbServer
       end
     end
 
-    recordings_with_breakouts.each { |r| BigBlueButtonFormatter.format_recording(r) }
+    recordings_with_breakouts.each { |r| BigBlueButton::BigBlueButtonFormatter.format_recording(r) }
     recordings_with_breakouts
   end
 
