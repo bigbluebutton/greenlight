@@ -68,6 +68,7 @@ module BbbServer
           formatter_sub = BigBlueButton::BigBlueButtonFormatter.new(response_sub)
           formatter_sub.flatten_objects(:recordings, :recording)
           response_sub[:recordings].each do |rec_sub|
+            rec_sub[:meetingID] = rec[:meetingID]
             recordings_with_breakouts.push(rec_sub)
           end
         end
