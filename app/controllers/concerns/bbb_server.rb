@@ -40,9 +40,11 @@ module BbbServer
     deep_get_recordings(meetingID: meeting_id)
   end
 
-  def deep_get_recordings(meeting_id)
-    options = {}
-    options[:meetingID] = meeting_id
+  def deep_get_recordings(options={})
+
+    if options.has_key?(:meetingID)
+      options[:meetingID] = options[:meetingID].join(",") if options[:meetingID].instance_of?(Array)
+    end
 
     response = bbb_server.send_api_request(:getRecordings, options)
 
