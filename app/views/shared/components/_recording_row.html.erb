@@ -81,11 +81,11 @@
           <a class="dropdown-item email-link" data-pres-link="<%= recording_links %>"><i class="dropdown-icon far fa-envelope"></i> <%= t("recording.email") %></a>
           <div class="dropdown-divider"></div>
         <% end %>
-        <!-- <a href="" data-toggle="modal" data-target="#deleteRecordingModal" data-path="<%= delete_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]) %>" class="delete-rec dropdown-item">
+        <a href="" data-toggle="modal" data-target="#deleteRecordingModal" data-path="<%= delete_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]) %>" class="delete-rec dropdown-item">
           <i class="dropdown-icon far fa-trash-alt"></i> <%= t("delete") %>
         </a>
 
-        <div class="dropdown-divider"></div> -->
+        <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/film/presentation.webm" data-pres-link="/download/<%= recording[:recordID] %>/film/presentation.webm" download="<%= recording[:name] %>.webm"><i class="dropdown-icon fas fa-film"></i><%= t("recording.download.presentation") %></a>
 
         <div class="dropdown-divider"></div>
