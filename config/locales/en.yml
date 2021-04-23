@@ -522,6 +522,10 @@ en:
       presentation: Presentation
       statistics: Statistics
       video: Video
+    download:
+      presentation: Download compiled Video Recording (presentation)
+      webcams: Download Video Recording (webcams only)
+      audio: Download Audio Recording (HQ, director's cut)
   registration:
     approval:
       fail: Your account has not been approved yet. If multiples days have passed since you signed up, please contact your administrator.

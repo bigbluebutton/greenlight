@@ -516,6 +516,10 @@ de_DE:
       presentation: Präsentation
       statistics: Statistik
       video: Video
+    download:
+      presentation: Kompililierte Video-Aufzeichnung herunterladen (Präsentation)
+      webcams: Video-Aufzeichnung herunterladen (Nur Webcams)
+      audio: Audio-Aufzeichnung herunterladen (High Quality, Director's Cut ;))
   registration:
     approval:
       fail: "Ihr Konto wurde noch nicht freigeschaltet. Falls Sie sich bereits vor mehreren Tagen registriert haben, kontaktieren Sie bitte Ihren Administrator."
