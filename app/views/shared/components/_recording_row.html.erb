@@ -86,10 +86,10 @@
         </a>
 
         <div class="dropdown-divider"></div> -->
-        <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/film/presentation.webm" data-pres-link="/download/<%= recording[:recordID] %>/film/presentation.webm" download="<%= recording[:name].gsub('.','-').gsub(',',' ~ ').gsub(':','_') %>"><i class="dropdown-icon fas fa-film"></i><%= t("recording.download.presentation") %></a>
+        <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/film/presentation.webm" data-pres-link="/download/<%= recording[:recordID] %>/film/presentation.webm" download="<%= recording[:name] %>.webm"><i class="dropdown-icon fas fa-film"></i><%= t("recording.download.presentation") %></a>
 
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/video/webcams.webm" data-pres-link="/download/<%= recording[:recordID] %>/video/webcams.webm" download="<%= recording[:name].gsub('.','-').gsub(',',' ~ ').gsub(':','_') %>"><i class="dropdown-icon far fa-file-video"></i><%= t("recording.download.webcams") %></a>
+        <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/video/webcams.webm" data-pres-link="/download/<%= recording[:recordID] %>/video/webcams.webm" download="<%= recording[:name] %>.webm"><i class="dropdown-icon far fa-file-video"></i><%= t("recording.download.webcams") %></a>
 
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="/download/<%= recording[:recordID] %>/audio/recording.opus" data-pres-link="/download/<%= recording[:recordID] %>/audio/recording.opus" download="<%= recording[:name] %>.opus"><i class="dropdown-icon far fa-file-audio"></i><%= t("recording.download.audio") %></a>
