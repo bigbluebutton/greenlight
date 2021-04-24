@@ -365,7 +365,7 @@ es:
         message: 'Sí hiciste una solicitud para reiniciar tu contraseña, haz click en este enlace para iniciar el proceso.'
         reset_link: Reiniciar la contraseña
         expire: Este enlace expira en dos horas
-        ignore: Puedes ignorar este mensaje sin preocupaciones sí no haz sido tu quien solicito el cambio de contraseña.
+        ignore: Puedes ignorar este mensaje sin preocupaciones si no has sido tú quien solicitó el cambio de contraseña.
       promoted:
         admins_link: Ir a la página de la organización
         info: "Tu rol ha cambiado a %{role} en %{url}."
@@ -606,7 +606,7 @@ es:
       title: Información de la cuenta
       reset_password: Restablecer contraseña de usuario
     delete:
-      button: "Si, me gustaría eliminar mi cuenta de usuario."
+      button: "Sí, me gustaría eliminar mi cuenta de usuario."
       disclaimer: "Sí elijes eliminar tu cuenta de usuario, <b>NO</b> podrá ser recuperada. Toda la información relacionada con tu cuenta, incluyendo configuración, salas y grabaciones, será eliminada."
       subtitle: Eliminar la cuenta de forma permanente
       title: Eliminar cuenta
