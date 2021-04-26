@@ -554,7 +554,8 @@ es:
     invalid_provider: El enlace introducido no es válido. Revísalo e inténtalo de nuevo.
     invitation_description: "Ha sido invitado a unirse a %{name} usando BigBlueButton. Para unirse, haga clic en el enlace superior e introduzca su nombre."
     invited: Ha sido invitado a unirse
-    recording_present: Reconozco que esta sesión se va a grabar. Esto puede incluir mi voz y vídeo si está habilitado.
+    recording_present: "We inform the speakers that the recorded videos will be put online on the conference web page (CIRM website). This implies that you authorize the capture and broadcast. The license chosen for the diffusion of the CIRM videos is CC BY ND NC: the rights holder authorizes the use of the original work for non-commercial purposes but does not authorize derivative works.
+        If you do not want the recording of your conference to be broadcast, please inform the event organizer."
     invite_participants: Invitar participantes
     join: Entrar
     last_session: "Última sesión en %{session}"

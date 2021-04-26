@@ -563,7 +563,8 @@ sk_SK:
     invalid_provider: Zadali ste neplatný odkaz. Prosím skontrolujte odkaz a skúste to znova.
     invitation_description: "Toto je pozvánka na pripojenie k %{name} pomocou BigBlueButton. Ak sa chcete pripojiť, kliknite na vyššie uvedený odkaz a napíšte vaše meno."
     invited: Boli ste pozvaný(á) na konferenciu v miestnosti
-    recording_present: "Beriem na vedomie, že táto relácia bude zaznamenaná. Môže to zahŕňať môj hlas a video, ak sú povolené."
+    recording_present: "We inform the speakers that the recorded videos will be put online on the conference web page (CIRM website). This implies that you authorize the capture and broadcast. The license chosen for the diffusion of the CIRM videos is CC BY ND NC: the rights holder authorizes the use of the original work for non-commercial purposes but does not authorize derivative works.
+        If you do not want the recording of your conference to be broadcast, please inform the event organizer."
     invite_participants: Pozvánka pre účastníkov
     join: Pripojiť sa
     last_session: "Posledná konferencia dňa %{session}"

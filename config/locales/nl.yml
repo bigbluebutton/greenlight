@@ -565,7 +565,8 @@ nl:
     invalid_provider: U heeft een ongeldige URL ingevoerd. Controleer de URL en probeer het opnieuw.
     invitation_description: "Je bent uitgenodigd om deel te nemen aan %{name} via BigBlueButton. Klik op bovenstaande link en voert u uw naam in om te beginnen."
     invited: Je bent uitgenodigd om lid te worden
-    recording_present: Ik erken dat deze sessie zal worden opgenomen. Deze opname kan mijn stem en video bevatten indien dit is ingeschakeld.
+    recording_present: "We inform the speakers that the recorded videos will be put online on the conference web page (CIRM website). This implies that you authorize the capture and broadcast. The license chosen for the diffusion of the CIRM videos is CC BY ND NC: the rights holder authorizes the use of the original work for non-commercial purposes but does not authorize derivative works.
+        If you do not want the recording of your conference to be broadcast, please inform the event organizer."
     invite_participants: Deelnemers uitnodigen
     join: Toetreden
     last_session: "Laatste sessie op %{session}"

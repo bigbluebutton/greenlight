@@ -565,7 +565,8 @@ fa_IR:
     invalid_provider: شما ادرس نامعتبری را وارد کرده اید، لطفا ادرس را بررسی کرده و دوباره تلاش کنید
     invitation_description: "با استفاده از بیگ بلو باتن از شما دعوت شده است تا به %{name} بپیوندید. برای پیوستن، لینک زیر را کلیک کنید و نام خود را درج کنید."
     invited: شما برای ملحق شدن دعوت شده اید
-    recording_present: من متوجه هستم که این جلسه قرار است ضبظ شود. این موضوع شامل صدا و تصویر من در صورت فعال بودن می‌باشد.
+    recording_present: "We inform the speakers that the recorded videos will be put online on the conference web page (CIRM website). This implies that you authorize the capture and broadcast. The license chosen for the diffusion of the CIRM videos is CC BY ND NC: the rights holder authorizes the use of the original work for non-commercial purposes but does not authorize derivative works.
+        If you do not want the recording of your conference to be broadcast, please inform the event organizer."
     invite_participants: دعوت شرکت کنندگان
     join: پیوستن
     last_session: "آخرین جلسه در %{session}"

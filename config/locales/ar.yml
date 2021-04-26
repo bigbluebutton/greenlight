@@ -565,7 +565,8 @@ ar:
     invalid_provider: لقد أدخلت رابطًا غير صالح. يرجى التحقق من عنوان URL والمحاولة مرة أخرى.
     invitation_description: "لقد تمت دعوتك للانضمام إلى %{name} باستخدام BigBlueButton. للانضمام ، انقر فوق الارتباط أعلاه وأدخل اسمك."
     invited: لقد تمت دعوتك للانضمام
-    recording_present: أقر بأنه سيتم تسجيل هذه الجلسة. قد يشمل ذلك صوتي وفيديو إذا تم تمكينه.
+    recording_present: "We inform the speakers that the recorded videos will be put online on the conference web page (CIRM website). This implies that you authorize the capture and broadcast. The license chosen for the diffusion of the CIRM videos is CC BY ND NC: the rights holder authorizes the use of the original work for non-commercial purposes but does not authorize derivative works.
+        If you do not want the recording of your conference to be broadcast, please inform the event organizer."
     invite_participants: دعوة المشاركين
     join: انضم
     last_session: "الجلسة الأخيرة في %{session}"

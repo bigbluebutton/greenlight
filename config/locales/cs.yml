@@ -565,7 +565,8 @@ cs:
     invalid_provider: Vložili jste neplatné url. Prosím zkontrolujte url a zkuste to znovu.
     invitation_description: "Byl jste pozván na videokonferenci%{name} v BigBlueButton. K připojení do místnosti klikněte na odkaz výše a zadejte svoje jméno."
     invited: Byl jste pozván na konferenci v místnosti
-    recording_present: Souhlasím s nahráváním sezení v místnosti včetně mého hlasu a web kamery pokud jsou zapnuté.
+    recording_present: "We inform the speakers that the recorded videos will be put online on the conference web page (CIRM website). This implies that you authorize the capture and broadcast. The license chosen for the diffusion of the CIRM videos is CC BY ND NC: the rights holder authorizes the use of the original work for non-commercial purposes but does not authorize derivative works.
+        If you do not want the recording of your conference to be broadcast, please inform the event organizer."
     invite_participants: Pozvánka pro účastníky
     join: Připojit
     last_session: " Poslední konference dne %{session}"

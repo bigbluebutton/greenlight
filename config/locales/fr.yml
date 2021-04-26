@@ -565,7 +565,8 @@ fr:
     invalid_provider: Vous avez introduit une url non valide. Veuillez vérifier l'url et essayez à nouveau.
     invitation_description: "Vous avez été invité à rejoindre 1%{name} en utilisant le BigBlueButton. Pour le faire, cliquez sur le lien ci-dessus et saisissez votre nom."
     invited: Vous avez été invité à rejoindre
-    recording_present: Je reconnais que cette session va être enregistrée. Cela peut inclure ma voix et la vidéo si elle est activée.
+    recording_present: "Nous informons les conférenciers que les vidéos enregistrées seront mises en ligne sur la page web de la conférence (site web du CIRM). Cela induit que vous autorisez la captation et la diffusion. La licence choisie pour la diffusion des vidéos du CIRM est la CC BY ND NC : le titulaire des droits autorise l’utilisation de l’oeuvre originale à des fins non commerciales mais n’autorise pas d’oeuvres dérivées.
+    Si vous ne souhaitez pas que l’enregistrement de votre conférence soit diffusé, veuillez en informer expressément l’organisateur de l’événement."
     invite_participants: Inviter des participants
     join: Rejoindre
     last_session: "Dernière session le %{session}"

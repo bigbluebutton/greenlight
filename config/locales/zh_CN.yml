@@ -541,7 +541,8 @@ zh_CN:
     invalid_provider: 您输入的URL无效。请检查URL并重试。
     invitation_description: "您已被邀请参加 %{name} 会议. 若要加入，请单击上面的链接并输入您的姓名。"  
     invited: 您已被邀请加入
-    recording_present: 我已知悉这次会议将被记录下来。启用录制将包括我的语音和视频。
+    recording_present: "We inform the speakers that the recorded videos will be put online on the conference web page (CIRM website). This implies that you authorize the capture and broadcast. The license chosen for the diffusion of the CIRM videos is CC BY ND NC: the rights holder authorizes the use of the original work for non-commercial purposes but does not authorize derivative works.
+        If you do not want the recording of your conference to be broadcast, please inform the event organizer."
     invite_participants: 邀请参与者的链接
     join: 加入
     last_session: "上一次会议%{session}"

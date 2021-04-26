@@ -537,7 +537,8 @@ ko_KR:
     invalid_provider: 잘못된 URL을 입력하셨습니다. URL을 확인한 후 다시 시도하십시오.
     invitation_description: "BigBlueButton을 통하여 %{name}에 가입하도록 초대받으셨습니다. 가입하려면 위의 링크를 클릭하고 이름을 입력하십시오."  
     invited: 귀하는 초대를 받았습니다.
-    recording_present: 나는 이 세션이 레코딩 될 것이라는 것을 인지하고 있습니다. 활성화할 경우 내 음성 및 비디오가 포함될 수 있습니다.
+    recording_present: "We inform the speakers that the recorded videos will be put online on the conference web page (CIRM website). This implies that you authorize the capture and broadcast. The license chosen for the diffusion of the CIRM videos is CC BY ND NC: the rights holder authorizes the use of the original work for non-commercial purposes but does not authorize derivative works.
+        If you do not want the recording of your conference to be broadcast, please inform the event organizer."
     invite_participants: 참가자 초대
     join: 참여
     last_session: "마지막 세션 %{session}"
