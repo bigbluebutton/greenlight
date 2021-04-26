@@ -35,3 +35,11 @@ We invite you to build upon Greenlight and help make it better. See [Contributin
 We invite your feedback, questions, and suggests about Greenlight too. Please post them to the [Greenlight mailing list](https://groups.google.com/forum/#!forum/bigbluebutton-greenlight).
 
 To help with organization and consistency, we have implemented a Pull Request template that must be used for all Pull Requests. This template helps ensure that the project maintainers can review all PRs in a timely manner. When creating a Pull Request, please provide as much information as possible.
+
+#### CIRM spec
+## local dev
+a Makefile have been done to simplify process:
+to build project apply this command:
+make local-build
+
+And you can access to local env with this URL: http://localhost:5000/b
