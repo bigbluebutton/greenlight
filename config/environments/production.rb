@@ -107,6 +107,9 @@ Rails.application.configure do
     }
   end
 
+  # enable SMTPS: SMTP over direct TLS connection
+  ActionMailer::Base.smtp_settings[:tls] = true if ENV['SMTP_TLS'].present? && ENV['SMTP_TLS'] != "false"
+
   # If configured to 'none' don't check the smtp servers certificate
   ActionMailer::Base.smtp_settings[:openssl_verify_mode] =
     ENV['SMTP_OPENSSL_VERIFY_MODE'] if ENV['SMTP_OPENSSL_VERIFY_MODE'].present?
@@ -138,17 +141,17 @@ Rails.application.configure do
     { host: event.payload[:host] }
   end
 
-  config.log_formatter = proc do |severity, _time, _progname, msg|
-    "#{severity}: #{msg} \n"
+  config.log_formatter = proc do |severity, time, _progname, msg|
+    "#{time} - #{severity}: #{msg} \n"
   end
 
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [:request_id]
+  config.log_tags = [:request_id, :remote_ip]
 
   if ENV["RAILS_LOG_TO_STDOUT"] == "true"
-    logger = ActiveSupport::Logger.new(STDOUT)
+    logger = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   elsif ENV["RAILS_LOG_REMOTE_NAME"] && ENV["RAILS_LOG_REMOTE_PORT"]

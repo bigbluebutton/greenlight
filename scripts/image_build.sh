@@ -55,13 +55,6 @@ if [ "$CD_REF_NAME" != "master" ] && [[ "$CD_REF_NAME" != *"release"* ]] && [[ "
   exit 0
 fi
 
-# Include sqlite for production
-sqliteCount="$(grep "gem 'sqlite3'" Gemfile | wc -l)"
-
-if [ $sqliteCount -lt 2 ]; then
-  sed -i "/^group :production do/a\ \ gem 'sqlite3', '~> 1.3.6'" Gemfile
-fi
-
 # Set the version tag when it is a release or the commit sha was included.
 if [[ "$CD_REF_NAME" == *"release"* ]]; then
   export CD_VERSION_CODE=${CD_REF_NAME:8}

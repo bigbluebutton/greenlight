@@ -393,6 +393,10 @@ zh_CN:
       keep: 我还是留着吧。
       delete_warning: 这将停用用户的帐户。在“已删除”选项卡下可以找到所有未激活的用户。
       warning: 这是最终决定，您将<b>无法</b>恢复相关数据。
+    delete_rec:
+      delete: 我很确定，删除这个录像。
+      header: 是否确实要删除此录像？
+      warning: 您将 <b>无法</b> 恢复此录像。
     delete_room:
       confirm: "确定要删除%{room}吗?"
       delete: 我确定删除这个会议室

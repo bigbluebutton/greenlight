@@ -18,6 +18,7 @@
       <div class="cookies-banner-content py-3">
         <span class="cookies-warning-text pr-5">
           <%= t("cookies.cookie_info") %>
+          <%= t("cookies.policy", privacy_link: privpolicy_url).html_safe if privpolicy_url.present? %>
         </span>
         <span class="cookies-warning-button d-inline-block">
           <button id="cookies-agree-button" class="btn customBtn primary-regular"><%= t("cookies.cookie_button") %></button>

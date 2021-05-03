@@ -69,6 +69,10 @@ nl:
         regular: Standaard
         lighten: Licht
         darken: Donker
+      email_mapping:
+        info: "Wijs de gebruiker een rol toe met behulp van zijn e-mailadres. Moet de indeling email1=rol1,email2=rol2 hebben"
+        title: Roltoewijzing via e-mail
+        update:
       log_level:
         title: Log Niveau
         information: Wijzig het Log Niveau voor de hele installatie
@@ -90,7 +94,7 @@ nl:
         title: Onderhoudsbanner
         display: Aan
         clear: Uit
-        time: "Voorbeeld: update gepland op 13 december om 23:00 ET. Gebruikers kunnen problemen ondervinden bij het inloggen."        
+        time: "Voorbeeld: update gepland op 13 december om 23:00 ET. Gebruikers kunnen problemen ondervinden bij het inloggen."
       preupload:
         info: Gebruikers kunnen een presentatie vooraf uploaden om als standaardpresentatie voor die specifieke ruimte te gebruiken
         title: Sta gebruikers toe presentaties vooraf te uploaden
@@ -111,6 +115,7 @@ nl:
       tabs:
         appearance: Uiterlijk
         administration: Administratie
+        registration: Registratie
         settings: Instellingen
       title: Site-instellingen
     flash:
@@ -133,8 +138,10 @@ nl:
       settings: Site-instellingen succesvol gewijzigd
       unauthorized: U bent niet gemachtigd om acties uit te voeren op deze gebruiker
     recordings:
+      latest: Nieuwste opnames
       title: Serveropnames
       no_recordings: Deze server heeft geen opnames.
+      search_info: Voer het volledige e-mailadres van een gebruiker of het uid van een kamer in
     roles:
       appear_in_share_list: Neem gebruikers met deze rol op in de keuzelijst voor het delen van kamers
       can_create_rooms: Kan kamers maken
@@ -168,11 +175,15 @@ nl:
         info: Geeft alle gebruikers moderatorrechten in BigBlueButton wanneer ze deelnemen aan de vergadering.
       recordings:
         info: "Hiermee kunnen kamereigenaren aangeven of ze de optie willen om een kamer op te nemen of niet. Indien ingeschakeld, moet de moderator nog steeds op de knop \"Opnemen\" klikken nadat de vergadering is begonnen."
+      moderator_codes:
+        info: Zorgt ervoor dat kamer eigenaars optioneel een moderator pin code kunnen genereren waarmee andere gebruikers direct als moderator kunnen deelnemen.
+        title: Moderator Toegangscode
       options:
         disabled: Uitgeschakeld
         enabled: Altijd ingeschakeld
         optional: Optioneel
     rooms:
+      timeout: "Door de time-out van het serververzoek %{server} is de informatie over de status en deelnemers mogelijk niet correct"
       title: Server Kamers
       table:
         ended: "Beëindigd: %{session}"
@@ -202,12 +213,14 @@ nl:
       table:
         authenticator: Authenticator
         created: Gemaakt
+        time: Tijd Verzonden
         name: Naam
         not_found: Geen gebruikers komen overeen met uw zoekopdracht
         no_users: Geen gebruikers gevonden
         role: Rol
         uid: Gebruiker ID
         username: Gebruikersnaam
+        valid: Geldig
       title: Gebruikers beheren
   add_to_google_calendar: "Toevoegen aan Google Agenda"
   bigbluebutton: BigBlueButton
@@ -216,6 +229,7 @@ nl:
   cookies:
     cookie_info: "Cookies helpen ons onze diensten te leveren. Door onze services te gebruiken, gaat u akkoord met ons gebruik van cookies."
     cookie_button: Daar ben ik het mee eens
+    policy: "Voor meer information, consulteer onze <a href=\"%{privacy_link}\"><u>privacy policy</u></a>."
   copied: Gekopieerd
   copy: Kopiëren
   date:
@@ -342,6 +356,7 @@ nl:
         info: "Je bent uitgenodigd voor je eigen persoonlijke ruimte door %{name}"
         signup_info: Klik op de onderstaande knop om u aan te melden met uw e-mail en volg de stappen.
         signup_link: Registreren
+        valid: "De uitnodiging is geldig tot: %{date}"
         signup:
           info: Een uitgenodigde gebruiker heeft zich aangemeld om Greenlight te gebruiken.
           admins_link: Bezoek de organisatiepagina
@@ -380,7 +395,9 @@ nl:
       title: Nieuwe rol maken
     create_room:
       access_code: Toegangscode
+      moderator_access_code: Moderator Code
       access_code_placeholder: Genereer een optionele toegangscode voor de kamer
+      moderator_access_code_placeholder: Genereer een optionele code voor moderatoren
       auto_join: Ga automatisch mee naar binnen
       create: Ruimte creëren
       free_delete: U kunt deze ruimte op elk gewenst moment verwijderen.
@@ -393,6 +410,10 @@ nl:
       keep: Eigenlijk zal ik het houden.
       delete_warning: Dit zal het gebruikersaccount deactiveren. Alle gedeactiveerde gebruikers zijn te vinden op het verwijderde tabblad.
       warning: Deze beslissing is definitief. U kunt bijbehorende gegevens <b>niet</b> meer herstellen.
+    delete_rec:
+      delete: "Ik ben zeker, verwijder deze opname."
+      header: "Weet u zeker dat u deze opname wilt verwijderen?"
+      warning: Je zal deze opname <b>niet<b> meer kunnen terugkrijgen
     delete_room:
       confirm: "Weet u zeker dat u %{room} wilt verwijderen?"
       delete: "Ik ben zeker, verwijder deze kamer maar."
@@ -465,6 +486,7 @@ nl:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: "Oeps, we hebben uw reCAPTCHA-antwoord niet kunnen valideren. Probeer het opnieuw."
@@ -510,6 +532,7 @@ nl:
   remove: Verwijder
   rename: Hernoem
   reset_password:
+    captcha: "reCAPTCHA-verificatie is mislukt, probeer het opnieuw."
     invalid_token: Token voor wachtwoordherstel is ongeldig. Probeer je wachtwoord opnieuw in te stellen.
     subtitle: Reset wachtwoord
     password: Nieuw wachtwoord
@@ -522,10 +545,13 @@ nl:
     banned: Verbannen
     deleted: Verwijderd
     pending: In afwachting
+    invited: Uitgenodigd
     user: Gebruiker
   room:
     access_code_required: Voer een geldige toegangscode in om toegang te krijgen tot de kamer
     add_presentation: Presentatie toevoegen
+    copy_access: Kopieer Toegangscode
+    copy_moderator_access: "Kopieer Moderator Code  "
     create_room: Maak een kamer
     create_room_error: Er is een fout opgetreden bij het maken van de kamer
     create_room_success: Kamer met succes gemaakt
@@ -534,8 +560,10 @@ nl:
       success: Kamer succesvol verwijderd
       fail: "Kan kamer niet verwijderen (%{error})"
     enter_the_access_code: Voer de toegangscode van de kamer in
+    enter_the_moderator_access_code: Vul de moderator code van de kamer in!
+    optional_moderator_access_code: "Optionele Moderator Code"
     invalid_provider: U heeft een ongeldige URL ingevoerd. Controleer de URL en probeer het opnieuw.
-    invitation_description: "Je bent uitgenodigd om deel te nemen aan %{name} via BigBlueButton. Klik op bovenstaande link en voert u uw naam in om te beginnen."  
+    invitation_description: "Je bent uitgenodigd om deel te nemen aan %{name} via BigBlueButton. Klik op bovenstaande link en voert u uw naam in om te beginnen."
     invited: Je bent uitgenodigd om lid te worden
     recording_present: Ik erken dat deze sessie zal worden opgenomen. Deze opname kan mijn stem en video bevatten indien dit is ingeschakeld.
     invite_participants: Deelnemers uitnodigen
@@ -570,6 +598,7 @@ nl:
     shared_access_success: Kamer met succes gedeeld
     shared_access_error: Er is een fout opgetreden bij het delen van de kamer
     start: Begin
+    search: Zoek een kamer...
     unavailable: Deze kamer is momenteel niet beschikbaar omdat de e-mail van de eigenaar niet is geverifieerd.
     update_settings_error: Er is een fout opgetreden bij het bijwerken van de kamerinstellingen
     update_settings_success: Kamerinstellingen succesvol bijgewerkt

@@ -272,6 +272,19 @@ describe SessionsController, type: :controller do
         }
       }.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
+
+    it "correctly sets the last_login field after the user is created" do
+      post :create, params: {
+        session: {
+          email: @user1.email,
+          password: 'example',
+        },
+      }
+
+      @user1.reload
+
+      expect(@user1.last_login).to_not be_nil
+    end
   end
 
   describe "GET/POST #omniauth" do
@@ -370,6 +383,15 @@ describe SessionsController, type: :controller do
       get :omniauth, params: { provider: 'google' }
 
       expect(response).to redirect_to(root_path)
+    end
+
+    it "correctly sets the last_login field after the user is created" do
+      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google]
+      get :omniauth, params: { provider: :google }
+
+      u = User.last
+
+      expect(u.last_login).to_not be_nil
     end
 
     context 'twitter deprecation' do
@@ -508,6 +530,53 @@ describe SessionsController, type: :controller do
 
       new_u = User.find_by(social_uid: "bn-launcher-user-new")
       expect(users_old_uid).to eq(new_u.uid)
+    end
+
+    context "email mapping" do
+      before do
+        @role1 = Role.create(name: "role1", priority: 2, provider: "greenlight")
+        @role2 = Role.create(name: "role2", priority: 3, provider: "greenlight")
+        allow_any_instance_of(Setting).to receive(:get_value).and_return("-123@test.com=role1,@testing.com=role2")
+      end
+
+      it "correctly sets users role if email mapping is set" do
+        params = OmniAuth.config.mock_auth[:google]
+        params[:info][:email] = "test-123@test.com"
+
+        request.env["omniauth.auth"] = params
+
+        get :omniauth, params: { provider: :google }
+
+        u = User.last
+
+        expect(u.role).to eq(@role1)
+      end
+
+      it "correctly sets users role if email mapping is set (second test)" do
+        params = OmniAuth.config.mock_auth[:google]
+        params[:info][:email] = "test-123@testing.com"
+
+        request.env["omniauth.auth"] = params
+
+        get :omniauth, params: { provider: :google }
+
+        u = User.last
+
+        expect(u.role).to eq(@role2)
+      end
+
+      it "defaults to user if no mapping matches" do
+        params = OmniAuth.config.mock_auth[:google]
+        params[:info][:email] = "test@test.com"
+
+        request.env["omniauth.auth"] = params
+
+        get :omniauth, params: { provider: :google }
+
+        u = User.last
+
+        expect(u.role).to eq(Role.find_by(name: "user", provider: "greenlight"))
+      end
     end
   end
 

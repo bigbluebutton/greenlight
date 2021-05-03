@@ -40,9 +40,13 @@ class AdminsController < ApplicationController
     @tab = params[:tab] || "active"
     @role = params[:role] ? Role.find_by(name: params[:role], provider: @user_domain) : nil
 
-    @user_list = merge_user_list
+    users = if @tab == "invited"
+      invited_users_list
+    else
+      manage_users_list
+    end
 
-    @pagy, @users = pagy(manage_users_list)
+    @pagy, @users = pagy(users)
   end
 
   # GET /admins/site_settings
@@ -52,12 +56,19 @@ class AdminsController < ApplicationController
 
   # GET /admins/server_recordings
   def server_recordings
-    server_rooms = rooms_list_for_recordings
+    @search = params[:search] || ""
 
-    @search, @order_column, @order_direction, recs =
-      all_recordings(server_rooms, params.permit(:search, :column, :direction), true, true)
+    if @search.present?
+      if @search.include? "@"
+        user_email = @search
+      else
+        room_uid = @search
+      end
+    else
+      @latest = true
+    end
 
-    @pagy, @recordings = pagy_array(recs)
+    @pagy, @recordings = pagy_array(recordings_to_show(user_email, room_uid))
   end
 
   # GET /admins/rooms
@@ -66,7 +77,13 @@ class AdminsController < ApplicationController
     @order_column = params[:column] && params[:direction] != "none" ? params[:column] : "status"
     @order_direction = params[:direction] && params[:direction] != "none" ? params[:direction] : "DESC"
 
-    meetings = all_running_meetings[:meetings]
+    begin
+      meetings = all_running_meetings[:meetings]
+    rescue BigBlueButton::BigBlueButtonException
+      flash[:alert] = I18n.t("administrator.rooms.timeout", server: I18n.t("bigbluebutton"))
+      meetings = []
+    end
+
     @order_column = "created_at" if meetings.empty?
     @running_room_bbb_ids = meetings.pluck(:meetingID)
 
@@ -74,8 +91,6 @@ class AdminsController < ApplicationController
     meetings.each do |meet|
       @participants_count[meet[:meetingID]] = meet[:participantCount]
     end
-
-    @user_list = shared_user_list if shared_access_allowed
 
     @pagy, @rooms = pagy_array(server_rooms_list)
   end
@@ -130,10 +145,11 @@ class AdminsController < ApplicationController
     emails.each do |email|
       invitation = create_or_update_invite(email)
 
-      send_invitation_email(current_user.name, email, invitation.invite_token)
+      send_invitation_email(current_user.name, email, invitation)
     end
 
-    redirect_to admins_path
+    redirect_back fallback_location: admins_path,
+      flash: { success: I18n.t("administrator.flash.invite", email: emails.join(", ")) }
   end
 
   # GET /admins/reset
@@ -188,6 +204,21 @@ class AdminsController < ApplicationController
     redirect_back fallback_location: admins_path
   end
 
+  # GET /admins/merge_list
+  def merge_list
+    # Returns a list of users that can merged into another user
+    initial_list = User.without_role(:super_admin)
+                       .where.not(uid: current_user.uid)
+                       .merge_list_search(params[:search])
+
+    initial_list = initial_list.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
+
+    # Respond with JSON object of users
+    respond_to do |format|
+      format.json { render body: initial_list.pluck_to_hash(:uid, :name, :email).to_json }
+    end
+  end
+
   # SITE SETTINGS
 
   # POST /admins/update_settings
@@ -198,7 +229,7 @@ class AdminsController < ApplicationController
     flash_message = I18n.t("administrator.flash.settings")
 
     if params[:value] == "Default Recording Visibility"
-      flash_message += ". " + I18n.t("administrator.site_settings.recording_visibility.warning")
+      flash_message += ". #{I18n.t('administrator.site_settings.recording_visibility.warning')}"
     end
 
     redirect_to admin_site_settings_path(tab: tab), flash: { success: flash_message }

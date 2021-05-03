@@ -83,16 +83,16 @@ da:
         title: Optagelser Synlige Som Standard
         warning: Denne indstilling vil kun påvirke rum som ikke kører
       require_consent:
-        info: " \nDenne indstilling muliggør en rumindstilling, der giver rum ejere mulighed for at specificere, hvilke rum der kan optages i. Brugere, der deltager i et optaget rum, skal samtykke, før de tilmelder sig."
-        title: "Kræv at Rum Ejer og Deltager Samtykker til at blive Optaget\n "
+        info: "Denne indstilling muliggør en rumindstilling, der giver rum ejere mulighed for at specificere, hvilke rum der kan optages i. Brugere, der deltager i et optaget rum, skal samtykke, før de tilmelder sig."
+        title: Kræv at Rum Ejer og Deltager Samtykker til at blive Optaget
       maintenance_banner:
-        info: " \nViser en Banner for at informere brugeren om en planlagt vedligeholdelse"
+        info: Viser en Banner for at informere brugeren om en planlagt vedligeholdelse
         title: Vedligeholdelses Banner
         display: Sæt
         clear: Ryd
         time: "Eksempel: Opdatering planlagt 13. december @ 23:00 ET. Brugere kan have problemer med at logge ind."        
       preupload:
-        info: " \nBrugere kan forhåndsindlæse en præsentation, der skal bruges som standardpræsentation for det specifikke rum\n "
+        info: "Brugere kan forhåndsindlæse en præsentation, der skal bruges som standardpræsentation for det specifikke rum"
         title: Tillad Brugere at Forhåndsindlæse Præsentationer
       registration:
         info: Skift måden hvor på brugere registrere sig på hjemmesiden
@@ -167,12 +167,13 @@ da:
       all_moderator:
         info: "Giver alle brugernes moderatorrettigheder i BigBlueButton, når de deltager i mødet."
       recordings:
-        info: " \nTillader rum ejere at specificere, om de vil have muligheden for at optage et værelse eller ej. Hvis aktiveret, skal moderatoren stadig klikke på \"Optag\" -knappen, når mødet er startet."
+        info: "Tillader rum ejere at specificere, om de vil have muligheden for at optage et værelse eller ej. Hvis aktiveret, skal moderatoren stadig klikke på \"Optag\" -knappen, når mødet er startet."
       options:
         disabled: Deaktiver
         enabled: Altid Aktiveret
         optional: Valgfri
     rooms:
+      timeout: " \nPå grund af %{server} Serveren fik timeout for serveranmodning, oplysningerne om status og deltagere er muligvis ikke korrekte"
       title: Server Rum
       table:
         ended: "Sluttede: %{session}"
@@ -202,12 +203,14 @@ da:
       table:
         authenticator: Log På Med
         created: Oprettet
+        time: Tid Sendt
         name: Navn
         not_found: Ingen brugere matcher din søgning
         no_users: Ingen brugere fundet
         role: Rolle
         uid: Bruger ID
         username: Brugernavn
+        valid: Gyldig
       title: Styr Brugere
   add_to_google_calendar: "Føj til Google Kalender"
   bigbluebutton: BigBlueButton
@@ -393,6 +396,10 @@ da:
       keep: "Faktisk, vil jeg beholde den."
       delete_warning: Dette vil deaktivere brugerens konto. Alle deaktiverede brugere kan ses under slettede.
       warning: Denne beslutning er afgørende. Du vil <b>ikke</b> kunne genskabe data igen.
+    delete_rec:
+      delete: "Jeg er sikker, slet denne optagelse."
+      header: " \nEr du sikker på, at du vil slette denne optagelse?"
+      warning: Du vil <b> ikke </b> have mulighed for at genskabe denne optagelse
     delete_room:
       confirm: "Er du sikker på du vil slette %{room}?"
       delete: "Jeg er sikker, slet dette rum."
@@ -400,7 +407,7 @@ da:
       warning: Du vil <b>ikke</b> have mulighed for at genskabe dette rum
       recording_warning: "eller noget af %{recordings_num} som er optaget."
     invite_user:
-      email_placeholder: " \nIndtast brugernes e-mails (adskilt med kommaer)"
+      email_placeholder: Indtast brugernes e-mails (adskilt med kommaer)
       footer: Denne bruger vil modtage en email med vejledning i hvordan man opretter en konto
       send: Send Invitation
       title: Inviter Bruger
@@ -412,8 +419,8 @@ da:
       change: Erstat Præsentation
       choose: Vælg en fil...
       current: "Nuværende præsentation:"
-      footer: " \nAfhængig af præsentationens størrelse kan det kræve ekstra tid at uploade, før den kan bruges.\n "
-      invalid: "Ugyldig størrelse / filtype. Se venligst begrænsningerne nedenfor.\n "
+      footer: "Afhængig af præsentationens størrelse kan det kræve ekstra tid at uploade, før den kan bruges."
+      invalid: Ugyldig størrelse / filtype. Se venligst begrænsningerne nedenfor.
       title: Tilføj Præsentation
       use: Brug Præsentation
     rename_recording:
@@ -526,6 +533,7 @@ da:
   room:
     access_code_required: Indtast venligst en gyldig adgangskode for at deltage i rummet
     add_presentation: Tilføj Præsentation
+    copy_access: Kopier Adgangskode
     create_room: Opret et Rum
     create_room_error: Der var en fejl ved oprettelsen af rummet
     create_room_success: Rummet blev oprettet med succes
@@ -551,7 +559,7 @@ da:
       invalid_room_uid: Rummets url/uid som du har indtastet er ugyldigt.
       placeholder: Rum url/uid
       no_recent_rooms: Du har ikke nogen nyligt tilsluttede værelser
-      recent_rooms: "Gå til et nyligt tilsluttet værelse\n "
+      recent_rooms: Gå til et nyligt tilsluttet værelse
       title: Tilslut et Rum
     no_sessions: "Dette rum har ikke nogen sessioner, endnu!"
     preupload_success: Præsentationen blev tilføjet med succes
@@ -560,7 +568,7 @@ da:
     preupload_remove_error: Der opstod en fejl ved fjernelse af præsentationen i rummet
     recordings: Rum Optagelser
     room_limit: Du har nået det maksimale antal tilladte værelser
-    room_limit_exceeded: "Du har overskredet dine antal af tilladte rum. Slet venligst %{difference} rum for at få adgang til dette."
+    room_limit_exceeded: "Du har overskredet dine antal af tilladte rum. Slet venligst %{difference} rum(mene) for at få adgang til dette."
     sessions: Sessioner
     settings: Rum Indstillinger
     share: Håndter Adgang

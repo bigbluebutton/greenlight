@@ -15,21 +15,6 @@
 
 <div class="form-group">
   <div class="row mb-2">
-     <div class="col-12">
-       <div class="form-group">
-         <label class="form-label"><%= t("administrator.site_settings.maintenance_banner.title") %></label>
-         <label class="form-label text-muted"><%= t("administrator.site_settings.maintenance_banner.info") %></label>
-         <div class="input-group">
-           <input id="maintenance-banner" type="text" class="form-control" value="<%= maintenance_banner %>" placeholder="<%= t("administrator.site_settings.maintenance_banner.time") %>">
-           <span class="input-group-append">
-              <button onclick="displayMaintenanceBanner('<%= admin_update_settings_path(setting: 'Maintenance Banner') %>')" class="settings-button btn btn-primary" type="button"><%= t("administrator.site_settings.maintenance_banner.display") %></button>
-              <button onclick="clearMaintenanceBanner('<%= admin_update_settings_path(setting: 'Maintenance Banner') %>')" class="settings-button btn btn-danger" type="button"><%= t("administrator.site_settings.maintenance_banner.clear") %></button>
-           </span>
-         </div>
-       </div>
-     </div>
-  </div>
-  <div class="row mb-2">
     <div class="col-12">
       <div class="form-group">
         <label class="form-label"><%= t("administrator.site_settings.legal.title") %></label>
@@ -59,6 +44,21 @@
   </div>
 
   <% if show_log_dropdown %>
+    <div class="row mb-2">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="form-label"><%= t("administrator.site_settings.maintenance_banner.title") %></label>
+          <label class="form-label text-muted"><%= t("administrator.site_settings.maintenance_banner.info") %></label>
+          <div class="input-group">
+            <input id="maintenance-banner" type="text" class="form-control" value="<%= maintenance_banner %>" placeholder="<%= t("administrator.site_settings.maintenance_banner.time") %>">
+            <span class="input-group-append">
+                <button onclick="displayMaintenanceBanner('<%= admin_update_settings_path(setting: 'Maintenance Banner') %>')" class="settings-button btn btn-primary" type="button"><%= t("administrator.site_settings.maintenance_banner.display") %></button>
+                <button onclick="clearMaintenanceBanner('<%= admin_update_settings_path(setting: 'Maintenance Banner') %>')" class="settings-button btn btn-danger" type="button"><%= t("administrator.site_settings.maintenance_banner.clear") %></button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-12">
         <div class="form-group">

@@ -88,7 +88,7 @@
               <% end %>
             </div>
           </div>
-        <% else %>
+        <% elsif show_signin %>
           <% allow_greenlight_accounts = allow_greenlight_accounts? %>
           <% if allow_greenlight_accounts %>
             <%= link_to t("login"), signin_path, :class => "btn btn-outline-primary mx-2 sign-in-button" %>

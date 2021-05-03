@@ -35,7 +35,10 @@ namespace :user do
     u[:email].prepend "superadmin-" if args[:role] == "super_admin"
 
     # Create account if it doesn't exist
-    if !User.exists?(email: u[:email], provider: u[:provider])
+    if User.exists?(email: u[:email], provider: u[:provider])
+      puts "Account with that email already exists"
+      puts "Email: #{u[:email]}"
+    else
       user = User.create(name: u[:name], email: u[:email], password: u[:password],
         provider: u[:provider], email_verified: true, accepted_terms: true)
 
@@ -52,9 +55,6 @@ namespace :user do
       puts "Password: #{u[:password]}"
       puts "Role: #{u[:role]}"
       puts "PLEASE CHANGE YOUR PASSWORD IMMEDIATELY" if u[:password] == Rails.configuration.admin_password_default
-    else
-      puts "Account with that email already exists"
-      puts "Email: #{u[:email]}"
     end
   end
 end

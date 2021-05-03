@@ -44,7 +44,9 @@ class RoomsController < ApplicationController
     return redirect_to current_user.main_room, flash: { alert: I18n.t("room.room_limit") } if room_limit_exceeded
 
     # Create room
-    @room = Room.new(name: room_params[:name], access_code: room_params[:access_code])
+    @room = Room.new(name: room_params[:name],
+                     access_code: room_params[:access_code],
+                     moderator_access_code: room_params[:moderator_access_code])
     @room.owner = current_user
     @room.room_settings = create_room_settings_string(room_params)
 
@@ -79,8 +81,6 @@ class RoomsController < ApplicationController
       @search, @order_column, @order_direction, recs =
         recordings(@room.bbb_id, params.permit(:search, :column, :direction), true)
 
-      @user_list = shared_user_list if shared_access_allowed
-
       @pagy, @recordings = pagy_array(recs)
     else
       return redirect_to root_path, flash: { alert: I18n.t("room.invalid_provider") } if incorrect_user_domain
@@ -91,6 +91,7 @@ class RoomsController < ApplicationController
 
   # GET /rooms
   def cant_create_rooms
+    return redirect_to root_path unless current_user
     shared_rooms = current_user.shared_rooms
 
     if current_user.shared_rooms.empty?
@@ -110,8 +111,9 @@ class RoomsController < ApplicationController
     @shared_room = room_shared_with_user
 
     unless @room.owned_by?(current_user) || @shared_room
-      # Don't allow users to join unless they have a valid access code or the room doesn't have an access code
-      if @room.access_code && !@room.access_code.empty? && @room.access_code != session[:access_code]
+      # Don't allow users to join unless they have a valid access code or the room doesn't have an access codes
+      valid_access_code = !@room.access_code.present? || @room.access_code == session[:access_code]
+      if !valid_access_code && !valid_moderator_access_code(session[:moderator_access_code])
         return redirect_to room_path(room_uid: params[:room_uid]), flash: { alert: I18n.t("room.access_code_required") }
       end
 
@@ -138,7 +140,10 @@ class RoomsController < ApplicationController
     begin
       # Don't delete the users home room.
       raise I18n.t("room.delete.home_room") if @room == @room.owner.main_room
-      @room.destroy
+
+      # Destroy all recordings then permanently delete the room
+      delete_all_recordings(@room.bbb_id)
+      @room.destroy(true)
     rescue => e
       flash[:alert] = I18n.t("room.delete.fail", error: e)
     else
@@ -156,11 +161,8 @@ class RoomsController < ApplicationController
   def join_specific_room
     room_uid = params[:join_room][:url].split('/').last
 
-    begin
-      @room = Room.find_by!(uid: room_uid)
-    rescue ActiveRecord::RecordNotFound
-      return redirect_to current_user.main_room, alert: I18n.t("room.no_room.invalid_room_uid")
-    end
+    @room = Room.find_by(uid: room_uid)
+    return redirect_to cant_create_rooms_path, alert: I18n.t("room.no_room.invalid_room_uid") unless @room
 
     redirect_to room_path(@room)
   end
@@ -201,11 +203,17 @@ class RoomsController < ApplicationController
       # Update the rooms values
       room_settings_string = create_room_settings_string(options)
 
-      @room.update_attributes(
+      attributes = {
         name: options[:name],
-        room_settings: room_settings_string,
-        access_code: options[:access_code]
-      )
+      }
+
+      unless params[:setting] == "rename_header"
+        attributes[:room_settings] = room_settings_string
+        attributes[:access_code] = options[:access_code]
+        attributes[:moderator_access_code] = options[:moderator_access_code]
+      end
+
+      @room.update(attributes)
 
       flash[:success] = I18n.t("room.update_settings_success")
     rescue => e
@@ -300,7 +308,7 @@ class RoomsController < ApplicationController
   def shared_users
     # Respond with JSON object of users that have access to the room
     respond_to do |format|
-      format.json { render body: @room.shared_users.to_json }
+      format.json { render body: @room.shared_users.pluck_to_hash(:uid, :name, :image).to_json }
     end
   end
 
@@ -322,9 +330,16 @@ class RoomsController < ApplicationController
 
   # POST /:room_uid/login
   def login
-    session[:access_code] = room_params[:access_code]
+    # use same form for access_code and moderator_access_code
+    if valid_moderator_access_code(room_params[:access_code])
+      session[:moderator_access_code] = room_params[:access_code]
+    else
+      session[:access_code] = room_params[:access_code]
+    end
 
-    flash[:alert] = I18n.t("room.access_code_required") if session[:access_code] != @room.access_code
+    if session[:access_code] != @room.access_code && !valid_moderator_access_code(session[:moderator_access_code])
+      flash[:alert] = I18n.t("room.access_code_required")
+    end
 
     redirect_to room_path(@room.uid)
   end
@@ -333,11 +348,11 @@ class RoomsController < ApplicationController
 
   def create_room_settings_string(options)
     room_settings = {
-      "muteOnStart": options[:mute_on_join] == "1",
-      "requireModeratorApproval": options[:require_moderator_approval] == "1",
-      "anyoneCanStart": options[:anyone_can_start] == "1",
-      "joinModerator": options[:all_join_moderator] == "1",
-      "recording": options[:recording] == "1",
+      muteOnStart: options[:mute_on_join] == "1",
+      requireModeratorApproval: options[:require_moderator_approval] == "1",
+      anyoneCanStart: options[:anyone_can_start] == "1",
+      joinModerator: options[:all_join_moderator] == "1",
+      recording: options[:recording] == "1",
     }
 
     room_settings.to_json
@@ -346,7 +361,7 @@ class RoomsController < ApplicationController
   def room_params
     params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
       :require_moderator_approval, :anyone_can_start, :all_join_moderator,
-      :recording, :presentation)
+      :recording, :presentation, :moderator_access_code)
   end
 
   # Find the room from the uid.
@@ -412,6 +427,11 @@ class RoomsController < ApplicationController
     current_user.rooms.length >= limit
   end
   helper_method :room_limit_exceeded
+
+  def valid_moderator_access_code(code)
+    code == @room.moderator_access_code && !@room.moderator_access_code.blank? && moderator_code_allowed?
+  end
+  helper_method :valid_moderator_access_code
 
   def record_meeting
     # If the require consent setting is checked, then check the room setting, else, set to true

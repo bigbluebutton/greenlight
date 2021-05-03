@@ -37,7 +37,7 @@ module Recorder
   def all_recordings(room_bbb_ids, search_params = {}, ret_search_params = false, search_name = false)
     res = { recordings: [] }
 
-    until room_bbb_ids.empty?
+    until room_bbb_ids.empty? || res[:recordings].length > Rails.configuration.pagination_number
       # bbb.get_recordings returns an object
       # take only the array portion of the object that is returned
       full_res = get_multiple_recordings(room_bbb_ids.pop(Rails.configuration.pagination_number))
