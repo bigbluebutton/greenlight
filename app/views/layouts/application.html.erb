@@ -28,7 +28,7 @@
       </script>
     <% end %>
 
-    <title><%= yield(:page_title).present? ? yield(:page_title) : t("Qyber\\black BigBlueButton") %></title>
+    <title><%= yield(:page_title).present? ? yield(:page_title) : "Qyber\\black BigBlueButton" %></title>
     <meta property="og:title" content="<%= yield(:page_title).present? ? yield(:page_title) : t("bigbluebutton") %>" />
     <meta property="og:type" content="website" />
     <meta property="og:description" content="<%= yield(:page_desc).present? ? yield(:page_desc) : t("landing.about", href: "Greenlight", locale: :en) %>" />
