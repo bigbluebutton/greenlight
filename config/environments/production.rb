@@ -125,6 +125,9 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
+  # Specify the log level
+  config.log_level = ENV["RAILS_LOG_LEVEL"].present? ? ENV['RAILS_LOG_LEVEL'].to_sym : :info
+
   # Use Lograge for logging
   config.lograge.enabled = true
 
@@ -140,8 +143,6 @@ Rails.application.configure do
   config.log_formatter = proc do |severity, time, _progname, msg|
     "#{time} - #{severity}: #{msg} \n"
   end
-
-  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id, :remote_ip]
