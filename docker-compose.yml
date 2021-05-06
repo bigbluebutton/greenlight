@@ -3,8 +3,10 @@ version: '3'
 services:
   app:
     entrypoint: [bin/start]
-    image: bigbluebutton/greenlight:v2
-    container_name: greenlight-v2
+    #    image: bigbluebutton/greenlight:v2
+    #container_name: greenlight-v2
+    image: greenlight:v3
+    container_name: greenlight-v3
     env_file: .env
     restart: unless-stopped
     ports:

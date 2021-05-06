@@ -106,7 +106,7 @@ class RoomsController < ApplicationController
   # POST /:room_uid
   def join
     return redirect_to root_path,
-      flash: { alert: I18n.t("administrator.site_settings.authentication.user-info") } if auth_required
+      flash: { alert: I18n.t("administrator.site_settings.authentication.user-info") } if auth_required || room_setting_with_config("requireAuthenticationToJoin")
 
     @shared_room = room_shared_with_user
 
@@ -353,6 +353,7 @@ class RoomsController < ApplicationController
       anyoneCanStart: options[:anyone_can_start] == "1",
       joinModerator: options[:all_join_moderator] == "1",
       recording: options[:recording] == "1",
+      requireAuthenticationToJoin: options[:require_authentication_to_join] == "1"
     }
 
     room_settings.to_json
@@ -361,7 +362,7 @@ class RoomsController < ApplicationController
   def room_params
     params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
       :require_moderator_approval, :anyone_can_start, :all_join_moderator,
-      :recording, :presentation, :moderator_access_code)
+      :recording, :presentation, :moderator_access_code, :require_authentication_to_join)
   end
 
   # Find the room from the uid.
@@ -461,6 +462,8 @@ class RoomsController < ApplicationController
       "Room Configuration Allow Any Start"
     when "recording"
       "Room Configuration Recording"
+    when "requireAuthenticationToJoin"
+      "Room Configuration Require Authentication To Join"
     end
 
     case @settings.get_value(config)
