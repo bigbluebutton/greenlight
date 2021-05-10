@@ -106,7 +106,7 @@ class RoomsController < ApplicationController
   # POST /:room_uid
   def join
     return redirect_to root_path,
-      flash: { alert: I18n.t("administrator.site_settings.authentication.user-info") } if auth_required || room_setting_with_config("requireAuthenticationToJoin")
+      flash: { alert: I18n.t("administrator.site_settings.authentication.user-info") } if auth_required
 
     @shared_room = room_shared_with_user
 
