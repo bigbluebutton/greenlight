@@ -23,7 +23,6 @@
           </div>
 
           <%= button_to "/", method: :delete, id: "remove-shared-confirm", class: "btn btn-danger my-1 btn-del-room" do %>
-            <%= hidden_field_tag :user_id, current_user.id %>
             <%= t("modal.remove_shared.delete") %>
           <% end %>
 

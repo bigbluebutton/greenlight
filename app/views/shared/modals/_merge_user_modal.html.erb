@@ -21,10 +21,7 @@
           <div class="card-title">
             <h3><%= t("modal.merge_user.title") %></h3>
           </div>
-          <select class="selectpicker" title="<%= t("modal.share_access.select") %>" data-live-search="true" data-virtual-scroll="true" >
-            <% @user_list.each do |user| %>
-                <option value="<%= { uid: user.uid, email: user.email, name: user.name }.to_json %>" data-subtext="<%= user.email %>" ><%= user.name %></option>
-              <% end %>
+          <select id="merge-user-select" class="selectpicker" title="<%= t("modal.share_access.select") %>" data-live-search="true" data-virtual-scroll="true" data-path="<%= merge_list_path %>">
           </select>
           <div class="mt-5 text-left row">
             <div class="list-group-item col-6 text-center">

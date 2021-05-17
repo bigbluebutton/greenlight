@@ -16,11 +16,11 @@
 <div id="cant-create-room-wrapper" class="d-flex align-content-md-center flex-wrap background h-100 cant-create-room-wrapper">
     <div class="container">
                 <div class="row my-7">
-                    <div class="col-lg-5 d-none d-lg-flex">
+                    <div class="col d-none d-lg-flex">
                         <div class="card card-profile h-100">
                             <div class="card-header bg-primary h-50"></div>
                             <div class="card-body text-center">
-                                <% if current_user.image.blank? %>
+                                <% if current_user.image.blank? || !valid_url?(current_user.image) %>
                                     <span class="avatar avatar-xxxl card-profile-img bg-primary"><%= current_user.name.first %></span>
                                 <% else %>
                                     <%= image_tag(current_user.image, class: "avatar avatar-xxxl card-profile-img") %>
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-7 col-sm-12">
+                    <div class="col-lg-7 col-sm-12 d-none">
                         <div class="card h-100">
                             <div class="card-status bg-primary"></div>
                             <div class="card-header cant-create-rooms-title">

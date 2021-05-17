@@ -23,10 +23,8 @@ class UsersController < ApplicationController
   include Registrar
   include Recorder
   include Rolify
-  require 'faraday'
   require 'uri'
-
-
+  require 'faraday'
 
   before_action :find_user, only: [:edit, :change_password, :delete_account, :update, :update_password]
   before_action :ensure_unauthenticated_except_twitter, only: [:create]
@@ -43,15 +41,21 @@ class UsersController < ApplicationController
 
     # Redirect to root if user token is either invalid or expired
     return redirect_to root_path, flash: { alert: I18n.t("registration.invite.fail") } unless passes_invite_reqs
+
+    # User has passed all validations required
     @user.save
 
-    #Greenlight Customization subscribe to sendy
+      #Greenlight Customization subscribe to sendy
     conn = Faraday.new('https://sendy.higheredlab.com')
+    
     conn.post('/subscribe',api_key:"cKoFCdddFM9YIdSdvzmH", name:@user.name, email:@user.email, FirstName:@user.firstname, LastName:@user.lastname,
       list:"892T763OdMvL6nGW3bMJs7cKYA", "Content-Type" => "application/x-www-form-urlencoded")
 
     conn.post('/subscribe',api_key:"cKoFCdddFM9YIdSdvzmH", name:@user.name, email:@user.email, FirstName:@user.firstname, LastName:@user.lastname,
       list:"cjYRUzEyfNFjFMmD6dKIbQ", "Content-Type" => "application/x-www-form-urlencoded")
+
+    logger.info "Support: POST name:#{@user.name} email:#{@user.email} successful for list 1"
+    logger.info "Support: POST name:#{@user.name} email:#{@user.email} successful for list 2"
 
     # Greenlight Customization HubSpot Forms POST
     data = {
@@ -61,16 +65,16 @@ class UsersController < ApplicationController
       :phone => @user.mobile
     }
     url = "https://forms.hubspot.com/uploads/form/v2/8247873/ac75bcf8-58ce-40c2-a8ac-299093c8871a"
-    
     response = Faraday.post(url) do |req|
       req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
       req.body = URI.encode_www_form(data)
     end
-    
-    # logger.info "Support: POST email:#{@user.email} successful for list 1"
-    # logger.info "Support: POST email:#{@user.email} successful for list 2"
-    # logger.info "Support: POST email:#{@user.email} successful for hubspot"
-    # logger.info "Support: firstname:#{@user.firstname} lastname:#{@user.lastname} name:#{@user.name} email:#{@user.email} user has been created."
+
+    logger.info "Support: firstname:#{@user.firstname} lastname:#{@user.lastname} name:#{@user.name} email:#{@user.email} user has been created."
+
+ 
+
+    logger.info "Support: #{@user.email} user has been created."
 
     # Set user to pending and redirect if Approval Registration is set
     if approval_registration
@@ -84,7 +88,7 @@ class UsersController < ApplicationController
 
     # Sign in automatically if email verification is disabled or if user is already verified.
     if !Rails.configuration.enable_email_verification || @user.email_verified
-      @user.set_role :user
+      @user.set_role(initial_user_role(@user.email))
 
       login(@user) && return
     end
@@ -99,7 +103,6 @@ class UsersController < ApplicationController
     redirect_to root_path unless current_user
   end
 
-  
   # GET /u/:user_uid/change_password
   def change_password
     redirect_to edit_user_path unless current_user.greenlight_account?
@@ -120,7 +123,7 @@ class UsersController < ApplicationController
 
     redirect_path = current_user.admin_of?(@user, "can_manage_users") ? path : edit_user_path(@user)
 
-    unless @user.greenlight_account?
+    unless can_edit_user?(@user, current_user)
       params[:user][:name] = @user.name
       params[:user][:email] = @user.email
     end
@@ -183,6 +186,8 @@ class UsersController < ApplicationController
         # Permanently delete the rooms under the user if they have not been reassigned
         if perm_delete
           @user.rooms.include_deleted.each do |room|
+            # Destroy all recordings then permanently delete the room
+            delete_all_recordings(room.bbb_id)
             room.destroy(true)
           end
         end
@@ -225,6 +230,28 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /shared_access_list
+  def shared_access_list
+    # Don't allow searchs unless atleast 3 characters are passed
+    return redirect_to '/404' if params[:search].length < 3
+
+    roles_can_appear = []
+    Role.where(provider: @user_domain).each do |role|
+      roles_can_appear << role.name if role.get_permission("can_appear_in_share_list") && role.priority >= 0
+    end
+
+    initial_list = User.where.not(uid: params[:owner_uid])
+                       .with_role(roles_can_appear)
+                       .shared_list_search(params[:search])
+
+    initial_list = initial_list.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
+
+    # Respond with JSON object of users
+    respond_to do |format|
+      format.json { render body: initial_list.pluck_to_hash(:uid, :name).to_json }
+    end
+  end
+
   private
 
   def find_user
@@ -237,8 +264,8 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    # added firstname and lastname 
-    params.require(:user).permit(:name, :email, :firstname, :lastname, :image, :mobile, :password, :password_confirmation,
+ # added firstname and lastname 
+ params.require(:user).permit(:name, :email, :firstname, :lastname, :image, :mobile, :password, :password_confirmation,
       :new_password, :provider, :accepted_terms, :language)
   end
 
@@ -252,8 +279,8 @@ class UsersController < ApplicationController
 
   # Checks that the user is allowed to edit this user
   def check_admin_of
-    redirect_to current_user.main_room if current_user &&
-                                          @user != current_user &&
-                                          !current_user.admin_of?(@user, "can_manage_users")
+    redirect_to root_path if current_user &&
+                             @user != current_user &&
+                             !current_user.admin_of?(@user, "can_manage_users")
   end
 end

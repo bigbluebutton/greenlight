@@ -1,0 +1,42 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<div class="modal fade" id="deleteRecordingModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <div class="card-body p-6">
+          <div class="card-title">
+            <h3><%= t("modal.delete_rec.header") %></h3>
+          </div>
+
+          <button type="button" class="btn btn-info my-1 btn-del-room" data-dismiss="modal">
+            <%= t("modal.delete_room.keep") %>
+          </button>
+
+          <%= button_to "/", method: :delete, id: "delete-rec-confirm", class: "btn btn-danger my-1 btn-del-room", "data-disable": "" do %>
+            <%= t("modal.delete_rec.delete") %>
+          <% end %>
+
+        </div>
+        <div class="card-footer">
+          <p id="delete-footer">
+            <%= t("modal.delete_rec.warning").html_safe %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -43,6 +43,18 @@ eu:
         placeholder: Irudiaren Url-a...
         title: Marka-irudia
         invalid: URL baliogabea
+      legal:
+        change: Aldatu URLa
+        info: Aldatu orriaren behealdean agertzen den Esteka Legala
+        placeholder: URL Legala...
+        title: Legala
+        invalid: URL baliogabea
+      privpolicy:
+        change: Aldatu URLa
+        info: Aldatu orriaren behealdean agertzen den Pribatutasun Baldintzak
+        placeholder: Pribatutasun Baldintzen URLa...
+        title: Pribatutasun Baldintzak
+        invalid: URL baliogabea
       cache:
         info: "Biltegiratutako hornitzailearen cachea garbitzen du, eguneratutako informazioaren eskaera berri bat egitera behartzen duena"
         title: Hornitzailearen cachea garbitu
@@ -145,9 +157,12 @@ eu:
     rooms:
       title: Zerbitzariko Gelak
       table:
+        ended: "Bukatuta: %{session}"
         id: ID
         not_running: Geldirik
+        participants: Partaideak
         running: Martxan
+        started: "Hasita: %{session}"
         status: Egoera
         view: Ikusi
     title: Erakundearen Ezarpenak
@@ -245,6 +260,8 @@ eu:
     designs: Diseinu Pertsonalizatuak
     authentication: Erabiltzaile Autentikazioa
   footer:
+    legal: Legala
+    privpolicy: Pribatutasun Baldintzak
     powered_by: "%{href} erabiliz."
   forgot_password:
     subtitle: Pasahitza ahaztu dut
@@ -275,7 +292,7 @@ eu:
     search:
       start: Hasi bilatzen...
   landing:
-    about: "%{href}zure BigBlueButton kode irekiko konferentzia zerbitzurako front-end sinple bat da. Zure gela propioak sor ditzakezu saioak ostatatzeko, edo beste batzuenera batu esteka labur eta praktiko bat erabiliz."
+    about: "%{href} zure kode irekiko BigBlueButton konferentzia zerbitzurako front-end sinple bat da. Zure gela propioak sor ditzakezu saioak ostatatzeko, edo beste batzuenera batu esteka labur eta praktiko bat erabiliz."
     welcome: Ongi etorri BigBlueButtonera.
     video: Ikusi Greenlight erabiltzeko gure tutoriala.
     upgrade: Erakutsi nola eguneratu 2.0ra!
@@ -367,7 +384,7 @@ eu:
       warning: <b>Ez</b> zara gai izango gela hau berreskuratzeko
       recording_warning: "edo berarekin lotutako %{recordings_num} grabazioetatik bat ere ez."
     invite_user:
-      email_placeholder: Sartu erabiltzailearen posta kontuak (komaz bananduta)
+      email_placeholder: Sartu erabiltzaileen posta kontuak (komaz bananduta)
       footer: Erabiltzaileak posta kontu bat jasoko du izena emateko jarraibideekin
       send: Bidali Gonbidapena
       title: Gonbidatu Erabiltzailea
@@ -431,7 +448,7 @@ eu:
     all_recordings: Grabazio Guztiak
     email: Bidali Postaz Grabazioa
     error: "Errore bat egon da %{count} grabazio eskuratzen"
-    no_recordings: "Gela honek ez du %{inject} grabaziorik."
+    no_recordings: "Gela honek ez du %{inject} den grabaziorik."
     no_user_recordings: Ez daukazu grabaziorik une honetan.
     no_matched_recordings: "%{inject} grabaziorik ez dator bat zure bilaketarekin."
     recorded_on: "%{date}-en grabatua"
@@ -468,6 +485,7 @@ eu:
   remove: Kendu
   rename: Berrizendatu
   reset_password:
+    invalid_token: "Pasahitza berrezartzeko lekukoa ez da baliozkoa. Saiatu zure pasahitza berriro berrezartzen, mesedez."
     subtitle: Berrezarri Pasahitza
     password: Pasahitz Berria
     confirm: Pasahitz Berriaren Egiaztapena
@@ -533,9 +551,10 @@ eu:
       provider: Hornitzailea
       image: Irudia
       image_url: Profilaren Irudiaren URL
-      roles: Erabiltzailearen Rolak
+      roles: Erabiltzailearen Rola
       subtitle: Eguneratu zure Kontuaren informazioa
       title: Kontuaren Informazioa
+      reset_password: Berrezarri erabiltzailearen pasahitza
     delete:
       button: "Bai, nire kontua ezabatu nahiko nuke."
       disclaimer: "Zure kontua ezabatzea aukeratzen baduzu, <b>EZINGO DA</b> berreskuratu. Zure kontuarekin loturako informazio guztia, ezarpenak, gelak eta grabazioak barne ezabatu egingo dira."

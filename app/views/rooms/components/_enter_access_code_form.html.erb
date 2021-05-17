@@ -13,18 +13,17 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div class="form-group">
-  <div class="row">
-    <div class="col-12">
-      <center>
-        <%= t("settings.delete.disclaimer").html_safe %>
-        <br>
-        <a href="" data-toggle="modal" data-path="<%= delete_user_path(user_uid: current_user.uid) %>" data-target="#deleteAccountModal" class="btn btn-danger mt-6 delete-user">
-          <%= t("settings.delete.button") %>
-        </a>
-      </center>
-    </div>
+<%= form_for :room, url: login_room_path(@room.uid) do |f| %>
+  <div class="input-group join-input">
+    <%= f.text_field :access_code,
+          required: true,
+          class: "form-control join-form",
+          placeholder: access_code_type == 'moderator' ? t("room.enter_the_moderator_access_code") : t("room.enter_the_access_code"),
+          value: "" ,
+          autofocus: true,
+          maxlength: 26 %>
+    <span class="input-group-append">
+      <%= f.button t("room.login"), type: :submit, class: "btn btn-primary btn-sm px-7 form-control join-form" %>
+    </span>
   </div>
-</div>
-
-<%= render "shared/modals/delete_account_modal", delete_location: delete_user_path %>
+<% end %>

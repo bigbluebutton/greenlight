@@ -28,13 +28,12 @@
       </script>
     <% end %>
 
-    <title>BigBlueButton Trial @ HigherEdLab</title>
-    <meta property="og:title" content="BigBlueButton Trial @ HigherEdLab" />
+    <title><%= yield(:page_title).present? ? yield(:page_title) : t("bigbluebutton") %></title>
+    <meta property="og:title" content="<%= yield(:page_title).present? ? yield(:page_title) : t("bigbluebutton") %>" />
     <meta property="og:type" content="website" />
-    <meta property="og:description" content="<%= t("landing.about", href: "Greenlight", locale: :en) %>" />
+    <meta property="og:description" content="<%= yield(:page_desc).present? ? yield(:page_desc) : t("landing.about", href: "Greenlight", locale: :en) %>" />
     <meta property="og:url" content="<%= request.base_url %>" />
     <meta property="og:image" content="<%= logo_image %>" />
-
     <meta name="viewport" content= "width=device-width, user-scalable=no">
     <%= csrf_meta_tags %>
 
@@ -48,6 +47,8 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+    <%= favicon_link_tag asset_path('favicon.ico') %>
+
     <!-- Primary color styling -->
     <%= stylesheet_link_tag themes_primary_path %>
 
@@ -58,7 +59,7 @@
     </script>
   </head>
 
-  <body class="app-background" data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>" data-relative-root="<%= Rails.configuration.relative_url_root || "/" %>">
+  <body class="app-background" data-controller="<%= controller_name %>" data-action="<%= action_name %>" data-relative-root="<%= Rails.configuration.relative_url_root || "/" %>">
     <%= render "shared/header" %>
 
     <div class="wrapper">

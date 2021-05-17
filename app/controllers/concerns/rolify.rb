@@ -62,7 +62,7 @@ module Rolify
     # Send promoted/demoted emails
     send_user_promoted_email(@user, new_role) if new_role.get_permission("send_promoted_email")
 
-    @user.update_attribute(:role_id, role_id)
+    @user.set_role(new_role.name)
   end
 
   # Updates a roles priority
@@ -123,9 +123,10 @@ module Rolify
       :can_manage_rooms_recordings, :can_appear_in_share_list, :colour)
 
     permission_params.transform_values! do |v|
-      if v == "0"
+      case v
+      when "0"
         "false"
-      elsif v == "1"
+      when "1"
         "true"
       else
         v

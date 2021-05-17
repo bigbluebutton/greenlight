@@ -1,0 +1,624 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+ko_KR:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "이용약관"
+        email: 이메일
+        name: 이름
+        password: 패스워드
+        password_confirmation: 패스워드 확인
+    errors:
+      models:
+        user:
+          confirmation: 패스워드가 일치하지 않습니다.
+  administrator:
+    site_settings:
+      authentication:
+        disabled: 비활성
+        enabled: 활성
+        info: 인증 된 사용자만 ROOM에 참여하도록 허용
+        title: ROOM에 대한 인증 필요
+        user-info: 이 ROOM에 참여하려면 위에서 로그인해야합니다.
+      branding:
+        change: 이미지 변경
+        info: 왼쪽 상단에 표시되는 브랜딩 이미지 변경
+        placeholder: 이미지 주소
+        title: 브랜딩 이미지
+        invalid: 잘못된 URL
+      legal:
+        change: URL 변경
+        info: 페이지 하단에 표시되는 약관 링크 변경
+        placeholder: 약관 URL...
+        title: 약관
+        invalid: 잘못된 URL
+      privpolicy:
+        change: URL 변경
+        info: 페이지 하단에 표시되는 개인 정보 보호 정책 링크 변경
+        placeholder: 개인 정보 보호 정책 URL ...
+        title: 개인 정보 정책
+        invalid: 잘못된 URL
+      cache:
+        info: 새롭게 업데이트 된 정보를 강제로 저장한 공급자의 캐시를 지웁니다.
+        title: 공급자 캐시 지우기
+        button: 캐쉬를 지웁니다.
+      clear_auth:
+        info: 사용자가 다른 인증 방법을 사용하여 다시 로그인 할 수 있도록 현재 인증자를 지웁니다.
+        title: 현재 인증자 삭제
+        button: 인증 지우기
+      color:
+        info: 햔재 적용된 색상을 모두 개별적으로 변경할 수 있습니다.
+        title: 원색
+        regular: 정규색
+        lighten: 밝게
+        darken: 어둡게
+      log_level:
+        title: 로그 레벨
+        information: 전체 배포 로그 수준 변경
+        debug: 디버그
+        info: 정보
+        warn: 경고
+        error: 에러
+        fatal: 치명적
+        unknown: 알 수 없음
+      recording_visibility:
+        info: 새 레코딩에 대한 기본 레코딩 표시 설정
+        title: 기본 레코딩 표시
+        warning: 이 설정은 실행되지 않는 ROOM에만 적용됩니다.
+      require_consent:
+        info: 이 설정을 통해 ROOM 소유자가 레코딩할 수 있는 ROOM을 지정할 수 있다. 레코딩을 진행하는 ROOM에 입장하기 전 이에 대한 동의를 얻어야 합니다.
+        title: 레코딩에 ROOM 소유자 및 참여자의 동의 필요
+      maintenance_banner:
+        info: 사용자에게 예정된 유지보수를 알리기 위한 배너 표시
+        title: 유지보수 배너
+        display: Set
+        clear: Clear
+        time: "예: 12월 13일 업데이트 예정 @ 23:00 ET. 사용자는 로그인하는 데 문제가 발생할 수 있다."        
+      preupload:
+        info: 사용자는 프리젠테이션을 해당 ROOM의 기본 프리젠테이션으로 사용할 수 있음
+        title: 사용자가 프레젠테이션을 미리 업로드하도록 허용
+      registration:
+        info: 사용자가 웹사이트에 등록하는 방식 변경
+        title: 둥록 방법
+        methods:
+          approval: 승인 / 거절
+          invite: 초대를 통해 가입
+          open: 열린 등록
+      rooms:
+        info: 사용자가 가질 수 있는 회의실 수 제한 (HOME ROOM 포함). 이 설정은 관리자에게 적용되지 않습니다.
+        title: 사용자당 ROOM 갯수
+      shared_access:
+        info: 사용 불가능으로 설정하면 ROOM 옵션 드롭다운 메뉴에서 단추가 제거되어 사용자가 ROOM을 공유할 수 없습니다.
+        title: 사용자가 ROOM을 공유하도록 허용
+      subtitle: Greenlight 사용자 지정
+      tabs:
+        appearance: 외관
+        administration: 관리자
+        settings: 설정
+      title: 사이트 설정
+    flash:
+      approved: 사용자가 승인되었습니다.
+      banned: 사용자가 차단되었습니다.
+      unbanned: 사용자가 차단 해제되었습니다.
+      delete: 사용자가 삭제되었습니다.
+      delete_fail: 사용자 삭제가 실패하였습니다.
+      demoted: 사용자가 강등되었습니다.
+      invite: "%{email}에게 초대장을 보냈습니다."
+      invite_email_verification: 이 방법을 사용하려면 이메일이 사용 가능해야 한다. 시스템 관리자에게 문의하십시오.
+      merge_fail: 사용자 계정을 병합하는 동안 문제가 발생하였습니다. 선택한 사용자를 확인하고 다시 시도하십시오.
+      merge_success: 사용자 계정이 병합되었습니다.
+      perm_deleted: 사용자가 영구적으로 삭제되었습니다.
+      promoted: 사용자가 승격되었습니다.
+      registration_method_updated: 등록 방법이 업데이트됨
+      reset_password: 사용자에게 암호를 재설정하기 위한 전자 메일 전송. (수신이 안되는 경우 스팸 메일함을 확인하십시오.)
+      restored: 사용자가 성공적으로 복원됨
+      room_configuration: ROOM 구성이 성공적으로 변경
+      settings: 사이트 설정이 변경되었습니다.
+      unauthorized: 이 사용자에 대해 작업을 수행 할 권한이 없습니다.
+    recordings:
+      title: 서버 레코딩
+      no_recordings: 이 서버에는 레코딩이 없습니다.
+    roles:
+      appear_in_share_list: 공유 ROOM의 드롭다운에 이 역할을 가진 사용자 포함
+      can_create_rooms: ROOM을 생성
+      delete: Role 삭제
+      invalid_create: 새 Role를 만드는 중에 문제가 발생했습니다. Role 설정을 확인하고 다시 시도하십시오.
+      invalid_order: Role의 우선 순위를 업데이트하는 중에 문제가 발생했습니다. 설정을 확인하고 다시 시도하십시오.
+      invalid_update: Role의 권한을 업데이트하는 중에 문제가 발생했습니다. 설정을 확인하고 다시 시도하십시오.
+      manage_rooms_recordings: 이 역할을 가진 사용자가 서버 ROOM 및 레코딩을 관리하도록 허용
+      name: Role 이름
+      new_role: 새로운 Role 생성
+      role_has_users: "이 역할은 %{user_count}계정에 할당됩니다. 이 역할을 삭제하기 전에 이 역할에서 모든 계정을 제거하십시오."
+      title: Roles
+      promote_email: 이 Role이 할당되면 사용자에게 이메일을 보냅니다.
+      demote_email: 사용자가이 Role에서 제거되면 사용자에게 이메일을 보냅니다.
+      edit_site_settings: 이 Role을 가진 사용자가 사이트 설정을 편집하도록 허용
+      edit_roles: 이 Role을 가진 사용자가 다른 Role을 편집하도록 허용
+      manage_users: 이 Role을 가진 사용자가 다른 사용자를 관리하도록 허용
+      invalid_assignment: 사용자에게 Role을 지정하는 중에 문제가 발생했습니다. 설정을 확인하고 다시 시도하십시오.
+      colour:
+        title: Role 색상
+        info: Role과 연관 될 색상 설정
+    room_configuration:
+      title: ROOM 구성
+      mute:
+        info: 사용자가 BigBlueButton 미팅에 참여할 때 자동으로 음소거
+      require_moderator:
+        info: 사용자가 참여를 시도할 때 BigBlueButton 진행자에게 메시지 표시. 사용자가 승인되면 참여할 수 있습니다.
+      allow_any:
+        info: 모든 사용자가 언제든지 회의 또는 강의를 시작할 수 있습니다. 기본적으로 ROOM 소유자만 회의 또는 강의를 시작할 수 있습니다.
+      all_moderator:
+        info: 미팅에 참여할 때 모든 사용자에게 BigBlueButton의 관리자 권한을 부여합니다.
+      recordings:
+        info: ROOM 소유자가 옵션에서 ROOM을 레코딩할지 여부를 지정할 수 있습니다. 활성화 된 경우에도 미팅 주관자는 회의 또는 강의가 시작된 후에 "녹화"버튼을 클릭해야합니다.
+      options:
+        disabled: 비활성
+        enabled: 언제나 활성
+        optional: 선택사항
+    rooms:
+      title: 서버 ROOM들
+      table:
+        ended: "종료: %{session}"
+        id: 아이디
+        not_running: 실행되지 않음
+        participants: 참가자들
+        running: 실행
+        started: "시작: %{session}"
+        status: 상태
+        view: View
+    title: 조직 설정
+    users:
+      invite: 사용자 초대
+      edit:
+        title: 사용자 세부정보 편집
+      settings:
+        approve: 승인
+        decline: 거절
+        ban: 사용자 차단
+        delete: 삭제
+        edit: 편집
+        edit_roles: 사용자 Role 편집
+        merge: 병합
+        perm_delete: 영구 삭제
+        unban: 사용자 차단 해제
+        undelete: 삭제 취소
+      table:
+        authenticator: 인증자
+        created: 생성
+        name: 이름
+        not_found: 검색과 일치하는 사용자가 없습니다.
+        no_users: 사용자가 없습니다.
+        role: Role
+        uid: 사용자 ID
+        username: 사용자명
+      title: 사용자 관리
+  add_to_google_calendar: "Google Calendar 추가"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: 죄송합니다. 미팅을 시작하는 중에 오류가 발생했습니다.
+  cancel: 취소
+  cookies:
+    cookie_info: Cookies는 본서비스를 제공하는 데 도움이됩니다. 본서비스를 사용함으로써 귀하는 Cookies 사용에 동의하게됩니다.
+    cookie_button: 동의함
+  copied: 복사됨
+  copy: 복사
+  date:
+    month_names: [~, 1월, 2월, 3월, 4월, 5월, 6월, 7월, 8월, 9월, 10월, 11월, 12월]
+  default_admin: "이 계정에 대한 기본 비밀번호를 사용하고 있습니다. 변경하려면 <a href=\"%{edit_link}\">여기 </a>를 클릭하십시오."
+  delete: 삭제
+  delivery_error: 이메일 전송 중에 오류가 발생했습니다. 관리자에게 문의하십시오!
+  docs: 문서화
+  email: 이메일
+  email_sent: "%{email_type} 전자 메일이 전송되었습니다. (수신이 안된 경우 스팸 메일함을 확인하십시오.)"
+  enter_your_name: 이름을 입력하십시오.
+  errors:
+    bigbluebutton:
+      help: "적절한 조치가 취해 졌는지 확인하십시오.<a href=\"%{doc_link}\">자세히 알아보십시오.</a>"
+      message: 잘못된 BigBlueButton의 엔드포인트 및 시크릿 코드입니다.
+      title: 서버 에러
+    internal:
+      message: 문제가 생긴것 같습니다.
+      help: "오류가 기록되었으니, 한번 봅시다!"
+      report: 문제 신고
+    maintenance:
+      message: 죄송합니다. 점검 중입니다.
+      help: 곧 돌아오겠습니다!
+    migration_error:
+      contact_admin: 관리자가 아닌 경우 관리자에게 문의하십시오.
+      continue: 1.0을 계속 사용하고 싶습니다.
+      notice: >
+        Greenlight에서 데이터베이스 마이그레이션 오류가 발생하였습니다.  <br> 이것은 Greenlight 2.0으로 업데이트하지 않았기 때문일 것입니다.
+      upgrade: 2.0으로 업그레이드하는 방법을 보여주세요!
+      version: 새 버전의 Greenlight를 출시했지만 데이터베이스가 호환되지 않습니다.
+    messages:
+      blank: 비워 둘 수 없습니다
+      too_short: 너무 짧습니다.
+      invalid: 유효하지 않습니다.
+      taken: has already been taken
+      accepted: must be accepted
+      confirmation: "%{attribute}일치하지 않습니다"
+      inclusion: 목록에 포함되지 않음
+    no_provider:
+      message: 액세스하려는 사이트가 활성화되지 않았습니다.
+      help: Greenlight를 설정하려면 시스템 관리자에게 문의하십시오.
+    not_found:
+      message: 죄송합니다! 찾고있는 페이지가 존재하지 않습니다.
+      help: "제거되었습니까?"
+      user_not_found:
+        help: 관리자에게 문의하십시오.
+        message: 죄송합니다.이 사용자는 등록되지 않았습니다.
+      user_missing:
+        help: URL을 확인하고 다시 시도하십시오.
+        message: 입력 한 URL이 유효하지 않습니다.
+    title: 오류
+    unauthorized:
+      message: 이 애플리케이션에 대한 액세스 권한이 없습니다.
+      help: 이것이 실수라고 생각되면 시스템 관리자에게 문의하십시오.
+  expired_reset_token: 비밀번호 재설정 링크가 만료되었습니다!
+  features:
+    title: 특징
+    rooms: 개인형 Rooms
+    recordings: 레코딩 관리
+    designs: 맞춤형 디자인
+    authentication: 사용자 인증
+  footer:
+    legal: 약관
+    privpolicy: 개인 정보 정책
+    powered_by: "Powered by %{href}."
+  forgot_password:
+    subtitle: "비밀번호를 잊으셨습니까?"
+    email: 이메일
+    submit: 제출
+  go_back: 돌아가기
+  greenlight: Greenlight
+  header:
+    all_recordings: 모든 레코딩
+    dropdown:
+      account_settings: 조직
+      help: "도움이 필요한가요?"
+      home: 홈
+      settings: 프로필
+      signout: 로그 아웃
+  home_room: Home Room
+  info_update_success: 정보가 성공적으로 업데이트되었습니다.
+  invalid_credentials: 입력하신 이메일과 비밀번호가 저희 기록과 일치하지 않습니다. 다시 시도하거나 암호 찾기를 클릭하여 암호를 재설정하십시오.
+  invalid_login_method: 계정 불일치로 인해 로그인하지 못했습니다. omniauth로 로그인해야합니다.
+  invite_message: "미팅에 다른 사람을 초대하려면 다음 링크를 보냅니다 :"
+  javascript:
+    room:
+      mailer:
+        subject: '레코딩을 보도록 초대했습니다.'
+        body: '레코딩 내용을 보려면 아래 링크를 따르십시오 :'
+        autogenerated: '이 이메일은 BigBlueButton에 의해 자동 생성됩니다.'
+        footer: 'BigBlueButton은 오픈 소스 웹 컨퍼런스 시스템입니다. BigBlueButton에 대한 자세한 내용은 링크를 참고하십시오. https://bigbluebutton.org/'
+    search:
+      start: 검색 시작 ...
+  landing:
+    about: "%{href}는 당신의 BigBlueButton 오픈 소스 웹 레퍼런스 서버를 위한 간단한 프론트엔드 입니다. 당신은 당신만의 Room을 만들어 세션을 주최하거나 짧고 편리한 링크를 사용하여 다른 사람과 함께 할 수 있다."
+    welcome: BigBlueButton에 오신 것을 환영합니다.
+    video: Greenlight 사용에 대한 자습서보기
+    upgrade: 2.0으로 업그레이드하는 방법을 보여주세요!
+    version: 새 버전의 Greenlight를 출시했지만 데이터베이스가 호환되지 않습니다.
+  language_default: 기본값 (브라우저 언어)
+  ldap_error: LDAP 서버에 연결할 수 없습니다. env 파일에서 LDAP 구성을 확인하고 서버가 실행 중인지 확인하십시오.
+  login: 로그인
+  login_title: 계정에 로그인
+  mailer:
+    user:
+      approve:
+        info: 계정이 승인되었습니다.
+        signin: 개인 room에 액세스하려면 아래 버튼을 클릭하고 로그인하십시오.
+        signin_link: 로그인
+        signup:
+          info: 새로운 사용자가 Greenlight를 사용하도록 등록했습니다.
+          more-info: 이 사용자가 Greenlight에 액세스하도록 허용하려면 조직 설정에서 해당 계정을 승인해야합니다.
+          admins_link: 조직 페이지 방문
+          subject: 새로운 Greenlight 사용자 등록
+          username: "%{name} 이름과 %{email} 전자 메일로 등록한 사용자."
+        subject: 계정 승인
+        username: "사용자 이름은 %{email} 입니다."
+      demoted:
+        info: "%{url}에서 더 이상 %{role}가 아닌 경우."
+        more-info: 이제 일반 사용자와 동일한 권한이 있습니다.
+        root_link: 로그인
+        subtitle: "%{role} 권한 취소됨"
+      invite:
+        info: "%{name}가 사용자 자신의 개인 공간에 초대하였습니다."
+        signup_info: 이메일을 사용하여 가입하려면 아래 버튼을 클릭하고 단계를 따르십시오.
+        signup_link: 가입하기
+        signup:
+          info: 초대 된 사용자가 Greenlight를 사용하도록 등록했습니다.
+          admins_link: 조직 페이지 방문
+          subject: 새로운 Greenlight 사용자 등록
+          username: "%{name} 이름과 %{email} 전자 메일로 등록한 사용자."
+        subject: BigBlueButton 가입 초대
+        username: "사용자 이름은 %{email} 입니다."
+      password_reset:
+        title: '암호 리셋'
+        welcome: "<b>%{email}</b> 이메일에 대한 암호 재설정이 요청되었습니다."
+        message: '이 재설정을 요청한 경우 아래 링크를 클릭하여 비밀번호를 재설정하십시오 :'
+        reset_link: 암호 재설정
+        expire: 이 링크는 2 시간 후에 만료됩니다.
+        ignore: 이 요청을하지 않았다면이 이메일을 무시해도됩니다.
+      promoted:
+        admins_link: 조직 페이지 방문
+        info: "이제 %{url}에서 %{role}가 되셨습니다."
+        more-info: "새로운 기능을 보려면 %{url}을 방문하십시오."
+        subtitle: "%{role} 부여된 권한"
+      verify_email:
+        welcome: "환영합니다, %{name}!"
+        success: "%{bigbluebutton}을 활용하여 자신만의 room을 만들어 세션을 주최하고 다른 사람들과 협업할 수 있습니다."
+        username: "사용자 이름은 %{email} 입니다."
+        verify: 계정을 확인하려면 아래 버튼을 클릭하십시오.
+        verify_text: '계정을 확인하려면 다음 링크를 클릭하십시오: %{url}'
+        verify_link: 계정 확인
+        thanks: 가입 해 주셔서 감사합니다. 좋은 하루 되세요!
+  max_concurrent: 허용되는 최대 동시 세션 수에 도달했습니다!
+  merged: 병합
+  modal:
+    create_role:
+      create: 새로운 Role 생성
+      footer_text: 이 Role을 만든 후 이 Role에 대한 개별 권한을 편집할 수 있습니다.
+      name_placeholder: Role 이름을 입력하세요 ...
+      not_blank: Role 이름은 비워 둘 수 없습니다.
+      title: 새 Role 생성
+    create_room:
+      access_code: 액세스 코드
+      access_code_placeholder: 선택적 room 액세스 코드 생성
+      auto_join: 자동으로 room에 참여
+      create: Room 만들기
+      free_delete: 이 room은 언제든지 삭제할 수 있습니다.
+      name_placeholder: room 이름을 입력하세요 ...
+      not_blank: room 이름은 비워 둘 수 없습니다.
+      title: 새로운 Room 만들기
+    delete_account:
+      confirm: "이 계정을 삭제 하시겠습니까?"
+      delete: 이 계정을 삭제하겠습니다.
+      keep: 보관합니다.
+      delete_warning: 사용자 계정이 비활성화됩니다. 비활성화 된 모든 사용자는 삭제 된 탭에서 찾을 수 있습니다.
+      warning: 이 결정은 최종적입니다. <b>이 아니라 </b> 관련 데이터를 복구할 수 없습니다.
+    delete_room:
+      confirm: "%{room}을 삭제하시겠습니까?"
+      delete: 이 room을 삭제하겠습니다.
+      keep: 그대로 두겠습니다.
+      warning: <b>이 아니라 </b> 이 방을 복구할 수 있다.
+      recording_warning: "또는 관련 레코딩 %{recordings_num}개 중 하나입니다."
+    invite_user:
+      email_placeholder: 사용자의 이메일을 입력합니다 (쉼표로 구분).
+      footer: 사용자는 가입 방법에 대한 지침이 포함 된 이메일을 받게됩니다.
+      send: 초대 보내기
+      title: 사용자 초대
+    login:
+      or: 또는
+      with: "%{provider} 으로 로그인"
+      forgot_password: "암호를 잊으셨습니까?"
+    preupload:
+      change: 프레젠테이션 교체
+      choose: 파일 선택 ...
+      current: "현재 프레젠테이션 :"
+      footer: 프리젠 테이션의 크기에 따라 사용하기 전에 업로드하는 데 추가 시간이 필요할 수 있습니다.
+      invalid: 잘못된 크기 / 파일 형식입니다. 아래 제한 사항을 참조하십시오.
+      title: 프레젠테이션 추가
+      use: 프레젠테이션 사용
+    rename_recording:
+    remove_shared:
+      title: "이 room을 방 목록에서 삭제 하시겠습니까?"
+      delete: "네, 확실히 이 room을 삭제하겠습니다."
+      warning: 당신은 더 이상 이 방에 <b>접근할 수 없을</b> 것이다.
+    room_settings:
+      title: Room 설정
+      update: 업데이트 Room
+      client: 클라이언트 유형 선택
+      join_moderator: 모든 사용자가 중재자로 참여합니다.
+      mute: 사용자가 참여할 때 음소거
+      require_approval: 가입하기 전에 중재자 승인 필요
+      start: 모든 사용자가 이 미팅을 시작하도록 허용
+      footer_text: room 조정은 언제든지 가능합니다.
+      recording: room에서 레코딩이 되도록 허가
+    rename_room:
+      name_placeholder: 새로운 room 이름을 입력하세요 ...
+    share_access:
+      footer: 사용자와 room을 공유하면 room을 시작하고 room의 녹음 내용을 볼 수 있습니다.
+      list: 와 공유
+      title: 공유 Room 액세스
+      save: 변경사항 저장
+      cancel_changes: 변경 취소
+      select: 사용자 선택
+    merge_user:
+      cancel: 취소
+      from: 병합 할 계정
+      title: 사용자 계정 병합
+      to: 기본 계정
+      save: 병합
+      footer: 병합 할 계정의 room은 기본 계정의 room 목록으로 이전되며 계정은 삭제됩니다.
+  name_update_success: Room 이름이 성공적으로 변경되었습니다!
+  no_user_email_exists: 지정된 이메일을 가진 기존 사용자가 없습니다. 올바르게 입력했는지 확인하십시오.
+  omniauth_error: omniauth로 인증하는 동안 오류가 발생했습니다. 다시 시도하거나 관리자에게 문의하십시오!
+  omniauth_specific_error: "%{error} omniauth로 인증하는 동안 발생했습니다. 다시 시도하거나 관리자에게 문의하십시오!"
+  pagy:
+    nav:
+      prev: "&lsaquo; 이전"
+      next: "다음 &rsaquo;"
+      gap: "&hellip;"
+  password: 패스워드
+  password_empty_notice: 비밀번호는 비워 둘 수 없습니다.
+  password_reset_success: 비밀번호가 재설정되었습니다.
+  password_different_notice: 암호가 일치하지 않음
+  provider:
+    google: Google
+    office365: Office 365
+    twitter: Twitter
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable: reCAPTCHA에서 유효성을 확인하지 못했습니다. 다시 시도하십시오.
+      verification_failed: reCAPTCHA 확인 실패. 다시 시도하십시오.
+  recording:
+    all_recordings: 모든 레코딩
+    email: 이메일 레코딩
+    error: "%{count}개의 레코딩(들)을 검색하는 동안 오류가 발생함"
+    no_recordings: "이 room에는 %{inject}개의 레코딩 기록이 없다."
+    no_user_recordings: 현재 레코딩이 없는 경우.
+    no_matched_recordings: "검색과 일치하는 %{inject}개의 레코딩 기록이 없음"
+    recorded_on: "녹화된 날짜 %{date}"
+    table:
+      name: 이름
+      thumbnails: 썸네일
+      length: 기간
+      users: 사용자
+      visibility: 가시성
+      formats: 형식
+    visibility:
+      public: Public
+      unlisted: 목록에 없음
+    format:
+      notes: Notes
+      podcast: 팟캐스트
+      presentation: 프리젠테이션
+      statistics: 통계
+      video: 비디오
+  registration:
+    approval:
+      fail: 계정이 아직 승인되지 않았습니다. 등록일이 오래 지난 경우 관리자에게 문의하십시오.
+      signup: 계정이 성공적으로 생성되었습니다. 승인을 받기 위해 관리자에게 내용이 전달되었습니다.
+    banned:
+      fail: 이 응용 프로그램에 대한 액세스 권한이 없습니다. 관리자에게 문의하십시오.
+    deprecated:
+      new_signin: 계정에 대한 새 로그인 방법을 선택하십시오. 이전 계정의 모든 room이 새 계정으로 마이그레이션됩니다.
+      twitter_signin: "트위터를 통해 로그인하는 것은 더 이상 사용 되지 않으며 다음 버전에서는 삭제될 것이다. 계정을 새 인증 방법으로 이동하려면 <a href=\"%{link}\">여기를</a> 클릭 하십시오."
+      twitter_signup: 트위터를 통한 가입은 더 이상 사용 되지 않습니다. 다른 등록 방법을 사용하십시오.
+      merge_success: 트위터 계정을 새 계정과 성공적으로 병합하였습니다.. 이전 트위터 계정이 삭제됩니다.
+    invite:
+      fail: 토큰이 잘못되었거나 만료되었습니다. 관리자에게 문의하십시오.
+      no_invite: 초대장이 없는 경우. 관리자에게 문의하여 수신하십시오.
+  remove: 삭제
+  rename: 이름 변경
+  reset_password:
+    invalid_token: 암호 재설정 토큰이 잘못되었습니다. 암호를 다시 설정해 보십시오.
+    subtitle: 암호 재설정
+    password: 새로운 패스워드
+    confirm: 새로운 패스워드 확인
+    update: 패스워드 업데이트
+    auth_change: 인증 방법이 변경되었습니다. 암호를 설정 하려면 전자 메일을 확인하십시오.
+  roles:
+    active: 활성
+    admin: 관리자
+    banned: 금지
+    deleted: 삭제
+    pending: 보류
+    user: 사용자
+  room:
+    access_code_required: room에 가입하려면 유효한 액세스 코드를 입력하십시오.
+    add_presentation: 프레젠테이션 추가
+    create_room: Room 생성
+    create_room_error: room을 만드는 동안 오류가 발생함
+    create_room_success: Room이 성공적으로 생성됨
+    delete:
+      home_room: 사용자의 Home Room을 삭제할 수 없습니다.
+      success: Room이 성공적으로 삭제됨
+      fail: "룸 삭제 실패(%{error})"
+    enter_the_access_code: Room의 접근 코드 입력
+    invalid_provider: 잘못된 URL을 입력하셨습니다. URL을 확인한 후 다시 시도하십시오.
+    invitation_description: "BigBlueButton을 통하여 %{name}에 가입하도록 초대받으셨습니다. 가입하려면 위의 링크를 클릭하고 이름을 입력하십시오."  
+    invited: 귀하는 초대를 받았습니다.
+    recording_present: 나는 이 세션이 레코딩 될 것이라는 것을 인지하고 있습니다. 활성화할 경우 내 음성 및 비디오가 포함될 수 있습니다.
+    invite_participants: 참가자 초대
+    join: 참여
+    last_session: "마지막 세션 %{session}"
+    login: 입력
+    owner: 소유자
+    owner_banned: 이 room은 현재 사용할 수 없습니다.
+    no_room:
+      description: 가입할 Room의 URL 또는 Room ID를 입력하십시오.
+      edit_profile: 사용자 프로필 편집
+      go_to: Room으로 이동
+      invalid_room_uid: 입력한 Room url/uid가 올바르지 않음.
+      placeholder: Room url/uid
+      no_recent_rooms: 최근에 가입한 Room이 없는 경우
+      recent_rooms: 최근에 가입한 Room으로 이동
+      title: Room에 참여
+    no_sessions: 이 Room은 아직 세션이 없습니다.
+    preupload_success: 프레젠테이션 추가 완료
+    preupload_error: Room 프리젠테이션을 업데이트하는 동안 오류가 발생하였습니다.
+    preupload_remove_success: 프레젠테이션 제거 성공
+    preupload_remove_error: Room 프리젠테이션을 제거하는 동안 오류가 발생하였습니다.
+    recordings: Room 레코딩
+    room_limit: 허용된 최대 Room 수에 도달하셨습니다.
+    room_limit_exceeded: "허용된 Room 수를 초과하셨습니다. 이 Room에 액세스하려면 %{difference}개의 Room(들)을 삭제하십시오."
+    sessions: 세션
+    settings: Room 설정
+    share: 액세스 관리
+    shared_by: "%{email} 가 공유함"
+    remove_shared_access_success: 목록에서 공유 room 제거 성공
+    remove_shared_access_error: 목록에서 공유 room을 제거하는 동안 오류가 발생함
+    shared_access_success: room 공유 성공
+    shared_access_error: room을 공유하는 동안 오류가 발생함
+    start: 시작
+    unavailable: 이 room은 현재 소유자의 이메일이 확인되지 않아 사용할 수 없습니다.
+    update_settings_error: room 설정을 업데이트하는 동안 오류가 발생함
+    update_settings_success: Room 설정이 성공적으로 업데이트 됨
+    wait:
+      message: 아직 미팅이 시작되지 않았다.
+      auto: 미팅이 시작되면 자동으로 참여하십시오.
+  settings:
+    account:
+      fullname: 풀네임
+      language: 언어
+      provider: 제공자
+      image: 이미지
+      image_url: 프로필 이미지 URL
+      roles: 사용자 Role
+      subtitle: 계정 정보 업데이트
+      title: 계정 정보
+      reset_password: 사용자 암호 재설정
+    delete:
+      button: "네, 제 계정을 삭제하고 싶습니다."
+      disclaimer: "계정을 삭제하도록 선택하면 복구할 수 <b>없습니다.</b>. 설정, 회의실 및 기록을 포함하여 계정에 대한 모든 정보가 제거됩니다."
+      subtitle: 계정 영구 삭제
+      title: 계정 삭제
+    password:
+      confirmation: 새로운 패스워드 확인
+      new: 새로운 패스워드
+      old: 이전 암호
+      subtitle: 암호 변경
+      title: 패스워드
+    title: 프로필
+    search: 검색
+  signup:
+    password_confirm: 패스워드 확인
+    subtitle: 계정 만들기
+    title: 계정 등록
+    with: "%{provider}으로 등록"
+  terms:
+    accept: "%{href}을 수락합니다."
+    accept_existing: 약관에 동의합니다.
+    title: 이용약관
+  test_install: >
+    이 배포는 미리 구성된 테스트 서버를 사용하고 있으므로, 이 서버를 자신의 서버로 교체하십시오. 자세한 내용은 %{href}를 참조하십시오.
+  update: 업데이트
+  verify:
+    accept: 검증하다
+    activated: 계정 확인
+    already_verified: 계정이 이미 확인되었습니다.
+    invalid: 잘못된 확인 링크
+    not_verified: 계정이 아직 확인되지 않았습니다.
+    resend: 확인 이메일 다시 보냅니다.
+    signin: 계정에 액세스하려면 로그인하십시오.
+    title: 이메일 확인
+    verification: 검증

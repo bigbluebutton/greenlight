@@ -88,7 +88,10 @@ class SessionsController < ApplicationController
       # Check that the user is a Greenlight account
       return redirect_to(root_path, alert: I18n.t("invalid_login_method")) unless user.greenlight_account?
       # Check that the user has verified their account
-      return redirect_to(account_activation_path(token: user.create_activation_token)) unless user.activated?
+      unless user.activated?
+        user.create_activation_token if user.activation_digest.nil?
+        return redirect_to(account_activation_path(digest: user.activation_digest))
+      end
     end
 
     login(user)
@@ -98,7 +101,7 @@ class SessionsController < ApplicationController
   def destroy
     logout
   # After sign out, the user will get redirected to the main specific website
-    redirect_to Rails.configuration.signout_redirect_url
+  redirect_to Rails.configuration.signout_redirect_url
   end
 
   # GET/POST /auth/:provider/callback
@@ -126,13 +129,14 @@ class SessionsController < ApplicationController
   def ldap
     ldap_config = {}
     ldap_config[:host] = ENV['LDAP_SERVER']
-    ldap_config[:port] = ENV['LDAP_PORT'].to_i != 0 ? ENV['LDAP_PORT'].to_i : 389
+    ldap_config[:port] = ENV['LDAP_PORT'].to_i.zero? ? 389 : ENV['LDAP_PORT'].to_i
     ldap_config[:bind_dn] = ENV['LDAP_BIND_DN']
     ldap_config[:password] = ENV['LDAP_PASSWORD']
     ldap_config[:auth_method] = ENV['LDAP_AUTH']
-    ldap_config[:encryption] = if ENV['LDAP_METHOD'] == 'ssl'
+    ldap_config[:encryption] = case ENV['LDAP_METHOD']
+                               when 'ssl'
                                     'simple_tls'
-                                elsif ENV['LDAP_METHOD'] == 'tls'
+                                when 'tls'
                                     'start_tls'
                                 end
     ldap_config[:base] = ENV['LDAP_BASE']
@@ -147,7 +151,7 @@ class SessionsController < ApplicationController
 
     return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials")) unless result
 
-    @auth = parse_auth(result.first, ENV['LDAP_ROLE_FIELD'])
+    @auth = parse_auth(result.first, ENV['LDAP_ROLE_FIELD'], ENV['LDAP_ATTRIBUTE_MAPPING'])
 
     begin
       process_signin
@@ -229,7 +233,7 @@ class SessionsController < ApplicationController
 
     send_invite_user_signup_email(user) if invite_registration && !@user_exists
 
-    user.set_role :user if !@user_exists && user.role.nil?
+    user.set_role(initial_user_role(user.email)) if !@user_exists && user.role.nil?
 
     login(user)
 

@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
+
 <% can_create = current_user.role.get_permission("can_create_rooms") %>
 <div data-room-uid="<%= room.uid %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>" class="card room-block">
   <div class="card-body p-1">
@@ -43,7 +44,7 @@
             </div>
           </div>
         </td>
-        <% end %>
+            <% end %>
       </tbody>
     </table>
   </div>

@@ -1,0 +1,592 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+he_IL:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "תנאים והגבלות"
+        email: דוא"ל
+        name: שם
+        password: סיסמה
+        password_confirmation: אישור סיסמה
+    errors:
+      models:
+        user:
+          confirmation: סיסמה לא תואמת
+  administrator:
+    site_settings:
+      authentication:
+        disabled: מושבת
+        enabled: מופעל
+        info: אפשר למשתמשים מאומתים בלבד להצטרף לחדר
+        title: דרוש אימות לחדרים
+        user-info: עליך להיכנס לGreenlight כדי להצטרף לחדר זה
+      branding:
+        change: שינוי תמונה
+        info: שינוי תמונת זיהוי בפינה השמאלית העליונה
+        placeholder: קישור לתמונה
+        title: תמונת זיהוי
+        invalid: קישור שגוי
+      legal:
+        change: שינוי קישור
+        info: שנה את הקישור להסכם שמופיע בתחתית העמוד
+        placeholder: קישור חוקי...
+        title: חוקי
+        invalid: קישור שגוי
+      privpolicy:
+        change: שינוי קישור
+        info: שנה את הקישור למדיניות הפרטיות שמופיעה בתחתית העמוד
+        placeholder: קישור למדיניות פרטיות
+        title: מדיניות פרטיות
+        invalid: קישור שגוי
+      cache:
+        info: מנקה את המטמון של הספק ומעדכן מחדש את המידע
+        title: נקה את מטמון הספק
+        button: נקה מטמון
+      clear_auth:
+        info: "ניקוי האימות הנוכחי למשתמשים, ולאפשר להם להתחבר שוב בשיטת אימות שונה"
+        title: ניקוי אימות נוכחי
+        button: נקה
+      color:
+        info: "שינוי צבע הבסיס ישנה את אפשרויות \"בהיר\" ו\"הכהה\" כאחד. כמו כן, ניתן לשנות את שתי האפשרויות בנפרד"
+        title: צבע עיקרי
+        regular: עיקרי
+        lighten: בהיר
+        darken: כהה
+      log_level:
+        title: רמת רישום
+        information: שינוי רמת הרישום הכוללת
+        debug: Debug
+        info: Info
+        warn: Warn
+        error: Error
+        fatal: Fatal
+        unknown: Unknown
+      recording_visibility:
+        info: הגדר את רמת נגישות ברירת המחדל עבור הקלטות חדשות
+        title: ברירת המחדל לזמינות הקלטות
+        warning: הגדרה זו לא תחול על חדרים שכבר פועלים
+      registration:
+        info: שינוי האופן בו משתמשים נרשמים באתר
+        title: שיטת ההרשמה
+        methods:
+          approval: אשר / דחה
+          invite: בהזמנה
+          open: הרשמה פתוחה
+      rooms:
+        info: מגביל את מספר חדרי המשתמש (כולל חדר בית). הגדרה זו אינה חלה על מנהלי מערכת
+        title: מספר החדרים למשתמש
+      shared_access:
+        info: השבתת האפשרות תסיר את הכפתור מהתפריט הנפתח אפשרויות חדר ותמנע ממשתמשים לשתף חדרים
+        title: אפשר למשתמשים לשתף חדרים
+      subtitle: בצעו התאמות ב Greenlight
+      title: הגדרות אתר
+    flash:
+      approved: המשתמש אומת בהצלה
+      banned: המשתמש נחסם בהצלה
+      unbanned: המשתמש שוחרר
+      delete: המשתמש נמחק
+      delete_fail: מחיקת משתמש לא הצליחה
+      demoted: המשתמש עבר בהצלחה
+      invite: "בקשה להזמנה נשלחה בהצלחה ל %{email}"
+      invite_email_verification: "כדי להשתמש בשיטת מיילים זו, יש להפעיל את העבודה עם התראות הדואר. אנא צור קשר עם מנהל המערכת שלך"
+      merge_fail: אירעה שגיאה בעת מיזוג חשבונות משתמשים. בדוק את המשתמשים שנבחרו ונסה שוב 
+      merge_success: חשבונות משתמשים התמזגו בהצלחה
+      perm_deleted: המשתמש נמחק ללא אפשרות שחזור
+      promoted: תפקיד משתמש הורחב בהצלה
+      registration_method_updated: שיטת ההרשמה עודכנה
+      reset_password: "הודעת אימייל נשלחה למשתמש כדי לאפס את הסיסמה שלו. (אם המשתמש לא קיבל דבר, בקש ממנו לבדוק את בתיקיה \"דואר זבל\" בתיבת הדואר שלו)"
+      restored: המשתמש שוחזר בהצלחה
+      room_configuration: הגדרות החדר השתנו בהצלחה
+      settings: הגדרות האתר השתנו בהצלחה
+      unauthorized: אין לך מספיק הרשאות לבצע פעולות עם משתמש זה
+    recordings:
+      title: הקלטות שרת
+      no_recordings: בשרת זה אין הקלטות
+    roles:
+      appear_in_share_list: כלול משתמשים עם תפקיד זה בתפריט שיתוף החדרים
+      can_create_rooms: יכולת ליצור חדרים
+      delete: מחיקת תפקיד
+      invalid_create: הייתה בעיה ביצירת תפקיד חדש. אנא בדוק את הערכים ונסה שוב.
+      invalid_order: הייתה בעיה בעדכון העדיפות של תפקיד. אנא בדוק את הערכים ונסה שוב.
+      invalid_update: הייתה בעיה בעדכון הזכויות לתפקיד. אנא בדוק את הערכים ונסה שוב.
+      manage_rooms_recordings: אפשר למשתמשים עם תפקיד זה לנהל חדרים והקלטות בשרת
+      name: שם תפקיד
+      new_role: יצירת תפקיד חדש
+      role_has_users: "תפקיד זה הוגדר כ %{user_count}  אנא הסירו את כל המשתמשים מתפקיד זה לפני מחיקתו"
+      title: תפקידים
+      promote_email: שלח דוא"ל למשתמש בעת הקצאת תפקיד זה
+      demote_email: שלח דוא"ל למשתמש בעת הסרת תפקיד זה
+      edit_site_settings: אפשר למשתמשים עם תפקיד זה לערוך את הגדרות האתר
+      edit_roles: אפשר למשתמשים עם תפקיד זה לערוך תפקידים אחרים
+      manage_users: אפשר למשתמשים עם תפקיד זה לנהל משתמשים
+      invalid_assignment: הייתה בעיה בהקצאת תפקיד למשתמש. אנא בדוק את הערכים ונסה שוב 
+      colour:
+        title: צבע תפקיד
+        info: קבע את הצבע שיחול על תפקיד זה
+    room_configuration:
+      title: הגדרות חדר
+      mute:
+        info: השתק אוטומטית את המיקרופון למשתמש שהצטרף לוועידה
+      require_moderator:
+        info: "הנחיות למנחה הוועידה של הממשק כאשר המשתמש מנסה להצטרף. אם המשתמש יאושר, הם יכולים להצטרף לוועידה"
+      allow_any:
+        info: "אפשר לכל משתמש להתחיל ועידה בכל עת. כברירת מחדל, רק בעל החדר יכול להתחיל ועידה"
+      all_moderator:
+        info: תן לכל המשתמשים זכויות מנחה כאשר הם מצטרפים לועידה
+      options:
+        disabled: מושבת
+        enabled: מופעל תמיד
+        optional: אופציונאלי
+    rooms:
+      title: חדרי שרתים
+      table:
+        ended: "נגמר: %{session}"
+        id: ID
+        not_running: לא מופעל
+        participants: משתתפים
+        running: מופעל
+        started: "התחיל: %{session}"
+        status: מצב
+        view: צפייה
+    title: הגדרות ארגון
+    users:
+      invite: להזמין משתתף
+      edit:
+        title: שנה נתוני משתמש
+      settings:
+        approve: לאשר
+        decline: לדחות
+        ban: לחסום משתמש
+        delete: להסיר
+        edit: ערוך
+        edit_roles: ערוך תפקיד משתמש
+        merge: לשלב
+        perm_delete: הסר לאלתר
+        unban: שחרור משתמש
+        undelete: שחזר
+      table:
+        authenticator: מאמת
+        created: נוצר
+        name: שם
+        not_found: לא נמצאו משתמשים לבקשה זו
+        no_users: לא אותרו משתמשים
+        role: תפקיד
+        uid: ID משתמש
+        username: שם משתמש
+      title: ניהול משתמשים
+  add_to_google_calendar: "הוסף Google Calendar"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: "אופס, אירעה שגיאה בניסיון להתחיל את הפגישה!"
+  cancel: ביטול
+  cookies:
+    cookie_info: העוגיות עוזרות לנו לספק את שירותינו. על ידי השימוש בשירותים שלנו אתה מסכים לשימוש שלנו בעוגיות
+    cookie_button: אני מאשר
+  copied: הועתק
+  copy: העתק
+  date:
+    month_names: [~, ינואר, פברואר, מרץ, אפריל, מאי, יוני, יולי, אוגוסט, ספטמבר, אוקטובר, נובמבר, דצמבר]
+  default_admin: "אתם עדיין משתמשים בסיסמת ברירת מחדל, לחצו  <a href=\"%{edit_link}\">כאן</a> כדי לשנות"
+  delete: להסיר
+  delivery_error: אירעה שגיאה במהלך מסירת דואר אלקטרוני. אנא צור קשר עם המנהל
+  docs: תיעוד מקצועי
+  email: Email
+  email_sent: " %{email_type} נשלח! (אם לא קיבלתם תבדקו בתקייה \"ספאם\" )"
+  enter_your_name: הזינו את השם שלכם
+  errors:
+    bigbluebutton:
+      help: "אנא וודאו כי ננקטו צעדים נכונים <a href=\"%{doc_link}\">למידע נוסף</a>"
+      message: Invalid BigBlueButton Endpoint and Secret
+      title: שגיאת שרת
+    internal:
+      message: נראה שמשהו השתבש אצלינו
+      help: "התקלה דווחה, ותעבור לבדיקה וטיפול"
+      report: דווח על תקלה
+    maintenance:
+      message: "סליחה, אנו סגורים לתחזוקה"
+      help: נחזור לעבודה בקרוב!
+    migration_error:
+      contact_admin: "אם אינך מנהל מערכת, אנא צור קשר עם אחד מהם"
+      continue: ברצוני להמשיך להשתמש ב 1.0.
+      notice: >
+        Greenlight encountered a database migration error.<br> This may be because you haven't updated to Greenlight 2.0.
+      upgrade: הראה לי כיצד לשדרג ל- 2.0!
+      version: "פרסמנו גרסה חדשה של Greenlight, אך בסיס הנתונים שלך אינו תואם"
+    messages:
+      blank: לא יכול להיות ריק
+      too_short: קצר מדי
+      invalid: שגוי
+      taken: כבר תפוס
+      accepted: חייב להיות מאושר
+      confirmation: "לא מספיק %{attribute}"
+      inclusion: לא כלול ברשימה
+    no_provider:
+      message: האתר שאליו אתה מנסה לגשת אינו מופעל
+      help: אנא צור קשר עם מנהל המערכת שלך כדי להתקין את Greenlight
+    not_found:
+      message: סליחה! הדף שאתה מחפש אינו קיים
+      help: "יתכן שהוא הוסר?"
+      user_not_found:
+        help: אנא הודע למנהל
+        message: "סליחה, משתמש זה אינו רשום"
+      user_missing:
+        help: בדוק את כתובת האתר ונסה שוב
+        message: כתובת האתר שהזנת אינה נכונה
+    title: שגיאות
+    unauthorized:
+      message: אין לך גישה ליישום זה
+      help: "אם אתה חושב שמדובר בתקלה, צור קשר עם מנהל המערכת של"
+  expired_reset_token: קישור לאיפוס סיסמה פג תוקף!
+  features:
+    title: אפשרויות
+    rooms: חדרים עם אימות פרטיות
+    recordings: ניהול הקלטות
+    designs: שינוי עיצובי
+    authentication: אימות משתמש
+  footer:
+    legal: חוקי
+    privpolicy: מדיניות פרטיות
+    powered_by: "מופעל באמצעות %{href}."
+  forgot_password:
+    subtitle: שכחתי סיסמה
+    email: Email
+    submit: לשלוח
+  go_back: חזרה
+  greenlight: Greenlight
+  header:
+    all_recordings: כל ההקלטות
+    dropdown:
+      account_settings: ארגון
+      help: "נדרשת עזרה?"
+      home: אזור אישי
+      settings: פרופיל
+      signout: התנתק
+  home_room: חדר ראשי
+  info_update_success: המידע עודכן בהצלחה
+  invalid_credentials: הדוא"ל והסיסמה שהוזנו לא נמצאו. נסו שוב או עקבו אחר הקישור "שכחת את הסיסמה שלך" כדי לשחזר את הסיסמה שלך
+  invalid_login_method: נכשלה עקב חוסר התאמה בחשבון. עליך להיות מחובר באמצעות omniauth
+  invite_message: "להזמנת משתתף, שלחו לו את הקישור הזה:"
+  javascript:
+    room:
+      mailer:
+        subject: 'הזמין אותך לצפות בהקלטה'
+        body: 'לצפייה בהקלטה עקוב אחר הקישור:'
+        autogenerated: 'דוא"ל זה נוצר אוטומטית באמצעות BigBlueButton'
+        footer: 'BigBlueButton היא מערכת ועידת אינטרנטית בקוד פתוח. למידע נוסף על BigBlueButton, ראה https://bigbluebutton.org/.'
+    search:
+      start: לחפש...
+  landing:
+    about: "%{href} BigBlueButton היא מערכת פרונט-אנד פשוטה עבור שרתי ועידת האינטרנט עם קוד פתוח . אתם יכולים ליצור חדרים משלכם ולארח ועידות, או להצטרף לאחרים באמצעות קישור קצר ונוח."
+    welcome: ברוכים הביאים ל BigBlueButton.
+    video: צפו במדריך שלנו לשימוש ב Greenlight
+    upgrade: הראה לי כיצד לשדרג ל- 2.0!
+    version: "פרסמנו גרסה חדשה של Greenlight, אך בסיס הנתונים שלך אינו תואם"
+  language_default: בריברת מחדל (שפת דפדפן)
+  ldap_error: לא ניתן להתחבר לשרת LDAP. אנא בדוק את תצורת ה- LDAP שלך בקובץ ה- en וודא שהשרת שלך פועל.
+  login: התחבר
+  login_title: התחברו לחשבון שלכם
+  mailer:
+    user:
+      approve:
+        info: חשבון משתמש אושר
+        signin: "כדי לגשת לחדרים הפרטיים שלך, לחץ על הכפתור למטה והיכנס"
+        signin_link: התחבר
+        signup:
+          info: משתמש חדש נרשם ב- Greenlight
+          more-info: " לאשר משתמש ל- dsotup ב- Grenlight, עליך לאשר את חשבונו בהגדרות הארגון."
+          admins_link: בקרו בדף הארגון
+          subject: רישום משתמש חדש של Greenlight
+          username: "משתמש חדש נרשם בשם %{name} ו email %{email}"
+        subject: חשבון מאומת
+        username: "שם משתמש %{email}."
+      demoted:
+        info: "אתם כבר לא %{role} עבור %{url}."
+        more-info: כרגע יש לך הרשאות של משתמש רגיל
+        root_link: התחבר
+        subtitle: "%{role} זכויות בוטלו"
+      invite:
+        info: "הוזמנתם על ידי %{name} לחשבון שלכם"
+        signup_info: "השתמש בדוא\"ל שלך כדי להתחבר, לחץ על הכפתור למטה ופעל לפי ההוראות"
+        signup_link: הרשם
+        signup:
+          info: "משתמש שהוזמן לגרינלייט, נרשם"
+          admins_link: בקרו בדף הארגון
+          subject: רישום משתמש חדש של Greenlight
+          username: "משתמש חדש נרשם בשם %{name} ו email %{email}"
+        subject: הזמנה להצטרף ל- BigBlueButton
+        username: "שם משתמש %{email}."
+      password_reset:
+        title: 'איפוס סיסמה'
+        welcome: "בקשת איפוס סיסמא לדוא\"ל <b>%{email}</b>"
+        message: 'אם זו בקשתך, אנא עקוב אחר הקישור לאיפוס הסיסמה שלך:'
+        reset_link: איפוס סימה
+        expire: קישור זה יפוג בעוד שעתיים
+        ignore: אתה יכול להתעלם בבטחה ממכתב זה אם זו אינה הכתובת שלך
+      promoted:
+        admins_link: בקרו בדף הארגון
+        info: "כעת אתם \"%{role}\" עבור %{url}"
+        more-info: "לצפייה בפיצ'רים חדשים בקרו %{url}"
+        subtitle: "הרשאות שהוקצו%{role}"
+      verify_email:
+        welcome: "ברוך הבא לחשבונך, %{name}!"
+        success: "שימוש ב %{bigbluebutton}, אתה יכול ליצור חדרי ישיבות פרטיים ולקיים אינטראקציה עם משתמשים אחרים"
+        username: "שם משתמש %{email}."
+        verify: "לאימות חשבון , לחצו על הכפתור למטה"
+        verify_text: 'כדי לאמת את חשבונך, עקוב אחר הקישור: %{url}'
+        verify_link: אימות חשבון
+        thanks: "תודה על הצתרפותכם, יום נעים!"
+  maintenance:
+    window_alert: "מועד השירות נקבע ל %{date}"
+  max_concurrent: הגעתם למספר המרבי של חדרים פתוחים בו זמנית!
+  merged: אוחדו
+  modal:
+    create_role:
+      create: צור תפקיד חדש
+      footer_text: אתה יכול לערוך את ההרשאות לתפקיד זה לאחר היצירה
+      name_placeholder: הזן שם תפקיד ...
+      not_blank: שם התפקיד לא יכול להיות ריק
+      title: צור תפקיד חדש
+    create_room:
+      access_code: קוד גישה
+      access_code_placeholder: יצירת קוד גישה אפשרי לחדר
+      auto_join: חבר אותי אוטומטית לחדר
+      create: צור חדר
+      free_delete: אתה יכול למחוק את החדר הזה בכל עת.
+      name_placeholder: הזן את שם החדר ...
+      not_blank: שם החדר לא יכול להיות ריק.
+      title: יצירת חדר חדש
+    delete_account:
+      confirm: "האם אתה בטוח שברצונך למחוק חשבון זה?"
+      delete: "אני בטוח, מחק את החשבון הזה."
+      keep: החלטתי לשמור אותו
+      delete_warning: פעולה זו תשבית את חשבון המשתמש. כל המשתמשים המוגבלים נמצאים בכרטיסייה "נמחק".
+      warning: החלטה זו היא סופית.  <b>לא</b> תוכל לשחזר נתונים הקשורים למשתמשים.
+    delete_room:
+      confirm: "אתה בטוח שאתה רוצה למחוק \"%{room}\"?"
+      delete: "אני בטוח, הסר את החדר"
+      keep: חשבתי על זה והחלטתי לוותר
+      warning: אתם <b>לא</b> תוכלו לשחזר את החדר הזה
+      recording_warning: "וכל %{recordings_num} ההקלטות הקשורות"
+    invite_user:
+      email_placeholder: הזן כתובות דוא"ל (מופרדות באמצעות פסיקים)
+      footer: המשתמש יקבל דוא"ל עם הנחיות להרשמה
+      send: שלח הזמנה
+      title: להזמין משתתף
+    login:
+      or: או
+      with: "התחבר באמצעות %{provider}"
+      forgot_password: "שכחת ססמה?"
+    rename_recording:
+    remove_shared:
+      title: "האם אתה בטוח שברצונך להסיר את החדר מרשימת החדרים שלך?"
+      delete: אני בטוח להסיר את החדר הזה.
+      warning: אתם <b>לא</b>  תוכלו להיכנס לחדר הזה לעולם
+    room_settings:
+      title: הגדרות החדר
+      update: רענן את החדר
+      client: בחר את סוג הלקוח
+      join_moderator: כל המשתמשים מתחברים כמנחים
+      mute: השתק משתמשים כשהם מצטרפים
+      require_approval: דורש אישור מנחה לפני ההתחברות
+      start: אפשר לכל אחד להתחיל את המפגש הזה
+      footer_text: אתה יכול לשנות את הגדרות החדר שלך בכל עת.
+    rename_room:
+      name_placeholder: הזן את שם החדר החדש ...
+    share_access:
+      footer: שיתוף בחדר יאפשר למשתמשים להפעיל את החדר ולצפות בהקלטות החדר.
+      list: במשותף עם
+      title: גישה משותפת לחדר
+      save: שמור שינויים
+      cancel_changes: בטל שינויים
+      select: בחר משתמש
+    merge_user:
+      cancel: ביטול
+      from: חשבונות לאיחוד
+      title: מיזוג חשבונות משתמש
+      to: חשבון ראשי
+      save: לשלב
+      footer: החדרים של החשבון הממוזג יועברו לרשימת החדרים של חשבון המאסטר ואז החשבון יימחק
+  name_update_success: שם החדר השתנה בהצלחה!
+  no_user_email_exists: המשתמש עם הדוא"ל שצוין לא נמצא. אנא וודא שהדוא"ל שלך הוזן כראוי
+  omniauth_error: אירעה שגיאה בעת אימות עם אומניוט. אנא נסה שוב או פנה למנהל המערכת!
+  omniauth_specific_error: "שגיאה בבדיקת אורך omniauth: %{error}. אנא נסה שוב או צור קשר עם מנהל המערכת!"
+  pagy:
+    nav:
+      prev: "&lsaquo; Prev"
+      next: "Next &rsaquo;"
+      gap: "&hellip;"
+  password: סיסמה
+  password_empty_notice: הסיסמה לא יכולה להיות ריקה
+  password_reset_success: הסיסמה אופסה בהצלחה.
+  password_different_notice: אישור סיסמא אינו תואם..
+  provider:
+    google: Google
+    office365: Office 365
+    twitter: Twitter
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable: "אופס, לא הצלחנו לאמת את תגובת ה- reCAPTCHA שלך. אנא נסה שוב"
+      verification_failed: "בדיקת reCAPTCHA נכשלה, אנא נסה שוב"
+  recording:
+    all_recordings: כל ההקלטות
+    email: הקלטות מייל
+    error: "אירעה שגיאה במהלך קבלת %{count} הקלטה(ות)"
+    no_recordings: "בחדר זה אין %{inject} הקלטות"
+    no_user_recordings: כרגע אין לכם הקלטות
+    no_matched_recordings: "אין %{inject} הקלטות המספקות את החיפוש."
+    recorded_on: "הוקלט ב %{date}"
+    table:
+      name: שם
+      thumbnails: מרשם
+      length: אורך
+      users: משתמשים
+      visibility: זמינות
+      formats: פורמט
+    visibility:
+      public: פומבי
+      unlisted: פרטי
+    format:
+      notes: הערה
+      podcast: פודקאסט
+      presentation: מצגת
+      statistics: סטטיסטיקה
+      video: וידאו
+  registration:
+    approval:
+      fail: "חשבונך טרם אושר. אם חלפו מספר ימים לאחר ההרשמה, אנא צור קשר עם המנהל שלך"
+      signup: החשבון שלך נוצר בהצלחה. הודעה נשלחה למנהל המערכת לאישור.
+    banned:
+      fail: אין לך גישה ליישום. אם אתה בטוח שמדובר בתקלה אנא צור קשר עם מנהל המערכת שלך." 
+    deprecated:
+      new_signin: בחר שיטת התחברות חדשה לחשבונך. כל החדרים בחשבון הישן יועברו לחשבון החדש.
+      twitter_signin: "כניסה דרך Twitter התיישנה ותוסר בגרסה החדשה, עברו <a href=\"%{link}\"> לכאן </a> כדי לשנות את שיטת האימות עבור חשבונך. \""
+      twitter_signup: ההרשמה דרך טוויטר אינה מיושמת. אנא השתמש בשיטת רישום אחרת.
+      merge_success: המיזוג של חשבון הטוויטר שלך עם החשבון החדש שלך עבר בהצלחה. הטוויטר הישן שלך יימחק.
+    invite:
+      fail: "הסימול שלך אינו חוקי או פג תוקף. אם אתה בטוח שזו שגיאה, אנא צור קשר עם מנהל המערכת שלך.\""
+      no_invite: "אין לכם הזמנה להצטרף. כדי לקבל הזמנה, אנא צרו קשר עם מנהל המערכת."
+  remove: הסר
+  rename: שנה שם
+  reset_password:
+    invalid_token: מפתח איפוס הסיסמה שגוי. נסה לאפס שוב את הסיסמה שלך
+    subtitle: איפוס סימה
+    password: סיסמה חדשה
+    confirm: תאשרו סיסמה חדשה
+    update: עדכן סיסמה
+    auth_change: שיטת האימות שונתה. בדוק את הדוא"ל שלך כדי להגדיר סיסמה
+  roles:
+    active: פעיל
+    admin: מנהל
+    banned: נדחה
+    deleted: נמחק
+    pending: בהמתנה
+    user: משתמש
+  room:
+    access_code_required: אנא הזן את הקוד הנכון בכניסה לחדר
+    create_room: צור חדר
+    create_room_error: אירעה שגיאה בעת יצירת החדר
+    create_room_success: החדר נוצר בהצלחה
+    delete:
+      home_room: לא ניתן למחוק את חדר הבית של המשתמש
+      success: החדר נמחק
+      fail: "שגיאה במחיקת חדר (%{error})"
+    enter_the_access_code: הזינו  קוד גישה לחדר
+    invalid_provider: הזנתם כתובת אתר לא נכון. אנא בדקו את כתובת האתר ונסו שנית
+    invited: אתם מוזמנים להצטרף
+    invite_participants: הזמן  משתתפים
+    join: הצטרף
+    last_session: "ועידה אחרונה: %{session}"
+    login: להכנס
+    owner: בעלים
+    owner_banned: חדר זה אינו זמין כעת
+    no_room:
+      description: הזן קישור או את מזהה החדר שאליו ברצונך להצטרף
+      edit_profile: ערוך את פרופיל המשתמש
+      go_to: לעבור לחדר
+      invalid_room_uid: קישור לחדר / uid של החדר שהוזן אינו בתוקף
+      placeholder: url/uid של חדר
+      no_recent_rooms: עדיין לא התחברת לחדרים
+      recent_rooms: עבור לחדרים שביקרת לאחרונה
+      title: התחברו לחדר
+    no_sessions: עדיין לא נערכו ועידות בחדר הזה!
+    recordings: הקלטות מהחדר
+    room_limit: חרגת ממספר החדרים המרבי המותר
+    room_limit_exceeded: "הגעת למגבלת החדרים המותרים. אנא מחק %{difference} חדר(ים) כדי לקבל גישה לחדר זה"
+    sessions: סשנים
+    settings: הגדרות החדר
+    share: בקרת גישה
+    shared_by: "שותף על ידי %{email}"
+    remove_shared_access_success: חדר משותף הוסר מרשימת החדרים שלך
+    remove_shared_access_error: אירעה שגיאה בעת מחיקת חדר משותף מרשימת החדרים שלך
+    shared_access_success: החדר שותף בהצלחה
+    shared_access_error: הראה שגיאה בתהליך שיתוף החדר
+    start: התחל
+    unavailable: החדר אינו זמין כרגע מכיוון שלא אימתת את האימייל של הבעלים
+    update_settings_error: אירעה שגיאה במהלך עדכון הגדרות החדר
+    update_settings_success: הגדרות החדר עודכנו בהצלחה
+    wait:
+      message: המפגש עוד לא החל
+      auto: תצטרפו באופן אוטומטי עם פתיחת המפגש
+  settings:
+    account:
+      fullname: שם מלא
+      language: שפה
+      provider: ספק
+      image: תמונה
+      image_url: קישור לתמונת פרופיל
+      roles: תפקיד משתמש
+      subtitle: עדכן את פרטי החשבון שלך
+      title: פרטי חשבון
+      reset_password: אפס סיסמת משתמש
+    delete:
+      button: "כן, אני רוצה למחוק את חשבוני."
+      disclaimer: "אם תבחר למחוק את חשבונך,  <b> לא </ b>. ניתן יהי לשחזר את הכל המידע הנוגע לחשבונך, כולל הגדרות, חדרים ורישומים, יימחק."
+      subtitle: מחיקת חשבון לצמיתות
+      title: מחיקת חשבון
+    password:
+      confirmation: תאשרו סיסמה חדשה
+      new: סיסמה חדשה
+      old: סיסמה ישנה
+      subtitle: שינוי סיסמה
+      title: סיסמה
+    title: פרופיל
+    search: חיפוש
+  signup:
+    password_confirm: אישור סיסמה
+    subtitle: צור חשבון
+    title: הירשם עכשיו
+    with: "הרשם בעזרת %{provider}"
+  terms:
+    accept: "אני מאשר %{href}"
+    accept_existing: אני מקבל את התנאים
+    title: Terms and Conditions
+  test_install: >
+    פריסה זו משתמשת בשרת בדיקות מוגדר מראש ויש להחליפה משלך %{href}.
+  update: עדכן
+  verify:
+    accept: אמת
+    activated: חשבון מאומת!
+    already_verified: החשבון אומת
+    invalid: קישור לאימות לא חוקי
+    not_verified: חשבונך טרם אומת
+    resend: שלח מחדש דוא"ל לאימות
+    signin: אנא התחבר כדי לגשת לחשבון שלך
+    title: לאמת את כתובת האימייל שלכ
+    verification: בדיקה

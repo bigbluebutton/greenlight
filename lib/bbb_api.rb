@@ -33,7 +33,7 @@ module BbbApi
 
     # Build the URI.
     uri = encode_bbb_url(
-      Rails.configuration.loadbalancer_endpoint + api + '/',
+      "#{Rails.configuration.loadbalancer_endpoint}#{api}/",
       Rails.configuration.loadbalancer_secret,
       { name: provider },
       route

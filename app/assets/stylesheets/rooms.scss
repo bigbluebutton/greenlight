@@ -32,8 +32,8 @@
   font-size: 20px !important;
 }
 
-.join-input {
-  height: 48px;
+.moderator-code-label {
+  margin-top: 150px !important;
 }
 
 .home-indicator {
@@ -112,4 +112,35 @@
 .enabled-setting {
   background: lightgray;
   pointer-events: none;
+}
+
+#recording-table .edit_hover_class {
+  word-break: break-word;
+  white-space: normal;
+}
+
+#room-owner-name {
+  line-height: 12px;
+}
+
+.create-room-button {
+  width: 49%;
+}
+
+#presentation-upload-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-right: 75px;
+}
+
+#clear-room-search {
+  z-index: 9;
+  position: absolute;
+  right: 15px;
+  top: 8px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }

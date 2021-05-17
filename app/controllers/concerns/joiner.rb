@@ -50,12 +50,12 @@ module Joiner
   def join_room(opts)
     @room_settings = JSON.parse(@room[:room_settings])
 
-    if room_running?(@room.bbb_id) || @room.owned_by?(current_user) || room_setting_with_config("anyoneCanStart")
+    moderator_privileges = @room.owned_by?(current_user) || valid_moderator_access_code(session[:moderator_access_code])
+    if room_running?(@room.bbb_id) || room_setting_with_config("anyoneCanStart") || moderator_privileges
 
-      # Determine if the user needs to join as a moderator.
       #opts[:user_is_moderator] = @room.owned_by?(current_user) || room_setting_with_config("joinModerator") || @shared_room
-            opts[:user_is_moderator] = @room.owned_by?(current_user) || room_setting_with_config("joinModerator") || current_user.role.get_permission("can_create_rooms")
-
+      opts[:user_is_moderator] = @room.owned_by?(current_user) || room_setting_with_config("joinModerator") || current_user.role.get_permission("can_create_rooms")
+      opts[:record] = record_meeting
       opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
       opts[:mute_on_start] = room_setting_with_config("muteOnStart")
 
@@ -88,34 +88,10 @@ module Joiner
     {
       user_is_moderator: false,
       meeting_logout_url: request.base_url + logout_room_path(@room),
-      meeting_recorded: true,
-      moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
+      moderator_message: "#{invite_msg}<br> #{request.base_url + room_path(@room)}",
       host: request.host,
       recording_default_visibility: @settings.get_value("Default Recording Visibility") == "public"
     }
-  end
-
-  # Gets the room setting based on the option set in the room configuration
-  def room_setting_with_config(name)
-    config = case name
-    when "muteOnStart"
-      "Room Configuration Mute On Join"
-    when "requireModeratorApproval"
-      "Room Configuration Require Moderator"
-    when "joinModerator"
-      "Room Configuration All Join Moderator"
-    when "anyoneCanStart"
-      "Room Configuration Allow Any Start"
-    end
-
-    case @settings.get_value(config)
-    when "enabled"
-      true
-    when "optional"
-      @room_settings[name]
-    when "disabled"
-      false
-    end
   end
 
   private

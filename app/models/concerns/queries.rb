@@ -1,6 +1,9 @@
-<%
+# frozen_string_literal: true
+
 # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
 # This program is free software; you can redistribute it and/or modify it under the
 # terms of the GNU Lesser General Public License as published by the Free Software
 # Foundation; either version 3.0 of the License, or (at your option) any later
@@ -9,27 +12,30 @@
 # BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
 # You should have received a copy of the GNU Lesser General Public License along
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
-%>
 
-<div class="container pt-5">
-  <div class="col-md-8 offset-2">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%= t("terms.title") %></h3>
-      </div>
-      <div class="card-body">
-          <div class="terms">
-            <%= markdown(Rails.configuration.terms) %>
-          </div>
-          <% if Rails.configuration.terms && current_user && !current_user.accepted_terms %>
-            <div class="btn-list text-right pt-8">
-              <%= button_to t("terms.accept_existing"), terms_path, params: { accept: true }, class: "btn btn-primary btn-space", "data-disable": "" %>
-            </div>
-          <% end %>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+module Queries
+  extend ActiveSupport::Concern
+
+  def created_at_text
+    active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
+    # Postgres requires created_at to be cast to a string
+    if active_database == "postgresql"
+      "created_at::text"
+    else
+      "created_at"
+    end
+  end
+
+  def like_text
+    active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
+    # Use postgres case insensitive like
+    if active_database == "postgresql"
+      "ILIKE"
+    else
+      "LIKE"
+    end
+  end
+end

@@ -42,16 +42,42 @@ pt_BR:
         info: Altera a imagem da marca que aparece no canto superior esquerdo
         placeholder: URL da Imagem
         title: Imagem da Marca
+        invalid: URL inválida
+      legal:
+        change: Alterar URL
+        info: Altere o link legal que aparece na parte inferior da página
+        placeholder: Legal URL...
+        title: Legal
+        invalid: URL inválida
+      privpolicy:
+        change: Alterar URL
+        info: Altere o link da política de privacidade que aparece na parte inferior da página
+        placeholder: URL com Política de Privacidade...
+        title: Política de Privacidade
+        invalid: URL inválida
       cache:
         info: "Limpe a cache do provedor, assim uma nova requisição será gerada com informações atualizadas"
         title: Limpe a cache do provedor
         button: Limpar cache
+      clear_auth:
+        info: "Remove a autenticação atual dos usuários, permitindo que eles entrem novamente usando um método de autenticação diferente"
+        title: Remover Autenticação Atual
+        button: Remover Autenticação
       color:
         info: "Alterar a cor regular irá alterar ambas as cores Iluminada e Escurecida. Iluminada e Escurecida poderão ser alteradas individualmentes, após isso."
         title: Cor primária
         regular: Regular
         lighten: Iluminada
         darken: Escuro
+      log_level:
+        title: Nível de log
+        information: Alterar o nível de log para toda a implantação
+        debug: Debug
+        info: Info
+        warn: Alerta
+        error: Erro
+        fatal: Fatal
+        unknown: Desconhecido
       recording_visibility:
         info: Configura a visibilidade padrão para novas gravações
         title: Visibilidade padrão da gravação
@@ -66,6 +92,9 @@ pt_BR:
       rooms:
         info: Limita o número de salas que um usuário pode ter (incluindo Sala Home). Essa configuração não se aplica para administradores.
         title: Número de salas por Usuário.
+      shared_access:
+        info: "Se esta opção estiver desativada, o botão é removido das opções da sala e impede que os usuários compartilhem salas"
+        title: Permitir que os usuários compartilhem salas
       subtitle: Personalizar Greenlight
       title: Configurações do Site
     flash:
@@ -77,22 +106,27 @@ pt_BR:
       demoted: Usuário foi rebaixado com sucesso.
       invite: "Convite enviado para %{email} com sucesso"
       invite_email_verification: "E-mails precisam estar habilitados para poder utilizar esse método. Por favor, contate o seu administrador do sistema."
+      merge_fail: Ocorreu um problema ao mesclar as contas de usuário. Verifique os usuários selecionados e tente novamente 
+      merge_success: Contas de usuário mescladas com sucesso
       perm_deleted: Usuário foi permanentemente apagado
       promoted: Usuário foi promovido com sucesso.
       registration_method_updated: Método de registro atualizado com sucesso.
       reset_password: "O usuário enviou um e-mail para resetar sua senha. (Se o e-mail não foi recebido, ele pode ter caído na caixa de spam)"
       restored: O usuário foi restaurado com sucesso
+      room_configuration: Configuração da sala alterada com sucesso
       settings: Configurações do Site alteradas com sucesso.
       unauthorized: Você não possui permissão para realizar ações nesse usuário.
     recordings:
       title: Gravações do servidor
       no_recordings: Esse servidor não possui gravações
     roles:
+      appear_in_share_list: Incluir usuários com esse papel na lista para o compartilhamento de salas
       can_create_rooms: Pode criar salas
       delete: Remover o papel
       invalid_create: Ocorreu um erro ao criar um novo papel. Por favor verifique os valores inseridos e tente novamente
       invalid_order: Ocorreu um erro ao atualizar a prioridade do papel. Por favor verifique os valores inseridos e tente novamente
       invalid_update: Ocorreu um erro ao atualizar as permissões do papel. Por favor verifique os valores inseridos e tente novamente
+      manage_rooms_recordings: Permitir que usuários com esse papel gerenciem salas de servidores e gravações
       name: Nome do papel
       new_role: Criar novo papel
       role_has_users: "Este papel está atribuído às contas %{user_count}. Por favor remova o papel de todas as contas antes de apagá-lo."
@@ -106,6 +140,31 @@ pt_BR:
       colour:
         title: Cor do papel
         info: Configura a cor associada a um papel
+    room_configuration:
+      title: Configuração da sala
+      mute:
+        info: Silencia automaticamente o usuário quando ele ingressa na reunião
+      require_moderator:
+        info: "Informa ao moderador da conferência quando um participante tenta ingressar na reunião. Se o participante for aprovado, ele poderá participar da reunião."
+      allow_any:
+        info: "Permite que qualquer usuário inicie a reunião a qualquer momento. Por padrão, apenas o proprietário da sala pode iniciar a reunião."
+      all_moderator:
+        info: Concede a todos os usuários privilégios de moderador quando ingressam na reunião.
+      options:
+        disabled: Desabilitado
+        enabled: Sempre ativado
+        optional: Opcional
+    rooms:
+      title: Salas de servidores
+      table:
+        ended: "Finalizado: %{session}"
+        id: ID
+        not_running: Não está em execução
+        participants: Participantes
+        running: Em execução
+        started: "Iniciado: %{session}"
+        status: Status
+        view: Ver
     title: Configurações da Organização
     users:
       invite: Convidar Usuário
@@ -118,6 +177,7 @@ pt_BR:
         delete: Apagar
         edit: Editar
         edit_roles: Editar papéis do usuário
+        merge: Mesclar
         perm_delete: Apagar permanentemente
         unban: Desbanir Usuário
         undelete: Restaurar
@@ -200,6 +260,8 @@ pt_BR:
     designs: Designs personalizados
     authentication: Autenticação de usuário
   footer:
+    legal: Legal
+    privpolicy: Política de Privacidade
     powered_by: "Powered by %{href}."
   forgot_password:
     subtitle: Esqueci a senha
@@ -212,7 +274,7 @@ pt_BR:
     dropdown:
       account_settings: Organização
       help: "Precisa de ajuda?"
-      home: Sala Inicial
+      home: Sala inicial
       settings: Perfil
       signout: Sair
   home_room: Sala inicial
@@ -227,6 +289,8 @@ pt_BR:
         body: 'Para visualizar a gravação, clique no link abaixo:'
         autogenerated: 'Esse e-mail foi gerado automaticamente pelo BigBlueButton.'
         footer: 'BigBlueButton é um sistema de conferência web de código aberto. Para mais informações sobre o BigBlueButton, acesse https://bigbluebutton.org/.'
+    search:
+      start: Iniciar pesquisa...
   landing:
     about: "%{href} é um front-end para seu servidor BigBlueButton. Você pode criar suas salas para realizar sessões, ou entrar em salas de outras pessoas utilizando um link curto."
     welcome: Bem-vindo ao BigBlueButton.
@@ -290,6 +354,7 @@ pt_BR:
   maintenance:
     window_alert: "Janela de manutenção agendada para %{date}"
   max_concurrent: O número máximo de sessões simultâneas foi alcançado.
+  merged: Mesclado
   modal:
     create_role:
       create: Criar novo papel
@@ -319,7 +384,7 @@ pt_BR:
       warning: Você <b>não</b> será capaz de recuperar essa sala
       recording_warning: "ou qualquer um de suas %{recordings_num} gravações associadas."
     invite_user:
-      email_placeholder: Insira os e-mails dos usuários (separados por vírgula)
+      email_placeholder: Digite os e-mails dos usuários (separados por vírgulas)
       footer: O usuário receberá um e-mail com instruções sobre como se cadastrar
       send: Enviar Convit
       title: Convidar Usuário
@@ -328,6 +393,10 @@ pt_BR:
       with: "Entrar com %{provider}"
       forgot_password: "Esqueceu a senha?"
     rename_recording:
+    remove_shared:
+      title: "Tem certeza de que deseja remover esta sala da sua lista?"
+      delete: "Tenho certeza, remova esta sala."
+      warning: Você <b>não</b> poderá mais acessar esta sala.
     room_settings:
       title: Configurações da sala
       update: Atualizar sala
@@ -339,6 +408,20 @@ pt_BR:
       footer_text: Você pode editar as configurações da sala a qualquer momento.
     rename_room:
       name_placeholder: Digite o novo nome da sala...
+    share_access:
+      footer: Compartilhar uma sala com um usuário permite que ele inicie a sala e visualize as gravações
+      list: Compartilhado com
+      title: Compartilhar Acesso a Sala
+      save: Salvar alterações
+      cancel_changes: Cancelar alterações
+      select: Selecione o usuário
+    merge_user:
+      cancel: Cancelar
+      from: Conta a ser mesclada
+      title: Mesclar Contas de Usuário
+      to: Conta Primária
+      save: Mesclar
+      footer: "As salas da conta a ser mesclada serão transferidas para a lista de salas da conta principal e, em seguida, a conta será excluída."
   name_update_success: Nome da sala modificado com sucesso.
   no_user_email_exists: Nenhum usuário foi encontrado com o e-mail especificado. Por favor confirme os dados informados.
   omniauth_error: Um erro ocorreu enquanto autenticava com omniauth. Tente novamente ou contate um administrador.
@@ -399,12 +482,15 @@ pt_BR:
     invite:
       fail: "Ou seu token é inválido, ou ele expirou. Se você acredita que isso seja um engano, por favor, contate o seu administrador."
       no_invite: "Você não possui um convite para entrar. Por favor, contate o seu administrador para receber um."
+  remove: Remover
   rename: Renomear
   reset_password:
+    invalid_token: "O token de redefinição de senha é inválido. Por favor, tente redefinir sua senha novamente."
     subtitle: Resetar senha
     password: Nova senha
     confirm: Confirmação da nova senha
     update: Atualizar senha
+    auth_change: "O método de autenticação foi alterado. Por favor, verifique seu e-mail para definir sua senha."
   roles:
     active: Ativo
     admin: Administrador
@@ -414,17 +500,22 @@ pt_BR:
     user: Usuário
   room:
     access_code_required: Por favor insira o código de acesso para entrar na sala
-    create_room: Criar uma Sala
+    create_room: Criar uma sala
     create_room_error: Ocorreu um erro ao criar a sala
     create_room_success: Sala criada com sucesso
+    delete:
+      home_room: Não é possível excluir a Sala Inicial do usuário
+      success: Sala excluída com sucesso
+      fail: "Falha ao excluir a sala (%{error})"
     enter_the_access_code: Insira o código de acesso da sala
     invalid_provider: Você inseriu uma URL inválida. Por favor verifique a URL e tente novamente
-    invited: Você foi convidado a participar
+    invited: Você foi convidado a participar da sala
     invite_participants: Convidar participantes
     join: Participar
     last_session: "Última sessão em %{session}"
     login: Entrar
     owner: Dono
+    owner_banned: Esta sala está indisponível no momento
     no_room:
       description: Insira a URL da sala ou o ID da sala que você quer entrar.
       edit_profile: Modificar perfil de usuário
@@ -435,11 +526,17 @@ pt_BR:
       recent_rooms: Ir para uma sala recente
       title: Entrar na sala
     no_sessions: Nenhuma sessão foi realizada nesta sala.
-    recordings: Gravações da Sala
+    recordings: Gravações da sala
     room_limit: Você atingiu o número máximo de salas permitido
     room_limit_exceeded: "Você excedeu o número de salas permitido. Por favor, delete %{difference} sala(s) para acessar essa sala."
     sessions: Sessões
     settings: Configurações da sala
+    share: Gerenciar Acesso
+    shared_by: "Compartilhado por %{email}"
+    remove_shared_access_success: Sala compartilhada removida com sucesso da sua lista de salas
+    remove_shared_access_error: Ocorreu um erro ao remover a sala compartilhada da sua lista
+    shared_access_success: Sala compartilhada com sucesso
+    shared_access_error: Ocorreu um erro ao compartilhar a sala
     start: Iniciar
     unavailable: Esta sala não está disponível pois o e-mail do dono da sala ainda não foi verificado.
     update_settings_error: Ocorreu um erro ao atualizar as configurações da sala
@@ -454,9 +551,10 @@ pt_BR:
       provider: Fornecedor
       image: Imagem
       image_url: URL da imagem de perfil
-      roles: Papéis de usuário
+      roles: Papel do usuário
       subtitle: Atualizar suas informações da conta
       title: Informações da conta
+      reset_password: Redefinir senha do usuário
     delete:
       button: "Sim, eu gostaria de apagar minha conta."
       disclaimer: "Se você escolher apagar sua conta, isto <b>NÃO</b> poderá ser desfeito. Todas as informações relacionadas à sua conta, incluindo configurações, salas e gravações serão removidas."

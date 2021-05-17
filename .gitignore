@@ -46,6 +46,3 @@ config/terms.md
 coverage*
 
 /atom-sftp-sync.json
-
-docker-compose.yml
-Gemfile

@@ -18,19 +18,19 @@
     <div class="row pt-9">
       <div class="col-lg-12 col-sm-12">
         <h4 class="text-left"><%= t("room.invited") %></h4>
-        <h1 class="display-3 text-left mb-3 font-weight-400"><%= @room.name %></h1>
+        <h1 class="display-3 text-left mb-3 font-weight-400"><%= title(@room.name) %></h1>
         <hr class="mt-2 float-left w-25">
       </div>
     </div>
 
     <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12 form-inline mb-5 align-top">
+      <div class="col-lg-6 col-md-6 col-sm-12 mb-5">
         <% if @room.owner.image.blank? %>
           <span class="avatar"><%= @room.owner.name.first %></span>
         <% else %>
           <span class="avatar" style="background-image: url(<%= @room.owner.image %>)"></span>
         <% end %>
-        <h5 class="font-weight-normal ml-4 mt-3"><%= @room.owner.name %> (<%= t("room.owner") %>)</h5>
+        <h5 id="room-owner-name" class="font-weight-normal ml-4 mt-3 d-inline-block"><%= @room.owner.name %> (<%= t("room.owner") %>)</h5>
       </div>
 
       <div class="col-lg-6 col-md-6 col-sm-12">
@@ -40,6 +40,6 @@
   </div>
 </div>
 
-<% if render_recordings %>
+<% if render_recordings && !hide_recording_tables %>
   <%= render "shared/sessions", recordings: @public_recordings, pagy: @pagy, only_public: true, user_recordings: false, title: t("room.recordings") %>
 <% end %>
