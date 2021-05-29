@@ -229,6 +229,7 @@ en:
   cookies:
     cookie_info: Cookies help us deliver our services. By using our services, you agree to our use of cookies.
     cookie_button: I Agree
+    policy: For more infomation, see our <a href="%{privacy_link}"><u>privacy policy</u></a>.
   copied: Copied
   copy: Copy
   date:
@@ -545,6 +546,7 @@ en:
     banned: Banned
     deleted: Deleted
     pending: Pending
+    invited: Invited
     user: User
   room:
     access_code_required: Please enter a valid access code to join the room

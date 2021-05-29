@@ -175,6 +175,9 @@ cs:
         info: Přiděl práva moderátora všem uživatelům ihned po připojení.
       recordings:
         info: "Povolit vlastníkům místnosti určit, zda chtějí mít volbu nahrávat místnost nebo nikoliv. Pokud je zapnuto, přesto musí moderátor kliknout na tlačítko \"Zahájit nahrávání\"."
+      moderator_codes:
+        info: "Povol vlastníkovi generovat pin moderátora, který umožňuje ostatním uživatelům se připojit přímo jako moderátor."
+        title: Přístupový pin moderátora
       options:
         disabled: Vypnuto
         enabled: Vždy zapnuto
@@ -226,6 +229,7 @@ cs:
   cookies:
     cookie_info: Cookies nám pomáhají poskytovat naše služby. Používáním našich služeb souhlasíte s jejich použitím.
     cookie_button: Souhlasím
+    policy: "Více informací najdete v <a href=\"%{privacy_link}\"><u> zásadách ochrany osobních údajů</u></a>."
   copied: Zkopírováno
   copy: Kopírovat
   date:
@@ -352,6 +356,7 @@ cs:
         info: " Byl jste pozván do Vašeho osobního prostoru uživatelem %{name}"
         signup_info: "Pro registraci Vaším emailem, klikněte na tlačítko níže a postupujte podle předepsaných kroků."
         signup_link: Registrace
+        valid: "Pozvánka je platná do: %{date}"
         signup:
           info: Pozvaný Greenlight uživatel se zaregistroval.
           admins_link: Navštivte stránku Organizace
@@ -390,7 +395,9 @@ cs:
       title: Vytvořit novou roli
     create_room:
       access_code: Přístupový kód
+      moderator_access_code: PIN moderátora
       access_code_placeholder: Vygenerovat volitelný přístupový kód
+      moderator_access_code_placeholder: Generuj pin moderátora.
       auto_join: Připojit mne automaticky do místnosti
       create: Vytvořit místnost
       free_delete: Tuto místnost můžete kdykoliv odstranit.
@@ -538,11 +545,13 @@ cs:
     banned: Zablokovaní
     deleted: Smazaní
     pending: Čekající
+    invited: Pozván
     user: Uživatel
   room:
     access_code_required: Prosím zadejte platný přístupový kód pro vstup do místnosti
     add_presentation: Přidat prezentaci
     copy_access: Zkopíruj přístupový kód
+    copy_moderator_access: Zkopíruj pin moderátora
     create_room: Vytvořit místnost
     create_room_error: Při vytváření místnosti nastala chyba
     create_room_success: Místnost byla úspěšně vytvořena
@@ -551,6 +560,8 @@ cs:
       success: Místnost byla smazána
       fail: "Nepodařilo se smazat místnost (%{error})"
     enter_the_access_code: Vložte přístupový kód do místnosti
+    enter_the_moderator_access_code: Vlož pin moderátora k místnosti!
+    optional_moderator_access_code: "Volitelný pin moderátora"
     invalid_provider: Vložili jste neplatné url. Prosím zkontrolujte url a zkuste to znovu.
     invitation_description: "Byl jste pozván na videokonferenci%{name} v BigBlueButton. K připojení do místnosti klikněte na odkaz výše a zadejte svoje jméno."
     invited: Byl jste pozván na konferenci v místnosti
