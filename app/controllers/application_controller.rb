@@ -186,6 +186,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :recording_consent_required?
 
+  # Indicates whether users are allowed to add moderator access codes to rooms
+  def moderator_code_allowed?
+    @settings.get_value("Room Configuration Moderator Access Codes") == "optional"
+  end
+  helper_method :moderator_code_allowed?
+
   # Returns a list of allowed file types
   def allowed_file_types
     Rails.configuration.allowed_file_types

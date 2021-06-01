@@ -58,16 +58,9 @@ module ApplicationHelper
   # Returns 'active' if the current page is the users home page (used to style header)
   def active_home
     home_actions = %w[show cant_create_rooms]
-    return "active" if params[:controller] == "admins" && params[:action] == "index" && current_user.has_role?(:super_admin)
-    return "active" if params[:controller] == "rooms" && home_actions.include?(params[:action])
+    return "active" if controller_name == "admins" && action_name == "index" && current_user.has_role?(:super_admin)
+    return "active" if controller_name == "rooms" && home_actions.include?(action_name)
     ""
-  end
-
-  # Returns the action method of the current page
-  def active_page
-    route = Rails.application.routes.recognize_path(request.env['PATH_INFO'])
-
-    route[:action]
   end
 
   def role_colour(role)
@@ -111,6 +104,7 @@ module ApplicationHelper
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = (url.scheme == "https")
     http.read_timeout = 10
+    http.open_timeout = 10
 
     http.start do |web|
       response = web.head(url.request_uri)

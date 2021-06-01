@@ -89,6 +89,14 @@ module AdminsHelper
     end
   end
 
+  def moderator_codes_string
+    if @settings.get_value("Moderator Access Codes") == "true"
+      I18n.t("administrator.site_settings.moderator_codes.enabled")
+    else
+      I18n.t("administrator.site_settings.moderator_codes.disabled")
+    end
+  end
+
   def log_level_string
     case Rails.logger.level
     when 0

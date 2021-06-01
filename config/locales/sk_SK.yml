@@ -20,7 +20,7 @@ sk_SK:
   activerecord:
     attributes:
       user:
-        accepted_terms: "Podmienky"
+        accepted_terms: "Podmienky používania"
         email: Email
         name: Meno
         password: Heslo
@@ -32,25 +32,25 @@ sk_SK:
   administrator:
     site_settings:
       authentication:
-        disabled: Nevyžadované
-        enabled: Nutné
-        info: Zmena nutnosti prihlásenia užívateľa pre vstup do miestnosti
+        disabled: Vypnuté
+        enabled: Zapnuté
+        info: Nutnosť prihlásenia užívateľa pre vstup do miestnosti
         title: Prihlasovanie do miestnosti
-        user-info: Musíte byť prihlásený užívateľ pre vstup do tejto miestnosti
+        user-info: Na vstup do miestnosti sa musíte prihlásiť.
       branding:
-        change: Zmena loga
-        info: "Zmena obrazového loga, ktoré sa zobrazuje v ľavom hornom rohu obrazovky"
-        placeholder: Odkaz na obrázok...
+        change: Zmeniť URL odkaz
+        info: "Zmeňte obrazové logo, ktoré sa zobrazuje v ľavom hornom rohu obrazovky"
+        placeholder: URL odkaz na obrázok...
         title: Obrázok loga
         invalid: Neplatný URL odkaz
       legal:
-        change: Zmeňte URL odkaz
-        info: "Zmeňte URL odkaz na registračné údaje firmy, ktoré sa zobrazujú na spodnom okraji stránky"
-        placeholder: URL odkaz na registračné údaje firmy
-        title: Registračné údaje firmy
+        change: Zmeniť URL odkaz
+        info: Zmeniť odkaz na Podmienky používania na spodnom okraji stránky
+        placeholder: URL na Podmienky používania
+        title: Podmienky používania
         invalid: Neplatný URL odkaz
       privpolicy:
-        change: Zmeňte URL odkaz
+        change: Zmeniť URL odkaz
         info: "Zmeňte URL odkaz na pravidlá pre ochranu osobných údajov, ktoré sa zobrazujú na spodnom okraji stránky"
         placeholder: URL odkaz na pravidlá pre ochranu osobných údajov
         title: Pravidlá pre ochranu osobných údajov
@@ -69,6 +69,10 @@ sk_SK:
         regular: Základná
         lighten: Svetlá
         darken: Tmavá
+      email_mapping:
+        info: "Spárujte používateľa s rolou pomocou emailu. Musí byť vo formáte email1=role1,email2=role2"
+        title: Párovanie rolí podľa Emailu
+        update:
       log_level:
         title: Úroveň logovania
         information: Zmeňte úroveň logovania pre celý systém
@@ -82,6 +86,18 @@ sk_SK:
         info: Zmena štandardnej viditeľnosti pre nové nahrávky
         title: Štandardná viditeľnosť nahrávok
         warning: "Toto nastavenie bude aplikované na miestnosti, v ktorých práve neprebieha konferencia"
+      require_consent:
+        info: "Toto nastavenie umožňuje vlastníkom miestnosti určiť, ktoré miestnosti sa môžu nahrávať. Používatelia pred prvým vstupom do nahrávanej miestnosti musia udeliť súhlas."
+        title: Vyžadovať od vlastníka a členov súhlas s nahrávaním
+      maintenance_banner:
+        info: Zobraziť oznam s informáciami o plánovanej údržbe
+        title: Oznam o údržbe
+        display: Nastaviť
+        clear: Vyčistiť
+        time: "Príklad: Dňa 13. decembra o 23:00 ET bude plánovaná aktualizácia. Používatelia môžu mať problémy s prihlásením."
+      preupload:
+        info: "Používatelia môžu dopredu načítať prezentáciu, ktorá sa bude používať ako predvolená prezentácia v určitej miestnosti"
+        title: Umožňuje používateľom dopredu načítat prezentácie
       registration:
         info: Zmena spôsobu registrácie na tomto servri
         title: Spôsob registrácie
@@ -93,9 +109,14 @@ sk_SK:
         info: Zmena celkového počtu miestností užívateľa (vrátane Domovskej). Toto nastavenie sa nevzťahuje na administrátorov.
         title: Počet miestností na užívateľa
       shared_access:
-        info: Nastavenie na "Zakázané" odstráni tlačítko z nastavení miestností a zabráni užívateľom zdieľanie miestností
+        info: Nastavenie na "Vypnuté" odstráni tlačítko z nastavení miestností a zabráni užívateľom zdieľanie miestností
         title: Povoliť užívateľom zdieľanie miestností
       subtitle: Nastavenia servra
+      tabs:
+        appearance: Vzhľad
+        administration: Administrácia
+        registration: Registrácia
+        settings: Nastavenie
       title: Nastavenia servra
     flash:
       approved: Užívateľ bol úspešne schválený.
@@ -106,7 +127,7 @@ sk_SK:
       demoted: Užívateľ bol úspešne degradovaný
       invite: "Pozvánka úspešne odoslaná na %{email}"
       invite_email_verification: Zasielanie emailov musí byť povolené pre použitie tejto metódy. Kontaktujte prosím Vášho systémového administrátora.
-      merge_fail: Pri pokuse o zlúčenie užívateľských účtov nastal problém. Skontrolujte prosím vybrané účty a skúste to znova 
+      merge_fail: Pri pokuse o zlúčenie užívateľských účtov nastal problém. Skontrolujte prosím vybrané účty a skúste to znova
       merge_success: Užívateľské účty boli úspešne zlúčené
       perm_deleted: Užívateľ bol permanentne zmazaný
       promoted: Užívateľ bol úspešne povýšený
@@ -117,8 +138,10 @@ sk_SK:
       settings: Nastavenia servra úspešne zmenené
       unauthorized: Nie ste autorizovaný na vykonávanie zmien na tomto užívateľovi
     recordings:
+      latest: Najnovšie záznamy
       title: Nahrávky servra
       no_recordings: Tento server nemá nahrávky.
+      search_info: Vložte email používateľa alebo uid miestnosti
     roles:
       appear_in_share_list: Užívateľov s touto rolou zaradiť do zoznamu pre zdieľanie miestností
       can_create_rooms: Môže vytvárať miestnosti
@@ -126,43 +149,49 @@ sk_SK:
       invalid_create: Nastal problém pri vytváraní novej role. Skontrolujte prosím vstupné údaje a skúste to znova
       invalid_order: Rola user musí mať najnižšiu prioritu a rola admin musí mať najvyššiu prioritu
       invalid_update: "Nemôžete prideliť roli vyššiu prioritu, ako je Vaša vlastná"
-      manage_rooms_recordings: Užívateľom s touto rolou povoliť prístup do manažmentu miestností a nahrávok
+      manage_rooms_recordings: Užívateľom s touto rolou povoliť prístup do správy miestností a nahrávok
       name: Názov role
       new_role: Vytvoriť novú rolu
       role_has_users: "Táto rola je pridelená k %{user_count} účtom. Prosím odstráňte z role všetky účty pred jej zmazaním."
-      title: Role
+      title: Správa rolí
       promote_email: "Odoslať email užívateľom, keď im je pridelená táto rola"
       demote_email: "Odoslať email užívateľom, keď im je odobratá táto rola"
       edit_site_settings: Povoliť užívateľom s touto rolou meniť nastavenia servra
       edit_roles: Povoliť užívateľom s touto rolou meniť iné role
-      manage_users: Povoliť užívateľom s touto rolou manažovať užívateľov
-      invalid_assignment: "Nemôžete užívateľom prideliť rolu s vyššiu prioritou, ako je Vaša vlastná" 
+      manage_users: Povoliť užívateľom s touto rolou prístup do správy užívateľov
+      invalid_assignment: "Nemôžete užívateľom prideliť rolu s vyššiu prioritou, ako je Vaša vlastná"
       colour:
         title: Farba role
         info: "Nastaviť farbu, ktorá bude pridelená roli"
     room_configuration:
       title: Nastavenia miestností
       mute:
-        info: "Automaticky stlmiť užívateľov, keď vstupujú do audio konferencie"
+        info: "Automaticky stlmiť užívateľov, keď vstupujú do audio konferencie."
       require_moderator:
-        info: "Žiadať moderátora konferencie o potvrdenie, keď sa užívateľ pokúša pripojiť. Ak bude prístup potvrdený, úžívateľ sa môže pripojiť ku konferencii."
+        info: "Žiadať moderátora konferencie o povolenie, keď sa užívateľ pokúša pripojiť. Ak bude prístup povolený, úžívateľ sa môže pripojiť ku konferencii."
       allow_any:
-        info: Povoliť každému užívateľovi začať konferenciu kedykoľvek. Obvykle môže začať konferenciu iba majiteľ miestnosti.
+        info: Povoliť každému užívateľovi začať kedykoľvek konferenciu. Obvykle môže začať konferenciu iba majiteľ miestnosti.
       all_moderator:
         info: "Prideliť práva moderátora každému užívateľovi, ktorý sa pripojí do konferencie."
+      recordings:
+        info: "Umožňuje vlastníkom miestnosti určiť, či chcú mať možnosť nahrávania miestnosti alebo nie. Ak je zapnuté, moderátor stále musí stlačiť tlačidlo \"Nahrávanie\", keď sa stretnutie začne."
+      moderator_codes:
+        info: "Dáva vlastníkom miestnosti možnosť vygenerovať pin pre moderátora, ktorý umožní iným používateľom pripojiť sa priamo ako moderátor."
+        title: Prístupový kód moderátora
       options:
-        disabled: Nevyžadované
-        enabled: Vždy Povolené
+        disabled: Vypnuté
+        enabled: Zapnuté (vždy)
         optional: Voliteľné
     rooms:
+      timeout: "Kvôli uplynutiu časového limitu požiadavky %{server}nemusia byť informácie o stave a účastníkoch presné."
       title: Miestnosti servra
       table:
-        ended: "Ukončených: %{session}"
+        ended: "Koniec: %{session}"
         id: ID
-        not_running: Neprebieha
+        not_running: Prázdna
         participants: Účastníkov
-        running: Prebieha
-        started: "Ukončených: %{session}"
+        running: Obsadená
+        started: "Začiatok: %{session}"
         status: Stav
         view: Prezrieť
     title: Nastavenia organizácie
@@ -183,14 +212,16 @@ sk_SK:
         undelete: Obnoviť
       table:
         authenticator: Overovaný cez
-        created: Vytvorený
+        created: Vytvorenie
+        time: Čas odoslania
         name: Celé meno
         not_found: Vášmu hľadaniu nevyhovujú žiadni užívatelia
         no_users: Užívatelia nenájdení
         role: Rola
         uid: ID Užívateľa
         username: Prihlasovacie meno
-      title: Manažment užívateľov
+        valid: Platné
+      title: Správa užívateľov
   add_to_google_calendar: "Pridaj do Google Kalendára"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: "Oops, pri štarte konferencie nastala chyba!"
@@ -212,7 +243,7 @@ sk_SK:
   errors:
     bigbluebutton:
       help: "Prosím ubezpečte sa, že ste postupovali podľa návodu. <a href=\"%{doc_link}\">Learn more</a>"
-      message: Neplatný BigBlueButton Endpoint a(lebo) Secret
+      message: Neplatný BigBlueButton Endpoint alebo Secret
       title: Chyba Servra
     internal:
       message: "Zdá sa, že nastala chyba na strane servra."
@@ -246,8 +277,8 @@ sk_SK:
         help: Prosím kontaktujte Vášho administrátora.
         message: "Prepáčte, tento užívateľ nie je registrovaný."
       user_missing:
-        help: Prosím skontrolujte odkaz a skúste to znova
-        message: Zadaný odkaz nie je platný.
+        help: Prosím skontrolujte URL odkaz a skúste to znova
+        message: Zadaný URL odkaz nie je platný.
     title: Chyby
     unauthorized:
       message: Nemáte prístup k tejto aplikácii
@@ -260,7 +291,7 @@ sk_SK:
     designs: Zákaznícky dizajn
     authentication: Overovanie užívateľov
   footer:
-    legal: Registračné údaje firmy
+    legal: Podmienky používania
     privpolicy: Zásady ochrany osobných údajov
     powered_by: "Powered by %{href}."
   forgot_password:
@@ -324,6 +355,7 @@ sk_SK:
         info: "Boli ste pozvaný do Vášho osobného priestoru užívateľom %{name}"
         signup_info: "Pre registráciu Vaším emailom, kliknite na tlačítko nižšie a postupujte podľa predpísaných krokov."
         signup_link: Registrácia
+        valid: "Pozvánka je platná do: %{date}"
         signup:
           info: Pozvaný Greenlight užívateľ sa zaregistroval.
           admins_link: Navštívte stránku Organizácia
@@ -351,8 +383,6 @@ sk_SK:
         verify_text: 'Pre overenie Vášho účtu len nasledujte tento odkaz: %{url}'
         verify_link: Overenie účtu
         thanks: "Ďakujeme, že ste sa k nám pridali a prajeme pekný deň!"
-  maintenance:
-    window_alert: "Údržba bola naplánovaná na %{date}"
   max_concurrent: Bol dosiahnutý maximálny povolený počet súčasne aktívnych pripojení!
   merged: Zlúčených
   modal:
@@ -364,7 +394,9 @@ sk_SK:
       title: Vytvoriť novú rolu
     create_room:
       access_code: Prístupový kód
+      moderator_access_code: Kód moderátora
       access_code_placeholder: Vygenerovať voliteľný prístupový kód
+      moderator_access_code_placeholder: Vygenerovať voliteľný kód pre moderátorov
       auto_join: Chcem sa automaticky pripájať do tejto miestnosti
       create: Vytvoriť miestnosť
       free_delete: Túto miestnosť môžete kedykoľvek zmazať.
@@ -377,6 +409,10 @@ sk_SK:
       keep: "Zmenil som názor, účet chcem zachovať."
       delete_warning: Týmto bude deaktivovaný užívateľov účet. Všetky deaktivované účty nájdete v záložke Zmazaní.
       warning: Toto rozhodnutie je konečné. Už <b>nebude</b> možné obnoviť žiadne súvisiace dáta.
+    delete_rec:
+      delete: "Áno, chcem zmazať túto nahrávku."
+      header: "Určite chcete zmazať túto nahrávku?"
+      warning: Túto nahrávku už<b>nebude možné</b> obnoviť
     delete_room:
       confirm: "Určite chcete zmazať miestnosť %{room}?"
       delete: "Som si istý, miestnosť chcem zmazať."
@@ -392,6 +428,14 @@ sk_SK:
       or: alebo
       with: "Prihlásenie cez %{provider}"
       forgot_password: "Zabudnuté heslo?"
+    preupload:
+      change: Vymeniť prezentáciu
+      choose: Zvoľte súbor...
+      current: "Aktuálna prezentácia:"
+      footer: V závislosti na veľkosti prezentácie môže byť pred začiatkom používania potrebný dlhší čas na načítanie.
+      invalid: Naplatná veľkosť/typ súboru. Prezrite si obmedzenia uvedené nižšie.
+      title: Pridať prezentáciu
+      use: Použiť prezentáciu
     rename_recording:
     remove_shared:
       title: "Určite chcete odstrániť túto miestnosť z vášho zoznamu miestností?"
@@ -403,13 +447,14 @@ sk_SK:
       client: Vyberte typ klienta
       join_moderator: Všetci užívatelia sa pripoja ako moderátor
       mute: Stlmiť zvuk užívateľov pri pripojení
-      require_approval: Požadovať povolenie moderátora pred pripojením
+      require_approval: Vyžadovať povolenie moderátora pred pripojením
       start: Povoliť každému užívateľovi začať konferenciu
-      footer_text: Nastavenia Vašej miestnosti môžete zmeniť kedykoľvek.
+      footer_text: Nastavenia miestnosti môžete zmeniť kedykoľvek.
+      recording: Umožniť nahrávanie miestnosti
     rename_room:
       name_placeholder: Zadajte nový názov miestnosti...
     share_access:
-      footer: Zdieľaním miestnosti s iným užívateľom mu povolíte začínať konferenie a sledovať nahrávky miestnosti.
+      footer: Zdieľaním miestnosti s iným užívateľom mu povolíte začínať konferencie a sledovať nahrávky miestnosti.
       list: "Zdieľaná s "
       title: Zdieľať prístup k miestnosti
       save: Uložiť zmeny
@@ -429,7 +474,7 @@ sk_SK:
   pagy:
     nav:
       prev: "&lsaquo; Predchádzajúci"
-      next: "Nasledovný &rsaquo;"
+      next: "Nasledujúci &rsaquo;"
       gap: "&hellip;"
   password: Heslo
   password_empty_notice: Heslo nemôže byť prázdne.
@@ -440,6 +485,7 @@ sk_SK:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: "Oops, nepodarilo sa nám overiť Vašu odpoveď na reCAPTCHA. Skúste to prosím znova."
@@ -473,7 +519,7 @@ sk_SK:
       fail: "Váš účet zatiaľ nebol overený. Ak od Vašej registrácie už ubehlo niekoľko dní, kontaktujte prosím Vášho administrátora."
       signup: Váš účet bol úspešne vytvorený. Bol odoslaný administrátorovi na overenie.
     banned:
-      fail: "Váš prístup k tejto aplikácii bol zakázaný. Ak si myslíte, že ide o omyl, kontaktujte prosím Vášho administrátora." 
+      fail: "Váš prístup k tejto aplikácii bol zakázaný. Ak si myslíte, že ide o omyl, kontaktujte prosím Vášho administrátora."
     deprecated:
       new_signin: Vyberte si nový spôsob prihlasovania pre Váš účet. Všetky miestnosti Vášho starého účtu budú presunuté do nového účtu
       twitter_signin: "Prihlasovanie cez Twitter bolo pozastavené a bude odstránené v ďalšej verzii. Kliknite <a href=\"%{link}\"> sem </a> pre presun Vášho účtu na nový spôsob prihlasovania"
@@ -485,6 +531,7 @@ sk_SK:
   remove: Odstrániť
   rename: Premenovať
   reset_password:
+    captcha: "Overenie reCAPTCHA zlyhalo, skúste to prosím znova."
     invalid_token: Značka pre reset hesla je neplatná. Prosím skúste resetnúť svoje heslo znova.
     subtitle: Reset hesla
     password: Nové heslo
@@ -500,6 +547,9 @@ sk_SK:
     user: Užívateľ
   room:
     access_code_required: Prosím zadajte platný prístupový kód pre vstup do miestnosti
+    add_presentation: Pridať prezentáciu
+    copy_access: Skopírovať prístupový kód
+    copy_moderator_access: Skopírovať kód moderátora
     create_room: Vytvoriť miestnosť
     create_room_error: Pri vytváraní miestnosti nastala chyba
     create_room_success: Miestnosť bola úspešne vytvorená
@@ -508,8 +558,12 @@ sk_SK:
       success: Miestnosť bola úspešne vymazaná
       fail: "Nastala chyba pri mazaní miestnosti (%{error})"
     enter_the_access_code: zadajte prístupový kód miestnoti
+    enter_the_moderator_access_code: Vložte moderátorský kód miestnosti!
+    optional_moderator_access_code: "Voliteľný kód moderátora:"
     invalid_provider: Zadali ste neplatný odkaz. Prosím skontrolujte odkaz a skúste to znova.
+    invitation_description: "Toto je pozvánka na pripojenie k %{name} pomocou BigBlueButton. Ak sa chcete pripojiť, kliknite na vyššie uvedený odkaz a napíšte vaše meno."
     invited: Boli ste pozvaný(á) na konferenciu v miestnosti
+    recording_present: "Beriem na vedomie, že táto relácia bude zaznamenaná. Môže to zahŕňať môj hlas a video, ak sú povolené."
     invite_participants: Pozvánka pre účastníkov
     join: Pripojiť sa
     last_session: "Posledná konferencia dňa %{session}"
@@ -526,18 +580,23 @@ sk_SK:
       recent_rooms: Vstúpiť do poslednej navštívenej miestosti
       title: Vstup do miestnosti
     no_sessions: Táto miestnosť nemá zatiaľ žiadne konferencie!
+    preupload_success: Prezentácia úspešne pridaná
+    preupload_error: Pri aktualizácii prezentácie v miestnosti nastala chyba
+    preupload_remove_success: Prezentácia bola úspešne odstránená
+    preupload_remove_error: Pri odstraňovaní prezentácie v miestnosti nastala chyba
     recordings: Nahrávky
     room_limit: Dosiahli ste maximálny povolený počet miestností
     room_limit_exceeded: "Prekročili ste maximálny povolený počet miestností. Prosím zmažte %{difference} miestnost(i) pre vstup do tejto miestnosti."
     sessions: Konferencie
     settings: Nastavenia miestnosti
-    share: Manažovať prístup
+    share: Spravovať prístup
     shared_by: "Zdieľaná s %{email}"
     remove_shared_access_success: Zdieľaná miestnosť bola úspešne odstránená z Vášho zoznamu miestností
     remove_shared_access_error: Nastala chyba pri pokuse o odstránenie zdieľanej miestnosti z Vášho zoznamu miestností
     shared_access_success: Miestnosť je úspešne zdieľaná
     shared_access_error: Nastala chyba pri pokuse o zdieľanie miestnosti
     start: Začať konferenciu
+    search: Hľadá sa miestnosť...
     unavailable: "Táto miestnosť je momentálne nedostupná, pretože majiteľov email nebol overený."
     update_settings_error: Pri aktualizácii nastavení miestnosti nastala chyba
     update_settings_success: Nastavenia miestnosti boli úspešne zmenené

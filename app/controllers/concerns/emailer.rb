@@ -70,16 +70,14 @@ module Emailer
   end
 
   # Sends inivitation to join
-  def send_invitation_email(name, email, token)
+  def send_invitation_email(name, email, invite)
     begin
       return unless Rails.configuration.enable_email_verification
 
-      UserMailer.invite_email(name, email, invitation_link(token), @settings).deliver_now
+      UserMailer.invite_email(name, email, invite.updated_at, invitation_link(invite.invite_token), @settings).deliver_now
     rescue => e
       logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
-    else
-      flash[:success] = I18n.t("administrator.flash.invite", email: email)
     end
   end
 

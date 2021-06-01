@@ -61,7 +61,7 @@ module Populator
     if user.present?
       # Find user and get his recordings
       rooms = User.find_by(email: user)&.rooms&.pluck(:bbb_id)
-      return all_recordings(rooms) if user.present?
+      return all_recordings(rooms) if user.present? && !rooms.nil?
 
       [] # return no recs if room not found
     elsif room.present?

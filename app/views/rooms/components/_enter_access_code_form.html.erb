@@ -13,16 +13,17 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-  <% if cookies && cookies['cookie_consented'] != 'true' %>
-    <div class="primary-lighten cookies-banner fixed-bottom text-center d-inline-block">
-      <div class="cookies-banner-content py-3">
-        <span class="cookies-warning-text pr-5">
-          <%= t("cookies.cookie_info") %>
-          <%= t("cookies.policy", privacy_link: privpolicy_url).html_safe if privpolicy_url.present? %>
-        </span>
-        <span class="cookies-warning-button d-inline-block">
-          <button id="cookies-agree-button" class="btn customBtn primary-regular"><%= t("cookies.cookie_button") %></button>
-        </span>
-      </div>
-    </div>
-  <% end %>
+<%= form_for :room, url: login_room_path(@room.uid) do |f| %>
+  <div class="input-group join-input">
+    <%= f.text_field :access_code,
+          required: true,
+          class: "form-control join-form",
+          placeholder: access_code_type == 'moderator' ? t("room.enter_the_moderator_access_code") : t("room.enter_the_access_code"),
+          value: "" ,
+          autofocus: true,
+          maxlength: 26 %>
+    <span class="input-group-append">
+      <%= f.button t("room.login"), type: :submit, class: "btn btn-primary btn-sm px-7 form-control join-form" %>
+    </span>
+  </div>
+<% end %>
