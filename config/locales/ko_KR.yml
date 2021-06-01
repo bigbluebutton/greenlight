@@ -69,6 +69,10 @@ ko_KR:
         regular: 정규색
         lighten: 밝게
         darken: 어둡게
+      email_mapping:
+        info: "이메일을 사용하여 사용자를 역할에 매핑합니다. email1 = role1, email2 = role2 형식이어야합니다."
+        title: 이메일로 역할 매핑
+        update:
       log_level:
         title: 로그 레벨
         information: 전체 배포 로그 수준 변경
@@ -90,7 +94,7 @@ ko_KR:
         title: 유지보수 배너
         display: Set
         clear: Clear
-        time: "예: 12월 13일 업데이트 예정 @ 23:00 ET. 사용자는 로그인하는 데 문제가 발생할 수 있다."        
+        time: "예: 12월 13일 업데이트 예정 @ 23:00 ET. 사용자는 로그인하는 데 문제가 발생할 수 있다."
       preupload:
         info: 사용자는 프리젠테이션을 해당 ROOM의 기본 프리젠테이션으로 사용할 수 있음
         title: 사용자가 프레젠테이션을 미리 업로드하도록 허용
@@ -111,6 +115,7 @@ ko_KR:
       tabs:
         appearance: 외관
         administration: 관리자
+        registration: 등록
         settings: 설정
       title: 사이트 설정
     flash:
@@ -133,8 +138,10 @@ ko_KR:
       settings: 사이트 설정이 변경되었습니다.
       unauthorized: 이 사용자에 대해 작업을 수행 할 권한이 없습니다.
     recordings:
+      latest: 최신 녹화
       title: 서버 레코딩
       no_recordings: 이 서버에는 레코딩이 없습니다.
+      search_info: 사용자의 전체 이메일 또는 room의 uid를 입력하십시오.
     roles:
       appear_in_share_list: 공유 ROOM의 드롭다운에 이 역할을 가진 사용자 포함
       can_create_rooms: ROOM을 생성
@@ -168,11 +175,15 @@ ko_KR:
         info: 미팅에 참여할 때 모든 사용자에게 BigBlueButton의 관리자 권한을 부여합니다.
       recordings:
         info: ROOM 소유자가 옵션에서 ROOM을 레코딩할지 여부를 지정할 수 있습니다. 활성화 된 경우에도 미팅 주관자는 회의 또는 강의가 시작된 후에 "녹화"버튼을 클릭해야합니다.
+      moderator_codes:
+        info: room 소유자가 선택적으로 다른 사용자가 중재자로 직접 참여할 수 있도록 중재자 pin을 생성 할 수 있습니다.
+        title: 중재자 액세스 코드
       options:
         disabled: 비활성
         enabled: 언제나 활성
         optional: 선택사항
     rooms:
+      timeout: "%{server} 서버 요청 시간 초과로 인해 상태 및 참가자에 대한 정보가 정확하지 않을 수 있습니다."
       title: 서버 ROOM들
       table:
         ended: "종료: %{session}"
@@ -202,12 +213,14 @@ ko_KR:
       table:
         authenticator: 인증자
         created: 생성
+        time: 보낸 시간
         name: 이름
         not_found: 검색과 일치하는 사용자가 없습니다.
         no_users: 사용자가 없습니다.
         role: Role
         uid: 사용자 ID
         username: 사용자명
+        valid: 유효한
       title: 사용자 관리
   add_to_google_calendar: "Google Calendar 추가"
   bigbluebutton: BigBlueButton
@@ -216,6 +229,7 @@ ko_KR:
   cookies:
     cookie_info: Cookies는 본서비스를 제공하는 데 도움이됩니다. 본서비스를 사용함으로써 귀하는 Cookies 사용에 동의하게됩니다.
     cookie_button: 동의함
+    policy: "자세한 내용은 <a href=\"%{privacy_link}\"><u> 개인 정보 보호 정책 </u></a>을 참조하십시오."
   copied: 복사됨
   copy: 복사
   date:
@@ -310,7 +324,7 @@ ko_KR:
     search:
       start: 검색 시작 ...
   landing:
-    about: "%{href}는 당신의 BigBlueButton 오픈 소스 웹 레퍼런스 서버를 위한 간단한 프론트엔드 입니다. 당신은 당신만의 Room을 만들어 세션을 주최하거나 짧고 편리한 링크를 사용하여 다른 사람과 함께 할 수 있다."
+    about: "%{href}는 BigBlueButton 오픈 소스 웹 레퍼런스 서버를 위한 간단한 프론트엔드 입니다. 자신만의 Room을 만들어 세션을 주최하거나 짧고 편리한 링크를 사용하여 다른 사람과 함께 할 수 있습니다."
     welcome: BigBlueButton에 오신 것을 환영합니다.
     video: Greenlight 사용에 대한 자습서보기
     upgrade: 2.0으로 업그레이드하는 방법을 보여주세요!
@@ -342,6 +356,7 @@ ko_KR:
         info: "%{name}가 사용자 자신의 개인 공간에 초대하였습니다."
         signup_info: 이메일을 사용하여 가입하려면 아래 버튼을 클릭하고 단계를 따르십시오.
         signup_link: 가입하기
+        valid: "초대는 %{date}까지 유효합니다."
         signup:
           info: 초대 된 사용자가 Greenlight를 사용하도록 등록했습니다.
           admins_link: 조직 페이지 방문
@@ -380,7 +395,9 @@ ko_KR:
       title: 새 Role 생성
     create_room:
       access_code: 액세스 코드
+      moderator_access_code: 중재자 코드
       access_code_placeholder: 선택적 room 액세스 코드 생성
+      moderator_access_code_placeholder: 중재자를위한 선택적 코드 생성
       auto_join: 자동으로 room에 참여
       create: Room 만들기
       free_delete: 이 room은 언제든지 삭제할 수 있습니다.
@@ -393,6 +410,10 @@ ko_KR:
       keep: 보관합니다.
       delete_warning: 사용자 계정이 비활성화됩니다. 비활성화 된 모든 사용자는 삭제 된 탭에서 찾을 수 있습니다.
       warning: 이 결정은 최종적입니다. <b>이 아니라 </b> 관련 데이터를 복구할 수 없습니다.
+    delete_rec:
+      delete: 이 녹음을 삭제하겠습니다.
+      header: "이 녹음을 삭제 하시겠습니까?"
+      warning: <b>이 기록을 복구 할 수 없습니다.
     delete_room:
       confirm: "%{room}을 삭제하시겠습니까?"
       delete: 이 room을 삭제하겠습니다.
@@ -427,8 +448,8 @@ ko_KR:
       client: 클라이언트 유형 선택
       join_moderator: 모든 사용자가 중재자로 참여합니다.
       mute: 사용자가 참여할 때 음소거
-      require_approval: 가입하기 전에 중재자 승인 필요
-      start: 모든 사용자가 이 미팅을 시작하도록 허용
+      require_approval: 참여하기 전에 중재자 승인 필요
+      start: 모든 사용자가 미팅을 시작할 수 있도록 허용
       footer_text: room 조정은 언제든지 가능합니다.
       recording: room에서 레코딩이 되도록 허가
     rename_room:
@@ -465,6 +486,7 @@ ko_KR:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID 연결
   recaptcha:
     errors:
       recaptcha_unreachable: reCAPTCHA에서 유효성을 확인하지 못했습니다. 다시 시도하십시오.
@@ -510,6 +532,7 @@ ko_KR:
   remove: 삭제
   rename: 이름 변경
   reset_password:
+    captcha: reCAPTCHA 확인 실패. 다시 시도하십시오.
     invalid_token: 암호 재설정 토큰이 잘못되었습니다. 암호를 다시 설정해 보십시오.
     subtitle: 암호 재설정
     password: 새로운 패스워드
@@ -522,10 +545,13 @@ ko_KR:
     banned: 금지
     deleted: 삭제
     pending: 보류
+    invited: 초대 됨
     user: 사용자
   room:
     access_code_required: room에 가입하려면 유효한 액세스 코드를 입력하십시오.
     add_presentation: 프레젠테이션 추가
+    copy_access: 액세스 코드 복사
+    copy_moderator_access: 중재자 코드 복사
     create_room: Room 생성
     create_room_error: room을 만드는 동안 오류가 발생함
     create_room_success: Room이 성공적으로 생성됨
@@ -534,8 +560,10 @@ ko_KR:
       success: Room이 성공적으로 삭제됨
       fail: "룸 삭제 실패(%{error})"
     enter_the_access_code: Room의 접근 코드 입력
+    enter_the_moderator_access_code: room의 운영자 코드를 입력하세요.
+    optional_moderator_access_code: "선택적 중재자 코드 :"
     invalid_provider: 잘못된 URL을 입력하셨습니다. URL을 확인한 후 다시 시도하십시오.
-    invitation_description: "BigBlueButton을 통하여 %{name}에 가입하도록 초대받으셨습니다. 가입하려면 위의 링크를 클릭하고 이름을 입력하십시오."  
+    invitation_description: "BigBlueButton을 통하여 %{name}에 가입하도록 초대받으셨습니다. 가입하려면 위의 링크를 클릭하고 이름을 입력하십시오."
     invited: 귀하는 초대를 받았습니다.
     recording_present: 나는 이 세션이 레코딩 될 것이라는 것을 인지하고 있습니다. 활성화할 경우 내 음성 및 비디오가 포함될 수 있습니다.
     invite_participants: 참가자 초대
@@ -570,6 +598,7 @@ ko_KR:
     shared_access_success: room 공유 성공
     shared_access_error: room을 공유하는 동안 오류가 발생함
     start: 시작
+    search: room 검색
     unavailable: 이 room은 현재 소유자의 이메일이 확인되지 않아 사용할 수 없습니다.
     update_settings_error: room 설정을 업데이트하는 동안 오류가 발생함
     update_settings_success: Room 설정이 성공적으로 업데이트 됨
@@ -578,7 +607,7 @@ ko_KR:
       auto: 미팅이 시작되면 자동으로 참여하십시오.
   settings:
     account:
-      fullname: 풀네임
+      fullname: 성명
       language: 언어
       provider: 제공자
       image: 이미지

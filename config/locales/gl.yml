@@ -229,6 +229,7 @@ gl:
   cookies:
     cookie_info: "As cookies axúdanos a prestar os nosos servizos. Ao usar os nosos servizos, acepta o noso uso de cookies."
     cookie_button: " Acepto"
+    policy: "Para obter máis información, consulte a nosa <a href=\"%{privacy_link}\"><u>directiva de privacidade</u></a>."
   copied: Copiado
   copy: Copiar
   date:
@@ -355,6 +356,7 @@ gl:
         info: "Foi convidado ao seu propio espazo persoal por %{name}"
         signup_info: "Para rexistrarse usando o seu correo-e, prema no seguinte botón e siga os pasos."
         signup_link: Rexistrarse
+        valid: "O convite é valido ata: %{date}"
         signup:
           info: Un usuario que foi convidado rexistrouse para usar Greenlight.
           admins_link: Visite a páxina da organización
@@ -543,6 +545,7 @@ gl:
     banned: Expulsado
     deleted: Eliminado
     pending: Pendente
+    invited: Convidado
     user: Usuario
   room:
     access_code_required: Introduza un código de acceso válido para unirse á sala
