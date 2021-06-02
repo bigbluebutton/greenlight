@@ -108,6 +108,16 @@ module BbbServer
     bbb_server.send_api_request("updateRecordings", meta)
   end
 
+  # Update a recording from a room
+  def publish_recording(record_id)
+    bbb_server.publish_recordings(record_id, true)
+  end
+
+  # Update a recording from a room
+  def unpublish_recording(record_id)
+    bbb_server.publish_recordings(record_id, false)
+  end
+
   # Deletes a recording from a room.
   def delete_recording(record_id)
     bbb_server.delete_recordings(record_id)

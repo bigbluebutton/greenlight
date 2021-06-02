@@ -510,6 +510,7 @@ en:
       visibility: Visibility
       formats: Formats
     visibility:
+      inaccessible: Inaccessible
       public: Public
       unlisted: Unlisted
     format:
