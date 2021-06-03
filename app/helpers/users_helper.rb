@@ -46,7 +46,7 @@ module UsersHelper
     locales = I18n.available_locales
     languages = [["<<<< #{t('language_default')} >>>>", "default"]]
     language_opts = []
-    
+
     locales.each do |locale|
       language_mapping = I18n::Language::Mapping.language_mapping_list[locale.to_s.gsub("_", "-")]
       language_opts.push([language_mapping["nativeName"], locale.to_s])
