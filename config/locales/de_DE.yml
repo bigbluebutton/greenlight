@@ -509,6 +509,7 @@ de_DE:
       visibility: Sichtbarkeit
       formats: Formate
     visibility:
+      inaccessible: Nicht verfügbar
       public: Öffentlich
       unlisted: Nicht gelistet
     format:
