@@ -268,6 +268,7 @@ gl:
       accepted: ten que ser aceptado
       confirmation: "%{attribute} non coincide"
       inclusion: non está incluído na lista
+      domain: "debe rematar con «%{email_domain}»"
     no_provider:
       message: O sitio ao que está tentando acceder non está activo
       help: Póñase en contacto co administrador do sistema para configurar Greenlight
@@ -312,6 +313,7 @@ gl:
   home_room: Sala principal
   info_update_success: Actualizouse correctamente a información
   invalid_credentials: O correo e o contrasinal que introduciu non coinciden cos nosos rexistros. Tenteo de novo ou prema en «Esquecín o contrasinal» para restabelecer o seu contrasinal.
+  invalid_credentials_external: O correo e o contrasinal que introduciu non coinciden cos nosos rexistros. Tenteo de novo.
   invalid_login_method: Produciuse un fallo no acceso por mor da non coincidencia da conta. Debe acceder con omniauth.
   invite_message: "Para convidar a alguén á xuntanza, envíelle esta ligazón:"
   javascript:
@@ -507,6 +509,7 @@ gl:
       visibility: Visibilidade
       formats: Formatos
     visibility:
+      inaccessible: Inaccesíbel
       public: Pública
       unlisted: Sen listar
     format:
