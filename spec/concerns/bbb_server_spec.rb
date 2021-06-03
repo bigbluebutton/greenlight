@@ -82,6 +82,24 @@ describe BbbServer do
   end
 
   context "#recordings" do
+    it "publishes a recording" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:publish_recordings).and_return(
+        returncode: true, published: true
+      )
+
+      expect(publish_recording(Faker::IDNumber.valid))
+        .to contain_exactly([:returncode, true], [:published, true])
+    end
+
+    it "unpublishes a recording" do
+      allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:publish_recordings).and_return(
+        returncode: true, published: false
+      )
+
+      expect(unpublish_recording(Faker::IDNumber.valid))
+        .to contain_exactly([:returncode, true], [:published, false])
+    end
+
     it "deletes the recording" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:delete_recordings).and_return(
         returncode: true, deleted: true
