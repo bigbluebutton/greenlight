@@ -645,6 +645,9 @@ en:
   test_install: >
     This deployment is using a pre-configured testing server, you should replace this with your own.
     For details, see the %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Update
   verify:
     accept: Verify
