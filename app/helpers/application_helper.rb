@@ -135,6 +135,6 @@ module ApplicationHelper
   # Returns a more friendly/readable date time object
   def view_date(date)
     return "" if date.nil? # Handle invalid dates
-    local_time(date, "%b %d, %Y %-I:%M%P")
+    local_time(date, :default)
   end
 end
