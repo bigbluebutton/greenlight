@@ -268,6 +268,7 @@ ar_IQ:
       accepted: يجب أن تكون مقبولة
       confirmation: "لا يتطابق مع %{attribute}"
       inclusion: غير مدرج في القائمة
+      domain: "يجب أن ينتهي بـ \"%{email_domain}\""
     no_provider:
       message: لم يتم تمكين الموقع الذي تحاول الوصول إليه
       help: الرجاء الاتصال بمسؤول النظام لإعداد Greenlight
@@ -312,6 +313,7 @@ ar_IQ:
   home_room: غرفة الإستقبال
   info_update_success: تحديث المعلومات بنجاح.
   invalid_credentials: لم تتطابق رسالة البريد الإلكتروني وكلمة المرور التي أدخلتها مع سجلاتنا. حاول مرة أخرى أو انقر فوق نسيت كلمة المرور لإعادة تعيين كلمة المرور الخاصة بك.
+  invalid_credentials_external: البريد الإلكتروني وكلمة المرور اللذان أدخلتهما لا يتطابقان مع سجلاتنا. حاول مرة اخرى.
   invalid_login_method: فشل تسجيل الدخول بسبب عدم تطابق الحساب. تحتاج إلى تسجيل الدخول مع omniauth.
   invite_message: "لدعوة شخص ما إلى الاجتماع ، أرسل لهم هذا الرابط:"
   javascript:
@@ -507,6 +509,7 @@ ar_IQ:
       visibility: الظهور
       formats: الصيغة
     visibility:
+      inaccessible: يتعذر الوصول إليها
       public: عامة
       unlisted: غير مدرج
     format:
@@ -640,6 +643,9 @@ ar_IQ:
     title: الشروط والأحكام
   test_install: >
     يستخدم هذا النشر خادم اختبار تمت تهيئته مسبقًا ، ويجب استبداله بخادمك الشخصي. لمزيد من التفاصيل ، اطلع على%{href} .
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: تحديث
   verify:
     accept: تحقق

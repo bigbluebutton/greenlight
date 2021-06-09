@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<tr class="room-block" data-path="<%= update_settings_path(room) %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>">
+<tr class="room-block" data-path="<%= update_settings_path(room) %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>" data-room-moderator-access-code="<%= room.moderator_access_code %>">
   <td>
     <div id="room-title" class="edit_hover_class">
       <% if room.id == room.owner.room_id %>
