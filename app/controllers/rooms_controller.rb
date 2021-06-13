@@ -46,7 +46,8 @@ class RoomsController < ApplicationController
     # Create room
     @room = Room.new(name: room_params[:name],
                      access_code: room_params[:access_code],
-                     moderator_access_code: room_params[:moderator_access_code])
+                     moderator_access_code: room_params[:moderator_access_code],
+                     voice_bridge: room_params[:voice_bridge])
     @room.owner = current_user
     @room.room_settings = create_room_settings_string(room_params)
 
@@ -211,6 +212,7 @@ class RoomsController < ApplicationController
         attributes[:room_settings] = room_settings_string
         attributes[:access_code] = options[:access_code]
         attributes[:moderator_access_code] = options[:moderator_access_code]
+        attributes[:voice_bridge] = options[:voice_bridge]
       end
 
       @room.update(attributes)
@@ -347,6 +349,8 @@ class RoomsController < ApplicationController
 
   # GET /generate/voicebridge
   def generate_voice_bridge
+    return redirect_to root_path unless current_user
+
     voice_bridge = Room.generate_voice_bridge()
     render plain: voice_bridge
   end
@@ -368,7 +372,7 @@ class RoomsController < ApplicationController
   def room_params
     params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
       :require_moderator_approval, :anyone_can_start, :all_join_moderator,
-      :recording, :presentation, :moderator_access_code)
+      :recording, :presentation, :moderator_access_code, :voice_bridge)
   end
 
   # Find the room from the uid.
