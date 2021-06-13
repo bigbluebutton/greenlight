@@ -215,6 +215,11 @@ function showCreateRoom(target) {
   $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default"))
   $("#room_recording").prop("checked", $("#room_recording").data("default"))
 
+  //if voice_bridge input exists, generate voice_bridge automatically
+  if ($("#create-room-voice-bridge").length != 0) {
+    generateVoiceBridge();
+  }
+
   //show all elements & their children with a create-only class
   $(".create-only").each(function() {
     $(this).show()
@@ -226,6 +231,8 @@ function showCreateRoom(target) {
     $(this).attr('style',"display:none !important")
     if($(this).children().length > 0) { $(this).children().attr('style',"display:none !important") }
   })
+
+
 }
 
 function showUpdateRoom(target) {
