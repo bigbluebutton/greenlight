@@ -250,6 +250,8 @@ function showUpdateRoom(target) {
   updateCurrentSettings(settings_path)
 
   var accessCode = modal.closest(".room-block").data("room-access-code")
+  var voiceBridge = modal.closest(".room-block").data("room-voice-bridge")
+
 
   if(accessCode){
     $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code") + ": " + accessCode)
@@ -257,6 +259,14 @@ function showUpdateRoom(target) {
   } else {
     $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
     $("#room_access_code").val(null)
+  }
+
+  if (voiceBridge) {
+    $("#create-room-voice-bridge").text(getLocalizedString("modal.create_room.voice_bridge") + ": " + voiceBridge)
+    $("#room_voice_bridge").val(voiceBridge);
+  } else {
+    $("#create-room-voice-bridge").text(getLocalizedString("modal.create_room.voice_bridge_placeholder"))
+    $("#room_voice_bridge").val(null)
   }
 
   var moderatorAccessCode = modal.closest(".room-block").data("room-moderator-access-code")
