@@ -25,7 +25,7 @@ class RoomsController < ApplicationController
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :validate_verified_email, except: [:show, :join],
                 unless: -> { !Rails.configuration.enable_email_verification }
-  before_action :find_room, except: [:create, :join_specific_room, :cant_create_rooms]
+  before_action :find_room, except: [:create, :join_specific_room, :cant_create_rooms, :generate_voice_bridge]
   before_action :verify_room_ownership_or_admin_or_shared, only: [:start, :shared_access]
   before_action :verify_room_ownership_or_admin, only: [:update_settings, :destroy, :preupload_presentation, :remove_presentation]
   before_action :verify_room_ownership_or_shared, only: [:remove_shared_access]
@@ -342,6 +342,13 @@ class RoomsController < ApplicationController
     end
 
     redirect_to room_path(@room.uid)
+  end
+
+
+  # GET /generate/voicebridge
+  def generate_voice_bridge
+    voice_bridge = Room.generate_voice_bridge()
+    render plain: voice_bridge
   end
 
   private

@@ -98,6 +98,18 @@ class Room < ApplicationRecord
     active_rooms + inactive_rooms
   end
 
+  def self.generate_voice_bridge()
+    ## random numbers from a lower limit, up to (but not including) the upper limit.
+    voice_bridge = rand(10000...100000)
+    
+    if Room.where(voice_bridge: voice_bridge).exists?
+      return self.generate_voice_bridge()
+    else 
+      return voice_bridge
+    end
+   
+  end
+
   private
 
   # Generates a uid for the room and BigBlueButton.
