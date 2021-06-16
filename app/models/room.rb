@@ -26,7 +26,7 @@ class Room < ApplicationRecord
   before_destroy :destroy_presentation
 
   validates :name, presence: true
-  validates :voice_bridge, presence: true, length: { is: 5 }, numericality: { only_integer: true }, uniqueness: true
+  validates :voice_bridge, presence: true, length: { is: 5 }, numericality: { only_integer: true }, uniqueness: true if Rails.configuration.room_features.include? "phone-call"
 
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
   has_many :shared_access
