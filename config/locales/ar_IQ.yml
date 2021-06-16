@@ -16,7 +16,7 @@
 
 # Locale.
 
-ar:
+ar_IQ:
   activerecord:
     attributes:
       user:
@@ -326,7 +326,7 @@ ar:
     search:
       start: بدء البحث...
   landing:
-    about: "%{href} هو واجهة أمامية بسيطة لخادم مؤتمرات الويب المفتوح المصدر BigBlueButton الخاص بك. يمكنك إنشاء غرف خاصة بك لاستضافة الجلسات، أو الانضمام إلى الآخرين باستخدام رابط قصير ومريح. "
+    about: "%{href} هو واجهة أمامية بسيطة لخادم مؤتمرات الويب المفتوح المصدر BigBlueButton الخاص بك. يمكنك إنشاء غرف خاصة بك لاستضافة الجلسات، أو الانضمام إلى الآخرين باستخدام رابط قصير ومريح. "
     welcome: مرحبًا بك في BigBlueButton
     video: شاهد برنامجنا التعليمي حول استخدام Greenlight
     upgrade: أرني كيفية الترقية إلى 2.0!
@@ -509,7 +509,7 @@ ar:
       visibility: الظهور
       formats: الصيغة
     visibility:
-      inaccessible: يتعذر الوصول إليه
+      inaccessible: يتعذر الوصول إليها
       public: عامة
       unlisted: غير مدرج
     format:
@@ -643,6 +643,9 @@ ar:
     title: الشروط والأحكام
   test_install: >
     يستخدم هذا النشر خادم اختبار تمت تهيئته مسبقًا ، ويجب استبداله بخادمك الشخصي. لمزيد من التفاصيل ، اطلع على%{href} .
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: تحديث
   verify:
     accept: تحقق

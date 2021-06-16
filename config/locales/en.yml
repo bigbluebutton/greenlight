@@ -269,6 +269,7 @@ en:
       accepted: must be accepted
       confirmation: doesn't match %{attribute}
       inclusion: is not included in the list
+      domain: must end with "%{email_domain}"
     no_provider:
       message: The site you are trying to access is not enabled
       help: Please contact your system administrator to setup Greenlight
@@ -313,6 +314,7 @@ en:
   home_room: Home Room
   info_update_success: Information successfully updated.
   invalid_credentials: The email and password you entered did not match our records. Try again or click Forgot Password to reset your password.
+  invalid_credentials_external: The email and password you entered did not match our records. Please try again.
   invalid_login_method: Login failed due to account mismatch. You need to log in with omniauth.
   invite_message: "To invite someone to the meeting, send them this link:"
   javascript:
@@ -508,6 +510,7 @@ en:
       visibility: Visibility
       formats: Formats
     visibility:
+      inaccessible: Inaccessible
       public: Public
       unlisted: Unlisted
     format:
@@ -642,6 +645,9 @@ en:
   test_install: >
     This deployment is using a pre-configured testing server, you should replace this with your own.
     For details, see the %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Update
   verify:
     accept: Verify

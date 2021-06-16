@@ -28,6 +28,12 @@ class RecordingsController < ApplicationController
       "meta_#{META_LISTED}" => (params[:state] == "public"),
     }
 
+    if params[:state] == "inaccessible"
+      unpublish_recording(params[:record_id])
+    else
+      publish_recording(params[:record_id])
+    end
+
     res = update_recording(params[:record_id], meta)
 
     # Redirects to the page that made the initial request

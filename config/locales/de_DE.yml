@@ -268,6 +268,7 @@ de_DE:
       accepted: muss akzeptiert werden
       confirmation: "passt nicht zu %{attribute}"
       inclusion: ist nicht Teil der Liste
+      domain: "muss mit \"%{email_domain}\" enden"
     no_provider:
       message: "Die Seite, auf die Sie zugreifen möchten, ist nicht aktiviert."
       help: "Bitte kontaktieren Sie Ihren Systemadministrator, damit er Greenlight einrichtet."
@@ -312,6 +313,7 @@ de_DE:
   home_room: Startraum
   info_update_success: Information erfolgreich aktualisiert.
   invalid_credentials: "Die eingegebene E-Mail und das Passwort sind nicht richtig. Bitte versuchen Sie es erneut oder wählen Sie die Option Ihr Passwort zurückzusetzen, falls Sie es vergessen haben."
+  invalid_credentials_external: Die eingegebene E-Mail und das Passwort sind nicht richtig. Bitte versuchen Sie es erneut.
   invalid_login_method: Die Anmeldung scheiterte aufgrund einer Unstimmigkeit mit dem Konto. Sie müssen sich mit Omniauth anmelden.
   invite_message: "Um jemanden zur Konferenz einzuladen, schicken Sie ihm diesen Link:"
   javascript:
@@ -507,6 +509,7 @@ de_DE:
       visibility: Sichtbarkeit
       formats: Formate
     visibility:
+      inaccessible: Nicht verfügbar
       public: Öffentlich
       unlisted: Nicht gelistet
     format:
@@ -565,7 +568,7 @@ de_DE:
     invalid_provider: "Sie haben eine ungültige URL eingegeben, bitte überprüfen Sie die URL und versuchen Sie es erneut."
     invitation_description: "Sie wurden zu %{name} über BigBlueButton zur Teilnahme eingeladen. Um beizutreten, klicken Sie auf den obigen Link und geben Sie Ihren Namen ein."
     invited: Sie wurden zur Teilnahme eingeladen
-    recording_present: "Ich bestätige, dass diese Sitzung aufgezeichnet wird. Dies kann meine Sprach- und Videoaufnahmen beinhalten, wenn diese geteilt werden."
+    recording_present: "Ich bin damit einverstanden, dass diese Sitzung aufgezeichnet wird. Die Aufzeichnung kann Sprach- und Videoaufnahmen von mir beinhalten. Bitte beachten Sie, dass die Aufnahme im Anschluss geteilt werden kann."
     invite_participants: Teilnehmer einladen
     join: Teilnehmen
     last_session: "Letzte Konferenz am %{session}"
@@ -640,6 +643,9 @@ de_DE:
     title: Allgemeine Nutzungsbedingungen
   test_install: >
     Diese Installation verwendet einen vorkonfigurierten Testserver. Sie sollten diesen durch Ihren eigenen Server ersetzen. Weitere Informationen dazu unter %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Aktualisieren
   verify:
     accept: Verifizieren
