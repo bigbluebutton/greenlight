@@ -447,3 +447,20 @@ function clearRoomSearch() {
   $('#room-search').val(''); 
   filterRooms()
 }
+
+
+function generateVoiceBridge() {
+  // Send ajax request for update
+  $.ajax({
+    url: "/b/generate/voicebridge",
+    type: "GET",
+    data: "",
+    success: function (data) {
+      $("#create-room-voice-bridge").text(getLocalizedString("modal.create_room.voice_bridge") + ": " + data)
+      $("#room_voice_bridge").val(data);
+    },
+    error: function (data) {
+      alert(getLocalizedString("errors.general.error"))
+    }
+  });
+}
