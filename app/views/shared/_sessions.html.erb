@@ -77,7 +77,7 @@
               <tbody id="recording-table">
                 <tr id="no_recordings_found" style="display: none;">
                   <td colspan="7" class="text-center h4 p-6 font-weight-normal" >
-                    <%= t("recording.no_matched_recordings", inject: only_public ? t("recording.visibility.public").downcase + " "  : "") %>
+                    <%= only_public ? t("recording.no_matched_pub_recordings") : t("recording.no_matched_recordings") %>
                   </td>
                 </tr>
                 <% if recordings.empty? %>
@@ -86,7 +86,7 @@
                       <% if user_recordings %>
                         <%= t("recording.no_user_recordings") %>
                       <% else %>
-                        <%= t("recording.no_recordings", inject: only_public ? t("recording.visibility.public").downcase + " "  : "") %>
+                        <%= only_public ? t("recording.no_public_recordings") : t("recording.no_recordings") %>
                       <% end %>
                     </td>
                   </tr>
