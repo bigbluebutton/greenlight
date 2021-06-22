@@ -497,9 +497,11 @@ ar:
     all_recordings: كافة التسجيلات
     email: " البريد الإلكتروني للتسجيل"
     error: "هناك خطأ في استرداد %{count} التسجيل (التسجيلات)"
-    no_recordings: "لا تحتوي هذه الغرفة على أي %{inject} تسجيلات.."
+    no_public_recordings: هذه الغرفة ليس لديها تسجيلات عامة.
+    no_recordings: هذه الغرفة ليس لديها تسجيلات.
     no_user_recordings: ليس لديك حاليًا أي تسجيلات.
-    no_matched_recordings: "لا يوجد تسجيلات %{inject} تطابق بحثك."
+    no_matched_pub_recordings: لا توجد تسجيلات عامة تطابق بحثك.
+    no_matched_recordings: لا تسجيلات تطابق بحثك.
     recorded_on: "تم التسجيل في %{date}"
     table:
       name: الاسم
@@ -643,6 +645,9 @@ ar:
     title: الشروط والأحكام
   test_install: >
     يستخدم هذا النشر خادم اختبار تمت تهيئته مسبقًا ، ويجب استبداله بخادمك الشخصي. لمزيد من التفاصيل ، اطلع على%{href} .
+  time:
+    formats:
+      default: "b %d, %Y %-I:%M%P%"
   update: تحديث
   verify:
     accept: تحقق
