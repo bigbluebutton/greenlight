@@ -20,8 +20,8 @@
         <div class="list-group list-group-transparent mb-0">
             <div id="rolesSelect" data-url="<%= admin_roles_order_path %>">
                 <% @roles.each do |role| %>
-                    <%= link_to admin_roles_path(selected_role: role.id), 
-                    class: "#{"sort-disabled" if role.name == "user" || role.name == "admin" || role.priority <= current_role.priority } dropdown-item list-group-item list-group-item-action #{"active" if @selected_role.id == role.id}", 
+                    <%= link_to admin_roles_path(selected_role: role.id),
+                    class: "#{"sort-disabled" if role.name == "user" || role.name == "admin" || role.priority <= current_role.priority } dropdown-item list-group-item list-group-item-action #{"active" if @selected_role.id == role.id}",
                     id: dom_id(role) do %>
                         <%= translated_role_name(role) %>
                     <% end %>
@@ -36,7 +36,7 @@
         <%= form_with model: @selected_role, url: admin_update_role_path(@selected_role.id), method: :post do |f| %>
             <%= f.label :name, t('administrator.roles.name'), class: "form-label" %>
             <%= f.text_field :name, class: 'form-control mb-3', value: translated_role_name(@selected_role), readonly: edit_disabled || @selected_role.name == "user" || @selected_role.name == "admin", required: true  %>
-            
+
             <%= f.hidden_field :colour, id: "role-colour", value: role_colour(@selected_role) %>
             <div class="form-group">
                 <label class="form-label"><%= t("administrator.roles.colour.title") %></label>
@@ -56,6 +56,11 @@
             <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_manage_users") %>">
                 <span class="ml-0 custom-switch-description"><%= t("administrator.roles.manage_users")%></span>
                     <%= f.check_box :can_manage_users, checked: @selected_role.get_permission("can_manage_users"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_manage_users") %>
+                <span class="custom-switch-indicator float-right"></span>
+            </label>
+            <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_launch_recording") %>">
+                <span class="ml-0 custom-switch-description"><%= t("administrator.roles.can_launch_recording")%></span>
+                    <%= f.check_box :can_launch_recording, checked: @selected_role.get_permission("can_launch_recording"), class: "custom-switch-input", disabled: edit_disabled || !current_role.get_permission("can_launch_recording") %>
                 <span class="custom-switch-indicator float-right"></span>
             </label>
             <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%="form-disable" if !current_role.get_permission("can_manage_rooms_recordings") %>">
