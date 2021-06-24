@@ -61,5 +61,9 @@ EXPOSE 80
 ARG version_code
 ENV VERSION_CODE=$version_code
 
+# Set executable permission to start file
+USER root
+RUN chmod +x bin/start
+
 # Start the application.
 CMD ["bin/start"]
