@@ -145,6 +145,7 @@ ja_JP:
     roles:
       appear_in_share_list: 会議室共有のドロップダウンに含める
       can_create_rooms: 会議室の作成権
+      can_launch_recording: 録画を開始の権限を与える
       delete: 役割の削除
       invalid_create: 新しい役割の作成中に問題が発生しました。 設定を確認して再度お試しください
       invalid_order: 役割の優先度を更新中に問題が発生しました。 設定を確認して再度お試しください
@@ -497,9 +498,11 @@ ja_JP:
     all_recordings: すべての録画
     email: 録画情報をメールする
     error: "%{count} 件の録画取得中にエラーが発生しました"
-    no_recordings: "この会議室には %{inject} 録画はありません。"
+    no_public_recordings: この会議室では録画の公開はありません。
+    no_recordings: この会議室では何も録画されていません。
     no_user_recordings: 現在、録画はありません。
-    no_matched_recordings: "検索に一致する %{inject} 録画はありません。"
+    no_matched_pub_recordings: 公開された録画には、検索条件に一致するものはありません。
+    no_matched_recordings: 検索条件に一致する録画はありません。
     recorded_on: "録画日は %{date} です"
     table:
       name: 名前
@@ -569,7 +572,7 @@ ja_JP:
     invitation_description: "BigBlueButtonを使用して%{name}に参加するよう招待されました。参加するためには下のリンクをクリックし、名前を入力してください。"
     invited: 招待されています
     recording_present: このセッションが録画されるかもしれないこと、その場合自分の声や動画が録画に含まれうることを承知しています。
-    invite_participants: 参加者を招待
+    invite_participants: 参加者を招待する
     join: 参加する
     last_session: "%{session} ：最後のセッション"
     login: 入力
@@ -645,7 +648,7 @@ ja_JP:
     この構成では、事前に構成されたテストサーバを使用しています。これを独自のものに置き換える必要があります。 詳細については %{href} をご覧ください。
   time:
     formats:
-      default: "%Y年%b%d %-I:%M%P"
+      default: "%Y年%b%d日 %-I:%M%P"
   update: 更新
   verify:
     accept: 確認
