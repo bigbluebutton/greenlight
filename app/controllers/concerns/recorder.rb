@@ -123,6 +123,15 @@ module Recorder
     end
   end
 
+  def perm_to_record_meeting
+    # define perm without init config of room setting
+    if recording_consent_required?
+      @settings.get_value("Room Configuration Recording") != "disabled" && current_user&.role&.get_permission("can_launch_recording")
+    else
+      current_user&.role&.get_permission("can_launch_recording")
+    end
+  end
+
   private
 
   # Gets the email of the room owner to which the recording belongs to

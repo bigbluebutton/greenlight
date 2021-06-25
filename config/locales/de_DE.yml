@@ -40,7 +40,7 @@ de_DE:
       branding:
         change: Bild ändern
         info: Das in der linken oberen Ecke dargestellte Logo ändern
-        placeholder: Bild URL...
+        placeholder: Bild-URL...
         title: Logo
         invalid: Ungültige URL
       legal:
@@ -145,6 +145,7 @@ de_DE:
     roles:
       appear_in_share_list: Nutzer mit dieser Rolle im Dropdown-Menü zum Teilen von Räumen einschließen
       can_create_rooms: Kann Räume erstellen
+      can_launch_recording: "Nutzern mit dieser Rolle erlauben, Aufzeichnungen zu starten"
       delete: Rolle löschen
       invalid_create: Es kam zu einem Problem beim Erzeugen einer neuen Rolle. Bitte prüfen Sie die Rollenwerte und versuchen Sie es erneut
       invalid_order: Es kam zu einem Problem beim Aktualisieren der Rollenpriorität. Bitte prüfen Sie die Werte und versuchen Sie es erneut
@@ -497,9 +498,11 @@ de_DE:
     all_recordings: Alle Aufzeichnungen
     email: Aufzeichnungslink per E-Mail
     error: "Beim Abruf von %{count} Aufzeichnung(en) ist ein Fehler aufgetreten."
-    no_recordings: "Dieser Raum hat keine %{inject} Aufzeichnungen."
+    no_public_recordings: Dieser Raum hat keine öffentlichen Aufzeichnungen.
+    no_recordings: Dieser Raum hat keine Aufzeichnungen.
     no_user_recordings: Momentan sind keine Aufzeichnungen verfügbar.
-    no_matched_recordings: "Keine %{inject} Aufzeichnungen passen zu Ihrer Suche."
+    no_matched_pub_recordings: Keine öffentlichen Aufzeichnungen passen zu Ihrer Suche.
+    no_matched_recordings: Keine Aufzeichnungen passen zu Ihrer Suche.
     recorded_on: "Aufgezeichnet am %{date}"
     table:
       name: Name

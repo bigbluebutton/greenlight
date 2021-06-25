@@ -63,6 +63,8 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = if ENV["AWS_ACCESS_KEY_ID"].present?
                                     :amazon
+                                  elsif ENV["S3_ACCESS_KEY_ID"].present?
+                                    :s3
                                   elsif ENV["GCS_PRIVATE_KEY_ID"].present?
                                     :google
                                   else
