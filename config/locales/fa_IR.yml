@@ -497,7 +497,7 @@ fa_IR:
     all_recordings: تمام جلسات ضبط شده
     email: ایمیل کردن ضبط
     error: "خطایی در هنگام بازیابی ضبط(های) %{count} رخ داده است"
-    no_recordings: "این اتاق هیچ ضبط%{inject} ندارد."
+    no_recordings: "این اتاق هیچ ضبط %{inject} ندارد."
     no_user_recordings: شما فعلا هیچ ضبطی ندارید.
     no_matched_recordings: "هیج %{inject} ضبطی مطابق با جستجوی شما یافت نشد."
     recorded_on: "ضبط شده در %{date}"
