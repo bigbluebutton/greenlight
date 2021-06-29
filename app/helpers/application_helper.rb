@@ -142,7 +142,7 @@ module ApplicationHelper
   def perm_to_record_meeting
     if recording_consent_required?
       @settings.get_value("Room Configuration Recording") != "disabled" &&
-       current_user&.role&.get_permission("can_launch_recording")
+        current_user&.role&.get_permission("can_launch_recording")
     else
       current_user&.role&.get_permission("can_launch_recording")
     end
