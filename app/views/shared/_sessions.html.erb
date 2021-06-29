@@ -86,7 +86,7 @@
                       <% if user_recordings %>
                         <%= t("recording.no_user_recordings") %>
                       <% else %>
-                        <%= only_public ? t("recording.no_public_recordings") : t("recording.no_recordings") %>
+                        <%= only_public ? t("recording.no_public_recordings") : t("recording.no_recordings", inject: "") %>
                       <% end %>
                     </td>
                   </tr>
