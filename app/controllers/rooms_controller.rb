@@ -35,8 +35,6 @@ class RoomsController < ApplicationController
   before_action :verify_user_not_admin, only: [:show]
   skip_before_action :verify_authenticity_token, only: [:join]
 
-  helper_method :perm_to_record_meeting
-
   # POST /
   def create
     # Return to root if user is not signed in
