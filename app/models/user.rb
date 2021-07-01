@@ -159,7 +159,7 @@ class User < ApplicationRecord
 
   def name_chunk
     charset = ("a".."z").to_a - %w(b i l o s) + ("2".."9").to_a - %w(5 8)
-    chunk = name.parameterize[0...3]
+    chunk = name.parameterize(separator: "")[0...3]
     if chunk.empty?
       chunk + (0...3).map { charset.to_a[rand(charset.size)] }.join
     elsif chunk.length == 1

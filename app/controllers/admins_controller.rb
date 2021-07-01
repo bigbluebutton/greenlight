@@ -31,8 +31,6 @@ class AdminsController < ApplicationController
   before_action :find_deleted_user, only: manage_deleted_users
   before_action :verify_admin_of_user, only: [manage_users, manage_deleted_users]
 
-  helper_method :perm_to_record_meeting
-
   # GET /admins
   def index
     # Initializa the data manipulation variables
