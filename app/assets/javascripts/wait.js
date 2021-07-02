@@ -41,8 +41,11 @@ $(document).on("turbolinks:load", function(){
 
       received: function(data){
         console.log(data);
-        if(data.action == "started"){
-          request_to_join_meeting();
+        if (data.action == "started") {
+          setTimeout(function() {
+            request_to_join_meeting();
+          }, 1000);
+          soundNotification($('#joinNotification').attr('src'));
         }
       }
     });
@@ -64,4 +67,24 @@ function startRefreshTimeout() {
   var url = new URL(window.location.href)
   url.searchParams.set("reload","true")
   window.location.href = url.href
+}
+
+function soundNotification(url) {
+  window.AudioContext = window.AudioContext || window.webkitAudioContext;
+  if (window.AudioContext) {
+    var context = new AudioContext(); //context
+    var source = context.createBufferSource(); //source node
+    source.connect(context.destination); //connect source to speakers so we can hear it
+    var request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.responseType = 'arraybuffer'; //the  response is an array of bits
+    request.onload = function() {
+      context.decodeAudioData(request.response, function(response) {
+        source.buffer = response;
+        source.start(0); //play audio immediately
+        source.loop = false;
+      }, function() { console.error('Failed to load sound notification.'); });
+    }
+    request.send();
+  }
 }
