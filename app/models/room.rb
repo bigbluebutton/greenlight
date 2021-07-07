@@ -77,7 +77,7 @@ class Room < ApplicationRecord
 
   # Determines the invite path for the room.
   def invite_path
-    "#{ENV['INVITE_PREFIX'] || ''}#{Rails.configuration.relative_url_root}/#{CGI.escape(uid)}"
+    "#{ENV['INVITE_PREFIX'] || ''}#{self.invite_path}"
   end
 
   # Notify waiting users that a meeting has started.

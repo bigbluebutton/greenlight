@@ -35,12 +35,12 @@
         <% unless exceeds_limit %>
           <label class="form-label"><%= t("room.invite_participants") %></label>
           <div class="row">
-            <div class="col-lg-6 col-md-12 mt-2">
+            <div class="col-lg-6 col-md-12 mt-2">.
               <div class="input-icon invite-link-input">
                 <span class="input-icon-addon">
                   <i class="fas fa-link"></i>
                 </span>
-                <input id="invite-url" type="text" class="form-control w-100" value="<%= request.base_url + @room.invite_path %>" readonly="">
+                <input id="invite-url" type="text" class="form-control w-100" value="<%= request.base_url + @room.prefixed_invite_path %>" readonly="">
               </div>
             </div>
             <div class="col-lg-6 pr-lg-7 col-md-12 pl-lg-0">
