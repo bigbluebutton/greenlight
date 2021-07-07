@@ -145,7 +145,7 @@ ja_JP:
     roles:
       appear_in_share_list: 会議室共有のドロップダウンに含める
       can_create_rooms: 会議室の作成権
-      can_launch_recording: 録画を開始の権限を与える
+      can_launch_recording: 会議を録画する権限
       delete: 役割の削除
       invalid_create: 新しい役割の作成中に問題が発生しました。 設定を確認して再度お試しください
       invalid_order: 役割の優先度を更新中に問題が発生しました。 設定を確認して再度お試しください
