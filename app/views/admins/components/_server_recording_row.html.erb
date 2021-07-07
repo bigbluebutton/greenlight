@@ -42,7 +42,7 @@
     <div class="dropdown">
       <% if recording[:metadata][:"gl-listed"] == "true" %>
         <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fas fa-globe px-2"></i> <%= t("recording.visibility.public") %></button>
-      <% elsif recording[:state] == "unpublished" %>
+      <% elsif !recording[:published] %>
         <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fas fa-lock px-2"></i> <%= t("recording.visibility.inaccessible") %></button>
       <% else %>
         <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fas fa-link px-2"></i> <%= t("recording.visibility.unlisted") %></button>
@@ -61,7 +61,7 @@
     </div>
   </td>
   <td>
-    <% unless recording[:state] == "unpublished" %>
+    <% if recording[:published] %>
       <% sorted_formats = recording[:playbacks].sort_by! { |p| p[:type] } %>
       <% sorted_formats.each do |p| %>
         <%= link_to t("recording.format.#{p[:type]}"), p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>

@@ -498,9 +498,11 @@ en:
     all_recordings: All Recordings
     email: Email Recording
     error: There was an error retrieving %{count} recording(s)
-    no_recordings: This room has no %{inject}recordings.
+    no_public_recordings: This room has no public recordings.
+    no_recordings: This room has no recordings.
     no_user_recordings: You currently have no recordings.
-    no_matched_recordings: No %{inject} recordings match your search.
+    no_matched_pub_recordings: No public recordings match your search.
+    no_matched_recordings: No recordings match your search.
     recorded_on: Recorded on %{date}
     table:
       name: Name
@@ -645,6 +647,9 @@ en:
   test_install: >
     This deployment is using a pre-configured testing server, you should replace this with your own.
     For details, see the %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Update
   verify:
     accept: Verify

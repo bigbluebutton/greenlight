@@ -497,9 +497,11 @@ de_DE:
     all_recordings: Alle Aufzeichnungen
     email: Aufzeichnungslink per E-Mail
     error: "Beim Abruf von %{count} Aufzeichnung(en) ist ein Fehler aufgetreten."
-    no_recordings: "Dieser Raum hat keine %{inject} Aufzeichnungen."
+    no_public_recordings: Dieser Raum hat keine öffentlichen Aufzeichnungen.
+    no_recordings: Dieser Raum hat keine Aufzeichnungen.
     no_user_recordings: Momentan sind keine Aufzeichnungen verfügbar.
-    no_matched_recordings: "Keine %{inject} Aufzeichnungen passen zu Ihrer Suche."
+    no_matched_pub_recordings: Keine öffentlichen Aufzeichnungen passen zu Ihrer Suche.
+    no_matched_recordings: Keine Aufzeichnungen passen zu Ihrer Suche.
     recorded_on: "Aufgezeichnet am %{date}"
     table:
       name: Name
@@ -509,6 +511,7 @@ de_DE:
       visibility: Sichtbarkeit
       formats: Formate
     visibility:
+      inaccessible: Nicht verfügbar
       public: Öffentlich
       unlisted: Nicht gelistet
     format:
@@ -642,6 +645,9 @@ de_DE:
     title: Allgemeine Nutzungsbedingungen
   test_install: >
     Diese Installation verwendet einen vorkonfigurierten Testserver. Sie sollten diesen durch Ihren eigenen Server ersetzen. Weitere Informationen dazu unter %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Aktualisieren
   verify:
     accept: Verifizieren

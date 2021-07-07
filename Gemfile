@@ -19,7 +19,7 @@ gem 'coveralls', '~> 0.8.23', require: false
 gem 'font-awesome-sass', '~> 5.9.0'
 gem 'google-cloud-storage', '~> 1.30.0'
 gem 'http_accept_language', '~> 2.1.1'
-gem 'i18n-language-mapping', '~> 0.1.1'
+gem 'i18n-language-mapping', '~> 0.1.3.1'
 gem 'jbuilder', '~> 2.11.2'
 gem 'jquery-rails', '~> 4.4.0'
 gem 'jquery-ui-rails', '~> 6.0.1'
