@@ -34,7 +34,7 @@ class Role < ApplicationRecord
 
   def self.create_default_roles(provider)
     Role.create(name: "user", provider: provider, priority: 1, colour: "#868e96")
-        .update_all_role_permissions(can_create_rooms: true)
+        .update_all_role_permissions(can_create_rooms: true, can_launch_recording: true)
     Role.create(name: "admin", provider: provider, priority: 0, colour: "#f1c40f")
         .update_all_role_permissions(can_create_rooms: true, send_promoted_email: true,
       send_demoted_email: true, can_edit_site_settings: true, can_manage_rooms_recordings: true,
