@@ -79,6 +79,7 @@ class UsersController < ApplicationController
 
   # GET /u/:user_uid/delete_account
   def delete_account
+    redirect_to signin_path unless current_user
   end
 
   # POST /u/:user_uid/edit

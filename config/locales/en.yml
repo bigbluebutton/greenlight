@@ -145,6 +145,7 @@ en:
     roles:
       appear_in_share_list: Include users with this role in the dropdown for sharing rooms
       can_create_rooms: Can create rooms
+      can_launch_recording: Allow users with this role to record their meetings
       delete: Delete the role
       invalid_create: There was a problem creating a new role. Please check the role values and try again
       invalid_order: There was a problem updating the priority of the role. Please check the values and try again
@@ -498,9 +499,11 @@ en:
     all_recordings: All Recordings
     email: Email Recording
     error: There was an error retrieving %{count} recording(s)
-    no_recordings: This room has no %{inject}recordings.
+    no_public_recordings: This room has no public recordings.
+    no_recordings: This room has no recordings.
     no_user_recordings: You currently have no recordings.
-    no_matched_recordings: No %{inject} recordings match your search.
+    no_matched_pub_recordings: No public recordings match your search.
+    no_matched_recordings: No recordings match your search.
     recorded_on: Recorded on %{date}
     table:
       name: Name

@@ -60,7 +60,7 @@
             <% if mute != "disabled" %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if mute == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.mute")%></span>
-                <%= f.check_box :mute_on_join, class: "custom-switch-input", data: { default: mute == "enabled" }, checked: false %>
+                <%= f.check_box :mute_on_join, class: "custom-switch-input", data: { default: mute == "enabled" }, checked: false, tabindex: mute == "enabled" ? "-1" : "" %>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
@@ -69,16 +69,16 @@
             <% if require_approval != "disabled" %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if require_approval == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.require_approval")%></span>
-                <%= f.check_box :require_moderator_approval, class: "custom-switch-input", data: { default: require_approval == "enabled" }, checked: false %>
+                <%= f.check_box :require_moderator_approval, class: "custom-switch-input", data: { default: require_approval == "enabled" }, checked: false, tabindex: require_approval == "enabled" ? "-1" : ""%>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
-            
+
             <% any_start = room_configuration("Room Configuration Allow Any Start") %>
             <% if any_start != "disabled" %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if any_start == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.start")%></span>
-                <%= f.check_box :anyone_can_start, class: "custom-switch-input", data: { default: any_start == "enabled" }, checked: false %>
+                <%= f.check_box :anyone_can_start, class: "custom-switch-input", data: { default: any_start == "enabled" }, checked: false, tabindex: any_start == "enabled" ? "-1" : "" %>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
@@ -86,15 +86,15 @@
             <% if moderator != "disabled" %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if moderator == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.join_moderator")%></span>
-                <%= f.check_box :all_join_moderator, class: "custom-switch-input", data: { default: moderator == "enabled" }, checked: false %>
+                <%= f.check_box :all_join_moderator, class: "custom-switch-input", data: { default: moderator == "enabled" }, checked: false, tabindex: moderator == "enabled" ? "-1" : "" %>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
             <% recording = room_configuration("Room Configuration Recording") %>
-            <% if recording_consent_required? && recording != "disabled" %>
+            <% if recording_consent_required? && recording != "disabled" && perm_to_record_meeting %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if recording == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.recording")%></span>
-                <%= f.check_box :recording, class: "not-running-only custom-switch-input", data: { default: recording == "enabled" }, checked: false %>
+                <%= f.check_box :recording, class: "not-running-only custom-switch-input", data: { default: recording == "enabled" }, checked: false, tabindex: recording == "enabled" ? "-1" : "" %>
                 <span class="custom-switch-indicator not-running-only float-right cursor-pointer"></span>
             </label>
             <% end %>

@@ -436,9 +436,9 @@ class RoomsController < ApplicationController
   def record_meeting
     # If the require consent setting is checked, then check the room setting, else, set to true
     if recording_consent_required?
-      room_setting_with_config("recording")
+      room_setting_with_config("recording") && current_user&.role&.get_permission("can_launch_recording")
     else
-      true
+      current_user&.role&.get_permission("can_launch_recording")
     end
   end
 
