@@ -145,12 +145,12 @@ ja_JP:
     roles:
       appear_in_share_list: 会議室共有のドロップダウンに含める
       can_create_rooms: 会議室の作成権
-      can_launch_recording: 録画を開始の権限を与える
+      can_launch_recording: 会議を録画する権限
       delete: 役割の削除
       invalid_create: 新しい役割の作成中に問題が発生しました。 設定を確認して再度お試しください
       invalid_order: 役割の優先度を更新中に問題が発生しました。 設定を確認して再度お試しください
       invalid_update: 役割の権限を更新中に問題が発生しました。 設定を確認して再度お試しください
-      manage_rooms_recordings: 会議室と録画の管理権
+      manage_rooms_recordings: 会議室と録画を管理する権限
       name: 役割の名前
       new_role: 新しい役割を作成する
       role_has_users: "この役割は %{user_count} アカウントに割り当てられています。 削除する前に、この役割からすべてのアカウントを削除してください。"
