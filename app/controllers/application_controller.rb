@@ -94,6 +94,12 @@ class ApplicationController < ActionController::Base
     render :migration_error, status: 500 unless ENV["DB_MIGRATE_FAILED"].blank?
   end
 
+  # Determines proper locale to be used by calling user_locale with params based on if room owner exists
+  def determine_locale(room)
+    room.nil? ? user_locale(nil) : user_locale(room.owner)
+  end
+  helper_method :determine_locale
+
   # Sets the appropriate locale.
   def user_locale(user = current_user)
     locale = if user && user.language != 'default'
