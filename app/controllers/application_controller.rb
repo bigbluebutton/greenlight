@@ -94,11 +94,18 @@ class ApplicationController < ActionController::Base
     render :migration_error, status: 500 unless ENV["DB_MIGRATE_FAILED"].blank?
   end
 
+  # Determines proper locale to be used by calling user_locale with params based on if room owner exists
+  def determine_locale(room)
+    room.nil? ? user_locale(nil) : user_locale(room.owner)
+  end
+  helper_method :determine_locale
+
   # Sets the appropriate locale.
   def user_locale(user = current_user)
     locale = if user && user.language != 'default'
       user.language
     else
+      puts "SDSSDS"
       Rails.configuration.default_locale.presence || http_accept_language.language_region_compatible_from(I18n.available_locales)
     end
 
@@ -110,6 +117,7 @@ class ApplicationController < ActionController::Base
       I18n.locale = "en"
     end
   end
+  helper_method :user_locale
 
   # Checks to make sure that the admin has changed his password from the default
   def check_admin_password
