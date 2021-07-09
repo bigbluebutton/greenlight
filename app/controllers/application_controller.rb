@@ -105,7 +105,6 @@ class ApplicationController < ActionController::Base
     locale = if user && user.language != 'default'
       user.language
     else
-      puts "SDSSDS"
       Rails.configuration.default_locale.presence || http_accept_language.language_region_compatible_from(I18n.available_locales)
     end
 
