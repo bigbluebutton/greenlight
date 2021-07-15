@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_15_120954) do
+ActiveRecord::Schema.define(version: 2021_07_01_034224) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -160,7 +160,6 @@ ActiveRecord::Schema.define(version: 2021_07_15_120954) do
     t.boolean "streaming", default: true
     t.boolean "twilio", default: true
     t.boolean "mp4", default: true
-    t.string "monitoring_url"
     t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["deleted"], name: "index_users_on_deleted"
     t.index ["email"], name: "index_users_on_email"

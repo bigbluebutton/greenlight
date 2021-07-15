@@ -32,18 +32,10 @@
           <%= f.email_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email"), readonly: readonly %>
         </div>
       </div>
-
-      <div class="col-sm-6 mb-4">
-        <%= f.label :monitoring_url, "Monitoring URL", class: "form-label" %>
-        <div class="input-icon">
-          <%= f.text_field :monitoring_url, class: "form-control #{form_is_invalid?(@user, :monitoring_url)}", placeholder: "https://example.com/monitoring", readonly: readonly %>
-        </div>
-      </div>
     </div>
-
-
     <% if current_user.role.get_permission("can_manage_users") %>
     <div class="user-setting-block">
+
     <div class="row">
       <div class="col-sm-6 mb-4">
           <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">

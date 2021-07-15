@@ -266,7 +266,7 @@ class UsersController < ApplicationController
   def user_params
  # added firstname and lastname 
  params.require(:user).permit(:name, :email, :firstname, :lastname, :image, :mobile, :password, :password_confirmation,
-      :new_password, :provider, :accepted_terms, :language, :streaming, :mp4, :twilio, :monitoring_url)
+      :new_password, :provider, :accepted_terms, :language, :streaming, :mp4, :twilio)
   end
 
   def send_registration_email
