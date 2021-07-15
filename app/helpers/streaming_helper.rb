@@ -1,0 +1,2 @@
+module StreamingHelper
+end

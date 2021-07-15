@@ -19,6 +19,10 @@
 Rails.application.routes.draw do
   get '/health_check', to: 'health_check#all'
 
+  get '/streaming', to: 'streaming#show'
+  post '/streaming', to: 'streaming#create'
+  get '/analytics', to: 'analytics#performance'
+
   # Error routes.
   match '/401', to: 'errors#unauthorized', via: :all, as: :unauthorized
   match '/404', to: 'errors#not_found', via: :all, as: :not_found

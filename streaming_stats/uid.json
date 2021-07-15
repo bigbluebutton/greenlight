@@ -1,0 +1,8 @@
+{
+    "pid" : 0,
+    "meeting_name": "room name",
+    "rtmp_url" : "rtmp_url",
+    "viewer_url" : "viewer_url",
+    "meeting_id" : "meetingID",
+    "running" : "running"
+  }

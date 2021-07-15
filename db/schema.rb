@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_11_141832) do
+ActiveRecord::Schema.define(version: 2021_07_01_034224) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -122,6 +122,16 @@ ActiveRecord::Schema.define(version: 2021_05_11_141832) do
     t.index ["user_id"], name: "index_shared_accesses_on_user_id"
   end
 
+  create_table "streamings", force: :cascade do |t|
+    t.string "url"
+    t.string "meeting_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "viewer_url"
+    t.string "streaming_key"
+    t.string "show_presentation"
+  end
+
   create_table "users", force: :cascade do |t|
     t.integer "room_id"
     t.string "provider"
@@ -147,6 +157,9 @@ ActiveRecord::Schema.define(version: 2021_05_11_141832) do
     t.string "mobile"
     t.string "firstname"
     t.string "lastname"
+    t.boolean "streaming", default: true
+    t.boolean "twilio", default: true
+    t.boolean "mp4", default: true
     t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["deleted"], name: "index_users_on_deleted"
     t.index ["email"], name: "index_users_on_email"

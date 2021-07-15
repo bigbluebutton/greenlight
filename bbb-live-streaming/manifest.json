@@ -1,0 +1,10 @@
+{
+  "name": "BBB-LIVE-STREAMING",
+  "version": "0.1.0",
+  "manifest_version": 2,
+  "permissions": [
+    "desktopCapture",
+    "<all_urls>",
+    "downloads"
+  ]
+}

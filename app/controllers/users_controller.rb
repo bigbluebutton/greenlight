@@ -48,11 +48,11 @@ class UsersController < ApplicationController
       #Greenlight Customization subscribe to sendy
     conn = Faraday.new('https://sendy.higheredlab.com')
     
-    conn.post('/subscribe',api_key:"cKoFCdddFM9YIdSdvzmH", name:@user.name, email:@user.email, FirstName:@user.firstname, LastName:@user.lastname,
-      list:"892T763OdMvL6nGW3bMJs7cKYA", "Content-Type" => "application/x-www-form-urlencoded")
+    conn.post('/subscribe',api_key:"#{Rails.configuration.sendy_api_key}", name:@user.name, email:@user.email, FirstName:@user.firstname, LastName:@user.lastname,
+      list:"#{Rails.configuration.sendy_list_1}", "Content-Type" => "application/x-www-form-urlencoded")
 
-    conn.post('/subscribe',api_key:"cKoFCdddFM9YIdSdvzmH", name:@user.name, email:@user.email, FirstName:@user.firstname, LastName:@user.lastname,
-      list:"cjYRUzEyfNFjFMmD6dKIbQ", "Content-Type" => "application/x-www-form-urlencoded")
+    conn.post('/subscribe',api_key:"#{Rails.configuration.sendy_api_key}", name:@user.name, email:@user.email, FirstName:@user.firstname, LastName:@user.lastname,
+      list:"#{Rails.configuration.sendy_list_2}", "Content-Type" => "application/x-www-form-urlencoded")
 
     logger.info "Support: POST name:#{@user.name} email:#{@user.email} successful for list 1"
     logger.info "Support: POST name:#{@user.name} email:#{@user.email} successful for list 2"
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
       :lastname => @user.lastname,
       :phone => @user.mobile
     }
-    url = "https://forms.hubspot.com/uploads/form/v2/8247873/ac75bcf8-58ce-40c2-a8ac-299093c8871a"
+    url = "https://forms.hubspot.com/uploads/form/v2/#{Rails.configuration.hub_spot_api}"
     response = Faraday.post(url) do |req|
       req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
       req.body = URI.encode_www_form(data)
@@ -266,7 +266,7 @@ class UsersController < ApplicationController
   def user_params
  # added firstname and lastname 
  params.require(:user).permit(:name, :email, :firstname, :lastname, :image, :mobile, :password, :password_confirmation,
-      :new_password, :provider, :accepted_terms, :language)
+      :new_password, :provider, :accepted_terms, :language, :streaming, :mp4, :twilio)
   end
 
   def send_registration_email

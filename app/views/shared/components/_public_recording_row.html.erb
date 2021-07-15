@@ -55,11 +55,28 @@
     </div>
   </td>
   <td>
+  <% if public_mp4_recording(recording[:meetingID])%>
+    <% sorted_formats = recording[:playbacks].sort_by! {|p| p[:type]} %>
+    <% p = recording[:playbacks].find do |p| p.key?(:length) end %>
+    <% sorted_formats.each do |p| %>
+      <% next if hidden_format_public.include?(p[:type].downcase)%>
+      <% mp4_url = Rails.configuration.mp4_url + URI.parse(p[:url]).path.split("/").pop + ".mp4" %>
+      <%= link_to "MP4 Recording", mp4_url, class: "btn btn-sm btn-primary", target: "_blank" %>
+      <%if transcript_file_name(URI.parse(p[:url]).path.split("/").pop)%>
+      <%= link_to "Transcript", transcript_file_name(URI.parse(p[:url]).path.split("/").pop), class: "btn btn-sm btn-primary", target: "_blank" %>
+    <% end %>
+    <% end %>
+
+<% else %>
     <% sorted_formats = recording[:playbacks].sort_by! {|p| p[:type]} %>
     <% p = recording[:playbacks].find do |p| p.key?(:length) end %>
     <% sorted_formats.each do |p| %>
       <% next if hidden_format_public.include?(p[:type].downcase)%>
       <%= link_to t("recording.format.#{p[:type]}"), p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
+      <%if transcript_file_name(URI.parse(p[:url]).path.split("/").pop)%>
+      <%= link_to "Transcript", transcript_file_name(URI.parse(p[:url]).path.split("/").pop), class: "btn btn-sm btn-primary", target: "_blank" %>
+    <% end %>
+    <% end %>
     <% end %>
   </td>
 </tr>

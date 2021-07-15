@@ -56,6 +56,14 @@ module BbbServer
     join_opts[:join_via_html5] = true
     join_opts[:createTime] = room.last_session.to_datetime.strftime("%Q")
 
+    # handle the application parameter
+    application_parameters = JSON.parse(Rails.configuration.application_parameters)
+    if application_parameters.length > 0
+      application_parameters.each do |param|
+        join_opts.store("#{param[0]}", param[1])
+      end
+    end
+
     bbb_server.join_meeting_url(room.bbb_id, name, password, join_opts)
   end
 
@@ -72,6 +80,29 @@ module BbbServer
       "meta_bbb-origin": "Greenlight",
       "meta_bbb-origin-server-name": options[:host]
     }
+
+    # Twilio integration
+    begin
+      if Rails.configuration.twilio_number && current_user.twilio?
+        welcome = 'Welcome to the %%CONFNAME%% <br><br>To join this meeting by phone, dial:<br>  <a href="tel:' + Rails.configuration.twilio_number +  '">' + Rails.configuration.twilio_number + '</a> <br>Then enter %%CONFNUM%% as the conference PIN number.'
+        create_options.store("welcome", welcome)
+        create_options.store("dialNumber", Rails.configuration.twilio_number)
+      end
+     
+    # 500  error handling when users are tying to join via invite url
+    rescue => e
+      welcome = 'Welcome to the %%CONFNAME%% <br><br>To join this meeting by phone, dial:<br>  <a href="tel:' + Rails.configuration.twilio_number +  '">' + Rails.configuration.twilio_number + '</a> <br>Then enter %%CONFNUM%% as the conference PIN number.'
+      create_options.store("welcome", welcome)
+      create_options.store("dialNumber", Rails.configuration.twilio_number)
+    end
+
+    # handle the application parameter
+    application_parameters = JSON.parse(Rails.configuration.application_parameters)
+    if application_parameters.length > 0
+      application_parameters.each do |param|
+        create_options.store("#{param[0]}", param[1])
+      end
+    end
 
     create_options[:muteOnStart] = options[:mute_on_start] if options[:mute_on_start]
     create_options[:guestPolicy] = "ASK_MODERATOR" if options[:require_moderator_approval]

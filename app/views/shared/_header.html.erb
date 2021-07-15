@@ -38,6 +38,20 @@
               <i class="fas fa-video pr-1"></i><span class="d-none d-sm-inline-block"><%= t("header.all_recordings") %></span>
             <% end %>
           <% end %>
+          
+          <% if current_user.role.get_permission("can_manage_users") || current_user.role.name == "super_admin" %>
+          <a href="/analytics" class="px-3 mx-1 mt-1 header-nav">
+          <i class="fas fa-chart-bar"></i>
+          <span class="d-none d-sm-inline-block">Analytics</span>
+          </a>
+          <%end%>
+          
+          <% if current_user.streaming?%>
+          <a href="/streaming" class="px-3 mx-1 mt-1 header-nav">
+          <i class="fas fa-bullhorn"></i>
+          <span class="d-none d-sm-inline-block">Streaming</span>
+          </a>
+          <%end%>
 
           <div class="dropdown">
             <a href="#" class="nav-link pr-0" data-toggle="dropdown">
@@ -52,6 +66,7 @@
               </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end">
+
               <%= link_to edit_user_path(current_user), class: "dropdown-item"  do %>
                 <i class="dropdown-icon fas fa-id-card mr-3"></i><%= t("header.dropdown.settings") %>
               <% end %>

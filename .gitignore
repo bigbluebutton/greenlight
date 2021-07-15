@@ -35,6 +35,10 @@ env
 
 # Ignore yarn configs
 /node_modules
+/bbb-live-streaming/node_modules
+/bbb-live-streaming/test.sh
+/bbb-live-streaming/test.js
+/bbb-live-streaming/Dockerfile
 
 # IDEs
 .idea
@@ -46,3 +50,4 @@ config/terms.md
 coverage*
 
 /atom-sftp-sync.json
+/.history

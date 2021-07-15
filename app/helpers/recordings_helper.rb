@@ -41,6 +41,26 @@ module RecordingsHelper
   def recording_thumbnails?
     Rails.configuration.recording_thumbnails
   end
+  
+  # return valid vtt filename for the given record id
+  def transcript_file_name(record_id)
+    url = "https://#{URI.parse(Rails.configuration.bigbluebutton_endpoint).host}/presentation/#{record_id}/captions.json"
+    begin
+      locale = JSON.parse(open(url).read)[0]["locale"]
+      return "https://#{URI.parse(Rails.configuration.bigbluebutton_endpoint).host}/presentation/#{record_id}/caption_#{locale}.vtt"
+    rescue => exception
+      return false
+    end
+  end
+
+  # check whether to show mp4 recording for public recordings
+  def public_mp4_recording(bbb_id)
+    begin
+      User.find_by(id:  Room.find_by(bbb_id: bbb_id).user_id).mp4?
+    rescue => exception
+      return true
+    end
+  end
 
   private
 

@@ -185,5 +185,30 @@ module Greenlight
     config.logo_url = ENV['LOGO_URL']
     #Default logout url
     config.signout_redirect_url = ENV['SIGNOUT_REDIRECT_URL'] || 'root_path'
+
+        # application parameter
+    config.application_parameters = ENV['APPLICATION_PARAMETERS'].present? ? ENV['APPLICATION_PARAMETERS'] : '[]'
+
+    # streaming parameter
+    config.hide_chat = ENV['HIDE_CHAT'] || "true"
+    config.hide_user_list = ENV['HIDE_USER_LIST'] || "true"
+
+    # mp4 url
+    config.mp4_url = ENV['MP4_URL'].present? ? ENV['MP4_URL'] : false
+    if config.mp4_url 
+      config.mp4_url = "https://" +  config.mp4_url unless config.mp4_url.start_with?("https://")
+      config.mp4_url += "/" unless config.mp4_url.end_with?("/")
+    end
+    
+    # Twilio
+    config.twilio_number = ENV['TWILIO_NUMBER'].present? ? ENV['TWILIO_NUMBER'] : false
+
+    # sendy
+    config.sendy_api_key=ENV['SENDY_API_KEY']
+    config.sendy_list_1=ENV['SENDY_LIST_1']
+    config.sendy_list_1=ENV['SENDY_LIST_2']
+
+    # HubSpot
+    config.hub_spot_api = ENV['HUBSPOT_API']
   end
 end

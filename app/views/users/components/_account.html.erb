@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<% readonly = !(current_user&.has_role?(:admin)) %>
+<% readonly = !can_edit_user?(@user, current_user) %>
 
 <%= form_for @user, url: update_user_path, method: :post do |f|  %>
   <%= hidden_field_tag :setting, "account" %>
@@ -33,10 +33,60 @@
         </div>
       </div>
     </div>
+    <% if current_user.role.get_permission("can_manage_users") %>
+    <div class="user-setting-block">
+
+    <div class="row">
+      <div class="col-sm-6 mb-4">
+          <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+          <span class="ml-0 custom-switch-description" style="font-weight: 550; color:#555">Enable Live Streaming</span>
+          <%= f.check_box :streaming, checked: @user.streaming, class: "custom-switch-input"%>
+          <span class="custom-switch-indicator float-right"></span>
+          </label>
+      </div>
+      <div class="col-sm-6 mb-4">
+          <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+          <span class="ml-0 custom-switch-description" style="font-weight: 550;color:#555">Enable MP4 Recording</span>
+          <%= f.check_box :mp4, checked: @user.mp4, class: "custom-switch-input"%>
+          <span class="custom-switch-indicator float-right"></span>
+          </label>
+      </div>
+    </div>  
+    <div class="row">
+          <div class="col-sm-6 mb-4">
+          <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+          <span class="ml-0 custom-switch-description" style="font-weight: 550; color:#555">Enable Twilio</span>
+          <%= f.check_box :twilio, checked: @user.twilio, class: "custom-switch-input"%>
+          <span class="custom-switch-indicator float-right"></span>
+          </label>
+      </div>
+      </div>
+    </div>
     
-    <%= f.label :provider, t("settings.account.provider"), class: "form-label" %>
-    <%= f.text_field :provider, class: "form-control", readonly: "" %>
-    <br>
+    <% end %>
+
+    <div class="row">
+      <div class="col-sm-6 mb-4">
+        <%= f.label :provider, t("settings.account.provider"), class: "form-label" %>
+        <%= f.text_field :provider, class: "form-control", readonly: "" %>
+      </div>
+      <div class="col-sm-6 mb-4">
+        <%= f.label :roles, t("settings.account.roles"), class: "form-label" %>
+          <% if current_user.role.get_permission("can_manage_users") %>
+            <select id="role-dropdown" class="selectpicker show-tick" >
+              <% role_options.each do |role| %>
+                <option value="<%=role.id%>"><%= translated_role_name(role) %></option>
+              <% end %>
+            </select>
+
+            <%= f.hidden_field :role_id, id: "user_role_id", value: @user.role.id %>
+          <% else %>
+            <span style="<%= "background-color: #{role_colour(@user.role)};border-color: #{role_colour(@user.role)};" %>" class="tag custom-role-tag">
+              <%= translated_role_name(@user.role) %>
+            </span>
+        <% end %>
+      </div>
+    </div>
     <%= f.label :language, t("settings.account.language"), class: "form-label" %>
     <select id="language-dropdown" class="selectpicker show-tick w-50">
       <% language_options.each do |lang| %>
@@ -44,22 +94,6 @@
       <% end %>
     </select>
     <%= f.hidden_field :language, id: "user_language", value: @user.language %>
-
-
-    <%= f.label :roles, t("settings.account.roles"), class: "form-label mt-5" %>
-    <% if current_user.role.get_permission("can_manage_users") %>
-      <select id="role-dropdown" class="selectpicker show-tick" >
-        <% role_options.each do |role| %>
-          <option value="<%=role.id%>"><%= translated_role_name(role) %></option>
-        <% end %>
-      </select>
-
-      <%= f.hidden_field :role_id, id: "user_role_id", value: @user.role.id %>
-    <% else %>
-      <span style="<%= "background-color: #{role_colour(@user.role)};border-color: #{role_colour(@user.role)};" %>" class="tag custom-role-tag">
-        <%= translated_role_name(@user.role) %>
-      </span>
-    <% end %>
 
     <%= f.label :image, t("settings.account.image"), class: "form-label mt-5" %>
     <div class="row">
@@ -74,6 +108,7 @@
         <%= f.text_field :image, class: "form-control #{form_is_invalid?(@user, :image)}", placeholder: t("settings.account.image_url") %>
       </div>
     </div>
+
   </div>
   <div class="card-footer">
     <%= f.submit t("update"), class: "btn btn-primary float-right ml-4" %>
