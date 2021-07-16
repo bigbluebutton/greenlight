@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   get '/streaming', to: 'streaming#show'
   post '/streaming', to: 'streaming#create'
-  get '/analytics', to: 'analytics#performance'
+  get '/monitoring', to: 'monitoring#performance'
 
   # Error routes.
   match '/401', to: 'errors#unauthorized', via: :all, as: :unauthorized

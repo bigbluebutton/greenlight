@@ -40,9 +40,9 @@
           <% end %>
           
           <% if current_user.role.get_permission("can_manage_users") || current_user.role.name == "super_admin" %>
-          <a href="/analytics" class="px-3 mx-1 mt-1 header-nav">
+          <a href="/monitoring" class="px-3 mx-1 mt-1 header-nav">
           <i class="fas fa-chart-bar"></i>
-          <span class="d-none d-sm-inline-block">Analytics</span>
+          <span class="d-none d-sm-inline-block">Monitoring</span>
           </a>
           <%end%>
           
