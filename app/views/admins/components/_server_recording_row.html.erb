@@ -59,7 +59,7 @@
     <% if recording[:published] && recording_owner_have_mp4(recording[:meetingID])%>
       <% sorted_formats = recording[:playbacks].sort_by! { |p| p[:type] } %>
       <% sorted_formats.each do |p| %>  
-         <% mp4_url = Rails.configuration.mp4_url + URI.parse(p[:url]).path.split("/").pop + ".mp4" %>
+         <% mp4_url = Rails.configuration.mp4_url + URI.parse(p[:url].strip).path.split("/").pop + ".mp4" %>
         <%= link_to "MP4 Recording", mp4_url, class: "btn btn-sm btn-primary", target: "_blank" %>
         <%if transcript_file_name(URI.parse(p[:url].strip).path.split("/").pop)%>
       <%= link_to "Transcript", transcript_file_name(URI.parse(p[:url].strip).path.split("/").pop), class: "btn btn-sm btn-primary", target: "_blank" %>
