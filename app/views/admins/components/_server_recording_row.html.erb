@@ -61,8 +61,8 @@
       <% sorted_formats.each do |p| %>  
          <% mp4_url = Rails.configuration.mp4_url + URI.parse(p[:url]).path.split("/").pop + ".mp4" %>
         <%= link_to "MP4 Recording", mp4_url, class: "btn btn-sm btn-primary", target: "_blank" %>
-        <%if transcript_file_name(URI.parse(p[:url]).path.split("/").pop)%>
-      <%= link_to "Transcript", transcript_file_name(URI.parse(p[:url]).path.split("/").pop), class: "btn btn-sm btn-primary", target: "_blank" %>
+        <%if transcript_file_name(URI.parse(p[:url].strip).path.split("/").pop)%>
+      <%= link_to "Transcript", transcript_file_name(URI.parse(p[:url].strip).path.split("/").pop), class: "btn btn-sm btn-primary", target: "_blank" %>
     <% end %>
         <% end %>
     <% end %>
@@ -70,8 +70,8 @@
     <% sorted_formats = recording[:playbacks].sort_by! { |p| p[:type] } %>
       <% sorted_formats.each do |p| %>  
       <%= link_to t("recording.format.#{p[:type]}"), p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
-      <%if transcript_file_name(URI.parse(p[:url]).path.split("/").pop)%>
-      <%= link_to "Transcript", transcript_file_name(URI.parse(p[:url]).path.split("/").pop), class: "btn btn-sm btn-primary", target: "_blank" %>
+      <%if transcript_file_name(URI.parse(p[:url].strip).path.split("/").pop)%>
+      <%= link_to "Transcript", transcript_file_name(URI.parse(p[:url].strip).path.split("/").pop), class: "btn btn-sm btn-primary", target: "_blank" %>
     <% end %>
     <% end %>
     <% end %>
@@ -84,7 +84,7 @@
       <div class="dropdown-menu dropdown-menu-right">
         <% recording_links = "" %>
         <% if recording_owner_have_mp4(recording[:meetingID])%>
-        <% p = recording[:playbacks].each do |p| recording_links.concat((Rails.configuration.mp4_url + URI.parse(p[:url]).path.split("/").pop + ".mp4") + "\n\n") if (p.key?(:length))  end %>
+        <% p = recording[:playbacks].each do |p| recording_links.concat((Rails.configuration.mp4_url + URI.parse(p[:url].strip).path.split("/").pop + ".mp4") + "\n\n") if (p.key?(:length))  end %>
           <% if p %>
           <a class="dropdown-item email-link" data-pres-link="<%= recording_links %>"><i class="dropdown-icon far fa-envelope"></i> <%= t("recording.email") %></a>
           <div class="dropdown-divider"></div>
