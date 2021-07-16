@@ -1,5 +1,7 @@
 #!/bin/bash
 
+bash /usr/src/app/docker-entrypoint.sh
+
 if [ "$RAILS_ENV" = "production" ] && [ "$DB_ADAPTER" = "postgresql" ]; then
   while ! curl http://$DB_HOST:${DB_PORT:-5432}/ 2>&1 | grep '52'
   do
