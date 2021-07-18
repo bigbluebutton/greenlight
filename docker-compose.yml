@@ -3,7 +3,7 @@ version: '3'
 services:
   app:
     entrypoint: [bin/start]
-    image: bigbluebutton/greenlight:v2
+    image: bigbluebutton/greenlight:release-v2
     container_name: greenlight-v2
     env_file: .env
     restart: unless-stopped
@@ -17,13 +17,14 @@ services:
 #        tag: $LOG_TAG
     volumes:
       - ./log:/usr/src/app/log
+      - ./storage:/usr/src/app/storage
 # When using sqlite3 as the database
 #      - ./db/production:/usr/src/app/db/production
 # When using postgresql as the database
     links:
       - db
   db:
-    image: postgres:9.5
+    image: postgres:13.2-alpine
     restart: unless-stopped
     ports:
       - 127.0.0.1:5432:5432
@@ -32,4 +33,4 @@ services:
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=2I8OC7bsY3t6wjwWtcMb2mMU2h0UfHlm
