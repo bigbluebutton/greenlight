@@ -38,8 +38,7 @@
               <i class="fas fa-video pr-1"></i><span class="d-none d-sm-inline-block"><%= t("header.all_recordings") %></span>
             <% end %>
           <% end %>
-          
-          <% if current_user.role.get_permission("can_manage_users") || current_user.role.name == "super_admin" %>
+          <% if current_user.role.get_permission("can_manage_users")  || Rails.configuration.show_monitoring_to.include?(current_user.role.name.upcase) %>
           <a href="/monitoring" class="px-3 mx-1 mt-1 header-nav">
           <i class="fas fa-chart-bar"></i>
           <span class="d-none d-sm-inline-block">Monitoring</span>

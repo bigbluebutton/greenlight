@@ -210,5 +210,13 @@ module Greenlight
 
     # HubSpot
     config.hub_spot_api = ENV['HUBSPOT_API']
+    # Show Monitoring env
+    config.show_monitoring_to= ['ADMIN', 'SUPER_ADMIN']
+    if ENV['SHOW_MONITORING_TO'].present?
+      ENV['SHOW_MONITORING_TO'].split(',').each do |u|
+        config.show_monitoring_to << u.upcase 
+      end 
+    end
+
   end
 end

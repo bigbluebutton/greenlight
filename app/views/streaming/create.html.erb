@@ -1,8 +1,9 @@
 <% stream_data = streaming_data %>
-<% start_disable = streaming_running_meetings.length > 0 ? false : true%>
+<% meeting_running = streaming_running_meetings.length > 0 ? true : false%>
 <% disabled = stream_data ? true : false %>
 <% streaming = if stream_data["running"] then true else false end %>
 <% checked = if stream_data["show_presentation"] == "true" then true else false end %>
+<%if meeting_running%>
 <div class="container">
   <div class="row pt-7">
     <div class="col col-lg-6 offset-lg-3">
@@ -56,7 +57,7 @@
                   </div>
 
                   <div class="form-group">
-                    <%= f.submit "Start", class: "btn btn-outline-primary mx-2 sign-in-button", :disabled => start_disable %>
+                    <%= f.submit "Start", class: "btn btn-outline-primary mx-2 sign-in-button", :disabled => meeting_running ? false : true %>
                     
                 <% else %>
                     <%= f.submit "Stop", class: "btn btn-danger mx-2 sign-in-button", :disabled => !disabled %>
@@ -68,3 +69,6 @@
     </div>
   </div>  
 </div> 
+<%else%>
+<%=render 'streaming/no_running_meeting'%>
+<% end %>
