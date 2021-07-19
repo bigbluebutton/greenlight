@@ -10,18 +10,22 @@
       <div class="card">
         <div class="card-header background d-block">
           <h4 class="mt-2">Live Streaming</h4>
-         <ul class="list-unstyled mt-3 mb-4">
-         <li> Step 1: Start a meeting.</li>
-         <li> Step 2: Enter RTMP URL, Streaming Key and Viewer URL.</li>
-         <li> Step 3: Select the meeting you started in Step 1 and press "Start" button to stream.</li>
-          <li>NOTE: You MUST start a meeting BEFORE creating a streaming</li>
-          </ul>
         </div>
         <div class="card-body background">
         <% if streaming%>
           <h4 class="mt-2"><%=stream_data["meeting_name"]%>  is being streamed</h4>
         <% end %>
             <%= form_for @streaming, url: streaming_path, method: :post do |f|  %>
+              <% if (stream_data["pid"] == 0) && !stream_data["runnng"] %>
+                <div class="form-group">
+                    <%= f.label :meeting_id, "Select the meeting to stream", class: "form-label" %>
+                    <select id="streaming_meeting_id" name="streaming[meeting_id]" class="selectpicker show-tick w-100">
+                    <% streaming_running_meetings.each do |meeting_id, meeting_title| %>
+                      <option value="<%= meeting_id %>"><%= meeting_title %></option>
+                    <% end %>
+                    </select>
+                </div>
+              <% end %>
                 <div class="form-group">
                     <%= f.label :url, "RTMP URL", class: "form-label" %>
                     <%= f.text_field :url, class: "form-control #{form_is_invalid?(@streaming, :url)}", placeholder: "RTMP URL from YouTube, Facebook or others", autofocus: "", required: "", value: stream_data["rtmp_url"], readonly: streaming %>
@@ -45,17 +49,7 @@
                  </label>
                   <p style="font-size:0.9em">Enable toggle to display presentation pod (i.e.,PPTx/PDF) along with webcam videos.<br>Disable the toggle to display only the webcam videos during live stream.</p>
                 </div>
-
-                <% if (stream_data["pid"] == 0) && !stream_data["runnng"] %>
-                  <div class="form-group">
-                      <%= f.label :meeting_id, "Select the meeting to stream", class: "form-label mt-5" %>
-                      <select id="streaming_meeting_id" name="streaming[meeting_id]" class="selectpicker show-tick w-50">
-                          <% streaming_running_meetings.each do |meeting_id, meeting_title| %>
-                          <option value="<%= meeting_id %>"><%= meeting_title %></option>
-                          <% end %>
-                      </select>
-                  </div>
-
+                   <% if (stream_data["pid"] == 0) && !stream_data["runnng"] %>
                   <div class="form-group">
                     <%= f.submit "Start", class: "btn btn-outline-primary mx-2 sign-in-button", :disabled => meeting_running ? false : true %>
                     
