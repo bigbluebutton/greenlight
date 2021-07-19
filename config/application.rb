@@ -206,7 +206,7 @@ module Greenlight
     # sendy
     config.sendy_api_key=ENV['SENDY_API_KEY']
     config.sendy_list_1=ENV['SENDY_LIST_1']
-    config.sendy_list_1=ENV['SENDY_LIST_2']
+    config.sendy_list_2=ENV['SENDY_LIST_2']
 
     # HubSpot
     config.hub_spot_api = ENV['HUBSPOT_API']
