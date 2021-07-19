@@ -91,7 +91,7 @@ class StreamingController < ApplicationController
 
       update_status_file(status_file_update_data, @user.uid)
       logger.info "Streaming started at pid: #{pid}"
-      flash.now[:success] = ("Streaming started succussfully")
+      flash.now[:success] = ("Streaming started successfully")
 
     elsif (params[:commit] == "Stop") && (status_file_update_data["running"])
       begin
@@ -106,7 +106,7 @@ class StreamingController < ApplicationController
       status_file_update_data["running"] = running
       status_file_update_data["pid"] = pid
       update_status_file(status_file_update_data, @user.uid)
-      flash.now[:success] = ("Streaming stopped succussfully")
+      flash.now[:success] = ("Streaming stopped successfully")
     end
   end
   def streaming_data
