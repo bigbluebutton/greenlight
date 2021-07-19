@@ -1,1 +1,6 @@
-<%=render :template => "errors/greenlight_error",  formats: :html, locals: {status_code: "Start the meeting",message: "Please start the meeting first inorder to start streaming",help:"Please contact admin for more details"}%>
+<div class="container text-center pt-9">
+    <h1 class="h2 mb-3 mb-5">Please start a meeting to stream it</h1>
+      <a class="btn btn-primary mt-5" href="javascript:history.back()">
+        <i class="fas fa-arrow-left mr-2"></i><%= t("go_back") %>
+      </a>
+</div>
