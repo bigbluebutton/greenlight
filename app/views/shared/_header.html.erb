@@ -45,7 +45,7 @@
           </a>
           <%end%>
           
-          <% if current_user.streaming?%>
+          <% if current_user.streaming? && current_user.role.get_permission("can_create_rooms")%>
           <a href="/streaming" class="px-3 mx-1 mt-1 header-nav">
           <i class="fas fa-bullhorn"></i>
           <span class="d-none d-sm-inline-block">Streaming</span>

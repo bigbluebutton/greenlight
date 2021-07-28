@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<% readonly = !can_edit_user?(@user, current_user) %>
+<% readonly = !(current_user.role.get_permission("can_manage_users")) %>
 
 <%= form_for @user, url: update_user_path, method: :post do |f|  %>
   <%= hidden_field_tag :setting, "account" %>
