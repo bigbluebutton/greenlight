@@ -21,6 +21,7 @@ class RoomsController < ApplicationController
   include Recorder
   include Joiner
   include Populator
+  include ApplicationHelper
 
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :validate_verified_email, except: [:show, :join],
@@ -180,6 +181,7 @@ class RoomsController < ApplicationController
     opts[:mute_on_start] = room_setting_with_config("muteOnStart")
     opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
     opts[:record] = record_meeting
+    opts[:avatarURL_size] = url_size(current_user.image)
     opts[:avatarURL] = current_user.image
 
     begin
