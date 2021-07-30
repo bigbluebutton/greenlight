@@ -43,6 +43,18 @@ zh_TW:
         placeholder: 品牌形象URL地址
         title: 網站標誌
         invalid: 無效的網址
+      legal:
+        change: 修改網址
+        info: 變更頁面底部顯示的條款連結
+        placeholder: 條款 URL...
+        title: 條款
+        invalid: 無效的網址
+      privpolicy:
+        change: 修改網址
+        info: 變更頁面底部顯示的隱私政策連結
+        placeholder: 隱私政策 URL...
+        title: 隱私政策
+        invalid: 無效的網址
       cache:
         info: 清除快取，用以強制更新資訊
         title: 清除網站快取
@@ -57,6 +69,10 @@ zh_TW:
         regular: 常規
         lighten: 亮色
         darken: 暗色
+      email_mapping:
+        info: "使用電子郵件將使用者映射到角色。必須採用格式 email1=role1,email2=role2"
+        title: 透過電子郵件進行角色映射
+        update:
       log_level:
         title: 日誌級別
         information: 更改整個部署的日誌級別
@@ -67,9 +83,21 @@ zh_TW:
         fatal: 致命
         unknown: 未知
       recording_visibility:
-        info: 設定新錄製錄影的可見性(預設)
+        info: 設定新錄製錄影的預設可見性
         title: 錄影預設可見性
         warning: 此設定將僅應用於未執行的會議。
+      require_consent:
+        info: 此設定允許會議室設置，允許會議室擁有者指定哪些會議室可以錄製。加入錄製會議室的使用者在加入前必須徵得同意。
+        title: 要求會議室擁有者與加入者同意錄製
+      maintenance_banner:
+        info: 顯示橫幅，通知使用者維護計畫
+        title: 維護橫幅
+        display: 設定
+        clear: 清除
+        time: "範例：系統更新定於 12 月 13 日 23：00。使用者登入時可能會遇到問題！"
+      preupload:
+        info: 使用者可以預先上傳簡報文件，用作該特定會議室的預設簡報文件
+        title: 允許使用者預先上傳簡報文件
       registration:
         info: 更改使用者在網站註冊的方式
         title: 註冊方式
@@ -84,6 +112,11 @@ zh_TW:
         info: 設定為“禁用”將從“會議室選項”下拉清單中刪除按鈕，以防止使用者共用會議室
         title: 允許使用者共用會議室
       subtitle: 自訂Greenlight
+      tabs:
+        appearance: 外觀
+        administration: 管理
+        registration: 註冊
+        settings: 設定
       title: 網站設定
     flash:
       approved: 已成功批准使用者
@@ -94,21 +127,25 @@ zh_TW:
       demoted: 使用者已成功降級
       invite: "邀請已成功寄送到 %{email}"
       invite_email_verification: 必須啟用電子郵件才能使用此方法，請與系統管理員聯繫。
-      merge_fail: 合併使用者帳戶時出現問題，請檢查選定的使用者並重試。 
+      merge_fail: 合併使用者帳戶時出現問題，請檢查選定的使用者並重試。
       merge_success: 使用者帳戶成功合併
       perm_deleted: 使用者已被永久刪除
       promoted: 使用者已成功升級
       registration_method_updated: 註冊方法已成功更新
       reset_password: 已向使用者發送電子郵件以重置其密碼。（如果他們還沒有收到郵件，請讓他們檢查他們的垃圾郵件資料夾）
       restored: 使用者已成功還原
+      room_configuration: 會議室組態修改成功
       settings: 已成功更改網站設定
       unauthorized: 您無權對此使用者執行操作
     recordings:
+      latest: 最新錄影
       title: 伺服器錄影
       no_recordings: 此伺服器沒有錄影。
+      search_info: 輸入使用者的完整電子郵件或會議室的 uid
     roles:
       appear_in_share_list: 在共享會議室的下拉列表中，包含具有此角色的使用者
       can_create_rooms: 可以創建會議室
+      can_launch_recording: 允許具有此角色的使用者錄影其會議
       delete: 刪除角色
       invalid_create: 創建新角色時出現問題。請檢查角色賦值並重試。
       invalid_order: 更新角色的優先順序時出現問題。請檢查賦值並重試。
@@ -123,16 +160,39 @@ zh_TW:
       edit_site_settings: 允許具有此角色的使用者編輯網站設定
       edit_roles: 允許具有此角色的使用者編輯其他角色
       manage_users: 允許具有此角色的使用者管理使用者
-      invalid_assignment: 將角色分配給使用者時出現問題，請檢查賦值並重試。 
+      invalid_assignment: 將角色分配給使用者時出現問題，請檢查賦值並重試。
       colour:
         title: 角色代表顏色
         info: 設定將與角色關聯的顏色
+    room_configuration:
+      title: 會議室組態
+      mute:
+        info: 使用者加入BigBlueButton會議時自動使其靜音
+      require_moderator:
+        info: 當使用者嘗試提出以主持人身份加入會議時。如果使用者獲得批准，他們將能夠加入會議。
+      allow_any:
+        info: 允許任何使用者隨時開始會議。預設情況下，只有會議室擁有者才能開始會議。
+      all_moderator:
+        info: 當所有使用者加入會議時，一律給予其主持人身份。
+      recordings:
+        info: 允許會議室擁有者調整是否啟用錄影功能。如果啟用，會議開始後主持人仍必須按下「錄影」按鈕才會錄製。
+      moderator_codes:
+        info: 允許會議室擁有者可選擇地產生主持人代碼，允許其他使用者直接加入作為主持人。
+        title: 主持人存取代碼
+      options:
+        disabled: 停用
+        enabled: 總是啟用
+        optional: 選擇性的
     rooms:
+      timeout: "由於 %{server} 伺服器請求逾時, 與會者的狀態及資訊可能不準確"
       title: 伺服器所有會議室
       table:
+        ended: "已結束： %{session}"
         id: ID
         not_running: 沒有運行
+        participants: 與會者
         running: 運行中
+        started: "已開始： %{session}"
         status: 狀態
         view: 查看
     title: 網站管理
@@ -147,18 +207,21 @@ zh_TW:
         delete: 刪除
         edit: 編輯
         edit_roles: 編輯使用者角色
+        merge: 合併
         perm_delete: 永久刪除
         unban: 取消禁止使用者
         undelete: 撤銷刪除
       table:
         authenticator: 認證方式
         created: 創建於
+        time: 傳送時間
         name: 名字
         not_found: 沒有與您的搜尋相符的使用者
         no_users: 沒有找到使用者
         role: 角色
         uid: 使用者ID
         username: 使用者帳號
+        valid: 有效
       title: 管理使用者
   add_to_google_calendar: "添加到Google日曆"
   bigbluebutton: BigBlueButton
@@ -167,6 +230,7 @@ zh_TW:
   cookies:
     cookie_info: Cookies可讓我們提供您服務，因此您同意我們使用cookies，才能使用這些服務！
     cookie_button: 我同意
+    policy: "欲瞭解更多資訊，請參閱我們的<a href=\"%{privacy_link}\"><u>隱私政策</u></a>."
   copied: Copied
   copy: 複製
   date:
@@ -177,7 +241,7 @@ zh_TW:
   docs: 文檔
   email: Email
   email_sent: "您的 %{email_type} 郵件已經發送！（如果您沒有收到郵件，請檢查您的垃圾郵件資料夾）"
-  enter_your_name: 輸入您的名字！
+  enter_your_name: 請在此輸入您的名稱
   errors:
     bigbluebutton:
       help: "請確保採取了正確的步驟. <a href=\"%{doc_link}\">瞭解更多資訊</a>"
@@ -205,6 +269,7 @@ zh_TW:
       accepted: 必須同意
       confirmation: "不相符%{attribute}"
       inclusion: 列表中不存在
+      domain: "必須以 \"%{email_domain}\" 結尾"
     no_provider:
       message: 您嘗試訪問的網站未啟用
       help: 請與系統管理員聯繫以設定Greenlight
@@ -229,6 +294,8 @@ zh_TW:
     designs: 定制設計
     authentication: 使用者認證
   footer:
+    legal: 條款
+    privpolicy: 隱私政策
     powered_by: "Powered by%{href}"
   forgot_password:
     subtitle: 忘記密碼
@@ -247,6 +314,7 @@ zh_TW:
   home_room: 主會議室
   info_update_success: 資訊更新成功。
   invalid_credentials: 您輸入的電子郵件和密碼與我們的記錄不相符，請重試或按下「忘記密碼」重置密碼。
+  invalid_credentials_external: 您輸入的電子郵件和密碼與我們的記錄不符。請重試。
   invalid_login_method: 由於帳戶不相符，登錄失敗。您需要使用Omniauth登錄。
   invite_message: "邀請他人參加會議，請發送以下連結："
   javascript:
@@ -291,6 +359,7 @@ zh_TW:
         info: "您被%{name}邀請到您自己的私人空間 "
         signup_info: 若要使用電子郵件註冊，請按一下下面的按鈕並按照步驟操作。
         signup_link: 註冊
+        valid: "邀請有效至： %{date}"
         signup:
           info: 被邀請的使用者已註冊使用greenlight。
           admins_link: 訪問網站管理頁面
@@ -318,8 +387,6 @@ zh_TW:
         verify_text: '要驗證您的帳戶，只需點擊以下連結：%{url}'
         verify_link: 驗證帳戶
         thanks: 感謝您的加入，祝您擁有美好的一天！
-  maintenance:
-    window_alert: "計畫的維護時段 %{date}"
   max_concurrent: 已達到允許的最大併發會話數！
   merged: 已合併
   modal:
@@ -331,7 +398,9 @@ zh_TW:
       title: 創建新角色
     create_room:
       access_code: 會議密碼
-      access_code_placeholder: 產生會議密碼(可選用)
+      moderator_access_code: 主持人密碼
+      access_code_placeholder: 選擇性的產生會議密碼
+      moderator_access_code_placeholder: 選擇性的產生主持人密碼
       auto_join: 自動進入會議室
       create: 創建會議室
       free_delete: 任何時候都可以刪除這個會議室
@@ -344,6 +413,10 @@ zh_TW:
       keep: 我還是留著吧。
       delete_warning: 這將停用使用者的帳戶。在“已刪除”選項卡下可以找到所有未啟動的使用者。
       warning: 這是最終決定，您將<b>無法</b>恢復相關資料。
+    delete_rec:
+      delete: 我確定要刪除此錄影。
+      header: 您確定要刪除此錄影嗎？
+      warning: 您將<b>無法</b> 恢復這個錄影
     delete_room:
       confirm: "確定要刪除%{room}嗎?"
       delete: 我確定刪除這個會議室
@@ -359,6 +432,14 @@ zh_TW:
       or: 或
       with: "通過 %{provider}登錄"
       forgot_password: 忘記密碼？
+    preupload:
+      change: 取代簡報
+      choose: 選擇檔案...
+      current: "目前簡報："
+      footer: 根據簡報的大小，可能需要更多的時間來上傳才能使用。
+      invalid: 大小/檔案類型無效。請參閱以下限制。
+      title: 新增簡報
+      use: 使用簡報
     rename_recording:
     remove_shared:
       title: 確實要從您的會議室列表中刪除此會議室嗎？
@@ -373,6 +454,7 @@ zh_TW:
       require_approval: 加入前需要主持人批准
       start: 允許任何使用者啟動此會議
       footer_text: 您可以隨時調整會議室設定
+      recording: 允許會議室進行錄影
     rename_room:
       name_placeholder: 請輸入新會議室名稱
     share_access:
@@ -407,6 +489,7 @@ zh_TW:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: 哎呀，我們未能驗證您的reCAPTCHA回應，請再試一次。
@@ -415,9 +498,11 @@ zh_TW:
     all_recordings: 所有錄影
     email: 通過Email發送錄影
     error: "檢索 %{count} 錄影(s)時出錯。"
-    no_recordings: "這個會議室沒有%{inject}錄影"
+    no_public_recordings: 此會議室沒有公開錄影。
+    no_recordings: 此會議室沒有錄影。
     no_user_recordings: 您當前沒有錄影。
-    no_matched_recordings: "沒有搜尋到 %{inject} 錄影"
+    no_matched_pub_recordings: 沒有公開錄影與您的搜尋相匹配。
+    no_matched_recordings: 沒有錄影與您的搜尋相匹配。
     recorded_on: "錄製於%{date}"
     table:
       name: 名字
@@ -427,7 +512,8 @@ zh_TW:
       visibility: 可見性
       formats: 格式
     visibility:
-      public: 公開的
+      inaccessible: 無法存取
+      public: 公開
       unlisted: 隱藏
     format:
       notes: 筆記
@@ -440,7 +526,7 @@ zh_TW:
       fail: 您的帳戶尚未批准，如果您註冊後已過多天，請與管理員聯繫。
       signup: 您的帳戶創建完成，稍後管理員會審批。
     banned:
-      fail: 您沒有訪問此應用程式的許可權。如果您認為這是一個錯誤，請聯繫您的管理員。 
+      fail: 您沒有訪問此應用程式的許可權。如果您認為這是一個錯誤，請聯繫您的管理員。
     deprecated:
       new_signin: 為您的帳戶選擇新的登錄方法。舊帳戶中的所有會議室都將遷移到新帳戶。
       twitter_signin: "通過Twitter登錄已被棄用並將在下一版本中刪除。 點擊 <a href=\"%{link}\"> 這裡 </a> 將您的帳戶移動到新的身份驗證方法。"
@@ -452,6 +538,8 @@ zh_TW:
   remove: 刪除
   rename: 重命名
   reset_password:
+    captcha: reCAPTCHA 驗證失敗，請再試一次。
+    invalid_token: 密碼重置 token 無效。請嘗試再次重置密碼。
     subtitle: 重置密碼
     password: 新密碼
     confirm: 確認新密碼
@@ -463,9 +551,13 @@ zh_TW:
     banned: 已禁用
     deleted: 已刪除
     pending: 待定
+    invited: 已邀請
     user: 使用者
   room:
     access_code_required: 請輸入有效的會議密碼以加入會議
+    add_presentation: 新增投影片
+    copy_access: 複製存取密碼
+    copy_moderator_access: 複製主持人密碼
     create_room: 創建會議室
     create_room_error: 創建會議室出錯
     create_room_success: 會議室創建成功
@@ -473,10 +565,14 @@ zh_TW:
       home_room: 不能刪除使用者的主會議室
       success: 會議室刪除成功
       fail: "會議室(%{error})刪除失敗"
-    enter_the_access_code: 輸入會議室的會議密碼
+    enter_the_access_code: 請輸入會議密碼
+    enter_the_moderator_access_code: 輸入會議室的主持人密碼！
+    optional_moderator_access_code: "選擇主持人密碼："
     invalid_provider: 您輸入的URL無效。請檢查URL並重試。
+    invitation_description: "您已被邀請加入 %{name} 會議。要加入，請按下上面的連結並輸入您的姓名。"
     invited: 您已被邀請加入
-    invite_participants: 邀請參與者的連結
+    recording_present: 我已知悉這次會議將被錄影下來。啟用錄影後將包括我的聲音和影像。
+    invite_participants: 邀請與會者的連結
     join: 加入
     last_session: "上一次會議%{session}"
     login: 加入
@@ -492,6 +588,10 @@ zh_TW:
       recent_rooms: 進入最近加入過的會議室
       title: 加入一個會議室
     no_sessions: 會議室從未使用！
+    preupload_success: 新增投影片成功
+    preupload_error: 更新投影片時發生錯誤
+    preupload_remove_success: 刪除投影片成功
+    preupload_remove_error: 刪除投影片時發生錯誤
     recordings: 會議錄影
     room_limit: 您已達到允許的最大會議室數量
     room_limit_exceeded: "您已擁有超過允許的會議室數量。 請刪除%{difference} 會議室(s)以訪問這個會議室。"
@@ -504,6 +604,7 @@ zh_TW:
     shared_access_success: 會議室共用成功
     shared_access_error: 共用會議室出錯
     start: 開始
+    search: 搜尋會議室…
     unavailable: 由於未驗證所有者的電子郵件，此會議室當前不可用。
     update_settings_error: 修改會議室設定出錯
     update_settings_success: 會議室設定修改成功
@@ -520,6 +621,7 @@ zh_TW:
       roles: 使用者角色
       subtitle: 更新帳號資訊
       title: 帳號資訊
+      reset_password: 重置使用者密碼
     delete:
       button: 我確定要刪除我的帳戶
       disclaimer: 刪除帳戶後<b>無法</b>恢復。帳戶所有相關資訊都會被移除，包括設定、會議室和錄影。
@@ -544,6 +646,9 @@ zh_TW:
     title: 協議和條款
   test_install: >
     此部署使用的是預先配置的測試伺服器，您應該將其替換為自己的，詳細資訊請看 %{href}。
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: 更新
   verify:
     accept: 驗證
