@@ -34,17 +34,17 @@ class Role < ApplicationRecord
 
   def self.create_default_roles(provider)
     Role.create(name: "user", provider: provider, priority: 1, colour: "#868e96")
-        .update_all_role_permissions(can_create_rooms: true)
+        .update_all_role_permissions(can_create_rooms: true, can_launch_recording: true)
     Role.create(name: "admin", provider: provider, priority: 0, colour: "#f1c40f")
         .update_all_role_permissions(can_create_rooms: true, send_promoted_email: true,
       send_demoted_email: true, can_edit_site_settings: true, can_manage_rooms_recordings: true,
-      can_edit_roles: true, can_manage_users: true)
+      can_launch_recording: true, can_edit_roles: true, can_manage_users: true)
     Role.create(name: "pending", provider: provider, priority: -1, colour: "#17a2b8").update_all_role_permissions
     Role.create(name: "denied", provider: provider, priority: -2, colour: "#343a40").update_all_role_permissions
     Role.create(name: "super_admin", provider: provider, priority: -3, colour: "#cd201f")
-        .update_all_role_permissions(can_create_rooms: true,
-      send_promoted_email: true, send_demoted_email: true, can_edit_site_settings: true,
-      can_edit_roles: true, can_manage_users: true, can_manage_rooms_recordings: true)
+        .update_all_role_permissions(can_create_rooms: true, send_promoted_email: true,
+      send_demoted_email: true, can_edit_site_settings: true, can_manage_rooms_recordings: true,
+      can_launch_recording: true, can_edit_roles: true, can_manage_users: true)
   end
 
   def self.create_new_role(role_name, provider)
@@ -72,6 +72,7 @@ class Role < ApplicationRecord
     update_permission("can_manage_users", permissions[:can_manage_users].to_s)
     update_permission("can_manage_rooms_recordings", permissions[:can_manage_rooms_recordings].to_s)
     update_permission("can_appear_in_share_list", permissions[:can_appear_in_share_list].to_s)
+    update_permission("can_launch_recording", permissions[:can_launch_recording].to_s)
   end
 
   # Updates the value of the permission and enables it

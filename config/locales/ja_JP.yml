@@ -145,11 +145,12 @@ ja_JP:
     roles:
       appear_in_share_list: 会議室共有のドロップダウンに含める
       can_create_rooms: 会議室の作成権
+      can_launch_recording: 会議を録画する権限
       delete: 役割の削除
       invalid_create: 新しい役割の作成中に問題が発生しました。 設定を確認して再度お試しください
       invalid_order: 役割の優先度を更新中に問題が発生しました。 設定を確認して再度お試しください
       invalid_update: 役割の権限を更新中に問題が発生しました。 設定を確認して再度お試しください
-      manage_rooms_recordings: 会議室と録画の管理権
+      manage_rooms_recordings: 会議室と録画を管理する権限
       name: 役割の名前
       new_role: 新しい役割を作成する
       role_has_users: "この役割は %{user_count} アカウントに割り当てられています。 削除する前に、この役割からすべてのアカウントを削除してください。"
@@ -268,6 +269,7 @@ ja_JP:
       accepted: 受け入れる必要があります
       confirmation: "%{attribute} と一致しません"
       inclusion: リストに含まれていません
+      domain: "\"%{email_domain}\"で終わる必要があります"
     no_provider:
       message: アクセスしようとしているサイトは有効になっていません
       help: Greenlightの設定については、システム管理者にお問い合わせください。
@@ -312,6 +314,7 @@ ja_JP:
   home_room: 主会議室
   info_update_success: 情報を更新しました。
   invalid_credentials: 入力されたメールアドレスとパスワードが登録内容と一致しませんでした。 もう一度試すか［パスワードを忘れた場合］をクリックしてパスワードをリセットしてください。
+  invalid_credentials_external: 入力したEメールアドレスとパスワードがこちらの記録と違っています。もう一度入力してみてください。
   invalid_login_method: アカウントが一致しないため、ログインに失敗しました。 Omniauthでログインする必要があります。
   invite_message: "誰かを会議に招待するには、このリンクを送信します："
   javascript:
@@ -495,9 +498,11 @@ ja_JP:
     all_recordings: すべての録画
     email: 録画情報をメールする
     error: "%{count} 件の録画取得中にエラーが発生しました"
-    no_recordings: "この会議室には %{inject} 録画はありません。"
+    no_public_recordings: この会議室では録画の公開はありません。
+    no_recordings: この会議室では何も録画されていません。
     no_user_recordings: 現在、録画はありません。
-    no_matched_recordings: "検索に一致する %{inject} 録画はありません。"
+    no_matched_pub_recordings: 公開された録画には、検索条件に一致するものはありません。
+    no_matched_recordings: 検索条件に一致する録画はありません。
     recorded_on: "録画日は %{date} です"
     table:
       name: 名前
@@ -507,6 +512,7 @@ ja_JP:
       visibility: 公開度
       formats: 再生フォーマット
     visibility:
+      inaccessible: 閲覧不可
       public: 公開
       unlisted: 限定公開
     format:
@@ -566,7 +572,7 @@ ja_JP:
     invitation_description: "BigBlueButtonを使用して%{name}に参加するよう招待されました。参加するためには下のリンクをクリックし、名前を入力してください。"
     invited: 招待されています
     recording_present: このセッションが録画されるかもしれないこと、その場合自分の声や動画が録画に含まれうることを承知しています。
-    invite_participants: 参加者を招待
+    invite_participants: 参加者を招待する
     join: 参加する
     last_session: "%{session} ：最後のセッション"
     login: 入力
@@ -582,9 +588,9 @@ ja_JP:
       recent_rooms: 最近参加した会議室に移動
       title: 会議に参加
     no_sessions: まだ会議は一度も開催されていません！
-    preupload_success: プレゼン資料の追加に成功
+    preupload_success: プレゼン資料を追加しました
     preupload_error: 会議室のプレゼン資料をアップデートする際にエラーが起こりました
-    preupload_remove_success: プレゼン資料の消去に成功
+    preupload_remove_success: プレゼン資料を消去しました
     preupload_remove_error: 会議室のプレゼン資料を消去する際にエラーが起こりました
     recordings: 件の録画
     room_limit: 許可された会議室数の上限に達しました
@@ -640,6 +646,9 @@ ja_JP:
     title: 利用規約
   test_install: >
     この構成では、事前に構成されたテストサーバを使用しています。これを独自のものに置き換える必要があります。 詳細については %{href} をご覧ください。
+  time:
+    formats:
+      default: "%Y年%b%d日 %-I:%M%P"
   update: 更新
   verify:
     accept: 確認

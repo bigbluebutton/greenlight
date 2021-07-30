@@ -120,7 +120,7 @@ module Rolify
     role_params = params.require(:role).permit(:name)
     permission_params = params.require(:role).permit(:can_create_rooms, :send_promoted_email,
       :send_demoted_email, :can_edit_site_settings, :can_edit_roles, :can_manage_users,
-      :can_manage_rooms_recordings, :can_appear_in_share_list, :colour)
+      :can_launch_recording, :can_manage_rooms_recordings, :can_appear_in_share_list, :colour)
 
     permission_params.transform_values! do |v|
       case v

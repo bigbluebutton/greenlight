@@ -32,10 +32,12 @@
   </td>
   <% if recording_thumbnails? %>
     <td class="overflow-hidden">
-      <% p = recording[:playbacks].find do |p| p.key?(:preview) end %>
-      <% if p %>
-        <% safe_recording_images(p[:preview][:images][:image]).each do |img| %>
-          <%= image_tag(img[:content].strip, class: "thumbnail px-2") %>
+      <% if recording[:published] %>
+        <% p = recording[:playbacks].find do |p| p.key?(:preview) end %>
+        <% if p %>
+          <% safe_recording_images(p[:preview][:images][:image]).each do |img| %>
+            <%= image_tag(img[:content].strip, class: "thumbnail px-2") %>
+          <% end %>
         <% end %>
       <% end %>
     </td>
@@ -50,6 +52,8 @@
     <div class="dropdown">
       <% if recording[:metadata][:"gl-listed"] == "true" %>
         <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fas fa-globe px-2"></i> <%= t("recording.visibility.public") %></button>
+      <% elsif !recording[:published] %>
+        <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fas fa-lock px-2"></i> <%= t("recording.visibility.inaccessible") %></button>
       <% else %>
         <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fas fa-link px-2"></i> <%= t("recording.visibility.unlisted") %></button>
       <% end %>
@@ -60,13 +64,18 @@
         <%= button_to update_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID], state: "unlisted"), class: "dropdown-item", "data-disable": "" do %>
           <i class="dropdown-icon fas fa-link"></i> <%= t("recording.visibility.unlisted") %>
         <% end %>
+        <%= button_to update_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID], state: "inaccessible"), class: "dropdown-item", "data-disable": "" do %>
+          <i class="dropdown-icon fas fa-lock"></i> <%= t("recording.visibility.inaccessible") %>
+        <% end %>
       </div>
     </div>
   </td>
   <td>
-    <% sorted_formats = recording[:playbacks].sort_by! { |p| p[:type] } %>
-    <% sorted_formats.each do |p| %>
-      <%= link_to t("recording.format.#{p[:type]}"), p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
+    <% if recording[:published] %>
+      <% sorted_formats = recording[:playbacks].sort_by! { |p| p[:type] } %>
+      <% sorted_formats.each do |p| %>
+        <%= link_to t("recording.format.#{p[:type]}"), p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
+      <% end %>
     <% end %>
   </td>
   <td class="text-center">

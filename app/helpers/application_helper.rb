@@ -135,6 +135,16 @@ module ApplicationHelper
   # Returns a more friendly/readable date time object
   def view_date(date)
     return "" if date.nil? # Handle invalid dates
-    local_time(date, "%b %d, %Y %-I:%M%P")
+    local_time(date, :default)
+  end
+
+  # Returns true if the user is allowed to record meetings
+  def perm_to_record_meeting
+    if recording_consent_required?
+      @settings.get_value("Room Configuration Recording") != "disabled" &&
+        current_user&.role&.get_permission("can_launch_recording")
+    else
+      current_user&.role&.get_permission("can_launch_recording")
+    end
   end
 end
