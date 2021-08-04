@@ -145,7 +145,7 @@ de_DE:
     roles:
       appear_in_share_list: Nutzer mit dieser Rolle im Dropdown-Menü zum Teilen von Räumen einschließen
       can_create_rooms: Kann Räume erstellen
-      can_launch_recording: "Nutzern mit dieser Rolle erlauben, Aufzeichnungen zu starten"
+      can_launch_recording: "Nutzern mit dieser Rolle erlauben, ihre Konferenzen aufzuzeichnen"
       delete: Rolle löschen
       invalid_create: Es kam zu einem Problem beim Erzeugen einer neuen Rolle. Bitte prüfen Sie die Rollenwerte und versuchen Sie es erneut
       invalid_order: Es kam zu einem Problem beim Aktualisieren der Rollenpriorität. Bitte prüfen Sie die Werte und versuchen Sie es erneut
