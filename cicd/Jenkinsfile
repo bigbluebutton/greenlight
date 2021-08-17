@@ -1,0 +1,14 @@
+@Library("jenkins-shared-library") _
+
+vars = [:]
+vars.service = "greenlight"
+vars.namespace = "adedge"
+
+vars.unittestStep  = "false"
+vars.buildStep     = params.Run.split(',').contains("build")
+vars.pushEcrStep   = params.Run.split(',').contains("build")
+vars.deployK8sStep = params.Run.split(',').contains("deploy")
+
+vars.dockerFile = "./Dockerfile"
+
+runPipeline( params: params, vars: vars )

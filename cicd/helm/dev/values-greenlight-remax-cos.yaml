@@ -1,0 +1,21 @@
+nameOverride: "greenlight-veea-nj"
+
+replicaCount: 1
+
+image:
+  repository: 065145189516.dkr.ecr.us-east-1.amazonaws.com/greenlight-service
+  tag: latest
+
+ingress:
+  enabled: true
+  hosts:
+    - host: "remax-cos.adedge.dev.veeaplatform.net"
+      paths:
+        - path: /b
+
+# externalSecret:
+#   dataFrom:
+#     - dev/greenlight-veea-nj
+
+datadog:
+  env: dev

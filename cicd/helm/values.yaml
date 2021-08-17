@@ -1,0 +1,157 @@
+# externalSecret:
+#   enabled: false
+#   backendType: secretsManager
+#   data: []
+#   dataFrom:
+#     - greenlight
+#   env:
+#     - VREO_PLAY_SECRET
+#     - FIXED_CONNECTION_POOL
+#     - DB_DEFAULT_URL
+#     - DB_DEFAULT_USERNAME
+#     - DB_DEFAULT_PASSWORD
+#     - DYNAMODB_DEFAULT_TABLE
+#     - VEEACONF_API_BASE_URL
+#     - VEEACONF_API_API_CONTEXT
+#     - VEEACONF_PLAYBACK_CONTEXT
+#     - VEEACONF_CLIENT_SECRET
+#     - LIVEDOOH_BASE_URL
+#     - LIVEDOOH_INVENTORY_CONTEXT
+#     - LIVEDOOH_AUTH_CONTEXT
+#     - LIVEDOOH_CLIENT_ID
+#     - LIVEDOOH_CLIENT_SECRET
+#     - KEYCLOAK_CLIENTCONFIGFILE
+
+env:
+  ALLOW_GREENLIGHT_ACCOUNTS: true
+  ALLOW_MAIL_NOTIFICATIONS: true
+  AWS_ACCESS_KEY_ID: 
+  AWS_BUCKET: 
+  AWS_REGION: 
+  AWS_SECRET_ACCESS_KEY: 
+  BIGBLUEBUTTON_ENDPOINT: 
+  BIGBLUEBUTTON_SECRET: 
+  CABLE_ADAPTER: postgresql
+  DB_ADAPTER: postgresql
+  DB_CONNECT_TIMEOUT: 5
+  DB_HOST: postgres.example.com
+  DB_NAME: greenlight_production
+  DB_PASSWORD: password
+  DB_POOL_SIZE: 9
+  DB_PORT: 5432
+  DB_READ_TIMEOUT: 120
+  DB_USERNAME: postgres
+  DEFAULT_LOCALE: 
+  DEFAULT_REGISTRATION: open
+  ENABLE_GOOGLE_CALENDAR_BUTTON: 
+  ENABLE_SSL: true
+  GCS_BUCKET: 
+  GCS_CLIENT_CERT: 
+  GCS_CLIENT_EMAIL: 
+  GCS_CLIENT_ID: 
+  GCS_PRIVATE_KEY: 
+  GCS_PRIVATE_KEY_ID: 
+  GCS_PROJECT: 
+  GCS_PROJECT_ID: 
+  GOOGLE_ANALYTICS_TRACKING_ID: 
+  GOOGLE_OAUTH2_HD: 
+  GOOGLE_OAUTH2_ID: 
+  GOOGLE_OAUTH2_SECRET: 
+  GREENLIGHT_ACCOUNT_HD: "@domain.com,subdomain-allowed.net"
+  HELP_URL: https://docs.bigbluebutton.org/greenlight/gl-overview.html
+  LDAP_ATTRIBUTE_MAPPING: 
+  LDAP_AUTH: 
+  LDAP_BASE: 
+  LDAP_BIND_DN: 
+  LDAP_FILTER: 
+  LDAP_METHOD: 
+  LDAP_PASSWORD: 
+  LDAP_PORT: 
+  LDAP_ROLE_FIELD: 
+  LDAP_SERVER: 
+  LDAP_UID: 
+  LOG_ADDRESS: udp://logs4.papertrailapp.com:[99999]
+  LOG_DRIVER: syslog
+  LOG_TAG: greenlight.example.com:v2
+  MAINTENANCE_MODE: false
+  MAINTENANCE_WINDOW: 
+  NUMBER_OF_ROWS: 25
+  OAUTH2_REDIRECT: 
+  OFFICE365_HD: 
+  OFFICE365_KEY: 
+  OFFICE365_SECRET: 
+  OPENID_CONNECT_CLIENT_ID: 
+  OPENID_CONNECT_CLIENT_SECRET: 
+  OPENID_CONNECT_HD: 
+  OPENID_CONNECT_ISSUER: 
+  OPENID_CONNECT_UID_FIELD: 
+  PAGINATION_NUMBER: 25
+  RAILS_LOG_LEVEL: info
+  RAILS_LOG_REMOTE_NAME: logxx.papertrailapp.com
+  RAILS_LOG_REMOTE_PORT: 9999
+  RAILS_LOG_REMOTE_TAG: greenlight
+  RAILS_LOG_TO_STDOUT: true
+  RAILS_MAX_THREADS: 5
+  RECAPTCHA_SECRET_KEY: 
+  RECAPTCHA_SITE_KEY: 
+  RELATIVE_URL_ROOT: /b
+  REPORT_ISSUE_URL: https://github.com/bigbluebutton/greenlight/issues/new
+  ROOM_FEATURES: mute-on-join,require-moderator-approval,anyone-can-start,all-join-moderator,recording
+  S3_ACCESS_KEY_ID: 
+  S3_BUCKET: 
+  S3_ENDPOINT: 
+  S3_REGION: 
+  S3_SECRET_ACCESS_KEY: 
+  SAFE_HOSTS: 
+  SECRET_KEY_BASE: 
+  SMTP_AUTH: plain
+  SMTP_DOMAIN: gmail.com
+  SMTP_OPENSSL_VERIFY_MODE: none
+  SMTP_PASSWORD: <yourpassword>
+  SMTP_PORT: 587
+  SMTP_SENDER: 
+  SMTP_SERVER: smtp.gmail.com
+  SMTP_STARTTLS_AUTO: true
+  SMTP_TEST_RECIPIENT: notifications@example.com
+  SMTP_TLS: true
+  SMTP_USERNAME: <youremail@gmail.com>
+  WEB_CONCURRENCY: 1
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2048Mi
+  requests:
+    cpu: 100m
+    memory: 300Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector:
+  kubernetes.io/arch: amd64
+  node/namespace: adedge
+
+livenessProbe:
+  httpGet:
+    path: /livez
+    port: http
+
+readinessProbe:
+  httpGet:
+    path: /livez
+    port: http
+
+startupProbe:
+  httpGet:
+    path: /livez
+    port: http
+  failureThreshold: 30
+  periodSeconds: 10
+
+datadog:
+  logs:
+    enabled: true
