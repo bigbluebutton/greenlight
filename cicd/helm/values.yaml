@@ -135,22 +135,22 @@ nodeSelector:
   kubernetes.io/arch: amd64
   node/namespace: adedge
 
-livenessProbe:
-  httpGet:
-    path: /livez
-    port: http
+# livenessProbe:
+#   httpGet:
+#     path: /livez
+#     port: http
 
-readinessProbe:
-  httpGet:
-    path: /livez
-    port: http
+# readinessProbe:
+#   httpGet:
+#     path: /livez
+#     port: http
 
-startupProbe:
-  httpGet:
-    path: /livez
-    port: http
-  failureThreshold: 30
-  periodSeconds: 10
+# startupProbe:
+#   httpGet:
+#     path: /livez
+#     port: http
+#   failureThreshold: 30
+#   periodSeconds: 10
 
 datadog:
   logs:
