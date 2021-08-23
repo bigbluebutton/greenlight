@@ -38,7 +38,7 @@ env:
   #  DB_CONNECT_TIMEOUT: 5
   DB_HOST: dev-adedge.cluster-cddnzit92al2.us-east-2.rds.amazonaws.com
   DB_NAME: dev_adedge_greenlight_veea_nj
-  DB_PASSWORD: password
+  DB_PASSWORD: XKGYHyAZiSgOY
   #  DB_POOL_SIZE: 9
   DB_PORT: 5432
   # DB_READ_TIMEOUT: 120
