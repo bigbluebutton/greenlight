@@ -13,9 +13,9 @@ ingress:
       paths:
         - path: /b
 
-# externalSecret:
-#   dataFrom:
-#     - dev/greenlight-remax-cos
+externalSecret:
+  dataFrom:
+    - dev/greenlight-remax-cos
 
 datadog:
   env: dev
