@@ -77,7 +77,7 @@ fr:
         title: Verbosité du journal
         information: Changer la verbosité du journal pour tout le déploiement
         debug: Déboguage
-        info: Infos
+        info: Information
         warn: Attention
         error: Erreur
         fatal: Erreur fatale
@@ -145,7 +145,7 @@ fr:
     roles:
       appear_in_share_list: Inclure les utilisateurs ayant ce rôle dans la liste déroulante de partage des salons
       can_create_rooms: Peut créer des salles
-      can_launch_recording: Permet aux utilisateurs ayant ce rôle d'effectuer des enregistrements
+      can_launch_recording: Autoriser les utilisateurs ayant ce rôle d'enregistrer leurs réunions
       delete: Supprimer le rôle
       invalid_create: Il y a eu un problème lors de la création du nouveau rôle. Veuillez vérifier les valeurs entrées et réessayer.
       invalid_order: Il y a eu un problème lors de la mise à jour de la priorité du rôle. Veuillez vérifier les valeurs et réessayer.
@@ -269,6 +269,7 @@ fr:
       accepted: doit être accepté
       confirmation: "ne correspond pas à %{attribute}"
       inclusion: n'est pas inclus dans la liste
+      domain: "doit terminer avec \"%{email_domain}\""
     no_provider:
       message: Le site auquel vous essayez d'accéder n'est pas activé
       help: Veuillez contacter votre administrateur système pour installer GreenLight
@@ -313,6 +314,7 @@ fr:
   home_room: Salle d’Accueil
   info_update_success: Informations mises à jour avec succès.
   invalid_credentials: "Les informations d'identification que vous avez indiquées sont erronées. Veuillez réessayer ou cliquez sur « Mot de passe oublié ? » pour réinitialiser votre mot de passe."
+  invalid_credentials_external: "L'adresse email et le mot de passe renseignés ne correspondent pas à nos informations. Merci de réessayer. "
   invalid_login_method: La connexion a échoué en raison d'une incompatibilité de compte. Vous devez vous connecter avec omniauth.
   invite_message: "Pour inviter quelqu'un à la réunion, envoyez-lui ce lien :"
   javascript:
@@ -496,9 +498,11 @@ fr:
     all_recordings: Tous les enregistrements
     email: Envoyer l'enregistrement par courriel
     error: "Il y a eu une erreur lors de la récupération de %{count}  enregistrement(s)"
-    no_recordings: "Ce salon n'a pas d'enregistrement %{inject}."
+    no_public_recordings: Ce salon n'a pas d'enregistrement public.
+    no_recordings: Ce salon n'a pas d'enregistrement.
     no_user_recordings: "Actuellement, vous n'avez  aucun enregistrement."
-    no_matched_recordings: "Aucun enregistrement %{inject} ne correspond à votre recherche."
+    no_matched_pub_recordings: Aucun enregistrement public ne correspond à votre recherche.
+    no_matched_recordings: Aucun enregistrement ne correspond à votre recherche.
     recorded_on: "Enregistré le %{date}"
     table:
       name: Nom
@@ -508,6 +512,7 @@ fr:
       visibility: Visibilité
       formats: Formats
     visibility:
+      inaccessible: Inaccessible
       public: Public
       unlisted: Non Listé
     format:
@@ -641,6 +646,9 @@ fr:
     title: Conditions générales d'utilisation
   test_install: >
     Ce déploiement utilise un serveur de test pré-configuré, vous devez le remplacer par le vôtre. Pour plus de détails, voir le %{href}.
+  time:
+    formats:
+      default: "%a %d %b %Y %H:%M"
   update: Mise à jour
   verify:
     accept: Vérifier

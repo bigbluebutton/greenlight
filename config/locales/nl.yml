@@ -145,6 +145,7 @@ nl:
     roles:
       appear_in_share_list: Neem gebruikers met deze rol op in de keuzelijst voor het delen van kamers
       can_create_rooms: Kan kamers maken
+      can_launch_recording: Gebruikers met deze rol toestaan hun vergaderingen op te nemen
       delete: Verwijder de rol
       invalid_create: Er is een probleem opgetreden bij het maken van een nieuwe rol. Controleer de rolwaarden en probeer het opnieuw
       invalid_order: Er is een probleem opgetreden bij het bijwerken van de prioriteit van de rol. Controleer de waarden en probeer het opnieuw
@@ -268,6 +269,7 @@ nl:
       accepted: moet worden geaccepteerd
       confirmation: "komt niet overeen met %{attribute}"
       inclusion: is niet opgenomen in de lijst
+      domain: "moet eindigen op \"%{email_domain}\""
     no_provider:
       message: "De site die u probeert te openen, is niet ingeschakeld"
       help: Neem contact op met uw systeembeheerder om Greenlight in te stellen
@@ -312,6 +314,7 @@ nl:
   home_room: Begin kamer
   info_update_success: Informatie succesvol bijgewerkt.
   invalid_credentials: "Het e-mailadres en wachtwoord dat u heeft ingevoerd, komt niet overeen met onze gegevens. Probeer het opnieuw of klik op Wachtwoord vergeten om uw wachtwoord opnieuw in te stellen."
+  invalid_credentials_external: "Het e-mailadres en het wachtwoord dat je ingegeven hebt, kennen we niet. Probeer opnieuw."
   invalid_login_method: Inloggen mislukt vanwege niet-overeenkomende account. U moet inloggen met omniauth.
   invite_message: "Stuur iemand deze link om iemand uit te nodigen voor de vergadering:"
   javascript:
@@ -495,9 +498,11 @@ nl:
     all_recordings: Alle opnames
     email: Email opname
     error: "Er is een fout opgetreden bij het ophalen van %{count} opname(s)"
-    no_recordings: "Deze kamer heeft geen %{inject} opnames."
+    no_public_recordings: Deze kamer heeft geen publieke opnames
+    no_recordings: Deze kamer heeft geen opnames.
     no_user_recordings: U heeft momenteel geen opnames.
-    no_matched_recordings: "Geen %{inject} opnames komen overeen met uw zoekopdracht."
+    no_matched_pub_recordings: Er komen geen publieke opnames overeen met uw zoekopdracht.
+    no_matched_recordings: Er komen geen opnames overeen met uw zoekopdracht.
     recorded_on: "Geregistreerd op %{date}"
     table:
       name: Naam
@@ -507,6 +512,7 @@ nl:
       visibility: Zichtbaarheid
       formats: Formaten
     visibility:
+      inaccessible: Ontoegankelijk
       public: Openbaar
       unlisted: Niet-genoteerd
     format:
@@ -640,6 +646,9 @@ nl:
     title: Voorwaarden
   test_install: >-
     Deze implementatie maakt gebruik van een vooraf geconfigureerde testserver, deze moet u vervangen door uw eigen. Zie de %{href} voor meer informatie.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Bijwerken
   verify:
     accept: Verifiëren
