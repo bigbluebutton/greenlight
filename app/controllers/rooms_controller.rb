@@ -21,6 +21,7 @@ class RoomsController < ApplicationController
   include Recorder
   include Joiner
   include Populator
+  include ApplicationHelper
 
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :validate_verified_email, except: [:show, :join],

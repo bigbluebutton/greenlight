@@ -577,6 +577,7 @@ fr:
       home_room: Impossible de supprimer la Salle d'Accueil de l'utilisateur
       success: Salle supprimée
       fail: "Erreur lors de la suppression de la salle (%{error})"
+    duration_fixed: La durée maximale de la session est définie à %{duration} minutes.
     enter_the_access_code: Veuillez introduire le code d'accès de la salle
     enter_the_moderator_access_code: Saisissez le code modérateur !
     optional_moderator_access_code: "Code modérateur optionnel:"

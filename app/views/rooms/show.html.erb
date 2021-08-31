@@ -33,45 +33,52 @@
         </div>
         <h4 class="text-left mb-6"><%= @room.sessions %> <%= t("room.sessions") %><% unless hide_recording_tables %> | <%= @recordings.length %> <%= t("room.recordings") %><% end %></h4>
         <% unless exceeds_limit %>
-          <label class="form-label"><%= t("room.invite_participants") %></label>
-          <div class="row">
-            <div class="col-lg-6 col-md-12 mt-2">
-              <div class="input-icon invite-link-input">
-                <span class="input-icon-addon">
-                  <i class="fas fa-link"></i>
-                </span>
-                <input id="invite-url" type="text" class="form-control w-100" value="<%= request.base_url + @room.invite_path %>" readonly="">
-              </div>
-            </div>
-            <div class="col-lg-6 pr-lg-7 col-md-12 pl-lg-0">
-              <div class="row">
-                <div class="col-sm-6 mt-2">
-                  <button id="copy-invite" class="btn btn-primary btn-block" onclick="copyInvite()">
-                    <i class="fas fa-copy mr-1"></i>
-                    <%= t("copy") %>
-                  </button>
+          <% unless room_duration_number == 0 %>
+          <div class="form-group">
+            <label class="form-label"><%= t('room.duration_fixed', duration: room_duration_number ) %></label>
+          </div>
+          <% end %>
+          <div class="form-group">
+            <label class="form-label"><%= t("room.invite_participants") %></label>
+            <div class="row">
+              <div class="col-lg-6 col-md-12 mt-2">
+                <div class="input-icon invite-link-input">
+                  <span class="input-icon-addon">
+                    <i class="fas fa-link"></i>
+                  </span>
+                  <input id="invite-url" type="text" class="form-control w-100" value="<%= request.base_url + @room.invite_path %>" readonly="">
                 </div>
-                <div class="btn-group-vertical col-sm-6 pl-0 mt-2">
-                  <% if @room.access_code.present? %>
-                    <input id="copy-code" value="<%= @room.access_code %>" type="hidden">
-                    <button id="copy-access" class="btn btn-secondary btn-block" onclick="copyAccess()">
+              </div>
+              <div class="col-lg-6 pr-lg-7 col-md-12 pl-lg-0">
+                <div class="row">
+                  <div class="col-sm-6 mt-2">
+                    <button id="copy-invite" class="btn btn-primary btn-block" onclick="copyInvite()">
                       <i class="fas fa-copy mr-1"></i>
-                      <%= t("room.copy_access") %>
+                      <%= t("copy") %>
                     </button>
-                  <% end %>
-                  <% if moderator_code_allowed? && @room.moderator_access_code.present? %>
-                    <input id="copy-moderator-code" value="<%= @room.moderator_access_code %>" type="hidden">
-                    <button id="copy-moderator-access" class="btn btn-secondary btn-block" onclick="copyAccess('moderator')">
-                      <i class="fas fa-copy mr-1"></i>
-                      <%= t("room.copy_moderator_access") %>
-                    </button>
-                  <% end %>
-                  <% if Rails.configuration.enable_google_calendar_button %>
-                    <a href="<%= google_calendar_path %>" target="__blank" id="schedule" class="btn btn-primary btn-block mt-2">
-                      <i class="fas fa-calendar-plus"></i>
-                      <%= t("add_to_google_calendar") %>
-                    </a>
-                  <% end %>
+                  </div>
+                  <div class="btn-group-vertical col-sm-6 pl-0 mt-2">
+                    <% if @room.access_code.present? %>
+                      <input id="copy-code" value="<%= @room.access_code %>" type="hidden">
+                      <button id="copy-access" class="btn btn-secondary btn-block" onclick="copyAccess()">
+                        <i class="fas fa-copy mr-1"></i>
+                        <%= t("room.copy_access") %>
+                      </button>
+                    <% end %>
+                    <% if moderator_code_allowed? && @room.moderator_access_code.present? %>
+                      <input id="copy-moderator-code" value="<%= @room.moderator_access_code %>" type="hidden">
+                      <button id="copy-moderator-access" class="btn btn-secondary btn-block" onclick="copyAccess('moderator')">
+                        <i class="fas fa-copy mr-1"></i>
+                        <%= t("room.copy_moderator_access") %>
+                      </button>
+                    <% end %>
+                    <% if Rails.configuration.enable_google_calendar_button %>
+                      <a href="<%= google_calendar_path %>" target="__blank" id="schedule" class="btn btn-primary btn-block mt-2">
+                        <i class="fas fa-calendar-plus"></i>
+                        <%= t("add_to_google_calendar") %>
+                      </a>
+                    <% end %>
+                  </div>
                 </div>
               </div>
             </div>

@@ -578,6 +578,7 @@ en:
       home_room: Can't delete user's Home Room
       success: Room deleted successfully
       fail: Failed to delete room (%{error})
+    duration_fixed: The maximum duration of the session is set to %{duration} minutes.
     enter_the_access_code: Enter the room's access code
     enter_the_moderator_access_code: Enter the room's moderator code!
     optional_moderator_access_code: "Optional Moderator Code:"
