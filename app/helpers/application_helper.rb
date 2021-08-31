@@ -148,6 +148,21 @@ module ApplicationHelper
     end
   end
 
+  # Rooms configuration duration params - The room duration
+  def room_duration_number
+    @settings.get_value("Room Configuration Meeting Duration").to_i
+  end
+
+  # Rooms configuration duration params - The minimum room duration
+  def room_min_duration_number
+    @settings.get_value("Room Configuration Min Configurable Meeting Duration").to_i
+  end
+
+  # Rooms configuration duration params - The maximum room duration
+  def room_max_duration_number
+    @settings.get_value("Room Configuration Max Configurable Meeting Duration").to_i
+  end
+
   # Returns true if protected recordings is enabled on BigBlueButton/Scalelite server
   def protected_recording?(rec)
     !rec[:protected].nil?

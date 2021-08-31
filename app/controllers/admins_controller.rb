@@ -18,7 +18,7 @@
 
 class AdminsController < ApplicationController
   include Pagy::Backend
-  include AdminsHelper
+  include ApplicationHelper
   include Themer
   include Emailer
   include Recorder
