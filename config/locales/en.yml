@@ -126,6 +126,7 @@ en:
       delete: User deleted successfully
       delete_fail: Failed to delete user
       demoted: User has been successfully demoted
+      duration_failed: Failed to update the duration. The value must be between %{min} and %{max} minutes.
       invite: Invite successfully sent to %{email}
       invite_email_verification: Emails must be enabled in order to use this method. Please contact your system administrator.
       merge_fail: There was an issue merging the user accounts. Please check the users selected and try again
@@ -169,6 +170,9 @@ en:
       title: Room Configuration
       mute:
         info: Automatically mutes the user when they join the BigBlueButton meeting
+      duration:
+        info: Duration of meeting in minutes. A zero value mean applying no configuration.
+        change: Change duration
       require_moderator:
         info: Prompts the moderator of the BigBlueButton meeting when a user tries to join. If the user is approved, they will be able to join the meeting.
       allow_any:
@@ -455,6 +459,7 @@ en:
       title: Room Settings
       update: Update Room
       client: Select client type
+      duration: Duration of meetings
       join_moderator: All users join as moderators
       mute: Mute users when they join
       require_approval: Require moderator approval before joining

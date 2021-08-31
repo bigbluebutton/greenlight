@@ -18,6 +18,7 @@
 
 class AdminsController < ApplicationController
   include Pagy::Backend
+  include AdminsHelper
   include Themer
   include Emailer
   include Recorder
@@ -283,6 +284,11 @@ class AdminsController < ApplicationController
   # ROOM CONFIGURATION
   # POST /admins/update_room_configuration
   def update_room_configuration
+    in_interval = params[:value].to_i < room_min_duration_number || params[:value].to_i > room_max_duration_number
+    if params[:setting] == 'Room Configuration Meeting Duration' && in_interval
+      flash_message = I18n.t("administrator.flash.duration_failed", min: room_min_duration_number, max: room_max_duration_number)
+      return redirect_to admin_room_configuration_path, flash: { alert: flash_message }
+    end
     @settings.update_value(params[:setting], params[:value])
 
     flash_message = I18n.t("administrator.flash.room_configuration")

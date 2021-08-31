@@ -139,6 +139,16 @@ module AdminsHelper
     end
   end
 
+  def room_duration_number
+    @settings.get_value("Room Configuration Meeting Duration").to_i
+  end
+  def room_min_duration_number
+    @settings.get_value("Room Configuration Min Configurable Meeting Duration").to_i
+  end
+  def room_max_duration_number
+    @settings.get_value("Room Configuration Max Configurable Meeting Duration").to_i
+  end
+
   # Roles
 
   def edit_disabled

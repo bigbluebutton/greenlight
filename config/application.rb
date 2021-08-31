@@ -181,6 +181,19 @@ module Greenlight
     # Don't show option to generate moderator access codes
     config.moderator_codes_default = "disabled"
 
+    # Default meeting duration in minutes - 0 for not set
+    config.room_duration_default = ENV['DEFAULT_MEETING_DURATION'].to_i
+
+    # Max meeting configuration in minutes - default to 0 to be able to not set a duration
+    config.room_min_configurable_duration_default = ENV['DEFAULT_CONFIGURABLE_MIN_MEETING_DURATION'].to_i
+
+    # Max meeting configuration in minutes - default to 1 day
+    config.room_max_configurable_duration_default = if ENV['DEFAULT_CONFIGURABLE_MAX_MEETING_DURATION'].to_i.zero?
+      1440
+    else
+      ENV['DEFAULT_CONFIGURABLE_MAX_MEETING_DURATION'].to_i
+    end
+
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'Administrator1!'
 

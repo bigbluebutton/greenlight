@@ -68,6 +68,12 @@ class Setting < ApplicationRecord
       Rails.configuration.preupload_presentation_default
     when "Room Configuration Moderator Access Codes"
       Rails.configuration.moderator_codes_default
+    when "Room Configuration Meeting Duration"
+      Rails.configuration.room_duration_default
+    when "Room Configuration Min Configurable Meeting Duration"
+      Rails.configuration.room_min_configurable_duration_default
+    when "Room Configuration Max Configurable Meeting Duration"
+      Rails.configuration.room_max_configurable_duration_default
     when "Room Configuration Mute On Join"
       room_config_setting("mute-on-join")
     when "Room Configuration Require Moderator"

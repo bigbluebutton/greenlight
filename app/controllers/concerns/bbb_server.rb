@@ -77,6 +77,9 @@ module BbbServer
     create_options[:muteOnStart] = options[:mute_on_start] if options[:mute_on_start]
     create_options[:guestPolicy] = "ASK_MODERATOR" if options[:require_moderator_approval]
 
+    duration = @settings.get_value("Room Configuration Meeting Duration")
+    create_options[:duration] = duration.to_i if duration.to_i.positive?
+
     # Send the create request.
     begin
       meeting = if room.presentation.attached?

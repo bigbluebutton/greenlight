@@ -48,11 +48,9 @@ $(document).on('turbolinks:load', function(){
 
     // share room pop up accessibility
     manageAccessAccessibility();
-
     $(".delete-room").click(function() {
       showDeleteRoom(this)
     })
-
     // For keyboard users to be able to generate access code
     generateAccessCodeAccessibility()
 
@@ -430,6 +428,12 @@ function filterRooms() {
 function clearRoomSearch() {
   $('#room-search').val(''); 
   filterRooms()
+}
+
+// Change the default rooms duration
+function changeRoomDuration(path) {
+  var duration = $("#room-duration").val()
+  $.post(path, {value: duration})
 }
 
 function manageAccessAccessibility() {

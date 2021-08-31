@@ -126,6 +126,7 @@ fr:
       delete: Utilisateur supprimé
       delete_fail: Impossible de supprimer l'utilisateur
       demoted: L'utilisateur a été rétrogradé
+      duration_failed: Impossible de modifier la durée. La valeur doit être comprise entre %{min} et %{max} minutes.
       invite: "Invitation envoyée à %{email}"
       invite_email_verification: Les emails doivent être activés pour utiliser cette méthode. Veuillez contacter votre administrateur système.
       merge_fail: Un problème est survenu lors de la fusion des comptes utilisateurs. Veuillez vérifier les utilisateurs sélectionnés et réessayer
@@ -169,6 +170,9 @@ fr:
       title: Configuration du salon
       mute:
         info: Automatiquement mettre en sourdine les utilisateurs lorsqu'ils rejoignent la réunion BigBlueButton
+      duration:
+        info: Durée en minutes de la conférence. Une valeure à zéro signifie ne pas appliquer de configuration.
+        change: Changer la durée
       require_moderator:
         info: "Avertit le modérateur d'une conférence BigBlueButton lorsqu'un utilisateur essaye de se connecter. Si l'utilisateur est approuvé, il pourra joindre la conférence."
       allow_any:
@@ -454,6 +458,7 @@ fr:
       title: Paramètres du Salon
       update: Mise à jour du Salon
       client: Sélectionnez le type de client
+      duration: Durée de la réunion
       join_moderator: " Tous les utilisateurs joignent le salon en tant que modérateurs"
       mute: Mettre les utilisateurs en sourdine lors de la connexion
       require_approval: Exiger l'approbation du modérateur avant de rejoindre

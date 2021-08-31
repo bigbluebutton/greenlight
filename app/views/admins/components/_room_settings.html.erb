@@ -26,6 +26,23 @@
 
   <div class="mb-6 row">
     <div class="col-12">
+      <div class="form-group">
+        <form>
+          <label class="form-label"><%= t("modal.room_settings.duration") %></label>
+          <label class="form-label text-muted"><%= t("administrator.room_configuration.duration.info") %></label>
+          <div class="input-group">
+            <input id="room-duration" type="number" min="<%= room_min_duration_number %>" max="<%= room_max_duration_number %>" class="form-control" value="<%= room_duration_number %>">
+            <span class="input-group-append">
+              <button id="room-duration" onclick="changeRoomDuration('<%= admin_update_room_configuration_path(setting: 'Room Configuration Meeting Duration') %>')" class="btn btn-primary" type="submit"><%= t("administrator.room_configuration.duration.change") %></button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-6 row">
+    <div class="col-12">
      <div class="form-group">
         <label class="form-label"><%= t("modal.room_settings.require_approval") %></label>
         <label class="form-label text-muted"><%= t("administrator.room_configuration.require_moderator.info") %></label>
@@ -135,10 +152,10 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="room-auth">
             <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Moderator Access Codes", value: "optional"), class: "dropdown-item", "data-disable": "" do %>
-              <%= t("administrator.room_configuration.options.optional") %>            
+              <%= t("administrator.room_configuration.options.optional") %>
             <% end %>
             <%= button_to admin_update_room_configuration_path(setting: "Room Configuration Moderator Access Codes", value: "disabled"), class: "dropdown-item", "data-disable": "" do %>
-              <%= t("administrator.room_configuration.options.disabled") %>   
+              <%= t("administrator.room_configuration.options.disabled") %>
             <% end %>
           </div>
         </div>
