@@ -31,6 +31,10 @@ describe RoomsController, type: :controller do
   include Recorder
   include BbbServer
 
+  before do
+    @settings = Setting.find_or_create_by(provider: "provider1")
+  end
+
   let(:bbb_server) { BigBlueButton::BigBlueButtonApi.new("http://bbb.example.com/bigbluebutton/api", "secret", "0.8") }
 
   describe "GET #show" do
