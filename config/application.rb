@@ -183,5 +183,8 @@ module Greenlight
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
+
+    # Default welcome message
+    config.welcome_message = ENV['WELCOME_MESSAGE'].nil? ? '' : ENV['WELCOME_MESSAGE']
   end
 end
