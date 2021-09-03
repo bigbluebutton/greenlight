@@ -178,6 +178,9 @@ fr:
       moderator_codes:
         info: Autoriser les propriétaires de salles la possibilité de générer un code qui permet aux autres utilisateurs de rejoindre directement en tant que modérateur
         title: Code d'accès modérateur
+      require_authentication:
+        title: Authentification requise pour rejoindre la salle
+        info: Autoriser les propriétaires des salles à limiter l'accès ou non aux utilisateurs authentifiés. Par défaut l'authentification n'est pas obligatoire.
       options:
         disabled: Désactivé
         enabled: Toujours activé
@@ -452,6 +455,7 @@ fr:
       start: Autoriser tout utilisateur à démarrer cette réunion
       footer_text: L’ajustement de votre Salon peut être fait à tout moment.
       recording: Autoriser l'enregistrement d'une salle
+      require_authentication: Authentification requise pour rejoindre la salle
     rename_room:
       name_placeholder: Entrez un nouveau nom de salon...
     share_access:
