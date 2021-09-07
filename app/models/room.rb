@@ -75,9 +75,14 @@ class Room < ApplicationRecord
     shared_users.include?(user)
   end
 
+  # Add a prefix to the invite path
+  def prefixed_invite_path
+    "#{ENV['INVITE_PREFIX'] || ''}#{self.invite_path}"
+  end
+
   # Determines the invite path for the room.
   def invite_path
-    "#{ENV['INVITE_PREFIX'] || ''}#{self.invite_path}"
+    "#{Rails.configuration.relative_url_root}/#{CGI.escape(uid)}"
   end
 
   # Notify waiting users that a meeting has started.
