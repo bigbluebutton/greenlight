@@ -24,6 +24,7 @@ externalSecret:
     - SMTP_TLS
     - SMTP_USERNAME
     - WEB_CONCURRENCY
+    - INVITE_PREFIX
 
 containerPort: 80
 
