@@ -25,6 +25,7 @@ externalSecret:
     - SMTP_USERNAME
     - WEB_CONCURRENCY
     - INVITE_PREFIX
+    - RAILS_LOG_TO_STDOUT
 
 containerPort: 80
 
