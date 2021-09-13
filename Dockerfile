@@ -45,6 +45,8 @@ ARG PACKAGES="tzdata curl postgresql-client sqlite-libs yarn nodejs bash"
 ENV RAILS_ENV=production
 ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
 
+# VAN-466
+ENV INVITE_PREFIX="/frontend"
 WORKDIR $RAILS_ROOT
 
 RUN apk update \

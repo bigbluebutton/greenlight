@@ -1,4 +1,4 @@
-nameOverride: "greenlight-veea-nj"
+nameOverride: "greenlight-remax-cos"
 
 replicaCount: 1
 
@@ -9,13 +9,13 @@ image:
 ingress:
   enabled: true
   hosts:
-    - host: "veea-nj.adedge.dev.veeaplatform.net"
+    - host: "remax-cos.adedge.qa.veea.co"
       paths:
         - path: /b
 
 externalSecret:
   dataFrom:
-    - dev/greenlight-veea-nj.yaml
+    - qa/greenlight-remax-cos
 
 datadog:
-  env: dev
+  env: qa

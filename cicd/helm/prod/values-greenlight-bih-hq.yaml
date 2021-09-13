@@ -1,4 +1,4 @@
-nameOverride: "greenlight-veea-nj"
+nameOverride: "greenlight-bih-hq"
 
 replicaCount: 1
 
@@ -9,13 +9,13 @@ image:
 ingress:
   enabled: true
   hosts:
-    - host: "veea-nj.adedge.dev.veeaplatform.net"
+    - host: "bih-hq.adedge.veea.co"
       paths:
         - path: /b
 
 externalSecret:
   dataFrom:
-    - dev/greenlight-veea-nj.yaml
+    - prod/greenlight-bih-hq
 
 datadog:
-  env: dev
+  env: prod
