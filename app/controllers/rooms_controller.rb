@@ -167,6 +167,15 @@ class RoomsController < ApplicationController
     redirect_to room_path(@room)
   end
 
+  def valid_avatar?(url)
+    return false if URI.regexp.match(url).nil?
+    uri = URI(url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true if uri.scheme == 'https'
+    response = http.request_head(uri)
+    return response['content-length'].to_i < Rails.configuration.max_avatar_size
+  end
+  
   # POST /:room_uid/start
   def start
     logger.info "Support: #{current_user.email} is starting room #{@room.uid}"
@@ -180,8 +189,7 @@ class RoomsController < ApplicationController
     opts[:mute_on_start] = room_setting_with_config("muteOnStart")
     opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
     opts[:record] = record_meeting
-    opts[:avatarURL_size] = url_size(current_user.image)
-    opts[:avatarURL] = current_user.image
+    opts[:avatarURL] = current_user.image if current_user.image.present? && valid_avatar?(current_user.image)
 
     begin
       redirect_to join_path(@room, current_user.name, opts, current_user.uid)
