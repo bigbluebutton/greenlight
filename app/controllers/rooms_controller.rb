@@ -166,7 +166,7 @@ class RoomsController < ApplicationController
 
     redirect_to room_path(@room)
   end
-  
+
   # POST /:room_uid/start
   def start
     logger.info "Support: #{current_user.email} is starting room #{@room.uid}"
