@@ -183,5 +183,8 @@ module Greenlight
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
+
+    # Max avatar size
+    config.max_avatar_size = ENV['AVATAR_SIZE_LIMIT'].to_i
   end
 end
