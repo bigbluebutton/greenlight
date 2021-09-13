@@ -113,15 +113,6 @@ module ApplicationHelper
   rescue
     false
   end
-
-  def url_size(url)
-    return 0 if URI.regexp.match(url).nil?
-    uri = URI(url)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true if uri.scheme == 'https'
-    response = http.request_head(uri)
-    return response['content-length'].to_i
-  end
   
   # Specifies which title should be the tab title and returns original string
   def title(page_title)
