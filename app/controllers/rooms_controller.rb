@@ -166,15 +166,6 @@ class RoomsController < ApplicationController
 
     redirect_to room_path(@room)
   end
-
-  def valid_avatar?(url)
-    return false if URI.regexp.match(url).nil?
-    uri = URI(url)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true if uri.scheme == 'https'
-    response = http.request_head(uri)
-    return response['content-length'].to_i < Rails.configuration.max_avatar_size
-  end
   
   # POST /:room_uid/start
   def start
