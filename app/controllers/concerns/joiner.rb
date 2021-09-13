@@ -18,7 +18,6 @@
 
 module Joiner
   extend ActiveSupport::Concern
-  include ApplicationHelper
 
   # Displays the join room page to the user
   def show_user_join
