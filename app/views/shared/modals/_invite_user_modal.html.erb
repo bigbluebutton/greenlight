@@ -27,7 +27,7 @@
               <span class="input-icon-addon">
                 <i class="fas fa-envelope"></i>
               </span>
-              <%= f.text_field :email, class: "form-control", value: "", placeholder: t("modal.invite_user.email_placeholder"), autocomplete: :off %>
+              <%= f.text_area :email, size: "70x5", class: "form-control", value: "", placeholder: t("modal.invite_user.email_placeholder"), autocomplete: :off %>
               <div class="invalid-feedback text-left"><%= t("modal.invite_user.not_blank") %></div>
             </div>
           <div class="mt-4">
