@@ -21,7 +21,10 @@
           <div class="card-title">
             <h3><%= t("modal.invite_user.title") %></h3>
           </div>
-
+          <div>
+            <%= t("administrator.users.invselect") %>
+            <input type="file" accept="text/csv" class="btn btn-primary pt-3" name="invuserfile" id="invuserfile"/>
+          </div>
           <%= form_for(:invite_user, url: invite_user_path) do |f| %>
             <div class="input-icon mb-2">
               <span class="input-icon-addon">

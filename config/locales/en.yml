@@ -197,6 +197,7 @@ en:
     title: Organization Settings
     users:
       invite: Invite User
+      invselect: Select .csv file of users to be invited
       edit:
         title: Edit User Details
       settings:
@@ -222,6 +223,7 @@ en:
         username: Username
         valid: Valid
       title: Manage Users
+      upload: Upload
   add_to_google_calendar: "Add to Google Calendar"
   bigbluebutton: vREO
   bigbluebutton_exception: Oops, there was an error when starting the meeting!
