@@ -43,11 +43,11 @@
 
     function toggle_co_browsing_share(){
         if (co_browsing.active){
-            $.post( "/neelz/unshare", function( data ) {
+            $.post( "/cobrowsing/neelz/unshare", function( data ) {
                 co_browsing_state_changed(false);
             });
         }else {
-            $.post("/neelz/share", function (data) {
+            $.post("/cobrowsing/neelz/share", function (data) {
                 co_browsing_state_changed(true);
             });
         }
@@ -55,7 +55,7 @@
 
     function refresh_co_browsing(){
         if (co_browsing.active){
-            $.post("/neelz/refresh", function( data ) {
+            $.post("/cobrowsing/neelz/refresh", function( data ) {
 
             });
         }
@@ -70,7 +70,7 @@
         if (event.data.t !== 'cobrowsing'){
             return;
         }
-        let posting = $.post('/neelz/i_share', JSON.parse(event.data));
+        let posting = $.post('/cobrowsing/neelz/i_share', JSON.parse(event.data));
         posting.done(function (data) {
             co_browsing_state_changed(true);
         });

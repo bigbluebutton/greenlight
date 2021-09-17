@@ -25,7 +25,7 @@
 
         <div id="inside_external_frame_iframe_container">
 
-          <iframe title="<%= @neelz_room.name_of_study %>" class="inside_attendee_external_iframe" id="external_viewport_1"  <% if @neelz_room.proband_readonly? %> sandbox="allow-unsafe allow-scripts" <% end %> src="" allowfullscreen allow="autoplay *; fullscreen *; display-capture *; geolocation *; microphone *; camera *; midi *; encrypted-media *; vr *;" width="100%" height="100%" importance="high">
+          <iframe title="<%= @neelz_room.name_of_study %>" class="inside_attendee_external_iframe" id="external_viewport_1"  <% if @neelz_room.proband_readonly? %> sandbox="allow-unsafe allow-scripts" <% end %> src="<%= @neelz_room.proband_url %>" allowfullscreen allow="autoplay *; fullscreen *; display-capture *; geolocation *; microphone *; camera *; midi *; encrypted-media *; vr *;" width="100%" height="100%" importance="high">
           </iframe>
 
         </div>
