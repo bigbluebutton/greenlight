@@ -147,4 +147,9 @@ module ApplicationHelper
       current_user&.role&.get_permission("can_launch_recording")
     end
   end
+
+  # Returns true if protected recordings is enabled on BigBlueButton/Scalelite server
+  def protected_recording?(rec)
+    !rec[:protected].nil?
+  end
 end

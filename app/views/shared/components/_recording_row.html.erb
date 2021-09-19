@@ -52,6 +52,8 @@
     <div class="dropdown">
       <% if recording[:metadata][:"gl-listed"] == "true" %>
         <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fas fa-globe px-2"></i> <%= t("recording.visibility.public") %></button>
+      <% elsif recording[:protected] == "true" %>
+        <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fas fa-shield-alt px-2"></i> <%= t("recording.visibility.protected") %></button>
       <% elsif !recording[:published] %>
         <button class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown"><i class="dropdown-icon fas fa-lock px-2"></i> <%= t("recording.visibility.inaccessible") %></button>
       <% else %>
@@ -60,6 +62,11 @@
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <%= button_to update_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID], state: "public"), class: "dropdown-item", "data-disable": "" do %>
           <i class="dropdown-icon fas fa-globe"></i> <%= t("recording.visibility.public") %>
+        <% end %>
+        <% if protected_recording?(recording) %>
+          <%= button_to update_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID], state: "protected"), class: "dropdown-item", "data-disable": "" do %>
+            <i class="dropdown-icon fas fa-shield-alt"></i> <%= t("recording.visibility.protected") %>
+          <% end %>
         <% end %>
         <%= button_to update_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID], state: "unlisted"), class: "dropdown-item", "data-disable": "" do %>
           <i class="dropdown-icon fas fa-link"></i> <%= t("recording.visibility.unlisted") %>
