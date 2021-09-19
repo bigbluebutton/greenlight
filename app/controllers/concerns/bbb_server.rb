@@ -119,6 +119,20 @@ module BbbServer
     bbb_server.publish_recordings(record_id, false)
   end
 
+  # Protect a recording
+  def protect_recording(record_id, meta = {})
+    meta[:recordID] = record_id
+    meta[:protect] = true
+    bbb_server.send_api_request("updateRecordings", meta)
+  end
+
+  # Unprotect a recording
+  def unprotect_recording(record_id, meta = {})
+    meta[:recordID] = record_id
+    meta[:protect] = false
+    bbb_server.send_api_request("updateRecordings", meta)
+  end
+
   # Deletes a recording from a room.
   def delete_recording(record_id)
     bbb_server.delete_recordings(record_id)
