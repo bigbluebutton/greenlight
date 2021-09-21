@@ -48,14 +48,14 @@ nodeSelector:
 livenessProbe:
   httpGet:
     path: /b/health_check
-    port: http
+    port: 80
   initialDelaySeconds: 5
   periodSeconds: 60
 
 readinessProbe:
   httpGet:
     path: /b/health_check
-    port: http
+    port: 80
   initialDelaySeconds: 5
   periodSeconds: 60
 
