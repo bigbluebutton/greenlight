@@ -25,8 +25,6 @@ externalSecret:
     - SMTP_USERNAME
     - WEB_CONCURRENCY
 
-containerPort: 80
-
 resources:
   limits:
     cpu: 1000m
@@ -49,22 +47,23 @@ livenessProbe:
   httpGet:
     path: /b/health_check
     port: 80
-  initialDelaySeconds: 180
+  initialDelaySeconds: 60
   periodSeconds: 60
 
 readinessProbe:
   httpGet:
     path: /b/health_check
     port: 80
-  initialDelaySeconds: 180
+  initialDelaySeconds: 60
   periodSeconds: 60
 
-#startupProbe:
-#  httpGet:
-#    path: /b/health_check
-#    port: http
-#  failureThreshold: 3
-#  periodSeconds:  60
+startupProbe:
+  httpGet:
+    path: /b/health_check
+    port: 80
+  initialDelaySeconds: 60
+  failureThreshold: 3
+  periodSeconds:  60
 
 datadog:
   logs:
