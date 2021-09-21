@@ -26,7 +26,9 @@ externalSecret:
     - WEB_CONCURRENCY
 
 ports:
-  - containerPort: 80
+  - name: http
+    containerPort: 80
+    protocol: TCP
 
 resources:
   limits:
@@ -49,21 +51,21 @@ nodeSelector:
 livenessProbe:
   httpGet:
     path: /b/health_check
-    port: 80
+    port: http
   initialDelaySeconds: 30
   periodSeconds: 60
 
 readinessProbe:
   httpGet:
     path: /b/health_check
-    port: 80
+    port: http
   initialDelaySeconds: 30
   periodSeconds: 60
 
 startupProbe:
   httpGet:
     path: /b/health_check
-    port: 80
+    port: http
   initialDelaySeconds: 30
   failureThreshold: 3
   periodSeconds:  60
