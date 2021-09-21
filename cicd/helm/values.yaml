@@ -25,7 +25,8 @@ externalSecret:
     - SMTP_USERNAME
     - WEB_CONCURRENCY
 
-containerPort: 80
+ports:
+  - containerPort: 80
 
 resources:
   limits:
