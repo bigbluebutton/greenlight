@@ -59,12 +59,12 @@ readinessProbe:
   initialDelaySeconds: 5
   periodSeconds: 60
 
-startupProbe:
-  httpGet:
-    path: /b/health_check
-    port: http
-  failureThreshold: 3
-  periodSeconds:  60
+#startupProbe:
+#  httpGet:
+#    path: /b/health_check
+#    port: http
+#  failureThreshold: 3
+#  periodSeconds:  60
 
 datadog:
   logs:
