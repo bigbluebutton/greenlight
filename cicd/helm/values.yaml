@@ -49,11 +49,15 @@ livenessProbe:
   httpGet:
     path: /b/health_check
     port: http
+  initialDelaySeconds: 5
+  periodSeconds: 60
 
 readinessProbe:
   httpGet:
     path: /b/health_check
     port: http
+  initialDelaySeconds: 5
+  periodSeconds: 60
 
 startupProbe:
   httpGet:
