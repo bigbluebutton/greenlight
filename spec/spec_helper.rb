@@ -54,27 +54,27 @@ RSpec.configure do |config|
       .with(
         headers:
         {
-          'Accept': '*/*',
+          Accept: '*/*',
           'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'User-Agent': 'Ruby',
         }
       )
       .to_return(status: 200, body: "", headers: {})
-    stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT'] + 'api'}/)
+    stub_request(:any, /#{"#{ENV['LOADBALANCER_ENDPOINT']}api"}/)
       .with(
         headers:
         {
-          'Accept': '*/*',
+          Accept: '*/*',
           'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'User-Agent': 'Ruby',
         }
       )
       .to_return(status: 200, body: "", headers: {}) if ENV['LOADBALANCER_ENDPOINT']
-    stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT'] + 'api\/getUser'}/)
+    stub_request(:any, /#{"#{ENV['LOADBALANCER_ENDPOINT']}api\\/getUser"}/)
       .with(
         headers:
         {
-          'Accept': '*/*',
+          Accept: '*/*',
           'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'User-Agent': 'Ruby',
         }
@@ -90,11 +90,11 @@ RSpec.configure do |config|
             <secret>secret</secret>
           </user>
         </response>", headers: {}) if ENV['LOADBALANCER_ENDPOINT']
-    stub_request(:any, /#{ENV['LOADBALANCER_ENDPOINT'] + 'api2\/getUserGreenlightCredentials'}/)
+    stub_request(:any, /#{"#{ENV['LOADBALANCER_ENDPOINT']}api2\\/getUserGreenlightCredentials"}/)
       .with(
         headers:
         {
-          'Accept': '*/*',
+          Accept: '*/*',
           'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'User-Agent': 'Ruby',
         }

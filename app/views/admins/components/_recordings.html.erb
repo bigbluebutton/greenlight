@@ -19,45 +19,20 @@
       <table id="recordings-table" class="table table-hover table-outline table-vcenter card-table">
         <thead>
           <tr>
-            <th data-header="name" data-order="<%= @order_column == "name" ? @order_direction : "none" %>">
+            <th data-header="name">
               <%= t("recording.table.name") %>
-              <% if @order_column == "name" && @order_direction == "desc" %>
-                ↓
-              <% elsif @order_column == "name" && @order_direction == "asc" %>
-                ↑
-              <% end %>
             </th>
-            <th class="text-left" data-header="length" data-order="<%= @order_column == "length" ? @order_direction : "none" %>">
+            <th class="text-left" data-header="length">
               <%= t("recording.table.length") %>
-              <% if @order_column == "length" && @order_direction == "desc" %>
-                ↓
-              <% elsif @order_column == "length" && @order_direction == "asc" %>
-                ↑
-              <% end %>
             </th>
-            <th class="text-left" data-header="users" data-order="<%= @order_column == "users" ? @order_direction : "none" %>">
+            <th class="text-left" data-header="users">
               <%= t("recording.table.users") %>
-              <% if @order_column == "users" && @order_direction == "desc" %>
-                ↓
-              <% elsif @order_column == "users" && @order_direction == "asc" %>
-                ↑
-              <% end %>
             </th>
-            <th class="text-left" data-header="visibility" data-order="<%= @order_column == "visibility" ? @order_direction : "none" %>">
+            <th class="text-left" data-header="visibility">
               <%= t("recording.table.visibility") %>
-              <% if @order_column == "visibility" && @order_direction == "desc" %>
-                ↓
-              <% elsif @order_column == "visibility" && @order_direction == "asc" %>
-                ↑
-              <% end %>
             </th>
-            <th data-header="formats" data-order="<%= @order_column == "formats" ? @order_direction : "none" %>">
+            <th data-header="formats">
               <%= t("recording.table.formats") %>
-              <% if @order_column == "formats" && @order_direction == "desc" %>
-                ↓
-              <% elsif @order_column == "formats" && @order_direction == "asc" %>
-                ↑
-              <% end %>
             </th>
             <th class="text-center"><i class="icon-settings"></i></th>
           </tr>
@@ -93,7 +68,7 @@
           <% end %>
         </tbody>
       </table>
-      <% if !@recordings.empty?%>
+      <% if !@recordings.empty? && !@latest%>
         <div class="float-md-right mt-4">
           <%== pagy_bootstrap_nav(@pagy) %>
         </div>

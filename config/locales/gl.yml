@@ -69,6 +69,10 @@ gl:
         regular: Normal
         lighten: Clarexar
         darken: Escurecer
+      email_mapping:
+        info: "Asignar o usuario a un rol usando o seu correo-e. Debe ter o formato email1=rol1,email2=rol2"
+        title: Asignación de roles por correo-e
+        update:
       log_level:
         title: Nivel de rexistro
         information: Cambiar o nivel de rexistro para o despregamento completo
@@ -90,7 +94,7 @@ gl:
         title: Cartel de mantemento
         display: Estabelecer
         clear: Limpar
-        time: "Exemplo: Actualización programada para o 13 de decembro ás 23:00 ET. Os usuarios poden ter problemas para iniciar sesión."        
+        time: "Exemplo: Actualización programada para o 13 de decembro ás 23:00 ET. Os usuarios poden ter problemas para iniciar sesión."
       preupload:
         info: Os usuarios poden cargar previamente unha presentación para que a utilicen como presentación predeterminada para esa sala específica
         title: Permitirlle aos usuarios precargar as presentacións
@@ -111,6 +115,7 @@ gl:
       tabs:
         appearance: Aparencia
         administration: Administración
+        registration: Rexistro
         settings: Axustes
       title: Axustes do sitio
     flash:
@@ -133,11 +138,14 @@ gl:
       settings: Os axustes do sitio foron cambiados correctamente
       unauthorized: Non está autorizado para executar accións sobre este usuario
     recordings:
+      latest: Últimas gravacións
       title: Gravacións do servidor
       no_recordings: Este servidor non ten gravacións.
+      search_info: Introduza o correo-e completo dun usuario ou o UID dunha sala
     roles:
       appear_in_share_list: Incluír usuarios con este rol no menú despregábel para compartir salas
       can_create_rooms: Pode crear salas
+      can_launch_recording: Permitir os usuarios con este rol para gravar estas reunións
       delete: Eliminar o rol
       invalid_create: Produciuse un problema ao crear un novo rol. Comprobe os valores dos roles e ténteo de novo
       invalid_order: Produciuse un problema ao actualizar a prioridade do rol. Comprobe os valores dos roles e ténteo de novo
@@ -168,11 +176,15 @@ gl:
         info: Dárlle a todos os usuarios os privilexios de moderador en BigBlueButton cando se unen á xuntanza.
       recordings:
         info: "Permitirlle aos propietarios de salas especificar se queren a opción para gravar unha sala ou non. Se está activado, o moderador aínda debe premer no botón «Gravar» unha vez iniciada a xuntanza."
+      moderator_codes:
+        info: Permitir aos propietarios de salas xerar opcionalmente un pin de moderador que permita a outros usuarios unirse directamente como moderadores.
+        title: Código de acceso do moderador
       options:
         disabled: Desactivado
         enabled: Activado sempre
         optional: Opcional
     rooms:
+      timeout: "Por mor do tempo de espera da solicitude do servidor %{server}, é posíbel que a información do estado e dos participantes non sexa exacta"
       title: Salas no servidor
       table:
         ended: "Rematada: %{session}"
@@ -202,12 +214,14 @@ gl:
       table:
         authenticator: Autenticador
         created: Creado
+        time: Hora de envío
         name: Nome
         not_found: Non hai usuarios que coincidan coa súa busca
         no_users: Non se atoparon usuarios
         role: Rol
         uid: ID do usuario
         username: Nome de usuario
+        valid: Válido
       title: Administrar usuarios
   add_to_google_calendar: "Engadir ao calendario de Google"
   bigbluebutton: BigBlueButton
@@ -215,7 +229,8 @@ gl:
   cancel: Cancelar
   cookies:
     cookie_info: "As cookies axúdanos a prestar os nosos servizos. Ao usar os nosos servizos, acepta o noso uso de cookies."
-    cookie_button: " Concordo"
+    cookie_button: " Acepto"
+    policy: "Para obter máis información, consulte a nosa <a href=\"%{privacy_link}\"><u>directiva de privacidade</u></a>."
   copied: Copiado
   copy: Copiar
   date:
@@ -226,19 +241,19 @@ gl:
   docs: Documentación
   email: Correo-e
   email_sent: "Enviouselle un correo-e %{email_type}. (Comprobe o seu cartafol de correo non desexado, se non o recibiu)"
-  enter_your_name: Escriba o seu nome!
+  enter_your_name: Escriba o seu nome
   errors:
     bigbluebutton:
       help: "Asegúrese de que se tomaron as medidas axeitadas. <a href=\"%{doc_link}\">Saber máis</a>"
       message: Punto final e segredo de BigBlueButton incorrectos
-      title: Erro do servidor
+      title: Produciuse un erro no servidor
     internal:
       message: Parece que algo saíu mal no noso lado.
       help: "Rexistrouse o erro, botaremoslle unha ollada!"
       report: Informar dun problema
     maintenance:
       message: "Sentímolo, estamos en mantemento."
-      help: Volveremos cedo!
+      help: Volveremos logo!
     migration_error:
       contact_admin: "Se non é un administrador, póñase en contacto cun."
       continue: Gustaríame seguir usando 1.0.
@@ -254,6 +269,7 @@ gl:
       accepted: ten que ser aceptado
       confirmation: "%{attribute} non coincide"
       inclusion: non está incluído na lista
+      domain: "debe rematar con «%{email_domain}»"
     no_provider:
       message: O sitio ao que está tentando acceder non está activo
       help: Póñase en contacto co administrador do sistema para configurar Greenlight
@@ -298,6 +314,7 @@ gl:
   home_room: Sala principal
   info_update_success: Actualizouse correctamente a información
   invalid_credentials: O correo e o contrasinal que introduciu non coinciden cos nosos rexistros. Tenteo de novo ou prema en «Esquecín o contrasinal» para restabelecer o seu contrasinal.
+  invalid_credentials_external: O correo e o contrasinal que introduciu non coinciden cos nosos rexistros. Tenteo de novo.
   invalid_login_method: Produciuse un fallo no acceso por mor da non coincidencia da conta. Debe acceder con omniauth.
   invite_message: "Para convidar a alguén á xuntanza, envíelle esta ligazón:"
   javascript:
@@ -342,6 +359,7 @@ gl:
         info: "Foi convidado ao seu propio espazo persoal por %{name}"
         signup_info: "Para rexistrarse usando o seu correo-e, prema no seguinte botón e siga os pasos."
         signup_link: Rexistrarse
+        valid: "O convite é valido ata: %{date}"
         signup:
           info: Un usuario que foi convidado rexistrouse para usar Greenlight.
           admins_link: Visite a páxina da organización
@@ -380,7 +398,9 @@ gl:
       title: Crear un novo rol
     create_room:
       access_code: Código de acceso
+      moderator_access_code: Código do moderador
       access_code_placeholder: Xerar un código de acceso á sala opcional
+      moderator_access_code_placeholder: Xera un código opcional para os moderadores
       auto_join: Unirse automaticamente comigo na sala
       create: Crear unha sala
       free_delete: Será libre de eliminar esta sala en calquera momento.
@@ -393,6 +413,10 @@ gl:
       keep: "De feito, mantereina."
       delete_warning: Isto desactivará a conta do usuario. Na lapela eliminada pódense atopar todos os usuarios desactivados.
       warning: Esta decisión é definitiva. <b>Non</b> poderá recuperar a información asociada.
+    delete_rec:
+      delete: "Si, confirmo que quero eliminar esta gravación."
+      header: "Confirma que quere eliminar esta gravación?"
+      warning: <b>Non</b> poderá recuperar esta gravación
     delete_room:
       confirm: "Confirma que quere eliminar a sala %{room}?"
       delete: "Estou seguro, eliminar esta sala."
@@ -465,6 +489,7 @@ gl:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: Conectar con OpenID
   recaptcha:
     errors:
       recaptcha_unreachable: Ouh! non podemos validar a resposta de reCAPTCHA. Tenteo de novo.
@@ -473,19 +498,22 @@ gl:
     all_recordings: Todas as gravacións
     email: " Enviar correo coa gravación"
     error: "Produciuse un erro ao recuperar %{count} gravación(s)"
-    no_recordings: "Esta sala non ten gravacións %{inject}."
+    no_public_recordings: Esta sala non ten gravacións públicas.
+    no_recordings: Esta sala non ten gravacións.
     no_user_recordings: Non ten gravacións.
-    no_matched_recordings: "Non hai %{inject} gravacións que coincidan coa súa busca."
-    recorded_on: "Gravado o %{date}"
+    no_matched_pub_recordings: Non hai gravacións públicas que coincidan coa túa busca.
+    no_matched_recordings: Non hai gravacións que coincidan coa túa busca.
+    recorded_on: "Gravada o %{date}"
     table:
       name: Nome
       thumbnails: Miniaturas
-      length: Lonxitude
+      length: Duración
       users: Usuarios
       visibility: Visibilidade
       formats: Formatos
     visibility:
-      public: Público
+      inaccessible: Inaccesíbel
+      public: Pública
       unlisted: Sen listar
     format:
       notes: Notas
@@ -510,6 +538,7 @@ gl:
   remove: Retirar
   rename: Renomear
   reset_password:
+    captcha: "Produciuse un fallo na verificación de reCAPTCHA, ténteo de novo."
     invalid_token: O testemuño de restablecemento de contrasinal non é válido. Tente restabelecer o seu contrasinal de novo.
     subtitle: Restabelecer o contrasinal
     password: Novo contrasinal
@@ -522,10 +551,13 @@ gl:
     banned: Expulsado
     deleted: Eliminado
     pending: Pendente
+    invited: Convidado
     user: Usuario
   room:
     access_code_required: Introduza un código de acceso válido para unirse á sala
     add_presentation: Engadir presentación
+    copy_access: Copiar o código de acceso
+    copy_moderator_access: Copiar o código de moderador
     create_room: Crear unha sala
     create_room_error: Produciuse un erro ao crear a sala
     create_room_success: Creouse correctamente a sala
@@ -534,9 +566,11 @@ gl:
       success: Eliminouse correctamente a sala
       fail: "Non foi posíbel eliminar a sala (%{error})"
     enter_the_access_code: Introduza o código de acceso á sala
+    enter_the_moderator_access_code: Introduza o código de moderador da sala.
+    optional_moderator_access_code: "Código de moderador opcional:"
     invalid_provider: Introduciu un URL non válido. Comprobe o URL e ténteo de novo.
-    invitation_description: "Foi convidado a unirse a %{name} empregando BigBlueButton. Para unirse, prema na ligazón superior e escriba o seu nome."  
-    invited: Foi convidado a unirse
+    invitation_description: "Foi convidado a unirse a %{name} empregando BigBlueButton. Para unirse, prema na ligazón superior e escriba o seu nome."
+    invited: Foi convidado a unirse a
     recording_present: Declaro ser coñecedor de que se vai gravar esta sesión. Isto pode incluír a miña voz e imaxe de vídeo se están activados.
     invite_participants: Convidar a participantes
     join: Unirse
@@ -561,15 +595,16 @@ gl:
     recordings: Gravacións da sala
     room_limit: Acadou o número máximo de salas permitido
     room_limit_exceeded: "Acadou o número de salas permitidas. Elimine %{difference} sala(s) para acceder a esta sala."
-    sessions: Sessiones
+    sessions: Sesións
     settings: Axustes da sala
-    share: Administrar o acceso
+    share: Xestionar o acceso
     shared_by: "Compartido por %{email}"
     remove_shared_access_success: Retirouse correctamente a sala compartida da súa lista
     remove_shared_access_error: Produciuse un erro ao retirar a sala compartida da súa lista
     shared_access_success: A sala foi compartida correctamente
     shared_access_error: Produciuse un erro ao compartir a sala
     start: Iniciar
+    search: Buscar sala…
     unavailable: Esta sala non está dispoñíbel actualmente por mor de que o correo-e do propietario non foi verificado.
     update_settings_error: Produciuse un erro ao actualizar os axustes da sala
     update_settings_success: Os axustes da sala foron actualizados correctamente
@@ -611,6 +646,9 @@ gl:
     title: Termos e condicións
   test_install: >
     Esta instalación está a usar un servidor para probas preconfigurado. Debe substituílo polo seu propio servidor. Para obter máis detalles, consulte %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Actualizar
   verify:
     accept: Verificar

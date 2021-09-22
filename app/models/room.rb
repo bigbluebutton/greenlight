@@ -32,36 +32,33 @@ class Room < ApplicationRecord
 
   has_one_attached :presentation
 
-  def self.admins_search(string)
-    active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
-    # Postgres requires created_at to be cast to a string
-    created_at_query = if active_database == "postgresql"
-      "created_at::text"
-    else
-      "created_at"
+  class << self
+    include Queries
+
+    def admins_search(string)
+      like = like_text
+      search_query = "rooms.name #{like} :search OR rooms.uid #{like} :search OR users.email #{like} :search" \
+      " OR users.#{created_at_text} #{like} :search"
+
+      search_param = "%#{sanitize_sql_like(string)}%"
+      where(search_query, search: search_param)
     end
 
-    search_query = "rooms.name LIKE :search OR rooms.uid LIKE :search OR users.email LIKE :search" \
-    " OR users.#{created_at_query} LIKE :search"
+    def admins_order(column, direction, running_ids)
+      # Include the owner of the table
+      table = joins(:owner)
 
-    search_param = "%#{sanitize_sql_like(string)}%"
-    where(search_query, search: search_param)
-  end
+      # Rely on manual ordering if trying to sort by status
+      return order_by_status(table, running_ids) if column == "status"
 
-  def self.admins_order(column, direction, running_ids)
-    # Include the owner of the table
-    table = joins(:owner)
+      return table.order(Arel.sql("COALESCE(rooms.last_session,rooms.created_at) DESC")) if column == "created_at"
 
-    # Rely on manual ordering if trying to sort by status
-    return order_by_status(table, running_ids) if column == "status"
+      return table.order(Arel.sql("rooms.#{column} #{direction}")) if table.column_names.include?(column)
 
-    return table.order("COALESCE(rooms.last_session,rooms.created_at) DESC") if column == "created_at"
+      return table.order(Arel.sql("#{column} #{direction}")) if column == "users.name"
 
-    return table.order(Arel.sql("rooms.#{column} #{direction}")) if table.column_names.include?(column)
-
-    return table.order(Arel.sql("#{column} #{direction}")) if column == "users.name"
-
-    table
+      table
+    end
   end
 
   # Determines if a user owns a room.

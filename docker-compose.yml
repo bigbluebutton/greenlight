@@ -24,7 +24,7 @@ services:
     links:
       - db
   db:
-    image: postgres:9.5
+    image: postgres:13.2-alpine
     restart: unless-stopped
     ports:
       - 127.0.0.1:5432:5432
