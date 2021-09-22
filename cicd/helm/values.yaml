@@ -65,7 +65,7 @@ startupProbe:
     port: http
   initialDelaySeconds: 90
   failureThreshold: 3
-  periodSeconds:  45
+  periodSeconds:  90
 
 datadog:
   logs:
