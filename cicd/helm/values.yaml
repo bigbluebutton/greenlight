@@ -22,6 +22,7 @@ externalSecret:
     - SMTP_SERVER
     - SMTP_STARTTLS_AUTO
     - SMTP_TLS
+    - SMTP_TEST_RECIPIENT
     - SMTP_USERNAME
     - WEB_CONCURRENCY
 

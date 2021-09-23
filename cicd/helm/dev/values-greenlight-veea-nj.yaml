@@ -15,7 +15,7 @@ ingress:
 
 externalSecret:
   dataFrom:
-    - dev/greenlight-veea-nj.yaml
+    - dev/greenlight-veea-nj
 
 datadog:
   env: dev
