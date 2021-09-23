@@ -65,13 +65,13 @@ class HealthCheckController < ApplicationController
     if settings[:authentication].present? && settings[:authentication] != "none"
 
       authVal = settings[:authentication]
-      logger.info "<<<<<<< address: #{(settings[:address]} >>>>>>>> "
-      logger.info "<<<<<<< port: #{(settings[:port]} >>>>>>>> "
-      logger.info "<<<<<<< enable_starttls_auto: #{(settings[:enable_starttls_auto]} >>>>>>>> "
-      logger.info "<<<<<<< Domain: #{(settings[:domain]} >>>>>>>> "
-      logger.info "<<<<<<< user_name: #{(settings[:user_name]} >>>>>>>> "
-      logger.info "<<<<<<< password: #{(settings[:password]} >>>>>>>> "
-      logger.info "<<<<<<< authentication: #{(settings[:authentication]} >>>>>>>> "
+      logger.info "<<<<<<< address: #{settings[:address]} >>>>>>>> "
+      logger.info "<<<<<<< port: #{settings[:port]} >>>>>>>> "
+      logger.info "<<<<<<< enable_starttls_auto: #{settings[:enable_starttls_auto]} >>>>>>>> "
+      logger.info "<<<<<<< Domain: #{settings[:domain]} >>>>>>>> "
+      logger.info "<<<<<<< user_name: #{settings[:user_name]} >>>>>>>> "
+      logger.info "<<<<<<< password: #{settings[:password]} >>>>>>>> "
+      logger.info "<<<<<<< authentication: #{settings[:authentication]} >>>>>>>> "
 
       smtp.start(settings[:domain]) do |s|
         s.authenticate(settings[:user_name], settings[:password], settings[:authentication])
