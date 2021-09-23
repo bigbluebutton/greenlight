@@ -52,7 +52,7 @@ ENV RELATIVE_URL_ROOT="/b"
 ENV ALLOW_GREENLIGHT_ACCOUNTS=true
 ENV ALLOW_MAIL_NOTIFICATIONS=true
 ENV CABLE_ADAPTER=postgresql
-ENV DEFAULT_REGISTRATION=true
+ENV DEFAULT_REGISTRATION=open
 ENV ENABLE_SSL=false
 ENV ROOM_FEATURES=mute-on-join,require-moderator-approval,anyone-can-start,all-join-moderator,recording
 
