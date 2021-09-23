@@ -49,23 +49,26 @@ livenessProbe:
   httpGet:
     path: /b/health_check
     port: http
-  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  initialDelaySeconds: 60
   periodSeconds: 60
 
 readinessProbe:
   httpGet:
     path: /b/health_check
     port: http
-  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  initialDelaySeconds: 60
   periodSeconds: 60
 
 startupProbe:
   httpGet:
     path: /b/health_check
     port: http
+  timeoutSeconds: 5
   initialDelaySeconds: 90
-  failureThreshold: 3
-  periodSeconds:  90
+  failureThreshold: 5
+  periodSeconds:  60
 
 datadog:
   logs:
