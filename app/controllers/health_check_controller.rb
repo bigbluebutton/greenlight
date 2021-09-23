@@ -28,7 +28,7 @@ class HealthCheckController < ApplicationController
     begin
       cache_check
       database_check
-      email_check
+      # email_check
     rescue => e
       response = "Health Check Failure: #{e}"
     end
