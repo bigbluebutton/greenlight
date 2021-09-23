@@ -28,7 +28,7 @@ class HealthCheckController < ApplicationController
     begin
       cache_check
       database_check
-      # email_check
+      email_check
     rescue => e
       response = "Health Check Failure: #{e}"
     end
@@ -61,7 +61,12 @@ class HealthCheckController < ApplicationController
     smtp = Net::SMTP.new(settings[:address], settings[:port])
     smtp.enable_starttls_auto if settings[:enable_starttls_auto] == ("true") && smtp.respond_to?(:enable_starttls_auto)
 
+
     if settings[:authentication].present? && settings[:authentication] != "none"
+
+      authVal = settings[:authentication]
+      logger.info "<<<<<<< #{authVal} >>>>>>>> "
+
       smtp.start(settings[:domain]) do |s|
         s.authenticate(settings[:user_name], settings[:password], settings[:authentication])
       end
