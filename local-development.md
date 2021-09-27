@@ -47,6 +47,14 @@ docker-compose -f ./docker-compose-local.yml build
 docker-compose -f ./docker-compose-local.yml up -d
 ```
 
+#### View logs in the container
+
+To view logs in the container use the following command
+
+```shell
+docker-compose -f ./docker-compose-local.yml logs -f greenlight
+```
+
 #### Ensure containers are working on local
 
 ```shell

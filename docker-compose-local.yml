@@ -5,7 +5,7 @@ services:
 #    entrypoint: [bin/start]
 #    image: bigbluebutton/greenlight:v2
     build: .
-    env_file: local-veea-nj.env
+    env_file: local-remax.env
     ports:
       - "80:80"
 # When using external logging
