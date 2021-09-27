@@ -1,4 +1,4 @@
-# Connecting from the local host to the dev database
+# Connecting from the local host to the DEV database
 
 ## Pre-requisites
 
@@ -10,7 +10,7 @@
 
 * Verify if you are able to connect to the following URL
 
-```
+```shell
 telnet dev-db-link-greenlight.veeaplatform.net 5432
 ```
 
@@ -25,8 +25,6 @@ psql -h dev-db-link-greenlight.veeaplatform.net -p 5432 -U <DB_USER_NAEM>-d <DB_
 
 The following commands can be used to deploy your changes.
 
-#### Build the docker image locally
-
 This reads the Dockerfile in the current directory to build an image. There are 2 client configurations
 related to this particular use case.
 
@@ -35,19 +33,28 @@ related to this particular use case.
 
 Modify the following file before starting development: 
 
+```shell
+    env_file: local-veea-nj.env
+    env_file: local-remax.env
 ```
+#### Build the docker image locally
 
-```
-
-
-```
+```shell
 docker-compose -f ./docker-compose-local.yml build
 ```
 #### Deploy the image locally in detached mode 
-```
+```shell
 docker-compose -f ./docker-compose-local.yml up -d
 ```
+
+#### Ensure containers are working on local
+
+```shell
+curl localhost/b/health_check -v
+```
+
 #### Undeploy the container
 ```
 docker-compose -f ./docker-compose-local.yml down
 ```
+
