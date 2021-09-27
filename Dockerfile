@@ -55,6 +55,7 @@ ENV CABLE_ADAPTER=postgresql
 ENV DEFAULT_REGISTRATION=open
 ENV ENABLE_SSL=false
 ENV ROOM_FEATURES=mute-on-join,require-moderator-approval,anyone-can-start,all-join-moderator,recording
+ENV HELP_URL=""
 
 WORKDIR $RAILS_ROOT
 

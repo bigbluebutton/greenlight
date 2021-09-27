@@ -115,3 +115,13 @@ VERSION_CODE=
 docker-compose -f ./docker-compose-local.yml down
 ```
 
+#### Setting up datagrip or another SQL Editor
+
+Setting up data grip or another SQL Editor can be done using the environment variables described above. 
+
+
+### References
+
+* The database reverse proxy is mapped to the following Route 53 domain->dev-db-link-greenlight.veeaplatform.net.
+* The route 53 points to a reverse proxy instance running nginx on EC2.
+*  The reverse proxy listens to the port and redirects requests to 
