@@ -48,7 +48,7 @@ module Joiner
   end
 
   def valid_avatar?(url)
-    return false if URI.regexp(['http', 'https']).match(url).nil?
+    return false if URI.regexp.match(url).nil?
     uri = URI(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true if uri.scheme == 'https'
