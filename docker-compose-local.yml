@@ -1,11 +1,10 @@
 version: '3'
 
 services:
-  app:
+  greenlight:
 #    entrypoint: [bin/start]
 #    image: bigbluebutton/greenlight:v2
     build: .
-    container_name: greenlight-v2-local
     env_file: local-veea-nj.env
     ports:
       - "80:80"

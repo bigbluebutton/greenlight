@@ -53,6 +53,55 @@ docker-compose -f ./docker-compose-local.yml up -d
 curl localhost/b/health_check -v
 ```
 
+#### Execute a command in the shell
+
+You can execute a command like this to check to see which environment you are connected to or to run other 
+commands inside the shell.
+
+```shell
+$ docker-compose -f ./docker-compose-local.yml exec greenlight env
+PATH=/usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=5bf96136f8c8
+TERM=xterm
+BIGBLUEBUTTON_ENDPOINT=https://scalelite.adedge.dev.veeaplatform.net
+BIGBLUEBUTTON_SECRET=6dd734c18eb3cce306a1ef2bb540a317fe75f93609b946adad9979eecd45e28c
+DB_ADAPTER=postgresql
+DB_HOST=dev-db-link-greenlight.veeaplatform.net
+DB_NAME=dev_adedge_greenlight_veea_nj
+DB_PASSWORD=XKGYHyAZiSgOY
+DB_PORT=5432
+DB_USERNAME=dev_adedge_greenlight_veea_nj
+SECRET_KEY_BASE=c63ca46c930fb2b753b76dc03356f797dde68bf0501f58c20c9efc1f34f9bbc87dca590421f8a283463bb99fa825b021ab4be18bdd83c21f86680f869072c2b2
+SMTP_AUTH=login
+SMTP_DOMAIN=veea.co
+SMTP_PASSWORD=fEON-scf5Eep2N5JAQ7YrA
+SMTP_PORT=587
+SMTP_SENDER=vreo@veea.co
+SMTP_SERVER=smtp.mandrillapp.com
+SMTP_STARTTLS_AUTO=true
+SMTP_USERNAME=info@sceneapp.io
+SMTP_TEST_RECIPIENT=vreo@veea.co
+WEB_CONCURRENCY=1
+LANG=C.UTF-8
+RUBY_MAJOR=2.7
+RUBY_VERSION=2.7.2
+RUBY_DOWNLOAD_SHA256=1b95ab193cc8f5b5e59d2686cb3d5dcf1ddf2a86cb6950e0b4bdaae5040ec0d6
+GEM_HOME=/usr/local/bundle
+BUNDLE_SILENCE_ROOT_WARNING=1
+BUNDLE_APP_CONFIG=/usr/src/app/.bundle
+RAILS_ENV=production
+INVITE_PREFIX=/frontend
+RAILS_LOG_TO_STDOUT=true
+RELATIVE_URL_ROOT=/b
+ALLOW_GREENLIGHT_ACCOUNTS=true
+ALLOW_MAIL_NOTIFICATIONS=true
+CABLE_ADAPTER=postgresql
+DEFAULT_REGISTRATION=open
+ENABLE_SSL=false
+ROOM_FEATURES=mute-on-join,require-moderator-approval,anyone-can-start,all-join-moderator,recording
+VERSION_CODE=
+```
+
 #### Undeploy the container
 ```
 docker-compose -f ./docker-compose-local.yml down
