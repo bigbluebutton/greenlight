@@ -39,6 +39,7 @@ class User < ApplicationRecord
                    format: { without: %r{https?://}i }
   validates :provider, presence: true
   validate :check_if_email_can_be_blank
+  validate :check_domain, if: :greenlight_account?, on: :create
   validates :email, length: { maximum: 256 }, allow_blank: true,
                     uniqueness: { case_sensitive: false, scope: :provider },
                     format: { with: /\A[\w+\-'.]+@[a-z\d\-.]+\.[a-z]+\z/i }
@@ -158,7 +159,7 @@ class User < ApplicationRecord
 
   def name_chunk
     charset = ("a".."z").to_a - %w(b i l o s) + ("2".."9").to_a - %w(5 8)
-    chunk = name.parameterize[0...3]
+    chunk = name.parameterize(separator: "")[0...3]
     if chunk.empty?
       chunk + (0...3).map { charset.to_a[rand(charset.size)] }.join
     elsif chunk.length == 1
@@ -232,6 +233,13 @@ class User < ApplicationRecord
     role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"
 
     Role.create_default_roles(role_provider) if Role.where(provider: role_provider).count.zero?
+  end
+
+  def check_domain
+    if Rails.configuration.require_email_domain.any? && !email.end_with?(*Rails.configuration.require_email_domain)
+      errors.add(:email, I18n.t("errors.messages.domain",
+        email_domain: Rails.configuration.require_email_domain.join("\" #{I18n.t('modal.login.or')} \"")))
+    end
   end
 
   def check_if_email_can_be_blank

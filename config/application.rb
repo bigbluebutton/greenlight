@@ -94,6 +94,9 @@ module Greenlight
     # Determine if GreenLight should enable email verification
     config.enable_email_verification = parse_bool(ENV['ALLOW_MAIL_NOTIFICATIONS'])
 
+    # Determine if GreenLight should require a certain mail-domain
+    config.require_email_domain = ENV["GREENLIGHT_ACCOUNT_HD"].to_s.split(",")
+
     # Determine if GreenLight should allow non-omniauth signup/login.
     config.allow_user_signup = parse_bool(ENV['ALLOW_GREENLIGHT_ACCOUNTS'])
 
@@ -180,5 +183,8 @@ module Greenlight
 
     # Default admin password
     config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
+
+    # Max avatar image size
+    config.max_avatar_size = ENV['MAX_AVATAR_SIZE'].to_i.zero? ? 100000 : ENV['MAX_AVATAR_SIZE'].to_i
   end
 end

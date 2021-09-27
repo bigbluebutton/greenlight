@@ -41,22 +41,22 @@
           <%= form_for @user, url: create_user_path, method: :post do |f|  %>
             <div class="form-group">
               <%= f.label :name, t("settings.account.fullname"), class: "form-label" %>
-              <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: t("settings.account.fullname") %>
+              <%= f.text_field :name, class: "form-control #{form_is_invalid?(@user, :name)}", placeholder: t("settings.account.fullname"), autofocus: "", required: "" %>
               <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:name).first %></div>
             </div>
             <div class="form-group">
               <%= f.label :email, t("email"), class: "form-label" %>
-              <%= f.email_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email") %>
+              <%= f.email_field :email, class: "form-control #{form_is_invalid?(@user, :email)}", placeholder: t("email"), required: "" %>
               <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:email).first %></div>
             </div>
             <div class="form-group">
               <%= f.label :password, t("password"), class: "form-label" %>
-              <%= f.password_field :password, class: "form-control #{form_is_invalid?(@user, :password)}", placeholder: t("password") %>
+              <%= f.password_field :password, class: "form-control #{form_is_invalid?(@user, :password)}", placeholder: t("password"), required: "" %>
               <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:password).first %></div>
             </div>
             <div class="form-group">
               <%= f.label :password_confirmation, t("signup.password_confirm"), class: "form-label" %>
-              <%= f.password_field :password_confirmation, class: "form-control #{form_is_invalid?(@user, :password_confirmation)}", placeholder: t("signup.password_confirm") %>
+              <%= f.password_field :password_confirmation, class: "form-control #{form_is_invalid?(@user, :password_confirmation)}", placeholder: t("signup.password_confirm"), required: "" %>
               <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:password_confirmation).first %></div>
             </div>
             <% if Rails.configuration.terms %>

@@ -148,7 +148,8 @@ class AdminsController < ApplicationController
       send_invitation_email(current_user.name, email, invitation)
     end
 
-    redirect_back fallback_location: admins_path
+    redirect_back fallback_location: admins_path,
+      flash: { success: I18n.t("administrator.flash.invite", email: emails.join(", ")) }
   end
 
   # GET /admins/reset

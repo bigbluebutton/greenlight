@@ -79,8 +79,11 @@ class SessionsController < ApplicationController
     return switch_account_to_local(user) if !is_super_admin && auth_changed_to_local?(user)
 
     # Check correct password was entered
-    return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user.try(:authenticate,
-      session_params[:password])
+    unless user.try(:authenticate, session_params[:password])
+      logger.info "Support: #{session_params[:email]} login failed."
+      return redirect_to(signin_path, alert: I18n.t("invalid_credentials"))
+    end
+
     # Check that the user is not deleted
     return redirect_to root_path, flash: { alert: I18n.t("registration.banned.fail") } if user.deleted?
 
@@ -143,12 +146,12 @@ class SessionsController < ApplicationController
     ldap_config[:uid] = ENV['LDAP_UID']
 
     if params[:session][:username].blank? || session_params[:password].blank?
-      return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials"))
+      return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials_external"))
     end
 
     result = send_ldap_request(params[:session], ldap_config)
 
-    return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials")) unless result
+    return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials_external")) unless result
 
     @auth = parse_auth(result.first, ENV['LDAP_ROLE_FIELD'], ENV['LDAP_ATTRIBUTE_MAPPING'])
 

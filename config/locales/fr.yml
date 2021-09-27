@@ -77,7 +77,7 @@ fr:
         title: Verbosité du journal
         information: Changer la verbosité du journal pour tout le déploiement
         debug: Déboguage
-        info: Infos
+        info: Information
         warn: Attention
         error: Erreur
         fatal: Erreur fatale
@@ -145,6 +145,7 @@ fr:
     roles:
       appear_in_share_list: Inclure les utilisateurs ayant ce rôle dans la liste déroulante de partage des salons
       can_create_rooms: Peut créer des salles
+      can_launch_recording: Autoriser les utilisateurs ayant ce rôle d'enregistrer leurs réunions
       delete: Supprimer le rôle
       invalid_create: Il y a eu un problème lors de la création du nouveau rôle. Veuillez vérifier les valeurs entrées et réessayer.
       invalid_order: Il y a eu un problème lors de la mise à jour de la priorité du rôle. Veuillez vérifier les valeurs et réessayer.
@@ -175,6 +176,9 @@ fr:
         info: Donne à tous les utilisateurs les droits de modérateur dans BigBlueButton lors de la connexion à une conférence.
       recordings:
         info: "Permet aux propriétaires d'une salle de préciser s'ils souhaitent ou non avoir la possibilité de l'enregistrer. Si cette option est activée, le modérateur doit toujours cliquer sur le bouton « Enregistrer » une fois que la réunion a commencé."
+      moderator_codes:
+        info: Autoriser les propriétaires de salles la possibilité de générer un code qui permet aux autres utilisateurs de rejoindre directement en tant que modérateur
+        title: Code d'accès modérateur
       options:
         disabled: Désactivé
         enabled: Toujours activé
@@ -226,6 +230,7 @@ fr:
   cookies:
     cookie_info: "Les cookies nous aident à fournir nos services. En utilisant nos services, vous acceptez notre utilisation des cookies."
     cookie_button: Je suis d'accord
+    policy: "Pour plus d'informations, voir notre <a href=\"%{privacy_link}\"><u>politique de confidentialité</u></a>."
   copied: Copié
   copy: Copier
   date:
@@ -264,6 +269,7 @@ fr:
       accepted: doit être accepté
       confirmation: "ne correspond pas à %{attribute}"
       inclusion: n'est pas inclus dans la liste
+      domain: "doit terminer avec \"%{email_domain}\""
     no_provider:
       message: Le site auquel vous essayez d'accéder n'est pas activé
       help: Veuillez contacter votre administrateur système pour installer GreenLight
@@ -308,6 +314,7 @@ fr:
   home_room: Salle d’Accueil
   info_update_success: Informations mises à jour avec succès.
   invalid_credentials: "Les informations d'identification que vous avez indiquées sont erronées. Veuillez réessayer ou cliquez sur « Mot de passe oublié ? » pour réinitialiser votre mot de passe."
+  invalid_credentials_external: "L'adresse email et le mot de passe renseignés ne correspondent pas à nos informations. Merci de réessayer. "
   invalid_login_method: La connexion a échoué en raison d'une incompatibilité de compte. Vous devez vous connecter avec omniauth.
   invite_message: "Pour inviter quelqu'un à la réunion, envoyez-lui ce lien :"
   javascript:
@@ -352,6 +359,7 @@ fr:
         info: "Vous avez été invité dans votre espace personnel par %{name}"
         signup_info: "Pour vous inscrire utilisez votre e-mail, cliquez sur le bouton ci-dessous et suivez les étapes."
         signup_link: Inscription
+        valid: "L'invitation est valable jusqu'à: %{date}"
         signup:
           info: Un utilisateur invité s'est inscrit pour utiliser Greenlight.
           admins_link: Visitez la page "Organisation"
@@ -390,7 +398,9 @@ fr:
       title: Créer un nouveau rôle
     create_room:
       access_code: Code d'accès
+      moderator_access_code: Code modérateur
       access_code_placeholder: Générer un code d'accès au salon - optionnel
+      moderator_access_code_placeholder: "Générer un code optionnel pour les modérateurs "
       auto_join: Me rejoindre automatiquement dans le salon
       create: Créer une salle
       free_delete: Vous serez libre de supprimer cette salle à tout moment.
@@ -488,9 +498,11 @@ fr:
     all_recordings: Tous les enregistrements
     email: Envoyer l'enregistrement par courriel
     error: "Il y a eu une erreur lors de la récupération de %{count}  enregistrement(s)"
-    no_recordings: "Ce salon n'a pas d'enregistrement %{inject}."
+    no_public_recordings: Ce salon n'a pas d'enregistrement public.
+    no_recordings: Ce salon n'a pas d'enregistrement.
     no_user_recordings: "Actuellement, vous n'avez  aucun enregistrement."
-    no_matched_recordings: "Aucun enregistrement %{inject} ne correspond à votre recherche."
+    no_matched_pub_recordings: Aucun enregistrement public ne correspond à votre recherche.
+    no_matched_recordings: Aucun enregistrement ne correspond à votre recherche.
     recorded_on: "Enregistré le %{date}"
     table:
       name: Nom
@@ -500,6 +512,7 @@ fr:
       visibility: Visibilité
       formats: Formats
     visibility:
+      inaccessible: Inaccessible
       public: Public
       unlisted: Non Listé
     format:
@@ -538,11 +551,13 @@ fr:
     banned: Banni
     deleted: Supprimé
     pending: En attente
+    invited: Invité
     user: Utilisateur
   room:
     access_code_required: Veuillez introduire un code d'accès valide afin de rejoindre la salle
     add_presentation: Ajouter présentation
     copy_access: Copier le code d'accès
+    copy_moderator_access: Copier le code modérateur
     create_room: Créer un salon
     create_room_error: Une erreur s'est produite lors de la création du salon
     create_room_success: Salon créé avec succès
@@ -551,6 +566,8 @@ fr:
       success: Salle supprimée
       fail: "Erreur lors de la suppression de la salle (%{error})"
     enter_the_access_code: Veuillez introduire le code d'accès de la salle
+    enter_the_moderator_access_code: Saisissez le code modérateur !
+    optional_moderator_access_code: "Code modérateur optionnel:"
     invalid_provider: Vous avez introduit une url non valide. Veuillez vérifier l'url et essayez à nouveau.
     invitation_description: "Vous avez été invité à rejoindre 1%{name} en utilisant le BigBlueButton. Pour le faire, cliquez sur le lien ci-dessus et saisissez votre nom."
     invited: Vous avez été invité à rejoindre
@@ -629,6 +646,9 @@ fr:
     title: Conditions générales d'utilisation
   test_install: >
     Ce déploiement utilise un serveur de test pré-configuré, vous devez le remplacer par le vôtre. Pour plus de détails, voir le %{href}.
+  time:
+    formats:
+      default: "%a %d %b %Y %H:%M"
   update: Mise à jour
   verify:
     accept: Vérifier

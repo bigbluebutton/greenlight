@@ -145,6 +145,7 @@ en:
     roles:
       appear_in_share_list: Include users with this role in the dropdown for sharing rooms
       can_create_rooms: Can create rooms
+      can_launch_recording: Allow users with this role to record their meetings
       delete: Delete the role
       invalid_create: There was a problem creating a new role. Please check the role values and try again
       invalid_order: There was a problem updating the priority of the role. Please check the values and try again
@@ -229,6 +230,7 @@ en:
   cookies:
     cookie_info: Cookies help us deliver our services. By using our services, you agree to our use of cookies.
     cookie_button: I Agree
+    policy: For more infomation, see our <a href="%{privacy_link}"><u>privacy policy</u></a>.
   copied: Copied
   copy: Copy
   date:
@@ -268,6 +270,7 @@ en:
       accepted: must be accepted
       confirmation: doesn't match %{attribute}
       inclusion: is not included in the list
+      domain: must end with "%{email_domain}"
     no_provider:
       message: The site you are trying to access is not enabled
       help: Please contact your system administrator to setup Greenlight
@@ -312,6 +315,7 @@ en:
   home_room: Home Room
   info_update_success: Information successfully updated.
   invalid_credentials: The email and password you entered did not match our records. Try again or click Forgot Password to reset your password.
+  invalid_credentials_external: The email and password you entered did not match our records. Please try again.
   invalid_login_method: Login failed due to account mismatch. You need to log in with omniauth.
   invite_message: "To invite someone to the meeting, send them this link:"
   javascript:
@@ -495,9 +499,11 @@ en:
     all_recordings: All Recordings
     email: Email Recording
     error: There was an error retrieving %{count} recording(s)
-    no_recordings: This room has no %{inject}recordings.
+    no_public_recordings: This room has no public recordings.
+    no_recordings: This room has no recordings.
     no_user_recordings: You currently have no recordings.
-    no_matched_recordings: No %{inject} recordings match your search.
+    no_matched_pub_recordings: No public recordings match your search.
+    no_matched_recordings: No recordings match your search.
     recorded_on: Recorded on %{date}
     table:
       name: Name
@@ -507,6 +513,7 @@ en:
       visibility: Visibility
       formats: Formats
     visibility:
+      inaccessible: Inaccessible
       public: Public
       unlisted: Unlisted
     format:
@@ -545,6 +552,7 @@ en:
     banned: Banned
     deleted: Deleted
     pending: Pending
+    invited: Invited
     user: User
   room:
     access_code_required: Please enter a valid access code to join the room
@@ -640,6 +648,9 @@ en:
   test_install: >
     This deployment is using a pre-configured testing server, you should replace this with your own.
     For details, see the %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Update
   verify:
     accept: Verify
