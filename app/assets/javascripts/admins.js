@@ -26,11 +26,11 @@ $(document).on('turbolinks:load', function(){
         var search = new URL(location.href).searchParams.get('search')
 
         var url = window.location.pathname + "?page=1"
-      
+
         if (search) {
           url += "&search=" + search
-        }  
-      
+        }
+
         window.location.replace(url);
       })
 
@@ -47,7 +47,7 @@ $(document).on('turbolinks:load', function(){
       });
       // Fixes turbolinks issue with bootstrap select
       $(window).trigger('load.bs.select.data-api');
-      
+
       // Display merge accounts modal with correct info
       $(".merge-user").click(function() {
         // Update the path of save button
@@ -70,7 +70,7 @@ $(document).on('turbolinks:load', function(){
       $("#mergeUserModal").on("show.bs.modal", function() {
         $(".selectpicker").selectpicker('val','')
       })
-  
+
       $(".bootstrap-select").on("click", function() {
         $(".bs-searchbox").siblings().hide()
       })
@@ -78,7 +78,7 @@ $(document).on('turbolinks:load', function(){
       $("#merge-user-select ~ button").on("click", function() {
         $(".bs-searchbox").siblings().hide()
       })
-  
+
       $(".bs-searchbox input").on("input", function() {
         if ($(".bs-searchbox input").val() == '' || $(".bs-searchbox input").val().length < 3) {
           $(".select-options").remove()
@@ -98,9 +98,9 @@ $(document).on('turbolinks:load', function(){
               })
               // Only refresh the select dropdown if there are results to show
               $('#merge-user-select').selectpicker('refresh');
-            } 
+            }
             $(".bs-searchbox").siblings().show()
-          })     
+          })
         }
       })
 
@@ -124,6 +124,39 @@ $(document).on('turbolinks:load', function(){
 
           $("#merge-from").append(spanName, spanEmail, spanUid)
         }
+      })
+
+      // When popping up the invite-user modal, set its text area from the selected invite file
+      $("#invuserfile").on("change", function() {
+
+        var selFile = $("#invuserfile").prop("files")[0]
+        console.log("Invitation file selected: " + selFile.name)
+
+        Papa.parse(selFile, {
+          complete: function(results, file){
+            var result = ""
+            var re = /\S+@\S+\.\S+/;
+            // Walk through results
+            for (let i of results.data){
+              for (let j of i){
+                // check if this is an email address
+                if (re.test(j)) {
+                  result += j + ","
+                }
+              }
+            }
+            console.log("Addresses: " + result)
+            // Update the text area and re-render
+            $("#invite_user_email").val(result)
+          },
+          skipEmptyLines: true
+        })
+      })
+
+      $("#inviteModal").on("hide.bs.modal", function() {
+        // Reset file chooser - move this to the dialog's unfocus event handler
+        $("#invuserfile").val("")
+        $("#invite_user_email").val("")
       })
     }
     else if(action == "site_settings"){
@@ -209,7 +242,7 @@ function filterRole(role) {
 
   if (search) {
     url += "&search=" + search
-  }  
+  }
 
   window.location.replace(url);
 }
@@ -308,7 +341,7 @@ function loadColourSelectors() {
   })
 }
 
-function loadRoleColourSelector(role_colour, disabled) { 
+function loadRoleColourSelector(role_colour, disabled) {
   if (!disabled) {
     const pickrRoleRegular = new Pickr({
       el: '#role-colorinput-regular',
@@ -318,7 +351,7 @@ function loadRoleColourSelector(role_colour, disabled) {
       defaultRepresentation: 'HEX',
       closeWithKey: 'Enter',
       default: role_colour,
-  
+
       components: {
           palette: true,
           preview: true,
@@ -329,7 +362,7 @@ function loadRoleColourSelector(role_colour, disabled) {
           },
       },
     });
-  
+
     // On save update the colour input's background colour and update the role colour input
     pickrRoleRegular.on("save", (color, instance) => {
       $("#role-colorinput-regular").css("background-color", color.toHEXA().toString());

@@ -14,6 +14,13 @@
 %>
 
 <div class="form-group mt-n3">
+  <% if admin_invite_registration %>
+  <div class="container text-right">
+    <%= link_to "#inviteModal", class: "btn btn-primary pt-3", id: "invite-user", "data-toggle": "modal" do %>
+      <%= t("administrator.users.invite") %><i class="fas fa-paper-plane ml-3"></i>
+    <% end %>
+  </div>
+  <% end %>
   <nav class="row m-0">
     <div class="nav col nav-tabs admin-tabs m-0 p-0" id="manage-users-nav" role="tablist">
       <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'active' %>" id="Active" href="?tab=active" role="tab" aria-selected="true"><i class="fas mr-3 fa-users"></i>
@@ -32,12 +39,8 @@
         <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'invited' %>" id="Invited" href="?tab=invited" role="tab" aria-selected="false"><i class="fas mr-2 fa-envelope"></i>
           <%= t("roles.invited") %>
         </a>
-      </div>
-      <%= link_to "#inviteModal", class: "btn btn-primary pt-3", id: "invite-user", "data-toggle": "modal" do %>
-        <%= t("administrator.users.invite") %><i class="fas fa-paper-plane ml-3"></i>
       <% end %>
-    <% else %>
-      </div>
-    <% end %>
+    </div>
   </nav>
+
 </div>

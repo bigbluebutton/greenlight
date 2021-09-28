@@ -35,5 +35,6 @@
 //= require jquery-ui/widgets/sortable
 //= require pickr.min.js
 //= require bootstrap-select.min.js
+//= require papaparse.min.js
 //= require local-time
 //= require_tree .
