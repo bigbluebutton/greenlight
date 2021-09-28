@@ -57,4 +57,14 @@ namespace :user do
       puts "PLEASE CHANGE YOUR PASSWORD IMMEDIATELY" if u[:password] == Rails.configuration.admin_password_default
     end
   end
+
+  task :social_uid, [:provider] => :environment do |_task, args|
+    args.with_defaults(provider: "greenlight")
+
+    User.where(provider: args[:provider]).each do |user|
+      if user.update(social_uid: "#{args[:provider]}:#{user.email}")
+        puts "Updated #{user.email} to #{args[:provider]}:#{user.email}"
+      end
+    end
+  end
 end

@@ -54,6 +54,7 @@ module BbbServer
     join_opts = {}
     join_opts[:userID] = uid if uid
     join_opts[:join_via_html5] = true
+    join_opts[:avatarURL] = options[:avatarURL] if options[:avatarURL].present?
     join_opts[:createTime] = room.last_session.to_datetime.strftime("%Q") if room.last_session
 
     bbb_server.join_meeting_url(room.bbb_id, name, password, join_opts)
@@ -116,6 +117,20 @@ module BbbServer
   # Update a recording from a room
   def unpublish_recording(record_id)
     bbb_server.publish_recordings(record_id, false)
+  end
+
+  # Protect a recording
+  def protect_recording(record_id, meta = {})
+    meta[:recordID] = record_id
+    meta[:protect] = true
+    bbb_server.send_api_request("updateRecordings", meta)
+  end
+
+  # Unprotect a recording
+  def unprotect_recording(record_id, meta = {})
+    meta[:recordID] = record_id
+    meta[:protect] = false
+    bbb_server.send_api_request("updateRecordings", meta)
   end
 
   # Deletes a recording from a room.

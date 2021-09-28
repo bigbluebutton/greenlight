@@ -46,9 +46,15 @@ $(document).on('turbolinks:load', function(){
       showUpdateRoom(this)
     })
 
+    // share room pop up accessibility
+    manageAccessAccessibility();
+
     $(".delete-room").click(function() {
       showDeleteRoom(this)
     })
+
+    // For keyboard users to be able to generate access code
+    generateAccessCodeAccessibility()
 
     $('.selectpicker').selectpicker({
       liveSearchPlaceholder: getLocalizedString('javascript.search.start')
@@ -429,4 +435,68 @@ function filterRooms() {
 function clearRoomSearch() {
   $('#room-search').val(''); 
   filterRooms()
+}
+
+function manageAccessAccessibility() {
+  // share room pop up accessibility
+  var holdModal = false;
+  $("#shareRoomModal").on("show.bs.modal", function() {
+    // for screen reader to be able to read results
+    $("#shareRoomModal .form-control").attr("aria-atomic", true);
+    $("#shareRoomModal .dropdown-menu div.inner").attr("role", "alert");
+    $("#shareRoomModal ul.dropdown-menu").attr("role", "listbox");
+    $("#shareRoomModal div.dropdown-menu").find("*").keyup(function(event) {
+      $("#shareRoomModal ul.dropdown-menu li").attr("aria-selected", false);
+      $("#shareRoomModal ul.dropdown-menu li.active").attr("aria-selected", true);
+      $("#shareRoomModal ul.dropdown-menu li.active a").attr("aria-selected", true);
+    });           
+    // for keyboard support
+    // so that it can escape / close search user without closing the modal
+    $("#shareRoomModal div.dropdown-menu input").keydown(function(event) {
+      if (event.keyCode === 27) {                                             
+        holdModal = true;   
+      }                                 
+    }); 
+  });
+
+  // reset escape button if the search is closed / done
+  $("#shareRoomModal").on("hide.bs.modal", function(e) {
+    if (holdModal) {
+      holdModal = false;
+      e.stopPropagation();
+      return false;   
+    }            
+  });
+}
+
+function generateAccessCodeAccessibility() {
+  // For keyboard users to be able to generate access code
+  $("#generate-room-access-code").keyup(function(event) {
+    if (event.keyCode === 13 || event.keyCode === 32) {
+        generateAccessCode();
+    }
+  })
+
+  // For keyboard users to be able to reset access code
+  $("#reset-access-code").keyup(function(event) {
+    if (event.keyCode === 13 || event.keyCode === 32) {
+        ResetAccessCode();
+    }
+  })
+
+  // For keyboard users to be able to generate access code
+  // for moderator
+  $("#generate-moderator-room-access-code").keyup(function(event) {
+    if (event.keyCode === 13 || event.keyCode === 32) {
+        generateModeratorAccessCode();
+    }
+  })
+
+  // For keyboard users to be able to reset access code
+  // for moderator
+  $("#reset-moderator-access-code").keyup(function(event) {
+    if (event.keyCode === 13 || event.keyCode === 32) {
+        ResetModeratorAccessCode();
+    }
+  })
 }
