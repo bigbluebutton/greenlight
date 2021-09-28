@@ -74,7 +74,7 @@
     <% if recording[:published] %>
       <% sorted_formats = recording[:playbacks].sort_by! { |p| p[:type] } %>
       <% sorted_formats.each do |p| %>
-        <%= link_to t("recording.format.#{p[:type]}"), p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
+        <%= link_to t("recording.format.#{p[:type]}"), p[:url], class: "btn btn-sm btn-primary", target: "" %>
       <% end %>
     <% end %>
   </td>
