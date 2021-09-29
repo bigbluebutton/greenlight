@@ -400,7 +400,9 @@ ru:
       access_code: Код доступа
       moderator_access_code: Код модератора
       access_code_placeholder: Генерация дополнительного кода доступа в комнату
+      reset_access_code: Сбросить дополнительный код доступа для комнаты
       moderator_access_code_placeholder: Генерация кода для модераторов
+      reset_moderator_access_code: Сбросить дополнительный код доступа для модераторов
       auto_join: Автоматически подключать меня к комнате
       create: Создать комнату
       free_delete: Вы можете удалить эту комнату в любое время.
