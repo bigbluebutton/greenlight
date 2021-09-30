@@ -1,0 +1,21 @@
+nameOverride: "greenlight-xir-davie"
+
+replicaCount: 1
+
+image:
+  repository: 065145189516.dkr.ecr.us-east-1.amazonaws.com/greenlight-service
+  tag: latest
+
+ingress:
+  enabled: true
+  hosts:
+    - host: "xir-davie.adedge.adedge.veea.co"
+      paths:
+        - path: /b
+
+externalSecret:
+  dataFrom:
+    - prod/greenlight-xir-davie
+
+datadog:
+  env: prod
