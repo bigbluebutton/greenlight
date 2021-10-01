@@ -55,7 +55,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          target: api
           tags: |
             "${{ steps.ci_docker_repository.outputs.repository }}:${{ steps.ci_tag_release.outputs.tag }}"
           build-args: "VERSION_CODE=${{ steps.ci_tag_release.outputs.tag }}"
@@ -69,7 +68,6 @@ jobs:
         with:
           file: dockerfiles/v2/alpine
           push: true
-          target: api
           tags: |
             "${{ steps.ci_docker_repository.outputs.repository }}:${{ steps.ci_tag_release.outputs.tag }}-alpine"
           build-args: "VERSION_CODE=${{ steps.ci_tag_release.outputs.tag }}"
@@ -83,7 +81,6 @@ jobs:
         with:
           file: dockerfiles/v2/amazonlinux
           push: true
-          target: api
           tags: |
             "${{ steps.ci_docker_repository.outputs.repository }}:${{ steps.ci_tag_release.outputs.tag }}-amazonlinux"
           build-args: "VERSION_CODE=${{ steps.ci_tag_release.outputs.tag }}"
