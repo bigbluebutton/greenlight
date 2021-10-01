@@ -1,5 +1,5 @@
 env:
-  RUBY_VERSION: 2.7.2
+  RUBY_VERSION: 2.7
   DB_ADAPTER: postgresql
   DB_HOST: localhost
   DB_NAME: postgres
@@ -9,6 +9,8 @@ env:
 
 name: CI
 on:
+  push:
+    branches-ignore: "master"
   pull_request:
     branches: "*"
 
@@ -36,8 +38,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Ruby Setup
-        uses: ruby/setup-ruby@v1
+      - name: Install Ruby ${{ env.RUBY_VERSION }}
+        uses: actions/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
 
@@ -58,6 +60,7 @@ jobs:
         run:  |
           bundler exec rails db:create RAILS_ENV=test
           bundler exec rails db:migrate RAILS_ENV=test
+
       - name: Run Rubocop
         run: bundle exec rubocop --parallel --fail-level F
 
