@@ -12,6 +12,7 @@ jobs:
     env:
       DOCKER_REPOSITORY: ${{ secrets.DOCKER_REPOSITORY }}
       DOCKER_BUILD_ENABLED: ${{ secrets.DOCKER_BUILD_ENABLED }}
+      DOCKER_BUILD_ALTERNATE_ENABLED: ${{ secrets.DOCKER_BUILD_ALTERNATE_ENABLED }}
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -45,7 +46,7 @@ jobs:
         run: echo "##[set-output name=repository;]$(echo ${DOCKER_REPOSITORY:-$GITHUB_REPOSITORY})"
 
       - name: Extract Tag Release
-        id: ci_tag_release
+        id: ci_tag_release_version
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
         shell: bash
         run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/} | cut -c 9-)"
@@ -56,8 +57,8 @@ jobs:
         with:
           push: true
           tags: |
-            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release.outputs.tag }}"
-          build-args: "VERSION_CODE=release-${{ steps.ci_tag_release.outputs.tag }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_version.outputs.tag }}"
+          build-args: "VERSION_CODE=release-${{ steps.ci_tag_release_version.outputs.tag }}"
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
@@ -69,8 +70,8 @@ jobs:
           file: dockerfiles/v2/alpine
           push: true
           tags: |
-            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release.outputs.tag }}-alpine"
-          build-args: "VERSION_CODE=release-${{ steps.ci_tag_release.outputs.tag }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_version.outputs.tag }}-alpine"
+          build-args: "VERSION_CODE=release-${{ steps.ci_tag_release_version.outputs.tag }}"
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
@@ -82,8 +83,8 @@ jobs:
           file: dockerfiles/v2/amazonlinux
           push: true
           tags: |
-            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release.outputs.tag }}-amazonlinux"
-          build-args: "VERSION_CODE=release-${{ steps.ci_tag_release.outputs.tag }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_version.outputs.tag }}-amazonlinux"
+          build-args: "VERSION_CODE=release-${{ steps.ci_tag_release_version.outputs.tag }}"
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
