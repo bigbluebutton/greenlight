@@ -94,7 +94,7 @@ es_MX:
       demoted: El usuario ha sido degradado.
       invite: "Invitación enviada exitosamente a %{email}"
       invite_email_verification: El envío de emails debe estar habilitado para poder hacer uso de este método de registro. Contacta al administrador del sistema
-      merge_fail: Ocurrió un error al combinar las cuentas de usuario. Por favor revisa los usuarios seleccionados e intentalo de nuevo 
+      merge_fail: Ocurrió un error al combinar las cuentas de usuario. Por favor revisa los usuarios seleccionados e intentalo de nuevo
       merge_success: Cuentas de usuario combinadas exitosamente
       perm_deleted: El usuario ha sido eliminado permanentemente.
       promoted: El usuario ha sido promovido.
@@ -123,7 +123,7 @@ es_MX:
       edit_site_settings: Permitir a los usuarios con este rol editar configuraciones
       edit_roles: Permitir a los usuarios con este rol editar otros roles
       manage_users: Permitir a los usuarios con este rol manejar otros usuarios
-      invalid_assignment: Ocurrió un error al asignar el rol al usuario. Verifica su valor e intentalo de nuevo. 
+      invalid_assignment: Ocurrió un error al asignar el rol al usuario. Verifica su valor e intentalo de nuevo.
       colour:
         title: Color de rol
         info: Define el color que sera asociado con el rol
@@ -161,6 +161,7 @@ es_MX:
         uid: Identificador de usuario
         username: Nombre de usuario
       title: Administrar usuarios
+      title_num: Administrar usuarios (%{user_count} activo/%{max_count} maximo)
   add_to_google_calendar: "Agregar a calendario de Google"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: Oh no! Ocurrió un error al iniciar la sesión.
@@ -441,7 +442,7 @@ es_MX:
       fail: "Tú cuenta de usuario todavía no ha sido autorizada. Si han pasado varios días desde tú registro, te sugerimos contactar al administrador."
       signup: Tú cuenta de usuario ha sido creada y se le ha enviado una notificación al administrador para su autorización.
     banned:
-      fail: "No tienes acceso a esta aplicación. Sí tu crees que este es un error, contacta al administrador del sistema." 
+      fail: "No tienes acceso a esta aplicación. Sí tu crees que este es un error, contacta al administrador del sistema."
     deprecated:
       new_signin: "Selecciona un nuevo método de autenticación. Todas las salas vinculadas a tu cuenta anterior serán migradas a la cuenta nueva "
       twitter_signin: "El ingreso a través de Twitter es obsoleto y sera eliminado en la siguiente versión. Haz click <a href=\"%{link}\"> aquí </a> para mover tu cuenta de usuario y su contenido a una cuenta ligada a otro método de autenticación"

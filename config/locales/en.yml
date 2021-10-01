@@ -126,6 +126,7 @@ en:
       delete_fail: Failed to delete user
       demoted: User has been successfully demoted
       invite: Invite successfully sent to %{email}
+      invite_morthan: Invite sent to %{email} but more invitations were requested than available - %{asked} requested vs %{allowed}
       invite_email_verification: Emails must be enabled in order to use this method. Please contact your system administrator.
       merge_fail: There was an issue merging the user accounts. Please check the users selected and try again
       merge_success: User accounts merged successfully
@@ -223,6 +224,7 @@ en:
         username: Username
         valid: Valid
       title: Manage Users
+      title_num: Manage Users (%{user_count} active/%{max_count} maximum)
       upload: Upload
   add_to_google_calendar: "Add to Google Calendar"
   bigbluebutton: vREO
@@ -537,6 +539,7 @@ en:
     invite:
       fail: Your token is either invalid or has expired. If you believe this is a mistake, please contact your administrator.
       no_invite: You do not have an invitation to join. Please contact your administrator to receive one.
+      too_many_users: User cannot be created - too many active users.
   remove: Remove
   rename: Rename
   reset_password:
