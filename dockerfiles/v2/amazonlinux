@@ -1,4 +1,7 @@
-FROM amazonlinux:2.0.20210219.0 AS amazonlinux
+FROM amazonlinux:2.0.20210813.1 AS amazonlinux
+
+ARG RAILS_ROOT=/usr/src/app
+ENV RAILS_ROOT=${RAILS_ROOT}
 
 FROM amazonlinux AS amazonlinux-base
 ENV TINI_VERSION v0.19.0
@@ -10,9 +13,10 @@ RUN chmod +x /sbin/tini
 RUN yum -y install redhat-rpm-config
 
 FROM amazonlinux-base AS base
+WORKDIR $RAILS_ROOT
 # Install Node.js (needed for yarn)
 RUN yum -y install gcc-c++ make
-RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash -
+RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash -
 RUN yum -y install nodejs
 # Install Ruby & Rails
 RUN curl -sL -o /etc/yum.repos.d/yarn.repo https://dl.yarnpkg.com/rpm/yarn.repo
@@ -20,29 +24,22 @@ RUN amazon-linux-extras enable ruby2.6 \
   && yum -y install git tar gzip yarn shared-mime-info libxslt zlib-devel sqlite-devel mariadb-devel postgresql-devel ruby-devel rubygems-devel rubygem-bundler rubygem-io-console rubygem-irb rubygem-json rubygem-minitest rubygem-net-http-persistent rubygem-net-telnet rubygem-power_assert rubygem-rake rubygem-test-unit rubygem-thor rubygem-xmlrpc rubygem-bigdecimal \
   && gem install rails
 RUN yum -y install python3 python3-pip shadow-utils
-RUN groupadd scalelite --gid 1000 && \
-    useradd -u 1000 -d /srv/scalelite -g scalelite scalelite
-RUN groupadd scalelite-spool --gid 2000 && \
-    usermod -a -G scalelite-spool scalelite
-WORKDIR /srv/scalelite
 
 FROM base as builder
-USER scalelite:scalelite
-COPY --chown=scalelite:scalelite Gemfile* ./
+COPY Gemfile* ./
 RUN bundle config build.nokogiri --use-system-libraries \
     && bundle install --deployment --without development:test -j4 \
     && rm -rf vendor/bundle/ruby/*/cache \
     && find vendor/bundle/ruby/*/gems/ \( -name '*.c' -o -name '*.o' \) -delete
-COPY --chown=scalelite:scalelite . ./
-RUN rm -rf nginx
+COPY . ./
 
 FROM base
-USER scalelite:scalelite
 ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true
-COPY --from=builder --chown=scalelite:scalelite /srv/scalelite ./
 
 ARG VERSION_CODE
 ENV VERSION_CODE=${VERSION_CODE}
+
+COPY --from=builder $RAILS_ROOT $RAILS_ROOT
 
 EXPOSE 80
 RUN chmod +x bin/start
