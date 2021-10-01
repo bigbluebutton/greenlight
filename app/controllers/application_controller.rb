@@ -29,13 +29,11 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.includes(:role, :main_room).find_by(id: session[:user_id])
 
-    if Rails.configuration.loadbalanced_configuration
-      if @current_user && !@current_user.has_role?(:super_admin) &&
-         @current_user.provider != @user_domain
+    if Rails.configuration.loadbalanced_configuration && (@current_user && !@current_user.has_role?(:super_admin) &&
+         @current_user.provider != @user_domain)
         @current_user = nil
         session.clear
       end
-    end
 
     @current_user
   end
@@ -86,8 +84,8 @@ class ApplicationController < ActionController::Base
     end
 
     maintenance_string = @settings.get_value("Maintenance Banner").presence || Rails.configuration.maintenance_window
-    if maintenance_string.present?
-      flash.now[:maintenance] = maintenance_string unless cookies[:maintenance_window] == maintenance_string
+    if maintenance_string.present? && cookies[:maintenance_window] != maintenance_string
+      flash.now[:maintenance] = maintenance_string
     end
   end
 
@@ -96,14 +94,18 @@ class ApplicationController < ActionController::Base
     render :migration_error, status: 500 unless ENV["DB_MIGRATE_FAILED"].blank?
   end
 
-  # Sets the appropriate locale.
-  def user_locale(user = current_user)
-    locale = if user && user.language != 'default'
+  # Determines proper locale to be used by calling user_locale with params based on if room owner exists
+  def determine_locale(user)
+    if user && user.language != 'default'
       user.language
     else
       Rails.configuration.default_locale.presence || http_accept_language.language_region_compatible_from(I18n.available_locales)
     end
+  end
 
+  # Sets the appropriate locale.
+  def user_locale(user = current_user)
+    locale = determine_locale(user)
     begin
       I18n.locale = locale.tr('-', '_') unless locale.nil?
     rescue
@@ -112,6 +114,7 @@ class ApplicationController < ActionController::Base
       I18n.locale = "en"
     end
   end
+  helper_method :user_locale
 
   # Checks to make sure that the admin has changed his password from the default
   def check_admin_password
@@ -182,17 +185,31 @@ class ApplicationController < ActionController::Base
   end
   helper_method :shared_access_allowed
 
-  # Indicates whether users are allowed to share rooms
+  # Indicates whether users should consent recoding when joining rooms
   def recording_consent_required?
     @settings.get_value("Require Recording Consent") == "true"
   end
   helper_method :recording_consent_required?
+
+  # Indicates whether users are allowed to add moderator access codes to rooms
+  def moderator_code_allowed?
+    @settings.get_value("Room Configuration Moderator Access Codes") == "optional"
+  end
+  helper_method :moderator_code_allowed?
 
   # Returns a list of allowed file types
   def allowed_file_types
     Rails.configuration.allowed_file_types
   end
   helper_method :allowed_file_types
+
+  # Allows admins to edit a user's details
+  def can_edit_user?(user_to_edit, editting_user)
+    return user_to_edit.greenlight_account? if user_to_edit == editting_user
+
+    editting_user.admin_of?(user_to_edit, "can_manage_users")
+  end
+  helper_method :can_edit_user?
 
   # Returns the page that the logo redirects to when clicked on
   def home_page
@@ -260,17 +277,18 @@ class ApplicationController < ActionController::Base
     rescue => e
       logger.error "Error in retrieve provider info: #{e}"
       @hide_signin = true
-      if e.message.eql? "No user with that id exists"
+      case e.message
+      when "No user with that id exists"
         set_default_settings
 
         render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_not_found.message"),
           help: I18n.t("errors.not_found.user_not_found.help") }
-      elsif e.message.eql? "Provider not included."
+      when "Provider not included."
         set_default_settings
 
         render "errors/greenlight_error", locals: { message: I18n.t("errors.not_found.user_missing.message"),
           help: I18n.t("errors.not_found.user_missing.help") }
-      elsif e.message.eql? "That user has no configured provider."
+      when "That user has no configured provider."
         if Setting.exists?(provider: @user_domain)
           # Keep the branding
           @settings = Setting.find_by(provider: @user_domain)

@@ -69,6 +69,10 @@ en:
         regular: Regular
         lighten: Lighten
         darken: Darken
+      email_mapping:
+        info: Map the user to a role using their email. Must be in the format email1=role1,email2=role2
+        title: Role Mapping by Email
+        update:
       log_level:
         title: Log Level
         information: Change the Log Level for the entire deployment
@@ -90,7 +94,7 @@ en:
         title: Maintenance Banner
         display: Set
         clear: Clear
-        time: "Example: Update scheduled on December 13 @ 23:00 ET. Users may experience problems signing in."        
+        time: "Example: Update scheduled on December 13 @ 23:00 ET. Users may experience problems signing in."
       preupload:
         info: Users can preupload a presentation to be used as the default presentation for that specific room
         title: Allow Users to Preupload Presentations
@@ -111,6 +115,7 @@ en:
       tabs:
         appearance: Appearance
         administration: Administration
+        registration: Registration
         settings: Settings
       title: Site Settings
     flash:
@@ -133,11 +138,14 @@ en:
       settings: Site Settings successfully changed
       unauthorized: You are not authorized to perform actions on this user
     recordings:
+      latest: Latest Recordings
       title: Server Recordings
       no_recordings: This server has no recordings.
+      search_info: Enter a user's full email or a room's uid
     roles:
       appear_in_share_list: Include users with this role in the dropdown for sharing rooms
       can_create_rooms: Can create rooms
+      can_launch_recording: Allow users with this role to record their meetings
       delete: Delete the role
       invalid_create: There was a problem creating a new role. Please check the role values and try again
       invalid_order: There was a problem updating the priority of the role. Please check the values and try again
@@ -168,6 +176,9 @@ en:
         info: Gives all users moderator privileges in BigBlueButton when they join the meeting.
       recordings:
         info: Allows room owners to specify whether they want the option to record a room or not. If enabled, the moderator must still click the "Record" button once the meeting has started.
+      moderator_codes:
+        info: Allows room owners to optionally generate a moderator pin which allows other users to join directly as moderators.
+        title: Moderator Access Code
       options:
         disabled: Disabled
         enabled: Always Enabled
@@ -219,6 +230,7 @@ en:
   cookies:
     cookie_info: Cookies help us deliver our services. By using our services, you agree to our use of cookies.
     cookie_button: I Agree
+    policy: For more infomation, see our <a href="%{privacy_link}"><u>privacy policy</u></a>.
   copied: Copied
   copy: Copy
   date:
@@ -258,6 +270,7 @@ en:
       accepted: must be accepted
       confirmation: doesn't match %{attribute}
       inclusion: is not included in the list
+      domain: must end with "%{email_domain}"
     no_provider:
       message: The site you are trying to access is not enabled
       help: Please contact your system administrator to setup Greenlight
@@ -302,6 +315,7 @@ en:
   home_room: Home Room
   info_update_success: Information successfully updated.
   invalid_credentials: The email and password you entered did not match our records. Try again or click Forgot Password to reset your password.
+  invalid_credentials_external: The email and password you entered did not match our records. Please try again.
   invalid_login_method: Login failed due to account mismatch. You need to log in with omniauth.
   invite_message: "To invite someone to the meeting, send them this link:"
   javascript:
@@ -346,6 +360,7 @@ en:
         info: You have been invited to your own personal space by %{name}
         signup_info: To signup using your email, click the button below and follow the steps.
         signup_link: Sign Up
+        valid: "The invite is valid until: %{date}"
         signup:
           info: A user that was invited has signed up to use Greenlight.
           admins_link: Visit the Organization Page
@@ -384,7 +399,11 @@ en:
       title: Create New Role
     create_room:
       access_code: Access Code
+      moderator_access_code: Moderator Code
       access_code_placeholder: Generate an optional room access code
+      reset_access_code: Reset the optional room access code
+      moderator_access_code_placeholder: Generate an optional code for moderators
+      reset_moderator_access_code: Reset the optional code for moderators
       auto_join: Automatically join me into the room
       create: Create Room
       free_delete: You will be free to delete this room at any time.
@@ -473,6 +492,7 @@ en:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: Oops, we failed to validate your reCAPTCHA response. Please try again.
@@ -481,9 +501,11 @@ en:
     all_recordings: All Recordings
     email: Email Recording
     error: There was an error retrieving %{count} recording(s)
-    no_recordings: This room has no %{inject}recordings.
+    no_public_recordings: This room has no public recordings.
+    no_recordings: This room has no recordings.
     no_user_recordings: You currently have no recordings.
-    no_matched_recordings: No %{inject} recordings match your search.
+    no_matched_pub_recordings: No public recordings match your search.
+    no_matched_recordings: No recordings match your search.
     recorded_on: Recorded on %{date}
     table:
       name: Name
@@ -493,6 +515,7 @@ en:
       visibility: Visibility
       formats: Formats
     visibility:
+      inaccessible: Inaccessible
       public: Public
       unlisted: Unlisted
     format:
@@ -518,6 +541,7 @@ en:
   remove: Remove
   rename: Rename
   reset_password:
+    captcha: reCAPTCHA verification failed, please try again.
     invalid_token: Password reset token is invalid. Please try resetting your password again.
     subtitle: Reset Password
     password: New Password
@@ -530,11 +554,13 @@ en:
     banned: Banned
     deleted: Deleted
     pending: Pending
+    invited: Invited
     user: User
   room:
     access_code_required: Please enter a valid access code to join the room
     add_presentation: Add Presentation
     copy_access: Copy Access Code
+    copy_moderator_access: Copy Moderator Code
     create_room: Create a Room
     create_room_error: There was an error creating the room
     create_room_success: Room created successfully
@@ -543,8 +569,10 @@ en:
       success: Room deleted successfully
       fail: Failed to delete room (%{error})
     enter_the_access_code: Enter the room's access code
+    enter_the_moderator_access_code: Enter the room's moderator code!
+    optional_moderator_access_code: "Optional Moderator Code:"
     invalid_provider: You have entered an invalid url. Please check the url and try again.
-    invitation_description: You have been invited to join %{name} using BigBlueButton. To join, click the link above and enter your name.  
+    invitation_description: You have been invited to join %{name} using BigBlueButton. To join, click the link above and enter your name.
     invited: You have been invited to join
     recording_present: I acknowledge that this session is going to be recorded. This may include my voice and video if enabled.
     invite_participants: Invite Participants
@@ -579,6 +607,7 @@ en:
     shared_access_success: Room shared successfully
     shared_access_error: There was an error sharing the room
     start: Start
+    search: Search for room…
     unavailable: This room is currently unavailable due to the owner's email not being verified.
     update_settings_error: There was an error updating the room settings
     update_settings_success: Room settings successfully updated
@@ -587,7 +616,7 @@ en:
       auto: You will automatically join when the meeting starts.
   settings:
     account:
-      fullname: Full name
+      fullname: Full Name
       language: Language
       provider: Provider
       image: Image
@@ -621,6 +650,9 @@ en:
   test_install: >
     This deployment is using a pre-configured testing server, you should replace this with your own.
     For details, see the %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Update
   verify:
     accept: Verify

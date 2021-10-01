@@ -63,6 +63,8 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = if ENV["AWS_ACCESS_KEY_ID"].present?
                                     :amazon
+                                  elsif ENV["S3_ACCESS_KEY_ID"].present?
+                                    :s3
                                   elsif ENV["GCS_PRIVATE_KEY_ID"].present?
                                     :google
                                   else
@@ -107,6 +109,9 @@ Rails.application.configure do
     }
   end
 
+  # enable SMTPS: SMTP over direct TLS connection
+  ActionMailer::Base.smtp_settings[:tls] = true if ENV['SMTP_TLS'].present? && ENV['SMTP_TLS'] != "false"
+
   # If configured to 'none' don't check the smtp servers certificate
   ActionMailer::Base.smtp_settings[:openssl_verify_mode] =
     ENV['SMTP_OPENSSL_VERIFY_MODE'] if ENV['SMTP_OPENSSL_VERIFY_MODE'].present?
@@ -119,12 +124,11 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "greenlight-2_0_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
-
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
+
+  # Specify the log level
+  config.log_level = ENV["RAILS_LOG_LEVEL"].present? ? ENV['RAILS_LOG_LEVEL'].to_sym : :info
 
   # Use Lograge for logging
   config.lograge.enabled = true
@@ -142,13 +146,11 @@ Rails.application.configure do
     "#{time} - #{severity}: #{msg} \n"
   end
 
-  config.log_level = :info
-
   # Prepend all log lines with the following tags.
-  config.log_tags = [:request_id]
+  config.log_tags = [:request_id, :remote_ip]
 
   if ENV["RAILS_LOG_TO_STDOUT"] == "true"
-    logger = ActiveSupport::Logger.new(STDOUT)
+    logger = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   elsif ENV["RAILS_LOG_REMOTE_NAME"] && ENV["RAILS_LOG_REMOTE_PORT"]
