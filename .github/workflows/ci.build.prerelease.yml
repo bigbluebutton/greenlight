@@ -56,8 +56,8 @@ jobs:
         with:
           push: true
           tags: |
-            "${{ steps.ci_docker_repository.outputs.repository }}:${{ steps.ci_tag_release.outputs.tag }}"
-          build-args: "VERSION_CODE=${{ steps.ci_tag_release.outputs.tag }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release.outputs.tag }}"
+          build-args: "VERSION_CODE=release-${{ steps.ci_tag_release.outputs.tag }}"
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
@@ -69,8 +69,8 @@ jobs:
           file: dockerfiles/v2/alpine
           push: true
           tags: |
-            "${{ steps.ci_docker_repository.outputs.repository }}:${{ steps.ci_tag_release.outputs.tag }}-alpine"
-          build-args: "VERSION_CODE=${{ steps.ci_tag_release.outputs.tag }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release.outputs.tag }}-alpine"
+          build-args: "VERSION_CODE=release-${{ steps.ci_tag_release.outputs.tag }}"
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
@@ -82,8 +82,8 @@ jobs:
           file: dockerfiles/v2/amazonlinux
           push: true
           tags: |
-            "${{ steps.ci_docker_repository.outputs.repository }}:${{ steps.ci_tag_release.outputs.tag }}-amazonlinux"
-          build-args: "VERSION_CODE=${{ steps.ci_tag_release.outputs.tag }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release.outputs.tag }}-amazonlinux"
+          build-args: "VERSION_CODE=release-${{ steps.ci_tag_release.outputs.tag }}"
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
