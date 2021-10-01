@@ -1,5 +1,5 @@
 env:
-  RUBY_VERSION: 2.7.2
+  RUBY_VERSION: 2.7
   DB_ADAPTER: postgresql
   DB_HOST: localhost
   DB_NAME: postgres
