@@ -40,7 +40,7 @@
             maxlength: 26
             %>
         <span class="input-group-append">
-          <button id="room-join" type="submit" class="btn btn-primary btn-sm px-7 form-control join-form">
+          <button id="room-join" type="submit" class="btn btn-primary btn-sm form-control join-form">
             <%= (!@room_running && @anyone_can_start) ? t("room.start") : t("room.join") %>
           </button>
         </span>
