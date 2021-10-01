@@ -64,7 +64,7 @@ jobs:
 
       # Alternate Images with alpine
       - name: Alternate Alpine Build and Push
-        if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'false')
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'true')
         uses: docker/build-push-action@v2
         with:
           file: dockerfiles/v2/alpine
@@ -78,7 +78,7 @@ jobs:
 
       # Alternate Images with amazonlinux
       - name: Alternate Amazon Linux Build and Push
-        if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'false')
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'true')
         uses: docker/build-push-action@v2
         with:
           file: dockerfiles/v2/amazonlinux
