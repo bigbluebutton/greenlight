@@ -100,6 +100,12 @@ module Greenlight
     # Determine if GreenLight should allow non-omniauth signup/login.
     config.allow_user_signup = parse_bool(ENV['ALLOW_GREENLIGHT_ACCOUNTS'])
 
+    # Determine max number of registered users
+    config.max_registered_enabled = ENV["MAX_GREENLIGHT_USERS"].present?
+    config.max_registered_users = if config.max_registered_enabled
+      ENV["MAX_GREENLIGHT_USERS"].to_i
+    end
+
     # Configure custom banner message.
     config.banner_message = ENV['BANNER_MESSAGE']
 
