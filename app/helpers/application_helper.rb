@@ -58,16 +58,9 @@ module ApplicationHelper
   # Returns 'active' if the current page is the users home page (used to style header)
   def active_home
     home_actions = %w[show cant_create_rooms]
-    return "active" if params[:controller] == "admins" && params[:action] == "index" && current_user.has_role?(:super_admin)
-    return "active" if params[:controller] == "rooms" && home_actions.include?(params[:action])
+    return "active" if controller_name == "admins" && action_name == "index" && current_user.has_role?(:super_admin)
+    return "active" if controller_name == "rooms" && home_actions.include?(action_name)
     ""
-  end
-
-  # Returns the action method of the current page
-  def active_page
-    route = Rails.application.routes.recognize_path(request.env['PATH_INFO'])
-
-    route[:action]
   end
 
   def role_colour(role)
@@ -142,6 +135,21 @@ module ApplicationHelper
   # Returns a more friendly/readable date time object
   def view_date(date)
     return "" if date.nil? # Handle invalid dates
-    local_time(date, "%b %d, %Y %-I:%M%P")
+    local_time(date, :default)
+  end
+
+  # Returns true if the user is allowed to record meetings
+  def perm_to_record_meeting
+    if recording_consent_required?
+      @settings.get_value("Room Configuration Recording") != "disabled" &&
+        current_user&.role&.get_permission("can_launch_recording")
+    else
+      current_user&.role&.get_permission("can_launch_recording")
+    end
+  end
+
+  # Returns true if protected recordings is enabled on BigBlueButton/Scalelite server
+  def protected_recording?(rec)
+    !rec[:protected].nil?
   end
 end

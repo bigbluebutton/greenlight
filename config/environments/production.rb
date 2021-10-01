@@ -63,6 +63,8 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = if ENV["AWS_ACCESS_KEY_ID"].present?
                                     :amazon
+                                  elsif ENV["S3_ACCESS_KEY_ID"].present?
+                                    :s3
                                   elsif ENV["GCS_PRIVATE_KEY_ID"].present?
                                     :google
                                   else
@@ -122,12 +124,11 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "greenlight-2_0_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
-
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
+
+  # Specify the log level
+  config.log_level = ENV["RAILS_LOG_LEVEL"].present? ? ENV['RAILS_LOG_LEVEL'].to_sym : :info
 
   # Use Lograge for logging
   config.lograge.enabled = true
@@ -144,8 +145,6 @@ Rails.application.configure do
   config.log_formatter = proc do |severity, time, _progname, msg|
     "#{time} - #{severity}: #{msg} \n"
   end
-
-  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id, :remote_ip]

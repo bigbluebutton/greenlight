@@ -109,7 +109,7 @@ it:
         info: Limita il numero di stanze che un utente può avere (inclusa la stanza Home). Questa impostazione non si applica agli utenti Amministratori
         title: Numero di stanze per utente
       shared_access:
-        info: "Impostando su disabilitato, verra' rimossa l'opzione dal menu a discesa delle Opzioni Stanza, impedendo agli utenti di condividere le Stanze"
+        info: "Impostando su disabilitato, verrà rimossa l'opzione dal menu a discesa delle Opzioni Stanza, impedendo agli utenti di condividere le Stanze"
         title: Consenti agli Utenti di condividere Stanze
       subtitle: Personalizza Greenlight
       tabs:
@@ -121,15 +121,15 @@ it:
     flash:
       approved: L'utente è stato approvato con successo
       banned: L'utente è stato bannato.
-      unbanned: E' stato rimosso il blocco utente.
+      unbanned: È stato rimosso il blocco utente.
       delete: L'utente è stato eliminato con successo
       delete_fail: Errore nell'eliminazione utente
       demoted: L'utente è stato declassato
       invite: "L'invito è stato inviato a %{email}"
       invite_email_verification: L'email deve essere abilitata per poter usare questo metodo. Prego contatta il tuo amministratore di sistema
-      merge_fail: Si e' verificato un problema in fase di accorpamento degli accounts utente. Per favore verifica gli utenti selezionati e riprova.
+      merge_fail: Si è verificato un problema in fase di accorpamento degli account utente. Per favore verifica gli utenti selezionati e riprova.
       merge_success: Accounts utente accorpati con successo
-      perm_deleted: L'utente e' stato eliminato definitivamente
+      perm_deleted: L'utente è stato eliminato definitivamente
       promoted: L'utente è stato promosso
       registration_method_updated: Il metodo di registrazione è stato aggiornato con successo
       reset_password: Agli utenti è stata inviata una mail per procedere con il reset della password (Prego avvisali di controllare anche la loro cartella di spam se non dovessero ricevere tale mail)
@@ -145,12 +145,13 @@ it:
     roles:
       appear_in_share_list: Includi utenti con questo ruolo nel menu a discesa per la condivisione Stanze
       can_create_rooms: Non posso creare la stanza
+      can_launch_recording: Permetti agli utenti con questo ruolo di registrare i loro meeting
       delete: Cancella il ruolo
-      invalid_create: Si e' verificato un problema creando il nuovo ruolo. Per favore verifica i valori assegnati e riprova
-      invalid_order: Si e' verificato un problema aggiornando la priorita' del ruolo. Per favore verifica i valori e riprova
-      invalid_update: Si e' verificato un problema aggiornando i permessi del ruolo. Per favore verifica i valori e riprova.
+      invalid_create: Si è verificato un problema creando il nuovo ruolo. Per favore verifica i valori assegnati e riprova
+      invalid_order: Si è verificato un problema aggiornando la priorità del ruolo. Per favore verifica i valori e riprova
+      invalid_update: Si è verificato un problema aggiornando i permessi del ruolo. Per favore verifica i valori e riprova.
       manage_rooms_recordings: Consenti agli utenti con questo ruolo di gestire le Stanze e le Registrazioni
-      name: Nome del Ruolo
+      name: Nome del ruolo
       new_role: Crea un nuovo ruolo
       role_has_users: "Questo ruolo è ancora assegnato a %{user_count} utenti. Prego rimuovi tutti gli utenti con quel ruolo prima di eliminare il ruolo stesso"
       title: Ruoli
@@ -159,7 +160,7 @@ it:
       edit_site_settings: Consenti agli Utenti con questo ruolo di modificare le impostazioni del sito
       edit_roles: Consenti agli Utenti con questo ruolo di modificare altri ruoli
       manage_users: Consenti agli Utenti di questo ruolo di gestire il profilo di altri utenti
-      invalid_assignment: Si e' verificato un problema assegnando il ruolo all'utente. Per favore verifica i valori e riprova
+      invalid_assignment: Si è verificato un problema assegnando il ruolo all'utente. Per favore verifica i valori e riprova
       colour:
         title: Colore associato al ruolo
         info: Imposta il colore che sarà associato al ruolo
@@ -229,6 +230,7 @@ it:
   cookies:
     cookie_info: "I Cookies aiutano a fornire i servizi personalizzati. Usando i nostri servizi, accetti di usare i nostri Cookies."
     cookie_button: Accetto
+    policy: "Per ulteriori informazioni, consulta la nostra <a href=\"%{privacy_link}\"><u>normativa sulla privacy</u></a>."
   copied: Copiato
   copy: Copia
   date:
@@ -256,9 +258,9 @@ it:
       contact_admin: "Non sei un amministratore, dovresti contattarne uno serio."
       continue: Voglio restare con la versione 1.0.
       notice: >
-        Si è verificato un errore nella migrazione del database di GreenLight. <br> Questo può essere perché non hai aggiornato alla versione 2.0.
+        Si è verificato un errore nella migrazione del database di Greenlight. <br> Questo può essere perché non hai aggiornato alla versione 2.0.
       upgrade: Mostrami come aggiornare alla versione 2.0!
-      version: Abbiamo rilasciato una nuova versione di GreenLight ma il tuo database non sembra essere compatibile.
+      version: Abbiamo rilasciato una nuova versione di Greenlight ma il tuo database non sembra essere compatibile.
     messages:
       blank: non può essere vuoto
       too_short: è troppo corto
@@ -267,6 +269,7 @@ it:
       accepted: devono essere accettati
       confirmation: "non corrisponde a %{attribute}"
       inclusion: non è nella lista
+      domain: "deve terminare con \"%{email_domain}\""
     no_provider:
       message: Il sito a cui stai provando ad accedere non è abilitato
       help: Prego contatta l'amministratore di sistema affinché configuri Greenlight
@@ -311,6 +314,7 @@ it:
   home_room: Stanza principale
   info_update_success: Le informazioni sono state aggiornate.
   invalid_credentials: L'email e/o la password che hai fornito non hanno riscontro in archivio. Prova ancora o clicca su "Ho dimenticato la password" per resettare e reimpostare la tua password attuale
+  invalid_credentials_external: L’indirizzo email e la password che hai inserito non corrispondono ai nostri archivi. Prova di nuovo.
   invalid_login_method: "Accesso fallito: account non corretto. Devi effettuare l'accesso con omniauth."
   invite_message: "Per invitare qualcuno a partecipare, inviagli questo link: "
   javascript:
@@ -325,9 +329,9 @@ it:
   landing:
     about: "%{href} è una semplice interfaccia per il software di video-conferenza open source BigBlueButton. Puoi creare Stanze per ospitare i meeting, o partecipare ad altri meeting utilizzando pratici collegamenti brevi."
     welcome: Benvenuti su BigBlueButton.
-    video: Guarda il tutorial sull'utilizzo di GreenLight
+    video: Guarda il tutorial sull'utilizzo di Greenlight
     upgrade: Mostrami come aggiornare alla versione 2.0!
-    version: "E' stata rilasciata una nuova versione di GreenLight, ma il tuo database non è compatibile."
+    version: "È stata rilasciata una nuova versione di GreenLight, ma il tuo database non è compatibile."
   language_default: Predefinito (linguaggio del browser)
   ldap_error: Impossibile collegarsi al server LDAP. Controlla la configurazione LDAP nel file env e assicurati che il server sia attivo.
   login: Entra
@@ -347,7 +351,7 @@ it:
         subject: Account Approvato
         username: "Il tuo nome utente è %{email}."
       demoted:
-        info: "Non sei piu' un %{role} su %{url} ."
+        info: "Non sei più un %{role} su %{url} ."
         more-info: Disponi ora degli stessi privilegi di un utente normale.
         root_link: Entra
         subtitle: "Diritti di %{role} revocati."
@@ -357,7 +361,7 @@ it:
         signup_link: Accesso
         valid: "L'invito è valido fino al: %{date}"
         signup:
-          info: Un utente che e' stato invitato ha avuto accesso a Greenlight.
+          info: Un utente che è stato invitato ha avuto accesso a Greenlight.
           admins_link: Visita la pagina Organizzazione
           subject: Accesso nuovo Utente Greenlight
           username: "L'utente ha avuto accesso con il nome %{name} e l'email %{email} ."
@@ -365,7 +369,7 @@ it:
         username: "Il tuo nome utente è %{email}."
       password_reset:
         title: 'Reimposta password'
-        welcome: "E' stata fatta una richiesta di reset password a nome dell'email <b>%{email}</b>"
+        welcome: "È stata fatta una richiesta di reset password a nome dell'email <b>%{email}</b>"
         message: 'Se sei tu ad aver eseguito la richiesta, per favore clicca il link seguente per resettare la password:'
         reset_link: Reimposta Password
         expire: Questo link scadrà tra 2 ore.
@@ -383,14 +387,14 @@ it:
         verify_text: 'Per verificare il tuo account, visita questo indirizzo: %{url}'
         verify_link: Verifica Account
         thanks: "Grazie per aver participato, buona giornata!"
-  max_concurrent: E' stato raggiunto il massimo numero di sessioni contemporanee!
+  max_concurrent: È stato raggiunto il massimo numero di sessioni contemporanee!
   merged: Accorpato
   modal:
     create_role:
       create: Crea nuovo Ruolo
       footer_text: Potrai modificare i singoli permessi per questo ruolo dopo la sua creazione
       name_placeholder: Inserisci un nome per il ruolo...
-      not_blank: Il nome del ruolo non puo' rimanere vuoto.
+      not_blank: Il nome del ruolo non può rimanere vuoto.
       title: Crea Nuovo Ruolo
     create_room:
       access_code: Codice Accesso
@@ -407,7 +411,7 @@ it:
       confirm: "Sicuro di voler eliminare questo account?"
       delete: Sono sicuro. Elimina questo account.
       keep: "mmmh no dai, NON eliminarlo."
-      delete_warning: Questo disabilitera' l'account utente. Tutti gli account utente disabilitati si trovano sotto il tab cancellati.
+      delete_warning: Questo disabiliterà l'account utente. Tutti gli account utente disabilitati si trovano sotto il tab cancellati.
       warning: Questa è la tua ultima possibilità. <b>Non</b> sarai in grado di recuperare i dati associati.
     delete_rec:
       delete: "Sono sicuro, elimina questa registrazione."
@@ -417,11 +421,11 @@ it:
       confirm: "Sicuro di voler eliminare %{room}?"
       delete: "Sono sicuro, elimina la stanza."
       keep: "Ripensandoci, penso che la terrò."
-      warning: <b>Non</b>c'e' modo di recuperare questa stanza
+      warning: <b>Non</b>c'è modo di recuperare questa stanza
       recording_warning: "o ciascuna delle sue %{recordings_num} relative registrazioni."
     invite_user:
       email_placeholder: Inserisci le email degli utenti (separate da virgola)
-      footer: L'utente ricevera' un'email contenente le istruzioni per accedere
+      footer: L'utente riceverà un'email contenente le istruzioni per accedere
       send: Spedisci Invito
       title: Invita utente
     login:
@@ -440,14 +444,14 @@ it:
     remove_shared:
       title: "Confermi di voler rimuovere questa stanza dalla tua lista stanze?"
       delete: "Confermo, rimuovi questa stanza."
-      warning: <b>Non</b> potrai piu' accedere a questa stanza.
+      warning: <b>Non</b> potrai più accedere a questa stanza.
     room_settings:
       title: Impostazioni della stanza
       update: Aggiorna Stanza
       client: Seleziona il tipo di interfaccia
       join_moderator: Tutti gli utenti accedono come moderatori
       mute: Silenzia utenti quando entrano nella stanza
-      require_approval: E' richiesta l'approvazione del moderatore per accedere
+      require_approval: È richiesta l'approvazione del moderatore per accedere
       start: Consenti a qualsiasi utente di avviare questo meeting
       footer_text: Le impostazioni della stanza possono essere cambiate in qualsiasi momento.
       recording: Permetti la registrazione della stanza
@@ -466,7 +470,7 @@ it:
       title: Incorpora Accounts Utenti
       to: Account Primario
       save: Incorpora
-      footer: "Le stanze dell'account da incorporare saranno trasferite alla lista stanze dell'Account Primario, dopo di che l'account da incorporare verra' eliminato."
+      footer: "Le stanze dell'account da incorporare saranno trasferite alla lista stanze dell'Account Primario, dopo di che l'account da incorporare verrà eliminato."
   name_update_success: Il nome della stanza è stato cambiato con successo!
   no_user_email_exists: Non esistono utenti con la email specificata. Controlla di averla inserita correttamente.
   omniauth_error: Si è verificato un errore con l'autenticazione omniauth. Prova ancora o contatta un amministratore!
@@ -493,10 +497,12 @@ it:
   recording:
     all_recordings: Tutte le registrazioni
     email: Registrazioni Email
-    error: "Si e' verificato un errore durante il recupero di %{count} registrazione/i"
-    no_recordings: "Questa stanza non ha %{inject} registrazioni."
+    error: "Si è verificato un errore durante il recupero di %{count} registrazione/i"
+    no_public_recordings: Questa stanza non ha registrazioni video pubbliche.
+    no_recordings: Questa stanza non ha registrazioni video.
     no_user_recordings: Non ci sono registrazioni al momento.
-    no_matched_recordings: Nessuna registrazione corrisponde alla tua ricerca.
+    no_matched_pub_recordings: Nessuna registrazione video pubblica corrisponde alla tua ricerca.
+    no_matched_recordings: Nessuna registrazione video corrisponde alla tua ricerca.
     recorded_on: "Registrato il %{date}"
     table:
       name: Nome
@@ -506,6 +512,7 @@ it:
       visibility: Visibilità
       formats: Formati
     visibility:
+      inaccessible: Inaccessibile
       public: Pubblica
       unlisted: Non in elenco
     format:
@@ -516,17 +523,17 @@ it:
       video: Video
   registration:
     approval:
-      fail: "Il tuo account non e' ancora stato approvato. Se sono passati diversi giorni da quando ti sei registrato, contatta per favore il tuo amministratore."
-      signup: Il tuo account e' stato creato con successo. E' stato inviato ad un amministratore per l'approvazione.
+      fail: "Il tuo account non è ancora stato approvato. Se sono passati diversi giorni da quando ti sei registrato, contatta per favore il tuo amministratore."
+      signup: Il tuo account è stato creato con successo. È stato inviato ad un amministratore per l'approvazione.
     banned:
       fail: "Non hai accesso a questa applicazione. Se ritieni si tratti di un errore, contatta per favore il tuo amministratore."
     deprecated:
       new_signin: Seleziona un metodo per l'accesso al tuo account. Tutte le stanze collegate al tuo vecchio account saranno migrate al nuovo account.
-      twitter_signin: "L'accesso via Twitter e' deprecato e verra' rimosso nella prossima release. Clicca <a href=\"%{link}\"> qui </a> per consentire al tuo account un nuovo metodo di autenticazione"
-      twitter_signup: L'accesso via Twitter e' deprecato. Per favore utilizza un altro metodo di autenticazione
-      merge_success: Il tuo account Twitter e' stato accorpato con successo al tuo nuovo account. Il tuo vecchio account Twitter e' stato rimosso
+      twitter_signin: "L'accesso via Twitter è deprecato e verrà rimosso nella prossima release. Clicca <a href=\"%{link}\"> qui </a> per consentire al tuo account un nuovo metodo di autenticazione"
+      twitter_signup: L'accesso via Twitter è deprecato. Per favore utilizza un altro metodo di autenticazione
+      merge_success: Il tuo account Twitter è stato accorpato con successo al tuo nuovo account. Il tuo vecchio account Twitter è stato rimosso
     invite:
-      fail: "Il tuo token e' invalido o e' scaduto. Se ritieni si tratti di un errore, per favore contatta il tuo amministratore."
+      fail: "Il tuo token non è valido o è scaduto. Se ritieni si tratti di un errore, per favore contatta il tuo amministratore."
       no_invite: Non disponi di un invito per partecipare. Contatta il tuo amministratore per riceverne uno.
   remove: Elimina
   rename: Rinomina
@@ -537,13 +544,14 @@ it:
     password: Nuova password
     confirm: Conferma nuova password
     update: Aggiorna password
-    auth_change: Il metodo di autenticazione e' cambiato. Per favore controlla la tua email per impostare la tua password.
+    auth_change: Il metodo di autenticazione è cambiato. Per favore controlla la tua email per impostare la tua password.
   roles:
     active: Attivo
     admin: Amministratore
     banned: Bloccato
     deleted: Eliminato
     pending: In attesa
+    invited: Invitato
     user: Utente
   room:
     access_code_required: Prego immettere un codice valido per entrare nella stanza
@@ -569,12 +577,12 @@ it:
     last_session: "Ultima sessione: %{session}"
     login: Accedi
     owner: Proprietario
-    owner_banned: Questa stanza non e' al momento disponibile
+    owner_banned: Questa stanza non è al momento disponibile
     no_room:
       description: Inserisci l'url o l'id della stanza a cui desideri accedere.
       edit_profile: Modifica Profilo Utente
       go_to: Vai alla Stanza
-      invalid_room_uid: l'url/uid inserito non e' valido.
+      invalid_room_uid: L'url/uid della stanza inserito non è valido.
       placeholder: url/uid Stanza
       no_recent_rooms: Non sei entrato di recente in alcuna stanza
       recent_rooms: Entra in una stanza visitata recentemente
@@ -592,9 +600,9 @@ it:
     share: Gestione Accesso
     shared_by: "Condiviso da %{email}"
     remove_shared_access_success: Stanza condivisa rimossa con successo dal tuo elenco stanze
-    remove_shared_access_error: Si e' verificato un errore rimuovendo la stanza condivisa dal tuo elenco
+    remove_shared_access_error: Si è verificato un errore rimuovendo la stanza condivisa dal tuo elenco
     shared_access_success: Stanza condivisa con successo
-    shared_access_error: Si e' verificato un errore condividendo la stanza
+    shared_access_error: Si è verificato un errore condividendo la stanza
     start: Avvia
     search: Ricerca della stanza…
     unavailable: La stanza non è disponibile finché il proprietario non verifica il suo indirizzo email.
@@ -615,7 +623,7 @@ it:
       title: Informazioni account
       reset_password: Reimposta password dell'utente
     delete:
-      button: "Si, voglio eliminare il mio account."
+      button: "Sì, voglio eliminare il mio account."
       disclaimer: "Se scegli di eliminare il tuo account, <b>NON</b> sarà possibile recuperarlo. Tutte le informazioni riguardo l'account, incluse impostazioni, stanze e registrazioni, verranno eliminate."
       subtitle: Elimina definitivamente l'account
       title: Elimina account
@@ -638,6 +646,9 @@ it:
     title: Termini e Condizioni
   test_install: >
     Questa versione usa un server di test pre-configurato, dovresti rimpiazzarlo con il tuo. Per i dettagli, visita %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Aggiorna
   verify:
     accept: Verifica

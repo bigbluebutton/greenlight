@@ -47,6 +47,16 @@ module Joiner
     end
   end
 
+  def valid_avatar?(url)
+    return false if URI.regexp(['http', 'https']).match(url).nil?
+    uri = URI(url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true if uri.scheme == 'https'
+    response = http.request_head(uri)
+    return false if response.code != "200"
+    return response['content-length'].to_i < Rails.configuration.max_avatar_size
+  end
+
   def join_room(opts)
     @room_settings = JSON.parse(@room[:room_settings])
 
@@ -60,6 +70,7 @@ module Joiner
       opts[:mute_on_start] = room_setting_with_config("muteOnStart")
 
       if current_user
+        opts[:avatarURL] = current_user.image if current_user.image.present? && valid_avatar?(current_user.image)
         redirect_to join_path(@room, current_user.name, opts, current_user.uid)
       else
         join_name = params[:join_name] || params[@room.invite_path][:join_name]
@@ -84,11 +95,12 @@ module Joiner
 
   # Default, unconfigured meeting options.
   def default_meeting_options
-    invite_msg = I18n.t("invite_message")
+    moderator_message = "#{I18n.t('invite_message')}<br> #{request.base_url + room_path(@room)}"
+    moderator_message += "<br> #{I18n.t('modal.create_room.access_code')}: #{@room.access_code}" if @room.access_code.present?
     {
       user_is_moderator: false,
       meeting_logout_url: request.base_url + logout_room_path(@room),
-      moderator_message: "#{invite_msg}<br> #{request.base_url + room_path(@room)}",
+      moderator_message: moderator_message,
       host: request.host,
       recording_default_visibility: @settings.get_value("Default Recording Visibility") == "public"
     }

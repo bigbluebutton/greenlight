@@ -23,7 +23,9 @@ COPY Gemfile* ./
 COPY Gemfile Gemfile.lock $RAILS_ROOT/
 
 RUN bundle config --global frozen 1 \
-    && bundle install --deployment --without development:test:assets -j4 --path=vendor/bundle \
+    && bundle config set deployment 'true' \
+    && bundle config set without 'development:test:assets' \
+    && bundle install -j4 --path=vendor/bundle \
     && rm -rf vendor/bundle/ruby/2.7.0/cache/*.gem \
     && find vendor/bundle/ruby/2.7.0/gems/ -name "*.c" -delete \
     && find vendor/bundle/ruby/2.7.0/gems/ -name "*.o" -delete
@@ -60,6 +62,9 @@ EXPOSE 80
 # Sets the footer of greenlight application with current build version
 ARG version_code
 ENV VERSION_CODE=$version_code
+
+# Set executable permission to start file
+RUN chmod +x bin/start
 
 # Start the application.
 CMD ["bin/start"]
