@@ -111,6 +111,23 @@ class User < ApplicationRecord
       search_param = "%#{sanitize_sql_like(string)}%"
       where(search_query, search: search_param)
     end
+
+    def get_registered_count
+      User.where("deleted = false AND email_verified = true AND accepted_terms = true").count
+    end
+
+    def get_available_count
+      if !Rails.configuration.max_registered_enabled
+        return -1
+      end
+
+      max_users = Rails.configuration.max_registered_users
+      count = User.get_registered_count
+
+      logger.info("User: #{count} active users vs #{max_users} max")
+      return max_users - count
+    end
+
   end
 
   # Returns a list of rooms ordered by last session (with nil rooms last)
