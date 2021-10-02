@@ -10,7 +10,10 @@ env:
 name: CI
 on:
   push:
-    branches-ignore: "master"
+    branches-ignore:
+      - master
+      - v1
+      - v2
   pull_request:
     branches: "*"
 
