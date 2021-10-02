@@ -48,13 +48,13 @@ module Joiner
   end
 
   def valid_avatar?(url)
-    return false if URI.regexp(['http', 'https']).match(url).nil?
+    return false if URI::DEFAULT_PARSER.make_regexp(%w[http https]).match(url).nil?
     uri = URI(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true if uri.scheme == 'https'
     response = http.request_head(uri)
     return false if response.code != "200"
-    return response['content-length'].to_i < Rails.configuration.max_avatar_size
+    response['content-length'].to_i < Rails.configuration.max_avatar_size
   end
 
   def join_room(opts)
