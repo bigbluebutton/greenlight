@@ -40,6 +40,8 @@ class UsersController < ApplicationController
     # Redirect to root if user token is either invalid or expired
     return redirect_to root_path, flash: { alert: I18n.t("registration.invite.fail") } unless passes_invite_reqs
 
+    return redirect_to root_path, flash: { alert: I18n.t("registration.invite.too_many_users")} unless new_user_allowed?
+
     # User has passed all validations required
     @user.save
 

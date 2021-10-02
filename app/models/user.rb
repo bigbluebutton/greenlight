@@ -118,7 +118,7 @@ class User < ApplicationRecord
 
     def get_available_count
       if !Rails.configuration.max_registered_enabled
-        return -1
+        return 0
       end
 
       max_users = Rails.configuration.max_registered_users

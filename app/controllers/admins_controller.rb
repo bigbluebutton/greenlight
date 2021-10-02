@@ -142,14 +142,29 @@ class AdminsController < ApplicationController
   def invite
     emails = params[:invite_user][:email].split(",")
 
-    emails.each do |email|
-      invitation = create_or_update_invite(email)
+    sent = Array.new
+    available = User.get_available_count
+    x = 0
 
-      send_invitation_email(current_user.name, email, invitation)
+    emails.each do |email|
+
+      if !Rails.configuration.max_registered_enabled || available - x > 0
+        invitation = create_or_update_invite(email)
+
+        send_invitation_email(current_user.name, email, invitation)
+
+        sent.push(email)
+        x += 1
+      end
     end
 
-    redirect_back fallback_location: admins_path,
-      flash: { success: I18n.t("administrator.flash.invite", email: emails.join(", ")) }
+    if Rails.configuration.max_registered_enabled && emails.length > available
+      redirect_back fallback_location: admins_path,
+        flash: { alert: I18n.t("administrator.flash.invite_morthan", email: sent.join(", "), asked: emails.length, allowed: available) }
+    else
+      redirect_back fallback_location: admins_path,
+        flash: { success: I18n.t("administrator.flash.invite", email: sent.join(", ")) }
+    end
   end
 
   # GET /admins/reset
