@@ -4,7 +4,9 @@ env:
 name: CI Build Push
 on:
   push:
-    branches: "*"
+    branches-ignore:
+      - v1
+      - v2
 
 jobs:
   main:
