@@ -81,7 +81,7 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
-      # Alternate Images for bbb-bionic-230 with amazonlinux
+      # Alternate Images with amazonlinux
       - name: Alternate Amazon Linux Build and Push
         if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'true') && github.ref != 'refs/heads/master'
         uses: docker/build-push-action@v2
