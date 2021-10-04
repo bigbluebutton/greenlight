@@ -45,11 +45,11 @@ jobs:
         shell: bash
         run: echo "##[set-output name=repository;]$(echo ${DOCKER_REPOSITORY:-$GITHUB_REPOSITORY})"
 
-      - name: Extract Tag Release
-        id: ci_tag_release
+      - name: Extract Tag Release Version
+        id: ci_tag_release_version
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
         shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/})"
+        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/} | cut -c 9-)"
 
       - name: Extract Tag Release Major
         id: ci_tag_release_major
