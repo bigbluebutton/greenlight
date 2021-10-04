@@ -9,7 +9,7 @@ image:
 ingress:
   enabled: true
   hosts:
-    - host: "xir-davie.adedge.adedge.veea.co"
+    - host: "xir-davie.adedge.veea.co"
       paths:
         - path: /b
 
