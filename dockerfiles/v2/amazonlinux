@@ -1,4 +1,4 @@
-FROM amazonlinux:2.0.20210813.1 AS amazonlinux
+FROM amazonlinux:2.0.20211001.0 AS amazonlinux
 
 ARG RAILS_ROOT=/usr/src/app
 ENV RAILS_ROOT=${RAILS_ROOT}
@@ -37,10 +37,15 @@ FROM base
 ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true
 
 ARG VERSION_CODE
-ENV VERSION_CODE=${VERSION_CODE}
+ENV VERSION_CODE=$VERSION_CODE
 
 COPY --from=builder $RAILS_ROOT $RAILS_ROOT
 
 EXPOSE 80
+
+# FIXME / to remove / https://github.com/nahi/httpclient/issues/445
+RUN cat /etc/ssl/certs/ca-bundle.crt \
+    >/usr/src/app/vendor/bundle/ruby/2.7.0/gems/httpclient-2.8.3/lib/httpclient/cacert.pem
+
 RUN chmod +x bin/start
 CMD [ "bin/start" ]
