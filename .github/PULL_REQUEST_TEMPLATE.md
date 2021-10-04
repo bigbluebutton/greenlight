@@ -1,4 +1,4 @@
-<!--- 
+<!---
 IMPORTANT
 This template is mandatory for all Pull Requests.
 Please follow the template to ensure your Pull Request is reviewed.
@@ -13,4 +13,4 @@ Please follow the template to ensure your Pull Request is reviewed.
 <!--- Please describe in detail how to test your changes. -->
 
 ## Screenshots (if appropriate):
-<!--- Please include screenshots of ALL visual changes. -->
+<!--- Please include screenshots that may help to visualize your changes. -->
