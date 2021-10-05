@@ -400,7 +400,9 @@ it:
       access_code: Codice Accesso
       moderator_access_code: Codice moderatore
       access_code_placeholder: Genera un codice opzionale di accesso
+      reset_access_code: Reimposta il codice opzionale di accesso
       moderator_access_code_placeholder: Genera un codice facoltativo per moderatori
+      reset_moderator_access_code: Reimposta il codice facoltativo per moderatori
       auto_join: Aggiungimi automaticamente alla stanza
       create: Crea Stanza
       free_delete: Puoi eliminare la stanza in qualsiasi momento.
@@ -580,7 +582,7 @@ it:
     owner_banned: Questa stanza non è al momento disponibile
     no_room:
       description: Inserisci l'url o l'id della stanza a cui desideri accedere.
-      edit_profile: Modifica Profilo Utente
+      edit_profile: Modifica Profilo utente
       go_to: Vai alla Stanza
       invalid_room_uid: L'url/uid della stanza inserito non è valido.
       placeholder: url/uid Stanza
