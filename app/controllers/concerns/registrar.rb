@@ -56,10 +56,7 @@ module Registrar
 
   # Checks if the current number of users is less than the max allowed
   def new_user_allowed?
-    if !Rails.configuration.max_registered_enabled || User.get_available_count > 0
-      return true
-    end
-    return false
+    !Rails.configuration.max_registered_enabled || User.get_available_count > 0
   end
 
   # Add validation errors to model if they exist
