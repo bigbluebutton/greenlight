@@ -222,6 +222,7 @@ es:
         username: Nombre de usuario
         valid: Válido
       title: Administrar usuarios
+      title_num: Administrar usuarios (%{user_count} activo/%{max_count} maximo)
   add_to_google_calendar: "Agregar al Calendario de Google"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: ¡Oh no! Ocurrió un error al iniciar la sesión.

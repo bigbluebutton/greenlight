@@ -54,6 +54,11 @@ module Registrar
     invitation[:present]
   end
 
+  # Checks if the current number of users is less than the max allowed
+  def new_user_allowed?
+    !Rails.configuration.max_registered_enabled || User.get_available_count > 0
+  end
+
   # Add validation errors to model if they exist
   def valid_user_or_captcha
     valid_user = @user.valid?

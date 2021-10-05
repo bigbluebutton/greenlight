@@ -20,8 +20,13 @@
     <div class="col-lg-3 mb-4">
       <%= render "admins/components/menu_buttons" %>
     </div>
+    <% if Rails.configuration.max_registered_enabled
+      set_title = t("administrator.users.title_num", user_count: User.get_registered_count, max_count: Rails.configuration.max_registered_users)
+    else
+      set_title = t("administrator.users.title")
+    end %>
     <div id="users" class="col-lg-9">
-      <%= render "admins/components/setting_view", setting_id: "users", setting_title: t("administrator.users.title"), search: true %>
+      <%= render "admins/components/setting_view", setting_id: "users", setting_title: set_title, search: true %>
     </div>
   </div>
 </div>

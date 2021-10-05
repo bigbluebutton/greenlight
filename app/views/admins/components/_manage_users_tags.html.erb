@@ -16,7 +16,12 @@
 <div class="form-group mt-n3">
   <% if admin_invite_registration %>
   <div class="container text-right">
-    <%= link_to "#inviteModal", class: "btn btn-primary pt-3", id: "invite-user", "data-toggle": "modal" do %>
+    <% st_clz = "btn btn-primary pt-3"
+      if Rails.configuration.max_registered_enabled && User.get_available_count <= 0
+        st_clz = st_clz + " disabled"
+      end
+    %>
+    <%= link_to "#inviteModal", class: st_clz, id: "invite-user", "data-toggle": "modal" do %>
       <%= t("administrator.users.invite") %><i class="fas fa-paper-plane ml-3"></i>
     <% end %>
   </div>
