@@ -145,6 +145,7 @@ gl:
     roles:
       appear_in_share_list: Incluír usuarios con este rol no menú despregábel para compartir salas
       can_create_rooms: Pode crear salas
+      can_launch_recording: Permitir os usuarios con este rol para gravar estas reunións
       delete: Eliminar o rol
       invalid_create: Produciuse un problema ao crear un novo rol. Comprobe os valores dos roles e ténteo de novo
       invalid_order: Produciuse un problema ao actualizar a prioridade do rol. Comprobe os valores dos roles e ténteo de novo
@@ -229,6 +230,7 @@ gl:
   cookies:
     cookie_info: "As cookies axúdanos a prestar os nosos servizos. Ao usar os nosos servizos, acepta o noso uso de cookies."
     cookie_button: " Acepto"
+    policy: "Para obter máis información, consulte a nosa <a href=\"%{privacy_link}\"><u>directiva de privacidade</u></a>."
   copied: Copiado
   copy: Copiar
   date:
@@ -267,6 +269,7 @@ gl:
       accepted: ten que ser aceptado
       confirmation: "%{attribute} non coincide"
       inclusion: non está incluído na lista
+      domain: "debe rematar con «%{email_domain}»"
     no_provider:
       message: O sitio ao que está tentando acceder non está activo
       help: Póñase en contacto co administrador do sistema para configurar Greenlight
@@ -311,6 +314,7 @@ gl:
   home_room: Sala principal
   info_update_success: Actualizouse correctamente a información
   invalid_credentials: O correo e o contrasinal que introduciu non coinciden cos nosos rexistros. Tenteo de novo ou prema en «Esquecín o contrasinal» para restabelecer o seu contrasinal.
+  invalid_credentials_external: O correo e o contrasinal que introduciu non coinciden cos nosos rexistros. Tenteo de novo.
   invalid_login_method: Produciuse un fallo no acceso por mor da non coincidencia da conta. Debe acceder con omniauth.
   invite_message: "Para convidar a alguén á xuntanza, envíelle esta ligazón:"
   javascript:
@@ -355,6 +359,7 @@ gl:
         info: "Foi convidado ao seu propio espazo persoal por %{name}"
         signup_info: "Para rexistrarse usando o seu correo-e, prema no seguinte botón e siga os pasos."
         signup_link: Rexistrarse
+        valid: "O convite é valido ata: %{date}"
         signup:
           info: Un usuario que foi convidado rexistrouse para usar Greenlight.
           admins_link: Visite a páxina da organización
@@ -493,9 +498,11 @@ gl:
     all_recordings: Todas as gravacións
     email: " Enviar correo coa gravación"
     error: "Produciuse un erro ao recuperar %{count} gravación(s)"
-    no_recordings: "Esta sala non ten gravacións %{inject}."
+    no_public_recordings: Esta sala non ten gravacións públicas.
+    no_recordings: Esta sala non ten gravacións.
     no_user_recordings: Non ten gravacións.
-    no_matched_recordings: "Non hai  gravacións %{inject} que coincidan coa súa busca."
+    no_matched_pub_recordings: Non hai gravacións públicas que coincidan coa túa busca.
+    no_matched_recordings: Non hai gravacións que coincidan coa túa busca.
     recorded_on: "Gravada o %{date}"
     table:
       name: Nome
@@ -505,6 +512,7 @@ gl:
       visibility: Visibilidade
       formats: Formatos
     visibility:
+      inaccessible: Inaccesíbel
       public: Pública
       unlisted: Sen listar
     format:
@@ -543,6 +551,7 @@ gl:
     banned: Expulsado
     deleted: Eliminado
     pending: Pendente
+    invited: Convidado
     user: Usuario
   room:
     access_code_required: Introduza un código de acceso válido para unirse á sala
@@ -637,6 +646,9 @@ gl:
     title: Termos e condicións
   test_install: >
     Esta instalación está a usar un servidor para probas preconfigurado. Debe substituílo polo seu propio servidor. Para obter máis detalles, consulte %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Actualizar
   verify:
     accept: Verificar

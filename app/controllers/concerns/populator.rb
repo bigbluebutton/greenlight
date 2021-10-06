@@ -90,7 +90,8 @@ module Populator
 
   # Returns exactly 1 page of the latest recordings
   def latest_recordings
-    return_length = Rails.configuration.pagination_number
+    return_length = Rails.configuration.pagination_rows
+    number_of_rooms = Rails.configuration.pagination_number
     recordings = []
     counter = 0
 
@@ -100,8 +101,8 @@ module Populator
         Room.includes(:owner)
             .where(users: { provider: @user_domain })
             .order(last_session: :desc)
-            .limit(return_length)
-            .offset(counter * return_length)
+            .limit(number_of_rooms)
+            .offset(counter * number_of_rooms)
             .pluck(:bbb_id)
       else
         Room.order(last_session: :desc)

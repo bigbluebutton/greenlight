@@ -94,14 +94,18 @@ class ApplicationController < ActionController::Base
     render :migration_error, status: 500 unless ENV["DB_MIGRATE_FAILED"].blank?
   end
 
-  # Sets the appropriate locale.
-  def user_locale(user = current_user)
-    locale = if user && user.language != 'default'
+  # Determines proper locale to be used by calling user_locale with params based on if room owner exists
+  def determine_locale(user)
+    if user && user.language != 'default'
       user.language
     else
       Rails.configuration.default_locale.presence || http_accept_language.language_region_compatible_from(I18n.available_locales)
     end
+  end
 
+  # Sets the appropriate locale.
+  def user_locale(user = current_user)
+    locale = determine_locale(user)
     begin
       I18n.locale = locale.tr('-', '_') unless locale.nil?
     rescue
@@ -110,6 +114,7 @@ class ApplicationController < ActionController::Base
       I18n.locale = "en"
     end
   end
+  helper_method :user_locale
 
   # Checks to make sure that the admin has changed his password from the default
   def check_admin_password
@@ -180,7 +185,7 @@ class ApplicationController < ActionController::Base
   end
   helper_method :shared_access_allowed
 
-  # Indicates whether users are allowed to share rooms
+  # Indicates whether users should consent recoding when joining rooms
   def recording_consent_required?
     @settings.get_value("Require Recording Consent") == "true"
   end

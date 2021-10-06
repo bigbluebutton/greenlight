@@ -658,7 +658,7 @@ describe SessionsController, type: :controller do
       }
 
       expect(response).to redirect_to(ldap_signin_path)
-      expect(flash[:alert]).to eq(I18n.t("invalid_credentials"))
+      expect(flash[:alert]).to eq(I18n.t("invalid_credentials_external"))
     end
 
     it "redirects to signin if no password provided" do
@@ -672,7 +672,7 @@ describe SessionsController, type: :controller do
       }
 
       expect(response).to redirect_to(ldap_signin_path)
-      expect(flash[:alert]).to eq(I18n.t("invalid_credentials"))
+      expect(flash[:alert]).to eq(I18n.t("invalid_credentials_external"))
     end
 
     it "redirects to signin if no username provided" do
@@ -686,7 +686,7 @@ describe SessionsController, type: :controller do
       }
 
       expect(response).to redirect_to(ldap_signin_path)
-      expect(flash[:alert]).to eq(I18n.t("invalid_credentials"))
+      expect(flash[:alert]).to eq(I18n.t("invalid_credentials_external"))
     end
   end
 end

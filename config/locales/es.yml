@@ -268,6 +268,7 @@ es:
       accepted: debe ser aceptado
       confirmation: "no coincide %{attribute}"
       inclusion: no está incluido en la lista
+      domain: "debe terminar con \"%{email_domain}\""
     no_provider:
       message: El sitio al que está intentando acceder no se encuentra activo
       help: "Por favor, contacte con el administrador del sistema para configurar Greenlight"
@@ -312,6 +313,7 @@ es:
   home_room: Sala principal
   info_update_success: Información actualizada con éxito.
   invalid_credentials: El correo electrónico y la contraseña introducidos no coinciden con los registros. Inténtelo de nuevo o haga clic en recuperar contraseña.
+  invalid_credentials_external: El correo electrónico y la contraseña introducidos no coinciden con los registros. Inténtelo de nuevo.
   invalid_login_method: El inicio de sesión falló debido a la falta de coincidencia de cuenta. Necesitas iniciar sesión con uno de los proveedores.
   invite_message: "Para invitar a alguien a la sesión, envíele este enlace:"
   javascript:
@@ -507,6 +509,7 @@ es:
       visibility: Visibilidad
       formats: Formatos
     visibility:
+      inaccessible: Inaccesible
       public: Pública
       unlisted: No listada
     format:
@@ -560,7 +563,7 @@ es:
       success: Sala eliminada correctamente
       fail: "Se ha producido un error al eliminar la sala (%{error})"
     enter_the_access_code: Introduce el código de acceso de la sala
-    enter_the_moderator_access_code: Introduzca el código de moderador de la sala
+    enter_the_moderator_access_code: ¡Introduzca el código de moderador de la sala!
     optional_moderator_access_code: "Código opcional de moderador:"
     invalid_provider: El enlace introducido no es válido. Revísalo e inténtalo de nuevo.
     invitation_description: "Ha sido invitado a unirse a %{name} usando BigBlueButton. Para unirse, haga clic en el enlace superior e introduzca su nombre."
@@ -640,6 +643,9 @@ es:
     title: Términos y condiciones
   test_install: >
     Esta instalación esta haciendo uso del servidor para pruebas que viene pre-configurado. Debería ser substituido con tu propio servidor. Para más detalles vea %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Actualizar
   verify:
     accept: Verificar

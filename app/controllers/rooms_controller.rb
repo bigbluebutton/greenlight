@@ -181,6 +181,7 @@ class RoomsController < ApplicationController
     opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
     opts[:record] = record_meeting
     opts[:require_authentication_to_join] = room_setting_with_config("requireAuthenticationToJoin")
+    opts[:avatarURL] = current_user.image if current_user.image.present? && valid_avatar?(current_user.image)
 
     begin
       redirect_to join_path(@room, current_user.name, opts, current_user.uid)
@@ -437,10 +438,11 @@ class RoomsController < ApplicationController
 
   def record_meeting
     # If the require consent setting is checked, then check the room setting, else, set to true
+    user = current_user || @room.owner
     if recording_consent_required?
-      room_setting_with_config("recording")
+      room_setting_with_config("recording") && user&.role&.get_permission("can_launch_recording")
     else
-      true
+      user&.role&.get_permission("can_launch_recording")
     end
   end
 
