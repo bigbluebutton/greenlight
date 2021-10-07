@@ -151,7 +151,7 @@ module Greenlight
     # DEFAULTS
 
     # Default branding image if the user does not specify one
-    config.branding_image_default = "https://www.veea.com/public/images/full-logo.svg?v=120"
+    config.branding_image_default = "https://adedge.s3.amazonaws.com/greenlight/static/images/full-logo-tm.svg"
 
     # Default primary color if the user does not specify one
     config.primary_color_default = "#B41113"
