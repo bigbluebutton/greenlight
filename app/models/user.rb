@@ -113,7 +113,7 @@ class User < ApplicationRecord
     end
 
     def get_registered_count
-      User.where("deleted = false AND email_verified = true AND accepted_terms = true").count
+      User.where("deleted = false AND role_id IS NOT NULL").count
     end
 
     def get_available_count
