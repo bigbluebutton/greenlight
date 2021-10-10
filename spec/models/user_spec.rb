@@ -121,10 +121,10 @@ describe User, type: :model do
       room3 = create(:room, owner: user)
       room4 = create(:room, owner: user)
 
-      room4.update_attributes(sessions: 1, last_session: "2020-02-24 19:52:57")
-      room3.update_attributes(sessions: 1, last_session: "2020-01-25 19:52:57")
-      room2.update_attributes(sessions: 1, last_session: "2019-09-05 19:52:57")
-      room1.update_attributes(sessions: 1, last_session: "2015-02-24 19:52:57")
+      room4.update(sessions: 1, last_session: "2020-02-24 19:52:57")
+      room3.update(sessions: 1, last_session: "2020-01-25 19:52:57")
+      room2.update(sessions: 1, last_session: "2019-09-05 19:52:57")
+      room1.update(sessions: 1, last_session: "2015-02-24 19:52:57")
 
       rooms = user.ordered_rooms
       expect(rooms[0]).to eq(user.main_room)

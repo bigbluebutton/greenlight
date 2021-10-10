@@ -6,7 +6,7 @@ class AddPasswordToRooms < ActiveRecord::Migration[5.0]
     add_column :rooms, :attendee_pw, :string
     Room.reset_column_information
     Room.all.each do |room|
-      room.update_attributes!(
+      room.update(
         moderator_pw: RandomPassword.generate(length: 12),
         attendee_pw: RandomPassword.generate(length: 12)
       )
