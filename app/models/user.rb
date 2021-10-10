@@ -123,7 +123,7 @@ class User < ApplicationRecord
   # Activates an account and initialize a users main room
   def activate
     set_role :user if role_id.nil?
-    update_attributes(email_verified: true, activated_at: Time.zone.now, activation_digest: nil)
+    update(email_verified: true, activated_at: Time.zone.now, activation_digest: nil)
   end
 
   def activated?
@@ -137,13 +137,13 @@ class User < ApplicationRecord
   # Sets the password reset attributes.
   def create_reset_digest
     new_token = SecureRandom.urlsafe_base64
-    update_attributes(reset_digest: User.hash_token(new_token), reset_sent_at: Time.zone.now)
+    update(reset_digest: User.hash_token(new_token), reset_sent_at: Time.zone.now)
     new_token
   end
 
   def create_activation_token
     new_token = SecureRandom.urlsafe_base64
-    update_attributes(activation_digest: User.hash_token(new_token))
+    update(activation_digest: User.hash_token(new_token))
     new_token
   end
 
@@ -213,7 +213,7 @@ class User < ApplicationRecord
 
   def create_home_room
     room = Room.create!(owner: self, name: I18n.t("home_room"))
-    update_attributes(main_room: room)
+    update(main_room: room)
   end
 
   private
@@ -227,7 +227,7 @@ class User < ApplicationRecord
     # Initializes a room for the user and assign a BigBlueButton user id.
     id = "gl-#{(0...12).map { rand(65..90).chr }.join.downcase}"
 
-    update_attributes(uid: id)
+    update(uid: id)
 
     # Initialize the user to use the default user role
     role_provider = Rails.configuration.loadbalanced_configuration ? provider : "greenlight"

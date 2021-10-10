@@ -29,7 +29,7 @@ describe ThemesController, type: :controller do
 
       get :index, format: :css
 
-      expect(response.content_type).to eq("text/css")
+      expect(response.content_type).to start_with("text/css")
     end
   end
 
@@ -56,7 +56,7 @@ describe ThemesController, type: :controller do
 
       get :index, format: :css
 
-      expect(response.content_type).to eq("text/css")
+      expect(response.content_type).to start_with("text/css")
       expect(response.body).to include(color1)
     end
 
@@ -68,7 +68,7 @@ describe ThemesController, type: :controller do
 
       get :index, format: :css
 
-      expect(response.content_type).to eq("text/css")
+      expect(response.content_type).to start_with("text/css")
       expect(response.body).to include(@fake_color)
     end
   end

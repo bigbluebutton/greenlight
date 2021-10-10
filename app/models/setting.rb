@@ -23,7 +23,7 @@ class Setting < ApplicationRecord
   def update_value(name, value)
     feature = features.find_or_create_by!(name: name)
 
-    feature.update_attributes(value: value, enabled: true)
+    feature.update(value: value, enabled: true)
   end
 
   # Returns the value if enabled or the default if not enabled

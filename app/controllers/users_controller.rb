@@ -98,8 +98,8 @@ class UsersController < ApplicationController
       params[:user][:email] = @user.email
     end
 
-    if @user.update_attributes(user_params)
-      @user.update_attributes(email_verified: false) if user_params[:email] != @user.email
+    if @user.update(user_params)
+      @user.update(email_verified: false) if user_params[:email] != @user.email
 
       user_locale(@user)
 
@@ -195,7 +195,7 @@ class UsersController < ApplicationController
     redirect_to '/404' unless Rails.configuration.terms
 
     if params[:accept] == "true"
-      current_user.update_attributes(accepted_terms: true)
+      current_user.update(accepted_terms: true)
       login(current_user)
     end
   end

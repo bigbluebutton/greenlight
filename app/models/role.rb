@@ -82,7 +82,7 @@ class Role < ApplicationRecord
 
     permission = role_permissions.find_or_create_by!(name: name)
 
-    permission.update_attributes(value: value, enabled: true)
+    permission.update(value: value, enabled: true)
   end
 
   # Returns the value if enabled or the default if not enabled

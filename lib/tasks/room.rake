@@ -41,7 +41,7 @@ namespace :room do
       begin
         new_uid = "#{room.uid}-#{SecureRandom.alphanumeric(3).downcase}"
         puts "Updating #{room.uid} to #{new_uid}"
-        room.update_attributes(uid: new_uid)
+        room.update(uid: new_uid)
       rescue => e
         puts "Failed to update #{room.uid} to #{new_uid} - #{e}"
       end

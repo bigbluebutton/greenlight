@@ -940,8 +940,8 @@ describe RoomsController, type: :controller do
   describe "POST #preupload_presentation" do
     before do
       @user = create(:user)
-      @file = fixture_file_upload('files/sample.pdf', 'application/pdf')
-      @invalid_file = fixture_file_upload('files/invalid.bmp', 'image/bmp')
+      @file = fixture_file_upload('sample.pdf', 'application/pdf')
+      @invalid_file = fixture_file_upload('invalid.bmp', 'image/bmp')
       allow(Rails.configuration).to receive(:preupload_presentation_default).and_return("true")
     end
 
@@ -993,7 +993,7 @@ describe RoomsController, type: :controller do
   describe "POST #remove_presentation" do
     before do
       @user = create(:user)
-      @user.main_room.presentation.attach(fixture_file_upload('files/sample.pdf', 'application/pdf'))
+      @user.main_room.presentation.attach(fixture_file_upload('sample.pdf', 'application/pdf'))
       allow(Rails.configuration).to receive(:shared_access_default).and_return("true")
     end
 
