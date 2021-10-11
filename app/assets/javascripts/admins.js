@@ -52,11 +52,19 @@ $(document).on('turbolinks:load', function(){
       $(".merge-user").click(function() {
         // Update the path of save button
         $("#merge-save-access").attr("data-path", $(this).data("path"))
-
         let userInfo = $(this).data("info")
+        $("#merge-to").html("") // Clear current inputs
 
-        $("#merge-to").html("<span>" + userInfo.name + "</span>" + "<span class='text-muted d-block'>" + userInfo.email + "</span>" + "<span class='text-muted d-block'>" + userInfo.uid + "</span>")
- 
+        let spanName = document.createElement("span"),
+        spanEmail = document.createElement("span"),
+        spanUid = document.createElement("span");
+        spanName.innerText = userInfo.name
+        spanEmail.setAttribute('class', 'text-muted d-block')
+        spanEmail.innerText = userInfo.email
+        spanUid.setAttribute('class', 'text-muted d-block')
+        spanUid.innerText = userInfo.uid
+
+        $("#merge-to").append(spanName, spanEmail, spanUid)
       })
 
       $("#mergeUserModal").on("show.bs.modal", function() {
@@ -66,12 +74,33 @@ $(document).on('turbolinks:load', function(){
       $(".bootstrap-select").on("click", function() {
         $(".bs-searchbox").siblings().hide()
       })
+
+      $("#merge-user-select ~ button").on("click", function() {
+        $(".bs-searchbox").siblings().hide()
+      })
   
       $(".bs-searchbox input").on("input", function() {
         if ($(".bs-searchbox input").val() == '' || $(".bs-searchbox input").val().length < 3) {
+          $(".select-options").remove()
           $(".bs-searchbox").siblings().hide()
         } else {
-          $(".bs-searchbox").siblings().show()
+          // Manually populate the dropdown
+          $.get($("#merge-user-select").data("path"), { search: $(".bs-searchbox input").val() }, function(users) {
+            $(".select-options").remove()
+            if (users.length > 0) {
+              users.forEach(function(user) {
+                let opt = document.createElement("option")
+                $(opt).val(JSON.stringify({uid: user.uid, email: user.email, name: user.name}))
+                $(opt).text(user.name)
+                $(opt).addClass("select-options")
+                $(opt).attr("data-subtext", user.email)
+                $("#merge-user-select").append(opt)
+              })
+              // Only refresh the select dropdown if there are results to show
+              $('#merge-user-select').selectpicker('refresh');
+            } 
+            $(".bs-searchbox").siblings().show()
+          })     
         }
       })
 
@@ -81,7 +110,19 @@ $(document).on('turbolinks:load', function(){
         let user = $(".selectpicker").selectpicker('val')
         if (user != "") {
           let userInfo = JSON.parse(user)
-          $("#merge-from").html("<span>" + userInfo.name + "</span>" + "<span class='text-muted d-block'>" + userInfo.email + "</span>" + "<span id='from-uid' class='text-muted d-block'>" + userInfo.uid + "</span>")
+          $("#merge-from").html("") // Clear current input
+
+          let spanName = document.createElement("span"),
+          spanEmail = document.createElement("span"),
+          spanUid = document.createElement("span");
+          spanName.innerText = userInfo.name
+          spanEmail.setAttribute('class', 'text-muted d-block')
+          spanEmail.innerText = userInfo.email
+          spanUid.setAttribute('class', 'text-muted d-block')
+          spanUid.id = 'from-uid'
+          spanUid.innerText = userInfo.uid
+
+          $("#merge-from").append(spanName, spanEmail, spanUid)
         }
       })
     }
@@ -147,6 +188,12 @@ function displayMaintenanceBanner(path) {
 // Clear the maintenance Banner
 function clearMaintenanceBanner(path) {
   $.post(path, {value: "", tab: "administration"})
+}
+
+// Change the email mapping to the string provided
+function changeEmailMapping(path) {
+  var url = $("#email-mapping").val()
+  $.post(path, {value: url, tab: "registration"})
 }
 
 function mergeUsers() {

@@ -17,7 +17,7 @@
   <div class="card-body p-6">
     <div class="card-title text-primary">
       <div class="form-group">
-        <%= render "shared/components/subtitle", subtitle: setting_title, search: search %>
+        <%= render "shared/components/subtitle", subtitle: setting_title, search: search, search_info: defined?(search_info) ? search_info : "" %>
       </div>
     </div>
 

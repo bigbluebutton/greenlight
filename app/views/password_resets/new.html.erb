@@ -25,6 +25,12 @@
             <%= f.label :email, t("forgot_password.email"), class: "form-label" %>
             <%= f.email_field :email, class: "form-control" %>
             <br>
+
+            <% if recaptcha_enabled? %>
+              <div class="form-group">
+                <%= recaptcha_tags %>
+              </div>
+            <% end %>
       
             <%= f.submit t("forgot_password.submit"), class: "btn btn-primary" %>
           <% end %>

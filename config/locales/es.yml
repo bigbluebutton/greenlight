@@ -69,6 +69,10 @@ es:
         regular: Regular
         lighten: Aclarar
         darken: Oscurecer
+      email_mapping:
+        info: "Asigna al usuario a un rol usando su correo electrónico. Debe estar en el formato email1=rol1,email2=rol2"
+        title: "Asignación de rol por correo electrónico "
+        update:
       log_level:
         title: Nivel de registro
         information: Cambiar el nivel de registro para toda la implementación
@@ -90,7 +94,7 @@ es:
         title: Banner de mantenimiento
         display: Establece
         clear: Limpia
-        time: "Ejemplo: actualización programada para el 13 de diciembre a las 23:00h. Los usuarios pueden experimentar problemas para iniciar sesión."        
+        time: "Ejemplo: actualización programada para el 13 de diciembre a las 23:00h. Los usuarios pueden experimentar problemas para iniciar sesión."
       preupload:
         info: Los usuarios pueden cargar previamente una presentación para usarla como presentación predeterminada para esa sala específica
         title: Permitir a los usuarios cargar previamente presentaciones
@@ -106,11 +110,12 @@ es:
         title: Número de salas por usuario
       shared_access:
         info: "Si se establece en deshabilitado, se eliminará el botón del menú desplegable de opciones de sala, lo que evitará que los usuarios compartan salas"
-        title: Permitir a los usuarios compartir habitaciones
+        title: Permitir a los usuarios compartir salas
       subtitle: Personalizar Greenlight
       tabs:
         appearance: Apariencia
         administration: Administración
+        registration: Registro
         settings: Configuración
       title: Configuración del sitio web
     flash:
@@ -133,8 +138,10 @@ es:
       settings: La configuración de sistema ha sido actualizada
       unauthorized: No está autorizado para ejecutar operaciones sobre este usuario.
     recordings:
+      latest: Grabación más reciente
       title: Grabaciones
       no_recordings: Este servidor no tiene grabaciones.
+      search_info: Introduce un email o un identificador de sala.
     roles:
       appear_in_share_list: Incluir usuarios con este rol en el menú desplegable para compartir salas
       can_create_rooms: Puede crear salas
@@ -168,11 +175,15 @@ es:
         info: Otorga a todos los usuarios los privilegios de usuario moderador en BigBlueButton cuando se unen a la reunión.
       recordings:
         info: "Permite a los propietarios de salas especificar si desean la opción de grabar una sala o no. Si está habilitada, el moderador aún debe hacer clic en el botón \"Grabar\" una vez que haya comenzado la reunión."
+      moderator_codes:
+        info: Permite a los propietarios de salas generar opcionalmente un pin de moderador que permite a otros usuarios unirse directamente como moderadores.
+        title: Código de acceso como moderador
       options:
         disabled: Deshabilitada
         enabled: Siempre habilitada
         optional: Opcional
     rooms:
+      timeout: "Debido a un exceso de tiempo de funcionamiento de consulta en el servidor %{server}, la información de estado y participantes puede no estar actualizada."
       title: Salas del servidor
       table:
         ended: "Finalizada: %{session}"
@@ -202,12 +213,14 @@ es:
       table:
         authenticator: Verificador
         created: Creado
+        time: Tiempo de envío
         name: Nombre
         not_found: No se encontraron usuarios con ese criterio
         no_users: No se encontraron usuarios
         role: Rol
         uid: Identificador de usuario
         username: Nombre de usuario
+        valid: Válido
       title: Administrar usuarios
   add_to_google_calendar: "Agregar al Calendario de Google"
   bigbluebutton: BigBlueButton
@@ -216,6 +229,7 @@ es:
   cookies:
     cookie_info: "Las cookies nos ayudan a proveer nuestros servicios. Al utilizar nuestros servicios, usted acepta nuestro uso de las cookies."
     cookie_button: Acepto
+    policy: "Para más información, consulte nuestra <a href=\"%{privacy_link}\"><u>política de privacidad</u></a>."
   copied: Copiada
   copy: Copiar
   date:
@@ -225,12 +239,12 @@ es:
   delivery_error: "Ocurrió un error durante el envío de correo electrónico. Por favor, contacte con un administrador."
   docs: Documentación
   email: Cuenta de correo
-  email_sent: "Su %{email_type} correo electrónico ha sido enviado. (Revise su carpeta de Spam si no los ha recibido)"
+  email_sent: "Su %{email_type} correo electrónico ha sido enviado. (Revise su carpeta de Spam si no lo ha recibido)"
   enter_your_name: Introduzca su nombre
   errors:
     bigbluebutton:
       help: "Asegúrese de que los pasos han sido seguidos correctamente. <a href=\"%{doc_link}\">Saber más</a>"
-      message: La URL o clave secreta del servidor BigBlueButton son inválidos
+      message: La URL o clave secreta del servidor BigBlueButton no son válidas
       title: Error del servidor
     internal:
       message: Parece que algo salió mal de nuestro lado.
@@ -249,11 +263,12 @@ es:
     messages:
       blank: el valor no puede estar vacío
       too_short: es demasiado corta
-      invalid: es inválida
+      invalid: no es válida
       taken: ya existe
       accepted: debe ser aceptado
       confirmation: "no coincide %{attribute}"
       inclusion: no está incluido en la lista
+      domain: "debe terminar con \"%{email_domain}\""
     no_provider:
       message: El sitio al que está intentando acceder no se encuentra activo
       help: "Por favor, contacte con el administrador del sistema para configurar Greenlight"
@@ -297,7 +312,8 @@ es:
       signout: Salir
   home_room: Sala principal
   info_update_success: Información actualizada con éxito.
-  invalid_credentials: El correo electrónico y contraseña introducidos no coinciden con los registros. Inténtelo de nuevo o haga clic en recuperar contraseña.
+  invalid_credentials: El correo electrónico y la contraseña introducidos no coinciden con los registros. Inténtelo de nuevo o haga clic en recuperar contraseña.
+  invalid_credentials_external: El correo electrónico y la contraseña introducidos no coinciden con los registros. Inténtelo de nuevo.
   invalid_login_method: El inicio de sesión falló debido a la falta de coincidencia de cuenta. Necesitas iniciar sesión con uno de los proveedores.
   invite_message: "Para invitar a alguien a la sesión, envíele este enlace:"
   javascript:
@@ -339,14 +355,15 @@ es:
         root_link: Iniciar sesión
         subtitle: "Permiso de %{role} eliminado"
       invite:
-        info: "Hás sido invitado a contar con tu espacio personal por %{name}"
+        info: "Has sido invitado a contar con tu espacio personal por %{name}"
         signup_info: "Para registrarte utilizando tu cuenta de correo, haz click en el botón de abajo y sigue los pasos que se indican."
         signup_link: Registrarse
+        valid: "La invitación es válida hasta: %{date}"
         signup:
           info: Un usuario que fue invitado a registrarse ha completado su registro.
           admins_link: Ir a la página de la organización
           subject: Registro de usuario nuevo
-          username: "El usuario se ha registrado como%{name} con el correo electrónico %{email}. "
+          username: "El usuario se ha registrado como %{name} con el correo electrónico %{email}. "
         subject: Invitación para unirse a BigBlueButton
         username: "Tu nombre de usuario es %{email}."
       password_reset:
@@ -355,7 +372,7 @@ es:
         message: 'Sí hiciste una solicitud para reiniciar tu contraseña, haz click en este enlace para iniciar el proceso.'
         reset_link: Reiniciar la contraseña
         expire: Este enlace expira en dos horas
-        ignore: Puedes ignorar este mensaje sin preocupaciones sí no haz sido tu quien solicito el cambio de contraseña.
+        ignore: Puedes ignorar este mensaje sin preocupaciones si no has sido tú quien solicitó el cambio de contraseña.
       promoted:
         admins_link: Ir a la página de la organización
         info: "Tu rol ha cambiado a %{role} en %{url}."
@@ -380,7 +397,9 @@ es:
       title: Crear un rol nuevo
     create_room:
       access_code: Código de acceso
+      moderator_access_code: Código de Moderador
       access_code_placeholder: Generar un nuevo código de acceso
+      moderator_access_code_placeholder: Generar un código opcional para los moderadores
       auto_join: Envíame a la sala automáticamente cuando empiece ls sesión
       create: Crear sala
       free_delete: Podrás eliminar la sala en el momento que quieras
@@ -388,11 +407,15 @@ es:
       not_blank: El nombre de la sala no puede estar vacío
       title: Crear una sala nueva
     delete_account:
-      confirm: "¿Estas seguro de querer eliminar esta cuenta de usuario?"
+      confirm: "¿Estás seguro de querer eliminar esta cuenta de usuario?"
       delete: Estoy seguro de eliminar ésta cuenta
-      keep: "De hecho, la conserbaré"
+      keep: "De hecho, la conservaré"
       delete_warning: Esta acción desactiva la cuenta de usuario. Todos los usuarios desactivados son listados en la pestaña de eliminados.
-      warning: "Esta decisión es final, <b>No</b> podrás recuperar la información asociada"
+      warning: "Esta decisión es definitiva, <b>No</b> podrás recuperar la información asociada"
+    delete_rec:
+      delete: "Estoy seguro, elimina esta grabación"
+      header: "¿Estás seguro de eliminar esta grabación?"
+      warning: <b>NO</b> podrá recuperar esta grabación
     delete_room:
       confirm: "¿Estás seguro de querer eliminar %{room}?"
       delete: "Estoy seguro, elimina esta sala"
@@ -434,7 +457,7 @@ es:
     rename_room:
       name_placeholder: Introduce un nuevo nombre para la sala...
     share_access:
-      footer: Compartir una sala con un usuario Lesser permite iniciar la sala y ver las grabaciones de la sala.
+      footer: Compartir una sala con un usuario permite iniciar la sala y ver las grabaciones de la sala.
       list: Compartido con
       title: Compartir acceso a sala
       save: Guardar cambios
@@ -447,7 +470,7 @@ es:
       to: Cuenta principal
       save: Fusionar
       footer: Las salas de la cuenta que se fusionará se transferirán a la lista de salas de la cuenta principal y luego se eliminará la cuenta.
-  name_update_success: El nombre de la sala ha sido actualizado exitósamente
+  name_update_success: El nombre de la sala ha sido actualizado correctamente
   no_user_email_exists: "No hay ningún usuario existente con el correo electrónico especificado. Por favor, asegúrese de que lo escribió correctamente."
   omniauth_error: Ocurrió un error al intentar autentificar usando OmniAuth. ¡Inténtelo de nuevo o contacte con un administrador!
   omniauth_specific_error: "Error %{error} al intentar autenticación usand OmniAuth. ¡Inténtelo de nuevo o contacte con un administrador!"
@@ -465,6 +488,7 @@ es:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: Oh no! La respuesta de tu reCAPTCHA falló. Intentalo de nuevo.
@@ -479,12 +503,13 @@ es:
     recorded_on: "Grabada el %{date}"
     table:
       name: Nombre
-      thumbnails: Imagenes miniatura
+      thumbnails: Miniaturas
       length: Duración
       users: Usuarios
       visibility: Visibilidad
       formats: Formatos
     visibility:
+      inaccessible: Inaccesible
       public: Pública
       unlisted: No listada
     format:
@@ -505,12 +530,13 @@ es:
       twitter_signup: El registro de nuevas cuentas con Twitter es obsoleto. Por favor utiliza un método de autenticación diferente para registrarte.
       merge_success: Tu cuenta vinculada a Twitter se fusionó correctamente con tu cuenta nueva. La cuenta vinculada con Twitter ha sido eliminada.
     invite:
-      fail: "Tu código ha expirado o es invalido. Sí tu crees que este es un error, contacta al administrador del sistema."
-      no_invite: No tienes una invitación para ingresar. Contacta al administrador del sistema para obtener una.
+      fail: "Tu código ha expirado o no es valido. Sí crees que se trata de un error, contacta al administrador del sistema."
+      no_invite: No tienes una invitación para unirte. Contacta al administrador del sistema para obtener una.
   remove: Eliminar
   rename: Cambiar nombre
   reset_password:
-    invalid_token: El token de restablecimiento de contraseña no es válido. Intente restablecer su contraseña nuevamente.
+    captcha: "La verificación reCAPTCHA ha fallado, intentalo de nuevo."
+    invalid_token: El token de restablecimiento de contraseña no es válido. Intente restablecer su contraseña de nuevo.
     subtitle: Reiniciar contraseña
     password: Nueva contraseña
     confirm: Confirmación de nueva contraseña
@@ -522,10 +548,13 @@ es:
     banned: Bloqueado
     deleted: Eliminado
     pending: Pendiente
+    invited: Invitado
     user: Usuario
   room:
     access_code_required: Introduce un código de acceso válido para unirse a la sala
     add_presentation: Añadir presentación
+    copy_access: Copiar código de acceso
+    copy_moderator_access: Copiar código de moderador
     create_room: Crear una sala
     create_room_error: Ocurrió un error al crear la sala
     create_room_success: La sala fue creada exitósamente
@@ -534,8 +563,10 @@ es:
       success: Sala eliminada correctamente
       fail: "Se ha producido un error al eliminar la sala (%{error})"
     enter_the_access_code: Introduce el código de acceso de la sala
+    enter_the_moderator_access_code: ¡Introduzca el código de moderador de la sala!
+    optional_moderator_access_code: "Código opcional de moderador:"
     invalid_provider: El enlace introducido no es válido. Revísalo e inténtalo de nuevo.
-    invitation_description: "Ha sido invitado a unirse a %{name} usando BigBlueButton. Para unirse, haga clic en el enlace superior e introduzca su nombre."  
+    invitation_description: "Ha sido invitado a unirse a %{name} usando BigBlueButton. Para unirse, haga clic en el enlace superior e introduzca su nombre."
     invited: Ha sido invitado a unirse
     recording_present: Reconozco que esta sesión se va a grabar. Esto puede incluir mi voz y vídeo si está habilitado.
     invite_participants: Invitar participantes
@@ -559,8 +590,8 @@ es:
     preupload_remove_success: Eliminación de presenación correcta
     preupload_remove_error: Ha habido un error eliminando la presentación de la sala
     recordings: Grabaciones de sala
-    room_limit: Haz alcanzado el número límite de salas permitidas
-    room_limit_exceeded: "Haz alcanzado el número límite de salas permitidas. Por favor elimina %{difference} sala(s) para poder acceder a ésta."
+    room_limit: Has alcanzado el número límite de salas permitidas
+    room_limit_exceeded: "Has alcanzado el número límite de salas permitidas. Por favor elimina %{difference} sala(s) para poder acceder a ésta."
     sessions: Sesiones
     settings: Configuración de sala
     share: Gestionar acceso
@@ -570,12 +601,13 @@ es:
     shared_access_success: Sala compartida correctamente
     shared_access_error: Ha habido un error compartiendo la sala
     start: Iniciar
-    unavailable: Esta sala no se encuentra disponible debido a que la cuenta de correo  de su propietario no ha sido verificado.
+    search: Buscar por sala...
+    unavailable: Esta sala no se encuentra disponible debido a que la cuenta de correo de su propietario no ha sido verificado.
     update_settings_error: Ocurrió un error al actualizar la configuración de la sala
     update_settings_success: La configuración de la sala fue actualizada exitósamente
     wait:
       message: La sesión todavía no ha comenzado.
-      auto: Serás enviado a la sala automáticamente cuando empiece ls sesión
+      auto: Serás enviado a la sala automáticamente cuando empiece la sesión
   settings:
     account:
       fullname: Nombre completo
@@ -588,7 +620,7 @@ es:
       title: Información de la cuenta
       reset_password: Restablecer contraseña de usuario
     delete:
-      button: "Si, me gustaría eleiminar mi cuenta de usuario."
+      button: "Sí, me gustaría eliminar mi cuenta de usuario."
       disclaimer: "Sí elijes eliminar tu cuenta de usuario, <b>NO</b> podrá ser recuperada. Toda la información relacionada con tu cuenta, incluyendo configuración, salas y grabaciones, será eliminada."
       subtitle: Eliminar la cuenta de forma permanente
       title: Eliminar cuenta
@@ -611,6 +643,9 @@ es:
     title: Términos y condiciones
   test_install: >
     Esta instalación esta haciendo uso del servidor para pruebas que viene pre-configurado. Debería ser substituido con tu propio servidor. Para más detalles vea %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Actualizar
   verify:
     accept: Verificar

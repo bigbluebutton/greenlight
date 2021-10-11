@@ -28,6 +28,26 @@ describe AdminsController, type: :controller do
     @admin.set_role :admin
   end
 
+  describe "Server Recordings" do
+    it "renders the server_recordings page" do
+      @request.session[:user_id] = @admin.id
+
+      get :server_recordings
+
+      expect(response).to render_template(:server_recordings)
+    end
+  end
+
+  describe "Server Rooms" do
+    it "renders the server_rooms page" do
+      @request.session[:user_id] = @admin.id
+
+      get :server_rooms
+
+      expect(response).to render_template(:server_rooms)
+    end
+  end
+
   describe "User Roles" do
     before do
       allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)

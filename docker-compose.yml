@@ -3,8 +3,8 @@ version: '3'
 services:
   app:
     entrypoint: [bin/start]
-    image: greenlight-deoranjerie:release-v2
-    container_name: greenlight-v2-deoranjerie
+    image: greenlight-volt:release-v2
+    container_name: greenlight-v2-volt
     env_file: .env
     restart: unless-stopped
     ports:
@@ -22,12 +22,12 @@ services:
 #      - ./db/production:/usr/src/app/db/production
 # When using postgresql as the database
     links:
-      - db-deoranjerie
+      - db-volt
     extra_hosts:
-      - "DC18DST.deoranjerie.lan:10.122.0.12"
+      - "DC20DST.int.cvovolt.be:10.122.0.15"
       - "scalelite.adite.be:10.122.222.26"
-  db-deoranjerie:
-    image: postgres:9.5
+  db-volt:
+    image: postgres:13.2-alpine
     restart: unless-stopped
     ports:
       - 127.0.0.1:6432:5432

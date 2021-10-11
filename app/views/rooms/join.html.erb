@@ -15,23 +15,16 @@
 
 <% content_for(:page_desc) { t("room.invitation_description", name: @room.name) } %>
 
-<% valid_access_code = @room.access_code.nil? || @room.access_code.empty? || @room.access_code == session[:access_code] %>
-<%= render 'rooms/components/room_event', render_recordings: valid_access_code do %>
+<% access_code_set = @room.access_code.present? %>
+<% valid_access_code = access_code_set && @room.access_code == session[:access_code] %>
+<% moderator_access_code_set = @room.moderator_access_code.present? && moderator_code_allowed? %>
+<% valid_moderator_access_code = valid_moderator_access_code(session[:moderator_access_code]) %>
+<% authorized = valid_access_code || valid_moderator_access_code || !access_code_set %>
+
+<%= render 'rooms/components/room_event', render_recordings: authorized do %>
   <% if room_authentication_required %>
     <h2><%= t("administrator.site_settings.authentication.user-info") %></h2>
-  <% elsif !valid_access_code %>
-    <%= form_for :room, url: login_room_path(@room.uid) do |f| %>
-      <div class="input-group join-input">
-        <%= f.text_field :access_code,
-              required: true,
-              class: "form-control join-form",
-              placeholder: t("room.enter_the_access_code"),
-              value: "" ,
-              autofocus: true %>
-        <%= f.submit t("room.login"), class: "btn btn-primary btn-sm col-sm-3 form-control join-form" %>
-      </div>
-    <% end %>
-  <% else %>
+  <% elsif authorized %>
     <%= form_for room_path(@room), method: :post do |f| %>
       <div class="input-group">
         <%= f.hidden_field(:search, :value => params[:search])%>
@@ -43,7 +36,8 @@
             placeholder: t("enter_your_name"),
             value: "#{@name}",
             readonly: !current_user.nil?, 
-            autofocus: true
+            autofocus: true,
+            maxlength: 26
             %>
         <span class="input-group-append">
           <button id="room-join" type="submit" class="btn btn-primary btn-sm px-7 form-control join-form">
@@ -58,5 +52,12 @@
         </label>
       <% end %>
     <% end %>
+    <% if moderator_access_code_set && !valid_moderator_access_code %>
+      <!-- <hr class="mt-2 float-right w-100 moderator-code-hr"> -->
+      <label class="moderator-code-label form-label"><%= t("room.optional_moderator_access_code") %></label>
+      <%= render "rooms/components/enter_access_code_form", access_code_type: 'moderator' %>
+    <% end %>
+  <% else %>
+    <%= render "rooms/components/enter_access_code_form", access_code_type: 'standard_access' %>
   <% end %>
 <% end %>

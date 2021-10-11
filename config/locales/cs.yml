@@ -36,7 +36,7 @@ cs:
         enabled: Zapnuto
         info: Nastavení omezení přístupu do mísnosti
         title: Pro přístup je vyžadováno ověření
-        user-info: Pro vstup do této místnosti musí být uživatel přihlášen.
+        user-info: K připojení k místností je nutné se nejprve přihlásit.
       branding:
         change: Změna loga
         info: "Změna loga, které se zobrazuje v levém horním rohu obrazovky"
@@ -45,9 +45,9 @@ cs:
         invalid: Neplatné URL
       legal:
         change: Změna URL
-        info: Změnit odkaz na Podmínky užívání v patičce webové stránky
-        placeholder: Podmínky užívání URL...
-        title: Podmínky užívání
+        info: "Změna odkazu na podmínky použití, které se ukazují dole na stránce."
+        placeholder: Odkaz na podmínky použití.
+        title: Podmínky použití
         invalid: Neplatné URL
       privpolicy:
         change: Změň URL
@@ -69,6 +69,10 @@ cs:
         regular: Hlavní barva
         lighten: Světlá barva
         darken: Tmavá barva
+      email_mapping:
+        info: "Přiřaď uživateli roli podle e-mailu. Musí být ve formátu: email1=role1,email2=role2"
+        title: Mapování rolí podle e-mailu
+        update:
       log_level:
         title: Úroveň logování
         information: "Změní úroveň pro celý server "
@@ -82,6 +86,18 @@ cs:
         info: Změna standardní viditelnosti pro nové nahrávky
         title: Standardní viditelnost nahrávek
         warning: "Toto nastavení bude aplikováno na místnosti, v nichž právě neprobíhá konference"
+      require_consent:
+        info: "Toto nastavení zapíná nastavení místnosti, které umožňuje vlastníkovi místnosti určit, které místnosti mohou být nahrávány. Připojující se uživatelé musejí nejprve vyjádřit souhlas před připojením do místnosti."
+        title: Vyžaduje od vlastníka místnosti i uživatelů vyjádření souhlasu s nahráváním
+      maintenance_banner:
+        info: Zobrazí informaci o plánované odstávce systému
+        title: Informace o údržbě
+        display: Nastavit
+        clear: Vyčistit
+        time: "Příklad: Údržba systému je naplánovaná na 13. prosince ve 23:00.\nUživatelé mohou mít potíže s přihlášením do systému."
+      preupload:
+        info: "Uživatelé mohou nahrát prezentaci, která bude použita jako výchozí prezentace pro vybranou místnost."
+        title: Povolit uživatelům nahrát výchozí prezentaci
       registration:
         info: Změna způsobu registrace na tomto serveru
         title: Způsob registrace
@@ -96,6 +112,11 @@ cs:
         info: "Nastavení na vypnuto odstraní místnost ze seznamu, čímž zabrání uživatelům místnost sdílet"
         title: Povolit uživatelům sdílet místnost
       subtitle: Přizpůsobit Greenlight
+      tabs:
+        appearance: Vzhled
+        administration: Administrace
+        registration: Registrace
+        settings: Nastavení
       title: Nastavení serveru
     flash:
       approved: Uživatel byl úspěšně schválen
@@ -106,19 +127,21 @@ cs:
       demoted: Uživatel byl úspěšně degradován
       invite: "Pozvánka úspěšně odeslána na %{email}"
       invite_email_verification: Zasílání e-mailů musí být povoleno pro použití této metody. Kontaktujte prosím administrátora tohoto systému.
-      merge_fail: Nastal problém se spojením uživatelských účtů. Prosím zkontrolujte vybrané uživatele a zkuste to ještě jednou 
+      merge_fail: Nastal problém se spojením uživatelských účtů. Prosím zkontrolujte vybrané uživatele a zkuste to ještě jednou
       merge_success: Spojení uživatelských účtů proběhlo úspěšně.
       perm_deleted: Uživatel byl permanentně smazán
       promoted: Uživatel byl úspěšně povýšen
       registration_method_updated: Způsob registrace byl úspěšně změněn
-      reset_password: "Uživateli byl odeslán e-mail na zresetování jeho hesla. (Pokud zpráva nedorazila, požádejte o kontrolu složky se spamem)"
+      reset_password: "Uživateli byl odeslán e-mail na zresetování jeho hesla. (Pokud zpráva nedorazila, požádejte uživatele o kontrolu složky se spamem)"
       restored: Uživatel byl úspěšně obnoven
       room_configuration: Nastavení úspěšně uloženo
       settings: Nastavení serveru úspěšně změněno
       unauthorized: Nemáte dostatečná oprávnění k provedení akce.
     recordings:
+      latest: Poslední nahrávky
       title: Uložené nahrávky
       no_recordings: Na serveru dosud nejsou uloženy žádné nahrávky
+      search_info: Vložte uživatelův e-mail nebo identifikátor místnosti
     roles:
       appear_in_share_list: Uživatelé s touto rolí mohou sdílet místnost.
       can_create_rooms: Uživatel může vytvářet místnosti
@@ -129,14 +152,14 @@ cs:
       manage_rooms_recordings: Povolit uživatelům s touto rolí spravovat místnosti a nahrávky
       name: Název role
       new_role: Vytvořit novou roli
-      role_has_users: "Tato role je přidělena k %{user_count} účtem. Prosím odstraňte z role všechny účty před jejím smazáním"
+      role_has_users: "Tato role je přidělena k %{user_count} účtům. Prosím odstraňte z role všechny účty před jejím smazáním"
       title: Role
       promote_email: "Odeslat e-mail uživatelům, když jim je přidělena tato role"
       demote_email: "Odeslat e-mail uživatelům, když jim je odebrána tato role"
       edit_site_settings: Povolit uživatelům s touto rolí měnit nastavení serveru
       edit_roles: Povolit uživatelům s touto rolí měnit jiné role
       manage_users: Povolit uživatelům s touto rolí spravovat uživatele
-      invalid_assignment: "Nastal problém s přiřazením role. Zkontrolujte nastavení a zkuste to znovu.\nNemůžete uživateli přidělit roli s vyšší prioritou, než je Vaše vlastní" 
+      invalid_assignment: "Nastal problém s přiřazením role. Zkontrolujte nastavení a zkuste to znovu.\nNemůžete uživateli přidělit roli s vyšší prioritou, než je Vaše vlastní"
       colour:
         title: Barva role
         info: Nastavte barvu role
@@ -150,11 +173,17 @@ cs:
         info: "Povolit kdykoliv aktivaci místnosti jakémukoliv uživateli. Ve výchozím stavu může místnost aktivovat pouze její vlastník. "
       all_moderator:
         info: Přiděl práva moderátora všem uživatelům ihned po připojení.
+      recordings:
+        info: "Povolit vlastníkům místnosti určit, zda chtějí mít volbu nahrávat místnost nebo nikoliv. Pokud je zapnuto, přesto musí moderátor kliknout na tlačítko \"Zahájit nahrávání\"."
+      moderator_codes:
+        info: "Povol vlastníkovi generovat pin moderátora, který umožňuje ostatním uživatelům se připojit přímo jako moderátor."
+        title: Přístupový pin moderátora
       options:
         disabled: Vypnuto
         enabled: Vždy zapnuto
         optional: Volitelný
     rooms:
+      timeout: "Protože %{server} Požadavku vypršel časový limit, informace o stavu a účastnících nemusí být přesná"
       title: Místnosti
       table:
         ended: "Ukončeno: %{session}"
@@ -184,12 +213,14 @@ cs:
       table:
         authenticator: Ověřen přes
         created: Vytvořen
+        time: Odeslaný čas
         name: Jméno
-        not_found: Vašemu hledání nevyhovují žádní uživatelé
+        not_found: Vašemu zadání nevyhovují žádní uživatelé
         no_users: Žádný uživatel nenalezen
         role: Role
         uid: ID uživatele
         username: Přihlašovací jméno
+        valid: Platné
       title: Spravovat uživatele
   add_to_google_calendar: "Přidat do Google Calendar"
   bigbluebutton: BigBlueButton
@@ -198,6 +229,7 @@ cs:
   cookies:
     cookie_info: Cookies nám pomáhají poskytovat naše služby. Používáním našich služeb souhlasíte s jejich použitím.
     cookie_button: Souhlasím
+    policy: "Více informací najdete v <a href=\"%{privacy_link}\"><u> zásadách ochrany osobních údajů</u></a>."
   copied: Zkopírováno
   copy: Kopírovat
   date:
@@ -207,7 +239,7 @@ cs:
   delivery_error: Nastala chyba při odesílání e-mailu. Kontaktujte správce systému.
   docs: Dokumentace
   email: e-mail
-  email_sent: "Váš%{email_type} e-mail byl odeslán! (Pokud zpráva nedorazila, požádejte o kontrolu složky se spamem)"
+  email_sent: "Zpráva byla odeslána na Váš %{email_type}! (Pokud zpráva nedorazila, zkontrolujte si prosím složku se spamem)"
   enter_your_name: Zadejte své jméno
   errors:
     bigbluebutton:
@@ -260,7 +292,7 @@ cs:
     designs: Přizpůsobení vzhledu
     authentication: Ověřování uživatelů
   footer:
-    legal: Podmínky užívání
+    legal: Podmínky použití
     privpolicy: Zásady ochrany osobních údajů
     powered_by: "Powered by %{href}."
   forgot_password:
@@ -324,6 +356,7 @@ cs:
         info: " Byl jste pozván do Vašeho osobního prostoru uživatelem %{name}"
         signup_info: "Pro registraci Vaším emailem, klikněte na tlačítko níže a postupujte podle předepsaných kroků."
         signup_link: Registrace
+        valid: "Pozvánka je platná do: %{date}"
         signup:
           info: Pozvaný Greenlight uživatel se zaregistroval.
           admins_link: Navštivte stránku Organizace
@@ -351,8 +384,6 @@ cs:
         verify_text: 'Pro ověření Vašeho účtu pouze následujte tento odkaz: %{url}'
         verify_link: Ověření účtu
         thanks: "Děkujeme, že jste se k nám přidali a přejeme hezký den!"
-  maintenance:
-    window_alert: "Údržba systému byla naplánována na %{date}"
   max_concurrent: Byl dosažen maximální povolený počet současně aktivních připojení!
   merged: Spojeno
   modal:
@@ -364,7 +395,9 @@ cs:
       title: Vytvořit novou roli
     create_room:
       access_code: Přístupový kód
+      moderator_access_code: PIN moderátora
       access_code_placeholder: Vygenerovat volitelný přístupový kód
+      moderator_access_code_placeholder: Generuj pin moderátora.
       auto_join: Připojit mne automaticky do místnosti
       create: Vytvořit místnost
       free_delete: Tuto místnost můžete kdykoliv odstranit.
@@ -377,6 +410,10 @@ cs:
       keep: "Změnil jsem názor, účet chci zachovat."
       delete_warning: Tímto bude deaktivován účet uživatele. Všechny deaktivované účty najdete v záložce smazáné.
       warning: Toto rozhodnutí je konečné. Už <b>nebude</b> možné obnovit žádná související data.
+    delete_rec:
+      delete: "Jsem si jistý, smaž tuto nahrávku."
+      header: "Jste si jistí, že chcete smazat nahrávku?"
+      warning: "<b>Nebudete</b>moci obnovit nahrávku "
     delete_room:
       confirm: "Určitě chcete smazat místnost %{room}?"
       delete: "Jsem si jistý, místnost chci smazat."
@@ -392,6 +429,14 @@ cs:
       or: nebo
       with: "Přihlášení přes %{provider}"
       forgot_password: "Zapomenuté heslo?"
+    preupload:
+      change: Nahradit prezentaci
+      choose: Vybrat soubor ...
+      current: "Aktuální prezentace:"
+      footer: V závislosti na velikosti prezentace může nahrání prezentace chvilku trvat.
+      invalid: Neplatný typ souboru nebo překročen limit velikosti. Prosím podívejte se na omezení níže uvedená.
+      title: Přidat prezentaci
+      use: Použít prezentaci
     rename_recording:
     remove_shared:
       title: "Určitě chcete odstranit místnost ze seznamu místností?"
@@ -406,6 +451,7 @@ cs:
       require_approval: Požadovat povolení moderátora před připojením
       start: Povolit každému uživateli zahájit konferenci
       footer_text: Nastavení Vaší místnosti můžete kdykoliv změnit.
+      recording: Povolit nahrávání v místnosti
     rename_room:
       name_placeholder: Zadejte nový název místnosti...
     share_access:
@@ -440,6 +486,7 @@ cs:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: Nepodařilo se nám ověřit Vaši odpověď na reCAPTCHA. Zkuste to prosím znovu.
@@ -460,7 +507,7 @@ cs:
       visibility: Viditelnost
       formats: Formáty
     visibility:
-      public: Veřejný
+      public: Veřejné
       unlisted: Neveřejné
     format:
       notes: Poznámky
@@ -473,7 +520,7 @@ cs:
       fail: "Váš účet zatím nebyl ověřen. Jestliže od Vaší registrace už uběhlo několik dní, kontaktujte prosím administrátora."
       signup: Váš účet byl úspěšně vytvořen. Byl odeslán administrátorovi ke schválení.
     banned:
-      fail: "Váš přístup k této aplikaci byl zakázán. Pokud si myslíte, že jde o omyl, kontaktujte prosím administrátora." 
+      fail: "Váš přístup k této aplikaci byl zakázán. Pokud si myslíte, že jde o omyl, kontaktujte prosím administrátora."
     deprecated:
       new_signin: Vyberte si nový způsob přihlašování pro Váš účet. Všechny místnosti Vašeho starého účtu budou přesunuty do nového účtu
       twitter_signin: "Přihlašování přes Twitter bylo pozastaveno a bude odstraněno v další verzi. Klikněte <a href=\"%{link}\"> sem </a> pro přesun Vašeho účtu na nový způsob přihlašování"
@@ -485,6 +532,7 @@ cs:
   remove: Odstranit
   rename: Přejmenovat
   reset_password:
+    captcha: "Ověření reCAPTCHA selhalo, zkuste to prosím znovu."
     invalid_token: Token resetu hesla je neplatný. Prosím proveďte reset svého hesla ještě jednou.
     subtitle: Resetovat heslo
     password: Nové heslo
@@ -497,9 +545,13 @@ cs:
     banned: Zablokovaní
     deleted: Smazaní
     pending: Čekající
+    invited: Pozván
     user: Uživatel
   room:
     access_code_required: Prosím zadejte platný přístupový kód pro vstup do místnosti
+    add_presentation: Přidat prezentaci
+    copy_access: Zkopíruj přístupový kód
+    copy_moderator_access: Zkopíruj pin moderátora
     create_room: Vytvořit místnost
     create_room_error: Při vytváření místnosti nastala chyba
     create_room_success: Místnost byla úspěšně vytvořena
@@ -508,8 +560,12 @@ cs:
       success: Místnost byla smazána
       fail: "Nepodařilo se smazat místnost (%{error})"
     enter_the_access_code: Vložte přístupový kód do místnosti
+    enter_the_moderator_access_code: Vlož pin moderátora k místnosti!
+    optional_moderator_access_code: "Volitelný pin moderátora"
     invalid_provider: Vložili jste neplatné url. Prosím zkontrolujte url a zkuste to znovu.
+    invitation_description: "Byl jste pozván na videokonferenci%{name} v BigBlueButton. K připojení do místnosti klikněte na odkaz výše a zadejte svoje jméno."
     invited: Byl jste pozván na konferenci v místnosti
+    recording_present: Souhlasím s nahráváním sezení v místnosti včetně mého hlasu a web kamery pokud jsou zapnuté.
     invite_participants: Pozvánka pro účastníky
     join: Připojit
     last_session: " Poslední konference dne %{session}"
@@ -526,6 +582,10 @@ cs:
       recent_rooms: Vstoupit do poslední navštívené místosti
       title: Vstup do místnosti
     no_sessions: Tato místnost nemá zatím žádné konference.
+    preupload_success: Prezentace úspěšně přidána
+    preupload_error: Došlo k chybě při aktualizaci prezentace
+    preupload_remove_success: Prezentace byla úspěšně smazána
+    preupload_remove_error: Došlo k chybě při pokusu smazat prezentaci
     recordings: Nahrávky
     room_limit: Dosáhli jste maximální povolený počet místností
     room_limit_exceeded: " Překročili jste maximální povolený počet místností. Prosím smažte%{difference} místnosti pro vstup do této místnosti."
@@ -538,6 +598,7 @@ cs:
     shared_access_success: Místnost je sdílena
     shared_access_error: Nastala chyba při nastavení sdílení místnosti
     start: Spustit
+    search: Hledat místnost ...
     unavailable: "Tato místnost je momentálně nedostupná, protože e-mail vlastníka nebyl dosud ověřen."
     update_settings_error: Nastala chyba při aktualizaci nastavení místnosti
     update_settings_success: Nastavení místnosti bylo aktualizováno

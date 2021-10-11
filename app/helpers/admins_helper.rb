@@ -31,13 +31,6 @@ module AdminsHelper
     @running_room_bbb_ids.include?(id)
   end
 
-  # Returns a more friendly/readable date time object
-  def friendly_time(date)
-    return "" if date.nil? # Handle invalid dates
-
-    I18n.l date, format: "%B %d, %Y %H:%M UTC"
-  end
-
   # Site Settings
 
   def admin_invite_registration
@@ -96,6 +89,14 @@ module AdminsHelper
     end
   end
 
+  def moderator_codes_string
+    if @settings.get_value("Moderator Access Codes") == "true"
+      I18n.t("administrator.site_settings.moderator_codes.enabled")
+    else
+      I18n.t("administrator.site_settings.moderator_codes.disabled")
+    end
+  end
+
   def log_level_string
     case Rails.logger.level
     when 0
@@ -119,6 +120,10 @@ module AdminsHelper
 
   def room_limit_number
     @settings.get_value("Room Limit").to_i
+  end
+
+  def email_mapping
+    @settings.get_value("Email Mapping")
   end
 
   # Room Configuration
