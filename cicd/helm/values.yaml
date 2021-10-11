@@ -71,6 +71,10 @@ startupProbe:
   failureThreshold: 5
   periodSeconds:  60
 
+  initContainers:
+    - name: db-start-up-checker-service
+      image: 065145189516.dkr.ecr.us-east-1.amazonaws.com/db-start-up-checker-service:latest
+
 datadog:
   logs:
     enabled: true
