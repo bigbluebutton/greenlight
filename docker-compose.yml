@@ -30,7 +30,7 @@ services:
     image: postgres:13.2-alpine
     restart: unless-stopped
     ports:
-      - 127.0.0.1:6432:5432
+      - 127.0.0.1:7432:5432
     volumes:
       - ./db/production:/var/lib/postgresql/data
     environment:
