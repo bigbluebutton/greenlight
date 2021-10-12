@@ -327,7 +327,7 @@ nl:
     search:
       start: Begin zoekopdracht
   landing:
-    about: "Klik op de knop Aanmelden rechts bovenaan om aan te melden."
+    about: "%{href} is een eenvoudige front-end voor uw BigBlueButton open-source webconferentieserver. U kunt uw eigen ruimtes maken om sessies te hosten of u kunt via een korte en handige link lid worden van anderen."
     welcome: Welkom bij BigBlueButton.
     video: Bekijk onze tutorial over het gebruik van Greenlight
     upgrade: Laat me zien hoe ik kan upgraden naar 2.0!

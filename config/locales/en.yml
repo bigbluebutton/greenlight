@@ -328,7 +328,7 @@ en:
     search:
       start: Start searching...
   landing:
-    about: "Click on the Sign In button on the upper right to sign in"
+    about: "%{href} is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link."
     welcome: Welcome to BigBlueButton.
     video: Watch our tutorial on using Greenlight
     upgrade: Show me how to upgrade to 2.0!

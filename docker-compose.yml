@@ -3,12 +3,12 @@ version: '3'
 services:
   app:
     entrypoint: [bin/start]
-    image: greenlight-volt:release-v2
-    container_name: greenlight-v2-volt
+    image: bigbluebutton/greenlight:v2
+    container_name: greenlight-v2
     env_file: .env
     restart: unless-stopped
     ports:
-      - 127.0.0.1:5002:80
+      - 127.0.0.1:5000:80
 # When using external logging
 #    logging:
 #      driver: $LOG_DRIVER
@@ -22,15 +22,12 @@ services:
 #      - ./db/production:/usr/src/app/db/production
 # When using postgresql as the database
     links:
-      - db-volt
-    extra_hosts:
-      - "DC20DST.int.cvovolt.be:10.122.0.15"
-      - "scalelite.adite.be:10.122.222.26"
-  db-volt:
+      - db
+  db:
     image: postgres:13.2-alpine
     restart: unless-stopped
     ports:
-      - 127.0.0.1:7432:5432
+      - 127.0.0.1:5432:5432
     volumes:
       - ./db/production:/var/lib/postgresql/data
     environment:
