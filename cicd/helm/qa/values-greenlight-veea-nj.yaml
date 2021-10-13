@@ -13,6 +13,12 @@ ingress:
       paths:
         - path: /b
 
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPUUtilizationPercentage: 80
+
 externalSecret:
   dataFrom:
     - qa/greenlight-veea-nj
