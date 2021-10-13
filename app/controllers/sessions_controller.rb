@@ -110,6 +110,11 @@ class SessionsController < ApplicationController
   def omniauth
     @auth = request.env['omniauth.auth']
 
+    if @auth['provider'] == "openid_connect"
+      field = ENV["OPENID_CONNECT_ROLE_FIELD"] || ""
+      @auth['info']['roles'] = field.empty? ? nil : @auth['extra']&.fetch('raw_info')&.fetch(field)
+    end
+
     begin
       process_signin
     rescue => e
