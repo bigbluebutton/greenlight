@@ -50,26 +50,26 @@ livenessProbe:
   httpGet:
     path: /b/health_check
     port: http
-  timeoutSeconds: 12
-  initialDelaySeconds: 60
-  periodSeconds: 60
+  timeoutSeconds: 15
+  initialDelaySeconds: 15
+  periodSeconds: 30
 
 readinessProbe:
   httpGet:
     path: /b/health_check
     port: http
-  timeoutSeconds: 12
-  initialDelaySeconds: 60
-  periodSeconds: 60
+  timeoutSeconds: 15
+  initialDelaySeconds: 15
+  periodSeconds: 30
 
 startupProbe:
   httpGet:
     path: /b/health_check
     port: http
-  timeoutSeconds: 12
-  initialDelaySeconds: 90
+  timeoutSeconds: 15
+  initialDelaySeconds: 30
   failureThreshold: 5
-  periodSeconds:  60
+  periodSeconds:  30
 
 initContainers:
   - name: db-start-up-checker-service
