@@ -19,26 +19,10 @@
 module AdminsHelper
   include Pagy::Frontend
 
-  # Server Rooms
-
   # Gets the email of the room owner to which the recording belongs to
   def recording_owner_email(room_id)
-    Room.find_by(bbb_id: room_id).owner.email.presence || Room.find_by(bbb_id: room_id).owner.username
+    Room.find_by(bbb_id: room_id).owner.email
   end
-
-  # Get the room status to display in the Server Rooms table
-  def room_is_running(id)
-    @running_room_bbb_ids.include?(id)
-  end
-
-  # Returns a more friendly/readable date time object
-  def friendly_time(date)
-    return "" if date.nil? # Handle invalid dates
-
-    I18n.l date, format: "%B %d, %Y %H:%M UTC"
-  end
-
-  # Site Settings
 
   def admin_invite_registration
     controller_name == "admins" && action_name == "index" &&
@@ -55,14 +39,6 @@ module AdminsHelper
 
   def shared_access_string
     if @settings.get_value("Shared Access") == "true"
-      I18n.t("administrator.site_settings.authentication.enabled")
-    else
-      I18n.t("administrator.site_settings.authentication.disabled")
-    end
-  end
-
-  def preupload_string
-    if @settings.get_value("Preupload Presentation") == "true"
       I18n.t("administrator.site_settings.authentication.enabled")
     else
       I18n.t("administrator.site_settings.authentication.disabled")
@@ -88,14 +64,6 @@ module AdminsHelper
       end
   end
 
-  def require_consent_string
-    if @settings.get_value("Require Recording Consent") == "true"
-      I18n.t("administrator.site_settings.authentication.enabled")
-    else
-      I18n.t("administrator.site_settings.authentication.disabled")
-    end
-  end
-
   def log_level_string
     case Rails.logger.level
     when 0
@@ -113,30 +81,16 @@ module AdminsHelper
     end
   end
 
-  def show_log_dropdown
-    current_user.has_role?(:super_admin) || !Rails.configuration.loadbalanced_configuration
-  end
-
   def room_limit_number
     @settings.get_value("Room Limit").to_i
   end
 
-  # Room Configuration
-
-  def room_configuration_string(name)
-    case @settings.get_value(name)
-    when "enabled"
-      t("administrator.room_configuration.options.enabled")
-    when "optional"
-      t("administrator.room_configuration.options.optional")
-    when "disabled"
-      t("administrator.room_configuration.options.disabled")
-    end
+  def edit_disabled
+    @edit_disabled ||= @selected_role.priority <= current_user.highest_priority_role.priority
   end
 
-  # Roles
-
-  def edit_disabled
-    @edit_disabled ||= @selected_role.priority <= current_user.role.priority
+  # Get the room status to display in the Server Rooms table
+  def room_is_running(id)
+    @running_room_bbb_ids.include?(id)
   end
 end

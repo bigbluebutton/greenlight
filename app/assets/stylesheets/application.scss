@@ -134,19 +134,17 @@ a {
 }
 
 .cookies-banner {
+  height: $footer-height;
   color: white;
   background-color: $button-color-blue;
+
   #cookies-agree-button {
-    margin: 0;
+    background-color: green !important;
   }
 }
 
 input:focus {
     border-color: $primary !important;
-}
-
-.input-group button:focus {
-    box-shadow: none !important;
 }
 
 .list-group-item-action.active {
@@ -182,8 +180,4 @@ table {
 
 #delete-confirm:disabled {
   cursor: not-allowed;
-}
-
-.btn i {
-  transition: all .15s;
 }

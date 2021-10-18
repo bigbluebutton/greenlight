@@ -18,16 +18,15 @@
 
 class ApplicationController < ActionController::Base
   include BbbServer
-  include Errors
 
-  before_action :block_unknown_hosts, :redirect_to_https, :set_user_domain, :set_user_settings, :maintenance_mode?,
-  :migration_error?, :user_locale, :check_admin_password, :check_user_role
+  before_action :redirect_to_https, :set_user_domain, :set_user_settings, :maintenance_mode?, :migration_error?,
+    :user_locale, :check_admin_password, :check_user_role
 
   protect_from_forgery with: :exceptions
 
   # Retrieves the current user.
   def current_user
-    @current_user ||= User.includes(:role, :main_room).find_by(id: session[:user_id])
+    @current_user ||= User.includes(:roles, :main_room).find_by(id: session[:user_id])
 
     if Rails.configuration.loadbalanced_configuration
       if @current_user && !@current_user.has_role?(:super_admin) &&
@@ -43,12 +42,6 @@ class ApplicationController < ActionController::Base
 
   def bbb_server
     @bbb_server ||= Rails.configuration.loadbalanced_configuration ? bbb(@user_domain) : bbb("greenlight")
-  end
-
-  # Block unknown hosts to mitigate host header injection attacks
-  def block_unknown_hosts
-    return if Rails.configuration.hosts.blank?
-    raise UnsafeHostError, "#{request.host} is not a safe host" unless Rails.configuration.hosts.include?(request.host)
   end
 
   # Force SSL
@@ -84,10 +77,10 @@ class ApplicationController < ActionController::Base
           help: I18n.t("errors.maintenance.help"),
         }
     end
-
-    maintenance_string = @settings.get_value("Maintenance Banner").presence || Rails.configuration.maintenance_window
-    if maintenance_string.present?
-      flash.now[:maintenance] = maintenance_string unless cookies[:maintenance_window] == maintenance_string
+    if Rails.configuration.maintenance_window.present?
+      unless cookies[:maintenance_window] == Rails.configuration.maintenance_window
+        flash.now[:maintenance] = Rails.configuration.maintenance_window
+      end
     end
   end
 
@@ -119,7 +112,7 @@ class ApplicationController < ActionController::Base
        current_user&.greenlight_account? && current_user&.authenticate(Rails.configuration.admin_password_default)
 
       flash.now[:alert] = I18n.t("default_admin",
-        edit_link: change_password_path(user_uid: current_user.uid)).html_safe
+        edit_link: edit_user_path(user_uid: current_user.uid) + "?setting=password").html_safe
     end
   end
 
@@ -182,26 +175,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :shared_access_allowed
 
-  # Indicates whether users are allowed to share rooms
-  def recording_consent_required?
-    @settings.get_value("Require Recording Consent") == "true"
-  end
-  helper_method :recording_consent_required?
-
-  # Returns a list of allowed file types
-  def allowed_file_types
-    Rails.configuration.allowed_file_types
-  end
-  helper_method :allowed_file_types
-
-  # Returns the page that the logo redirects to when clicked on
-  def home_page
-    return admins_path if current_user.has_role? :super_admin
-    return current_user.main_room if current_user.role.get_permission("can_create_rooms")
-    cant_create_rooms_path
-  end
-  helper_method :home_page
-
   # Parses the url for the user domain
   def parse_user_domain(hostname)
     return hostname.split('.').first if Rails.configuration.url_host.empty?
@@ -235,7 +208,7 @@ class ApplicationController < ActionController::Base
       path = if allow_greenlight_accounts?
         signin_path
       elsif Rails.configuration.loadbalanced_configuration
-        "#{Rails.configuration.relative_url_root}/auth/bn_launcher"
+        omniauth_login_url(:bn_launcher)
       else
         signin_path
       end

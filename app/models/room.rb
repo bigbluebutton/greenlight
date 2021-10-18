@@ -23,14 +23,10 @@ class Room < ApplicationRecord
 
   before_create :setup
 
-  before_destroy :destroy_presentation
-
   validates :name, presence: true
 
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
   has_many :shared_access
-
-  has_one_attached :presentation
 
   def self.admins_search(string)
     active_database = Rails.configuration.database_configuration[Rails.env]["adapter"]
@@ -44,18 +40,14 @@ class Room < ApplicationRecord
     search_query = "rooms.name LIKE :search OR rooms.uid LIKE :search OR users.email LIKE :search" \
     " OR users.#{created_at_query} LIKE :search"
 
-    search_param = "%#{sanitize_sql_like(string)}%"
+    search_param = "%#{string}%"
+
     where(search_query, search: search_param)
   end
 
-  def self.admins_order(column, direction, running_ids)
+  def self.admins_order(column, direction)
     # Include the owner of the table
     table = joins(:owner)
-
-    # Rely on manual ordering if trying to sort by status
-    return order_by_status(table, running_ids) if column == "status"
-
-    return table.order("COALESCE(rooms.last_session,rooms.created_at) DESC") if column == "created_at"
 
     return table.order(Arel.sql("rooms.#{column} #{direction}")) if table.column_names.include?(column)
 
@@ -88,47 +80,24 @@ class Room < ApplicationRecord
     ActionCable.server.broadcast("#{uid}_waiting_channel", action: "started")
   end
 
-  # Return table with the running rooms first
-  def self.order_by_status(table, ids)
-    return table if ids.blank?
-
-    # Get active rooms first
-    active_rooms = table.where(bbb_id: ids)
-
-    # Get other rooms sorted by last session date || created at date (whichever is higher)
-    inactive_rooms = table.where.not(bbb_id: ids).order("COALESCE(rooms.last_session,rooms.created_at) DESC")
-
-    active_rooms + inactive_rooms
-  end
-
   private
 
   # Generates a uid for the room and BigBlueButton.
   def setup
     self.uid = random_room_uid
-    self.bbb_id = unique_bbb_id
+    self.bbb_id = Digest::SHA1.hexdigest(Rails.application.secrets[:secret_key_base] + Time.now.to_i.to_s).to_s
     self.moderator_pw = RandomPassword.generate(length: 12)
     self.attendee_pw = RandomPassword.generate(length: 12)
   end
 
-  # Generates a fully random room uid.
+  # Generates a three character uid chunk.
+  def uid_chunk
+    charset = ("a".."z").to_a - %w(b i l o s) + ("2".."9").to_a - %w(5 8)
+    (0...3).map { charset.to_a[rand(charset.size)] }.join
+  end
+
+  # Generates a random room uid that uses the users name.
   def random_room_uid
-    # 6 character long random string of chars from a..z and 0..9
-    full_chunk = SecureRandom.alphanumeric(9).downcase
-
-    [owner.name_chunk, full_chunk[0..2], full_chunk[3..5], full_chunk[6..8]].join("-")
-  end
-
-  # Generates a unique bbb_id based on uuid.
-  def unique_bbb_id
-    loop do
-      bbb_id = SecureRandom.alphanumeric(40).downcase
-      break bbb_id unless Room.exists?(bbb_id: bbb_id)
-    end
-  end
-
-  # Before destroying the room, make sure you also destroy the presentation attached
-  def destroy_presentation
-    presentation.purge if presentation.attached?
+    [owner.name_chunk, uid_chunk, uid_chunk].join('-').downcase
   end
 end

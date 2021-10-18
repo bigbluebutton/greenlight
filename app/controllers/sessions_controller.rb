@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
         "#{Rails.configuration.relative_url_root}/auth/#{@providers.first}"
       end
 
-      redirect_to provider_path
+      return redirect_to provider_path
     end
   end
 
@@ -65,12 +65,12 @@ class SessionsController < ApplicationController
   def create
     logger.info "Support: #{session_params[:email]} is attempting to login."
 
-    user = User.include_deleted.find_by(email: session_params[:email].downcase)
+    user = User.include_deleted.find_by(email: session_params[:email])
 
     is_super_admin = user&.has_role? :super_admin
 
     # Scope user to domain if the user is not a super admin
-    user = User.include_deleted.find_by(email: session_params[:email].downcase, provider: @user_domain) unless is_super_admin
+    user = User.include_deleted.find_by(email: session_params[:email], provider: @user_domain) unless is_super_admin
 
     # Check user with that email exists
     return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user
@@ -88,13 +88,16 @@ class SessionsController < ApplicationController
       # Check that the user is a Greenlight account
       return redirect_to(root_path, alert: I18n.t("invalid_login_method")) unless user.greenlight_account?
       # Check that the user has verified their account
-      return redirect_to(account_activation_path(digest: user.activation_digest)) unless user.activated?
+      unless user.activated?
+        user.create_activation_token
+        return redirect_to(account_activation_path(token: user.activation_token))
+      end
     end
 
     login(user)
   end
 
-  # POST /users/logout
+  # GET /users/logout
   def destroy
     logout
     redirect_to root_path
@@ -128,25 +131,21 @@ class SessionsController < ApplicationController
     ldap_config[:port] = ENV['LDAP_PORT'].to_i != 0 ? ENV['LDAP_PORT'].to_i : 389
     ldap_config[:bind_dn] = ENV['LDAP_BIND_DN']
     ldap_config[:password] = ENV['LDAP_PASSWORD']
-    ldap_config[:auth_method] = ENV['LDAP_AUTH']
     ldap_config[:encryption] = if ENV['LDAP_METHOD'] == 'ssl'
                                     'simple_tls'
                                 elsif ENV['LDAP_METHOD'] == 'tls'
                                     'start_tls'
                                 end
     ldap_config[:base] = ENV['LDAP_BASE']
-    ldap_config[:filter] = ENV['LDAP_FILTER']
     ldap_config[:uid] = ENV['LDAP_UID']
 
-    if params[:session][:username].blank? || session_params[:password].blank?
-      return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials"))
-    end
+    return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials")) unless session_params[:password].present?
 
     result = send_ldap_request(params[:session], ldap_config)
 
     return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials")) unless result
 
-    @auth = parse_auth(result.first, ENV['LDAP_ROLE_FIELD'], ENV['LDAP_ATTRIBUTE_MAPPING'])
+    @auth = parse_auth(result.first, ENV['LDAP_ROLE_FIELD'])
 
     begin
       process_signin
@@ -218,7 +217,7 @@ class SessionsController < ApplicationController
 
     # Add pending role if approval method and is a new user
     if approval_registration && !@user_exists
-      user.set_role :pending
+      user.add_role :pending
 
       # Inform admins that a user signed up if emails are turned on
       send_approval_user_signup_email(user)
@@ -227,8 +226,6 @@ class SessionsController < ApplicationController
     end
 
     send_invite_user_signup_email(user) if invite_registration && !@user_exists
-
-    user.set_role :user if !@user_exists && user.role.nil?
 
     login(user)
 
@@ -246,7 +243,8 @@ class SessionsController < ApplicationController
     logger.info "Switching social account to local account for #{user.uid}"
 
     # Send the user a reset password email
-    send_password_reset_email(user, user.create_reset_digest)
+    user.create_reset_digest
+    send_password_reset_email(user)
 
     # Overwrite the flash with a more descriptive message if successful
     flash[:success] = I18n.t("reset_password.auth_change") if flash[:success].present?

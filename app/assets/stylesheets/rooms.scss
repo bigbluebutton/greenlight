@@ -57,14 +57,6 @@
   padding-top: 12px;
 }
 
-.room-block {
-  &:not(.current) {
-    .stamp {
-      opacity: 0.5;
-    }
-  }
-}
-
 #create-room-block {
   border: 1px dashed lightgray;
 
@@ -107,18 +99,4 @@
 
 .remove-shared {
   text-decoration: line-through;
-}
-
-.enabled-setting {
-  background: lightgray;
-  pointer-events: none;
-}
-
-#recording-table .edit_hover_class {
-  word-break: break-all;
-  white-space: normal;
-}
-
-#room-owner-name {
-  line-height: 12px;
 }

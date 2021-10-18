@@ -37,12 +37,5 @@ $(document).on('turbolinks:load', function(){
         win.focus();
       });
     });
-
-    // Handle recording delete modal
-    $(".delete-rec").click(function() {
-      $("#delete-rec-confirm").parent().attr("action", $(this).data("path"))
-    })
-
-    
   }
 });

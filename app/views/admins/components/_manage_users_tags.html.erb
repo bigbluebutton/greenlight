@@ -1,5 +1,5 @@
 <%
-# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# BigBlueButton open source conferencing system - http://www.bigbluespan.org/.
 # Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
 # This program is free software; you can redistribute it and/or modify it under the
 # terms of the GNU Lesser General Public License as published by the Free Software
@@ -14,25 +14,20 @@
 %>
 
 <div class="form-group mt-n3">
-  <nav class="row m-0">
-    <div class="nav col nav-tabs admin-tabs m-0 p-0" id="manage-users-nav" role="tablist">
-      <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'active' %>" id="Active" href="?tab=active" role="tab" aria-selected="true"><i class="fas mr-3 fa-users"></i>
+  <div class="row">
+    <div class="col-12 tags">
+      <span id="active" class="btn btn-sm tag manage-users-tab <%= 'selected' if @tab == 'active' %>">
         <%= t("roles.active") %>
-      </a>
-      <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'pending' %>" id="Pending" href="?tab=pending" role="tab" aria-selected="false"><i class="fas mr-3 fa-user-clock"></i>
+      </span>
+      <span id="pending" class="btn btn-sm tag manage-users-tab <%= 'selected' if @tab == 'pending' %>">
         <%= t("roles.pending") %>
-      </a>
-      <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'denied' %>" id="Denied" href="?tab=denied" role="tab" aria-selected="false"><i class="fas mr-3 fa-user-times"></i>
+      </span>
+      <span id="denied" class="btn btn-sm tag manage-users-tab <%= 'selected' if @tab == 'denied' %>">
         <%= t("roles.banned") %>
-      </a>
-      <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'deleted' %>" id="Deleted" href="?tab=deleted" role="tab" aria-selected="false"><i class="far mr-2 fa-trash-alt"></i>
+      </span>
+      <span id="deleted" class="btn btn-sm tag manage-users-tab <%= 'selected' if @tab == 'deleted' %>">
         <%= t("roles.deleted") %>
-      </a>
+      </span>
     </div>
-    <% if admin_invite_registration %>
-      <%= link_to "#inviteModal", class: "btn btn-primary pt-3", id: "invite-user", "data-toggle": "modal" do %>
-        <%= t("administrator.users.invite") %><i class="fas fa-paper-plane ml-3"></i>
-      <% end %>
-    <% end %>
-  </nav>
+  </div>
 </div>

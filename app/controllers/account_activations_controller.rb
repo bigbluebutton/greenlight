@@ -29,7 +29,7 @@ class AccountActivationsController < ApplicationController
   # GET /account_activations/edit
   def edit
     # If the user exists and is not verified and provided the correct token
-    if @user && !@user.activated?
+    if @user && !@user.activated? && @user.authenticated?(:activation, params[:token])
       # Verify user
       @user.activate
 
@@ -44,14 +44,15 @@ class AccountActivationsController < ApplicationController
     end
   end
 
-  # POST /account_activations/resend
+  # GET /account_activations/resend
   def resend
     if @user.activated?
       # User is already verified
       flash[:alert] = I18n.t("verify.already_verified")
     else
       # Resend
-      send_activation_email(@user, @user.create_activation_token)
+      @user.create_activation_token
+      send_activation_email(@user)
     end
 
     redirect_to root_path
@@ -60,15 +61,7 @@ class AccountActivationsController < ApplicationController
   private
 
   def find_user
-    digest = if params[:token].present?
-      User.hash_token(params[:token])
-    elsif params[:digest].present?
-      params[:digest]
-    else
-      raise "Missing token/digest params"
-    end
-
-    @user = User.find_by!(activation_digest: digest, provider: @user_domain)
+    @user = User.find_by!(activation_digest: User.digest(params[:token]), provider: @user_domain)
   end
 
   def ensure_unauthenticated

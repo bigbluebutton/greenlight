@@ -48,22 +48,21 @@ module Joiner
   end
 
   def join_room(opts)
-    @room_settings = JSON.parse(@room[:room_settings])
+    room_settings = JSON.parse(@room[:room_settings])
 
-    if room_running?(@room.bbb_id) || @room.owned_by?(current_user) || room_setting_with_config("anyoneCanStart")
+    if room_running?(@room.bbb_id) || @room.owned_by?(current_user) || room_settings["anyoneCanStart"]
 
       # Determine if the user needs to join as a moderator.
-      opts[:user_is_moderator] = @room.owned_by?(current_user) || room_setting_with_config("joinModerator") || @shared_room
-      opts[:record] = record_meeting
-      opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
-      opts[:mute_on_start] = room_setting_with_config("muteOnStart")
+      opts[:user_is_moderator] = @room.owned_by?(current_user) || room_settings["joinModerator"] || @shared_room
+
+      opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
+      opts[:mute_on_start] = room_settings["muteOnStart"]
 
       if current_user
         redirect_to join_path(@room, current_user.name, opts, current_user.uid)
       else
         join_name = params[:join_name] || params[@room.invite_path][:join_name]
-
-        redirect_to join_path(@room, join_name, opts, fetch_guest_id)
+        redirect_to join_path(@room, join_name, opts)
       end
     else
       search_params = params[@room.invite_path] || params
@@ -92,20 +91,5 @@ module Joiner
       host: request.host,
       recording_default_visibility: @settings.get_value("Default Recording Visibility") == "public"
     }
-  end
-
-  private
-
-  def fetch_guest_id
-    return cookies[:guest_id] if cookies[:guest_id].present?
-
-    guest_id = "gl-guest-#{SecureRandom.hex(12)}"
-
-    cookies[:guest_id] = {
-      value: guest_id,
-      expires: 1.day.from_now
-    }
-
-    guest_id
   end
 end

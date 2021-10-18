@@ -20,11 +20,11 @@ module Emailer
   extend ActiveSupport::Concern
 
   # Sends account activation email.
-  def send_activation_email(user, token)
+  def send_activation_email(user)
     begin
       return unless Rails.configuration.enable_email_verification
 
-      UserMailer.verify_email(user, user_verification_link(token), @settings).deliver
+      UserMailer.verify_email(user, user_verification_link(user), @settings).deliver
     rescue => e
       logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
@@ -34,11 +34,11 @@ module Emailer
   end
 
   # Sends password reset email.
-  def send_password_reset_email(user, token)
+  def send_password_reset_email(user)
     begin
       return unless Rails.configuration.enable_email_verification
 
-      UserMailer.password_reset(user, reset_link(token), @settings).deliver_now
+      UserMailer.password_reset(user, reset_link(user), @settings).deliver_now
     rescue => e
       logger.error "Support: Error in email delivery: #{e}"
       flash[:alert] = I18n.t(params[:message], default: I18n.t("delivery_error"))
@@ -99,6 +99,7 @@ module Emailer
   def send_approval_user_signup_email(user)
     begin
       return unless Rails.configuration.enable_email_verification
+
       admin_emails = admin_emails()
       UserMailer.approval_user_signup(user, admins_url(tab: "pending"),
       admin_emails, @settings).deliver_now unless admin_emails.empty?
@@ -123,23 +124,23 @@ module Emailer
   private
 
   # Returns the link the user needs to click to verify their account
-  def user_verification_link(token)
-    edit_account_activation_url(token: token)
+  def user_verification_link(user)
+    edit_account_activation_url(token: user.activation_token)
   end
 
   def admin_emails
-    roles = Role.where(provider: @user_domain, role_permissions: { name: "can_manage_users", value: "true" })
-                .pluck(:name)
+    admins = User.all_users_with_roles.where(roles: { role_permissions: { name: "can_manage_users", value: "true" } })
 
-    admins = User.with_role(roles - ["super_admin"])
-
-    admins = admins.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
+    if Rails.configuration.loadbalanced_configuration
+      admins = admins.without_role(:super_admin)
+                     .where(provider: @user_domain)
+    end
 
     admins.collect(&:email).join(",")
   end
 
-  def reset_link(token)
-    edit_password_reset_url(token)
+  def reset_link(user)
+    edit_password_reset_url(user.reset_token)
   end
 
   def invitation_link(token)
