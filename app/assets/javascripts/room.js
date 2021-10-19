@@ -343,12 +343,7 @@ function displaySharedUsers(path) {
 
     users.forEach(function(user) {
       user_list_html += "<li class='list-group-item text-left' data-uid='" + user.uid + "'>"
-
-      if (user.image) {
-        user_list_html += "<img id='user-image' class='avatar float-left mr-2' src='" + user.image + "'></img>"
-      } else {
-        user_list_html += "<span class='avatar float-left mr-2'>" + user.name.charAt(0) + "</span>"
-      }
+      user_list_html += "<span class='avatar float-left mr-2'>" + user.name.charAt(0) + "</span>"
       user_list_html += "<span class='shared-user'>" + user.name + "<span class='text-muted ml-1'>" + user.uid + "</span></span>"
       user_list_html += "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
       user_list_html += "</li>"
