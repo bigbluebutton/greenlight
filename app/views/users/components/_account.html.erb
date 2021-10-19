@@ -60,20 +60,6 @@
         <%= translated_role_name(@user.role) %>
       </span>
     <% end %>
-
-    <%= f.label :image, t("settings.account.image"), class: "form-label mt-5" %>
-    <div class="row">
-      <div class="col-5 col-sm-2">
-        <% if @user.image.blank? || !valid_url?(@user.image) %>
-          <span class="avatar avatar-xxl mr-5 mt-2 bg-primary"><%= @user.name.first %></span>
-        <% else %>
-          <%= image_tag(@user.image, class: "avatar avatar-xxl mr-5 mt-2") %>
-        <% end %>
-      </div>
-      <div class="col-7 col-sm-10 mt-5">
-        <%= f.text_field :image, class: "form-control #{form_is_invalid?(@user, :image)}", placeholder: t("settings.account.image_url") %>
-      </div>
-    </div>
   </div>
   <div class="card-footer">
     <%= f.submit t("update"), class: "btn btn-primary float-right ml-4" %>
