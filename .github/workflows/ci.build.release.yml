@@ -55,13 +55,13 @@ jobs:
         id: ci_tag_release_major
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
         shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${{steps.ci_tag_release.outputs.tag}} | cut -c 9- | cut -f1-1 -d'.')"
+        run: echo "##[set-output name=tag;]$(echo ${{steps.ci_tag_release_version.outputs.tag}} | cut -f1-1 -d'.')"
 
       - name: Extract Tag Release Minor
         id: ci_tag_release_minor
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
         shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${{steps.ci_tag_release.outputs.tag}} | cut -c 9- | cut -f1-2 -d'.')"
+        run: echo "##[set-output name=tag;]$(echo ${{steps.ci_tag_release_version.outputs.tag}} | cut -f1-2 -d'.')"
 
       - name: Build and Push
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
