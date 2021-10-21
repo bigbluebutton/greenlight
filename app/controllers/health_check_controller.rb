@@ -26,10 +26,12 @@ class HealthCheckController < ApplicationController
     @cache_expire = 10.seconds
 
     begin
+      logging.info("Hello world>>>>>>>>>>>>>>>>>>..")
       cache_check
       database_check
       email_check
     rescue => e
+      logger.info "Health check failure: #{e}"
       response = "Health Check Failure: #{e}"
     end
 
