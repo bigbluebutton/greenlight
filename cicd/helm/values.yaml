@@ -50,23 +50,25 @@ livenessProbe:
   httpGet:
     path: /b/health_check
     port: http
-  timeoutSeconds: 15
-  initialDelaySeconds: 15
+  timeoutSeconds: 20
+  initialDelaySeconds: 30
+  failureThreshold: 5
   periodSeconds: 30
 
 readinessProbe:
   httpGet:
     path: /b/health_check
     port: http
-  timeoutSeconds: 15
-  initialDelaySeconds: 15
+  timeoutSeconds: 20
+  initialDelaySeconds: 30
+  failureThreshold: 5
   periodSeconds: 30
 
 startupProbe:
   httpGet:
     path: /b/health_check
     port: http
-  timeoutSeconds: 15
+  timeoutSeconds: 20
   initialDelaySeconds: 30
   failureThreshold: 5
   periodSeconds:  30
