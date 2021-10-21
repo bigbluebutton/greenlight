@@ -19,6 +19,7 @@ else
   bundle exec rake db:schema:load
 fi
 
-bundle exec rake assets:precompile
+# Moved to the Dockerfile for faster deploy time.
+# bundle exec rake assets:precompile
 
 exec bundle exec puma -C config/puma.rb

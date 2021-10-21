@@ -73,5 +73,10 @@ EXPOSE 80
 ARG version_code
 ENV VERSION_CODE=$version_code
 
+# Do the asset compilation at build time instead of deploy time.
+# Trades off build time and build image size for faster deployment time.
+# The SECRET_KEY_BASE=1 is a workaround suggested for not having the key
+# available during build time.
+RUN SECRET_KEY_BASE=1 bundle exec rake assets:precompile
 # Start the application.
 CMD ["bin/start"]

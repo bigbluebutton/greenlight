@@ -224,7 +224,7 @@ en:
         username: Username
         valid: Valid
       title: Manage Users
-      title_num: Manage Users (%{user_count} active/%{max_count} maximum)
+      title_num: Manage Users (%{user_count} active / %{max_count} max)
       upload: Upload
   add_to_google_calendar: "Add to Google Calendar"
   bigbluebutton: vREO

@@ -53,7 +53,7 @@ livenessProbe:
   timeoutSeconds: 20
   initialDelaySeconds: 30
   failureThreshold: 5
-  periodSeconds: 30
+  periodSeconds: 15
 
 readinessProbe:
   httpGet:
@@ -62,7 +62,7 @@ readinessProbe:
   timeoutSeconds: 20
   initialDelaySeconds: 30
   failureThreshold: 5
-  periodSeconds: 30
+  periodSeconds: 15
 
 startupProbe:
   httpGet:
@@ -71,7 +71,7 @@ startupProbe:
   timeoutSeconds: 20
   initialDelaySeconds: 30
   failureThreshold: 5
-  periodSeconds:  30
+  periodSeconds:  15
 
 initContainers:
   - name: db-start-up-checker-service
