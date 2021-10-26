@@ -400,7 +400,9 @@ fa_IR:
       access_code: کد دسترسی
       moderator_access_code: کد مدیر جلسه
       access_code_placeholder: ایجاد کد دسترسی اختیاری برای جلسه
+      reset_access_code: ریست کردن کد اختیاری دسترسی به کلاس
       moderator_access_code_placeholder: ایجاد کد اختیاری برای مدیران جلسه
+      reset_moderator_access_code: ریست کردن کد اختیاری برای مدیران
       auto_join: به صورت خودکار من را وارد جلسه کن
       create: ایجاد اتاق
       free_delete: می توانید هر موقع این اتاق را حذف کنید.
