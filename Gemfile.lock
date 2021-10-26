@@ -314,7 +314,7 @@ GEM
       activesupport (>= 4.0.2)
     popper_js (1.16.0)
     public_suffix (4.0.6)
-    puma (4.3.8)
+    puma (4.3.9)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -529,8 +529,13 @@ DEPENDENCIES
   pagy (~> 3.11.0)
   pg (~> 0.18)
   pluck_to_hash (~> 1.0.2)
+<<<<<<< HEAD
   puma (~> 4.3.8)
   rails (~> 6.1.4)
+=======
+  puma (~> 4.3.9)
+  rails (~> 5.2.6)
+>>>>>>> upstream/v2
   rails-controller-testing (~> 1.0)
   random_password (~> 0.1.1)
   recaptcha (~> 5.7.0)
