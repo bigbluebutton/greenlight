@@ -224,7 +224,7 @@ en:
         valid: Valid
       title: Manage Users
   add_to_google_calendar: "Add to Google Calendar"
-  bigbluebutton: BigBlueButton
+  bigbluebutton: Eteachnow
   bigbluebutton_exception: Oops, there was an error when starting the meeting!
   cancel: Cancel
   cookies:
@@ -297,13 +297,13 @@ en:
   footer:
     legal: Terms
     privpolicy: Privacy Policy
-    powered_by: Powered by Eteachnpw.com.
+    powered_by: Powered by Eteachnow.com.
   forgot_password:
     subtitle: Forgot Password
     email: Email
     submit: Submit
   go_back: Go back
-  greenlight: Greenlight
+  greenlight: Eteachbnow
   header:
     all_recordings: All Recordings
     dropdown:
