@@ -1,4 +1,4 @@
-FROM ruby:2.5.1-alpine AS base
+FROM ruby:2.7.2-alpine AS base
 
 # Set a variable for the install location.
 ARG RAILS_ROOT=/usr/src/app
@@ -23,10 +23,12 @@ COPY Gemfile* ./
 COPY Gemfile Gemfile.lock $RAILS_ROOT/
 
 RUN bundle config --global frozen 1 \
-    && bundle install --deployment --without development:test:assets -j4 --path=vendor/bundle \
-    && rm -rf vendor/bundle/ruby/2.5.0/cache/*.gem \
-    && find vendor/bundle/ruby/2.5.0/gems/ -name "*.c" -delete \
-    && find vendor/bundle/ruby/2.5.0/gems/ -name "*.o" -delete
+    && bundle config set deployment 'true' \
+    && bundle config set without 'development:test:assets' \
+    && bundle install -j4 --path=vendor/bundle \
+    && rm -rf vendor/bundle/ruby/2.7.0/cache/*.gem \
+    && find vendor/bundle/ruby/2.7.0/gems/ -name "*.c" -delete \
+    && find vendor/bundle/ruby/2.7.0/gems/ -name "*.o" -delete
 
 # Adding project files.
 COPY . .
@@ -36,7 +38,7 @@ RUN rm -rf tmp/cache spec
 
 ############### Build step done ###############
 
-FROM ruby:2.5.1-alpine
+FROM ruby:2.7.2-alpine
 
 # Set a variable for the install location.
 ARG RAILS_ROOT=/usr/src/app
@@ -60,6 +62,13 @@ EXPOSE 80
 # Sets the footer of greenlight application with current build version
 ARG version_code
 ENV VERSION_CODE=$version_code
+
+# Set executable permission to start file
+RUN chmod +x bin/start
+
+# FIXME / to remove / https://github.com/nahi/httpclient/issues/445
+RUN cat /etc/ssl/certs/ca-certificates.crt \
+    >/usr/src/app/vendor/bundle/ruby/2.7.0/gems/httpclient-2.8.3/lib/httpclient/cacert.pem
 
 # Start the application.
 CMD ["bin/start"]

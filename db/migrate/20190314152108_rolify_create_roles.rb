@@ -19,7 +19,7 @@ class RolifyCreateRoles < ActiveRecord::Migration[5.0]
     add_index(:users_roles, [:user_id, :role_id])
 
     User.all.each do |user|
-      user.add_role(:user) if user.roles.blank?
+      user.set_role(:user) if user.roles.blank?
     end
   end
 end

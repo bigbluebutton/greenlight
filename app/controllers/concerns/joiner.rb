@@ -47,22 +47,34 @@ module Joiner
     end
   end
 
-  def join_room(opts)
-    room_settings = JSON.parse(@room[:room_settings])
+  def valid_avatar?(url)
+    return false if URI::DEFAULT_PARSER.make_regexp(%w[http https]).match(url).nil?
+    uri = URI(url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true if uri.scheme == 'https'
+    response = http.request_head(uri)
+    return false if response.code != "200"
+    response['content-length'].to_i < Rails.configuration.max_avatar_size
+  end
 
-    if room_running?(@room.bbb_id) || @room.owned_by?(current_user) || room_settings["anyoneCanStart"]
+  def join_room(opts)
+    @room_settings = JSON.parse(@room[:room_settings])
+
+    moderator_privileges = @room.owned_by?(current_user) || valid_moderator_access_code(session[:moderator_access_code])
+    if room_running?(@room.bbb_id) || room_setting_with_config("anyoneCanStart") || moderator_privileges
 
       # Determine if the user needs to join as a moderator.
-      opts[:user_is_moderator] = @room.owned_by?(current_user) || room_settings["joinModerator"] || @shared_room
-
-      opts[:require_moderator_approval] = room_settings["requireModeratorApproval"]
-      opts[:mute_on_start] = room_settings["muteOnStart"]
+      opts[:user_is_moderator] = room_setting_with_config("joinModerator") || @shared_room || moderator_privileges
+      opts[:record] = record_meeting
+      opts[:require_moderator_approval] = room_setting_with_config("requireModeratorApproval")
+      opts[:mute_on_start] = room_setting_with_config("muteOnStart")
 
       if current_user
         redirect_to join_path(@room, current_user.name, opts, current_user.uid)
       else
         join_name = params[:join_name] || params[@room.invite_path][:join_name]
-        redirect_to join_path(@room, join_name, opts)
+
+        redirect_to join_path(@room, join_name, opts, fetch_guest_id)
       end
     else
       search_params = params[@room.invite_path] || params
@@ -82,14 +94,29 @@ module Joiner
 
   # Default, unconfigured meeting options.
   def default_meeting_options
-    invite_msg = I18n.t("invite_message")
+    moderator_message = "#{I18n.t('invite_message')}<br> #{request.base_url + room_path(@room)}"
+    moderator_message += "<br> #{I18n.t('modal.create_room.access_code')}: #{@room.access_code}" if @room.access_code.present?
     {
       user_is_moderator: false,
       meeting_logout_url: request.base_url + logout_room_path(@room),
-      meeting_recorded: true,
-      moderator_message: "#{invite_msg}\n\n#{request.base_url + room_path(@room)}",
+      moderator_message: moderator_message,
       host: request.host,
       recording_default_visibility: @settings.get_value("Default Recording Visibility") == "public"
     }
+  end
+
+  private
+
+  def fetch_guest_id
+    return cookies[:guest_id] if cookies[:guest_id].present?
+
+    guest_id = "gl-guest-#{SecureRandom.hex(12)}"
+
+    cookies[:guest_id] = {
+      value: guest_id,
+      expires: 1.day.from_now
+    }
+
+    guest_id
   end
 end

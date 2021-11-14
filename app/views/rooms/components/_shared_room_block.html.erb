@@ -13,7 +13,7 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<div id="room-block" data-room-uid="<%= room.uid %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>" class="card">
+<div data-room-uid="<%= room.uid %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>" class="card room-block">
   <div class="card-body p-1">
     <table class="table table-hover table-vcenter text-wrap table-no-border">
       <tbody class="no-border-top">
@@ -37,7 +37,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-md-left">
               <a href="" data-toggle="modal" data-target="#removeAccessModal" class="remove-share-room dropdown-item" data-path="<%= room_remove_shared_access_path(room) %>">
-                <i class="dropdown-icon far fa-trash-alt"></i> <%= t("remove") %> 
+                <i class="dropdown-icon far fa-trash-alt"></i> <%= t("remove") %>
               </a>
             </div>
           </div>

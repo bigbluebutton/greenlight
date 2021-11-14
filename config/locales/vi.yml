@@ -1,0 +1,573 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+vi:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Điều khoản và điều kiện"
+        email: Email
+        name: Tên
+        password: Mật khẩu
+        password_confirmation: Xác nhận mật khẩu
+    errors:
+      models:
+        user:
+          confirmation: không đúng mật khẩu
+  administrator:
+    site_settings:
+      authentication:
+        disabled: Tắt
+        enabled: Bật
+        info: Chỉ cho phép người dùng đã đăng nhập tham gia vào một phòng
+        title: Yêu cầu đăng nhập cho các phòng
+        user-info: Bạn phải đăng nhập để tham gia phòng
+      branding:
+        change: Đổi hình ảnh
+        info: Thay đổi logo góc trái
+        placeholder: URL hình ảnh...
+        title: Hình ảnh thương hiệu
+        invalid: Địa chỉ không hợp lệ
+      cache:
+        info: Xóa cache - sẽ cần một yêu cầu mới để cập nhật thông tin
+        title: Xóa cache
+        button: Xóa cache
+      clear_auth:
+        info: Xóa trình xác thực hiện tại cho người dùng cho phép họ đăng nhập lại bằng phương thức xác thực khác
+        title: Xóa trình xác thực hiện tại
+        button: Xóa xác thực
+      color:
+        info: Thay đổi màu thông thường sẽ thay đổi cả Màu sáng và Màu tối. Màu sáng và Màu tối sau đó có thể được thay đổi riêng lẻ
+        title: Màu chủ đạo
+        regular: Thông thường
+        lighten: Màu sáng
+        darken: Màu tối
+      log_level:
+        title: Cấp độ ghi nhật ký
+        information: Thay đổi cấp độ ghi nhật ký cho toàn bộ bản cài
+        debug: Gỡ lỗi
+        info: Thông tin
+        warn: Cảnh báo
+        error: Lỗi
+        fatal: Lỗi nặng
+        unknown: Không biết rõ
+      recording_visibility:
+        info: Xác định hiển thị công khai hay không cho bản ghi mới
+        title: Mặc định hiển thị hay không cho bản ghi
+        warning: Cài đặt này chỉ áp dụng cho các phòng không chạy vào thời điểm hiện tại
+      registration:
+        info: Thay đổi cách thức người dùng đăng ký vào website
+        title: Phương thức đăng ký
+        methods:
+          approval: Duyệt / Từ chối
+          invite: Tham gia theo lời mời
+          open: Đăng ký tự do
+      rooms:
+        info: Giới hạn số phòng người dùng có thể có (bao gồm cả Phòng Chính). Thiết lập này không áp dụng cho quản trị viên.
+        title: Số phòng cho mỗi người dùng
+      shared_access:
+        info: "Thiết lập chuyển tắt sẽ xóa chức năng này từ các lựa chọn của phòng, khiến người dùng không chia sẻ phòng được"
+        title: Cho phép người dùng chia sẻ phòng
+      subtitle: Thiết lập Greenlight
+      title: Cài đặt trang
+    flash:
+      approved: Người dùng đã được duyệt.
+      banned: Người dùng đã bị cấm thành công.
+      unbanned: Người dùng được bỏ cấm thành công.
+      delete: Người dùng đã xóa thành công
+      delete_fail: Không thể xóa người dùng
+      demoted: Người dùng đã được hạ bậc thành công
+      invite: "Lời mời đã được gửi tới %{email}"
+      invite_email_verification: Email phải được bật để dùng phương thức này. Hãy liên hệ quản trị hệ thống của bạn.
+      merge_fail: Có vấn đề khi thử hợp nhất các tài khoản người dùng. Vui lòng kiểm tra những người dùng đã chọn và thử lại 
+      merge_success: Đã hợp nhất thành công các tài khoản người dùng được chọn
+      perm_deleted: Đã xóa người dùng
+      promoted: Người dùng đã được thăng bậc thành công
+      registration_method_updated: Đã cập nhật phương thức đăng ký
+      reset_password: Người dùng đã được gửi một email để thiết lập lại mật khẩu của họ. (Vui lòng yêu cầu họ kiểm tra thư mục thư rác nếu họ chưa nhận được)
+      restored: Người dùng đã được khôi phục thành công
+      room_configuration: Cấu hình phòng thay đổi thành công
+      settings: Đã thay đổi cài đặt website
+      unauthorized: Bạn không được phép thực hiện hành động đối với người dùng này
+    recordings:
+      title: Các bản ghi trên server
+      no_recordings: Server không có bản ghi nào.
+    roles:
+      appear_in_share_list: Bao gồm người dùng có vai trò này trong danh sách thả xuống cho chia sẻ phòng
+      can_create_rooms: Có thể tạo phòng
+      delete: Xóa vai trò
+      invalid_create: Có vấn đề khi tạo vai trò mới. Hãy kiểm tra lại các giá trị của vai trò và thử lại
+      invalid_order: Có vấn đề khi cập nhật mức độ ưu tiên của vai trò. Hãy kiểm tra lại các giá trị và thử lại
+      invalid_update: Có vấn đề khi cập nhật quyền hạn của vai trò. Hãy kiểm tra lại các giá trị và thử lại
+      manage_rooms_recordings: Cho phép những người dùng thuộc vai trò này quản lý các phòng và bản ghi trên server
+      name: Tên vai trò
+      new_role: Tạo vai trò mới
+      role_has_users: "Vai trò này đã có %{user_count} tài khoản được chỉ định. Hãy xóa các tài khoản đó khỏi vai trò này trước khi xóa vai trò."
+      title: Vai trò
+      promote_email: Gửi email tới những người dùng khi chỉ định họ vào vai trò này
+      demote_email: Gửi email tới những người dùng khi xóa họ khỏi vai trò này
+      edit_site_settings: Cho phép những người dùng thuộc vai trò này sửa các thiết lập của website
+      edit_roles: Cho phép những người dùng thuộc vai trò này sửa các vai trò khác
+      manage_users: Cho phép những người dùng thuộc vai trò này quản lý người dùng
+      invalid_assignment: Có vấn đề khi chỉ định vai trò cho người dùng. Hãy kiểm tra lại các giá trị và thử lại 
+      colour:
+        title: Màu sắc của vai trò
+        info: Thiết lập màu sử dụng cho vai trò
+    room_configuration:
+      title: Cấu hình phòng
+      mute:
+        info: Tự động tắt micro của người dùng khi gia nhập phòng
+      require_moderator:
+        info: "Báo cho quản lý của phòng biết khi có người dùng tham gia. Nếu người dùng được duyệt, họ sẽ tham gia được vào phòng."
+      allow_any:
+        info: Cho phép bất kỳ người dùng nào cũng có thể khởi động phòng họp. Mặc định là chỉ có chủ phòng mới được khởi động.
+      all_moderator:
+        info: Cho phép mọi người dùng quyền quản lý khi gia nhập phòng
+      options:
+        disabled: Tắt
+        enabled: Luôn bật
+        optional: Tùy chọn
+    rooms:
+      title: Các phòng trên server
+      table:
+        id: ID
+        not_running: Tắt
+        running: Đang sử dụng
+        status: Trạng thái
+        view: Xem
+    title: Cài đặt tổ chức
+    users:
+      invite: Mời người dùng
+      edit:
+        title: Chỉnh sửa chi tiết người dùng
+      settings:
+        approve: Duyệt
+        decline: Từ chối
+        ban: Cấm người dùng
+        delete: Xóa
+        edit: Chỉnh sửa
+        edit_roles: Sửa vai trò người dùng
+        merge: Hợp nhất
+        perm_delete: Xóa vĩnh viễn
+        unban: Hủy cấm người dùng
+        undelete: Bỏ xóa
+      table:
+        authenticator: Trình xác thực
+        created: Đã tạo
+        name: Tên
+        not_found: Không có người dùng phù hợp với tìm kiếm của bạn
+        no_users: Không tìm thấy người dùng
+        role: Vai trò
+        uid: ID người dùng
+        username: Tên đăng nhập
+      title: Quản lý người dùng
+  add_to_google_calendar: "Thêm vào lịch Google"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: "Rất tiếc, đã xảy ra lỗi khi bắt đầu cuộc họp!"
+  cancel: Hủy
+  cookies:
+    cookie_info: "Cookies giúp chúng tôi cung cấp tốt trải nghiệm dịch vụ. Với việc sử dụng dịch vụ của chúng tôi, bạn đồng ý với việc chúng tôi sử dụng cookie."
+    cookie_button: Tôi đồng ý
+  copied: Đã sao chép
+  copy: Sao chép
+  date:
+    month_names: [~, Tháng Một, Tháng Hai, Tháng Ba, Tháng Tư, Tháng Năm, Tháng Sáu, Tháng Bảy, Tháng Tám, Tháng Chín, Tháng Mười, Tháng Mười Một, Tháng Mười Hai]
+  default_admin: "Bạn vẫn đang sử dụng mật khẩu mặc định cho tài khoản này. Vui lòng bấm vào <a href=\"%{edit_link}\">đây</a> để thay đổi mật khẩu."
+  delete: Xóa
+  delivery_error: Xảy ra lỗi trong quá trình gửi email. Vui lòng liên hệ với quản trị viên!
+  docs: Tài liệu
+  email: Email
+  email_sent: "Email %{email_type} của bạn đã được gửi! (Vui lòng kiểm tra thư mục Spam nếu bạn chưa nhận được)"
+  enter_your_name: Điền họ tên!
+  errors:
+    bigbluebutton:
+      help: "Hãy đảm bảo tuân thủ đúng các bước.<a href=\"%{doc_link}\"> Tham khảo thêm</a>"
+      message: Thiết lập Endpoint và Secret không hợp lệ
+      title: Lỗi server
+    internal:
+      message: Có vẻ có sai sót từ phía chúng tôi.
+      help: "Lỗi đã được ghi lại, chúng tôi sẽ xem xét!"
+      report: Báo cáo lỗi
+    maintenance:
+      message: "Xin lỗi, chúng tôi đang bảo trì."
+      help: Chúng tôi sẽ quay lại ngay!
+    migration_error:
+      contact_admin: "Nếu bạn không phải là quản trị viên, xin vui lòng liên hệ với người quản lý."
+      continue: Tôi muốn tiếp tục sử dụng 1.0.
+      notice: >
+        Greenlight gặp lỗi di chuyển cơ sở dữ liệu.<br>Điều này có thể là do bạn chưa cập nhật lên Greenlight 2.0.
+      upgrade: Hãy chỉ cho tôi cách nâng cấp lên 2.0!
+      version: "Chúng tôi đã phát hành phiên bản mới của Greenlight, nhưng cơ sở dữ liệu của bạn không tương thích."
+    messages:
+      blank: Không thể để trống
+      too_short: quá ngắn
+      invalid: không có hiệu lục
+      taken: đã được thực hiện
+      accepted: phải được chấp nhận
+      confirmation: "Không trùng với %{attribute}"
+      inclusion: không có trong danh sách
+    no_provider:
+      message: Website bạn đang thử truy cập không được bật
+      help: Hãy liên hệ với quản trị hệ thống để cài đặt Greenlight
+    not_found:
+      message: Xin lỗi! Trang bạn đang tìm không tồn tại.
+      help: "Có thể nó đã được gỡ bỏ?"
+      user_not_found:
+        help: Xin hãy liên hệ quản trị hệ thống.
+        message: "Xin lỗi, người dùng chưa đăng ký."
+      user_missing:
+        help: Xin hãy xác minh lại địa chỉ và thử lại
+        message: Địa chỉ bạn nhập vào không hợp lệ.
+    title: Lỗi
+    unauthorized:
+      message: Bạn không có quyền truy cập vào ứng dụng này
+      help: "Nếu bạn nghĩ đây là một lỗi, vui lòng liên hệ với quản trị viên hệ thống."
+  expired_reset_token: Liên kết đặt lại mật khẩu đã hết hạn!
+  features:
+    title: Tính năng
+    rooms: Phòng cá nhân
+    recordings: Quản lý ghi hình
+    designs: Tùy chỉnh Thiết kế
+    authentication: Chứng thực người dùng
+  footer:
+    powered_by: "Được phát triển bởi %{href}."
+  forgot_password:
+    subtitle: Quên mật khẩu
+    email: Email
+    submit: Gửi
+  go_back: Quay lại
+  greenlight: Greenlight
+  header:
+    all_recordings: Tất cả bản ghi hình
+    dropdown:
+      account_settings: Tổ chức
+      help: "Cần trợ giúp?"
+      home: Trang chủ
+      settings: Hồ sơ
+      signout: Đăng xuất
+  home_room: Phòng Chính
+  info_update_success: Thông tin đã được cập nhật thành công.
+  invalid_credentials: Email và mật khẩu đã nhập không tìm thấy. Hãy thử lại hoặc bấm vào Quên mật khẩu để lấy mật khẩu mới.
+  invalid_login_method: Đăng nhập thất bại do không khớp tài khoản. Bạn cần đăng nhập bằng Omniauth.
+  invite_message: "Để mời ai đó tham gia phòng, hãy gửi cho họ liên kết này:"
+  javascript:
+    room:
+      mailer:
+        subject: 'đã mời bạn xem một bản ghi hình.'
+        body: 'Để xem bản ghi, hãy theo liên kết dưới đây:'
+        autogenerated: 'Email này được tự động tạo bởi hệ thống LiveRoom.'
+        footer: 'BigBlueButton là hệ thống hội nghị trực tuyến mã nguồn mở. Để biết thêmt thông tin chi tiết về BigBlueButton, vui lòng truy cập https://bigbluebutton.org/.'
+    search:
+      start: Bắt đầu tìm kiếm...
+  landing:
+    about: "%{href} là một giao diện cơ bản dành cho máy chủ hội nghị trực tuyến mã nguồn mở BigBlueButton của bạn. Bạn có thể tạo những phòng riêng của mình để tổ chức các phiên hoặc tham gia với những người khác bằng cách sử dụng một liên kết ngắn và thuận tiện."
+    welcome: Chào mừng đến với BigBlueButton.
+    video: Xem thêm hướng dẫn sử dụng Greenlight
+    upgrade: Hãy chỉ cho tôi cách nâng cấp lên 2.0!
+    version: "Chúng tôi đã phát hành phiên bản mới của Greenlight, nhưng cơ sở dữ liệu của bạn không tương thích."
+  language_default: Mặc định (ngôn ngữ từ trình duyệt)
+  ldap_error: Không thể kết nối với máy chủ LDAP. Vui lòng kiểm tra cấu hình LDAP của bạn trong tệp env và đảm bảo máy chủ của bạn đang hoạt động.
+  login: Đăng nhập
+  login_title: Đăng nhập vào tài khoản của bạn
+  mailer:
+    user:
+      approve:
+        info: Tài khoản của bạn đã được duyệt.
+        signin: "Để truy cập vào các phòng cá nhân của bạn, bấm vào nút dưới đây và đăng nhập."
+        signin_link: Đăng nhập
+        signup:
+          info: Một người dùng mới đã đăng ký.
+          more-info: Để cho phép người dùng này sử dụng website bạn phải duyệt tài khoản của họ trong phần Tổ chức.
+          admins_link: Xem trang Tổ chức
+          subject: Người dùng mới đăng ký
+          username: "Người dùng đã đăng ký với tên %{name} và email %{email}."
+        subject: Đã duyệt tài khoản
+        username: "Tên đăng nhập là %{email}."
+      demoted:
+        info: "Bạn không còn là %{role} ở %{url}."
+        more-info: Bây giờ bạn có quyền hạn giống như một người dùng bình thường.
+        root_link: Đăng nhập
+        subtitle: "Quyền hạn của %{role}đã bị hủy bỏ"
+      invite:
+        info: "Bạn đã dược mời bởi%{name} để tạo không gian riêng cho mình"
+        signup_info: "Để đăng ký bằng email của bạn, nhấp vào nút bên dưới và làm theo các bước."
+        signup_link: Đăng ký
+        signup:
+          info: Một user đã được mời đăng ký để sử dụng website
+          admins_link: Xem trang Tổ chức
+          subject: Người dùng mới đăng ký
+          username: "Người dùng đã đăng ký với tên %{name} và email %{email}."
+        subject: Mời tham gia livestream
+        username: "Tên đăng nhập là %{email}."
+      password_reset:
+        title: 'Đặt lại mật khẩu'
+        welcome: "Email<b>%{email}</b>đã yêu cầu đặt lại mật khẩu mới"
+        message: 'Nếu bạn yêu cầu đổi mật khẩu mới, xin hãy bấm vào link bên dưới để đổi mật khẩu:'
+        reset_link: Đặt lại mật khẩu
+        expire: Liên kết này sẽ hết hạn trong hai giờ.
+        ignore: Bạn có thể bỏ qua email này nếu không phải là bạn yêu cầu đổi mật khẩu.
+      promoted:
+        admins_link: Xem trang Tổ chức
+        info: "Bây giờ bạn là %{role} trên %{url}."
+        more-info: "Để xem các khả năng mới của bạn, xem %{url}."
+        subtitle: "Các quyền hạn của %{role} đã được cấp"
+      verify_email:
+        welcome: "Chào mừng đến với không gian cá nhân của bạn, %{name}!"
+        success: "Tận dụng %{bigbluebutton}, bạn có thể tạo phòng riêng để tổ chức các phiên và cộng tác với những người khác."
+        username: "Tên đăng nhập là %{email}."
+        verify: "Để xác minh tài khoản của bạn, chỉ cần nhấp vào nút bên dưới."
+        verify_text: 'Để xác minh tài khoản của bạn, cần vào liên kết sau: %{url}'
+        verify_link: Xác nhận Tài khoản
+        thanks: Cảm ơn bạn đã tham gia và chúc một ngày tuyệt vời!
+  maintenance:
+    window_alert: "Thời gian bảo trì đã sắp xếp vào %{date}"
+  max_concurrent: Số lượng phiên đồng thời tối đa được phép đã đạt được!
+  merged: Đã hợp nhất
+  modal:
+    create_role:
+      create: Tạo một vai trò mới
+      footer_text: Bạn có thể sửa các quyền hạn của vai trò này sau khi bạn tạo xong
+      name_placeholder: Nhập vào tên vai trò
+      not_blank: Tên vai trò không thể để trống
+      title: Tạo vai trò mới
+    create_room:
+      access_code: Mã truy cập
+      access_code_placeholder: Sinh ra mã truy cập phòng
+      auto_join: Tự động tham gia vào phòng
+      create: Tạo Phòng
+      free_delete: Bạn sẽ được tự do xóa căn phòng này bất cứ lúc nào.
+      name_placeholder: Nhập tên phòng...
+      not_blank: Tên phòng không được để trống.
+      title: Tạo Phòng Mới
+    delete_account:
+      confirm: "Bạn có chắc chắn muốn xóa tài khoản này?"
+      delete: "Tôi chắc chắn, hãy xóa tài khoản này."
+      keep: "Thật ra, tôi sẽ giữ nó."
+      delete_warning: Chức năng này sẽ hủy kích hoạt tài khoản người dùng. Mọi người dùng đã hủy kích hoạt có thể tìm thấy ở tab đã xóa.
+      warning: Quyết định này là cuối cùng. Bạn sẽ <b>không thể</b> phục hồi dữ liệu liên quan.
+    delete_room:
+      confirm: "Bạn có chắc chắn muốn xóa %{room}?"
+      delete: "Tôi chắc chắn, hãy xóa phòng này."
+      keep: "Ngược lại, tôi sẽ giữ nó."
+      warning: Bạn sẽ <b>không thể</b>phục hồi lại phòng này
+      recording_warning: "Hoặc bất kỳ bản ghi nào trong số %{recordings_num} bản ghi liên kết."
+    invite_user:
+      email_placeholder: Nhập vào email của các người dùng (phân tách bằng dấu phẩy)
+      footer: Người dùng sẽ nhận được email hướng dẫn làm thế nào để đăng ký
+      send: Gửi lời mời
+      title: Mời người dùng
+    login:
+      or: hoặc
+      with: "Đăng nhập bằng %{provider}"
+      forgot_password: "Quên Mật khẩu?"
+    rename_recording:
+    remove_shared:
+      title: "Bạn có chắc chắn muốn xóa phòng này khỏi danh sách phòng của bạn?"
+      delete: "Tôi chắc chắn, hãy xóa phòng này."
+      warning: Bạn sẽ <b>không thể</b>truy cập vào phòng này nữa.
+    room_settings:
+      title: Cài đặt Phòng
+      update: Cập nhật Phòng
+      client: Chọn chế độ sử dụng
+      join_moderator: Mọi người dùng gia nhập như người điều hành
+      mute: Tắt tiếng người dùng khi tham gia
+      require_approval: Yêu cầu người điều hành duyệt trước khi tham gia
+      start: Cho phép bất kỳ người dùng nào bắt đầu cuộc họp
+      footer_text: Điều chỉnh phòng của bạn có thể được thực hiện bất cứ lúc nào.
+    rename_room:
+      name_placeholder: "Nhập mới tên phòng... "
+    share_access:
+      footer: Chia sẻ một phòng với một người dùng cho phép họ khởi động phòng và xem các bản ghi của phòng
+      list: Đã chia sẻ với
+      title: Chia sẻ truy cập phòng
+      save: Lưu thay đổi
+      cancel_changes: Hủy thay đổi
+      select: Chọn người dùng
+    merge_user:
+      cancel: Hủy
+      from: Tài khoản hợp nhất
+      title: Hợp nhất các tài khoản người dùng
+      to: Tài khoản chính
+      save: Hợp nhất
+      footer: Các phòng của tài khoản được sáp nhập sẽ được chuyển sang danh sách phòng của Tài khoản chính và sau đó tài khoản sẽ bị xóa.
+  name_update_success: Tên phòng đã được thay đổi thành công!
+  no_user_email_exists: Không có người dùng hiện tại với email được chỉ định. Hãy chắc chắn rằng bạn đã gõ nó chính xác.
+  omniauth_error: Một lỗi xảy ra trong khi xác thực với omniauth. Vui lòng thử lại hoặc liên hệ với quản trị viên!
+  omniauth_specific_error: "%{error}xảy ra trong khi xác thực với omniauth. Vui lòng thử lại hoặc liên hệ với quản trị viên!"
+  pagy:
+    nav:
+      prev: "&lsaquo; Trở về"
+      next: "Kế tiếp &rsaquo;"
+      gap: "&hellip;"
+  password: Mật khẩu
+  password_empty_notice: Mật khẩu không được để trống.
+  password_reset_success: Mật khẩu đã được đặt lại
+  password_different_notice: Xác nhận mật khẩu không khớp.
+  provider:
+    google: Google
+    office365: Office 365
+    twitter: Twitter
+    ldap: LDAP
+  recaptcha:
+    errors:
+      recaptcha_unreachable: "Rất tiếc, chúng tôi không thể xác thực phản hồi reCAPTCHA. Vui lòng thử lại."
+      verification_failed: "xác minh reCAPTCHA không thành công, vui lòng thử lại."
+  recording:
+    all_recordings: Tất cả bản Ghi hình
+    email: Email Recording
+    error: "Đã xảy ra lỗi khi truy xuất %{count} bản ghi"
+    no_recordings: "Phòng này không có bản %{inject}ghi hình nào."
+    no_user_recordings: Bạn hiện không có bản ghi hình nào.
+    no_matched_recordings: "Không có bản %{inject} ghi hình nào phù hợp với tìm kiếm của bạn."
+    recorded_on: "Được ghi vào %{date}"
+    table:
+      name: Tên
+      thumbnails: Thumbnails
+      length: Thời lượng
+      users: Người dùng
+      visibility: Hiển thị
+      formats: Định dạng
+    visibility:
+      public: Công khai
+      unlisted: Không liệt kê
+    format:
+      notes: Lưu ý
+      podcast: Tệp âm thanh
+      presentation: Bản trình chiếu
+      statistics: Thống kê
+      video: Video
+  registration:
+    approval:
+      fail: "Tài khoản của bạn chưa được phê duyệt. Nếu đã nhiều ngày trôi qua kể từ khi bạn đăng ký, vui lòng liên hệ với quản trị viên."
+      signup: Tài khoản của bạn đã được tạo thành công. Nó đã được gửi đến một quản trị viên để phê duyệt.
+    banned:
+      fail: "Bạn không có quyền truy cập vào ứng dụng này. Nếu bạn tin rằng đây là lỗi, vui lòng liên hệ với quản trị viên." 
+    deprecated:
+      new_signin: Chọn một phương thức đăng nhập mới cho tài khoản của bạn. Tất cả các phòng của bạn từ tài khoản cũ của bạn sẽ được chuyển sang tài khoản mới
+      twitter_signin: "Đăng nhập qua Twitter đã không được chấp nhận và sẽ bị xóa trong phiên bản tiếp theo. Nhấn vào <a href=\"%{link}\">đây</a> để chuyển tài khoản của bạn sang một phương thức xác thực mới"
+      twitter_signup: Đăng ký qua Twitter đã không được chấp nhận. Vui lòng sử dụng một phương thức đăng ký khác
+      merge_success: Hợp nhất thành công tài khoản twitter của bạn với tài khoản mới của bạn. Tài khoản twitter cũ của bạn đã bị xóa
+    invite:
+      fail: "Mã token của bạn không hợp lệ hoặc đã hết hạn. Nếu bạn tin rằng đây là lỗi, vui lòng liên hệ với quản trị viên."
+      no_invite: Bạn không có lời mời tham gia. Vui lòng liên hệ với quản trị viên để nhận.
+  remove: Xóa
+  rename: Đổi tên
+  reset_password:
+    subtitle: Đặt lại mật khẩu
+    password: Mật khẩu mới
+    confirm: Xác nhận mật khẩu mới
+    update: Cập nhật Mật khẩu
+    auth_change: Phương thức xác thực đã thay đổi. Vui lòng kiểm tra email để đặt mật khẩu của bạn.
+  roles:
+    active: Hoạt động
+    admin: Quản trị
+    banned: Bị cấm
+    deleted: Đã xóa
+    pending: Chờ duyệt
+    user: Người dùng
+  room:
+    access_code_required: Vui lòng nhập mã truy cập hợp lệ để tham gia phòng
+    create_room: Tạo Phòng
+    create_room_error: Có lỗi khi tạo phòng
+    create_room_success: Phòng được tạo thành công
+    delete:
+      home_room: Không thể xóa Phòng chính của người dùng
+      success: Đã xóa phòng
+      fail: "Không thể xóa phòng (%{error})"
+    enter_the_access_code: Nhập mã truy cập của phòng
+    invalid_provider: Bạn đã nhập một url không hợp lệ. Vui lòng kiểm tra url và thử lại.
+    invited: Bạn đã được mời tham gia
+    invite_participants: Mời Người tham gia
+    join: Tham gia
+    last_session: "Phiên cuối cùng trên %{session}"
+    login: Nhập
+    owner: Người sở hữu
+    owner_banned: Phòng này hiện không hoạt động
+    no_room:
+      description: Nhập url của phòng hoặc id của phòng cho phòng bạn muốn tham gia.
+      edit_profile: Sửa hồ sơ người dùng
+      go_to: Đi đến phòng
+      invalid_room_uid: Url phòng / uid bạn nhập không hợp lệ.
+      placeholder: Url phòng / uid
+      no_recent_rooms: Bạn không có tham gia phòng nào gần đây
+      recent_rooms: Đi đến một phòng mới tham gia gần đây
+      title: Tham gia phòng
+    no_sessions: Phòng này chưa có phiên nào!
+    recordings: Bản ghi hình của Phòng
+    room_limit: Bạn đã đạt đến số lượng phòng tối đa được phép
+    room_limit_exceeded: "Bạn đã vượt quá số lượng phòng cho phép. Vui lòng xóa bớt %{difference} phòng để truy cập vào phòng này."
+    sessions: Phiên
+    settings: Cài đặt Phòng
+    share: Quản lý truy cập
+    shared_by: "Đã chia sẻ bởi %{email}"
+    remove_shared_access_success: Xóa thành công phòng được chia sẻ khỏi danh sách phòng của bạn
+    remove_shared_access_error: Có lỗi khi xóa phòng được chia sẻ khỏi danh sách của bạn
+    shared_access_success: Đã chia sẻ phòng thành công
+    shared_access_error: Có lỗi khi chia sẻ phòng
+    start: Bắt đầu
+    unavailable: Phòng này hiện không có sẵn do email của người sở hữu không được xác minh.
+    update_settings_error: Có lỗi khi cập nhật cài đặt phòng
+    update_settings_success: Cài đặt phòng được cập nhật thành công
+    wait:
+      message: Cuộc họp chưa bắt đầu.
+      auto: Bạn sẽ tự động tham gia khi phòng bắt đầu.
+  settings:
+    account:
+      fullname: Họ và tên
+      language: Ngôn ngữ
+      provider: Đối tác cấp tài khoản
+      image: Hình ảnh
+      image_url: Đường đẫn URL hình ảnh hồ sơ
+      roles: Vai trò của người dùng
+      subtitle: Cập nhật thông tin Tài khoản
+      title: Thông tin Tài khoản
+    delete:
+      button: "Có, tôi muốn xóa tài khoản của tôi."
+      disclaimer: "Nếu bạn chọn xóa tài khoản của mình, nó sẽ <b>KHÔNG THỂ</b> phục hồi. Tất cả thông tin liên quan đến tài khoản của bạn, bao gồm cài đặt phòng và bản ghi hình sẽ bị xóa."
+      subtitle: Xóa Vĩnh viễn Tài khoản của bạn
+      title: Xóa Tài khoản
+    password:
+      confirmation: Xác nhận mật khẩu mới
+      new: Mật khẩu mới
+      old: Mật khẩu cũ
+      subtitle: Thay đổi mật khẩu của bạn
+      title: Mật khẩu
+    title: Hồ sơ
+    search: Tìm kiếm
+  signup:
+    password_confirm: Xác nhận mật khẩu
+    subtitle: Tạo Tài khoản
+    title: Đăng ký
+    with: "Đăng ký với %{provider}"
+  terms:
+    accept: "Tôi chấp nhận %{href}"
+    accept_existing: Tôi chấp nhận các điều khoản và điều kiện này.
+    title: Điều khoản và điều khiện.
+  test_install: >
+    Việc triển khai này đang sử dụng một máy chủ thử nghiệm được cấu hình sẵn, bạn nên thay thế máy chủ này bằng máy chủ của riêng bạn. Để biết chi tiết, xem %{href}.
+  update: Cập nhật
+  verify:
+    accept: Xác thực
+    activated: Đã xác minh tài khoản!
+    already_verified: Tài khoản đã được xác minh
+    invalid: Liên kết xác minh không hợp lệ
+    not_verified: Tài khoản của bạn chưa được xác minh.
+    resend: Gửi lại email xác minh
+    signin: Vui lòng đăng nhập để truy cập vào tài khoản của bạn.
+    title: Xác thực email của bạn
+    verification: Xác minh

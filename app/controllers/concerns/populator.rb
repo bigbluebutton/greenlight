@@ -21,33 +21,28 @@ module Populator
 
   # Returns a list of users that are in the same context of the current user
   def manage_users_list
-    current_role = @role
-
-    initial_user = case @tab
+    initial_list = case @tab
       when "active"
-        User.includes(:roles).without_role(:pending).without_role(:denied)
+        User.without_role([:pending, :denied])
       when "deleted"
-        User.includes(:roles).deleted
+        User.deleted
+      when "pending"
+        User.with_role(:pending)
+      when "denied"
+        User.with_role(:denied)
       else
-        User.includes(:roles)
+        User.all
     end
 
-    current_role = Role.find_by(name: @tab, provider: @user_domain) if @tab == "pending" || @tab == "denied"
+    initial_list = initial_list.with_role(@role.name) if @role.present?
 
-    initial_list = if current_user.has_role? :super_admin
-      initial_user.where.not(id: current_user.id)
-    else
-      initial_user.without_role(:super_admin).where.not(id: current_user.id)
-    end
+    initial_list = initial_list.without_role(:super_admin)
 
-    if Rails.configuration.loadbalanced_configuration
-      initial_list.where(provider: @user_domain)
-                  .admins_search(@search, current_role)
-                  .admins_order(@order_column, @order_direction)
-    else
-      initial_list.admins_search(@search, current_role)
-                  .admins_order(@order_column, @order_direction)
-    end
+    initial_list = initial_list.where(provider: @user_domain) if Rails.configuration.loadbalanced_configuration
+
+    initial_list.where.not(id: current_user.id)
+                .admins_search(@search)
+                .admins_order(@order_column, @order_direction)
   end
 
   # Returns a list of rooms that are in the same context of the current user
@@ -55,42 +50,72 @@ module Populator
     if Rails.configuration.loadbalanced_configuration
       Room.includes(:owner).where(users: { provider: @user_domain })
           .admins_search(@search)
-          .admins_order(@order_column, @order_direction)
+          .admins_order(@order_column, @order_direction, @running_room_bbb_ids)
     else
-      Room.includes(:owner).all.admins_search(@search).admins_order(@order_column, @order_direction)
+      Room.includes(:owner).admins_search(@search).admins_order(@order_column, @order_direction, @running_room_bbb_ids)
     end
   end
 
-  # Returns list of rooms needed to get the recordings on the server
-  def rooms_list_for_recordings
-    if Rails.configuration.loadbalanced_configuration
-      Room.includes(:owner).where(users: { provider: @user_domain }).pluck(:bbb_id)
+  # Returns the correct recordings based on the users inputs
+  def recordings_to_show(user = nil, room = nil)
+    if user.present?
+      # Find user and get his recordings
+      rooms = User.find_by(email: user)&.rooms&.pluck(:bbb_id)
+      return all_recordings(rooms) if user.present? && !rooms.nil?
+
+      [] # return no recs if room not found
+    elsif room.present?
+      # Find room and get its recordings
+      room = Room.find_by(uid: room)&.bbb_id
+      return all_recordings([room]) if room.present?
+
+      []
     else
-      Room.pluck(:bbb_id)
+      latest_recordings
     end
   end
 
-  # Returns a list of users that are in the same context of the current user
-  def shared_user_list
-    roles_can_appear = []
-    Role.where(provider: @user_domain).each do |role|
-      roles_can_appear << role.name if role.get_permission("can_appear_in_share_list") && role.priority >= 0
+  # Returns a list off all current invitations
+  def invited_users_list
+    list = if Rails.configuration.loadbalanced_configuration
+      Invitation.where(provider: @user_domain)
+    else
+      Invitation.all
     end
 
-    initial_list = User.where.not(uid: current_user.uid)
-                       .without_role(:pending)
-                       .without_role(:denied)
-                       .with_highest_priority_role(roles_can_appear)
-
-    return initial_list unless Rails.configuration.loadbalanced_configuration
-    initial_list.where(provider: @user_domain)
+    list.admins_search(@search).order(updated_at: :desc)
   end
 
-  # Returns a list of users that can merged into another user
-  def merge_user_list
-    initial_list = User.where.not(uid: current_user.uid).without_role(:super_admin)
+  private
 
-    return initial_list unless Rails.configuration.loadbalanced_configuration
-    initial_list.where(provider: @user_domain)
+  # Returns exactly 1 page of the latest recordings
+  def latest_recordings
+    return_length = Rails.configuration.pagination_rows
+    number_of_rooms = Rails.configuration.pagination_number
+    recordings = []
+    counter = 0
+
+    # Manually paginate through the rooms
+    while recordings.length < return_length
+      rooms = if Rails.configuration.loadbalanced_configuration
+        Room.includes(:owner)
+            .where(users: { provider: @user_domain })
+            .order(last_session: :desc)
+            .limit(number_of_rooms)
+            .offset(counter * number_of_rooms)
+            .pluck(:bbb_id)
+      else
+        Room.order(last_session: :desc)
+            .limit(return_length)
+            .offset(counter * return_length)
+            .pluck(:bbb_id)
+      end
+
+      break if rooms.blank?
+      counter += 1
+      recordings.push(*all_recordings(rooms))
+    end
+
+    recordings[0..return_length]
   end
 end

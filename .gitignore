@@ -6,7 +6,6 @@
 
 # Ignore bundler config.
 /.bundle
-vendor/bundle
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -16,6 +15,9 @@ vendor/bundle
 /public/system/**
 /public/assets/**
 /public/b/**
+
+# Ignore uploaded files
+/storage
 
 # Ignore production paths.
 /db/production

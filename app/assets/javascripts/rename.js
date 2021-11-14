@@ -71,8 +71,8 @@ $(document).on('turbolinks:load', function(){
 
         recording_title.addClass("dotted_underline");
         recording_title.fadeTo('medium', 0.7);
-        recording_title.find('text').attr("contenteditable", true);
-        recording_title.find('text').focus();
+        recording_title.find('span').attr("contenteditable", true);
+        recording_title.find('span').focus();
 
         // Stop automatic refresh
         e.preventDefault();
@@ -130,7 +130,7 @@ $(document).on('turbolinks:load', function(){
         submit_update_request({
           setting: "rename_recording",
           record_id: element.data('recordid'),
-          record_name: element.find('text').text(),
+          record_name: element.find('span').text(),
           room_uid: element.data('room-uid'),
         }, element.data('path'), "PATCH");
       }

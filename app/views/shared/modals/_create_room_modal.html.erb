@@ -28,61 +28,88 @@
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off %>
+              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off, required: true %>
               <div class="invalid-feedback text-left"><%= t("modal.create_room.not_blank") %></div>
             </div>
 
             <div class="input-icon mb-2">
-              <span onclick="generateAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
+              <span onclick="generateAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer" id="generate-room-access-code" tabindex="0" aria-label='<%= t("modal.create_room.access_code_placeholder") %>'>
                 <i class="fas fa-dice"></i>
               </span>
-              <%= f.label :access_code, t("modal.create_room.access_code_placeholder"), id: "create-room-access-code", class: "form-control" %>
+              <%= f.label :access_code, t("modal.create_room.access_code_placeholder"), id: "create-room-access-code", class: "form-control", role: "log" %>
               <%= f.hidden_field :access_code %>
-              <span onclick="ResetAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
+              <span onclick="ResetAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer" id="reset-access-code" tabindex="0" aria-label='<%= t("modal.create_room.reset_access_code") %>' >
                 <i class="far fa-trash-alt"></i>
               </span>
             </div>
 
-            <% if Rails.configuration.room_features.include? "mute-on-join" %>
-              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <% if moderator_code_allowed? %>
+              <div class="input-icon mb-2">
+                <span onclick="generateModeratorAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer" id="generate-moderator-room-access-code" tabindex="0" aria-label='<%= t("modal.create_room.moderator_access_code_placeholder") %>'>
+                  <i class="fas fa-dice"></i>
+                </span>
+                <%= f.label :moderator_access_code, t("modal.create_room.moderator_access_code_placeholder"), id: "create-room-moderator-access-code", class: "form-control", role: "log" %>
+                <%= f.hidden_field :moderator_access_code %>
+                <span onclick="ResetModeratorAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer" id="reset-moderator-access-code" tabindex="0" aria-label='<%= t("modal.create_room.reset_moderator_access_code") %>'>
+                  <i class="far fa-trash-alt"></i>
+                </span>
+              </div>
+            <% end %>
+
+            <% mute = room_configuration("Room Configuration Mute On Join") %>
+            <% if mute != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if mute == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.mute")%></span>
-                <%= f.check_box :mute_on_join, class: "custom-switch-input", checked: false %>
+                <%= f.check_box :mute_on_join, class: "custom-switch-input", data: { default: mute == "enabled" }, checked: false, tabindex: mute == "enabled" ? "-1" : "" %>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
 
-            <% if Rails.configuration.room_features.include? "require-moderator-approval" %>
-              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <% require_approval = room_configuration("Room Configuration Require Moderator") %>
+            <% if require_approval != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if require_approval == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.require_approval")%></span>
-                <%= f.check_box :require_moderator_approval, class: "custom-switch-input", checked: false %>
+                <%= f.check_box :require_moderator_approval, class: "custom-switch-input", data: { default: require_approval == "enabled" }, checked: false, tabindex: require_approval == "enabled" ? "-1" : ""%>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
-            
-            <% if Rails.configuration.room_features.include? "anyone-can-start" %>
-              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+
+            <% any_start = room_configuration("Room Configuration Allow Any Start") %>
+            <% if any_start != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if any_start == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.start")%></span>
-                <%= f.check_box :anyone_can_start, class: "custom-switch-input", checked: false %>
+                <%= f.check_box :anyone_can_start, class: "custom-switch-input", data: { default: any_start == "enabled" }, checked: false, tabindex: any_start == "enabled" ? "-1" : "" %>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
-
-            <% if Rails.configuration.room_features.include? "all-join-moderator" %>
-              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
+            <% moderator = room_configuration("Room Configuration All Join Moderator") %>
+            <% if moderator != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if moderator == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.join_moderator")%></span>
-                <%= f.check_box :all_join_moderator, class: "custom-switch-input", checked: false %>
+                <%= f.check_box :all_join_moderator, class: "custom-switch-input", data: { default: moderator == "enabled" }, checked: false, tabindex: moderator == "enabled" ? "-1" : "" %>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
-
+            <% recording = room_configuration("Room Configuration Recording") %>
+            <% if recording_consent_required? && recording != "disabled" && perm_to_record_meeting %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if recording == "enabled" %>">
+                <span class="custom-switch-description"><%= t("modal.room_settings.recording")%></span>
+                <%= f.check_box :recording, class: "not-running-only custom-switch-input", data: { default: recording == "enabled" }, checked: false, tabindex: recording == "enabled" ? "-1" : "" %>
+                <span class="custom-switch-indicator not-running-only float-right cursor-pointer"></span>
+            </label>
+            <% end %>
             <label id="auto-join-label" class="create-only custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block">
               <span class="custom-switch-description"><%= t("modal.create_room.auto_join") %></span>
               <%= f.check_box :auto_join, class: "custom-switch-input", checked: false %>
               <span class="custom-switch-indicator float-right cursor-pointer"></span>
             </label>
           <div class="mt-4">
-            <%= f.submit t("modal.create_room.create"), id: "create-room-submit", class: "create-only btn btn-primary btn-block" %>
-            <%= f.submit t("modal.room_settings.update"), id: "create-room-submit", class: "update-only btn btn-primary btn-block" %>
+            <%= f.submit t("modal.create_room.create"), class: "create-only btn btn-primary create-room-button" %>
+            <%= f.submit t("modal.room_settings.update"), class: "update-only btn btn-primary create-room-button" %>
+
+            <button type="button" class="btn btn-secondary create-room-button" data-dismiss="modal">
+              <%= t("cancel") %>
+            </button>
           </div>
           <% end %>
         </div>

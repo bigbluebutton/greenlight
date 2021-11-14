@@ -13,18 +13,25 @@
 # with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 %>
 
-<tr id="room-block" data-path="<%= update_settings_path(room) %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>">
+<tr class="room-block" data-path="<%= update_settings_path(room) %>" data-room-settings=<%= room.room_settings %> data-room-access-code="<%= room.access_code %>" data-room-moderator-access-code="<%= room.moderator_access_code %>">
   <td>
-    <div id="room-title" class="form-inline edit_hover_class">
+    <div id="room-title" class="edit_hover_class">
       <% if room.id == room.owner.room_id %>
         <i class="fas fa-home pr-1"></i>
       <% end %>
-      <text id="room-name-text">
+      <span class="room-name-text" title="<%= room.name %>">
         <%= room.name %>
-      </text>
+      </span>
     </div>
     <div class="small text-muted">
-      <%= [t("administrator.users.table.created"), ": ", room.created_at].join %>
+      <% running = room_is_running(room.bbb_id) %>
+      <% if running %>
+         <%= t("administrator.rooms.table.started", session: view_date(room.last_session)).html_safe %>
+      <% elsif room.last_session.present? %>
+        <%= t("administrator.rooms.table.ended", session: view_date(room.last_session)).html_safe %>
+      <% else %>
+        <%= [t("administrator.users.table.created"), ": ", view_date(room.created_at)].join.html_safe %>
+      <% end %>
     </div>
   </td>
   <td class="text-left">
@@ -33,12 +40,14 @@
   <td class="text-left">
     <%= room.uid %>
   </td>
+  <td class="text-center">
+    <%= @participants_count[room.bbb_id].presence || "-" %>
+  </td>
   <td class="text-left">
-    <% running = room_is_running(room.bbb_id) %>
     <% if running %>
-      <%= t("administrator.rooms.running") %>
+      <%= t("administrator.rooms.table.running") %>
     <% else %>
-      <%= t("administrator.rooms.not_running") %>
+      <%= t("administrator.rooms.table.not_running") %>
     <% end %>
   </td>
   <td class="text-center">
@@ -48,7 +57,7 @@
       </a>
       <div class="dropdown-menu dropdown-menu-right">
         <%= link_to room_path(room), class: "dropdown-item" do %>
-          <i class="dropdown-icon far fa-eye"></i> <%= t("administrator.rooms.view") %>
+          <i class="dropdown-icon far fa-eye"></i> <%= t("administrator.rooms.table.view") %>
         <% end %>
         <%= button_to start_room_path(room), class: "dropdown-item", "data-disable": "" do %>
           <i class="dropdown-icon fas fa-door-open"></i> <%= running ? t("room.join") : t("room.start") %>
@@ -56,8 +65,16 @@
         <a href="" data-toggle="modal" data-target="#createRoomModal" class="update-room dropdown-item" data-settings-path="<%= room_settings_path(room) %>">
           <i class="dropdown-icon fas fa-cog"></i> <%= t("room.settings") %>
         </a>
+        <%= link_to admin_recordings_path(search: room.uid), class: "dropdown-item" do %>
+          <i class="dropdown-icon fas fa-video"></i> <%= t("administrator.rooms.table.recordings") %>
+        <% end %>
+        <% if preupload_allowed? %>
+          <a href="" data-toggle="modal" data-target="#preuploadPresentationModal" class="preupload-room dropdown-item" data-path="<%= preupload_presentation_path(room) %>" data-settings-path="<%= current_presentation_path(room) %>" data-remove="<%= remove_presentation_path(room) %>">
+            <i class="dropdown-icon fas fa-file-upload"></i> <%= t("room.add_presentation") %>
+          </a>
+        <% end %>
         <% if shared_access_allowed %>
-          <a href="" data-toggle="modal" data-target="#shareRoomModal" class="share-room dropdown-item" data-path="<%= room_shared_access_path(room) %>" data-users-path="<%= room_shared_users_path(room) %>">
+          <a href="" data-toggle="modal" data-target="#shareRoomModal" class="share-room dropdown-item" data-path="<%= room_shared_access_path(room) %>" data-users-path="<%= room_shared_users_path(room) %>" data-owner="<%= room.owner.uid %>">
             <i class="dropdown-icon fas fa-users"></i> <%= t("room.share") %>
           </a>
         <% end %>

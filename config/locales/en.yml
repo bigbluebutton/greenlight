@@ -36,12 +36,24 @@ en:
         enabled: Enabled
         info: Only allow authenticated users to join a room
         title: Require Authentication for Rooms
-        user-info: You must sign in to Greenlight to join this room
+        user-info: You must sign in above to join this room.
       branding:
         change: Change Image
         info: Change the branding image that appears in the top left corner
         placeholder: Image Url...
         title: Branding Image
+        invalid: Invalid URL
+      legal:
+        change: Change URL
+        info: Change the Terms Link that appears in the bottom of the page
+        placeholder: Terms URL...
+        title: Terms
+        invalid: Invalid URL
+      privpolicy:
+        change: Change URL
+        info: Change the Privacy Policy Link that appears in the bottom of the page
+        placeholder: Privacy Policy URL...
+        title: Privacy Policy
         invalid: Invalid URL
       cache:
         info: Clears the stored provider cache which forces a new request for the updated info
@@ -57,6 +69,10 @@ en:
         regular: Regular
         lighten: Lighten
         darken: Darken
+      email_mapping:
+        info: Map the user to a role using their email. Must be in the format email1=role1,email2=role2
+        title: Role Mapping by Email
+        update:
       log_level:
         title: Log Level
         information: Change the Log Level for the entire deployment
@@ -70,6 +86,18 @@ en:
         info: Set the default recording visbility for new recordings
         title: Recording Default Visibility
         warning: This setting will only be applied to rooms that aren't running
+      require_consent:
+        info: This setting enables a room setting that allows room owners to specify which rooms can be recorded. Users joining a recorded room must consent before joining.
+        title: Require Room Owner and Joiner Consent to Recording
+      maintenance_banner:
+        info: Displays a Banner to inform the user of a scheduled maintenance
+        title: Maintenance Banner
+        display: Set
+        clear: Clear
+        time: "Example: Update scheduled on December 13 @ 23:00 ET. Users may experience problems signing in."
+      preupload:
+        info: Users can preupload a presentation to be used as the default presentation for that specific room
+        title: Allow Users to Preupload Presentations
       registration:
         info: Change the way that users register to the website
         title: Registration Method
@@ -84,6 +112,11 @@ en:
         info: Setting to disabled will remove the button from the Room options dropdown, preventing users from sharing rooms
         title: Allow Users to Share Rooms
       subtitle: Customize Greenlight
+      tabs:
+        appearance: Appearance
+        administration: Administration
+        registration: Registration
+        settings: Settings
       title: Site Settings
     flash:
       approved: User has been successfully approved.
@@ -94,21 +127,25 @@ en:
       demoted: User has been successfully demoted
       invite: Invite successfully sent to %{email}
       invite_email_verification: Emails must be enabled in order to use this method. Please contact your system administrator.
-      merge_fail: There was an issue merging the user accounts. Please check the users selected and try again 
+      merge_fail: There was an issue merging the user accounts. Please check the users selected and try again
       merge_success: User accounts merged successfully
       perm_deleted: User has been permanently deleted
       promoted: User has been successfully promoted
       registration_method_updated: Registration method successfully updated
       reset_password: The user has been sent an email to reset their password. (Please ask them to check their spam folder if they haven't received it)
       restored: User has been successfully restored
+      room_configuration: Room Configuration successfully changed
       settings: Site Settings successfully changed
       unauthorized: You are not authorized to perform actions on this user
     recordings:
+      latest: Latest Recordings
       title: Server Recordings
       no_recordings: This server has no recordings.
+      search_info: Enter a user's full email or a room's uid
     roles:
       appear_in_share_list: Include users with this role in the dropdown for sharing rooms
       can_create_rooms: Can create rooms
+      can_launch_recording: Allow users with this role to record their meetings
       delete: Delete the role
       invalid_create: There was a problem creating a new role. Please check the role values and try again
       invalid_order: There was a problem updating the priority of the role. Please check the values and try again
@@ -123,16 +160,39 @@ en:
       edit_site_settings: Allow users with this role to edit site settings
       edit_roles: Allow users with this role to edit other roles
       manage_users: Allow users with this role to manage users
-      invalid_assignment: There was a problem assigning the roles to the user. Please check the values and try again 
+      invalid_assignment: There was a problem assigning the roles to the user. Please check the values and try again
       colour:
         title: Role Colour
         info: Set the colour that will be associated with the role
+    room_configuration:
+      title: Room Configuration
+      mute:
+        info: Automatically mutes the user when they join the BigBlueButton meeting
+      require_moderator:
+        info: Prompts the moderator of the BigBlueButton meeting when a user tries to join. If the user is approved, they will be able to join the meeting.
+      allow_any:
+        info: Allows any user to start the meeting at any time. By default, only the room owner can start the meeting.
+      all_moderator:
+        info: Gives all users moderator privileges in BigBlueButton when they join the meeting.
+      recordings:
+        info: Allows room owners to specify whether they want the option to record a room or not. If enabled, the moderator must still click the "Record" button once the meeting has started.
+      moderator_codes:
+        info: Allows room owners to optionally generate a moderator pin which allows other users to join directly as moderators.
+        title: Moderator Access Code
+      options:
+        disabled: Disabled
+        enabled: Always Enabled
+        optional: Optional
     rooms:
+      timeout: Due to the %{server} Server request timing out, the information for status and participants may not be accurate
       title: Server Rooms
       table:
+        ended: "Ended: %{session}"
         id: ID
         not_running: Not Running
+        participants: Participants
         running: Running
+        started: "Started: %{session}"
         status: Status
         view: View
     title: Organization Settings
@@ -147,18 +207,21 @@ en:
         delete: Delete
         edit: Edit
         edit_roles: Edit the user roles
+        merge: Merge
         perm_delete: Permanently Delete
         unban: Unban User
         undelete: Undelete
       table:
         authenticator: Authenticator
         created: Created
+        time: Time Sent
         name: Name
         not_found: No users match your search
         no_users: No users found
         role: Role
         uid: User ID
         username: Username
+        valid: Valid
       title: Manage Users
   add_to_google_calendar: "Add to Google Calendar"
   bigbluebutton: BigBlueButton
@@ -167,6 +230,7 @@ en:
   cookies:
     cookie_info: Cookies help us deliver our services. By using our services, you agree to our use of cookies.
     cookie_button: I Agree
+    policy: For more infomation, see our <a href="%{privacy_link}"><u>privacy policy</u></a>.
   copied: Copied
   copy: Copy
   date:
@@ -206,6 +270,7 @@ en:
       accepted: must be accepted
       confirmation: doesn't match %{attribute}
       inclusion: is not included in the list
+      domain: must end with "%{email_domain}"
     no_provider:
       message: The site you are trying to access is not enabled
       help: Please contact your system administrator to setup Greenlight
@@ -230,6 +295,8 @@ en:
     designs: Custom Designs
     authentication: User Authentication
   footer:
+    legal: Terms
+    privpolicy: Privacy Policy
     powered_by: Powered by %{href}.
   forgot_password:
     subtitle: Forgot Password
@@ -248,6 +315,7 @@ en:
   home_room: Home Room
   info_update_success: Information successfully updated.
   invalid_credentials: The email and password you entered did not match our records. Try again or click Forgot Password to reset your password.
+  invalid_credentials_external: The email and password you entered did not match our records. Please try again.
   invalid_login_method: Login failed due to account mismatch. You need to log in with omniauth.
   invite_message: "To invite someone to the meeting, send them this link:"
   javascript:
@@ -292,6 +360,7 @@ en:
         info: You have been invited to your own personal space by %{name}
         signup_info: To signup using your email, click the button below and follow the steps.
         signup_link: Sign Up
+        valid: "The invite is valid until: %{date}"
         signup:
           info: A user that was invited has signed up to use Greenlight.
           admins_link: Visit the Organization Page
@@ -319,8 +388,6 @@ en:
         verify_text: 'To verify your account, just follow this link: %{url}'
         verify_link: Verify Account
         thanks: Thanks for joining and have a great day!
-  maintenance:
-    window_alert: Maintenance window scheduled for %{date}
   max_concurrent: The maximum number of concurrent sessions allowed has been reached!
   merged: Merged
   modal:
@@ -332,7 +399,11 @@ en:
       title: Create New Role
     create_room:
       access_code: Access Code
+      moderator_access_code: Moderator Code
       access_code_placeholder: Generate an optional room access code
+      reset_access_code: Reset the optional room access code
+      moderator_access_code_placeholder: Generate an optional code for moderators
+      reset_moderator_access_code: Reset the optional code for moderators
       auto_join: Automatically join me into the room
       create: Create Room
       free_delete: You will be free to delete this room at any time.
@@ -345,6 +416,10 @@ en:
       keep: Actually, I'll keep it.
       delete_warning: This will deactivate the user's account. All deactived users can be found under the deleted tab.
       warning: This decision is final. You will <b>not</b> be able to recover associated data.
+    delete_rec:
+      delete: I'm sure, delete this recording.
+      header: Are you sure you want to delete this recording?
+      warning: You will <b>not</b> be able to recover this recording
     delete_room:
       confirm: Are you sure you want to delete %{room}?
       delete: I'm sure, delete this room.
@@ -352,7 +427,7 @@ en:
       warning: You will <b>not</b> be able to recover this room
       recording_warning: or any of its %{recordings_num} associated recordings.
     invite_user:
-      email_placeholder: Enter the users' emails (seperated by commas)
+      email_placeholder: Enter the users' emails (separated by commas)
       footer: The user will receive an email with instructions on how to sign up
       send: Send Invite
       title: Invite User
@@ -360,6 +435,14 @@ en:
       or: or
       with: Sign in with %{provider}
       forgot_password: Forgot Password?
+    preupload:
+      change: Replace Presentation
+      choose: Choose a file...
+      current: "Current Presentation:"
+      footer: Depending on the size of the presentation, it may require additional time to upload before it can be used.
+      invalid: Invalid size/file type. Please see the restrictions below.
+      title: Add Presentation
+      use: Use Presentation
     rename_recording:
     remove_shared:
       title: Are you sure you want to remove this room from your room list?
@@ -374,6 +457,7 @@ en:
       require_approval: Require moderator approval before joining
       start: Allow any user to start this meeting
       footer_text: Adjustment to your room can be done at anytime.
+      recording: Allow room to be recorded
     rename_room:
       name_placeholder: Enter a new room name...
     share_access:
@@ -408,6 +492,7 @@ en:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: Oops, we failed to validate your reCAPTCHA response. Please try again.
@@ -416,9 +501,11 @@ en:
     all_recordings: All Recordings
     email: Email Recording
     error: There was an error retrieving %{count} recording(s)
-    no_recordings: This room has no %{inject}recordings.
+    no_public_recordings: This room has no public recordings.
+    no_recordings: This room has no recordings.
     no_user_recordings: You currently have no recordings.
-    no_matched_recordings: No %{inject} recordings match your search.
+    no_matched_pub_recordings: No public recordings match your search.
+    no_matched_recordings: No recordings match your search.
     recorded_on: Recorded on %{date}
     table:
       name: Name
@@ -428,6 +515,7 @@ en:
       visibility: Visibility
       formats: Formats
     visibility:
+      inaccessible: Inaccessible
       public: Public
       unlisted: Unlisted
     format:
@@ -441,7 +529,7 @@ en:
       fail: Your account has not been approved yet. If multiples days have passed since you signed up, please contact your administrator.
       signup: Your account was successfully created. It has been sent to an administrator for approval.
     banned:
-      fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator. 
+      fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator.
     deprecated:
       new_signin: Select a new login method for you account. All your rooms from your old account will be migrated to the new account
       twitter_signin: Signing in via Twitter has been deprecated and will be removed in the next release. Click <a href="%{link}"> here </a> to move your account to a new authentication method
@@ -453,6 +541,8 @@ en:
   remove: Remove
   rename: Rename
   reset_password:
+    captcha: reCAPTCHA verification failed, please try again.
+    invalid_token: Password reset token is invalid. Please try resetting your password again.
     subtitle: Reset Password
     password: New Password
     confirm: New Password Confirmation
@@ -464,9 +554,13 @@ en:
     banned: Banned
     deleted: Deleted
     pending: Pending
+    invited: Invited
     user: User
   room:
     access_code_required: Please enter a valid access code to join the room
+    add_presentation: Add Presentation
+    copy_access: Copy Access Code
+    copy_moderator_access: Copy Moderator Code
     create_room: Create a Room
     create_room_error: There was an error creating the room
     create_room_success: Room created successfully
@@ -475,8 +569,12 @@ en:
       success: Room deleted successfully
       fail: Failed to delete room (%{error})
     enter_the_access_code: Enter the room's access code
+    enter_the_moderator_access_code: Enter the room's moderator code!
+    optional_moderator_access_code: "Optional Moderator Code:"
     invalid_provider: You have entered an invalid url. Please check the url and try again.
+    invitation_description: You have been invited to join %{name} using BigBlueButton. To join, click the link above and enter your name.
     invited: You have been invited to join
+    recording_present: I acknowledge that this session is going to be recorded. This may include my voice and video if enabled.
     invite_participants: Invite Participants
     join: Join
     last_session: Last session on %{session}
@@ -493,6 +591,10 @@ en:
       recent_rooms: Go To a Recently Joined Room
       title: Join a Room
     no_sessions: This room has no sessions, yet!
+    preupload_success: Successfully added presentation
+    preupload_error: There was an error updating the room presentation
+    preupload_remove_success: Successfully removed presentation
+    preupload_remove_error: There was an error removing the room presentation
     recordings: Room Recordings
     room_limit: You have reached the maximum number of rooms allowed
     room_limit_exceeded: You have exceeded the number of rooms allowed. Please delete %{difference} room(s) to access this room.
@@ -505,6 +607,7 @@ en:
     shared_access_success: Room shared successfully
     shared_access_error: There was an error sharing the room
     start: Start
+    search: Search for room…
     unavailable: This room is currently unavailable due to the owner's email not being verified.
     update_settings_error: There was an error updating the room settings
     update_settings_success: Room settings successfully updated
@@ -513,14 +616,15 @@ en:
       auto: You will automatically join when the meeting starts.
   settings:
     account:
-      fullname: Full name
+      fullname: Full Name
       language: Language
       provider: Provider
       image: Image
       image_url: Profile Image URL
-      roles: User Roles
+      roles: User Role
       subtitle: Update your Account Info
       title: Account Info
+      reset_password: Reset user password
     delete:
       button: Yes, I would like to delete my account.
       disclaimer: If you choose to delete your account, it will <b>NOT</b> be recoverable. All information regarding your account, including settings, rooms, and recording will be removed.
@@ -546,6 +650,9 @@ en:
   test_install: >
     This deployment is using a pre-configured testing server, you should replace this with your own.
     For details, see the %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Update
   verify:
     accept: Verify

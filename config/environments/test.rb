@@ -57,4 +57,6 @@ Rails.application.configure do
   config.loadbalanced_configuration = false
 
   config.registration_method_default = config.registration_methods[:open]
+
+  config.hosts = nil
 end

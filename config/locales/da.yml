@@ -43,6 +43,18 @@ da:
         placeholder: Billede adresse
         title: Eget logo
         invalid: Ugyldig URL
+      legal:
+        change: Skift URL
+        info: "Skift det juridiske link, der vises nederst på siden"
+        placeholder: Juridisk URL...
+        title: Juridisk
+        invalid: Ugyldig URL
+      privpolicy:
+        change: Skift URL
+        info: "Skift linket til privatlivspolitik, der vises nederst på siden"
+        placeholder: Privatlivspolitik URL...
+        title: Privatlivspolitik
+        invalid: Ugyldig URL
       cache:
         info: "Rydder den gemte udbyderscache, som tvinger en ny anmodning før den opdaterede info kan ses"
         title: Ryd Udbyders Cache
@@ -57,6 +69,10 @@ da:
         regular: Almindelig
         lighten: Lysere
         darken: Mørkere
+      email_mapping:
+        info: "Giv brugeren en rolle ved hjælp af deres e-mail. Skal være i formatet email1 = rolle1, email2 = rolle2\n "
+        title: Giv Roller via Email
+        update:
       log_level:
         title: Log Niveau
         information: Skift Log Niveau for hele systemet
@@ -70,6 +86,18 @@ da:
         info: Sæt nye optagelserne til at være synlige som standard
         title: Optagelser Synlige Som Standard
         warning: Denne indstilling vil kun påvirke rum som ikke kører
+      require_consent:
+        info: "Denne indstilling muliggør en rumindstilling, der giver rum ejere mulighed for at specificere, hvilke rum der kan optages i. Brugere, der deltager i et optaget rum, skal samtykke, før de tilmelder sig."
+        title: Kræv at Rum Ejer og Deltager Samtykker til at blive Optaget
+      maintenance_banner:
+        info: Viser en Banner for at informere brugeren om en planlagt vedligeholdelse
+        title: Vedligeholdelses Banner
+        display: Sæt
+        clear: Ryd
+        time: "Eksempel: Opdatering planlagt 13. december @ 23:00 ET. Brugere kan have problemer med at logge ind."
+      preupload:
+        info: "Brugere kan forhåndsindlæse en præsentation, der skal bruges som standardpræsentation for det specifikke rum"
+        title: Tillad Brugere at Forhåndsindlæse Præsentationer
       registration:
         info: Skift måden hvor på brugere registrere sig på hjemmesiden
         title: Registrerings metode
@@ -84,6 +112,11 @@ da:
         info: "Indstilling sat til deaktiveret, vil fjerne knappen fra rullemenuen Rumindstillinger, og forhindrer brugere i at dele rum"
         title: Tillad Brugere at Dele Rum
       subtitle: Tilpas/Ændre Greenlight
+      tabs:
+        appearance: Udseende
+        administration: Administration
+        registration: Registrering
+        settings: Indstillinger
       title: Side Indstillinger
     flash:
       approved: "Bruger er blevet godkendt med succes. "
@@ -94,18 +127,21 @@ da:
       demoted: Bruger er blevet nedrykket med succes
       invite: "Invitation er blevet sendt til %{email} med succes."
       invite_email_verification: Emails skal være slået til for at kunne anvende denne metode. Kontakt venligst din system administrator.
-      merge_fail: Der var et problem med sammensmeltningen af brugerkonti. Tjek venligst de valgte brugere og prøv igen. 
+      merge_fail: Der var et problem med sammensmeltningen af brugerkonti. Tjek venligst de valgte brugere og prøv igen.
       merge_success: Brugerkonti blev fusioneret med succes.
       perm_deleted: Bruger blev slettet permanent med succes
       promoted: Bruger er blevet forfremmet med succes
       registration_method_updated: Registreringsmetoden er blevet opdateret med succes
       reset_password: "Brugeren har fået tilsendt en e-mail for at nulstille adgangskoden. (Bed dem om at tjekke deres spam-mappe, hvis de ikke har modtaget den)"
       restored: Bruger er blevet genskabt med succes
+      room_configuration: Rum Konfigurationen blev ændret med succes.
       settings: Sidens indstillinger er blevet ændret med succes
       unauthorized: Du er ikke godkendt til at lave denne handling på brugeren
     recordings:
+      latest: Sidste nye Optagelser
       title: Server Optagelser
       no_recordings: Denne server har ingen optagelser.
+      search_info: Indtast en brugers fulde e-mail eller et rums uid
     roles:
       appear_in_share_list: Inkluder brugere med denne rolle i rullemenuen for delte rum
       can_create_rooms: Kan oprette rum
@@ -123,16 +159,39 @@ da:
       edit_site_settings: Tillad brugere med denne rolle at redigere sideindstillinger
       edit_roles: Tillad brugere med denne rolle at redigere andre roller
       manage_users: Tillad brugere med denne rolle at styre brugere
-      invalid_assignment: "Der var et problem med at give rollen til brugeren. Tjek venligst indstillingerne, og prøv igen." 
+      invalid_assignment: "Der var et problem med at give rollen til brugeren. Tjek venligst indstillingerne, og prøv igen."
       colour:
         title: Rolle Farve
         info: Tilføj farven som vil blive tilføjet til rollen
+    room_configuration:
+      title: Rum Konfiguration
+      mute:
+        info: "Muter brugeren automatisk, når de deltager i BigBlueButton mødet"
+      require_moderator:
+        info: "Fortæller moderatoren af BigBlueButton mødet, når en bruger prøver at deltage. Hvis brugeren er godkendt, kan de deltage i mødet."
+      allow_any:
+        info: "Tillader enhver bruger at starte mødet når som helst. Som standard er det kun ejeren af rummet, der kan starte mødet."
+      all_moderator:
+        info: "Giver alle brugernes moderatorrettigheder i BigBlueButton, når de deltager i mødet."
+      recordings:
+        info: "Tillader rum ejere at specificere, om de vil have muligheden for at optage et værelse eller ej. Hvis aktiveret, skal moderatoren stadig klikke på \"Optag\" -knappen, når mødet er startet."
+      moderator_codes:
+        info: "Giver rum ejere mulighed for valgfrit at generere en moderator-pin, som giver andre brugere mulighed for at deltage direkte som moderatorer."
+        title: Moderator Adgangskode
+      options:
+        disabled: Deaktiver
+        enabled: Altid Aktiveret
+        optional: Valgfri
     rooms:
+      timeout: "På grund af %{server} Serveren fik timeout for serveranmodning, oplysningerne om status og deltagere er muligvis ikke korrekte"
       title: Server Rum
       table:
+        ended: "Sluttede: %{session}"
         id: ID
         not_running: Ikke Igang
+        participants: Deltagere
         running: Igang
+        started: "Startede: %{session}"
         status: Status
         view: Kig
     title: Sidens indstillinger
@@ -147,26 +206,30 @@ da:
         delete: Slet
         edit: Rediger
         edit_roles: Rediger brugerens roller
+        merge: Fusioner
         perm_delete: Slet Permanent
         unban: Træk Bortvisning Tilbage
         undelete: Træk Sletning Tilbage
       table:
         authenticator: Log På Med
         created: Oprettet
+        time: Tid Sendt
         name: Navn
         not_found: Ingen brugere matcher din søgning
         no_users: Ingen brugere fundet
         role: Rolle
         uid: Bruger ID
         username: Brugernavn
+        valid: Gyldig
       title: Styr Brugere
   add_to_google_calendar: "Føj til Google Kalender"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: "Hov, der skete en fejl når vi startede dit møde."
-  cancel: Afvis
+  cancel: Annuller
   cookies:
     cookie_info: "Cookies hjælper os med at levere vores service. Ved at bruge vores system, godkender du samtidigt vores brug af cookies."
     cookie_button: Jeg er enig
+    policy: "For mere information, læs vores<a href=\"%{privacy_link}\"><u>privatlivs politik</u></a>."
   copied: Kopiret
   copy: Kopier
   date:
@@ -205,6 +268,7 @@ da:
       accepted: skal accepteres
       confirmation: "passer ikke til %{attribute}"
       inclusion: er ikke inkluderet i listen
+      domain: "skal ende med \"%{email_domain}\""
     no_provider:
       message: Siden du prøver at få adgang til er ikke slået til
       help: Kontakt venligst din system administrator for at indstille Greenlight
@@ -229,6 +293,8 @@ da:
     designs: Egne Designs
     authentication: Brugergodkendelse
   footer:
+    legal: Juridisk
+    privpolicy: Privatlivspolitik
     powered_by: "Lavet af %{href}."
   forgot_password:
     subtitle: Glemt Adgangskode
@@ -247,6 +313,7 @@ da:
   home_room: Hjemme Rum
   info_update_success: Informationerne er opdateret med succes.
   invalid_credentials: "Den indtastede email og adgangskode, passer ikke på det vi har stående i vores system. Prøv igen, eller klik på Glemt Adgangskode, for at nulstille denne.  "
+  invalid_credentials_external: "Den email og adgangskode du indtastede, matchede ikke i vores system. Prøv venligst igen."
   invalid_login_method: "Dit login forsøg fejlede da der var en fejl med kontoen.\nDu bliver nødt til at logge ind med omniauth."
   invite_message: "For at invitere nogen til et møde, skal du sende dem dette link:"
   javascript:
@@ -259,7 +326,7 @@ da:
     search:
       start: Start søgning...
   landing:
-    about: "%{href} er et simpelt front.end system til BigBlueButton open-source web konference server. Du kan oprette dine egne rum og hoste sessioner, eller tilslutte andre ved brug af korte og nemme links."
+    about: "%{href} er et simpelt front-end system til BigBlueButton open-source web konference server. Du kan oprette dine egne rum og hoste sessioner, eller tilslutte andre ved brug af korte og nemme links."
     welcome: Velkommen til BigBlueButton.
     video: Se vores vejledninger om hvordan man bruger Greenlight
     upgrade: Vis mig hvordan man opgradere til 2.0!
@@ -291,6 +358,7 @@ da:
         info: "Du er blevet inviteret til dit eget personlige rum af %{name}"
         signup_info: "For at oprette dig med din email, klik på knappen nedenunder og følg vejledningen."
         signup_link: Opret Konto
+        valid: "Invitationen er gyldig indtil: %{date}"
         signup:
           info: En bruger der var inviteret har oprette sig på Greenlight.
           admins_link: Besøg Indstillings Siden
@@ -318,8 +386,6 @@ da:
         verify_text: 'Følg dette link: %{url} for at verificere din konto.'
         verify_link: Verificer Konto
         thanks: "Tak fordi do deltog, hav en fantastisk dag!"
-  maintenance:
-    window_alert: "Vedligeholdelses er planlagt til %{date}"
   max_concurrent: Det maksimale antal af samtidige sessioner tilladt er nået!
   merged: Fusioneret
   modal:
@@ -331,7 +397,9 @@ da:
       title: Opret Ny Rolle
     create_room:
       access_code: Adgangs Kode
+      moderator_access_code: Moderator Adgangskode
       access_code_placeholder: Generer en adgangskode til rummet. Valgfrit.
+      moderator_access_code_placeholder: Generer en valgfri adgangskode til moderatorer
       auto_join: Tilslut mig automatisk i rummet.
       create: Opret Rum
       free_delete: Du vil kunne slette dette rum på et hvilket som helst tidspunkt.
@@ -344,6 +412,10 @@ da:
       keep: "Faktisk, vil jeg beholde den."
       delete_warning: Dette vil deaktivere brugerens konto. Alle deaktiverede brugere kan ses under slettede.
       warning: Denne beslutning er afgørende. Du vil <b>ikke</b> kunne genskabe data igen.
+    delete_rec:
+      delete: "Jeg er sikker, slet denne optagelse."
+      header: "Er du sikker på, at du vil slette denne optagelse?"
+      warning: Du vil <b> ikke </b> have mulighed for at genskabe denne optagelse
     delete_room:
       confirm: "Er du sikker på du vil slette %{room}?"
       delete: "Jeg er sikker, slet dette rum."
@@ -351,7 +423,7 @@ da:
       warning: Du vil <b>ikke</b> have mulighed for at genskabe dette rum
       recording_warning: "eller noget af %{recordings_num} som er optaget."
     invite_user:
-      email_placeholder: Indtast brugernes emails (separeret med kommaer)
+      email_placeholder: Indtast brugernes e-mails (adskilt med kommaer)
       footer: Denne bruger vil modtage en email med vejledning i hvordan man opretter en konto
       send: Send Invitation
       title: Inviter Bruger
@@ -359,6 +431,14 @@ da:
       or: eller
       with: "Log ind med %{provider}"
       forgot_password: "Glemt Adgangskode?"
+    preupload:
+      change: Erstat Præsentation
+      choose: Vælg en fil...
+      current: "Nuværende præsentation:"
+      footer: "Afhængig af præsentationens størrelse kan det kræve ekstra tid at uploade, før den kan bruges."
+      invalid: Ugyldig størrelse / filtype. Se venligst begrænsningerne nedenfor.
+      title: Tilføj Præsentation
+      use: Brug Præsentation
     rename_recording:
     remove_shared:
       title: "Er du sikker på du vil fjerne dette rum fra din liste?"
@@ -373,6 +453,7 @@ da:
       require_approval: Kræver en moderators tilladelse før tilslutning
       start: Tillad en hver bruger at starte mødet
       footer_text: Rettelser til dit rum kan bliver gjort til hver en tid.
+      recording: Tillad optagelser i rum
     rename_room:
       name_placeholder: Indtast et rum navn...
     share_access:
@@ -380,10 +461,10 @@ da:
       list: Delt Med
       title: Del Rum Adgang
       save: Gem Ændringer
-      cancel_changes: Afbryd Ændringer
+      cancel_changes: Annuller Ændringer
       select: Vælg Bruger
     merge_user:
-      cancel: Afbryd
+      cancel: Annuller
       from: Konto som skal Fusioneres
       title: "Fusioner Bruger Konti "
       to: Foretrukne Konto
@@ -407,6 +488,7 @@ da:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: "Årh nej, vi kunne ikke bekræfte din reCAPTCHA forbindelse. Prøv venligst igen."
@@ -427,8 +509,9 @@ da:
       visibility: Synlighed
       formats: Formater
     visibility:
-      public: Offentlig
-      unlisted: Unoteret
+      inaccessible: Utilgængelig
+      public: Synlig
+      unlisted: Skjult
     format:
       notes: Noter
       podcast: Podcast
@@ -440,7 +523,7 @@ da:
       fail: "Din konto er ikke godkendt endnu. Hvis der er gået flere dage, siden du tilmeldte dig, skal du kontakte din administrator."
       signup: Din konto blev oprettet. Det er sendt til en administrator til godkendelse.
     banned:
-      fail: "Du har ikke adgang til denne applikation. Hvis du mener, at dette er en fejl, skal du kontakte din administrator." 
+      fail: "Du har ikke adgang til denne applikation. Hvis du mener, at dette er en fejl, skal du kontakte din administrator."
     deprecated:
       new_signin: Vælg en ny login-metode til din konto. Alle dine rum fra din gamle konto fusioneres til den nye konto
       twitter_signin: "Log ind via Twitter er blevet forældet og vil blive fjernet i den næste udgivelse. Klik <a href=\"%{link}\"> her </a> for at flytte din konto til en ny godkendelsesmetode"
@@ -452,6 +535,8 @@ da:
   remove: Fjern
   rename: Omdøb
   reset_password:
+    captcha: "reCAPTCHA verifikation fejlede, prøv venligst igen."
+    invalid_token: Token til nulstilling af adgangskode er ugyldigt. Prøv at nulstille din adgangskode igen.
     subtitle: Nulstil Adgangskode
     password: Ny Adgangskode
     confirm: Bekræftelse af Ny Adgangskode
@@ -463,9 +548,13 @@ da:
     banned: Bortvist
     deleted: Slettet
     pending: Afventer
+    invited: Inviteret
     user: Bruger
   room:
     access_code_required: Indtast venligst en gyldig adgangskode for at deltage i rummet
+    add_presentation: Tilføj Præsentation
+    copy_access: Kopier Adgangskode
+    copy_moderator_access: Kopier Moderator Adgangskode
     create_room: Opret et Rum
     create_room_error: Der var en fejl ved oprettelsen af rummet
     create_room_success: Rummet blev oprettet med succes
@@ -474,8 +563,12 @@ da:
       success: Rummet blev slettet med succes
       fail: "Kunne ikke slette rummet (%{error})"
     enter_the_access_code: Indtast rummets adgangskode
+    enter_the_moderator_access_code: Indtast rummets moderator adgangskode!
+    optional_moderator_access_code: "Valgfri Moderator Adgangskode:"
     invalid_provider: Du har indtastet en forkert url. Tjek venligst adressen og prøv igen.
+    invitation_description: "Du er blevet inviteret til at deltage %{name} ved hjælp af BigBlueButton. For at deltage skal du klikke på linket ovenfor og indtaste dit navn."
     invited: Du er blevet inviteret til at deltage
+    recording_present: "Jeg anerkender, at denne session vil blive optaget. Dette kan omfatte min stemme og video, hvis det er aktiveret."
     invite_participants: Inviter Deltagere
     join: Deltag
     last_session: "Sidste session på %{session}"
@@ -489,12 +582,16 @@ da:
       invalid_room_uid: Rummets url/uid som du har indtastet er ugyldigt.
       placeholder: Rum url/uid
       no_recent_rooms: Du har ikke nogen nyligt tilsluttede værelser
-      recent_rooms: "Gå til et nyligt tilsluttet værelse\n "
+      recent_rooms: Gå til et nyligt tilsluttet værelse
       title: Tilslut et Rum
     no_sessions: "Dette rum har ikke nogen sessioner, endnu!"
+    preupload_success: Præsentationen blev tilføjet med succes
+    preupload_error: Der opstod en fejl under opdatering af præsentationen til rummet
+    preupload_remove_success: Præsentationen blev fjernet med succes
+    preupload_remove_error: Der opstod en fejl ved fjernelse af præsentationen i rummet
     recordings: Rum Optagelser
     room_limit: Du har nået det maksimale antal tilladte værelser
-    room_limit_exceeded: "Du har overskredet dine antal af tilladte rum. Slet venligst %{difference} rum for at få adgang til dette."
+    room_limit_exceeded: "Du har overskredet dine antal af tilladte rum. Slet venligst %{difference} rum(mene) for at få adgang til dette."
     sessions: Sessioner
     settings: Rum Indstillinger
     share: Håndter Adgang
@@ -504,6 +601,7 @@ da:
     shared_access_success: Rummet blev delt med succes
     shared_access_error: Der var en fejl ved deling af rummet
     start: Start
+    search: Søg efter rum...
     unavailable: Dette rum er i øjeblikket ikke tilgængeligt på grund af ejerens e-mail ikke er blevet bekræftet.
     update_settings_error: Der var en fejl ved opdateringen af indstillingerne for rummet
     update_settings_success: Indstillingerne for rummet blev opdateret med succes.
@@ -512,14 +610,15 @@ da:
       auto: Du vil automatisk blive tilsluttet når mødet starter.
   settings:
     account:
-      fullname: Fulde navn
+      fullname: Fulde Navn
       language: Sprog
       provider: Udbyder
       image: Billede
       image_url: Profilbillede URL
-      roles: Bruger Roller
+      roles: Bruger Rolle
       subtitle: Opdater dine Kontooplysninger
       title: Kontooplysninger
+      reset_password: Nulstil brugeradgangskode
     delete:
       button: "Ja, jeg vil gerne slette min konto."
       disclaimer: "Hvis du vælger at slette din konto, kan den <b>IKKE</b> gendannes. Alle informationer der vedrører din konto, inklusiv indstillinger, rum, og optagelser vil blive slettet."
@@ -544,6 +643,9 @@ da:
     title: Regler og Betingelser
   test_install: >
     Denne installation bruger en forudkonfigureret testserver, du skal erstatte denne med din egen. For detaljer, se %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Opdater
   verify:
     accept: Bekræft

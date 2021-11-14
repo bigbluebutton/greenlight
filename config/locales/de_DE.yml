@@ -20,7 +20,7 @@ de_DE:
   activerecord:
     attributes:
       user:
-        accepted_terms: "Teilnahmebedingungen"
+        accepted_terms: "Allgemeine Nutzungsbedingungen"
         email: E-Mail
         name: Name
         password: Passwort
@@ -36,12 +36,24 @@ de_DE:
         enabled: Aktiviert
         info: Nur authentifizierte Nutzer dürfen diesen Raum betreten
         title: Betreten des Raums erfordert Authentifizierung
-        user-info: "Sie müssen in Greenlight eingeloggt sein, um diesen Raum zu betreten"
+        user-info: "Sie müssen sich oben anmelden, um diesem Raum beitreten zu können."
       branding:
         change: Bild ändern
-        info: Das in der linken oberen Ecke dargestellte Markenlogo ändern
-        placeholder: Bild URL...
-        title: Markenlogo
+        info: Das in der linken oberen Ecke dargestellte Logo ändern
+        placeholder: Bild-URL...
+        title: Logo
+        invalid: Ungültige URL
+      legal:
+        change: URL ändern
+        info: Die URL für den Link zum Impressum am Seitenende ändern
+        placeholder: URL des Impressums
+        title: Impressum
+        invalid: Ungültige URL
+      privpolicy:
+        change: URL ändern
+        info: Die URL für den Link zur Datenschutzerklärung am Seitenende ändern
+        placeholder: URL der Datenschutzerklärung
+        title: Datenschutzerklärung
         invalid: Ungültige URL
       cache:
         info: "Löscht den Provider-Zwischenspeicher, wodurch bei einer neuen Anfrage Informationen neu eingegeben werden müssen "
@@ -52,14 +64,18 @@ de_DE:
         title: Jetzigen Authenticator entfernen
         button: Authentifizierung löschen
       color:
-        info: Das Ändern der normalen Farbe wird sich auf Heller und Dunkler auswirken. Heller und Dunkler können danach individuell angepasst werden
+        info: Die Änderung der normalen Farbe wird sich auf Heller und Dunkler auswirken. Heller und Dunkler können danach individuell angepasst werden
         title: Primäre Farbe
         regular: Normal
         lighten: Heller
         darken: Dunkler
+      email_mapping:
+        info: "Ordnen Sie den Nutzer anhand seiner E-Mail einer Rolle zu. Muss im Format email1=Rolle1,email2=Rolle2 erfolgen"
+        title: Rollenzuordnung per E-Mail
+        update:
       log_level:
-        title: Log Level
-        information: Log level für die gesamte Anwendung ändern
+        title: Log-Level
+        information: Log-Level für die gesamte Anwendung ändern
         debug: Debug
         info: Info
         warn: Warnung
@@ -70,11 +86,23 @@ de_DE:
         info: Einstellen der Voreinstellung für die Sichtbarkeit neuer Aufzeichnungen
         title: Voreinstellung der Aufzeichnungssichtbarkeit
         warning: Diese Einstellung wirkt sich nur auf noch nicht laufende Konferenzen aus.
+      require_consent:
+        info: "Diese Einstellung ermöglicht eine Raumeinstellung, bei der Rauminitiatoren festlegen können, welche Räume aufgezeichnet werden können. Teilnehmer, die einem aufgezeichneten Raum beitreten, müssen vor dem Beitritt zustimmen."
+        title: Erfordert die Zustimmung des Rauminitiators und der Teilnehmer zur Aufzeichnung
+      maintenance_banner:
+        info: "Zeigt ein Banner an, um die Nutzer über eine geplante Wartungsarbeit zu informieren"
+        title: Banner für Wartungsarbeiten
+        display: Setzen
+        clear: Löschen
+        time: "Beispiel: Aktualisierung geplant am 13. Dezember um 23:00 Uhr MEZ. Nutzer könnten Probleme bei der Anmeldung haben."
+      preupload:
+        info: "Nutzer können eine Präsentation vorab hochladen, die als Standardpräsentation für diesen speziellen Raum verwendet werden soll"
+        title: "Nutzern erlauben, Präsentationen vorab hochzuladen"
       registration:
-        info: Verändern der Weise wie sich Teilnehmer auf der Webseite registrieren
+        info: "Methode ändern, wie sich Nutzer auf der Website registrieren"
         title: Registrierungsmethode
         methods:
-          approval: Genehmigen/Verweigern
+          approval: Zulassen/Ablehnen
           invite: Teilnahme durch Einladung
           open: Offene Registrierung
       rooms:
@@ -84,82 +112,117 @@ de_DE:
         info: "Wenn diese Option deaktiviert wird, wird dadurch der Button aus den Raumoptionen entfernt und verhindert, dass Nutzer Räume teilen können"
         title: Nutzern erlauben Räume zu teilen
       subtitle: Greenlight individuell anpassen
-      title: Seiteneinstellungen
+      tabs:
+        appearance: Darstellung
+        administration: Administration
+        registration: Registrierung
+        settings: Einstellungen
+      title: Grundeinstellungen
     flash:
-      approved: Teilnehmer wurde erfolgreich genehmigt
-      banned: Teilnehmer wurde erfolgreich gesperrt.
-      unbanned: Teilnehmer wurde erfolgreich entsperrt.
-      delete: Teilnehmer erfolgreich gelöscht
-      delete_fail: Löschen des Teilnehmers fehlgeschlagen
-      demoted: "Teilnehmer wurde erfolgreich zurückgestuft "
+      approved: Nutzer wurde erfolgreich genehmigt.
+      banned: Nutzer wurde erfolgreich gesperrt.
+      unbanned: Nutzer wurde erfolgreich entsperrt.
+      delete: Nutzer erfolgreich gelöscht
+      delete_fail: Löschen des Nutzers fehlgeschlagen
+      demoted: "Nutzer wurde erfolgreich zurückgestuft "
       invite: "Einladung erfolgreich an %{email} geschickt"
       invite_email_verification: "E-Mail-Versand muss aktiviert sein, um diese Methode verwenden zu können. Bitte kontaktieren Sie Ihren Systemadministrator."
-      merge_fail: Beim Zusammenführen ist ein Problem aufgetreten. Bitte überprüfen Sie die ausgewählten Nutzer und versuchen Sie es erneut 
+      merge_fail: Beim Zusammenführen der Nutzerkonten ist ein Problem aufgetreten. Bitte überprüfen Sie die ausgewählten Nutzer und versuchen Sie es erneut
       merge_success: Nutzerkonten erfolgreich zusammengeführt
       perm_deleted: Nutzer wurde dauerhaft gelöscht
-      promoted: Teilnehmer wurde erfolgreich hochgestuft
+      promoted: Nutzer wurde erfolgreich hochgestuft
       registration_method_updated: Registrierungsmethode erfolgreich aktualisiert
-      reset_password: "Dem Teilnehmer wurde eine E-Mail zur Passwortrücksetzung geschickt. (Bitte weisen Sie ihn darauf hin, den Spamordner zu überprüfen, falls er sie nicht erhalten hat)"
+      reset_password: "Dem Nutzer wurde eine E-Mail zur Passwortrücksetzung geschickt. (Bitte weisen Sie ihn darauf hin, den Spamordner zu überprüfen, falls er sie nicht erhalten hat)"
       restored: Nutzer wurde erfolgreich wiederhergestellt
-      settings: Seiteneinstellungen erfolgreich geändert
+      room_configuration: Raumkonfiguration erfolgreich geändert
+      settings: Grundeinstellungen erfolgreich geändert
       unauthorized: "Sie haben nicht die notwendigen Rechte, um diese Änderung bei diesem Teilnehmer vorzunehmen."
     recordings:
+      latest: Aktuelle Aufzeichnungen
       title: Serveraufzeichnungen
-      no_recordings: Dieser Server hat keine Aufzeichnungen.
+      no_recordings: Keine Aufzeichnungen vorhanden.
+      search_info: Geben Sie die vollständige E-Mail eines Nutzers oder die Raum-ID ein
     roles:
       appear_in_share_list: Nutzer mit dieser Rolle im Dropdown-Menü zum Teilen von Räumen einschließen
       can_create_rooms: Kann Räume erstellen
+      can_launch_recording: "Nutzern mit dieser Rolle erlauben, ihre Konferenzen aufzuzeichnen"
       delete: Rolle löschen
       invalid_create: Es kam zu einem Problem beim Erzeugen einer neuen Rolle. Bitte prüfen Sie die Rollenwerte und versuchen Sie es erneut
       invalid_order: Es kam zu einem Problem beim Aktualisieren der Rollenpriorität. Bitte prüfen Sie die Werte und versuchen Sie es erneut
       invalid_update: Es kam zu einem Problem beim Aktualisieren der Rollenrechte. Bitte prüfen Sie die Werte und versuchen Sie es erneut
-      manage_rooms_recordings: "Erlaube Nutzern mit dieser Rolle, Serverräume und deren Aufzeichnungen zu verwalten"
+      manage_rooms_recordings: "Nutzern mit dieser Rolle erlauben, Serverräume und deren Aufzeichnungen zu verwalten"
       name: Rollenname
       new_role: Neue Rolle erstellen
       role_has_users: "Diese Rolle ist %{user_count} Konten zugewiesen. Bitte entfernen Sie alle Konten dieser Rolle, bevor Sie sie löschen."
       title: Rollen
-      promote_email: "Nutzern eine Email schicken, wenn Ihnen diese Rolle zugewiesen wird"
-      demote_email: "Nutzern eine Email schicken, wenn Ihnen diese Rolle entzogen wird"
-      edit_site_settings: "Nutzern mit dieser Rolle erlauben, die primären Webseiteneinstellungen zu ändern"
+      promote_email: "Nutzern eine E-Mail schicken, wenn Ihnen diese Rolle zugewiesen wird"
+      demote_email: "Nutzern eine E-Mail schicken, wenn Ihnen diese Rolle entzogen wird"
+      edit_site_settings: "Nutzern mit dieser Rolle erlauben, die Grundeinstellungen zu ändern"
       edit_roles: "Nutzern mit dieser Rolle erlauben, andere Rollen zu verändern"
       manage_users: "Nutzern mit dieser Rolle erlauben, andere Nutzer zu verwalten"
-      invalid_assignment: Es kam zu einem Problem bei der Zuweisung der Rollen zu einem Nutzer. Bitte prüfen Sie die Werte und versuchen Sie es erneut 
+      invalid_assignment: Es kam zu einem Problem bei der Zuweisung der Rollen zu einem Nutzer. Bitte prüfen Sie die Werte und versuchen Sie es erneut
       colour:
         title: Rollenfarbe
         info: "Die Farbe einstellen, die dieser Rolle zugewiesen wird"
+    room_configuration:
+      title: Raumkonfiguration
+      mute:
+        info: "Automatisches Stummschalten des Teilnehmers, wenn er der BigBlueButton-Konferenz beitritt"
+      require_moderator:
+        info: "Informiert den Moderator der BigBlueButton-Konferenz, wenn ein Teilnehmer beitreten möchte. Erst wenn dieser zugelassen wird, kann er der Konferenz beitreten."
+      allow_any:
+        info: "Ermöglicht es jedem Teilnehmer, die Konferenz jederzeit zu starten. Standardmäßig kann nur der Rauminitiator die Konferenz starten."
+      all_moderator:
+        info: "Gewährt allen Teilnehmern Moderatorenrechte in BigBlueButton, wenn sie an der Konferenz teilnehmen."
+      recordings:
+        info: "Ermöglicht Rauminitiatoren die Festlegung, ob sie die Option zum Aufzeichnen eines Raums wünschen oder nicht. Wenn diese Option aktiviert ist, muss der Moderator auch nach Beginn der Konferenz auf den Button \"Aufzeichnen\" klicken."
+      moderator_codes:
+        info: "Ermöglicht es Rauminitiatoren, optional einen Moderatoren-PIN zu generieren, der es anderen Teilnehmern ermöglicht, direkt als Moderator beizutreten."
+        title: Moderatoren-Zugangscode
+      options:
+        disabled: Deaktiviert
+        enabled: Immer aktiviert
+        optional: Optional
     rooms:
+      timeout: "Aufgrund der Zeitüberschreitung der %{server} Server-Anfrage sind die Informationen zum Status und zu den Teilnehmern möglicherweise nicht korrekt"
       title: Serverräume
       table:
+        ended: "Beendet: %{session}"
         id: ID
         not_running: Läuft nicht
+        participants: Teilnehmer
         running: Läuft
+        started: "Gestartet: %{session}"
         status: Status
         view: Ansehen
     title: Organisationseinstellungen
     users:
-      invite: Teilnehmer einladen
+      invite: Nutzer einladen
       edit:
-        title: Teilnehmerdetails editieren
+        title: Nutzerdetails bearbeiten
       settings:
-        approve: Freischalten
-        decline: Abweisen
-        ban: Teilnehmer ausschließen
+        approve: Zulassen
+        decline: Ablehnen
+        ban: Sperren
         delete: Löschen
         edit: Ändern
-        edit_roles: Nutzerrollen verändern
+        edit_roles: Nutzerrollen bearbeiten
+        merge: Zusammenführen
         perm_delete: Dauerhaft löschen
-        unban: Ausschluss des Teilnehmers aufheben.
+        unban: Konto freischalten
         undelete: Löschung rückgängig machen
       table:
         authenticator: Authenticator
         created: Erzeugt
+        time: Zeitpunkt
         name: Name
         not_found: Keinen Teilnehmer für Ihre Suchkriterien gefunden
         no_users: Kein Teilnehmer gefunden
         role: Rolle
         uid: Teilnehmer ID
         username: Teilnehmername
-      title: Teilnehmer verwalten
+        valid: Gültig
+      title: Nutzer verwalten
   add_to_google_calendar: "Zum Google Kalender hinzufügen"
   bigbluebutton: BigBlueButton
   bigbluebutton_exception: "Ups, beim Start der Konferenz ist ein Fehler aufgetreten!"
@@ -167,28 +230,29 @@ de_DE:
   cookies:
     cookie_info: Cookies helfen uns bei der Bereitstellung unserer Dienste. Durch die Nutzung der Dienste stimmen Sie der Nutzung von Cookies zu.
     cookie_button: Ich stimme zu
+    policy: "Weitere Informationen finden Sie in unserer <a href=\"%{privacy_link}\"><u>Datenschutzerklärung</u></a>."
   copied: Kopiert
   copy: Kopieren
   date:
     month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
   default_admin: "Sie verwenden immer noch das voreingestellte Passwort für dieses Konto. Bitte klicken Sie <a href=\"%{edit_link}\">hier</a>, um es zu ändern"
   delete: Löschen
-  delivery_error: Während der Emailzustellung ist ein Fehler aufgetreten. Bitte kontaktieren Sie einen Administrator!
+  delivery_error: Während der E-Mail-Zustellung ist ein Fehler aufgetreten. Bitte kontaktieren Sie einen Administrator!
   docs: Dokumentation
   email: E-Mail
-  email_sent: "Ihre %{email_type} Email wurde verschickt! (Bitte prüfen Sie Ihren Spamordner, falls Sie die Email nicht erhalten haben)"
-  enter_your_name: Geben Sie Ihren Namen ein!
+  email_sent: "%{email_type}: Es wurde eine E-Mail an Sie verschickt! (Bitte prüfen Sie Ihren Spamordner, falls Sie die E-Mail nicht erhalten haben)"
+  enter_your_name: Name bitte eingeben!
   errors:
     bigbluebutton:
       help: "Bitte stellen Sie sicher, dass die notwendigen Schritte durchgeführt wurden. <a href=\"%{doc_link}\">Mehr erfahren</a>"
-      message: BigBlueButton Endpunkt und Geheimnis ungültig
+      message: BigBlueButton Endpunkt und Sicherheitsschlüssel ungültig
       title: Serverfehler
     internal:
       message: "Es sieht so aus, als ob irgendwas schiefgelaufen ist."
       help: "Der Fehler wurde gespeichert, wir werden ihn analysieren!"
       report: Problem melden
     maintenance:
-      message: "Entschuldigung, wir befinden uns im Wartungsmodus."
+      message: "Entschuldigung, wir sind mit Wartungsarbeiten beschäftigt."
       help: Wir sind in Kürze wieder da!
     migration_error:
       contact_admin: "Wenn Sie kein Administrator sind, kontaktieren Sie bitte einen."
@@ -198,30 +262,31 @@ de_DE:
       upgrade: "Zeigen Sie mir, wie ich auf Version 2.0. update!"
       version: "Wir haben eine neue Version von Greenlight veröffentlicht, aber Ihre Datenbank ist damit nicht kompatibel."
     messages:
-      blank: kann nicht leer sein
+      blank: darf nicht leer sein
       too_short: ist zu kurz
       invalid: ist ungültig
-      taken: wird bereit verwendet
+      taken: wird bereits verwendet
       accepted: muss akzeptiert werden
       confirmation: "passt nicht zu %{attribute}"
       inclusion: ist nicht Teil der Liste
+      domain: "muss mit \"%{email_domain}\" enden"
     no_provider:
-      message: "Die Seite, auf die Sie versuchen zuzugreifen, ist nicht aktiviert."
+      message: "Die Seite, auf die Sie zugreifen möchten, ist nicht aktiviert."
       help: "Bitte kontaktieren Sie Ihren Systemadministrator, damit er Greenlight einrichtet."
     not_found:
-      message: Tut uns leid! Die aufgerufene Seite existiert nicht.
+      message: Entschuldigung! Die aufgerufene Seite existiert nicht.
       help: "Ist es möglich, dass es entfernt wurde?"
       user_not_found:
         help: Bitte kontaktieren Sie einen Administrator.
-        message: "Tut uns leid, dieser Nutzer ist nicht registriert."
+        message: "Entschuldigung, dieser Nutzer ist nicht registriert."
       user_missing:
         help: Bitte prüfen Sie die URL und versuchen Sie es erneut
         message: Die eingegebene URL ist ungültig.
     title: Fehler
     unauthorized:
-      message: Sie haben keine Zugriffsberechtigung auf diese Applikation
+      message: Sie haben keinen Zugriff auf diese Anwendung
       help: "Falls Sie glauben, dass hier ein Fehler vorliegt, kontaktieren Sie Ihren Systemadministrator."
-  expired_reset_token: Passwordresetlink ist abgelaufen!
+  expired_reset_token: Der Link zum Zurücksetzen des Passworts ist abgelaufen!
   features:
     title: Eigenschaften
     rooms: Personalisierte Räume
@@ -229,6 +294,8 @@ de_DE:
     designs: Eigene Designs
     authentication: Nutzerauthentifizierung
   footer:
+    legal: Impressum
+    privpolicy: Datenschutzerklärung
     powered_by: "Bereitgestellt durch %{href}."
   forgot_password:
     subtitle: Passwort vergessen
@@ -246,7 +313,8 @@ de_DE:
       signout: Abmelden
   home_room: Startraum
   info_update_success: Information erfolgreich aktualisiert.
-  invalid_credentials: "Die eingegebene Email und das Passwort sind nicht richtig. Bitte versuchen Sie es erneut oder wählen Sie die Option Ihr Passwort zurückzusetzen, falls Sie es vergessen haben."
+  invalid_credentials: "Die eingegebene E-Mail und das Passwort sind nicht richtig. Bitte versuchen Sie es erneut oder wählen Sie die Option Ihr Passwort zurückzusetzen, falls Sie es vergessen haben."
+  invalid_credentials_external: Die eingegebene E-Mail und das Passwort sind nicht richtig. Bitte versuchen Sie es erneut.
   invalid_login_method: Die Anmeldung scheiterte aufgrund einer Unstimmigkeit mit dem Konto. Sie müssen sich mit Omniauth anmelden.
   invite_message: "Um jemanden zur Konferenz einzuladen, schicken Sie ihm diesen Link:"
   javascript:
@@ -255,11 +323,11 @@ de_DE:
         subject: 'hat Sie eingeladen, sich eine Aufzeichnung anzusehen.'
         body: 'Um sich die Aufzeichnung anzusehen, folgen Sie diesem unten stehenden Link:'
         autogenerated: 'Diese E-Mail wurde automatisch von BigBlueButton generiert.'
-        footer: 'BigBlueButton ist ein quelloffenes Webkonferenzsystem. Für mehr Information über BigBlueButton besuchen Sie https://bigbluebutton.org/'
+        footer: 'BigBlueButton ist ein quelloffenes Webkonferenzsystem. Für weitere Informationen über BigBlueButton besuchen Sie https://bigbluebutton.org/'
     search:
-      start: Beginne die Suche...
+      start: Suche beginnen...
   landing:
-    about: "%{href} ist ein einfacher Frontend für Ihren quelloffenen BigBlueButton Webkonferenzserver. Sie können ihre eigenen Räume erstellen, um Konferenzen abzuhalten oder Sie können bestehenden Konferenzen über einen praktischen Kurzlink beitreten."
+    about: "%{href} ist eine benutzerfreundliche Oberfläche für das Open-Source-Webkonferenzsystem BigBlueButton. Sie können Ihre eigenen Räume erstellen, um Konferenzen zu veranstalten oder können bestehenden Konferenzen über einen kurzen und bequemen Link beitreten."
     welcome: Willkommen zu BigBlueButton.
     video: Schauen Sie sich unsere Anleitung zur Verwendung von Greenlight an
     upgrade: "Zeigen Sie mir, wie ich auf Version 2.0. update!"
@@ -275,11 +343,11 @@ de_DE:
         signin: "Um auf Ihre persönlichen Räume zuzugreifen, klicken Sie bitte auf den unten stehenden Button und loggen Sie sich ein. "
         signin_link: Einloggen
         signup:
-          info: Ein neuer Nutzer hat sich bei Greenlight angemeldet.
+          info: Ein neuer Nutzer hat sich bei Greenlight registriert.
           more-info: "Um diesem Nutzer Zugriff auf Greenlight zu geben, müssen Sie sein Konto in den Organisationseinstellungen genehmigen."
           admins_link: Organisationsseite besuchen
           subject: Neue Greenlight Nutzerregistrierung
-          username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registriert."
+          username: "Der Nutzer hat sich mit dem Namen %{name} und der E-Mail %{email} registriert."
         subject: Konto genehmigt
         username: "Ihr Nutzername ist %{email}."
       demoted:
@@ -289,22 +357,23 @@ de_DE:
         subtitle: "%{role} Rechte entzogen"
       invite:
         info: "Sie wurden von %{name} in Ihren persönlichen Bereich eingeladen"
-        signup_info: "Um sich mit Ihrer Email anzumelden, klicken Sie den untenstehenden Button und folgen Sie den Schritten."
+        signup_info: "Um sich mit Ihrer E-Mail anzumelden, klicken Sie den untenstehenden Button und folgen Sie den Schritten."
         signup_link: Registrieren
+        valid: "Die Einladung ist gültig bis: %{date}"
         signup:
           info: Ein eingeladener Nutzer hat sich bei Greenlight registriert.
           admins_link: Organisationsseite besuchen
           subject: Registrierung neuer Greenlight-Nutzer
-          username: "Der Nutzer hat sich mit dem Namen %{name} und der Email %{email} registriert."
+          username: "Der Nutzer hat sich mit dem Namen %{name} und der E-Mail %{email} registriert."
         subject: Einladung zur BigBlueButton-Teilnahme
         username: "Ihr Nutzername ist %{email}."
       password_reset:
         title: 'Passwort zurücksetzen'
-        welcome: "Es wurde ein Passwortreset für Emailadresse <b>%{email}</b> ausgelöst."
+        welcome: "Es wurde eine Passwortrücksetzung für die E-Mail-Adresse <b>%{email}</b> angefordert."
         message: 'Falls Sie Ihr Passwort zurücksetzen wollen, klicken Sie bitte auf den folgenden Link:'
         reset_link: Passwort zurücksetzen
         expire: Dieser Link wird in zwei Stunden ungültig.
-        ignore: "Sie können diese Email einfach ignorieren, falls Sie keine Anfrage zum Passwortreset abgeschickt haben."
+        ignore: "Sie können diese E-Mail einfach ignorieren, falls Sie keine Anfrage zum Passwortrücksetzung abgeschickt haben."
       promoted:
         admins_link: Organisationsseite besuchen
         info: "Sie sind jetzt ein %{role} auf %{url}."
@@ -313,13 +382,11 @@ de_DE:
       verify_email:
         welcome: "Willkommen zu Ihrem persönlichem Bereich, %{name}!"
         success: "Durch den Einsatz von %{bigbluebutton}, können Sie Ihre eigenen Räume erstellen, dort Konferenzen durchführen und mit anderen zusammenarbeiten."
-        username: "Ihr Benutzername ist  %{email}."
+        username: "Ihr Nutzername ist %{email}."
         verify: "Zur Kontoverifikation, klicken Sie bitte auf den untenstehenden Link."
         verify_text: 'Um Ihr Konto zu verifizieren, folgen Sie diesem Link: %{url}'
         verify_link: Konto verifizieren
         thanks: Danke für Ihre Registrierung. Wir wünschen Ihnen noch einen wunderbaren Tag!
-  maintenance:
-    window_alert: "Wartungszeitfenster für %{date} geplant"
   max_concurrent: Die maximale Anzahl gleichzeitiger Verbindungen ist erreicht!
   merged: Zusammengeführt
   modal:
@@ -331,7 +398,11 @@ de_DE:
       title: Neue Rolle erstellen
     create_room:
       access_code: Zugangscode
+      moderator_access_code: Moderatorencode
       access_code_placeholder: Generieren eines optionalen Raumzugangscodes
+      reset_access_code: Zurücksetzen des optionalen Raumzugangscodes
+      moderator_access_code_placeholder: Optionalen Code für Moderatoren generieren
+      reset_moderator_access_code: Zurücksetzen des optionalen Codes für Moderatoren
       auto_join: Automatisch dem Raum beitreten
       create: Raum erstellen
       free_delete: Sie können den Raum jederzeit wieder löschen.
@@ -344,35 +415,48 @@ de_DE:
       keep: Ich behalte ihn doch.
       delete_warning: Dies deaktiviert das Nutzerkonto. Alle deaktivierten Nutzer findet man unter dem Tab Gelöscht.
       warning: "Diese Entscheidung ist endgültig. Sie werden <b>nicht</b> in der Lage sein, damit verbundene Daten wiederherzustellen."
+    delete_rec:
+      delete: "Ich bin sicher, diese Aufzeichnung soll gelöscht werden."
+      header: "Sind Sie sicher, dass Sie diese Aufzeichnung löschen möchten?"
+      warning: Sie werden diese Aufzeichnung <b>nicht</b> wiederherstellen können.
     delete_room:
-      confirm: "Sind Sie sicher, dass Sie %{room}löschen wollen?"
-      delete: Ich will diesen Raum löschen.
+      confirm: "Sind Sie sicher, dass Sie %{room} löschen wollen?"
+      delete: "Ich bin sicher, dieser Raum soll gelöscht werden."
       keep: Ich will ihn doch nicht löschen.
       warning: "Sie werden <b>nicht</b> in der Lage sein, diesen Raum wiederherzustellen"
       recording_warning: "oder jegliche seiner %{recordings_num} verknüpften Aufzeichnungen."
     invite_user:
-      email_placeholder: Emailadressen der Nutzer (durch Kommas getrennt)
-      footer: "Der Nutzer wird eine Email mit Anweisungen erhalten, wie er sich registrieren kann "
+      email_placeholder: E-Mail-Adressen der Nutzer (durch Kommas getrennt)
+      footer: "Der Nutzer wird eine E-Mail mit Anweisungen erhalten, wie er sich registrieren kann "
       send: Einladung schicken
       title: Nutzer einladen
     login:
       or: oder
       with: "Einloggen mit %{provider}"
       forgot_password: "Passwort vergessen?"
+    preupload:
+      change: Präsentation ersetzen
+      choose: Wählen Sie eine Datei...
+      current: "Aktuelle Präsentation:"
+      footer: "Abhängig von der Größe der Präsentation kann das Hochladen zusätzliche Zeit in Anspruch nehmen, bevor sie verwendet werden kann."
+      invalid: Ungültige Größe/Dateityp. Bitte beachten Sie die untenstehenden Beschränkungen.
+      title: Präsentation hinzufügen
+      use: Präsentation nutzen
     rename_recording:
     remove_shared:
       title: "Sind Sie sicher, dass Sie diesen Raum aus Ihrer Raumliste entfernen wollen?"
-      delete: Ich bin mir sicher. Der Raum soll entfernt werden.
-      warning: Sie werden  <b>keinen</b> Zugriff mehr auf diesen Raum haben.
+      delete: "Ich bin sicher, der Raum soll entfernt werden."
+      warning: Sie werden <b>keinen</b> Zugriff mehr auf diesen Raum haben.
     room_settings:
       title: Raumeinstellungen
       update: Raum aktualisieren
       client: Client auswählen
-      join_moderator: Alle Nutzer nehmen als Moderator teil
+      join_moderator: Alle Teilnehmer nehmen als Moderator teil
       mute: Teilnehmer beim Betreten stummschalten
       require_approval: Freigabe durch Moderator bevor der Raum betreten werden kann
-      start: Jeder Teilnehmer kann das Meeting starten
+      start: Jeder Teilnehmer kann die Konferenz starten
       footer_text: Anpassungen des Raums können jederzeit vorgenommen werden.
+      recording: Aufnahme des Raumes erlauben
     rename_room:
       name_placeholder: Neuen Raumnamen eingeben...
     share_access:
@@ -384,13 +468,13 @@ de_DE:
       select: Nutzer auswählen
     merge_user:
       cancel: Abbrechen
-      from: Zusammenzuführender Account
+      from: Zusammenzuführendes Konto
       title: Nutzerkonten zusammenführen
       to: Primäres Konto
       save: Zusammenführen
-      footer: "Die Räume des zusammenzuführenden Accounts werden auf die Raumliste des primären Accounts übertragen, danach wird der zusammenzuführende Account gelöscht."
+      footer: "Die Räume des zusammenzuführenden Kontos werden auf die Raumliste des primären Kontos übertragen, danach wird das zusammenzuführende Konto gelöscht."
   name_update_success: Raumname erfolgreich geändert!
-  no_user_email_exists: "Es gibt keinen Nutzer mit der angegebenen Email. Stellen Sie sicher, dass Sie sich nicht vertippt haben."
+  no_user_email_exists: "Es gibt keinen Nutzer mit der angegebenen E-Mail. Stellen Sie sicher, dass Sie sich nicht vertippt haben."
   omniauth_error: Es ist ein Fehler bei der Authentifizierung über Omniauth aufgetreten. Versuchen Sie es nochmal oder kontaktieren Sie einen Administrator.
   omniauth_specific_error: "%{error} ist während der Authentifizierung mit Omniauth aufgetreten. Bitte versuchen Sie es nochmal oder kontaktieren Sie einen Administrator!"
   pagy:
@@ -407,27 +491,31 @@ de_DE:
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: "Ups, es war nicht möglich die reCAPTCHA Antwort zu überprüfen. Bitte versuchen Sie es nochmals."
       verification_failed: "reCAPTCHA Verifikation fehlgeschlagen, bitte nochmals versuchen."
   recording:
     all_recordings: Alle Aufzeichnungen
-    email: Aufzeichnungslink per Email
+    email: Aufzeichnungslink per E-Mail
     error: "Beim Abruf von %{count} Aufzeichnung(en) ist ein Fehler aufgetreten."
-    no_recordings: "Dieser Raum hat keine %{inject}Aufzeichnungen."
+    no_public_recordings: Dieser Raum hat keine öffentlichen Aufzeichnungen.
+    no_recordings: Dieser Raum hat keine Aufzeichnungen.
     no_user_recordings: Momentan sind keine Aufzeichnungen verfügbar.
-    no_matched_recordings: "Keine %{inject} Aufzeichnungen passen zu Ihrer Suche."
+    no_matched_pub_recordings: Keine öffentlichen Aufzeichnungen passen zu Ihrer Suche.
+    no_matched_recordings: Keine Aufzeichnungen passen zu Ihrer Suche.
     recorded_on: "Aufgezeichnet am %{date}"
     table:
       name: Name
-      thumbnails: Miniaturbilder
+      thumbnails: Vorschau
       length: Dauer
       users: Teilnehmer
       visibility: Sichtbarkeit
       formats: Formate
     visibility:
-      public: Öffentliche
+      inaccessible: Nicht verfügbar
+      public: Öffentlich
       unlisted: Nicht gelistet
     format:
       notes: Notizen
@@ -440,32 +528,38 @@ de_DE:
       fail: "Ihr Konto wurde noch nicht freigeschaltet. Falls Sie sich bereits vor mehreren Tagen registriert haben, kontaktieren Sie bitte Ihren Administrator."
       signup: Ihr Konto wurde erfolgreich erstellt. Es wurde an einen Administrator zur Freigabe geschickt.
     banned:
-      fail: "Sie haben keinen Zugriff auf dieses Applikation. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator." 
+      fail: "Sie haben keinen Zugriff auf dieses Applikation. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
     deprecated:
-      new_signin: Wählen Sie eine neue Loginmethode für Ihren Account aus. Alle Ihre Räume und Ihr alter Account werden auf einen neuen Account migriert.
+      new_signin: Wählen Sie eine neue Loginmethode für Ihr Konto aus. Alle Ihre Räume und Ihr altes Konto werden auf einen neues Konto migriert.
       twitter_signin: "Das Einloggen über Twitter wird bald nicht mehr unterstützt und wird in einer zukünftigen Version ganz entfernt. Klicken Sie <a href=\"%{link}\"> hier </a> um Ihren Account auf eine neue Authentifizierungsmethode umzustellen"
       twitter_signup: Einloggen über Twitter wird abgeschafft. Bitte verwenden Sie eine andere Loginmethode
-      merge_success: Ihr Twitter Account wurde erfolgreich mit dem neuen Account zusammengeführt. Der Zugang über Ihren Twitter Account wurde gelöscht.
+      merge_success: Ihr Twitter-Konto wurde erfolgreich mit dem neuen Konto zusammengeführt. Der Zugang über Ihr Twitter-Konto wurde gelöscht.
     invite:
       fail: "Ihr Token ist entweder ungültig oder er ist abgelaufen. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
-      no_invite: "Sie sind nicht zu Teilnahme eingeladen. Bitte kontaktieren Sie Ihren Administrator, um eine Einladung zu erhalten."
+      no_invite: "Sie sind nicht zur Teilnahme eingeladen. Bitte kontaktieren Sie Ihren Administrator, um eine Einladung zu erhalten."
   remove: Entfernen
   rename: Umbenennen
   reset_password:
+    captcha: "reCAPTCHA Verifikation fehlgeschlagen, bitte nochmals versuchen."
+    invalid_token: "Der Token zum Zurücksetzen des Passworts ist ungültig. Bitte versuchen Sie erneut, Ihr Passwort zurückzusetzen."
     subtitle: Passwort zurücksetzen
     password: Neues Passwort
     confirm: Bestätigung Ihres neuen Passworts
     update: Passwort aktualisieren
-    auth_change: Die Authentifizierungsmethode wurde geändert. Bitte prüfen Sie Ihre Email um ein Passwort einzurichten.
+    auth_change: "Die Authentifizierungsmethode wurde geändert. Bitte prüfen Sie Ihre E-Mail, um ein Passwort einzurichten."
   roles:
     active: Aktiv
     admin: Admin
     banned: Gesperrt
     deleted: Gelöscht
-    pending: Noch nicht erledigt
-    user: Benutzer
+    pending: Wartend
+    invited: Eingeladen
+    user: Nutzer
   room:
     access_code_required: "Bitte geben Sie einen gültigen Zugangscode ein, um den Raum zu betreten"
+    add_presentation: Präsentation hinzufügen
+    copy_access: Zugangscode kopieren
+    copy_moderator_access: Moderatoren-Code kopieren
     create_room: Raum erstellen
     create_room_error: Bei der Erstellung des Raums ist ein Fehler aufgetreten
     create_room_success: Raum erfolgreich erstellt
@@ -473,9 +567,13 @@ de_DE:
       home_room: Der Startraum des Users kann nicht gelöscht werden
       success: Raum erfolgreich gelöscht
       fail: "Raum konnte nicht gelöscht werden (%{error})"
-    enter_the_access_code: Eingabe des Raumzugangscodes
+    enter_the_access_code: Raumzugangscode bitte eingeben
+    enter_the_moderator_access_code: Geben Sie den Moderatoren-Code des Raums ein!
+    optional_moderator_access_code: "Optionaler Moderatoren-Code:"
     invalid_provider: "Sie haben eine ungültige URL eingegeben, bitte überprüfen Sie die URL und versuchen Sie es erneut."
+    invitation_description: "Sie wurden zu %{name} über BigBlueButton zur Teilnahme eingeladen. Um beizutreten, klicken Sie auf den obigen Link und geben Sie Ihren Namen ein."
     invited: Sie wurden zur Teilnahme eingeladen
+    recording_present: "Ich bin damit einverstanden, dass diese Sitzung aufgezeichnet wird. Die Aufzeichnung kann Sprach- und Videoaufnahmen von mir beinhalten. Bitte beachten Sie, dass die Aufnahme im Anschluss geteilt werden kann."
     invite_participants: Teilnehmer einladen
     join: Teilnehmen
     last_session: "Letzte Konferenz am %{session}"
@@ -484,7 +582,7 @@ de_DE:
     owner_banned: Dieser Raum ist aktuell nicht verfügbar
     no_room:
       description: "Geben Sie die Raum-URL oder die Raum-ID des Raums ein, den Sie betreten möchten."
-      edit_profile: Nutzerprofil editieren
+      edit_profile: Nutzerprofil bearbeiten
       go_to: Raum betreten
       invalid_room_uid: Die angegebene Raum-URL/ID ist ungülltig.
       placeholder: Raum-URL/ID
@@ -492,9 +590,13 @@ de_DE:
       recent_rooms: Den kürzlich betretenen Raum betreten
       title: Raum betreten
     no_sessions: In diesem Raum haben noch keine Konferenzen stattgefunden.
+    preupload_success: Präsentation erfolgreich hinzugefügt
+    preupload_error: Es gab einen Fehler bei der Aktualisierung der Raumpräsentation
+    preupload_remove_success: Präsentation erfolgreich entfernt
+    preupload_remove_error: Es gab einen Fehler beim Entfernen der Raumpräsentation
     recordings: Aufzeichnungen des Raums
     room_limit: Sie haben die maximale Anzahl von Räumen eingerichtet.
-    room_limit_exceeded: "Sie haben die maximale Nummer an einrichtbaren Räumen überschritten. Bitte löschen Sie %{difference} Räume, um auf diesen Raum zuzugreifen."
+    room_limit_exceeded: "Sie haben die Anzahl der erlaubten Räume überschritten. Bitte löschen Sie %{difference} Räume, um diesen Raum zu betreten."
     sessions: Konferenzen
     settings: Raumeinstellungen
     share: Zugriff verwalten
@@ -504,7 +606,8 @@ de_DE:
     shared_access_success: Raum erfolgreich geteilt
     shared_access_error: Beim Teilen des Raums ist ein Fehler aufgetreten
     start: Starten
-    unavailable: "Der Raum ist aktuell nicht verfügbar, weil die Email des Raumbesitzers noch nicht verifiziert wurde."
+    search: Suche nach Raum…
+    unavailable: "Der Raum ist aktuell nicht verfügbar, weil die E-Mail des Rauminitiators noch nicht verifiziert wurde."
     update_settings_error: Bei der Aktualisierung der Raumeinstellungen ist ein Fehler aufgetreten.
     update_settings_success: Raumeinstellungen erfolgreich aktualisiert
     wait:
@@ -517,9 +620,10 @@ de_DE:
       provider: Anbieter
       image: Bild
       image_url: URL des Profilbilds
-      roles: Nutzerrollen
+      roles: Nutzer-Rolle
       subtitle: Kontoinformationen aktualisieren
       title: Kontoinformationen
+      reset_password: Nutzer-Passwort zurücksetzen
     delete:
       button: "Ja, ich möchte mein Konto löschen."
       disclaimer: "Wenn Sie Ihr Konto löschen, können Sie es <b>NICHT</b> wiederherstellen. Alle mit Ihrem Konto verbundenen Informationen - wie Einstellungen, Räume und Aufzeichnungen - werden gelöscht."
@@ -540,10 +644,13 @@ de_DE:
     with: "Registrieren mit %{provider}"
   terms:
     accept: "Ich akzeptiere die %{href}"
-    accept_existing: Ich akzeptiere die Teilnahmebedingungen
+    accept_existing: Ich akzeptiere die Nutzungsbedingungen
     title: Allgemeine Nutzungsbedingungen
   test_install: >
     Diese Installation verwendet einen vorkonfigurierten Testserver. Sie sollten diesen durch Ihren eigenen Server ersetzen. Weitere Informationen dazu unter %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Aktualisieren
   verify:
     accept: Verifizieren
@@ -553,5 +660,5 @@ de_DE:
     not_verified: Ihr Konto wurde noch nicht verifiziert.
     resend: E-Mail zur Verifikation erneut versenden
     signin: "Bitte melden Sie sich an, um auf Ihr Konto zuzugreifen."
-    title: Ihre E-Mail verifizieren
+    title: Verifizierung Ihrer E-Mail-Adresse
     verification: Verifikation

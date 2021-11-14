@@ -32,8 +32,8 @@
       <%= t('mailer.user.promoted.more-info', url: @url) %>
     </p>
 
-    <a style="background: <%= @color %>;color: #ffffff; padding: 10px 15px; box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);border: 1px solid transparent;text-decoration:none;" href="<%= @admin_url %>">
-      <%= t('mailer.user.promoted.admins_link') %>
+    <a style="background: <%= @color %>;color: #ffffff; padding: 10px 15px; box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);border: 1px solid transparent;text-decoration:none;" href="<%= @admin_role ? @admin_url : @url%>">
+      <%= @admin_role ? t('mailer.user.promoted.admins_link') : t('mailer.user.approve.signin_link')%>
     </a>
   </div>
 </div>

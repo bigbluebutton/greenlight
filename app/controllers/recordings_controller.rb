@@ -28,6 +28,18 @@ class RecordingsController < ApplicationController
       "meta_#{META_LISTED}" => (params[:state] == "public"),
     }
 
+    if params[:state] == "protected"
+      protect_recording(params[:record_id])
+    else
+      unprotect_recording(params[:record_id])
+    end
+
+    if params[:state] == "inaccessible"
+      unpublish_recording(params[:record_id])
+    else
+      publish_recording(params[:record_id])
+    end
+
     res = update_recording(params[:record_id], meta)
 
     # Redirects to the page that made the initial request
@@ -57,10 +69,6 @@ class RecordingsController < ApplicationController
 
   # Ensure the user is logged into the room they are accessing.
   def verify_room_ownership
-    if !current_user || (!@room.owned_by?(current_user) &&
-           !current_user.highest_priority_role.get_permission("can_edit_site_settings") &&
-           !current_user.has_role?(:super_admin))
-      redirect_to root_path
-    end
+    redirect_to root_path if !@room.owned_by?(current_user) && !current_user&.role&.get_permission("can_manage_rooms_recordings")
   end
 end
