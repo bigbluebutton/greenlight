@@ -71,7 +71,6 @@ module Joiner
       opts[:require_authentication_to_join] = room_setting_with_config("requireAuthenticationToJoin")
 
       if current_user
-        opts[:avatarURL] = current_user.image if current_user.image.present? && valid_avatar?(current_user.image)
         redirect_to join_path(@room, current_user.name, opts, current_user.uid)
       else
         join_name = params[:join_name] || params[@room.invite_path][:join_name]
