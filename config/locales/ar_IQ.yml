@@ -400,7 +400,9 @@ ar_IQ:
       access_code: رمز الوصول
       moderator_access_code: رمز المشرف
       access_code_placeholder: إنشاء رمز وصول اختياري للغرفة
+      reset_access_code: أعد تعيين رمز الدخول الاختياري للغرفة
       moderator_access_code_placeholder: قم بإنشاء رمز اختياري للمشرفين
+      reset_moderator_access_code: إعادة تعيين الرمز الاختياري للوسطاء
       auto_join: الانضمام التلقائي إلى الغرفة
       create: إنشاء غرفة
       free_delete: سيكون لك مطلق الحرية في حذف هذه الغرفة في أي وقت.
