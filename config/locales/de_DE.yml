@@ -297,7 +297,7 @@ de_DE:
     legal: Impressum
     privpolicy: Datenschutzerklärung
 #    powered_by: "Bereitgestellt durch %{href}."
-    powered_by: "<a target='_blank' rel='noopener' href='https://www.fhd.de/'>FHD GmbH &amp; Co. KG</a>"
+    powered_by: "Bereitgestellt durch <a target='_blank' rel='noopener' href='https://www.fhd.de/'>FHD GmbH &amp; Co. KG</a>"
   forgot_password:
     subtitle: Passwort vergessen
     email: E-Mail
