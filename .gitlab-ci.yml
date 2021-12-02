@@ -3,10 +3,6 @@ stages:
   - build
   - deploy
 
-cache:
-  paths:
-    - /cache
-
 before_script:
 
 test:
@@ -14,9 +10,13 @@ test:
   image: ruby:2.5
   script:
   - apt-get update -qq && apt-get install -y -qq sqlite3 libsqlite3-dev nodejs
-  - bundle install --path /cache
+  - bundle config path vendor/bundle
+  - bundle install --jobs 4 --retry 3
   - bundle exec rake db:create RAILS_ENV=test
   - bundle exec rake test & bundle exec rspec & bundle exec rubocop --parallel
+  cache:
+    paths:
+      - vendor/bundle
   except:
     variables:
       - $CD_TEST_IGNORE
