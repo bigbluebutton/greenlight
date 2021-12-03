@@ -19,7 +19,7 @@
 require "rails_helper"
 
 def random_valid_user_params
-  pass = Faker::Internet.password(min_length: 8, mix_case: true, special_characters: true)
+  pass = "#{Faker::Internet.password(min_length: 8, special_characters: true)}1"
   {
     user: {
       name: Faker::Name.first_name,
@@ -458,7 +458,7 @@ describe UsersController, type: :controller do
   describe "POST #update_password" do
     before do
       @user = create(:user)
-      @password = Faker::Internet.password(min_length: 8, mix_case: true, special_characters: true)
+      @password = "#{Faker::Internet.password(min_length: 8, special_characters: true)}1"
     end
 
     it "properly updates users password" do
