@@ -28,6 +28,7 @@ en:
     errors:
       models:
         user:
+          password: did not meet complexity requirements
           confirmation: doesn't match Password
   administrator:
     site_settings:
@@ -538,10 +539,12 @@ en:
     invite:
       fail: Your token is either invalid or has expired. If you believe this is a mistake, please contact your administrator.
       no_invite: You do not have an invitation to join. Please contact your administrator to receive one.
+    insecure_password: To improve account security, we've increased password complexity for all passwords. Please create a new password that matches the requirements below.
   remove: Remove
   rename: Rename
   reset_password:
     captcha: reCAPTCHA verification failed, please try again.
+    complexity: Password did not meet complexity requirements
     invalid_token: Password reset token is invalid. Please try resetting your password again.
     subtitle: Reset Password
     password: New Password
