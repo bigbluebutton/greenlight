@@ -22,8 +22,8 @@
     <% end %>
   </div>
   <% if defined?(message) && defined?(help) %>
-    <h1 class="h2 mb-3"><%= message %></h1>
-    <p class="h4 text-muted font-weight-normal mb-7"><%= help %></p>
+    <h1 class="h2 mb-3"><%= t("message") %></h1>
+    <p class="h4 text-muted font-weight-normal mb-7"><%= t("help") %></p>
     <% if defined?(display_back) && display_back %>
       <a class="btn btn-primary" href="javascript:history.back()">
         <i class="fas fa-arrow-left mr-2"></i><%= t("go_back") %>
