@@ -28,6 +28,7 @@ FactoryBot.define do
     password_confirmation { password }
     accepted_terms { true }
     email_verified { true }
+    secure_password { true }
     activated_at { Time.zone.now }
     role { set_role(:user) }
   end

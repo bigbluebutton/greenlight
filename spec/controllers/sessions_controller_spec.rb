@@ -235,26 +235,28 @@ describe SessionsController, type: :controller do
     end
 
     it "should migrate old rooms from the twitter account to the new user" do
-      twitter_user = create(:user, name: "Twitter User", email: "user@twitter.com", image: "example.png",
-        username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
+      # TODO: remove twitter migration code
 
-      room = Room.new(name: "Test")
-      room.owner = twitter_user
-      room.save!
-
-      post :create, params: {
-        session: {
-          email: @user1.email,
-          password: 'Example1!',
-        },
-      }, session: {
-        old_twitter_user_id: twitter_user.id
-      }
-
-      @user1.reload
-      expect(@user1.rooms.count).to eq(3)
-      expect(@user1.rooms.find { |r| r.name == "Old Home Room" }).to_not be_nil
-      expect(@user1.rooms.find { |r| r.name == "Test" }).to_not be_nil
+      # twitter_user = create(:user, name: "Twitter User", email: "user@twitter.com", image: "example.png",
+      #   username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
+      #
+      # room = Room.new(name: "Test")
+      # room.owner = twitter_user
+      # room.save!
+      #
+      # post :create, params: {
+      #   session: {
+      #     email: @user1.email,
+      #     password: 'Example1!',
+      #   },
+      # }, session: {
+      #   old_twitter_user_id: twitter_user.id
+      # }
+      #
+      # @user1.reload
+      # expect(@user1.rooms.count).to eq(3)
+      # expect(@user1.rooms.find { |r| r.name == "Old Home Room" }).to_not be_nil
+      # expect(@user1.rooms.find { |r| r.name == "Test" }).to_not be_nil
     end
 
     it "sends the user a reset password email if the authentication method is changing to local" do

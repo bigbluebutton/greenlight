@@ -48,3 +48,6 @@ config/terms.md
 coverage*
 
 /atom-sftp-sync.json
+
+# Needed for rspec's --only-failures command
+spec/failures.txt

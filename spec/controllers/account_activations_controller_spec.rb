@@ -88,7 +88,7 @@ describe AccountActivationsController, type: :controller do
       end
 
       it "correctly sets users role if email mapping is set" do
-        @user = create(:user, email: "test-123@test.com", password: "Example1!", email_verified: false, provider: "greenlight", role: nil)
+        @user = create(:user, email: "test-123@test.com", email_verified: false, provider: "greenlight", role: nil)
 
         get :edit, params: { token: @user.create_activation_token }
 

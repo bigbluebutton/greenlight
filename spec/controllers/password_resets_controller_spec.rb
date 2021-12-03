@@ -157,8 +157,8 @@ describe PasswordResetsController, type: :controller do
         params = {
           id: user.create_reset_digest,
           user: {
-            password: :password,
-            password_confirmation: :password,
+            password: "Example1!",
+            password_confirmation: "Example1!",
           },
         }
 
