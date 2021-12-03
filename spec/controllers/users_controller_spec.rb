@@ -24,8 +24,8 @@ def random_valid_user_params
     user: {
       name: Faker::Name.first_name,
       email: Faker::Internet.email,
-      password: pass,
-      password_confirmation: pass,
+      password: "Example1!",
+      password_confirmation: "Example1!",
       accepted_terms: true,
       email_verified: true,
     },

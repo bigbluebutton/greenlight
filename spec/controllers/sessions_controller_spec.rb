@@ -94,15 +94,15 @@ describe SessionsController, type: :controller do
     end
 
     before(:each) do
-      @user1 = create(:user, provider: 'greenlight', password: 'example', password_confirmation: 'example')
-      @user2 = create(:user, password: 'example', password_confirmation: "example")
+      @user1 = create(:user, provider: 'greenlight', password: 'Example1!', password_confirmation: 'example')
+      @user2 = create(:user, password: 'Example1!', password_confirmation: "example")
     end
 
     it "should login user in if credentials valid" do
       post :create, params: {
         session: {
           email: @user1.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -124,7 +124,7 @@ describe SessionsController, type: :controller do
       post :create, params: {
         session: {
           email: @user2.email,
-          password: "example",
+          password: "Example1!",
         },
       }
 
@@ -133,12 +133,12 @@ describe SessionsController, type: :controller do
 
     it "should not login user if account is not verified" do
       @user3 = create(:user, email_verified: false, provider: "greenlight",
-        password: "example", password_confirmation: 'example')
+        password: "Example1!", password_confirmation: 'Example1!')
 
       post :create, params: {
         session: {
           email: @user3.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -149,7 +149,7 @@ describe SessionsController, type: :controller do
 
     it "should not login user if account is deleted" do
       user = create(:user, provider: "greenlight",
-        password: "example", password_confirmation: 'example')
+        password: "Example1!", password_confirmation: 'example')
 
       user.delete
       user.reload
@@ -158,7 +158,7 @@ describe SessionsController, type: :controller do
       post :create, params: {
         session: {
           email: user.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -169,7 +169,7 @@ describe SessionsController, type: :controller do
 
     it "redirects the user to the page they clicked sign in from" do
       user = create(:user, provider: "greenlight",
-        password: "example", password_confirmation: 'example')
+        password: "Example1!", password_confirmation: 'example')
 
       url = Faker::Internet.domain_name
 
@@ -178,7 +178,7 @@ describe SessionsController, type: :controller do
       post :create, params: {
         session: {
           email: user.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -188,14 +188,14 @@ describe SessionsController, type: :controller do
 
     it "redirects the user to their home room if they clicked the sign in button from root" do
       user = create(:user, provider: "greenlight",
-        password: "example", password_confirmation: 'example')
+        password: "Example1!", password_confirmation: 'example')
 
       @request.cookies[:return_to] = root_url
 
       post :create, params: {
         session: {
           email: user.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -205,12 +205,12 @@ describe SessionsController, type: :controller do
 
     it "redirects the user to their home room if return_to cookie doesn't exist" do
       user = create(:user, provider: "greenlight",
-        password: "example", password_confirmation: 'example')
+        password: "Example1!", password_confirmation: 'Example1!')
 
       post :create, params: {
         session: {
           email: user.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -220,13 +220,13 @@ describe SessionsController, type: :controller do
 
     it "redirects to the admins page for admins" do
       user = create(:user, provider: "greenlight",
-        password: "example", password_confirmation: 'example')
+        password: "Example1!", password_confirmation: 'example')
       user.set_role :super_admin
 
       post :create, params: {
         session: {
           email: user.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -245,7 +245,7 @@ describe SessionsController, type: :controller do
       post :create, params: {
         session: {
           email: @user1.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }, session: {
         old_twitter_user_id: twitter_user.id
@@ -267,7 +267,7 @@ describe SessionsController, type: :controller do
         post :create, params: {
           session: {
             email: email,
-            password: 'example',
+            password: 'Example1!',
           },
         }
       }.to change { ActionMailer::Base.deliveries.count }.by(1)
@@ -277,7 +277,7 @@ describe SessionsController, type: :controller do
       post :create, params: {
         session: {
           email: @user1.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -592,7 +592,7 @@ describe SessionsController, type: :controller do
       post :ldap, params: {
         session: {
           username: "test",
-          password: 'password',
+          password: 'Example1!',
         },
       }
 
@@ -614,7 +614,7 @@ describe SessionsController, type: :controller do
       post :ldap, params: {
         session: {
           username: "test",
-          password: 'password',
+          password: 'Example1!',
         },
       }
 
@@ -637,7 +637,7 @@ describe SessionsController, type: :controller do
       post :ldap, params: {
         session: {
           username: "test",
-          password: 'password',
+          password: 'Example1!',
         },
       }
 
@@ -681,7 +681,7 @@ describe SessionsController, type: :controller do
       post :ldap, params: {
         session: {
           username: "",
-          password: 'test',
+          password: 'Example1!',
         },
       }
 
