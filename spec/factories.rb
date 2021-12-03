@@ -18,7 +18,7 @@
 
 FactoryBot.define do
   factory :user do
-    password = "#{Faker::Internet.password(min_length: 8, special_characters: true)}1"
+    password = "#{Faker::Internet.password(min_length: 8, mix_case: true, special_characters: true)}1"
     provider { %w(google twitter).sample }
     uid { rand(10**8) }
     name { Faker::Name.first_name }
