@@ -287,6 +287,21 @@ describe SessionsController, type: :controller do
 
       expect(@user1.last_login).to_not be_nil
     end
+
+    it "redirects to reset password page if password is marked as insecure" do
+      allow_any_instance_of(User).to receive(:create_reset_digest).and_return("reset_token")
+
+      @user1.update(secure_password: false)
+
+      post :create, params: {
+        session: {
+          email: @user1.email,
+          password: 'Example1!',
+        },
+      }
+
+      expect(response).to redirect_to(edit_password_reset_path("reset_token"))
+    end
   end
 
   describe "GET/POST #omniauth" do
