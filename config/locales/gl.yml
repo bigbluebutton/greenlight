@@ -145,7 +145,7 @@ gl:
     roles:
       appear_in_share_list: Incluír usuarios con este rol no menú despregábel para compartir salas
       can_create_rooms: Pode crear salas
-      can_launch_recording: Permitir os usuarios con este rol para gravar estas reunións
+      can_launch_recording: Permitirlle aos usuarios con este rol gravar estas xuntanzas
       delete: Eliminar o rol
       invalid_create: Produciuse un problema ao crear un novo rol. Comprobe os valores dos roles e ténteo de novo
       invalid_order: Produciuse un problema ao actualizar a prioridade do rol. Comprobe os valores dos roles e ténteo de novo
@@ -400,7 +400,9 @@ gl:
       access_code: Código de acceso
       moderator_access_code: Código do moderador
       access_code_placeholder: Xerar un código de acceso á sala opcional
+      reset_access_code: Restablece o código de acceso á sala opcional
       moderator_access_code_placeholder: Xera un código opcional para os moderadores
+      reset_moderator_access_code: Restablece o código opcional para os moderadores
       auto_join: Unirse automaticamente comigo na sala
       create: Crear unha sala
       free_delete: Será libre de eliminar esta sala en calquera momento.
@@ -501,8 +503,8 @@ gl:
     no_public_recordings: Esta sala non ten gravacións públicas.
     no_recordings: Esta sala non ten gravacións.
     no_user_recordings: Non ten gravacións.
-    no_matched_pub_recordings: Non hai gravacións públicas que coincidan coa túa busca.
-    no_matched_recordings: Non hai gravacións que coincidan coa túa busca.
+    no_matched_pub_recordings: Non hai gravacións públicas que coincidan coa súa busca.
+    no_matched_recordings: Non hai gravacións que coincidan coa súa busca.
     recorded_on: "Gravada o %{date}"
     table:
       name: Nome
@@ -648,7 +650,7 @@ gl:
     Esta instalación está a usar un servidor para probas preconfigurado. Debe substituílo polo seu propio servidor. Para obter máis detalles, consulte %{href}.
   time:
     formats:
-      default: "%b %d, %Y %-I:%M%P"
+      default: "%d de %b de %Y %-I:%M%P"
   update: Actualizar
   verify:
     accept: Verificar
