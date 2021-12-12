@@ -52,7 +52,10 @@
             <div class="form-group">
               <%= f.label :password, t("password"), class: "form-label" %>
               <%= f.password_field :password, class: "form-control #{form_is_invalid?(@user, :password)}", placeholder: t("password"), required: "" %>
-              <div class="invalid-feedback d-block"><%= @user.errors.full_messages_for(:password).first %></div>
+              <% if form_is_invalid?(@user, :password) %>
+                <div class="small text-danger"><%= t("reset_password.complexity") %></div>
+              <% end %>
+              <%= render "users/components/password_security" %>
             </div>
             <div class="form-group">
               <%= f.label :password_confirmation, t("signup.password_confirm"), class: "form-label" %>
