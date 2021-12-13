@@ -33,6 +33,14 @@ $(document).on('turbolinks:load', function(){
     checkIfAutoJoin()
   }
 
+  // Select mutual exclusive switch inputs for room settings modal
+  const mutual_exclusive_inputs = $(".custom-switch-input[data-mutual]")
+  mutual_exclusive_inputs.click( (event) => {
+      if (event.target.checked) {
+        mutual_exclusive_inputs.prop("checked",false)
+        event.target.checked = true
+      }
+    }) 
     // Autofocus on the Room Name label when creating a room only
   $('#createRoomModal').on('shown.bs.modal', function (){
     if ($(".create-only").css("display") == "block"){

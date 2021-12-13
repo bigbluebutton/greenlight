@@ -177,23 +177,51 @@ describe RoomsController, type: :controller do
     before do
       @owner = create(:user)
     end
+    context "should create room with name and correct settings" do
+      let(:json_room_settings) {
+        "{\"muteOnStart\":true,\"requireModeratorApproval\":true,"\
+        "\"anyoneCanStart\":true,\"joinModerator\":false,\"recording\":false}"
+      }
+      let(:room_params_without_violation) {
+          {
+            name: Faker::Games::Pokemon.name,
+            mute_on_join: "1",
+            require_moderator_approval: "1",
+            anyone_can_start: "1",
+            all_join_moderator: "1"
+          }
+      }
+      let(:room_params_with_violation) {
+        {
+          name: Faker::Games::Pokemon.name,
+          mute_on_join: "1",
+          require_moderator_approval: "1",
+          anyone_can_start: "1",
+          all_join_moderator: "0"
+        }
+      }
+      it "with no mutual exclusivity violation" do
+        @request.session[:user_id] = @owner.id
+        name = room_params_without_violation[:name]
+        post :create, params: { room: room_params_without_violation }
 
-    it "should create room with name and correct settings" do
-      @request.session[:user_id] = @owner.id
-      name = Faker::Games::Pokemon.name
+        r = @owner.rooms.last
+        expect(r.name).to eql(name)
+        expect(r.owner).to eql(@owner)
+        expect(r.room_settings).to eql(json_room_settings)
+        expect(response).to redirect_to(r)
+      end
+      it "with mutual exclusivity violation" do
+        @request.session[:user_id] = @owner.id
+        name = room_params_with_violation[:name]
+        post :create, params: { room: room_params_with_violation }
 
-      room_params = { name: name, mute_on_join: "1",
-        require_moderator_approval: "1", anyone_can_start: "1", all_join_moderator: "1" }
-      json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
-        "\"anyoneCanStart\":true,\"joinModerator\":true,\"recording\":false}"
-
-      post :create, params: { room: room_params }
-
-      r = @owner.rooms.last
-      expect(r.name).to eql(name)
-      expect(r.owner).to eql(@owner)
-      expect(r.room_settings).to eql(json_room_settings)
-      expect(response).to redirect_to(r)
+        r = @owner.rooms.last
+        expect(r.name).to eql(name)
+        expect(r.owner).to eql(@owner)
+        expect(r.room_settings).to eql(json_room_settings)
+        expect(response).to redirect_to(r)
+      end
     end
 
     it "should respond with JSON object of the room_settings" do
