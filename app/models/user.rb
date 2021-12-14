@@ -44,9 +44,12 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false, scope: :provider },
                     format: { with: /\A[\w+\-'.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
-  validates :password, length: { minimum: 6 }, confirmation: true, if: :greenlight_account?, on: :create
+  validates :password, length: { minimum: 8 },
+            format: /\A(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}\z/,
+            confirmation: true,
+            if: :validate_password?
 
-  # Bypass validation if omniauth
+  # Bypass validations if omniauth
   validates :accepted_terms, acceptance: true,
                              unless: -> { !greenlight_account? || !Rails.configuration.terms }
 
@@ -250,6 +253,13 @@ class User < ApplicationRecord
         errors.add(:email, I18n.t("errors.messages.blank"))
       end
     end
+  end
+
+  def validate_password?
+    return false unless greenlight_account?
+    return true if new_record?
+    return true if persisted? && will_save_change_to_password_digest?
+    false
   end
 
   def role_provider
