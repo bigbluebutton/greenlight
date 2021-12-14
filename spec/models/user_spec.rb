@@ -50,7 +50,7 @@ describe User, type: :model do
 
     context 'is greenlight account' do
       before { allow(subject).to receive(:greenlight_account?).and_return(true) }
-      it { should validate_length_of(:password).is_at_least(6) }
+      it { should validate_length_of(:password).is_at_least(8) }
     end
 
     context 'is not greenlight account' do

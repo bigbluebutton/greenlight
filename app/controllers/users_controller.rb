@@ -45,6 +45,9 @@ class UsersController < ApplicationController
 
     logger.info "Support: #{@user.email} user has been created."
 
+    # Mark password as secure
+    @user.update(secure_password: true)
+
     # Set user to pending and redirect if Approval Registration is set
     if approval_registration
       @user.set_role :pending
@@ -100,6 +103,9 @@ class UsersController < ApplicationController
 
     if @user.update_attributes(user_params)
       @user.update_attributes(email_verified: false) if user_params[:email] != @user.email
+
+      # Mark password as secure
+      @user.update(secure_password: true)
 
       user_locale(@user)
 
