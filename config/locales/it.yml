@@ -28,6 +28,7 @@ it:
     errors:
       models:
         user:
+          password: non soddisfa i requisiti di complessità
           confirmation: La password non coincide
   administrator:
     site_settings:
@@ -537,10 +538,12 @@ it:
     invite:
       fail: "Il tuo token non è valido o è scaduto. Se ritieni si tratti di un errore, per favore contatta il tuo amministratore."
       no_invite: Non disponi di un invito per partecipare. Contatta il tuo amministratore per riceverne uno.
+    insecure_password: "Per aumentare la sicurezza dell'account, abbiamo incrementato la complessità delle password per tutte le password. Crea una nuova password che corrisponda ai requisiti qui sotto."
   remove: Elimina
   rename: Rinomina
   reset_password:
     captcha: "Accidenti, la verifica reCAPTCHA è fallita. Riprova."
+    complexity: La password non soddisfa i requisiti di complessità
     invalid_token: Il token di reset della password non è valido. Riprova a richiedere il reset nuovamente.
     subtitle: Reimposta password
     password: Nuova password
