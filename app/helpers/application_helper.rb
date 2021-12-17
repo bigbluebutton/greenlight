@@ -152,4 +152,9 @@ module ApplicationHelper
   def protected_recording?(rec)
     !rec[:protected].nil?
   end
+
+  # Takes any expression and stringify it decoding any html charachter entity if found.
+  def html_entities_decode(expr)
+    CGI.unescapeHTML expr
+  end
 end

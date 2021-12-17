@@ -19,13 +19,12 @@
 require "rails_helper"
 
 def random_valid_user_params
-  pass = Faker::Internet.password(min_length: 8)
   {
     user: {
       name: Faker::Name.first_name,
       email: Faker::Internet.email,
-      password: pass,
-      password_confirmation: pass,
+      password: "Example1!",
+      password_confirmation: "Example1!",
       accepted_terms: true,
       email_verified: true,
     },
@@ -158,8 +157,8 @@ describe PasswordResetsController, type: :controller do
         params = {
           id: user.create_reset_digest,
           user: {
-            password: :password,
-            password_confirmation: :password,
+            password: "Example1!",
+            password_confirmation: "Example1!",
           },
         }
 
