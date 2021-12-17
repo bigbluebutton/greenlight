@@ -65,10 +65,13 @@ ENV VERSION_CODE=$version_code
 
 # Set executable permission to start file
 RUN chmod +x bin/start
+# Update HTTPClient cacert.pem with the latest Mozilla cacert.pem
+RUN wget https://curl.se/ca/cacert.pem https://curl.se/ca/cacert.pem.sha256 -P /tmp
+RUN cd /tmp && sha256sum cacert.pem > cacert.pem.sha256sum && cd ${RAILS_ROOT}
+RUN diff /tmp/cacert.pem.sha256sum /tmp/cacert.pem.sha256
+RUN mv -v /tmp/cacert.pem $(bundle info httpclient --path)/lib/httpclient/ && rm -v /tmp/cacert*
 
-# FIXME / to remove / https://github.com/nahi/httpclient/issues/445
-RUN cat /etc/ssl/certs/ca-certificates.crt \
-    >/usr/src/app/vendor/bundle/ruby/2.7.0/gems/httpclient-2.8.3/lib/httpclient/cacert.pem
-
+# Update Openssl certs [This is for Faraday adapter for Net::HTTP]
+RUN [[ $(id -u) -eq 0 ]] && update-ca-certificates
 # Start the application.
 CMD ["bin/start"]
