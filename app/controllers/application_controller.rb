@@ -219,6 +219,17 @@ class ApplicationController < ActionController::Base
   end
   helper_method :home_page
 
+  # Checks if a joiner consent has to get displayed or not.
+  def display_joiner_consent
+    # If the require consent setting is checked, then check the room setting, else, set to false
+    if recording_consent_required?
+      room_setting_with_config("recording")
+    else
+      false
+    end
+  end
+  helper_method :display_joiner_consent
+
   # Parses the url for the user domain
   def parse_user_domain(hostname)
     return hostname.split('.').first if Rails.configuration.url_host.empty?

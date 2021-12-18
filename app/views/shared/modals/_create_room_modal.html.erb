@@ -94,7 +94,7 @@
             <% if recording_consent_required? && recording != "disabled" && perm_to_record_meeting %>
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if recording == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.recording")%></span>
-                <%= f.check_box :recording, class: "not-running-only custom-switch-input", data: { default: recording == "enabled" }, checked: false, tabindex: recording == "enabled" ? "-1" : "" %>
+                <%= f.check_box :recording, class: "not-running-only custom-switch-input", data: { default: recording == "enabled", disable_while_running: true  }, checked: false, tabindex: recording == "enabled" ? "-1" : "" %>
                 <span class="custom-switch-indicator not-running-only float-right cursor-pointer"></span>
             </label>
             <% end %>

@@ -560,6 +560,7 @@ en:
     invited: Invited
     user: User
   room:
+    recording_consent_required: Please accept the recording consent to join the session
     access_code_required: Please enter a valid access code to join the room
     add_presentation: Add Presentation
     copy_access: Copy Access Code

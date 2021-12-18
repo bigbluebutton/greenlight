@@ -61,4 +61,18 @@ describe Room, type: :model do
       expect(@room.owned_by?(create(:user))).to be false
     end
   end
+
+  context "#lock" do
+    it "should set the room state to 'is_starting' to true" do
+      @room.lock
+      expect(@room.is_starting).to be
+    end
+  end
+
+  context "#unlock" do
+    it "should set the room state to 'is_starting' to false" do
+      @room.unlock
+      expect(@room.is_starting).not_to be
+    end
+  end
 end

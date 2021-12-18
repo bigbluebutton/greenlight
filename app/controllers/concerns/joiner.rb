@@ -60,6 +60,10 @@ module Joiner
   def join_room(opts)
     @room_settings = JSON.parse(@room[:room_settings])
 
+    # Recording consent circumventing check.
+    if consent_circumvented?
+      return redirect_to room_path(room_uid: params[:room_uid]), flash: { alert: I18n.t("room.recording_consent_required") }
+    end
     moderator_privileges = @room.owned_by?(current_user) || valid_moderator_access_code(session[:moderator_access_code])
     if room_running?(@room.bbb_id) || room_setting_with_config("anyoneCanStart") || moderator_privileges
 
@@ -118,5 +122,12 @@ module Joiner
     }
 
     guest_id
+  end
+
+  # Catches any consent circumventing
+  def consent_circumvented?
+    search_params = params[@room.invite_path] || params
+    @consent_choice = search_params[:joiner_consent] || "0"
+    display_joiner_consent && @consent_choice != "1"
   end
 end

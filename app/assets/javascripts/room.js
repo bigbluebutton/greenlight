@@ -290,6 +290,7 @@ function updateCurrentSettings(settings_path){
     $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default") || settings.anyoneCanStart)
     $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default") || settings.joinModerator)
     $("#room_recording").prop("checked", $("#room_recording").data("default") || Boolean(settings.recording))
+    $(".custom-switch-input[data-disable-while-running]").prop("disabled", settings.is_running || settings.is_starting)
   })
 }
 

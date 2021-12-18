@@ -47,7 +47,7 @@
       </div>
       <% if display_joiner_consent %>
         <label class="custom-control custom-checkbox">
-          <input id="joiner-consent" type="checkbox" class="custom-control-input" required>
+          <%= f.check_box :joiner_consent, class: "custom-control-input", required: true %>
           <h4 class="text-left text-danger mt-4 custom-control-label"><%= t("room.recording_present") %></h4>
         </label>
       <% end %>

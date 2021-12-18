@@ -98,6 +98,17 @@ class Room < ApplicationRecord
     active_rooms + inactive_rooms
   end
 
+  # Set the "starting" room state to lock/unlock the alterting of some of its settings...
+  # ...while the room session is starting but the room still not declared as "running" in BBB.
+  # This is not a real low level lock, it's a regular attribute that acts as an application lock.
+  def lock
+    update(is_starting: true)
+  end
+
+  def unlock
+    update(is_starting: false)
+  end
+
   private
 
   # Generates a uid for the room and BigBlueButton.

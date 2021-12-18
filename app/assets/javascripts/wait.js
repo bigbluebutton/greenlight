@@ -52,7 +52,7 @@ $(document).on("turbolinks:load", function(){
 var join_attempts = 0;
 
 function request_to_join_meeting() {
-  $.post(window.location.pathname, { join_name: $(".background").attr("join-name") }, function() {
+  $.post(window.location.pathname, { join_name: $(".background").attr("join-name"), joiner_consent: $("#joiner-consent").attr("consent-accepted") || "0" }, function() {
     //Successful post - set up retry incase
     if(join_attempts < 4){ setTimeout(request_to_join_meeting, 10000); }
     join_attempts++;

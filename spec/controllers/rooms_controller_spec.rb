@@ -26,6 +26,73 @@ def random_valid_room_params
     },
   }
 end
+# Shared example titles.
+ROOM_SETTINGS_SHARED_EXP = "#room_settings"
+CONSENT_CIRCUMVENTING_SHARED_EXP = "consent circumventing"
+CONSENT_NOT_CIRCUMVENTING_SHARED_EXP = "consent not circumventing"
+USER_UPDATE_ROOM_SETTINGS_SHARED_EXP = "#update_settings"
+
+shared_examples_for ROOM_SETTINGS_SHARED_EXP do |room_state|
+  scenario "rendering the expected room_state with the room settings" do
+    @request.session[:user_id] = @owner.id
+    @owner.main_room.update_attribute(:room_settings, { muteOnStart: true, requireModeratorApproval: true,
+    anyoneCanStart: true, joinModerator: true }.to_json)
+    get :room_settings, params: { room_uid: @owner.main_room }, format: :json
+    expect(JSON.parse(response.body)).to eql(json_room_settings.merge(room_state))
+  end
+end
+shared_examples_for CONSENT_CIRCUMVENTING_SHARED_EXP do
+  def example(params = {})
+    @request.session[:user_id] = @user.id
+    post :join, params: { room_uid: @room.uid, join_name: @user.name }.merge(params)
+    expect(response).to redirect_to(room_path(@room.uid))
+    expect(flash[:alert]).to be_present
+  end
+  scenario "should redirect to join page with alert banner if ommitted consent" do
+    example
+  end
+  scenario "should redirect to join page with alert banner if consent refused" do
+    example joiner_consent: "0"
+  end
+end
+shared_examples_for USER_UPDATE_ROOM_SETTINGS_SHARED_EXP do
+  def example(user)
+    @request.session[:user_id] = user.id
+    @secondary_room.update room_settings: formatted_room_settings
+    expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
+      .to change { @secondary_room.reload.room_settings }
+      .from(@secondary_room.room_settings).to(formatted_room_params)
+    expect(response).to redirect_to(@secondary_room)
+  end
+  scenario "owner should update all room settings" do
+    example @user
+  end
+  scenario "admin should update all room settings" do
+    @admin = create(:user)
+    @admin.set_role :admin
+    example @admin
+  end
+end
+
+shared_examples_for CONSENT_NOT_CIRCUMVENTING_SHARED_EXP do |params = {}|
+  def example(opts)
+    @request.session[:user_id] = @user.id
+    post :join, params: { room_uid: @room.uid, join_name: @user.name }.merge(opts)
+  end
+  context "room running" do
+    before { allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true) }
+    scenario "should redirect to session" do
+      example(params)
+      expect(response).to redirect_to(join_path(@room, @user.name, {}, @user.uid))
+    end
+  end
+  context "room not running" do
+    scenario "should render wait page" do
+      example(params)
+      expect(response).to render_template(:wait)
+    end
+  end
+end
 
 describe RoomsController, type: :controller do
   include Recorder
@@ -195,21 +262,23 @@ describe RoomsController, type: :controller do
       expect(r.room_settings).to eql(json_room_settings)
       expect(response).to redirect_to(r)
     end
-
-    it "should respond with JSON object of the room_settings" do
-      @request.session[:user_id] = @owner.id
-
-      @owner.main_room.update_attribute(:room_settings, { muteOnStart: true, requireModeratorApproval: true,
-      anyoneCanStart: true, joinModerator: true }.to_json)
-
-      json_room_settings = { "anyoneCanStart" => true,
-                             "joinModerator" => true,
-                             "muteOnStart" => true,
-                             "requireModeratorApproval" => true }
-
-      get :room_settings, params: { room_uid: @owner.main_room }, format: :json
-
-      expect(JSON.parse(response.body)).to eql(json_room_settings)
+    context "should respond with the expected JSON object of the room_settings" do
+      let(:json_room_settings) {
+        {
+          "anyoneCanStart" => true,
+          "joinModerator" => true,
+          "muteOnStart" => true,
+          "requireModeratorApproval" => true,
+        }
+      }
+      context "when room is running" do
+        before { allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true) }
+        it_should_behave_like ROOM_SETTINGS_SHARED_EXP, "is_running" => true, "is_starting" => false
+      end
+      context "when room is starting" do
+        before { @owner.main_room.lock }
+        it_should_behave_like ROOM_SETTINGS_SHARED_EXP, "is_running" => false, "is_starting" => true
+      end
     end
 
     it "should redirect to root if not logged in" do
@@ -517,6 +586,48 @@ describe RoomsController, type: :controller do
 
       expect(response).to redirect_to(root_path)
     end
+    context "Recording consent" do
+      before(:each) {
+        @room = Room.new(name: "test")
+        @room.owner = @owner
+        @room.room_settings = "{\"recording\":true}"
+        @room.save
+      }
+      context "Require Recording Consent feature enabled" do
+        before(:each) {
+          allow_any_instance_of(Setting).to receive(:get_value).and_call_original
+          allow_any_instance_of(Setting).to receive(:get_value)
+            .with("Require Recording Consent").and_return("true")
+          allow_any_instance_of(Setting).to receive(:get_value)
+            .with("Room Configuration Recording").and_return("optional")
+        }
+        context "the room has recording option enabled" do
+          context "users cicumventing the join recording consent" do
+            it_should_behave_like CONSENT_CIRCUMVENTING_SHARED_EXP
+          end
+          context "users not cicumventing the join recording consent" do
+            it_should_behave_like CONSENT_NOT_CIRCUMVENTING_SHARED_EXP, joiner_consent: "1"
+          end
+        end
+        context "the room has recording option disbaled" do
+          before(:each) {
+            @room.room_settings = "{\"recording\":false}"
+            @room.save
+          }
+          it_should_behave_like CONSENT_NOT_CIRCUMVENTING_SHARED_EXP
+        end
+      end
+      context "Require Recording Consent feature disabled" do
+        before(:each) {
+            allow_any_instance_of(Setting).to receive(:get_value).and_call_original
+            allow_any_instance_of(Setting).to receive(:get_value)
+              .with("Require Recording Consent").and_return("false")
+            allow_any_instance_of(Setting).to receive(:get_value)
+              .with("Room Configuration Recording").and_return("enabled")
+        }
+        it_should_behave_like CONSENT_NOT_CIRCUMVENTING_SHARED_EXP
+      end
+    end
   end
 
   describe "DELETE #destroy" do
@@ -664,17 +775,46 @@ describe RoomsController, type: :controller do
       expect(response).to redirect_to(@secondary_room)
     end
 
-    it "properly updates room settings through the room settings modal and redirects to current page" do
-      @request.session[:user_id] = @user.id
-
-      room_params = { mute_on_join: "1", name: @secondary_room.name, recording: "1" }
-      formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
+    describe "properly updates room settings through the room settings modal and redirects to current page" do
+      let(:formatted_room_settings) {
+        "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
         "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":true}" # JSON string format
-
-      expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
-        .to change { @secondary_room.reload.room_settings }
-        .from(@secondary_room.room_settings).to(formatted_room_params)
-      expect(response).to redirect_to(@secondary_room)
+      }
+      let(:room_params) {
+        {
+          name: @secondary_room.name,
+          mute_on_join: "0",
+          require_moderator_approval: "0",
+          anyone_can_start: "1",
+          all_join_moderator: "1",
+          recording: "0"
+        }
+      }
+      context "while room is not running and not starting" do
+        let(:formatted_room_params) {
+          "{\"muteOnStart\":false,\"requireModeratorApproval\":false," \
+          "\"anyoneCanStart\":true,\"joinModerator\":true,\"recording\":false}" # JSON string format
+        }
+        it_should_behave_like USER_UPDATE_ROOM_SETTINGS_SHARED_EXP
+      end
+      context "while room is running or starting" do
+        let(:formatted_room_params) {
+          "{\"muteOnStart\":false,\"requireModeratorApproval\":false," \
+          "\"anyoneCanStart\":true,\"joinModerator\":true,\"recording\":true}" # JSON string format
+        }
+        context "room running" do
+          before(:each) {
+            allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
+          }
+          it_should_behave_like USER_UPDATE_ROOM_SETTINGS_SHARED_EXP
+        end
+        context "room starting" do
+          before(:each) {
+            @secondary_room.lock
+          }
+          it_should_behave_like USER_UPDATE_ROOM_SETTINGS_SHARED_EXP
+        end
+      end
     end
 
     it "properly updates room name through room header and redirects to current page" do
@@ -682,21 +822,6 @@ describe RoomsController, type: :controller do
 
       patch :update_settings, params: { room_uid: @secondary_room, setting: :rename_header, room_name: :name }
 
-      expect(response).to redirect_to(@secondary_room)
-    end
-
-    it "allows admin to update room settings" do
-      @admin = create(:user)
-      @admin.set_role :admin
-      @request.session[:user_id] = @admin.id
-
-      room_params = { mute_on_join: "1", name: @secondary_room.name }
-      formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
-        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":false}" # JSON string format
-
-      expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
-        .to change { @secondary_room.reload.room_settings }
-        .from(@secondary_room.room_settings).to(formatted_room_params)
       expect(response).to redirect_to(@secondary_room)
     end
 

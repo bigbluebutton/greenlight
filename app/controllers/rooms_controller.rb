@@ -182,11 +182,16 @@ class RoomsController < ApplicationController
     opts[:record] = record_meeting
 
     begin
+      @room.lock # Updating the room state and activating the active lock.
       redirect_to join_path(@room, current_user.name, opts, current_user.uid)
     rescue BigBlueButton::BigBlueButtonException => e
       logger.error("Support: #{@room.uid} start failed: #{e}")
 
       redirect_to room_path, alert: I18n.t(e.key.to_s.underscore, default: I18n.t("bigbluebutton_exception"))
+    ensure
+      # Updating the room starting state.
+      # Delay 5 seconds to wait optimistically for the session to start.
+      UnlockRoomJob.set(wait: 5.seconds).perform_later(@room)
     end
 
     # Notify users that the room has started.
@@ -316,7 +321,8 @@ class RoomsController < ApplicationController
   def room_settings
     # Respond with JSON object of the room_settings
     respond_to do |format|
-      format.json { render body: @room.room_settings }
+      room_state = { "is_running" => room_running?(@room.bbb_id), "is_starting" => @room.reload.is_starting }
+      format.json { render body: JSON.parse(@room.room_settings).merge(room_state).to_json }
     end
   end
 
@@ -354,7 +360,9 @@ class RoomsController < ApplicationController
       joinModerator: options[:all_join_moderator] == "1",
       recording: options[:recording] == "1",
     }
-
+    if @room.bbb_id && (room_running?(@room.bbb_id) || @room.is_starting)
+      room_settings = conserve_settings room_settings, :recording
+    end
     room_settings.to_json
   end
 
@@ -474,4 +482,13 @@ class RoomsController < ApplicationController
     end
   end
   helper_method :room_setting_with_config
+
+  # Iterates over a list of keys, checks if each given key is in the room settings and reset its value.
+  def conserve_settings(settings, *keys)
+    current_settings = JSON.parse(@room[:room_settings])
+    keys.each { |key|
+      settings[key.to_sym] = current_settings[key.to_s] if settings.key?(key.to_sym) && current_settings.key?(key.to_s)
+    }
+    settings
+  end
 end
