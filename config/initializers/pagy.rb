@@ -80,9 +80,9 @@ require 'pagy/extras/bootstrap'
 
 # Overflow extra: Allow for easy handling of overflowing pages
 # See https://ddnexus.github.io/pagy/extras/overflow
-# require 'pagy/extras/overflow'
+require 'pagy/extras/overflow'
 # Pagy::VARS[:overflow] = :empty_page    # default  (other options: :last_page and :exception)
-
+Pagy::VARS[:overflow] = :last_page
 # Trim extra: Remove the page=1 param from links
 # See https://ddnexus.github.io/pagy/extras/trim
 # require 'pagy/extras/trim'

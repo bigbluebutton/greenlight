@@ -28,6 +28,7 @@ fr:
     errors:
       models:
         user:
+          password: ne répond pas aux exigences de complexité
           confirmation: ne correspond pas au mot de passe
   administrator:
     site_settings:
@@ -36,7 +37,7 @@ fr:
         enabled: Activé
         info: Autoriser uniquement les utilisateurs authentifiés à rejoindre une salle
         title: Authentification requise pour rejoindre les salles
-        user-info: Vous devez vous inscrire ci-dessus pour rejoindre cette salle.
+        user-info: Vous devez vous connecter pour rejoindre cette salle.
       branding:
         change: Changer l'image
         info: Change l'image qui apparaît en haut à gauche
@@ -145,12 +146,12 @@ fr:
     roles:
       appear_in_share_list: Inclure les utilisateurs ayant ce rôle dans la liste déroulante de partage des salons
       can_create_rooms: Peut créer des salles
-      can_launch_recording: Autoriser les utilisateurs ayant ce rôle d'enregistrer leurs réunions
+      can_launch_recording: Permet aux utilisateurs ayant ce rôle d'enregistrer leurs réunions
       delete: Supprimer le rôle
       invalid_create: Il y a eu un problème lors de la création du nouveau rôle. Veuillez vérifier les valeurs entrées et réessayer.
       invalid_order: Il y a eu un problème lors de la mise à jour de la priorité du rôle. Veuillez vérifier les valeurs et réessayer.
       invalid_update: Il y a eu un problème lors de la mise à jour des permissions du rôle. Veuillez vérifier les valeurs et réessayer.
-      manage_rooms_recordings: Autoriser les utilisateurs ayant de ce rôle à gérer les Salons et les enregistrements
+      manage_rooms_recordings: Permet aux utilisateurs ayant de ce rôle de gérer les salons et les enregistrements
       name: Nom du rôle
       new_role: Créer un nouveau rôle
       role_has_users: "Ce rôle est utilisé par %{user_count} comptes. Veuillez enlever ce rôle de ces comptes avant de le supprimer."
@@ -400,7 +401,9 @@ fr:
       access_code: Code d'accès
       moderator_access_code: Code modérateur
       access_code_placeholder: Générer un code d'accès au salon - optionnel
+      reset_access_code: Réinitialiser le code d'accès à la salle optionnel
       moderator_access_code_placeholder: "Générer un code optionnel pour les modérateurs "
+      reset_moderator_access_code: Réinitialiser le code optionnel pour les modérateurs
       auto_join: Me rejoindre automatiquement dans le salon
       create: Créer une salle
       free_delete: Vous serez libre de supprimer cette salle à tout moment.
@@ -535,10 +538,12 @@ fr:
     invite:
       fail: "Votre jeton d'authentification a expiré ou n'est pas valide. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter votre administrateur."
       no_invite: Vous n'avez pas d'invitation. Veuillez contacter votre administrateur afin d'en recevoir une.
+    insecure_password: "Afin d'améliorer la sécurité des comptes, nous avons augmenté la complexité des mots de passe pour tous. Veuillez créer un nouveau mot de passe qui correspond aux exigenses indiquées ci-dessous."
   remove: Enlever
   rename: Renommer
   reset_password:
     captcha: "La vérification de reCAPTCHA a échoué, veuillez réessayer."
+    complexity: Le mot de passe doit respecter des exigences de complexité
     invalid_token: Le jeton de réinitialisation du mot de passe n'est pas valide. Veuillez essayer de réinitialiser votre mot de passe à nouveau.
     subtitle: Réinitialiser le mot de passe
     password: Nouveau mot de passe
