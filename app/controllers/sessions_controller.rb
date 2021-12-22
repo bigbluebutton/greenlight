@@ -67,6 +67,9 @@ class SessionsController < ApplicationController
 
     user = User.include_deleted.find_by(email: session_params[:email].downcase)
 
+    # Check if account is locked out due to too many attempts
+    return redirect_to(signin_path, alert: I18n.t("login_page.locked_out")) if user.locked_out?
+
     is_super_admin = user&.has_role? :super_admin
 
     # Scope user to domain if the user is not a super admin
@@ -81,6 +84,7 @@ class SessionsController < ApplicationController
     # Check correct password was entered
     unless user.try(:authenticate, session_params[:password])
       logger.info "Support: #{session_params[:email]} login failed."
+      user.update(failed_attempts: user.failed_attempts.to_i + 1, last_failed_attempt: DateTime.now)
       return redirect_to(signin_path, alert: I18n.t("invalid_credentials"))
     end
 
