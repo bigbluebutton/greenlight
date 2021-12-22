@@ -244,4 +244,28 @@ describe User, type: :model do
         .to raise_exception(ActiveRecord::RecordInvalid, "Validation failed: Email can't be blank")
     end
   end
+
+  context "#locked_out?" do
+    it "returns true if there has been more than 5 login attempts in the past 24 hours" do
+      @user.update(failed_attempts: 6, last_failed_attempt: 10.hours.ago)
+      expect(@user.locked_out?).to be true
+    end
+
+    it "returns false if there has been less than 6 login attempts in the past 24 hours" do
+      @user.update(failed_attempts: 3, last_failed_attempt: 10.hours.ago)
+      expect(@user.locked_out?).to be false
+    end
+
+    it "returns false if the last failed attempt was older than 24 hours" do
+      @user.update(failed_attempts: 6, last_failed_attempt: 30.hours.ago)
+      expect(@user.locked_out?).to be false
+    end
+
+    it "resets the counter if the last failed attempt was over 24 hours ago" do
+      @user.update(failed_attempts: 3, last_failed_attempt: 30.hours.ago)
+
+      expect(@user.locked_out?).to be false
+      expect(@user.reload.failed_attempts).to eq(0)
+    end
+  end
 end

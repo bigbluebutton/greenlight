@@ -337,6 +337,8 @@ en:
   language_default: Default (browser language)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   login: Sign in
+  login_page:
+    locked_out: Your account has been locked due to too many incorrect password attempts. Please try again later.
   login_title: Sign in to your account
   mailer:
     user:
