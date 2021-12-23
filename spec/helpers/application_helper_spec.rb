@@ -27,7 +27,21 @@ describe ApplicationHelper do
       expect(helper.omniauth_login_url(provider)).to eql("/b/auth/#{provider}")
     end
   end
-
+  describe "#html_decode" do
+    let(:expr_with_html_entities) { '&lt;&gt;&amp;&quot;' }
+    let(:expr_with_html_entities_decoded) { '<>&"' }
+    let(:expr_with_no_html_entities) { "this is some regular text!!" }
+    context "with html charachter entities" do
+     it "should return the decoded version of the expression" do
+       expect(html_entities_decode(expr_with_html_entities)).to eq(expr_with_html_entities_decoded)
+     end
+    end
+    context "with no html charachter entities" do
+      it "should return the expression stringified" do
+        expect(html_entities_decode(expr_with_no_html_entities)).to eq(expr_with_no_html_entities)
+      end
+    end
+  end
   describe "role_colur" do
     it "should use default if the user doesn't have a role" do
       expect(helper.role_colour(Role.create(name: "test"))).to eq(Rails.configuration.primary_color_default)

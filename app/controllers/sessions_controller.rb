@@ -67,6 +67,9 @@ class SessionsController < ApplicationController
 
     user = User.include_deleted.find_by(email: session_params[:email].downcase)
 
+    # Check if account is locked out due to too many attempts
+    return redirect_to(signin_path, alert: I18n.t("login_page.locked_out")) if user.locked_out?
+
     is_super_admin = user&.has_role? :super_admin
 
     # Scope user to domain if the user is not a super admin
@@ -79,8 +82,12 @@ class SessionsController < ApplicationController
     return switch_account_to_local(user) if !is_super_admin && auth_changed_to_local?(user)
 
     # Check correct password was entered
-    return redirect_to(signin_path, alert: I18n.t("invalid_credentials")) unless user.try(:authenticate,
-      session_params[:password])
+    unless user.try(:authenticate, session_params[:password])
+      logger.info "Support: #{session_params[:email]} login failed."
+      user.update(failed_attempts: user.failed_attempts.to_i + 1, last_failed_attempt: DateTime.now)
+      return redirect_to(signin_path, alert: I18n.t("invalid_credentials"))
+    end
+
     # Check that the user is not deleted
     return redirect_to root_path, flash: { alert: I18n.t("registration.banned.fail") } if user.deleted?
 
@@ -88,8 +95,14 @@ class SessionsController < ApplicationController
       # Check that the user is a Greenlight account
       return redirect_to(root_path, alert: I18n.t("invalid_login_method")) unless user.greenlight_account?
       # Check that the user has verified their account
-      return redirect_to(account_activation_path(digest: user.activation_digest)) unless user.activated?
+      unless user.activated?
+        user.create_activation_token if user.activation_digest.nil?
+        return redirect_to(account_activation_path(digest: user.activation_digest))
+      end
     end
+
+    return redirect_to edit_password_reset_path(user.create_reset_digest),
+flash: { alert: I18n.t("registration.insecure_password") } unless user.secure_password
 
     login(user)
   end
@@ -129,23 +142,18 @@ class SessionsController < ApplicationController
     ldap_config[:bind_dn] = ENV['LDAP_BIND_DN']
     ldap_config[:password] = ENV['LDAP_PASSWORD']
     ldap_config[:auth_method] = ENV['LDAP_AUTH']
-    ldap_config[:encryption] = case ENV['LDAP_METHOD']
-                               when 'ssl'
-                                    'simple_tls'
-                                when 'tls'
-                                    'start_tls'
-                                end
+    ldap_config[:encryption] = ldap_encryption
     ldap_config[:base] = ENV['LDAP_BASE']
     ldap_config[:filter] = ENV['LDAP_FILTER']
     ldap_config[:uid] = ENV['LDAP_UID']
 
     if params[:session][:username].blank? || session_params[:password].blank?
-      return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials"))
+      return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials_external"))
     end
 
     result = send_ldap_request(params[:session], ldap_config)
 
-    return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials")) unless result
+    return redirect_to(ldap_signin_path, alert: I18n.t("invalid_credentials_external")) unless result
 
     @auth = parse_auth(result.first, ENV['LDAP_ROLE_FIELD'], ENV['LDAP_ATTRIBUTE_MAPPING'])
 
@@ -263,5 +271,19 @@ class SessionsController < ApplicationController
 
     # Set the user's social id to the one being returned from auth
     user.update_attribute(:social_uid, @auth['uid'])
+  end
+
+  def ldap_encryption
+    encryption_method = case ENV['LDAP_METHOD']
+      when 'ssl'
+        'simple_tls'
+      when 'tls'
+        'start_tls'
+      end
+
+    {
+      method: encryption_method,
+      tls_options: OpenSSL::SSL::SSLContext::DEFAULT_PARAMS
+    }
   end
 end

@@ -18,7 +18,7 @@
 
 FactoryBot.define do
   factory :user do
-    password = Faker::Internet.password(min_length: 8)
+    password = "#{Faker::Internet.password(min_length: 8, mix_case: true, special_characters: true)}1aB"
     provider { %w(google twitter).sample }
     uid { rand(10**8) }
     name { Faker::Name.first_name }
@@ -28,6 +28,7 @@ FactoryBot.define do
     password_confirmation { password }
     accepted_terms { true }
     email_verified { true }
+    secure_password { true }
     activated_at { Time.zone.now }
     role { set_role(:user) }
   end

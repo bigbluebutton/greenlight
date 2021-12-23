@@ -44,12 +44,16 @@ module UsersHelper
   # Returns language selection options for user edit
   def language_options
     locales = I18n.available_locales
-    language_opts = [["<<<< #{t('language_default')} >>>>", "default"]]
+    languages = [["<<<< #{t('language_default')} >>>>", "default"]]
+    language_opts = []
+
     locales.each do |locale|
       language_mapping = I18n::Language::Mapping.language_mapping_list[locale.to_s.gsub("_", "-")]
       language_opts.push([language_mapping["nativeName"], locale.to_s])
     end
-    language_opts.sort
+    language_opts.sort_by!(&:last)
+
+    languages + language_opts
   end
 
   # Returns a list of roles that the user can have

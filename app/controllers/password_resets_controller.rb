@@ -56,6 +56,9 @@ class PasswordResetsController < ApplicationController
     elsif @user.update_attributes(user_params)
       # Clear the user's social uid if they are switching from a social to a local account
       @user.update_attribute(:social_uid, nil) if @user.social_uid.present?
+
+      # Mark password as secure
+      @user.update(secure_password: true)
       # Successfully reset password
       return redirect_to root_path, flash: { success: I18n.t("password_reset_success") }
     end

@@ -276,7 +276,8 @@ describe RoomsController, type: :controller do
     it "should use join name if user is not logged in and meeting running and moderator access code is enabled and set" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
       allow_any_instance_of(Setting).to receive(:get_value).and_call_original
-      allow_any_instance_of(Setting).to receive(:get_value).with("Moderator Access Codes").and_return("true")
+      allow_any_instance_of(Setting).to receive(:get_value)
+        .with("Room Configuration Moderator Access Codes").and_return("optional")
 
       room = Room.new(name: "test", moderator_access_code: "abcdef")
       room.room_settings = "{ }"
@@ -416,7 +417,8 @@ describe RoomsController, type: :controller do
     it "should join the room as moderator if the user has the moderator_access code (and regular access code is not set)" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
       allow_any_instance_of(Setting).to receive(:get_value).and_call_original
-      allow_any_instance_of(Setting).to receive(:get_value).with("Moderator Access Codes").and_return("true")
+      allow_any_instance_of(Setting).to receive(:get_value)
+        .with("Room Configuration Moderator Access Codes").and_return("optional")
 
       room = Room.new(name: "test", moderator_access_code: "abcdef")
       room.room_settings = "{ }"
@@ -431,7 +433,8 @@ describe RoomsController, type: :controller do
     it "should join the room as moderator if the user has the moderator_access code (and regular access code is set)" do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
       allow_any_instance_of(Setting).to receive(:get_value).and_call_original
-      allow_any_instance_of(Setting).to receive(:get_value).with("Moderator Access Codes").and_return("true")
+      allow_any_instance_of(Setting).to receive(:get_value)
+        .with("Room Configuration Moderator Access Codes").and_return("optional")
 
       room = Room.new(name: "test", access_code: "123456", moderator_access_code: "abcdef")
       room.room_settings = "{ }"
@@ -744,7 +747,8 @@ describe RoomsController, type: :controller do
 
     it "should redirect to show with valid moderator_access_code as regular access_code" do
       allow_any_instance_of(Setting).to receive(:get_value).and_call_original
-      allow_any_instance_of(Setting).to receive(:get_value).with("Moderator Access Codes").and_return("true")
+      allow_any_instance_of(Setting).to receive(:get_value)
+        .with("Room Configuration Moderator Access Codes").and_return("optional")
 
       @room.moderator_access_code = "abcdef"
       @room.save
