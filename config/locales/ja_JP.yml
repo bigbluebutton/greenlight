@@ -70,21 +70,21 @@ ja_JP:
         lighten: 明色
         darken: 暗色
       email_mapping:
-        info: "メールアドレスを使用してユーザーに役割を割り当てる。メールアドレス1=役割1,メールアドレス2=役割2の形式で記述する必要があります"
+        info: "メールアドレスを使用してユーザーに役割を割り当てる。「メール1=役割1,メール2=役割2」の形式で記述する必要があります"
         title: メールアドレスによる役割の割り当て
         update:
       log_level:
         title: ログレベル
         information: 配置されたすべてのログレベルを変更する
         debug: デバッグ
-        info: 情報
+        info: 情報収集
         warn: 警告
         error: エラー
         fatal: 致命的
         unknown: 不明
       recording_visibility:
         info: 新しい録画の標準の公開方法を設定する
-        title: 標準の録画公開度
+        title: 録画の標準公開度
         warning: この設定は実行していない会議室にのみ適用されます
       require_consent:
         info: これにより、会議室のオーナーが、部屋ごとの録画の可否を設定できるようになります。録画される会議に参加するユーザーからは、同意を得る必要があります。
@@ -99,7 +99,7 @@ ja_JP:
         info: ユーザーがプレゼン資料を事前にアップロードできるようになります。この資料は、会議室固有の標準資料として使用されます。
         title: プレゼン資料の事前アップロードを許可
       registration:
-        info: ユーザーがWebサイトに登録する方法を変更する
+        info: ユーザーがWebサイトに登録する方法を変更します
         title: 登録方法
         methods:
           approval: 承認制
@@ -138,7 +138,7 @@ ja_JP:
       settings: サイト設定が変更されました
       unauthorized: このユーザーにアクションを実行する権限がありません
     recordings:
-      latest: 最新の録画
+      latest: 最近の録画
       title: すべての録画
       no_recordings: このサーバには録画がありません。
       search_info: ユーザーの電子メールアドレスか、会議室のIDを入力して下さい。
@@ -194,7 +194,7 @@ ja_JP:
         running: 会議中
         started: "会議開始: %{session}"
         status: 状況
-        view: 表示
+        view: 見る
     title: 設定
     users:
       invite: ユーザーを招待する
@@ -400,7 +400,9 @@ ja_JP:
       access_code: アクセスコード
       moderator_access_code: モデレーターコード
       access_code_placeholder: 会議室のアクセスコードを生成する
-      moderator_access_code_placeholder: 予備のモデレーターコードを作成する
+      reset_access_code: 会議室のアクセスコードをリセットする
+      moderator_access_code_placeholder: モデレーターコードを作成する
+      reset_moderator_access_code: モデレーターコードをリセットする
       auto_join: 会議に自動的に参加する
       create: 会議室の作成
       free_delete: この会議室はいつでも自由に削除できます。
@@ -458,7 +460,7 @@ ja_JP:
     rename_room:
       name_placeholder: 新しい会議室名を入力してください...
     share_access:
-      footer: 会議室を共有すると、 ユーザも会議を開始したり会議の録画を表示したりできます
+      footer: 会議室アクセスを共有すると、 ユーザーでも会議を開始したり録画リストをみたりできます
       list: 共有するユーザー
       title: 会議室アクセスの共有
       save: 変更を保存
@@ -499,7 +501,7 @@ ja_JP:
     email: 録画情報をメールする
     error: "%{count} 件の録画取得中にエラーが発生しました"
     no_public_recordings: この会議室では録画の公開はありません。
-    no_recordings: この会議室では何も録画されていません。
+    no_recordings: この会議室には録画がありません。
     no_user_recordings: 現在、録画はありません。
     no_matched_pub_recordings: 公開された録画には、検索条件に一致するものはありません。
     no_matched_recordings: 検索条件に一致する録画はありません。
@@ -574,7 +576,7 @@ ja_JP:
     recording_present: このセッションが録画されるかもしれないこと、その場合自分の声や動画が録画に含まれうることを承知しています。
     invite_participants: 参加者を招待する
     join: 参加する
-    last_session: "%{session} ：最後のセッション"
+    last_session: "最後のセッション：%{session}"
     login: 入力
     owner: オーナー
     owner_banned: この会議室は現在利用できません
@@ -592,7 +594,7 @@ ja_JP:
     preupload_error: 会議室のプレゼン資料をアップデートする際にエラーが起こりました
     preupload_remove_success: プレゼン資料を消去しました
     preupload_remove_error: 会議室のプレゼン資料を消去する際にエラーが起こりました
-    recordings: 件の録画
+    recordings: 会議室の録画
     room_limit: 許可された会議室数の上限に達しました
     room_limit_exceeded: "許可された会議室数を超えています。 この会議室にアクセスするには、会議室を %{difference} 個削除してください。"
     sessions: セッション
@@ -603,7 +605,7 @@ ja_JP:
     remove_shared_access_error: リストから共有会議室を削除中にエラーが発生しました
     shared_access_success: 会議室を共有しました
     shared_access_error: 会議室の共有設定中にエラーが発生しました
-    start: 開始
+    start: 会議を始める
     search: 会議室を探す...
     unavailable: この会議室はオーナーのメールが確認されていないため、現在利用できません。
     update_settings_error: 会議室の設定更新中にエラーが発生しました

@@ -94,15 +94,15 @@ describe SessionsController, type: :controller do
     end
 
     before(:each) do
-      @user1 = create(:user, provider: 'greenlight', password: 'example', password_confirmation: 'example')
-      @user2 = create(:user, password: 'example', password_confirmation: "example")
+      @user1 = create(:user, provider: 'greenlight', password: 'Example1!', password_confirmation: 'example')
+      @user2 = create(:user, password: 'Example1!', password_confirmation: "example")
     end
 
     it "should login user in if credentials valid" do
       post :create, params: {
         session: {
           email: @user1.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -124,7 +124,7 @@ describe SessionsController, type: :controller do
       post :create, params: {
         session: {
           email: @user2.email,
-          password: "example",
+          password: "Example1!",
         },
       }
 
@@ -133,12 +133,12 @@ describe SessionsController, type: :controller do
 
     it "should not login user if account is not verified" do
       @user3 = create(:user, email_verified: false, provider: "greenlight",
-        password: "example", password_confirmation: 'example')
+        password: "Example1!", password_confirmation: 'Example1!')
 
       post :create, params: {
         session: {
           email: @user3.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -149,7 +149,7 @@ describe SessionsController, type: :controller do
 
     it "should not login user if account is deleted" do
       user = create(:user, provider: "greenlight",
-        password: "example", password_confirmation: 'example')
+        password: "Example1!", password_confirmation: 'example')
 
       user.delete
       user.reload
@@ -158,7 +158,7 @@ describe SessionsController, type: :controller do
       post :create, params: {
         session: {
           email: user.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -169,7 +169,7 @@ describe SessionsController, type: :controller do
 
     it "redirects the user to the page they clicked sign in from" do
       user = create(:user, provider: "greenlight",
-        password: "example", password_confirmation: 'example')
+        password: "Example1!", password_confirmation: 'example')
 
       url = Faker::Internet.domain_name
 
@@ -178,7 +178,7 @@ describe SessionsController, type: :controller do
       post :create, params: {
         session: {
           email: user.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -188,14 +188,14 @@ describe SessionsController, type: :controller do
 
     it "redirects the user to their home room if they clicked the sign in button from root" do
       user = create(:user, provider: "greenlight",
-        password: "example", password_confirmation: 'example')
+        password: "Example1!", password_confirmation: 'example')
 
       @request.cookies[:return_to] = root_url
 
       post :create, params: {
         session: {
           email: user.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -205,12 +205,12 @@ describe SessionsController, type: :controller do
 
     it "redirects the user to their home room if return_to cookie doesn't exist" do
       user = create(:user, provider: "greenlight",
-        password: "example", password_confirmation: 'example')
+        password: "Example1!", password_confirmation: 'Example1!')
 
       post :create, params: {
         session: {
           email: user.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -220,13 +220,13 @@ describe SessionsController, type: :controller do
 
     it "redirects to the admins page for admins" do
       user = create(:user, provider: "greenlight",
-        password: "example", password_confirmation: 'example')
+        password: "Example1!", password_confirmation: 'example')
       user.set_role :super_admin
 
       post :create, params: {
         session: {
           email: user.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
@@ -235,26 +235,28 @@ describe SessionsController, type: :controller do
     end
 
     it "should migrate old rooms from the twitter account to the new user" do
-      twitter_user = create(:user, name: "Twitter User", email: "user@twitter.com", image: "example.png",
-        username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
+      # TODO: remove twitter migration code
 
-      room = Room.new(name: "Test")
-      room.owner = twitter_user
-      room.save!
-
-      post :create, params: {
-        session: {
-          email: @user1.email,
-          password: 'example',
-        },
-      }, session: {
-        old_twitter_user_id: twitter_user.id
-      }
-
-      @user1.reload
-      expect(@user1.rooms.count).to eq(3)
-      expect(@user1.rooms.find { |r| r.name == "Old Home Room" }).to_not be_nil
-      expect(@user1.rooms.find { |r| r.name == "Test" }).to_not be_nil
+      # twitter_user = create(:user, name: "Twitter User", email: "user@twitter.com", image: "example.png",
+      #   username: "twitteruser", email_verified: true, provider: 'twitter', social_uid: "twitter-user")
+      #
+      # room = Room.new(name: "Test")
+      # room.owner = twitter_user
+      # room.save!
+      #
+      # post :create, params: {
+      #   session: {
+      #     email: @user1.email,
+      #     password: 'Example1!',
+      #   },
+      # }, session: {
+      #   old_twitter_user_id: twitter_user.id
+      # }
+      #
+      # @user1.reload
+      # expect(@user1.rooms.count).to eq(3)
+      # expect(@user1.rooms.find { |r| r.name == "Old Home Room" }).to_not be_nil
+      # expect(@user1.rooms.find { |r| r.name == "Test" }).to_not be_nil
     end
 
     it "sends the user a reset password email if the authentication method is changing to local" do
@@ -267,7 +269,7 @@ describe SessionsController, type: :controller do
         post :create, params: {
           session: {
             email: email,
-            password: 'example',
+            password: 'Example1!',
           },
         }
       }.to change { ActionMailer::Base.deliveries.count }.by(1)
@@ -277,13 +279,61 @@ describe SessionsController, type: :controller do
       post :create, params: {
         session: {
           email: @user1.email,
-          password: 'example',
+          password: 'Example1!',
         },
       }
 
       @user1.reload
 
       expect(@user1.last_login).to_not be_nil
+    end
+
+    it "redirects to reset password page if password is marked as insecure" do
+      allow_any_instance_of(User).to receive(:create_reset_digest).and_return("reset_token")
+
+      @user1.update(secure_password: false)
+
+      post :create, params: {
+        session: {
+          email: @user1.email,
+          password: 'Example1!',
+        },
+      }
+
+      expect(response).to redirect_to(edit_password_reset_path("reset_token"))
+    end
+
+    context "account lockout due to failed attempts" do
+      it "increases failed_attempts if the credentials are incorrect" do
+        freeze_time do
+          3.times do
+            post :create, params: {
+              session: {
+                email: @user1.email,
+                password: 'invalid',
+              },
+            }
+          end
+
+          expect(@user1.reload.failed_attempts).to eq(3)
+          expect(@user1.last_failed_attempt).to eq(DateTime.now)
+        end
+      end
+
+      it "locks out the user if the attempts are > 5 in the past 24 hours" do
+        @user1.update(failed_attempts: 6, last_failed_attempt: 5.minutes.ago)
+
+        post :create, params: {
+          session: {
+            email: @user1.email,
+            password: 'Example1!',
+          },
+        }
+
+        expect(@request.session[:user_id]).to be_nil
+        expect(flash[:alert]).to eq(I18n.t("login_page.locked_out"))
+        expect(response).to redirect_to(signin_path)
+      end
     end
   end
 
@@ -592,7 +642,7 @@ describe SessionsController, type: :controller do
       post :ldap, params: {
         session: {
           username: "test",
-          password: 'password',
+          password: 'Example1!',
         },
       }
 
@@ -614,7 +664,7 @@ describe SessionsController, type: :controller do
       post :ldap, params: {
         session: {
           username: "test",
-          password: 'password',
+          password: 'Example1!',
         },
       }
 
@@ -637,7 +687,7 @@ describe SessionsController, type: :controller do
       post :ldap, params: {
         session: {
           username: "test",
-          password: 'password',
+          password: 'Example1!',
         },
       }
 
@@ -681,7 +731,7 @@ describe SessionsController, type: :controller do
       post :ldap, params: {
         session: {
           username: "",
-          password: 'test',
+          password: 'Example1!',
         },
       }
 

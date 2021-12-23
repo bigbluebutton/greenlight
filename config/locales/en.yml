@@ -28,6 +28,7 @@ en:
     errors:
       models:
         user:
+          password: did not meet complexity requirements
           confirmation: doesn't match Password
   administrator:
     site_settings:
@@ -336,6 +337,8 @@ en:
   language_default: Default (browser language)
   ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
   login: Sign in
+  login_page:
+    locked_out: Your account has been locked due to too many incorrect password attempts. Please try again later.
   login_title: Sign in to your account
   mailer:
     user:
@@ -401,7 +404,9 @@ en:
       access_code: Access Code
       moderator_access_code: Moderator Code
       access_code_placeholder: Generate an optional room access code
+      reset_access_code: Reset the optional room access code
       moderator_access_code_placeholder: Generate an optional code for moderators
+      reset_moderator_access_code: Reset the optional code for moderators
       auto_join: Automatically join me into the room
       create: Create Room
       free_delete: You will be free to delete this room at any time.
@@ -537,10 +542,12 @@ en:
     invite:
       fail: Your token is either invalid or has expired. If you believe this is a mistake, please contact your administrator.
       no_invite: You do not have an invitation to join. Please contact your administrator to receive one.
+    insecure_password: To improve account security, we've increased password complexity for all passwords. Please create a new password that matches the requirements below.
   remove: Remove
   rename: Rename
   reset_password:
     captcha: reCAPTCHA verification failed, please try again.
+    complexity: Password did not meet complexity requirements
     invalid_token: Password reset token is invalid. Please try resetting your password again.
     subtitle: Reset Password
     password: New Password

@@ -44,9 +44,12 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false, scope: :provider },
                     format: { with: /\A[\w+\-'.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
-  validates :password, length: { minimum: 6 }, confirmation: true, if: :greenlight_account?, on: :create
+  validates :password, length: { minimum: 8 },
+            format: /\A(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}\z/,
+            confirmation: true,
+            if: :validate_password?
 
-  # Bypass validation if omniauth
+  # Bypass validations if omniauth
   validates :accepted_terms, acceptance: true,
                              unless: -> { !greenlight_account? || !Rails.configuration.terms }
 
@@ -216,6 +219,19 @@ class User < ApplicationRecord
     update_attributes(main_room: room)
   end
 
+  # returns true if the user has attempted to log in too many times in the past 24 hours
+  def locked_out?
+    attempts = failed_attempts.to_i
+    within_1_day = (24.hours.ago..DateTime.now).cover?(last_failed_attempt)
+
+    return true if attempts > 5 && within_1_day
+
+    # reset the counter if the last login attempt was more than 1 day ago
+    update(failed_attempts: 0) if attempts.positive? && !within_1_day
+
+    false
+  end
+
   private
 
   # Destory a users rooms when they are removed.
@@ -250,6 +266,13 @@ class User < ApplicationRecord
         errors.add(:email, I18n.t("errors.messages.blank"))
       end
     end
+  end
+
+  def validate_password?
+    return false unless greenlight_account?
+    return true if new_record?
+    return true if persisted? && will_save_change_to_password_digest?
+    false
   end
 
   def role_provider
