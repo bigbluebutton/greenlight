@@ -538,7 +538,7 @@ fr:
     invite:
       fail: "Votre jeton d'authentification a expiré ou n'est pas valide. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter votre administrateur."
       no_invite: Vous n'avez pas d'invitation. Veuillez contacter votre administrateur afin d'en recevoir une.
-    insecure_password: "Afin d'améliorer la sécurité des comptes, nous avons augmenté la complexité des mots de passe pour tous. Veuillez créer un nouveau mot de passe qui correspond aux exigenses indiquées ci-dessous."
+    insecure_password: "Afin d'améliorer la sécurité des comptes, nous avons augmenté la complexité des mots de passe pour tous. Veuillez créer un nouveau mot de passe qui correspond aux exigences indiquées ci-dessous."
   remove: Enlever
   rename: Renommer
   reset_password:
