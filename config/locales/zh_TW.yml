@@ -28,6 +28,7 @@ zh_TW:
     errors:
       models:
         user:
+          password: 不滿足複雜性要求
           confirmation: 兩次輸入的密碼不一致
   administrator:
     site_settings:
@@ -335,6 +336,8 @@ zh_TW:
   language_default: 預設（流覽器語言）
   ldap_error: 無法連接到LDAP伺服器，請在env檔中檢查LDAP配置，還要確保服務已經啟動。
   login: 登錄
+  login_page:
+    locked_out: 您的帳戶因密碼錯誤嘗試次數過多而被鎖定。 請稍後再試。
   login_title: 登錄到您的帳戶
   mailer:
     user:
@@ -400,7 +403,9 @@ zh_TW:
       access_code: 會議密碼
       moderator_access_code: 主持人密碼
       access_code_placeholder: 選擇性的產生會議密碼
+      reset_access_code: 重設選擇性的會議室參與密碼
       moderator_access_code_placeholder: 選擇性的產生主持人密碼
+      reset_moderator_access_code: 重設選擇性的主持人密碼
       auto_join: 自動進入會議室
       create: 創建會議室
       free_delete: 任何時候都可以刪除這個會議室
@@ -535,10 +540,12 @@ zh_TW:
     invite:
       fail: 您的 token 無效或已過期，如您認為這是一個錯誤，請聯繫您的管理員。
       no_invite: 您沒有被邀請加入，請聯繫管理員申請邀請。
+    insecure_password: 為了提高帳戶安全性，我們增加了所有密碼的密碼複雜性。 請建立一個符合以下要求的新密碼。
   remove: 刪除
   rename: 重命名
   reset_password:
     captcha: reCAPTCHA 驗證失敗，請再試一次。
+    complexity: 密碼不符合複雜性要求
     invalid_token: 密碼重置 token 無效。請嘗試再次重置密碼。
     subtitle: 重置密碼
     password: 新密碼
