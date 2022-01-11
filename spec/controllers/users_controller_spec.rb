@@ -603,6 +603,20 @@ describe UsersController, type: :controller do
       expect(flash[:alert]).to be_present
       expect(response).to redirect_to(admins_path)
     end
+
+    it "allows user deletion with shared access to rooms" do
+      owner = create(:user)
+      guest = create(:user)
+      room  = create(:room, owner: owner)
+      SharedAccess.create(room_id: room.id, user_id: guest.id)
+
+      @request.session[:user_id] = guest.id
+      delete :destroy, params: { user_uid: guest.uid }
+
+      expect(User.include_deleted.find_by(uid: guest.uid)).to be_nil
+      expect(SharedAccess.exists?(room_id: room.id, user_id: guest.id)).to be false
+      expect(response).to redirect_to(root_path)
+    end
   end
 
   describe "GET | POST #terms" do
