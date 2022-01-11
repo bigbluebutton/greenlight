@@ -336,6 +336,8 @@ fr:
   language_default: Par défaut (langue du navigateur)
   ldap_error: Impossible de se connecter au serveur LDAP. Veuillez vérifier votre configuration LDAP dans le fichier env et vous assurer que votre serveur est en cours d'exécution.
   login: Connexion
+  login_page:
+    locked_out: Votre compte a été bloqué à cause de plusieurs tentatives de connexion infructueuses. Merci de recommencer plus tard.
   login_title: Connexion avec votre compte
   mailer:
     user:
