@@ -28,6 +28,7 @@ nl:
     errors:
       models:
         user:
+          password: niet complex genoeg volgens de vereisten
           confirmation: Wachtwoorden komen niet overeen
   administrator:
     site_settings:
@@ -400,7 +401,9 @@ nl:
       access_code: Toegangscode
       moderator_access_code: Moderator Code
       access_code_placeholder: Genereer een optionele toegangscode voor de kamer
+      reset_access_code: Optionele toegangscode voor de kamer resetten
       moderator_access_code_placeholder: Genereer een optionele code voor moderatoren
+      reset_moderator_access_code: Optionele toegangscode voor moderatoren resetten
       auto_join: Ga automatisch mee naar binnen
       create: Ruimte creëren
       free_delete: U kunt deze ruimte op elk gewenst moment verwijderen.
@@ -535,10 +538,12 @@ nl:
     invite:
       fail: Uw token is ongeldig of is verlopen. Neem contact op met uw beheerder als u denkt dat dit een vergissing is.
       no_invite: Je hebt geen uitnodiging om lid te worden. Neem contact op met uw beheerder om er een te ontvangen.
+    insecure_password: "Om de veiligheid van de accounts te verbeteren, hebben we de vereiste complexiteit voor all wachtwoorden verhoogd. Maak een nieuw wachtwoord volgens onderstaande criteria."
   remove: Verwijder
   rename: Hernoem
   reset_password:
     captcha: "reCAPTCHA-verificatie is mislukt, probeer het opnieuw."
+    complexity: Wachtwoord voldoet niet aan de complexiteitsvereisten
     invalid_token: Token voor wachtwoordherstel is ongeldig. Probeer je wachtwoord opnieuw in te stellen.
     subtitle: Reset wachtwoord
     password: Nieuw wachtwoord
