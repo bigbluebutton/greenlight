@@ -19,13 +19,12 @@
 require "rails_helper"
 
 def random_valid_user_params
-  pass = Faker::Internet.password(min_length: 8)
   {
     user: {
       name: Faker::Name.first_name,
       email: Faker::Internet.email,
-      password: pass,
-      password_confirmation: pass,
+      password: "Example1!",
+      password_confirmation: "Example1!",
       accepted_terms: true,
       email_verified: true,
     },
@@ -60,15 +59,6 @@ describe PasswordResetsController, type: :controller do
         post :create, params: params
         expect(flash[:success]).to be_present
         expect(response).to redirect_to(root_path)
-      end
-    end
-
-    context "does not allow mail notifications" do
-      before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(false) }
-
-      it "renders a 404 page upon if email notifications are disabled" do
-        get :create
-        expect(response).to redirect_to("/404")
       end
     end
 
@@ -158,8 +148,8 @@ describe PasswordResetsController, type: :controller do
         params = {
           id: user.create_reset_digest,
           user: {
-            password: :password,
-            password_confirmation: :password,
+            password: "Example1!",
+            password_confirmation: "Example1!",
           },
         }
 
