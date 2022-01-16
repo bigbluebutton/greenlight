@@ -50,7 +50,7 @@ describe User, type: :model do
 
     context 'is greenlight account' do
       before { allow(subject).to receive(:greenlight_account?).and_return(true) }
-      it { should validate_length_of(:password).is_at_least(6) }
+      it { should validate_length_of(:password).is_at_least(8) }
     end
 
     context 'is not greenlight account' do
@@ -242,6 +242,30 @@ describe User, type: :model do
     it "does not allow a blank email if the provider is greenlight" do
       expect { create(:user, email: "", provider: "greenlight") }
         .to raise_exception(ActiveRecord::RecordInvalid, "Validation failed: Email can't be blank")
+    end
+  end
+
+  context "#locked_out?" do
+    it "returns true if there has been more than 5 login attempts in the past 24 hours" do
+      @user.update(failed_attempts: 6, last_failed_attempt: 10.hours.ago)
+      expect(@user.locked_out?).to be true
+    end
+
+    it "returns false if there has been less than 6 login attempts in the past 24 hours" do
+      @user.update(failed_attempts: 3, last_failed_attempt: 10.hours.ago)
+      expect(@user.locked_out?).to be false
+    end
+
+    it "returns false if the last failed attempt was older than 24 hours" do
+      @user.update(failed_attempts: 6, last_failed_attempt: 30.hours.ago)
+      expect(@user.locked_out?).to be false
+    end
+
+    it "resets the counter if the last failed attempt was over 24 hours ago" do
+      @user.update(failed_attempts: 3, last_failed_attempt: 30.hours.ago)
+
+      expect(@user.locked_out?).to be false
+      expect(@user.reload.failed_attempts).to eq(0)
     end
   end
 end

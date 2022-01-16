@@ -97,6 +97,9 @@ class SessionsController < ApplicationController
       end
     end
 
+    return redirect_to edit_password_reset_path(user.create_reset_digest),
+flash: { alert: I18n.t("registration.insecure_password") } unless user.secure_password
+
     login(user)
   end
 
@@ -137,10 +140,10 @@ class SessionsController < ApplicationController
     ldap_config[:auth_method] = ENV['LDAP_AUTH']
     ldap_config[:encryption] = case ENV['LDAP_METHOD']
                                when 'ssl'
-                                    'simple_tls'
-                                when 'tls'
-                                    'start_tls'
-                                end
+                                 'simple_tls'
+                               when 'tls'
+                                 'start_tls'
+                               end
     ldap_config[:base] = ENV['LDAP_BASE']
     ldap_config[:filter] = ENV['LDAP_FILTER']
     ldap_config[:uid] = ENV['LDAP_UID']
@@ -269,5 +272,19 @@ class SessionsController < ApplicationController
 
     # Set the user's social id to the one being returned from auth
     user.update_attribute(:social_uid, @auth['uid'])
+  end
+
+  def ldap_encryption
+    encryption_method = case ENV['LDAP_METHOD']
+      when 'ssl'
+        'simple_tls'
+      when 'tls'
+        'start_tls'
+      end
+
+    {
+      method: encryption_method,
+      tls_options: OpenSSL::SSL::SSLContext::DEFAULT_PARAMS
+    }
   end
 end
