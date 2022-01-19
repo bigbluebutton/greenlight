@@ -565,6 +565,18 @@ describe RoomsController, type: :controller do
       expect(response).to redirect_to(@user.main_room)
     end
 
+    it "should also delete shared rooms" do
+      guest = create(:user)
+      SharedAccess.create(room_id: @secondary_room.id, user_id: guest.id)
+
+      @request.session[:user_id] = @user.id
+
+      delete :destroy, params: { room_uid: @secondary_room }
+
+      expect(Room.exists?(@secondary_room.id)).to be false
+      expect(SharedAccess.exists?(room_id: @secondary_room.id, user_id: guest.id)).to be false
+    end
+
     it "should not delete room if not owner" do
       random_user = create(:user)
       @request.session[:user_id] = random_user.id

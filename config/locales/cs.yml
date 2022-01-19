@@ -28,6 +28,7 @@ cs:
     errors:
       models:
         user:
+          password: nesplňovalo požadovanou složitost
           confirmation: Hesla nejsou shodná
   administrator:
     site_settings:
@@ -145,6 +146,7 @@ cs:
     roles:
       appear_in_share_list: Uživatelé s touto rolí mohou sdílet místnost.
       can_create_rooms: Uživatel může vytvářet místnosti
+      can_launch_recording: Povolit uživatelům role zaznamenávat jejich setkání
       delete: Smazat roli
       invalid_create: Nastal problém při vytváření nové role. Zkontrolujte prosím vstupní údaje a zkuste to znovu
       invalid_order: Nastal problém při změně priority role. Zkontrolujte nastavené hodnoty a zkuste to znovu
@@ -268,6 +270,7 @@ cs:
       accepted: musí být odsouhlaseno
       confirmation: "nejsou shodná %{attribute}"
       inclusion: není v seznamu
+      domain: "musí končit s \"%{email_domain}\""
     no_provider:
       message: Stránka není aktivní
       help: "Kontaktujte prosím administrátora, aby nastavil Greenlight"
@@ -312,6 +315,7 @@ cs:
   home_room: Domovská místnost
   info_update_success: Informace byly úspěšně uloženy.
   invalid_credentials: "Zadané přihlašování jméno nebo heslo je nesprávné. Zkuste to znovu, nebo klikněte na možnost 'Zapomenuté heslo' pro reset hesla."
+  invalid_credentials_external: "Vloženená emailová adresa a heslo se neshodují s našimi záznamy. Prosím, zkuste ještě jednou."
   invalid_login_method: Přihlášení selhalo z důvodu problému s účtem. Musíte se přihlásit přes omniauth.
   invite_message: "Další osoby pozvete na konferenci tím, že jim zašlete následující odkaz:"
   javascript:
@@ -332,6 +336,8 @@ cs:
   language_default: Výchozí (jazyk webového prohlížeče)
   ldap_error: "Není možné připojit se k LDAP serveru. Prosím zkontrolujte LDAP konfiguraci v souboru .env a zkontrolujte, že LDAP server běží."
   login: Přihlásit
+  login_page:
+    locked_out: "Váš účet byl zamknut kvůli příliš mnoho neúspěšným pokusům zadat heslo. Prosím, zkuste později."
   login_title: Přihlašte se ke svému účtu
   mailer:
     user:
@@ -397,7 +403,9 @@ cs:
       access_code: Přístupový kód
       moderator_access_code: PIN moderátora
       access_code_placeholder: Vygenerovat volitelný přístupový kód
+      reset_access_code: Reset dodatečného přístupového hesla do místnosti
       moderator_access_code_placeholder: Generuj pin moderátora.
+      reset_moderator_access_code: Reset dodatečného hesla pro moderátory
       auto_join: Připojit mne automaticky do místnosti
       create: Vytvořit místnost
       free_delete: Tuto místnost můžete kdykoliv odstranit.
@@ -495,9 +503,11 @@ cs:
     all_recordings: Všechny nahrávky
     email: Poslat nahrávku e-mailem
     error: " Nastala chyba při stahování%{count} nahrávek"
-    no_recordings: "Tato místnost nemá %{inject}nahrávky."
+    no_public_recordings: Místnost nemá veřejné nahrávky.
+    no_recordings: Místnost nemá žádné nahrávky.
     no_user_recordings: Nemáte žádné nahrávky.
-    no_matched_recordings: " Nenalezeny vyhovující%{inject} nahrávky."
+    no_matched_pub_recordings: Nepodařilo se najít žádné veřejné nahrávky.
+    no_matched_recordings: Nepodařilo se najít žádné nahrávky.
     recorded_on: "Záznam z %{date}"
     table:
       name: Jméno
@@ -507,6 +517,7 @@ cs:
       visibility: Viditelnost
       formats: Formáty
     visibility:
+      inaccessible: Nepřístupné
       public: Veřejné
       unlisted: Neveřejné
     format:
@@ -529,10 +540,12 @@ cs:
     invite:
       fail: "Váš token je neplatný, nebo jeho platnost vypršela. Pokud si myslíte, že jde o omyl, kontaktujte prosím administrátora."
       no_invite: "Nemáte pozvánku k registraci. Abyste ji získali, kontaktujte prosím administrátora."
+    insecure_password: Kvůli zvýšení zabezpečení byl zvýšen požadavek na složitost hesla. Prosím zadejte nové heslo splňující požadavky níže.
   remove: Odstranit
   rename: Přejmenovat
   reset_password:
     captcha: "Ověření reCAPTCHA selhalo, zkuste to prosím znovu."
+    complexity: Heslo nesplňuje požadavek na složitost
     invalid_token: Token resetu hesla je neplatný. Prosím proveďte reset svého hesla ještě jednou.
     subtitle: Resetovat heslo
     password: Nové heslo
@@ -640,6 +653,9 @@ cs:
     title: Podmínky
   test_install: >
     Tato instalace používá konfiguraci testovacího serveru, měli byste ji nahradit vlastní. Pro více detailů si pozorně %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Aktualizovat
   verify:
     accept: Ověřit

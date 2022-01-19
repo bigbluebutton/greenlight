@@ -336,6 +336,8 @@ de_DE:
   language_default: Voreinstellung (Browsersprache)
   ldap_error: "Verbindung zum LDAP Server konnte nicht hergestellt werden. Bitte überprüfen Sie die LDAP Konfiguration und stellen Sie sicher, dass der LDAP-Server läuft."
   login: Einloggen
+  login_page:
+    locked_out: Ihr Konto wurde aufgrund zu vieler falscher Passwortversuche gesperrt. Bitte versuchen Sie es später erneut.
   login_title: In Ihr Konto einloggen
   mailer:
     user:

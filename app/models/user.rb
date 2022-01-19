@@ -28,7 +28,7 @@ class User < ApplicationRecord
   before_destroy :destroy_rooms
 
   has_many :rooms
-  has_many :shared_access
+  has_many :shared_access, dependent: :destroy
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
 
   has_and_belongs_to_many :roles, join_table: :users_roles # obsolete
