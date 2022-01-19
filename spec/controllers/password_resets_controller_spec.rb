@@ -158,6 +158,7 @@ describe PasswordResetsController, type: :controller do
         user.reload
 
         expect(old_digest.eql?(user.password_digest)).to be false
+        expect(user.reset_digest.nil? && user.reset_sent_at.nil?).to be
         expect(response).to redirect_to(root_path)
       end
     end
