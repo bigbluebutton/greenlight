@@ -28,7 +28,7 @@ class User < ApplicationRecord
   before_destroy :destroy_rooms
 
   has_many :rooms
-  has_many :shared_access
+  has_many :shared_access, dependent: :destroy
   belongs_to :main_room, class_name: 'Room', foreign_key: :room_id, required: false
 
   has_and_belongs_to_many :roles, join_table: :users_roles # obsolete
@@ -217,6 +217,19 @@ class User < ApplicationRecord
   def create_home_room
     room = Room.create!(owner: self, name: I18n.t("home_room"))
     update_attributes(main_room: room)
+  end
+
+  # returns true if the user has attempted to log in too many times in the past 24 hours
+  def locked_out?
+    attempts = failed_attempts.to_i
+    within_1_day = (24.hours.ago..DateTime.now).cover?(last_failed_attempt)
+
+    return true if attempts > 5 && within_1_day
+
+    # reset the counter if the last login attempt was more than 1 day ago
+    update(failed_attempts: 0) if attempts.positive? && !within_1_day
+
+    false
   end
 
   private

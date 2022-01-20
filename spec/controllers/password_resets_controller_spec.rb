@@ -62,15 +62,6 @@ describe PasswordResetsController, type: :controller do
       end
     end
 
-    context "does not allow mail notifications" do
-      before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(false) }
-
-      it "renders a 404 page upon if email notifications are disabled" do
-        get :create
-        expect(response).to redirect_to("/404")
-      end
-    end
-
     context "reCAPTCHA enabled" do
       before do
         allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
@@ -167,6 +158,7 @@ describe PasswordResetsController, type: :controller do
         user.reload
 
         expect(old_digest.eql?(user.password_digest)).to be false
+        expect(user.reset_digest.nil? && user.reset_sent_at.nil?).to be
         expect(response).to redirect_to(root_path)
       end
     end
