@@ -28,7 +28,7 @@
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off, required: true %>
+              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", minlength: 2, placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off, required: true %>
               <div class="invalid-feedback text-left"><%= t("modal.create_room.not_blank") %></div>
             </div>
 
