@@ -84,6 +84,12 @@
                                 <i class="dropdown-icon far fa-times-circle"></i> <%= t("administrator.users.settings.decline") %>
                               <% end %>
                             <% else %>
+                              <%if current_user.admin_of?(user, "can_manage_rooms_recordings") && user.role.get_permission("can_create_rooms") %>
+                                <a href="" data-toggle="modal" data-target="#createRoomModal" class="create-room dropdown-item" data-path="<%= admin_create_room_path(user_uid: user.uid) %>">
+                                  <i class="dropdown-icon fa-chalkboard-teacher fas" aria-hidden="true"></i>    <!-- Compliant icon fonts usage -->
+                                  <%= t("modal.create_room.create") %>
+                                </a>
+                              <%end%>
                               <%= link_to admin_edit_user_path(user_uid: user.uid), class: "dropdown-item" do %>
                                 <i class="dropdown-icon fas fa-user-edit"></i> <%= t("administrator.users.settings.edit") %>
                               <% end %>

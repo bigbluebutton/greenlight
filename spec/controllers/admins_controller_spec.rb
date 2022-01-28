@@ -28,6 +28,59 @@ describe AdminsController, type: :controller do
     @admin.set_role :admin
   end
 
+  describe "Server room creation" do
+    before do
+      @request.session[:user_id] = @admin.id
+      @name = Faker::Games::Pokemon.name
+      @room_params = { name: @name, mute_on_join: "1",
+        require_moderator_approval: "1", anyone_can_start: "1", all_join_moderator: "1" }
+      @json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
+        "\"anyoneCanStart\":true,\"joinModerator\":true,\"recording\":false}"
+    end
+    context "For admins with manage_users and manage_rooms_and_recordings permissions" do
+        def expectations
+          expect(@admin.admin_of?(@user, "can_manage_rooms_recordings") && @admin.admin_of?(@user, "can_manage_users")).to be
+          post :create_room, params: { room: @room_params, user_uid: @user.uid }
+          return yield if block_given?
+          expect(flash[:alert]).to be_present
+          expect(response).to redirect_to(admins_path)
+        end
+        it "should create room with the proper name and correct settings " do
+          expectations {
+            room = @user.reload.rooms.last
+            expect(room.name).to eql(@name)
+            expect(room.owner).to eql(@user)
+            expect(room.room_settings).to eql(@json_room_settings)
+            expect(flash[:success]).to be_present
+            expect(response).to redirect_to(admins_path)
+          }
+        end
+        it "should redirect back to admins_path if the user have reached their limit" do
+          allow_any_instance_of(Setting).to receive(:get_value).and_return(1)
+          expectations
+        end
+        it "should redirect back to admins_path if the room has invalid params" do
+          @room_params[:name] = ""
+          expectations
+        end
+    end
+
+    context "For admins without can_manage_users or can_manage_rooms_and_recordings" do
+      def expectations(permission)
+        @admin.role.update_permission(permission, "false")
+        expect(@admin.reload.admin_of?(@user, permission)).not_to be
+        post :create_room, params: { room: @room_params, user_uid: @user.uid }
+        expect(response).to render_template "errors/greenlight_error"
+      end
+      it "should redirect back to greenlight/error if admin lacks can_manage_users permission" do
+        expectations("can_manage_users")
+      end
+      it "should redirect back to greenlight/error if admin lacks can_manage_rooms_recordings permission" do
+        expectations("can_manage_rooms_recordings")
+      end
+    end
+  end
+
   describe "Server Recordings" do
     it "renders the server_recordings page" do
       @request.session[:user_id] = @admin.id

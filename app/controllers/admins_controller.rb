@@ -23,6 +23,7 @@ class AdminsController < ApplicationController
   include Recorder
   include Rolify
   include Populator
+  include RoomCommon
 
   manage_users = [:edit_user, :promote, :demote, :ban_user, :unban_user, :approve, :reset, :merge_user]
   manage_deleted_users = [:undelete]
@@ -47,6 +48,32 @@ class AdminsController < ApplicationController
     end
 
     @pagy, @users = pagy(users)
+  end
+
+  # POST /admins/rooms/:user_uid
+  def create_room
+   user_uid = params[:user_uid]
+   user = User.find_by(uid: user_uid)
+
+   return redirect_to admins_path, flash: { alert: I18n.t("administrator.flash.user_not_found") } unless user
+   # Check if the user has not exceeded the room limit
+   return redirect_to admins_path,
+   flash: { alert: I18n.t("administrator.flash.room_limit", user: user.name) } if room_limit_exceeded(user)
+
+   # Create room
+   room = Room.new(name: room_params[:name],
+                    access_code: room_params[:access_code],
+                    moderator_access_code: room_params[:moderator_access_code])
+   room.owner = user
+   room.room_settings = create_room_settings_string(room_params)
+
+   # Save the room and redirect if it fails
+   return redirect_to admins_path, flash: { alert: I18n.t("room.create_room_error") } unless room.save
+
+   logger.info "Support: Admin #{current_user.email} has created a new room #{room.uid} for user #{user.uid}."
+
+   # Redirect to admins path if the room is saved successfully
+   redirect_to admins_path, flash: { success: I18n.t("room.create_room_success") }
   end
 
   # GET /admins/site_settings

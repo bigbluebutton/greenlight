@@ -33,6 +33,12 @@ $(document).on('turbolinks:load', function(){
     checkIfAutoJoin()
   }
 
+  if (controller == "admins" && action == "index"){
+    $(".create-room").click(function(){
+      showCreateRoom(this)
+    })
+  }
+
     // Autofocus on the Room Name label when creating a room only
   $('#createRoomModal').on('shown.bs.modal', function (){
     if ($(".create-only").css("display") == "block"){
@@ -208,6 +214,8 @@ function copyAccess(target) {
 }
 
 function showCreateRoom(target) {
+  const create_room_path = $(target).data("path")
+
   $("#create-room-name").val("")
   $("#create-room-access-code").text(getLocalizedString("modal.create_room.access_code_placeholder"))
   $("#create-room-moderator-access-code").text(getLocalizedString("modal.create_room.moderator_access_code_placeholder"))
@@ -232,6 +240,12 @@ function showCreateRoom(target) {
     $(this).attr('style',"display:none !important")
     if($(this).children().length > 0) { $(this).children().attr('style',"display:none !important") }
   })
+
+  if (create_room_path){
+    $("#createRoomModal form").attr("action", create_room_path)
+    $("#auto-join-label").remove()
+  }
+
 }
 
 function showUpdateRoom(target) {

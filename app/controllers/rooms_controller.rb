@@ -21,6 +21,7 @@ class RoomsController < ApplicationController
   include Recorder
   include Joiner
   include Populator
+  include RoomCommon
 
   before_action :validate_accepted_terms, unless: -> { !Rails.configuration.terms }
   before_action :validate_verified_email, except: [:show, :join],
@@ -346,24 +347,6 @@ class RoomsController < ApplicationController
 
   private
 
-  def create_room_settings_string(options)
-    room_settings = {
-      muteOnStart: options[:mute_on_join] == "1",
-      requireModeratorApproval: options[:require_moderator_approval] == "1",
-      anyoneCanStart: options[:anyone_can_start] == "1",
-      joinModerator: options[:all_join_moderator] == "1",
-      recording: options[:recording] == "1",
-    }
-
-    room_settings.to_json
-  end
-
-  def room_params
-    params.require(:room).permit(:name, :auto_join, :mute_on_join, :access_code,
-      :require_moderator_approval, :anyone_can_start, :all_join_moderator,
-      :recording, :presentation, :moderator_access_code)
-  end
-
   # Find the room from the uid.
   def find_room
     @room = Room.includes(:owner).find_by!(uid: params[:room_uid])
@@ -417,15 +400,6 @@ class RoomsController < ApplicationController
     shared_access_allowed ? @room.shared_with?(current_user) : false
   end
 
-  def room_limit_exceeded
-    limit = @settings.get_value("Room Limit").to_i
-
-    # Does not apply to admin or users that aren't signed in
-    # 15+ option is used as unlimited
-    return false if current_user&.has_role?(:admin) || limit == 15
-
-    current_user.rooms.length >= limit
-  end
   helper_method :room_limit_exceeded
 
   def valid_moderator_access_code(code)

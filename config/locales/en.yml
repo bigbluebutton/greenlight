@@ -120,6 +120,8 @@ en:
         settings: Settings
       title: Site Settings
     flash:
+      room_limit: "\"%{user}\" have reached their maximum number of rooms allowed"
+      user_not_found: User not found.
       approved: User has been successfully approved.
       banned: User has been successfully banned.
       unbanned: User has been successfully unbanned.
