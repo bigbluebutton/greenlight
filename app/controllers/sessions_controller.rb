@@ -121,7 +121,7 @@ flash: { alert: I18n.t("registration.insecure_password") } unless user.secure_pa
     end
   end
 
-  # POST /auth/failure
+  # GET /auth/failure
   def omniauth_fail
     if params[:message].nil?
       redirect_to root_path, alert: I18n.t("omniauth_error")
