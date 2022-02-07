@@ -28,8 +28,14 @@ de_DE:
     errors:
       models:
         user:
-          password: "erfüllt die Anforderung der notwendigen Komplexität nicht "
-          confirmation: stimmt nicht mit dem Passwort überein
+          confirmation: stimmt nicht überein
+          attributes:
+            email:
+              invalid: ungültiges E-Mail-Format
+            password:
+              invalid: "erfüllt die Anforderung der notwendigen Komplexität nicht " 
+              
+  
   administrator:
     site_settings:
       authentication:
