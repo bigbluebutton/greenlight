@@ -28,8 +28,14 @@ en:
     errors:
       models:
         user:
-          password: did not meet complexity requirements
-          confirmation: doesn't match Password
+          confirmation: doesn't match
+          attributes:
+            email:
+              invalid: invalid email format
+            password:
+              invalid: did not meet complexity requirements 
+              
+  
   administrator:
     site_settings:
       authentication:
