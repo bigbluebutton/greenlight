@@ -122,6 +122,7 @@
       </div>
     </div>
   </div>
+  
   <div class="row mb-2">
     <div class="col-12">
       <div class="form-group">
@@ -136,6 +137,27 @@
               <%= t("administrator.site_settings.authentication.enabled") %>
             <% end %>
             <%= button_to admin_update_settings_path(setting: "Require Recording Consent", value: "false"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.site_settings.authentication.disabled") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label"><%= t("administrator.site_settings.require_learning_dashboard_consent.title") %></label>
+        <label class="form-label text-muted"><%= t("administrator.site_settings.require_learning_dashboard_consent.info") %></label>
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= require_learning_dashboard_string %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="room-auth">
+            <%= button_to admin_update_settings_path(setting: "Require Learning Dashboard Consent", value: "true"), class: "dropdown-item", "data-disable": "" do %>
+              <%= t("administrator.site_settings.authentication.enabled") %>
+            <% end %>
+            <%= button_to admin_update_settings_path(setting: "Require Learning Dashboard Consent", value: "false"), class: "dropdown-item", "data-disable": "" do %>
               <%= t("administrator.site_settings.authentication.disabled") %>
             <% end %>
           </div>

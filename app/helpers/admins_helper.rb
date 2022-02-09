@@ -89,6 +89,14 @@ module AdminsHelper
     end
   end
 
+  def require_learning_dashboard_string
+    if @settings.get_value("Require Learning Dashboard Consent") == "true"
+      I18n.t("administrator.site_settings.authentication.enabled")
+    else
+      I18n.t("administrator.site_settings.authentication.disabled")
+    end
+  end
+
   def moderator_codes_string
     if @settings.get_value("Moderator Access Codes") == "true"
       I18n.t("administrator.site_settings.moderator_codes.enabled")

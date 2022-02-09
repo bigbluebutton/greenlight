@@ -60,6 +60,8 @@ class Setting < ApplicationRecord
       false
     when "Require Recording Consent"
       Rails.configuration.require_consent_default
+    when "Require Learning Dashboard Consent"
+      Rails.configuration.require_learning_dashboard_consent_default
     when "Room Limit"
       Rails.configuration.number_of_rooms_default
     when "Shared Access"
@@ -78,6 +80,8 @@ class Setting < ApplicationRecord
       room_config_setting("all-join-moderator")
     when "Room Configuration Recording"
       room_config_setting("recording")
+    when "Room Configuration Learning Dashboard"
+      room_config_setting("learning-dashboard")
     end
   end
 

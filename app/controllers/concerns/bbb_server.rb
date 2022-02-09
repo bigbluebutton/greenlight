@@ -76,6 +76,7 @@ module BbbServer
 
     create_options[:muteOnStart] = options[:mute_on_start] if options[:mute_on_start]
     create_options[:guestPolicy] = "ASK_MODERATOR" if options[:require_moderator_approval]
+    create_options[:learningDashboardEnabled] = options[:learning_dashboard]
 
     # Send the create request.
     begin

@@ -220,6 +220,7 @@ function showCreateRoom(target) {
   $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default"))
   $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default"))
   $("#room_recording").prop("checked", $("#room_recording").data("default"))
+  $("#room_learning_dashboard").prop("checked", $("#room_learning_dashboard").data("default"))
 
   //show all elements & their children with a create-only class
   $(".create-only").each(function() {
@@ -290,6 +291,7 @@ function updateCurrentSettings(settings_path){
     $("#room_anyone_can_start").prop("checked", $("#room_anyone_can_start").data("default") || settings.anyoneCanStart)
     $("#room_all_join_moderator").prop("checked", $("#room_all_join_moderator").data("default") || settings.joinModerator)
     $("#room_recording").prop("checked", $("#room_recording").data("default") || Boolean(settings.recording))
+    $("#room_learning_dashboard").prop("checked", $("#room_learning_dashboard").data("default") || settings.learningDashboardEnabled)
   })
 }
 

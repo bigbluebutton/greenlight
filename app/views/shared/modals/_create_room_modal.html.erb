@@ -28,7 +28,7 @@
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off, required: true , minlength: 2, maxlength: 256 %>
+              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off, required: true %>
               <div class="invalid-feedback text-left"><%= t("modal.create_room.not_blank") %></div>
             </div>
 
@@ -87,6 +87,14 @@
               <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if moderator == "enabled" %>">
                 <span class="custom-switch-description"><%= t("modal.room_settings.join_moderator")%></span>
                 <%= f.check_box :all_join_moderator, class: "custom-switch-input", data: { default: moderator == "enabled" }, checked: false, tabindex: moderator == "enabled" ? "-1" : "" %>
+                <span class="custom-switch-indicator float-right cursor-pointer"></span>
+              </label>
+            <% end %>
+            <% learning_dashboard = room_configuration("Room Configuration Learning Dashboard") %>
+            <% if learning_dashboard != "disabled" %>
+              <label class="custom-switch pl-0 mt-3 mb-3 w-100 text-left d-inline-block <%= "enabled-setting" if learning_dashboard == "enabled" %>">
+                <span class="custom-switch-description"><%= t("modal.room_settings.learning_dashboard")%></span>
+                <%= f.check_box :learning_dashboard, class: "custom-switch-input", data: { default: learning_dashboard == "enabled" }, checked: false, tabindex: learning_dashboard == "enabled" ? "-1" : "" %>
                 <span class="custom-switch-indicator float-right cursor-pointer"></span>
               </label>
             <% end %>
