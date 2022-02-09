@@ -336,6 +336,8 @@ nl:
   language_default: Standaard (browsertaal)
   ldap_error: Kan geen verbinding maken met de LDAP-server. Controleer uw LDAP-configuratie in het env-bestand en zorg ervoor dat uw server actief is.
   login: Inloggen
+  login_page:
+    locked_out: Je account is geblokkeerd omdat je teveel mislukte aanmeldpogingen gedaan hebt. Probeer later opnieuw.
   login_title: Meld u aan bij uw account
   mailer:
     user:
