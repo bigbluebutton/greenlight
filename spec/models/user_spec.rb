@@ -22,6 +22,8 @@ require 'bigbluebutton_api'
 describe User, type: :model do
   before do
     @user = create(:user)
+    @secure_pwd = "#{Faker::Internet.password(min_length: 8, mix_case: true, special_characters: true)}1aB"
+    @insecure_pwd = Faker::Internet.password(min_length: 8, mix_case: true).to_s
   end
 
   context 'validations' do
@@ -47,10 +49,16 @@ describe User, type: :model do
       user = create(:user, email: "DOWNCASE@DOWNCASE.COM")
       expect(user.email).to eq("downcase@downcase.com")
     end
-
     context 'is greenlight account' do
       before { allow(subject).to receive(:greenlight_account?).and_return(true) }
       it { should validate_length_of(:password).is_at_least(8) }
+      it { should validate_confirmation_of(:password) }
+      it "should validate password complexity" do
+        @user.update(password: @secure_pwd, password_confirmation: @secure_pwd)
+        expect(@user).to be_valid
+        @user.update(password: @insecure_pwd, password_confirmation: @insecure_pwd)
+        expect(@user).to be_invalid
+      end
     end
 
     context 'is not greenlight account' do
@@ -266,6 +274,16 @@ describe User, type: :model do
 
       expect(@user.locked_out?).to be false
       expect(@user.reload.failed_attempts).to eq(0)
+    end
+  end
+  context 'class methods' do
+    context "#secure_password?" do
+      it "should return true for secure passwords" do
+        expect(User.secure_password?(@secure_pwd)).to be
+      end
+      it "should return false for insecure passwords" do
+        expect(User.secure_password?(@insecure_pwd)).not_to be
+      end
     end
   end
 end
