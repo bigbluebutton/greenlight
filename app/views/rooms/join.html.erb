@@ -51,6 +51,12 @@
           <h4 class="text-left text-danger mt-4 custom-control-label"><%= t("room.recording_present") %></h4>
         </label>
       <% end %>
+      <% if learning_dashboard_consent %>
+        <label class="custom-control custom-checkbox">
+          <input id="learning-dashboard-consent" type="checkbox" class="custom-control-input" required>
+          <h4 class="text-left text-danger mt-4 custom-control-label"><%= t("room.learning_dashboard_present") %></h4>
+        </label>
+      <% end %>
     <% end %>
     <% if moderator_access_code_set && !valid_moderator_access_code %>
       <!-- <hr class="mt-2 float-right w-100 moderator-code-hr"> -->

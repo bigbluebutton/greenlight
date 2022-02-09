@@ -183,9 +183,9 @@ describe RoomsController, type: :controller do
       name = Faker::Games::Pokemon.name
 
       room_params = { name: name, mute_on_join: "1",
-        require_moderator_approval: "1", anyone_can_start: "1", all_join_moderator: "1" }
+        require_moderator_approval: "1", anyone_can_start: "1", all_join_moderator: "1", learning_dashboard: "1" }
       json_room_settings = "{\"muteOnStart\":true,\"requireModeratorApproval\":true," \
-        "\"anyoneCanStart\":true,\"joinModerator\":true,\"recording\":false}"
+        "\"anyoneCanStart\":true,\"joinModerator\":true,\"recording\":false,\"learningDashboardEnabled\":true}"
 
       post :create, params: { room: room_params }
 
@@ -200,12 +200,13 @@ describe RoomsController, type: :controller do
       @request.session[:user_id] = @owner.id
 
       @owner.main_room.update_attribute(:room_settings, { muteOnStart: true, requireModeratorApproval: true,
-      anyoneCanStart: true, joinModerator: true }.to_json)
+      anyoneCanStart: true, joinModerator: true, learningDashboardEnabled: true }.to_json)
 
       json_room_settings = { "anyoneCanStart" => true,
                              "joinModerator" => true,
                              "muteOnStart" => true,
-                             "requireModeratorApproval" => true }
+                             "requireModeratorApproval" => true,
+                             "learningDashboardEnabled" => true }
 
       get :room_settings, params: { room_uid: @owner.main_room }, format: :json
 
@@ -303,7 +304,8 @@ describe RoomsController, type: :controller do
       allow_any_instance_of(Setting).to receive(:get_value).and_return("optional")
 
       room = Room.new(name: "test")
-      room.room_settings = "{\"muteOnStart\":false,\"joinViaHtml5\":false,\"anyoneCanStart\":true}"
+      room.room_settings = "{\"muteOnStart\":false,\"joinViaHtml5\":false,\"anyoneCanStart\":true, \
+      \"learningDashboardEnabled\":false}"
       room.owner = @owner
       room.save
 
@@ -318,7 +320,8 @@ describe RoomsController, type: :controller do
       allow_any_instance_of(Setting).to receive(:get_value).and_return("disabled")
 
       room = Room.new(name: "test")
-      room.room_settings = "{\"muteOnStart\":false,\"joinViaHtml5\":false,\"anyoneCanStart\":true}"
+      room.room_settings = "{\"muteOnStart\":false,\"joinViaHtml5\":false,\"anyoneCanStart\":true, \
+      \"learningDashboardEnabled\":false}"
       room.owner = @owner
       room.save
 
@@ -681,7 +684,22 @@ describe RoomsController, type: :controller do
 
       room_params = { mute_on_join: "1", name: @secondary_room.name, recording: "1" }
       formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
-        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":true}" # JSON string format
+        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":true," \
+        "\"learningDashboardEnabled\":false}" # JSON string format
+
+      expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
+        .to change { @secondary_room.reload.room_settings }
+        .from(@secondary_room.room_settings).to(formatted_room_params)
+      expect(response).to redirect_to(@secondary_room)
+    end
+
+    it "properly updates room settings through the room settings modal and redirects to current page" do
+      @request.session[:user_id] = @user.id
+
+      room_params = { mute_on_join: "1", name: @secondary_room.name, recording: "1" }
+      formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
+        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":true," \
+        "\"learningDashboardEnabled\":false}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }
@@ -704,7 +722,8 @@ describe RoomsController, type: :controller do
 
       room_params = { mute_on_join: "1", name: @secondary_room.name }
       formatted_room_params = "{\"muteOnStart\":true,\"requireModeratorApproval\":false," \
-        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":false}" # JSON string format
+        "\"anyoneCanStart\":false,\"joinModerator\":false,\"recording\":false," \
+        "\"learningDashboardEnabled\":false}" # JSON string format
 
       expect { post :update_settings, params: { room_uid: @secondary_room.uid, room: room_params } }
         .to change { @secondary_room.reload.room_settings }

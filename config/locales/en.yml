@@ -28,14 +28,8 @@ en:
     errors:
       models:
         user:
-          confirmation: doesn't match
-          attributes:
-            email:
-              invalid: invalid email format
-            password:
-              invalid: did not meet complexity requirements 
-              
-  
+          password: did not meet complexity requirements
+          confirmation: doesn't match Password
   administrator:
     site_settings:
       authentication:
@@ -96,6 +90,9 @@ en:
       require_consent:
         info: This setting enables a room setting that allows room owners to specify which rooms can be recorded. Users joining a recorded room must consent before joining.
         title: Require Room Owner and Joiner Consent to Recording
+      require_learning_dashboard_consent:
+        info: This setting enables a room setting that allows room owners to specify which rooms use learning dashboard. Users joining this room must conset before joining.
+        title: Require Room Owner and Joiner Consent to Learning Dashboard
       maintenance_banner:
         info: Displays a Banner to inform the user of a scheduled maintenance
         title: Maintenance Banner
@@ -186,6 +183,9 @@ en:
       moderator_codes:
         info: Allows room owners to optionally generate a moderator pin which allows other users to join directly as moderators.
         title: Moderator Access Code
+      learning_dashboard:
+        info: Allow room owners to optionally use the learning dashboard in der rooms.
+        title: Learning Dashboard
       options:
         disabled: Disabled
         enabled: Always Enabled
@@ -467,6 +467,7 @@ en:
       start: Allow any user to start this meeting
       footer_text: Adjustment to your room can be done at anytime.
       recording: Allow room to be recorded
+      learning_dashboard: Enable learning dashboard in this room.
     rename_room:
       name_placeholder: Enter a new room name...
     share_access:
@@ -586,6 +587,7 @@ en:
     invitation_description: You have been invited to join %{name} using BigBlueButton. To join, click the link above and enter your name.
     invited: You have been invited to join
     recording_present: I acknowledge that this session is going to be recorded. This may include my voice and video if enabled.
+    learning_dashboard_present: I acknowledge that this session allows the moderator to see my participation and engagement throughout the session.
     invite_participants: Invite Participants
     join: Join
     last_session: Last session on %{session}

@@ -55,6 +55,15 @@ module RoomsHelper
     end
   end
 
+  def learning_dashboard_consent
+    # If the require consent setting is checked, then check the room setting, else, set to false
+    if learning_dashboard_consent_required?
+      room_setting_with_config("learningDashboardEnabled")
+    else
+      false
+    end
+  end
+
   # Array of recording formats not to show for public recordings
   def hidden_format_public
     ENV.fetch("HIDDEN_FORMATS_PUBLIC", "").split(",")

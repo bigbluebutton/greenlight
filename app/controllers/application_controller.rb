@@ -191,6 +191,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :recording_consent_required?
 
+  # Indicates whether users should consent analytics (learning dashboard) when joining rooms
+  def learning_dashboard_consent_required?
+    @settings.get_value("Require Learning Dashboard Consent") == "true"
+  end
+  helper_method :learning_dashboard_consent_required?
+
   # Indicates whether users are allowed to add moderator access codes to rooms
   def moderator_code_allowed?
     @settings.get_value("Room Configuration Moderator Access Codes") == "optional"
