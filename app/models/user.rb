@@ -21,6 +21,7 @@ require 'bbb_api'
 class User < ApplicationRecord
   include Deleteable
 
+  PASSWORD_PATTERN = /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(\W|_)).{8,}\z/
   after_create :setup_user
 
   before_save { email.try(:downcase!) }
@@ -45,7 +46,7 @@ class User < ApplicationRecord
                     format: { with: /\A[\w+\-'.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
   validates :password, length: { minimum: 8 },
-            format: /\A(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}\z/,
+            format: PASSWORD_PATTERN,
             confirmation: true,
             if: :validate_password?
 
@@ -113,6 +114,10 @@ class User < ApplicationRecord
 
       search_param = "%#{sanitize_sql_like(string)}%"
       where(search_query, search: search_param)
+    end
+
+    def secure_password?(pwd)
+      pwd.match? PASSWORD_PATTERN
     end
   end
 
