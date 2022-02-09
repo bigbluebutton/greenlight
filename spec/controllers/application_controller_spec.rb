@@ -179,4 +179,14 @@ describe ApplicationController do
       expect(response).to render_template("errors/greenlight_error")
     end
   end
+  context "services" do
+    describe "#timestamp_to_datetime" do
+      let(:timestamps_in_ms) { [1_354_469_829, 989_995_656, 1_160_639_188, 1_566_797_395] }
+      it "takes a timestamp and converts it into a formatted datetime" do
+        timestamps_in_sec = timestamps_in_ms.collect { |ts| ts / 1000 }
+        result = timestamps_in_ms.collect { |ts| controller.timestamp_to_datetime(ts).to_time.to_i }
+        expect(result).to eql(timestamps_in_sec)
+      end
+    end
+  end
 end

@@ -13,13 +13,17 @@ module BbbApi
 
   # Sets a BigBlueButtonApi object for interacting with the API.
   def bbb(user_provider)
-    if Rails.configuration.loadbalanced_configuration
+    bbb_instance = if Rails.configuration.loadbalanced_configuration
       user_domain = retrieve_provider_info(user_provider)
 
       BigBlueButton::BigBlueButtonApi.new(remove_slash(user_domain["apiURL"]), user_domain["secret"], "0.8")
     else
       BigBlueButton::BigBlueButtonApi.new(remove_slash(bbb_endpoint), bbb_secret, "0.8")
     end
+    # This defines the time period that Greenlight will wait for to receive a response back from the
+    # BBB Api server before closing the connection believing that the server is down.
+    bbb_instance.timeout = 30
+    bbb_instance
   end
 
   # Rereives info from the loadbalanced in regards to a Provider (or tenant).

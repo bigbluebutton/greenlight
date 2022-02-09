@@ -45,8 +45,15 @@ module BbbServer
   # Returns a URL to join a user into a meeting.
   def join_path(room, name, options = {}, uid = nil)
     # Create the meeting, even if it's running
-    start_session(room, options)
-
+    retries = 0
+    begin
+      start_session(room, options, name, uid)
+    rescue StandardError => e
+      retries += 1
+      logger.info "Retrying #{retries} time(s) to start session for room #{room.uid} because of : #{e.message}."
+      retry if retries < 3
+      raise e
+    end
     # Determine the password to use when joining.
     password = options[:user_is_moderator] ? room.moderator_pw : room.attendee_pw
 
@@ -61,39 +68,35 @@ module BbbServer
   end
 
   # Creates a meeting on the BigBlueButton server.
-  def start_session(room, options = {})
-    create_options = {
-      record: options[:record].to_s,
-      logoutURL: options[:meeting_logout_url] || '',
-      moderatorPW: room.moderator_pw,
-      attendeePW: room.attendee_pw,
-      moderatorOnlyMessage: options[:moderator_message],
-      "meta_#{META_LISTED}": options[:recording_default_visibility] || false,
-      "meta_bbb-origin-version": Greenlight::Application::VERSION,
-      "meta_bbb-origin": "Greenlight",
-      "meta_bbb-origin-server-name": options[:host]
-    }
-
+  def start_session(room, options = {}, join_name = nil, guest_uid = nil)
+    create_options = build_create_options options, room
     create_options[:muteOnStart] = options[:mute_on_start] if options[:mute_on_start]
     create_options[:guestPolicy] = "ASK_MODERATOR" if options[:require_moderator_approval]
-
     # Send the create request.
     begin
       meeting = if room.presentation.attached?
-        modules = BigBlueButton::BigBlueButtonModules.new
-        url = rails_blob_url(room.presentation).gsub("&", "%26")
-        logger.info("Support: Room #{room.uid} starting using presentation: #{url}")
-        modules.add_presentation(:url, url)
+        modules = build_session_modules room
         bbb_server.create_meeting(room.name, room.bbb_id, create_options, modules)
       else
         bbb_server.create_meeting(room.name, room.bbb_id, create_options)
       end
-
-      unless meeting[:messageKey] == 'duplicateWarning'
-        room.update_attributes(sessions: room.sessions + 1, last_session: DateTime.strptime(meeting[:createTime].to_s, "%Q"))
+      meeting_starter = @current_user&.email || "unauthenticated user #{join_name}:#{guest_uid}"
+      meeting_create_time = timestamp_to_datetime(meeting[:createTime])
+      logger.info("Support: Room #{room.uid} is starting by : #{meeting_starter}")
+      if meeting[:messageKey] == 'duplicateWarning'
+       logger.warn "Duplicated create request for room #{room.uid} started by : #{meeting_starter}"
+      end
+      unless room.last_session == meeting_create_time
+          logger.info "room #{room.uid} last_session #{room.last_session} mismatches with createTime #{meeting_create_time}"
+          room.update_attributes(sessions: room.sessions + 1, last_session: meeting_create_time)
+          logger.info "room #{room.uid} last_session updated to #{room.reload.last_session}"
       end
     rescue BigBlueButton::BigBlueButtonException => e
-      puts "BigBlueButton failed on create: #{e.key}: #{e.message}"
+      logger.error "BigBlueButton failed on create for room #{room.uid}: #{e.key}: #{e.message}"
+      raise e
+    rescue ActiveRecord::ActiveRecordError => e
+      # Because of possible race transactions.
+      logger.error "Greenlight ActiveRecord failed on create for room #{room.uid}: #{e.message}."
       raise e
     end
   end
@@ -142,5 +145,29 @@ module BbbServer
   def delete_all_recordings(bbb_id)
     record_ids = bbb_server.get_recordings(meetingID: bbb_id)[:recordings].pluck(:recordID)
     bbb_server.delete_recordings(record_ids) unless record_ids.empty?
+  end
+
+  private
+
+  def build_create_options(opts, room)
+    {
+      record: opts[:record].to_s,
+      logoutURL: opts[:meeting_logout_url] || '',
+      moderatorPW: room.moderator_pw,
+      attendeePW: room.attendee_pw,
+      moderatorOnlyMessage: opts[:moderator_message],
+      "meta_#{META_LISTED}": opts[:recording_default_visibility] || false,
+      "meta_bbb-origin-version": Greenlight::Application::VERSION,
+      "meta_bbb-origin": "Greenlight",
+      "meta_bbb-origin-server-name": opts[:host]
+    }
+  end
+
+  def build_session_modules(room)
+    modules = BigBlueButton::BigBlueButtonModules.new
+    url = rails_blob_url(room.presentation).gsub("&", "%26")
+    modules.add_presentation(:url, url)
+    logger.info("Support: Room #{room.uid} starting using presentation: #{url}")
+    modules
   end
 end

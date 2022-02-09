@@ -261,6 +261,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Takes a timestamp and returns a formated datetime.
+  def timestamp_to_datetime(timestamp)
+    DateTime.strptime(timestamp.to_s, "%Q")
+  end
+
   private
 
   def check_provider_exists

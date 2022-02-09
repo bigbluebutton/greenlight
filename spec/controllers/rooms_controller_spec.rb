@@ -32,7 +32,8 @@ describe RoomsController, type: :controller do
   include BbbServer
 
   let(:bbb_server) { BigBlueButton::BigBlueButtonApi.new("http://bbb.example.com/bigbluebutton/api", "secret", "0.8") }
-
+  let(:logger) { Logger.new($stdout) }
+  define_method(:timestamp_to_datetime) { |timestamp| DateTime.strptime(timestamp.to_s, "%Q") }
   describe "GET #show" do
     before do
       @user = create(:user)
