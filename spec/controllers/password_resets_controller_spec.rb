@@ -25,27 +25,38 @@ def random_valid_user_params
       email: Faker::Internet.email,
       password: "Example1!",
       password_confirmation: "Example1!",
-      accepted_terms: true,
-      email_verified: true,
+      accepted_terms: false,
+      email_verified: false,
     },
   }
 end
 
 describe PasswordResetsController, type: :controller do
+  def by_pass_terms_acceptance
+    allow(Rails.configuration).to receive(:terms).and_return false
+    res = yield
+    allow(Rails.configuration).to receive(:terms).and_return "This is a dummy text!"
+    res
+  end
+  before {
+    @user = by_pass_terms_acceptance { create(:user, accepted_terms: false) }
+  }
   describe "POST #create" do
     context "allow mail notifications" do
-      before { allow(Rails.configuration).to receive(:enable_email_verification).and_return(true) }
+      before {
+        allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+      }
 
       it "redirects to root url if email is sent" do
-        user = create(:user)
-
+        allow(User).to receive(:find_by!).and_return(@user).with(hash_including(email: @user.email.downcase))
         params = {
           password_reset: {
-            email: user.email,
+            email: @user.email,
           },
         }
-
+        expect(@user.reset_digest.nil? && @user.reset_sent_at.nil?).to be
         post :create, params: params
+        expect(@user.reload.reset_digest.nil? || @user.reset_sent_at.nil?).not_to be
         expect(response).to redirect_to(root_path)
       end
 
@@ -57,6 +68,7 @@ describe PasswordResetsController, type: :controller do
         }
 
         post :create, params: params
+        expect(@user.reload.reset_digest).to be_nil
         expect(flash[:success]).to be_present
         expect(response).to redirect_to(root_path)
       end
@@ -70,12 +82,11 @@ describe PasswordResetsController, type: :controller do
 
       it "sends a reset email if the recaptcha was passed" do
         allow(controller).to receive(:valid_captcha).and_return(true)
-
-        user = create(:user, provider: "greenlight")
+        by_pass_terms_acceptance { @user.update provider: "greenlight" }
 
         params = {
           password_reset: {
-            email: user.email,
+            email: @user.email,
           },
         }
 
@@ -84,12 +95,9 @@ describe PasswordResetsController, type: :controller do
 
       it "doesn't send an email if the recaptcha was failed" do
         allow(controller).to receive(:valid_captcha).and_return(false)
-
-        user = create(:user)
-
         params = {
           password_reset: {
-            email: user.email,
+            email: @user.email,
           },
         }
 
@@ -103,7 +111,7 @@ describe PasswordResetsController, type: :controller do
   describe "PATCH #update" do
     before do
       allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
-      @user = create(:user, provider: "greenlight")
+      by_pass_terms_acceptance { @user.update provider: "greenlight" }
     end
 
     context "valid user" do
@@ -140,13 +148,12 @@ describe PasswordResetsController, type: :controller do
       end
 
       it "updates attributes if the password update is a success" do
-        user = create(:user, provider: "greenlight")
-        old_digest = user.password_digest
+        old_digest = @user.password_digest
 
         allow(controller).to receive(:check_expiration).and_return(nil)
 
         params = {
-          id: user.create_reset_digest,
+          id: @user.create_reset_digest,
           user: {
             password: "Example1!",
             password_confirmation: "Example1!",
@@ -155,10 +162,9 @@ describe PasswordResetsController, type: :controller do
 
         patch :update, params: params
 
-        user.reload
-
-        expect(old_digest.eql?(user.password_digest)).to be false
-        expect(user.reset_digest.nil? && user.reset_sent_at.nil?).to be
+        @user.reload
+        expect(old_digest.eql?(@user.password_digest)).to be false
+        expect(@user.reset_digest.nil? && @user.reset_sent_at.nil?).to be
         expect(response).to redirect_to(root_path)
       end
     end

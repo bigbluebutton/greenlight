@@ -78,3 +78,7 @@ RSpec.configure do |config|
   #
   config.include ActiveSupport::Testing::TimeHelpers
 end
+
+# A dummy text to ensure testing without 'terms and conditions'.
+# Tests that depends on 'terms and conditions' will set them on example run.
+Rails.configuration.terms = false
