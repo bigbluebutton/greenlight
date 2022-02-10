@@ -21,7 +21,7 @@ namespace :user do
     elsif u[:name].blank? || u[:password].blank? || u[:email].blank?
       # Check that all fields exist
       puts red "Missing Arguments"
-      exit 1 # 1 for missing arguments
+      exit 2 # 2 for missing arguments
     end
 
     # Create the default roles if not already created
@@ -29,7 +29,7 @@ namespace :user do
 
     unless Role.exists?(name: u[:role], provider: u[:provider])
       puts red "Invalid Role - Role does not exist"
-      exit 2 # 2 for invalid Role.
+      exit 3 # 3 for invalid Role.
     end
 
     u[:email].prepend "superadmin-" if args[:role] == "super_admin"
@@ -38,11 +38,11 @@ namespace :user do
     if User.exists?(email: u[:email], provider: u[:provider])
       puts red "  Account with that email already exists"
       puts yellow "   Email: #{u[:email]}"
-      exit 3 # 3 for email in use.
+      exit 4 # 4 for email in use.
     else
       validation = args[:validate] || "true"
       user = User.new(name: u[:name], email: u[:email], password: u[:password],
-        secure_password: true, provider: u[:provider], email_verified: true, accepted_terms: true)
+      provider: u[:provider], email_verified: true, accepted_terms: true)
 
       unless user.save(validate: validation == "true") && user.valid?
         puts red "Invalid Arguments"
@@ -53,9 +53,9 @@ namespace :user do
           puts cyan "    2. Have at least 1 lowercase letter."
           puts cyan "    3. Have at least 1 upercase letter."
           puts cyan "    4. Have at least 1 digit."
-          puts cyan "    5. Have at least 1 symbol #?!@$%^&*-"
+          puts cyan "    5. Have at least 1 non-alphanumeric character"
         end
-        exit 4 # 4 for invalid User.
+        exit 5 # 5 for invalid User.
       end
 
       user.set_role(u[:role])
