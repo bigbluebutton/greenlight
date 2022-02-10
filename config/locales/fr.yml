@@ -289,15 +289,15 @@ fr:
       help: "Si vous pensez que c'est une erreur, veuillez contacter votre administrateur système."
   expired_reset_token: Le lien de réinitialisation du mot de passe a expiré !
   features:
-    title: "Fonctionnalités "
-    rooms: "Salons Personnalisés "
-    recordings: Gestion des enregistrements
+    title: "Les fonctionnalités offertes par ce service :"
+    rooms: "Salles de classe multiples "
+    recordings: Enregistrements disponibles 72h
     designs: Designs personnalisés
     authentication: Authentification d'utilisateur
   footer:
     legal: Conditions
     privpolicy: Politique de confidentialité
-    powered_by: "Alimenté par %{href}."
+    powered_by: "Réalisé avec %{href}."
   forgot_password:
     subtitle: Mot de passe oublié
     email: Email
@@ -328,9 +328,10 @@ fr:
     search:
       start: Commencer la recherche...
   landing:
-    about: "%{href} est une interface simple pour votre serveur open-source de Web conférence BigBlueButton. Vous pouvez créer vos propres salles pour héberger des sessions ou rejoindre d'autres utilisateurs via un lien court et pratique. "
-    welcome: Bienvenue sur BigBlueButton.
-    video: Regardez notre tutoriel sur l'utilisation de Greenlight
+    about: "Ce service de classes virtuelles est mis à disposition des écoles de la Marine. Les informations qui sont échangées dans les salles de classes devront être conformes à la règlementation relative aux données personnelles (RGPD)et à la règlementation sur le protection du secret (II 901, IGI 1300) "
+    welcome: Pôle Pédagogie de la Marine.
+    video: Regardez nos tutoriels sur l'utilisation de Greenlight et BigBlueButton
+    ppm: Si vous désirez utiliser BigBlueButton hors du portail E-Form, merci de créer un compte en cliquant sur s'inscrire. Un administratuer validera votre demande (réservé aux formateurs des écoles de la Marine).
     upgrade: Montrez-moi comment passer à la version 2.0 !
     version: "Nous avons publié une nouvelle version de Greenlight, mais votre base de données n'est pas compatible."
   language_default: Par défaut (langue du navigateur)
