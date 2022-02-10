@@ -328,10 +328,10 @@ fr:
     search:
       start: Commencer la recherche...
   landing:
-    about: "Ce service de classes virtuelles est mis à disposition des écoles de la Marine. Les informations qui sont échangées dans les salles de classes devront être conformes à la règlementation relative aux données personnelles (RGPD)et à la règlementation sur le protection du secret (II 901, IGI 1300) "
-    welcome: Pôle Pédagogie de la Marine.
+    about: "Ce service de classes virtuelles est mis à disposition des écoles de la Marine. Les informations qui sont échangées dans les salles de classes devront être conformes à la règlementation relative aux données personnelles (RGPD) et à la règlementation sur le protection du secret (II 901, IGI 1300)."
+    welcome: Pôle Pédagogie de la Marine
     video: Regardez nos tutoriels sur l'utilisation de Greenlight et BigBlueButton
-    ppm: Si vous désirez utiliser BigBlueButton hors du portail E-Form, merci de créer un compte en cliquant sur s'inscrire. Un administratuer validera votre demande (réservé aux formateurs des écoles de la Marine).
+    ppm: Si vous désirez utiliser BigBlueButton hors du portail E-Form, merci de créer un compte en cliquant sur s'inscrire et en utilisant une adresse professionelle (Intradef ou gouv.fr). Un administrateur validera votre demande (réservé aux formateurs des écoles de la Marine).
     upgrade: Montrez-moi comment passer à la version 2.0 !
     version: "Nous avons publié une nouvelle version de Greenlight, mais votre base de données n'est pas compatible."
   language_default: Par défaut (langue du navigateur)
