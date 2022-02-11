@@ -34,8 +34,7 @@ ar:
               invalid: تنسيق البريد الإلكتروني غير صالح
             password:
               invalid: لا تفي بمتطلبات التعقيد 
-              
-  
+          password: لا تفي بمتطلبات التعقيد
   administrator:
     site_settings:
       authentication:

@@ -25,10 +25,10 @@ class Room < ApplicationRecord
 
   before_destroy :destroy_presentation
 
-  validates :name, presence: true
+  validates :name, length: { in: 2..256 }
 
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
-  has_many :shared_access
+  has_many :shared_access, dependent: :destroy
 
   has_one_attached :presentation
 

@@ -25,11 +25,18 @@ en:
         name: Name
         password: Password
         password_confirmation: Password Confirmation
+        old_password: Old password
     errors:
       models:
         user:
-          password: did not meet complexity requirements
-          confirmation: doesn't match Password
+          confirmation: doesn't match
+          attributes:
+            email:
+              invalid: invalid email format
+            password:
+              invalid: did not meet complexity requirements 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -490,6 +497,13 @@ en:
   password_empty_notice: Password cannot be empty.
   password_reset_success: Password has been reset.
   password_different_notice: Password Confirmation does not match.
+  old_password_incorrect: is incorrect
+  password_complexity:
+    minimum_len: At least 8 characters
+    one_lower_case: At least 1 lowercase character
+    one_upper_case: At least 1 uppercase character
+    one_digit: At least 1 number
+    one_sym: At least 1 non alphanumeric character
   provider:
     google: Google
     office365: Office 365

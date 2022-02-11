@@ -288,52 +288,18 @@ describe SessionsController, type: :controller do
       expect(@user1.last_login).to_not be_nil
     end
 
-    it "redirects to reset password page if password is marked as insecure" do
+    it "redirects to reset password page if the password is insecure" do
       allow_any_instance_of(User).to receive(:create_reset_digest).and_return("reset_token")
-
-      @user1.update(secure_password: false)
-
+      @user1.update_attribute(:password, "example")
+      expect(@user1.authenticate("example")).to be
       post :create, params: {
         session: {
           email: @user1.email,
-          password: 'Example1!',
+          password: 'example',
         },
       }
 
       expect(response).to redirect_to(edit_password_reset_path("reset_token"))
-    end
-
-    context "account lockout due to failed attempts" do
-      it "increases failed_attempts if the credentials are incorrect" do
-        freeze_time do
-          3.times do
-            post :create, params: {
-              session: {
-                email: @user1.email,
-                password: 'invalid',
-              },
-            }
-          end
-
-          expect(@user1.reload.failed_attempts).to eq(3)
-          expect(@user1.last_failed_attempt).to eq(DateTime.now)
-        end
-      end
-
-      it "locks out the user if the attempts are > 5 in the past 24 hours" do
-        @user1.update(failed_attempts: 6, last_failed_attempt: 5.minutes.ago)
-
-        post :create, params: {
-          session: {
-            email: @user1.email,
-            password: 'Example1!',
-          },
-        }
-
-        expect(@request.session[:user_id]).to be_nil
-        expect(flash[:alert]).to eq(I18n.t("login_page.locked_out"))
-        expect(response).to redirect_to(signin_path)
-      end
     end
   end
 
