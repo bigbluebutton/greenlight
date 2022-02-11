@@ -28,6 +28,11 @@ fr:
     errors:
       models:
         user:
+          attributes:
+            email:
+              invalid: format du courriel non-valide
+            password:
+              invalid: ne répond pas aux exigences de complexité 
           password: ne répond pas aux exigences de complexité
           confirmation: ne correspond pas au mot de passe
   administrator:
@@ -37,18 +42,18 @@ fr:
         enabled: Activé
         info: Autoriser uniquement les utilisateurs authentifiés à rejoindre une salle
         title: Authentification requise pour rejoindre les salles
-        user-info: Vous devez vous connecter pour rejoindre cette salle.
+        user-info: Vous devez vous identifier pour rejoindre cette salle.
       branding:
         change: Changer l'image
-        info: Change l'image qui apparaît en haut à gauche
+        info: Change le logo qui apparaît en haut à gauche
         placeholder: URL de l'image...
         title: Logo
         invalid: URL invalide
       legal:
         change: Changer d'URL
-        info: Modifier le lien des conditions qui apparaît au bas de la page
-        placeholder: Lien vers les conditions...
-        title: Conditions
+        info: Modifier le lien vers les conditions d'utilisation en bas de la page
+        placeholder: Lien vers les conditions d'utilisation...
+        title: Conditions d'utilisation
         invalid: URL invalide
       privpolicy:
         change: Changer d'URL
@@ -61,13 +66,13 @@ fr:
         title: Vider le cache fournisseur
         button: Vider le cache
       clear_auth:
-        info: Supprimer le mode d'authentification actuel afin de permettre aux utilisateurs de choisir un autre mode d'authentification
+        info: Supprimer le mode d'authentification actuel des utilisateurs afin de leur  permettre de choisir un autre mode d'authentification
         title: Supprimer le mode d'authentification
         button: Supprimer Auth
       color:
-        info: "Modifier la couleur \"Base\" modifiera également les couleurs \"Clair\" et \"Sombre\". Par la suite, les couleurs \"Clair\" et \"Sombre\" peuvent être modifiées individuellement."
+        info: "Modifier la couleur standard modifiera également les couleurs \"Clair\" et \"Sombre\". Par la suite, les couleurs \"Clair\" et \"Sombre\" peuvent être modifiées individuellement."
         title: Couleur principale
-        regular: Base
+        regular: Standard
         lighten: Plus clair
         darken: Plus sombre
       email_mapping:
@@ -89,10 +94,10 @@ fr:
         warning: Ce réglage ne sera appliqué qu'aux salles actuellement inactives
       require_consent:
         info: Ce paramètre permet aux propriétaires de salles de spécifier celles qui peuvent être enregistrées. Les utilisateurs qui se joignent à une salle enregistrée doivent donner leur accord avant de la rejoindre.
-        title: Requiert les consentements du propriétaire de la salle et de celui qui la rejoint pour l'enregistrement
+        title: Requiert pour l'enregistrement les consentements du propriétaire de la salle et de celui qui la rejoint.
       maintenance_banner:
-        info: Affiche une bannière informant l'utilisateur d'une maintenance programmée
-        title: Bannière de maintenance
+        info: Affiche un bandeau informant l'utilisateur d'une maintenance programmée
+        title: Bandeau de maintenance
         display: Définir
         clear: Effacer
         time: "Exemple : Mise à jour prévue le 13 décembre à 23:00. Les utilisateurs peuvent rencontrer des problèmes pour se connecter."
@@ -104,13 +109,13 @@ fr:
         title: Méthode d'inscription
         methods:
           approval: Approuver/Refuser
-          invite: Invitation
+          invite: Rejoindre sur invitation
           open: Inscription ouverte
       rooms:
         info: Limiter le nombre maximum de salles qu'un utilisateur peut avoir (Salle d'Accueil incluse). Ce réglage n'affecte pas les administrateurs.
         title: Nombre de salles par utilisateur
       shared_access:
-        info: "Désactiver : supprimera de la liste déroulante des options du Salon, le bouton de partage, empêchant ainsi les utilisateurs de partager des Salons"
+        info: "En désactivant, le bouton de partage sera supprimé de la liste des options du Salon, empêchant ainsi les utilisateurs de partager des Salons"
         title: Autorise les utilisateurs à partager le Salon
       subtitle: Personnaliser Greenlight
       tabs:
@@ -127,15 +132,15 @@ fr:
       delete_fail: Impossible de supprimer l'utilisateur
       demoted: L'utilisateur a été rétrogradé
       invite: "Invitation envoyée à %{email}"
-      invite_email_verification: Les emails doivent être activés pour utiliser cette méthode. Veuillez contacter votre administrateur système.
-      merge_fail: Un problème est survenu lors de la fusion des comptes utilisateurs. Veuillez vérifier les utilisateurs sélectionnés et réessayer
-      merge_success: Les comptes utilisateurs ont bien été fusionnés
+      invite_email_verification: Les courriels doivent être activés pour utiliser cette méthode. Veuillez contacter votre administrateur système.
+      merge_fail: Un problème est survenu lors de la fusion des comptes de l'utilisateur. Veuillez vérifier la sélection et réessayer
+      merge_success: Les comptes de l'utilisateur ont bien été fusionnés
       perm_deleted: L'utilisateur a été définitivement supprimé
       promoted: L'utilisateur a bien été promu.
-      registration_method_updated: Méthode d'inscription mise à jour.
-      reset_password: "Un email a été envoyé à l'utilisateur afin de réinitialiser son mot de passe. (S'il ne l'a pas reçu, dites-lui de vérifier son dossier \"spam\")"
-      restored: L'utilisateur a bien été restauré
-      room_configuration: Configuration du salon modifiée avec succès
+      registration_method_updated: La méthode d'inscription a été mise à jour.
+      reset_password: "Un courriel a été envoyé à l'utilisateur afin de réinitialiser son mot de passe. (S'il ne l'a pas reçu, demandez-lui de vérifier son dossier \"spam/indésirables\")"
+      restored: L'utilisateur a bien été réintégré
+      room_configuration: La configuration du salon a bien été modifiée
       settings: Les paramètres du site ont bien été modifiés
       unauthorized: Vous n'êtes pas autorisé à effectuer cette action sur cet utilisateur.
     recordings:
@@ -149,14 +154,14 @@ fr:
       can_launch_recording: Permet aux utilisateurs ayant ce rôle d'enregistrer leurs réunions
       delete: Supprimer le rôle
       invalid_create: Il y a eu un problème lors de la création du nouveau rôle. Veuillez vérifier les valeurs entrées et réessayer.
-      invalid_order: Il y a eu un problème lors de la mise à jour de la priorité du rôle. Veuillez vérifier les valeurs et réessayer.
+      invalid_order: Il y a eu un problème lors de la mise à jour du rôle comme prioritaire. Veuillez vérifier les valeurs et réessayer.
       invalid_update: Il y a eu un problème lors de la mise à jour des permissions du rôle. Veuillez vérifier les valeurs et réessayer.
       manage_rooms_recordings: Permet aux utilisateurs ayant de ce rôle de gérer les salons et les enregistrements
       name: Nom du rôle
       new_role: Créer un nouveau rôle
-      role_has_users: "Ce rôle est utilisé par %{user_count} comptes. Veuillez enlever ce rôle de ces comptes avant de le supprimer."
+      role_has_users: "Ce rôle est utilisé par %{user_count} comptes. Veuillez retirer ce rôle de tous les comptes avant de le supprimer."
       title: Rôles
-      promote_email: Envoyer un e-mail aux utilisateurs quand ce rôle leur est appliqué
+      promote_email: Envoyer un courriel aux utilisateurs quand ce rôle leur est attribué
       demote_email: Envoyer un e-mail aux utilisateurs quand ce rôle leur est retiré
       edit_site_settings: Permet aux utilisateurs ayant ce rôle de modifier les paramètres du site
       edit_roles: Permet aux utilisateurs ayant ce rôle de modifier les autres rôles
@@ -168,17 +173,17 @@ fr:
     room_configuration:
       title: Configuration du salon
       mute:
-        info: Automatiquement mettre en sourdine les utilisateurs lorsqu'ils rejoignent la réunion BigBlueButton
+        info: Rendre automatiquement silencieux les utilisateurs lorsqu'ils rejoignent la réunion BigBlueButton
       require_moderator:
-        info: "Avertit le modérateur d'une conférence BigBlueButton lorsqu'un utilisateur essaye de se connecter. Si l'utilisateur est approuvé, il pourra joindre la conférence."
+        info: "Avertit le modérateur d'une conférence BigBlueButton lorsqu'un utilisateur essaye de se connecter. Si l'utilisateur est approuvé, il pourra se joindre à la réunion."
       allow_any:
-        info: "Permet à n'importe quel utilisateur de démarrer la conférence à n'importe quel moment. Par défaut, seul le propriétaire peut démarrer la conférence."
+        info: "Permet à n'importe quel utilisateur de démarrer la conférence à n'importe quel moment. Par défaut, seul le propriétaire peut démarrer la réunion."
       all_moderator:
-        info: Donne à tous les utilisateurs les droits de modérateur dans BigBlueButton lors de la connexion à une conférence.
+        info: Donne à tous les utilisateurs les droits de modérateur  lors de leur connexion à la réunion dans BigBlueButton.
       recordings:
-        info: "Permet aux propriétaires d'une salle de préciser s'ils souhaitent ou non avoir la possibilité de l'enregistrer. Si cette option est activée, le modérateur doit toujours cliquer sur le bouton « Enregistrer » une fois que la réunion a commencé."
+        info: "Permet aux propriétaires d'une salle de préciser s'ils souhaitent ou non avoir la possibilité d'enregistrer. Si cette option est activée, le modérateur doit toujours cliquer sur le bouton « Enregistrer » une fois que la réunion a commencé."
       moderator_codes:
-        info: Autoriser les propriétaires de salles la possibilité de générer un code qui permet aux autres utilisateurs de rejoindre directement en tant que modérateur
+        info: Permet aux propriétaires de salles de générer un code qui donne   aux autres utilisateurs directement un accès en tant que modérateur.
         title: Code d'accès modérateur
       options:
         disabled: Désactivé
@@ -210,14 +215,14 @@ fr:
         edit_roles: Modifier les rôles de l'utilisateur
         merge: Fusionner
         perm_delete: Supprimer définitivement
-        unban: Ne plus bannir l'utilisateur
+        unban: Réintégrer l'utilisateur
         undelete: Annuler la suppression
       table:
-        authenticator: Authentificateur
+        authenticator: Authentifiant
         created: Créé
         time: Heure d'envoi
         name: Nom
-        not_found: Aucun utilisateur correspondant à votre recherche
+        not_found: Aucun utilisateur ne correspond à votre recherche
         no_users: Aucun utilisateur trouvé
         role: Rôle
         uid: ID utilisateur
@@ -238,15 +243,15 @@ fr:
     month_names: [~, Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
   default_admin: "Vous utilisez toujours le mot de passe par défaut pour ce compte. Veuillez cliquer <a href=\"%{edit_link}\">ici</a> pour le modifier"
   delete: Supprimer
-  delivery_error: Une erreur s'est produite lors de la livraison du courrier électronique. Veuillez contacter un administrateur !
+  delivery_error: Une erreur s'est produite lors de la livraison du courriel. Veuillez contacter un administrateur !
   docs: Documentation
-  email: Email
-  email_sent: "Votre demande de %{email_type} a bien été envoyée ! (Vérifiez votre dossier anti-spam si vous ne le trouvez pas)"
+  email: Courriel
+  email_sent: "Votre courriel de %{email_type} a bien été envoyée ! (Vérifiez votre dossier des indésirables/spam si vous ne le trouvez pas)"
   enter_your_name: Entrez votre nom !
   errors:
     bigbluebutton:
       help: "Veuillez vous assurer que les mesures appropriées ont été prises.<a href=\"%{doc_link}\">En savoir plus</a>"
-      message: BigBlueButton cible et secret invalide
+      message: BigBlueButton Endpoint et Secret non valide.
       title: Erreur serveur
     internal:
       message: Il semblerait que quelque chose se soit mal passé de notre côté.
@@ -257,15 +262,15 @@ fr:
       help: Nous serons bientôt de retour !
     migration_error:
       contact_admin: "Si vous n’êtes pas un administrateur, veuillez en contacter un."
-      continue: Je veux rester sur la 1.0.
+      continue: Je veux continuer à utiliser la 1.0.
       notice: >
-        Greenlight a rencontré une erreur de migration de base de données.<br> C'est peut-être parce que vous n'avez pas mis à jour Greenlight 2.0.
+        Greenlight a rencontré une erreur de migration de la base de données.<br> C'est peut-être parce que vous n'avez pas mis à jour vers Greenlight 2.0.
       upgrade: Montrez-moi comment passer à la version 2.0 !
       version: "Nous avons publié une nouvelle version de Greenlight, mais votre base de données n'est pas compatible."
     messages:
       blank: ne peut pas être vide
       too_short: est trop court
-      invalid: est invalide
+      invalid: est non-valide
       taken: a déjà été utilisé
       accepted: doit être accepté
       confirmation: "ne correspond pas à %{attribute}"
@@ -293,11 +298,11 @@ fr:
     rooms: "Salons Personnalisés "
     recordings: Gestion des enregistrements
     designs: Designs personnalisés
-    authentication: Authentification d'utilisateur
+    authentication: Authentification de l'utilisateur
   footer:
-    legal: Conditions
+    legal: Conditions d'utilisation
     privpolicy: Politique de confidentialité
-    powered_by: "Alimenté par %{href}."
+    powered_by: "Conçu par %{href}."
   forgot_password:
     subtitle: Mot de passe oublié
     email: Email
@@ -315,7 +320,7 @@ fr:
   home_room: Salle d’Accueil
   info_update_success: Informations mises à jour avec succès.
   invalid_credentials: "Les informations d'identification que vous avez indiquées sont erronées. Veuillez réessayer ou cliquez sur « Mot de passe oublié ? » pour réinitialiser votre mot de passe."
-  invalid_credentials_external: "L'adresse email et le mot de passe renseignés ne correspondent pas à nos informations. Merci de réessayer. "
+  invalid_credentials_external: "Le courriel et le mot de passe renseignés ne correspondent pas à celles que nous détenons. Merci de réessayer. "
   invalid_login_method: La connexion a échoué en raison d'une incompatibilité de compte. Vous devez vous connecter avec omniauth.
   invite_message: "Pour inviter quelqu'un à la réunion, envoyez-lui ce lien :"
   javascript:
@@ -323,27 +328,27 @@ fr:
       mailer:
         subject: 'vous a invité à visionner un enregistrement.'
         body: 'Pour visionner l''enregistrement, suivez le lien ci-dessous :'
-        autogenerated: 'Cet e-mail est généré automatiquement par BigBlueButton.'
-        footer: 'BigBlueButton est un système Open Source de Web Conférence. Pour plus d''informations sur BigBlueButton, voir https://bigbluebutton.org/.'
+        autogenerated: 'Ce courriel est généré automatiquement par BigBlueButton.'
+        footer: 'BigBlueButton est un système de web-conférence open-source. Pour plus d''informations sur BigBlueButton, voir https://bigbluebutton.org/.'
     search:
       start: Commencer la recherche...
   landing:
-    about: "%{href} est une interface simple pour votre serveur open-source de Web conférence BigBlueButton. Vous pouvez créer vos propres salles pour héberger des sessions ou rejoindre d'autres utilisateurs via un lien court et pratique. "
+    about: "%{href} est une interface simple pour votre serveur de web- conférence open-source BigBlueButton. Vous pouvez créer vos propres salles pour héberger des sessions ou  en rejoindre d'autres  via un lien court et pratique. "
     welcome: Bienvenue sur BigBlueButton.
     video: Regardez notre tutoriel sur l'utilisation de Greenlight
     upgrade: Montrez-moi comment passer à la version 2.0 !
     version: "Nous avons publié une nouvelle version de Greenlight, mais votre base de données n'est pas compatible."
   language_default: Par défaut (langue du navigateur)
   ldap_error: Impossible de se connecter au serveur LDAP. Veuillez vérifier votre configuration LDAP dans le fichier env et vous assurer que votre serveur est en cours d'exécution.
-  login: Connexion
+  login: S'identifier
   login_page:
     locked_out: Votre compte a été bloqué à cause de plusieurs tentatives de connexion infructueuses. Merci de recommencer plus tard.
-  login_title: Connexion avec votre compte
+  login_title: Connexion à votre compte
   mailer:
     user:
       approve:
         info: Votre compte a été approuvé.
-        signin: " Pour accéder à vos salons personnels, cliquez sur le bouton ci-dessous et connectez-vous."
+        signin: "Pour accéder à vos salons personnels, cliquez sur le bouton ci-dessous et identifiez-vous."
         signin_link: Connexion
         signup:
           info: Un nouvel utilisateur s'est inscrit pour utiliser Greenlight.
@@ -355,12 +360,12 @@ fr:
         username: "Votre nom d'utilisateur est %{email}."
       demoted:
         info: "Vous n'êtes plus %{role} sur %{url}."
-        more-info: Vous avez désormais les mêmes privilèges qu'un utilisateur régulier.
-        root_link: Connexion
+        more-info: Vous avez désormais les mêmes privilèges qu'un utilisateur standard.
+        root_link: S'identifier
         subtitle: "Droits pour %{role} annulés"
       invite:
         info: "Vous avez été invité dans votre espace personnel par %{name}"
-        signup_info: "Pour vous inscrire utilisez votre e-mail, cliquez sur le bouton ci-dessous et suivez les étapes."
+        signup_info: "Pour vous inscrire utilisez votre adresse courriel, cliquez sur le bouton ci-dessous et suivez les étapes."
         signup_link: Inscription
         valid: "L'invitation est valable jusqu'à: %{date}"
         signup:
@@ -384,7 +389,7 @@ fr:
         subtitle: "%{role} droits attribués"
       verify_email:
         welcome: "Bienvenue sur votre espace personnel, %{name}!"
-        success: "Profitez pleinement de %{bigbluebutton}, vous pouvez créer vos propres salons pour héberger des sessions et collaborer avec d'autres personnes."
+        success: "Profitez pleinement de %{bigbluebutton}, vous pouvez créer vos propres salons pour héberger des sessions et collaborer avec d'autres."
         username: "Votre nom d'utilisateur est %{email}."
         verify: "Pour vérifier votre compte, cliquez simplement sur le bouton ci-dessous."
         verify_text: 'Pour vérifier votre compte, suivez ce lien : %{url}'
@@ -540,7 +545,7 @@ fr:
     invite:
       fail: "Votre jeton d'authentification a expiré ou n'est pas valide. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter votre administrateur."
       no_invite: Vous n'avez pas d'invitation. Veuillez contacter votre administrateur afin d'en recevoir une.
-    insecure_password: "Afin d'améliorer la sécurité des comptes, nous avons augmenté la complexité des mots de passe pour tous. Veuillez créer un nouveau mot de passe qui correspond aux exigenses indiquées ci-dessous."
+    insecure_password: "Afin d'améliorer la sécurité des comptes, nous avons augmenté la complexité des mots de passe pour tous. Veuillez créer un nouveau mot de passe qui correspond aux exigences indiquées ci-dessous."
   remove: Enlever
   rename: Renommer
   reset_password:
