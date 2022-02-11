@@ -25,6 +25,7 @@ fa_IR:
         name: نام
         password: رمز عبور
         password_confirmation: تایید رمز عبور
+        old_password: رمز عبور قدیمی
     errors:
       models:
         user:
@@ -495,6 +496,13 @@ fa_IR:
   password_empty_notice: رمز عبور نمی تواند خالی باشد.
   password_reset_success: رمز عبور ارسال شد.
   password_different_notice: تاییدیه رمز عبور با رمز ارائه شده مطابقت ندارد.
+  old_password_incorrect: صحیح نیست
+  password_complexity:
+    minimum_len: حداقل ۸ کاراکتر
+    one_lower_case: حداقل ۱ کاراکتر کوچک
+    one_upper_case: حداقل ۱ کاراکتر بزرگ
+    one_digit: حداقل ۱ عدد
+    one_sym: حداقل ۱ کاراکتر غیر حرفی‌عددی
   provider:
     google: گوگل
     office365: آفیس ۳۶۵
