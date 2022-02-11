@@ -52,7 +52,8 @@ class User < ApplicationRecord
 
   # Bypass validations if omniauth
   validates :accepted_terms, acceptance: true,
-                             unless: -> { !greenlight_account? || !Rails.configuration.terms }
+                             if: -> { greenlight_account? && Rails.configuration.terms },
+                             unless: -> { @bypass_terms_acceptance }
 
   # We don't want to require password validations on all accounts.
   has_secure_password(validations: false)
@@ -131,7 +132,9 @@ class User < ApplicationRecord
   # Activates an account and initialize a users main room
   def activate
     set_role :user if role_id.nil?
-    update_attributes(email_verified: true, activated_at: Time.zone.now, activation_digest: nil)
+    without_terms_acceptance {
+      update_attributes(email_verified: true, activated_at: Time.zone.now, activation_digest: nil)
+    }
   end
 
   def activated?
@@ -145,13 +148,15 @@ class User < ApplicationRecord
   # Sets the password reset attributes.
   def create_reset_digest
     new_token = SecureRandom.urlsafe_base64
-    update_attributes(reset_digest: User.hash_token(new_token), reset_sent_at: Time.zone.now)
+    without_terms_acceptance {
+      update_attributes(reset_digest: User.hash_token(new_token), reset_sent_at: Time.zone.now)
+    }
     new_token
   end
 
   def create_activation_token
     new_token = SecureRandom.urlsafe_base64
-    update_attributes(activation_digest: User.hash_token(new_token))
+    without_terms_acceptance { update_attributes(activation_digest: User.hash_token(new_token)) }
     new_token
   end
 
@@ -235,6 +240,13 @@ class User < ApplicationRecord
     update(failed_attempts: 0) if attempts.positive? && !within_1_day
 
     false
+  end
+
+  def without_terms_acceptance
+    @bypass_terms_acceptance = true
+    block_res = yield
+    @bypass_terms_acceptance = false
+    block_res
   end
 
   private
