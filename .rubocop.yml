@@ -131,7 +131,7 @@ Metrics/ModuleLength:
 # A calculated magnitude based on number of assignments,
 # branches, and conditions.
 Metrics/AbcSize:
-  Max: 60
+  Max: 65
 
 # A complexity metric that is strongly correlated to the number
 # of test cases needed to validate a method.

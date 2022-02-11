@@ -28,14 +28,13 @@ fr:
     errors:
       models:
         user:
-          confirmation: ne correspond pas
           attributes:
             email:
               invalid: format du courriel non-valide
             password:
               invalid: ne répond pas aux exigences de complexité 
-              
-  
+          password: ne répond pas aux exigences de complexité
+          confirmation: ne correspond pas au mot de passe
   administrator:
     site_settings:
       authentication:

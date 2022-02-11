@@ -49,7 +49,6 @@ describe UsersController, type: :controller do
   describe "GET #edit" do
     it "renders the edit template" do
       user = create(:user)
-
       @request.session[:user_id] = user.id
 
       get :edit, params: { user_uid: user.uid }
@@ -328,65 +327,60 @@ describe UsersController, type: :controller do
   end
 
   describe "POST #update" do
+    before do
+      @user = create(:user, accepted_terms: false)
+      @request.session[:user_id] = @user.id
+      allow(Rails.configuration).to receive(:terms).and_return "This is a dummy text!"
+      allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
+    end
     it "properly updates usser attributes" do
-      user = create(:user)
-      @request.session[:user_id] = user.id
-
+      expect(@user.greenlight_account?).to be
       params = random_valid_user_params
-      post :update, params: params.merge!(user_uid: user)
-      user.reload
+      post :update, params: params.merge!(user_uid: @user)
 
-      expect(user.name).to eql(params[:user][:name])
-      expect(user.email).to eql(params[:user][:email])
+      # Changing email should deactivate the greenlight account.
+      expect(@user.activated?).not_to be unless @user.email == @user.reload.email
+      expect(@user.name).to eql(params[:user][:name])
       expect(flash[:success]).to be_present
-      expect(response).to redirect_to(edit_user_path(user))
+      expect(response).to redirect_to(edit_user_path(@user))
     end
 
     it "properly updates user attributes" do
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(false)
-      user = create(:user)
-      @request.session[:user_id] = user.id
-
       params = random_valid_user_params
-      post :update, params: params.merge!(user_uid: user)
-      user.reload
+      post :update, params: params.merge!(user_uid: @user)
+      @user.reload
 
-      expect(user.name).not_to eql(params[:user][:name])
-      expect(user.email).not_to eql(params[:user][:email])
+      expect(@user.name).not_to eql(params[:user][:name])
+      expect(@user.email).not_to eql(params[:user][:email])
       expect(flash[:success]).to be_present
-      expect(response).to redirect_to(edit_user_path(user))
+      expect(response).to redirect_to(edit_user_path(@user))
     end
 
     it "allows admins to update a non local accounts name/email" do
       allow_any_instance_of(User).to receive(:greenlight_account?).and_return(false)
-      user = create(:user)
-      admin = create(:user).set_role :admin
+      admin = create(:user)
+      admin.set_role :admin
       @request.session[:user_id] = admin.id
 
       params = random_valid_user_params
-      post :update, params: params.merge!(user_uid: user)
-      user.reload
+      post :update, params: params.merge!(user_uid: @user)
+      @user.reload
 
-      expect(user.name).to eql(params[:user][:name])
-      expect(user.email).to eql(params[:user][:email])
+      expect(@user.name).to eql(params[:user][:name])
+      expect(@user.email).to eql(params[:user][:email])
       expect(flash[:success]).to be_present
       expect(response).to redirect_to(admins_path)
     end
 
     it "renders #edit on unsuccessful save" do
-      @user = create(:user)
-      @request.session[:user_id] = @user.id
-
       post :update, params: invalid_params.merge!(user_uid: @user)
       expect(response).to render_template(:edit)
     end
 
     context 'Roles updates' do
       it "should fail to update roles if users tries to add a role with a higher priority than their own" do
-        user = create(:user)
-        @request.session[:user_id] = user.id
-
-        user_role = user.role
+        user_role = @user.role
 
         user_role.update_permission("can_manage_users", "true")
 
@@ -395,32 +389,27 @@ describe UsersController, type: :controller do
         tmp_role = Role.create(name: "test", priority: -4, provider: "greenlight")
 
         params = random_valid_user_params
-        post :update, params: params.merge!(user_uid: user, user: { role_id: tmp_role.id.to_s })
+        post :update, params: params.merge!(user_uid: @user, user: { role_id: tmp_role.id.to_s })
 
         expect(flash[:alert]).to eq(I18n.t("administrator.roles.invalid_assignment"))
         expect(response).to render_template(:edit)
       end
 
       it "should successfuly add roles to the user" do
-        allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
-
-        user = create(:user)
         admin = create(:user)
-
         admin.set_role :admin
-
         @request.session[:user_id] = admin.id
 
         tmp_role1 = Role.create(name: "test1", priority: 2, provider: "greenlight")
         tmp_role1.update_permission("send_promoted_email", "true")
 
         params = random_valid_user_params
-        params.merge!(user_uid: user, user: { role_id: tmp_role1.id.to_s })
+        params.merge!(user_uid: @user, user: { role_id: tmp_role1.id.to_s })
 
         expect { post :update, params: params }.to change { ActionMailer::Base.deliveries.count }.by(1)
 
-        user.reload
-        expect(user.role.name).to eq("test1")
+        @user.reload
+        expect(@user.role.name).to eq("test1")
         expect(response).to redirect_to(admins_path)
       end
 
@@ -431,7 +420,7 @@ describe UsersController, type: :controller do
         new_role = Role.create(name: "test2", priority: 3, provider: "greenlight")
         new_role.update_permission("can_create_rooms", "true")
 
-        user = create(:user, role: old_role)
+        @user = create(:user, role: old_role)
         admin = create(:user)
 
         admin.set_role :admin
@@ -439,76 +428,59 @@ describe UsersController, type: :controller do
         @request.session[:user_id] = admin.id
 
         params = random_valid_user_params
-        params.merge!(user_uid: user, user: { role_id: new_role.id.to_s })
+        params.merge!(user_uid: @user, user: { role_id: new_role.id.to_s })
 
-        expect(user.role.name).to eq("test1")
-        expect(user.main_room).to be_nil
+        expect(@user.role.name).to eq("test1")
+        expect(@user.main_room).to be_nil
 
         post :update, params: params
 
-        user.reload
-        expect(user.role.name).to eq("test2")
-        expect(user.main_room).not_to be_nil
+        @user.reload
+        expect(@user.role.name).to eq("test2")
+        expect(@user.main_room).not_to be_nil
         expect(response).to redirect_to(admins_path)
       end
     end
   end
 
   describe "POST #update_password" do
-    before do
-      @user = create(:user)
-      @password = "#{Faker::Internet.password(min_length: 8, mix_case: true, special_characters: true)}1aB"
-    end
-
-    it "properly updates users password" do
-      @request.session[:user_id] = @user.id
-
-      params = {
+    def params(mode = 0)
+      {
         user: {
-          password: @user.password,
-          new_password: @password,
-          password_confirmation: @password,
+          old_password: mode == 0 ? @user.password : "incorrect_password",
+          password: @password,
+          password_confirmation: mode == 2 ? "#{@password}_random_string" : @password,
         }
       }
-      post :update_password, params: params.merge!(user_uid: @user)
-      @user.reload
-
-      expect(@user.authenticate(@password)).not_to be false
-      expect(@user.errors).to be_empty
-      expect(flash[:success]).to be_present
-      expect(response).to redirect_to(change_password_path(@user))
     end
+    context "with 'terms and conditions' exist and without acceptance." do
+      before do
+        @user = create(:user, accepted_terms: false)
+        @request.session[:user_id] = @user.id
+        allow(Rails.configuration).to receive(:terms).and_return "This is a dummy text!"
+        @password = "#{Faker::Internet.password(min_length: 8, mix_case: true, special_characters: true)}1aB"
+      end
+      it "properly updates users password" do
+        post :update_password, params: params.merge!(user_uid: @user)
+        @user.reload
 
-    it "doesn't update the users password if initial password is incorrect" do
-      @request.session[:user_id] = @user.id
-
-      params = {
-        user: {
-          password: "incorrect_password",
-          new_password: @password,
-          password_confirmation: @password,
-        }
-      }
-      post :update_password, params: params.merge!(user_uid: @user)
-      @user.reload
-      expect(@user.authenticate(@password)).to be false
-      expect(response).to render_template(:change_password)
-    end
-
-    it "doesn't update the users password if new passwords don't match" do
-      @request.session[:user_id] = @user.id
-
-      params = {
-        user: {
-          password: "incorrect_password",
-          new_password: @password,
-          password_confirmation: "#{@password}_random_string",
-        }
-      }
-      post :update_password, params: params.merge!(user_uid: @user)
-      @user.reload
-      expect(@user.authenticate(@password)).to be false
-      expect(response).to render_template(:change_password)
+        expect(@user.authenticate(@password)).not_to be false
+        expect(@user.errors).to be_empty
+        expect(flash[:success]).to be_present
+        expect(response).to redirect_to(change_password_path(@user))
+      end
+      it "doesn't update the users password if initial password is incorrect" do
+        post :update_password, params: params(1).merge!(user_uid: @user)
+        @user.reload
+        expect(@user.authenticate(@password)).to be false
+        expect(response).to render_template(:change_password)
+      end
+      it "doesn't update the users password if new passwords don't match" do
+        post :update_password, params: params(2).merge!(user_uid: @user)
+        @user.reload
+        expect(@user.authenticate(@password)).to be false
+        expect(response).to render_template(:change_password)
+      end
     end
   end
 
@@ -602,6 +574,20 @@ describe UsersController, type: :controller do
 
       expect(flash[:alert]).to be_present
       expect(response).to redirect_to(admins_path)
+    end
+
+    it "allows user deletion with shared access to rooms" do
+      owner = create(:user)
+      guest = create(:user)
+      room  = create(:room, owner: owner)
+      SharedAccess.create(room_id: room.id, user_id: guest.id)
+
+      @request.session[:user_id] = guest.id
+      delete :destroy, params: { user_uid: guest.uid }
+
+      expect(User.include_deleted.find_by(uid: guest.uid)).to be_nil
+      expect(SharedAccess.exists?(room_id: room.id, user_id: guest.id)).to be false
+      expect(response).to redirect_to(root_path)
     end
   end
 
