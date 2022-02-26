@@ -25,11 +25,18 @@ ar:
         name: الاسم
         password: كلمة السر
         password_confirmation: تأكيد كلمة السر
+        old_password: كلمة السر القديمة
     errors:
       models:
         user:
-          password: لا تفي بمتطلبات التعقيد
-          confirmation: لا يتطابق مع كلمة السر
+          confirmation: لا يتطابق
+          attributes:
+            email:
+              invalid: تنسيق البريد الإلكتروني غير صحيح
+            password:
+              invalid: لا تفي بمتطلبات التعقيد 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -43,19 +50,19 @@ ar:
         info: تغيير صورة العلامة التجارية التي تظهر في الزاوية العلوية اليمنى
         placeholder: رابط الصورة...
         title: صورة العلامة التجارية
-        invalid: URL غير صالح
+        invalid: رابط غير صالح
       legal:
-        change: تغيير URL
+        change: تغيير رابط
         info: قم بتغيير رابط الشروط الذي يظهر في أسفل الصفحة
-        placeholder: عنوان URL الشروط ...
+        placeholder: رابط الشروط ...
         title: الشروط
-        invalid: URL غير صالح
+        invalid: رابط غير صالح
       privpolicy:
-        change: تغيير URL
+        change: تغيير رابط
         info: غيّر رابط سياسة الخصوصية الذي يظهر أسفل الصفحة
-        placeholder: URL سياسة الخصوصية...
+        placeholder: رابط سياسة الخصوصية...
         title: سياسة الخصوصية
-        invalid: URL غير صالح
+        invalid: رابط غير صالح
       cache:
         info: مسح ذاكرة التخزين المؤقت الخاصة بالمزود الذي يؤدي إلى طلب جديد للمعلومات المحدثة
         title: مسح ذاكرة التخزين المؤقت لمزود الخدمة
@@ -489,6 +496,13 @@ ar:
   password_empty_notice: لا يمكن أن تكون كلمة المرور فارغة.
   password_reset_success: تم إعادة تعيين كلمة المرور.
   password_different_notice: تأكيد كلمة المرور غير متطابق.
+  old_password_incorrect: غير صحيحة
+  password_complexity:
+    minimum_len: 8 أحرف على الأقل
+    one_lower_case: حرف واحد صغير على الأقل
+    one_upper_case: حرف كبير واحد على الأقل
+    one_digit: رقم واحد على الأقل
+    one_sym: حرف واحد على الأقل ليس أبجديًا ولا رقما
   provider:
     google: Google
     office365: أوفيس 365
@@ -575,7 +589,7 @@ ar:
     enter_the_access_code: أدخل رمز الوصول لهذه الغرفة
     enter_the_moderator_access_code: أدخل رمز مشرف الغرفة!
     optional_moderator_access_code: "رمز الوسيط الاختياري:"
-    invalid_provider: لقد أدخلت رابطًا غير صالح. يرجى التحقق من عنوان URL والمحاولة مرة أخرى.
+    invalid_provider: لقد أدخلت رابطًا غير صالح. يرجى التحقق من الرابط والمحاولة مرة أخرى.
     invitation_description: "لقد تمت دعوتك للانضمام إلى %{name} باستخدام BigBlueButton. \nللانضمام ، انقر فوق الرابط أعلاه وأدخل اسمك."
     invited: لقد تمت دعوتك للانضمام
     recording_present: أقر بأنه سيتم تسجيل هذه الجلسة. قد يشمل ذلك صوتي وفيديو إذا تم تمكينه.
@@ -586,11 +600,11 @@ ar:
     owner: مالك
     owner_banned: هذه الغرفة غير متوفرة حالياً
     no_room:
-      description: للانضمام إلى الغرفة أدخل عنوان URL أو المعرف الخاص بها.
+      description: للانضمام إلى الغرفة أدخل الرابط أو المعرف الخاص بها.
       edit_profile: تحرير ملف تعريف المستخدم
       go_to: الذهاب إلى الغرفة
-      invalid_room_uid: رابط عنوان الغرفة أو المعرف الذي أدخلته غير صالحة.
-      placeholder: رابط/معرف الغرفة
+      invalid_room_uid: رابط الغرفة أو المعرف الذي أدخلته غير صالحة.
+      placeholder: رابط/معرّف الغرفة
       no_recent_rooms: لم تنضم إلى أي غرفة مؤخراً
       recent_rooms: الانتقال إلى الغرفة التي تم الانضمام إليها مؤخرًا
       title: الانضمام إلى الغرفة
@@ -624,7 +638,7 @@ ar:
       language: لغة
       provider: مزود
       image: صورة
-      image_url: عنوان URL لصورة الملف الشخصي
+      image_url: رابط لصورة الملف الشخصي
       roles: دور المستخدم
       subtitle: قم بتحديث معلومات حسابك
       title: معلومات الحساب

@@ -25,11 +25,18 @@ fa_IR:
         name: نام
         password: رمز عبور
         password_confirmation: تایید رمز عبور
+        old_password: رمز عبور قدیمی
     errors:
       models:
         user:
-          password: به صورت پیچیده وارد نشده است
-          confirmation: رمز عبور با هم یکسان نیستند
+          confirmation: مطابقت ندارد
+          attributes:
+            email:
+              invalid: قالب ایمیل معتبر نیست
+            password:
+              invalid: به صورت پیچیده وارد نشده است 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -489,6 +496,13 @@ fa_IR:
   password_empty_notice: رمز عبور نمی تواند خالی باشد.
   password_reset_success: رمز عبور ارسال شد.
   password_different_notice: تاییدیه رمز عبور با رمز ارائه شده مطابقت ندارد.
+  old_password_incorrect: صحیح نیست
+  password_complexity:
+    minimum_len: حداقل ۸ کاراکتر
+    one_lower_case: حداقل ۱ کاراکتر کوچک
+    one_upper_case: حداقل ۱ کاراکتر بزرگ
+    one_digit: حداقل ۱ عدد
+    one_sym: حداقل ۱ کاراکتر غیر حرفی‌عددی
   provider:
     google: گوگل
     office365: آفیس ۳۶۵

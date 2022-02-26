@@ -25,11 +25,18 @@ de_DE:
         name: Name
         password: Passwort
         password_confirmation: Passwortbestätigung
+        old_password: Altes Passwort
     errors:
       models:
         user:
-          password: "erfüllt die Anforderung der notwendigen Komplexität nicht "
-          confirmation: stimmt nicht mit dem Passwort überein
+          confirmation: stimmt nicht überein
+          attributes:
+            email:
+              invalid: ungültiges E-Mail-Format
+            password:
+              invalid: "erfüllt die Anforderung der notwendigen Komplexität nicht " 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -489,6 +496,13 @@ de_DE:
   password_empty_notice: Das Passwort kann nicht leer bleiben.
   password_reset_success: Passwort wurde zurückgesetzt.
   password_different_notice: Passwortbestätigung ist nicht zutreffend.
+  old_password_incorrect: ist falsch
+  password_complexity:
+    minimum_len: Mindestens 8 Zeichen
+    one_lower_case: Mindestens 1 Kleinbuchstabe
+    one_upper_case: Mindestens 1 Großbuchstabe
+    one_digit: Mindestens 1 Zahl
+    one_sym: Mindestens 1 Sonderzeichen
   provider:
     google: Google
     office365: Office 365

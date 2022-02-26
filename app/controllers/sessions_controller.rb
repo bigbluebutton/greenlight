@@ -98,7 +98,7 @@ class SessionsController < ApplicationController
     end
 
     return redirect_to edit_password_reset_path(user.create_reset_digest),
-flash: { alert: I18n.t("registration.insecure_password") } unless user.secure_password
+flash: { alert: I18n.t("registration.insecure_password") } unless User.secure_password?(session_params[:password])
 
     login(user)
   end
