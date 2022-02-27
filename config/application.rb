@@ -100,6 +100,9 @@ module Greenlight
     # Determine if GreenLight should allow non-omniauth signup/login.
     config.allow_user_signup = parse_bool(ENV['ALLOW_GREENLIGHT_ACCOUNTS'])
 
+    # Determine which attributes the omniauth authentication overrides
+    config.authentication_attributes_overrides = ENV['AUTHENTICATION_ATTRIBUTES_OVERRIDES'].to_s.split(",") & %w(name image)
+
     # Configure custom banner message.
     config.banner_message = ENV['BANNER_MESSAGE']
 
