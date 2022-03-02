@@ -25,11 +25,18 @@ gl:
         name: Nome
         password: Contrasinal
         password_confirmation: Confirmación do contrasinal
+        old_password: Contrasinal antigo
     errors:
       models:
         user:
-          password: non cumpría os requisitos de complexidade
-          confirmation: o contrasinal non coincide
+          confirmation: non coincide
+          attributes:
+            email:
+              invalid: formato de correo-e non válido
+            password:
+              invalid: non cumpría os requisitos de complexidade 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -336,6 +343,8 @@ gl:
   language_default: Por omisión (idioma do navegador)
   ldap_error: Non foi posíbel conectar co servidor LDAP. Verifique a súa configuración LDAP no ficheiro «env» e asegúrese de que o seu servidor estea a funcionar.
   login: Acceder
+  login_page:
+    locked_out: A súa conta foi bloqueada por mor de demasiados intentos de contrasinais incorrectos. Ténteo de novo máis adiante.
   login_title: Acceder á súa conta
   mailer:
     user:
@@ -401,9 +410,9 @@ gl:
       access_code: Código de acceso
       moderator_access_code: Código do moderador
       access_code_placeholder: Xerar un código de acceso á sala opcional
-      reset_access_code: Restablece o código de acceso á sala opcional
+      reset_access_code: Restabelecer o código de acceso á sala opcional
       moderator_access_code_placeholder: Xera un código opcional para os moderadores
-      reset_moderator_access_code: Restablece o código opcional para os moderadores
+      reset_moderator_access_code: Restabelecer o código opcional para os moderadores
       auto_join: Unirse automaticamente comigo na sala
       create: Crear unha sala
       free_delete: Será libre de eliminar esta sala en calquera momento.
@@ -487,6 +496,13 @@ gl:
   password_empty_notice: O contrasinal non pode estar baleiro.
   password_reset_success: Restabeleceuse o contrasinal.
   password_different_notice: A confirmación de contrasinal non coincide.
+  old_password_incorrect: é incorrecto
+  password_complexity:
+    minimum_len: Polo menos 8 caracteres
+    one_lower_case: Polo menos 1 carácter en minúscula
+    one_upper_case: Polo menos 1 carácter en maiúscula
+    one_digit: Polo menos 1 número
+    one_sym: Polo menos 1 carácter non alfanumérico
   provider:
     google: Google
     office365: Office 365
