@@ -25,11 +25,18 @@ ja_JP:
         name: 名前
         password: パスワード
         password_confirmation: パスワード確認
+        old_password: 前のパスワード
     errors:
       models:
         user:
-          password: 十分に複雑ではありません
-          confirmation: パスワードが一致しません
+          confirmation: 一致しません
+          attributes:
+            email:
+              invalid: Eメールの形式が正しくありません
+            password:
+              invalid: 十分に複雑ではありません 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -463,7 +470,7 @@ ja_JP:
     rename_room:
       name_placeholder: 新しい会議室名を入力してください...
     share_access:
-      footer: 会議室を共有すると、 他のユーザーも会議を開始したり録画リストをみたりできます
+      footer: 会議室を共有すると、 他のユーザーも会議を開始したり録画リストを閲覧できます
       list: 共有するユーザー
       title: 会議室の共有
       save: 変更を保存
@@ -489,6 +496,13 @@ ja_JP:
   password_empty_notice: パスワードは空にできません。
   password_reset_success: パスワードがリセットされました。
   password_different_notice: パスワードが一致しません。
+  old_password_incorrect: 正しくありません
+  password_complexity:
+    minimum_len: 少なくとも8文字が必要です
+    one_lower_case: 少なくとも１文字が小文字である必要があります
+    one_upper_case: 少なくとも１文字が大文字である必要があります
+    one_digit: 少なくとも１文字が数字である必要があります
+    one_sym: 少なくとも１文字がアルファベットや数字以外の文字である必要があります
   provider:
     google: Google
     office365: Office 365

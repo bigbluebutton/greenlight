@@ -25,11 +25,18 @@ cs:
         name: Jméno
         password: Heslo
         password_confirmation: Potvrzení hesla
+        old_password: Původní heslo
     errors:
       models:
         user:
-          password: nesplňovalo požadovanou složitost
-          confirmation: Hesla nejsou shodná
+          confirmation: nejsou stejná
+          attributes:
+            email:
+              invalid: neplatný formát e-mailu
+            password:
+              invalid: nesplňovalo požadovanou složitost 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -489,6 +496,13 @@ cs:
   password_empty_notice: Heslo nemůže být prázdné.
   password_reset_success: Heslo bylo zresetováno.
   password_different_notice: Potvrzovací heslo nesouhlasí.
+  old_password_incorrect: není správné
+  password_complexity:
+    minimum_len: Minimálně 8 znaků
+    one_lower_case: Minimálně 1 malé písmeno
+    one_upper_case: Minimálně 1 velké písmeno
+    one_digit: Minimálně 1 číslo
+    one_sym: Minimálně 1 nealfanumerický znak
   provider:
     google: Google
     office365: Office 365

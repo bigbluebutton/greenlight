@@ -1,0 +1,683 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# Locale.
+
+hr:
+  activerecord:
+    attributes:
+      user:
+        accepted_terms: "Pravila i uvjeti korištenja"
+        email: E-pošta
+        name: Ime
+        password: Lozinka
+        password_confirmation: Potvrda lozinke
+        old_password: Stara lozinka
+    errors:
+      models:
+        user:
+          confirmation: se ne podudara
+          attributes:
+            email:
+              invalid: Neispravan oblik adrese e-pošte
+            password:
+              invalid: "nije zadovoljila zahtjeve složenosti " 
+              
+  
+  administrator:
+    site_settings:
+      authentication:
+        disabled: Onemogućeno
+        enabled: Omogućeno
+        info: Dopusti pristup sobi samo prijavljenim korisnicima.
+        title: Zahtijevaj prijavu sustavu za pristup sobama
+        user-info: Morate se prijaviti sustavu prije priključivanja u ovu sobu.
+      branding:
+        change: Promijeni sliku
+        info: Promijeni sliku logotipa koja se pojavljuje u gornjem lijevom kutu.
+        placeholder: URL slike
+        title: Slika logotipa
+        invalid: Neispravan URL
+      legal:
+        change: Promijeni URL
+        info: "Promijenite poveznicu Pravila i uvjeti koja se pojavljuje na dnu stranice "
+        placeholder: URL pravila
+        title: Pravila korištenja
+        invalid: Neispravan URL
+      privpolicy:
+        change: Promijeni URL
+        info: "Promijenite poveznicu s politikom privatnosti koja se pojavljuje na dnu stranice "
+        placeholder: URL politike privatnosti
+        title: Politika privatnosti
+        invalid: Neispravan URL
+      cache:
+        info: "Briše pohranjeni cache pružatelja što prisiljava na izdavanje novog zahtjeva za ažuriranim informacijama "
+        title: Očisti cache pružatelja
+        button: Očisti cache
+      clear_auth:
+        info: "Briše trenutačni autentifikator za korisnike dopuštajući im da se ponovno prijave koristeći drugu metodu provjere autentičnosti "
+        title: Očisti trenutačnu autentikaciju
+        button: Očisti autentikaciju
+      color:
+        info: "Promjena uobičajene boje promijenit će i svjetliju i tamniju. Svjetlija i tamnija se tada mogu mijenjati pojedinačno "
+        title: Primarna boja
+        regular: Normalno
+        lighten: Svjetlije
+        darken: Tamnije
+      email_mapping:
+        info: "Mapirajte korisnika na ulogu koristeći njegovu adresu e-pošte. Mora biti u formatu email1=uloga1,email2=uloga2 "
+        title: Mapiranje uloga prema adresi e-pošte
+        update:
+      log_level:
+        title: Razina pohrane zapisa
+        information: Promijeni razinu detaljnosti zapisa za cijelu Greenlight instalaciju
+        debug: Debug
+        info: Info
+        warn: Upozorenja
+        error: Pogreške
+        fatal: Fatalno
+        unknown: Nepoznato
+      recording_visibility:
+        info: Odredi zadanu vidljivost za nove snimke
+        title: Zadana vidljivost snimaka
+        warning: Ova postavka će biti primijenjena samo na sobe koje trenutno nisu pokrenute
+      require_consent:
+        info: "Ova postavka omogućuje postavku sobe koja vlasnicima soba omogućuje da odrede koje sobe se mogu snimati. Korisnici koji se pridružuju sesiji koja se snima moraju dati pristanak prije pridruživanja. "
+        title: Za snimanje je potreban pristanak vlasnika sobe i sudionika
+      maintenance_banner:
+        info: Prikazuje korisnicima natpis o radovima na sustavu.
+        title: Obavijest o radovima na sustavu
+        display: Zadaj
+        clear: Ukloni
+        time: "Primjer: ažuriranje je zakazano za 13. prosinca 2022. u 23:00 CET. Korisnici mogu imati problema s prijavom. "
+      preupload:
+        info: "Korisnici mogu unaprijed prenijeti prezentaciju koja će se koristiti kao zadana prezentacija za tu određenu prostoriju "
+        title: Dopusti korisnicima postavljanje prezentacija unaprijed
+      registration:
+        info: Promijenite način na koji se korisnici registriraju na sustav
+        title: Način registracije
+        methods:
+          approval: Dozvoli/odbij
+          invite: Pozivnice
+          open: Otvorena registracija
+      rooms:
+        info: "Ograničava broj soba koje korisnik može imati (uključujući osnovnu sobu). Ova se postavka ne odnosi na administratore. "
+        title: Broj soba po korisniku
+      shared_access:
+        info: "Postavljanje na onemogućeno uklonit će gumb s padajućeg izbornika Mogućnosti sobe, čime se korisnicima sprječava da dijele sobe "
+        title: Dopusti korisnicima dijeljenje soba
+      subtitle: Prilagodite Greenlight
+      tabs:
+        appearance: Izgled
+        administration: Administracija
+        registration: Registracija
+        settings: Postavke
+      title: Postavke sustava
+    flash:
+      approved: Korisnički račun je uspješno odobren.
+      banned: Korisnički račun je uspješno blokiran / zabranjen mu je pristup.
+      unbanned: Korisnik je uspješno odblokiran.
+      delete: Korisnički račun je uspješno izbrisan.
+      delete_fail: Nije bilo moguće izbrisati korisnika
+      demoted: Korisniku su uspješno smanjene ovlasti
+      invite: "Pozivnica je uspješno poslana na %{email}"
+      invite_email_verification: "E-pošta mora biti omogućena kako biste koristili ovu metodu. Kontaktirajte administratora sustava. "
+      merge_fail: "Došlo je do problema pri spajanju korisničkih računa. Provjerite odabrane korisnike i pokušajte ponovno "
+      merge_success: Korisnički računi su uspješno spojeni
+      perm_deleted: Korisnički račun je trajno izbrisan.
+      promoted: Korisniku su uspješno povećane ovlasti
+      registration_method_updated: Način registracije je uspješno nadograđen
+      reset_password: "Korisniku je poslana poruka e-pošte za reset lozinke. (Zamolite ih da provjere svoju mapu neželjene pošte ako je nisu primili) "
+      restored: Korisnički račun je uspješno vraćen
+      room_configuration: Promjene postavke sobe su uspješno pohranjene
+      settings: Promjene postavki sustava su uspješno pohranjene
+      unauthorized: "Niste ovlašteni izvršavati radnje nad ovim korisnikom "
+    recordings:
+      latest: Zadnje snimke
+      title: Snimke na razini sustava
+      no_recordings: Na ovom sustavu nema snimaka.
+      search_info: Unesite punu adresu e-pošte korisnika ili UID sobe
+    roles:
+      appear_in_share_list: "Prikažite korisnike s ovom ulogom u padajućem izborniku za dijeljenje prostorija "
+      can_create_rooms: Može stvoriti sobu
+      can_launch_recording: "Dopustite korisnicima s ovom ulogom snimanje svojih sastanaka "
+      delete: Izbriši ovu ulogu
+      invalid_create: "Došlo je do problema pri stvaranju nove uloge. Provjerite vrijednosti uloga i pokušajte ponovno "
+      invalid_order: "Došlo je do problema pri ažuriranju prioriteta uloge. Provjerite vrijednosti i pokušajte ponovno "
+      invalid_update: "Došlo je do problema prilikom ažuriranja ovlasti uloge. Provjerite vrijednosti i pokušajte ponovno "
+      manage_rooms_recordings: Dopustite korisnicima s ovom ulogom upravljanje sobama i snimkama na razini cijelog poslužitelja
+      name: Naziv uloge
+      new_role: Stvori novu ulogu
+      role_has_users: "Ova je uloga dodijeljena ovom broju računa:%{user_count}. Uklonite ovu ulogu tim računima prije nego što je izbrišete. "
+      title: Uloge
+      promote_email: Pošaljite e-poruku korisnicima kada im ova uloga bude dodijeljena
+      demote_email: Pošaljite e-poruku korisnicima kada im ova uloga bude uklonjena
+      edit_site_settings: Dopustite korisnicima s ovom ulogom uređivanje postavki cijelog poslužitelja
+      edit_roles: Dopustite korisnicima s ovom ulogom uređivanje postavki ostalih uloga
+      manage_users: Dopustite korisnicima s ovom ulogom upravljanje drugim korisnicima na razini sustava
+      invalid_assignment: "Došlo je do problema pri dodjeli uloga korisniku. Provjerite vrijednosti i pokušajte ponovno "
+      colour:
+        title: Boja uloge
+        info: Zadaj boju koja će biti povezana s ovom ulogom
+    room_configuration:
+      title: Postavke sobe
+      mute:
+        info: "Automatski stišava mikrofon korisniku kada se pridruži BigBlueButton sastanku "
+      require_moderator:
+        info: "Obavještava moderatora BigBlueButton sastanka kada se korisnik pokuša pridružiti. Tek kad moderator odobri pristup korisniku, moći će se pridružiti sastanku. "
+      allow_any:
+        info: Dopustite bilo kojem sudioniku pokretanje sastanka u bilo koje vrijeme. Zadano je da to može napraviti samo vlasnici te sobe.
+      all_moderator:
+        info: "Svim korisnicima daje privilegije moderatora kada se pridruže BigBlueButton sastanku. "
+      recordings:
+        info: "Omogućuje vlasnicima soba da navedu žele li opciju snimanja sobe ili ne. Ako je omogućeno, moderator i dalje mora kliknuti gumb \"Record\"/\"Pokreni snimanje\" nakon što sastanak započne. "
+      moderator_codes:
+        info: "Omogućuje vlasnicima soba da po želji generiraju moderatorski kôd koji omogućuje drugim korisnicima da se pridruže izravno kao moderatori. "
+        title: Kôd za moderatorski pristup
+      options:
+        disabled: Onemogućeno
+        enabled: Uvijek omogućeno
+        optional: Opcionalno
+    rooms:
+      timeout: "Zbog isteka vremena zahtjeva poslužitelju %{server}, podaci o statusu i sudionicima možda neće biti točni "
+      title: Sobe na razini sustava
+      table:
+        ended: "Završeno: %{session}"
+        id: ID
+        not_running: Nije pokrenuto
+        participants: Sudionici
+        running: Pokrenuto
+        started: "Pokrenuto: %{session}"
+        status: Status
+        view: Pregled
+    title: Postavke organizacije
+    users:
+      invite: Uputi pozivnicu korisniku
+      edit:
+        title: Uredi korisničke podatke
+      settings:
+        approve: Dozvoli
+        decline: Odbij
+        ban: Blokiraj korisnika
+        delete: Izbriši
+        edit: Uredi
+        edit_roles: Uredi korisničke uloge
+        merge: Spoji račune
+        perm_delete: Trajno izbriši
+        unban: Odblokiraj korisnika
+        undelete: Vrati iz smeća
+      table:
+        authenticator: Način prijave
+        created: Stvoreno
+        time: Vrijeme slanja
+        name: Ime
+        not_found: Nijedan korisnik se ne poklapa s vašom pretragom
+        no_users: Nije pronađen nijedan korisnik
+        role: Uloga
+        uid: ID korisnika
+        username: Korisničko ime
+        valid: Važeće
+      title: Upravljanje korisnicima
+  add_to_google_calendar: "Dodaj u Google Calendar"
+  bigbluebutton: BigBlueButton
+  bigbluebutton_exception: Došlo je do pogreške pri pokretanju sastanka!
+  cancel: Odustani
+  cookies:
+    cookie_info: "Kolačići nam pomažu u pružanju naših usluga. Korištenjem naših usluga pristajete na našu upotrebu kolačića. "
+    cookie_button: Pristajem
+    policy: "Za više informacija pročitajte našu <a href=\"%{privacy_link}\"><u>politiku privatnosti</u></a>."
+  copied: Kopirano
+  copy: Kopiraj
+  date:
+    month_names: [~, Siječanj, Veljača, Ožujak, Travanj, Svibanj, Lipanj, Srpanj, Kolovoz, Rujan, Listopad, Studeni, Prosinac]
+  default_admin: "Još uvijek koristite zadanu lozinku za ovaj račun. Molimo kliknite <a href=\"%{edit_link}\">ovdje</a> kako bi ju promijenili "
+  delete: Izbriši
+  delivery_error: "Došlo je do pogreške tijekom isporuke e-pošte. Molimo kontaktirajte administratora! "
+  docs: Dokumentacija
+  email: E-pošta
+  email_sent: "Vaš poruka e-pošte %{email_type} je poslana! (Provjerite svoju mapu neželjene pošte ako je niste primili) "
+  enter_your_name: Unesite vaše ime!
+  errors:
+    bigbluebutton:
+      help: "Provjerite jesu li poduzeti odgovarajući koraci. <a href=\"%{doc_link}\">Saznajte više</a>"
+      message: Neispravni BigBlueButton Endpoint i Secret
+      title: Poslužiteljska pogreška
+    internal:
+      message: "Čini se da je nešto pošlo po krivu s naše strane. "
+      help: "Pogreška je zabilježena, pogledat ćemo o čemu se radi! "
+      report: Prijavite problem
+    maintenance:
+      message: "Nažalost, trenutačno traju radovi na sustavu."
+      help: Uskoro ćemo opet biti dostupni!
+    migration_error:
+      contact_admin: "Ako vi osobno niste administrator, onda ga kontaktirajte!"
+      continue: Želio bih i dalje koristiti 1.0.
+      notice: >
+        Greenlight je naišao na pogrešku migracije baze podataka <br>. To može biti zato što niste ažurirali na Greenlight 2.0. 
+      upgrade: "Pokaži mi kako da nadogradim na 2.0! "
+      version: "Izdali smo novu verziju Greenlighta, ali vaša baza podataka nije kompatibilna. "
+    messages:
+      blank: ne može biti prazna/prazno
+      too_short: je prekratka/prekratko
+      invalid: nije ispravna/ispravno
+      taken: je već zauzeta/zauzeto
+      accepted: mora biti prihvaćena/prihvaćeno
+      confirmation: "ne podudara se sa %{attribute}"
+      inclusion: nije uključen u popis
+      domain: "mora završiti s \"%{email_domain}\""
+    no_provider:
+      message: "Stranica kojoj pokušavate pristupiti nije omogućena "
+      help: "Obratite se administratoru sustava za postavljanje Greenlighta "
+    not_found:
+      message: "Oprostite! Stranica koju tražite ne postoji. "
+      help: "Je li moguće da je uklonjena?"
+      user_not_found:
+        help: Molimo kontaktirajte administratora.
+        message: "Nažalost, ovaj korisnik nije registriran."
+      user_missing:
+        help: Molimo provjerite URL i pokušajte ponovno.
+        message: URL koji ste unijeli nije ispravan.
+    title: Pogreške
+    unauthorized:
+      message: Nemate pravo pristupa ovoj aplikaciji
+      help: "Ako vjerujete da je došlo do pogreške, kontaktirajte administratora."
+  expired_reset_token: Poveznica za reset lozinke je istekla.
+  features:
+    title: Mogućnosti
+    rooms: Personalizirane sobe
+    recordings: Upravljanje snimkama
+    designs: Prilagođeni dizajn
+    authentication: Prijava korisnika
+  footer:
+    legal: Pravila korištenja
+    privpolicy: Politika privatnosti
+    powered_by: "Pogoni %{href}."
+  forgot_password:
+    subtitle: "Zaboravili ste lozinku?"
+    email: E-pošta
+    submit: Predaj
+  go_back: Idi natrag
+  greenlight: Greenlight
+  header:
+    all_recordings: Sve snimke
+    dropdown:
+      account_settings: Organizacija
+      help: "Trebate pomoć?"
+      home: Naslovnica
+      settings: Profil
+      signout: Odjava
+  home_room: Osnovna soba
+  info_update_success: Informacije su uspješno osvježene.
+  invalid_credentials: "Adresa e-pošte i lozinka koje ste unijeli ne odgovaraju našoj evidenciji. Pokušajte ponovno ili kliknite na \"Zaboravili ste lozinku?\" kako bi resetirali istu."
+  invalid_credentials_external: "Adresa e-pošte i lozinka koje ste unijeli ne odgovaraju našoj evidenciji. Molimo pokušajte ponovno. "
+  invalid_login_method: "Prijava nije uspjela zbog nepodudaranja korisničkog računa. Morate se prijaviti koristeći omniauth. "
+  invite_message: "Kako biste nekoga pozvali na sastanak, pošaljite mu ovu poveznicu:"
+  javascript:
+    room:
+      mailer:
+        subject: 'vas je pozvao/la da pregledate snimku.'
+        body: 'Kako biste pogledali snimku, posjetite poveznicu dolje: '
+        autogenerated: 'Ovu poruku e-pošte automatski je stvorio BigBlueButton. '
+        footer: 'BigBlueButton je sustav za web konferencije otvorenog kôda. Za više informacija o BigBlueButton rješenju posjetite https://bigbluebutton.org/. '
+    search:
+      start: Pokreni pretragu...
+  landing:
+    about: "%{href}je jednostavno sučelje za BigBlueButton poslužitelj otvorenog kôda namijenjeno za video-konferencije. Možete stvoriti vlastite sobe za održavanje sesija ili se priključiti u tuđe video sesije. "
+    welcome: Dobrodošli u BigBlueButton.
+    video: Pogledajte naš tutorijal o korištenju Greenlightom
+    upgrade: "Pokaži mi kako da nadogradim na 2.0! "
+    version: "Izdali smo novu verziju Greenlighta, ali vaša baza podataka nije kompatibilna. "
+  language_default: Zadano (jezik preglednika)
+  ldap_error: "Nije moguće povezati se s LDAP poslužiteljem. Provjerite svoju LDAP konfiguraciju u env datoteci i provjerite radi li vaš poslužitelj. "
+  login: Prijava
+  login_page:
+    locked_out: "Vaš račun je zaključan zbog previše pokušaja unosa korištenjem netočne lozinke. Molimo pokušajte ponovo kasnije. "
+  login_title: "Prijavite se na svoj korisnički račun "
+  mailer:
+    user:
+      approve:
+        info: Vaš korisnički račun je odobren.
+        signin: "Za pristup svojim osobnim sobama, kliknite gumb ispod i prijavite se. "
+        signin_link: Prijava
+        signup:
+          info: "Novi Greenlight korisnik se registrirao za korištenje Greenlighta. "
+          more-info: "Kako biste ovom korisniku omogućili pristup Greenlight sustavu, morate odobriti njegov račun u postavkama organizacije. "
+          admins_link: Posjeti stranicu organizacije
+          subject: Novi Greenlight korisnik se registrirao
+          username: "Korisnik se registrirao koristeći ime %{name} i adresu e-pošte %{email}."
+        subject: Korisnički račun je potvrđen
+        username: "Vaše korisničko ime glasi %{email}."
+      demoted:
+        info: "Više nemate ulogu %{role} na %{url}."
+        more-info: "Sada imate iste ovlasti kao i obični korisnik. "
+        root_link: Prijava
+        subtitle: "Uklonjena uloga: %{role}"
+      invite:
+        info: "Pozvani ste u svoj osobni prostor od strane %{name}"
+        signup_info: "Kako biste se prijavili korištenjem adrese e-pošte, kliknite donji gumb i slijedite upute. "
+        signup_link: Registracija
+        valid: "Pozivnica vrijedi do: %{date}"
+        signup:
+          info: "Korisnik koji je dobio pozivnicu registrirao se za korištenje Greenlighta. "
+          admins_link: Posjeti stranicu organizacije
+          subject: Novi Greenlight korisnik se registrirao
+          username: "Korisnik se registrirao koristeći ime %{name} i adresu e-pošte %{email}."
+        subject: Poziv na priključivanje na BigBlueButton
+        username: "Vaše korisničko ime glasi %{email}."
+      password_reset:
+        title: 'Reset lozinke'
+        welcome: "Zatraženo je resetiranje lozinke za adresu e-pošte <b>%{email}</b>"
+        message: 'Ako ste zatražili reset lozinke, kliknite na donju poveznicu kako biste resetirali svoju zaporku: '
+        reset_link: Reset lozinke
+        expire: Poveznica će prestati vrijediti kroz 2 sata.
+        ignore: "Možete sa sigurnošću zanemariti ovu e-poruku ako niste uputili ovaj zahtjev. "
+      promoted:
+        admins_link: Posjeti stranicu organizacije
+        info: "Postavljeni ste u ulogu %{role} na %{url}."
+        more-info: "Kako biste vidjeli svoje nove ovlasti kliknite na%{url}."
+        subtitle: "Dodijeljene ovlasti: %{role}"
+      verify_email:
+        welcome: "Dobrodošli u svoj osobni prostor, %{name}! "
+        success: "Koristeći %{bigbluebutton} možete stvoriti vlastite sobe za održavanje videokonferencijskih sesija i suradnju s drugima. "
+        username: "Vaše korisničko ime glasi %{email}."
+        verify: "Kako biste potvrdili svoj korisnički račun, samo kliknite na gumb ispod. "
+        verify_text: 'Slijedite ovu poveznicu za potvrđivanje vašeg korisničkog računa: %{url}'
+        verify_link: Potvrdi korisnički račun
+        thanks: "Hvala na uključenju i ugodan dan! "
+  max_concurrent: "Dostignut je najveći dopušteni broj istodobnih sesija! "
+  merged: Spojeno
+  modal:
+    create_role:
+      create: Stvori novu ulogu
+      footer_text: "Možete urediti pojedinačne ovlasti za ovu ulogu nakon što je stvorite "
+      name_placeholder: Unesite naziv uloge...
+      not_blank: Naziv uloge ne može biti prazan
+      title: Stvori novu ulogu
+    create_room:
+      access_code: Pristupni kôd
+      moderator_access_code: Kôd za moderatorski pristup
+      access_code_placeholder: Stvori opcionalni pristupni kôd za ovu sobu
+      reset_access_code: Resetiraj pristupni kôd
+      moderator_access_code_placeholder: Stvori opcionalni kôd za moderatorski pristup
+      reset_moderator_access_code: Resetiraj opcionalni kôd za moderatorski pristup
+      auto_join: Automatski me priključi u sobu
+      create: Stvori sobu
+      free_delete: Sobu uvijek možete izbrisati.
+      name_placeholder: Unesite naziv sobe
+      not_blank: Naziv sobe ne može biti prazan
+      title: Stvori novu sobu
+    delete_account:
+      confirm: "Jeste li sigurni kako želite izbrisati ovaj račun?"
+      delete: "Siguran sam, izbriši ovaj račun."
+      keep: Ipak neću izbrisati.
+      delete_warning: "Ovo će deaktivirati korisnički račun. Svi deaktivirani korisnici mogu se pronaći na kartici izbrisani. "
+      warning: "Ova odluka je <b>konačna</b>. Nećete moći vratiti povezane podatke. "
+    delete_rec:
+      delete: "DA, izbriši ovu snimku."
+      header: "Jeste li sigurni kako želite izbrisati ovu snimku?"
+      warning: <b>Nećete</b> moći vratiti ovu snimku
+    delete_room:
+      confirm: "Jeste li sigurni kako želite izbrisati %{room}?"
+      delete: "DA, izbriši ovu sobu."
+      keep: Ipak neću to izbrisati.
+      warning: "<b>Nećete</b> moći vratiti ovu sobu "
+      recording_warning: "ili bilo koju od %{recordings_num}povezanih snimaka."
+    invite_user:
+      email_placeholder: "Unesite adrese e-pošte korisnika (odvojene zarezima, CSV) "
+      footer: "Korisnik će dobiti poruku e-pošte s uputama kako se prijaviti "
+      send: Pošalji pozivnicu
+      title: Uputi pozivnicu korisniku
+    login:
+      or: ili
+      with: "Prijavi se korištenjem %{provider}"
+      forgot_password: "Zaboravili ste lozinku?"
+    preupload:
+      change: Zamijeni prezentaciju
+      choose: "Odaberite datoteku:"
+      current: "Trenutačna prezentacija:"
+      footer: "Ovisno o veličini prezentacije, može biti potrebno dodatno vrijeme za prijenos prije nego što istu budete mogli pokrenuti. "
+      invalid: "Nevažeća veličina/vrsta datoteke. Molimo pogledajte ograničenja u nastavku. "
+      title: Dodaj prezentaciju
+      use: Koristi prezentaciju
+    rename_recording:
+    remove_shared:
+      title: "Jeste li sigurni da želite ukloniti ovu sobu s vašeg popisa soba? "
+      delete: "Da, izbriši ovu sobu."
+      warning: "Više <b>nećete</b> moći pristupiti ovoj sobi. "
+    room_settings:
+      title: Postavke sobe
+      update: Osvježi postavke sobe
+      client: Odaberite vrstu klijenta
+      join_moderator: Svi sudionici se spajaju kao moderatori
+      mute: Stišaj sve sudionike pri priključivanju sobi
+      require_approval: Traži dozvolu moderatora za priključivanje
+      start: Dozvoli bilo kojem sudioniku pokretanje ovog sastanka
+      footer_text: Izmjene postavki vaše sobe su moguće bilo kada.
+      recording: Dozvoli snimanje u sobi
+    rename_room:
+      name_placeholder: Unesite naziv nove sobe...
+    share_access:
+      footer: "Dijeljenje sobe s korisnikom omogućuje im da pokrenu sastanak u toj sobi i pogledaju snimke sobe "
+      list: Podijeljeno s
+      title: Podijeli pristup sobi
+      save: Pohrani izmjene
+      cancel_changes: Odustani od izmjena
+      select: Odaberi korisnika
+    merge_user:
+      cancel: Odustani
+      from: Korisnički računi koje treba spojiti
+      title: Spoji korisničke račune
+      to: Primarni korisnički račun
+      save: Spoji račune
+      footer: "Sobe računa koji se spajaju bit će prebačeni na popis soba Primarnog računa, a zatim će drugi račun biti izbrisan. "
+  name_update_success: Naziv sobe je uspješno promijenjen!
+  no_user_email_exists: "Nema postojećeg korisnika s navedenom adresom e-pošte. Provjerite jeste li ju ispravno upisali. "
+  omniauth_error: "Došlo je do pogreške prilikom provjere autentičnosti pomoću omniauth. Pokušajte ponovno ili kontaktirajte administratora! "
+  omniauth_specific_error: "Pogreška %{error} prilikom provjere autentičnosti pomoću omniauth. Pokušajte ponovno ili kontaktirajte administratora! "
+  pagy:
+    nav:
+      prev: "&lsaquo; Prethodno"
+      next: "Sljedeće &rsaquo;"
+      gap: "&hellip;"
+  password: Lozinka
+  password_empty_notice: Lozinka ne može biti prazna.
+  password_reset_success: Lozinka je resetirana.
+  password_different_notice: Potvrda lozinke se ne podudara.
+  old_password_incorrect: je netočna
+  password_complexity:
+    minimum_len: Barem 8 znakova
+    one_lower_case: Barem 1 malo slovo
+    one_upper_case: Barem 1 veliko slovo
+    one_digit: Barem 1 broj
+    one_sym: Barem 1 simbol
+  provider:
+    google: Google
+    office365: Office 365
+    twitter: Twitter
+    ldap: AAI@EDUHR
+    openid_connect: OpenID Connect
+  recaptcha:
+    errors:
+      recaptcha_unreachable: "Nije bilo moguće provesti reCAPTCHA provjeru vašeg odgovora, pokušajte ponovno. "
+      verification_failed: "reCAPTCHA provjera nije uspjela, pokušajte ponovno. "
+  recording:
+    all_recordings: Sve snimke
+    email: Pošalji e-poštom poveznicu na snimku
+    error: "Došlo je do pogreške pri dohvatu %{count}snimke (snimaka)"
+    no_public_recordings: U ovoj sobi nema javno dostupnih snimaka.
+    no_recordings: U ovoj sobi nema snimaka.
+    no_user_recordings: Trenutačno nemate snimaka.
+    no_matched_pub_recordings: Nema javno dostupnih snimaka koje se podudaraju s vašom pretragom.
+    no_matched_recordings: Nema snimaka koje se podudaraju s vašom pretragom.
+    recorded_on: "Snimljeno %{date}"
+    table:
+      name: Ime
+      thumbnails: Sličice / thumbnails
+      length: Trajanje
+      users: Korisnici
+      visibility: Vidljivost
+      formats: Formati
+    visibility:
+      inaccessible: Nedostupno
+      public: Javno dostupno
+      unlisted: Neobjavljeno
+    format:
+      notes: Bilješke
+      podcast: Podcast
+      presentation: Prezentacije
+      statistics: Statistika
+      video: Video
+  registration:
+    approval:
+      fail: "Vaš račun još nije odobren. Ako je prošlo više dana od vaše prijave, kontaktirajte svog administratora."
+      signup: "Vaš je račun uspješno kreiran. Čekamo odobrenje administratora. "
+    banned:
+      fail: "Nemate pristup ovoj aplikaciji. Ako smatrate da je ovo pogreška, kontaktirajte svog administratora."
+    deprecated:
+      new_signin: "Odaberite novi način prijave za svoj korisnički račun. Sve vaše sobe s vašeg starog računa bit će premještene na novi račun "
+      twitter_signin: "Prijava putem Twittera je zastarjela i bit će uklonjena u sljedećoj inačici. Kliknite <a href=\"%{link}\">ovdje</a> kako biste premjestili svoj račun na novu metodu provjere autentičnosti "
+      twitter_signup: "Prijava putem Twittera je prestala vrijediti. Molimo koristite drugi način prijave "
+      merge_success: "Vaš twitter račun uspješno je spojen s novim računom. Vaš stari twitter račun je izbrisan "
+    invite:
+      fail: "Vaš token je ili nevažeći ili je istekao. Ako smatrate da je ovo pogreška, kontaktirajte svog administratora. "
+      no_invite: "Nemate pozivnicu za priključivanje. Molimo kontaktirajte svog administratora. "
+    insecure_password: "Kako bismo poboljšali sigurnost korisničkih računa, povećali smo složenost zaporki za sve lozinke. Napravite novu lozinku koja odgovara zahtjevima u nastavku. "
+  remove: Ukloni
+  rename: Preimenuj
+  reset_password:
+    captcha: "reCAPTCHA provjera nije uspjela, pokušajte ponovno. "
+    complexity: "Lozinka nije zadovoljila zahtjeve složenosti "
+    invalid_token: "Token za poništavanje lozinke nije važeći. Molimo pokušajte ponovno resetirati lozinku. "
+    subtitle: Reset lozinke
+    password: Nova lozinka
+    confirm: Potvrda nove lozinke
+    update: Osvježi lozinku
+    auth_change: Promijenjen je način prijave. Provjerite svoju e-poštu kako biste postavili svoju lozinku. 
+  roles:
+    active: Aktivno
+    admin: Administrator
+    banned: Blokirano
+    deleted: Izbrisano
+    pending: Na čekanju
+    invited: Pozvani
+    user: Korisnik
+  room:
+    access_code_required: Molimo unesite važeći pristupni kôd za ovu sobu
+    add_presentation: Dodaj prezentaciju
+    copy_access: Kopiraj pristupni kôd
+    copy_moderator_access: Kopiraj kôd za moderatorski pristup
+    create_room: Stvori sobu
+    create_room_error: Došlo je do pogreške pri stvaranju sobe
+    create_room_success: Soba uspješno stvorena
+    delete:
+      home_room: Nije moguće obrisati korisnikovu Osnovnu sobu
+      success: Soba uspješno izbrisana
+      fail: "Nije bilo moguće izbrisati sobu (%{error})"
+    enter_the_access_code: Unesite pristupni kôd ove sobe
+    enter_the_moderator_access_code: Unesite kôd za moderatorski pristup ovoj sobi
+    optional_moderator_access_code: "Opcionalni kôd za moderatorski pristup"
+    invalid_provider: "Unijeli ste neispravan URL. Provjerite URL i pokušajte ponovno. "
+    invitation_description: "Pozvani ste da se priključite %{name} koristeći BigBlueButton. Kako biste se priključili sesiji, kliknite na gornju poveznicu i unesite svoje ime. "
+    invited: Pozvani ste da se priključite
+    recording_present: "Prihvaćam to da će ova sesija biti snimljena. To može uključivati moj glas i video ako omogućim mikrofon i kameru. "
+    invite_participants: Pozovi sudionike
+    join: Priključi se
+    last_session: "Zadnja sesija u %{session}."
+    login: Uđi
+    owner: Vlasnik
+    owner_banned: Ova soba je trenutačno nedostupna
+    no_room:
+      description: "Unesite URl ILI ID sobe kojoj se želite priključiti. "
+      edit_profile: Uredi korisnički profil
+      go_to: Idi u sobu
+      invalid_room_uid: URL/UID sobe koji ste unijeli nije ispravan.
+      placeholder: URL/UID sobe
+      no_recent_rooms: Nemate nijednu sobu u koju ste bili nedavno priključeni
+      recent_rooms: Idite u sobu u koju ste nedavno bili priključeni
+      title: Priključi se sobi
+    no_sessions: Ova soba još nema sesije.
+    preupload_success: Prezentacija je uspješno dodana.
+    preupload_error: Došlo je do pogreške pri dodavanju prezentacije u ovu sobu.
+    preupload_remove_success: Prezentacija je uspješno uklonjena
+    preupload_remove_error: Došlo je do pogreške pri uklanjanju prezentacije iz ove sobe
+    recordings: Snimke sobe
+    room_limit: Dostigli ste najveći dopušteni broj soba
+    room_limit_exceeded: "Dostigli ste najveći dopušteni broj soba. Molimo obrišite barem %{difference}sobu(e) kako bi pristupili ovoj sobi."
+    sessions: Sesije
+    settings: Postavke sobe
+    share: Upravljanje pristupom
+    shared_by: "Podijelio/la %{email}"
+    remove_shared_access_success: "Dijeljena soba uspješno je uklonjena s popisa soba "
+    remove_shared_access_error: "Došlo je do pogreške prilikom uklanjanja dijeljene sobe s vašeg popisa "
+    shared_access_success: Soba je uspješno podijeljena
+    shared_access_error: Došlo je do pogreške pri dijeljenju sobe
+    start: Pokreni
+    search: Traži sobu
+    unavailable: Ova soba je trenutačno nedostupna jer adresa e-pošte vlasnika sobe još nije potvrđena.
+    update_settings_error: Došlo je do pogreške pri osvježavanju postavki sobe
+    update_settings_success: Postavke sobe su uspješno osvježene
+    wait:
+      message: Sastanak još nije počeo.
+      auto: Bit ćete automatski priključeni čim sastanak započne.
+  settings:
+    account:
+      fullname: Puno ime i prezime
+      language: Jezik
+      provider: Pružatelj
+      image: Slika
+      image_url: URL profilne slike
+      roles: Korisnička uloga
+      subtitle: Osvježite svoje korisničke podatke
+      title: Podaci o korisničkom računu
+      reset_password: Resetiraj korisničku lozinku
+    delete:
+      button: "Da, želim izbrisati svoj korisnički račun."
+      disclaimer: "Ako odlučite izbrisati svoj korisnički račun, on se <b>NEĆE</b> moći vratiti. Sve informacije o vašem računu, uključujući postavke, sobe i snimke bit će uklonjene. "
+      subtitle: Trajno izbrišite svoj račun
+      title: Trajno izbriši svoj korisnički račun
+    password:
+      confirmation: Potvrda nove lozinke
+      new: Nova lozinka
+      old: Stara lozinka
+      subtitle: Promijenite svoju lozinku
+      title: Lozinka
+    title: Profil
+    search: Pretraga
+  signup:
+    password_confirm: Potvrda lozinke
+    subtitle: Stvori korisnički račun
+    title: Registracija
+    with: "Prijavi se korištenjem %{provider}"
+  terms:
+    accept: "Prihvaćam %{href}"
+    accept_existing: Prihvaćam pravila i uvjete
+    title: Pravila i uvjeti korištenja
+  test_install: >
+    Ova implementacija koristi unaprijed konfigurirani poslužitelj za testiranje, trebali biste ga zamijeniti svojim vlastitim. Za detalje pogledajte %{href}.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
+  update: Osvježi
+  verify:
+    accept: Potvrda
+    activated: Korisnički račun je potvrđen!
+    already_verified: Korisnički račun je već potvrđen
+    invalid: Neispravna poveznica za potvrdu
+    not_verified: Vaš korisnički račun još nije potvrđen.
+    resend: Ponovno pošaljite poruku za potvrđivanje e-pošte
+    signin: Molimo prijavite se za pristup svom korisničkom računu.
+    title: Potvrdite svoju adresu e-pošte
+    verification: Potvrđivanje
