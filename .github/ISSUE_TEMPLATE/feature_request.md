@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Template to suggest an idea for Greenlight
+about: Suggest an idea for Greenlight
 title: ''
 labels: 'enhancement'
 assignees: ''
