@@ -41,6 +41,11 @@
 
 # IDEs
 .idea
+/.idea/
 .idea/**
 .vscode
+/.vscode/
 .vscode/**
+
+# Ignore environment configuration.
+.env
