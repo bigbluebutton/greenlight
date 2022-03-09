@@ -28,7 +28,6 @@
     </content>
     <orderEntry type="jdk" jdkName="rbenv: 2.7.2" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="action-cable-testing (v0.6.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="actioncable (v7.0.2.2, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="actionmailbox (v7.0.2.2, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="actionmailer (v7.0.2.2, rbenv: 2.7.2) [gem]" level="application" />
@@ -41,44 +40,24 @@
     <orderEntry type="library" scope="PROVIDED" name="activestorage (v7.0.2.2, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activesupport (v7.0.2.2, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="addressable (v2.8.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="aws-sdk-s3 (v1.88.2, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="bcrypt (v3.1.16, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="bigbluebutton-api-ruby (v1.7.0@91dc49, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bindex (v0.8.1, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="bn-ldap-authentication (v0.1.4, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bootsnap (v1.11.1, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="bootstrap (v4.3.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.2.4, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.1.4, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="cancancan (v2.3.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="capybara (v3.36.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="childprocess (v4.1.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="concurrent-ruby (v1.1.9, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="coveralls (v0.8.23, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="crass (v1.0.6, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="debug (v1.4.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="digest (v3.1.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="dotenv-rails (v2.7.6, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.10.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="factory_bot_rails (v6.1.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="faker (v2.17.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="font-awesome-sass (v5.9.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v1.0.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="google-cloud-storage (v1.30.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="hiredis (v0.6.3, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="http_accept_language (v2.1.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v1.10.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="i18n-language-mapping (v0.1.3.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="io-console (v0.5.11, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="io-wait (v0.2.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="irb (v1.4.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jbuilder (v2.11.5, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="jquery-rails (v4.4.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="jquery-ui-rails (v6.0.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jsbundling-rails (v1.0.2, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="listen (v3.5.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="local_time (v2.1.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="lograge (v0.11.2, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="loofah (v2.14.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.7.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="marcel (v1.0.2, rbenv: 2.7.2) [gem]" level="application" />
@@ -89,49 +68,26 @@
     <orderEntry type="library" scope="PROVIDED" name="minitest (v5.15.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="msgpack (v1.4.5, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="net-imap (v0.2.3, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="net-ldap (v0.17.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="net-pop (v0.1.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="net-protocol (v0.1.2, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="net-smtp (v0.3.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nio4r (v2.5.8, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.13.3, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="omniauth (v1.9.1, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="omniauth-bn-launcher (v0.1.3, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="omniauth-bn-office365 (v0.1.1, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="omniauth-google-oauth2 (v0.7.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="omniauth-twitter (v1.4.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="omniauth_openid_connect (v0.3.5, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="pagy (v3.11.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="pg (v0.21.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="pluck_to_hash (v1.0.2, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="public_suffix (v4.0.6, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="puma (v5.6.2, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="racc (v1.6.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v2.2.3, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v1.1.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails (v7.0.2.2, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rails-controller-testing (v1.0.5, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-dom-testing (v2.0.3, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-html-sanitizer (v1.4.2, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="railties (v7.0.2.2, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v13.0.6, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="random_password (v0.1.1, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="recaptcha (v5.7.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="redcarpet (v3.5.1, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="redis (v4.2.5, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v2.2.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="reline (v0.3.1, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="remote_syslog_logger (v1.0.4, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rexml (v3.2.5, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rspec-rails (v3.9.1, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rubocop (v1.10.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubyzip (v2.3.2, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sassc-rails (v2.1.2, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="selenium-webdriver (v4.1.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sequel (v5.41.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="shoulda-matchers (v3.1.3, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="spring (v2.1.1, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="spring-watcher-listen (v2.0.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets (v4.0.3, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets-rails (v3.4.2, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v1.4.2, rbenv: 2.7.2) [gem]" level="application" />
@@ -140,13 +96,9 @@
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.2.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="timeout (v0.2.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="turbo-rails (v1.0.1, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="turbolinks (v5.2.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v2.0.4, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="tzinfo-data (v1.2021.1, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="uglifier (v4.2.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="web-console (v4.2.0, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="webdrivers (v5.0.0, rbenv: 2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="webmock (v3.12.1, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="websocket-driver (v0.7.5, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="websocket-extensions (v0.1.5, rbenv: 2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="xpath (v3.2.0, rbenv: 2.7.2) [gem]" level="application" />
