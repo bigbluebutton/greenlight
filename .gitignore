@@ -44,3 +44,6 @@
 .idea/**
 .vscode
 .vscode/**
+
+# Ignore environment configuration.
+.env
