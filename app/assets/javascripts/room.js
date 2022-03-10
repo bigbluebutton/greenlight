@@ -350,12 +350,6 @@ function displaySharedUsers(path) {
       spanRemove = document.createElement("span"),
       spanRemoveIcon = document.createElement("i");
 
-      listName.appendChild(spanAvatar)
-      listName.appendChild(spanName)
-      listName.appendChild(spanUid)
-      listName.appendChild(spanRemove)
-      spanRemove.appendChild(spanRemoveIcon)
-
       listName.setAttribute('class', 'list-group-item text-left')
       listName.setAttribute('data-uid', user.uid)
       spanAvatar.innerText = user.name.charAt(0)
@@ -367,6 +361,12 @@ function displaySharedUsers(path) {
       spanRemove.setAttribute('class', 'text-primary float-right shared-user cursor-pointer')
       spanRemove.setAttribute('onclick', 'removeSharedUser(this)')
       spanRemoveIcon.setAttribute('class', 'fas fa-times')
+
+      listName.appendChild(spanAvatar)
+      listName.appendChild(spanName)
+      spanName.appendChild(spanUid)
+      listName.appendChild(spanRemove)
+      spanRemove.appendChild(spanRemoveIcon)
 
       $("#user-list").append(listName)
     })
