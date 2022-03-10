@@ -338,18 +338,38 @@ function saveAccessChanges() {
 // Get list of users shared with and display them
 function displaySharedUsers(path) {
   $.get(path, function(users) {
-    // Create list element and add to user list
-    var user_list_html = ""
+
+    $("#user-list").html("") // Clear current inputs
 
     users.forEach(function(user) {
-      user_list_html += "<li class='list-group-item text-left' data-uid='" + user.uid + "'>"
-      user_list_html += "<span class='avatar float-left mr-2'>" + user.name.charAt(0) + "</span>"
-      user_list_html += "<span class='shared-user'>" + user.name + "<span class='text-muted ml-1'>" + user.uid + "</span></span>"
-      user_list_html += "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
-      user_list_html += "</li>"
-    })
 
-    $("#user-list").html(user_list_html)
+      listName = document.createElement("li"),
+      spanAvatar = document.createElement("span"),
+      spanName = document.createElement("span"),
+      spanUid = document.createElement("span"),
+      spanRemove = document.createElement("span"),
+      spanRemoveIcon = document.createElement("i");
+
+      listName.setAttribute('class', 'list-group-item text-left')
+      listName.setAttribute('data-uid', user.uid)
+      spanAvatar.innerText = user.name.charAt(0)
+      spanAvatar.setAttribute('class', 'avatar float-left mr-2')
+      spanName.setAttribute('class', 'shared-user')
+      spanName.innerText = user.name
+      spanUid.setAttribute('class', 'text-muted ml-1')
+      spanUid.innerText = user.uid
+      spanRemove.setAttribute('class', 'text-primary float-right shared-user cursor-pointer')
+      spanRemove.setAttribute('onclick', 'removeSharedUser(this)')
+      spanRemoveIcon.setAttribute('class', 'fas fa-times')
+
+      listName.appendChild(spanAvatar)
+      listName.appendChild(spanName)
+      spanName.appendChild(spanUid)
+      listName.appendChild(spanRemove)
+      spanRemove.appendChild(spanRemoveIcon)
+
+      $("#user-list").append(listName)
+    })
   });
 }
 
