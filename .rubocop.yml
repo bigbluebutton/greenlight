@@ -1,0 +1,18 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'vendor/**/*'
+    - 'vendor/bundle/**/*'
+  DisabledByDefault: false
+  TargetRubyVersion: 3.1
+  NewCops: enable
+
+# Document classes and non-namespace modules.
+Style/Documentation:
+  Enabled: false
