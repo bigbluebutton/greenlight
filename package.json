@@ -4,14 +4,20 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/turbo-rails": "^7.1.1",
+    "@popperjs/core": "^2.11.2",
+    "bootstrap": "^5.1.3",
+    "bootstrap-icons": "^1.8.1",
     "esbuild": "^0.14.25",
     "react": "^17.0.2",
+    "react-bootstrap": "^2.2.0",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.2",
+    "sass": "^1.49.9",
     "typescript": "^4.6.2"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds"
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
+    "css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.14.0",
