@@ -25,6 +25,7 @@ uk:
         name: Ім'я
         password: Пароль
         password_confirmation: Підтвердження пароля
+        old_password: Старий пароль
     errors:
       models:
         user:
@@ -495,6 +496,13 @@ uk:
   password_empty_notice: Пароль не може бути порожнім.
   password_reset_success: Пароль успішно скинуто.
   password_different_notice: Підтвердження пароля не збігається.
+  old_password_incorrect: неправильний
+  password_complexity:
+    minimum_len: Щонайменше 8 символів
+    one_lower_case: Хоча б 1 маленьку літеру
+    one_upper_case: Хоча б 1 велику літеру
+    one_digit: Хоча б 1 цифру
+    one_sym: Хоча б 1 спецсимвол
   provider:
     google: Google
     office365: Office 365
