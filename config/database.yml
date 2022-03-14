@@ -18,8 +18,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: greenlight-v3-development
+  database: greenlight-v3-test
 
 production:
   <<: *default
-  database: greenlight-v3-development
+  database: greenlight-v3-production
