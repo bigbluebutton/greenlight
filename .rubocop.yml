@@ -16,3 +16,6 @@ AllCops:
 # Document classes and non-namespace modules.
 Style/Documentation:
   Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
