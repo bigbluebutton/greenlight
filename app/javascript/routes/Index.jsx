@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Test from "../components/Test";
-import OtherTest from "../components/OtherTest";
+import SignIn from "../components/sessions/SignIn";
+import Home from '../components/Home';
 
 export default (
   <Router>
     <Routes>
-      <Route path="/" element={<Test />} />
-      <Route path="/othertest" element={<OtherTest />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/sign_in" element={<SignIn />} />
     </Routes>
   </Router>
 );
