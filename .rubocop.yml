@@ -19,3 +19,6 @@ Style/Documentation:
 
 RSpec/ContextWording:
   Enabled: false
+
+Metrics/BlockLength:
+  IgnoredMethods: [ 'describe', 'context' ]
