@@ -9,8 +9,6 @@ class Room < ApplicationRecord
 
   before_validation :set_friendly_id, :set_meeting_id, on: :create
 
-  private
-
   def set_friendly_id
     id = SecureRandom.alphanumeric(12).downcase.scan(/.../).join('-') # Separate into 3 chunks of 4 chars
     raise if Room.exists?(friendly_id: id) # Ensure uniqueness
