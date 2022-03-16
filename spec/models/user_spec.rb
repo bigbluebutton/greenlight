@@ -13,6 +13,8 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:provider) }
 
     it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_presence_of(:password_confirmation) }
     it { is_expected.to validate_uniqueness_of(:email).scoped_to(:provider).case_insensitive }
+    # TODO: amir - Add tests for password confirmation.
   end
 end

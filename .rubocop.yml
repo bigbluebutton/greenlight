@@ -20,5 +20,31 @@ Style/Documentation:
 RSpec/ContextWording:
   Enabled: false
 
+# Enable having multiple expectations per example in a spec.
+RSpec/MultipleExpectations:
+  Enabled: false
+
+# Enable having long examples
+RSpec/ExampleLength:
+  Enabled: false
+
+# Enable having arbitrary Spec path i.e. Api::V1::Controller.
+RSpec/FilePath:
+  Enabled: false
+
+# Enable having lines with up to 130 charachters in length.
+Layout/LineLength:
+  Max: 130
+
+# Avoid methods longer than 10 lines of code.
+Metrics/MethodLength:
+  Enabled: false
+
+# Avoid long blocks with many lines.
 Metrics/BlockLength:
   IgnoredMethods: [ 'describe', 'context' ]
+
+# A calculated magnitude based on number of assignments,
+# branches, and conditions.
+Metrics/AbcSize:
+  Max: 65
