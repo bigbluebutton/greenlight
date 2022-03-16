@@ -6,8 +6,7 @@ RSpec.describe User, type: :model do
   describe '#create_room' do
     it 'creates a room for a newly created user' do
       expect { create(:user) }
-        .to change { User.count }.by(1)
-        .and change { Room.count }.by(1)
+        .to change(described_class, :count).by(1).and change(Room, :count).by(1)
     end
   end
 
