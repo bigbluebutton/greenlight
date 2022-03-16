@@ -10,7 +10,7 @@ class BigBlueButtonApi
   # Sets a BigBlueButtonApi object for interacting with the API.
   def bbb_server
     # TODO: Add additional logic here...
-    @bbb_server ||= BigBlueButton::BigBlueButtonApi.new(bbb_endpoint, bbb_secret, '0.8')
+    @bbb_server ||= BigBlueButton::BigBlueButtonApi.new(bbb_endpoint, bbb_secret, '1.0')
   end
 
   def bbb_endpoint
