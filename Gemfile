@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.0'
 
 gem 'bcrypt', '~> 3.1.7'
-gem 'bigbluebutton-api-ruby', git: 'https://github.com/mconf/bigbluebutton-api-ruby.git', branch: 'master'
+gem 'bigbluebutton-api-ruby', '1.8'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'dotenv-rails'
