@@ -70,6 +70,14 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
     bcrypt (3.1.17)
+    bigbluebutton-api-ruby (1.8.0)
+      childprocess (>= 1.0.1)
+      ffi (>= 1.9.24)
+      json (>= 1.8.6)
+      nokogiri (>= 1.10.4)
+      rack (>= 1.6.11)
+      rubyzip (>= 1.3.0)
+      xml-simple (~> 1.1)
     bindex (0.8.1)
     bootsnap (1.11.1)
       msgpack (~> 1.2)
@@ -105,6 +113,7 @@ GEM
       railties (>= 5.0.0)
     faker (2.20.0)
       i18n (>= 1.8.11, < 2)
+    ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.10.0)
@@ -118,6 +127,7 @@ GEM
       activesupport (>= 5.0.0)
     jsbundling-rails (1.0.2)
       railties (>= 6.0.0)
+    json (2.6.1)
     loofah (2.14.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -265,6 +275,8 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    xml-simple (1.1.9)
+      rexml
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.5.4)
@@ -274,6 +286,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
+  bigbluebutton-api-ruby (= 1.8)
   bootsnap
   capybara
   cssbundling-rails
