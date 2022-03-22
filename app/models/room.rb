@@ -2,6 +2,7 @@
 
 class Room < ApplicationRecord
   belongs_to :user
+  has_many :recordings
 
   validates :name, presence: true
   validates :friendly_id, presence: true, uniqueness: true

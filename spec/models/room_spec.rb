@@ -33,6 +33,7 @@ RSpec.describe Room, type: :model do
     subject { create(:room) }
 
     it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_many(:recordings) }
     it { is_expected.to validate_presence_of(:name) }
     # Can't test validation on friendly_id and meeting_id due to before_validations
   end
