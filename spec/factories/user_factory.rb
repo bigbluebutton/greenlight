@@ -7,6 +7,7 @@ FactoryBot.define do
     external_id { nil }
     provider { Faker::Company.name.downcase }
     password { Faker::Internet.password }
+    password_confirmation { password } # For password confirmation validation.
     last_login { nil }
   end
 end
