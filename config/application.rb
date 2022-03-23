@@ -20,5 +20,10 @@ module Greenlight
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Custom error messages for the Client side.
+    config.custom_error_msgs = {
+      missing_params: 'Invalid or Missing parameters.' # TODO: amir - Add I18n.
+    }
   end
 end
