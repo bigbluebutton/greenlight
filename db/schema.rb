@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_15_151617) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_17_142349) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "recordings", force: :cascade do |t|
+    t.bigint "room_id"
+    t.string "name", null: false
+    t.string "record_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_recordings_on_room_id"
+  end
 
   create_table "rooms", force: :cascade do |t|
     t.bigint "user_id"
@@ -39,5 +48,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_15_151617) do
     t.index ["email", "provider"], name: "index_users_on_email_and_provider", unique: true
   end
 
+  add_foreign_key "recordings", "rooms"
   add_foreign_key "rooms", "users"
 end
