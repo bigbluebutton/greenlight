@@ -24,10 +24,10 @@ export default function Rooms(){
     <>
 			<h1>Rooms:</h1>
 			<Container className='bg-secondary'>
-				<Row xs={1} md={4} className="g-4">
+				<Row md={4} className='g-4'>
 				{rooms.map((room) => (
 					<Col key={room.id}>
-						<RoomCard name={room.name}> </RoomCard>
+						<RoomCard id={room.friendly_id} name={room.name}> </RoomCard>
 					</Col>
 				))}
 				</Row>
