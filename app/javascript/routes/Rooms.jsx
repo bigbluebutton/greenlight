@@ -6,32 +6,32 @@ import RoomCard from "../components/RoomCard";
 
 export default function Rooms() {
 
-	const [rooms, setRooms] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
-	useEffect(() => {
-		axios.get('/api/v1/rooms.json', {
-			headers: {
-				'Content-Type': 'application/json',
-				'Accept': 'application/json'
-			}
-		})
-			.then(function (resp) {
-				setRooms(resp.data.data)
-			})
-	}, [])
+  useEffect(() => {
+    axios.get('/api/v1/rooms.json', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+      .then(function (resp) {
+        setRooms(resp.data.data)
+      })
+  }, [])
 
-	return (
-		<>
-			<h1>Rooms:</h1>
-			<Container className='bg-secondary'>
-				<Row md={4} className='g-4'>
-					{rooms.map((room) => (
-						<Col key={room.id}>
-							<RoomCard id={room.friendly_id} name={room.name}> </RoomCard>
-						</Col>
-					))}
-				</Row>
-			</Container>
-		</>
-	)
+  return (
+    <>
+      <h1>Rooms:</h1>
+      <Container className='bg-secondary'>
+        <Row md={4} className='g-4'>
+          {rooms.map((room) => (
+            <Col key={room.id}>
+              <RoomCard id={room.friendly_id} name={room.name}> </RoomCard>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </>
+  )
 }
