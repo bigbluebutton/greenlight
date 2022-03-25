@@ -4,7 +4,7 @@ import { Card, Row, Col, Container } from "react-bootstrap";
 import RoomCard from "../components/RoomCard";
 
 
-export default function Rooms(){
+export default function Rooms() {
 
 	const [rooms, setRooms] = useState([]);
 
@@ -15,23 +15,23 @@ export default function Rooms(){
 				'Accept': 'application/json'
 			}
 		})
-		.then(function(resp){
-			setRooms(resp.data.data)
-		})
+			.then(function (resp) {
+				setRooms(resp.data.data)
+			})
 	}, [])
 
-  return (
-    <>
+	return (
+		<>
 			<h1>Rooms:</h1>
 			<Container className='bg-secondary'>
 				<Row md={4} className='g-4'>
-				{rooms.map((room) => (
-					<Col key={room.id}>
-						<RoomCard id={room.friendly_id} name={room.name}> </RoomCard>
-					</Col>
-				))}
+					{rooms.map((room) => (
+						<Col key={room.id}>
+							<RoomCard id={room.friendly_id} name={room.name}> </RoomCard>
+						</Col>
+					))}
 				</Row>
 			</Container>
-    </>
-  )
+		</>
+	)
 }
