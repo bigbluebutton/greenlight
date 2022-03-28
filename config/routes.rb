@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   # All the Api endpoints must be under /api/v1 and must have an extension .json.
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:create]
-      resources :rooms, only: [:show], param: :friendly_id
       resources :sessions, only: %i[index create destroy]
+      resources :users, only: [:create]
+      resources :rooms, only: [:index, :show], param: :friendly_id
     end
   end
   match '*path', to: 'components#index', via: :all # Enable CSR for full fledged http requests.
