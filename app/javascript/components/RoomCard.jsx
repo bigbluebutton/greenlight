@@ -19,7 +19,7 @@ export default function RoomCard(props) {
           <Card.Text> Last session... </Card.Text>
           <hr />
           <Link45deg id='clipboard-icon' size={20}/>
-          <ButtonLink to='#'> Start</ButtonLink>
+          <ButtonLink className='float-end' to='#'> Start</ButtonLink>
         </Card.Body>
       </Card>
     </Container>
