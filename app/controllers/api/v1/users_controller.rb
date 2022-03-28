@@ -7,7 +7,7 @@ module Api
       # Expects: { user: { :name, :email, :password, :password_confirmation } }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: Creates and saves a new user record in the database with the provided parameters.
-
+      # test
       def create
         user = User.new({ provider: 'greenlight' }.merge(user_params)) # TMP fix for presence validation of :provider
         if user.save
