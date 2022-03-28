@@ -2,19 +2,19 @@ import React from "react";
 import { Button, Stack } from "react-bootstrap";
 import { FormControl } from "./FormControl";
 import Form from "./Form"; 
-import { signupFormConfig, signupFormFields, signupFormOnSubmit } from "../../helpers/forms/SignupFormHelpers";
+import { signupFormConfig, signupFormFields } from "../../helpers/forms/SignupFormHelpers";
 import { useForm } from "react-hook-form";
 import { Spinner } from "../stylings/Spinner";
+import { usePostUsers } from "../../hooks/mutations/users/Signup";
 
 
 export default function SignupForm() {
     const methods = useForm(signupFormConfig)
+    const { onSubmit } = usePostUsers()
     const { isSubmitting } = methods.formState
     const fields = signupFormFields
-    // Custom validations on the run.
-    fields.password_confirmation.hookForm.validations.validate.match = (value) => (methods.getValues('password') === value || 'Mismatches with password')
     return (
-            <Form methods={methods} onSubmit={signupFormOnSubmit}>
+            <Form methods={methods} onSubmit={onSubmit}>
                 <FormControl field={fields.name} type="text" />
                 <FormControl field={fields.email} type="email" />
                 <FormControl field={fields.password} type="password" />
