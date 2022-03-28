@@ -2,8 +2,8 @@
 import "@hotwired/turbo-rails";
 import React from "react";
 import { render } from "react-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import {QueryClient, QueryClientProvider} from "react-query";
 import App from "./app";
 import Signup from "./routes/Signup";
 import SignIn from './components/sessions/SignIn';
@@ -11,9 +11,9 @@ import AuthProvider from './components/sessions/AuthContext';
 import RoomView from "./components/rooms/RoomView";
 import Rooms from "./routes/Rooms"
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
- const root = (
+const root = (
      <QueryClientProvider client={queryClient}>
        <AuthProvider>
           <Router>
