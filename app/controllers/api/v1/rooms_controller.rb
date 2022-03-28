@@ -37,6 +37,7 @@ module Api
       def find_room
         @room = Room.find_by(friendly_id: params[:friendly_id])
       end
+      
     end
   end
 end
