@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  include ApplicationHelper
-
   protect_from_forgery with: :null_session # TODO: amir - Enable CSRF with a new made strategy.
 
   before_action do

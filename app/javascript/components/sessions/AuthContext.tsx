@@ -11,7 +11,7 @@ export function useAuth() {
 
 export default function AuthProvider({ children }) {
   async function fetchCurrentUser() {
-    const response = await fetch('/api/v1/sessions/signed_in.json', {
+    const response = await fetch('/api/v1/sessions.json', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

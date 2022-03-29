@@ -6,6 +6,15 @@ module Api
       # TODO: samuel - Bypass CSRF token for now
       skip_before_action :verify_authenticity_token
 
+      # GET /api/v1/sessions/signed_in
+      def index
+        if current_user
+          render json: { current_user:, signed_in: true }
+        else
+          render json: { signed_in: false }
+        end
+      end
+
       # POST /api/v1/sessions
       def create
         user = User.find_by(email: session_params[:email])
@@ -24,19 +33,20 @@ module Api
         render json: { signed_in: false }, status: :ok
       end
 
-      # GET /api/v1/sessions/signed_in
-      def signed_in
-        if current_user
-          render json: { current_user:, signed_in: true }
-        else
-          render json: { signed_in: false }
-        end
+      # Returns the current signed in User (if any)
+      def current_user
+        @current_user ||= User.find_by(id: session[:user_id])
       end
 
       private
 
       def session_params
         params.require(:session).permit(:email, :password)
+      end
+
+      # Signs In the user
+      def sign_in(user)
+        session[:user_id] = user.id
       end
     end
   end
