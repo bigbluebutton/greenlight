@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :sessions, only: %i[index create destroy]
       resources :users, only: [:create]
-      resources :rooms, only: [:index, :show], param: :friendly_id
+      resources :rooms, only: [:show, :index], param: :friendly_id
     end
   end
   match '*path', to: 'components#index', via: :all # Enable CSR for full fledged http requests.

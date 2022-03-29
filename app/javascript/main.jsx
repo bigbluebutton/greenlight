@@ -9,7 +9,7 @@ import Signup from "./routes/Signup";
 import SignIn from './components/sessions/SignIn';
 import AuthProvider from './components/sessions/AuthContext';
 import RoomView from "./components/rooms/RoomView";
-
+import Rooms from "./routes/Rooms"
 
 const queryClient = new QueryClient();
 
@@ -22,6 +22,7 @@ const queryClient = new QueryClient();
                    <Route index element={<h1 className="text-center">Index</h1>} />
                    <Route path="/signup" element={<Signup />} />
                    <Route path="/sign_in" element={<SignIn />} />
+                   <Route path="/rooms" element={<Rooms/>} />
                    <Route path="/rooms/:friendly_id" element={<RoomView />} />
                    <Route path="*" element={<h1 className="text-center">404</h1>} />
                  </Route>
