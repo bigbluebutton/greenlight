@@ -1,10 +1,9 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import ButtonLink from "../components/stylings/buttons/ButtonLink";
 import SignupForm from "../components/forms/SignupForm";
 
-export default function Signup(){
-  return (
+export const Signup:React.FC = (): ReactElement => (
     <>
       <Row className="mt-2">
         <Col>
@@ -30,4 +29,5 @@ export default function Signup(){
       </Row>
     </>
   )
-}
+
+export default Signup

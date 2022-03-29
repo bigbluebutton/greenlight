@@ -1,20 +1,20 @@
 import React from "react";
-import { Button, Stack } from "react-bootstrap";
-import { FormControl } from "./FormControl";
+import { Button, FormProps, Stack } from "react-bootstrap";
+import FormControl from "./FormControl";
 import Form from "./Form"; 
-import { signupFormConfig, signupFormFields } from "../../helpers/forms/SignupFormHelpers";
+import { signupFormConfig, signupFormFields, SignupFormFields, SignupFormInputs } from "../../helpers/forms/SignupFormHelpers";
 import { useForm } from "react-hook-form";
-import { Spinner } from "../stylings/Spinner";
+import Spinner from "../stylings/Spinner";
 import { usePostUsers } from "../../hooks/mutations/users/Signup";
 
 
-export default function SignupForm() {
-    const methods = useForm(signupFormConfig)
+export const SignupForm: React.FC<FormProps> = () => {
+    const methods = useForm<SignupFormInputs>(signupFormConfig)
     const { onSubmit } = usePostUsers()
     const { isSubmitting } = methods.formState
-    const fields = signupFormFields
+    const fields: SignupFormFields = signupFormFields
     return (
-            <Form methods={methods} onSubmit={onSubmit}>
+            <Form<SignupFormInputs> methods={methods} submitHandler={onSubmit}>
                 <FormControl field={fields.name} type="text" />
                 <FormControl field={fields.email} type="email" />
                 <FormControl field={fields.password} type="password" />
@@ -22,7 +22,7 @@ export default function SignupForm() {
                 <Stack className="mt-1" gap={1}>
                     <Button variant="primary" type="submit" disabled={isSubmitting}>
                         Submit {' '}
-                        { isSubmitting && <Spinner/> }
+                        { isSubmitting && <Spinner animation="grow" /> }
                     </Button>
                     <Button variant="secondary" type="reset">
                         Reset
@@ -31,3 +31,5 @@ export default function SignupForm() {
             </Form>
     )
 }
+
+export default SignupForm
