@@ -33,11 +33,6 @@ module Api
         render json: { signed_in: false }, status: :ok
       end
 
-      # Returns the current signed in User (if any)
-      def current_user
-        @current_user ||= User.find_by(id: session[:user_id])
-      end
-
       private
 
       def session_params

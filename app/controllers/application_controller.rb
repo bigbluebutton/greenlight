@@ -24,6 +24,11 @@ class ApplicationController < ActionController::Base
     logger.error exception.backtrace.join("\n")
   end
 
+  # Returns the current signed in User (if any)
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
+
   private
 
   # Ensures that requests to the API are explicit enough.
