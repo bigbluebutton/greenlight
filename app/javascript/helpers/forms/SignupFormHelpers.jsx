@@ -7,7 +7,7 @@ export const signupFormConfig = {
           'password': '',
           'password_confirmation': ''
         }
-} 
+}
 
 function postData(url,data){
     return fetch(url,
@@ -30,7 +30,7 @@ function postData(url,data){
 
 export async function signupFormOnSubmit(user_data) {
    console.log("Sending",JSON.stringify({user: user_data}))
-   response = await postData('/api/v1/users.json',{user: user_data}) 
+   const response = await postData('/api/v1/users.json',{user: user_data})
    console.log(response.json()) // parses JSON response into native JavaScript objects
 }
 
@@ -41,7 +41,7 @@ export const signupFormFields = {
         controlId: 'signupFormFullName',
         hookForm: {
             id: 'name',
-            validations:  { 
+            validations:  {
                 validate: {},
                 required: 'This field is required.'
               }
@@ -53,7 +53,7 @@ export const signupFormFields = {
         controlId: 'signupFormEmail',
         hookForm: {
             id: 'email',
-            validations:  { 
+            validations:  {
                 validate: {},
                 required: 'This field is required.',
                 pattern: {
@@ -69,7 +69,7 @@ export const signupFormFields = {
         controlId: 'signupFormPwd',
         hookForm: {
             id: 'password',
-            validations:  { 
+            validations:  {
                 validate: {},
                 required: 'This field is required.',
                 minLength: {
@@ -86,7 +86,7 @@ export const signupFormFields = {
         controlId: 'signupFormPwdConfirm',
         hookForm: {
             id: 'password_confirmation',
-            validations:  { 
+            validations:  {
                 validate: {},
                 deps: 'password'
               }
