@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import axios from "axios"
-import {Row, Col, Tabs, Tab} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import ButtonLink from "../stylings/buttons/ButtonLink";
 import FeatureTabs from "./FeatureTabs";
 import {Link, useParams} from "react-router-dom";
 import {useQuery} from "react-query";
-import { Spinner } from "../stylings/Spinner"
+import {Spinner} from "../stylings/Spinner"
 import {House} from "react-bootstrap-icons";
 
 export default function RoomView() {
