@@ -1,5 +1,5 @@
 env:
-  RUBY_VERSION: 2.7
+  RUBY_VERSION: 3.1.0
   DB_ADAPTER: postgresql
   DB_HOST: localhost
   DB_NAME: postgres
@@ -20,7 +20,7 @@ on:
 
 jobs:
   test:
-    name: Rubocop + RSpec
+    name: Rubocop + RSpec + ESLint + Jest
     runs-on: ubuntu-18.04
 
     services:
