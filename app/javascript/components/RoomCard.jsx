@@ -11,8 +11,8 @@ export default function RoomCard(props) {
 
   return (
     <Container>
-      <Card style={{ width: '14rem' }} border='dark'>
-        <Card.Body id='rooms-card' onClick={handleClick}>
+      <Card id='rooms-card' style={{ width: '14rem' }} border='dark'>
+        <Card.Body id='room-card-top' onClick={handleClick}>
           <PersonSquare size={30}/>
           <Card.Title> {name} </Card.Title>
           {/* TODO: Hadi- Make last session dynamic per room */}
