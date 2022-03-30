@@ -7,11 +7,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 
 export default function SignIn() {
-  type FormInputs = {
-    email: string;
-    password: string;
-  };
-
   // POST request to server to create a session using email and password from Sign In form.
   async function createSession(sessionUser) {
     const response = await fetch('/api/v1/sessions.json', {
@@ -47,7 +42,7 @@ export default function SignIn() {
   });
 
   // Form handling needs access to mutate method from useMutation
-  const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const handleSignIn = (sessionUser) => mutate(sessionUser);
   return (
     <Stack className="col-md-2 mx-auto">
