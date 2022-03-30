@@ -43,7 +43,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Ruby ${{ env.RUBY_VERSION }}
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
 
