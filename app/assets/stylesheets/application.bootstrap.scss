@@ -7,7 +7,13 @@ $secondary: rgb(241, 240, 240);
 // TODO: Hadi- Move this to specific file to only be accessible where needed
 #rooms-card {
   &:hover {
-      cursor: pointer;
+      // cursor: pointer;
       background: rgba(26, 69, 74, 0.2)
   }
+}
+
+#room-card-top {
+  &:hover {
+    cursor: pointer;
+}
 }
