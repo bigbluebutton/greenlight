@@ -62,14 +62,14 @@ jobs:
       #   run:  |
       #     bundler exec rails db:create
       #     bundler exec rails db:migrate
-      - name: Run Rubocop
-        run: bundle exec rubocop --parallel
-
-      - name: Run RSpec
-        run: bundle exec rspec
-
       - name: Run ESLint
         run: bundle exec eslint . --ext .js,.jsx
       
       - name: Run Jest
         run: bundle exec jest
+
+      - name: Run Rubocop
+        run: bundle exec rubocop --parallel
+
+      - name: Run RSpec
+        run: bundle exec rspec
