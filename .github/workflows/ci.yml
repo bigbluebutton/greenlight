@@ -63,7 +63,8 @@ jobs:
       #     bundler exec rails db:create
       #     bundler exec rails db:migrate
       - name: Run ESLint
-        run: bundle exec eslint . --ext .js,.jsx
+        uses: stefanoeb/eslint-action@1.0.2
+        run: eslint . --ext .js,.jsx
       
       - name: Run Jest
         run: bundle exec jest
