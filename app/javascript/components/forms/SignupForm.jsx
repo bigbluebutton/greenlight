@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { Spinner } from "../stylings/Spinner";
 import { usePostUsers } from "../../hooks/mutations/users/Signup";
 
-
 export default function SignupForm() {
     const methods = useForm(signupFormConfig)
     const { onSubmit } = usePostUsers()

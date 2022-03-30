@@ -18,7 +18,6 @@
     "react-query": "^3.34.16",
     "react-router-dom": "^6.2.2",
     "sass": "^1.49.9",
-    "typescript": "^4.6.2",
     "yup": "^0.32.11"
   },
   "scripts": {
