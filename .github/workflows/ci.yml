@@ -1,5 +1,5 @@
 env:
-  RUBY_VERSION: 3.1.0
+  RUBY_VERSION: 2.7
   DB_ADAPTER: postgresql
   DB_HOST: localhost
   DB_NAME: postgres
@@ -20,7 +20,7 @@ on:
 
 jobs:
   test:
-    name: Rubocop + RSpec + ESLint + Jest
+    name: Rubocop + RSpec
     runs-on: ubuntu-18.04
 
     services:
@@ -60,8 +60,8 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Setup database
         run:  |
-          bundler exec rails db:create RAILS_ENV=test
-          bundler exec rails db:migrate RAILS_ENV=test
+          bundler exec rails db:create
+          bundler exec rails db:migrate
       - name: Run Rubocop
         run: bundle exec rubocop --parallel
 
