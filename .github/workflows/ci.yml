@@ -56,8 +56,9 @@ jobs:
             ${{ runner.os }}-gems-
       - name: Bundle install
         run: |
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
+          gem install bundler
+          gem update --system
+      
       - name: Setup database
         run:  |
           bundler exec rails db:create RAILS_ENV=test
