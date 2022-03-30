@@ -11,9 +11,9 @@ import AuthProvider from './components/sessions/AuthContext';
 import RoomView from "./components/rooms/RoomView";
 import Rooms from "./routes/Rooms"
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
- const root = (
+const root = (
      <QueryClientProvider client={queryClient}>
        <AuthProvider>
           <Router>
