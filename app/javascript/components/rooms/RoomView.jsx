@@ -7,18 +7,12 @@ import {Link, useParams} from "react-router-dom";
 import {useQuery} from "react-query";
 import {Spinner} from "../stylings/Spinner"
 import {House} from "react-bootstrap-icons";
+import GetRoomQuery from "../../hooks/queries/rooms/GetRoomQuery";
 
 export default function RoomView() {
   const { friendly_id } = useParams()
 
-  const { isLoading, error, data: room, isFetching } = useQuery("getRoom", () =>
-    axios.get(`/api/v1/rooms/${friendly_id}.json`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    }).then(resp => resp.data.data)
-  );
+  const { isLoading, error, data: room, isFetching } = GetRoomQuery(friendly_id)
 
   if (isLoading) return <Spinner />
 
