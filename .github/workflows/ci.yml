@@ -62,13 +62,6 @@ jobs:
       #   run:  |
       #     bundler exec rails db:create
       #     bundler exec rails db:migrate
-      - name: Install ESLint
-        run: |
-          npm install -g eslint
-          npm install eslint-plugin-react@latest --save-dev
-
-      - name: Run ESLint
-        run: eslint . --ext .js,.jsx
 
       - name: Install Jest
         run: |
@@ -76,6 +69,14 @@ jobs:
       
       - name: Run Jest
         run: bundle exec jest
+
+      - name: Install ESLint
+        run: |
+          npm install -g eslint
+          npm install eslint-plugin-react@latest --save-dev
+
+      - name: Run ESLint
+        run: eslint . --ext .js,.jsx
 
       - name: Run Rubocop
         run: bundle exec rubocop --parallel
