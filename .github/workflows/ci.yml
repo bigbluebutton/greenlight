@@ -69,6 +69,10 @@ jobs:
 
       - name: Run ESLint
         run: eslint . --ext .js,.jsx
+
+      - name: Install Jest
+        run: |
+          npm install -g jest
       
       - name: Run Jest
         run: bundle exec jest
