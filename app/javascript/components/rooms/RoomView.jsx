@@ -1,10 +1,8 @@
 import React from "react";
-import axios from "axios"
 import {Col, Row} from "react-bootstrap";
 import ButtonLink from "../stylings/buttons/ButtonLink";
 import FeatureTabs from "./FeatureTabs";
 import {Link, useParams} from "react-router-dom";
-import {useQuery} from "react-query";
 import {Spinner} from "../stylings/Spinner"
 import {House} from "react-bootstrap-icons";
 import GetRoomQuery from "../../hooks/queries/rooms/GetRoomQuery";

@@ -1,10 +1,10 @@
 import React from "react"
-import {useQuery} from "react-query";
+import { useQuery } from "react-query";
 import axios from "axios";
 
-export default function GetRoomQuery(friendly_id) {
-  return useQuery("getRoom", () =>
-    axios.get(`/api/v1/rooms/${friendly_id}.json`, {
+export default function GetRoomsQuery() {
+  return useQuery("getRooms", () =>
+    axios.get('/api/v1/rooms.json', {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -12,3 +12,4 @@ export default function GetRoomQuery(friendly_id) {
     }).then(resp => resp.data.data)
   );
 }
+

@@ -1,21 +1,14 @@
 import React from "react";
-import axios from "axios"
 import { Row, Col, Container, Spinner } from "react-bootstrap";
-import RoomCard from "../components/RoomCard";
-import {useQuery} from "react-query";
+import RoomCard from "../rooms/RoomCard";
+import GetRoomsQuery from "../../hooks/queries/rooms/GetRoomsQuery";
 
 export default function Rooms() {
 
-  const { isLoading, error, data: rooms, isFetching } = useQuery("getRooms", () =>
-    axios.get('/api/v1/rooms.json', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
-    .then(resp => resp.data.data)
-  );
+  const { isLoading, error, data: rooms, isFetching } = GetRoomsQuery()
+
   if (isLoading) return <Spinner />
+
   return (
     <>
       <h1>Rooms:</h1>
