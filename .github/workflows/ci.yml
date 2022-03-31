@@ -63,7 +63,9 @@ jobs:
       #     bundler exec rails db:create
       #     bundler exec rails db:migrate
       - name: Install ESLint
-        run: npm install -g eslint
+        run: |
+          npm install -g eslint
+          npm install eslint-plugin-react@latest --save-dev
 
       - name: Run ESLint
         run: eslint . --ext .js,.jsx
