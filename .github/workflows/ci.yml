@@ -62,8 +62,10 @@ jobs:
       #   run:  |
       #     bundler exec rails db:create
       #     bundler exec rails db:migrate
+      - name: Install ESLint
+        run: npm install -g eslint
+
       - name: Run ESLint
-        uses: stefanoeb/eslint-action@1.0.2
         run: eslint . --ext .js,.jsx
       
       - name: Run Jest
