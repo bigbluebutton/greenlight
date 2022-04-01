@@ -1,17 +1,17 @@
-$primary: #1a454a;
+$primary: rgb(26, 69, 74);
 $secondary: rgb(241, 240, 240);
 
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
 // TODO: Hadi- Move this to specific file to only be accessible where needed
-#rooms-card {
+.rooms-card {
   &:hover {
       background: rgba(26, 69, 74, 0.2)
   }
 }
 
-#room-card-top {
+.room-card-top {
   &:hover {
     cursor: pointer;
 }
