@@ -2,7 +2,9 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Stack from 'react-bootstrap/Stack';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 
@@ -33,7 +35,7 @@ export default function SignIn() {
     // Re-fetch the current_user and redirect to homepage if Mutation is successful.
     onSuccess: () => {
       queryClient.invalidateQueries('current_user');
-      navigate('/');
+      navigate('/rooms');
       console.log('mutate success');
     },
     onError: (error) => {
@@ -45,11 +47,11 @@ export default function SignIn() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const handleSignIn = (sessionUser) => mutate(sessionUser);
   return (
-    <Stack className="col-md-2 mx-auto">
-      <h1> Sign In </h1>
+    <Card className="col-md-4 mx-auto p-4">
+      <h2 className="text-center py-4"> Sign In </h2>
       <Form onSubmit={handleSubmit(handleSignIn)} noValidate>
         <Form.Group className="mb-3" controlId="signInEmail">
-          <Form.Label>Email:</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
             placeholder="Email"
@@ -60,7 +62,7 @@ export default function SignIn() {
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="signInPassword">
-          <Form.Label>Password:</Form.Label>
+          <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"
@@ -70,9 +72,9 @@ export default function SignIn() {
             {errors?.password && errors.password.message}
           </Form.Text>
         </Form.Group>
-        <Button type="submit" variant="primary">Sign In</Button>
+        <Button className="w-100 my-3 py-2" type="submit" variant="primary">Sign In</Button>
       </Form>
-      <Link to="/">Home</Link>
-    </Stack>
+    </Card>
+
   );
 }
