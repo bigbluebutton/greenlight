@@ -23,10 +23,7 @@ module Greenlight
 
     # Custom error messages for the Client side.
     config.custom_error_msgs = {
-      # TODO: amir - Add I18n.
-      missing_params: 'Invalid or Missing parameters.',
-      record_not_found: 'Record Not Found',
-      server_error: 'Something Went Wrong'
+      missing_params: 'Invalid or Missing parameters.' # TODO: amir - Add I18n.
     }
   end
 end

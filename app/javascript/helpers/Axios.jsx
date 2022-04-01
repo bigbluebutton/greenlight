@@ -1,8 +1,7 @@
 import axios from "axios";
 
 export const ENDPOINTS = {
-    signup: '/users.json',
-    start_session: (room_id) => `room/${room_id}/start.json`
+    signup: '/users.json'
 }
 
 const axiosInstance = axios.create(

@@ -1,4 +1,4 @@
-$primary: rgb(26, 69, 74);
+$primary: #1a454a;
 $secondary: rgb(241, 240, 240);
 
 @import 'bootstrap/scss/bootstrap';
@@ -9,13 +9,13 @@ body {
 }
 
 // TODO: Hadi- Move this to specific file to only be accessible where needed
-.rooms-card {
+#rooms-card {
   &:hover {
       background: rgba(26, 69, 74, 0.2)
   }
 }
 
-.room-card-top {
+#room-card-top {
   &:hover {
     cursor: pointer;
 }
