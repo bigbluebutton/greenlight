@@ -1,20 +1,19 @@
 import React from "react";
-import axios from "axios"
-import {Col, Row} from "react-bootstrap";
-import ButtonLink from "../stylings/buttons/ButtonLink";
+import {Button, Col, Row} from "react-bootstrap";
 import FeatureTabs from "./FeatureTabs";
 import {Link, useParams} from "react-router-dom";
-import {useQuery} from "react-query";
 import {Spinner} from "../stylings/Spinner"
 import {House} from "react-bootstrap-icons";
 import GetRoomQuery from "../../hooks/queries/rooms/GetRoomQuery";
+import usePostStartSession from "../../hooks/mutations/rooms/StartSession";
 
 export default function RoomView() {
   const { friendly_id } = useParams()
 
-  const { isLoading, error, data: room, isFetching } = GetRoomQuery(friendly_id)
+  const { isLoading: queryIsLoading, data: room } = GetRoomQuery(friendly_id)
+  const { handleStartSession, isLoading: startSessionIsLoading } = usePostStartSession(friendly_id)
 
-  if (isLoading) return <Spinner />
+  if (queryIsLoading) return <Spinner />
 
   return (
     <>
@@ -30,7 +29,10 @@ export default function RoomView() {
           { room.name }
         </Col>
         <Col>
-          <ButtonLink to="/" variant="primary" className="float-end">Start Session</ButtonLink>
+          <Button variant="primary" className="float-end" onClick={handleStartSession} disabled={startSessionIsLoading} >
+            Start Session {' '}
+            { startSessionIsLoading && <Spinner/> }
+          </Button>
         </Col>
       </Row>
       <FeatureTabs />
