@@ -1,11 +1,11 @@
 import React from "react";
 import { Row, Col, Container, Spinner } from "react-bootstrap";
-import RoomCard from "../rooms/RoomCard";
-import GetRoomsQuery from "../../hooks/queries/rooms/GetRoomsQuery";
+import RoomCard from "./RoomCard";
+import useRooms from "../../hooks/queries/rooms/useRooms";
 
 export default function Rooms() {
 
-  const { isLoading, error, data: rooms, isFetching } = GetRoomsQuery()
+  const { isLoading, error, data: rooms, isFetching } = useRooms()
 
   if (isLoading) return <Spinner />
 
