@@ -35,9 +35,9 @@ RSpec/FilePath:
 RSpec/MessageSpies:
   Enabled: false
 
-# Enable having lines with up to 150 charachters in length.
+# Enable having lines with up to 130 charachters in length.
 Layout/LineLength:
-  Max: 150
+  Max: 130
 
 # Avoid methods longer than 10 lines of code.
 Metrics/MethodLength:
