@@ -1,16 +1,16 @@
-import {useMutation, useQueryClient} from "react-query";
-import axios, { ENDPOINTS } from "../../../helpers/Axios";
-import {useNavigate} from "react-router";
+import { useMutation, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router';
+import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
 const createSession = (sessionUser) => axios.post(ENDPOINTS.signin, sessionUser)
   .then((resp) => resp.data)
   .catch((error) => console.log(error));
 
-export function useCreateSession(options){
+export default function useCreateSession() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const mutation = useMutation(createSession, {
+  return useMutation(createSession, {
     // Re-fetch the current_user and redirect to homepage if Mutation is successful.
     onSuccess: () => {
       queryClient.invalidateQueries('useSessions');
@@ -20,7 +20,4 @@ export function useCreateSession(options){
       console.log('mutate error', error);
     },
   });
-
-  const onSubmit = (user_data) => mutation.mutateAsync({ user: user_data }).catch(/*Prevents the promise exception from bubbling*/()=>{})
-  return { onSubmit, ...mutation }
 }
