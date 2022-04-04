@@ -1,6 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import { useQuery } from 'react-query';
-import useSessions from "../../hooks/queries/rooms/useSessions";
+import useSessions from '../../hooks/queries/rooms/useSessions';
 
 const AuthContext = React.createContext();
 
@@ -23,8 +22,16 @@ export default function AuthProvider({ children }) {
   // ESlint is suggesting to useMemo so currentUser is not changed every render. To be reviewed - SC
   const memoizedCurrentUser = useMemo(() => currentUser, [currentUser]);
 
-  if (status === 'loading') return <p> Loading... </p>
-  if (status === 'error') return <p> {error} </p>
+  if (status === 'loading') return <p> Loading... </p>;
+  if (status === 'error') {
+    return (
+      <p>
+        {' '}
+        {error}
+        {' '}
+      </p>
+    );
+  }
 
   return (
     <AuthContext.Provider value={memoizedCurrentUser}>

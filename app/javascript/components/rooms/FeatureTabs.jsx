@@ -1,9 +1,9 @@
-import React from "react";
-import {Row, Tabs, Tab} from "react-bootstrap";
-import RecordingsTable from "./RecordingsTable";
-import Presentation from "./Presentation";
-import SharedAccess from "./SharedAccess";
-import RoomSettings from "./RoomSettings";
+import React from 'react';
+import { Row, Tabs, Tab } from 'react-bootstrap';
+import RecordingsTable from './RecordingsTable';
+import Presentation from './Presentation';
+import SharedAccess from './SharedAccess';
+import RoomSettings from './RoomSettings';
 
 export default function FeatureTabs() {
   return (
@@ -23,5 +23,5 @@ export default function FeatureTabs() {
         </Tab>
       </Tabs>
     </Row>
-  )
+  );
 }

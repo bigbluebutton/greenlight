@@ -1,18 +1,17 @@
-import React from "react";
-import axios from "axios"
-import {Col, Row} from "react-bootstrap";
-import ButtonLink from "../stylings/buttons/ButtonLink";
-import FeatureTabs from "./FeatureTabs";
-import {Link, useParams} from "react-router-dom";
-import {Spinner} from "../stylings/Spinner"
-import {House} from "react-bootstrap-icons";
-import useRoom from "../../hooks/queries/rooms/useRoom";
+import React from 'react';
+import { Col, Row } from 'react-bootstrap';
+import { Link, useParams } from 'react-router-dom';
+import { House } from 'react-bootstrap-icons';
+import ButtonLink from '../stylings/buttons/ButtonLink';
+import FeatureTabs from './FeatureTabs';
+import Spinner from '../stylings/Spinner';
+import useRoom from '../../hooks/queries/rooms/useRoom';
 
 export default function Room() {
-  const { friendly_id } = useParams()
+  const { friendlyId } = useParams();
 
-  const { isLoading, data: room } = useRoom(friendly_id)
-  if (isLoading) return <Spinner />
+  const { isLoading, data: room } = useRoom(friendlyId);
+  if (isLoading) return <Spinner />;
 
   return (
     <>
@@ -33,5 +32,5 @@ export default function Room() {
       </Row>
       <FeatureTabs />
     </>
-  )
+  );
 }

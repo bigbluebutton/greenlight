@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const ENDPOINTS = {
   signup: '/users.json',
   signin: '/sessions.json',
-}
+};
 
 const axiosInstance = axios.create(
   {
@@ -14,14 +14,14 @@ const axiosInstance = axios.create(
 
     // `headers` are custom headers to be sent
     headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
     },
 
     // `timeout` specifies the number of milliseconds before the request times out.
     // If the request takes longer than `timeout`, the request will be aborted.
     timeout: 30_000, // default is `0` (no timeout)
-  }
-)
+  },
+);
 
-export default axiosInstance
+export default axiosInstance;
