@@ -12,7 +12,7 @@ export default function CurrentUser() {
       <span> Email: { currentUser?.email }</span>
       <span> Provider: { currentUser?.provider }</span>
       <span> Signed In: { currentUser?.signed_in.toString() }</span>
-      <Link to="/sign_in">Sign In</Link>
+      <Link to="/signin">Sign In</Link>
       <Link to="/signup">Sign Up</Link>
     </Stack>
   );

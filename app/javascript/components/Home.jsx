@@ -5,8 +5,8 @@ import Stack from 'react-bootstrap/Stack';
 export default function Home() {
   return (
     <Stack gap={3}>
-      <h1> Welcome to Greenlight V3 </h1>
-      <Link to="/sign_in">Sign In</Link>
+      <h1> Welcome to Greenlight v3 </h1>
+      <Link to="/signin">Sign In</Link>
     </Stack>
   );
 }

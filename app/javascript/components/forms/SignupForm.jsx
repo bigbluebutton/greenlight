@@ -5,11 +5,10 @@ import Form from "./Form";
 import { signupFormConfig, signupFormFields } from "../../helpers/forms/SignupFormHelpers";
 import { useForm } from "react-hook-form";
 import { Spinner } from "../stylings/Spinner";
-import { usePostUsers } from "../../hooks/mutations/users/Signup";
 
 export default function SignupForm() {
     const methods = useForm(signupFormConfig)
-    const { onSubmit } = usePostUsers()
+    const { onSubmit } = useCreateUser()
     const { isSubmitting } = methods.formState
     const fields = signupFormFields
     return (
