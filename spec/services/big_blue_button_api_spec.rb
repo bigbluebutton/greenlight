@@ -4,12 +4,12 @@ require 'rails_helper'
 require 'bigbluebutton_api'
 
 describe BigBlueButtonApi, type: :service do
+  let(:bbb_service) { described_class.new }
+
   before do
     ENV['BIGBLUEBUTTON_ENDPOINT'] = 'http://test.com/bigbluebutton/api'
     ENV['BIGBLUEBUTTON_SECRET'] = 'test'
   end
-
-  let(:bbb_service) { described_class.new }
 
   describe 'Instance of BigBlueButtonApi being created' do
     it 'Created an instance of BigBlueButtonApi' do
