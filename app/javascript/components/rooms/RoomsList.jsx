@@ -12,22 +12,22 @@ export default function RoomsList() {
   return (
     <>
       <Container>
-        <Row>
+        <Row className='mt-4 mb-4'>
           <Col>
             {/* TODO: May need to change search form when implementing search functionality */}
-            <Form className='d-flex ms-4 mt-4 mb-4'>
+            <Form className='d-flex'>
               <FormControl
                 type='search'
                 placeholder='Search'
                 className=''
-                style={{ width: '14rem' }}
+                style={{ width: '18rem' }}
                 aria-label='Search' />
               <Button className='ms-2' variant="outline-secondary">Search</Button>
             </Form>
           </Col>
           <Col>
             {/* TODO: Set this button to create new room page */}
-            <ButtonLink className='float-end mt-4 mb-4' to='#'> + New Room </ButtonLink>
+            <ButtonLink className='float-end' to='#'> + New Room </ButtonLink>
           </Col>
         </Row>
         <Row md={4} className='g-4'>
