@@ -5,6 +5,7 @@ import Form from "./Form";
 import { signupFormConfig, signupFormFields } from "../../helpers/forms/SignupFormHelpers";
 import { useForm } from "react-hook-form";
 import { Spinner } from "../stylings/Spinner";
+import {useCreateUser} from "../../hooks/mutations/users/useCreateUser";
 
 export default function SignupForm() {
     const methods = useForm(signupFormConfig)

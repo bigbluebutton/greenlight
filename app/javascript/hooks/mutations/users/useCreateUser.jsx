@@ -4,7 +4,7 @@ import axios, { ENDPOINTS } from "../../../helpers/Axios";
 
 const createUser = (data) => axios.post( ENDPOINTS.signup, data )
 
-export function usePostUsers(){
+export function useCreateUser(){
   const mutation = useMutation( createUser,
     {   // Mutation config.
       mutationKey: ENDPOINTS.signup,
