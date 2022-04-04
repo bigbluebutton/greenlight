@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { Card, Container } from 'react-bootstrap';
 import { PersonSquare, Link45deg } from 'react-bootstrap-icons';
 import ButtonLink from '../stylings/buttons/ButtonLink';
