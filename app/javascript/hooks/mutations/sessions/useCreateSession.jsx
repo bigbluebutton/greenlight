@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
 const createSession = (sessionUser) => axios.post(ENDPOINTS.signin, sessionUser)
