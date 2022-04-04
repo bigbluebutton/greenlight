@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Row, Col } from "react-bootstrap";
-import ButtonLink from "../components/stylings/buttons/ButtonLink";
-import SignupForm from "../components/forms/SignupForm";
+import ButtonLink from "../stylings/buttons/ButtonLink";
+import SignupForm from "../forms/SignupForm";
 
 export default function Signup(){
   return (

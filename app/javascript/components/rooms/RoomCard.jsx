@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useNavigate } from "react-router";
 import { Card, Container } from "react-bootstrap";
-import ButtonLink from "./stylings/buttons/ButtonLink";
+import ButtonLink from "../stylings/buttons/ButtonLink";
 import { PersonSquare, Link45deg } from 'react-bootstrap-icons';
 
 export default function RoomCard(props) {

@@ -1,5 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import { useQuery } from 'react-query';
+import useSessions from "../../hooks/queries/rooms/useSessions";
 
 const AuthContext = React.createContext();
 
@@ -10,19 +11,7 @@ export function useAuth() {
 }
 
 export default function AuthProvider({ children }) {
-  async function fetchCurrentUser() {
-    const response = await fetch('/api/v1/sessions.json', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    });
-    if (!response.ok) throw new Error('User is not signed in.');
-    return response.json();
-  }
-
-  const { data: session, status, error } = useQuery('current_user', fetchCurrentUser);
+  const { data: session, status, error } = useSessions();
 
   const currentUser = {
     name: session?.current_user?.name,

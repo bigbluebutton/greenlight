@@ -4,16 +4,14 @@ import {Col, Row} from "react-bootstrap";
 import ButtonLink from "../stylings/buttons/ButtonLink";
 import FeatureTabs from "./FeatureTabs";
 import {Link, useParams} from "react-router-dom";
-import {useQuery} from "react-query";
 import {Spinner} from "../stylings/Spinner"
 import {House} from "react-bootstrap-icons";
-import GetRoomQuery from "../../hooks/queries/rooms/GetRoomQuery";
+import useRoom from "../../hooks/queries/rooms/useRoom";
 
-export default function RoomView() {
+export default function Room() {
   const { friendly_id } = useParams()
 
-  const { isLoading, error, data: room, isFetching } = GetRoomQuery(friendly_id)
-
+  const { isLoading, data: room } = useRoom(friendly_id)
   if (isLoading) return <Spinner />
 
   return (
