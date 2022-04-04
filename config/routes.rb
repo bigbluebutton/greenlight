@@ -12,7 +12,9 @@ Rails.application.routes.draw do
         end
       end
       resources :users, only: [:create]
-      resources :rooms, only: %i[show index], param: :friendly_id
+      resources :rooms, only: %i[show index], param: :friendly_id do
+        post '/start', to: 'rooms#start', as: :start_meeting, on: :member
+      end
     end
   end
   match '*path', to: 'components#index', via: :all # Enable CSR for full fledged http requests.

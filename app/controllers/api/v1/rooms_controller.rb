@@ -4,7 +4,7 @@ module Api
   module V1
     class RoomsController < ApplicationController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
-      before_action :find_room, only: :show
+      before_action :find_room, only: %i[show start]
 
       # GET /api/v1/rooms.json
       # Returns: { data: Array[serializable objects(rooms)] , errors: Array[String] }
@@ -18,6 +18,30 @@ module Api
 
       def show
         render_json data: @room, status: :ok
+      end
+
+      # POST /api/v1/rooms/:friendly_id/start.json
+      # Returns: { data: Array[serializable objects] , errors: Array[String] }
+      # Does: Starts the Room meeting and joins in the meeting starter.
+
+      def start
+        # TODO: amir - Check the legitimately of the action.
+        bbb_api = BigBlueButtonApi.new
+        meeting_starter = current_user ? "user(id):#{current_user.id}" : 'unauthenticated user'
+        options = { logoutURL: request.headers['Referer'] || root_url }
+        retries = 0
+        begin
+          logger.info "Starting meeting for room(friendly_id):#{@room.friendly_id} by #{meeting_starter}."
+          join_url = bbb_api.start_meeting room: @room, meeting_starter: current_user, options: options
+          logger.info "meeting successfully started for room(friendly_id):#{@room.friendly_id} by #{meeting_starter}."
+
+          render_json data: { join_url: }, status: :created
+        rescue BigBlueButton::BigBlueButtonException => e
+          retries += 1
+          logger.info "Retrying meeting start for room(friendly_id):#{@room.friendly_id} because of error(key): #{e.key} #{retries} times..."
+          retry unless retries >= 3
+          raise e
+        end
       end
 
       private
