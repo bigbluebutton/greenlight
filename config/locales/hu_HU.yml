@@ -25,18 +25,26 @@ hu_HU:
         name: Név
         password: Jelszó
         password_confirmation: Jelszó megerősítése
+        old_password: Régi jelszó
     errors:
       models:
         user:
-          confirmation: a jelszóval nem azonos
+          confirmation: nem egyezik
+          attributes:
+            email:
+              invalid: érvénytelen email formátum
+            password:
+              invalid: nem felelt meg a bonyolultsági követelményeknek 
+              
+  
   administrator:
     site_settings:
       authentication:
         disabled: Kikapcsolva
         enabled: Bekapcsolva
-        info: Csak hitelesített felhasználók léphetnek be a szobába
-        title: Hitelesítés megkövetelése a szobákhoz
-        user-info: Ebbe a szobába a belépéshez előbb be kell jelentkezned.
+        info: Csak hitelesített felhasználók léphetnek be a terembe
+        title: Hitelesítés megkövetelése a teremhez
+        user-info: Ebbe a terembe a belépéshez előbb be kell jelentkezned.
       branding:
         change: Kép cseréje
         info: A bal felső sarokban megjelenő arculati kép cseréje
@@ -69,6 +77,10 @@ hu_HU:
         regular: Szokásos
         lighten: Világosabb
         darken: Sötét
+      email_mapping:
+        info: "A felhasználó szerephez rendelése e-mailjeik alapján. A következő formátum használata kötelező: email1=szerep1,email2=szerep2"
+        title: Szerephez rendelés e-mail alapján
+        update:
       log_level:
         title: Naplózás szintje
         information: A naplózási szint módosítás a teljes rendszeren
@@ -81,18 +93,18 @@ hu_HU:
       recording_visibility:
         info: Állítsd be az új felvétel alapértelmezett láthatóságát
         title: A felvétele alapértelmezett láthatósága
-        warning: Ez a beállítás csak a még jelenleg nem futó szobákra lesz érvényes
+        warning: Ez a beállítás csak a még jelenleg nem futó termekre lesz érvényes
       require_consent:
-        info: "Ez a beállítás lehetővé teszi a szoba tulajdonosának, hogy beállítása, hogy a szobáról készüljön felvétel. Az ilyen szobába csatlakozóknak beleegyezésüket kell adniuk."
-        title: Felvétel készítéséhez a szoba tulajdonosa és csatlakozók hozzájárulása szükséges
+        info: "Ez a beállítás lehetővé teszi a terem tulajdonosának, hogy az előadásról felvételt készítsen. Ekkor a résztvevők csak egy hozzájáruló jelölőnégyzet kipipálásával tudnak csatlakozni."
+        title: Felvétel készítéséhez a résztvevők hozzájárulása szükséges
       maintenance_banner:
         info: Az időzített karbantartásról banner tájékoztatja a felhazsnálókat
         title: Karbantartási banner
         display: Beállítás
         clear: Törlés
-        time: "Például: A tervezett frissítés időpontja december 13 23:00. A frissítés alatt bejelentkezési problémákat tapasztalhatnak."        
+        time: "Például: A tervezett frissítés időpontja december 13 23:00. A frissítés alatt bejelentkezési problémákat tapasztalhatnak."
       preupload:
-        info: "A felhasználók előre feltölthetnek prezentációt, ami a megadott szoba alapértelmezett prezentációja lesz"
+        info: "A felhasználók előre feltölthetnek prezentációt, ami a megadott terem alapértelmezett prezentációja lesz"
         title: A felhasználók előre feltölthetnek prezentációt
       registration:
         info: A felhasználók weboldalra hitelesítési módjának módosítása
@@ -102,15 +114,16 @@ hu_HU:
           invite: Belépés meghívásra
           open: Regisztráció megnyitása
       rooms:
-        info: Ez a beállítás korlátozza egy felhasználó szobáinak számát (beleértve a Saját Szobát is). Az üzemeltetőkre nincs hatással.
-        title: Szobák száma felhasználónként
+        info: Ez a beállítás korlátozza egy felhasználó termeinek számát (beleértve a Saját Termet is). Az üzemeltetőkre nincs hatással.
+        title: Termek száma felhasználónként
       shared_access:
-        info: "Ha kikapcsolod, akkor a gombot eltávolítod a Szobabeállítások legördülő menüből, megakadályozva ezzel, hogy a felhasználók megosszák a szobákat"
-        title: A felhasználók megoszthatnak szobákat
+        info: "Ha kikapcsolod, akkor a gombot eltávolítod a Terembeállítások legördülő menüből, megakadályozva ezzel, hogy a felhasználók megoszhassák termeiket"
+        title: A felhasználók megoszthatják termeiket
       subtitle: Greenlight személy szabása
       tabs:
         appearance: Megjelenés
         administration: Üzemeltetés
+        registration: Regisztráció
         settings: Beállítások
       title: Weboldal beállításai
     flash:
@@ -129,20 +142,23 @@ hu_HU:
       registration_method_updated: A regisztráció módját sikeresen megváltoztattad
       reset_password: "A felhasználó e-mailt kapott a jelszó visszaállításához. (Ha még nem kapták meg, kérd meg őket, hogy ellenőrizzék a spam mappájukat)"
       restored: A felhasználót sikeresen visszaállítottad
-      room_configuration: A szoba beállításait sikeresen módosította
+      room_configuration: A terem beállításait sikeresen módosítottad
       settings: A weboldal beállításait sikeresen módosítottad
       unauthorized: "Nincs jogosultságod, hogy műveletet hajts végre ezen a felhasználón"
     recordings:
-      title: A szerver felvételei
+      latest: Felvételek
+      title: Összes felvétel
       no_recordings: Ennek a szervernek egy felvétele sincs.
+      search_info: Add meg a felhasználó teljes e-mail-címét vagy a terem azonosítót
     roles:
-      appear_in_share_list: Ezen szerep tagjai legyen a legördülőben a szobák megosztásához
-      can_create_rooms: Létrehozhat szobákat
+      appear_in_share_list: Ezen szerep tagjai legyen a legördülőben a termek megosztásához
+      can_create_rooms: Létrehozhat termeket
+      can_launch_recording: "Lehetővé teszi az ezzel a szerepkörrel rendelkező felhasználók számára, hogy rögzítsék értekezleteiket"
       delete: A szerep törlése
       invalid_create: "Hiba történt az új szerep létrehozása közben. Kérem, ellenőrizd a szerep értékeit és próbáld újra"
       invalid_order: "Hiba történt a szerep prioritásának módosítása közben. Kérem, ellenőrizd a szerep értékeit és próbáld újra"
       invalid_update: "Hiba történt az új szerep jogosultságainak módosítása közben. Kérem, ellenőrizd a szerep értékeit és próbáld újra"
-      manage_rooms_recordings: Ezen szerep tagjai kezelhetik a szerverszobákat és a felvételeket
+      manage_rooms_recordings: Ezen szerep tagjai kezelhetik a szervertermeket és a felvételeket
       name: Szerep megnevezése
       new_role: Új szerep létrehozása
       role_has_users: "Ez a szerep %{user_count} fiókhoz van hozzárendelve. Ezeket mind el kell távolítanod a szerep törlése előtt."
@@ -157,25 +173,29 @@ hu_HU:
         title: Szerep színe
         info: Állítsd be a szerep színét
     room_configuration:
-      title: Szoba beállításai
+      title: Terem beállításai
       mute:
         info: A felhasználó automatikus némítása amikor csatlakozik a megbeszéléshez
       require_moderator:
-        info: "Felhasználó csatlakozáskor megerősítő ablak a moderátornak. Ha a moderátor jóváhagyja, a felhasználó csatlakozhat a megbeszéléshez."
+        info: "Résztvevevő csatlakozása előtt az előszobában kell várnia, amíg a házigazda nem engedélyezi a belépést."
       allow_any:
-        info: Bármelyik felhasználó bármikor elindíthatja megbeszélést. Alapértelmezett csak a szoba tulajdonosa indíthat megbeszélést.
+        info: "Bármelyik Résztvevő bármikor megkezdheti a megbeszélést. Alapértelmezett: csak a terem tulajdonosa indíthat megbeszélést."
       all_moderator:
-        info: Moderátori jogosultság az összes felhasználónak amikor csatlakoznak a megbeszéléshez.
+        info: Szervezői jogosultság az összes felhasználónak a csatlakozáskor
       recordings:
-        info: "Engedélyezi a szoba tulajdonosainak, hogy szeretnének-e lehetőséget a szoba rögzítéséről. Amennyiben be van kapcsolva, a moderátornak még egyszer rá kell kattintana a Rögzítés gombra a rögzítés megkezdéséhez."
+        info: "A teremben tartandó előadásokhoz engedélyezi a videófelvétel rögzítését  Ebben az esetben a felvétel nem indul el automatikusan, hanem a terembe belépett Szervező (csak a szervező!) a Felvétel nyomógomb lenyomásával adott időpillanatban elindíthatja és ugyanezzel a gombbal megállíthatja a rögzítést."
+      moderator_codes:
+        info: "Lehetővé teszi a teremtulajdonosok számára, hogy opcionálisan létrehozzanak egy szervezői PIN-kódot, amely lehetővé teszi, hogy bizonyos résztvevők Szervezőként csatlakozhassanak."
+        title: Szervezői hozzáférési kód
       options:
         disabled: Kikapcsolva
         enabled: Mindig bekapcsolva
         optional: Opcionális
     rooms:
-      title: Szerverszobák
+      timeout: Túl hosszú tétlenség miatt a munkafolyamat megszakadt.
+      title: Összes terem
       table:
-        ended: "Befejezve: %{session}"
+        ended: "Megnyitva: %{session}"
         id: ID
         not_running: Nem fut
         participants: Résztvevők
@@ -202,12 +222,14 @@ hu_HU:
       table:
         authenticator: Hitelesítő
         created: Létrehozva
+        time: Idő elküldve
         name: Név
         not_found: Egy felhasználó sem felel meg a keresési feltételnek
         no_users: Egy felhasználót sem találtunk
         role: Szerep
         uid: Felhasználó ID
         username: Felhasználónév
+        valid: Érvényes
       title: Felhasználókezelés
   add_to_google_calendar: "Google Naptár hozzáadása"
   bigbluebutton: BigBlueButton
@@ -216,8 +238,9 @@ hu_HU:
   cookies:
     cookie_info: A szolgáltatását nyújtásában segítenek a sütijeink. A szolgáltatásaink használatával elfogadod a sütijeinket.
     cookie_button: Egyetértek
+    policy: "További információért tekintsd meg <a href=\"%{privacy_link}\"><u>adatvédelmi szabályzatunkat</u></a>."
   copied: Másoltad
-  copy: Másolás
+  copy: Link másolása
   date:
     month_names: [~, január, február, március, április, május, június, július, augusztus, szeptember, október, november, december]
   default_admin: "Még mindig az alapértelmezett jelszót használod ehhez a felhasználóhoz. Kérjük, kattints <a href=\"%{edit_link}\">ide</a> a jelszó módosításához."
@@ -254,6 +277,7 @@ hu_HU:
       accepted: el kell fogadni
       confirmation: "nem egyezik %{attribute}"
       inclusion: nincs benne ebben a listában
+      domain: " \"%{email_domain}\" -el kell végződnie!"
     no_provider:
       message: "A webhely, amelyhez megpróbálsz hozzáférni, nincs bekapcsolva"
       help: "Kérjük, keresd a rendszer üzemeltetőjét a Greenlight telepítéséhez"
@@ -261,7 +285,7 @@ hu_HU:
       message: Sajnáljuk! A keresett oldal nem létezik.
       help: "Lehetséges, hogy már eltávolították?"
       user_not_found:
-        help: "Kérjük, vegye fel a kapcsolatot egy üzemeltetővel."
+        help: "Kérjük, vedd fel a kapcsolatot egy üzemeltetővel."
         message: "Sajnáljuk, ilyen felhasználó nincs a rendszerben."
       user_missing:
         help: Ellenőrizd az URL-t és próbáld újra
@@ -273,7 +297,7 @@ hu_HU:
   expired_reset_token: A jelszóvisszaállító-link már lejárt!
   features:
     title: Tulajdonságok
-    rooms: Személyre szabott szobák
+    rooms: Személyre szabott termek
     recordings: Felvételek kezelése
     designs: Egyéni kinézet
     authentication: Felhasználók hitelesítése
@@ -291,26 +315,29 @@ hu_HU:
     all_recordings: Összes felvétel
     dropdown:
       account_settings: Szervezet
-      help: Segítség
+      help: Súgó
       home: Saját
       settings: Profil
       signout: Kijelentkezés
-  home_room: Saját szobám
+  home_room: Saját termem
   info_update_success: Az információt sikeresen módosítottad.
   invalid_credentials: "Az e-mail és a jelszó nem egyezik a náluk rögzítettekkel. Próbáld újra, vagy kattints az Elfelejtett jelszó lehetőségre."
+  invalid_credentials_external: Az általad megadott e-mail-cím és jelszó nem egyezik a nyilvántartásunkkal. Kérlek próbáld újra!
   invalid_login_method: "Bejelentkezési hiba, mert a fiók nem megfelelő. Jelentkezz be omniauth-szal."
-  invite_message: "Az előadásra meghíváshoz, küldd el ezt a linket:"
+  invite_message: "Az előadásra meghíváshoz, oszd meg az alábbi linket:"
   javascript:
     room:
       mailer:
-        subject: 'meghívott, hogy nézd meg a felvételt.'
-        body: 'A felvétel megtekintéséhez, kattints az alábbi linkre:'
-        autogenerated: 'Ez a BigBlueButton által automatikusan generált e-mail.'
-        footer: 'A BigBlueButton egy nyílt forráskódú, webkonferencia-rendszer. További információért, látogass el a https://bigbluebutton.org/ oldalra.'
+        subject: 'Meets webkonferencia felvételt osztott meg veled'
+        body: 'Kedves Konferencia-Résztvevő,
+
+          a felvétel megtekintéséhez kattints a linkre:'
+        autogenerated: 'Ez egy BigBlueButton által automatikusan generált email.'
+        footer: "Webkonferencia rendszerünkről, hamarosan bővebben is olvashatsz!  \n\nA Meets legyen veled! \U0001F60A"
     search:
       start: Keresés indítása...
   landing:
-    about: "%{href} egy egyszerű front-end a nyílt forráskódú BigBlueButton webkonferencia-rendszerhez. Saját magadnak szobákat hozhatsz létre, illetve mások csatlakozhatnak egy rövid link használatával."
+    about: "%{href} egy egyszerű front-end a nyílt forráskódú BigBlueButton webkonferencia-rendszerhez. Termeket hozhatsz létre, illetve mások csatlakozhatnak egy rövid link használatával."
     welcome: A BigBlueButton üdvözöl.
     video: Nézd meg az ismertetőnket a  Greenlight használatáról
     upgrade: "Mutasd, hogyan tudok frissíteni a 2.0-ás verzióra!"
@@ -318,12 +345,14 @@ hu_HU:
   language_default: Alapértelmezett (a böngésző nyelve)
   ldap_error: "Nem sikerült csatlakozni az LDAP szerverhez. Kérjük, ellenőrizd a beállításokat a környezeti, env fájlban, illetve azt, hogy a szerver működik és elérhető."
   login: Bejelentkezés
+  login_page:
+    locked_out: "Fiókod túl sok helytelen jelszó kísérlet miatt zároltuk. Kérlek, próbáld újra később."
   login_title: Bejelentkezés a fiókomba
   mailer:
     user:
       approve:
         info: A fiókodat sikeresen jóváhagyták.
-        signin: A személyre szabott szoba eléréséhez kattints az alábbi gombra és jelentkezz be.
+        signin: A személyre szabott terem eléréséhez kattints az alábbi gombra és jelentkezz be.
         signin_link: Bejelentkezés
         signup:
           info: "Egy új felhasználó regisztrált, hogy használhassa a Greenlight-ot."
@@ -342,6 +371,7 @@ hu_HU:
         info: "%{name} meghívott a személyes területedre."
         signup_info: Az e-maileddel regisztrációhoz kattints az alábbi lehetőségre és hajtsd végre a lépéseket.
         signup_link: Regisztráció
+        valid: "A meghívó érvényes: %{date}"
         signup:
           info: "Egy meghívott felhasználó regisztrált, hogy használhassa a Greenlight-ot."
           admins_link: A Szervezeti oldal megtekintése
@@ -363,7 +393,7 @@ hu_HU:
         subtitle: "%{role} jogosultságok biztosítva"
       verify_email:
         welcome: "%{name}, üdvözlünk a személyes területeden!"
-        success: "Használd ki a %{bigbluebutton} rendszert, hogy saját szobákat hozz létre és együttműködhess másokkal."
+        success: "Használd ki a %{bigbluebutton} rendszert, hogy saját termeket hozz létre, hogy együttműködhess másokkal."
         username: "A felhasználóneved %{email}."
         verify: A fiókod visszaigazolásához kattints a gombra.
         verify_text: 'A fiókod visszaigazolásához kattints a linkre: %{url}'
@@ -380,24 +410,32 @@ hu_HU:
       title: Új szerep létrehozása
     create_room:
       access_code: Hozzáférési kód
-      access_code_placeholder: "Opcionális szoba hozzáférési kód generálása "
-      auto_join: Automatikusan belépek a szobába
-      create: Szoba létrehozása
-      free_delete: Ezt a szobát bármikor törölheted.
-      name_placeholder: Add meg a szoba nevét ...
-      not_blank: A szoba neve ne lehet üres.
-      title: Új szoba létrehozása
+      moderator_access_code: Szervezői kód
+      access_code_placeholder: "Opcionális vendég hozzáférési kód generálása "
+      reset_access_code: Terem hozzáférési kód alaphelyzetbe állítás
+      moderator_access_code_placeholder: Opcionális szervezői hozzáférési kód generálása
+      reset_moderator_access_code: Szervezői hozzáférési kód alaphelyzetbe állítás
+      auto_join: Automatikusan belépek a terembe
+      create: Terem létrehozása
+      free_delete: Ezt a termet bármikor törölheted.
+      name_placeholder: Add meg a terem nevét ...
+      not_blank: A terem neve nem lehet üres.
+      title: Új terem létrehozása
     delete_account:
       confirm: "Biztos, hogy töröd ezt a fiókot?"
       delete: "Biztos, hogy törlöm ezt a fiókot."
       keep: Inkább megtartom.
       delete_warning: Ez inaktiválja a felhasználó fiókját. Az össze inaktív felhasználó a töröltek fül alatt található meg.
       warning: Ez egy végleges döntés. A kapcsolódó adatokat később már <b>nem</b> lehet visszaállítani.
+    delete_rec:
+      delete: "Biztos vagyok benne, törölhető ezt a felvétel."
+      header: "Biztosan törlöd ezt a felvételt?"
+      warning: <b>NEM</b> lehet helyreállítani a rekordot.
     delete_room:
-      confirm: "Biztos, hogy töröld %{room} szobát?"
-      delete: "Igen, törlöm ezt  a szobát."
+      confirm: "Biztos, hogy töröld %{room} termet?"
+      delete: "Igen, törlöm ezt  a termet."
       keep: "Második gondolatom, hogy meg fogom tartani."
-      warning: Ezt a szobát <b>nem</b> lehet majd visszaállítani
+      warning: Ezt a termet <b>nem</b> lehet majd visszaállítani
       recording_warning: ", illetve a hozzá tartozó %{recordings_num} felvételt sem."
     invite_user:
       email_placeholder: Add meg a felhasználók e-mail címet (veszővel elválasztva)
@@ -418,25 +456,25 @@ hu_HU:
       use: Prezentáció használata
     rename_recording:
     remove_shared:
-      title: "Biztos, hogy törlöd ez a szobát a listádról?"
-      delete: "Igen, törlöm ezt a szobát."
-      warning: Többé <b>nem</b> fogsz tudni hozzáférni ehhez a szobához.
+      title: "Biztos, hogy törlöd ez a termet a listádról?"
+      delete: "Igen, törlöm ezt a termet."
+      warning: Többé <b>nem</b> fogsz tudni hozzáférni ehhez a teremhez.
     room_settings:
-      title: Szoba beállításai
-      update: Szoba módosítása
+      title: Terem beállításai
+      update: Terem módosítása
       client: Válaszd ki a kliens típusát
-      join_moderator: Az összes felhasználó csatlakoztatása moderátorként
-      mute: Felhasználók némítása csatlakozáskor
-      require_approval: Moderátori jóváhagyás szükséges a csatlakozás előtt
+      join_moderator: Az összes résztvevő szervezőként csatlakoztatása
+      mute: Résztvevők némítása csatlakozáskor
+      require_approval: Belépés biztonságos előszobán keresztül
       start: Bármelyik felhasználó elindíthatja ezt a beszélgetést
-      footer_text: A szobád beállításai bármikor módosíthatóak.
-      recording: Szoba felvételének engedélyezése
+      footer_text: Termed beállításai bármikor módosíthatóak.
+      recording: Vdeófelvétel engedélyezése a teremben
     rename_room:
-      name_placeholder: Add meg egy új szoba nevét ...
+      name_placeholder: Add meg az új terem nevét ...
     share_access:
-      footer: "A szoba megosztása egy felhasználóval lehetővé teszti számára, hogy elindítsa a szobát, illetve megtekintse annak felvételeit."
+      footer: "Termet megoszthatunk egy regisztrált felhasználóval. Így a megosztottnak lehetővé válik, hogy ebben a teremben előadást tartson, illetve megtekintse a terem összes eddigi felvételét. Ellenben ez a felhasználó ebben a teremben korlátozva lesz, ugyanis felvételt törölni és letölteni nem fog tudni."
       list: "Megosztva vele:"
-      title: Szobahozzáférés megosztása
+      title: Teremhozzáférés megosztása
       save: Módosítások mentése
       cancel_changes: Módosítások eldobása
       select: Felhasználó kiválasztása
@@ -446,9 +484,9 @@ hu_HU:
       title: Felhasználói fiókok összevonása
       to: Elsődleges fiók
       save: Összevonás
-      footer: "Az összevonandó fiók szobái átkerülnek az elsődleges fiók szobalistájába, utána a fiókot törlődik."
-  name_update_success: A szoba nevét sikeresen módosítottad!
-  no_user_email_exists: "Jelenleg nincs ilyen e-mail című felhasználó. Kérjük, ellenőrizd, hogy nem gépelted el."
+      footer: "Az összevonandó fiók termei átkerülnek az elsődleges fiók teremlistájába, utána a fiók törlődik."
+  name_update_success: A terem nevét sikeresen módosítottad!
+  no_user_email_exists: "Jelenleg nincs ilyen e-mail című felhasználó. Kérjük, ellenőrizd, hogy nem gépelted-e el."
   omniauth_error: "Hiba az omniauth-szal történő hitelesítés közben. Kérem, próbálja újra, illetve lépjen kapcsolatba az üzemeltetővel!"
   omniauth_specific_error: "%{error}hiba történt az omniauth hitelesítéskor. Kérjük, próbáld újra, vagy lépj kapcsolatba egy üzemeltetővel."
   pagy:
@@ -460,39 +498,50 @@ hu_HU:
   password_empty_notice: A jelszó nem lehet üres.
   password_reset_success: A jelszót visszaállítottuk.
   password_different_notice: A két új jelszó eltér egymástól.
+  old_password_incorrect: helytelen
+  password_complexity:
+    minimum_len: Legalább 8 karakter
+    one_lower_case: Legalább 1 kisbetű
+    one_upper_case: Legalább 1 nagybetű
+    one_digit: Legalább 1 számjegy
+    one_sym: Legalább 1 nem alfanumerikus karakter
   provider:
     google: Google
-    office365: Office 365
+    office365: MS 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID
   recaptcha:
     errors:
       recaptcha_unreachable: "Oppssz, a reCAPTCHA kérésed visszaigazolása sikertelen. Kérjük, próbáld újra."
       verification_failed: "A reCAPTCHA visszaigazolás sikertelen, kérjük, próbáld újra."
   recording:
     all_recordings: Összes felvétel
-    email: E-mail felvétel
+    email: Megosztás
     error: "Hiba történt %{count} felvétel lekérésekor"
-    no_recordings: "Ennek a szobának egy %{inject} felvétele sincs."
+    no_public_recordings: Ehhez a teremhez nem tartoznak nyilvános felvételek.
+    no_recordings: Ehhez a teremhez nem tartoznak felvételek.
     no_user_recordings: Jelenleg egy felvételed sincs.
-    no_matched_recordings: "Egy %{inject} felvétel sem felel meg a keresési feltételnek."
+    no_matched_pub_recordings: Egyetlen nyilvános felvétel sem felel meg a keresésnek.
+    no_matched_recordings: Egyetlen felvétel sem felel meg a keresésnek.
     recorded_on: "Rögzítették %{date}"
     table:
-      name: Név
+      name: Előadás megnevezése
       thumbnails: Indexképek
-      length: Hosszúság
+      length: Idő
       users: Felhasználók
       visibility: Láthatóság
       formats: Formátumok
     visibility:
+      inaccessible: Rejtett
       public: Nyilvános
       unlisted: Fel nem sorolt
     format:
       notes: Jegyzetek
       podcast: Podcast
-      presentation: Prezentáció
+      presentation: Csak nézhető
       statistics: Statisztikák
-      video: Videó
+      video: Letölthető
   registration:
     approval:
       fail: "A fiókodat még nem hagyták jóvá. Ha már többi nap eltelt a regisztrációd óta, lépj kapcsolatba az üzemeltetőkkel."
@@ -500,16 +549,19 @@ hu_HU:
     banned:
       fail: "Nincs hozzáférésed ehhez az alkalmazáshoz. Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd az üzemeltetőnek."
     deprecated:
-      new_signin: Válassz a fiókodhoz egy új bejelentkezési módot. A régi fiókodból származó összes szobát áthelyezzük az új fiókodra.
+      new_signin: Válassz a fiókodhoz egy új bejelentkezési módot. A régi fiókodhoz tartozó összes termet áthelyezzük az új fiókodhoz.
       twitter_signin: "A Twitter-en keresztüli bejelentkezés elavult és nem lesz elérhető a következő verzióban. A fiókod átállításához egy új hitelesítési módszerre  kattints <a href=\"%{link}\"> erre linkre </a>."
       twitter_signup: "A Twitter-en keresztüli regisztráció elavult. Kérjük, használj másik regisztrációs módszert"
       merge_success: "A Twitter-fiókodat sikeresen összevontuk az új fiókoddal. A régi, Twitter-fiókodat töröltük."
     invite:
       fail: "A tokened nem érvényes vagy lejárt. Amennyiben úgy gondolod, hogy ez egy hiba, kérjük, jelezd az üzemeltetőnek."
       no_invite: Neked nem küldtünk meghívót. Kérhetsz egyet az üzemeltetőktől.
+    insecure_password: "A fiók biztonságának javítása érdekében összetettebb követelményeket támasztottunk a jelszavakkal szemben. Kérem, hozz létre egy új jelszót, amely megfelel az alábbi szabálynak:\nLegalább 8 karakter, 1 kis, 1 nagybetű, 1 szimbólum."
   remove: Eltávolítás
   rename: Átnevezés
   reset_password:
+    captcha: "A reCAPTCHA visszaigazolás sikertelen, kérjük, próbáld újra."
+    complexity: "A jelszó nem felel meg a bonyolultsági feltételeknek.\n/Legalább 8 karakter, 1 kis, 1 nagybetű, 1 szimbólum./"
     invalid_token: A jelszóvisszaállítási token érvénytelen. Próbáld újra a jelszó visszaállítását.
     subtitle: Jelszó visszaállítása
     password: Új jelszó
@@ -522,60 +574,66 @@ hu_HU:
     banned: Kizárva
     deleted: Törölt
     pending: Függőben
+    invited: Meghívott
     user: Felhasználó
   room:
     access_code_required: Érvényes kódot adj meg a csatlakozáshoz
     add_presentation: Prezentáció hozzáadása
-    create_room: Szoba létrehozása
-    create_room_error: Hiba a szoba létrehozásakor
-    create_room_success: A szobát sikeresen létrehoztad
+    copy_access: Hozzáférési kód másolása
+    copy_moderator_access: Szervezői kód másolása
+    create_room: Konferenciaterem létrehozása
+    create_room_error: Hiba a terem létrehozásakor
+    create_room_success: A termet sikeresen létrehoztad
     delete:
-      home_room: A felhasználó saját szobáját nem törölheted
-      success: A szobát sikeresen törölted
-      fail: "A szoba törlése sikertelen (%{error})"
-    enter_the_access_code: Add meg a szoba hozzáférési kódját
+      home_room: Az Otthon termed egyedüliként nem törölheted. Itt csak a jelszót változtathatod. A link örök!
+      success: A termet sikeresen törölted
+      fail: "A terem törlése sikertelen (%{error})"
+    enter_the_access_code: Add meg a terem hozzáférési kódját
+    enter_the_moderator_access_code: Add meg a terem szervezői kódját!
+    optional_moderator_access_code: "Opcionális szervezői kód:"
     invalid_provider: "Érvénytelen URL-t adtál meg. Kérem, ellenőrizd, majd próbáld újra."
-    invitation_description: "Meghívtak, hogy csatlakozz a BigBlueButton használatával ide: %{name}. Kattints az alábbi linkre és add meg a neved."  
-    invited: "Meghívtak, hogy belépj"
+    invitation_description: "Meghívtak, hogy csatlakozz a BigBlueButton használatával ide: %{name}. Kattints az alábbi linkre és add meg a neved."
+    invited: Az alábbi videokonferencia várótermébe jutottál. Továbblépéshez add meg helyesen a szükséges adatokat!
     recording_present: "Tudomásul veszem, hogy erről a munkamenetről felvétel készül, ami tartalmazhatja a hangomat és a képmásomat."
     invite_participants: Résztvevők meghívása
     join: Belépés
     last_session: "Utolsó munkamenet időpontja %{session}"
     login: Belépés
-    owner: Tulajdonos
-    owner_banned: Ez a szoba jelenleg nem érhető el
+    owner: Szervező
+    owner_banned: Ez a terem jelenleg nem érhető el
     no_room:
-      description: Add meg a szoba URL-jét vagy ID-jét a csatlakozáshoz.
+      description: Add meg a terem URL-jét vagy ID-jét a csatlakozáshoz.
       edit_profile: Felhasználói profil módosítása
-      go_to: Ugrás a szobába
-      invalid_room_uid: Az általad megadott szoba url/uid nem érvényes.
-      placeholder: Szoba url/uid
-      no_recent_rooms: Egy mostanában csatlakozott szobája sincs
-      recent_rooms: Menj a Mostanában Csatlakozott Szobákhoz
-      title: Csatlakozás egy szobához
-    no_sessions: Ennek a szobának még nincs munkamenete!
+      go_to: Ugrás a terembe
+      invalid_room_uid: Az általad megadott terem url/uid nem érvényes.
+      placeholder: Terem url/uid
+      no_recent_rooms: Egy mostanában csatlakozott termed sincs
+      recent_rooms: Menj a Mostanában Csatlakozott Termekhez
+      title: Lépj be egy terembe
+    no_sessions: Ennek a teremnek még nincs munkamenete!
     preupload_success: Sikeresen hozzáadtad a prezentációt
-    preupload_error: Hiba a szoba prezentációjának frissítésekor
+    preupload_error: Hiba a terem prezentációjának frissítésekor
     preupload_remove_success: A prezentációt sikeresen törölted
-    preupload_remove_error: Hiba a szoba prezentációjának törlésekor
-    recordings: Felvétel
-    room_limit: Elérted a maximálisan engedélyezett szobák számát
-    room_limit_exceeded: "Meghaladtad a megengedett szobák számát. Kérjük, törölj %{difference} szobát a szoba eléréséhez."
+    preupload_remove_error: Hiba a terem prezentációjának törlésekor
+    recordings: Rögzített előadás anyag
+    room_limit: Elérted a maximálisan engedélyezett termek számát
+    room_limit_exceeded: "Meghaladtad a megengedett termek számát. Kérjük, törölj %{difference} termet az eléréshez"
     sessions: Munkamenet
-    settings: Szoba beállításai
+    settings: Terem beállításai
     share: Hozzáféréskezelés
     shared_by: "Megosztotta %{email}"
-    remove_shared_access_success: Sikeresen eltávolítottad a megosztott szobát a listádról
-    remove_shared_access_error: Hiba történt a megosztott szoba listádról eltávolításakor
-    shared_access_success: A szobát sikeresen megosztottad
-    shared_access_error: Hiba a szoba megosztásakor
-    start: Indítás
-    unavailable: "Ez a szoba jelenleg nem érhető el, mert a tulajdonosa nem igazolta vissza az e-mail címét."
-    update_settings_error: Hiba történt a szoba beállításainak módosításakor
-    update_settings_success: A szoba beállításait sikeresen módosítottad
+    remove_shared_access_success: Sikeresen eltávolítottad a megosztott termet a listádról
+    remove_shared_access_error: Hiba történt a megosztott terem listádról eltávolításakor
+    shared_access_success: A termet sikeresen megosztottad
+    shared_access_error: Hiba a terem megosztásakor
+    start: 🌐 Indítás
+    search: Terem keresése…
+    unavailable: "Ez a terem jelenleg nem érhető el, mert a tulajdonosa nem igazolta vissza az e-mail címét."
+    update_settings_error: Hiba történt a terem beállításainak módosításakor
+    update_settings_success: A terem beállításait sikeresen módosítottad
     wait:
-      message: A találkozó még nem indult el.
-      auto: "Automatikusan csatlakoztatunk az előadáshoz, amikor az elindul."
+      message: A webkonferencia még nem kezdődőtt el.
+      auto: "Automatikusan csatlakoztatunk, mihelyt a szervező elérhetővé teszi. Kérlek, addig várj türelemmel!"
   settings:
     account:
       fullname: Teljes név
@@ -589,7 +647,7 @@ hu_HU:
       reset_password: Felhasználó jelszavának visszaállítása
     delete:
       button: "Igen, törlöm a fiókom."
-      disclaimer: "Amennyiben törlöd a fiókod, azt később már <b>NEM</b> lehet visszaállítani. A fiókodhoz kapcsolódó összes adatot, a beállításokat, a szobákat és a felvételeket is véglegesen törlöd."
+      disclaimer: "Amennyiben törlöd a fiókod, azt később már <b>NEM</b> lehet visszaállítani. A fiókodhoz kapcsolódó összes adatot, a beállításokat, a termeket és a felvételeket is véglegesen törlöd."
       subtitle: Fiókom végleges törlése
       title: Fiók törlése
     password:
@@ -611,6 +669,9 @@ hu_HU:
     title: Felhasználási feltételek
   test_install: >
     Ez a fejlesztés egy előre konfigurált tesztszervert használ, amit helyettesíts a sajátoddal. Bővebb információkért %{href}. oldalt.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: Módosítás
   verify:
     accept: Visszaigazolás
