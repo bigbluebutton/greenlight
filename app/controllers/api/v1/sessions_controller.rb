@@ -6,7 +6,7 @@ module Api
       # TODO: samuel - Bypass CSRF token for now
       skip_before_action :verify_authenticity_token
 
-      # GET /api/v1/sessions/signed_in
+      # GET /api/v1/sessions
       def index
         if current_user
           render json: { current_user:, signed_in: true }
@@ -27,7 +27,7 @@ module Api
         end
       end
 
-      # DELETE /api/v1/sessions/:id
+      # DELETE /api/v1/sessions/signout
       def destroy
         session[:user_id] = nil
         render json: { signed_in: false }, status: :ok

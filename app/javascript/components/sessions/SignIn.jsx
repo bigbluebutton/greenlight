@@ -40,6 +40,5 @@ export default function SignIn() {
         <Button className="w-100 my-3 py-2" type="submit" variant="primary">Sign In</Button>
       </Form>
     </Card>
-
   );
 }
