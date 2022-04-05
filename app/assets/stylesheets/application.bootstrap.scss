@@ -4,23 +4,17 @@ $secondary: #4B4B4B;
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
+@import 'custom_helpers';
+@import 'rooms';
+
+.tab-content {
+  padding: 0%;
+}
+
 body {
   background-color: whitesmoke;
 }
 
-// TODO: Hadi- Move this to specific file to only be accessible where needed
-.rooms-card {
-  &:hover {
-      background: rgba(26, 69, 74, 0.2)
-  }
-}
 
-.room-card-top {
-  &:hover {
-    cursor: pointer;
-  }
-}
 
-.tab-content{
-  padding: 0%;
-}
+

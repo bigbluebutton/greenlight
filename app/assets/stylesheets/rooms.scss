@@ -1,0 +1,11 @@
+#rooms-card {
+  &:hover {
+    background: rgba(26, 69, 74, 0.2)
+  }
+}
+
+#room-card-top {
+  &:hover {
+    cursor: pointer;
+  }
+}
