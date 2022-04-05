@@ -25,11 +25,7 @@ export default function AuthProvider({ children }) {
   if (status === 'loading') return <p> Loading... </p>;
   if (status === 'error') {
     return (
-      <p>
-        {' '}
-        {error}
-        {' '}
-      </p>
+      <p>{error}</p>
     );
   }
 

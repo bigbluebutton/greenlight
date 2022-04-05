@@ -21,8 +21,6 @@ export default function SignupForm() {
       <Stack className="mt-1" gap={1}>
         <Button variant="primary" type="submit" disabled={isSubmitting}>
           Submit
-          {' '}
-          {' '}
           { isSubmitting && <Spinner /> }
         </Button>
         <Button variant="secondary" type="reset">
