@@ -23,7 +23,7 @@ const root = (
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/rooms" element={<Rooms />} />
-            <Route path="/rooms/:friendly_id" element={<Room />} />
+            <Route path="/rooms/:friendlyId" element={<Room />} />
             <Route path="*" element={<h1 className="text-center">404</h1>} />
           </Route>
         </Routes>
