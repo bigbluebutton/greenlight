@@ -10,15 +10,15 @@ export default function RoomCard(props) {
   const handleClick = useCallback(() => { navigate(id); }, [id]);
 
   return (
-    <Card id='rooms-card' style={{ width: '18rem' }} border='light'>
-      <Card.Body id='room-card-top' onClick={handleClick}>
+    <Card id='rooms-card' border='light'>
+      <Card.Body id='room-card-top' className='pb-0' onClick={handleClick}>
         <PersonSquare className='mb-4' size={55}/>
         <Card.Title> {name} </Card.Title>
         {/* TODO: Hadi- Make last session dynamic per room */}
         <Card.Text className='text-muted'> Last session... </Card.Text>
         <hr />
       </Card.Body>
-      <Card.Body>
+      <Card.Body className='pt-0'>
         <Link45deg id='clipboard-icon' size={20}/>
         <ButtonLink variant="outline-secondary" className='float-end' to='#'> Start</ButtonLink>
       </Card.Body>
