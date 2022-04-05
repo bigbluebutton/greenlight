@@ -10,7 +10,7 @@ export default function useCreateSession() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  return useMutation(createSession, {
+  const mutation = useMutation(createSession, {
     // Re-fetch the current_user and redirect to homepage if Mutation is successful.
     onSuccess: () => {
       queryClient.invalidateQueries('useSessions');
@@ -20,4 +20,7 @@ export default function useCreateSession() {
       console.log('mutate error', error);
     },
   });
+
+  const handleSignIn = (userSession) => mutation.mutateAsync(userSession).catch(/* Prevents the promise exception from bubbling */() => {});
+  return { handleSignIn, ...mutation };
 }
