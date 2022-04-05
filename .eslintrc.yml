@@ -13,3 +13,6 @@ plugins:
   - react
 rules:
   react/jsx-one-expression-per-line: "off"
+  max-len:
+    - 'error'
+    - code: 150

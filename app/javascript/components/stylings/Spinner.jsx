@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spinner as BootstrapSpinner } from 'react-bootstrap';
 
-export default function Spinner(props) {
+export default function Spinner() {
   return (
     <BootstrapSpinner
       as="span"
@@ -9,7 +9,6 @@ export default function Spinner(props) {
       size="sm"
       role="status"
       aria-hidden="true"
-      {...props}
     />
   );
 }

@@ -1,9 +1,10 @@
 import React, { useContext, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import useSessions from '../../hooks/queries/rooms/useSessions';
 
 const AuthContext = React.createContext();
 
-// A component that imports the useAuth method will be wrapped with AuthContext and thus
+// A component that imports the useAuth method will be wrapped with AuthProvider and thus
 // should have access to the object(s) in AuthProvider. Is this correct? - SC
 export function useAuth() {
   return useContext(AuthContext);
@@ -35,3 +36,7 @@ export default function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+
+AuthProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};

@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, Container } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { PersonSquare, Link45deg } from 'react-bootstrap-icons';
+import PropTypes from 'prop-types';
 import ButtonLink from '../stylings/buttons/ButtonLink';
 
 export default function RoomCard(props) {
@@ -25,3 +26,8 @@ export default function RoomCard(props) {
     </Card>
   );
 }
+
+RoomCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+};

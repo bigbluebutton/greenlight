@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Row, Col, Container, Button, Spinner, Form, FormControl,
+  Row, Col, Button, Spinner, Form, FormControl,
 } from 'react-bootstrap';
 import RoomCard from './RoomCard';
 import useRooms from '../../hooks/queries/rooms/useRooms';

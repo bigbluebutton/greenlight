@@ -2,7 +2,7 @@ import React from 'react';
 import { Form as BootStrapForm } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 
-export function FormControl({ field, ...props }) {
+export default function FormControl({ field, ...props }) {
   const { register, formState: { errors } } = useFormContext();
   const { hookForm } = field;
   const { id, validations } = hookForm;

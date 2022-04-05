@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import App from './App';
 import Signup from './components/users/Signup';
 import SignIn from './components/sessions/SignIn';
-import AuthProvider from './components/sessions/AuthContext';
+import AuthProvider from './components/sessions/AuthProvider';
 import Room from './components/rooms/Room';
 import Rooms from './components/rooms/Rooms';
 

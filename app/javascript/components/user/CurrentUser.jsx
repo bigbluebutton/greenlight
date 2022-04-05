@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Stack from 'react-bootstrap/Stack';
-import { useAuth } from '../sessions/AuthContext';
+import { useAuth } from '../sessions/AuthProvider';
 
 export default function CurrentUser() {
   const currentUser = useAuth();
