@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
 import React, { useCallback } from 'react';
 import { FormProvider } from 'react-hook-form';
 import { Form as BootStrapForm } from 'react-bootstrap';
