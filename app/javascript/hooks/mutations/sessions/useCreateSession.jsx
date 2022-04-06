@@ -2,9 +2,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
-const createSession = (sessionUser) => axios.post(ENDPOINTS.signin, sessionUser)
-  .then((resp) => resp.data)
-  .catch((error) => console.log(error));
+const createSession = (sessionUser) => axios.post(ENDPOINTS.signin, sessionUser);
 
 export default function useCreateSession() {
   const queryClient = useQueryClient();
