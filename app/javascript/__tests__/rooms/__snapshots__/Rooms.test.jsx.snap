@@ -1,0 +1,899 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rooms (Snapshot Tests) Rooms renders rooms 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="py-5 row"
+  >
+    <ul
+      className="nav nav-tabs"
+      onKeyDown={[Function]}
+      role="tablist"
+    >
+      <li
+        className="nav-item"
+        role="presentation"
+      >
+        <button
+          aria-controls="react-aria2841199876-1-tabpane-rooms"
+          aria-selected={true}
+          className="nav-link active"
+          data-rr-ui-event-key="rooms"
+          disabled={false}
+          id="react-aria2841199876-1-tab-rooms"
+          onClick={[Function]}
+          role="tab"
+          type="button"
+        >
+          Rooms
+        </button>
+      </li>
+      <li
+        className="nav-item"
+        role="presentation"
+      >
+        <button
+          aria-controls="react-aria2841199876-1-tabpane-recordings"
+          className="nav-link"
+          data-rr-ui-event-key="recordings"
+          disabled={false}
+          id="react-aria2841199876-1-tab-recordings"
+          onClick={[Function]}
+          role="tab"
+          tabIndex={-1}
+          type="button"
+        >
+          Recordings
+        </button>
+      </li>
+    </ul>
+    <div
+      className="tab-content"
+    >
+      <div
+        aria-labelledby="react-aria2841199876-1-tab-rooms"
+        className="fade tab-pane active show"
+        id="react-aria2841199876-1-tabpane-rooms"
+        role="tabpanel"
+      >
+        <div
+          className="mt-4 mb-4 row"
+        >
+          <div
+            className="col"
+          >
+            <form
+              className="d-flex"
+            >
+              <input
+                aria-label="Search"
+                className="form-control"
+                placeholder="Search"
+                style={
+                  Object {
+                    "width": "19rem",
+                  }
+                }
+                type="search"
+              />
+              <button
+                className="ms-2 btn btn-outline-secondary"
+                disabled={false}
+                type="button"
+              >
+                Search
+              </button>
+            </form>
+          </div>
+          <div
+            className="col"
+          >
+            <button
+              className="float-end btn btn-primary"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+               + New Room 
+            </button>
+          </div>
+        </div>
+        <div
+          className="g-4 row row-cols-md-4"
+        >
+          <div
+            className="col"
+          >
+            <div
+              className="rooms-card card border-light"
+            >
+              <div
+                className="room-card-top pb-0 card-body"
+                onClick={[Function]}
+              >
+                <svg
+                  className="mb-4"
+                  fill="currentColor"
+                  height={55}
+                  viewBox="0 0 16 16"
+                  width={55}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"
+                  />
+                  <path
+                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"
+                  />
+                </svg>
+                <div
+                  className="card-title h5"
+                >
+                   
+                  Home Room
+                   
+                </div>
+                <p
+                  className="text-muted card-text"
+                >
+                   Last session... 
+                </p>
+                <hr />
+              </div>
+              <div
+                className="pt-0 card-body"
+              >
+                <svg
+                  fill="currentColor"
+                  height={20}
+                  viewBox="0 0 16 16"
+                  width={20}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"
+                  />
+                  <path
+                    d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"
+                  />
+                </svg>
+                <button
+                  className="float-end btn btn-outline-secondary"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                   Start
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col"
+          >
+            <div
+              className="rooms-card card border-light"
+            >
+              <div
+                className="room-card-top pb-0 card-body"
+                onClick={[Function]}
+              >
+                <svg
+                  className="mb-4"
+                  fill="currentColor"
+                  height={55}
+                  viewBox="0 0 16 16"
+                  width={55}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"
+                  />
+                  <path
+                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"
+                  />
+                </svg>
+                <div
+                  className="card-title h5"
+                >
+                   
+                  Room 1
+                   
+                </div>
+                <p
+                  className="text-muted card-text"
+                >
+                   Last session... 
+                </p>
+                <hr />
+              </div>
+              <div
+                className="pt-0 card-body"
+              >
+                <svg
+                  fill="currentColor"
+                  height={20}
+                  viewBox="0 0 16 16"
+                  width={20}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"
+                  />
+                  <path
+                    d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"
+                  />
+                </svg>
+                <button
+                  className="float-end btn btn-outline-secondary"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                   Start
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col"
+          >
+            <div
+              className="rooms-card card border-light"
+            >
+              <div
+                className="room-card-top pb-0 card-body"
+                onClick={[Function]}
+              >
+                <svg
+                  className="mb-4"
+                  fill="currentColor"
+                  height={55}
+                  viewBox="0 0 16 16"
+                  width={55}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"
+                  />
+                  <path
+                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"
+                  />
+                </svg>
+                <div
+                  className="card-title h5"
+                >
+                   
+                  Room 2
+                   
+                </div>
+                <p
+                  className="text-muted card-text"
+                >
+                   Last session... 
+                </p>
+                <hr />
+              </div>
+              <div
+                className="pt-0 card-body"
+              >
+                <svg
+                  fill="currentColor"
+                  height={20}
+                  viewBox="0 0 16 16"
+                  width={20}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"
+                  />
+                  <path
+                    d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"
+                  />
+                </svg>
+                <button
+                  className="float-end btn btn-outline-secondary"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                   Start
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        aria-labelledby="react-aria2841199876-1-tab-recordings"
+        className="fade tab-pane"
+        id="react-aria2841199876-1-tabpane-recordings"
+        role="tabpanel"
+      >
+        <div
+          className="bg-light row"
+        >
+          <p>
+            Recordings Table
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Rooms (Snapshot Tests) RoomsList renders list of rooms 1`] = `
+Array [
+  <div
+    className="mt-4 mb-4 row"
+  >
+    <div
+      className="col"
+    >
+      <form
+        className="d-flex"
+      >
+        <input
+          aria-label="Search"
+          className="form-control"
+          placeholder="Search"
+          style={
+            Object {
+              "width": "19rem",
+            }
+          }
+          type="search"
+        />
+        <button
+          className="ms-2 btn btn-outline-secondary"
+          disabled={false}
+          type="button"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+    <div
+      className="col"
+    >
+      <button
+        className="float-end btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+         + New Room 
+      </button>
+    </div>
+  </div>,
+  <div
+    className="g-4 row row-cols-md-4"
+  >
+    <div
+      className="col"
+    >
+      <div
+        className="rooms-card card border-light"
+      >
+        <div
+          className="room-card-top pb-0 card-body"
+          onClick={[Function]}
+        >
+          <svg
+            className="mb-4"
+            fill="currentColor"
+            height={55}
+            viewBox="0 0 16 16"
+            width={55}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"
+            />
+            <path
+              d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"
+            />
+          </svg>
+          <div
+            className="card-title h5"
+          >
+             
+            Home Room
+             
+          </div>
+          <p
+            className="text-muted card-text"
+          >
+             Last session... 
+          </p>
+          <hr />
+        </div>
+        <div
+          className="pt-0 card-body"
+        >
+          <svg
+            fill="currentColor"
+            height={20}
+            viewBox="0 0 16 16"
+            width={20}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"
+            />
+            <path
+              d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"
+            />
+          </svg>
+          <button
+            className="float-end btn btn-outline-secondary"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+             Start
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col"
+    >
+      <div
+        className="rooms-card card border-light"
+      >
+        <div
+          className="room-card-top pb-0 card-body"
+          onClick={[Function]}
+        >
+          <svg
+            className="mb-4"
+            fill="currentColor"
+            height={55}
+            viewBox="0 0 16 16"
+            width={55}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"
+            />
+            <path
+              d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"
+            />
+          </svg>
+          <div
+            className="card-title h5"
+          >
+             
+            Room 1
+             
+          </div>
+          <p
+            className="text-muted card-text"
+          >
+             Last session... 
+          </p>
+          <hr />
+        </div>
+        <div
+          className="pt-0 card-body"
+        >
+          <svg
+            fill="currentColor"
+            height={20}
+            viewBox="0 0 16 16"
+            width={20}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"
+            />
+            <path
+              d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"
+            />
+          </svg>
+          <button
+            className="float-end btn btn-outline-secondary"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+             Start
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col"
+    >
+      <div
+        className="rooms-card card border-light"
+      >
+        <div
+          className="room-card-top pb-0 card-body"
+          onClick={[Function]}
+        >
+          <svg
+            className="mb-4"
+            fill="currentColor"
+            height={55}
+            viewBox="0 0 16 16"
+            width={55}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"
+            />
+            <path
+              d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"
+            />
+          </svg>
+          <div
+            className="card-title h5"
+          >
+             
+            Room 2
+             
+          </div>
+          <p
+            className="text-muted card-text"
+          >
+             Last session... 
+          </p>
+          <hr />
+        </div>
+        <div
+          className="pt-0 card-body"
+        >
+          <svg
+            fill="currentColor"
+            height={20}
+            viewBox="0 0 16 16"
+            width={20}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"
+            />
+            <path
+              d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"
+            />
+          </svg>
+          <button
+            className="float-end btn btn-outline-secondary"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+             Start
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Rooms (Snapshot Tests) RoomsTab renders room nav tabs 1`] = `
+<div
+  className="py-5 row"
+>
+  <ul
+    className="nav nav-tabs"
+    onKeyDown={[Function]}
+    role="tablist"
+  >
+    <li
+      className="nav-item"
+      role="presentation"
+    >
+      <button
+        aria-controls="react-aria2841199876-2-tabpane-rooms"
+        aria-selected={true}
+        className="nav-link active"
+        data-rr-ui-event-key="rooms"
+        disabled={false}
+        id="react-aria2841199876-2-tab-rooms"
+        onClick={[Function]}
+        role="tab"
+        type="button"
+      >
+        Rooms
+      </button>
+    </li>
+    <li
+      className="nav-item"
+      role="presentation"
+    >
+      <button
+        aria-controls="react-aria2841199876-2-tabpane-recordings"
+        className="nav-link"
+        data-rr-ui-event-key="recordings"
+        disabled={false}
+        id="react-aria2841199876-2-tab-recordings"
+        onClick={[Function]}
+        role="tab"
+        tabIndex={-1}
+        type="button"
+      >
+        Recordings
+      </button>
+    </li>
+  </ul>
+  <div
+    className="tab-content"
+  >
+    <div
+      aria-labelledby="react-aria2841199876-2-tab-rooms"
+      className="fade tab-pane active show"
+      id="react-aria2841199876-2-tabpane-rooms"
+      role="tabpanel"
+    >
+      <div
+        className="mt-4 mb-4 row"
+      >
+        <div
+          className="col"
+        >
+          <form
+            className="d-flex"
+          >
+            <input
+              aria-label="Search"
+              className="form-control"
+              placeholder="Search"
+              style={
+                Object {
+                  "width": "19rem",
+                }
+              }
+              type="search"
+            />
+            <button
+              className="ms-2 btn btn-outline-secondary"
+              disabled={false}
+              type="button"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+        <div
+          className="col"
+        >
+          <button
+            className="float-end btn btn-primary"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+             + New Room 
+          </button>
+        </div>
+      </div>
+      <div
+        className="g-4 row row-cols-md-4"
+      >
+        <div
+          className="col"
+        >
+          <div
+            className="rooms-card card border-light"
+          >
+            <div
+              className="room-card-top pb-0 card-body"
+              onClick={[Function]}
+            >
+              <svg
+                className="mb-4"
+                fill="currentColor"
+                height={55}
+                viewBox="0 0 16 16"
+                width={55}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"
+                />
+                <path
+                  d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"
+                />
+              </svg>
+              <div
+                className="card-title h5"
+              >
+                 
+                Home Room
+                 
+              </div>
+              <p
+                className="text-muted card-text"
+              >
+                 Last session... 
+              </p>
+              <hr />
+            </div>
+            <div
+              className="pt-0 card-body"
+            >
+              <svg
+                fill="currentColor"
+                height={20}
+                viewBox="0 0 16 16"
+                width={20}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"
+                />
+                <path
+                  d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"
+                />
+              </svg>
+              <button
+                className="float-end btn btn-outline-secondary"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                 Start
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col"
+        >
+          <div
+            className="rooms-card card border-light"
+          >
+            <div
+              className="room-card-top pb-0 card-body"
+              onClick={[Function]}
+            >
+              <svg
+                className="mb-4"
+                fill="currentColor"
+                height={55}
+                viewBox="0 0 16 16"
+                width={55}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"
+                />
+                <path
+                  d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"
+                />
+              </svg>
+              <div
+                className="card-title h5"
+              >
+                 
+                Room 1
+                 
+              </div>
+              <p
+                className="text-muted card-text"
+              >
+                 Last session... 
+              </p>
+              <hr />
+            </div>
+            <div
+              className="pt-0 card-body"
+            >
+              <svg
+                fill="currentColor"
+                height={20}
+                viewBox="0 0 16 16"
+                width={20}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"
+                />
+                <path
+                  d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"
+                />
+              </svg>
+              <button
+                className="float-end btn btn-outline-secondary"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                 Start
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col"
+        >
+          <div
+            className="rooms-card card border-light"
+          >
+            <div
+              className="room-card-top pb-0 card-body"
+              onClick={[Function]}
+            >
+              <svg
+                className="mb-4"
+                fill="currentColor"
+                height={55}
+                viewBox="0 0 16 16"
+                width={55}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"
+                />
+                <path
+                  d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"
+                />
+              </svg>
+              <div
+                className="card-title h5"
+              >
+                 
+                Room 2
+                 
+              </div>
+              <p
+                className="text-muted card-text"
+              >
+                 Last session... 
+              </p>
+              <hr />
+            </div>
+            <div
+              className="pt-0 card-body"
+            >
+              <svg
+                fill="currentColor"
+                height={20}
+                viewBox="0 0 16 16"
+                width={20}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"
+                />
+                <path
+                  d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"
+                />
+              </svg>
+              <button
+                className="float-end btn btn-outline-secondary"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                 Start
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-labelledby="react-aria2841199876-2-tab-recordings"
+      className="fade tab-pane"
+      id="react-aria2841199876-2-tabpane-recordings"
+      role="tabpanel"
+    >
+      <div
+        className="bg-light row"
+      >
+        <p>
+          Recordings Table
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
