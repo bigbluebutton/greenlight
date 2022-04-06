@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form as BootStrapForm } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
+import PropTypes from 'prop-types';
 
 export default function FormControl({ field, ...props }) {
   const { register, formState: { errors } } = useFormContext();
@@ -28,3 +29,21 @@ export default function FormControl({ field, ...props }) {
     </BootStrapForm.Group>
   );
 }
+
+FormControl.propTypes = {
+  field: PropTypes.shape(
+    {
+      label: PropTypes.string.isRequired,
+      placeHolder: PropTypes.string.isRequired,
+      controlId: PropTypes.string.isRequired,
+      hookForm: PropTypes.shape(
+        {
+          id: PropTypes.string.isRequired,
+          validations: PropTypes.shape({
+            deps: PropTypes.arrayOf(PropTypes.string),
+          }),
+        },
+      ).isRequired,
+    },
+  ).isRequired,
+};
