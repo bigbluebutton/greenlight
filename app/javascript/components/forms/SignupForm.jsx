@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { FormControl } from './FormControl';
+import FormControl from './FormControl';
 import Form from './Form';
 import { signupFormConfig, signupFormFields } from '../../helpers/forms/SignupFormHelpers';
 import Spinner from '../stylings/Spinner';
@@ -21,8 +21,6 @@ export default function SignupForm() {
       <Stack className="mt-1" gap={1}>
         <Button variant="primary" type="submit" disabled={isSubmitting}>
           Submit
-          {' '}
-          {' '}
           { isSubmitting && <Spinner /> }
         </Button>
         <Button variant="secondary" type="reset">
