@@ -8,11 +8,8 @@ import Card from 'react-bootstrap/Card';
 import useCreateSession from '../../hooks/mutations/sessions/useCreateSession';
 
 export default function SignIn() {
-  const { mutate } = useCreateSession();
-
-  // Form handling needs access to mutate method from useMutation
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const handleSignIn = (sessionUser) => mutate(sessionUser);
+  const { handleSignIn } = useCreateSession();
 
   return (
     <Card className="col-md-4 mx-auto p-4">
