@@ -1,14 +1,11 @@
-import React from "react";
-import { Container } from "react-bootstrap";
-import RoomsTabs from "./RoomsTabs";
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import RoomsTabs from './RoomsTabs';
 
 export default function Rooms() {
-
   return (
-    <>
-      <Container>
-        <RoomsTabs />
-      </Container>
-    </>
-  )
+    <Container>
+      <RoomsTabs />
+    </Container>
+  );
 }

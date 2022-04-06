@@ -1,6 +1,9 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
 import React, { useCallback } from 'react';
 import { FormProvider } from 'react-hook-form';
 import { Form as BootStrapForm } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 export default function Form({
   methods, children, onSubmit, ...props
@@ -14,3 +17,18 @@ export default function Form({
     </FormProvider>
   );
 }
+Form.propTypes = {
+  methods: PropTypes.shape(
+    {
+      reset: PropTypes.func.isRequired,
+      handleSubmit: PropTypes.func.isRequired,
+      formState: PropTypes.shape({
+        isSubmitted: PropTypes.bool.isRequired,
+        isSubmitting: PropTypes.bool.isRequired,
+        isValid: PropTypes.bool.isRequired,
+      }).isRequired,
+    },
+  ).isRequired,
+  children: PropTypes.node.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
