@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'components#index'
+  root 'components#index', via: :all
 
   # All the Api endpoints must be under /api/v1 and must have an extension .json.
   namespace :api do
