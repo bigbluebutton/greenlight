@@ -10,12 +10,13 @@ export default function Form({
 }) {
   return (
     <FormProvider {...methods}>
-      <BootStrapForm {...props} validated={methods.formState.isValid} onSubmit={methods.handleSubmit(onSubmit)}>
+      <BootStrapForm {...props} noValidate onSubmit={methods.handleSubmit(onSubmit)}>
         {children}
       </BootStrapForm>
     </FormProvider>
   );
 }
+
 Form.propTypes = {
   methods: PropTypes.shape(
     {

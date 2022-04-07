@@ -5,7 +5,7 @@ const validationSchema = yup.object({
   // TODO: amir - Revisit validations.
   name: yup.string().required('Please enter your full name.'),
   email: yup.string().required('Please enter your email.').email('Entered value does not match email format.'),
-  password: yup.string().required('Please enter your password.').min(8, 'Password must have at least 8 charachters.'),
+  password: yup.string().required('Please enter your password.').min(8, 'Password must have at least 8 characters.'),
   password_confirmation: yup.string().oneOf([yup.ref('password')], 'Your passwords do not match.'),
 });
 
