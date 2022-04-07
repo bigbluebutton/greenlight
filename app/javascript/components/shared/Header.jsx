@@ -1,12 +1,14 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import { Navbar, NavDropdown, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../sessions/AuthContext';
+import { useAuth } from '../sessions/AuthProvider';
+import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
+import ButtonLink from '../stylings/buttons/ButtonLink';
 
 export default function Header() {
   const currentUser = useAuth();
+  const { handleSignOut } = useDeleteSession();
 
   return (
     <Navbar bg="light">
@@ -27,21 +29,16 @@ export default function Header() {
               <NavDropdown.Item as={Link} to="/">Profile</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/">Need help?</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to="/" onClick={() => console.log("signOut")}>Sign Out</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/" onClick={handleSignOut}>Sign Out</NavDropdown.Item>
             </NavDropdown>
           )
 
           : (
             <Stack direction="horizontal">
-              <Link to="/sign_in">
-                <Button className="mx-2">Sign In</Button>
-              </Link>
-              <Link to="/signup">
-                <Button to="/signup" variant="outline-primary">Sign Up</Button>
-              </Link>
+              <ButtonLink to="/signin" className="mx-2">Sign In</ButtonLink>
+              <ButtonLink to="/signup" variant="outline-primary">Sign Up</ButtonLink>
             </Stack>
-          )
-        }
+          )}
 
       </Container>
     </Navbar>
