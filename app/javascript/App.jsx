@@ -1,13 +1,15 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
-import CurrentUser from './components/user/CurrentUser';
+import Header from './components/shared/Header';
 
 export default function App() {
   return (
-    <Container>
-      <CurrentUser />
-      <Outlet />
-    </Container>
+    <>
+      <Header />
+      <Container>
+        <Outlet />
+      </Container>
+    </>
   );
 }
