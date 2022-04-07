@@ -1,16 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Stack from 'react-bootstrap/Stack';
-import Button from 'react-bootstrap/Button';
-import { useAuth } from '../sessions/AuthContext';
+import { useAuth } from '../sessions/AuthProvider';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
 
 export default function CurrentUser() {
   const currentUser = useAuth();
-
-  // TODO - samuel: Should those two lines be in useDeleteSession somehow?
-  const { mutate } = useDeleteSession();
-  const signOut = () => mutate();
+  const { handleSignOut } = useDeleteSession();
 
   return (
     <Stack>
@@ -36,7 +32,7 @@ export default function CurrentUser() {
       </span>
 
       { currentUser?.signed_in
-        ? <Link to="/" onClick={signOut}>Sign Out</Link>
+        ? <Link to="/" onClick={handleSignOut}>Sign Out</Link>
         : (
           <>
             <Link to="/signin">Sign In</Link>
