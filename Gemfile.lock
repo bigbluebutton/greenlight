@@ -341,6 +341,7 @@ GEM
     regexp_parser (2.1.1)
     remote_syslog_logger (1.0.4)
       syslog_protocol
+    repost (0.3.8)
     representable (3.0.4)
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
@@ -508,6 +509,7 @@ DEPENDENCIES
   redcarpet (~> 3.5.1)
   redis (~> 4.2.5)
   remote_syslog_logger (~> 1.0.4)
+  repost (~> 0.3.8)
   rspec-rails (~> 3.7)
   rubocop (~> 1.10.0)
   sassc-rails (~> 2.1.2)
