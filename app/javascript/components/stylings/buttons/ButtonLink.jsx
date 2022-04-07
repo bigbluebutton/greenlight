@@ -5,16 +5,30 @@ import PropTypes from 'prop-types';
 
 export default function ButtonLink(props) {
   const navigate = useNavigate();
-  const { to } = props;
+  const {
+    to, className, variant, children,
+  } = props;
   const handleClick = useCallback(() => { navigate(to); }, [to]);
 
   return (
     <Button
       onClick={handleClick}
-    />
+      className={className}
+      variant={variant}
+    >
+      {children}
+    </Button>
   );
 }
 
+ButtonLink.defaultProps = {
+  className: '',
+  variant: 'primary',
+};
+
 ButtonLink.propTypes = {
   to: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  variant: PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
