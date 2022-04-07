@@ -29,6 +29,6 @@ export const signinFormFields = {
     controlId: 'signinFormPwd',
     hookForm: {
       id: 'password',
-    }
+    },
   },
-}
+};

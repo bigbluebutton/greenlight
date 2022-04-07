@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, Col, Row, Stack, Form as BootstrapForm} from 'react-bootstrap';
+import {
+  Button, Col, Row, Stack, Form as BootstrapForm,
+} from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import FormControl from './FormControl';
