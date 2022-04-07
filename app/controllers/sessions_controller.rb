@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
         "#{Rails.configuration.relative_url_root}/auth/#{@providers.first}"
       end
 
-      redirect_to provider_path
+      redirect_post(provider_path, options: { authenticity_token: :auto })
     end
   end
 
