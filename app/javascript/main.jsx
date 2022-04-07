@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import App from './App';
 import Signup from './components/users/Signup';
-import SignIn from './components/sessions/SignIn';
+import Signin from './components/sessions/Signin';
 import AuthProvider from './components/sessions/AuthProvider';
 import Room from './components/rooms/Room';
 import Rooms from './components/rooms/Rooms';
@@ -21,7 +21,7 @@ const root = (
           <Route path="/" element={<App />}>
             <Route index element={<h1 className="text-center">Index</h1>} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signin" element={<Signin />} />
             <Route path="/rooms" element={<Rooms />} />
             <Route path="/rooms/:friendlyId" element={<Room />} />
             <Route path="*" element={<h1 className="text-center">404</h1>} />
