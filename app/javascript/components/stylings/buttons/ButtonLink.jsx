@@ -30,5 +30,5 @@ ButtonLink.propTypes = {
   to: PropTypes.string.isRequired,
   className: PropTypes.string,
   variant: PropTypes.string,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
