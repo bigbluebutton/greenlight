@@ -11,7 +11,7 @@ export default function Header() {
   const { handleSignOut } = useDeleteSession();
 
   return (
-    <Navbar bg="light">
+    <Navbar bg="white">
       <Container>
         <Navbar.Brand as={Link} to="/">
           <img

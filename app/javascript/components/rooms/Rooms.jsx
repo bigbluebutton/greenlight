@@ -4,8 +4,6 @@ import RoomsTabs from './RoomsTabs';
 
 export default function Rooms() {
   return (
-    <Container>
-      <RoomsTabs />
-    </Container>
+    <RoomsTabs />
   );
 }
