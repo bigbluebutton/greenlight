@@ -9,6 +9,12 @@ const validationSchema = yup.object({
   password_confirmation: yup.string().oneOf([yup.ref('password')], 'Your passwords do not match.'),
 });
 
+export const signupForm = {
+  title: 'Create an Account',
+  haveAnAccount: 'Already have an account?',
+  link: 'Sign In',
+};
+
 export const signupFormConfig = {
   mode: 'onChange',
   criteriaMode: 'all',

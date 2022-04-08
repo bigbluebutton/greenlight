@@ -6,6 +6,12 @@ const validationSchema = yup.object({
   password: yup.string().required('Please enter your password.'),
 });
 
+export const signinForm = {
+  title: 'Sign In',
+  haveAnAccount: "Don't have an account?",
+  link: 'Sign Up',
+};
+
 export const signinFormConfig = {
   defaultValues: {
     email: '',
