@@ -15,18 +15,12 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActionController::ParameterMissing do |exception|
     log_exception exception
-    render json: {
-      data: [],
-      errors: [Rails.configuration.custom_error_msgs[:missing_params]]
-    }, status: :bad_request
+    render_json errors: [Rails.configuration.custom_error_msgs[:missing_params]], status: :bad_request
   end
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
     log_exception exception
-    render json: {
-      data: [],
-      errors: [Rails.configuration.custom_error_msgs[:record_not_found]]
-    }, status: :not_found
+    render_json errors: [Rails.configuration.custom_error_msgs[:record_not_found]], status: :not_found
   end
 
   # TODO: amir - Better Error handling.

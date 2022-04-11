@@ -14,16 +14,10 @@ module Api
         # TODO: amir - ensure accessibility for unauthenticated requests only.
         user = User.new({ provider: 'greenlight' }.merge(user_params)) # TMP fix for presence validation of :provider
         if user.save
-          render json: {
-            data: [],
-            errors: []
-          }, status: :created
+          render_json status: :created
         else
           # TODO: amir - Improve logging.
-          render json: {
-            data: [],
-            errors: user.errors.to_a
-          }, status: :bad_request
+          render_json errors: user.errors.to_a, status: :bad_request
         end
       end
 
