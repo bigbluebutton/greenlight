@@ -5,7 +5,7 @@ const validationSchema = yup.object({
   // TODO: amir - Revisit validations.
   name: yup.string().required('Please enter your full name.'),
   email: yup.string().required('Please enter your email.').email('Entered value does not match email format.'),
-  password: yup.string().required('Please enter your password.').min(8, 'Password must have at least 8 charachters.'),
+  password: yup.string().required('Please enter your password.').min(8, 'Password must have at least 8 characters.'),
   password_confirmation: yup.string().oneOf([yup.ref('password')], 'Your passwords do not match.'),
 });
 
@@ -23,8 +23,8 @@ export const signupFormConfig = {
 
 export const signupFormFields = {
   name: {
-    label: 'Full Name',
-    placeHolder: 'Please enter your full name',
+    label: 'Name',
+    placeHolder: 'Enter your name',
     controlId: 'signupFormFullName',
     hookForm: {
       id: 'name',
@@ -32,7 +32,7 @@ export const signupFormFields = {
   },
   email: {
     label: 'Email',
-    placeHolder: 'Please enter your email',
+    placeHolder: 'Enter your email',
     controlId: 'signupFormEmail',
     hookForm: {
       id: 'email',
@@ -40,7 +40,7 @@ export const signupFormFields = {
   },
   password: {
     label: 'Password',
-    placeHolder: '********',
+    placeHolder: 'Create a password',
     controlId: 'signupFormPwd',
     hookForm: {
       id: 'password',
@@ -50,8 +50,8 @@ export const signupFormFields = {
     },
   },
   password_confirmation: {
-    label: 'Password Confirmation',
-    placeHolder: '********',
+    label: 'Confirm Password',
+    placeHolder: 'Confirm password',
     controlId: 'signupFormPwdConfirm',
     hookForm: {
       id: 'password_confirmation',

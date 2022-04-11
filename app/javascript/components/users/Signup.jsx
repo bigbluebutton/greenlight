@@ -1,33 +1,20 @@
 import React from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
-import ButtonLink from '../stylings/buttons/ButtonLink';
+import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import SignupForm from '../forms/SignupForm';
+import FormLogo from '../forms/FormLogo';
 
 export default function Signup() {
   return (
     <>
-      <Row className="mt-2">
-        <Col>
-          <ButtonLink to="/" size="sm" variant="secondary">Home</ButtonLink>
-        </Col>
-      </Row>
-
-      <Row className="mt-2">
-        <Col md={{ span: 6, offset: 3 }}>
-          <Card className="d-flex m-auto">
-
-            <Card.Body>
-              <Card.Title className="text-center">Signup Form</Card.Title>
-              <Row className="d-flex">
-                <Col>
-                  <SignupForm />
-                </Col>
-              </Row>
-            </Card.Body>
-
-          </Card>
-        </Col>
-      </Row>
+      <FormLogo />
+      <Card className="col-md-4 mx-auto p-4 border-0 shadow-sm">
+        <Card.Title className="text-center pb-2"> Create an Account </Card.Title>
+        <SignupForm />
+        <span className="text-center text-muted small"> Already have an account?
+          <Link to="/signin" className="text-link"> Sign In </Link>
+        </span>
+      </Card>
     </>
   );
 }
