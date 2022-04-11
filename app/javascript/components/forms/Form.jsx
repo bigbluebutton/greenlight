@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import React, { useCallback } from 'react';
+import React from 'react';
 import { FormProvider } from 'react-hook-form';
 import { Form as BootStrapForm } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -8,15 +8,15 @@ import PropTypes from 'prop-types';
 export default function Form({
   methods, children, onSubmit, ...props
 }) {
-  const onReset = useCallback(() => methods.reset(), [methods.reset]);
   return (
     <FormProvider {...methods}>
-      <BootStrapForm {...props} validated={methods.formState.isValid} onSubmit={methods.handleSubmit(onSubmit)} onReset={onReset}>
+      <BootStrapForm {...props} noValidate onSubmit={methods.handleSubmit(onSubmit)}>
         {children}
       </BootStrapForm>
     </FormProvider>
   );
 }
+
 Form.propTypes = {
   methods: PropTypes.shape(
     {

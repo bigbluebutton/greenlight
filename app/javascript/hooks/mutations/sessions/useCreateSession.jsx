@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
-const createSession = (sessionUser) => axios.post(ENDPOINTS.signin, sessionUser);
+const createSession = (userData) => axios.post(ENDPOINTS.signin, userData);
 
 export default function useCreateSession() {
   const queryClient = useQueryClient();
@@ -19,6 +19,6 @@ export default function useCreateSession() {
     },
   });
 
-  const handleSignIn = (userSession) => mutation.mutateAsync(userSession).catch(/* Prevents the promise exception from bubbling */() => {});
-  return { handleSignIn, ...mutation };
+  const onSubmit = (userData) => mutation.mutateAsync(userData).catch(/* Prevents the promise exception from bubbling */() => {});
+  return { onSubmit, ...mutation };
 }
