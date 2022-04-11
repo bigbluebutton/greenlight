@@ -13,17 +13,11 @@ module Api
         # Return the rooms that belong to current user
         rooms = Room.where(user_id: current_user&.id)
 
-        render json: {
-          data: rooms,
-          errors: []
-        }, status: :ok
+        render_json data: rooms, status: :ok
       end
 
       def show
-        render json: {
-          data: @room,
-          errors: []
-        }, status: :ok
+        render_json data: @room, status: :ok
       end
 
       private
