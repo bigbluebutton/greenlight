@@ -80,4 +80,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.hosts = nil
+  config.web_console.whiny_requests = false
 end

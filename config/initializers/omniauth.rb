@@ -87,3 +87,6 @@ end
 OmniAuth.config.on_failure = proc { |env|
   OmniAuth::FailureEndpoint.new(env).redirect_to_failure
 }
+
+# Include get if enabled. This value is by default set to false, which means only post requests are allowed.
+OmniAuth.config.allowed_request_methods = [:post, :get] if Greenlight::Application.parse_bool(ENV['ENABLE_OMNIAUTH_GET'])

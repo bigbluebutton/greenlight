@@ -45,8 +45,8 @@ COPY . ./
 FROM base
 ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true
 
-ARG VERSION_CODE
-ENV VERSION_CODE=$VERSION_CODE
+ARG version_code
+ENV VERSION_CODE=$version_code
 
 COPY --from=builder $RAILS_ROOT $RAILS_ROOT
 

@@ -1,4 +1,4 @@
-FROM amazonlinux:2.0.20211001.0 AS amazonlinux
+FROM amazonlinux:2.0.20220218.1 AS amazonlinux
 
 ARG RAILS_ROOT=/usr/src/app
 ENV RAILS_ROOT=${RAILS_ROOT}
@@ -20,7 +20,7 @@ RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash -
 RUN yum -y install nodejs
 # Install Ruby & Rails
 RUN curl -sL -o /etc/yum.repos.d/yarn.repo https://dl.yarnpkg.com/rpm/yarn.repo
-RUN amazon-linux-extras enable ruby2.6 \
+RUN amazon-linux-extras enable ruby3.0 \
   && yum -y install git tar gzip yarn shared-mime-info libxslt zlib-devel sqlite-devel mariadb-devel postgresql-devel ruby-devel rubygems-devel rubygem-bundler rubygem-io-console rubygem-irb rubygem-json rubygem-minitest rubygem-net-http-persistent rubygem-net-telnet rubygem-power_assert rubygem-rake rubygem-test-unit rubygem-thor rubygem-xmlrpc rubygem-bigdecimal \
   && gem install rails
 RUN yum -y install python3 python3-pip shadow-utils
@@ -36,8 +36,8 @@ COPY . ./
 FROM base
 ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true
 
-ARG VERSION_CODE
-ENV VERSION_CODE=$VERSION_CODE
+ARG version_code
+ENV VERSION_CODE=$version_code
 
 COPY --from=builder $RAILS_ROOT $RAILS_ROOT
 
@@ -45,7 +45,7 @@ EXPOSE 80
 
 # FIXME / to remove / https://github.com/nahi/httpclient/issues/445
 RUN cat /etc/ssl/certs/ca-bundle.crt \
-    >/usr/src/app/vendor/bundle/ruby/2.6.0/gems/httpclient-2.8.3/lib/httpclient/cacert.pem
+    >/usr/src/app/vendor/bundle/ruby/3.0.0/gems/httpclient-2.8.3/lib/httpclient/cacert.pem
 
 RUN chmod +x bin/start
 CMD [ "bin/start" ]
