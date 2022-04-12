@@ -25,10 +25,18 @@ de_DE:
         name: Name
         password: Passwort
         password_confirmation: Passwortbestätigung
+        old_password: Altes Passwort
     errors:
       models:
         user:
-          confirmation: stimmt nicht mit dem Passwort überein
+          confirmation: stimmt nicht überein
+          attributes:
+            email:
+              invalid: ungültiges E-Mail-Format
+            password:
+              invalid: "erfüllt die Anforderung der notwendigen Komplexität nicht " 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -335,6 +343,8 @@ de_DE:
   language_default: Voreinstellung (Browsersprache)
   ldap_error: "Verbindung zum LDAP Server konnte nicht hergestellt werden. Bitte überprüfen Sie die LDAP Konfiguration und stellen Sie sicher, dass der LDAP-Server läuft."
   login: Einloggen
+  login_page:
+    locked_out: Ihr Konto wurde aufgrund zu vieler falscher Passwortversuche gesperrt. Bitte versuchen Sie es später erneut.
   login_title: In Ihr Konto einloggen
   mailer:
     user:
@@ -398,9 +408,11 @@ de_DE:
       title: Neue Rolle erstellen
     create_room:
       access_code: Zugangscode
-      moderator_access_code: Moderatoren-Code
-      access_code_placeholder: Generieren eines optionalen Raumzugangscodes
-      moderator_access_code_placeholder: Optionalen Code für Moderatoren generieren
+      moderator_access_code: Moderatorencode
+      access_code_placeholder: Optionalen Raumzugangscode generieren
+      reset_access_code: Zurücksetzen des optionalen Raumzugangscodes
+      moderator_access_code_placeholder: Optionalen Moderatorencode generieren
+      reset_moderator_access_code: Zurücksetzen des optionalen Moderatorencodes
       auto_join: Automatisch dem Raum beitreten
       create: Raum erstellen
       free_delete: Sie können den Raum jederzeit wieder löschen.
@@ -484,6 +496,13 @@ de_DE:
   password_empty_notice: Das Passwort kann nicht leer bleiben.
   password_reset_success: Passwort wurde zurückgesetzt.
   password_different_notice: Passwortbestätigung ist nicht zutreffend.
+  old_password_incorrect: ist falsch
+  password_complexity:
+    minimum_len: Mindestens 8 Zeichen
+    one_lower_case: Mindestens 1 Kleinbuchstabe
+    one_upper_case: Mindestens 1 Großbuchstabe
+    one_digit: Mindestens 1 Zahl
+    one_sym: Mindestens 1 Sonderzeichen
   provider:
     google: Google
     office365: Office 365
@@ -535,10 +554,12 @@ de_DE:
     invite:
       fail: "Ihr Token ist entweder ungültig oder er ist abgelaufen. Falls Sie denken, dass hier ein Fehler vorliegt, kontaktieren Sie bitte Ihren Administrator."
       no_invite: "Sie sind nicht zur Teilnahme eingeladen. Bitte kontaktieren Sie Ihren Administrator, um eine Einladung zu erhalten."
+    insecure_password: "Um die Sicherheit Ihres Kontos zu verbessern, haben wir die Komplexität aller Passwörter erhöht. Bitte erstellen Sie ein neues Passwort, das den unten aufgeführten Anforderungen entspricht."
   remove: Entfernen
   rename: Umbenennen
   reset_password:
     captcha: "reCAPTCHA Verifikation fehlgeschlagen, bitte nochmals versuchen."
+    complexity: Passwort entsprach nicht den Komplexitätsanforderungen
     invalid_token: "Der Token zum Zurücksetzen des Passworts ist ungültig. Bitte versuchen Sie erneut, Ihr Passwort zurückzusetzen."
     subtitle: Passwort zurücksetzen
     password: Neues Passwort

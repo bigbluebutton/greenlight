@@ -15,7 +15,7 @@
 
 <div class="container">
   <div class="row pt-7">
-    <div class="col col-md-4 col-sm-12 mx-auto">
+    <div class="col col-md-6 col-sm-12 mx-auto">
       <div class="card">
         <div class="card-header background">
           <h4 class="mt-2"><%= t("reset_password.subtitle") %></h4>
@@ -26,7 +26,11 @@
             <%= hidden_field_tag :email, @user.email %>
 
             <%= f.label :password, t('reset_password.password'), class: "form-label" %>
-            <%= f.password_field :password, class: 'form-control' %>
+            <%= f.password_field :password, class: "form-control" %>
+            <% if form_is_invalid?(@user, :password) %>
+              <div class="small text-danger"><%= t("reset_password.complexity") %></div>
+            <% end %>
+            <%= render "users/components/password_security" %>
             <br>
 
             <%= f.label :password_confirmation, t('reset_password.confirm'), class: "form-label" %>

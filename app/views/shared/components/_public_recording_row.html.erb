@@ -18,10 +18,10 @@
     <div id="recording-title" class="edit_hover_class" data-recordid="<%= recording[:recordID] %>" data-room-uid="<%= room_uid_from_bbb(recording[:meetingID]) %>" data-path="<%= rename_recording_path(meetingID: recording[:meetingID], record_id: recording[:recordID]) %>">
       <% if recording[:metadata][:name] %>
         <span id="recording-text" title="<%= recording[:metadata][:name] %>">
-          <%= recording[:metadata][:name] %>
+          <%= html_entities_decode(recording[:metadata][:name]) %>
       <% else %>
         <span id="recording-text" title="<%= recording[:name] %>">
-          <%= recording[:name] %>
+          <%= html_entities_decode(recording[:name]) %>
       <% end %>
         </span>
     </div>
