@@ -1,10 +1,43 @@
 import React from 'react';
-import { Row } from 'react-bootstrap';
+import { Card, Table, Spinner } from 'react-bootstrap';
+import { CameraVideo } from 'react-bootstrap-icons';
+import useRecordings from '../../hooks/queries/recordings/useRecordings';
 
 export default function RecordingsTable() {
+  const { isLoading, data: recordings } = useRecordings();
+  if (isLoading) return <Spinner />;
+
   return (
-    <Row className="bg-light">
-      <p>Recordings Table</p>
-    </Row>
+    <Card>
+      <Table hover className="text-secondary mb-0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Length</th>
+            <th>Users</th>
+            <th>Visibility</th>
+            <th>Formats</th>
+          </tr>
+        </thead>
+        <tbody>
+          {recordings.map((recording) => (
+            <tr key={recording.id} className="customer-info align-middle">
+              <td className="text-dark">
+                <div> <CameraVideo className="ms-2 me-2 my-3" size={25} /> <strong> {recording.name} </strong> </div>
+                <div className="small text-muted ms-2"> {recording.created_at} </div>
+              </td>
+              <td> {recording.length}min </td>
+              <td> {recording.users} </td>
+              <td> {recording.visibility} </td>
+              <td>
+                {recording.formats.map((format) => (
+                  <div key={format.id}> {format.recording_type} </div>
+                ))}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </Card>
   );
 }
