@@ -1,11 +1,13 @@
 import React from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
-import { HouseDoor, Link45deg } from 'react-bootstrap-icons';
 import ButtonLink from '../stylings/buttons/ButtonLink';
 import FeatureTabs from './FeatureTabs';
 import Spinner from '../stylings/Spinner';
 import useRoom from '../../hooks/queries/rooms/useRoom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faHouseChimney} from '@fortawesome/free-solid-svg-icons'
+import {faCopy} from '@fortawesome/free-regular-svg-icons'
 
 function copyInvite() {
   navigator.clipboard.writeText(`${window.location}/join`);
@@ -22,7 +24,7 @@ export default function Room() {
       <Row className="mt-4">
         <Col>
           <Link to="/rooms">
-            <HouseDoor size={24} />
+            <FontAwesomeIcon icon={faHouseChimney} size="lg" />
           </Link>
         </Col>
       </Row>
@@ -36,7 +38,7 @@ export default function Room() {
             Start Session
           </ButtonLink>
           <Button variant="light" className="mt-1 mx-2 float-end" onClick={copyInvite}>
-            <Link45deg />
+            <FontAwesomeIcon icon={faCopy} />
             Copy
           </Button>
         </Col>
