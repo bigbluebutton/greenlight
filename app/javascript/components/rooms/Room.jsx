@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouseChimney } from '@fortawesome/free-solid-svg-icons';
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import ButtonLink from '../stylings/buttons/ButtonLink';
 import FeatureTabs from './FeatureTabs';
 import Spinner from '../stylings/Spinner';
 import useRoom from '../../hooks/queries/rooms/useRoom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faHouseChimney} from '@fortawesome/free-solid-svg-icons'
-import {faCopy} from '@fortawesome/free-regular-svg-icons'
 
 function copyInvite() {
   navigator.clipboard.writeText(`${window.location}/join`);

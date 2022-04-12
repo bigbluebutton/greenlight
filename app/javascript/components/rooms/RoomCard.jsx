@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
+import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
 import ButtonLink from '../stylings/buttons/ButtonLink';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCopy} from "@fortawesome/free-regular-svg-icons";
-import {faChalkboardUser} from "@fortawesome/free-solid-svg-icons";
 
 export default function RoomCard(props) {
   const { id, name } = props;
@@ -22,7 +22,7 @@ export default function RoomCard(props) {
         <hr />
       </Card.Body>
       <Card.Body className="pt-0">
-        <FontAwesomeIcon icon={faCopy} size="lg"/>
+        <FontAwesomeIcon icon={faCopy} size="lg" />
         <ButtonLink variant="outline-secondary" className="float-end" to="#"> Start</ButtonLink>
       </Card.Body>
     </Card>
