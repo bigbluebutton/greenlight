@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_17_142349) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_12_180711) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "formats", force: :cascade do |t|
+    t.bigint "recording_id"
+    t.string "recording_type", null: false
+    t.string "url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recording_id"], name: "index_formats_on_recording_id"
+  end
 
   create_table "recordings", force: :cascade do |t|
     t.bigint "room_id"
@@ -20,6 +29,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_17_142349) do
     t.string "record_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "visibility", null: false
+    t.integer "length", null: false
+    t.integer "users", null: false
     t.index ["room_id"], name: "index_recordings_on_room_id"
   end
 
@@ -48,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_17_142349) do
     t.index ["email", "provider"], name: "index_users_on_email_and_provider", unique: true
   end
 
+  add_foreign_key "formats", "recordings"
   add_foreign_key "recordings", "rooms"
   add_foreign_key "rooms", "users"
 end

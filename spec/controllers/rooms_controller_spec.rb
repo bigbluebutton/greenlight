@@ -10,7 +10,6 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     session[:user_id] = user.id
   end
 
-  # TODO: Hadi - Make test work with current_user
   describe 'index' do
     it 'ids of rooms in response are matching room ids that belong to current_user' do
       rooms = create_list(:room, 5, user:)
