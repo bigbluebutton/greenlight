@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
-import ButtonLink from '../stylings/buttons/ButtonLink';
+import ButtonLink from '../shared/stylings/buttons/ButtonLink';
 
 export default function RoomCard(props) {
   const { id, name } = props;

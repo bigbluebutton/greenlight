@@ -4,7 +4,7 @@ import {
 } from 'react-bootstrap';
 import RoomCard from './RoomCard';
 import useRooms from '../../hooks/queries/rooms/useRooms';
-import ButtonLink from '../stylings/buttons/ButtonLink';
+import ButtonLink from '../shared/stylings/buttons/ButtonLink';
 
 export default function RoomsList() {
   const { isLoading, data: rooms } = useRooms();

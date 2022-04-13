@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import FormControl from './FormControl';
 import Form from './Form';
 import { signupFormConfig, signupFormFields } from '../../helpers/forms/SignupFormHelpers';
-import Spinner from '../stylings/Spinner';
+import Spinner from '../shared/stylings/Spinner';
 import useCreateUser from '../../hooks/mutations/users/useCreateUser';
 
 export default function SignupForm() {
@@ -20,7 +20,7 @@ export default function SignupForm() {
       <FormControl field={fields.password_confirmation} type="password" />
       <Stack className="mt-1" gap={1}>
         <Button variant="primary" className="w-100 my-3 py-2" type="submit" disabled={isSubmitting}>
-          Submit
+          Create account
           { isSubmitting && <Spinner /> }
         </Button>
       </Stack>
