@@ -20,7 +20,7 @@ export default function SignupForm() {
       <FormControl field={fields.password_confirmation} type="password" />
       <Stack className="mt-1" gap={1}>
         <Button variant="primary" className="w-100 my-3 py-2" type="submit" disabled={isSubmitting}>
-          Submit
+          Create account
           { isSubmitting && <Spinner /> }
         </Button>
       </Stack>
