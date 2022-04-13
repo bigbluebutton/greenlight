@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import FormControl from './FormControl';
 import Form from './Form';
 import { signupFormConfig, signupFormFields } from '../../helpers/forms/SignupFormHelpers';
-import Spinner from '../stylings/Spinner';
+import Spinner from '../shared/stylings/Spinner';
 import useCreateUser from '../../hooks/mutations/users/useCreateUser';
 
 export default function SignupForm() {

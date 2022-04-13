@@ -2,9 +2,9 @@ import React from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { HouseDoor, Link45deg } from 'react-bootstrap-icons';
-import ButtonLink from '../stylings/buttons/ButtonLink';
+import ButtonLink from '../shared/stylings/buttons/ButtonLink';
 import FeatureTabs from './FeatureTabs';
-import Spinner from '../stylings/Spinner';
+import Spinner from '../shared/stylings/Spinner';
 import useRoom from '../../hooks/queries/rooms/useRoom';
 
 function copyInvite() {

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import FormControl from './FormControl';
 import Form from './Form';
 import { signinFormFields, signinFormConfig } from '../../helpers/forms/SigninFormHelpers';
-import Spinner from '../stylings/Spinner';
+import Spinner from '../shared/stylings/Spinner';
 import useCreateSession from '../../hooks/mutations/sessions/useCreateSession';
 
 export default function SigninForm() {
