@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import { PersonSquare, Link45deg } from 'react-bootstrap-icons';
 import PropTypes from 'prop-types';
-import ButtonLink from '../stylings/buttons/ButtonLink';
+import ButtonLink from '../shared/stylings/buttons/ButtonLink';
 
 export default function RoomCard(props) {
   const { id, name } = props;

@@ -2,9 +2,9 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import { Navbar, NavDropdown, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../sessions/AuthProvider';
+import { useAuth } from '../../contexts/auth/AuthProvider';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
-import ButtonLink from '../stylings/buttons/ButtonLink';
+import ButtonLink from './stylings/buttons/ButtonLink';
 
 export default function Header() {
   const currentUser = useAuth();
