@@ -1,8 +1,10 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import { PersonSquare, Link45deg } from 'react-bootstrap-icons';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
+import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
 import ButtonLink from '../shared/stylings/buttons/ButtonLink';
 
 export default function RoomCard(props) {
@@ -13,14 +15,14 @@ export default function RoomCard(props) {
   return (
     <Card className="rooms-card" border="light">
       <Card.Body className="room-card-top pb-0" onClick={handleClick}>
-        <PersonSquare className="mb-4" size={55} />
+        <FontAwesomeIcon icon={faChalkboardUser} size="3x" className="mb-4" />
         <Card.Title> {name} </Card.Title>
         {/* TODO: Hadi- Make last session dynamic per room */}
         <Card.Text className="text-muted"> Last session... </Card.Text>
         <hr />
       </Card.Body>
       <Card.Body className="pt-0">
-        <Link45deg size={20} />
+        <FontAwesomeIcon icon={faCopy} size="lg" />
         <ButtonLink variant="outline-secondary" className="float-end" to="#"> Start</ButtonLink>
       </Card.Body>
     </Card>
