@@ -85,6 +85,8 @@ module Authenticator
 
   # Check if the user exists under the same email with no social uid and that social accounts are allowed
   def auth_changed_to_social?(email)
+    return true if Rails.configuration.social_switching
+
     Rails.configuration.loadbalanced_configuration &&
       User.exists?(email: email, provider: @user_domain) &&
       !allow_greenlight_accounts?
