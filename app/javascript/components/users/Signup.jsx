@@ -12,7 +12,7 @@ export default function Signup() {
         <Card.Title className="text-center pb-2"> Create an Account </Card.Title>
         <SignupForm />
         <span className="text-center text-muted small"> Already have an account?
-          <Link to="/signin" className="text-link"> Sign In </Link>
+          <Link to="/signin" className="text-link"> Log in </Link>
         </span>
       </Card>
     </>

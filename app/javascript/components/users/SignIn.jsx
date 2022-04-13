@@ -9,7 +9,7 @@ export default function SignIn() {
     <>
       <FormLogo />
       <Card className="col-md-4 mx-auto p-4 border-0 shadow-sm">
-        <Card.Title className="text-center pb-2"> Sign In </Card.Title>
+        <Card.Title className="text-center pb-2"> Login </Card.Title>
         <SigninForm />
         <span className="text-center text-muted small"> Don&apos;t have an account?
           <Link to="/signup" className="text-link"> Sign up </Link>
