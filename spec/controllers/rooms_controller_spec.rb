@@ -10,7 +10,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     session[:user_id] = user.id
   end
 
-  describe 'index' do
+  describe '#index' do
     it 'ids of rooms in response are matching room ids that belong to current_user' do
       rooms = create_list(:room, 5, user:)
       get :index

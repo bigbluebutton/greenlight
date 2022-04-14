@@ -10,8 +10,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
     session[:user_id] = user.id
   end
 
-  # TODO: Hadi - Make test work with current_user
-  describe 'index' do
+  describe '#index' do
     it 'returns recordings ids that belong to current_user' do
       recordings = create_list(:recording, 6)
       create_list(:room, 5, user:, recordings:)
