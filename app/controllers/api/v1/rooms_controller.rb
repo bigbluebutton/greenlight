@@ -23,7 +23,6 @@ module Api
       # POST /api/v1/rooms/:friendly_id/start.json
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: Starts the Room meeting and joins in the meeting starter.
-
       def start
         # TODO: amir - Check the legitimately of the action.
         bbb_api = BigBlueButtonApi.new
@@ -44,10 +43,24 @@ module Api
         end
       end
 
+      # POST /api/v1/rooms.json
+      # Returns: { data: Array[serializable objects] , errors: Array[String] }
+      # Does: creates a room for the authenticated user.
+      def create
+        # TODO: amir - ensure accessibility for unauthenticated requests only.
+        room = Room.create!(room_params.merge(user_id: current_user.id))
+        logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{current_user.id}"
+        render_json status: :created
+      end
+
       private
 
       def find_room
         @room = Room.find_by!(friendly_id: params[:friendly_id])
+      end
+
+      def room_params
+        params.require(:room).permit(:name)
       end
     end
   end
