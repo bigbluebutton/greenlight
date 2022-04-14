@@ -21,6 +21,15 @@ module Api
         end
       end
 
+      def update
+        user = User.find(params[:id])
+        if user.update(user_params)
+          render_json
+        else
+          render_json errors: user.errors.to_a, status: :bad_request
+        end
+      end
+
       private
 
       def user_params

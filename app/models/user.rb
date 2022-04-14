@@ -8,5 +8,5 @@ class User < ApplicationRecord
   # TODO: amir - Validate email format.
   validates :email, presence: true, uniqueness: { case_sensitive: false, scope: :provider }
   validates :provider, presence: true
-  validates :password_confirmation, presence: true
+  validates :password_confirmation, presence: true, on: :create
 end
