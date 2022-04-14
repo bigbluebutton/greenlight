@@ -10,23 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2022_04_12_180711) do
-=======
-ActiveRecord::Schema[7.0].define(version: 2022_04_11_194428) do
->>>>>>> b40415a... Back-end: Recordings table
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "formats", force: :cascade do |t|
     t.bigint "recording_id"
-<<<<<<< HEAD
     t.string "recording_type", null: false
     t.string "url", null: false
-=======
-    t.string "recording_type"
-    t.string "url"
->>>>>>> b40415a... Back-end: Recordings table
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recording_id"], name: "index_formats_on_recording_id"
