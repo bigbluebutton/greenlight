@@ -9,7 +9,7 @@ module Api
       def index
         recordings = current_user.recordings
 
-        render json: { data: recordings, status: :ok, include: :formats }
+        render_json(data: recordings, status: :ok, include: :formats)
       end
     end
   end
