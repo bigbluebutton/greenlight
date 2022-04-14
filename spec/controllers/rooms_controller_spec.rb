@@ -35,7 +35,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(JSON.parse(response.body)['data']['id']).to eq(room.id)
     end
 
-    it 'returns not_found if the room doesnt exist' do
+    it 'returns :not_found if the room doesnt exist' do
       get :show, params: { friendly_id: 'invalid_friendly_id' }
       expect(response).to have_http_status(:not_found)
       expect(JSON.parse(response.body)['data']).to be_empty
@@ -58,9 +58,23 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(JSON.parse(response.body)['data']['join_url']).to eq(join_url)
     end
 
-    it 'returns not_found if the room doesn\'t exist' do
+    it 'returns :not_found if the room doesn\'t exist' do
       post :start, params: { friendly_id: 'invalid_friendly_id' }
       expect(response).to have_http_status(:not_found)
+    end
+  end
+
+  describe '#create' do
+    let(:room_params) do
+      {
+        room: { name: Faker::Science.science }
+      }
+    end
+
+    it 'creates a room for the authenticated user' do
+      session[:user_id] = user.id
+      expect { post :create, params: room_params }.to change { user.rooms.count }.from(0).to(1)
+      expect(response).to have_http_status(:created)
     end
   end
 end

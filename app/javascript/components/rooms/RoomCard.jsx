@@ -1,27 +1,34 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card } from 'react-bootstrap';
-import { PersonSquare, Link45deg } from 'react-bootstrap-icons';
+import { Button, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import ButtonLink from '../shared/stylings/buttons/ButtonLink';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
+import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
+import Spinner from '../shared/stylings/Spinner';
+import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 
 export default function RoomCard(props) {
-  const { id, name } = props;
+  const { id: friendlyId, name } = props;
   const navigate = useNavigate();
-  const handleClick = useCallback(() => { navigate(id); }, [id]);
+  const handleClick = useCallback(() => { navigate(friendlyId); }, [friendlyId]);
+  const { handleStartMeeting, isLoading: startMeetingIsLoading } = useStartMeeting(friendlyId);
 
   return (
     <Card className="rooms-card" border="light">
       <Card.Body className="room-card-top pb-0" onClick={handleClick}>
-        <PersonSquare className="mb-4" size={55} />
+        <FontAwesomeIcon icon={faChalkboardUser} size="3x" className="mb-4" />
         <Card.Title> {name} </Card.Title>
         {/* TODO: Hadi- Make last session dynamic per room */}
-        <Card.Text className="text-muted"> Last session... </Card.Text>
+        <Card.Text className="text-muted"> Last meeting... </Card.Text>
         <hr />
       </Card.Body>
       <Card.Body className="pt-0">
-        <Link45deg size={20} />
-        <ButtonLink variant="outline-secondary" className="float-end" to="#"> Start</ButtonLink>
+        <FontAwesomeIcon icon={faCopy} size="lg" />
+        <Button variant="outline-secondary" className="float-end" onClick={handleStartMeeting} disabled={startMeetingIsLoading}>
+          Start {' '}
+          {startMeetingIsLoading && <Spinner />}
+        </Button>
       </Card.Body>
     </Card>
   );
