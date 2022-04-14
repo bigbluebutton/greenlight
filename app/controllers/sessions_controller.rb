@@ -266,7 +266,10 @@ flash: { alert: I18n.t("registration.insecure_password") } unless User.secure_pa
 
   # Set the user's social id to the new id being passed
   def switch_account_to_social
-    user = User.find_by(email: @auth['info']['email'], provider: @user_domain)
+    user = User.find_by({
+      email: @auth['info']['email'],
+      provider: Rails.configuration.loadbalanced_configuration ? @user_domain : nil
+    }.compact)
 
     logger.info "Switching social account for #{user.uid}"
 

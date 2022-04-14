@@ -186,5 +186,7 @@ module Greenlight
 
     # Max avatar image size
     config.max_avatar_size = ENV['MAX_AVATAR_SIZE'].to_i.zero? ? 100_000 : ENV['MAX_AVATAR_SIZE'].to_i
+
+    config.social_switching = ENV['SOCIAL_SWITCHING'] == "true"
   end
 end
