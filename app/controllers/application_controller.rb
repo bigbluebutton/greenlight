@@ -35,11 +35,11 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
-  def render_json(data: {}, errors: [], status: :ok)
+  def render_json(data: {}, errors: [], status: :ok, include: nil)
     render json: {
       data:,
       errors:
-    }, status:
+    }, status:, include:
   end
 
   private
