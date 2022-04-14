@@ -21,7 +21,13 @@ module Api
       end
 
       def destroy
+<<<<<<< HEAD
         Room.destroy_by(friendly_id: params[:friendly_id])
+=======
+        # TODO: Hadi- Cleaner way
+        room = Room.where(friendly_id: params[:friendly_id]).first.id
+        Room.destroy(room)
+>>>>>>> d7e45a0... Back-end: Deleting Room
         render_json status: :ok
       end
 
