@@ -6,8 +6,10 @@ import { faHouseChimney } from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import FeatureTabs from './FeatureTabs';
 import Spinner from '../shared/stylings/Spinner';
+import ButtonLink from '../shared/stylings/buttons/ButtonLink';
 import useRoom from '../../hooks/queries/rooms/useRoom';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
+import useDeleteRoom from '../../hooks/mutations/rooms/useDeleteRoom';
 
 function copyInvite() {
   navigator.clipboard.writeText(`${window.location}/join`);
@@ -15,11 +17,12 @@ function copyInvite() {
 
 export default function Room() {
   const { friendlyId } = useParams();
-
   const { isLoading, data: room } = useRoom(friendlyId);
   const { handleStartMeeting, isLoading: startMeetingIsLoading } = useStartMeeting(friendlyId);
-  if (isLoading) return <Spinner />; // Todo: amir - Revisit this.
+  
+  const { handleDeleteRoom, isLoading: deleteRoomIsLoading } = useDeleteRoom(friendlyId); // How to make this not load before onClick?
 
+  if (isLoading) return <Spinner />; // Todo: amir - Revisit this.
   return (
     <>
       <Row className="mt-4">
@@ -39,6 +42,13 @@ export default function Room() {
             Start Meeting {' '}
             {startMeetingIsLoading && <Spinner />}
           </Button>
+          <ButtonLink to="/" variant="primary" className="mt-1 mx-2 float-end">
+            Start Session
+          </ButtonLink>
+          {/* TODO: Hadi- This is temporary (waiting to see where the delete button should be for room) */}
+          <Button className='mt-1 mx-2 float-end' onClick={handleDeleteRoom} >
+            Delete Room
+            {deleteRoomIsLoading && <Spinner />}</Button>
           <Button variant="light" className="mt-1 mx-2 float-end" onClick={copyInvite}>
             <FontAwesomeIcon icon={faCopy} />
             Copy
