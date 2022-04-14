@@ -3,7 +3,7 @@ import { Row } from 'react-bootstrap';
 
 export default function RecordingsTable() {
   return (
-    <Row className="bg-light">
+    <Row className="wide-background">
       <p>Recordings Table</p>
     </Row>
   );

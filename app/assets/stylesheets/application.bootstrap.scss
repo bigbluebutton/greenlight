@@ -1,10 +1,16 @@
-@import 'custom-variables';
+@import 'variables';
 @import 'bootstrap/scss/bootstrap';
 
 @import 'helpers';
 @import 'rooms';
 
+html,
 body {
-  background-color: whitesmoke;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: white;
 }
 

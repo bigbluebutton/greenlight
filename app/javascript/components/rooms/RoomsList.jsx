@@ -11,8 +11,8 @@ export default function RoomsList() {
   if (isLoading) return <Spinner />;
 
   return (
-    <>
-      <Row className="mt-4 mb-4">
+    <div className="wide-background">
+      <Row className="pt-4 mb-4">
         <Col>
           {/* TODO: May need to change search form when implementing search functionality */}
           <Form className="d-flex">
@@ -38,6 +38,6 @@ export default function RoomsList() {
           </Col>
         ))}
       </Row>
-    </>
+    </div>
   );
 }
