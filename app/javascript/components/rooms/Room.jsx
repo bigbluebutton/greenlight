@@ -19,7 +19,7 @@ export default function Room() {
   const { friendlyId } = useParams();
   const { isLoading, data: room } = useRoom(friendlyId);
   const { handleStartMeeting, isLoading: startMeetingIsLoading } = useStartMeeting(friendlyId);
-  
+
   const { handleDeleteRoom, isLoading: deleteRoomIsLoading } = useDeleteRoom(friendlyId); // How to make this not load before onClick?
 
   if (isLoading) return <Spinner />; // Todo: amir - Revisit this.
@@ -46,9 +46,10 @@ export default function Room() {
             Start Session
           </ButtonLink>
           {/* TODO: Hadi- This is temporary (waiting to see where the delete button should be for room) */}
-          <Button className='mt-1 mx-2 float-end' onClick={handleDeleteRoom} >
+          <Button className="mt-1 mx-2 float-end" onClick={handleDeleteRoom}>
             Delete Room
-            {deleteRoomIsLoading && <Spinner />}</Button>
+            {deleteRoomIsLoading && <Spinner />}
+          </Button>
           <Button variant="light" className="mt-1 mx-2 float-end" onClick={copyInvite}>
             <FontAwesomeIcon icon={faCopy} />
             Copy
