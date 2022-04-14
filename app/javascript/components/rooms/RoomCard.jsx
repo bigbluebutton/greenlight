@@ -15,15 +15,15 @@ export default function RoomCard(props) {
   const { handleStartMeeting, isLoading: startMeetingIsLoading } = useStartMeeting(friendlyId);
 
   return (
-    <Card className="rooms-card" border="light">
-      <Card.Body className="room-card-top pb-0" onClick={handleClick}>
+    <Card className="rooms-card" style={{ height: '19rem', overflow: 'hidden' }} border="light">
+      <Card.Body style={{ maxHeight: '12rem', overflow: 'auto' }} className="room-card-top pb-0" onClick={handleClick}>
         <FontAwesomeIcon icon={faChalkboardUser} size="3x" className="mb-4" />
         <Card.Title> {name} </Card.Title>
+      </Card.Body>
+      <Card.Body style={{ maxHeight: '7rem', overflow: 'auto' }} className="pt-0">
         {/* TODO: Hadi- Make last session dynamic per room */}
         <Card.Text className="text-muted"> Last meeting... </Card.Text>
         <hr />
-      </Card.Body>
-      <Card.Body className="pt-0">
         <FontAwesomeIcon icon={faCopy} size="lg" />
         <Button variant="outline-secondary" className="float-end" onClick={handleStartMeeting} disabled={startMeetingIsLoading}>
           Start {' '}

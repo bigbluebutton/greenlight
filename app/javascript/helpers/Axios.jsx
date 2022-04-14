@@ -4,6 +4,7 @@ export const ENDPOINTS = {
   signup: '/users.json',
   signin: '/sessions.json',
   start_meeting: (friendlyId) => `rooms/${friendlyId}/start.json`,
+  createRoom: '/rooms.json',
 };
 
 const axiosInstance = axios.create(
