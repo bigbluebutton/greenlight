@@ -36,7 +36,7 @@ FormControl.propTypes = {
   field: PropTypes.shape(
     {
       label: PropTypes.string.isRequired,
-      placeHolder: PropTypes.string.isRequired,
+      placeHolder: PropTypes.string,
       controlId: PropTypes.string.isRequired,
       hookForm: PropTypes.shape(
         {

@@ -23,7 +23,7 @@ export default function Header() {
         </Navbar.Brand>
 
         <NavDropdown title={currentUser?.name} id="basic-nav-dropdown">
-          <NavDropdown.Item as={Link} to="/">Profile</NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/">Need help?</NavDropdown.Item>
           <NavDropdown.Divider />
           <NavDropdown.Item as={Link} to="/" onClick={handleSignOut}>Sign Out</NavDropdown.Item>
