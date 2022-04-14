@@ -20,6 +20,13 @@ module Api
         render_json data: @room, status: :ok
       end
 
+      def destroy
+        # TODO: Hadi- Cleaner way
+        room = Room.where(friendly_id: params[:friendly_id]).first.id
+        Room.destroy(room)
+        render_json status: :ok
+      end
+
       # POST /api/v1/rooms/:friendly_id/start.json
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: Starts the Room meeting and joins in the meeting starter.
