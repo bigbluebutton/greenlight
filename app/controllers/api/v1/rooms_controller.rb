@@ -22,7 +22,7 @@ module Api
 
       def destroy
         # TODO: Hadi- Cleaner way
-        room = Room.where(friendly_id: params[:friendly_id]).first.id
+        room = Room.find_by!(friendly_id: params[:friendly_id]).id
         Room.destroy(room)
         render_json status: :ok
       end
