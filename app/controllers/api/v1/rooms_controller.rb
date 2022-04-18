@@ -21,9 +21,7 @@ module Api
       end
 
       def destroy
-        # TODO: Hadi- Cleaner way
-        room = Room.find_by!(friendly_id: params[:friendly_id]).id
-        Room.destroy(room)
+        Room.destroy_by(friendly_id: params[:friendly_id])
         render_json status: :ok
       end
 
