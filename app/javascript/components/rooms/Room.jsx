@@ -42,9 +42,6 @@ export default function Room() {
             Start Meeting {' '}
             {startMeetingIsLoading && <Spinner />}
           </Button>
-          <ButtonLink to="/" variant="primary" className="mt-1 mx-2 float-end">
-            Start Session
-          </ButtonLink>
           {/* TODO: Hadi- This is temporary (waiting to see where the delete button should be for room) */}
           <Button className="mt-1 mx-2 float-end" onClick={handleDeleteRoom}>
             Delete Room
