@@ -1,5 +1,6 @@
 import React from 'react';
-import { Table, Card, Spinner } from 'react-bootstrap';
+import { Table, Card } from 'react-bootstrap';
+import Spinner from '../shared/stylings/Spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
@@ -22,7 +23,7 @@ export default function RecordingsTable() {
         </thead>
         <tbody>
           {recordings.map((recording) => (
-            <tr key={recording.id} className="customer-info align-middle">
+            <tr key={recording.id} className="recordings align-middle">
               <td className="text-dark">
                 <div> <FontAwesomeIcon className="mx-2 mt-4" icon={faVideo} size="2xl" /> <strong> {recording.name} </strong> </div>
                 <div className="small text-muted ms-5 ps-2"> {recording.created_at} </div>
