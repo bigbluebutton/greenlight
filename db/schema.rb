@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_12_180711) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_18_171152) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_180711) do
     t.index ["recording_id"], name: "index_formats_on_recording_id"
   end
 
+  create_table "meeting_options", force: :cascade do |t|
+    t.string "name"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_meeting_options_on_name", unique: true
+  end
+
   create_table "recordings", force: :cascade do |t|
     t.bigint "room_id"
     t.string "name", null: false
@@ -33,6 +41,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_180711) do
     t.integer "length", null: false
     t.integer "users", null: false
     t.index ["room_id"], name: "index_recordings_on_room_id"
+  end
+
+  create_table "room_meeting_options", force: :cascade do |t|
+    t.bigint "room_id"
+    t.bigint "meeting_option_id"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meeting_option_id"], name: "index_room_meeting_options_on_meeting_option_id"
+    t.index ["room_id"], name: "index_room_meeting_options_on_room_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -62,5 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_180711) do
 
   add_foreign_key "formats", "recordings"
   add_foreign_key "recordings", "rooms"
+  add_foreign_key "room_meeting_options", "meeting_options"
+  add_foreign_key "room_meeting_options", "rooms"
   add_foreign_key "rooms", "users"
 end
