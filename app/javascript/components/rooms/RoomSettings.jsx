@@ -1,7 +1,10 @@
 import React from 'react';
+import { Row } from 'react-bootstrap';
 
 export default function RoomSettings() {
   return (
-    <p>Room Settings</p>
+    <Row className="wide-background">
+      <p>Room Settings</p>
+    </Row>
   );
 }

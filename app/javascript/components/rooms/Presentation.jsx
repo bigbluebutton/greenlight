@@ -1,7 +1,10 @@
 import React from 'react';
+import { Row } from 'react-bootstrap';
 
 export default function Presentation() {
   return (
-    <p>Preupload Presentation</p>
+    <Row className="wide-background">
+      <p>Preupload Presentation</p>
+    </Row>
   );
 }

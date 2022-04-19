@@ -21,8 +21,8 @@ export default function Room() {
   if (isLoading) return <Spinner />; // Todo: amir - Revisit this.
 
   return (
-    <>
-      <Row className="mt-4">
+    <div className="oversized-background">
+      <Row className="pt-4">
         <Col>
           <Link to="/rooms">
             <FontAwesomeIcon icon={faHouseChimney} size="lg" />
@@ -46,6 +46,6 @@ export default function Room() {
         </Col>
       </Row>
       <FeatureTabs />
-    </>
+    </div>
   );
 }
