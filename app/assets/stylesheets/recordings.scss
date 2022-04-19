@@ -1,0 +1,11 @@
+// Originally added for recordings table
+th{
+  font-weight: normal;
+}
+
+.recordings {
+  &:hover {
+    cursor: pointer;
+    background: rgba(26, 69, 74, 0.2)
+  }
+}

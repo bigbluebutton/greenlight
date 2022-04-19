@@ -10,7 +10,6 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     session[:user_id] = user.id
   end
 
-  # TODO: Hadi - Make test work with current_user
   describe '#index' do
     it 'ids of rooms in response are matching room ids that belong to current_user' do
       rooms = create_list(:room, 5, user:)
@@ -40,6 +39,19 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       get :show, params: { friendly_id: 'invalid_friendly_id' }
       expect(response).to have_http_status(:not_found)
       expect(JSON.parse(response.body)['data']).to be_empty
+    end
+  end
+
+  describe '#destroy' do
+    it 'deletes room from the database' do
+      room = create(:room, user:)
+      expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Room, :count).by(-1)
+    end
+
+    it 'deletes the recordings associated with the room' do
+      room = create(:room, user:)
+      create_list(:recording, 10, room:)
+      expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Recording, :count).by(-10)
     end
   end
 

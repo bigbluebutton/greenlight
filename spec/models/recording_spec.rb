@@ -7,7 +7,11 @@ RSpec.describe Recording, type: :model do
     subject { create(:recording) }
 
     it { is_expected.to belong_to(:room) }
+    it { is_expected.to have_many(:formats) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:record_id) }
+    it { is_expected.to validate_presence_of(:visibility) }
+    it { is_expected.to validate_presence_of(:length) }
+    it { is_expected.to validate_presence_of(:users) }
   end
 end
