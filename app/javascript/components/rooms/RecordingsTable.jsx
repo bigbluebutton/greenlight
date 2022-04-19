@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table, Card, Row} from 'react-bootstrap';
+import { Table, Card, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import Spinner from '../shared/stylings/Spinner';
