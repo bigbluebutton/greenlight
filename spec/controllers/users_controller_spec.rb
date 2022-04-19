@@ -7,21 +7,25 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     request.headers['ACCEPT'] = 'application/json'
   end
 
-  # TODO - samuel: does this belong in Controller spec? Or Model?
-  describe 'POST users#create' do
-    it 'adds greenlight as provider on creation' do
-      user = create(:user)
-      expect(user).to have_attributes(provider: 'greenlight')
-    end
-  end
-
   describe 'POST users#update' do
-    it 'allows user to edit his name' do
+    it 'updates the users attributes' do
+      updated_params = {
+        name: 'New Name',
+        email: 'newemail@gmail.com'
+      }
       user = create(:user)
-      patch :update, params: { id: user.id, user: { name: 'New Name' } }
-      Rails.logger.debug "Reason of rollback: #{user.errors.full_messages}"
+      patch :update, params: { id: user.id, user: updated_params }
+      user.reload
       expect(response).to have_http_status(:ok)
-      expect(user.name).to eql('New Name')
+      expect(user.name).to eq(updated_params[:name])
+      expect(user.email).to eq(updated_params[:email])
+    end
+
+    it 'returns an error if the user update fails' do
+      user = create(:user)
+      patch :update, params: { id: user.id, user: { name: nil } }
+      expect(response).to have_http_status(:bad_request)
+      expect(user.reload.name).to eq(user.name)
     end
   end
 end

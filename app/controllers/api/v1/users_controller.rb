@@ -24,7 +24,7 @@ module Api
       def update
         user = User.find(params[:id])
         if user.update(user_params)
-          render_json
+          render_json status: :ok
         else
           render_json errors: user.errors.to_a, status: :bad_request
         end
