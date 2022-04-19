@@ -20,7 +20,7 @@ export default function Room() {
   const { isLoading, data: room } = useRoom(friendlyId);
   const { handleStartMeeting, isLoading: startMeetingIsLoading } = useStartMeeting(friendlyId);
 
-  const { handleDeleteRoom, isLoading: deleteRoomIsLoading } = useDeleteRoom(friendlyId); // How to make this not load before onClick?
+  const { handleDeleteRoom, isLoading: deleteRoomIsLoading } = useDeleteRoom(friendlyId);
 
   if (isLoading) return <Spinner />; // Todo: amir - Revisit this.
   return (
