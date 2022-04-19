@@ -10,6 +10,7 @@ import SignIn from './components/users/SignIn';
 import AuthProvider from './contexts/auth/AuthProvider';
 import Room from './components/rooms/Room';
 import Rooms from './components/rooms/Rooms';
+import HomePage from './components/home_page/HomePage';
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,7 @@ const root = (
       <Router>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route index element={<h1 className="text-center">Index</h1>} />
+            <Route index element={<HomePage />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/rooms" element={<Rooms />} />
