@@ -6,7 +6,6 @@ import { faHouseChimney } from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import FeatureTabs from './FeatureTabs';
 import Spinner from '../shared/stylings/Spinner';
-import ButtonLink from '../shared/stylings/buttons/ButtonLink';
 import useRoom from '../../hooks/queries/rooms/useRoom';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 import useDeleteRoom from '../../hooks/mutations/rooms/useDeleteRoom';
