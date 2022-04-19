@@ -1,8 +1,8 @@
 import React from 'react';
 import { Table, Card } from 'react-bootstrap';
-import Spinner from '../shared/stylings/Spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
+import Spinner from '../shared/stylings/Spinner';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
 
 export default function RecordingsTable() {
