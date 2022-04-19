@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Button, Modal as BootstrapModal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-export default function DeleteModal({ title, body, children }) {
+export default function Modal({ title, body, children }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -14,22 +14,22 @@ export default function DeleteModal({ title, body, children }) {
         Delete
       </Button>
 
-      <Modal className="text-center" show={show} onHide={handleClose}>
-        <Modal.Header className="border-0" closeButton />
-        <Modal.Title>{title}</Modal.Title>
-        <Modal.Body>{body}</Modal.Body>
-        <Modal.Footer className="">
+      <BootstrapModal className="text-center" show={show} onHide={handleClose}>
+        <BootstrapModal.Header className="border-0" closeButton />
+        <BootstrapModal.Title>{title}</BootstrapModal.Title>
+        <BootstrapModal.Body>{body}</BootstrapModal.Body>
+        <BootstrapModal.Footer className="">
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           { children }
-        </Modal.Footer>
-      </Modal>
+        </BootstrapModal.Footer>
+      </BootstrapModal>
     </>
   );
 }
 
-DeleteModal.propTypes = {
+Modal.propTypes = {
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
