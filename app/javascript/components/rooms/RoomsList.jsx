@@ -1,7 +1,5 @@
-import React from 'react';
-import {
-  Row, Col, Button, Form, FormControl,
-} from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Row, Col, Button } from 'react-bootstrap';
 import Spinner from '../shared/stylings/Spinner';
 import RoomCard from './RoomCard';
 import useRooms from '../../hooks/queries/rooms/useRooms';
@@ -12,23 +10,21 @@ export default function RoomsList() {
   const { isLoading, data: rooms } = useRooms();
   const newRoomData = { name: `Room ${Date.now()}` }; // TODO: amir - change this.
   const { handleCreateRoom, isLoading: createRoomIsLoading } = useCreateRoom(newRoomData);
-  if (isLoading) return <Spinner />; // TODO: amir - revisit this.
+  const [search, setSearch] = useState('');
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="wide-background">
       <Row className="pt-4 mb-4">
         <Col>
-          {/* TODO: May need to change search form when implementing search functionality */}
-          <Form className="d-flex">
-            <FormControl
-              type="search"
-              placeholder="Search"
-              className=""
-              style={{ width: '19rem' }}
-              aria-label="Search"
-            />
-            <Button className="ms-2" variant="outline-secondary">Search</Button>
-          </Form>
+          <input
+            id="rooms-search"
+            className="rounded border border-dark"
+            placeholder=" Search Room"
+            type="search"
+            style={{ width: '19rem' }}
+            onChange={(event) => setSearch(event.target.value)}
+          />
         </Col>
         <Col>
           {/* TODO: Set this button to create new room page */}
@@ -40,7 +36,15 @@ export default function RoomsList() {
       </Row>
       <Row md={4} className="g-4">
         {
-          rooms.map((room) => (
+          rooms.filter((room) => {
+            if (search === '') {
+              return room;
+            }
+            if (room.name.toLowerCase().includes(search.toLowerCase())) {
+              return room;
+            }
+            return false;
+          }).map((room) => (
             <Col key={room.friendly_id}>
               {(room.optimistic && <RoomPlaceHolder />) || <RoomCard id={room.friendly_id} name={room.name} />}
             </Col>
