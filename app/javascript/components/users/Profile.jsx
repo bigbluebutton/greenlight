@@ -7,6 +7,8 @@ export default function Profile() {
     <>
       <h1>Permanently Delete My Account</h1>
       <Modal
+        buttonName="Delete"
+        variant="danger"
         title="Are you sure?"
         body="All information regarding your account, including settings, rooms,
               and recording will be removed. This process cannot be undone."
