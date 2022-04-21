@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Tabs, Tab } from 'react-bootstrap';
-import RecordingsTable from './RecordingsTable';
+import RoomRecordings from '../recordings/RoomRecordings';
 import Presentation from './Presentation';
 import SharedAccess from './SharedAccess';
 import RoomSettings from './RoomSettings';
@@ -10,7 +10,7 @@ export default function FeatureTabs() {
     <Row className="py-5">
       <Tabs defaultActiveKey="recordings">
         <Tab eventKey="recordings" title="Recordings">
-          <RecordingsTable />
+          <RoomRecordings />
         </Tab>
         <Tab eventKey="presentation" title="Presentation">
           <Presentation />

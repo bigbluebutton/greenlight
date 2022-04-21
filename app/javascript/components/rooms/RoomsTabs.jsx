@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Tabs, Tab } from 'react-bootstrap';
-import RecordingsTable from './RecordingsTable';
+import Recordings from '../recordings/Recordings';
 import RoomsList from './RoomsList';
 
 export default function RoomsTabs() {
@@ -12,7 +12,7 @@ export default function RoomsTabs() {
         </Tab>
         {/* TODO: May need to change this to it's own component depending on how RecordingsTable will work */}
         <Tab eventKey="recordings" title="Recordings">
-          <RecordingsTable />
+          <Recordings />
         </Tab>
       </Tabs>
     </Row>
