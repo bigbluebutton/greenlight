@@ -14,6 +14,7 @@ export default function AuthProvider({ children }) {
   const { data: session, status, error } = useSessions();
 
   const currentUser = {
+    id: session?.current_user?.id,
     name: session?.current_user?.name,
     email: session?.current_user?.email,
     provider: session?.current_user?.provider,
