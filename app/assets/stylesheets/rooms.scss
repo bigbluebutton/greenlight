@@ -15,5 +15,9 @@
 }
 
 #rooms-search {
-  height: 38px;    
+  height: 38px;
+
+  &:focus {
+    outline: none;
+  }
 }

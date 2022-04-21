@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
+import {
+  Row, Col, Form, FormControl, Button,
+} from 'react-bootstrap';
 import Spinner from '../shared/stylings/Spinner';
 import RoomCard from './RoomCard';
 import useRooms from '../../hooks/queries/rooms/useRooms';
@@ -17,14 +19,19 @@ export default function RoomsList() {
     <div className="wide-background">
       <Row className="pt-4 mb-4">
         <Col>
-          <input
-            id="rooms-search"
-            className="rounded border border-dark"
-            placeholder=" Search Room"
-            type="search"
-            style={{ width: '19rem' }}
-            onChange={(event) => setSearch(event.target.value)}
-          />
+          <Form>
+            <FormControl
+              id="rooms-search"
+              className="rounded border"
+              placeholder=" Search Room"
+              type="search"
+              style={{ width: '19rem' }}
+              onKeyPress={(e) => (
+                e.key === 'Enter' && e.preventDefault()
+              )}
+              onChange={(event) => setSearch(event.target.value)}
+            />
+          </Form>
         </Col>
         <Col>
           {/* TODO: Set this button to create new room page */}
@@ -37,9 +44,6 @@ export default function RoomsList() {
       <Row md={4} className="g-4">
         {
           rooms.filter((room) => {
-            if (search === '') {
-              return room;
-            }
             if (room.name.toLowerCase().includes(search.toLowerCase())) {
               return room;
             }
