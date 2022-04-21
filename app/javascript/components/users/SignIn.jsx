@@ -6,7 +6,7 @@ import FormLogo from '../forms/FormLogo';
 
 export default function SignIn() {
   return (
-    <>
+    <div className="wide-background">
       <FormLogo />
       <Card className="col-md-4 mx-auto p-4 border-0 shadow-sm">
         <Card.Title className="text-center pb-2"> Login </Card.Title>
@@ -15,6 +15,6 @@ export default function SignIn() {
           <Link to="/signup" className="text-link"> Sign up </Link>
         </span>
       </Card>
-    </>
+    </div>
   );
 }

@@ -2,3 +2,22 @@
   text-decoration: none !important;
   color: #0000EE;
 }
+
+.wide-background {
+  background: whitesmoke;
+  margin: 0 -600rem;
+  padding: 0.25rem 600rem;
+}
+
+.nav-tabs {
+  border-bottom: 0;
+
+  .nav-link {
+    transition: none;
+    &.active, &:hover {
+      color: $primary;
+      border: 0;
+      border-bottom: 1px solid $primary;
+    }
+  }
+}

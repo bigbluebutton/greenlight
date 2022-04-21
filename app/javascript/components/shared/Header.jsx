@@ -1,17 +1,16 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import { Navbar, NavDropdown, Stack } from 'react-bootstrap';
+import { Navbar, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
-import ButtonLink from './stylings/buttons/ButtonLink';
 
 export default function Header() {
   const currentUser = useAuth();
   const { handleSignOut } = useDeleteSession();
 
   return (
-    <Navbar bg="light">
+    <Navbar>
       <Container>
         <Navbar.Brand as={Link} to="/">
           <img
@@ -23,23 +22,12 @@ export default function Header() {
           />
         </Navbar.Brand>
 
-        {currentUser?.signed_in
-          ? (
-            <NavDropdown title={currentUser?.name} id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/">Profile</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/">Need help?</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to="/" onClick={handleSignOut}>Sign Out</NavDropdown.Item>
-            </NavDropdown>
-          )
-
-          : (
-            <Stack direction="horizontal">
-              <ButtonLink to="/signin" className="mx-2">Sign In</ButtonLink>
-              <ButtonLink to="/signup" variant="outline-primary">Sign Up</ButtonLink>
-            </Stack>
-          )}
-
+        <NavDropdown title={currentUser?.name} id="basic-nav-dropdown">
+          <NavDropdown.Item as={Link} to="/">Profile</NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/">Need help?</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item as={Link} to="/" onClick={handleSignOut}>Sign Out</NavDropdown.Item>
+        </NavDropdown>
       </Container>
     </Navbar>
 

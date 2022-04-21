@@ -42,6 +42,19 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     end
   end
 
+  describe '#destroy' do
+    it 'deletes room from the database' do
+      room = create(:room, user:)
+      expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Room, :count).by(-1)
+    end
+
+    it 'deletes the recordings associated with the room' do
+      room = create(:room, user:)
+      create_list(:recording, 10, room:)
+      expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Recording, :count).by(-10)
+    end
+  end
+
   describe '#start_meeting' do
     let(:join_url) { 'https://test.com/bigbluebutton/api?join' }
     let(:bbb_service) { instance_double(BigBlueButtonApi) }

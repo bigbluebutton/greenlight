@@ -8,6 +8,7 @@ import FeatureTabs from './FeatureTabs';
 import Spinner from '../shared/stylings/Spinner';
 import useRoom from '../../hooks/queries/rooms/useRoom';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
+import useDeleteRoom from '../../hooks/mutations/rooms/useDeleteRoom';
 
 function copyInvite() {
   navigator.clipboard.writeText(`${window.location}/join`);
@@ -15,14 +16,15 @@ function copyInvite() {
 
 export default function Room() {
   const { friendlyId } = useParams();
-
   const { isLoading, data: room } = useRoom(friendlyId);
   const { handleStartMeeting, isLoading: startMeetingIsLoading } = useStartMeeting(friendlyId);
-  if (isLoading) return <Spinner />; // Todo: amir - Revisit this.
 
+  const { handleDeleteRoom, isLoading: deleteRoomIsLoading } = useDeleteRoom(friendlyId);
+
+  if (isLoading) return <Spinner />; // Todo: amir - Revisit this.
   return (
-    <>
-      <Row className="mt-4">
+    <div className="oversized-background">
+      <Row className="pt-4">
         <Col>
           <Link to="/rooms">
             <FontAwesomeIcon icon={faHouseChimney} size="lg" />
@@ -39,6 +41,11 @@ export default function Room() {
             Start Meeting {' '}
             {startMeetingIsLoading && <Spinner />}
           </Button>
+          {/* TODO: Hadi- This is temporary (waiting to see where the delete button should be for room) */}
+          <Button className="mt-1 mx-2 float-end" onClick={handleDeleteRoom}>
+            Delete Room
+            {deleteRoomIsLoading && <Spinner />}
+          </Button>
           <Button variant="light" className="mt-1 mx-2 float-end" onClick={copyInvite}>
             <FontAwesomeIcon icon={faCopy} />
             Copy
@@ -46,6 +53,6 @@ export default function Room() {
         </Col>
       </Row>
       <FeatureTabs />
-    </>
+    </div>
   );
 }
