@@ -62,8 +62,8 @@ module Api
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: gets the recordings that belong to the specific room friendly_id
       def recordings
-        room_id = Room.find_by(friendly_id: params[:room_friendly_id]).id
-        recordings = Recording.where(room_id:)
+        room = Room.find_by(friendly_id: params[:room_friendly_id]).id
+        recordings = room.recordings
 
         render_json(data: recordings, status: :ok, include: :formats)
       end

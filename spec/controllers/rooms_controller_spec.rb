@@ -92,7 +92,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   end
 
   describe '#recordings' do
-    it 'ids of recordings that belong only to room with given room_friendly_id' do
+    it 'returns recordings belonging to the room' do
       room1 = create(:room, user:, friendly_id: 'friendly_id_1')
       room2 = create(:room, user:, friendly_id: 'friendly_id_2')
       recordings = create_list(:recording, 5, room: room1)
@@ -103,7 +103,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(recording_ids).to eq(recordings.pluck(:id))
     end
 
-    it 'no matching ids of recordings that belong only to room with given room_friendly_id' do
+    it 'returns an empty array if the room has no recordings' do
       room1 = create(:room, user:, friendly_id: 'friendly_id_1')
       get :recordings, params: { room_friendly_id: room1.friendly_id }
       recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
