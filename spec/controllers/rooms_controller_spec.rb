@@ -90,4 +90,25 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(response).to have_http_status(:created)
     end
   end
+
+  describe '#recordings' do
+    it 'ids of recordings that belong only to room with given room_friendly_id' do
+      room1 = create(:room, user:, friendly_id: 'friendly_id_1')
+      room2 = create(:room, user:, friendly_id: 'friendly_id_2')
+      recordings = create_list(:recording, 5, room: room1)
+      create_list(:recording, 5, room: room2)
+      get :recordings, params: { room_friendly_id: room1.friendly_id }
+      recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      expect(response).to have_http_status(:ok)
+      expect(recording_ids).to eq(recordings.pluck(:id))
+    end
+
+    it 'no matching ids of recordings that belong only to room with given room_friendly_id' do
+      room1 = create(:room, user:, friendly_id: 'friendly_id_1')
+      get :recordings, params: { room_friendly_id: room1.friendly_id }
+      recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      expect(response).to have_http_status(:ok)
+      expect(recording_ids).to be_empty
+    end
+  end
 end
