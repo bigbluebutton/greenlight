@@ -30,7 +30,7 @@ export default function Modal({
 
 Modal.propTypes = {
   title: PropTypes.string.isRequired,
-  footer: PropTypes.element.isRequired,
+  footer: PropTypes.node.isRequired,
   modalButton: PropTypes.element.isRequired,
-  body: PropTypes.element.isRequired,
+  body: PropTypes.node.isRequired,
 };

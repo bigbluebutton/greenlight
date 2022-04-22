@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import DeleteUserForm from '../forms/DeleteUserForm';
-import Modal from '../shared/stylings/Modal';
+import Modal from '../shared/Modal';
 
 export default function Profile() {
   return (

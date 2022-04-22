@@ -31,5 +31,9 @@ export default function DeleteUserForm({ handleClose }) {
 }
 
 DeleteUserForm.propTypes = {
-  handleClose: PropTypes.func.isRequired,
+  handleClose: PropTypes.func,
+};
+
+DeleteUserForm.defaultProps = {
+  handleClose: () => {},
 };
