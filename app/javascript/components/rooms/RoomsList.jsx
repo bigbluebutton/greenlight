@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  Row, Col, Button, Form, FormControl,
+  Row, Col, Form, FormControl, Button,
 } from 'react-bootstrap';
 import Spinner from '../shared/stylings/Spinner';
 import RoomCard from './RoomCard';
@@ -12,22 +12,25 @@ export default function RoomsList() {
   const { isLoading, data: rooms } = useRooms();
   const newRoomData = { name: `Room ${Date.now()}` }; // TODO: amir - change this.
   const { handleCreateRoom, isLoading: createRoomIsLoading } = useCreateRoom(newRoomData);
-  if (isLoading) return <Spinner />; // TODO: amir - revisit this.
+  const [search, setSearch] = useState('');
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="wide-background">
       <Row className="pt-4 mb-4">
         <Col>
-          {/* TODO: May need to change search form when implementing search functionality */}
-          <Form className="d-flex">
+          <Form>
             <FormControl
+              id="rooms-search"
+              className="rounded border"
+              placeholder=" Search Room"
               type="search"
-              placeholder="Search"
-              className=""
               style={{ width: '19rem' }}
-              aria-label="Search"
+              onKeyPress={(e) => (
+                e.key === 'Enter' && e.preventDefault()
+              )}
+              onChange={(event) => setSearch(event.target.value)}
             />
-            <Button className="ms-2" variant="outline-secondary">Search</Button>
           </Form>
         </Col>
         <Col>
@@ -40,7 +43,12 @@ export default function RoomsList() {
       </Row>
       <Row md={4} className="g-4">
         {
-          rooms.map((room) => (
+          rooms.filter((room) => {
+            if (room.name.toLowerCase().includes(search.toLowerCase())) {
+              return room;
+            }
+            return false;
+          }).map((room) => (
             <Col key={room.friendly_id}>
               {(room.optimistic && <RoomPlaceHolder />) || <RoomCard id={room.friendly_id} name={room.name} />}
             </Col>

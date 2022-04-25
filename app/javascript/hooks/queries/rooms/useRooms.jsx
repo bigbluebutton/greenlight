@@ -7,5 +7,7 @@ export default function useRooms() {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
+    refetchInterval: 10000,
+    refetchIntervalInBackground: true,
   }).then((resp) => resp.data.data));
 }

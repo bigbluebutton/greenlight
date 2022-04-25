@@ -14,3 +14,10 @@
   padding: 0%;
 }
 
+#rooms-search {
+  height: 38px;
+
+  &:focus {
+    outline: none;
+  }
+}
