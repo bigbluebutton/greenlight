@@ -28,4 +28,17 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(user.reload.name).to eq(user.name)
     end
   end
+
+  describe 'DELETE users#destroy' do
+    it 'deletes the user' do
+      user = create(:user)
+      expect(response).to have_http_status(:ok)
+      expect { delete :destroy, params: { id: user.id } }.to change(User, :count).by(-1)
+    end
+
+    it 'does not delete any user if the user id is invalid' do
+      expect { delete :destroy, params: { id: 'invalid-id' } }.not_to change(User, :count)
+      expect(response).to have_http_status(:not_found)
+    end
+  end
 end
