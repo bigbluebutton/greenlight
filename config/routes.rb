@@ -13,8 +13,10 @@ Rails.application.routes.draw do
       end
       resources :users, only: [:create]
       resources :rooms, only: %i[show index create destroy], param: :friendly_id do
-        post '/start', to: 'rooms#start', as: :start_meeting, on: :member
-        get '/recordings', to: 'rooms#recordings'
+        member do
+          post '/start', to: 'rooms#start', as: :start_meeting
+          get '/recordings', to: 'rooms#recordings'
+        end
       end
       resources :recordings, only: [:index]
     end

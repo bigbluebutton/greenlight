@@ -4,7 +4,7 @@ module Api
   module V1
     class RoomsController < ApplicationController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
-      before_action :find_room, only: %i[show start]
+      before_action :find_room, only: %i[show start recordings]
 
       # GET /api/v1/rooms.json
       # Returns: { data: Array[serializable objects(rooms)] , errors: Array[String] }
@@ -62,8 +62,7 @@ module Api
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: gets the recordings that belong to the specific room friendly_id
       def recordings
-        room = Room.find_by(friendly_id: params[:room_friendly_id]).id
-        recordings = room.recordings
+        recordings = @room.recordings
 
         render_json(data: recordings, status: :ok, include: :formats)
       end
