@@ -9,9 +9,18 @@ module Api
       # GET /api/v1/sessions
       def index
         if current_user
-          render json: { current_user:, signed_in: true }
+          render_json data: {
+            current_user: {
+              id: current_user.id,
+              name: current_user.name,
+              email: current_user.email,
+              provider: current_user.provider,
+              avatar: current_user_avatar,
+              signed_in: true
+            }
+          }
         else
-          render json: { signed_in: false }
+          render_json data: { signed_in: false }
         end
       end
 
@@ -31,6 +40,10 @@ module Api
       def destroy
         session[:user_id] = nil
         render json: { signed_in: false }, status: :ok
+      end
+
+      def current_user_avatar
+        current_user.avatar.attached? ? url_for(current_user.avatar) : 'https://freesvg.org/img/user.png'
       end
 
       private
