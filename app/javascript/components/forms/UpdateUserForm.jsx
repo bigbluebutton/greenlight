@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import {
-  Button,
+  Button, Form as BootStrapForm, Stack,
 } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema, updateUserFormFields } from '../../helpers/forms/UpdateUserFormHelpers';
@@ -15,6 +15,7 @@ export default function UpdateUserForm() {
   const methods = useForm({
     defaultValues: {
       name: currentUser?.name,
+      email: currentUser?.email,
     },
     resolver: yupResolver(validationSchema),
   });
@@ -24,9 +25,36 @@ export default function UpdateUserForm() {
   return (
     <Form methods={methods} onSubmit={onSubmit}>
       <FormControl field={fields.name} type="text" />
-      <Button variant="primary" type="submit">
-        Update
-      </Button>
+      <FormControl field={fields.email} type="email" />
+
+      <BootStrapForm.Group className="mb-3" controlId={fields.language.controlId}>
+        <BootStrapForm.Label className="small mb-0">
+          {fields.language.label}
+        </BootStrapForm.Label>
+        <BootStrapForm.Select field={fields.language} type="select" />
+      </BootStrapForm.Group>
+
+      <BootStrapForm.Group className="mb-3" controlId={fields.userRole.controlId}>
+        <BootStrapForm.Label className="small mb-0">
+          {fields.userRole.label}
+        </BootStrapForm.Label>
+        <BootStrapForm.Select field={fields.userRole} type="select" />
+      </BootStrapForm.Group>
+
+      <Stack direction="horizontal" gap={2} className="float-end">
+        <Button
+          variant="primary-reverse"
+          onClick={() => methods.reset({
+            name: currentUser.name,
+            email: currentUser.email,
+          })}
+        >
+          Cancel
+        </Button>
+        <Button variant="primary" type="submit">
+          Update
+        </Button>
+      </Stack>
     </Form>
   );
 }
