@@ -4,6 +4,7 @@
 @import 'helpers';
 @import 'rooms';
 @import 'recordings';
+@import 'profile';
 
 html,
 body {
@@ -13,4 +14,15 @@ body {
 
 body {
   background-color: white;
+}
+
+.btn-primary-reverse {
+  border: 1px solid $primary !important;
+  color: $primary;
+  background-color: white;
+
+  &:hover {
+    outline: 0;
+    box-shadow: $btn-focus-box-shadow;
+  }
 }

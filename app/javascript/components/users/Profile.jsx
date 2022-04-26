@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faUser } from '@fortawesome/free-regular-svg-icons';
+import AccountInfo from './AccountInfo';
 import DeleteAccount from './DeleteAccount';
 
 export default function Profile() {
@@ -34,7 +35,9 @@ export default function Profile() {
             </Col>
             <Col sm={9}>
               <Tab.Content className="p-3 ps-0">
-                <Tab.Pane eventKey="first" />
+                <Tab.Pane eventKey="first">
+                  <AccountInfo />
+                </Tab.Pane>
                 <Tab.Pane eventKey="second">
                   <DeleteAccount />
                 </Tab.Pane>

@@ -21,5 +21,7 @@ Rails.application.routes.draw do
       resources :recordings, only: [:index]
     end
   end
-  match '*path', to: 'components#index', via: :all # Enable CSR for full fledged http requests.
+  match '*path', to: 'components#index', via: :all, constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
+  } # Enable CSR for full fledged http requests.
 end
