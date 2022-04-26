@@ -5,11 +5,11 @@ require:
 
 AllCops:
   Exclude:
-    - 'bin/**/*'
-    - 'db/schema.rb'
-    - 'db/data_schema.rb'
-    - 'vendor/**/*'
-    - 'vendor/bundle/**/*'
+    - "bin/**/*"
+    - "db/schema.rb"
+    - "db/data_schema.rb"
+    - "vendor/**/*"
+    - "vendor/bundle/**/*"
   DisabledByDefault: false
   TargetRubyVersion: 3.1
   NewCops: enable
@@ -39,6 +39,8 @@ RSpec/MessageSpies:
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
+RSpec/NestedGroups:
+  Max: 5
 # Enable having lines with up to 150 charachters in length.
 Layout/LineLength:
   Max: 150
@@ -49,7 +51,7 @@ Metrics/MethodLength:
 
 # Avoid long blocks with many lines.
 Metrics/BlockLength:
-  IgnoredMethods: [ 'describe', 'context' ]
+  IgnoredMethods: ["describe", "context"]
 
 # A calculated magnitude based on number of assignments,
 # branches, and conditions.

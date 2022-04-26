@@ -78,16 +78,92 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   end
 
   describe '#create' do
-    let(:room_params) do
+    require 'bigbluebutton_api'
+
+    let(:to_be_accepted_options) do
       {
-        room: { name: Faker::Science.science }
+        option1: 'value1',
+        option2: 'value2'
       }
     end
 
-    it 'creates a room for the authenticated user' do
+    let(:to_be_filtered_options) do
+      {
+        glJoinOnStart: 'false',
+        something: 'something',
+        something_else: 'something_else'
+      }
+    end
+
+    let(:room_params) do
+      options = to_be_accepted_options.merge to_be_filtered_options
+      {
+        room: {
+          name: Faker::Science.science,
+          options:
+        }
+      }
+    end
+
+    let(:bbb_server) { instance_double(BigBlueButton::BigBlueButtonApi) }
+
+    before do
+      create :meeting_option, name: 'option1'
+      create :meeting_option, name: 'option2'
+      create :meeting_option, name: 'option3'
+
       session[:user_id] = user.id
+
+      allow(BigBlueButton::BigBlueButtonApi).to receive(:new).and_return(bbb_server)
+      allow(bbb_server).to receive(:create_meeting).and_return(true)
+      allow(bbb_server).to receive(:join_meeting_url).and_return('JOIN_URL')
+    end
+
+    it 'creates a room while filtering its meeting options for the authenticated user' do
       expect { post :create, params: room_params }.to change { user.rooms.count }.from(0).to(1)
+      room = user.rooms.take
+      room_meeting_option_values = room.room_meeting_options.pluck :value
+      to_be_accepted_options_values = to_be_accepted_options.values
+      expect(to_be_accepted_options_values - room_meeting_option_values).to be_empty
       expect(response).to have_http_status(:created)
+    end
+
+    it 'creates a room without starting a meeting if no options are set by the room creator' do
+      bbb_service = instance_double(BigBlueButtonApi)
+      allow(BigBlueButton::BigBlueButtonApi).to receive(:new).and_return(bbb_service)
+
+      room_params[:room][:options] = nil
+      expect { post :create, params: room_params }.to change { user.rooms.count }.from(0).to(1)
+      room = user.rooms.take
+      expect(room.room_meeting_options.count).to be_zero
+      expect(response).to have_http_status(:created)
+      expect(bbb_service).not_to receive(:start_meeting)
+      expect(JSON.parse(response.body)['data']).to be_empty
+    end
+
+    skip 'returns :unauthorized for none authenticated users'
+
+    describe 'join on start' do
+      it 'starts and returns the join url if glJoinOnStart option is "true"' do
+        room_params[:room][:options] = { glJoinOnStart: 'true' }
+        post :create, params: room_params
+        expect(response).to have_http_status(:created)
+        expect(JSON.parse(response.body)['data']['join_url']).to eq('JOIN_URL')
+      end
+
+      it 'doesn\'t start or return the join url if glJoinOnStart isn\'t "true"' do
+        room_params[:room][:options] = { glJoinOnStart: 'something' }
+        post :create, params: room_params
+        expect(response).to have_http_status(:created)
+        expect(JSON.parse(response.body)['data']).to be_empty
+      end
+
+      it 'doesn\'t start or return the join url if glJoinOnStart isn\'t set' do
+        room_params[:room][:options] = { other: 'other' }
+        post :create, params: room_params
+        expect(response).to have_http_status(:created)
+        expect(JSON.parse(response.body)['data']).to be_empty
+      end
     end
   end
 

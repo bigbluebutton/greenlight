@@ -29,6 +29,26 @@ RSpec.describe Room, type: :model do
     end
   end
 
+  describe 'after_create' do
+    let(:room) { create(:room) }
+
+    before do
+      create :meeting_option, name: 'attendeePW', default_value: ''
+      create :meeting_option, name: 'moderatorPW', default_value: ''
+    end
+
+    describe '#set_passwords' do
+      it 'creates and sets the moderatorPW and attendeePW meeting options for the created room' do
+        password_option_ids = MeetingOption.password_option_ids
+        room_meeting_options_ids_values = room.room_meeting_options.pluck(:meeting_option_id, :value).to_h
+
+        password_option_ids&.each do |id|
+          expect(room_meeting_options_ids_values[id]).to be_present
+        end
+      end
+    end
+  end
+
   describe 'validations' do
     subject { create(:room) }
 

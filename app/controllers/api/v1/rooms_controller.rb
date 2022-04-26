@@ -53,8 +53,18 @@ module Api
       # Does: creates a room for the authenticated user.
       def create
         # TODO: amir - ensure accessibility for unauthenticated requests only.
-        room = Room.create!(room_params.merge(user_id: current_user.id))
-        logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{current_user.id}"
+        # Creating the room
+        room_data = { name: room_params[:name] }
+        @room = Room.create!(room_data.merge(user_id: current_user.id))
+        logger.info "room(friendly_id):#{@room.friendly_id} created for user(id):#{current_user.id}"
+
+        # Creating the room meeting options
+        meeting_config = MeetingConfig.new room: @room, options: room_params[:options]
+        meeting_config.create_meeting_options!
+
+        # Start a meeting on the created room and join the room starter.
+        return start if join_on_start?
+
         render_json status: :created
       end
 
@@ -72,7 +82,11 @@ module Api
       end
 
       def room_params
-        params.require(:room).permit(:name)
+        params.require(:room).permit(:name, options: MeetingConfig.option_names)
+      end
+
+      def join_on_start?
+        (room_params[:options] && room_params[:options][:glJoinOnStart]) == 'true'
       end
     end
   end
