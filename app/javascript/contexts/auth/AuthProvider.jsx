@@ -14,14 +14,14 @@ export default function AuthProvider({ children }) {
   const { data: session, status, error } = useSessions();
 
   const currentUser = {
-    id: session?.current_user?.id,
-    name: session?.current_user?.name,
-    email: session?.current_user?.email,
-    provider: session?.current_user?.provider,
-    signed_in: session?.signed_in ?? false,
+    id: session?.data.current_user?.id,
+    name: session?.data.current_user?.name,
+    email: session?.data.current_user?.email,
+    provider: session?.data.current_user?.provider,
+    avatar: session?.data.current_user?.avatar,
+    signed_in: session?.data.current_user?.signed_in ?? false,
   };
 
-  // ESlint is suggesting to useMemo so currentUser is not changed every render. To be reviewed - SC
   const memoizedCurrentUser = useMemo(() => currentUser, [currentUser]);
 
   if (status === 'loading') return <p> Loading... </p>;
