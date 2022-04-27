@@ -15,7 +15,7 @@ module Api
               name: current_user.name,
               email: current_user.email,
               provider: current_user.provider,
-              avatar: current_user_avatar,
+              avatar: url_for(current_user.avatar),
               signed_in: true
             }
           }
@@ -40,10 +40,6 @@ module Api
       def destroy
         session[:user_id] = nil
         render json: { signed_in: false }, status: :ok
-      end
-
-      def current_user_avatar
-        current_user.avatar.attached? ? url_for(current_user.avatar) : 'https://www.pphfoundation.ca/wp-content/uploads/2018/05/default-avatar.png'
       end
 
       private
