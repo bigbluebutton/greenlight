@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-const FILE_SIZE = 200000;
+const FILE_SIZE = 3_000_000;
 const SUPPORTED_FORMATS = 'image/jpeg|image/png';
 
 export const validationSchema = yup.object().shape({

@@ -6,7 +6,6 @@ import FormControl from './FormControl';
 import Form from './Form';
 import useCreateAvatar from '../../hooks/mutations/users/useCreateAvatar';
 import { useAuth } from '../../contexts/auth/AuthProvider';
-import Spinner from '../shared/stylings/Spinner';
 import { validationSchema, avatarFormFields } from '../../helpers/forms/AvatarFormHelpers';
 
 export default function AvatarForm() {
@@ -23,7 +22,6 @@ export default function AvatarForm() {
       <FormControl field={fields.avatar} type="file" accept="image/*" />
       <Button variant="primary" className="w-100 my-3 py-2" type="submit" disabled={isSubmitting}>
         Change Avatar
-        { isSubmitting && <Spinner /> }
       </Button>
     </Form>
   );
