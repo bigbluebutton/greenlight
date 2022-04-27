@@ -16,7 +16,7 @@ class User < ApplicationRecord
   # TODO: samuel - ActiveStorage validations needs to be discussed and implemented.
   validate :avatar_validation
 
-  after_create :set_default_avatar
+  after_commit :set_default_avatar, on: %i[create update]
 
   private
 
