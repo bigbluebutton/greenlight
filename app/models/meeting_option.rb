@@ -25,6 +25,10 @@ class MeetingOption < ApplicationRecord
       public_options.pluck(:name, :id)
     end
 
+    def bbb_option_names_default_values
+      bbb_options.pluck(:name, :default_value)
+    end
+
     def password_option_ids
       password_options.pluck :id
     end

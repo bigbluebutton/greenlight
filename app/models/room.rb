@@ -12,6 +12,10 @@ class Room < ApplicationRecord
   before_validation :set_friendly_id, :set_meeting_id, on: :create
   after_create :set_meeting_passwords
 
+  def moderator?(user:)
+    self.user.id == user&.id
+  end
+
   private
 
   def set_friendly_id

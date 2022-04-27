@@ -15,11 +15,12 @@ class BigBlueButtonApi
   # Start a meeting for a specific room and returns the join URL.
   def start_meeting(room:, meeting_starter:, options: {})
     # TODO: amir - Revisit this.
-    create_options = default_create_opts.merge(options)
+    room_meeting_options = room.room_meeting_options.bbb_option_names_values.to_h
+    create_options = default_create_opts.merge(room_meeting_options).merge(options)
     join_options = { join_via_html5: true } # TODO: amir - Revisit this (createTime,...).
 
     user_name = meeting_starter&.name || 'Someone'
-    password = (meeting_starter && create_options[:moderatorPW]) || create_options[:attendeePW]
+    password = (room.moderator?(user: meeting_starter) && create_options['moderatorPW']) || create_options['attendeePW']
 
     bbb_server.create_meeting room.name, room.friendly_id, create_options
     bbb_server.join_meeting_url room.friendly_id, user_name, password, join_options
@@ -36,18 +37,6 @@ class BigBlueButtonApi
   end
 
   def default_create_opts
-    {
-      # TODO: amir - revisit this.
-      record: true,
-      logoutURL: 'http://localhost',
-      moderatorPW: 'mp',
-      attendeePW: 'ap',
-      moderatorOnlyMessage: 'Welcome Moderator',
-      muteOnStart: false,
-      guestPolicy: 'ALWAYS_ACCEPT',
-      'meta_gl-v3-listed': 'public',
-      'meta_bbb-origin-version': 3,
-      'meta_bbb-origin': 'Greenlight'
-    }
+    MeetingOption.bbb_option_names_default_values.to_h
   end
 end
