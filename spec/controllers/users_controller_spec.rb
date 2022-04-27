@@ -27,6 +27,18 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(response).to have_http_status(:bad_request)
       expect(user.reload.name).to eq(user.name)
     end
+
+    it 'updates the avatar' do
+      user = create(:user)
+      patch :update, params: { id: user.id, user: { avatar: fixture_file_upload(file_fixture('default-avatar.png'), 'image/png') } }
+      expect(user.reload.avatar.filename).to eq('default-avatar.png')
+    end
+
+    it 'returns an error if the avatar is a pdf' do
+      user = create(:user)
+      patch :update, params: { id: user.id, user: { avatar: fixture_file_upload(file_fixture('default-pdf.pdf'), 'pdf') } }
+      expect(user.reload.avatar.filename).not_to eq('default-pdf.pdf')
+    end
   end
 
   describe 'DELETE users#destroy' do
