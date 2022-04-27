@@ -11,7 +11,11 @@ Rails.application.routes.draw do
           delete 'signout', to: 'sessions#destroy'
         end
       end
-      resources :users, only: %i[create update destroy]
+      resources :users, only: %i[create update destroy] do
+        member do
+          delete :purge_avatar
+        end
+      end
       resources :rooms, only: %i[show index create destroy], param: :friendly_id do
         member do
           post '/start', to: 'rooms#start', as: :start_meeting

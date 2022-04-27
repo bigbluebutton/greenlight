@@ -42,10 +42,6 @@ module Api
         render json: { signed_in: false }, status: :ok
       end
 
-      def current_user_avatar
-        current_user.avatar.attached? ? url_for(current_user.avatar) : 'https://freesvg.org/img/user.png'
-      end
-
       private
 
       def session_params
@@ -55,6 +51,10 @@ module Api
       # Signs In the user
       def sign_in(user)
         session[:user_id] = user.id
+      end
+
+      def current_user_avatar
+        current_user.avatar.attached? ? url_for(current_user.avatar) : ActionController::Base.helpers.image_path('default-avatar.png')
       end
     end
   end

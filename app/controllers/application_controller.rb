@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  # before_action do
-  #   # Unless the request format is explicitly json Rails will mitigate the responsability to CSR to handle it.
-  #   render 'components/index' unless valid_api_request?
-  # end
+  before_action do
+    # Unless the request format is explicitly json Rails will mitigate the responsability to CSR to handle it.
+    render 'components/index' unless valid_api_request?
+  end
 
   # For requests that raised an unkown exception.
   # Note: The order of each rescue is important (The highest has the lowest priority).
