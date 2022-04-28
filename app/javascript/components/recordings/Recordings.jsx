@@ -5,7 +5,7 @@ import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import Spinner from '../shared/stylings/Spinner';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
 
-export default function RecordingsTable() {
+export default function Recordings() {
   const { isLoading, data: recordings } = useRecordings();
   if (isLoading) return <Spinner />;
 
