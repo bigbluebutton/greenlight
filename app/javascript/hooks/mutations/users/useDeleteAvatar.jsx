@@ -1,13 +1,11 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
-export default function useCreateAvatar(currentUser) {
+export default function useDeleteAvatar(currentUser) {
   const queryClient = useQueryClient();
 
-  const createAvatar = (data) => {
-    const formData = new FormData();
-    formData.append('user[avatar]', data.avatar[0]);
-    axios.patch(`/api/v1/users/${currentUser.id}.json`, formData);
+  const deleteAvatar = (data) => {
+    axios.delete(`/api/v1/users/${currentUser.id}/purge_avatar.json`, data);
   };
 
   const delay = (time) => new Promise((resolve) => {
@@ -15,7 +13,7 @@ export default function useCreateAvatar(currentUser) {
   });
 
   const mutation = useMutation(
-    createAvatar,
+    deleteAvatar,
     {
       onSuccess: async () => {
         await delay(100);
