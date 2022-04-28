@@ -7,7 +7,7 @@ import RoomSettings from './RoomSettings';
 
 export default function FeatureTabs() {
   return (
-    <Row className="py-5">
+    <Row className="py-5 w-100">
       <Tabs defaultActiveKey="recordings">
         <Tab eventKey="recordings" title="Recordings">
           <RoomRecordings />
