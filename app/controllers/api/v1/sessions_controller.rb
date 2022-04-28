@@ -15,7 +15,7 @@ module Api
               name: current_user.name,
               email: current_user.email,
               provider: current_user.provider,
-              avatar: url_for(current_user.avatar),
+              avatar: current_user_avatar,
               signed_in: true
             }
           }
@@ -43,6 +43,10 @@ module Api
       end
 
       private
+
+      def current_user_avatar
+        current_user.avatar.attached? ? url_for(current_user.avatar) : ActionController::Base.helpers.image_path('default-avatar.png')
+      end
 
       def session_params
         params.require(:session).permit(:email, :password)
