@@ -9,6 +9,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bigbluebutton-api-ruby', '1.8'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
+gem 'data_migrate'
 gem 'dotenv-rails'
 gem 'jbuilder'
 gem 'jsbundling-rails'
