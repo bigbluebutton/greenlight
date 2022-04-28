@@ -31,19 +31,27 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     it 'updates the avatar' do
       user = create(:user)
       patch :update, params: { id: user.id, user: { avatar: fixture_file_upload(file_fixture('default-avatar.png'), 'image/png') } }
-      expect(user.reload.avatar.filename).to eq('default-avatar.png')
+      expect(user.reload.avatar).to be_attached
+    end
+
+    it 'deletes the avatar' do
+      user = create(:user)
+      user.avatar.attach(io: fixture_file_upload('default-avatar.png'), filename: 'default-avatar.png', content_type: 'image/png')
+      expect(user.reload.avatar).to be_attached
+      delete :purge_avatar, params: { id: user.id }
+      expect(user.reload.avatar).not_to be_attached
     end
 
     it 'returns an error if the avatar is a pdf' do
       user = create(:user)
       patch :update, params: { id: user.id, user: { avatar: fixture_file_upload(file_fixture('default-pdf.pdf'), 'pdf') } }
-      expect(user.reload.avatar.filename).not_to eq('default-pdf.pdf')
+      expect(user.reload.avatar).not_to be_attached
     end
 
     it 'returns an error if the avatar size is too large' do
       user = create(:user)
       patch :update, params: { id: user.id, user: { avatar: fixture_file_upload(file_fixture('large-avatar.jpg'), 'jpg') } }
-      expect(user.reload.avatar.blob.byte_size).to be < 3_000_000
+      expect(user.reload.avatar).not_to be_attached
     end
   end
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  MAX_AVATAR_SIZE = 3_000_000
+
   has_secure_password
   has_many :rooms, dependent: :destroy
   has_many :recordings, through: :rooms
@@ -23,7 +25,7 @@ class User < ApplicationRecord
 
     if !avatar.attachment.blob.content_type.in?(%w[image/png image/jpeg])
       errors.add(:avatar, 'must be an image file')
-    elsif avatar.attachment.blob.byte_size > 3_000_000
+    elsif avatar.attachment.blob.byte_size > MAX_AVATAR_SIZE
       errors.add(:avatar, 'is too large')
     end
   end
