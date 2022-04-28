@@ -44,10 +44,6 @@ module Api
 
       private
 
-      def current_user_avatar
-        current_user.avatar.attached? ? url_for(current_user.avatar) : ActionController::Base.helpers.image_path('default-avatar.png')
-      end
-
       def session_params
         params.require(:session).permit(:email, :password)
       end
@@ -55,6 +51,10 @@ module Api
       # Signs In the user
       def sign_in(user)
         session[:user_id] = user.id
+      end
+
+      def current_user_avatar
+        current_user.avatar.attached? ? url_for(current_user.avatar) : ActionController::Base.helpers.image_path('default-avatar.png')
       end
     end
   end
