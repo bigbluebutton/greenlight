@@ -5,14 +5,39 @@ export const validationSchema = yup.object({
     yup.string()
       .required('Please enter a new name.')
       .max(24, 'Your new name must be within 40 characters.'),
+  email:
+    yup.string()
+      .required('Please enter your email.')
+      .email('Entered value does not match email format.'),
 });
 
 export const updateUserFormFields = {
   name: {
-    label: 'New Name',
+    label: 'Full Name',
     controlId: 'updateUserFormName',
     hookForm: {
       id: 'name',
+    },
+  },
+  email: {
+    label: 'Email',
+    controlId: 'updateUserFormEmail',
+    hookForm: {
+      id: 'email',
+    },
+  },
+  language: {
+    label: 'Language',
+    controlId: 'updateUserLanguage',
+    hookForm: {
+      id: 'language',
+    },
+  },
+  userRole: {
+    label: 'User Role',
+    controlId: 'updateUserRole',
+    hookForm: {
+      id: 'userRole',
     },
   },
 };
