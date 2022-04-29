@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
-export default function useCreateRoom() {
+export default function useCreateRoom({ onSettled }) {
   const ROOMSLISTQUERYKEY = 'getRooms'; // TODO: amir - create a central store for query keys.
   const queryClient = useQueryClient();
 
@@ -39,6 +39,7 @@ export default function useCreateRoom() {
       // Always refetch after error or success:
       onSettled: () => {
         queryClient.invalidateQueries(ROOMSLISTQUERYKEY);
+        onSettled();
       },
     },
   );
