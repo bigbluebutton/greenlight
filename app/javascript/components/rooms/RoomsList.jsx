@@ -15,7 +15,7 @@ export default function RoomsList() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="wide-background">
+    <div className="wide-background full-height-rooms">
       <Row className="pt-4 mb-3">
         <Col>
           <Form>
