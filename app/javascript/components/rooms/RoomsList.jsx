@@ -16,7 +16,7 @@ export default function RoomsList() {
 
   return (
     <div className="wide-background">
-      <Row className="pt-4 mb-4">
+      <Row className="pt-4 mb-3">
         <Col>
           <Form>
             <FormControl
@@ -41,7 +41,7 @@ export default function RoomsList() {
           />
         </Col>
       </Row>
-      <Row md={4} className="g-4">
+      <Row md={4} className="g-4 pb-4">
         {
           rooms.filter((room) => {
             if (room.name.toLowerCase().includes(search.toLowerCase())) {

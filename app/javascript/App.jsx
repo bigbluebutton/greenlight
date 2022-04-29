@@ -6,11 +6,11 @@ import { useAuth } from './contexts/auth/AuthProvider';
 
 export default function App() {
   const currentUser = useAuth();
-
+  const containerHeight = currentUser?.signed_in ? 'full-height' : 'h-100';
   return (
     <>
       {currentUser?.signed_in && <Header /> }
-      <Container>
+      <Container className={containerHeight}>
         <Outlet />
       </Container>
     </>
