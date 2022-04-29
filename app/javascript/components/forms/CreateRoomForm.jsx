@@ -12,7 +12,7 @@ import { createRoomFormConfig, createRoomFormFields } from '../../helpers/forms/
 
 export default function CreateRoomForm({ handleClose }) {
   const methods = useForm(createRoomFormConfig);
-  const { handleCreateRoom: onSubmit } = useCreateRoom();
+  const { handleCreateRoom: onSubmit } = useCreateRoom({ onSettled: handleClose });
   const { isSubmitting } = methods.formState;
   const fields = createRoomFormFields;
 
