@@ -16,7 +16,7 @@ export default function useDeleteAvatar(currentUser) {
     deleteAvatar,
     {
       onSuccess: async () => {
-        await delay(100);
+        await delay(500);
         queryClient.invalidateQueries('useSessions');
       },
       onError: (error) => {
