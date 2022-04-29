@@ -29,6 +29,40 @@ RSpec.describe Room, type: :model do
     end
   end
 
+  describe 'after_create' do
+    before do
+      create_list :meeting_option, 5
+    end
+
+    describe '#create_default_meeting_options!' do
+      it 'fetches and creates all saved none password meeting options for the created room with default values' do
+        room = create(:room)
+        default_meeting_options_ids_values_hash = MeetingOption.pluck(:id, :default_value).to_h
+        room_meeting_option_ids_values_hash = room.room_meeting_options.pluck(:meeting_option_id, :value).to_h
+        expect(room_meeting_option_ids_values_hash).to eq(default_meeting_options_ids_values_hash)
+      end
+    end
+
+    describe '#set_meeting_passwords' do
+      before do
+        create :meeting_option, name: 'somePW', default_value: ''
+        create :meeting_option, name: 'someOtherPW', default_value: ''
+      end
+
+      it 'creates and sets the password meeting options and the rest of the default options for the created room' do
+        room = create(:room)
+        expect(room.room_meeting_options.count).to eq(MeetingOption.count)
+
+        password_option_ids_default_values_hash = MeetingOption.where('name LIKE ?', '%PW').pluck(:id, :default_value).to_h
+        room_meeting_options_ids_values = room.room_meeting_options.pluck(:meeting_option_id, :value).to_h
+
+        password_option_ids_default_values_hash&.each_key do |id|
+          expect(room_meeting_options_ids_values[id]).not_to eq(password_option_ids_default_values_hash[id])
+        end
+      end
+    end
+  end
+
   describe 'validations' do
     subject { create(:room) }
 

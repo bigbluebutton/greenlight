@@ -5,13 +5,12 @@ import {
 import Spinner from '../shared/stylings/Spinner';
 import RoomCard from './RoomCard';
 import useRooms from '../../hooks/queries/rooms/useRooms';
-import useCreateRoom from '../../hooks/mutations/rooms/useCreateRoom';
 import RoomPlaceHolder from './RoomPlaceHolder';
+import CreateRoomModal from '../shared/CreateRoomModal';
+import CreateRoomForm from '../forms/CreateRoomForm';
 
 export default function RoomsList() {
   const { isLoading, data: rooms } = useRooms();
-  const newRoomData = { name: `Room ${Date.now()}` }; // TODO: amir - change this.
-  const { handleCreateRoom, isLoading: createRoomIsLoading } = useCreateRoom(newRoomData);
   const [search, setSearch] = useState('');
   if (isLoading) return <Spinner />;
 
@@ -35,10 +34,11 @@ export default function RoomsList() {
         </Col>
         <Col>
           {/* TODO: Set this button to create new room page */}
-          <Button className="float-end" onClick={handleCreateRoom} disabled={createRoomIsLoading}>
-            + New Room {' '}
-            {createRoomIsLoading && <Spinner />}
-          </Button>
+          <CreateRoomModal
+            modalButton={<Button className="float-end">+ New Room</Button>}
+            title="Create New Room"
+            body={<CreateRoomForm />}
+          />
         </Col>
       </Row>
       <Row md={4} className="g-4">
