@@ -1,0 +1,19 @@
+#profile {
+
+  #profile-sidebar {
+    height: 100%;
+    border-right: 2px solid whitesmoke;
+    padding: 1rem;
+  }
+
+  #delete-account {
+    max-width: 500px;
+  }
+
+  .nav-pills .nav-link.active {
+    color: $primary;
+    background-color: $primary-light;
+    font-weight: 600;
+  }
+
+}
