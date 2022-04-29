@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <Navbar>
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to="/rooms">
           <img
             src="https://blindsidenetworks.com/wp-content/uploads/2021/04/cropped-bn_logo-02.png"
             width="200"

@@ -7,6 +7,23 @@
   background: whitesmoke;
   margin: 0 -600rem;
   padding: 0.25rem 600rem;
+  height: 100%;
+}
+
+.vertical-center {
+  margin-top: 20vh;
+}
+
+.full-height {
+  height: calc(100vh - 82px);
+}
+
+.full-height-rooms {
+  height: calc(100vh - 171px);
+}
+
+.full-height-room {
+  height: calc(100vh - 402px);
 }
 
 .nav-tabs {
