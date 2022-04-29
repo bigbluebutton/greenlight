@@ -39,10 +39,20 @@ module Api
         end
       end
 
+      def purge_avatar
+        user = User.find(params[:id])
+        user.avatar.purge
+        if user.avatar.purge
+          render_json status: :ok
+        else
+          render_json errors: user.errors.to_a, status: :bad_request
+        end
+      end
+
       private
 
       def user_params
-        params.require(:user).permit(:name, :email, :password, :password_confirmation)
+        params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
       end
     end
   end

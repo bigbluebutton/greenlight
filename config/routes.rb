@@ -11,7 +11,11 @@ Rails.application.routes.draw do
           delete 'signout', to: 'sessions#destroy'
         end
       end
-      resources :users, only: %i[create update destroy]
+      resources :users, only: %i[create update destroy] do
+        member do
+          delete :purge_avatar
+        end
+      end
       resources :rooms, only: %i[show index create destroy], param: :friendly_id do
         member do
           post '/start', to: 'rooms#start', as: :start_meeting
@@ -21,5 +25,7 @@ Rails.application.routes.draw do
       resources :recordings, only: [:index]
     end
   end
-  match '*path', to: 'components#index', via: :all # Enable CSR for full fledged http requests.
+  match '*path', to: 'components#index', via: :all, constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
+  } # Enable CSR for full fledged http requests.
 end
