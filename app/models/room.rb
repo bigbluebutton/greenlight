@@ -33,6 +33,17 @@ class Room < ApplicationRecord
     retry
   end
 
+  # Fetches and create all saved meeting options for the room
+  def create_default_meeting_options!(ignore_option_ids)
+    meeting_option_ids_default_values_hash = MeetingOption.pluck(:id, :default_value).to_h
+
+    meeting_option_ids_default_values_hash.each_key do |id|
+      next if ignore_option_ids.include?(id)
+
+      RoomMeetingOption.create! room_id: self.id, meeting_option_id: id, value: meeting_option_ids_default_values_hash[id]
+    end
+  end
+
   # Generates and sets the 'attendeePW' and the 'moderatorPW' for the room meeting
   def set_meeting_passwords!
     password_option_ids = MeetingOption.where('name LIKE ?', '%PW').pluck(:id)
@@ -41,5 +52,8 @@ class Room < ApplicationRecord
       # TODO: Revisit the password random value.
       RoomMeetingOption.create! room_id: self.id, meeting_option_id: id, value: SecureRandom.alphanumeric(20)
     end
+
+    # After creating the passwords, the room can create all other default meeting options
+    create_default_meeting_options! password_option_ids
   end
 end
