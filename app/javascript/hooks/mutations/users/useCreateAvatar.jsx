@@ -18,7 +18,7 @@ export default function useCreateAvatar(currentUser) {
     createAvatar,
     {
       onSuccess: async () => {
-        await delay(100);
+        await delay(500);
         queryClient.invalidateQueries('useSessions');
       },
       onError: (error) => {
