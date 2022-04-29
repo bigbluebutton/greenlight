@@ -10,6 +10,7 @@ class Room < ApplicationRecord
   validates :meeting_id, presence: true, uniqueness: true
 
   before_validation :set_friendly_id, :set_meeting_id, on: :create
+  after_create :set_meeting_passwords!
 
   private
 
@@ -30,5 +31,15 @@ class Room < ApplicationRecord
     self.meeting_id = id
   rescue StandardError
     retry
+  end
+
+  # Generates and sets the 'attendeePW' and the 'moderatorPW' for the room meeting
+  def set_meeting_passwords!
+    password_option_ids = MeetingOption.where('name LIKE ?', '%PW').pluck(:id)
+
+    password_option_ids.each do |id|
+      # TODO: Revisit the password random value.
+      RoomMeetingOption.create! room_id: self.id, meeting_option_id: id, value: SecureRandom.alphanumeric(20)
+    end
   end
 end
