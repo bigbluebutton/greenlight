@@ -10,7 +10,7 @@ export default function Recordings() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="wide-background full-height-room">
+    <div className="pt-3 wide-background full-height-rooms">
       <Row>
         <Card>
           <Table hover className="text-secondary mb-0">

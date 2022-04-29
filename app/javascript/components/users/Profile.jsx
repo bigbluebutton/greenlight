@@ -19,13 +19,13 @@ export default function Profile() {
               <div id="profile-sidebar">
                 <Nav variant="pills" className="flex-column">
                   <Nav.Item>
-                    <Nav.Link eventKey="first">
+                    <Nav.Link className="cursor-pointer" eventKey="first">
                       <FontAwesomeIcon icon={faUser} className="pe-3" />
                       Account Info
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="second">
+                    <Nav.Link className="cursor-pointer" eventKey="second">
                       <FontAwesomeIcon icon={faTrashCan} className="pe-3" />
                       Delete Account
                     </Nav.Link>

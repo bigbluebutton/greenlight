@@ -26,15 +26,21 @@
   height: calc(100vh - 402px);
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .nav-tabs {
   border-bottom: 0;
+  padding-bottom: 1px;
 
   .nav-link {
     transition: none;
+    border: 0;
+
     &.active, &:hover {
       color: $primary;
-      border: 0;
-      border-bottom: 1px solid $primary;
+      border-bottom: 1px solid $primary !important;
     }
   }
 }

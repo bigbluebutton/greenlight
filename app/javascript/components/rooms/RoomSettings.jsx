@@ -9,7 +9,7 @@ export default function RoomSettings() {
   const { handleDeleteRoom, isLoading: deleteRoomIsLoading } = useDeleteRoom(friendlyId);
 
   return (
-    <Row className="wide-background">
+    <Row className="wide-background full-height-room">
       <Col />
       <Col>
         {/* TODO: Hadi- This is temporary (waiting to see where the delete button should be for room) */}
