@@ -43,28 +43,37 @@ describe BigBlueButtonApi, type: :service do
     let(:bbb_server) { instance_double(BigBlueButton::BigBlueButtonApi) }
     let(:room) { create(:room) }
     let(:meeting_starter) { room.user }
+    let(:room_meeting_option_hash) do
+      room.room_meeting_options.includes(:meeting_option).where.not('name LIKE ?', 'gl%').pluck(:name,
+                                                                                                :value).to_h
+    end
 
     before do
-      allow(bbb_service).to receive(:default_create_opts).and_return(default_create_opts)
       allow(BigBlueButton::BigBlueButtonApi).to receive(:new).and_return(bbb_server)
       allow(bbb_server).to receive(:create_meeting).and_return(true)
       allow(bbb_server).to receive(:join_meeting_url).and_return(true)
+
+      create :meeting_option, name: 'moderatorPW', default_value: 'moderatorPW'
+      create :meeting_option, name: 'attendeePW', default_value: 'attendeePW'
+      create :meeting_option, name: 'option', default_value: 'value'
+      create :meeting_option, name: 'glOption', default_value: 'value'
     end
 
     it 'calls bbb_api#create_meeting' do
-      expect(bbb_server).to receive(:create_meeting).with(room.name, room.friendly_id, default_create_opts)
+      expect(bbb_server).to receive(:create_meeting).with(room.name, room.friendly_id, room_meeting_option_hash)
       bbb_service.start_meeting room:, meeting_starter: nil, options: {}
     end
 
     describe 'calls bbb_api#join_meeting_url' do
       it 'With Moderator password and the meeting starter name for authenticated requests' do
-        expect(bbb_server).to receive(:join_meeting_url).with(room.friendly_id, meeting_starter.name, default_create_opts[:moderatorPW],
+        expect(bbb_server).to receive(:join_meeting_url).with(room.friendly_id, meeting_starter.name, room_meeting_option_hash['moderatorPW'],
                                                               default_join_opts)
         bbb_service.start_meeting room:, meeting_starter:, options: {}
       end
 
       it 'With attendee password and user name as "Someone" for unauthenticated requests' do
-        expect(bbb_server).to receive(:join_meeting_url).with(room.friendly_id, 'Someone', default_create_opts[:attendeePW], default_join_opts)
+        expect(bbb_server).to receive(:join_meeting_url).with(room.friendly_id, 'Someone', room_meeting_option_hash['attendeePW'],
+                                                              default_join_opts)
         bbb_service.start_meeting room:, meeting_starter: nil, options: {}
       end
     end
