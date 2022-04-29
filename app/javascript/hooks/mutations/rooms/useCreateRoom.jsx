@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
-export default function useCreateRoom(room) {
+export default function useCreateRoom() {
   const ROOMSLISTQUERYKEY = 'getRooms'; // TODO: amir - create a central store for query keys.
   const queryClient = useQueryClient();
 
@@ -42,7 +42,7 @@ export default function useCreateRoom(room) {
       },
     },
   );
-  const roomData = { room };
-  const handleCreateRoom = () => mutation.mutateAsync(roomData).catch(/* Prevents the promise exception from bubbling */() => { });
+
+  const handleCreateRoom = (data) => mutation.mutateAsync({ room: data }).catch(/* Prevents the promise exception from bubbling */() => { });
   return { handleCreateRoom, ...mutation };
 }
