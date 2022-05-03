@@ -198,7 +198,7 @@ class UsersController < ApplicationController
   # GET /shared_access_list
   def shared_access_list
     # Don't allow searchs unless atleast 3 characters are passed
-    return redirect_to '/404' unless params[:search]&.strip&.length >= 3
+    return redirect_to '/404' unless params[:search].strip.length >= 3
 
     roles_can_appear = []
     Role.where(provider: @user_domain).each do |role|
