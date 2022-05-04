@@ -29,6 +29,16 @@ RSpec.describe Room, type: :model do
     end
   end
 
+  describe 'after_create' do
+    describe 'create_meeting_options' do
+      it 'creates a RoomMeetingOption for each MeetingOption' do
+        create_list(:meeting_option, 5)
+
+        expect { create(:room) }.to change(RoomMeetingOption, :count).from(0).to(5)
+      end
+    end
+  end
+
   describe 'validations' do
     subject { create(:room) }
 
