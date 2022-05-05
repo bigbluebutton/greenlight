@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   root 'components#index', via: :all
+  mount ActionCable.server => '/cable'
 
   # All the Api endpoints must be under /api/v1 and must have an extension .json.
   namespace :api do
