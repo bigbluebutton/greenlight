@@ -10,6 +10,7 @@ class Room < ApplicationRecord
   validates :meeting_id, presence: true, uniqueness: true
 
   before_validation :set_friendly_id, :set_meeting_id, on: :create
+  after_create :create_meeting_options
 
   private
 
@@ -30,5 +31,12 @@ class Room < ApplicationRecord
     self.meeting_id = id
   rescue StandardError
     retry
+  end
+
+  # Autocreate all meeting options using the default values
+  def create_meeting_options
+    MeetingOption.all.find_each do |option|
+      RoomMeetingOption.create(room: self, meeting_option: option, value: option.default_value)
+    end
   end
 end
