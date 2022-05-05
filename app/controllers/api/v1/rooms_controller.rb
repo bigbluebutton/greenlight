@@ -39,6 +39,8 @@ module Api
           join_url = bbb_api.start_meeting room: @room, meeting_starter: current_user, options: options
           logger.info "meeting successfully started for room(friendly_id):#{@room.friendly_id} by #{meeting_starter}."
 
+          ActionCable.server.broadcast "#{@room.friendly_id}_rooms_channel", join_url.to_s
+
           render_json data: { join_url: }, status: :created
         rescue BigBlueButton::BigBlueButtonException => e
           retries += 1

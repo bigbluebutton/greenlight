@@ -1282,7 +1282,7 @@
   "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.11.2.tgz"
   "version" "2.11.2"
 
-"@rails/actioncable@^7.0":
+"@rails/actioncable@^7.0", "@rails/actioncable@^7.0.2":
   "integrity" "sha512-G26maXW1Kx0LxQdmNNuNjQlRO/QlXNr3QfuwKiOKb5FZQGYe2OwtHTGXBAjSoiu4dW36XYMT/+L1Wo1Yov4ZXA=="
   "resolved" "https://registry.npmjs.org/@rails/actioncable/-/actioncable-7.0.2.tgz"
   "version" "7.0.2"
