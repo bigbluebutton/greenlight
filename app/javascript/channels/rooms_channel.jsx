@@ -8,7 +8,6 @@ export default function subscribeToRoom(friendlyId, joinUrl) {
     connected() {
       // Called when the subscription is ready for use on the server
       console.log('connected');
-      console.log(joinUrl);
     },
 
     disconnected() {
@@ -19,7 +18,6 @@ export default function subscribeToRoom(friendlyId, joinUrl) {
     received() {
       // Called when there's incoming data on the websocket for this channel
       console.log('received');
-      console.log(joinUrl);
       window.location.replace(joinUrl);
     },
   });
