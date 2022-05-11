@@ -6,8 +6,7 @@ export default function Spinner() {
     <BootstrapSpinner
       className="mx-1"
       as="span"
-      animation="grow"
-      size="sm"
+      animation="border"
       role="status"
       aria-hidden="true"
     />

@@ -24,6 +24,14 @@ class BigBlueButtonApi
     bbb_server.join_meeting_url room.friendly_id, user_name, password, join_options
   end
 
+  def join_meeting(room:, name:)
+    bbb_server.join_meeting_url room.friendly_id, name, '', { role: 'Viewer' }
+  end
+
+  def meeting_running?(room:)
+    bbb_server.is_meeting_running?(room.friendly_id)
+  end
+
   private
 
   def bbb_endpoint

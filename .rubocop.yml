@@ -56,3 +56,6 @@ Metrics/BlockLength:
 # branches, and conditions.
 Metrics/AbcSize:
   Max: 65
+
+RSpec/AnyInstance:
+  Enabled: false

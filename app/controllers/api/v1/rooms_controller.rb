@@ -4,7 +4,7 @@ module Api
   module V1
     class RoomsController < ApplicationController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
-      before_action :find_room, only: %i[show start recordings]
+      before_action :find_room, only: %i[show start recordings join status]
 
       # GET /api/v1/rooms.json
       # Returns: { data: Array[serializable objects(rooms)] , errors: Array[String] }
@@ -39,7 +39,7 @@ module Api
           join_url = bbb_api.start_meeting room: @room, meeting_starter: current_user, options: options
           logger.info "meeting successfully started for room(friendly_id):#{@room.friendly_id} by #{meeting_starter}."
 
-          ActionCable.server.broadcast "#{@room.friendly_id}_rooms_channel", join_url.to_s
+          ActionCable.server.broadcast "#{@room.friendly_id}_rooms_channel", 'started'
 
           render_json data: { join_url: }, status: :created
         rescue BigBlueButton::BigBlueButtonException => e
@@ -65,6 +65,21 @@ module Api
       # Does: gets the recordings that belong to the specific room friendly_id
       def recordings
         render_json(data: @room.recordings, status: :ok, include: :formats)
+      end
+
+      # GET /api/v1/rooms/:friendly_id/join.json
+      def join
+        render_json(data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name]), status: :ok)
+      end
+
+      # GET /api/v1/rooms/:friendly_id/status.json
+      def status
+        data = {
+          status: BigBlueButtonApi.new.meeting_running?(room: @room)
+        }
+        data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name]) if data[:status]
+
+        render_json(data:, status: :ok)
       end
 
       private
