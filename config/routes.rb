@@ -12,7 +12,7 @@ Rails.application.routes.draw do
           delete 'signout', to: 'sessions#destroy'
         end
       end
-      resources :users, only: %i[create update destroy] do
+      resources :users, only: %i[index create update destroy] do
         member do
           delete :purge_avatar
         end
@@ -24,6 +24,13 @@ Rails.application.routes.draw do
           get '/join', to: 'rooms#join'
           get '/status', to: 'rooms#status'
         end
+      end
+      resources :shared_accesses, only: %i[create destroy], path: '/shared_accesses/room', param: :room_id do
+          member do
+            # post :create
+            get '/shared_users', to: 'shared_accesses#shared_users'
+            get '/shareable_users', to: 'shared_accesses#shareable_users'
+          end
       end
       resources :recordings, only: [:index]
     end
