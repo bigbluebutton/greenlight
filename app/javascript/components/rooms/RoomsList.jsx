@@ -6,7 +6,7 @@ import Spinner from '../shared/stylings/Spinner';
 import RoomCard from './RoomCard';
 import useRooms from '../../hooks/queries/rooms/useRooms';
 import RoomPlaceHolder from './RoomPlaceHolder';
-import CreateRoomModal from '../shared/CreateRoomModal';
+import CreateRoomModal from '../shared/Modal';
 import CreateRoomForm from '../forms/CreateRoomForm';
 
 export default function RoomsList() {

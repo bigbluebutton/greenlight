@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import useSessions from '../../hooks/queries/rooms/useSessions';
+import useSessions from '../../hooks/queries/users/useSessions';
 
 const AuthContext = React.createContext();
 
