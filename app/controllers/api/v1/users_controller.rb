@@ -10,6 +10,18 @@ module Api
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: Creates and saves a new user record in the database with the provided parameters.
 
+      def index
+        users = User.all.map do |user|
+          {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            avatar: user_avatar(user)
+          }
+        end
+        render_json data: users, status: :ok
+      end
+
       def create
         # TODO: amir - ensure accessibility for unauthenticated requests only.
         user = User.new({ provider: 'greenlight' }.merge(user_params)) # TMP fix for presence validation of :provider
