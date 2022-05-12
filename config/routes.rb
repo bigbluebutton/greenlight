@@ -23,6 +23,7 @@ Rails.application.routes.draw do
           get '/recordings', to: 'rooms#recordings'
         end
       end
+      resources :room_settings, only: %i[update], param: :friendly_id
       resources :recordings, only: [:index]
     end
   end
