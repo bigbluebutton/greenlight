@@ -11,20 +11,16 @@ class RecordingsSync
     # Get the meeting_id of all the current user's rooms
     meeting_ids = rooms.map(&:meeting_id)
 
-    # Clear current recordings
     Recording.destroy_by(room_id: rooms.map(&:id))
 
-    # Get recordings
     recordings = BigBlueButtonApi.new.get_recordings(meeting_ids:)
 
-    # Create new recordings
     recordings[:recordings].each do |recording|
       room_id = Room.find_by(meeting_id: recording[:meetingID]).id
 
       # Get length of presentation format(s)
       length = get_recording_length(recording:)
 
-      # Create recording
       new_recording = Recording.create(room_id:, name: recording[:name], record_id: recording[:recordID], visibility: 'Unlisted',
                                        users: recording[:participants], length:)
 
