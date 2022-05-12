@@ -19,11 +19,11 @@
 }
 
 .full-height-rooms {
-  height: calc(100vh - 171px);
+  min-height: calc(100vh - 171px);
 }
 
 .full-height-room {
-  height: calc(100vh - 402px);
+  min-height: calc(100vh - 402px);
 }
 
 .cursor-pointer {
