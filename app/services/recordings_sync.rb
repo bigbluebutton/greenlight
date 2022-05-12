@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class RecordingSync
+class RecordingsSync
   def initialize; end
 
-  def recording_resync(user:)
+  def recordings_resync(user:)
     bbb_api = BigBlueButtonApi.new
     rooms = user.rooms
 

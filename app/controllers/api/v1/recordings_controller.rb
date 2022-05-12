@@ -15,8 +15,8 @@ module Api
       end
 
       def recordings
-        recording_sync = RecordingSync.new
-        recording_sync.recording_resync(user: current_user)
+        recording_sync = RecordingsSync.new
+        recording_sync.recordings_resync(user: current_user)
 
         render_json(status: :ok)
       end
