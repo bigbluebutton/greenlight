@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class RecordingsSync
-  def initialize; end
+  def initialize(params)
+    @user = params[:user]
+  end
 
-  def recordings_resync(user:)
-    bbb_api = BigBlueButtonApi.new
-    rooms = user.rooms
+  def call
+    rooms = @user.rooms
 
     # Get the meeting_id of all the current user's rooms
     meeting_ids = rooms.map(&:meeting_id)
@@ -14,7 +15,7 @@ class RecordingsSync
     Recording.destroy_by(room_id: rooms.map(&:id))
 
     # Get recordings
-    recordings = bbb_api.get_recordings(meeting_ids:)
+    recordings = BigBlueButtonApi.new.get_recordings(meeting_ids:)
 
     # Create new recordings
     recordings[:recordings].each do |recording|
