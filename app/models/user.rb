@@ -5,6 +5,10 @@ class User < ApplicationRecord
 
   has_secure_password
   has_many :rooms, dependent: :destroy
+
+  has_many :shared_accesses, dependent: :destroy
+  has_many :shared_rooms, through: :shared_accesses, class_name: 'Room'
+
   has_many :recordings, through: :rooms
 
   has_one_attached :avatar
@@ -17,6 +21,21 @@ class User < ApplicationRecord
 
   # TODO: samuel - ActiveStorage validations needs to be discussed and implemented.
   validate :avatar_validation
+
+  def room_owner?(room)
+    id == room.user_id
+  end
+
+  def room_shared?(room)
+    shared_rooms.pluck(:friendly_id).include?(room.friendly_id)
+  end
+
+  # If User is not the room owner, or the room is not being shared already, then the room is shareable to the user.
+  def room_shareable?(room)
+    return false if room_owner?(room) || room_shared?(room)
+
+    true
+  end
 
   private
 
