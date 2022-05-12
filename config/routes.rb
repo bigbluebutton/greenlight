@@ -26,7 +26,11 @@ Rails.application.routes.draw do
         end
       end
       resources :room_settings, only: %i[update], param: :friendly_id
-      resources :recordings, only: [:index]
+      resources :recordings, only: [:index] do
+        collection do
+          get '/recordingsReSync', to: 'recordings#recordings'
+        end
+      end
     end
   end
   match '*path', to: 'components#index', via: :all, constraints: lambda { |req|

@@ -68,5 +68,12 @@ describe BigBlueButtonApi, type: :service do
         bbb_service.start_meeting room:, meeting_starter: nil, options: {}
       end
     end
+
+    describe 'calls bbb#get_recordings' do
+      it 'With list of meeting ids given as param' do
+        expect(bbb_server).to receive(:get_recordings).with(meetingID: [1, 2, 3])
+        bbb_service.get_recordings(meeting_ids: [1, 2, 3])
+      end
+    end
   end
 end

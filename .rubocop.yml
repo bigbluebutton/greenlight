@@ -53,6 +53,7 @@ Metrics/BlockLength:
   IgnoredMethods: [ 'describe', 'context' ]
   Exclude:
     - 'config/routes.rb'
+  Max: 30
 
 # A calculated magnitude based on number of assignments,
 # branches, and conditions.
