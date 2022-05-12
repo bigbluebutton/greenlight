@@ -6,6 +6,7 @@ export const ENDPOINTS = {
   start_meeting: (friendlyId) => `rooms/${friendlyId}/start.json`,
   createRoom: '/rooms.json',
   recordings: '/recordings.json',
+  recordings_resync: '/recordings/recordingsReSync.json',
   room_recordings: (friendlyId) => `/rooms/${friendlyId}/recordings.json`,
 };
 
