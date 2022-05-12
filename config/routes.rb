@@ -12,7 +12,7 @@ Rails.application.routes.draw do
           delete 'signout', to: 'sessions#destroy'
         end
       end
-      resources :users, only: %i[create update destroy] do
+      resources :users, only: %i[index create update destroy] do
         member do
           delete :purge_avatar
         end
@@ -31,6 +31,12 @@ Rails.application.routes.draw do
           get '/recordingsReSync', to: 'recordings#recordings'
         end
       end
+      resources :shared_accesses, only: %i[create show destroy], path: '/shared_accesses/room', param: :friendly_id do
+          member do
+            get '/shareable_users', to: 'shared_accesses#shareable_users'
+          end
+      end
+      resources :recordings, only: [:index]
     end
   end
   match '*path', to: 'components#index', via: :all, constraints: lambda { |req|
