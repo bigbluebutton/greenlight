@@ -8,11 +8,12 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import PropTypes from 'prop-types';
 import useDeleteSharedAccess from '../../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
 import RoomContext from '../../../contexts/roomContext';
+import { useParams } from 'react-router-dom';
 
 export default function DeleteSharedAccessForm({ userId }) {
   const { register, handleSubmit } = useForm();
-  const room = useContext(RoomContext);
-  const { onSubmit } = useDeleteSharedAccess(room.id);
+  const { friendlyId } = useParams();
+  const { onSubmit } = useDeleteSharedAccess(friendlyId);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="float-end pe-2">

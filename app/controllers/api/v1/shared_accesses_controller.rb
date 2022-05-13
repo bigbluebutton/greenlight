@@ -71,7 +71,7 @@ module Api
       private
 
       def find_room
-        @room = Room.find(params[:room_id])
+        @room = Room.find_by(friendly_id: params[:friendly_id])
       end
     end
   end

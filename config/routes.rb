@@ -25,9 +25,9 @@ Rails.application.routes.draw do
           get '/status', to: 'rooms#status'
         end
       end
-      resources :shared_accesses, only: %i[create destroy], path: '/shared_accesses/room', param: :room_id do
+      resources :shared_accesses, only: %i[create destroy], path: '/shared_accesses/room', param: :friendly_id do
           member do
-            # post :create
+            post :create
             get '/shared_users', to: 'shared_accesses#shared_users'
             get '/shareable_users', to: 'shared_accesses#shareable_users'
           end

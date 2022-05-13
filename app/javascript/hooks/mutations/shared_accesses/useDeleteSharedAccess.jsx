@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
-export default function useDeleteSharedAccess(roomId) {
+export default function useDeleteSharedAccess(friendlyId) {
   const queryClient = useQueryClient();
 
   const deleteSharedAccess = (data) => {
-    axios.delete(`/api/v1/shared_accesses/room/${roomId}.json`, { data });
+    axios.delete(`/api/v1/shared_accesses/room/${friendlyId}.json`, { data });
   };
 
   const delay = (time) => new Promise((resolve) => {

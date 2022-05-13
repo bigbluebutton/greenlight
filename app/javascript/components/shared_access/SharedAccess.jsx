@@ -10,7 +10,7 @@ export default function SharedAccess() {
   const { friendlyId } = useParams();
   // TODO: samuel - roomContext could/should be used higher up the tree (in Rooms/Room)
   const { data: room } = useRoom(friendlyId);
-  const { data: users } = useSharedUsers(room.id);
+  const { data: users } = useSharedUsers(friendlyId);
 
   return (
     <RoomProvider value={room}>
