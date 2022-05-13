@@ -6,7 +6,7 @@ module Api
       skip_before_action :verify_authenticity_token
       before_action :find_room
 
-      # POST /api/v1/shared_accesses/room_id
+      # POST /api/v1/shared_accesses/room/friendly_id.json
       def create
         users = User.where(id: params[:users])
 
@@ -17,7 +17,7 @@ module Api
         render_json status: :ok
       end
 
-      # DELETE /api/v1/shared_accesses/room_id
+      # DELETE /api/v1/shared_accesses/room/friendly_id
       def destroy
         user = User.find_by(id: params[:user_id])
 
@@ -26,7 +26,7 @@ module Api
         render_json status: :ok
       end
 
-      # GET /api/v1/shared_accesses/room_id/shared_users.json
+      # GET /api/v1/shared_accesses/room/friendly_id/shared_users.json
       def shared_users
         shared_users = []
 
@@ -47,7 +47,7 @@ module Api
         render_json data: shared_users, status: :ok
       end
 
-      # GET /api/v1/shared_accesses/room_id/shareable_users.json
+      # GET /api/v1/shared_accesses/room/friendly_id/shareable_users.json
       def shareable_users
         shareable_users = []
 
