@@ -11,7 +11,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
     it 'shares a room with a user' do
       room = create(:room)
       user = create(:user)
-      post :create, params: { room_id: room.id, users: [user.id] }
+      post :create, params: { friendly_id: room.friendly_id, room_id: room.id, users: [user.id] }
       expect(user.shared_rooms).to include(room)
     end
 
@@ -19,14 +19,14 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
       room = create(:room)
       user = create(:user)
       random_user = create(:user)
-      post :create, params: { room_id: room.id, users: [random_user.id] }
+      post :create, params: { friendly_id: room.friendly_id, room_id: room.id, users: [random_user.id] }
       expect(user.shared_rooms).not_to include(room)
     end
 
     it "cannot share the room to the room's owner" do
       user = create(:user)
       room = create(:room, user:)
-      post :create, params: { room_id: room.id, users: [user.id] }
+      post :create, params: { friendly_id: room.friendly_id, room_id: room.id, users: [user.id] }
       expect(user.shared_rooms).not_to include(room)
     end
   end
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
       room = create(:room)
       user = create(:user)
       create(:shared_access, user_id: user.id, room_id: room.id)
-      delete :destroy, params: { room_id: room.id, user_id: user.id }
+      delete :destroy, params: { friendly_id: room.friendly_id, room_id: room.id, user_id: user.id }
       expect(user.shared_rooms).not_to include(room)
     end
 
@@ -46,7 +46,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
       random_user = create(:user)
       create(:shared_access, user_id: user.id, room_id: room.id)
       create(:shared_access, user_id: random_user.id, room_id: room.id)
-      delete :destroy, params: { room_id: room.id, user_id: random_user.id }
+      delete :destroy, params: { friendly_id: room.friendly_id, room_id: room.id, user_id: random_user.id }
       expect(user.shared_rooms).to include(room)
     end
   end
@@ -62,7 +62,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
         shared_users << user
       end
 
-      get :shared_users, params: { room_id: room.id }
+      get :shared_users, params: { friendly_id: room.friendly_id }
       shared_user_response = JSON.parse(response.body)['data'].map { |user| user['id'] }
       expect(shared_user_response).to eql(shared_users.pluck(:id))
     end
@@ -82,7 +82,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
         shareable_users << user
       end
 
-      get :shareable_users, params: { room_id: room.id }
+      get :shareable_users, params: { friendly_id: room.friendly_id }
       shareable_user_response = JSON.parse(response.body)['data'].map { |user| user['id'] }
       expect(shareable_user_response).to eql(shareable_users.pluck(:id))
     end
