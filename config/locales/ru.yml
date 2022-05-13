@@ -25,11 +25,18 @@ ru:
         name: Имя
         password: Пароль
         password_confirmation: Подтверждение пароля
+        old_password: Старый пароль
     errors:
       models:
         user:
-          password: не соответствует требованиям сложности
-          confirmation: не совпадает с паролем
+          confirmation: не совпадает
+          attributes:
+            email:
+              invalid: некорректный формат email
+            password:
+              invalid: не соответствует требованиям сложности 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -489,6 +496,13 @@ ru:
   password_empty_notice: Пароль не может быть пустым.
   password_reset_success: Пароль успешно сброшен.
   password_different_notice: Подтверждение пароля не совпадает.
+  old_password_incorrect: некорректен
+  password_complexity:
+    minimum_len: Не менее 8 символов
+    one_lower_case: Не менее 1 строчного символа
+    one_upper_case: Не менее 1 заглавного символа
+    one_digit: Не менее 1  цифры
+    one_sym: Не менее 1 специального символа
   provider:
     google: Google
     office365: Office 365
