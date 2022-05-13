@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Button, Col, Form, Row, Stack,
 } from 'react-bootstrap';
