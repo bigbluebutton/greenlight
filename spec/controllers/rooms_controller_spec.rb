@@ -111,4 +111,32 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(recording_ids).to be_empty
     end
   end
+
+  describe '#join' do
+    it 'calls the BigBlueButton service with the right values' do
+      room = create(:room, user:)
+
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name)
+      get :join, params: { friendly_id: room.friendly_id, name: user.name }
+    end
+  end
+
+  describe '#status' do
+    it 'calls the BigBlueButton service with the right values' do
+      room = create(:room, user:)
+
+      expect_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).with(room:)
+
+      get :status, params: { friendly_id: room.friendly_id, name: user.name }
+    end
+
+    it 'gets the joinUrl if the meeting is running' do
+      room = create(:room, user:)
+
+      allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name)
+
+      get :status, params: { friendly_id: room.friendly_id, name: user.name }
+    end
+  end
 end

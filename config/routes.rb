@@ -21,6 +21,8 @@ Rails.application.routes.draw do
         member do
           post '/start', to: 'rooms#start', as: :start_meeting
           get '/recordings', to: 'rooms#recordings'
+          get '/join', to: 'rooms#join'
+          get '/status', to: 'rooms#status'
         end
       end
       resources :recordings, only: [:index]
