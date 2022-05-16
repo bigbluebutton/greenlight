@@ -15,7 +15,7 @@ export default function RoomRecordings() {
   return (
     <div className="pt-3 wide-background full-height-room">
       <Row>
-        <Card>
+        <Card className="border-0 shadow-sm">
           <Table hover className="text-secondary mb-0">
             <thead>
               <tr>
