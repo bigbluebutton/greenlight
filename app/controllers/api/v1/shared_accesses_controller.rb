@@ -17,7 +17,7 @@ module Api
         render_json status: :ok
       end
 
-      # DELETE /api/v1/shared_accesses/room/friendly_id
+      # DELETE /api/v1/shared_accesses/room/friendly_id.json
       def destroy
         user = User.find_by(id: params[:user_id])
 
@@ -31,7 +31,7 @@ module Api
         shared_users = []
 
         # User is added to the shared_user list if the room is shared to the user and it is not already included in shared_user
-        User.joins(:shared_rooms).each do |user|
+        User.all.each do |user|
           shared_users << user if user.room_shared?(@room) && shared_users.exclude?(user)
         end
 
