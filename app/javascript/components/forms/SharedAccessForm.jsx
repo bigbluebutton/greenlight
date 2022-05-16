@@ -6,24 +6,23 @@ import {
 } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
-import useShareAccess from '../../../hooks/mutations/shared_accesses/useShareAccess';
-import Avatar from '../../users/Avatar';
-import SearchBar from '../../shared/SearchBar';
-import useShareableUsers from '../../../hooks/queries/shared_accesses/useShareableUsers';
-import RoomContext from '../../../contexts/roomContext';
+import { useParams } from 'react-router-dom';
+import useShareAccess from '../../hooks/mutations/shared_accesses/useShareAccess';
+import Avatar from '../users/Avatar';
+import SearchBar from '../shared/SearchBar';
+import useShareableUsers from '../../hooks/queries/shared_accesses/useShareableUsers';
 
 export default function SharedAccessForm({ handleClose }) {
   const { register, handleSubmit } = useForm();
-  const room = useContext(RoomContext);
-  const { onSubmit } = useShareAccess({ roomId: room.id, closeModal: handleClose });
-  const { data: users } = useShareableUsers(room.id);
+  const { friendlyId } = useParams();
+  const { onSubmit } = useShareAccess({ friendlyId, closeModal: handleClose });
+  const { data: users } = useShareableUsers(friendlyId);
   const [search, setSearch] = useState('');
 
   return (
     <>
       <SearchBar id="shared-users-modal-search" setSearch={setSearch} />
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <input value={room.id} type="hidden" {...register('room_id')} />
         <Row className="border-bottom pt-3 pb-2">
           <Col>
             <span className="text-muted small"> Name </span>
@@ -60,7 +59,7 @@ export default function SharedAccessForm({ handleClose }) {
           ))
         }
         <Stack className="mt-3" direction="horizontal" gap={1}>
-          <Button variant="primary-reverse" className="ms-auto" onClick={handleClose}>
+          <Button variant="primary-light" className="ms-auto" onClick={handleClose}>
             Close
           </Button>
           <Button variant="primary" type="submit">

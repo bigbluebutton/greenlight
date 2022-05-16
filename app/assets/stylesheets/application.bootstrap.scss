@@ -21,7 +21,7 @@ body {
   height: 100%;
 }
 
-.btn-primary-reverse {
+.btn-primary-light {
   border: 2px solid gainsboro !important;
   color: $primary;
   background-color: white;
@@ -45,11 +45,6 @@ body {
   &:focus {
     box-shadow: none;
   }
-}
-
-.modal-content {
-  border: 0;
-  box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%) !important;
 }
 
 //TODO: samuel - need to confirm for Browsers compatibility (maybe Scope this a bit more?)
