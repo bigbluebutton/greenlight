@@ -2,13 +2,13 @@ import React from 'react';
 import { Row, Tabs, Tab } from 'react-bootstrap';
 import RoomRecordings from '../recordings/RoomRecordings';
 import Presentation from './Presentation';
-import SharedAccess from '../shared_access/SharedAccess';
+import SharedAccess from './SharedAccess';
 import RoomSettings from './RoomSettings';
 
 export default function FeatureTabs() {
   return (
     <Row className="pt-5">
-      <Tabs defaultActiveKey="recordings">
+      <Tabs defaultActiveKey="settings">
         <Tab eventKey="recordings" title="Recordings">
           <RoomRecordings />
         </Tab>
