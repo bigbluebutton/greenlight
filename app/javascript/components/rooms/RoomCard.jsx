@@ -15,7 +15,7 @@ export default function RoomCard(props) {
   const { handleStartMeeting, isLoading: startMeetingIsLoading } = useStartMeeting(friendlyId);
 
   return (
-    <Card className="rooms-card" style={{ height: '19rem', overflow: 'hidden' }} border="light">
+    <Card className="rooms-card shadow-sm" style={{ height: '19rem', overflow: 'hidden' }} border="light">
       <Card.Body style={{ maxHeight: '12rem', overflow: 'auto' }} className="room-card-top pb-0" onClick={handleClick}>
         <FontAwesomeIcon icon={faChalkboardUser} size="3x" className="mb-4" />
         <Card.Title> {name} </Card.Title>

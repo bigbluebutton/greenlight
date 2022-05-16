@@ -13,7 +13,7 @@ export default function RoomSettings() {
 
   return (
     <Row className="wide-background full-height-room">
-      <Card className="mx-auto my-5 p-4 border-0 shadow-sm">
+      <Card className="mx-auto my-3 p-4 border-0 shadow-sm">
         <div className="mt-4">
           <Row>
             <Col className="border-end border-2">

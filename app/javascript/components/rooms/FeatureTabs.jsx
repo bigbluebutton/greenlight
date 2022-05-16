@@ -8,7 +8,7 @@ import RoomSettings from './RoomSettings';
 export default function FeatureTabs() {
   return (
     <Row className="pt-5">
-      <Tabs defaultActiveKey="settings">
+      <Tabs defaultActiveKey="recordings">
         <Tab eventKey="recordings" title="Recordings">
           <RoomRecordings />
         </Tab>
