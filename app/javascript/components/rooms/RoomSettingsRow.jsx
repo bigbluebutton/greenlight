@@ -1,9 +1,10 @@
 import React from 'react';
-import useUpdateRoomSetting from "../../hooks/mutations/room_settings/useUpdateRoomSetting";
-import {useParams} from "react-router-dom";
+import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import useUpdateRoomSetting from '../../hooks/mutations/room_settings/useUpdateRoomSetting';
 
 export default function RoomSettingsRow(props) {
-  const { settingId, value, description } = props
+  const { settingId, value, description } = props;
   const { friendlyId } = useParams();
   const { handleUpdateRoomSetting } = useUpdateRoomSetting(friendlyId);
 
@@ -26,3 +27,9 @@ export default function RoomSettingsRow(props) {
     </span>
   );
 }
+
+RoomSettingsRow.propTypes = {
+  settingId: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
+  description: PropTypes.string.isRequired,
+};

@@ -8,12 +8,12 @@ module Api
 
       def show
         options = MeetingOption
-          .includes(:room_meeting_options)
-          .joins(:room_meeting_options)
-          .where(room_meeting_options: {room_id: @room.id } )
-          .select(:name, :value)
+                  .includes(:room_meeting_options)
+                  .joins(:room_meeting_options)
+                  .where(room_meeting_options: { room_id: @room.id })
+                  .select(:name, :value)
 
-        render_json(data: options,status: :ok)
+        render_json(data: options, status: :ok)
       end
 
       def update
