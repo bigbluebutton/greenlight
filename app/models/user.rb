@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   MAX_AVATAR_SIZE = 3_000_000
 
   has_secure_password
@@ -35,6 +37,13 @@ class User < ApplicationRecord
     return false if room_owner?(room) || room_shared?(room)
 
     true
+  end
+
+  def user_avatar
+    return rails_blob_path(avatar) if avatar.attached?
+
+    # TODO: samuel - Dirty implementation, the asset url is usually generated via a view helper (image_tag)
+    ActionController::Base.helpers.image_url('default-avatar.png')
   end
 
   private

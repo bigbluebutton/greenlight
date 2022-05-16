@@ -40,7 +40,7 @@ module Api
             id: user.id,
             name: user.name,
             email: user.email,
-            avatar: user_avatar(user)
+            avatar: user.user_avatar
           }
         end
 
@@ -61,7 +61,7 @@ module Api
             id: user.id,
             name: user.name,
             email: user.email,
-            avatar: user_avatar(user)
+            avatar: user.user_avatar
           }
         end
 
