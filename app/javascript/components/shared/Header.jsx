@@ -25,7 +25,7 @@ export default function Header() {
         </Navbar.Brand>
 
         <div className="d-inline-flex">
-          <Avatar radius={40} />
+          <Avatar avatar={currentUser?.avatar} radius={40} />
           <NavDropdown title={currentUser?.name} id="basic-nav-dropdown">
             <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
             <NavDropdown.Item as={Link} to="/">Need help?</NavDropdown.Item>

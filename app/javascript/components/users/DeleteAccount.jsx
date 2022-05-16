@@ -15,8 +15,7 @@ export default function DeleteAccount() {
       <Modal
         modalButton={<Button variant="danger">Yes, I would like to delete my account</Button>}
         title="Are you sure?"
-        body="Are you sure you want to delete your account? This action is irreversible."
-        footer={<DeleteUserForm />}
+        body={<DeleteUserForm />}
       />
     </div>
   );

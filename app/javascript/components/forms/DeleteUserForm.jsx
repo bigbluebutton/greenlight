@@ -16,17 +16,20 @@ export default function DeleteUserForm({ handleClose }) {
   const { onSubmit } = useDeleteUser(currentUser?.id);
 
   return (
-    <Form methods={methods} onSubmit={onSubmit}>
-      <Stack direction="horizontal" gap={1}>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="danger" type="submit" disabled={isSubmitting}>
-          Delete
-          { isSubmitting && <Spinner /> }
-        </Button>
-      </Stack>
-    </Form>
+    <>
+      <p className="text-center"> Are you sure you want to delete your account?</p>
+      <Form methods={methods} onSubmit={onSubmit}>
+        <Stack direction="horizontal" gap={1} className="float-end">
+          <Button variant="primary-reverse" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="danger" type="submit" disabled={isSubmitting}>
+            Delete
+            { isSubmitting && <Spinner /> }
+          </Button>
+        </Stack>
+      </Form>
+    </>
   );
 }
 
