@@ -35,11 +35,6 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
-  def user_avatar(user)
-    default_avatar = ActionController::Base.helpers.image_path('default-avatar.png')
-    user.avatar.attached? ? url_for(user.avatar) : default_avatar
-  end
-
   def render_json(data: {}, errors: [], status: :ok, include: nil)
     render json: {
       data:,

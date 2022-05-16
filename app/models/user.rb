@@ -18,6 +18,13 @@ class User < ApplicationRecord
   # TODO: samuel - ActiveStorage validations needs to be discussed and implemented.
   validate :avatar_validation
 
+  def user_avatar
+    return rails_blob_path(avatar) if avatar.attached?
+
+    # TODO: samuel - Dirty implementation, the asset url is usually generated via a view helper (image_tag)
+    ActionController::Base.helpers.image_url('default-avatar.png')
+  end
+
   private
 
   def avatar_validation
