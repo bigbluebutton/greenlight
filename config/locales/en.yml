@@ -91,7 +91,7 @@ en:
         fatal: Fatal
         unknown: Unknown
       recording_visibility:
-        info: Set the default recording visbility for new recordings
+        info: Set the default recording visibility for new recordings
         title: Recording Default Visibility
         warning: This setting will only be applied to rooms that aren't running
       require_consent:
@@ -238,14 +238,14 @@ en:
   cookies:
     cookie_info: Cookies help us deliver our services. By using our services, you agree to our use of cookies.
     cookie_button: I Agree
-    policy: For more infomation, see our <a href="%{privacy_link}"><u>privacy policy</u></a>.
+    policy: For more information, see our <a href="%{privacy_link}"><u>privacy policy</u></a>.
   copied: Copied
   copy: Copy
   date:
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
   default_admin: You are still using the default password for this account. Please click <a href="%{edit_link}">here</a> to change it
   delete: Delete
-  delivery_error: An error occured during email delivery. Please contact an administrator!
+  delivery_error: An error occurred during email delivery. Please contact an administrator!
   docs: Documentation
   email: Email
   email_sent: Your %{email_type} email has been sent! (Please check your Spam folder if you haven't received it)
@@ -424,7 +424,7 @@ en:
       confirm: Are you sure you want to delete this account?
       delete: I'm sure, delete this account.
       keep: Actually, I'll keep it.
-      delete_warning: This will deactivate the user's account. All deactived users can be found under the deleted tab.
+      delete_warning: This will deactivate the user's account. All deactivated users can be found under the deleted tab.
       warning: This decision is final. You will <b>not</b> be able to recover associated data.
     delete_rec:
       delete: I'm sure, delete this recording.
@@ -483,11 +483,11 @@ en:
       title: Merge User Accounts
       to: Primary Account
       save: Merge
-      footer: The rooms of the account to be merged will be transfered over to the Primary Account's room list and then the account will be deleted.
+      footer: The rooms of the account to be merged will be transferred over to the Primary Account's room list and then the account will be deleted.
   name_update_success: Room name successfully changed!
   no_user_email_exists: There is no existing user with the email specified. Please make sure you typed it correctly.
-  omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!
-  omniauth_specific_error: "%{error} occured while authenticating with omniauth. Please try again or contact an administrator!"
+  omniauth_error: An error occurred while authenticating with omniauth. Please try again or contact an administrator!
+  omniauth_specific_error: "%{error} occurred while authenticating with omniauth. Please try again or contact an administrator!"
   pagy:
     nav:
       prev: "&lsaquo; Prev"
@@ -543,7 +543,7 @@ en:
       video: Video
   registration:
     approval:
-      fail: Your account has not been approved yet. If multiples days have passed since you signed up, please contact your administrator.
+      fail: Your account has not been approved yet. If multiple days have passed since you signed up, please contact your administrator.
       signup: Your account was successfully created. It has been sent to an administrator for approval.
     banned:
       fail: You do not have access to this application. If you believe this is a mistake, please contact your administrator.
