@@ -1,17 +1,23 @@
 import React from 'react';
-import { Table, Card, Row } from 'react-bootstrap';
+import {
+  Table, Card, Row, Button,
+} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import Spinner from '../shared/stylings/Spinner';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
+import useRecordingsReSync from '../../hooks/queries/recordings/useRecordingsReSync';
 
 export default function Recordings() {
   const { isLoading, data: recordings } = useRecordings();
+  const { refetch: handleRecordingReSync } = useRecordingsReSync();
+
   if (isLoading) return <Spinner />;
 
   return (
     <div className="pt-3 wide-background full-height-rooms">
       <Row>
+        <Button className="my-2" onClick={handleRecordingReSync}>Re-sync Recordings</Button>
         <Card className="border-0 shadow-sm">
           <Table hover className="text-secondary mb-0">
             <thead>
