@@ -4,8 +4,9 @@ import axios from 'axios';
 export default function useShareAccess({ friendlyId, closeModal }) {
   const queryClient = useQueryClient();
 
-  const shareAccess = (sharedAccessUsers) => {
-    axios.post(`/api/v1/shared_accesses/room/${friendlyId}.json`, sharedAccessUsers);
+  const shareAccess = (users) => {
+    const data = { friendly_id: friendlyId, users };
+    axios.post('/api/v1/shared_accesses/room.json', data);
   };
 
   const delay = (time) => new Promise((resolve) => {

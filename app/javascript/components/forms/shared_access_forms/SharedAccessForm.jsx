@@ -46,7 +46,7 @@ export default function SharedAccessForm({ handleClose }) {
                     value={user.id}
                     aria-label="tbd"
                     className="pe-3"
-                    {...register('users')}
+                    {...register('shared_users')}
                   />
                   <Avatar avatar={user.avatar} radius={40} />
                   <h6 className="text-primary mb-0 ps-3"> { user.name } </h6>
