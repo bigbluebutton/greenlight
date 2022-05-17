@@ -40,6 +40,11 @@ export default function RoomSettings() {
                 value={checkedValue('muteOnStart')}
                 description="Automatically mute users when they join"
               />
+              <RoomSettingsRow
+                settingId="glAnyoneCanStart"
+                value={checkedValue('glAnyoneCanStart')}
+                description="Allow any user to start this room"
+              />
             </Col>
           </Row>
           <Row className="float-end">
