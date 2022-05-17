@@ -6,6 +6,6 @@ module Avatarable
   def user_avatar(user)
     return url_for(user.avatar) if user.avatar.attached?
 
-    ActionController::Base.helpers.image_url('default-avatar.png')
+    view_context.image_url('default-avatar.png')
   end
 end
