@@ -28,4 +28,16 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       expect(response_recording_ids).to be_empty
     end
   end
+
+  describe '#recordings' do
+    it 'calls the RecordingsSync service correctly' do
+      expect_any_instance_of(RecordingsSync).to receive(:call)
+      get :recordings
+    end
+
+    it 'calls the RecordingsSync service with correct params' do
+      expect(RecordingsSync).to receive(:new).with(user:)
+      get :recordings
+    end
+  end
 end
