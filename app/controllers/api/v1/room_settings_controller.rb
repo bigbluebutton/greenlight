@@ -4,7 +4,16 @@ module Api
   module V1
     class RoomSettingsController < ApplicationController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
-      before_action :find_room, only: %i[update]
+      before_action :find_room, only: %i[show update]
+
+      def show
+        options = MeetingOption
+                  .joins(:room_meeting_options)
+                  .where(room_meeting_options: { room_id: @room.id })
+                  .select(:name, :value)
+
+        render_json(data: options, status: :ok)
+      end
 
       def update
         RoomMeetingOption
