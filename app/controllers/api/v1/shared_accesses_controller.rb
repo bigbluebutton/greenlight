@@ -8,7 +8,7 @@ module Api
 
       # POST /api/v1/shared_accesses/room/friendly_id.json
       def create
-        users = User.where(id: params[:users])
+        users = User.where(id: params[:users][:shared_users])
 
         users.each do |user|
           SharedAccess.find_or_create_by!(user_id: user.id, room_id: @room.id) if user.room_shareable?(@room)
