@@ -45,6 +45,11 @@ export default function RoomSettings() {
                 value={checkedValue('glAnyoneCanStart')}
                 description="Allow any user to start this room"
               />
+              <RoomSettingsRow
+                settingId="record"
+                value={checkedValue('record')}
+                description="Allow room to be recorded"
+              />
             </Col>
           </Row>
           <Row className="float-end">
