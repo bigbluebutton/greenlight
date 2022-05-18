@@ -41,6 +41,11 @@ export default function RoomSettings() {
                 description="Automatically mute users when they join"
               />
               <RoomSettingsRow
+                settingId="glAnyoneCanStart"
+                value={checkedValue('glAnyoneCanStart')}
+                description="Allow any user to start this room"
+              />
+              <RoomSettingsRow
                 settingId="record"
                 value={checkedValue('record')}
                 description="Allow room to be recorded"
