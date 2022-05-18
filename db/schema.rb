@@ -42,6 +42,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_192018) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "formats", force: :cascade do |t|
     t.bigint "recording_id"
     t.string "recording_type", null: false
@@ -102,15 +105,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_192018) do
     t.index ["room_id"], name: "index_shared_accesses_on_room_id"
     t.index ["user_id", "room_id"], name: "index_shared_accesses_on_user_id_and_room_id", unique: true
     t.index ["user_id"], name: "index_shared_accesses_on_user_id"
-  end
-
-  create_table "user_rooms", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "room_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["room_id"], name: "index_user_rooms_on_room_id"
-    t.index ["user_id"], name: "index_user_rooms_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

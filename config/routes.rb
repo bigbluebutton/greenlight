@@ -31,7 +31,7 @@ Rails.application.routes.draw do
           get '/recordingsReSync', to: 'recordings#recordings'
         end
       end
-      resources :shared_accesses, only: %i[create show destroy], path: '/shared_accesses/room', param: :friendly_id do
+      resources :shared_accesses, only: %i[create show destroy], param: :friendly_id do
         member do
           get '/shareable_users', to: 'shared_accesses#shareable_users'
         end

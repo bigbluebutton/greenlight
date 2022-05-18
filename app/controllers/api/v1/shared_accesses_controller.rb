@@ -6,62 +6,54 @@ module Api
       skip_before_action :verify_authenticity_token
       before_action :find_room
 
-      # POST /api/v1/shared_accesses/room/friendly_id.json
+      include Avatarable
+
+      # POST /api/v1/shared_accesses.json
       def create
-        users = User.where(id: params[:users])
+        user_ids = params[:users][:shared_users]
 
-        users.each do |user|
-          SharedAccess.find_or_create_by!(user_id: user.id, room_id: @room.id) if user.room_shareable?(@room)
-        end
+        shared_accesses = user_ids.map { |user_id| { user_id:, room_id: @room.id } }
+
+        SharedAccess.create(shared_accesses)
 
         render_json status: :ok
       end
 
-      # DELETE /api/v1/shared_accesses/room/friendly_id.json
+      # DELETE /api/v1/shared_accesses/friendly_id.json
       def destroy
-        user = User.find_by(id: params[:user_id])
-
-        SharedAccess.find_by!(user_id: user.id, room_id: @room.id).delete
+        SharedAccess.delete_by(user_id: params[:user_id], room_id: @room.id)
 
         render_json status: :ok
       end
 
-      # GET /api/v1/shared_accesses/room/friendly_id/shared_users.json
-      def shared_users
-        shared_users = []
-
-        # User is added to the shared_user list if the room is shared to the user and it is not already included in shared_user
-        User.all.each do |user|
-          shared_users << user if user.room_shared?(@room) && shared_users.exclude?(user)
-        end
+      # GET /api/v1/shared_accesses/friendly_id.json
+      def show
+        shared_users = @room.shared_users.to_a
 
         shared_users.map! do |user|
           {
             id: user.id,
             name: user.name,
             email: user.email,
-            avatar: user.user_avatar
+            avatar: user_avatar(user)
           }
         end
 
         render_json data: shared_users, status: :ok
       end
 
-      # GET /api/v1/shared_accesses/room/friendly_id/shareable_users.json
+      # GET /api/v1/shared_accesses/friendly_id/shareable_users.json
       def shareable_users
-        shareable_users = []
-
-        # User is added to the shareable_user list unless it's the room owner or the room is already shared to the user
-        User.all.each do |user|
-          shareable_users << user if user.room_shareable?(@room)
-        end
+        # Can't share the room if it's already shared or it's the room owner
+        unshareable_users = [@room.shared_users.pluck(:id) << @room.user_id]
+        shareable_users = User.where.not(id: unshareable_users).to_a
 
         shareable_users.map! do |user|
           {
             id: user.id,
             name: user.name,
             email: user.email,
-            avatar: user.user_avatar
+            avatar: user_avatar(user)
           }
         end
 
