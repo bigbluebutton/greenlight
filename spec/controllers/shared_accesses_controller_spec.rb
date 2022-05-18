@@ -11,16 +11,8 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
     it 'shares a room with a user' do
       room = create(:room)
       user = create(:user)
-      post :create, params: { friendly_id: room.friendly_id, room_id: room.id, users: [user.id] }
+      post :create, params: { friendly_id: room.friendly_id, room_id: room.id, users: { shared_users: [user.id] } }
       expect(user.shared_rooms).to include(room)
-    end
-
-    it "doesn't share a room with a user that it not selected" do
-      room = create(:room)
-      user = create(:user)
-      random_user = create(:user)
-      post :create, params: { friendly_id: room.friendly_id, room_id: room.id, users: [random_user.id] }
-      expect(user.shared_rooms).not_to include(room)
     end
 
     it "cannot share the room to the room's owner" do
@@ -55,16 +47,11 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
     it 'lists the users that the room has been shared to' do
       room = create(:room)
       users = create_list(:user, 10)
-      shared_users = []
+      room.shared_users = users
 
-      users[0..4].each do |user|
-        create(:shared_access, user_id: user.id, room_id: room.id)
-        shared_users << user
-      end
-
-      get :shared_users, params: { friendly_id: room.friendly_id }
+      get :show, params: { friendly_id: room.friendly_id }
       shared_user_response = JSON.parse(response.body)['data'].map { |user| user['id'] }
-      expect(shared_user_response).to eql(shared_users.pluck(:id))
+      expect(shared_user_response).to eql(room.shared_users.pluck(:id))
     end
   end
 

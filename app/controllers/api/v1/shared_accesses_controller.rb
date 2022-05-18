@@ -10,9 +10,7 @@ module Api
       def create
         users = User.where(id: params[:users][:shared_users])
 
-        users.each do |user|
-          SharedAccess.find_or_create_by!(user_id: user.id, room_id: @room.id) if user.room_shareable?(@room)
-        end
+        SharedAccess.create(users.map { |user| { user_id: user.id, room_id: @room.id } })
 
         render_json status: :ok
       end
@@ -21,18 +19,17 @@ module Api
       def destroy
         user = User.find_by(id: params[:user_id])
 
-        SharedAccess.find_by!(user_id: user.id, room_id: @room.id).delete
+        SharedAccess.delete_by(user_id: user.id, room_id: @room.id)
 
         render_json status: :ok
       end
 
-      # GET /api/v1/shared_accesses/room/friendly_id/shared_users.json
-      def shared_users
+      # GET /api/v1/shared_accesses/room/friendly_id.json
+      def show
         shared_users = []
 
-        # User is added to the shared_user list if the room is shared to the user and it is not already included in shared_user
-        User.all.each do |user|
-          shared_users << user if user.room_shared?(@room) && shared_users.exclude?(user)
+        @room.shared_users.each do |user|
+          shared_users << user
         end
 
         shared_users.map! do |user|
@@ -51,9 +48,8 @@ module Api
       def shareable_users
         shareable_users = []
 
-        # User is added to the shareable_user list unless it's the room owner or the room is already shared to the user
-        User.all.each do |user|
-          shareable_users << user if user.room_shareable?(@room)
+        User.where.not(id: [@room.shared_users.pluck(:id) << @room.user_id]).each do |user|
+          shareable_users << user
         end
 
         shareable_users.map! do |user|

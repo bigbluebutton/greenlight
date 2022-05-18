@@ -104,15 +104,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_192018) do
     t.index ["user_id"], name: "index_shared_accesses_on_user_id"
   end
 
-  create_table "user_rooms", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "room_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["room_id"], name: "index_user_rooms_on_room_id"
-    t.index ["user_id"], name: "index_user_rooms_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
