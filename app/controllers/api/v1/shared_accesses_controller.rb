@@ -6,6 +6,8 @@ module Api
       skip_before_action :verify_authenticity_token
       before_action :find_room
 
+      include Avatarable
+
       # POST /api/v1/shared_accesses/room/friendly_id.json
       def create
         users = User.where(id: params[:users][:shared_users])
@@ -26,18 +28,14 @@ module Api
 
       # GET /api/v1/shared_accesses/room/friendly_id.json
       def show
-        shared_users = []
-
-        @room.shared_users.each do |user|
-          shared_users << user
-        end
+        shared_users = @room.shared_users.to_a
 
         shared_users.map! do |user|
           {
             id: user.id,
             name: user.name,
             email: user.email,
-            avatar: user.user_avatar
+            avatar: user_avatar(user)
           }
         end
 
@@ -46,18 +44,14 @@ module Api
 
       # GET /api/v1/shared_accesses/room/friendly_id/shareable_users.json
       def shareable_users
-        shareable_users = []
-
-        User.where.not(id: [@room.shared_users.pluck(:id) << @room.user_id]).each do |user|
-          shareable_users << user
-        end
+        shareable_users = User.where.not(id: [@room.shared_users.pluck(:id) << @room.user_id]).to_a
 
         shareable_users.map! do |user|
           {
             id: user.id,
             name: user.name,
             email: user.email,
-            avatar: user.user_avatar
+            avatar: user_avatar(user)
           }
         end
 

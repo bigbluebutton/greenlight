@@ -17,7 +17,7 @@ module Api
               name: current_user.name,
               email: current_user.email,
               provider: current_user.provider,
-              avatar: current_user.user_avatar,
+              avatar: user_avatar(current_user),
               signed_in: true
             }
           }
