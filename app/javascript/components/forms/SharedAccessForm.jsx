@@ -11,13 +11,16 @@ import useShareAccess from '../../hooks/mutations/shared_accesses/useShareAccess
 import Avatar from '../users/Avatar';
 import SearchBar from '../shared/SearchBar';
 import useShareableUsers from '../../hooks/queries/shared_accesses/useShareableUsers';
+import Spinner from '../shared/stylings/Spinner';
 
 export default function SharedAccessForm({ handleClose }) {
   const { register, handleSubmit } = useForm();
   const { friendlyId } = useParams();
   const { onSubmit } = useShareAccess({ friendlyId, closeModal: handleClose });
-  const { data: users } = useShareableUsers(friendlyId);
+  const { isLoading, data: users } = useShareableUsers(friendlyId);
   const [search, setSearch] = useState('');
+
+  if (isLoading) return <Spinner />;
 
   return (
     <>

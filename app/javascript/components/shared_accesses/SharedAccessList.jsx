@@ -11,11 +11,14 @@ import SharedAccessForm from '../forms/SharedAccessForm';
 import Avatar from '../users/Avatar';
 import SearchBar from '../shared/SearchBar';
 import useDeleteSharedAccess from '../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
+import Spinner from '../shared/stylings/Spinner';
 
-export default function SharedAccessList({ users }) {
+export default function SharedAccessList({ users, isLoading }) {
   const [search, setSearch] = useState('');
   const { friendlyId } = useParams();
   const { handleDeleteSharedAccess } = useDeleteSharedAccess(friendlyId);
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div id="shared-access-list" className="wide-background full-height-room">
@@ -59,7 +62,6 @@ export default function SharedAccessList({ users }) {
                     <Button
                       variant="font-awesome"
                       className="float-end pe-2"
-                      type="submit"
                       onClick={() => handleDeleteSharedAccess({ user_id: user.id })}
                     >
                       <FontAwesomeIcon icon={faTrashAlt} />
@@ -82,4 +84,5 @@ SharedAccessList.propTypes = {
     avatar: PropTypes.string.isRequired,
     filter: PropTypes.func,
   })).isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
