@@ -18,7 +18,7 @@ export default function Recordings() {
     <div className="pt-3 wide-background full-height-rooms">
       <Row>
         <Button className="my-2" onClick={handleRecordingReSync}>Re-sync Recordings</Button>
-        <Card className="border-0 shadow-sm">
+        <Card className="border-0 shadow-sm p-0">
           <Table hover className="text-secondary mb-0">
             <thead>
               <tr>
