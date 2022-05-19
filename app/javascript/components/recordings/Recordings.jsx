@@ -3,14 +3,16 @@ import {
   Table, Card, Row, Button,
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faVideo, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import Spinner from '../shared/stylings/Spinner';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
 import useRecordingsReSync from '../../hooks/queries/recordings/useRecordingsReSync';
+import useDeleteRecording from '../../hooks/mutations/recordings/useDeleteRecording';
 
 export default function Recordings() {
   const { isLoading, data: recordings } = useRecordings();
   const { refetch: handleRecordingReSync } = useRecordingsReSync();
+  const { handleDeleteRecording } = useDeleteRecording();
 
   if (isLoading) return <Spinner />;
 
@@ -43,6 +45,9 @@ export default function Recordings() {
                     {recording.formats.map((format) => (
                       <div key={format.id}> {format.recording_type} </div>
                     ))}
+                  </td>
+                  <td>
+                    <FontAwesomeIcon className="" icon={faTrashCan} size="lg" onClick={() => handleDeleteRecording({ recordId: recording.id })} />
                   </td>
                 </tr>
               ))}

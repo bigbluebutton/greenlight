@@ -26,7 +26,7 @@ Rails.application.routes.draw do
         end
       end
       resources :room_settings, only: %i[show update], param: :friendly_id
-      resources :recordings, only: [:index] do
+      resources :recordings, only: %i[index destroy] do
         collection do
           get '/resync', to: 'recordings#resync'
         end

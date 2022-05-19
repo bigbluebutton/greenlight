@@ -14,6 +14,12 @@ module Api
         render_json(data: recordings, status: :ok, include: :formats)
       end
 
+      def destroy
+        Recording.destroy(params[:id])
+
+        render_json(status: :ok)
+      end
+
       def resync
         RecordingsSync.new(user: current_user).call
 
