@@ -26,50 +26,52 @@ export default function RoomSettings() {
   }
 
   return (
-    <Row className="wide-background full-height-room">
-      <Card className="mx-auto my-3 p-4 border-0 shadow-sm">
-        <div className="mt-4">
-          <Row>
-            <Col className="border-end border-2">
-              <p>Room Name</p>
-            </Col>
-            <Col>
-              <p>User Settings</p>
-              <RoomSettingsRow
-                settingId="muteOnStart"
-                value={checkedValue('muteOnStart')}
-                description="Automatically mute users when they join"
-              />
-              <RoomSettingsRow
-                settingId="record"
-                value={checkedValue('record')}
-                description="Allow room to be recorded"
-              />
-              <RoomSettingsRow
-                settingId="glAnyoneCanStart"
-                value={checkedValue('glAnyoneCanStart')}
-                description="Allow any user to start this room"
-              />
-              <RoomSettingsRow
-                settingId="glAnyoneJoinAsModerator"
-                value={checkedValue('glAnyoneJoinAsModerator')}
-                description="Allow any user to join as a moderator"
-              />
-              <RoomSettingsRow
-                settingId="guestPolicy"
-                value={checkedValue('guestPolicy')}
-                description="Require moderator approval before joining"
-              />
-            </Col>
-          </Row>
-          <Row className="float-end">
-            <Button id="delete-room" className="mt-1 mx-2 float-end" onClick={handleDeleteRoom}>
-              Delete Room
-              {deleteRoomIsLoading && <Spinner />}
-            </Button>
-          </Row>
-        </div>
-      </Card>
-    </Row>
+    <div className="wide-background full-height-room">
+      <Row>
+        <Card className="mx-auto mt-5 p-4 border-0 shadow-sm">
+          <div className="mt-4">
+            <Row>
+              <Col className="border-end border-2">
+                <h6 className="text-primary">Room Name</h6>
+              </Col>
+              <Col className="ps-4">
+                <h6 className="text-primary">User Settings</h6>
+                <RoomSettingsRow
+                  settingId="muteOnStart"
+                  value={checkedValue('muteOnStart')}
+                  description="Mute users when they join"
+                />
+                <RoomSettingsRow
+                  settingId="guestPolicy"
+                  value={checkedValue('guestPolicy')}
+                  description="Require moderator approval before joining"
+                />
+                <RoomSettingsRow
+                  settingId="glAnyoneCanStart"
+                  value={checkedValue('glAnyoneCanStart')}
+                  description="Allow any user to start this meeting"
+                />
+                <RoomSettingsRow
+                  settingId="glAnyoneJoinAsModerator"
+                  value={checkedValue('glAnyoneJoinAsModerator')}
+                  description="All users join as moderators"
+                />
+                <RoomSettingsRow
+                  settingId="record"
+                  value={checkedValue('record')}
+                  description="Allow room to be recorded"
+                />
+              </Col>
+            </Row>
+            <Row className="float-end">
+              <Button id="delete-room" className="mt-1 mx-2 float-end" onClick={handleDeleteRoom}>
+                Delete Room
+                {deleteRoomIsLoading && <Spinner />}
+              </Button>
+            </Row>
+          </div>
+        </Card>
+      </Row>
+    </div>
   );
 }
