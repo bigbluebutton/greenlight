@@ -25,6 +25,6 @@ export default function useDeleteSharedAccess(friendlyId) {
     },
   );
 
-  const onSubmit = (data) => mutation.mutateAsync(data).catch(/* Prevents the promise exception from bubbling */() => {});
-  return { onSubmit, ...mutation };
+  const handleDelete = (user) => mutation.mutateAsync(user).catch(/* Prevents the promise exception from bubbling */() => {});
+  return { handleDelete, ...mutation };
 }

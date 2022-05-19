@@ -3,14 +3,19 @@ import {
   Button, Card, Col, Row, Stack,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { useParams } from 'react-router-dom';
 import Modal from '../shared/Modal';
 import SharedAccessForm from '../forms/shared_access_forms/SharedAccessForm';
-import DeleteSharedAccessForm from '../forms/shared_access_forms/DeleteSharedAccessForm';
 import Avatar from '../users/Avatar';
 import SearchBar from '../shared/SearchBar';
+import useDeleteSharedAccess from '../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
 
 export default function SharedAccessList({ users }) {
   const [search, setSearch] = useState('');
+  const { friendlyId } = useParams();
+  const { handleDelete } = useDeleteSharedAccess(friendlyId);
 
   return (
     <div id="shared-access-list" className="wide-background full-height-room">
@@ -51,7 +56,14 @@ export default function SharedAccessList({ users }) {
                   </Col>
                   <Col className="my-auto">
                     <span className="text-muted"> {user.email} </span>
-                    <DeleteSharedAccessForm userId={user.id} />
+                    <Button
+                      variant="font-awesome"
+                      className="float-end pe-2"
+                      type="submit"
+                      onClick={() => handleDelete({ user_id: user.id })}
+                    >
+                      <FontAwesomeIcon icon={faTrashAlt} />
+                    </Button>
                   </Col>
                 </Row>
               ))
