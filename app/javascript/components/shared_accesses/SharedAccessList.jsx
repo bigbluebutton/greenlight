@@ -15,7 +15,7 @@ import useDeleteSharedAccess from '../../hooks/mutations/shared_accesses/useDele
 export default function SharedAccessList({ users }) {
   const [search, setSearch] = useState('');
   const { friendlyId } = useParams();
-  const { handleDelete } = useDeleteSharedAccess(friendlyId);
+  const { handleDeleteSharedAccess } = useDeleteSharedAccess(friendlyId);
 
   return (
     <div id="shared-access-list" className="wide-background full-height-room">
@@ -60,7 +60,7 @@ export default function SharedAccessList({ users }) {
                       variant="font-awesome"
                       className="float-end pe-2"
                       type="submit"
-                      onClick={() => handleDelete({ user_id: user.id })}
+                      onClick={() => handleDeleteSharedAccess({ user_id: user.id })}
                     >
                       <FontAwesomeIcon icon={faTrashAlt} />
                     </Button>

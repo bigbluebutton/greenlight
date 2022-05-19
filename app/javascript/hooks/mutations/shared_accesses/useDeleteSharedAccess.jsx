@@ -4,19 +4,12 @@ import axios from 'axios';
 export default function useDeleteSharedAccess(friendlyId) {
   const queryClient = useQueryClient();
 
-  const deleteSharedAccess = (data) => {
-    axios.delete(`/api/v1/shared_accesses/${friendlyId}.json`, { data });
-  };
-
-  const delay = (time) => new Promise((resolve) => {
-    setTimeout(resolve, time);
-  });
+  const deleteSharedAccess = (data) => axios.delete(`/api/v1/shared_accesses/${friendlyId}.json`, { data });
 
   const mutation = useMutation(
     deleteSharedAccess,
     {
-      onSuccess: async () => {
-        await delay(100);
+      onSuccess: () => {
         queryClient.invalidateQueries('getSharedUsers');
       },
       onError: (error) => {
@@ -25,6 +18,6 @@ export default function useDeleteSharedAccess(friendlyId) {
     },
   );
 
-  const handleDelete = (user) => mutation.mutateAsync(user).catch(/* Prevents the promise exception from bubbling */() => {});
-  return { handleDelete, ...mutation };
+  const handleDeleteSharedAccess = (user) => mutation.mutateAsync(user).catch(/* Prevents the promise exception from bubbling */() => {});
+  return { handleDeleteSharedAccess, ...mutation };
 }

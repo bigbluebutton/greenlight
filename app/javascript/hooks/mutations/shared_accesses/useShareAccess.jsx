@@ -4,19 +4,11 @@ import axios from 'axios';
 export default function useShareAccess({ friendlyId, closeModal }) {
   const queryClient = useQueryClient();
 
-  const shareAccess = (users) => {
-    const data = { friendly_id: friendlyId, users };
-    axios.post('/api/v1/shared_accesses.json', data);
-  };
-
-  const delay = (time) => new Promise((resolve) => {
-    setTimeout(resolve, time);
-  });
+  const shareAccess = (users) => axios.post('/api/v1/shared_accesses.json', { friendly_id: friendlyId, users });
 
   const mutation = useMutation(shareAccess, {
-    onSuccess: async () => {
+    onSuccess: () => {
       closeModal();
-      await delay(100);
       queryClient.invalidateQueries('getSharedUsers');
     },
     onError: (error) => {
