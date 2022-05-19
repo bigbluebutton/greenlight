@@ -55,6 +55,11 @@ export default function RoomSettings() {
                 value={checkedValue('glAnyoneJoinAsModerator')}
                 description="Allow any user to join as a moderator"
               />
+              <RoomSettingsRow
+                settingId="guestPolicy"
+                value={checkedValue('guestPolicy')}
+                description="Require moderator approval before joining"
+              />
             </Col>
           </Row>
           <Row className="float-end">
