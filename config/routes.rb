@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       resources :room_settings, only: %i[show update], param: :friendly_id
       resources :recordings, only: [:index] do
         collection do
-          get '/recordingsReSync', to: 'recordings#recordings'
+          get '/resync', to: 'recordings#resync'
         end
       end
     end

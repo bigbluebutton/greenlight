@@ -32,12 +32,12 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
   describe '#recordings' do
     it 'calls the RecordingsSync service correctly' do
       expect_any_instance_of(RecordingsSync).to receive(:call)
-      get :recordings
+      get :resync
     end
 
     it 'calls the RecordingsSync service with correct params' do
       expect(RecordingsSync).to receive(:new).with(user:)
-      get :recordings
+      get :resync
     end
   end
 end

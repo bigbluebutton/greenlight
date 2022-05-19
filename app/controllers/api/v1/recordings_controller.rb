@@ -14,7 +14,7 @@ module Api
         render_json(data: recordings, status: :ok, include: :formats)
       end
 
-      def recordings
+      def resync
         RecordingsSync.new(user: current_user).call
 
         render_json(status: :ok)
