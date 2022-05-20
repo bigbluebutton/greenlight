@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
-export default function useDeleteRecording() {
-  const deleteRecording = (recordingData) => axios.delete(`/api/v1/recordings/${recordingData.recordId}.json`);
+export default function useDeleteRecording(recordId) {
+  const deleteRecording = () => axios.delete(`/api/v1/recordings/${recordId}.json`);
   const queryClient = useQueryClient();
 
   const mutation = useMutation(deleteRecording, {
@@ -14,8 +14,8 @@ export default function useDeleteRecording() {
     },
   });
 
-  const handleDeleteRecording = (recordingData) => {
-    mutation.mutateAsync(recordingData).catch(/* Prevents the promise exception from bubbling */() => {});
+  const handleDeleteRecording = async () => {
+    await mutation.mutateAsync();
   };
 
   return { handleDeleteRecording, ...mutation };
