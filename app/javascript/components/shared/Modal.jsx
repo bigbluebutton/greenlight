@@ -16,7 +16,7 @@ export default function Modal({
   return (
     <>
       {ModalButton}
-      <BootstrapModal show={show} onHide={handleClose} centered>
+      <BootstrapModal show={show} onHide={handleClose} centered contentClassName="border-0 shadow-sm">
         <BootstrapModal.Header className="d-block mx-auto border-0 pb-0">
           <BootstrapModal.Title>{title}</BootstrapModal.Title>
         </BootstrapModal.Header>

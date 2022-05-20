@@ -43,7 +43,7 @@ export default function UpdateUserForm() {
 
       <Stack direction="horizontal" gap={2} className="float-end">
         <Button
-          variant="primary-reverse"
+          variant="primary-light"
           onClick={() => methods.reset({
             name: currentUser.name,
             email: currentUser.email,
