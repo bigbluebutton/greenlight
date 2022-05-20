@@ -29,6 +29,19 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
     end
   end
 
+  describe '#destroy' do
+    it 'deletes recording from the database' do
+      recording = create(:recording)
+      expect { delete :destroy, params: { id: recording.id } }.to change(Recording, :count).by(-1)
+    end
+
+    it 'deletes formats associated with the recording from the database' do
+      recording = create(:recording)
+      create_list(:format, 5, recording:)
+      expect { delete :destroy, params: { id: recording.id } }.to change(Format, :count).by(-5)
+    end
+  end
+
   describe '#recordings' do
     it 'calls the RecordingsSync service correctly' do
       expect_any_instance_of(RecordingsSync).to receive(:call)

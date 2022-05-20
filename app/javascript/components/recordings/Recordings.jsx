@@ -3,10 +3,12 @@ import {
   Table, Card, Row, Button,
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faVideo, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import Modal from '../shared/Modal';
 import Spinner from '../shared/stylings/Spinner';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
 import useRecordingsReSync from '../../hooks/queries/recordings/useRecordingsReSync';
+import DeleteRecordingForm from '../forms/DeleteRecordingForm';
 
 export default function Recordings() {
   const { isLoading, data: recordings } = useRecordings();
@@ -43,6 +45,13 @@ export default function Recordings() {
                     {recording.formats.map((format) => (
                       <div key={format.id}> {format.recording_type} </div>
                     ))}
+                  </td>
+                  <td>
+                    <Modal
+                      modalButton={<FontAwesomeIcon className="" icon={faTrashCan} size="lg" />}
+                      title="Are you sure?"
+                      body={<DeleteRecordingForm recordId={recording.id} />}
+                    />
                   </td>
                 </tr>
               ))}
