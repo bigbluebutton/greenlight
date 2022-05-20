@@ -31,6 +31,11 @@ Rails.application.routes.draw do
           get '/resync', to: 'recordings#resync'
         end
       end
+      resources :shared_accesses, only: %i[create show destroy], param: :friendly_id do
+        member do
+          get '/shareable_users', to: 'shared_accesses#shareable_users'
+        end
+      end
     end
   end
   match '*path', to: 'components#index', via: :all, constraints: lambda { |req|

@@ -5,6 +5,10 @@ class User < ApplicationRecord
 
   has_secure_password
   has_many :rooms, dependent: :destroy
+
+  has_many :shared_accesses, dependent: :destroy
+  has_many :shared_rooms, through: :shared_accesses, class_name: 'Room'
+
   has_many :recordings, through: :rooms
 
   has_one_attached :avatar
