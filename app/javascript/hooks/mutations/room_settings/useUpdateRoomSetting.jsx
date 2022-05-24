@@ -14,16 +14,16 @@ export default function useUpdateRoomSetting(friendlyId) {
     return roomSettingData;
   };
 
-  const patchRoomSetting = (roomSettingData) => axios.patch(`/room_settings/${friendlyId}.json`, rewriteRoomSettingData(roomSettingData));
+  const patchRoomSetting = (roomSettingData) => axios.patch(`/room_settings/${friendlyId}.json`, roomSettingData);
 
   const mutation = useMutation(patchRoomSetting, {
-    // Re-fetch the current_user and redirect to homepage if Mutation is successful.
     onSuccess: () => {
       queryClient.invalidateQueries('useRoom');
     },
     onError: (error) => {
       console.log('mutate error', error);
     },
+    onMutate: (roomSettingData) => rewriteRoomSettingData(roomSettingData),
   });
 
   const handleUpdateRoomSetting = (roomSettingData) => {
