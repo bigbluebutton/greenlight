@@ -18,7 +18,7 @@ export default function useUpdateRoomSetting(friendlyId) {
 
   const mutation = useMutation(patchRoomSetting, {
     onSuccess: () => {
-      queryClient.invalidateQueries('useRoom');
+      queryClient.invalidateQueries('getRoomSettings');
     },
     onError: (error) => {
       console.log('mutate error', error);
