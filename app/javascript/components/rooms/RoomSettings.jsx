@@ -17,9 +17,9 @@ export default function RoomSettings() {
   function checkedValue(settingId) {
     const { value } = settings.find((setting) => setting.name === settingId);
 
-    if (value === 'true') {
+    if (value === 'true' || value === 'ASK_MODERATOR') {
       return true;
-    } if (value === 'false') {
+    } if (value === 'false' || value === 'ALWAYS_ACCEPT') {
       return false;
     }
     return value;
