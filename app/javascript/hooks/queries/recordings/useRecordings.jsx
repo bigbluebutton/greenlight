@@ -1,11 +1,16 @@
 import { useQuery } from 'react-query';
-import axios, { ENDPOINTS } from '../../../helpers/Axios';
+import axios from 'axios';
 
-export default function useRecordings() {
-  return useQuery('getRecordings', () => axios.get(ENDPOINTS.recordings, {
+export default function useRecordings(input, setRecordings) {
+  return useQuery(['getRecordings', input], () => axios.get('/api/v1/recordings.json', {
+    params: {
+      search: input,
+    },
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
-  }).then((resp) => resp.data.data));
+  }).then((resp) => {
+    setRecordings(resp.data.data);
+  }));
 }

@@ -8,8 +8,9 @@ module Api
       # GET /api/v1/recordings.json
       # Returns: { data: Array[serializable objects(recordings)] , errors: Array[String] }
       # Does: Returns all the Recordings from all the current user's rooms
+
       def index
-        recordings = current_user.recordings&.includes(:formats)
+        recordings = current_user.recordings&.search(params[:search])
 
         render_json(data: recordings, status: :ok, include: :formats)
       end

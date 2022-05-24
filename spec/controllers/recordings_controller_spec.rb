@@ -27,6 +27,24 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
       expect(response_recording_ids).to be_empty
     end
+
+    it 'returns the proper recordings according to the query' do
+      course_name = Faker::Educator.course_name
+      course_recordings = []
+
+      recordings = create_list(:recording, 10) do |recording, i|
+        if i.even?
+          recording.name = course_name
+          course_recordings << recording
+        end
+      end
+
+      create(:room, user:, recordings:)
+
+      get :index, params: { search: course_name }
+      response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      expect(response_recording_ids).to eq(course_recordings.pluck(:id))
+    end
   end
 
   # TODO: - Uncomment once delete_recordings is no longer in destroy
