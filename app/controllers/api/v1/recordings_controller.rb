@@ -16,10 +16,9 @@ module Api
 
       def destroy
         # TODO: - Need to change this to work preferably with after_destroy in recordings model
-        record_id = Recording.find(params[:id]).record_id
-        BigBlueButtonApi.new.delete_recordings(record_ids: record_id)
+        BigBlueButtonApi.new.delete_recordings(record_ids: params[:id])
 
-        Recording.destroy(params[:id])
+        Recording.destroy_by(record_id: params[:id])
 
         render_json(status: :ok)
       end
