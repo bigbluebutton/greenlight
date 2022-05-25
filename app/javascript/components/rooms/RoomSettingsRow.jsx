@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import useUpdateRoomSetting from '../../hooks/mutations/room_settings/useUpdateRoomSetting';
 
 export default function RoomSettingsRow(props) {
-  const { settingId, value, description } = props;
+  const {
+    settingId, value, description,
+  } = props;
   const { friendlyId } = useParams();
   const { handleUpdateRoomSetting } = useUpdateRoomSetting(friendlyId);
 
