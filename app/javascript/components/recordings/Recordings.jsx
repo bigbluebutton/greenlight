@@ -50,7 +50,7 @@ export default function Recordings() {
                     <Modal
                       modalButton={<FontAwesomeIcon className="" icon={faTrashCan} size="lg" />}
                       title="Are you sure?"
-                      body={<DeleteRecordingForm recordId={recording.id} />}
+                      body={<DeleteRecordingForm recordId={recording.record_id} />}
                     />
                   </td>
                 </tr>
