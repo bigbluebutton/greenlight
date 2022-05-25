@@ -8,6 +8,7 @@ export default function useDeleteRecording(recordId) {
   const mutation = useMutation(deleteRecording, {
     onSuccess: () => {
       queryClient.invalidateQueries('getRecordings');
+      queryClient.invalidateQueries('getRoomRecordings');
     },
     onError: (error) => {
       console.log('mutate error', error);

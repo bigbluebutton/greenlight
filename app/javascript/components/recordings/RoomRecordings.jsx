@@ -2,9 +2,11 @@ import React from 'react';
 import { Table, Card, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faVideo, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import Modal from '../shared/Modal';
 import Spinner from '../shared/stylings/Spinner';
 import useRoomRecordings from '../../hooks/queries/recordings/useRoomRecordings';
+import DeleteRecordingForm from '../forms/DeleteRecordingForm';
 
 export default function RoomRecordings() {
   const { friendlyId } = useParams();
@@ -40,6 +42,13 @@ export default function RoomRecordings() {
                     {recording.formats.map((format) => (
                       <div key={format.id}> {format.recording_type} </div>
                     ))}
+                  </td>
+                  <td>
+                    <Modal
+                      modalButton={<FontAwesomeIcon className="" icon={faTrashCan} size="lg" />}
+                      title="Are you sure?"
+                      body={<DeleteRecordingForm recordId={recording.id} />}
+                    />
                   </td>
                 </tr>
               ))}
