@@ -31,7 +31,7 @@ export default function DeleteRecordingForm({ recordId, handleClose }) {
 
 DeleteRecordingForm.propTypes = {
   handleClose: PropTypes.func,
-  recordId: PropTypes.string,
+  recordId: PropTypes.number,
 };
 
 DeleteRecordingForm.defaultProps = {
