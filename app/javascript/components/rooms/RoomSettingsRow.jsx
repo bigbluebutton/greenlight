@@ -11,22 +11,22 @@ export default function RoomSettingsRow(props) {
   const { handleUpdateRoomSetting } = useUpdateRoomSetting(friendlyId);
 
   return (
-    <span className="text-muted">
-      <label className="form-check-label me-5" htmlFor={settingId}>
+    <div className="room-settings-row text-muted py-3 d-flex">
+      <label className="form-check-label me-auto" htmlFor={settingId}>
         { description }
-        <div className="form-switch d-inline-block ms-5">
-          <input
-            className="form-check-input text-primary"
-            type="checkbox"
-            id={settingId}
-            defaultChecked={value}
-            onClick={(event) => {
-              handleUpdateRoomSetting({ settingName: settingId, settingValue: event.target.checked });
-            }}
-          />
-        </div>
       </label>
-    </span>
+      <div className="form-switch">
+        <input
+          className="form-check-input text-primary fs-5"
+          type="checkbox"
+          id={settingId}
+          defaultChecked={value}
+          onClick={(event) => {
+            handleUpdateRoomSetting({ settingName: settingId, settingValue: event.target.checked });
+          }}
+        />
+      </div>
+    </div>
   );
 }
 
