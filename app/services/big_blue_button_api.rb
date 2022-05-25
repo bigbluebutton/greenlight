@@ -37,6 +37,11 @@ class BigBlueButtonApi
     bbb_server.get_recordings(meetingID: meeting_ids)
   end
 
+  # Delete the recording(s) with given record_ids
+  def delete_recordings(record_ids:)
+    bbb_server.delete_recordings(record_ids)
+  end
+
   private
 
   def bbb_endpoint
