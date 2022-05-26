@@ -11,6 +11,7 @@ gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'data_migrate'
 gem 'dotenv-rails'
+gem 'hcaptcha'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'pg'
