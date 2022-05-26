@@ -15,10 +15,10 @@ export default function Recordings() {
   const { refetch: handleRecordingReSync } = useRecordingsReSync();
 
   return (
-    <div className="pt-3 wide-background full-height-rooms">
-      <Stack direction="horizontal" className="w-100 mt-4">
+    <div className="wide-background full-height-rooms">
+      <Stack direction="horizontal" className="w-100 mt-5">
         <SearchBarQuery setInput={setInput} />
-        <Button className="my-2 ms-auto" onClick={handleRecordingReSync}>Re-sync Recordings</Button>
+        <Button className="ms-auto" onClick={handleRecordingReSync}>Re-sync Recordings</Button>
       </Stack>
       <Card className="border-0 shadow-sm p-0 mt-4">
         <RecordingsList recordings={recordings} />
