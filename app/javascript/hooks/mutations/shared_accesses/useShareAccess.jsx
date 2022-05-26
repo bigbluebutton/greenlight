@@ -4,7 +4,10 @@ import axios from 'axios';
 export default function useShareAccess({ friendlyId, closeModal }) {
   const queryClient = useQueryClient();
 
-  const shareAccess = (users) => axios.post('/api/v1/shared_accesses.json', { friendly_id: friendlyId, users });
+  const shareAccess = (data) => {
+    const sharedUsers = [...data.shared_users];
+    return axios.post('/api/v1/shared_accesses.json', { friendly_id: friendlyId, shared_users: sharedUsers });
+  };
 
   const mutation = useMutation(shareAccess, {
     onSuccess: () => {

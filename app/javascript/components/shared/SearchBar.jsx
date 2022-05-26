@@ -22,6 +22,6 @@ export default function SearchBar({ id, setSearch }) {
 }
 
 SearchBar.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   setSearch: PropTypes.func.isRequired,
 };
