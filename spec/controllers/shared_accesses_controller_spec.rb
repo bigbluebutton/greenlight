@@ -11,7 +11,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
     it 'shares a room with a user' do
       room = create(:room)
       user = create(:user)
-      post :create, params: { friendly_id: room.friendly_id, users: { shared_users: [user.id] } }
+      post :create, params: { friendly_id: room.friendly_id, shared_users: [user.id] }
       expect(user.shared_rooms).to include(room)
     end
   end

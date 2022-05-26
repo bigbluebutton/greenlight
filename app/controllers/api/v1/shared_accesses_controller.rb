@@ -10,7 +10,7 @@ module Api
 
       # POST /api/v1/shared_accesses.json
       def create
-        user_ids = params[:users][:shared_users]
+        user_ids = params[:shared_users]
 
         shared_accesses = user_ids.map { |user_id| { user_id:, room_id: @room.id } }
 
