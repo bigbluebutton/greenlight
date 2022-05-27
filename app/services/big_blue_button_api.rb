@@ -13,23 +13,16 @@ class BigBlueButtonApi
   end
 
   # Start a meeting for a specific room and returns the join URL.
-  def start_meeting(room:, meeting_starter:, options: {})
-    create_options = default_create_opts.merge(options)
-    join_options = { join_via_html5: true } # TODO: amir - Revisit this (createTime,...).
-
-    user_name = meeting_starter&.name || 'Someone'
-    password = (meeting_starter && create_options[:moderatorPW]) || create_options[:attendeePW]
-
-    bbb_server.create_meeting room.name, room.friendly_id, create_options
-    bbb_server.join_meeting_url room.friendly_id, user_name, password, join_options
+  def start_meeting(room:, options: {})
+    bbb_server.create_meeting room.name, room.meeting_id, options
   end
 
-  def join_meeting(room:, name:)
-    bbb_server.join_meeting_url room.friendly_id, name, '', { role: 'Viewer' }
+  def join_meeting(room:, name:, role:)
+    bbb_server.join_meeting_url room.meeting_id, name, '', { role: }
   end
 
   def meeting_running?(room:)
-    bbb_server.is_meeting_running?(room.friendly_id)
+    bbb_server.is_meeting_running?(room.meeting_id)
   end
 
   # Retrieve the recordings that belong to room with given meeting_id
@@ -50,21 +43,5 @@ class BigBlueButtonApi
 
   def bbb_secret
     ENV.fetch 'BIGBLUEBUTTON_SECRET', '8cd8ef52e8e101574e400365b55e11a6'
-  end
-
-  def default_create_opts
-    {
-      # TODO: amir - revisit this.
-      record: true,
-      logoutURL: 'http://localhost',
-      moderatorPW: 'mp',
-      attendeePW: 'ap',
-      moderatorOnlyMessage: 'Welcome Moderator',
-      muteOnStart: false,
-      guestPolicy: 'ALWAYS_ACCEPT',
-      'meta_gl-v3-listed': 'public',
-      'meta_bbb-origin-version': 3,
-      'meta_bbb-origin': 'Greenlight'
-    }
   end
 end

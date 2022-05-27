@@ -12,14 +12,6 @@ class PopulateMeetingOptions < ActiveRecord::Migration[7.0]
       { name: 'record', default_value: 'false' }, # true | false
       { name: 'muteOnStart', default_value: 'false' }, # true | false
       { name: 'guestPolicy', default_value: 'ALWAYS_ACCEPT' }, # ALWAYS_ACCEPT | ALWAYS_DENY | ASK_MODERATOR
-      { name: 'logoutURL', default_value: '' },
-      { name: 'logo', default_value: 'https://blindsidenetworks.com/wp-content/uploads/2021/04/cropped-bn_logo-02.png' },
-      { name: 'attendeePW', default_value: '' },
-      { name: 'moderatorPW', default_value: '' },
-      # Meta parameters:
-      { name: 'meta_gl-v3-listed', default_value: 'public' },
-      { name: 'meta_bbb-origin-version', default_value: 3 },
-      { name: 'meta_bbb-origin', default_value: 'Greenlight' },
       # GL only options:
       { name: 'glAnyoneCanStart', default_value: 'false' }, # true | false
       { name: 'glAnyoneJoinAsModerator', default_value: 'false' }, # true | false
