@@ -4,7 +4,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import App from './App';
 import Signup from './components/users/Signup';
 import SignIn from './components/users/SignIn';
@@ -19,7 +18,6 @@ const queryClient = new QueryClient();
 
 const root = (
   <QueryClientProvider client={queryClient}>
-    <ReactQueryDevtools initialIsOpen={false} />
     <AuthProvider>
       <Router>
         <Routes>
