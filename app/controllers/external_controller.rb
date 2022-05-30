@@ -13,6 +13,8 @@ class ExternalController < ApplicationController
 
     session[:user_id] = user.id
 
+    # TODO: - Ahmad: deal with errors
+
     redirect_to '/rooms'
   end
 end
