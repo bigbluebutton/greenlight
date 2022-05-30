@@ -34,10 +34,10 @@ export default function SignupForm() {
         <HCaptcha
           sitekey="deafadd9-444a-4025-bb80-86e83cd3aed2"
           onVerify={(response) => setToken(response)}
+          size='invisible'
           onError={onError}
           onExpire={onExpire}
         />
-        {token && <div>Success! Token: {token}</div>}
       </Container>
       <Stack className="mt-1" gap={1}>
         <Button variant="primary" className="w-100 mb- mt-1" type="submit" disabled={isSubmitting}>
