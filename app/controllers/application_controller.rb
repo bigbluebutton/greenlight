@@ -3,7 +3,8 @@
 class ApplicationController < ActionController::Base
   before_action do
     # Unless the request format is explicitly json Rails will mitigate the responsability to CSR to handle it.
-    render 'components/index' unless valid_api_request?
+    # render 'components/index' unless valid_api_request?
+    # TODO - Ahmad: Come up with a better way to do this
   end
 
   # For requests that raised an unkown exception.
