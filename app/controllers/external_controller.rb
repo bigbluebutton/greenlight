@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExternalController < ApplicationController
   def create
     credentials = request.env['omniauth.auth']
@@ -11,6 +13,6 @@ class ExternalController < ApplicationController
 
     session[:user_id] = user.id
 
-    redirect_to "/rooms"
+    redirect_to '/rooms'
   end
 end
