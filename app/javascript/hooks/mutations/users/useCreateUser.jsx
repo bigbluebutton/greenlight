@@ -2,9 +2,8 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
-const createUser = (data) => axios.post(ENDPOINTS.signup, data);
-
-export default function useCreateUser() {
+export default function useCreateUser(token) {
+  const createUser = (user) => axios.post(ENDPOINTS.signup, { user, token });
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const mutation = useMutation(
@@ -18,6 +17,6 @@ export default function useCreateUser() {
       },
     },
   );
-  const onSubmit = (userData) => mutation.mutateAsync({ user: userData }).catch(/* Prevents the promise exception from bubbling */() => { });
+  const onSubmit = (user) => mutation.mutateAsync(user).catch(/* Prevents the promise exception from bubbling */() => { });
   return { onSubmit, ...mutation };
 }
