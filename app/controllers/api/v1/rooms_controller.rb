@@ -29,25 +29,11 @@ module Api
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: Starts the Room meeting and joins in the meeting starter.
       def start
-        # TODO: amir - Check the legitimately of the action.
-        bbb_api = BigBlueButtonApi.new
-        meeting_starter = current_user ? "user(id):#{current_user.id}" : 'unauthenticated user'
-        options = { logoutURL: request.headers['Referer'] || root_url }
-        retries = 0
-        begin
-          logger.info "Starting meeting for room(friendly_id):#{@room.friendly_id} by #{meeting_starter}."
-          join_url = bbb_api.start_meeting room: @room, meeting_starter: current_user, options: options
-          logger.info "meeting successfully started for room(friendly_id):#{@room.friendly_id} by #{meeting_starter}."
+        MeetingStarter.new(room: @room, logout_url: request.referer).call
 
-          ActionCable.server.broadcast "#{@room.friendly_id}_rooms_channel", 'started'
-
-          render_json data: { join_url: }, status: :created
-        rescue BigBlueButton::BigBlueButtonException => e
-          retries += 1
-          logger.info "Retrying meeting start for room(friendly_id):#{@room.friendly_id} because of error(key): #{e.key} #{retries} times..."
-          retry unless retries >= 3
-          raise e
-        end
+        render_json data: {
+          join_url: BigBlueButtonApi.new.join_meeting(room: @room, name: current_user.name, role: 'Moderator')
+        }, status: :created
       end
 
       # POST /api/v1/rooms.json
@@ -69,7 +55,7 @@ module Api
 
       # GET /api/v1/rooms/:friendly_id/join.json
       def join
-        render_json(data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name]), status: :ok)
+        render_json(data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: 'Viewer'), status: :ok)
       end
 
       # GET /api/v1/rooms/:friendly_id/status.json
@@ -77,7 +63,7 @@ module Api
         data = {
           status: BigBlueButtonApi.new.meeting_running?(room: @room)
         }
-        data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name]) if data[:status]
+        data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: 'Viewer') if data[:status]
 
         render_json(data:, status: :ok)
       end
