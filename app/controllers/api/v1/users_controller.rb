@@ -51,11 +51,6 @@ module Api
         end
       end
 
-      # def verify
-      #   binding.break
-      #   verify_hcaptcha(response: params[:response_token]) ? puts("VERIFIED!!!!!!!!!!!!!!!!!!!!!!!") : puts("NOT VERIFIED!!!!!!!!!!!!!!!!!!!!!!!!")
-      # end
-
       private
 
       def user_params
