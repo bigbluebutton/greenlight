@@ -61,12 +61,12 @@ export default function RecordingsList({ recordings }) {
 
 // TODO - samuel: Warning in console, recordings is initially an empty string instead of undefined
 RecordingsList.propTypes = {
-  recordings: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.shape({
+  recordings: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     length: PropTypes.number.isRequired,
     users: PropTypes.number.isRequired,
     visibility: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
-  })).isRequired, PropTypes.string.isRequired]).isRequired,
+  })).isRequired,
 };

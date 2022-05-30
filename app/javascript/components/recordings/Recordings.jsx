@@ -8,8 +8,8 @@ import SearchBarQuery from '../shared/SearchBarQuery';
 import RecordingsList from './RecordingsList';
 
 export default function Recordings() {
-  const [input, setInput] = useState('');
-  const [recordings, setRecordings] = useState('');
+  const [input, setInput] = useState();
+  const [recordings, setRecordings] = useState();
   useRecordings(input, setRecordings);
 
   const { refetch: handleRecordingReSync } = useRecordingsReSync();
