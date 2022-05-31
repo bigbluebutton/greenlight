@@ -32,7 +32,7 @@ export default function SignupForm() {
       <Container className="d-flex justify-content-center mt-3">
         {/* TODO: - Make sitekey dynamic (Maybe ENV variable) */}
         <HCaptcha
-          sitekey="deafadd9-444a-4025-bb80-86e83cd3aed2"
+          sitekey="10000000-ffff-ffff-ffff-000000000001"
           onVerify={(response) => setToken(response)}
           onError={onError}
           onExpire={onExpire}

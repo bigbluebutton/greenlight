@@ -30,7 +30,8 @@ module Api
       def create
         user = User.find_by(email: session_params[:email])
 
-        if user.present? && user.authenticate(session_params[:password])
+        # TODO: Add proper error logging for non-verified token hcaptcha
+        if user.present? && user.authenticate(session_params[:password]) && verify_hcaptcha(response: params[:token])
           sign_in user
           render json: { current_user:, signed_in: true }, status: :ok
         else
