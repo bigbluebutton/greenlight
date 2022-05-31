@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Table, Card, Stack, Button,
+  Card, Stack, Button,
 } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import useRoomRecordings from '../../hooks/queries/recordings/useRoomRecordings';
