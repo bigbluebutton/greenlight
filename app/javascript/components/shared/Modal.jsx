@@ -3,7 +3,7 @@ import { Modal as BootstrapModal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export default function Modal({
-  modalButton, title, body, size
+  modalButton, title, body, size,
 }) {
   const [show, setShow] = useState(false);
 
