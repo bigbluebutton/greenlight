@@ -3,7 +3,7 @@ import { Modal as BootstrapModal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export default function Modal({
-  modalButton, title, body,
+  modalButton, title, body, size
 }) {
   const [show, setShow] = useState(false);
 
@@ -16,7 +16,7 @@ export default function Modal({
   return (
     <>
       {ModalButton}
-      <BootstrapModal show={show} onHide={handleClose} centered contentClassName="border-0 shadow-sm">
+      <BootstrapModal show={show} onHide={handleClose} centered size={size} contentClassName="border-0 shadow-sm">
         <BootstrapModal.Header className="d-block mx-auto border-0 pb-0">
           <BootstrapModal.Title>{title}</BootstrapModal.Title>
         </BootstrapModal.Header>
@@ -30,4 +30,9 @@ Modal.propTypes = {
   title: PropTypes.string.isRequired,
   modalButton: PropTypes.element.isRequired,
   body: PropTypes.node.isRequired,
+  size: PropTypes.string,
+};
+
+Modal.defaultProps = {
+  size: '',
 };

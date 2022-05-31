@@ -28,6 +28,7 @@ export default function SharedAccessList({ users, isLoading }) {
           modalButton={<Button variant="primary-light" className="ms-auto">+ Share Access</Button>}
           title="Share Room Access"
           body={<SharedAccessForm />}
+          size="lg"
         />
       </Stack>
 
