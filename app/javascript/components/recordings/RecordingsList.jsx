@@ -59,7 +59,6 @@ export default function RecordingsList({ recordings }) {
   );
 }
 
-// TODO - samuel: Warning in console, recordings is initially an empty string instead of undefined
 RecordingsList.propTypes = {
   recordings: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -68,5 +67,6 @@ RecordingsList.propTypes = {
     users: PropTypes.number.isRequired,
     visibility: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
+    map: PropTypes.func.isRequired,
   })).isRequired,
 };

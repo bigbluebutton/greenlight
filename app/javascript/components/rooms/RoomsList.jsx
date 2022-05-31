@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Row, Col, Form, FormControl, Button,
+  Row, Col, Button, Stack,
 } from 'react-bootstrap';
 import Spinner from '../shared/stylings/Spinner';
 import RoomCard from './RoomCard';
@@ -8,6 +8,7 @@ import useRooms from '../../hooks/queries/rooms/useRooms';
 import RoomPlaceHolder from './RoomPlaceHolder';
 import CreateRoomModal from '../shared/Modal';
 import CreateRoomForm from '../forms/CreateRoomForm';
+import SearchBar from '../shared/SearchBar';
 
 export default function RoomsList() {
   const { isLoading, data: rooms } = useRooms();
@@ -16,32 +17,15 @@ export default function RoomsList() {
 
   return (
     <div className="wide-background full-height-rooms">
-      <Row className="pt-4 mb-3">
-        <Col>
-          <Form>
-            <FormControl
-              id="rooms-search"
-              className="rounded border"
-              placeholder=" Search Room"
-              type="search"
-              style={{ width: '19rem' }}
-              onKeyPress={(e) => (
-                e.key === 'Enter' && e.preventDefault()
-              )}
-              onChange={(event) => setSearch(event.target.value)}
-            />
-          </Form>
-        </Col>
-        <Col>
-          {/* TODO: Set this button to create new room page */}
-          <CreateRoomModal
-            modalButton={<Button className="float-end">+ New Room</Button>}
-            title="Create New Room"
-            body={<CreateRoomForm />}
-          />
-        </Col>
-      </Row>
-      <Row md={4} className="g-4 pb-4">
+      <Stack direction="horizontal" className="w-100 mt-5">
+        <SearchBar id="rooms-search" setSearch={setSearch} />
+        <CreateRoomModal
+          modalButton={<Button variant="primary" className="ms-auto">+ New Room</Button>}
+          title="Create New Room"
+          body={<CreateRoomForm />}
+        />
+      </Stack>
+      <Row md={4} className="g-4 pb-4 mt-4">
         {
           rooms.filter((room) => {
             if (room.name.toLowerCase().includes(search.toLowerCase())) {
@@ -49,7 +33,7 @@ export default function RoomsList() {
             }
             return false;
           }).map((room) => (
-            <Col key={room.friendly_id}>
+            <Col key={room.friendly_id} className="mt-0">
               {(room.optimistic && <RoomPlaceHolder />) || <RoomCard id={room.friendly_id} name={room.name} />}
             </Col>
           ))
