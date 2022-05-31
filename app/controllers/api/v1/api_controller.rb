@@ -5,7 +5,7 @@ module Api
     class ApiController < ApplicationController
       before_action do
         # Unless the request format is explicitly json Rails will mitigate the responsability to CSR to handle it.
-        render 'components/index' unless valid_api_request?
+        render 'components/index' if !Rails.env.development? && !valid_api_request?
       end
 
       # For requests that raised an unkown exception.
@@ -30,11 +30,6 @@ module Api
       def log_exception(exception)
         logger.error exception.message
         logger.error exception.backtrace.join("\n") # TODO: amir - Revisit this.
-      end
-
-      # Returns the current signed in User (if any)
-      def current_user
-        @current_user ||= User.find_by(id: session[:user_id])
       end
 
       def render_json(data: {}, errors: [], status: :ok, include: nil)
