@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   MAX_AVATAR_SIZE = 3_000_000
 
-  has_secure_password
+  has_secure_password validations: false
   has_many :rooms, dependent: :destroy
 
   has_many :shared_accesses, dependent: :destroy
@@ -17,7 +17,8 @@ class User < ApplicationRecord
   # TODO: amir - Validate email format.
   validates :email, presence: true, uniqueness: { case_sensitive: false, scope: :provider }
   validates :provider, presence: true
-  validates :password_confirmation, presence: true, on: :create
+
+  validates :password, presence: true, confirmation: true, on: :create, unless: :external_id?
 
   # TODO: samuel - ActiveStorage validations needs to be discussed and implemented.
   validate :avatar_validation

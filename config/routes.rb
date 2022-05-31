@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root 'components#index', via: :all
   mount ActionCable.server => '/cable'
 
+  get 'auth/:provider/callback', to: 'external#create'
+
   # All the Api endpoints must be under /api/v1 and must have an extension .json.
   namespace :api do
     namespace :v1 do
@@ -38,6 +40,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
   match '*path', to: 'components#index', via: :all, constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'
   } # Enable CSR for full fledged http requests.
