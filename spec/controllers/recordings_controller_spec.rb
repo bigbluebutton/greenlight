@@ -27,6 +27,29 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
       expect(response_recording_ids).to be_empty
     end
+
+    it 'returns the recordings according to the query' do
+      recordings = create_list(:recording, 5) do |recording|
+        recording.name = "Greenlight #{rand(100 - 999)}"
+      end
+
+      create(:room, user:, recordings:)
+
+      create_list(:recording, 10)
+
+      get :index, params: { search: 'greenlight' }
+      response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      expect(response_recording_ids).to match_array(recordings.pluck(:id))
+    end
+
+    it 'returns all recordings if the search bar is empty' do
+      recordings = create_list(:recording, 10)
+      create(:room, user:, recordings:)
+
+      get :index, params: { search: '' }
+      response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      expect(response_recording_ids).to match_array(recordings.pluck(:id))
+    end
   end
 
   # TODO: - Uncomment once delete_recordings is no longer in destroy

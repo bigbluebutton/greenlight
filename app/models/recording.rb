@@ -9,4 +9,10 @@ class Recording < ApplicationRecord
   validates :visibility, presence: true
   validates :length, presence: true
   validates :users, presence: true
+
+  def self.search(input)
+    return where('recordings.name ILIKE ?', "%#{input}%").includes(:formats) if input
+
+    all.includes(:formats)
+  end
 end
