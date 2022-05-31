@@ -23,12 +23,13 @@ export default function SharedAccessList({ users, isLoading }) {
   return (
     <div id="shared-access-list" className="wide-background full-height-room">
       <Stack direction="horizontal" className="w-100 mt-5">
-        <SearchBar id="shared-users-search" setSearch={setSearch} />
+        <SearchBar setSearch={setSearch} className="w-100" />
         <Modal
           modalButton={<Button variant="primary-light" className="ms-auto">+ Share Access</Button>}
           title="Share Room Access"
           body={<SharedAccessForm />}
           size="lg"
+          id="shared-access-modal"
         />
       </Stack>
 

@@ -17,7 +17,9 @@ export default function Recordings() {
   return (
     <div className="wide-background full-height-rooms">
       <Stack direction="horizontal" className="w-100 mt-5">
-        <SearchBarQuery setInput={setInput} />
+        <div>
+          <SearchBarQuery setInput={setInput} />
+        </div>
         <Button className="ms-auto" onClick={handleRecordingReSync}>Re-sync Recordings</Button>
       </Stack>
       <Card className="border-0 shadow-sm p-0 mt-4">

@@ -23,6 +23,7 @@ export default function SharedAccessEmpty() {
             title="Share Room Access"
             body={<SharedAccessForm />}
             size="lg"
+            id="shared-access-modal"
           />
         </Card.Body>
       </Card>

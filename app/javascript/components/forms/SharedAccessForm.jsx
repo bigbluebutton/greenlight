@@ -23,8 +23,8 @@ export default function SharedAccessForm({ handleClose }) {
   if (isLoading) return <Spinner />;
 
   return (
-    <>
-      <SearchBar id="shared-users-modal-search" setSearch={setSearch} />
+    <div id="shared-access-form">
+      <SearchBar setSearch={setSearch} />
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row className="border-bottom pt-3 pb-2">
           <Col>
@@ -70,7 +70,7 @@ export default function SharedAccessForm({ handleClose }) {
           </Button>
         </Stack>
       </Form>
-    </>
+    </div>
   );
 }
 

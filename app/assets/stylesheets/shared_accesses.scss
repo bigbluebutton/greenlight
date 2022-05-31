@@ -5,3 +5,15 @@
     background-color: $primary-light;
   }
 }
+
+#shared-access-form {
+  input.search-bar {
+    width: 100%;
+  }
+}
+
+#shared-access-modal {
+  .modal-header {
+    margin-left: 0 !important;
+  }
+}
