@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class UsersController < ApplicationController
+    class UsersController < ApiController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
 
       # POST /api/v1/users.json
