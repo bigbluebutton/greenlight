@@ -22,6 +22,8 @@ export default function SharedAccessEmpty() {
             modalButton={<Button variant="primary-light">+ Share Access</Button>}
             title="Share Room Access"
             body={<SharedAccessForm />}
+            size="lg"
+            id="shared-access-modal"
           />
         </Card.Body>
       </Card>
