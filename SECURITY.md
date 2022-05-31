@@ -10,7 +10,7 @@ We actively support Greenlight through the community forums and through security
 | v2.x    | :white_check_mark: |
 | > v2.x  | :x:                |
 
-Since we released v2 to the community all our support efforts are now transitioned to the subsecuent releases v2.x.
+Since we released v2 to the community all our support efforts are now transitioned to the subsequent releases v2.x.
 
 All the releases are managed as a Cloud version where release tags are used only as a reference. As such, we highly recommend that all administrators deploy the latest available release.
 
