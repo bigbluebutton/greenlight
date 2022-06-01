@@ -49,8 +49,6 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
       response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
       expect(response_users_ids).to match_array(searched_users.pluck(:id))
     end
-
-
   end
 
   describe '#shareable_users' do

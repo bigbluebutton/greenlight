@@ -39,6 +39,5 @@ RSpec.describe User, type: :model do
         expect(described_class.all.search('').pluck(:id)).to match_array(described_class.all.pluck(:id))
       end
     end
-
   end
 end
