@@ -13,14 +13,14 @@ export default function RoomRecordings() {
   const { data: recordings } = useRoomRecordings(friendlyId, input);
 
   return (
-    <div className="pt-3 wide-background full-height-rooms">
-      <Stack direction="horizontal" className="w-100 mt-4">
+    <div className="wide-background full-height-room">
+      <Stack direction="horizontal" className="w-100 mt-5">
         <div>
           <SearchBarQuery setInput={setInput} />
         </div>
-        <Button className="my-2 ms-auto">Re-sync Recordings</Button>
+        <Button variant="primary-light" className="ms-auto">Re-sync Recordings</Button>
       </Stack>
-      <Card className="border-0 shadow-sm p-0 mt-4">
+      <Card className="border-0 shadow-sm mt-4">
         <RecordingsList recordings={recordings} />
       </Card>
     </div>
