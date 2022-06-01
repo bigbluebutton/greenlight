@@ -4,4 +4,27 @@
     height: 40px;
     background-color: $primary-light;
   }
+
+
+  .btn.format {
+    border: 0;
+
+    &.btn-format-presentation {
+      background-color: #f8f5fe;
+      color: #6941c6;
+    }
+    &.btn-format-video {
+      background-color: #eff8ff;
+      color: #165dd3;
+    }
+    &.btn-format-statistics {
+      background-color:#eff5ff;
+      color: #3539cc;
+    }
+    &.btn-format-notes {
+      background-color: #f3f4f6;
+      color: #344154;
+    }
+  }
 }
+
