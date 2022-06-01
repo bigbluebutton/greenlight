@@ -15,7 +15,12 @@ module Api
         user = User.new({ provider: 'greenlight' }.merge(user_params)) # TMP fix for presence validation of :provider
 
         # TODO: Add proper error logging for non-verified token hcaptcha
-        if verify_hcaptcha(response: params[:token]) && user.save
+        if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+          render_json errors: user.errors.to_a, status: :bad_request
+          return
+        end
+
+        if user.save
           session[:user_id] = user.id
           render_json status: :created
         else
