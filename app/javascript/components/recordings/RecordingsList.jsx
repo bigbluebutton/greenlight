@@ -7,7 +7,6 @@ import Modal from '../shared/Modal';
 import DeleteRecordingForm from '../forms/DeleteRecordingForm';
 
 export default function RecordingsList({ recordings }) {
-
   return (
     <Table hover className="text-secondary mb-0 recordings-list">
       <thead>

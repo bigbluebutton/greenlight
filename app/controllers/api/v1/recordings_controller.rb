@@ -14,6 +14,7 @@ module Api
 
         recordings.map! do |recording|
           {
+            id: recording.id,
             name: recording.name,
             length: recording.length,
             users: recording.users,
