@@ -27,7 +27,7 @@ export default function RoomCard(props) {
         {/* TODO: Hadi- Make last session dynamic per room */}
         <Card.Text className="text-muted"> Last meeting... </Card.Text>
         <hr />
-        <FontAwesomeIcon className="room-card-top" icon={faCopy} size="lg" onClick={() => copyInvite(friendlyId)} />
+        <FontAwesomeIcon className="room-card-copy" icon={faCopy} size="lg" onClick={() => copyInvite(friendlyId)} />
         <Button variant="outline-secondary" className="float-end" onClick={handleStartMeeting} disabled={startMeetingIsLoading}>
           Start {' '}
           {startMeetingIsLoading && <Spinner />}
