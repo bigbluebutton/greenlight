@@ -18,11 +18,18 @@ RSpec.describe Api::V1::UsersController, type: :request do
     let(:headers) { { 'ACCEPT' => 'application/json' } }
 
     context 'valid user params' do
+      let!(:role) { create(:role, name: 'User') }
+
       it 'creates a user account for valid params' do
         expect { post api_v1_users_path, params: valid_user_params, headers: }.to change(User, :count).from(0).to(1)
         expect(response.content_type).to eq('application/json; charset=utf-8')
         expect(response).to have_http_status(:created)
         expect(JSON.parse(response.body)['errors']).to be_empty
+      end
+
+      it 'assigns the User role to the user' do
+        post api_v1_users_path, params: valid_user_params, headers: headers
+        expect(User.find_by(email: valid_user_params[:user][:email]).role).to eq(role)
       end
     end
 

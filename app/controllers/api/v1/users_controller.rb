@@ -12,7 +12,10 @@ module Api
 
       def create
         # TODO: amir - ensure accessibility for unauthenticated requests only.
-        user = User.new({ provider: 'greenlight' }.merge(user_params)) # TMP fix for presence validation of :provider
+        user = User.new({
+          provider: 'greenlight',
+          role: Role.find_by(name: 'User') # TODO: - Ahmad: Move to service
+        }.merge(user_params)) # TMP fix for presence validation of :provider
 
         if verify_hcaptcha(response: params[:token]) && user.save
           session[:user_id] = user.id

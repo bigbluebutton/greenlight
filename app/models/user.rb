@@ -4,11 +4,12 @@ class User < ApplicationRecord
   MAX_AVATAR_SIZE = 3_000_000
 
   has_secure_password validations: false
-  has_many :rooms, dependent: :destroy
 
+  belongs_to :role
+
+  has_many :rooms, dependent: :destroy
   has_many :shared_accesses, dependent: :destroy
   has_many :shared_rooms, through: :shared_accesses, class_name: 'Room'
-
   has_many :recordings, through: :rooms
 
   has_one_attached :avatar
