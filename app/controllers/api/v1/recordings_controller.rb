@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class RecordingsController < ApplicationController
+    class RecordingsController < ApiController
       skip_before_action :verify_authenticity_token # TODO: - Revisit this.
 
       # GET /api/v1/recordings.json

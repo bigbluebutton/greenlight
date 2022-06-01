@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class SharedAccessesController < ApplicationController
+    class SharedAccessesController < ApiController
       skip_before_action :verify_authenticity_token
       before_action :find_room
 

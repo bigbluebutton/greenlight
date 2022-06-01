@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class SessionsController < ApplicationController
+    class SessionsController < ApiController
       # TODO: samuel - Bypass CSRF token for now
       skip_before_action :verify_authenticity_token
 
