@@ -12,7 +12,18 @@ module Api
       def index
         recordings = current_user.recordings&.search(params[:search])
 
-        render_json(data: recordings, status: :ok, include: :formats)
+        recordings.map! do |recording|
+          {
+            name: recording.name,
+            length: recording.length,
+            users: recording.users,
+            visibility: recording.visibility,
+            created_at: recording.created_at.strftime('%d %b. %Y %I:%M%P'),
+            formats: recording.formats
+          }
+        end
+
+        render_json data: recordings, status: :ok
       end
 
       def destroy
