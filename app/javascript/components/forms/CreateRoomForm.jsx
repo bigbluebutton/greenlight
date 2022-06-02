@@ -20,7 +20,7 @@ export default function CreateRoomForm({ handleClose }) {
     <Form methods={methods} onSubmit={onSubmit}>
       <FormControl field={fields.name} type="text" />
       <Stack className="mt-1" direction="horizontal" gap={1}>
-        <Button variant="primary-reverse" className="ms-auto" onClick={handleClose}>
+        <Button variant="primary-light" className="ms-auto" onClick={handleClose}>
           Close
         </Button>
         <Button variant="primary" type="submit" disabled={isSubmitting}>

@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faVideo } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Stack, Table } from 'react-bootstrap';
+import { Button, Stack, Table } from 'react-bootstrap';
 import Modal from '../shared/Modal';
 import DeleteRecordingForm from '../forms/DeleteRecordingForm';
 
@@ -39,7 +39,13 @@ export default function RecordingsList({ recordings }) {
                 <td> {recording.visibility} </td>
                 <td>
                   {recording.formats.map((format) => (
-                    <div key={format.id}> {format.recording_type} </div>
+                    <Button
+                      onClick={() => window.open(format.url, '_blank')}
+                      className={`btn-sm rounded-pill me-1 format btn-format-${format.recording_type.toLowerCase()}`}
+                      key={format.id}
+                    >
+                      {format.recording_type}
+                    </Button>
                   ))}
                 </td>
                 <td>

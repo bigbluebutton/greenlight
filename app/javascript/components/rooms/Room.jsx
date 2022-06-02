@@ -31,15 +31,15 @@ export default function Room() {
       <Row className="my-5">
         <Col>
           <h2>{room.name}</h2>
-          <p className="text-muted">Last Session: Jan 17,2022 11:30am</p>
+          <p className="text-muted"> { room.created_at }</p>
         </Col>
         <Col>
           <Button variant="primary" className="mt-1 mx-2 float-end" onClick={handleStartMeeting} disabled={startMeetingIsLoading}>
             Start Meeting {' '}
             {startMeetingIsLoading && <Spinner />}
           </Button>
-          <Button variant="light" className="mt-1 mx-2 float-end" onClick={copyInvite}>
-            <FontAwesomeIcon icon={faCopy} />
+          <Button variant="primary-light" className="mt-1 mx-2 float-end" onClick={copyInvite}>
+            <FontAwesomeIcon icon={faCopy} className="me-2" />
             Copy
           </Button>
         </Col>
