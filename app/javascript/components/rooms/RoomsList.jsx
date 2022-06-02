@@ -22,7 +22,7 @@ export default function RoomsList() {
           <SearchBar id="rooms-search" setSearch={setSearch} />
         </div>
         <CreateRoomModal
-          modalButton={<Button variant="primary" className="ms-auto">+ New Room</Button>}
+          modalButton={<Button variant="primary" className="ms-auto">+ New Room </Button>}
           title="Create New Room"
           body={<CreateRoomForm />}
         />
@@ -36,7 +36,7 @@ export default function RoomsList() {
             return false;
           }).map((room) => (
             <Col key={room.friendly_id} className="mt-0">
-              {(room.optimistic && <RoomPlaceHolder />) || <RoomCard id={room.friendly_id} name={room.name} />}
+              {(room.optimistic && <RoomPlaceHolder />) || <RoomCard room={room} />}
             </Col>
           ))
         }

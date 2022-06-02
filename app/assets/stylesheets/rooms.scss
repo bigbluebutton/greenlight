@@ -1,20 +1,16 @@
-.rooms-card {
-  &:hover {
-    background: rgba(26, 69, 74, 0.1)
+#room-card {
+  .room-icon-square {
+    width: 75px;
+    height: 75px;
+    background-color: $primary-light;
+  }
+  .card-body {
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
-.room-card-top {
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.room-card-copy {
-  &:hover {
-    cursor: pointer;
-  }
-}
 
 .tab-content {
   padding: 0%;
