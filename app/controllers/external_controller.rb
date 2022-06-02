@@ -9,6 +9,7 @@ class ExternalController < ApplicationController
       u.external_id = credentials['uid']
       u.name = user_info['name']
       u.provider = 'greenlight'
+      u.role = Role.find_by(name: 'User') # TODO: - Ahmad: Move to service
     end
 
     session[:user_id] = user.id

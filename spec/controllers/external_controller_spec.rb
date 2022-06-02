@@ -16,6 +16,8 @@ RSpec.describe ExternalController, type: :controller do
   end
 
   describe '#create' do
+    let!(:role) { create(:role, name: 'User') }
+
     it 'creates the user if the info returned is valid' do
       request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
 
@@ -31,6 +33,14 @@ RSpec.describe ExternalController, type: :controller do
 
       expect(session[:user_id]).to eq(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).id)
       expect(response).to redirect_to('/rooms')
+    end
+
+    it 'assigns the User role to the user' do
+      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+      get :create, params: { provider: 'openid_connect' }
+
+      expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).role).to eq(role)
     end
   end
 end
