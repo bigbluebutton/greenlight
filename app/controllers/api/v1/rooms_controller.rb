@@ -17,7 +17,9 @@ module Api
       end
 
       def show
+        # TODO: samuel - should probably create/use a UUID instead of object id
         room = {
+          id: @room.id,
           name: @room.name,
           created_at: @room.created_at.strftime('%d %b. %Y %I:%M%P')
         }
