@@ -25,8 +25,8 @@ export default function RecordingsList({ recordings }) {
               <tr key={recording.id} className="recordings align-middle">
                 <td className="text-dark">
                   <Stack direction="horizontal">
-                    <div className="recording-icon-circle rounded-circle me-3">
-                      <FontAwesomeIcon icon={faVideo} className="text-primary d-block mx-auto" />
+                    <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
+                      <FontAwesomeIcon icon={faVideo} className="text-primary" />
                     </div>
                     <Stack>
                       <strong> {recording.name} </strong>
