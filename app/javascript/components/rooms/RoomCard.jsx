@@ -8,6 +8,9 @@ import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
 import Spinner from '../shared/stylings/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 
+function copyInvite(friendlyId) {
+  navigator.clipboard.writeText(`${window.location}/${friendlyId}/join`);
+}
 export default function RoomCard(props) {
   const { id: friendlyId, name } = props;
   const navigate = useNavigate();
@@ -24,7 +27,7 @@ export default function RoomCard(props) {
         {/* TODO: Hadi- Make last session dynamic per room */}
         <Card.Text className="text-muted"> Last meeting... </Card.Text>
         <hr />
-        <FontAwesomeIcon icon={faCopy} size="lg" />
+        <FontAwesomeIcon className="room-card-copy" icon={faCopy} size="lg" onClick={() => copyInvite(friendlyId)} />
         <Button variant="outline-secondary" className="float-end" onClick={handleStartMeeting} disabled={startMeetingIsLoading}>
           Start {' '}
           {startMeetingIsLoading && <Spinner />}

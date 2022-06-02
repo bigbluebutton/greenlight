@@ -10,6 +10,12 @@
   }
 }
 
+.room-card-copy {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .tab-content {
   padding: 0%;
 }
