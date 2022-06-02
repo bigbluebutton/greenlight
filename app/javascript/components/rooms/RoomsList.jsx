@@ -18,7 +18,9 @@ export default function RoomsList() {
   return (
     <div className="wide-background full-height-rooms">
       <Stack direction="horizontal" className="w-100 mt-5">
-        <SearchBar id="rooms-search" setSearch={setSearch} />
+        <div>
+          <SearchBar id="rooms-search" setSearch={setSearch} />
+        </div>
         <CreateRoomModal
           modalButton={<Button variant="primary" className="ms-auto">+ New Room</Button>}
           title="Create New Room"

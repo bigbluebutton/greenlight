@@ -23,6 +23,12 @@ class User < ApplicationRecord
   # TODO: samuel - ActiveStorage validations needs to be discussed and implemented.
   validate :avatar_validation
 
+  def self.search(input)
+    return where('name ILIKE ?', "%#{input}%") if input
+
+    all
+  end
+
   private
 
   def avatar_validation

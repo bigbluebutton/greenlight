@@ -28,7 +28,7 @@ module Api
 
       # GET /api/v1/shared_accesses/friendly_id.json
       def show
-        shared_users = @room.shared_users.to_a
+        shared_users = @room.shared_users.search(params[:search]).to_a
 
         shared_users.map! do |user|
           {
@@ -46,7 +46,7 @@ module Api
       def shareable_users
         # Can't share the room if it's already shared or it's the room owner
         unshareable_users = [@room.shared_users.pluck(:id) << @room.user_id]
-        shareable_users = User.where.not(id: unshareable_users).to_a
+        shareable_users = User.where.not(id: unshareable_users).search(params[:search]).to_a
 
         shareable_users.map! do |user|
           {

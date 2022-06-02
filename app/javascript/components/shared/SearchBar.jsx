@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default function SearchBar({ setSearch }) {
   return (
     <input
-      className="search-bar rounded border"
+      className="search-bar rounded border form-control"
       placeholder="Search"
       type="search"
       onKeyPress={(e) => (
