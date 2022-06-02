@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Button, Card, Col, Row, Stack,
+  Button, Card, Stack, Table,
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
@@ -36,41 +36,43 @@ export default function SharedAccess() {
           />
         </Stack>
         <Card className="border-0 shadow-sm mt-4">
-          <Card.Body>
-            <Row className="border-bottom pb-2">
-              <Col>
-                <span className="text-muted small"> Name </span>
-              </Col>
-              <Col>
-                <span className="text-muted small"> Email address </span>
-              </Col>
-            </Row>
-            {sharedUsers?.length
-              ? (
-                sharedUsers?.map((user) => (
-                  <Row className="border-bottom py-3" key={user.id}>
-                    <Col>
-                      <Stack direction="horizontal">
-                        <Avatar avatar={user.avatar} radius={40} />
-                        <h6 className="text-primary mb-0 ps-3"> {user.name} </h6>
-                      </Stack>
-                    </Col>
-                    <Col className="my-auto">
-                      <span className="text-muted"> {user.email} </span>
-                      <Button
-                        variant="font-awesome"
-                        className="float-end pe-2"
-                        onClick={() => handleDeleteSharedAccess({ user_id: user.id })}
-                      >
-                        <FontAwesomeIcon icon={faTrashAlt} />
-                      </Button>
-                    </Col>
-                  </Row>
-                ))
-              )
-              : (
-                <p className="fw-bold"> No user found! </p>
-              )}
+          <Card.Body className="p-0">
+            <Table hover className="text-secondary mb-0">
+              <thead>
+                <tr className="text-muted small">
+                  <th className="fw-normal w-50">Name</th>
+                  <th className="fw-normal w-50">Email address</th>
+                </tr>
+              </thead>
+              <tbody className="border-top-0">
+                {sharedUsers?.length
+                  ? (
+                    sharedUsers?.map((user) => (
+                      <tr key={user.id} className="align-middle">
+                        <td>
+                          <Stack direction="horizontal" className="py-2">
+                            <Avatar avatar={user.avatar} radius={40} />
+                            <h6 className="text-primary mb-0 ps-3"> {user.name} </h6>
+                          </Stack>
+                        </td>
+                        <td>
+                          <span className="text-muted"> {user.email} </span>
+                          <Button
+                            variant="font-awesome"
+                            className="float-end pe-2"
+                            onClick={() => handleDeleteSharedAccess({ user_id: user.id })}
+                          >
+                            <FontAwesomeIcon icon={faTrashAlt} />
+                          </Button>
+                        </td>
+                      </tr>
+                    ))
+                  )
+                  : (
+                    <tr className="fw-bold"><td>No user found! </td></tr>
+                  )}
+              </tbody>
+            </Table>
           </Card.Body>
         </Card>
       </div>

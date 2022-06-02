@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import {
-  Button, Col, Form, Row, Stack,
+  Button, Form, Stack, Table,
 } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
@@ -24,40 +24,42 @@ export default function SharedAccessForm({ handleClose }) {
     <div id="shared-access-form">
       <SearchBarQuery setInput={setInput} />
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Row className="border-bottom pt-3 pb-2">
-          <Col>
-            <span className="text-muted small"> Name </span>
-          </Col>
-          <Col>
-            <span className="text-muted small"> Email address </span>
-          </Col>
-        </Row>
-        {shareableUsers?.length
-          ? (
-            shareableUsers.map((user) => (
-              <Row className="border-bottom py-3" key={user.id}>
-                <Col>
-                  <Stack direction="horizontal">
-                    <Form.Check
-                      type="checkbox"
-                      value={user.id}
-                      aria-label="tbd"
-                      className="pe-3"
-                      {...register('shared_users')}
-                    />
-                    <Avatar avatar={user.avatar} radius={40} />
-                    <h6 className="text-primary mb-0 ps-3"> { user.name } </h6>
-                  </Stack>
-                </Col>
-                <Col className="my-auto">
-                  <span className="text-muted"> { user.email } </span>
-                </Col>
-              </Row>
-            ))
-          )
-          : (
-            <p className="fw-bold"> No user found! </p>
-          )}
+        <Table hover className="text-secondary my-3">
+          <thead>
+            <tr className="text-muted small">
+              <th className="fw-normal w-50">Name</th>
+              <th className="fw-normal w-50">Email address</th>
+            </tr>
+          </thead>
+          <tbody className="border-top-0">
+            {shareableUsers?.length
+              ? (
+                shareableUsers.map((user) => (
+                  <tr key={user.id} className="align-middle">
+                    <td>
+                      <Stack direction="horizontal" className="py-2">
+                        <Form.Check
+                          type="checkbox"
+                          value={user.id}
+                          aria-label="tbd"
+                          className="pe-3"
+                          {...register('shared_users')}
+                        />
+                        <Avatar avatar={user.avatar} radius={40} />
+                        <h6 className="text-primary mb-0 ps-3"> { user.name } </h6>
+                      </Stack>
+                    </td>
+                    <td>
+                      <span className="text-muted"> { user.email } </span>
+                    </td>
+                  </tr>
+                ))
+              )
+              : (
+                <tr className="fw-bold"><td>No user found!</td><td /></tr>
+              )}
+          </tbody>
+        </Table>
         <Stack className="mt-3" direction="horizontal" gap={1}>
           <Button variant="primary-light" className="ms-auto" onClick={handleClose}>
             Close
