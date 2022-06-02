@@ -10,12 +10,12 @@ export default function RecordingsList({ recordings }) {
   return (
     <Table hover className="text-secondary mb-0 recordings-list">
       <thead>
-        <tr className="text-muted small fw-light">
-          <th>Name</th>
-          <th>Length</th>
-          <th>Users</th>
-          <th>Visibility</th>
-          <th>Formats</th>
+        <tr className="text-muted small">
+          <th className="fw-normal">Name</th>
+          <th className="fw-normal">Length</th>
+          <th className="fw-normal">Users</th>
+          <th className="fw-normal">Visibility</th>
+          <th className="fw-normal">Formats</th>
         </tr>
       </thead>
       <tbody className="border-top-0">
