@@ -11,7 +11,16 @@ module Api
       # Does: Returns the Rooms that belong to the user currently logged in
       def index
         # Return the rooms that belong to current user
-        rooms = Room.where(user_id: current_user&.id)
+        rooms = Room.where(user_id: current_user&.id).to_a
+
+        rooms.map! do |room|
+          {
+            id: room.id,
+            name: room.name,
+            friendly_id: room.friendly_id,
+            created_at: room.created_at.strftime('%d %b. %Y %I:%M%P')
+          }
+        end
 
         render_json data: rooms, status: :ok
       end
