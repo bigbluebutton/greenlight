@@ -7,6 +7,7 @@ import Form from './Form';
 import { signupFormConfig, signupFormFields } from '../../helpers/forms/SignupFormHelpers';
 import Spinner from '../shared/stylings/Spinner';
 import useCreateUser from '../../hooks/mutations/users/useCreateUser';
+import useEnv from '../../hooks/queries/env/useEnv';
 
 export default function SignupForm() {
   const methods = useForm(signupFormConfig);
@@ -14,6 +15,8 @@ export default function SignupForm() {
   const { onSubmit } = useCreateUser(token);
   const { isSubmitting } = methods.formState;
   const fields = signupFormFields;
+  const { isLoading, data: env } = useEnv();
+  if (isLoading) return <Spinner />;
 
   const onError = (err) => {
     console.log(`hCaptcha Error: ${err}`);
@@ -29,15 +32,17 @@ export default function SignupForm() {
       <FormControl field={fields.email} type="email" />
       <FormControl field={fields.password} type="password" />
       <FormControl field={fields.password_confirmation} type="password" />
-      <Container className="d-flex justify-content-center mt-3">
-        {/* TODO: - Make sitekey dynamic (Maybe ENV variable) */}
-        <HCaptcha
-          sitekey="10000000-ffff-ffff-ffff-000000000001"
-          onVerify={(response) => setToken(response)}
-          onError={onError}
-          onExpire={onExpire}
-        />
-      </Container>
+      { env.HCAPTCHA_KEY
+        && (
+        <Container className="d-flex justify-content-center mt-3">
+          <HCaptcha
+            sitekey={env.HCAPTCHA_KEY}
+            onVerify={(response) => setToken(response)}
+            onError={onError}
+            onExpire={onExpire}
+          />
+        </Container>
+        )}
       <Stack className="mt-1" gap={1}>
         <Button variant="primary" className="w-100 mb- mt-1" type="submit" disabled={isSubmitting}>
           Create account

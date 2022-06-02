@@ -18,7 +18,7 @@ module Api
         }.merge(user_params)) # TMP fix for presence validation of :provider
 
         # TODO: Add proper error logging for non-verified token hcaptcha
-        render_json errors: user.errors.to_a, status: :bad_request if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+        return render_json errors: user.errors.to_a, status: :bad_request if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         if user.save
           session[:user_id] = user.id
