@@ -20,7 +20,7 @@ export default function Recordings() {
         <div>
           <SearchBarQuery setInput={setInput} />
         </div>
-        <Button className="ms-auto" onClick={handleRecordingReSync}>Re-sync Recordings</Button>
+        <Button variant="primary-light" className="ms-auto" onClick={handleRecordingReSync}>Re-Sync Recordings</Button>
       </Stack>
       <Card className="border-0 shadow-sm p-0 mt-4">
         <RecordingsList recordings={recordings} />

@@ -1,21 +1,21 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan, faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faVideo } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'react-bootstrap';
+import { Stack, Table } from 'react-bootstrap';
 import Modal from '../shared/Modal';
 import DeleteRecordingForm from '../forms/DeleteRecordingForm';
 
 export default function RecordingsList({ recordings }) {
   return (
-    <Table hover className="text-secondary mb-0">
+    <Table hover className="text-secondary mb-0 recordings-list">
       <thead>
         <tr className="text-muted small">
-          <th>Name</th>
-          <th>Length</th>
-          <th>Users</th>
-          <th>Visibility</th>
-          <th>Formats</th>
+          <th className="fw-normal">Name</th>
+          <th className="fw-normal">Length</th>
+          <th className="fw-normal">Users</th>
+          <th className="fw-normal">Visibility</th>
+          <th className="fw-normal">Formats</th>
         </tr>
       </thead>
       <tbody className="border-top-0">
@@ -24,10 +24,15 @@ export default function RecordingsList({ recordings }) {
             recordings?.map((recording) => (
               <tr key={recording.id} className="recordings align-middle">
                 <td className="text-dark">
-                  <div><FontAwesomeIcon className="mx-2 mt-4" icon={faVideo} size="2xl" />
-                    <strong> {recording.name} </strong>
-                  </div>
-                  <div className="small text-muted ms-5 ps-2"> {recording.created_at} </div>
+                  <Stack direction="horizontal">
+                    <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
+                      <FontAwesomeIcon icon={faVideo} className="text-primary" />
+                    </div>
+                    <Stack>
+                      <strong> {recording.name} </strong>
+                      <span className="small text-muted"> {recording.created_at} </span>
+                    </Stack>
+                  </Stack>
                 </td>
                 <td> {recording.length}min</td>
                 <td> {recording.users} </td>
@@ -39,7 +44,7 @@ export default function RecordingsList({ recordings }) {
                 </td>
                 <td>
                   <Modal
-                    modalButton={<FontAwesomeIcon className="" icon={faTrashCan} size="lg" />}
+                    modalButton={<FontAwesomeIcon className="" icon={faTrashAlt} />}
                     title="Are you sure?"
                     body={<DeleteRecordingForm recordId={recording.id} />}
                   />
