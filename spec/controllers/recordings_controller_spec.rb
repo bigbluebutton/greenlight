@@ -15,6 +15,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       recordings = create_list(:recording, 6)
       create_list(:room, 5, user:, recordings:)
       get :index
+
       expect(response).to have_http_status(:ok)
       response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
       expect(response_recording_ids).to eq(recordings.pluck(:id))
@@ -23,9 +24,9 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
     it 'returns no ids when there are no recordings that belong to current_user' do
       create_list(:room, 5, user:)
       get :index
+
       expect(response).to have_http_status(:ok)
-      response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
-      expect(response_recording_ids).to be_empty
+      expect(JSON.parse(response.body)['data']).to be_empty
     end
 
     it 'returns the recordings according to the query' do
