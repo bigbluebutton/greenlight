@@ -22,9 +22,9 @@ export default function RecordingsList({ recordings }) {
         {recordings?.length
           ? (
             recordings?.map((recording) => (
-              <tr key={recording.id} className="recordings align-middle">
+              <tr key={recording.id} className="align-middle">
                 <td className="text-dark">
-                  <Stack direction="horizontal">
+                  <Stack direction="horizontal" className="py-2">
                     <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
                       <FontAwesomeIcon icon={faVideo} className="text-primary" />
                     </div>
