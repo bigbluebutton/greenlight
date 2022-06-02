@@ -17,7 +17,12 @@ module Api
       end
 
       def show
-        render_json data: @room, status: :ok
+        room = {
+          name: @room.name,
+          created_at: @room.created_at.strftime('%d %b. %Y %I:%M%P')
+        }
+
+        render_json data: room, status: :ok
       end
 
       def destroy
@@ -50,9 +55,21 @@ module Api
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: gets the recordings that belong to the specific room friendly_id
       def recordings
-        recordings = @room.recordings&.search(params[:q])
+        recordings = @room.recordings&.search(params[:q]).to_a
 
-        render_json(data: recordings, status: :ok, include: :formats)
+        recordings.map! do |recording|
+          {
+            id: recording.id,
+            name: recording.name,
+            length: recording.length,
+            users: recording.users,
+            visibility: recording.visibility,
+            created_at: recording.created_at.strftime('%d %b. %Y %I:%M%P'),
+            formats: recording.formats
+          }
+        end
+
+        render_json data: recordings, status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id/join.json
