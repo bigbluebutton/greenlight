@@ -38,6 +38,7 @@ Rails.application.routes.draw do
           get '/shareable_users', to: 'shared_accesses#shareable_users'
         end
       end
+      resources :env, only: :index
     end
   end
 

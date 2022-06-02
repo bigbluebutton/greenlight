@@ -41,7 +41,7 @@ export default function RecordingsList({ recordings }) {
                   {recording.formats.map((format) => (
                     <Button
                       onClick={() => window.open(format.url, '_blank')}
-                      className={`btn-sm rounded-pill me-1 format btn-format-${format.recording_type.toLowerCase()}`}
+                      className={`btn-sm rounded-pill me-1 border-0 btn-format-${format.recording_type.toLowerCase()}`}
                       key={format.id}
                     >
                       {format.recording_type}
@@ -50,7 +50,7 @@ export default function RecordingsList({ recordings }) {
                 </td>
                 <td>
                   <Modal
-                    modalButton={<FontAwesomeIcon className="" icon={faTrashAlt} />}
+                    modalButton={<FontAwesomeIcon icon={faTrashAlt} />}
                     title="Are you sure?"
                     body={<DeleteRecordingForm recordId={recording.id} />}
                   />

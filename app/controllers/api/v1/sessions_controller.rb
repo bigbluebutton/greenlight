@@ -31,7 +31,7 @@ module Api
         user = User.find_by(email: session_params[:email])
 
         # TODO: Add proper error logging for non-verified token hcaptcha
-        render json: { signed_in: false }, status: :bad_request if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+        return render json: { signed_in: false }, status: :bad_request if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         # TODO: Add proper error logging for non-verified token hcaptcha
         if user.present? && user.authenticate(session_params[:password])
