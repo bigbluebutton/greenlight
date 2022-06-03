@@ -41,6 +41,19 @@ module Api
 
         render_json(status: :ok)
       end
+
+      def publish_recording
+        publish = params[:visibilityData][:publish]
+        record_id = params[:visibilityData][:record_id]
+        case publish
+        when 'true'
+          visibility = 'Published'
+        when 'false'
+          visibility = 'Unpublished'
+        end
+        Recording.find_by(record_id:).update(visibility:)
+        BigBlueButtonApi.new.publish_recordings(record_ids: record_id, publish:)
+      end
     end
   end
 end

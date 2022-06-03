@@ -1,12 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faVideo } from '@fortawesome/free-solid-svg-icons';
+import Form from 'react-bootstrap/Form';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Stack, Table } from 'react-bootstrap';
 import Modal from '../shared/Modal';
 import DeleteRecordingForm from '../forms/DeleteRecordingForm';
+import usePublishRecording from '../../hooks/mutations/recordings/usePublishRecording';
 
 export default function RecordingsList({ recordings }) {
+  const { handlePublishRecording } = usePublishRecording();
+
   return (
     <Table hover className="text-secondary mb-0 recordings-list">
       <thead>
@@ -36,7 +40,19 @@ export default function RecordingsList({ recordings }) {
                 </td>
                 <td> {recording.length}min</td>
                 <td> {recording.users} </td>
-                <td> {recording.visibility} </td>
+                <td>
+                  <Form.Select
+                    className="p-0"
+                    defaultValue={recording.visibility}
+                    onChange={(event) => {
+                      handlePublishRecording({ publish: event.target.value, record_id: recording.record_id });
+                    }}
+                  >
+                    {/* <option selected hidden>{recording.visibility}</option> */}
+                    <option value="true">Published</option>
+                    <option value="false">Unpublished</option>
+                  </Form.Select>
+                </td>
                 <td>
                   {recording.formats.map((format) => (
                     <Button

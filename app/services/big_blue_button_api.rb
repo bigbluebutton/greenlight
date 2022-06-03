@@ -35,6 +35,11 @@ class BigBlueButtonApi
     bbb_server.delete_recordings(record_ids)
   end
 
+  # Sets publish (true/false) for recording(s) with given record_id(s)
+  def publish_recordings(record_ids:, publish:)
+    bbb_server.publish_recordings(record_ids, publish)
+  end
+
   private
 
   def bbb_endpoint
