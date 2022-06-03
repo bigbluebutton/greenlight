@@ -11,11 +11,11 @@ on:
 jobs:
   test:
     name: Rubocop + RSpec + ESLint + Jest
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     services:
       postgres:
-        image: postgres:13.2-alpine
+        image: postgres:13-alpine
         env:
           POSTGRES_DB: postgres
           POSTGRES_PASSWORD: postgres

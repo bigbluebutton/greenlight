@@ -6,10 +6,6 @@ fi
 export PORT="${PORT:=3000}"
 echo "Web app starting on port: $PORT"
 
-if ! command -v foreman &> /dev/null
-then
-  echo "Installing foreman..."
-  gem install foreman
-fi
+rails assets:precompile
 
-foreman start -f Procfile.dev "$@"
+rails s -b 0.0.0.0 -p $PORT
