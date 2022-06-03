@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Card, Stack, Button,
+  Card, Stack,
 } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import useRoomRecordings from '../../hooks/queries/recordings/useRoomRecordings';
@@ -18,7 +18,6 @@ export default function RoomRecordings() {
         <div>
           <SearchBarQuery setInput={setInput} />
         </div>
-        <Button variant="primary-light" className="ms-auto">Re-sync Recordings</Button>
       </Stack>
       <Card className="border-0 shadow-sm mt-4">
         <RecordingsList recordings={recordings} />
