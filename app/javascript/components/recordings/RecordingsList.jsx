@@ -52,7 +52,7 @@ export default function RecordingsList({ recordings }) {
                   <Modal
                     modalButton={<FontAwesomeIcon icon={faTrashAlt} />}
                     title="Are you sure?"
-                    body={<DeleteRecordingForm recordId={recording.id} />}
+                    body={<DeleteRecordingForm recordId={recording.record_id} />}
                   />
                 </td>
               </tr>
