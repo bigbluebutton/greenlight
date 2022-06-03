@@ -44,8 +44,8 @@ module Api
       end
 
       def publish_recording
-        publish = params[:visibilityData][:publish]
-        record_id = params[:visibilityData][:record_id]
+        publish = params[:publish]
+        record_id = params[:record_id]
         case publish
         when 'true'
           visibility = 'Published'
