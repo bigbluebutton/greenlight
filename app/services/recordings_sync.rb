@@ -17,11 +17,12 @@ class RecordingsSync
 
     recordings[:recordings].each do |recording|
       room_id = Room.find_by(meeting_id: recording[:meetingID]).id
+      visibility = recording[:published] ? 'Published' : 'Unpublished'
 
       # Get length of presentation format(s)
       length = get_recording_length(recording:)
 
-      new_recording = Recording.create(room_id:, name: recording[:name], record_id: recording[:recordID], visibility: 'Unlisted',
+      new_recording = Recording.create(room_id:, name: recording[:name], record_id: recording[:recordID], visibility:,
                                        users: recording[:participants], length:)
 
       # Create format(s)
