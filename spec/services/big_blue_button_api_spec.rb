@@ -13,7 +13,7 @@ describe BigBlueButtonApi, type: :service do
 
   describe 'Instance of BigBlueButtonApi being created' do
     it 'Created an instance of BigBlueButtonApi' do
-      expect(BigBlueButton::BigBlueButtonApi).to receive(:new).with(ENV['BIGBLUEBUTTON_ENDPOINT'], ENV['BIGBLUEBUTTON_SECRET'],
+      expect(BigBlueButton::BigBlueButtonApi).to receive(:new).with(ENV.fetch('BIGBLUEBUTTON_ENDPOINT', nil), ENV.fetch('BIGBLUEBUTTON_SECRET', nil),
                                                                     '1.8')
       bbb_service.bbb_server
     end
