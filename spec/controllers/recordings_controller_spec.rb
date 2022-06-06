@@ -78,4 +78,13 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       get :resync
     end
   end
+
+  describe '#publish_recording' do
+    it 'Updates Recording with new visibility value' do
+      recording = create(:recording, visibility: 'Unpublished')
+      expect { post :publish_recording, params: { publish: 'true', record_id: recording.record_id } }.to change {
+                                                                                                           recording.reload.visibility
+                                                                                                         }.to('Published')
+    end
+  end
 end
