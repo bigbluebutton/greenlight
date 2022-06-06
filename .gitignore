@@ -47,5 +47,8 @@
 /.vscode/
 .vscode/**
 
+# Ignore dev settings.
+.ruby-version
+
 # Ignore environment configuration.
 .env*
