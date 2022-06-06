@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Button, Col, Row, Stack, Form as BootstrapForm,
   Container,
@@ -20,6 +20,8 @@ export default function SigninForm() {
   const { isSubmitting } = methods.formState;
   const fields = signinFormFields;
   const { isLoading, data: env } = useEnv();
+  const captchaRef = useRef(null);
+
   if (isLoading) return <Spinner />;
 
   const onError = (err) => {
@@ -31,7 +33,15 @@ export default function SigninForm() {
   };
 
   return (
-    <Form methods={methods} onSubmit={onSubmit}>
+    <Form
+      methods={methods}
+      onSubmit={(data) => {
+        captchaRef.current.execute({ async: true })
+          .then(({ response }) => {
+            onSubmit(data, response);
+          });
+      }}
+    >
       <FormControl field={fields.email} type="email" />
       <FormControl field={fields.password} type="password" />
       <Row>
@@ -49,9 +59,11 @@ export default function SigninForm() {
         <Container className="d-flex justify-content-center mt-3">
           <HCaptcha
             sitekey={env.HCAPTCHA_KEY}
+            size="invisible"
             onVerify={(response) => setToken(response)}
             onError={onError}
             onExpire={onExpire}
+            ref={captchaRef}
           />
         </Container>
         )}
