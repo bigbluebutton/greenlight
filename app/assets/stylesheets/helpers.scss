@@ -40,7 +40,7 @@
 
     &.active, &:hover {
       color: $primary;
-      border-bottom: 1px solid $primary !important;
+      border-bottom: 1.5px solid $primary !important;
     }
   }
 }

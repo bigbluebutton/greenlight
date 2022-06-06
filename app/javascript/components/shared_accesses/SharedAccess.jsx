@@ -23,7 +23,7 @@ export default function SharedAccess() {
   if (sharedUsers?.length || input) {
     return (
       <div id="shared-access-list" className="wide-background full-height-room">
-        <Stack direction="horizontal" className="w-100 mt-5">
+        <Stack direction="horizontal" className="w-100 mt-3">
           <div>
             <SearchBarQuery setInput={setInput} />
           </div>
@@ -35,7 +35,7 @@ export default function SharedAccess() {
             id="shared-access-modal"
           />
         </Stack>
-        <Card className="border-0 shadow-sm mt-4">
+        <Card className="border-0 shadow-sm mt-3">
           <Card.Body className="p-0">
             <Table hover className="text-secondary mb-0">
               <thead>

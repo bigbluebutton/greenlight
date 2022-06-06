@@ -13,16 +13,27 @@ module Api
         # Return the rooms that belong to current user
         rooms = Room.where(user_id: current_user&.id).to_a
 
+        shared_rooms = current_user.shared_rooms.map do |room|
+          {
+            id: room.id,
+            name: room.name,
+            friendly_id: room.friendly_id,
+            created_at: room.created_at.strftime('%A %B %e, %Y %l:%M%P'),
+            shared: true,
+            shared_owner: room.user.name
+          }
+        end
+
         rooms.map! do |room|
           {
             id: room.id,
             name: room.name,
             friendly_id: room.friendly_id,
-            created_at: room.created_at.strftime('%d %b. %Y %I:%M%P')
+            created_at: room.created_at.strftime('%A %B %e, %Y %l:%M%P')
           }
         end
 
-        render_json data: rooms, status: :ok
+        render_json data: rooms + shared_rooms, status: :ok
       end
 
       def show
@@ -30,7 +41,7 @@ module Api
         room = {
           id: @room.id,
           name: @room.name,
-          created_at: @room.created_at.strftime('%d %b. %Y %I:%M%P')
+          created_at: @room.created_at.strftime('%A %B %e, %Y %l:%M%P')
         }
 
         render_json data: room, status: :ok
@@ -75,7 +86,7 @@ module Api
             length: recording.length,
             users: recording.users,
             visibility: recording.visibility,
-            created_at: recording.created_at.strftime('%d %b. %Y %I:%M%P'),
+            created_at: recording.created_at.strftime('%A %B %e, %Y %l:%M%P'),
             formats: recording.formats
           }
         end

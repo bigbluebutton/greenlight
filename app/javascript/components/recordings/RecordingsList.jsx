@@ -20,6 +20,7 @@ export default function RecordingsList({ recordings }) {
           <th className="fw-normal">Users</th>
           <th className="fw-normal">Visibility</th>
           <th className="fw-normal">Formats</th>
+          <th aria-label="options" />
         </tr>
       </thead>
       <tbody className="border-top-0">

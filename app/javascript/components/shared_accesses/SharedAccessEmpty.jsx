@@ -8,7 +8,7 @@ import SharedAccessForm from '../forms/SharedAccessForm';
 export default function SharedAccessEmpty() {
   return (
     <div id="shared-access-empty" className="wide-background full-height-room">
-      <Card className="border-0 shadow-sm mt-5 text-center">
+      <Card className="border-0 shadow-sm mt-3 text-center">
         <Card.Body className="py-5">
           <div className="user-icon-circle rounded-circle d-block mx-auto mb-3">
             <FontAwesomeIcon icon={faUser} className="fa-4x text-primary d-block mx-auto pt-3" />

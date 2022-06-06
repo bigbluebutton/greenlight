@@ -20,7 +20,7 @@ module Api
             length: recording.length,
             users: recording.users,
             visibility: recording.visibility,
-            created_at: recording.created_at.strftime('%d %b. %Y %I:%M%P'),
+            created_at: recording.created_at.strftime('%A %B %e, %Y %l:%M%P'),
             formats: recording.formats
           }
         end
