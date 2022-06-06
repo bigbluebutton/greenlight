@@ -48,4 +48,4 @@
 .vscode/**
 
 # Ignore environment configuration.
-.env
+.env*
