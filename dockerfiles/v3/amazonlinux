@@ -1,0 +1,54 @@
+FROM amazonlinux:2.0.20220426.0 AS amazonlinux
+
+ARG RAILS_ROOT=/usr/src/app
+ENV RAILS_ROOT=${RAILS_ROOT}
+
+FROM amazonlinux AS amazonlinux-base
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /sbin/tini
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini.asc /tini.asc
+RUN gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 595E85A6B1B4779EA4DAAEC70B588DFF0527A9B7
+RUN gpg --batch --verify /tini.asc /sbin/tini
+RUN chmod +x /sbin/tini
+RUN yum -y install redhat-rpm-config
+RUN yum install -y amazon-linux-extras
+
+FROM amazonlinux-base
+WORKDIR $RAILS_ROOT
+# Install Node.js (needed for yarn)
+RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash -
+RUN yum -y install nodejs
+RUN yum -y install yarn gcc-c++ make
+
+# Install Ruby & Rails
+RUN curl -sL -o /etc/yum.repos.d/yarn.repo https://dl.yarnpkg.com/rpm/yarn.repo
+RUN amazon-linux-extras enable ruby3.0
+
+RUN yum -y install git tar gzip yarn shared-mime-info libxslt zlib-devel ruby-devel rubygems-devel rubygem-bundler rubygem-io-console rubygem-irb rubygem-json rubygem-minitest rubygem-net-http-persistent rubygem-net-telnet rubygem-power_assert rubygem-rake rubygem-test-unit rubygem-thor rubygem-xmlrpc rubygem-bigdecimal
+RUN yum -y install python3 python3-pip shadow-utils
+RUN gem install rails
+
+RUN amazon-linux-extras install postgresql13
+RUN yum -y install postgresql-devel
+
+RUN amazon-linux-extras list | grep ruby
+
+COPY . ./
+RUN bundle install -j4 \
+    && yarn install \
+    && ./node_modules/.bin/esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds
+
+ARG RAILS_ENV
+ENV RAILS_ENV=${RAILS_ENV:-production}
+ARG RAILS_LOG_TO_STDOUT
+ENV RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
+ARG RAILS_SERVE_STATIC_FILES
+ENV RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES:-true}
+
+ARG VERSION_CODE
+ENV VERSION_CODE=$VERSION_CODE
+
+EXPOSE 3000
+
+RUN chmod +x bin/start
+ENTRYPOINT [ "./bin/start" ]
