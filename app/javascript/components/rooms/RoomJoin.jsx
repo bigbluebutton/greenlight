@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import { useParams } from 'react-router-dom';
-import {Button, Col, InputGroup} from 'react-bootstrap';
+import { Button, Col, InputGroup } from 'react-bootstrap';
 import FormLogo from '../forms/FormLogo';
 import useRoom from '../../hooks/queries/rooms/useRoom';
 import useRoomJoin from '../../hooks/queries/rooms/useRoomJoin';

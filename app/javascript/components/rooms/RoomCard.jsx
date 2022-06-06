@@ -4,12 +4,12 @@ import { Button, Card, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
-import {faChalkboardUser, faLink} from '@fortawesome/free-solid-svg-icons';
+import { faChalkboardUser, faLink } from '@fortawesome/free-solid-svg-icons';
 import Spinner from '../shared/stylings/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 
-function copyInvite(friendly_id) {
-  navigator.clipboard.writeText(`${window.location}/${friendly_id}/join`);
+function copyInvite(friendlyId) {
+  navigator.clipboard.writeText(`${window.location}/${friendlyId}/join`);
 }
 
 export default function RoomCard({ room }) {
@@ -60,5 +60,7 @@ RoomCard.propTypes = {
     friendly_id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
+    shared: PropTypes.bool,
+    shared_owner: PropTypes.string,
   }).isRequired,
 };
