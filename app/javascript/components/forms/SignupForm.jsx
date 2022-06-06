@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button, Container, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
@@ -16,6 +16,8 @@ export default function SignupForm() {
   const { isSubmitting } = methods.formState;
   const fields = signupFormFields;
   const { isLoading, data: env } = useEnv();
+  const captchaRef = useRef(null);
+
   if (isLoading) return <Spinner />;
 
   const onError = (err) => {
@@ -27,7 +29,15 @@ export default function SignupForm() {
   };
 
   return (
-    <Form methods={methods} onSubmit={onSubmit}>
+    <Form
+      methods={methods}
+      onSubmit={(data) => {
+        captchaRef.current.execute({ async: true })
+          .then(({ response }) => {
+            onSubmit(data, response);
+          });
+      }}
+    >
       <FormControl field={fields.name} type="text" />
       <FormControl field={fields.email} type="email" />
       <FormControl field={fields.password} type="password" />
@@ -37,9 +47,11 @@ export default function SignupForm() {
         <Container className="d-flex justify-content-center mt-3">
           <HCaptcha
             sitekey={env.HCAPTCHA_KEY}
+            size="invisible"
             onVerify={(response) => setToken(response)}
             onError={onError}
             onExpire={onExpire}
+            ref={captchaRef}
           />
         </Container>
         )}
