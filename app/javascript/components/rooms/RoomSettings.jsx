@@ -27,8 +27,8 @@ export default function RoomSettings() {
 
   return (
     <div className="wide-background full-height-room">
-      <Card className="mx-auto mt-5 p-4 border-0 shadow-sm">
-        <div className="mt-4">
+      <Card className="mx-auto mt-3 p-4 border-0 shadow-sm">
+        <div className="mt-2">
           <Row>
             <Col className="border-end border-2">
               <h6 className="text-primary">Room Name</h6>

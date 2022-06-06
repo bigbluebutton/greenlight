@@ -14,7 +14,7 @@ export default function RoomRecordings() {
 
   return (
     <div className="wide-background full-height-room">
-      <Stack direction="horizontal" className="w-100 mt-5">
+      <Stack direction="horizontal" className="w-100 mt-3">
         <div>
           <SearchBarQuery setInput={setInput} />
         </div>
