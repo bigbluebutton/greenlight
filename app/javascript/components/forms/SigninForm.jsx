@@ -16,7 +16,7 @@ import useEnv from '../../hooks/queries/env/useEnv';
 export default function SigninForm() {
   const methods = useForm(signinFormConfig);
   const [token, setToken] = useState('');
-  const { onSubmit } = useCreateSession(token);
+  const { onSubmit: createSession } = useCreateSession(token);
   const { isSubmitting } = methods.formState;
   const fields = signinFormFields;
   const { isLoading, data: env } = useEnv();
@@ -35,11 +35,9 @@ export default function SigninForm() {
   return (
     <Form
       methods={methods}
-      onSubmit={(data) => {
-        captchaRef.current.execute({ async: true })
-          .then(({ response }) => {
-            onSubmit(data, response);
-          });
+      onSubmit={async (data) => {
+        const response = await captchaRef.current?.execute({ async: true });
+        await createSession(data, response);
       }}
     >
       <FormControl field={fields.email} type="email" />
