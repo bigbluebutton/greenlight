@@ -82,9 +82,16 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
   describe '#publish_recording' do
     it 'Updates Recording with new visibility value' do
       recording = create(:recording, visibility: 'Unpublished')
+      allow_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).and_return(publish_recordings_response)
       expect { post :publish_recording, params: { publish: 'true', record_id: recording.record_id } }.to change {
                                                                                                            recording.reload.visibility
                                                                                                          }.to('Published')
     end
+  end
+
+  private
+
+  def publish_recordings_response
+    Net::HTTPSuccess.new(1.0, '200', 'OK')
   end
 end

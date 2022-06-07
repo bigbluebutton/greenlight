@@ -54,6 +54,8 @@ module Api
         end
         Recording.find_by(record_id:).update(visibility:)
         BigBlueButtonApi.new.publish_recordings(record_ids: record_id, publish:)
+
+        render_json(status: :ok)
       end
     end
   end

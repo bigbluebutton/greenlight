@@ -8,11 +8,6 @@ describe RecordingsSync, type: :service do
   let(:room) { create(:room, user:) }
   let(:recordings_sync_service) { described_class.new(user:) }
 
-  before do
-    ENV['BIGBLUEBUTTON_ENDPOINT'] = 'http://test.com/bigbluebutton/api'
-    ENV['BIGBLUEBUTTON_SECRET'] = 'test'
-  end
-
   describe '#call' do
     it 'creates no new recordings and deletes all existing ones based on response' do
       create_list(:recording, 5, room:)
