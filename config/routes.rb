@@ -21,10 +21,14 @@ Rails.application.routes.draw do
       end
       resources :rooms, only: %i[show index create destroy], param: :friendly_id do
         member do
-          post '/start', to: 'rooms#start', as: :start_meeting
           get '/recordings', to: 'rooms#recordings'
-          get '/join', to: 'rooms#join'
-          get '/status', to: 'rooms#status'
+        end
+      end
+      resources :meetings, only: %i[], param: :friendly_id do
+        member do
+          post '/start', to: 'meetings#start'
+          get '/join', to: 'meetings#join'
+          get '/status', to: 'meetings#status'
         end
       end
       resources :room_settings, only: %i[show update], param: :friendly_id
