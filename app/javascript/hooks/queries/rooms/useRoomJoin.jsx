@@ -5,7 +5,7 @@ import subscribeToRoom from '../../../channels/rooms_channel';
 export default function useRoomJoin(friendlyId, name) {
   return useQuery(
     ['getRoomJoin', name],
-    () => axios.get(`/api/v1/rooms/${friendlyId}/join.json`, {
+    () => axios.get(`/api/v1/meetings/${friendlyId}/join.json`, {
       params: {
         name,
       },

@@ -3,7 +3,7 @@ import axios from 'axios';
 export const ENDPOINTS = {
   signup: '/users.json',
   signin: '/sessions.json',
-  start_meeting: (friendlyId) => `rooms/${friendlyId}/start.json`,
+  start_meeting: (friendlyId) => `meetings/${friendlyId}/start.json`,
   createRoom: '/rooms.json',
   recordings_resync: '/recordings/resync.json',
   room_recordings: (friendlyId) => `/rooms/${friendlyId}/recordings.json`,

@@ -4,7 +4,7 @@ module Api
   module V1
     class RoomsController < ApiController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
-      before_action :find_room, only: %i[show start recordings join status]
+      before_action :find_room, only: %i[show recordings]
 
       # GET /api/v1/rooms.json
       # Returns: { data: Array[serializable objects(rooms)] , errors: Array[String] }
@@ -47,22 +47,6 @@ module Api
         render_json data: room, status: :ok
       end
 
-      def destroy
-        Room.destroy_by(friendly_id: params[:friendly_id])
-        render_json status: :ok
-      end
-
-      # POST /api/v1/rooms/:friendly_id/start.json
-      # Returns: { data: Array[serializable objects] , errors: Array[String] }
-      # Does: Starts the Room meeting and joins in the meeting starter.
-      def start
-        MeetingStarter.new(room: @room, logout_url: request.referer).call
-
-        render_json data: {
-          join_url: BigBlueButtonApi.new.join_meeting(room: @room, name: current_user.name, role: 'Moderator')
-        }, status: :created
-      end
-
       # POST /api/v1/rooms.json
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: creates a room for the authenticated user.
@@ -71,6 +55,11 @@ module Api
         room = Room.create!(room_params.merge(user_id: current_user.id))
         logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{current_user.id}"
         render_json status: :created
+      end
+
+      def destroy
+        Room.destroy_by(friendly_id: params[:friendly_id])
+        render_json status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id/recordings.json
@@ -92,21 +81,6 @@ module Api
         end
 
         render_json data: recordings, status: :ok
-      end
-
-      # GET /api/v1/rooms/:friendly_id/join.json
-      def join
-        render_json(data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: 'Viewer'), status: :ok)
-      end
-
-      # GET /api/v1/rooms/:friendly_id/status.json
-      def status
-        data = {
-          status: BigBlueButtonApi.new.meeting_running?(room: @room)
-        }
-        data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: 'Viewer') if data[:status]
-
-        render_json(data:, status: :ok)
       end
 
       private

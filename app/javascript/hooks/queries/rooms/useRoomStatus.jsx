@@ -4,7 +4,7 @@ import axios from 'axios';
 export default function useRoomStatus(friendlyId, name) {
   return useQuery(
     ['getRoomStatus', name],
-    () => axios.get(`/api/v1/rooms/${friendlyId}/status.json`, {
+    () => axios.get(`/api/v1/meetings/${friendlyId}/status.json`, {
       params: {
         name,
       },
