@@ -1,10 +1,11 @@
 import React from 'react';
 import { Spinner as BootstrapSpinner } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-export default function Spinner() {
+export default function Spinner({ className }) {
   return (
     <BootstrapSpinner
-      className="mx-1"
+      className={className}
       as="span"
       animation="border"
       role="status"
@@ -12,3 +13,11 @@ export default function Spinner() {
     />
   );
 }
+
+Spinner.propTypes = {
+  className: PropTypes.string,
+};
+
+Spinner.defaultProps = {
+  className: '',
+};
