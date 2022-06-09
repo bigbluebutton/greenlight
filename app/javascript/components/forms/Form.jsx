@@ -17,6 +17,12 @@ export default function Form({
   );
 }
 
+Form.defaultProps = {
+  onSubmit: () => { },
+  onBlur: () => { },
+  onChange: () => { },
+};
+
 Form.propTypes = {
   methods: PropTypes.shape(
     {
@@ -30,5 +36,7 @@ Form.propTypes = {
     },
   ).isRequired,
   children: PropTypes.node.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
 };
