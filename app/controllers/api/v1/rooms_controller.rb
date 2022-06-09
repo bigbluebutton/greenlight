@@ -6,6 +6,8 @@ module Api
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
       before_action :find_room, only: %i[show recordings]
 
+      include Avatarable
+
       # GET /api/v1/rooms.json
       # Returns: { data: Array[serializable objects(rooms)] , errors: Array[String] }
       # Does: Returns the Rooms that belong to the user currently logged in
@@ -43,6 +45,13 @@ module Api
           name: @room.name,
           created_at: @room.created_at.strftime('%A %B %e, %Y %l:%M%P')
         }
+
+        if params[:include_owner] == 'true'
+          room[:owner] = {
+            name: @room.user.name,
+            avatar: user_avatar(@room.user)
+          }
+        end
 
         render_json data: room, status: :ok
       end

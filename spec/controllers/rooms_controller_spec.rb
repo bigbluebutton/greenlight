@@ -40,6 +40,31 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(response).to have_http_status(:not_found)
       expect(JSON.parse(response.body)['data']).to be_empty
     end
+
+    context 'include_owner' do
+      it 'returns the owners name if include_owner is passed' do
+        room = create(:room, user:)
+        get :show, params: { friendly_id: room.friendly_id, include_owner: true }
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['data']['owner']['name']).to eq(user.name)
+      end
+
+      it 'returns the owners avatar if include_owner is passed' do
+        room = create(:room, user:)
+        user.avatar.attach(io: fixture_file_upload('default-avatar.png'), filename: 'default-avatar.png', content_type: 'image/png')
+
+        get :show, params: { friendly_id: room.friendly_id, include_owner: true }
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['data']['owner']['avatar']).to be_present
+      end
+
+      it 'does not return the owner if include_owner is false' do
+        room = create(:room, user:)
+        get :show, params: { friendly_id: room.friendly_id, include_owner: false }
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['data']['owner']).to be_nil
+      end
+    end
   end
 
   describe '#destroy' do
