@@ -2,6 +2,8 @@ import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import useSessions from '../../hooks/queries/users/useSessions';
 
+// TODO: Refactor this to use QueryClient context and fetch sessions data from queryCache.
+
 const AuthContext = React.createContext();
 
 // A component that imports the useAuth method will be wrapped with AuthProvider and thus
@@ -20,6 +22,7 @@ export default function AuthProvider({ children }) {
     provider: session?.data.current_user?.provider,
     avatar: session?.data.current_user?.avatar,
     signed_in: session?.data.current_user?.signed_in ?? false,
+    lang: session?.data.current_user?.lang,
   };
 
   const memoizedCurrentUser = useMemo(() => currentUser, [currentUser]);

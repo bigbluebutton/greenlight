@@ -18,7 +18,11 @@ module Api
               email: current_user.email,
               provider: current_user.provider,
               avatar: user_avatar(current_user),
+              lang: current_user.lang,
               signed_in: true
+            },
+            server_state: {
+              available_locales: Rails.configuration.available_locales_hash
             }
           }
         else

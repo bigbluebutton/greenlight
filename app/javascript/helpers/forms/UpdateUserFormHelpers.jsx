@@ -26,11 +26,11 @@ export const updateUserFormFields = {
       id: 'email',
     },
   },
-  language: {
+  lang: {
     label: 'Language',
-    controlId: 'updateUserLanguage',
+    controlId: 'updateUserlang',
     hookForm: {
-      id: 'language',
+      id: 'lang',
     },
   },
   userRole: {

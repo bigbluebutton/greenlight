@@ -28,5 +28,17 @@ module Greenlight
       record_not_found: 'Record Not Found',
       server_error: 'Something Went Wrong'
     }
+
+    # This hash will hold the supported available locales and their native name.
+    # I18n_data gem can be used https://github.com/grosser/i18n_data
+    config.available_locales_hash = {
+      en: 'English',
+      ar: 'العربيّة',
+      fr: 'Français',
+      es: 'Española'
+    }
+
+    I18n.default_locale = :en # TODO: Enable administrators to inject this config.
+    I18n.available_locales = config.available_locales_hash.keys # TODO: Enable administrators to inject this config.
   end
 end

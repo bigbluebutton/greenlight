@@ -5,7 +5,9 @@ import { Form as BootStrapForm } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 import PropTypes from 'prop-types';
 
-export default function FormControl({ field, ...props }) {
+export default function FormControl({
+  field, control: Control, children, ...props
+}) {
   const { register, formState: { errors } } = useFormContext();
   const { hookForm } = field;
   const { id, validations } = hookForm;
@@ -15,7 +17,9 @@ export default function FormControl({ field, ...props }) {
       <BootStrapForm.Label className="small mb-0">
         {field.label}
       </BootStrapForm.Label>
-      <BootStrapForm.Control {...props} placeholder={field.placeHolder} isInvalid={error} {...register(id, validations)} />
+      <Control {...props} placeholder={field.placeHolder} isInvalid={error} {...register(id, validations)}>
+        {children}
+      </Control>
       {
               error
               && (
@@ -31,6 +35,11 @@ export default function FormControl({ field, ...props }) {
     </BootStrapForm.Group>
   );
 }
+
+FormControl.defaultProps = {
+  control: BootStrapForm.Control,
+  children: undefined,
+};
 
 FormControl.propTypes = {
   field: PropTypes.shape(
@@ -48,4 +57,6 @@ FormControl.propTypes = {
       ).isRequired,
     },
   ).isRequired,
+  control: PropTypes.shape({}),
+  children: PropTypes.node,
 };
