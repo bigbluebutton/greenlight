@@ -4,10 +4,10 @@ module Api
   module V1
     class RoomsController < ApiController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
-      before_action :find_room, only: %i[show recordings]
+      before_action :find_room, only: %i[show update recordings]
 
       include Avatarable
-      include Presentation
+      include Presentable
 
       # GET /api/v1/rooms.json
       # Returns: { data: Array[serializable objects(rooms)] , errors: Array[String] }
@@ -69,11 +69,10 @@ module Api
       end
 
       def update
-        room = Room.find_by(friendly_id: params[:friendly_id])
-        if room.update(presentation: params[:presentation])
+        if @room.update(presentation: params[:presentation])
           render_json status: :ok
         else
-          render_json errors: room.errors.to_a, status: :bad_request
+          render_json errors: @room.errors.to_a, status: :bad_request
         end
       end
 

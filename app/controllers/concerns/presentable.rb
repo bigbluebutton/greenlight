@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Presentation
+module Presentable
   extend ActiveSupport::Concern
 
   def room_presentation(room)
