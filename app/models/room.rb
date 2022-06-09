@@ -9,6 +9,8 @@ class Room < ApplicationRecord
   has_many :recordings, dependent: :destroy
   has_many :room_meeting_options, dependent: :destroy
 
+  has_one_attached :presentation
+
   validates :name, presence: true
   validates :friendly_id, presence: true, uniqueness: true
   validates :meeting_id, presence: true, uniqueness: true
