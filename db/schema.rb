@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_31_182239) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_09_103801) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -123,6 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_31_182239) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "role_id"
+    t.string "lang", default: ""
     t.index ["email", "provider"], name: "index_users_on_email_and_provider", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end

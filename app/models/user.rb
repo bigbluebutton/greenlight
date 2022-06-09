@@ -24,6 +24,10 @@ class User < ApplicationRecord
   # TODO: samuel - ActiveStorage validations needs to be discussed and implemented.
   validate :avatar_validation
 
+  validates :lang, inclusion: { in: I18n.available_locales.map(&:to_s) }
+
+  before_validation :ensure_lang_set, on: :create
+
   def self.search(input)
     return where('name ILIKE ?', "%#{input}%") if input
 
@@ -40,5 +44,9 @@ class User < ApplicationRecord
     elsif avatar.attachment.blob.byte_size > MAX_AVATAR_SIZE
       errors.add(:avatar, 'is too large')
     end
+  end
+
+  def ensure_lang_set
+    self.lang = I18n.default_locale.to_s if lang.blank?
   end
 end
