@@ -10,7 +10,7 @@ export default function Presentation() {
   const { friendlyId } = useParams();
   const [presentation, setPresentation] = useState();
   const { data: room } = useRoom(friendlyId);
-  const { onSubmit } = useUploadPresentation(friendlyId);
+  const { handleUploadPresentation } = useUploadPresentation(friendlyId);
 
   if (!room.presentation) {
     return (
@@ -25,8 +25,9 @@ export default function Presentation() {
               Upload any office document or PDF file. Depending on the size of the
               presentation, it may require additional time to upload before it can be used
             </Card.Text>
+            {/* TODO: Hadi - Change what is accepted as a file */}
             <input type="file" onChange={(e) => setPresentation(e.target.files[0])} accept="*" />
-            <Button variant="primary" className="w-100 my-3 py-2" onClick={() => onSubmit(presentation)}>
+            <Button variant="primary" className="w-100 my-3 py-2" onClick={() => handleUploadPresentation(presentation)}>
               Upload Presentation
             </Button>
           </Card.Body>
