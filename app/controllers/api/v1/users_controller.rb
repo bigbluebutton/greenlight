@@ -29,6 +29,7 @@ module Api
         end
       end
 
+      # TODO: Add a find_user before_action callback to update, destroy and purge_avatar.
       def update
         user = User.find(params[:id])
         if user.update(user_params)
@@ -60,7 +61,7 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
+        params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :lang)
       end
     end
   end

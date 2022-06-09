@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# TODO: Migrate this to controllers spec.
+
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :request do
