@@ -19,7 +19,7 @@ Rails.application.routes.draw do
           delete :purge_avatar
         end
       end
-      resources :rooms, only: %i[show index create destroy], param: :friendly_id do
+      resources :rooms, only: %i[show index create update destroy], param: :friendly_id do
         member do
           get '/recordings', to: 'rooms#recordings'
         end

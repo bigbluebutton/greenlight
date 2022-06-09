@@ -7,6 +7,7 @@ module Api
       before_action :find_room, only: %i[show recordings]
 
       include Avatarable
+      include Presentation
 
       # GET /api/v1/rooms.json
       # Returns: { data: Array[serializable objects(rooms)] , errors: Array[String] }
@@ -43,6 +44,7 @@ module Api
         room = {
           id: @room.id,
           name: @room.name,
+          presentation: room_presentation(@room),
           created_at: @room.created_at.strftime('%A %B %e, %Y %l:%M%P')
         }
 
@@ -64,6 +66,15 @@ module Api
         room = Room.create!(room_params.merge(user_id: current_user.id))
         logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{current_user.id}"
         render_json status: :created
+      end
+
+      def update
+        room = Room.find_by(friendly_id: params[:friendly_id])
+        if room.update(presentation: params[:presentation])
+          render_json status: :ok
+        else
+          render_json errors: room.errors.to_a, status: :bad_request
+        end
       end
 
       def destroy
@@ -99,7 +110,7 @@ module Api
       end
 
       def room_params
-        params.require(:room).permit(:name)
+        params.require(:room).permit(:name, :presentation)
       end
     end
   end
