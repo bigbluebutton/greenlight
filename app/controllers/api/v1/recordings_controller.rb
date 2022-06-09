@@ -4,6 +4,7 @@ module Api
   module V1
     class RecordingsController < ApiController
       skip_before_action :verify_authenticity_token # TODO: - Revisit this.
+      before_action :find_recording, only: :update
 
       # GET /api/v1/recordings.json
       # Returns: { data: Array[serializable objects(recordings)] , errors: Array[String] }
@@ -37,6 +38,19 @@ module Api
         render_json(status: :ok)
       end
 
+      # PUT/PATCH /api/v1/recordings/:recording_id.json
+      # Returns: { data: Array[serializable objects(recordings)] , errors: Array[String] }
+      # Does: Update the recording name.
+      def update
+        new_name = recording_params[:name]
+        return render_json errors: [Rails.configuration.custom_error_msgs[:missing_params]], status: :bad_request if new_name.blank?
+
+        BigBlueButtonApi.new.update_recordings record_id: @recording.record_id, meta_hash: { meta_name: new_name }
+        Recording.update! @recording.id, name: new_name
+
+        render_json
+      end
+
       def resync
         RecordingsSync.new(user: current_user).call
 
@@ -56,6 +70,16 @@ module Api
         BigBlueButtonApi.new.publish_recordings(record_ids: record_id, publish:)
 
         render_json(status: :ok)
+      end
+
+      private
+
+      def recording_params
+        params.require(:recording).permit(:name)
+      end
+
+      def find_recording
+        @recording = Recording.find_by! record_id: params[:id]
       end
     end
   end

@@ -40,6 +40,10 @@ class BigBlueButtonApi
     bbb_server.publish_recordings(record_ids, publish)
   end
 
+  def update_recordings(record_id:, meta_hash:)
+    bbb_server.update_recordings(record_id, {}, meta_hash)
+  end
+
   private
 
   def bbb_endpoint

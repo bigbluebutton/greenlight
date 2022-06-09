@@ -53,6 +53,40 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
     end
   end
 
+  describe '#update' do
+    let(:room) { create(:room, user:) }
+    let(:recording) { create(:recording, room:) }
+
+    before do
+      allow_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).and_return(http_ok_response)
+    end
+
+    it 'updates the recordings name with valid params returning :ok status code' do
+      expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: recording.record_id,
+                                                                                   meta_hash: { meta_name: 'My Awesome Recording!' })
+
+      expect { post :update, params: { recording: { name: 'My Awesome Recording!' }, id: recording.record_id } }.to(change { recording.reload.name })
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'does not update the recordings name for invalid params returning a :bad_request status code' do
+      expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+
+      expect do
+        post :update,
+             params: { recording: { name: '' }, id: recording.record_id }
+      end.not_to(change { recording.reload.name })
+
+      expect(response).to have_http_status(:bad_request)
+    end
+
+    it 'does not update the recordings name for invalid recording id returning :not_found status code' do
+      expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+      post :update, params: { recording: { name: '' }, id: '404' }
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
   # TODO: - Uncomment once delete_recordings is no longer in destroy
   # describe '#destroy' do
   #   it 'deletes recording from the database' do
@@ -82,16 +116,14 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
   describe '#publish_recording' do
     it 'Updates Recording with new visibility value' do
       recording = create(:recording, visibility: 'Unpublished')
-      allow_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).and_return(publish_recordings_response)
+      allow_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).and_return(http_ok_response)
       expect { post :publish_recording, params: { publish: 'true', record_id: recording.record_id } }.to change {
                                                                                                            recording.reload.visibility
                                                                                                          }.to('Published')
     end
   end
+end
 
-  private
-
-  def publish_recordings_response
-    Net::HTTPSuccess.new(1.0, '200', 'OK')
-  end
+def http_ok_response
+  Net::HTTPSuccess.new(1.0, '200', 'OK')
 end

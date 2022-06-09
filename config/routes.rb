@@ -32,7 +32,7 @@ Rails.application.routes.draw do
         end
       end
       resources :room_settings, only: %i[show update], param: :friendly_id
-      resources :recordings, only: %i[index destroy] do
+      resources :recordings, only: %i[index update destroy] do
         collection do
           get '/resync', to: 'recordings#resync'
           post '/publish', to: 'recordings#publish_recording'

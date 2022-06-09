@@ -22,7 +22,9 @@ class RecordingsSync
       # Get length of presentation format(s)
       length = get_recording_length(recording:)
 
-      new_recording = Recording.create(room_id:, name: recording[:name], record_id: recording[:recordID], visibility:,
+      new_name = recording[:metadata][:name] || recording[:name]
+
+      new_recording = Recording.create(room_id:, name: new_name, record_id: recording[:recordID], visibility:,
                                        users: recording[:participants], length:)
 
       # Create format(s)
