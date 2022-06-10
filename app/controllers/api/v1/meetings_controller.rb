@@ -10,7 +10,9 @@ module Api
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: Starts the Room meeting and joins in the meeting starter.
       def start
-        MeetingStarter.new(room: @room, logout_url: request.referer).call
+        url = (url_for(@room.presentation).gsub('&', '%26') if @room.presentation.attached?)
+
+        MeetingStarter.new(room: @room, logout_url: request.referer, url:).call
 
         render_json data: {
           join_url: BigBlueButtonApi.new.join_meeting(room: @room, name: current_user.name, role: 'Moderator')

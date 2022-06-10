@@ -13,8 +13,14 @@ class BigBlueButtonApi
   end
 
   # Start a meeting for a specific room and returns the join URL.
-  def start_meeting(room:, options: {})
-    bbb_server.create_meeting room.name, room.meeting_id, options
+  def start_meeting(room:, options: {}, url: nil)
+    if url.present?
+      modules = BigBlueButton::BigBlueButtonModules.new
+      modules.add_presentation(:url, url)
+      bbb_server.create_meeting(room.name, room.meeting_id, options, modules)
+    else
+      bbb_server.create_meeting(room.name, room.meeting_id, options)
+    end
   end
 
   def join_meeting(room:, name:, role:)

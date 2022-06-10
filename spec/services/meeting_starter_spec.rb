@@ -4,7 +4,8 @@ require 'rails_helper'
 
 describe MeetingStarter, type: :service do
   let(:room) { create(:room) }
-  let(:service) { described_class.new(room:, logout_url: 'http://example.com') }
+  let(:url) { 'http://www.samplepdf.com/sample.pdf' }
+  let(:service) { described_class.new(room:, logout_url: 'http://example.com', url:) }
   let(:options) do
     {
       logoutURL: 'http://example.com',
@@ -17,7 +18,7 @@ describe MeetingStarter, type: :service do
     it 'calls BigBlueButtonApi with the right params' do
       expect_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
-        .with(room:, options:)
+        .with(room:, options:, url:)
 
       service.call
     end
@@ -29,7 +30,7 @@ describe MeetingStarter, type: :service do
 
       expect_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
-        .with(room:, options: { test: 'test' })
+        .with(room:, options: { test: 'test' }, url:)
 
       service.call
     end

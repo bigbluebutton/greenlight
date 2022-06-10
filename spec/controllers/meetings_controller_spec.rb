@@ -22,8 +22,9 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     it 'makes a call to the MeetingStarter service with the right values' do
       logout = 'http://example.com'
       request.env['HTTP_REFERER'] = logout
+      url = nil
 
-      expect(MeetingStarter).to receive(:new).with(room:, logout_url: logout)
+      expect(MeetingStarter).to receive(:new).with(room:, logout_url: logout, url:)
 
       post :start, params: { friendly_id: room.friendly_id }
     end
