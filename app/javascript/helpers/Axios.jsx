@@ -7,6 +7,7 @@ export const ENDPOINTS = {
   createRoom: '/rooms.json',
   recordings_resync: '/recordings/resync.json',
   room_recordings: (friendlyId) => `/rooms/${friendlyId}/recordings.json`,
+  updateRecording: (recordId) => `/recordings/${recordId}.json`,
 };
 
 const axiosInstance = axios.create(

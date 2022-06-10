@@ -95,7 +95,8 @@ module Api
             users: recording.users,
             visibility: recording.visibility,
             created_at: recording.created_at.strftime('%A %B %e, %Y %l:%M%P'),
-            formats: recording.formats
+            formats: recording.formats,
+            record_id: recording.record_id
           }
         end
 
