@@ -18,7 +18,8 @@ module Api
               email: current_user.email,
               provider: current_user.provider,
               avatar: user_avatar(current_user),
-              signed_in: true
+              signed_in: true,
+              language: current_user.language
             }
           }
         else
