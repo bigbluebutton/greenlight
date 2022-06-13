@@ -23,7 +23,7 @@ export default function Presentation() {
               <label htmlFor="file" className="presentation-upload">Click to Upload
                 <input
                   id="file"
-                  style={{ display: 'none' }}
+                  className="d-none"
                   type="file"
                   onChange={(e) => onSubmit(e.target.files[0])}
                   accept=".doc,.docx,.pptx,.txt,.png,.jpg,.pdf"
