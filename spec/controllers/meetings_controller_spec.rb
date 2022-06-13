@@ -11,7 +11,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
   end
 
   describe '#start' do
-    let(:room) { create(:room, user:, presentation: fixture_file_upload(file_fixture('default-avatar.png'), 'image/png')) }
+    let(:room) { create(:room, user:) }
 
     before do
       allow_any_instance_of(BigBlueButtonApi)
@@ -20,7 +20,6 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     end
 
     it 'makes a call to the MeetingStarter service with the right values' do
-      room = create(:room)
       logout = 'http://example.com'
       request.env['HTTP_REFERER'] = logout
       presentation_url = nil
@@ -31,6 +30,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     end
 
     it 'makes a call to the MeetingStarter service with the right values and presentation attached to room' do
+      room = create(:room, user:, presentation: fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
       logout = 'http://example.com'
       request.env['HTTP_REFERER'] = logout
       presentation_url = Rails.application.routes.url_helpers.rails_blob_url(room.presentation, host: 'test.host')
