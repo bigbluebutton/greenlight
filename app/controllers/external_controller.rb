@@ -25,11 +25,11 @@ class ExternalController < ApplicationController
   # POST /recording_ready
   def recording_ready
     BigBlueButtonApi.new.decode_jwt(params[:signed_parameters])
-    render_json(status: :ok)
+    render json, status: :ok
   end
 
   # GET /meeting_ended
   def meeting_ended
-    render_json(status: :ok)
+    render json, status: :ok
   end
 end
