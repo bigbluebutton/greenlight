@@ -32,13 +32,6 @@ module Api
         logger.error exception.backtrace.join("\n") # TODO: amir - Revisit this.
       end
 
-      def render_json(data: {}, errors: [], status: :ok, include: nil)
-        render json: {
-          data:,
-          errors:
-        }, status:, include:
-      end
-
       private
 
       # Ensures that requests to the API are explicit enough.

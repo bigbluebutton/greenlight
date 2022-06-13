@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class MeetingStarter
-  def initialize(room:, logout_url:, presentation_url:)
+  def initialize(room:, logout_url:, presentation_url:, meeting_ended:, recording_ready:)
     @room = room
     @logout_url = logout_url
     @presentation_url = presentation_url
+    @meeting_ended = meeting_ended
+    @recording_ready = recording_ready
   end
 
   def call
@@ -30,6 +32,8 @@ class MeetingStarter
   def computed_options
     {
       logoutURL: @logout_url,
+      meta_endCallbackUrl: @meeting_ended,
+      'meta_bbb-recording-ready-url': @recording_ready,
       'meta_bbb-origin-version': 3,
       'meta_bbb-origin': 'greenlight'
     }

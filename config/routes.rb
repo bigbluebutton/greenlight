@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   root 'components#index', via: :all
   mount ActionCable.server => '/cable'
 
-  get 'auth/:provider/callback', to: 'external#create'
+  # External requests
+  get '/auth/:provider/callback', to: 'external#create_user'
+  get '/meeting_ended', to: 'external#meeting_ended'
+  post '/recording_ready', to: 'external#recording_ready'
 
   # All the Api endpoints must be under /api/v1 and must have an extension .json.
   namespace :api do
