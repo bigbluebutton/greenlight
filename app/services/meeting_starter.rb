@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class MeetingStarter
-  def initialize(room:, logout_url:)
+  def initialize(room:, logout_url:, presentation_url:)
     @room = room
     @logout_url = logout_url
+    @presentation_url = presentation_url
   end
 
   def call
@@ -14,7 +15,7 @@ class MeetingStarter
 
     retries = 0
     begin
-      BigBlueButtonApi.new.start_meeting room: @room, options: options
+      BigBlueButtonApi.new.start_meeting room: @room, options: options, presentation_url: @presentation_url
 
       ActionCable.server.broadcast "#{@room.friendly_id}_rooms_channel", 'started'
     rescue BigBlueButton::BigBlueButtonException => e

@@ -22,8 +22,20 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     it 'makes a call to the MeetingStarter service with the right values' do
       logout = 'http://example.com'
       request.env['HTTP_REFERER'] = logout
+      presentation_url = nil
 
-      expect(MeetingStarter).to receive(:new).with(room:, logout_url: logout)
+      expect(MeetingStarter).to receive(:new).with(room:, logout_url: logout, presentation_url:)
+
+      post :start, params: { friendly_id: room.friendly_id }
+    end
+
+    it 'makes a call to the MeetingStarter service with the right values and presentation attached to room' do
+      room = create(:room, user:, presentation: fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+      logout = 'http://example.com'
+      request.env['HTTP_REFERER'] = logout
+      presentation_url = Rails.application.routes.url_helpers.rails_blob_url(room.presentation, host: 'test.host')
+
+      expect(MeetingStarter).to receive(:new).with(room:, logout_url: logout, presentation_url:)
 
       post :start, params: { friendly_id: room.friendly_id }
     end
