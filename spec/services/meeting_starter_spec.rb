@@ -5,10 +5,20 @@ require 'rails_helper'
 describe MeetingStarter, type: :service do
   let(:room) { create(:room) }
   let(:presentation_url) { 'http://www.samplepdf.com/sample.pdf' }
-  let(:service) { described_class.new(room:, logout_url: 'http://example.com', presentation_url:) }
+  let(:service) do
+    described_class.new(
+      room:,
+      logout_url: 'http://example.com',
+      presentation_url:,
+      meeting_ended: 'http://example.com/meeting_ended',
+      recording_ready: 'http://example.com/recording_ready'
+    )
+  end
   let(:options) do
     {
       logoutURL: 'http://example.com',
+      meta_endCallbackUrl: 'http://example.com/meeting_ended',
+      'meta_bbb-recording-ready-url': 'http://example.com/recording_ready',
       'meta_bbb-origin-version': 3,
       'meta_bbb-origin': 'greenlight'
     }
