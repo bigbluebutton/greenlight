@@ -3,7 +3,13 @@
 module Presentable
   extend ActiveSupport::Concern
 
-  def room_presentation(room)
-    return url_for(room.presentation) if room.presentation.attached?
+  def presentation_name(room)
+    return room.presentation.filename if room.presentation.attached?
+  end
+
+  def presentation_representation(room)
+    return unless room.presentation.attached? && room.presentation.representable?
+
+    rails_representation_url(room.presentation.representation(resize: ['500x500']).processed)
   end
 end

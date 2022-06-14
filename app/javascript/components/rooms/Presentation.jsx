@@ -1,7 +1,9 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCloudArrowUp, faFileAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 import useUploadPresentation from '../../hooks/mutations/rooms/useUploadPresentation';
 import useRoom from '../../hooks/queries/rooms/useRoom';
@@ -11,7 +13,7 @@ export default function Presentation() {
   const { data: room } = useRoom(friendlyId);
   const { onSubmit } = useUploadPresentation(friendlyId);
 
-  if (!room.presentation) {
+  if (!room.presentation_name) {
     return (
       <div className="wide-background full-height-room">
         <Card className="border-0 shadow-sm mt-3 text-center">
@@ -43,7 +45,21 @@ export default function Presentation() {
     <div className="wide-background full-height-room">
       <Card className="border-0 shadow-sm mt-3 text-center">
         <Card.Body className="py-5">
-          {room.presentation}
+          <Row className="align-middle align-items-center justify-content-center">
+            <Col>
+              {room.presentation_representation ? (
+                <img className="preview-image" src={room.presentation_representation} alt="Presentation" />
+              ) : (
+                <FontAwesomeIcon icon={faFileAlt} className="text-primary" size="3x" />
+
+              )}
+            </Col>
+            <Col>
+              {room.presentation_name}
+            </Col>
+            <Col />
+            <Col />
+          </Row>
         </Card.Body>
       </Card>
     </div>
