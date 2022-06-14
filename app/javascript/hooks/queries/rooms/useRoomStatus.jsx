@@ -7,7 +7,7 @@ export default function useRoomStatus(friendlyId, name, accessCode) {
     () => axios.get(`/api/v1/meetings/${friendlyId}/status.json`, {
       params: {
         name,
-        access_code: accessCode,
+        viewer_access_code: accessCode,
       },
       headers: {
         'Content-Type': 'application/json',

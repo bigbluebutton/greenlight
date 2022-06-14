@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
-export default function useGenerateAccessCode(friendlyId) {
+export default function useGenerateViewerAccessCode(friendlyId) {
   const queryClient = useQueryClient();
 
-  const generateAccessCode = (data) => axios.patch(`/api/v1/rooms/${friendlyId}/access_code.json`, data);
+  const generateAccessCode = () => axios.patch(`/api/v1/rooms/${friendlyId}/viewer_access_code.json`);
 
   const mutation = useMutation(generateAccessCode, {
     onSuccess: () => {
@@ -12,8 +12,9 @@ export default function useGenerateAccessCode(friendlyId) {
     },
   });
 
-  const handleGenerateAccessCode = (data) => {
-    mutation.mutateAsync(data).catch(/* Prevents the promise exception from bubbling */() => {});
+  const handleGenerateAccessCode = () => {
+    mutation.mutateAsync().catch(/* Prevents the promise exception from bubbling */() => {});
   };
+
   return { handleGenerateAccessCode, ...mutation };
 }

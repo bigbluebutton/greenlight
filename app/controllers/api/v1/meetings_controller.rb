@@ -56,7 +56,7 @@ module Api
 
       # Returns true if the room is accessible to all or if the access code is correct
       def authorize_access?
-        @room.access_code.blank? || @room.access_code == params[:access_code]
+        @room.viewer_access_code.blank? || @room.viewer_access_code == params[:viewer_access_code]
       end
     end
   end

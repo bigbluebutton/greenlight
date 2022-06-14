@@ -6,8 +6,8 @@ import Spinner from '../shared/stylings/Spinner';
 import useDeleteRoom from '../../hooks/mutations/rooms/useDeleteRoom';
 import useRoomSettings from '../../hooks/queries/rooms/useRoomSettings';
 import RoomSettingsRow from './RoomSettingsRow';
-import useGenerateAccessCode from '../../hooks/mutations/rooms/useGenerateAccessCode';
-import useDeleteAccessCode from '../../hooks/mutations/rooms/useDeleteAccessCode';
+import useGenerateViewerAccessCode from '../../hooks/mutations/rooms/useGenerateViewerAccessCode';
+import useDeleteViewerAccessCode from '../../hooks/mutations/rooms/useDeleteViewerAccessCode';
 import useRoom from '../../hooks/queries/rooms/useRoom';
 
 export default function RoomSettings() {
@@ -15,8 +15,8 @@ export default function RoomSettings() {
   const { data: room } = useRoom(friendlyId);
   const { isLoading, data: settings } = useRoomSettings(friendlyId);
   const { handleDeleteRoom, isLoading: deleteRoomIsLoading } = useDeleteRoom(friendlyId);
-  const { handleGenerateAccessCode } = useGenerateAccessCode(friendlyId);
-  const { handleDeleteAccessCode } = useDeleteAccessCode(friendlyId);
+  const { handleGenerateAccessCode } = useGenerateViewerAccessCode(friendlyId);
+  const { handleDeleteAccessCode } = useDeleteViewerAccessCode(friendlyId);
 
   if (isLoading) return <Spinner />;
 
@@ -40,16 +40,16 @@ export default function RoomSettings() {
               <h6 className="text-primary">Room Name</h6>
               <Button
                 variant="primary-light"
-                onClick={() => handleGenerateAccessCode()}
+                onClick={handleGenerateAccessCode}
               >
                 Generate
               </Button>
               {
-                room?.access_code
+                room?.viewer_access_code
               }
               <Button
                 variant="danger"
-                onClick={() => handleDeleteAccessCode()}
+                onClick={handleDeleteAccessCode}
               >
                 Remove
               </Button>

@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
-export default function useDeleteAccessCode(friendlyId) {
+export default function useDeleteViewerAccessCode(friendlyId) {
   const queryClient = useQueryClient();
 
-  const deleteAccessCode = (data) => axios.patch(`/api/v1/rooms/${friendlyId}/remove_access_code.json`, data);
+  const deleteAccessCode = () => axios.patch(`/api/v1/rooms/${friendlyId}/remove_viewer_access_code.json`);
 
   const mutation = useMutation(deleteAccessCode, {
     onSuccess: () => {
@@ -12,8 +12,8 @@ export default function useDeleteAccessCode(friendlyId) {
     },
   });
 
-  const handleDeleteAccessCode = (data) => {
-    mutation.mutateAsync(data).catch(/* Prevents the promise exception from bubbling */() => {});
+  const handleDeleteAccessCode = () => {
+    mutation.mutateAsync().catch(/* Prevents the promise exception from bubbling */() => {});
   };
   return { handleDeleteAccessCode, ...mutation };
 }

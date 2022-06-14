@@ -8,7 +8,7 @@ export default function useRoomJoin(friendlyId, name, accessCode) {
     () => axios.get(`/api/v1/meetings/${friendlyId}/join.json`, {
       params: {
         name,
-        access_code: accessCode,
+        viewer_access_code: accessCode,
       },
       headers: {
         'Content-Type': 'application/json',

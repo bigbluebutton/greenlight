@@ -60,7 +60,7 @@ export default function RoomJoin() {
               </div>
             ) : (
               <>
-                { room?.access_code
+                { room?.viewer_access_code
                   && (
                     <div className="mb-2">
                       <p><strong> Please enter the 6-characters <i>access code</i> provided by the host. </strong></p>

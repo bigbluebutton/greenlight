@@ -4,7 +4,7 @@ module Api
   module V1
     class RoomsController < ApiController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
-      before_action :find_room, only: %i[show update recordings recordings_processing purge_presentation access_code remove_access_code]
+      before_action :find_room, only: %i[show update recordings recordings_processing purge_presentation viewer_access_code remove_viewer_access_code]
 
       include Avatarable
       include Presentable
@@ -47,7 +47,7 @@ module Api
           presentation_name: presentation_name(@room),
           thumbnail: presentation_thumbnail(@room),
           created_at: @room.created_at.strftime('%A %B %e, %Y %l:%M%P'),
-          access_code: @room.access_code
+          viewer_access_code: @room.viewer_access_code
         }
         if params[:include_owner] == 'true'
           room[:owner] = {
@@ -115,16 +115,16 @@ module Api
         render_json data: @room.recordings_processing, status: :ok
       end
 
-      # PATCH /api/v1/room_settings/:friendly_id/access_code.json
-      def access_code
-        @room.update!(access_code: SecureRandom.alphanumeric(6).downcase)
+      # PATCH /api/v1/room_settings/:friendly_id/viewer_access_code.json
+      def viewer_access_code
+        @room.update!(viewer_access_code: SecureRandom.alphanumeric(6).downcase)
 
         render_json status: :ok
       end
 
-      # PATCH /api/v1/room_settings/:friendly_id/remove_access_code.json
-      def remove_access_code
-        @room.update!(access_code: nil)
+      # PATCH /api/v1/room_settings/:friendly_id/remove_viewer_access_code.json
+      def remove_viewer_access_code
+        @room.update!(viewer_access_code: nil)
 
         render_json status: :ok
       end
