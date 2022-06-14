@@ -59,10 +59,34 @@ module Api
         end
       end
 
+      # POST /api/v1/users/:id/change_password.json
+      # Expects: { user: { :old, :new } }
+      # Returns: { data: Array[serializable objects] , errors: Array[String] }
+      # Does: Validates and change the user password.
+
+      def change_password
+        # TODO:  add a before_action callback to find_user.
+        user = User.find(params[:id])
+
+        old_password = change_password_params[:old_password]
+        new_password = change_password_params[:new_password]
+
+        return render_json status: :bad_request if new_password.blank?
+
+        return render_json status: :unauthorized unless user.authenticate old_password
+
+        user.update! password: new_password
+        render_json
+      end
+
       private
 
       def user_params
         params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :language)
+      end
+
+      def change_password_params
+        params.require(:user).permit(:old_password, :new_password)
       end
     end
   end

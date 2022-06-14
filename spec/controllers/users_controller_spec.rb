@@ -67,4 +67,30 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(response).to have_http_status(:not_found)
     end
   end
+
+  describe 'POST users#change_password' do
+    let(:user) { create(:user, password: 'Test12345678+') }
+
+    it 'changes user password if the params are valid' do
+      valid_params = { old_password: 'Test12345678+', new_password: 'Glv3IsAwesome!' }
+      post :change_password, params: { id: user.id, user: valid_params }
+
+      expect(response).to have_http_status(:ok)
+      expect(user.reload.authenticate(valid_params[:new_password])).to be_truthy
+    end
+
+    it 'returns :unauthorized response for invalid old_password' do
+      invalid_params = { old_password: 'NotMine!', new_password: 'ThisIsMine!' }
+      post :change_password, params: { id: user.id, user: invalid_params }
+
+      expect(response).to have_http_status(:unauthorized)
+      expect(user.reload.authenticate(invalid_params[:new_password])).to be_falsy
+    end
+
+    it 'returns :bad_request response for missing params' do
+      invalid_params = { old_password: '', new_password: '' }
+      post :change_password, params: { id: user.id, user: invalid_params }
+      expect(response).to have_http_status(:bad_request)
+    end
+  end
 end
