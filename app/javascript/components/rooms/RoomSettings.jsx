@@ -15,8 +15,8 @@ export default function RoomSettings() {
   const { data: room } = useRoom(friendlyId);
   const { isLoading, data: settings } = useRoomSettings(friendlyId);
   const { handleDeleteRoom, isLoading: deleteRoomIsLoading } = useDeleteRoom(friendlyId);
-  const { handleGenerateAccessCode } = useGenerateViewerAccessCode(friendlyId);
-  const { handleDeleteAccessCode } = useDeleteViewerAccessCode(friendlyId);
+  const { handleGenerateViewerAccessCode } = useGenerateViewerAccessCode(friendlyId);
+  const { handleDeleteViewerAccessCode } = useDeleteViewerAccessCode(friendlyId);
 
   if (isLoading) return <Spinner />;
 
@@ -40,7 +40,7 @@ export default function RoomSettings() {
               <h6 className="text-primary">Room Name</h6>
               <Button
                 variant="primary-light"
-                onClick={handleGenerateAccessCode}
+                onClick={handleGenerateViewerAccessCode}
               >
                 Generate
               </Button>
@@ -49,7 +49,7 @@ export default function RoomSettings() {
               }
               <Button
                 variant="danger"
-                onClick={handleDeleteAccessCode}
+                onClick={handleDeleteViewerAccessCode}
               >
                 Remove
               </Button>

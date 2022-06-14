@@ -12,8 +12,8 @@ export default function useDeleteViewerAccessCode(friendlyId) {
     },
   });
 
-  const handleDeleteAccessCode = () => {
+  const handleDeleteViewerAccessCode = () => {
     mutation.mutateAsync().catch(/* Prevents the promise exception from bubbling */() => {});
   };
-  return { handleDeleteAccessCode, ...mutation };
+  return { handleDeleteViewerAccessCode, ...mutation };
 }

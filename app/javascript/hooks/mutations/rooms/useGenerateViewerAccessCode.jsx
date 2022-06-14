@@ -12,9 +12,9 @@ export default function useGenerateViewerAccessCode(friendlyId) {
     },
   });
 
-  const handleGenerateAccessCode = () => {
+  const handleGenerateViewerAccessCode = () => {
     mutation.mutateAsync().catch(/* Prevents the promise exception from bubbling */() => {});
   };
 
-  return { handleGenerateAccessCode, ...mutation };
+  return { handleGenerateViewerAccessCode, ...mutation };
 }
