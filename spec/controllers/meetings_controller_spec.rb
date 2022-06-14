@@ -24,7 +24,15 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       request.env['HTTP_REFERER'] = logout
       presentation_url = nil
 
-      expect(MeetingStarter).to receive(:new).with(room:, logout_url: logout, presentation_url:)
+      expect(
+        MeetingStarter
+      ).to receive(:new).with(
+        room:,
+        logout_url: logout,
+        presentation_url:,
+        meeting_ended: meeting_ended_url,
+        recording_ready: recording_ready_url
+      )
 
       post :start, params: { friendly_id: room.friendly_id }
     end
@@ -35,7 +43,15 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       request.env['HTTP_REFERER'] = logout
       presentation_url = Rails.application.routes.url_helpers.rails_blob_url(room.presentation, host: 'test.host')
 
-      expect(MeetingStarter).to receive(:new).with(room:, logout_url: logout, presentation_url:)
+      expect(
+        MeetingStarter
+      ).to receive(:new).with(
+        room:,
+        logout_url: logout,
+        presentation_url:,
+        meeting_ended: meeting_ended_url,
+        recording_ready: recording_ready_url
+      )
 
       post :start, params: { friendly_id: room.friendly_id }
     end

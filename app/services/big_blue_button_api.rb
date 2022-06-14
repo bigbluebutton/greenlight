@@ -50,6 +50,11 @@ class BigBlueButtonApi
     bbb_server.update_recordings(record_id, {}, meta_hash)
   end
 
+  # Decodes the JWT using the BBB secret as key (Used in Recording Ready Callback)
+  def decode_jwt(token)
+    JWT.decode token, bbb_secret, true, { algorithm: 'HS256' }
+  end
+
   private
 
   def bbb_endpoint

@@ -141,6 +141,7 @@ GEM
       activesupport (>= 4.2)
       aes_key_wrap
       bindata
+    jwt (2.4.1)
     loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -353,6 +354,7 @@ DEPENDENCIES
   hcaptcha
   jbuilder
   jsbundling-rails
+  jwt
   omniauth (~> 2.1.0)
   omniauth-rails_csrf_protection (~> 1.0.1)
   omniauth_openid_connect
