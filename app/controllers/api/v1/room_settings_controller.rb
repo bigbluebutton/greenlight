@@ -6,6 +6,7 @@ module Api
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
       before_action :find_room, only: %i[show update]
 
+      # GET /api/v1/room_settings/:friendly_id
       def show
         options = MeetingOption
                   .joins(:room_meeting_options)
@@ -15,6 +16,7 @@ module Api
         render_json(data: options, status: :ok)
       end
 
+      # PATCH /api/v1/room_settings/:friendly_id
       def update
         RoomMeetingOption
           .includes(:meeting_option)

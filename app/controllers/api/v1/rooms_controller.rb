@@ -4,7 +4,7 @@ module Api
   module V1
     class RoomsController < ApiController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
-      before_action :find_room, only: %i[show update recordings recordings_processing purge_presentation]
+      before_action :find_room, only: %i[show update recordings recordings_processing purge_presentation access_code remove_access_code]
 
       include Avatarable
       include Presentable
@@ -39,14 +39,15 @@ module Api
         render_json data: rooms + shared_rooms, status: :ok
       end
 
+      # GET /api/v1/rooms/:friendly_id.json
       def show
-        # TODO: samuel - should probably create/use a UUID instead of object id
         room = {
           id: @room.id,
           name: @room.name,
           presentation_name: presentation_name(@room),
           thumbnail: presentation_thumbnail(@room),
-          created_at: @room.created_at.strftime('%A %B %e, %Y %l:%M%P')
+          created_at: @room.created_at.strftime('%A %B %e, %Y %l:%M%P'),
+          access_code: @room.access_code
         }
         if params[:include_owner] == 'true'
           room[:owner] = {
@@ -112,6 +113,20 @@ module Api
       # GET /api/v1/rooms/:friendly_id/recordings_processing.json
       def recordings_processing
         render_json data: @room.recordings_processing, status: :ok
+      end
+
+      # PATCH /api/v1/room_settings/:friendly_id/access_code.json
+      def access_code
+        @room.update!(access_code: SecureRandom.alphanumeric(6).downcase)
+
+        render_json status: :ok
+      end
+
+      # PATCH /api/v1/room_settings/:friendly_id/remove_access_code.json
+      def remove_access_code
+        @room.update!(access_code: nil)
+
+        render_json status: :ok
       end
 
       private

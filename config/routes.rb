@@ -28,6 +28,8 @@ Rails.application.routes.draw do
           get '/recordings', to: 'rooms#recordings'
           get '/recordings_processing', to: 'rooms#recordings_processing'
           delete :purge_presentation
+          patch '/access_code', to: 'rooms#access_code'
+          patch '/remove_access_code', to: 'rooms#remove_access_code'
         end
       end
       resources :meetings, only: %i[], param: :friendly_id do

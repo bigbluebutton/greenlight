@@ -6,11 +6,17 @@ import Spinner from '../shared/stylings/Spinner';
 import useDeleteRoom from '../../hooks/mutations/rooms/useDeleteRoom';
 import useRoomSettings from '../../hooks/queries/rooms/useRoomSettings';
 import RoomSettingsRow from './RoomSettingsRow';
+import useGenerateAccessCode from '../../hooks/mutations/rooms/useGenerateAccessCode';
+import useDeleteAccessCode from '../../hooks/mutations/rooms/useDeleteAccessCode';
+import useRoom from '../../hooks/queries/rooms/useRoom';
 
 export default function RoomSettings() {
   const { friendlyId } = useParams();
+  const { data: room } = useRoom(friendlyId);
   const { isLoading, data: settings } = useRoomSettings(friendlyId);
   const { handleDeleteRoom, isLoading: deleteRoomIsLoading } = useDeleteRoom(friendlyId);
+  const { handleGenerateAccessCode } = useGenerateAccessCode(friendlyId);
+  const { handleDeleteAccessCode } = useDeleteAccessCode(friendlyId);
 
   if (isLoading) return <Spinner />;
 
@@ -32,6 +38,21 @@ export default function RoomSettings() {
           <Row>
             <Col className="border-end border-2">
               <h6 className="text-primary">Room Name</h6>
+              <Button
+                variant="primary-light"
+                onClick={() => handleGenerateAccessCode()}
+              >
+                Generate
+              </Button>
+              {
+                room?.access_code
+              }
+              <Button
+                variant="danger"
+                onClick={() => handleDeleteAccessCode()}
+              >
+                Remove
+              </Button>
             </Col>
             <Col className="ps-4">
               <h6 className="text-primary">User Settings</h6>
