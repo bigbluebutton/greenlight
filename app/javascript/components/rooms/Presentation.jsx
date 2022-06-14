@@ -51,7 +51,6 @@ export default function Presentation() {
                 <img className="preview-image" src={room.presentation_representation} alt="Presentation" />
               ) : (
                 <FontAwesomeIcon icon={faFileAlt} className="text-primary" size="3x" />
-
               )}
             </Col>
             <Col>
