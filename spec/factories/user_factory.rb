@@ -9,5 +9,6 @@ FactoryBot.define do
     password { Faker::Internet.password }
     role
     last_login { nil }
+    language { %w[en fr es ar].sample }
   end
 end

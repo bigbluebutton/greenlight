@@ -9,10 +9,12 @@ RSpec.describe Api::V1::UsersController, type: :request do
         name: Faker::Name.name,
         email: Faker::Internet.email,
         password: 'Password123+',
-        password_confirmation: 'Password123+'
+        password_confirmation: 'Password123+',
+        language: 'language'
       }
     }
   end
+  # TODO: Migrate this to controllers spec and refactor it for consistency.
 
   describe 'Signup' do
     let(:headers) { { 'ACCEPT' => 'application/json' } }
@@ -30,6 +32,20 @@ RSpec.describe Api::V1::UsersController, type: :request do
       it 'assigns the User role to the user' do
         post api_v1_users_path, params: valid_user_params, headers: headers
         expect(User.find_by(email: valid_user_params[:user][:email]).role).to eq(role)
+      end
+
+      context 'User language' do
+        it 'Persists the user language in the user record' do
+          post api_v1_users_path, params: valid_user_params, headers: headers
+          expect(User.find_by(email: valid_user_params[:user][:email]).language).to eq('language')
+        end
+
+        it 'defaults user language to default_locale if the language isn\'t specified' do
+          allow(I18n).to receive(:default_locale).and_return(:default_language)
+          valid_user_params[:user][:language] = nil
+          post api_v1_users_path, params: valid_user_params, headers: headers
+          expect(User.find_by(email: valid_user_params[:user][:email]).language).to eq('default_language')
+        end
       end
     end
 

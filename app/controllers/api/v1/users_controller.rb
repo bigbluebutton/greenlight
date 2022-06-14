@@ -4,7 +4,6 @@ module Api
   module V1
     class UsersController < ApiController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
-
       # POST /api/v1/users.json
       # Expects: { user: { :name, :email, :password, :password_confirmation } }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
@@ -12,6 +11,8 @@ module Api
 
       def create
         # TODO: amir - ensure accessibility for unauthenticated requests only.
+        params[:user][:language] = I18n.default_locale if params[:user][:language].blank?
+
         user = User.new({
           provider: 'greenlight',
           role: Role.find_by(name: 'User') # TODO: - Ahmad: Move to service
@@ -29,6 +30,7 @@ module Api
         end
       end
 
+      # TODO: Add a before_action callback to update,destory and purge_avatar calling a find_user.
       def update
         user = User.find(params[:id])
         if user.update(user_params)
@@ -57,10 +59,34 @@ module Api
         end
       end
 
+      # POST /api/v1/users/:id/change_password.json
+      # Expects: { user: { :old, :new } }
+      # Returns: { data: Array[serializable objects] , errors: Array[String] }
+      # Does: Validates and change the user password.
+
+      def change_password
+        # TODO:  add a before_action callback to find_user.
+        user = User.find(params[:id])
+
+        old_password = change_password_params[:old_password]
+        new_password = change_password_params[:new_password]
+
+        return render_json status: :bad_request if new_password.blank?
+
+        return render_json status: :unauthorized unless user.authenticate old_password
+
+        user.update! password: new_password
+        render_json
+      end
+
       private
 
       def user_params
-        params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
+        params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :language)
+      end
+
+      def change_password_params
+        params.require(:user).permit(:old_password, :new_password)
       end
     end
   end
