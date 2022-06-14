@@ -35,7 +35,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
 
       get :show, params: { friendly_id: room.friendly_id, search: '' }
       shared_user_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
-      expect(shared_user_ids).to eql(shared_users.pluck(:id))
+      expect(shared_user_ids).to match_array(shared_users.pluck(:id))
       expect(shared_user_ids).not_to include(unshared_users.pluck(:id))
     end
 
@@ -60,7 +60,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
 
       get :shareable_users, params: { friendly_id: room.friendly_id, search: '' }
       response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
-      expect(response_users_ids).to eql(shareable_users.pluck(:id))
+      expect(response_users_ids).to match_array(shareable_users.pluck(:id))
     end
 
     it 'returns the shareable users according to the query' do
@@ -70,7 +70,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
 
       get :shareable_users, params: { friendly_id: room.friendly_id, search: 'Jane Doe' }
       response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
-      expect(response_users_ids).to eql(shareable_users.pluck(:id))
+      expect(response_users_ids).to match_array(shareable_users.pluck(:id))
     end
   end
 end
