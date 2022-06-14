@@ -5,16 +5,20 @@ import FormControl from './FormControl';
 import Form from './Form';
 import { changePwdFormConfig, changePwdFormFields } from '../../helpers/forms/ChangePwdFormHelpers';
 import Spinner from '../shared/stylings/Spinner';
+import { useAuth } from '../../contexts/auth/AuthProvider';
+import useChangePwd from '../../hooks/mutations/users/useChangePwd';
 
 export default function ChangePwdForm() {
+  const currentUser = useAuth();
   const methods = useForm(changePwdFormConfig);
   const fields = changePwdFormFields;
   const { isSubmitting } = methods.formState;
+  const { onSubmit: handleChangePwd } = useChangePwd(currentUser.id);
 
   return (
     <Form
       methods={methods}
-      onSubmit={(data) => { console.log(data); }}
+      onSubmit={handleChangePwd}
     >
       <FormControl field={fields.old_password} type="password" />
       <FormControl field={fields.new_password} type="password" />
