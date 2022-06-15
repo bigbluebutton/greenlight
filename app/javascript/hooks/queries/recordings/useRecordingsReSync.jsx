@@ -7,6 +7,6 @@ export default function useRecordingsReSync() {
 
   return useQuery('getRecordingsResync', () => axios.get(ENDPOINTS.recordings_resync, {
   }).then(() => queryClient.invalidateQueries('getRecordings')), {
-    refetchOnWindowFocus: false,
+    enabled: false,
   });
 }
