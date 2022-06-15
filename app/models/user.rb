@@ -23,11 +23,31 @@ class User < ApplicationRecord
 
   # TODO: samuel - ActiveStorage validations needs to be discussed and implemented.
   validate :avatar_validation
+  validates :reset_digest, uniqueness: true, on: :update
 
   def self.search(input)
     return where('name ILIKE ?', "%#{input}%") if input
 
     all
+  end
+
+  # Generates a token digest.
+  def self.generate_digest(token)
+    Digest::SHA2.hexdigest(token)
+  end
+
+  # Create a unique random token
+  def generate_unique_token
+    token = SecureRandom.alphanumeric(40)
+    digest = User.generate_digest(token)
+
+    update! reset_digest: digest, reset_sent_at: Time.current
+
+    token
+  rescue ActiveRecord::RecordInvalid
+    raise unless errors.attribute_names.include? :reset_digest
+
+    retry
   end
 
   private

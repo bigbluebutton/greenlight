@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       resources :users, only: %i[create update destroy] do
         member do
           delete :purge_avatar
-          post '/change_password', to: 'users#change_password'
+          post '/change_password', to: 'users#change_password' # TODO: Add this to collection routes.
         end
       end
       resources :rooms, only: %i[show index create update destroy], param: :friendly_id do
@@ -48,6 +48,7 @@ Rails.application.routes.draw do
         end
       end
       resources :env, only: :index
+      resources :reset_password, only: :create
     end
   end
 

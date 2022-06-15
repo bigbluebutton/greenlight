@@ -127,6 +127,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_14_120002) do
     t.string "reset_digest"
     t.datetime "reset_sent_at", precision: nil
     t.index ["email", "provider"], name: "index_users_on_email_and_provider", unique: true
+    t.index ["reset_digest"], name: "index_users_on_reset_digest", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
