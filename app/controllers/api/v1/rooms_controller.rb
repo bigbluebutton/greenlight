@@ -4,7 +4,7 @@ module Api
   module V1
     class RoomsController < ApiController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
-      before_action :find_room, only: %i[show update recordings recordings_processing]
+      before_action :find_room, only: %i[show update recordings recordings_processing purge_presentation]
 
       include Avatarable
       include Presentable
@@ -79,6 +79,15 @@ module Api
       def destroy
         Room.destroy_by(friendly_id: params[:friendly_id])
         render_json status: :ok
+      end
+
+      def purge_presentation
+        @room.presentation.purge
+        if @room.presentation.purge
+          render_json status: :ok
+        else
+          render_json errors: @room.errors.to_a, status: :bad_request
+        end
       end
 
       # GET /api/v1/rooms/:friendly_id/recordings.json
