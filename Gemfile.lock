@@ -128,6 +128,9 @@ GEM
     httpclient (2.8.3)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
+    image_processing (1.12.2)
+      mini_magick (>= 4.9.5, < 5)
+      ruby-vips (>= 2.0.17, < 3)
     io-console (0.5.11)
     irb (1.4.1)
       reline (>= 0.3.0)
@@ -150,6 +153,7 @@ GEM
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
+    mini_magick (4.11.0)
     mini_mime (1.1.2)
     minitest (5.15.0)
     msgpack (1.5.2)
@@ -280,6 +284,8 @@ GEM
     rubocop-rspec (2.9.0)
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
+    ruby-vips (2.1.4)
+      ffi (~> 1.12)
     rubyzip (2.3.2)
     selenium-webdriver (4.2.1)
       childprocess (>= 0.5, < 5.0)
@@ -352,6 +358,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   hcaptcha
+  image_processing (~> 1.2)
   jbuilder
   jsbundling-rails
   jwt
