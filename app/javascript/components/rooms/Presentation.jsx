@@ -2,9 +2,10 @@ import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faCloudArrowUp, faFileAlt,
+  faCloudArrowUp, faFileAlt, faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import Modal from '../shared/Modal';
 import { useParams } from 'react-router-dom';
 import Modal from '../shared/Modal';
 import useUploadPresentation from '../../hooks/mutations/rooms/useUploadPresentation';
