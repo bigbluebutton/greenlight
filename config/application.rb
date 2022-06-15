@@ -28,5 +28,9 @@ module Greenlight
       record_not_found: 'Record Not Found',
       server_error: 'Something Went Wrong'
     }
+
+    # Reset token max validity period.
+    # It's advised to not increase this to more than 15 minutes.
+    config.reset_token_validity_period = 15.minutes
   end
 end

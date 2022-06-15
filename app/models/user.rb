@@ -31,9 +31,37 @@ class User < ApplicationRecord
     all
   end
 
+  # Verifies the token existence, fetches its user and validates its expiration, catches any exceptions
+  # and resets the user token.
+
+  def self.verify_token(token)
+    digest = generate_digest(token)
+
+    user = find_by reset_digest: digest
+    logger.info "Unable to find a user with digest: #{digest}." unless user
+    return unless user
+
+    raise "Token(digest): #{digest} exists for user(id):#{user.id} but unable to retrieve sent time." unless user.reset_sent_at
+
+    expired = token_expired?(user.reset_sent_at)
+    logger.info "Token(digest): #{digest}, sent at:#{user.reset_sent_at} expired for user(id):#{user.id}." if expired
+
+    user.update! reset_sent_at: nil, reset_digest: nil # Remove expired/valid tokens.
+    logger.info "User(id):#{user.id} reset password token with digest:#{digest} got removed."
+
+    return if expired
+
+    user
+  end
+
   # Generates a token digest.
   def self.generate_digest(token)
     Digest::SHA2.hexdigest(token)
+  end
+
+  # Checkes the expiration of a token.
+  def self.token_expired?(sent_at)
+    Time.current > (sent_at.in(Rails.configuration.reset_token_validity_period))
   end
 
   # Create a unique random token

@@ -66,5 +66,51 @@ RSpec.describe User, type: :model do
         expect(described_class.generate_digest('test')).to eq(Digest::SHA2.hexdigest('test'))
       end
     end
+
+    describe '#token_expired?' do
+      let(:period) { Rails.configuration.reset_token_validity_period }
+
+      it 'returns FALSE when the current time does not exceed the given time within the allowed period' do
+        freeze_time
+        expect(described_class).not_to be_token_expired(Time.current - period)
+      end
+
+      it 'returns TRUE when the current time exceed the given time within the allowed period' do
+        freeze_time
+        expect(described_class).to be_token_expired(Time.current - (period + 1.second))
+      end
+    end
+
+    describe '#verify_token' do
+      let(:period) { Rails.configuration.reset_token_validity_period }
+      let(:token) { 'ZekpWTPGFsuaP1WngE6LVCc69Zs7YSKoOJFLkfKu' }
+      let!(:user) do
+        create(:user, reset_digest: described_class.generate_digest(token), reset_sent_at: Time.zone.at(1_655_290_260))
+      end
+
+      before { travel_to Time.zone.at(1_655_290_260) }
+
+      it 'returns and resets the user found by token digest when the token is valid' do
+        travel period
+
+        expect(described_class.verify_token(token)).to eq(user)
+        expect(user.reload.reset_digest).to be_blank
+        expect(user.reset_sent_at).to be_blank
+      end
+
+      it 'does not return the user but reset its token if expired' do
+        travel period + 1.second
+
+        expect(described_class.verify_token(token)).to be_falsy
+        expect(user.reload.reset_digest).to be_blank
+        expect(user.reload.reset_sent_at).to be_blank
+      end
+
+      it 'return FALSE for inexistent tokens' do
+        travel period
+
+        expect(described_class.verify_token('SOME_BAD_TOKEN')).to be_falsy
+      end
+    end
   end
 end

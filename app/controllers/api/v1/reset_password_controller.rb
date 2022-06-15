@@ -25,6 +25,28 @@ module Api
 
         render_json data: { token: } # TODO: enable reset email sending.
       end
+
+      # POST /api/v1/reset_password/reset.json
+      # Expects: { user: {:token, :new_password} }
+      # Returns: { data: Array[serializable objects] , errors: Array[String] }
+      # Does: Validates the token and reset the user password.
+
+      def reset
+        return render_json status: :bad_request unless params[:user]
+
+        token = params[:user][:token]
+        new_password = params[:user][:new_password]
+
+        return render_json status: :bad_request if token.blank? || new_password.blank?
+
+        user = User.verify_token(token)
+        return render_json status: :forbidden unless user
+
+        # Verified Token
+        user.update! password: new_password
+
+        render_json
+      end
     end
   end
 end
