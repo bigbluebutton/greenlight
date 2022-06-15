@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCloudArrowUp, faFileAlt, faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import Modal from '../shared/Modal';
 import { useParams } from 'react-router-dom';
+import Modal from '../shared/Modal';
 import useUploadPresentation from '../../hooks/mutations/rooms/useUploadPresentation';
 import useRoom from '../../hooks/queries/rooms/useRoom';
 import DeletePresentationForm from '../forms/DeletePresentationForm';

@@ -83,11 +83,8 @@ module Api
 
       def purge_presentation
         @room.presentation.purge
-        if @room.presentation.purge
-          render_json status: :ok
-        else
-          render_json errors: @room.errors.to_a, status: :bad_request
-        end
+
+        render_json status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id/recordings.json
