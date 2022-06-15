@@ -47,8 +47,8 @@ export default function Presentation() {
         <Card.Body className="py-5">
           <Row className="align-middle align-items-center justify-content-center">
             <Col>
-              {room.presentation_representation ? (
-                <img className="preview-image" src={room.presentation_representation} alt="Presentation" />
+              {room.thumbnail ? (
+                <img className="preview-image" src={room.thumbnail} alt="Presentation" />
               ) : (
                 <FontAwesomeIcon icon={faFileAlt} className="text-primary" size="3x" />
               )}

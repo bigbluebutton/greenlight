@@ -45,7 +45,7 @@ module Api
           id: @room.id,
           name: @room.name,
           presentation_name: presentation_name(@room),
-          presentation_representation: presentation_representation(@room),
+          thumbnail: presentation_thumbnail(@room),
           created_at: @room.created_at.strftime('%A %B %e, %Y %l:%M%P')
         }
         if params[:include_owner] == 'true'

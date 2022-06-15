@@ -7,9 +7,9 @@ module Presentable
     return room.presentation.filename if room.presentation.attached?
   end
 
-  def presentation_representation(room)
-    return unless room.presentation.attached? && room.presentation.representable?
+  def presentation_thumbnail(room)
+    return if !room.presentation.attached? || !room.presentation.representable?
 
-    rails_representation_url(room.presentation.representation(resize: ['500x500']).processed)
+    rails_representation_url(room.presentation.representation(resize: ['225x125']).processed)
   end
 end
