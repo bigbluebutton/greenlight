@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faUser } from '@fortawesome/free-regular-svg-icons';
 import DeleteAccount from './DeleteAccount';
 import AccountInfo from './AccountInfo';
+import ChangePassword from './ChangePassword';
 
 export default function Profile() {
   return (
@@ -30,6 +31,12 @@ export default function Profile() {
                       Delete Account
                     </Nav.Link>
                   </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link className="cursor-pointer" eventKey="third">
+                      <FontAwesomeIcon icon={faUser} className="pe-3" />
+                      Change Password
+                    </Nav.Link>
+                  </Nav.Item>
                 </Nav>
               </div>
             </Col>
@@ -40,6 +47,9 @@ export default function Profile() {
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
                   <DeleteAccount />
+                </Tab.Pane>
+                <Tab.Pane eventKey="third">
+                  <ChangePassword />
                 </Tab.Pane>
               </Tab.Content>
             </Col>
