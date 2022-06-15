@@ -8,7 +8,7 @@ export default function useGenerateViewerAccessCode(friendlyId) {
 
   const mutation = useMutation(generateAccessCode, {
     onSuccess: () => {
-      queryClient.invalidateQueries('getRoom');
+      queryClient.invalidateQueries('getAccessCodes');
     },
   });
 

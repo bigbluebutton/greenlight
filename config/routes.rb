@@ -28,6 +28,7 @@ Rails.application.routes.draw do
           get '/recordings', to: 'rooms#recordings'
           get '/recordings_processing', to: 'rooms#recordings_processing'
           delete :purge_presentation
+          get '/access_codes', to: 'rooms#access_codes'
           patch '/viewer_access_code', to: 'rooms#viewer_access_code'
           patch '/remove_viewer_access_code', to: 'rooms#remove_viewer_access_code'
         end

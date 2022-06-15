@@ -8,7 +8,7 @@ export default function useDeleteViewerAccessCode(friendlyId) {
 
   const mutation = useMutation(deleteAccessCode, {
     onSuccess: () => {
-      queryClient.invalidateQueries('getRoom');
+      queryClient.invalidateQueries('getAccessCodes');
     },
   });
 
