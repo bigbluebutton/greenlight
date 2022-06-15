@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       resources :rooms, only: %i[show index create update destroy], param: :friendly_id do
         member do
           get '/recordings', to: 'rooms#recordings'
+          get '/recordings_processing', to: 'rooms#recordings_processing'
         end
       end
       resources :meetings, only: %i[], param: :friendly_id do

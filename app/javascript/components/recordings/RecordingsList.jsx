@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
 import RecordingRow from './RecordingRow';
+import ProcessingRecordingRow from './ProcessingRecordingRow';
 
-export default function RecordingsList({ recordings }) {
+export default function RecordingsList({ recordings, recordingsProcessing }) {
   return (
     <Table hover className="text-secondary mb-0 recordings-list">
       <thead>
@@ -17,6 +18,7 @@ export default function RecordingsList({ recordings }) {
         </tr>
       </thead>
       <tbody className="border-top-0">
+        { [...Array(recordingsProcessing)].map(() => <ProcessingRecordingRow />) }
         {recordings?.length
           ? (
             recordings?.map((recording) => <RecordingRow key={recording.id} recording={recording} />)
@@ -35,6 +37,7 @@ export default function RecordingsList({ recordings }) {
 
 RecordingsList.defaultProps = {
   recordings: [],
+  recordingsProcessing: 0,
 };
 
 RecordingsList.propTypes = {
@@ -47,4 +50,5 @@ RecordingsList.propTypes = {
     created_at: PropTypes.string.isRequired,
     map: PropTypes.func,
   })),
+  recordingsProcessing: PropTypes.number,
 };

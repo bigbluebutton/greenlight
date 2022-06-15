@@ -25,12 +25,17 @@ class ExternalController < ApplicationController
   # POST /recording_ready
   def recording_ready
     BigBlueButtonApi.new.decode_jwt(params[:signed_parameters])
-    render json, status: :ok
+    render json: {}, status: :ok
   end
 
   # GET /meeting_ended
   def meeting_ended
-    render json, status: :ok
+    return render json: {} unless params[:recordingmarks] == 'true'
+
+    @room = Room.find_by(meeting_id: params[:meetingID])
+    @room.update(recordings_processing: @room.recordings_processing + 1)
+
+    render json: {}, status: :ok
   end
 
   private
