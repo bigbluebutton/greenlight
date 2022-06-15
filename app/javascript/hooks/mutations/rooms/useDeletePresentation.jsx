@@ -6,14 +6,13 @@ export default function useDeletePresentation(friendlyId) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation(deletePresentation, {
-      onSuccess: () => {
-        queryClient.invalidateQueries('getRoom');
-      },
-      onError: (error) => {
-        console.error('Error:', error.message);
-      },
+    onSuccess: () => {
+      queryClient.invalidateQueries('getRoom');
     },
-  );
+    onError: (error) => {
+      console.error('Error:', error.message);
+    },
+  });
 
   const handleDeletePresentation = async () => {
     await mutation.mutateAsync();
