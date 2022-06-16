@@ -4,14 +4,15 @@ module Api
   module V1
     class RoomsController < ApiController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
-      before_action :find_room, only: %i[show update recordings recordings_processing purge_presentation]
+      before_action :find_room,
+                    only: %i[show update recordings recordings_processing
+                             purge_presentation access_codes viewer_access_code
+                             remove_viewer_access_code]
 
       include Avatarable
       include Presentable
 
       # GET /api/v1/rooms.json
-      # Returns: { data: Array[serializable objects(rooms)] , errors: Array[String] }
-      # Does: Returns the Rooms that belong to the user currently logged in
       def index
         # Return the rooms that belong to current user
         rooms = Room.where(user_id: current_user&.id).to_a
@@ -39,14 +40,15 @@ module Api
         render_json data: rooms + shared_rooms, status: :ok
       end
 
+      # GET /api/v1/rooms/:friendly_id.json
       def show
-        # TODO: samuel - should probably create/use a UUID instead of object id
         room = {
           id: @room.id,
           name: @room.name,
           presentation_name: presentation_name(@room),
           thumbnail: presentation_thumbnail(@room),
-          created_at: @room.created_at.strftime('%A %B %e, %Y %l:%M%P')
+          created_at: @room.created_at.strftime('%A %B %e, %Y %l:%M%P'),
+          viewer_access_code: @room.viewer_access_code.present?
         }
         if params[:include_owner] == 'true'
           room[:owner] = {
@@ -59,8 +61,6 @@ module Api
       end
 
       # POST /api/v1/rooms.json
-      # Returns: { data: Array[serializable objects] , errors: Array[String] }
-      # Does: creates a room for the authenticated user.
       def create
         # TODO: amir - ensure accessibility for unauthenticated requests only.
         room = Room.create!(room_params.merge(user_id: current_user.id))
@@ -88,8 +88,6 @@ module Api
       end
 
       # GET /api/v1/rooms/:friendly_id/recordings.json
-      # Returns: { data: Array[serializable objects] , errors: Array[String] }
-      # Does: gets the recordings that belong to the specific room friendly_id
       def recordings
         recordings = @room.recordings&.search(params[:q]).to_a
 
@@ -112,6 +110,27 @@ module Api
       # GET /api/v1/rooms/:friendly_id/recordings_processing.json
       def recordings_processing
         render_json data: @room.recordings_processing, status: :ok
+      end
+
+      # GET /api/v1/rooms/:friendly_id/access_code.json
+      def access_codes
+        access_codes = {
+          viewer_access_code: @room.viewer_access_code
+        }
+
+        render_json data: access_codes, status: :ok
+      end
+
+      # PATCH /api/v1/room_settings/:friendly_id/viewer_access_code.json
+      def viewer_access_code
+        @room.update!(viewer_access_code: SecureRandom.alphanumeric(6).downcase)
+        render_json status: :ok
+      end
+
+      # PATCH /api/v1/rooms/:friendly_id/remove_viewer_access_code.json
+      def remove_viewer_access_code
+        @room.update!(viewer_access_code: nil)
+        render_json status: :ok
       end
 
       private

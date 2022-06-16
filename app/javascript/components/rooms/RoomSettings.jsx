@@ -6,11 +6,19 @@ import Spinner from '../shared/stylings/Spinner';
 import useDeleteRoom from '../../hooks/mutations/rooms/useDeleteRoom';
 import useRoomSettings from '../../hooks/queries/rooms/useRoomSettings';
 import RoomSettingsRow from './RoomSettingsRow';
+import useGenerateViewerAccessCode from '../../hooks/mutations/rooms/useGenerateViewerAccessCode';
+import useDeleteViewerAccessCode from '../../hooks/mutations/rooms/useDeleteViewerAccessCode';
+import useAccessCodes from '../../hooks/queries/rooms/useAccessCodes';
 
 export default function RoomSettings() {
   const { friendlyId } = useParams();
+  const { data: accessCodes } = useAccessCodes(friendlyId);
   const { isLoading, data: settings } = useRoomSettings(friendlyId);
   const { handleDeleteRoom, isLoading: deleteRoomIsLoading } = useDeleteRoom(friendlyId);
+  const { handleGenerateViewerAccessCode } = useGenerateViewerAccessCode(friendlyId);
+  const { handleDeleteViewerAccessCode } = useDeleteViewerAccessCode(friendlyId);
+
+  console.log(accessCodes);
 
   if (isLoading) return <Spinner />;
 
@@ -31,7 +39,22 @@ export default function RoomSettings() {
         <div className="mt-2">
           <Row>
             <Col className="border-end border-2">
-              <h6 className="text-primary">Room Name</h6>
+              <h6 className="text-primary">Room Naddme</h6>
+              <Button
+                variant="primary-light"
+                onClick={handleGenerateViewerAccessCode}
+              >
+                Generate
+              </Button>
+              {
+                accessCodes?.viewer_access_code
+              }
+              <Button
+                variant="danger"
+                onClick={handleDeleteViewerAccessCode}
+              >
+                Remove
+              </Button>
             </Col>
             <Col className="ps-4">
               <h6 className="text-primary">User Settings</h6>

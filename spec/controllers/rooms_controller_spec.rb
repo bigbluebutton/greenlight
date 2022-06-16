@@ -133,4 +133,20 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(recording_ids).to be_empty
     end
   end
+
+  describe '#viewer_access_code' do
+    it 'generates an access code' do
+      room = create(:room)
+      patch :viewer_access_code, params: { friendly_id: room.friendly_id }
+      expect(room.reload.viewer_access_code).not_to be_nil
+    end
+  end
+
+  describe '#remove_viewer_access_code' do
+    it 'removes the access code' do
+      room = create(:room, viewer_access_code: 'AAA')
+      patch :remove_viewer_access_code, params: { friendly_id: room.friendly_id }
+      expect(room.reload.viewer_access_code).to be_nil
+    end
+  end
 end

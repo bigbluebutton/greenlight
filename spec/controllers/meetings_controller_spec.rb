@@ -83,6 +83,20 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
       get :join, params: { friendly_id: room.friendly_id, name: user.name }
     end
+
+    it 'allows user to join if the access code is right' do
+      room = create(:room, user:, viewer_access_code: 'AAA')
+
+      get :join, params: { friendly_id: room.friendly_id, name: user.name, viewer_access_code: 'AAA' }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'refrain user from joining if the access code is wrong' do
+      room = create(:room, user:, viewer_access_code: 'AAA')
+
+      get :join, params: { friendly_id: room.friendly_id, name: user.name, viewer_access_code: 'BBB' }
+      expect(response).to have_http_status(:unauthorized)
+    end
   end
 
   describe '#status' do
@@ -101,6 +115,20 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
 
       get :status, params: { friendly_id: room.friendly_id, name: user.name }
+    end
+
+    it 'allows user to join if the access code is right' do
+      room = create(:room, user:, viewer_access_code: 'AAA')
+
+      get :status, params: { friendly_id: room.friendly_id, name: user.name, viewer_access_code: 'AAA' }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'refrain user from joining if the access code is wrong' do
+      room = create(:room, user:, viewer_access_code: 'AAA')
+      get :status, params: { friendly_id: room.friendly_id, name: user.name, viewer_access_code: 'BBB' }
+
+      expect(response).to have_http_status(:unauthorized)
     end
   end
 end

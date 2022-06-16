@@ -1,12 +1,13 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 
-export default function useRoomStatus(friendlyId, name) {
+export default function useRoomStatus(friendlyId, name, accessCode) {
   return useQuery(
     ['getRoomStatus', name],
     () => axios.get(`/api/v1/meetings/${friendlyId}/status.json`, {
       params: {
         name,
+        viewer_access_code: accessCode,
       },
       headers: {
         'Content-Type': 'application/json',
@@ -20,6 +21,7 @@ export default function useRoomStatus(friendlyId, name) {
     }),
     {
       enabled: false,
+      retry: false,
     },
   );
 }
