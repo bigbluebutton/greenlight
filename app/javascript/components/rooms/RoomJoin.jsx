@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import { useParams } from 'react-router-dom';
 import {
-  Button, Col, Row,
+  Button, Col, Row, Stack,
 } from 'react-bootstrap';
 import FormLogo from '../forms/FormLogo';
 import useRoom from '../../hooks/queries/rooms/useRoom';
@@ -34,16 +34,22 @@ export default function RoomJoin() {
         <FormLogo />
         <Card className="col-md-6 mx-auto p-0 border-0 shadow-sm">
           <Card.Body className="p-4">
-            <Col>
-              <p className="text-muted mb-1">You have been invited to join</p>
-              <h1 className="pb-2">
-                { room.name }
-              </h1>
-            </Col>
-            <Col className="ms-auto col-4">
-              <Avatar className="float-end" avatar={room.owner.avatar} radius={100} />
-              <p className="float-end">{room.owner.name}</p>
-            </Col>
+            <Row>
+              <Col>
+                <Stack>
+                  <p className="text-muted mb-0">You have been invited to join</p>
+                  <h1>
+                    { room.name }
+                  </h1>
+                </Stack>
+              </Col>
+              <Col className="col-4">
+                <Stack>
+                  <Avatar className="d-block m-auto" avatar={room.owner.avatar} radius={100} />
+                  <span className="float-end text-center mt-2">{room.owner.name}</span>
+                </Stack>
+              </Col>
+            </Row>
           </Card.Body>
           <Card.Footer className="p-4 bg-white">
             { (isSuccessStatus || isSuccessJoin) ? (
@@ -60,10 +66,18 @@ export default function RoomJoin() {
               </div>
             ) : (
               <>
-                { room?.viewer_access_code
+                <label htmlFor="join-name" className="small text-muted d-block"> Name
+                  <input
+                    type="text"
+                    id="join-name"
+                    placeholder="Enter your name"
+                    className="form-control"
+                    onChange={(event) => setName(event.target.value)}
+                  />
+                </label>
+                { (room?.viewer_access_code || (room?.viewer_access_code && room?.moderator_access_code))
                   && (
-                    <div className="mb-2">
-                      <p><strong> Please enter the 6-characters <i>access code</i> provided by the host. </strong></p>
+                    <div className="mt-2">
                       <label htmlFor="access-code" className="small text-muted d-block"> Access Code
                         <input
                           type="text"
@@ -81,15 +95,26 @@ export default function RoomJoin() {
                       }
                     </div>
                   )}
-                <label htmlFor="join-name" className="small text-muted d-block"> Name
-                  <input
-                    type="text"
-                    id="join-name"
-                    placeholder="Enter your name"
-                    className="form-control"
-                    onChange={(event) => setName(event.target.value)}
-                  />
-                </label>
+                { (!(room?.viewer_access_code) && room?.moderator_access_code)
+                  && (
+                    <div className="mt-2">
+                      <label htmlFor="access-code" className="small text-muted d-block"> Moderator Access Code (optional)
+                        <input
+                          type="text"
+                          id="access-code"
+                          placeholder="Enter the access code"
+                          className="form-control"
+                          onChange={(event) => setAccessCode(event.target.value)}
+                        />
+                      </label>
+                      {
+                        (isErrorJoin || isErrorStatus)
+                        && (
+                          <p className="text-danger"> Wrong access code. </p>
+                        )
+                      }
+                    </div>
+                  )}
                 <Button className="mt-3 d-block float-end" onClick={() => waitOrJoin(refetchJoin, refetchStatus)}>Join Session</Button>
               </>
             )}

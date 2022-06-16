@@ -27,8 +27,8 @@ module Api
 
       # GET /api/v1/meetings/:friendly_id/join.json
       def join
-        if authorize_access?
-          render_json data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: 'Viewer'), status: :ok
+        if authorized?
+          render_json data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role:), status: :ok
         else
           render_json status: :unauthorized
         end
@@ -36,12 +36,11 @@ module Api
 
       # GET /api/v1/meetings/:friendly_id/status.json
       def status
-        data = {
-          status: BigBlueButtonApi.new.meeting_running?(room: @room)
-        }
-        data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: 'Viewer') if data[:status]
-
-        if authorize_access?
+        if authorized?
+          data = {
+            status: BigBlueButtonApi.new.meeting_running?(room: @room)
+          }
+          data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role:) if data[:status]
           render_json data:, status: :ok
         else
           render_json status: :unauthorized
@@ -54,9 +53,15 @@ module Api
         @room = Room.find_by!(friendly_id: params[:friendly_id])
       end
 
-      # Returns true if the room is accessible to all or if the access code is correct
-      def authorize_access?
-        @room.viewer_access_code.blank? || @room.viewer_access_code == params[:viewer_access_code]
+      def authorized?
+        # User can't join if a wrong access code is entered in the optional moderator access code input.
+        return false if @room.moderator_access_code_only? && @room.moderator_access_code != params[:access_code] && params[:access_code].present?
+
+        @room.viewer_access_code.blank? || @room.viewer_access_code == params[:access_code] || @room.moderator_access_code == params[:access_code]
+      end
+
+      def role
+        @room.moderator_access_code.present? && @room.moderator_access_code == params[:access_code] ? 'Moderator' : 'Viewer'
       end
     end
   end

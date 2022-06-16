@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
+# frozen_string_literal: truenerate_access_code generates a viewer access code
+
 module Api
   module V1
     class RoomsController < ApiController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
       before_action :find_room,
                     only: %i[show update recordings recordings_processing
-                             purge_presentation access_codes viewer_access_code
-                             remove_viewer_access_code]
+                             purge_presentation access_codes
+                             generate_access_code remove_access_code]
 
       include Avatarable
       include Presentable
@@ -47,9 +49,11 @@ module Api
           name: @room.name,
           presentation_name: presentation_name(@room),
           thumbnail: presentation_thumbnail(@room),
-          created_at: @room.created_at.strftime('%A %B %e, %Y %l:%M%P'),
-          viewer_access_code: @room.viewer_access_code.present?
+          viewer_access_code: @room.viewer_access_code.present?,
+          moderator_access_code: @room.moderator_access_code.present?,
+          created_at: @room.created_at.strftime('%A %B %e, %Y %l:%M%P')
         }
+
         if params[:include_owner] == 'true'
           room[:owner] = {
             name: @room.user.name,
@@ -115,21 +119,34 @@ module Api
       # GET /api/v1/rooms/:friendly_id/access_code.json
       def access_codes
         access_codes = {
-          viewer_access_code: @room.viewer_access_code
+          viewer_access_code: @room.viewer_access_code,
+          moderator_access_code: @room.moderator_access_code
         }
 
         render_json data: access_codes, status: :ok
       end
 
       # PATCH /api/v1/room_settings/:friendly_id/viewer_access_code.json
-      def viewer_access_code
-        @room.update!(viewer_access_code: SecureRandom.alphanumeric(6).downcase)
+      def generate_access_code
+        case params[:role]
+        when 'Viewer'
+          @room.update!(viewer_access_code: SecureRandom.alphanumeric(6).downcase)
+        when 'Moderator'
+          @room.update!(moderator_access_code: SecureRandom.alphanumeric(6).downcase)
+        end
+
         render_json status: :ok
       end
 
-      # PATCH /api/v1/rooms/:friendly_id/remove_viewer_access_code.json
-      def remove_viewer_access_code
-        @room.update!(viewer_access_code: nil)
+      # PATCH /api/v1/room_settings/:friendly_id/remove_viewer_access_code.json
+      def remove_access_code
+        case params[:role]
+        when 'Viewer'
+          @room.update!(viewer_access_code: nil)
+        when 'Moderator'
+          @room.update!(moderator_access_code: nil)
+        end
+
         render_json status: :ok
       end
 
