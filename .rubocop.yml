@@ -58,6 +58,9 @@ Metrics/BlockLength:
     - 'config/routes.rb'
   Max: 30
 
+Metrics/ClassLength:
+  Max: 150
+
 # A calculated magnitude based on number of assignments,
 # branches, and conditions.
 Metrics/AbcSize:
@@ -65,3 +68,4 @@ Metrics/AbcSize:
 
 RSpec/AnyInstance:
   Enabled: false
+
