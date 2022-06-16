@@ -67,4 +67,28 @@ RSpec.describe Api::V1::ResetPasswordController, type: :controller do
       expect(response).to have_http_status(:bad_request)
     end
   end
+
+  describe 'POST reset_password#verify' do
+    it 'generates a unique refresh token for valid tokens' do
+      user = create(:user, password: 'Test12345678+')
+      allow(User).to receive(:verify_token).with('token').and_return(user)
+      allow_any_instance_of(User).to receive(:generate_unique_token).and_return('refresh_token')
+
+      post :verify, params: { user: { token: 'token' } }
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)['data']).to eq({ 'refresh_token' => 'refresh_token' })
+    end
+
+    it 'returns :bad_request for invalid params' do
+      post :create, params: { not_user: { not_token: 'invalid' } }
+      expect(response).to have_http_status(:bad_request)
+    end
+
+    it 'returns :forbidden for invalid token' do
+      allow(User).to receive(:verify_token).and_return(false)
+
+      post :reset, params: { user: { token: 'invalid' } }
+      expect(response).to have_http_status(:forbidden)
+    end
+  end
 end

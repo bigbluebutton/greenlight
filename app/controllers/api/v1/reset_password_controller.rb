@@ -4,6 +4,7 @@ module Api
   module V1
     class ResetPasswordController < ApiController
       skip_before_action :verify_authenticity_token
+      before_action :verify_token, only: %i[reset verify]
 
       # POST /api/v1/reset_password.json
       # Expects: { user: {:email} }
@@ -32,20 +33,40 @@ module Api
       # Does: Validates the token and reset the user password.
 
       def reset
+        return render_json status: :forbidden unless @user
+
+        new_password = params[:user][:new_password]
+        return render_json status: :bad_request if new_password.blank?
+
+        # Verified Token
+        @user.update! password: new_password
+
+        render_json
+      end
+
+      # POST /api/v1/reset_password/verify.json
+      # Expects: { user: {:token} }
+      # Returns: { data: Array[serializable objects] , errors: Array[String] }
+      # Does: Validates the token and refresh it.
+
+      def verify
+        return render_json status: :forbidden unless @user
+
+        refresh_token = @user.generate_unique_token
+
+        render_json data: { refresh_token: }
+      end
+
+      private
+
+      def verify_token
         return render_json status: :bad_request unless params[:user]
 
         token = params[:user][:token]
-        new_password = params[:user][:new_password]
 
-        return render_json status: :bad_request if token.blank? || new_password.blank?
+        return render_json status: :bad_request if token.blank?
 
-        user = User.verify_token(token)
-        return render_json status: :forbidden unless user
-
-        # Verified Token
-        user.update! password: new_password
-
-        render_json
+        @user = User.verify_token(token)
       end
     end
   end
