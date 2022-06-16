@@ -1,0 +1,29 @@
+import React, { useEffect } from 'react';
+import Card from 'react-bootstrap/Card';
+import { useParams } from 'react-router-dom';
+import useVerifyToken from '../../hooks/mutations/users/useVerifyToken';
+import FormLogo from '../forms/FormLogo';
+import ResetPwdForm from '../forms/ResetPwdForm';
+import Spinner from '../shared/stylings/Spinner';
+
+export default function ResetPassword() {
+  const { token } = useParams();
+  const { verify, isLoading } = useVerifyToken(token);
+
+  useEffect(() => {
+    verify();
+  }, []);
+
+  if (isLoading) return <Spinner />;
+
+  return (
+    <div className="wide-background">
+      <div className="vertical-center">
+        <FormLogo />
+        <Card className="col-md-4 mx-auto p-4 border-0 shadow-sm">
+          <ResetPwdForm token={token} />
+        </Card>
+      </div>
+    </div>
+  );
+}
