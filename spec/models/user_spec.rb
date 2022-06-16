@@ -21,6 +21,7 @@ RSpec.describe User, type: :model do
 
     it { is_expected.to validate_uniqueness_of(:email).scoped_to(:provider).case_insensitive }
     it { is_expected.to validate_uniqueness_of(:reset_digest).on(:update) }
+    it { is_expected.to validate_uniqueness_of(:activation_digest).on(:update) }
 
     context 'password confirmation' do
       it 'invalidate the record for mismatched password confirmation' do

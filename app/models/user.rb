@@ -24,6 +24,7 @@ class User < ApplicationRecord
   # TODO: samuel - ActiveStorage validations needs to be discussed and implemented.
   validate :avatar_validation
   validates :reset_digest, uniqueness: true, on: :update
+  validates :activation_digest, uniqueness: true, on: :update
 
   def self.search(input)
     return where('name ILIKE ?', "%#{input}%") if input
