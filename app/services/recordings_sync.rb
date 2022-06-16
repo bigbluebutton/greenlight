@@ -16,45 +16,7 @@ class RecordingsSync
     recordings = BigBlueButtonApi.new.get_recordings(meeting_ids:)
 
     recordings[:recordings].each do |recording|
-      room_id = Room.find_by(meeting_id: recording[:meetingID]).id
-      visibility = recording[:published] ? 'Published' : 'Unpublished'
-
-      # Get length of presentation format(s)
-      length = get_recording_length(recording:)
-
-      new_name = recording[:metadata][:name] || recording[:name]
-
-      new_recording = Recording.create(room_id:, name: new_name, record_id: recording[:recordID], visibility:,
-                                       users: recording[:participants], length:)
-
-      # Create format(s)
-      create_formats(recording:, new_recording:)
-    end
-  end
-
-  private
-
-  # Returns the length of presentation recording for the recording given
-  def get_recording_length(recording:)
-    length = 0
-    if recording[:playback][:format].is_a?(Array)
-      recording[:playback][:format].each do |formats|
-        length = formats[:length] if formats[:type] == 'presentation'
-      end
-    else
-      length = recording[:playback][:format][:length]
-    end
-    length
-  end
-
-  # Creates format(s) for given new_recording
-  def create_formats(recording:, new_recording:)
-    if recording[:playback][:format].is_a?(Array)
-      recording[:playback][:format].each do |format|
-        Format.create(recording_id: new_recording.id, recording_type: format[:type], url: format[:url])
-      end
-    else
-      Format.create(recording_id: new_recording.id, recording_type: recording[:playback][:format][:type], url: recording[:playback][:format][:url])
+      RecordingCreator.new(recording:).call
     end
   end
 end
