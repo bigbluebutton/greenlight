@@ -24,7 +24,19 @@ class ExternalController < ApplicationController
 
   # POST /recording_ready
   def recording_ready
-    BigBlueButtonApi.new.decode_jwt(params[:signed_parameters])
+    response = BigBlueButtonApi.new.decode_jwt(params[:signed_parameters])
+    record_id = response[0]['record_id']
+    recording = BigBlueButtonApi.new.get_recording(record_id:)
+
+    # Only decrement if the recording doesn't already exist
+    # This is needed to handle duplicate requests
+    unless Recording.exists?(record_id:)
+      @room = Room.find_by(meeting_id: response[0]['meeting_id'])
+      @room.update(recordings_processing: @room.recordings_processing - 1)
+    end
+
+    RecordingCreator.new(recording:).call
+
     render json: {}, status: :ok
   end
 
