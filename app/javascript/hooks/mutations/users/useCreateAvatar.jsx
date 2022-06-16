@@ -7,18 +7,13 @@ export default function useCreateAvatar(currentUser) {
   const createAvatar = (data) => {
     const formData = new FormData();
     formData.append('user[avatar]', data.avatar[0]);
-    axios.patch(`/api/v1/users/${currentUser.id}.json`, formData);
+    return axios.patch(`/api/v1/users/${currentUser.id}.json`, formData);
   };
-
-  const delay = (time) => new Promise((resolve) => {
-    setTimeout(resolve, time);
-  });
 
   const mutation = useMutation(
     createAvatar,
     {
-      onSuccess: async () => {
-        await delay(500);
+      onSuccess: () => {
         queryClient.invalidateQueries('useSessions');
       },
       onError: (error) => {

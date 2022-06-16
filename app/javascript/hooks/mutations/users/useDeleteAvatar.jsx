@@ -4,19 +4,12 @@ import axios from 'axios';
 export default function useDeleteAvatar(currentUser) {
   const queryClient = useQueryClient();
 
-  const deleteAvatar = (data) => {
-    axios.delete(`/api/v1/users/${currentUser.id}/purge_avatar.json`, data);
-  };
-
-  const delay = (time) => new Promise((resolve) => {
-    setTimeout(resolve, time);
-  });
+  const deleteAvatar = (data) => axios.delete(`/api/v1/users/${currentUser.id}/purge_avatar.json`, data);
 
   const mutation = useMutation(
     deleteAvatar,
     {
-      onSuccess: async () => {
-        await delay(500);
+      onSuccess: () => {
         queryClient.invalidateQueries('useSessions');
       },
       onError: (error) => {

@@ -52,11 +52,8 @@ module Api
       def purge_avatar
         user = User.find(params[:id])
         user.avatar.purge
-        if user.avatar.purge
-          render_json status: :ok
-        else
-          render_json errors: user.errors.to_a, status: :bad_request
-        end
+
+        render_json status: :ok
       end
 
       # POST /api/v1/users/:id/change_password.json
