@@ -4,9 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCloudArrowUp, faFileAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { useParams } from 'react-router-dom';
+import Modal from '../shared/Modal';
 import useUploadPresentation from '../../hooks/mutations/rooms/useUploadPresentation';
 import useRoom from '../../hooks/queries/rooms/useRoom';
+import DeletePresentationForm from '../forms/DeletePresentationForm';
 
 export default function Presentation() {
   const { friendlyId } = useParams();
@@ -57,7 +60,13 @@ export default function Presentation() {
               {room.presentation_name}
             </Col>
             <Col />
-            <Col />
+            <Col>
+              <Modal
+                modalButton={<FontAwesomeIcon className="delete-presentation" icon={faTrashAlt} size="lg" />}
+                title="Are you sure?"
+                body={<DeletePresentationForm />}
+              />
+            </Col>
           </Row>
         </Card.Body>
       </Card>

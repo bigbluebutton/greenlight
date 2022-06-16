@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         member do
           get '/recordings', to: 'rooms#recordings'
           get '/recordings_processing', to: 'rooms#recordings_processing'
+          delete :purge_presentation
         end
       end
       resources :meetings, only: %i[], param: :friendly_id do
