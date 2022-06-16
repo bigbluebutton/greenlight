@@ -4,7 +4,7 @@ module Api
   module V1
     class RoomsController < ApiController
       skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
-      before_action :find_room, only: %i[show update recordings]
+      before_action :find_room, only: %i[show update recordings recordings_processing]
 
       include Avatarable
       include Presentable
@@ -101,6 +101,11 @@ module Api
         end
 
         render_json data: recordings, status: :ok
+      end
+
+      # GET /api/v1/rooms/:friendly_id/recordings_processing.json
+      def recordings_processing
+        render_json data: @room.recordings_processing, status: :ok
       end
 
       private
