@@ -2,8 +2,9 @@ import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faCloudArrowUp, faFileAlt, faTrashAlt,
+  faCloudArrowUp, faFileAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { useParams } from 'react-router-dom';
 import Modal from '../shared/Modal';
 import useUploadPresentation from '../../hooks/mutations/rooms/useUploadPresentation';
@@ -61,7 +62,7 @@ export default function Presentation() {
             <Col />
             <Col>
               <Modal
-                modalButton={<FontAwesomeIcon icon={faTrashAlt} />}
+                modalButton={<FontAwesomeIcon className="delete-presentation" icon={faTrashAlt} size="lg" />}
                 title="Are you sure?"
                 body={<DeletePresentationForm />}
               />
