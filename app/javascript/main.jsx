@@ -13,6 +13,7 @@ import Room from './components/rooms/Room';
 import Rooms from './components/rooms/Rooms';
 import HomePage from './components/home_page/HomePage';
 import RoomJoin from './components/rooms/RoomJoin';
+import ForgetPassword from './components/users/FrogetPassword';
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const root = (
             <Route index element={<HomePage />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<SignIn />} />
+            <Route path="/forget_password" element={<ForgetPassword />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/rooms" element={<Rooms />} />
             <Route path="/rooms/:friendlyId" element={<Room />} />
