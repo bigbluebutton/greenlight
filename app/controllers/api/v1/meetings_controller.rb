@@ -27,8 +27,13 @@ module Api
 
       # GET /api/v1/meetings/:friendly_id/join.json
       def join
-        if authorized?
-          render_json data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role:), status: :ok
+        if authorized_as_viewer? || authorized_as_moderator?
+          if authorized_as_moderator?
+            bbb_role = 'Moderator'
+          elsif authorized_as_viewer?
+            bbb_role = 'Viewer'
+          end
+          render_json data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role), status: :ok
         else
           render_json status: :unauthorized
         end
@@ -36,11 +41,17 @@ module Api
 
       # GET /api/v1/meetings/:friendly_id/status.json
       def status
-        if authorized?
-          data = {
-            status: BigBlueButtonApi.new.meeting_running?(room: @room)
-          }
-          data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role:) if data[:status]
+        data = {
+          status: BigBlueButtonApi.new.meeting_running?(room: @room)
+        }
+
+        if authorized_as_viewer? || authorized_as_moderator?
+          if authorized_as_moderator?
+            bbb_role = 'Moderator'
+          elsif authorized_as_viewer?
+            bbb_role = 'Viewer'
+          end
+          data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role) if data[:status]
           render_json data:, status: :ok
         else
           render_json status: :unauthorized
@@ -53,16 +64,29 @@ module Api
         @room = Room.find_by!(friendly_id: params[:friendly_id])
       end
 
-      def authorized?
-        # User can't join if a wrong access code is entered in the optional moderator access code input.
-        return false if @room.moderator_access_code_only? && @room.moderator_access_code != params[:access_code] && params[:access_code].present?
-
-        @room.viewer_access_code.blank? || @room.viewer_access_code == params[:access_code] || @room.moderator_access_code == params[:access_code]
+      def authorized_as_viewer?
+        (params[:access_code].blank? && @room.viewer_access_code.blank?) ||
+          (params[:access_code].present? && @room.viewer_access_code == params[:access_code])
       end
 
-      def role
-        @room.moderator_access_code.present? && @room.moderator_access_code == params[:access_code] ? 'Moderator' : 'Viewer'
+      def authorized_as_moderator?
+        params[:access_code].present? && @room.moderator_access_code == params[:access_code]
       end
     end
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

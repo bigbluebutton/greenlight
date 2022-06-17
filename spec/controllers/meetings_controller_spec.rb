@@ -85,11 +85,19 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
-    it 'joins as viewer if access code correspond to the viewer access code' do
+    it 'joins as viewer if the input access code correspond to the viewer access code' do
       room = create(:room, user:, viewer_access_code: 'AAA', moderator_access_code: 'BBB')
 
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
       get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'AAA' }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'joins as viewer if the moderator access code is optional and the input access code is blank' do
+      room = create(:room, user:, moderator_access_code: 'BBB')
+
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
+      get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: '' }
       expect(response).to have_http_status(:ok)
     end
 
@@ -103,13 +111,6 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
     it 'returns unauthorized if the access code is wrong' do
       room = create(:room, user:, viewer_access_code: 'AAA', moderator_access_code: 'BBB')
-
-      get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'ZZZ' }
-      expect(response).to have_http_status(:unauthorized)
-    end
-
-    it 'returns unauthorized if the access code is wrong and the viewer access code is not required' do
-      room = create(:room, user:, moderator_access_code: 'BBB')
 
       get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'ZZZ' }
       expect(response).to have_http_status(:unauthorized)
@@ -155,14 +156,6 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
     it 'returns unauthorized if the access code is wrong' do
       room = create(:room, user:, viewer_access_code: 'AAA', moderator_access_code: 'BBB')
-
-      allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
-      get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'ZZZ' }
-      expect(response).to have_http_status(:unauthorized)
-    end
-
-    it 'returns unauthorized if the access code is wrong and the viewer access code is not required' do
-      room = create(:room, user:, moderator_access_code: 'BBB')
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
       get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'ZZZ' }
