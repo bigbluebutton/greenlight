@@ -128,7 +128,7 @@ module Api
 
       # PATCH /api/v1/room_settings/:friendly_id/viewer_access_code.json
       def generate_access_code
-        case params[:role]
+        case params[:bbb_role]
         when 'Viewer'
           @room.update!(viewer_access_code: SecureRandom.alphanumeric(6).downcase)
         when 'Moderator'
@@ -140,7 +140,7 @@ module Api
 
       # PATCH /api/v1/room_settings/:friendly_id/remove_viewer_access_code.json
       def remove_access_code
-        case params[:role]
+        case params[:bbb_role]
         when 'Viewer'
           @room.update!(viewer_access_code: nil)
         when 'Moderator'

@@ -137,13 +137,13 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   describe '#generate_access_code' do
     it 'generates a viewer access code' do
       room = create(:room)
-      patch :generate_access_code, params: { friendly_id: room.friendly_id, role: 'Viewer' }
+      patch :generate_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Viewer' }
       expect(room.reload.viewer_access_code).not_to be_nil
     end
 
     it 'generates a moderator access code' do
       room = create(:room)
-      patch :generate_access_code, params: { friendly_id: room.friendly_id, role: 'Moderator' }
+      patch :generate_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Moderator' }
       expect(room.reload.moderator_access_code).not_to be_nil
     end
   end
@@ -151,13 +151,13 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   describe '#remove_access_code' do
     it 'removes the viewer access code' do
       room = create(:room, viewer_access_code: 'AAA')
-      patch :remove_access_code, params: { friendly_id: room.friendly_id, role: 'Viewer' }
+      patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Viewer' }
       expect(room.reload.viewer_access_code).to be_nil
     end
 
     it 'removes the moderator access code' do
       room = create(:room, moderator_access_code: 'BBB')
-      patch :remove_access_code, params: { friendly_id: room.friendly_id, role: 'Moderator' }
+      patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Moderator' }
       expect(room.reload.moderator_access_code).to be_nil
     end
   end

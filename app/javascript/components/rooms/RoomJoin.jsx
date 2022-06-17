@@ -75,7 +75,7 @@ export default function RoomJoin() {
                     onChange={(event) => setName(event.target.value)}
                   />
                 </label>
-                { (room?.viewer_access_code || (room?.viewer_access_code && room?.moderator_access_code))
+                { room?.viewer_access_code
                   && (
                     <div className="mt-2">
                       <label htmlFor="access-code" className="small text-muted d-block"> Access Code

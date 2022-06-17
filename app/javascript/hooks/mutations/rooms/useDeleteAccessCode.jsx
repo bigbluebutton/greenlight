@@ -4,7 +4,7 @@ import axios from 'axios';
 export default function useDeleteAccessCode(friendlyId) {
   const queryClient = useQueryClient();
 
-  const deleteAccessCode = (data) => axios.patch(`/api/v1/rooms/${friendlyId}/remove_access_code.json`, data);
+  const deleteAccessCode = (data) => axios.patch(`/api/v1/rooms/${friendlyId}/remove_access_code.json`, { bbb_role: data });
 
   const mutation = useMutation(deleteAccessCode, {
     onSuccess: () => {

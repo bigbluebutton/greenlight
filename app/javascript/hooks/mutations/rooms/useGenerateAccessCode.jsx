@@ -4,7 +4,7 @@ import axios from 'axios';
 export default function useGenerateAccessCode(friendlyId) {
   const queryClient = useQueryClient();
 
-  const generateAccessCode = (data) => axios.patch(`/api/v1/rooms/${friendlyId}/generate_access_code.json`, data);
+  const generateAccessCode = (data) => axios.patch(`/api/v1/rooms/${friendlyId}/generate_access_code.json`, { bbb_role: data });
 
   const mutation = useMutation(generateAccessCode, {
     onSuccess: () => {

@@ -45,7 +45,7 @@ export default function RoomSettings() {
                 <div>
                   <Button
                     variant="primary-light"
-                    onClick={() => handleGenerateAccessCode({ role: 'Viewer' })}
+                    onClick={() => handleGenerateAccessCode('Viewer')}
                   >
                     Generate
                   </Button>
@@ -56,7 +56,7 @@ export default function RoomSettings() {
                 <div>
                   <Button
                     variant="danger"
-                    onClick={() => handleDeleteAccessCode({ role: 'Viewer' })}
+                    onClick={() => handleDeleteAccessCode('Viewer')}
                   >
                     Remove
                   </Button>
@@ -67,7 +67,7 @@ export default function RoomSettings() {
                 <div>
                   <Button
                     variant="primary-light"
-                    onClick={() => handleGenerateAccessCode({ role: 'Moderator' })}
+                    onClick={() => handleGenerateAccessCode('Moderator')}
                   >
                     Generate
                   </Button>
@@ -78,7 +78,7 @@ export default function RoomSettings() {
                 <div>
                   <Button
                     variant="danger"
-                    onClick={() => handleDeleteAccessCode({ role: 'Moderator' })}
+                    onClick={() => handleDeleteAccessCode('Moderator')}
                   >
                     Remove
                   </Button>
