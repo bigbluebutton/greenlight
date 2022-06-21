@@ -3,7 +3,7 @@ import { Row, Tabs, Tab } from 'react-bootstrap';
 import RoomRecordings from '../recordings/RoomRecordings';
 import Presentation from './Presentation';
 import SharedAccess from '../shared_accesses/SharedAccess';
-import RoomSettings from './RoomSettings';
+import RoomSettings from '../room_settings/RoomSettings';
 
 export default function FeatureTabs() {
   return (

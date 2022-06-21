@@ -98,8 +98,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_16_175700) do
     t.datetime "last_session"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "recordings_processing", default: 0
     t.string "viewer_access_code"
+    t.string "moderator_access_code"
+    t.integer "recordings_processing", default: 0
     t.index ["friendly_id"], name: "index_rooms_on_friendly_id", unique: true
     t.index ["meeting_id"], name: "index_rooms_on_meeting_id", unique: true
     t.index ["user_id"], name: "index_rooms_on_user_id"
