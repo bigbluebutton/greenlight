@@ -67,10 +67,6 @@ export default function RoomSettings() {
             </Col>
           </Row>
           <Row className="float-end">
-            {/* <Button id="delete-room" className="mt-1 mx-2 float-end" onClick={handleDeleteRoom}>
-              Delete Room
-              {deleteRoomIsLoading && <Spinner />}
-            </Button> */}
             <Modal
               modalButton={
                 <Button id="delete-room" className="mt-1 mx-2 float-end">Delete Room</Button>
