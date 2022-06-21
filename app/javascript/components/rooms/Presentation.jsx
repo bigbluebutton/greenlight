@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Card, Col, Row, Stack,
+  Card, Col, Row,
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -31,29 +31,27 @@ export default function Presentation() {
           formats={['.doc', '.docx', '.pptx', '.txt', '.png', '.jpg', '.pdf']}
         >
           <Card className="border-0 shadow-sm mt-3 text-center">
-            <Card.Body className="py-5 text-secondary">
-              <div className="user-icon-circle rounded-circle d-block mx-auto mb-3">
-                <FontAwesomeIcon icon={faCloudArrowUp} className="fa-4x text-primary d-block mx-auto pt-3" />
-              </div>
-              <Stack className="align-middle align-items-center justify-content-center" direction="horizontal" gap={1}>
+            <label htmlFor="file" className="presentation-upload">
+              <Card.Body className="py-5 text-secondary">
+                <div className="user-icon-circle rounded-circle d-block mx-auto mb-3">
+                  <FontAwesomeIcon icon={faCloudArrowUp} className="fa-4x text-primary d-block mx-auto pt-3" />
+                </div>
+                <input
+                  id="file"
+                  className="d-none"
+                  type="file"
+                  onChange={(e) => onSubmit(e.target.files[0])}
+                  accept=".doc,.docx,.pptx,.txt,.png,.jpg,.pdf"
+                />
                 <Card.Title className="text-primary">
-                  <label htmlFor="file" className="presentation-upload">Click to Upload
-                    <input
-                      id="file"
-                      className="d-none"
-                      type="file"
-                      onChange={(e) => onSubmit(e.target.files[0])}
-                      accept=".doc,.docx,.pptx,.txt,.png,.jpg,.pdf"
-                    />
-                  </label>
+                  Click to Upload or drag and drop
                 </Card.Title>
-                <Card.Title>or drag and drop</Card.Title>
-              </Stack>
-              <Card.Text>
-                Upload any office document or PDF file. Depending on the size of the
-                presentation, it may require additional time to upload before it can be used
-              </Card.Text>
-            </Card.Body>
+                <Card.Text>
+                  Upload any office document or PDF file. Depending on the size of the
+                  presentation, it may require additional time to upload before it can be used
+                </Card.Text>
+              </Card.Body>
+            </label>
           </Card>
         </FilesDragAndDrop>
       </div>
