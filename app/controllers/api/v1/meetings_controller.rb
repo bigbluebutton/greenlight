@@ -27,8 +27,13 @@ module Api
 
       # GET /api/v1/meetings/:friendly_id/join.json
       def join
-        if authorize_access?
-          render_json data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: 'Viewer'), status: :ok
+        if authorized_as_viewer? || authorized_as_moderator?
+          if authorized_as_moderator?
+            bbb_role = 'Moderator'
+          elsif authorized_as_viewer?
+            bbb_role = 'Viewer'
+          end
+          render_json data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role), status: :ok
         else
           render_json status: :unauthorized
         end
@@ -39,9 +44,14 @@ module Api
         data = {
           status: BigBlueButtonApi.new.meeting_running?(room: @room)
         }
-        data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: 'Viewer') if data[:status]
 
-        if authorize_access?
+        if authorized_as_viewer? || authorized_as_moderator?
+          if authorized_as_moderator?
+            bbb_role = 'Moderator'
+          elsif authorized_as_viewer?
+            bbb_role = 'Viewer'
+          end
+          data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role) if data[:status]
           render_json data:, status: :ok
         else
           render_json status: :unauthorized
@@ -54,9 +64,13 @@ module Api
         @room = Room.find_by!(friendly_id: params[:friendly_id])
       end
 
-      # Returns true if the room is accessible to all or if the access code is correct
-      def authorize_access?
-        @room.viewer_access_code.blank? || @room.viewer_access_code == params[:viewer_access_code]
+      def authorized_as_viewer?
+        (params[:access_code].blank? && @room.viewer_access_code.blank?) ||
+          (params[:access_code].present? && @room.viewer_access_code == params[:access_code])
+      end
+
+      def authorized_as_moderator?
+        params[:access_code].present? && @room.moderator_access_code == params[:access_code]
       end
     end
   end
