@@ -99,8 +99,9 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       room = create(:room, presentation: fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
       patch :update,
             params: { friendly_id: room.friendly_id,
-                      presentation: { presentation: fixture_file_upload(file_fixture('default-avatar.png'), 'image/png') } }
+                      presentation: fixture_file_upload(file_fixture('default-avatar.png'), 'image/png') }
       expect(room.reload.presentation).to be_attached
+      expect(response).to have_http_status(:ok)
     end
   end
 

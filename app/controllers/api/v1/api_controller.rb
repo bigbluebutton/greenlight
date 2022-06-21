@@ -10,9 +10,11 @@ module Api
 
       # For requests that raised an unkown exception.
       # Note: The order of each rescue is important (The highest has the lowest priority).
-      rescue_from StandardError do |exception|
-        log_exception exception
-        render_json errors: [Rails.configuration.custom_error_msgs[:server_error]], status: :internal_server_error
+      if Rails.env.production?
+        rescue_from StandardError do |exception|
+          log_exception exception
+          render_json errors: [Rails.configuration.custom_error_msgs[:server_error]], status: :internal_server_error
+        end
       end
 
       rescue_from ActionController::ParameterMissing do |exception|

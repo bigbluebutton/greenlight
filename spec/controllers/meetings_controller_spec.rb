@@ -32,7 +32,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         presentation_url:,
         meeting_ended: meeting_ended_url,
         recording_ready: recording_ready_url
-      )
+      ).and_call_original
 
       post :start, params: { friendly_id: room.friendly_id }
     end
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         presentation_url:,
         meeting_ended: meeting_ended_url,
         recording_ready: recording_ready_url
-      )
+      ).and_call_original
 
       post :start, params: { friendly_id: room.friendly_id }
     end

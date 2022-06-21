@@ -108,7 +108,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
     end
 
     it 'calls the RecordingsSync service with correct params' do
-      expect(RecordingsSync).to receive(:new).with(user:)
+      expect(RecordingsSync).to receive(:new).with(user:).and_call_original
       get :resync
     end
   end
