@@ -83,12 +83,11 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   describe '#create' do
     let(:room_params) do
       {
-        room: { name: Faker::Science.science }
+        room: { name: Faker::Science.science, user_id: user.id }
       }
     end
 
-    it 'creates a room for the authenticated user' do
-      session[:user_id] = user.id
+    it 'creates a room for a user' do
       expect { post :create, params: room_params }.to change { user.rooms.count }.from(0).to(1)
       expect(response).to have_http_status(:created)
     end

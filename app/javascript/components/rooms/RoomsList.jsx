@@ -9,8 +9,10 @@ import RoomPlaceHolder from './RoomPlaceHolder';
 import CreateRoomModal from '../shared/Modal';
 import CreateRoomForm from '../forms/CreateRoomForm';
 import SearchBar from '../shared/SearchBar';
+import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function RoomsList() {
+  const { id: userID } = useAuth();
   const { isLoading, data: rooms } = useRooms();
   const [search, setSearch] = useState('');
   if (isLoading) return <Spinner />;
@@ -24,7 +26,7 @@ export default function RoomsList() {
         <CreateRoomModal
           modalButton={<Button variant="primary" className="ms-auto">+ New Room </Button>}
           title="Create New Room"
-          body={<CreateRoomForm />}
+          body={<CreateRoomForm userID={userID} />}
         />
       </Stack>
       <Row md={4} className="g-4 pb-4 mt-4">
