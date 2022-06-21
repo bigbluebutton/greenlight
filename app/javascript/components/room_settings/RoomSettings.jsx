@@ -27,7 +27,7 @@ export default function RoomSettings() {
   }
 
   return (
-    <div className="wide-background full-height-room">
+    <div className="wide-background full-height-room" id="room-settings">
       <Card className="mx-auto mt-3 p-4 border-0 shadow-sm">
         <div className="mt-2">
           <Row>
