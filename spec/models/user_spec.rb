@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
 
     it { is_expected.to validate_uniqueness_of(:email).scoped_to(:provider).case_insensitive }
     it { is_expected.to validate_uniqueness_of(:reset_digest).on(:update) }
-    it { is_expected.to validate_uniqueness_of(:activation_digest).on(:update) }
+    it { is_expected.to validate_uniqueness_of(:activation_digest) }
 
     context 'password confirmation' do
       it 'invalidate the record for mismatched password confirmation' do
@@ -57,6 +57,20 @@ RSpec.describe User, type: :model do
         expect(user.generate_unique_token).to eq(token)
         expect(user.reload.reset_digest).to eq(described_class.generate_digest(token))
         expect(user.reset_sent_at).to eq(Time.current)
+      end
+    end
+
+    describe '#generate_activation_token!' do
+      let!(:user) { create(:user, email: 'test@greenlight.com') }
+
+      it 'generates/returns a token and saves its digest' do
+        freeze_time
+        token = 'ZekpWTPGFsuaP1WngE6LVCc69Zs7YSKoOJFLkfKu'
+        allow(SecureRandom).to receive(:alphanumeric).and_return token
+
+        expect(user.generate_activation_token!).to eq(token)
+        expect(user.reload.activation_digest).to eq(described_class.generate_digest(token))
+        expect(user.activation_sent_at).to eq(Time.current)
       end
     end
   end

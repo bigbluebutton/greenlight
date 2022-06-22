@@ -77,37 +77,47 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
   end
 
   describe '#join' do
-    it 'calls the BigBlueButton service with the right values' do
+    it 'joins as viewer if no access code is required nor provided' do
       room = create(:room, user:)
 
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
       get :join, params: { friendly_id: room.friendly_id, name: user.name }
-    end
-
-    it 'allows user to join if the access code is right' do
-      room = create(:room, user:, viewer_access_code: 'AAA')
-
-      get :join, params: { friendly_id: room.friendly_id, name: user.name, viewer_access_code: 'AAA' }
       expect(response).to have_http_status(:ok)
     end
 
-    it 'refrain user from joining if the access code is wrong' do
-      room = create(:room, user:, viewer_access_code: 'AAA')
+    it 'joins as viewer if the input access code correspond to the viewer access code' do
+      room = create(:room, user:, viewer_access_code: 'AAA', moderator_access_code: 'BBB')
 
-      get :join, params: { friendly_id: room.friendly_id, name: user.name, viewer_access_code: 'BBB' }
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
+      get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'AAA' }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'joins as viewer if the moderator access code is optional and the input access code is blank' do
+      room = create(:room, user:, moderator_access_code: 'BBB')
+
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
+      get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: '' }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'joins as moderator if access code correspond to moderator access code' do
+      room = create(:room, user:, viewer_access_code: 'AAA', moderator_access_code: 'BBB')
+
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Moderator')
+      get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'BBB' }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'returns unauthorized if the access code is wrong' do
+      room = create(:room, user:, viewer_access_code: 'AAA', moderator_access_code: 'BBB')
+
+      get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'ZZZ' }
       expect(response).to have_http_status(:unauthorized)
     end
   end
 
   describe '#status' do
-    it 'calls the BigBlueButton service with the right values' do
-      room = create(:room, user:)
-
-      expect_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).with(room:)
-
-      get :status, params: { friendly_id: room.friendly_id, name: user.name }
-    end
-
     it 'gets the joinUrl if the meeting is running' do
       room = create(:room, user:)
 
@@ -117,17 +127,38 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       get :status, params: { friendly_id: room.friendly_id, name: user.name }
     end
 
-    it 'allows user to join if the access code is right' do
-      room = create(:room, user:, viewer_access_code: 'AAA')
+    it 'joins as viewer if no access code is required nor provided' do
+      room = create(:room, user:)
 
-      get :status, params: { friendly_id: room.friendly_id, name: user.name, viewer_access_code: 'AAA' }
+      allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
+      get :join, params: { friendly_id: room.friendly_id, name: user.name }
       expect(response).to have_http_status(:ok)
     end
 
-    it 'refrain user from joining if the access code is wrong' do
-      room = create(:room, user:, viewer_access_code: 'AAA')
-      get :status, params: { friendly_id: room.friendly_id, name: user.name, viewer_access_code: 'BBB' }
+    it 'joins as viewer if access code correspond to the viewer access code' do
+      room = create(:room, user:, viewer_access_code: 'AAA', moderator_access_code: 'BBB')
 
+      allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
+      get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'AAA' }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'joins as moderator if access code correspond to moderator access code' do
+      room = create(:room, user:, viewer_access_code: 'AAA', moderator_access_code: 'BBB')
+
+      allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Moderator')
+      get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'BBB' }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'returns unauthorized if the access code is wrong' do
+      room = create(:room, user:, viewer_access_code: 'AAA', moderator_access_code: 'BBB')
+
+      allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+      get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'ZZZ' }
       expect(response).to have_http_status(:unauthorized)
     end
   end

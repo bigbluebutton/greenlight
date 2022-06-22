@@ -11,7 +11,6 @@
   }
 }
 
-
 .tab-content {
   padding: 0%;
 }
@@ -27,3 +26,13 @@
   line-height: 28px;
 }
 
+#room-settings {
+  .access-code-input {
+    position: relative;
+    button {
+      position: absolute;
+      right: 10px;
+      top: 7px;
+    }
+  }
+}

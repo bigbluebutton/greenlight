@@ -29,8 +29,8 @@ Rails.application.routes.draw do
           get '/recordings_processing', to: 'rooms#recordings_processing'
           delete :purge_presentation
           get '/access_codes', to: 'rooms#access_codes'
-          patch '/viewer_access_code', to: 'rooms#viewer_access_code'
-          patch '/remove_viewer_access_code', to: 'rooms#remove_viewer_access_code'
+          patch '/generate_access_code', to: 'rooms#generate_access_code'
+          patch '/remove_access_code', to: 'rooms#remove_access_code'
         end
       end
       resources :meetings, only: %i[], param: :friendly_id do
@@ -54,6 +54,7 @@ Rails.application.routes.draw do
       end
       resources :env, only: :index
       resources :reset_password, only: :create
+      resources :verify_account, only: :create
     end
   end
 
