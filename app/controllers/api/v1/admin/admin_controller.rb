@@ -2,7 +2,9 @@
 
 module Api
   module V1
-    class AdminController < ApiController
+    module Admin
+      class AdminController < ApiController
+      end
     end
   end
 end
