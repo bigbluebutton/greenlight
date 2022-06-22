@@ -28,6 +28,8 @@ export default function Header() {
           <Avatar avatar={currentUser?.avatar} radius={40} />
           <NavDropdown title={currentUser?.name} id="basic-nav-dropdown">
             <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
+            {/* TODO: Only show admin panel when current user is admin */}
+            <NavDropdown.Item as={Link} to="/adminpanel">Admin Panel</NavDropdown.Item>
             <NavDropdown.Item as={Link} to="/">Need help?</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item as={Link} to="/" onClick={handleSignOut}>Sign Out</NavDropdown.Item>
