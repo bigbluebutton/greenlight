@@ -8,7 +8,7 @@ module Api
       # POST /api/v1/reset_password.json
       # Expects: { user: {:email} }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
-      # Does: Creates a unqiue token, saves and sends the token digest.
+      # Does: Creates a unique token, saves its digest and emails it.
 
       def create
         # TODO: Log events.
@@ -16,12 +16,10 @@ module Api
 
         user = User.find_by email: params[:user][:email]
 
-        # Silently fail for unfound users.
-        return render_json unless user
+        # Silently fail for unfound or external users.
+        return render_json unless user && !user.external_id?
 
-        # Silently fail for encountred problems on unique token generation.
-        token = user.generate_unique_token
-        return render_json unless token
+        token = user.generate_reset_token!
 
         render_json data: { token: } # TODO: enable reset email sending.
       end

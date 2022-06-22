@@ -12,7 +12,7 @@ RSpec.describe Api::V1::ResetPasswordController, type: :controller do
 
     it 'generates a unique token and saves its digest for valid emails' do
       token = 'ZekpWTPGFsuaP1WngE6LVCc69Zs7YSKoOJFLkfKu'
-      allow_any_instance_of(User).to receive(:generate_unique_token).and_return(token)
+      allow_any_instance_of(User).to receive(:generate_reset_token!).and_return(token)
 
       post :create, params: { user: { email: 'test@greenlight.com' } }
       expect(response).to have_http_status(:ok)
@@ -25,7 +25,7 @@ RSpec.describe Api::V1::ResetPasswordController, type: :controller do
     end
 
     it 'returns :ok when the digest cannot be saved' do
-      allow_any_instance_of(User).to receive(:generate_unique_token).and_return(false)
+      allow_any_instance_of(User).to receive(:generate_reset_token!).and_return(false)
 
       post :create, params: { user: { email: 'test@greenlight.com' } }
       expect(response).to have_http_status(:ok)
@@ -33,6 +33,12 @@ RSpec.describe Api::V1::ResetPasswordController, type: :controller do
 
     it 'returns :ok for invalid emails' do
       post :create, params: { user: { email: 'not_a_tester@greenlight.com' } }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'returns :ok for external users' do
+      create(:user, email: 'user@externals.com', external_id: 'EXTERNAL_ID')
+      post :create, params: { user: { email: 'user@externals.com' } }
       expect(response).to have_http_status(:ok)
     end
   end
