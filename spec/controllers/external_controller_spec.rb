@@ -69,7 +69,7 @@ RSpec.describe ExternalController, type: :controller do
 
       expect do
         post :recording_ready
-      end.not_to change { room.reload.recordings_processing }
+      end.not_to(change { room.reload.recordings_processing })
     end
 
     it 'calls RecordingCreator with the right values' do
