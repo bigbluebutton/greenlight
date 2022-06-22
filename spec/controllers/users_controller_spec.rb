@@ -71,28 +71,43 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   end
 
   describe 'POST users#change_password' do
-    let(:user) { create(:user, password: 'Test12345678+') }
+    let!(:user) { create(:user, password: 'Test12345678+') }
 
-    it 'changes user password if the params are valid' do
+    before { session[:user_id] = user.id }
+
+    it 'changes current_user password if the params are valid' do
       valid_params = { old_password: 'Test12345678+', new_password: 'Glv3IsAwesome!' }
-      post :change_password, params: { id: user.id, user: valid_params }
+      post :change_password, params: { user: valid_params }
 
       expect(response).to have_http_status(:ok)
       expect(user.reload.authenticate(valid_params[:new_password])).to be_truthy
     end
 
-    it 'returns :unauthorized response for invalid old_password' do
+    it 'returns :bad_request response for invalid old_password' do
       invalid_params = { old_password: 'NotMine!', new_password: 'ThisIsMine!' }
-      post :change_password, params: { id: user.id, user: invalid_params }
+      post :change_password, params: { user: invalid_params }
 
-      expect(response).to have_http_status(:unauthorized)
+      expect(response).to have_http_status(:bad_request)
       expect(user.reload.authenticate(invalid_params[:new_password])).to be_falsy
     end
 
     it 'returns :bad_request response for missing params' do
       invalid_params = { old_password: '', new_password: '' }
-      post :change_password, params: { id: user.id, user: invalid_params }
+      post :change_password, params: { user: invalid_params }
       expect(response).to have_http_status(:bad_request)
+    end
+
+    it 'returns :unauthorized response for unauthenticated requests' do
+      session[:user_id] = nil
+      post :change_password, params: {}
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'returns :forbidden response for external accounts' do
+      external_user = create(:user, external_id: 'EXTERAL_ID')
+      session[:user_id] = external_user.id
+      post :change_password, params: {}
+      expect(response).to have_http_status(:forbidden)
     end
   end
 end
