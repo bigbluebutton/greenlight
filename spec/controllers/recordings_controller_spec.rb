@@ -83,7 +83,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
     end
 
     it 'updates the recordings name with valid params returning :ok status code' do
-      expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: recording.record_id,
+      expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_ids: recording.record_id,
                                                                                    meta_hash: { meta_name: 'My Awesome Recording!' })
 
       expect { post :update, params: { recording: { name: 'My Awesome Recording!' }, id: recording.record_id } }.to(change { recording.reload.name })
@@ -134,13 +134,35 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
     end
   end
 
-  describe '#publish_recording' do
-    it 'Updates Recording with new visibility value' do
-      recording = create(:recording, visibility: 'Unpublished')
-      allow_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).and_return(http_ok_response)
-      expect { post :publish_recording, params: { publish: 'true', record_id: recording.record_id } }.to change {
-                                                                                                           recording.reload.visibility
-                                                                                                         }.to('Published')
+  describe '#update_visibility' do
+    it 'returns published when published is true and protected is false' do
+      recording = create(:recording)
+      expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: recording.record_id,
+                                                                                    publish: true)
+      expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_ids: recording.record_id,
+                                                                                   meta_hash: { meta_protected: false })
+      expect { post :update_visibility, params: { visibility: 'Published', record_id: recording.record_id } }
+        .to change { recording.reload.visibility }.to('Published')
+    end
+
+    it 'returns unpublished when published and protected is false' do
+      recording = create(:recording)
+      expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: recording.record_id,
+                                                                                    publish: false)
+      expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_ids: recording.record_id,
+                                                                                   meta_hash: { meta_protected: false })
+      expect { post :update_visibility, params: { visibility: 'Unpublished', record_id: recording.record_id } }
+        .to change { recording.reload.visibility }.to('Unpublished')
+    end
+
+    it 'returns protected when protected is true' do
+      recording = create(:recording)
+      expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: recording.record_id,
+                                                                                    publish: true)
+      expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_ids: recording.record_id,
+                                                                                   meta_hash: { meta_protected: true })
+      expect { post :update_visibility, params: { visibility: 'Protected', record_id: recording.record_id } }
+        .to change { recording.reload.visibility }.to('Protected')
     end
   end
 end

@@ -44,7 +44,7 @@ Rails.application.routes.draw do
       resources :recordings, only: %i[index update destroy] do
         collection do
           get '/resync', to: 'recordings#resync'
-          post '/publish', to: 'recordings#publish_recording'
+          post '/update_visibility', to: 'recordings#update_visibility'
         end
       end
       resources :shared_accesses, only: %i[create show destroy], param: :friendly_id do
