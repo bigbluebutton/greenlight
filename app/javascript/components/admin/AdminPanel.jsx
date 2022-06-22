@@ -19,10 +19,10 @@ export default function AdminPanel() {
     <div id="admin-panel" className="wide-background">
       <h2 className="my-5"> Administrator Panel </h2>
       <Card className="border-0 shadow-sm">
-        <Tab.Container id="profile-wrapper" defaultActiveKey="first">
+        <Tab.Container defaultActiveKey="first">
           <Row>
             <Col sm={3}>
-              <div id="profile-sidebar">
+              <div id="admin-sidebar">
                 <Nav variant="pills" className="flex-column">
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer" eventKey="first">
