@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    module Users
+    module Admin
       class UsersController < ApiController
       end
     end
