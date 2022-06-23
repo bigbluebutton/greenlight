@@ -38,10 +38,9 @@ export default function RoomCard({ room }) {
       <Card.Footer className="bg-white">
         <Button
           variant="icon"
-          className="fs-4 text-muted"
           onClick={() => copyInvite(room.friendly_id)}
         >
-          <DuplicateIcon className="w-30" />
+          <DuplicateIcon className="hi-m text-muted" />
         </Button>
         <Button variant="primary-light" className="float-end" onClick={handleStartMeeting} disabled={startMeetingIsLoading}>
           Start {' '}
