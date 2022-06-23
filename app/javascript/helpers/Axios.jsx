@@ -11,6 +11,7 @@ export const ENDPOINTS = {
   changePassword: '/users/change_password.json',
   forget_password: '/reset_password.json',
   createActivation: '/verify_account.json',
+  activateAccount: '/verify_account/activate.json',
 };
 
 const axiosInstance = axios.create(

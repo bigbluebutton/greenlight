@@ -17,6 +17,7 @@ import AdminPanel from './components/admin/AdminPanel';
 import ForgetPassword from './components/users/FrogetPassword';
 import ResendVerification from './components/users/ResendVerification';
 import ActivatedOnly from './components/protected_routes/ActivatedOnly';
+import ActivateAccount from './components/users/ActivateAccount';
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ const root = (
             <Route path="/forget_password" element={<ForgetPassword />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/verify_account" element={<ResendVerification />} />
+            <Route path="/activate_account/:token" element={<ActivateAccount />} />
             <Route path="*" element={<h1 className="text-center">404</h1>} />
           </Route>
         </Routes>

@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
 import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
@@ -7,9 +8,13 @@ export default function useCreateActivation(email) {
     createActivation,
     { // Mutation config.
       mutationKey: ENDPOINTS.createActivation,
-      onError: (error) => { console.error('Error:', error.message); },
+      onError: (error) => {
+        console.error('Error:', error.message);
+        toast.error('There was a problem completing that action. \n Please try again.');
+      },
       onSuccess: (data) => {
         console.info(data);
+        toast.success('Verification sent.');
       },
     },
   );
