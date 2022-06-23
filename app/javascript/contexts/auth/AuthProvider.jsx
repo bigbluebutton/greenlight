@@ -23,6 +23,7 @@ export default function AuthProvider({ children }) {
     avatar: session?.data.current_user?.avatar,
     signed_in: session?.data.current_user?.signed_in ?? false,
     language: session?.data.current_user?.language,
+    active: session?.data.current_user?.active,
   };
 
   const memoizedCurrentUser = useMemo(() => currentUser, [currentUser]);

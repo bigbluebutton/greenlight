@@ -19,7 +19,8 @@ module Api
               provider: current_user.provider,
               avatar: user_avatar(current_user),
               signed_in: true,
-              language: current_user.language
+              language: current_user.language,
+              active: current_user.active
             }
           }
         else
