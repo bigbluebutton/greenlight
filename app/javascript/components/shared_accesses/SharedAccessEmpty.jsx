@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { UserAddIcon } from '@heroicons/react/outline';
 import Modal from '../shared/Modal';
 import SharedAccessForm from '../forms/SharedAccessForm';
 
@@ -10,8 +9,8 @@ export default function SharedAccessEmpty() {
     <div id="shared-access-empty" className="wide-background full-height-room">
       <Card className="border-0 shadow-sm mt-3 text-center">
         <Card.Body className="py-5">
-          <div className="user-icon-circle rounded-circle d-block mx-auto mb-3">
-            <FontAwesomeIcon icon={faUser} className="fa-4x text-primary d-block mx-auto pt-3" />
+          <div className="icon-circle rounded-circle d-block mx-auto mb-3">
+            <UserAddIcon className="w-66 text-primary d-block mx-auto pt-3" />
           </div>
           <Card.Title className="text-primary"> Time to add some users! </Card.Title>
           <Card.Text>

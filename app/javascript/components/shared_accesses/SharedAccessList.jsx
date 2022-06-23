@@ -3,8 +3,7 @@ import {
   Button, Card, Col, Row, Stack,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { TrashIcon } from '@heroicons/react/outline';
 import { useParams } from 'react-router-dom';
 import Modal from '../shared/Modal';
 import SharedAccessForm from '../forms/SharedAccessForm';
@@ -64,11 +63,11 @@ export default function SharedAccessList({ users, isLoading }) {
                   <Col className="my-auto">
                     <span className="text-muted"> {user.email} </span>
                     <Button
-                      variant="font-awesome"
+                      variant="icon"
                       className="float-end pe-2"
                       onClick={() => handleDeleteSharedAccess({ user_id: user.id })}
                     >
-                      <FontAwesomeIcon icon={faTrashAlt} />
+                      <TrashIcon className="w-24" />
                     </Button>
                   </Col>
                 </Row>

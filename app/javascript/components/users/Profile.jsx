@@ -3,8 +3,7 @@ import Card from 'react-bootstrap/Card';
 import {
   Col, Nav, Row, Tab,
 } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan, faUser } from '@fortawesome/free-regular-svg-icons';
+import { TrashIcon, UserIcon, LockClosedIcon } from '@heroicons/react/outline';
 import DeleteAccount from './DeleteAccount';
 import AccountInfo from './AccountInfo';
 import ChangePassword from './ChangePassword';
@@ -21,20 +20,20 @@ export default function Profile() {
                 <Nav variant="pills" className="flex-column">
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer" eventKey="first">
-                      <FontAwesomeIcon icon={faUser} className="pe-3" />
+                      <UserIcon className="w-24 text-primary me-3" />
                       Account Info
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link className="cursor-pointer" eventKey="second">
-                      <FontAwesomeIcon icon={faTrashCan} className="pe-3" />
-                      Delete Account
+                    <Nav.Link className="cursor-pointer" eventKey="third">
+                      <LockClosedIcon className="w-24 text-primary me-3" />
+                      Change Password
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link className="cursor-pointer" eventKey="third">
-                      <FontAwesomeIcon icon={faUser} className="pe-3" />
-                      Change Password
+                    <Nav.Link className="cursor-pointer" eventKey="second">
+                      <TrashIcon className="w-24 text-primary me-3" />
+                      Delete Account
                     </Nav.Link>
                   </Nav.Item>
                 </Nav>

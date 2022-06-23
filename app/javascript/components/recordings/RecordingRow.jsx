@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faVideo } from '@fortawesome/free-solid-svg-icons';
+import { TrashIcon, VideoCameraIcon } from '@heroicons/react/outline';
 import Form from 'react-bootstrap/Form';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -20,7 +19,7 @@ export default function RecordingRow({ recording }) {
       <td className="text-dark">
         <Stack direction="horizontal" className="py-2">
           <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
-            <FontAwesomeIcon icon={faVideo} className="text-primary" />
+            <VideoCameraIcon className="w-24 text-primary" />
           </div>
           <Stack>
             <strong role="button" aria-hidden="true" onClick={() => !isUpdating && setIsEditing(true)} onBlur={() => setIsEditing(false)}>
@@ -70,7 +69,7 @@ export default function RecordingRow({ recording }) {
       </td>
       <td>
         <Modal
-          modalButton={<FontAwesomeIcon icon={faTrashAlt} />}
+          modalButton={<TrashIcon className="w-24" />}
           title="Are you sure?"
           body={<DeleteRecordingForm recordId={recording.record_id} />}
         />
