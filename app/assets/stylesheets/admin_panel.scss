@@ -1,0 +1,31 @@
+#admin-panel {
+
+  #admin-sidebar {
+    height: 100%;
+    border-right: 2px solid whitesmoke;
+    padding: 1rem;
+  }
+
+  .nav-pills .nav-link.active {
+    color: $primary;
+    background-color: $primary-light;
+    font-weight: 600;
+  }
+
+  .tab-content {
+    display: flex;
+  }
+
+  .tab-content > .tab-pane {
+    display: block;
+    visibility: hidden;
+    margin-right: -100%;
+    width: 100%;
+  }
+
+  .tab-content > .active {
+    visibility: visible;
+  }
+
+}
+  
