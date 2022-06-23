@@ -1,9 +1,7 @@
 import React from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouseChimney } from '@fortawesome/free-solid-svg-icons';
-import { faCopy } from '@fortawesome/free-regular-svg-icons';
+import { HomeIcon, DuplicateIcon } from '@heroicons/react/outline';
 import { toast } from 'react-hot-toast';
 import FeatureTabs from './FeatureTabs';
 import Spinner from '../shared/stylings/Spinner';
@@ -26,7 +24,7 @@ export default function Room() {
       <Row className="pt-4">
         <Col>
           <Link to="/rooms">
-            <FontAwesomeIcon icon={faHouseChimney} size="lg" />
+            <HomeIcon className="hi-m text-primary" />
           </Link>
         </Col>
       </Row>
@@ -41,7 +39,7 @@ export default function Room() {
             {startMeetingIsLoading && <Spinner />}
           </Button>
           <Button variant="primary-light" className="mt-1 mx-2 float-end" onClick={copyInvite}>
-            <FontAwesomeIcon icon={faCopy} className="me-2" />
+            <DuplicateIcon className="hi-xs" />
             Copy
           </Button>
         </Col>

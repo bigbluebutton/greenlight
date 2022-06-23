@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button, Row, Stack } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faCopy } from '@fortawesome/free-regular-svg-icons';
+import { TrashIcon, DuplicateIcon } from '@heroicons/react/outline';
 import { toast } from 'react-hot-toast';
 import useGenerateAccessCode from '../../hooks/mutations/rooms/useGenerateAccessCode';
 import useDeleteAccessCode from '../../hooks/mutations/rooms/useDeleteAccessCode';
@@ -33,7 +32,7 @@ export default function AccessCodes() {
                     variant="font-awesome"
                     onClick={() => copyAccessCode(accessCodes.viewer_access_code)}
                   >
-                    <FontAwesomeIcon icon={faCopy} />
+                    <DuplicateIcon className="hi-s text-muted" />
                   </Button>
                 </div>
                 <Button
@@ -41,7 +40,7 @@ export default function AccessCodes() {
                   variant="font-awesome"
                   onClick={() => handleDeleteAccessCode('Viewer')}
                 >
-                  <FontAwesomeIcon icon={faTrashAlt} />
+                  <TrashIcon className="hi-s text-muted" />
                 </Button>
               </Stack>
             )
@@ -69,7 +68,7 @@ export default function AccessCodes() {
                     variant="font-awesome"
                     onClick={() => copyAccessCode(accessCodes.moderator_access_code)}
                   >
-                    <FontAwesomeIcon icon={faCopy} />
+                    <DuplicateIcon className="hi-s text-muted" />
                   </Button>
                 </div>
                 <Button
@@ -77,7 +76,7 @@ export default function AccessCodes() {
                   variant="font-awesome"
                   onClick={() => handleDeleteAccessCode('Moderator')}
                 >
-                  <FontAwesomeIcon icon={faTrashAlt} />
+                  <TrashIcon className="hi-s text-muted" />
                 </Button>
               </Stack>
             )

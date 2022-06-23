@@ -2,10 +2,7 @@ import React from 'react';
 import {
   Card, Col, Row,
 } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCloudArrowUp, faFileAlt, faTrashAlt,
-} from '@fortawesome/free-solid-svg-icons';
+import { TrashIcon, CloudUploadIcon, DocumentIcon } from '@heroicons/react/outline';
 import { useParams } from 'react-router-dom';
 import Modal from '../shared/Modal';
 import useUploadPresentation from '../../hooks/mutations/rooms/useUploadPresentation';
@@ -33,8 +30,8 @@ export default function Presentation() {
           <Card className="border-0 shadow-sm mt-3 text-center">
             <label htmlFor="file" className="presentation-upload">
               <Card.Body className="py-5 text-secondary">
-                <div className="user-icon-circle rounded-circle d-block mx-auto mb-3">
-                  <FontAwesomeIcon icon={faCloudArrowUp} className="fa-4x text-primary d-block mx-auto pt-3" />
+                <div className="icon-circle rounded-circle d-block mx-auto mb-3">
+                  <CloudUploadIcon className="hi-l text-primary d-block mx-auto pt-3" />
                 </div>
                 <input
                   id="file"
@@ -66,7 +63,7 @@ export default function Presentation() {
               {room.thumbnail ? (
                 <img className="preview-image" src={room.thumbnail} alt="Presentation" />
               ) : (
-                <FontAwesomeIcon icon={faFileAlt} className="text-primary" size="3x" />
+                <DocumentIcon className="hi-xl text-primary" />
               )}
             </Col>
             <Col>
@@ -75,7 +72,7 @@ export default function Presentation() {
             <Col />
             <Col>
               <Modal
-                modalButton={<FontAwesomeIcon className="delete-presentation" icon={faTrashAlt} size="lg" />}
+                modalButton={<TrashIcon className="hi-s" />}
                 title="Are you sure?"
                 body={<DeletePresentationForm />}
               />

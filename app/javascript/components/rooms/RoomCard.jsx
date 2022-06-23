@@ -2,9 +2,7 @@ import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy } from '@fortawesome/free-regular-svg-icons';
-import { faChalkboardUser, faLink } from '@fortawesome/free-solid-svg-icons';
+import { UserIcon, DuplicateIcon, LinkIcon } from '@heroicons/react/outline';
 import { toast } from 'react-hot-toast';
 import Spinner from '../shared/stylings/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
@@ -24,9 +22,9 @@ export default function RoomCard({ room }) {
       <Card.Body className="pb-0" onClick={handleClick}>
         <div className="room-icon-square rounded-3">
           { room.shared ? (
-            <FontAwesomeIcon icon={faLink} className="fa-2x text-primary pt-4 d-block mx-auto" />
+            <LinkIcon className="hi-m text-primary pt-4 d-block mx-auto" />
           ) : (
-            <FontAwesomeIcon icon={faChalkboardUser} className="fa-2x text-primary pt-4 d-block mx-auto" />
+            <UserIcon className="hi-m text-primary pt-4 d-block mx-auto" />
           )}
         </div>
 
@@ -41,11 +39,11 @@ export default function RoomCard({ room }) {
       </Card.Body>
       <Card.Footer className="bg-white">
         <Button
-          variant="font-awesome"
+          variant="icon"
           className="fs-4 text-muted"
           onClick={() => copyInvite(room.friendly_id)}
         >
-          <FontAwesomeIcon icon={faCopy} />
+          <DuplicateIcon className="w-30" />
         </Button>
         <Button variant="primary-light" className="float-end" onClick={handleStartMeeting} disabled={startMeetingIsLoading}>
           Start {' '}
