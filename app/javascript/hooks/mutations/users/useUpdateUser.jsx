@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 export default function useUpdateUser(userId) {
   const queryClient = useQueryClient();
@@ -9,9 +10,10 @@ export default function useUpdateUser(userId) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('useSessions');
+        toast.success('User updated');
       },
-      onError: (error) => {
-        console.error('Error:', error.message);
+      onError: () => {
+        toast.error('There was a problem completing that action. \n Please try again.');
       },
     },
   );

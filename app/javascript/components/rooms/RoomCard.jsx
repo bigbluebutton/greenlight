@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { faChalkboardUser, faLink } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-hot-toast';
 import Spinner from '../shared/stylings/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 
 function copyInvite(friendlyId) {
   navigator.clipboard.writeText(`${window.location}/${friendlyId}/join`);
+  toast.success('Copied');
 }
 
 export default function RoomCard({ room }) {

@@ -1,4 +1,5 @@
 import { useMutation } from 'react-query';
+import { toast } from 'react-hot-toast';
 import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
 export default function useStartMeeting(friendlyId) {
@@ -7,7 +8,7 @@ export default function useStartMeeting(friendlyId) {
     startMeeting,
     { // Mutation config.
       mutationKey: ENDPOINTS.start_meeting(friendlyId),
-      onError: (error) => { console.error('Error:', error.message); },
+      onError: () => { toast.error('There was a problem completing that action. \n Please try again.'); },
       onSuccess: (response, data) => { console.info('Success, sent:', data, ', got:', response); },
     },
   );

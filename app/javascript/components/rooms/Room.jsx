@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouseChimney } from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
+import { toast } from 'react-hot-toast';
 import FeatureTabs from './FeatureTabs';
 import Spinner from '../shared/stylings/Spinner';
 import useRoom from '../../hooks/queries/rooms/useRoom';
@@ -11,6 +12,7 @@ import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 
 function copyInvite() {
   navigator.clipboard.writeText(`${window.location}/join`);
+  toast.success('Copied');
 }
 
 export default function Room() {

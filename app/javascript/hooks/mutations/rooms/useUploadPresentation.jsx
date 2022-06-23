@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 export default function useUploadPresentation(friendlyId) {
   const queryClient = useQueryClient();
@@ -13,9 +14,10 @@ export default function useUploadPresentation(friendlyId) {
   const mutation = useMutation(uploadPresentation, {
     onSuccess: () => {
       queryClient.invalidateQueries('getRoom');
+      toast.success('Presentation uploaded');
     },
-    onError: (error) => {
-      console.error('Error:', error.message);
+    onError: () => {
+      toast.error('There was a problem completing that action. \n Please try again.');
     },
   });
 

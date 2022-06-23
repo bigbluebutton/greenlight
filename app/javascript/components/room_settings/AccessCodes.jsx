@@ -3,11 +3,15 @@ import { Button, Row, Stack } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faCopy } from '@fortawesome/free-regular-svg-icons';
+import { toast } from 'react-hot-toast';
 import useGenerateAccessCode from '../../hooks/mutations/rooms/useGenerateAccessCode';
 import useDeleteAccessCode from '../../hooks/mutations/rooms/useDeleteAccessCode';
 import useAccessCodes from '../../hooks/queries/rooms/useAccessCodes';
 
-const copyAccessCode = (accessCode) => navigator.clipboard.writeText(accessCode);
+const copyAccessCode = (accessCode) => {
+  navigator.clipboard.writeText(accessCode);
+  toast.success('Copied');
+};
 
 export default function AccessCodes() {
   const { friendlyId } = useParams();

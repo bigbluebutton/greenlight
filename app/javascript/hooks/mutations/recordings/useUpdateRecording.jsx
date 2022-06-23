@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
+import { toast } from 'react-hot-toast';
 import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
 export default function useUpdateRecording(recordId) {
@@ -8,9 +9,10 @@ export default function useUpdateRecording(recordId) {
     updateRecording,
     { // Mutation config.
       mutationKey: ENDPOINTS.updateRecording(recordId),
-      onError: (error) => { console.error('Error:', error.message); },
+      onError: () => { toast.error('There was a problem completing that action. \n Please try again.'); },
       onSuccess: () => {
         queryClient.invalidateQueries('getRecordings');
+        toast.success('Recording name updated');
       },
     },
   );

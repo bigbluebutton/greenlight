@@ -1,4 +1,5 @@
 import { useMutation } from 'react-query';
+import { toast } from 'react-hot-toast';
 import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
 export default function useChangePwd() {
@@ -8,9 +9,9 @@ export default function useChangePwd() {
     changePwd,
     { // Mutation config.
       mutationKey: ENDPOINTS.changePassword,
-      onError: (error) => { console.error('Error:', error.message); },
+      onError: () => { toast.error('There was a problem completing that action. \n Please try again.'); },
       onSuccess: () => {
-        console.info('Password updated successfully.');
+        toast.success('Password updated');
       },
     },
   );

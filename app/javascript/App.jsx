@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import Header from './components/shared/Header';
 import { useAuth } from './contexts/auth/AuthProvider';
-import {Toaster} from "react-hot-toast";
 
 export default function App() {
   const currentUser = useAuth();
