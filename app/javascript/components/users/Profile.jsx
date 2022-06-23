@@ -20,19 +20,19 @@ export default function Profile() {
                 <Nav variant="pills" className="flex-column">
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer" eventKey="first">
-                      <UserIcon className="w-24 text-primary me-3" />
+                      <UserIcon className="hi-s text-primary me-3" />
                       Account Info
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer" eventKey="third">
-                      <LockClosedIcon className="w-24 text-primary me-3" />
+                      <LockClosedIcon className="hi-s text-primary me-3" />
                       Change Password
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer" eventKey="second">
-                      <TrashIcon className="w-24 text-primary me-3" />
+                      <TrashIcon className="hi-s text-primary me-3" />
                       Delete Account
                     </Nav.Link>
                   </Nav.Item>

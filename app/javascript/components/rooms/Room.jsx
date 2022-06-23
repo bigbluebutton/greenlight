@@ -22,7 +22,7 @@ export default function Room() {
       <Row className="pt-4">
         <Col>
           <Link to="/rooms">
-            <HomeIcon className="w-36 text-primary" />
+            <HomeIcon className="hi-m text-primary" />
           </Link>
         </Col>
       </Row>
@@ -37,7 +37,7 @@ export default function Room() {
             {startMeetingIsLoading && <Spinner />}
           </Button>
           <Button variant="primary-light" className="mt-1 mx-2 float-end" onClick={copyInvite}>
-            <DuplicateIcon className="w-18" />
+            <DuplicateIcon className="hi-xs" />
             Copy
           </Button>
         </Col>

@@ -31,7 +31,7 @@ export default function Presentation() {
             <label htmlFor="file" className="presentation-upload">
               <Card.Body className="py-5 text-secondary">
                 <div className="icon-circle rounded-circle d-block mx-auto mb-3">
-                  <CloudUploadIcon className="w-66 text-primary d-block mx-auto pt-3" />
+                  <CloudUploadIcon className="hi-l text-primary d-block mx-auto pt-3" />
                 </div>
                 <input
                   id="file"
@@ -63,7 +63,7 @@ export default function Presentation() {
               {room.thumbnail ? (
                 <img className="preview-image" src={room.thumbnail} alt="Presentation" />
               ) : (
-                <DocumentIcon className="w-72 text-primary" />
+                <DocumentIcon className="hi-xl text-primary" />
               )}
             </Col>
             <Col>
@@ -72,7 +72,7 @@ export default function Presentation() {
             <Col />
             <Col>
               <Modal
-                modalButton={<TrashIcon className="w-24" />}
+                modalButton={<TrashIcon className="hi-s" />}
                 title="Are you sure?"
                 body={<DeletePresentationForm />}
               />

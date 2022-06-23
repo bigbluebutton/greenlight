@@ -3,10 +3,9 @@ import Card from 'react-bootstrap/Card';
 import {
   Col, Nav, Row, Tab,
 } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faGear, faServer, faSliders, faUserCheck, faUsers, faVideo,
-} from '@fortawesome/free-solid-svg-icons';
+  CogIcon, ServerIcon, UsersIcon, VideoCameraIcon, IdentificationIcon, AdjustmentsIcon,
+} from '@heroicons/react/outline';
 import ServerRecordings from './ServerRecordings';
 import ManageUsers from './ManageUsers';
 import ServerRooms from './ServerRooms';
@@ -26,37 +25,37 @@ export default function AdminPanel() {
                 <Nav variant="pills" className="flex-column">
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer" eventKey="first">
-                      <FontAwesomeIcon icon={faUsers} className="pe-3" />
+                      <UsersIcon className="hi-s text-primary me-3" />
                       Manage Users
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer" eventKey="second">
-                      <FontAwesomeIcon icon={faServer} className="pe-3" />
+                      <ServerIcon className="hi-s text-primary me-3" />
                       Server Rooms
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer" eventKey="third">
-                      <FontAwesomeIcon icon={faVideo} className="pe-3" />
+                      <VideoCameraIcon className="hi-s text-primary me-3" />
                       Server Recordings
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer" eventKey="fourth">
-                      <FontAwesomeIcon icon={faGear} className="pe-3" />
+                      <CogIcon className="hi-s text-primary me-3" />
                       Site Settings
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer" eventKey="fifth">
-                      <FontAwesomeIcon icon={faSliders} className="pe-3" />
+                      <AdjustmentsIcon className="hi-s text-primary me-3" />
                       Room Configuration
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer" eventKey="sixth">
-                      <FontAwesomeIcon icon={faUserCheck} className="pe-3" />
+                      <IdentificationIcon className="hi-s text-primary me-3" />
                       Roles
                     </Nav.Link>
                   </Nav.Item>

@@ -28,7 +28,7 @@ export default function AccessCodes() {
                     variant="font-awesome"
                     onClick={() => copyAccessCode(accessCodes.viewer_access_code)}
                   >
-                    <DuplicateIcon className="w-24 text-muted" />
+                    <DuplicateIcon className="hi-s text-muted" />
                   </Button>
                 </div>
                 <Button
@@ -36,7 +36,7 @@ export default function AccessCodes() {
                   variant="font-awesome"
                   onClick={() => handleDeleteAccessCode('Viewer')}
                 >
-                  <TrashIcon className="w-24 text-muted" />
+                  <TrashIcon className="hi-s text-muted" />
                 </Button>
               </Stack>
             )
@@ -64,7 +64,7 @@ export default function AccessCodes() {
                     variant="font-awesome"
                     onClick={() => copyAccessCode(accessCodes.moderator_access_code)}
                   >
-                    <DuplicateIcon className="w-24 text-muted" />
+                    <DuplicateIcon className="hi-s text-muted" />
                   </Button>
                 </div>
                 <Button
@@ -72,7 +72,7 @@ export default function AccessCodes() {
                   variant="font-awesome"
                   onClick={() => handleDeleteAccessCode('Moderator')}
                 >
-                  <TrashIcon className="w-24 text-muted" />
+                  <TrashIcon className="hi-s text-muted" />
                 </Button>
               </Stack>
             )

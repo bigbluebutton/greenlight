@@ -10,7 +10,7 @@ export default function SharedAccessEmpty() {
       <Card className="border-0 shadow-sm mt-3 text-center">
         <Card.Body className="py-5">
           <div className="icon-circle rounded-circle d-block mx-auto mb-3">
-            <UserAddIcon className="w-66 text-primary d-block mx-auto pt-3" />
+            <UserAddIcon className="hi-l text-primary d-block mx-auto pt-3" />
           </div>
           <Card.Title className="text-primary"> Time to add some users! </Card.Title>
           <Card.Text>

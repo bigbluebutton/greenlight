@@ -67,7 +67,7 @@ export default function SharedAccessList({ users, isLoading }) {
                       className="float-end pe-2"
                       onClick={() => handleDeleteSharedAccess({ user_id: user.id })}
                     >
-                      <TrashIcon className="w-24" />
+                      <TrashIcon className="hi-s" />
                     </Button>
                   </Col>
                 </Row>

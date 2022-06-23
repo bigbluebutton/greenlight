@@ -8,7 +8,7 @@ export default function ProcessingRecordingRow() {
       <td className="text-dark">
         <Stack direction="horizontal" className="py-2">
           <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
-            <VideoCameraIcon className="w-24 text-primary" />
+            <VideoCameraIcon className="hi-s text-primary" />
           </div>
           Processing Recording...
         </Stack>

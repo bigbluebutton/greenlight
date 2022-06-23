@@ -19,7 +19,7 @@ export default function RecordingRow({ recording }) {
       <td className="text-dark">
         <Stack direction="horizontal" className="py-2">
           <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
-            <VideoCameraIcon className="w-24 text-primary" />
+            <VideoCameraIcon className="hi-s text-primary" />
           </div>
           <Stack>
             <strong role="button" aria-hidden="true" onClick={() => !isUpdating && setIsEditing(true)} onBlur={() => setIsEditing(false)}>
@@ -69,7 +69,7 @@ export default function RecordingRow({ recording }) {
       </td>
       <td>
         <Modal
-          modalButton={<TrashIcon className="w-24" />}
+          modalButton={<TrashIcon className="hi-s" />}
           title="Are you sure?"
           body={<DeleteRecordingForm recordId={recording.record_id} />}
         />

@@ -20,9 +20,9 @@ export default function RoomCard({ room }) {
       <Card.Body className="pb-0" onClick={handleClick}>
         <div className="room-icon-square rounded-3">
           { room.shared ? (
-            <LinkIcon className="w-36 text-primary pt-4 d-block mx-auto" />
+            <LinkIcon className="hi-m text-primary pt-4 d-block mx-auto" />
           ) : (
-            <UserIcon className="w-36 text-primary pt-4 d-block mx-auto" />
+            <UserIcon className="hi-m text-primary pt-4 d-block mx-auto" />
           )}
         </div>
 
