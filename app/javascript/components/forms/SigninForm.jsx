@@ -49,7 +49,7 @@ export default function SigninForm() {
           </BootstrapForm.Group>
         </Col>
         <Col>
-          <Link to="/" className="text-link float-end small"> Forgot password? </Link>
+          <Link to="/forget_password" className="text-link float-end small"> Forgot password? </Link>
         </Col>
       </Row>
       { env.HCAPTCHA_KEY
