@@ -74,6 +74,18 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    namespace :v1 do
+      namespace :admin do
+        resources :admins, only: %i[]  do
+          collection do
+            get '/active_users', to: 'users#active_index'
+          end
+        end
+      end
+    end
+  end
+
   match '*path', to: 'components#index', via: :all, constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'
   } # Enable CSR for full fledged http requests.
