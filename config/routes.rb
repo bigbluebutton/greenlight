@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       resources :env, only: :index
       resources :reset_password, only: :create
       resources :verify_account, only: :create
+      resources :roles
     end
   end
 
