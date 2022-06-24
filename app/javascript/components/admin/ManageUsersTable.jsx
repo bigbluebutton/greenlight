@@ -32,6 +32,13 @@ export default function ManageUsersTable({ users }) {
   );
 }
 
+ManageUsersTable.defaultProps = {
+  users: [],
+};
+
 ManageUsersTable.propTypes = {
-  users: PropTypes.arrayOf(Object).isRequired,
+  users: PropTypes.arrayOf(PropTypes.shape({
+    length: PropTypes.number.isRequired,
+    map: PropTypes.func,
+  })),
 };
