@@ -15,7 +15,6 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       recordings = create_list(:recording, 6)
       create_list(:room, 5, user:, recordings:)
       get :index
-
       expect(response).to have_http_status(:ok)
       response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
       expect(response_recording_ids).to eq(recordings.pluck(:id))
@@ -50,6 +49,33 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       get :index, params: { search: '' }
       response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
       expect(response_recording_ids).to match_array(recordings.pluck(:id))
+    end
+
+    context 'ordering' do
+      before do
+        recordings = [create(:recording, name: 'B'), create(:recording, name: 'A'), create(:recording, name: 'C')]
+
+        create(:room, user:, recordings:)
+      end
+
+      it 'orders the recordings list by column and direction DESC' do
+        get :index, params: { sort: { column: 'name', direction: 'DESC' } }
+        expect(response).to have_http_status(:ok)
+        # Order is important match_array isn't adequate for this test.
+        expect(JSON.parse(response.body)['data'].pluck('name')).to eq(%w[C B A])
+      end
+
+      it 'orders the recordings list by column and direction ASC' do
+        get :index, params: { sort: { column: 'name', direction: 'ASC' } }
+        expect(response).to have_http_status(:ok)
+        # Order is important match_array isn't adequate for this test.
+        expect(JSON.parse(response.body)['data'].pluck('name')).to eq(%w[A B C])
+      end
+
+      it 'returns :bad_request for bad params if sort config was provided' do
+        get :index, params: { sort: { column: 'invalid', direction: 'invalid' } }
+        expect(response).to have_http_status(:bad_request)
+      end
     end
   end
 
