@@ -76,6 +76,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_16_175700) do
 
   create_table "roles", force: :cascade do |t|
     t.string "name", null: false
+    t.string "color", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
