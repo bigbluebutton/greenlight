@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
 import RecordingRow from './RecordingRow';
 import ProcessingRecordingRow from './ProcessingRecordingRow';
+import SortBy from '../shared/SortBy';
 
 export default function RecordingsList({ recordings, recordingsProcessing }) {
   return (
     <Table hover className="text-secondary mb-0 recordings-list">
       <thead>
         <tr className="text-muted small">
-          <th className="fw-normal">Name</th>
-          <th className="fw-normal">Length</th>
+          <th className="fw-normal">Name <SortBy fieldName="name" /></th>
+          <th className="fw-normal">Length <SortBy fieldName="length" /></th>
           <th className="fw-normal">Users</th>
-          <th className="fw-normal">Visibility</th>
+          <th className="fw-normal">Visibility <SortBy fieldName="visibility" /></th>
           <th className="fw-normal">Formats</th>
           <th aria-label="options" />
         </tr>
