@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 export default function useDeleteSharedAccess(friendlyId) {
   const queryClient = useQueryClient();
@@ -11,9 +12,10 @@ export default function useDeleteSharedAccess(friendlyId) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getSharedUsers');
+        toast.success('Unshared the room');
       },
-      onError: (error) => {
-        console.error('Error:', error.message);
+      onError: () => {
+        toast.error('There was a problem completing that action. \n Please try again.');
       },
     },
   );

@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
 export default function useCreateSession(token) {
@@ -13,8 +14,8 @@ export default function useCreateSession(token) {
       queryClient.invalidateQueries('useSessions');
       navigate('/rooms');
     },
-    onError: (error) => {
-      console.log('mutate error', error);
+    onError: () => {
+      toast.error('Incorrect username or password. \n Please try again');
     },
   });
 

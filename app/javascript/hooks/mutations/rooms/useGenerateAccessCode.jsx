@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 export default function useGenerateAccessCode(friendlyId) {
   const queryClient = useQueryClient();
@@ -9,6 +10,10 @@ export default function useGenerateAccessCode(friendlyId) {
   const mutation = useMutation(generateAccessCode, {
     onSuccess: () => {
       queryClient.invalidateQueries('getAccessCodes');
+      toast.success('Access code generated ');
+    },
+    onError: () => {
+      toast.error('There was a problem completing that action. \n Please try again.');
     },
   });
 

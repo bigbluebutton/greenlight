@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 export default function useShareAccess({ friendlyId, closeModal }) {
   const queryClient = useQueryClient();
@@ -13,9 +14,10 @@ export default function useShareAccess({ friendlyId, closeModal }) {
     onSuccess: () => {
       closeModal();
       queryClient.invalidateQueries('getSharedUsers');
+      toast.success('Room shared');
     },
-    onError: (error) => {
-      console.log('mutate error', error);
+    onError: () => {
+      toast.error('There was a problem completing that action. \n Please try again.');
     },
   });
 

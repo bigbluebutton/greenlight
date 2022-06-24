@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Card, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { UserIcon, DuplicateIcon, LinkIcon } from '@heroicons/react/outline';
+import { toast } from 'react-hot-toast';
 import Spinner from '../shared/stylings/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 
 function copyInvite(friendlyId) {
   navigator.clipboard.writeText(`${window.location}/${friendlyId}/join`);
+  toast.success('Copied');
 }
 
 export default function RoomCard({ room }) {

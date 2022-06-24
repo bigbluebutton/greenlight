@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
 export default function useCreateUser() {
@@ -14,7 +15,7 @@ export default function useCreateUser() {
     createUser,
     { // Mutation config.
       mutationKey: ENDPOINTS.signup,
-      onError: (error) => { console.error('Error:', error.message); },
+      onError: () => { toast.error('There was a problem completing that action. \n Please try again.'); },
       onSuccess: () => {
         queryClient.invalidateQueries('useSessions');
         navigate('/rooms');

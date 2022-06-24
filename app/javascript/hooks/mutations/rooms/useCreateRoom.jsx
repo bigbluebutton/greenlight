@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
+import { toast } from 'react-hot-toast';
 import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
 export default function useCreateRoom({ onSettled }) {
@@ -35,10 +36,12 @@ export default function useCreateRoom({ onSettled }) {
       // If the mutation fails, use the context returned from onMutate to roll back
       onError: (err, newRoom, context) => {
         queryClient.setQueryData(ROOMSLISTQUERYKEY, context.oldRooms);
+        toast.error('There was a problem completing that action. \n Please try again.');
       },
       // Always refetch after error or success:
       onSettled: () => {
         queryClient.invalidateQueries(ROOMSLISTQUERYKEY);
+        toast.success('Room created');
         onSettled();
       },
     },

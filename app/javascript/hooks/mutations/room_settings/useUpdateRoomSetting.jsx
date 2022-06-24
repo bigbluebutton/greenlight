@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
+import { toast } from 'react-hot-toast';
 import axios from '../../../helpers/Axios';
 
 export default function useUpdateRoomSetting(friendlyId) {
@@ -19,9 +20,10 @@ export default function useUpdateRoomSetting(friendlyId) {
   const mutation = useMutation(patchRoomSetting, {
     onSuccess: () => {
       queryClient.invalidateQueries('getRoomSettings');
+      toast.success('Room settings updated');
     },
-    onError: (error) => {
-      console.log('mutate error', error);
+    onError: () => {
+      toast.error('There was a problem completing that action. \n Please try again.');
     },
     onMutate: (roomSettingData) => rewriteRoomSettingData(roomSettingData),
   });
