@@ -38,6 +38,7 @@ ManageUsersTable.defaultProps = {
 
 ManageUsersTable.propTypes = {
   users: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
     length: PropTypes.number.isRequired,
     map: PropTypes.func,
   })),

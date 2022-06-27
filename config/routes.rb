@@ -61,15 +61,11 @@ Rails.application.routes.draw do
       end
       resources :verify_account, only: :create
       resources :roles
-    end
-  end
 
-  namespace :api do
-    namespace :v1 do
       namespace :admin do
         resources :admins, only: %i[]  do
           collection do
-            get '/active_users', to: 'users#active_index'
+            get '/active_users', to: 'users#active_users'
           end
         end
       end

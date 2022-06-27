@@ -6,7 +6,7 @@ module Api
       class UsersController < ApiController
         include Avatarable
 
-        def active_index
+        def active_users
           # TODO: Change to get active users only
           users = User.all.to_a
 
@@ -16,7 +16,7 @@ module Api
               name: user.name,
               email: user.email,
               provider: user.provider,
-              role: Role.find(user.role_id).name,
+              role: user.role.name,
               created_at: user.created_at.strftime('%A %B %e, %Y'),
               avatar: user_avatar(user)
             }

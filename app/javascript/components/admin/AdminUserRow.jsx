@@ -8,8 +8,8 @@ export default function AdminUserRow({ user }) {
     <tr key={user.id} className="align-middle text-muted">
       <td className="text-dark">
         <Stack direction="horizontal">
-          <div>
-            <Avatar className="avatar" avatar={user.avatar} radius={40} />
+          <div className="me-2">
+            <Avatar avatar={user.avatar} radius={40} />
           </div>
           <Stack>
             <strong> {user.name} </strong>
