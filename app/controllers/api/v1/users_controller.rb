@@ -23,7 +23,8 @@ module Api
 
         if user.save
           session[:user_id] = user.id
-          render_json status: :created
+          token = user.generate_activation_token!
+          render_json data: { token: }, status: :created # TODO: enable activation email sending.
         else
           # TODO: amir - Improve logging.
           render_json errors: user.errors.to_a, status: :bad_request

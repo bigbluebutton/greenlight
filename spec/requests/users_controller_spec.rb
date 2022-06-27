@@ -29,6 +29,16 @@ RSpec.describe Api::V1::UsersController, type: :request do
         expect(JSON.parse(response.body)['errors']).to be_empty
       end
 
+      it 'generates an activation token for the user' do
+        freeze_time
+
+        post api_v1_users_path, params: valid_user_params, headers: headers
+        user = User.find_by email: valid_user_params[:user][:email]
+        expect(user.activation_digest).to be_present
+        expect(user.activation_sent_at).to eq(Time.current)
+        expect(user).not_to be_active
+      end
+
       it 'assigns the User role to the user' do
         post api_v1_users_path, params: valid_user_params, headers: headers
         expect(User.find_by(email: valid_user_params[:user][:email]).role).to eq(role)
