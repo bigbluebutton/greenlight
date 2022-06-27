@@ -2,6 +2,9 @@
 
 class User < ApplicationRecord
   MAX_AVATAR_SIZE = 3_000_000
+  # Reset token max validity period.
+  # It's advised to not increase this to more than 1 hour.
+  RESET_TOKEN_VALIDITY_PERIOD = 1.hour
 
   has_secure_password validations: false
 
@@ -32,9 +35,35 @@ class User < ApplicationRecord
     all
   end
 
+  # Verifies the token existence, fetches its user and validates its expiration
+  # and invalidates the user token if expired.
+
+  def self.verify_reset_token(token)
+    digest = generate_digest(token)
+
+    user = find_by reset_digest: digest
+    return false unless user
+
+    return false unless user.reset_sent_at
+
+    expired = reset_token_expired?(user.reset_sent_at)
+
+    if expired
+      user.invalidate_reset_token
+      return false
+    end
+
+    user
+  end
+
   # Generates a token digest.
   def self.generate_digest(token)
     Digest::SHA2.hexdigest(token)
+  end
+
+  # Checkes the expiration of a token.
+  def self.reset_token_expired?(sent_at)
+    Time.current > (sent_at.in(RESET_TOKEN_VALIDITY_PERIOD))
   end
 
   # Create a unique random reset token
@@ -64,6 +93,10 @@ class User < ApplicationRecord
     raise unless errors.attribute_names.include? :activation_digest
 
     retry
+  end
+
+  def invalidate_reset_token
+    update reset_sent_at: nil, reset_digest: nil # Remove expired/valid tokens.
   end
 
   private

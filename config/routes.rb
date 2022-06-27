@@ -53,7 +53,12 @@ Rails.application.routes.draw do
         end
       end
       resources :env, only: :index
-      resources :reset_password, only: :create
+      resources :reset_password, only: :create do
+        collection do
+          post '/reset', to: 'reset_password#reset'
+          post '/verify', to: 'reset_password#verify'
+        end
+      end
       resources :verify_account, only: :create
       resources :roles
     end
