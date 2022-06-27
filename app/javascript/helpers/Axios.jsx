@@ -9,6 +9,7 @@ export const ENDPOINTS = {
   room_recordings: (friendlyId) => `/rooms/${friendlyId}/recordings.json`,
   updateRecording: (recordId) => `/recordings/${recordId}.json`,
   changePassword: '/users/change_password.json',
+  forget_password: '/reset_password.json',
 };
 
 const axiosInstance = axios.create(
