@@ -1,5 +1,4 @@
 #admin-panel {
-
   #admin-sidebar {
     height: 100%;
     border-right: 2px solid whitesmoke;
@@ -25,6 +24,10 @@
 
   .tab-content > .active {
     visibility: visible;
+  }
+
+  input {
+    max-width: 300px;
   }
 
 }

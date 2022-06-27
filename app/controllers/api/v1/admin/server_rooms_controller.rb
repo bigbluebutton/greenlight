@@ -6,7 +6,7 @@ module Api
       class ServerRoomsController < ApiController
 
         def index
-          rooms = Room.all.to_a
+          rooms = Room.all.search(params[:search])
 
           rooms.map! do |room|
             {
