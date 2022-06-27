@@ -42,4 +42,71 @@ RSpec.describe Api::V1::ResetPasswordController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
   end
+
+  describe 'POST reset_password#reset' do
+    let(:valid_params) do
+      { new_password: 'Glv3IsAwesome!', token: 'ZekpWTPGFsuaP1WngE6LVCc69Zs7YSKoOJFLkfKu' }
+    end
+
+    it 'updates the found user by digest for valid params' do
+      user = create(:user, password: 'Test12345678+')
+      allow(User).to receive(:verify_reset_token).with(valid_params[:token]).and_return(user)
+
+      post :reset, params: { user: valid_params }
+      expect(response).to have_http_status(:ok)
+      expect(user.reload.authenticate(valid_params[:new_password])).to be_truthy
+      expect(user.reset_digest).to be_blank
+      expect(user.reset_sent_at).to be_blank
+    end
+
+    it 'returns :forbidden for invalid tokens' do
+      user = create(:user, password: 'Test12345678+')
+      allow(User).to receive(:verify_reset_token).with(valid_params[:token]).and_return(user)
+      allow_any_instance_of(User).to receive(:invalidate_reset_token).and_return(false)
+
+      post :reset, params: { user: valid_params }
+      expect(response).to have_http_status(:internal_server_error)
+      expect(user.reload.authenticate(valid_params[:new_password])).to be_falsy
+    end
+
+    it 'returns :internal_server_errror if unable to invalidate the tokens' do
+      allow(User).to receive(:verify_reset_token).and_return(false)
+
+      post :reset, params: { user: valid_params }
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'returns :bad_request for missing params' do
+      invalid_params = { new_password: '', token: '' }
+
+      post :reset, params: { user: invalid_params }
+      expect(response).to have_http_status(:bad_request)
+    end
+  end
+
+  describe 'POST reset_password#verify' do
+    let(:valid_params) do
+      { token: 'ZekpWTPGFsuaP1WngE6LVCc69Zs7YSKoOJFLkfKu' }
+    end
+
+    it 'returns :ok for valid tokens' do
+      user = create(:user)
+      allow(User).to receive(:verify_reset_token).with(valid_params[:token]).and_return(user)
+
+      post :verify, params: { user: valid_params }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'returns :forbidden for invalid token' do
+      allow(User).to receive(:verify_reset_token).and_return(false)
+
+      post :verify, params: { user: valid_params }
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'returns :bad_request for missing params' do
+      post :verify, params: { user: { token: '' } }
+      expect(response).to have_http_status(:bad_request)
+    end
+  end
 end
