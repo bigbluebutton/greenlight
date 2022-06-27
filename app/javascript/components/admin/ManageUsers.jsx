@@ -10,6 +10,15 @@ export default function ManageUsers() {
   return (
     <div id="admin-panel" className="wide-background">
       <h2 className="my-5"> Administrator Panel </h2>
+      {/* <Stack direction="horizontal" className="w-100 mt-5">
+        <Modal
+          modalButton={<Button className="ms-auto btn btn-primary">+ New User</Button>}
+          title="Create New User"
+          body={<AdminSignupForm />}
+          size="lg"
+          id="shared-access-modal"
+        />
+      </Stack> */}
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="users">
           <Row>

@@ -85,6 +85,7 @@ Rails.application.routes.draw do
             get '/active_users', to: 'users#active_index'
           end
         end
+        resources :users, only: %i[create]
       end
     end
   end
