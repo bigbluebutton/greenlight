@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from 'react-query';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import axios from '../../../helpers/Axios';
 
 export default function useUpdateRecordingVisibility() {
-  const updateRecordingVisibility = (visibilityData) => axios.post('/api/v1/recordings/update_visibility.json', visibilityData);
+  const updateRecordingVisibility = (visibilityData) => axios.post('/recordings/update_visibility.json', visibilityData);
 
   const queryClient = useQueryClient();
   const mutation = useMutation(updateRecordingVisibility, {
