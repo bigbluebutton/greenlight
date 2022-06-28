@@ -82,6 +82,32 @@ RSpec.describe User, type: :model do
         expect(user.reset_sent_at).to be_nil
       end
     end
+
+    describe '#invalidate_activation_token' do
+      it 'removes the user activation token data and returns the record' do
+        user = create(:user, activation_digest: 'something', activation_sent_at: Time.current)
+
+        expect(user.invalidate_activation_token).to be(true)
+        expect(user.reload.activation_digest).to be_nil
+        expect(user.activation_sent_at).to be_nil
+      end
+    end
+
+    describe '#activate!' do
+      it 'activates the user' do
+        user = create(:user)
+        user.activate!
+        expect(user).to be_active
+      end
+    end
+
+    describe '#deactive!' do
+      it 'deactivates the user' do
+        user = create(:user)
+        user.deactivate!
+        expect(user).not_to be_active
+      end
+    end
   end
 
   context 'static methods' do
@@ -102,6 +128,20 @@ RSpec.describe User, type: :model do
       it 'returns TRUE when the current time exceed the given time within the allowed period' do
         freeze_time
         expect(described_class).to be_reset_token_expired(Time.current - (period + 1.second))
+      end
+    end
+
+    describe '#activation_token_expired?' do
+      let(:period) { User::ACTIVATION_TOKEN_VALIDITY_PERIOD }
+
+      it 'returns FALSE when the current time does not exceed the given time within the allowed period' do
+        freeze_time
+        expect(described_class).not_to be_activation_token_expired(Time.current - period)
+      end
+
+      it 'returns TRUE when the current time exceed the given time within the allowed period' do
+        freeze_time
+        expect(described_class).to be_activation_token_expired(Time.current - (period + 1.second))
       end
     end
 
@@ -137,6 +177,41 @@ RSpec.describe User, type: :model do
         travel period
 
         expect(described_class.verify_reset_token('SOME_BAD_TOKEN')).to be(false)
+      end
+    end
+
+    describe '#verify_activation_token' do
+      let(:period) { User::ACTIVATION_TOKEN_VALIDITY_PERIOD }
+      let!(:user) do
+        create(:user, activation_digest: 'token_digest', activation_sent_at: Time.zone.at(1_655_290_260))
+      end
+
+      before do
+        travel_to Time.zone.at(1_655_290_260)
+        allow(described_class).to receive(:generate_digest).and_return('random_stuff')
+        allow(described_class).to receive(:generate_digest).with('token').and_return('token_digest')
+      end
+
+      it 'returns the user found by token digest when the token is valid' do
+        travel period
+
+        expect(described_class.verify_activation_token('token')).to eq(user)
+        expect(user.reload.activation_digest).to be_present
+        expect(user.activation_sent_at).to be_present
+      end
+
+      it 'does not return the user but reset its token if expired' do
+        travel period + 1.second
+
+        expect(described_class.verify_activation_token('token')).to be(false)
+        expect(user.reload.activation_digest).to be_blank
+        expect(user.activation_sent_at).to be_blank
+      end
+
+      it 'return FALSE for inexistent tokens' do
+        travel period
+
+        expect(described_class.verify_activation_token('SOME_BAD_TOKEN')).to be(false)
       end
     end
   end
