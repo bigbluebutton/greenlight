@@ -26,15 +26,13 @@
     visibility: visible;
   }
 
-  input {
+  input.search-bar {
     max-width: 300px;
   }
 
-}
-
-#admin-server-rooms {
-  border-color: whitesmoke;
-  table, td, tr, tbody {
-    border-color: whitesmoke !important;
+  #admin-server-rooms {
+    table, td, tr {
+      border-color: whitesmoke !important;
+    }
   }
 }

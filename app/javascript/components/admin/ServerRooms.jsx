@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
 import useServerRooms from '../../hooks/queries/admin/server_rooms/useServerRooms';
-import SortBy from '../shared/SortBy';
 import ServerRoomRow from './ServerRoomRow';
 import SearchBarQuery from '../shared/SearchBarQuery';
 
@@ -19,10 +18,10 @@ export default function ServerRooms() {
       <Table className="table-bordered border border-2" hover>
         <thead>
           <tr className="text-muted small">
-            <th className="fw-normal border-end-0">Name <SortBy fieldName="name" /></th>
-            <th className="fw-normal border-0">Owner <SortBy fieldName="length" /></th>
+            <th className="fw-normal border-end-0">Name</th>
+            <th className="fw-normal border-0">Owner</th>
             <th className="fw-normal border-0">ID</th>
-            <th className="fw-normal border-0">Participants <SortBy fieldName="visibility" /></th>
+            <th className="fw-normal border-0">Participants</th>
             <th className="fw-normal border-0">Status</th>
             <th className="border-start-0" aria-label="options" />
           </tr>

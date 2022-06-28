@@ -1,6 +1,7 @@
 import React from 'react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { Stack } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 export default function ServerRoomRow({ room }) {
   return (
@@ -21,3 +22,12 @@ export default function ServerRoomRow({ room }) {
     </tr>
   );
 }
+
+ServerRoomRow.propTypes = {
+  room: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    owner: PropTypes.string.isRequired,
+    friendly_id: PropTypes.string.isRequired,
+  }).isRequired,
+};
