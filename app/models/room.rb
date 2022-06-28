@@ -18,6 +18,12 @@ class Room < ApplicationRecord
   before_validation :set_friendly_id, :set_meeting_id, on: :create
   after_create :create_meeting_options
 
+  def self.search(input)
+    return where('rooms.name ILIKE ?', "%#{input}%").to_a if input
+
+    all.to_a
+  end
+
   private
 
   def set_friendly_id
