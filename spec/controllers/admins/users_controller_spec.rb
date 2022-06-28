@@ -14,7 +14,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
       get :active_users
       expect(response).to have_http_status(:ok)
       response_user_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
-      expect(response_user_ids).to eq(users.pluck(:id))
+      expect(response_user_ids).to match_array(users.pluck(:id))
     end
   end
 end
