@@ -36,4 +36,45 @@ RSpec.describe Api::V1::VerifyAccountController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
   end
+
+  describe 'POST verify_account#activate' do
+    let(:valid_params) do
+      { token: 'ZekpWTPGFsuaP1WngE6LVCc69Zs7YSKoOJFLkfKu' }
+    end
+
+    it 'activates the found user by digest for valid params' do
+      user = create(:user)
+      allow(User).to receive(:verify_activation_token).with(valid_params[:token]).and_return(user)
+
+      post :activate, params: { user: valid_params }
+      expect(response).to have_http_status(:ok)
+      expect(user.reload).to be_active
+      expect(user.activation_digest).to be_blank
+      expect(user.activation_sent_at).to be_blank
+    end
+
+    it 'returns :forbidden for invalid token' do
+      allow(User).to receive(:verify_activation_token).and_return(false)
+
+      post :activate, params: { user: valid_params }
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'returns :internal_server_error if unable to invalidate tokens' do
+      user = create(:user)
+      allow(User).to receive(:verify_activation_token).and_return(user)
+      allow_any_instance_of(User).to receive(:invalidate_activation_token).and_return(false)
+
+      post :activate, params: { user: valid_params }
+      expect(response).to have_http_status(:internal_server_error)
+      expect(user.reload).not_to be_active
+    end
+
+    it 'returns :bad_request for missing params' do
+      invalid_params = { not_token: '' }
+
+      post :activate, params: { user: invalid_params }
+      expect(response).to have_http_status(:bad_request)
+    end
+  end
 end

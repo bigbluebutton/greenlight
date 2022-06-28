@@ -59,9 +59,11 @@ Rails.application.routes.draw do
           post '/verify', to: 'reset_password#verify'
         end
       end
-      resources :verify_account, only: :create
       resources :roles
-
+      resources :verify_account, only: :create do
+        post '/activate', to: 'verify_account#activate', on: :collection
+      end
+      
       namespace :admin do
         resources :users, only: %i[]  do
           collection do

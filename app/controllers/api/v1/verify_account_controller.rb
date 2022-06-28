@@ -23,6 +23,29 @@ module Api
 
         render_json data: { token: } # TODO: enable activation email sending.
       end
+
+      # POST /api/v1/verify_account/activate.json
+      # Expects: { user: {:token} }
+      # Returns: { data: Array[serializable objects] , errors: Array[String] }
+      # Does: Validates the token and activates the account.
+
+      def activate
+        return render_json status: :bad_request if params[:user].blank?
+
+        token = params[:user][:token]
+
+        return render_json status: :bad_request if token.blank?
+
+        user = User.verify_activation_token(token)
+        return render_json status: :forbidden unless user
+
+        # TODO: optimise this.
+        return render_json status: :internal_server_error unless user.invalidate_activation_token
+
+        user.activate!
+
+        render_json
+      end
     end
   end
 end

@@ -5,6 +5,9 @@ class User < ApplicationRecord
   # Reset token max validity period.
   # It's advised to not increase this to more than 1 hour.
   RESET_TOKEN_VALIDITY_PERIOD = 1.hour
+  # Account activation token max validity period.
+  # It's advised to not increase this to more than 1 hour.
+  ACTIVATION_TOKEN_VALIDITY_PERIOD = 1.hour
 
   has_secure_password validations: false
 
@@ -97,6 +100,44 @@ class User < ApplicationRecord
 
   def invalidate_reset_token
     update reset_sent_at: nil, reset_digest: nil # Remove expired/valid tokens.
+  end
+
+  # Verifies the token existence, fetches its user and validates its expiration
+  # and invalidates the user activationtoken if expired.
+
+  def self.verify_activation_token(token)
+    digest = generate_digest(token)
+
+    user = find_by activation_digest: digest
+    return false unless user
+
+    return false unless user.activation_sent_at
+
+    expired = activation_token_expired?(user.activation_sent_at)
+
+    if expired
+      user.invalidate_activation_token
+      return false
+    end
+
+    user
+  end
+
+  # Checkes the expiration of a token.
+  def self.activation_token_expired?(sent_at)
+    Time.current > (sent_at.in(ACTIVATION_TOKEN_VALIDITY_PERIOD))
+  end
+
+  def invalidate_activation_token
+    update activation_sent_at: nil, activation_digest: nil # Remove expired/valid tokens.
+  end
+
+  def activate!
+    update! active: true
+  end
+
+  def deactivate!
+    update! active: false
   end
 
   private
