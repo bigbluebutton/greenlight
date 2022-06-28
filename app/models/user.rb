@@ -33,9 +33,9 @@ class User < ApplicationRecord
   validates :activation_digest, uniqueness: true, if: :activation_digest?
 
   def self.search(input)
-    return where('name ILIKE ?', "%#{input}%") if input
+    return where('name ILIKE ?', "%#{input}%").to_a if input
 
-    all
+    all.to_a
   end
 
   # Verifies the token existence, fetches its user and validates its expiration

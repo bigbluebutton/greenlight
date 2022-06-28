@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
+import React, { useState } from 'react';
 import {
   Row, Col, Tab, Tabs,
 } from 'react-bootstrap';
 import ActiveUsers from './users/ActiveUsers';
 import AdminNavSideBar from './shared/AdminNavSideBar';
+import ActiveUsers from './ActiveUsers';
+import Modal from '../shared/Modal';
+import AdminSignupForm from './AdminSignupForm';
+import SearchBarQuery from '../shared/SearchBarQuery';
 
 export default function ManageUsers() {
+  const [input, setInput] = useState();
   return (
     <div id="admin-panel" className="wide-background">
       <h2 className="my-5"> Administrator Panel </h2>
