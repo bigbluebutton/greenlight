@@ -63,7 +63,7 @@ Rails.application.routes.draw do
       resources :roles
 
       namespace :admin do
-        resources :admins, only: %i[]  do
+        resources :users, only: %i[]  do
           collection do
             get '/active_users', to: 'users#active_users'
           end
