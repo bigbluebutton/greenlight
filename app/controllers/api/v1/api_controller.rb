@@ -33,7 +33,7 @@ module Api
       end
 
       def render_data(data: {}, status: :ok, include: nil)
-        render json: data, status:, include:, root: "data"
+        render json: data, status:, include:, root: 'data'
       end
 
       def render_error(errors: [], status: :ok)

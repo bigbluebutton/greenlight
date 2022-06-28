@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RoomSerializer < ActiveModel::Serializer
   attributes :id, :name, :friendly_id, :created_at
   attribute :shared_owner, if: -> { object.shared }
