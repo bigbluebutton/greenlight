@@ -63,6 +63,14 @@ Rails.application.routes.draw do
       resources :verify_account, only: :create do
         post '/activate', to: 'verify_account#activate', on: :collection
       end
+      
+      namespace :admin do
+        resources :users, only: %i[]  do
+          collection do
+            get '/active_users', to: 'users#active_users'
+          end
+        end
+      end
     end
   end
 
