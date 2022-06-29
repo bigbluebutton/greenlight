@@ -5,14 +5,15 @@ module Api
     class RecordingsController < ApiController
       skip_before_action :verify_authenticity_token # TODO: - Revisit this.
       before_action :find_recording, only: :update
-      before_action :config_sorting, only: :index, if: -> { params.key?(:sort) }
 
       # GET /api/v1/recordings.json
       # Returns: { data: Array[serializable objects(recordings)] , errors: Array[String] }
       # Does: Returns all the Recordings from all the current user's rooms
 
       def index
-        recordings = current_user.recordings&.order(@sort_config)&.search(params[:search])
+        sort_config = config_sorting(allowed_columns: %w[name length visibility])
+
+        recordings = current_user.recordings&.order(sort_config)&.search(params[:search])
 
         # TODO: Optimise this.
         recordings.map! do |recording|
@@ -78,18 +79,6 @@ module Api
 
       def recording_params
         params.require(:recording).permit(:name)
-      end
-
-      def config_sorting
-        allowed_columns = %w[name length visibility]
-        allowed_directions = %w[ASC DESC]
-
-        sort_column = params[:sort][:column]
-        sort_direction = params[:sort][:direction]
-
-        return render_json status: :bad_request unless allowed_columns.include?(sort_column) && allowed_directions.include?(sort_direction)
-
-        @sort_config = { sort_column => sort_direction }
       end
 
       def find_recording

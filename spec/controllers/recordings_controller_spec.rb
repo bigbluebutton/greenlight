@@ -71,11 +71,6 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
         # Order is important match_array isn't adequate for this test.
         expect(JSON.parse(response.body)['data'].pluck('name')).to eq(%w[A B C])
       end
-
-      it 'returns :bad_request for bad params if sort config was provided' do
-        get :index, params: { sort: { column: 'invalid', direction: 'invalid' } }
-        expect(response).to have_http_status(:bad_request)
-      end
     end
   end
 
