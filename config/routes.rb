@@ -13,6 +13,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       namespace :admin do
+        resources :users, only: %i[create]  do
+          collection do
+            get '/active_users', to: 'users#active_users'
+          end
+        end
         resources :server_rooms, only: %i[index]
       end
       resources :sessions, only: %i[index create] do
@@ -66,29 +71,9 @@ Rails.application.routes.draw do
       resources :verify_account, only: :create do
         post '/activate', to: 'verify_account#activate', on: :collection
       end
-      
-      namespace :admin do
-        resources :users, only: %i[]  do
-          collection do
-            get '/active_users', to: 'users#active_users'
-          end
-        end
-      end
     end
   end
 
-  namespace :api do
-    namespace :v1 do
-      namespace :admin do
-        resources :admins, only: %i[]  do
-          collection do
-            get '/active_users', to: 'users#active_index'
-          end
-        end
-        resources :users, only: %i[create]
-      end
-    end
-  end
 
   match '*path', to: 'components#index', via: :all, constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'

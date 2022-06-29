@@ -8,7 +8,9 @@ import Spinner from '../../shared/stylings/Spinner';
 
 export default function ActiveUsers({ input }) {
   const [activeUsers, setActiveUsers] = useState();
-  useActiveUsers(input, setActiveUsers);
+  const { isLoading } = useActiveUsers(input, setActiveUsers);
+
+  if (isLoading) return <Spinner />;
 
   return (
     <ManageUsersTable users={activeUsers} />
