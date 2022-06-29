@@ -39,6 +39,19 @@ module Api
         }, status:, include:
       end
 
+      def config_sorting(allowed_columns: [])
+        return {} unless params.key?(:sort)
+
+        allowed_directions = %w[ASC DESC]
+
+        sort_column = params[:sort][:column]
+        sort_direction = params[:sort][:direction]
+
+        return {} unless allowed_columns.include?(sort_column) && allowed_directions.include?(sort_direction)
+
+        { sort_column => sort_direction }
+      end
+
       private
 
       # Ensures that requests to the API are explicit enough.
