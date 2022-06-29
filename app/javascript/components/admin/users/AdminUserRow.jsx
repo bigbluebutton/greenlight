@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Stack } from 'react-bootstrap';
-import Avatar from '../users/Avatar';
+import Avatar from '../../users/Avatar';
 
 export default function AdminUserRow({ user }) {
   return (
