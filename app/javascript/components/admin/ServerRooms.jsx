@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Container, Table } from 'react-bootstrap';
 import useServerRooms from '../../hooks/queries/admin/server_rooms/useServerRooms';
-import ServerRoomRow from './ServerRoomRow';
+import ServerRoomRow from './server-rooms/ServerRoomRow';
 import SearchBarQuery from '../shared/SearchBarQuery';
 
 export default function ServerRooms() {
@@ -10,7 +10,7 @@ export default function ServerRooms() {
   useServerRooms(input, setServerRooms);
 
   return (
-    <div id="admin-server-rooms">
+    <Container id="admin-server-rooms">
       <h2> Server Rooms </h2>
       <div className="my-4">
         <SearchBarQuery setInput={setInput} />
@@ -40,6 +40,6 @@ export default function ServerRooms() {
             )}
         </tbody>
       </Table>
-    </div>
+    </Container>
   );
 }

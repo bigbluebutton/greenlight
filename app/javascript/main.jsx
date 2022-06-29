@@ -2,7 +2,9 @@
 import '@hotwired/turbo-rails';
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router, Routes, Route, Navigate,
+} from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import App from './App';
 import Signup from './components/users/Signup';
@@ -13,8 +15,14 @@ import Room from './components/rooms/Room';
 import Rooms from './components/rooms/Rooms';
 import HomePage from './components/home_page/HomePage';
 import RoomJoin from './components/rooms/RoomJoin';
-import AdminPanel from './components/admin/AdminPanel';
+import ManageUsers from './components/admin/ManageUsers';
+import ServerRooms from './components/admin/ServerRooms';
+import ServerRecordings from './components/admin/ServerRecordings';
+import SiteSettings from './components/admin/SiteSettings';
+import RoomConfig from './components/admin/RoomConfig';
+import Roles from './components/admin/Roles';
 import ForgetPassword from './components/users/FrogetPassword';
+import AdminPanel from './components/admin/AdminPanel';
 
 const queryClient = new QueryClient();
 
@@ -29,7 +37,15 @@ const root = (
             <Route path="/signin" element={<SignIn />} />
             <Route path="/forget_password" element={<ForgetPassword />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/adminpanel" element={<AdminPanel />} />
+            <Route path="/adminpanel" element={<AdminPanel />}>
+              <Route index element={<Navigate to="/adminpanel/users" replace />} />
+              <Route path="/adminpanel/users" element={<ManageUsers />} />
+              <Route path="/adminpanel/server-rooms" element={<ServerRooms />} />
+              <Route path="/adminpanel/server-recordings" element={<ServerRecordings />} />
+              <Route path="/adminpanel/site-settings" element={<SiteSettings />} />
+              <Route path="/adminpanel/room-configuration" element={<RoomConfig />} />
+              <Route path="/adminpanel/roles" element={<Roles />} />
+            </Route>
             <Route path="/rooms" element={<Rooms />} />
             <Route path="/rooms/:friendlyId" element={<Room />} />
             <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />

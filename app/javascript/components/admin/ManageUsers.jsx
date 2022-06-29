@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Tab, Tabs } from 'react-bootstrap';
-import ActiveUsers from './ActiveUsers';
+import ActiveUsers from './users/ActiveUsers';
 
 export default function ManageUsers() {
   return (
