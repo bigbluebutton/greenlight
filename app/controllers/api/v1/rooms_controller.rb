@@ -15,7 +15,7 @@ module Api
       # GET /api/v1/rooms.json
       def index
         # Return the rooms that belong to current user
-        rooms = Room.where(user_id: current_user&.id).to_a
+        rooms = Room.where(user_id: current_user&.id)
 
         shared_rooms = current_user.shared_rooms.map do |room|
           room.shared = true

@@ -13,16 +13,16 @@ export function useAuth() {
 }
 
 export default function AuthProvider({ children }) {
-  const { data: session, status, error } = useSessions();
+  const { data: current_user, status, error } = useSessions();
 
   const currentUser = {
-    id: session?.data.current_user?.id,
-    name: session?.data.current_user?.name,
-    email: session?.data.current_user?.email,
-    provider: session?.data.current_user?.provider,
-    avatar: session?.data.current_user?.avatar,
-    signed_in: session?.data.current_user?.signed_in ?? false,
-    language: session?.data.current_user?.language,
+    id: current_user?.id,
+    name: current_user?.name,
+    email: current_user?.email,
+    provider: current_user?.provider,
+    avatar: current_user?.avatar,
+    signed_in: current_user?.signed_in ?? false,
+    language: current_user?.language,
   };
 
   const memoizedCurrentUser = useMemo(() => currentUser, [currentUser]);
