@@ -39,7 +39,7 @@ export default function ManageUsers() {
                   </div>
                   <Tabs defaultActiveKey="active">
                     <Tab eventKey="active" title="Active">
-                      <ActiveUsers input={input}/>
+                      <ActiveUsers input={input} />
                     </Tab>
                     <Tab eventKey="pending" title="Pending">
                       Pending users component
