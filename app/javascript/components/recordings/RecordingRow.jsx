@@ -45,13 +45,14 @@ export default function RecordingRow({ recording }) {
       <td> {recording.length}min</td>
       <td> {recording.users} </td>
       <td>
+        {/* TODO: Refactor this. */}
         <Form.Select
           className="visibility-dropdown"
           onChange={(event) => {
             handlePublishRecording({ publish: event.target.value, record_id: recording.record_id });
           }}
+          defaultValue={recording.visibility === 'Published'}
         >
-          <option selected hidden>{recording.visibility}</option>
           <option value="true">Published</option>
           <option value="false">Unpublished</option>
         </Form.Select>

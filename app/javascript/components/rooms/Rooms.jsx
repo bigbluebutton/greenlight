@@ -6,7 +6,7 @@ import Recordings from '../recordings/Recordings';
 export default function Rooms() {
   return (
     <Row className="pt-5">
-      <Tabs defaultActiveKey="rooms">
+      <Tabs defaultActiveKey="rooms" unmountOnExit>
         <Tab eventKey="rooms" title="Rooms">
           <RoomsList />
         </Tab>
