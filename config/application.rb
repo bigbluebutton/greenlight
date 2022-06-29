@@ -28,5 +28,7 @@ module Greenlight
       record_not_found: 'Record Not Found',
       server_error: 'Something Went Wrong'
     }
+
+    ActiveModelSerializers.config.adapter = :json
   end
 end

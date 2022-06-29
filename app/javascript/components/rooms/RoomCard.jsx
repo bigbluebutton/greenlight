@@ -21,7 +21,7 @@ export default function RoomCard({ room }) {
     <Card id="room-card" className="shadow-sm border-0">
       <Card.Body className="pb-0" onClick={handleClick}>
         <div className="room-icon-square rounded-3">
-          { room.shared ? (
+          { room.shared_owner ? (
             <LinkIcon className="hi-m text-primary pt-4 d-block mx-auto" />
           ) : (
             <UserIcon className="hi-m text-primary pt-4 d-block mx-auto" />
@@ -30,7 +30,7 @@ export default function RoomCard({ room }) {
 
         <Stack className="my-4">
           <Card.Title className="mb-0"> { room.name } </Card.Title>
-          { room.shared ? (
+          { room.shared_owner ? (
             <span className="text-muted">Shared by: { room.shared_owner } </span>
           ) : (
             <span className="text-muted"> { room.created_at } </span>
@@ -59,7 +59,6 @@ RoomCard.propTypes = {
     friendly_id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
-    shared: PropTypes.bool,
     shared_owner: PropTypes.string,
   }).isRequired,
 };

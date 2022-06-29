@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# frozen_string_literal: truenerate_access_code generates a viewer access code
-
 module Api
   module V1
     class RoomsController < ApiController
@@ -20,26 +18,11 @@ module Api
         rooms = Room.where(user_id: current_user&.id).to_a
 
         shared_rooms = current_user.shared_rooms.map do |room|
-          {
-            id: room.id,
-            name: room.name,
-            friendly_id: room.friendly_id,
-            created_at: room.created_at.strftime('%A %B %e, %Y %l:%M%P'),
-            shared: true,
-            shared_owner: room.user.name
-          }
+          room.shared = true
+          room
         end
 
-        rooms.map! do |room|
-          {
-            id: room.id,
-            name: room.name,
-            friendly_id: room.friendly_id,
-            created_at: room.created_at.strftime('%A %B %e, %Y %l:%M%P')
-          }
-        end
-
-        render_json data: rooms + shared_rooms, status: :ok
+        render_data data: rooms + shared_rooms
       end
 
       # GET /api/v1/rooms/:friendly_id.json
