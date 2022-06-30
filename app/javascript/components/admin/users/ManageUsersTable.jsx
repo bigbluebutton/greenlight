@@ -5,30 +5,32 @@ import AdminUserRow from './AdminUserRow';
 
 export default function ManageUsersTable({ users }) {
   return (
-    <Table hover className="text-secondary mb-0 recordings-list">
-      <thead>
-        <tr className="text-muted small">
-          <th className="fw-normal">Name</th>
-          <th className="fw-normal">User Name</th>
-          <th className="fw-normal">Authenticator</th>
-          <th className="fw-normal">Role</th>
-          <th aria-label="options" />
-        </tr>
-      </thead>
-      <tbody className="border-top-0">
-        {users?.length
-          ? (
-            users?.map((user) => <AdminUserRow key={user.id} user={user} />)
-          )
-          : (
-            <tr>
-              <td className="fw-bold">
-                No users found!
-              </td>
-            </tr>
-          )}
-      </tbody>
-    </Table>
+    <div id="admin-table">
+      <Table className="table-bordered border border-2" hover>
+        <thead>
+          <tr className="text-muted small">
+            <th className="fw-normal border-end-0">Name</th>
+            <th className="fw-normal border-0">User Name</th>
+            <th className="fw-normal border-0">Authenticator</th>
+            <th className="fw-normal border-0">Role</th>
+            <th className="border-start-0" aria-label="options" />
+          </tr>
+        </thead>
+        <tbody className="border-top-0">
+          {users?.length
+            ? (
+              users?.map((user) => <AdminUserRow key={user.id} user={user} />)
+            )
+            : (
+              <tr>
+                <td className="fw-bold">
+                  No users found!
+                </td>
+              </tr>
+            )}
+        </tbody>
+      </Table>
+    </div>
   );
 }
 
