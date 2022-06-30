@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 export default function ServerRoomRow({ room }) {
   return (
-    <tr key={room.id} className="align-middle text-muted border border-2">
+    <tr className="align-middle text-muted border border-2">
       <td className="border-end-0">
         <Stack>
           <span className="text-dark fw-bold"> { room.name } </span>
@@ -25,7 +25,6 @@ export default function ServerRoomRow({ room }) {
 
 ServerRoomRow.propTypes = {
   room: PropTypes.shape({
-    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     owner: PropTypes.string.isRequired,
     friendly_id: PropTypes.string.isRequired,

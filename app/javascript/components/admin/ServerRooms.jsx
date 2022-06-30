@@ -11,6 +11,7 @@ import AdminNavSideBar from './shared/AdminNavSideBar';
 export default function ServerRooms() {
   const [input, setInput] = useState();
   const [serverRooms, setServerRooms] = useState();
+  // TODO: Revisit this.
   useServerRooms(input, setServerRooms);
 
   return (
@@ -45,7 +46,7 @@ export default function ServerRooms() {
                     <tbody className="border-top-0">
                       {serverRooms?.length
                         ? (
-                          serverRooms?.map((room) => <ServerRoomRow key={room.id} room={room} />)
+                          serverRooms?.map((room) => <ServerRoomRow key={room.friendly_id} room={room} />)
                         )
                         : (
                           <tr>

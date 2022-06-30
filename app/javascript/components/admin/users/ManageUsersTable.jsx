@@ -39,7 +39,9 @@ ManageUsersTable.defaultProps = {
 ManageUsersTable.propTypes = {
   users: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    length: PropTypes.number.isRequired,
-    map: PropTypes.func,
+    avatar: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    provider: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
   })),
 };
