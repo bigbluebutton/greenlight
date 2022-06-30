@@ -11,8 +11,8 @@ class Recording < ApplicationRecord
   validates :users, presence: true
 
   def self.search(input)
-    return where('recordings.name ILIKE ?', "%#{input}%").includes(:formats).to_a if input
+    return where('recordings.name ILIKE ?', "%#{input}%").includes(:formats) if input
 
-    all.includes(:formats).to_a
+    all.includes(:formats)
   end
 end

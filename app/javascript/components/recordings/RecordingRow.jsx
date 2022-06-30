@@ -86,8 +86,7 @@ RecordingRow.propTypes = {
     name: PropTypes.string.isRequired,
     length: PropTypes.number.isRequired,
     users: PropTypes.number.isRequired,
-    formats: PropTypes.PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
+    formats: PropTypes.arrayOf(PropTypes.shape({
       url: PropTypes.string.isRequired,
       recording_type: PropTypes.string.isRequired,
     })),

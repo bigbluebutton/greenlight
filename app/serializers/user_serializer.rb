@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserSerializer < ActiveModel::Serializer
+class UserSerializer < ApplicationSerializer
   include Avatarable
 
   attributes :id, :name, :email, :provider, :language, :avatar

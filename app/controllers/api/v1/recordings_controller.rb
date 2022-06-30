@@ -15,21 +15,7 @@ module Api
 
         recordings = current_user.recordings&.order(sort_config)&.search(params[:search])
 
-        # TODO: Optimise this.
-        recordings.map! do |recording|
-          {
-            id: recording.id,
-            record_id: recording.record_id,
-            name: recording.name,
-            length: recording.length,
-            users: recording.users,
-            visibility: recording.visibility,
-            created_at: recording.created_at.strftime('%A %B %e, %Y %l:%M%P'),
-            formats: recording.formats
-          }
-        end
-
-        render_json data: recordings, status: :ok
+        render_data data: recordings
       end
 
       def destroy
@@ -38,7 +24,7 @@ module Api
 
         Recording.destroy_by(record_id: params[:id])
 
-        render_json(status: :ok)
+        render_data
       end
 
       # PUT/PATCH /api/v1/recordings/:recording_id.json
@@ -46,18 +32,18 @@ module Api
       # Does: Update the recording name.
       def update
         new_name = recording_params[:name]
-        return render_json errors: [Rails.configuration.custom_error_msgs[:missing_params]], status: :bad_request if new_name.blank?
+        return render_error errors: [Rails.configuration.custom_error_msgs[:missing_params]] if new_name.blank?
 
         BigBlueButtonApi.new.update_recordings record_id: @recording.record_id, meta_hash: { meta_name: new_name }
-        Recording.update! @recording.id, name: new_name
+        @recording.update! name: new_name
 
-        render_json
+        render_data data: @recording
       end
 
       def resync
         RecordingsSync.new(user: current_user).call
 
-        render_json(status: :ok)
+        render_data
       end
 
       def publish_recording
@@ -72,7 +58,7 @@ module Api
         Recording.find_by(record_id:).update(visibility:)
         BigBlueButtonApi.new.publish_recordings(record_ids: record_id, publish:)
 
-        render_json(status: :ok)
+        render_data
       end
 
       private
