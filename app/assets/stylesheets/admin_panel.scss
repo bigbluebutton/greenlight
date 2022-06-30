@@ -44,3 +44,7 @@
     display: none !important; 
   }
 }
+// Removes arrow from drop down
+.dropdown-toggle::after {
+  display: none !important; 
+}
