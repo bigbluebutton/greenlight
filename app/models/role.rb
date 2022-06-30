@@ -7,6 +7,12 @@ class Role < ApplicationRecord
 
   before_validation :set_random_color, on: :create
 
+  def self.search(input)
+    return where('name ILIKE ?', "%#{input}%") if input
+
+    all
+  end
+
   private
 
   def set_random_color

@@ -62,7 +62,6 @@ Rails.application.routes.draw do
           post '/verify', to: 'reset_password#verify'
         end
       end
-      resources :roles
       resources :verify_account, only: :create do
         post '/activate', to: 'verify_account#activate', on: :collection
       end
@@ -73,6 +72,7 @@ Rails.application.routes.draw do
             get '/active_users', to: 'users#active_users'
           end
         end
+        resources :roles, only: :index
       end
     end
   end
