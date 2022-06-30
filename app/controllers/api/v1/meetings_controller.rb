@@ -33,9 +33,9 @@ module Api
           elsif authorized_as_viewer?
             bbb_role = 'Viewer'
           end
-          render_json data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role), status: :ok
+          render_json data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role)
         else
-          render_json status: :unauthorized
+          render_error status: :unauthorized
         end
       end
 
@@ -54,7 +54,7 @@ module Api
           data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role) if data[:status]
           render_json data:, status: :ok
         else
-          render_json status: :unauthorized
+          render_error status: :unauthorized
         end
       end
 
