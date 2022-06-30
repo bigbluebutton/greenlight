@@ -6,9 +6,13 @@
   }
 
   .nav-pills .nav-link.active {
-    color: $primary;
+    color: $primary !important;
     background-color: $primary-light;
     font-weight: 600;
+
+    svg {
+      color: $primary !important;
+    }
   }
 
   .tab-content {
