@@ -13,19 +13,19 @@ export function useAuth() {
 }
 
 export default function AuthProvider({ children }) {
-  const { data: session, status, error } = useSessions();
+  const { data: currentUser, status, error } = useSessions();
 
-  const currentUser = {
-    id: session?.data.current_user?.id,
-    name: session?.data.current_user?.name,
-    email: session?.data.current_user?.email,
-    provider: session?.data.current_user?.provider,
-    avatar: session?.data.current_user?.avatar,
-    signed_in: session?.data.current_user?.signed_in ?? false,
-    language: session?.data.current_user?.language,
+  const user = {
+    id: currentUser?.id,
+    name: currentUser?.name,
+    email: currentUser?.email,
+    provider: currentUser?.provider,
+    avatar: currentUser?.avatar,
+    signed_in: currentUser?.signed_in ?? false,
+    language: currentUser?.language,
   };
 
-  const memoizedCurrentUser = useMemo(() => currentUser, [currentUser]);
+  const memoizedCurrentUser = useMemo(() => user, [user]);
 
   if (status === 'loading') return <p> Loading... </p>;
   if (status === 'error') {
