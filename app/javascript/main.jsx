@@ -22,6 +22,7 @@ import ServerRooms from './components/admin/ServerRooms';
 import SiteSettings from './components/admin/SiteSettings';
 import RoomConfig from './components/admin/RoomConfig';
 import Roles from './components/admin/Roles';
+import ResetPassword from './components/users/ResetPassword';
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const root = (
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/forget_password" element={<ForgetPassword />} />
+            <Route path="/reset_password/:token" element={<ResetPassword />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/adminpanel" element={<Navigate to="/adminpanel/users" replace />} />
             <Route path="/adminpanel/users" element={<ManageUsers />} />

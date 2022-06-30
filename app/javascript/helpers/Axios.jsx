@@ -10,6 +10,8 @@ export const ENDPOINTS = {
   updateRecording: (recordId) => `/recordings/${recordId}.json`,
   changePassword: '/users/change_password.json',
   forget_password: '/reset_password.json',
+  reset_password: '/reset_password/reset.json',
+  verify_token: '/reset_password/verify.json',
 };
 
 const axiosInstance = axios.create(
