@@ -26,7 +26,7 @@ export default function ServerRooms() {
             </Col>
             <Col sm={9}>
               <Tab.Content className="p-3 ps-0">
-                <Container id="admin-server-rooms">
+                <Container className="admin-table">
                   <h2> Server Rooms </h2>
                   <div className="my-4">
                     <SearchBarQuery setInput={setInput} />

@@ -17,4 +17,18 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
       expect(response_user_ids).to match_array(users.pluck(:id))
     end
   end
+
+  describe '#create' do
+    let(:user_params) do
+      {
+        user: { name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password }
+      }
+    end
+
+    it 'admin creates a user' do
+      create(:role, name: 'User')
+      expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
+      expect(response).to have_http_status(:created)
+    end
+  end
 end

@@ -1,11 +1,10 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 
-export default function useActiveUsers() {
-  return useQuery('getAdminUsers', () => axios.get('/api/v1/admin/users/active_users.json', {
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
+export default function useActiveUsers(input, setActiveUsers) {
+  return useQuery(['getAdminUsers', input], () => axios.get('/api/v1/admin/users/active_users.json', {
+    params: {
+      search: input,
     },
-  }).then((resp) => resp.data.data));
+  }).then((resp) => setActiveUsers(resp.data.data)));
 }
