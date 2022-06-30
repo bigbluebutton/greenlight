@@ -12,14 +12,6 @@ Rails.application.routes.draw do
   # All the Api endpoints must be under /api/v1 and must have an extension .json.
   namespace :api do
     namespace :v1 do
-      namespace :admin do
-        resources :users, only: %i[create]  do
-          collection do
-            get '/active_users', to: 'users#active_users'
-          end
-        end
-        resources :server_rooms, only: %i[index]
-      end
       resources :sessions, only: %i[index create] do
         collection do
           delete 'signout', to: 'sessions#destroy'
@@ -67,9 +59,18 @@ Rails.application.routes.draw do
           post '/verify', to: 'reset_password#verify'
         end
       end
-      resources :roles
       resources :verify_account, only: :create do
         post '/activate', to: 'verify_account#activate', on: :collection
+      end
+      
+      namespace :admin do
+        resources :users, only: %i[create]  do
+          collection do
+            get '/active_users', to: 'users#active_users'
+          end
+        end
+        resources :server_rooms, only: %i[index]
+        resources :roles, only: :index
       end
     end
   end

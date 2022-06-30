@@ -7,5 +7,5 @@ export default function useSessions() {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
-  }).then((resp) => resp.data));
+  }).then((resp) => resp.data.data));
 }

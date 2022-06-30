@@ -3,6 +3,8 @@
 module Api
   module V1
     class ApiController < ApplicationController
+      serialization_scope :view_context
+
       before_action do
         # Unless the request format is explicitly json Rails will mitigate the responsability to CSR to handle it.
         render 'components/index' if !Rails.env.development? && !valid_api_request?
@@ -32,11 +34,11 @@ module Api
         logger.error exception.backtrace.join("\n") # TODO: amir - Revisit this.
       end
 
-      def render_data(data: {}, status: :ok, include: nil)
-        render json: data, status:, include:, root: 'data'
+      def render_data(data: {}, status: :ok, include: nil, serializer: nil)
+        render json: data, status:, include:, root: 'data', serializer:
       end
 
-      def render_error(errors: [], status: :ok)
+      def render_error(errors: [], status: :bad_request)
         render json: {
           errors:
         }, status:

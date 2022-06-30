@@ -8,6 +8,19 @@ RSpec.describe Role, type: :model do
 
     it { is_expected.to have_many(:users).dependent(:restrict_with_exception) }
 
+    describe '#search' do
+      it 'returns the searched roles' do
+        searched_roles = [create(:role, name: 'Hashirama Senju'), create(:role, name: 'Tobirama Senju')]
+        create_list(:role, 3)
+        expect(described_class.search('senju').pluck(:id)).to match_array(searched_roles.pluck(:id))
+      end
+
+      it 'returns all roles if input is empty' do
+        create_list(:role, 3)
+        expect(described_class.search('').pluck(:id)).to match_array(described_class.pluck(:id))
+      end
+    end
+
     context 'color attribute' do
       context 'on :create' do
         it 'defaults the color when not provided on :create' do
