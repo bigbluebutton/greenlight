@@ -4,7 +4,7 @@ import { Stack } from 'react-bootstrap';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import Avatar from '../../users/Avatar';
 
-export default function AdminUserRow({ user }) {
+export default function AdminUserRow({ user, setEdit }) {
   return (
     <tr key={user.id} className="align-middle text-muted">
       <td className="text-dark border-end-0">
@@ -23,9 +23,10 @@ export default function AdminUserRow({ user }) {
       <td className="border-0"> {user.provider} </td>
       <td className="border-0"> {user.role}</td>
       <td className="border-start-0">
-        <DotsVerticalIcon className="hi-s text-muted" />
+        <DotsVerticalIcon onClick={() => setEdit(true)} className="cursor-pointer hi-s text-muted" />
       </td>
     </tr>
+
   );
 }
 
@@ -39,4 +40,5 @@ AdminUserRow.propTypes = {
     role: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
   }).isRequired,
+  setEdit: PropTypes.func.isRequired,
 };
