@@ -18,7 +18,7 @@ export default function RoomCard({ room }) {
   const { handleStartMeeting, isLoading: startMeetingIsLoading } = useStartMeeting(room.friendly_id);
 
   return (
-    <Card id="room-card" className="shadow-sm border-0">
+    <Card id="room-card" className="h-100 shadow-sm border-0">
       <Card.Body className="pb-0" onClick={handleClick}>
         <div className="room-icon-square rounded-3">
           { room.shared_owner ? (

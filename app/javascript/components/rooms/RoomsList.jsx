@@ -37,7 +37,7 @@ export default function RoomsList() {
             }
             return false;
           }).map((room) => (
-            <Col key={room.friendly_id} className="mt-0">
+            <Col key={room.friendly_id} className="mt-0 mb-4">
               {(room.optimistic && <RoomPlaceHolder />) || <RoomCard room={room} />}
             </Col>
           ))
