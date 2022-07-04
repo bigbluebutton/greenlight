@@ -29,7 +29,7 @@ export default function Presentation() {
         >
           <Card className="border-0 shadow-sm mt-3 text-center">
             <label htmlFor="file" className="presentation-upload">
-              <Card.Body className="py-5 text-secondary">
+              <Card.Body className="py-5 text-secondary cursor-pointer">
                 <div className="icon-circle rounded-circle d-block mx-auto mb-3">
                   <CloudUploadIcon className="hi-l text-primary d-block mx-auto pt-3" />
                 </div>
