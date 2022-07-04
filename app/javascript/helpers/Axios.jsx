@@ -12,6 +12,9 @@ export const ENDPOINTS = {
   forget_password: '/reset_password.json',
   reset_password: '/reset_password/reset.json',
   verify_token: '/reset_password/verify.json',
+  admin: {
+    getRoles: 'admin/roles.json',
+  },
 };
 
 const axiosInstance = axios.create(
