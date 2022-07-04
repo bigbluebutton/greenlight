@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Stack } from 'react-bootstrap';
+import {
+  Stack, Navbar, NavDropdown, Container,
+} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import Avatar from '../../users/Avatar';
 
-export default function AdminUserRow({ user, setEdit }) {
+export default function ManageUserRow({ user }) {
   return (
     <tr key={user.id} className="align-middle text-muted">
       <td className="text-dark border-end-0">
@@ -23,14 +26,22 @@ export default function AdminUserRow({ user, setEdit }) {
       <td className="border-0"> {user.provider} </td>
       <td className="border-0"> {user.role}</td>
       <td className="border-start-0">
-        <DotsVerticalIcon onClick={() => setEdit(true)} className="cursor-pointer hi-s text-muted" />
+        <Navbar>
+          <Container>
+            <div className="d-inline-flex">
+              <NavDropdown title={<DotsVerticalIcon className="hi-s text-muted" />} id="basic-nav-dropdown">
+                <NavDropdown.Item as={Link} to={`/adminpanel/edit_user/${user.id}`}>Edit</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to={`/adminpanel/delete_user/${user.id}`}>Delete</NavDropdown.Item>
+              </NavDropdown>
+            </div>
+          </Container>
+        </Navbar>
       </td>
     </tr>
-
   );
 }
 
-AdminUserRow.propTypes = {
+ManageUserRow.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number.isRequired,
     avatar: PropTypes.string.isRequired,
@@ -40,5 +51,4 @@ AdminUserRow.propTypes = {
     role: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
   }).isRequired,
-  setEdit: PropTypes.func.isRequired,
 };

@@ -6,7 +6,7 @@ import {
 import { useParams } from 'react-router-dom';
 import AdminNavSideBar from '../shared/AdminNavSideBar';
 
-export default function EditUser() {
+export default function DeleteUser() {
   const { userId } = useParams();
   return (
     <div id="admin-panel" className="wide-background">
@@ -20,7 +20,7 @@ export default function EditUser() {
               </div>
             </Col>
             <Col sm={9}>
-              <h3>Manage User/Edit</h3>{userId}
+              <h3>Manage User/Delete</h3>{userId}
             </Col>
           </Row>
         </Tab.Container>

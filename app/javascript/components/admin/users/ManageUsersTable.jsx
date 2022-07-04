@@ -1,9 +1,9 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import AdminUserRow from './AdminUserRow';
+import ManageUserRow from './ManageUserRow';
 
-export default function ManageUsersTable({ users, setEdit }) {
+export default function ManageUsersTable({ users }) {
   return (
     <div id="admin-table">
       <Table className="table-bordered border border-2" hover>
@@ -19,7 +19,7 @@ export default function ManageUsersTable({ users, setEdit }) {
         <tbody className="border-top-0">
           {users?.length
             ? (
-              users?.map((user) => <AdminUserRow key={user.id} user={user} setEdit={setEdit} />)
+              users?.map((user) => <ManageUserRow key={user.id} user={user} />)
             )
             : (
               <tr>
@@ -46,5 +46,4 @@ ManageUsersTable.propTypes = {
     provider: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
   })),
-  setEdit: PropTypes.func.isRequired,
 };
