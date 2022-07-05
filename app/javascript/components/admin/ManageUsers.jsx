@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import {
-  Row, Col, Tab, Tabs, Stack, Button,
+  Row, Col, Tab, Tabs, Stack, Button, Container,
 } from 'react-bootstrap';
 import ActiveUsers from './users/ActiveUsers';
 import AdminNavSideBar from './shared/AdminNavSideBar';
@@ -24,34 +24,36 @@ export default function ManageUsers() {
             </Col>
             <Col sm={9}>
               <Tab.Content className="p-3 ps-0">
-                <Row className="">
-                  <div className="my-4">
-                    <Stack direction="horizontal" className="w-100 mt-5">
-                      <SearchBarQuery setInput={setInput} />
-                      <Modal
-                        modalButton={<Button className="ms-auto btn btn-primary">+ New User</Button>}
-                        title="Create New User"
-                        body={<AdminSignupForm />}
-                        size="lg"
-                        id="shared-access-modal"
-                      />
-                    </Stack>
-                  </div>
-                  <Tabs defaultActiveKey="active">
-                    <Tab eventKey="active" title="Active">
-                      <ActiveUsers input={input} />
-                    </Tab>
-                    <Tab eventKey="pending" title="Pending">
-                      Pending users component
-                    </Tab>
-                    <Tab eventKey="banned" title="Banned">
-                      Banned users component
-                    </Tab>
-                    <Tab eventKey="deleted" title="Deleted">
-                      Deleted users component
-                    </Tab>
-                  </Tabs>
-                </Row>
+                <Container className="admin-table">
+                  <Row className="">
+                    <div className="my-4">
+                      <Stack direction="horizontal" className="w-100 mt-5">
+                        <SearchBarQuery setInput={setInput} />
+                        <Modal
+                          modalButton={<Button className="ms-auto btn btn-primary">+ New User</Button>}
+                          title="Create New User"
+                          body={<AdminSignupForm />}
+                          size="lg"
+                          id="shared-access-modal"
+                        />
+                      </Stack>
+                    </div>
+                    <Tabs defaultActiveKey="active">
+                      <Tab eventKey="active" title="Active">
+                        <ActiveUsers input={input} />
+                      </Tab>
+                      <Tab eventKey="pending" title="Pending">
+                        Pending users component
+                      </Tab>
+                      <Tab eventKey="banned" title="Banned">
+                        Banned users component
+                      </Tab>
+                      <Tab eventKey="deleted" title="Deleted">
+                        Deleted users component
+                      </Tab>
+                    </Tabs>
+                  </Row>
+                </Container>
               </Tab.Content>
             </Col>
           </Row>
