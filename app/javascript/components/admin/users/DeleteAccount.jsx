@@ -24,5 +24,5 @@ export default function DeleteAccount({ userId }) {
 }
 
 DeleteAccount.propTypes = {
-  userId: PropTypes.number.isRequired,
+  userId: PropTypes.string.isRequired,
 };

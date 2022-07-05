@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Stack, Navbar, NavDropdown, Container,
+  Stack, Dropdown,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import {
