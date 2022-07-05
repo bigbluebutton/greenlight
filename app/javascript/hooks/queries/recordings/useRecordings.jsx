@@ -1,16 +1,15 @@
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import { useSearchParams } from 'react-router-dom';
+import axios, { ENDPOINTS } from '../../../helpers/Axios';
 
-export default function useRecordings(input, setRecordings) {
-  return useQuery(['getRecordings', input], () => axios.get('/api/v1/recordings.json', {
-    params: {
-      search: input,
-    },
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-  }).then((resp) => {
-    setRecordings(resp.data.data);
-  }));
+export default function useRecordings(search) {
+  const [searchParams] = useSearchParams();
+
+  const params = {
+    'sort[column]': searchParams.get('sort[column]'),
+    'sort[direction]': searchParams.get('sort[direction]'),
+    search,
+  };
+
+  return useQuery(['getRecordings', { ...params }], () => axios.get(ENDPOINTS.recordings, { params }).then((resp) => resp.data.data));
 }

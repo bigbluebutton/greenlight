@@ -9,9 +9,8 @@ import RecordingsList from './RecordingsList';
 
 export default function Recordings() {
   const [input, setInput] = useState();
-  const [recordings, setRecordings] = useState();
   // TODO: Revisit this.
-  useRecordings(input, setRecordings);
+  const { data: recordings, isLoading } = useRecordings(input);
 
   const { refetch: handleRecordingReSync } = useRecordingsReSync();
 
@@ -24,7 +23,7 @@ export default function Recordings() {
         <Button variant="primary-light" className="ms-auto" onClick={handleRecordingReSync}>Re-Sync Recordings</Button>
       </Stack>
       <Card className="border-0 shadow-sm p-0 mt-4">
-        <RecordingsList recordings={recordings} />
+        <RecordingsList recordings={recordings} isLoading={isLoading} />
       </Card>
     </div>
   );
