@@ -12,12 +12,12 @@ module Api
 
       def create
         # TODO: Log events.
-        return render_json status: :bad_request unless params[:user]
+        return render_error status: :bad_request unless params[:user]
 
         user = User.find_by email: params[:user][:email]
 
         # Silentley fail for invalid emails or already active users.
-        return render_json unless user && !user.active?
+        return render_data unless user && !user.active?
 
         token = user.generate_activation_token!
 
@@ -30,21 +30,21 @@ module Api
       # Does: Validates the token and activates the account.
 
       def activate
-        return render_json status: :bad_request if params[:user].blank?
+        return render_error status: :bad_request if params[:user].blank?
 
         token = params[:user][:token]
 
-        return render_json status: :bad_request if token.blank?
+        return render_error status: :bad_request if token.blank?
 
         user = User.verify_activation_token(token)
-        return render_json status: :forbidden unless user
+        return render_error status: :forbidden unless user
 
         # TODO: optimise this.
-        return render_json status: :internal_server_error unless user.invalidate_activation_token
+        return render_error status: :internal_server_error unless user.invalidate_activation_token
 
         user.activate!
 
-        render_json
+        render_data
       end
     end
   end

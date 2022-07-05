@@ -35,46 +35,31 @@ module Api
         # TODO: amir - ensure accessibility for unauthenticated requests only.
         room = Room.create!(room_create_params)
         logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
-        render_json status: :created
+        render_data status: :created
       end
 
       def update
         if @room.update(presentation: params[:presentation])
-          render_json status: :ok
+          render_data
         else
-          render_json errors: @room.errors.to_a, status: :bad_request
+          render_error errors: @room.errors.to_a, status: :bad_request
         end
       end
 
       def destroy
         Room.destroy_by(friendly_id: params[:friendly_id])
-        render_json status: :ok
+        render_data
       end
 
       def purge_presentation
         @room.presentation.purge
 
-        render_json status: :ok
+        render_data
       end
 
       # GET /api/v1/rooms/:friendly_id/recordings.json
       def recordings
-        recordings = @room.recordings&.search(params[:q]).to_a
-
-        recordings.map! do |recording|
-          {
-            id: recording.id,
-            name: recording.name,
-            length: recording.length,
-            users: recording.users,
-            visibility: recording.visibility,
-            created_at: recording.created_at.strftime('%A %B %e, %Y %l:%M%P'),
-            formats: recording.formats,
-            record_id: recording.record_id
-          }
-        end
-
-        render_json data: recordings, status: :ok
+        render_data data: @room.recordings&.search(params[:q])
       end
 
       # GET /api/v1/rooms/:friendly_id/recordings_processing.json
@@ -101,7 +86,7 @@ module Api
           @room.update!(moderator_access_code: SecureRandom.alphanumeric(6).downcase)
         end
 
-        render_json status: :ok
+        render_data
       end
 
       # PATCH /api/v1/room_settings/:friendly_id/remove_viewer_access_code.json
@@ -113,7 +98,7 @@ module Api
           @room.update!(moderator_access_code: nil)
         end
 
-        render_json status: :ok
+        render_data
       end
 
       private

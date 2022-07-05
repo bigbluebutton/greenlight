@@ -38,7 +38,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     it 'returns :not_found if the room doesnt exist' do
       get :show, params: { friendly_id: 'invalid_friendly_id' }
       expect(response).to have_http_status(:not_found)
-      expect(JSON.parse(response.body)['data']).to be_empty
+      expect(JSON.parse(response.body)['data']).to be_nil
     end
 
     context 'include_owner' do

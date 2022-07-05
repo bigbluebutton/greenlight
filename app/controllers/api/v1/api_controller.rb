@@ -14,17 +14,17 @@ module Api
       # Note: The order of each rescue is important (The highest has the lowest priority).
       rescue_from StandardError do |exception|
         log_exception exception
-        render_json errors: [Rails.configuration.custom_error_msgs[:server_error]], status: :internal_server_error
+        render_error errors: [Rails.configuration.custom_error_msgs[:server_error]], status: :internal_server_error
       end
 
       rescue_from ActionController::ParameterMissing do |exception|
         log_exception exception
-        render_json errors: [Rails.configuration.custom_error_msgs[:missing_params]], status: :bad_request
+        render_error errors: [Rails.configuration.custom_error_msgs[:missing_params]], status: :bad_request
       end
 
       rescue_from ActiveRecord::RecordNotFound do |exception|
         log_exception exception
-        render_json errors: [Rails.configuration.custom_error_msgs[:record_not_found]], status: :not_found
+        render_error errors: [Rails.configuration.custom_error_msgs[:record_not_found]], status: :not_found
       end
 
       # TODO: amir - Better Error handling.
@@ -34,8 +34,18 @@ module Api
         logger.error exception.backtrace.join("\n") # TODO: amir - Revisit this.
       end
 
-      def render_data(data: {}, status: :ok, include: nil, serializer: nil, options: {})
-        render json: data, status:, include:, root: 'data', serializer:, options:
+      def render_data(data: {}, status: :ok, serializer: nil, each_serializer: nil, options: {})
+        args = {
+          json: data,
+          root: 'data',
+          status:,
+          serializer:,
+          options:
+        }
+        # Allow ActiveModelSerializer to guess which Serializer to use unless manually specified
+        args[:each_serializer] = each_serializer if each_serializer.present?
+
+        render args
       end
 
       def render_error(errors: [], status: :bad_request)
