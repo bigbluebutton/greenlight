@@ -9,16 +9,16 @@ export default function FeatureTabs() {
   return (
     <Row className="pt-5 mx-0">
       <Tabs defaultActiveKey="recordings">
-        <Tab eventKey="recordings" title="Recordings">
+        <Tab eventKey="recordings" title="Recordings" unmountOnExit>
           <RoomRecordings />
         </Tab>
-        <Tab eventKey="presentation" title="Presentation">
+        <Tab eventKey="presentation" title="Presentation" unmountOnExit>
           <Presentation />
         </Tab>
-        <Tab eventKey="access" title="Access">
+        <Tab eventKey="access" title="Access" unmountOnExit>
           <SharedAccess />
         </Tab>
-        <Tab eventKey="settings" title="Settings">
+        <Tab eventKey="settings" title="Settings" unmountOnExit>
           <RoomSettings />
         </Tab>
       </Tabs>

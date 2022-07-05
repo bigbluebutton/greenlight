@@ -46,7 +46,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         room = create(:room, user:)
         get :show, params: { friendly_id: room.friendly_id, include_owner: true }
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data']['owner']['name']).to eq(user.name)
+        expect(JSON.parse(response.body)['data']['owner_name']).to eq(user.name)
       end
 
       it 'returns the owners avatar if include_owner is passed' do
@@ -55,14 +55,15 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
         get :show, params: { friendly_id: room.friendly_id, include_owner: true }
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data']['owner']['avatar']).to be_present
+        expect(JSON.parse(response.body)['data']['owner_avatar']).to be_present
       end
 
       it 'does not return the owner if include_owner is false' do
         room = create(:room, user:)
         get :show, params: { friendly_id: room.friendly_id, include_owner: false }
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data']['owner']).to be_nil
+        expect(JSON.parse(response.body)['data']['owner_name']).to be_nil
+        expect(JSON.parse(response.body)['data']['owner_avatar']).to be_nil
       end
     end
   end

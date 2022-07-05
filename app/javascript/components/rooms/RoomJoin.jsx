@@ -45,8 +45,8 @@ export default function RoomJoin() {
               </Col>
               <Col className="col-4">
                 <Stack>
-                  <Avatar className="d-block m-auto" avatar={room.owner.avatar} radius={100} />
-                  <span className="float-end text-center mt-2">{room.owner.name}</span>
+                  <Avatar className="d-block m-auto" avatar={room.owner_avatar} radius={100} />
+                  <span className="float-end text-center mt-2">{room.owner_name}</span>
                 </Stack>
               </Col>
             </Row>

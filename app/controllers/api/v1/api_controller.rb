@@ -34,8 +34,8 @@ module Api
         logger.error exception.backtrace.join("\n") # TODO: amir - Revisit this.
       end
 
-      def render_data(data: {}, status: :ok, include: nil, serializer: nil)
-        render json: data, status:, include:, root: 'data', serializer:
+      def render_data(data: {}, status: :ok, include: nil, serializer: nil, options: {})
+        render json: data, status:, include:, root: 'data', serializer:, options:
       end
 
       def render_error(errors: [], status: :bad_request)
