@@ -19,7 +19,7 @@ export default function EditUser() {
     <div id="admin-panel" className="wide-background">
       <h2 className="my-5"> Administrator Panel </h2>
       <Card className="border-0 shadow-sm">
-        <Tab.Content activekey="users">
+        <Tab.Container activekey="users">
           <Container className="admin-table">
             <Row>
               <Col sm={3}>
@@ -42,7 +42,7 @@ export default function EditUser() {
               </Col>
             </Row>
           </Container>
-        </Tab.Content>
+        </Tab.Container>
       </Card>
     </div>
   );
