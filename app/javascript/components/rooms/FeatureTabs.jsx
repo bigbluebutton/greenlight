@@ -8,17 +8,17 @@ import RoomSettings from '../room_settings/RoomSettings';
 export default function FeatureTabs() {
   return (
     <Row className="pt-5 mx-0">
-      <Tabs defaultActiveKey="recordings">
-        <Tab eventKey="recordings" title="Recordings" unmountOnExit>
+      <Tabs defaultActiveKey="recordings" unmountOnExit>
+        <Tab eventKey="recordings" title="Recordings">
           <RoomRecordings />
         </Tab>
-        <Tab eventKey="presentation" title="Presentation" unmountOnExit>
+        <Tab eventKey="presentation" title="Presentation">
           <Presentation />
         </Tab>
-        <Tab eventKey="access" title="Access" unmountOnExit>
+        <Tab eventKey="access" title="Access">
           <SharedAccess />
         </Tab>
-        <Tab eventKey="settings" title="Settings" unmountOnExit>
+        <Tab eventKey="settings" title="Settings">
           <RoomSettings />
         </Tab>
       </Tabs>
