@@ -1,11 +1,16 @@
-import React from 'react';
-import Card from 'react-bootstrap/Card';
+import React, { useState } from 'react';
 import {
-  Col, Row, Tab,
+  Col, Container, Row, Tab, Card,
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
+import RolesList from './roles/RolesList';
+import SearchBarQuery from '../shared/SearchBarQuery';
+import useRoles from '../../hooks/queries/admin/roles/useRoles';
 
 export default function Roles() {
+  const [input, setInput] = useState();
+  const { data: roles, isLoading } = useRoles(input);
+
   return (
     <div id="admin-panel" className="wide-background">
       <h2 className="my-5"> Administrator Panel </h2>
@@ -19,7 +24,16 @@ export default function Roles() {
             </Col>
             <Col sm={9}>
               <Tab.Content className="p-3 ps-0">
-                <h1>Roles</h1>
+                <Container>
+                  <Row className="my-1"><h3>Roles</h3></Row>
+                  <Row><hr className="w-100 mx-0" /></Row>
+                  <Row className="mt-1 mb-2">
+                    <Col md="1"><SearchBarQuery setInput={setInput} /></Col>
+                  </Row>
+                  <Row className="my-2">
+                    <Col><RolesList isLoading={isLoading} roles={roles} /></Col>
+                  </Row>
+                </Container>
               </Tab.Content>
             </Col>
           </Row>
