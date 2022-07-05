@@ -39,4 +39,8 @@
       border-color: whitesmoke !important;
     }
   }
+
+  .dropdown-toggle::after {
+    display: none !important; 
+  }
 }
