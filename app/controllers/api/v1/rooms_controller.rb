@@ -27,24 +27,7 @@ module Api
 
       # GET /api/v1/rooms/:friendly_id.json
       def show
-        room = {
-          id: @room.id,
-          name: @room.name,
-          presentation_name: presentation_name(@room),
-          thumbnail: presentation_thumbnail(@room),
-          viewer_access_code: @room.viewer_access_code.present?,
-          moderator_access_code: @room.moderator_access_code.present?,
-          created_at: @room.created_at.strftime('%A %B %e, %Y %l:%M%P')
-        }
-
-        if params[:include_owner] == 'true'
-          room[:owner] = {
-            name: @room.user.name,
-            avatar: user_avatar(@room.user)
-          }
-        end
-
-        render_json data: room, status: :ok
+        render_data data: @room, serializer: CurrentRoomSerializer, options: { include_owner: params[:include_owner] == 'true' }
       end
 
       # POST /api/v1/rooms.json
