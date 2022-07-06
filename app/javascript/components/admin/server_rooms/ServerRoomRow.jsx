@@ -13,10 +13,10 @@ export default function ServerRoomRow({ room }) {
           <span> Ended: </span>
         </Stack>
       </td>
-      <td className="border-0"> {room.owner}</td>
-      <td className="border-0"> {room.friendly_id} </td>
-      <td className="border-0"> - </td>
-      <td className="border-0"> - </td>
+      <td className="border-0"> { room.owner }</td>
+      <td className="border-0"> { room.friendly_id } </td>
+      <td className="border-0"> { room.participants } </td>
+      <td className="border-0"> { room.status } </td>
       <td className="border-start-0">
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />

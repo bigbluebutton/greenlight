@@ -3,10 +3,11 @@ import Card from 'react-bootstrap/Card';
 import {
   Col, Container, Row, Tab, Table,
 } from 'react-bootstrap';
-import useServerRooms from '../../hooks/queries/admin/server_rooms/useServerRooms';
-import ServerRoomRow from './server-rooms/ServerRoomRow';
-import SearchBarQuery from '../shared/SearchBarQuery';
-import AdminNavSideBar from './shared/AdminNavSideBar';
+import useServerRooms from '../../../hooks/queries/admin/server_rooms/useServerRooms';
+import ServerRoomRow from './ServerRoomRow';
+import SearchBarQuery from '../../shared/SearchBarQuery';
+import AdminNavSideBar from '../shared/AdminNavSideBar';
+import useActiveServerRooms from '../../../hooks/queries/admin/server_rooms/useActiveServerRooms';
 
 export default function ServerRooms() {
   const [input, setInput] = useState();
