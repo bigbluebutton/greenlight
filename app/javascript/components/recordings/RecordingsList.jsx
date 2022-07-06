@@ -4,8 +4,9 @@ import { Table } from 'react-bootstrap';
 import RecordingRow from './RecordingRow';
 import ProcessingRecordingRow from './ProcessingRecordingRow';
 import SortBy from '../shared/SortBy';
+import Spinner from '../shared/stylings/Spinner';
 
-export default function RecordingsList({ recordings, recordingsProcessing }) {
+export default function RecordingsList({ recordings, recordingsProcessing, isLoading }) {
   return (
     <Table hover className="text-secondary mb-0 recordings-list">
       <thead>
@@ -19,18 +20,18 @@ export default function RecordingsList({ recordings, recordingsProcessing }) {
         </tr>
       </thead>
       <tbody className="border-top-0">
-        { [...Array(recordingsProcessing)].map(() => <ProcessingRecordingRow />) }
-        {recordings?.length
+        {[...Array(recordingsProcessing)].map(() => <ProcessingRecordingRow />)}
+        {(isLoading && <tr><td colSpan="6"><Spinner /></td></tr>) || (recordings?.length
           ? (
             recordings?.map((recording) => <RecordingRow key={recording.id} recording={recording} />)
           )
           : (
             <tr>
-              <td className="fw-bold">
+              <td className="fw-bold" colSpan="6">
                 No recordings found!
               </td>
             </tr>
-          )}
+          ))}
       </tbody>
     </Table>
   );
@@ -39,6 +40,7 @@ export default function RecordingsList({ recordings, recordingsProcessing }) {
 RecordingsList.defaultProps = {
   recordings: [],
   recordingsProcessing: 0,
+  isLoading: false,
 };
 
 RecordingsList.propTypes = {
@@ -52,4 +54,5 @@ RecordingsList.propTypes = {
     map: PropTypes.func,
   })),
   recordingsProcessing: PropTypes.number,
+  isLoading: PropTypes.bool,
 };

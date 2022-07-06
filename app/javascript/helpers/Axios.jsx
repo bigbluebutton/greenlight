@@ -15,6 +15,7 @@ export const ENDPOINTS = {
   admin: {
     getRoles: 'admin/roles.json',
   },
+  recordings: '/recordings.json',
 };
 
 const axiosInstance = axios.create(
