@@ -11,5 +11,8 @@ export default function useRecordings(search) {
     search,
   };
 
-  return useQuery(['getRecordings', { ...params }], () => axios.get('/recordings.json', { params }).then((resp) => resp.data.data));
+  return useQuery(
+    ['getRecordings', { ...params }],
+    () => axios.get('/recordings.json', { params }).then((resp) => resp.data.data),
+  );
 }
