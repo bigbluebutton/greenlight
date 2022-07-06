@@ -25,9 +25,10 @@ export default function ManageUsers() {
             <Col sm={9}>
               <Tab.Content className="p-3 ps-0">
                 <Container className="admin-table">
-                  <Row className="">
+                  <h2> Manage Users </h2>
+                  <Row>
                     <div className="my-4">
-                      <Stack direction="horizontal" className="w-100 mt-5">
+                      <Stack direction="horizontal" className="mt-5">
                         <SearchBarQuery setInput={setInput} />
                         <Modal
                           modalButton={<Button className="ms-auto btn btn-primary">+ New User</Button>}

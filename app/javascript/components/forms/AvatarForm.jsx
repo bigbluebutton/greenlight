@@ -2,19 +2,18 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
+import PropTypes from 'prop-types';
 import FormControl from './FormControl';
 import Form from './Form';
 import useCreateAvatar from '../../hooks/mutations/users/useCreateAvatar';
-import { useAuth } from '../../contexts/auth/AuthProvider';
 import { validationSchema, avatarFormFields } from '../../helpers/forms/AvatarFormHelpers';
 
-export default function AvatarForm() {
+export default function AvatarForm({ user }) {
   const methods = useForm({
     resolver: yupResolver(validationSchema),
   });
   const { isSubmitting } = methods.formState;
-  const currentUser = useAuth();
-  const { onSubmit } = useCreateAvatar(currentUser);
+  const { onSubmit } = useCreateAvatar(user);
   const fields = avatarFormFields;
 
   return (
@@ -26,3 +25,15 @@ export default function AvatarForm() {
     </Form>
   );
 }
+
+AvatarForm.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    avatar: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    provider: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired,
+  }).isRequired,
+};
