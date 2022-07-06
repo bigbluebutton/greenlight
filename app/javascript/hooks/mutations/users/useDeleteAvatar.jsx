@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from 'react-query';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import axios from '../../../helpers/Axios';
 
 export default function useDeleteAvatar(currentUser) {
   const queryClient = useQueryClient();
 
-  const deleteAvatar = (data) => axios.delete(`/api/v1/users/${currentUser.id}/purge_avatar.json`, data);
+  const deleteAvatar = (data) => axios.delete(`/users/${currentUser.id}/purge_avatar.json`, data);
 
   const mutation = useMutation(
     deleteAvatar,

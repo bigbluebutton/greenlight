@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from 'react-query';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import axios from '../../../helpers/Axios';
 
 export default function useDeleteSharedAccess(friendlyId) {
   const queryClient = useQueryClient();
 
-  const deleteSharedAccess = (data) => axios.delete(`/api/v1/shared_accesses/${friendlyId}.json`, { data });
+  const deleteSharedAccess = (data) => axios.delete(`/shared_accesses/${friendlyId}.json`, { data });
 
   const mutation = useMutation(
     deleteSharedAccess,

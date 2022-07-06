@@ -1,14 +1,13 @@
 import { useMutation } from 'react-query';
 import { toast } from 'react-hot-toast';
-import axios, { ENDPOINTS } from '../../../helpers/Axios';
+import axios from '../../../helpers/Axios';
 
 export default function useChangePwd() {
-  const changePwd = (data) => axios.post(ENDPOINTS.changePassword, data);
+  const changePwd = (data) => axios.post('/users/change_password.json', data);
 
   const mutation = useMutation(
     changePwd,
     { // Mutation config.
-      mutationKey: ENDPOINTS.changePassword,
       onError: () => { toast.error('There was a problem completing that action. \n Please try again.'); },
       onSuccess: () => {
         toast.success('Password updated');

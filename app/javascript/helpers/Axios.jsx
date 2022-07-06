@@ -1,23 +1,5 @@
 import axios from 'axios';
 
-export const ENDPOINTS = {
-  signup: '/users.json',
-  signin: '/sessions.json',
-  start_meeting: (friendlyId) => `meetings/${friendlyId}/start.json`,
-  createRoom: '/rooms.json',
-  recordings_resync: '/recordings/resync.json',
-  room_recordings: (friendlyId) => `/rooms/${friendlyId}/recordings.json`,
-  updateRecording: (recordId) => `/recordings/${recordId}.json`,
-  changePassword: '/users/change_password.json',
-  forget_password: '/reset_password.json',
-  reset_password: '/reset_password/reset.json',
-  verify_token: '/reset_password/verify.json',
-  admin: {
-    getRoles: 'admin/roles.json',
-  },
-  recordings: '/recordings.json',
-};
-
 const axiosInstance = axios.create(
   {
     // `baseURL` will be prepended to `url` unless `url` is absolute.

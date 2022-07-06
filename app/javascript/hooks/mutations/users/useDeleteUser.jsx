@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from 'react-query';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import axios from '../../../helpers/Axios';
 
 export default function useUpdateUser(userId) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const mutation = useMutation(
-    (data) => axios.delete(`/api/v1/users/${userId}.json`, data),
+    (data) => axios.delete(`/users/${userId}.json`, data),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('useSessions');

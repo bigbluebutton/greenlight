@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from 'react-query';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import axios from '../../../helpers/Axios';
 
 export default function useDeleteRecording(recordId) {
-  const deleteRecording = () => axios.delete(`/api/v1/recordings/${recordId}.json`);
+  const deleteRecording = () => axios.delete(`/recordings/${recordId}.json`);
   const queryClient = useQueryClient();
 
   const mutation = useMutation(deleteRecording, {

@@ -4,7 +4,9 @@ import axios from '../../../helpers/Axios';
 
 export default function usePublishRecording() {
   const updatePublish = (visibilityData) => axios.post('/recordings/publish.json', visibilityData);
+
   const queryClient = useQueryClient();
+
   const mutation = useMutation(updatePublish, {
     onSuccess: () => {
       queryClient.invalidateQueries('getRecordings');
