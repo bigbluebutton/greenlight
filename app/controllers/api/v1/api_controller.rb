@@ -4,6 +4,7 @@ module Api
   module V1
     class ApiController < ApplicationController
       serialization_scope :view_context
+      skip_before_action :verify_authenticity_token
 
       before_action do
         # Unless the request format is explicitly json Rails will mitigate the responsability to CSR to handle it.

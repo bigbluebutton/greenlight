@@ -12,18 +12,18 @@ import useDeletePresentation from '../../hooks/mutations/rooms/useDeletePresenta
 export default function DeletePresentationForm({ handleClose }) {
   const methods = useForm();
   const { friendlyId } = useParams();
-  const { handleDeletePresentation, isLoading } = useDeletePresentation(friendlyId);
+  const deletePresentation = useDeletePresentation(friendlyId);
   return (
     <>
       <p className="text-center"> Are you sure you want to delete this presentation?</p>
-      <Form methods={methods} onSubmit={handleDeletePresentation}>
+      <Form methods={methods} onSubmit={deletePresentation.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="primary-reverse" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="danger" type="submit" disabled={isLoading}>
+          <Button variant="danger" type="submit" disabled={deletePresentation.isLoading}>
             Delete
-            { isLoading && <Spinner /> }
+            { deletePresentation.isLoading && <Spinner /> }
           </Button>
         </Stack>
       </Form>

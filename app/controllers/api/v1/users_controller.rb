@@ -3,7 +3,7 @@
 module Api
   module V1
     class UsersController < ApiController
-      skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
+       # TODO: amir - Revisit this.
       # POST /api/v1/users.json
       # Expects: { user: { :name, :email, :password, :password_confirmation } }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }

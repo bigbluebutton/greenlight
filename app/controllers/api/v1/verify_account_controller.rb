@@ -3,7 +3,7 @@
 module Api
   module V1
     class VerifyAccountController < ApiController
-      skip_before_action :verify_authenticity_token
+      
 
       # POST /api/v1/verify_account.json
       # Expects: { user: {:email} }

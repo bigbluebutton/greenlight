@@ -4,7 +4,7 @@ module Api
   module V1
     module Admin
       class RolesController < ApiController
-        skip_before_action :verify_authenticity_token
+        
 
         # POST /api/v1/admin/roles.json
         # Expects: {}

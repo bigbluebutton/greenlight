@@ -15,7 +15,7 @@ const copyAccessCode = (accessCode) => {
 export default function AccessCodes() {
   const { friendlyId } = useParams();
   const { handleGenerateAccessCode } = useGenerateAccessCode(friendlyId);
-  const { handleDeleteAccessCode } = useDeleteAccessCode(friendlyId);
+  const deleteAccessCode = useDeleteAccessCode(friendlyId);
   const { data: accessCodes } = useAccessCodes(friendlyId);
 
   return (
@@ -38,7 +38,7 @@ export default function AccessCodes() {
                 <Button
                   className="px-3"
                   variant="font-awesome"
-                  onClick={() => handleDeleteAccessCode('Viewer')}
+                  onClick={() => deleteAccessCode.mutate('Viewer')}
                 >
                   <TrashIcon className="hi-s text-muted" />
                 </Button>
@@ -74,7 +74,7 @@ export default function AccessCodes() {
                 <Button
                   className="px-3"
                   variant="font-awesome"
-                  onClick={() => handleDeleteAccessCode('Moderator')}
+                  onClick={() => deleteAccessCode.mutate('Moderator')}
                 >
                   <TrashIcon className="hi-s text-muted" />
                 </Button>

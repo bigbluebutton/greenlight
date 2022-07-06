@@ -3,7 +3,7 @@
 module Api
   module V1
     class RoomSettingsController < ApiController
-      skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
+       # TODO: amir - Revisit this.
       before_action :find_room, only: %i[show update]
 
       # GET /api/v1/room_settings/:friendly_id
