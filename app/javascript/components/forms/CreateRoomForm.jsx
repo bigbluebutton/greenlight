@@ -10,9 +10,7 @@ import useCreateRoom from '../../hooks/mutations/rooms/useCreateRoom';
 import FormControl from './FormControl';
 import { createRoomFormConfig, createRoomFormFields } from '../../helpers/forms/CreateRoomFormHelpers';
 
-export default function CreateRoomForm({ handleClose, userID }) {
-  createRoomFormConfig.defaultValues.user_id = userID;
-
+export default function CreateRoomForm({ handleClose }) {
   const methods = useForm(createRoomFormConfig);
   const { handleCreateRoom: onSubmit } = useCreateRoom({ onSettled: handleClose });
   const { isSubmitting } = methods.formState;
@@ -36,7 +34,6 @@ export default function CreateRoomForm({ handleClose, userID }) {
 
 CreateRoomForm.propTypes = {
   handleClose: PropTypes.func,
-  userID: PropTypes.number.isRequired,
 };
 
 CreateRoomForm.defaultProps = {
