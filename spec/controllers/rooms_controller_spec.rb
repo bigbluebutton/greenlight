@@ -84,7 +84,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   describe '#create' do
     let(:room_params) do
       {
-        room: { name: Faker::Science.science, user_id: user.id }
+        room: { name: Faker::Science.science }
       }
     end
 

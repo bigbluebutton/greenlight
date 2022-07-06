@@ -11,7 +11,6 @@ export const createRoomFormConfig = {
   criteriaMode: 'all',
   defaultValues: {
     name: '',
-    user_id: undefined,
   },
   resolver: yupResolver(validationSchema),
 };

@@ -32,9 +32,9 @@ module Api
 
       # POST /api/v1/rooms.json
       def create
-        # TODO: amir - ensure accessibility for unauthenticated requests only.
-        room = Room.create!(room_create_params)
-        logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
+        # TODO: amir - ensure accessibility for authenticated requests only.
+        room = Room.create!(room_create_params.merge(user_id: current_user.id))
+        logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{current_user.id}"
         render_data status: :created
       end
 
@@ -108,7 +108,7 @@ module Api
       end
 
       def room_create_params
-        params.require(:room).permit(:name, :user_id, :presentation)
+        params.require(:room).permit(:name)
       end
     end
   end
