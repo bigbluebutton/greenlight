@@ -17,7 +17,7 @@ export default function SharedAccess() {
   const [input, setInput] = useState();
   const [sharedUsers, setSharedUsers] = useState();
   useSharedUsers(friendlyId, input, setSharedUsers);
-  const { handleDeleteSharedAccess } = useDeleteSharedAccess(friendlyId);
+  const deleteSharedAccess = useDeleteSharedAccess(friendlyId);
 
   if (sharedUsers?.length || input) {
     return (
@@ -59,7 +59,7 @@ export default function SharedAccess() {
                           <Button
                             variant="icon"
                             className="float-end pe-2"
-                            onClick={() => handleDeleteSharedAccess({ user_id: user.id })}
+                            onClick={() => deleteSharedAccess.mutate({ user_id: user.id })}
                           >
                             <TrashIcon className="hi-s" />
                           </Button>

@@ -7,10 +7,10 @@ import { useAuth } from '../../contexts/auth/AuthProvider';
 export default function DeleteUserForm() {
   const currentUser = useAuth();
   const methods = useForm();
-  const { onSubmit } = useDeleteAvatar(currentUser);
+  const deleteAvatar = useDeleteAvatar(currentUser);
 
   return (
-    <Form methods={methods} onSubmit={onSubmit}>
+    <Form methods={methods} onSubmit={deleteAvatar.mutate}>
       <button className="btn btn-link float-end" type="submit">
         Delete Avatar
       </button>

@@ -8,7 +8,7 @@ export default function RoomSettingsRow(props) {
     settingId, value, description,
   } = props;
   const { friendlyId } = useParams();
-  const { handleUpdateRoomSetting } = useUpdateRoomSetting(friendlyId);
+  const updateRoomSetting = useUpdateRoomSetting(friendlyId);
 
   return (
     <div className="room-settings-row text-muted py-3 d-flex">
@@ -22,7 +22,7 @@ export default function RoomSettingsRow(props) {
           id={settingId}
           defaultChecked={value}
           onClick={(event) => {
-            handleUpdateRoomSetting({ settingName: settingId, settingValue: event.target.checked });
+            updateRoomSetting.mutate({ settingName: settingId, settingValue: event.target.checked });
           }}
         />
       </div>

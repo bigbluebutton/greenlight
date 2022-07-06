@@ -10,7 +10,7 @@ import UpdateRecordingForm from '../forms/UpdateRecordingForm';
 import Spinner from '../shared/stylings/Spinner';
 
 export default function RecordingRow({ recording }) {
-  const { handlePublishRecording } = usePublishRecording();
+  const publishRecording = usePublishRecording();
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
@@ -49,7 +49,7 @@ export default function RecordingRow({ recording }) {
         <Form.Select
           className="visibility-dropdown"
           onChange={(event) => {
-            handlePublishRecording({ publish: event.target.value, record_id: recording.record_id });
+            publishRecording.mutate({ publish: event.target.value, record_id: recording.record_id });
           }}
           defaultValue={recording.visibility === 'Published'}
         >

@@ -15,21 +15,17 @@ export default function useUpdateRoomSetting(friendlyId) {
     return roomSettingData;
   };
 
-  const patchRoomSetting = (roomSettingData) => axios.patch(`/room_settings/${friendlyId}.json`, roomSettingData);
-
-  const mutation = useMutation(patchRoomSetting, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('getRoomSettings');
-      toast.success('Room settings updated');
+  return useMutation(
+    (roomSettingData) => axios.patch(`/room_settings/${friendlyId}.json`, roomSettingData),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('getRoomSettings');
+        toast.success('Room settings updated');
+      },
+      onError: () => {
+        toast.error('There was a problem completing that action. \n Please try again.');
+      },
+      onMutate: (roomSettingData) => rewriteRoomSettingData(roomSettingData),
     },
-    onError: () => {
-      toast.error('There was a problem completing that action. \n Please try again.');
-    },
-    onMutate: (roomSettingData) => rewriteRoomSettingData(roomSettingData),
-  });
-
-  const handleUpdateRoomSetting = (roomSettingData) => {
-    mutation.mutateAsync(roomSettingData).catch(/* Prevents the promise exception from bubbling */() => {});
-  };
-  return { handleUpdateRoomSetting, ...mutation };
+  );
 }

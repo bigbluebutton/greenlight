@@ -4,22 +4,18 @@ import { toast } from 'react-hot-toast';
 import axios from '../../../helpers/Axios';
 
 export default function useDeleteRoom(friendlyId) {
-  const deleteRoom = () => axios.delete(`/rooms/${friendlyId}.json`);
   const navigate = useNavigate();
 
-  const mutation = useMutation(deleteRoom, {
-    onSuccess: () => {
-      navigate('/rooms');
-      toast.success('Room deleted');
+  return useMutation(
+    () => axios.delete(`/rooms/${friendlyId}.json`),
+    {
+      onSuccess: () => {
+        navigate('/rooms');
+        toast.success('Room deleted');
+      },
+      onError: () => {
+        toast.error('There was a problem completing that action. \n Please try again.');
+      },
     },
-    onError: () => {
-      toast.error('There was a problem completing that action. \n Please try again.');
-    },
-  });
-
-  const handleDeleteRoom = async () => {
-    await mutation.mutateAsync();
-  };
-
-  return { handleDeleteRoom, ...mutation };
+  );
 }

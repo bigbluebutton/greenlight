@@ -5,7 +5,7 @@ import axios from '../../../helpers/Axios';
 export default function useUpdateUser(userId) {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(
+  return useMutation(
     (data) => axios.patch(`/users/${userId}.json`, data),
     {
       onSuccess: () => {
@@ -17,6 +17,4 @@ export default function useUpdateUser(userId) {
       },
     },
   );
-  const onSubmit = (userData) => mutation.mutateAsync({ user: userData }).catch(/* Prevents the promise exception from bubbling */() => {});
-  return { onSubmit, ...mutation };
 }
