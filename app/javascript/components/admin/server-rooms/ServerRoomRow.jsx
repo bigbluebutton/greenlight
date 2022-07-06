@@ -1,23 +1,30 @@
 import React from 'react';
-import { DotsVerticalIcon } from '@heroicons/react/outline';
-import { Stack } from 'react-bootstrap';
+import { CursorClickIcon, DotsVerticalIcon, TrashIcon } from '@heroicons/react/outline';
+import { Dropdown, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default function ServerRoomRow({ room }) {
   return (
     <tr className="align-middle text-muted border border-2">
       <td className="border-end-0">
         <Stack>
-          <span className="text-dark fw-bold"> { room.name } </span>
+          <span className="text-dark fw-bold"> {room.name} </span>
           <span> Ended: </span>
         </Stack>
       </td>
-      <td className="border-0"> { room.owner }</td>
-      <td className="border-0"> { room.friendly_id } </td>
+      <td className="border-0"> {room.owner}</td>
+      <td className="border-0"> {room.friendly_id} </td>
       <td className="border-0"> - </td>
       <td className="border-0"> - </td>
       <td className="border-start-0">
-        <DotsVerticalIcon className="hi-s text-muted" />
+        <Dropdown className="float-end cursor-pointer">
+          <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
+          <Dropdown.Menu>
+            <Dropdown.Item as={Link} to={`/rooms/${room.friendly_id}`}><CursorClickIcon className="hi-s" /> View</Dropdown.Item>
+            <Dropdown.Item><TrashIcon className="hi-s" /> Delete</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </td>
     </tr>
   );
