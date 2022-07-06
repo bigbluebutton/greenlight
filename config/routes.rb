@@ -67,6 +67,7 @@ Rails.application.routes.draw do
         resources :users, only: %i[create]  do
           collection do
             get '/active_users', to: 'users#active_users'
+            post '/:user_id/create_server_room', to: 'users#create_server_room'
           end
         end
         resources :server_rooms, only: %i[index]

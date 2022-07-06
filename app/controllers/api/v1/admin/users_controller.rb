@@ -5,6 +5,7 @@ module Api
     module Admin
       class UsersController < ApiController
         skip_before_action :verify_authenticity_token # TODO: amir - Revisit this.
+        before_action :find_user, only: :create_server_room
 
         include Avatarable
 
@@ -44,10 +45,30 @@ module Api
           render_json data: users, status: :ok
         end
 
+        # POST /api/v1/admin/users/:user_id/create_server_room.json
+        # Expects: {}
+        # Returns: { data: Array[serializable objects] , errors: Array[String] }
+        # Does: Creates a server room for a given user.
+
+        def create_server_room
+          room = Room.create!(create_server_room_params.merge(user_id: @user.id))
+
+          logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
+          render_json status: :created
+        end
+
         private
 
         def user_params
           params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :language)
+        end
+
+        def create_server_room_params
+          params.require(:room).permit(:name)
+        end
+
+        def find_user
+          @user = User.find params[:user_id]
         end
       end
     end

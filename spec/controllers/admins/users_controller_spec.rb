@@ -31,4 +31,29 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
       expect(response).to have_http_status(:created)
     end
   end
+
+  describe '#create_server_room' do
+    it 'creates a room for a user if params are valid' do
+      user = create(:user)
+      room_valid_params = { name: 'Awesome Room' }
+      expect { post :create_server_room, params: { user_id: user.id, room: room_valid_params } }.to(change { user.rooms.count })
+
+      expect(response).to have_http_status(:created)
+    end
+
+    it 'returns :not_found for unfound users' do
+      room_valid_params = { name: 'Awesome Room' }
+      post :create_server_room, params: { user_id: 404, room: room_valid_params }
+
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'returns :bad_request for invalid params' do
+      user = create(:user)
+
+      post :create_server_room, params: { user_id: user.id, not_room: {} }
+
+      expect(response).to have_http_status(:bad_request)
+    end
+  end
 end
