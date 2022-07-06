@@ -35,5 +35,7 @@ ServerRoomRow.propTypes = {
     name: PropTypes.string.isRequired,
     owner: PropTypes.string.isRequired,
     friendly_id: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    participants: PropTypes.number,
   }).isRequired,
 };

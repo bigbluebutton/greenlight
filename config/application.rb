@@ -22,12 +22,12 @@ module Greenlight
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Custom error messages for the Client side.
-    config.custom_error_msgs = {
-      # TODO: amir - Add I18n.
-      missing_params: 'Invalid or Missing parameters.',
-      record_not_found: 'Record Not Found',
-      server_error: 'Something Went Wrong'
-    }
+    # config.custom_error_msgs = {
+    #   # TODO: amir - Add I18n.
+    #   missing_params: 'Invalid or Missing parameters.',
+    #   record_not_found: 'Record Not Found',
+    #   server_error: 'Something Went Wrong'
+    # }
 
     ActiveModelSerializers.config.adapter = :json
   end

@@ -7,7 +7,6 @@ import useServerRooms from '../../../hooks/queries/admin/server_rooms/useServerR
 import ServerRoomRow from './ServerRoomRow';
 import SearchBarQuery from '../../shared/SearchBarQuery';
 import AdminNavSideBar from '../shared/AdminNavSideBar';
-import useActiveServerRooms from '../../../hooks/queries/admin/server_rooms/useActiveServerRooms';
 
 export default function ServerRooms() {
   const [input, setInput] = useState();
