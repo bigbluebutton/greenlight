@@ -19,7 +19,7 @@ module Api
         }.merge(user_params)) # TMP fix for presence validation of :provider
 
         # TODO: Add proper error logging for non-verified token hcaptcha
-        return render_json errors: user.errors.to_a, status: :bad_request if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+        return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         if user.save
           session[:user_id] = user.id
@@ -27,7 +27,7 @@ module Api
           render_json data: { token: }, status: :created # TODO: enable activation email sending.
         else
           # TODO: amir - Improve logging.
-          render_json errors: user.errors.to_a, status: :bad_request
+          render_error errors: user.errors.to_a
         end
       end
 
@@ -35,18 +35,18 @@ module Api
       def update
         user = User.find(params[:id])
         if user.update(user_params)
-          render_json status: :ok
+          render_data
         else
-          render_json errors: user.errors.to_a, status: :bad_request
+          render_error errors: user.errors.to_a
         end
       end
 
       def destroy
         user = User.find(params[:id])
         if user.destroy
-          render_json status: :ok
+          render_data
         else
-          render_json errors: user.errors.to_a, status: :bad_request
+          render_error errors: user.errors.to_a
         end
       end
 
@@ -54,7 +54,7 @@ module Api
         user = User.find(params[:id])
         user.avatar.purge
 
-        render_json status: :ok
+        render_data
       end
 
       # POST /api/v1/users/change_password.json
@@ -63,19 +63,19 @@ module Api
       # Does: Validates and change the user password.
 
       def change_password
-        return render_json status: :unauthorized unless current_user # TODO: generalise this.
+        return render_error status: :unauthorized unless current_user # TODO: generalise this.
 
-        return render_json status: :forbidden if current_user.external_id?
+        return render_error status: :forbidden if current_user.external_id?
 
         old_password = change_password_params[:old_password]
         new_password = change_password_params[:new_password]
 
-        return render_json status: :bad_request if new_password.blank? || old_password.blank?
+        return render_error status: :bad_request if new_password.blank? || old_password.blank?
 
-        return render_json status: :bad_request unless current_user.authenticate old_password
+        return render_error status: :bad_request unless current_user.authenticate old_password
 
         current_user.update! password: new_password
-        render_json
+        render_data
       end
 
       private

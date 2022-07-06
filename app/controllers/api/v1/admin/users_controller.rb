@@ -18,10 +18,10 @@ module Api
           }.merge(user_params)) # TMP fix for presence validation of :provider
 
           if user.save
-            render_json status: :created
+            render_data status: :created
           else
             # TODO: amir - Improve logging.
-            render_json errors: user.errors.to_a, status: :bad_request
+            render_error errors: user.errors.to_a, status: :bad_request
           end
         end
 

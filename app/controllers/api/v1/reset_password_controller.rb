@@ -13,12 +13,12 @@ module Api
 
       def create
         # TODO: Log events.
-        return render_json status: :bad_request unless params[:user]
+        return render_error unless params[:user]
 
         user = User.find_by email: params[:user][:email]
 
         # Silently fail for unfound or external users.
-        return render_json unless user && !user.external_id?
+        return render_data unless user && !user.external_id?
 
         token = user.generate_reset_token!
 
@@ -33,15 +33,15 @@ module Api
       def reset
         new_password = params[:user][:new_password]
 
-        return render_json status: :bad_request if new_password.blank?
+        return render_error status: :bad_request if new_password.blank?
 
         # Invalidating token and changing the password.
         # TODO: optimise this.
-        return render_json status: :internal_server_error unless @user.invalidate_reset_token
+        return render_error status: :internal_server_error unless @user.invalidate_reset_token
 
         @user.update! password: new_password
 
-        render_json
+        render_data
       end
 
       # POST /api/v1/reset_password/verify.json
@@ -50,20 +50,20 @@ module Api
       # Does: Validates the token.
 
       def verify
-        render_json
+        render_data
       end
 
       private
 
       def verify_reset_request
-        return render_json status: :bad_request if params[:user].blank?
+        return render_error status: :bad_request if params[:user].blank?
 
         token = params[:user][:token]
 
-        return render_json status: :bad_request if token.blank?
+        return render_error status: :bad_request if token.blank?
 
         @user = User.verify_reset_token(token)
-        render_json status: :forbidden unless @user
+        render_error status: :forbidden unless @user
       end
     end
   end
