@@ -11,7 +11,6 @@ export default function useCreateUser({ closeModal }) {
   const mutation = useMutation(
     createUser,
     { // Mutation config.
-      mutationKey: '/admin/users.json',
       onError: (error) => { console.error('Error:', error.message); },
       onSuccess: () => {
         closeModal();

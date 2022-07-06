@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from 'react-query';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import axios from '../../../helpers/Axios';
 
 export default function useUpdateUser(userId) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation(
-    (data) => axios.patch(`/api/v1/users/${userId}.json`, data),
+    (data) => axios.patch(`/users/${userId}.json`, data),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('useSessions');

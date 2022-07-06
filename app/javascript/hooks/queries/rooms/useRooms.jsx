@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import axios from '../../../helpers/Axios';
 
 export default function useRooms() {
-  return useQuery('getRooms', () => axios.get('/api/v1/rooms.json', {
+  return useQuery('getRooms', () => axios.get('/rooms.json', {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',

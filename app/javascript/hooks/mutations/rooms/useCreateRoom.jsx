@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-hot-toast';
-import axios, { ENDPOINTS } from '../../../helpers/Axios';
+import axios from '../../../helpers/Axios';
 
 export default function useCreateRoom({ onSettled }) {
   const ROOMSLISTQUERYKEY = 'getRooms'; // TODO: amir - create a central store for query keys.
   const queryClient = useQueryClient();
 
   // Calls the Backend rooms API #create action to create the room.
-  const createRoom = (roomData) => axios.post(ENDPOINTS.createRoom, roomData);
+  const createRoom = (roomData) => axios.post('/rooms.json', roomData);
 
   // Optimistically adds the room to the rooms querries cache.
   const optimisticCreateRoom = async (data) => {
@@ -31,7 +31,6 @@ export default function useCreateRoom({ onSettled }) {
   const mutation = useMutation(
     createRoom,
     { // Mutation config.
-      mutationKey: ENDPOINTS.createRoom,
       onMutate: optimisticCreateRoom,
       // If the mutation fails, use the context returned from onMutate to roll back
       onError: (err, newRoom, context) => {

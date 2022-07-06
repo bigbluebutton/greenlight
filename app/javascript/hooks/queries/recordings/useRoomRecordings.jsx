@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import axios from '../../../helpers/Axios';
 
 export default function useRoomRecordings(friendlyId, input) {
-  return useQuery(['getRoomRecordings', input], () => axios.get(`/api/v1/rooms/${friendlyId}/recordings.json`, {
+  return useQuery(['getRoomRecordings', input], () => axios.get(`/rooms/${friendlyId}/recordings.json`, {
     params: {
       q: input,
     },

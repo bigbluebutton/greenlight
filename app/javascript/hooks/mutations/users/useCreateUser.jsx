@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import axios, { ENDPOINTS } from '../../../helpers/Axios';
+import axios from '../../../helpers/Axios';
 
 export default function useCreateUser() {
-  const createUser = (data) => axios.post(ENDPOINTS.signup, data);
+  const createUser = (data) => axios.post('/users.json', data);
   const inferUserLang = () => {
     const language = window.navigator.userLanguage || window.navigator.language;
     return language.match(/^[a-z]{2,}/)?.at(0);
@@ -14,7 +14,6 @@ export default function useCreateUser() {
   const mutation = useMutation(
     createUser,
     { // Mutation config.
-      mutationKey: ENDPOINTS.signup,
       onError: () => { toast.error('There was a problem completing that action. \n Please try again.'); },
       onSuccess: () => {
         queryClient.invalidateQueries('useSessions');

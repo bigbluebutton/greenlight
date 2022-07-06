@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import axios from '../../../helpers/Axios';
 
 export default function useEnv() {
-  return useQuery('getEnv', () => axios.get('/api/v1/env.json', {
+  return useQuery('getEnv', () => axios.get('/env.json', {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',

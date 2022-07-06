@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import axios, { ENDPOINTS } from '../../../helpers/Axios';
+import axios from '../../../helpers/Axios';
 
 export default function useCreateSession(token) {
-  const createSession = (session) => axios.post(ENDPOINTS.signin, { session, token });
+  const createSession = (session) => axios.post('/sessions.json', { session, token });
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 

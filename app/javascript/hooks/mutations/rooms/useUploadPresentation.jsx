@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import axios from '../../../helpers/Axios';
 
 export default function useUploadPresentation(friendlyId) {
   const queryClient = useQueryClient();
@@ -8,7 +8,7 @@ export default function useUploadPresentation(friendlyId) {
   const uploadPresentation = (data) => {
     const formData = new FormData();
     formData.append('presentation', data);
-    return axios.patch(`/api/v1/rooms/${friendlyId}.json`, formData);
+    return axios.patch(`/rooms/${friendlyId}.json`, formData);
   };
 
   const mutation = useMutation(uploadPresentation, {

@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from 'react-query';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import axios from '../../../helpers/Axios';
 
-const deleteSession = () => axios.delete('/api/v1/sessions/signout.json');
+const deleteSession = () => axios.delete('/sessions/signout.json');
 
 export default function useDeleteSession() {
   const queryClient = useQueryClient();
