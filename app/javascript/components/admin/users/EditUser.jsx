@@ -15,6 +15,7 @@ export default function EditUser() {
   const { isLoading, data: user } = useUser(userId);
 
   if (isLoading) return <Spinner />;
+
   return (
     <div id="admin-panel" className="wide-background">
       <h2 className="my-5"> Administrator Panel </h2>

@@ -9,14 +9,14 @@ import Form
 import useDeleteUser from '../../hooks/mutations/admins/useDeleteUser';
 import Spinner from '../shared/stylings/Spinner';
 
-export default function DeleteUserForm({ userId, handleClose }) {
+export default function DeleteUserForm({ user, handleClose }) {
   const methods = useForm();
   const { isSubmitting } = methods.formState;
-  const { onSubmit } = useDeleteUser(userId);
+  const { onSubmit } = useDeleteUser(user?.id);
 
   return (
     <>
-      <p className="text-center"> Are you sure you want to delete your account?</p>
+      <p className="text-center"> Are you sure you want to delete {user.name}&quot;s account?</p>
       <Form methods={methods} onSubmit={onSubmit}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="primary-reverse" onClick={handleClose}>
@@ -33,8 +33,16 @@ export default function DeleteUserForm({ userId, handleClose }) {
 }
 
 DeleteUserForm.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    avatar: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    provider: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired,
+  }).isRequired,
   handleClose: PropTypes.func,
-  userId: PropTypes.string.isRequired,
 };
 
 DeleteUserForm.defaultProps = {
