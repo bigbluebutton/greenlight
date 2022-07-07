@@ -6,7 +6,7 @@ import useDeleteAvatar from '../../hooks/mutations/users/useDeleteAvatar';
 
 export default function DeleteAvatarForm({ user }) {
   const methods = useForm();
-  const deleteAvatar = useDeleteAvatar(currentUser);
+  const deleteAvatar = useDeleteAvatar(user);
 
   return (
     <Form methods={methods} onSubmit={deleteAvatar.mutate}>

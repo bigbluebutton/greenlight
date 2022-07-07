@@ -29,7 +29,7 @@ export default function UpdateUserForm({ user }) {
     resolver: yupResolver(validationSchema),
   });
   const { formState: { isSubmitting } } = methods;
-  const updateUser = useUpdateUser(currentUser?.id);
+  const updateUser = useUpdateUser(user?.id);
   const fields = updateUserFormFields;
 
   return (
