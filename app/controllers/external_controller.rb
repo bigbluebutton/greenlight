@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ExternalController < ApplicationController
-  , only: :recording_ready
+  skip_before_action :verify_authenticity_token, only: :recording_ready
 
   # GET 'auth/:provider/callback'
   def create_user
