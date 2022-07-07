@@ -7,8 +7,11 @@ import { TrashIcon, UserIcon, LockClosedIcon } from '@heroicons/react/outline';
 import DeleteAccount from './DeleteAccount';
 import AccountInfo from './AccountInfo';
 import ChangePassword from './ChangePassword';
+import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function Profile() {
+  const currentUser = useAuth();
+
   return (
     <div id="profile" className="wide-background">
       <h2 className="my-5"> Profile </h2>
@@ -42,7 +45,7 @@ export default function Profile() {
             <Col sm={9}>
               <Tab.Content className="p-3 ps-0">
                 <Tab.Pane eventKey="first">
-                  <AccountInfo />
+                  <AccountInfo user={currentUser} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
                   <DeleteAccount />

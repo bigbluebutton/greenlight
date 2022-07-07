@@ -3,6 +3,12 @@
 module Api
   module V1
     class UsersController < ApiController
+      def show
+        user = User.find(params[:id])
+
+        render_data data: user, status: :ok
+      end
+
       # POST /api/v1/users.json
       # Expects: { user: { :name, :email, :password, :password_confirmation } }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }

@@ -4,14 +4,14 @@ import {
   Button, Form as BootStrapForm, Stack,
 } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
+import PropTypes from 'prop-types';
 import { validationSchema, updateUserFormFields } from '../../helpers/forms/UpdateUserFormHelpers';
 import Form from './Form';
 import FormControl from './FormControl';
 import useUpdateUser from '../../hooks/mutations/users/useUpdateUser';
-import { useAuth } from '../../contexts/auth/AuthProvider';
 import Spinner from '../shared/stylings/Spinner';
 
-export default function UpdateUserForm() {
+export default function UpdateUserForm({ user }) {
   // TODO: Make LOCALES a context that provides the available languages and their native names in the client app.
   const LOCALES = {
     en: 'English',
@@ -20,17 +20,16 @@ export default function UpdateUserForm() {
     es: 'Española',
   };
 
-  const currentUser = useAuth();
   const methods = useForm({
     defaultValues: {
-      name: currentUser?.name,
-      email: currentUser?.email,
-      language: currentUser?.language,
+      name: user?.name,
+      email: user?.email,
+      language: user?.language,
     },
     resolver: yupResolver(validationSchema),
   });
   const { formState: { isSubmitting } } = methods;
-  const updateUser = useUpdateUser(currentUser?.id);
+  const updateUser = useUpdateUser(user?.id);
   const fields = updateUserFormFields;
 
   return (
@@ -56,8 +55,8 @@ export default function UpdateUserForm() {
         <Button
           variant="primary-light"
           onClick={() => methods.reset({
-            name: currentUser.name,
-            email: currentUser.email,
+            name: user.name,
+            email: user.email,
           })}
         >
           Cancel
@@ -72,3 +71,16 @@ export default function UpdateUserForm() {
     </Form>
   );
 }
+
+UpdateUserForm.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    avatar: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    provider: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
+  }).isRequired,
+};

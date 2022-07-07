@@ -16,6 +16,7 @@ export default function useCreateAvatar(currentUser) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('useSessions');
+        queryClient.invalidateQueries('getUser');
         toast.success('Avatar updated');
       },
       onError: () => {

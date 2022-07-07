@@ -27,7 +27,7 @@ module Api
 
         def active_users
           # TODO: Change to get active users only
-          users = User.all.search(params[:search])
+          users = User.with_attached_avatar.all.search(params[:search])
 
           users.map! do |user|
             {

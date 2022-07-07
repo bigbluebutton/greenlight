@@ -1,13 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
 import Form from './Form';
 import useDeleteAvatar from '../../hooks/mutations/users/useDeleteAvatar';
-import { useAuth } from '../../contexts/auth/AuthProvider';
 
-export default function DeleteUserForm() {
-  const currentUser = useAuth();
+export default function DeleteAvatarForm({ user }) {
   const methods = useForm();
-  const deleteAvatar = useDeleteAvatar(currentUser);
+  const deleteAvatar = useDeleteAvatar(user);
 
   return (
     <Form methods={methods} onSubmit={deleteAvatar.mutate}>
@@ -17,3 +16,15 @@ export default function DeleteUserForm() {
     </Form>
   );
 }
+
+DeleteAvatarForm.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    avatar: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    provider: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired,
+  }).isRequired,
+};

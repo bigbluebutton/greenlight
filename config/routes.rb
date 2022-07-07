@@ -17,7 +17,7 @@ Rails.application.routes.draw do
           delete 'signout', to: 'sessions#destroy'
         end
       end
-      resources :users, only: %i[create update destroy] do
+      resources :users, only: %i[show create update destroy] do
         post '/change_password', to: 'users#change_password', on: :collection
         member do
           delete :purge_avatar
