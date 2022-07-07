@@ -9,7 +9,7 @@ import Spinner from '../shared/stylings/Spinner';
 import useResetPwd from '../../hooks/mutations/users/useResetPwd';
 
 export default function ResetPwdForm({ token }) {
-  const { onSubmit: resetPwd } = useResetPwd();
+  const resetPwd = useResetPwd();
 
   resetPwdFormConfig.defaultValues.token = token;
   const methods = useForm(resetPwdFormConfig);
@@ -17,7 +17,7 @@ export default function ResetPwdForm({ token }) {
   const fields = resetPwdFormFields;
 
   return (
-    <Form methods={methods} onSubmit={resetPwd}>
+    <Form methods={methods} onSubmit={resetPwd.mutate}>
       <FormControl field={fields.new_password} type="password" />
       <FormControl field={fields.password_confirmation} type="password" />
 

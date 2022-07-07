@@ -10,18 +10,18 @@ import useDeleteRecording from '../../hooks/mutations/recordings/useDeleteRecord
 
 export default function DeleteRecordingForm({ recordId, handleClose }) {
   const methods = useForm();
-  const { handleDeleteRecording, isLoading } = useDeleteRecording(recordId);
+  const deleteRecording = useDeleteRecording(recordId);
   return (
     <>
       <p className="text-center"> Are you sure you want to delete this recording?</p>
-      <Form methods={methods} onSubmit={handleDeleteRecording}>
+      <Form methods={methods} onSubmit={deleteRecording.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="primary-reverse" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="danger" type="submit" disabled={isLoading}>
+          <Button variant="danger" type="submit" disabled={deleteRecording.isLoading}>
             Delete
-            { isLoading && <Spinner /> }
+            { deleteRecording.isLoading && <Spinner /> }
           </Button>
         </Stack>
       </Form>

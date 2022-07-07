@@ -11,12 +11,12 @@ export default function ChangePwdForm() {
   const methods = useForm(changePwdFormConfig);
   const fields = changePwdFormFields;
   const { isSubmitting } = methods.formState;
-  const { onSubmit: handleChangePwd } = useChangePwd();
+  const changePwd = useChangePwd();
 
   return (
     <Form
       methods={methods}
-      onSubmit={handleChangePwd}
+      onSubmit={changePwd.mutate}
     >
       <FormControl field={fields.old_password} type="password" />
       <FormControl field={fields.new_password} type="password" />

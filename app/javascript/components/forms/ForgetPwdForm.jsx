@@ -8,13 +8,13 @@ import Spinner from '../shared/stylings/Spinner';
 import useCreateResetPwd from '../../hooks/mutations/users/useCreateResetPwd';
 
 export default function ForgetPwdForm() {
-  const { onSubmit: createResetPwd } = useCreateResetPwd();
+  const createResetPwd = useCreateResetPwd();
   const methods = useForm(forgetPwdFormConfig);
   const { isSubmitting } = methods.formState;
   const fields = forgetPwdFormFields;
 
   return (
-    <Form methods={methods} onSubmit={createResetPwd}>
+    <Form methods={methods} onSubmit={createResetPwd.mutate}>
       <FormControl field={fields.email} type="email" />
 
       <Stack className="mt-1" gap={1}>

@@ -5,10 +5,8 @@ import axios from '../../../helpers/Axios';
 export default function useDeleteAvatar(currentUser) {
   const queryClient = useQueryClient();
 
-  const deleteAvatar = (data) => axios.delete(`/users/${currentUser.id}/purge_avatar.json`, data);
-
-  const mutation = useMutation(
-    deleteAvatar,
+  return useMutation(
+    (data) => axios.delete(`/users/${currentUser.id}/purge_avatar.json`, data),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('useSessions');
@@ -19,7 +17,4 @@ export default function useDeleteAvatar(currentUser) {
       },
     },
   );
-
-  const onSubmit = (data) => mutation.mutateAsync(data).catch(/* Prevents the promise exception from bubbling */() => {});
-  return { onSubmit, ...mutation };
 }

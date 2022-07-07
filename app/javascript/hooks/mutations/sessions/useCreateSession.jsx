@@ -4,21 +4,19 @@ import { toast } from 'react-hot-toast';
 import axios from '../../../helpers/Axios';
 
 export default function useCreateSession(token) {
-  const createSession = (session) => axios.post('/sessions.json', { session, token });
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const mutation = useMutation(createSession, {
-    // Re-fetch the current_user and redirect to homepage if Mutation is successful.
-    onSuccess: () => {
-      queryClient.invalidateQueries('useSessions');
-      navigate('/rooms');
+  return useMutation(
+    (session) => axios.post('/sessions.json', { session, token }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('useSessions');
+        navigate('/rooms');
+      },
+      onError: () => {
+        toast.error('Incorrect username or password. \n Please try again');
+      },
     },
-    onError: () => {
-      toast.error('Incorrect username or password. \n Please try again');
-    },
-  });
-
-  const onSubmit = (session) => mutation.mutateAsync(session).catch(/* Prevents the promise exception from bubbling */() => {});
-  return { onSubmit, ...mutation };
+  );
 }

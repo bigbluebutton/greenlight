@@ -9,19 +9,19 @@ import useUpdateRecording from '../../hooks/mutations/recordings/useUpdateRecord
 export default function UpdateRecordingForm({
   name, noLabel, recordId, hidden, setIsUpdating,
 }) {
-  const { onSubmit: handleUpdateRecording, isLoading } = useUpdateRecording(recordId);
+  const updateRecording = useUpdateRecording(recordId);
   UpdateRecordingsFormConfig.defaultValues.name = name;
   const methods = useForm(UpdateRecordingsFormConfig);
   const fields = UpdateRecordingsFormFields;
-  useEffect(() => { setIsUpdating(isLoading); }, [isLoading]);
+  useEffect(() => { setIsUpdating(updateRecording.isLoading); }, [updateRecording.isLoading]);
 
   return (
     <Form
       methods={methods}
-      onBlur={methods.handleSubmit(handleUpdateRecording)}
+      onBlur={methods.handleSubmit(updateRecording.mutate)}
       hidden={hidden}
     >
-      <FormControl field={fields.name} noLabel={noLabel} type="text" disabled={isLoading} />
+      <FormControl field={fields.name} noLabel={noLabel} type="text" disabled={updateRecording.isLoading} />
     </Form>
   );
 }

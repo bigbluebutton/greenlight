@@ -3,7 +3,6 @@
 module Api
   module V1
     class ResetPasswordController < ApiController
-      skip_before_action :verify_authenticity_token
       before_action :verify_reset_request, only: %i[reset verify]
 
       # POST /api/v1/reset_password.json

@@ -30,11 +30,11 @@ export default function UpdateUserForm() {
     resolver: yupResolver(validationSchema),
   });
   const { formState: { isSubmitting } } = methods;
-  const { onSubmit } = useUpdateUser(currentUser?.id);
+  const updateUser = useUpdateUser(currentUser?.id);
   const fields = updateUserFormFields;
 
   return (
-    <Form methods={methods} onSubmit={onSubmit}>
+    <Form methods={methods} onSubmit={updateUser.mutate}>
       <FormControl field={fields.name} type="text" />
       <FormControl field={fields.email} type="email" />
       <FormControl field={fields.language} control={BootStrapForm.Select}>

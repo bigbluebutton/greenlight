@@ -3,7 +3,6 @@
 module Api
   module V1
     class RecordingsController < ApiController
-      skip_before_action :verify_authenticity_token # TODO: - Revisit this.
       before_action :find_recording, only: :update
 
       # GET /api/v1/recordings.json

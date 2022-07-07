@@ -2,16 +2,19 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../../helpers/Axios';
 
-export default function useVerifyToken(token) {
-  const resetPwd = (data) => axios.post('/reset_password/verify.json', data);
+export default function useVerifyToken() {
   const navigate = useNavigate();
-  const mutation = useMutation(
-    resetPwd,
-    { // Mutation config.
-      onError: (error) => { console.error('Error:', error.message); navigate('/'); },
-      onSuccess: () => { console.info('Password changed.'); },
+
+  return useMutation(
+    (data) => axios.post('/reset_password/verify.json', data),
+    {
+      onSuccess: () => {
+        console.info('Password changed.');
+      },
+      onError: (error) => {
+        console.error('Error:', error.message);
+        navigate('/');
+      },
     },
   );
-  const verify = () => mutation.mutate({ user: { token } });
-  return { verify, ...mutation };
 }

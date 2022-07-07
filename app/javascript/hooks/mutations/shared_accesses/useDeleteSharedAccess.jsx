@@ -5,10 +5,8 @@ import axios from '../../../helpers/Axios';
 export default function useDeleteSharedAccess(friendlyId) {
   const queryClient = useQueryClient();
 
-  const deleteSharedAccess = (data) => axios.delete(`/shared_accesses/${friendlyId}.json`, { data });
-
-  const mutation = useMutation(
-    deleteSharedAccess,
+  return useMutation(
+    (data) => axios.delete(`/shared_accesses/${friendlyId}.json`, { data }),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getSharedUsers');
@@ -19,7 +17,4 @@ export default function useDeleteSharedAccess(friendlyId) {
       },
     },
   );
-
-  const handleDeleteSharedAccess = (user) => mutation.mutateAsync(user).catch(/* Prevents the promise exception from bubbling */() => {});
-  return { handleDeleteSharedAccess, ...mutation };
 }

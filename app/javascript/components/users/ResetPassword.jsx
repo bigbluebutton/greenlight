@@ -8,13 +8,13 @@ import Spinner from '../shared/stylings/Spinner';
 
 export default function ResetPassword() {
   const { token } = useParams();
-  const { verify, isLoading } = useVerifyToken(token);
+  const verifyToken = useVerifyToken();
 
   useEffect(() => {
-    verify();
+    verifyToken.mutate({ user: { token } });
   }, []);
 
-  if (isLoading) return <Spinner />;
+  if (verifyToken.isLoading) return <Spinner />;
 
   return (
     <div className="wide-background">
