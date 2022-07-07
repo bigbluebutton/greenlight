@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import {
   Row, Col, Tab, Stack, Container,
 } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
-import ButtonLink from '../../shared/stylings/buttons/ButtonLink';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ArrowCircleLeftIcon } from '@heroicons/react/outline';
 import AdminNavSideBar from '../shared/AdminNavSideBar';
 import DeleteAccount from './DeleteAccount';
 import useUser from '../../../hooks/queries/users/useUser';
@@ -14,6 +14,7 @@ import Spinner from '../../shared/stylings/Spinner';
 export default function DeleteUser() {
   const { userId } = useParams();
   const { isLoading, data: user } = useUser(userId);
+  const navigate = useNavigate();
 
   if (isLoading) return <Spinner />;
 
@@ -33,7 +34,9 @@ export default function DeleteUser() {
                 <Row className="mb-4">
                   <Stack direction="horizontal" className="w-100 mt-4">
                     <h3 className="mb-0">Delete User</h3>
-                    <ButtonLink to="/adminpanel/users" className="ms-auto">Back</ButtonLink>
+                    <div className="ms-auto cursor-pointer" aria-hidden="true" onClick={() => navigate('/adminpanel/users')}>
+                      <ArrowCircleLeftIcon className="hi-s" /> Back
+                    </div>
                   </Stack>
                   <span className="text-muted mb-4"> Users/Delete </span>
                   <hr className="solid" />
