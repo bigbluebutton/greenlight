@@ -3,8 +3,6 @@
 module Api
   module V1
     class VerifyAccountController < ApiController
-      
-
       # POST /api/v1/verify_account.json
       # Expects: { user: {:email} }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }

@@ -3,9 +3,6 @@
 module Api
   module V1
     class SessionsController < ApiController
-      # TODO: samuel - Bypass CSRF token for now
-      
-
       # GET /api/v1/sessions
       def index
         return render_data data: current_user, serializer: CurrentUserSerializer if current_user

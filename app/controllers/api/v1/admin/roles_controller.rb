@@ -4,8 +4,6 @@ module Api
   module V1
     module Admin
       class RolesController < ApiController
-        
-
         # POST /api/v1/admin/roles.json
         # Expects: {}
         # Returns: { data: Array[serializable objects] , errors: Array[String] }

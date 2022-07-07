@@ -3,7 +3,6 @@
 module Api
   module V1
     class RoomSettingsController < ApiController
-       # TODO: amir - Revisit this.
       before_action :find_room, only: %i[show update]
 
       # GET /api/v1/room_settings/:friendly_id

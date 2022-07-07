@@ -4,7 +4,6 @@ module Api
   module V1
     module Admin
       class UsersController < ApiController
-         # TODO: amir - Revisit this.
         before_action :find_user, only: :create_server_room
 
         include Avatarable

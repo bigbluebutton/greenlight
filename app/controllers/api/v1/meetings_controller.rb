@@ -3,7 +3,6 @@
 module Api
   module V1
     class MeetingsController < ApiController
-       # TODO: amir - Revisit this.
       before_action :find_room, only: %i[start join status]
 
       # POST /api/v1/meetings/:friendly_id/start.json

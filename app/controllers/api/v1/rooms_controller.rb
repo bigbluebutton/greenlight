@@ -3,7 +3,6 @@
 module Api
   module V1
     class RoomsController < ApiController
-       # TODO: amir - Revisit this.
       before_action :find_room,
                     only: %i[show update recordings recordings_processing
                              purge_presentation access_codes

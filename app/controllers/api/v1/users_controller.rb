@@ -3,7 +3,6 @@
 module Api
   module V1
     class UsersController < ApiController
-       # TODO: amir - Revisit this.
       # POST /api/v1/users.json
       # Expects: { user: { :name, :email, :password, :password_confirmation } }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }

@@ -3,7 +3,6 @@
 module Api
   module V1
     class RecordingsController < ApiController
-       # TODO: - Revisit this.
       before_action :find_recording, only: :update
 
       # GET /api/v1/recordings.json

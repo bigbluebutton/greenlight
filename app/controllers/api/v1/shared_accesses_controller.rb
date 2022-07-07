@@ -3,7 +3,6 @@
 module Api
   module V1
     class SharedAccessesController < ApiController
-      
       before_action :find_room
 
       include Avatarable
