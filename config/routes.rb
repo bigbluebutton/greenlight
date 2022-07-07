@@ -71,7 +71,7 @@ Rails.application.routes.draw do
           end
         end
         resources :server_rooms, only: %i[index]
-        resources :roles, only: :index
+        resources :roles, only: %i[index create]
       end
     end
   end

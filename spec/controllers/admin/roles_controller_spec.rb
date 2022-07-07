@@ -51,4 +51,20 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       end
     end
   end
+
+  describe 'roles#create' do
+    it 'returns :created and creates a role for valid params' do
+      valid_params = { name: 'CrazyRole' }
+      expect { post :create, params: { role: valid_params } }.to change(Role, :count).from(0).to(1)
+      expect(response).to have_http_status(:created)
+      expect(JSON.parse(response.body)['errors']).to be_empty
+    end
+
+    it 'returns :bad_request for invalid params' do
+      invalid_params = { name: '' }
+      post :create, params: { not_role: invalid_params }
+      expect(response).to have_http_status(:bad_request)
+      expect(JSON.parse(response.body)['errors']).not_to be_empty
+    end
+  end
 end

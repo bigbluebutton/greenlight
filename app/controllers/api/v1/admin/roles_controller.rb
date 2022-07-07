@@ -15,6 +15,25 @@ module Api
           roles = Role.select(:id, :name, :color)&.order(sort_config)&.search(params[:search])
           render_json data: roles
         end
+
+        # POST /api/v1/roles.json
+        # Expects: { role: {:name, :color} }
+        # Returns: { data: Array[serializable objects] , errors: Array[String] }
+        # Does: Creates a role.
+
+        def create
+          role = Role.new role_params
+
+          return render_error errors: role.errors.to_a, status: :bad_request unless role.save
+
+          render_json status: :created
+        end
+
+        private
+
+        def role_params
+          params.require(:role).permit(:name)
+        end
       end
     end
   end
