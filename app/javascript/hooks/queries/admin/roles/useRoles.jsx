@@ -1,13 +1,18 @@
 import { useQuery } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
 import axios from '../../../../helpers/Axios';
 
-export default function useRoles(query) {
+export default function useRoles(search) {
+  const [searchParams] = useSearchParams();
+
   const params = {
-    search: query,
+    'sort[column]': searchParams.get('sort[column]'),
+    'sort[direction]': searchParams.get('sort[direction]'),
+    search,
   };
 
   return useQuery(
-    ['getRoles', query],
+    ['getRoles', { ...params }],
     () => axios.get('/admin/roles.json', { params }).then((resp) => resp.data.data),
   );
 }
