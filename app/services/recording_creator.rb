@@ -7,7 +7,7 @@ class RecordingCreator
 
   def call
     room_id = Room.find_by(meeting_id: @recording[:meetingID]).id
-    visibility = @recording[:published] ? 'Published' : 'Unpublished'
+    visibility = get_recording_visibility(recording: @recording)
 
     # Get length of presentation format(s)
     length = get_recording_length(recording: @recording)
@@ -22,6 +22,15 @@ class RecordingCreator
   end
 
   private
+
+  # Returns the visibility of the recording (published, unpublished or protected)
+  def get_recording_visibility(recording:)
+    return 'Protected' if recording[:protected] == 'true'
+
+    return 'Published' if recording[:published] == 'true'
+
+    'Unpublished'
+  end
 
   # Returns the length of presentation recording for the recording given
   def get_recording_length(recording:)

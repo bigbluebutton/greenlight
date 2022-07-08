@@ -3,7 +3,7 @@
 module Api
   module V1
     class RecordingsController < ApiController
-      before_action :find_recording, only: :update
+      before_action :find_recording, only: %i[update update_visibility]
 
       # GET /api/v1/recordings.json
       # Returns: { data: Array[serializable objects(recordings)] , errors: Array[String] }
@@ -45,17 +45,27 @@ module Api
         render_data
       end
 
-      def publish_recording
-        publish = params[:publish]
-        record_id = params[:record_id]
-        case publish
-        when 'true'
-          visibility = 'Published'
-        when 'false'
-          visibility = 'Unpublished'
-        end
-        Recording.find_by(record_id:).update(visibility:)
-        BigBlueButtonApi.new.publish_recordings(record_ids: record_id, publish:)
+      # POST /api/v1/recordings/update_visibility.json
+      # unpublished -> protected (publish: true, protected: true)
+      # unpublished -> published (publish: true, protected: false)
+      # protected -> unpublished (publish: false, protected: false)
+      # protected -> published (publish: true, protected: false)
+      # published -> protected (publish: true, protected: true)
+      # published -> unpublished (publish: false, protected: false)
+      def update_visibility
+        new_visibility = params[:visibility]
+        old_visibility = @recording.visibility
+        bbb_api = BigBlueButtonApi.new
+
+        bbb_api.publish_recordings(record_ids: @recording.record_id, publish: true) if old_visibility == 'Unpublished'
+
+        bbb_api.publish_recordings(record_ids: @recording.record_id, publish: false) if new_visibility == 'Unpublished'
+
+        bbb_api.update_recordings(record_id: @recording.record_id, meta_hash: { protect: true }) if new_visibility == 'Protected'
+
+        bbb_api.update_recordings(record_id: @recording.record_id, meta_hash: { protect: false }) if old_visibility == 'Protected'
+
+        @recording.update!(visibility: new_visibility)
 
         render_data
       end

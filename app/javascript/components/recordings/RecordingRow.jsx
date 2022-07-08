@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import { Button, Stack } from 'react-bootstrap';
 import Modal from '../shared/Modal';
 import DeleteRecordingForm from '../forms/DeleteRecordingForm';
-import usePublishRecording from '../../hooks/mutations/recordings/usePublishRecording';
+import useUpdateRecordingVisibility from '../../hooks/mutations/recordings/useUpdateRecordingVisibility';
 import UpdateRecordingForm from '../forms/UpdateRecordingForm';
 import Spinner from '../shared/stylings/Spinner';
 
 export default function RecordingRow({ recording }) {
-  const publishRecording = usePublishRecording();
+  const updateRecordingVisibility = useUpdateRecordingVisibility();
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
@@ -49,12 +49,13 @@ export default function RecordingRow({ recording }) {
         <Form.Select
           className="visibility-dropdown"
           onChange={(event) => {
-            publishRecording.mutate({ publish: event.target.value, record_id: recording.record_id });
+            updateRecordingVisibility.mutate({ visibility: event.target.value, id: recording.record_id });
           }}
-          defaultValue={recording.visibility === 'Published'}
+          defaultValue={recording.visibility}
         >
-          <option value="true">Published</option>
-          <option value="false">Unpublished</option>
+          <option value="Published">Published</option>
+          <option value="Unpublished">Unpublished</option>
+          <option value="Protected">Protected</option>
         </Form.Select>
       </td>
       <td>

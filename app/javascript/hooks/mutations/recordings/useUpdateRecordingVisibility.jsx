@@ -2,11 +2,11 @@ import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-hot-toast';
 import axios from '../../../helpers/Axios';
 
-export default function usePublishRecording() {
+export default function useUpdateRecordingVisibility() {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (visibilityData) => axios.post('/recordings/publish.json', visibilityData),
+    (visibilityData) => axios.post('/recordings/update_visibility.json', visibilityData),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getRecordings');
