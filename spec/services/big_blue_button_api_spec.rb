@@ -32,7 +32,7 @@ describe BigBlueButtonApi, type: :service do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:update_recordings).and_return(true)
       expect_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:update_recordings).with('recording_id', {},
                                                                                                   { 'meta_recording-name': 'recording_new_name' })
-      bbb_service.update_recordings(record_ids: 'recording_id', meta_hash: { 'meta_recording-name': 'recording_new_name' })
+      bbb_service.update_recordings(record_id: 'recording_id', meta_hash: { 'meta_recording-name': 'recording_new_name' })
     end
   end
 end

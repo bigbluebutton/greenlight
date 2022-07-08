@@ -33,7 +33,7 @@ module Api
         new_name = recording_params[:name]
         return render_error errors: [Rails.configuration.custom_error_msgs[:missing_params]] if new_name.blank?
 
-        BigBlueButtonApi.new.update_recordings record_ids: @recording.record_id, meta_hash: { meta_name: new_name }
+        BigBlueButtonApi.new.update_recordings record_id: @recording.record_id, meta_hash: { meta_name: new_name }
         @recording.update! name: new_name
 
         render_data data: @recording
@@ -61,9 +61,9 @@ module Api
 
         bbb_api.publish_recordings(record_ids: @recording.record_id, publish: false) if new_visibility == 'Unpublished'
 
-        bbb_api.update_recordings(record_ids: @recording.record_id, meta_hash: { protect: true }) if new_visibility == 'Protected'
+        bbb_api.update_recordings(record_id: @recording.record_id, meta_hash: { protect: true }) if new_visibility == 'Protected'
 
-        bbb_api.update_recordings(record_ids: @recording.record_id, meta_hash: { protect: false }) if old_visibility == 'Protected'
+        bbb_api.update_recordings(record_id: @recording.record_id, meta_hash: { protect: false }) if old_visibility == 'Protected'
 
         @recording.update!(visibility: new_visibility)
 
