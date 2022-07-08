@@ -8,22 +8,23 @@ import Form from './Form';
 import Spinner from '../shared/stylings/Spinner';
 import FormControl from './FormControl';
 import { createRoleFormConfig, createRoleFormFields } from '../../helpers/forms/CreateRoleFormHelpers';
+import useCreateRole from '../../hooks/mutations/roles/useCreateRole';
 
 export default function CreateRoleForm({ handleClose }) {
+  const createRole = useCreateRole({ onSettled: handleClose });
   const methods = useForm(createRoleFormConfig);
-  const { isSubmitting } = methods.formState;
   const fields = createRoleFormFields;
 
   return (
-    <Form methods={methods} onSubmit={() => console.log('Submitted.')}>
+    <Form methods={methods} onSubmit={createRole.mutate}>
       <FormControl field={fields.name} type="text" />
       <Stack className="mt-1" direction="horizontal" gap={1}>
         <Button variant="primary-light" className="ms-auto" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" type="submit" disabled={isSubmitting}>
+        <Button variant="primary" type="submit" disabled={createRole.isLoading}>
           Create Role
-          {isSubmitting && <Spinner />}
+          {createRole.isLoading && <Spinner />}
         </Button>
       </Stack>
     </Form>
