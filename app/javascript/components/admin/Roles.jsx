@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import {
-  Col, Container, Row, Tab, Card,
+  Col, Container, Row, Tab, Card, Stack,
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
 import RolesList from './roles/RolesList';
 import SearchBarQuery from '../shared/SearchBarQuery';
 import useRoles from '../../hooks/queries/admin/roles/useRoles';
+import CreateRoleModal from '../shared/modals/CreateRoleModal';
 
 export default function Roles() {
   const [input, setInput] = useState();
@@ -27,8 +28,14 @@ export default function Roles() {
                 <Container>
                   <Row className="my-1"><h3>Roles</h3></Row>
                   <Row><hr className="w-100 mx-0" /></Row>
-                  <Row className="mt-1 mb-2">
-                    <Col md="1"><SearchBarQuery setInput={setInput} /></Col>
+                  <Row className="my-2">
+                    <Stack direction="horizontal" className="w-100">
+                      <div>
+                        <SearchBarQuery setInput={setInput} />
+                      </div>
+                      <CreateRoleModal />
+                    </Stack>
+
                   </Row>
                   <Row className="my-2">
                     <Col><RolesList isLoading={isLoading} roles={roles} /></Col>
