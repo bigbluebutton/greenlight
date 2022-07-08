@@ -1,41 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router-dom';
 import { ArrowSmDownIcon, ArrowSmUpIcon, SwitchVerticalIcon } from '@heroicons/react/outline';
 
-function IconFactory(clicks) {
-  switch (clicks) {
-    case 1: return ArrowSmUpIcon;
-    case 2: return ArrowSmDownIcon;
-    default: return SwitchVerticalIcon;
+function IconFactory(fieldName, column, direction) {
+  if (column === fieldName) {
+    if (direction === 'ASC') {
+      return ArrowSmUpIcon;
+    }
+    if (direction === 'DESC') {
+      return ArrowSmDownIcon;
+    }
   }
+
+  return SwitchVerticalIcon;
 }
 
-function useSortByParam(clicks, fieldName) {
+export default function SortBy({ className, fieldName }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  useEffect(() => {
-    let sortDirection = '';
-    if (clicks) {
-      if (clicks === 1) {
-        sortDirection = 'ASC';
-      } else if (clicks === 2) {
-        sortDirection = 'DESC';
-      }
+
+  const column = searchParams.get('sort[column]');
+  const direction = searchParams.get('sort[direction]');
+
+  const handleClick = () => {
+    if (column !== fieldName || (direction !== 'ASC' && direction !== 'DESC')) {
       searchParams.set('sort[column]', fieldName);
-      searchParams.set('sort[direction]', sortDirection);
+      searchParams.set('sort[direction]', 'ASC');
+    } else if (direction === 'ASC') {
+      searchParams.set('sort[direction]', 'DESC');
     } else {
       searchParams.delete('sort[column]');
       searchParams.delete('sort[direction]');
     }
     setSearchParams(searchParams);
-  }, [clicks]);
-}
+  };
 
-export default function SortBy({ className, fieldName }) {
-  const [clicks, setClicks] = useState(0);
-  const handleClick = () => { setClicks((oldVal) => (oldVal + 1) % 3); };
-  useSortByParam(clicks, fieldName);
-  const Icon = IconFactory(clicks);
+  const Icon = IconFactory(fieldName, column, direction);
 
   return (
     <Icon className={className} onClick={handleClick} />
