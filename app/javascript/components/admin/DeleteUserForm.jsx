@@ -11,7 +11,6 @@ import Spinner from '../shared/stylings/Spinner';
 
 export default function DeleteUserForm({ user, handleClose }) {
   const methods = useForm();
-  const { isSubmitting } = methods.formState;
   const deleteUser = useDeleteUser(user.id);
 
   return (
@@ -27,7 +26,7 @@ export default function DeleteUserForm({ user, handleClose }) {
           </Button>
           <Button variant="danger" type="submit" disabled={deleteUser.isSubmitting}>
             Delete
-            { isSubmitting && <Spinner /> }
+            { deleteUser.isSubmitting && <Spinner /> }
           </Button>
         </Stack>
       </Form>
