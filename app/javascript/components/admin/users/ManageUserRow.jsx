@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Stack, Dropdown,
+  Stack, Navbar, NavDropdown, Container,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import {
@@ -11,6 +11,7 @@ import Avatar from '../../users/Avatar';
 import Modal from '../../shared/Modal';
 import CreateRoomForm from '../../forms/CreateRoomForm';
 import useCreateServerRoom from '../../../hooks/mutations/admins/users/useCreateServerRoom';
+import DeleteUserForm from '../DeleteUserForm';
 
 export default function ManageUserRow({ user }) {
   const mutationWrapper = (args) => useCreateServerRoom({ userID: user.id, ...args });
@@ -38,7 +39,12 @@ export default function ManageUserRow({ user }) {
             <div className="d-inline-flex">
               <NavDropdown title={<DotsVerticalIcon className="hi-s text-muted" />} id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to={`/adminpanel/edit_user/${user.id}`}><PencilAltIcon className="hi-s" /> Edit</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to={`/adminpanel/delete_user/${user.id}`}><TrashIcon className="hi-s" /> Delete</NavDropdown.Item>
+                {/* <NavDropdown.Item as={Link} to={`/adminpanel/delete_user/${user.id}`}><TrashIcon className="hi-s" /> Delete</NavDropdown.Item> */}
+                <Modal
+                  modalButton={<NavDropdown.Item><TrashIcon className="hi-s" /> Delete</NavDropdown.Item>}
+                  title="Delete User"
+                  body={<DeleteUserForm user={user} />}
+                />
                 <Modal
                   modalButton={<NavDropdown.Item><HomeIcon className="hi-s" /> Create Room</NavDropdown.Item>}
                   title="Create New Room"

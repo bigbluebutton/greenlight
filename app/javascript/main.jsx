@@ -24,7 +24,6 @@ import RoomConfig from './components/admin/RoomConfig';
 import Roles from './components/admin/Roles';
 import ResetPassword from './components/users/ResetPassword';
 import EditUser from './components/admin/users/EditUser';
-import DeleteUser from './components/admin/users/DeleteUser';
 
 const queryClient = new QueryClient();
 
@@ -43,7 +42,6 @@ const root = (
             <Route path="/adminpanel" element={<Navigate to="/adminpanel/users" replace />} />
             <Route path="/adminpanel/users" element={<ManageUsers />} />
             <Route path="/adminpanel/edit_user/:userId" element={<EditUser />} />
-            <Route path="/adminpanel/delete_user/:userId" element={<DeleteUser />} />
             <Route path="/adminpanel/server-recordings" element={<ServerRecordings />} />
             <Route path="/adminpanel/server-rooms" element={<ServerRooms />} />
             <Route path="/adminpanel/room-configuration" element={<RoomConfig />} />

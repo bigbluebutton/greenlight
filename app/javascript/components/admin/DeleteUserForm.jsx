@@ -16,7 +16,10 @@ export default function DeleteUserForm({ user, handleClose }) {
 
   return (
     <>
-      <p className="text-center"> Are you sure you want to delete {user.name}&quot;s account?</p>
+      <p className="text-center"> Are you sure you want to delete {user.name}&rsquo;s account?
+        <br />
+        If you choose to delete this account, it will NOT be recoverable.
+      </p>
       <Form methods={methods} onSubmit={onSubmit}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="primary-reverse" onClick={handleClose}>
