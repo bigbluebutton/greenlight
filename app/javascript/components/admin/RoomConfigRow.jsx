@@ -4,13 +4,11 @@ import PropTypes from 'prop-types';
 import {
   Row, Stack,
 } from 'react-bootstrap';
-import useUpdateRoomSetting from '../../hooks/mutations/admins/useUpdateRoomSetting';
 
 export default function RoomConfigRow({ title, subtitle }) {
-  const updateRoomSetting = useUpdateRoomSetting();
   return (
     <Row>
-      <Stack direction="horizontal">
+      <Stack className="my-2" direction="horizontal">
         <Stack>
           <strong> {title} </strong>
           <span className="text-muted"> {subtitle} </span>
@@ -18,12 +16,13 @@ export default function RoomConfigRow({ title, subtitle }) {
         {/* TODO: Refactor this. */}
         <Form.Select
           className="visibility-dropdown"
-          onChange={(event) => {
-            updateRoomSetting.mutate({ setting_name: 'muteOnStart', value: event.target.value });
-          }}
+          // onChange={(event) => {
+          //   updateRoomSetting.mutate({ setting_name: 'muteOnStart', value: event.target.value });
+          // }}
+          // defaultValue={}
         >
-          <option value="false">Disabled</option>
           <option value="optional">Optional</option>
+          <option value="false">Disabled</option>
           <option value="true">Enabled</option>
         </Form.Select>
       </Stack>

@@ -70,12 +70,6 @@ Rails.application.routes.draw do
             post '/:user_id/create_server_room', to: 'users#create_server_room'
           end
         end
-        resources :room_settings, only: %i[] do
-          collection do
-            post '/update', to: 'room_settings#update'
-          end
-        end
-
         resources :server_rooms, only: %i[index]
         resources :roles, only: :index
       end
