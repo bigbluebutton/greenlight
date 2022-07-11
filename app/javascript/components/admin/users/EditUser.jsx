@@ -36,7 +36,6 @@ export default function EditUser() {
                     <div className="ms-auto cursor-pointer" aria-hidden="true" onClick={() => navigate('/adminpanel/users')}>
                       <ArrowCircleLeftIcon className="hi-s" /> Back
                     </div>
-                    {/* <ButtonLink to="/adminpanel/users" className="ms-auto">Back</ButtonLink> */}
                   </Stack>
                   <span className="text-muted mb-4"> Users/Edit </span>
                   <hr className="solid" />
