@@ -5,8 +5,9 @@ import {
 import Spinner from '../shared/stylings/Spinner';
 import RoomCard from './RoomCard';
 import useRooms from '../../hooks/queries/rooms/useRooms';
+import useCreateRoom from '../../hooks/mutations/rooms/useCreateRoom';
 import RoomPlaceHolder from './RoomPlaceHolder';
-import CreateRoomModal from '../shared/Modal';
+import Modal from '../shared/Modal';
 import CreateRoomForm from '../forms/CreateRoomForm';
 import SearchBar from '../shared/SearchBar';
 
@@ -21,10 +22,10 @@ export default function RoomsList() {
         <div>
           <SearchBar id="rooms-search" setSearch={setSearch} />
         </div>
-        <CreateRoomModal
+        <Modal
           modalButton={<Button variant="primary" className="ms-auto">+ New Room </Button>}
           title="Create New Room"
-          body={<CreateRoomForm />}
+          body={<CreateRoomForm mutation={useCreateRoom} />}
         />
       </Stack>
       <Row md={4} className="g-4 pb-4 mt-4">

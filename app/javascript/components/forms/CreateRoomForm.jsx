@@ -6,26 +6,25 @@ import {
 import PropTypes from 'prop-types';
 import Form from './Form';
 import Spinner from '../shared/stylings/Spinner';
-import useCreateRoom from '../../hooks/mutations/rooms/useCreateRoom';
 import FormControl from './FormControl';
 import { createRoomFormConfig, createRoomFormFields } from '../../helpers/forms/CreateRoomFormHelpers';
 
-export default function CreateRoomForm({ handleClose }) {
+export default function CreateRoomForm({ mutation: useCreateRoomAPI, handleClose }) {
+  const createRoomAPI = useCreateRoomAPI({ onSettled: handleClose });
   const methods = useForm(createRoomFormConfig);
-  const { handleCreateRoom: onSubmit } = useCreateRoom({ onSettled: handleClose });
-  const { isSubmitting } = methods.formState;
-  const fields = createRoomFormFields;
+
+  const { name } = createRoomFormFields;
 
   return (
-    <Form methods={methods} onSubmit={onSubmit}>
-      <FormControl field={fields.name} type="text" />
+    <Form methods={methods} onSubmit={createRoomAPI.mutate}>
+      <FormControl field={name} type="text" />
       <Stack className="mt-1" direction="horizontal" gap={1}>
         <Button variant="primary-light" className="ms-auto" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" type="submit" disabled={isSubmitting}>
+        <Button variant="primary" type="submit" disabled={createRoomAPI.isLoading}>
           Create Room
-          {isSubmitting && <Spinner />}
+          {createRoomAPI.isLoading && <Spinner />}
         </Button>
       </Stack>
     </Form>
@@ -34,6 +33,7 @@ export default function CreateRoomForm({ handleClose }) {
 
 CreateRoomForm.propTypes = {
   handleClose: PropTypes.func,
+  mutation: PropTypes.func.isRequired,
 };
 
 CreateRoomForm.defaultProps = {
