@@ -16,7 +16,7 @@ export default function RecordingRow({ recording }) {
 
   return (
     <tr key={recording.id} className="align-middle">
-      <td className="text-dark">
+      <td className="border-end-0 text-dark">
         <Stack direction="horizontal" className="py-2">
           <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
             <VideoCameraIcon className="hi-s text-primary" />
@@ -42,9 +42,9 @@ export default function RecordingRow({ recording }) {
           </Stack>
         </Stack>
       </td>
-      <td> {recording.length}min</td>
-      <td> {recording.users} </td>
-      <td>
+      <td className="border-0"> {recording.length}min</td>
+      <td className="border-0"> {recording.users} </td>
+      <td className="border-0">
         {/* TODO: Refactor this. */}
         <Form.Select
           className="visibility-dropdown"
@@ -58,7 +58,7 @@ export default function RecordingRow({ recording }) {
           <option value="Protected">Protected</option>
         </Form.Select>
       </td>
-      <td>
+      <td className="border-0">
         {recording.formats.map((format) => (
           <Button
             onClick={() => window.open(format.url, '_blank')}
@@ -69,9 +69,9 @@ export default function RecordingRow({ recording }) {
           </Button>
         ))}
       </td>
-      <td>
+      <td className="border-start-0">
         <Modal
-          modalButton={<TrashIcon className="hi-s" />}
+          modalButton={<TrashIcon className="hi-s cursor-pointer" />}
           title="Are you sure?"
           body={<DeleteRecordingForm recordId={recording.record_id} />}
         />

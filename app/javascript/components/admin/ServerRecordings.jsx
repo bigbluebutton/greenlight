@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import {
-  Col, Row, Tab,
+  Col, Container, Row, Tab,
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
+import SearchBarQuery from '../shared/SearchBarQuery';
+import RecordingsList from '../recordings/RecordingsList';
+import useServerRecordings from '../../hooks/queries/admin/server-recordings/useServerRecordings';
 
 export default function ServerRecordings() {
+  const [input, setInput] = useState();
+  const { data: recordings, isLoading } = useServerRecordings(input);
+
   return (
     <div id="admin-panel" className="wide-background">
       <h2 className="my-5"> Administrator Panel </h2>
@@ -19,7 +25,16 @@ export default function ServerRecordings() {
             </Col>
             <Col sm={9}>
               <Tab.Content className="p-3 ps-0">
-                <h1>Server Recordings</h1>
+                <Container>
+                  <Row className="my-1"><h3>Latest Recordings</h3></Row>
+                  <Row><hr className="w-100 mx-0" /></Row>
+                  <Row className="my-2">
+                    <div><SearchBarQuery setInput={setInput} /></div>
+                  </Row>
+                  <Row className="my-2">
+                    <Col><RecordingsList recordings={recordings} isLoading={isLoading} /></Col>
+                  </Row>
+                </Container>
               </Tab.Content>
             </Col>
           </Row>

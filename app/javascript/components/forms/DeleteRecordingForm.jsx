@@ -10,7 +10,7 @@ import useDeleteRecording from '../../hooks/mutations/recordings/useDeleteRecord
 
 export default function DeleteRecordingForm({ recordId, handleClose }) {
   const methods = useForm();
-  const deleteRecording = useDeleteRecording(recordId);
+  const deleteRecording = useDeleteRecording({ recordId, onSettled: handleClose });
   return (
     <>
       <p className="text-center"> Are you sure you want to delete this recording?</p>
@@ -21,7 +21,7 @@ export default function DeleteRecordingForm({ recordId, handleClose }) {
           </Button>
           <Button variant="danger" type="submit" disabled={deleteRecording.isLoading}>
             Delete
-            { deleteRecording.isLoading && <Spinner /> }
+            {deleteRecording.isLoading && <Spinner />}
           </Button>
         </Stack>
       </Form>
@@ -35,6 +35,6 @@ DeleteRecordingForm.propTypes = {
 };
 
 DeleteRecordingForm.defaultProps = {
-  handleClose: () => {},
+  handleClose: () => { },
   recordId: -1,
 };

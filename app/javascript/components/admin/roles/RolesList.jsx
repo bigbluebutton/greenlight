@@ -7,7 +7,7 @@ import Spinner from '../../shared/stylings/Spinner';
 
 export default function RolesList({ roles, isLoading }) {
   return (
-    <Table hover bordered className="text-secondary mb-0 recordings-list">
+    <Table hover bordered className="text-secondary mb-0">
       <thead>
         <tr className="text-muted small">
           <th className="fw-normal">Role <SortBy fieldName="name" /></th>
