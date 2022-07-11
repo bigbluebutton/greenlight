@@ -1,26 +1,26 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from '../../../helpers/Axios';
 
-export default function useCreateUser({ closeModal }) {
-  const createUser = (data) => axios.post('/admin/users.json', data);
-  const inferUserLang = () => {
-    const language = window.navigator.userLanguage || window.navigator.language;
-    return language.match(/^[a-z]{2,}/)?.at(0);
-  };
+export default function useAdminCreateUser({ closeModal }) {
   const queryClient = useQueryClient();
-  const mutation = useMutation(
-    createUser,
-    { // Mutation config.
-      onError: (error) => { console.error('Error:', error.message); },
+
+  const addInferredLanguage = (data) => {
+    let language = window.navigator.userLanguage || window.navigator.language;
+    data.language = language.match(/^[a-z]{2,}/)?.at(0);
+    return data
+  };
+
+  return useMutation(
+    (data) => axios.post('/admin/users.json', data),
+    {
+      onMutate: addInferredLanguage,
       onSuccess: () => {
         closeModal();
         queryClient.invalidateQueries('getAdminUsers');
       },
+      onError: (error) => {
+        console.error('Error:', error.message);
+      },
     },
   );
-  const onSubmit = (user) => {
-    const userData = { ...user, language: inferUserLang() };
-    return mutation.mutateAsync({ user: userData }).catch(/* Prevents the promise exception from bubbling */() => { });
-  };
-  return { onSubmit, ...mutation };
 }
