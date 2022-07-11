@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_16_175700) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_11_200055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_16_175700) do
     t.string "visibility", null: false
     t.integer "length", null: false
     t.integer "users", null: false
+    t.boolean "protectable"
     t.index ["room_id"], name: "index_recordings_on_room_id"
   end
 
