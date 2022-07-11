@@ -12,7 +12,7 @@ import Spinner from '../shared/stylings/Spinner';
 export default function DeleteUserForm({ user, handleClose }) {
   const methods = useForm();
   const { isSubmitting } = methods.formState;
-  const { onSubmit } = useDeleteUser(user?.id);
+  const deleteUser = useDeleteUser(user.id);
 
   return (
     <>
@@ -20,12 +20,12 @@ export default function DeleteUserForm({ user, handleClose }) {
         <br />
         If you choose to delete this account, it will NOT be recoverable.
       </p>
-      <Form methods={methods} onSubmit={onSubmit}>
+      <Form methods={methods} onSubmit={deleteUser.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="primary-reverse" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="danger" type="submit" disabled={isSubmitting}>
+          <Button variant="danger" type="submit" disabled={deleteUser.isSubmitting}>
             Delete
             { isSubmitting && <Spinner /> }
           </Button>

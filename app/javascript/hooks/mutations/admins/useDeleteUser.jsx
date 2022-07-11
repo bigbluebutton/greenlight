@@ -2,9 +2,10 @@ import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
-export default function useUpdateUser(userId) {
+export default function useDeleteUser(userId) {
   const queryClient = useQueryClient();
-  const mutation = useMutation(
+
+  return useMutation(
     (data) => axios.delete(`/api/v1/users/${userId}.json`, data),
     {
       onSuccess: () => {
@@ -16,6 +17,4 @@ export default function useUpdateUser(userId) {
       },
     },
   );
-  const onSubmit = (userData) => mutation.mutateAsync({ user: userData }).catch(/* Prevents the promise exception from bubbling */() => {});
-  return { onSubmit, ...mutation };
 }
