@@ -77,6 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_12_202439) do
 
   create_table "roles", force: :cascade do |t|
     t.string "name", null: false
+    t.string "color", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -142,8 +143,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_12_202439) do
     t.datetime "activation_sent_at", precision: nil
     t.index ["activation_digest"], name: "index_users_on_activation_digest", unique: true
     t.index ["email", "provider"], name: "index_users_on_email_and_provider", unique: true
-    t.index ["reset_digest"], name: "index_users_on_reset_digest", unique: true
-    t.index ["reset_digest"], name: "index_users_on_reset_digest", unique: true
     t.index ["reset_digest"], name: "index_users_on_reset_digest", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end
