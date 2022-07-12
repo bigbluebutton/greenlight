@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Stack, Navbar, NavDropdown, Container,
+  Button, Stack, Dropdown,
 } from 'react-bootstrap';
 import { toast } from 'react-hot-toast';
 import Modal from '../shared/Modal';
@@ -17,10 +17,7 @@ import Spinner from '../shared/stylings/Spinner';
 
 export default function RecordingRow({ recording }) {
   function copyUrls() {
-    const formatUrls = [];
-    recording.formats.map((format) => (
-      formatUrls.push(format.url)
-    ));
+    const formatUrls = recording.formats.map((format) => format.url);
     navigator.clipboard.writeText(formatUrls);
     toast.success('Copied');
   }
@@ -85,20 +82,17 @@ export default function RecordingRow({ recording }) {
         ))}
       </td>
       <td>
-        <Navbar>
-          <Container>
-            <div className="d-inline-flex">
-              <NavDropdown title={<DotsVerticalIcon className="hi-s text-muted" />} id="basic-nav-dropdown">
-                <NavDropdown.Item onClick={() => copyUrls()}><DuplicateIcon className="hi-s" /> Copy Url</NavDropdown.Item>
-                <Modal
-                  modalButton={<NavDropdown.Item><TrashIcon className="hi-s" /> Delete</NavDropdown.Item>}
-                  title="Are you sure?"
-                  body={<DeleteRecordingForm recordId={recording.record_id} />}
-                />
-              </NavDropdown>
-            </div>
-          </Container>
-        </Navbar>
+        <Dropdown className="cursor-pointer">
+          <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={() => copyUrls()}><DuplicateIcon className="hi-s" /> Copy Recording Url(s)</Dropdown.Item>
+            <Modal
+              modalButton={<Dropdown.Item><TrashIcon className="hi-s" /> Delete</Dropdown.Item>}
+              title="Are you sure?"
+              body={<DeleteRecordingForm recordId={recording.record_id} />}
+            />
+          </Dropdown.Menu>
+        </Dropdown>
       </td>
     </tr>
   );
