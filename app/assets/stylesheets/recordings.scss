@@ -27,6 +27,10 @@
     background-color: #f3f4f6;
     color: #344154;
   }
+  
+  .dropdown-toggle::after {
+    display: none !important; 
+  }
 
 }
 
