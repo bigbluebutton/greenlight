@@ -14,9 +14,7 @@ class PopulateMeetingOptions < ActiveRecord::Migration[7.0]
       { name: 'guestPolicy', default_value: 'ALWAYS_ACCEPT' }, # ALWAYS_ACCEPT | ALWAYS_DENY | ASK_MODERATOR
       # GL only options:
       { name: 'glAnyoneCanStart', default_value: 'false' }, # true | false
-      { name: 'glAnyoneJoinAsModerator', default_value: 'false' }, # true | false
-      { name: 'glModeratorAccessCode', default_value: '' },
-      { name: 'glAttendeeAccessCode', default_value: '' }
+      { name: 'glAnyoneJoinAsModerator', default_value: 'false' } # true | false
     ]
   end
 

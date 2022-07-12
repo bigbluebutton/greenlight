@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_11_200055) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_12_202439) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -77,7 +77,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_11_200055) do
 
   create_table "roles", force: :cascade do |t|
     t.string "name", null: false
-    t.string "color", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -100,12 +99,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_11_200055) do
     t.datetime "last_session"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "recordings_processing", default: 0
     t.string "viewer_access_code"
     t.string "moderator_access_code"
-    t.integer "recordings_processing", default: 0
     t.index ["friendly_id"], name: "index_rooms_on_friendly_id", unique: true
     t.index ["meeting_id"], name: "index_rooms_on_meeting_id", unique: true
     t.index ["user_id"], name: "index_rooms_on_user_id"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_settings_on_name", unique: true
   end
 
   create_table "shared_accesses", force: :cascade do |t|
@@ -128,7 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_11_200055) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "role_id"
-    t.string "language", null: false
+    t.string "language", default: "en", null: false
     t.string "reset_digest"
     t.datetime "reset_sent_at", precision: nil
     t.boolean "active", default: false
@@ -136,7 +142,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_11_200055) do
     t.datetime "activation_sent_at", precision: nil
     t.index ["activation_digest"], name: "index_users_on_activation_digest", unique: true
     t.index ["email", "provider"], name: "index_users_on_email_and_provider", unique: true
-    t.index ["reset_digest"], name: "index_users_on_reset_digest", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
