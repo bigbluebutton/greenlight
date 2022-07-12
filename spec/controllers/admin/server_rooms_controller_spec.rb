@@ -21,4 +21,17 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
       expect(response_room_ids).to match_array(rooms.pluck(:friendly_id))
     end
   end
+
+  describe '#destroy' do
+    it 'removes a given room for valid params' do
+      room = create(:room)
+      expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Room, :count).from(1).to(0)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'returns :not_found for not found rooms' do
+      delete :destroy, params: { friendly_id: 'NOT_FRIENDLY_ANYMORE' }
+      expect(response).to have_http_status(:not_found)
+    end
+  end
 end
