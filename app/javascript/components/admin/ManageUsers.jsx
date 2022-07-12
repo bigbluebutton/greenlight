@@ -6,7 +6,7 @@ import {
 import ActiveUsers from './users/ActiveUsers';
 import AdminNavSideBar from './shared/AdminNavSideBar';
 import Modal from '../shared/Modal';
-import AdminSignupForm from '../admin/forms/AdminSignupForm';
+import AdminSignupForm from './forms/AdminSignupForm';
 import SearchBarQuery from '../shared/SearchBarQuery';
 
 export default function ManageUsers() {

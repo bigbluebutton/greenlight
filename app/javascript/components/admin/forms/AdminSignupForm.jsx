@@ -2,11 +2,11 @@ import React from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
-import FormControl from '../forms/FormControl';
-import Form from '../forms/Form';
-import { signupFormConfig, signupFormFields } from '../../helpers/forms/SignupFormHelpers';
-import Spinner from '../shared/stylings/Spinner';
-import useAdminCreateUser from '../../hooks/mutations/admins/useAdminCreateUser';
+import FormControl from '../../forms/FormControl';
+import Form from '../../forms/Form';
+import { signupFormConfig, signupFormFields } from '../../../helpers/forms/SignupFormHelpers';
+import Spinner from '../../shared/stylings/Spinner';
+import useAdminCreateUser from '../../../hooks/mutations/admins/useAdminCreateUser';
 
 export default function AdminSignupForm({ handleClose }) {
   const methods = useForm(signupFormConfig);
