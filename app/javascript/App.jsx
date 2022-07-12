@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Header from './components/shared/Header';
 import { useAuth } from './contexts/auth/AuthProvider';
+import Footer from './components/shared/Footer';
 
 export default function App() {
   const currentUser = useAuth();
@@ -17,6 +18,7 @@ export default function App() {
       <Toaster
         position="bottom-right"
       />
+      <Footer />
     </>
   );
 }
