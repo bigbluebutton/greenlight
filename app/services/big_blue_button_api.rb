@@ -31,6 +31,10 @@ class BigBlueButtonApi
     bbb_server.is_meeting_running?(room.meeting_id)
   end
 
+  def active_meetings
+    bbb_server.get_meetings[:meetings]
+  end
+
   # Retrieve the recordings that belong to room with given record_id
   def get_recording(record_id:)
     bbb_server.get_recordings(recordID: record_id)[:recordings][0]

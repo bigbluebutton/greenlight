@@ -6,18 +6,22 @@ module Api
       class ServerRoomsController < ApiController
         before_action :find_server_room, only: :destroy
 
+        # GET /api/v1/admin/server_rooms.json
         def index
-          rooms = Room.all.search(params[:search])
+          rooms = Room.includes(:user).search(params[:search])
+          active_rooms = BigBlueButtonApi.new.active_meetings
+          active_rooms_hash = {}
 
-          rooms.map! do |room|
-            {
-              friendly_id: room.friendly_id,
-              name: room.name,
-              owner: User.find(room.user_id).name
-            }
+          active_rooms.each do |active_room|
+            active_rooms_hash[active_room[:meetingID]] = active_room[:participantCount]
           end
 
-          render_json data: rooms, status: :ok
+          rooms.each do |room|
+            room.status = active_rooms_hash.key?(room.meeting_id) ? 'Active' : 'Not Running'
+            room.participants = active_rooms_hash[room.meeting_id]
+          end
+
+          render_data data: rooms, each_serializer: ServerRoomSerializer
         end
 
         # DELETE /api/v1/admin/server_rooms/:friendly_id

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default function ServerRoomRow({ room }) {
+  console.log();
   return (
     <tr className="align-middle text-muted border border-2">
       <td className="border-end-0">
@@ -13,10 +14,10 @@ export default function ServerRoomRow({ room }) {
           <span> Ended: </span>
         </Stack>
       </td>
-      <td className="border-0"> {room.owner}</td>
-      <td className="border-0"> {room.friendly_id} </td>
-      <td className="border-0"> - </td>
-      <td className="border-0"> - </td>
+      <td className="border-0"> { room.owner }</td>
+      <td className="border-0"> { room.friendly_id } </td>
+      <td className="border-0"> { room.participants ? room.participants : '-' } </td>
+      <td className="border-0"> { room.status } </td>
       <td className="border-start-0">
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
@@ -35,5 +36,7 @@ ServerRoomRow.propTypes = {
     name: PropTypes.string.isRequired,
     owner: PropTypes.string.isRequired,
     friendly_id: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    participants: PropTypes.number,
   }).isRequired,
 };
