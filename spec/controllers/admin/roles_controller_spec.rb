@@ -67,4 +67,29 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(JSON.parse(response.body)['errors']).not_to be_empty
     end
   end
+
+  describe 'roles#update' do
+    let!(:role) { create(:role) }
+
+    it 'returns :ok and updates a role for valid params' do
+      valid_params = { name: 'CrazyRole' }
+      post :update, params: { id: role.id, role: valid_params }
+      expect(role.reload.name).to eq(valid_params[:name])
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)['errors']).to be_empty
+    end
+
+    it 'returns :not_found for unfound roles' do
+      valid_params = { name: 'CrazyRole' }
+      post :update, params: { id: 'INVALID_ID', role: valid_params }
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'returns :bad_request for invalid params' do
+      invalid_params = { name: '' }
+      post :update, params: { id: role.id, not_role: invalid_params }
+      expect(response).to have_http_status(:bad_request)
+      expect(JSON.parse(response.body)['errors']).not_to be_empty
+    end
+  end
 end
