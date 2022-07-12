@@ -69,7 +69,7 @@ module Api
       end
 
       def authorized_as_moderator?
-        params[:access_code].present? && @room.moderator_access_code == params[:access_code]
+        (params[:access_code].present? && @room.moderator_access_code == params[:access_code]) || @room.anyone_joins_as_moderator?
       end
     end
   end
