@@ -36,6 +36,18 @@ describe RecordingCreator, type: :service do
 
       expect(room.recordings.count).to eq(1)
     end
+
+    it 'returns recording protectable attribute as true if the bbb server protected feature is enabled' do
+      room.update(meeting_id: 'random-1291479')
+      described_class.new(recording: protected_recording).call
+      expect(room.recordings.first.protectable).to be(true)
+    end
+
+    it 'returns recording protectable attribute as false if the bbb server protected feature is not enabled' do
+      room.update(meeting_id: 'random-1291479')
+      described_class.new(recording: single_format_recording).call
+      expect(room.recordings.first.protectable).to be(false)
+    end
   end
 
   private
@@ -98,6 +110,35 @@ describe RecordingCreator, type: :service do
                    length: 0,
                    size: '61117'
                  }]
+      },
+      data: {}
+    }
+  end
+
+  def protected_recording
+    {
+      recordID: 'f0e2be4518868febb0f381ebe7d46ae61364ef1e-1652287428125',
+      meetingID: 'random-1291479',
+      internalMeetingID: 'f0e2be4518868febb0f381ebe7d46ae61364ef1e-1652287428125',
+      name: 'random-1291479',
+      isBreakout: 'false',
+      published: true,
+      protected: true,
+      state: 'published',
+      startTime: 'Wed, 11 May 2022 12:43:48 -0400'.to_datetime,
+      endTime: 'Wed, 11 May 2022 12:44:20 -0400'.to_datetime,
+      participants: '1',
+      rawSize: '977816',
+      metadata: { isBreakout: 'false', meetingId: 'random-1291479', meetingName: 'random-1291479' },
+      size: '305475',
+      playback: {
+        format: {
+          type: 'presentation',
+          url: 'https://test24.bigbluebutton.org/playback/presentation/2.3/f0e2be4518868febb0f381ebe7d46ae61364ef1e-1652287428125',
+          processingTime: '6386',
+          length: 0,
+          size: '305475'
+        }
       },
       data: {}
     }

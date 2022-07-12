@@ -55,7 +55,8 @@ export default function RecordingRow({ recording }) {
         >
           <option value="Published">Published</option>
           <option value="Unpublished">Unpublished</option>
-          <option value="Protected">Protected</option>
+          {recording?.protectable === true
+            && <option value="Protected">Protected</option>}
         </Form.Select>
       </td>
       <td>
@@ -92,6 +93,7 @@ RecordingRow.propTypes = {
       recording_type: PropTypes.string.isRequired,
     })),
     visibility: PropTypes.string.isRequired,
+    protectable: PropTypes.bool.isRequired,
     created_at: PropTypes.string.isRequired,
     map: PropTypes.func,
   }).isRequired,
