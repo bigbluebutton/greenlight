@@ -9,7 +9,7 @@ export default function Footer() {
   if (isLoading) return <Spinner />;
 
   return (
-    <Container className="text-center">
+    <Container id="footer" className="text-center">
       <span className="text-muted">Powered by </span>
       <a href="https://bigbluebutton.org/2018/07/09/greenlight-2-0/" target="_blank" rel="noreferrer">Greenlight.
       </a><span className="text-muted"> {env.VERSION_TAG}</span>
