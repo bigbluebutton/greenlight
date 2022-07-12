@@ -25,6 +25,16 @@ module Api
           end
         end
 
+        def destroy
+          # TODO: Will need to add additional logic later
+          user = User.find(params[:id])
+          if user.destroy
+            render_data
+          else
+            render_error errors: user.errors.to_a
+          end
+        end
+
         def active_users
           # TODO: Change to get active users only
           users = User.with_attached_avatar.all.search(params[:search])

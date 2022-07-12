@@ -64,7 +64,7 @@ Rails.application.routes.draw do
       end
       
       namespace :admin do
-        resources :users, only: %i[create]  do
+        resources :users, only: %i[create destroy]  do
           collection do
             get '/active_users', to: 'users#active_users'
             post '/:user_id/create_server_room', to: 'users#create_server_room'
