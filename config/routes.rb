@@ -70,7 +70,7 @@ Rails.application.routes.draw do
             post '/:user_id/create_server_room', to: 'users#create_server_room'
           end
         end
-        resources :server_rooms, only: %i[index]
+        resources :server_rooms, only: %i[index destroy], param: :friendly_id
         resources :server_recordings, only: %i[index]
         resources :roles, only: %i[index create]      
       end
