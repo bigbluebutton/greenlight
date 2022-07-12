@@ -24,9 +24,9 @@ export default function DeleteUserForm({ user, handleClose }) {
           <Button variant="primary-reverse" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="danger" type="submit" disabled={deleteUser.isSubmitting}>
+          <Button variant="danger" type="submit" disabled={deleteUser.isLoading}>
             Delete
-            { deleteUser.isSubmitting && <Spinner /> }
+            { deleteUser.isLoading && <Spinner /> }
           </Button>
         </Stack>
       </Form>
