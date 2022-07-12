@@ -72,7 +72,7 @@ Rails.application.routes.draw do
         end
         resources :server_rooms, only: %i[index destroy], param: :friendly_id
         resources :server_recordings, only: %i[index]
-        resources :roles, only: %i[index create]      
+        resources :roles, only: %i[index create update]
       end
     end
   end

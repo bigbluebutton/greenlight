@@ -4,6 +4,8 @@ module Api
   module V1
     module Admin
       class RolesController < ApiController
+        before_action :find_role, only: :update
+
         # POST /api/v1/admin/roles.json
         # Expects: {}
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
@@ -29,10 +31,25 @@ module Api
           render_json status: :created
         end
 
+        # POST /api/v1/:id/roles.json
+        # Expects: { role: {:name, :color} }
+        # Returns: { data: Array[serializable objects] , errors: Array[String] }
+        # Does: Updates a role.
+
+        def update
+          return render_error errors: @role.errors.to_a, status: :bad_request unless @role.update role_params
+
+          render_json status: :ok
+        end
+
         private
 
         def role_params
           params.require(:role).permit(:name)
+        end
+
+        def find_role
+          @role = Role.find params[:id]
         end
       end
     end
