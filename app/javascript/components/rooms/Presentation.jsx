@@ -31,7 +31,7 @@ export default function Presentation() {
             <label htmlFor="file" className="presentation-upload">
               <Card.Body className="py-5 text-secondary cursor-pointer">
                 <div className="icon-circle rounded-circle d-block mx-auto mb-3">
-                  <CloudUploadIcon className="hi-l text-primary d-block mx-auto pt-3" />
+                  <CloudUploadIcon className="hi-l text-primary d-block mx-auto pt-4" />
                 </div>
                 <input
                   id="file"
