@@ -96,9 +96,11 @@ describe SessionsController, type: :controller do
     before(:each) do
       @user1 = create(:user, provider: 'greenlight', password: 'Example1!', password_confirmation: 'example')
       @user2 = create(:user, password: 'Example1!', password_confirmation: "example")
+      session[:activated_at] = 1_626_184_775
     end
 
     it "should login user in if credentials valid" do
+      expect(session[:activated_at]).not_to eql(@user1.last_login.to_i)
       post :create, params: {
         session: {
           email: @user1.email,
@@ -106,7 +108,8 @@ describe SessionsController, type: :controller do
         },
       }
 
-      expect(@request.session[:user_id]).to eql(@user1.id)
+      expect(session[:user_id]).to eql(@user1.id)
+      expect(session[:activated_at]).to eql(@user1.reload.last_login.to_i)
     end
 
     it "should not login user in if credentials invalid" do
@@ -117,7 +120,8 @@ describe SessionsController, type: :controller do
         },
       }
 
-      expect(@request.session[:user_id]).to be_nil
+      expect(session[:user_id]).to be_nil
+      expect(session[:activated_at]).to eql(1_626_184_775)
     end
 
     it "should not login user in if account mismatch" do
@@ -129,6 +133,7 @@ describe SessionsController, type: :controller do
       }
 
       expect(@request.session[:user_id]).to be_nil
+      expect(session[:activated_at]).to eql(1_626_184_775)
     end
 
     it "should not login user if account is not verified" do
@@ -143,6 +148,7 @@ describe SessionsController, type: :controller do
       }
 
       expect(@request.session[:user_id]).to be_nil
+      expect(session[:activated_at]).to eql(1_626_184_775)
       # Expect to redirect to activation path since token is not known here
       expect(response.location.start_with?(account_activation_url(digest: @user3.activation_digest))).to be true
     end
@@ -150,7 +156,6 @@ describe SessionsController, type: :controller do
     it "should not login user if account is deleted" do
       user = create(:user, provider: "greenlight",
         password: "Example1!", password_confirmation: 'example')
-
       user.delete
       user.reload
       expect(user.deleted?).to be true
@@ -174,7 +179,7 @@ describe SessionsController, type: :controller do
       url = "http://test.host/test"
 
       @request.cookies[:return_to] = url
-
+      expect(@request.session[:activated_at]).not_to eql(user.last_login.to_i)
       post :create, params: {
         session: {
           email: user.email,
@@ -183,6 +188,7 @@ describe SessionsController, type: :controller do
       }
 
       expect(@request.session[:user_id]).to eql(user.id)
+      expect(@request.session[:activated_at]).to eql(user.reload.last_login.to_i)
       expect(response).to redirect_to(url)
     end
 
@@ -191,7 +197,7 @@ describe SessionsController, type: :controller do
         password: "Example1!", password_confirmation: 'example')
 
       @request.cookies[:return_to] = root_url
-
+      expect(@request.session[:activated_at]).not_to eql(user.last_login.to_i)
       post :create, params: {
         session: {
           email: user.email,
@@ -200,13 +206,14 @@ describe SessionsController, type: :controller do
       }
 
       expect(@request.session[:user_id]).to eql(user.id)
+      expect(@request.session[:activated_at]).to eql(user.reload.last_login.to_i)
       expect(response).to redirect_to(user.main_room)
     end
 
     it "redirects the user to their home room if return_to cookie doesn't exist" do
       user = create(:user, provider: "greenlight",
         password: "Example1!", password_confirmation: 'Example1!')
-
+      expect(@request.session[:activated_at]).not_to eql(user.last_login.to_i)
       post :create, params: {
         session: {
           email: user.email,
@@ -215,6 +222,7 @@ describe SessionsController, type: :controller do
       }
 
       expect(@request.session[:user_id]).to eql(user.id)
+      expect(@request.session[:activated_at]).to eql(user.reload.last_login.to_i)
       expect(response).to redirect_to(user.main_room)
     end
 
@@ -222,7 +230,7 @@ describe SessionsController, type: :controller do
       user = create(:user, provider: "greenlight",
         password: "Example1!", password_confirmation: 'example')
       user.set_role :super_admin
-
+      expect(@request.session[:activated_at]).not_to eql(user.last_login.to_i)
       post :create, params: {
         session: {
           email: user.email,
@@ -231,6 +239,7 @@ describe SessionsController, type: :controller do
       }
 
       expect(@request.session[:user_id]).to eql(user.id)
+      expect(@request.session[:activated_at]).to eql(user.reload.last_login.to_i)
       expect(response).to redirect_to(admins_path)
     end
 
