@@ -1,15 +1,19 @@
 import React from 'react';
-import { CursorClickIcon, DotsVerticalIcon, TrashIcon } from '@heroicons/react/outline';
+import {
+  EyeIcon, DotsVerticalIcon, TrashIcon, ExternalLinkIcon,
+} from '@heroicons/react/outline';
 import { Dropdown, Stack } from 'react-bootstrap';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import useDeleteServerRoom from '../../../hooks/mutations/admins/server-rooms/useDeleteServerRoom';
 import Modal from '../../shared/Modal';
 import DeleteRoomForm from '../../forms/DeleteRoomForm';
+import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
 
 export default function ServerRoomRow({ room }) {
   const { friendly_id: friendlyId } = room;
   const mutationWrapper = (args) => useDeleteServerRoom({ friendlyId, ...args });
+  const { handleStartMeeting } = useStartMeeting(friendlyId);
 
   return (
     <tr className="align-middle text-muted border border-2">
@@ -27,9 +31,12 @@ export default function ServerRoomRow({ room }) {
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
           <Dropdown.Menu>
-            <Dropdown.Item as={Link} to={`/rooms/${room.friendly_id}`}><CursorClickIcon className="hi-s" /> View</Dropdown.Item>
+            { room.status === 'Active'
+              ? <Dropdown.Item><ExternalLinkIcon className="hi-s text-muted" /> Join </Dropdown.Item>
+              : <Dropdown.Item><ExternalLinkIcon className="hi-s text-muted" onClick={handleStartMeeting} /> Start </Dropdown.Item>}
+            <Dropdown.Item as={Link} to={`/rooms/${room.friendly_id}`}><EyeIcon className="hi-s text-muted" /> View </Dropdown.Item>
             <Modal
-              modalButton={<Dropdown.Item><TrashIcon className="hi-s" /> Delete</Dropdown.Item>}
+              modalButton={<Dropdown.Item><TrashIcon className="hi-s text-muted" /> Delete</Dropdown.Item>}
               title="Delete Server Room"
               body={<DeleteRoomForm mutation={mutationWrapper} />}
             />
