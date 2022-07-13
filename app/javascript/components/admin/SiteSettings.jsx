@@ -1,9 +1,13 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import {
-  Col, Row, Tab,
+  Row, Col, Tab, Tabs, Container,
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
+import Appearance from './site_settings/Appearance';
+import Administration from './site_settings/Administration';
+import Settings from './site_settings/Settings';
+import Registration from './site_settings/Registration';
 
 export default function SiteSettings() {
   return (
@@ -19,7 +23,25 @@ export default function SiteSettings() {
             </Col>
             <Col sm={9}>
               <Tab.Content className="p-3 ps-0">
-                <h1>Site Settings</h1>
+                <Container className="admin-table">
+                  <h2 className="my-4"> Customize Greenlight </h2>
+                  <Row>
+                    <Tabs defaultActiveKey="appearance">
+                      <Tab eventKey="appearance" title="Appearance">
+                        <Appearance />
+                      </Tab>
+                      <Tab eventKey="administration" title="Administration">
+                        <Administration />
+                      </Tab>
+                      <Tab eventKey="settings" title="Settings">
+                        <Settings />
+                      </Tab>
+                      <Tab eventKey="registration" title="Registration">
+                        <Registration />
+                      </Tab>
+                    </Tabs>
+                  </Row>
+                </Container>
               </Tab.Content>
             </Col>
           </Row>
