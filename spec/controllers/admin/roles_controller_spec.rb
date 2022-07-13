@@ -92,4 +92,19 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(JSON.parse(response.body)['errors']).not_to be_empty
     end
   end
+
+  describe 'roles#show' do
+    it 'returns the role for valid params' do
+      role = create(:role)
+      get :show, params: { id: role.id }
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)['data']['id']).to eq(role.id)
+    end
+
+    it 'returns :not_found for unfound roles' do
+      create(:role)
+      get :show, params: { id: 'Invalid' }
+      expect(response).to have_http_status(:not_found)
+    end
+  end
 end

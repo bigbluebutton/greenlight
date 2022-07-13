@@ -4,7 +4,7 @@ module Api
   module V1
     module Admin
       class RolesController < ApiController
-        before_action :find_role, only: :update
+        before_action :find_role, only: %i[update show]
 
         # POST /api/v1/admin/roles.json
         # Expects: {}
@@ -16,6 +16,15 @@ module Api
 
           roles = Role.select(:id, :name, :color)&.order(sort_config)&.search(params[:search])
           render_json data: roles
+        end
+
+        # GET /api/v1/admin/roles/:role_id.json
+        # Expects: {}
+        # Returns: { data: Array[serializable objects] , errors: Array[String] }
+        # Does: Fetches and returns a role data.
+
+        def show
+          render_json data: @role
         end
 
         # POST /api/v1/roles.json
