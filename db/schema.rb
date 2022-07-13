@@ -97,7 +97,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_13_143235) do
     t.string "name", null: false
     t.string "friendly_id", null: false
     t.string "meeting_id", null: false
-    t.datetime "last_session"
+    t.string "last_session"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "viewer_access_code"
