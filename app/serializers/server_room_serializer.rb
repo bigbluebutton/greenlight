@@ -10,7 +10,7 @@ class ServerRoomSerializer < RoomSerializer
   def last_session
     return 'No meeting yet' if object.last_session.nil?
 
-    last_session_date = DateTime.strptime(object.last_session.to_s, '%Q').strftime('%B %e, %Y')
+    last_session_date = object.last_session.strftime('%B %e, %Y')
     object.status == 'Active' ? "Started: #{last_session_date}" : "Ended: #{last_session_date}"
   end
 end

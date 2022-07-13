@@ -26,7 +26,7 @@ describe MeetingStarter, type: :service do
 
   describe '#call' do
     it 'calls BigBlueButtonApi with the right params' do
-      expect_any_instance_of(BigBlueButtonApi)
+      allow_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
         .with(room:, options:, presentation_url:)
         .and_return(meeting_starter_response)
@@ -39,7 +39,7 @@ describe MeetingStarter, type: :service do
         .to receive(:computed_options)
         .and_return({ test: 'test' })
 
-      expect_any_instance_of(BigBlueButtonApi)
+      allow_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
         .with(room:, options: { test: 'test' }, presentation_url:)
         .and_return(meeting_starter_response)
@@ -60,7 +60,6 @@ describe MeetingStarter, type: :service do
     end
 
     it 'broadcasts to ActionCable that the meeting has started' do
-
       allow_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
         .with(room:, options:, presentation_url:)
@@ -74,7 +73,6 @@ describe MeetingStarter, type: :service do
     end
 
     it 'updates the last session date when a meeting is started' do
-
       allow_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
         .with(room:, options:, presentation_url:)
@@ -82,7 +80,7 @@ describe MeetingStarter, type: :service do
 
       service.call
 
-      expect(room.last_session).to eql("1389464535956")
+      expect(room.last_session).to eql(Time.zone.at(1_389_464_535_956 / 1000))
     end
   end
 
@@ -94,7 +92,7 @@ describe MeetingStarter, type: :service do
       meetingID: 'hulsdzwvitlk1dbekzxdprshsxmvycvar0jeaszc',
       attendeePW: '12345',
       moderatorPW: '54321',
-      createTime: 1389464535956,
+      createTime: 1_389_464_535_956,
       hasBeenForciblyEnded: false,
       messageKey: '',
       message: ''

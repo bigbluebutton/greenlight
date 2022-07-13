@@ -19,7 +19,7 @@ class MeetingStarter
     begin
       meeting = BigBlueButtonApi.new.start_meeting room: @room, options: options, presentation_url: @presentation_url
 
-      @room.update!(last_session: meeting[:createTime]) unless meeting[:messageKey] == 'duplicateWarning'
+      @room.update!(last_session: Time.zone.at(meeting[:createTime] / 1000)) unless meeting[:messageKey] == 'duplicateWarning'
 
       ActionCable.server.broadcast "#{@room.friendly_id}_rooms_channel", 'started'
     rescue BigBlueButton::BigBlueButtonException => e
