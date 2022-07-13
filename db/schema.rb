@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 2022_02_09_094148) do
     t.datetime "last_login"
     t.integer "failed_attempts"
     t.datetime "last_failed_attempt"
+    t.datetime "last_pwd_update"
     t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["deleted"], name: "index_users_on_deleted"
     t.index ["email"], name: "index_users_on_email"

@@ -125,7 +125,14 @@ class UsersController < ApplicationController
     end
 
     # Notify the user that their account has been updated.
-    if @user.errors.empty? && @user.without_terms_acceptance { @user.save }
+    if @user.errors.empty? && @user.without_terms_acceptance {
+        @user.save && @user.update(last_pwd_update: Time.zone.now)
+    }
+      # Changing the password has to update the last_pwd_update to match the event timestamp.
+      # The activated_at session metadata has to match it too to reset the state of the active session
+      # making this change password request.
+      # This keeps only this session alive.
+      session[:activated_at] = @user.last_pwd_update.to_i if current_user.id == @user.id
       return redirect_to change_password_path, flash: { success: I18n.t("info_update_success") }
     end
     # redirect_to change_password_path
