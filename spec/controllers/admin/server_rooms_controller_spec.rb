@@ -49,48 +49,6 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
     end
   end
 
-  private
-
-  def bbb_meetings
-    [{
-      meetingName: 'Meeting',
-      meetingID: 'hulsdzwvitlk1dbekzxdprshsxmvycvar0jeaszc',
-      internalMeetingID: 'f92e335f4aa90883d0454990d1e292c9cf2a9411-1657223036433',
-      createTime: 1_657_223_036_433,
-      createDate: 'Thu Jul 07 19:43:56 UTC 2022',
-      voiceBridge: 71_094,
-      dialNumber: '613-555-1234',
-      attendeePW: 'PfkAgstb',
-      moderatorPW: 'FySoLjmx',
-      running: true,
-      duration: '0',
-      hasUserJoined: 'true',
-      recording: 'false',
-      hasBeenForciblyEnded: false,
-      startTime: '1657223036446',
-      endTime: '0',
-      participantCount: 1,
-      listenerCount: 0,
-      voiceParticipantCount: '0',
-      videoCount: 0,
-      maxUsers: '0',
-      moderatorCount: '1',
-      attendees: { attendee: { userID: 'w_jololdrmvk0l',
-                               fullName: 'Smith',
-                               role: 'MODERATOR',
-                               isPresenter: 'true',
-                               isListeningOnly: 'false',
-                               hasJoinedVoice: 'false',
-                               hasVideo: 'false',
-                               clientType: 'HTML5' } },
-      metadata: { 'bbb-origin-version': '3',
-                  'bbb-recording-ready-url': 'http://localhost:3000/recording_ready',
-                  'bbb-origin': 'greenlight',
-                  endcallbackurl: 'http://localhost:3000/meeting_ended' },
-      isBreakout: 'false'
-    }]
-  end
-
   describe '#destroy' do
     it 'removes a given room for valid params' do
       room = create(:room)
@@ -102,5 +60,47 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
       delete :destroy, params: { friendly_id: 'NOT_FRIENDLY_ANYMORE' }
       expect(response).to have_http_status(:not_found)
     end
+  end
+
+  private
+
+  def bbb_meetings
+    [{
+       meetingName: 'Meeting',
+       meetingID: 'hulsdzwvitlk1dbekzxdprshsxmvycvar0jeaszc',
+       internalMeetingID: 'f92e335f4aa90883d0454990d1e292c9cf2a9411-1657223036433',
+       createTime: 1_657_223_036_433,
+       createDate: 'Thu Jul 07 19:43:56 UTC 2022',
+       voiceBridge: 71_094,
+       dialNumber: '613-555-1234',
+       attendeePW: 'PfkAgstb',
+       moderatorPW: 'FySoLjmx',
+       running: true,
+       duration: '0',
+       hasUserJoined: 'true',
+       recording: 'false',
+       hasBeenForciblyEnded: false,
+       startTime: '1657223036446',
+       endTime: '0',
+       participantCount: 1,
+       listenerCount: 0,
+       voiceParticipantCount: '0',
+       videoCount: 0,
+       maxUsers: '0',
+       moderatorCount: '1',
+       attendees: { attendee: { userID: 'w_jololdrmvk0l',
+                                fullName: 'Smith',
+                                role: 'MODERATOR',
+                                isPresenter: 'true',
+                                isListeningOnly: 'false',
+                                hasJoinedVoice: 'false',
+                                hasVideo: 'false',
+                                clientType: 'HTML5' } },
+       metadata: { 'bbb-origin-version': '3',
+                   'bbb-recording-ready-url': 'http://localhost:3000/recording_ready',
+                   'bbb-origin': 'greenlight',
+                   endcallbackurl: 'http://localhost:3000/meeting_ended' },
+       isBreakout: 'false'
+     }]
   end
 end

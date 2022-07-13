@@ -25,7 +25,7 @@ export default function ServerRoomRow({ room }) {
       <td className="border-end-0">
         <Stack>
           <span className="text-dark fw-bold"> {room.name} </span>
-          <span> Ended: </span>
+          <span> { room.last_session } </span>
         </Stack>
       </td>
       <td className="border-0"> {room.owner}</td>
@@ -68,6 +68,7 @@ ServerRoomRow.propTypes = {
     owner: PropTypes.string.isRequired,
     friendly_id: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
+    last_session: PropTypes.string,
     participants: PropTypes.number,
   }).isRequired,
 };

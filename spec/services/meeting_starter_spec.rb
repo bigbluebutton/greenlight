@@ -68,5 +68,33 @@ describe MeetingStarter, type: :service do
 
       service.call
     end
+
+    it 'updates the last session date when a meeting is started' do
+      allow_any_instance_of(BigBlueButtonApi)
+        .to receive(:start_meeting)
+        .with(room:, options:, presentation_url:)
+        .and_return(meeting_starter_response)
+
+      #returns nil even if explicitely told to return the meeting_starter_response
+      #
+      service.call
+
+      expect(room.last_session).to change
+    end
+  end
+
+  private
+
+  def meeting_starter_response
+    {
+      returncode: true,
+      meetingID: 'hulsdzwvitlk1dbekzxdprshsxmvycvar0jeaszc',
+      attendeePW: '12345',
+      moderatorPW: '54321',
+      createTime: 1389464535956,
+      hasBeenForciblyEnded: false,
+      messageKey: '',
+      message: ''
+    }
   end
 end
