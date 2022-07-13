@@ -6,22 +6,22 @@ import {
 import PropTypes from 'prop-types';
 import Form from './Form';
 import Spinner from '../shared/stylings/Spinner';
-import useDeleteRecording from '../../hooks/mutations/recordings/useDeleteRecording';
 
-export default function DeleteRecordingForm({ recordId, handleClose }) {
+export default function DeleteRecordingForm({ mutation: useDeleteAPI, recordId, handleClose }) {
   const methods = useForm();
-  const deleteRecording = useDeleteRecording(recordId);
+  const deleteAPI = useDeleteAPI({ recordId, onSettled: handleClose });
+
   return (
     <>
       <p className="text-center"> Are you sure you want to delete this recording?</p>
-      <Form methods={methods} onSubmit={deleteRecording.mutate}>
+      <Form methods={methods} onSubmit={deleteAPI.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="primary-reverse" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="danger" type="submit" disabled={deleteRecording.isLoading}>
+          <Button variant="danger" type="submit" disabled={deleteAPI.isLoading}>
             Delete
-            { deleteRecording.isLoading && <Spinner /> }
+            {deleteAPI.isLoading && <Spinner />}
           </Button>
         </Stack>
       </Form>
@@ -32,9 +32,10 @@ export default function DeleteRecordingForm({ recordId, handleClose }) {
 DeleteRecordingForm.propTypes = {
   handleClose: PropTypes.func,
   recordId: PropTypes.string,
+  mutation: PropTypes.func.isRequired,
 };
 
 DeleteRecordingForm.defaultProps = {
-  handleClose: () => {},
+  handleClose: () => { },
   recordId: -1,
 };

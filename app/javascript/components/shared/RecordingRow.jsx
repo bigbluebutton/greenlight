@@ -1,6 +1,7 @@
 import {
   VideoCameraIcon, DuplicateIcon,
-  DotsVerticalIcon, TrashIcon,
+  DotsVerticalIcon,
+  TrashIcon,
 } from '@heroicons/react/outline';
 import Form from 'react-bootstrap/Form';
 import React, { useState } from 'react';
@@ -9,26 +10,28 @@ import {
   Button, Stack, Dropdown,
 } from 'react-bootstrap';
 import { toast } from 'react-hot-toast';
-import Modal from '../shared/Modal';
-import DeleteRecordingForm from '../forms/DeleteRecordingForm';
-import useUpdateRecordingVisibility from '../../hooks/mutations/recordings/useUpdateRecordingVisibility';
+import Spinner from './stylings/Spinner';
 import UpdateRecordingForm from '../forms/UpdateRecordingForm';
-import Spinner from '../shared/stylings/Spinner';
+import DeleteRecordingForm from '../forms/DeleteRecordingForm';
+import Modal from './Modal';
 
-export default function RecordingRow({ recording }) {
+// TODO: Refactor this.
+export default function RecordingRow({
+  recording, visibilityMutation: useVisibilityAPI, updateMutation: useUpdateAPI, deleteMutation: useDeleteAPI,
+}) {
   function copyUrls() {
     const formatUrls = recording.formats.map((format) => format.url);
     navigator.clipboard.writeText(formatUrls);
     toast.success('Copied');
   }
 
-  const updateRecordingVisibility = useUpdateRecordingVisibility();
+  const visibilityAPI = useVisibilityAPI();
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
   return (
     <tr key={recording.id} className="align-middle">
-      <td className="text-dark">
+      <td className="border-end-0 text-dark">
         <Stack direction="horizontal" className="py-2">
           <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
             <VideoCameraIcon className="hi-s text-primary" />
@@ -36,6 +39,7 @@ export default function RecordingRow({ recording }) {
           <Stack>
             <strong role="button" aria-hidden="true" onClick={() => !isUpdating && setIsEditing(true)} onBlur={() => setIsEditing(false)}>
               <UpdateRecordingForm
+                mutation={useUpdateAPI}
                 recordId={recording.record_id}
                 name={recording.name}
                 hidden={!isEditing || isUpdating}
@@ -54,16 +58,17 @@ export default function RecordingRow({ recording }) {
           </Stack>
         </Stack>
       </td>
-      <td> {recording.length}min</td>
-      <td> {recording.users} </td>
-      <td>
+      <td className="border-0"> {recording.length}min</td>
+      <td className="border-0"> {recording.users} </td>
+      <td className="border-0">
         {/* TODO: Refactor this. */}
         <Form.Select
           className="visibility-dropdown"
           onChange={(event) => {
-            updateRecordingVisibility.mutate({ visibility: event.target.value, id: recording.record_id });
+            visibilityAPI.mutate({ visibility: event.target.value, id: recording.record_id });
           }}
           defaultValue={recording.visibility}
+          disabled={visibilityAPI.isLoading}
         >
           <option value="Published">Published</option>
           <option value="Unpublished">Unpublished</option>
@@ -71,7 +76,7 @@ export default function RecordingRow({ recording }) {
             && <option value="Protected">Protected</option>}
         </Form.Select>
       </td>
-      <td>
+      <td className="border-0">
         {recording.formats.map((format) => (
           <Button
             onClick={() => window.open(format.url, '_blank')}
@@ -82,7 +87,7 @@ export default function RecordingRow({ recording }) {
           </Button>
         ))}
       </td>
-      <td>
+      <td className="border-start-0">
         <Dropdown className="cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
           <Dropdown.Menu>
@@ -90,7 +95,12 @@ export default function RecordingRow({ recording }) {
             <Modal
               modalButton={<Dropdown.Item><TrashIcon className="hi-s" /> Delete</Dropdown.Item>}
               title="Are you sure?"
-              body={<DeleteRecordingForm recordId={recording.record_id} />}
+              body={(
+                <DeleteRecordingForm
+                  mutation={useDeleteAPI}
+                  recordId={recording.record_id}
+                />
+              )}
             />
           </Dropdown.Menu>
         </Dropdown>
@@ -115,4 +125,7 @@ RecordingRow.propTypes = {
     created_at: PropTypes.string.isRequired,
     map: PropTypes.func,
   }).isRequired,
+  visibilityMutation: PropTypes.func.isRequired,
+  updateMutation: PropTypes.func.isRequired,
+  deleteMutation: PropTypes.func.isRequired,
 };
