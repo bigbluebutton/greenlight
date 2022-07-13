@@ -109,6 +109,24 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
+    it 'joins as moderator if "glAnyoneJoinAsModerator" setting enabled and access code provided' do
+      allow_any_instance_of(Room).to receive(:anyone_joins_as_moderator?).and_return(true)
+      room = create(:room, user:, viewer_access_code: 'AAA', moderator_access_code: 'BBB')
+
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: 'Someone', role: 'Moderator')
+      get :join, params: { friendly_id: room.friendly_id, name: 'Someone', access_code: 'AAA' }
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'joins as moderator if "glAnyoneJoinAsModerator" setting enabled and access code NOT provided' do
+      allow_any_instance_of(Room).to receive(:anyone_joins_as_moderator?).and_return(true)
+      room = create(:room, user:, viewer_access_code: 'AAA', moderator_access_code: 'BBB')
+
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: 'Someone', role: 'Moderator')
+      get :join, params: { friendly_id: room.friendly_id, name: 'Someone' }
+      expect(response).to have_http_status(:ok)
+    end
+
     it 'returns unauthorized if the access code is wrong' do
       room = create(:room, user:, viewer_access_code: 'AAA', moderator_access_code: 'BBB')
 

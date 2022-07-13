@@ -12,4 +12,13 @@ class MeetingOption < ApplicationRecord
       .where(room_meeting_options: { room_id: })
       .pluck(:name, :value)
   end
+
+  def self.get_value(name:, room_id:)
+    joins(:room_meeting_options)
+      .select(:value)
+      .find_by(
+        name:,
+        room_meeting_options: { room_id: }
+      )
+  end
 end

@@ -26,6 +26,10 @@ class Room < ApplicationRecord
     all.to_a
   end
 
+  def anyone_joins_as_moderator?
+    MeetingOption.get_value(name: 'glAnyoneJoinAsModerator', room_id: id)&.value == 'true'
+  end
+
   private
 
   def set_friendly_id

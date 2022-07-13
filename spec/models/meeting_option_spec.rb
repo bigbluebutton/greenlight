@@ -30,4 +30,23 @@ RSpec.describe MeetingOption, type: :model do
               ])
     end
   end
+
+  describe '#get_value' do
+    it 'returns the room meeting option for a room by name' do
+      room = create(:room)
+
+      meeting_option1 = create(:meeting_option, name: 'setting')
+      create(:room_meeting_option, room:, meeting_option: meeting_option1, value: 'value1')
+
+      room_meeting_option = described_class.get_value(name: 'setting', room_id: room.id)
+
+      expect(room_meeting_option.value).to eq('value1')
+    end
+
+    it 'returns nil for unfound room meeting option' do
+      expect(
+        described_class.get_value(name: 'notASettingTrustMe', room_id: 'YouAlreadyTrustedMe')
+      ).to be_nil
+    end
+  end
 end
