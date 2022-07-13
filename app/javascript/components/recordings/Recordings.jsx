@@ -6,13 +6,14 @@ import useRecordings from '../../hooks/queries/recordings/useRecordings';
 import useRecordingsReSync from '../../hooks/queries/recordings/useRecordingsReSync';
 import SearchBarQuery from '../shared/SearchBarQuery';
 import RecordingsList from './RecordingsList';
+import RoomsRecordingRow from './RoomsRecordingRow';
 
 export default function Recordings() {
   const [input, setInput] = useState();
   // TODO: Revisit this.
-  const { data: recordings, isLoading } = useRecordings(input);
+  const recordings = useRecordings(input);
 
-  const { refetch: handleRecordingReSync } = useRecordingsReSync();
+  const recordingsReSync = useRecordingsReSync();
 
   return (
     <div className="wide-background full-height-rooms">
@@ -20,10 +21,14 @@ export default function Recordings() {
         <div>
           <SearchBarQuery setInput={setInput} />
         </div>
-        <Button variant="primary-light" className="ms-auto" onClick={handleRecordingReSync}>Re-Sync Recordings</Button>
+        <Button variant="primary-light" className="ms-auto" onClick={recordingsReSync.refetch}>Re-Sync Recordings</Button>
       </Stack>
       <Card className="border-0 shadow-sm p-0 mt-4">
-        <RecordingsList recordings={recordings} isLoading={isLoading} />
+        <RecordingsList
+          recordings={recordings.data}
+          isLoading={recordings.isLoading}
+          RecordingRow={RoomsRecordingRow}
+        />
       </Card>
     </div>
   );

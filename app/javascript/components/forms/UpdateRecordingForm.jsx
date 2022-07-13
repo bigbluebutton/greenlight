@@ -4,24 +4,27 @@ import { useForm } from 'react-hook-form';
 import FormControl from './FormControl';
 import Form from './Form';
 import { UpdateRecordingsFormConfig, UpdateRecordingsFormFields } from '../../helpers/forms/UpdateRecordingsFormHelpers';
-import useUpdateRecording from '../../hooks/mutations/recordings/useUpdateRecording';
 
 export default function UpdateRecordingForm({
-  name, noLabel, recordId, hidden, setIsUpdating,
+  name, noLabel, recordId, hidden, setIsUpdating, mutation: useUpdateAPI,
 }) {
-  const updateRecording = useUpdateRecording(recordId);
+  const updateAPI = useUpdateAPI(recordId);
+
   UpdateRecordingsFormConfig.defaultValues.name = name;
+
   const methods = useForm(UpdateRecordingsFormConfig);
   const fields = UpdateRecordingsFormFields;
-  useEffect(() => { setIsUpdating(updateRecording.isLoading); }, [updateRecording.isLoading]);
+
+  useEffect(() => { setIsUpdating(updateAPI.isLoading); }, [updateAPI.isLoading]);
 
   return (
-    <Form
-      methods={methods}
-      onBlur={methods.handleSubmit(updateRecording.mutate)}
-      hidden={hidden}
-    >
-      <FormControl field={fields.name} noLabel={noLabel} type="text" disabled={updateRecording.isLoading} />
+    <Form methods={methods} onBlur={methods.handleSubmit(updateAPI.mutate)} hidden={hidden}>
+      <FormControl
+        field={fields.name}
+        noLabel={noLabel}
+        type="text"
+        disabled={updateAPI.isLoading}
+      />
     </Form>
   );
 }
@@ -39,4 +42,5 @@ UpdateRecordingForm.propTypes = {
   recordId: PropTypes.string.isRequired,
   hidden: PropTypes.bool,
   setIsUpdating: PropTypes.func,
+  mutation: PropTypes.func.isRequired,
 };
