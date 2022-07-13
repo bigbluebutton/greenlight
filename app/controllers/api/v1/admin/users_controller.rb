@@ -4,7 +4,7 @@ module Api
   module V1
     module Admin
       class UsersController < ApiController
-        before_action :find_user, only: :create_server_room
+        before_action :find_user, only: :destroy
 
         include Avatarable
 
@@ -27,11 +27,10 @@ module Api
 
         def destroy
           # TODO: Will need to add additional logic later
-          user = User.find(params[:id])
-          if user.destroy
+          if @user.destroy
             render_data
           else
-            render_error errors: user.errors.to_a
+            render_error errors: @user.errors.to_a
           end
         end
 
@@ -60,7 +59,8 @@ module Api
         # Does: Creates a server room for a given user.
 
         def create_server_room
-          room = Room.create!(create_server_room_params.merge(user_id: @user.id))
+          user = User.find params[:user_id]
+          room = Room.create!(create_server_room_params.merge(user_id: user.id))
 
           logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
           render_json status: :created
@@ -77,7 +77,7 @@ module Api
         end
 
         def find_user
-          @user = User.find params[:user_id]
+          @user = User.find params[:id]
         end
       end
     end
