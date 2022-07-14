@@ -24,6 +24,7 @@ import RoomConfig from './components/admin/RoomConfig';
 import Roles from './components/admin/Roles';
 import ResetPassword from './components/users/ResetPassword';
 import EditUser from './components/admin/users/EditUser';
+import EditRole from './components/admin/EditRole';
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ const root = (
             <Route path="/adminpanel/room-configuration" element={<RoomConfig />} />
             <Route path="/adminpanel/site-settings" element={<SiteSettings />} />
             <Route path="/adminpanel/roles" element={<Roles />} />
+            <Route path="/adminpanel/roles/edit/:roleId" element={<EditRole />} />
             <Route path="/rooms" element={<Rooms />} />
             <Route path="/rooms/:friendlyId" element={<Room />} />
             <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
