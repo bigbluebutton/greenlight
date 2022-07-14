@@ -10,6 +10,7 @@ export default function useUpdateRecording(recordId) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getRecordings');
+        queryClient.invalidateQueries('getServerRecordings');
         toast.success('Recording name updated');
       },
       onError: () => {
