@@ -69,7 +69,7 @@ export default function RoomSettings() {
           <Row className="float-end">
             <Modal
               modalButton={
-                <Button id="delete-room" className="mt-1 mx-2 float-end">Delete Room</Button>
+                <Button className="mt-1 mx-2 float-end danger-light-button">Delete Room</Button>
               }
               title="Are you sure?"
               body={<DeleteRoomForm friendlyId={friendlyId} />}
