@@ -28,7 +28,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return(bbb_meetings)
       get :index
-      expect(JSON.parse(response.body)['data'][0]['status']).to eql('Active')
+      expect(JSON.parse(response.body)['data'][0]['active']).to be(true)
     end
 
     it 'returns the number of participants in an active server room' do
@@ -45,7 +45,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
       get :index
-      expect(JSON.parse(response.body)['data'][0]['status']).to eql('Not Running')
+      expect(JSON.parse(response.body)['data'][0]['active']).to be(false)
     end
   end
 

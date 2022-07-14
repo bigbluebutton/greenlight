@@ -17,7 +17,7 @@ module Api
           end
 
           rooms.each do |room|
-            room.status = active_rooms_hash.key?(room.meeting_id) ? 'Active' : 'Not Running'
+            room.active = active_rooms_hash.key?(room.meeting_id)
             room.participants = active_rooms_hash[room.meeting_id]
           end
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ServerRoomSerializer < RoomSerializer
-  attributes :owner, :status, :participants
+  attributes :owner, :active, :participants
 
   def owner
     object.user.name
