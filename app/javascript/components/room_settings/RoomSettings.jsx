@@ -1,9 +1,10 @@
 import React from 'react';
-import { Row, Button, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Spinner from '../shared/stylings/Spinner';
 import useRoomSettings from '../../hooks/queries/rooms/useRoomSettings';
+import useDeleteRoom from '../../hooks/mutations/rooms/useDeleteRoom';
 import RoomSettingsRow from './RoomSettingsRow';
 import AccessCodes from './AccessCodes';
 import Modal from '../shared/Modal';
@@ -11,12 +12,12 @@ import DeleteRoomForm from '../forms/DeleteRoomForm';
 
 export default function RoomSettings() {
   const { friendlyId } = useParams();
-  const { isLoading, data: settings } = useRoomSettings(friendlyId);
+  const roomSetting = useRoomSettings(friendlyId);
 
-  if (isLoading) return <Spinner />;
+  const mutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
 
-  function checkedValue(settingId) {
-    const { value } = settings.find((setting) => setting.name === settingId);
+  const checkedValue = (settingId) => {
+    const { value } = roomSetting.data.find((setting) => setting.name === settingId);
 
     if (value === 'true' || value === 'ASK_MODERATOR') {
       return true;
@@ -24,7 +25,9 @@ export default function RoomSettings() {
       return false;
     }
     return value;
-  }
+  };
+
+  if (roomSetting.isLoading) return <Spinner />;
 
   return (
     <div className="wide-background full-height-room" id="room-settings">
@@ -68,11 +71,9 @@ export default function RoomSettings() {
           </Row>
           <Row className="float-end">
             <Modal
-              modalButton={
-                <Button className="mt-1 mx-2 float-end danger-light-button">Delete Room</Button>
-              }
-              title="Are you sure?"
-              body={<DeleteRoomForm friendlyId={friendlyId} />}
+              modalButton={<Button className="mt-1 mx-2 float-end danger-light-button">Delete Room</Button>}
+              title="Delete Room"
+              body={<DeleteRoomForm mutation={mutationWrapper} />}
             />
           </Row>
         </div>
