@@ -10,7 +10,6 @@ import useChangePwd from '../../hooks/mutations/users/useChangePwd';
 export default function ChangePwdForm() {
   const methods = useForm(changePwdFormConfig);
   const fields = changePwdFormFields;
-  const { isSubmitting } = methods.formState;
   const changePwd = useChangePwd();
 
   return (
@@ -23,9 +22,9 @@ export default function ChangePwdForm() {
       <FormControl field={fields.password_confirmation} type="password" />
 
       <Stack className="mt-1" gap={1}>
-        <Button variant="primary" className="w-100 mb- mt-1" type="submit" disabled={isSubmitting}>
+        <Button variant="primary" className="w-100 mb- mt-1" type="submit" disabled={changePwd.isLoading}>
           Change password
-          {isSubmitting && <Spinner />}
+          {changePwd.isLoading && <Spinner />}
         </Button>
       </Stack>
     </Form>
