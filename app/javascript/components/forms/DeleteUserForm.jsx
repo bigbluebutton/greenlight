@@ -12,20 +12,19 @@ import Spinner from '../shared/stylings/Spinner';
 export default function DeleteUserForm({ handleClose }) {
   const currentUser = useAuth();
   const methods = useForm();
-  const { isSubmitting } = methods.formState;
-  const { onSubmit } = useDeleteUser(currentUser?.id);
+  const deleteUserAPI = useDeleteUser(currentUser?.id);
 
   return (
     <>
       <p className="text-center"> Are you sure you want to delete your account?</p>
-      <Form methods={methods} onSubmit={onSubmit}>
+      <Form methods={methods} onSubmit={deleteUserAPI.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="primary-reverse" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="danger" type="submit" disabled={isSubmitting}>
+          <Button variant="danger" type="submit" disabled={deleteUserAPI.isLoading}>
             Delete
-            { isSubmitting && <Spinner /> }
+            { deleteUserAPI.isLoading && <Spinner /> }
           </Button>
         </Stack>
       </Form>

@@ -4,7 +4,7 @@ import axios from '../../../helpers/Axios';
 
 export default function useChangePwd() {
   return useMutation(
-    (data) => axios.post('/users/change_password.json', data),
+    (user) => axios.post('/users/change_password.json', { user }),
     {
       onSuccess: () => {
         toast.success('Password updated');
