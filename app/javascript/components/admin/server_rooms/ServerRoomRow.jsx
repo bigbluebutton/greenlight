@@ -1,15 +1,24 @@
 import React from 'react';
-import { CursorClickIcon, DotsVerticalIcon, TrashIcon } from '@heroicons/react/outline';
+import {
+  EyeIcon, DotsVerticalIcon, TrashIcon, ExternalLinkIcon,
+} from '@heroicons/react/outline';
 import { Dropdown, Stack } from 'react-bootstrap';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import useDeleteServerRoom from '../../../hooks/mutations/admins/server-rooms/useDeleteServerRoom';
 import Modal from '../../shared/Modal';
 import DeleteRoomForm from '../../forms/DeleteRoomForm';
+import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
+import useRoomStatus from '../../../hooks/queries/rooms/useRoomStatus';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function ServerRoomRow({ room }) {
   const { friendly_id: friendlyId } = room;
   const mutationWrapper = (args) => useDeleteServerRoom({ friendlyId, ...args });
+  const { handleStartMeeting } = useStartMeeting(friendlyId);
+  const currentUser = useAuth();
+  // TODO - samuel: useRoomStatus will not work if room has an access code. Will need to add bypass in MeetingController
+  const { refetch } = useRoomStatus(room.friendly_id, currentUser.name);
 
   return (
     <tr className="align-middle text-muted border border-2">
@@ -27,9 +36,22 @@ export default function ServerRoomRow({ room }) {
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
           <Dropdown.Menu>
-            <Dropdown.Item as={Link} to={`/rooms/${room.friendly_id}`}><CursorClickIcon className="hi-s" /> View</Dropdown.Item>
+            { room.status === 'Active'
+              ? (
+                <Dropdown.Item className="text-muted" onClick={refetch}>
+                  <ExternalLinkIcon className="hi-s pb-1 me-1" /> Join
+                </Dropdown.Item>
+              )
+              : (
+                <Dropdown.Item className="text-muted" onClick={handleStartMeeting}>
+                  <ExternalLinkIcon className="hi-s pb-1 me-1" /> Start
+                </Dropdown.Item>
+              )}
+            <Dropdown.Item className="text-muted" as={Link} to={`/rooms/${room.friendly_id}`}>
+              <EyeIcon className="hi-s pb-1 me-1" /> View
+            </Dropdown.Item>
             <Modal
-              modalButton={<Dropdown.Item><TrashIcon className="hi-s" /> Delete</Dropdown.Item>}
+              modalButton={<Dropdown.Item className="text-muted"><TrashIcon className="hi-s pb-1 me-1" /> Delete</Dropdown.Item>}
               title="Delete Server Room"
               body={<DeleteRoomForm mutation={mutationWrapper} />}
             />
