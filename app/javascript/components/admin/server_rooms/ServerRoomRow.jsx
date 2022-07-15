@@ -22,28 +22,20 @@ export default function ServerRoomRow({ room }) {
   // TODO - samuel: useRoomStatus will not work if room has an access code. Will need to add bypass in MeetingController
   const { refetch } = useRoomStatus(room.friendly_id, currentUser.name);
 
-  const renderLastSession = () => {
-    if (lastSession == null) {
-      return <span> No meeting yet. </span>;
-    }
-    if (active) {
-      return <span> Started: {lastSession} </span>;
-    }
-    return <span> Ended: {lastSession} </span>;
-  };
-
   return (
     <tr className="align-middle text-muted border border-2">
       <td className="border-end-0">
         <Stack>
           <span className="text-dark fw-bold"> {name} </span>
-          {renderLastSession()}
+          { lastSession == null
+            ? <span> No meeting yet. </span>
+            : <span> {lastSession} </span>}
         </Stack>
       </td>
       <td className="border-0"> {owner}</td>
       <td className="border-0"> {friendlyId} </td>
       <td className="border-0"> {participants || '-'} </td>
-      <td className="border-0"> {renderLastSession()} </td>
+      <td className="border-0"> {active ? 'Active' : 'Not Running'} </td>
       <td className="border-start-0">
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />

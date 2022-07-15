@@ -80,7 +80,7 @@ describe MeetingStarter, type: :service do
 
       service.call
 
-      expect(room.last_session).to eql(Time.zone.at(1_389_464_535_956 / 1000))
+      expect(room.last_session).to eql(DateTime.strptime(1_389_464_535_956.to_s, '%Q').utc)
     end
   end
 
