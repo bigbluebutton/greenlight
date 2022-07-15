@@ -22,20 +22,20 @@ export default function Profile() {
               <div id="profile-sidebar">
                 <Nav variant="pills" className="flex-column">
                   <Nav.Item>
-                    <Nav.Link className="cursor-pointer" eventKey="first">
-                      <UserIcon className="hi-s text-primary me-3" />
+                    <Nav.Link className="cursor-pointer text-muted" eventKey="first">
+                      <UserIcon className="hi-s text-muted me-3 pb-1" />
                       Account Info
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link className="cursor-pointer" eventKey="third">
-                      <LockClosedIcon className="hi-s text-primary me-3" />
+                    <Nav.Link className="cursor-pointer text-muted" eventKey="third">
+                      <LockClosedIcon className="hi-s text-muted me-3 pb-1" />
                       Change Password
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link className="cursor-pointer" eventKey="second">
-                      <TrashIcon className="hi-s text-primary me-3" />
+                    <Nav.Link className="cursor-pointer text-muted" eventKey="second">
+                      <TrashIcon className="hi-s text-muted me-3 pb-1" />
                       Delete Account
                     </Nav.Link>
                   </Nav.Item>
