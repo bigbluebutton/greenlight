@@ -74,6 +74,12 @@ Rails.application.routes.draw do
         resources :server_rooms, only: %i[index destroy], param: :friendly_id
         resources :server_recordings, only: %i[index]
         resources :roles, only: %i[index create update show]
+
+        namespace :site_settings do
+          resources :roles_mapping, only: :index do
+            post '/update', to: 'roles_mapping#update_rules', on: :collection
+          end
+        end
       end
     end
   end
