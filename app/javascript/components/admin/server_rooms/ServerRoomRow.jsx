@@ -31,12 +31,12 @@ export default function ServerRoomRow({ room }) {
       <td className="border-0"> {room.owner}</td>
       <td className="border-0"> {room.friendly_id} </td>
       <td className="border-0"> {room.participants ? room.participants : '-'} </td>
-      <td className="border-0"> {room.status} </td>
+      <td className="border-0"> {room.active ? 'Active' : 'Not Running'} </td>
       <td className="border-start-0">
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
           <Dropdown.Menu>
-            { room.status === 'Active'
+            { room.active
               ? (
                 <Dropdown.Item className="text-muted" onClick={refetch}>
                   <ExternalLinkIcon className="hi-s pb-1 me-1" /> Join
@@ -67,7 +67,7 @@ ServerRoomRow.propTypes = {
     name: PropTypes.string.isRequired,
     owner: PropTypes.string.isRequired,
     friendly_id: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
     participants: PropTypes.number,
   }).isRequired,
 };
