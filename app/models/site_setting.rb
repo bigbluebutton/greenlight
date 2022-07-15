@@ -3,6 +3,8 @@
 class SiteSetting < ApplicationRecord
   belongs_to :setting
 
+  validates :provider, presence: true
+
   REGISTRATION_METHODS = {
     open: 'open',
     invite: 'invite',
