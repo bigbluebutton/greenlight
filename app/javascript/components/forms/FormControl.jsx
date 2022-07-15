@@ -6,12 +6,13 @@ import { useFormContext } from 'react-hook-form';
 import PropTypes from 'prop-types';
 
 export default function FormControl({
-  field, control: Control, children, noLabel, ...props
+  field, control: Control, children, fieldError, noLabel, ...props
 }) {
   const { register, formState: { errors } } = useFormContext();
   const { hookForm } = field;
   const { id, validations } = hookForm;
-  const error = errors[id];
+  const error = fieldError ?? errors[id];
+
   return (
     <BootStrapForm.Group className="mb-2" controlId={field.controlId}>
       {
@@ -30,10 +31,12 @@ export default function FormControl({
         && (
           (error.types
             && Object.keys(error.types).map(
-              (key) => <BootStrapForm.Control.Feedback key={key} type="invalid">{error.types[key]}</BootStrapForm.Control.Feedback>,
+              (key) => (
+                error.types[key] && <BootStrapForm.Control.Feedback key={key} type="invalid">{error.types[key]}</BootStrapForm.Control.Feedback>
+              ),
             )
           )
-          || <BootStrapForm.Control.Feedback type="invalid">{error.message}</BootStrapForm.Control.Feedback>
+          || (error.message && <BootStrapForm.Control.Feedback type="invalid">{error.message}</BootStrapForm.Control.Feedback>)
         )
 
       }
@@ -45,6 +48,7 @@ FormControl.defaultProps = {
   noLabel: false,
   control: BootStrapForm.Control,
   children: undefined,
+  fieldError: undefined,
 };
 
 FormControl.propTypes = {
@@ -66,4 +70,8 @@ FormControl.propTypes = {
   noLabel: PropTypes.bool,
   control: PropTypes.shape({}),
   children: PropTypes.node,
+  fieldError: PropTypes.shape({
+    types: PropTypes.arrayOf(PropTypes.string),
+    message: PropTypes.string,
+  }),
 };

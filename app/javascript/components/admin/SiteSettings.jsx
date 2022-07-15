@@ -26,7 +26,7 @@ export default function SiteSettings() {
                 <Container className="admin-table">
                   <h2 className="my-4"> Customize Greenlight </h2>
                   <Row>
-                    <Tabs defaultActiveKey="appearance">
+                    <Tabs defaultActiveKey="appearance" unmountOnExit>
                       <Tab eventKey="appearance" title="Appearance">
                         <Appearance />
                       </Tab>
