@@ -22,14 +22,22 @@ export default function ServerRoomRow({ room }) {
   // TODO - samuel: useRoomStatus will not work if room has an access code. Will need to add bypass in MeetingController
   const { refetch } = useRoomStatus(room.friendly_id, currentUser.name);
 
+  const renderLastSession = () => {
+    if (lastSession == null) {
+      return 'No meeting yet.';
+    }
+    if (active) {
+      return `Current Session: ${lastSession}`;
+    }
+    return `Last Session: ${lastSession}`;
+  };
+
   return (
     <tr className="align-middle text-muted border border-2">
       <td className="border-end-0">
         <Stack>
           <span className="text-dark fw-bold"> {name} </span>
-          { lastSession == null
-            ? <span> No meeting yet. </span>
-            : <span> {lastSession} </span>}
+          <span> {renderLastSession()} </span>
         </Stack>
       </td>
       <td className="border-0"> {owner}</td>
