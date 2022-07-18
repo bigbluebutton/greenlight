@@ -12,7 +12,7 @@ class PopulateSiteSettings < ActiveRecord::Migration[7.0]
       { setting: Setting.find_by(name: 'RegistrationMethod'), value: SiteSetting::REGISTRATION_METHODS[:open], provider: 'greenlight' },
       { setting: Setting.find_by(name: 'ShareRooms'), value: 'true', provider: 'greenlight' },
       { setting: Setting.find_by(name: 'PreuploadPresentation'), value: 'true', provider: 'greenlight' },
-      { setting: Setting.find_by(name: 'RoleMapping'), value: '', provider: 'greenlight' }
+      { setting: Setting.find_by(name: 'RoleMapping'), value: '[]', provider: 'greenlight' }
     ]
   end
 
