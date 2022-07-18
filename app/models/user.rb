@@ -98,6 +98,15 @@ class User < ApplicationRecord
     retry
   end
 
+  def generate_remember_token!
+    token = SecureRandom.alphanumeric(40)
+    digest = User.generate_digest(token)
+
+    update! remember_digest: digest
+
+    token
+  end
+
   def invalidate_reset_token
     update reset_sent_at: nil, reset_digest: nil # Remove expired/valid tokens.
   end

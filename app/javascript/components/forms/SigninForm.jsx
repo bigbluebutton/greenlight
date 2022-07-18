@@ -14,7 +14,7 @@ import useCreateSession from '../../hooks/mutations/sessions/useCreateSession';
 import useEnv from '../../hooks/queries/env/useEnv';
 
 export default function SigninForm() {
-  const methods = useForm(signinFormConfig);
+  const { methods, register } = useForm(signinFormConfig);
   const [token, setToken] = useState('');
   const createSession = useCreateSession(token);
   const { isSubmitting } = methods.formState;
@@ -45,7 +45,7 @@ export default function SigninForm() {
       <Row>
         <Col>
           <BootstrapForm.Group className="mb-2" controlId="formBasicCheckbox">
-            <BootstrapForm.Check type="checkbox" label="Remember me" className="small" />
+            <BootstrapForm.Check type="checkbox" label="Remember me" className="small" {...register('remember_me') } />
           </BootstrapForm.Group>
         </Col>
         <Col>
