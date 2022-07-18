@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Alert, Container, Row } from 'react-bootstrap';
 import RegistrationForm from '../../forms/admin/RegistrationForm';
 
-const DUMMY_ROLES_MAP = [
-  { name: 'User', suffix: 'users.com' },
-  { name: 'Admin', suffix: 'admins.com' },
-  { name: 'Teacher', suffix: 'teachers.com' },
-  { name: 'Presenter', suffix: 'presenters.com' },
-];
-
-export default function Appearance() {
+export default function Appearance({ setting }) {
   const [showInfo, setShowInfo] = useState(true);
 
   return (
@@ -30,8 +24,19 @@ export default function Appearance() {
         )
       }
       <Row className="mt-2">
-        <RegistrationForm value={DUMMY_ROLES_MAP} />
+        <RegistrationForm value={setting} />
       </Row>
     </Container>
   );
 }
+
+Appearance.defaultProps = {
+  setting: [],
+};
+
+Appearance.propTypes = {
+  setting: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    suffix: PropTypes.string.isRequired,
+  }).isRequired),
+};
