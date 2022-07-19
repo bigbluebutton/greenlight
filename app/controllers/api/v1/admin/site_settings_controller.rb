@@ -5,8 +5,11 @@ module Api
     module Admin
       class SiteSettingsController < ApiController
         def update
-          SiteSetting.find_by(setting_id: params[:settingId]).update(value: params[:settingValue].to_s)
-
+          SiteSetting
+            .joins(:setting)
+            .where(provider: 'greenlight')
+            .where(setting: { name: params[:settingName] })
+            .update(value: params[:settingValue].to_s)
           render_json
         end
       end

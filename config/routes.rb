@@ -73,7 +73,11 @@ Rails.application.routes.draw do
         end
         resources :server_rooms, only: %i[index destroy], param: :friendly_id
         resources :server_recordings, only: %i[index]
-        resources :site_settings, only: %i[update]
+        resources :site_settings, only: %i[] do
+          collection do 
+            patch '/update', to: 'site_settings#update'
+          end
+        end
         resources :roles, only: %i[index create update show]
       end
     end

@@ -1,12 +1,15 @@
 import React from 'react';
 import { Stack } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
 import useSiteSettings from '../../../hooks/queries/admin/site_settings/useSiteSettings';
 import Spinner from '../../shared/stylings/Spinner';
 import useUpdateSiteSetting from '../../../hooks/mutations/admins/site_settings/useUpdateSiteSetting';
+import Form from '../../forms/Form';
 
 export default function Settings() {
   const { isLoading, data: siteSettings } = useSiteSettings();
   const updateSiteSetting = useUpdateSiteSetting();
+  const methods = useForm();
 
   if (isLoading) return <Spinner />;
 
@@ -20,16 +23,16 @@ export default function Settings() {
             dropdown, preventing users from sharing rooms
           </p>
         </Stack>
-        <div className="form-switch">
+        <Form className="form-switch" methods={methods}>
           <input
             className="form-check-input text-primary fs-5"
             type="checkbox"
-            defaultChecked={siteSettings.ShareRooms.value === 'true'}
+            defaultChecked={siteSettings.ShareRooms === 'true'}
             onClick={(event) => {
-              updateSiteSetting.mutate({ settingId: siteSettings.ShareRooms.id, settingValue: event.target.checked });
+              updateSiteSetting.mutate({ settingName: 'ShareRooms', settingValue: event.target.checked });
             }}
           />
-        </div>
+        </Form>
       </Stack>
     </div>
 
