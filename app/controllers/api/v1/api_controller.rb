@@ -35,7 +35,7 @@ module Api
         logger.error exception.backtrace.join("\n") # TODO: amir - Revisit this.
       end
 
-      def render_data(status:, serializer:, data: {}, options: {})
+      def render_data(status:, serializer: nil, data: {}, options: {})
         args = {
           json: data,
           root: 'data',
