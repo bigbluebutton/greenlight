@@ -5,16 +5,6 @@
     padding: 1rem;
   }
 
-  .nav-pills .nav-link.active {
-    color: $primary !important;
-    background-color: $primary-light;
-    font-weight: 600;
-
-    svg {
-      color: $primary !important;
-    }
-  }
-
   .tab-content {
     display: flex;
   }
@@ -41,6 +31,6 @@
   }
 
   .dropdown-toggle::after {
-    display: none !important; 
+    display: none !important;
   }
 }

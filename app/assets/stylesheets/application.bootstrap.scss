@@ -103,3 +103,13 @@ input.search-bar {
   background-color: white;
   border: none;
 }
+
+.nav-pills .nav-link.active {
+  color: $primary !important;
+  background-color: $primary-light;
+  font-weight: 600;
+
+  svg {
+    color: $primary !important;
+  }
+}
