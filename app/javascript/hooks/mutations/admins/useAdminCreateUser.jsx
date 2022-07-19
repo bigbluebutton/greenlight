@@ -5,9 +5,11 @@ export default function useAdminCreateUser({ closeModal }) {
   const queryClient = useQueryClient();
 
   const addInferredLanguage = (data) => {
-    let language = window.navigator.userLanguage || window.navigator.language;
-    data.language = language.match(/^[a-z]{2,}/)?.at(0);
-    return data
+    const options = data;
+    const language = window.navigator.userLanguage || window.navigator.language;
+    options.language = language.match(/^[a-z]{2,}/)?.at(0);
+
+    return options;
   };
 
   return useMutation(
