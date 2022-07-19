@@ -15,6 +15,7 @@ export default function Signup() {
           <span className="text-center text-muted small"> Already have an account?
             <Link to="/signin" className="text-link"> Log in </Link>
           </span>
+          <img className="hcaptcha-logo mb-2" src="https://logovectorseek.com/wp-content/uploads/2020/04/hcaptcha-logo-vector.png" alt="" />
         </Card>
       </div>
     </div>
