@@ -4,14 +4,12 @@ module Api
   module V1
     class SiteSettingsController < ApiController
       def index
-        site_setting_data = {}
-        site_settings = SiteSetting.joins(:setting).select(:id, :name, :value)
+        data = Setting.joins(:site_settings)
+                      .where(site_settings: { provider: 'greenlight' })
+                      .pluck(:name, :value)
+                      .to_h
 
-        site_settings.each do |setting|
-          site_setting_data[setting.name] = { value: setting.value, id: setting.id }
-        end
-
-        render_json data: site_setting_data
+        render_json data:
       end
 
       # GET /api/v1/site_settings/:name
