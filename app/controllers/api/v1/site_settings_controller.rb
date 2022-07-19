@@ -11,7 +11,7 @@ module Api
           site_setting_data[setting.name] = { value: setting.value, id: setting.id }
         end
 
-        render_json data: site_setting_data, status: :ok
+        render_json data: site_setting_data
       end
 
       # GET /api/v1/site_settings/:name
@@ -22,7 +22,7 @@ module Api
       def update
         SiteSetting.find_by(setting_id: params[:settingId]).update(value: params[:settingValue].to_s)
 
-        render_data status: :ok
+        render_json
       end
     end
   end

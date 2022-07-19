@@ -6,7 +6,7 @@ export default function useUpdateSiteSetting(id) {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (siteSettingData) => axios.patch(`/site_settings/${id}.json`, siteSettingData),
+    (siteSettingData) => axios.patch(`/admin/site_settings/${id}.json`, siteSettingData),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getSiteSettings');
