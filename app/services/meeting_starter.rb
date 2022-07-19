@@ -17,7 +17,9 @@ class MeetingStarter
 
     retries = 0
     begin
-      BigBlueButtonApi.new.start_meeting room: @room, options: options, presentation_url: @presentation_url
+      meeting = BigBlueButtonApi.new.start_meeting room: @room, options: options, presentation_url: @presentation_url
+
+      @room.update!(last_session: DateTime.strptime(meeting[:createTime].to_s, '%Q'))
 
       ActionCable.server.broadcast "#{@room.friendly_id}_rooms_channel", 'started'
     rescue BigBlueButton::BigBlueButtonException => e

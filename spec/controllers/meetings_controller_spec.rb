@@ -16,7 +16,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     before do
       allow_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
-        .and_return(true)
+        .and_return(meeting_starter_response)
     end
 
     it 'makes a call to the MeetingStarter service with the right values' do
@@ -179,5 +179,20 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'ZZZ' }
       expect(response).to have_http_status(:unauthorized)
     end
+  end
+
+  private
+
+  def meeting_starter_response
+    {
+      returncode: true,
+      meetingID: 'hulsdzwvitlk1dbekzxdprshsxmvycvar0jeaszc',
+      attendeePW: '12345',
+      moderatorPW: '54321',
+      createTime: 1_389_464_535_956,
+      hasBeenForciblyEnded: false,
+      messageKey: '',
+      message: ''
+    }
   end
 end

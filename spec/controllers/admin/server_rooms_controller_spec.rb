@@ -48,6 +48,19 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
     end
   end
 
+  describe '#destroy' do
+    it 'removes a given room for valid params' do
+      room = create(:room)
+      expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Room, :count).from(1).to(0)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'returns :not_found for not found rooms' do
+      delete :destroy, params: { friendly_id: 'NOT_FRIENDLY_ANYMORE' }
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
   private
 
   def bbb_meetings
@@ -88,18 +101,5 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
                   endcallbackurl: 'http://localhost:3000/meeting_ended' },
       isBreakout: 'false'
     }]
-  end
-
-  describe '#destroy' do
-    it 'removes a given room for valid params' do
-      room = create(:room)
-      expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Room, :count).from(1).to(0)
-      expect(response).to have_http_status(:ok)
-    end
-
-    it 'returns :not_found for not found rooms' do
-      delete :destroy, params: { friendly_id: 'NOT_FRIENDLY_ANYMORE' }
-      expect(response).to have_http_status(:not_found)
-    end
   end
 end

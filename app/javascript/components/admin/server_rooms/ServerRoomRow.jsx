@@ -13,25 +13,37 @@ import useRoomStatus from '../../../hooks/queries/rooms/useRoomStatus';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function ServerRoomRow({ room }) {
-  const { friendly_id: friendlyId } = room;
+  const {
+    friendly_id: friendlyId, name, owner, last_session: lastSession, active, participants,
+  } = room;
   const mutationWrapper = (args) => useDeleteServerRoom({ friendlyId, ...args });
   const { handleStartMeeting } = useStartMeeting(friendlyId);
   const currentUser = useAuth();
   // TODO - samuel: useRoomStatus will not work if room has an access code. Will need to add bypass in MeetingController
   const { refetch } = useRoomStatus(room.friendly_id, currentUser.name);
 
+  const renderLastSession = () => {
+    if (lastSession == null) {
+      return 'No meeting yet.';
+    }
+    if (active) {
+      return `Current Session: ${lastSession}`;
+    }
+    return `Last Session: ${lastSession}`;
+  };
+
   return (
     <tr className="align-middle text-muted border border-2">
       <td className="border-end-0">
         <Stack>
-          <span className="text-dark fw-bold"> {room.name} </span>
-          <span> Ended: </span>
+          <span className="text-dark fw-bold"> {name} </span>
+          <span> {renderLastSession()} </span>
         </Stack>
       </td>
-      <td className="border-0"> {room.owner}</td>
-      <td className="border-0"> {room.friendly_id} </td>
-      <td className="border-0"> {room.participants ? room.participants : '-'} </td>
-      <td className="border-0"> {room.active ? 'Active' : 'Not Running'} </td>
+      <td className="border-0"> {owner}</td>
+      <td className="border-0"> {friendlyId} </td>
+      <td className="border-0"> {participants || '-'} </td>
+      <td className="border-0"> {active ? 'Active' : 'Not Running'} </td>
       <td className="border-start-0">
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
@@ -68,6 +80,7 @@ ServerRoomRow.propTypes = {
     owner: PropTypes.string.isRequired,
     friendly_id: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
+    last_session: PropTypes.string,
     participants: PropTypes.number,
   }).isRequired,
 };
