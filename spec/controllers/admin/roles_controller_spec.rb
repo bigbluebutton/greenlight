@@ -107,4 +107,24 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(response).to have_http_status(:not_found)
     end
   end
+
+  describe 'roles#destroy' do
+    it 'removes a given role if no user is dependant' do
+      role = create(:role)
+      expect { delete :destroy, params: { id: role.id } }.to change(Role, :count).from(1).to(0)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'returns :not_found for not found roles' do
+      delete :destroy, params: { id: 'VOID' }
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'fails to remove roles with dependant users with :internal_server_error' do
+      role = create(:role)
+      create(:user, role:)
+      expect { delete :destroy, params: { id: role.id } }.not_to change(Role, :count).from(1)
+      expect(response).to have_http_status(:internal_server_error)
+    end
+  end
 end
