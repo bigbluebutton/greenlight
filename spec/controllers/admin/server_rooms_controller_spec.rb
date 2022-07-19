@@ -8,18 +8,17 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
   end
 
   describe '#index' do
-    it 'returns all the Server Rooms' do
+    it 'returns all the Server Rooms from all users' do
       user_one = create(:user)
       user_two = create(:user)
 
-      user_one_rooms = create_list(:room, 5, user_id: user_one.id)
-      user_two_rooms = create_list(:room, 5, user_id: user_two.id)
-      rooms = user_one_rooms + user_two_rooms
+      create_list(:room, 5, user_id: user_one.id)
+      create_list(:room, 5, user_id: user_two.id)
 
+      allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
       get :index
-      allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings)
-      response_room_ids = JSON.parse(response.body)['data'].map { |room| room['friendly_id'] }
-      expect(response_room_ids).to match_array(rooms.pluck(:friendly_id))
+      expect(JSON.parse(response.body)['data'].map { |room| room['friendly_id'] })
+        .to match_array(Room.all.pluck(:friendly_id))
     end
 
     it 'returns the server room status as active if the meeting has started' do
@@ -53,7 +52,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
 
   def bbb_meetings
     [{
-      meetingName: 'Meeting',
+      meetingName: 'Meeting 1',
       meetingID: 'hulsdzwvitlk1dbekzxdprshsxmvycvar0jeaszc',
       internalMeetingID: 'f92e335f4aa90883d0454990d1e292c9cf2a9411-1657223036433',
       createTime: 1_657_223_036_433,
