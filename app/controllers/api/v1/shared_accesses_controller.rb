@@ -15,19 +15,19 @@ module Api
 
         SharedAccess.create(shared_accesses)
 
-        render_data
+        render_data status: :ok
       end
 
       # DELETE /api/v1/shared_accesses/friendly_id.json
       def destroy
         SharedAccess.delete_by(user_id: params[:user_id], room_id: @room.id)
 
-        render_data
+        render_data status: :ok
       end
 
       # GET /api/v1/shared_accesses/friendly_id.json
       def show
-        render_data data: @room.shared_users.search(params[:search])
+        render_data data: @room.shared_users.search(params[:search]), status: :ok
       end
 
       # GET /api/v1/shared_accesses/friendly_id/shareable_users.json
@@ -35,7 +35,7 @@ module Api
         # Can't share the room if it's already shared or it's the room owner
         render_data data: User.with_attached_avatar
                               .where.not(id: [@room.shared_users.pluck(:id) << @room.user_id])
-                              .search(params[:search])
+                              .search(params[:search]), status: :ok
       end
 
       private

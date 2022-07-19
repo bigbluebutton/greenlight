@@ -17,7 +17,7 @@ module Api
         user = User.find_by email: params[:user][:email]
 
         # Silently fail for unfound or external users.
-        return render_data unless user && !user.external_id?
+        return render_data status: :ok unless user && !user.external_id?
 
         token = user.generate_reset_token!
 
@@ -40,7 +40,7 @@ module Api
 
         @user.update! password: new_password
 
-        render_data
+        render_data status: :ok
       end
 
       # POST /api/v1/reset_password/verify.json
@@ -49,7 +49,7 @@ module Api
       # Does: Validates the token.
 
       def verify
-        render_data
+        render_data status: :ok
       end
 
       private

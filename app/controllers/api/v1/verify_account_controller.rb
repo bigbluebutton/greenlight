@@ -15,7 +15,7 @@ module Api
         user = User.find_by email: params[:user][:email]
 
         # Silentley fail for invalid emails or already active users.
-        return render_data unless user && !user.active?
+        return render_data status: :ok unless user && !user.active?
 
         token = user.generate_activation_token!
 
@@ -42,7 +42,7 @@ module Api
 
         user.activate!
 
-        render_data
+        render_data status: :ok
       end
     end
   end

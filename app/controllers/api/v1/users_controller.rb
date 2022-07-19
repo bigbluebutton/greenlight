@@ -40,7 +40,7 @@ module Api
       def update
         user = User.find(params[:id])
         if user.update(user_params)
-          render_data
+          render_data  status: :ok
         else
           render_error errors: user.errors.to_a
         end
@@ -49,7 +49,7 @@ module Api
       def destroy
         user = User.find(params[:id])
         if user.destroy
-          render_data
+          render_data  status: :ok
         else
           render_error errors: user.errors.to_a
         end
@@ -59,7 +59,7 @@ module Api
         user = User.find(params[:id])
         user.avatar.purge
 
-        render_data
+        render_data status: :ok
       end
 
       # POST /api/v1/users/change_password.json
@@ -80,7 +80,7 @@ module Api
         return render_error status: :bad_request unless current_user.authenticate old_password
 
         current_user.update! password: new_password
-        render_data
+        render_data status: :ok
       end
 
       private

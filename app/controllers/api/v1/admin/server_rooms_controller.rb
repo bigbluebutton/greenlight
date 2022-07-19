@@ -21,7 +21,7 @@ module Api
             room.participants = active_rooms_hash[room.meeting_id]
           end
 
-          render_data data: rooms, each_serializer: ServerRoomSerializer
+          render_data data: rooms, serializer: ServerRoomSerializer, status: :ok
         end
 
         # DELETE /api/v1/admin/server_rooms/:friendly_id
@@ -30,7 +30,7 @@ module Api
         # Does: Deletes the given server room.
         def destroy
           @server_room.destroy!
-          render_json
+          render_data status: :ok
         end
 
         private

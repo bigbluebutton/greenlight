@@ -28,7 +28,7 @@ module Api
         def destroy
           # TODO: Will need to add additional logic later
           if @user.destroy
-            render_data
+            render_data status: :ok
           else
             render_error errors: @user.errors.to_a
           end
@@ -63,7 +63,7 @@ module Api
           room = Room.create!(create_server_room_params.merge(user_id: user.id))
 
           logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
-          render_json status: :created
+          render_data status: :created
         end
 
         private

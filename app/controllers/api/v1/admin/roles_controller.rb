@@ -37,7 +37,7 @@ module Api
 
           return render_error errors: role.errors.to_a, status: :bad_request unless role.save
 
-          render_json status: :created
+          render_data status: :created
         end
 
         # POST /api/v1/:id/roles.json
@@ -48,7 +48,7 @@ module Api
         def update
           return render_error errors: @role.errors.to_a, status: :bad_request unless @role.update role_params
 
-          render_json status: :ok
+          render_data status: :ok
         end
 
         private
