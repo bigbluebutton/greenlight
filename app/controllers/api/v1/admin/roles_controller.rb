@@ -4,7 +4,7 @@ module Api
   module V1
     module Admin
       class RolesController < ApiController
-        before_action :find_role, only: %i[update show]
+        before_action :find_role, only: %i[update show destroy]
 
         # POST /api/v1/admin/roles.json
         # Expects: {}
@@ -49,6 +49,15 @@ module Api
           return render_error errors: @role.errors.to_a, status: :bad_request unless @role.update role_params
 
           render_json status: :ok
+        end
+
+        # DELETE /api/v1/admin/roles.json
+        # Expects: {}
+        # Returns: { data: Array[serializable objects] , errors: Array[String] }
+        # Does: Deletes a role.
+        def destroy
+          @role.destroy!
+          render_json
         end
 
         private
