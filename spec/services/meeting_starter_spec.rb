@@ -28,8 +28,11 @@ describe MeetingStarter, type: :service do
     it 'calls BigBlueButtonApi with the right params' do
       allow_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
-        .with(room:, options:, presentation_url:)
         .and_return(meeting_starter_response)
+
+      expect_any_instance_of(BigBlueButtonApi)
+        .to receive(:start_meeting)
+        .with(room:, options:, presentation_url:)
 
       service.call
     end
@@ -41,8 +44,11 @@ describe MeetingStarter, type: :service do
 
       allow_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
-        .with(room:, options: { test: 'test' }, presentation_url:)
         .and_return(meeting_starter_response)
+
+      expect_any_instance_of(BigBlueButtonApi)
+        .to receive(:start_meeting)
+        .with(room:, options: { test: 'test' }, presentation_url:)
 
       service.call
     end
@@ -62,7 +68,6 @@ describe MeetingStarter, type: :service do
     it 'broadcasts to ActionCable that the meeting has started' do
       allow_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
-        .with(room:, options:, presentation_url:)
         .and_return(meeting_starter_response)
 
       expect(ActionCable.server)
@@ -80,7 +85,7 @@ describe MeetingStarter, type: :service do
 
       service.call
 
-      expect(room.last_session).to eql(DateTime.strptime(1_389_464_535_956.to_s, '%Q').utc)
+      expect(room.last_session).to eql(DateTime.strptime(meeting_starter_response[:createTime].to_s, '%Q').utc)
     end
   end
 
