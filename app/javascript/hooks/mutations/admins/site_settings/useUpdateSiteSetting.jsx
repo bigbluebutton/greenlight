@@ -2,11 +2,11 @@ import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-hot-toast';
 import axios from '../../../../helpers/Axios';
 
-export default function useUpdateSiteSetting() {
+export default function useUpdateSiteSetting(name) {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (siteSettingData) => axios.patch(`/admin/site_settings/${siteSettingData.name}.json`, siteSettingData),
+    (siteSetting) => axios.patch(`/admin/site_settings/${name}.json`, { siteSetting }),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getSiteSettings');

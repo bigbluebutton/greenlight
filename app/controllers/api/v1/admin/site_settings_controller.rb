@@ -5,20 +5,29 @@ module Api
     module Admin
       class SiteSettingsController < ApiController
         def index
-          data = Setting.joins(:site_settings)
+          site_settings = Setting.joins(:site_settings)
                         .where(site_settings: { provider: 'greenlight' })
                         .pluck(:name, :value)
                         .to_h
 
-          render_json data:
+          return render_error status: :internal_server_error if site_settings.blank?
+          
+          render_json data: site_setting
         end
 
         def update
-          SiteSetting
-            .joins(:setting)
-            .where(provider: 'greenlight')
-            .where(setting: { name: params[:name] })
-            .update(value: params[:value].to_s)
+          return render_error status: :bad_request unless params[:siteSetting] && params[:siteSetting][:value]
+
+          site_setting = SiteSetting.joins(:setting)
+                                    .find_by(
+                                      provider: 'greenlight',
+                                      setting: { name: params[:name] }
+                                    )
+
+          return render_error status: :not_found unless site_setting
+
+          return render_error status: :bad_request unless site_setting.update(value: params[:siteSetting][:value].to_s)
+
           render_json
         end
       end
