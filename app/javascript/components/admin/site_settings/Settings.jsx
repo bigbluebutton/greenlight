@@ -26,7 +26,7 @@ export default function Settings() {
             type="checkbox"
             defaultChecked={siteSettings.ShareRooms === 'true'}
             onClick={(event) => {
-              updateSiteSetting.mutate({ settingName: 'ShareRooms', settingValue: event.target.checked });
+              updateSiteSetting.mutate({ name: 'ShareRooms', value: event.target.checked });
             }}
           />
         </div>

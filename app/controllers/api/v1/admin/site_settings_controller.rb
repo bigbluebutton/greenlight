@@ -17,8 +17,8 @@ module Api
           SiteSetting
             .joins(:setting)
             .where(provider: 'greenlight')
-            .where(setting: { name: params[:settingName] })
-            .update(value: params[:settingValue].to_s)
+            .where(setting: { name: params[:name] })
+            .update(value: params[:value].to_s)
           render_json
         end
       end
