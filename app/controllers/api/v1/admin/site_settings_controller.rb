@@ -19,6 +19,7 @@ module Api
                                       provider: 'greenlight',
                                       setting: { name: params[:name] }
                                     )
+
           return render_error status: :not_found unless site_setting
 
           return render_error status: :bad_request unless site_setting.update(value: params[:siteSetting][:value].to_s)
