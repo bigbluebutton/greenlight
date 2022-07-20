@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Badge, Dropdown } from 'react-bootstrap';
 import { DotsVerticalIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
+import Modal from '../../shared/Modal';
+import DeleteRoleForm from '../../forms/DeleteRoleForm';
 
 export default function RoleRow({ role }) {
   return (
@@ -15,7 +17,11 @@ export default function RoleRow({ role }) {
           <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
           <Dropdown.Menu>
             <Dropdown.Item as={Link} to={`edit/${role.id}`}><PencilAltIcon className="hi-s" /> Edit</Dropdown.Item>
-            <Dropdown.Item> <TrashIcon className="hi-s" /> Delete</Dropdown.Item>
+            <Modal
+              modalButton={<Dropdown.Item> <TrashIcon className="hi-s" /> Delete</Dropdown.Item>}
+              title="Delete Role"
+              body={<DeleteRoleForm />}
+            />
           </Dropdown.Menu>
         </Dropdown>
       </td>

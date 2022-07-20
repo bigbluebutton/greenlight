@@ -10,7 +10,7 @@ export default function Form({
 }) {
   return (
     <FormProvider {...methods}>
-      <BootStrapForm {...props} noValidate onSubmit={methods.handleSubmit(onSubmit)}>
+      <BootStrapForm {...props} noValidate onSubmit={(e) => { e.stopPropagation(); methods.handleSubmit(onSubmit)(e); }}>
         {children}
       </BootStrapForm>
     </FormProvider>
