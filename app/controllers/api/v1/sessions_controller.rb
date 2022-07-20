@@ -28,19 +28,34 @@ module Api
 
       # DELETE /api/v1/sessions/signout
       def destroy
-        session[:user_id] = nil
+        sign_out
         render_data status: :ok
       end
 
       private
 
       def session_params
-        params.require(:session).permit(:email, :password)
+        params.require(:session).permit(:email, :password, :extend_session)
       end
 
-      # Signs In the user
       def sign_in(user)
-        session[:user_id] = user.id
+        # Creates an extended_session cookie instead of a session cookie if extend_session is selected in sign in form.
+        if session_params[:extend_session]
+          cookies.encrypted[:_extended_session] = {
+            value: {
+              user_id: user.id
+            },
+            expires: 7.days,
+            httponly: true
+          }
+        else
+          session[:user_id] = user.id
+        end
+      end
+
+      def sign_out
+        reset_session
+        cookies.delete :_extended_session
       end
     end
   end

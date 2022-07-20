@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
 import React, { useState, useRef } from 'react';
 import {
   Button, Col, Row, Stack, Form as BootstrapForm,
@@ -44,8 +46,8 @@ export default function SigninForm() {
       <FormControl field={fields.password} type="password" />
       <Row>
         <Col>
-          <BootstrapForm.Group className="mb-2" controlId="formBasicCheckbox">
-            <BootstrapForm.Check type="checkbox" label="Remember me" className="small" />
+          <BootstrapForm.Group className="mb-2" controlId="rememberMeCheckbox">
+            <BootstrapForm.Check type="checkbox" label="Remember me" className="small" {...methods.register('extend_session')} />
           </BootstrapForm.Group>
         </Col>
         <Col>
