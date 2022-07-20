@@ -6,22 +6,23 @@ import {
 import PropTypes from 'prop-types';
 import Form from './Form';
 import Spinner from '../shared/stylings/Spinner';
+import useDeleteRole from '../../hooks/mutations/admin/roles/useDeleteRole';
 
-export default function DeleteRoleForm({ handleClose }) {
+export default function DeleteRoleForm({ role, handleClose }) {
+  const deleteRoleAPI = useDeleteRole({ role, onSettled: handleClose });
   const methods = useForm();
-  const { isSubmitting } = methods.formState;
 
   return (
     <>
-      <p className="text-center"> Are you sure you want to delete this role?</p>
-      <Form methods={methods} onSubmit={() => { console.log('Deleted Role.'); }}>
+      <p className="text-center"> Are you sure you want to delete role <strong>{role.name}</strong>?</p>
+      <Form methods={methods} onSubmit={deleteRoleAPI.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="primary-reverse" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="danger" type="submit" disabled={isSubmitting}>
+          <Button variant="danger" type="submit" disabled={deleteRoleAPI.isLoading}>
             Delete
-            {isSubmitting && <Spinner />}
+            {deleteRoleAPI.isLoading && <Spinner />}
           </Button>
         </Stack>
       </Form>
@@ -31,6 +32,11 @@ export default function DeleteRoleForm({ handleClose }) {
 
 DeleteRoleForm.propTypes = {
   handleClose: PropTypes.func,
+  role: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 DeleteRoleForm.defaultProps = {

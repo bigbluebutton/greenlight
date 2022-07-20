@@ -20,7 +20,7 @@ export default function RoleRow({ role }) {
             <Modal
               modalButton={<Dropdown.Item> <TrashIcon className="hi-s" /> Delete</Dropdown.Item>}
               title="Delete Role"
-              body={<DeleteRoleForm />}
+              body={<DeleteRoleForm role={role} />}
             />
           </Dropdown.Menu>
         </Dropdown>
