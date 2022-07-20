@@ -60,13 +60,6 @@ module Api
         }, status:
       end
 
-      def render_json(data: {}, errors: [], status: :ok, include: nil)
-        render json: {
-          data:,
-          errors:
-        }, status:, include:
-      end
-
       def config_sorting(allowed_columns: [])
         return {} unless params.key?(:sort)
 

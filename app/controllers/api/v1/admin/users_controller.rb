@@ -38,19 +38,7 @@ module Api
           # TODO: Change to get active users only
           users = User.with_attached_avatar.all.search(params[:search])
 
-          users.map! do |user|
-            {
-              id: user.id,
-              name: user.name,
-              email: user.email,
-              provider: user.provider,
-              role: user.role.name,
-              created_at: user.created_at.strftime('%A %B %e, %Y'),
-              avatar: user_avatar(user)
-            }
-          end
-
-          render_json data: users, status: :ok
+          render_data data: users, serializer: ServerUserSerializer, status: :ok
         end
 
         # POST /api/v1/admin/users/:user_id/create_server_room.json

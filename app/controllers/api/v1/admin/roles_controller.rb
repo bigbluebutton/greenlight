@@ -14,8 +14,8 @@ module Api
         def index
           sort_config = config_sorting(allowed_columns: %w[name])
 
-          roles = Role.select(:id, :name, :color)&.order(sort_config)&.search(params[:search])
-          render_json data: roles
+          roles = Role.all&.order(sort_config)&.search(params[:search])
+          render_data data: roles, status: :ok
         end
 
         # GET /api/v1/admin/roles/:role_id.json
@@ -24,7 +24,7 @@ module Api
         # Does: Fetches and returns a role data.
 
         def show
-          render_json data: @role
+          render_data data: @role, status: :ok
         end
 
         # POST /api/v1/roles.json
