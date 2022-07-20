@@ -10,12 +10,12 @@ import useAdminCreateUser from '../../../hooks/mutations/admins/useAdminCreateUs
 
 export default function AdminSignupForm({ handleClose }) {
   const methods = useForm(signupFormConfig);
-  const { onSubmit: createUser } = useAdminCreateUser({ closeModal: handleClose });
+  const createUser = useAdminCreateUser({ onSettled: handleClose });
   const { isSubmitting } = methods.formState;
   const fields = signupFormFields;
 
   return (
-    <Form methods={methods} onSubmit={createUser}>
+    <Form methods={methods} onSubmit={createUser.mutate}>
       <FormControl field={fields.name} type="text" />
       <FormControl field={fields.email} type="email" />
       <FormControl field={fields.password} type="password" />
