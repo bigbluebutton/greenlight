@@ -12,7 +12,7 @@ module Api
 
           return render_error status: :internal_server_error if site_settings.blank?
 
-          render_json data: site_settings, status: :ok
+          render_data data: site_settings, status: :ok
         end
 
         def update
