@@ -7,6 +7,8 @@ import Form from '../Form';
 import FormControl from '../FormControl';
 import Spinner from '../../shared/stylings/Spinner';
 import useUpdateRole from '../../../hooks/mutations/admin/roles/useUpdateRole';
+import Modal from '../../shared/Modal';
+import DeleteRoleForm from '../DeleteRoleForm';
 
 export default function EditRoleForm({ role }) {
   const { defaultValues } = editRoleFormConfig;
@@ -22,9 +24,11 @@ export default function EditRoleForm({ role }) {
     <Form methods={methods} onSubmit={updateRoleAPI.mutate}>
       <FormControl field={fields.name} type="text" />
       <Stack className="mt-1 float-end" gap={2} direction="horizontal">
-        <Button className="danger-light-button">
-          Delete Role
-        </Button>
+        <Modal
+          modalButton={<Button className="danger-light-button"> Delete Role </Button>}
+          title="Delete Role"
+          body={<DeleteRoleForm />}
+        />
         <Button
           variant="outline-primary"
           onClick={() => methods.reset(defaultValues)}
