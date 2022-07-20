@@ -36,6 +36,8 @@ module Api
       end
 
       def render_data(status:, serializer: nil, data: {}, options: {})
+        data = { data: } if data.is_a?(Hash) # Manually add root if not serializing
+
         args = {
           json: data,
           root: 'data',

@@ -21,7 +21,7 @@ module Api
 
         token = user.generate_reset_token!
 
-        render_json data: { token: } # TODO: enable reset email sending.
+        render_data data: { token: }, status: :ok # TODO: enable reset email sending.
       end
 
       # POST /api/v1/reset_password/reset.json

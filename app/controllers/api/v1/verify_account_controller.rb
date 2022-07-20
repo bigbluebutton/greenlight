@@ -19,7 +19,7 @@ module Api
 
         token = user.generate_activation_token!
 
-        render_json data: { token: } # TODO: enable activation email sending.
+        render_data data: { token: }, status: :ok # TODO: enable activation email sending.
       end
 
       # POST /api/v1/verify_account/activate.json

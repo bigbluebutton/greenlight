@@ -57,7 +57,7 @@ module Api
         # Does: Deletes a role.
         def destroy
           @role.destroy!
-          render_json
+          render_data status: :ok
         end
 
         private
