@@ -21,12 +21,12 @@ module Api
           room
         end
 
-        render_data data: rooms + shared_rooms
+        render_data data: rooms + shared_rooms, status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id.json
       def show
-        render_data data: @room, serializer: CurrentRoomSerializer, options: { include_owner: params[:include_owner] == 'true' }
+        render_data data: @room, serializer: CurrentRoomSerializer, options: { include_owner: params[:include_owner] == 'true' }, status: :ok
       end
 
       # POST /api/v1/rooms.json
@@ -39,7 +39,7 @@ module Api
 
       def update
         if @room.update(presentation: params[:presentation])
-          render_data
+          render_data status: :ok
         else
           render_error errors: @room.errors.to_a, status: :bad_request
         end
@@ -47,18 +47,18 @@ module Api
 
       def destroy
         Room.destroy_by(friendly_id: params[:friendly_id])
-        render_data
+        render_data status: :ok
       end
 
       def purge_presentation
         @room.presentation.purge
 
-        render_data
+        render_data status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id/recordings.json
       def recordings
-        render_data data: @room.recordings&.search(params[:q])
+        render_data data: @room.recordings&.search(params[:q]), status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id/recordings_processing.json
@@ -85,7 +85,7 @@ module Api
           @room.update!(moderator_access_code: SecureRandom.alphanumeric(6).downcase)
         end
 
-        render_data
+        render_data status: :ok
       end
 
       # PATCH /api/v1/room_settings/:friendly_id/remove_viewer_access_code.json
@@ -97,7 +97,7 @@ module Api
           @room.update!(moderator_access_code: nil)
         end
 
-        render_data
+        render_data status: :ok
       end
 
       private

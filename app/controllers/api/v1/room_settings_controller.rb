@@ -11,7 +11,7 @@ module Api
                                .where(room_meeting_options: { room_id: @room.id })
                                .select(:name, :value)
 
-        render_data data: options, each_serializer: RoomSettingsSerializer
+        render_data data: options, serializer: RoomSettingsSerializer, status: :ok
       end
 
       # PATCH /api/v1/room_settings/:friendly_id
@@ -23,7 +23,7 @@ module Api
           .where(meeting_option: { name: room_setting_params[:settingName] })
           .update(value: room_setting_params[:settingValue].to_s)
 
-        render_data
+        render_data status: :ok
       end
 
       private

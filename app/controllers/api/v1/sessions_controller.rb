@@ -5,9 +5,9 @@ module Api
     class SessionsController < ApiController
       # GET /api/v1/sessions
       def index
-        return render_data data: current_user, serializer: CurrentUserSerializer if current_user
+        return render_data data: current_user, serializer: CurrentUserSerializer, status: :ok if current_user
 
-        render_data data: { signed_in: false }
+        render_data data: { signed_in: false }, status: :ok
       end
 
       # POST /api/v1/sessions
@@ -20,7 +20,7 @@ module Api
         # TODO: Add proper error logging for non-verified token hcaptcha
         if user.present? && user.authenticate(session_params[:password])
           sign_in user
-          render_data data: current_user, serializer: CurrentUserSerializer
+          render_data data: current_user, serializer: CurrentUserSerializer, status: :ok
         else
           render_error
         end
@@ -29,7 +29,7 @@ module Api
       # DELETE /api/v1/sessions/signout
       def destroy
         session[:user_id] = nil
-        render_data
+        render_data status: :ok
       end
 
       private

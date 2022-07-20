@@ -14,7 +14,7 @@ module Api
 
           recordings = Recording.order(sort_config)&.search(params[:search])
 
-          render_data data: recordings
+          render_data data: recordings, status: :ok
         end
       end
     end

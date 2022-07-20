@@ -14,7 +14,7 @@ module Api
 
         recordings = current_user.recordings&.order(sort_config)&.search(params[:search])
 
-        render_data data: recordings
+        render_data data: recordings, status: :ok
       end
 
       def destroy
@@ -23,7 +23,7 @@ module Api
 
         Recording.destroy_by(record_id: params[:id])
 
-        render_data
+        render_data status: :ok
       end
 
       # PUT/PATCH /api/v1/recordings/:recording_id.json
@@ -36,13 +36,13 @@ module Api
         BigBlueButtonApi.new.update_recordings record_id: @recording.record_id, meta_hash: { meta_name: new_name }
         @recording.update! name: new_name
 
-        render_data data: @recording
+        render_data data: @recording, status: :ok
       end
 
       def resync
         RecordingsSync.new(user: current_user).call
 
-        render_data
+        render_data status: :ok
       end
 
       # POST /api/v1/recordings/update_visibility.json
@@ -67,7 +67,7 @@ module Api
 
         @recording.update!(visibility: new_visibility)
 
-        render_data
+        render_data status: :ok
       end
 
       private

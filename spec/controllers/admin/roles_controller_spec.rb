@@ -57,7 +57,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       valid_params = { name: 'CrazyRole' }
       expect { post :create, params: { role: valid_params } }.to change(Role, :count).from(0).to(1)
       expect(response).to have_http_status(:created)
-      expect(JSON.parse(response.body)['errors']).to be_empty
+      expect(JSON.parse(response.body)['errors']).to be_nil
     end
 
     it 'returns :bad_request for invalid params' do
@@ -76,7 +76,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       post :update, params: { id: role.id, role: valid_params }
       expect(role.reload.name).to eq(valid_params[:name])
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['errors']).to be_empty
+      expect(JSON.parse(response.body)['errors']).to be_nil
     end
 
     it 'returns :not_found for unfound roles' do

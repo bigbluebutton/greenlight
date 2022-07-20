@@ -35,16 +35,19 @@ module Api
         logger.error exception.backtrace.join("\n") # TODO: amir - Revisit this.
       end
 
-      def render_data(data: {}, status: :ok, serializer: nil, each_serializer: nil, options: {})
+      def render_data(status:, serializer: nil, data: {}, options: {})
         args = {
           json: data,
           root: 'data',
           status:,
-          serializer:,
           options:
         }
-        # Allow ActiveModelSerializer to guess which Serializer to use unless manually specified
-        args[:each_serializer] = each_serializer if each_serializer.present?
+
+        if serializer.present? && (data.is_a?(Array) || data.is_a?(ActiveRecord::Relation))
+          args[:each_serializer] = serializer
+        else
+          args[:serializer] = serializer
+        end
 
         render args
       end
