@@ -10,7 +10,7 @@ export default function SiteSettingsRow({
 
   return (
     <div>
-      <Stack direction="horizontal">
+      <Stack className="my-4" direction="horizontal">
         <Stack>
           <strong> {title} </strong>
           {description}
