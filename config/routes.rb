@@ -78,7 +78,7 @@ Rails.application.routes.draw do
             patch '/update', to: 'site_settings#update'
           end
         end
-        resources :roles, only: %i[index create update show]
+        resources :roles
       end
     end
   end
