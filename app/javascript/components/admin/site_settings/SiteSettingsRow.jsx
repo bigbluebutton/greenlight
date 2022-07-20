@@ -35,5 +35,5 @@ SiteSettingsRow.propTypes = {
   name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.node.isRequired,
 };
