@@ -38,7 +38,10 @@ export default function SiteSettings() {
                             <Appearance />
                           </Tab>
                           <Tab eventKey="administration" title="Administration">
-                            <Administration />
+                            <Administration
+                              terms={siteSettings.data.Terms}
+                              privacy={siteSettings.data.PrivacyPolicy}
+                            />
                           </Tab>
                           <Tab eventKey="settings" title="Settings">
                             <Settings />

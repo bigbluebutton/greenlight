@@ -1,7 +1,39 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Container, Row } from 'react-bootstrap';
+import LinksForm from '../../forms/admin/LinksForm';
+import useUpdateSiteSetting from '../../../hooks/mutations/admins/site-settings/useUpdateSiteSetting';
 
-export default function Appearance() {
+export default function Administration({ terms, privacy }) {
   return (
-    <p>Admin</p>
+    <Container className="w-75 mt-2 ms-0">
+      <Row className="mb-3">
+        <Row> <h6> Terms </h6> </Row>
+        <Row> <p className="text-muted"> Change the Terms Link that appears in the bottom of the page </p> </Row>
+        <Row>
+          <LinksForm
+            id="termsForm"
+            mutation={() => useUpdateSiteSetting('Terms')}
+            value={terms}
+          />
+        </Row>
+      </Row>
+      <Row>
+        <Row> <h6> Privacy </h6> </Row>
+        <Row> <p className="text-muted"> Change the Privacy Link that appears in the bottom of the page </p> </Row>
+        <Row>
+          <LinksForm
+            id="privacyForm"
+            mutation={() => useUpdateSiteSetting('PrivacyPolicy')}
+            value={privacy}
+          />
+        </Row>
+      </Row>
+    </Container>
   );
 }
+
+Administration.propTypes = {
+  terms: PropTypes.string.isRequired,
+  privacy: PropTypes.string.isRequired,
+};

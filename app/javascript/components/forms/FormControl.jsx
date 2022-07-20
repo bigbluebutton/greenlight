@@ -4,14 +4,13 @@ import React from 'react';
 import { Form as BootStrapForm } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 import PropTypes from 'prop-types';
+import FormControlGeneric from './FormControlGeneric';
 
 export default function FormControl({
-  field, control: Control, children, fieldError, noLabel, ...props
+  field, control, children, fieldError, noLabel, ...props
 }) {
-  const { register, formState: { errors } } = useFormContext();
-  const { hookForm } = field;
-  const { id, validations } = hookForm;
-  const error = fieldError ?? errors[id];
+  const { formState: { errors } } = useFormContext();
+  const error = fieldError ?? errors[field.hookForm.id];
 
   return (
     <BootStrapForm.Group className="mb-2" controlId={field.controlId}>
@@ -23,9 +22,9 @@ export default function FormControl({
           </BootStrapForm.Label>
         )
       }
-      <Control {...props} placeholder={field.placeHolder} isInvalid={error} {...register(id, validations)}>
+      <FormControlGeneric {...props} field={field} control={control} fieldError={error}>
         {children}
-      </Control>
+      </FormControlGeneric>
       {
         error
         && (
@@ -46,7 +45,7 @@ export default function FormControl({
 
 FormControl.defaultProps = {
   noLabel: false,
-  control: BootStrapForm.Control,
+  control: undefined,
   children: undefined,
   fieldError: undefined,
 };
@@ -54,7 +53,7 @@ FormControl.defaultProps = {
 FormControl.propTypes = {
   field: PropTypes.shape(
     {
-      label: PropTypes.string.isRequired,
+      label: PropTypes.string,
       placeHolder: PropTypes.string,
       controlId: PropTypes.string.isRequired,
       hookForm: PropTypes.shape(
