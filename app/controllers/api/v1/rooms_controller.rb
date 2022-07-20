@@ -63,7 +63,7 @@ module Api
 
       # GET /api/v1/rooms/:friendly_id/recordings_processing.json
       def recordings_processing
-        render_json data: @room.recordings_processing, status: :ok
+        render_data data: @room.recordings_processing, status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id/access_code.json
@@ -73,7 +73,7 @@ module Api
           moderator_access_code: @room.moderator_access_code
         }
 
-        render_json data: access_codes, status: :ok
+        render_data data: access_codes, status: :ok
       end
 
       # PATCH /api/v1/room_settings/:friendly_id/viewer_access_code.json

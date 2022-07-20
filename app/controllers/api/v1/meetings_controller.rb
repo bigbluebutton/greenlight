@@ -19,7 +19,7 @@ module Api
           recording_ready: recording_ready_url
         ).call
 
-        render_json data: {
+        render_data data: {
           join_url: BigBlueButtonApi.new.join_meeting(room: @room, name: current_user.name, role: 'Moderator')
         }, status: :created
       end
@@ -32,7 +32,7 @@ module Api
           elsif authorized_as_viewer?
             bbb_role = 'Viewer'
           end
-          render_json data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role)
+          render_data data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role), status: :ok
         else
           render_error status: :unauthorized
         end
@@ -51,7 +51,7 @@ module Api
             bbb_role = 'Viewer'
           end
           data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role) if data[:status]
-          render_json data:, status: :ok
+          render_data data:, status: :ok
         else
           render_error status: :unauthorized
         end
