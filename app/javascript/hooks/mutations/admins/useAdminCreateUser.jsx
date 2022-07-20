@@ -22,7 +22,7 @@ export default function useAdminCreateUser({ onSettled }) {
       onError: (error) => {
         console.error('Error:', error.message);
       },
-      onSettled
+      onSettled,
     },
   );
 }
