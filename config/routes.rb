@@ -62,7 +62,7 @@ Rails.application.routes.draw do
       resources :verify_account, only: :create do
         post '/activate', to: 'verify_account#activate', on: :collection
       end
-      resources :site_settings, only: %i[show index], param: :name
+      resources :site_settings, only: %i[show], param: :name
 
       namespace :admin do
         resources :users, only: %i[create destroy]  do
@@ -73,7 +73,7 @@ Rails.application.routes.draw do
         end
         resources :server_rooms, only: %i[index destroy], param: :friendly_id
         resources :server_recordings, only: %i[index]
-        resources :site_settings, only: %i[] do
+        resources :site_settings, only: %i[index] do
           collection do 
             patch '/update', to: 'site_settings#update'
           end
