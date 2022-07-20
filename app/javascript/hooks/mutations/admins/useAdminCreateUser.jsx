@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from '../../../helpers/Axios';
 
-export default function useAdminCreateUser({ closeModal }) {
+export default function useAdminCreateUser({ onSettled }) {
   const queryClient = useQueryClient();
 
   const addInferredLanguage = (data) => {
@@ -17,12 +17,12 @@ export default function useAdminCreateUser({ closeModal }) {
     {
       onMutate: addInferredLanguage,
       onSuccess: () => {
-        closeModal();
         queryClient.invalidateQueries('getAdminUsers');
       },
       onError: (error) => {
         console.error('Error:', error.message);
       },
+      onSettled
     },
   );
 }
