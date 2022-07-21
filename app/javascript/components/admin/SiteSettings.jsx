@@ -31,7 +31,10 @@ export default function SiteSettings() {
                         <Appearance />
                       </Tab>
                       <Tab eventKey="administration" title="Administration">
-                        <Administration />
+                        <Administration
+                          terms="https://www.terms.com"
+                          privacy="https://www.privacy.com"
+                        />
                       </Tab>
                       <Tab eventKey="settings" title="Settings">
                         <Settings />
