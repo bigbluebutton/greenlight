@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row } from 'react-bootstrap';
 import LinksForm from '../../forms/admin/LinksForm';
+import useUpdateSiteSetting from '../../../hooks/mutations/admins/site_settings/useUpdateSiteSetting';
 
 export default function Administration({ terms, privacy }) {
   return (
@@ -12,7 +13,7 @@ export default function Administration({ terms, privacy }) {
         <Row>
           <LinksForm
             id="termsForm"
-            mutation={() => ({ mutate: (data) => console.log(data) })}
+            mutation={() => useUpdateSiteSetting('Terms')}
             value={terms}
           />
         </Row>
@@ -23,7 +24,7 @@ export default function Administration({ terms, privacy }) {
         <Row>
           <LinksForm
             id="privacyForm"
-            mutation={() => ({ mutate: (data) => console.log(data) })}
+            mutation={() => useUpdateSiteSetting('PrivacyPolicy')}
             value={privacy}
           />
         </Row>
@@ -31,8 +32,12 @@ export default function Administration({ terms, privacy }) {
     </Container>
   );
 }
+Administration.defaultProps = {
+  terms: '',
+  privacy: '',
+};
 
 Administration.propTypes = {
-  terms: PropTypes.string.isRequired,
-  privacy: PropTypes.string.isRequired,
+  terms: PropTypes.string,
+  privacy: PropTypes.string,
 };

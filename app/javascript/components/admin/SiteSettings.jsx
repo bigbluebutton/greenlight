@@ -8,8 +8,12 @@ import Appearance from './site_settings/Appearance';
 import Administration from './site_settings/Administration';
 import Settings from './site_settings/Settings';
 import Registration from './site_settings/Registration';
+import Spinner from '../shared/stylings/Spinner';
+import useSiteSettings from '../../hooks/queries/admin/site_settings/useSiteSettings';
 
 export default function SiteSettings() {
+  const { isLoading, data: siteSettings } = useSiteSettings();
+
   return (
     <div id="admin-panel" className="wide-background">
       <h2 className="my-5"> Administrator Panel </h2>
@@ -26,23 +30,28 @@ export default function SiteSettings() {
                 <Container className="admin-table">
                   <h2 className="my-4"> Customize Greenlight </h2>
                   <Row>
-                    <Tabs defaultActiveKey="appearance">
-                      <Tab eventKey="appearance" title="Appearance">
-                        <Appearance />
-                      </Tab>
-                      <Tab eventKey="administration" title="Administration">
-                        <Administration
-                          terms="https://www.terms.com"
-                          privacy="https://www.privacy.com"
-                        />
-                      </Tab>
-                      <Tab eventKey="settings" title="Settings">
-                        <Settings />
-                      </Tab>
-                      <Tab eventKey="registration" title="Registration">
-                        <Registration />
-                      </Tab>
-                    </Tabs>
+                    {
+                      (isLoading && <Spinner />)
+                      || (
+                        <Tabs defaultActiveKey="appearance">
+                          <Tab eventKey="appearance" title="Appearance">
+                            <Appearance />
+                          </Tab>
+                          <Tab eventKey="administration" title="Administration">
+                            <Administration
+                              terms={siteSettings.Terms}
+                              privacy={siteSettings.PrivacyPolicy}
+                            />
+                          </Tab>
+                          <Tab eventKey="settings" title="Settings">
+                            <Settings />
+                          </Tab>
+                          <Tab eventKey="registration" title="Registration">
+                            <Registration value={siteSettings.RoleMapping} />
+                          </Tab>
+                        </Tabs>
+                      )
+                    }
                   </Row>
                 </Container>
               </Tab.Content>
