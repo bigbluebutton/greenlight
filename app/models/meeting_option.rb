@@ -2,6 +2,7 @@
 
 class MeetingOption < ApplicationRecord
   has_many :room_meeting_options, dependent: :restrict_with_exception
+  has_many :rooms_configurations, dependent: :restrict_with_exception
 
   validates :name, presence: true, uniqueness: true
 
