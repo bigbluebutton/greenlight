@@ -3,4 +3,3 @@
 class SiteSettingsSerializer < ApplicationSerializer
   attributes :name, :value
 end
-  
