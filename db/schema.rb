@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_21_131241) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_131241) do
     t.index ["name"], name: "index_meeting_options_on_name", unique: true
   end
 
+  create_table "permissions", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "recordings", force: :cascade do |t|
     t.bigint "room_id"
     t.string "name", null: false
@@ -73,6 +79,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_131241) do
     t.integer "users", null: false
     t.boolean "protectable"
     t.index ["room_id"], name: "index_recordings_on_room_id"
+  end
+
+  create_table "role_permissions", force: :cascade do |t|
+    t.bigint "role_id"
+    t.bigint "permission_id"
+    t.string "value", null: false
+    t.string "provider", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["permission_id"], name: "index_role_permissions_on_permission_id"
+    t.index ["role_id"], name: "index_role_permissions_on_role_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -170,6 +187,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_131241) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "formats", "recordings"
   add_foreign_key "recordings", "rooms"
+  add_foreign_key "role_permissions", "permissions"
+  add_foreign_key "role_permissions", "roles"
   add_foreign_key "room_meeting_options", "meeting_options"
   add_foreign_key "room_meeting_options", "rooms"
   add_foreign_key "rooms", "users"
