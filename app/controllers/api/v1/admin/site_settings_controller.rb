@@ -10,8 +10,6 @@ module Api
                                  .pluck(:name, :value)
                                  .to_h
 
-          return render_error status: :internal_server_error if site_settings.blank?
-
           render_data data: site_settings, status: :ok
         end
 

@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { Stack } from 'react-bootstrap';
 import useUpdateSiteSetting from '../../../hooks/mutations/admins/site_settings/useUpdateSiteSetting';
 
-export default function SiteSettingsRow(props) {
-  const {
-    name, title, description, value,
-  } = props;
+export default function SiteSettingsRow({
+  name, title, description, value,
+}) {
   const updateSiteSetting = useUpdateSiteSetting(name);
 
   return (
