@@ -11,14 +11,13 @@ import Modal from '../../shared/Modal';
 import DeleteRoleForm from '../DeleteRoleForm';
 
 export default function EditRoleForm({ role }) {
+  const methods = useForm(editRoleFormConfig);
+  const updateRoleAPI = useUpdateRole(role.id);
+
   const { defaultValues } = editRoleFormConfig;
   defaultValues.name = role.name;
-
-  const methods = useForm(editRoleFormConfig);
   const fields = editRoleFormFields;
   fields.name.placeHolder = defaultValues.name;
-
-  const updateRoleAPI = useUpdateRole(role.id);
 
   return (
     <Form methods={methods} onSubmit={updateRoleAPI.mutate}>
@@ -27,7 +26,7 @@ export default function EditRoleForm({ role }) {
         <Modal
           modalButton={<Button className="danger-light-button"> Delete Role </Button>}
           title="Delete Role"
-          body={<DeleteRoleForm />}
+          body={<DeleteRoleForm role={role} />}
         />
         <Button
           variant="outline-primary"
@@ -48,5 +47,6 @@ EditRoleForm.propTypes = {
   role: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
+    color: PropTypes.string,
   }).isRequired,
 };
