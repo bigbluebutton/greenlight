@@ -63,6 +63,7 @@ Rails.application.routes.draw do
         post '/activate', to: 'verify_account#activate', on: :collection
       end
       resources :site_settings, only: :show, param: :name
+      resources :rooms_configurations, only: :index
 
       namespace :admin do
         resources :users, only: %i[create destroy]  do
@@ -74,6 +75,7 @@ Rails.application.routes.draw do
         resources :server_rooms, only: %i[index destroy], param: :friendly_id
         resources :server_recordings, only: %i[index]
         resources :site_settings, only: %i[index update], param: :name
+        resources :rooms_configurations, only: :update, param: :name
         resources :roles
       end
     end
