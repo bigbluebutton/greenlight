@@ -7,6 +7,7 @@ RSpec.describe Role, type: :model do
     subject { create(:role) }
 
     it { is_expected.to have_many(:users).dependent(:restrict_with_exception) }
+    it { is_expected.to have_many(:role_permissions).dependent(:destroy) }
 
     describe '#search' do
       it 'returns the searched roles' do

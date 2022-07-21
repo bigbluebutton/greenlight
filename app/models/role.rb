@@ -2,6 +2,7 @@
 
 class Role < ApplicationRecord
   has_many :users, dependent: :restrict_with_exception
+  has_many :role_permissions, dependent: :destroy
 
   validates :name, presence: true
 
