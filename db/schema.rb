@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_13_143235) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_21_131241) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -108,6 +108,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_13_143235) do
     t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
+  create_table "rooms_configurations", force: :cascade do |t|
+    t.bigint "meeting_option_id"
+    t.string "provider", null: false
+    t.string "value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meeting_option_id", "provider"], name: "index_rooms_configurations_on_meeting_option_id_and_provider", unique: true
+    t.index ["meeting_option_id"], name: "index_rooms_configurations_on_meeting_option_id"
+  end
+
   create_table "settings", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -163,6 +173,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_13_143235) do
   add_foreign_key "room_meeting_options", "meeting_options"
   add_foreign_key "room_meeting_options", "rooms"
   add_foreign_key "rooms", "users"
+  add_foreign_key "rooms_configurations", "meeting_options"
   add_foreign_key "shared_accesses", "rooms"
   add_foreign_key "shared_accesses", "users"
   add_foreign_key "site_settings", "settings"

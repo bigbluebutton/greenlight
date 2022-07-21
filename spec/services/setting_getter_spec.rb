@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 describe SettingGetter, type: :service do
+  before do
+    Faker::Vehicle.unique.clear # Required for avoiding Faker::UniqueGenerator::RetryLimitExceeded.
+  end
+
   describe '#call' do
     it 'returns true if the setting value is "true"' do
       site_setting = create(:site_setting, value: 'true')
