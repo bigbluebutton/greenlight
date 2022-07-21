@@ -46,9 +46,13 @@ export default function SigninForm() {
       <FormControl field={fields.password} type="password" />
       <Row>
         <Col>
-          <BootstrapForm.Group className="mb-2" controlId="rememberMeCheckbox">
-            <BootstrapForm.Check type="checkbox" label="Remember me" className="small" {...methods.register('extend_session')} />
-          </BootstrapForm.Group>
+          <FormControl
+            control={BootstrapForm.Check}
+            field={fields.extend_session}
+            label={fields.extend_session.label}
+            type="checkbox"
+            noLabel
+          />
         </Col>
         <Col>
           <Link to="/forget_password" className="text-link float-end small"> Forgot password? </Link>

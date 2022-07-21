@@ -39,7 +39,7 @@ module Api
       end
 
       def sign_in(user)
-        # Creates an extended_session cookie instead of a session cookie if extend_session is selected in sign in form.
+        # Creates an extended_session cookie if extend_session is selected in sign in form.
         if session_params[:extend_session]
           cookies.encrypted[:_extended_session] = {
             value: {
@@ -48,9 +48,8 @@ module Api
             expires: 7.days,
             httponly: true
           }
-        else
-          session[:user_id] = user.id
         end
+        session[:user_id] = user.id
       end
 
       def sign_out

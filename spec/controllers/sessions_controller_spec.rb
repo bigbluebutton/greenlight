@@ -45,8 +45,8 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
 
       delete :destroy
 
+      expect(cookies.encrypted[:_extended_session]).to be_nil
       expect(session[:user_id]).to be_nil
     end
   end
 end
-
