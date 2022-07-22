@@ -8,9 +8,9 @@ class CurrentUserSerializer < UserSerializer
   end
 
   def permissions
-    perms = RolePermission.joins(:permission)
-                          .where(role_id: object.role_id)
-                          .pluck(:name, :value)
-                          .to_h
+    RolePermission.joins(:permission)
+                  .where(role_id: object.role_id)
+                  .pluck(:name, :value)
+                  .to_h
   end
 end
