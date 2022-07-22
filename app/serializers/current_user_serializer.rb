@@ -1,9 +1,16 @@
 # frozen_string_literal: true
 
 class CurrentUserSerializer < UserSerializer
-  attributes :signed_in
+  attributes :signed_in, :permissions
 
   def signed_in
     true
+  end
+
+  def permissions
+    perms = RolePermission.joins(:permission)
+                          .where(role_id: object.role_id)
+                          .pluck(:name, :value)
+                          .to_h
   end
 end

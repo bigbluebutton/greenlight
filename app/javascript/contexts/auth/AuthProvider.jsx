@@ -23,6 +23,7 @@ export default function AuthProvider({ children }) {
     avatar: currentUser?.avatar,
     signed_in: currentUser?.signed_in ?? false,
     language: currentUser?.language,
+    permissions: currentUser?.permissions,
   };
 
   const memoizedCurrentUser = useMemo(() => user, [user]);
