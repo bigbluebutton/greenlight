@@ -7,8 +7,9 @@ export default function useStartMeeting(friendlyId) {
   const mutation = useMutation(
     startMeeting,
     { // Mutation config.
-      onError: () => { toast.error('There was a problem completing that action. \n Please try again.'); },
-      onSuccess: (response, data) => { console.info('Success, sent:', data, ', got:', response); },
+      onError: () => {
+        toast.error('There was a problem completing that action. \n Please try again.');
+      },
     },
   );
   const handleStartMeeting = async () => {

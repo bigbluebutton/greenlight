@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Button, Container, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
+import { toast } from 'react-hot-toast';
 import FormControl from './FormControl';
 import Form from './Form';
 import { signupFormConfig, signupFormFields } from '../../helpers/forms/SignupFormHelpers';
@@ -20,12 +21,12 @@ export default function SignupForm() {
 
   if (isLoading) return <Spinner />;
 
-  const onError = (err) => {
-    console.log(`hCaptcha Error: ${err}`);
+  const onError = () => {
+    toast.error('There was a problem completing that action. \n Please try again.');
   };
 
   const onExpire = () => {
-    console.log('hCaptcha Token Expired');
+    toast.error('There was a problem completing that action. \n Please try again.');
   };
 
   return (

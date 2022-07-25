@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { toast } from 'react-hot-toast';
 
 export default function FilesDragAndDrop({
   onDrop, children, numOfFiles, formats,
@@ -20,13 +21,13 @@ export default function FilesDragAndDrop({
 
     // check number of files
     if (numOfFiles && numOfFiles < files.length) {
-      console.log(`Only ${numOfFiles} file${numOfFiles !== 1 ? 's' : ''} can be uploaded at a time`);
+      toast.error('There was a problem completing that action. \n Please try again.');
       return;
     }
 
     // check file formats
     if (formats && files.some((file) => !formats.some((format) => file.name.toLowerCase().endsWith(format.toLowerCase())))) {
-      console.log(`Only following file formats are acceptable: ${formats.join(', ')}`);
+      toast.error(`Invalid file formats. \n Accepted file formats: ${formats.join(', ')}`);
       return;
     }
 

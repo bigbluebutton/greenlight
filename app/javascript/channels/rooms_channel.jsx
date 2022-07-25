@@ -5,19 +5,12 @@ export default function subscribeToRoom(friendlyId, joinUrl) {
     channel: 'RoomsChannel',
     friendly_id: friendlyId,
   }, {
-    connected() {
-      // Called when the subscription is ready for use on the server
-      console.log('connected');
-    },
+    connected() {},
 
-    disconnected() {
-      // Called when the subscription has been terminated by the server
-      console.log('disconnected');
-    },
+    disconnected() {},
 
     received() {
       // Called when there's incoming data on the websocket for this channel
-      console.log('received');
       window.location.replace(joinUrl);
     },
   });

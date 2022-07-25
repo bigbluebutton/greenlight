@@ -8,6 +8,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
+import { toast } from 'react-hot-toast';
 import FormControl from './FormControl';
 import Form from './Form';
 import { signinFormFields, signinFormConfig } from '../../helpers/forms/SigninFormHelpers';
@@ -26,12 +27,12 @@ export default function SigninForm() {
 
   if (isLoading) return <Spinner />;
 
-  const onError = (err) => {
-    console.log(`hCaptcha Error: ${err}`);
+  const onError = () => {
+    toast.error('There was a problem completing that action. \n Please try again.');
   };
 
   const onExpire = () => {
-    console.log('hCaptcha Token Expired');
+    toast.error('There was a problem completing that action. \n Please try again.');
   };
 
   return (
