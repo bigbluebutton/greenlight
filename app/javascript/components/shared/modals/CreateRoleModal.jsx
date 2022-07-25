@@ -6,7 +6,7 @@ import Modal from '../Modal';
 export default function CreateRoleModal() {
   return (
     <Modal
-      modalButton={<Button variant="primary" className="ms-auto">+ Create Role</Button>}
+      modalButton={<Button variant="brand" className="ms-auto">+ Create Role</Button>}
       title="Create New Role"
       body={<CreateRoleForm />}
     />

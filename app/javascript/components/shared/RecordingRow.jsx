@@ -34,7 +34,7 @@ export default function RecordingRow({
       <td className="border-end-0 text-dark">
         <Stack direction="horizontal" className="py-2">
           <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
-            <VideoCameraIcon className="hi-s text-primary" />
+            <VideoCameraIcon className="hi-s text-brand" />
           </div>
           <Stack>
             <strong role="button" aria-hidden="true" onClick={() => !isUpdating && setIsEditing(true)} onBlur={() => setIsEditing(false)}>
@@ -50,7 +50,7 @@ export default function RecordingRow({
                 !isEditing && recording.name
               }
               {
-                isUpdating && <Spinner animation="grow" variant="primary" />
+                isUpdating && <Spinner animation="grow" variant="brand" />
               }
             </strong>
 

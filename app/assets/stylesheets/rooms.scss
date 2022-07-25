@@ -2,7 +2,7 @@
   .room-icon-square {
     width: 75px;
     height: 75px;
-    background-color: $primary-light;
+    background-color: var(--brand-color-light);
   }
   .card-body {
     &:hover {

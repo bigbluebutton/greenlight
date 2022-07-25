@@ -19,7 +19,7 @@ export default function AvatarForm({ user }) {
   return (
     <Form methods={methods} onSubmit={onSubmit}>
       <FormControl field={fields.avatar} type="file" accept="image/*" />
-      <Button variant="primary" className="w-100 my-3 py-2" type="submit" disabled={isSubmitting}>
+      <Button variant="brand" className="w-100 my-3 py-2" type="submit" disabled={isSubmitting}>
         Change Avatar
       </Button>
     </Form>

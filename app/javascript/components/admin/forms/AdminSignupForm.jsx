@@ -22,7 +22,7 @@ export default function AdminSignupForm({ handleClose }) {
       <FormControl field={fields.password_confirmation} type="password" />
 
       <Stack className="mt-1" gap={1}>
-        <Button variant="primary" className="w-100 mb- mt-1" type="submit" disabled={isSubmitting}>
+        <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={isSubmitting}>
           Create account
           { isSubmitting && <Spinner /> }
         </Button>

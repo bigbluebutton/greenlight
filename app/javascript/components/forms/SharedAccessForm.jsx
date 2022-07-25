@@ -46,7 +46,7 @@ export default function SharedAccessForm({ handleClose }) {
                           {...register('shared_users')}
                         />
                         <Avatar avatar={user.avatar} radius={40} />
-                        <h6 className="text-primary mb-0 ps-3"> { user.name } </h6>
+                        <h6 className="text-brand mb-0 ps-3"> { user.name } </h6>
                       </Stack>
                     </td>
                     <td>
@@ -64,7 +64,7 @@ export default function SharedAccessForm({ handleClose }) {
           <Button variant="primary-light" className="ms-auto" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" type="submit">
+          <Button variant="brand" type="submit">
             Share
           </Button>
         </Stack>

@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -25,7 +27,7 @@ export default function Appearance() {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="brand" type="submit">
           Submit
         </Button>
       </Form>

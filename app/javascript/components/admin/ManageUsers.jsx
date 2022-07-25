@@ -31,7 +31,7 @@ export default function ManageUsers() {
                       <Stack direction="horizontal" className="mt-5">
                         <SearchBarQuery setInput={setInput} />
                         <Modal
-                          modalButton={<Button className="ms-auto btn btn-primary">+ New User</Button>}
+                          modalButton={<Button variant="brand" className="ms-auto btn">+ New User</Button>}
                           title="Create New User"
                           body={<AdminSignupForm />}
                           size="lg"

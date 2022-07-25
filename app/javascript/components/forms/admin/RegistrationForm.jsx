@@ -25,7 +25,7 @@ export default function RegistrationForm({ value, mutation: useUpdateSiteSetting
           aria-describedby="RegistrationForm-submit-btn"
           type="text"
         />
-        <Button id="RegistrationForm-submit-btn" variant="primary" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
+        <Button id="RegistrationForm-submit-btn" variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
           Update
           {updateSiteSettingsAPI.isLoading && <Spinner />}
         </Button>

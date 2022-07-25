@@ -25,10 +25,11 @@ body {
 
 .btn-primary-light {
   border: 2px solid gainsboro !important;
-  color: $primary;
+  color: var(--brand-color);
   background-color: white;
 
   &:hover {
+    color: var(--brand-color);
     outline: 0;
     box-shadow: $btn-focus-box-shadow;
   }
@@ -67,7 +68,7 @@ input.search-bar {
 .icon-circle {
   width: 100px;
   height: 100px;
-  background-color: $primary-light;
+  background-color: var(--brand-color-light);
 }
 
 //Heroicons
@@ -105,11 +106,32 @@ input.search-bar {
 }
 
 .nav-pills .nav-link.active {
-  color: $primary !important;
-  background-color: $primary-light;
+  color: var(--brand-color) !important;
+  background-color: var(--brand-color-light);
   font-weight: 600;
 
   svg {
-    color: $primary !important;
+    color: var(--brand-color) !important;
   }
+}
+
+//Brand Colors
+:root {
+  --brand-color: '';
+  --brand-color-light: whitesmoke;
+}
+
+.text-brand {
+  color: var(--brand-color);
+}
+
+.btn-brand {
+  background-color: var(--brand-color) !important;
+  border-color: var(--brand-color) !important;
+  color: white;
+}
+
+.btn-brand:hover {
+  color: white;
+  opacity: 0.8;
 }
