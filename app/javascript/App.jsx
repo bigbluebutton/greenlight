@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
@@ -12,9 +12,7 @@ export default function App() {
   const containerHeight = currentUser?.signed_in ? 'full-height' : 'h-100';
   const { data: siteSettings } = useSiteSettings();
 
-  useEffect(() => {
-    document.documentElement.style.setProperty('--brand-color', siteSettings?.PrimaryColor);
-  }, [siteSettings]);
+  document.documentElement.style.setProperty('--brand-color', siteSettings?.PrimaryColor);
 
   return (
     <>
