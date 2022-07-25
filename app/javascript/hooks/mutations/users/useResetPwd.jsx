@@ -1,5 +1,6 @@
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import axios from '../../../helpers/Axios';
 
 export default function useResetPwd() {
@@ -12,8 +13,8 @@ export default function useResetPwd() {
         console.info(data);
         navigate('/signin');
       },
-      onError: (error) => {
-        console.error('Error:', error.message);
+      onError: () => {
+        toast.error('There was a problem completing that action. \n Please try again.');
         navigate('/');
       },
     },

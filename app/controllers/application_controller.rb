@@ -10,6 +10,6 @@ class ApplicationController < ActionController::Base
 
   # Returns whether hcaptcha is enabled by checking if ENV variables are set
   def hcaptcha_enabled?
-    (ENV['RECAPTCHA_SITE_KEY'].present? && ENV['RECAPTCHA_SECRET_KEY'].present?)
+    (ENV['HCAPTCHA_SITE_KEY'].present? && ENV['HCAPTCHA_SECRET_KEY'].present?)
   end
 end
