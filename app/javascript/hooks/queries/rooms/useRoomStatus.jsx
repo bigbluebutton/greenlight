@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import axios from '../../../helpers/Axios';
+import subscribeToRoom from '../../../channels/rooms_channel';
 
 export default function useRoomStatus(friendlyId, name, accessCode) {
   const params = {
@@ -12,6 +13,8 @@ export default function useRoomStatus(friendlyId, name, accessCode) {
       const response = resp.data.data;
       if (response.status) {
         window.location.replace(response.joinUrl);
+      } else {
+        subscribeToRoom(friendlyId, response.joinUrl);
       }
     }),
     { enabled: false, retry: false },

@@ -35,13 +35,13 @@ module Api
         logger.error exception.backtrace.join("\n") # TODO: amir - Revisit this.
       end
 
-      def render_data(status:, serializer: nil, data: {}, options: {})
+      def render_data(status:, serializer: nil, data: {}, meta: {}, options: {})
         data = { data: } if data.is_a?(Hash) # Manually add root if not serializing
-
         args = {
           json: data,
           root: 'data',
           status:,
+          meta:,
           options:
         }
 

@@ -3,7 +3,7 @@
 module Api
   module V1
     class MeetingsController < ApiController
-      before_action :find_room, only: %i[start join status]
+      before_action :find_room, only: %i[start status]
 
       # POST /api/v1/meetings/:friendly_id/start.json
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
@@ -24,20 +24,6 @@ module Api
         }, status: :created
       end
 
-      # GET /api/v1/meetings/:friendly_id/join.json
-      def join
-        if authorized_as_viewer? || authorized_as_moderator?
-          if authorized_as_moderator?
-            bbb_role = 'Moderator'
-          elsif authorized_as_viewer?
-            bbb_role = 'Viewer'
-          end
-          render_data data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role), status: :ok
-        else
-          render_error status: :unauthorized
-        end
-      end
-
       # GET /api/v1/meetings/:friendly_id/status.json
       def status
         data = {
@@ -45,11 +31,8 @@ module Api
         }
 
         if authorized_as_viewer? || authorized_as_moderator?
-          if authorized_as_moderator?
-            bbb_role = 'Moderator'
-          elsif authorized_as_viewer?
-            bbb_role = 'Viewer'
-          end
+          bbb_role = authorized_as_moderator? ? 'Moderator' : 'Viewer'
+
           data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role) if data[:status]
           render_data data:, status: :ok
         else

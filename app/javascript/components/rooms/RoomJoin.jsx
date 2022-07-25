@@ -6,15 +6,9 @@ import {
 } from 'react-bootstrap';
 import FormLogo from '../forms/FormLogo';
 import useRoom from '../../hooks/queries/rooms/useRoom';
-import useRoomJoin from '../../hooks/queries/rooms/useRoomJoin';
 import Spinner from '../shared/stylings/Spinner';
 import useRoomStatus from '../../hooks/queries/rooms/useRoomStatus';
 import Avatar from '../users/Avatar';
-
-function waitOrJoin(refetchJoin, refetchStatus) {
-  refetchStatus();
-  refetchJoin();
-}
 
 export default function RoomJoin() {
   const { friendlyId } = useParams();
@@ -23,7 +17,6 @@ export default function RoomJoin() {
   const [accessCode, setAccessCode] = useState('');
 
   const { isLoading, data: room } = useRoom(friendlyId, true);
-  const { isSuccess: isSuccessJoin, isError: isErrorJoin, refetch: refetchJoin } = useRoomJoin(friendlyId, name, accessCode);
   const { isSuccess: isSuccessStatus, isError: isErrorStatus, refetch: refetchStatus } = useRoomStatus(friendlyId, name, accessCode);
 
   if (isLoading) return <Spinner />;
@@ -52,7 +45,7 @@ export default function RoomJoin() {
             </Row>
           </Card.Body>
           <Card.Footer className="p-4 bg-white">
-            { (isSuccessStatus || isSuccessJoin) ? (
+            { (isSuccessStatus) ? (
               <div className="mt-3">
                 <Row>
                   <Col className="col-10">
@@ -88,7 +81,7 @@ export default function RoomJoin() {
                         />
                       </label>
                       {
-                        (isErrorJoin || isErrorStatus)
+                        (isErrorStatus)
                         && (
                           <p className="text-danger"> Wrong access code. </p>
                         )
@@ -108,14 +101,14 @@ export default function RoomJoin() {
                         />
                       </label>
                       {
-                        (isErrorJoin || isErrorStatus)
+                        (isErrorStatus)
                         && (
                           <p className="text-danger"> Wrong access code. </p>
                         )
                       }
                     </div>
                   )}
-                <Button className="mt-3 d-block float-end" onClick={() => waitOrJoin(refetchJoin, refetchStatus)}>Join Session</Button>
+                <Button className="mt-3 d-block float-end" onClick={refetchStatus}>Join Session</Button>
               </>
             )}
           </Card.Footer>

@@ -15,7 +15,7 @@ function copyInvite(friendlyId) {
 export default function RoomCard({ room }) {
   const navigate = useNavigate();
   const handleClick = useCallback(() => { navigate(room.friendly_id); }, [room.friendly_id]);
-  const { handleStartMeeting, isLoading: startMeetingIsLoading } = useStartMeeting(room.friendly_id);
+  const startMeeting = useStartMeeting(room.friendly_id);
 
   return (
     <Card id="room-card" className="h-100 shadow-sm border-0">
@@ -44,9 +44,9 @@ export default function RoomCard({ room }) {
         >
           <DuplicateIcon className="hi-m text-muted" />
         </Button>
-        <Button variant="primary-light" className="float-end" onClick={handleStartMeeting} disabled={startMeetingIsLoading}>
+        <Button variant="primary-light" className="float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
           Start {' '}
-          {startMeetingIsLoading && <Spinner />}
+          {startMeeting.isLoading && <Spinner />}
         </Button>
       </Card.Footer>
     </Card>
