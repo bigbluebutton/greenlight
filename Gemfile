@@ -35,7 +35,7 @@ gem 'omniauth-twitter', '~> 1.4.0'
 gem 'pagy', '~> 3.11.0'
 gem 'pluck_to_hash', '~> 1.0.2'
 gem 'puma', '~> 4.3.12'
-gem 'rails', '~> 5.2.7.1'
+gem 'rails', '~> 5.2.8.1'
 gem 'random_password', '~> 0.1.1'
 gem "recaptcha", '~> 5.7.0'
 gem 'redcarpet', '~> 3.5.1'
@@ -47,7 +47,7 @@ gem 'sprockets', '~> 3.7.2'
 gem 'sqlite3', '~> 1.3.6'
 gem 'tabler-rubygem', git: 'https://github.com/blindsidenetworks/tabler-rubygem.git', tag: '0.1.4.1'
 gem 'turbolinks', '~> 5.2.1'
-gem 'tzinfo-data', '~> 1.2021.1'
+gem 'tzinfo-data', '~> 1.2021.5'
 gem 'uglifier', '~> 4.2.0'
 
 group :production do
@@ -69,7 +69,7 @@ group :test do
   gem 'faker', '~> 2.16'
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'rspec-rails', '~> 3.9', '>= 3.9.1'
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.3'
   gem 'webmock', '~> 3.11'
 end
 

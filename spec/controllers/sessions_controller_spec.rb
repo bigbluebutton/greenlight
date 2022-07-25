@@ -171,7 +171,7 @@ describe SessionsController, type: :controller do
       user = create(:user, provider: "greenlight",
         password: "Example1!", password_confirmation: 'example')
 
-      url = Faker::Internet.domain_name
+      url = "http://test.host/test"
 
       @request.cookies[:return_to] = url
 
