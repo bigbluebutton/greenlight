@@ -21,7 +21,9 @@ module Api
           room
         end
 
-        render_data data: rooms + shared_rooms, status: :ok
+        pagy, all_rooms = pagy_array(rooms + shared_rooms)
+
+        render_data data: all_rooms, meta: pagy_metadata(pagy), status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id.json
@@ -58,7 +60,8 @@ module Api
 
       # GET /api/v1/rooms/:friendly_id/recordings.json
       def recordings
-        render_data data: @room.recordings&.search(params[:q]), status: :ok
+        pagy, room_recordings = pagy(@room.recordings&.search(params[:q]))
+        render_data data: room_recordings, meta: pagy_metadata(pagy), status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id/recordings_processing.json

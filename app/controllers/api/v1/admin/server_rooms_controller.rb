@@ -8,7 +8,7 @@ module Api
 
         # GET /api/v1/admin/server_rooms.json
         def index
-          rooms = Room.includes(:user).search(params[:search])
+          pagy, rooms = pagy_array(Room.includes(:user).search(params[:search]))
           active_rooms = BigBlueButtonApi.new.active_meetings
           active_rooms_hash = {}
 
@@ -21,7 +21,7 @@ module Api
             room.participants = active_rooms_hash[room.meeting_id]
           end
 
-          render_data data: rooms, serializer: ServerRoomSerializer, status: :ok
+          render_data data: rooms, meta: pagy_metadata(pagy), serializer: ServerRoomSerializer, status: :ok
         end
 
         # DELETE /api/v1/admin/server_rooms/:friendly_id

@@ -36,9 +36,9 @@ module Api
 
         def active_users
           # TODO: Change to get active users only
-          users = User.with_attached_avatar.all.search(params[:search])
+          pagy, users = pagy_array(User.with_attached_avatar.all.search(params[:search]))
 
-          render_data data: users, serializer: ServerUserSerializer, status: :ok
+          render_data data: users, meta: pagy_metadata(pagy), serializer: ServerUserSerializer, status: :ok
         end
 
         # POST /api/v1/admin/users/:user_id/create_server_room.json
