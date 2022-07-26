@@ -9,7 +9,7 @@ import useDeleteServerRoom from '../../../hooks/mutations/admins/server-rooms/us
 import Modal from '../../shared/Modal';
 import DeleteRoomForm from '../../forms/DeleteRoomForm';
 import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
-import useRoomStatus from '../../../hooks/queries/rooms/useRoomStatus';
+import useRoomJoin from '../../../hooks/queries/rooms/useRoomJoin';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function ServerRoomRow({ room }) {
@@ -20,7 +20,7 @@ export default function ServerRoomRow({ room }) {
   const startMeeting = useStartMeeting(friendlyId);
   const currentUser = useAuth();
   // TODO - samuel: useRoomStatus will not work if room has an access code. Will need to add bypass in MeetingController
-  const { refetch } = useRoomStatus(room.friendly_id, currentUser.name);
+  const { refetch } = useRoomJoin(room.friendly_id, currentUser.name);
 
   const renderLastSession = () => {
     if (lastSession == null) {

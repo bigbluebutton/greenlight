@@ -7,7 +7,7 @@ import {
 import FormLogo from '../forms/FormLogo';
 import useRoom from '../../hooks/queries/rooms/useRoom';
 import Spinner from '../shared/stylings/Spinner';
-import useRoomStatus from '../../hooks/queries/rooms/useRoomStatus';
+import useRoomJoin from '../../hooks/queries/rooms/useRoomJoin';
 import Avatar from '../users/Avatar';
 
 export default function RoomJoin() {
@@ -17,7 +17,7 @@ export default function RoomJoin() {
   const [accessCode, setAccessCode] = useState('');
 
   const { isLoading, data: room } = useRoom(friendlyId, true);
-  const { isSuccess: isSuccessStatus, isError: isErrorStatus, refetch: refetchStatus } = useRoomStatus(friendlyId, name, accessCode);
+  const { isSuccess, isError, refetch } = useRoomJoin(friendlyId, name, accessCode);
 
   if (isLoading) return <Spinner />;
 
@@ -45,7 +45,7 @@ export default function RoomJoin() {
             </Row>
           </Card.Body>
           <Card.Footer className="p-4 bg-white">
-            { (isSuccessStatus) ? (
+            { (isSuccess) ? (
               <div className="mt-3">
                 <Row>
                   <Col className="col-10">
@@ -81,7 +81,7 @@ export default function RoomJoin() {
                         />
                       </label>
                       {
-                        (isErrorStatus)
+                        (isError)
                         && (
                           <p className="text-danger"> Wrong access code. </p>
                         )
@@ -101,14 +101,14 @@ export default function RoomJoin() {
                         />
                       </label>
                       {
-                        (isErrorStatus)
+                        (isError)
                         && (
                           <p className="text-danger"> Wrong access code. </p>
                         )
                       }
                     </div>
                   )}
-                <Button className="mt-3 d-block float-end" onClick={refetchStatus}>Join Session</Button>
+                <Button className="mt-3 d-block float-end" onClick={refetch}>Join Session</Button>
               </>
             )}
           </Card.Footer>

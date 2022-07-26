@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import axios from '../../../helpers/Axios';
 import subscribeToRoom from '../../../channels/rooms_channel';
 
-export default function useRoomStatus(friendlyId, name, accessCode) {
+export default function useRoomJoin(friendlyId, name, accessCode) {
   const params = {
     name,
     access_code: accessCode,

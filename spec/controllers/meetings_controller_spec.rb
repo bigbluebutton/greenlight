@@ -76,14 +76,14 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     end
   end
 
-  describe '#status' do
+  describe '#join' do
     it 'gets the joinUrl if the meeting is running' do
       room = create(:room, user:)
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
 
-      get :status, params: { friendly_id: room.friendly_id, name: user.name }
+      get :join, params: { friendly_id: room.friendly_id, name: user.name }
     end
 
     it 'joins as viewer if no access code is required nor provided' do
@@ -91,7 +91,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
-      get :status, params: { friendly_id: room.friendly_id, name: user.name }
+      get :join, params: { friendly_id: room.friendly_id, name: user.name }
       expect(response).to have_http_status(:ok)
     end
 
@@ -100,7 +100,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
-      get :status, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'AAA' }
+      get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'AAA' }
       expect(response).to have_http_status(:ok)
     end
 
@@ -109,7 +109,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Moderator')
-      get :status, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'BBB' }
+      get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'BBB' }
       expect(response).to have_http_status(:ok)
     end
 
@@ -117,7 +117,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       room = create(:room, user:, viewer_access_code: 'AAA', moderator_access_code: 'BBB')
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
-      get :status, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'ZZZ' }
+      get :join, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'ZZZ' }
       expect(response).to have_http_status(:unauthorized)
     end
   end

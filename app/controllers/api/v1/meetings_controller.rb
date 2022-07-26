@@ -3,7 +3,7 @@
 module Api
   module V1
     class MeetingsController < ApiController
-      before_action :find_room, only: %i[start status]
+      before_action :find_room, only: %i[start join]
 
       # POST /api/v1/meetings/:friendly_id/start.json
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
@@ -24,8 +24,8 @@ module Api
         }, status: :created
       end
 
-      # GET /api/v1/meetings/:friendly_id/status.json
-      def status
+      # GET /api/v1/meetings/:friendly_id/join.json
+      def join
         data = {
           status: BigBlueButtonApi.new.meeting_running?(room: @room)
         }
