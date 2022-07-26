@@ -12,9 +12,9 @@ module Api
         def index
           sort_config = config_sorting(allowed_columns: %w[name length visibility])
 
-          recordings = Recording.order(sort_config)&.search(params[:search])
+          pagy, recordings = pagy(Recording.order(sort_config)&.search(params[:search]))
 
-          render_data data: recordings, status: :ok
+          render_data data: recordings, meta: pagy_metadata(pagy), status: :ok
         end
       end
     end

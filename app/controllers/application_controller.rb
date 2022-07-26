@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
+
   # Returns the current signed in User (if any)
   def current_user
     # Overwrites the session cookie if an extended_session cookie exists
