@@ -18,7 +18,7 @@ export default function ForgetPwdForm() {
       <FormControl field={fields.email} type="email" />
 
       <Stack className="mt-1" gap={1}>
-        <Button variant="primary" className="w-100 mb- mt-1" type="submit" disabled={isSubmitting}>
+        <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={isSubmitting}>
           Reset Password
           {isSubmitting && <Spinner />}
         </Button>

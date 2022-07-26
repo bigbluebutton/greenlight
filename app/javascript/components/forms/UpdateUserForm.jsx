@@ -61,7 +61,7 @@ export default function UpdateUserForm({ user }) {
         >
           Cancel
         </Button>
-        <Button variant="primary" type="submit" disabled={isSubmitting}>
+        <Button variant="brand" type="submit" disabled={isSubmitting}>
           Update
           {
             isSubmitting && <Spinner />

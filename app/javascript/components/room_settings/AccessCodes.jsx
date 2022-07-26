@@ -21,7 +21,7 @@ export default function AccessCodes() {
   return (
     <>
       <Row className="my-3">
-        <h6 className="text-primary">Generate access code for viewers</h6>
+        <h6 className="text-brand">Generate access code for viewers</h6>
         {
           accessCodes?.viewer_access_code
             ? (
@@ -57,7 +57,7 @@ export default function AccessCodes() {
         }
       </Row>
       <Row>
-        <h6 className="text-primary">Generate access code for moderators</h6>
+        <h6 className="text-brand">Generate access code for moderators</h6>
         {
           accessCodes?.moderator_access_code
             ? (

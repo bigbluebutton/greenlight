@@ -23,7 +23,7 @@ export default function RoomsList() {
           <SearchBar id="rooms-search" setSearch={setSearch} />
         </div>
         <Modal
-          modalButton={<Button variant="primary" className="ms-auto">+ New Room </Button>}
+          modalButton={<Button variant="brand" className="ms-auto">+ New Room </Button>}
           title="Create New Room"
           body={<CreateRoomForm mutation={useCreateRoom} />}
         />

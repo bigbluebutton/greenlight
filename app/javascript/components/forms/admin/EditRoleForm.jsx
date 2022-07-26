@@ -34,7 +34,7 @@ export default function EditRoleForm({ role }) {
         >
           Cancel
         </Button>
-        <Button variant="primary" type="submit" disabled={updateRoleAPI.isLoading}>
+        <Button variant="brand" type="submit" disabled={updateRoleAPI.isLoading}>
           Update
           {updateRoleAPI.isLoading && <Spinner />}
         </Button>

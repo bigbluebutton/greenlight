@@ -36,12 +36,12 @@ export default function RoomSettings() {
           <Row>
             <Col className="border-end border-2">
               <Row>
-                <h6 className="text-primary">Room Name</h6>
+                <h6 className="text-brand">Room Name</h6>
               </Row>
               <AccessCodes />
             </Col>
             <Col className="ps-4">
-              <h6 className="text-primary">User Settings</h6>
+              <h6 className="text-brand">User Settings</h6>
               <RoomSettingsRow
                 settingId="muteOnStart"
                 value={checkedValue('muteOnStart')}

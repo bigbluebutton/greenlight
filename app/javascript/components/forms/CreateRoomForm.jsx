@@ -22,7 +22,7 @@ export default function CreateRoomForm({ mutation: useCreateRoomAPI, handleClose
         <Button variant="primary-light" className="ms-auto" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" type="submit" disabled={createRoomAPI.isLoading}>
+        <Button variant="brand" type="submit" disabled={createRoomAPI.isLoading}>
           Create Room
           {createRoomAPI.isLoading && <Spinner />}
         </Button>

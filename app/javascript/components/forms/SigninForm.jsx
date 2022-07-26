@@ -73,7 +73,7 @@ export default function SigninForm() {
         </Container>
         )}
       <Stack className="mt-1" gap={1}>
-        <Button variant="primary" className="w-100 my-3 py-2" type="submit" disabled={isSubmitting}>
+        <Button variant="brand" className="w-100 my-3 py-2" type="submit" disabled={isSubmitting}>
           Sign In
           { isSubmitting && <Spinner /> }
         </Button>

@@ -31,7 +31,7 @@ export default function Presentation() {
             <label htmlFor="file" className="presentation-upload">
               <Card.Body className="py-5 text-secondary cursor-pointer">
                 <div className="icon-circle rounded-circle d-block mx-auto mb-3">
-                  <CloudUploadIcon className="hi-l text-primary d-block mx-auto pt-4" />
+                  <CloudUploadIcon className="hi-l text-brand d-block mx-auto pt-4" />
                 </div>
                 <input
                   id="file"
@@ -40,7 +40,7 @@ export default function Presentation() {
                   onChange={(e) => onSubmit(e.target.files[0])}
                   accept=".doc,.docx,.pptx,.txt,.png,.jpg,.pdf"
                 />
-                <Card.Title className="text-primary">
+                <Card.Title className="text-brand">
                   Click to Upload or drag and drop
                 </Card.Title>
                 <Card.Text>
@@ -63,7 +63,7 @@ export default function Presentation() {
               {room.thumbnail ? (
                 <img className="preview-image" src={room.thumbnail} alt="Presentation" />
               ) : (
-                <DocumentIcon className="hi-xl text-primary" />
+                <DocumentIcon className="hi-xl text-brand" />
               )}
             </Col>
             <Col>

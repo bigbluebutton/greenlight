@@ -10,9 +10,9 @@ export default function SharedAccessEmpty() {
       <Card className="border-0 shadow-sm mt-3 text-center">
         <Card.Body className="py-5">
           <div className="icon-circle rounded-circle d-block mx-auto mb-3">
-            <UserAddIcon className="hi-l text-primary d-block mx-auto pt-4" />
+            <UserAddIcon className="hi-l text-brand d-block mx-auto pt-4" />
           </div>
-          <Card.Title className="text-primary"> Time to add some users! </Card.Title>
+          <Card.Title className="text-brand"> Time to add some users! </Card.Title>
           <Card.Text>
             To add new users, click the button below and search or select
             the users you want to share this room with.

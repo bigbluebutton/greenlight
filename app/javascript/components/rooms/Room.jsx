@@ -24,7 +24,7 @@ export default function Room() {
       <Row className="pt-4">
         <Col>
           <Link to="/rooms">
-            <HomeIcon className="hi-m text-primary" />
+            <HomeIcon className="hi-m text-brand" />
           </Link>
         </Col>
       </Row>
@@ -34,7 +34,7 @@ export default function Room() {
           <p className="text-muted"> { room.created_at }</p>
         </Col>
         <Col>
-          <Button variant="primary" className="mt-1 mx-2 float-end" onClick={handleStartMeeting} disabled={startMeetingIsLoading}>
+          <Button variant="brand" className="mt-1 mx-2 float-end" onClick={handleStartMeeting} disabled={startMeetingIsLoading}>
             Start Meeting {' '}
             {startMeetingIsLoading && <Spinner />}
           </Button>

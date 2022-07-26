@@ -22,7 +22,7 @@ export default function CreateRoleForm({ handleClose }) {
         <Button variant="primary-light" className="ms-auto" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" type="submit" disabled={createRole.isLoading}>
+        <Button variant="brand" type="submit" disabled={createRole.isLoading}>
           Create Role
           {createRole.isLoading && <Spinner />}
         </Button>

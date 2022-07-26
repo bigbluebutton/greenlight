@@ -17,7 +17,7 @@ export default function SiteSettingsRow({
         </Stack>
         <div className="form-switch">
           <input
-            className="form-check-input text-primary fs-5"
+            className="form-check-input text-brand fs-5"
             type="checkbox"
             defaultChecked={value === 'true'}
             onClick={(event) => {

@@ -39,8 +39,8 @@
     border: 0;
 
     &.active, &:hover {
-      color: $primary;
-      border-bottom: 1.5px solid $primary !important;
+      color: var(--brand-color);
+      border-bottom: 1.5px solid var(--brand-color) !important;
     }
   }
 }
