@@ -5,8 +5,13 @@ import {
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
 import RoomConfigRow from './RoomConfigRow';
+import useUpdateRoomConfig from '../../hooks/mutations/admins/room-configuration/useUpdateRoomConfig';
+import useRoomConfigs from '../../hooks/queries/admin/room-configuration/useRoomConfigs';
+import Spinner from '../shared/stylings/Spinner';
 
 export default function RoomConfig() {
+  const { data: roomConfigs, isLoading } = useRoomConfigs();
+
   return (
     <div id="admin-panel" className="wide-background">
       <h2 className="my-5"> Administrator Panel </h2>
@@ -27,10 +32,20 @@ export default function RoomConfig() {
                     </Stack>
                     <hr className="solid" />
                   </Row>
-                  <RoomConfigRow
-                    title="Mute user when they join"
-                    subtitle="Automatically mutes the user when they join the BigBlueButtonMeeting"
-                  />
+                  {
+                    (isLoading && <Row><Spinner /></Row>) || (
+                      <Row>
+                        <Row>
+                          <RoomConfigRow
+                            title="Mute user when they join"
+                            subtitle="Automatically mutes the user when they join the BigBlueButtonMeeting"
+                            mutation={() => useUpdateRoomConfig('muteOnStart')}
+                            value={roomConfigs.muteOnStart}
+                          />
+                        </Row>
+                      </Row>
+                    )
+                  }
                 </Container>
               </Tab.Content>
             </Col>

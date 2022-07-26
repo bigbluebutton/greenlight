@@ -1,11 +1,23 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
 import {
-  Row, Stack,
+  Row, Stack, Form as BootStrapForm,
 } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import FormControlGeneric from '../forms/FormControlGeneric';
+import Form from '../forms/Form';
+import { RoomConfigFormConfig, RoomConfigFormFields } from '../../helpers/forms/RoomConfigFormHelpers';
 
-export default function RoomConfigRow({ title, subtitle }) {
+export default function RoomConfigRow({
+  value, title, subtitle, mutation: useUpdateRoomConfig,
+}) {
+  const fields = RoomConfigFormFields;
+  const { defaultValues } = RoomConfigFormConfig;
+  defaultValues.value = value;
+
+  const updateRoomConfig = useUpdateRoomConfig();
+  const methods = useForm(RoomConfigFormConfig);
+
   return (
     <Row>
       <Stack className="my-2" direction="horizontal">
@@ -13,18 +25,13 @@ export default function RoomConfigRow({ title, subtitle }) {
           <strong> {title} </strong>
           <span className="text-muted"> {subtitle} </span>
         </Stack>
-        {/* TODO: Refactor this. */}
-        <Form.Select
-          className="visibility-dropdown"
-          // onChange={(event) => {
-          //   updateRoomSetting.mutate({ setting_name: 'muteOnStart', value: event.target.value });
-          // }}
-          // defaultValue={}
-        >
-          <option value="optional">Optional</option>
-          <option value="false">Disabled</option>
-          <option value="true">Enabled</option>
-        </Form.Select>
+        <Form methods={methods} onChange={methods.handleSubmit(updateRoomConfig.mutate)}>
+          <FormControlGeneric control={BootStrapForm.Select} field={fields.value} disabled={updateRoomConfig.isLoading}>
+            <option value="optional">Optional</option>
+            <option value="false">Disabled</option>
+            <option value="true">Enabled</option>
+          </FormControlGeneric>
+        </Form>
       </Stack>
     </Row>
   );
@@ -33,4 +40,6 @@ export default function RoomConfigRow({ title, subtitle }) {
 RoomConfigRow.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
+  mutation: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
