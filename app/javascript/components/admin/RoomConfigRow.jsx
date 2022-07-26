@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Row, Stack, Form as BootStrapForm,
+  Row, Stack, Form as BootStrapForm, Col,
 } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import FormControlGeneric from '../forms/FormControlGeneric';
@@ -19,20 +19,22 @@ export default function RoomConfigRow({
   const methods = useForm(RoomConfigFormConfig);
 
   return (
-    <Row>
-      <Stack className="my-2" direction="horizontal">
+    <Row className="mt-1">
+      <Col md="9">
         <Stack>
           <strong> {title} </strong>
           <span className="text-muted"> {subtitle} </span>
         </Stack>
-        <Form methods={methods} onChange={methods.handleSubmit(updateRoomConfig.mutate)}>
+      </Col>
+      <Col md="3">
+        <Form className="mt-4 mb-0 float-end" methods={methods} onChange={methods.handleSubmit(updateRoomConfig.mutate)}>
           <FormControlGeneric control={BootStrapForm.Select} field={fields.value} disabled={updateRoomConfig.isLoading}>
             <option value="optional">Optional</option>
             <option value="false">Disabled</option>
             <option value="true">Enabled</option>
           </FormControlGeneric>
         </Form>
-      </Stack>
+      </Col>
     </Row>
   );
 }
