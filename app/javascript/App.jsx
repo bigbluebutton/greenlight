@@ -12,8 +12,11 @@ export default function App() {
   const containerHeight = currentUser?.signed_in ? 'full-height' : 'h-100';
 
   // Greenlight V3 brand-color theming
-  const { isLoading, data: primaryColor } = useSiteSettingAsync('PrimaryColor');
-  document.documentElement.style.setProperty('--brand-color', primaryColor);
+  const { isLoading, data: brandColor } = useSiteSettingAsync('PrimaryColor');
+  const { data: brandColorLight } = useSiteSettingAsync('PrimaryColorLight');
+
+  document.documentElement.style.setProperty('--brand-color', brandColor);
+  document.documentElement.style.setProperty('--brand-color-light', brandColorLight);
 
   if (isLoading) return <Spinner />;
 

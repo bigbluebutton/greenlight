@@ -115,7 +115,7 @@ input.search-bar {
   }
 }
 
-//Brand Colors
+//Brand
 :root {
   --brand-color: '';
   --brand-color-light: whitesmoke;
@@ -129,9 +129,20 @@ input.search-bar {
   background-color: var(--brand-color) !important;
   border-color: var(--brand-color) !important;
   color: white;
+
+  &:hover {
+    color: white;
+    opacity: 0.8;
+  }
 }
 
-.btn-brand:hover {
-  color: white;
-  opacity: 0.8;
+//Brand Light
+.btn-brand-light {
+  background-color: var(--brand-color-light) !important;
+  border-color: var(--brand-color-light) !important;
+  color: var(--brand-color) !important;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
