@@ -6,12 +6,12 @@ import Button from 'react-bootstrap/Button';
 import { useForm } from 'react-hook-form';
 import useUpdateSiteSetting
   from '../../../hooks/mutations/admins/site_settings/useUpdateSiteSetting';
-import useSiteSettings from '../../../hooks/queries/admin/site_settings/useSiteSettings';
+import useSiteSettingAsync from '../../../hooks/queries/site_settings/useSiteSettingAsync';
 
 export default function Appearance() {
   const { register, handleSubmit } = useForm();
   const updateSiteSetting = useUpdateSiteSetting('PrimaryColor');
-  const { data: siteSettings } = useSiteSettings();
+  const { data: primaryColor } = useSiteSettingAsync('PrimaryColor');
 
   return (
     <>
@@ -21,7 +21,7 @@ export default function Appearance() {
           <Form.Control
             type="color"
             id="brandColor"
-            defaultValue={siteSettings?.PrimaryColor}
+            defaultValue={primaryColor}
             title="Choose your color"
             {...register('value')}
           />
