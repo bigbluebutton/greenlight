@@ -1,9 +1,13 @@
 import { useQuery } from 'react-query';
 import axios from '../../../helpers/Axios';
 
-export default function useRooms() {
+export default function useRooms(page) {
+  const params = {
+    page,
+  };
+
   return useQuery(
-    'getRooms',
-    () => axios.get('/rooms.json', { refetchInterval: 10000, refetchIntervalInBackground: true }).then((resp) => resp.data.data),
+    ['getRooms', { ...params }],
+    () => axios.get('/rooms.json', { params, refetchInterval: 10000, refetchIntervalInBackground: true }).then((resp) => resp.data),
   );
 }
