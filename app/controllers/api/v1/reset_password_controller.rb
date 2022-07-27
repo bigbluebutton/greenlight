@@ -4,6 +4,7 @@ module Api
   module V1
     class ResetPasswordController < ApiController
       before_action :verify_reset_request, only: %i[reset verify]
+      skip_before_action :ensure_authenticated, only: %i[create reset verify]
 
       # POST /api/v1/reset_password.json
       # Expects: { user: {:email} }

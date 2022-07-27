@@ -3,11 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::RolesController, type: :controller do
-  before { request.headers['ACCEPT'] = 'application/json' }
+  let(:user) { create(:user, role: create(:role, name: 'User')) }
+
+  before do
+    request.headers['ACCEPT'] = 'application/json'
+    session[:user_id] = user.id
+  end
 
   describe 'roles#index' do
     it 'returns the list of roles' do
-      roles = [create(:role, name: 'Hokage'), create(:role, name: 'Jonin'), create(:role, name: 'Chunin'), create(:role, name: 'Genin')]
+      roles = [create(:role, name: 'Hokage'), create(:role, name: 'Jonin'), create(:role, name: 'Chunin'), user.role]
       get :index
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(roles.pluck(:id))
@@ -40,14 +45,14 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
         get :index, params: { sort: { column: 'name', direction: 'DESC' } }
         expect(response).to have_http_status(:ok)
         # Order is important match_array isn't adequate for this test.
-        expect(JSON.parse(response.body)['data'].pluck('name')).to eq(%w[P M I])
+        expect(JSON.parse(response.body)['data'].pluck('name')).to eq(%w[User P M I])
       end
 
       it 'orders the roles list by column and direction ASC' do
         get :index, params: { sort: { column: 'name', direction: 'ASC' } }
         expect(response).to have_http_status(:ok)
         # Order is important match_array isn't adequate for this test.
-        expect(JSON.parse(response.body)['data'].pluck('name')).to eq(%w[I M P])
+        expect(JSON.parse(response.body)['data'].pluck('name')).to eq(%w[I M P User])
       end
     end
   end
@@ -55,7 +60,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
   describe 'roles#create' do
     it 'returns :created and creates a role for valid params' do
       valid_params = { name: 'CrazyRole' }
-      expect { post :create, params: { role: valid_params } }.to change(Role, :count).from(0).to(1)
+      expect { post :create, params: { role: valid_params } }.to change(Role, :count).by(1)
       expect(response).to have_http_status(:created)
       expect(JSON.parse(response.body)['errors']).to be_nil
     end
@@ -111,7 +116,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
   describe 'roles#destroy' do
     it 'removes a given role if no user is dependant' do
       role = create(:role)
-      expect { delete :destroy, params: { id: role.id } }.to change(Role, :count).from(1).to(0)
+      expect { delete :destroy, params: { id: role.id } }.to change(Role, :count).by(-1)
       expect(response).to have_http_status(:ok)
     end
 
@@ -121,9 +126,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
     end
 
     it 'fails to remove roles with dependant users with :internal_server_error' do
-      role = create(:role)
-      create(:user, role:)
-      expect { delete :destroy, params: { id: role.id } }.not_to change(Role, :count).from(1)
+      expect { delete :destroy, params: { id: user.role.id } }.not_to change(Role, :count).from(1)
       expect(response).to have_http_status(:internal_server_error)
     end
   end

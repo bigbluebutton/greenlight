@@ -3,8 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::SharedAccessesController, type: :controller do
+  let(:user) { create(:user) }
+
   before do
     request.headers['ACCEPT'] = 'application/json'
+    session[:user_id] = user.id
   end
 
   describe '#create' do
@@ -56,6 +59,8 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
       room = create(:room)
       shared_users = create_list(:user, 5)
       shareable_users = create_list(:user, 5)
+      shareable_users << user
+
       room.shared_users = shared_users
 
       get :shareable_users, params: { friendly_id: room.friendly_id, search: '' }

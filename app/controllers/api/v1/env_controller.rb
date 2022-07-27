@@ -3,6 +3,8 @@
 module Api
   module V1
     class EnvController < ApiController
+      skip_before_action :ensure_authenticated
+
       def index
         render_data data: {
           OPENID_CONNECT: ENV['OPENID_CONNECT_ISSUER'].present?,

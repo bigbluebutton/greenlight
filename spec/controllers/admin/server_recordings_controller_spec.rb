@@ -3,7 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
-  before { request.headers['ACCEPT'] = 'application/json' }
+  let(:user) { create(:user) }
+
+  before do
+    request.headers['ACCEPT'] = 'application/json'
+    session[:user_id] = user.id
+  end
 
   describe '#index' do
     it 'returns the list of recordings' do
