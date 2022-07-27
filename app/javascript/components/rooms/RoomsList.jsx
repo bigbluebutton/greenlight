@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {
-  Row, Col, Button, Stack,
+  Row, Col, Button, Stack, Container,
 } from 'react-bootstrap';
+import { Pagination } from 'semantic-ui-react';
 import Spinner from '../shared/stylings/Spinner';
 import RoomCard from './RoomCard';
 import useRooms from '../../hooks/queries/rooms/useRooms';
@@ -12,7 +13,8 @@ import CreateRoomForm from '../forms/CreateRoomForm';
 import SearchBar from '../shared/SearchBar';
 
 export default function RoomsList() {
-  const { isLoading, data: rooms } = useRooms();
+  const [page, setPage] = useState();
+  const rooms = useRooms(page);
   const [search, setSearch] = useState('');
 
   if (isLoading) return <Spinner />;
@@ -31,7 +33,7 @@ export default function RoomsList() {
       </Stack>
       <Row md={4} className="g-4 pb-4 mt-4">
         {
-          rooms.filter((room) => {
+          roomsData.filter((room) => {
             if (room.name.toLowerCase().includes(search.toLowerCase())) {
               return room;
             }
@@ -43,6 +45,17 @@ export default function RoomsList() {
           ))
         }
       </Row>
+      <Container className="text-center">
+        <Pagination
+          defaultActivePage={roomsMeta.page}
+          totalPages={roomsMeta.pages}
+          onPageChange={handlePage}
+          firstItem={null}
+          lastItem={null}
+          pointing
+          secondary
+        />
+      </Container>
     </div>
   );
 }
