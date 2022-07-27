@@ -35,14 +35,39 @@ export default function RoomConfig() {
                   {
                     (isLoading && <Row><Spinner /></Row>) || (
                       <Row>
-                        <Row>
-                          <RoomConfigRow
-                            title="Mute user when they join"
-                            subtitle="Automatically mutes the user when they join the BigBlueButtonMeeting"
-                            mutation={() => useUpdateRoomConfig('muteOnStart')}
-                            value={roomConfigs.muteOnStart}
-                          />
-                        </Row>
+                        <RoomConfigRow
+                          title="Mute user when they join"
+                          subtitle="Automatically mutes the user when they join the BigBlueButtonMeeting"
+                          mutation={() => useUpdateRoomConfig('muteOnStart')}
+                          value={roomConfigs.muteOnStart}
+                        />
+                        <RoomConfigRow
+                          title="Require moderator approval before joining"
+                          subtitle="Prompts the moderator of the BigBlueButton meeting when a user tries to join.
+                            If the user is approved, they will be able to join the meeting."
+                          mutation={() => useUpdateRoomConfig('guestPolicy')}
+                          value={roomConfigs.guestPolicy}
+                        />
+                        <RoomConfigRow
+                          title="Allow any user to start this meeting"
+                          subtitle="Allow any user to start the meeting at any time.
+                            By default, only the room owner can start the meeting."
+                          mutation={() => useUpdateRoomConfig('glAnyoneCanStart')}
+                          value={roomConfigs.glAnyoneCanStart}
+                        />
+                        <RoomConfigRow
+                          title="Allow users join as moderators"
+                          subtitle="Gives all users moderator priviledge in BigBlueButton when they join the meeting"
+                          mutation={() => useUpdateRoomConfig('glAnyoneJoinAsModerator')}
+                          value={roomConfigs.glAnyoneJoinAsModerator}
+                        />
+                        <RoomConfigRow
+                          title="Allow room to be recorded"
+                          subtitle="Allows room owners to specify whether they want the option to record a room or not.
+                            If enabled, the moderator must still click the “Record button once the meeting has started."
+                          mutation={() => useUpdateRoomConfig('record')}
+                          value={roomConfigs.record}
+                        />
                       </Row>
                     )
                   }
