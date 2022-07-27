@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import {
-  Card, Stack, Container,
+  Card, Stack,
 } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { Pagination } from 'semantic-ui-react';
 import useRoomRecordings from '../../hooks/queries/recordings/useRoomRecordings';
 import SearchBarQuery from '../shared/SearchBarQuery';
 import RecordingsList from './RecordingsList';
@@ -23,11 +22,6 @@ export default function RoomRecordings() {
   const roomRecordingsData = roomRecordings.data.data;
   const roomRecordingsMeta = roomRecordings.data.meta;
 
-  const handlePage = (e, { activePage }) => {
-    const gotopage = { activePage };
-    const pagenum = gotopage.activePage;
-    setPage(pagenum);
-  };
   return (
     <div className="wide-background full-height-room">
       <Stack direction="horizontal" className="w-100 mt-3">
@@ -40,6 +34,8 @@ export default function RoomRecordings() {
           recordings={roomRecordings?.data}
           RecordingRow={RoomsRecordingRow}
           recordingsProcessing={roomRecordingsProcessing.data}
+          setPage={setPage}
+          recordingsMeta={roomRecordingsMeta}
         />
       </Card>
       {!isLoading
