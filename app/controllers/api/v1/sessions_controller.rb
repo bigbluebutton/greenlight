@@ -3,6 +3,8 @@
 module Api
   module V1
     class SessionsController < ApiController
+      skip_before_action :ensure_authenticated, only: %i[index create]
+
       # GET /api/v1/sessions
       def index
         return render_data data: current_user, serializer: CurrentUserSerializer, status: :ok if current_user

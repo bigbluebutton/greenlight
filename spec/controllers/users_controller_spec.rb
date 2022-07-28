@@ -3,8 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
+  let(:user) { create(:user) }
+
   before do
     request.headers['ACCEPT'] = 'application/json'
+    session[:user_id] = user.id
   end
 
   describe '#show' do

@@ -3,6 +3,8 @@
 module Api
   module V1
     class UsersController < ApiController
+      skip_before_action :ensure_authenticated, only: %i[create]
+
       def show
         user = User.find(params[:id])
 

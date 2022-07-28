@@ -3,14 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::UsersController, type: :controller do
+  let(:user) { create(:user) }
+
   before do
     request.headers['ACCEPT'] = 'application/json'
+    session[:user_id] = user.id
   end
 
   describe '#active_users' do
     it 'ids of rooms in response are matching room ids that belong to current_user' do
       # TODO: Change this test to create active users and not just any users
       users = create_list(:user, 5)
+      users << user
+
       get :active_users
       expect(response).to have_http_status(:ok)
       response_user_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
@@ -27,7 +32,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
 
     it 'admin creates a user' do
       create(:role, name: 'User')
-      expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
+      expect { post :create, params: user_params }.to change(User, :count).by(1)
       expect(response).to have_http_status(:created)
     end
   end

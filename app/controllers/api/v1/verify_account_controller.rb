@@ -3,6 +3,8 @@
 module Api
   module V1
     class VerifyAccountController < ApiController
+      skip_before_action :ensure_authenticated, only: %i[create activate]
+
       # POST /api/v1/verify_account.json
       # Expects: { user: {:email} }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }

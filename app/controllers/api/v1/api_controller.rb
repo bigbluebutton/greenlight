@@ -3,13 +3,11 @@
 module Api
   module V1
     class ApiController < ApplicationController
+      include Authorizable
+
       serialization_scope :view_context
       skip_before_action :verify_authenticity_token
-
-      before_action do
-        # Unless the request format is explicitly json Rails will mitigate the responsability to CSR to handle it.
-        render 'components/index' if !Rails.env.development? && !valid_api_request?
-      end
+      before_action :ensure_valid_request, :ensure_authenticated
 
       # For requests that raised an unkown exception.
       # Note: The order of each rescue is important (The highest has the lowest priority).
@@ -72,13 +70,6 @@ module Api
         return {} unless allowed_columns.include?(sort_column) && allowed_directions.include?(sort_direction)
 
         { sort_column => sort_direction }
-      end
-
-      private
-
-      # Ensures that requests to the API are explicit enough.
-      def valid_api_request?
-        request.format == :json && request.headers['Accept']&.include?('application/json')
       end
     end
   end
