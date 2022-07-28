@@ -7,7 +7,7 @@ export default function useCreateResetPwd() {
   const navigate = useNavigate();
 
   return useMutation(
-    (data) => axios.post('/reset_password.json', data),
+    (user) => axios.post('/reset_password.json', { user }),
     {
       onSuccess: (data) => {
         console.info(data);
