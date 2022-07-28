@@ -6,7 +6,7 @@ export default function useSiteSettingAsync(name) {
     ['getSiteSettings', name],
     async () => {
       const promise = await axios.get(`/site_settings/${name}.json`);
-      return promise.data;
+      return promise.data.data;
     },
   );
 }

@@ -69,3 +69,9 @@ Metrics/AbcSize:
 RSpec/AnyInstance:
   Enabled: false
 
+Metrics/CyclomaticComplexity:
+  Max: 8
+
+Metrics/PerceivedComplexity:
+  Max: 9
+

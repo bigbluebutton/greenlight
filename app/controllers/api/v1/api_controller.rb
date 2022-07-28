@@ -34,7 +34,8 @@ module Api
       end
 
       def render_data(status:, serializer: nil, data: {}, meta: {}, options: {})
-        data = { data: } if data.is_a?(Hash) # Manually add root if not serializing
+        # Manually add the data root if passing in a simple (non-serialized) object
+        data = { data: } if data.is_a?(Hash) || data.is_a?(String) || data.is_a?(Integer) || [true, false].include?(data)
 
         args = {
           json: data,
