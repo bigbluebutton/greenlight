@@ -1,13 +1,14 @@
 import { useQuery } from 'react-query';
 import axios from '../../../../helpers/Axios';
 
-export default function useServerRooms(input, setServerRooms) {
+export default function useServerRooms(input, page) {
   const params = {
     search: input,
+    page,
   };
 
   return useQuery(
-    ['getServerRooms', input],
-    () => axios.get('/admin/server_rooms.json', { params }).then((resp) => setServerRooms(resp.data.data)),
+    ['getServerRooms', { ...params }],
+    () => axios.get('/admin/server_rooms.json', { params }).then((resp) => resp.data),
   );
 }

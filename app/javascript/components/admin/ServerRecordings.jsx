@@ -9,10 +9,12 @@ import RecordingsList from '../recordings/RecordingsList';
 import useServerRecordings from '../../hooks/queries/admin/server-recordings/useServerRecordings';
 import ServerRecordingRow from './server-recordings/ServerRecordingRow';
 import useRecordingsReSync from '../../hooks/queries/recordings/useRecordingsReSync';
+import Pagy from '../shared/Pagy';
 
 export default function ServerRecordings() {
   const [input, setInput] = useState();
-  const serverRecordings = useServerRecordings(input);
+  const [page, setPage] = useState();
+  const { isLoading, data: serverRecordings } = useServerRecordings(input, page);
   const recordingsReSync = useRecordingsReSync();
 
   return (
@@ -38,11 +40,19 @@ export default function ServerRecordings() {
                   <Row className="my-2">
                     <Col>
                       <RecordingsList
-                        recordings={serverRecordings.data}
-                        isLoading={serverRecordings.isLoading}
+                        recordings={serverRecordings?.data}
+                        isLoading={isLoading}
                         RecordingRow={ServerRecordingRow}
                       />
                     </Col>
+                    {!isLoading
+                      && (
+                      <Pagy
+                        page={serverRecordings.meta.page}
+                        totalPages={serverRecordings.meta.pages}
+                        setPage={setPage}
+                      />
+                      )}
                   </Row>
                 </Container>
               </Tab.Content>

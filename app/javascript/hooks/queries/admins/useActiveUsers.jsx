@@ -1,13 +1,14 @@
 import { useQuery } from 'react-query';
 import axios from '../../../helpers/Axios';
 
-export default function useActiveUsers(input, setActiveUsers) {
+export default function useActiveUsers(input, page) {
   const params = {
     search: input,
+    page,
   };
 
   return useQuery(
-    ['getAdminUsers', input],
-    () => axios.get('/admin/users/active_users.json', { params }).then((resp) => setActiveUsers(resp.data.data)),
+    ['getAdminUsers', { ...params }],
+    () => axios.get('/admin/users/active_users.json', { params }).then((resp) => resp.data),
   );
 }

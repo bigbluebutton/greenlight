@@ -2,16 +2,24 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import useActiveUsers from '../../../hooks/queries/admins/useActiveUsers';
 import ManageUsersTable from './ManageUsersTable';
-import Spinner from '../../shared/stylings/Spinner';
+import Pagy from '../../shared/Pagy';
 
 export default function ActiveUsers({ input }) {
-  const [activeUsers, setActiveUsers] = useState();
-  const { isLoading } = useActiveUsers(input, setActiveUsers);
-
-  if (isLoading) return <Spinner />;
+  const [page, setPage] = useState();
+  const { isLoading, data: activeUsers } = useActiveUsers(input, page);
 
   return (
-    <ManageUsersTable users={activeUsers} />
+    <div>
+      <ManageUsersTable users={activeUsers?.data} />
+      {!isLoading
+        && (
+        <Pagy
+          page={activeUsers.meta.page}
+          totalPages={activeUsers.meta.pages}
+          setPage={setPage}
+        />
+        )}
+    </div>
   );
 }
 
