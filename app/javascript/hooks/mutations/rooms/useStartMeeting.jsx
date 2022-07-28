@@ -4,10 +4,9 @@ import axios from '../../../helpers/Axios';
 
 export default function useStartMeeting(friendlyId) {
   return useMutation(
-    () => axios.post(`meetings/${friendlyId}/start.json`),
+    () => axios.post(`meetings/${friendlyId}/start.json`).then((resp) => resp.data.data),
     {
-      onSuccess: (response) => {
-        const { join_url: joinUrl } = response.data.data; // TODO: amir - Simplify this.
+      onSuccess: (joinUrl) => {
         window.location.href = joinUrl;
       },
       onError: () => {
