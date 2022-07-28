@@ -20,9 +20,7 @@ module Api
           recording_ready: recording_ready_url
         ).call
 
-        render_data data: {
-          join_url: BigBlueButtonApi.new.join_meeting(room: @room, name: current_user.name, role: 'Moderator')
-        }, status: :created
+        render_data data: BigBlueButtonApi.new.join_meeting(room: @room, name: current_user.name, role: 'Moderator'), status: :created
       end
 
       # GET /api/v1/meetings/:friendly_id/join.json

@@ -16,7 +16,7 @@ function copyInvite() {
 export default function Room() {
   const { friendlyId } = useParams();
   const { isLoading, data: room } = useRoom(friendlyId);
-  const { handleStartMeeting, isLoading: startMeetingIsLoading } = useStartMeeting(friendlyId);
+  const startMeeting = useStartMeeting(friendlyId);
 
   if (isLoading) return <Spinner />; // Todo: amir - Revisit this.
   return (
@@ -34,9 +34,9 @@ export default function Room() {
           <p className="text-muted"> { room.created_at }</p>
         </Col>
         <Col>
-          <Button variant="brand" className="mt-1 mx-2 float-end" onClick={handleStartMeeting} disabled={startMeetingIsLoading}>
+          <Button variant="brand" className="mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
             Start Meeting {' '}
-            {startMeetingIsLoading && <Spinner />}
+            {startMeeting.isLoading && <Spinner />}
           </Button>
           <Button variant="primary-light" className="mt-1 mx-2 float-end" onClick={copyInvite}>
             <DuplicateIcon className="hi-xs" />

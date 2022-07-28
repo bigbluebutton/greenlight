@@ -17,7 +17,7 @@ export default function ServerRoomRow({ room }) {
     friendly_id: friendlyId, name, owner, last_session: lastSession, active, participants,
   } = room;
   const mutationWrapper = (args) => useDeleteServerRoom({ friendlyId, ...args });
-  const { handleStartMeeting } = useStartMeeting(friendlyId);
+  const startMeeting = useStartMeeting(friendlyId);
   const currentUser = useAuth();
   // TODO - samuel: useRoomStatus will not work if room has an access code. Will need to add bypass in MeetingController
   const { refetch } = useRoomStatus(room.friendly_id, currentUser.name);
@@ -55,7 +55,7 @@ export default function ServerRoomRow({ room }) {
                 </Dropdown.Item>
               )
               : (
-                <Dropdown.Item className="text-muted" onClick={handleStartMeeting}>
+                <Dropdown.Item className="text-muted" onClick={startMeeting.mutate}>
                   <ExternalLinkIcon className="hi-s pb-1 me-1" /> Start
                 </Dropdown.Item>
               )}

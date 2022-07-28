@@ -3,22 +3,15 @@ import { toast } from 'react-hot-toast';
 import axios from '../../../helpers/Axios';
 
 export default function useStartMeeting(friendlyId) {
-  const startMeeting = () => axios.post(`meetings/${friendlyId}/start.json`);
-  const mutation = useMutation(
-    startMeeting,
-    { // Mutation config.
+  return useMutation(
+    () => axios.post(`meetings/${friendlyId}/start.json`).then((resp) => resp.data.data),
+    {
+      onSuccess: (joinUrl) => {
+        window.location.href = joinUrl;
+      },
       onError: () => {
         toast.error('There was a problem completing that action. \n Please try again.');
       },
     },
   );
-  const handleStartMeeting = async () => {
-    try {
-      const response = await mutation.mutateAsync();
-      const { join_url: joinUrl } = response.data.data; // TODO: amir - Simplify this.
-      window.location.href = joinUrl;
-    } catch (e) { /* TODO: amir - Revisit this. */ }
-  };
-
-  return { handleStartMeeting, ...mutation };
 }
