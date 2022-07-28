@@ -70,5 +70,29 @@ RSpec.describe Api::V1::UsersController, type: :request do
         expect(JSON.parse(response.body)['errors']).to be_present
       end
     end
+
+    context 'Role mapping' do
+      before do
+        setting = create(:setting, name: 'RoleMapping')
+        create(:site_setting, setting:, provider: 'greenlight', value: 'Decepticons=@decepticons.cybertron,Autobots=autobots.cybertron')
+      end
+
+      it 'Creates a User and assign a role if a rule matches their email' do
+        autobots = create(:role, name: 'Autobots')
+        user_params = {
+          name: 'Optimus Prime',
+          email: 'optimus@autobots.cybertron',
+          password: 'Autobots',
+          password_confirmation: 'Autobots',
+          language: 'teletraan'
+        }
+
+        expect { post api_v1_users_path, params: { user: user_params }, headers: }.to change(User, :count).from(0).to(1)
+        expect(User.take.role).to eq(autobots)
+        expect(response.content_type).to eq('application/json; charset=utf-8')
+        expect(response).to have_http_status(:created)
+        expect(JSON.parse(response.body)['errors']).to be_nil
+      end
+    end
   end
 end

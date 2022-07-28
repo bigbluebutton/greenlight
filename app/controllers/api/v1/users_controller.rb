@@ -18,10 +18,7 @@ module Api
         # TODO: amir - ensure accessibility for unauthenticated requests only.
         params[:user][:language] = I18n.default_locale if params[:user][:language].blank?
 
-        user = User.new({
-          provider: 'greenlight',
-          role: Role.find_by(name: 'User') # TODO: - Ahmad: Move to service
-        }.merge(user_params)) # TMP fix for presence validation of :provider
+        user = UserCreator.new(user_params:, provider: 'greenlight').call
 
         # TODO: Add proper error logging for non-verified token hcaptcha
         return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
