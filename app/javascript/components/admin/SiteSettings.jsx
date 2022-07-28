@@ -4,7 +4,7 @@ import {
   Row, Col, Tab, Tabs, Container,
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
-import Appearance from './site_settings/Appearance';
+import Appearance from './site_settings/appearance/Appearance';
 import Administration from './site_settings/Administration';
 import Settings from './site_settings/Settings';
 import Registration from './site_settings/Registration';
