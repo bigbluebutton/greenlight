@@ -1,19 +1,21 @@
 import Popover from 'react-bootstrap/Popover';
-import { BlockPicker } from 'react-color';
-import React from 'react';
+import React, { useState } from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
+import { HexColorPicker, HexColorInput } from 'react-colorful';
 import useUpdateSiteSetting
   from '../../../../hooks/mutations/admins/site_settings/useUpdateSiteSetting';
 
 export default function BrandColorPopover({
-  name, btnName, btnVariant, currentColor, defaultColors,
+  name, btnName, btnVariant, initialColor,
 }) {
   const updateSiteSetting = useUpdateSiteSetting(name);
 
-  const handleChangeComplete = (inputColor) => {
-    updateSiteSetting.mutate({ value: inputColor.hex });
+  const [color, setColor] = useState(initialColor);
+
+  const handleChange = (inputColor) => {
+    setColor(inputColor);
   };
 
   return (
@@ -22,13 +24,13 @@ export default function BrandColorPopover({
       placement="bottom"
       rootClose
       overlay={(
-        <Popover className="brand-color-popover border-0">
-          <BlockPicker
-            color={currentColor}
-            onChangeComplete={handleChangeComplete}
-            colors={defaultColors}
-            triangle="hide"
-          />
+        <Popover className="border-0">
+          <div className="color-picker pb-3 rounded-3 shadow-sm" onBlur={() => updateSiteSetting.mutate({ value: color })}>
+            <HexColorPicker color={color} onChange={handleChange} />
+            <div className="mt-3 px-3">
+              <HexColorInput className="w-100 form-control" color={color} onChange={handleChange} prefixed />
+            </div>
+          </div>
         </Popover>
       )}
     >
@@ -41,6 +43,5 @@ BrandColorPopover.propTypes = {
   name: PropTypes.string.isRequired,
   btnName: PropTypes.string.isRequired,
   btnVariant: PropTypes.string.isRequired,
-  currentColor: PropTypes.string.isRequired,
-  defaultColors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  initialColor: PropTypes.string.isRequired,
 };
