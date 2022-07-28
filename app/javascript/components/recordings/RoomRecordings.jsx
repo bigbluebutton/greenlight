@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import {
-  Card, Stack, Container,
+  Card, Stack,
 } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { Pagination } from 'semantic-ui-react';
 import useRoomRecordings from '../../hooks/queries/recordings/useRoomRecordings';
 import SearchBarQuery from '../shared/SearchBarQuery';
 import RecordingsList from './RecordingsList';
@@ -17,12 +16,6 @@ export default function RoomRecordings() {
   const { friendlyId } = useParams();
   const { isLoading, data: roomRecordings } = useRoomRecordings(friendlyId, input, page);
   const roomRecordingsProcessing = useRoomRecordingsProcessing(friendlyId);
-
-  const handlePage = (e, { activePage }) => {
-    const gotopage = { activePage };
-    const pagenum = gotopage.activePage;
-    setPage(pagenum);
-  };
 
   return (
     <div className="wide-background full-height-room">

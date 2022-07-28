@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import {
-  Card, Button, Stack, Container,
+  Card, Button, Stack,
 } from 'react-bootstrap';
-import { Pagination } from 'semantic-ui-react';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
 import SearchBarQuery from '../shared/SearchBarQuery';
 import RecordingsList from './RecordingsList';
