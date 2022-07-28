@@ -72,7 +72,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       post :start, params: { friendly_id: room.friendly_id }
 
       expect(response).to have_http_status(:created)
-      expect(JSON.parse(response.body)['data']['join_url']).to eq('https://example.com')
+      expect(JSON.parse(response.body)['data']).to eq('https://example.com')
     end
 
     it 'returns an error if the user is not logged in' do
