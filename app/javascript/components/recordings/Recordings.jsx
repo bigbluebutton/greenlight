@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Card, Button, Stack,
+  Card, Stack,
 } from 'react-bootstrap';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
 import SearchBarQuery from '../shared/SearchBarQuery';
@@ -12,7 +12,6 @@ export default function Recordings() {
   const [input, setInput] = useState();
   const [page, setPage] = useState();
   const { isLoading, data: recordings } = useRecordings(input, page);
-  const recordingsReSync = useRecordingsReSync();
 
   return (
     <div className="wide-background full-height-rooms">
