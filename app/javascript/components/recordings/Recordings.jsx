@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
 import {
-  Card, Button, Stack, Container,
+  Card, Button, Stack,
 } from 'react-bootstrap';
-import { Pagination } from 'semantic-ui-react';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
 import SearchBarQuery from '../shared/SearchBarQuery';
 import RecordingsList from './RecordingsList';
 import RoomsRecordingRow from './RoomsRecordingRow';
+import Pagy from '../shared/Pagy';
 
 export default function Recordings() {
   const [input, setInput] = useState();
   const [page, setPage] = useState();
   const { isLoading, data: recordings } = useRecordings(input, page);
   const recordingsReSync = useRecordingsReSync();
-
-  const handlePage = (e, { activePage }) => {
-    const gotopage = { activePage };
-    const pagenum = gotopage.activePage;
-    setPage(pagenum);
-  };
 
   return (
     <div className="wide-background full-height-rooms">
@@ -36,17 +30,11 @@ export default function Recordings() {
       </Card>
       {!isLoading
         && (
-        <Container className="text-center">
-          <Pagination
-            defaultActivePage={recordings.meta.page}
-            totalPages={recordings.meta.pages}
-            onPageChange={handlePage}
-            firstItem={null}
-            lastItem={null}
-            pointing
-            secondary
-          />
-        </Container>
+        <Pagy
+          page={recordings.meta.page}
+          totalPages={recordings.meta.pages}
+          setPage={setPage}
+        />
         )}
     </div>
   );
