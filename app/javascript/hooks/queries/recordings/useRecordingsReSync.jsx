@@ -7,7 +7,7 @@ export default function useRecordingsReSync() {
 
   return useQuery(
     'getRecordingsResync',
-    () => axios.get('/recordings/resync.json').then(() => queryClient.invalidateQueries('getRecordings')),
+    () => axios.get('/recordings/resync.json').then(() => queryClient.invalidateQueries('getServerRecordings')),
     { enabled: false },
   );
 }
