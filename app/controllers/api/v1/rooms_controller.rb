@@ -23,9 +23,7 @@ module Api
           room
         end
 
-        pagy, all_rooms = pagy_array(rooms + shared_rooms)
-
-        render_data data: all_rooms, meta: pagy_metadata(pagy), status: :ok
+        render_data data: rooms + shared_rooms, status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id.json

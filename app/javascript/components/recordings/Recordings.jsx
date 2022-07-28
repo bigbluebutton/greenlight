@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import {
-  Card, Button, Stack,
+  Card, Button, Stack, Container,
 } from 'react-bootstrap';
+import { Pagination } from 'semantic-ui-react';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
 import SearchBarQuery from '../shared/SearchBarQuery';
 import RecordingsList from './RecordingsList';
 import RoomsRecordingRow from './RoomsRecordingRow';
-import Spinner from '../shared/stylings/Spinner';
 
 export default function Recordings() {
   const [input, setInput] = useState();
   const [page, setPage] = useState();
-
-  const recordings = useRecordings(input, page);
+  const { isLoading, data: recordings } = useRecordings(input, page);
   const recordingsReSync = useRecordingsReSync();
 
-  if (recordings.isLoading) return <Spinner />;
-
-  const recordingsData = recordings.data.data;
-  const recordingsMeta = recordings.data.meta;
+  const handlePage = (e, { activePage }) => {
+    const gotopage = { activePage };
+    const pagenum = gotopage.activePage;
+    setPage(pagenum);
+  };
 
   return (
     <div className="wide-background full-height-rooms">
@@ -29,13 +29,25 @@ export default function Recordings() {
       </Stack>
       <Card className="border-0 shadow-sm p-0 mt-4">
         <RecordingsList
-          recordings={recordingsData}
-          isLoading={recordings.isLoading}
+          recordings={recordings?.data}
+          isLoading={isLoading}
           RecordingRow={RoomsRecordingRow}
-          setPage={setPage}
-          recordingsMeta={recordingsMeta}
         />
       </Card>
+      {!isLoading
+        && (
+        <Container className="text-center">
+          <Pagination
+            defaultActivePage={recordings.meta.page}
+            totalPages={recordings.meta.pages}
+            onPageChange={handlePage}
+            firstItem={null}
+            lastItem={null}
+            pointing
+            secondary
+          />
+        </Container>
+        )}
     </div>
   );
 }
