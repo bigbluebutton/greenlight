@@ -27,7 +27,7 @@ export default function SharedAccess() {
             <SearchBarQuery setInput={setInput} />
           </div>
           <Modal
-            modalButton={<Button variant="primary-light" className="ms-auto">+ Share Access</Button>}
+            modalButton={<Button variant="brand-backward" className="ms-auto">+ Share Access</Button>}
             title="Share Room Access"
             body={<SharedAccessForm />}
             size="lg"

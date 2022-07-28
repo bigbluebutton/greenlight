@@ -47,7 +47,7 @@ export default function AccessCodes() {
             : (
               <div>
                 <Button
-                  variant="primary-light"
+                  variant="brand-backward"
                   onClick={() => generateAccessCode.mutate('Viewer')}
                 >
                   Generate
@@ -83,7 +83,7 @@ export default function AccessCodes() {
             : (
               <div>
                 <Button
-                  variant="primary-light"
+                  variant="brand-backward"
                   onClick={() => generateAccessCode.mutate('Moderator')}
                 >
                   Generate
