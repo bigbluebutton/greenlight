@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import {
-  Col, Container, Row, Tab,
+  Col, Container, Row, Tab, Stack, Button,
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
 import SearchBarQuery from '../shared/SearchBarQuery';
 import RecordingsList from '../recordings/RecordingsList';
 import useServerRecordings from '../../hooks/queries/admin/server-recordings/useServerRecordings';
 import ServerRecordingRow from './server-recordings/ServerRecordingRow';
+import useRecordingsReSync from '../../hooks/queries/recordings/useRecordingsReSync';
 
 export default function ServerRecordings() {
   const [input, setInput] = useState();
   const serverRecordings = useServerRecordings(input);
+  const recordingsReSync = useRecordingsReSync();
 
   return (
     <div id="admin-panel" className="wide-background">
@@ -29,9 +31,10 @@ export default function ServerRecordings() {
                 <Container>
                   <Row className="my-1"><h3>Latest Recordings</h3></Row>
                   <Row><hr className="w-100 mx-0" /></Row>
-                  <Row className="my-2">
+                  <Stack className="my-4" direction="horizontal">
                     <div><SearchBarQuery setInput={setInput} /></div>
-                  </Row>
+                    <Button variant="primary-light" className="ms-auto" onClick={recordingsReSync.refetch}>Re-Sync Recordings</Button>
+                  </Stack>
                   <Row className="my-2">
                     <Col>
                       <RecordingsList
