@@ -10,7 +10,7 @@ export default function useRoomJoin(friendlyId, name, accessCode) {
 
   return useQuery(
     ['getRoomJoin', name],
-    () => axios.get(`/meetings/${friendlyId}/join.json`, { params }).then((resp) => { subscribeToRoom(friendlyId, resp.data.data); }),
+    () => axios.get(`/meetings/${friendlyId}/join.json`, { params }).then((resp) => { subscribeToRoom(friendlyId, resp.data); }),
     { enabled: false, retry: false },
   );
 }

@@ -8,6 +8,8 @@ module Api
                              purge_presentation access_codes
                              generate_access_code remove_access_code]
 
+      skip_before_action :ensure_authenticated, only: %i[show]
+
       include Avatarable
       include Presentable
 
