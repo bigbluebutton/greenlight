@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Card, Button, Stack,
+  Card, Stack,
 } from 'react-bootstrap';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
 import SearchBarQuery from '../shared/SearchBarQuery';
