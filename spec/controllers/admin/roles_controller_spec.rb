@@ -12,7 +12,9 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
 
   describe 'roles#index' do
     it 'returns the list of roles' do
-      roles = [create(:role, name: 'Hokage'), create(:role, name: 'Jonin'), create(:role, name: 'Chunin'), user.role]
+      roles = [create(:role, name: 'Hokage'), create(:role, name: 'Jonin'), create(:role, name: 'Chunin')]
+      roles << user.role
+
       get :index
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(roles.pluck(:id))
