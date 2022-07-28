@@ -26,7 +26,7 @@ export default function Header() {
 
         <div className="d-inline-flex">
           <Avatar avatar={currentUser?.avatar} radius={40} />
-          <NavDropdown title={currentUser?.name} id="basic-nav-dropdown">
+          <NavDropdown title={currentUser?.name} id="nav-user-dropdown">
             <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
             {/* TODO: Only show admin panel when current user is admin */}
             <NavDropdown.Item as={Link} to="/adminpanel">Admin Panel</NavDropdown.Item>

@@ -17,7 +17,7 @@ export default function RoomSettingsRow(props) {
       </label>
       <div className="form-switch">
         <input
-          className="form-check-input text-brand fs-5"
+          className="form-check-input fs-5"
           type="checkbox"
           id={settingId}
           defaultChecked={value}
