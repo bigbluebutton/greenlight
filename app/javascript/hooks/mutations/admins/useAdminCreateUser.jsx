@@ -14,7 +14,7 @@ export default function useAdminCreateUser({ onSettled }) {
   };
 
   return useMutation(
-    (data) => axios.post('/admin/users.json', data),
+    (user) => axios.post('/admin/users.json', { user }),
     {
       onMutate: addInferredLanguage,
       onSuccess: () => {
