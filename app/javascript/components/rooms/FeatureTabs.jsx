@@ -11,7 +11,7 @@ export default function FeatureTabs() {
   const { data: preuploadEnabled } = useSiteSetting('PreuploadPresentation');
 
   return (
-    <Row className="pt-5 mx-0">
+    <Row className="pt-4 mx-0">
       <Tabs defaultActiveKey="recordings" unmountOnExit>
         <Tab eventKey="recordings" title="Recordings">
           <RoomRecordings />
