@@ -34,3 +34,15 @@
     display: none !important;
   }
 }
+
+.color-picker {
+  width: 200px;
+
+  .react-colorful__hue {
+    border-radius: 0 !important;
+  }
+}
+
+.popover-arrow {
+  display: none !important;
+}
