@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {
-  Card, Button, Stack,
+  Card, Button, Stack, Container,
 } from 'react-bootstrap';
+import { Pagination } from 'semantic-ui-react';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
 import SearchBarQuery from '../shared/SearchBarQuery';
 import RecordingsList from './RecordingsList';
@@ -25,8 +26,6 @@ export default function Recordings() {
           recordings={recordings?.data}
           isLoading={isLoading}
           RecordingRow={RoomsRecordingRow}
-          setPage={setPage}
-          recordingsMeta={recordingsMeta}
         />
       </Card>
       {!isLoading
