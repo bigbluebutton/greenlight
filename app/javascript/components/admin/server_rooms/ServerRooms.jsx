@@ -7,12 +7,12 @@ import useServerRooms from '../../../hooks/queries/admin/server_rooms/useServerR
 import ServerRoomRow from './ServerRoomRow';
 import SearchBarQuery from '../../shared/SearchBarQuery';
 import AdminNavSideBar from '../shared/AdminNavSideBar';
+import Pagy from '../../shared/Pagy';
 
 export default function ServerRooms() {
   const [input, setInput] = useState();
-  const [serverRooms, setServerRooms] = useState();
-  // TODO: Revisit this.
-  useServerRooms(input, setServerRooms);
+  const [page, setPage] = useState();
+  const { isLoading, data: serverRooms } = useServerRooms(input, page);
 
   return (
     <div id="admin-panel" className="wide-background">
@@ -44,9 +44,9 @@ export default function ServerRooms() {
                       </tr>
                     </thead>
                     <tbody className="border-top-0">
-                      {serverRooms?.length
+                      {serverRooms?.data.length
                         ? (
-                          serverRooms?.map((room) => <ServerRoomRow key={room.friendly_id} room={room} />)
+                          serverRooms?.data.map((room) => <ServerRoomRow key={room.friendly_id} room={room} />)
                         )
                         : (
                           <tr>
@@ -57,6 +57,14 @@ export default function ServerRooms() {
                         )}
                     </tbody>
                   </Table>
+                  {!isLoading
+                    && (
+                    <Pagy
+                      page={serverRooms.meta.page}
+                      totalPages={serverRooms.meta.pages}
+                      setPage={setPage}
+                    />
+                    )}
                 </Container>
               </Tab.Content>
             </Col>
