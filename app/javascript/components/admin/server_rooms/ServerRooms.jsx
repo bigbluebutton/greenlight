@@ -20,17 +20,44 @@ export default function ServerRooms() {
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="server-rooms">
           <Row>
-            <Col sm={3}>
+            <Col className="pe-0" sm={3}>
               <div id="admin-sidebar">
                 <AdminNavSideBar />
               </div>
             </Col>
-            <Col sm={9}>
-              <Tab.Content className="p-3 ps-0">
-                <Container className="admin-table">
-                  <h2> Server Rooms </h2>
-                  <div className="my-4">
+            <Col className="ps-0" sm={9}>
+              <Tab.Content className="p-0">
+                <Container className="admin-table p-0">
+                  <div className="p-4 border-bottom">
+                    <h2> Server Rooms </h2>
+                  </div>
+                  <div className="p-4">
                     <SearchBarQuery setInput={setInput} />
+                    <Table className="table-bordered border border-2 mt-4" hover>
+                      <thead>
+                        <tr className="text-muted small">
+                          <th className="fw-normal border-end-0">Name</th>
+                          <th className="fw-normal border-0">Owner</th>
+                          <th className="fw-normal border-0">ID</th>
+                          <th className="fw-normal border-0">Participants</th>
+                          <th className="fw-normal border-0">Status</th>
+                          <th className="border-start-0" aria-label="options" />
+                        </tr>
+                      </thead>
+                      <tbody className="border-top-0">
+                        {serverRooms?.length
+                          ? (
+                            serverRooms?.map((room) => <ServerRoomRow key={room.friendly_id} room={room} />)
+                          )
+                          : (
+                            <tr>
+                              <td className="fw-bold">
+                                No recordings found!
+                              </td>
+                            </tr>
+                          )}
+                      </tbody>
+                    </Table>
                   </div>
                   <Table className="table-bordered border border-2" hover>
                     <thead>

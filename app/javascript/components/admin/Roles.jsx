@@ -18,28 +18,26 @@ export default function Roles() {
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="roles">
           <Row>
-            <Col sm={3}>
+            <Col className="pe-0" sm={3}>
               <div id="admin-sidebar">
                 <AdminNavSideBar />
               </div>
             </Col>
-            <Col sm={9}>
-              <Tab.Content className="p-3 ps-0">
-                <Container>
-                  <Row className="my-1"><h3>Roles</h3></Row>
-                  <Row><hr className="w-100 mx-0" /></Row>
-                  <Row className="my-2">
-                    <Stack direction="horizontal" className="w-100">
+            <Col className="ps-0" sm={9}>
+              <Tab.Content className="p-0">
+                <Container className="p-0">
+                  <div className="p-4 border-bottom">
+                    <h2> Manage Users </h2>
+                  </div>
+                  <div className="p-4">
+                    <Stack direction="horizontal" className="mb-4">
                       <div>
                         <SearchBarQuery setInput={setInput} />
                       </div>
                       <CreateRoleModal />
                     </Stack>
-
-                  </Row>
-                  <Row className="my-2">
-                    <Col><RolesList isLoading={isLoading} roles={roles} /></Col>
-                  </Row>
+                    <RolesList isLoading={isLoading} roles={roles} />
+                  </div>
                 </Container>
               </Tab.Content>
             </Col>

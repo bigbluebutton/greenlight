@@ -19,7 +19,7 @@ export default function RoomConfigRow({
   const methods = useForm(RoomConfigFormConfig);
 
   return (
-    <Row className="mt-1">
+    <Row className="mb-3">
       <Col md="9">
         <Stack>
           <strong> {title} </strong>

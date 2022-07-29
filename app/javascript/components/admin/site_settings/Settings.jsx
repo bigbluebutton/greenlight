@@ -9,7 +9,7 @@ export default function Settings() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div>
+    <>
       <SiteSettingsRow
         name="ShareRooms"
         title="Allow Users to Share Rooms"
@@ -21,7 +21,6 @@ export default function Settings() {
       )}
         value={siteSettings.ShareRooms}
       />
-
       <SiteSettingsRow
         name="PreuploadPresentation"
         title="Allow Users to Preupload Presentations"
@@ -33,6 +32,6 @@ export default function Settings() {
       )}
         value={siteSettings.PreuploadPresentation}
       />
-    </div>
+    </>
   );
 }

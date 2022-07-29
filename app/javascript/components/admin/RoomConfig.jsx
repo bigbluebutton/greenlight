@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import {
-  Col, Row, Tab, Stack, Container,
+  Col, Row, Tab, Container,
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
 import RoomConfigRow from './RoomConfigRow';
@@ -18,23 +18,20 @@ export default function RoomConfig() {
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="room-configuration">
           <Row>
-            <Col sm={3}>
+            <Col className="pe-0" sm={3}>
               <div id="admin-sidebar">
                 <AdminNavSideBar />
               </div>
             </Col>
-            <Col sm={9}>
-              <Tab.Content className="p-3 ps-0">
-                <Container>
-                  <Row>
-                    <Stack direction="horizontal" className="w-100 mt-4">
-                      <h3 className="mb-4"> Room Configuration </h3>
-                    </Stack>
-                    <hr className="solid" />
-                  </Row>
+            <Col className="ps-0" sm={9}>
+              <Tab.Content className="p-0">
+                <Container className="p-0">
+                  <div className="p-4 border-bottom">
+                    <h2> Room Configuration </h2>
+                  </div>
                   {
                     (isLoading && <Row><Spinner /></Row>) || (
-                      <Row>
+                      <div className="p-4">
                         <RoomConfigRow
                           title="Mute user when they join"
                           subtitle="Automatically mutes the user when they join the BigBlueButtonMeeting"
@@ -68,7 +65,7 @@ export default function RoomConfig() {
                           mutation={() => useUpdateRoomConfig('record')}
                           value={roomConfigs.record}
                         />
-                      </Row>
+                      </div>
                     )
                   }
                 </Container>
