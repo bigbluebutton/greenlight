@@ -13,7 +13,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
   describe '#active_users' do
     it 'ids of rooms in response are matching room ids that belong to current_user' do
       # TODO: Change this test to create active users and not just any users
-      users = create_list(:user, 5)
+      users = create_list(:user, 3)
       users << user
 
       get :active_users

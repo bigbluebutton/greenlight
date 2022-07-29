@@ -15,8 +15,8 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
       user_one = create(:user)
       user_two = create(:user)
 
-      create_list(:room, 5, user_id: user_one.id)
-      create_list(:room, 5, user_id: user_two.id)
+      create_list(:room, 2, user_id: user_one.id)
+      create_list(:room, 2, user_id: user_two.id)
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
       get :index
