@@ -12,7 +12,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
 
   describe '#index' do
     it 'returns recordings ids that belong to current_user' do
-      recordings = create_list(:recording, 6)
+      recordings = create_list(:recording, 5)
       create_list(:room, 5, user:, recordings:)
       get :index
 
@@ -44,7 +44,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
     end
 
     it 'returns all recordings if the search bar is empty' do
-      recordings = create_list(:recording, 10)
+      recordings = create_list(:recording, 5)
       create(:room, user:, recordings:)
 
       get :index, params: { search: '' }
