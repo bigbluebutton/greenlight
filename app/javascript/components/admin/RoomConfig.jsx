@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import {
-  Col, Row, Tab, Stack, Container,
+  Col, Row, Tab, Container,
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
 import RoomConfigRow from './RoomConfigRow';

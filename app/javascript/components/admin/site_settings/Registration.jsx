@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import useUpdateSiteSetting from '../../../hooks/mutations/admins/site_settings/useUpdateSiteSetting';
 import RegistrationForm from '../../forms/admin/RegistrationForm';
 
