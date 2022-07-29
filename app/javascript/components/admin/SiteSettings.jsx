@@ -28,33 +28,32 @@ export default function SiteSettings() {
             <Col className="ps-0" sm={9}>
               <Tab.Content className="p-0">
                 <Container className="admin-table p-0">
-                  <div className="p-4 border-bottom">
+                  <div className="ps-4 pe-4 pt-4">
                     <h2> Customize Greenlight </h2>
                   </div>
-                  <div className="p-4">
-                    {
-                      (isLoading && <Spinner />)
-                      || (
-                        <Tabs defaultActiveKey="appearance">
-                          <Tab eventKey="appearance" title="Appearance">
-                            <Appearance />
-                          </Tab>
-                          <Tab eventKey="administration" title="Administration">
-                            <Administration
-                              terms={siteSettings.Terms}
-                              privacy={siteSettings.PrivacyPolicy}
-                            />
-                          </Tab>
-                          <Tab eventKey="settings" title="Settings">
-                            <Settings />
-                          </Tab>
-                          <Tab eventKey="registration" title="Registration">
-                            <Registration value={siteSettings.RoleMapping} />
-                          </Tab>
-                        </Tabs>
-                      )
-                    }
-                  </div>
+                  {
+                    (isLoading && <Spinner />)
+                    || (
+                      <Tabs className="border-bottom ps-3" defaultActiveKey="appearance">
+                        <Tab className="p-4" eventKey="appearance" title="Appearance">
+                          <Appearance />
+                        </Tab>
+                        <Tab className="p-4" eventKey="administration" title="Administration">
+                          <Administration
+                            terms={siteSettings.Terms}
+                            privacy={siteSettings.PrivacyPolicy}
+                          />
+                        </Tab>
+                        <Tab className="p-4" eventKey="settings" title="Settings">
+                          <Settings />
+                        </Tab>
+                        <Tab className="p-4" eventKey="registration" title="Registration">
+                          <Registration value={siteSettings.RoleMapping} />
+                        </Tab>
+                      </Tabs>
+                    )
+                  }
+
                 </Container>
               </Tab.Content>
             </Col>

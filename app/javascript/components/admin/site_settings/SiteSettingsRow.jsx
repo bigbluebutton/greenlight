@@ -9,24 +9,22 @@ export default function SiteSettingsRow({
   const updateSiteSetting = useUpdateSiteSetting(name);
 
   return (
-    <div>
-      <Stack className="my-4" direction="horizontal">
-        <Stack>
-          <strong> {title} </strong>
-          {description}
-        </Stack>
-        <div className="form-switch">
-          <input
-            className="form-check-input fs-5"
-            type="checkbox"
-            defaultChecked={value === 'true'}
-            onClick={(event) => {
-              updateSiteSetting.mutate({ value: event.target.checked });
-            }}
-          />
-        </div>
+    <Stack direction="horizontal">
+      <Stack>
+        <strong> {title} </strong>
+        {description}
       </Stack>
-    </div>
+      <div className="form-switch">
+        <input
+          className="form-check-input fs-5"
+          type="checkbox"
+          defaultChecked={value === 'true'}
+          onClick={(event) => {
+            updateSiteSetting.mutate({ value: event.target.checked });
+          }}
+        />
+      </div>
+    </Stack>
   );
 }
 
