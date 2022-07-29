@@ -17,28 +17,28 @@ export default function ManageUsers() {
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="users">
           <Row>
-            <Col sm={3}>
+            <Col className="pe-0" sm={3}>
               <div id="admin-sidebar">
                 <AdminNavSideBar />
               </div>
             </Col>
-            <Col sm={9}>
-              <Tab.Content className="p-3 ps-0">
-                <Container className="admin-table">
-                  <h2> Manage Users </h2>
-                  <Row>
-                    <div className="my-4">
-                      <Stack direction="horizontal" className="mt-5">
-                        <SearchBarQuery setInput={setInput} />
-                        <Modal
-                          modalButton={<Button variant="brand" className="ms-auto btn">+ New User</Button>}
-                          title="Create New User"
-                          body={<AdminSignupForm />}
-                          size="lg"
-                          id="shared-access-modal"
-                        />
-                      </Stack>
-                    </div>
+            <Col className="ps-0" sm={9}>
+              <Tab.Content className="p-0">
+                <Container className="admin-table p-0">
+                  <div className="p-4 border-bottom">
+                    <h2> Manage Users </h2>
+                  </div>
+                  <div className="p-4">
+                    <Stack direction="horizontal" className="mb-4">
+                      <SearchBarQuery setInput={setInput} />
+                      <Modal
+                        modalButton={<Button variant="brand" className="ms-auto btn">+ New User</Button>}
+                        title="Create New User"
+                        body={<AdminSignupForm />}
+                        size="lg"
+                        id="shared-access-modal"
+                      />
+                    </Stack>
                     <Tabs defaultActiveKey="active">
                       <Tab eventKey="active" title="Active">
                         <ActiveUsers input={input} />
@@ -53,7 +53,7 @@ export default function ManageUsers() {
                         Deleted users component
                       </Tab>
                     </Tabs>
-                  </Row>
+                  </div>
                 </Container>
               </Tab.Content>
             </Col>

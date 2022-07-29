@@ -20,16 +20,18 @@ export default function SiteSettings() {
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="site-settings">
           <Row>
-            <Col sm={3}>
+            <Col className="pe-0" sm={3}>
               <div id="admin-sidebar">
                 <AdminNavSideBar />
               </div>
             </Col>
-            <Col sm={9}>
-              <Tab.Content className="p-3 ps-0">
-                <Container className="admin-table">
-                  <h2 className="my-4"> Customize Greenlight </h2>
-                  <Row>
+            <Col className="ps-0" sm={9}>
+              <Tab.Content className="p-0">
+                <Container className="admin-table p-0">
+                  <div className="p-4 border-bottom">
+                    <h2> Customize Greenlight </h2>
+                  </div>
+                  <div className="p-4">
                     {
                       (isLoading && <Spinner />)
                       || (
@@ -52,7 +54,7 @@ export default function SiteSettings() {
                         </Tabs>
                       )
                     }
-                  </Row>
+                  </div>
                 </Container>
               </Tab.Content>
             </Col>

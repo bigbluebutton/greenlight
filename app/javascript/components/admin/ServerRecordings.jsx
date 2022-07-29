@@ -23,37 +23,45 @@ export default function ServerRecordings() {
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="server-recordings">
           <Row>
-            <Col sm={3}>
+            <Col className="pe-0" sm={3}>
               <div id="admin-sidebar">
                 <AdminNavSideBar />
               </div>
             </Col>
-            <Col sm={9}>
-              <Tab.Content className="p-3 ps-0">
-                <Container>
-                  <Row className="my-1"><h3>Latest Recordings</h3></Row>
-                  <Row><hr className="w-100 mx-0" /></Row>
-                  <Stack className="my-4" direction="horizontal">
-                    <div><SearchBarQuery setInput={setInput} /></div>
-                    <Button variant="brand-backward" className="ms-auto" onClick={recordingsReSync.refetch}>Re-Sync Recordings</Button>
-                  </Stack>
-                  <Row className="my-2">
-                    <Col>
-                      <RecordingsList
-                        recordings={serverRecordings?.data}
-                        isLoading={isLoading}
-                        RecordingRow={ServerRecordingRow}
-                      />
-                    </Col>
-                    {!isLoading
-                      && (
-                      <Pagy
-                        page={serverRecordings.meta.page}
-                        totalPages={serverRecordings.meta.pages}
-                        setPage={setPage}
-                      />
-                      )}
-                  </Row>
+            <Col className="ps-0" sm={9}>
+              <Tab.Content className="p-0">
+                <Container className="admin-table p-0">
+                  <div className="p-4 border-bottom">
+                    <h2> Latest Recordings </h2>
+                  </div>
+                  <div className="p-4">
+                    <Stack direction="horizontal" className="mb-4">
+                      <SearchBarQuery setInput={setInput} />
+                      <Button
+                        variant="brand-light"
+                        className="ms-auto"
+                        onClick={recordingsReSync.refetch}
+                      > Re-Sync Recordings
+                      </Button>
+                    </Stack>
+                    <Row className="my-2">
+                      <Col>
+                        <RecordingsList
+                          recordings={serverRecordings?.data}
+                          isLoading={isLoading}
+                          RecordingRow={ServerRecordingRow}
+                        />
+                      </Col>
+                      {!isLoading
+                        && (
+                          <Pagy
+                            page={serverRecordings.meta.page}
+                            totalPages={serverRecordings.meta.pages}
+                            setPage={setPage}
+                          />
+                        )}
+                    </Row>
+                  </div>
                 </Container>
               </Tab.Content>
             </Col>
