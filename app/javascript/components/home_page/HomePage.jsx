@@ -12,14 +12,14 @@ export default function HomePage() {
     env.OPENID_CONNECT ? (
       <Form action="/auth/openid_connect" method="POST" data-turbo="false">
         <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
-        <input className="btn btn-primary mx-2" type="submit" value="Sign In" />
-        <input className="btn btn-outline-primary" type="submit" value="Sign Up" />
+        <input variant="brand" className="btn mx-2" type="submit" value="Sign In" />
+        <input variant="brand-backward" className="btn" type="submit" value="Sign Up" />
       </Form>
 
     ) : (
       <>
-        <ButtonLink to="/signin" className="mx-2">Sign In</ButtonLink>
-        <ButtonLink to="/signup" variant="outline-primary">Sign Up</ButtonLink>
+        <ButtonLink to="/signin" variant="brand" className="mx-2">Sign In</ButtonLink>
+        <ButtonLink to="/signup" variant="brand-backward">Sign Up</ButtonLink>
       </>
     )
   );
