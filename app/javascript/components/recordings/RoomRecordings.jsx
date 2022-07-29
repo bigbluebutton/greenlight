@@ -8,11 +8,13 @@ import SearchBarQuery from '../shared/SearchBarQuery';
 import RecordingsList from './RecordingsList';
 import useRoomRecordingsProcessing from '../../hooks/queries/recordings/useRoomRecordingsProcessing';
 import RoomsRecordingRow from './RoomsRecordingRow';
+import Pagy from '../shared/Pagy';
 
 export default function RoomRecordings() {
   const [input, setInput] = useState('');
+  const [page, setPage] = useState();
   const { friendlyId } = useParams();
-  const roomRecordings = useRoomRecordings(friendlyId, input);
+  const { isLoading, data: roomRecordings } = useRoomRecordings(friendlyId, input, page);
   const roomRecordingsProcessing = useRoomRecordingsProcessing(friendlyId);
 
   return (
@@ -24,11 +26,19 @@ export default function RoomRecordings() {
       </Stack>
       <Card className="border-0 shadow-sm mt-4">
         <RecordingsList
-          recordings={roomRecordings.data}
+          recordings={roomRecordings?.data}
           RecordingRow={RoomsRecordingRow}
           recordingsProcessing={roomRecordingsProcessing.data}
         />
       </Card>
+      {!isLoading
+        && (
+        <Pagy
+          page={roomRecordings.meta.page}
+          totalPages={roomRecordings.meta.pages}
+          setPage={setPage}
+        />
+        )}
     </div>
   );
 }

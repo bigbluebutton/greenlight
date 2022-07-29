@@ -14,6 +14,7 @@ import SearchBar from '../shared/SearchBar';
 export default function RoomsList() {
   const { isLoading, data: rooms } = useRooms();
   const [search, setSearch] = useState('');
+
   if (isLoading) return <Spinner />;
 
   return (
