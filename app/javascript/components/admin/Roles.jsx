@@ -27,7 +27,7 @@ export default function Roles() {
               <Tab.Content className="p-0">
                 <Container className="p-0">
                   <div className="p-4 border-bottom">
-                    <h2> Manage Users </h2>
+                    <h2> Manage Roles </h2>
                   </div>
                   <div className="p-4">
                     <Stack direction="horizontal" className="mb-4">
