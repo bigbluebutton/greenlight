@@ -18,7 +18,7 @@ export default function SharedAccessEmpty() {
             the users you want to share this room with.
           </Card.Text>
           <Modal
-            modalButton={<Button variant="primary-light">+ Share Access</Button>}
+            modalButton={<Button variant="brand-backward">+ Share Access</Button>}
             title="Share Room Access"
             body={<SharedAccessForm />}
             size="lg"

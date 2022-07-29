@@ -23,18 +23,6 @@ body {
   height: 100%;
 }
 
-.btn-primary-light {
-  border: 2px solid gainsboro !important;
-  color: var(--brand-color);
-  background-color: white;
-
-  &:hover {
-    color: var(--brand-color);
-    outline: 0;
-    box-shadow: $btn-focus-box-shadow;
-  }
-}
-
 // Replace a button with a children icon
 .btn-icon {
   background: none;
@@ -146,28 +134,45 @@ input.search-bar {
   color: var(--brand-color);
 }
 
+//Brand button
 .btn-brand {
-  background-color: var(--brand-color) !important;
-  border-color: var(--brand-color) !important;
+  background-color: var(--brand-color);
+  border-color: var(--brand-color);
+  border: 2px solid var(--brand-color);
   color: white;
 
   &:hover {
-    color: white;
-    opacity: 0.8;
+    color: var(--brand-color);
+    background-color: white !important;
   }
 }
 
-//Brand Light
-.btn-brand-light {
-  background-color: var(--brand-color-light) !important;
-  border-color: var(--brand-color-light) !important;
-  color: var(--brand-color) !important;
+.btn-brand-backward {
+  border: 2px solid gainsboro;
+  color: var(--brand-color);
+  background-color: white;
 
   &:hover {
-    opacity: 0.8;
+    color: var(--brand-color);
+    border-color: var(--brand-color);
   }
 }
 
+.btn-brand-light {
+  background-color: var(--brand-color-light);
+  border-color: var(--brand-color-light);
+  color: var(--brand-color);
+  border: 2px solid var(--brand-color-light);
+
+  &:hover {
+    background-color: white !important;
+    color: var(--brand-color);
+    border-color: var(--brand-color-light);
+    border: 2px solid var(--brand-color-light);
+  }
+}
+
+//Bootstrap overwrite
 .form-switch .form-check-input:focus {
   border-color: rgba(0, 0, 0, 0.25);
   outline: 0;
@@ -179,4 +184,8 @@ input.search-bar {
   border-color: var(--brand-color) !important;;
   border: none;
   background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,1.0)'/></svg>");
+}
+
+.form-control:focus {
+  box-shadow: none;
 }

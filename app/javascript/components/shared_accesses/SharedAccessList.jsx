@@ -26,7 +26,7 @@ export default function SharedAccessList({ users, isLoading }) {
           <SearchBar setSearch={setSearch} className="w-100" />
         </div>
         <Modal
-          modalButton={<Button variant="primary-light" className="ms-auto">+ Share Access</Button>}
+          modalButton={<Button variant="brand-backward" className="ms-auto">+ Share Access</Button>}
           title="Share Room Access"
           body={<SharedAccessForm />}
           size="lg"

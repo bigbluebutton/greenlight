@@ -38,7 +38,7 @@ export default function Room() {
             Start Meeting {' '}
             {startMeeting.isLoading && <Spinner />}
           </Button>
-          <Button variant="primary-light" className="mt-1 mx-2 float-end" onClick={copyInvite}>
+          <Button variant="brand-backward" className="mt-1 mx-2 float-end" onClick={copyInvite}>
             <DuplicateIcon className="hi-xs" />
             Copy
           </Button>

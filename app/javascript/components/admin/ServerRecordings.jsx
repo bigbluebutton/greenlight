@@ -33,7 +33,7 @@ export default function ServerRecordings() {
                   <Row><hr className="w-100 mx-0" /></Row>
                   <Stack className="my-4" direction="horizontal">
                     <div><SearchBarQuery setInput={setInput} /></div>
-                    <Button variant="primary-light" className="ms-auto" onClick={recordingsReSync.refetch}>Re-Sync Recordings</Button>
+                    <Button variant="brand-backward" className="ms-auto" onClick={recordingsReSync.refetch}>Re-Sync Recordings</Button>
                   </Stack>
                   <Row className="my-2">
                     <Col>
