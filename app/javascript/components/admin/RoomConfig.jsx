@@ -65,6 +65,22 @@ export default function RoomConfig() {
                           mutation={() => useUpdateRoomConfig('record')}
                           value={roomConfigs.record}
                         />
+
+                        <RoomConfigRow
+                          title="Viewer Access code"
+                          subtitle="Allows room owners to have a random alphanumeric code that can be shared with users.
+                          The code **if generated** will be required for users to join the room meetings."
+                          mutation={() => useUpdateRoomConfig('glViewerAccessCode')}
+                          value={roomConfigs.glViewerAccessCode}
+                        />
+
+                        <RoomConfigRow
+                          title="Moderator access code"
+                          subtitle="Allows room owners to have a random alphanumeric code that can be shared with users.
+                          The code **if generated** will not be required and when used on any room meeting will join the user as a moderator."
+                          mutation={() => useUpdateRoomConfig('glModeratorAccessCode')}
+                          value={roomConfigs.glModeratorAccessCode}
+                        />
                       </div>
                     )
                   }
