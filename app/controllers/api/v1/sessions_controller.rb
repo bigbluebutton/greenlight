@@ -14,6 +14,7 @@ module Api
 
       # POST /api/v1/sessions
       def create
+        debugger
         user = User.find_by(email: session_params[:email])
 
         # TODO: Add proper error logging for non-verified token hcaptcha
