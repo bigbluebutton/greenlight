@@ -135,30 +135,78 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   end
 
   describe '#generate_access_code' do
-    it 'generates a viewer access code' do
-      room = create(:room)
-      patch :generate_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Viewer' }
-      expect(room.reload.viewer_access_code).not_to be_nil
+    context 'bbb_role == "Viewer"' do
+      it 'calls Room#generate_viewer_access_code and returns :ok if it returns true' do
+        allow_any_instance_of(Room).to receive(:generate_viewer_access_code).and_return(true)
+        expect_any_instance_of(Room).to receive(:generate_viewer_access_code)
+        room = create(:room)
+        patch :generate_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Viewer' }
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'calls Room#generate_viewer_access_code and returns :bad_request if it returns false' do
+        allow_any_instance_of(Room).to receive(:generate_viewer_access_code).and_return(false)
+        expect_any_instance_of(Room).to receive(:generate_viewer_access_code)
+        room = create(:room)
+        patch :generate_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Viewer' }
+        expect(response).to have_http_status(:bad_request)
+      end
     end
 
-    it 'generates a moderator access code' do
-      room = create(:room)
-      patch :generate_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Moderator' }
-      expect(room.reload.moderator_access_code).not_to be_nil
+    context 'bbb_role == "Moderator"' do
+      it 'calls Room#generate_moderator_access_code and returns :ok if it returns true' do
+        allow_any_instance_of(Room).to receive(:generate_moderator_access_code).and_return(true)
+        expect_any_instance_of(Room).to receive(:generate_moderator_access_code)
+        room = create(:room)
+        patch :generate_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Moderator' }
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'calls Room#generate_viewer_access_code and returns :bad_request if it returns false' do
+        allow_any_instance_of(Room).to receive(:generate_moderator_access_code).and_return(false)
+        expect_any_instance_of(Room).to receive(:generate_moderator_access_code)
+        room = create(:room)
+        patch :generate_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Moderator' }
+        expect(response).to have_http_status(:bad_request)
+      end
     end
   end
 
   describe '#remove_access_code' do
-    it 'removes the viewer access code' do
-      room = create(:room, viewer_access_code: 'AAA')
-      patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Viewer' }
-      expect(room.reload.viewer_access_code).to be_nil
+    context 'bbb_role == "Viewer"' do
+      it 'calls Room#remove_viewer_access_code and returns :ok if it returns true' do
+        allow_any_instance_of(Room).to receive(:remove_viewer_access_code).and_return(true)
+        expect_any_instance_of(Room).to receive(:remove_viewer_access_code)
+        room = create(:room)
+        patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Viewer' }
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'calls Room#remove_viewer_access_code and returns :bad_request if it returns false' do
+        allow_any_instance_of(Room).to receive(:remove_viewer_access_code).and_return(false)
+        expect_any_instance_of(Room).to receive(:remove_viewer_access_code)
+        room = create(:room)
+        patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Viewer' }
+        expect(response).to have_http_status(:bad_request)
+      end
     end
 
-    it 'removes the moderator access code' do
-      room = create(:room, moderator_access_code: 'BBB')
-      patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Moderator' }
-      expect(room.reload.moderator_access_code).to be_nil
+    context 'bbb_role == "Moderator"' do
+      it 'calls Room#remove_moderator_access_code and returns :ok if it returns true' do
+        allow_any_instance_of(Room).to receive(:remove_moderator_access_code).and_return(true)
+        expect_any_instance_of(Room).to receive(:remove_moderator_access_code)
+        room = create(:room)
+        patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Moderator' }
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'calls Room#remove_moderator_access_code and returns :bad_request if it returns false' do
+        allow_any_instance_of(Room).to receive(:remove_moderator_access_code).and_return(false)
+        expect_any_instance_of(Room).to receive(:remove_moderator_access_code)
+        room = create(:room)
+        patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Moderator' }
+        expect(response).to have_http_status(:bad_request)
+      end
     end
   end
 end
