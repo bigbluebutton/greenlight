@@ -7,7 +7,9 @@ class PopulateRoomsConfigurations < ActiveRecord::Migration[7.0]
       { meeting_option: MeetingOption.find_by(name: 'muteOnStart'), value: 'optional', provider: 'greenlight' },
       { meeting_option: MeetingOption.find_by(name: 'guestPolicy'), value: 'optional', provider: 'greenlight' },
       { meeting_option: MeetingOption.find_by(name: 'glAnyoneCanStart'), value: 'optional', provider: 'greenlight' },
-      { meeting_option: MeetingOption.find_by(name: 'glAnyoneJoinAsModerator'), value: 'optional', provider: 'greenlight' }
+      { meeting_option: MeetingOption.find_by(name: 'glAnyoneJoinAsModerator'), value: 'optional', provider: 'greenlight' },
+      { meeting_option: MeetingOption.find_by(name: 'glViewerAccessCode'), value: 'optional', provider: 'greenlight' },
+      { meeting_option: MeetingOption.find_by(name: 'glModeratorAccessCode'), value: 'optional', provider: 'greenlight' }
     ]
   end
 

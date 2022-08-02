@@ -81,24 +81,28 @@ module Api
 
       # PATCH /api/v1/room_settings/:friendly_id/viewer_access_code.json
       def generate_access_code
-        case params[:bbb_role]
-        when 'Viewer'
-          @room.update!(viewer_access_code: SecureRandom.alphanumeric(6).downcase)
-        when 'Moderator'
-          @room.update!(moderator_access_code: SecureRandom.alphanumeric(6).downcase)
-        end
+        generated = case params[:bbb_role]
+                    when 'Viewer'
+                      @room.generate_viewer_access_code
+                    when 'Moderator'
+                      @room.generate_moderator_access_code
+                    end
+
+        return render_error status: :bad_request unless generated
 
         render_data status: :ok
       end
 
       # PATCH /api/v1/room_settings/:friendly_id/remove_viewer_access_code.json
       def remove_access_code
-        case params[:bbb_role]
-        when 'Viewer'
-          @room.update!(viewer_access_code: nil)
-        when 'Moderator'
-          @room.update!(moderator_access_code: nil)
-        end
+        removed = case params[:bbb_role]
+                  when 'Viewer'
+                    @room.remove_viewer_access_code
+                  when 'Moderator'
+                    @room.remove_moderator_access_code
+                  end
+
+        return render_error status: :bad_request unless removed
 
         render_data status: :ok
       end
