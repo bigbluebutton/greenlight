@@ -19,6 +19,6 @@ const axiosInstance = axios.create(
   },
 );
 
-axiosInstance.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('[name=csrf-token]').content
+axiosInstance.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('[name=csrf-token]').content;
 
 export default axiosInstance;
