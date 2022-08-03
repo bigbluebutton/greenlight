@@ -5,6 +5,7 @@ module Api
     module Admin
       class ServerRoomsController < ApiController
         before_action :find_server_room, only: :destroy
+        before_action :ensure_manage_rooms, only: %i[index destroy]
 
         # GET /api/v1/admin/server_rooms.json
         def index

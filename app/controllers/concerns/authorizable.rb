@@ -31,4 +31,14 @@ module Authorizable
   def valid_api_request?
     request.format == :json && request.headers['Accept']&.include?('application/json')
   end
+
+  # Checks if the user is the current user
+  def current_user?(id)
+    current_user.id.to_s == id.to_s
+  end
+
+  # Checks if the room belong to the current user
+  def current_user_room?(friendly_id)
+    current_user.rooms.exists?(friendly_id:)
+  end
 end

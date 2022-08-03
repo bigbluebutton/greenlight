@@ -4,6 +4,7 @@ module Api
   module V1
     class MeetingsController < ApiController
       before_action :find_room, only: %i[start join status]
+      before_action :ensure_manage_rooms, only: %i[start]
       skip_before_action :ensure_authenticated, only: %i[join status]
 
       # POST /api/v1/meetings/:friendly_id/start.json
