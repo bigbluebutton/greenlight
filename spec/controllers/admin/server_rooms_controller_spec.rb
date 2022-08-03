@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
-  let!(:permission) { create(:permission, name: 'ManageRooms') }
-  let!(:role) { create(:role, name: 'Admin') }
-  let!(:role_permission) { create(:role_permission, role_id: role.id, permission_id: permission.id, value: 'true', provider: 'greenlight') }
-  let(:user) { create(:user, role:) }
+  let(:user) { create(:user, role: create(:role, name: 'Admin')) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
+
+    permission = create(:permission, name: 'ManageRooms')
+    create(:role_permission, role_id: user.role.id, permission_id: permission.id, value: 'true', provider: 'greenlight')
     session[:user_id] = user.id
   end
 
