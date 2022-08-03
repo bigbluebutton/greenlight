@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::MeetingsController, type: :controller do
-  let(:user) { create(:user) }
+  let!(:permission) { create(:permission, name: 'ManageRooms') }
+  let!(:role) { create(:role, name: 'Admin') }
+  let!(:role_permission) { create(:role_permission, role_id: role.id, permission_id: permission.id, value: 'true', provider: 'greenlight') }
+  let(:user) { create(:user, role:) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
