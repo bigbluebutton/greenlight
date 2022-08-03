@@ -6,7 +6,6 @@ module Api
       include Authorizable
 
       serialization_scope :view_context
-      skip_before_action :verify_authenticity_token
       before_action :ensure_valid_request, :ensure_authenticated
 
       # For requests that raised an unkown exception.
