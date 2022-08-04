@@ -5,8 +5,21 @@ import axios from '../../../../helpers/Axios';
 export default function useUpdateSiteSetting(name) {
   const queryClient = useQueryClient();
 
+  const uploadPresentation = (data) => {
+    let settings;
+
+    if (name === 'BrandingImage') {
+      settings = new FormData();
+      settings.append('site_setting[value]', data);
+    } else {
+      settings = data;
+    }
+
+    return axios.patch(`/admin/site_settings/${name}.json`, settings);
+  };
+
   return useMutation(
-    (siteSetting) => axios.patch(`/admin/site_settings/${name}.json`, { siteSetting }),
+    uploadPresentation,
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getSiteSettings');

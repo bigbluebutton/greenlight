@@ -1,17 +1,29 @@
 # frozen_string_literal: true
 
 class SettingGetter
-  def initialize(setting_name:, provider:)
+  include Rails.application.routes.url_helpers
+
+  def initialize(setting_name:, provider:, host: nil)
     @setting_name = setting_name
     @provider = provider
+
+    return if host.nil? || setting_name != 'BrandingImage'
+
+    Rails.application.routes.default_url_options[:host] = host # Only needed using image attachment
   end
 
   def call
-    value = SiteSetting.joins(:setting)
-                       .find_by(
-                         provider: @provider,
-                         setting: { name: @setting_name }
-                       )&.value
+    setting = SiteSetting.joins(:setting)
+                         .find_by(
+                           provider: @provider,
+                           setting: { name: @setting_name }
+                         )
+
+    value = if setting.image.attached?
+              url_for(setting.image)
+            else
+              setting&.value
+            end
 
     transform_value(value)
   end
