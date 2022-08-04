@@ -14,12 +14,21 @@ class MeetingOption < ApplicationRecord
       .pluck(:name, :value)
   end
 
-  def self.get_value(name:, room_id:)
+  def self.get_setting_value(name:, room_id:)
     joins(:room_meeting_options)
       .select(:value)
       .find_by(
         name:,
         room_meeting_options: { room_id: }
+      )
+  end
+
+  def self.get_config_value(name:, provider:)
+    joins(:rooms_configurations)
+      .select(:value)
+      .find_by(
+        name:,
+        rooms_configurations: { provider: }
       )
   end
 end

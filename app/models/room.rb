@@ -27,7 +27,7 @@ class Room < ApplicationRecord
   end
 
   def anyone_joins_as_moderator?
-    MeetingOption.get_value(name: 'glAnyoneJoinAsModerator', room_id: id)&.value == 'true'
+    MeetingOption.get_setting_value(name: 'glAnyoneJoinAsModerator', room_id: id)&.value == 'true'
   end
 
   private
