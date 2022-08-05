@@ -11,8 +11,7 @@ class PermissionsChecker
 
   def call
     return true if RolePermission.joins(:permission)
-                                 .where(role_id: @current_user.role_id)
-                                 .find_by(permission: { name: @permission_name })&.value == 'true'
+                                 .find_by(role_id: @current_user.role_id, permission: { name: @permission_name })&.value == 'true'
 
     case @permission_name
     when 'ManageUsers'
