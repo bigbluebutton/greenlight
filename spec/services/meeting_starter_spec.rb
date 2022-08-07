@@ -11,7 +11,8 @@ describe MeetingStarter, type: :service do
       logout_url: 'http://example.com',
       presentation_url:,
       meeting_ended: 'http://example.com/meeting_ended',
-      recording_ready: 'http://example.com/recording_ready'
+      recording_ready: 'http://example.com/recording_ready',
+      provider: 'greenlight'
     )
   end
   let(:options) do
@@ -20,15 +21,30 @@ describe MeetingStarter, type: :service do
       meta_endCallbackUrl: 'http://example.com/meeting_ended',
       'meta_bbb-recording-ready-url': 'http://example.com/recording_ready',
       'meta_bbb-origin-version': 3,
-      'meta_bbb-origin': 'greenlight'
+      'meta_bbb-origin': 'greenlight',
+      setting: 'value'
     }
   end
 
   describe '#call' do
-    it 'calls BigBlueButtonApi with the right params' do
+    let(:room_setting_getter_service) { instance_double(RoomSettingsGetter) }
+
+    before do
+      allow(RoomSettingsGetter).to receive(:new).and_return(room_setting_getter_service)
+      allow(room_setting_getter_service).to receive(:call).and_return({ setting: 'value' })
+    end
+
+    it 'calls BigBlueButtonApi and RoomSettingsGetter with the right params' do
       allow_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
         .and_return(meeting_starter_response)
+
+      expect(RoomSettingsGetter)
+        .to receive(:new)
+        .with(room_id: room.id, provider: 'greenlight', only_bbb_options: true)
+
+      expect(room_setting_getter_service)
+        .to receive(:call)
 
       expect_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
@@ -48,7 +64,7 @@ describe MeetingStarter, type: :service do
 
       expect_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
-        .with(room:, options: { test: 'test' }, presentation_url:)
+        .with(room:, options: { setting: 'value', test: 'test' }, presentation_url:)
 
       service.call
     end

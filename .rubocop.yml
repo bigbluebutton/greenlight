@@ -66,6 +66,9 @@ Metrics/ClassLength:
 Metrics/AbcSize:
   Max: 65
 
+Metrics/ParameterLists:
+  CountKeywordArgs: false
+
 RSpec/AnyInstance:
   Enabled: false
 

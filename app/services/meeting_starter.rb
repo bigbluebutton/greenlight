@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 class MeetingStarter
-  def initialize(room:, logout_url:, presentation_url:, meeting_ended:, recording_ready:)
+  def initialize(room:, logout_url:, presentation_url:, meeting_ended:, recording_ready:, provider:)
     @room = room
     @logout_url = logout_url
     @presentation_url = presentation_url
     @meeting_ended = meeting_ended
     @recording_ready = recording_ready
+    @provider = provider
   end
 
   def call
     # TODO: amir - Check the legitimately of the action.
-    options = MeetingOption.bbb_options(room_id: @room.id).to_h
+    options = RoomSettingsGetter.new(room_id: @room.id, provider: @provider, only_bbb_options: true).call
 
     options.merge!(computed_options)
 
