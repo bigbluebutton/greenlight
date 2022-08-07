@@ -3,6 +3,10 @@
 module Api
   module V1
     class RoomSettingsController < ApiController
+      # Read only settings, are settings :forbidden to be edited with no supervision or assertion through `RoomSettingsController#update` API.
+      # Those settings will be globally read only or will have dedicated APIs to correctly set their values.
+      READ_ONLY_SETTINGS = %w[glModeratorAccessCode glViewerAccessCode].freeze
+
       before_action :find_room, only: %i[show update]
 
       # GET /api/v1/room_settings/:friendly_id
@@ -16,11 +20,15 @@ module Api
 
       # PATCH /api/v1/room_settings/:friendly_id
       def update
-        config = MeetingOption.get_config_value(name: room_setting_params[:settingName], provider: 'greenlight')&.value
+        name = room_setting_params[:settingName]
+
+        return render_error status: :forbidden if READ_ONLY_SETTINGS.include? name
+
+        config = MeetingOption.get_config_value(name:, provider: 'greenlight')&.value
 
         return render_error status: :forbidden unless config == 'optional'
 
-        option = @room.get_setting(name: room_setting_params[:settingName])
+        option = @room.get_setting(name:)
 
         return render_error status: :bad_request unless option&.update(value: room_setting_params[:settingValue].to_s)
 

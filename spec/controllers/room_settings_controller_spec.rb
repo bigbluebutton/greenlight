@@ -61,6 +61,13 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
 
+    it 'returns :forbidden when updating a read only setting' do
+      stub_const('RoomSettingsController::READ_ONLY_SETTINGS', %w[read_only])
+
+      put :update, params: { room_setting: { settingName: 'read_only', settingValue: 'notReadOnlyAnymore' }, friendly_id: room.friendly_id }
+      expect(response).to have_http_status(:forbidden)
+    end
+
     it 'returns :bad_request for invalid params' do
       put :update, params: { not_room_setting: { notSettingName: 'setting', notSettingValue: 'someValue' }, friendly_id: room.friendly_id }
       expect(response).to have_http_status(:bad_request)
