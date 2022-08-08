@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Stack } from 'react-bootstrap';
-import useUpdateSiteSetting from '../../../hooks/mutations/admins/site_settings/useUpdateSiteSetting';
+import useUpdateSiteSetting from '../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 
 export default function SiteSettingsRow({
   name, title, description, value,

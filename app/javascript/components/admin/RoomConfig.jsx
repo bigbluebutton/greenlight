@@ -5,8 +5,8 @@ import {
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
 import RoomConfigRow from './RoomConfigRow';
-import useUpdateRoomConfig from '../../hooks/mutations/admins/room-configuration/useUpdateRoomConfig';
-import useRoomConfigs from '../../hooks/queries/admin/room-configuration/useRoomConfigs';
+import useUpdateRoomConfig from '../../hooks/mutations/admin/room_configuration/useUpdateRoomConfig';
+import useRoomConfigs from '../../hooks/queries/admin/room_configuration/useRoomConfigs';
 import Spinner from '../shared/stylings/Spinner';
 
 export default function RoomConfig() {

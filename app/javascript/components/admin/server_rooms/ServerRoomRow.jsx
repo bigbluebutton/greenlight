@@ -5,7 +5,7 @@ import {
 import { Dropdown, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import useDeleteServerRoom from '../../../hooks/mutations/admins/server-rooms/useDeleteServerRoom';
+import useDeleteServerRoom from '../../../hooks/mutations/admin/server_rooms/useDeleteServerRoom';
 import Modal from '../../shared/Modal';
 import DeleteRoomForm from '../../forms/DeleteRoomForm';
 import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';

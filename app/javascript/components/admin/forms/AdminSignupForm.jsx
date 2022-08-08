@@ -6,7 +6,7 @@ import FormControl from '../../forms/FormControl';
 import Form from '../../forms/Form';
 import { signupFormConfig, signupFormFields } from '../../../helpers/forms/SignupFormHelpers';
 import Spinner from '../../shared/stylings/Spinner';
-import useAdminCreateUser from '../../../hooks/mutations/admins/useAdminCreateUser';
+import useAdminCreateUser from '../../../hooks/mutations/admin/manage_users/useAdminCreateUser';
 
 export default function AdminSignupForm({ handleClose }) {
   const methods = useForm(signupFormConfig);

@@ -10,7 +10,7 @@ import {
 import Avatar from '../../users/Avatar';
 import Modal from '../../shared/Modal';
 import CreateRoomForm from '../../forms/CreateRoomForm';
-import useCreateServerRoom from '../../../hooks/mutations/admins/users/useCreateServerRoom';
+import useCreateServerRoom from '../../../hooks/mutations/admin/manage_users/useCreateServerRoom';
 import DeleteUserForm from '../forms/DeleteUserForm';
 
 export default function ManageUserRow({ user }) {

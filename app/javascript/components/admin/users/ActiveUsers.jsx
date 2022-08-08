@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import useActiveUsers from '../../../hooks/queries/admins/useActiveUsers';
+import useActiveUsers from '../../../hooks/queries/admin/manage_users/useActiveUsers';
 import ManageUsersTable from './ManageUsersTable';
 import Pagy from '../../shared/Pagy';
 

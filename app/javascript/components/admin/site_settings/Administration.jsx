@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Row } from 'react-bootstrap';
 import LinksForm from '../../forms/admin/LinksForm';
-import useUpdateSiteSetting from '../../../hooks/mutations/admins/site_settings/useUpdateSiteSetting';
+import useUpdateSiteSetting from '../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 
 export default function Administration({ terms, privacy }) {
   return (
