@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Form from './Form';
-import Spinner from '../shared/stylings/Spinner';
+import Spinner from '../shared_components/stylings/Spinner';
 
 export default function DeleteRecordingForm({ mutation: useDeleteAPI, recordId, handleClose }) {
   const methods = useForm();

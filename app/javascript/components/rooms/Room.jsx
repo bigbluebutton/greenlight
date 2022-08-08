@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { HomeIcon, DuplicateIcon } from '@heroicons/react/outline';
 import { toast } from 'react-hot-toast';
 import FeatureTabs from './FeatureTabs';
-import Spinner from '../shared/stylings/Spinner';
+import Spinner from '../shared_components/stylings/Spinner';
 import useRoom from '../../hooks/queries/rooms/useRoom';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 

@@ -4,11 +4,11 @@ import {
 } from 'react-bootstrap';
 import { TrashIcon, CloudUploadIcon, DocumentIcon } from '@heroicons/react/outline';
 import { useParams } from 'react-router-dom';
-import Modal from '../shared/Modal';
+import Modal from '../shared_components/Modal';
 import useUploadPresentation from '../../hooks/mutations/rooms/useUploadPresentation';
 import useRoom from '../../hooks/queries/rooms/useRoom';
 import DeletePresentationForm from '../forms/DeletePresentationForm';
-import FilesDragAndDrop from '../shared/FilesDragAndDrop';
+import FilesDragAndDrop from '../shared_components/FilesDragAndDrop';
 
 export default function Presentation() {
   const { friendlyId } = useParams();

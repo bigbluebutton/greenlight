@@ -9,12 +9,12 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { toast } from 'react-hot-toast';
-import FormControl from './FormControl';
-import Form from './Form';
-import { signinFormFields, signinFormConfig } from '../../helpers/forms/SigninFormHelpers';
-import Spinner from '../shared/stylings/Spinner';
-import useCreateSession from '../../hooks/mutations/sessions/useCreateSession';
-import useEnv from '../../hooks/queries/env/useEnv';
+import FormControl from '../../../forms/FormControl';
+import Form from '../../../forms/Form';
+import { signinFormFields, signinFormConfig } from '../../../../helpers/forms/SigninFormHelpers';
+import Spinner from '../../../shared_components/stylings/Spinner';
+import useCreateSession from '../../../../hooks/mutations/sessions/useCreateSession';
+import useEnv from '../../../../hooks/queries/env/useEnv';
 
 export default function SigninForm() {
   const methods = useForm(signinFormConfig);

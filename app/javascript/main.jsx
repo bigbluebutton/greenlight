@@ -7,10 +7,10 @@ import {
 } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import App from './App';
-import Signup from './components/users/Signup';
-import SignIn from './components/users/SignIn';
+import Signup from './components/users/authentication/Signup';
+import SignIn from './components/users/authentication/SignIn';
 import AuthProvider from './contexts/auth/AuthProvider';
-import Profile from './components/users/Profile';
+import Profile from './components/users/user/Profile';
 import Room from './components/rooms/Room';
 import Rooms from './components/rooms/Rooms';
 import HomePage from './components/home_page/HomePage';
@@ -22,7 +22,7 @@ import ServerRooms from './components/admin/server_rooms/ServerRooms';
 import SiteSettings from './components/admin/SiteSettings';
 import RoomConfig from './components/admin/RoomConfig';
 import Roles from './components/admin/Roles';
-import ResetPassword from './components/users/ResetPassword';
+import ResetPassword from './components/users/password_management/ResetPassword';
 import EditUser from './components/admin/users/EditUser';
 import EditRole from './components/admin/EditRole';
 

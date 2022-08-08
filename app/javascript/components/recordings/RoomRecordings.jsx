@@ -4,11 +4,11 @@ import {
 } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import useRoomRecordings from '../../hooks/queries/recordings/useRoomRecordings';
-import SearchBarQuery from '../shared/SearchBarQuery';
+import SearchBarQuery from '../shared_components/SearchBarQuery';
 import RecordingsList from './RecordingsList';
 import useRoomRecordingsProcessing from '../../hooks/queries/recordings/useRoomRecordingsProcessing';
 import RoomsRecordingRow from './RoomsRecordingRow';
-import Pagy from '../shared/Pagy';
+import Pagy from '../shared_components/Pagy';
 
 export default function RoomRecordings() {
   const [input, setInput] = useState('');

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
-import ChangePwdForm from '../forms/ChangePwdForm';
+import ChangePwdForm from './forms/ChangePwdForm';
 
 export default function ChangePassword() {
   return (

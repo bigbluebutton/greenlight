@@ -6,7 +6,7 @@ import {
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Form from './Form';
-import Spinner from '../shared/stylings/Spinner';
+import Spinner from '../shared_components/stylings/Spinner';
 import useDeletePresentation from '../../hooks/mutations/rooms/useDeletePresentation';
 
 export default function DeletePresentationForm({ handleClose }) {

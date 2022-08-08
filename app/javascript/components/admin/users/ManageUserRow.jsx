@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 import {
   DotsVerticalIcon, HomeIcon, PencilAltIcon, TrashIcon,
 } from '@heroicons/react/outline';
-import Avatar from '../../users/Avatar';
-import Modal from '../../shared/Modal';
+import Avatar from '../../users/user/Avatar';
+import Modal from '../../shared_components/Modal';
 import CreateRoomForm from '../../forms/CreateRoomForm';
 import useCreateServerRoom from '../../../hooks/mutations/admin/manage_users/useCreateServerRoom';
 import DeleteUserForm from '../forms/DeleteUserForm';

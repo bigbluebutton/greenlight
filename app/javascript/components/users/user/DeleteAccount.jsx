@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import Modal from '../shared/Modal';
-import DeleteUserForm from '../forms/DeleteUserForm';
+import Modal from '../../shared_components/Modal';
+import DeleteUserForm from './forms/DeleteUserForm';
 
 export default function DeleteAccount() {
   return (

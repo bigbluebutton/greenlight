@@ -4,10 +4,10 @@ import {
 } from 'react-bootstrap';
 import { TrashIcon } from '@heroicons/react/outline';
 import { useParams } from 'react-router-dom';
-import Modal from '../shared/Modal';
+import Modal from '../shared_components/Modal';
 import SharedAccessForm from '../forms/SharedAccessForm';
-import Avatar from '../users/Avatar';
-import SearchBarQuery from '../shared/SearchBarQuery';
+import Avatar from '../users/user/Avatar';
+import SearchBarQuery from '../shared_components/SearchBarQuery';
 import useDeleteSharedAccess from '../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
 import useSharedUsers from '../../hooks/queries/shared_accesses/useSharedUsers';
 import SharedAccessEmpty from './SharedAccessEmpty';

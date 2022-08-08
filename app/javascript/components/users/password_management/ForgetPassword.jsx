@@ -1,8 +1,8 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
-import FormLogo from '../forms/FormLogo';
-import ForgetPwdForm from '../forms/ForgetPwdForm';
+import FormLogo from '../../forms/FormLogo';
+import ForgetPwdForm from './forms/ForgetPwdForm';
 
 export default function ForgetPassword() {
   return (

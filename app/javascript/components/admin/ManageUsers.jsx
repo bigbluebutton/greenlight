@@ -5,9 +5,9 @@ import {
 } from 'react-bootstrap';
 import ActiveUsers from './users/ActiveUsers';
 import AdminNavSideBar from './shared/AdminNavSideBar';
-import Modal from '../shared/Modal';
+import Modal from '../shared_components/Modal';
 import AdminSignupForm from './forms/AdminSignupForm';
-import SearchBarQuery from '../shared/SearchBarQuery';
+import SearchBarQuery from '../shared_components/SearchBarQuery';
 
 export default function ManageUsers() {
   const [input, setInput] = useState();

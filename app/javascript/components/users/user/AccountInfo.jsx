@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import SetAvatar from './SetAvatar';
-import UpdateUserForm from '../forms/UpdateUserForm';
+import UpdateUserForm from './forms/UpdateUserForm';
 
 export default function AccountInfo({ user }) {
   return (

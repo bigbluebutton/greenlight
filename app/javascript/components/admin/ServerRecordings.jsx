@@ -4,12 +4,12 @@ import {
   Col, Container, Row, Tab, Stack, Button,
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
-import SearchBarQuery from '../shared/SearchBarQuery';
+import SearchBarQuery from '../shared_components/SearchBarQuery';
 import RecordingsList from '../recordings/RecordingsList';
 import useServerRecordings from '../../hooks/queries/admin/server_recordings/useServerRecordings';
 import ServerRecordingRow from './server-recordings/ServerRecordingRow';
 import useRecordingsReSync from '../../hooks/queries/recordings/useRecordingsReSync';
-import Pagy from '../shared/Pagy';
+import Pagy from '../shared_components/Pagy';
 
 export default function ServerRecordings() {
   const [input, setInput] = useState();

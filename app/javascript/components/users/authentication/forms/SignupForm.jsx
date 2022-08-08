@@ -3,12 +3,12 @@ import { Button, Container, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { toast } from 'react-hot-toast';
-import FormControl from './FormControl';
-import Form from './Form';
-import { signupFormConfig, signupFormFields } from '../../helpers/forms/SignupFormHelpers';
-import Spinner from '../shared/stylings/Spinner';
-import useCreateUser from '../../hooks/mutations/users/useCreateUser';
-import useEnv from '../../hooks/queries/env/useEnv';
+import FormControl from '../../../forms/FormControl';
+import Form from '../../../forms/Form';
+import { signupFormConfig, signupFormFields } from '../../../../helpers/forms/SignupFormHelpers';
+import Spinner from '../../../shared_components/stylings/Spinner';
+import useCreateUser from '../../../../hooks/mutations/users/useCreateUser';
+import useEnv from '../../../../hooks/queries/env/useEnv';
 
 export default function SignupForm() {
   const methods = useForm(signupFormConfig);

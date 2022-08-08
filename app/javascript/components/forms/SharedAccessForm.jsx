@@ -8,8 +8,8 @@ import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import useShareAccess from '../../hooks/mutations/shared_accesses/useShareAccess';
-import Avatar from '../users/Avatar';
-import SearchBarQuery from '../shared/SearchBarQuery';
+import Avatar from '../users/user/Avatar';
+import SearchBarQuery from '../shared_components/SearchBarQuery';
 import useShareableUsers from '../../hooks/queries/shared_accesses/useShareableUsers';
 
 export default function SharedAccessForm({ handleClose }) {

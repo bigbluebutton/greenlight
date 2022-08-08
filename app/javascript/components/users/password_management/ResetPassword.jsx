@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import { useParams } from 'react-router-dom';
-import useVerifyToken from '../../hooks/mutations/users/useVerifyToken';
-import FormLogo from '../forms/FormLogo';
-import ResetPwdForm from '../forms/ResetPwdForm';
-import Spinner from '../shared/stylings/Spinner';
+import useVerifyToken from '../../../hooks/mutations/users/useVerifyToken';
+import FormLogo from '../../forms/FormLogo';
+import ResetPwdForm from './forms/ResetPwdForm';
+import Spinner from '../../shared_components/stylings/Spinner';
 
 export default function ResetPassword() {
   const { token } = useParams();

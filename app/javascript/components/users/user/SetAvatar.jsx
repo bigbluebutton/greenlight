@@ -1,8 +1,8 @@
 import React from 'react';
 import { Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import AvatarForm from '../forms/AvatarForm';
-import DeleteAvatarForm from '../forms/DeleteAvatarForm';
+import AvatarForm from './forms/AvatarForm';
+import DeleteAvatarForm from './forms/DeleteAvatarForm';
 import Avatar from './Avatar';
 
 export default function SetAvatar({ user }) {

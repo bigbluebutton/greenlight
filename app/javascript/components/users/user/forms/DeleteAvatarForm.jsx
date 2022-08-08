@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
-import Form from './Form';
-import useDeleteAvatar from '../../hooks/mutations/users/useDeleteAvatar';
+import Form from '../../../forms/Form';
+import useDeleteAvatar from '../../../../hooks/mutations/users/useDeleteAvatar';
 
 export default function DeleteAvatarForm({ user }) {
   const methods = useForm();

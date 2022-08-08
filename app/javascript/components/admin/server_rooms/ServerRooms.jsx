@@ -5,9 +5,9 @@ import {
 } from 'react-bootstrap';
 import useServerRooms from '../../../hooks/queries/admin/server_rooms/useServerRooms';
 import ServerRoomRow from './ServerRoomRow';
-import SearchBarQuery from '../../shared/SearchBarQuery';
+import SearchBarQuery from '../../shared_components/SearchBarQuery';
 import AdminNavSideBar from '../shared/AdminNavSideBar';
-import Pagy from '../../shared/Pagy';
+import Pagy from '../../shared_components/Pagy';
 
 export default function ServerRooms() {
   const [input, setInput] = useState();

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
-import Avatar from '../users/Avatar';
+import Avatar from '../users/user/Avatar';
 
 export default function Header() {
   const currentUser = useAuth();

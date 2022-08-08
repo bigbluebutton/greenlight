@@ -6,8 +6,8 @@ import {
 import { TrashIcon, UserIcon, LockClosedIcon } from '@heroicons/react/outline';
 import DeleteAccount from './DeleteAccount';
 import AccountInfo from './AccountInfo';
-import ChangePassword from './ChangePassword';
-import { useAuth } from '../../contexts/auth/AuthProvider';
+import ChangePassword from '../password_management/ChangePassword';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function Profile() {
   const currentUser = useAuth();

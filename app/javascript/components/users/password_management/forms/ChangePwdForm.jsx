@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import FormControl from './FormControl';
-import Form from './Form';
-import { changePwdFormConfig, changePwdFormFields } from '../../helpers/forms/ChangePwdFormHelpers';
-import Spinner from '../shared/stylings/Spinner';
-import useChangePwd from '../../hooks/mutations/users/useChangePwd';
+import FormControl from '../../../forms/FormControl';
+import Form from '../../../forms/Form';
+import { changePwdFormConfig, changePwdFormFields } from '../../../../helpers/forms/ChangePwdFormHelpers';
+import Spinner from '../../../shared_components/stylings/Spinner';
+import useChangePwd from '../../../../hooks/mutations/users/useChangePwd';
 
 export default function ChangePwdForm() {
   const methods = useForm(changePwdFormConfig);

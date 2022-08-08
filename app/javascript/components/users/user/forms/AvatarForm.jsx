@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import { Button } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
-import FormControl from './FormControl';
-import Form from './Form';
-import useCreateAvatar from '../../hooks/mutations/users/useCreateAvatar';
-import { validationSchema, avatarFormFields } from '../../helpers/forms/AvatarFormHelpers';
+import FormControl from '../../../forms/FormControl';
+import Form from '../../../forms/Form';
+import useCreateAvatar from '../../../../hooks/mutations/users/useCreateAvatar';
+import { validationSchema, avatarFormFields } from '../../../../helpers/forms/AvatarFormHelpers';
 
 export default function AvatarForm({ user }) {
   const methods = useForm({

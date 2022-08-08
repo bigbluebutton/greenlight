@@ -4,9 +4,9 @@ import {
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
 import RolesList from './roles/RolesList';
-import SearchBarQuery from '../shared/SearchBarQuery';
+import SearchBarQuery from '../shared_components/SearchBarQuery';
 import useRoles from '../../hooks/queries/admin/roles/useRoles';
-import CreateRoleModal from '../shared/modals/CreateRoleModal';
+import CreateRoleModal from '../shared_components/modals/CreateRoleModal';
 
 export default function Roles() {
   const [input, setInput] = useState();

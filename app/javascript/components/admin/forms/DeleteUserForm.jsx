@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import Form
   from '../../forms/Form';
 import useDeleteUser from '../../../hooks/mutations/admin/manage_users/useDeleteUser';
-import Spinner from '../../shared/stylings/Spinner';
+import Spinner from '../../shared_components/stylings/Spinner';
 
 export default function DeleteUserForm({ user, handleClose }) {
   const methods = useForm();

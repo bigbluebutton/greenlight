@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Form from './Form';
-import Spinner from '../shared/stylings/Spinner';
+import Spinner from '../shared_components/stylings/Spinner';
 import useDeleteRole from '../../hooks/mutations/admin/roles/useDeleteRole';
 
 export default function DeleteRoleForm({ role, handleClose }) {

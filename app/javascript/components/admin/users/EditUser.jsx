@@ -6,9 +6,9 @@ import {
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowCircleLeftIcon } from '@heroicons/react/outline';
 import AdminNavSideBar from '../shared/AdminNavSideBar';
-import AccountInfo from '../../users/AccountInfo';
+import AccountInfo from '../../users/user/AccountInfo';
 import useUser from '../../../hooks/queries/users/useUser';
-import Spinner from '../../shared/stylings/Spinner';
+import Spinner from '../../shared_components/stylings/Spinner';
 
 export default function EditUser() {
   const { userId } = useParams();

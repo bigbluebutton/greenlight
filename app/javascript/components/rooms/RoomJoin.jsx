@@ -7,9 +7,9 @@ import {
 import FormLogo from '../forms/FormLogo';
 import useRoom from '../../hooks/queries/rooms/useRoom';
 import useRoomJoin from '../../hooks/queries/rooms/useRoomJoin';
-import Spinner from '../shared/stylings/Spinner';
+import Spinner from '../shared_components/stylings/Spinner';
 import useRoomStatus from '../../hooks/queries/rooms/useRoomStatus';
-import Avatar from '../users/Avatar';
+import Avatar from '../users/user/Avatar';
 
 function waitOrJoin(refetchJoin, refetchStatus) {
   refetchStatus();

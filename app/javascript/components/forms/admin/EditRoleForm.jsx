@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form';
 import { editRoleFormConfig, editRoleFormFields } from '../../../helpers/forms/EditRoleFormHelpers';
 import Form from '../Form';
 import FormControl from '../FormControl';
-import Spinner from '../../shared/stylings/Spinner';
+import Spinner from '../../shared_components/stylings/Spinner';
 import useUpdateRole from '../../../hooks/mutations/admin/roles/useUpdateRole';
-import Modal from '../../shared/Modal';
+import Modal from '../../shared_components/Modal';
 import DeleteRoleForm from '../DeleteRoleForm';
 
 export default function EditRoleForm({ role }) {

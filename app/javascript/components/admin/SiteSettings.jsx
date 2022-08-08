@@ -8,7 +8,7 @@ import Appearance from './site_settings/appearance/Appearance';
 import Administration from './site_settings/Administration';
 import Settings from './site_settings/Settings';
 import Registration from './site_settings/Registration';
-import Spinner from '../shared/stylings/Spinner';
+import Spinner from '../shared_components/stylings/Spinner';
 import useSiteSettings from '../../hooks/queries/admin/site_settings/useSiteSettings';
 
 export default function SiteSettings() {

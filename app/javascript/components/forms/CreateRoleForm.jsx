@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Form from './Form';
-import Spinner from '../shared/stylings/Spinner';
+import Spinner from '../shared_components/stylings/Spinner';
 import FormControl from './FormControl';
 import { createRoleFormConfig, createRoleFormFields } from '../../helpers/forms/CreateRoleFormHelpers';
 import useCreateRole from '../../hooks/mutations/roles/useCreateRole';

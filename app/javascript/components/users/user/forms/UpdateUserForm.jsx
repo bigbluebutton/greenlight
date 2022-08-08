@@ -5,11 +5,11 @@ import {
 } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
-import { validationSchema, updateUserFormFields } from '../../helpers/forms/UpdateUserFormHelpers';
-import Form from './Form';
-import FormControl from './FormControl';
-import useUpdateUser from '../../hooks/mutations/users/useUpdateUser';
-import Spinner from '../shared/stylings/Spinner';
+import { validationSchema, updateUserFormFields } from '../../../../helpers/forms/UpdateUserFormHelpers';
+import Form from '../../../forms/Form';
+import FormControl from '../../../forms/FormControl';
+import useUpdateUser from '../../../../hooks/mutations/users/useUpdateUser';
+import Spinner from '../../../shared_components/stylings/Spinner';
 
 export default function UpdateUserForm({ user }) {
   // TODO: Make LOCALES a context that provides the available languages and their native names in the client app.
