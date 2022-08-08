@@ -1,6 +1,6 @@
 #room-card {
   .room-icon-square {
-    border-radius:10px;
+    border-radius: $border-radius;
     width: 75px;
     height: 75px;
     background-color: var(--brand-color-light);
