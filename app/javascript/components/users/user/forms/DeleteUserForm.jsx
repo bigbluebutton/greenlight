@@ -4,7 +4,7 @@ import {
   Button, Stack,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import Form from '../../../forms/Form';
+import Form from '../../../shared_components/forms/Form';
 import useDeleteUser from '../../../../hooks/mutations/users/useDeleteUser';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import Spinner from '../../../shared_components/utilities/Spinner';

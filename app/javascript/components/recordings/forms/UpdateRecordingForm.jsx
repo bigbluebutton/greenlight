@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import FormControl from '../../forms/FormControl';
-import Form from '../../forms/Form';
+import FormControl from '../../shared_components/forms/FormControl';
+import Form from '../../shared_components/forms/Form';
 import { UpdateRecordingsFormConfig, UpdateRecordingsFormFields } from '../../../helpers/forms/UpdateRecordingsFormHelpers';
 
 export default function UpdateRecordingForm({

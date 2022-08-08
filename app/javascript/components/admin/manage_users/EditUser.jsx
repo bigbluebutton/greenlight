@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowCircleLeftIcon } from '@heroicons/react/outline';
-import AdminNavSideBar from '../shared/AdminNavSideBar';
+import AdminNavSideBar from '../AdminNavSideBar';
 import AccountInfo from '../../users/user/AccountInfo';
 import useUser from '../../../hooks/queries/users/useUser';
 import Spinner from '../../shared_components/utilities/Spinner';

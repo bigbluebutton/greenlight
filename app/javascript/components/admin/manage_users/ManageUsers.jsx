@@ -3,11 +3,11 @@ import Card from 'react-bootstrap/Card';
 import {
   Row, Col, Tab, Tabs, Stack, Button, Container,
 } from 'react-bootstrap';
-import ActiveUsers from './users/ActiveUsers';
-import AdminNavSideBar from './shared/AdminNavSideBar';
-import Modal from '../shared_components/modals/Modal';
-import AdminSignupForm from './forms/AdminSignupForm';
-import SearchBarQuery from '../shared_components/search/SearchBarQuery';
+import ActiveUsers from './ActiveUsers';
+import AdminNavSideBar from '../AdminNavSideBar';
+import Modal from '../../shared_components/modals/Modal';
+import UserSignupForm from '../forms/AdminSignupForm';
+import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
 
 export default function ManageUsers() {
   const [input, setInput] = useState();
@@ -34,7 +34,7 @@ export default function ManageUsers() {
                       <Modal
                         modalButton={<Button variant="brand" className="ms-auto btn">+ New User</Button>}
                         title="Create New User"
-                        body={<AdminSignupForm />}
+                        body={<UserSignupForm />}
                         size="lg"
                         id="shared-access-modal"
                       />

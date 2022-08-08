@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row } from 'react-bootstrap';
-import useUpdateSiteSetting from '../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
-import RegistrationForm from '../../forms/admin/RegistrationForm';
+import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
+import RegistrationForm from './forms/RegistrationForm';
 
 export default function Registration({ value }) {
   return (

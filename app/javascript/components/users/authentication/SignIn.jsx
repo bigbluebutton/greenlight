@@ -2,7 +2,7 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import SigninForm from './forms/SigninForm';
-import FormLogo from '../../forms/FormLogo';
+import FormLogo from '../../shared_components/forms/FormLogo';
 
 export default function SignIn() {
   return (

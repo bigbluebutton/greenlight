@@ -3,13 +3,13 @@ import Card from 'react-bootstrap/Card';
 import {
   Row, Col, Tab, Tabs, Container,
 } from 'react-bootstrap';
-import AdminNavSideBar from './shared/AdminNavSideBar';
-import Appearance from './site_settings/appearance/Appearance';
-import Administration from './site_settings/Administration';
-import Settings from './site_settings/Settings';
-import Registration from './site_settings/Registration';
-import Spinner from '../shared_components/utilities/Spinner';
-import useSiteSettings from '../../hooks/queries/admin/site_settings/useSiteSettings';
+import AdminNavSideBar from '../AdminNavSideBar';
+import Appearance from './appearance/Appearance';
+import Administration from './administration/Administration';
+import Settings from './settings/Settings';
+import Registration from './registration/Registration';
+import Spinner from '../../shared_components/utilities/Spinner';
+import useSiteSettings from '../../../hooks/queries/admin/site_settings/useSiteSettings';
 
 export default function SiteSettings() {
   const { isLoading, data: siteSettings } = useSiteSettings();

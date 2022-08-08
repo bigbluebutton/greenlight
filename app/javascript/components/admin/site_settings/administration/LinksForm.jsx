@@ -4,10 +4,10 @@ import {
   Button, InputGroup,
 } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import Form from '../Form';
-import { linksFormConfig, linksFormFields } from '../../../helpers/forms/LinksFormHelpers';
-import Spinner from '../../shared_components/utilities/Spinner';
-import FormControlGeneric from '../FormControlGeneric';
+import Form from '../../../shared_components/forms/Form';
+import { linksFormConfig, linksFormFields } from '../../../../helpers/forms/LinksFormHelpers';
+import Spinner from '../../../shared_components/utilities/Spinner';
+import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
 
 export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAPI }) {
   const updateSiteSettingsAPI = useUpdateSiteSettingsAPI();

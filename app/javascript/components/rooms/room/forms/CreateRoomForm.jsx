@@ -4,9 +4,9 @@ import {
   Button, Stack,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import Form from '../../../forms/Form';
+import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
-import FormControl from '../../../forms/FormControl';
+import FormControl from '../../../shared_components/forms/FormControl';
 import { createRoomFormConfig, createRoomFormFields } from '../../../../helpers/forms/CreateRoomFormHelpers';
 
 export default function CreateRoomForm({ mutation: useCreateRoomAPI, handleClose }) {

@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import {
   Col, Container, Row, Tab, Card, Stack,
 } from 'react-bootstrap';
-import AdminNavSideBar from './shared/AdminNavSideBar';
-import RolesList from './roles/RolesList';
-import SearchBarQuery from '../shared_components/search/SearchBarQuery';
-import useRoles from '../../hooks/queries/admin/roles/useRoles';
-import CreateRoleModal from '../shared_components/modals/CreateRoleModal';
+import AdminNavSideBar from '../AdminNavSideBar';
+import RolesList from './RolesList';
+import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
+import useRoles from '../../../hooks/queries/admin/roles/useRoles';
+import CreateRoleModal from '../../shared_components/modals/CreateRoleModal';
 
 export default function Roles() {
   const [input, setInput] = useState();

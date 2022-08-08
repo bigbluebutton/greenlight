@@ -2,13 +2,13 @@ import React from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
-import FormControl from '../../forms/FormControl';
-import Form from '../../forms/Form';
-import { signupFormConfig, signupFormFields } from '../../../helpers/forms/SignupFormHelpers';
-import Spinner from '../../shared_components/utilities/Spinner';
-import useAdminCreateUser from '../../../hooks/mutations/admin/manage_users/useAdminCreateUser';
+import FormControl from '../../../shared_components/forms/FormControl';
+import Form from '../../../shared_components/forms/Form';
+import { signupFormConfig, signupFormFields } from '../../../../helpers/forms/SignupFormHelpers';
+import Spinner from '../../../shared_components/utilities/Spinner';
+import useAdminCreateUser from '../../../../hooks/mutations/admin/manage_users/useAdminCreateUser';
 
-export default function AdminSignupForm({ handleClose }) {
+export default function UserSignupForm({ handleClose }) {
   const methods = useForm(signupFormConfig);
   const createUser = useAdminCreateUser({ onSettled: handleClose });
   const { isSubmitting } = methods.formState;
@@ -31,10 +31,10 @@ export default function AdminSignupForm({ handleClose }) {
   );
 }
 
-AdminSignupForm.propTypes = {
+UserSignupForm.propTypes = {
   handleClose: PropTypes.func,
 };
 
-AdminSignupForm.defaultProps = {
+UserSignupForm.defaultProps = {
   handleClose: () => { },
 };

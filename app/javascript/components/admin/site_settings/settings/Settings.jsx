@@ -1,7 +1,7 @@
 import React from 'react';
-import useSiteSettings from '../../../hooks/queries/admin/site_settings/useSiteSettings';
-import Spinner from '../../shared_components/utilities/Spinner';
-import SiteSettingsRow from './SiteSettingsRow';
+import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSiteSettings';
+import Spinner from '../../../shared_components/utilities/Spinner';
+import SettingsRow from './SiteSettingsRow';
 
 export default function Settings() {
   const { isLoading, data: siteSettings } = useSiteSettings();
@@ -10,7 +10,7 @@ export default function Settings() {
 
   return (
     <>
-      <SiteSettingsRow
+      <SettingsRow
         name="ShareRooms"
         title="Allow Users to Share Rooms"
         description={(
@@ -21,7 +21,7 @@ export default function Settings() {
       )}
         value={siteSettings.ShareRooms}
       />
-      <SiteSettingsRow
+      <SettingsRow
         name="PreuploadPresentation"
         title="Allow Users to Preupload Presentations"
         description={(

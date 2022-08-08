@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Stack } from 'react-bootstrap';
-import useUpdateSiteSetting from '../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
+import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 
-export default function SiteSettingsRow({
+export default function SettingsRow({
   name, title, description, value,
 }) {
   const updateSiteSetting = useUpdateSiteSetting(name);
@@ -28,7 +28,7 @@ export default function SiteSettingsRow({
   );
 }
 
-SiteSettingsRow.propTypes = {
+SettingsRow.propTypes = {
   name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,

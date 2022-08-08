@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import {
   Button, Col, Row, Stack,
 } from 'react-bootstrap';
-import FormLogo from '../../forms/FormLogo';
+import FormLogo from '../../shared_components/forms/FormLogo';
 import useRoom from '../../../hooks/queries/rooms/useRoom';
 import useRoomJoin from '../../../hooks/queries/rooms/useRoomJoin';
 import Spinner from '../../shared_components/utilities/Spinner';

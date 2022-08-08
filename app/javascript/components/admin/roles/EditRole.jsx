@@ -4,10 +4,10 @@ import {
   Col, Container, Row, Tab, Card, Breadcrumb,
 } from 'react-bootstrap';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import useRole from '../../hooks/queries/admin/roles/useRole';
-import EditRoleForm from '../forms/admin/EditRoleForm';
-import Spinner from '../shared_components/utilities/Spinner';
-import AdminNavSideBar from './shared/AdminNavSideBar';
+import useRole from '../../../hooks/queries/admin/roles/useRole';
+import EditRoleForm from './forms/EditRoleForm';
+import Spinner from '../../shared_components/utilities/Spinner';
+import AdminNavSideBar from '../AdminNavSideBar';
 
 export default function EditRole() {
   const { roleId } = useParams();

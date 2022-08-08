@@ -4,9 +4,9 @@ import {
   Row, Stack, Form as BootStrapForm, Col,
 } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import FormControlGeneric from '../forms/FormControlGeneric';
-import Form from '../forms/Form';
-import { RoomConfigFormConfig, RoomConfigFormFields } from '../../helpers/forms/RoomConfigFormHelpers';
+import FormControlGeneric from '../../shared_components/forms/FormControlGeneric';
+import Form from '../../shared_components/forms/Form';
+import { RoomConfigFormConfig, RoomConfigFormFields } from '../../../helpers/forms/RoomConfigFormHelpers';
 
 export default function RoomConfigRow({
   value, title, subtitle, mutation: useUpdateRoomConfig,

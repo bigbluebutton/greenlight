@@ -16,15 +16,15 @@ import Rooms from './components/rooms/Rooms';
 import HomePage from './components/home/HomePage';
 import RoomJoin from './components/rooms/room/RoomJoin';
 import ForgetPassword from './components/users/FrogetPassword';
-import ManageUsers from './components/admin/ManageUsers';
-import ServerRecordings from './components/admin/ServerRecordings';
+import ManageUsers from './components/admin/manage_users/ManageUsers';
+import ServerRecordings from './components/admin/server_recordings/ServerRecordings';
 import ServerRooms from './components/admin/server_rooms/ServerRooms';
-import SiteSettings from './components/admin/SiteSettings';
-import RoomConfig from './components/admin/RoomConfig';
-import Roles from './components/admin/Roles';
+import SiteSettings from './components/admin/site_settings/SiteSettings';
+import RoomConfig from './components/admin/room_configuration/RoomConfig';
+import Roles from './components/admin/roles/Roles';
 import ResetPassword from './components/users/password_management/ResetPassword';
-import EditUser from './components/admin/users/EditUser';
-import EditRole from './components/admin/EditRole';
+import EditUser from './components/admin/manage_users/EditUser';
+import EditRole from './components/admin/roles/EditRole';
 
 const queryClient = new QueryClient();
 

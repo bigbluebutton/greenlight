@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { editRoleFormConfig, editRoleFormFields } from '../../../helpers/forms/EditRoleFormHelpers';
-import Form from '../Form';
-import FormControl from '../FormControl';
-import Spinner from '../../shared_components/utilities/Spinner';
-import useUpdateRole from '../../../hooks/mutations/admin/roles/useUpdateRole';
-import Modal from '../../shared_components/modals/Modal';
-import DeleteRoleForm from '../DeleteRoleForm';
+import { editRoleFormConfig, editRoleFormFields } from '../../../../helpers/forms/EditRoleFormHelpers';
+import Form from '../../../shared_components/forms/Form';
+import FormControl from '../../../shared_components/forms/FormControl';
+import Spinner from '../../../shared_components/utilities/Spinner';
+import useUpdateRole from '../../../../hooks/mutations/admin/roles/useUpdateRole';
+import Modal from '../../../shared_components/modals/Modal';
+import DeleteRoleForm from './DeleteRoleForm';
 
 export default function EditRoleForm({ role }) {
   const methods = useForm(editRoleFormConfig);

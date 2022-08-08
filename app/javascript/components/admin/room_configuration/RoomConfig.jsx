@@ -3,11 +3,11 @@ import Card from 'react-bootstrap/Card';
 import {
   Col, Row, Tab, Container,
 } from 'react-bootstrap';
-import AdminNavSideBar from './shared/AdminNavSideBar';
+import AdminNavSideBar from '../AdminNavSideBar';
 import RoomConfigRow from './RoomConfigRow';
-import useUpdateRoomConfig from '../../hooks/mutations/admin/room_configuration/useUpdateRoomConfig';
-import useRoomConfigs from '../../hooks/queries/admin/room_configuration/useRoomConfigs';
-import Spinner from '../shared_components/utilities/Spinner';
+import useUpdateRoomConfig from '../../../hooks/mutations/admin/room_configuration/useUpdateRoomConfig';
+import useRoomConfigs from '../../../hooks/queries/admin/room_configuration/useRoomConfigs';
+import Spinner from '../../shared_components/utilities/Spinner';
 
 export default function RoomConfig() {
   const { data: roomConfigs, isLoading } = useRoomConfigs();

@@ -4,9 +4,9 @@ import {
   Button, Stack,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import Form from './Form';
-import Spinner from '../shared_components/utilities/Spinner';
-import useDeleteRole from '../../hooks/mutations/admin/roles/useDeleteRole';
+import Form from '../../../shared_components/forms/Form';
+import Spinner from '../../../shared_components/utilities/Spinner';
+import useDeleteRole from '../../../../hooks/mutations/admin/roles/useDeleteRole';
 
 export default function DeleteRoleForm({ role, handleClose }) {
   const deleteRoleAPI = useDeleteRole({ role, onSettled: handleClose });

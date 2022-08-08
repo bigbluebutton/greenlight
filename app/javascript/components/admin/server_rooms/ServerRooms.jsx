@@ -6,7 +6,7 @@ import {
 import useServerRooms from '../../../hooks/queries/admin/server_rooms/useServerRooms';
 import ServerRoomRow from './ServerRoomRow';
 import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
-import AdminNavSideBar from '../shared/AdminNavSideBar';
+import AdminNavSideBar from '../AdminNavSideBar';
 import Pagy from '../../shared_components/Pagy';
 
 export default function ServerRooms() {

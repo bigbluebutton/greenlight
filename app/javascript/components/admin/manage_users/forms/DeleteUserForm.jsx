@@ -5,9 +5,9 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Form
-  from '../../forms/Form';
-import useDeleteUser from '../../../hooks/mutations/admin/manage_users/useDeleteUser';
-import Spinner from '../../shared_components/utilities/Spinner';
+  from '../../../shared_components/forms/Form';
+import useDeleteUser from '../../../../hooks/mutations/admin/manage_users/useDeleteUser';
+import Spinner from '../../../shared_components/utilities/Spinner';
 
 export default function DeleteUserForm({ user, handleClose }) {
   const methods = useForm();

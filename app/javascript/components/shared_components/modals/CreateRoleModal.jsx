@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import CreateRoleForm from '../../forms/CreateRoleForm';
+import CreateRoleForm from '../../admin/roles/forms/CreateRoleForm';
 import Modal from './Modal';
 
 export default function CreateRoleModal() {

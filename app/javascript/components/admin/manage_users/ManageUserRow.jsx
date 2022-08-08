@@ -11,7 +11,7 @@ import Avatar from '../../users/user/Avatar';
 import Modal from '../../shared_components/modals/Modal';
 import CreateRoomForm from '../../rooms/room/forms/CreateRoomForm';
 import useCreateServerRoom from '../../../hooks/mutations/admin/manage_users/useCreateServerRoom';
-import DeleteUserForm from '../forms/DeleteUserForm';
+import DeleteUserForm from './forms/DeleteUserForm';
 
 export default function ManageUserRow({ user }) {
   const mutationWrapper = (args) => useCreateServerRoom({ userID: user.id, ...args });

@@ -6,8 +6,8 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
 import { validationSchema, updateUserFormFields } from '../../../../helpers/forms/UpdateUserFormHelpers';
-import Form from '../../../forms/Form';
-import FormControl from '../../../forms/FormControl';
+import Form from '../../../shared_components/forms/Form';
+import FormControl from '../../../shared_components/forms/FormControl';
 import useUpdateUser from '../../../../hooks/mutations/users/useUpdateUser';
 import Spinner from '../../../shared_components/utilities/Spinner';
 
