@@ -16,7 +16,13 @@ class Room < ApplicationRecord
   validates :meeting_id, presence: true, uniqueness: true
 
   before_validation :set_friendly_id, :set_meeting_id, on: :create
+
   after_create :create_meeting_options
+  after_create :generate_viewer_access_code, if: :auto_generate_viewer_access_code?
+  after_create :generate_moderator_access_code, if: :auto_generate_moderator_access_code?
+
+  after_find :generate_viewer_access_code, if: :auto_generate_viewer_access_code?
+  after_find :generate_moderator_access_code, if: :auto_generate_moderator_access_code?
 
   attr_accessor :shared, :active, :participants
 
@@ -89,5 +95,17 @@ class Room < ApplicationRecord
 
   def generate_code
     SecureRandom.alphanumeric(6).downcase
+  end
+
+  def auto_generate_viewer_access_code?
+    config = MeetingOption.get_config_value(name: 'glViewerAccessCode', provider: 'greenlight')&.value
+
+    viewer_access_code.blank? && config == 'true'
+  end
+
+  def auto_generate_moderator_access_code?
+    config = MeetingOption.get_config_value(name: 'glModeratorAccessCode', provider: 'greenlight')&.value
+
+    moderator_access_code.blank? && config == 'true'
   end
 end
