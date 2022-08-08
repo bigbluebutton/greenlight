@@ -15,7 +15,7 @@ import Room from './components/rooms/room/Room';
 import Rooms from './components/rooms/Rooms';
 import HomePage from './components/home/HomePage';
 import RoomJoin from './components/rooms/room/RoomJoin';
-import ForgetPassword from './components/users/FrogetPassword';
+import ForgetPassword from './components/users/password_management/ForgetPassword';
 import ManageUsers from './components/admin/manage_users/ManageUsers';
 import ServerRecordings from './components/admin/server_recordings/ServerRecordings';
 import ServerRooms from './components/admin/server_rooms/ServerRooms';

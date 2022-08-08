@@ -1,7 +1,7 @@
 import React from 'react';
 import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSiteSettings';
 import Spinner from '../../../shared_components/utilities/Spinner';
-import SettingsRow from './SiteSettingsRow';
+import SettingsRow from './SettingsRow';
 
 export default function Settings() {
   const { isLoading, data: siteSettings } = useSiteSettings();
