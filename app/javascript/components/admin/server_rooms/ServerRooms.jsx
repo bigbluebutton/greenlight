@@ -7,7 +7,7 @@ import useServerRooms from '../../../hooks/queries/admin/server_rooms/useServerR
 import ServerRoomRow from './ServerRoomRow';
 import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
 import AdminNavSideBar from '../AdminNavSideBar';
-import Pagy from '../../shared_components/Pagy';
+import Pagination from '../../shared_components/Pagination';
 
 export default function ServerRooms() {
   const [input, setInput] = useState();
@@ -33,7 +33,7 @@ export default function ServerRooms() {
                   </div>
                   <div className="p-4">
                     <SearchBarQuery setInput={setInput} />
-                    <Table className="table-bordered border border-2 mt-4" hover>
+                    <Table className="table-bordered border border-2 mt-4 mb-0" hover>
                       <thead>
                         <tr className="text-muted small">
                           <th className="fw-normal border-end-0">Name</th>
@@ -58,15 +58,15 @@ export default function ServerRooms() {
                           )}
                       </tbody>
                     </Table>
+                    {!isLoading
+                      && (
+                      <Pagination
+                        page={serverRooms.meta.page}
+                        totalPages={serverRooms.meta.pages}
+                        setPage={setPage}
+                      />
+                      )}
                   </div>
-                  {!isLoading
-                    && (
-                    <Pagy
-                      page={serverRooms.meta.page}
-                      totalPages={serverRooms.meta.pages}
-                      setPage={setPage}
-                    />
-                    )}
                 </Container>
               </Tab.Content>
             </Col>
