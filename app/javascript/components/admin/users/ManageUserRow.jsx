@@ -8,8 +8,8 @@ import {
   DotsVerticalIcon, HomeIcon, PencilAltIcon, TrashIcon,
 } from '@heroicons/react/outline';
 import Avatar from '../../users/user/Avatar';
-import Modal from '../../shared_components/Modal';
-import CreateRoomForm from '../../forms/CreateRoomForm';
+import Modal from '../../shared_components/modals/Modal';
+import CreateRoomForm from '../../rooms/room/forms/CreateRoomForm';
 import useCreateServerRoom from '../../../hooks/mutations/admin/manage_users/useCreateServerRoom';
 import DeleteUserForm from '../forms/DeleteUserForm';
 

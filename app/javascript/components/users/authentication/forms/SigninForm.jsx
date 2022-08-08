@@ -12,7 +12,7 @@ import { toast } from 'react-hot-toast';
 import FormControl from '../../../forms/FormControl';
 import Form from '../../../forms/Form';
 import { signinFormFields, signinFormConfig } from '../../../../helpers/forms/SigninFormHelpers';
-import Spinner from '../../../shared_components/stylings/Spinner';
+import Spinner from '../../../shared_components/utilities/Spinner';
 import useCreateSession from '../../../../hooks/mutations/sessions/useCreateSession';
 import useEnv from '../../../../hooks/queries/env/useEnv';
 

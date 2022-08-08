@@ -7,7 +7,7 @@ import AdminNavSideBar from './shared/AdminNavSideBar';
 import RoomConfigRow from './RoomConfigRow';
 import useUpdateRoomConfig from '../../hooks/mutations/admin/room_configuration/useUpdateRoomConfig';
 import useRoomConfigs from '../../hooks/queries/admin/room_configuration/useRoomConfigs';
-import Spinner from '../shared_components/stylings/Spinner';
+import Spinner from '../shared_components/utilities/Spinner';
 
 export default function RoomConfig() {
   const { data: roomConfigs, isLoading } = useRoomConfigs();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import useUpdateRoomSetting from '../../hooks/mutations/room_settings/useUpdateRoomSetting';
+import useUpdateRoomSetting from '../../../../hooks/mutations/room_settings/useUpdateRoomSetting';
 
 export default function RoomSettingsRow(props) {
   const {

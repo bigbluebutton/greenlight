@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import useVerifyToken from '../../../hooks/mutations/users/useVerifyToken';
 import FormLogo from '../../forms/FormLogo';
 import ResetPwdForm from './forms/ResetPwdForm';
-import Spinner from '../../shared_components/stylings/Spinner';
+import Spinner from '../../shared_components/utilities/Spinner';
 
 export default function ResetPassword() {
   const { token } = useParams();

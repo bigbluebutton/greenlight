@@ -5,9 +5,9 @@ import {
 } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Form from './Form';
-import Spinner from '../shared_components/stylings/Spinner';
-import useDeletePresentation from '../../hooks/mutations/rooms/useDeletePresentation';
+import Form from '../../../../forms/Form';
+import Spinner from '../../../../shared_components/utilities/Spinner';
+import useDeletePresentation from '../../../../../hooks/mutations/rooms/useDeletePresentation';
 
 export default function DeletePresentationForm({ handleClose }) {
   const methods = useForm();

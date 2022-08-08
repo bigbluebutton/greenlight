@@ -4,7 +4,7 @@ import {
   Col, Container, Row, Tab, Stack, Button,
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
-import SearchBarQuery from '../shared_components/SearchBarQuery';
+import SearchBarQuery from '../shared_components/search/SearchBarQuery';
 import RecordingsList from '../recordings/RecordingsList';
 import useServerRecordings from '../../hooks/queries/admin/server_recordings/useServerRecordings';
 import ServerRecordingRow from './server-recordings/ServerRecordingRow';

@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast';
 import FormControl from '../../../forms/FormControl';
 import Form from '../../../forms/Form';
 import { signupFormConfig, signupFormFields } from '../../../../helpers/forms/SignupFormHelpers';
-import Spinner from '../../../shared_components/stylings/Spinner';
+import Spinner from '../../../shared_components/utilities/Spinner';
 import useCreateUser from '../../../../hooks/mutations/users/useCreateUser';
 import useEnv from '../../../../hooks/queries/env/useEnv';
 

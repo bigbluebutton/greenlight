@@ -9,7 +9,7 @@ import { validationSchema, updateUserFormFields } from '../../../../helpers/form
 import Form from '../../../forms/Form';
 import FormControl from '../../../forms/FormControl';
 import useUpdateUser from '../../../../hooks/mutations/users/useUpdateUser';
-import Spinner from '../../../shared_components/stylings/Spinner';
+import Spinner from '../../../shared_components/utilities/Spinner';
 
 export default function UpdateUserForm({ user }) {
   // TODO: Make LOCALES a context that provides the available languages and their native names in the client app.

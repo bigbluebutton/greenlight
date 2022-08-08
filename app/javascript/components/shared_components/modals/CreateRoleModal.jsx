@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import CreateRoleForm from '../../forms/CreateRoleForm';
-import Modal from '../Modal';
+import Modal from './Modal';
 
 export default function CreateRoleModal() {
   return (

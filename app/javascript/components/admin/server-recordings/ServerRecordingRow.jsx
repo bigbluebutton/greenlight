@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RecordingRow from '../../shared_components/RecordingRow';
+import RecordingRow from '../../recordings/RecordingRow';
 import useUpdateRecordingVisibility from '../../../hooks/mutations/recordings/useUpdateRecordingVisibility';
 import useUpdateRecording from '../../../hooks/mutations/recordings/useUpdateRecording';
 import useDeleteRecording from '../../../hooks/mutations/recordings/useDeleteRecording';

@@ -1,6 +1,6 @@
 import React from 'react';
 import useSiteSettings from '../../../hooks/queries/admin/site_settings/useSiteSettings';
-import Spinner from '../../shared_components/stylings/Spinner';
+import Spinner from '../../shared_components/utilities/Spinner';
 import SiteSettingsRow from './SiteSettingsRow';
 
 export default function Settings() {

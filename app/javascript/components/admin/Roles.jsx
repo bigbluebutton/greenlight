@@ -4,7 +4,7 @@ import {
 } from 'react-bootstrap';
 import AdminNavSideBar from './shared/AdminNavSideBar';
 import RolesList from './roles/RolesList';
-import SearchBarQuery from '../shared_components/SearchBarQuery';
+import SearchBarQuery from '../shared_components/search/SearchBarQuery';
 import useRoles from '../../hooks/queries/admin/roles/useRoles';
 import CreateRoleModal from '../shared_components/modals/CreateRoleModal';
 

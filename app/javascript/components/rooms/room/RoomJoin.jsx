@@ -4,12 +4,12 @@ import { useParams } from 'react-router-dom';
 import {
   Button, Col, Row, Stack,
 } from 'react-bootstrap';
-import FormLogo from '../forms/FormLogo';
-import useRoom from '../../hooks/queries/rooms/useRoom';
-import useRoomJoin from '../../hooks/queries/rooms/useRoomJoin';
-import Spinner from '../shared_components/stylings/Spinner';
-import useRoomStatus from '../../hooks/queries/rooms/useRoomStatus';
-import Avatar from '../users/user/Avatar';
+import FormLogo from '../../forms/FormLogo';
+import useRoom from '../../../hooks/queries/rooms/useRoom';
+import useRoomJoin from '../../../hooks/queries/rooms/useRoomJoin';
+import Spinner from '../../shared_components/utilities/Spinner';
+import useRoomStatus from '../../../hooks/queries/rooms/useRoomStatus';
+import Avatar from '../../users/user/Avatar';
 
 function waitOrJoin(refetchJoin, refetchStatus) {
   refetchStatus();

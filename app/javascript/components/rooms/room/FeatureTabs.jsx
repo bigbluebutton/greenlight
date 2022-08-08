@@ -1,10 +1,10 @@
 import React from 'react';
 import { Row, Tabs, Tab } from 'react-bootstrap';
-import RoomRecordings from '../recordings/RoomRecordings';
-import Presentation from './Presentation';
-import SharedAccess from '../shared_accesses/SharedAccess';
-import RoomSettings from '../room_settings/RoomSettings';
-import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
+import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
+import Presentation from './presentation/Presentation';
+import SharedAccess from './shared_access/SharedAccess';
+import RoomSettings from './room_settings/RoomSettings';
+import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
 
 export default function FeatureTabs() {
   const { data: shareRoomEnabled } = useSiteSetting('ShareRooms');

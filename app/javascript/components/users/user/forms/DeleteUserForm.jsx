@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import Form from '../../../forms/Form';
 import useDeleteUser from '../../../../hooks/mutations/users/useDeleteUser';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
-import Spinner from '../../../shared_components/stylings/Spinner';
+import Spinner from '../../../shared_components/utilities/Spinner';
 
 export default function DeleteUserForm({ handleClose }) {
   const currentUser = useAuth();

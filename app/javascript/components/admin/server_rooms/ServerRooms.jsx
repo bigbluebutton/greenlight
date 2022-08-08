@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import useServerRooms from '../../../hooks/queries/admin/server_rooms/useServerRooms';
 import ServerRoomRow from './ServerRoomRow';
-import SearchBarQuery from '../../shared_components/SearchBarQuery';
+import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
 import AdminNavSideBar from '../shared/AdminNavSideBar';
 import Pagy from '../../shared_components/Pagy';
 

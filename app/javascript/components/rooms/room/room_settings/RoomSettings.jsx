@@ -2,12 +2,12 @@ import React from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
-import Spinner from '../shared_components/stylings/Spinner';
-import useRoomSettings from '../../hooks/queries/rooms/useRoomSettings';
-import useDeleteRoom from '../../hooks/mutations/rooms/useDeleteRoom';
+import Spinner from '../../../shared_components/utilities/Spinner';
+import useRoomSettings from '../../../../hooks/queries/rooms/useRoomSettings';
+import useDeleteRoom from '../../../../hooks/mutations/rooms/useDeleteRoom';
 import RoomSettingsRow from './RoomSettingsRow';
 import AccessCodes from './AccessCodes';
-import Modal from '../shared_components/Modal';
+import Modal from '../../../shared_components/modals/Modal';
 import DeleteRoomForm from '../forms/DeleteRoomForm';
 
 export default function RoomSettings() {

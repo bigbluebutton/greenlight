@@ -3,9 +3,9 @@ import {
   Card, Stack,
 } from 'react-bootstrap';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
-import SearchBarQuery from '../shared_components/SearchBarQuery';
+import SearchBarQuery from '../shared_components/search/SearchBarQuery';
 import RecordingsList from './RecordingsList';
-import RoomsRecordingRow from './RoomsRecordingRow';
+import RoomsRecordingRow from './room_recordings/RoomsRecordingRow';
 import Pagy from '../shared_components/Pagy';
 
 export default function Recordings() {

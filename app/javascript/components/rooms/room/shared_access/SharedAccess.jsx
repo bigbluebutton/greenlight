@@ -4,12 +4,12 @@ import {
 } from 'react-bootstrap';
 import { TrashIcon } from '@heroicons/react/outline';
 import { useParams } from 'react-router-dom';
-import Modal from '../shared_components/Modal';
-import SharedAccessForm from '../forms/SharedAccessForm';
-import Avatar from '../users/user/Avatar';
-import SearchBarQuery from '../shared_components/SearchBarQuery';
-import useDeleteSharedAccess from '../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
-import useSharedUsers from '../../hooks/queries/shared_accesses/useSharedUsers';
+import Modal from '../../../shared_components/modals/Modal';
+import SharedAccessForm from './forms/SharedAccessForm';
+import Avatar from '../../../users/user/Avatar';
+import SearchBarQuery from '../../../shared_components/search/SearchBarQuery';
+import useDeleteSharedAccess from '../../../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
+import useSharedUsers from '../../../../hooks/queries/shared_accesses/useSharedUsers';
 import SharedAccessEmpty from './SharedAccessEmpty';
 
 export default function SharedAccess() {

@@ -10,10 +10,10 @@ import {
   Button, Stack, Dropdown,
 } from 'react-bootstrap';
 import { toast } from 'react-hot-toast';
-import Spinner from './stylings/Spinner';
-import UpdateRecordingForm from '../forms/UpdateRecordingForm';
-import DeleteRecordingForm from '../forms/DeleteRecordingForm';
-import Modal from './Modal';
+import Spinner from '../shared_components/utilities/Spinner';
+import UpdateRecordingForm from './forms/UpdateRecordingForm';
+import DeleteRecordingForm from './forms/DeleteRecordingForm';
+import Modal from '../shared_components/modals/Modal';
 
 // TODO: Refactor this.
 export default function RecordingRow({

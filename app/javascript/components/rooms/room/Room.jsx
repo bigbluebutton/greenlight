@@ -4,9 +4,9 @@ import { Link, useParams } from 'react-router-dom';
 import { HomeIcon, DuplicateIcon } from '@heroicons/react/outline';
 import { toast } from 'react-hot-toast';
 import FeatureTabs from './FeatureTabs';
-import Spinner from '../shared_components/stylings/Spinner';
-import useRoom from '../../hooks/queries/rooms/useRoom';
-import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
+import Spinner from '../../shared_components/utilities/Spinner';
+import useRoom from '../../../hooks/queries/rooms/useRoom';
+import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
 
 function copyInvite() {
   navigator.clipboard.writeText(`${window.location}/join`);

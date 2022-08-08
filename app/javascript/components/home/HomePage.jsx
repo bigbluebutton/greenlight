@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import ButtonLink from '../shared_components/stylings/buttons/ButtonLink';
-import Spinner from '../shared_components/stylings/Spinner';
+import ButtonLink from '../shared_components/utilities/ButtonLink';
+import Spinner from '../shared_components/utilities/Spinner';
 import useEnv from '../../hooks/queries/env/useEnv';
 
 export default function HomePage() {

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useUpdateRecordingVisibility from '../../hooks/mutations/recordings/useUpdateRecordingVisibility';
-import useUpdateRecording from '../../hooks/mutations/recordings/useUpdateRecording';
-import useDeleteRecording from '../../hooks/mutations/recordings/useDeleteRecording';
-import RecordingRow from '../shared_components/RecordingRow';
+import useUpdateRecordingVisibility from '../../../hooks/mutations/recordings/useUpdateRecordingVisibility';
+import useUpdateRecording from '../../../hooks/mutations/recordings/useUpdateRecording';
+import useDeleteRecording from '../../../hooks/mutations/recordings/useDeleteRecording';
+import RecordingRow from '../RecordingRow';
 
 export default function RoomsRecordingRow({ recording }) {
   return (

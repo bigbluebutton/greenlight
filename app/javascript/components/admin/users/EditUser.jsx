@@ -8,7 +8,7 @@ import { ArrowCircleLeftIcon } from '@heroicons/react/outline';
 import AdminNavSideBar from '../shared/AdminNavSideBar';
 import AccountInfo from '../../users/user/AccountInfo';
 import useUser from '../../../hooks/queries/users/useUser';
-import Spinner from '../../shared_components/stylings/Spinner';
+import Spinner from '../../shared_components/utilities/Spinner';
 
 export default function EditUser() {
   const { userId } = useParams();

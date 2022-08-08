@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import FormControl from '../../forms/FormControl';
 import Form from '../../forms/Form';
 import { signupFormConfig, signupFormFields } from '../../../helpers/forms/SignupFormHelpers';
-import Spinner from '../../shared_components/stylings/Spinner';
+import Spinner from '../../shared_components/utilities/Spinner';
 import useAdminCreateUser from '../../../hooks/mutations/admin/manage_users/useAdminCreateUser';
 
 export default function AdminSignupForm({ handleClose }) {

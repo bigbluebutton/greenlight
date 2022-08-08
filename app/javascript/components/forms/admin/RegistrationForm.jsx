@@ -6,7 +6,7 @@ import {
 import { useForm } from 'react-hook-form';
 import Form from '../Form';
 import { RegistrationFormFields, RegistrationFormConfig } from '../../../helpers/forms/RegistrationFormHelpers';
-import Spinner from '../../shared_components/stylings/Spinner';
+import Spinner from '../../shared_components/utilities/Spinner';
 import FormControlGeneric from '../FormControlGeneric';
 
 export default function RegistrationForm({ value, mutation: useUpdateSiteSettingsAPI }) {

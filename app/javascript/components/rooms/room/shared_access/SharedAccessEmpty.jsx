@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { UserAddIcon } from '@heroicons/react/outline';
-import Modal from '../shared_components/Modal';
-import SharedAccessForm from '../forms/SharedAccessForm';
+import Modal from '../../../shared_components/modals/Modal';
+import SharedAccessForm from './forms/SharedAccessForm';
 
 export default function SharedAccessEmpty() {
   return (

@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import FormControl from '../../../forms/FormControl';
 import Form from '../../../forms/Form';
 import { resetPwdFormConfig, resetPwdFormFields } from '../../../../helpers/forms/ResetPwdFormHelpers';
-import Spinner from '../../../shared_components/stylings/Spinner';
+import Spinner from '../../../shared_components/utilities/Spinner';
 import useResetPwd from '../../../../hooks/mutations/users/useResetPwd';
 
 export default function ResetPwdForm({ token }) {

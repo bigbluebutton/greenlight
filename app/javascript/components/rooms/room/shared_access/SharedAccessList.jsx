@@ -5,12 +5,12 @@ import {
 import PropTypes from 'prop-types';
 import { TrashIcon } from '@heroicons/react/outline';
 import { useParams } from 'react-router-dom';
-import Modal from '../shared_components/Modal';
-import SharedAccessForm from '../forms/SharedAccessForm';
-import Avatar from '../users/user/Avatar';
-import SearchBar from '../shared_components/SearchBar';
-import useDeleteSharedAccess from '../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
-import Spinner from '../shared_components/stylings/Spinner';
+import Modal from '../../../shared_components/modals/Modal';
+import SharedAccessForm from './forms/SharedAccessForm';
+import Avatar from '../../../users/user/Avatar';
+import SearchBar from '../../../shared_components/search/SearchBar';
+import useDeleteSharedAccess from '../../../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
+import Spinner from '../../../shared_components/utilities/Spinner';
 
 export default function SharedAccessList({ users, isLoading }) {
   const [search, setSearch] = useState('');

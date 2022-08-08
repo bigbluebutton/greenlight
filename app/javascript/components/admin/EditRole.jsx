@@ -6,7 +6,7 @@ import {
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import useRole from '../../hooks/queries/admin/roles/useRole';
 import EditRoleForm from '../forms/admin/EditRoleForm';
-import Spinner from '../shared_components/stylings/Spinner';
+import Spinner from '../shared_components/utilities/Spinner';
 import AdminNavSideBar from './shared/AdminNavSideBar';
 
 export default function EditRole() {
