@@ -31,10 +31,16 @@ class Room < ApplicationRecord
   end
 
   def viewer_access_code
+    config = MeetingOption.get_config_value(name: 'glViewerAccessCode', provider: 'greenlight')&.value
+    return nil if config == 'false'
+
     get_setting(name: 'glViewerAccessCode')&.value
   end
 
   def moderator_access_code
+    config = MeetingOption.get_config_value(name: 'glModeratorAccessCode', provider: 'greenlight')&.value
+    return nil if config == 'false'
+
     get_setting(name: 'glModeratorAccessCode')&.value
   end
 

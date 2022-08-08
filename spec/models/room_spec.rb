@@ -69,20 +69,54 @@ RSpec.describe Room, type: :model do
   end
 
   describe '#viewer_access_code' do
+    before do
+      random_positive_value = %w[optional true].sample
+      allow(MeetingOption).to receive(:get_config_value).and_return(instance_double(RoomMeetingOption, value: random_positive_value))
+    end
+
     it 'calls #get_setting with name "glViewerAccessCode" and returns the value' do
       allow_any_instance_of(described_class).to receive(:get_setting).and_return(instance_double(RoomMeetingOption, value: 'CODE'))
-      expect_any_instance_of(described_class).to receive(:get_setting).with(name: 'glViewerAccessCode')
 
+      expect(MeetingOption).to receive(:get_config_value).with(name: 'glViewerAccessCode', provider: 'greenlight')
+      expect_any_instance_of(described_class).to receive(:get_setting).with(name: 'glViewerAccessCode')
       expect(room.viewer_access_code).to eq('CODE')
+    end
+
+    context 'AuthZ' do
+      it 'calls MeetingOption.get_config_value and return :nil if the config is "false"' do
+        allow_any_instance_of(described_class).to receive(:get_setting).and_return(instance_double(RoomMeetingOption, value: 'CODE'))
+        allow(MeetingOption).to receive(:get_config_value).and_return(instance_double(RoomMeetingOption, value: 'false'))
+
+        expect(MeetingOption).to receive(:get_config_value).with(name: 'glViewerAccessCode', provider: 'greenlight')
+        expect_any_instance_of(described_class).not_to receive(:get_setting)
+        expect(room.viewer_access_code).to be_nil
+      end
     end
   end
 
   describe '#moderator_access_code' do
+    before do
+      random_positive_value = %w[optional true].sample
+      allow(MeetingOption).to receive(:get_config_value).and_return(instance_double(RoomMeetingOption, value: random_positive_value))
+    end
+
     it 'calls #get_setting with name "glModeratorAccessCode" and returns the value' do
       allow_any_instance_of(described_class).to receive(:get_setting).and_return(instance_double(RoomMeetingOption, value: 'CODE'))
-      expect_any_instance_of(described_class).to receive(:get_setting).with(name: 'glModeratorAccessCode')
 
+      expect(MeetingOption).to receive(:get_config_value).with(name: 'glModeratorAccessCode', provider: 'greenlight')
+      expect_any_instance_of(described_class).to receive(:get_setting).with(name: 'glModeratorAccessCode')
       expect(room.moderator_access_code).to eq('CODE')
+    end
+
+    context 'AuthZ' do
+      it 'calls MeetingOption.get_config_value and return :nil if the config is "false"' do
+        allow_any_instance_of(described_class).to receive(:get_setting).and_return(instance_double(RoomMeetingOption, value: 'CODE'))
+        allow(MeetingOption).to receive(:get_config_value).and_return(instance_double(RoomMeetingOption, value: 'false'))
+
+        expect(MeetingOption).to receive(:get_config_value).with(name: 'glModeratorAccessCode', provider: 'greenlight')
+        expect_any_instance_of(described_class).not_to receive(:get_setting)
+        expect(room.moderator_access_code).to be_nil
+      end
     end
   end
 
