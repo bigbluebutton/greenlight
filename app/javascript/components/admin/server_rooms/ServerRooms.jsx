@@ -64,6 +64,7 @@ export default function ServerRooms() {
                         page={serverRooms.meta.page}
                         totalPages={serverRooms.meta.pages}
                         setPage={setPage}
+                        borders
                       />
                       )}
                   </div>

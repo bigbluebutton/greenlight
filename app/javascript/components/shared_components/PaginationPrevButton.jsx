@@ -2,8 +2,9 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { ArrowRightIcon } from '@heroicons/react/solid';
+import PropTypes from 'prop-types';
 
-export default function PaginationButton({direction}) {
+export default function PaginationButton({ direction }) {
   if (direction === 'Previous') {
     return (
       <Button variant="brand-backward">
@@ -22,3 +23,7 @@ export default function PaginationButton({direction}) {
     );
   }
 }
+
+PaginationButton.propTypes = {
+  direction: PropTypes.string.isRequired,
+};

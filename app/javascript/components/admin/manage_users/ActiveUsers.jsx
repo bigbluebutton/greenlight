@@ -17,6 +17,7 @@ export default function ActiveUsers({ input }) {
           page={activeUsers.meta.page}
           totalPages={activeUsers.meta.pages}
           setPage={setPage}
+          borders
         />
         )}
     </div>

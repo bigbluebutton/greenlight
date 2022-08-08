@@ -57,6 +57,7 @@ export default function ServerRecordings() {
                               page={serverRecordings.meta.page}
                               totalPages={serverRecordings.meta.pages}
                               setPage={setPage}
+                              borders
                             />
                           )}
                       </Col>
