@@ -12,7 +12,7 @@ RSpec.describe Api::V1::SiteSettingsController, type: :controller do
 
   describe '#show' do
     it 'calls SettingGetter and returns the value from it' do
-      expect(SettingGetter).to receive(:new).with(setting_name: 'SettingName', provider: 'greenlight', host: 'test.host').and_call_original
+      expect(SettingGetter).to receive(:new).with(setting_name: 'SettingName', provider: 'greenlight').and_call_original
       allow_any_instance_of(SettingGetter).to receive(:call).and_return({ 'value' => 'false' })
 
       get :show, params: { name: 'SettingName' }

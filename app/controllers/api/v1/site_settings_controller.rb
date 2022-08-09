@@ -7,9 +7,7 @@ module Api
 
       # GET /api/v1/site_settings/:name
       def show
-        render_data data: SettingGetter.new(setting_name: params[:name],
-                                            provider: 'greenlight',
-                                            host: request.host).call, status: :ok # TODO: - ahmad: fix provider
+        render_data data: SettingGetter.new(setting_name: params[:name], provider: 'greenlight').call, status: :ok # TODO: - ahmad: fix provider
       end
     end
   end

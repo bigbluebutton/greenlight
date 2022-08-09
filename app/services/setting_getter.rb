@@ -3,13 +3,9 @@
 class SettingGetter
   include Rails.application.routes.url_helpers
 
-  def initialize(setting_name:, provider:, host: nil)
+  def initialize(setting_name:, provider:)
     @setting_name = setting_name
     @provider = provider
-
-    return if host.nil? || setting_name != 'BrandingImage'
-
-    Rails.application.routes.default_url_options[:host] = host # Only needed using image attachment
   end
 
   def call
@@ -20,7 +16,7 @@ class SettingGetter
                          )
 
     value = if setting.image.attached?
-              url_for(setting.image)
+              rails_blob_path setting.image, only_path: true
             else
               setting&.value
             end
