@@ -31,7 +31,8 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         logout_url: logout,
         presentation_url:,
         meeting_ended: meeting_ended_url,
-        recording_ready: recording_ready_url
+        recording_ready: recording_ready_url,
+        provider: 'greenlight'
       )
 
       post :start, params: { friendly_id: room.friendly_id }
@@ -50,7 +51,8 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         logout_url: logout,
         presentation_url:,
         meeting_ended: meeting_ended_url,
-        recording_ready: recording_ready_url
+        recording_ready: recording_ready_url,
+        provider: 'greenlight'
       )
 
       post :start, params: { friendly_id: room.friendly_id }
