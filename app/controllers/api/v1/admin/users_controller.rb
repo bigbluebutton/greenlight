@@ -29,6 +29,7 @@ module Api
           end
         end
 
+        # TODO: Remove duplication, use destroy from users_controller instead
         def destroy
           # TODO: Will need to add additional logic later
           if @user.destroy

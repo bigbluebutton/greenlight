@@ -60,7 +60,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
       room_valid_params = { name: 'Awesome Room' }
       create(:role_permission, permission: manage_users_permission, role:, value: 'false', provider: 'greenlight')
       expect { post :create_server_room, params: { user_id: user.id, room: room_valid_params } }.not_to(change { user.rooms.count })
-      expect(response).to have_http_status(:unauthorized)
+      expect(response).to have_http_status(:forbidden)
     end
 
     it 'returns :not_found for unfound users' do

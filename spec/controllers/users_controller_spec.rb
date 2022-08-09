@@ -76,8 +76,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     it 'does not delete any user if the user id is invalid' do
       expect { delete :destroy, params: { id: 'invalid-id' } }.not_to change(User, :count)
-      # TODO: - maybe ensure_authorized should return a :not_found if the user is not authorized AND the param doesn't exists?
-      expect(response).to have_http_status(:unauthorized)
+      expect(response).to have_http_status(:not_found)
     end
   end
 
