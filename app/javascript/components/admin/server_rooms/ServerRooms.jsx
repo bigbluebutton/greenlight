@@ -60,12 +60,14 @@ export default function ServerRooms() {
                     </Table>
                     {!isLoading
                       && (
-                      <Pagination
-                        page={serverRooms.meta.page}
-                        totalPages={serverRooms.meta.pages}
-                        setPage={setPage}
-                        borders
-                      />
+                        <div className="table-pagination-wrapper">
+                          <Pagination
+                            page={serverRooms.meta.page}
+                            totalPages={serverRooms.meta.pages}
+                            setPage={setPage}
+                            borders
+                          />
+                        </div>
                       )}
                   </div>
                 </Container>

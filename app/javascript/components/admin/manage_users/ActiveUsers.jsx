@@ -13,12 +13,14 @@ export default function ActiveUsers({ input }) {
       <ManageUsersTable users={activeUsers?.data} />
       {!isLoading
         && (
-        <Pagination
-          page={activeUsers.meta.page}
-          totalPages={activeUsers.meta.pages}
-          setPage={setPage}
-          borders
-        />
+          <div className="table-pagination-wrapper">
+            <Pagination
+              page={activeUsers.meta.page}
+              totalPages={activeUsers.meta.pages}
+              setPage={setPage}
+              borders
+            />
+          </div>
         )}
     </div>
   );
