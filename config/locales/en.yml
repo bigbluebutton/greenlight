@@ -683,3 +683,5 @@ en:
     signin: Please sign in to access your account.
     title: Verify your email
     verification: Verification
+  session:
+    expired: Session expired (Please sign in again.).
