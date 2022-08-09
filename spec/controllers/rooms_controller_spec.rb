@@ -16,8 +16,6 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    permission = create(:permission, name: 'ManageRooms')
-    create(:role_permission, role_id: user.role.id, permission_id: permission.id, value: 'true', provider: 'greenlight')
     session[:user_id] = user.id
   end
 
