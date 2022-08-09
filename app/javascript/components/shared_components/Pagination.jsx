@@ -1,28 +1,22 @@
 import React from 'react';
-import { Pagination as PaginationSematicUi } from 'semantic-ui-react';
+import { Pagination as PaginationSemanticUi } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import PaginationButton from './PaginationPrevButton';
 
 export default function Pagination({
   page, totalPages, setPage,
 }) {
-  const handlePage = (e, { activePage }) => {
-    const gotopage = { activePage };
-    const pagenum = gotopage.activePage;
-    setPage(pagenum);
-  };
+  const handlePage = (e, { activePage }) => setPage(activePage);
 
-  if (totalPages > 0) {
+  if (totalPages > 1) {
     return (
-      <PaginationSematicUi
+      <PaginationSemanticUi
         secondary
-        boundaryRange={3}
         defaultActivePage={page}
         totalPages={totalPages}
         onPageChange={handlePage}
         firstItem={null}
         lastItem={null}
-        siblingRange={1}
         prevItem={{
           content: <PaginationButton direction="Previous" />,
           icon: true,
@@ -42,8 +36,4 @@ Pagination.propTypes = {
   page: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
   setPage: PropTypes.func.isRequired,
-};
-
-Pagination.defaultProps = {
-  borders: false,
 };
