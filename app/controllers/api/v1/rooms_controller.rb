@@ -9,6 +9,9 @@ module Api
                              generate_access_code remove_access_code]
 
       skip_before_action :ensure_authenticated, only: %i[show]
+      before_action only: %i[show] do
+        ensure_authorized('ManageRooms')
+      end
 
       include Avatarable
       include Presentable

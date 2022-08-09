@@ -4,7 +4,7 @@ import {
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../../contexts/auth/AuthProvider';
+import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function AdminNavSideBar() {
   const currentUser = useAuth();

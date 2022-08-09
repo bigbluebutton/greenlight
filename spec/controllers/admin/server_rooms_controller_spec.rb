@@ -3,13 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
-  let(:user) { create(:user, role: create(:role, name: 'Admin')) }
+  let(:role) { create(:role) }
+  let(:user) { create(:user, role:) }
+  let(:manage_rooms_permission) { create(:permission, name: 'ManageRooms') }
+  let!(:manage_rooms_role_permission) do
+    create(:role_permission,
+           role_id: user.role_id,
+           permission_id: manage_rooms_permission.id,
+           value: 'true',
+           provider: 'greenlight')
+  end
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-
-    permission = create(:permission, name: 'ManageRooms')
-    create(:role_permission, role_id: user.role.id, permission_id: permission.id, value: 'true', provider: 'greenlight')
     session[:user_id] = user.id
   end
 
@@ -25,6 +31,18 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
       get :index
       expect(JSON.parse(response.body)['data'].map { |room| room['friendly_id'] })
         .to match_array(Room.all.pluck(:friendly_id))
+    end
+
+    it 'admin without the ManageRooms right cannot return all the Server Rooms from all users' do
+      user_one = create(:user)
+      user_two = create(:user)
+      manage_rooms_role_permission.update!(value: 'false')
+      create_list(:room, 2, user_id: user_one.id)
+      create_list(:room, 2, user_id: user_two.id)
+
+      allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
+      get :index
+      expect(response).to have_http_status(:forbidden)
     end
 
     it 'returns the server room status as active if the meeting has started' do
@@ -59,6 +77,13 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
       room = create(:room)
       expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Room, :count).from(1).to(0)
       expect(response).to have_http_status(:ok)
+    end
+
+    it 'admin without the ManageRooms right cannot remove a given room that is not theirs' do
+      room = create(:room)
+      manage_rooms_role_permission.update!(value: 'false')
+      expect { delete :destroy, params: { friendly_id: room.friendly_id } }.not_to change(Room, :count)
+      expect(response).to have_http_status(:forbidden)
     end
 
     it 'returns :not_found for not found rooms' do
