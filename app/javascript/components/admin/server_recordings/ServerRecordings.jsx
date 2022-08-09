@@ -53,12 +53,11 @@ export default function ServerRecordings() {
                         />
                         {!isLoading
                           && (
-                            <div className="table-pagination-wrapper">
+                            <div className="pagination-wrapper">
                               <Pagination
                                 page={serverRecordings.meta.page}
                                 totalPages={serverRecordings.meta.pages}
                                 setPage={setPage}
-                                borders
                               />
                             </div>
                           )}

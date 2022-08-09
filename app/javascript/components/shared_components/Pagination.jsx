@@ -10,22 +10,24 @@ export default function Pagination({
 
   if (totalPages > 1) {
     return (
-      <PaginationSemanticUi
-        secondary
-        defaultActivePage={page}
-        totalPages={totalPages}
-        onPageChange={handlePage}
-        firstItem={null}
-        lastItem={null}
-        prevItem={{
-          content: <PaginationButton direction="Previous" />,
-          icon: true,
-        }}
-        nextItem={{
-          content: <PaginationButton direction="Next" />,
-          icon: true,
-        }}
-      />
+      <div className="semantic-ui-pagination">
+        <PaginationSemanticUi
+          secondary
+          defaultActivePage={page}
+          totalPages={totalPages}
+          onPageChange={handlePage}
+          firstItem={null}
+          lastItem={null}
+          prevItem={{
+            content: <PaginationButton direction="Previous" />,
+            icon: true,
+          }}
+          nextItem={{
+            content: <PaginationButton direction="Next" />,
+            icon: true,
+          }}
+        />
+      </div>
     );
   }
 
