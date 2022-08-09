@@ -135,6 +135,10 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   end
 
   describe '#generate_access_code' do
+    before do
+      allow(MeetingOption).to receive(:get_config_value).and_return(instance_double(RoomMeetingOption, { value: %w[optional true].sample }))
+    end
+
     context 'bbb_role == "Viewer"' do
       it 'calls Room#generate_viewer_access_code and returns :ok if it returns true' do
         allow_any_instance_of(Room).to receive(:generate_viewer_access_code).and_return(true)
@@ -150,6 +154,18 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         room = create(:room)
         patch :generate_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Viewer' }
         expect(response).to have_http_status(:bad_request)
+      end
+
+      context 'AuthZ' do
+        it 'returns :forbidden when "glViewerAccessCode" config is "false"' do
+          allow(MeetingOption).to receive(:get_config_value).and_return(instance_double(RoomMeetingOption, { value: 'false' }))
+          room = create(:room)
+
+          expect_any_instance_of(Room).not_to receive(:generate_viewer_access_code)
+          expect(MeetingOption).to receive(:get_config_value).with(name: 'glViewerAccessCode', provider: 'greenlight')
+          patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Viewer' }
+          expect(response).to have_http_status(:forbidden)
+        end
       end
     end
 
@@ -169,10 +185,26 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         patch :generate_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Moderator' }
         expect(response).to have_http_status(:bad_request)
       end
+
+      context 'AuthZ' do
+        it 'returns :forbidden when "glModeratorAccessCode" config is "false"' do
+          allow(MeetingOption).to receive(:get_config_value).and_return(instance_double(RoomMeetingOption, { value: 'false' }))
+          room = create(:room)
+
+          expect_any_instance_of(Room).not_to receive(:generate_moderator_access_code)
+          expect(MeetingOption).to receive(:get_config_value).with(name: 'glModeratorAccessCode', provider: 'greenlight')
+          patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Moderator' }
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
     end
   end
 
   describe '#remove_access_code' do
+    before do
+      allow(MeetingOption).to receive(:get_config_value).and_return(instance_double(RoomMeetingOption, { value: 'optional' }))
+    end
+
     context 'bbb_role == "Viewer"' do
       it 'calls Room#remove_viewer_access_code and returns :ok if it returns true' do
         allow_any_instance_of(Room).to receive(:remove_viewer_access_code).and_return(true)
@@ -188,6 +220,28 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         room = create(:room)
         patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Viewer' }
         expect(response).to have_http_status(:bad_request)
+      end
+
+      context 'AuthZ' do
+        it 'returns :forbidden when "glViewerAccessCode" config is "true"' do
+          allow(MeetingOption).to receive(:get_config_value).and_return(instance_double(RoomMeetingOption, { value: 'true' }))
+          room = create(:room)
+
+          expect_any_instance_of(Room).not_to receive(:remove_viewer_access_code)
+          expect(MeetingOption).to receive(:get_config_value).with(name: 'glViewerAccessCode', provider: 'greenlight')
+          patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Viewer' }
+          expect(response).to have_http_status(:forbidden)
+        end
+
+        it 'returns :forbidden when "glViewerAccessCode" config is "false"' do
+          allow(MeetingOption).to receive(:get_config_value).and_return(instance_double(RoomMeetingOption, { value: 'false' }))
+          room = create(:room)
+
+          expect_any_instance_of(Room).not_to receive(:remove_viewer_access_code)
+          expect(MeetingOption).to receive(:get_config_value).with(name: 'glViewerAccessCode', provider: 'greenlight')
+          patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Viewer' }
+          expect(response).to have_http_status(:forbidden)
+        end
       end
     end
 
@@ -206,6 +260,28 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         room = create(:room)
         patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Moderator' }
         expect(response).to have_http_status(:bad_request)
+      end
+
+      context 'AuthZ' do
+        it 'returns :forbidden when "glModeratorAccessCode" config is "true"' do
+          allow(MeetingOption).to receive(:get_config_value).and_return(instance_double(RoomMeetingOption, { value: 'true' }))
+          room = create(:room)
+
+          expect_any_instance_of(Room).not_to receive(:remove_viewer_access_code)
+          expect(MeetingOption).to receive(:get_config_value).with(name: 'glModeratorAccessCode', provider: 'greenlight')
+          patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Moderator' }
+          expect(response).to have_http_status(:forbidden)
+        end
+
+        it 'returns :forbidden when "glModeratorAccessCode" config is "false"' do
+          allow(MeetingOption).to receive(:get_config_value).and_return(instance_double(RoomMeetingOption, { value: 'false' }))
+          room = create(:room)
+
+          expect_any_instance_of(Room).not_to receive(:remove_viewer_access_code)
+          expect(MeetingOption).to receive(:get_config_value).with(name: 'glModeratorAccessCode', provider: 'greenlight')
+          patch :remove_access_code, params: { friendly_id: room.friendly_id, bbb_role: 'Moderator' }
+          expect(response).to have_http_status(:forbidden)
+        end
       end
     end
   end
