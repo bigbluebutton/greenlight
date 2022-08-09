@@ -16,12 +16,13 @@ module Api
 
       # PATCH /api/v1/room_settings/:friendly_id
       def update
-        RoomMeetingOption
-          .includes(:meeting_option)
-          .joins(:meeting_option)
-          .where(room_id: @room.id)
-          .where(meeting_option: { name: room_setting_params[:settingName] })
-          .update(value: room_setting_params[:settingValue].to_s)
+        config = MeetingOption.get_config_value(name: room_setting_params[:settingName], provider: 'greenlight')&.value
+
+        return render_error status: :forbidden unless config == 'optional'
+
+        option = @room.get_setting(name: room_setting_params[:settingName])
+
+        return render_error status: :bad_request unless option&.update(value: room_setting_params[:settingValue].to_s)
 
         render_data status: :ok
       end
