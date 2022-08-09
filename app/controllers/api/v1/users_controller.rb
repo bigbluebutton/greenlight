@@ -5,6 +5,10 @@ module Api
     class UsersController < ApiController
       skip_before_action :ensure_authenticated, only: %i[create]
 
+      before_action only: %i[update purge_avatar] do
+        ensure_authorized('ManageUsers')
+      end
+
       def show
         user = User.find(params[:id])
 

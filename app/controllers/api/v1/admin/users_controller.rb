@@ -6,6 +6,10 @@ module Api
       class UsersController < ApiController
         before_action :find_user, only: :destroy
 
+        before_action only: %i[create destroy create_server_room] do
+          ensure_authorized('ManageUsers')
+        end
+
         include Avatarable
 
         def create
@@ -25,6 +29,7 @@ module Api
           end
         end
 
+        # TODO: Remove duplication, use destroy from users_controller instead
         def destroy
           # TODO: Will need to add additional logic later
           if @user.destroy
