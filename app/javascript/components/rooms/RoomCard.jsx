@@ -4,7 +4,7 @@ import { Button, Card, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { UserIcon, DuplicateIcon, LinkIcon } from '@heroicons/react/outline';
 import { toast } from 'react-hot-toast';
-import Spinner from '../shared/stylings/Spinner';
+import Spinner from '../shared_components/utilities/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 
 function copyInvite(friendlyId) {

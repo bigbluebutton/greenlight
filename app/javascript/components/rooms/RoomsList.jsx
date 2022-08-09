@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import {
   Row, Col, Button, Stack,
 } from 'react-bootstrap';
-import Spinner from '../shared/stylings/Spinner';
+import Spinner from '../shared_components/utilities/Spinner';
 import RoomCard from './RoomCard';
 import useRooms from '../../hooks/queries/rooms/useRooms';
 import useCreateRoom from '../../hooks/mutations/rooms/useCreateRoom';
 import RoomPlaceHolder from './RoomPlaceHolder';
-import Modal from '../shared/Modal';
-import CreateRoomForm from '../forms/CreateRoomForm';
-import SearchBar from '../shared/SearchBar';
+import Modal from '../shared_components/modals/Modal';
+import CreateRoomForm from './room/forms/CreateRoomForm';
+import SearchBar from '../shared_components/search/SearchBar';
 
 export default function RoomsList() {
   const { isLoading, data: rooms } = useRooms();

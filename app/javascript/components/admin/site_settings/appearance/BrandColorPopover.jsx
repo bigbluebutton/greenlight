@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
 import { Stack } from 'react-bootstrap';
 import useUpdateSiteSetting
-  from '../../../../hooks/mutations/admins/site_settings/useUpdateSiteSetting';
+  from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 
 export default function BrandColorPopover({
   name, btnName, btnVariant, initialColor,

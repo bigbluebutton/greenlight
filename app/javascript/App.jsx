@@ -2,9 +2,9 @@ import React from 'react';
 import { Container, Spinner } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import Header from './components/shared/Header';
+import Header from './components/shared_components/Header';
 import { useAuth } from './contexts/auth/AuthProvider';
-import Footer from './components/shared/Footer';
+import Footer from './components/shared_components/Footer';
 import useSiteSettingAsync from './hooks/queries/site_settings/useSiteSettingAsync';
 
 export default function App() {

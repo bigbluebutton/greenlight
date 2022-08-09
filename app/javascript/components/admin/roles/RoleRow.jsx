@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Badge, Dropdown } from 'react-bootstrap';
 import { DotsVerticalIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
-import Modal from '../../shared/Modal';
-import DeleteRoleForm from '../../forms/DeleteRoleForm';
+import Modal from '../../shared_components/modals/Modal';
+import DeleteRoleForm from './forms/DeleteRoleForm';
 
 export default function RoleRow({ role }) {
   return (

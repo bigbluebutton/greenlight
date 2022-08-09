@@ -3,10 +3,10 @@ import {
   Card, Stack,
 } from 'react-bootstrap';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
-import SearchBarQuery from '../shared/SearchBarQuery';
+import SearchBarQuery from '../shared_components/search/SearchBarQuery';
 import RecordingsList from './RecordingsList';
-import RoomsRecordingRow from './RoomsRecordingRow';
-import Pagy from '../shared/Pagy';
+import RoomsRecordingRow from './room_recordings/RoomsRecordingRow';
+import Pagy from '../shared_components/Pagy';
 
 export default function Recordings() {
   const [input, setInput] = useState();

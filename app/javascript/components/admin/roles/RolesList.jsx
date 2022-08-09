@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
 import RoleRow from './RoleRow';
-import SortBy from '../../shared/SortBy';
-import Spinner from '../../shared/stylings/Spinner';
+import SortBy from '../../shared_components/search/SortBy';
+import Spinner from '../../shared_components/utilities/Spinner';
 
 export default function RolesList({ roles, isLoading }) {
   return (

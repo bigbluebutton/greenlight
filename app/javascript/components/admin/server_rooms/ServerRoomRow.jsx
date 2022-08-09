@@ -5,9 +5,9 @@ import {
 import { Dropdown, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import useDeleteServerRoom from '../../../hooks/mutations/admins/server-rooms/useDeleteServerRoom';
-import Modal from '../../shared/Modal';
-import DeleteRoomForm from '../../forms/DeleteRoomForm';
+import useDeleteServerRoom from '../../../hooks/mutations/admin/server_rooms/useDeleteServerRoom';
+import Modal from '../../shared_components/modals/Modal';
+import DeleteRoomForm from '../../rooms/room/forms/DeleteRoomForm';
 import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
 import useRoomStatus from '../../../hooks/queries/rooms/useRoomStatus';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
