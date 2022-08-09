@@ -444,42 +444,60 @@ describe UsersController, type: :controller do
   end
 
   describe "POST #update_password" do
-    def params(mode = 0)
-      {
-        user: {
-          old_password: mode == 0 ? @user.password : "incorrect_password",
-          password: @password,
-          password_confirmation: mode == 2 ? "#{@password}_random_string" : @password,
-        }
-      }
-    end
     context "with 'terms and conditions' exist and without acceptance." do
       before do
         @user = create(:user, accepted_terms: false)
+        @password = "#{Faker::Internet.password(min_length: 8, mix_case: true, special_characters: true)}1aB+"
+        @datetime = Time.zone.now - 1.hours
         @request.session[:user_id] = @user.id
+        @request.session[:activated_at] = @datetime.to_i
         allow(Rails.configuration).to receive(:terms).and_return "This is a dummy text!"
-        @password = "#{Faker::Internet.password(min_length: 8, mix_case: true, special_characters: true)}1aB"
+        freeze_time
       end
-      it "properly updates users password" do
-        post :update_password, params: params.merge!(user_uid: @user)
-        @user.reload
 
-        expect(@user.authenticate(@password)).not_to be false
-        expect(@user.errors).to be_empty
-        expect(flash[:success]).to be_present
-        expect(response).to redirect_to(change_password_path(@user))
+      def expectations(data = {})
+        params = {
+          user: {
+            old_password: data[:pwd] || "incorrect_password",
+            password: @password,
+            password_confirmation: data[:new_pwd_conf] || @password,
+          }
+        }
+        post :update_password, params: params.merge!(user_uid: @user.uid)
+        @user.reload
+        yield
       end
+
+      it "properly updates users password" do
+        expect(@user.last_pwd_update).to be_nil
+        expectations(pwd: @user.password) {
+          expect(@user.last_pwd_update.to_i).to eql(Time.zone.now.to_i)
+          expect(@request.session[:activated_at]).to eql(@user.last_pwd_update.to_i)
+          expect(@user.authenticate(@password)).not_to be false
+          expect(@user.errors).to be_empty
+          expect(flash[:success]).to be_present
+          expect(response).to redirect_to(change_password_path(@user))
+        }
+      end
+
       it "doesn't update the users password if initial password is incorrect" do
-        post :update_password, params: params(1).merge!(user_uid: @user)
-        @user.reload
-        expect(@user.authenticate(@password)).to be false
-        expect(response).to render_template(:change_password)
+        last_pwd_update_before = @user.last_pwd_update
+        expectations {
+          expect(@user.last_pwd_update.to_i).to eql(last_pwd_update_before.to_i)
+          expect(@request.session[:activated_at]).to eql(@datetime.to_i)
+          expect(@user.authenticate(@password)).to be false
+          expect(response).to render_template(:change_password)
+        }
       end
+
       it "doesn't update the users password if new passwords don't match" do
-        post :update_password, params: params(2).merge!(user_uid: @user)
-        @user.reload
-        expect(@user.authenticate(@password)).to be false
-        expect(response).to render_template(:change_password)
+        last_pwd_update_before = @user.last_pwd_update
+        expectations(new_pwd_conf: "#{@password}_random_string") {
+          expect(@user.last_pwd_update.to_i).to eql(last_pwd_update_before.to_i)
+          expect(@request.session[:activated_at]).to eql(@datetime.to_i)
+          expect(@user.authenticate(@password)).to be false
+          expect(response).to render_template(:change_password)
+        }
       end
     end
   end
