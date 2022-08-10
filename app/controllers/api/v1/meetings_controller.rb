@@ -5,6 +5,9 @@ module Api
     class MeetingsController < ApiController
       before_action :find_room, only: %i[start join status]
       skip_before_action :ensure_authenticated, only: %i[join status]
+      before_action only: %i[start] do
+        ensure_authorized('ManageRooms')
+      end
 
       # POST /api/v1/meetings/:friendly_id/start.json
       # Returns: { data: Array[serializable objects] , errors: Array[String] }

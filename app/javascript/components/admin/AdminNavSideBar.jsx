@@ -4,8 +4,10 @@ import {
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function AdminNavSideBar() {
+  const currentUser = useAuth();
   return (
     <Nav variant="pills" className="flex-column">
       <Nav.Item>
@@ -14,12 +16,14 @@ export default function AdminNavSideBar() {
           Manage Users
         </Nav.Link>
       </Nav.Item>
-      <Nav.Item>
-        <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/server-rooms" eventKey="server-rooms">
-          <ServerIcon className="hi-s me-3" />
-          Server Rooms
-        </Nav.Link>
-      </Nav.Item>
+      {(currentUser.permissions.ManageRooms === 'true') && (
+        <Nav.Item>
+          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/server-rooms" eventKey="server-rooms">
+            <ServerIcon className="hi-s me-3" />
+            Server Rooms
+          </Nav.Link>
+        </Nav.Item>
+      )}
       <Nav.Item>
         <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/server-recordings" eventKey="server-recordings">
           <VideoCameraIcon className="hi-s me-3" />

@@ -3,7 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RoomsController, type: :controller do
-  let(:user) { create(:user) }
+  let(:role) { create(:role) }
+  let(:user) { create(:user, role:) }
+  let(:manage_rooms_permission) { create(:permission, name: 'ManageRooms') }
+  let!(:manage_rooms_role_permission) do
+    create(:role_permission,
+           role_id: user.role_id,
+           permission_id: manage_rooms_permission.id,
+           value: 'true',
+           provider: 'greenlight')
+  end
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -39,6 +48,13 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       get :show, params: { friendly_id: 'invalid_friendly_id' }
       expect(response).to have_http_status(:not_found)
       expect(JSON.parse(response.body)['data']).to be_nil
+    end
+
+    it 'admin cannot return another users room without ManageRooms permission' do
+      room = create(:room)
+      manage_rooms_role_permission.update!(value: 'false')
+      get :show, params: { friendly_id: room.friendly_id }
+      expect(response).to have_http_status(:forbidden)
     end
 
     context 'include_owner' do
