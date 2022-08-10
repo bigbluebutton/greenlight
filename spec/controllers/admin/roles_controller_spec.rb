@@ -3,7 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::RolesController, type: :controller do
-  let(:user) { create(:user, role: create(:role, name: 'User')) }
+  let(:role) { create(:role, name: 'User') }
+  let(:user) { create(:user, role:) }
+  let(:manage_roles_permission) { create(:permission, name: 'ManageRoles') }
+  let!(:manage_roles_role_permission) do
+    create(:role_permission,
+           role_id: user.role_id,
+           permission_id: manage_roles_permission.id,
+           value: 'true',
+           provider: 'greenlight')
+  end
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -18,6 +27,14 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       get :index
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(roles.pluck(:id))
+    end
+
+    it 'admin without ManageRoles permission cannot return the list of roles' do
+      roles = [create(:role, name: 'Hokage'), create(:role, name: 'Jonin'), create(:role, name: 'Chunin')]
+      roles << user.role
+      manage_roles_role_permission.update!(value: 'false')
+      get :index
+      expect(response).to have_http_status(:forbidden)
     end
 
     it 'returns the roles according to the query' do
@@ -67,6 +84,13 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(JSON.parse(response.body)['errors']).to be_nil
     end
 
+    it 'returns :forbidden for admin without ManageRoles permission' do
+      valid_params = { name: 'CrazyRole' }
+      manage_roles_role_permission.update!(value: 'false')
+      expect { post :create, params: { role: valid_params } }.not_to change(Role, :count)
+      expect(response).to have_http_status(:forbidden)
+    end
+
     it 'returns :bad_request for invalid params' do
       invalid_params = { name: '' }
       post :create, params: { not_role: invalid_params }
@@ -84,6 +108,14 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(role.reload.name).to eq(valid_params[:name])
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)['errors']).to be_nil
+    end
+
+    it 'returns :forbidden for admin without ManageRoles permission' do
+      valid_params = { name: 'CrazyRole' }
+      manage_roles_role_permission.update!(value: 'false')
+      post :update, params: { id: role.id, role: valid_params }
+      expect(role.reload.name).not_to eq(valid_params[:name])
+      expect(response).to have_http_status(:forbidden)
     end
 
     it 'returns :not_found for unfound roles' do
@@ -108,6 +140,13 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(JSON.parse(response.body)['data']['id']).to eq(role.id)
     end
 
+    it 'admin without ManageRoles permission cannot return the role' do
+      role = create(:role)
+      manage_roles_role_permission.update!(value: 'false')
+      get :show, params: { id: role.id }
+      expect(response).to have_http_status(:forbidden)
+    end
+
     it 'returns :not_found for unfound roles' do
       create(:role)
       get :show, params: { id: 'Invalid' }
@@ -120,6 +159,13 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       role = create(:role)
       expect { delete :destroy, params: { id: role.id } }.to change(Role, :count).by(-1)
       expect(response).to have_http_status(:ok)
+    end
+
+    it 'admin without ManageRoles permission cannot remove a given role' do
+      role = create(:role)
+      manage_roles_role_permission.update!(value: 'false')
+      expect { delete :destroy, params: { id: role.id } }.not_to change(Role, :count)
+      expect(response).to have_http_status(:forbidden)
     end
 
     it 'returns :not_found for not found roles' do
