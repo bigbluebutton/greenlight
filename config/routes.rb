@@ -43,7 +43,6 @@ Rails.application.routes.draw do
       resources :room_settings, only: %i[show update], param: :friendly_id
       resources :recordings, only: %i[index update destroy] do
         collection do
-          get '/resync', to: 'recordings#resync'
           post '/update_visibility', to: 'recordings#update_visibility'
         end
       end
@@ -72,8 +71,12 @@ Rails.application.routes.draw do
             post '/:user_id/create_server_room', to: 'users#create_server_room'
           end
         end
+        resources :server_recordings, only: %i[index] do
+          collection do
+            get '/resync', to: 'server_recordings#resync'
+          end
+        end
         resources :server_rooms, only: %i[index destroy], param: :friendly_id
-        resources :server_recordings, only: %i[index]
         resources :site_settings, only: %i[index update], param: :name
         resources :rooms_configurations, only: :update, param: :name
         resources :roles

@@ -3,7 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RecordingsController, type: :controller do
-  let(:user) { create(:user) }
+  let(:role) { create(:role) }
+  let(:user) { create(:user, role:) }
+  let(:manage_recordings_permission) { create(:permission, name: 'ManageRecordings') }
+  let!(:manage_recordings_role_permission) do
+    create(:role_permission,
+           role_id: user.role_id,
+           permission_id: manage_recordings_permission.id,
+           value: 'true',
+           provider: 'greenlight')
+  end
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -18,7 +27,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
 
       expect(response).to have_http_status(:ok)
       response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
-      expect(response_recording_ids).to eq(recordings.pluck(:id))
+      expect(response_recording_ids).to match_array(recordings.pluck(:id))
     end
 
     it 'returns no ids when there are no recordings that belong to current_user' do
@@ -91,6 +100,14 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
+    it 'admin without ManageRecordings permission cannot update the recordings name' do
+      manage_recordings_role_permission.update!(value: 'false')
+      expect { post :update, params: { recording: { name: 'My Awesome Recording!' }, id: recording.record_id } }.not_to(change do
+                                                                                                                          recording.reload.name
+                                                                                                                        end)
+      expect(response).to have_http_status(:forbidden)
+    end
+
     it 'does not update the recordings name for invalid params returning a :bad_request status code' do
       expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
 
@@ -115,25 +132,17 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
   #     recording = create(:recording)
   #     expect { delete :destroy, params: { id: recording.id } }.to change(Recording, :count).by(-1)
   #   end
-
+  #   it 'admin without ManageRecordings permission cannot delete recording from the database' do
+  #     recording = create(:recording)
+  #     expect { delete :destroy, params: { id: recording.id } }.not_to change(Recording, :count)
+  #     expect(response).to have_http_status(:forbidden)
+  #   end
   #   it 'deletes formats associated with the recording from the database' do
   #     recording = create(:recording)
   #     create_list(:format, 5, recording:)
   #     expect { delete :destroy, params: { id: recording.id } }.to change(Format, :count).by(-5)
   #   end
   # end
-
-  describe '#recordings' do
-    it 'calls the RecordingsSync service correctly' do
-      expect_any_instance_of(RecordingsSync).to receive(:call)
-      get :resync
-    end
-
-    it 'calls the RecordingsSync service with correct params' do
-      expect(RecordingsSync).to receive(:new).with(user:)
-      get :resync
-    end
-  end
 
   describe '#update_visibility' do
     it 'changes the recording from Published to Unpublished on the bbb server' do
