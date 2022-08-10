@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import axios from '../../../helpers/Axios';
 
-export default function useUpdateUser(userId) {
+export default function useDeleteUser(userId) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 

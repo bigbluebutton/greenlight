@@ -9,8 +9,13 @@ module Api
                              generate_access_code remove_access_code]
 
       skip_before_action :ensure_authenticated, only: %i[show]
+
       before_action only: %i[show] do
         ensure_authorized('ManageRooms')
+      end
+
+      before_action only: %i[create] do
+        ensure_authorized('ManageUsers')
       end
 
       include Avatarable
@@ -37,7 +42,9 @@ module Api
       # POST /api/v1/rooms.json
       def create
         # TODO: amir - ensure accessibility for authenticated requests only.
-        room = Room.create!(room_create_params.merge(user_id: current_user.id))
+        # Admin request will provide a user_id params if the room is created for another user
+        user_id = params[:user_id] || current_user.id
+        room = Room.create!(room_params.merge(user_id:))
         logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{current_user.id}"
         render_data status: :created
       end
@@ -128,7 +135,7 @@ module Api
         @room = Room.find_by!(friendly_id: params[:friendly_id])
       end
 
-      def room_create_params
+      def room_params
         params.require(:room).permit(:name)
       end
     end

@@ -4,11 +4,64 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
   let(:user) { create(:user) }
+  let!(:role) { create(:role, name: 'User') }
+  let(:admin_role) { create(:role) }
+  let(:manage_users_permission) { create(:permission, name: 'ManageUsers') }
+  let!(:manage_users_role_permission) do
+    create(:role_permission,
+           role_id: admin_role.id,
+           permission_id: manage_users_permission.id,
+           value: 'true',
+           provider: 'greenlight')
+  end
 
   before do
     request.headers['ACCEPT'] = 'application/json'
     session[:user_id] = user.id
   end
+
+  describe '#create' do
+    let(:user_params) do
+      {
+        user: {
+          name: Faker::Name.name,
+          email: Faker::Internet.email,
+          password: 'Password123+',
+          password_confirmation: 'Password123+',
+          language: 'language'
+        }
+      }
+    end
+
+    it 'creates a new user via the admin interface' do
+      manage_users_role_permission
+      user.update!(role_id: admin_role.id)
+      expect { post :create, params: user_params }.to change(User, :count).by(+1)
+      expect(response).to have_http_status(:created)
+    end
+
+    it 'creates a user account for valid params' do
+      expect { post :create, params: user_params }.to change(User, :count).by(+1)
+      expect(response).to have_http_status(:created)
+    end
+
+    it 'generates an activation token for the user' do
+      freeze_time
+
+      post :create, params: user_params
+      user = User.find_by email: user_params[:user][:email]
+      expect(user.activation_digest).to be_present
+      expect(user.activation_sent_at).to eq(Time.current)
+      expect(user).not_to be_active
+    end
+
+    it 'assigns the User role to the user' do
+      post :create, params: user_params
+      user = User.find_by(email: user_params[:user][:email])
+      expect(user.role).to eq(role)
+    end
+  end
+
 
   describe '#show' do
     it 'returns a user if id is valid' do
@@ -75,6 +128,18 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
 
     it 'does not delete any user if the user id is invalid' do
+      expect { delete :destroy, params: { id: 'invalid-id' } }.not_to change(User, :count)
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'deletes a user via the admin interface if the admin has the permission' do
+      user.update!(role_id: admin_role.id)
+      new_user = create(:user)
+      expect { delete :destroy, params: { id: new_user.id } }.to change(User, :count).by(-1)
+    end
+
+    it 'returns status code not found if admin with the ManageUser permission tries to delete a user with an invalid user id' do
+      user.update!(role_id: admin_role.id)
       expect { delete :destroy, params: { id: 'invalid-id' } }.not_to change(User, :count)
       expect(response).to have_http_status(:not_found)
     end

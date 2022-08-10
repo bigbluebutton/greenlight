@@ -5,7 +5,7 @@ module Api
     class UsersController < ApiController
       skip_before_action :ensure_authenticated, only: %i[create]
 
-      before_action only: %i[update purge_avatar] do
+      before_action only: %i[update destroy purge_avatar] do
         ensure_authorized('ManageUsers')
       end
 
@@ -19,7 +19,6 @@ module Api
       # Expects: { user: { :name, :email, :password, :password_confirmation } }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: Creates and saves a new user record in the database with the provided parameters.
-
       def create
         # TODO: amir - ensure accessibility for unauthenticated requests only.
         params[:user][:language] = I18n.default_locale if params[:user][:language].blank?
@@ -30,7 +29,7 @@ module Api
         return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         if user.save
-          session[:user_id] = user.id
+          session[:user_id] ||= user.id
           token = user.generate_activation_token!
           render_data data: { token: }, status: :created # TODO: enable activation email sending.
         else

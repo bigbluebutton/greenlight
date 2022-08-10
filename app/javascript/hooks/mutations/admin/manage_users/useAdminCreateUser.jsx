@@ -14,11 +14,12 @@ export default function useAdminCreateUser({ onSettled }) {
   };
 
   return useMutation(
-    (user) => axios.post('/admin/users.json', { user }),
+    (user) => axios.post('/users.json', { user }),
     {
       onMutate: addInferredLanguage,
       onSuccess: () => {
         queryClient.invalidateQueries('getAdminUsers');
+        toast.success('User was created.');
       },
       onError: () => {
         toast.error('There was a problem completing that action. \n Please try again.');

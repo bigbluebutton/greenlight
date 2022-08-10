@@ -6,6 +6,14 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   let(:role) { create(:role) }
   let(:user) { create(:user, role:) }
   let(:manage_rooms_permission) { create(:permission, name: 'ManageRooms') }
+  let(:manage_users_permission) { create(:permission, name: 'ManageUsers') }
+  let!(:manage_users_role_permission) do
+    create(:role_permission,
+           role_id: user.role_id,
+           permission_id: manage_users_permission.id,
+           value: 'true',
+           provider: 'greenlight')
+  end
   let!(:manage_rooms_role_permission) do
     create(:role_permission,
            role_id: user.role_id,
@@ -107,6 +115,34 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     it 'creates a room for a user' do
       expect { post :create, params: room_params }.to change { user.rooms.count }.from(0).to(1)
       expect(response).to have_http_status(:created)
+    end
+
+    it 'creates a room for a user from the admin interface if params are valid' do
+      new_user = create(:user)
+      room_valid_params = { name: 'Awesome Room' }
+      expect { post :create, params: { user_id: new_user.id, room: room_valid_params } }.to(change { new_user.rooms.count })
+      expect(response).to have_http_status(:created)
+    end
+
+    it 'cannot create a room for a user from the admin interface if the admin does not have the permission' do
+      new_user = create(:user)
+      room_valid_params = { name: 'Awesome Room' }
+      manage_users_role_permission.update!(value: 'false')
+      expect { post :create, params: { user_id: new_user.id, room: room_valid_params } }.not_to(change { new_user.rooms.count })
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'cannot create a room for a user from the admin interface if the user does not exists' do
+      room_valid_params = { name: 'Awesome Room' }
+      create(:role_permission, permission: manage_users_permission, role:, value: 'true', provider: 'greenlight')
+      expect { post :create, params: { user_id: 'invalid-id', room: room_valid_params } }.not_to(change(Room, :count))
+    end
+
+    it 'returns :bad_request for invalid params' do
+      new_user = create(:user)
+      create(:role_permission, permission: manage_users_permission, role:, value: 'true', provider: 'greenlight')
+      post :create, params: { user_id: new_user.id, not_room: {} }
+      expect(response).to have_http_status(:bad_request)
     end
   end
 

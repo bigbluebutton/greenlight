@@ -22,28 +22,6 @@ RSpec.describe Api::V1::UsersController, type: :request do
     context 'valid user params' do
       let!(:role) { create(:role, name: 'User') }
 
-      it 'creates a user account for valid params' do
-        expect { post api_v1_users_path, params: valid_user_params, headers: }.to change(User, :count).from(0).to(1)
-        expect(response.content_type).to eq('application/json; charset=utf-8')
-        expect(response).to have_http_status(:created)
-        expect(JSON.parse(response.body)['errors']).to be_nil
-      end
-
-      it 'generates an activation token for the user' do
-        freeze_time
-
-        post api_v1_users_path, params: valid_user_params, headers: headers
-        user = User.find_by email: valid_user_params[:user][:email]
-        expect(user.activation_digest).to be_present
-        expect(user.activation_sent_at).to eq(Time.current)
-        expect(user).not_to be_active
-      end
-
-      it 'assigns the User role to the user' do
-        post api_v1_users_path, params: valid_user_params, headers: headers
-        expect(User.find_by(email: valid_user_params[:user][:email]).role).to eq(role)
-      end
-
       context 'User language' do
         it 'Persists the user language in the user record' do
           post api_v1_users_path, params: valid_user_params, headers: headers

@@ -14,7 +14,7 @@ import useCreateServerRoom from '../../../hooks/mutations/admin/manage_users/use
 import DeleteUserForm from './forms/DeleteUserForm';
 
 export default function ManageUserRow({ user }) {
-  const mutationWrapper = (args) => useCreateServerRoom({ userID: user.id, ...args });
+  const mutationWrapper = (args) => useCreateServerRoom({ userId: user.id, ...args });
 
   return (
     <tr key={user.id} className="align-middle text-muted">
