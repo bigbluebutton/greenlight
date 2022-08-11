@@ -29,9 +29,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(roles.pluck(:id))
     end
 
-    it 'admin without ManageRoles permission cannot return the list of roles' do
-      roles = [create(:role, name: 'Hokage'), create(:role, name: 'Jonin'), create(:role, name: 'Chunin')]
-      roles << user.role
+    it 'user without ManageRoles permission cannot return the list of roles' do
       manage_roles_role_permission.update!(value: 'false')
       get :index
       expect(response).to have_http_status(:forbidden)
@@ -84,7 +82,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(JSON.parse(response.body)['errors']).to be_nil
     end
 
-    it 'returns :forbidden for admin without ManageRoles permission' do
+    it 'returns :forbidden for user without ManageRoles permission' do
       valid_params = { name: 'CrazyRole' }
       manage_roles_role_permission.update!(value: 'false')
       expect { post :create, params: { role: valid_params } }.not_to change(Role, :count)
@@ -110,7 +108,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(JSON.parse(response.body)['errors']).to be_nil
     end
 
-    it 'returns :forbidden for admin without ManageRoles permission' do
+    it 'returns :forbidden for user without ManageRoles permission' do
       valid_params = { name: 'CrazyRole' }
       manage_roles_role_permission.update!(value: 'false')
       post :update, params: { id: role.id, role: valid_params }
@@ -140,7 +138,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(JSON.parse(response.body)['data']['id']).to eq(role.id)
     end
 
-    it 'admin without ManageRoles permission cannot return the role' do
+    it 'user without ManageRoles permission cannot return the role' do
       role = create(:role)
       manage_roles_role_permission.update!(value: 'false')
       get :show, params: { id: role.id }
@@ -161,7 +159,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
-    it 'admin without ManageRoles permission cannot remove a given role' do
+    it 'user without ManageRoles permission cannot remove a given role' do
       role = create(:role)
       manage_roles_role_permission.update!(value: 'false')
       expect { delete :destroy, params: { id: role.id } }.not_to change(Role, :count)

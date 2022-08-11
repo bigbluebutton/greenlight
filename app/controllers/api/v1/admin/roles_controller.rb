@@ -5,7 +5,7 @@ module Api
     module Admin
       class RolesController < ApiController
         before_action :find_role, only: %i[update show destroy]
-        before_action only: %i[show index create update destroy] do
+        before_action do
           ensure_authorized('ManageRoles')
         end
 
