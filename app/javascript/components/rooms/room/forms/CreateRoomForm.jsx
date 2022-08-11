@@ -8,9 +8,11 @@ import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import FormControl from '../../../shared_components/forms/FormControl';
 import { createRoomFormConfig, createRoomFormFields } from '../../../../helpers/forms/CreateRoomFormHelpers';
+import { useAuth } from '../../../../contexts/auth/AuthProvider';
 
 export default function CreateRoomForm({ mutation: useCreateRoomAPI, handleClose }) {
-  const createRoomAPI = useCreateRoomAPI({ onSettled: handleClose });
+  const currentUser = useAuth();
+  const createRoomAPI = useCreateRoomAPI({ onSettled: handleClose, id: currentUser.id });
   const methods = useForm(createRoomFormConfig);
 
   const { name } = createRoomFormFields;
