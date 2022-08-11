@@ -681,3 +681,5 @@ ja_JP:
     signin: アカウントにアクセスするにはサインインしてください。
     title: メールを確認します
     verification: 検証
+  session:
+    expired: セッションの期限切れです（もう一度サインインしてください）。
