@@ -6,28 +6,11 @@ module Api
       class UsersController < ApiController
         before_action :find_user, only: :destroy
 
-        before_action only: %i[create destroy create_server_room] do
+        before_action only: %i[destroy create_server_room] do
           ensure_authorized('ManageUsers')
         end
 
         include Avatarable
-
-        def create
-          # TODO: amir - ensure accessibility for unauthenticated requests only.
-          params[:user][:language] = I18n.default_locale if params[:user][:language].blank?
-
-          user = User.new({
-            provider: 'greenlight',
-            role: Role.find_by(name: 'User') # TODO: - Ahmad: Move to service
-          }.merge(user_params)) # TMP fix for presence validation of :provider
-
-          if user.save
-            render_data status: :created
-          else
-            # TODO: amir - Improve logging.
-            render_error errors: user.errors.to_a, status: :bad_request
-          end
-        end
 
         # TODO: Remove duplication, use destroy from users_controller instead
         def destroy
@@ -60,10 +43,6 @@ module Api
         end
 
         private
-
-        def user_params
-          params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :language)
-        end
 
         def create_server_room_params
           params.require(:room).permit(:name)
