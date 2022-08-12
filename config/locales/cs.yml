@@ -681,3 +681,5 @@ cs:
     signin: Pro přístup k Vašemu účtu se musíte přihlásit.
     title: Ověření Vašeho e-mailu
     verification: Ověření
+  session:
+    expired: Přihlášení vypršelo (Prosím přihlaste se znovu.).
