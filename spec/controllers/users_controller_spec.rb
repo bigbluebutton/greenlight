@@ -23,16 +23,16 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       }
     end
 
-    it 'creates a current user if the new user is created' do
+    it 'creates a current_user if a new user is created' do
       session[:user_id] = nil
       create(:role, name: 'User') # Needed for admin#create
-      post :create, params: user_params
-      expect(session[:user_id]).to eql(User.last.id)
+      expect { post :create, params: user_params }.to change(User, :count).by(1)
+      expect(session[:user_id]).to be_present
     end
 
-    it 'creates a new user without changing the current user if the new user is created from a logged in user' do
+    it 'creates a user without changing the current user if the user is created from a logged in user' do
       create(:role, name: 'User') # Needed for admin#create
-      post :create, params: user_params
+      expect { post :create, params: user_params }.to change(User, :count).by(1)
       expect(session[:user_id]).to eql(user.id)
     end
   end
