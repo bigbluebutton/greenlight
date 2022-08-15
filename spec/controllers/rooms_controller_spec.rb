@@ -113,7 +113,8 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       {
         user_id: user.id,
         room: {
-          name: Faker::Name.name
+          name: Faker::Name.name,
+          user_id: user.id
         }
       }
     end
@@ -126,7 +127,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     end
 
     it 'cannot create a room for another user' do
-      room_params[:user_id] = new_user.id
+      room_params[:room][:user_id] = new_user.id
       expect { post :create, params: room_params }.not_to(change { new_user.rooms.count })
       expect(response).to have_http_status(:forbidden)
     end

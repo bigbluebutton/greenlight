@@ -12,7 +12,7 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 
 export default function CreateRoomForm({ mutation: useCreateRoomAPI, userId, handleClose }) {
   const currentUser = useAuth();
-  const createRoomAPI = useCreateRoomAPI({ onSettled: handleClose, id: currentUser.id });
+  const createRoomAPI = useCreateRoomAPI({ onSettled: handleClose, user_id: currentUser.id });
   createRoomFormConfig.defaultValues.user_id = userId;
   const methods = useForm(createRoomFormConfig);
   const { name } = createRoomFormFields;
