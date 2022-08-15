@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { CloudUploadIcon } from '@heroicons/react/outline';
-import FilesDragAndDrop from '../../../shared/FilesDragAndDrop';
-import useUpdateSiteSetting from '../../../../hooks/mutations/admins/site_settings/useUpdateSiteSetting';
+import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
+import FilesDragAndDrop from '../../../shared_components/utilities/FilesDragAndDrop';
 
 export default function BrandingImage() {
   const updateSiteSetting = useUpdateSiteSetting('BrandingImage');
