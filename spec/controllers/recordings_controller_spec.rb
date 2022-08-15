@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RecordingsController, type: :controller do
-  let(:role) { create(:role) }
-  let(:user) { create(:user, role:) }
+  let(:manage_recordings_role) { create(:role) }
+  let(:user) { create(:user, role: manage_recordings_role) }
   let(:manage_recordings_permission) { create(:permission, name: 'ManageRecordings') }
   let!(:manage_recordings_role_permission) do
     create(:role_permission,
-           role_id: user.role_id,
-           permission_id: manage_recordings_permission.id,
+           role: manage_recordings_role,
+           permission: manage_recordings_permission,
            value: 'true',
            provider: 'greenlight')
   end
@@ -100,14 +100,6 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
-    it 'admin without ManageRecordings permission cannot update the recordings name' do
-      manage_recordings_role_permission.update!(value: 'false')
-      expect { post :update, params: { recording: { name: 'My Awesome Recording!' }, id: recording.record_id } }.not_to(change do
-                                                                                                                          recording.reload.name
-                                                                                                                        end)
-      expect(response).to have_http_status(:forbidden)
-    end
-
     it 'does not update the recordings name for invalid params returning a :bad_request status code' do
       expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
 
@@ -123,6 +115,19 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
       post :update, params: { recording: { name: '' }, id: '404' }
       expect(response).to have_http_status(:not_found)
+    end
+
+    context 'user without ManageRecordings permission' do
+      before do
+        manage_recordings_role_permission.update!(value: 'false')
+      end
+
+      it 'user without ManageRecordings permission cannot update the recordings name' do
+        expect { post :update, params: { recording: { name: 'My Awesome Recording!' }, id: recording.record_id } }.not_to(change do
+                                                                                                                            recording.reload.name
+                                                                                                                          end)
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 

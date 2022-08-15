@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
-  let(:role) { create(:role) }
-  let(:user) { create(:user, role:) }
+  let(:manage_recordings_role) { create(:role) }
+  let(:user) { create(:user, role: manage_recordings_role) }
   let(:manage_recordings_permission) { create(:permission, name: 'ManageRecordings') }
   let!(:manage_recordings_role_permission) do
     create(:role_permission,
-           role_id: user.role_id,
-           permission_id: manage_recordings_permission.id,
+           role: manage_recordings_role,
+           permission: manage_recordings_permission,
            value: 'true',
            provider: 'greenlight')
   end
@@ -28,12 +28,6 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recordings.pluck(:id))
     end
 
-    it 'admin without ManageRecordings permission cannot return the list of recordings' do
-      manage_recordings_role_permission.update!(value: 'false')
-      get :index
-      expect(response).to have_http_status(:forbidden)
-    end
-
     it 'returns the recordings according to the query' do
       search_recordings = [create(:recording, name: 'Recording 1'), create(:recording, name: 'Recording 2'), create(:recording, name: 'Recording 3')]
 
@@ -48,6 +42,17 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
       get :index, params: { search: '' }
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recordings.pluck(:id))
+    end
+
+    context 'user without ManageRecordings permission' do
+      before do
+        manage_recordings_role_permission.update!(value: 'false')
+      end
+
+      it 'user without ManageRecordings permission cannot return the list of recordings' do
+        get :index
+        expect(response).to have_http_status(:forbidden)
+      end
     end
 
     context 'ordering' do
@@ -72,6 +77,7 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
       end
     end
   end
+  # TODO: - resync tests need to be adjusted
 
   describe '#resync' do
     it 'calls the RecordingsSync service correctly' do
