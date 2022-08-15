@@ -6,14 +6,6 @@ class MeetingOption < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
-  def self.bbb_options(room_id:)
-    MeetingOption
-      .joins(:room_meeting_options)
-      .where.not('name LIKE :prefix', prefix: 'gl%') # ignore gl settings
-      .where(room_meeting_options: { room_id: })
-      .pluck(:name, :value)
-  end
-
   def self.get_setting_value(name:, room_id:)
     joins(:room_meeting_options)
       .select(:value)
