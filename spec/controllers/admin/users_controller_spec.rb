@@ -32,26 +32,6 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
     end
   end
 
-  describe '#create' do
-    let(:user_params) do
-      {
-        user: { name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password }
-      }
-    end
-
-    it 'admin creates a user' do
-      create(:role, name: 'User') # Needed for AdminController#create
-      expect { post :create, params: user_params }.to change(User, :count).by(1)
-      expect(response).to have_http_status(:created)
-    end
-
-    it 'admin without the ManageUsers permission cannot create a new user' do
-      create(:role, name: 'User') # Needed for AdminController#create
-      manage_users_role_permission.update!(value: 'false')
-      expect { post :create, params: user_params }.not_to change(User, :count)
-    end
-  end
-
   describe '#create_server_room' do
     it 'creates a room for a user if params are valid' do
       new_user = create(:user)

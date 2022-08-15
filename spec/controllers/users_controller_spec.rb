@@ -10,6 +10,33 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     session[:user_id] = user.id
   end
 
+  describe '#create' do
+    let(:user_params) do
+      {
+        user: {
+          name: Faker::Name.name,
+          email: Faker::Internet.email,
+          password: 'Password123+',
+          password_confirmation: 'Password123+',
+          language: 'language'
+        }
+      }
+    end
+
+    it 'creates a current_user if a new user is created' do
+      session[:user_id] = nil
+      create(:role, name: 'User') # Needed for admin#create
+      expect { post :create, params: user_params }.to change(User, :count).by(1)
+      expect(session[:user_id]).to be_present
+    end
+
+    it 'creates a user without changing the current user if the user is created from a logged in user' do
+      create(:role, name: 'User') # Needed for admin#create
+      expect { post :create, params: user_params }.to change(User, :count).by(1)
+      expect(session[:user_id]).to eql(user.id)
+    end
+  end
+
   describe '#show' do
     it 'returns a user if id is valid' do
       user = create(:user)
