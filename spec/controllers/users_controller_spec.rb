@@ -7,7 +7,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   let(:manage_users_role) { create(:role) }
   let(:manage_users_permission) { create(:permission, name: 'ManageUsers') }
-  let(:manage_users_role_permission) do
+  let!(:manage_users_role_permission) do
     create(:role_permission,
            role: manage_users_role,
            permission: manage_users_permission,
@@ -124,7 +124,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context 'current_user with ManageUsers permission' do
       before do
-        manage_users_role_permission
         user.update!(role: manage_users_role)
       end
 
