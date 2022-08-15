@@ -21,7 +21,7 @@ module Api
           presentation_url:,
           meeting_ended: meeting_ended_url,
           recording_ready: recording_ready_url,
-          provider: 'greenlight'
+          provider: current_provider
         ).call
 
         render_data data: BigBlueButtonApi.new.join_meeting(room: @room, name: current_user.name, role: 'Moderator'), status: :created

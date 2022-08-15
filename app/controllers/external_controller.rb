@@ -8,7 +8,7 @@ class ExternalController < ApplicationController
     user = User.find_or_create_by(email: user_info['email']) do |u|
       u.external_id = credentials['uid']
       u.name = user_info['name']
-      u.provider = 'greenlight'
+      u.provider = current_provider
       u.role = Role.find_by(name: 'User') # TODO: - Ahmad: Move to service
       u.language = extract_language_code user_info['locale']
     end
