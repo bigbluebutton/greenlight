@@ -1,17 +1,25 @@
 # frozen_string_literal: true
 
 class SettingGetter
+  include Rails.application.routes.url_helpers
+
   def initialize(setting_name:, provider:)
     @setting_name = setting_name
     @provider = provider
   end
 
   def call
-    value = SiteSetting.joins(:setting)
-                       .find_by(
-                         provider: @provider,
-                         setting: { name: @setting_name }
-                       )&.value
+    setting = SiteSetting.joins(:setting)
+                         .find_by(
+                           provider: @provider,
+                           setting: { name: @setting_name }
+                         )
+
+    value = if setting&.image&.attached?
+              rails_blob_path setting.image, only_path: true
+            else
+              setting&.value
+            end
 
     transform_value(value)
   end

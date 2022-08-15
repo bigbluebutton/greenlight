@@ -21,7 +21,13 @@ module Api
                                     )
           return render_error status: :not_found unless site_setting
 
-          return render_error status: :bad_request unless site_setting.update(value: params[:siteSetting][:value].to_s)
+          update = if params[:name] == 'BrandingImage'
+                     site_setting.image.attach params[:site_setting][:value]
+                   else
+                     site_setting.update(value: params[:site_setting][:value].to_s)
+                   end
+
+          return render_error status: :bad_request unless update
 
           render_data status: :ok
         end
