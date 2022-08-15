@@ -20,7 +20,7 @@ export default function RoomCard({ room }) {
   return (
     <Card id="room-card" className="h-100 shadow-sm border-0">
       <Card.Body className="pb-0" onClick={handleClick}>
-        <div className="room-icon-square rounded-3">
+        <div className="room-icon rounded">
           { room.shared_owner ? (
             <LinkIcon className="hi-m text-brand pt-4 d-block mx-auto" />
           ) : (
@@ -42,9 +42,9 @@ export default function RoomCard({ room }) {
           variant="icon"
           onClick={() => copyInvite(room.friendly_id)}
         >
-          <DuplicateIcon className="hi-m text-muted" />
+          <DuplicateIcon className="hi-m text-brand mt-1" />
         </Button>
-        <Button variant="brand-backward" className="float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
+        <Button variant="brand-backward" className="btn btn-lg float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
           Start {' '}
           {startMeeting.isLoading && <Spinner />}
         </Button>
