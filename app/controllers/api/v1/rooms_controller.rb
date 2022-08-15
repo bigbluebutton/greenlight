@@ -10,7 +10,7 @@ module Api
 
       skip_before_action :ensure_authenticated, only: %i[show]
       before_action only: %i[show] do
-        ensure_authorized('ManageRooms')
+        ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
       before_action only: %i[create] do
         ensure_authorized('ManageUsers', user_id: room_params[:user_id])
