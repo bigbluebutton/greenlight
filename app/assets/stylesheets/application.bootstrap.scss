@@ -190,3 +190,54 @@ input.search-bar {
 .form-control:focus {
   box-shadow: none;
 }
+
+
+//Semantic UI pagination
+.pagination-wrapper {
+  border-bottom: 2px solid whitesmoke;
+  border-right: 2px solid whitesmoke;
+  border-left: 2px solid whitesmoke;
+}
+
+.semantic-ui-pagination {
+  .ui.menu {
+    position: relative;
+    padding: 8px 12px 8px 16px;
+  }
+
+  .ui.menu .item {
+    justify-content: center;
+  }
+
+  .ui.secondary.menu .active.item {
+    color: var(--brand-color);
+    border-radius: $border-radius;
+  }
+
+  .ui.secondary.menu .item {
+    border-radius: $border-radius;
+
+    &:hover {
+      color: var(--brand-color) !important;
+    }
+  }
+
+  .ui.menu > .item:first-child {
+    display: block;
+    margin-right: auto;
+    padding: 0 !important;
+  }
+
+  .ui.menu > .item:last-child {
+    display: block;
+    margin-left: auto;
+    margin-right: 0 !important;
+    padding: 0 !important;
+  }
+
+  .ui.pagination {
+    width: 100%;
+    border: none;
+    box-shadow: none;
+  }
+}

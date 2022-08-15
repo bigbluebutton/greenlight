@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import useActiveUsers from '../../../hooks/queries/admin/manage_users/useActiveUsers';
 import ManageUsersTable from './ManageUsersTable';
-import Pagy from '../../shared_components/Pagy';
+import Pagination from '../../shared_components/Pagination';
 
 export default function ActiveUsers({ input }) {
   const [page, setPage] = useState();
@@ -13,11 +13,13 @@ export default function ActiveUsers({ input }) {
       <ManageUsersTable users={activeUsers?.data} />
       {!isLoading
         && (
-        <Pagy
-          page={activeUsers.meta.page}
-          totalPages={activeUsers.meta.pages}
-          setPage={setPage}
-        />
+          <div className="pagination-wrapper">
+            <Pagination
+              page={activeUsers.meta.page}
+              totalPages={activeUsers.meta.pages}
+              setPage={setPage}
+            />
+          </div>
         )}
     </div>
   );

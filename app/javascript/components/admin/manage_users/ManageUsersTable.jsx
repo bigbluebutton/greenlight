@@ -6,7 +6,7 @@ import ManageUserRow from './ManageUserRow';
 export default function ManageUsersTable({ users }) {
   return (
     <div id="admin-table">
-      <Table className="table-bordered border border-2" hover>
+      <Table className="table-bordered border border-2 mb-0" hover>
         <thead>
           <tr className="text-muted small">
             <th className="fw-normal border-end-0">Name</th>

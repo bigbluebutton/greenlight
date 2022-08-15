@@ -9,7 +9,7 @@ import RecordingsList from '../../recordings/RecordingsList';
 import useServerRecordings from '../../../hooks/queries/admin/server_recordings/useServerRecordings';
 import ServerRecordingRow from './ServerRecordingRow';
 import useRecordingsReSync from '../../../hooks/queries/recordings/useRecordingsReSync';
-import Pagy from '../../shared_components/Pagy';
+import Pagination from '../../shared_components/Pagination';
 
 export default function ServerRecordings() {
   const [input, setInput] = useState();
@@ -51,15 +51,17 @@ export default function ServerRecordings() {
                           isLoading={isLoading}
                           RecordingRow={ServerRecordingRow}
                         />
+                        {!isLoading
+                          && (
+                            <div className="pagination-wrapper">
+                              <Pagination
+                                page={serverRecordings.meta.page}
+                                totalPages={serverRecordings.meta.pages}
+                                setPage={setPage}
+                              />
+                            </div>
+                          )}
                       </Col>
-                      {!isLoading
-                        && (
-                          <Pagy
-                            page={serverRecordings.meta.page}
-                            totalPages={serverRecordings.meta.pages}
-                            setPage={setPage}
-                          />
-                        )}
                     </Row>
                   </div>
                 </Container>

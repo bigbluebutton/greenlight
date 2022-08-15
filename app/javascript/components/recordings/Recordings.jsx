@@ -6,7 +6,7 @@ import useRecordings from '../../hooks/queries/recordings/useRecordings';
 import SearchBarQuery from '../shared_components/search/SearchBarQuery';
 import RecordingsList from './RecordingsList';
 import RoomsRecordingRow from './room_recordings/RoomsRecordingRow';
-import Pagy from '../shared_components/Pagy';
+import Pagination from '../shared_components/Pagination';
 
 export default function Recordings() {
   const [input, setInput] = useState();
@@ -26,15 +26,15 @@ export default function Recordings() {
           isLoading={isLoading}
           RecordingRow={RoomsRecordingRow}
         />
+        {!isLoading
+          && (
+            <Pagination
+              page={recordings.meta.page}
+              totalPages={recordings.meta.pages}
+              setPage={setPage}
+            />
+          )}
       </Card>
-      {!isLoading
-        && (
-        <Pagy
-          page={recordings.meta.page}
-          totalPages={recordings.meta.pages}
-          setPage={setPage}
-        />
-        )}
     </div>
   );
 }

@@ -8,7 +8,7 @@ import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
 import RecordingsList from '../RecordingsList';
 import useRoomRecordingsProcessing from '../../../hooks/queries/recordings/useRoomRecordingsProcessing';
 import RoomsRecordingRow from './RoomsRecordingRow';
-import Pagy from '../../shared_components/Pagy';
+import Pagination from '../../shared_components/Pagination';
 
 export default function RoomRecordings() {
   const [input, setInput] = useState('');
@@ -33,7 +33,7 @@ export default function RoomRecordings() {
       </Card>
       {!isLoading
         && (
-        <Pagy
+        <Pagination
           page={roomRecordings.meta.page}
           totalPages={roomRecordings.meta.pages}
           setPage={setPage}
