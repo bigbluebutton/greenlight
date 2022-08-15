@@ -10,11 +10,11 @@ import FormControl from '../../../shared_components/forms/FormControl';
 import { createRoomFormConfig, createRoomFormFields } from '../../../../helpers/forms/CreateRoomFormHelpers';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 
-export default function CreateRoomForm({ mutation: useCreateRoomAPI, handleClose }) {
+export default function CreateRoomForm({ mutation: useCreateRoomAPI, userId, handleClose }) {
   const currentUser = useAuth();
   const createRoomAPI = useCreateRoomAPI({ onSettled: handleClose, id: currentUser.id });
+  createRoomFormConfig.defaultValues.user_id = userId;
   const methods = useForm(createRoomFormConfig);
-
   const { name } = createRoomFormFields;
 
   return (
@@ -36,6 +36,7 @@ export default function CreateRoomForm({ mutation: useCreateRoomAPI, handleClose
 CreateRoomForm.propTypes = {
   handleClose: PropTypes.func,
   mutation: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
 };
 
 CreateRoomForm.defaultProps = {

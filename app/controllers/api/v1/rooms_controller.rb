@@ -12,6 +12,9 @@ module Api
       before_action only: %i[show] do
         ensure_authorized('ManageRooms')
       end
+      before_action only: %i[create] do
+        ensure_authorized('ManageUsers', user_id: params[:user_id])
+      end
 
       include Avatarable
       include Presentable
@@ -37,9 +40,18 @@ module Api
       # POST /api/v1/rooms.json
       def create
         # TODO: amir - ensure accessibility for authenticated requests only.
-        room = Room.create!(room_create_params.merge(user_id: current_user.id))
-        logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{current_user.id}"
-        render_data status: :created
+        # The created room will be the current user's unless a user_id param is provided with the request.
+        user_id = room_params[:user_id] || current_user.id
+        room = Room.create(name: room_params[:name], user_id:)
+
+        return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+
+        if room.save
+          logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{user_id}"
+          render_data status: :created
+        else
+          render_error status: :bad_request
+        end
       end
 
       def update
@@ -128,8 +140,8 @@ module Api
         @room = Room.find_by!(friendly_id: params[:friendly_id])
       end
 
-      def room_create_params
-        params.require(:room).permit(:name)
+      def room_params
+        params.require(:room).permit(:name, :user_id)
       end
     end
   end

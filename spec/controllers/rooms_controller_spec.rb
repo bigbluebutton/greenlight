@@ -3,13 +3,24 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RoomsController, type: :controller do
-  let(:role) { create(:role) }
-  let(:user) { create(:user, role:) }
+  let(:user) { create(:user) }
+
+  let(:manage_rooms_role) { create(:role) }
   let(:manage_rooms_permission) { create(:permission, name: 'ManageRooms') }
   let!(:manage_rooms_role_permission) do
     create(:role_permission,
-           role_id: user.role_id,
-           permission_id: manage_rooms_permission.id,
+           role: manage_rooms_role,
+           permission: manage_rooms_permission,
+           value: 'true',
+           provider: 'greenlight')
+  end
+
+  let(:manage_users_role) { create(:role) }
+  let(:manage_users_permission) { create(:permission, name: 'ManageUsers') }
+  let!(:manage_users_role_permission) do
+    create(:role_permission,
+           role: manage_users_role,
+           permission: manage_users_permission,
            value: 'true',
            provider: 'greenlight')
   end
@@ -100,13 +111,43 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   describe '#create' do
     let(:room_params) do
       {
-        room: { name: Faker::Science.science }
+        user_id: user.id,
+        room: {
+          name: Faker::Name.name
+        }
       }
     end
+
+    let(:new_user) { create(:user) }
 
     it 'creates a room for a user' do
       expect { post :create, params: room_params }.to change { user.rooms.count }.from(0).to(1)
       expect(response).to have_http_status(:created)
+    end
+
+    it 'cannot create a room for another user' do
+      room_params[:user_id] = new_user.id
+      expect { post :create, params: room_params }.not_to(change { new_user.rooms.count })
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    context 'current_user with ManageUser permission' do
+      before do
+        manage_users_role_permission
+        user.update!(role_id: manage_users_role.id)
+        room_params[:room][:user_id] = new_user.id
+      end
+
+      it 'creates a room for another user' do
+        expect { post :create, params: room_params }.to(change { new_user.rooms.count })
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'returns :bad_request if user does not exists' do
+        room_params[:room][:user_id] = 'invalid-user'
+        expect { post :create, params: room_params }.not_to(change(Room, :count))
+        expect(response).to have_http_status(:bad_request)
+      end
     end
   end
 
