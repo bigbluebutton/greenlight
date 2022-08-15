@@ -105,13 +105,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
-<<<<<<< HEAD
-  describe 'DELETE users#destroy' do
-    it 'deletes the user' do
-=======
   describe 'users#destroy' do
     it 'deletes the current_user account' do
->>>>>>> e0266e2d... Fix RSpec + Routes
       expect(response).to have_http_status(:ok)
       expect { delete :destroy, params: { id: user.id } }.to change(User, :count).by(-1)
     end
@@ -124,13 +119,10 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     it 'returns status code forbidden if the user id is invalid' do
       expect { delete :destroy, params: { id: 'invalid-id' } }.not_to change(User, :count)
-<<<<<<< HEAD
-      expect(response).to have_http_status(:not_found)
-=======
       expect(response).to have_http_status(:forbidden)
     end
 
-    context 'current_user with ManageUsers permission deletes another user' do
+    context 'current_user with ManageUsers permission' do
       before do
         manage_users_role_permission
         user.update!(role: manage_users_role)
@@ -145,7 +137,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect { delete :destroy, params: { id: 'invalid-id' } }.not_to change(User, :count)
         expect(response).to have_http_status(:not_found)
       end
->>>>>>> e0266e2d... Fix RSpec + Routes
     end
   end
 
