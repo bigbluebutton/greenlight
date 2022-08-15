@@ -9,25 +9,16 @@ import RoomSettingsRow from './RoomSettingsRow';
 import AccessCodes from './AccessCodes';
 import Modal from '../../../shared_components/modals/Modal';
 import DeleteRoomForm from '../forms/DeleteRoomForm';
+import useRoomConfigs from '../../../../hooks/queries/admin/room_configuration/useRoomConfigs';
 
 export default function RoomSettings() {
   const { friendlyId } = useParams();
   const roomSetting = useRoomSettings(friendlyId);
+  const roomsConfigs = useRoomConfigs();
 
   const mutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
 
-  const checkedValue = (settingId) => {
-    const value = roomSetting.data[settingId];
-
-    if (value === 'true' || value === 'ASK_MODERATOR') {
-      return true;
-    } if (value === 'false' || value === 'ALWAYS_ACCEPT') {
-      return false;
-    }
-    return value;
-  };
-
-  if (roomSetting.isLoading) return <Spinner />;
+  if (roomSetting.isLoading || roomsConfigs.isLoading) return <Spinner />;
 
   return (
     <div className="wide-background full-height-room" id="room-settings">
@@ -44,27 +35,32 @@ export default function RoomSettings() {
               <h6 className="text-brand">User Settings</h6>
               <RoomSettingsRow
                 settingId="muteOnStart"
-                value={checkedValue('muteOnStart')}
+                value={roomSetting.data.muteOnStart}
+                config={roomsConfigs.data.muteOnStart}
                 description="Mute users when they join"
               />
               <RoomSettingsRow
                 settingId="guestPolicy"
-                value={checkedValue('guestPolicy')}
+                value={roomSetting.data.guestPolicy}
+                config={roomsConfigs.data.guestPolicy}
                 description="Require moderator approval before joining"
               />
               <RoomSettingsRow
                 settingId="glAnyoneCanStart"
-                value={checkedValue('glAnyoneCanStart')}
+                value={roomSetting.data.glAnyoneCanStart}
+                config={roomsConfigs.data.glAnyoneCanStart}
                 description="Allow any user to start this meeting"
               />
               <RoomSettingsRow
                 settingId="glAnyoneJoinAsModerator"
-                value={checkedValue('glAnyoneJoinAsModerator')}
+                value={roomSetting.data.glAnyoneJoinAsModerator}
+                config={roomsConfigs.data.glAnyoneJoinAsModerator}
                 description="All users join as moderators"
               />
               <RoomSettingsRow
                 settingId="record"
-                value={checkedValue('record')}
+                value={roomSetting.data.record}
+                config={roomsConfigs.data.record}
                 description="Allow room to be recorded"
               />
             </Col>

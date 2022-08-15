@@ -6,17 +6,16 @@ export default function useUpdateRoomSetting(friendlyId) {
   const queryClient = useQueryClient();
 
   // If guestPolicy setting is toggled, bool are rewritten to string values as per BBB API.
-  const rewriteRoomSettingData = (roomSettingData) => {
-    if (roomSettingData.settingName === 'guestPolicy') {
-      Object.defineProperty(roomSettingData, 'settingValue', {
-        value: roomSettingData.settingValue === true ? 'ASK_MODERATOR' : 'ALWAYS_ACCEPT',
-      });
+  const updateRoomSetting = (_data) => {
+    const data = { ..._data };
+    if (data.settingName === 'guestPolicy') {
+      data.settingValue = data.settingValue ? 'ASK_MODERATOR' : 'ALWAYS_ACCEPT';
     }
-    return roomSettingData;
+    return axios.patch(`/room_settings/${friendlyId}.json`, data);
   };
 
   return useMutation(
-    (roomSettingData) => axios.patch(`/room_settings/${friendlyId}.json`, roomSettingData),
+    updateRoomSetting,
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getRoomSettings');
@@ -25,7 +24,6 @@ export default function useUpdateRoomSetting(friendlyId) {
       onError: () => {
         toast.error('There was a problem completing that action. \n Please try again.');
       },
-      onMutate: (roomSettingData) => rewriteRoomSettingData(roomSettingData),
     },
   );
 }
