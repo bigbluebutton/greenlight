@@ -17,7 +17,7 @@ export default function RoomSettings() {
   const mutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
 
   const checkedValue = (settingId) => {
-    const { value } = roomSetting.data.find((setting) => setting.name === settingId);
+    const value = roomSetting.data[settingId];
 
     if (value === 'true' || value === 'ASK_MODERATOR') {
       return true;

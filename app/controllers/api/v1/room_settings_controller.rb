@@ -7,11 +7,9 @@ module Api
 
       # GET /api/v1/room_settings/:friendly_id
       def show
-        options = MeetingOption.joins(:room_meeting_options)
-                               .where(room_meeting_options: { room_id: @room.id })
-                               .select(:name, :value)
+        options = RoomSettingsGetter.new(room_id: @room.id, provider: 'greenlight').call
 
-        render_data data: options, serializer: RoomSettingsSerializer, status: :ok
+        render_data data: options, status: :ok
       end
 
       # PATCH /api/v1/room_settings/:friendly_id

@@ -12,8 +12,29 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
   end
 
   describe '#show' do
-    skip 'TODO' do
-      # TODO
+    let(:room_setting_getter_service) { instance_double(RoomSettingsGetter) }
+
+    before do
+      allow(RoomSettingsGetter).to receive(:new).and_return(room_setting_getter_service)
+      allow(room_setting_getter_service).to receive(:call).and_return({ 'setting' => 'value' })
+    end
+
+    it 'uses "RoomSettingGetter" service and render its returned value' do
+      expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight')
+      expect(room_setting_getter_service).to receive(:call)
+
+      get :show, params: { friendly_id: room.friendly_id }
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)['data']).to eq({ 'setting' => 'value' })
+    end
+
+    context 'AuthN' do
+      it 'returns :unauthorized response for unauthenticated requests' do
+        session[:user_id] = nil
+
+        get :show, params: { friendly_id: room.friendly_id }
+        expect(response).to have_http_status(:unauthorized)
+      end
     end
   end
 
