@@ -153,6 +153,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   describe '#generate_access_code' do
     before do
       allow(MeetingOption).to receive(:get_config_value).and_return(instance_double(RoomMeetingOption, { value: %w[optional true].sample }))
+      allow_any_instance_of(Room).to receive(:auto_generate_access_codes).and_return(nil)
     end
 
     context 'bbb_role == "Viewer"' do

@@ -31,4 +31,13 @@ class MeetingOption < ApplicationRecord
         rooms_configurations: { provider: }
       )
   end
+
+  def self.access_codes_configs(provider:)
+    joins(:rooms_configurations)
+      .where(
+        name: %w[glViewerAccessCode glModeratorAccessCode],
+        rooms_configurations: { provider: }
+      )
+      .pluck(:name, :value)
+  end
 end

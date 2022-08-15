@@ -8,6 +8,13 @@ class Room < ApplicationRecord
 
   has_many :recordings, dependent: :destroy
   has_many :room_meeting_options, dependent: :destroy
+  has_one :viewer_access_code_setting, lambda {
+                                         joins(:meeting_option)
+                                           .where(meeting_option: { name: 'glViewerAccessCode' })
+                                       }, class_name: 'RoomMeetingOption', inverse_of: :room, dependent: :destroy
+  has_one :moderator_access_code_setting, lambda {
+                                            joins(:meeting_option).where(meeting_option: { name: 'glModeratorAccessCode' })
+                                          }, class_name: 'RoomMeetingOption', inverse_of: :room, dependent: :destroy
 
   has_one_attached :presentation
 
@@ -16,7 +23,10 @@ class Room < ApplicationRecord
   validates :meeting_id, presence: true, uniqueness: true
 
   before_validation :set_friendly_id, :set_meeting_id, on: :create
+
   after_create :create_meeting_options
+
+  after_find :auto_generate_access_codes
 
   attr_accessor :shared, :active, :participants
 
@@ -31,27 +41,27 @@ class Room < ApplicationRecord
   end
 
   def viewer_access_code
-    get_setting(name: 'glViewerAccessCode')&.value
+    viewer_access_code_setting&.value
   end
 
   def moderator_access_code
-    get_setting(name: 'glModeratorAccessCode')&.value
+    moderator_access_code_setting&.value
   end
 
   def generate_viewer_access_code
-    get_setting(name: 'glViewerAccessCode')&.update(value: generate_code)
+    viewer_access_code_setting&.update(value: generate_code)
   end
 
   def remove_viewer_access_code
-    get_setting(name: 'glViewerAccessCode')&.update(value: nil)
+    viewer_access_code_setting&.update(value: nil)
   end
 
   def generate_moderator_access_code
-    get_setting(name: 'glModeratorAccessCode')&.update(value: generate_code)
+    moderator_access_code_setting&.update(value: generate_code)
   end
 
   def remove_moderator_access_code
-    get_setting(name: 'glModeratorAccessCode')&.update(value: nil)
+    moderator_access_code_setting&.update(value: nil)
   end
 
   def get_setting(name:)
@@ -82,12 +92,28 @@ class Room < ApplicationRecord
 
   # Autocreate all meeting options using the default values
   def create_meeting_options
-    MeetingOption.all.find_each do |option|
-      RoomMeetingOption.create(room: self, meeting_option: option, value: option.default_value)
+    access_codes_names = %w[glViewerAccessCode ModeratorAccessCode]
+    access_configs = MeetingOption.access_codes_configs(provider: 'greenlight').to_h
+
+    MeetingOption.find_each do |option|
+      value = if access_codes_names.include?(option.name) && access_configs[option.name] == 'true'
+                generate_code
+              else
+                option.default_value
+              end
+
+      RoomMeetingOption.create(room: self, meeting_option: option, value:)
     end
   end
 
   def generate_code
     SecureRandom.alphanumeric(6).downcase
+  end
+
+  def auto_generate_access_codes
+    access_configs = MeetingOption.access_codes_configs(provider: 'greenlight').to_h
+
+    generate_viewer_access_code if access_configs['glViewerAccessCode'] == 'true' && viewer_access_code.blank?
+    generate_moderator_access_code if access_configs['glModeratorAccessCode'] == 'true' && moderator_access_code.blank?
   end
 end

@@ -5,26 +5,152 @@ require 'rails_helper'
 RSpec.describe Room, type: :model do
   let!(:room) { create(:room) }
 
-  describe 'before_validations' do
-    describe '#set_friendly_id' do
-      it 'sets a rooms friendly_id before creating' do
-        expect(room.friendly_id).to be_present
+  context 'callbacks' do
+    context 'before_validations' do
+      describe '#set_friendly_id' do
+        it 'sets a rooms friendly_id before creating' do
+          expect(room.friendly_id).to be_present
+        end
+
+        it 'prevents duplicate friendly_ids' do
+          duplicate_room = create(:room)
+          expect { duplicate_room.friendly_id = room.friendly_id }.to change { duplicate_room.valid? }.to false
+        end
       end
 
-      it 'prevents duplicate friendly_ids' do
-        duplicate_room = create(:room)
-        expect { duplicate_room.friendly_id = room.friendly_id }.to change { duplicate_room.valid? }.to false
+      describe '#set_meeting_id' do
+        it 'sets a rooms meeting_id before creating' do
+          expect(room.meeting_id).to be_present
+        end
+
+        it 'prevents duplicate meeting_ids' do
+          duplicate_room = create(:room)
+          expect { duplicate_room.meeting_id = room.meeting_id }.to change { duplicate_room.valid? }.to false
+        end
       end
     end
 
-    describe '#set_meeting_id' do
-      it 'sets a rooms meeting_id before creating' do
-        expect(room.meeting_id).to be_present
+    context 'after_create' do
+      describe 'create_meeting_options' do
+        it 'creates a RoomMeetingOption for each MeetingOption' do
+          create_list(:meeting_option, 5)
+
+          expect { create(:room) }.to change(RoomMeetingOption, :count).from(0).to(5)
+        end
+
+        context 'Auto generate forced enabled access codes' do
+          before do
+            create(:meeting_option, default_value: '', name: 'glViewerAccessCode')
+            create(:meeting_option, default_value: '', name: 'glModeratorAccessCode')
+            allow_any_instance_of(described_class).to receive(:generate_code).and_return('CODE')
+          end
+
+          it 'auto generates "glViewerAccessCode" when forced enabled' do
+            allow(MeetingOption).to receive(:access_codes_configs).and_return([%w[glViewerAccessCode true], %w[glModeratorAccessCode false]])
+
+            room = create(:room)
+            room.reload
+            expect(room.viewer_access_code).to eq('CODE')
+            expect(room.moderator_access_code).to be_blank
+          end
+
+          it 'auto generates "glModeratorAccessCode" when forced enabled' do
+            allow(MeetingOption).to receive(:access_codes_configs).and_return([%w[glViewerAccessCode false], %w[glModeratorAccessCode true]])
+
+            room = create(:room)
+            room.reload
+            expect(room.moderator_access_code).to eq('CODE')
+            expect(room.viewer_access_code).to be_blank
+          end
+        end
+      end
+    end
+
+    context 'after_find' do
+      describe 'Auto generate viewer access code' do
+        before do
+          meeting_option = create(:meeting_option, name: 'glViewerAccessCode')
+          create(:room_meeting_option, meeting_option:, room:, value: nil)
+          allow_any_instance_of(described_class).to receive(:generate_code).and_return('FILLED')
+        end
+
+        it 'auto generates "glViewerAccessCode" when #auto_generate_viewer_access_code? is :true' do
+          allow(MeetingOption).to receive(:access_codes_configs).and_return([%w[glViewerAccessCode true]])
+          expect_any_instance_of(described_class).to receive(:generate_viewer_access_code).and_call_original
+
+          expect(room.reload.viewer_access_code).to eq('FILLED')
+        end
+
+        it 'does NOT auto generates "glViewerAccessCode" when #auto_generate_viewer_access_code? is :false' do
+          allow(MeetingOption).to receive(:access_codes_configs).and_return([%w[glViewerAccessCode false]])
+          expect_any_instance_of(described_class).not_to receive(:generate_viewer_access_code)
+
+          expect(room.reload.viewer_access_code).to be_nil
+        end
       end
 
-      it 'prevents duplicate meeting_ids' do
-        duplicate_room = create(:room)
-        expect { duplicate_room.meeting_id = room.meeting_id }.to change { duplicate_room.valid? }.to false
+      describe 'Auto generate moderator access code' do
+        before do
+          meeting_option = create(:meeting_option, name: 'glModeratorAccessCode')
+          create(:room_meeting_option, meeting_option:, room:, value: nil)
+          allow_any_instance_of(described_class).to receive(:generate_code).and_return('FILLED')
+        end
+
+        it 'auto generates "glModeratorAccessCode" when #auto_generate_moderator_access_code? is :true' do
+          allow(MeetingOption).to receive(:access_codes_configs).and_return([%w[glModeratorAccessCode true]])
+          expect_any_instance_of(described_class).to receive(:generate_moderator_access_code).and_call_original
+
+          expect(room.reload.moderator_access_code).to eq('FILLED')
+        end
+
+        it 'does NOT auto "glModeratorAccessCode" code when #auto_generate_moderator_access_code? is :false' do
+          allow(MeetingOption).to receive(:access_codes_configs).and_return([%w[glModeratorAccessCode false]])
+          expect_any_instance_of(described_class).not_to receive(:generate_moderator_access_code)
+
+          expect(room.reload.moderator_access_code).to be_nil
+        end
+      end
+    end
+  end
+
+  context 'private methods' do
+    describe '#generate_code' do
+      before do
+        allow_any_instance_of(described_class).to receive(:generate_code).and_call_original
+      end
+
+      it 'calls SecureRandom#alphanumeric(6) and downcase its returned value' do
+        allow(SecureRandom).to receive(:alphanumeric).and_return('TEST')
+        expect(SecureRandom).to receive(:alphanumeric).with(6)
+        expect(room.generate_code).to eq('test')
+      end
+    end
+
+    describe '#auto_generate_access_codes' do
+      before do
+        allow_any_instance_of(described_class).to receive(:auto_generate_access_codes).and_call_original
+      end
+
+      it 'calls #generate_viewer_access_code if viewer_access_code config is force enabled while the room viewer access code is blank?' do
+        allow(MeetingOption).to receive(:access_codes_configs).and_return([%w[glViewerAccessCode true]])
+        allow_any_instance_of(described_class).to receive(:viewer_access_code).and_return('')
+
+        expect_any_instance_of(described_class).to receive(:viewer_access_code)
+        expect_any_instance_of(described_class).to receive(:generate_viewer_access_code)
+        expect(MeetingOption).to receive(:access_codes_configs).with(provider: 'greenlight')
+
+        room.auto_generate_access_codes
+      end
+
+      it 'calls #generate_moderator_access_code if moderator_access_code config is force enabled while the room moderator access code is blank?' do
+        allow(MeetingOption).to receive(:access_codes_configs).and_return([%w[glModeratorAccessCode true]])
+        allow_any_instance_of(described_class).to receive(:moderator_access_code).and_return('')
+
+        expect_any_instance_of(described_class).to receive(:moderator_access_code)
+        expect_any_instance_of(described_class).to receive(:generate_moderator_access_code)
+        expect(MeetingOption).to receive(:access_codes_configs).with(provider: 'greenlight')
+
+        room.auto_generate_access_codes
       end
     end
   end
@@ -54,92 +180,77 @@ RSpec.describe Room, type: :model do
     end
   end
 
-  describe 'private methods' do
-    describe '#generate_code' do
-      before do
-        allow_any_instance_of(described_class).to receive(:generate_code).and_call_original
-      end
-
-      it 'calls SecureRandom#alphanumeric(6) and downcase its returned value' do
-        allow(SecureRandom).to receive(:alphanumeric).and_return('TEST')
-        expect(SecureRandom).to receive(:alphanumeric).with(6)
-        expect(room.generate_code).to eq('test')
-      end
-    end
-  end
-
   describe '#viewer_access_code' do
-    it 'calls #get_setting with name "glViewerAccessCode" and returns the value' do
-      allow_any_instance_of(described_class).to receive(:get_setting).and_return(instance_double(RoomMeetingOption, value: 'CODE'))
-      expect_any_instance_of(described_class).to receive(:get_setting).with(name: 'glViewerAccessCode')
+    before do
+      meeting_option = create(:meeting_option, name: 'glViewerAccessCode')
+      create(:room_meeting_option, meeting_option:, room:, value: 'VIEWER_CODE')
+    end
 
-      expect(room.viewer_access_code).to eq('CODE')
+    it 'returns the "glViewerAccessCode" setting value' do
+      expect(room.reload.viewer_access_code).to eq('VIEWER_CODE')
     end
   end
 
   describe '#moderator_access_code' do
-    it 'calls #get_setting with name "glModeratorAccessCode" and returns the value' do
-      allow_any_instance_of(described_class).to receive(:get_setting).and_return(instance_double(RoomMeetingOption, value: 'CODE'))
-      expect_any_instance_of(described_class).to receive(:get_setting).with(name: 'glModeratorAccessCode')
+    before do
+      meeting_option = create(:meeting_option, name: 'glModeratorAccessCode')
+      create(:room_meeting_option, meeting_option:, room:, value: 'MODERATOR_CODE')
+    end
 
-      expect(room.moderator_access_code).to eq('CODE')
+    it 'returns the "glModeratorCode" setting value' do
+      expect(room.reload.moderator_access_code).to eq('MODERATOR_CODE')
     end
   end
 
   describe '#generate_viewer_access_code' do
-    it 'calls #get_setting with name "glViewerAccessCode" and update it with #generate_code' do
-      fake_room_meeting_option = instance_double(RoomMeetingOption)
+    before do
+      meeting_option = create(:meeting_option, name: 'glViewerAccessCode')
+      create(:room_meeting_option, meeting_option:, room:, value: 'VIEWER_CODE')
+    end
 
-      allow(fake_room_meeting_option).to receive(:update).and_return true
-      allow_any_instance_of(described_class).to receive(:get_setting).and_return(fake_room_meeting_option)
+    it 'updates the "glViewerAccessCode" room setting value with #generate_code' do
       allow_any_instance_of(described_class).to receive(:generate_code).and_return('NEW_CODE')
 
-      expect_any_instance_of(described_class).to receive(:get_setting).with(name: 'glViewerAccessCode')
-      expect_any_instance_of(described_class).to receive(:generate_code)
-      expect(fake_room_meeting_option).to receive(:update).with value: 'NEW_CODE'
-
-      room.generate_viewer_access_code
+      expect(room.reload.generate_viewer_access_code).to be_truthy
+      expect(room.viewer_access_code).to eq('NEW_CODE')
     end
   end
 
   describe '#generate_moderator_access_code' do
-    it 'calls #get_setting with name "glModeratorAccessCode" and update it with #generate_code' do
-      fake_room_meeting_option = instance_double(RoomMeetingOption)
-      allow(fake_room_meeting_option).to receive(:update).and_return true
-      allow_any_instance_of(described_class).to receive(:get_setting).and_return(fake_room_meeting_option)
+    before do
+      meeting_option = create(:meeting_option, name: 'glModeratorAccessCode')
+      create(:room_meeting_option, meeting_option:, room:, value: 'MODERATOR_CODE')
+    end
+
+    it 'updates the "glModeratorAccessCode" room setting value with #generate_code' do
       allow_any_instance_of(described_class).to receive(:generate_code).and_return('NEW_CODE')
 
-      expect_any_instance_of(described_class).to receive(:get_setting).with(name: 'glModeratorAccessCode')
-      expect_any_instance_of(described_class).to receive(:generate_code)
-      expect(fake_room_meeting_option).to receive(:update).with value: 'NEW_CODE'
-
-      room.generate_moderator_access_code
-    end
-  end
-
-  describe '#remove_moderator_access_code' do
-    it 'calls #get_setting with name "glModeratorAccessCode" and update it with nil' do
-      fake_room_meeting_option = instance_double(RoomMeetingOption)
-      allow(fake_room_meeting_option).to receive(:update).and_return true
-      allow_any_instance_of(described_class).to receive(:get_setting).and_return(fake_room_meeting_option)
-
-      expect_any_instance_of(described_class).to receive(:get_setting).with(name: 'glModeratorAccessCode')
-      expect(fake_room_meeting_option).to receive(:update).with value: nil
-
-      room.remove_moderator_access_code
+      expect(room.reload.generate_moderator_access_code).to be_truthy
+      expect(room.moderator_access_code).to eq('NEW_CODE')
     end
   end
 
   describe '#remove_viewer_access_code' do
-    it 'calls #get_setting with name "glViewerAccessCode" and update it with nil' do
-      fake_room_meeting_option = instance_double(RoomMeetingOption)
-      allow(fake_room_meeting_option).to receive(:update).and_return true
-      allow_any_instance_of(described_class).to receive(:get_setting).and_return(fake_room_meeting_option)
+    before do
+      meeting_option = create(:meeting_option, name: 'glViewerAccessCode')
+      create(:room_meeting_option, meeting_option:, room:, value: 'VIEWER_CODE')
+    end
 
-      expect_any_instance_of(described_class).to receive(:get_setting).with(name: 'glViewerAccessCode')
-      expect(fake_room_meeting_option).to receive(:update).with value: nil
-
+    it 'removes the "glViewerAccessCode" room setting value with #generate_code' do
       room.remove_viewer_access_code
+      expect(room.reload.viewer_access_code).to be_nil
+    end
+  end
+
+  describe '#remove_moderator_access_code' do
+    before do
+      meeting_option = create(:meeting_option, name: 'glModeratorAccessCode')
+      create(:room_meeting_option, meeting_option:, room:, value: 'MODERATOR_CODE')
+    end
+
+    it 'removes the "glModeratorAccessCode" room setting value with #generate_code' do
+      room.remove_moderator_access_code
+      expect(room.reload.moderator_access_code).to be_nil
     end
   end
 
@@ -159,22 +270,15 @@ RSpec.describe Room, type: :model do
     end
   end
 
-  describe 'after_create' do
-    describe 'create_meeting_options' do
-      it 'creates a RoomMeetingOption for each MeetingOption' do
-        create_list(:meeting_option, 5)
-
-        expect { create(:room) }.to change(RoomMeetingOption, :count).from(0).to(5)
-      end
-    end
-  end
-
   describe 'validations' do
     subject { create(:room) }
 
     it { is_expected.to belong_to(:user) }
     it { is_expected.to have_many(:recordings).dependent(:destroy) }
     it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to have_many(:room_meeting_options).dependent(:destroy) }
+    it { is_expected.to have_one(:viewer_access_code_setting).dependent(:destroy) }
+    it { is_expected.to have_one(:moderator_access_code_setting).dependent(:destroy) }
     # Can't test validation on friendly_id and meeting_id due to before_validations
   end
 end

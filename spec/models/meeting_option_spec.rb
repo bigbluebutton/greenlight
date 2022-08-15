@@ -74,5 +74,17 @@ RSpec.describe MeetingOption, type: :model do
         end
       end
     end
+
+    describe '#access_codes_configs' do
+      it 'returns the access codes configs pluck(:name, :value)' do
+        viewer_code_conf = create(:meeting_option, name: 'glViewerAccessCode')
+        moderator_code_conf = create(:meeting_option, name: 'glModeratorAccessCode')
+        create(:rooms_configuration, meeting_option: viewer_code_conf, provider: 'greenlight', value: 'true')
+        create(:rooms_configuration, meeting_option: moderator_code_conf, provider: 'greenlight', value: 'false')
+
+        res = described_class.access_codes_configs(provider: 'greenlight')
+        expect(res).to match_array([%w[glViewerAccessCode true], %w[glModeratorAccessCode false]])
+      end
+    end
   end
 end
