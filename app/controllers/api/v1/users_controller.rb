@@ -6,7 +6,7 @@ module Api
       skip_before_action :ensure_authenticated, only: %i[create]
 
       before_action only: %i[update purge_avatar] do
-        ensure_authorized('ManageUsers')
+        ensure_authorized('ManageUsers', user_id: params[:id])
       end
 
       def show
