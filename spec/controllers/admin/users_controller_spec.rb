@@ -10,8 +10,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
     create(:role_permission,
            role_id: user.role_id,
            permission_id: manage_users_permission.id,
-           value: 'true',
-           provider: 'greenlight')
+           value: 'true')
   end
 
   before do
@@ -50,14 +49,14 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
 
     it 'returns :not_found for unfound users' do
       room_valid_params = { name: 'Awesome Room' }
-      create(:role_permission, permission: manage_users_permission, role:, value: 'true', provider: 'greenlight')
+      create(:role_permission, permission: manage_users_permission, role:, value: 'true')
       post :create_server_room, params: { user_id: 404, room: room_valid_params }
       expect(response).to have_http_status(:not_found)
     end
 
     it 'returns :bad_request for invalid params' do
       new_user = create(:user)
-      create(:role_permission, permission: manage_users_permission, role:, value: 'true', provider: 'greenlight')
+      create(:role_permission, permission: manage_users_permission, role:, value: 'true')
       post :create_server_room, params: { user_id: new_user.id, not_room: {} }
       expect(response).to have_http_status(:bad_request)
     end

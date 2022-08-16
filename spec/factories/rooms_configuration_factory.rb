@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :rooms_configuration do
     meeting_option
-    provider { Faker::Company.name.downcase }
+    provider { 'greenlight' }
     value { %w[true false optional].sample }
   end
 end

@@ -6,7 +6,6 @@ class CreateRolePermissions < ActiveRecord::Migration[7.0]
       t.belongs_to :role, foreign_key: true
       t.belongs_to :permission, foreign_key: true
       t.string :value, null: false
-      t.string :provider, null: false
 
       t.timestamps
     end

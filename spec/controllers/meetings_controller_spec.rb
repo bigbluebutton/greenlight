@@ -10,8 +10,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     create(:role_permission,
            role_id: user.role_id,
            permission_id: manage_rooms_permission.id,
-           value: 'true',
-           provider: 'greenlight')
+           value: 'true')
   end
 
   before do

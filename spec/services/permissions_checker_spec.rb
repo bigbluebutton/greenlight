@@ -9,7 +9,7 @@ describe PermissionsChecker, type: :service do
 
   describe '#call' do
     it 'returns true if the user role has the provided permission' do
-      create(:role_permission, role:, permission:, value: 'true', provider: 'greenlight')
+      create(:role_permission, role:, permission:, value: 'true')
       expect(described_class.new(
         current_user: user,
         permission_name: permission.name,
@@ -20,7 +20,7 @@ describe PermissionsChecker, type: :service do
     end
 
     it 'returns false if the user role does not have the provided permission' do
-      create(:role_permission, role:, permission:, value: 'false', provider: 'greenlight')
+      create(:role_permission, role:, permission:, value: 'false')
       expect(described_class.new(
         current_user: user,
         permission_name: permission.name,
@@ -31,7 +31,7 @@ describe PermissionsChecker, type: :service do
     end
 
     it 'returns true if the user is trying to act on itself without having the ManageUsers permission' do
-      create(:role_permission, role:, permission:, value: 'false', provider: 'greenlight')
+      create(:role_permission, role:, permission:, value: 'false')
       expect(described_class.new(
         current_user: user,
         permission_name: 'ManageUsers',

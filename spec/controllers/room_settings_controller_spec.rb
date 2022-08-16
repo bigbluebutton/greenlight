@@ -43,7 +43,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
       expect(MeetingOption).to receive(:get_config_value).with(name: 'setting', provider: 'greenlight').and_call_original
 
       meeting_option = create(:meeting_option, name: 'setting')
-      create(:rooms_configuration, meeting_option:, provider: 'greenlight', value: 'optional')
+      create(:rooms_configuration, meeting_option:, value: 'optional')
 
       put :update, params: { room_setting: { settingName: 'setting', settingValue: 'notOptionalAnymore' }, friendly_id: room.friendly_id }
       expect(response).to have_http_status(:ok)
@@ -53,7 +53,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
     context 'AuthZ' do
       it 'returns :forbidden if the setting config is "true"' do
         meeting_option = create(:meeting_option, name: 'setting')
-        create(:rooms_configuration, meeting_option:, provider: 'greenlight', value: 'true')
+        create(:rooms_configuration, meeting_option:, value: 'true')
 
         put :update, params: { room_setting: { settingName: 'setting', settingValue: 'notTrueAnymore' }, friendly_id: room.friendly_id }
         expect(response).to have_http_status(:forbidden)
@@ -61,7 +61,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
 
       it 'returns :forbidden if the setting config is "false"' do
         meeting_option = create(:meeting_option, name: 'setting')
-        create(:rooms_configuration, meeting_option:, provider: 'greenlight', value: 'false')
+        create(:rooms_configuration, meeting_option:, value: 'false')
 
         put :update, params: { room_setting: { settingName: 'setting', settingValue: 'notFalseAnymore' }, friendly_id: room.friendly_id }
         expect(response).to have_http_status(:forbidden)
