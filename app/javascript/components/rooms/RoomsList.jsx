@@ -10,10 +10,13 @@ import RoomPlaceHolder from './RoomPlaceHolder';
 import Modal from '../shared_components/modals/Modal';
 import CreateRoomForm from './room/forms/CreateRoomForm';
 import SearchBar from '../shared_components/search/SearchBar';
+import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function RoomsList() {
   const { isLoading, data: rooms } = useRooms();
   const [search, setSearch] = useState('');
+  const currentUser = useAuth();
+  const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
 
   if (isLoading) return <Spinner />;
 
@@ -26,7 +29,7 @@ export default function RoomsList() {
         <Modal
           modalButton={<Button variant="brand" className="ms-auto">+ New Room </Button>}
           title="Create New Room"
-          body={<CreateRoomForm mutation={useCreateRoom} />}
+          body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
         />
       </Stack>
       <Row md={4} className="g-4 pb-4 mt-4">
