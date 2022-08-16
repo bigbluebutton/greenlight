@@ -10,8 +10,7 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
     create(:role_permission,
            role: manage_recordings_role,
            permission: manage_recordings_permission,
-           value: 'true',
-           provider: 'greenlight')
+           value: 'true')
   end
 
   before do
