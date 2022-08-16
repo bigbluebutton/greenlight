@@ -122,7 +122,17 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
         manage_recordings_role_permission.update!(value: 'false')
       end
 
-      it 'user without ManageRecordings permission cannot update the recordings name' do
+      it 'user without ManageRecordings permission can update their recordings name' do
+        expect { post :update, params: { recording: { name: 'My Awesome Recording!' }, id: recording.record_id } }.to(change do
+                                                                                                                        recording.reload.name
+                                                                                                                      end)
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'user without ManageRecordings permission cannot update another users recordings name' do
+        user = create(:user)
+        room = create(:room, user:)
+        recording = create(:recording, room:)
         expect { post :update, params: { recording: { name: 'My Awesome Recording!' }, id: recording.record_id } }.not_to(change do
                                                                                                                             recording.reload.name
                                                                                                                           end)

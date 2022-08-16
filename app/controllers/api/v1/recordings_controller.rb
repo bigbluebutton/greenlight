@@ -5,7 +5,7 @@ module Api
     class RecordingsController < ApiController
       before_action :find_recording, only: %i[update update_visibility]
       before_action only: %i[update destroy update_visibility] do
-        ensure_authorized('ManageRecordings')
+        ensure_authorized('ManageRecordings', record_id: params[:id])
       end
 
       # GET /api/v1/recordings.json
