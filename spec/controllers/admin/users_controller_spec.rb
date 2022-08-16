@@ -9,8 +9,8 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
   let(:manage_users_permission) { create(:permission, name: 'ManageUsers') }
   let(:manage_users_role_permission) do
     create(:role_permission,
-           role_id: user.role_id,
-           permission_id: manage_users_permission.id,
+           role: manage_users_role,
+           permission: manage_users_permission,
            value: 'true')
   end
 
