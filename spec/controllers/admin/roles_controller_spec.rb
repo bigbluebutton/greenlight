@@ -10,8 +10,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
     create(:role_permission,
            role: manage_roles_role,
            permission: manage_roles_permission,
-           value: 'true',
-           provider: 'greenlight')
+           value: 'true')
   end
 
   before do
