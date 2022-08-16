@@ -3,10 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::UsersController, type: :controller do
-  let(:role) { create(:role) }
-  let(:user) { create(:user, role:) }
+  let(:user) { create(:user) }
+
+  let(:manage_users_role) { create(:role) }
   let(:manage_users_permission) { create(:permission, name: 'ManageUsers') }
-  let!(:manage_users_role_permission) do
+  let(:manage_users_role_permission) do
     create(:role_permission,
            role_id: user.role_id,
            permission_id: manage_users_permission.id,
@@ -16,6 +17,8 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
   before do
     request.headers['ACCEPT'] = 'application/json'
     session[:user_id] = user.id
+    manage_users_role_permission
+    user.update!(role: manage_users_role)
   end
 
   describe '#active_users' do

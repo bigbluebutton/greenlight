@@ -5,6 +5,16 @@ require 'rails_helper'
 RSpec.describe Api::V1::UsersController, type: :controller do
   let(:user) { create(:user) }
 
+  let(:manage_users_role) { create(:role) }
+  let(:manage_users_permission) { create(:permission, name: 'ManageUsers') }
+  let!(:manage_users_role_permission) do
+    create(:role_permission,
+           role: manage_users_role,
+           permission: manage_users_permission,
+           value: 'true',
+           provider: 'greenlight')
+  end
+
   before do
     request.headers['ACCEPT'] = 'application/json'
     session[:user_id] = user.id
@@ -95,15 +105,32 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
-  describe 'DELETE users#destroy' do
-    it 'deletes the user' do
+  describe 'users#destroy' do
+    it 'deletes the current_user account' do
       expect(response).to have_http_status(:ok)
       expect { delete :destroy, params: { id: user.id } }.to change(User, :count).by(-1)
     end
 
-    it 'does not delete any user if the user id is invalid' do
-      expect { delete :destroy, params: { id: 'invalid-id' } }.not_to change(User, :count)
-      expect(response).to have_http_status(:not_found)
+    it 'returns status code forbidden if the user tries to delete another user' do
+      new_user = create(:user)
+      expect { delete :destroy, params: { id: new_user.id } }.not_to change(User, :count)
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    context 'current_user with ManageUsers permission' do
+      before do
+        user.update!(role: manage_users_role)
+      end
+
+      it 'deletes a user' do
+        new_user = create(:user)
+        expect { delete :destroy, params: { id: new_user.id } }.to change(User, :count).by(-1)
+      end
+
+      it 'returns status code not found if the user does not exists' do
+        expect { delete :destroy, params: { id: 'invalid-id' } }.not_to change(User, :count)
+        expect(response).to have_http_status(:not_found)
+      end
     end
   end
 

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-hot-toast';
 import axios from '../../../helpers/Axios';
 
-export default function useCreateRoom({ onSettled }) {
+export default function useCreateRoom({ userId, onSettled }) {
   const ROOMSLISTQUERYKEY = 'getRooms'; // TODO: amir - create a central store for query keys.
   const queryClient = useQueryClient();
 
@@ -26,7 +26,7 @@ export default function useCreateRoom({ onSettled }) {
   };
 
   return useMutation(
-    (room) => axios.post('/rooms.json', { room }),
+    (room) => axios.post('/rooms.json', { room, user_id: userId }),
     { // Mutation config.
       onMutate: optimisticCreateRoom,
       onSuccess: () => { toast.success('Room created'); },
