@@ -15,7 +15,7 @@ class SettingGetter
                            setting: { name: @setting_name }
                          )
 
-    value = if setting&.image&.attached?
+    value = if @setting_name == 'BrandingImage' && setting.image.attached?
               rails_blob_path setting.image, only_path: true
             else
               setting&.value
