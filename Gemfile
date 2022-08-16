@@ -8,7 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'aws-sdk-s3', '~> 1.88.1'
+gem 'aws-sdk-s3', '~> 1.114.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bigbluebutton-api-ruby', '~> 1.9'
 gem 'bn-ldap-authentication', '~> 0.1.4'
@@ -48,6 +48,7 @@ gem 'tabler-rubygem', git: 'https://github.com/blindsidenetworks/tabler-rubygem.
 gem 'turbolinks', '~> 5.2.1'
 gem 'tzinfo-data', '~> 1.2021.5'
 gem 'uglifier', '~> 4.2.0'
+gem 'whenever', '~> 1.0.0'
 
 group :production do
   gem 'hiredis', '~> 0.6.3'
@@ -69,6 +70,7 @@ group :test do
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'rspec-rails', '~> 3.9', '>= 3.9.1'
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.3'
+  gem 'timecop', '~> 0.9.5'
   gem 'webmock', '~> 3.11'
 end
 

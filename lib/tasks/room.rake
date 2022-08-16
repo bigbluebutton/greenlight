@@ -47,4 +47,19 @@ namespace :room do
       end
     end
   end
+
+  desc "Delete rooms that were not used during the specified period of time"
+  task :remove_expired_rooms, [:expiration_time_in_days] => :environment do |_task, args|
+    # Exclude main rooms
+    regular_rooms = Room.where.not(id: Room.select(:id).joins("INNER JOIN users ON rooms.id = users.room_id"))
+
+    # Delete expired rooms
+    regular_rooms.where("last_session < ?", args[:expiration_time_in_days].to_i.days.ago)
+                 .destroy_all
+    # Delete rooms that were never used
+    regular_rooms.where("last_session is null")
+                 .where("updated_at < ?", args[:expiration_time_in_days].to_i.days.ago)
+                 .destroy_all
+    Rails.logger.info("RAKE: Removed rooms not used within the last #{args[:expiration_time_in_days]} days")
+  end
 end

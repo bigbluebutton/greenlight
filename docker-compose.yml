@@ -1,7 +1,7 @@
-version: '3'
+version: '3.8'
 
 services:
-  app:
+  app: &greenlight
     entrypoint: [bin/start]
     image: bigbluebutton/greenlight:v2
     container_name: greenlight-v2
@@ -23,6 +23,18 @@ services:
 # When using postgresql as the database
     links:
       - db
+
+  cron:
+    <<: *greenlight
+    container_name: greenlight-cron
+    entrypoint: /bin/bash -c "/bin/bash -c \"$${@}\""
+    command: |
+      /bin/bash -c "
+        bundle exec whenever --update-crontab 
+        /usr/sbin/crond -f
+      "
+    ports: [ ]
+
   db:
     image: postgres:13-alpine
     restart: unless-stopped
