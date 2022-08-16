@@ -14,4 +14,25 @@ class ApplicationController < ActionController::Base
   def hcaptcha_enabled?
     (ENV['HCAPTCHA_SITE_KEY'].present? && ENV['HCAPTCHA_SECRET_KEY'].present?)
   end
+
+  # Returns the current provider value
+  def current_provider
+    @current_provider ||= if ENV['LOADBALANCER_ENDPOINT'].present?
+                            parse_user_domain(request.host)
+                          else
+                            'greenlight'
+                          end
+  end
+
+  private
+
+  # Parses the url for the user domain
+  def parse_user_domain(hostname)
+    return hostname.split('.').first if Rails.configuration.url_host.empty?
+
+    Rails.configuration.url_host.split(',').each do |url_host|
+      return hostname.chomp(url_host).chomp('.') if hostname.include?(url_host)
+    end
+    ''
+  end
 end

@@ -9,7 +9,7 @@ module Api
       # Does: Fetches and returns a Hash :name => :value of all rooms configurations.
       def index
         rooms_configs = MeetingOption.joins(:rooms_configurations)
-                                     .where(rooms_configurations: { provider: 'greenlight' })
+                                     .where(rooms_configurations: { provider: current_provider })
                                      .pluck(:name, :value)
                                      .to_h
 

@@ -7,14 +7,14 @@ module Api
 
       # GET /api/v1/room_settings/:friendly_id
       def show
-        options = RoomSettingsGetter.new(room_id: @room.id, provider: 'greenlight').call
+        options = RoomSettingsGetter.new(room_id: @room.id, provider: current_provider).call
 
         render_data data: options, status: :ok
       end
 
       # PATCH /api/v1/room_settings/:friendly_id
       def update
-        config = MeetingOption.get_config_value(name: room_setting_params[:settingName], provider: 'greenlight')&.value
+        config = MeetingOption.get_config_value(name: room_setting_params[:settingName], provider: current_provider)&.value
 
         return render_error status: :forbidden unless config == 'optional'
 

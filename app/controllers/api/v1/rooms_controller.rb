@@ -86,12 +86,12 @@ module Api
       def generate_access_code
         generated = case params[:bbb_role]
                     when 'Viewer'
-                      config = MeetingOption.get_config_value(name: 'glViewerAccessCode', provider: 'greenlight')&.value
+                      config = MeetingOption.get_config_value(name: 'glViewerAccessCode', provider: current_provider)&.value
                       return render_error status: :forbidden if config == 'false'
 
                       @room.generate_viewer_access_code
                     when 'Moderator'
-                      config = MeetingOption.get_config_value(name: 'glModeratorAccessCode', provider: 'greenlight')&.value
+                      config = MeetingOption.get_config_value(name: 'glModeratorAccessCode', provider: current_provider)&.value
                       return render_error status: :forbidden if config == 'false'
 
                       @room.generate_moderator_access_code
@@ -106,12 +106,12 @@ module Api
       def remove_access_code
         removed = case params[:bbb_role]
                   when 'Viewer'
-                    config = MeetingOption.get_config_value(name: 'glViewerAccessCode', provider: 'greenlight')&.value
+                    config = MeetingOption.get_config_value(name: 'glViewerAccessCode', provider: current_provider)&.value
                     return render_error status: :forbidden unless config == 'optional'
 
                     @room.remove_viewer_access_code
                   when 'Moderator'
-                    config = MeetingOption.get_config_value(name: 'glModeratorAccessCode', provider: 'greenlight')&.value
+                    config = MeetingOption.get_config_value(name: 'glModeratorAccessCode', provider: current_provider)&.value
                     return render_error status: :forbidden unless config == 'optional'
 
                     @room.remove_moderator_access_code

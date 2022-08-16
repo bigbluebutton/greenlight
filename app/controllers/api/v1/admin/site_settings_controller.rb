@@ -6,7 +6,7 @@ module Api
       class SiteSettingsController < ApiController
         def index
           site_settings = Setting.joins(:site_settings)
-                                 .where(site_settings: { provider: 'greenlight' })
+                                 .where(site_settings: { provider: current_provider })
                                  .pluck(:name, :value)
                                  .to_h
 
@@ -16,7 +16,7 @@ module Api
         def update
           site_setting = SiteSetting.joins(:setting)
                                     .find_by(
-                                      provider: 'greenlight',
+                                      provider: current_provider,
                                       setting: { name: params[:name] }
                                     )
           return render_error status: :not_found unless site_setting

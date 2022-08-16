@@ -13,7 +13,7 @@ module Api
 
           rooms_config = RoomsConfiguration.joins(:meeting_option)
                                            .find_by(
-                                             provider: 'greenlight',
+                                             provider: current_provider,
                                              meeting_option: { name: params[:name] }
                                            )
 
