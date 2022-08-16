@@ -106,6 +106,31 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       create_list(:recording, 10, room:)
       expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Recording, :count).by(-10)
     end
+
+    it 'cannot delete the room of another user' do
+      new_user = create(:user)
+      room = create(:room, user: new_user)
+      expect { delete :destroy, params: { friendly_id: room.friendly_id } }.not_to change(Room, :count)
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    context 'user with ManageRooms permission' do
+      before do
+        user.update!(role_id: manage_rooms_role.id)
+      end
+
+      it 'deletes the room of another user' do
+        new_user = create(:user)
+        room = create(:room, user: new_user)
+        expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Room, :count).from(1).to(0)
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'returns :not_found if the room does not exists' do
+        delete :destroy, params: { friendly_id: 'NOT_FRIENDLY_ANYMORE' }
+        expect(response).to have_http_status(:not_found)
+      end
+    end
   end
 
   describe '#create' do

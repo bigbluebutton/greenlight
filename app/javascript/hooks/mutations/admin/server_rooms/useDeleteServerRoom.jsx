@@ -6,7 +6,7 @@ export default function useDeleteServerRoom({ friendlyId, onSettled }) {
   const queryClient = useQueryClient();
 
   return useMutation(
-    () => axios.delete(`admin/server_rooms/${friendlyId}.json`),
+    () => axios.delete(`/rooms/${friendlyId}.json`),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getServerRooms');

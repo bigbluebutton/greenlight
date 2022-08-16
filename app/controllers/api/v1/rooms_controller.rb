@@ -4,16 +4,18 @@ module Api
   module V1
     class RoomsController < ApiController
       before_action :find_room,
-                    only: %i[show update recordings recordings_processing
+                    only: %i[show update destroy recordings recordings_processing
                              purge_presentation access_codes
                              generate_access_code remove_access_code]
 
       skip_before_action :ensure_authenticated, only: %i[show]
-      before_action only: %i[show] do
-        ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
-      end
+
       before_action only: %i[create] do
         ensure_authorized('ManageUsers', user_id: room_params[:user_id])
+      end
+
+      before_action only: %i[show destroy] do
+        ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
 
       include Avatarable
@@ -63,8 +65,11 @@ module Api
       end
 
       def destroy
-        Room.destroy_by(friendly_id: params[:friendly_id])
-        render_data status: :ok
+        if @room.destroy
+          render_data status: :ok
+        else
+          render_error errors: @room.errors.to_a, status: :bad_request
+        end
       end
 
       def purge_presentation
