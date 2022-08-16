@@ -15,29 +15,29 @@ class PopulateRolePermissions < ActiveRecord::Migration[7.0]
     shared_list = Permission.find_by(name: 'SharedList')
 
     RolePermission.create! [
-      { role: admin, permission: create_room, value: 'true', provider: 'greenlight' },
-      { role: admin, permission: manage_users, value: 'true', provider: 'greenlight' },
-      { role: admin, permission: manage_rooms, value: 'true', provider: 'greenlight' },
-      { role: admin, permission: manage_recordings, value: 'true', provider: 'greenlight' },
-      { role: admin, permission: manage_site_settings, value: 'true', provider: 'greenlight' },
-      { role: admin, permission: manage_roles, value: 'true', provider: 'greenlight' },
-      { role: admin, permission: shared_list, value: 'true', provider: 'greenlight' },
+      { role: admin, permission: create_room, value: 'true' },
+      { role: admin, permission: manage_users, value: 'true' },
+      { role: admin, permission: manage_rooms, value: 'true' },
+      { role: admin, permission: manage_recordings, value: 'true' },
+      { role: admin, permission: manage_site_settings, value: 'true' },
+      { role: admin, permission: manage_roles, value: 'true' },
+      { role: admin, permission: shared_list, value: 'true' },
 
-      { role: user, permission: create_room, value: 'true', provider: 'greenlight' },
-      { role: user, permission: manage_users, value: 'false', provider: 'greenlight' },
-      { role: user, permission: manage_rooms, value: 'false', provider: 'greenlight' },
-      { role: user, permission: manage_recordings, value: 'false', provider: 'greenlight' },
-      { role: user, permission: manage_site_settings, value: 'false', provider: 'greenlight' },
-      { role: user, permission: manage_roles, value: 'false', provider: 'greenlight' },
-      { role: user, permission: shared_list, value: 'true', provider: 'greenlight' },
+      { role: user, permission: create_room, value: 'true' },
+      { role: user, permission: manage_users, value: 'false' },
+      { role: user, permission: manage_rooms, value: 'false' },
+      { role: user, permission: manage_recordings, value: 'false' },
+      { role: user, permission: manage_site_settings, value: 'false' },
+      { role: user, permission: manage_roles, value: 'false' },
+      { role: user, permission: shared_list, value: 'true' },
 
-      { role: guest, permission: create_room, value: 'false', provider: 'greenlight' },
-      { role: guest, permission: manage_users, value: 'false', provider: 'greenlight' },
-      { role: guest, permission: manage_rooms, value: 'false', provider: 'greenlight' },
-      { role: guest, permission: manage_recordings, value: 'false', provider: 'greenlight' },
-      { role: guest, permission: manage_site_settings, value: 'false', provider: 'greenlight' },
-      { role: guest, permission: manage_roles, value: 'false', provider: 'greenlight' },
-      { role: guest, permission: shared_list, value: 'true', provider: 'greenlight' }
+      { role: guest, permission: create_room, value: 'false' },
+      { role: guest, permission: manage_users, value: 'false' },
+      { role: guest, permission: manage_rooms, value: 'false' },
+      { role: guest, permission: manage_recordings, value: 'false' },
+      { role: guest, permission: manage_site_settings, value: 'false' },
+      { role: guest, permission: manage_roles, value: 'false' },
+      { role: guest, permission: shared_list, value: 'true' }
     ]
   end
 

@@ -6,6 +6,7 @@ class Role < ApplicationRecord
   has_many :permissions, through: :role_permissions
 
   validates :name, presence: true
+  validates :provider, presence: true
 
   before_validation :set_random_color, on: :create
 

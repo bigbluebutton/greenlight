@@ -33,7 +33,7 @@ module Api
         # Does: Creates a role.
 
         def create
-          role = Role.new role_params
+          role = Role.new role_params.merge(provider: current_provider)
 
           return render_error errors: role.errors.to_a, status: :bad_request unless role.save
 

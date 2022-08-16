@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :site_setting do
     setting
-    provider { Faker::Company.name.downcase }
+    provider { 'greenlight' }
     value { [true, false, '12345'].sample }
   end
 end

@@ -5,5 +5,4 @@ class RolePermission < ApplicationRecord
   belongs_to :role
 
   validates :value, presence: true
-  validates :provider, presence: true
 end

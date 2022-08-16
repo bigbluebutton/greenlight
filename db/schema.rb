@@ -85,7 +85,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.bigint "role_id"
     t.bigint "permission_id"
     t.string "value", null: false
-    t.string "provider", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["permission_id"], name: "index_role_permissions_on_permission_id"
@@ -95,6 +94,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
   create_table "roles", force: :cascade do |t|
     t.string "name", null: false
     t.string "color", default: "", null: false
+    t.string "provider", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

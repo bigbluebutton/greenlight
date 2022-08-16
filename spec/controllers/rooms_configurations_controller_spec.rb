@@ -16,9 +16,9 @@ RSpec.describe Api::V1::RoomsConfigurationsController, type: :controller do
         create(:meeting_option, name: 'TRUE'), create(:meeting_option, name: 'FALSE'), create(:meeting_option, name: 'OPTIONAL')
       ]
 
-      create(:rooms_configuration, meeting_option: meeting_options[0], value: 'true', provider: 'greenlight')
-      create(:rooms_configuration, meeting_option: meeting_options[1], value: 'false', provider: 'greenlight')
-      create(:rooms_configuration, meeting_option: meeting_options[2], value: 'optional', provider: 'greenlight')
+      create(:rooms_configuration, meeting_option: meeting_options[0], value: 'true')
+      create(:rooms_configuration, meeting_option: meeting_options[1], value: 'false')
+      create(:rooms_configuration, meeting_option: meeting_options[2], value: 'optional')
 
       get :index
 

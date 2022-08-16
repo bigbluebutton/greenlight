@@ -13,7 +13,7 @@ RSpec.describe Api::V1::Admin::RoomsConfigurationsController, type: :controller 
   describe 'rooms_configurations#update' do
     it 'updates the rooms configuration :value' do
       meeting_option = create(:meeting_option, name: 'Option')
-      rooms_config = create(:rooms_configuration, meeting_option:, value: 'optional', provider: 'greenlight')
+      rooms_config = create(:rooms_configuration, meeting_option:, value: 'optional')
 
       put :update, params: { name: 'Option', RoomsConfig: { value: 'true' } }
 
@@ -29,7 +29,7 @@ RSpec.describe Api::V1::Admin::RoomsConfigurationsController, type: :controller 
 
     it 'returns :bad_request for invalid params' do
       meeting_option = create(:meeting_option, name: 'Option')
-      create(:rooms_configuration, meeting_option:, value: 'optional', provider: 'greenlight')
+      create(:rooms_configuration, meeting_option:, value: 'optional')
 
       put :update, params: { name: 'Option', NotRoomsConfig: { not_value: 'true' } }
 
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::Admin::RoomsConfigurationsController, type: :controller 
 
     it 'returns :bad_request for failed updates' do
       meeting_option = create(:meeting_option, name: 'Option')
-      create(:rooms_configuration, meeting_option:, value: 'optional', provider: 'greenlight')
+      create(:rooms_configuration, meeting_option:, value: 'optional')
 
       put :update, params: { name: 'Option', RoomsConfig: { value: 'invalid' } }
 

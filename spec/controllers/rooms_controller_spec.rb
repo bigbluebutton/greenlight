@@ -9,10 +9,9 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
   let(:manage_rooms_permission) { create(:permission, name: 'ManageRooms') }
   let!(:manage_rooms_role_permission) do
     create(:role_permission,
-           role: manage_rooms_role,
-           permission: manage_rooms_permission,
-           value: 'true',
-           provider: 'greenlight')
+           role_id: user.role_id,
+           permission_id: manage_rooms_permission.id,
+           value: 'true')
   end
 
   let(:manage_users_role) { create(:role) }
@@ -21,8 +20,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     create(:role_permission,
            role: manage_users_role,
            permission: manage_users_permission,
-           value: 'true',
-           provider: 'greenlight')
+           value: 'true')
   end
 
   before do

@@ -3,9 +3,9 @@
 class PopulateRoles < ActiveRecord::Migration[7.0]
   def up
     Role.create! [
-      { name: 'Administrator' },
-      { name: 'User' },
-      { name: 'Guest' }
+      { name: 'Administrator', provider: 'greenlight' },
+      { name: 'User', provider: 'greenlight' },
+      { name: 'Guest', provider: 'greenlight' }
     ]
   end
 

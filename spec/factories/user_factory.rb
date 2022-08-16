@@ -5,7 +5,7 @@ FactoryBot.define do
     name { Faker::Name.name }
     email { Faker::Internet.email }
     external_id { nil }
-    provider { Faker::Company.name.downcase }
+    provider { 'greenlight' }
     password { Faker::Internet.password }
     role
     last_login { nil }
