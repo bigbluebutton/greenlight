@@ -74,8 +74,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
         create(:role_permission,
                role: shared_list_role,
                permission: shared_list_permission,
-               value: 'true',
-               provider: 'greenlight')
+               value: 'true')
       end
 
       it 'returns the users that the room can be shared to' do
