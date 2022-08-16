@@ -24,6 +24,11 @@ body {
   height: 100%;
 }
 
+.brand-image {
+  max-width: 300px;
+  max-height: 100px;
+}
+
 // Replace a button with a children icon
 .btn-icon {
   background: none;
@@ -241,3 +246,4 @@ input.search-bar {
     box-shadow: none;
   }
 }
+

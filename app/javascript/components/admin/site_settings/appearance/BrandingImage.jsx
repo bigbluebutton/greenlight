@@ -8,11 +8,14 @@ export default function BrandingImage() {
   const updateSiteSetting = useUpdateSiteSetting('BrandingImage');
 
   return (
-    <div className="mt-4">
-      <h6> Branding Image </h6>
-
-      <FilesDragAndDrop numOfFiles={1} onDrop={(files) => updateSiteSetting.mutate(files[0])} formats={['.jpg', '.png']}>
-        <Card className="border-0 shadow-sm mt-3 text-center">
+    <div className="mb-3">
+      <h5> Branding Image </h5>
+      <FilesDragAndDrop
+        numOfFiles={1}
+        onDrop={(files) => updateSiteSetting.mutate(files[0])}
+        formats={['.jpg', '.png', '.svg']}
+      >
+        <Card className="border border-2 border-whitesmoke mt-3 text-center">
           <label htmlFor="file" className="presentation-upload">
             <Card.Body className="py-5 text-secondary cursor-pointer">
               <div className="icon-circle rounded-circle d-block mx-auto mb-3">
@@ -23,15 +26,15 @@ export default function BrandingImage() {
                 className="d-none"
                 type="file"
                 onChange={(e) => updateSiteSetting.mutate(e.target.files[0])}
-                accept=".jpg, .png"
+                accept="image/*"
               />
               <Card.Title className="text-brand">
-                Click to Upload or drag and drop
+                Click to Upload <span className="fs-5 fw-normal text-muted"> or drag and drop </span>
               </Card.Title>
-              <Card.Text>
-                Upload any office document or PDF file. Depending on the size of the
+              <span className="text-muted">
+                Upload any PNG, JPG, or SVG file. Depending on the size of the
                 presentation, it may require additional time to upload before it can be used
-              </Card.Text>
+              </span>
             </Card.Body>
           </label>
         </Card>
