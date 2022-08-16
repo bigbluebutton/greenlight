@@ -117,11 +117,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
 
-    it 'returns status code forbidden if the user id is invalid' do
-      expect { delete :destroy, params: { id: 'invalid-id' } }.not_to change(User, :count)
-      expect(response).to have_http_status(:forbidden)
-    end
-
     context 'current_user with ManageUsers permission' do
       before do
         user.update!(role: manage_users_role)
@@ -132,7 +127,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect { delete :destroy, params: { id: new_user.id } }.to change(User, :count).by(-1)
       end
 
-      it 'returns status code not found if the user id is invalid' do
+      it 'returns status code not found if the user does not exists' do
         expect { delete :destroy, params: { id: 'invalid-id' } }.not_to change(User, :count)
         expect(response).to have_http_status(:not_found)
       end
