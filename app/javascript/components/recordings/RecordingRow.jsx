@@ -59,7 +59,7 @@ export default function RecordingRow({
         </Stack>
       </td>
       <td className="border-0"> {recording.length}min</td>
-      <td className="border-0"> {recording.users} </td>
+      <td className="border-0"> {recording.participants} </td>
       <td className="border-0">
         {/* TODO: Refactor this. */}
         <Form.Select
