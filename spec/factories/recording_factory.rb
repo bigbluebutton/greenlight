@@ -7,6 +7,6 @@ FactoryBot.define do
     record_id { Faker::Internet.uuid }
     visibility { 'Unlisted' }
     length { Faker::Number.within(range: 1..60) }
-    users { Faker::Number.within(range: 1..100) }
+    participants { Faker::Number.within(range: 1..100) }
   end
 end

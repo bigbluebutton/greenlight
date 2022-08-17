@@ -12,7 +12,7 @@ RSpec.describe Recording, type: :model do
     it { is_expected.to validate_presence_of(:record_id) }
     it { is_expected.to validate_presence_of(:visibility) }
     it { is_expected.to validate_presence_of(:length) }
-    it { is_expected.to validate_presence_of(:users) }
+    it { is_expected.to validate_presence_of(:participants) }
   end
 
   describe '#search' do

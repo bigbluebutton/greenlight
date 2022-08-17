@@ -49,7 +49,7 @@ RecordingsList.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     length: PropTypes.number.isRequired,
-    users: PropTypes.number.isRequired,
+    participants: PropTypes.number.isRequired,
     visibility: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
     map: PropTypes.func,

@@ -76,7 +76,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.datetime "updated_at", null: false
     t.string "visibility", null: false
     t.integer "length", null: false
-    t.integer "users", null: false
+    t.integer "participants", null: false
     t.boolean "protectable"
     t.index ["room_id"], name: "index_recordings_on_room_id"
   end
