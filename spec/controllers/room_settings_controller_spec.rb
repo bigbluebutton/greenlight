@@ -20,7 +20,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
     end
 
     it 'uses "RoomSettingGetter" service and render its returned value' do
-      expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight', only_enabled: true)
+      expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight', show_codes: true, only_enabled: true)
       expect(room_setting_getter_service).to receive(:call)
 
       get :show, params: { friendly_id: room.friendly_id }

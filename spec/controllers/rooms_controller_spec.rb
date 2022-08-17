@@ -34,7 +34,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       get :index
       expect(response).to have_http_status(:ok)
       response_room_ids = JSON.parse(response.body)['data'].map { |room| room['id'] }
-      expect(response_room_ids).to eq(rooms.pluck(:id))
+      expect(response_room_ids).to match_array(rooms.pluck(:id))
     end
 
     it 'no rooms for current_user should return empty list' do
