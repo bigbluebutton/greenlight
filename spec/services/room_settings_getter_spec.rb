@@ -124,7 +124,7 @@ describe RoomSettingsGetter, type: :service do
         create(:rooms_configuration, meeting_option: moderator_access_code, provider: 'greenlight', value: 'false')
         create(:rooms_configuration, meeting_option: setting, provider: 'greenlight', value: 'optional')
 
-        res = described_class.new(room_id: room.id, provider: 'greenlight').call
+        res = described_class.new(room_id: room.id, provider: 'greenlight', show_codes: true).call
 
         expect(res).to eq({
                             'setting' => 'VALUE',
@@ -147,13 +147,38 @@ describe RoomSettingsGetter, type: :service do
         create(:rooms_configuration, meeting_option: moderator_access_code, provider: 'greenlight', value: 'optional')
         create(:rooms_configuration, meeting_option: setting, provider: 'greenlight', value: 'optional')
 
-        res = described_class.new(room_id: room.id, provider: 'greenlight').call
+        res = described_class.new(room_id: room.id, provider: 'greenlight', show_codes: true).call
 
         expect(res).to eq({
                             'setting' => 'VALUE',
                             'glViewerAccessCode' => 'VIEWER',
                             'glModeratorAccessCode' => 'MODERATOR'
                           })
+      end
+
+      context 'show codes' do
+        it 'hides access code values when show_codes: false' do
+          room = create(:room)
+          viewer_access_code = create(:meeting_option, name: 'glViewerAccessCode')
+          moderator_access_code = create(:meeting_option, name: 'glModeratorAccessCode')
+          setting = create(:meeting_option, name: 'setting')
+
+          create(:room_meeting_option, room:, meeting_option: viewer_access_code, value: 'FILLED')
+          create(:room_meeting_option, room:, meeting_option: moderator_access_code, value: '')
+          create(:room_meeting_option, room:, meeting_option: setting, value: 'VALUE')
+
+          create(:rooms_configuration, meeting_option: viewer_access_code, provider: 'greenlight', value: 'true')
+          create(:rooms_configuration, meeting_option: moderator_access_code, provider: 'greenlight', value: 'optional')
+          create(:rooms_configuration, meeting_option: setting, provider: 'greenlight', value: 'optional')
+
+          res = described_class.new(room_id: room.id, provider: 'greenlight', show_codes: false).call
+
+          expect(res).to eq({
+                              'setting' => 'VALUE',
+                              'glViewerAccessCode' => true,
+                              'glModeratorAccessCode' => false
+                            })
+        end
       end
     end
   end

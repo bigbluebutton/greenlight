@@ -7,10 +7,11 @@ class RoomSettingsGetter
   # Hash(`<option_name> => {'true' => <Postive>, 'false' => <Negative>})`
   SPECIAL_OPTIONS = { 'guestPolicy' => { 'true' => 'ASK_MODERATOR', 'false' => 'ALWAYS_ACCEPT' } }.freeze
 
-  def initialize(room_id:, provider:, only_enabled: false, only_bbb_options: false)
+  def initialize(room_id:, provider:, show_codes: false, only_enabled: false, only_bbb_options: false)
     @room_id = room_id
     @only_bbb_options = only_bbb_options
     @only_enabled = only_enabled
+    @show_codes = show_codes
     # Fetching only rooms configs that are not optional to overwrite the settings values.
     @rooms_configs = MeetingOption.joins(:rooms_configurations)
                                   .where(rooms_configurations: { provider: })
@@ -54,13 +55,17 @@ class RoomSettingsGetter
   end
 
   def infer_codes(room_settings:, access_codes:)
-    access_codes.each do |key, code|
-      case room_settings[key]
-      when 'false'
-        room_settings[key] = '' # Forced disbaled access code will have an empty value.
-      when 'true'
-        room_settings[key] = code # Forced enabled access code will conserve its   original value.
-      end
+    filtered_access_codes = access_codes.slice(*room_settings.keys) # Filtering the available room access codes to minimize iterations.
+
+    filtered_access_codes.each do |key, code|
+      room_settings[key] = case room_settings[key]
+                           when 'false'
+                             '' # Forced disabled access code will have an empty value.
+                           else
+                             code # Forced enabled or optional access code will conserve its original value.
+                           end
+
+      room_settings[key] = room_settings[key].present? unless @show_codes # Hiding access code values.
     end
   end
 end
