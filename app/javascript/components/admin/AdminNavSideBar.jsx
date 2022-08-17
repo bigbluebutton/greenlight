@@ -24,12 +24,14 @@ export default function AdminNavSideBar() {
           </Nav.Link>
         </Nav.Item>
       )}
-      <Nav.Item>
-        <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/server-recordings" eventKey="server-recordings">
-          <VideoCameraIcon className="hi-s me-3" />
-          Server Recordings
-        </Nav.Link>
-      </Nav.Item>
+      {(currentUser.permissions.ManageRecordings === 'true') && (
+        <Nav.Item>
+          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/server-recordings" eventKey="server-recordings">
+            <VideoCameraIcon className="hi-s me-3" />
+            Server Recordings
+          </Nav.Link>
+        </Nav.Item>
+      )}
       <Nav.Item>
         <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/site-settings" eventKey="site-settings">
           <CogIcon className="hi-s me-3" />

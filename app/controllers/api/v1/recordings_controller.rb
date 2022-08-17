@@ -4,6 +4,9 @@ module Api
   module V1
     class RecordingsController < ApiController
       before_action :find_recording, only: %i[update update_visibility]
+      before_action only: %i[update destroy update_visibility] do
+        ensure_authorized('ManageRecordings', record_id: params[:id])
+      end
 
       # GET /api/v1/recordings.json
       # Returns: { data: Array[serializable objects(recordings)] , errors: Array[String] }
@@ -37,12 +40,6 @@ module Api
         @recording.update! name: new_name
 
         render_data data: @recording, status: :ok
-      end
-
-      def resync
-        RecordingsSync.new(user: current_user).call
-
-        render_data status: :ok
       end
 
       # POST /api/v1/recordings/update_visibility.json

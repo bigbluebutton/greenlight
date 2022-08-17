@@ -3,7 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
-  let(:user) { create(:user) }
+  let(:manage_recordings_role) { create(:role) }
+  let(:user) { create(:user, role: manage_recordings_role) }
+  let(:manage_recordings_permission) { create(:permission, name: 'ManageRecordings') }
+  let!(:manage_recordings_role_permission) do
+    create(:role_permission,
+           role: manage_recordings_role,
+           permission: manage_recordings_permission,
+           value: 'true')
+  end
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -35,6 +43,17 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recordings.pluck(:id))
     end
 
+    context 'user without ManageRecordings permission' do
+      before do
+        manage_recordings_role_permission.update!(value: 'false')
+      end
+
+      it 'user without ManageRecordings permission cannot return the list of recordings' do
+        get :index
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
     context 'ordering' do
       before do
         create(:recording, name: 'O')
@@ -55,6 +74,28 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
         # Order is important match_array isn't adequate for this test.
         expect(JSON.parse(response.body)['data'].pluck('name')).to eq(%w[O O P])
       end
+    end
+  end
+
+  describe '#resync' do
+    let(:fake_recording_sync) { instance_double(RecordingsSync) }
+
+    before do
+      allow(RecordingsSync).to receive(:new).and_return(fake_recording_sync)
+      allow(fake_recording_sync).to receive(:call).and_return({ 'recordings' => 'values' })
+    end
+
+    it 'calls the RecordingsSync service with correct params' do
+      expect(RecordingsSync).to receive(:new).with(user:)
+      expect(fake_recording_sync).to receive(:call)
+      get :resync
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'admin without ManageRecordings permission cannot call the RecordingsSync service' do
+      manage_recordings_role_permission.update!(value: 'false')
+      get :resync
+      expect(response).to have_http_status(:forbidden)
     end
   end
 end
