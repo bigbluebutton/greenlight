@@ -72,9 +72,7 @@ Rails.application.routes.draw do
           end
         end
         resources :server_recordings, only: %i[index] do
-          collection do
-            get '/resync', to: 'server_recordings#resync'
-          end
+          get '/resync', to: 'server_recordings#resync', on: :collection
         end
         resources :server_rooms, only: %i[index destroy], param: :friendly_id
         resources :site_settings, only: %i[index update], param: :name

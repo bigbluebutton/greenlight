@@ -4,7 +4,7 @@ module Api
   module V1
     module Admin
       class ServerRecordingsController < ApiController
-        before_action only: %i[index resync] do
+        before_action do
           ensure_authorized('ManageRecordings')
         end
 
