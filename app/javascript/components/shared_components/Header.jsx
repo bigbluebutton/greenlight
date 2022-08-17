@@ -11,7 +11,6 @@ export default function Header() {
   const currentUser = useAuth();
   const deleteSession = useDeleteSession();
 
-
   return (
     <Navbar>
       <Container>

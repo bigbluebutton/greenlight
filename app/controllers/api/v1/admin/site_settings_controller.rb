@@ -35,24 +35,6 @@ module Api
 
           render_data status: :ok
         end
-
-        def destroy
-          site_setting = SiteSetting.joins(:setting)
-                                    .find_by(
-                                      provider: current_provider,
-                                      setting: { name: params[:name] }
-                                    )
-
-          return render_error status: :not_found unless site_setting
-
-          site_setting.image.purge if params[:name] == 'BrandingImage'
-
-          if site_setting.update(value: '')
-            render_data status: :ok
-          else
-            render_error status: :bad_request
-          end
-        end
       end
     end
   end
