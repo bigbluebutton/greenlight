@@ -4,8 +4,7 @@ module Api
   module V1
     module Admin
       class ServerRoomsController < ApiController
-        before_action :find_server_room, only: :destroy
-        before_action only: %i[index destroy] do
+        before_action only: %i[index] do
           ensure_authorized('ManageRooms')
         end
 
@@ -25,21 +24,6 @@ module Api
           end
 
           render_data data: rooms, meta: pagy_metadata(pagy), serializer: ServerRoomSerializer, status: :ok
-        end
-
-        # DELETE /api/v1/admin/server_rooms/:friendly_id
-        # Expects: {}
-        # Returns: { data: Array[serializable objects] , errors: Array[String] }
-        # Does: Deletes the given server room.
-        def destroy
-          @server_room.destroy!
-          render_data status: :ok
-        end
-
-        private
-
-        def find_server_room
-          @server_room = Room.find_by!(friendly_id: params[:friendly_id])
         end
       end
     end
