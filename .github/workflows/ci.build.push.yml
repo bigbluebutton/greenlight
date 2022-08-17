@@ -8,6 +8,7 @@ on:
       - v1
       - v2
       - translations*
+      - snyk*
 
 jobs:
   main:
