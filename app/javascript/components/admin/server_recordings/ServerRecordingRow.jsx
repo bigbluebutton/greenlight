@@ -23,7 +23,7 @@ ServerRecordingRow.propTypes = {
     record_id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     length: PropTypes.number.isRequired,
-    users: PropTypes.number.isRequired,
+    participants: PropTypes.number.isRequired,
     formats: PropTypes.arrayOf(PropTypes.shape({
       url: PropTypes.string.isRequired,
       recording_type: PropTypes.string.isRequired,
