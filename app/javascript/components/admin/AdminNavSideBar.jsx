@@ -42,12 +42,14 @@ export default function AdminNavSideBar() {
           Room Configuration
         </Nav.Link>
       </Nav.Item>
-      <Nav.Item>
-        <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/roles" eventKey="roles">
-          <IdentificationIcon className="hi-s me-3" />
-          Roles
-        </Nav.Link>
-      </Nav.Item>
+      {(currentUser.permissions.ManageRoles === 'true') && (
+        <Nav.Item>
+          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/roles" eventKey="roles">
+            <IdentificationIcon className="hi-s me-3" />
+            Roles
+          </Nav.Link>
+        </Nav.Item>
+      )}
     </Nav>
   );
 }

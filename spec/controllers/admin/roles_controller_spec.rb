@@ -3,7 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::RolesController, type: :controller do
-  let(:user) { create(:user, role: create(:role, name: 'User')) }
+  let(:manage_roles_role) { create(:role, name: 'User') }
+  let(:user) { create(:user, role: manage_roles_role) }
+  let(:manage_roles_permission) { create(:permission, name: 'ManageRoles') }
+  let!(:manage_roles_role_permission) do
+    create(:role_permission,
+           role: manage_roles_role,
+           permission: manage_roles_permission,
+           value: 'true')
+  end
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -34,6 +42,17 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
 
       get :index, params: { search: '' }
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(Role.pluck(:id))
+    end
+
+    context 'user without ManageRoles permission' do
+      before do
+        manage_roles_role_permission.update!(value: 'false')
+      end
+
+      it 'user without ManageRoles permission cannot return the list of roles' do
+        get :index
+        expect(response).to have_http_status(:forbidden)
+      end
     end
 
     context 'ordering' do
@@ -73,6 +92,18 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(response).to have_http_status(:bad_request)
       expect(JSON.parse(response.body)['errors']).not_to be_empty
     end
+
+    context 'user without ManageRoles permission' do
+      before do
+        manage_roles_role_permission.update!(value: 'false')
+      end
+
+      it 'returns :forbidden for user without ManageRoles permission' do
+        valid_params = { name: 'CrazyRole' }
+        expect { post :create, params: { role: valid_params } }.not_to change(Role, :count)
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   describe 'roles#update' do
@@ -98,6 +129,19 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(response).to have_http_status(:bad_request)
       expect(JSON.parse(response.body)['errors']).not_to be_empty
     end
+
+    context 'user without ManageRoles permission' do
+      before do
+        manage_roles_role_permission.update!(value: 'false')
+      end
+
+      it 'returns :forbidden for user without ManageRoles permission' do
+        valid_params = { name: 'CrazyRole' }
+        post :update, params: { id: role.id, role: valid_params }
+        expect(role.reload.name).not_to eq(valid_params[:name])
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 
   describe 'roles#show' do
@@ -112,6 +156,18 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       create(:role)
       get :show, params: { id: 'Invalid' }
       expect(response).to have_http_status(:not_found)
+    end
+
+    context 'user without ManageRoles permission' do
+      before do
+        manage_roles_role_permission.update!(value: 'false')
+      end
+
+      it 'user without ManageRoles permission cannot return the role' do
+        role = create(:role)
+        get :show, params: { id: role.id }
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 
@@ -130,6 +186,18 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
     it 'fails to remove roles with dependant users with :internal_server_error' do
       expect { delete :destroy, params: { id: user.role.id } }.not_to change(Role, :count).from(1)
       expect(response).to have_http_status(:internal_server_error)
+    end
+
+    context 'user without ManageRoles permission' do
+      before do
+        manage_roles_role_permission.update!(value: 'false')
+      end
+
+      it 'user without ManageRoles permission cannot remove a given role' do
+        role = create(:role)
+        expect { delete :destroy, params: { id: role.id } }.not_to change(Role, :count)
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 end
