@@ -76,17 +76,20 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
       end
     end
   end
-  # TODO: - resync tests need to be adjusted
 
   describe '#resync' do
-    it 'calls the RecordingsSync service correctly' do
-      expect_any_instance_of(RecordingsSync).to receive(:call)
-      get :resync
+    let(:fake_recording_sync) { instance_double(RecordingsSync) }
+
+    before do
+      allow(RecordingsSync).to receive(:new).and_return(fake_recording_sync)
+      allow(fake_recording_sync).to receive(:call).and_return({ 'recordings' => 'values' })
     end
 
     it 'calls the RecordingsSync service with correct params' do
       expect(RecordingsSync).to receive(:new).with(user:)
+      expect(fake_recording_sync).to receive(:call)
       get :resync
+      expect(response).to have_http_status(:ok)
     end
 
     it 'admin without ManageRecordings permission cannot call the RecordingsSync service' do
