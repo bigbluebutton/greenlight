@@ -4,6 +4,9 @@ module Api
   module V1
     module Admin
       class SiteSettingsController < ApiController
+        before_action do
+          ensure_authorized('ManageSiteSettings')
+        end
         def index
           site_settings = Setting.joins(:site_settings)
                                  .where(site_settings: { provider: current_provider })
