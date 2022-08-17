@@ -3,6 +3,7 @@ import { Card } from 'react-bootstrap';
 import { CloudUploadIcon } from '@heroicons/react/outline';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 import FilesDragAndDrop from '../../../shared_components/utilities/FilesDragAndDrop';
+import FormControl from '../../../shared_components/forms/FormControl';
 
 export default function BrandingImage() {
   const updateSiteSetting = useUpdateSiteSetting('BrandingImage');
@@ -26,7 +27,7 @@ export default function BrandingImage() {
                 className="d-none"
                 type="file"
                 onChange={(e) => updateSiteSetting.mutate(e.target.files[0])}
-                accept="image/*"
+                accept=".png,.svg,.jpg"
               />
               <Card.Title className="text-brand">
                 Click to Upload <span className="fs-5 fw-normal text-muted"> or drag and drop </span>
