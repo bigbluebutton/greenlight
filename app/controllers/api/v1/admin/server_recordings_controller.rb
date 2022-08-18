@@ -16,7 +16,12 @@ module Api
         def index
           sort_config = config_sorting(allowed_columns: %w[name length visibility])
 
-          pagy, recordings = pagy(Recording.order(sort_config)&.search(params[:search]))
+          recordings = Recording.includes(:user)
+                                .where(user: { provider: current_provider })
+                                .order(sort_config)
+                                &.search(params[:search])
+
+          pagy, recordings = pagy(recordings)
 
           render_data data: recordings, meta: pagy_metadata(pagy), status: :ok
         end

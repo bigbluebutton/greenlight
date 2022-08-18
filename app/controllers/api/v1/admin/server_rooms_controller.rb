@@ -10,7 +10,12 @@ module Api
 
         # GET /api/v1/admin/server_rooms.json
         def index
-          pagy, rooms = pagy_array(Room.includes(:user).search(params[:search]))
+          rooms = Room.includes(:user)
+                      .where(user: { provider: current_provider })
+                      .search(params[:search])
+
+          pagy, rooms = pagy_array(rooms)
+
           active_rooms = BigBlueButtonApi.new.active_meetings
           active_rooms_hash = {}
 

@@ -5,8 +5,6 @@ module Api
     class SharedAccessesController < ApiController
       before_action :find_room
 
-      include Avatarable
-
       # POST /api/v1/shared_accesses.json
       def create
         user_ids = params[:shared_users]
