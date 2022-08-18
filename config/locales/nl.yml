@@ -25,11 +25,18 @@ nl:
         name: Naam
         password: Wachtwoord
         password_confirmation: Wachtwoordbevestiging
+        old_password: Oud wachtwoord
     errors:
       models:
         user:
-          password: niet complex genoeg volgens de vereisten
-          confirmation: Wachtwoorden komen niet overeen
+          confirmation: komt niet overeen
+          attributes:
+            email:
+              invalid: ongeldig e-mailformaat
+            password:
+              invalid: niet complex genoeg volgens de vereisten 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -489,6 +496,13 @@ nl:
   password_empty_notice: Wachtwoord mag niet leeg zijn.
   password_reset_success: Wachtwoord is opnieuw ingesteld.
   password_different_notice: Wachtwoordbevestiging komt niet overeen.
+  old_password_incorrect: is fout
+  password_complexity:
+    minimum_len: Minstens 8 tekens
+    one_lower_case: Minstens 1 kleine letter
+    one_upper_case: Minstens 1 hoofdletter
+    one_digit: Minstens 1 cijfer
+    one_sym: Minstens 1 niet alfanumeriek teken
   provider:
     google: Google
     office365: Office 365
@@ -519,7 +533,7 @@ nl:
     visibility:
       inaccessible: Ontoegankelijk
       public: Openbaar
-      unlisted: Niet-genoteerd
+      unlisted: Niet gepubliceerd
     format:
       notes: Notities
       podcast: Podcast
@@ -667,3 +681,5 @@ nl:
     signin: Meld u aan om toegang te krijgen tot uw account.
     title: Controleer je email
     verification: Verificatie
+  session:
+    expired: Sessie verlopen (Meld u opnieuw aan.).
