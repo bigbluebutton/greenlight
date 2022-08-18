@@ -8,11 +8,11 @@ import Appearance from './appearance/Appearance';
 import Administration from './administration/Administration';
 import Settings from './settings/Settings';
 import Registration from './registration/Registration';
-import Spinner from '../../shared_components/utilities/Spinner';
 import useSiteSettings from '../../../hooks/queries/admin/site_settings/useSiteSettings';
+import Spinner from '../../shared_components/utilities/Spinner';
 
 export default function SiteSettings() {
-  const { isLoading, data: siteSettings } = useSiteSettings();
+  const { data: siteSettings, isLoading } = useSiteSettings();
 
   return (
     <div id="admin-panel" className="wide-background">
@@ -32,28 +32,28 @@ export default function SiteSettings() {
                     <h2> Customize Greenlight </h2>
                   </div>
                   {
-                    (isLoading && <Spinner />)
-                    || (
-                      <Tabs className="border-bottom ps-3" defaultActiveKey="appearance">
-                        <Tab className="p-4" eventKey="appearance" title="Appearance">
-                          <Appearance />
-                        </Tab>
-                        <Tab className="p-4" eventKey="administration" title="Administration">
-                          <Administration
-                            terms={siteSettings.Terms}
-                            privacy={siteSettings.PrivacyPolicy}
-                          />
-                        </Tab>
-                        <Tab className="p-4" eventKey="settings" title="Settings">
-                          <Settings />
-                        </Tab>
-                        <Tab className="p-4" eventKey="registration" title="Registration">
-                          <Registration value={siteSettings.RoleMapping} />
-                        </Tab>
-                      </Tabs>
-                    )
+                    isLoading
+                      ? <div className="p-3"><Spinner /></div>
+                      : (
+                        <Tabs className="border-bottom ps-3" defaultActiveKey="appearance">
+                          <Tab className="p-4" eventKey="appearance" title="Appearance">
+                            <Appearance />
+                          </Tab>
+                          <Tab className="p-4" eventKey="administration" title="Administration">
+                            <Administration
+                              terms={siteSettings.Terms}
+                              privacy={siteSettings.PrivacyPolicy}
+                            />
+                          </Tab>
+                          <Tab className="p-4" eventKey="settings" title="Settings">
+                            <Settings />
+                          </Tab>
+                          <Tab className="p-4" eventKey="registration" title="Registration">
+                            <Registration value={siteSettings.RoleMapping} />
+                          </Tab>
+                        </Tabs>
+                      )
                   }
-
                 </Container>
               </Tab.Content>
             </Col>
