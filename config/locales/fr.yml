@@ -681,3 +681,5 @@ fr:
     signin: Veuillez vous connecter pour accéder à votre compte.
     title: Vérifiez votre adresse électronique
     verification: Validation
+  session:
+    expired: La session a expiré (Veuillez vous connecter à nouveau).
