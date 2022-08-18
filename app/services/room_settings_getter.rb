@@ -7,11 +7,13 @@ class RoomSettingsGetter
   # Hash(`<option_name> => {'true' => <Postive>, 'false' => <Negative>})`
   SPECIAL_OPTIONS = { 'guestPolicy' => { 'true' => 'ASK_MODERATOR', 'false' => 'ALWAYS_ACCEPT' } }.freeze
 
-  def initialize(room_id:, provider:, show_codes: false, only_enabled: false, only_bbb_options: false)
+  def initialize(room_id:, provider:, settings: [], show_codes: false, only_enabled: false, only_bbb_options: false)
     @room_id = room_id
-    @only_bbb_options = only_bbb_options
-    @only_enabled = only_enabled
-    @show_codes = show_codes
+    @only_bbb_options = only_bbb_options # When used only BBB options (not prefixed with 'gl') will be returned.
+    @only_enabled = only_enabled # When used only optional and force enabled options will be returned.
+    @show_codes = show_codes # When used access code values will be returned.
+    @settings = settings # When given only the settings contained in the Array<String> will be returned.
+
     # Fetching only rooms configs that are not optional to overwrite the settings values.
     @rooms_configs = MeetingOption.joins(:rooms_configurations)
                                   .where(rooms_configurations: { provider: })
@@ -22,12 +24,14 @@ class RoomSettingsGetter
 
   def call
     room_settings = MeetingOption.joins(:room_meeting_options).where(room_meeting_options: { room_id: @room_id })
+    room_settings = room_settings.where(name: @settings) unless @settings.empty?
     room_settings = room_settings.where.not('name ILIKE :prefix', prefix: 'gl%') if @only_bbb_options
     room_settings = room_settings.pluck(:name, :value).to_h
 
     access_codes = room_settings.slice('glViewerAccessCode', 'glModeratorAccessCode') # Holding room original access code values.
 
-    room_settings.merge!(@rooms_configs) # Merging rooms settings with its none optional configurations prioritizing forced configs over settings.
+    @rooms_configs.slice!(*room_settings.keys) # Keeping only room settings related configs.
+    room_settings.merge!(@rooms_configs) # Merging rooms settings with their **none** optional configs.
 
     filter_disabled(room_settings:) if @only_enabled # Only enabled(optional|force enabled) setting values will be returned.
     infer_specials(room_settings:) # Special options should map their forced values to what was configured in `SPECIAL_OPTIONS` registry.

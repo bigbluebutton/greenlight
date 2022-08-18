@@ -59,56 +59,6 @@ describe RoomSettingsGetter, type: :service do
       end
     end
 
-    context 'bbb options only' do
-      it 'returns a filtered Hash("name" => "value") of room settings that does not start with "bbb" prefix' do
-        room = create(:room)
-        setting1 = create(:meeting_option, name: 'glSetting')
-        setting2 = create(:meeting_option, name: 'GlGLSetting')
-        setting3 = create(:meeting_option, name: 'YourOnlyBBBSetting')
-
-        create(:room_meeting_option, room:, meeting_option: setting1, value: 'GL')
-        create(:room_meeting_option, room:, meeting_option: setting2, value: 'GL')
-        create(:room_meeting_option, room:, meeting_option: setting3, value: 'BBB')
-
-        create(:rooms_configuration, meeting_option: setting1, provider: 'greenlight', value: 'optional')
-        create(:rooms_configuration, meeting_option: setting2, provider: 'greenlight', value: 'optional')
-        create(:rooms_configuration, meeting_option: setting3, provider: 'greenlight', value: 'optional')
-
-        res = described_class.new(room_id: room.id, provider: 'greenlight', only_bbb_options: true).call
-
-        expect(res).to eq({
-                            'YourOnlyBBBSetting' => 'BBB'
-                          })
-      end
-    end
-
-    context 'enabled options only' do
-      it 'returns a filtered Hash("name => "value") of room settings that are not forced disabled (optional|forced enabled)' do
-        room = create(:room)
-        setting1 = create(:meeting_option, name: 'disabledOne')
-        setting2 = create(:meeting_option, name: 'disabledTwo')
-        setting3 = create(:meeting_option, name: 'forcedEnabled')
-        setting4 = create(:meeting_option, name: 'optional')
-
-        create(:room_meeting_option, room:, meeting_option: setting1, value: 'disabled')
-        create(:room_meeting_option, room:, meeting_option: setting2, value: 'disabled')
-        create(:room_meeting_option, room:, meeting_option: setting3, value: 'enabled')
-        create(:room_meeting_option, room:, meeting_option: setting4, value: 'optional')
-
-        create(:rooms_configuration, meeting_option: setting1, provider: 'greenlight', value: 'false')
-        create(:rooms_configuration, meeting_option: setting2, provider: 'greenlight', value: 'false')
-        create(:rooms_configuration, meeting_option: setting3, provider: 'greenlight', value: 'true')
-        create(:rooms_configuration, meeting_option: setting4, provider: 'greenlight', value: 'optional')
-
-        res = described_class.new(room_id: room.id, provider: 'greenlight', only_enabled: true).call
-
-        expect(res).to eq({
-                            'forcedEnabled' => 'true',
-                            'optional' => 'optional'
-                          })
-      end
-    end
-
     context 'access codes' do
       it 'returns an empty code for forced disabled access codes' do
         room = create(:room)
@@ -156,28 +106,104 @@ describe RoomSettingsGetter, type: :service do
                           })
       end
 
-      context 'show codes' do
-        it 'hides access code values when show_codes: false' do
-          room = create(:room)
-          viewer_access_code = create(:meeting_option, name: 'glViewerAccessCode')
-          moderator_access_code = create(:meeting_option, name: 'glModeratorAccessCode')
-          setting = create(:meeting_option, name: 'setting')
+      describe 'options' do
+        context ':show_codes' do
+          it 'returns a filtered Hash("name" => "value") of room settings with access codes values hidden' do
+            room = create(:room)
+            viewer_access_code = create(:meeting_option, name: 'glViewerAccessCode')
+            moderator_access_code = create(:meeting_option, name: 'glModeratorAccessCode')
+            setting = create(:meeting_option, name: 'setting')
 
-          create(:room_meeting_option, room:, meeting_option: viewer_access_code, value: 'FILLED')
-          create(:room_meeting_option, room:, meeting_option: moderator_access_code, value: '')
-          create(:room_meeting_option, room:, meeting_option: setting, value: 'VALUE')
+            create(:room_meeting_option, room:, meeting_option: viewer_access_code, value: 'FILLED')
+            create(:room_meeting_option, room:, meeting_option: moderator_access_code, value: '')
+            create(:room_meeting_option, room:, meeting_option: setting, value: 'VALUE')
 
-          create(:rooms_configuration, meeting_option: viewer_access_code, provider: 'greenlight', value: 'true')
-          create(:rooms_configuration, meeting_option: moderator_access_code, provider: 'greenlight', value: 'optional')
-          create(:rooms_configuration, meeting_option: setting, provider: 'greenlight', value: 'optional')
+            create(:rooms_configuration, meeting_option: viewer_access_code, provider: 'greenlight', value: 'true')
+            create(:rooms_configuration, meeting_option: moderator_access_code, provider: 'greenlight', value: 'optional')
+            create(:rooms_configuration, meeting_option: setting, provider: 'greenlight', value: 'optional')
 
-          res = described_class.new(room_id: room.id, provider: 'greenlight', show_codes: false).call
+            res = described_class.new(room_id: room.id, provider: 'greenlight', show_codes: false).call
 
-          expect(res).to eq({
-                              'setting' => 'VALUE',
-                              'glViewerAccessCode' => true,
-                              'glModeratorAccessCode' => false
-                            })
+            expect(res).to eq({
+                                'setting' => 'VALUE',
+                                'glViewerAccessCode' => true,
+                                'glModeratorAccessCode' => false
+                              })
+          end
+        end
+
+        context ':only_bbb_options' do
+          it 'returns a filtered Hash("name" => "value") of room settings that does not start with "gl" prefix' do
+            room = create(:room)
+            setting1 = create(:meeting_option, name: 'glSetting')
+            setting2 = create(:meeting_option, name: 'GlGLSetting')
+            setting3 = create(:meeting_option, name: 'YourOnlyBBBSetting')
+
+            create(:room_meeting_option, room:, meeting_option: setting1, value: 'GL')
+            create(:room_meeting_option, room:, meeting_option: setting2, value: 'GL')
+            create(:room_meeting_option, room:, meeting_option: setting3, value: 'BBB')
+
+            create(:rooms_configuration, meeting_option: setting1, provider: 'greenlight', value: 'true')
+            create(:rooms_configuration, meeting_option: setting2, provider: 'greenlight', value: 'false')
+            create(:rooms_configuration, meeting_option: setting3, provider: 'greenlight', value: 'optional')
+
+            res = described_class.new(room_id: room.id, provider: 'greenlight', only_bbb_options: true).call
+
+            expect(res).to eq({
+                                'YourOnlyBBBSetting' => 'BBB'
+                              })
+          end
+        end
+
+        context ':only_enabled' do
+          it 'returns a filtered Hash("name => "value") of room settings that are not forced disabled (optional|forced enabled)' do
+            room = create(:room)
+            setting1 = create(:meeting_option, name: 'disabledOne')
+            setting2 = create(:meeting_option, name: 'disabledTwo')
+            setting3 = create(:meeting_option, name: 'forcedEnabled')
+            setting4 = create(:meeting_option, name: 'optional')
+
+            create(:room_meeting_option, room:, meeting_option: setting1, value: 'disabled')
+            create(:room_meeting_option, room:, meeting_option: setting2, value: 'disabled')
+            create(:room_meeting_option, room:, meeting_option: setting3, value: 'enabled')
+            create(:room_meeting_option, room:, meeting_option: setting4, value: 'optional')
+
+            create(:rooms_configuration, meeting_option: setting1, provider: 'greenlight', value: 'false')
+            create(:rooms_configuration, meeting_option: setting2, provider: 'greenlight', value: 'false')
+            create(:rooms_configuration, meeting_option: setting3, provider: 'greenlight', value: 'true')
+            create(:rooms_configuration, meeting_option: setting4, provider: 'greenlight', value: 'optional')
+
+            res = described_class.new(room_id: room.id, provider: 'greenlight', only_enabled: true).call
+
+            expect(res).to eq({
+                                'forcedEnabled' => 'true',
+                                'optional' => 'optional'
+                              })
+          end
+        end
+
+        context ':settings' do
+          it 'returns a filtered Hash("name => "value") of mentionned room settings only' do
+            room = create(:room)
+            setting1 = create(:meeting_option, name: 'One')
+            setting2 = create(:meeting_option, name: 'Two')
+            setting3 = create(:meeting_option, name: 'Three')
+
+            create(:room_meeting_option, room:, meeting_option: setting1, value: 'enabled')
+            create(:room_meeting_option, room:, meeting_option: setting2, value: 'optional')
+            create(:room_meeting_option, room:, meeting_option: setting3, value: 'disabled')
+
+            create(:rooms_configuration, meeting_option: setting1, provider: 'greenlight', value: 'true')
+            create(:rooms_configuration, meeting_option: setting2, provider: 'greenlight', value: 'optional')
+            create(:rooms_configuration, meeting_option: setting3, provider: 'greenlight', value: 'false')
+
+            res = described_class.new(room_id: room.id, provider: 'greenlight', settings: %w[One Three]).call
+
+            expect(res).to eq({
+                                'One' => 'true',
+                                'Three' => 'false'
+                              })
+          end
         end
       end
     end
