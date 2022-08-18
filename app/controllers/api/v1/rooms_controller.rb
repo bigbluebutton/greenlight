@@ -3,12 +3,12 @@
 module Api
   module V1
     class RoomsController < ApiController
+      skip_before_action :ensure_authenticated, only: %i[public_show]
+
       before_action :find_room,
                     only: %i[show update destroy recordings recordings_processing
-                             purge_presentation access_codes
+                             purge_presentation access_codes public_show
                              generate_access_code remove_access_code]
-
-      skip_before_action :ensure_authenticated, only: %i[show]
 
       before_action only: %i[create] do
         ensure_authorized('ManageUsers', user_id: room_params[:user_id])
@@ -17,9 +17,6 @@ module Api
       before_action only: %i[show destroy] do
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
-
-      include Avatarable
-      include Presentable
 
       # GET /api/v1/rooms.json
       def index
@@ -37,6 +34,11 @@ module Api
       # GET /api/v1/rooms/:friendly_id.json
       def show
         render_data data: @room, serializer: CurrentRoomSerializer, options: { include_owner: params[:include_owner] == 'true' }, status: :ok
+      end
+
+      # GET /api/v1/rooms/:friendly_id/public.json
+      def public_show
+        render_data data: @room, serializer: PublicRoomSerializer, status: :ok
       end
 
       # POST /api/v1/rooms.json

@@ -93,6 +93,25 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     end
   end
 
+  describe '#public_show' do
+    before do
+      session[:user_id] = nil
+    end
+
+    it 'returns a room if the friendly id is valid' do
+      room = create(:room)
+      get :public_show, params: { friendly_id: room.friendly_id }
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)['data']['name']).to eq(room.name)
+    end
+
+    it 'returns :not_found if the room doesnt exist' do
+      get :public_show, params: { friendly_id: 'invalid_friendly_id' }
+      expect(response).to have_http_status(:not_found)
+      expect(JSON.parse(response.body)['data']).to be_nil
+    end
+  end
+
   describe '#destroy' do
     it 'deletes room from the database' do
       room = create(:room, user:)
