@@ -35,20 +35,20 @@ export default function AdminNavSideBar() {
         </Nav.Item>
       )}
       {(currentUser.permissions.ManageSiteSettings === 'true') && (
-        <Nav.Item>
-          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/site-settings" eventKey="site-settings">
-            <CogIcon className="hi-s me-3" />
-            Site Settings
-          </Nav.Link>
-        </Nav.Item>
-      )}
-      {(currentUser.permissions.ManageSiteSettings === 'true') && (
-        <Nav.Item>
-          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/room-configuration" eventKey="room-configuration">
-            <AdjustmentsIcon className="hi-s me-3" />
-            Room Configuration
-          </Nav.Link>
-        </Nav.Item>
+        <>
+          <Nav.Item>
+            <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/site-settings" eventKey="site-settings">
+              <CogIcon className="hi-s me-3" />
+              Site Settings
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/room-configuration" eventKey="room-configuration">
+              <AdjustmentsIcon className="hi-s me-3" />
+              Room Configuration
+            </Nav.Link>
+          </Nav.Item>
+        </>
       )}
       {(currentUser.permissions.ManageRoles === 'true') && (
         <Nav.Item>

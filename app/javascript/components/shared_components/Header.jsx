@@ -15,12 +15,18 @@ export default function Header() {
 
   const adminAccess = () => {
     const { permissions } = currentUser;
-    delete permissions.SharedList;
-    delete permissions.CreateRoom;
+    const {
+      ManageUsers, ManageRooms, ManageRecordings, ManageSiteSettings, ManageRoles,
+    } = permissions;
 
-    if (Object.values(permissions).includes('true')) {
-      return <NavDropdown.Item as={Link} to="/adminpanel">Admin Panel</NavDropdown.Item>;
+    if (ManageUsers === 'true'
+      || ManageRooms === 'true'
+      || ManageRecordings === 'true'
+      || ManageSiteSettings === 'true'
+      || ManageRoles === 'true') {
+      return true;
     }
+
     return false;
   };
 
@@ -41,7 +47,10 @@ export default function Header() {
           <Avatar avatar={currentUser?.avatar} radius={40} />
           <NavDropdown title={currentUser?.name} id="nav-user-dropdown">
             <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
-            { adminAccess() }
+            {
+              adminAccess()
+              && <NavDropdown.Item as={Link} to="/adminpanel">Admin Panel</NavDropdown.Item>
+            }
             <NavDropdown.Item as={Link} to="/">Need help?</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item as={Link} to="/" onClick={deleteSession.mutate}>Sign Out</NavDropdown.Item>
