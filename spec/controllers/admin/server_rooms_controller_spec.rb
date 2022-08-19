@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
   let(:user) { create(:user) }
-  let(:user_with_manage_rooms_permission) { create(:user, :with_manage_rooms_permission)}
+  let(:user_with_manage_rooms_permission) { create(:user, :with_manage_rooms_permission) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
