@@ -43,7 +43,6 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       end
 
       it 'user without ManageRoles permission cannot return the list of roles' do
-
         get :index
         expect(response).to have_http_status(:forbidden)
       end
