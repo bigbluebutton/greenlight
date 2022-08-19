@@ -4,15 +4,16 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
   let(:user) { create(:user) }
+  let(:user_with_manage_users_permission) { create(:user, :manage_users) }
 
-  let(:manage_users_role) { create(:role) }
-  let(:manage_users_permission) { create(:permission, name: 'ManageUsers') }
-  let!(:manage_users_role_permission) do
-    create(:role_permission,
-           role: manage_users_role,
-           permission: manage_users_permission,
-           value: 'true')
-  end
+  # let(:manage_users_role) { create(:role) }
+  # let(:manage_users_permission) { create(:permission, name: 'ManageUsers') }
+  # let!(:manage_users_role_permission) do
+  #   create(:role_permission,
+  #          role: manage_users_role,
+  #          permission: manage_users_permission,
+  #          value: 'true')
+  # end
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -61,7 +62,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
-  describe 'POST users#update' do
+  describe '#update' do
     it 'updates the users attributes' do
       updated_params = {
         name: 'New Name',
@@ -104,7 +105,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
-  describe 'users#destroy' do
+  describe '#destroy' do
     it 'deletes the current_user account' do
       expect(response).to have_http_status(:ok)
       expect { delete :destroy, params: { id: user.id } }.to change(User, :count).by(-1)
@@ -116,9 +117,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
 
-    context 'current_user with ManageUsers permission' do
+    context 'user with ManageUsers permission' do
       before do
-        user.update!(role: manage_users_role)
+        session[:user_id] = user_with_manage_users_permission.id
       end
 
       it 'deletes a user' do
@@ -133,10 +134,10 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
-  describe 'POST users#change_password' do
+  describe 'change_password' do
     let!(:user) { create(:user, password: 'Test12345678+') }
 
-    before { session[:user_id] = user.id }
+    # before { session[:user_id] = user.id }
 
     it 'changes current_user password if the params are valid' do
       valid_params = { old_password: 'Test12345678+', new_password: 'Glv3IsAwesome!' }
