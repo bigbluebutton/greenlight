@@ -6,15 +6,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   let(:user) { create(:user) }
   let(:user_with_manage_users_permission) { create(:user, :manage_users) }
 
-  # let(:manage_users_role) { create(:role) }
-  # let(:manage_users_permission) { create(:permission, name: 'ManageUsers') }
-  # let!(:manage_users_role_permission) do
-  #   create(:role_permission,
-  #          role: manage_users_role,
-  #          permission: manage_users_permission,
-  #          value: 'true')
-  # end
-
   before do
     request.headers['ACCEPT'] = 'application/json'
     session[:user_id] = user.id
@@ -136,8 +127,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe 'change_password' do
     let!(:user) { create(:user, password: 'Test12345678+') }
-
-    # before { session[:user_id] = user.id }
 
     it 'changes current_user password if the params are valid' do
       valid_params = { old_password: 'Test12345678+', new_password: 'Glv3IsAwesome!' }
