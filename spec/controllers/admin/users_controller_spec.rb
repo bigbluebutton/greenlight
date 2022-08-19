@@ -4,28 +4,19 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::UsersController, type: :controller do
   let(:user) { create(:user) }
-
-  let(:manage_users_role) { create(:role) }
-  let(:manage_users_permission) { create(:permission, name: 'ManageUsers') }
-  let(:manage_users_role_permission) do
-    create(:role_permission,
-           role: manage_users_role,
-           permission: manage_users_permission,
-           value: 'true')
-  end
+  let(:user_with_manage_users_permission) { create(:user, :with_manage_users_permission) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user.id
-    manage_users_role_permission
-    user.update!(role: manage_users_role)
+    session[:user_id] = user_with_manage_users_permission.id
   end
 
   describe '#active_users' do
-    it 'ids of rooms in response are matching room ids that belong to current_user' do
-      # TODO: Change this test to create active users and not just any users
-      users = create_list(:user, 3)
-      users << user
+    it 'returns the list of active users' do
+      # TODO: this test doesnt test anything
+      # TODO: active, banned, etc users feature has not been implemented yet (19.08)
+      # TODO: Change this test to return active users and not just any users
+      users = User.all
 
       get :active_users
       expect(response).to have_http_status(:ok)

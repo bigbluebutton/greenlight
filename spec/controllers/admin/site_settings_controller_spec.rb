@@ -3,19 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::SiteSettingsController, type: :controller do
-  let(:manage_site_settings_role) { create(:role) }
-  let(:user) { create(:user, role: manage_site_settings_role) }
-  let(:manage_site_settings_permission) { create(:permission, name: 'ManageSiteSettings') }
-  let!(:manage_site_settings_role_permission) do
-    create(:role_permission,
-           role: manage_site_settings_role,
-           permission: manage_site_settings_permission,
-           value: 'true')
-  end
+  let(:user) { create(:user) }
+  let(:user_with_manage_site_settings_permission) { create(:user, :with_manage_site_settings_permission) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user.id
+    session[:user_id] = user_with_manage_site_settings_permission.id
   end
 
   describe '#index' do
@@ -27,7 +20,7 @@ RSpec.describe Api::V1::Admin::SiteSettingsController, type: :controller do
 
     context 'user without ManageSiteSettings permission' do
       before do
-        manage_site_settings_role_permission.update!(value: 'false')
+        session[:user_id] = user.id
       end
 
       it 'cant return all the SiteSettings' do
@@ -48,7 +41,7 @@ RSpec.describe Api::V1::Admin::SiteSettingsController, type: :controller do
 
     context 'user without ManageSiteSettings permission' do
       before do
-        manage_site_settings_role_permission.update!(value: 'false')
+        session[:user_id] = user.id
       end
 
       it 'cant update the value of SiteSetting' do
