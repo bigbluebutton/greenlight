@@ -5,11 +5,10 @@ import {
   Button, Col, Row, Stack,
 } from 'react-bootstrap';
 import FormLogo from '../../shared_components/forms/FormLogo';
-import useRoom from '../../../hooks/queries/rooms/useRoom';
+import usePublicRoom from '../../../hooks/queries/rooms/usePublicRoom';
 import useRoomJoin from '../../../hooks/queries/rooms/useRoomJoin';
 import Spinner from '../../shared_components/utilities/Spinner';
 import useRoomStatus from '../../../hooks/queries/rooms/useRoomStatus';
-import Avatar from '../../users/user/Avatar';
 
 function waitOrJoin(refetchJoin, refetchStatus) {
   refetchStatus();
@@ -22,7 +21,7 @@ export default function RoomJoin() {
   const [name, setName] = useState('');
   const [accessCode, setAccessCode] = useState('');
 
-  const { isLoading, data: room } = useRoom(friendlyId, true);
+  const { isLoading, data: room } = usePublicRoom(friendlyId);
   const { isSuccess: isSuccessJoin, isError: isErrorJoin, refetch: refetchJoin } = useRoomJoin(friendlyId, name, accessCode);
   const { isSuccess: isSuccessStatus, isError: isErrorStatus, refetch: refetchStatus } = useRoomStatus(friendlyId, name, accessCode);
 
@@ -34,24 +33,16 @@ export default function RoomJoin() {
       <Card className="col-md-6 mx-auto p-0 border-0 shadow-sm">
         <Card.Body className="p-4">
           <Row>
-            <Col>
-              <Stack>
-                <p className="text-muted mb-0">You have been invited to join</p>
-                <h1>
-                  { room.name }
-                </h1>
-              </Stack>
-            </Col>
-            <Col className="col-4">
-              <Stack>
-                <Avatar className="d-block m-auto" avatar={room.owner_avatar} radius={100} />
-                <span className="float-end text-center mt-2">{room.owner_name}</span>
-              </Stack>
-            </Col>
+            <Stack>
+              <p className="text-muted mb-0">You have been invited to join</p>
+              <h1>
+                {room.name}
+              </h1>
+            </Stack>
           </Row>
         </Card.Body>
         <Card.Footer className="p-4 bg-white">
-          { (isSuccessStatus || isSuccessJoin) ? (
+          {(isSuccessStatus || isSuccessJoin) ? (
             <div className="mt-3">
               <Row>
                 <Col className="col-10">
@@ -74,46 +65,46 @@ export default function RoomJoin() {
                   onChange={(event) => setName(event.target.value)}
                 />
               </label>
-              { room?.viewer_access_code
-                  && (
-                    <div className="mt-2">
-                      <label htmlFor="access-code" className="small text-muted d-block"> Access Code
-                        <input
-                          type="text"
-                          id="access-code"
-                          placeholder="Enter the access code"
-                          className="form-control"
-                          onChange={(event) => setAccessCode(event.target.value)}
-                        />
-                      </label>
-                      {
-                        (isErrorJoin || isErrorStatus)
-                        && (
-                          <p className="text-danger"> Wrong access code. </p>
-                        )
-                      }
-                    </div>
-                  )}
-              { (!(room?.viewer_access_code) && room?.moderator_access_code)
-                  && (
-                    <div className="mt-2">
-                      <label htmlFor="access-code" className="small text-muted d-block"> Moderator Access Code (optional)
-                        <input
-                          type="text"
-                          id="access-code"
-                          placeholder="Enter the access code"
-                          className="form-control"
-                          onChange={(event) => setAccessCode(event.target.value)}
-                        />
-                      </label>
-                      {
-                        (isErrorJoin || isErrorStatus)
-                        && (
-                          <p className="text-danger"> Wrong access code. </p>
-                        )
-                      }
-                    </div>
-                  )}
+              {room?.viewer_access_code
+                && (
+                  <div className="mt-2">
+                    <label htmlFor="access-code" className="small text-muted d-block"> Access Code
+                      <input
+                        type="text"
+                        id="access-code"
+                        placeholder="Enter the access code"
+                        className="form-control"
+                        onChange={(event) => setAccessCode(event.target.value)}
+                      />
+                    </label>
+                    {
+                      (isErrorJoin || isErrorStatus)
+                      && (
+                        <p className="text-danger"> Wrong access code. </p>
+                      )
+                    }
+                  </div>
+                )}
+              {(!(room?.viewer_access_code) && room?.moderator_access_code)
+                && (
+                  <div className="mt-2">
+                    <label htmlFor="access-code" className="small text-muted d-block"> Moderator Access Code (optional)
+                      <input
+                        type="text"
+                        id="access-code"
+                        placeholder="Enter the access code"
+                        className="form-control"
+                        onChange={(event) => setAccessCode(event.target.value)}
+                      />
+                    </label>
+                    {
+                      (isErrorJoin || isErrorStatus)
+                      && (
+                        <p className="text-danger"> Wrong access code. </p>
+                      )
+                    }
+                  </div>
+                )}
               <Button className="mt-3 d-block float-end" onClick={() => waitOrJoin(refetchJoin, refetchStatus)}>Join Session</Button>
             </>
           )}
