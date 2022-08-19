@@ -8,7 +8,7 @@ export default function BrandColor() {
 
   return (
     <>
-      <h6> Brand Color </h6>
+      <h5> Brand Color </h5>
       <Stack direction="horizontal">
         <BrandColorPopover
           name="PrimaryColor"

@@ -5,10 +5,23 @@ import axios from '../../../../helpers/Axios';
 export default function useUpdateSiteSetting(name) {
   const queryClient = useQueryClient();
 
+  // TODO - samuel: replace the create avatar form with this simple validation method
+  const imageValidation = (image) => {
+    const FILE_SIZE = 3_000_000;
+    const SUPPORTED_FORMATS = 'image/jpeg|image/png|image/svg';
+
+    if (image.size > FILE_SIZE) {
+      throw new Error('File is too large');
+    } else if (!image.type.match(SUPPORTED_FORMATS)) {
+      throw new Error('File type is not supported');
+    }
+  };
+
   const uploadPresentation = (data) => {
     let settings;
 
     if (name === 'BrandingImage') {
+      imageValidation(data);
       settings = new FormData();
       settings.append('site_setting[value]', data);
     } else {
@@ -25,8 +38,8 @@ export default function useUpdateSiteSetting(name) {
         queryClient.invalidateQueries('getSiteSettings');
         toast.success('Site settings updated');
       },
-      onError: () => {
-        toast.error('There was a problem completing that action. \n Please try again.');
+      onError: (e) => {
+        toast.error(e.message);
       },
     },
   );
