@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
   let(:user) { create(:user) }
-  let(:user_with_manage_users_permission) { create(:user, :manage_users) }
+  let(:user_with_manage_users_permission) { create(:user, :with_manage_users_permission) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
