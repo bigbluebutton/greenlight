@@ -4,24 +4,26 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::RoomsController, type: :controller do
   let(:user) { create(:user) }
+  let(:user_with_manage_rooms_permission) { create(:user, :with_manage_rooms_permission) }
+  let(:user_with_manage_users_permission) { create(:user, :with_manage_users_permission) }
 
-  let(:manage_rooms_role) { create(:role) }
-  let(:manage_rooms_permission) { create(:permission, name: 'ManageRooms') }
-  let!(:manage_rooms_role_permission) do
-    create(:role_permission,
-           role: manage_rooms_role,
-           permission: manage_rooms_permission,
-           value: 'true')
-  end
+  # let(:manage_rooms_role) { create(:role) }
+  # let(:manage_rooms_permission) { create(:permission, name: 'ManageRooms') }
+  # let!(:manage_rooms_role_permission) do
+  #   create(:role_permission,
+  #          role: manage_rooms_role,
+  #          permission: manage_rooms_permission,
+  #          value: 'true')
+  # end
 
-  let(:manage_users_role) { create(:role) }
-  let(:manage_users_permission) { create(:permission, name: 'ManageUsers') }
-  let!(:manage_users_role_permission) do
-    create(:role_permission,
-           role: manage_users_role,
-           permission: manage_users_permission,
-           value: 'true')
-  end
+  # let(:manage_users_role) { create(:role) }
+  # let(:manage_users_permission) { create(:permission, name: 'ManageUsers') }
+  # let!(:manage_users_role_permission) do
+  #   create(:role_permission,
+  #          role: manage_users_role,
+  #          permission: manage_users_permission,
+  #          value: 'true')
+  # end
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -59,9 +61,8 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(JSON.parse(response.body)['data']).to be_nil
     end
 
-    it 'admin cannot return another users room without ManageRooms permission' do
+    it 'user cannot see another users room without ManageRooms permission' do
       room = create(:room)
-      manage_rooms_role_permission.update!(value: 'false')
       get :show, params: { friendly_id: room.friendly_id }
       expect(response).to have_http_status(:forbidden)
     end
@@ -133,7 +134,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
     context 'user with ManageRooms permission' do
       before do
-        user.update!(role_id: manage_rooms_role.id)
+        session[:user_id] = user_with_manage_rooms_permission.id
       end
 
       it 'deletes the room of another user' do
@@ -174,14 +175,13 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
 
-    context 'current_user with ManageUser permission' do
+    context 'user with ManageUser permission' do
       before do
-        manage_users_role_permission
-        user.update!(role_id: manage_users_role.id)
-        room_params[:room][:user_id] = new_user.id
+        session[:user_id] = user_with_manage_users_permission.id
       end
 
       it 'creates a room for another user' do
+        room_params[:room][:user_id] = new_user.id
         expect { post :create, params: room_params }.to(change { new_user.rooms.count })
         expect(response).to have_http_status(:created)
       end
