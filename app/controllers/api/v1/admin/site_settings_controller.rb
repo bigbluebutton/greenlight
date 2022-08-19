@@ -26,7 +26,6 @@ module Api
 
           update = if params[:name] == 'BrandingImage'
                      site_setting.image.attach params[:site_setting][:value]
-                     site_setting.update(value: site_setting.image.blob.filename.to_s)
                    else
                      site_setting.update(value: params[:site_setting][:value].to_s)
                    end
