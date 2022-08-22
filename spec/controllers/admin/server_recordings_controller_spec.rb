@@ -3,19 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
-  let(:manage_recordings_role) { create(:role) }
-  let(:user) { create(:user, role: manage_recordings_role) }
-  let(:manage_recordings_permission) { create(:permission, name: 'ManageRecordings') }
-  let!(:manage_recordings_role_permission) do
-    create(:role_permission,
-           role: manage_recordings_role,
-           permission: manage_recordings_permission,
-           value: 'true')
-  end
+  let(:user) { create(:user) }
+
+  let(:user_with_manage_recordings_permission) { create(:user, :with_manage_recordings_permission) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user.id
+    session[:user_id] = user_with_manage_recordings_permission.id
   end
 
   describe '#index' do
@@ -45,10 +39,10 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
 
     context 'user without ManageRecordings permission' do
       before do
-        manage_recordings_role_permission.update!(value: 'false')
+        session[:user_id] = user.id
       end
 
-      it 'user without ManageRecordings permission cannot return the list of recordings' do
+      it 'cannot return the list of recordings' do
         get :index
         expect(response).to have_http_status(:forbidden)
       end
@@ -85,17 +79,23 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
       allow(fake_recording_sync).to receive(:call).and_return({ 'recordings' => 'values' })
     end
 
+    # TODO: - samuel current_user is user_with_manage.. I think we should keep a regular user as default even in admin specs
     it 'calls the RecordingsSync service with correct params' do
-      expect(RecordingsSync).to receive(:new).with(user:)
+      expect(RecordingsSync).to receive(:new).with(user: user_with_manage_recordings_permission)
       expect(fake_recording_sync).to receive(:call)
       get :resync
       expect(response).to have_http_status(:ok)
     end
 
-    it 'admin without ManageRecordings permission cannot call the RecordingsSync service' do
-      manage_recordings_role_permission.update!(value: 'false')
-      get :resync
-      expect(response).to have_http_status(:forbidden)
+    context 'user without ManageRecordings permission' do
+      before do
+        session[:user_id] = user.id
+      end
+
+      it 'call the RecordingsSync service' do
+        get :resync
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 end

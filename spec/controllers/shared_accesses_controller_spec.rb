@@ -4,8 +4,6 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::SharedAccessesController, type: :controller do
   let(:user) { create(:user) }
-  let(:shared_list_role) { create(:role) }
-  let(:shared_list_permission) { create(:permission, name: 'SharedList') }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -57,7 +55,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
   end
 
   describe '#shareable_users' do
-    it 'returns no users since they dont have SharedList permission' do
+    it 'does not return the users without SharedList permission' do
       room = create(:room)
       room.shared_users = create_list(:user, 5)
       shareable_users = create_list(:user, 5)
@@ -68,20 +66,11 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
       expect(response_users_ids).to match_array([])
     end
 
-    context 'users are given SharedList permission' do
-      before do
-        user.update!(role: shared_list_role)
-        create(:role_permission,
-               role: shared_list_role,
-               permission: shared_list_permission,
-               value: 'true')
-      end
-
+    context 'users with SharedList permission' do
       it 'returns the users that the room can be shared to' do
         room = create(:room)
-        room.shared_users = create_list(:user, 5)
-        shareable_users = create_list(:user, 5, role: shared_list_role)
-        shareable_users << user
+        room.shared_users = create_list(:user, 5, :with_shared_list_permission)
+        shareable_users = create_list(:user, 5, :with_shared_list_permission)
 
         get :shareable_users, params: { friendly_id: room.friendly_id, search: '' }
         response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
@@ -91,7 +80,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
       it 'returns the shareable users according to the query' do
         room = create(:room)
         room.shared_users = create_list(:user, 5)
-        shareable_users = create_list(:user, 5, name: 'Jane Doe', role: shared_list_role)
+        shareable_users = create_list(:user, 5, :with_shared_list_permission, name: 'Jane Doe')
 
         get :shareable_users, params: { friendly_id: room.friendly_id, search: 'Jane Doe' }
         response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }

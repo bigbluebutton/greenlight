@@ -12,33 +12,45 @@ FactoryBot.define do
     language { %w[en fr es ar].sample }
   end
 
-  trait :manage_users do
+  trait :with_manage_users_permission do
     after(:create) do |user|
       FactoryBot.create(:role_permission, role: user.role, permission: FactoryBot.create(:permission, name: 'ManageUsers'), value: 'true')
     end
   end
 
-  trait :manage_rooms do
+  trait :with_manage_rooms_permission do
     after(:create) do |user|
       FactoryBot.create(:role_permission, role: user.role, permission: FactoryBot.create(:permission, name: 'ManageRooms'), value: 'true')
     end
   end
 
-  trait :manage_recordings do
+  trait :with_manage_recordings_permission do
     after(:create) do |user|
       FactoryBot.create(:role_permission, role: user.role, permission: FactoryBot.create(:permission, name: 'ManageRecordings'), value: 'true')
     end
   end
 
-  trait :manage_site_settings do
+  trait :with_manage_site_settings_permission do
     after(:create) do |user|
       FactoryBot.create(:role_permission, role: user.role, permission: FactoryBot.create(:permission, name: 'ManageSiteSettings'), value: 'true')
     end
   end
 
-  trait :manage_roles do
+  trait :with_manage_roles_permission do
     after(:create) do |user|
       FactoryBot.create(:role_permission, role: user.role, permission: FactoryBot.create(:permission, name: 'ManageRoles'), value: 'true')
+    end
+  end
+
+  trait :with_shared_list_permission do
+    after(:create) do |user|
+      FactoryBot.create(:role_permission, role: user.role, permission: FactoryBot.create(:permission, name: 'SharedList'), value: 'true')
+    end
+  end
+
+  trait :with_create_room_permission do
+    after(:create) do |user|
+      FactoryBot.create(:role_permission, role: user.role, permission: FactoryBot.create(:permission, name: 'CreateRoom'), value: 'true')
     end
   end
 end

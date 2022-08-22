@@ -3,18 +3,18 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::RolesController, type: :controller do
-  let(:admin_user) { create(:user, :manage_roles) }
   let(:user) { create(:user) }
+  let(:user_with_manage_roles_permission) { create(:user, :with_manage_roles_permission) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = admin_user.id
+    session[:user_id] = user_with_manage_roles_permission.id
   end
 
   describe 'roles#index' do
     it 'returns the list of roles' do
       roles = [create(:role, name: 'Hokage'), create(:role, name: 'Jonin'), create(:role, name: 'Chunin')]
-      roles << admin_user.role
+      roles << user_with_manage_roles_permission.role
 
       get :index
       expect(response).to have_http_status(:ok)
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
     end
 
     context 'ordering' do
-      let(:roles) { ['P', 'M', 'I', admin_user.role.name] }
+      let(:roles) { ['P', 'M', 'I', user_with_manage_roles_permission.role.name] }
 
       before do
         create(:role, name: 'M')
@@ -180,7 +180,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
     end
 
     it 'fails to remove roles with dependant users with :internal_server_error' do
-      expect { delete :destroy, params: { id: admin_user.role.id } }.not_to change(Role, :count).from(1)
+      expect { delete :destroy, params: { id: user_with_manage_roles_permission.role.id } }.not_to change(Role, :count).from(1)
       expect(response).to have_http_status(:internal_server_error)
     end
 

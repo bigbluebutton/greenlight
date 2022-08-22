@@ -3,15 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::MeetingsController, type: :controller do
-  let(:role) { create(:role) }
-  let(:user) { create(:user, role:) }
-  let(:manage_rooms_permission) { create(:permission, name: 'ManageRooms') }
-  let!(:manage_rooms_role_permission) do
-    create(:role_permission,
-           role_id: user.role_id,
-           permission_id: manage_rooms_permission.id,
-           value: 'true')
-  end
+  let(:user) { create(:user) }
+  let(:user_with_manage_rooms_permission) { create(:user, :with_manage_rooms_permission) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -46,11 +39,10 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       post :start, params: { friendly_id: room.friendly_id }
     end
 
-    it 'admin cannot make call to MeetingStarter service for another room without ManageRooms permission' do
-      room = create(:room)
-      manage_rooms_role_permission.update!(value: 'false')
-
-      post :start, params: { friendly_id: room.friendly_id }
+    it 'cannot make call to MeetingStarter service for another room' do
+      new_user = create(:user)
+      new_room = create(:room, user: new_user)
+      post :start, params: { friendly_id: new_room.friendly_id }
       expect(response).to have_http_status(:forbidden)
     end
 
@@ -99,6 +91,19 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       post :start, params: { friendly_id: room.friendly_id }
 
       expect(response).to have_http_status(:unauthorized)
+    end
+
+    context 'user with ManageRooms permission' do
+      before do
+        session[:user_id] = user_with_manage_rooms_permission.id
+      end
+
+      it 'makes a call to MeetingStarter service for another room' do
+        new_user = create(:user)
+        new_room = create(:room, user: new_user)
+        post :start, params: { friendly_id: new_room.friendly_id }
+        expect(response).to have_http_status(:created)
+      end
     end
   end
 
