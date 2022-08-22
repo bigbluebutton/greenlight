@@ -29,6 +29,7 @@ module Api
       end
 
       # GET /api/v1/meetings/:friendly_id/join.json
+      # **DEPRECATED**.
       def join
         if authorized_as_viewer? || authorized_as_moderator?
           if authorized_as_moderator?

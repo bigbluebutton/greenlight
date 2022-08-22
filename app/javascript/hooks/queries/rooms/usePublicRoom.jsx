@@ -5,5 +5,8 @@ export default function usePublicRoom(friendlyId) {
   return useQuery(
     'getRoom',
     () => axios.get(`/rooms/${friendlyId}/public.json`).then((resp) => resp.data.data),
+    {
+      cacheTime: 0, // No caching.
+    },
   );
 }

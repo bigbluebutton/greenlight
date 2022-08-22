@@ -1,31 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import { useParams } from 'react-router-dom';
 import {
   Button, Col, Row, Stack,
 } from 'react-bootstrap';
+import toast from 'react-hot-toast';
 import FormLogo from '../../shared_components/forms/FormLogo';
 import usePublicRoom from '../../../hooks/queries/rooms/usePublicRoom';
-import useRoomJoin from '../../../hooks/queries/rooms/useRoomJoin';
 import Spinner from '../../shared_components/utilities/Spinner';
 import useRoomStatus from '../../../hooks/queries/rooms/useRoomStatus';
-
-function waitOrJoin(refetchJoin, refetchStatus) {
-  refetchStatus();
-  refetchJoin();
-}
+import subscribeToRoom from '../../../channels/rooms_channel';
 
 export default function RoomJoin() {
   const { friendlyId } = useParams();
 
   const [name, setName] = useState('');
   const [accessCode, setAccessCode] = useState('');
+  const [hasStarted, setHasStarted] = useState(false);
 
-  const { isLoading, data: room } = usePublicRoom(friendlyId);
-  const { isSuccess: isSuccessJoin, isError: isErrorJoin, refetch: refetchJoin } = useRoomJoin(friendlyId, name, accessCode);
-  const { isSuccess: isSuccessStatus, isError: isErrorStatus, refetch: refetchStatus } = useRoomStatus(friendlyId, name, accessCode);
+  const publicRoom = usePublicRoom(friendlyId);
+  const roomStatus = useRoomStatus(friendlyId, name, accessCode);
 
-  if (isLoading) return <Spinner />;
+  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    // Room channel subscription:
+    if (roomStatus.isSuccess && roomStatus.isFetchedAfterMount) {
+      //  When the user provides valid input (name, codes) the UI will subscribe to the room channel.
+      const channel = subscribeToRoom(friendlyId, { onReceived: () => { setHasStarted(true); } });
+
+      //  Cleanup: On component unmouting any opened channel subscriptions will be closed.
+      return () => {
+        channel.unsubscribe();
+        console.info(`WS: unsubscribed from room(friendly_id): ${friendlyId} channel.`);
+      };
+    }
+  }, [roomStatus.isFetchedAfterMount, roomStatus.isSuccess]);
+
+  useEffect(() => {
+    // Meeting started:
+    //  When meeting starts thig logic will be fired, indicating the event to waiting users (thorugh a toast) for UX matter.
+    //  Logging the event for debugging purposes and refetching the join logic with the user's given input (name & codes).
+    //  With a delay of 7s to give reasonable time for the meeting to fully start on the BBB server.
+    if (hasStarted) {
+      toast.success('Meeting started.');
+      console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting in 7s.`);
+      setTimeout(roomStatus.refetch, 7000); // TODO: Improve this race condition handling by the backend.
+    }
+  }, [hasStarted]);
+
+  useEffect(() => {
+    // UI synchronization on failing join attempt:
+    //  When the room status API returns an error indicating a failed join attempt it's highly due to stale credentials.
+    //  In such case, users from a UX perspective will appreciate having the UI updated informing them about the case.
+    //  i.e: Indicating the lack of providing access code value for cases where access code was generated while the user was waiting.
+    if (roomStatus.isError) {
+      publicRoom.refetch();
+    }
+  }, [roomStatus.isError]);
+
+  if (publicRoom.isLoading) return <Spinner />;
 
   return (
     <div className="vertical-center">
@@ -36,13 +69,14 @@ export default function RoomJoin() {
             <Stack>
               <p className="text-muted mb-0">You have been invited to join</p>
               <h1>
-                {room.name}
+                {publicRoom.data.name}
+                {publicRoom.isFetching && <Spinner />}
               </h1>
             </Stack>
           </Row>
         </Card.Body>
         <Card.Footer className="p-4 bg-white">
-          {(isSuccessStatus || isSuccessJoin) ? (
+          {(roomStatus.isSuccess && !roomStatus.data.status) ? (
             <div className="mt-3">
               <Row>
                 <Col className="col-10">
@@ -62,10 +96,11 @@ export default function RoomJoin() {
                   id="join-name"
                   placeholder="Enter your name"
                   className="form-control"
+                  value={name}
                   onChange={(event) => setName(event.target.value)}
                 />
               </label>
-              {room?.viewer_access_code
+              {publicRoom.data?.viewer_access_code
                 && (
                   <div className="mt-2">
                     <label htmlFor="access-code" className="small text-muted d-block"> Access Code
@@ -74,18 +109,19 @@ export default function RoomJoin() {
                         id="access-code"
                         placeholder="Enter the access code"
                         className="form-control"
+                        value={accessCode}
                         onChange={(event) => setAccessCode(event.target.value)}
                       />
                     </label>
                     {
-                      (isErrorJoin || isErrorStatus)
+                      (roomStatus.isError)
                       && (
                         <p className="text-danger"> Wrong access code. </p>
                       )
                     }
                   </div>
                 )}
-              {(!(room?.viewer_access_code) && room?.moderator_access_code)
+              {(!(publicRoom.data?.viewer_access_code) && publicRoom.data?.moderator_access_code)
                 && (
                   <div className="mt-2">
                     <label htmlFor="access-code" className="small text-muted d-block"> Moderator Access Code (optional)
@@ -94,18 +130,26 @@ export default function RoomJoin() {
                         id="access-code"
                         placeholder="Enter the access code"
                         className="form-control"
+                        value={accessCode}
                         onChange={(event) => setAccessCode(event.target.value)}
                       />
                     </label>
                     {
-                      (isErrorJoin || isErrorStatus)
+                      (roomStatus.isError)
                       && (
                         <p className="text-danger"> Wrong access code. </p>
                       )
                     }
                   </div>
                 )}
-              <Button className="mt-3 d-block float-end" onClick={() => waitOrJoin(refetchJoin, refetchStatus)}>Join Session</Button>
+              <Button
+                className="mt-3 d-block float-end"
+                onClick={roomStatus.refetch}
+                disabled={publicRoom.isFetching || roomStatus.isFetching}
+              >
+                Join Session
+                {roomStatus.isFetching && <Spinner />}
+              </Button>
             </>
           )}
         </Card.Footer>

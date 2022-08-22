@@ -1,17 +1,24 @@
 import consumer from './consumer';
 
-export default function subscribeToRoom(friendlyId, joinUrl) {
-  consumer.subscriptions.create({
+export default function subscribeToRoom(friendlyId, { onReceived }) {
+  return consumer.subscriptions.create({
     channel: 'RoomsChannel',
     friendly_id: friendlyId,
   }, {
-    connected() {},
+    connected() {
+      console.info(`WS: Connected to room(friendly_id): ${friendlyId} channel.`);
+    },
 
-    disconnected() {},
+    disconnected() {
+      console.info(`WS: Disconnected from room(friendly_id): ${friendlyId} channel.`);
+    },
 
     received() {
-      // Called when there's incoming data on the websocket for this channel
-      window.location.replace(joinUrl);
+      console.info(`WS: Received join signal on room(friendly_id): ${friendlyId}.`);
+
+      if (onReceived) {
+        onReceived();
+      }
     },
   });
 }
