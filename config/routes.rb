@@ -37,8 +37,8 @@ Rails.application.routes.draw do
       resources :meetings, only: %i[], param: :friendly_id do
         member do
           post '/start', to: 'meetings#start'
-          get '/join', to: 'meetings#join'
-          get '/status', to: 'meetings#status'
+          get '/join', to: 'meetings#join' # **DEPRECATED**.
+          post '/status', to: 'meetings#status'
         end
       end
       resources :room_settings, only: %i[show update], param: :friendly_id

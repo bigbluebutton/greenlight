@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import FormLogo from '../../shared_components/forms/FormLogo';
 import usePublicRoom from '../../../hooks/queries/rooms/usePublicRoom';
 import Spinner from '../../shared_components/utilities/Spinner';
-import useRoomStatus from '../../../hooks/queries/rooms/useRoomStatus';
+import useRoomStatus from '../../../hooks/mutations/rooms/useRoomStatus';
 import subscribeToRoom from '../../../channels/rooms_channel';
 
 export default function RoomJoin() {
@@ -19,12 +19,14 @@ export default function RoomJoin() {
   const [hasStarted, setHasStarted] = useState(false);
 
   const publicRoom = usePublicRoom(friendlyId);
-  const roomStatus = useRoomStatus(friendlyId, name, accessCode);
+  const roomStatusAPI = useRoomStatus(friendlyId);
+
+  const handleJoin = () => roomStatusAPI.mutate({ name, access_code: accessCode });
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     // Room channel subscription:
-    if (roomStatus.isSuccess && roomStatus.isFetchedAfterMount) {
+    if (roomStatusAPI.isSuccess) {
       //  When the user provides valid input (name, codes) the UI will subscribe to the room channel.
       const channel = subscribeToRoom(friendlyId, { onReceived: () => { setHasStarted(true); } });
 
@@ -34,7 +36,7 @@ export default function RoomJoin() {
         console.info(`WS: unsubscribed from room(friendly_id): ${friendlyId} channel.`);
       };
     }
-  }, [roomStatus.isFetchedAfterMount, roomStatus.isSuccess]);
+  }, [roomStatusAPI.isSuccess]);
 
   useEffect(() => {
     // Meeting started:
@@ -44,7 +46,7 @@ export default function RoomJoin() {
     if (hasStarted) {
       toast.success('Meeting started.');
       console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting in 7s.`);
-      setTimeout(roomStatus.refetch, 7000); // TODO: Improve this race condition handling by the backend.
+      setTimeout(handleJoin, 7000); // TODO: Improve this race condition handling by the backend.
     }
   }, [hasStarted]);
 
@@ -53,10 +55,10 @@ export default function RoomJoin() {
     //  When the room status API returns an error indicating a failed join attempt it's highly due to stale credentials.
     //  In such case, users from a UX perspective will appreciate having the UI updated informing them about the case.
     //  i.e: Indicating the lack of providing access code value for cases where access code was generated while the user was waiting.
-    if (roomStatus.isError) {
+    if (roomStatusAPI.isError) {
       publicRoom.refetch();
     }
-  }, [roomStatus.isError]);
+  }, [roomStatusAPI.isError]);
 
   if (publicRoom.isLoading) return <Spinner />;
 
@@ -76,7 +78,7 @@ export default function RoomJoin() {
           </Row>
         </Card.Body>
         <Card.Footer className="p-4 bg-white">
-          {(roomStatus.isSuccess && !roomStatus.data.status) ? (
+          {(roomStatusAPI.isSuccess && !roomStatusAPI.data.status) ? (
             <div className="mt-3">
               <Row>
                 <Col className="col-10">
@@ -114,7 +116,7 @@ export default function RoomJoin() {
                       />
                     </label>
                     {
-                      (roomStatus.isError)
+                      (roomStatusAPI.isError)
                       && (
                         <p className="text-danger"> Wrong access code. </p>
                       )
@@ -135,7 +137,7 @@ export default function RoomJoin() {
                       />
                     </label>
                     {
-                      (roomStatus.isError)
+                      (roomStatusAPI.isError)
                       && (
                         <p className="text-danger"> Wrong access code. </p>
                       )
@@ -144,11 +146,11 @@ export default function RoomJoin() {
                 )}
               <Button
                 className="mt-3 d-block float-end"
-                onClick={roomStatus.refetch}
-                disabled={publicRoom.isFetching || roomStatus.isFetching}
+                onClick={handleJoin}
+                disabled={publicRoom.isFetching || roomStatusAPI.isLoading}
               >
                 Join Session
-                {roomStatus.isFetching && <Spinner />}
+                {roomStatusAPI.isLoading && <Spinner />}
               </Button>
             </>
           )}

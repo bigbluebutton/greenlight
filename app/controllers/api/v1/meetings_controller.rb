@@ -43,7 +43,7 @@ module Api
         end
       end
 
-      # GET /api/v1/meetings/:friendly_id/status.json
+      # POST /api/v1/meetings/:friendly_id/status.json
       def status
         data = {
           status: BigBlueButtonApi.new.meeting_running?(room: @room)
