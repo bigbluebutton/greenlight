@@ -23,15 +23,12 @@ Rails.application.routes.draw do
           delete :purge_avatar
         end
       end
-      resources :rooms, only: %i[show index create update destroy], param: :friendly_id do
+      resources :rooms, param: :friendly_id do
         member do
-          get '/access_codes', to: 'rooms#access_codes'
           get '/recordings', to: 'rooms#recordings'
           get '/recordings_processing', to: 'rooms#recordings_processing'
           get '/public', to: 'rooms#public_show'
           delete :purge_presentation
-          patch '/generate_access_code', to: 'rooms#generate_access_code'
-          patch '/remove_access_code', to: 'rooms#remove_access_code'
         end
       end
       resources :meetings, only: %i[], param: :friendly_id do
