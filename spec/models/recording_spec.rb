@@ -15,6 +15,22 @@ RSpec.describe Recording, type: :model do
     it { is_expected.to validate_presence_of(:participants) }
   end
 
+  describe 'scopes' do
+    context 'with_provider' do
+      it 'only includes users with the specified provider' do
+        room1 = create(:room, user: create(:user, provider: 'greenlight'))
+        room2 = create(:room, user: create(:user, provider: 'test'))
+
+        create_list(:recording, 5, room: room1)
+        create_list(:recording, 5, room: room2)
+
+        recs = described_class.includes(:user).with_provider('greenlight')
+        expect(recs.count).to eq(5)
+        expect(recs.pluck(:provider).uniq).to eq(['greenlight'])
+      end
+    end
+  end
+
   describe '#search' do
     it 'returns the searched recordings' do
       recording1 = create(:recording, name: 'Greenlight 101')

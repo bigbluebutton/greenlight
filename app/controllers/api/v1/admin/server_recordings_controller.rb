@@ -17,7 +17,7 @@ module Api
           sort_config = config_sorting(allowed_columns: %w[name length visibility])
 
           recordings = Recording.includes(:user)
-                                .with_provider
+                                .with_provider(current_provider)
                                 .order(sort_config)
                                 &.search(params[:search])
 

@@ -17,7 +17,7 @@ module Api
         def index
           sort_config = config_sorting(allowed_columns: %w[name])
 
-          roles = Role.with_provider&.order(sort_config)&.search(params[:search])
+          roles = Role.with_provider(current_provider)&.order(sort_config)&.search(params[:search])
 
           render_data data: roles, status: :ok
         end

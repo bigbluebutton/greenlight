@@ -10,7 +10,7 @@ module Api
 
         def active_users
           # TODO: Change to get active users only
-          users = User.with_attached_avatar.with_provider.search(params[:search])
+          users = User.with_provider(current_provider).with_attached_avatar.search(params[:search])
 
           pagy, users = pagy_array(users)
 
