@@ -11,6 +11,23 @@ export default function Header() {
   const currentUser = useAuth();
   const deleteSession = useDeleteSession();
 
+  const adminAccess = () => {
+    const { permissions } = currentUser;
+    const {
+      ManageUsers, ManageRooms, ManageRecordings, ManageSiteSettings, ManageRoles,
+    } = permissions;
+
+    if (ManageUsers === 'true'
+      || ManageRooms === 'true'
+      || ManageRecordings === 'true'
+      || ManageSiteSettings === 'true'
+      || ManageRoles === 'true') {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <Navbar>
       <Container>
@@ -22,8 +39,10 @@ export default function Header() {
           <Avatar avatar={currentUser?.avatar} radius={40} />
           <NavDropdown title={currentUser?.name} id="nav-user-dropdown">
             <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
-            {/* TODO: Only show admin panel when current user is admin */}
-            <NavDropdown.Item as={Link} to="/adminpanel">Admin Panel</NavDropdown.Item>
+            {
+              adminAccess()
+              && <NavDropdown.Item as={Link} to="/adminpanel">Admin Panel</NavDropdown.Item>
+            }
             <NavDropdown.Item as={Link} to="/">Need help?</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item as={Link} to="/" onClick={deleteSession.mutate}>Sign Out</NavDropdown.Item>
