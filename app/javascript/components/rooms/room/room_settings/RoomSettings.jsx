@@ -6,17 +6,19 @@ import Spinner from '../../../shared_components/utilities/Spinner';
 import useRoomSettings from '../../../../hooks/queries/rooms/useRoomSettings';
 import useDeleteRoom from '../../../../hooks/mutations/rooms/useDeleteRoom';
 import RoomSettingsRow from './RoomSettingsRow';
-import AccessCodes from './AccessCodes';
 import Modal from '../../../shared_components/modals/Modal';
 import DeleteRoomForm from '../forms/DeleteRoomForm';
 import useRoomConfigs from '../../../../hooks/queries/admin/room_configuration/useRoomConfigs';
+import AccessCodeRow from './AccessCodeRow';
+import useUpdateRoomSetting from '../../../../hooks/mutations/room_settings/useUpdateRoomSetting';
 
 export default function RoomSettings() {
   const { friendlyId } = useParams();
   const roomSetting = useRoomSettings(friendlyId);
   const roomsConfigs = useRoomConfigs();
 
-  const mutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
+  const updateMutationWrapper = () => useUpdateRoomSetting(friendlyId);
+  const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
 
   if (roomSetting.isLoading || roomsConfigs.isLoading) return <Spinner />;
 
@@ -26,39 +28,55 @@ export default function RoomSettings() {
         <div className="mt-2">
           <Row>
             <Col className="border-end border-2">
-              <Row>
-                <h6 className="text-brand">Room Name</h6>
-              </Row>
-              <AccessCodes />
+              <Row> <h6 className="text-brand">Room Name</h6> </Row>
+              <AccessCodeRow
+                settingName="glViewerAccessCode"
+                updateMutation={updateMutationWrapper}
+                code={roomSetting.data.glViewerAccessCode}
+                config={roomsConfigs.data.glViewerAccessCode}
+                description="Generate access code for viewers"
+              />
+              <AccessCodeRow
+                settingName="glModeratorAccessCode"
+                updateMutation={updateMutationWrapper}
+                code={roomSetting.data.glModeratorAccessCode}
+                config={roomsConfigs.data.glModeratorAccessCode}
+                description="Generate access code for moderators"
+              />
             </Col>
             <Col className="ps-4">
-              <h6 className="text-brand">User Settings</h6>
+              <Row> <h6 className="text-brand">User Settings</h6> </Row>
               <RoomSettingsRow
-                settingId="muteOnStart"
+                settingName="muteOnStart"
+                updateMutation={updateMutationWrapper}
                 value={roomSetting.data.muteOnStart}
                 config={roomsConfigs.data.muteOnStart}
                 description="Mute users when they join"
               />
               <RoomSettingsRow
-                settingId="guestPolicy"
+                settingName="guestPolicy"
+                updateMutation={updateMutationWrapper}
                 value={roomSetting.data.guestPolicy}
                 config={roomsConfigs.data.guestPolicy}
                 description="Require moderator approval before joining"
               />
               <RoomSettingsRow
-                settingId="glAnyoneCanStart"
+                settingName="glAnyoneCanStart"
+                updateMutation={updateMutationWrapper}
                 value={roomSetting.data.glAnyoneCanStart}
                 config={roomsConfigs.data.glAnyoneCanStart}
                 description="Allow any user to start this meeting"
               />
               <RoomSettingsRow
-                settingId="glAnyoneJoinAsModerator"
+                settingName="glAnyoneJoinAsModerator"
+                updateMutation={updateMutationWrapper}
                 value={roomSetting.data.glAnyoneJoinAsModerator}
                 config={roomsConfigs.data.glAnyoneJoinAsModerator}
                 description="All users join as moderators"
               />
               <RoomSettingsRow
-                settingId="record"
+                settingName="record"
+                updateMutation={updateMutationWrapper}
                 value={roomSetting.data.record}
                 config={roomsConfigs.data.record}
                 description="Allow room to be recorded"
@@ -69,7 +87,7 @@ export default function RoomSettings() {
             <Modal
               modalButton={<Button className="mt-1 mx-2 float-end danger-light-button">Delete Room</Button>}
               title="Delete Room"
-              body={<DeleteRoomForm mutation={mutationWrapper} />}
+              body={<DeleteRoomForm mutation={deleteMutationWrapper} />}
             />
           </Row>
         </div>
