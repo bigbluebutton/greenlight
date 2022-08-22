@@ -10,9 +10,7 @@ module Api
 
         # GET /api/v1/admin/server_rooms.json
         def index
-          rooms = Room.includes(:user)
-                      .where(user: { provider: current_provider })
-                      .search(params[:search])
+          rooms = Room.includes(:user).with_provider.search(params[:search])
 
           pagy, rooms = pagy_array(rooms)
 

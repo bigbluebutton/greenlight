@@ -20,6 +20,8 @@ class Room < ApplicationRecord
 
   attr_accessor :shared, :active, :participants
 
+  scope :with_provider, ->(current_provider) { where(user: { provider: current_provider }) }
+
   def self.search(input)
     return where('rooms.name ILIKE ?', "%#{input}%").to_a if input
 

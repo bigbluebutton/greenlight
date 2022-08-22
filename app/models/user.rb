@@ -32,6 +32,8 @@ class User < ApplicationRecord
   validates :reset_digest, uniqueness: true, if: :reset_digest?
   validates :activation_digest, uniqueness: true, if: :activation_digest?
 
+  scope :with_provider, ->(current_provider) { where(provider: current_provider) }
+
   def self.search(input)
     return where('name ILIKE ?', "%#{input}%").to_a if input
 

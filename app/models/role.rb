@@ -10,6 +10,8 @@ class Role < ApplicationRecord
 
   before_validation :set_random_color, on: :create
 
+  scope :with_provider, ->(current_provider) { where(provider: current_provider) }
+
   def self.search(input)
     return where('name ILIKE ?', "%#{input}%") if input
 
