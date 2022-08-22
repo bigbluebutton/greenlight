@@ -57,12 +57,16 @@ class PasswordResetsController < ApplicationController
         # Clear the user's social uid if they are switching from a social to a local account
         @user.update_attribute(:social_uid, nil) if @user.social_uid.present?
         # Deactivate the reset digest in use disabling the reset link.
-        @user.update(reset_digest: nil, reset_sent_at: nil)
+        @user.update(reset_digest: nil, reset_sent_at: nil, last_pwd_update: Time.zone.now)
+        # For password resets the last_pwd_update has to match the resetting event timestamp.
+        # And the activated_at session metadata has to match it only if the authenticated user
+        # is the user with the account having its password reset.
+        # This keeps that user session only alive while invalidating all others for the same account.
+        session[:activated_at] = @user.last_pwd_update.to_i if current_user&.id == @user.id
       }
       # Successfully reset password
       return redirect_to root_path, flash: { success: I18n.t("password_reset_success") }
     end
-
     render 'edit'
   end
 

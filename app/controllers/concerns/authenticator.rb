@@ -24,10 +24,9 @@ module Authenticator
     migrate_twitter_user(user)
 
     session[:user_id] = user.id
-    user.update(last_login: Time.zone.now)
-
+    # Upon login the session metadata activated_at has to match to login event timestamp.
+    session[:activated_at] = user.last_login.to_i if user.without_terms_acceptance { user.update(last_login: Time.zone.now) }
     logger.info("Support: #{user.email} has successfully logged in.")
-
     # If there are not terms, or the user has accepted them, check for email verification
     if !Rails.configuration.terms || user.accepted_terms
       check_email_verified(user)

@@ -33,14 +33,18 @@ end
 
 describe PasswordResetsController, type: :controller do
   def by_pass_terms_acceptance
+    old_terms = Rails.configuration.terms
     allow(Rails.configuration).to receive(:terms).and_return false
     res = yield
-    allow(Rails.configuration).to receive(:terms).and_return "This is a dummy text!"
+    allow(Rails.configuration).to receive(:terms).and_return(old_terms)
     res
   end
+
   before {
+    allow(Rails.configuration).to receive(:terms).and_return('This is a dummy text!!')
     @user = by_pass_terms_acceptance { create(:user, accepted_terms: false) }
   }
+
   describe "POST #create" do
     context "allow mail notifications" do
       before {
@@ -111,61 +115,76 @@ describe PasswordResetsController, type: :controller do
   describe "PATCH #update" do
     before do
       allow(Rails.configuration).to receive(:enable_email_verification).and_return(true)
-      by_pass_terms_acceptance { @user.update provider: "greenlight" }
+      @user = by_pass_terms_acceptance { create(:user, provider: "greenlight", accepted_terms: false) }
+      @user1 = by_pass_terms_acceptance { create(:user, provider: "greenlight", accepted_terms: false) }
     end
 
     context "valid user" do
-      it "reloads page with notice if password is empty" do
-        token = @user.create_reset_digest
+      before do
+        freeze_time
         allow(controller).to receive(:check_expiration).and_return(nil)
-
-        params = {
-          id: token,
-          user: {
-            password: nil,
-          },
-        }
-
-        patch :update, params: params
-        expect(response).to render_template(:edit)
+        @before_one_sec_stamp = (Time.zone.now - 1.second).to_i
+        session[:activated_at] = @before_one_sec_stamp
       end
 
-      it "reloads page with notice if password is confirmation doesn't match" do
-        token = @user.create_reset_digest
+      context "if the password update is NOT a success it" do
+        def expectations(password:, password_confirmation:)
+          params = {
+            id: @user.create_reset_digest,
+            user: {
+              password: password,
+              password_confirmation: password_confirmation,
+            },
+          }
 
-        allow(controller).to receive(:check_expiration).and_return(nil)
+          patch :update, params: params
+          expect(session[:activated_at]).to eql(@before_one_sec_stamp)
+          expect(flash[:alert]).to be_present
+          expect(response).to render_template(:edit)
+        end
 
-        params = {
-          id: token,
-          user: {
-            password: :password,
-            password_confirmation: nil,
-          },
-        }
+        it "renders :edit page with notice when password is empty" do
+          expectations(password: '', password_confirmation: '')
+        end
 
-        patch :update, params: params
-        expect(response).to render_template(:edit)
+        it "renders :edit page with notice when password confirmation mismatches" do
+          expectations(password: 'Example1!', password_confirmation: 'NotAnExample1!')
+        end
       end
 
-      it "updates attributes if the password update is a success" do
-        old_digest = @user.password_digest
+      context "if the password update is a success" do
+        def expectations(user_id: nil)
+          session[:user_id] = user_id
+          params = {
+            id: @user.create_reset_digest,
+            user: {
+              password: "Example1!",
+              password_confirmation: "Example1!",
+            },
+          }
 
-        allow(controller).to receive(:check_expiration).and_return(nil)
+          patch :update, params: params
+          @user.reload
 
-        params = {
-          id: @user.create_reset_digest,
-          user: {
-            password: "Example1!",
-            password_confirmation: "Example1!",
-          },
-        }
+          expect(@user.last_pwd_update.to_i).to eql(Time.zone.now.to_i)
+          expect(@user.reset_digest.nil? && @user.reset_sent_at.nil?).to be
+          expect(@user.authenticate('Example1!')).to be_truthy
+          expect(flash[:success]).to be_present
+          expect(response).to redirect_to(root_path)
+          yield
+        end
 
-        patch :update, params: params
-
-        @user.reload
-        expect(old_digest.eql?(@user.password_digest)).to be false
-        expect(@user.reset_digest.nil? && @user.reset_sent_at.nil?).to be
-        expect(response).to redirect_to(root_path)
+        it "does NOT update :activated_at for unauthenticated reset requests" do
+          expectations { expect(session[:activated_at]).to eql(@before_one_sec_stamp) }
+        end
+        context "for authenticated requests it" do
+          it "update :activated_at when reset for the same authenticated user" do
+            expectations(user_id: @user.id) { expect(session[:activated_at]).to eql(@user.last_pwd_update.to_i) }
+          end
+        end
+        it "does not update :activated_at when reset from another user" do
+          expectations(user_id: @user1.id) { expect(session[:activated_at]).to eql(@before_one_sec_stamp) }
+        end
       end
     end
   end

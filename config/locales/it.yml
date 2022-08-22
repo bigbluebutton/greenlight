@@ -24,12 +24,19 @@ it:
         email: Email
         name: Nome
         password: Password
-        password_confirmation: Conferma della Password
+        password_confirmation: Conferma della password
+        old_password: Vecchia password
     errors:
       models:
         user:
-          password: non soddisfa i requisiti di complessità
-          confirmation: La password non coincide
+          confirmation: non corrisponde
+          attributes:
+            email:
+              invalid: formato e-mail non valido
+            password:
+              invalid: non soddisfa i requisiti di complessità 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -336,6 +343,8 @@ it:
   language_default: Predefinito (linguaggio del browser)
   ldap_error: Impossibile collegarsi al server LDAP. Controlla la configurazione LDAP nel file env e assicurati che il server sia attivo.
   login: Entra
+  login_page:
+    locked_out: La tua utenza è stata bloccata perché sono stati effettuati troppi tentativi di accesso. Riprovare più tardi.
   login_title: Entra nel tuo account
   mailer:
     user:
@@ -487,6 +496,13 @@ it:
   password_empty_notice: La password non può essere vuota.
   password_reset_success: La password è stata reimpostata.
   password_different_notice: La conferma della password non coincide.
+  old_password_incorrect: è incorretta
+  password_complexity:
+    minimum_len: Almeno 8 caratteri
+    one_lower_case: Almeno un carattere minuscolo
+    one_upper_case: Almeno 1 carattere maiuscolo
+    one_digit: Almeno 1 numero
+    one_sym: Almeno 1 carattere non alfanumerico
   provider:
     google: Google
     office365: Office 365
@@ -538,7 +554,7 @@ it:
     invite:
       fail: "Il tuo token non è valido o è scaduto. Se ritieni si tratti di un errore, per favore contatta il tuo amministratore."
       no_invite: Non disponi di un invito per partecipare. Contatta il tuo amministratore per riceverne uno.
-    insecure_password: "Per aumentare la sicurezza dell'account, abbiamo incrementato la complessità delle password per tutte le password. Crea una nuova password che corrisponda ai requisiti qui sotto."
+    insecure_password: "Per aumentare la sicurezza dell'account, abbiamo incrementato la complessità delle password per tutte le password. Crea una nuova password che soddisfi i requisiti qui sotto."
   remove: Elimina
   rename: Rinomina
   reset_password:
@@ -665,3 +681,5 @@ it:
     signin: Effettua l'accesso al tuo account.
     title: Verifica la tua email
     verification: Verifica
+  session:
+    expired: Sessione scaduta (accedere di nuovo).
