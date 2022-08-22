@@ -25,22 +25,6 @@ module UsersHelper
     Rails.configuration.recaptcha_enabled
   end
 
-  def disabled_roles(user)
-    current_user_role = current_user.role
-
-    # Admins are able to remove the admin role from other admins
-    # For all other roles they can only add/remove roles with a higher priority
-    disallowed_roles = if current_user_role.name == "admin"
-                          Role.editable_roles(@user_domain).where("priority < #{current_user_role.priority}")
-                              .pluck(:id)
-                        else
-                          Role.editable_roles(@user_domain).where("priority <= #{current_user_role.priority}")
-                              .pluck(:id)
-                       end
-
-    [user.role.id] + disallowed_roles
-  end
-
   # Returns language selection options for user edit
   def language_options
     locales = I18n.available_locales
