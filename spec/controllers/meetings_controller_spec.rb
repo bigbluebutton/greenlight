@@ -157,35 +157,46 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     end
 
     context 'Access codes required' do
+      let(:fake_room_settings_getter) { instance_double(RoomSettingsGetter) }
+
       before do
-        allow_any_instance_of(Room).to receive(:viewer_access_code).and_return('AAA')
-        allow_any_instance_of(Room).to receive(:moderator_access_code).and_return('BBB')
+        allow(RoomSettingsGetter).to receive(:new).and_return(fake_room_settings_getter)
+        allow(fake_room_settings_getter).to receive(:call).and_return({ 'glViewerAccessCode' => 'AAA', 'glModeratorAccessCode' => 'BBB' })
       end
 
       it 'joins as viewer if access code correspond to the viewer access code' do
         room = create(:room, user:)
-
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+
         expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
+        expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight', show_codes: true, current_user: user,
+                                                         settings: %w[glViewerAccessCode glModeratorAccessCode])
+        expect(fake_room_settings_getter).to receive(:call)
         post :status, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'AAA' }
         expect(response).to have_http_status(:ok)
       end
 
       it 'joins as moderator if access code correspond to moderator access code' do
         room = create(:room, user:)
-
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+
         expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Moderator')
+        expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight', show_codes: true, current_user: user,
+                                                         settings: %w[glViewerAccessCode glModeratorAccessCode])
+        expect(fake_room_settings_getter).to receive(:call)
         post :status, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'BBB' }
         expect(response).to have_http_status(:ok)
       end
 
       it 'returns unauthorized if the access code is wrong' do
         room = create(:room, user:)
-
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+
+        expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight', show_codes: true, current_user: user,
+                                                         settings: %w[glViewerAccessCode glModeratorAccessCode])
+        expect(fake_room_settings_getter).to receive(:call)
         post :status, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'ZZZ' }
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 
