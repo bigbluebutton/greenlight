@@ -29,8 +29,8 @@ export default function Header() {
   };
 
   return (
-    <Navbar>
-      <Container>
+    <Navbar className='header'>
+      <Container className="ps-0">
         <Navbar.Brand as={Link} to="/rooms">
           <Logo />
         </Navbar.Brand>

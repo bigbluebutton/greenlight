@@ -13,7 +13,7 @@ export default function ManageUsers() {
   const [input, setInput] = useState();
   return (
     <div id="admin-panel" className="wide-background">
-      <h2 className="my-5"> Administrator Panel </h2>
+      <h3 className="my-5"> Administrator Panel </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="users">
           <Row>
@@ -26,7 +26,7 @@ export default function ManageUsers() {
               <Tab.Content className="p-0">
                 <Container className="admin-table p-0">
                   <div className="p-4 border-bottom">
-                    <h2> Manage Users </h2>
+                    <h3> Manage Users </h3>
                   </div>
                   <div className="p-4">
                     <Stack direction="horizontal" className="mb-4">

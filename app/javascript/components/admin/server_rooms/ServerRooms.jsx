@@ -16,7 +16,7 @@ export default function ServerRooms() {
 
   return (
     <div id="admin-panel" className="wide-background">
-      <h2 className="my-5"> Administrator Panel </h2>
+      <h3 className="my-5"> Administrator Panel </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="server-rooms">
           <Row>
@@ -29,7 +29,7 @@ export default function ServerRooms() {
               <Tab.Content className="p-0">
                 <Container className="admin-table p-0">
                   <div className="p-4 border-bottom">
-                    <h2> Server Rooms </h2>
+                    <h3> Server Rooms </h3>
                   </div>
                   <div className="p-4">
                     <SearchBarQuery setInput={setInput} />

@@ -13,8 +13,8 @@ export default function Profile() {
   const currentUser = useAuth();
 
   return (
-    <div id="profile" className="wide-background">
-      <h2 className="my-5"> Profile </h2>
+    <div id="profile" className="wide-background ">
+      <h3 className="my-5"> Profile </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container id="profile-wrapper" defaultActiveKey="first">
           <Row>

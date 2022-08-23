@@ -15,7 +15,7 @@
 }
 
 .full-height {
-  height: calc(100vh - 82px);
+  min-height: calc(100vh - 110px);
 }
 
 .full-height-rooms {
@@ -48,3 +48,8 @@
 .border-whitesmoke {
   border-color: whitesmoke !important;
 }
+
+.background-whitesmoke {
+  background: whitesmoke !important;
+}
+
