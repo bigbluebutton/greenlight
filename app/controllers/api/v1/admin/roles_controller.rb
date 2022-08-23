@@ -5,9 +5,9 @@ module Api
     module Admin
       class RolesController < ApiController
         before_action :find_role, only: %i[update show destroy]
-        # before_action do
-        #   ensure_authorized('ManageRoles')
-        # end
+        before_action do
+          ensure_authorized('ManageRoles')
+        end
 
         # POST /api/v1/admin/roles.json
         # Expects: {}
