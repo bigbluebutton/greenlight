@@ -7,7 +7,7 @@ class RoomSettingsGetter
   # Hash(`<option_name> => {'true' => <Postive>, 'false' => <Negative>})`
   SPECIAL_OPTIONS = { 'guestPolicy' => { 'true' => 'ASK_MODERATOR', 'false' => 'ALWAYS_ACCEPT' } }.freeze
 
-  def initialize(room_id:, provider:, current_user:, show_codes: false, only_enabled: false, only_bbb_options: false)
+  def initialize(room_id:, provider:, current_user:, settings: [], show_codes: false, only_enabled: false, only_bbb_options: false)
     @current_user = current_user
     @room_id = room_id
     @only_bbb_options = only_bbb_options # When used only BBB options (not prefixed with 'gl') will be returned.

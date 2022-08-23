@@ -7,7 +7,7 @@ module Api
 
       # GET /api/v1/room_settings/:friendly_id
       def show
-        options = RoomSettingsGetter.new(room_id: @room.id, provider: current_provider, current_user: @current_user, show_codes: true,
+        options = RoomSettingsGetter.new(room_id: @room.id, provider: current_provider, current_user:, show_codes: true,
                                          only_enabled: true).call
 
         render_data data: options, status: :ok

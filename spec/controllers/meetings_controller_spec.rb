@@ -33,6 +33,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         presentation_url:,
         meeting_ended: meeting_ended_url,
         recording_ready: recording_ready_url,
+        current_user: user,
         provider: 'greenlight'
       )
 
@@ -60,6 +61,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         presentation_url:,
         meeting_ended: meeting_ended_url,
         recording_ready: recording_ready_url,
+        current_user: user,
         provider: 'greenlight'
       )
 

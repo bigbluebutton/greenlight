@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 describe MeetingStarter, type: :service do
+  let(:user) { create(:user) }
   let(:room) { create(:room) }
   let(:presentation_url) { 'http://www.samplepdf.com/sample.pdf' }
   let(:service) do
@@ -12,7 +13,8 @@ describe MeetingStarter, type: :service do
       presentation_url:,
       meeting_ended: 'http://example.com/meeting_ended',
       recording_ready: 'http://example.com/recording_ready',
-      provider: 'greenlight'
+      provider: 'greenlight',
+      current_user: user
     )
   end
   let(:options) do
@@ -41,7 +43,7 @@ describe MeetingStarter, type: :service do
 
       expect(RoomSettingsGetter)
         .to receive(:new)
-        .with(room_id: room.id, provider: 'greenlight', only_bbb_options: true)
+        .with(room_id: room.id, provider: 'greenlight', current_user: user, only_bbb_options: true)
 
       expect(room_setting_getter_service)
         .to receive(:call)

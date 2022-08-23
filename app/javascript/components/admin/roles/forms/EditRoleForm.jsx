@@ -23,7 +23,7 @@ export default function EditRoleForm({ role }) {
   fields.name.placeHolder = defaultValues.name;
   const roomConfigs = useRoomConfigs();
   const rolePermissions = useRolePermissions();
-  console.log(role);
+
   if (roomConfigs.isLoading || rolePermissions.isLoading) return <Spinner />;
   return (
     <div>
