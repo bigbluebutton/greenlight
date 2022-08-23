@@ -14,7 +14,7 @@ export default function useDeleteRole({ role, onSettled }) {
       onSuccess: () => {
         queryClient.invalidateQueries('getRoles');
         toast.success(`Role "${role.name}" deleted.`);
-        navigate('/adminpanel/roles');
+        navigate('/admin/roles');
       },
       onSettled,
     },

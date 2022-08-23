@@ -5,6 +5,8 @@ class UserSerializer < ApplicationSerializer
 
   attributes :id, :name, :email, :provider, :language, :avatar, :created_at
 
+  belongs_to :role
+
   def avatar
     user_avatar(object)
   end

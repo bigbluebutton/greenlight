@@ -5,14 +5,13 @@ import { DotsVerticalIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/out
 import { Link } from 'react-router-dom';
 import Modal from '../../shared_components/modals/Modal';
 import DeleteRoleForm from './forms/DeleteRoleForm';
+import RolePill from "./RolePill";
 
 export default function RoleRow({ role }) {
   return (
     <tr className="align-middle">
       <td>
-        <Badge pill ref={(el) => el && el.style.setProperty('background-color', role.color, 'important')}>
-          {role.name}
-        </Badge>
+        <RolePill role={role}/>
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
           <Dropdown.Menu>

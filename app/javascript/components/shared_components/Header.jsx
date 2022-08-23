@@ -41,7 +41,7 @@ export default function Header() {
             <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
             {
               adminAccess()
-              && <NavDropdown.Item as={Link} to="/adminpanel">Admin Panel</NavDropdown.Item>
+              && <NavDropdown.Item as={Link} to="/admin">Admin Panel</NavDropdown.Item>
             }
             <NavDropdown.Item as={Link} to="/">Need help?</NavDropdown.Item>
             <NavDropdown.Divider />

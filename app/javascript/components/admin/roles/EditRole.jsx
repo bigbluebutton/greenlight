@@ -15,7 +15,7 @@ export default function EditRole() {
   const { data: role, isError } = useRole(roleId);
 
   if (isError) {
-    return <Navigate to="/adminpanel/roles" replace />;
+    return <Navigate to="/admin/roles" replace />;
   }
 
   return (
@@ -36,12 +36,12 @@ export default function EditRole() {
                   <Row className="mt-0 mb-1">
                     <Col order="first">
                       <Breadcrumb className="float-start">
-                        <Breadcrumb.Item onClick={() => navigate('/adminpanel/roles')}>Roles</Breadcrumb.Item>
+                        <Breadcrumb.Item onClick={() => navigate('/admin/roles')}>Roles</Breadcrumb.Item>
                         <Breadcrumb.Item active>{role?.name ?? 'Edit Role'}</Breadcrumb.Item>
                       </Breadcrumb>
                     </Col>
                     <Col order="last">
-                      <div className="float-end cursor-pointer" aria-hidden="true" onClick={() => navigate('/adminpanel/roles')}>
+                      <div className="float-end cursor-pointer" aria-hidden="true" onClick={() => navigate('/admin/roles')}>
                         <ArrowCircleLeftIcon className="hi-s" /> Back
                       </div>
                     </Col>
