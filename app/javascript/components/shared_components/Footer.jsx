@@ -1,5 +1,4 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
 import useEnv from '../../hooks/queries/env/useEnv';
 import Spinner from './utilities/Spinner';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
