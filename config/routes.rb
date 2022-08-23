@@ -79,6 +79,12 @@ Rails.application.routes.draw do
         resources :site_settings, only: %i[index update], param: :name
         resources :rooms_configurations, only: :update, param: :name
         resources :roles
+        # TODO: Review update route
+        resources :role_permissions, only: [:index] do 
+          collection do
+            post '/', to: 'role_permissions#update'
+          end
+        end
       end
     end
   end

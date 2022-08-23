@@ -7,7 +7,8 @@ class RoomSettingsGetter
   # Hash(`<option_name> => {'true' => <Postive>, 'false' => <Negative>})`
   SPECIAL_OPTIONS = { 'guestPolicy' => { 'true' => 'ASK_MODERATOR', 'false' => 'ALWAYS_ACCEPT' } }.freeze
 
-  def initialize(room_id:, provider:, settings: [], show_codes: false, only_enabled: false, only_bbb_options: false)
+  def initialize(room_id:, provider:, current_user:, show_codes: false, only_enabled: false, only_bbb_options: false)
+    @current_user = current_user
     @room_id = room_id
     @only_bbb_options = only_bbb_options # When used only BBB options (not prefixed with 'gl') will be returned.
     @only_enabled = only_enabled # When used only optional and force enabled options will be returned.
@@ -23,6 +24,12 @@ class RoomSettingsGetter
   end
 
   def call
+    # checking if CanRecord permission is set to true when RoomConfig record is optional
+    if @rooms_configs['record'].nil? && (RolePermission.joins(:permission).find_by(role_id: @current_user.role_id,
+                                                                                   permission: { name: 'CanRecord' })&.value == 'false')
+      @rooms_configs['record'] = 'false'
+    end
+
     room_settings = MeetingOption.joins(:room_meeting_options).where(room_meeting_options: { room_id: @room_id })
     room_settings = room_settings.where(name: @settings) unless @settings.empty?
     room_settings = room_settings.where.not('name ILIKE :prefix', prefix: 'gl%') if @only_bbb_options

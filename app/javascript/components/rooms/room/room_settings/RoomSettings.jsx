@@ -11,8 +11,10 @@ import DeleteRoomForm from '../forms/DeleteRoomForm';
 import useRoomConfigs from '../../../../hooks/queries/admin/room_configuration/useRoomConfigs';
 import AccessCodeRow from './AccessCodeRow';
 import useUpdateRoomSetting from '../../../../hooks/mutations/room_settings/useUpdateRoomSetting';
+import { useAuth } from '../../../../contexts/auth/AuthProvider';
 
 export default function RoomSettings() {
+  const currentUser = useAuth();
   const { friendlyId } = useParams();
   const roomSetting = useRoomSettings(friendlyId);
   const roomsConfigs = useRoomConfigs();
@@ -74,13 +76,15 @@ export default function RoomSettings() {
                 config={roomsConfigs.data.glAnyoneJoinAsModerator}
                 description="All users join as moderators"
               />
-              <RoomSettingsRow
-                settingName="record"
-                updateMutation={updateMutationWrapper}
-                value={roomSetting.data.record}
-                config={roomsConfigs.data.record}
-                description="Allow room to be recorded"
-              />
+              {(currentUser.permissions.CanRecord === 'true') && (
+                <RoomSettingsRow
+                  settingName="record"
+                  updateMutation={updateMutationWrapper}
+                  value={roomSetting.data.record}
+                  config={roomsConfigs.data.record}
+                  description="Allow room to be recorded"
+                />
+              )}
             </Col>
           </Row>
           <Row className="float-end">
