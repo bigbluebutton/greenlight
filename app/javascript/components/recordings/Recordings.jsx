@@ -14,7 +14,7 @@ export default function Recordings() {
   const { isLoading, data: recordings } = useRecordings(input, page);
 
   return (
-    <div>
+    <>
       <Stack direction="horizontal" className="w-100 mt-5">
         <div>
           <SearchBarQuery setInput={setInput} />
@@ -35,6 +35,6 @@ export default function Recordings() {
             />
           )}
       </Card>
-    </div>
+    </>
   );
 }
