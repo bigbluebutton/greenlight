@@ -20,7 +20,7 @@ export default function EditRole() {
 
   return (
     <div id="admin-panel">
-      <h3 className="pmy-5"> Administrator Panel </h3>
+      <h3 className="py-5"> Administrator Panel </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="roles">
           <Row>
