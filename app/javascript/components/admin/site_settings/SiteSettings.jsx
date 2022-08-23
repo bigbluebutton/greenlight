@@ -16,7 +16,7 @@ export default function SiteSettings() {
 
   return (
     <div id="admin-panel" className="wide-background">
-      <h2 className="my-5"> Administrator Panel </h2>
+      <h3 className="my-5"> Administrator Panel </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="site-settings">
           <Row>
@@ -29,7 +29,7 @@ export default function SiteSettings() {
               <Tab.Content className="p-0">
                 <Container className="admin-table p-0">
                   <div className="ps-4 pe-4 pt-4">
-                    <h2> Customize Greenlight </h2>
+                    <h3> Customize Greenlight </h3>
                   </div>
                   {
                     isLoading

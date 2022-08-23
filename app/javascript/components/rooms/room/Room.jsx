@@ -24,13 +24,13 @@ export default function Room() {
       <Row className="pt-4">
         <Col>
           <Link to="/rooms">
-            <HomeIcon className="hi-m text-brand" />
+            <HomeIcon className="hi-l text-brand" />
           </Link>
         </Col>
       </Row>
       <Row className="my-5">
         <Col>
-          <h2>{room.name}</h2>
+          <h3>{room.name}</h3>
           <p className="text-muted"> { room.created_at }</p>
         </Col>
         <Col>

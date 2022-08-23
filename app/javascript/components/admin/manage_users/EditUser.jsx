@@ -19,7 +19,7 @@ export default function EditUser() {
 
   return (
     <div id="admin-panel" className="wide-background">
-      <h2 className="my-5"> Administrator Panel </h2>
+      <h3 className="my-5"> Administrator Panel </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activekey="users">
           <Container className="admin-table">

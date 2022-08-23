@@ -17,7 +17,7 @@ body {
 }
 
 body {
-  background-color: white;
+  background: white;
 }
 
 #root {
@@ -25,8 +25,13 @@ body {
 }
 
 .brand-image {
-  max-width: 300px;
-  max-height: 100px;
+  max-width: 200px;
+  max-height: 70px;
+}
+
+.header {
+  height: 70px;
+  background: white;
 }
 
 // Replace a button with a children icon
@@ -76,7 +81,7 @@ input.search-bar {
 }
 
 .hi-m {
-  width: 36px;
+  width: 32px;
 }
 
 .hi-l {
