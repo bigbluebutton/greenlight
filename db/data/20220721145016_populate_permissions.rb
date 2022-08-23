@@ -9,7 +9,8 @@ class PopulatePermissions < ActiveRecord::Migration[7.0]
       { name: 'ManageRecordings' },
       { name: 'ManageSiteSettings' },
       { name: 'ManageRoles' },
-      { name: 'SharedList' }
+      { name: 'SharedList' },
+      { name: 'CanRecord' }
     ]
   end
 
