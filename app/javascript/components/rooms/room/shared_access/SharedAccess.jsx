@@ -21,7 +21,7 @@ export default function SharedAccess() {
 
   if (sharedUsers?.length || input) {
     return (
-      <div id="shared-access-list" className="wide-background full-height-room">
+      <div id="shared-access-list">
         <Stack direction="horizontal" className="w-100 mt-3">
           <div>
             <SearchBarQuery setInput={setInput} />

@@ -6,7 +6,7 @@ import ForgetPwdForm from './forms/ForgetPwdForm';
 
 export default function ForgetPassword() {
   return (
-    <div className="wide-background">
+    <div>
       <div className="vertical-center">
         <FormLogo />
         <Card className="col-md-4 mx-auto p-4 border-0 shadow-sm">

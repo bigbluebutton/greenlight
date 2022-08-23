@@ -29,7 +29,7 @@ export default function RoomJoin() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="wide-background">
+    <div>
       <div className="vertical-center">
         <FormLogo />
         <Card className="col-md-6 mx-auto p-0 border-0 shadow-sm">

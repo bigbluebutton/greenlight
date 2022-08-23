@@ -5,7 +5,7 @@ import Recordings from '../recordings/Recordings';
 
 export default function Rooms() {
   return (
-    <Row className="pt-5">
+    <Row className="pt-5 wide-background-rooms">
       <Tabs defaultActiveKey="rooms" unmountOnExit>
         <Tab eventKey="rooms" title="Rooms">
           <RoomsList />

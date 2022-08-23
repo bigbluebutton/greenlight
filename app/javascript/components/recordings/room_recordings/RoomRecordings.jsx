@@ -18,7 +18,7 @@ export default function RoomRecordings() {
   const roomRecordingsProcessing = useRoomRecordingsProcessing(friendlyId);
 
   return (
-    <div className="wide-background full-height-room">
+    <div>
       <Stack direction="horizontal" className="w-100 mt-3">
         <div>
           <SearchBarQuery setInput={setInput} />

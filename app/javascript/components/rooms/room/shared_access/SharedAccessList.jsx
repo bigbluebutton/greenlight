@@ -20,7 +20,7 @@ export default function SharedAccessList({ users, isLoading }) {
   if (isLoading) return <Spinner />;
 
   return (
-    <div id="shared-access-list" className="wide-background full-height-room">
+    <div id="shared-access-list">
       <Stack direction="horizontal" className="w-100 mt-5">
         <div>
           <SearchBar setSearch={setSearch} className="w-100" />

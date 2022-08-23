@@ -21,7 +21,7 @@ export default function RoomsList() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="wide-background full-height-rooms">
+    <div>
       <Stack direction="horizontal" className="w-100 mt-5">
         <div>
           <SearchBar id="rooms-search" setSearch={setSearch} />

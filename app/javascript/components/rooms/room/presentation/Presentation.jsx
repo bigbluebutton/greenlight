@@ -21,7 +21,7 @@ export default function Presentation() {
 
   if (!room.presentation_name) {
     return (
-      <div className="wide-background full-height-room">
+      <div>
         <FilesDragAndDrop
           onDrop={onDrop}
           numOfFiles={1}
@@ -55,7 +55,7 @@ export default function Presentation() {
     );
   }
   return (
-    <div className="wide-background full-height-room">
+    <div>
       <Card className="border-0 shadow-sm mt-3 text-center">
         <Card.Body className="py-5">
           <Row className="align-middle align-items-center justify-content-center">
