@@ -33,7 +33,7 @@ export default function EditUser() {
                 <Row className="mb-4">
                   <Stack direction="horizontal" className="w-100 mt-4">
                     <h3 className="mb-0">Edit User</h3>
-                    <div className="ms-auto cursor-pointer" aria-hidden="true" onClick={() => navigate('/adminpanel/users')}>
+                    <div className="ms-auto cursor-pointer" aria-hidden="true" onClick={() => navigate('/admin/users')}>
                       <ArrowCircleLeftIcon className="hi-s" /> Back
                     </div>
                   </Stack>

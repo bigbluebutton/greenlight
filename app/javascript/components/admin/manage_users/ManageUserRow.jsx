@@ -12,6 +12,7 @@ import Modal from '../../shared_components/modals/Modal';
 import CreateRoomForm from '../../rooms/room/forms/CreateRoomForm';
 import useCreateServerRoom from '../../../hooks/mutations/admin/manage_users/useCreateServerRoom';
 import DeleteUserForm from './forms/DeleteUserForm';
+import RolePill from '../roles/RolePill';
 
 export default function ManageUserRow({ user }) {
   const mutationWrapper = (args) => useCreateServerRoom({ userId: user.id, ...args });
@@ -32,13 +33,13 @@ export default function ManageUserRow({ user }) {
 
       <td className="border-0"> {user.email} </td>
       <td className="border-0"> {user.provider} </td>
-      <td className="border-0"> {user.role}</td>
+      <td className="border-0"> <RolePill role={user.role} /> </td>
       <td className="border-start-0">
         <Navbar>
           <Container>
             <div className="d-inline-flex">
               <NavDropdown title={<DotsVerticalIcon className="hi-s text-muted" />} id="basic-nav-dropdown">
-                <NavDropdown.Item as={Link} to={`/adminpanel/edit_user/${user.id}`}><PencilAltIcon className="hi-s" /> Edit</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to={`/admin/edit_user/${user.id}`}><PencilAltIcon className="hi-s" /> Edit</NavDropdown.Item>
                 <Modal
                   modalButton={<NavDropdown.Item><TrashIcon className="hi-s" /> Delete</NavDropdown.Item>}
                   title="Delete User"
@@ -65,7 +66,11 @@ ManageUserRow.propTypes = {
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     provider: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired,
+    role: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+    }).isRequired,
     created_at: PropTypes.string.isRequired,
   }).isRequired,
 };
