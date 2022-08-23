@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Badge, Dropdown } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { DotsVerticalIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 import Modal from '../../shared_components/modals/Modal';
 import DeleteRoleForm from './forms/DeleteRoleForm';
-import RolePill from "./RolePill";
+import RolePill from './RolePill';
 
 export default function RoleRow({ role }) {
   return (
     <tr className="align-middle">
       <td>
-        <RolePill role={role}/>
+        <RolePill role={role} />
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
           <Dropdown.Menu>

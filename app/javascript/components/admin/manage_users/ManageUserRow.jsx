@@ -12,7 +12,7 @@ import Modal from '../../shared_components/modals/Modal';
 import CreateRoomForm from '../../rooms/room/forms/CreateRoomForm';
 import useCreateServerRoom from '../../../hooks/mutations/admin/manage_users/useCreateServerRoom';
 import DeleteUserForm from './forms/DeleteUserForm';
-import RolePill from "../roles/RolePill";
+import RolePill from '../roles/RolePill';
 
 export default function ManageUserRow({ user }) {
   const mutationWrapper = (args) => useCreateServerRoom({ userId: user.id, ...args });
@@ -33,7 +33,7 @@ export default function ManageUserRow({ user }) {
 
       <td className="border-0"> {user.email} </td>
       <td className="border-0"> {user.provider} </td>
-      <td className="border-0"> <RolePill role={user.role}/> </td>
+      <td className="border-0"> <RolePill role={user.role} /> </td>
       <td className="border-start-0">
         <Navbar>
           <Container>
