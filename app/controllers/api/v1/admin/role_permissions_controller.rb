@@ -6,7 +6,7 @@ module Api
       class RolePermissionsController < ApiController
         def index
           roles_permissions = RolePermission.joins(:permission)
-                                            .where(role_id: current_user.role_id)
+                                            .where(role_id: params[:role_id])
                                             .pluck(:name, :value)
                                             .to_h
 

@@ -1,9 +1,13 @@
 import { useQuery } from 'react-query';
 import axios from '../../../../helpers/Axios';
 
-export default function useRolePermissions() {
+export default function useRolePermissions(roleId) {
+  const params = {
+    role_id: roleId,
+  };
+
   return useQuery(
-    ['getRolePermissions'],
-    () => axios.get('/admin/role_permissions.json').then((resp) => resp.data.data),
+    ['getRolePermissions', { ...params }],
+    () => axios.get('/admin/role_permissions.json', { params }).then((resp) => resp.data.data),
   );
 }
