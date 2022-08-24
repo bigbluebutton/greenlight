@@ -1,13 +1,11 @@
 import React, { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import useUpdateRoomSetting from '../../../../hooks/mutations/room_settings/useUpdateRoomSetting';
+import { Row } from 'react-bootstrap';
 
 export default function RoomSettingsRow({
-  settingId, config, value, description,
+  settingName, config, value, description, updateMutation: useUpdateAPI,
 }) {
-  const { friendlyId } = useParams();
-  const updateRoomSetting = useUpdateRoomSetting(friendlyId);
+  const updateAPI = useUpdateAPI();
   const checkedValue = useMemo(() => {
     if (value === 'true' || value === 'ASK_MODERATOR') {
       return true;
@@ -21,25 +19,27 @@ export default function RoomSettingsRow({
     return null;
   }
 
-  //  TODO: Refactor this to use react-hook-form.
+  //  TODO: Refactor this to use react-hook-form & react-bootstrap.
   return (
-    <div className="room-settings-row text-muted py-3 d-flex">
-      <label className="form-check-label me-auto" htmlFor={settingId}>
-        {description}
-      </label>
-      <div className="form-switch">
-        <input
-          className="form-check-input fs-5"
-          type="checkbox"
-          id={settingId}
-          defaultChecked={checkedValue}
-          onClick={(event) => {
-            updateRoomSetting.mutate({ settingName: settingId, settingValue: event.target.checked });
-          }}
-          disabled={config === 'true'}
-        />
+    <Row>
+      <div className="room-settings-row text-muted py-3 d-flex">
+        <label className="form-check-label me-auto" htmlFor={settingName}>
+          {description}
+        </label>
+        <div className="form-switch">
+          <input
+            className="form-check-input fs-5"
+            type="checkbox"
+            id={settingName}
+            checked={checkedValue}
+            onChange={(event) => {
+              updateAPI.mutate({ settingName, settingValue: event.target.checked });
+            }}
+            disabled={updateAPI.isLoading || config === 'true'}
+          />
+        </div>
       </div>
-    </div>
+    </Row>
   );
 }
 
@@ -48,7 +48,8 @@ RoomSettingsRow.defaultProps = {
 };
 
 RoomSettingsRow.propTypes = {
-  settingId: PropTypes.string.isRequired,
+  settingName: PropTypes.string.isRequired,
+  updateMutation: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   config: PropTypes.string,
   description: PropTypes.string.isRequired,
