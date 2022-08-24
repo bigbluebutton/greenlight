@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe RoomSettingsGetter, type: :service do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :can_record) }
 
   describe '#call' do
     context 'Normal room settings' do

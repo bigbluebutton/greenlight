@@ -24,12 +24,6 @@ class RoomSettingsGetter
   end
 
   def call
-    # checking if CanRecord permission is set to true when RoomConfig record is optional
-    if @rooms_configs['record'].nil? && (RolePermission.joins(:permission).find_by(role_id: @current_user.role_id,
-                                                                                   permission: { name: 'CanRecord' })&.value == 'false')
-      @rooms_configs['record'] = 'false'
-    end
-
     room_settings = MeetingOption.joins(:room_meeting_options).where(room_meeting_options: { room_id: @room_id })
     room_settings = room_settings.where(name: @settings) unless @settings.empty?
     room_settings = room_settings.where.not('name ILIKE :prefix', prefix: 'gl%') if @only_bbb_options
@@ -43,6 +37,7 @@ class RoomSettingsGetter
     filter_disabled(room_settings:) if @only_enabled # Only enabled(optional|force enabled) setting values will be returned.
     infer_specials(room_settings:) # Special options should map their forced values to what was configured in `SPECIAL_OPTIONS` registry.
     infer_codes(room_settings:, access_codes:) # Access codes should map their forced values as intended.
+    infer_can_record(room_settings:) if @rooms_configs['record'].nil?
 
     room_settings
   end
@@ -78,5 +73,12 @@ class RoomSettingsGetter
 
       room_settings[key] = room_settings[key].present? unless @show_codes # Hiding access code values.
     end
+  end
+
+  def infer_can_record(room_settings:)
+    # checking if CanRecord permission is set to true when RoomConfig record is optional
+    return if RolePermission.joins(:permission).find_by(role_id: @current_user.role_id, permission: { name: 'CanRecord' })&.value == 'true'
+
+    room_settings['record'] = 'false'
   end
 end
