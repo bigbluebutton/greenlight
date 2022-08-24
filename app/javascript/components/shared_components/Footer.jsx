@@ -1,5 +1,4 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
 import useEnv from '../../hooks/queries/env/useEnv';
 import Spinner from './utilities/Spinner';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
@@ -12,7 +11,7 @@ export default function Footer() {
   if (isLoading) return <Spinner />;
 
   return (
-    <Container id="footer" className="fixed-bottom text-center py-2">
+    <footer id="footer" className="footer background-whitesmoke text-center py-2">
       <span className="text-muted">Powered by </span>
       <a href="https://bigbluebutton.org/2018/07/09/greenlight-2-0/" target="_blank" rel="noreferrer">Greenlight</a>
       <span className="text-muted"> {env.VERSION_TAG}</span>
@@ -30,6 +29,6 @@ export default function Footer() {
           <a href={privacyPolicy} target="_blank" rel="noreferrer">Privacy Policy</a>
         </>
         )}
-    </Container>
+    </footer>
   );
 }

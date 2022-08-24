@@ -19,7 +19,7 @@ export default function EditUser() {
 
   return (
     <div id="admin-panel" className="wide-background">
-      <h2 className="my-5"> Administrator Panel </h2>
+      <h3 className="my-5"> Administrator Panel </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activekey="users">
           <Container className="admin-table">
@@ -33,7 +33,7 @@ export default function EditUser() {
                 <Row className="mb-4">
                   <Stack direction="horizontal" className="w-100 mt-4">
                     <h3 className="mb-0">Edit User</h3>
-                    <div className="ms-auto cursor-pointer" aria-hidden="true" onClick={() => navigate('/adminpanel/users')}>
+                    <div className="ms-auto cursor-pointer" aria-hidden="true" onClick={() => navigate('/admin/users')}>
                       <ArrowCircleLeftIcon className="hi-s" /> Back
                     </div>
                   </Stack>

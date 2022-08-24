@@ -44,7 +44,7 @@ export default function RoomCard({ room }) {
         >
           <DuplicateIcon className="hi-m text-brand mt-1" />
         </Button>
-        <Button variant="brand-backward" className="btn btn-lg float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
+        <Button variant="brand-backward" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
           Start {' '}
           {startMeeting.isLoading && <Spinner />}
         </Button>

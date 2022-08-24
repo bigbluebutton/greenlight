@@ -14,7 +14,7 @@ export default function RoomConfig() {
 
   return (
     <div id="admin-panel" className="wide-background">
-      <h2 className="my-5"> Administrator Panel </h2>
+      <h3 className="my-5"> Administrator Panel </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="room-configuration">
           <Row>
@@ -27,7 +27,7 @@ export default function RoomConfig() {
               <Tab.Content className="p-0">
                 <Container className="p-0">
                   <div className="p-4 border-bottom">
-                    <h2> Room Configuration </h2>
+                    <h3> Room Configuration </h3>
                   </div>
                   <div className="p-4">
                     {

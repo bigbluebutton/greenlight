@@ -50,6 +50,61 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
       expect(room.room_meeting_options.take.value).to eq('notOptionalAnymore')
     end
 
+    context 'Access codes' do
+      it 'uses MeetingOption::get_config_value and generates a code if it\'s not disabled and the value is "true"' do
+        random_access_code_name = %w[glViewerAccessCode glModeratorAccessCode].sample
+        expect(MeetingOption).to receive(:get_config_value).with(name: random_access_code_name, provider: 'greenlight').and_call_original
+        allow_any_instance_of(described_class).to receive(:generate_code).and_return('CODE!!')
+        expect_any_instance_of(described_class).to receive(:generate_code)
+
+        meeting_option = create(:meeting_option, name: random_access_code_name)
+        create(:rooms_configuration, meeting_option:, provider: 'greenlight', value: %w[optional true].sample)
+
+        put :update, params: { room_setting: { settingName: random_access_code_name, settingValue: true }, friendly_id: room.friendly_id }
+        expect(response).to have_http_status(:ok)
+        expect(room.room_meeting_options.take.value).to eq('CODE!!')
+      end
+
+      it 'uses MeetingOption::get_config_value and removes a code if it\'s optional and the value is "false"' do
+        random_access_code_name = %w[glViewerAccessCode glModeratorAccessCode].sample
+        expect(MeetingOption).to receive(:get_config_value).with(name: random_access_code_name, provider: 'greenlight').and_call_original
+        expect_any_instance_of(described_class).not_to receive(:generate_code)
+
+        meeting_option = create(:meeting_option, name: random_access_code_name)
+        create(:rooms_configuration, meeting_option:, provider: 'greenlight', value: 'optional')
+
+        put :update, params: { room_setting: { settingName: random_access_code_name, settingValue: false }, friendly_id: room.friendly_id }
+        expect(response).to have_http_status(:ok)
+        expect(room.room_meeting_options.take.value).to be_empty
+      end
+
+      context 'AuthZ' do
+        it 'returns :forbidden when value is "true" but the setting is disabled' do
+          random_access_code_name = %w[glViewerAccessCode glModeratorAccessCode].sample
+          expect(MeetingOption).to receive(:get_config_value).with(name: random_access_code_name, provider: 'greenlight').and_call_original
+          expect_any_instance_of(described_class).not_to receive(:generate_code)
+
+          meeting_option = create(:meeting_option, name: random_access_code_name)
+          create(:rooms_configuration, meeting_option:, provider: 'greenlight', value: 'false')
+
+          put :update, params: { room_setting: { settingName: random_access_code_name, settingValue: true }, friendly_id: room.friendly_id }
+          expect(response).to have_http_status(:forbidden)
+        end
+
+        it 'returns :forbidden when value is "false" but the setting is NOT optional' do
+          random_access_code_name = %w[glViewerAccessCode glModeratorAccessCode].sample
+          expect(MeetingOption).to receive(:get_config_value).with(name: random_access_code_name, provider: 'greenlight').and_call_original
+          expect_any_instance_of(described_class).not_to receive(:generate_code)
+
+          meeting_option = create(:meeting_option, name: random_access_code_name)
+          create(:rooms_configuration, meeting_option:, provider: 'greenlight', value: %w[true false].sample)
+
+          put :update, params: { room_setting: { settingName: random_access_code_name, settingValue: false }, friendly_id: room.friendly_id }
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+    end
+
     context 'AuthZ' do
       it 'returns :forbidden if the setting config is "true"' do
         meeting_option = create(:meeting_option, name: 'setting')
@@ -77,9 +132,9 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
       end
     end
 
-    it 'returns :forbidden for unfound config' do
+    it 'returns :bad_request for unfound config' do
       put :update, params: { room_setting: { settingName: '404', settingValue: 'valueOfWhat?' }, friendly_id: room.friendly_id }
-      expect(response).to have_http_status(:forbidden)
+      expect(response).to have_http_status(:bad_request)
     end
 
     it 'returns :bad_request for invalid params' do
