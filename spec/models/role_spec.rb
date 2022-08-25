@@ -12,6 +12,19 @@ RSpec.describe Role, type: :model do
     it { is_expected.to have_many(:role_permissions).dependent(:destroy) }
   end
 
+  describe 'scopes' do
+    context 'with_provider' do
+      it 'only includes users with the specified provider' do
+        create_list(:role, 5, provider: 'greenlight')
+        create_list(:role, 5, provider: 'test')
+
+        roles = described_class.with_provider('greenlight')
+        expect(roles.count).to eq(5)
+        expect(roles.pluck(:provider).uniq).to eq(['greenlight'])
+      end
+    end
+  end
+
   describe '#search' do
     it 'returns the searched roles' do
       searched_roles = [create(:role, name: 'Hashirama Senju'), create(:role, name: 'Tobirama Senju')]

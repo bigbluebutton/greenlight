@@ -51,6 +51,20 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
       expect(JSON.parse(response.body)['data'][0]['active']).to be(false)
     end
 
+    it 'excludes rooms whose owners have a different provider' do
+      user1 = create(:user, provider: 'greenlight')
+      user2 = create(:user, provider: 'test')
+
+      rooms = create_list(:room, 2, user: user1)
+      create_list(:room, 2, user: user2)
+
+      allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
+
+      get :index
+
+      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(rooms.pluck(:id))
+    end
+
     context 'user without ManageRooms permission' do
       before do
         session[:user_id] = user.id

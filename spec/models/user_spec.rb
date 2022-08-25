@@ -30,18 +30,31 @@ RSpec.describe User, type: :model do
         expect(user.errors.first.details).to eq({ error: :confirmation, attribute: 'Password' })
       end
     end
+  end
 
-    describe '#search' do
-      it 'returns the searched users' do
-        searched_users = create_list(:user, 5, name: 'Jane Doe')
-        create_list(:user, 5)
-        expect(described_class.all.search('jane doe').pluck(:id)).to match_array(searched_users.pluck(:id))
-      end
+  describe 'scopes' do
+    context 'with_provider' do
+      it 'only includes users with the specified provider' do
+        create_list(:user, 5, provider: 'greenlight')
+        create_list(:user, 5, provider: 'test')
 
-      it 'returns all users if input is empty' do
-        create_list(:user, 10)
-        expect(described_class.all.search('').pluck(:id)).to match_array(described_class.all.pluck(:id))
+        users = described_class.with_provider('greenlight')
+        expect(users.count).to eq(5)
+        expect(users.pluck(:provider).uniq).to eq(['greenlight'])
       end
+    end
+  end
+
+  describe '#search' do
+    it 'returns the searched users' do
+      searched_users = create_list(:user, 5, name: 'Jane Doe')
+      create_list(:user, 5)
+      expect(described_class.search('jane doe').pluck(:id)).to match_array(searched_users.pluck(:id))
+    end
+
+    it 'returns all users if input is empty' do
+      create_list(:user, 10)
+      expect(described_class.search('').pluck(:id)).to match_array(described_class.all.pluck(:id))
     end
   end
 

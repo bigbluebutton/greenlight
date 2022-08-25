@@ -37,6 +37,17 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(Role.pluck(:id))
     end
 
+    it 'excludes roles with a different provider' do
+      greenlight_roles = create_list(:role, 5, provider: 'greenlight')
+      greenlight_roles << user_with_manage_roles_permission.role
+
+      create(:role, provider: 'test')
+
+      get :index
+
+      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(greenlight_roles.pluck(:id))
+    end
+
     context 'user without ManageRoles permission' do
       before do
         session[:user_id] = user.id

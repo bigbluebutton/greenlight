@@ -8,11 +8,11 @@ module Api
           ensure_authorized('ManageUsers')
         end
 
-        include Avatarable
-
         def active_users
           # TODO: Change to get active users only
-          pagy, users = pagy_array(User.includes(:role).with_attached_avatar.all.search(params[:search]))
+          users = User.includes(:role).with_provider(current_provider).with_attached_avatar.search(params[:search])
+
+          pagy, users = pagy_array(users)
 
           render_data data: users, meta: pagy_metadata(pagy), serializer: UserSerializer, status: :ok
         end

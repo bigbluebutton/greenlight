@@ -37,6 +37,18 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recordings.pluck(:id))
     end
 
+    it 'excludes rooms whose owners have a different provider' do
+      room1 = create(:room, user: create(:user, provider: 'greenlight'))
+      room2 = create(:room, user: create(:user, provider: 'test'))
+
+      recs = create_list(:recording, 2, room: room1)
+      create_list(:recording, 2, room: room2)
+
+      get :index
+
+      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recs.pluck(:id))
+    end
+
     context 'user without ManageRecordings permission' do
       before do
         session[:user_id] = user.id
