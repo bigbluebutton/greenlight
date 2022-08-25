@@ -47,7 +47,7 @@ export default function UpdateUserForm({ user }) {
           Object.keys(LOCALES).map((code) => <option key={code} value={code}>{LOCALES[code]}</option>)
         }
       </FormControl>
-      {(currentUser.permissions.ManageRoles === 'true') && (
+      {(currentUser.permissions.ManageUsers === 'true') && (
         <FormControl field={fields.role_id} control={BootStrapForm.Select}>
           {
             roles.map((role) => <option key={role.id} value={role.id}>{role.name}</option>)
