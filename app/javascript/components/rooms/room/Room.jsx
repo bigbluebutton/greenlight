@@ -20,7 +20,7 @@ export default function Room() {
 
   if (isLoading) return <Spinner />; // Todo: amir - Revisit this.
   return (
-    <>
+    <div className="wide-background-room">
       <Row className="pt-4">
         <Col>
           <Link to="/rooms">
@@ -45,6 +45,6 @@ export default function Room() {
         </Col>
       </Row>
       <FeatureTabs />
-    </>
+    </div>
   );
 }

@@ -3,11 +3,18 @@
   color: #0000EE;
 }
 
-.wide-background {
-  background: whitesmoke;
+.wide-background-room {
+  background: white;
   margin: 0 -600rem;
   padding: 0.25rem 600rem;
-  height: 100%;
+  height: 319px;
+}
+
+.wide-background-rooms {
+  background: white;
+  margin: 0 -600rem;
+  padding: 0.25rem 600rem;
+  height: 90px;
 }
 
 .vertical-center {
@@ -16,14 +23,6 @@
 
 .full-height {
   min-height: calc(100vh - 110px);
-}
-
-.full-height-rooms {
-  min-height: calc(100vh - 172px);
-}
-
-.full-height-room {
-  min-height: calc(100vh - 390px);
 }
 
 .cursor-pointer {

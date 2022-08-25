@@ -17,13 +17,11 @@ export default function ResetPassword() {
   if (verifyToken.isLoading) return <Spinner />;
 
   return (
-    <div className="wide-background">
-      <div className="vertical-center">
-        <FormLogo />
-        <Card className="col-md-4 mx-auto p-4 border-0 shadow-sm">
-          <ResetPwdForm token={token} />
-        </Card>
-      </div>
+    <div className="vertical-center">
+      <FormLogo />
+      <Card className="col-md-4 mx-auto p-4 border-0 shadow-sm">
+        <ResetPwdForm token={token} />
+      </Card>
     </div>
   );
 }

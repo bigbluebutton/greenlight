@@ -18,8 +18,8 @@ export default function EditUser() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div id="admin-panel" className="wide-background">
-      <h3 className="my-5"> Administrator Panel </h3>
+    <div id="admin-panel">
+      <h3 className="py-5"> Administrator Panel </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activekey="users">
           <Container className="admin-table">

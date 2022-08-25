@@ -12,8 +12,8 @@ import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
 export default function ManageUsers() {
   const [input, setInput] = useState();
   return (
-    <div id="admin-panel" className="wide-background">
-      <h3 className="my-5"> Administrator Panel </h3>
+    <div id="admin-panel">
+      <h3 className="py-5"> Administrator Panel </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="users">
           <Row>
