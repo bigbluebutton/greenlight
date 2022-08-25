@@ -10,11 +10,11 @@ module Api
 
         def active_users
           # TODO: Change to get active users only
-          users = User.with_provider(current_provider).with_attached_avatar.search(params[:search])
+          users = User.includes(:role).with_provider(current_provider).with_attached_avatar.search(params[:search])
 
           pagy, users = pagy_array(users)
 
-          render_data data: users, meta: pagy_metadata(pagy), serializer: ServerUserSerializer, status: :ok
+          render_data data: users, meta: pagy_metadata(pagy), serializer: UserSerializer, status: :ok
         end
       end
     end

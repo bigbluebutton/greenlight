@@ -12,7 +12,7 @@ export default function AdminNavSideBar() {
     <Nav variant="pills" className="flex-column">
       {(currentUser.permissions.ManageUsers === 'true') && (
       <Nav.Item>
-        <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/users" eventKey="users">
+        <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/users" eventKey="users">
           <UsersIcon className="hi-s me-3" />
           Manage Users
         </Nav.Link>
@@ -20,7 +20,7 @@ export default function AdminNavSideBar() {
       )}
       {(currentUser.permissions.ManageRooms === 'true') && (
         <Nav.Item>
-          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/server-rooms" eventKey="server-rooms">
+          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/server-rooms" eventKey="server-rooms">
             <ServerIcon className="hi-s me-3" />
             Server Rooms
           </Nav.Link>
@@ -28,7 +28,7 @@ export default function AdminNavSideBar() {
       )}
       {(currentUser.permissions.ManageRecordings === 'true') && (
         <Nav.Item>
-          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/server-recordings" eventKey="server-recordings">
+          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/server-recordings" eventKey="server-recordings">
             <VideoCameraIcon className="hi-s me-3" />
             Server Recordings
           </Nav.Link>
@@ -37,13 +37,13 @@ export default function AdminNavSideBar() {
       {(currentUser.permissions.ManageSiteSettings === 'true') && (
         <>
           <Nav.Item>
-            <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/site-settings" eventKey="site-settings">
+            <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/site-settings" eventKey="site-settings">
               <CogIcon className="hi-s me-3" />
               Site Settings
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/room-configuration" eventKey="room-configuration">
+            <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/room-configuration" eventKey="room-configuration">
               <AdjustmentsIcon className="hi-s me-3" />
               Room Configuration
             </Nav.Link>
@@ -52,7 +52,7 @@ export default function AdminNavSideBar() {
       )}
       {(currentUser.permissions.ManageRoles === 'true') && (
         <Nav.Item>
-          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/adminpanel/roles" eventKey="roles">
+          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/roles" eventKey="roles">
             <IdentificationIcon className="hi-s me-3" />
             Roles
           </Nav.Link>

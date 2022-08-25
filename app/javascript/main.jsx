@@ -40,15 +40,15 @@ const root = (
             <Route path="/forget_password" element={<ForgetPassword />} />
             <Route path="/reset_password/:token" element={<ResetPassword />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/adminpanel" element={<Navigate to="/adminpanel/users" replace />} />
-            <Route path="/adminpanel/users" element={<ManageUsers />} />
-            <Route path="/adminpanel/edit_user/:userId" element={<EditUser />} />
-            <Route path="/adminpanel/server-recordings" element={<ServerRecordings />} />
-            <Route path="/adminpanel/server-rooms" element={<ServerRooms />} />
-            <Route path="/adminpanel/room-configuration" element={<RoomConfig />} />
-            <Route path="/adminpanel/site-settings" element={<SiteSettings />} />
-            <Route path="/adminpanel/roles" element={<Roles />} />
-            <Route path="/adminpanel/roles/edit/:roleId" element={<EditRole />} />
+            <Route path="/admin" element={<Navigate to="/admin/users" replace />} />
+            <Route path="/admin/users" element={<ManageUsers />} />
+            <Route path="/admin/edit_user/:userId" element={<EditUser />} />
+            <Route path="/admin/server-recordings" element={<ServerRecordings />} />
+            <Route path="/admin/server-rooms" element={<ServerRooms />} />
+            <Route path="/admin/room-configuration" element={<RoomConfig />} />
+            <Route path="/admin/site-settings" element={<SiteSettings />} />
+            <Route path="/admin/roles" element={<Roles />} />
+            <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
             <Route path="/rooms" element={<Rooms />} />
             <Route path="/rooms/:friendlyId" element={<Room />} />
             <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
