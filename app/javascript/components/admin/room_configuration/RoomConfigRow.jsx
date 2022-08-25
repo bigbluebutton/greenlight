@@ -19,7 +19,7 @@ export default function RoomConfigRow({
   const methods = useForm(RoomConfigFormConfig);
 
   return (
-    <Row className="mb-3">
+    <Row className="mb-4">
       <Col md="9">
         <Stack>
           <strong> {title} </strong>
@@ -27,7 +27,7 @@ export default function RoomConfigRow({
         </Stack>
       </Col>
       <Col md="3">
-        <Form className="mt-4 mb-0 float-end" methods={methods} onChange={methods.handleSubmit(updateRoomConfig.mutate)}>
+        <Form className="mb-0 float-end" methods={methods} onChange={methods.handleSubmit(updateRoomConfig.mutate)}>
           <FormControlGeneric control={BootStrapForm.Select} field={fields.value} disabled={updateRoomConfig.isLoading}>
             <option value="optional">Optional</option>
             <option value="false">Disabled</option>

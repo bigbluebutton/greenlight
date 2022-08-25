@@ -35,7 +35,7 @@ export default function useUpdateSiteSetting(name) {
     uploadPresentation,
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('getSiteSettings');
+        queryClient.invalidateQueries(['getSiteSettings', name]);
         toast.success('Site settings updated');
       },
       onError: (e) => {
