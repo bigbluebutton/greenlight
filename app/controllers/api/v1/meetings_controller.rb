@@ -21,6 +21,7 @@ module Api
           presentation_url:,
           meeting_ended: meeting_ended_url,
           recording_ready: recording_ready_url,
+          current_user:,
           provider: current_provider
         ).call
 

@@ -53,4 +53,10 @@ FactoryBot.define do
       FactoryBot.create(:role_permission, role: user.role, permission: FactoryBot.create(:permission, name: 'CreateRoom'), value: 'true')
     end
   end
+
+  trait :can_record do
+    after(:create) do |user|
+      FactoryBot.create(:role_permission, role: user.role, permission: FactoryBot.create(:permission, name: 'CanRecord'), value: 'true')
+    end
+  end
 end

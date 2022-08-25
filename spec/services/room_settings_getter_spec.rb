@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe RoomSettingsGetter, type: :service do
+  let(:user) { create(:user, :can_record) }
+
   describe '#call' do
     context 'Normal room settings' do
       it 'returns a Hash("name" => "value") of room settings according to the configurations' do
@@ -19,7 +21,7 @@ describe RoomSettingsGetter, type: :service do
         create(:rooms_configuration, meeting_option: setting2, provider: 'greenlight', value: 'optional')
         create(:rooms_configuration, meeting_option: setting3, provider: 'greenlight', value: 'false')
 
-        res = described_class.new(room_id: room.id, provider: 'greenlight').call
+        res = described_class.new(room_id: room.id, current_user: user, provider: 'greenlight').call
 
         expect(res).to eq({
                             'glSetting1' => 'true',
@@ -49,7 +51,7 @@ describe RoomSettingsGetter, type: :service do
         create(:rooms_configuration, meeting_option: setting2, provider: 'greenlight', value: 'optional')
         create(:rooms_configuration, meeting_option: setting3, provider: 'greenlight', value: 'false')
 
-        res = described_class.new(room_id: room.id, provider: 'greenlight').call
+        res = described_class.new(room_id: room.id, current_user: user, provider: 'greenlight').call
 
         expect(res).to eq({
                             'glSpecial!' => 'SPECIAL_FORCE',
@@ -74,7 +76,7 @@ describe RoomSettingsGetter, type: :service do
         create(:rooms_configuration, meeting_option: moderator_access_code, provider: 'greenlight', value: 'false')
         create(:rooms_configuration, meeting_option: setting, provider: 'greenlight', value: 'optional')
 
-        res = described_class.new(room_id: room.id, provider: 'greenlight', show_codes: true).call
+        res = described_class.new(room_id: room.id, current_user: user, provider: 'greenlight', show_codes: true).call
 
         expect(res).to eq({
                             'setting' => 'VALUE',
@@ -97,7 +99,7 @@ describe RoomSettingsGetter, type: :service do
         create(:rooms_configuration, meeting_option: moderator_access_code, provider: 'greenlight', value: 'optional')
         create(:rooms_configuration, meeting_option: setting, provider: 'greenlight', value: 'optional')
 
-        res = described_class.new(room_id: room.id, provider: 'greenlight', show_codes: true).call
+        res = described_class.new(room_id: room.id, current_user: user, provider: 'greenlight', show_codes: true).call
 
         expect(res).to eq({
                             'setting' => 'VALUE',
@@ -122,7 +124,7 @@ describe RoomSettingsGetter, type: :service do
             create(:rooms_configuration, meeting_option: moderator_access_code, provider: 'greenlight', value: 'optional')
             create(:rooms_configuration, meeting_option: setting, provider: 'greenlight', value: 'optional')
 
-            res = described_class.new(room_id: room.id, provider: 'greenlight', show_codes: false).call
+            res = described_class.new(room_id: room.id, current_user: user, provider: 'greenlight', show_codes: false).call
 
             expect(res).to eq({
                                 'setting' => 'VALUE',
@@ -147,7 +149,7 @@ describe RoomSettingsGetter, type: :service do
             create(:rooms_configuration, meeting_option: setting2, provider: 'greenlight', value: 'false')
             create(:rooms_configuration, meeting_option: setting3, provider: 'greenlight', value: 'optional')
 
-            res = described_class.new(room_id: room.id, provider: 'greenlight', only_bbb_options: true).call
+            res = described_class.new(room_id: room.id, current_user: user, provider: 'greenlight', only_bbb_options: true).call
 
             expect(res).to eq({
                                 'YourOnlyBBBSetting' => 'BBB'
@@ -173,7 +175,7 @@ describe RoomSettingsGetter, type: :service do
             create(:rooms_configuration, meeting_option: setting3, provider: 'greenlight', value: 'true')
             create(:rooms_configuration, meeting_option: setting4, provider: 'greenlight', value: 'optional')
 
-            res = described_class.new(room_id: room.id, provider: 'greenlight', only_enabled: true).call
+            res = described_class.new(room_id: room.id, current_user: user, provider: 'greenlight', only_enabled: true).call
 
             expect(res).to eq({
                                 'forcedEnabled' => 'true',
@@ -197,7 +199,7 @@ describe RoomSettingsGetter, type: :service do
             create(:rooms_configuration, meeting_option: setting2, provider: 'greenlight', value: 'optional')
             create(:rooms_configuration, meeting_option: setting3, provider: 'greenlight', value: 'false')
 
-            res = described_class.new(room_id: room.id, provider: 'greenlight', settings: %w[One Three]).call
+            res = described_class.new(room_id: room.id, current_user: user, provider: 'greenlight', settings: %w[One Three]).call
 
             expect(res).to eq({
                                 'One' => 'true',
