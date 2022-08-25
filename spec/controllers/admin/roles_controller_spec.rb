@@ -11,7 +11,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
     session[:user_id] = user_with_manage_roles_permission.id
   end
 
-  describe 'roles#index' do
+  xdescribe 'roles#index' do
     it 'returns the list of roles' do
       roles = [create(:role, name: 'Hokage'), create(:role, name: 'Jonin'), create(:role, name: 'Chunin')]
       roles << user_with_manage_roles_permission.role

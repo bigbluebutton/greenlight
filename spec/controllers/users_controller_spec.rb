@@ -58,13 +58,18 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       updated_params = {
         name: 'New Name',
         email: 'newemail@gmail.com',
-        language: 'gl'
+        language: 'gl',
+        role_id: create(:role, name: 'New Role').id
       }
       patch :update, params: { id: user.id, user: updated_params }
       expect(response).to have_http_status(:ok)
-      expect(user.reload.name).to eq(updated_params[:name])
-      expect(user.reload.email).to eq(updated_params[:email])
-      expect(user.reload.language).to eq(updated_params[:language])
+
+      user.reload
+
+      expect(user.name).to eq(updated_params[:name])
+      expect(user.email).to eq(updated_params[:email])
+      expect(user.language).to eq(updated_params[:language])
+      expect(user.role_id).to eq(updated_params[:role_id])
     end
 
     it 'returns an error if the user update fails' do

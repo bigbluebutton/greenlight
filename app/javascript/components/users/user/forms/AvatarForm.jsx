@@ -33,7 +33,11 @@ AvatarForm.propTypes = {
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     provider: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired,
+    role: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+    }).isRequired,
     created_at: PropTypes.string.isRequired,
   }).isRequired,
 };

@@ -33,11 +33,11 @@ export const updateUserFormFields = {
       id: 'language',
     },
   },
-  userRole: {
-    label: 'User Role',
-    controlId: 'updateUserRole',
+  role_id: {
+    label: 'Role',
+    controlId: 'updateRole',
     hookForm: {
-      id: 'userRole',
+      id: 'role_id',
     },
   },
 };

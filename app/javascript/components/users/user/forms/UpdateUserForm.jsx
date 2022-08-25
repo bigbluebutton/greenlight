@@ -1,8 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  Button, Form as BootStrapForm, Stack,
-} from 'react-bootstrap';
+import { Button, Form as BootStrapForm, Stack } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
 import { validationSchema, updateUserFormFields } from '../../../../helpers/forms/UpdateUserFormHelpers';
@@ -10,6 +8,8 @@ import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import useUpdateUser from '../../../../hooks/mutations/users/useUpdateUser';
 import Spinner from '../../../shared_components/utilities/Spinner';
+import { useAuth } from '../../../../contexts/auth/AuthProvider';
+import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
 
 export default function UpdateUserForm({ user }) {
   // TODO: Make LOCALES a context that provides the available languages and their native names in the client app.
@@ -25,12 +25,18 @@ export default function UpdateUserForm({ user }) {
       name: user?.name,
       email: user?.email,
       language: user?.language,
+      role_id: user?.role?.id,
     },
     resolver: yupResolver(validationSchema),
   });
+
   const { formState: { isSubmitting } } = methods;
   const updateUser = useUpdateUser(user?.id);
   const fields = updateUserFormFields;
+  const currentUser = useAuth();
+  const { data: roles, isLoading } = useRoles();
+
+  if (isLoading) return <Spinner />;
 
   return (
     <Form methods={methods} onSubmit={updateUser.mutate}>
@@ -41,15 +47,13 @@ export default function UpdateUserForm({ user }) {
           Object.keys(LOCALES).map((code) => <option key={code} value={code}>{LOCALES[code]}</option>)
         }
       </FormControl>
-      {
-        // TODO: Refactor this to use FormControl instead.
-      }
-      <BootStrapForm.Group className="mb-3" controlId={fields.userRole.controlId}>
-        <BootStrapForm.Label className="small mb-0">
-          {fields.userRole.label}
-        </BootStrapForm.Label>
-        <BootStrapForm.Select field={fields.userRole} type="select" />
-      </BootStrapForm.Group>
+      {(currentUser.permissions.ManageUsers === 'true') && (
+        <FormControl field={fields.role_id} control={BootStrapForm.Select}>
+          {
+            roles.map((role) => <option key={role.id} value={role.id}>{role.name}</option>)
+          }
+        </FormControl>
+      )}
 
       <Stack direction="horizontal" gap={2} className="float-end">
         <Button
@@ -79,7 +83,11 @@ UpdateUserForm.propTypes = {
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     provider: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired,
+    role: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+    }).isRequired,
     created_at: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
   }).isRequired,
