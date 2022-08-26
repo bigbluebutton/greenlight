@@ -37,11 +37,17 @@
 
 .color-picker {
   width: 200px;
-  min-height: 300px;
+  min-height: 330px;
 
   .react-colorful__hue {
     border-radius: 0 !important;
   }
+}
+
+.color-preview {
+  display: inline-block;
+  width: 50%;
+  height: 15px;
 }
 
 .popover-arrow {
