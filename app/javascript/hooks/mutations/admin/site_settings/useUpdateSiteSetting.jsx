@@ -36,6 +36,7 @@ export default function useUpdateSiteSetting(name) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['getSiteSettings', name]);
+        queryClient.invalidateQueries('getSiteSettings');
         toast.success('Site settings updated');
       },
       onError: (e) => {
