@@ -9,7 +9,7 @@ import useDeleteServerRoom from '../../../hooks/mutations/admin/server_rooms/use
 import Modal from '../../shared_components/modals/Modal';
 import DeleteRoomForm from '../../rooms/room/forms/DeleteRoomForm';
 import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
-import useRoomStatus from '../../../hooks/queries/rooms/useRoomStatus';
+import useRoomStatus from '../../../hooks/mutations/rooms/useRoomStatus';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function ServerRoomRow({ room }) {
@@ -19,8 +19,10 @@ export default function ServerRoomRow({ room }) {
   const mutationWrapper = (args) => useDeleteServerRoom({ friendlyId, ...args });
   const startMeeting = useStartMeeting(friendlyId);
   const currentUser = useAuth();
+  const roomStatusAPI = useRoomStatus(room.friendly_id);
+
   // TODO - samuel: useRoomStatus will not work if room has an access code. Will need to add bypass in MeetingController
-  const { refetch } = useRoomStatus(room.friendly_id, currentUser.name);
+  const handleJoin = () => roomStatusAPI.mutate({ name: currentUser.name });
 
   const renderLastSession = () => {
     if (lastSession == null) {
@@ -50,7 +52,7 @@ export default function ServerRoomRow({ room }) {
           <Dropdown.Menu>
             { room.active
               ? (
-                <Dropdown.Item className="text-muted" onClick={refetch}>
+                <Dropdown.Item className="text-muted" onClick={handleJoin}>
                   <ExternalLinkIcon className="hi-s pb-1 me-1" /> Join
                 </Dropdown.Item>
               )
