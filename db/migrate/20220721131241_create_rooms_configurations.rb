@@ -2,8 +2,8 @@
 
 class CreateRoomsConfigurations < ActiveRecord::Migration[7.0]
   def change
-    create_table :rooms_configurations do |t|
-      t.belongs_to :meeting_option, foreign_key: true
+    create_table :rooms_configurations, id: :uuid do |t|
+      t.belongs_to :meeting_option, foreign_key: true, type: :uuid
       t.string :provider, null: false
       t.string :value, null: false
       t.timestamps
