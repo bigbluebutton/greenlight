@@ -20,10 +20,12 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         .and_return(meeting_starter_response)
     end
 
-    it 'makes a call to the MeetingStarter service with the right values' do
+    it 'makes a call to the MeetingStarter service with the right values and returns the join url' do
       logout = 'http://example.com'
       request.env['HTTP_REFERER'] = logout
       presentation_url = nil
+
+      allow_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).and_return('JOIN_URL')
 
       expect(
         MeetingStarter
@@ -35,9 +37,15 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         recording_ready: recording_ready_url,
         current_user: user,
         provider: 'greenlight'
-      )
+      ).and_call_original
+
+      expect_any_instance_of(MeetingStarter).to receive(:call)
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Moderator')
 
       post :start, params: { friendly_id: room.friendly_id }
+
+      expect(response).to have_http_status(:created)
+      expect(JSON.parse(response.body)['data']).to eq('JOIN_URL')
     end
 
     it 'cannot make call to MeetingStarter service for another room' do
@@ -109,6 +117,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     end
   end
 
+  # **DEPRECATED**.
   describe '#join' do
     before do
       allow_any_instance_of(Room).to receive(:viewer_access_code).and_return('')
@@ -202,9 +211,24 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       room = create(:room, user:)
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+      allow_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).and_return('JOIN_URL')
+
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
 
       get :status, params: { friendly_id: room.friendly_id, name: user.name }
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)['data']).to eq({ 'joinUrl' => 'JOIN_URL', 'status' => true })
+    end
+
+    it 'returns status false if the meeting is NOT running' do
+      room = create(:room, user:)
+
+      allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(false)
+      expect_any_instance_of(BigBlueButtonApi).not_to receive(:join_meeting)
+
+      get :status, params: { friendly_id: room.friendly_id, name: user.name }
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)['data']).to eq({ 'status' => false })
     end
 
     it 'joins as viewer if no access code is required nor provided' do
