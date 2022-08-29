@@ -17,7 +17,7 @@ export default function BrandingImage() {
       >
         <Card className="border border-2 border-whitesmoke mt-3 text-center">
           <label htmlFor="file" className="presentation-upload">
-            <Card.Body className="py-5 text-secondary cursor-pointer">
+            <Card.Body className="text-secondary cursor-pointer">
               <div className="icon-circle rounded-circle d-block mx-auto mb-3">
                 <CloudUploadIcon className="hi-l text-brand d-block mx-auto pt-4" />
               </div>

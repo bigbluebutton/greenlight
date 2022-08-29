@@ -156,16 +156,25 @@ input.search-bar {
     color: var(--brand-color);
     background-color: white !important;
   }
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem var(--brand-color-light);
+  }
 }
 
 .btn-brand-backward {
   border: 2px solid gainsboro;
   color: var(--brand-color);
   background-color: white;
+  box-shadow: var(--brand-color-light);
 
   &:hover {
     color: var(--brand-color);
     border-color: var(--brand-color);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem var(--brand-color-light);
   }
 }
 
@@ -180,6 +189,10 @@ input.search-bar {
     color: var(--brand-color);
     border-color: var(--brand-color-light);
     border: 2px solid var(--brand-color-light);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem var(--brand-color);
   }
 }
 

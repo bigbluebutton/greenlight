@@ -5,8 +5,8 @@ import BrandingImage from './BrandingImage';
 export default function Appearance() {
   return (
     <>
-      <BrandingImage />
       <BrandColor />
+      <BrandingImage />
     </>
   );
 }
