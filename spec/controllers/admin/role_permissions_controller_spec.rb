@@ -13,7 +13,7 @@ RSpec.describe Api::V1::Admin::RolePermissionsController, type: :controller do
 
   describe '#index' do
     # TODO: - Need to find way to test using returned hash from index
-    it 'returns all the SiteSettings' do
+    it 'returns all the RolePermissions' do
       get :index
       expect(response).to have_http_status(:ok)
     end
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::Admin::RolePermissionsController, type: :controller do
         session[:user_id] = user.id
       end
 
-      it 'cant return all the SiteSettings' do
+      it 'cant return all the RolePermissions' do
         get :index
         expect(response).to have_http_status(:forbidden)
       end
@@ -46,7 +46,7 @@ RSpec.describe Api::V1::Admin::RolePermissionsController, type: :controller do
         session[:user_id] = user.id
       end
 
-      it 'cant update the value of SiteSetting' do
+      it 'cant update the value of RolePermissions' do
         role = create(:role)
         permission = create(:permission)
         create(:role_permission, role:, permission:, value: true)
