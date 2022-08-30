@@ -207,6 +207,54 @@ describe RoomSettingsGetter, type: :service do
                               })
           end
         end
+
+        context ':room_configuration infer_can_record cases' do
+          it 'room_setting record value changes to false if room_configuration record value is optional and CanRecord permission is set to false' do
+            room = create(:room)
+            user = create(:user, :cant_record)
+            setting1 = create(:meeting_option, name: 'record')
+
+            create(:room_meeting_option, room:, meeting_option: setting1, value: 'true')
+
+            create(:rooms_configuration, meeting_option: setting1, provider: 'greenlight', value: 'optional')
+
+            res = described_class.new(room_id: room.id, current_user: user, provider: 'greenlight', settings: ['record']).call
+
+            expect(res).to eq({
+                                'record' => 'false'
+                              })
+          end
+
+          it 'room_setting record value remains true if room_configuration record value is optional and CanRecord permission is set to true' do
+            room = create(:room)
+            setting1 = create(:meeting_option, name: 'record')
+
+            create(:room_meeting_option, room:, meeting_option: setting1, value: 'true')
+
+            create(:rooms_configuration, meeting_option: setting1, provider: 'greenlight', value: 'optional')
+
+            res = described_class.new(room_id: room.id, current_user: user, provider: 'greenlight', settings: ['record']).call
+
+            expect(res).to eq({
+                                'record' => 'true'
+                              })
+          end
+
+          it 'room_setting record value remains the same if room_configuration record value is set to true or false' do
+            room = create(:room)
+            setting1 = create(:meeting_option, name: 'record')
+
+            create(:room_meeting_option, room:, meeting_option: setting1, value: 'true')
+
+            create(:rooms_configuration, meeting_option: setting1, provider: 'greenlight', value: 'true')
+
+            res = described_class.new(room_id: room.id, current_user: user, provider: 'greenlight', settings: ['record']).call
+
+            expect(res).to eq({
+                                'record' => 'true'
+                              })
+          end
+        end
       end
     end
   end
