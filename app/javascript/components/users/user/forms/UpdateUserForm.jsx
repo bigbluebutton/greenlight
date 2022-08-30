@@ -35,7 +35,7 @@ export default function UpdateUserForm({ user }) {
   const fields = updateUserFormFields;
   const currentUser = useAuth();
 
-  const isAdmin = currentUser.permissions.ManageUsers === 'true'
+  const isAdmin = currentUser.permissions.ManageUsers === 'true';
   const { data: roles, isLoading } = useRoles('', isAdmin);
 
   if (isLoading) return <Spinner />;

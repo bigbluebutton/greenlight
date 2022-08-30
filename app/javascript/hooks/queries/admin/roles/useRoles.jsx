@@ -14,6 +14,6 @@ export default function useRoles(search, enabled) {
   return useQuery(
     ['getRoles', { ...params }],
     () => axios.get('/admin/roles.json', { params }).then((resp) => resp.data.data),
-    { enabled: enabled }
+    { enabled },
   );
 }
