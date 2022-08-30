@@ -33,7 +33,7 @@ export default function DeleteRoleForm({ role, handleClose }) {
 DeleteRoleForm.propTypes = {
   handleClose: PropTypes.func,
   role: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
   }).isRequired,
