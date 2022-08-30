@@ -6,7 +6,7 @@ module Api
       class RolesController < ApiController
         before_action :find_role, only: %i[update show destroy]
         before_action only: %i[index] do
-          ensure_authorized('ManageUsers')
+          ensure_authorized(%w[ManageUsers ManageRoles])
         end
         before_action except: %i[index] do
           ensure_authorized('ManageRoles')
