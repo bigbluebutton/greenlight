@@ -12,19 +12,20 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "active_storage_attachments", force: :cascade do |t|
+  create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.uuid "record_id", null: false
+    t.uuid "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", force: :cascade do |t|
+  create_table "active_storage_blobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -36,8 +37,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+  create_table "active_storage_variant_records", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -45,8 +46,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
   create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
-  create_table "formats", force: :cascade do |t|
-    t.bigint "recording_id"
+  create_table "formats", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "recording_id"
     t.string "recording_type", null: false
     t.string "url", null: false
     t.datetime "created_at", null: false
@@ -54,7 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.index ["recording_id"], name: "index_formats_on_recording_id"
   end
 
-  create_table "meeting_options", force: :cascade do |t|
+  create_table "meeting_options", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "default_value"
     t.datetime "created_at", null: false
@@ -62,14 +63,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.index ["name"], name: "index_meeting_options_on_name", unique: true
   end
 
-  create_table "permissions", force: :cascade do |t|
+  create_table "permissions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "recordings", force: :cascade do |t|
-    t.bigint "room_id"
+  create_table "recordings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "room_id"
     t.string "name", null: false
     t.string "record_id", null: false
     t.datetime "created_at", null: false
@@ -81,9 +82,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.index ["room_id"], name: "index_recordings_on_room_id"
   end
 
-  create_table "role_permissions", force: :cascade do |t|
-    t.bigint "role_id"
-    t.bigint "permission_id"
+  create_table "role_permissions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "role_id"
+    t.uuid "permission_id"
     t.string "value", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -91,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.index ["role_id"], name: "index_role_permissions_on_role_id"
   end
 
-  create_table "roles", force: :cascade do |t|
+  create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "color", default: "", null: false
     t.string "provider", null: false
@@ -99,9 +100,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "room_meeting_options", force: :cascade do |t|
-    t.bigint "room_id"
-    t.bigint "meeting_option_id"
+  create_table "room_meeting_options", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "room_id"
+    t.uuid "meeting_option_id"
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -109,8 +110,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.index ["room_id"], name: "index_room_meeting_options_on_room_id"
   end
 
-  create_table "rooms", force: :cascade do |t|
-    t.bigint "user_id"
+  create_table "rooms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
     t.string "name", null: false
     t.string "friendly_id", null: false
     t.string "meeting_id", null: false
@@ -123,8 +124,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
-  create_table "rooms_configurations", force: :cascade do |t|
-    t.bigint "meeting_option_id"
+  create_table "rooms_configurations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "meeting_option_id"
     t.string "provider", null: false
     t.string "value", null: false
     t.datetime "created_at", null: false
@@ -133,16 +134,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.index ["meeting_option_id"], name: "index_rooms_configurations_on_meeting_option_id"
   end
 
-  create_table "settings", force: :cascade do |t|
+  create_table "settings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_settings_on_name", unique: true
   end
 
-  create_table "shared_accesses", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "room_id", null: false
+  create_table "shared_accesses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_shared_accesses_on_room_id"
@@ -150,8 +151,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.index ["user_id"], name: "index_shared_accesses_on_user_id"
   end
 
-  create_table "site_settings", force: :cascade do |t|
-    t.bigint "setting_id"
+  create_table "site_settings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "setting_id"
     t.string "value", null: false
     t.string "provider", null: false
     t.datetime "created_at", null: false
@@ -159,7 +160,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.index ["setting_id"], name: "index_site_settings_on_setting_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
     t.string "external_id"
@@ -168,7 +169,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.datetime "last_login"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "role_id"
+    t.uuid "role_id"
     t.string "language", null: false
     t.string "reset_digest"
     t.datetime "reset_sent_at", precision: nil

@@ -2,7 +2,7 @@
 
 class CreatePermissions < ActiveRecord::Migration[7.0]
   def change
-    create_table :permissions do |t|
+    create_table :permissions, id: :uuid do |t|
       t.string :name, null: false
 
       t.timestamps
