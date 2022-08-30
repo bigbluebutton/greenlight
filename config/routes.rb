@@ -37,7 +37,6 @@ Rails.application.routes.draw do
       resources :meetings, only: %i[], param: :friendly_id do
         member do
           post '/start', to: 'meetings#start'
-          get '/join', to: 'meetings#join' # **DEPRECATED**.
           post '/status', to: 'meetings#status'
         end
       end

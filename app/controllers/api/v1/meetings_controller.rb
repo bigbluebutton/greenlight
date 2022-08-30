@@ -3,8 +3,8 @@
 module Api
   module V1
     class MeetingsController < ApiController
-      before_action :find_room, only: %i[start join status]
-      skip_before_action :ensure_authenticated, only: %i[join status]
+      before_action :find_room, only: %i[start status]
+      skip_before_action :ensure_authenticated, only: %i[status]
       before_action only: %i[start] do
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
@@ -26,21 +26,6 @@ module Api
         ).call
 
         render_data data: BigBlueButtonApi.new.join_meeting(room: @room, name: current_user.name, role: 'Moderator'), status: :created
-      end
-
-      # GET /api/v1/meetings/:friendly_id/join.json
-      # **DEPRECATED**.
-      def join
-        if authorized_as_viewer? || authorized_as_moderator?
-          if authorized_as_moderator?
-            bbb_role = 'Moderator'
-          elsif authorized_as_viewer?
-            bbb_role = 'Viewer'
-          end
-          render_data data: BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role), status: :ok
-        else
-          render_error status: :unauthorized
-        end
       end
 
       # POST /api/v1/meetings/:friendly_id/status.json
