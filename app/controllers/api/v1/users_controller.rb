@@ -30,7 +30,7 @@ module Api
         return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         if user.save
-          session[:user_id] = user.id
+          session[:user_id] ||= user.id
           token = user.generate_activation_token!
           render_data data: { token: }, status: :created # TODO: enable activation email sending.
         else
