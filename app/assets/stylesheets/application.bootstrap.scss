@@ -29,6 +29,11 @@ body {
   max-height: 70px;
 }
 
+.brand-image-lg {
+  max-width: 400px;
+  max-height: 140px;
+}
+
 .header {
   height: 70px;
   background: white;
@@ -264,4 +269,3 @@ input.search-bar {
     box-shadow: none;
   }
 }
-
