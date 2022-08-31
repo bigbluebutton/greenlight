@@ -7,7 +7,7 @@ const validationSchema = yup.object({
 });
 
 export const editRoleFormConfig = {
-  mode: 'onChange',
+  mode: 'onBlur',
   defaultValues: {},
   resolver: yupResolver(validationSchema),
 };
