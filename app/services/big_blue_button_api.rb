@@ -24,7 +24,7 @@ class BigBlueButtonApi
   end
 
   def join_meeting(room:, name:, role:)
-    url = bbb_server.join_meeting_url(
+    bbb_server.join_meeting_url(
       room.meeting_id,
       name,
       '', # empty password -> use the role passed ing
@@ -33,10 +33,6 @@ class BigBlueButtonApi
         createTime: room.last_session&.to_datetime&.strftime('%Q')
       }.compact
     )
-
-    Rails.logger.debug url
-
-    url
   end
 
   def meeting_running?(room:)
