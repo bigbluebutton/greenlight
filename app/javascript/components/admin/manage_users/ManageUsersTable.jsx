@@ -40,10 +40,14 @@ ManageUsersTable.defaultProps = {
 
 ManageUsersTable.propTypes = {
   users: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     provider: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired,
+    role: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+    }).isRequired,
   })),
 };

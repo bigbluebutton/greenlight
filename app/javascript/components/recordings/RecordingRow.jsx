@@ -111,7 +111,7 @@ export default function RecordingRow({
 
 RecordingRow.propTypes = {
   recording: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     record_id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     length: PropTypes.number.isRequired,
