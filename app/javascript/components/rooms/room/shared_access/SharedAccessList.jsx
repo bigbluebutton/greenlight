@@ -81,7 +81,7 @@ export default function SharedAccessList({ users, isLoading }) {
 
 SharedAccessList.propTypes = {
   users: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,

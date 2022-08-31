@@ -55,7 +55,7 @@ export default function RoomCard({ room }) {
 
 RoomCard.propTypes = {
   room: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     friendly_id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,

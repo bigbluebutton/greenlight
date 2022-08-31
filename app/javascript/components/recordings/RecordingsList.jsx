@@ -46,7 +46,7 @@ RecordingsList.defaultProps = {
 
 RecordingsList.propTypes = {
   recordings: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     length: PropTypes.number.isRequired,
     participants: PropTypes.number.isRequired,

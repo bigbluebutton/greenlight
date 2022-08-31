@@ -74,7 +74,7 @@ export default function EditRoleForm({ role }) {
 
 EditRoleForm.propTypes = {
   role: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     name: PropTypes.string,
     color: PropTypes.string,
   }).isRequired,
