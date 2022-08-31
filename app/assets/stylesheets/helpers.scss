@@ -18,11 +18,19 @@
 }
 
 .vertical-center {
-  margin-top: 20vh;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
-.full-height {
-  min-height: calc(100vh - 110px);
+.page-height {
+  min-height: calc(100vh - $header-height - $footer-height);
+}
+
+.homepage-height {
+  height: calc(100vh - $footer-height);
 }
 
 .cursor-pointer {
