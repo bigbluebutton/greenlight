@@ -12,7 +12,7 @@ describe PermissionsChecker, type: :service do
       create(:role_permission, role:, permission:, value: 'true')
       expect(described_class.new(
         current_user: user,
-        permission_name: permission.name,
+        permission_names: permission.name,
         user_id: '',
         friendly_id: '',
         record_id: ''
@@ -23,7 +23,7 @@ describe PermissionsChecker, type: :service do
       create(:role_permission, role:, permission:, value: 'false')
       expect(described_class.new(
         current_user: user,
-        permission_name: permission.name,
+        permission_names: permission.name,
         user_id: '',
         friendly_id: '',
         record_id: ''
@@ -34,11 +34,38 @@ describe PermissionsChecker, type: :service do
       create(:role_permission, role:, permission:, value: 'false')
       expect(described_class.new(
         current_user: user,
-        permission_name: 'ManageUsers',
+        permission_names: 'ManageUsers',
         user_id: user.id,
         friendly_id: '',
         record_id: ''
       ).call).to be(true)
+    end
+
+    context 'multiple permission names' do
+      let(:permission2) { create(:permission) }
+
+      it 'returns true if multiple permission names are passed and one is true' do
+        create(:role_permission, role:, permission:, value: 'false')
+        create(:role_permission, role:, permission: permission2, value: 'true')
+
+        expect(described_class.new(
+          current_user: user,
+          permission_names: [permission.name, permission2.name],
+          user_id: user.id,
+          friendly_id: '',
+          record_id: ''
+        ).call).to be(true)
+      end
+
+      it 'checks multiple actions and returns true if the user is acting on themself' do
+        expect(described_class.new(
+          current_user: user,
+          permission_names: %w[ManageRoles ManageRooms ManageUsers],
+          user_id: user.id,
+          friendly_id: '',
+          record_id: ''
+        ).call).to be(true)
+      end
     end
   end
 end

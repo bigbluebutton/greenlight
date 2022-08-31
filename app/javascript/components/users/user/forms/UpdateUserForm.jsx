@@ -34,7 +34,9 @@ export default function UpdateUserForm({ user }) {
   const updateUser = useUpdateUser(user?.id);
   const fields = updateUserFormFields;
   const currentUser = useAuth();
-  const { data: roles, isLoading } = useRoles();
+
+  const isAdmin = currentUser.permissions.ManageUsers === 'true';
+  const { data: roles, isLoading } = useRoles('', isAdmin);
 
   if (isLoading) return <Spinner />;
 
@@ -47,7 +49,7 @@ export default function UpdateUserForm({ user }) {
           Object.keys(LOCALES).map((code) => <option key={code} value={code}>{LOCALES[code]}</option>)
         }
       </FormControl>
-      {(currentUser.permissions.ManageUsers === 'true') && (
+      {isAdmin && (
         <FormControl field={fields.role_id} control={BootStrapForm.Select}>
           {
             roles.map((role) => <option key={role.id} value={role.id}>{role.name}</option>)

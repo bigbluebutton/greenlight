@@ -11,7 +11,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
     session[:user_id] = user_with_manage_roles_permission.id
   end
 
-  xdescribe 'roles#index' do
+  describe 'roles#index' do
     it 'returns the list of roles' do
       roles = [create(:role, name: 'Hokage'), create(:role, name: 'Jonin'), create(:role, name: 'Chunin')]
       roles << user_with_manage_roles_permission.role
@@ -46,6 +46,24 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       get :index
 
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(greenlight_roles.pluck(:id))
+    end
+
+    context 'user with ManageUser permission' do
+      let(:user_with_manage_users_permission) { create(:user, :with_manage_users_permission) }
+
+      before do
+        session[:user_id] = user_with_manage_users_permission
+      end
+
+      it 'returns the list of roles' do
+        roles = [create(:role, name: 'Hokage'), create(:role, name: 'Jonin'), create(:role, name: 'Chunin')]
+        roles << user_with_manage_roles_permission.role
+        roles << user_with_manage_users_permission.role
+
+        get :index
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(roles.pluck(:id))
+      end
     end
 
     context 'user without ManageRoles permission' do
