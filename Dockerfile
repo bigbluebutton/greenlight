@@ -24,6 +24,7 @@ RUN apk add --no-cache \
     curl-dev \
     git \
     gettext \
+    imagemagick \
     libxml2-dev \
     libxslt-dev \
     pkgconf \
