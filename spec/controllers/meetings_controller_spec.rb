@@ -103,6 +103,26 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       expect(response).to have_http_status(:unauthorized)
     end
 
+    context 'idNotUnique' do
+      it 'still returns the join url if the error returned is idNotUnique' do
+        exception = BigBlueButton::BigBlueButtonException.new('idNotUnique')
+        exception.key = 'idNotUnique'
+
+        allow_any_instance_of(MeetingStarter)
+          .to receive(:call)
+          .and_raise(exception)
+
+        allow_any_instance_of(BigBlueButtonApi)
+          .to receive(:join_meeting)
+          .and_return('https://example.com')
+
+        post :start, params: { friendly_id: room.friendly_id }
+
+        expect(response).to have_http_status(:created)
+        expect(JSON.parse(response.body)['data']).to eq('https://example.com')
+      end
+    end
+
     context 'user with ManageRooms permission' do
       before do
         session[:user_id] = user_with_manage_rooms_permission.id

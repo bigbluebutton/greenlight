@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'bigbluebutton_api'
 
 describe MeetingStarter, type: :service do
   let(:user) { create(:user) }
@@ -71,18 +72,6 @@ describe MeetingStarter, type: :service do
       service.call
     end
 
-    it 'retries 3 times if the call fails' do
-      allow(BigBlueButtonApi)
-        .to receive(:new)
-        .and_raise(BigBlueButton::BigBlueButtonException)
-
-      expect(BigBlueButtonApi)
-        .to receive(:new)
-        .exactly(3).times
-
-      expect { service.call }.to raise_error(BigBlueButton::BigBlueButtonException)
-    end
-
     it 'broadcasts to ActionCable that the meeting has started' do
       allow_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
@@ -104,6 +93,35 @@ describe MeetingStarter, type: :service do
       service.call
 
       expect(room.last_session).to eql(DateTime.strptime(meeting_starter_response[:createTime].to_s, '%Q').utc)
+    end
+
+    context 'retry' do
+      it 'retries 3 times if the call fails' do
+        allow(BigBlueButtonApi)
+          .to receive(:new)
+                .and_raise(BigBlueButton::BigBlueButtonException)
+
+        expect(BigBlueButtonApi)
+          .to receive(:new)
+                .exactly(3).times
+
+        expect { service.call }.to raise_error(BigBlueButton::BigBlueButtonException)
+      end
+
+      it 'doesnt retry if the messageKey is idNotUnique' do
+        exception = BigBlueButton::BigBlueButtonException.new('idNotUnique')
+        exception.key = 'idNotUnique'
+
+        allow(BigBlueButtonApi)
+          .to receive(:new)
+                .and_raise(exception)
+
+        expect(BigBlueButtonApi)
+          .to receive(:new)
+                .once
+
+        expect { service.call }.to raise_error(BigBlueButton::BigBlueButtonException)
+      end
     end
   end
 

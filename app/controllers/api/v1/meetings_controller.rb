@@ -15,15 +15,19 @@ module Api
       def start
         presentation_url = (url_for(@room.presentation).gsub('&', '%26') if @room.presentation.attached?)
 
-        MeetingStarter.new(
-          room: @room,
-          logout_url: request.referer,
-          presentation_url:,
-          meeting_ended: meeting_ended_url,
-          recording_ready: recording_ready_url,
-          current_user:,
-          provider: current_provider
-        ).call
+        begin
+          MeetingStarter.new(
+            room: @room,
+            logout_url: request.referer,
+            presentation_url:,
+            meeting_ended: meeting_ended_url,
+            recording_ready: recording_ready_url,
+            current_user:,
+            provider: current_provider
+          ).call
+        rescue BigBlueButton::BigBlueButtonException => e
+          return render_error status: :bad_request unless e.key == 'idNotUnique'
+        end
 
         render_data data: BigBlueButtonApi.new.join_meeting(room: @room, name: current_user.name, role: 'Moderator'), status: :created
       end
