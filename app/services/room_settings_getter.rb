@@ -77,7 +77,7 @@ class RoomSettingsGetter
 
   def infer_can_record(room_settings:)
     # checking if CanRecord permission is set to true when RoomConfig record is optional
-    return if RolePermission.joins(:permission).find_by(role_id: @current_user.role_id, permission: { name: 'CanRecord' })&.value == 'true'
+    return if RolePermission.joins(:permission).find_by(role_id: @current_user&.role_id, permission: { name: 'CanRecord' })&.value == 'true'
 
     room_settings['record'] = 'false'
   end

@@ -30,21 +30,16 @@ module Api
 
       # POST /api/v1/meetings/:friendly_id/status.json
       def status
+        bbb_role = infer_bbb_role(room_id: @room.id)
+
+        return render_error status: :forbidden if bbb_role.nil?
+
         data = {
           status: BigBlueButtonApi.new.meeting_running?(room: @room)
         }
 
-        if authorized_as_viewer? || authorized_as_moderator?
-          if authorized_as_moderator?
-            bbb_role = 'Moderator'
-          elsif authorized_as_viewer?
-            bbb_role = 'Viewer'
-          end
-          data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role) if data[:status]
-          render_data data:, status: :ok
-        else
-          render_error status: :unauthorized
-        end
+        data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role) if data[:status]
+        render_data data:, status: :ok
       end
 
       private
@@ -53,13 +48,25 @@ module Api
         @room = Room.find_by!(friendly_id: params[:friendly_id])
       end
 
-      def authorized_as_viewer?
-        (params[:access_code].blank? && @room.viewer_access_code.blank?) ||
-          (params[:access_code].present? && @room.viewer_access_code == params[:access_code])
+      def authorized_as_viewer?(access_code:)
+        (params[:access_code].blank? && access_code.blank?) ||
+          (params[:access_code].present? && access_code == params[:access_code])
       end
 
-      def authorized_as_moderator?
-        (params[:access_code].present? && @room.moderator_access_code == params[:access_code]) || @room.anyone_joins_as_moderator?
+      def authorized_as_moderator?(access_code:)
+        (params[:access_code].present? && access_code == params[:access_code]) || @room.anyone_joins_as_moderator?
+      end
+
+      def infer_bbb_role(room_id:)
+        # TODO: Handle access code circumventing when 'anyone_joins_as_moderator?' is true.
+        room_access_codes = RoomSettingsGetter.new(room_id:, provider: current_provider, current_user:, show_codes: true,
+                                                   settings: %w[glViewerAccessCode glModeratorAccessCode]).call
+
+        if authorized_as_moderator?(access_code: room_access_codes['glModeratorAccessCode'])
+          'Moderator'
+        elsif authorized_as_viewer?(access_code: room_access_codes['glViewerAccessCode'])
+          'Viewer'
+        end
       end
     end
   end
