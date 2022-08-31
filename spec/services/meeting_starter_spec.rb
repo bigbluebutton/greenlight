@@ -99,11 +99,11 @@ describe MeetingStarter, type: :service do
       it 'retries 3 times if the call fails' do
         allow(BigBlueButtonApi)
           .to receive(:new)
-                .and_raise(BigBlueButton::BigBlueButtonException)
+          .and_raise(BigBlueButton::BigBlueButtonException)
 
         expect(BigBlueButtonApi)
           .to receive(:new)
-                .exactly(3).times
+          .exactly(3).times
 
         expect { service.call }.to raise_error(BigBlueButton::BigBlueButtonException)
       end
@@ -114,11 +114,11 @@ describe MeetingStarter, type: :service do
 
         allow(BigBlueButtonApi)
           .to receive(:new)
-                .and_raise(exception)
+          .and_raise(exception)
 
         expect(BigBlueButtonApi)
           .to receive(:new)
-                .once
+          .once
 
         expect { service.call }.to raise_error(BigBlueButton::BigBlueButtonException)
       end
