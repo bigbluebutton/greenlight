@@ -23,7 +23,7 @@ export default function HomePage() {
   return (
     <div className="vertical-center">
       <Logo className="d-block mx-auto mb-4 brand-image-lg" />
-      <Card className="col-md-8 mx-auto p-4 border-0 shadow-sm text-center">
+      <Card className="col-md-8 mx-auto p-5 border-0 shadow-sm text-center">
         <h1 className="mt-4"> Welcome to BigBlueButton. </h1>
         <span className="text-muted mt-4 mb-5 px-xxl-5">
           Greenlight is a simple front-end for your BigBlueButton open-source web
