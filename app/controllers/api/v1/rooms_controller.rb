@@ -59,7 +59,6 @@ module Api
       end
 
       def update
-        # if @room.update(presentation: params[:presentation])
         if @room.update(room_params)
           render_data status: :ok
         else
@@ -99,7 +98,7 @@ module Api
       end
 
       def room_params
-        params.require(:room).permit(:name, :user_id)
+        params.require(:room).permit(:name, :user_id, :presentation)
       end
     end
   end
