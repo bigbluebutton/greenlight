@@ -1,28 +1,16 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Dropdown } from 'react-bootstrap';
-import { DotsVerticalIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/outline';
-import { Link } from 'react-router-dom';
-import Modal from '../../shared_components/modals/Modal';
-import DeleteRoleForm from './forms/DeleteRoleForm';
+import useNavigate from 'react-router-dom';
 import RolePill from './RolePill';
 
 export default function RoleRow({ role }) {
+  const navigate = useNavigate();
+  const handleClick = useCallback(() => { navigate(`edit/${role.id}`); }, [role.id]);
+
   return (
-    <tr className="align-middle">
+    <tr className="align-middle cursor-pointer" onClick={handleClick}>
       <td>
         <RolePill role={role} />
-        <Dropdown className="float-end cursor-pointer">
-          <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
-          <Dropdown.Menu>
-            <Dropdown.Item as={Link} to={`edit/${role.id}`}><PencilAltIcon className="hi-s" /> Edit</Dropdown.Item>
-            <Modal
-              modalButton={<Dropdown.Item> <TrashIcon className="hi-s" /> Delete</Dropdown.Item>}
-              title="Delete Role"
-              body={<DeleteRoleForm role={role} />}
-            />
-          </Dropdown.Menu>
-        </Dropdown>
       </td>
     </tr>
   );
