@@ -6,7 +6,7 @@ FactoryBot.define do
     email { Faker::Internet.email }
     external_id { nil }
     provider { 'greenlight' }
-    password { Faker::Internet.password }
+    password { 'Password1!' }
     role
     last_login { nil }
     language { %w[en fr es ar].sample }

@@ -23,9 +23,36 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_uniqueness_of(:reset_digest) }
     it { is_expected.to validate_uniqueness_of(:activation_digest) }
 
+    context 'password complexity' do
+      it 'passes if there is atleast 1 capital, 1 lowercase, 1 number, 1 symbol' do
+        user = build(:user, password: 'Password1!')
+        expect(user).to be_valid
+      end
+
+      it 'fails if there is no capitals' do
+        user = build(:user, password: 'password1!')
+        expect(user).to be_invalid
+      end
+
+      it 'fails if there is no symbols' do
+        user = build(:user, password: 'Password1')
+        expect(user).to be_invalid
+      end
+
+      it 'fails if there is no lowercase' do
+        user = build(:user, password: 'PASSWORD1!')
+        expect(user).to be_invalid
+      end
+
+      it 'fails if there is no numbers' do
+        user = build(:user, password: 'Password!')
+        expect(user).to be_invalid
+      end
+    end
+
     context 'password confirmation' do
       it 'invalidate the record for mismatched password confirmation' do
-        user = build(:user, password: 'something', password_confirmation: 'something_else')
+        user = build(:user, password: 'Password1!', password_confirmation: 'Password2!')
         expect(user).to be_invalid
         expect(user.errors.first.details).to eq({ error: :confirmation, attribute: 'Password' })
       end
