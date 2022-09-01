@@ -13,6 +13,7 @@ import useUpdateRolePermission from '../../../../hooks/mutations/admin/role_perm
 import useRoomConfigs from '../../../../hooks/queries/admin/room_configuration/useRoomConfigs';
 import useRolePermissions from '../../../../hooks/queries/admin/role_permissions/useRolePermissions';
 import RolePermissionRow from '../RolePermissionRow';
+import { useAuth } from '../../../../contexts/auth/AuthProvider';
 
 export default function EditRoleForm({ role }) {
   const methods = useForm(editRoleFormConfig);
@@ -23,6 +24,7 @@ export default function EditRoleForm({ role }) {
   fields.name.placeHolder = defaultValues.name;
   const roomConfigs = useRoomConfigs();
   const rolePermissions = useRolePermissions(role.id);
+  const currentUser = useAuth();
 
   useEffect(
     () => {
@@ -42,10 +44,61 @@ export default function EditRoleForm({ role }) {
         {(roomConfigs.isLoading || rolePermissions.isLoading || roomConfigs.data.record === 'optional') && (
           <Stack>
             <RolePermissionRow
+              permissionName="CreateRoom"
+              description="Can create rooms"
+              roleId={role.id}
+              defaultValue={rolePermissions.data.CreateRoom === 'true'}
+              updateMutation={updateRolePermission}
+            />
+            <RolePermissionRow
+              permissionName="ManageUsers"
+              description="Allow users with this role to manage users"
+              roleId={role.id}
+              defaultValue={rolePermissions.data.ManageUsers === 'true'}
+              updateMutation={updateRolePermission}
+            />
+            <RolePermissionRow
               permissionName="CanRecord"
               description="Allow users with this role to record their meetings"
               roleId={role.id}
               defaultValue={rolePermissions.data.CanRecord === 'true'}
+              updateMutation={updateRolePermission}
+            />
+            <RolePermissionRow
+              permissionName="ManageRooms"
+              description="Allow users with this role to manage server rooms"
+              roleId={role.id}
+              defaultValue={rolePermissions.data.ManageRooms === 'true'}
+              updateMutation={updateRolePermission}
+            />
+            <RolePermissionRow
+              permissionName="ManageRecordings"
+              description="Allow users with this role to manage server recordings"
+              roleId={role.id}
+              defaultValue={rolePermissions.data.ManageRecordings === 'true'}
+              updateMutation={updateRolePermission}
+            />
+            <RolePermissionRow
+              permissionName="ManageSiteSettings"
+              description="Allow users with this role to manage site settings"
+              roleId={role.id}
+              defaultValue={rolePermissions.data.ManageSiteSettings === 'true'}
+              updateMutation={updateRolePermission}
+            />
+            {(currentUser.role.id !== role.id) && (
+              <RolePermissionRow
+                permissionName="ManageRoles"
+                description="Allow users with this role to edit other roles"
+                roleId={role.id}
+                defaultValue={rolePermissions.data.ManageRoles === 'true'}
+                updateMutation={updateRolePermission}
+              />
+            )}
+            <RolePermissionRow
+              permissionName="SharedList"
+              description="Include users with this role in the dropdown for sharing rooms"
+              roleId={role.id}
+              defaultValue={rolePermissions.data.SharedList === 'true'}
               updateMutation={updateRolePermission}
             />
           </Stack>
