@@ -4,12 +4,10 @@ class PublicRoomSerializer < ApplicationSerializer
   attributes :name, :viewer_access_code, :moderator_access_code
 
   def viewer_access_code
-    # TODO: Use `RoomSettingsGetter` and remove deprecation.
-    object.viewer_access_code.present?
+    @instance_options[:options][:access_codes]['glViewerAccessCode']
   end
 
   def moderator_access_code
-    # TODO: Use `RoomSettingsGetter` and remove deprecation.
-    object.moderator_access_code.present?
+    @instance_options[:options][:access_codes]['glModeratorAccessCode']
   end
 end

@@ -32,30 +32,6 @@ class Room < ApplicationRecord
     MeetingOption.get_setting_value(name: 'glAnyoneJoinAsModerator', room_id: id)&.value == 'true'
   end
 
-  def viewer_access_code
-    get_setting(name: 'glViewerAccessCode')&.value
-  end
-
-  def moderator_access_code
-    get_setting(name: 'glModeratorAccessCode')&.value
-  end
-
-  def generate_viewer_access_code
-    get_setting(name: 'glViewerAccessCode')&.update(value: generate_code)
-  end
-
-  def remove_viewer_access_code
-    get_setting(name: 'glViewerAccessCode')&.update(value: nil)
-  end
-
-  def generate_moderator_access_code
-    get_setting(name: 'glModeratorAccessCode')&.update(value: generate_code)
-  end
-
-  def remove_moderator_access_code
-    get_setting(name: 'glModeratorAccessCode')&.update(value: nil)
-  end
-
   def get_setting(name:)
     room_meeting_options.joins(:meeting_option)
                         .find_by(meeting_option: { name: })
@@ -87,9 +63,5 @@ class Room < ApplicationRecord
     MeetingOption.all.find_each do |option|
       RoomMeetingOption.create(room: self, meeting_option: option, value: option.default_value)
     end
-  end
-
-  def generate_code
-    SecureRandom.alphanumeric(6).downcase
   end
 end

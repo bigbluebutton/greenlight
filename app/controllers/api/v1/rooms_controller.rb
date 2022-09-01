@@ -35,7 +35,10 @@ module Api
 
       # GET /api/v1/rooms/:friendly_id/public.json
       def public_show
-        render_data data: @room, serializer: PublicRoomSerializer, status: :ok
+        access_codes = RoomSettingsGetter.new(room_id: @room.id, provider: current_provider, current_user:, show_codes: false,
+                                              settings: %w[glViewerAccessCode glModeratorAccessCode]).call
+
+        render_data data: @room, serializer: PublicRoomSerializer, options: { access_codes: }, status: :ok
       end
 
       # POST /api/v1/rooms.json

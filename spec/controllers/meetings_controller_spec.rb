@@ -118,11 +118,6 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
   end
 
   describe '#status' do
-    before do
-      allow_any_instance_of(Room).to receive(:viewer_access_code).and_return('')
-      allow_any_instance_of(Room).to receive(:moderator_access_code).and_return('')
-    end
-
     it 'gets the joinUrl if the meeting is running' do
       room = create(:room, user:)
 
