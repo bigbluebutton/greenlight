@@ -26,7 +26,7 @@ class MeetingStarter
       ActionCable.server.broadcast "#{@room.friendly_id}_rooms_channel", 'started'
     rescue BigBlueButton::BigBlueButtonException => e
       retries += 1
-      retry unless retries >= 3
+      retry if retries < 3 && e.key != 'idNotUnique'
       raise e
     end
   end
