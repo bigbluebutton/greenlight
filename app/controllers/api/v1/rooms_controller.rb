@@ -5,10 +5,7 @@ module Api
     class RoomsController < ApiController
       skip_before_action :ensure_authenticated, only: %i[public_show]
 
-      before_action :find_room,
-                    only: %i[show update destroy recordings recordings_processing
-                             purge_presentation access_codes public_show
-                             generate_access_code remove_access_code]
+      before_action :find_room, only: %i[show update destroy recordings recordings_processing purge_presentation public_show]
 
       before_action only: %i[create] do
         ensure_authorized('ManageUsers', user_id: room_params[:user_id])
@@ -38,7 +35,10 @@ module Api
 
       # GET /api/v1/rooms/:friendly_id/public.json
       def public_show
-        render_data data: @room, serializer: PublicRoomSerializer, status: :ok
+        access_codes = RoomSettingsGetter.new(room_id: @room.id, provider: current_provider, current_user:, show_codes: false,
+                                              settings: %w[glViewerAccessCode glModeratorAccessCode]).call
+
+        render_data data: @room, serializer: PublicRoomSerializer, options: { access_codes: }, status: :ok
       end
 
       # POST /api/v1/rooms.json
@@ -89,56 +89,6 @@ module Api
       # GET /api/v1/rooms/:friendly_id/recordings_processing.json
       def recordings_processing
         render_data data: @room.recordings_processing, status: :ok
-      end
-
-      # GET /api/v1/rooms/:friendly_id/access_code.json
-      def access_codes
-        access_codes = {
-          viewer_access_code: @room.viewer_access_code,
-          moderator_access_code: @room.moderator_access_code
-        }
-
-        render_data data: access_codes, status: :ok
-      end
-
-      # PATCH /api/v1/room_settings/:friendly_id/viewer_access_code.json
-      def generate_access_code
-        generated = case params[:bbb_role]
-                    when 'Viewer'
-                      config = MeetingOption.get_config_value(name: 'glViewerAccessCode', provider: current_provider)&.value
-                      return render_error status: :forbidden if config == 'false'
-
-                      @room.generate_viewer_access_code
-                    when 'Moderator'
-                      config = MeetingOption.get_config_value(name: 'glModeratorAccessCode', provider: current_provider)&.value
-                      return render_error status: :forbidden if config == 'false'
-
-                      @room.generate_moderator_access_code
-                    end
-
-        return render_error status: :bad_request unless generated
-
-        render_data status: :ok
-      end
-
-      # PATCH /api/v1/room_settings/:friendly_id/remove_viewer_access_code.json
-      def remove_access_code
-        removed = case params[:bbb_role]
-                  when 'Viewer'
-                    config = MeetingOption.get_config_value(name: 'glViewerAccessCode', provider: current_provider)&.value
-                    return render_error status: :forbidden unless config == 'optional'
-
-                    @room.remove_viewer_access_code
-                  when 'Moderator'
-                    config = MeetingOption.get_config_value(name: 'glModeratorAccessCode', provider: current_provider)&.value
-                    return render_error status: :forbidden unless config == 'optional'
-
-                    @room.remove_moderator_access_code
-                  end
-
-        return render_error status: :bad_request unless removed
-
-        render_data status: :ok
       end
 
       private
