@@ -33,7 +33,7 @@ export default function EditRoleForm({ role }) {
     [role.name],
   );
 
-  if (roomConfigs.isLoading || rolePermissions.isLoading) return <Spinner />;
+  if (roomConfigs.isLoading || rolePermissionsIsLoading) return <Spinner />;
 
   return (
     <div>

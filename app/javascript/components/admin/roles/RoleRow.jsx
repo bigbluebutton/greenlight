@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import useNavigate from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import RolePill from './RolePill';
 
 export default function RoleRow({ role }) {
