@@ -5,11 +5,11 @@ import {
   Button, Col, Row, Stack,
 } from 'react-bootstrap';
 import toast from 'react-hot-toast';
-import FormLogo from '../../shared_components/forms/FormLogo';
 import usePublicRoom from '../../../hooks/queries/rooms/usePublicRoom';
 import Spinner from '../../shared_components/utilities/Spinner';
 import useRoomStatus from '../../../hooks/mutations/rooms/useRoomStatus';
 import subscribeToRoom from '../../../channels/rooms_channel';
+import Logo from '../../shared_components/Logo';
 
 export default function RoomJoin() {
   const { friendlyId } = useParams();
@@ -64,7 +64,9 @@ export default function RoomJoin() {
 
   return (
     <div className="vertical-center">
-      <FormLogo />
+      <div className="text-center pb-4">
+        <Logo width="300px" />
+      </div>
       <Card className="col-md-6 mx-auto p-0 border-0 shadow-sm">
         <Card.Body className="p-4">
           <Row>
