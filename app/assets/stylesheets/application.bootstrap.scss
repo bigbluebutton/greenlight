@@ -29,6 +29,13 @@ body {
   background: white;
 }
 
+// TODO - samuel: make responsive/add breakpoints
+.btn-xlg {
+  font-size: 1.5rem;
+  padding: 0.75rem 5rem;
+  border-radius: $border-radius-lg;
+}
+
 // Replace a button with a children icon
 .btn-icon {
   background: none;
@@ -260,3 +267,15 @@ input.search-bar {
   }
 }
 
+//Logo
+.small-logo {
+  max-width: 200px;
+}
+
+.medium-logo {
+  max-width: 300px;
+}
+
+.large-logo {
+  max-width: 400px;
+}

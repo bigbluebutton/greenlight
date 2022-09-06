@@ -8,7 +8,7 @@ export default function Signup() {
   return (
     <div className="vertical-center">
       <div className="text-center pb-4">
-        <Logo width="300px" />
+        <Logo size="medium" />
       </div>
       <Card className="col-md-4 mx-auto p-4 border-0 shadow-sm">
         <Card.Title className="text-center pb-2"> Create an Account </Card.Title>

@@ -32,7 +32,7 @@ export default function Header() {
     <Navbar className="header">
       <Container className="ps-0">
         <Navbar.Brand as={Link} to="/rooms">
-          <Logo width="200px" />
+          <Logo />
         </Navbar.Brand>
 
         <div className="d-inline-flex">
