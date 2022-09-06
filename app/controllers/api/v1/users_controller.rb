@@ -102,7 +102,7 @@ module Api
       # The uploaded image will be resized to a 150*150px format before being stored
       def update_avatar
         path = user_params[:avatar].tempfile.path
-        ImageProcessing::MiniMagick.source(path).resize_to_fill(150, 150, gravity: 'northwest').call(destination: path)
+        ImageProcessing::MiniMagick.source(path).resize_to_fill(250, 250, gravity: 'northwest').call(destination: path)
       end
     end
   end
