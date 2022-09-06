@@ -21,8 +21,8 @@ export default function useCreateAvatar(currentUser) {
         queryClient.invalidateQueries('getUser');
         toast.success('Avatar updated');
       },
-      onError: () => {
-        toast.error('There was a problem completing that action. \n Please try again.');
+      onError: (e) => {
+        toast.error(e.message);
       },
     },
   );
