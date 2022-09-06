@@ -58,13 +58,13 @@ export default function EditRoleForm({ role }) {
             updateMutation={updateRolePermission}
           />
           {(roomConfigs.data.record === 'optional') && (
-          <RolePermissionRow
-            permissionName="CanRecord"
-            description="Allow users with this role to record their meetings"
-            roleId={role.id}
-            defaultValue={rolePermissions.CanRecord === 'true'}
-            updateMutation={updateRolePermission}
-          />
+            <RolePermissionRow
+              permissionName="CanRecord"
+              description="Allow users with this role to record their meetings"
+              roleId={role.id}
+              defaultValue={rolePermissions.CanRecord === 'true'}
+              updateMutation={updateRolePermission}
+            />
           )}
           <RolePermissionRow
             permissionName="ManageRooms"
