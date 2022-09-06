@@ -37,7 +37,7 @@ class RoomSettingsGetter
     filter_disabled(room_settings:) if @only_enabled # Only enabled(optional|force enabled) setting values will be returned.
     infer_specials(room_settings:) # Special options should map their forced values to what was configured in `SPECIAL_OPTIONS` registry.
     infer_codes(room_settings:, access_codes:) # Access codes should map their forced values as intended.
-    infer_can_record(room_settings:) if @rooms_configs['record'].nil?
+    infer_can_record(room_settings:) if room_settings['record'] && @rooms_configs['record'].nil?
 
     room_settings
   end
