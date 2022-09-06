@@ -25,11 +25,11 @@
   transform: translateY(-50%);
 }
 
-.page-height {
+.regular-height {
   min-height: calc(100vh - $header-height - $footer-height);
 }
 
-.homepage-height {
+.no-header-height {
   height: calc(100vh - $footer-height);
 }
 
