@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Button, } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Spinner from '../../../shared_components/utilities/Spinner';
