@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <div className="vertical-center">
       <div className="text-center mb-4">
-        <Logo width="400px" />
+        <Logo size="large" />
       </div>
       <Card className="col-md-8 mx-auto p-5 border-0 shadow-sm text-center">
         <h1 className="mt-4"> Welcome to BigBlueButton. </h1>

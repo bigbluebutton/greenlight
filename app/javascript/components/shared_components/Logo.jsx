@@ -3,18 +3,24 @@ import Image from 'react-bootstrap/Image';
 import PropTypes from 'prop-types';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 
-export default function Logo({ width }) {
+export default function Logo({ size }) {
   const { data: brandingImage } = useSiteSetting('BrandingImage');
+
+  const sizeClass = `${size}-logo`;
 
   return (
     <Image
       src={brandingImage}
-      width={width}
+      className={sizeClass}
       alt="CompanyLogo"
     />
   );
 }
 
 Logo.propTypes = {
-  width: PropTypes.string.isRequired,
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
+};
+
+Logo.defaultProps = {
+  size: 'small',
 };
