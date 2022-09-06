@@ -41,69 +41,71 @@ export default function EditRoleForm({ role }) {
         <Form methods={methods} onBlur={(e) => updateRoleAPI.mutate({ name: e.target.value })}>
           <FormControl field={fields.name} type="text" />
         </Form>
-        {(roomConfigs.isLoading || rolePermissionsIsLoading || roomConfigs.data.record === 'optional') && (
-          <Stack>
-            <RolePermissionRow
-              permissionName="CreateRoom"
-              description="Can create rooms"
-              roleId={role.id}
-              defaultValue={rolePermissions.CreateRoom === 'true'}
-              updateMutation={updateRolePermission}
-            />
-            <RolePermissionRow
-              permissionName="ManageUsers"
-              description="Allow users with this role to manage users"
-              roleId={role.id}
-              defaultValue={rolePermissions.ManageUsers === 'true'}
-              updateMutation={updateRolePermission}
-            />
-            <RolePermissionRow
-              permissionName="CanRecord"
-              description="Allow users with this role to record their meetings"
-              roleId={role.id}
-              defaultValue={rolePermissions.CanRecord === 'true'}
-              updateMutation={updateRolePermission}
-            />
-            <RolePermissionRow
-              permissionName="ManageRooms"
-              description="Allow users with this role to manage server rooms"
-              roleId={role.id}
-              defaultValue={rolePermissions.ManageRooms === 'true'}
-              updateMutation={updateRolePermission}
-            />
-            <RolePermissionRow
-              permissionName="ManageRecordings"
-              description="Allow users with this role to manage server recordings"
-              roleId={role.id}
-              defaultValue={rolePermissions.ManageRecordings === 'true'}
-              updateMutation={updateRolePermission}
-            />
-            <RolePermissionRow
-              permissionName="ManageSiteSettings"
-              description="Allow users with this role to manage site settings"
-              roleId={role.id}
-              defaultValue={rolePermissions.ManageSiteSettings === 'true'}
-              updateMutation={updateRolePermission}
-            />
-            {/* Don't show ManageRoles if current_user is editing their own role */}
-            {(currentUser.role.id !== role.id) && (
-              <RolePermissionRow
-                permissionName="ManageRoles"
-                description="Allow users with this role to edit other roles"
-                roleId={role.id}
-                defaultValue={rolePermissions.ManageRoles === 'true'}
-                updateMutation={updateRolePermission}
-              />
-            )}
-            <RolePermissionRow
-              permissionName="SharedList"
-              description="Include users with this role in the dropdown for sharing rooms"
-              roleId={role.id}
-              defaultValue={rolePermissions.SharedList === 'true'}
-              updateMutation={updateRolePermission}
-            />
-          </Stack>
-        )}
+
+        <Stack>
+          <RolePermissionRow
+            permissionName="CreateRoom"
+            description="Can create rooms"
+            roleId={role.id}
+            defaultValue={rolePermissions.CreateRoom === 'true'}
+            updateMutation={updateRolePermission}
+          />
+          <RolePermissionRow
+            permissionName="ManageUsers"
+            description="Allow users with this role to manage users"
+            roleId={role.id}
+            defaultValue={rolePermissions.ManageUsers === 'true'}
+            updateMutation={updateRolePermission}
+          />
+          {(roomConfigs.data.record === 'optional') && (
+          <RolePermissionRow
+            permissionName="CanRecord"
+            description="Allow users with this role to record their meetings"
+            roleId={role.id}
+            defaultValue={rolePermissions.CanRecord === 'true'}
+            updateMutation={updateRolePermission}
+          />
+          )}
+          <RolePermissionRow
+            permissionName="ManageRooms"
+            description="Allow users with this role to manage server rooms"
+            roleId={role.id}
+            defaultValue={rolePermissions.ManageRooms === 'true'}
+            updateMutation={updateRolePermission}
+          />
+          <RolePermissionRow
+            permissionName="ManageRecordings"
+            description="Allow users with this role to manage server recordings"
+            roleId={role.id}
+            defaultValue={rolePermissions.ManageRecordings === 'true'}
+            updateMutation={updateRolePermission}
+          />
+          <RolePermissionRow
+            permissionName="ManageSiteSettings"
+            description="Allow users with this role to manage site settings"
+            roleId={role.id}
+            defaultValue={rolePermissions.ManageSiteSettings === 'true'}
+            updateMutation={updateRolePermission}
+          />
+          {/* Don't show ManageRoles if current_user is editing their own role */}
+          {(currentUser.role.id !== role.id) && (
+          <RolePermissionRow
+            permissionName="ManageRoles"
+            description="Allow users with this role to edit other roles"
+            roleId={role.id}
+            defaultValue={rolePermissions.ManageRoles === 'true'}
+            updateMutation={updateRolePermission}
+          />
+          )}
+          <RolePermissionRow
+            permissionName="SharedList"
+            description="Include users with this role in the dropdown for sharing rooms"
+            roleId={role.id}
+            defaultValue={rolePermissions.SharedList === 'true'}
+            updateMutation={updateRolePermission}
+          />
+        </Stack>
+
         <div>
           <Modal
             modalButton={<Button className="float-end danger-light-button"> Delete Role </Button>}
