@@ -82,8 +82,8 @@ RSpec.describe Api::V1::UsersController, type: :request do
         user_params = {
           name: 'Optimus Prime',
           email: 'optimus@autobots.cybertron',
-          password: 'Autobots',
-          password_confirmation: 'Autobots',
+          password: 'Autobots1!',
+          password_confirmation: 'Autobots1!',
           language: 'teletraan'
         }
 

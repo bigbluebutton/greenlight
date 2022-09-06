@@ -12,12 +12,12 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
 
   describe '#create' do
     it 'creates a regular session if the remember me checkbox is not selected' do
-      user = create(:user, email: 'email@email.com', password: 'password', password_confirmation: 'password')
+      user = create(:user, email: 'email@email.com', password: 'Password1!', password_confirmation: 'Password1!')
 
       post :create, params: {
         session: {
           email: 'email@email.com',
-          password: 'password',
+          password: 'Password1!',
           extend_session: false
         }
       }, as: :json
@@ -27,11 +27,11 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
     end
 
     it 'creates an extended session if the remember me checkbox is selected' do
-      user = create(:user, email: 'email@email.com', password: 'password', password_confirmation: 'password')
+      user = create(:user, email: 'email@email.com', password: 'Password1!', password_confirmation: 'Password1!')
       post :create, params: {
         session: {
           email: 'email@email.com',
-          password: 'password',
+          password: 'Password1!',
           extend_session: true
         }
       }, as: :json

@@ -25,7 +25,11 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: { case_sensitive: false, scope: :provider }
   validates :provider, presence: true
 
-  validates :password, presence: true, confirmation: true, on: :create, unless: :external_id?
+  validates :password,
+            presence: true,
+            format: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(\W|_)).{8,}\z/,
+            confirmation: true,
+            on: :create, unless: :external_id?
 
   # TODO: samuel - ActiveStorage validations needs to be discussed and implemented.
   validate :avatar_validation
