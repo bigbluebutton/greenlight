@@ -12,6 +12,7 @@ import useRoomConfigs from '../../../../hooks/queries/admin/room_configuration/u
 import AccessCodeRow from './AccessCodeRow';
 import useUpdateRoomSetting from '../../../../hooks/mutations/room_settings/useUpdateRoomSetting';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
+import UpdateRoomNameForm from './forms/UpdateRoomNameForm';
 
 export default function RoomSettings() {
   const currentUser = useAuth();
@@ -30,7 +31,7 @@ export default function RoomSettings() {
         <div className="mt-2">
           <Row>
             <Col className="border-end border-2">
-              <Row> <h6 className="text-brand">Room Name</h6> </Row>
+              <UpdateRoomNameForm friendlyId={friendlyId} />
               <AccessCodeRow
                 settingName="glViewerAccessCode"
                 updateMutation={updateMutationWrapper}

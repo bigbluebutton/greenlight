@@ -7,7 +7,7 @@ export default function useUploadPresentation(friendlyId) {
 
   const uploadPresentation = (data) => {
     const formData = new FormData();
-    formData.append('presentation', data);
+    formData.append('room[presentation]', data);
     return axios.patch(`/rooms/${friendlyId}.json`, formData);
   };
 
