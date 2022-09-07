@@ -15,6 +15,7 @@ class PopulateMeetingOptions < ActiveRecord::Migration[7.0]
       # GL only options:
       { name: 'glAnyoneCanStart', default_value: 'false' }, # true | false
       { name: 'glAnyoneJoinAsModerator', default_value: 'false' }, # true | false
+      { name: 'glRequireAuthentication', default_value: 'false' }, # true | false
       { name: 'glModeratorAccessCode', default_value: '' },
       { name: 'glViewerAccessCode', default_value: '' }
     ]

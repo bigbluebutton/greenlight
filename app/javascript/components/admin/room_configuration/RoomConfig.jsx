@@ -36,10 +36,18 @@ export default function RoomConfig() {
                         : (
                           <>
                             <RoomConfigRow
-                              title="Mute user when they join"
-                              subtitle="Automatically mutes the user when they join the BigBlueButtonMeeting"
-                              mutation={() => useUpdateRoomConfig('muteOnStart')}
-                              value={roomConfigs.muteOnStart}
+                              title="Allow room to be recorded"
+                              subtitle="Allows room owners to specify whether they want the option to record a room or not.
+                                  If enabled, the moderator must still click the “Record button once the meeting has started."
+                              mutation={() => useUpdateRoomConfig('record')}
+                              value={roomConfigs.record}
+                            />
+                            <RoomConfigRow
+                              title="Require users to be signed in before joining"
+                              subtitle="Only allows users with a Greenlight account to join the meeting. If they are not signed in,
+                                    they will be redirected to the login page when attempting to join a room."
+                              mutation={() => useUpdateRoomConfig('glRequireAuthentication')}
+                              value={roomConfigs.glRequireAuthentication}
                             />
                             <RoomConfigRow
                               title="Require moderator approval before joining"
@@ -62,11 +70,10 @@ export default function RoomConfig() {
                               value={roomConfigs.glAnyoneJoinAsModerator}
                             />
                             <RoomConfigRow
-                              title="Allow room to be recorded"
-                              subtitle="Allows room owners to specify whether they want the option to record a room or not.
-                                  If enabled, the moderator must still click the “Record button once the meeting has started."
-                              mutation={() => useUpdateRoomConfig('record')}
-                              value={roomConfigs.record}
+                              title="Mute user when they join"
+                              subtitle="Automatically mutes the user when they join the BigBlueButtonMeeting"
+                              mutation={() => useUpdateRoomConfig('muteOnStart')}
+                              value={roomConfigs.muteOnStart}
                             />
                             <RoomConfigRow
                               title="Viewer Access code"
