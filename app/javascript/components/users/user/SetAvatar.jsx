@@ -2,11 +2,14 @@ import React, { useRef, useState } from 'react';
 import { Button, Stack, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import AvatarEditor from 'react-avatar-editor';
+import { PhotographIcon } from '@heroicons/react/outline';
 import DeleteAvatarForm from './forms/DeleteAvatarForm';
 import Avatar from './Avatar';
 import useCreateAvatar from '../../../hooks/mutations/users/useCreateAvatar';
 
 export default function SetAvatar({ user }) {
+  const createAvatar = useCreateAvatar(user);
+
   // Use styled button instead of the default HTML input upload button
   const avatarUpload = useRef(null);
   const handleClick = () => avatarUpload?.current.click();
@@ -16,13 +19,16 @@ export default function SetAvatar({ user }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // Cropped Avatar Upload
   const [avatar, setAvatar] = useState();
+  const [scale, setScale] = useState();
   const handleNewAvatar = (e) => {
     handleShow();
     setAvatar(e.target.files[0]);
   };
-
-  const createAvatar = useCreateAvatar(user);
+  const handleScale = (e) => {
+    setScale(parseFloat(e.target.value));
+  };
 
   const editor = useRef(null);
   const handleSave = () => {
@@ -59,13 +65,26 @@ export default function SetAvatar({ user }) {
             <AvatarEditor
               ref={editor}
               image={avatar}
-              width={250}
-              height={250}
+              width={300}
+              height={300}
               border={50}
               borderRadius={250}
               color={[255, 255, 255, 0.6]} // RGBA
-              scale={1.2}
+              scale={scale}
             />
+            <div className="py-2">
+              <PhotographIcon className="hi-s text-brand me-2" />
+              <input
+                name="scale"
+                type="range"
+                onChange={handleScale}
+                min={1}
+                max="2"
+                step="0.1"
+                defaultValue="1"
+              />
+              <PhotographIcon className="hi-l text-brand ms-2" />
+            </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
