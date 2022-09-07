@@ -12,7 +12,6 @@
 
 html,
 body {
-  height: 100%;
   overflow-x: hidden;
 }
 
@@ -20,12 +19,8 @@ body {
   background: whitesmoke;
 }
 
-#root {
-  height: 100%;
-}
-
 .header {
-  height: 70px;
+  height: $header-height;
   background: white;
 }
 
@@ -95,6 +90,7 @@ input.search-bar {
 }
 
 #footer {
+  max-height: $footer-height;
   a {
     text-decoration: none !important;
   }

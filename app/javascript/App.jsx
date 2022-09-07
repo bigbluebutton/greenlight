@@ -9,7 +9,7 @@ import useSiteSettingAsync from './hooks/queries/site_settings/useSiteSettingAsy
 
 export default function App() {
   const currentUser = useAuth();
-  const containerHeight = currentUser?.signed_in ? 'full-height' : 'h-100';
+  const pageHeight = currentUser?.signed_in ? 'regular-height' : 'no-header-height';
 
   // Greenlight V3 brand-color theming
   const { isLoading, data: brandColor } = useSiteSettingAsync('PrimaryColor');
@@ -23,7 +23,7 @@ export default function App() {
   return (
     <>
       {currentUser?.signed_in && <Header /> }
-      <Container className={containerHeight}>
+      <Container className={pageHeight}>
         <Outlet />
       </Container>
       <Toaster
