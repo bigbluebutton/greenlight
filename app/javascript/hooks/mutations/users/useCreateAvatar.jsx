@@ -5,11 +5,13 @@ import axios from '../../../helpers/Axios';
 export default function useCreateAvatar(currentUser) {
   const queryClient = useQueryClient();
 
-  const createAvatar = (data) => {
+  async function createAvatar(avatar) {
+    // TODO - samuel: how to validate if toBlob() will transform any file into a png by default
+    const avatarBlob = await new Promise((resolve) => avatar.toBlob(resolve));
     const formData = new FormData();
-    formData.append('user[avatar]', data.avatar[0]);
+    formData.append('user[avatar]', avatarBlob);
     return axios.patch(`/users/${currentUser.id}.json`, formData);
-  };
+  }
 
   const mutation = useMutation(
     createAvatar,

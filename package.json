@@ -19,6 +19,7 @@
     "esbuild-sass-plugin": "^2.2.6",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
+    "react-avatar-editor": "^13.0.0",
     "react-bootstrap": "^2.2.0",
     "react-colorful": "^5.6.1",
     "react-dom": "^17.0.2",
