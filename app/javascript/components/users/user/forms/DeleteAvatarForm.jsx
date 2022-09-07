@@ -1,7 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
 import Form from '../../../shared_components/forms/Form';
 import useDeleteAvatar from '../../../../hooks/mutations/users/useDeleteAvatar';
 
@@ -11,9 +10,9 @@ export default function DeleteAvatarForm({ user }) {
 
   return (
     <Form methods={methods} onSubmit={deleteAvatar.mutate}>
-      <Button variant="brand-backward" type="submit" className="w-100">
-        Delete
-      </Button>
+      <button type="submit" className="btn btn-link w-100">
+        Delete Avatar
+      </button>
     </Form>
   );
 }
