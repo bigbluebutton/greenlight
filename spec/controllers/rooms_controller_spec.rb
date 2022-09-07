@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RoomsController, type: :controller do
-  let(:user) { create(:user) }
-  let(:user_with_manage_rooms_permission) { create(:user, :with_manage_rooms_permission) }
-  let(:user_with_manage_users_permission) { create(:user, :with_manage_users_permission) }
+  let(:user) { create(:user, :with_create_room_permission) }
+  let(:user_with_manage_rooms_permission_and_create_room_permission) { create(:user, :with_manage_rooms_permission, :with_create_room_permission) }
+  let(:user_with_manage_users_permission_and_create_room_permission) { create(:user, :with_manage_users_permission, :with_create_room_permission) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -132,7 +132,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
     context 'user with ManageRooms permission' do
       before do
-        session[:user_id] = user_with_manage_rooms_permission.id
+        session[:user_id] = user_with_manage_rooms_permission_and_create_room_permission.id
       end
 
       it 'deletes the room of another user' do
@@ -175,7 +175,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
     context 'user with ManageUser permission' do
       before do
-        session[:user_id] = user_with_manage_users_permission.id
+        session[:user_id] = user_with_manage_users_permission_and_create_room_permission.id
       end
 
       it 'creates a room for another user' do
