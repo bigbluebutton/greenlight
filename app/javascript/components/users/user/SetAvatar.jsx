@@ -40,20 +40,18 @@ export default function SetAvatar({ user }) {
 
   return (
     <>
-      <Stack direction="vertical" className="float-end">
+      <Stack direction="vertical" gap={2} className="float-start">
         <Avatar avatar={user?.avatar} radius={150} />
-        <Stack direction="horizontal" gap={2} className="mt-2">
-          <input
-            id="avatarUpload"
-            ref={avatarUpload}
-            className="d-none"
-            type="file"
-            onChange={handleNewAvatar}
-            accept=".png,.jpg,.svg"
-          />
-          <DeleteAvatarForm user={user} />
-          <Button variant="brand" onClick={handleClick}>Upload</Button>
-        </Stack>
+        <input
+          id="avatarUpload"
+          ref={avatarUpload}
+          className="d-none"
+          type="file"
+          onChange={handleNewAvatar}
+          accept=".png,.jpg,.svg"
+        />
+        <Button variant="brand" onClick={handleClick}>Upload Avatar</Button>
+        <DeleteAvatarForm user={user} />
       </Stack>
 
       <Modal show={show} onHide={handleClose} centered contentClassName="border-0 shadow-sm">
@@ -69,7 +67,7 @@ export default function SetAvatar({ user }) {
               height={300}
               border={50}
               borderRadius={250}
-              color={[255, 255, 255, 0.6]} // RGBA
+              color={[255, 255, 255, 0.8]} // RGBA
               scale={scale}
             />
             <div className="py-2">
