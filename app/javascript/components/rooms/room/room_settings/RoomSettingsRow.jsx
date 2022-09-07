@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Row } from 'react-bootstrap';
 
 export default function RoomSettingsRow({
   settingName, config, value, description, updateMutation: useUpdateAPI,

@@ -10,7 +10,7 @@ import Spinner from '../../shared_components/utilities/Spinner';
 import useRoomStatus from '../../../hooks/mutations/rooms/useRoomStatus';
 import subscribeToRoom from '../../../channels/rooms_channel';
 import Logo from '../../shared_components/Logo';
-import {useAuth} from "../../../contexts/auth/AuthProvider";
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function RoomJoin() {
   const currentUser = useAuth();
@@ -64,9 +64,9 @@ export default function RoomJoin() {
 
   if (publicRoom.isLoading) return <Spinner />;
 
-  if (currentUser && publicRoom.data.require_authentication === 'true'){
+  if (currentUser && publicRoom.data.require_authentication === 'true') {
     toast.error('You must be signed in to join this room');
-    return <Navigate replace to="/" />
+    return <Navigate replace to="/" />;
   }
 
   return (
