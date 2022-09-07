@@ -6,7 +6,7 @@ module Api
       skip_before_action :ensure_authenticated, only: %i[public_show]
 
       before_action :find_room, only: %i[show update destroy recordings recordings_processing purge_presentation public_show]
-      before_action do
+      before_action except: %i[public_show] do
         ensure_authorized('CreateRoom')
       end
       before_action only: %i[create] do
