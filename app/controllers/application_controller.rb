@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include Pagy::Backend
+  skip_before_action :verify_authenticity_token
 
   # Returns the current signed in User (if any)
   def current_user
