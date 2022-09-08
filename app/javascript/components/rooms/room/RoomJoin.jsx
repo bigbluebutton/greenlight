@@ -64,7 +64,7 @@ export default function RoomJoin() {
 
   if (publicRoom.isLoading) return <Spinner />;
 
-  if (currentUser && publicRoom.data.require_authentication === 'true') {
+  if (!currentUser.signed_in && publicRoom.data.require_authentication === 'true') {
     toast.error('You must be signed in to join this room');
     return <Navigate replace to="/" />;
   }
