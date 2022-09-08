@@ -36,8 +36,8 @@ class Setting < ApplicationRecord
       return default_value(name)
     end
 
-    # Create the feature since it doesn't exist
-    features.create(name: name)
+    # Create the feature since it doesn't exist if the setting was saved. If not we are working with a temporary setting
+    features.create(name: name) if persisted?
     default_value(name)
   end
 

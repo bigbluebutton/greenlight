@@ -41,17 +41,31 @@ describe BbbServer do
   end
 
   context "#start_session" do
-    it "should update latest session info" do
+    before do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:create_meeting).and_return(
         messageKey: "",
         createTime: "1611793449622"
       )
+    end
 
+    it "should update latest session info" do
       expect do
         start_session(@room)
       end.to change { @room.sessions }.by(1)
 
       expect(@room.last_session).not_to be nil
+    end
+
+    it "should update time range to expiration last checked in days info" do
+      start_session(@room)
+
+      expect(@room.time_range_to_expiration_last_checked_in_days).to be nil
+    end
+
+    it "should update deletion planned at info" do
+      start_session(@room)
+
+      expect(@room.deletion_planned_at).to be nil
     end
   end
 

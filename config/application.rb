@@ -89,10 +89,13 @@ module Greenlight
     end
 
     # Specify the email address that all mail is sent from
-    config.smtp_sender = ENV['SMTP_SENDER'] || "notifications@example.com"
+    config.smtp_sender = ENV['SMTP_SENDER'].presence || "notifications@example.com"
 
     # Determine if GreenLight should enable email verification
-    config.enable_email_verification = parse_bool(ENV['ALLOW_MAIL_NOTIFICATIONS'])
+    config.enable_email_verification = parse_bool(ENV['ALLOW_MAIL_VERIFICATION'])
+
+    # Determine if GreenLight should enable email notification
+    config.enable_email_notification = parse_bool(ENV['ALLOW_MAIL_NOTIFICATION'])
 
     # Determine if GreenLight should require a certain mail-domain
     config.require_email_domain = ENV["GREENLIGHT_ACCOUNT_HD"].to_s.split(",")

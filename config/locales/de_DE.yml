@@ -348,6 +348,11 @@ de_DE:
   login_title: In Ihr Konto einloggen
   mailer:
     user:
+      notify:
+        rooms_going_to_expire_soon:
+          subject: Hinweis zur anstehenden Löschung ungenutzter Räume
+          info: "Die folgenden Räume werden in Folge von Nichtgebrauch in Kürze gelöscht, sollten sie bis zum angegebenen Datum nicht erneut benutzt werden"
+          room_info: "%{room_name}: Löschung am %{deletion_date}"
       approve:
         info: Ihr Konto wurde genehmigt.
         signin: "Um auf Ihre persönlichen Räume zuzugreifen, klicken Sie bitte auf den unten stehenden Button und loggen Sie sich ein. "
@@ -670,6 +675,7 @@ de_DE:
   time:
     formats:
       default: "%b %d, %Y %-I:%M%P"
+      short: "%d. %B %Y"
   update: Aktualisieren
   verify:
     accept: Verifizieren

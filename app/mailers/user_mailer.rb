@@ -103,4 +103,25 @@ class UserMailer < ApplicationMailer
 
     mail to: admin_emails, subject: t('mailer.user.invite.signup.subject')
   end
+
+  def upcoming_room_expiration_notification(user, settings, expiring_room_names, room_names_to_expiration_date, locale)
+    @settings = settings
+    @user = user
+    @image = logo_image
+    @color = user_color
+    content = <<~BODY
+      <p>#{t('mailer.user.notify.rooms_going_to_expire_soon.info', locale: locale)}:</p>\
+      <ul>\
+      #{expiring_room_names.map { |r|
+        "<li>#{t('mailer.user.notify.rooms_going_to_expire_soon.room_info',
+                 room_name: r,
+                 deletion_date: l(room_names_to_expiration_date[r], format: :short, locale: locale),
+                 locale: locale)}</li>"
+      }.join}\
+      </ul>
+    BODY
+    mail(to: @user.email, subject: t('mailer.user.notify.rooms_going_to_expire_soon.subject', locale: locale)) do |format|
+      format.html { render html: content.html_safe }
+    end
+  end
 end

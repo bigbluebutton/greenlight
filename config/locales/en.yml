@@ -349,6 +349,11 @@ en:
   login_title: Sign in to your account
   mailer:
     user:
+      notify:
+        rooms_going_to_expire_soon:
+          subject: Notification corresponding the ongoing deletion of expired rooms
+          info: "The following rooms will be deleted soon due to disuse if they are not used until the specified date"
+          room_info: "%{room_name}: deletion on %{deletion_date}"
       approve:
         info: Your account has been approved.
         signin: To access your personal rooms, click the button below and sign in.
@@ -672,6 +677,7 @@ en:
   time:
     formats:
       default: "%b %d, %Y %-I:%M%P"
+      short: "%B %d, %Y"
   update: Update
   verify:
     accept: Verify

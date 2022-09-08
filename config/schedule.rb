@@ -42,3 +42,54 @@ every 1.days do
              'variable is not set'
   end
 end
+
+def notify_of_expiring_rooms(expiration_notification_term)
+  expiration_notification_term_env_var = if expiration_notification_term == :LONG_TERM
+    'TIME_IN_DAYS_TO_POTENTIAL_EXPIRATION_POINT_FOR_LONG_TERM_NOTIFICATION'
+  else
+    'TIME_IN_DAYS_TO_POTENTIAL_EXPIRATION_POINT_FOR_SHORT_TERM_NOTIFICATION'
+  end
+  expiration_time_env_var = 'EXPIRATION_TIME_IN_DAYS'
+  room_expiration_last_despite_env_var = 'ROOM_EXPIRATION_LAST_DESPITE_IN_DAYS'
+  room_expiration_notification_locale_env_var = 'LOCALE_FOR_ROOM_EXPIRATION_NOTIFICATION'
+
+  if ENV[expiration_time_env_var] && !ENV[expiration_time_env_var].strip.empty? &&
+     ENV[expiration_notification_term_env_var] &&
+     !ENV[expiration_notification_term_env_var].strip.empty? &&
+     ENV[room_expiration_last_despite_env_var] && !ENV[room_expiration_last_despite_env_var].strip.empty?
+    expiration_time = ENV[expiration_time_env_var]
+    expiration_notification_term_time = ENV[expiration_notification_term_env_var]
+    expiration_last_despite = ENV[room_expiration_last_despite_env_var]
+    log = "Schedule job for the periodic notification of expiring rooms. Expiration time in days is "\
+          "#{expiration_time}, the time in days that is checked for rooms that potentially expire within that "\
+          "period is #{expiration_notification_term_time}, the the last despite in days granted for already "\
+          "expired rooms is #{expiration_last_despite}"
+
+    if ENV[room_expiration_notification_locale_env_var] &&
+       !ENV[room_expiration_notification_locale_env_var].strip.empty?
+      expiration_notification_locale = ENV[room_expiration_notification_locale_env_var]
+      LOG.info "#{log}, the fallback locale for the notification of expiring rooms is "\
+               "#{expiration_notification_locale}"
+      rake "room:notify_of_expiring_rooms[#{expiration_time},#{expiration_notification_term_time},"\
+      "#{expiration_last_despite},#{expiration_notification_locale}]"
+    else
+      LOG.info log
+      rake "room:notify_of_expiring_rooms[#{expiration_time},#{expiration_notification_term_time},"\
+      "#{expiration_last_despite}]"
+    end
+  else
+    LOG.info "The job for the notification of rooms that are going to expire within the "\
+             "#{expiration_notification_term == :LONG_TERM ? 'long' : 'short'} term period is not scheduled because "\
+             "the required environment variables are not set"
+  end
+end
+
+# Notify of rooms that are going to expire within the specified long term period of time
+every 1.days do
+  notify_of_expiring_rooms(:LONG_TERM)
+end
+
+# Notify of rooms that are going to expire within the specified short term period of time
+every 1.days do
+  notify_of_expiring_rooms(:SHORT_TERM)
+end

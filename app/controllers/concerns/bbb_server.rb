@@ -90,7 +90,12 @@ module BbbServer
       end
 
       unless meeting[:messageKey] == 'duplicateWarning'
-        room.update_attributes(sessions: room.sessions + 1, last_session: DateTime.strptime(meeting[:createTime].to_s, "%Q"))
+        room.update_attributes(
+          sessions: room.sessions + 1,
+          last_session: DateTime.strptime(meeting[:createTime].to_s, "%Q"),
+          time_range_to_expiration_last_checked_in_days: nil,
+          deletion_planned_at: nil
+        )
       end
     rescue BigBlueButton::BigBlueButtonException => e
       puts "BigBlueButton failed on create: #{e.key}: #{e.message}"
