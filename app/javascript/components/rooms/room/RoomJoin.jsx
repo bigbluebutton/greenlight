@@ -147,6 +147,7 @@ export default function RoomJoin() {
                   </div>
                 )}
               <Button
+                variant="brand"
                 className="mt-3 d-block float-end"
                 onClick={handleJoin}
                 disabled={publicRoom.isFetching || roomStatusAPI.isLoading}

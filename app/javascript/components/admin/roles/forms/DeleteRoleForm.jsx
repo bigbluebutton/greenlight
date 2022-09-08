@@ -17,7 +17,7 @@ export default function DeleteRoleForm({ role, handleClose }) {
       <p className="text-center"> Are you sure you want to delete role <strong>{role.name}</strong>?</p>
       <Form methods={methods} onSubmit={deleteRoleAPI.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
-          <Button variant="primary-reverse" onClick={handleClose}>
+          <Button variant="brand-backward" onClick={handleClose}>
             Close
           </Button>
           <Button variant="danger" type="submit" disabled={deleteRoleAPI.isLoading}>

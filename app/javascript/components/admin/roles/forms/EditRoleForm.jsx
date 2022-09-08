@@ -108,7 +108,7 @@ export default function EditRoleForm({ role }) {
 
         <div>
           <Modal
-            modalButton={<Button className="float-end danger-light-button"> Delete Role </Button>}
+            modalButton={<Button variant="brand-backward" className="float-end"> Delete Role </Button>}
             title="Delete Role"
             body={<DeleteRoleForm role={role} />}
           />
