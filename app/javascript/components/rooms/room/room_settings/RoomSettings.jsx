@@ -90,7 +90,7 @@ export default function RoomSettings() {
           </Row>
           <Row className="float-end">
             <Modal
-              modalButton={<Button className="mt-1 mx-2 float-end danger-light-button">Delete Room</Button>}
+              modalButton={<Button variant="brand-backward" className="mt-1 mx-2 float-end">Delete Room</Button>}
               title="Delete Room"
               body={<DeleteRoomForm mutation={deleteMutationWrapper} />}
             />

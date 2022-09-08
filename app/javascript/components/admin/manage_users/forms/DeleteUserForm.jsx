@@ -21,7 +21,7 @@ export default function DeleteUserForm({ user, handleClose }) {
       </p>
       <Form methods={methods} onSubmit={deleteUser.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
-          <Button variant="primary-reverse" onClick={handleClose}>
+          <Button variant="brand-backward" onClick={handleClose}>
             Close
           </Button>
           <Button variant="danger" type="submit" disabled={deleteUser.isLoading}>
