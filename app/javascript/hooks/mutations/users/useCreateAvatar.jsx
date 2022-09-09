@@ -7,7 +7,9 @@ export default function useCreateAvatar(currentUser) {
 
   async function createAvatar(avatar) {
     // TODO - samuel: how to validate if toBlob() will transform any file into a png by default
-    const avatarBlob = await new Promise((resolve) => avatar.toBlob(resolve));
+    const avatarBlob = await new Promise((resolve) => {
+      avatar.toBlob(resolve);
+    });
     const formData = new FormData();
     formData.append('user[avatar]', avatarBlob);
     return axios.patch(`/users/${currentUser.id}.json`, formData);
