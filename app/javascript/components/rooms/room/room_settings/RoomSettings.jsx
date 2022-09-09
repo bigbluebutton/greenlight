@@ -49,12 +49,21 @@ export default function RoomSettings() {
             </Col>
             <Col className="ps-4">
               <Row> <h6 className="text-brand">User Settings</h6> </Row>
+              {(currentUser.permissions.CanRecord === 'true') && (
+                <RoomSettingsRow
+                  settingName="record"
+                  updateMutation={updateMutationWrapper}
+                  value={roomSetting.data.record}
+                  config={roomsConfigs.data.record}
+                  description="Allow room to be recorded"
+                />
+              )}
               <RoomSettingsRow
-                settingName="muteOnStart"
+                settingName="glRequireAuthentication"
                 updateMutation={updateMutationWrapper}
-                value={roomSetting.data.muteOnStart}
-                config={roomsConfigs.data.muteOnStart}
-                description="Mute users when they join"
+                value={roomSetting.data.glRequireAuthentication}
+                config={roomsConfigs.data.glRequireAuthentication}
+                description="Require users to be signed in before joining"
               />
               <RoomSettingsRow
                 settingName="guestPolicy"
@@ -77,15 +86,13 @@ export default function RoomSettings() {
                 config={roomsConfigs.data.glAnyoneJoinAsModerator}
                 description="All users join as moderators"
               />
-              {(currentUser.permissions.CanRecord === 'true') && (
-                <RoomSettingsRow
-                  settingName="record"
-                  updateMutation={updateMutationWrapper}
-                  value={roomSetting.data.record}
-                  config={roomsConfigs.data.record}
-                  description="Allow room to be recorded"
-                />
-              )}
+              <RoomSettingsRow
+                settingName="muteOnStart"
+                updateMutation={updateMutationWrapper}
+                value={roomSetting.data.muteOnStart}
+                config={roomsConfigs.data.muteOnStart}
+                description="Mute users when they join"
+              />
             </Col>
           </Row>
           <Row className="float-end">

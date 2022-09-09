@@ -32,8 +32,15 @@ module Api
 
       # POST /api/v1/meetings/:friendly_id/status.json
       def status
-        settings = RoomSettingsGetter.new(room_id: @room.id, provider: current_provider, current_user:, show_codes: true,
-                                          settings: %w[glViewerAccessCode glModeratorAccessCode glAnyoneCanStart]).call
+        settings = RoomSettingsGetter.new(
+          room_id: @room.id,
+          provider: current_provider,
+          current_user:,
+          show_codes: true,
+          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart]
+        ).call
+
+        return render_error status: :unauthorized if !current_user && settings['glRequireAuthentication'] == 'true'
 
         bbb_role = infer_bbb_role(mod_code: settings['glModeratorAccessCode'], viewer_code: settings['glViewerAccessCode'])
 

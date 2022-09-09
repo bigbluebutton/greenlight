@@ -166,10 +166,14 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
 
         expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
-        expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight', show_codes: true, current_user: user,
-                                                         settings: %w[glViewerAccessCode glModeratorAccessCode glAnyoneCanStart])
+        expect(RoomSettingsGetter).to receive(:new).with(
+          room_id: room.id, provider: 'greenlight', show_codes: true, current_user: user,
+          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart]
+        )
         expect(fake_room_settings_getter).to receive(:call)
+
         post :status, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'AAA' }
+
         expect(response).to have_http_status(:ok)
       end
 
@@ -177,20 +181,28 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
 
         expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Moderator')
-        expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight', show_codes: true, current_user: user,
-                                                         settings: %w[glViewerAccessCode glModeratorAccessCode glAnyoneCanStart])
+        expect(RoomSettingsGetter).to receive(:new).with(
+          room_id: room.id, provider: 'greenlight', show_codes: true, current_user: user,
+          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart]
+        )
         expect(fake_room_settings_getter).to receive(:call)
+
         post :status, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'BBB' }
+
         expect(response).to have_http_status(:ok)
       end
 
       it 'returns unauthorized if the access code is wrong' do
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
 
-        expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight', show_codes: true, current_user: user,
-                                                         settings: %w[glViewerAccessCode glModeratorAccessCode glAnyoneCanStart])
+        expect(RoomSettingsGetter).to receive(:new).with(
+          room_id: room.id, provider: 'greenlight', show_codes: true, current_user: user,
+          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart]
+        )
         expect(fake_room_settings_getter).to receive(:call)
+
         post :status, params: { friendly_id: room.friendly_id, name: user.name, access_code: 'ZZZ' }
+
         expect(response).to have_http_status(:forbidden)
       end
     end
@@ -242,10 +254,36 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       end
     end
 
+    context 'glRequireAuthentication' do
+      let(:fake_room_settings_getter) { instance_double(RoomSettingsGetter) }
+
+      before do
+        allow(RoomSettingsGetter).to receive(:new).and_return(fake_room_settings_getter)
+        allow(fake_room_settings_getter).to receive(:call).and_return({ 'glRequireAuthentication' => 'true' })
+      end
+
+      it 'allows the user to join if they are signed in' do
+        allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
+
+        post :status, params: { friendly_id: room.friendly_id, name: user.name }
+
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'returns unauthorized if the user isnt signed in' do
+        session[:user_id] = nil
+
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:join_meeting)
+
+        post :status, params: { friendly_id: room.friendly_id, name: user.name }
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
     it 'allows access to an unauthenticated user' do
       session[:user_id] = nil
-
-      room = create(:room, user:)
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')

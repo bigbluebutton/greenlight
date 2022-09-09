@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import {
   Button, Col, Row, Stack,
 } from 'react-bootstrap';
@@ -10,8 +10,10 @@ import Spinner from '../../shared_components/utilities/Spinner';
 import useRoomStatus from '../../../hooks/mutations/rooms/useRoomStatus';
 import subscribeToRoom from '../../../channels/rooms_channel';
 import Logo from '../../shared_components/Logo';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function RoomJoin() {
+  const currentUser = useAuth();
   const { friendlyId } = useParams();
 
   const [name, setName] = useState('');
@@ -61,6 +63,11 @@ export default function RoomJoin() {
   }, [roomStatusAPI.isError]);
 
   if (publicRoom.isLoading) return <Spinner />;
+
+  if (!currentUser.signed_in && publicRoom.data.require_authentication === 'true') {
+    toast.error('You must be signed in to join this room');
+    return <Navigate replace to="/" />;
+  }
 
   return (
     <div className="vertical-center">

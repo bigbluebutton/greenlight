@@ -83,19 +83,22 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       session[:user_id] = nil
 
       allow(RoomSettingsGetter).to receive(:new).and_return(fake_room_settings_getter)
-      allow(fake_room_settings_getter).to receive(:call).and_return({ 'glViewerAccessCode' => true, 'glModeratorAccessCode' => false })
+      allow(fake_room_settings_getter).to receive(:call).and_return(
+        { 'glRequireAuthentication' => true, 'glViewerAccessCode' => true, 'glModeratorAccessCode' => false }
+      )
     end
 
     it 'returns a room if the friendly id is valid' do
       room = create(:room)
       expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight', current_user: nil, show_codes: false,
-                                                       settings: %w[glViewerAccessCode glModeratorAccessCode])
+                                                       settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode])
       expect(fake_room_settings_getter).to receive(:call)
 
       get :public_show, params: { friendly_id: room.friendly_id }
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)['data']).to eq({
                                                         'name' => room.name,
+                                                        'require_authentication' => true,
                                                         'viewer_access_code' => true,
                                                         'moderator_access_code' => false
                                                       })

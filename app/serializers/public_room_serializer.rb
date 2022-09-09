@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
 class PublicRoomSerializer < ApplicationSerializer
-  attributes :name, :viewer_access_code, :moderator_access_code
+  attributes :name, :require_authentication, :viewer_access_code, :moderator_access_code
+
+  def require_authentication
+    @instance_options[:options][:settings]['glRequireAuthentication']
+  end
 
   def viewer_access_code
-    @instance_options[:options][:access_codes]['glViewerAccessCode']
+    @instance_options[:options][:settings]['glViewerAccessCode']
   end
 
   def moderator_access_code
-    @instance_options[:options][:access_codes]['glModeratorAccessCode']
+    @instance_options[:options][:settings]['glModeratorAccessCode']
   end
 end

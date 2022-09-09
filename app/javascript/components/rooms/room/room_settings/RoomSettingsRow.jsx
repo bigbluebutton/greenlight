@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Row } from 'react-bootstrap';
 
 export default function RoomSettingsRow({
   settingName, config, value, description, updateMutation: useUpdateAPI,
@@ -21,25 +20,23 @@ export default function RoomSettingsRow({
 
   //  TODO: Refactor this to use react-hook-form & react-bootstrap.
   return (
-    <Row>
-      <div className="room-settings-row text-muted py-3 d-flex">
-        <label className="form-check-label me-auto" htmlFor={settingName}>
-          {description}
-        </label>
-        <div className="form-switch">
-          <input
-            className="form-check-input fs-5"
-            type="checkbox"
-            id={settingName}
-            checked={checkedValue}
-            onChange={(event) => {
-              updateAPI.mutate({ settingName, settingValue: event.target.checked });
-            }}
-            disabled={updateAPI.isLoading || config === 'true'}
-          />
-        </div>
+    <div className="room-settings-row text-muted py-2 d-flex">
+      <label className="form-check-label me-auto" htmlFor={settingName}>
+        {description}
+      </label>
+      <div className="form-switch">
+        <input
+          className="form-check-input fs-5"
+          type="checkbox"
+          id={settingName}
+          checked={checkedValue}
+          onChange={(event) => {
+            updateAPI.mutate({ settingName, settingValue: event.target.checked });
+          }}
+          disabled={updateAPI.isLoading || config === 'true'}
+        />
       </div>
-    </Row>
+    </div>
   );
 }
 
