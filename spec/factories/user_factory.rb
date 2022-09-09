@@ -51,19 +51,19 @@ FactoryBot.define do
       end
     end
 
-    trait :with_create_room_permission do
-      after(:create) do |user|
-        create(:role_permission, role: user.role, permission: create(:permission, name: 'CreateRoom'), value: 'true')
-      end
-    end
-
     trait :can_record do
       after(:create) do |user|
         create(:role_permission, role: user.role, permission: create(:permission, name: 'CanRecord'), value: 'true')
       end
     end
 
-    trait :cant_record do
+    trait :without_create_room_permission do
+      after(:create) do |user|
+        create(:role_permission, role: user.role, permission: create(:permission, name: 'CreateRoom'), value: 'false')
+      end
+    end
+
+    trait :without_can_record do
       after(:create) do |user|
         create(:role_permission, role: user.role, permission: create(:permission, name: 'CanRecord'), value: 'false')
       end

@@ -211,7 +211,7 @@ describe RoomSettingsGetter, type: :service do
         context ':room_configuration infer_can_record cases' do
           it 'room_setting record value changes to false if room_configuration record value is optional and CanRecord permission is set to false' do
             room = create(:room)
-            user = create(:user, :cant_record)
+            user = create(:user, :without_can_record)
             setting1 = create(:meeting_option, name: 'record')
 
             create(:room_meeting_option, room:, meeting_option: setting1, value: 'true')
