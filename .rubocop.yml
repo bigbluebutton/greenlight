@@ -59,7 +59,7 @@ Metrics/BlockLength:
   IgnoredMethods: [ 'describe', 'context', 'xdescribe', 'xcontext', 'FactoryBot.define' ]
   Exclude:
     - 'config/routes.rb'
-  Max: 30
+  Max: 60
 
 Metrics/ClassLength:
   Max: 150
