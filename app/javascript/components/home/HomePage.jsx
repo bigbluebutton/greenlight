@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Form, Stack } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import ButtonLink from '../shared_components/utilities/ButtonLink';
 import Spinner from '../shared_components/utilities/Spinner';
 import useEnv from '../../hooks/queries/env/useEnv';
@@ -7,6 +8,8 @@ import Logo from '../shared_components/Logo';
 
 export default function HomePage() {
   const { isLoading, data: env } = useEnv();
+  const { t } = useTranslation();
+
   if (isLoading) return <Spinner />;
 
   return (
@@ -15,7 +18,7 @@ export default function HomePage() {
         <Logo size="large" />
       </div>
       <Card className="col-md-8 mx-auto p-5 border-0 shadow-sm text-center">
-        <h1 className="mt-4"> Welcome to BigBlueButton. </h1>
+        <h1 className="mt-4"> { t('welcome_bbb')} </h1>
         <span className="text-muted mt-4 mb-5 px-xxl-5">
           Greenlight is a simple front-end for your BigBlueButton open-source web
           conferencing server.
