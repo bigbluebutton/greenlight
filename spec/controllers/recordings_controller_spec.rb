@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RecordingsController, type: :controller do
-  let(:user) { create(:user, :with_create_room_permission) }
+  let(:user) { create(:user) }
   let(:user_with_manage_recordings_permission) { create(:user, :with_manage_recordings_permission) }
 
   before do
