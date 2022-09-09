@@ -25,7 +25,7 @@ import Roles from './components/admin/roles/Roles';
 import ResetPassword from './components/users/password_management/ResetPassword';
 import EditUser from './components/admin/manage_users/EditUser';
 import EditRole from './components/admin/roles/EditRole';
-import MainPage from './components/rooms/room/MainPage';
+import Home from './components/home/Home';
 
 const queryClient = new QueryClient();
 
@@ -53,7 +53,7 @@ const root = (
             <Route path="/rooms" element={<Rooms />} />
             <Route path="/rooms/:friendlyId" element={<Room />} />
             <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
-            <Route path="/main-page" element={<MainPage />} />
+            <Route path="/home" element={<Home />} />
             <Route path="*" element={<h1 className="text-center">404</h1>} />
           </Route>
         </Routes>

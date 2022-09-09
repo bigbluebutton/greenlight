@@ -6,17 +6,15 @@ import axios from '../../../helpers/Axios';
 export default function useCreateSession(token) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  let createRoomPermission = true;
+
   return useMutation(
-    (session) => axios.post('/sessions.json', { session, token }).then((response) => {
-      createRoomPermission = response.data.data.permissions.CreateRoom;
-    }),
+    (session) => axios.post('/sessions.json', { session, token }),
     {
-      onSuccess: () => {
+      onSuccess: (response) => {
         queryClient.invalidateQueries('useSessions');
         // if the current user does NOT have the CreateRoom permission, then do not re-direct to rooms page
-        if (createRoomPermission === 'false') {
-          navigate('/main-page');
+        if (response.data.data.permissions.CreateRoom === 'false') {
+          navigate('/home');
         } else {
           navigate('/rooms');
         }
