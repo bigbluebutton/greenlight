@@ -6,11 +6,9 @@ import axios from '../../../helpers/Axios';
 export default function useCreateSession(token) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  let createRoomPermission = true;
+
   return useMutation(
-    (session) => axios.post('/sessions.json', { session, token }).then((response) => {
-      createRoomPermission = response.data.data.permissions.CreateRoom;
-    }),
+    (session) => axios.post('/sessions.json', { session, token }),
     {
       onSuccess: (response) => {
         queryClient.invalidateQueries('useSessions');

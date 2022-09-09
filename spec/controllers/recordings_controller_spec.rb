@@ -4,9 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::RecordingsController, type: :controller do
   let(:user) { create(:user, :with_create_room_permission) }
-  let(:user_with_manage_recordings_permission_and_create_room_permission) do
-    create(:user, :with_manage_recordings_permission, :with_create_room_permission)
-  end
+  let(:user_with_manage_recordings_permission) { create(:user, :with_manage_recordings_permission) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -123,7 +121,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
 
     context 'user has ManageRecordings permission' do
       before do
-        session[:user_id] = user_with_manage_recordings_permission_and_create_room_permission.id
+        session[:user_id] = user_with_manage_recordings_permission.id
       end
 
       it 'updates another users recordings name' do
