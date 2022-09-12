@@ -683,3 +683,5 @@ hu_HU:
     signin: A fiókod eléréséhez jelentkezz be.
     title: Ellenőrizd a postaládádat
     verification: Visszaigazolás
+  session:
+    expired: Munkameneted lejárt (jelentkezz be újra).
