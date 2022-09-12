@@ -110,11 +110,13 @@ module Api
 
       # Generates an access code on room create if the access code room configuration is enabled
       def access_code_checker
-        access_code_settings = MeetingOption.joins(:rooms_configurations)
-                                            .where(rooms_configurations: { provider: current_provider, value: 'true' })
-                                            .pluck(:name, :value)
-                                            .to_h
-                                            .slice('glViewerAccessCode', 'glModeratorAccessCode')
+        access_code_settings = RoomSettingsGetter.new(
+          room_id: @new_room.id,
+          provider: current_provider,
+          current_user:,
+          show_codes: false,
+          settings: %w[glViewerAccessCode glModeratorAccessCode]
+        ).call
 
         access_code_settings.each do |access_code_setting|
           room_meeting_option = RoomMeetingOption.joins(:meeting_option).where(room: @new_room, meeting_option: { name: access_code_setting })
