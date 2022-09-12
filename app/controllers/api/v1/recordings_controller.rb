@@ -7,6 +7,9 @@ module Api
       before_action only: %i[update destroy update_visibility] do
         ensure_authorized('ManageRecordings', record_id: params[:id])
       end
+      before_action do
+        ensure_authorized('CreateRoom')
+      end
 
       # GET /api/v1/recordings.json
       # Returns: { data: Array[serializable objects(recordings)] , errors: Array[String] }

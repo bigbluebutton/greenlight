@@ -10,9 +10,14 @@ export default function useCreateSession(token) {
   return useMutation(
     (session) => axios.post('/sessions.json', { session, token }),
     {
-      onSuccess: () => {
+      onSuccess: (response) => {
         queryClient.invalidateQueries('useSessions');
-        navigate('/rooms');
+        // if the current user does NOT have the CreateRoom permission, then do not re-direct to rooms page
+        if (response.data.data.permissions.CreateRoom === 'false') {
+          navigate('/home');
+        } else {
+          navigate('/rooms');
+        }
       },
       onError: () => {
         toast.error('Incorrect username or password. \n Please try again');
