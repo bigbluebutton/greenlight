@@ -16,6 +16,8 @@ module Api
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
 
+      after_action :access_code_checker, only: :create
+
       # GET /api/v1/rooms.json
       def index
         # Return the rooms that belong to current user
@@ -51,13 +53,12 @@ module Api
       def create
         # TODO: amir - ensure accessibility for authenticated requests only.
         # The created room will be the current user's unless a user_id param is provided with the request.
-        # user_id = room_params[:user_id]
-        room = Room.create(name: room_params[:name], user_id: room_params[:user_id])
+        @new_room = Room.create(name: room_params[:name], user_id: room_params[:user_id])
 
         return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
-        if room.save
-          logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
+        if @new_room.save
+          logger.info "room(friendly_id):#{@new_room.friendly_id} created for user(id):#{@new_room.user_id}"
           render_data status: :created
         else
           render_error status: :bad_request
@@ -105,6 +106,22 @@ module Api
 
       def room_params
         params.require(:room).permit(:name, :user_id, :presentation)
+      end
+
+      # Generates an access code on room create if the access code room configuration is enabled
+      def access_code_checker
+        room_settings = MeetingOption.joins(:rooms_configurations)
+                                     .where(rooms_configurations: { provider: current_provider })
+                                     .pluck(:name, :value)
+                                     .to_h
+        access_code_settings = []
+        access_code_settings << 'glModeratorAccessCode' if room_settings['glModeratorAccessCode'] == 'true'
+        access_code_settings << 'glViewerAccessCode' if room_settings['glViewerAccessCode'] == 'true'
+
+        access_code_settings.each do |access_code_setting|
+          room_meeting_option = RoomMeetingOption.joins(:meeting_option).where(room: @new_room, meeting_option: { name: access_code_setting })
+          room_meeting_option.update(value: SecureRandom.alphanumeric(6).downcase)
+        end
       end
     end
   end
