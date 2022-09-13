@@ -22,12 +22,12 @@ export default function FeatureTabs() {
             <Presentation />
           </Tab>
           )}
-        { shareRoomEnabled
-          && (
-          <Tab eventKey="access" title="Access">
-            <SharedAccess />
-          </Tab>
-          )}
+        {/* { shareRoomEnabled */}
+        {/*  && ( */}
+        {/*  <Tab eventKey="access" title="Access"> */}
+        {/*    <SharedAccess /> */}
+        {/*  </Tab> */}
+        {/*  )} */}
         <Tab eventKey="settings" title="Settings">
           <RoomSettings />
         </Tab>
