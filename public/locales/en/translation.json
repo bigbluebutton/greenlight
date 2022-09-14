@@ -1,3 +1,213 @@
 {
-  "welcome_bbb": "Welcome to BigBlueButton."
+  "start": "Start",
+  "search": "Search",
+  "previous": "Previous",
+  "next": "Next",
+  "view": "View",
+  "edit": "Edit",
+  "save_changes": "Save Changes",
+  "update": "Update",
+  "cancel": "Cancel",
+  "close": "Close",
+  "copy": "Copy",
+
+  "home": {
+    "welcome_bbb": "Welcome to BigBlueButton."
+  },
+
+  "authentication": {
+    "sign_in": "Sign In",
+    "sign_up": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "enter_email": "Enter your email",
+    "enter_name": "Enter your name",
+    "remember_me": "Remember Me",
+    "forgot_password": "Forgot password?",
+    "dont_have_an_account": "Don't have an account?",
+    "create_account": "Create an Account",
+    "already_have_an_account": "Already have an account?"
+
+  },
+
+  "users": {
+    "user": "User",
+    "users": "Users",
+    "name": "Name",
+    "full_name": "Full Name",
+    "user_name": "User Name",
+    "language": "Language",
+    "role": "Role",
+    "administrator": "Administrator",
+    "guest": "Guest",
+    "profile": {
+      "account_info": "Account Info",
+      "update_account_info": "Update Your Account Info",
+      "delete_account": "Delete Account",
+      "change_password": "Change Password",
+      "current_password": "Current Password",
+      "new_password": "New Password",
+      "confirm_password": "Confirm Password",
+      "permanently_delete_account": "Permanently Delete Your Account",
+      "delete_account_description": "If you choose to delete your account, it will NOT be recoverable. All information regarding your account, including settings, rooms, and recordings will be removed."
+      "delete_account_confirmation": "Yes, I would like to delete my account"
+    },
+    "avatar": {
+      "upload_avatar": "Upload Avatar",
+      "delete_avatar": "Delete Avatar",
+      "crop_avatar": "Crop Your Avatar"
+    }
+  },
+
+  "room": {
+    "room": "Room",
+    "rooms": "Rooms",
+    "new_room": "New Room",
+    "create_room": "Create Room",
+    "delete_room": "Delete Room",
+    "create_new_room": "Create New Room",
+    "enter_room_name": "Enter the room name",
+    "meeting": {
+      "start_meeting": "Start Meeting",
+      "join_meeting": "Join Meeting"
+      "meeting_invitation": "You have been invited to join",
+      "meeting_not_started": "The meeting has not started yet",
+      "join_meeting_automatically": "You will automatically join when the meeting starts"
+    },
+    "presentation": {
+      "presentation": "Presentation",
+      "click_to_upload": "Click to Upload",
+      "or_drag_and_drop": "or Drag and Drop",
+      "upload_description": "Upload any office document or PDF file. Depending on the size of the file, it may require additional time to upload before it can be used"
+    },
+    "shared_access": {
+      "access": "Access",
+      "share_access": "Share Access",
+      "add_some_users": "Time to add some users!",
+      "add_some_users_description": "To add new users, click the button below and search or select the users you want to share this room with."
+    },
+    "settings": {
+      "settings": "Settings",
+      "room_name": "Room Name",
+      "user_settings": "User Settings",
+      "allow_room_to_be_recorded": "Allow room to be recorded",
+      "require_mod_approval": "Require moderator approval before joining",
+      "allow_any_user_to_start": "Allow any user to start this meeting",
+      "all_users_join_as_mods": "All users join as moderators",
+      "mute_users_on_join": "Mute users when they join",
+      "generate": "Generate",
+      "generate_viewers_access_code": "Generate access code for viewers",
+      "generate_mods_access_code": "Generate access code for moderators"
+    }
+  },
+
+  "recording": {
+    "recording": "Recording",
+    "recordings": "Recordings",
+    "length": "Length",
+    "visibility": "Visibility",
+    "formats": "Formats",
+    "no_recordings_found": "No recordings found."
+  },
+
+  "admin": {
+    "manage_users": {
+      "manage_users": "Manage Users",
+      "active": "Active",
+      "pending": "Pending",
+      "banned": "Banned",
+      "deleted": "Deleted",
+      "authenticator": "Authenticator",
+      "new_user": "New User",
+      "create_account": "Create Account",
+      "enter_email": "Enter the email",
+      "enter_name": "Enter the name"
+    },
+    "server_rooms": {
+      "server_rooms": "Server Rooms",
+      "owner": "Owner",
+      "room_id": "Room ID",
+      "participants": "Participants",
+      "status": "Status",
+      "not_running": "Not Running",
+      "active": "Active"
+    },
+    "server_recordings": {
+      "server_recordings": "Server Recordings",
+      "latest_recordings": "Latest Recordings",
+      "no_recordings_found": "No recordings found.",
+      "resync_recordings": "Re-Sync Recordings"
+    },
+    "site_settings": {
+      "site_settings": "Site Settings",
+      "customize_greenlight": "Customize Greenlight",
+      "appearance": {
+        "appearance": "Appearance",
+        "brand_color": "Brand Color",
+        "regular": "Regular",
+        "lighten": "Lighten",
+        "brand_image": "Brand Image"
+      },
+      "administration": {
+        "administration": "Administration",
+        "terms": "terms",
+        "privacy": "privacy",
+        "change_term_links": "Change the terms links that appears at the bottom of the page",
+        "change_privacy_link": "Change the privacy link that appears at the bottom of the page",
+        "change_url": "Change URL",
+        "enter_link": "Enter link here"
+      },
+      "settings": {
+        "allow_users_to_share_rooms": "Allow Users to Share Rooms",
+        "allow_users_to_share_rooms_description": "Setting to disabled will remove the button from the room options dropdown, preventing users from sharing rooms",
+        "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",
+        "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room"
+      },
+      "registration": {
+        "registration": "Registration",
+        "role_mapping_by_email": "Role Mapping By Email",
+        "role_mapping_by_email_description": "Map the user to a role using their email. Must be in the format: role1=email1, role2=email2",
+        "enter_role_mapping_rule": "Enter a role mapping rule"
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "Room Configuration",
+      "optional": "Optional",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "configurations": {
+        "allow_room_to_be_recorded": "Allow Room to be recorded",
+        "allow_room_to_be_recorded_description": "Allows room owners to specify whether they want the option to record a room or not. If enabled, the moderator must still click the “Record button once the meeting has started.",
+        "require_user_signed_in": "Require users to be signed in before joining",
+        "require_user_signed_in_description": "Only allows users with a Greenlight account to join the meeting. If they are not signed in, they will be redirected to the login page when attempting to join a room.",
+        "require_mod_approval": "Require moderator approval before joining",
+        "require_mod_approval_description": "Prompts the moderator of the BigBlueButton meeting when a user tries to join. If the user is approved, they will be able to join the meeting.",
+        "allow_any_user_to_start_meeting": "Allow any user to start a meeting",
+        "allow_any_user_to_start_meeting_description": "Allow any user to start the meeting at any time. By default, only the room owner can start the meeting.",
+        "allow_users_to_join_as_mods": "Allow users to join as moderators",
+        "allow_users_to_join_as_mods_description": "Gives all users the moderator privileges in BigBlueButton when they join the meeting",
+        "mute_users_on_join": "Mute users when they join",
+        "mute_users_on_join_description": "Automatically mutes the user when they join the BigBlueButtonMeeting",
+        "viewer_access_code": "Viewer Access Code",
+        "viewer_access_code_description": "Allows room owners to have a random alphanumeric code that can be shared with users. The code, if generated, will be required for users to join the room meetings.",
+        "mod_access_code": "Moderator Access Code",
+        "mod_access_code_description": "Allows room owners to have a random alphanumeric code that can be shared with users. The code, if generated, will not be required and when used on any room meeting will join the user as a moderator."
+      }
+    },
+
+    "roles": {
+      "role": "Role",
+      "roles": "Roles",
+      "administrator": "Administrator",
+      "guest": "Guest",
+      "manage_roles": "Manage Roles",
+      "enter_role_name": "Enter a role name",
+      "create_role": "Create Role"
+    }
+  }
+>>>>>>> 387aa879... Add all strings to translation.json
 }
+
+
+
