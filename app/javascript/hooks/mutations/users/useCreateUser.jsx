@@ -15,9 +15,14 @@ export default function useCreateUser() {
     createUser,
     { // Mutation config.
       onError: () => { toast.error('There was a problem completing that action. \n Please try again.'); },
-      onSuccess: () => {
+      onSuccess: (response) => {
         queryClient.invalidateQueries('useSessions');
-        navigate('/rooms');
+        // if the current user does NOT have the CreateRoom permission, then do not re-direct to rooms page
+        if (response.data.data.permissions.CreateRoom === 'false') {
+          navigate('/home');
+        } else {
+          navigate('/rooms');
+        }
       },
     },
   );
