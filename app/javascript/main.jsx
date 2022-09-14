@@ -6,6 +6,7 @@ import {
   BrowserRouter as Router, Routes, Route, Navigate,
 } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import './i18n';
 import App from './App';
 import Signup from './components/users/authentication/Signup';
 import SignIn from './components/users/authentication/SignIn';
