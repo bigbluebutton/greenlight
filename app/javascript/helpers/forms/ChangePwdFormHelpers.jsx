@@ -4,12 +4,22 @@ import { yupResolver } from '@hookform/resolvers/yup';
 const validationSchema = yup.object({
   // TODO: amir - Revisit validations.
   old_password: yup.string().required('Please enter your current password.'),
-  new_password: yup.string().required('Please enter your new password.').min(8, 'Password must have at least 8 characters.'),
-  password_confirmation: yup.string().oneOf([yup.ref('new_password')], 'Your passwords do not match.'),
+  new_password: yup.string()
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[`@%~!#£$\\^&*()\][+={}/|:;"'<>\-,.?_ ]).{8,}$/,
+      'Password must have at least:',
+    )
+    .min(8, '- Eight characters.')
+    .test('oneLower', '- One lowercase letter.', (pwd) => pwd.match(/[a-z]/))
+    .test('oneUpper', '- One uppercase letter.', (pwd) => pwd.match(/[A-Z]/))
+    .test('oneDigit', '- One digit.', (pwd) => pwd.match(/\d/))
+    .test('oneSymbol', '- One symbol.', (pwd) => pwd.match(/[`@%~!#£$\\^&*()\][+={}/|:;"'<>\-,.?_ ]/)),
+  password_confirmation: yup.string().required('').oneOf([yup.ref('new_password')], 'Your passwords do not match.'),
 });
 
 export const changePwdFormConfig = {
   mode: 'onChange',
+  criteriaMode: 'all',
   defaultValues: {
     old_password: '',
     new_password: '',
