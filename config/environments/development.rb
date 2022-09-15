@@ -38,9 +38,29 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  if ENV['SMTP_SERVER'].present?
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address: ENV.fetch('SMTP_SERVER', nil),
+      port: ENV.fetch('SMTP_PORT', nil),
+      domain: ENV.fetch('SMTP_DOMAIN', nil),
+      user_name: ENV.fetch('SMTP_USERNAME', nil),
+      password: ENV.fetch('SMTP_PASSWORD', nil),
+      authentication: ENV.fetch('SMTP_AUTH', nil),
+      enable_starttls_auto: ENV.fetch('SMTP_STARTTLS_AUTO', true),
+      enable_starttls: ENV.fetch('SMTP_STARTTLS', false),
+      tls: ENV.fetch('SMTP_TLS', 'false') != 'false',
+      openssl_verify_mode: ENV.fetch('SMTP_SSL_VERIFY', 'true') == 'false' ? OpenSSL::SSL::VERIFY_NONE : OpenSSL::SSL::VERIFY_PEER
+    }
+    config.action_mailer.default_options = {
+      from: ActionMailer::Base.email_address_with_name(ENV.fetch('SMTP_SENDER_EMAIL'), ENV.fetch('SMTP_SENDER_NAME', nil))
+    }
+  else
+    config.action_mailer.perform_deliveries = false
+  end
 
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.
