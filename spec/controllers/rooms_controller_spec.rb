@@ -173,6 +173,26 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
 
+    context 'the access code meeting option is enabled' do
+      let(:fake_room_settings_getter) { instance_double(RoomSettingsGetter) }
+      let!(:meeting_option) { create(:meeting_option, name: 'glViewerAccessCode') }
+      let!(:room_meeting_option) { create(:room_meeting_option, meeting_option:) }
+
+      before do
+        allow(RoomSettingsGetter).to receive(:new).and_return(fake_room_settings_getter)
+        allow(fake_room_settings_getter).to receive(:call).and_return(
+          { 'glViewerAccessCode' => true, 'glModeratorAccessCode' => false }
+        )
+        # can we avoid hardcoding the friendly id?
+        allow(SecureRandom).to receive(:alphanumeric).and_return('8ac31fcc-b550-48f3-a1cd-eab7ec413f35', 'abc123')
+      end
+
+      it 'creates a room with pre-generated access codes' do
+        post :create, params: room_params
+        expect(Room.last.room_meeting_options[0].value).to eq('abc123') # there is a better way to access the room resource
+      end
+    end
+
     context 'user with ManageUser permission' do
       before do
         session[:user_id] = user_with_manage_users_permission.id
