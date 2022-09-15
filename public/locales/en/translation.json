@@ -11,8 +11,9 @@
   "close": "Close",
   "copy": "Copy",
 
-  "home": {
-    "welcome_bbb": "Welcome to BigBlueButton."
+  "homepage": {
+    "welcome_bbb": "Welcome to BigBlueButton.",
+    "greenlight_description": "Greenlight is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link."
   },
 
   "authentication": {
@@ -28,7 +29,6 @@
     "dont_have_an_account": "Don't have an account?",
     "create_account": "Create an Account",
     "already_have_an_account": "Already have an account?"
-
   },
 
   "users": {
@@ -50,7 +50,7 @@
       "new_password": "New Password",
       "confirm_password": "Confirm Password",
       "permanently_delete_account": "Permanently Delete Your Account",
-      "delete_account_description": "If you choose to delete your account, it will NOT be recoverable. All information regarding your account, including settings, rooms, and recordings will be removed."
+      "delete_account_description": "If you choose to delete your account, it will NOT be recoverable. All information regarding your account, including settings, rooms, and recordings will be removed.",
       "delete_account_confirmation": "Yes, I would like to delete my account"
     },
     "avatar": {
@@ -70,7 +70,7 @@
     "enter_room_name": "Enter the room name",
     "meeting": {
       "start_meeting": "Start Meeting",
-      "join_meeting": "Join Meeting"
+      "join_meeting": "Join Meeting",
       "meeting_invitation": "You have been invited to join",
       "meeting_not_started": "The meeting has not started yet",
       "join_meeting_automatically": "You will automatically join when the meeting starts"
