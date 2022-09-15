@@ -56,7 +56,7 @@ module Api
         return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         if @new_room.save
-          access_code_checker
+          generate_access_code
           logger.info "room(friendly_id):#{@new_room.friendly_id} created for user(id):#{@new_room.user_id}"
           render_data status: :created
         else
@@ -108,7 +108,7 @@ module Api
       end
 
       # Generates an access code on rooms#create if the access code room configuration is enabled
-      def access_code_checker
+      def generate_access_code
         access_code_settings = RoomSettingsGetter.new(
           room_id: @new_room.id,
           provider: current_provider,
@@ -118,8 +118,9 @@ module Api
         ).call
 
         access_code_settings.each do |access_code_setting|
-          room_meeting_option = RoomMeetingOption.joins(:meeting_option).where(room: @new_room, meeting_option: { name: access_code_setting })
-          room_meeting_option.update(value: SecureRandom.alphanumeric(6).downcase)
+          RoomMeetingOption.joins(:meeting_option)
+                           .where(room: @new_room, meeting_option: { name: access_code_setting })
+                           .update(value: SecureRandom.alphanumeric(6).downcase)
         end
       end
     end
