@@ -41,6 +41,8 @@ class User < ApplicationRecord
   validates :reset_digest, uniqueness: true, if: :reset_digest?
   validates :activation_digest, uniqueness: true, if: :activation_digest?
 
+  after_create :generate_session_token!
+
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
 
   def self.search(input)
@@ -78,6 +80,17 @@ class User < ApplicationRecord
   # Checkes the expiration of a token.
   def self.reset_token_expired?(sent_at)
     Time.current > (sent_at.in(RESET_TOKEN_VALIDITY_PERIOD))
+  end
+
+  def generate_session_token!(extended_session: false)
+    digest = User.generate_digest(SecureRandom.alphanumeric(40))
+    expiry = extended_session ? 7.days.from_now : 6.hours.from_now
+
+    update! session_token: digest, session_expiry: expiry
+  rescue ActiveRecord::RecordInvalid
+    raise unless errors.attribute_names.include? :session_token
+
+    retry
   end
 
   # Create a unique random reset token

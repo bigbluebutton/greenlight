@@ -9,7 +9,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user.id
+    sign_in_user(user)
   end
 
   describe '#index' do
@@ -132,7 +132,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
     context 'user with ManageRooms permission' do
       before do
-        session[:user_id] = user_with_manage_rooms_permission.id
+        sign_in_user(user_with_manage_rooms_permission)
       end
 
       it 'deletes the room of another user' do
@@ -180,7 +180,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
     context 'user with ManageUser permission' do
       before do
-        session[:user_id] = user_with_manage_users_permission.id
+        sign_in_user(user_with_manage_users_permission)
       end
 
       it 'creates a room for another user' do

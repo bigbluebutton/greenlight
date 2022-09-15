@@ -31,6 +31,9 @@ module Api
 
         if user.save
           session[:user_id] ||= user.id
+          session[:session_token] ||= user.session_token
+          session[:session_expiry] ||= user.session_expiry
+
           token = user.generate_activation_token!
           UserMailer.with(user:, expires_in: User::ACTIVATION_TOKEN_VALIDITY_PERIOD.from_now,
                           activation_url: activate_account_url(token)).activate_account_email.deliver_later

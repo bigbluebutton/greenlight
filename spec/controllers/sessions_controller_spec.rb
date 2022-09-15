@@ -7,7 +7,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user.id
+    sign_in_user(user)
   end
 
   describe '#create' do
@@ -44,7 +44,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
   describe '#destroy' do
     it 'signs off the user' do
       user = create(:user)
-      session[:user_id] = user.id
+      sign_in_user(user)
 
       delete :destroy
 

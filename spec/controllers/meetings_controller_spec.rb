@@ -9,7 +9,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user.id
+    sign_in_user(user)
 
     allow_any_instance_of(BigBlueButtonApi)
       .to receive(:start_meeting)
@@ -127,7 +127,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
     context 'user with ManageRooms permission' do
       before do
-        session[:user_id] = user_with_manage_rooms_permission.id
+        sign_in_user(user_with_manage_rooms_permission)
       end
 
       it 'makes a call to MeetingStarter service for another room' do

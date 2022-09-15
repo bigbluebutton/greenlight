@@ -8,7 +8,10 @@ class ApplicationController < ActionController::Base
   def current_user
     # Overwrites the session cookie if an extended_session cookie exists
     session[:user_id] ||= cookies.encrypted[:_extended_session]['user_id'] if cookies.encrypted[:_extended_session].present?
-    @current_user ||= User.find_by(id: session[:user_id])
+
+    user = User.find_by(id: session[:user_id])
+    user = nil unless valid_session?(user)
+    @current_user ||= user
   end
 
   # Returns whether hcaptcha is enabled by checking if ENV variables are set
@@ -26,6 +29,15 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  # Checks if the user's session_token matches the session and that it is not expired
+  def valid_session?(user)
+    return true if user.nil?
+    return false if user&.session_token != session[:session_token]
+    return false if DateTime.now > user&.session_expiry
+
+    true
+  end
 
   # Parses the url for the user domain
   def parse_user_domain(hostname)

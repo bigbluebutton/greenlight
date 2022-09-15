@@ -8,7 +8,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user_with_manage_users_permission.id
+    sign_in_user(user_with_manage_users_permission)
   end
 
   describe '#active_users' do

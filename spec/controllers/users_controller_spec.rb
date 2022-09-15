@@ -8,7 +8,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user.id
+    sign_in_user(user)
   end
 
   describe '#create' do
@@ -114,7 +114,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context 'user with ManageUsers permission' do
       before do
-        session[:user_id] = user_with_manage_users_permission.id
+        sign_in_user(user_with_manage_users_permission)
       end
 
       it 'deletes a user' do
@@ -162,7 +162,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     it 'returns :forbidden response for external accounts' do
       external_user = create(:user, external_id: 'EXTERAL_ID')
-      session[:user_id] = external_user.id
+      sign_in_user(external_user)
       post :change_password, params: {}
       expect(response).to have_http_status(:forbidden)
     end
