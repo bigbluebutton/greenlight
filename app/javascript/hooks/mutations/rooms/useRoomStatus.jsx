@@ -11,7 +11,7 @@ export default function useRoomStatus(friendlyId) {
     {
       onSuccess: ({ joinUrl }) => {
         if (joinUrl) {
-          toast.loading(t('toast.success.joining_meeting'));
+          toast.loading(t('toast.success.room.joining_meeting'));
           window.location.replace(joinUrl);
         }
       },

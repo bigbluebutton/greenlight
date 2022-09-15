@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import { Navigate, useParams } from 'react-router-dom';
@@ -6,28 +7,44 @@ import {
 } from 'react-bootstrap';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { useForm } from 'react-hook-form';
 import usePublicRoom from '../../../hooks/queries/rooms/usePublicRoom';
 import Spinner from '../../shared_components/utilities/Spinner';
 import useRoomStatus from '../../../hooks/mutations/rooms/useRoomStatus';
 import subscribeToRoom from '../../../channels/rooms_channel';
 import Logo from '../../shared_components/Logo';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
+import { joinFormConfig, joinFormFields as fields } from '../../../helpers/forms/JoinFormHelpers';
+import Form from '../../shared_components/forms/Form';
+import FormControl from '../../shared_components/forms/FormControl';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
   const currentUser = useAuth();
   const { friendlyId } = useParams();
-
-  const [name, setName] = useState('');
-  const [accessCode, setAccessCode] = useState('');
   const [hasStarted, setHasStarted] = useState(false);
 
   const publicRoom = usePublicRoom(friendlyId);
   const roomStatusAPI = useRoomStatus(friendlyId);
 
-  const handleJoin = () => roomStatusAPI.mutate({ name, access_code: accessCode });
+  const methods = useForm(joinFormConfig);
 
-  // eslint-disable-next-line consistent-return
+  const handleJoin = (data) => {
+    if (publicRoom?.data.viewer_access_code && !methods.getValues('access_code')) {
+      return methods.setError('access_code', { type: 'required', message: t('room.settings.access_code_required') }, { shouldFocus: true });
+    }
+
+    roomStatusAPI.mutate(data);
+  };
+  const reset = () => { setHasStarted(false); };// Reset pipeline;
+
+  useEffect(() => {
+    // Default Join name to authenticated user full name.
+    if (currentUser?.name) {
+      methods.setValue('name', currentUser.name);
+    }
+  }, [currentUser?.name]);
+
   useEffect(() => {
     // Room channel subscription:
     if (roomStatusAPI.isSuccess) {
@@ -48,9 +65,10 @@ export default function RoomJoin() {
     //  Logging the event for debugging purposes and refetching the join logic with the user's given input (name & codes).
     //  With a delay of 7s to give reasonable time for the meeting to fully start on the BBB server.
     if (hasStarted) {
-      toast.success(t('toast.success.meeting_started'));
+      toast.success(t('toast.success.room.meeting_started'));
       console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting in 7s.`);
-      setTimeout(handleJoin, 7000); // TODO: Improve this race condition handling by the backend.
+      setTimeout(methods.handleSubmit(handleJoin), 7000); // TODO: Improve this race condition handling by the backend.
+      reset();// Resetting the Join component.
     }
   }, [hasStarted]);
 
@@ -60,7 +78,13 @@ export default function RoomJoin() {
     //  In such case, users from a UX perspective will appreciate having the UI updated informing them about the case.
     //  i.e: Indicating the lack of providing access code value for cases where access code was generated while the user was waiting.
     if (roomStatusAPI.isError) {
-      publicRoom.refetch();
+      // Invalid Access Code SSE (Server Side Error):
+      if (roomStatusAPI.error.response.status === 403) {
+        methods.setError('access_code', { type: 'SSE', message: t('room.settings.wrong_access_code') }, { shouldFocus: true });
+      }
+
+      publicRoom.refetch();// Refetching room public information.
+      reset();// Resetting the Join component.
     }
   }, [roomStatusAPI.isError]);
 
@@ -70,6 +94,28 @@ export default function RoomJoin() {
     toast.error(t('toast.error.must_be_signed_in_to_join_room'));
     return <Navigate replace to="/" />;
   }
+
+  const hasAccessCode = publicRoom.data?.viewer_access_code || publicRoom.data?.moderator_access_code;
+
+  if (!publicRoom.data?.viewer_access_code && publicRoom.data?.moderator_access_code) {
+    fields.accessCode.label = t('room.settings.mod_access_code_optional');
+  } else {
+    fields.accessCode.label = t('room.settings.access_code');
+  }
+
+  const WaitingPage = (
+    <div className="mt-3">
+      <Row>
+        <Col className="col-10">
+          <p className="mb-1">{ t('room.meeting.meeting_not_started') }</p>
+          <p className="mb-0 text-muted">{ t('room.meeting.join_meeting_automatically') }</p>
+        </Col>
+        <Col className="col-2">
+          <Spinner className="float-end" />
+        </Col>
+      </Row>
+    </div>
+  );
 
   return (
     <div className="vertical-center">
@@ -89,84 +135,20 @@ export default function RoomJoin() {
           </Row>
         </Card.Body>
         <Card.Footer className="p-4 bg-white">
-          {(roomStatusAPI.isSuccess && !roomStatusAPI.data.status) ? (
-            <div className="mt-3">
-              <Row>
-                <Col className="col-10">
-                  <p className="mb-1">{ t('room.meeting.meeting_not_started') }</p>
-                  <p className="mb-0 text-muted">{ t('room.meeting.join_meeting_automatically') }</p>
-                </Col>
-                <Col className="col-2">
-                  <Spinner className="float-end" />
-                </Col>
-              </Row>
-            </div>
-          ) : (
-            <>
-              <label htmlFor="join-name" className="small text-muted d-block"> Name
-                <input
-                  type="text"
-                  id="join-name"
-                  placeholder="Enter your name"
-                  className="form-control"
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                />
-              </label>
-              {publicRoom.data?.viewer_access_code
-                && (
-                  <div className="mt-2">
-                    <label htmlFor="access-code" className="small text-muted d-block">
-                      { t('room.settings.access_code') }
-                      <input
-                        type="text"
-                        id="access-code"
-                        placeholder="Enter the access code"
-                        className="form-control"
-                        value={accessCode}
-                        onChange={(event) => setAccessCode(event.target.value)}
-                      />
-                    </label>
-                    {
-                      (roomStatusAPI.isError)
-                      && (
-                        <p className="text-danger"> { t('room.settings.wrong_access_code') } </p>
-                      )
-                    }
-                  </div>
-                )}
-              {(!(publicRoom.data?.viewer_access_code) && publicRoom.data?.moderator_access_code)
-                && (
-                  <div className="mt-2">
-                    <label htmlFor="access-code" className="small text-muted d-block">
-                      { t('room.settings.mod_access_code_optional') }
-                      <input
-                        type="text"
-                        id="access-code"
-                        placeholder="Enter the access code"
-                        className="form-control"
-                        value={accessCode}
-                        onChange={(event) => setAccessCode(event.target.value)}
-                      />
-                    </label>
-                    {
-                      (roomStatusAPI.isError)
-                      && (
-                        <p className="text-danger"> { t('room.settings.wrong_access_code') } </p>
-                      )
-                    }
-                  </div>
-                )}
+          {(roomStatusAPI.isSuccess && !roomStatusAPI.data.status) ? WaitingPage : (
+            <Form methods={methods} onSubmit={handleJoin}>
+              <FormControl field={fields.name} type="text" disabled={currentUser?.signed_in} autoFocus={!currentUser?.signed_in} />
+              {hasAccessCode && <FormControl field={fields.accessCode} type="text" autoFocus={currentUser?.signed_in} />}
               <Button
                 variant="brand"
                 className="mt-3 d-block float-end"
-                onClick={handleJoin}
+                type="submit"
                 disabled={publicRoom.isFetching || roomStatusAPI.isLoading}
               >
                 { t('room.meeting.join_meeting') }
                 {roomStatusAPI.isLoading && <Spinner />}
               </Button>
-            </>
+            </Form>
           )}
         </Card.Footer>
       </Card>
