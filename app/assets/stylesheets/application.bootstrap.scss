@@ -283,14 +283,17 @@ input.search-bar {
 //Logo
 .small-logo {
   max-width: 200px;
+  max-height: $header-height;
 }
 
 .medium-logo {
   max-width: 300px;
+  max-height: 150px;
 }
 
 .large-logo {
   max-width: 400px;
+  max-height: 200px;
 }
 
 /********** Range Input Styles **********/
