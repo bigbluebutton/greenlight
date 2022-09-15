@@ -16,8 +16,6 @@ module Api
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
 
-      after_action :access_code_checker, only: :create
-
       # GET /api/v1/rooms.json
       def index
         # Return the rooms that belong to current user
@@ -58,6 +56,7 @@ module Api
         return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         if @new_room.save
+          access_code_checker
           logger.info "room(friendly_id):#{@new_room.friendly_id} created for user(id):#{@new_room.user_id}"
           render_data status: :created
         else
@@ -108,7 +107,7 @@ module Api
         params.require(:room).permit(:name, :user_id, :presentation)
       end
 
-      # Generates an access code on room create if the access code room configuration is enabled
+      # Generates an access code on rooms#create if the access code room configuration is enabled
       def access_code_checker
         access_code_settings = RoomSettingsGetter.new(
           room_id: @new_room.id,
