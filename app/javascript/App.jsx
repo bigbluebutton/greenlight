@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import Header from './components/shared_components/Header';
 import { useAuth } from './contexts/auth/AuthProvider';
 import Footer from './components/shared_components/Footer';
-import useSiteSettingAsync from './hooks/queries/site_settings/useSiteSettingAsync';
+import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
 
 export default function App() {
   const currentUser = useAuth();
@@ -19,8 +19,8 @@ export default function App() {
   }, [currentUser?.language]);
 
   // Greenlight V3 brand-color theming
-  const { isLoading, data: brandColor } = useSiteSettingAsync('PrimaryColor');
-  const { data: brandColorLight } = useSiteSettingAsync('PrimaryColorLight');
+  const { isLoading, data: brandColor } = useSiteSetting('PrimaryColor');
+  const { data: brandColorLight } = useSiteSetting('PrimaryColorLight');
   document.documentElement.style.setProperty('--brand-color', brandColor);
   document.documentElement.style.setProperty('--brand-color-light', brandColorLight);
 

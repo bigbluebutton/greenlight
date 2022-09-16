@@ -1,11 +1,11 @@
 import React from 'react';
 import { Stack } from 'react-bootstrap';
 import BrandColorPopover from './BrandColorPopover';
-import useSiteSettingAsync from '../../../../hooks/queries/site_settings/useSiteSettingAsync';
+import useSiteSetting from '../../../../hooks/queries/site_settings/useSiteSetting';
 
 export default function BrandColor() {
-  const { data: brandColor } = useSiteSettingAsync('PrimaryColor');
-  const { data: brandColorLight } = useSiteSettingAsync('PrimaryColorLight');
+  const { data: brandColor } = useSiteSetting('PrimaryColor');
+  const { data: brandColorLight } = useSiteSetting('PrimaryColorLight');
 
   return (
     <div className="mb-3">
