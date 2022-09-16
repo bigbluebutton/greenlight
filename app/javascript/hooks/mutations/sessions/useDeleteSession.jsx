@@ -1,15 +1,18 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import axios from '../../../helpers/Axios';
 
 export default function useDeleteSession() {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   return useMutation(
     () => axios.delete('/sessions/signout.json'),
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries('useSessions');
+      onSuccess: async () => {
+        await queryClient.refetchQueries('useSessions');
+        navigate('/');
         toast.success('Logged out');
       },
       onError: () => {

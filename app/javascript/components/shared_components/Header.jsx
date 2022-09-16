@@ -45,7 +45,7 @@ export default function Header() {
             }
             <NavDropdown.Item as={Link} to="/">Need help?</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item as={Link} to="/" onClick={deleteSession.mutate}>Sign Out</NavDropdown.Item>
+            <NavDropdown.Item onClick={deleteSession.mutate}>Sign Out</NavDropdown.Item>
           </NavDropdown>
         </div>
       </Container>

@@ -23,7 +23,7 @@ export default function HomePage() {
         navigate('/home');
       }
     },
-    [],
+    [currentUser.signed_in],
   );
 
   if (isLoading) return <Spinner />;
