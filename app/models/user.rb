@@ -27,7 +27,7 @@ class User < ApplicationRecord
 
   validates :password,
             presence: true,
-            format: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(\W|_)).{8,}\z/,
+            format: %r{\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[`@%~!#£$\\^&*()\]\[+={}/|:;"'<>\-,.?_ ]).{8,}\z},
             confirmation: true,
             on: :create, unless: :external_id?
 
