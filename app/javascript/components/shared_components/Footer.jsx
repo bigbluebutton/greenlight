@@ -13,7 +13,7 @@ export default function Footer() {
   return (
     <footer id="footer" className="footer background-whitesmoke text-center py-2">
       <span className="text-muted">Powered by </span>
-      <a href="https://bigbluebutton.org/2018/07/09/greenlight-2-0/" target="_blank" rel="noreferrer">Greenlight</a>
+      <a href="https://docs.bigbluebutton.org/greenlight_v3/gl3-install.html" target="_blank" rel="noreferrer">Greenlight</a>
       <span className="text-muted"> {env.VERSION_TAG}</span>
       { terms
         && (
