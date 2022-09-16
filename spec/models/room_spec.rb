@@ -85,7 +85,6 @@ RSpec.describe Room, type: :model do
     end
   end
 
-
   context 'instance methods' do
     describe '#anyone_joins_as_moderator?' do
       let!(:room) { create(:room) }
