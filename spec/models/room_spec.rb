@@ -54,15 +54,37 @@ RSpec.describe Room, type: :model do
     end
   end
 
-  describe 'after_create' do
-    describe 'create_meeting_options' do
-      it 'creates a RoomMeetingOption for each MeetingOption' do
-        create_list(:meeting_option, 5)
+  describe 'create_meeting_options' do
+    let!(:meeting_option) { create(:meeting_option, name: 'glViewerAccessCode', default_value: '') }
 
-        expect { create(:room) }.to change(RoomMeetingOption, :count).from(0).to(5)
+    before do
+      create_list(:meeting_option, 5)
+    end
+
+    it 'creates a RoomMeetingOption for each MeetingOption' do
+      room = create(:room)
+      expect { room.create_meeting_options('greenlight') }.to change(RoomMeetingOption, :count).from(0).to(6)
+    end
+
+    it 'does not generate an access code if the room config is not enabled' do
+      room = create(:room)
+      room.create_meeting_options('greenlight')
+      expect(RoomMeetingOption.find_by(meeting_option:).value).to eql('')
+    end
+
+    context 'when access code room config is enabled' do
+      before do
+        create(:rooms_configuration, provider: 'greenlight', value: 'true', meeting_option:)
+      end
+
+      it 'creates a room with a generated access codes' do
+        room = create(:room)
+        room.create_meeting_options('greenlight')
+        expect(RoomMeetingOption.find_by(meeting_option:).value).not_to eql('')
       end
     end
   end
+
 
   context 'instance methods' do
     describe '#anyone_joins_as_moderator?' do

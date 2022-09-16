@@ -51,13 +51,13 @@ module Api
       def create
         # TODO: amir - ensure accessibility for authenticated requests only.
         # The created room will be the current user's unless a user_id param is provided with the request.
-        @new_room = Room.create(name: room_params[:name], user_id: room_params[:user_id])
+        room = Room.create(name: room_params[:name], user_id: room_params[:user_id])
 
         return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
-        if @new_room.save
-          generate_access_code
-          logger.info "room(friendly_id):#{@new_room.friendly_id} created for user(id):#{@new_room.user_id}"
+        if room.save
+          room.create_meeting_options(current_provider)
+          logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
           render_data status: :created
         else
           render_error status: :bad_request
@@ -105,23 +105,6 @@ module Api
 
       def room_params
         params.require(:room).permit(:name, :user_id, :presentation)
-      end
-
-      # Generates an access code on rooms#create if the access code room configuration is enabled
-      def generate_access_code
-        access_code_settings = RoomSettingsGetter.new(
-          room_id: @new_room.id,
-          provider: current_provider,
-          current_user:,
-          show_codes: false,
-          settings: %w[glViewerAccessCode glModeratorAccessCode]
-        ).call
-
-        access_code_settings.each do |access_code_setting|
-          RoomMeetingOption.joins(:meeting_option)
-                           .where(room: @new_room, meeting_option: { name: access_code_setting })
-                           .update(value: SecureRandom.alphanumeric(6).downcase)
-        end
       end
     end
   end

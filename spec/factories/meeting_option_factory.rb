@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :meeting_option do
-    name { Faker::Vehicle.unique.make }
+    name { Faker::Address.unique.street_address }
     default_value { [true, false, '12345'].sample }
   end
 end
