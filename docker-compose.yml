@@ -23,6 +23,8 @@ services:
 # When using postgresql as the database
     links:
       - db
+# When using mailhog for local mail delivery testing
+#      - mailhog
 
   cron:
     <<: *greenlight
@@ -46,3 +48,11 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
+
+# When testing mail delivery locally
+#  mailhog:
+#    container_name: greenlight-mailhog
+#    image: mailhog/mailhog:v1.0.1
+#    ports:
+#      - "1025:1025"
+#      - "8025:8025"
