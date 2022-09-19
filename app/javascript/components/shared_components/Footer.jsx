@@ -1,9 +1,11 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import useEnv from '../../hooks/queries/env/useEnv';
 import Spinner from './utilities/Spinner';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 
 export default function Footer() {
+  const { t } = useTranslation();
   const { isLoading, data: env } = useEnv();
   const { data: terms } = useSiteSetting('Terms');
   const { data: privacyPolicy } = useSiteSetting('PrivacyPolicy');
@@ -12,21 +14,21 @@ export default function Footer() {
 
   return (
     <footer id="footer" className="footer background-whitesmoke text-center py-2">
-      <span className="text-muted">Powered by </span>
+      <span className="text-muted"> { t('powered_by') }</span>
       <a href="https://docs.bigbluebutton.org/greenlight_v3/gl3-install.html" target="_blank" rel="noreferrer">Greenlight</a>
       <span className="text-muted"> {env.VERSION_TAG}</span>
       { terms
         && (
         <>
           <span> | </span>
-          <a href={terms} target="_blank" rel="noreferrer">Terms</a>
+          <a href={terms} target="_blank" rel="noreferrer">{ t('admin.site_settings.administration.terms') }</a>
         </>
         )}
       { privacyPolicy
         && (
         <>
           <span> | </span>
-          <a href={privacyPolicy} target="_blank" rel="noreferrer">Privacy Policy</a>
+          <a href={privacyPolicy} target="_blank" rel="noreferrer">{ t('admin.site_settings.administration.privacy_policy') }</a>
         </>
         )}
     </footer>

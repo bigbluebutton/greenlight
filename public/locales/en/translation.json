@@ -12,6 +12,8 @@
   "delete": "Delete",
   "copy": "Copy",
   "or": "Or",
+  "need_help": "Need help?",
+  "powered_by": "Powered by",
 
   "homepage": {
     "welcome_bbb": "Welcome to BigBlueButton.",
@@ -21,6 +23,7 @@
   "authentication": {
     "sign_in": "Sign In",
     "sign_up": "Sign Up",
+    "sign_out": "Sign Out",
     "email": "Email",
     "password": "Password",
     "confirm_password": "Confirm Password",
@@ -120,6 +123,7 @@
   },
 
   "admin": {
+    "admin_panel": "Admin Panel",
     "manage_users": {
       "manage_users": "Manage Users",
       "active": "Active",
@@ -159,8 +163,9 @@
       },
       "administration": {
         "administration": "Administration",
-        "terms": "terms",
-        "privacy": "privacy",
+        "terms": "Terms",
+        "privacy": "Privacy",
+        "privacy_policy": "Privacy Policy",
         "change_term_links": "Change the terms links that appears at the bottom of the page",
         "change_privacy_link": "Change the privacy link that appears at the bottom of the page",
         "change_url": "Change URL",
@@ -210,7 +215,8 @@
       "guest": "Guest",
       "manage_roles": "Manage Roles",
       "enter_role_name": "Enter a role name",
-      "create_role": "Create Role"
+      "create_role": "+ Create Role",
+      "create_new_role": "Create a new role"
     }
   },
   "toast": {
