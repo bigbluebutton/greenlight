@@ -4,12 +4,14 @@ import {
   Button, InputGroup,
 } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import Form from '../../../../shared_components/forms/Form';
 import { RegistrationFormFields, RegistrationFormConfig } from '../../../../../helpers/forms/RegistrationFormHelpers';
 import Spinner from '../../../../shared_components/utilities/Spinner';
 import FormControlGeneric from '../../../../shared_components/forms/FormControlGeneric';
 
 export default function RegistrationForm({ value, mutation: useUpdateSiteSettingsAPI }) {
+  const { t } = useTranslation();
   const updateSiteSettingsAPI = useUpdateSiteSettingsAPI();
 
   const { defaultValues } = RegistrationFormConfig;
@@ -26,7 +28,7 @@ export default function RegistrationForm({ value, mutation: useUpdateSiteSetting
           type="text"
         />
         <Button id="RegistrationForm-submit-btn" variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
-          Update
+          { t('update') }
           {updateSiteSettingsAPI.isLoading && <Spinner />}
         </Button>
       </InputGroup>

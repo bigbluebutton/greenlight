@@ -1,18 +1,21 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import ManageUserRow from './ManageUserRow';
 
 export default function ManageUsersTable({ users }) {
+  const { t } = useTranslation();
+
   return (
     <div id="admin-table">
       <Table className="table-bordered border border-2 mb-0" hover>
         <thead>
           <tr className="text-muted small">
-            <th className="fw-normal border-end-0">Name</th>
-            <th className="fw-normal border-0">User Name</th>
-            <th className="fw-normal border-0">Authenticator</th>
-            <th className="fw-normal border-0">Role</th>
+            <th className="fw-normal border-end-0">{ t('user.name') }</th>
+            <th className="fw-normal border-0">{ t('user.email_address') }</th>
+            <th className="fw-normal border-0">{ t('user.authenticator') }</th>
+            <th className="fw-normal border-0">{ t('user.role') }</th>
             <th className="border-start-0" aria-label="options" />
           </tr>
         </thead>
@@ -24,7 +27,7 @@ export default function ManageUsersTable({ users }) {
             : (
               <tr>
                 <td className="fw-bold">
-                  No users found!
+                  { t('user.no_user_found') }
                 </td>
               </tr>
             )}

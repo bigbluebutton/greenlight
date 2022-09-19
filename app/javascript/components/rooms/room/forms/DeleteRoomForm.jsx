@@ -11,7 +11,7 @@ import Spinner from '../../../shared_components/utilities/Spinner';
 export default function DeleteRoomForm({ mutation: useDeleteRoomAPI, handleClose }) {
   const { t } = useTranslation();
   const deleteRoomAPI = useDeleteRoomAPI({ onSettled: handleClose });
-  const methods = useForm();+
+  const methods = useForm();
 
   return (
     <>

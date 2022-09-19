@@ -6,11 +6,13 @@ import PropTypes from 'prop-types';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
 import { Stack } from 'react-bootstrap';
 import tinycolor from 'tinycolor2';
+import { useTranslation } from 'react-i18next';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 
 export default function BrandColorPopover({
   name, btnName, btnVariant, initialColor,
 }) {
+  const { t } = useTranslation();
   const updatePrimaryColor = useUpdateSiteSetting('PrimaryColor');
   const updateLightColor = useUpdateSiteSetting('PrimaryColorLight');
 
@@ -55,8 +57,8 @@ export default function BrandColorPopover({
               <div className="color-preview" style={{ background: initialColor }} />
               <div className="color-preview" style={{ background: color }} />
               <Stack direction="horizontal" className="mt-2 pb-2 float-end">
-                <Button variant="brand-backward" className="me-2" onClick={handleCancel}> Cancel </Button>
-                <Button variant="brand" onClick={handleSave}> Save </Button>
+                <Button variant="brand-backward" className="me-2" onClick={handleCancel}> { t('cancel') } </Button>
+                <Button variant="brand" onClick={handleSave}> { t('save') } </Button>
               </Stack>
             </div>
           </div>

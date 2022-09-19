@@ -2,8 +2,10 @@
   "start": "Start",
   "search": "Search",
   "previous": "Previous",
+  "back": "Back",
   "next": "Next",
   "view": "View",
+  "join": "Join",
   "edit": "Edit",
   "save_changes": "Save Changes",
   "update": "Update",
@@ -43,8 +45,8 @@
     "users": "Users",
     "name": "Name",
     "email_address": "Email Address",
+    "authenticator": "Authenticator",
     "full_name": "Full Name",
-    "user_name": "User Name",
     "no_user_found": "No user found.",
     "profile": {
       "profile": "Profile",
@@ -143,27 +145,40 @@
   },
 
   "admin": {
-    "admin_panel": "Admin Panel",
+    "admin_panel": "Administrator Panel",
     "manage_users": {
       "manage_users": "Manage Users",
       "active": "Active",
       "pending": "Pending",
       "banned": "Banned",
       "deleted": "Deleted",
-      "authenticator": "Authenticator",
       "new_user": "New User",
+      "add_new_user": "+ New User",
+      "create_new_user": "Create New User",
+      "edit_user": "Edit User",
+      "delete_user": "Delete User",
+      "users_edit_path": "Users/Edit",
       "create_account": "Create Account",
+      "create_room": "Create Room",
+      "create_new_room": "Create New Room",
+      "user_created_at": "Created: {{user.created_at}}",
       "enter_email": "Enter the email",
-      "enter_name": "Enter the name"
+      "enter_name": "Enter the name",
+      "are_you_sure_delete_account": "Are you sure you want to delete {{user.name}}'s account?",
+      "delete_account_warning": "If you choose to delete this account, it will NOT be recoverable."
     },
     "server_rooms": {
       "server_rooms": "Server Rooms",
+      "name": "Name",
       "owner": "Owner",
       "room_id": "Room ID",
       "participants": "Participants",
       "status": "Status",
       "not_running": "Not Running",
-      "active": "Active"
+      "active": "Active",
+      "current_session": "Current Session: {{lastSession}}",
+      "last_session": "Last Session: {{lastSession}}",
+      "no_meeting_yet": "No meeting yet."
     },
     "server_recordings": {
       "server_recordings": "Server Recordings",
@@ -179,7 +194,10 @@
         "brand_color": "Brand Color",
         "regular": "Regular",
         "lighten": "Lighten",
-        "brand_image": "Brand Image"
+        "brand_image": "Brand Image",
+        "click_to_upload": "Click to Upload",
+        "drag_and_drop": "or drag and drop",
+        "upload_brand_image_description": "Upload any PNG, JPG, or SVG file. Depending on the size of the presentation, it may require additional time to upload before it can be used"
       },
       "administration": {
         "administration": "Administration",
@@ -236,15 +254,14 @@
       "manage_roles": "Manage Roles",
       "enter_role_name": "Enter a role name",
       "create_role": "+ Create Role",
-      "create_new_role": "Create a new role"
+      "create_new_role": "Create a new role",
+      "no_role_found": "No role found."
     }
   },
   "toast": {
     "success": {
       "meeting_started": "Meeting started.",
       "access_code_copied": "Access Code Copied."
-
-
     },
     "error": {
       "problem_completing_action": "There was a problem completing that action. \n Please try again.",

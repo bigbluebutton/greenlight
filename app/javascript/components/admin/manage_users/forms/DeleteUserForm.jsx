@@ -4,28 +4,30 @@ import {
   Button, Stack,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import Form
   from '../../../shared_components/forms/Form';
 import useDeleteUser from '../../../../hooks/mutations/admin/manage_users/useDeleteUser';
 import Spinner from '../../../shared_components/utilities/Spinner';
 
 export default function DeleteUserForm({ user, handleClose }) {
+  const { t } = useTranslation();
   const methods = useForm();
   const deleteUser = useDeleteUser(user.id);
 
   return (
     <>
-      <p className="text-center"> Are you sure you want to delete {user.name}&rsquo;s account?
+      <p className="text-center"> { t('admin.manage_users.are_you_sure_delete_account', { user }) }
         <br />
-        If you choose to delete this account, it will NOT be recoverable.
+        { t('admin.manage_users.delete_account_warning') }
       </p>
       <Form methods={methods} onSubmit={deleteUser.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="brand-backward" onClick={handleClose}>
-            Close
+            { t('close') }
           </Button>
           <Button variant="danger" type="submit" disabled={deleteUser.isLoading}>
-            Delete
+            { t('delete') }
             { deleteUser.isLoading && <Spinner /> }
           </Button>
         </Stack>

@@ -17,7 +17,7 @@ export default function Profile() {
 
   return (
     <div id="profile">
-      <h3 className="py-5"> { t('users.profile.profile') } </h3>
+      <h3 className="py-5"> { t('user.profile.profile') } </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container id="profile-wrapper" defaultActiveKey="first">
           <Row>
@@ -27,19 +27,19 @@ export default function Profile() {
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer text-muted" eventKey="first">
                       <UserIcon className="hi-s text-muted me-3 pb-1" />
-                      { t('users.account.account_info') }
+                      { t('user.account.account_info') }
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer text-muted" eventKey="third">
                       <LockClosedIcon className="hi-s text-muted me-3 pb-1" />
-                      { t('users.account.change_password') }
+                      { t('user.account.change_password') }
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer text-muted" eventKey="second">
                       <TrashIcon className="hi-s text-muted me-3 pb-1" />
-                      { t('users.account.delete_account') }
+                      { t('user.account.delete_account') }
                     </Nav.Link>
                   </Nav.Item>
                 </Nav>

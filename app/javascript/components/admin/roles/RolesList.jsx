@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import RoleRow from './RoleRow';
 import SortBy from '../../shared_components/search/SortBy';
 import Spinner from '../../shared_components/utilities/Spinner';
 
 export default function RolesList({ roles, isLoading }) {
+  const { t } = useTranslation();
+
   return (
     <Table hover bordered className="text-secondary mb-0 recordings-list">
       <thead>
         <tr className="text-muted small">
-          <th className="fw-normal">Role <SortBy fieldName="name" /></th>
+          <th className="fw-normal">{ t('admin.roles.role') }<SortBy fieldName="name" /></th>
         </tr>
       </thead>
       <tbody className="border-top-0">
@@ -26,7 +29,7 @@ export default function RolesList({ roles, isLoading }) {
               : (
                 <tr>
                   <td className="fw-bold">
-                    No Roles found!
+                    { t('admin.roles.no_role_found') }
                   </td>
                 </tr>
               )

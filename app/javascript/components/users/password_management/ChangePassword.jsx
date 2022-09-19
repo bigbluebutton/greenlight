@@ -9,7 +9,7 @@ export default function ChangePassword() {
   return (
     <>
       <Row>
-        <h3 className="mb-4"> { t('user.profile.change_password')} </h3>
+        <h3 className="mb-4"> { t('user.account.change_password')} </h3>
       </Row>
       <Row>
         <ChangePwdForm />

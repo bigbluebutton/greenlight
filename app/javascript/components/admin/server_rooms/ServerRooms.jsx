@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import {
   Col, Container, Row, Tab, Table,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import useServerRooms from '../../../hooks/queries/admin/server_rooms/useServerRooms';
 import ServerRoomRow from './ServerRoomRow';
 import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
@@ -10,13 +11,14 @@ import AdminNavSideBar from '../AdminNavSideBar';
 import Pagination from '../../shared_components/Pagination';
 
 export default function ServerRooms() {
+  const { t } = useTranslation();
   const [input, setInput] = useState();
   const [page, setPage] = useState();
   const { isLoading, data: serverRooms } = useServerRooms(input, page);
 
   return (
     <div id="admin-panel">
-      <h3 className="py-5"> Administrator Panel </h3>
+      <h3 className="py-5"> { t('admin.administrator_panel') } </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="server-rooms">
           <Row>
@@ -29,18 +31,18 @@ export default function ServerRooms() {
               <Tab.Content className="p-0">
                 <Container className="admin-table p-0">
                   <div className="p-4 border-bottom">
-                    <h3> Server Rooms </h3>
+                    <h3> { t('admin.server_rooms.server_rooms') } </h3>
                   </div>
                   <div className="p-4">
                     <SearchBarQuery setInput={setInput} />
                     <Table className="table-bordered border border-2 mt-4 mb-0" hover>
                       <thead>
                         <tr className="text-muted small">
-                          <th className="fw-normal border-end-0">Name</th>
-                          <th className="fw-normal border-0">Owner</th>
-                          <th className="fw-normal border-0">ID</th>
-                          <th className="fw-normal border-0">Participants</th>
-                          <th className="fw-normal border-0">Status</th>
+                          <th className="fw-normal border-end-0">{ t('admin.server_rooms.name') }</th>
+                          <th className="fw-normal border-0">{ t('admin.server_rooms.owner') }</th>
+                          <th className="fw-normal border-0">{ t('admin.server_rooms.room_id') }</th>
+                          <th className="fw-normal border-0">{ t('admin.server_rooms.participants') }</th>
+                          <th className="fw-normal border-0">{ t('admin.server_rooms.status') }</th>
                           <th className="border-start-0" aria-label="options" />
                         </tr>
                       </thead>
@@ -52,7 +54,7 @@ export default function ServerRooms() {
                           : (
                             <tr>
                               <td className="fw-bold">
-                                No recordings found!
+                                { t('recording.no_recording_found') }
                               </td>
                             </tr>
                           )}

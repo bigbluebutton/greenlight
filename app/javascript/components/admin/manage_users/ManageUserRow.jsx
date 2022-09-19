@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import {
   DotsVerticalIcon, HomeIcon, PencilAltIcon, TrashIcon,
 } from '@heroicons/react/outline';
+import { useTranslation } from 'react-i18next';
 import Avatar from '../../users/user/Avatar';
 import Modal from '../../shared_components/modals/Modal';
 import CreateRoomForm from '../../rooms/room/forms/CreateRoomForm';
@@ -15,6 +16,7 @@ import DeleteUserForm from './forms/DeleteUserForm';
 import RolePill from '../roles/RolePill';
 
 export default function ManageUserRow({ user }) {
+  const { t } = useTranslation();
   const mutationWrapper = (args) => useCreateServerRoom({ userId: user.id, ...args });
 
   return (
@@ -26,7 +28,7 @@ export default function ManageUserRow({ user }) {
           </div>
           <Stack>
             <strong> {user.name} </strong>
-            <span className="small text-muted"> Created: {user.created_at} </span>
+            <span className="small text-muted"> { t('admin.manage_users.user_create_at', { user }) }</span>
           </Stack>
         </Stack>
       </td>
@@ -41,13 +43,13 @@ export default function ManageUserRow({ user }) {
               <NavDropdown title={<DotsVerticalIcon className="hi-s text-muted" />} id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to={`/admin/edit_user/${user.id}`}><PencilAltIcon className="hi-s" /> Edit</NavDropdown.Item>
                 <Modal
-                  modalButton={<NavDropdown.Item><TrashIcon className="hi-s" /> Delete</NavDropdown.Item>}
-                  title="Delete User"
+                  modalButton={<NavDropdown.Item><TrashIcon className="hi-s" />{ t('delete') }</NavDropdown.Item>}
+                  title={t('admin.manage_users.delete_user')}
                   body={<DeleteUserForm user={user} />}
                 />
                 <Modal
-                  modalButton={<NavDropdown.Item><HomeIcon className="hi-s" /> Create Room</NavDropdown.Item>}
-                  title="Create New Room"
+                  modalButton={<NavDropdown.Item><HomeIcon className="hi-s" />{ t('admin.manage_users.create_room') }</NavDropdown.Item>}
+                  title={t('admin.manage_users.create_new_room')}
                   body={<CreateRoomForm mutation={mutationWrapper} userId={user.id} />}
                 />
               </NavDropdown>

@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import {
   Col, Row, Tab, Container,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import AdminNavSideBar from '../AdminNavSideBar';
 import RoomConfigRow from './RoomConfigRow';
 import useUpdateRoomConfig from '../../../hooks/mutations/admin/room_configuration/useUpdateRoomConfig';
@@ -10,11 +11,12 @@ import useRoomConfigs from '../../../hooks/queries/admin/room_configuration/useR
 import Spinner from '../../shared_components/utilities/Spinner';
 
 export default function RoomConfig() {
+  const { t } = useTranslation();
   const { data: roomConfigs, isLoading } = useRoomConfigs();
 
   return (
     <div id="admin-panel">
-      <h3 className="py-5"> Administrator Panel </h3>
+      <h3 className="py-5"> { t('admin.admin_panel') } </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="room-configuration">
           <Row>
@@ -27,7 +29,7 @@ export default function RoomConfig() {
               <Tab.Content className="p-0">
                 <Container className="p-0">
                   <div className="p-4 border-bottom">
-                    <h3> Room Configuration </h3>
+                    <h3> { t('admin.room_configuration.room_configuration') } </h3>
                   </div>
                   <div className="p-4">
                     {
@@ -36,56 +38,50 @@ export default function RoomConfig() {
                         : (
                           <>
                             <RoomConfigRow
-                              title="Allow room to be recorded"
-                              subtitle="Allows room owners to specify whether they want the option to record a room or not.
-                                  If enabled, the moderator must still click the “Record button once the meeting has started."
+                              title={t('admin.room_configuration.configurations.allow_room_to_be_recorded')}
+                              subtitle={t('admin.room_configuration.configurations.allow_room_to_be_recorded_description')}
                               mutation={() => useUpdateRoomConfig('record')}
                               value={roomConfigs.record}
                             />
                             <RoomConfigRow
-                              title="Require users to be signed in before joining"
-                              subtitle="Only allows users with a Greenlight account to join the meeting. If they are not signed in,
-                                    they will be redirected to the login page when attempting to join a room."
+                              title={t('admin.room_configuration.configurations.require_user_signed_in')}
+                              subtitle={t('admin.room_configuration.configurations.require_user_signed_in_description')}
                               mutation={() => useUpdateRoomConfig('glRequireAuthentication')}
                               value={roomConfigs.glRequireAuthentication}
                             />
                             <RoomConfigRow
-                              title="Require moderator approval before joining"
-                              subtitle="Prompts the moderator of the BigBlueButton meeting when a user tries to join.
-                                  If the user is approved, they will be able to join the meeting."
+                              title={t('admin.room_configuration.configurations.require_mod_approval')}
+                              subtitle={t('admin.room_configuration.configurations.require_mod_approval_description')}
                               mutation={() => useUpdateRoomConfig('guestPolicy')}
                               value={roomConfigs.guestPolicy}
                             />
                             <RoomConfigRow
-                              title="Allow any user to start this meeting"
-                              subtitle="Allow any user to start the meeting at any time.
-                                  By default, only the room owner can start the meeting."
+                              title={t('admin.room_configuration.configurations.allow_any_user_to_start_meeting')}
+                              subtitle={t('admin.room_configuration.configurations.allow_any_user_to_start_meeting_description')}
                               mutation={() => useUpdateRoomConfig('glAnyoneCanStart')}
                               value={roomConfigs.glAnyoneCanStart}
                             />
                             <RoomConfigRow
-                              title="Allow users join as moderators"
-                              subtitle="Gives all users moderator priviledge in BigBlueButton when they join the meeting"
+                              title={t('admin.room_configuration.configurations.allow_users_to_join_as_mods')}
+                              subtitle={t('admin.room_configuration.configurations.allow_users_to_join_as_mods_description')}
                               mutation={() => useUpdateRoomConfig('glAnyoneJoinAsModerator')}
                               value={roomConfigs.glAnyoneJoinAsModerator}
                             />
                             <RoomConfigRow
-                              title="Mute user when they join"
-                              subtitle="Automatically mutes the user when they join the BigBlueButtonMeeting"
+                              title={t('admin.room_configuration.configurations.mute_users_on_join')}
+                              subtitle={t('admin.room_configuration.configurations.mute_users_on_join_description')}
                               mutation={() => useUpdateRoomConfig('muteOnStart')}
                               value={roomConfigs.muteOnStart}
                             />
                             <RoomConfigRow
-                              title="Viewer Access code"
-                              subtitle="Allows room owners to have a random alphanumeric code that can be shared with users.
-                                The code **if generated** will be required for users to join the room meetings."
+                              title={t('admin.room_configuration.configurations.viewer_access_code')}
+                              subtitle={t('admin.room_configuration.configurations.viewer_access_code_description')}
                               mutation={() => useUpdateRoomConfig('glViewerAccessCode')}
                               value={roomConfigs.glViewerAccessCode}
                             />
                             <RoomConfigRow
-                              title="Moderator access code"
-                              subtitle="Allows room owners to have a random alphanumeric code that can be shared with users.
-                                The code **if generated** will not be required and when used on any room meeting will join the user as a moderator."
+                              title={t('admin.room_configuration.configurations.mod_access_code')}
+                              subtitle={t('admin.room_configuration.configurations.mod_access_code_description')}
                               mutation={() => useUpdateRoomConfig('glModeratorAccessCode')}
                               value={roomConfigs.glModeratorAccessCode}
                             />
