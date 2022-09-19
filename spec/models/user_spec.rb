@@ -22,6 +22,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_uniqueness_of(:email).scoped_to(:provider).case_insensitive }
     it { is_expected.to validate_uniqueness_of(:reset_digest) }
     it { is_expected.to validate_uniqueness_of(:activation_digest) }
+    it { is_expected.to validate_presence_of(:password).on(:create) }
 
     context 'password complexity' do
       it 'passes if there is atleast 1 capital, 1 lowercase, 1 number, 1 symbol' do
@@ -47,6 +48,38 @@ RSpec.describe User, type: :model do
       it 'fails if there is no numbers' do
         user = build(:user, password: 'Password!')
         expect(user).to be_invalid
+      end
+
+      context 'update' do
+        context 'password changed' do
+          it 'fails if new password is invalid' do
+            user = create(:user)
+
+            user.update(name: 'TOUCHED', password: 'INVALID')
+            expect(user).to be_invalid
+            expect(user.reload.name).not_to eq('TOUCHED')
+            expect(user.authenticate('INVALID')).not_to be_truthy
+          end
+
+          it 'passes if new password is valid' do
+            user = create(:user)
+
+            user.update(name: 'TOUCHED', password: 'Password1!')
+            expect(user).to be_valid
+            expect(user.reload.name).to eq('TOUCHED')
+            expect(user.authenticate('Password1!')).to be_truthy
+          end
+        end
+
+        context 'password unchanged' do
+          it 'does not validate password' do
+            user = create(:user)
+
+            user.update(name: 'TOUCHED')
+            expect(user).to be_valid
+            expect(user.reload.name).to eq('TOUCHED')
+          end
+        end
       end
     end
 

@@ -27,9 +27,12 @@ class User < ApplicationRecord
 
   validates :password,
             presence: true,
+            on: :create, unless: :external_id?
+
+  validates :password,
             format: %r{\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[`@%~!#£$\\^&*()\]\[+={}/|:;"'<>\-,.?_ ]).{8,}\z},
             confirmation: true,
-            on: :create, unless: :external_id?
+            on: %i[create update], if: :password_digest_changed?, unless: :external_id?
 
   # TODO: samuel - ActiveStorage validations needs to be discussed and implemented.
   validate :avatar_validation
