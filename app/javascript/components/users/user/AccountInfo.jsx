@@ -1,14 +1,17 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import SetAvatar from './SetAvatar';
 import UpdateUserForm from './forms/UpdateUserForm';
 
 export default function AccountInfo({ user }) {
+  const { t } = useTranslation();
+
   return (
     <Row>
       <Col>
-        <h3 className="mb-4"> Update Your Account Info </h3>
+        <h3 className="mb-4"> { t('user.account.update_account_info') } </h3>
         <UpdateUserForm user={user} />
       </Col>
       <Col>

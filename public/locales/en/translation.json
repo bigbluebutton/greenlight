@@ -9,7 +9,9 @@
   "update": "Update",
   "cancel": "Cancel",
   "close": "Close",
+  "delete": "Delete",
   "copy": "Copy",
+  "or": "Or",
 
   "homepage": {
     "welcome_bbb": "Welcome to BigBlueButton.",
@@ -26,32 +28,38 @@
     "enter_name": "Enter your name",
     "remember_me": "Remember Me",
     "forgot_password": "Forgot password?",
-    "dont_have_an_account": "Don't have an account?",
-    "create_account": "Create an Account",
-    "already_have_an_account": "Already have an account?"
+    "dont_have_account": "Don't have an account?",
+    "create_an_account": "Create an Account",
+    "already_have_account": "Already have an account?"
   },
 
-  "users": {
+  "user": {
     "user": "User",
     "users": "Users",
     "name": "Name",
     "full_name": "Full Name",
     "user_name": "User Name",
-    "language": "Language",
-    "role": "Role",
-    "administrator": "Administrator",
-    "guest": "Guest",
     "profile": {
+      "profile": "Profile",
+      "language": "Language",
+      "role": "Role",
+      "administrator": "Administrator",
+      "guest": "Guest"
+    },
+    "account": {
       "account_info": "Account Info",
-      "update_account_info": "Update Your Account Info",
       "delete_account": "Delete Account",
       "change_password": "Change Password",
+      "reset_password": "Reset Password",
+      "update_account_info": "Update Your Account Info",
       "current_password": "Current Password",
       "new_password": "New Password",
       "confirm_password": "Confirm Password",
       "permanently_delete_account": "Permanently Delete Your Account",
-      "delete_account_description": "If you choose to delete your account, it will NOT be recoverable. All information regarding your account, including settings, rooms, and recordings will be removed.",
-      "delete_account_confirmation": "Yes, I would like to delete my account"
+      "delete_account_description": "If you choose to delete your account, it will NOT be recoverable. \n All information regarding your account, including settings, rooms, and recordings will be removed.",
+      "delete_account_confirmation": "Yes, I would like to delete my account",
+      "are_you_sure_warning": "Are you sure?",
+      "are_you_sure_delete_account": "Are you sure you want to delete your account?"
     },
     "avatar": {
       "upload_avatar": "Upload Avatar",
@@ -195,7 +203,6 @@
         "mod_access_code_description": "Allows room owners to have a random alphanumeric code that can be shared with users. The code, if generated, will not be required and when used on any room meeting will join the user as a moderator."
       }
     },
-
     "roles": {
       "role": "Role",
       "roles": "Roles",
@@ -204,6 +211,14 @@
       "manage_roles": "Manage Roles",
       "enter_role_name": "Enter a role name",
       "create_role": "Create Role"
+    }
+  },
+  "toast": {
+    "success": {
+
+    },
+    "error": {
+      "problem_completing_action": "There was a problem completing that action. \n Please try again."
     }
   }
 }

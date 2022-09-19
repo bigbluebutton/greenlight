@@ -1,12 +1,15 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import ChangePwdForm from './forms/ChangePwdForm';
 
 export default function ChangePassword() {
+  const { t } = useTranslation();
+
   return (
     <>
       <Row>
-        <h3 className="mb-4"> Change Password </h3>
+        <h3 className="mb-4"> { t('user.profile.change_password')} </h3>
       </Row>
       <Row>
         <ChangePwdForm />

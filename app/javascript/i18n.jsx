@@ -6,7 +6,13 @@ i18next
   .use(initReactI18next)
   .use(HttpApi)
   .init({
+    debug: true,
     fallbackLng: 'en',
+    backend: {
+      requestOptions: {
+        cache: 'no-store', // TODO - samuel: i18n will sometime use the cache translation
+      },
+    },
     interpolation: {
       escapeValue: false,
     },
