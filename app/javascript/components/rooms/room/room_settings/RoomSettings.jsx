@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
+import { useTranslation } from 'react-i18next';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import useRoomSettings from '../../../../hooks/queries/rooms/useRoomSettings';
 import useDeleteRoom from '../../../../hooks/mutations/rooms/useDeleteRoom';
@@ -15,6 +16,7 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import UpdateRoomNameForm from './forms/UpdateRoomNameForm';
 
 export default function RoomSettings() {
+  const { t } = useTranslation();
   const currentUser = useAuth();
   const { friendlyId } = useParams();
   const roomSetting = useRoomSettings(friendlyId);
@@ -37,25 +39,25 @@ export default function RoomSettings() {
                 updateMutation={updateMutationWrapper}
                 code={roomSetting.data.glViewerAccessCode}
                 config={roomsConfigs.data.glViewerAccessCode}
-                description="Generate access code for viewers"
+                description={t('room.settings.generate_viewers_access_code')}
               />
               <AccessCodeRow
                 settingName="glModeratorAccessCode"
                 updateMutation={updateMutationWrapper}
                 code={roomSetting.data.glModeratorAccessCode}
                 config={roomsConfigs.data.glModeratorAccessCode}
-                description="Generate access code for moderators"
+                description={t('room.settings.generate_mods_access_code')}
               />
             </Col>
             <Col className="ps-4">
-              <Row> <h6 className="text-brand">User Settings</h6> </Row>
+              <Row> <h6 className="text-brand">{ t('room.settings.user_settings') }</h6> </Row>
               {(currentUser.permissions.CanRecord === 'true') && (
                 <RoomSettingsRow
                   settingName="record"
                   updateMutation={updateMutationWrapper}
                   value={roomSetting.data.record}
                   config={roomsConfigs.data.record}
-                  description="Allow room to be recorded"
+                  description={t('room.settings.allow_room_to_be_recorded')}
                 />
               )}
               <RoomSettingsRow
@@ -63,42 +65,42 @@ export default function RoomSettings() {
                 updateMutation={updateMutationWrapper}
                 value={roomSetting.data.glRequireAuthentication}
                 config={roomsConfigs.data.glRequireAuthentication}
-                description="Require users to be signed in before joining"
+                description={t('room.settings.require_signed_in')}
               />
               <RoomSettingsRow
                 settingName="guestPolicy"
                 updateMutation={updateMutationWrapper}
                 value={roomSetting.data.guestPolicy}
                 config={roomsConfigs.data.guestPolicy}
-                description="Require moderator approval before joining"
+                description={t('room.settings.require_mod_approval')}
               />
               <RoomSettingsRow
                 settingName="glAnyoneCanStart"
                 updateMutation={updateMutationWrapper}
                 value={roomSetting.data.glAnyoneCanStart}
                 config={roomsConfigs.data.glAnyoneCanStart}
-                description="Allow any user to start this meeting"
+                description={t('room.settings.allow_any_user_to_start')}
               />
               <RoomSettingsRow
                 settingName="glAnyoneJoinAsModerator"
                 updateMutation={updateMutationWrapper}
                 value={roomSetting.data.glAnyoneJoinAsModerator}
                 config={roomsConfigs.data.glAnyoneJoinAsModerator}
-                description="All users join as moderators"
+                description={t('room.settings.all_users_join_as_mods')}
               />
               <RoomSettingsRow
                 settingName="muteOnStart"
                 updateMutation={updateMutationWrapper}
                 value={roomSetting.data.muteOnStart}
                 config={roomsConfigs.data.muteOnStart}
-                description="Mute users when they join"
+                description={t('room.settings.mute_users_on_join')}
               />
             </Col>
           </Row>
           <Row className="float-end">
             <Modal
-              modalButton={<Button variant="brand-backward" className="mt-1 mx-2 float-end">Delete Room</Button>}
-              title="Delete Room"
+              modalButton={<Button variant="brand-backward" className="mt-1 mx-2 float-end">{ t('room.delete_room') }</Button>}
+              title={t('room.delete_room')}
               body={<DeleteRoomForm mutation={deleteMutationWrapper} />}
             />
           </Row>

@@ -7,12 +7,14 @@ import {
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import useShareAccess from '../../../../../hooks/mutations/shared_accesses/useShareAccess';
 import Avatar from '../../../../users/user/Avatar';
 import SearchBarQuery from '../../../../shared_components/search/SearchBarQuery';
 import useShareableUsers from '../../../../../hooks/queries/shared_accesses/useShareableUsers';
 
 export default function SharedAccessForm({ handleClose }) {
+  const { t } = useTranslation();
   const { register, handleSubmit } = useForm();
   const { friendlyId } = useParams();
   const { onSubmit } = useShareAccess({ friendlyId, closeModal: handleClose });
@@ -27,8 +29,8 @@ export default function SharedAccessForm({ handleClose }) {
         <Table hover className="text-secondary my-3">
           <thead>
             <tr className="text-muted small">
-              <th className="fw-normal w-50">Name</th>
-              <th className="fw-normal w-50">Email address</th>
+              <th className="fw-normal w-50">{ t('user.name') }</th>
+              <th className="fw-normal w-50">{ t('user.email_address') }</th>
             </tr>
           </thead>
           <tbody className="border-top-0">
@@ -56,16 +58,16 @@ export default function SharedAccessForm({ handleClose }) {
                 ))
               )
               : (
-                <tr className="fw-bold"><td>No user found!</td><td /></tr>
+                <tr className="fw-bold"><td>{ t('user.no_user_found') }</td><td /></tr>
               )}
           </tbody>
         </Table>
         <Stack className="mt-3" direction="horizontal" gap={1}>
           <Button variant="brand-backward" className="ms-auto" onClick={handleClose}>
-            Close
+            { t('close') }
           </Button>
           <Button variant="brand" type="submit">
-            Share
+            { t('share') }
           </Button>
         </Stack>
       </Form>

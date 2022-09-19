@@ -5,6 +5,7 @@ import {
 import PropTypes from 'prop-types';
 import { TrashIcon } from '@heroicons/react/outline';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Modal from '../../../shared_components/modals/Modal';
 import SharedAccessForm from './forms/SharedAccessForm';
 import Avatar from '../../../users/user/Avatar';
@@ -13,6 +14,7 @@ import useDeleteSharedAccess from '../../../../hooks/mutations/shared_accesses/u
 import Spinner from '../../../shared_components/utilities/Spinner';
 
 export default function SharedAccessList({ users, isLoading }) {
+  const { t } = useTranslation();
   const [search, setSearch] = useState('');
   const { friendlyId } = useParams();
   const { handleDeleteSharedAccess } = useDeleteSharedAccess(friendlyId);
@@ -26,8 +28,8 @@ export default function SharedAccessList({ users, isLoading }) {
           <SearchBar setSearch={setSearch} className="w-100" />
         </div>
         <Modal
-          modalButton={<Button variant="brand-backward" className="ms-auto">+ Share Access</Button>}
-          title="Share Room Access"
+          modalButton={<Button variant="brand-backward" className="ms-auto">{ t('room.shared_access.add_share_access') }</Button>}
+          title={t('room.shared_access.share_room_access')}
           body={<SharedAccessForm />}
           size="lg"
           id="shared-access-modal"
@@ -38,10 +40,10 @@ export default function SharedAccessList({ users, isLoading }) {
         <Card.Body>
           <Row className="border-bottom pb-2">
             <Col>
-              <span className="text-muted small"> Name </span>
+              <span className="text-muted small">{ t('user.name') }</span>
             </Col>
             <Col>
-              <span className="text-muted small"> Email address </span>
+              <span className="text-muted small">{ t('user.email_address') }</span>
             </Col>
           </Row>
           {

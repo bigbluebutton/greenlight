@@ -3,19 +3,21 @@ import PropTypes from 'prop-types';
 import { Button, Row, Stack } from 'react-bootstrap';
 import { TrashIcon, DuplicateIcon, RefreshIcon } from '@heroicons/react/outline';
 import { toast } from 'react-hot-toast';
-
-// TODO: Extract this into a shared helper function.
-const copyAccessCode = (code) => {
-  navigator.clipboard.writeText(code);
-  toast.success('Copied');
-};
+import { useTranslation } from 'react-i18next';
 
 export default function AccessCodeRow({
   settingName, description, code, updateMutation: useUpdateAPI, config,
 }) {
+  const { t } = useTranslation();
   const updateAPI = useUpdateAPI();
   const handleGenerateCode = () => updateAPI.mutate({ settingName, settingValue: true });
   const handleDeleteCode = () => updateAPI.mutate({ settingName, settingValue: false });
+
+  // TODO: Extract this into a shared helper function.
+  const copyAccessCode = (copiedCode) => {
+    navigator.clipboard.writeText(copiedCode);
+    toast.success(t('room.settings.access_code_copied'));
+  };
 
   if (config === 'false') {
     return null;
@@ -61,7 +63,7 @@ export default function AccessCodeRow({
                 variant="brand-backward"
                 onClick={handleGenerateCode}
               >
-                Generate
+                { t('room.settings.generate') }
               </Button>
             </div>
           )

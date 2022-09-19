@@ -6,10 +6,12 @@ import {
 } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import useRoom from '../../../../../hooks/queries/rooms/useRoom';
 import useUpdateRoom from '../../../../../hooks/mutations/rooms/useUpdateRoom';
 
 export default function UpdateRoomNameForm({ friendlyId }) {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -19,7 +21,7 @@ export default function UpdateRoomNameForm({ friendlyId }) {
 
   return (
     <Row>
-      <h6 className="text-brand">Room Name</h6>
+      <h6 className="text-brand">{ t('room.room_name') }</h6>
       <Form onSubmit={handleSubmit(updateRoom.mutate)}>
         <Stack direction="horizontal">
           <Form.Control type="text" defaultValue={room.name} {...register('room.name', { minLength: 2, maxLength: 255 })} />

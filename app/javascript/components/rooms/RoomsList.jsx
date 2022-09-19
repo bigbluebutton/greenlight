@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Row, Col, Button, Stack,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import Spinner from '../shared_components/utilities/Spinner';
 import RoomCard from './RoomCard';
 import useRooms from '../../hooks/queries/rooms/useRooms';
@@ -13,6 +14,7 @@ import SearchBar from '../shared_components/search/SearchBar';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function RoomsList() {
+  const { t } = useTranslation();
   const { isLoading, data: rooms } = useRooms();
   const [search, setSearch] = useState('');
   const currentUser = useAuth();
@@ -27,7 +29,7 @@ export default function RoomsList() {
           <SearchBar id="rooms-search" setSearch={setSearch} />
         </div>
         <Modal
-          modalButton={<Button variant="brand" className="ms-auto">+ New Room </Button>}
+          modalButton={<Button variant="brand" className="ms-auto">{ t('room.add_new_room') }</Button>}
           title="Create New Room"
           body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
         />
