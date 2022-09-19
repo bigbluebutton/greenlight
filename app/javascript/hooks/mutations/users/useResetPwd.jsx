@@ -9,8 +9,8 @@ export default function useResetPwd() {
   return useMutation(
     (user) => axios.post('/reset_password/reset.json', { user }),
     {
-      onSuccess: (data) => {
-        console.info(data);
+      onSuccess: () => {
+        toast.success('Password updated');
         navigate('/signin');
       },
       onError: () => {

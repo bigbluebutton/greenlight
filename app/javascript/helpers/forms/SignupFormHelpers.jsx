@@ -15,7 +15,7 @@ const validationSchema = yup.object({
     .test('oneUpper', '- One uppercase letter.', (pwd) => pwd.match(/[A-Z]/))
     .test('oneDigit', '- One digit.', (pwd) => pwd.match(/\d/))
     .test('oneSymbol', '- One symbol.', (pwd) => pwd.match(/[`@%~!#£$\\^&*()\][+={}/|:;"'<>\-,.?_ ]/)),
-  password_confirmation: yup.string().required('').oneOf([yup.ref('new_password')], 'Your passwords do not match.'),
+  password_confirmation: yup.string().required('').oneOf([yup.ref('password')], 'Your passwords do not match.'),
 });
 
 export const signupFormConfig = {

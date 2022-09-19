@@ -13,7 +13,6 @@ export default function ResetPwdForm({ token }) {
 
   resetPwdFormConfig.defaultValues.token = token;
   const methods = useForm(resetPwdFormConfig);
-  const { isSubmitting } = methods.formState;
   const fields = resetPwdFormFields;
 
   return (
@@ -22,9 +21,9 @@ export default function ResetPwdForm({ token }) {
       <FormControl field={fields.password_confirmation} type="password" />
 
       <Stack className="mt-1" gap={1}>
-        <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={isSubmitting}>
+        <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={resetPwd.isLoading}>
           Change Password
-          {isSubmitting && <Spinner />}
+          {resetPwd.isLoading && <Spinner />}
         </Button>
       </Stack>
     </Form>
