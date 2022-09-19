@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import ProcessingRecordingRow from './ProcessingRecordingRow';
 import SortBy from '../shared_components/search/SortBy';
 import Spinner from '../shared_components/utilities/Spinner';
@@ -8,15 +9,17 @@ import Spinner from '../shared_components/utilities/Spinner';
 export default function RecordingsList({
   recordings, RecordingRow, recordingsProcessing, isLoading,
 }) {
+  const { t } = useTranslation();
+
   return (
     <Table hover className="table-bordered border-1 text-secondary mb-0 recordings-list">
       <thead>
         <tr className="text-muted small">
-          <th className="fw-normal border-end-0">Name <SortBy fieldName="name" /></th>
-          <th className="fw-normal border-0">Length <SortBy fieldName="length" /></th>
-          <th className="fw-normal border-0">Users</th>
-          <th className="fw-normal border-0">Visibility <SortBy fieldName="visibility" /></th>
-          <th className="fw-normal border-0">Formats</th>
+          <th className="fw-normal border-end-0">{ t('recording.name') }<SortBy fieldName="name" /></th>
+          <th className="fw-normal border-0">{ t('recording.length') }<SortBy fieldName="length" /></th>
+          <th className="fw-normal border-0">{ t('recording.users') }</th>
+          <th className="fw-normal border-0">{ t('recording.visibility') }<SortBy fieldName="visibility" /></th>
+          <th className="fw-normal border-0">{ t('recording.formats') }</th>
           <th className="border-start-0" aria-label="options" />
         </tr>
       </thead>
@@ -29,7 +32,7 @@ export default function RecordingsList({
           : (
             <tr>
               <td className="fw-bold" colSpan="6">
-                No recordings found!
+                { t('recording.no_recording_found') }
               </td>
             </tr>
           ))}
