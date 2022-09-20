@@ -16,6 +16,7 @@ class Room < ApplicationRecord
   validates :meeting_id, presence: true, uniqueness: true
 
   before_validation :set_friendly_id, :set_meeting_id, on: :create
+  after_create :create_meeting_options
 
   attr_accessor :shared, :active, :participants
 
@@ -37,16 +38,12 @@ class Room < ApplicationRecord
   end
 
   # Autocreate all meeting options using the default values
-  def create_meeting_options(provider)
-    rooms_configs = MeetingOption.joins(:rooms_configurations)
-                                 .where(rooms_configurations: { provider: })
-                                 .where(rooms_configurations: { value: 'true' })
-                                 .pluck(:name, :value)
-                                 .to_h
-                                 .slice('glViewerAccessCode', 'glModeratorAccessCode')
+  def create_meeting_options
+    configs = MeetingOption.get_config_value(name: %w[glViewerAccessCode glModeratorAccessCode], provider: user.provider)
+    configs = configs.select { |_k, v| v == 'true' }
 
     MeetingOption.all.find_each do |option|
-      value = rooms_configs.key?(option.name) ? SecureRandom.alphanumeric(6).downcase : option.default_value
+      value = configs.key?(option.name) ? SecureRandom.alphanumeric(6).downcase : option.default_value
       RoomMeetingOption.create(room: self, meeting_option: option, value:)
     end
   end

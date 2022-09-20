@@ -62,13 +62,11 @@ RSpec.describe Room, type: :model do
     end
 
     it 'creates a RoomMeetingOption for each MeetingOption' do
-      room = create(:room)
-      expect { room.create_meeting_options('greenlight') }.to change(RoomMeetingOption, :count).from(0).to(6)
+      expect { create(:room) }.to change(RoomMeetingOption, :count).from(0).to(6)
     end
 
     it 'does not generate an access code if the room config is not enabled' do
-      room = create(:room)
-      room.create_meeting_options('greenlight')
+      create(:room)
       expect(RoomMeetingOption.find_by(meeting_option:).value).to eql('')
     end
 
@@ -77,10 +75,20 @@ RSpec.describe Room, type: :model do
         create(:rooms_configuration, provider: 'greenlight', value: 'true', meeting_option:)
       end
 
-      it 'creates a room with a generated access codes' do
-        room = create(:room)
-        room.create_meeting_options('greenlight')
+      it 'creates a room and generates an access code' do
+        create(:room)
         expect(RoomMeetingOption.find_by(meeting_option:).value).not_to eql('')
+      end
+    end
+
+    context 'when access code room config is optional' do
+      before do
+        create(:rooms_configuration, provider: 'greenlight', value: 'optional', meeting_option:)
+      end
+
+      it 'does not generate an access code' do
+        create(:room)
+        expect(RoomMeetingOption.find_by(meeting_option:).value).to eql('')
       end
     end
   end

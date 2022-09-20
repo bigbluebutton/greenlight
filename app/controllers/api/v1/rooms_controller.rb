@@ -56,7 +56,6 @@ module Api
         return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         if room.save
-          room.create_meeting_options(current_provider)
           logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
           render_data status: :created
         else
