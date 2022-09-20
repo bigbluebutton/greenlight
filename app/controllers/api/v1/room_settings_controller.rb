@@ -15,15 +15,17 @@ module Api
 
       # PATCH /api/v1/room_settings/:friendly_id
       def update
-        config = MeetingOption.get_config_value(name: room_setting_params[:settingName], provider: current_provider)&.value
-        return render_error status: :bad_request unless config
-
         name = room_setting_params[:settingName]
         value = room_setting_params[:settingValue].to_s
 
+        config = MeetingOption.get_config_value(name:, provider: current_provider)
+        config_value = config[name]
+
+        return render_error status: :bad_request unless config_value
+
         is_access_code = %w[glViewerAccessCode glModeratorAccessCode].include? name
 
-        return render_error status: :forbidden unless config == 'optional' || (config == 'true' && is_access_code && value != 'false')
+        return render_error status: :forbidden unless config_value == 'optional' || (config_value == 'true' && is_access_code && value != 'false')
 
         value = infer_access_code(value:) if is_access_code # Handling access code update.
 
