@@ -22,7 +22,10 @@ module Api
 
         token = user.generate_reset_token!
 
-        render_data data: { token: }, status: :ok # TODO: enable reset email sending.
+        UserMailer.with(user:, expires_in: User::RESET_TOKEN_VALIDITY_PERIOD.from_now,
+                        reset_url: reset_password_url(token)).reset_password_email.deliver_later
+
+        render_data status: :ok
       end
 
       # POST /api/v1/reset_password/reset.json
@@ -64,6 +67,10 @@ module Api
 
         @user = User.verify_reset_token(token)
         render_error status: :forbidden unless @user
+      end
+
+      def reset_password_url(token)
+        "#{root_url}reset_password/#{token}" # Client side reset password url.
       end
     end
   end

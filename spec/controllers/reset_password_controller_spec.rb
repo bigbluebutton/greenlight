@@ -18,8 +18,9 @@ RSpec.describe Api::V1::ResetPasswordController, type: :controller do
       allow_any_instance_of(User).to receive(:generate_reset_token!).and_return(token)
 
       post :create, params: { user: { email: 'test@greenlight.com' } }
+      # TODO: Test email delivery.
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']).to eq({ 'token' => token })
+      expect(JSON.parse(response.body)['data']).to be_empty
     end
 
     it 'returns :bad_request for invalid params' do
