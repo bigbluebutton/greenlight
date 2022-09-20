@@ -3,11 +3,14 @@ import { Button, Stack, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import AvatarEditor from 'react-avatar-editor';
 import { PhotographIcon } from '@heroicons/react/outline';
+import { useTranslation } from 'react-i18next';
 import DeleteAvatarForm from './forms/DeleteAvatarForm';
 import Avatar from './Avatar';
 import useCreateAvatar from '../../../hooks/mutations/users/useCreateAvatar';
 
 export default function SetAvatar({ user }) {
+  const { t } = useTranslation();
+
   const createAvatar = useCreateAvatar(user);
 
   // Use styled button instead of the default HTML input upload button
@@ -56,7 +59,7 @@ export default function SetAvatar({ user }) {
 
       <Modal show={show} onHide={handleClose} centered contentClassName="border-0 shadow-sm">
         <Modal.Header closeButton>
-          <Modal.Title>Crop your Avatar</Modal.Title>
+          <Modal.Title>{ t('user.avatar.crop_avatar') }</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="text-center">
@@ -87,10 +90,10 @@ export default function SetAvatar({ user }) {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="brand-backward" onClick={handleClose}>
-            Close
+            { t('close') }
           </Button>
           <Button variant="brand" onClick={handleSave}>
-            Save Changes
+            { t('save_changes') }
           </Button>
         </Modal.Footer>
       </Modal>

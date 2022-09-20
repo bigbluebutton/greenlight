@@ -1,9 +1,11 @@
 import React from 'react';
 import { Stack } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import BrandColorPopover from './BrandColorPopover';
 import useSiteSetting from '../../../../hooks/queries/site_settings/useSiteSetting';
 
 export default function BrandColor() {
+  const { t } = useTranslation();
   const { data: brandColor } = useSiteSetting('PrimaryColor');
   const { data: brandColorLight } = useSiteSetting('PrimaryColorLight');
 
@@ -13,13 +15,13 @@ export default function BrandColor() {
       <Stack direction="horizontal">
         <BrandColorPopover
           name="PrimaryColor"
-          btnName="Regular"
+          btnName={t('admin.site_settings.appearance.regular')}
           btnVariant="brand"
           initialColor={brandColor}
         />
         <BrandColorPopover
           name="PrimaryColorLight"
-          btnName="Lighten"
+          btnName={t('admin.site_settings.appearance.lighten')}
           btnVariant="brand-light"
           initialColor={brandColorLight}
         />

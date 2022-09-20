@@ -4,17 +4,20 @@ import {
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function AdminNavSideBar() {
+  const { t } = useTranslation();
   const currentUser = useAuth();
+
   return (
     <Nav variant="pills" className="flex-column">
       {(currentUser.permissions.ManageUsers === 'true') && (
       <Nav.Item>
         <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/users" eventKey="users">
           <UsersIcon className="hi-s me-3" />
-          Manage Users
+          { t('admin.manage_users.manage_users') }
         </Nav.Link>
       </Nav.Item>
       )}
@@ -22,7 +25,7 @@ export default function AdminNavSideBar() {
         <Nav.Item>
           <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/server-rooms" eventKey="server-rooms">
             <ServerIcon className="hi-s me-3" />
-            Server Rooms
+            { t('admin.server_rooms.server_rooms') }
           </Nav.Link>
         </Nav.Item>
       )}
@@ -30,7 +33,7 @@ export default function AdminNavSideBar() {
         <Nav.Item>
           <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/server-recordings" eventKey="server-recordings">
             <VideoCameraIcon className="hi-s me-3" />
-            Server Recordings
+            { t('admin.server_recordings.server_recordings') }
           </Nav.Link>
         </Nav.Item>
       )}
@@ -39,13 +42,13 @@ export default function AdminNavSideBar() {
           <Nav.Item>
             <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/site-settings" eventKey="site-settings">
               <CogIcon className="hi-s me-3" />
-              Site Settings
+              { t('admin.site_settings.site_settings') }
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/room-configuration" eventKey="room-configuration">
               <AdjustmentsIcon className="hi-s me-3" />
-              Room Configuration
+              { t('admin.room_configuration.room_configuration') }
             </Nav.Link>
           </Nav.Item>
         </>
@@ -54,7 +57,7 @@ export default function AdminNavSideBar() {
         <Nav.Item>
           <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/roles" eventKey="roles">
             <IdentificationIcon className="hi-s me-3" />
-            Roles
+            { t('admin.roles.roles') }
           </Nav.Link>
         </Nav.Item>
       )}

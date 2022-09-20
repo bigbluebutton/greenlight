@@ -1,9 +1,11 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSiteSettings';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import SettingsRow from './SettingsRow';
 
 export default function Settings() {
+  const { t } = useTranslation();
   const { isLoading, data: siteSettings } = useSiteSettings();
 
   if (isLoading) return <Spinner />;
@@ -12,22 +14,20 @@ export default function Settings() {
     <>
       <SettingsRow
         name="ShareRooms"
-        title="Allow Users to Share Rooms"
+        title={t('admin.site_settings.settings.allow_users_to_share_rooms')}
         description={(
           <p className="text-muted">
-            Setting to disbaled will remove the button from the room options <br />
-            dropdown, preventing users from sharing rooms
+            { t('admin.site_settings.settings.allow_users_to_share_rooms_description') }
           </p>
       )}
         value={siteSettings.ShareRooms}
       />
       <SettingsRow
         name="PreuploadPresentation"
-        title="Allow Users to Preupload Presentations"
+        title={t('admin.site_settings.settings.allow_users_to_preupload_presentation')}
         description={(
           <p className="text-muted">
-            Users can preupload a presentation to be used as the default <br />
-            presentation for that specific room
+            {t('admin.site_settings.settings.allow_users_to_preupload_presentation_description')}
           </p>
       )}
         value={siteSettings.PreuploadPresentation}

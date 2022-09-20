@@ -4,6 +4,7 @@ import {
   Col, Nav, Row, Tab,
 } from 'react-bootstrap';
 import { TrashIcon, UserIcon, LockClosedIcon } from '@heroicons/react/outline';
+import { useTranslation } from 'react-i18next';
 import DeleteAccount from './DeleteAccount';
 import AccountInfo from './AccountInfo';
 import ChangePassword from '../password_management/ChangePassword';
@@ -12,9 +13,11 @@ import { useAuth } from '../../../contexts/auth/AuthProvider';
 export default function Profile() {
   const currentUser = useAuth();
 
+  const { t } = useTranslation();
+
   return (
     <div id="profile">
-      <h3 className="py-5"> Profile </h3>
+      <h3 className="py-5"> { t('user.profile.profile') } </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container id="profile-wrapper" defaultActiveKey="first">
           <Row>
@@ -24,19 +27,19 @@ export default function Profile() {
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer text-muted" eventKey="first">
                       <UserIcon className="hi-s text-muted me-3 pb-1" />
-                      Account Info
+                      { t('user.account.account_info') }
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer text-muted" eventKey="third">
                       <LockClosedIcon className="hi-s text-muted me-3 pb-1" />
-                      Change Password
+                      { t('user.account.change_password') }
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer text-muted" eventKey="second">
                       <TrashIcon className="hi-s text-muted me-3 pb-1" />
-                      Delete Account
+                      { t('user.account.delete_account') }
                     </Nav.Link>
                   </Nav.Item>
                 </Nav>

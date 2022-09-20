@@ -3,6 +3,7 @@ import { Button, Container, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import FormControl from '../../../shared_components/forms/FormControl';
 import Form from '../../../shared_components/forms/Form';
 import { signupFormConfig, signupFormFields } from '../../../../helpers/forms/SignupFormHelpers';
@@ -11,6 +12,7 @@ import useCreateUser from '../../../../hooks/mutations/users/useCreateUser';
 import useEnv from '../../../../hooks/queries/env/useEnv';
 
 export default function SignupForm() {
+  const { t } = useTranslation();
   const methods = useForm(signupFormConfig);
   const [token, setToken] = useState('');
   const { onSubmit: createUser } = useCreateUser(token);
@@ -22,11 +24,11 @@ export default function SignupForm() {
   if (isLoading) return <Spinner />;
 
   const onError = () => {
-    toast.error('There was a problem completing that action. \n Please try again.');
+    toast.error(t('toast.error.problem_completing_action'));
   };
 
   const onExpire = () => {
-    toast.error('There was a problem completing that action. \n Please try again.');
+    toast.error(t('toast.error.problem_completing_action'));
   };
 
   return (
@@ -56,7 +58,7 @@ export default function SignupForm() {
         )}
       <Stack className="mt-1" gap={1}>
         <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={isSubmitting}>
-          Create account
+          { t('authentication.create_account') }
           { isSubmitting && <Spinner /> }
         </Button>
       </Stack>

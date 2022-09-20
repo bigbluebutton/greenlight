@@ -5,12 +5,14 @@ import {
 } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowCircleLeftIcon } from '@heroicons/react/outline';
+import { useTranslation } from 'react-i18next';
 import AdminNavSideBar from '../AdminNavSideBar';
 import AccountInfo from '../../users/user/AccountInfo';
 import useUser from '../../../hooks/queries/users/useUser';
 import Spinner from '../../shared_components/utilities/Spinner';
 
 export default function EditUser() {
+  const { t } = useTranslation();
   const { userId } = useParams();
   const { isLoading, data: user } = useUser(userId);
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ export default function EditUser() {
 
   return (
     <div id="admin-panel">
-      <h3 className="py-5"> Administrator Panel </h3>
+      <h3 className="py-5"> { t('admin.admin_panel') } </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activekey="users">
           <Container className="admin-table">
@@ -32,12 +34,12 @@ export default function EditUser() {
               <Col sm={9}>
                 <Row className="mb-4">
                   <Stack direction="horizontal" className="w-100 mt-4">
-                    <h3 className="mb-0">Edit User</h3>
+                    <h3 className="mb-0">{ t('admin.manage_users.edit_user')}</h3>
                     <div className="ms-auto cursor-pointer" aria-hidden="true" onClick={() => navigate('/admin/users')}>
-                      <ArrowCircleLeftIcon className="hi-s" /> Back
+                      <ArrowCircleLeftIcon className="hi-s" /> { t('back') }
                     </div>
                   </Stack>
-                  <span className="text-muted mb-4"> Users/Edit </span>
+                  <span className="text-muted mb-4">{ t('admin.manage_users.users_edit_path') }</span>
                   <hr className="solid" />
                 </Row>
                 <Row className="mb-4">

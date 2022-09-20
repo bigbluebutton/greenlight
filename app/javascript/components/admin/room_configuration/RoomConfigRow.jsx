@@ -4,6 +4,7 @@ import {
   Row, Stack, Form as BootStrapForm, Col,
 } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import FormControlGeneric from '../../shared_components/forms/FormControlGeneric';
 import Form from '../../shared_components/forms/Form';
 import { RoomConfigFormConfig, RoomConfigFormFields } from '../../../helpers/forms/RoomConfigFormHelpers';
@@ -11,6 +12,7 @@ import { RoomConfigFormConfig, RoomConfigFormFields } from '../../../helpers/for
 export default function RoomConfigRow({
   value, title, subtitle, mutation: useUpdateRoomConfig,
 }) {
+  const { t } = useTranslation();
   const fields = RoomConfigFormFields;
   const { defaultValues } = RoomConfigFormConfig;
   defaultValues.value = value;
@@ -29,9 +31,9 @@ export default function RoomConfigRow({
       <Col md="3">
         <Form className="mb-0 float-end" methods={methods} onChange={methods.handleSubmit(updateRoomConfig.mutate)}>
           <FormControlGeneric control={BootStrapForm.Select} field={fields.value} disabled={updateRoomConfig.isLoading}>
-            <option value="optional">Optional</option>
-            <option value="false">Disabled</option>
-            <option value="true">Enabled</option>
+            <option value="optional">{ t('admin.room_configuration.optional') }</option>
+            <option value="false">{ t('admin.room_configuration.disabled') }</option>
+            <option value="true">{ t('admin.room_configuration.enabled') }</option>
           </FormControlGeneric>
         </Form>
       </Col>

@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Button, Form as BootStrapForm, Stack } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { validationSchema, updateUserFormFields } from '../../../../helpers/forms/UpdateUserFormHelpers';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
@@ -12,6 +13,8 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
 
 export default function UpdateUserForm({ user }) {
+  const { t } = useTranslation();
+
   // TODO: Make LOCALES a context that provides the available languages and their native names in the client app.
   const LOCALES = {
     en: 'English',
@@ -68,7 +71,7 @@ export default function UpdateUserForm({ user }) {
           Cancel
         </Button>
         <Button variant="brand" type="submit" disabled={isSubmitting}>
-          Update
+          { t('update') }
           {
             isSubmitting && <Spinner />
           }

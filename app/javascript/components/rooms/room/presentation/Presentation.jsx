@@ -4,6 +4,7 @@ import {
 } from 'react-bootstrap';
 import { TrashIcon, CloudUploadIcon, DocumentIcon } from '@heroicons/react/outline';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Modal from '../../../shared_components/modals/Modal';
 import useUploadPresentation from '../../../../hooks/mutations/rooms/useUploadPresentation';
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
@@ -11,6 +12,7 @@ import DeletePresentationForm from './forms/DeletePresentationForm';
 import FilesDragAndDrop from '../../../shared_components/utilities/FilesDragAndDrop';
 
 export default function Presentation() {
+  const { t } = useTranslation();
   const { friendlyId } = useParams();
   const { data: room } = useRoom(friendlyId);
   const { onSubmit } = useUploadPresentation(friendlyId);
@@ -40,11 +42,10 @@ export default function Presentation() {
                 accept=".doc,.docx,.pptx,.txt,.png,.jpg,.pdf"
               />
               <Card.Title className="text-brand">
-                Click to Upload or drag and drop
+                { t('room.presentation.upload_drag_and_drop')}
               </Card.Title>
               <Card.Text>
-                Upload any office document or PDF file. Depending on the size of the
-                presentation, it may require additional time to upload before it can be used
+                { t('room.presentation.upload_description') }
               </Card.Text>
             </Card.Body>
           </label>
@@ -70,7 +71,7 @@ export default function Presentation() {
           <Col>
             <Modal
               modalButton={<TrashIcon className="cursor-pointer hi-s" />}
-              title="Are you sure?"
+              title={t('are_you_sure')}
               body={<DeletePresentationForm />}
             />
           </Col>

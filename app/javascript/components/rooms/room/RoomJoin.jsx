@@ -5,6 +5,7 @@ import {
   Button, Col, Row, Stack,
 } from 'react-bootstrap';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import usePublicRoom from '../../../hooks/queries/rooms/usePublicRoom';
 import Spinner from '../../shared_components/utilities/Spinner';
 import useRoomStatus from '../../../hooks/mutations/rooms/useRoomStatus';
@@ -13,6 +14,7 @@ import Logo from '../../shared_components/Logo';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function RoomJoin() {
+  const { t } = useTranslation();
   const currentUser = useAuth();
   const { friendlyId } = useParams();
 
@@ -46,7 +48,7 @@ export default function RoomJoin() {
     //  Logging the event for debugging purposes and refetching the join logic with the user's given input (name & codes).
     //  With a delay of 7s to give reasonable time for the meeting to fully start on the BBB server.
     if (hasStarted) {
-      toast.success('Meeting started.');
+      toast.success(t('toast.success.meeting_started'));
       console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting in 7s.`);
       setTimeout(handleJoin, 7000); // TODO: Improve this race condition handling by the backend.
     }
@@ -65,7 +67,7 @@ export default function RoomJoin() {
   if (publicRoom.isLoading) return <Spinner />;
 
   if (!currentUser.signed_in && publicRoom.data.require_authentication === 'true') {
-    toast.error('You must be signed in to join this room');
+    toast.error(t('toast.error.must_be_signed_in_to_join_room'));
     return <Navigate replace to="/" />;
   }
 
@@ -78,7 +80,7 @@ export default function RoomJoin() {
         <Card.Body className="p-4">
           <Row>
             <Stack>
-              <p className="text-muted mb-0">You have been invited to join</p>
+              <p className="text-muted mb-0">{ t('room.meeting.meeting_invitation') }</p>
               <h1>
                 {publicRoom.data.name}
                 {publicRoom.isFetching && <Spinner />}
@@ -91,8 +93,8 @@ export default function RoomJoin() {
             <div className="mt-3">
               <Row>
                 <Col className="col-10">
-                  <p className="mb-1">The meeting hasn&apos;t started yet</p>
-                  <p className="mb-0 text-muted">You will automatically join when the meeting starts</p>
+                  <p className="mb-1">{ t('room.meeting.meeting_not_started') }</p>
+                  <p className="mb-0 text-muted">{ t('room.meeting.join_meeting_automatically') }</p>
                 </Col>
                 <Col className="col-2">
                   <Spinner className="float-end" />
@@ -114,7 +116,8 @@ export default function RoomJoin() {
               {publicRoom.data?.viewer_access_code
                 && (
                   <div className="mt-2">
-                    <label htmlFor="access-code" className="small text-muted d-block"> Access Code
+                    <label htmlFor="access-code" className="small text-muted d-block">
+                      { t('room.settings.access_code') }
                       <input
                         type="text"
                         id="access-code"
@@ -127,7 +130,7 @@ export default function RoomJoin() {
                     {
                       (roomStatusAPI.isError)
                       && (
-                        <p className="text-danger"> Wrong access code. </p>
+                        <p className="text-danger"> { t('room.settings.wrong_access_code') } </p>
                       )
                     }
                   </div>
@@ -135,7 +138,8 @@ export default function RoomJoin() {
               {(!(publicRoom.data?.viewer_access_code) && publicRoom.data?.moderator_access_code)
                 && (
                   <div className="mt-2">
-                    <label htmlFor="access-code" className="small text-muted d-block"> Moderator Access Code (optional)
+                    <label htmlFor="access-code" className="small text-muted d-block">
+                      { t('room.settings.mod_access_code_optional') }
                       <input
                         type="text"
                         id="access-code"
@@ -148,7 +152,7 @@ export default function RoomJoin() {
                     {
                       (roomStatusAPI.isError)
                       && (
-                        <p className="text-danger"> Wrong access code. </p>
+                        <p className="text-danger"> { t('room.settings.wrong_access_code') } </p>
                       )
                     }
                   </div>
@@ -159,7 +163,7 @@ export default function RoomJoin() {
                 onClick={handleJoin}
                 disabled={publicRoom.isFetching || roomStatusAPI.isLoading}
               >
-                Join Session
+                { t('room.meeting.join_meeting') }
                 {roomStatusAPI.isLoading && <Spinner />}
               </Button>
             </>

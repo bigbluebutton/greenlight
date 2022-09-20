@@ -4,10 +4,12 @@ import {
   Button, Stack,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 
 export default function DeleteRoomForm({ mutation: useDeleteRoomAPI, handleClose }) {
+  const { t } = useTranslation();
   const deleteRoomAPI = useDeleteRoomAPI({ onSettled: handleClose });
   const methods = useForm();
 
@@ -17,10 +19,10 @@ export default function DeleteRoomForm({ mutation: useDeleteRoomAPI, handleClose
       <Form methods={methods} onSubmit={deleteRoomAPI.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="brand-backward" onClick={handleClose}>
-            Close
+            { t('close') }
           </Button>
           <Button variant="danger" type="submit" disabled={deleteRoomAPI.isLoading}>
-            Delete
+            { t('delete') }
             { deleteRoomAPI.isLoading && <Spinner /> }
           </Button>
         </Stack>

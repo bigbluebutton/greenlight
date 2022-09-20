@@ -3,6 +3,7 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { HomeIcon, DuplicateIcon } from '@heroicons/react/outline';
 import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import FeatureTabs from './FeatureTabs';
 import Spinner from '../../shared_components/utilities/Spinner';
 import useRoom from '../../../hooks/queries/rooms/useRoom';
@@ -14,6 +15,7 @@ function copyInvite() {
 }
 
 export default function Room() {
+  const { t } = useTranslation();
   const { friendlyId } = useParams();
   const { isLoading, data: room } = useRoom(friendlyId);
   const startMeeting = useStartMeeting(friendlyId);
@@ -35,12 +37,12 @@ export default function Room() {
         </Col>
         <Col>
           <Button variant="brand" className="mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
-            Start Meeting {' '}
+            { t('room.meeting.start_meeting') }
             {startMeeting.isLoading && <Spinner />}
           </Button>
           <Button variant="brand-backward" className="mt-1 mx-2 float-end" onClick={copyInvite}>
             <DuplicateIcon className="hi-xs" />
-            Copy
+            { t('copy') }
           </Button>
         </Col>
       </Row>

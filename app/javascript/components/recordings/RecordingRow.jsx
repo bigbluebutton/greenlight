@@ -10,6 +10,7 @@ import {
   Button, Stack, Dropdown,
 } from 'react-bootstrap';
 import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import Spinner from '../shared_components/utilities/Spinner';
 import UpdateRecordingForm from './forms/UpdateRecordingForm';
 import DeleteRecordingForm from './forms/DeleteRecordingForm';
@@ -19,6 +20,8 @@ import Modal from '../shared_components/modals/Modal';
 export default function RecordingRow({
   recording, visibilityMutation: useVisibilityAPI, updateMutation: useUpdateAPI, deleteMutation: useDeleteAPI,
 }) {
+  const { t } = useTranslation();
+
   function copyUrls() {
     const formatUrls = recording.formats.map((format) => format.url);
     navigator.clipboard.writeText(formatUrls);
@@ -58,7 +61,7 @@ export default function RecordingRow({
           </Stack>
         </Stack>
       </td>
-      <td className="border-0"> {recording.length}min</td>
+      <td className="border-0"> { t('recording.length_in_minutes', { recording }) } </td>
       <td className="border-0"> {recording.participants} </td>
       <td className="border-0">
         {/* TODO: Refactor this. */}
@@ -70,10 +73,10 @@ export default function RecordingRow({
           defaultValue={recording.visibility}
           disabled={visibilityAPI.isLoading}
         >
-          <option value="Published">Published</option>
-          <option value="Unpublished">Unpublished</option>
+          <option value="Published">{ t('recording.published') }</option>
+          <option value="Unpublished">{ t('recording.unpublished') }</option>
           {recording?.protectable === true
-            && <option value="Protected">Protected</option>}
+            && <option value="Protected">{ t('recording.protected') }</option>}
         </Form.Select>
       </td>
       <td className="border-0">
@@ -91,10 +94,10 @@ export default function RecordingRow({
         <Dropdown className="cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
           <Dropdown.Menu>
-            <Dropdown.Item onClick={() => copyUrls()}><DuplicateIcon className="hi-s" /> Copy Recording Url(s)</Dropdown.Item>
+            <Dropdown.Item onClick={() => copyUrls()}><DuplicateIcon className="hi-s" />{ t('recording.copy_recording_urls') }</Dropdown.Item>
             <Modal
-              modalButton={<Dropdown.Item><TrashIcon className="hi-s" /> Delete</Dropdown.Item>}
-              title="Are you sure?"
+              modalButton={<Dropdown.Item><TrashIcon className="hi-s" />{ t('delete') }</Dropdown.Item>}
+              title={t('are_you_sure')}
               body={(
                 <DeleteRecordingForm
                   mutation={useDeleteAPI}

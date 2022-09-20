@@ -1,15 +1,17 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { CloudUploadIcon } from '@heroicons/react/outline';
+import { useTranslation } from 'react-i18next';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 import FilesDragAndDrop from '../../../shared_components/utilities/FilesDragAndDrop';
 
 export default function BrandingImage() {
+  const { t } = useTranslation();
   const updateSiteSetting = useUpdateSiteSetting('BrandingImage');
 
   return (
     <div className="mb-3">
-      <h5> Branding Image </h5>
+      <h5> { t('admin.site_settings.appearance.brand_image') } </h5>
       <FilesDragAndDrop
         numOfFiles={1}
         onDrop={(files) => updateSiteSetting.mutate(files[0])}
@@ -29,11 +31,13 @@ export default function BrandingImage() {
                 accept=".jpg,.png,.svg"
               />
               <Card.Title className="text-brand">
-                Click to Upload <span className="fs-5 fw-normal text-muted"> or drag and drop </span>
+                { t('admin.site_settings.appearance.click_to_upload') }
+                <span className="fs-5 fw-normal text-muted">
+                  { t('admin.site_settings.appearance.drag_and_drop') }
+                </span>
               </Card.Title>
               <span className="text-muted">
-                Upload any PNG, JPG, or SVG file. Depending on the size of the
-                presentation, it may require additional time to upload before it can be used
+                { t('admin.site_settings.appearance.upload_brand_image_description') }
               </span>
             </Card.Body>
           </label>

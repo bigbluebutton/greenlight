@@ -4,6 +4,7 @@ import {
   Button, Stack,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import FormControl from '../../../shared_components/forms/FormControl';
@@ -11,6 +12,7 @@ import { createRoomFormConfig, createRoomFormFields } from '../../../../helpers/
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 
 export default function CreateRoomForm({ mutation: useCreateRoomAPI, userId, handleClose }) {
+  const { t } = useTranslation();
   const currentUser = useAuth();
   const createRoomAPI = useCreateRoomAPI({ onSettled: handleClose, user_id: currentUser.id });
   createRoomFormConfig.defaultValues.user_id = userId;
@@ -22,10 +24,10 @@ export default function CreateRoomForm({ mutation: useCreateRoomAPI, userId, han
       <FormControl field={name} type="text" />
       <Stack className="mt-1" direction="horizontal" gap={1}>
         <Button variant="brand-backward" className="ms-auto" onClick={handleClose}>
-          Close
+          { t('close') }
         </Button>
         <Button variant="brand" type="submit" disabled={createRoomAPI.isLoading}>
-          Create Room
+          { t('room.create_room') }
           {createRoomAPI.isLoading && <Spinner />}
         </Button>
       </Stack>

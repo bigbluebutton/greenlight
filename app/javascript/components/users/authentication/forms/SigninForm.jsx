@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import FormControl from '../../../shared_components/forms/FormControl';
 import Form from '../../../shared_components/forms/Form';
 import { signinFormFields, signinFormConfig } from '../../../../helpers/forms/SigninFormHelpers';
@@ -17,6 +18,7 @@ import useCreateSession from '../../../../hooks/mutations/sessions/useCreateSess
 import useEnv from '../../../../hooks/queries/env/useEnv';
 
 export default function SigninForm() {
+  const { t } = useTranslation();
   const methods = useForm(signinFormConfig);
   const [token, setToken] = useState('');
   const createSession = useCreateSession(token);
@@ -28,11 +30,11 @@ export default function SigninForm() {
   if (isLoading) return <Spinner />;
 
   const onError = () => {
-    toast.error('There was a problem completing that action. \n Please try again.');
+    toast.error(t('toast.error.problem_completing_action'));
   };
 
   const onExpire = () => {
-    toast.error('There was a problem completing that action. \n Please try again.');
+    toast.error(t('toast.error.problem_completing_action'));
   };
 
   return (
@@ -56,7 +58,7 @@ export default function SigninForm() {
           />
         </Col>
         <Col>
-          <Link to="/forget_password" className="text-link float-end small"> Forgot password? </Link>
+          <Link to="/forget_password" className="text-link float-end small"> { t('authentication.forgot_password') } </Link>
         </Col>
       </Row>
       { env.HCAPTCHA_KEY
@@ -74,7 +76,7 @@ export default function SigninForm() {
         )}
       <Stack className="mt-1" gap={1}>
         <Button variant="brand" className="w-100 my-3 py-2" type="submit" disabled={isSubmitting}>
-          Sign In
+          { t('authentication.sign_in') }
           { isSubmitting && <Spinner /> }
         </Button>
       </Stack>

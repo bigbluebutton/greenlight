@@ -4,6 +4,7 @@ import {
 } from 'react-bootstrap';
 import { TrashIcon } from '@heroicons/react/outline';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Modal from '../../../shared_components/modals/Modal';
 import SharedAccessForm from './forms/SharedAccessForm';
 import Avatar from '../../../users/user/Avatar';
@@ -13,6 +14,7 @@ import useSharedUsers from '../../../../hooks/queries/shared_accesses/useSharedU
 import SharedAccessEmpty from './SharedAccessEmpty';
 
 export default function SharedAccess() {
+  const { t } = useTranslation();
   const { friendlyId } = useParams();
   const [input, setInput] = useState();
   const [sharedUsers, setSharedUsers] = useState();
@@ -27,8 +29,8 @@ export default function SharedAccess() {
             <SearchBarQuery setInput={setInput} />
           </div>
           <Modal
-            modalButton={<Button variant="brand-backward" className="ms-auto">+ Share Access</Button>}
-            title="Share Room Access"
+            modalButton={<Button variant="brand-backward" className="ms-auto">{ t('room.shared_access.new_share_access')}</Button>}
+            title={t('room.shared_access.share_room_access')}
             body={<SharedAccessForm />}
             size="lg"
             id="shared-access-modal"
@@ -39,8 +41,8 @@ export default function SharedAccess() {
             <Table hover className="text-secondary mb-0">
               <thead>
                 <tr className="text-muted small">
-                  <th className="fw-normal w-50">Name</th>
-                  <th className="fw-normal w-50">Email address</th>
+                  <th className="fw-normal w-50">{ t('user.name') }</th>
+                  <th className="fw-normal w-50">{ t('user.email_address') }</th>
                 </tr>
               </thead>
               <tbody className="border-top-0">
@@ -68,7 +70,7 @@ export default function SharedAccess() {
                     ))
                   )
                   : (
-                    <tr className="fw-bold"><td>No user found! </td></tr>
+                    <tr className="fw-bold"><td>{ t('user.no_user_found') }</td></tr>
                   )}
               </tbody>
             </Table>

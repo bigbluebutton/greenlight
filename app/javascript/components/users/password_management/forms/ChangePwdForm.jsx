@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import FormControl from '../../../shared_components/forms/FormControl';
 import Form from '../../../shared_components/forms/Form';
 import { changePwdFormConfig, changePwdFormFields } from '../../../../helpers/forms/ChangePwdFormHelpers';
@@ -8,6 +9,7 @@ import Spinner from '../../../shared_components/utilities/Spinner';
 import useChangePwd from '../../../../hooks/mutations/users/useChangePwd';
 
 export default function ChangePwdForm() {
+  const { t } = useTranslation();
   const methods = useForm(changePwdFormConfig);
   const fields = changePwdFormFields;
   const changePwd = useChangePwd();
@@ -23,7 +25,7 @@ export default function ChangePwdForm() {
 
       <Stack className="mt-1" gap={1}>
         <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={changePwd.isLoading}>
-          Change password
+          { t('user.account.change_password') }
           {changePwd.isLoading && <Spinner />}
         </Button>
       </Stack>

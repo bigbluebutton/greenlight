@@ -4,6 +4,7 @@ import { Button, Card, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { UserIcon, DuplicateIcon, LinkIcon } from '@heroicons/react/outline';
 import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import Spinner from '../shared_components/utilities/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 
@@ -13,6 +14,7 @@ function copyInvite(friendlyId) {
 }
 
 export default function RoomCard({ room }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const handleClick = useCallback(() => { navigate(room.friendly_id); }, [room.friendly_id]);
   const startMeeting = useStartMeeting(room.friendly_id);
@@ -31,7 +33,7 @@ export default function RoomCard({ room }) {
         <Stack className="my-4">
           <Card.Title className="mb-0"> { room.name } </Card.Title>
           { room.shared_owner ? (
-            <span className="text-muted">Shared by: { room.shared_owner } </span>
+            <span className="text-muted">{ t('room.shared_by', { room }) } </span>
           ) : (
             <span className="text-muted"> { room.created_at } </span>
           )}
@@ -45,7 +47,7 @@ export default function RoomCard({ room }) {
           <DuplicateIcon className="hi-m text-brand mt-1" />
         </Button>
         <Button variant="brand-backward" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
-          Start {' '}
+          { t('start') }
           {startMeeting.isLoading && <Spinner />}
         </Button>
       </Card.Footer>
