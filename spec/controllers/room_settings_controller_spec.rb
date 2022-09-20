@@ -41,6 +41,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
 
   describe '#update' do
     it 'uses MeetingOption::get_config_value and updates the setting if its config is "optional"' do
+      expect(MeetingOption).to receive(:get_config_value).and_call_original
       expect(MeetingOption).to receive(:get_config_value).with(name: 'setting', provider: 'greenlight').and_call_original
 
       meeting_option = create(:meeting_option, name: 'setting')
@@ -54,6 +55,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
     context 'Access codes' do
       it 'uses MeetingOption::get_config_value and generates a code if it\'s not disabled and the value is "true"' do
         random_access_code_name = %w[glViewerAccessCode glModeratorAccessCode].sample
+        expect(MeetingOption).to receive(:get_config_value).and_call_original
         expect(MeetingOption).to receive(:get_config_value).with(name: random_access_code_name, provider: 'greenlight').and_call_original
         allow_any_instance_of(described_class).to receive(:generate_code).and_return('CODE!!')
         expect_any_instance_of(described_class).to receive(:generate_code)
@@ -68,6 +70,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
 
       it 'uses MeetingOption::get_config_value and removes a code if it\'s optional and the value is "false"' do
         random_access_code_name = %w[glViewerAccessCode glModeratorAccessCode].sample
+        expect(MeetingOption).to receive(:get_config_value).and_call_original
         expect(MeetingOption).to receive(:get_config_value).with(name: random_access_code_name, provider: 'greenlight').and_call_original
         expect_any_instance_of(described_class).not_to receive(:generate_code)
 
@@ -82,6 +85,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
       context 'AuthZ' do
         it 'returns :forbidden when value is "true" but the setting is disabled' do
           random_access_code_name = %w[glViewerAccessCode glModeratorAccessCode].sample
+          expect(MeetingOption).to receive(:get_config_value).and_call_original
           expect(MeetingOption).to receive(:get_config_value).with(name: random_access_code_name, provider: 'greenlight').and_call_original
           expect_any_instance_of(described_class).not_to receive(:generate_code)
 
@@ -94,6 +98,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
 
         it 'returns :forbidden when value is "false" but the setting is NOT optional' do
           random_access_code_name = %w[glViewerAccessCode glModeratorAccessCode].sample
+          expect(MeetingOption).to receive(:get_config_value).and_call_original
           expect(MeetingOption).to receive(:get_config_value).with(name: random_access_code_name, provider: 'greenlight').and_call_original
           expect_any_instance_of(described_class).not_to receive(:generate_code)
 
