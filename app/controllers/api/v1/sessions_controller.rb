@@ -47,7 +47,6 @@ module Api
         if session_params[:extend_session]
           cookies.encrypted[:_extended_session] = {
             value: {
-              user_id: user.id,
               session_token: user.session_token,
               session_expiry: user.session_expiry
             },
