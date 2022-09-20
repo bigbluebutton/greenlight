@@ -97,7 +97,7 @@ export default function RecordingRow({
             <Dropdown.Item onClick={() => copyUrls()}><DuplicateIcon className="hi-s" />{ t('recording.copy_recording_urls') }</Dropdown.Item>
             <Modal
               modalButton={<Dropdown.Item><TrashIcon className="hi-s" />{ t('delete') }</Dropdown.Item>}
-              title={ t('are_you_sure') }
+              title={t('are_you_sure')}
               body={(
                 <DeleteRecordingForm
                   mutation={useDeleteAPI}

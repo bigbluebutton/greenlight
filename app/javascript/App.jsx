@@ -18,7 +18,6 @@ export default function App() {
     i18n.changeLanguage(currentUser?.language);
   }, [currentUser?.language]);
 
-
   // Greenlight V3 brand-color theming
   const { isLoading, data: brandColor } = useSiteSetting('PrimaryColor');
   const { data: brandColorLight } = useSiteSetting('PrimaryColorLight');
