@@ -1,8 +1,11 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
 
 export default function useCreateRoom({ userId, onSettled }) {
+  const { t } = useTranslation();
+
   const ROOMSLISTQUERYKEY = 'getRooms'; // TODO: amir - create a central store for query keys.
   const queryClient = useQueryClient();
 
@@ -29,11 +32,11 @@ export default function useCreateRoom({ userId, onSettled }) {
     (room) => axios.post('/rooms.json', { room, user_id: userId }),
     { // Mutation config.
       onMutate: optimisticCreateRoom,
-      onSuccess: () => { toast.success('Room created'); },
+      onSuccess: () => { toast.success(t('toast.success.room_created')); },
       // If the mutation fails, use the context returned from onMutate to roll back
       onError: (err, newRoom, context) => {
         queryClient.setQueryData(ROOMSLISTQUERYKEY, context.oldRooms);
-        toast.error('There was a problem completing that action. \n Please try again.');
+        toast.error(t('toast.error.problem_completing_action'));
       },
       // Always refetch after error or success:
       onSettled: () => {

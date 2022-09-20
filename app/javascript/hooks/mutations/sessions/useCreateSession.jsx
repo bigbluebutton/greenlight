@@ -1,9 +1,11 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
 
 export default function useCreateSession(token) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -20,7 +22,7 @@ export default function useCreateSession(token) {
         }
       },
       onError: () => {
-        toast.error('Incorrect username or password. \n Please try again');
+        toast.error(t('toast.error.problem_completing_action'));
       },
     },
   );
