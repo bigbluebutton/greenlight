@@ -56,7 +56,6 @@ module Api
           }
         end
 
-        session[:user_id] = user.id
         session[:session_token] = user.session_token
         session[:session_expiry] = user.session_expiry
       end

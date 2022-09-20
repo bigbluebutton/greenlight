@@ -32,7 +32,6 @@ module Api
         if user.save
           user.generate_session_token!
           unless current_user # if this is NOT an admin creating a user
-            session[:user_id] = user.id
             session[:session_token] = user.session_token
             session[:session_expiry] = user.session_expiry
           end

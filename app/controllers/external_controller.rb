@@ -13,7 +13,7 @@ class ExternalController < ApplicationController
       u.language = extract_language_code user_info['locale']
     end
 
-    session[:user_id] = user.id
+    session[:session_token] = user.session_token
 
     # TODO: - Ahmad: deal with errors
 
