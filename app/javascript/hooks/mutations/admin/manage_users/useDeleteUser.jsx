@@ -12,7 +12,7 @@ export default function useDeleteUser(userId) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getAdminUsers');
-        toast.success(t('toast.success.user_deleted'));
+        toast.success(t('toast.success.user.user_deleted'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

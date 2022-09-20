@@ -21,7 +21,7 @@ export default function useAdminCreateUser({ onSettled }) {
       onMutate: addInferredLanguage,
       onSuccess: () => {
         queryClient.invalidateQueries('getAdminUsers');
-        toast.success(t('toast.success.user_created'));
+        toast.success(t('toast.success.user.user_created'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

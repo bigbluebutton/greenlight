@@ -21,7 +21,7 @@ export default function useUpdateRoomSetting(friendlyId) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getRoomSettings');
-        toast.success(t('toast.success.room_setting_updated'));
+        toast.success(t('toast.success.room.room_setting_updated'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

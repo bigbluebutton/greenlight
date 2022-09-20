@@ -15,7 +15,7 @@ export default function useDeleteSession() {
       onSuccess: async () => {
         await queryClient.refetchQueries('useSessions');
         navigate('/');
-        toast.success(t('toast.success.signed_out'));
+        toast.success(t('toast.success.session.signed_out'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

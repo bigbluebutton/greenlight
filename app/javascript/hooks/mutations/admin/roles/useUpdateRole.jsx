@@ -12,7 +12,7 @@ export default function useUpdateRole(roleId) {
     {
       onError: () => { toast.error(t('toast.error.problem_completing_action')); },
       onSuccess: () => {
-        toast.success(t('toast.success.role_updated'));
+        toast.success(t('toast.success.role.role_updated'));
         queryClient.invalidateQueries('getRoles');
         queryClient.invalidateQueries(['getRole', roleId.toString()]);
       },

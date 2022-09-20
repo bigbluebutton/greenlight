@@ -12,7 +12,7 @@ export default function useUpdateRecordingVisibility() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getRecordings');
-        toast.success(t('toast.success.recording_visibility_updated'));
+        toast.success(t('toast.success.recording.recording_visibility_updated'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

@@ -15,7 +15,7 @@ export default function useDeleteRole({ role, onSettled }) {
       onError: () => { toast.error(t('toast.error.problem_completing_action')); },
       onSuccess: () => {
         queryClient.invalidateQueries('getRoles');
-        toast.success(t('toast.success.role_deleted'));
+        toast.success(t('toast.success.role.role_deleted'));
         navigate('/admin/roles');
       },
       onSettled,

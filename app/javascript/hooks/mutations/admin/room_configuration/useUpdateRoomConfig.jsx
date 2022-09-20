@@ -12,7 +12,7 @@ export default function useUpdateRoomConfig(name) {
     {
       onError: () => { toast.error(t('toast.error.problem_completing_action')); },
       onSuccess: () => {
-        toast.success(t('toast.success.room_configuration_updated'));
+        toast.success(t('toast.success.room.room_configuration_updated'));
         queryClient.invalidateQueries('getRoomsConfigs');
       },
     },

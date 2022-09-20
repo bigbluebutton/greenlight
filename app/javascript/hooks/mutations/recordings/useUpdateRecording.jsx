@@ -13,7 +13,7 @@ export default function useUpdateRecording(recordId) {
       onSuccess: () => {
         queryClient.invalidateQueries('getRecordings');
         queryClient.invalidateQueries('getServerRecordings');
-        toast.success(t('toast.success.recording_name_updated'));
+        toast.success(t('toast.success.recording.recording_name_updated'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

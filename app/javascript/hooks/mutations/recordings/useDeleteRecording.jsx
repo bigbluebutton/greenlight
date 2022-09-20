@@ -14,7 +14,7 @@ export default function useDeleteRecording({ recordId, onSettled }) {
         queryClient.invalidateQueries('getRecordings');
         queryClient.invalidateQueries('getRoomRecordings');
         queryClient.invalidateQueries('getServerRecordings');
-        toast.success(t('toast.success.recording_deleted'));
+        toast.success(t('toast.success.recording.recording_deleted'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

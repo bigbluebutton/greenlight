@@ -15,7 +15,7 @@ export default function useDeleteRoom({ friendlyId, onSettled }) {
       onSuccess: () => {
         queryClient.invalidateQueries('getRooms');
         navigate('/rooms');
-        toast.success(t('toast.success.room_deleted'));
+        toast.success(t('toast.success.room.room_deleted'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

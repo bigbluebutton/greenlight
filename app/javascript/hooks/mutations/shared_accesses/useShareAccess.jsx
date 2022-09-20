@@ -16,7 +16,7 @@ export default function useShareAccess({ friendlyId, closeModal }) {
     onSuccess: () => {
       closeModal();
       queryClient.invalidateQueries('getSharedUsers');
-      toast.success(t('toast.success.room_shared'));
+      toast.success(t('toast.success.room.room_shared'));
     },
     onError: () => {
       toast.error(t('toast.error.problem_completing_action'));

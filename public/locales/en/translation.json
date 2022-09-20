@@ -18,12 +18,10 @@
   "need_help": "Need help?",
   "powered_by": "Powered by",
   "are_you_sure": "Are you sure?",
-
   "homepage": {
     "welcome_bbb": "Welcome to BigBlueButton.",
     "greenlight_description": "Greenlight is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link."
   },
-
   "authentication": {
     "sign_in": "Sign In",
     "sign_up": "Sign Up",
@@ -39,7 +37,6 @@
     "create_an_account": "Create an Account",
     "already_have_account": "Already have an account?"
   },
-
   "user": {
     "user": "User",
     "users": "Users",
@@ -75,7 +72,6 @@
       "crop_avatar": "Crop Your Avatar"
     }
   },
-
   "room": {
     "room": "Room",
     "rooms": "Rooms",
@@ -125,7 +121,6 @@
       "generate_mods_access_code": "Generate access code for moderators"
     }
   },
-
   "recording": {
     "recording": "Recording",
     "recordings": "Recordings",
@@ -143,7 +138,6 @@
     "no_recording_found": "No recording found.",
     "are_you_sure_delete_recording": "Are you sure you want to delete this recording?"
   },
-
   "admin": {
     "admin_panel": "Administrator Panel",
     "manage_users": {
@@ -260,48 +254,52 @@
   },
   "toast": {
     "success": {
-      "meeting_started": "Meeting started.",
-      "access_code_copied": "Access code copied.",
-
-      "user_updated": "User updated.",
-      "user_deleted": "User deleted.",
-      "avatar_updated": "Avatar updated.",
-      "password_updated": "Password updated.",
-
-      "signed_out": "You have successfully signed out.",
-
-      "room_created": "Room created.",
-      "room_updated": "Room updated.",
-      "room_deleted": "Room deleted.",
-      "room_shared": "Room shared",
-      "room_unshared": "Room unshared",
-      "presentation_updated": "Presentation updated.",
-      "presentation_deleted": "Presentation deleted.",
-      "joining_meeting": "Joining the meeting...",
-      "access_code_generated": "Access code generated.",
-      "access_code_removed": "Access code removed.",
-
-      "room_configuration_updated": "Room configuration updated.",
-      "room_setting_updated": "Room setting updated.",
-      "site_setting_updated": "Site setting updated.",
-      "server_room_deleted": "Server room deleted.",
-
-      "recording_visibility_updated": "Recording visibility updated.",
-      "recording_name_updated": "Recording name updated.",
-      "recording_deleted": "Recording deleted.",
-
-      "role_created": "Role created.",
-      "role_updated": "Role updated.",
-      "role_deleted": "Role deleted.",
-      "role_permission_updated": "Role permission updated."
-
+      "user": {
+        "user_updated": "User updated.",
+        "user_deleted": "User deleted.",
+        "avatar_updated": "Avatar updated.",
+        "password_updated": "Password updated."
+      },
+      "session": {
+        "signed_out": "You have successfully signed out."
+      },
+      "room": {
+        "room_created": "Room created.",
+        "room_updated": "Room updated.",
+        "room_deleted": "Room deleted.",
+        "room_shared": "Room shared",
+        "room_unshared": "Room unshared",
+        "server_room_deleted": "Server room deleted.",
+        "room_configuration_updated": "Room configuration updated.",
+        "room_setting_updated": "Room setting updated.",
+        "presentation_updated": "Presentation updated.",
+        "presentation_deleted": "Presentation deleted.",
+        "joining_meeting": "Joining the meeting...",
+        "meeting_started": "Meeting started.",
+        "access_code_copied": "Access code copied.",
+        "access_code_generated": "Access code generated.",
+        "access_code_removed": "Access code removed."
+      },
+      "site_settings": {
+        "site_setting_updated": "Site setting updated."
+      },
+      "recording": {
+        "recording_visibility_updated": "Recording visibility updated.",
+        "recording_name_updated": "Recording name updated.",
+        "recording_deleted": "Recording deleted."
+      },
+      "role": {
+        "role_created": "Role created.",
+        "role_updated": "Role updated.",
+        "role_deleted": "Role deleted.",
+        "role_permission_updated": "Role permission updated.",
+      }
     },
     "error": {
       "problem_completing_action": "There was a problem completing that action. \n Please try again.",
       "must_be_signed_in_to_join_room": "You must be signed in to join this room.",
       "file_type_not_supported": "File type is not supported.",
       "file_size_too_large": "File size is too large."
-
     }
   }
 }

@@ -11,7 +11,7 @@ export default function useCreateRole({ onSettled }) {
     (role) => axios.post('/admin/roles.json', { role }),
     {
       onSuccess: () => {
-        toast.success(t('toast.success.role_created'));
+        toast.success(t('toast.success.role.role_created'));
         queryClient.invalidateQueries('getRoles');
       },
       onError: () => { toast.error(t('toast.error.problem_completing_action')); },

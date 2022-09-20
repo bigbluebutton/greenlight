@@ -32,7 +32,7 @@ export default function useCreateRoom({ userId, onSettled }) {
     (room) => axios.post('/rooms.json', { room, user_id: userId }),
     { // Mutation config.
       onMutate: optimisticCreateRoom,
-      onSuccess: () => { toast.success(t('toast.success.room_created')); },
+      onSuccess: () => { toast.success(t('toast.success.room.room_created')); },
       // If the mutation fails, use the context returned from onMutate to roll back
       onError: (err, newRoom, context) => {
         queryClient.setQueryData(ROOMSLISTQUERYKEY, context.oldRooms);

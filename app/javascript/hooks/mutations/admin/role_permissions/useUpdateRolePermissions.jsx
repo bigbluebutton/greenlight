@@ -11,7 +11,7 @@ export default function useUpdateRolePermission() {
     {
       onError: () => { toast.error(t('toast.error.problem_completing_action')); },
       onSuccess: () => {
-        toast.success(t('toast.success.role_permission_updated'));
+        toast.success(t('toast.success.role.role_permission_updated'));
         queryClient.invalidateQueries('getRolePermissions');
         queryClient.invalidateQueries('useSessions');
       },

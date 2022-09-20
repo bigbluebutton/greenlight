@@ -12,7 +12,7 @@ export default function useUpdateRoom({ friendlyId }) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getRoom');
-        toast.success(t('toast.success.room_updated'));
+        toast.success(t('toast.success.room.room_updated'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));
