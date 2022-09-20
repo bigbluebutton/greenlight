@@ -80,7 +80,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     let(:fake_room_settings_getter) { instance_double(RoomSettingsGetter) }
 
     before do
-      session[:user_id] = nil
+      session[:session_token] = nil
 
       allow(RoomSettingsGetter).to receive(:new).and_return(fake_room_settings_getter)
       allow(fake_room_settings_getter).to receive(:call).and_return(

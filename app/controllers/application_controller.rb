@@ -9,8 +9,8 @@ class ApplicationController < ActionController::Base
     # Overwrites the session cookie if an extended_session cookie exists
     session[:user_id] ||= cookies.encrypted[:_extended_session]['user_id'] if cookies.encrypted[:_extended_session].present?
 
-    user = User.find_by(id: session[:user_id])
-    user = nil unless valid_session?(user)
+    user = User.find_by(session_token: session[:session_token])
+    user = nil if user && invalid_session?(user)
     @current_user ||= user
   end
 
@@ -31,12 +31,11 @@ class ApplicationController < ActionController::Base
   private
 
   # Checks if the user's session_token matches the session and that it is not expired
-  def valid_session?(user)
-    return true if user.nil?
-    return false if user&.session_token != session[:session_token]
-    return false if DateTime.now > user&.session_expiry
+  def invalid_session?(user)
+    return true if user&.session_token != session[:session_token]
+    return true if DateTime.now > user&.session_expiry
 
-    true
+    false
   end
 
   # Parses the url for the user domain

@@ -40,8 +40,7 @@ class User < ApplicationRecord
   validate :avatar_validation
   validates :reset_digest, uniqueness: true, if: :reset_digest?
   validates :activation_digest, uniqueness: true, if: :activation_digest?
-
-  after_create :generate_session_token!
+  validates :session_token, uniqueness: true, if: :session_token?
 
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
 

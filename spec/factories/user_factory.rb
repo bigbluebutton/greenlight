@@ -10,6 +10,8 @@ FactoryBot.define do
     role
     last_login { nil }
     language { %w[en fr es ar].sample }
+    session_token { SecureRandom.alphanumeric(40) }
+    session_expiry { 6.hours.from_now }
 
     after(:create) do |user|
       create(:role_permission, role: user.role, permission: create(:permission, name: 'CreateRoom'), value: 'true')

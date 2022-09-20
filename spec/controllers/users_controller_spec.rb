@@ -24,16 +24,16 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
 
     it 'creates a current_user if a new user is created' do
-      session[:user_id] = nil
+      session[:session_token] = nil
       create(:role, name: 'User') # Needed for admin#create
       expect { post :create, params: user_params }.to change(User, :count).by(1)
-      expect(session[:user_id]).to be_present
+      expect(session[:session_token]).to be_present
     end
 
     it 'creates a user without changing the current user if the user is created from a logged in user' do
       create(:role, name: 'User') # Needed for admin#create
       expect { post :create, params: user_params }.to change(User, :count).by(1)
-      expect(session[:user_id]).to eql(user.id)
+      expect(session[:session_token]).to be_present
     end
   end
 
@@ -155,7 +155,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
 
     it 'returns :unauthorized response for unauthenticated requests' do
-      session[:user_id] = nil
+      session[:session_token] = nil
       post :change_password, params: {}
       expect(response).to have_http_status(:unauthorized)
     end
