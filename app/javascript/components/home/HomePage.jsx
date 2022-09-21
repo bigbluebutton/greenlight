@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Card, Form, Stack } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Button from 'react-bootstrap/Button';
 import ButtonLink from '../shared_components/utilities/ButtonLink';
 import Spinner from '../shared_components/utilities/Spinner';
 import useEnv from '../../hooks/queries/env/useEnv';
@@ -28,6 +29,7 @@ export default function HomePage() {
 
   if (isLoading) return <Spinner />;
 
+  // TODO - samuel: OPENID signup and signin are both pointing at the same endpoint
   return (
     <div className="vertical-center">
       <div className="text-center mb-4">
@@ -43,8 +45,8 @@ export default function HomePage() {
             env.OPENID_CONNECT ? (
               <Form action="/auth/openid_connect" method="POST" data-turbo="false">
                 <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
-                <input variant="brand-backward" className="btn btn-xlg" type="submit" value={t('authentication.sign_up')} />
-                <input variant="brand" className="btn btn-xlg mx-4" type="submit" value={t('authentication.sign_in')} />
+                <Button variant="brand-backward" className="btn btn-xlg" type="submit">{t('authentication.sign_in')}</Button>
+                <Button variant="brand" className="btn btn-xlg mx-4" type="submit">{t('authentication.sign_in')}</Button>
               </Form>
             ) : (
               <>
