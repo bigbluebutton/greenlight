@@ -49,7 +49,7 @@ export default function HomePage() {
             ) : (
               <>
                 <ButtonLink to="/signup" variant="brand-backward" className="btn btn-xlg">{t('authentication.sign_up')}</ButtonLink>
-                <ButtonLink to="/signin" variant="brand" className="btn btn-xlg mx-4">{t('authentication.sign_in')}</ButtonLink>
+                <ButtonLink to="/signin" variant="brand" className="btn btn-xlg ms-4">{t('authentication.sign_in')}</ButtonLink>
               </>
             )
           }
