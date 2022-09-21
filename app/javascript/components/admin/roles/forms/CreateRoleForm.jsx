@@ -8,7 +8,7 @@ import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import FormControl from '../../../shared_components/forms/FormControl';
 import { createRoleFormConfig, createRoleFormFields } from '../../../../helpers/forms/CreateRoleFormHelpers';
-import useCreateRole from '../../../../hooks/mutations/roles/useCreateRole';
+import useCreateRole from '../../../../hooks/mutations/admin/roles/useCreateRole';
 
 export default function CreateRoleForm({ handleClose }) {
   const createRole = useCreateRole({ onSettled: handleClose });

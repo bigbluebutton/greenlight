@@ -1,8 +1,10 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import axios from '../../../../helpers/Axios';
 
 export default function useUpdateSiteSetting(name) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   // TODO - samuel: replace the create avatar form with this simple validation method
@@ -11,9 +13,9 @@ export default function useUpdateSiteSetting(name) {
     const SUPPORTED_FORMATS = 'image/jpeg|image/png|image/svg';
 
     if (image.size > FILE_SIZE) {
-      throw new Error('File is too large');
+      throw new Error(t('toast.error.file_type_not_supported'));
     } else if (!image.type.match(SUPPORTED_FORMATS)) {
-      throw new Error('File type is not supported');
+      throw new Error(t('toast.error.file_size_too_large'));
     }
   };
 
@@ -37,10 +39,10 @@ export default function useUpdateSiteSetting(name) {
       onSuccess: () => {
         queryClient.invalidateQueries(['getSiteSettings', name]);
         queryClient.invalidateQueries('getSiteSettings');
-        toast.success('Site settings updated');
+        toast.success(t('toast.success.site_settings.site_setting_updated'));
       },
-      onError: (e) => {
-        toast.error(e.message);
+      onError: () => {
+        toast.error(t('toast.error.problem_completing_action'));
       },
     },
   );

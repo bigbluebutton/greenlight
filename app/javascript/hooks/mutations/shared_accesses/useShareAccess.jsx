@@ -1,8 +1,10 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
 
 export default function useShareAccess({ friendlyId, closeModal }) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   const shareAccess = (data) => {
@@ -14,10 +16,10 @@ export default function useShareAccess({ friendlyId, closeModal }) {
     onSuccess: () => {
       closeModal();
       queryClient.invalidateQueries('getSharedUsers');
-      toast.success('Room shared');
+      toast.success(t('toast.success.room.room_shared'));
     },
     onError: () => {
-      toast.error('There was a problem completing that action. \n Please try again.');
+      toast.error(t('toast.error.problem_completing_action'));
     },
   });
 

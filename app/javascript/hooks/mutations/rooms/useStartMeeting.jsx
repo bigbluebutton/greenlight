@@ -1,8 +1,11 @@
 import { useMutation } from 'react-query';
 import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
 
 export default function useStartMeeting(friendlyId) {
+  const { t } = useTranslation();
+
   return useMutation(
     () => axios.post(`meetings/${friendlyId}/start.json`).then((resp) => resp.data.data),
     {
@@ -10,7 +13,7 @@ export default function useStartMeeting(friendlyId) {
         window.location.href = joinUrl;
       },
       onError: () => {
-        toast.error('There was a problem completing that action. \n Please try again.');
+        toast.error(t('toast.error.problem_completing_action'));
       },
     },
   );
