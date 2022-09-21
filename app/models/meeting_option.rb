@@ -17,10 +17,11 @@ class MeetingOption < ApplicationRecord
 
   def self.get_config_value(name:, provider:)
     joins(:rooms_configurations)
-      .select(:value)
-      .find_by(
+      .where(
         name:,
         rooms_configurations: { provider: }
       )
+      .pluck(:name, :value)
+      .to_h
   end
 end

@@ -9,7 +9,7 @@ RSpec.describe MeetingOption, type: :model do
     it { is_expected.to validate_uniqueness_of(:name) }
   end
 
-  describe 'classs methods' do
+  describe 'class methods' do
     describe '#get_setting_value' do
       context 'existing setting' do
         it 'returns the room meeting option value' do
@@ -40,7 +40,7 @@ RSpec.describe MeetingOption, type: :model do
           create(:rooms_configuration, meeting_option:, provider: 'greenlight', value: 'optional')
 
           rooms_config = described_class.get_config_value(name: 'setting', provider: 'greenlight')
-          expect(rooms_config.value).to eq('optional')
+          expect(rooms_config['setting']).to eq('optional')
         end
       end
 
@@ -48,7 +48,7 @@ RSpec.describe MeetingOption, type: :model do
         it 'returns nil' do
           expect(
             described_class.get_config_value(name: 'notAConfigTrustMe', provider: 'YouShould\'ve')
-          ).to be_nil
+          ).to be_empty
         end
       end
     end
