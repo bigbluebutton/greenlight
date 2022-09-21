@@ -16,7 +16,7 @@
   "copy": "Copy",
   "or": "Or",
   "need_help": "Need help?",
-  "powered_by": "Powered by",
+  "powered_by": "Powered by ",
   "are_you_sure": "Are you sure?",
   "homepage": {
     "welcome_bbb": "Welcome to BigBlueButton.",
@@ -34,6 +34,7 @@
     "remember_me": "Remember Me",
     "forgot_password": "Forgot password?",
     "dont_have_account": "Don't have an account?",
+    "create_account": "Create Account",
     "create_an_account": "Create an Account",
     "already_have_account": "Already have an account?"
   },
@@ -190,7 +191,7 @@
         "lighten": "Lighten",
         "brand_image": "Brand Image",
         "click_to_upload": "Click to Upload",
-        "drag_and_drop": "or drag and drop",
+        "drag_and_drop": " or drag and drop",
         "upload_brand_image_description": "Upload any PNG, JPG, or SVG file. Depending on the size of the presentation, it may require additional time to upload before it can be used"
       },
       "administration": {

@@ -13,7 +13,7 @@ export default function useDeleteAvatar(currentUser) {
       onSuccess: () => {
         queryClient.invalidateQueries('useSessions');
         queryClient.invalidateQueries('getUser');
-        toast.success(t('toast.success.avatar_updated'));
+        toast.success(t('toast.success.user.avatar_updated'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

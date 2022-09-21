@@ -9,6 +9,7 @@ i18next
     debug: true,
     fallbackLng: 'en',
     backend: {
+      loadPath: '/locales/{{lng}}.json',
       requestOptions: {
         cache: 'no-store', // TODO - samuel: i18n will sometime use the cache translation
       },
