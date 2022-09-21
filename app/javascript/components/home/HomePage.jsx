@@ -44,7 +44,7 @@ export default function HomePage() {
               <Form action="/auth/openid_connect" method="POST" data-turbo="false">
                 <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
                 <input variant="brand-backward" className="btn btn-xlg" type="submit" value={t('authentication.sign_up')} />
-                <input variant="brand" className="btn btn-xlg mx-4" type="submit" value={t('authentication.sign_in')} />
+                <input variant="brand" className="btn btn-xlg ms-4" type="submit" value={t('authentication.sign_in')} />
               </Form>
             ) : (
               <>
