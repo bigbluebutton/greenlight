@@ -47,6 +47,11 @@ export default function Room() {
               )}
           </Stack>
           <p className="text-muted"> { room.created_at }</p>
+          { room.last_session ? (
+            <span className="text-muted"> Last Session: { room.last_session } </span>
+          ) : (
+            <span className="text-muted mt-2"> No previous sessions created </span>
+          )}
         </Col>
         <Col>
           <Button variant="brand" className="mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>

@@ -36,10 +36,13 @@ export default function RoomCard({ room }) {
 
         <Stack className="my-4">
           <Card.Title className="mb-0"> { room.name } </Card.Title>
-          { room.shared_owner ? (
+          { room.shared_owner && (
             <span className="text-muted">{ t('room.shared_by', { room }) } </span>
+          )}
+          { room.last_session ? (
+            <span className="text-muted"> Last Session: { room.last_session } </span>
           ) : (
-            <span className="text-muted"> { room.created_at } </span>
+            <span className="text-muted mt-2"> No previous sessions created </span>
           )}
         </Stack>
       </Card.Body>
@@ -68,7 +71,7 @@ RoomCard.propTypes = {
     id: PropTypes.string.isRequired,
     friendly_id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    created_at: PropTypes.string.isRequired,
+    last_session: PropTypes.string.isRequired,
     shared_owner: PropTypes.string,
     active: PropTypes.bool,
     participants: PropTypes.number,
