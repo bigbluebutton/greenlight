@@ -292,7 +292,7 @@
         "role_created": "Role created.",
         "role_updated": "Role updated.",
         "role_deleted": "Role deleted.",
-        "role_permission_updated": "Role permission updated.",
+        "role_permission_updated": "Role permission updated."
       }
     },
     "error": {
