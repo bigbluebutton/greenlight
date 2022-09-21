@@ -259,7 +259,8 @@
         "user_updated": "User updated.",
         "user_deleted": "User deleted.",
         "avatar_updated": "Avatar updated.",
-        "password_updated": "Password updated."
+        "password_updated": "Password updated.",
+        "account_activated": "Account activated."
       },
       "session": {
         "signed_out": "You have successfully signed out."
@@ -304,6 +305,3 @@
     }
   }
 }
-
-
-
