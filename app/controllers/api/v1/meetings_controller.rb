@@ -27,7 +27,12 @@ module Api
           return render_error status: :bad_request unless e.key == 'idNotUnique'
         end
 
-        render_data data: BigBlueButtonApi.new.join_meeting(room: @room, name: current_user.name, role: 'Moderator'), status: :created
+        render_data data: BigBlueButtonApi.new.join_meeting(
+          room: @room,
+          name: current_user.name,
+          avatar_url: current_user.avatar.attached? ? url_for(current_user.avatar) : nil,
+          role: 'Moderator'
+        ), status: :created
       end
 
       # POST /api/v1/meetings/:friendly_id/status.json
@@ -68,7 +73,14 @@ module Api
           data[:status] = true
         end
 
-        data[:joinUrl] = BigBlueButtonApi.new.join_meeting(room: @room, name: params[:name], role: bbb_role) if data[:status]
+        if data[:status]
+          data[:joinUrl] = BigBlueButtonApi.new.join_meeting(
+            room: @room,
+            name: current_user ? current_user.name : params[:name],
+            avatar_url: current_user&.avatar&.attached? ? url_for(current_user.avatar) : nil,
+            role: bbb_role
+          )
+        end
         render_data data:, status: :ok
       end
 
