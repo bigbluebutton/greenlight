@@ -42,7 +42,7 @@ module Api
           render_data data: current_user, serializer: CurrentUserSerializer, status: :created
         else
           # TODO: amir - Improve logging.
-          render_error errors: user.errors.to_a
+          render_error errors: user.errors.to_a, status: :bad_request
         end
       end
 
