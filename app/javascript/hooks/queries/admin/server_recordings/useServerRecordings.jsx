@@ -15,5 +15,8 @@ export default function useServerRecordings(search, page) {
   return useQuery(
     ['getServerRecordings', { ...params }],
     () => axios.get('/admin/server_recordings.json', { params }).then((resp) => resp.data),
+    {
+      keepPreviousData: true,
+    },
   );
 }
