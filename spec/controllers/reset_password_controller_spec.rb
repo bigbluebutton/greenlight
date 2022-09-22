@@ -11,38 +11,36 @@ RSpec.describe Api::V1::ResetPasswordController, type: :controller do
   end
 
   describe 'POST reset_password#create' do
-    before { create(:user, email: 'test@greenlight.com') }
+    before do
+      create(:user, email: 'test@greenlight.com')
+      allow_any_instance_of(User).to receive(:generate_reset_token!).and_return('TOKEN')
+      clear_enqueued_jobs
+    end
 
-    it 'generates a unique token and saves its digest for valid emails' do
-      token = 'ZekpWTPGFsuaP1WngE6LVCc69Zs7YSKoOJFLkfKu'
-      allow_any_instance_of(User).to receive(:generate_reset_token!).and_return(token)
-
+    it 'generates a unique token, emails and saves its digest for valid emails' do
       post :create, params: { user: { email: 'test@greenlight.com' } }
-      # TODO: Test email delivery.
+      expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'reset_password_email',
+                                                                                                   'deliver_now', Hash)
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)['data']).to be_empty
     end
 
     it 'returns :bad_request for invalid params' do
       post :create, params: { not_user: { not_email: 'invalid@greenlight.com' } }
+      expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
       expect(response).to have_http_status(:bad_request)
-    end
-
-    it 'returns :ok when the digest cannot be saved' do
-      allow_any_instance_of(User).to receive(:generate_reset_token!).and_return(false)
-
-      post :create, params: { user: { email: 'test@greenlight.com' } }
-      expect(response).to have_http_status(:ok)
     end
 
     it 'returns :ok for invalid emails' do
       post :create, params: { user: { email: 'not_a_tester@greenlight.com' } }
+      expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
       expect(response).to have_http_status(:ok)
     end
 
     it 'returns :ok for external users' do
       create(:user, email: 'user@externals.com', external_id: 'EXTERNAL_ID')
       post :create, params: { user: { email: 'user@externals.com' } }
+      expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
       expect(response).to have_http_status(:ok)
     end
   end
