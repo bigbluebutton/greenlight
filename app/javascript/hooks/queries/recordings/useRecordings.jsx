@@ -14,5 +14,8 @@ export default function useRecordings(search, page) {
   return useQuery(
     ['getRecordings', { ...params }],
     () => axios.get('/recordings.json', { params }).then((resp) => resp.data),
+    {
+      keepPreviousData: true,
+    },
   );
 }

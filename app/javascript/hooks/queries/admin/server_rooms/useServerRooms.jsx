@@ -10,5 +10,8 @@ export default function useServerRooms(input, page) {
   return useQuery(
     ['getServerRooms', { ...params }],
     () => axios.get('/admin/server_rooms.json', { params }).then((resp) => resp.data),
+    {
+      keepPreviousData: true,
+    },
   );
 }
