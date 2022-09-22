@@ -12,7 +12,7 @@ module Api
         def index
           rooms = Room.includes(:user).with_provider(current_provider).search(params[:search])
 
-          pagy, rooms = pagy_array(rooms)
+          pagy, rooms = pagy(rooms)
 
           active_rooms = BigBlueButtonApi.new.active_meetings
           active_rooms_hash = {}
