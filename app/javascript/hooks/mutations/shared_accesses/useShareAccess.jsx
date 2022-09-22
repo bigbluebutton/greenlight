@@ -8,7 +8,11 @@ export default function useShareAccess({ friendlyId, closeModal }) {
   const queryClient = useQueryClient();
 
   const shareAccess = (data) => {
-    const sharedUsers = [...data.shared_users];
+    let sharedUsers = data.shared_users;
+    if (typeof data.shared_users === 'string') {
+      sharedUsers = [data.shared_users];
+    }
+
     return axios.post('/shared_accesses.json', { friendly_id: friendlyId, shared_users: sharedUsers });
   };
 
