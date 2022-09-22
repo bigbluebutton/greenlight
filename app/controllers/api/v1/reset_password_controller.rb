@@ -3,6 +3,8 @@
 module Api
   module V1
     class ResetPasswordController < ApiController
+      include ClientRoutable
+
       before_action :verify_reset_request, only: %i[reset verify]
       skip_before_action :ensure_authenticated, only: %i[create reset verify]
 
@@ -67,10 +69,6 @@ module Api
 
         @user = User.verify_reset_token(token)
         render_error status: :forbidden unless @user
-      end
-
-      def reset_password_url(token)
-        "#{root_url}reset_password/#{token}" # Client side reset password url.
       end
     end
   end
