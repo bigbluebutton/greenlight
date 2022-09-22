@@ -39,7 +39,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       ).and_call_original
 
       expect_any_instance_of(MeetingStarter).to receive(:call)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Moderator')
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Moderator')
 
       post :start, params: { friendly_id: room.friendly_id }
 
@@ -78,7 +78,18 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     it 'makes a call to the BigBlueButtonApi to get the join url' do
       expect_any_instance_of(BigBlueButtonApi)
         .to receive(:join_meeting)
-        .with(room:, name: user.name, role: 'Moderator')
+        .with(room:, name: user.name, avatar_url: nil, role: 'Moderator')
+
+      post :start, params: { friendly_id: room.friendly_id }
+    end
+
+    it 'passes the users avatar (if they have one) to BigBlueButton' do
+      user.avatar.attach(io: fixture_file_upload('default-avatar.png'), filename: 'default-avatar.png', content_type: 'image/png')
+      avatar_url = Rails.application.routes.url_helpers.rails_blob_url(user.avatar, host: 'test.host')
+
+      expect_any_instance_of(BigBlueButtonApi)
+        .to receive(:join_meeting)
+        .with(room:, name: user.name, avatar_url:, role: 'Moderator')
 
       post :start, params: { friendly_id: room.friendly_id }
     end
@@ -131,7 +142,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
   describe '#status' do
     it 'gets the joinUrl if the meeting is running' do
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Viewer')
 
       post :status, params: { friendly_id: room.friendly_id, name: user.name }
       expect(response).to have_http_status(:ok)
@@ -149,9 +160,21 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
     it 'joins as viewer if no access code is required nor provided' do
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Viewer')
       post :status, params: { friendly_id: room.friendly_id, name: user.name }
       expect(response).to have_http_status(:ok)
+    end
+
+    it 'passes the users avatar (if they have one) to BigBlueButton' do
+      allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+      user.avatar.attach(io: fixture_file_upload('default-avatar.png'), filename: 'default-avatar.png', content_type: 'image/png')
+      avatar_url = Rails.application.routes.url_helpers.rails_blob_url(user.avatar, host: 'test.host')
+
+      expect_any_instance_of(BigBlueButtonApi)
+        .to receive(:join_meeting)
+        .with(room:, name: user.name, avatar_url:, role: 'Viewer')
+
+      post :status, params: { friendly_id: room.friendly_id, name: user.name }
     end
 
     context 'Access codes required' do
@@ -165,7 +188,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       it 'joins as viewer if access code correspond to the viewer access code' do
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
 
-        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Viewer')
         expect(RoomSettingsGetter).to receive(:new).with(
           room_id: room.id, provider: 'greenlight', show_codes: true, current_user: user,
           settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart]
@@ -180,7 +203,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       it 'joins as moderator if access code correspond to moderator access code' do
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
 
-        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Moderator')
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Moderator')
         expect(RoomSettingsGetter).to receive(:new).with(
           room_id: room.id, provider: 'greenlight', show_codes: true, current_user: user,
           settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart]
@@ -264,7 +287,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
       it 'allows the user to join if they are signed in' do
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
-        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Viewer')
 
         post :status, params: { friendly_id: room.friendly_id, name: user.name }
 
@@ -286,7 +309,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       session[:user_id] = nil
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, role: 'Viewer')
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Viewer')
 
       post :status, params: { friendly_id: room.friendly_id, name: user.name }
 
