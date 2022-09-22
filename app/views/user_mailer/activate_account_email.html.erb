@@ -1,0 +1,21 @@
+  <%# TODO: Revisit this (i18n, styling, template,, add in logo, ...). %>
+  <div style="text-align:center; font-family:'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+    <div style="display:inline-block; background-color:#F5F7FB; border:1px solid #d3d3d3; padding: 25px 70px">
+
+      <h1 style="margin-bottom:30px"> Welcome <%= @user.name %>! </h1>
+
+      <p style="margin-bottom:20px;"> There's only one step left to start using and leverage what Greenlight and BigBlueButton has to offer! </p>
+
+      <p style="margin-bottom:20px;"> You are invited to verifiy your identity by following the link below to activate your account. </p>
+
+      <p style="margin-bottom:20px;"> Activating your account will enable you to leverage all of Greenlight and BigBlueButton features! </p>
+
+      <p style="margin-bottom:20px;"> You can create rooms, host sessions, share recordings and collaborate with others! </p>
+
+      <a href="<%= @activation_url %>" target="_blank"> Activate My Account </a>
+
+      <p> This link will expire in <%= time_ago_in_words(@expires_in) %>. </p>
+
+      <p> You can still login to your account to get a new activation link if this email expires. </p>
+    </div>
+  </div>
