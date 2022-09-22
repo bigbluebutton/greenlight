@@ -23,9 +23,9 @@ class Room < ApplicationRecord
   scope :with_provider, ->(current_provider) { where(user: { provider: current_provider }) }
 
   def self.search(input)
-    return where('rooms.name ILIKE ?', "%#{input}%").to_a if input
+    return where('rooms.name ILIKE ?', "%#{input}%") if input
 
-    all.to_a
+    all
   end
 
   def anyone_joins_as_moderator?

@@ -42,9 +42,9 @@ class User < ApplicationRecord
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
 
   def self.search(input)
-    return where('name ILIKE ?', "%#{input}%").to_a if input
+    return where('name ILIKE ?', "%#{input}%") if input
 
-    all.to_a
+    all
   end
 
   # Verifies the token existence, fetches its user and validates its expiration
