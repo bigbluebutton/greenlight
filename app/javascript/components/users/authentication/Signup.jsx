@@ -14,7 +14,7 @@ export default function Signup() {
         <Logo size="medium" />
       </div>
       <Card className="col-md-4 mx-auto p-4 border-0 shadow-sm">
-        <Card.Title className="text-center pb-2"> { t('authentication.create_account') } </Card.Title>
+        <Card.Title className="text-center pb-2"> { t('authentication.create_an_account') } </Card.Title>
         <SignupForm />
         <span className="text-center text-muted small"> { t('authentication.already_have_account') }
           <Link to="/signin" className="text-link"> { t('authentication.sign_in') } </Link>
