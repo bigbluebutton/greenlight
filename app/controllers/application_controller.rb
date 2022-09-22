@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     if user && invalid_session?(user)
       reset_session
       cookies.delete :_extended_session
-      user = nil
+      return nil
     end
 
     @current_user ||= user
