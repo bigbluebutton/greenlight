@@ -3,9 +3,9 @@
 module Api
   module V1
     class MeetingsController < ApiController
-      before_action :find_room, only: %i[start status]
+      before_action :find_room, only: %i[start status running]
       skip_before_action :ensure_authenticated, only: %i[status]
-      before_action only: %i[start] do
+      before_action only: %i[start running] do
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
 
@@ -82,6 +82,11 @@ module Api
           )
         end
         render_data data:, status: :ok
+      end
+
+      # GET /api/v1/meetings/:friendly_id/running.json
+      def running
+        render_data data: BigBlueButtonApi.new.meeting_running?(room: @room), status: :ok
       end
 
       private
