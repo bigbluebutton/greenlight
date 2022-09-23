@@ -35,6 +35,7 @@ Rails.application.routes.draw do
         member do
           post '/start', to: 'meetings#start'
           post '/status', to: 'meetings#status'
+          get '/running', to: 'meetings#running'
         end
       end
       resources :room_settings, only: %i[show update], param: :friendly_id
