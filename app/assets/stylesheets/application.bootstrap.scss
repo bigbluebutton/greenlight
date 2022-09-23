@@ -207,6 +207,36 @@ input.search-bar {
   }
 }
 
+.btn-delete {
+  border: 2px solid $danger;
+  color: $danger;
+  background-color: white;
+
+  &:hover {
+    box-shadow: inset 0 0 200px 200px rgba(0, 0, 0, 0.03);
+    color: $danger;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.btn-neutral {
+  border: 2px solid gainsboro;
+  color: gray;
+  background-color: white;
+
+  &:hover {
+    box-shadow: inset 0 0 200px 200px rgba(0, 0, 0, 0.05);
+    color: gray;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
 //Bootstrap overwrite
 .form-switch .form-check-input:focus {
   border-color: rgba(0, 0, 0, 0.25);
