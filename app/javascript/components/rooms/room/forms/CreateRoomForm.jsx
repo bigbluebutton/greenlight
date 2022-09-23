@@ -23,7 +23,7 @@ export default function CreateRoomForm({ mutation: useCreateRoomAPI, userId, han
     <Form methods={methods} onSubmit={createRoomAPI.mutate}>
       <FormControl field={name} type="text" />
       <Stack className="mt-1" direction="horizontal" gap={1}>
-        <Button variant="brand-outline" className="ms-auto" onClick={handleClose}>
+        <Button variant="neutral" className="ms-auto" onClick={handleClose}>
           { t('close') }
         </Button>
         <Button variant="brand" type="submit" disabled={createRoomAPI.isLoading}>

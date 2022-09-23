@@ -57,7 +57,7 @@ export default function BrandColorPopover({
               <div className="color-preview" style={{ background: initialColor }} />
               <div className="color-preview" style={{ background: color }} />
               <Stack direction="horizontal" className="mt-2 pb-2 float-end">
-                <Button variant="brand-outline" className="me-2" onClick={handleCancel}> { t('cancel') } </Button>
+                <Button variant="neutral" className="me-2" onClick={handleCancel}> { t('cancel') } </Button>
                 <Button variant="brand" onClick={handleSave}> { t('save') } </Button>
               </Stack>
             </div>
