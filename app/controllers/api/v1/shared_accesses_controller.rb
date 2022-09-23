@@ -7,7 +7,7 @@ module Api
 
       # POST /api/v1/shared_accesses.json
       def create
-        shared_users_ids = params[:shared_users]
+        shared_users_ids = Array(params[:shared_users])
 
         shared_users_ids.each do |shared_user_id|
           SharedAccess.create(user_id: shared_user_id, room_id: @room.id)

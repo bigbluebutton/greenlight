@@ -7,17 +7,8 @@ export default function useShareAccess({ friendlyId, closeModal }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const shareAccess = (data) => {
-    let sharedUsers = data.shared_users;
-    if (typeof data.shared_users === 'string') {
-      sharedUsers = [data.shared_users];
-    }
-
-    return axios.post('/shared_accesses.json', { friendly_id: friendlyId, shared_users: sharedUsers });
-  };
-
   return useMutation(
-    shareAccess,
+    (data) => axios.post('/shared_accesses.json', { friendly_id: friendlyId, shared_users: data.shared_users }),
     {
       onSuccess: () => {
         closeModal();
