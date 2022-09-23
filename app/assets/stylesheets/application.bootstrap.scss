@@ -164,7 +164,6 @@ input.search-bar {
 .btn-brand {
   background-color: var(--brand-color);
   border-color: var(--brand-color);
-  //border: 2px solid var(--brand-color);
   color: white;
 
   &:hover {
@@ -178,8 +177,7 @@ input.search-bar {
 }
 
 .btn-brand-backward {
-  border: 2px solid gainsboro;
-  border-color: var(--brand-color);
+  border: 2px solid var(--brand-color);
   color: var(--brand-color);
   background-color: white;
   box-shadow: var(--brand-color-light);
