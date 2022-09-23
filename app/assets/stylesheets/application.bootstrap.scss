@@ -403,4 +403,13 @@ input[type="range"]:focus::-moz-range-thumb {
   outline-offset: 0.125rem;
 }
 
-
+.nav-tabs {
+  .nav-link.active {
+    border-bottom: 2px solid var(--brand-color) !important;
+  }
+  .nav-link {
+    &:hover {
+      border-bottom: 2px solid var(--brand-color) !important;
+    }
+  }
+}

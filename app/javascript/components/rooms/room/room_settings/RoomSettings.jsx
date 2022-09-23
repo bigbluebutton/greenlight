@@ -95,14 +95,14 @@ export default function RoomSettings() {
                 config={roomsConfigs.data.muteOnStart}
                 description={t('room.settings.mute_users_on_join')}
               />
+              <div className="float-end mt-3">
+                <Modal
+                  modalButton={<Button variant="delete" className="mt-1 mx-2 float-end">{ t('room.delete_room') }</Button>}
+                  title={t('room.delete_room')}
+                  body={<DeleteRoomForm mutation={deleteMutationWrapper} />}
+                />
+              </div>
             </Col>
-          </Row>
-          <Row className="float-end">
-            <Modal
-              modalButton={<Button variant="brand-outline" className="mt-1 mx-2 float-end">{ t('room.delete_room') }</Button>}
-              title={t('room.delete_room')}
-              body={<DeleteRoomForm mutation={deleteMutationWrapper} />}
-            />
           </Row>
         </div>
       </Card>

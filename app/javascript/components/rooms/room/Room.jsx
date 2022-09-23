@@ -26,7 +26,7 @@ export default function Room() {
       <Row className="pt-4">
         <Col>
           <Link to="/rooms">
-            <HomeIcon className="hi-l text-brand" />
+            <HomeIcon className="hi-m text-brand" />
           </Link>
         </Col>
       </Row>
