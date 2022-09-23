@@ -16,7 +16,7 @@ module Api
       end
 
       # POST /api/v1/users.json
-      # Expects: { user: { :name, :email, :password, :password_confirmation } }
+      # Expects: { user: { :name, :email, :password} }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: Creates and saves a new user record in the database with the provided parameters.
 
@@ -93,7 +93,7 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :language, :role_id)
+        params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id)
       end
 
       def change_password_params

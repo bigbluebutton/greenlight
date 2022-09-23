@@ -9,7 +9,6 @@ RSpec.describe Api::V1::UsersController, type: :request do
         name: Faker::Name.name,
         email: Faker::Internet.email,
         password: 'Password123+',
-        password_confirmation: 'Password123+',
         language: 'language'
       }
     }
@@ -62,7 +61,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
     context 'invalid user params' do
       it 'fails for invalid values' do
         invalid_user_params = {
-          user: { name: '', email: 'invalid', password: 'something', password_confirmation: 'something_else' }
+          user: { name: '', email: 'invalid', password: 'something' }
         }
         expect { post api_v1_users_path, params: invalid_user_params, headers: }.not_to change(User, :count)
         expect(response.content_type).to eq('application/json; charset=utf-8')
@@ -83,7 +82,6 @@ RSpec.describe Api::V1::UsersController, type: :request do
           name: 'Optimus Prime',
           email: 'optimus@autobots.cybertron',
           password: 'Autobots1!',
-          password_confirmation: 'Autobots1!',
           language: 'teletraan'
         }
 
