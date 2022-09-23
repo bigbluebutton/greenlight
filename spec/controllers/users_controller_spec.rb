@@ -18,7 +18,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           name: Faker::Name.name,
           email: Faker::Internet.email,
           password: 'Password123+',
-          password_confirmation: 'Password123+',
           language: 'language'
         }
       }

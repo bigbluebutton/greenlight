@@ -12,7 +12,6 @@ User.create(
   name: 'Administrator',
   email: 'admin@admin.com',
   password: 'Administrator1!',
-  password_confirmation: 'Administrator1!',
   provider: 'greenlight',
   language: 'en',
   role: Role.find_by(name: 'Administrator')

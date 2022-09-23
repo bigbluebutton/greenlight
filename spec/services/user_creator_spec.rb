@@ -17,7 +17,6 @@ describe UserCreator, type: :service do
         name: 'Megatron',
         email: 'megatron@decepticons.cybertron',
         password: 'Decepticons',
-        password_confirmation: 'Decepticons',
         language: 'teletraan'
       }
       res = described_class.new(user_params:, provider: 'greenlight').call
@@ -36,7 +35,6 @@ describe UserCreator, type: :service do
         name: 'Megatron Prime',
         email: 'mega-prime@auto-decepticons.cybertron',
         password: 'Cybertron',
-        password_confirmation: 'Cybertron',
         language: 'teletraan'
       }
       res = described_class.new(user_params:, provider: 'greenlight').call
@@ -55,7 +53,6 @@ describe UserCreator, type: :service do
         name: 'Optimus Prime',
         email: 'optimus@autobots.cybertron',
         password: 'Autobots',
-        password_confirmation: 'Autobots',
         language: 'teletraan'
       }
       res = described_class.new(user_params:, provider: 'greenlight').call
