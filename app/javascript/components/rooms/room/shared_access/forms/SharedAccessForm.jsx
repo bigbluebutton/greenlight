@@ -19,8 +19,7 @@ export default function SharedAccessForm({ handleClose }) {
   const { friendlyId } = useParams();
   const { onSubmit } = useShareAccess({ friendlyId, closeModal: handleClose });
   const [input, setInput] = useState();
-  const [shareableUsers, setShareableUsers] = useState();
-  useShareableUsers(friendlyId, input, setShareableUsers);
+  const { data: shareableUsers } = useShareableUsers(friendlyId, input);
 
   return (
     <div id="shared-access-form">
