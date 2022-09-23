@@ -17,8 +17,7 @@ export default function SharedAccess() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
   const [input, setInput] = useState();
-  const [sharedUsers, setSharedUsers] = useState();
-  useSharedUsers(friendlyId, input, setSharedUsers);
+  const { data: sharedUsers } = useSharedUsers(friendlyId, input);
   const deleteSharedAccess = useDeleteSharedAccess(friendlyId);
 
   if (sharedUsers?.length || input) {
