@@ -117,6 +117,7 @@
       "access_code": "Access Code",
       "mod_access_code": "Moderator Access Code",
       "mod_access_code_optional": "Moderator Access Code (optional)",
+      "access_code_required": "Please enter the access code",
       "wrong_access_code": "Wrong Access Code",
       "generate_viewers_access_code": "Generate access code for viewers",
       "generate_mods_access_code": "Generate access code for moderators"
