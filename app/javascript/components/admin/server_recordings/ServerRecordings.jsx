@@ -40,7 +40,7 @@ export default function ServerRecordings() {
                     <Stack direction="horizontal" className="mb-4">
                       <SearchBarQuery setInput={setInput} />
                       <Button
-                        variant="brand-backward"
+                        variant="brand-outline"
                         className="ms-auto"
                         onClick={recordingsReSync.refetch}
                       > { t('admin.server_recordings.resync_recordings') }

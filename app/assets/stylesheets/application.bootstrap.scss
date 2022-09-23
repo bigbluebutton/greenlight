@@ -176,14 +176,14 @@ input.search-bar {
   }
 }
 
-.btn-brand-backward {
+.btn-brand-outline {
   border: 2px solid gainsboro;
   color: var(--brand-color);
   background-color: white;
   box-shadow: var(--brand-color-light);
 
   &:hover {
-    box-shadow: inset 0 0 200px 200px rgba(0, 0, 0, 0.05);
+    border-color: var(--brand-color);
     color: var(--brand-color);
   }
 

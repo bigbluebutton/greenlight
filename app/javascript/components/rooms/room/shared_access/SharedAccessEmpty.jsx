@@ -20,7 +20,7 @@ export default function SharedAccessEmpty() {
             { t('room.shared_access.add_some_users_description') }
           </Card.Text>
           <Modal
-            modalButton={<Button variant="brand-backward">{ t('room.shared_access.add_share_access') }</Button>}
+            modalButton={<Button variant="brand-outline">{ t('room.shared_access.add_share_access') }</Button>}
             title={t('room.shared_access.share_room_access')}
             body={<SharedAccessForm />}
             size="lg"
