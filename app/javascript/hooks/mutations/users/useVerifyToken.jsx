@@ -2,14 +2,14 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../../helpers/Axios';
 
-export default function useVerifyToken() {
+export default function useVerifyToken(token) {
   const navigate = useNavigate();
 
   return useMutation(
-    (data) => axios.post('/reset_password/verify.json', data),
+    () => axios.post('/reset_password/verify.json', { user: { token } }),
     {
       onError: () => {
-        navigate('/');
+        navigate('/'); // TODO: Obsecure this as a 404 case.
       },
     },
   );

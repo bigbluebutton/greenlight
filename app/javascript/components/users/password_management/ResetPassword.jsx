@@ -8,13 +8,13 @@ import Logo from '../../shared_components/Logo';
 
 export default function ResetPassword() {
   const { token } = useParams();
-  const verifyToken = useVerifyToken();
+  const verifyTokenAPI = useVerifyToken(token);
 
   useEffect(() => {
-    verifyToken.mutate({ user: { token } });
+    verifyTokenAPI.mutate();
   }, []);
 
-  if (verifyToken.isLoading) return <Spinner />;
+  if (verifyTokenAPI.isIdle || verifyTokenAPI.isLoading) return <Spinner />;
 
   return (
     <div className="vertical-center">
