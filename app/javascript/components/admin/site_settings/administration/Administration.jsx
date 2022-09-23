@@ -21,7 +21,7 @@ export default function Administration({ terms, privacy }) {
       </Row>
       <Row>
         <h6> { t('admin.site_settings.administration.privacy') } </h6>
-        <p className="text-muted"> { t('admin.site_settings.administration.change_privacy_links') } </p>
+        <p className="text-muted"> { t('admin.site_settings.administration.change_privacy_link') } </p>
         <LinksForm
           id="privacyForm"
           mutation={() => useUpdateSiteSetting('PrivacyPolicy')}

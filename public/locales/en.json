@@ -7,6 +7,7 @@
   "view": "View",
   "join": "Join",
   "edit": "Edit",
+  "save": "Save",
   "save_changes": "Save Changes",
   "update": "Update",
   "share": "Share",
@@ -174,7 +175,8 @@
       "active": "Active",
       "current_session": "Current Session: {{lastSession}}",
       "last_session": "Last Session: {{lastSession}}",
-      "no_meeting_yet": "No meeting yet."
+      "no_meeting_yet": "No meeting yet.",
+      "delete_server_rooms": "Delete Server Room"
     },
     "server_recordings": {
       "server_recordings": "Server Recordings",
