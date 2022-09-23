@@ -12,7 +12,7 @@ export default function useDeleteSharedAccess(friendlyId) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getSharedUsers');
-        toast.success(t('success.toast.room_unshared'));
+        toast.success(t('toast.success.room.room_unshared'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));
