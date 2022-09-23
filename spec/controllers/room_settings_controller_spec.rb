@@ -40,11 +40,17 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
   end
 
   describe '#update' do
+    before do
+      # Needed because of Room after_create create_meeting_options
+      allow_any_instance_of(Room).to receive(:create_meeting_options).and_return(true)
+    end
+
     it 'uses MeetingOption::get_config_value and updates the setting if its config is "optional"' do
       expect(MeetingOption).to receive(:get_config_value).with(name: 'setting', provider: 'greenlight').and_call_original
 
       meeting_option = create(:meeting_option, name: 'setting')
       create(:rooms_configuration, meeting_option:, value: 'optional')
+      create(:room_meeting_option, room:, meeting_option:)
 
       put :update, params: { room_setting: { settingName: 'setting', settingValue: 'notOptionalAnymore' }, friendly_id: room.friendly_id }
       expect(response).to have_http_status(:ok)
@@ -60,6 +66,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
 
         meeting_option = create(:meeting_option, name: random_access_code_name)
         create(:rooms_configuration, meeting_option:, provider: 'greenlight', value: %w[optional true].sample)
+        create(:room_meeting_option, room:, meeting_option:)
 
         put :update, params: { room_setting: { settingName: random_access_code_name, settingValue: true }, friendly_id: room.friendly_id }
         expect(response).to have_http_status(:ok)
@@ -73,6 +80,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
 
         meeting_option = create(:meeting_option, name: random_access_code_name)
         create(:rooms_configuration, meeting_option:, provider: 'greenlight', value: 'optional')
+        create(:room_meeting_option, room:, meeting_option:)
 
         put :update, params: { room_setting: { settingName: random_access_code_name, settingValue: false }, friendly_id: room.friendly_id }
         expect(response).to have_http_status(:ok)
