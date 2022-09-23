@@ -85,6 +85,8 @@
     "create_new_room": "Create New Room",
     "enter_room_name": "Enter the room name",
     "shared_by": "Shared by: {{room.shared_owner}}",
+    "last_session": "Last Session: {{ room.last_session }}",
+    "no_last_session": "No previous session created",
     "meeting": {
       "start_meeting": "Start Meeting",
       "join_meeting": "Join Meeting",

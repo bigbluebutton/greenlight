@@ -40,9 +40,9 @@ export default function RoomCard({ room }) {
             <span className="text-muted">{ t('room.shared_by', { room }) } </span>
           )}
           { room.last_session ? (
-            <span className="text-muted"> Last Session: { room.last_session } </span>
+            <span className="text-muted"> { t('room.last_session', { room }) } </span>
           ) : (
-            <span className="text-muted mt-2"> No previous sessions created </span>
+            <span className="text-muted mt-2"> { t('room.no_last_session') } </span>
           )}
         </Stack>
       </Card.Body>

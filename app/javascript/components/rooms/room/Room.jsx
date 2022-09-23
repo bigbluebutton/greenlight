@@ -48,9 +48,9 @@ export default function Room() {
           </Stack>
           <p className="text-muted"> { room.created_at }</p>
           { room.last_session ? (
-            <span className="text-muted"> Last Session: { room.last_session } </span>
+            <span className="text-muted"> { t('room.last_session', { room }) }  </span>
           ) : (
-            <span className="text-muted mt-2"> No previous sessions created </span>
+            <span className="text-muted mt-2"> { t('room.no_last_session') } </span>
           )}
         </Col>
         <Col>
