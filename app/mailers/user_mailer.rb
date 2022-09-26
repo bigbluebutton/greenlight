@@ -15,5 +15,13 @@ class UserMailer < ApplicationMailer
 
     mail(to: email_address_with_name(@user.email, @user.name), subject: 'Reset Password')
   end
+
+  def activate_account_email
+    @user = params[:user]
+    @activation_url = params[:activation_url]
+    @expires_in = params[:expires_in]
+
+    mail(to: email_address_with_name(@user.email, @user.name), subject: 'Account Activation')
+  end
   # rubocop:enable Rails/I18nLocaleTexts
 end

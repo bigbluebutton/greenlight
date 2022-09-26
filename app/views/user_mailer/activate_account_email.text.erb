@@ -1,0 +1,10 @@
+---
+Welcome <%= @user.name %>!
+
+You are invited to verifiy your identity by following the link below to activate your Greenlight account.
+There's only one step left to start using and leverage what Greenlight and BigBlueButton has to offer!
+Activating your account will enable you to leverage all of Greenlight and BigBlueButton features!
+Link: <%= @activation_url %>
+This link will expire in <%= time_ago_in_words(@expires_in) %>.
+You can still login to your account to get a new activation link if this email expires.
+---

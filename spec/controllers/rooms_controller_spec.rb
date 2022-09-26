@@ -173,6 +173,11 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
 
+    it 'calls create_meeting_options on room' do
+      expect_any_instance_of(Room).to receive(:create_meeting_options)
+      post :create, params: room_params
+    end
+
     context 'user with ManageUser permission' do
       before do
         session[:user_id] = user_with_manage_users_permission.id

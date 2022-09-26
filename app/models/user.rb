@@ -21,8 +21,11 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   validates :name, presence: true # TODO: amir - Change into full_name or seperate first and last name.
-  # TODO: amir - Validate email format.
-  validates :email, presence: true, uniqueness: { case_sensitive: false, scope: :provider }
+  validates :email,
+            format: /\A[\w\-.]+@[\w\-.]+\.[a-z]+\z/i,
+            presence: true,
+            uniqueness: { case_sensitive: false, scope: :provider }
+
   validates :provider, presence: true
 
   validates :password,
@@ -31,7 +34,6 @@ class User < ApplicationRecord
 
   validates :password,
             format: %r{\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[`@%~!#£$\\^&*()\]\[+={}/|:;"'<>\-,.?_ ]).{8,}\z},
-            confirmation: true,
             on: %i[create update], if: :password_digest_changed?, unless: :external_id?
 
   # TODO: samuel - ActiveStorage validations needs to be discussed and implemented.

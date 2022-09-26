@@ -10,7 +10,7 @@ export default function PaginationButton({ direction }) {
 
   if (direction === 'Previous') {
     return (
-      <Button variant="brand-backward">
+      <Button variant="brand-outline">
         <ArrowLeftIcon className="me-3 hi-s text-brand" />
         { t('previous') }
       </Button>
@@ -19,7 +19,7 @@ export default function PaginationButton({ direction }) {
 
   if (direction === 'Next') {
     return (
-      <Button variant="brand-backward">
+      <Button variant="brand-outline">
         { t('next') }
         <ArrowRightIcon className="ms-3 hi-s text-brand" />
       </Button>

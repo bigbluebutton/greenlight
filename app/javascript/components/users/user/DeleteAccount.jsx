@@ -14,7 +14,7 @@ export default function DeleteAccount() {
         { t('user.account.delete_account_description') }
       </p>
       <Modal
-        modalButton={<Button variant="danger">{ t('user.account.delete_account_confirmation') }</Button>}
+        modalButton={<Button variant="delete">{ t('user.account.delete_account_confirmation') }</Button>}
         title={t('are_you_sure')}
         body={<DeleteUserForm />}
       />

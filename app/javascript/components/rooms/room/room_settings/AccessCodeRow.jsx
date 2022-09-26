@@ -60,7 +60,7 @@ export default function AccessCodeRow({
           : (
             <div>
               <Button
-                variant="brand-backward"
+                variant="brand-outline"
                 onClick={handleGenerateCode}
               >
                 { t('room.settings.generate') }

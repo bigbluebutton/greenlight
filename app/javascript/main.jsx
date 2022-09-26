@@ -27,6 +27,7 @@ import ResetPassword from './components/users/password_management/ResetPassword'
 import EditUser from './components/admin/manage_users/EditUser';
 import EditRole from './components/admin/roles/EditRole';
 import Home from './components/home/Home';
+import ActivateAccount from './components/users/account_activation/ActivateAccount';
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ const root = (
               <Route path="/signin" element={<SignIn />} />
               <Route path="/forget_password" element={<ForgetPassword />} />
               <Route path="/reset_password/:token" element={<ResetPassword />} />
+              <Route path="/activate_account/:token" element={<ActivateAccount />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/admin" element={<Navigate to="/admin/users" replace />} />
               <Route path="/admin/users" element={<ManageUsers />} />

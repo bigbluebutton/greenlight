@@ -28,7 +28,7 @@ export default function ManageUserRow({ user }) {
           </div>
           <Stack>
             <strong> {user.name} </strong>
-            <span className="small text-muted"> { t('admin.manage_users.user_create_at', { user }) }</span>
+            <span className="small text-muted"> { t('admin.manage_users.user_created_at', { user }) }</span>
           </Stack>
         </Stack>
       </td>

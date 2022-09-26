@@ -16,7 +16,7 @@ module Api
       end
 
       # POST /api/v1/users.json
-      # Expects: { user: { :name, :email, :password, :password_confirmation } }
+      # Expects: { user: { :name, :email, :password} }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: Creates and saves a new user record in the database with the provided parameters.
 
@@ -32,8 +32,10 @@ module Api
         if user.save
           session[:user_id] ||= user.id
           token = user.generate_activation_token!
-          # TODO: enable activation email sending.
-          render_data data: current_user, serializer: CurrentUserSerializer, options: { token: }, status: :created
+          UserMailer.with(user:, expires_in: User::ACTIVATION_TOKEN_VALIDITY_PERIOD.from_now,
+                          activation_url: activate_account_url(token)).activate_account_email.deliver_later
+
+          render_data data: current_user, serializer: CurrentUserSerializer, status: :created
         else
           # TODO: amir - Improve logging.
           render_error errors: user.errors.to_a
@@ -93,7 +95,7 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :language, :role_id)
+        params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id)
       end
 
       def change_password_params
@@ -104,6 +106,10 @@ module Api
       def update_avatar
         path = user_params[:avatar].tempfile.path
         ImageProcessing::MiniMagick.source(path).resize_to_fill(250, 250, gravity: 'northwest').call(destination: path)
+      end
+
+      def activate_account_url(token)
+        "#{root_url}activate_account/#{token}" # Client side activate account url.
       end
     end
   end

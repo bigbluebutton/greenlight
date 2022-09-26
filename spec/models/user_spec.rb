@@ -15,10 +15,6 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:provider) }
 
     it { is_expected.to validate_presence_of(:email) }
-
-    # TODO: samuel - need to find a solution for this
-    # it { is_expected.to validate_presence_of(:password_confirmation) }
-
     it { is_expected.to validate_uniqueness_of(:email).scoped_to(:provider).case_insensitive }
     it { is_expected.to validate_uniqueness_of(:reset_digest) }
     it { is_expected.to validate_uniqueness_of(:activation_digest) }
@@ -83,11 +79,16 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'password confirmation' do
-      it 'invalidate the record for mismatched password confirmation' do
-        user = build(:user, password: 'Password1!', password_confirmation: 'Password2!')
+    context 'email format' do
+      it 'accepts valid email format' do
+        user = build(:user, email: 'user-1.dep-1@users.org-1.tld')
+        expect(user).to be_valid
+      end
+
+      it 'refuses invalid email formats' do
+        user = build(:user, email: 'INVALID')
         expect(user).to be_invalid
-        expect(user.errors.first.details).to eq({ error: :confirmation, attribute: 'Password' })
+        expect(user.errors.attribute_names).to match_array([:email])
       end
     end
   end

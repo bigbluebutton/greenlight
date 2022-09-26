@@ -51,7 +51,6 @@ module Api
       def create
         # TODO: amir - ensure accessibility for authenticated requests only.
         # The created room will be the current user's unless a user_id param is provided with the request.
-        # user_id = room_params[:user_id]
         room = Room.create(name: room_params[:name], user_id: room_params[:user_id])
 
         return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])

@@ -40,7 +40,7 @@ export default function Room() {
             { t('room.meeting.start_meeting') }
             {startMeeting.isLoading && <Spinner />}
           </Button>
-          <Button variant="brand-backward" className="mt-1 mx-2 float-end" onClick={copyInvite}>
+          <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={copyInvite}>
             <DuplicateIcon className="hi-xs" />
             { t('copy') }
           </Button>

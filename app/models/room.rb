@@ -37,6 +37,17 @@ class Room < ApplicationRecord
                         .find_by(meeting_option: { name: })
   end
 
+  # Autocreate all meeting options using the default values
+  def create_meeting_options
+    configs = MeetingOption.get_config_value(name: %w[glViewerAccessCode glModeratorAccessCode], provider: user.provider)
+    configs = configs.select { |_k, v| v == 'true' }
+
+    MeetingOption.all.find_each do |option|
+      value = configs.key?(option.name) ? SecureRandom.alphanumeric(6).downcase : option.default_value
+      RoomMeetingOption.create(room: self, meeting_option: option, value:)
+    end
+  end
+
   private
 
   def set_friendly_id
@@ -56,12 +67,5 @@ class Room < ApplicationRecord
     self.meeting_id = id
   rescue StandardError
     retry
-  end
-
-  # Autocreate all meeting options using the default values
-  def create_meeting_options
-    MeetingOption.all.find_each do |option|
-      RoomMeetingOption.create(room: self, meeting_option: option, value: option.default_value)
-    end
   end
 end
