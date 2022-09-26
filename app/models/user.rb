@@ -36,8 +36,12 @@ class User < ApplicationRecord
             format: %r{\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[`@%~!#£$\\^&*()\]\[+={}/|:;"'<>\-,.?_ ]).{8,}\z},
             on: %i[create update], if: :password_digest_changed?, unless: :external_id?
 
-  # TODO: samuel - ActiveStorage validations needs to be discussed and implemented.
-  validate :avatar_validation
+  validates :avatar,
+            attached: true,
+            dimension: { width: 300, height: 300 },
+            content_type: [:png, :jpg, :jpeg, :svg],
+            size: { less_than: 3.megabytes }
+
   validates :reset_digest, uniqueness: true, if: :reset_digest?
   validates :activation_digest, uniqueness: true, if: :activation_digest?
   validates :session_token, uniqueness: true, if: :session_token?
@@ -161,17 +165,5 @@ class User < ApplicationRecord
 
   def deactivate!
     update! active: false
-  end
-
-  private
-
-  def avatar_validation
-    return unless avatar.attached?
-
-    if !avatar.attachment.blob.content_type.in?(%w[image/png image/jpeg])
-      errors.add(:avatar, 'must be an image file')
-    elsif avatar.attachment.blob.byte_size > MAX_AVATAR_SIZE
-      errors.add(:avatar, 'is too large')
-    end
   end
 end
