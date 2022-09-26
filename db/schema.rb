@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_14_190934) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -176,10 +176,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_144137) do
     t.boolean "active", default: false
     t.string "activation_digest"
     t.datetime "activation_sent_at", precision: nil
+    t.string "session_token"
+    t.datetime "session_expiry", precision: nil
     t.index ["activation_digest"], name: "index_users_on_activation_digest", unique: true
     t.index ["email", "provider"], name: "index_users_on_email_and_provider", unique: true
     t.index ["reset_digest"], name: "index_users_on_reset_digest", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
+    t.index ["session_token"], name: "index_users_on_session_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

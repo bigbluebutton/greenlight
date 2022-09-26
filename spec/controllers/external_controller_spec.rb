@@ -31,7 +31,7 @@ RSpec.describe ExternalController, type: :controller do
 
       get :create_user, params: { provider: 'openid_connect' }
 
-      expect(session[:user_id]).to eq(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).id)
+      expect(session[:session_token]).to eq(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).session_token)
       expect(response).to redirect_to('/rooms')
     end
 

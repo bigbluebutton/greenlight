@@ -9,7 +9,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user.id
+    sign_in_user(user)
 
     allow_any_instance_of(BigBlueButtonApi)
       .to receive(:start_meeting)
@@ -102,7 +102,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     end
 
     it 'returns an error if the user is not logged in' do
-      session[:user_id] = nil
+      session[:session_token] = nil
 
       post :start, params: { friendly_id: room.friendly_id }
 
@@ -127,7 +127,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
     context 'user with ManageRooms permission' do
       before do
-        session[:user_id] = user_with_manage_rooms_permission.id
+        sign_in_user(user_with_manage_rooms_permission)
       end
 
       it 'makes a call to MeetingStarter service for another room' do
@@ -295,7 +295,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       end
 
       it 'returns unauthorized if the user isnt signed in' do
-        session[:user_id] = nil
+        session[:session_token] = nil
 
         expect_any_instance_of(BigBlueButtonApi).not_to receive(:join_meeting)
 
@@ -306,7 +306,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     end
 
     it 'allows access to an unauthenticated user' do
-      session[:user_id] = nil
+      session[:session_token] = nil
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Viewer')

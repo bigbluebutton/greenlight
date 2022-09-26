@@ -32,7 +32,9 @@ module Api
         return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         if user.save
-          session[:user_id] ||= user.id
+          user.generate_session_token!
+          session[:session_token] = user.session_token unless current_user # if this is NOT an admin creating a user
+
           token = user.generate_activation_token!
           UserMailer.with(user:, expires_in: User::ACTIVATION_TOKEN_VALIDITY_PERIOD.from_now,
                           activation_url: activate_account_url(token)).activate_account_email.deliver_later

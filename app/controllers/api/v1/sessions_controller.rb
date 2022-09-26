@@ -41,20 +41,25 @@ module Api
       end
 
       def sign_in(user)
+        user.generate_session_token!(extended_session: session_params[:extend_session])
+
         # Creates an extended_session cookie if extend_session is selected in sign in form.
         if session_params[:extend_session]
           cookies.encrypted[:_extended_session] = {
             value: {
-              user_id: user.id
+              session_token: user.session_token
             },
             expires: 7.days,
-            httponly: true
+            httponly: true,
+            secure: true
           }
         end
-        session[:user_id] = user.id
+
+        session[:session_token] = user.session_token
       end
 
       def sign_out
+        current_user.generate_session_token!
         reset_session
         cookies.delete :_extended_session
       end

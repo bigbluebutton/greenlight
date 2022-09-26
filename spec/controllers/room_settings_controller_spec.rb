@@ -8,7 +8,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user.id
+    sign_in_user(user)
   end
 
   describe '#show' do
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
 
     context 'AuthN' do
       it 'returns :unauthorized response for unauthenticated requests' do
-        session[:user_id] = nil
+        session[:session_token] = nil
 
         get :show, params: { friendly_id: room.friendly_id }
         expect(response).to have_http_status(:unauthorized)
@@ -134,7 +134,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
 
     context 'AuthN' do
       it 'returns :unauthorized response for unauthenticated requests' do
-        session[:user_id] = nil
+        session[:session_token] = nil
 
         put :update, params: { friendly_id: room.friendly_id }
         expect(response).to have_http_status(:unauthorized)

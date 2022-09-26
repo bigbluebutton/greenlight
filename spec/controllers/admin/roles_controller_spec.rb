@@ -8,7 +8,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user_with_manage_roles_permission.id
+    sign_in_user(user_with_manage_roles_permission)
   end
 
   describe 'roles#index' do
@@ -52,7 +52,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       let(:user_with_manage_users_permission) { create(:user, :with_manage_users_permission) }
 
       before do
-        session[:user_id] = user_with_manage_users_permission
+        sign_in_user(user_with_manage_users_permission)
       end
 
       it 'returns the list of roles' do
@@ -68,7 +68,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
 
     context 'user without ManageRoles permission' do
       before do
-        session[:user_id] = user.id
+        sign_in_user(user)
       end
 
       it 'user without ManageRoles permission cannot return the list of roles' do
@@ -120,7 +120,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
 
     context 'user without ManageRoles permission' do
       before do
-        session[:user_id] = user.id
+        sign_in_user(user)
       end
 
       it 'returns :forbidden for user without ManageRoles permission' do
@@ -157,7 +157,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
 
     context 'user without ManageRoles permission' do
       before do
-        session[:user_id] = user.id
+        sign_in_user(user)
       end
 
       it 'returns :forbidden for user without ManageRoles permission' do
@@ -185,7 +185,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
 
     context 'user without ManageRoles permission' do
       before do
-        session[:user_id] = user.id
+        sign_in_user(user)
       end
 
       it 'user without ManageRoles permission cannot return the role' do
@@ -215,7 +215,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
 
     context 'user without ManageRoles permission' do
       before do
-        session[:user_id] = user.id
+        sign_in_user(user)
       end
 
       it 'user without ManageRoles permission cannot remove a given role' do

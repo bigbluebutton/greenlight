@@ -9,7 +9,7 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user_with_manage_recordings_permission.id
+    sign_in_user(user_with_manage_recordings_permission)
   end
 
   describe '#index' do
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
 
     context 'user without ManageRecordings permission' do
       before do
-        session[:user_id] = user.id
+        sign_in_user(user)
       end
 
       it 'cannot return the list of recordings' do
@@ -101,7 +101,7 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
 
     context 'user without ManageRecordings permission' do
       before do
-        session[:user_id] = user.id
+        sign_in_user(user)
       end
 
       it 'call the RecordingsSync service' do

@@ -7,7 +7,7 @@ RSpec.describe Api::V1::ResetPasswordController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user.id
+    sign_in_user(user)
   end
 
   describe 'POST reset_password#create' do

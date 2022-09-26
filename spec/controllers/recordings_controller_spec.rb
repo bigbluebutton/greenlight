@@ -8,7 +8,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user.id
+    sign_in_user(user)
   end
 
   describe '#index' do
@@ -121,7 +121,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
 
     context 'user has ManageRecordings permission' do
       before do
-        session[:user_id] = user_with_manage_recordings_permission.id
+        sign_in_user(user_with_manage_recordings_permission)
       end
 
       it 'updates another users recordings name' do

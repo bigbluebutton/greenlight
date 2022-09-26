@@ -8,7 +8,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    session[:user_id] = user.id
+    sign_in_user(user)
   end
 
   describe '#create' do
@@ -24,16 +24,16 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
 
     it 'creates a current_user if a new user is created' do
-      session[:user_id] = nil
+      session[:session_token] = nil
       create(:role, name: 'User') # Needed for admin#create
       expect { post :create, params: user_params }.to change(User, :count).by(1)
-      expect(session[:user_id]).to be_present
+      expect(session[:session_token]).to be_present
     end
 
     it 'creates a user without changing the current user if the user is created from a logged in user' do
       create(:role, name: 'User') # Needed for admin#create
       expect { post :create, params: user_params }.to change(User, :count).by(1)
-      expect(session[:user_id]).to eql(user.id)
+      expect(session[:session_token]).to be_present
     end
   end
 
@@ -114,7 +114,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context 'user with ManageUsers permission' do
       before do
-        session[:user_id] = user_with_manage_users_permission.id
+        sign_in_user(user_with_manage_users_permission)
       end
 
       it 'deletes a user' do
@@ -155,14 +155,14 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
 
     it 'returns :unauthorized response for unauthenticated requests' do
-      session[:user_id] = nil
+      session[:session_token] = nil
       post :change_password, params: {}
       expect(response).to have_http_status(:unauthorized)
     end
 
     it 'returns :forbidden response for external accounts' do
       external_user = create(:user, external_id: 'EXTERAL_ID')
-      session[:user_id] = external_user.id
+      sign_in_user(external_user)
       post :change_password, params: {}
       expect(response).to have_http_status(:forbidden)
     end
