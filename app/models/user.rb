@@ -39,7 +39,7 @@ class User < ApplicationRecord
   validates :avatar,
             attached: true,
             dimension: { width: 300, height: 300 },
-            content_type: [:png, :jpg, :jpeg, :svg],
+            content_type: %i[png jpg jpeg svg],
             size: { less_than: 3.megabytes }
 
   validates :reset_digest, uniqueness: true, if: :reset_digest?
