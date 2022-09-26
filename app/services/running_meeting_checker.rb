@@ -2,7 +2,6 @@
 
 # Pass the rooms to the service and it will return the rooms with the active and participants attributes
 class RunningMeetingChecker
-
   def initialize(rooms:)
     @rooms = rooms
   end
