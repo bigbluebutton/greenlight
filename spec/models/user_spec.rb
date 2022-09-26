@@ -78,6 +78,19 @@ RSpec.describe User, type: :model do
         end
       end
     end
+
+    context 'email format' do
+      it 'accepts valid email format' do
+        user = build(:user, email: 'user-1.dep-1@users.org-1.tld')
+        expect(user).to be_valid
+      end
+
+      it 'refuses invalid email formats' do
+        user = build(:user, email: 'INVALID')
+        expect(user).to be_invalid
+        expect(user.errors.attribute_names).to match_array([:email])
+      end
+    end
   end
 
   describe 'scopes' do
