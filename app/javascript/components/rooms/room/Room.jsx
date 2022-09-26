@@ -1,5 +1,5 @@
 import React from 'react';
-import {Badge, Button, Col, Row} from 'react-bootstrap';
+import { Stack, Badge, Button, Col, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { HomeIcon, DuplicateIcon } from '@heroicons/react/outline';
 import { toast } from 'react-hot-toast';
@@ -8,7 +8,7 @@ import FeatureTabs from './FeatureTabs';
 import Spinner from '../../shared_components/utilities/Spinner';
 import useRoom from '../../../hooks/queries/rooms/useRoom';
 import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
-import useMeetingRunning from "../../../hooks/queries/rooms/useMeetingRunning";
+import useMeetingRunning from '../../../hooks/queries/rooms/useMeetingRunning';
 
 function copyInvite() {
   navigator.clipboard.writeText(`${window.location}/join`);
@@ -35,9 +35,10 @@ export default function Room() {
       </Row>
       <Row className="my-5">
         <Col>
-          <h3>
-            <span>{room.name}</span>
-          </h3>
+          <Stack direction="horizontal" gap={2}>
+            <h1>{room.name}</h1>
+            <Badge className="badge rounded-pill online-badge"><span className="blink" /> Online </Badge>
+          </Stack>
           <p className="text-muted"> { room.created_at }</p>
         </Col>
         <Col>
@@ -46,7 +47,8 @@ export default function Room() {
               t('room.meeting.join_meeting')
             ) : (
               t('room.meeting.start_meeting')
-            )}
+            )
+            }
             {startMeeting.isLoading && <Spinner />}
           </Button>
           <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={copyInvite}>
