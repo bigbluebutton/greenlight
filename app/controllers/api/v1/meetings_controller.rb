@@ -84,6 +84,7 @@ module Api
         render_data data:, status: :ok
       end
 
+      # Returns a bool if a meeting is running or not
       # GET /api/v1/meetings/:friendly_id/running.json
       def running
         render_data data: BigBlueButtonApi.new.meeting_running?(room: @room), status: :ok

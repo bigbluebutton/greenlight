@@ -407,21 +407,21 @@ input[type="range"]:focus::-moz-range-thumb {
   .nav-link.active {
     border-bottom: 2px solid var(--brand-color) !important;
   }
+
   .nav-link {
     &:hover {
       border-bottom: 2px solid var(--brand-color) !important;
     }
-
-// Live Badge
-.online-badge {
-  background-color: whitesmoke !important;
-  color: green;
-  font-size: 16px;
-  font-weight: 500;
-  margin-left: 16px;
+  }
 }
 
-.blink {
+// Live Badge
+.online-pill {
+  background-color: whitesmoke !important;
+  font-size: 16px;
+}
+
+.blinking-green-dot {
   animation: blinker 2s linear infinite;
   width: 10px;
   height: 10px;
@@ -435,3 +435,4 @@ input[type="range"]:focus::-moz-range-thumb {
     opacity: 0.6;
   }
 }
+

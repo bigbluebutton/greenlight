@@ -1,5 +1,7 @@
 import React from 'react';
-import { Stack, Badge, Button, Col, Row } from 'react-bootstrap';
+import {
+  Stack, Badge, Button, Col, Row,
+} from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { HomeIcon, DuplicateIcon } from '@heroicons/react/outline';
 import { toast } from 'react-hot-toast';
@@ -34,10 +36,15 @@ export default function Room() {
         </Col>
       </Row>
       <Row className="my-5">
-        <Col>
+        <Col className="col-xxl-8">
           <Stack direction="horizontal" gap={2}>
             <h1>{room.name}</h1>
-            <Badge className="badge rounded-pill online-badge"><span className="blink" /> Online </Badge>
+            { isRunning
+              && (
+                <Badge className="rounded-pill online-pill ms-2 text-success">
+                  <span className="blinking-green-dot" /> {t('online')}
+                </Badge>
+              )}
           </Stack>
           <p className="text-muted"> { room.created_at }</p>
         </Col>
@@ -47,8 +54,7 @@ export default function Room() {
               t('room.meeting.join_meeting')
             ) : (
               t('room.meeting.start_meeting')
-            )
-            }
+            )}
             {startMeeting.isLoading && <Spinner />}
           </Button>
           <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={copyInvite}>
