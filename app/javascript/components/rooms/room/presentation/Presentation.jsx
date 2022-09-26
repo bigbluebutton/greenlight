@@ -42,7 +42,10 @@ export default function Presentation() {
                 accept=".doc,.docx,.pptx,.txt,.png,.jpg,.pdf"
               />
               <Card.Title className="text-brand">
-                { t('room.presentation.upload_drag_and_drop')}
+                { t('room.presentation.click_to_upload')}
+                <span className="fs-5 fw-normal text-muted">
+                  { t('room.presentation.drag_and_drop')}
+                </span>
               </Card.Title>
               <Card.Text>
                 { t('room.presentation.upload_description') }

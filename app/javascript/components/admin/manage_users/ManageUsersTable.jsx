@@ -15,7 +15,7 @@ export default function ManageUsersTable({ users }) {
             <th className="fw-normal border-end-0">{ t('user.name') }</th>
             <th className="fw-normal border-0">{ t('user.email_address') }</th>
             <th className="fw-normal border-0">{ t('user.authenticator') }</th>
-            <th className="fw-normal border-0">{ t('user.role') }</th>
+            <th className="fw-normal border-0">{ t('user.profile.role') }</th>
             <th className="border-start-0" aria-label="options" />
           </tr>
         </thead>

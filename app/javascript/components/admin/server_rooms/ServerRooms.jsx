@@ -18,7 +18,7 @@ export default function ServerRooms() {
 
   return (
     <div id="admin-panel">
-      <h3 className="py-5"> { t('admin.administrator_panel') } </h3>
+      <h3 className="py-5"> { t('admin.admin_panel') } </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="server-rooms">
           <Row>
