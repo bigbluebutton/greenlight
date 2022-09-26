@@ -37,7 +37,6 @@ class User < ApplicationRecord
             on: %i[create update], if: :password_digest_changed?, unless: :external_id?
 
   validates :avatar,
-            attached: true,
             dimension: { width: 300, height: 300 },
             content_type: %i[png jpg jpeg svg],
             size: { less_than: 3.megabytes }
