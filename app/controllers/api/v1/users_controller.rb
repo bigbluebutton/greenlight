@@ -3,6 +3,8 @@
 module Api
   module V1
     class UsersController < ApiController
+      include ClientRoutable
+
       skip_before_action :ensure_authenticated, only: %i[create]
 
       before_action only: %i[update destroy purge_avatar] do
@@ -106,10 +108,6 @@ module Api
       def update_avatar
         path = user_params[:avatar].tempfile.path
         ImageProcessing::MiniMagick.source(path).resize_to_fill(250, 250, gravity: 'northwest').call(destination: path)
-      end
-
-      def activate_account_url(token)
-        "#{root_url}activate_account/#{token}" # Client side activate account url.
       end
     end
   end
