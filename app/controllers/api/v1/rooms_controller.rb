@@ -19,30 +19,16 @@ module Api
       # GET /api/v1/rooms.json
       def index
         # Return the rooms that belong to current user
-        rooms = Room.where(user_id: current_user&.id)
+        user_rooms = Room.where(user_id: current_user&.id)
 
         shared_rooms = current_user.shared_rooms.map do |room|
           room.shared = true
           room
         end
 
-        active_rooms = BigBlueButtonApi.new.active_meetings
-        active_rooms_hash = {}
+        rooms = RunningMeetingChecker.new(rooms: user_rooms + shared_rooms).call
 
-        active_rooms.each do |active_room|
-          active_rooms_hash[active_room[:meetingID]] = active_room[:participantCount]
-        end
-
-        rooms.each do |room|
-          room.active = active_rooms_hash.key?(room.meeting_id)
-        end
-
-        shared_rooms.each do |room|
-          room.active = active_rooms_hash.key?(room.meeting_id)
-          room.participants = active_rooms_hash[room.meeting_id]
-        end
-
-        render_data data: rooms + shared_rooms, status: :ok
+        render_data data: rooms, status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id.json
