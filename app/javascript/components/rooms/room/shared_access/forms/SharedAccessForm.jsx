@@ -41,7 +41,6 @@ export default function SharedAccessForm({ handleClose }) {
                       <Stack direction="horizontal" className="py-2">
                         <Form.Check
                           type="checkbox"
-                          key={user.id}
                           value={user.id}
                           className="pe-3"
                           {...register('shared_users')}
