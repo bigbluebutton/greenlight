@@ -17,15 +17,14 @@ export default function SharedAccessForm({ handleClose }) {
   const { t } = useTranslation();
   const { register, handleSubmit } = useForm();
   const { friendlyId } = useParams();
-  const { onSubmit } = useShareAccess({ friendlyId, closeModal: handleClose });
+  const createSharedUser = useShareAccess({ friendlyId, closeModal: handleClose });
   const [input, setInput] = useState();
-  const [shareableUsers, setShareableUsers] = useState();
-  useShareableUsers(friendlyId, input, setShareableUsers);
+  const { data: shareableUsers } = useShareableUsers(friendlyId, input);
 
   return (
     <div id="shared-access-form">
       <SearchBarQuery setInput={setInput} />
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(createSharedUser.mutate)}>
         <Table hover className="text-secondary my-3">
           <thead>
             <tr className="text-muted small">
@@ -43,7 +42,6 @@ export default function SharedAccessForm({ handleClose }) {
                         <Form.Check
                           type="checkbox"
                           value={user.id}
-                          aria-label="tbd"
                           className="pe-3"
                           {...register('shared_users')}
                         />

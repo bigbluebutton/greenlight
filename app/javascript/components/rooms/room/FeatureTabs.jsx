@@ -5,10 +5,12 @@ import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
 import Presentation from './presentation/Presentation';
 import RoomSettings from './room_settings/RoomSettings';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
+import SharedAccess from './shared_access/SharedAccess';
 
 export default function FeatureTabs() {
   const { t } = useTranslation();
   const { data: preuploadEnabled } = useSiteSetting('PreuploadPresentation');
+  const { data: shareRoomEnabled } = useSiteSetting('ShareRooms');
 
   return (
     <Row className="pt-4 mx-0">
@@ -22,12 +24,12 @@ export default function FeatureTabs() {
             <Presentation />
           </Tab>
           )}
-        {/* { shareRoomEnabled */}
-        {/*  && ( */}
-        {/*  <Tab eventKey="access" title={t('room.shared_access.access)}> */}
-        {/*    <SharedAccess /> */}
-        {/*  </Tab> */}
-        {/*  )} */}
+        { shareRoomEnabled
+         && (
+         <Tab eventKey="access" title={t('room.shared_access.access')}>
+           <SharedAccess />
+         </Tab>
+         )}
         <Tab eventKey="settings" title={t('room.settings.settings')}>
           <RoomSettings />
         </Tab>

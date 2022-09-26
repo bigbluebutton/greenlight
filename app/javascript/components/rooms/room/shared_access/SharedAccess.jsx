@@ -17,8 +17,7 @@ export default function SharedAccess() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
   const [input, setInput] = useState();
-  const [sharedUsers, setSharedUsers] = useState();
-  useSharedUsers(friendlyId, input, setSharedUsers);
+  const { data: sharedUsers } = useSharedUsers(friendlyId, input);
   const deleteSharedAccess = useDeleteSharedAccess(friendlyId);
 
   if (sharedUsers?.length || input) {
@@ -29,7 +28,7 @@ export default function SharedAccess() {
             <SearchBarQuery setInput={setInput} />
           </div>
           <Modal
-            modalButton={<Button variant="brand-outline" className="ms-auto">{ t('room.shared_access.new_share_access')}</Button>}
+            modalButton={<Button variant="brand-outline" className="ms-auto">{ t('room.shared_access.add_share_access')}</Button>}
             title={t('room.shared_access.share_room_access')}
             body={<SharedAccessForm />}
             size="lg"
