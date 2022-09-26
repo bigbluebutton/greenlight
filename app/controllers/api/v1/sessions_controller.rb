@@ -47,8 +47,7 @@ module Api
         if session_params[:extend_session]
           cookies.encrypted[:_extended_session] = {
             value: {
-              session_token: user.session_token,
-              session_expiry: user.session_expiry
+              session_token: user.session_token
             },
             expires: 7.days,
             httponly: true,
@@ -57,7 +56,6 @@ module Api
         end
 
         session[:session_token] = user.session_token
-        session[:session_expiry] = user.session_expiry
       end
 
       def sign_out

@@ -31,10 +31,8 @@ module Api
 
         if user.save
           user.generate_session_token!
-          unless current_user # if this is NOT an admin creating a user
-            session[:session_token] = user.session_token
-            session[:session_expiry] = user.session_expiry
-          end
+          session[:session_token] = user.session_token unless current_user # if this is NOT an admin creating a user
+
           token = user.generate_activation_token!
           UserMailer.with(user:, expires_in: User::ACTIVATION_TOKEN_VALIDITY_PERIOD.from_now,
                           activation_url: activate_account_url(token)).activate_account_email.deliver_later

@@ -7,10 +7,7 @@ class ApplicationController < ActionController::Base
   # Returns the current signed in User (if any)
   def current_user
     # Overwrites the session cookie if an extended_session cookie exists
-    if cookies.encrypted[:_extended_session].present?
-      session[:session_token] ||= cookies.encrypted[:_extended_session]['session_token']
-      session[:session_expiry] ||= cookies.encrypted[:_extended_session]['session_expiry']
-    end
+    session[:session_token] ||= cookies.encrypted[:_extended_session]['session_token'] if cookies.encrypted[:_extended_session].present?
 
     user = User.find_by(session_token: session[:session_token])
 
