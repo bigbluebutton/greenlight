@@ -7,6 +7,8 @@ import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../shared_components/utilities/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
+import OnlineMeetingBadge from './OnlineMeetingBadge';
+import MeetingParticipantsBadge from './MeetingParticipantsBadge'
 
 function copyInvite(friendlyId) {
   navigator.clipboard.writeText(`${window.location}/${friendlyId}/join`);
@@ -22,13 +24,21 @@ export default function RoomCard({ room }) {
   return (
     <Card id="room-card" className="h-100 shadow-sm border-0">
       <Card.Body className="pb-0" onClick={handleClick}>
-        <div className="room-icon rounded">
-          { room.shared_owner ? (
-            <LinkIcon className="hi-m text-brand pt-4 d-block mx-auto" />
-          ) : (
-            <UserIcon className="hi-m text-brand pt-4 d-block mx-auto" />
-          )}
-        </div>
+        <Stack direction="horizontal">
+          <div className="room-icon rounded">
+            { room.shared_owner ? (
+              <LinkIcon className="hi-m text-brand pt-4 d-block mx-auto" />
+            ) : (
+              <UserIcon className="hi-m text-brand pt-4 d-block mx-auto" />
+            )}
+          </div>
+          <div className="meeting-badges">
+            { room.active
+              && <OnlineMeetingBadge />}
+            { room.participants >= 1
+            && <MeetingParticipantsBadge participants={room.participants} />}
+          </div>
+        </Stack>
 
         <Stack className="my-4">
           <Card.Title className="mb-0"> { room.name } </Card.Title>
@@ -62,5 +72,7 @@ RoomCard.propTypes = {
     name: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
     shared_owner: PropTypes.string,
+    active: PropTypes.bool,
+    participants: PropTypes.number,
   }).isRequired,
 };
