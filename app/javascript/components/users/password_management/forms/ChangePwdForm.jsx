@@ -23,8 +23,17 @@ export default function ChangePwdForm() {
       <FormControl field={fields.new_password} type="password" />
       <FormControl field={fields.password_confirmation} type="password" />
 
-      <Stack className="mt-1" gap={1}>
-        <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={changePwd.isLoading}>
+      <Stack direction="horizontal" gap={2} className="float-end">
+        <Button
+          variant="neutral"
+          onClick={() => methods.reset({
+            old_password: '',
+            new_password: '',
+          })}
+        >
+          { t('cancel') }
+        </Button>
+        <Button variant="brand" type="submit" disabled={changePwd.isLoading}>
           { t('user.account.change_password') }
           {changePwd.isLoading && <Spinner />}
         </Button>
