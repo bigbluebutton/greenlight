@@ -62,7 +62,7 @@ export default function UpdateUserForm({ user }) {
 
       <Stack direction="horizontal" gap={2} className="float-end">
         <Button
-          variant="brand-backward"
+          variant="neutral"
           onClick={() => methods.reset({
             name: user.name,
             email: user.email,
