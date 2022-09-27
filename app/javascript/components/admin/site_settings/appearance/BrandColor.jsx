@@ -2,12 +2,14 @@ import React from 'react';
 import { Stack } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import BrandColorPopover from './BrandColorPopover';
-import useSiteSetting from '../../../../hooks/queries/site_settings/useSiteSetting';
+import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSiteSettings';
+import Spinner from '../../../shared_components/utilities/Spinner';
 
 export default function BrandColor() {
   const { t } = useTranslation();
-  const { data: brandColor } = useSiteSetting('PrimaryColor');
-  const { data: brandColorLight } = useSiteSetting('PrimaryColorLight');
+  const { isLoading, data: colors } = useSiteSettings(['PrimaryColor', 'PrimaryColorLight']);
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="mb-3">
@@ -17,13 +19,13 @@ export default function BrandColor() {
           name="PrimaryColor"
           btnName={t('admin.site_settings.appearance.regular')}
           btnVariant="brand"
-          initialColor={brandColor}
+          initialColor={colors.PrimaryColor}
         />
         <BrandColorPopover
           name="PrimaryColorLight"
           btnName={t('admin.site_settings.appearance.lighten')}
           btnVariant="brand-light"
-          initialColor={brandColorLight}
+          initialColor={colors.PrimaryColorLight}
         />
       </Stack>
     </div>

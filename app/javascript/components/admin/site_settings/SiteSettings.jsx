@@ -8,12 +8,8 @@ import Appearance from './appearance/Appearance';
 import Administration from './administration/Administration';
 import Settings from './settings/Settings';
 import Registration from './registration/Registration';
-import useSiteSettings from '../../../hooks/queries/admin/site_settings/useSiteSettings';
-import Spinner from '../../shared_components/utilities/Spinner';
 
 export default function SiteSettings() {
-  const { data: siteSettings, isLoading } = useSiteSettings();
-
   return (
     <div id="admin-panel">
       <h3 className="py-5"> Administrator Panel </h3>
@@ -31,29 +27,20 @@ export default function SiteSettings() {
                   <div className="ps-4 pe-4 pt-4">
                     <h3> Customize Greenlight </h3>
                   </div>
-                  {
-                    isLoading
-                      ? <div className="p-3"><Spinner /></div>
-                      : (
-                        <Tabs className="border-bottom ps-3" defaultActiveKey="appearance">
-                          <Tab className="p-4" eventKey="appearance" title="Appearance">
-                            <Appearance />
-                          </Tab>
-                          <Tab className="p-4" eventKey="administration" title="Administration">
-                            <Administration
-                              terms={siteSettings.Terms}
-                              privacy={siteSettings.PrivacyPolicy}
-                            />
-                          </Tab>
-                          <Tab className="p-4" eventKey="settings" title="Settings">
-                            <Settings />
-                          </Tab>
-                          <Tab className="p-4" eventKey="registration" title="Registration">
-                            <Registration value={siteSettings.RoleMapping} />
-                          </Tab>
-                        </Tabs>
-                      )
-                  }
+                  <Tabs className="border-bottom ps-3" defaultActiveKey="appearance" unmountOnExit>
+                    <Tab className="p-4" eventKey="appearance" title="Appearance">
+                      <Appearance />
+                    </Tab>
+                    <Tab className="p-4" eventKey="administration" title="Administration">
+                      <Administration />
+                    </Tab>
+                    <Tab className="p-4" eventKey="settings" title="Settings">
+                      <Settings />
+                    </Tab>
+                    <Tab className="p-4" eventKey="registration" title="Registration">
+                      <Registration />
+                    </Tab>
+                  </Tabs>
                 </Container>
               </Tab.Content>
             </Col>
