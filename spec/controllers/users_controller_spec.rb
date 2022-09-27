@@ -112,16 +112,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       delete :purge_avatar, params: { id: user.id }
       expect(user.reload.avatar).not_to be_attached
     end
-
-    it 'returns an error if the avatar is a pdf' do
-      patch :update, params: { id: user.id, user: { avatar: fixture_file_upload(file_fixture('default-pdf.pdf'), 'pdf') } }
-      expect(user.reload.avatar).not_to be_attached
-    end
-
-    it 'returns an error if the avatar size is too large' do
-      patch :update, params: { id: user.id, user: { avatar: fixture_file_upload(file_fixture('large-avatar.jpg'), 'jpg') } }
-      expect(user.reload.avatar).not_to be_attached
-    end
   end
 
   describe '#destroy' do

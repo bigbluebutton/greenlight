@@ -91,6 +91,18 @@ RSpec.describe User, type: :model do
         expect(user.errors.attribute_names).to match_array([:email])
       end
     end
+
+    context 'avatar validations' do
+      it 'fails if the avatar is not an image' do
+        user = build(:user, avatar: fixture_file_upload(file_fixture('default-pdf.pdf'), 'pdf'))
+        expect(user).to be_invalid
+      end
+
+      it 'fails if the image is too large' do
+        user = build(:user, avatar: fixture_file_upload(file_fixture('large-avatar.jpg'), 'jpg'))
+        expect(user).to be_invalid
+      end
+    end
   end
 
   describe 'scopes' do

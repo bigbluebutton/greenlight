@@ -50,8 +50,6 @@ module Api
       def update
         user = User.find(params[:id])
 
-        update_avatar if user_params[:avatar]
-
         if user.update(user_params)
           render_data  status: :ok
         else
@@ -104,12 +102,6 @@ module Api
 
       def change_password_params
         params.require(:user).permit(:old_password, :new_password)
-      end
-
-      # The uploaded image will be resized to a 150*150px format before being stored
-      def update_avatar
-        path = user_params[:avatar].tempfile.path
-        ImageProcessing::MiniMagick.source(path).resize_to_fill(250, 250, gravity: 'northwest').call(destination: path)
       end
     end
   end

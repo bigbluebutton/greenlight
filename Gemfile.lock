@@ -51,6 +51,11 @@ GEM
       activemodel (>= 4.1, < 7.1)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
+    active_storage_validations (0.9.8)
+      activejob (>= 5.2.0)
+      activemodel (>= 5.2.0)
+      activestorage (>= 5.2.0)
+      activesupport (>= 5.2.0)
     activejob (7.0.3)
       activesupport (= 7.0.3)
       globalid (>= 0.3.6)
@@ -359,6 +364,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  active_storage_validations
   bcrypt (~> 3.1.7)
   bigbluebutton-api-ruby (= 1.8)
   bootsnap
@@ -374,6 +380,7 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   jwt
+  mini_magick (>= 4.9.5)
   omniauth (~> 2.1.0)
   omniauth-rails_csrf_protection (~> 1.0.1)
   omniauth_openid_connect

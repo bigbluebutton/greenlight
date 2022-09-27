@@ -51,7 +51,7 @@ export default function SetAvatar({ user }) {
           className="d-none"
           type="file"
           onChange={handleNewAvatar}
-          accept=".png,.jpg,.svg"
+          accept=".png,.jpg,.jpeg,.svg"
         />
         <Button variant="brand" onClick={handleClick}>Upload Avatar</Button>
         <DeleteAvatarForm user={user} />
