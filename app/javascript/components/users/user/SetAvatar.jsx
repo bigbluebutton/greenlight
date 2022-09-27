@@ -46,7 +46,7 @@ export default function SetAvatar({ user }) {
       <Stack direction="vertical" gap={2}>
         <div onClick={handleClick} className="cursor-pointer" aria-hidden="true">
           <Avatar avatar={user?.avatar} radius={150} />
-          <div className="avatar-icon-circle position-absolute rounded-circle text-brand">
+          <div className="avatar-icon-circle position-absolute rounded-circle">
             <FolderAddIcon className="hi-s" />
           </div>
         </div>
