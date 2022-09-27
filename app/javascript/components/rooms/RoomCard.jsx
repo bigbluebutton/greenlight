@@ -57,7 +57,11 @@ export default function RoomCard({ room }) {
           <DuplicateIcon className="hi-m text-brand mt-1" />
         </Button>
         <Button variant="brand-outline" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
-          { t('start') }
+          { room.active ? (
+            t('join')
+          ) : (
+            t('start')
+          )}
           {startMeeting.isLoading && <Spinner />}
         </Button>
       </Card.Footer>
