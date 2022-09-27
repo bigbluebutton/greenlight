@@ -6,7 +6,7 @@ import MeetingParticipantsBadge from './MeetingParticipantsBadge';
 
 export default function MeetingBadges({ active, count }) {
   return (
-    <Stack direction="horizontal" gap={0} className="room-card-badges ms-auto mb-auto">
+    <Stack direction="horizontal" gap={0} className="room-card-badges">
       { active
         && <MeetingStatusBadge />}
       { count >= 1

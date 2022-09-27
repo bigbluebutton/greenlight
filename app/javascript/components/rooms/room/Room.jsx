@@ -41,10 +41,12 @@ export default function Room() {
         <Col className="col-xxl-8">
           <Stack direction="horizontal" gap={2}>
             <h1>{room.name}</h1>
-            { isRunning
-              && (
-                <MeetingBadges active={room.active} count={room.participants} />
-              )}
+            <div className="mb-2">
+              { isRunning
+                && (
+                  <MeetingBadges active={room.active} count={room.participants} />
+                )}
+            </div>
           </Stack>
           { room.last_session ? (
             <span className="text-muted"> { t('room.last_session', { room }) }  </span>
