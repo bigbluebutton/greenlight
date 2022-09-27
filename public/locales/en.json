@@ -90,10 +90,7 @@
       "join_meeting": "Join Meeting",
       "meeting_invitation": "You have been invited to join",
       "meeting_not_started": "The meeting has not started yet",
-      "join_meeting_automatically": "You will automatically join when the meeting starts",
-      "participant_one": "{{count}} users",
-      "participant_other": "{{count}} users"
-
+      "join_meeting_automatically": "You will automatically join when the meeting starts"
     },
     "presentation": {
       "presentation": "Presentation",
