@@ -19,14 +19,16 @@ module Api
       # GET /api/v1/rooms.json
       def index
         # Return the rooms that belong to current user
-        rooms = Room.where(user_id: current_user&.id)
+        user_rooms = Room.where(user_id: current_user&.id)
 
         shared_rooms = current_user.shared_rooms.map do |room|
           room.shared = true
           room
         end
 
-        render_data data: rooms + shared_rooms, status: :ok
+        rooms = RunningMeetingChecker.new(rooms: user_rooms + shared_rooms).call
+
+        render_data data: rooms, status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id.json

@@ -30,3 +30,35 @@
     }
   }
 }
+
+// Room Online Badges
+.participants-badge {
+  background-color: whitesmoke !important;
+  color: gray;
+  height: 24px;
+
+  svg {
+    padding-bottom: 2px;
+  }
+}
+
+.online-badge {
+  background-color: whitesmoke !important;
+  height: 24px;
+  line-height: 18px;
+}
+
+.blinking-green-dot {
+  animation: blinker 2s linear infinite;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border: 1px solid green;
+  background-color: green;
+  border-radius: 100%;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0.6;
+  }
+}

@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../shared_components/utilities/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
+import MeetingBadges from './MeetingBadges';
 
 function copyInvite(friendlyId) {
   navigator.clipboard.writeText(`${window.location}/${friendlyId}/join`);
@@ -22,13 +23,16 @@ export default function RoomCard({ room }) {
   return (
     <Card id="room-card" className="h-100 shadow-sm border-0">
       <Card.Body className="pb-0" onClick={handleClick}>
-        <div className="room-icon rounded">
-          { room.shared_owner ? (
-            <LinkIcon className="hi-m text-brand pt-4 d-block mx-auto" />
-          ) : (
-            <UserIcon className="hi-m text-brand pt-4 d-block mx-auto" />
-          )}
-        </div>
+        <Stack direction="horizontal">
+          <div className="room-icon rounded">
+            { room.shared_owner ? (
+              <LinkIcon className="hi-m text-brand pt-4 d-block mx-auto" />
+            ) : (
+              <UserIcon className="hi-m text-brand pt-4 d-block mx-auto" />
+            )}
+          </div>
+          <MeetingBadges active={room.active} count={room.participants} />
+        </Stack>
 
         <Stack className="my-4">
           <Card.Title className="mb-0"> { room.name } </Card.Title>
@@ -47,7 +51,11 @@ export default function RoomCard({ room }) {
           <DuplicateIcon className="hi-m text-brand mt-1" />
         </Button>
         <Button variant="brand-outline" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
-          { t('start') }
+          { room.active ? (
+            t('join')
+          ) : (
+            t('start')
+          )}
           {startMeeting.isLoading && <Spinner />}
         </Button>
       </Card.Footer>
@@ -62,5 +70,7 @@ RoomCard.propTypes = {
     name: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
     shared_owner: PropTypes.string,
+    active: PropTypes.bool,
+    participants: PropTypes.number,
   }).isRequired,
 };
