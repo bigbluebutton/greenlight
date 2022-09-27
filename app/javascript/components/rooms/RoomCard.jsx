@@ -32,12 +32,12 @@ export default function RoomCard({ room }) {
               <UserIcon className="hi-m text-brand pt-4 d-block mx-auto" />
             )}
           </div>
-          <div className="meeting-badges">
+          <Stack direction="horizontal" gap={0} className="room-card-badges ms-auto mb-auto">
             { room.active
               && <OnlineMeetingBadge />}
             { room.participants >= 1
-            && <MeetingParticipantsBadge participants={room.participants} />}
-          </div>
+            && <MeetingParticipantsBadge count={room.participants} />}
+          </Stack>
         </Stack>
 
         <Stack className="my-4">

@@ -6,8 +6,10 @@ export default function OnlineMeetingBadge() {
   const { t } = useTranslation();
 
   return (
-    <Badge className="rounded-pill online-badge ms-2 text-success">
-      <span className="blinking-green-dot" /> online
-    </Badge>
+    <div>
+      <Badge className="rounded-pill online-badge ms-2 text-success">
+        <span className="blinking-green-dot" /> { t('online')}
+      </Badge>
+    </div>
   );
 }

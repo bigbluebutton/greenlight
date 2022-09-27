@@ -90,6 +90,10 @@ input.search-bar {
 }
 
 //default Heroicon width
+.hi-xs {
+  width:16px;
+}
+
 .hi-s {
   width: 24px;
 }
@@ -422,7 +426,6 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 .online-badge {
->>>>>>> 35dcdc88... Initial commit
   background-color: whitesmoke !important;
   font-size: 16px;
 }
