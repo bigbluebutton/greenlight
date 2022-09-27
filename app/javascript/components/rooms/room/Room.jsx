@@ -10,7 +10,6 @@ import FeatureTabs from './FeatureTabs';
 import Spinner from '../../shared_components/utilities/Spinner';
 import useRoom from '../../../hooks/queries/rooms/useRoom';
 import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
-import useMeetingRunning from '../../../hooks/queries/rooms/useMeetingRunning';
 import MeetingBadges from '../MeetingBadges';
 
 function copyInvite() {
@@ -23,9 +22,7 @@ export default function Room() {
   const { friendlyId } = useParams();
   const { isLoading: isLoadingRoom, data: room } = useRoom(friendlyId);
   const startMeeting = useStartMeeting(friendlyId);
-  const { isLoading: isLoadingRunning, data: isRunning } = useMeetingRunning(friendlyId);
 
-  if (isLoadingRunning) return <Spinner />; // Todo: amir - Revisit this.
   if (isLoadingRoom) return <Spinner />; // Todo: amir - Revisit this.
 
   return (
@@ -42,10 +39,8 @@ export default function Room() {
           <Stack direction="horizontal" gap={2}>
             <h1>{room.name}</h1>
             <div className="mb-2">
-              { isRunning
-                && (
-                  <MeetingBadges active={room.active} count={room.participants} />
-                )}
+              { room.active
+                && <MeetingBadges active={room.active} count={room.participants} />}
             </div>
           </Stack>
           { room.last_session ? (
@@ -56,7 +51,7 @@ export default function Room() {
         </Col>
         <Col>
           <Button variant="brand" className="mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
-            { isRunning ? (
+            { room.active ? (
               t('room.meeting.join_meeting')
             ) : (
               t('room.meeting.start_meeting')
