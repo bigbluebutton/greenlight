@@ -418,29 +418,3 @@ input[type="range"]:focus::-moz-range-thumb {
     }
   }
 }
-
-// Live Badge
-.participants-badge {
-  background-color: whitesmoke !important;
-  font-size: 16px;
-}
-
-.online-badge {
-  background-color: whitesmoke !important;
-  font-size: 16px;
-}
-
-.blinking-green-dot {
-  animation: blinker 2s linear infinite;
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-  border: 1px solid green;
-  background-color: green;
-  border-radius: 100%;
-}
-@keyframes blinker {
-  50% {
-    opacity: 0.6;
-  }
-}

@@ -7,8 +7,7 @@ import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../shared_components/utilities/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
-import OnlineMeetingBadge from './OnlineMeetingBadge';
-import MeetingParticipantsBadge from './MeetingParticipantsBadge'
+import MeetingBadges from './MeetingBadges';
 
 function copyInvite(friendlyId) {
   navigator.clipboard.writeText(`${window.location}/${friendlyId}/join`);
@@ -32,12 +31,7 @@ export default function RoomCard({ room }) {
               <UserIcon className="hi-m text-brand pt-4 d-block mx-auto" />
             )}
           </div>
-          <Stack direction="horizontal" gap={0} className="room-card-badges ms-auto mb-auto">
-            { room.active
-              && <OnlineMeetingBadge />}
-            { room.participants >= 1
-            && <MeetingParticipantsBadge count={room.participants} />}
-          </Stack>
+          <MeetingBadges active={room.active} count={room.participants} />
         </Stack>
 
         <Stack className="my-4">

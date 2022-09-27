@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Stack, Badge, Button, Col, Row,
+  Stack, Button, Col, Row,
 } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { HomeIcon, DuplicateIcon } from '@heroicons/react/outline';
@@ -11,6 +11,7 @@ import Spinner from '../../shared_components/utilities/Spinner';
 import useRoom from '../../../hooks/queries/rooms/useRoom';
 import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
 import useMeetingRunning from '../../../hooks/queries/rooms/useMeetingRunning';
+import MeetingBadges from '../MeetingBadges';
 
 function copyInvite() {
   navigator.clipboard.writeText(`${window.location}/join`);
@@ -42,9 +43,7 @@ export default function Room() {
             <h1>{room.name}</h1>
             { isRunning
               && (
-                <Badge className="rounded-pill online-pill ms-2 text-success">
-                  <span className="blinking-green-dot" /> {t('online')}
-                </Badge>
+                <MeetingBadges active={room.active} count={room.participants} />
               )}
           </Stack>
           <p className="text-muted"> { room.created_at }</p>
