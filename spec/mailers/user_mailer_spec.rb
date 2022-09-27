@@ -18,6 +18,21 @@ describe UserMailer, type: :mailer do
     end
   end
 
+  describe '#activate_account_email' do
+    it 'sets correct activation mail message' do
+      freeze_time
+      user = build(:user)
+
+      mail = described_class.with(user:, activation_url: 'https://activate.account.now/token', expires_in: 1.day.from_now).activate_account_email
+
+      expect(mail.subject).to eq 'Account Activation'
+      expect(mail.to).to eq([user.email])
+      expect(mail.body.encoded).to match(user.name)
+      expect(mail.body.encoded).to match('href="https://activate.account.now/token"')
+      expect(mail.body.encoded).to match('This link will expire in 1 day.')
+    end
+  end
+
   describe '#test_email' do
     it 'sets correct test mail message' do
       mail = described_class.with(to: 'user@users.com', subject: 'Test Subject').test_email

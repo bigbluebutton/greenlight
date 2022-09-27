@@ -23,17 +23,41 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       }
     end
 
-    it 'creates a current_user if a new user is created' do
-      session[:session_token] = nil
+    before do
       create(:role, name: 'User') # Needed for admin#create
-      expect { post :create, params: user_params }.to change(User, :count).by(1)
-      expect(session[:session_token]).to be_present
+      clear_enqueued_jobs
     end
 
-    it 'creates a user without changing the current user if the user is created from a logged in user' do
-      create(:role, name: 'User') # Needed for admin#create
-      expect { post :create, params: user_params }.to change(User, :count).by(1)
-      expect(session[:session_token]).to be_present
+    context 'when user is saved' do
+      it 'sends activation email to and signs in the created user' do
+        session[:session_token] = nil
+        expect { post :create, params: user_params }.to change(User, :count).by(1)
+        expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
+                                                                                                     'deliver_now', Hash)
+        expect(response).to have_http_status(:created)
+        expect(session[:session_token]).to be_present
+        expect(session[:session_token]).not_to eql(user.session_token)
+      end
+
+      context 'from antoher user' do
+        it 'sends activation email to but does NOT signin the created user' do
+          expect { post :create, params: user_params }.to change(User, :count).by(1)
+          expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
+                                                                                                       'deliver_now', Hash)
+          expect(response).to have_http_status(:created)
+          expect(session[:session_token]).to eql(user.session_token)
+        end
+      end
+    end
+
+    context 'when user is NOT saved' do
+      before { allow_any_instance_of(User).to receive(:save).and_return(false) }
+
+      it 'returns :bad_request' do
+        expect { post :create, params: user_params }.not_to change(User, :count)
+        expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+        expect(response).to have_http_status(:bad_request)
+      end
     end
   end
 

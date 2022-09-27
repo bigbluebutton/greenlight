@@ -3,6 +3,8 @@
 module Api
   module V1
     class VerifyAccountController < ApiController
+      include ClientRoutable
+
       skip_before_action :ensure_authenticated, only: %i[create activate]
 
       # POST /api/v1/verify_account.json
@@ -21,7 +23,10 @@ module Api
 
         token = user.generate_activation_token!
 
-        render_data data: { token: }, status: :ok # TODO: enable activation email sending.
+        UserMailer.with(user:, expires_in: User::ACTIVATION_TOKEN_VALIDITY_PERIOD.from_now,
+                        activation_url: activate_account_url(token)).activate_account_email.deliver_later
+
+        render_data status: :ok
       end
 
       # POST /api/v1/verify_account/activate.json
