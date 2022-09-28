@@ -46,7 +46,6 @@ export default function Room() {
                 <MeetingBadges active={room.active} count={room.participants} />
               )}
           </Stack>
-          <p className="text-muted"> { room.created_at }</p>
           { room.last_session ? (
             <span className="text-muted"> { t('room.last_session', { room }) }  </span>
           ) : (
