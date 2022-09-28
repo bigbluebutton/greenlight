@@ -46,7 +46,11 @@ export default function Room() {
                 <MeetingBadges active={room.active} count={room.participants} />
               )}
           </Stack>
-          <p className="text-muted"> { room.created_at }</p>
+          { room.last_session ? (
+            <span className="text-muted"> { t('room.last_session', { room }) }  </span>
+          ) : (
+            <span className="text-muted mt-2"> { t('room.no_last_session') } </span>
+          )}
         </Col>
         <Col>
           <Button variant="brand" className="mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
