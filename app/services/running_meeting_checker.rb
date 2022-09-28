@@ -7,7 +7,9 @@ class RunningMeetingChecker
   end
 
   def call
-    Array(@rooms).each do |online_room|
+    online_rooms = Array(@rooms).select { |room| room.online == true }
+
+    online_rooms.each do |online_room|
       bbb_meeting = BigBlueButtonApi.new.get_meeting_info(meeting_id: online_room.meeting_id)
       online_room.participants = bbb_meeting[:participantCount]
     rescue BigBlueButton::BigBlueButtonException

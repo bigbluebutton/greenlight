@@ -27,9 +27,8 @@ module Api
         end
 
         rooms = user_rooms + shared_rooms
-        online_rooms = rooms.select { |room| room.online == true }
 
-        RunningMeetingChecker.new(rooms: online_rooms).call
+        RunningMeetingChecker.new(rooms:).call
 
         render_data data: rooms, status: :ok
       end
