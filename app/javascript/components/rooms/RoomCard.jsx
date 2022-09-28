@@ -32,7 +32,7 @@ export default function RoomCard({ room }) {
             )}
           </div>
           { room.online
-            && <MeetingBadges active={room.active} count={room.participants} />}
+            && <MeetingBadges active={room.online} count={room.participants} />}
         </Stack>
 
         <Stack className="my-4">

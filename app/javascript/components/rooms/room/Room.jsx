@@ -51,7 +51,7 @@ export default function Room() {
         </Col>
         <Col>
           <Button variant="brand" className="mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
-            { room.active ? (
+            { room.online ? (
               t('room.meeting.join_meeting')
             ) : (
               t('room.meeting.start_meeting')
