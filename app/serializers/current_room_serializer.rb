@@ -4,7 +4,7 @@ class CurrentRoomSerializer < ApplicationSerializer
   include Presentable
   include Avatarable
 
-  attributes :id, :name, :presentation_name, :thumbnail
+  attributes :id, :name, :presentation_name, :thumbnail, :online, :participants
 
   attribute :owner_name, if: -> { @instance_options[:options][:include_owner] }
   attribute :owner_avatar, if: -> { @instance_options[:options][:include_owner] }

@@ -38,9 +38,9 @@ export default function Room() {
         <Col className="col-xxl-8">
           <Stack direction="horizontal" gap={2}>
             <h1>{room.name}</h1>
-            <div className="mb-2">
-              { room.active
-                && <MeetingBadges active={room.active} count={room.participants} />}
+            <div className="mb-1">
+              { room.online
+                && <MeetingBadges active={room.online} count={room.participants} />}
             </div>
           </Stack>
           { room.last_session ? (

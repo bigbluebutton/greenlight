@@ -36,7 +36,7 @@ export default function RoomsList() {
       </Stack>
       <Row md={4} className="g-4 pb-4 mt-4">
         {
-          rooms.sort((a, b) => b.active - a.active).filter((room) => {
+          rooms.sort((a, b) => b.online - a.online).filter((room) => {
             if (room.name.toLowerCase().includes(search.toLowerCase())) {
               return room;
             }

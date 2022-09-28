@@ -1,22 +1,17 @@
 # frozen_string_literal: true
 
-# Pass the rooms to the service and it will return the rooms with the active and participants attributes
+# Pass the room(s) to the service and it will confirm if the meeting is online or not and will return the # of participants
 class RunningMeetingChecker
   def initialize(rooms:)
     @rooms = rooms
   end
 
   def call
-    active_rooms = BigBlueButtonApi.new.active_meetings
-    active_rooms_hash = {}
-
-    active_rooms.each do |active_room|
-      active_rooms_hash[active_room[:meetingID]] = active_room[:participantCount]
-    end
-
-    @rooms.each do |room|
-      room.active = active_rooms_hash.key?(room.meeting_id)
-      room.participants = active_rooms_hash[room.meeting_id]
+    Array(@rooms).each do |online_room|
+      bbb_meeting = BigBlueButtonApi.new.get_meeting_info(meeting_id: online_room.meeting_id)
+      online_room.participants = bbb_meeting[:participantCount]
+    rescue BigBlueButton::BigBlueButtonException
+      online_room.update(online: false)
     end
   end
 end

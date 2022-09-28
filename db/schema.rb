@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_14_190934) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_28_193827) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -119,6 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_14_190934) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "recordings_processing", default: 0
+    t.boolean "online"
     t.index ["friendly_id"], name: "index_rooms_on_friendly_id", unique: true
     t.index ["meeting_id"], name: "index_rooms_on_meeting_id", unique: true
     t.index ["user_id"], name: "index_rooms_on_user_id"
