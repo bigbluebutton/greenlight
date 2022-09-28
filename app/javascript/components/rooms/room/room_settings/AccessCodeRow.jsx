@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Row, Stack } from 'react-bootstrap';
-import { TrashIcon, DuplicateIcon, RefreshIcon } from '@heroicons/react/outline';
+import { TrashIcon, Square2StackIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
@@ -45,14 +45,14 @@ export default function AccessCodeRow({
                   variant="font-awesome"
                   onClick={() => copyAccessCode(code)}
                 >
-                  <DuplicateIcon className="hi-s text-muted" />
+                  <Square2StackIcon className="hi-s text-muted" />
                 </Button>
               </div>
               <Button
                 variant="font-awesome"
                 onClick={handleGenerateCode}
               >
-                <RefreshIcon className="hi-s text-muted" />
+                <ArrowPathIcon className="hi-s text-muted" />
               </Button>
               {deleteButton}
             </Stack>

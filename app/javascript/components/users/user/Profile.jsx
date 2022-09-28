@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import {
   Col, Nav, Row, Tab,
 } from 'react-bootstrap';
-import { TrashIcon, UserIcon, LockClosedIcon } from '@heroicons/react/outline';
+import { TrashIcon, UserIcon, LockClosedIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import DeleteAccount from './DeleteAccount';
 import AccountInfo from './AccountInfo';

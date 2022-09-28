@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router-dom';
-import { ArrowSmDownIcon, ArrowSmUpIcon, SwitchVerticalIcon } from '@heroicons/react/outline';
+import { ChevronDownIcon, ChevronUpIcon, ChevronUpDownIcon } from '@heroicons/react/24/outline';
 
 function IconFactory(fieldName, column, direction) {
   if (column === fieldName) {
     if (direction === 'ASC') {
-      return ArrowSmUpIcon;
+      return ChevronUpIcon;
     }
     if (direction === 'DESC') {
-      return ArrowSmDownIcon;
+      return ChevronDownIcon;
     }
   }
 
-  return SwitchVerticalIcon;
+  return ChevronUpDownIcon;
 }
 
 export default function SortBy({ className, fieldName }) {
@@ -43,7 +43,7 @@ export default function SortBy({ className, fieldName }) {
 }
 
 SortBy.defaultProps = {
-  className: 'cursor-pointer hi-s',
+  className: 'cursor-pointer hi-xs',
 };
 
 SortBy.propTypes = {

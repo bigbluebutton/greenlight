@@ -3,7 +3,7 @@ import {
   Stack, Button, Col, Row,
 } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
-import { HomeIcon, DuplicateIcon } from '@heroicons/react/outline';
+import { HomeIcon, Square2StackIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import FeatureTabs from './FeatureTabs';
@@ -62,7 +62,7 @@ export default function Room() {
             {startMeeting.isLoading && <Spinner />}
           </Button>
           <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={copyInvite}>
-            <DuplicateIcon className="hi-xs" />
+            <Square2StackIcon className="hi-xs" />
             { t('copy') }
           </Button>
         </Col>

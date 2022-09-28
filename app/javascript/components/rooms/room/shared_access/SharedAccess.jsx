@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Button, Card, Stack, Table,
 } from 'react-bootstrap';
-import { TrashIcon } from '@heroicons/react/outline';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Modal from '../../../shared_components/modals/Modal';

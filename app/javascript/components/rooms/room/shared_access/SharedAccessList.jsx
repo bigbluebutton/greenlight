@@ -3,7 +3,7 @@ import {
   Button, Card, Col, Row, Stack,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { TrashIcon } from '@heroicons/react/outline';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Modal from '../../../shared_components/modals/Modal';

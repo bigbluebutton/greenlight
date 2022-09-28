@@ -1,8 +1,8 @@
 import {
-  VideoCameraIcon, DuplicateIcon,
-  DotsVerticalIcon,
+  VideoCameraIcon, Square2StackIcon,
+  EllipsisVerticalIcon,
   TrashIcon,
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import Form from 'react-bootstrap/Form';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -29,7 +29,7 @@ export default function RecordingRow({
   }
 
   const visibilityAPI = useVisibilityAPI();
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(+false);
   const [isUpdating, setIsUpdating] = useState(false);
 
   return (
@@ -92,9 +92,9 @@ export default function RecordingRow({
       </td>
       <td className="border-start-0">
         <Dropdown className="cursor-pointer">
-          <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
+          <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
           <Dropdown.Menu>
-            <Dropdown.Item onClick={() => copyUrls()}><DuplicateIcon className="hi-s" />{ t('recording.copy_recording_urls') }</Dropdown.Item>
+            <Dropdown.Item onClick={() => copyUrls()}><Square2StackIcon className="hi-s" />{ t('recording.copy_recording_urls') }</Dropdown.Item>
             <Modal
               modalButton={<Dropdown.Item><TrashIcon className="hi-s" />{ t('delete') }</Dropdown.Item>}
               title={t('are_you_sure')}

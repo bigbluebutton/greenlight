@@ -1,6 +1,6 @@
 import {
-  AdjustmentsIcon, CogIcon, IdentificationIcon, ServerIcon, UsersIcon, VideoCameraIcon,
-} from '@heroicons/react/outline';
+  AdjustmentsVerticalIcon, Cog8ToothIcon, IdentificationIcon, ServerStackIcon, UsersIcon, VideoCameraIcon,
+} from '@heroicons/react/24/outline';
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -24,7 +24,7 @@ export default function AdminNavSideBar() {
       {(currentUser.permissions.ManageRooms === 'true') && (
         <Nav.Item>
           <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/server-rooms" eventKey="server-rooms">
-            <ServerIcon className="hi-s me-3" />
+            <ServerStackIcon className="hi-s me-3" />
             { t('admin.server_rooms.server_rooms') }
           </Nav.Link>
         </Nav.Item>
@@ -41,13 +41,13 @@ export default function AdminNavSideBar() {
         <>
           <Nav.Item>
             <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/site-settings" eventKey="site-settings">
-              <CogIcon className="hi-s me-3" />
+              <Cog8ToothIcon className="hi-s me-3" />
               { t('admin.site_settings.site_settings') }
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/room-configuration" eventKey="room-configuration">
-              <AdjustmentsIcon className="hi-s me-3" />
+              <AdjustmentsVerticalIcon className="hi-s me-3" />
               { t('admin.room_configuration.room_configuration') }
             </Nav.Link>
           </Nav.Item>

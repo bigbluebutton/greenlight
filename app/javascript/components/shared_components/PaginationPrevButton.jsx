@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import { ArrowLeftIcon } from '@heroicons/react/outline';
-import { ArrowRightIcon } from '@heroicons/react/solid';
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
