@@ -27,6 +27,6 @@ class CurrentRoomSerializer < ApplicationSerializer
   end
 
   def last_session
-    object.last_session.strftime('%A %B %e, %Y %l:%M%P')
+    object.last_session.strftime('%B %e, %Y %l:%M%P')
   end
 end

@@ -66,12 +66,18 @@ export default function RoomCard({ room }) {
   );
 }
 
+RoomCard.defaulProps = {
+  room: PropTypes.shape({
+    last_session: '',
+  }),
+};
+
 RoomCard.propTypes = {
   room: PropTypes.shape({
     id: PropTypes.string.isRequired,
     friendly_id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    last_session: PropTypes.string.isRequired,
+    last_session: PropTypes.string,
     shared_owner: PropTypes.string,
     active: PropTypes.bool,
     participants: PropTypes.number,
