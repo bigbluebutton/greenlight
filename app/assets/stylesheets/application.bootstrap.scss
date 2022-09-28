@@ -63,6 +63,16 @@ body {
   box-shadow: none;
 }
 
+// Smoothen bootstrap transition
+.fade {
+  transition: opacity 0.3s ease !important;
+
+  & .modal-dialog {
+    transition: opacity 0.3s ease !important;
+    transform: none !important;
+  }
+}
+
 //TODO: samuel - need to confirm for Browsers compatibility (maybe Scope this a bit more?)
 input[type='search']::-webkit-search-cancel-button {
   -webkit-appearance: none;
