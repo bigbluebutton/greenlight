@@ -24,5 +24,23 @@
   .tab-content > .active {
     visibility: visible;
   }
+}
 
+#profile-avatar {
+  max-width: 150px;
+
+  .avatar-icon-circle {
+    top: 5px;
+    right: 5px;
+    width: 35px;
+    height: 35px;
+    color: gray;
+    background-color: whitesmoke;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+
+    svg {
+      margin-top: 5px;
+      margin-left: 5px;
+    }
+  }
 }

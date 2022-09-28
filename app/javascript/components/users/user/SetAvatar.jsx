@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Button, Stack, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import AvatarEditor from 'react-avatar-editor';
-import { PhotographIcon } from '@heroicons/react/outline';
+import { PhotographIcon, FolderAddIcon } from '@heroicons/react/outline';
 import { useTranslation } from 'react-i18next';
 import DeleteAvatarForm from './forms/DeleteAvatarForm';
 import Avatar from './Avatar';
@@ -42,9 +42,14 @@ export default function SetAvatar({ user }) {
   };
 
   return (
-    <>
-      <Stack direction="vertical" gap={2} className="float-start">
-        <Avatar avatar={user?.avatar} radius={150} />
+    <div id="profile-avatar" className="vertical-center d-block ms-auto me-auto">
+      <Stack direction="vertical" gap={2}>
+        <div onClick={handleClick} className="cursor-pointer" aria-hidden="true">
+          <Avatar avatar={user?.avatar} radius={150} />
+          <div className="avatar-icon-circle position-absolute rounded-circle">
+            <FolderAddIcon className="hi-s" />
+          </div>
+        </div>
         <input
           id="avatarUpload"
           ref={avatarUpload}
@@ -97,7 +102,7 @@ export default function SetAvatar({ user }) {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 }
 
