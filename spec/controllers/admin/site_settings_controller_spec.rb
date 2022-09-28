@@ -12,10 +12,18 @@ RSpec.describe Api::V1::Admin::SiteSettingsController, type: :controller do
   end
 
   describe '#index' do
-    # TODO: - Need to find way to test using returned hash from index
-    it 'returns all the SiteSettings' do
-      get :index
+    it 'returns the specified site settings' do
+      create(:site_setting, setting: create(:setting, name: 'settingA'), value: 'valueA')
+      create(:site_setting, setting: create(:setting, name: 'settingB'), value: 'valueB')
+      create(:site_setting, setting: create(:setting, name: 'settingC'), value: 'valueC')
+
+      get :index, params: { names: %w[settingA settingB] }
+
       expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)['data']).to eq({
+                                                        'settingA' => 'valueA',
+                                                        'settingB' => 'valueB'
+                                                      })
     end
 
     context 'user without ManageSiteSettings permission' do

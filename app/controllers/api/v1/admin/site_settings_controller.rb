@@ -7,9 +7,10 @@ module Api
         before_action do
           ensure_authorized('ManageSiteSettings')
         end
+
         def index
           site_settings = Setting.joins(:site_settings)
-                                 .where(site_settings: { provider: current_provider })
+                                 .where(name: params[:names], site_settings: { provider: current_provider })
                                  .pluck(:name, :value)
                                  .to_h
 

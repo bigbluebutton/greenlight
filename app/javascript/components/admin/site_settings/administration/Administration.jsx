@@ -1,12 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Row } from 'react-bootstrap';
+import { Row, Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import LinksForm from './LinksForm';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
+import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSiteSettings';
 
-export default function Administration({ terms, privacy }) {
+export default function Administration() {
   const { t } = useTranslation();
+  const { isLoading, data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy']);
+
+  if (isLoading) return <Spinner />;
 
   return (
     <>
@@ -16,7 +19,7 @@ export default function Administration({ terms, privacy }) {
         <LinksForm
           id="termsForm"
           mutation={() => useUpdateSiteSetting('Terms')}
-          value={terms}
+          value={siteSettings.Terms}
         />
       </Row>
       <Row>
@@ -25,18 +28,9 @@ export default function Administration({ terms, privacy }) {
         <LinksForm
           id="privacyForm"
           mutation={() => useUpdateSiteSetting('PrivacyPolicy')}
-          value={privacy}
+          value={siteSettings.PrivacyPolicy}
         />
       </Row>
     </>
   );
 }
-Administration.defaultProps = {
-  terms: '',
-  privacy: '',
-};
-
-Administration.propTypes = {
-  terms: PropTypes.string,
-  privacy: PropTypes.string,
-};
