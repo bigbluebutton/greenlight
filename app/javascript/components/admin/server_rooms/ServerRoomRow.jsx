@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  EyeIcon, DotsVerticalIcon, TrashIcon, ExternalLinkIcon,
-} from '@heroicons/react/outline';
+  EyeIcon, EllipsisVerticalIcon, TrashIcon, ArrowTopRightOnSquareIcon,
+} from '@heroicons/react/24/outline';
 import { Dropdown, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -50,17 +50,17 @@ export default function ServerRoomRow({ room }) {
       <td className="border-0"> {active ? t('admin.server_rooms.active') : t('admin.server_rooms.not_running')} </td>
       <td className="border-start-0">
         <Dropdown className="float-end cursor-pointer">
-          <Dropdown.Toggle className="hi-s" as={DotsVerticalIcon} />
+          <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
           <Dropdown.Menu>
             { room.active
               ? (
                 <Dropdown.Item className="text-muted" onClick={handleJoin}>
-                  <ExternalLinkIcon className="hi-s pb-1 me-1" /> { t('join') }
+                  <ArrowTopRightOnSquareIcon className="hi-s pb-1 me-1" /> { t('join') }
                 </Dropdown.Item>
               )
               : (
                 <Dropdown.Item className="text-muted" onClick={startMeeting.mutate}>
-                  <ExternalLinkIcon className="hi-s pb-1 me-1" /> { t('start') }
+                  <ArrowTopRightOnSquareIcon className="hi-s pb-1 me-1" /> { t('start') }
                 </Dropdown.Item>
               )}
             <Dropdown.Item className="text-muted" as={Link} to={`/rooms/${room.friendly_id}`}>

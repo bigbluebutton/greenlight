@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { CloudUploadIcon } from '@heroicons/react/outline';
+import { CloudArrowUpIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 import FilesDragAndDrop from '../../../shared_components/utilities/FilesDragAndDrop';
@@ -21,7 +21,7 @@ export default function BrandingImage() {
           <label htmlFor="file" className="presentation-upload">
             <Card.Body className="text-secondary cursor-pointer">
               <div className="icon-circle rounded-circle d-block mx-auto mb-3">
-                <CloudUploadIcon className="hi-l text-brand d-block mx-auto pt-4" />
+                <CloudArrowUpIcon className="hi-l text-brand d-block mx-auto pt-4" />
               </div>
               <input
                 id="file"

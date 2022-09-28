@@ -1,4 +1,4 @@
-import { VideoCameraIcon } from '@heroicons/react/outline';
+import { VideoCameraIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import { Stack } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';

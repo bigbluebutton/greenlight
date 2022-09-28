@@ -4,7 +4,7 @@ import {
   Row, Col, Tab, Stack, Container,
 } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowCircleLeftIcon } from '@heroicons/react/outline';
+import { ArrowLeftCircleIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import AdminNavSideBar from '../AdminNavSideBar';
 import AccountInfo from '../../users/user/AccountInfo';
@@ -36,7 +36,7 @@ export default function EditUser() {
                   <Stack direction="horizontal" className="w-100 mt-4">
                     <h3 className="mb-0">{ t('admin.manage_users.edit_user')}</h3>
                     <div className="ms-auto cursor-pointer" aria-hidden="true" onClick={() => navigate('/admin/users')}>
-                      <ArrowCircleLeftIcon className="hi-s" /> { t('back') }
+                      <ArrowLeftCircleIcon className="hi-s" /> { t('back') }
                     </div>
                   </Stack>
                   <span className="text-muted mb-4">{ t('admin.manage_users.users_edit_path') }</span>

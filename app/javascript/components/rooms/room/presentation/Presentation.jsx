@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Card, Col, Row,
 } from 'react-bootstrap';
-import { TrashIcon, CloudUploadIcon, DocumentIcon } from '@heroicons/react/outline';
+import { TrashIcon, CloudArrowUpIcon, DocumentIcon } from '@heroicons/react/24/outline';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Modal from '../../../shared_components/modals/Modal';
@@ -32,7 +32,7 @@ export default function Presentation() {
           <label htmlFor="file" className="presentation-upload">
             <Card.Body className="py-5 text-secondary cursor-pointer">
               <div className="icon-circle rounded-circle d-block mx-auto mb-3">
-                <CloudUploadIcon className="hi-l text-brand d-block mx-auto pt-4" />
+                <CloudArrowUpIcon className="hi-l text-brand d-block mx-auto pt-4" />
               </div>
               <input
                 id="file"

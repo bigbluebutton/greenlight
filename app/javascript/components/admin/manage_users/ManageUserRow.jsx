@@ -5,8 +5,8 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import {
-  DotsVerticalIcon, HomeIcon, PencilAltIcon, TrashIcon,
-} from '@heroicons/react/outline';
+  EllipsisVerticalIcon, HomeIcon, PencilSquareIcon, TrashIcon,
+} from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import Avatar from '../../users/user/Avatar';
 import Modal from '../../shared_components/modals/Modal';
@@ -40,8 +40,8 @@ export default function ManageUserRow({ user }) {
         <Navbar>
           <Container>
             <div className="d-inline-flex">
-              <NavDropdown title={<DotsVerticalIcon className="hi-s text-muted" />} id="basic-nav-dropdown">
-                <NavDropdown.Item as={Link} to={`/admin/edit_user/${user.id}`}><PencilAltIcon className="hi-s" /> Edit</NavDropdown.Item>
+              <NavDropdown title={<EllipsisVerticalIcon className="hi-s text-muted" />} id="basic-nav-dropdown">
+                <NavDropdown.Item as={Link} to={`/admin/edit_user/${user.id}`}><PencilSquareIcon className="hi-s" /> Edit</NavDropdown.Item>
                 <Modal
                   modalButton={<NavDropdown.Item><TrashIcon className="hi-s" />{ t('delete') }</NavDropdown.Item>}
                   title={t('admin.manage_users.delete_user')}

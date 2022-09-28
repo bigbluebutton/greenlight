@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Button, Stack, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import AvatarEditor from 'react-avatar-editor';
-import { PhotographIcon, FolderAddIcon } from '@heroicons/react/outline';
+import { PhotoIcon, FolderPlusIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import DeleteAvatarForm from './forms/DeleteAvatarForm';
 import Avatar from './Avatar';
@@ -47,7 +47,7 @@ export default function SetAvatar({ user }) {
         <div onClick={handleClick} className="cursor-pointer" aria-hidden="true">
           <Avatar avatar={user?.avatar} radius={150} />
           <div className="avatar-icon-circle position-absolute rounded-circle">
-            <FolderAddIcon className="hi-s" />
+            <FolderPlusIcon className="hi-s" />
           </div>
         </div>
         <input
@@ -79,7 +79,7 @@ export default function SetAvatar({ user }) {
               scale={scale}
             />
             <div className="py-2">
-              <PhotographIcon className="hi-s text-brand me-2" />
+              <PhotoIcon className="hi-s text-brand me-2" />
               <input
                 name="scale"
                 type="range"
@@ -89,7 +89,7 @@ export default function SetAvatar({ user }) {
                 step="0.1"
                 defaultValue="1"
               />
-              <PhotographIcon className="hi-l text-brand ms-2" />
+              <PhotoIcon className="hi-l text-brand ms-2" />
             </div>
           </div>
         </Modal.Body>

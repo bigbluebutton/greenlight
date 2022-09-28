@@ -1,4 +1,4 @@
-import { ArrowCircleLeftIcon } from '@heroicons/react/outline';
+import { ArrowLeftCircleIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import {
   Col, Container, Row, Tab, Card, Breadcrumb,
@@ -44,7 +44,7 @@ export default function EditRole() {
                     </Col>
                     <Col order="last">
                       <div className="float-end cursor-pointer" aria-hidden="true" onClick={() => navigate('/admin/roles')}>
-                        <ArrowCircleLeftIcon className="hi-s" /> { t('back') }
+                        <ArrowLeftCircleIcon className="hi-s" /> { t('back') }
                       </div>
                     </Col>
                   </Row>

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { UserIcon, DuplicateIcon, LinkIcon } from '@heroicons/react/outline';
+import { UserIcon, DocumentDuplicateIcon, LinkIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../shared_components/utilities/Spinner';
@@ -51,7 +51,7 @@ export default function RoomCard({ room }) {
           variant="icon"
           onClick={() => copyInvite(room.friendly_id)}
         >
-          <DuplicateIcon className="hi-m text-brand mt-1" />
+          <DocumentDuplicateIcon className="hi-m text-brand mt-1" />
         </Button>
         <Button variant="brand-outline" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
           { room.active ? (
