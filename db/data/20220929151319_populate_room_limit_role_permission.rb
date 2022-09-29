@@ -6,7 +6,7 @@ class PopulateRoomLimitRolePermission < ActiveRecord::Migration[7.0]
     user = Role.find_by(name: 'User')
     guest = Role.find_by(name: 'Guest')
 
-    room_limit = Permission.find_by(name: 'roomLimit')
+    room_limit = Permission.find_by(name: 'RoomLimit')
 
     RolePermission.create! [
 

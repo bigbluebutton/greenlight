@@ -3,7 +3,7 @@
 class PopulateRoomLimitPermission < ActiveRecord::Migration[7.0]
   def up
     Permission.create! [
-      { name: 'roomLimit' }
+      { name: 'RoomLimit' }
     ]
   end
 
