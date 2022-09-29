@@ -14,7 +14,6 @@ class PopulateRolePermissions < ActiveRecord::Migration[7.0]
     manage_roles = Permission.find_by(name: 'ManageRoles')
     shared_list = Permission.find_by(name: 'SharedList')
     can_record = Permission.find_by(name: 'CanRecord')
-    room_limit = Permission.find_by(name: 'roomLimit')
 
     RolePermission.create! [
       { role: admin, permission: create_room, value: 'true' },
@@ -25,7 +24,6 @@ class PopulateRolePermissions < ActiveRecord::Migration[7.0]
       { role: admin, permission: manage_roles, value: 'true' },
       { role: admin, permission: shared_list, value: 'true' },
       { role: admin, permission: can_record, value: 'true' },
-      { role: admin, permission: room_limit, value: 255 },
 
       { role: user, permission: create_room, value: 'true' },
       { role: user, permission: manage_users, value: 'false' },
@@ -35,7 +33,6 @@ class PopulateRolePermissions < ActiveRecord::Migration[7.0]
       { role: user, permission: manage_roles, value: 'false' },
       { role: user, permission: shared_list, value: 'true' },
       { role: user, permission: can_record, value: 'true' },
-      { role: user, permission: room_limit, value: 255 },
 
       { role: guest, permission: create_room, value: 'false' },
       { role: guest, permission: manage_users, value: 'false' },
@@ -44,8 +41,7 @@ class PopulateRolePermissions < ActiveRecord::Migration[7.0]
       { role: guest, permission: manage_site_settings, value: 'false' },
       { role: guest, permission: manage_roles, value: 'false' },
       { role: guest, permission: shared_list, value: 'true' },
-      { role: guest, permission: can_record, value: 'true' },
-      { role: guest, permission: room_limit, value: 255 }
+      { role: guest, permission: can_record, value: 'true' }
     ]
   end
 
