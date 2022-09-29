@@ -119,7 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_28_193827) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "recordings_processing", default: 0
-    t.boolean "online"
+    t.boolean "online", default: false
     t.index ["friendly_id"], name: "index_rooms_on_friendly_id", unique: true
     t.index ["meeting_id"], name: "index_rooms_on_meeting_id", unique: true
     t.index ["user_id"], name: "index_rooms_on_user_id"
