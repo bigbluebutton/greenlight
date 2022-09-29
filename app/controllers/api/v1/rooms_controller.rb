@@ -26,13 +26,17 @@ module Api
           room
         end
 
-        rooms = RunningMeetingChecker.new(rooms: user_rooms + shared_rooms).call
+        rooms = user_rooms + shared_rooms
+
+        RunningMeetingChecker.new(rooms:).call
 
         render_data data: rooms, status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id.json
       def show
+        RunningMeetingChecker.new(rooms: @room).call if @room.online
+
         render_data data: @room, serializer: CurrentRoomSerializer, options: { include_owner: params[:include_owner] == 'true' }, status: :ok
       end
 

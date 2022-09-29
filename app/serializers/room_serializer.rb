@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class RoomSerializer < ApplicationSerializer
-  attributes :id, :name, :friendly_id, :active, :participants
+  attributes :id, :name, :friendly_id, :online, :participants
+
   attribute :shared_owner, if: -> { object.shared }
   attribute :last_session, if: -> { object.last_session }
 

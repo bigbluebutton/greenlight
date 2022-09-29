@@ -81,6 +81,7 @@ module Api
             role: bbb_role
           )
         end
+
         render_data data:, status: :ok
       end
 

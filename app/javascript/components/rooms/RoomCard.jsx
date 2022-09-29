@@ -31,7 +31,8 @@ export default function RoomCard({ room }) {
               <UserIcon className="hi-m text-brand pt-4 d-block mx-auto" />
             )}
           </div>
-          <MeetingBadges active={room.active} count={room.participants} />
+          { room.online
+            && <MeetingBadges active={room.online} count={room.participants} />}
         </Stack>
 
         <Stack className="my-4">
@@ -54,7 +55,7 @@ export default function RoomCard({ room }) {
           <DocumentDuplicateIcon className="hi-m text-brand mt-1" />
         </Button>
         <Button variant="brand-outline" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
-          { room.active ? (
+          { room.online ? (
             t('join')
           ) : (
             t('start')
@@ -79,7 +80,7 @@ RoomCard.propTypes = {
     name: PropTypes.string.isRequired,
     last_session: PropTypes.string,
     shared_owner: PropTypes.string,
-    active: PropTypes.bool,
+    online: PropTypes.bool,
     participants: PropTypes.number,
   }).isRequired,
 };

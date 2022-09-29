@@ -14,7 +14,17 @@ module Api
 
           pagy, rooms = pagy(rooms)
 
-          rooms = RunningMeetingChecker.new(rooms:).call
+          active_rooms = BigBlueButtonApi.new.active_meetings
+          active_rooms_hash = {}
+
+          active_rooms.each do |active_room|
+            active_rooms_hash[active_room[:meetingID]] = active_room[:participantCount]
+          end
+
+          rooms.each do |room|
+            room.active = active_rooms_hash.key?(room.meeting_id)
+            room.participants = active_rooms_hash[room.meeting_id]
+          end
 
           render_data data: rooms, meta: pagy_metadata(pagy), serializer: ServerRoomSerializer, status: :ok
         end

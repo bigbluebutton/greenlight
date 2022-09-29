@@ -44,7 +44,7 @@ class ExternalController < ApplicationController
     return render json: {} unless params[:recordingmarks] == 'true'
 
     @room = Room.find_by(meeting_id: params[:meetingID])
-    @room.update(recordings_processing: @room.recordings_processing + 1)
+    @room.update(recordings_processing: @room.recordings_processing + 1, online: false)
 
     render json: {}, status: :ok
   end
