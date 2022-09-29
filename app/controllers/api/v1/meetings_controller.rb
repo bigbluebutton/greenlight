@@ -23,7 +23,6 @@ module Api
             current_user:,
             provider: current_provider
           ).call
-          @room.update(online: true)
         rescue BigBlueButton::BigBlueButtonException => e
           return render_error status: :bad_request unless e.key == 'idNotUnique'
         end
@@ -67,7 +66,6 @@ module Api
               current_user:,
               provider: current_provider
             ).call
-            @room.update(online: true)
           rescue BigBlueButton::BigBlueButtonException => e
             return render_error status: :bad_request unless e.key == 'idNotUnique'
           end
