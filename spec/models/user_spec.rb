@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:password).on(:create) }
 
     it { is_expected.to validate_presence_of(:session_token) }
-    it { is_expected.to validate_uniqueness_of(:session_token) }
+    it { is_expected.to validate_uniqueness_of(:session_token).case_insensitive }
     it { is_expected.to validate_presence_of(:session_expiry) }
 
     context 'password complexity' do
