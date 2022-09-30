@@ -14,7 +14,9 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
   describe '#index' do
     it 'ids of rooms in response are matching room ids that belong to current_user' do
-      rooms = create_list(:room, 5, user:)
+      shared_rooms = create_list(:room, 2)
+      user.shared_rooms << shared_rooms
+      rooms = create_list(:room, 3, user:) + shared_rooms
       get :index
       expect(response).to have_http_status(:ok)
       response_room_ids = JSON.parse(response.body)['data'].map { |room| room['id'] }
@@ -26,6 +28,25 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(response).to have_http_status(:ok)
       response_room_ids = JSON.parse(response.body)['data'].map { |room| room['id'] }
       expect(response_room_ids).to be_empty
+    end
+
+    context 'search' do
+      it 'filters the list of rooms based on the query' do
+        shared_room = create(:room, name: 'ROOM 1')
+        user.shared_rooms << shared_room
+        searched_rooms = [create(:room, user:, name: 'Room 1'), create(:room, user:, name: 'ROoM 2'), shared_room]
+        create_list(:room, 2, user:)
+
+        get :index, params: { search: 'room' }
+        expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(searched_rooms.pluck(:id))
+      end
+
+      it 'returns all rooms when no search query was given' do
+        create_list(:room, 5, user:)
+
+        get :index, params: { search: '' }
+        expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(user.rooms.pluck(:id))
+      end
     end
   end
 
