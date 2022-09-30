@@ -2,6 +2,10 @@
 
 class PopulateRoomLimitRolePermission < ActiveRecord::Migration[7.0]
   def up
+    Permission.create! [
+      { name: 'RoomLimit' }
+    ]
+
     admin = Role.find_by(name: 'Administrator')
     user = Role.find_by(name: 'User')
     guest = Role.find_by(name: 'Guest')
@@ -10,9 +14,9 @@ class PopulateRoomLimitRolePermission < ActiveRecord::Migration[7.0]
 
     RolePermission.create! [
 
-      { role: admin, permission: room_limit, value: 255 },
-      { role: user, permission: room_limit, value: 255 },
-      { role: guest, permission: room_limit, value: 255 }
+      { role: admin, permission: room_limit, value: 100 },
+      { role: user, permission: room_limit, value: 100 },
+      { role: guest, permission: room_limit, value: 100 }
     ]
   end
 
