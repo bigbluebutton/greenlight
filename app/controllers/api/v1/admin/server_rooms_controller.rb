@@ -10,23 +10,31 @@ module Api
 
         # GET /api/v1/admin/server_rooms.json
         def index
-          rooms = Room.includes(:user).with_provider(current_provider).search(params[:search])
+          sort_config = config_sorting(allowed_columns: %w[name user.name])
 
-          pagy, rooms = pagy(rooms)
+          rooms = Room.includes(:user).with_provider(current_provider).order(sort_config, online: :desc)&.search(params[:search])
 
-          active_rooms = BigBlueButtonApi.new.active_meetings
-          active_rooms_hash = {}
+          online_server_rooms(rooms)
 
-          active_rooms.each do |active_room|
-            active_rooms_hash[active_room[:meetingID]] = active_room[:participantCount]
+          pagy, rooms = pagy_array(rooms)
+
+          render_data data: rooms, meta: pagy_metadata(pagy), serializer: ServerRoomSerializer, status: :ok
+        end
+
+        private
+
+        def online_server_rooms(rooms)
+          online_rooms = BigBlueButtonApi.new.active_meetings
+          online_rooms_hash = {}
+
+          online_rooms.each do |online_room|
+            online_rooms_hash[online_room[:meetingID]] = online_room[:participantCount]
           end
 
           rooms.each do |room|
-            room.active = active_rooms_hash.key?(room.meeting_id)
-            room.participants = active_rooms_hash[room.meeting_id]
+            room.online = online_rooms_hash.key?(room.meeting_id)
+            room.participants = online_rooms_hash[room.meeting_id]
           end
-
-          render_data data: rooms, meta: pagy_metadata(pagy), serializer: ServerRoomSerializer, status: :ok
         end
       end
     end
