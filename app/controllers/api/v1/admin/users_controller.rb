@@ -9,8 +9,11 @@ module Api
         end
 
         def active_users
+          sort_config = config_sorting(allowed_columns: %w[name email role.name])
+
           # TODO: Change to get active users only
-          users = User.includes(:role).with_provider(current_provider).with_attached_avatar.search(params[:search])
+
+          users = User.includes(:role).with_provider(current_provider).with_attached_avatar.order(sort_config, role_id: :desc)&.search(params[:search])
 
           pagy, users = pagy(users)
 
