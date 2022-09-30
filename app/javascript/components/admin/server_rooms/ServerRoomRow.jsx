@@ -36,6 +36,13 @@ export default function ServerRoomRow({ room }) {
     return t('admin.server_rooms.last_session', { lastSession });
   };
 
+  const meetingRunning = () => {
+    if (online) {
+      return <td className="border-0 text-success"> { t('admin.server_rooms.running') } </td>
+    }
+    return <td className="border-0"> { t('admin.server_rooms.not_running') } </td>
+  };
+
   return (
     <tr className="align-middle text-muted border border-2">
       <td className="border-end-0">
@@ -47,7 +54,7 @@ export default function ServerRoomRow({ room }) {
       <td className="border-0"> {owner}</td>
       <td className="border-0"> {friendlyId} </td>
       <td className="border-0"> {participants || '-'} </td>
-      <td className="border-0"> {online ? t('admin.server_rooms.running') : t('admin.server_rooms.not_running')} </td>
+      { meetingRunning() }
       <td className="border-start-0">
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
