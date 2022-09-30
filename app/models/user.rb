@@ -43,7 +43,10 @@ class User < ApplicationRecord
 
   validates :reset_digest, uniqueness: true, if: :reset_digest?
   validates :activation_digest, uniqueness: true, if: :activation_digest?
-  validates :session_token, uniqueness: true, if: :session_token?
+  validates :session_token, presence: true, uniqueness: true
+  validates :session_expiry, presence: true
+
+  before_validation :set_session_token, on: :create
 
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
 
@@ -82,6 +85,12 @@ class User < ApplicationRecord
   # Checkes the expiration of a token.
   def self.reset_token_expired?(sent_at)
     Time.current > (sent_at.in(RESET_TOKEN_VALIDITY_PERIOD))
+  end
+
+  # Gives the session token and expiry a default value before saving
+  def set_session_token
+    self.session_token = User.generate_digest(SecureRandom.alphanumeric(40))
+    self.session_expiry = 6.hours.from_now
   end
 
   def generate_session_token!(extended_session: false)
