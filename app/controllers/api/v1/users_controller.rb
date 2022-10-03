@@ -97,7 +97,7 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id)
+        params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :language, :role_id)
       end
 
       def change_password_params

@@ -8,11 +8,14 @@ class UserCreator
   end
 
   def call
+    default_role_name = SettingGetter.new(setting_name: 'DefaultRole', provider: @provider).call
+    # TODO - could we save this query by storing the activerecord directly in the db? SiteSetting: value -> <Role>
+    default_role = Role.find_by(name: default_role_name)
     role = infer_role_from_email(@user_params[:email])
 
     User.new({
       provider: @provider,
-      role:
+      role: role || default_role
     }.merge(@user_params))
   end
 
@@ -25,6 +28,6 @@ class UserCreator
                      rules.find { |rule| email.ends_with? rule.second if rule.second }
                    end
 
-    Role.find_by(name: matched_rule&.first) || Role.find_by(name: 'User')
+    Role.find_by(name: matched_rule&.first)
   end
 end
