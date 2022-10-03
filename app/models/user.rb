@@ -48,7 +48,7 @@ class User < ApplicationRecord
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
 
   def self.search(input)
-    return where('name ILIKE ?', "%#{input}%") if input
+    return where('users.name ILIKE ?', "%#{input}%") if input
 
     all
   end
