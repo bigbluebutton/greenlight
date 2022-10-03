@@ -11,6 +11,7 @@ const axiosInstance = axios.create(
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
+      'X-CSRF-TOKEN':  document.querySelector('[name=csrf-token]').getAttribute("content")
     },
 
     // `timeout` specifies the number of milliseconds before the request times out.
@@ -18,7 +19,5 @@ const axiosInstance = axios.create(
     timeout: 30_000, // default is `0` (no timeout)
   },
 );
-
-axiosInstance.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('[name=csrf-token]').content;
 
 export default axiosInstance;

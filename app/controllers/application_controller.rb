@@ -2,7 +2,6 @@
 
 class ApplicationController < ActionController::Base
   include Pagy::Backend
-  skip_before_action :verify_authenticity_token
 
   # Returns the current signed in User (if any)
   def current_user
@@ -12,7 +11,7 @@ class ApplicationController < ActionController::Base
     user = User.find_by(session_token: session[:session_token])
 
     if user && invalid_session?(user)
-      reset_session
+      session[:session_token] = nil
       cookies.delete :_extended_session
       return nil
     end

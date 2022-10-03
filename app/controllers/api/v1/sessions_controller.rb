@@ -60,7 +60,7 @@ module Api
 
       def sign_out
         current_user.generate_session_token!
-        reset_session
+        session[:session_token] = nil
         cookies.delete :_extended_session
       end
     end
