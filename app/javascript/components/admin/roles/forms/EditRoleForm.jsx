@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { Button, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { editRoleFormConfig, editRoleFormFields } from '../../../../helpers/forms/EditRoleFormHelpers';
+import {
+  editRoleFormConfigRoleName, editRoleFormConfigRoomLimit, editRoleFormFieldsRoomLimit, editRoleFormFieldsRoleName,
+} from '../../../../helpers/forms/EditRoleFormHelpers';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import Spinner from '../../../shared_components/utilities/Spinner';
@@ -18,19 +20,20 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 
 export default function EditRoleForm({ role }) {
   const { t } = useTranslation();
-  const methods = useForm(editRoleFormConfig);
+  const methodsRoleName = useForm(editRoleFormConfigRoleName);
+  const methodsRoomLimit = useForm(editRoleFormConfigRoomLimit);
   const updateRoleAPI = useUpdateRole(role.id);
   const updateRolePermission = () => useUpdateRolePermission();
-  const { defaultValues } = editRoleFormConfig;
-  const fields = editRoleFormFields;
-  fields.name.placeHolder = defaultValues.name;
+  const updateAPI = updateRolePermission();
+  const fieldsRoleName = editRoleFormFieldsRoleName;
+  const fieldsRoomLimit = editRoleFormFieldsRoomLimit;
   const roomConfigs = useRoomConfigs();
   const { data: rolePermissions, isLoading: rolePermissionsIsLoading } = useRolePermissions(role.id);
   const currentUser = useAuth();
 
   useEffect(
     () => {
-      methods.setValue('name', role.name);
+      methodsRoleName.setValue('name', role.name);
     },
     [role.name],
   );
@@ -51,12 +54,17 @@ export default function EditRoleForm({ role }) {
   }
 
   if (roomConfigs.isLoading || rolePermissionsIsLoading) return <Spinner />;
+  fieldsRoomLimit.roomLimit.placeHolder = rolePermissions.RoomLimit;
 
   return (
     <div>
       <Stack>
-        <Form methods={methods} onBlur={(e) => updateRoleAPI.mutate({ name: e.target.value })}>
-          <FormControl field={fields.name} type="text" />
+        <Form methods={methodsRoleName} onBlur={(e) => updateRoleAPI.mutate({ name: e.target.value })}>
+          <FormControl field={fieldsRoleName.name} type="text" />
+        </Form>
+
+        <Form methods={methodsRoomLimit} onBlur={(e) => updateAPI.mutate({ role_id: role.id, name: 'RoomLimit', value: e.target.value })}>
+          <FormControl field={fieldsRoomLimit.roomLimit} type="number" />
         </Form>
 
         <Stack>
