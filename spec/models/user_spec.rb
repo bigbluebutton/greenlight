@@ -20,6 +20,9 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_uniqueness_of(:activation_digest) }
     it { is_expected.to validate_presence_of(:password).on(:create) }
 
+    it { is_expected.to validate_presence_of(:session_token) }
+    it { is_expected.to validate_presence_of(:session_expiry) }
+
     context 'password complexity' do
       it 'passes if there is atleast 1 capital, 1 lowercase, 1 number, 1 symbol' do
         user = build(:user, password: 'Password1!')
@@ -101,6 +104,16 @@ RSpec.describe User, type: :model do
       it 'fails if the image is too large' do
         user = build(:user, avatar: fixture_file_upload(file_fixture('large-avatar.jpg'), 'jpg'))
         expect(user).to be_invalid
+      end
+    end
+
+    describe 'before_validations' do
+      describe '#set_session_token' do
+        it 'sets a rooms session_token and session_expiry before creating' do
+          user = create(:user, session_token: nil, session_expiry: nil)
+          expect(user.session_token).to be_present
+          expect(user.session_expiry).to be_present
+        end
       end
     end
   end
