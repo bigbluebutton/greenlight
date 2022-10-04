@@ -14,9 +14,9 @@ class PopulateRoomLimitRolePermission < ActiveRecord::Migration[7.0]
 
     RolePermission.create! [
 
-      { role: admin, permission: room_limit, value: 100 },
-      { role: user, permission: room_limit, value: 100 },
-      { role: guest, permission: room_limit, value: 100 }
+      { role: admin, permission: room_limit, value: '100' },
+      { role: user, permission: room_limit, value: '100' },
+      { role: guest, permission: room_limit, value: '100' }
     ]
   end
 
