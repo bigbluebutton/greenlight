@@ -25,12 +25,6 @@ module Api
 
           render_data data: recordings, meta: pagy_metadata(pagy), status: :ok
         end
-
-        def resync
-          RecordingsSync.new(user: current_user).call
-
-          render_data status: :ok
-        end
       end
     end
   end

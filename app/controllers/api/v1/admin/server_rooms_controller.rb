@@ -4,9 +4,11 @@ module Api
   module V1
     module Admin
       class ServerRoomsController < ApiController
-        before_action only: %i[index] do
+        before_action do
           ensure_authorized('ManageRooms')
         end
+
+        before_action :find_room, only: %i[resync]
 
         # GET /api/v1/admin/server_rooms.json
         def index
@@ -27,6 +29,22 @@ module Api
           end
 
           render_data data: rooms, meta: pagy_metadata(pagy), serializer: ServerRoomSerializer, status: :ok
+        end
+
+        # GET /api/v1/admin/server_rooms/:friendly_id/resync.json
+        # Expects: {}
+        # Returns: { data: Array[serializable objects] , errors: Array[String] }
+        # Does: Re-syncs a room recordings.
+        def resync
+          RecordingsSync.new(room: @room).call
+
+          render_data status: :ok
+        end
+
+        private
+
+        def find_room
+          @room = Room.find_by!(friendly_id: params[:friendly_id])
         end
       end
     end
