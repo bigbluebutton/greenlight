@@ -1,19 +1,14 @@
 # frozen_string_literal: true
 
 class RecordingsSync
-  def initialize(params)
-    @user = params[:user]
+  def initialize(room:)
+    @room = room
   end
 
   def call
-    rooms = @user.rooms
+    @room.recordings.destroy_all
 
-    # Get the meeting_id of all the current user's rooms
-    meeting_ids = rooms.map(&:meeting_id)
-
-    Recording.destroy_by(room_id: rooms.map(&:id))
-
-    recordings = BigBlueButtonApi.new.get_recordings(meeting_ids:)
+    recordings = BigBlueButtonApi.new.get_recordings(meeting_ids: @room.meeting_id)
     recordings[:recordings].each do |recording|
       RecordingCreator.new(recording:).call
     end

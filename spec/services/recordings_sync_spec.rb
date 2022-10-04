@@ -5,26 +5,48 @@ require 'rails_helper'
 describe RecordingsSync, type: :service do
   let(:user) { create(:user) }
   let(:room) { create(:room, user:) }
-  let(:service) { described_class.new(user:) }
+  let(:service) { described_class.new(room:) }
 
   describe '#call' do
-    it 'creates no new recordings and deletes all existing ones based on response' do
-      create_list(:recording, 5, room:)
+    let(:fake_recording_creator) { instance_double(RecordingCreator) }
+    let(:other_recordings) { create_list(:recording, 2) }
 
-      allow_any_instance_of(BigBlueButtonApi).to receive(:get_recordings).and_return(no_recording_response)
-      service.call
-      expect(room.recordings.count).to eq(0)
+    before do
+      create_list(:recording, 2, room:)
+
+      allow(RecordingCreator).to receive(:new).and_return(fake_recording_creator)
+      allow(fake_recording_creator).to receive(:call).and_return(true)
     end
 
-    it 'calls the RecordingCreator service with the right parameters' do
-      room.update(meeting_id: 'random-1291479')
-      allow_any_instance_of(BigBlueButtonApi).to receive(:get_recordings).and_return(multiple_recordings_response)
-      allow_any_instance_of(RecordingCreator).to receive(:call).and_return(nil)
+    context 'when BBB returns no recordings' do
+      before do
+        allow_any_instance_of(BigBlueButtonApi).to receive(:get_recordings).and_return(no_recording_response)
+      end
 
-      expect(RecordingCreator).to receive(:new).with(recording: multiple_recordings_response[:recordings][0]).and_call_original
-      expect(RecordingCreator).to receive(:new).with(recording: multiple_recordings_response[:recordings][1]).and_call_original
+      it 'does not call RecordingsCreator service' do
+        expect_any_instance_of(BigBlueButtonApi).to receive(:get_recordings).with(meeting_ids: room.meeting_id)
+        expect(RecordingCreator).not_to receive(:new)
 
-      service.call
+        service.call
+        expect(room.recordings.count).to be_zero
+        expect(Recording.where(id: other_recordings.pluck(:id))).to eq(other_recordings)
+      end
+    end
+
+    context 'when BBB returns recordings' do
+      before do
+        room.update(meeting_id: 'random-1291479')
+        allow_any_instance_of(BigBlueButtonApi).to receive(:get_recordings).and_return(multiple_recordings_response)
+      end
+
+      it 'calls the RecordingCreator service with the right parameters' do
+        expect_any_instance_of(BigBlueButtonApi).to receive(:get_recordings).with(meeting_ids: room.meeting_id)
+        expect(RecordingCreator).to receive(:new).with(recording: multiple_recordings_response[:recordings][0]).and_call_original
+        expect(RecordingCreator).to receive(:new).with(recording: multiple_recordings_response[:recordings][1]).and_call_original
+
+        service.call
+        expect(Recording.where(id: other_recordings.pluck(:id))).to eq(other_recordings)
+      end
     end
   end
 

@@ -83,6 +83,36 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
     end
   end
 
+  describe '#resync' do
+    let(:fake_recording_sync) { instance_double(RecordingsSync) }
+    let(:room) { create(:room) }
+
+    before do
+      allow(RecordingsSync).to receive(:new).and_return(fake_recording_sync)
+      allow(fake_recording_sync).to receive(:call).and_return({ 'recordings' => 'values' })
+    end
+
+    # TODO: - samuel current_user is user_with_manage.. I think we should keep a regular user as default even in admin specs
+    it 'calls the RecordingsSync service with correct params' do
+      expect(RecordingsSync).to receive(:new).with(room:)
+      expect(fake_recording_sync).to receive(:call)
+      get :resync, params: { friendly_id: room.friendly_id }
+      expect(response).to have_http_status(:ok)
+    end
+
+    context 'user without ManageRooms permission' do
+      before do
+        sign_in_user(user)
+      end
+
+      it 'call the RecordingsSync service' do
+        expect(RecordingsSync).not_to receive(:new).with(room:)
+        get :resync, params: { friendly_id: room.friendly_id }
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
+
   private
 
   def bbb_meetings

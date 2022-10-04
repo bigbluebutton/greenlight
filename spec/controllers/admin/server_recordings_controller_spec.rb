@@ -82,32 +82,4 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
       end
     end
   end
-
-  describe '#resync' do
-    let(:fake_recording_sync) { instance_double(RecordingsSync) }
-
-    before do
-      allow(RecordingsSync).to receive(:new).and_return(fake_recording_sync)
-      allow(fake_recording_sync).to receive(:call).and_return({ 'recordings' => 'values' })
-    end
-
-    # TODO: - samuel current_user is user_with_manage.. I think we should keep a regular user as default even in admin specs
-    it 'calls the RecordingsSync service with correct params' do
-      expect(RecordingsSync).to receive(:new).with(user: user_with_manage_recordings_permission)
-      expect(fake_recording_sync).to receive(:call)
-      get :resync
-      expect(response).to have_http_status(:ok)
-    end
-
-    context 'user without ManageRecordings permission' do
-      before do
-        sign_in_user(user)
-      end
-
-      it 'call the RecordingsSync service' do
-        get :resync
-        expect(response).to have_http_status(:forbidden)
-      end
-    end
-  end
 end
