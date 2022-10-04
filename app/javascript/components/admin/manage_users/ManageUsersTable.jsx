@@ -3,6 +3,7 @@ import { Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import ManageUserRow from './ManageUserRow';
+import SortBy from '../../shared_components/search/SortBy';
 
 export default function ManageUsersTable({ users }) {
   const { t } = useTranslation();
@@ -12,10 +13,10 @@ export default function ManageUsersTable({ users }) {
       <Table className="table-bordered border border-2 mb-0" hover>
         <thead>
           <tr className="text-muted small">
-            <th className="fw-normal border-end-0">{ t('user.name') }</th>
+            <th className="fw-normal border-end-0">{ t('user.name') }<SortBy fieldName="name" /></th>
             <th className="fw-normal border-0">{ t('user.email_address') }</th>
             <th className="fw-normal border-0">{ t('user.authenticator') }</th>
-            <th className="fw-normal border-0">{ t('user.profile.role') }</th>
+            <th className="fw-normal border-0">{ t('user.profile.role') }<SortBy fieldName="roles.name" /></th>
             <th className="border-start-0" aria-label="options" />
           </tr>
         </thead>

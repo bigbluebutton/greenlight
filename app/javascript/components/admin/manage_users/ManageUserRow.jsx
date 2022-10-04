@@ -41,7 +41,7 @@ export default function ManageUserRow({ user }) {
           <Container>
             <div className="d-inline-flex">
               <NavDropdown title={<EllipsisVerticalIcon className="hi-s text-muted" />} id="basic-nav-dropdown">
-                <NavDropdown.Item as={Link} to={`/admin/edit_user/${user.id}`}><PencilSquareIcon className="hi-s" /> Edit</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to={`/admin/edit_user/${user.id}`}><PencilSquareIcon className="hi-s" />{ t('edit') }</NavDropdown.Item>
                 <Modal
                   modalButton={<NavDropdown.Item><TrashIcon className="hi-s" />{ t('delete') }</NavDropdown.Item>}
                   title={t('admin.manage_users.delete_user')}
