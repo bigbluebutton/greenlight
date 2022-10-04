@@ -28,43 +28,47 @@ import EditUser from './components/admin/manage_users/EditUser';
 import EditRole from './components/admin/roles/EditRole';
 import Home from './components/home/Home';
 import ActivateAccount from './components/users/account_activation/ActivateAccount';
+import ErrorBoundary from './components/shared_components/ErrorBoundary';
+import DefaultErrorPage from './components/errors/DefaultErrorPage';
 
 const queryClient = new QueryClient();
 
 const root = (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <React.Suspense fallback="Loading...">
-        <Router>
-          <Routes>
-            <Route path="/" element={<App />}>
-              <Route index element={<HomePage />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/forget_password" element={<ForgetPassword />} />
-              <Route path="/reset_password/:token" element={<ResetPassword />} />
-              <Route path="/activate_account/:token" element={<ActivateAccount />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/admin" element={<Navigate to="/admin/users" replace />} />
-              <Route path="/admin/users" element={<ManageUsers />} />
-              <Route path="/admin/edit_user/:userId" element={<EditUser />} />
-              <Route path="/admin/server-recordings" element={<ServerRecordings />} />
-              <Route path="/admin/server-rooms" element={<ServerRooms />} />
-              <Route path="/admin/room-configuration" element={<RoomConfig />} />
-              <Route path="/admin/site-settings" element={<SiteSettings />} />
-              <Route path="/admin/roles" element={<Roles />} />
-              <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
-              <Route path="/rooms" element={<Rooms />} />
-              <Route path="/rooms/:friendlyId" element={<Room />} />
-              <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="*" element={<h1 className="text-center">404</h1>} />
-            </Route>
-          </Routes>
-        </Router>
-      </React.Suspense>
-    </AuthProvider>
-  </QueryClientProvider>
+  <React.Suspense fallback="Loading...">
+    <ErrorBoundary fallback={DefaultErrorPage}>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<App />}>
+                <Route index element={<HomePage />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/forget_password" element={<ForgetPassword />} />
+                <Route path="/reset_password/:token" element={<ResetPassword />} />
+                <Route path="/activate_account/:token" element={<ActivateAccount />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/admin" element={<Navigate to="/admin/users" replace />} />
+                <Route path="/admin/users" element={<ManageUsers />} />
+                <Route path="/admin/edit_user/:userId" element={<EditUser />} />
+                <Route path="/admin/server-recordings" element={<ServerRecordings />} />
+                <Route path="/admin/server-rooms" element={<ServerRooms />} />
+                <Route path="/admin/room-configuration" element={<RoomConfig />} />
+                <Route path="/admin/site-settings" element={<SiteSettings />} />
+                <Route path="/admin/roles" element={<Roles />} />
+                <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
+                <Route path="/rooms" element={<Rooms />} />
+                <Route path="/rooms/:friendlyId" element={<Room />} />
+                <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="*" element={<h1 className="text-center">404</h1>} />
+              </Route>
+            </Routes>
+          </Router>
+        </AuthProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
+  </React.Suspense>
 );
 
 const rootElement = document.getElementById('root');
