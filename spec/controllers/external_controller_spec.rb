@@ -74,6 +74,18 @@ RSpec.describe ExternalController, type: :controller do
         expect(user.name).to eq('Example Name')
         expect(user.email).to eq('email@example.com')
       end
+
+      it 'does not overwrite the role even if true' do
+        allow_any_instance_of(SettingGetter).to receive(:call).and_return(true)
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+        new_role = create(:role)
+        user.update(role: new_role)
+
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(user.reload.role).to eq(new_role)
+      end
     end
   end
 
