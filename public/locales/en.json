@@ -318,5 +318,9 @@
   "global_error_page": {
     "title": "Something Went Wrong",
     "message": "Looks like something went wrong on our end.\nPlease try again.\nIf the error is reoccurring, kindly consider reporting the incident to the administrator(s)."
+  },
+  "not_found_error_page": {
+    "title": "404",
+    "message": "The resource you are trying to access cannot be found.\nMaybe you were looking for something else?"
   }
 }
