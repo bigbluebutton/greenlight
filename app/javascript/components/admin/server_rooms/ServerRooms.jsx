@@ -9,6 +9,7 @@ import ServerRoomRow from './ServerRoomRow';
 import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
 import AdminNavSideBar from '../AdminNavSideBar';
 import Pagination from '../../shared_components/Pagination';
+import SortBy from '../../shared_components/search/SortBy';
 
 export default function ServerRooms() {
   const { t } = useTranslation();
@@ -38,8 +39,8 @@ export default function ServerRooms() {
                     <Table className="table-bordered border border-2 mt-4 mb-0" hover>
                       <thead>
                         <tr className="text-muted small">
-                          <th className="fw-normal border-end-0">{ t('admin.server_rooms.name') }</th>
-                          <th className="fw-normal border-0">{ t('admin.server_rooms.owner') }</th>
+                          <th className="fw-normal border-end-0">{ t('admin.server_rooms.name') }<SortBy fieldName="name" /></th>
+                          <th className="fw-normal border-0">{ t('admin.server_rooms.owner') }<SortBy fieldName="user.name" /></th>
                           <th className="fw-normal border-0">{ t('admin.server_rooms.room_id') }</th>
                           <th className="fw-normal border-0">{ t('admin.server_rooms.participants') }</th>
                           <th className="fw-normal border-0">{ t('admin.server_rooms.status') }</th>

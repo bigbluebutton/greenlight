@@ -15,7 +15,7 @@ import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function ServerRoomRow({ room }) {
   const {
-    friendly_id: friendlyId, name, owner, last_session: lastSession, active, participants,
+    friendly_id: friendlyId, name, owner, last_session: lastSession, online, participants,
   } = room;
   const { t } = useTranslation();
   const mutationWrapper = (args) => useDeleteServerRoom({ friendlyId, ...args });
@@ -30,10 +30,17 @@ export default function ServerRoomRow({ room }) {
     if (lastSession == null) {
       return t('admin.server_rooms.no_meeting_yet');
     }
-    if (active) {
+    if (online) {
       return t('admin.server_rooms.current_session', { lastSession });
     }
     return t('admin.server_rooms.last_session', { lastSession });
+  };
+
+  const meetingRunning = () => {
+    if (online) {
+      return <td className="border-0 text-success"> { t('admin.server_rooms.running') } </td>;
+    }
+    return <td className="border-0"> { t('admin.server_rooms.not_running') } </td>;
   };
 
   return (
@@ -47,12 +54,12 @@ export default function ServerRoomRow({ room }) {
       <td className="border-0"> {owner}</td>
       <td className="border-0"> {friendlyId} </td>
       <td className="border-0"> {participants || '-'} </td>
-      <td className="border-0"> {active ? t('admin.server_rooms.active') : t('admin.server_rooms.not_running')} </td>
+      { meetingRunning() }
       <td className="border-start-0">
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
           <Dropdown.Menu>
-            { room.active
+            { room.online
               ? (
                 <Dropdown.Item className="text-muted" onClick={handleJoin}>
                   <ArrowTopRightOnSquareIcon className="hi-s pb-1 me-1" /> { t('join') }
@@ -67,7 +74,7 @@ export default function ServerRoomRow({ room }) {
               <EyeIcon className="hi-s pb-1 me-1" /> { t('view') }
             </Dropdown.Item>
             <Modal
-              modalButton={<Dropdown.Item className="text-muted"><TrashIcon className="hi-s pb-1 me-1" /> Delete</Dropdown.Item>}
+              modalButton={<Dropdown.Item className="text-muted"><TrashIcon className="hi-s pb-1 me-1" /> { t('delete') }</Dropdown.Item>}
               title={t('admin.server_rooms.delete_server_rooms')}
               body={<DeleteRoomForm mutation={mutationWrapper} />}
             />
@@ -83,7 +90,7 @@ ServerRoomRow.propTypes = {
     name: PropTypes.string.isRequired,
     owner: PropTypes.string.isRequired,
     friendly_id: PropTypes.string.isRequired,
-    active: PropTypes.bool.isRequired,
+    online: PropTypes.bool.isRequired,
     last_session: PropTypes.string,
     participants: PropTypes.number,
   }).isRequired,

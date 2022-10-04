@@ -25,16 +25,16 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
         .to match_array(Room.all.pluck(:friendly_id))
     end
 
-    it 'returns the server room status as active if the meeting has started' do
+    it 'returns the server room status as online if the meeting has started' do
       active_server_room = create(:room)
       active_server_room.update(meeting_id: 'hulsdzwvitlk1dbekzxdprshsxmvycvar0jeaszc')
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return(bbb_meetings)
       get :index
-      expect(JSON.parse(response.body)['data'][0]['active']).to be(true)
+      expect(JSON.parse(response.body)['data'][0]['online']).to be(true)
     end
 
-    it 'returns the number of participants in an active server room' do
+    it 'returns the number of participants in an online server room' do
       active_server_room = create(:room)
       active_server_room.update(meeting_id: 'hulsdzwvitlk1dbekzxdprshsxmvycvar0jeaszc')
 
@@ -43,12 +43,12 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
       expect(JSON.parse(response.body)['data'][0]['participants']).to be(1)
     end
 
-    it 'returns the server status as not running if BBB server does not return any active meetings' do
+    it 'returns the server status as not running if BBB server does not return any online meetings' do
       create(:room)
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
       get :index
-      expect(JSON.parse(response.body)['data'][0]['active']).to be(false)
+      expect(JSON.parse(response.body)['data'][0]['online']).to be(false)
     end
 
     it 'excludes rooms whose owners have a different provider' do
