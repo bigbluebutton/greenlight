@@ -3,7 +3,6 @@ import {
   Row, Col, Button, Stack,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import Spinner from '../shared_components/utilities/Spinner';
 import RoomCard from './RoomCard';
 import useRooms from '../../hooks/queries/rooms/useRooms';
 import useCreateRoom from '../../hooks/mutations/rooms/useCreateRoom';
@@ -15,12 +14,10 @@ import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function RoomsList() {
   const { t } = useTranslation();
-  const { isLoading, data: rooms } = useRooms();
   const [search, setSearch] = useState('');
+  const { isLoading, data: rooms } = useRooms(search);
   const currentUser = useAuth();
   const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
-
-  if (isLoading) return <Spinner />;
 
   return (
     <>
@@ -36,12 +33,9 @@ export default function RoomsList() {
       </Stack>
       <Row md={4} className="g-4 pb-4 mt-4">
         {
-          rooms.sort((a, b) => b.online - a.online).filter((room) => {
-            if (room.name.toLowerCase().includes(search.toLowerCase())) {
-              return room;
-            }
-            return false;
-          }).map((room) => (
+          // eslint-disable-next-line react/no-array-index-key
+          (isLoading && [...Array(8)].map((val, idx) => <Col key={idx} className="mt-0 mb-4"><RoomPlaceHolder /></Col>))
+          || rooms.map((room) => (
             <Col key={room.friendly_id} className="mt-0 mb-4">
               {(room.optimistic && <RoomPlaceHolder />) || <RoomCard room={room} />}
             </Col>

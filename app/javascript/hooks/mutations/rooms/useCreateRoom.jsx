@@ -6,7 +6,7 @@ import axios from '../../../helpers/Axios';
 export default function useCreateRoom({ userId, onSettled }) {
   const { t } = useTranslation();
 
-  const ROOMSLISTQUERYKEY = 'getRooms'; // TODO: amir - create a central store for query keys.
+  const ROOMSLISTQUERYKEY = ['getRooms', { search: '' }]; // TODO: amir - create a central store for query keys.
   const queryClient = useQueryClient();
 
   // Optimistically adds the room to the rooms querries cache.

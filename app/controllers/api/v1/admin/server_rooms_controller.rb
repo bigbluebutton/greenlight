@@ -23,22 +23,6 @@ module Api
           render_data data: rooms, meta: pagy_metadata(pagy), serializer: ServerRoomSerializer, status: :ok
         end
 
-        private
-
-        def online_server_rooms(rooms)
-          online_rooms = BigBlueButtonApi.new.active_meetings
-          online_rooms_hash = {}
-
-          online_rooms.each do |online_room|
-            online_rooms_hash[online_room[:meetingID]] = online_room[:participantCount]
-          end
-
-          rooms.each do |room|
-            room.online = online_rooms_hash.key?(room.meeting_id)
-            room.participants = online_rooms_hash[room.meeting_id]
-          end
-        end
-
         # GET /api/v1/admin/server_rooms/:friendly_id/resync.json
         # Expects: {}
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
@@ -53,6 +37,20 @@ module Api
 
         def find_room
           @room = Room.find_by!(friendly_id: params[:friendly_id])
+        end
+
+        def online_server_rooms(rooms)
+          online_rooms = BigBlueButtonApi.new.active_meetings
+          online_rooms_hash = {}
+
+          online_rooms.each do |online_room|
+            online_rooms_hash[online_room[:meetingID]] = online_room[:participantCount]
+          end
+
+          rooms.each do |room|
+            room.online = online_rooms_hash.key?(room.meeting_id)
+            room.participants = online_rooms_hash[room.meeting_id]
+          end
         end
       end
     end
