@@ -1,4 +1,9 @@
 #room-card {
+  border: 2px solid transparent !important;
+
+  &:hover {
+    border: 2px solid var(--brand-color-light) !important;
+  }
   .room-icon {
     width: 75px;
     height: 75px;
