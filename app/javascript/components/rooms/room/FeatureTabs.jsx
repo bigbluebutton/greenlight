@@ -1,5 +1,7 @@
 import React from 'react';
-import {Row, Tabs, Tab, Placeholder, Card} from 'react-bootstrap';
+import {
+  Row, Tabs, Tab, Placeholder,
+} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
 import Presentation from './presentation/Presentation';
@@ -12,7 +14,7 @@ export default function FeatureTabs() {
   const { isLoading: isLoadingPreup, data: preuploadEnabled } = useSiteSetting('PreuploadPresentation');
   const { isLoading: isLoadingShare, data: shareRoomEnabled } = useSiteSetting('ShareRooms');
 
-  if(isLoadingPreup || isLoadingShare) {
+  if (isLoadingPreup || isLoadingShare) {
     return (
       <Row className="pt-4 mx-0">
         <Placeholder className="ps-0" animation="glow">
@@ -22,7 +24,7 @@ export default function FeatureTabs() {
           <Placeholder xs={1} size="lg" className="mx-2" />
         </Placeholder>
       </Row>
-    )
+    );
   }
 
   return (
@@ -31,18 +33,18 @@ export default function FeatureTabs() {
         <Tab eventKey="recordings" title={t('recording.recording')}>
           <RoomRecordings />
         </Tab>
-        { preuploadEnabled
+        {preuploadEnabled
           && (
-          <Tab eventKey="presentation" title={t('room.presentation.presentation')}>
-            <Presentation />
-          </Tab>
+            <Tab eventKey="presentation" title={t('room.presentation.presentation')}>
+              <Presentation />
+            </Tab>
           )}
-        { shareRoomEnabled
-         && (
-         <Tab eventKey="access" title={t('room.shared_access.access')}>
-           <SharedAccess />
-         </Tab>
-         )}
+        {shareRoomEnabled
+          && (
+            <Tab eventKey="access" title={t('room.shared_access.access')}>
+              <SharedAccess />
+            </Tab>
+          )}
         <Tab eventKey="settings" title={t('room.settings.settings')}>
           <RoomSettings />
         </Tab>

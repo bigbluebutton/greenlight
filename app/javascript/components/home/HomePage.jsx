@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Card, Form, Stack } from 'react-bootstrap';
+import { Card, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
@@ -36,9 +36,9 @@ export default function HomePage() {
         <Logo size="large" />
       </div>
       <Card className="col-md-8 mx-auto p-5 border-0 shadow-sm text-center">
-        <h1 className="mt-4"> { t('homepage.welcome_bbb')} </h1>
+        <h1 className="mt-4"> {t('homepage.welcome_bbb')} </h1>
         <span className="text-muted mt-4 mb-5 px-xxl-5">
-          { t('homepage.greenlight_description')}
+          {t('homepage.greenlight_description')}
         </span>
         <div className="mx-auto mb-2">
           {
