@@ -11,7 +11,7 @@ export default function useDeletePresentation(friendlyId) {
     () => axios.delete(`/rooms/${friendlyId}/purge_presentation.json`),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('getRoom');
+        queryClient.invalidateQueries(['getRoom', { friendlyId }]);
         toast.success(t('toast.success.presentation_deleted'));
       },
       onError: () => {

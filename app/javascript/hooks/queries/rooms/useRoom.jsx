@@ -6,7 +6,7 @@ export default function useRoom(friendlyId, includeOwner = false) {
     include_owner: includeOwner,
   };
   return useQuery(
-    'getRoom',
+    ['getRoom', { friendlyId }],
     () => axios.get(`/rooms/${friendlyId}.json`, { params }).then((resp) => resp.data.data),
   );
 }
