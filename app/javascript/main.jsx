@@ -30,6 +30,7 @@ import Home from './components/home/Home';
 import ActivateAccount from './components/users/account_activation/ActivateAccount';
 import ErrorBoundary from './components/shared_components/ErrorBoundary';
 import DefaultErrorPage from './components/errors/DefaultErrorPage';
+import NotFoundPage from './components/errors/NotFoundPage';
 
 const queryClient = new QueryClient();
 
@@ -61,7 +62,8 @@ const root = (
                 <Route path="/rooms/:friendlyId" element={<Room />} />
                 <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
                 <Route path="/home" element={<Home />} />
-                <Route path="*" element={<h1 className="text-center">404</h1>} />
+                <Route path="/404" element={<NotFoundPage />} />
+                <Route path="*" element={<Navigate to="404" />} />
               </Route>
             </Routes>
           </Router>
