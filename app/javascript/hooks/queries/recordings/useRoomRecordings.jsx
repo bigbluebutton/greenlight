@@ -7,7 +7,7 @@ export default function useRoomRecordings(friendlyId, input, page) {
     page,
   };
   return useQuery(
-    ['getRoomRecordings', { ...params }],
+    ['getRoomRecordings', { ...params, friendlyId }],
     () => axios.get(`/rooms/${friendlyId}/recordings.json`, { params }).then((resp) => resp.data),
     {
       keepPreviousData: true,

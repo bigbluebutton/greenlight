@@ -11,7 +11,7 @@ export default function useUpdateRoom({ friendlyId }) {
     (data) => axios.patch(`/rooms/${friendlyId}.json`, data),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('getRoom');
+        queryClient.invalidateQueries(['getRoom', { friendlyId }]);
         toast.success(t('toast.success.room.room_updated'));
       },
       onError: () => {
