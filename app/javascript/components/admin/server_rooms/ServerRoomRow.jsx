@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  EyeIcon, EllipsisVerticalIcon, TrashIcon, ArrowTopRightOnSquareIcon,
+  EyeIcon, EllipsisVerticalIcon, TrashIcon, ArrowTopRightOnSquareIcon, ArrowPathIcon,
 } from '@heroicons/react/24/outline';
 import { Dropdown, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,7 @@ import DeleteRoomForm from '../../rooms/room/forms/DeleteRoomForm';
 import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
 import useRoomStatus from '../../../hooks/mutations/rooms/useRoomStatus';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
+import useRecordingsReSync from '../../../hooks/mutations/admin/server_recordings/useRecordingsReSync';
 
 export default function ServerRoomRow({ room }) {
   const {
@@ -21,7 +22,8 @@ export default function ServerRoomRow({ room }) {
   const mutationWrapper = (args) => useDeleteServerRoom({ friendlyId, ...args });
   const startMeeting = useStartMeeting(friendlyId);
   const currentUser = useAuth();
-  const roomStatusAPI = useRoomStatus(room.friendly_id);
+  const roomStatusAPI = useRoomStatus(friendlyId);
+  const recordingsResyncAPI = useRecordingsReSync(friendlyId);
 
   // TODO - samuel: useRoomStatus will not work if room has an access code. Will need to add bypass in MeetingController
   const handleJoin = () => roomStatusAPI.mutate({ name: currentUser.name });
@@ -62,16 +64,19 @@ export default function ServerRoomRow({ room }) {
             { room.online
               ? (
                 <Dropdown.Item className="text-muted" onClick={handleJoin}>
-                  <ArrowTopRightOnSquareIcon className="hi-s pb-1 me-1" /> { t('join') }
+                  <ArrowTopRightOnSquareIcon className="hi-s pb-1 me-1" /> {t('join')}
                 </Dropdown.Item>
               )
               : (
                 <Dropdown.Item className="text-muted" onClick={startMeeting.mutate}>
-                  <ArrowTopRightOnSquareIcon className="hi-s pb-1 me-1" /> { t('start') }
+                  <ArrowTopRightOnSquareIcon className="hi-s pb-1 me-1" /> {t('start')}
                 </Dropdown.Item>
               )}
-            <Dropdown.Item className="text-muted" as={Link} to={`/rooms/${room.friendly_id}`}>
-              <EyeIcon className="hi-s pb-1 me-1" /> { t('view') }
+            <Dropdown.Item className="text-muted" as={Link} to={`/rooms/${friendlyId}`}>
+              <EyeIcon className="hi-s pb-1 me-1" /> {t('view')}
+            </Dropdown.Item>
+            <Dropdown.Item className="text-muted" onClick={recordingsResyncAPI.mutate}>
+              <ArrowPathIcon className="hi-s pb-1 me-1" /> {t('admin.server_rooms.resync_recordings')}
             </Dropdown.Item>
             <Modal
               modalButton={<Dropdown.Item className="text-muted"><TrashIcon className="hi-s pb-1 me-1" /> { t('delete') }</Dropdown.Item>}

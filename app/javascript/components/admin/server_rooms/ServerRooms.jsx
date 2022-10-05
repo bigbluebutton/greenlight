@@ -55,7 +55,7 @@ export default function ServerRooms() {
                           : (
                             <tr>
                               <td className="fw-bold">
-                                { t('recording.no_recording_found') }
+                                { t('room.no_rooms_found') }
                               </td>
                             </tr>
                           )}
