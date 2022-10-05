@@ -2,12 +2,9 @@
 
 class CurrentRoomSerializer < ApplicationSerializer
   include Presentable
-  include Avatarable
 
   attributes :id, :name, :presentation_name, :thumbnail, :online, :participants
 
-  attribute :owner_name, if: -> { @instance_options[:options][:include_owner] }
-  attribute :owner_avatar, if: -> { @instance_options[:options][:include_owner] }
   attribute :last_session, if: -> { object.last_session }
 
   def presentation_name
@@ -16,14 +13,6 @@ class CurrentRoomSerializer < ApplicationSerializer
 
   def thumbnail
     presentation_thumbnail(object)
-  end
-
-  def owner_name
-    object.user.name
-  end
-
-  def owner_avatar
-    user_avatar(object.user)
   end
 
   def last_session

@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import {
   Button, Col, Row, Stack,
 } from 'react-bootstrap';
@@ -17,6 +17,7 @@ import { useAuth } from '../../../contexts/auth/AuthProvider';
 import { joinFormConfig, joinFormFields as fields } from '../../../helpers/forms/JoinFormHelpers';
 import Form from '../../shared_components/forms/Form';
 import FormControl from '../../shared_components/forms/FormControl';
+import Avatar from '../../users/user/Avatar';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -104,16 +105,12 @@ export default function RoomJoin() {
   }
 
   const WaitingPage = (
-    <div className="mt-3">
-      <Row>
-        <Col className="col-10">
-          <p className="mb-1">{ t('room.meeting.meeting_not_started') }</p>
-          <p className="mb-0 text-muted">{ t('room.meeting.join_meeting_automatically') }</p>
-        </Col>
-        <Col className="col-2">
-          <Spinner className="float-end" />
-        </Col>
-      </Row>
+    <div className="py-4">
+      <div className="d-inline-block">
+        <h5>{ t('room.meeting.meeting_not_started') }</h5>
+        <span className="text-muted">{ t('room.meeting.join_meeting_automatically') }</span>
+      </div>
+      <Spinner className="float-end text-brand m-2" size="large" />
     </div>
   );
 
@@ -123,18 +120,24 @@ export default function RoomJoin() {
         <Logo size="medium" />
       </div>
       <Card className="col-md-6 mx-auto p-0 border-0 shadow-sm">
-        <Card.Body className="p-4">
+        <Card.Body className="pt-4 px-5">
           <Row>
-            <Stack>
-              <p className="text-muted mb-0">{ t('room.meeting.meeting_invitation') }</p>
+            <Col className="col-xxl-8">
+              <span className="text-muted mb-0">{ t('room.meeting.meeting_invitation') }</span>
               <h1>
                 {publicRoom.data.name}
                 {publicRoom.isFetching && <Spinner />}
               </h1>
-            </Stack>
+            </Col>
+            <Col>
+              <Stack direction="vertical" gap={3}>
+                <Avatar className="d-block ms-auto me-auto" avatar={publicRoom?.data.owner_avatar} radius={100} />
+                <h5 className="text-center">{publicRoom?.data.owner_name}</h5>
+              </Stack>
+            </Col>
           </Row>
         </Card.Body>
-        <Card.Footer className="p-4 bg-white">
+        <Card.Footer className="px-5 pb-3 bg-white border-2">
           {(roomStatusAPI.isSuccess && !roomStatusAPI.data.status) ? WaitingPage : (
             <Form methods={methods} onSubmit={handleJoin}>
               <FormControl field={fields.name} type="text" disabled={currentUser?.signed_in} autoFocus={!currentUser?.signed_in} />
@@ -152,6 +155,9 @@ export default function RoomJoin() {
           )}
         </Card.Footer>
       </Card>
+      <div className="text-center text-muted mt-3"> { t('authentication.already_have_account') }
+        <Link to="/signin" className="text-link"> { t('authentication.sign_in') } </Link>
+      </div>
     </div>
   );
 }
