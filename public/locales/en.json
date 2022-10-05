@@ -88,6 +88,7 @@
     "shared_by": "Shared by: {{room.shared_owner}}",
     "last_session": "Last Session: {{ room.last_session }}",
     "no_last_session": "No previous session created",
+    "no_rooms_found": "No rooms found",
     "meeting": {
       "start_meeting": "Start Meeting",
       "join_meeting": "Join Meeting",
@@ -182,13 +183,13 @@
       "current_session": "Current Session: {{lastSession}}",
       "last_session": "Last Session: {{lastSession}}",
       "no_meeting_yet": "No meeting yet.",
-      "delete_server_rooms": "Delete Server Room"
+      "delete_server_rooms": "Delete Server Room",
+      "resync_recordings": "Re-Synchronize recordings"
     },
     "server_recordings": {
       "server_recordings": "Server Recordings",
       "latest_recordings": "Latest Recordings",
-      "no_recordings_found": "No recordings found.",
-      "resync_recordings": "Re-Sync Recordings"
+      "no_recordings_found": "No recordings found."
     },
     "site_settings": {
       "site_settings": "Site Settings",
@@ -282,6 +283,7 @@
         "room_deleted": "Room deleted.",
         "room_shared": "Room shared",
         "room_unshared": "Room unshared",
+        "recordings_synced": "Room recordings are now synchronized",
         "server_room_deleted": "Server room deleted.",
         "room_configuration_updated": "Room configuration updated.",
         "room_setting_updated": "Room setting updated.",

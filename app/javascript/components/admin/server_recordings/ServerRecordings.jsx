@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import {
-  Col, Container, Row, Tab, Stack, Button,
+  Col, Container, Row, Tab,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import AdminNavSideBar from '../AdminNavSideBar';
@@ -9,7 +9,6 @@ import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
 import RecordingsList from '../../recordings/RecordingsList';
 import useServerRecordings from '../../../hooks/queries/admin/server_recordings/useServerRecordings';
 import ServerRecordingRow from './ServerRecordingRow';
-import useRecordingsReSync from '../../../hooks/queries/recordings/useRecordingsReSync';
 import Pagination from '../../shared_components/Pagination';
 
 export default function ServerRecordings() {
@@ -17,11 +16,10 @@ export default function ServerRecordings() {
   const [input, setInput] = useState();
   const [page, setPage] = useState();
   const { isLoading, data: serverRecordings } = useServerRecordings(input, page);
-  const recordingsReSync = useRecordingsReSync();
 
   return (
     <div id="admin-panel">
-      <h3 className="py-5"> { t('admin.admin_panel') } </h3>
+      <h3 className="py-5"> {t('admin.admin_panel')} </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="server-recordings">
           <Row>
@@ -34,19 +32,11 @@ export default function ServerRecordings() {
               <Tab.Content className="p-0">
                 <Container className="admin-table p-0">
                   <div className="p-4 border-bottom">
-                    <h3> { t('admin.server_recordings.latest_recordings') } </h3>
+                    <h3> {t('admin.server_recordings.latest_recordings')} </h3>
                   </div>
                   <div className="p-4">
-                    <Stack direction="horizontal" className="mb-4">
-                      <SearchBarQuery setInput={setInput} />
-                      <Button
-                        variant="brand-outline"
-                        className="ms-auto"
-                        onClick={recordingsReSync.refetch}
-                      > { t('admin.server_recordings.resync_recordings') }
-                      </Button>
-                    </Stack>
-                    <Row className="my-2">
+                    <SearchBarQuery setInput={setInput} />
+                    <Row className="mt-4">
                       <Col>
                         <RecordingsList
                           recordings={serverRecordings?.data}
