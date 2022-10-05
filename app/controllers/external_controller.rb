@@ -5,14 +5,23 @@ class ExternalController < ApplicationController
 
   # GET 'auth/:provider/callback'
   def create_user
+    provider = current_provider
+
     credentials = request.env['omniauth.auth']
-    user_info = credentials['info']
-    user = User.find_or_create_by(email: user_info['email']) do |u|
-      u.external_id = credentials['uid']
-      u.name = user_info['name']
-      u.provider = current_provider
-      u.role = Role.find_by(name: 'User') # TODO: - Ahmad: Move to service
-      u.language = extract_language_code user_info['locale']
+    user_info = {
+      name: credentials['info']['name'],
+      email: credentials['info']['email'],
+      language: extract_language_code(credentials['info']['locale'])
+    }
+
+    user = User.find_or_create_by!(external_id: credentials['uid'], provider:) do |u|
+      user_info[:role] = Role.find_by(name: 'User')
+      u.assign_attributes(user_info)
+    end
+
+    if SettingGetter.new(setting_name: 'ResyncOnLogin', provider:).call
+      user.assign_attributes(user_info)
+      user.save! if user.changed?
     end
 
     user.generate_session_token!
