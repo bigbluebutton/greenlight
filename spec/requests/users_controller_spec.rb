@@ -26,7 +26,6 @@ RSpec.describe Api::V1::UsersController, type: :request do
     let(:headers) { { 'ACCEPT' => 'application/json' } }
 
     context 'valid user params' do
-
       it 'creates a user account for valid params' do
         expect { post api_v1_users_path, params: valid_user_params, headers: }.to change(User, :count).from(0).to(1)
         expect(response.content_type).to eq('application/json; charset=utf-8')

@@ -14,7 +14,6 @@ export default function Registration() {
   const { isLoadingEnv, data: env } = useEnv();
   const { isLoading, data: siteSettings } = useSiteSettings(['RoleMapping', 'DefaultRole', 'ResyncOnLogin']);
 
-
   if (isLoading || isLoadingEnv) return <Spinner />;
 
   return (

@@ -45,7 +45,6 @@ describe UserCreator, type: :service do
       end
     end
 
-
     it 'creates a user with the role matching a rule if role found' do
       decepticons = create(:role, name: 'Decepticons')
       user_params = {
