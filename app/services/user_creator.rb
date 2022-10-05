@@ -9,7 +9,6 @@ class UserCreator
 
   def call
     default_role_name = SettingGetter.new(setting_name: 'DefaultRole', provider: @provider).call
-    # TODO - could we save this query by storing the activerecord directly in the db? SiteSetting: value -> <Role>
     default_role = Role.find_by(name: default_role_name)
     role = infer_role_from_email(@user_params[:email])
 

@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::UsersController, type: :controller do
   let(:user) { create(:user) }
   let(:user_with_manage_users_permission) { create(:user, :with_manage_users_permission) }
+  let(:fake_setting_getter) { instance_double(SettingGetter) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -26,6 +27,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     before do
       create(:role, name: 'User') # Needed for admin#create
       clear_enqueued_jobs
+      allow(SettingGetter).to receive(:new).and_call_original
+      allow(SettingGetter).to receive(:new).with(setting_name: 'DefaultRole', provider: 'greenlight').and_return(fake_setting_getter)
+      allow(fake_setting_getter).to receive(:call).and_return('User')
     end
 
     context 'when user is saved' do

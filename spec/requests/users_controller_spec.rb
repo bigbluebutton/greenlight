@@ -13,13 +13,19 @@ RSpec.describe Api::V1::UsersController, type: :request do
       }
     }
   end
-  # TODO: Migrate this to controllers spec and refactor it for consistency.
+  let!(:role) { create(:role, name: 'User') }
+  let(:fake_setting_getter) { instance_double(SettingGetter) }
+
+  before do
+    allow(SettingGetter).to receive(:new).and_call_original
+    allow(SettingGetter).to receive(:new).with(setting_name: 'DefaultRole', provider: 'greenlight').and_return(fake_setting_getter)
+    allow(fake_setting_getter).to receive(:call).and_return('User')
+  end
 
   describe 'Signup' do
     let(:headers) { { 'ACCEPT' => 'application/json' } }
 
     context 'valid user params' do
-      let!(:role) { create(:role, name: 'User') }
 
       it 'creates a user account for valid params' do
         expect { post api_v1_users_path, params: valid_user_params, headers: }.to change(User, :count).from(0).to(1)
