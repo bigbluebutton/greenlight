@@ -45,7 +45,6 @@ export default function Header() {
               adminAccess()
               && <NavDropdown.Item as={Link} to="/admin">{ t('admin.admin_panel') }</NavDropdown.Item>
             }
-            <NavDropdown.Item as={Link} to="/">{ t('need_help') }</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={deleteSession.mutate}>{ t('authentication.sign_out') }</NavDropdown.Item>
           </NavDropdown>

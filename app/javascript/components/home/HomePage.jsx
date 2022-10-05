@@ -40,22 +40,22 @@ export default function HomePage() {
         <span className="text-muted mt-4 mb-5 px-xxl-5">
           { t('homepage.greenlight_description')}
         </span>
-        <Stack direction="horizontal" className="mx-auto mb-2">
+        <div className="mx-auto mb-2">
           {
             env.OPENID_CONNECT ? (
               <Form action="/auth/openid_connect" method="POST" data-turbo="false">
                 <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
-                <Button variant="brand-outline-color" className="btn btn-xlg" type="submit">{t('authentication.sign_up')}</Button>
-                <Button variant="brand" className="btn btn-xlg ms-4" type="submit">{t('authentication.sign_in')}</Button>
+                <Button variant="brand-outline-color" className="btn btn-xlg m-2" type="submit">{t('authentication.sign_up')}</Button>
+                <Button variant="brand" className="btn btn-xlg m-2" type="submit">{t('authentication.sign_in')}</Button>
               </Form>
             ) : (
               <>
-                <ButtonLink to="/signup" variant="brand-outline-color" className="btn btn-xlg">{t('authentication.sign_up')}</ButtonLink>
-                <ButtonLink to="/signin" variant="brand" className="btn btn-xlg ms-4">{t('authentication.sign_in')}</ButtonLink>
+                <ButtonLink to="/signup" variant="brand-outline-color" className="btn btn-xlg m-2">{t('authentication.sign_up')}</ButtonLink>
+                <ButtonLink to="/signin" variant="brand" className="btn btn-xlg m-2">{t('authentication.sign_in')}</ButtonLink>
               </>
             )
           }
-        </Stack>
+        </div>
       </Card>
     </div>
   );

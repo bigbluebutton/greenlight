@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Tabs, Tab } from 'react-bootstrap';
+import {Row, Tabs, Tab, Placeholder, Card} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
 import Presentation from './presentation/Presentation';
@@ -9,8 +9,21 @@ import SharedAccess from './shared_access/SharedAccess';
 
 export default function FeatureTabs() {
   const { t } = useTranslation();
-  const { data: preuploadEnabled } = useSiteSetting('PreuploadPresentation');
-  const { data: shareRoomEnabled } = useSiteSetting('ShareRooms');
+  const { isLoading: isLoadingPreup, data: preuploadEnabled } = useSiteSetting('PreuploadPresentation');
+  const { isLoading: isLoadingShare, data: shareRoomEnabled } = useSiteSetting('ShareRooms');
+
+  if(isLoadingPreup || isLoadingShare) {
+    return (
+      <Row className="pt-4 mx-0">
+        <Placeholder className="ps-0" animation="glow">
+          <Placeholder xs={1} size="lg" className="me-2" />
+          <Placeholder xs={1} size="lg" className="mx-2" />
+          <Placeholder xs={1} size="lg" className="mx-2" />
+          <Placeholder xs={1} size="lg" className="mx-2" />
+        </Placeholder>
+      </Row>
+    )
+  }
 
   return (
     <Row className="pt-4 mx-0">
