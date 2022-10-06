@@ -117,8 +117,6 @@ export default function RoomJoin() {
     </div>
   );
 
-  env.OPENID_CONNECT = true;
-
   return (
     <div className="vertical-center">
       <div className="text-center pb-4">
