@@ -70,32 +70,6 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
 
-    context 'include_owner' do
-      it 'returns the owners name if include_owner is passed' do
-        room = create(:room, user:)
-        get :show, params: { friendly_id: room.friendly_id, include_owner: true }
-        expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data']['owner_name']).to eq(user.name)
-      end
-
-      it 'returns the owners avatar if include_owner is passed' do
-        room = create(:room, user:)
-        user.avatar.attach(io: fixture_file_upload('default-avatar.png'), filename: 'default-avatar.png', content_type: 'image/png')
-
-        get :show, params: { friendly_id: room.friendly_id, include_owner: true }
-        expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data']['owner_avatar']).to be_present
-      end
-
-      it 'does not return the owner if include_owner is false' do
-        room = create(:room, user:)
-        get :show, params: { friendly_id: room.friendly_id, include_owner: false }
-        expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data']['owner_name']).to be_nil
-        expect(JSON.parse(response.body)['data']['owner_avatar']).to be_nil
-      end
-    end
-
     context 'SharedRoom' do
       let(:user2) { create(:user) }
       let(:room) { create(:room, user:) }
@@ -127,19 +101,20 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     end
 
     it 'returns a room if the friendly id is valid' do
-      room = create(:room)
+      room = create(:room, user:)
+
       expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight', current_user: nil, show_codes: false,
                                                        settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode])
       expect(fake_room_settings_getter).to receive(:call)
 
       get :public_show, params: { friendly_id: room.friendly_id }
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']).to eq({
-                                                        'name' => room.name,
-                                                        'require_authentication' => true,
-                                                        'viewer_access_code' => true,
-                                                        'moderator_access_code' => false
-                                                      })
+      expect(JSON.parse(response.body)['data']['name']).to eq(room.name)
+      expect(JSON.parse(response.body)['data']['require_authentication']).to be(true)
+      expect(JSON.parse(response.body)['data']['viewer_access_code']).to be(true)
+      expect(JSON.parse(response.body)['data']['moderator_access_code']).to be(false)
+      expect(JSON.parse(response.body)['data']['owner_name']).to eq(user.name)
+      expect(JSON.parse(response.body)['data']['owner_avatar']).to be_present
     end
 
     it 'returns :not_found if the room doesnt exist' do
