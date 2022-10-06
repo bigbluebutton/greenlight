@@ -117,6 +117,8 @@ export default function RoomJoin() {
     </div>
   );
 
+  env.OPENID_CONNECT = true;
+
   return (
     <div className="vertical-center">
       <div className="text-center pb-4">
@@ -163,7 +165,7 @@ export default function RoomJoin() {
           <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> { t('authentication.already_have_account') }
             <Form action="/auth/openid_connect" method="POST" data-turbo="false">
               <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
-              <Button variant="link" className="cursor-pointer ms-2" type="submit">{t('authentication.sign_in')}</Button>
+              <Button variant="link" className="cursor-pointer ms-2 ps-0" type="submit">{t('authentication.sign_in')}</Button>
             </Form>
           </Stack>
         ) : (
