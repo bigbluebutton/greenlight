@@ -259,6 +259,8 @@
       "administrator": "Administrator",
       "guest": "Guest",
       "manage_roles": "Manage Roles",
+      "delete_role": "Delete Role",
+      "are_you_sure_delete_role": "Are you sure you want to delete this role?",
       "enter_role_name": "Enter a role name",
       "create_role": "+ Create Role",
       "create_new_role": "Create a new role",
@@ -314,7 +316,11 @@
       "problem_completing_action": "There was a problem completing that action. \n Please try again.",
       "must_be_signed_in_to_join_room": "You must be signed in to join this room.",
       "file_type_not_supported": "File type is not supported.",
-      "file_size_too_large": "File size is too large."
+      "file_size_too_large": "File size is too large.",
+      "roles": {
+        "role_undeletable": "This role can't be deleted.",
+        "role_assigned": "This role can't be deleted as it is assigned to at least one user."
+      }
     }
   },
   "global_error_page": {

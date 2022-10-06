@@ -4,24 +4,26 @@ import {
   Button, Stack,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import useDeleteRole from '../../../../hooks/mutations/admin/roles/useDeleteRole';
 
 export default function DeleteRoleForm({ role, handleClose }) {
+  const { t } = useTranslation();
   const deleteRoleAPI = useDeleteRole({ role, onSettled: handleClose });
   const methods = useForm();
 
   return (
     <>
-      <p className="text-center"> Are you sure you want to delete role <strong>{role.name}</strong>?</p>
+      <p className="text-center">{ t('admin.roles.are_you_sure_delete_role') }</p>
       <Form methods={methods} onSubmit={deleteRoleAPI.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
-          <Button variant="brand-outline" onClick={handleClose}>
-            Close
+          <Button variant="neutral" onClick={handleClose}>
+            { t('close') }
           </Button>
           <Button variant="danger" type="submit" disabled={deleteRoleAPI.isLoading}>
-            Delete
+            { t('delete') }
             {deleteRoleAPI.isLoading && <Spinner />}
           </Button>
         </Stack>

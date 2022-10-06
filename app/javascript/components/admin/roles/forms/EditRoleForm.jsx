@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { editRoleFormConfig, editRoleFormFields } from '../../../../helpers/forms/EditRoleFormHelpers';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
@@ -16,6 +17,7 @@ import RolePermissionRow from '../RolePermissionRow';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 
 export default function EditRoleForm({ role }) {
+  const { t } = useTranslation();
   const methods = useForm(editRoleFormConfig);
   const updateRoleAPI = useUpdateRole(role.id);
   const updateRolePermission = () => useUpdateRolePermission();
@@ -32,6 +34,21 @@ export default function EditRoleForm({ role }) {
     },
     [role.name],
   );
+
+  function deleteRoleButton() {
+    if (role.name === 'User' || role.name === 'Administrator' || role.name === 'Guest') {
+      return null;
+    }
+    return (
+      <div>
+        <Modal
+          modalButton={<Button variant="delete" className="float-end"> { t('admin.roles.delete_role') } </Button>}
+          title={t('admin.roles.delete_role')}
+          body={<DeleteRoleForm role={role} />}
+        />
+      </div>
+    );
+  }
 
   if (roomConfigs.isLoading || rolePermissionsIsLoading) return <Spinner />;
 
@@ -105,14 +122,9 @@ export default function EditRoleForm({ role }) {
             updateMutation={updateRolePermission}
           />
         </Stack>
-
-        <div>
-          <Modal
-            modalButton={<Button variant="brand-outline" className="float-end"> Delete Role </Button>}
-            title="Delete Role"
-            body={<DeleteRoleForm role={role} />}
-          />
-        </div>
+        {
+          deleteRoleButton()
+        }
       </Stack>
     </div>
   );
