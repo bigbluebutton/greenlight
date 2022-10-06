@@ -318,7 +318,6 @@
       "file_type_not_supported": "File type is not supported.",
       "file_size_too_large": "File size is too large.",
       "roles": {
-        "role_undeletable": "This role can't be deleted.",
         "role_assigned": "This role can't be deleted as it is assigned to at least one user."
       }
     }

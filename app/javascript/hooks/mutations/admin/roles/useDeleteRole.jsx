@@ -13,9 +13,7 @@ export default function useDeleteRole({ role, onSettled }) {
     () => axios.delete(`/admin/roles/${role.id}.json`),
     {
       onError: (error) => {
-        if (error.response?.status === 400) {
-          toast.error(t('toast.error.roles.role_undeletable'));
-        } else if (error.response?.status === 500) {
+        if (error.response?.status === 500) {
           toast.error(t('toast.error.roles.role_assigned'));
         } else {
           toast.error(t('toast.error.problem_completing_action'));
