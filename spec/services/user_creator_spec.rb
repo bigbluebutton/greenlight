@@ -20,7 +20,7 @@ describe UserCreator, type: :service do
         password: 'Password1+',
         language: 'eng'
       }
-      res = described_class.new(user_params:, provider: 'greenlight', default_role: teachers).call
+      res = described_class.new(user_params:, provider: 'greenlight', role: teachers).call
       expect(res.role).to eq(teachers)
     end
 
@@ -32,7 +32,7 @@ describe UserCreator, type: :service do
         password: 'Decepticons',
         language: 'teletraan'
       }
-      res = described_class.new(user_params:, provider: 'greenlight', default_role: users).call
+      res = described_class.new(user_params:, provider: 'greenlight', role: users).call
 
       expect(res).to be_instance_of(User)
       expect(res).not_to be_persisted
@@ -50,7 +50,7 @@ describe UserCreator, type: :service do
         password: 'Cybertron',
         language: 'teletraan'
       }
-      res = described_class.new(user_params:, provider: 'greenlight', default_role: users).call
+      res = described_class.new(user_params:, provider: 'greenlight', role: users).call
 
       expect(res).to be_instance_of(User)
       expect(res).not_to be_persisted
@@ -68,7 +68,7 @@ describe UserCreator, type: :service do
         password: 'Autobots',
         language: 'teletraan'
       }
-      res = described_class.new(user_params:, provider: 'greenlight', default_role: users).call
+      res = described_class.new(user_params:, provider: 'greenlight', role: users).call
 
       expect(res).to be_instance_of(User)
       expect(res).not_to be_persisted

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class UserCreator
-  def initialize(user_params:, provider:, default_role:)
+  def initialize(user_params:, provider:, role:)
     @user_params = user_params
     @provider = provider
-    @default_role = default_role
+    @role = role
     @roles_mappers = SettingGetter.new(setting_name: 'RoleMapping', provider:).call
   end
 
@@ -13,7 +13,7 @@ class UserCreator
 
     User.new({
       provider: @provider,
-      role: email_role || @default_role
+      role: email_role || @role
     }.merge(@user_params))
   end
 
