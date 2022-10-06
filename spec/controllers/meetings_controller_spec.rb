@@ -137,6 +137,25 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         expect(response).to have_http_status(:created)
       end
     end
+
+    context 'SharedRoom' do
+      let(:user2) { create(:user) }
+
+      before do
+        user2.shared_rooms << room
+        sign_in_user(user2)
+      end
+
+      it 'allows a user who the room is shared with to start the meeting' do
+        expect_any_instance_of(MeetingStarter).to receive(:call)
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user2.name, avatar_url: nil, role: 'Moderator')
+
+        post :start, params: { friendly_id: room.friendly_id }
+
+        expect(response).to have_http_status(:created)
+        expect(JSON.parse(response.body)['data']).to eq('JOIN_URL')
+      end
+    end
   end
 
   describe '#status' do

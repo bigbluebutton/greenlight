@@ -95,6 +95,23 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         expect(JSON.parse(response.body)['data']['owner_avatar']).to be_nil
       end
     end
+
+    context 'SharedRoom' do
+      let(:user2) { create(:user) }
+      let(:room) { create(:room, user:) }
+
+      before do
+        # TODO: - ahmad: Clean up these specs
+        user2.shared_rooms << room
+        sign_in_user(user2)
+      end
+
+      it 'allows a user who the room is shared with to view the room' do
+        get :show, params: { friendly_id: room.friendly_id }
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['data']['id']).to eq(room.id)
+      end
+    end
   end
 
   describe '#public_show' do

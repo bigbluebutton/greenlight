@@ -23,6 +23,8 @@ class PermissionsChecker
         return true if authorize_manage_user
       when 'ManageRooms'
         return true if authorize_manage_rooms
+      when 'SharedRoom'
+        return true if authorize_shared_room
       when 'ManageRecordings'
         return true if authorize_manage_recordings
       end
@@ -43,6 +45,10 @@ class PermissionsChecker
     return false if @friendly_id.blank?
 
     @current_user.rooms.find_by(friendly_id: @friendly_id).present?
+  end
+
+  def authorize_shared_room
+    @current_user.shared_rooms.exists?(friendly_id: @friendly_id)
   end
 
   def authorize_manage_recordings

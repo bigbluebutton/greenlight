@@ -6,7 +6,7 @@ module Api
       before_action :find_room, only: %i[start status running]
       skip_before_action :ensure_authenticated, only: %i[status]
       before_action only: %i[start running] do
-        ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
+        ensure_authorized(%w[ManageRooms SharedRoom], friendly_id: params[:friendly_id])
       end
 
       # POST /api/v1/meetings/:friendly_id/start.json
