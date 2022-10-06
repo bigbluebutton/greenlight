@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
 class UserCreator
-  def initialize(user_params:, provider:)
+  def initialize(user_params:, provider:, default_role:)
     @user_params = user_params
     @provider = provider
+    @default_role = default_role
     @roles_mappers = SettingGetter.new(setting_name: 'RoleMapping', provider:).call
   end
 
   def call
-    default_role_name = SettingGetter.new(setting_name: 'DefaultRole', provider: @provider).call
-    default_role = Role.find_by(name: default_role_name)
-    role = infer_role_from_email(@user_params[:email])
+    email_role = infer_role_from_email(@user_params[:email])
 
     User.new({
       provider: @provider,
-      role: role || default_role
+      role: email_role || @default_role
     }.merge(@user_params))
   end
 

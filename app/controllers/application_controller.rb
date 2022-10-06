@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
     @current_user ||= user
   end
 
+
   # Returns whether hcaptcha is enabled by checking if ENV variables are set
   def hcaptcha_enabled?
     (ENV['HCAPTCHA_SITE_KEY'].present? && ENV['HCAPTCHA_SECRET_KEY'].present?)
@@ -32,6 +33,13 @@ class ApplicationController < ActionController::Base
                             'greenlight'
                           end
   end
+
+  # Returns the default role
+  def default_role
+    default_role_setting = SettingGetter.new(setting_name: 'DefaultRole', provider: current_provider).call
+    @default_role = Role.find_by(name: default_role_setting)
+  end
+
 
   private
 

@@ -43,7 +43,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(session[:session_token]).not_to eql(user.session_token)
       end
 
-      context 'from antoher user' do
+      context 'from another user' do
         it 'sends activation email to but does NOT signin the created user' do
           expect { post :create, params: user_params }.to change(User, :count).by(1)
           expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
