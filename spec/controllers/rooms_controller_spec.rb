@@ -172,7 +172,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         }
       }
     end
-
+    let(:user) { create(:user, :roomLimit100) }
     let(:new_user) { create(:user) }
 
     it 'creates a room for a user' do
