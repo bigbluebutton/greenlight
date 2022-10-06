@@ -29,7 +29,7 @@ export default function RoomJoin() {
   const publicRoom = usePublicRoom(friendlyId);
   const roomStatusAPI = useRoomStatus(friendlyId);
 
-  const { data: env } = useEnv();
+  const { isLoading, data: env } = useEnv();
 
   const methods = useForm(joinFormConfig);
 
@@ -116,6 +116,8 @@ export default function RoomJoin() {
       <Spinner className="float-end text-brand m-2" size="large" />
     </div>
   );
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="vertical-center">
