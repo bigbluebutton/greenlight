@@ -18,6 +18,7 @@ import { joinFormConfig, joinFormFields as fields } from '../../../helpers/forms
 import Form from '../../shared_components/forms/Form';
 import FormControl from '../../shared_components/forms/FormControl';
 import Avatar from '../../users/user/Avatar';
+import useEnv from '../../../hooks/queries/env/useEnv';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -27,6 +28,8 @@ export default function RoomJoin() {
 
   const publicRoom = usePublicRoom(friendlyId);
   const roomStatusAPI = useRoomStatus(friendlyId);
+
+  const { data: env } = useEnv();
 
   const methods = useForm(joinFormConfig);
 
@@ -155,9 +158,20 @@ export default function RoomJoin() {
           )}
         </Card.Footer>
       </Card>
-      <div className="text-center text-muted mt-3"> { t('authentication.already_have_account') }
-        <Link to="/signin" className="text-link"> { t('authentication.sign_in') } </Link>
-      </div>
+      {
+        env.OPENID_CONNECT ? (
+          <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> { t('authentication.already_have_account') }
+            <Form action="/auth/openid_connect" method="POST" data-turbo="false">
+              <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
+              <Button variant="link" className="cursor-pointer ms-2" type="submit">{t('authentication.sign_in')}</Button>
+            </Form>
+          </Stack>
+        ) : (
+          <div className="text-center text-muted mt-3"> { t('authentication.already_have_account') }
+            <Link to="/signin" className="text-link ms-1"> { t('authentication.sign_in') } </Link>
+          </div>
+        )
+      }
     </div>
   );
 }
