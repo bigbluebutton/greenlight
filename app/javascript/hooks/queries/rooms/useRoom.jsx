@@ -1,12 +1,9 @@
 import { useQuery } from 'react-query';
 import axios from '../../../helpers/Axios';
 
-export default function useRoom(friendlyId, includeOwner = false) {
-  const params = {
-    include_owner: includeOwner,
-  };
+export default function useRoom(friendlyId) {
   return useQuery(
     ['getRoom', { friendlyId }],
-    () => axios.get(`/rooms/${friendlyId}.json`, { params }).then((resp) => resp.data.data),
+    () => axios.get(`/rooms/${friendlyId}.json`).then((resp) => resp.data.data),
   );
 }

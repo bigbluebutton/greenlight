@@ -40,7 +40,7 @@ module Api
       def show
         RunningMeetingChecker.new(rooms: @room).call if @room.online
 
-        render_data data: @room, serializer: CurrentRoomSerializer, options: { include_owner: params[:include_owner] == 'true' }, status: :ok
+        render_data data: @room, serializer: CurrentRoomSerializer, status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id/public.json
