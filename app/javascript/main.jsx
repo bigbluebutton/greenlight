@@ -31,6 +31,7 @@ import ActivateAccount from './components/users/account_activation/ActivateAccou
 import ErrorBoundary from './components/shared_components/ErrorBoundary';
 import DefaultErrorPage from './components/errors/DefaultErrorPage';
 import NotFoundPage from './components/errors/NotFoundPage';
+import VerifyAccount from './components/users/account_activation/VerifyAccount';
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,7 @@ const root = (
                 <Route path="/forget_password" element={<ForgetPassword />} />
                 <Route path="/reset_password/:token" element={<ResetPassword />} />
                 <Route path="/activate_account/:token" element={<ActivateAccount />} />
+                <Route path="/verify_account" element={<VerifyAccount />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/admin" element={<Navigate to="/admin/users" replace />} />
                 <Route path="/admin/users" element={<ManageUsers />} />

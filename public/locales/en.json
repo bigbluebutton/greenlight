@@ -272,7 +272,8 @@
         "user_deleted": "User deleted.",
         "avatar_updated": "Avatar updated.",
         "password_updated": "Password updated.",
-        "account_activated": "Account activated."
+        "account_activated": "Account activated.",
+        "activation_email_sent": "Activation email has been sent"
       },
       "session": {
         "signed_out": "You have successfully signed out."
@@ -324,5 +325,10 @@
   "not_found_error_page": {
     "title": "404",
     "message": "The resource you are trying to access cannot be found.\nMaybe you were looking for something else?"
+  },
+  "account_activation_page": {
+    "title": "Account Activation",
+    "message": "Your account has not been verified yet.\nIn order to use Greenlight full features you are kindly invited to verify your account.\nIf you haven't received an activation link or if you are having a problem using it,\nplease click the resend button below to get a new link.",
+    "resend_btn_lbl": "Resend Verification"
   }
 }
