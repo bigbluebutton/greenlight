@@ -22,9 +22,9 @@ module Api
       # GET /api/v1/rooms.json
       def index
         # Return the rooms that belong to current user
-        user_rooms = current_user.rooms.search(params[:search])
+        user_rooms = current_user.rooms.order(online: :desc, last_session: :desc).search(params[:search])
 
-        shared_rooms = current_user.shared_rooms.search(params[:search]).map do |room|
+        shared_rooms = current_user.shared_rooms.order(online: :desc, last_session: :desc).search(params[:search]).map do |room|
           room.shared = true
           room
         end
