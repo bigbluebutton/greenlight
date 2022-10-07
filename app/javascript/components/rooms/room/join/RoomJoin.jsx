@@ -1,25 +1,31 @@
 /* eslint-disable consistent-return */
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
-  Button, Col, Row, Stack,
+  Button, Col, Row, Stack, Form as RegularForm,
 } from 'react-bootstrap';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import usePublicRoom from '../../../hooks/queries/rooms/usePublicRoom';
 import Spinner from '../../shared_components/utilities/Spinner';
-import useRoomStatus from '../../../hooks/mutations/rooms/useRoomStatus';
-import subscribeToRoom from '../../../channels/rooms_channel';
 import Logo from '../../shared_components/Logo';
-import { useAuth } from '../../../contexts/auth/AuthProvider';
-import { joinFormConfig, joinFormFields as fields } from '../../../helpers/forms/JoinFormHelpers';
 import Form from '../../shared_components/forms/Form';
 import FormControl from '../../shared_components/forms/FormControl';
 import Avatar from '../../users/user/Avatar';
-import useEnv from '../../../hooks/queries/env/useEnv';
 import GGSpinner from '../../shared_components/utilities/GGSpinner';
+import usePublicRoom from '../../../../hooks/queries/rooms/usePublicRoom';
+import Spinner from '../../../shared_components/utilities/Spinner';
+import useRoomStatus from '../../../../hooks/mutations/rooms/useRoomStatus';
+import subscribeToRoom from '../../../../channels/rooms_channel';
+import Logo from '../../../shared_components/Logo';
+import { useAuth } from '../../../../contexts/auth/AuthProvider';
+import { joinFormConfig, joinFormFields as fields } from '../../../../helpers/forms/JoinFormHelpers';
+import Form from '../../../shared_components/forms/Form';
+import FormControl from '../../../shared_components/forms/FormControl';
+import Avatar from '../../../users/user/Avatar';
+import useEnv from '../../../../hooks/queries/env/useEnv';
+import RequireAuthentication from './RequireAuthentication';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -96,8 +102,7 @@ export default function RoomJoin() {
   if (publicRoom.isLoading) return <Spinner />;
 
   if (!currentUser.signed_in && publicRoom.data.require_authentication === 'true') {
-    toast.error(t('toast.error.must_be_signed_in_to_join_room'));
-    return <Navigate replace to="/" />;
+    return <RequireAuthentication />;
   }
 
   const hasAccessCode = publicRoom.data?.viewer_access_code || publicRoom.data?.moderator_access_code;
@@ -166,10 +171,10 @@ export default function RoomJoin() {
       {
         env.OPENID_CONNECT ? (
           <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> { t('authentication.already_have_account') }
-            <Form action="/auth/openid_connect" method="POST" data-turbo="false">
+            <RegularForm action="/auth/openid_connect" method="POST" data-turbo="false">
               <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
               <Button variant="link" className="cursor-pointer ms-2 ps-0" type="submit">{t('authentication.sign_in')}</Button>
-            </Form>
+            </RegularForm>
           </Stack>
         ) : (
           <div className="text-center text-muted mt-3"> { t('authentication.already_have_account') }

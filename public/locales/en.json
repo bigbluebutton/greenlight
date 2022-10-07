@@ -116,6 +116,7 @@
       "user_settings": "User Settings",
       "allow_room_to_be_recorded": "Allow room to be recorded",
       "require_signed_in": "Require users to be signed in before joining",
+      "require_signed_in_message": "You must be signed in to join this room.",
       "require_mod_approval": "Require moderator approval before joining",
       "allow_any_user_to_start": "Allow any user to start this meeting",
       "all_users_join_as_mods": "All users join as moderators",
@@ -313,7 +314,6 @@
     },
     "error": {
       "problem_completing_action": "There was a problem completing that action. \n Please try again.",
-      "must_be_signed_in_to_join_room": "You must be signed in to join this room.",
       "file_type_not_supported": "File type is not supported.",
       "file_size_too_large": "File size is too large."
     }

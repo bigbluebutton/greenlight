@@ -29,6 +29,9 @@ class ExternalController < ApplicationController
 
     # TODO: - Ahmad: deal with errors
 
+    redirect_location = cookies[:location]
+    return redirect_to redirect_location if redirect_location&.match?('\/rooms\/\w{3}-\w{3}-\w{3}-\w{3}\/join')
+
     redirect_to '/rooms'
   end
 

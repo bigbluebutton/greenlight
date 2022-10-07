@@ -43,6 +43,32 @@ RSpec.describe ExternalController, type: :controller do
       expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).role).to eq(role)
     end
 
+    context 'redirect' do
+      it 'redirects to the location cookie if the format is valid' do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+        cookies[:location] = {
+          value: '/rooms/o5g-hvb-s44-p5t/join',
+          path: '/'
+        }
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(response).to redirect_to('/rooms/o5g-hvb-s44-p5t/join')
+      end
+
+      it 'doesnt redirect if it doesnt match a room joins format' do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+        cookies[:location] = {
+          value: 'https://google.com',
+          path: '/'
+        }
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(response).to redirect_to('/rooms')
+      end
+    end
+
     context 'ResyncOnLogin' do
       let!(:user) do
         create(:user,
