@@ -63,8 +63,8 @@ module Api
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Deletes a role.
         def destroy
-          default_roles = @role.name == 'User' || @role.name == 'Administrator' || @role.name == 'Guest'
-          return render_error errors: @role.errors.to_a, status: :bad_request if default_roles
+          default_roles = %w[User Administrator Guest].include?(@role.name)
+          return render_error errors: @role.errors.to_a, status: :forbidden if default_roles
 
           @role.destroy!
           render_data status: :ok
