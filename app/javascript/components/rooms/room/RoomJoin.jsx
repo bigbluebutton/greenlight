@@ -19,6 +19,7 @@ import Form from '../../shared_components/forms/Form';
 import FormControl from '../../shared_components/forms/FormControl';
 import Avatar from '../../users/user/Avatar';
 import useEnv from '../../../hooks/queries/env/useEnv';
+import GGSpinner from '../../shared_components/utilities/GGSpinner';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -108,13 +109,15 @@ export default function RoomJoin() {
   }
 
   const WaitingPage = (
-    <div className="py-4">
-      <div className="d-inline-block">
+    <Stack direction="horizontal" className="py-4">
+      <div>
         <h5>{ t('room.meeting.meeting_not_started') }</h5>
         <span className="text-muted">{ t('room.meeting.join_meeting_automatically') }</span>
       </div>
-      <Spinner className="float-end text-brand m-2" size="large" />
-    </div>
+      <div className="d-block ms-auto">
+        <GGSpinner />
+      </div>
+    </Stack>
   );
 
   if (isLoading) return <Spinner />;
