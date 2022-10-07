@@ -67,6 +67,19 @@ RSpec.describe ExternalController, type: :controller do
 
         expect(response).to redirect_to('/rooms')
       end
+
+      it 'deletes the cookie after reading' do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+        cookies[:location] = {
+          value: '/rooms/o5g-hvb-s44-p5t/join',
+          path: '/'
+        }
+
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(cookies[:location]).to be_nil
+      end
     end
 
     context 'ResyncOnLogin' do
