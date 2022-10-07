@@ -11,38 +11,102 @@ RSpec.describe Api::V1::VerifyAccountController, type: :controller do
   end
 
   describe 'POST verify_account#create' do
+    let(:inactive_user) { create(:user, email: 'inactive@greenlight.com', active: false) }
+    let(:active_user) { create(:user, email: 'active@greenlight.com', active: true) }
+
     before do
-      create(:user, email: 'inactive@greenlight.com')
+      allow_any_instance_of(User).to receive(:generate_activation_token!).and_return('TOKEN')
       clear_enqueued_jobs
     end
 
-    it 'generates a unique token and sends activation email' do
-      token = 'ZekpWTPGFsuaP1WngE6LVCc69Zs7YSKoOJFLkfKu'
-      allow_any_instance_of(User).to receive(:generate_activation_token!).and_return(token)
+    context 'when account is inactive' do
+      before do
+        sign_in_user(inactive_user)
+      end
 
-      post :create, params: { user: { email: 'inactive@greenlight.com' } }
-      expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
-                                                                                                   'deliver_now', Hash)
-      expect(response).to have_http_status(:ok)
+      it 'generates and sends the activation link' do
+        expect_any_instance_of(User).to receive(:generate_activation_token!)
+
+        post :create, params: { user: { email: inactive_user.email } }
+        expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
+                                                                                                     'deliver_now', Hash)
+        expect(response).to have_http_status(:ok)
+      end
     end
 
-    it 'returns :bad_request for invalid params' do
-      post :create, params: { not_user: { not_email: 'inactive@greenlight.com' } }
-      expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
-      expect(response).to have_http_status(:bad_request)
+    context 'when account is active' do
+      before do
+        sign_in_user(active_user)
+      end
+
+      it 'returns :ok without generating or sending the activation link' do
+        expect_any_instance_of(User).not_to receive(:generate_activation_token!)
+
+        post :create, params: { user: { email: active_user.email } }
+        expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+        expect(response).to have_http_status(:ok)
+      end
     end
 
-    it 'returns :ok for active users' do
-      create(:user, email: 'active@users.com', active: true)
-      post :create, params: { user: { email: 'active@users.com' } }
-      expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
-      expect(response).to have_http_status(:ok)
+    context 'when not authenticated' do
+      before do
+        session[:session_token] = nil
+      end
+
+      it 'returns :unauthorized without generating or sending the activation link' do
+        expect_any_instance_of(User).not_to receive(:generate_activation_token!)
+
+        post :create, params: { user: { email: inactive_user.email } }
+        expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+        expect(response).to have_http_status(:unauthorized)
+      end
     end
 
-    it 'returns :ok for invalid emails' do
-      post :create, params: { user: { email: 'invalid@greenlight.com' } }
-      expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
-      expect(response).to have_http_status(:ok)
+    context 'when sending activation email to other users' do
+      describe 'with "ManageUsers" permission' do
+        before do
+          sign_in_user(create(:user, :with_manage_users_permission))
+        end
+
+        it 'generates and sends the activation link' do
+          expect_any_instance_of(User).to receive(:generate_activation_token!)
+
+          post :create, params: { user: { email: inactive_user.email } }
+          expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
+                                                                                                       'deliver_now', Hash)
+          expect(response).to have_http_status(:ok)
+        end
+      end
+
+      describe 'without "ManageUsers" permission' do
+        it 'returns :forbidden without generating or sending the activation link' do
+          expect_any_instance_of(User).not_to receive(:generate_activation_token!)
+
+          post :create, params: { user: { email: inactive_user.email } }
+          expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+    end
+
+    context 'invalid params' do
+      it 'returns :bad_request without generating or sending the activation link' do
+        expect_any_instance_of(User).not_to receive(:generate_activation_token!)
+
+        post :create, params: { not_user: { not_email: 'invalid@greenlight.com' } }
+        expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+
+    context 'unfound emails' do
+      it 'returns :ok without generating or sending the activation link' do
+        expect_any_instance_of(User).not_to receive(:generate_activation_token!)
+
+        post :create, params: { user: { email: 'not_found@greenlight.com' } }
+        expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+        expect(response).to have_http_status(:ok)
+      end
     end
   end
 
