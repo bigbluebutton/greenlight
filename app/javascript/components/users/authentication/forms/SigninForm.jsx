@@ -22,7 +22,6 @@ export default function SigninForm() {
   const methods = useForm(signinFormConfig);
   const [token, setToken] = useState('');
   const createSession = useCreateSession(token);
-  const { isSubmitting } = methods.formState;
   const fields = signinFormFields;
   const { isLoading, data: env } = useEnv();
   const captchaRef = useRef(null);
@@ -75,9 +74,9 @@ export default function SigninForm() {
         </Container>
         )}
       <Stack className="mt-1" gap={1}>
-        <Button variant="brand" className="w-100 my-3 py-2" type="submit" disabled={isSubmitting}>
+        <Button variant="brand" className="w-100 my-3 py-2" type="submit" disabled={createSession.isLoading}>
           { t('authentication.sign_in') }
-          { isSubmitting && <Spinner /> }
+          { createSession.isLoading && <Spinner /> }
         </Button>
       </Stack>
     </Form>

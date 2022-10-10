@@ -32,6 +32,8 @@ import ErrorBoundary from './components/shared_components/ErrorBoundary';
 import DefaultErrorPage from './components/errors/DefaultErrorPage';
 import NotFoundPage from './components/errors/NotFoundPage';
 import VerifyAccount from './components/users/account_activation/VerifyAccount';
+import AuthenticatedAndActiveOnly from './routes/AuthenticatedAndActiveOnly';
+import UnauthenticatedOnly from './routes/UnauthenticatedOnly';
 
 const queryClient = new QueryClient();
 
@@ -44,26 +46,30 @@ const root = (
             <Routes>
               <Route path="/" element={<App />}>
                 <Route index element={<HomePage />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/forget_password" element={<ForgetPassword />} />
-                <Route path="/reset_password/:token" element={<ResetPassword />} />
-                <Route path="/activate_account/:token" element={<ActivateAccount />} />
+                <Route element={<UnauthenticatedOnly />}>
+                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/signin" element={<SignIn />} />
+                  <Route path="/forget_password" element={<ForgetPassword />} />
+                </Route>
+                <Route element={<AuthenticatedAndActiveOnly />}>
+                  <Route path="/rooms" element={<Rooms />} />
+                  <Route path="/rooms/:friendlyId" element={<Room />} />
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/admin" element={<Navigate to="/admin/users" replace />} />
+                  <Route path="/admin/users" element={<ManageUsers />} />
+                  <Route path="/admin/edit_user/:userId" element={<EditUser />} />
+                  <Route path="/admin/server-recordings" element={<ServerRecordings />} />
+                  <Route path="/admin/server-rooms" element={<ServerRooms />} />
+                  <Route path="/admin/room-configuration" element={<RoomConfig />} />
+                  <Route path="/admin/site-settings" element={<SiteSettings />} />
+                  <Route path="/admin/roles" element={<Roles />} />
+                  <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
+                </Route>
                 <Route path="/verify_account" element={<VerifyAccount />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/admin" element={<Navigate to="/admin/users" replace />} />
-                <Route path="/admin/users" element={<ManageUsers />} />
-                <Route path="/admin/edit_user/:userId" element={<EditUser />} />
-                <Route path="/admin/server-recordings" element={<ServerRecordings />} />
-                <Route path="/admin/server-rooms" element={<ServerRooms />} />
-                <Route path="/admin/room-configuration" element={<RoomConfig />} />
-                <Route path="/admin/site-settings" element={<SiteSettings />} />
-                <Route path="/admin/roles" element={<Roles />} />
-                <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
-                <Route path="/rooms" element={<Rooms />} />
-                <Route path="/rooms/:friendlyId" element={<Room />} />
+                <Route path="/activate_account/:token" element={<ActivateAccount />} />
+                <Route path="/reset_password/:token" element={<ResetPassword />} />
                 <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
-                <Route path="/home" element={<Home />} />
                 <Route path="/404" element={<NotFoundPage />} />
                 <Route path="*" element={<Navigate to="404" />} />
               </Route>
