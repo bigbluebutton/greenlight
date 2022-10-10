@@ -4,18 +4,26 @@ import {
   Row, Col, Tab, Tabs, Stack, Button, Container,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { Navigate } from 'react-router-dom';
 import ActiveUsers from './ActiveUsers';
 import AdminNavSideBar from '../AdminNavSideBar';
 import Modal from '../../shared_components/modals/Modal';
 import UserSignupForm from './forms/UserSignupForm';
 import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function ManageUsers() {
   const { t } = useTranslation();
   const [input, setInput] = useState();
+  const currentUser = useAuth();
+
+  if (currentUser.permissions?.ManageUsers !== 'true') {
+    return <Navigate to="/404" />;
+  }
+
   return (
     <div id="admin-panel">
-      <h3 className="py-5">{ t('admin.admin_panel') }</h3>
+      <h3 className="py-5">{t('admin.admin_panel')}</h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="users">
           <Row>
@@ -28,13 +36,13 @@ export default function ManageUsers() {
               <Tab.Content className="p-0">
                 <Container className="admin-table p-0">
                   <div className="p-4 border-bottom">
-                    <h3>{ t('admin.manage_users.manage_users') }</h3>
+                    <h3>{t('admin.manage_users.manage_users')}</h3>
                   </div>
                   <div className="p-4">
                     <Stack direction="horizontal" className="mb-4">
                       <SearchBarQuery setInput={setInput} />
                       <Modal
-                        modalButton={<Button variant="brand" className="ms-auto btn">{ t('admin.manage_users.add_new_user') }</Button>}
+                        modalButton={<Button variant="brand" className="ms-auto btn">{t('admin.manage_users.add_new_user')}</Button>}
                         title={t('admin.manage_users.create_new_user')}
                         body={<UserSignupForm />}
                         size="lg"

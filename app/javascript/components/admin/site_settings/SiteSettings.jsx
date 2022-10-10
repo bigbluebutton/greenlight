@@ -3,13 +3,21 @@ import Card from 'react-bootstrap/Card';
 import {
   Row, Col, Tab, Tabs, Container,
 } from 'react-bootstrap';
+import { Navigate } from 'react-router-dom';
 import AdminNavSideBar from '../AdminNavSideBar';
 import Appearance from './appearance/Appearance';
 import Administration from './administration/Administration';
 import Settings from './settings/Settings';
 import Registration from './registration/Registration';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function SiteSettings() {
+  const currentUser = useAuth();
+
+  if (currentUser.permissions?.ManageSiteSettings !== 'true') {
+    return <Navigate to="/404" />;
+  }
+
   return (
     <div id="admin-panel">
       <h3 className="py-5"> Administrator Panel </h3>

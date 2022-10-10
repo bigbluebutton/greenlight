@@ -3,16 +3,23 @@ import {
   Col, Container, Row, Tab, Card, Stack,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { Navigate } from 'react-router-dom';
 import AdminNavSideBar from '../AdminNavSideBar';
 import RolesList from './RolesList';
 import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
 import useRoles from '../../../hooks/queries/admin/roles/useRoles';
 import CreateRoleModal from '../../shared_components/modals/CreateRoleModal';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function Roles() {
   const { t } = useTranslation();
   const [input, setInput] = useState();
   const { data: roles, isLoading } = useRoles(input);
+  const currentUser = useAuth();
+
+  if (currentUser.permissions?.ManageRoles !== 'true') {
+    return <Navigate to="/404" />;
+  }
 
   return (
     <div id="admin-panel">

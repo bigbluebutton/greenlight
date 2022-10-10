@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Card, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import ButtonLink from '../shared_components/utilities/ButtonLink';
@@ -13,19 +13,15 @@ export default function HomePage() {
   const { isLoading, data: env } = useEnv();
   const { t } = useTranslation();
   const currentUser = useAuth();
-  const navigate = useNavigate();
 
   // redirect user to correct page based on signed in status and CreateRoom permission
-  useEffect(
-    () => {
-      if (currentUser.signed_in && currentUser.permissions.CreateRoom === 'true') {
-        navigate('/rooms');
-      } else if (currentUser.signed_in && currentUser.permissions.CreateRoom === 'false') {
-        navigate('/home');
-      }
-    },
-    [currentUser.signed_in],
-  );
+
+  if (currentUser.signed_in) {
+    if (currentUser.permissions.CreateRoom === 'true') {
+      return <Navigate to="/rooms" replace />;
+    }
+    return <Navigate to="/home" replace />;
+  }
 
   if (isLoading) return <Spinner />;
 

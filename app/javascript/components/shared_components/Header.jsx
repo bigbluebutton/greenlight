@@ -33,7 +33,7 @@ export default function Header() {
   return (
     <Navbar className="header">
       <Container className="ps-0">
-        <Navbar.Brand as={Link} to="/rooms">
+        <Navbar.Brand as={Link} to="/">
           <Logo />
         </Navbar.Brand>
 

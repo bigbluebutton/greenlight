@@ -3,19 +3,25 @@ import Card from 'react-bootstrap/Card';
 import {
   Row, Col, Tab, Stack, Container,
 } from 'react-bootstrap';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { ArrowLeftCircleIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import AdminNavSideBar from '../AdminNavSideBar';
 import AccountInfo from '../../users/user/AccountInfo';
 import useUser from '../../../hooks/queries/users/useUser';
 import Spinner from '../../shared_components/utilities/Spinner';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function EditUser() {
   const { t } = useTranslation();
   const { userId } = useParams();
   const { isLoading, data: user } = useUser(userId);
   const navigate = useNavigate();
+  const currentUser = useAuth();
+
+  if (currentUser.permissions?.ManageUsers !== 'true') {
+    return <Navigate to="/404" />;
+  }
 
   if (isLoading) return <Spinner />;
 
