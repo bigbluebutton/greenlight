@@ -25,6 +25,8 @@ export default function Room() {
 
   if (isLoadingRoom) return <Spinner />; // Todo: amir - Revisit this.
 
+  console.log(room?.owner_name)
+
   return (
     <div className="wide-background-room">
       <Row className="pt-4">
@@ -39,8 +41,7 @@ export default function Room() {
           <Stack direction="horizontal" gap={2}>
             <h1>{room.name}</h1>
             <div className="mb-1">
-              { room.online
-                && <MeetingBadges online={room?.online} count={room?.participants} />}
+              <MeetingBadges online={room?.online} count={room?.participants} shared={room?.owner_name} />
             </div>
           </Stack>
           { room.last_session ? (
