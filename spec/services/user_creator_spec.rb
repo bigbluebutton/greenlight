@@ -5,22 +5,10 @@ require 'rails_helper'
 describe UserCreator, type: :service do
   describe '#call' do
     let(:users) { create(:role, name: 'User') }
-    let(:teachers) { create(:role, name: 'Teachers') }
 
     before do
       setting = create(:setting, name: 'RoleMapping')
       create(:site_setting, setting:, provider: 'greenlight', value: 'Decepticons=@decepticons.cybertron,Autobots=autobots.cybertron')
-    end
-
-    it 'creates a user with the default role' do
-      user_params = {
-        name: 'Lorem',
-        email: 'lorem@ipsum.com',
-        password: 'Password1+',
-        language: 'eng'
-      }
-      res = described_class.new(user_params:, provider: 'greenlight', role: teachers).call
-      expect(res.role).to eq(teachers)
     end
 
     it 'creates a user with the role matching a rule instead of the default role if email role is found' do
