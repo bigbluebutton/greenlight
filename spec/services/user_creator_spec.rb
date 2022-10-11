@@ -6,7 +6,6 @@ describe UserCreator, type: :service do
   describe '#call' do
     let(:users) { create(:role, name: 'User') }
     let(:teachers) { create(:role, name: 'Teachers') }
-    let(:fake_setting_getter) { instance_double(SettingGetter) }
 
     before do
       setting = create(:setting, name: 'RoleMapping')
