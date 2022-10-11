@@ -25,8 +25,6 @@ export default function Room() {
 
   if (isLoadingRoom) return <Spinner />; // Todo: amir - Revisit this.
 
-  console.log(room?.owner_name)
-
   return (
     <div className="wide-background-room">
       <Row className="pt-4">
