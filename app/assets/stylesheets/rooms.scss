@@ -18,6 +18,16 @@
     margin-bottom: auto;
     margin-left: auto;
   }
+
+  .card-footer {
+    svg {
+      &:hover {
+        color: var(--brand-color) !important;
+      }
+    }
+  }
+
+
 }
 
 .tab-content {

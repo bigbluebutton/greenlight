@@ -2,12 +2,13 @@ import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { UserIcon, DocumentDuplicateIcon, LinkIcon } from '@heroicons/react/24/outline';
+import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../shared_components/utilities/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from './MeetingBadges';
+import UserBoardIcon from './UserBoardIcon';
 
 function copyInvite(friendlyId) {
   navigator.clipboard.writeText(`${window.location}/${friendlyId}/join`);
@@ -25,14 +26,9 @@ export default function RoomCard({ room }) {
       <Card.Body className="pb-0" onClick={handleClick}>
         <Stack direction="horizontal">
           <div className="room-icon rounded">
-            { room.shared_owner ? (
-              <LinkIcon className="hi-m text-brand pt-4 d-block mx-auto" />
-            ) : (
-              <UserIcon className="hi-m text-brand pt-4 d-block mx-auto" />
-            )}
+            <UserBoardIcon />
           </div>
-          { room.online
-            && <MeetingBadges active={room.online} count={room.participants} />}
+          <MeetingBadges online={room?.online} count={room?.participants} shared={room?.shared_owner} />
         </Stack>
 
         <Stack className="my-4">
@@ -52,7 +48,7 @@ export default function RoomCard({ room }) {
           variant="icon"
           onClick={() => copyInvite(room.friendly_id)}
         >
-          <DocumentDuplicateIcon className="hi-m text-brand mt-1" />
+          <DocumentDuplicateIcon className="hi-m mt-1 text-muted" />
         </Button>
         <Button variant="brand-outline" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
           { room.online ? (
