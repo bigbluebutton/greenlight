@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   # Returns the default role
   def default_role
     default_role_setting = SettingGetter.new(setting_name: 'DefaultRole', provider: current_provider).call
-    @default_role = Role.find_by(name: default_role_setting)
+    @default_role = Role.find_by(name: default_role_setting, provider: current_provider)
   end
 
   private

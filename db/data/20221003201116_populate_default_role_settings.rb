@@ -12,7 +12,7 @@ class PopulateDefaultRoleSettings < ActiveRecord::Migration[7.0]
   end
 
   def down
-    Setting.find_by(name: 'DefaultRole').delete
     SiteSetting.find_by(setting: Setting.find_by(name: 'DefaultRole').delete)
+    Setting.find_by(name: 'DefaultRole').delete
   end
 end

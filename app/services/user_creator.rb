@@ -26,6 +26,6 @@ class UserCreator
                      rules.find { |rule| email.ends_with? rule.second if rule.second }
                    end
 
-    Role.find_by(name: matched_rule&.first)
+    Role.find_by(name: matched_rule&.first, provider: @provider)
   end
 end
