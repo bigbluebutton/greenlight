@@ -5,7 +5,7 @@ import MeetingStatusBadge from './MeetingStatusBadge';
 import MeetingParticipantsBadge from './MeetingParticipantsBadge';
 import MeetingSharedBadge from './MeetingSharedBadge';
 
-export default function MeetingBadges({ count, shared, online }) {
+export default function MeetingBadges({ online, count, shared }) {
   return (
     <Stack direction="horizontal" gap={0} className="room-card-badges">
       { shared

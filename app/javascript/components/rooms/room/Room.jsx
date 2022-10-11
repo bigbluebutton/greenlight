@@ -40,7 +40,7 @@ export default function Room() {
             <h1>{room.name}</h1>
             <div className="mb-1">
               { room.online
-                && <MeetingBadges active={room.online} count={room.participants} />}
+                && <MeetingBadges online={room?.online} count={room?.participants} />}
             </div>
           </Stack>
           { room.last_session ? (

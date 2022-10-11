@@ -19,6 +19,8 @@ export default function RoomsList() {
   const currentUser = useAuth();
   const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
 
+  console.log(rooms)
+
   return (
     <>
       <Stack direction="horizontal" className="w-100 mt-5">
