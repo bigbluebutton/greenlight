@@ -6,23 +6,23 @@ require 'bigbluebutton_api'
 describe MeetingStarter, type: :service do
   let(:user) { create(:user) }
   let(:room) { create(:room) }
-  let(:presentation_url) { 'http://www.samplepdf.com/sample.pdf' }
+
+  let(:base_url) { 'http://test.host' }
+
   let(:service) do
     described_class.new(
       room:,
-      logout_url: 'http://example.com',
-      presentation_url:,
-      meeting_ended: 'http://example.com/meeting_ended',
-      recording_ready: 'http://example.com/recording_ready',
-      provider: 'greenlight',
+      base_url:,
       current_user: user
     )
   end
+
   let(:options) do
     {
-      logoutURL: 'http://example.com',
-      meta_endCallbackUrl: 'http://example.com/meeting_ended',
-      'meta_bbb-recording-ready-url': 'http://example.com/recording_ready',
+      moderatorOnlyMessage: "To invite someone to the meeting, send them this link: #{File.join(base_url, '/rooms/', room.friendly_id, '/join')}",
+      logoutURL: File.join(base_url, '/rooms/', room.friendly_id),
+      meta_endCallbackUrl: File.join(base_url, '/meeting_ended'),
+      'meta_bbb-recording-ready-url': File.join(base_url, '/recording_ready'),
       'meta_bbb-origin-version': 3,
       'meta_bbb-origin': 'greenlight',
       setting: 'value'
@@ -51,7 +51,7 @@ describe MeetingStarter, type: :service do
 
       expect_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
-        .with(room:, options:, presentation_url:)
+        .with(room:, options:, presentation_url: nil)
 
       service.call
     end
@@ -67,7 +67,7 @@ describe MeetingStarter, type: :service do
 
       expect_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
-        .with(room:, options: { setting: 'value', test: 'test' }, presentation_url:)
+        .with(room:, options: { setting: 'value', test: 'test' }, presentation_url: nil)
 
       service.call
     end
@@ -84,10 +84,24 @@ describe MeetingStarter, type: :service do
       service.call
     end
 
+    it 'passes the presentation url to BigBlueButton' do
+      room.presentation.attach(fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+
+      allow_any_instance_of(BigBlueButtonApi)
+        .to receive(:start_meeting)
+        .and_return(meeting_starter_response)
+
+      expect_any_instance_of(BigBlueButtonApi)
+        .to receive(:start_meeting)
+        .with(room:, options:, presentation_url: Rails.application.routes.url_helpers.rails_blob_url(room.presentation, host: 'test.host'))
+
+      service.call
+    end
+
     it 'updates the last session date when a meeting is started' do
       allow_any_instance_of(BigBlueButtonApi)
         .to receive(:start_meeting)
-        .with(room:, options:, presentation_url:)
+        .with(room:, options:, presentation_url: nil)
         .and_return(meeting_starter_response)
 
       service.call

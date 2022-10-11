@@ -22,22 +22,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
   describe '#start' do
     it 'makes a call to the MeetingStarter service with the right values and returns the join url' do
-      logout = 'http://example.com'
-      request.env['HTTP_REFERER'] = logout
-      presentation_url = nil
-
-      expect(
-        MeetingStarter
-      ).to receive(:new).with(
-        room:,
-        logout_url: logout,
-        presentation_url:,
-        meeting_ended: meeting_ended_url,
-        recording_ready: recording_ready_url,
-        current_user: user,
-        provider: 'greenlight'
-      ).and_call_original
-
+      expect(MeetingStarter).to receive(:new).with(room:, base_url: root_url, current_user: user).and_call_original
       expect_any_instance_of(MeetingStarter).to receive(:call)
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Moderator')
 
@@ -52,27 +37,6 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       new_room = create(:room, user: new_user)
       post :start, params: { friendly_id: new_room.friendly_id }
       expect(response).to have_http_status(:forbidden)
-    end
-
-    it 'makes a call to the MeetingStarter service with the right values and presentation attached to room' do
-      room = create(:room, user:, presentation: fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
-      logout = 'http://example.com'
-      request.env['HTTP_REFERER'] = logout
-      presentation_url = Rails.application.routes.url_helpers.rails_blob_url(room.presentation, host: 'test.host')
-
-      expect(
-        MeetingStarter
-      ).to receive(:new).with(
-        room:,
-        logout_url: logout,
-        presentation_url:,
-        meeting_ended: meeting_ended_url,
-        recording_ready: recording_ready_url,
-        current_user: user,
-        provider: 'greenlight'
-      )
-
-      post :start, params: { friendly_id: room.friendly_id }
     end
 
     it 'makes a call to the BigBlueButtonApi to get the join url' do
@@ -262,18 +226,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(false)
 
-        expect(
-          MeetingStarter
-        ).to receive(:new).with(
-          room:,
-          logout_url: 'http://example.com',
-          presentation_url: nil,
-          meeting_ended: meeting_ended_url,
-          recording_ready: recording_ready_url,
-          current_user: user,
-          provider: 'greenlight'
-        ).and_call_original
-
+        expect(MeetingStarter).to receive(:new).with(room:, base_url: root_url, current_user: user).and_call_original
         expect_any_instance_of(MeetingStarter).to receive(:call)
 
         post :status, params: { friendly_id: room.friendly_id, name: user.name }

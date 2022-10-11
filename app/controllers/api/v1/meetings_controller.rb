@@ -14,15 +14,7 @@ module Api
       # Does: Starts the Room meeting and joins in the meeting starter.
       def start
         begin
-          MeetingStarter.new(
-            room: @room,
-            logout_url: request.referer,
-            presentation_url:,
-            meeting_ended: meeting_ended_url,
-            recording_ready: recording_ready_url,
-            current_user:,
-            provider: current_provider
-          ).call
+          MeetingStarter.new(room: @room, base_url: root_url, current_user:).call
         rescue BigBlueButton::BigBlueButtonException => e
           return render_error status: :bad_request unless e.key == 'idNotUnique'
         end
@@ -57,15 +49,7 @@ module Api
 
         if !data[:status] && settings['glAnyoneCanStart'] == 'true' # Meeting isnt running and anyoneCanStart setting is enabled
           begin
-            MeetingStarter.new(
-              room: @room,
-              logout_url: request.referer,
-              presentation_url:,
-              meeting_ended: meeting_ended_url,
-              recording_ready: recording_ready_url,
-              current_user:,
-              provider: current_provider
-            ).call
+            MeetingStarter.new(room: @room, base_url: root_url, current_user:).call
           rescue BigBlueButton::BigBlueButtonException => e
             return render_error status: :bad_request unless e.key == 'idNotUnique'
           end
@@ -95,10 +79,6 @@ module Api
 
       def find_room
         @room = Room.find_by!(friendly_id: params[:friendly_id])
-      end
-
-      def presentation_url
-        url_for(@room.presentation).gsub('&', '%26') if @room.presentation.attached?
       end
 
       def authorized_as_viewer?(access_code:)
