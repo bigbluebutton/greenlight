@@ -178,8 +178,8 @@ class User < ApplicationRecord
   end
 
   def check_user_role_provider
-    return unless provider != role.provider
+    return unless role
 
-    errors.add(:user, 'provider has to be the same as the role provider')
+    errors.add(:role_provider, 'has to be the same as the user provider') if provider != role.provider
   end
 end

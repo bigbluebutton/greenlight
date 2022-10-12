@@ -329,6 +329,7 @@ RSpec.describe User, type: :model do
       user = build(:user, provider: 'microsoft', role:)
       expect(user).to be_invalid
       expect(user.provider).not_to eq(user.role.provider)
+      expect(user.errors[:role_provider]).not_to be_empty
     end
   end
 end
