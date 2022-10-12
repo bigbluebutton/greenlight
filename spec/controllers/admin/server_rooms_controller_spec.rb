@@ -53,7 +53,8 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
 
     it 'excludes rooms whose owners have a different provider' do
       user1 = create(:user, provider: 'greenlight')
-      user2 = create(:user, provider: 'test')
+      role_with_provider_test = create(:role, provider: 'test')
+      user2 = create(:user, provider: 'test', role: role_with_provider_test)
 
       rooms = create_list(:room, 2, user: user1)
       create_list(:room, 2, user: user2)

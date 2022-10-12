@@ -27,8 +27,8 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
     it 'excludes users with a different provider' do
       greenlight_users = create_list(:user, 3, provider: 'greenlight')
       greenlight_users << user_with_manage_users_permission
-
-      create(:user, provider: 'test')
+      role_with_provider_test = create(:role, provider: 'test')
+      create(:user, provider: 'test', role: role_with_provider_test)
 
       get :active_users
 

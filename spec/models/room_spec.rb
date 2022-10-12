@@ -18,7 +18,8 @@ RSpec.describe Room, type: :model do
     context 'with_provider' do
       it 'only includes users with the specified provider' do
         user1 = create(:user, provider: 'greenlight')
-        user2 = create(:user, provider: 'test')
+        role_with_provider_test = create(:role, provider: 'test')
+        user2 = create(:user, provider: 'test', role: role_with_provider_test)
 
         create_list(:room, 5, user: user1)
         create_list(:room, 5, user: user2)

@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'validations' do
+    subject { create(:role) }
     subject { create(:user) }
 
     it { is_expected.to belong_to(:role) }
@@ -122,7 +123,8 @@ RSpec.describe User, type: :model do
     context 'with_provider' do
       it 'only includes users with the specified provider' do
         create_list(:user, 5, provider: 'greenlight')
-        create_list(:user, 5, provider: 'test')
+        role_with_provider_test = create(:role, provider: 'test')
+        create_list(:user, 5, provider: 'test', role: role_with_provider_test)
 
         users = described_class.with_provider('greenlight')
         expect(users.count).to eq(5)
@@ -312,6 +314,22 @@ RSpec.describe User, type: :model do
 
         expect(described_class.verify_activation_token('SOME_BAD_TOKEN')).to be(false)
       end
+    end
+  end
+
+  describe '#check_user_role_provider' do
+    it 'returns a user if the user provider is the same as its role' do
+      role = create(:role, provider: 'google')
+      user = build(:user, provider: 'google', role:)
+      expect(user).to be_valid
+      expect(user.provider).to eq(user.role.provider)
+    end
+
+    it 'fails if the user provider is not the same as its role provider' do
+      role = create(:role, provider: 'google')
+      user = build(:user, provider: 'microsoft', role:)
+      expect(user).to be_invalid
+      expect(user.provider).not_to eq(user.role.provider)
     end
   end
 end

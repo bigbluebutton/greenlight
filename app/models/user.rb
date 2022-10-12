@@ -46,6 +46,8 @@ class User < ApplicationRecord
   validates :session_token, presence: true, uniqueness: true
   validates :session_expiry, presence: true
 
+  validate :check_user_role_provider
+
   before_validation :set_session_token, on: :create
 
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
@@ -173,5 +175,11 @@ class User < ApplicationRecord
 
   def deactivate!
     update! active: false
+  end
+
+  def check_user_role_provider
+    return unless provider != role.provider
+
+    errors.add(:user, 'provider has to be the same as the role provider')
   end
 end
