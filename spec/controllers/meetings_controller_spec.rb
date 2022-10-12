@@ -148,6 +148,8 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
+
+
     it 'passes the users avatar (if they have one) to BigBlueButton' do
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
       user.avatar.attach(io: fixture_file_upload('default-avatar.png'), filename: 'default-avatar.png', content_type: 'image/png')
@@ -158,6 +160,21 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         .with(room:, name: user.name, avatar_url:, role: 'Viewer')
 
       post :status, params: { friendly_id: room.friendly_id, name: user.name }
+    end
+
+    context 'user is joining a shared room' do
+      let(:user2) { create(:user) }
+
+      before do
+        user2.shared_rooms << room
+        sign_in_user(user2)
+      end
+
+      it 'joins as moderator' do
+        allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user2.name, avatar_url: nil, role: 'Moderator')
+        post :status, params: { friendly_id: room.friendly_id, name: user2.name }
+      end
     end
 
     context 'Access codes required' do
