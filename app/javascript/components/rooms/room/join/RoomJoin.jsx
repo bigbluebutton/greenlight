@@ -3,29 +3,23 @@ import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import {
-  Button, Col, Row, Stack, Form as RegularForm,
+  Button, Col, Row, Spinner, Stack, Form as RegularForm,
 } from 'react-bootstrap';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import Spinner from '../../shared_components/utilities/Spinner';
-import Logo from '../../shared_components/Logo';
-import Form from '../../shared_components/forms/Form';
-import FormControl from '../../shared_components/forms/FormControl';
-import Avatar from '../../users/user/Avatar';
-import GGSpinner from '../../shared_components/utilities/GGSpinner';
 import usePublicRoom from '../../../../hooks/queries/rooms/usePublicRoom';
-import Spinner from '../../../shared_components/utilities/Spinner';
-import useRoomStatus from '../../../../hooks/mutations/rooms/useRoomStatus';
-import subscribeToRoom from '../../../../channels/rooms_channel';
-import Logo from '../../../shared_components/Logo';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
+import useRoomStatus from '../../../../hooks/mutations/rooms/useRoomStatus';
+import useEnv from '../../../../hooks/queries/env/useEnv';
 import { joinFormConfig, joinFormFields as fields } from '../../../../helpers/forms/JoinFormHelpers';
+import subscribeToRoom from '../../../../channels/rooms_channel';
+import RequireAuthentication from './RequireAuthentication';
+import GGSpinner from '../../../shared_components/utilities/GGSpinner';
+import Logo from '../../../shared_components/Logo';
+import Avatar from '../../../users/user/Avatar';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
-import Avatar from '../../../users/user/Avatar';
-import useEnv from '../../../../hooks/queries/env/useEnv';
-import RequireAuthentication from './RequireAuthentication';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
