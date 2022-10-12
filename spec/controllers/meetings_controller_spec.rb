@@ -148,8 +148,6 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
-
-
     it 'passes the users avatar (if they have one) to BigBlueButton' do
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
       user.avatar.attach(io: fixture_file_upload('default-avatar.png'), filename: 'default-avatar.png', content_type: 'image/png')
