@@ -213,6 +213,24 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(response).to have_http_status(:internal_server_error)
     end
 
+    it 'fails to delete the User role' do
+      role = create(:role, name: 'User')
+      expect { delete :destroy, params: { id: role.id } }.not_to change(Role, :count)
+      expect(response).to have_http_status(:method_not_allowed)
+    end
+
+    it 'fails to delete the Administrator role' do
+      role = create(:role, name: 'Administrator')
+      expect { delete :destroy, params: { id: role.id } }.not_to change(Role, :count)
+      expect(response).to have_http_status(:method_not_allowed)
+    end
+
+    it 'fails to delete the Guest role' do
+      role = create(:role, name: 'Guest')
+      expect { delete :destroy, params: { id: role.id } }.not_to change(Role, :count)
+      expect(response).to have_http_status(:method_not_allowed)
+    end
+
     context 'user without ManageRoles permission' do
       before do
         sign_in_user(user)

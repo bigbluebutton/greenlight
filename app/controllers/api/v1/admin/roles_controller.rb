@@ -63,6 +63,9 @@ module Api
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Deletes a role.
         def destroy
+          undeletable_roles = %w[User Administrator Guest]
+          return render_error errors: @role.errors.to_a, status: :method_not_allowed if undeletable_roles.include?(@role.name)
+
           @role.destroy!
           render_data status: :ok
         end

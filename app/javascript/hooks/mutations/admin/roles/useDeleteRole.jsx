@@ -12,7 +12,13 @@ export default function useDeleteRole({ role, onSettled }) {
   return useMutation(
     () => axios.delete(`/admin/roles/${role.id}.json`),
     {
-      onError: () => { toast.error(t('toast.error.problem_completing_action')); },
+      onError: (error) => {
+        if (error.response?.status === 405) {
+          toast.error(t('toast.error.roles.role_assigned'));
+        } else {
+          toast.error(t('toast.error.problem_completing_action'));
+        }
+      },
       onSuccess: () => {
         queryClient.invalidateQueries('getRoles');
         toast.success(t('toast.success.role.role_deleted'));
