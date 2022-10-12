@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import axios from '../../../helpers/Axios';
 
@@ -11,6 +11,9 @@ export default function useCreateUser() {
   };
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get('location');
+
   const mutation = useMutation(
     createUser,
     { // Mutation config.
@@ -18,7 +21,9 @@ export default function useCreateUser() {
       onSuccess: (response) => {
         queryClient.invalidateQueries('useSessions');
         // if the current user does NOT have the CreateRoom permission, then do not re-direct to rooms page
-        if (response.data.data.permissions.CreateRoom === 'false') {
+        if (redirect) {
+          navigate(redirect);
+        } else if (response.data.data.permissions.CreateRoom === 'false') {
           navigate('/home');
         } else {
           navigate('/rooms');
