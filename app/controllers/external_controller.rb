@@ -15,7 +15,7 @@ class ExternalController < ApplicationController
     }
 
     user = User.find_or_create_by!(external_id: credentials['uid'], provider:) do |u|
-      user_info[:role] = Role.find_by(name: 'User')
+      user_info[:role] = default_role
       u.assign_attributes(user_info)
     end
 

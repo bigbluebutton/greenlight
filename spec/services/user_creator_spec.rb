@@ -4,14 +4,14 @@ require 'rails_helper'
 
 describe UserCreator, type: :service do
   describe '#call' do
-    let!(:users) { create(:role, name: 'User') }
+    let(:users) { create(:role, name: 'User') }
 
     before do
       setting = create(:setting, name: 'RoleMapping')
       create(:site_setting, setting:, provider: 'greenlight', value: 'Decepticons=@decepticons.cybertron,Autobots=autobots.cybertron')
     end
 
-    it 'creates a user with the role matching a rule if role found' do
+    it 'creates a user with the role matching a rule instead of the default role if email role is found' do
       decepticons = create(:role, name: 'Decepticons')
       user_params = {
         name: 'Megatron',
@@ -19,7 +19,7 @@ describe UserCreator, type: :service do
         password: 'Decepticons',
         language: 'teletraan'
       }
-      res = described_class.new(user_params:, provider: 'greenlight').call
+      res = described_class.new(user_params:, provider: 'greenlight', role: users).call
 
       expect(res).to be_instance_of(User)
       expect(res).not_to be_persisted
@@ -37,7 +37,7 @@ describe UserCreator, type: :service do
         password: 'Cybertron',
         language: 'teletraan'
       }
-      res = described_class.new(user_params:, provider: 'greenlight').call
+      res = described_class.new(user_params:, provider: 'greenlight', role: users).call
 
       expect(res).to be_instance_of(User)
       expect(res).not_to be_persisted
@@ -55,7 +55,7 @@ describe UserCreator, type: :service do
         password: 'Autobots',
         language: 'teletraan'
       }
-      res = described_class.new(user_params:, provider: 'greenlight').call
+      res = described_class.new(user_params:, provider: 'greenlight', role: users).call
 
       expect(res).to be_instance_of(User)
       expect(res).not_to be_persisted

@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::UsersController, type: :controller do
   let(:user) { create(:user) }
   let(:user_with_manage_users_permission) { create(:user, :with_manage_users_permission) }
+  let(:fake_setting_getter) { instance_double(SettingGetter) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -26,6 +27,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     before do
       create(:role, name: 'User') # Needed for admin#create
       clear_enqueued_jobs
+      allow(SettingGetter).to receive(:new).and_call_original
+      allow(SettingGetter).to receive(:new).with(setting_name: 'DefaultRole', provider: 'greenlight').and_return(fake_setting_getter)
+      allow(fake_setting_getter).to receive(:call).and_return('User')
     end
 
     context 'when user is saved' do
@@ -39,7 +43,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(session[:session_token]).not_to eql(user.session_token)
       end
 
-      context 'from antoher user' do
+      context 'from another user' do
         it 'sends activation email to but does NOT signin the created user' do
           expect { post :create, params: user_params }.to change(User, :count).by(1)
           expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',

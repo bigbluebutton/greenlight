@@ -33,6 +33,12 @@ class ApplicationController < ActionController::Base
                           end
   end
 
+  # Returns the default role
+  def default_role
+    default_role_setting = SettingGetter.new(setting_name: 'DefaultRole', provider: current_provider).call
+    @default_role = Role.find_by(name: default_role_setting, provider: current_provider) || Role.find_by(name: 'User', provider: current_provider)
+  end
+
   private
 
   # Checks if the user's session_token matches the session and that it is not expired

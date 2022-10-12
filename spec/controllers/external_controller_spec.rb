@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe ExternalController, type: :controller do
+  let(:fake_setting_getter) { instance_double(SettingGetter) }
+
   describe '#create_user' do
     before do
       OmniAuth.config.test_mode = true
@@ -14,6 +16,10 @@ RSpec.describe ExternalController, type: :controller do
           name: Faker::Name.name
         }
       )
+
+      allow(SettingGetter).to receive(:new).and_call_original
+      allow(SettingGetter).to receive(:new).with(setting_name: 'DefaultRole', provider: 'greenlight').and_return(fake_setting_getter)
+      allow(fake_setting_getter).to receive(:call).and_return('User')
     end
 
     let!(:role) { create(:role, name: 'User') }
