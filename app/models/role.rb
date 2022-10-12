@@ -8,6 +8,8 @@ class Role < ApplicationRecord
   validates :name, presence: true
   validates :provider, presence: true
 
+  validates :name, uniqueness: { scope: :provider }
+
   before_validation :set_random_color, on: :create
 
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
