@@ -69,10 +69,6 @@ export default function EditRoleForm({ role }) {
           <FormControl field={fieldsRoleName.name} type="text" />
         </Form>
 
-        <Form methods={methodsRoomLimit} onBlur={methodsRoomLimit.handleSubmit(updateAPI.mutate)}>
-          <FormControl field={fieldsRoomLimit.value} type="number" />
-        </Form>
-
         <Stack>
           <RolePermissionRow
             permissionName="CreateRoom"
@@ -135,6 +131,17 @@ export default function EditRoleForm({ role }) {
             defaultValue={rolePermissions.SharedList === 'true'}
             updateMutation={updateRolePermission}
           />
+
+          <Form methods={methodsRoomLimit} onBlur={methodsRoomLimit.handleSubmit(updateAPI.mutate)}>
+            <Stack direction="horizontal">
+              <div className="text-muted me-auto">
+                Room Limit
+              </div>
+              <div className="float-end">
+                <FormControl field={fieldsRoomLimit.value} noLabel className="room-limit" type="number" />
+              </div>
+            </Stack>
+          </Form>
         </Stack>
         {
           deleteRoleButton()
