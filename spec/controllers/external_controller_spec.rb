@@ -68,6 +68,18 @@ RSpec.describe ExternalController, type: :controller do
         expect(response).to redirect_to('/rooms')
       end
 
+      it 'doesnt redirect if it doesnt match a room joins format check 2' do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+        cookies[:location] = {
+          value: 'https://www.google.com?ignore=/rooms/iam-abl-eto-pas/join',
+          path: '/'
+        }
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(response).to redirect_to('/rooms')
+      end
+
       it 'deletes the cookie after reading' do
         request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
 

@@ -1,23 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Logo from '../../../shared_components/Logo';
 import useEnv from '../../../../hooks/queries/env/useEnv';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import ButtonLink from '../../../shared_components/utilities/ButtonLink';
 
-export default function RequireAuthentication() {
+export default function RequireAuthentication({ path }) {
   const { t } = useTranslation();
-  const location = useLocation();
   const { isLoading, data: env } = useEnv();
-  const path = encodeURIComponent(location.pathname);
   if (isLoading) return <Spinner />;
-
-  useEffect(() => {
-    document.cookie = `location=${path};path=/`;
-  });
 
   return (
     <div className="vertical-center">
@@ -50,3 +44,7 @@ export default function RequireAuthentication() {
     </div>
   );
 }
+
+RequireAuthentication.propTypes = {
+  path: PropTypes.string.isRequired,
+};

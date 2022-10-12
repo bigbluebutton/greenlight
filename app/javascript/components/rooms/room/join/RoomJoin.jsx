@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import {
   Button, Col, Row, Stack, Form as RegularForm,
 } from 'react-bootstrap';
@@ -39,6 +39,13 @@ export default function RoomJoin() {
   const { isLoading, data: env } = useEnv();
 
   const methods = useForm(joinFormConfig);
+
+  const location = useLocation();
+  const path = encodeURIComponent(location.pathname);
+
+  useEffect(() => { // set cookie to return to if needed
+    document.cookie = `location=${path};path=/`;
+  });
 
   const handleJoin = (data) => {
     if (publicRoom?.data.viewer_access_code && !methods.getValues('access_code')) {
@@ -102,7 +109,7 @@ export default function RoomJoin() {
   if (publicRoom.isLoading) return <Spinner />;
 
   if (!currentUser.signed_in && publicRoom.data.require_authentication === 'true') {
-    return <RequireAuthentication />;
+    return <RequireAuthentication path={path} />;
   }
 
   const hasAccessCode = publicRoom.data?.viewer_access_code || publicRoom.data?.moderator_access_code;
@@ -168,7 +175,7 @@ export default function RoomJoin() {
           )}
         </Card.Footer>
       </Card>
-      {
+      { !currentUser?.signed_in && (
         env.OPENID_CONNECT ? (
           <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> { t('authentication.already_have_account') }
             <RegularForm action="/auth/openid_connect" method="POST" data-turbo="false">
@@ -178,10 +185,10 @@ export default function RoomJoin() {
           </Stack>
         ) : (
           <div className="text-center text-muted mt-3"> { t('authentication.already_have_account') }
-            <Link to="/signin" className="text-link ms-1"> { t('authentication.sign_in') } </Link>
+            <Link to={`/signin?location=${path}`} className="text-link ms-1"> { t('authentication.sign_in') } </Link>
           </div>
         )
-      }
+      )}
     </div>
   );
 }
