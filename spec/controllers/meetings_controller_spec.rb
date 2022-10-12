@@ -160,6 +160,21 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       post :status, params: { friendly_id: room.friendly_id, name: user.name }
     end
 
+    context 'user is joining a shared room' do
+      let(:user2) { create(:user) }
+
+      before do
+        user2.shared_rooms << room
+        sign_in_user(user2)
+      end
+
+      it 'joins as moderator' do
+        allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user2.name, avatar_url: nil, role: 'Moderator')
+        post :status, params: { friendly_id: room.friendly_id, name: user2.name }
+      end
+    end
+
     context 'Access codes required' do
       let(:fake_room_settings_getter) { instance_double(RoomSettingsGetter) }
 

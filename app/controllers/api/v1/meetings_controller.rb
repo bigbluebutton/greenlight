@@ -88,7 +88,9 @@ module Api
       end
 
       def authorized_as_moderator?(access_code:)
-        (params[:access_code].present? && access_code == params[:access_code]) || @room.anyone_joins_as_moderator?
+        (params[:access_code].present? && access_code == params[:access_code]) ||
+          @room.anyone_joins_as_moderator? ||
+          current_user&.shared_rooms&.include?(@room)
       end
 
       def infer_bbb_role(mod_code:, viewer_code:)
