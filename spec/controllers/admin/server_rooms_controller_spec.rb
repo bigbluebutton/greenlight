@@ -7,6 +7,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
   let(:user_with_manage_rooms_permission) { create(:user, :with_manage_rooms_permission) }
 
   before do
+    Faker::Construction.unique.clear
     request.headers['ACCEPT'] = 'application/json'
     sign_in_user(user_with_manage_rooms_permission)
   end

@@ -8,6 +8,7 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
   let(:user_with_manage_recordings_permission) { create(:user, :with_manage_recordings_permission) }
 
   before do
+    Faker::Construction.unique.clear
     request.headers['ACCEPT'] = 'application/json'
     sign_in_user(user_with_manage_recordings_permission)
   end
