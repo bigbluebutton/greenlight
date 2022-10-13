@@ -22,14 +22,25 @@ module Api
       # GET /api/v1/rooms.json
       def index
         # Return the rooms that belong to current user
-        user_rooms = current_user.rooms.order(online: :desc, last_session: :desc).search(params[:search])
+        # user_rooms = current_user.rooms.order(online: :desc, last_session: :desc).search(params[:search])
+        #
+        # shared_rooms = current_user.shared_rooms.order(online: :desc, last_session: :desc).search(params[:search]).map do |room|
+        #   room.shared = true
+        #   room
+        # end
 
-        shared_rooms = current_user.shared_rooms.order(online: :desc, last_session: :desc).search(params[:search]).map do |room|
+        rooms = Room.joins(:shared_accesses)
+                    .where(user_id: current_user.id)
+                    .or(Room.joins(:shared_accesses)
+                            .where(shared_accesses: { user_id: current_user.id }))
+                    .order(online: :desc, last_session: :desc)
+                    .search(params[:search])
+
+        current_user.shared_rooms.map do |room|
           room.shared = true
-          room
         end
 
-        rooms = user_rooms + shared_rooms
+        # rooms = user_rooms + shared_rooms
 
         RunningMeetingChecker.new(rooms:).call
 
