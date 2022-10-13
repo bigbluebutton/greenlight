@@ -91,7 +91,7 @@ module Api
         (params[:access_code].present? && access_code == params[:access_code]) ||
           @room.anyone_joins_as_moderator? ||
           current_user&.shared_rooms&.include?(@room) ||
-          current_user&.rooms&.include?(@room)
+          @room.user_id == current_user&.id
       end
 
       def infer_bbb_role(mod_code:, viewer_code:)
