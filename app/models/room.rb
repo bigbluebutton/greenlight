@@ -14,6 +14,9 @@ class Room < ApplicationRecord
   validates :name, presence: true
   validates :friendly_id, presence: true, uniqueness: true
   validates :meeting_id, presence: true, uniqueness: true
+  validates :presentation,
+            content_type: %i[.doc .docx .ppt .pptx .pdf .xls .xlsx .txt .rtf .odt .ods .odp .odg .odc .odi .jpg .jpeg .png],
+            size: { less_than: 30.megabytes }
 
   before_validation :set_friendly_id, :set_meeting_id, on: :create
   after_create :create_meeting_options
