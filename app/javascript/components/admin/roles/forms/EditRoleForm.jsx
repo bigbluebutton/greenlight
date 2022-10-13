@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { Button, Stack } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { editRoleFormConfig, editRoleFormFields } from '../../../../helpers/forms/EditRoleFormHelpers';
+import { yupResolver } from '@hookform/resolvers/yup';
+import {
+  editRoleFormConfigRoleName, validationSchemaRoomLimit, editRoleFormFieldsRoomLimit, editRoleFormFieldsRoleName,
+} from '../../../../helpers/forms/EditRoleFormHelpers';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import Spinner from '../../../shared_components/utilities/Spinner';
@@ -18,19 +21,25 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 
 export default function EditRoleForm({ role }) {
   const { t } = useTranslation();
-  const methods = useForm(editRoleFormConfig);
+  const methodsRoleName = useForm(editRoleFormConfigRoleName);
   const updateRoleAPI = useUpdateRole(role.id);
   const updateRolePermission = () => useUpdateRolePermission();
-  const { defaultValues } = editRoleFormConfig;
-  const fields = editRoleFormFields;
-  fields.name.placeHolder = defaultValues.name;
+  const updateAPI = updateRolePermission();
+  const fieldsRoleName = editRoleFormFieldsRoleName;
+  const fieldsRoomLimit = editRoleFormFieldsRoomLimit;
   const roomConfigs = useRoomConfigs();
   const { data: rolePermissions, isLoading: rolePermissionsIsLoading } = useRolePermissions(role.id);
   const currentUser = useAuth();
+  const editRoleFormConfigRoomLimit = {
+    mode: 'onBlur',
+    defaultValues: { role_id: role.id, name: 'RoomLimit' },
+    resolver: yupResolver(validationSchemaRoomLimit),
+  };
+  const methodsRoomLimit = useForm(editRoleFormConfigRoomLimit);
 
   useEffect(
     () => {
-      methods.setValue('name', role.name);
+      methodsRoleName.setValue('name', role.name);
     },
     [role.name],
   );
@@ -51,12 +60,13 @@ export default function EditRoleForm({ role }) {
   }
 
   if (roomConfigs.isLoading || rolePermissionsIsLoading) return <Spinner />;
+  fieldsRoomLimit.value.placeHolder = rolePermissions.RoomLimit;
 
   return (
     <div>
       <Stack>
-        <Form methods={methods} onBlur={(e) => updateRoleAPI.mutate({ name: e.target.value })}>
-          <FormControl field={fields.name} type="text" />
+        <Form methods={methodsRoleName} onBlur={(e) => updateRoleAPI.mutate({ name: e.target.value })}>
+          <FormControl field={fieldsRoleName.name} type="text" />
         </Form>
 
         <Stack>
@@ -121,6 +131,17 @@ export default function EditRoleForm({ role }) {
             defaultValue={rolePermissions.SharedList === 'true'}
             updateMutation={updateRolePermission}
           />
+
+          <Form methods={methodsRoomLimit} onBlur={methodsRoomLimit.handleSubmit(updateAPI.mutate)}>
+            <Stack direction="horizontal">
+              <div className="text-muted me-auto">
+                Room Limit
+              </div>
+              <div className="float-end">
+                <FormControl field={fieldsRoomLimit.value} noLabel className="room-limit" type="number" />
+              </div>
+            </Stack>
+          </Form>
         </Stack>
         {
           deleteRoleButton()
