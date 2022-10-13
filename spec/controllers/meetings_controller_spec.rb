@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::MeetingsController, type: :controller do
   let(:user) { create(:user) }
   let(:room) { create(:room, user:) }
-  let(:test_user) { create(:user)}
+  let(:test_user) { create(:user) }
   let(:test_room) { create(:room, user: test_user) }
   let(:user_with_manage_rooms_permission) { create(:user, :with_manage_rooms_permission) }
 
