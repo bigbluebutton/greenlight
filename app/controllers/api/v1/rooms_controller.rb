@@ -28,7 +28,7 @@ module Api
                     .search(params[:search])
 
         rooms.map do |room|
-          room.shared = true if current_user.shared_rooms.include?(room)
+          room.shared = true if current_user.id != room.user_id
         end
 
         RunningMeetingChecker.new(rooms:).call
