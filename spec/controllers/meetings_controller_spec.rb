@@ -127,9 +127,9 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
   describe '#status' do
     it 'gets the joinUrl if the meeting is running' do
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Moderator')
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room: test_room, name: user.name, avatar_url: nil, role: 'Viewer')
 
-      post :status, params: { friendly_id: room.friendly_id, name: user.name }
+      post :status, params: { friendly_id: test_room.friendly_id, name: user.name }
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)['data']).to eq({ 'joinUrl' => 'JOIN_URL', 'status' => true })
     end
