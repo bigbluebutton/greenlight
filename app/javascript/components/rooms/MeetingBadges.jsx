@@ -7,10 +7,10 @@ import MeetingParticipantsBadge from './MeetingParticipantsBadge';
 export default function MeetingBadges({ online, count }) {
   return (
     <Stack direction="horizontal" gap={0} className="room-card-badges">
-      { online && (count >= 1)
-        && <MeetingParticipantsBadge count={count} />}
       { online
         && <MeetingStatusBadge />}
+      { online && (count >= 1)
+        && <MeetingParticipantsBadge count={count} />}
     </Stack>
   );
 }
