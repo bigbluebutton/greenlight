@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import MeetingStatusBadge from './MeetingStatusBadge';
 import MeetingParticipantsBadge from './MeetingParticipantsBadge';
 
-export default function MeetingBadges({ online, count }) {
+export default function MeetingBadges({ count }) {
   return (
     <Stack direction="horizontal" gap={0} className="room-card-badges">
-      { online
-        && <MeetingStatusBadge />}
-      { online && (count >= 1)
+      <MeetingStatusBadge />
+      { count >= 1
         && <MeetingParticipantsBadge count={count} />}
     </Stack>
   );
@@ -17,7 +16,6 @@ export default function MeetingBadges({ online, count }) {
 
 MeetingBadges.propTypes = {
   count: PropTypes.number,
-  online: PropTypes.bool.isRequired,
 };
 
 MeetingBadges.defaultProps = {

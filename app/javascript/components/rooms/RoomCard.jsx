@@ -26,11 +26,12 @@ export default function RoomCard({ room }) {
       <Card.Body className="pb-0" onClick={handleClick}>
         <Stack direction="horizontal">
           <div className="room-icon rounded">
-            { room.shared_owner
+            { room?.shared_owner
               ? <LinkIcon className="hi-m text-brand pt-4 d-block mx-auto" />
               : <UserBoardIcon />}
           </div>
-          <MeetingBadges online={room?.online} count={room?.participants} />
+          { room?.online
+            && <MeetingBadges count={room?.participants} />}
         </Stack>
 
         <Stack className="my-4">
