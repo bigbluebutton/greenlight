@@ -3,7 +3,7 @@
 class CurrentRoomSerializer < ApplicationSerializer
   include Presentable
 
-  attributes :id, :name, :presentation_name, :thumbnail, :online, :participants
+  attributes :id, :name, :presentation_name, :thumbnail, :online, :participants, :owner_name
 
   attribute :last_session, if: -> { object.last_session }
 
@@ -17,5 +17,9 @@ class CurrentRoomSerializer < ApplicationSerializer
 
   def last_session
     object.last_session.strftime('%B %e, %Y %l:%M%P')
+  end
+
+  def owner_name
+    object.user.name
   end
 end
