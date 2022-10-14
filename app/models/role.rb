@@ -5,10 +5,8 @@ class Role < ApplicationRecord
   has_many :role_permissions, dependent: :destroy
   has_many :permissions, through: :role_permissions
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :provider }
   validates :provider, presence: true
-
-  validates :name, uniqueness: { scope: :provider }
 
   before_validation :set_random_color, on: :create
 
