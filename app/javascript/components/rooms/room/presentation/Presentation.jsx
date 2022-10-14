@@ -26,7 +26,8 @@ export default function Presentation() {
       <FilesDragAndDrop
         onDrop={onDrop}
         numOfFiles={1}
-        formats={['.doc', '.docx', '.pptx', '.txt', '.png', '.jpg', '.pdf']}
+        formats={['.doc', '.docx', '.ppt', '.pptx', '.pdf', '.xls', '.xlsx', '.txt',
+          '.rtf', '.odt', '.ods', '.odp', '.odg', '.odc', '.odi', '.jpg', '.jpeg', '.png']}
       >
         <Card className="border-0 shadow-sm mt-3 text-center">
           <label htmlFor="file" className="presentation-upload">

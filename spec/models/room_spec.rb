@@ -12,6 +12,18 @@ RSpec.describe Room, type: :model do
     it { is_expected.to have_many(:recordings).dependent(:destroy) }
     it { is_expected.to validate_presence_of(:name) }
     # Can't test validation on friendly_id and meeting_id due to before_validations
+
+    context 'presentation validations' do
+      it 'fails if the presentation is not a valid extension' do
+        room = build(:room, presentation: fixture_file_upload(file_fixture('default-pdf.gif'), 'gif'))
+        expect(room).to be_invalid
+      end
+
+      it 'fails if the presentation is too large' do
+        room = build(:room, presentation: fixture_file_upload(file_fixture('large-pdf.pdf'), 'pdf'))
+        expect(room).to be_invalid
+      end
+    end
   end
 
   describe 'scopes' do
