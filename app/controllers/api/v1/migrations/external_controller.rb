@@ -72,7 +72,8 @@ module Api
         end
 
         def decrypted_params
-          # TODO: Add memoization to decrypted_params.
+          return @decrypted_params unless @decrypted_params.nil?
+
           encrypted_params = params.require(:v2).require(:encrypted_params)
 
           raise ActiveSupport::MessageEncryptor::InvalidMessage unless encrypted_params.is_a? String
@@ -82,7 +83,7 @@ module Api
 
           raise ActiveSupport::MessageEncryptor::InvalidMessage unless decrypted_params.is_a? Hash
 
-          ActionController::Parameters.new(decrypted_params)
+          @decrypted_params = ActionController::Parameters.new(decrypted_params)
         end
 
         def generate_secure_pwd
