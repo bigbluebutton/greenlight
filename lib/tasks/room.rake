@@ -60,6 +60,22 @@ namespace :room do
     logger.debug("RAKE: Removed rooms not used within the last #{args[:expiration_time_in_days]} days")
   end
 
+  desc "Permanently remove rooms that were longer than the specified period of time kept in deleted state. This can not
+ be undone"
+  task :permanently_remove_deleted_rooms, [:deleted_time_in_days] => :environment do |_task, args|
+    unless args[:deleted_time_in_days]
+      raise ArgumentError, "It has to be specified after which period of time rooms in deleted state should be
+ permanently removed"
+    end
+    Room.include_deleted
+        .where(deleted: true)
+        .where("updated_at < ?", DateTime.now - args[:deleted_time_in_days].to_i)
+        .each(&:permanent_delete)
+    logger = Rails.logger
+    logger.debug("RAKE: Permanently removed rooms that were longer than #{args[:deleted_time_in_days]}
+ days kept in the deleted state")
+  end
+
   desc "Inform users via E-Mail about rooms that will be deleted after the specified period of time because they will
  not have been used for the specified expiration time. If rooms are detected that are already expired and of which
  expiration the user was not notified yet, a last despite is granted"

@@ -43,6 +43,21 @@ every 1.days do
   end
 end
 
+# Permanently remove rooms that are longer than the specified period of time in the deleted state
+every 1.days do
+  max_deleted_time_env_var = 'MAX_DELETED_TIME_IN_DAYS'
+  if ENV[max_deleted_time_env_var] && !ENV[max_deleted_time_env_var].strip.empty?
+    max_deleted_time = ENV[max_deleted_time_env_var]
+    LOG.info "Schedule job for the permanent removal of deleted rooms. The period of time in days for which "\
+             "rooms that are marked as deleted in the database are kept before they are permanently removed is "\
+             "#{max_deleted_time}"
+    rake "room:permanently_remove_deleted_rooms[#{max_deleted_time}]"
+  else
+    LOG.info 'The job for the permanent removal of deleted rooms is not scheduled because the required '\
+             'environment variable is not set'
+  end
+end
+
 def notify_of_expiring_rooms(expiration_notification_term)
   expiration_notification_term_env_var = if expiration_notification_term == :LONG_TERM
     'TIME_IN_DAYS_TO_POTENTIAL_EXPIRATION_POINT_FOR_LONG_TERM_NOTIFICATION'

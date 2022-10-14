@@ -76,6 +76,42 @@ describe "rake tasks namespace room" do
     end
   end
 
+  describe "permanently_remove_deleted_rooms" do
+    before do
+      @user = create(:user)
+      @main_room = @user.main_room
+    end
+
+    before(:each) do
+      Timecop.freeze(DateTime.parse('2020-12-24 13:45:00'))
+    end
+
+    after(:each) do
+      Rake::Task["room:permanently_remove_deleted_rooms"].reenable
+      Timecop.return
+    end
+
+    let(:deleted_time_in_days) { "3" }
+
+    it "should permanently remove rooms that are in deleted state for longer than the specified time" do
+      second_room = create(:room, owner: @user)
+      @main_room.update_attributes(deleted: true, updated_at: "2020-12-20 14:15:00")
+      second_room.update_attributes(deleted: true, updated_at: "2020-12-20 14:15:00")
+      expect { Rake::Task["room:permanently_remove_deleted_rooms"].invoke(deleted_time_in_days) }
+        .to change { Room.include_deleted.count }.by(-2)
+    end
+
+    it "should not permanently remove rooms that are in deleted state for shorter than the specified time" do
+      @main_room.update_attributes(deleted: true, updated_at: "2020-12-22 14:15:00")
+      expect { Rake::Task["room:permanently_remove_deleted_rooms"].invoke(deleted_time_in_days) }
+        .to change { Room.include_deleted.count }.by(0)
+    end
+
+    it "should raise an error if no maximum time for the deleted state is specified" do
+      expect { Rake::Task["room:permanently_remove_deleted_rooms"].invoke }.to raise_error(ArgumentError)
+    end
+  end
+
   describe "notify_of_expiring_rooms" do
     before do
       @user = create(:user)
