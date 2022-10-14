@@ -4,6 +4,14 @@ module Api
   module V1
     module Migrations
       class ExternalController < ApiController
+        include ClientRoutable
+        CHARS = {
+          degits: [*'0'..'9'],
+          lower_letters: [*'a'..'z'],
+          upper_letters: [*'A'..'Z'],
+          symbols: [*' '..'/', *'{'..'~']
+        }.freeze
+
         skip_before_action :verify_authenticity_token
         skip_before_action :ensure_authenticated
 
@@ -24,13 +32,47 @@ module Api
           render_data status: :created
         end
 
+        # POST /api/v1/migrations/users.json
+        # Expects: { user: { :name, :email, :external_id, :language, :role } }
+        # Returns: { data: Array[serializable objects] , errors: Array[String] }
+        # Does: Creates a user.
+
+        def create_user
+          language = if user_params[:language].blank? || user_params[:language] == 'default'
+                       I18n.default_locale
+                     else
+                       user_params[:language]
+                     end
+
+          role = Role.find_by(name: user_params[:role], provider: 'greenlight')
+
+          return render_error status: :bad_request unless role
+
+          user = User.new(user_params.merge(provider: 'greenlight', password: generate_secure_pwd, language:, role:))
+          return render_error status: :bad_request unless user.save
+
+          return render_data status: :created if user.external_id?
+
+          token = user.generate_reset_token!
+
+          UserMailer.with(user:, expires_in: User::RESET_TOKEN_VALIDITY_PERIOD.from_now,
+                          reset_url: reset_password_url(token)).reset_password_email.deliver_later
+
+          render_data status: :created
+        end
+
         private
 
         def role_params
           decrypted_params.require(:role).permit(:name)
         end
 
+        def user_params
+          decrypted_params.require(:user).permit(:name, :email, :external_id, :language, :role)
+        end
+
         def decrypted_params
+          # TODO: Add memoization to decrypted_params.
           encrypted_params = params.require(:v2).require(:encrypted_params)
 
           raise ActiveSupport::MessageEncryptor::InvalidMessage unless encrypted_params.is_a? String
@@ -41,6 +83,16 @@ module Api
           raise ActiveSupport::MessageEncryptor::InvalidMessage unless decrypted_params.is_a? Hash
 
           ActionController::Parameters.new(decrypted_params)
+        end
+
+        def generate_secure_pwd
+          base = SecureRandom.alphanumeric(22)
+          extra = [
+            CHARS[:degits].sample(random: SecureRandom), CHARS[:symbols].sample(random: SecureRandom),
+            CHARS[:lower_letters].sample(random: SecureRandom), CHARS[:upper_letters].sample(random: SecureRandom)
+          ].shuffle(random: SecureRandom)
+
+          base[0..5] + extra.first + base[6..11] + extra.second + base[12..17] + extra.third + base[18..21] + extra.fourth
         end
       end
     end
