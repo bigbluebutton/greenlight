@@ -39,7 +39,7 @@ export default function Room() {
           <Stack direction="horizontal" gap={2}>
             <h1>{room.name}</h1>
             <div className="mb-1">
-              <MeetingBadges online={room?.online} count={room?.participants} shared={room?.owner_name} />
+              <MeetingBadges online={room?.online} count={room?.participants} />
             </div>
           </Stack>
           { room.last_session ? (

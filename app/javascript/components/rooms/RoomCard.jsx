@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
+import { DocumentDuplicateIcon, LinkIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../shared_components/utilities/Spinner';
@@ -26,9 +26,11 @@ export default function RoomCard({ room }) {
       <Card.Body className="pb-0" onClick={handleClick}>
         <Stack direction="horizontal">
           <div className="room-icon rounded">
-            <UserBoardIcon />
+            { room.shared_owner
+              ? <LinkIcon className="hi-m text-brand pt-4 d-block mx-auto" />
+              : <UserBoardIcon />}
           </div>
-          <MeetingBadges online={room?.online} count={room?.participants} shared={room?.shared_owner} />
+          <MeetingBadges online={room?.online} count={room?.participants} />
         </Stack>
 
         <Stack className="my-4">
