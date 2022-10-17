@@ -1,7 +1,9 @@
 /* eslint-disable consistent-return */
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import {
+  Navigate, Link, useLocation, useParams,
+} from 'react-router-dom';
 import {
   Button, Col, Row, Spinner, Stack, Form as RegularForm,
 } from 'react-bootstrap';
@@ -110,6 +112,10 @@ export default function RoomJoin() {
 
   if (!currentUser.signed_in && publicRoom.data.require_authentication === 'true') {
     return <RequireAuthentication path={path} />;
+  }
+
+  if (publicRoom.data.owner_id === currentUser?.id) {
+    return <Navigate to={`/rooms/${publicRoom.data.friendly_id}`} />;
   }
 
   const hasAccessCode = publicRoom.data?.viewer_access_code || publicRoom.data?.moderator_access_code;

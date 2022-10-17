@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
       return nil
     end
 
-    @current_user ||= user
+    @current_user = user
   end
 
   # Returns whether hcaptcha is enabled by checking if ENV variables are set
