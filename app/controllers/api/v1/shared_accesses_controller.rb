@@ -30,6 +30,8 @@ module Api
 
       # GET /api/v1/shared_accesses/friendly_id/shareable_users.json
       def shareable_users
+        return unless params[:search].length >= 3
+
         # role_id of roles that have SharedList permission set to true
         role_ids = RolePermission.joins(:permission).where(permission: { name: 'SharedList' }).where(value: 'true').pluck(:role_id)
 
