@@ -34,10 +34,14 @@ module Api
         role_ids = RolePermission.joins(:permission).where(permission: { name: 'SharedList' }).where(value: 'true').pluck(:role_id)
 
         # Can't share the room if it's already shared or it's the room owner
-        render_data data: User.with_attached_avatar
+        shareable_users = User.with_attached_avatar
                               .where.not(id: [@room.shared_users.pluck(:id) << @room.user_id])
                               .where(role_id: [role_ids])
-                              .search(params[:search]), status: :ok
+                              .search(params[:search])
+
+        pagy, shareable_users = pagy(shareable_users)
+
+        render_data data: shareable_users, meta: pagy_metadata(pagy), status: :ok
       end
 
       private

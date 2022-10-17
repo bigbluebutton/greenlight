@@ -12,14 +12,18 @@ import useShareAccess from '../../../../../hooks/mutations/shared_accesses/useSh
 import Avatar from '../../../../users/user/Avatar';
 import SearchBarQuery from '../../../../shared_components/search/SearchBarQuery';
 import useShareableUsers from '../../../../../hooks/queries/shared_accesses/useShareableUsers';
+import Pagination from '../../../../shared_components/Pagination';
 
 export default function SharedAccessForm({ handleClose }) {
   const { t } = useTranslation();
+  const [page, setPage] = useState();
   const { register, handleSubmit } = useForm();
   const { friendlyId } = useParams();
   const createSharedUser = useShareAccess({ friendlyId, closeModal: handleClose });
   const [input, setInput] = useState();
-  const { data: shareableUsers } = useShareableUsers(friendlyId, input);
+  const { isLoading, data: shareableUsers } = useShareableUsers(friendlyId, input, page);
+
+  console.log(shareableUsers)
 
   return (
     <div id="shared-access-form">
@@ -33,9 +37,9 @@ export default function SharedAccessForm({ handleClose }) {
             </tr>
           </thead>
           <tbody className="border-top-0">
-            {shareableUsers?.length
+            {shareableUsers?.data.length
               ? (
-                shareableUsers.map((user) => (
+                shareableUsers.data.map((user) => (
                   <tr key={user.id} className="align-middle">
                     <td>
                       <Stack direction="horizontal" className="py-2">
@@ -60,6 +64,16 @@ export default function SharedAccessForm({ handleClose }) {
               )}
           </tbody>
         </Table>
+        {!isLoading
+          && (
+            <div className="pagination-wrapper">
+              <Pagination
+                page={shareableUsers.meta.page}
+                totalPages={shareableUsers.meta.pages}
+                setPage={setPage}
+              />
+            </div>
+          )}
         <Stack className="mt-3" direction="horizontal" gap={1}>
           <Button variant="neutral" className="ms-auto" onClick={handleClose}>
             { t('close') }
