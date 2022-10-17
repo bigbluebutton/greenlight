@@ -46,7 +46,7 @@ class User < ApplicationRecord
   validates :session_token, presence: true, uniqueness: true
   validates :session_expiry, presence: true
 
-  validate :check_user_role_provider
+  validate :check_user_role_provider, if: :role_changed?
 
   before_validation :set_session_token, on: :create
 
@@ -178,7 +178,7 @@ class User < ApplicationRecord
   end
 
   def check_user_role_provider
-    return unless role && role_changed?
+    return unless role
 
     errors.add(:user_provider, 'has to be the same as the Role provider') if provider != role.provider
   end
