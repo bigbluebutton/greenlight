@@ -1,10 +1,9 @@
 import { useQuery } from 'react-query';
 import axios from '../../../helpers/Axios';
 
-export default function useSharedUsers(friendlyId, input, page) {
+export default function useSharedUsers(friendlyId, input) {
   const params = {
     search: input,
-    page,
   };
   return useQuery(
     ['getSharedUsers', { ...params }],

@@ -49,6 +49,7 @@
     "authenticator": "Authenticator",
     "full_name": "Full Name",
     "no_user_found": "No user found.",
+    "type_three_characters": "Please type three (3) characters or more.",
     "profile": {
       "profile": "Profile",
       "language": "Language",

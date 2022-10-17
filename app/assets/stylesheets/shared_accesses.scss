@@ -2,6 +2,16 @@
   input.search-bar {
     width: 100%;
   }
+
+
+  overflow: auto;
+  max-height: 500px;
+
+  th {
+    position: sticky;
+    top: 0;
+    background: white;
+  }
 }
 
 #shared-access-modal {

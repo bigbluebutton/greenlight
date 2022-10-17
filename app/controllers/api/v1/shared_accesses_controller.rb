@@ -39,9 +39,7 @@ module Api
                               .where(role_id: [role_ids])
                               .search(params[:search])
 
-        pagy, shareable_users = pagy(shareable_users)
-
-        render_data data: shareable_users, meta: pagy_metadata(pagy), status: :ok
+        render_data data: shareable_users, status: :ok
       end
 
       private
