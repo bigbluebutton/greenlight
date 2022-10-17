@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       resources :recordings, only: %i[index update destroy] do
         collection do
           post '/update_visibility', to: 'recordings#update_visibility'
+          get '/recordings_count', to: 'recordings#recordings_count'
         end
       end
       resources :shared_accesses, only: %i[create show destroy], param: :friendly_id do
@@ -77,7 +78,7 @@ Rails.application.routes.draw do
         resources :rooms_configurations, only: :update, param: :name
         resources :roles
         # TODO: Review update route
-        resources :role_permissions, only: [:index] do 
+        resources :role_permissions, only: [:index] do
           collection do
             post '/', to: 'role_permissions#update'
           end
