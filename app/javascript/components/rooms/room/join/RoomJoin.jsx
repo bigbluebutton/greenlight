@@ -38,10 +38,16 @@ export default function RoomJoin() {
   const path = encodeURIComponent(location.pathname);
 
   useEffect(() => { // set cookie to return to if needed
-    document.cookie = `location=${path};path=/`;
-  });
+    document.cookie = `location=${path};path=/;`;
+
+    return () => { // delete redirect location when unmounting
+      document.cookie = 'location=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    };
+  }, []);
 
   const handleJoin = (data) => {
+    document.cookie = 'location=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT'; // delete redirect location
+
     if (publicRoom?.data.viewer_access_code && !methods.getValues('access_code')) {
       return methods.setError('access_code', { type: 'required', message: t('room.settings.access_code_required') }, { shouldFocus: true });
     }
