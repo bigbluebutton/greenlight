@@ -63,7 +63,7 @@ export default function SharedAccessForm({ handleClose }) {
                   } if (isThreeCharacters && !shareableUsers?.length) {
                     return (<tr className="fw-bold"><td>{ t('user.no_user_found') }</td><td /></tr>);
                   }
-                  return (<tr className="fw-bold"><td colspan="2">{ t('user.type_three_characters') }</td></tr>);
+                  return (<tr className="fw-bold"><td colSpan="2">{ t('user.type_three_characters') }</td></tr>);
                 })()
               }
             </tbody>

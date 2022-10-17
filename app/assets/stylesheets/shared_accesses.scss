@@ -8,17 +8,6 @@
   input.search-bar {
     width: 100%;
   }
-
-  /* Scrollbar Styling */
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background: dimgrey;
-  }
 }
 
 #shared-access-modal {

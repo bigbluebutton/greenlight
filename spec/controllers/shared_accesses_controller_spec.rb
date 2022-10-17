@@ -55,13 +55,31 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
   end
 
   describe '#shareable_users' do
-    it 'does not return the users without SharedList permission' do
+    it 'does not return any users if the search params is empty' do
       room = create(:room)
-      room.shared_users = create_list(:user, 5)
-      shareable_users = create_list(:user, 5)
+      shareable_users = create_list(:user, 5, name: 'John Doe')
       shareable_users << user
 
       get :shareable_users, params: { friendly_id: room.friendly_id, search: '' }
+      expect(response).to have_http_status(:bad_request)
+    end
+
+    it 'does not return any users if the search params has less than 3 characters' do
+      room = create(:room)
+      shareable_users = create_list(:user, 5, name: 'John Doe')
+      shareable_users << user
+
+      get :shareable_users, params: { friendly_id: room.friendly_id, search: 'Jo' }
+      expect(response).to have_http_status(:bad_request)
+    end
+
+    it 'does not return the users without SharedList permission' do
+      room = create(:room)
+      room.shared_users = create_list(:user, 5)
+      shareable_users = create_list(:user, 5, name: 'John Doe')
+      shareable_users << user
+
+      get :shareable_users, params: { friendly_id: room.friendly_id, search: 'John' }
       response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
       expect(response_users_ids).to match_array([])
     end
@@ -70,9 +88,9 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
       it 'returns the users that the room can be shared to' do
         room = create(:room)
         room.shared_users = create_list(:user, 5, :with_shared_list_permission)
-        shareable_users = create_list(:user, 5, :with_shared_list_permission)
+        shareable_users = create_list(:user, 5, :with_shared_list_permission, name: 'John Doe')
 
-        get :shareable_users, params: { friendly_id: room.friendly_id, search: '' }
+        get :shareable_users, params: { friendly_id: room.friendly_id, search: 'John' }
         response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
         expect(response_users_ids).to match_array(shareable_users.pluck(:id))
       end
