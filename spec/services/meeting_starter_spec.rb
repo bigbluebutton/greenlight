@@ -18,9 +18,10 @@ describe MeetingStarter, type: :service do
   end
 
   let(:options) do
+    url = File.join(base_url, '/rooms/', room.friendly_id, '/join')
     {
-      moderatorOnlyMessage: "To invite someone to the meeting, send them this link: #{File.join(base_url, '/rooms/', room.friendly_id, '/join')}",
-      logoutURL: File.join(base_url, '/rooms/', room.friendly_id),
+      moderatorOnlyMessage: "To invite someone to the meeting, send them this link: #{url}",
+      logoutURL: url,
       meta_endCallbackUrl: File.join(base_url, '/meeting_ended'),
       'meta_bbb-recording-ready-url': File.join(base_url, '/recording_ready'),
       'meta_bbb-origin-version': 3,

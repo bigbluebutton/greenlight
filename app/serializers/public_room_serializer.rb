@@ -3,7 +3,8 @@
 class PublicRoomSerializer < ApplicationSerializer
   include Avatarable
 
-  attributes :name, :require_authentication, :viewer_access_code, :moderator_access_code, :owner_name, :owner_avatar
+  attributes :name, :require_authentication, :viewer_access_code, :moderator_access_code,
+             :friendly_id, :owner_name, :owner_id, :owner_avatar
 
   def require_authentication
     @instance_options[:options][:settings]['glRequireAuthentication']
@@ -19,6 +20,10 @@ class PublicRoomSerializer < ApplicationSerializer
 
   def owner_name
     object.user.name
+  end
+
+  def owner_id
+    object.user.id
   end
 
   def owner_avatar

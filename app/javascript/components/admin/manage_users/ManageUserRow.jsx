@@ -34,7 +34,6 @@ export default function ManageUserRow({ user }) {
       </td>
 
       <td className="border-0"> {user.email} </td>
-      <td className="border-0"> {user.provider} </td>
       <td className="border-0"> <RolePill role={user.role} /> </td>
       <td className="border-start-0">
         <Navbar>
