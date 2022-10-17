@@ -86,6 +86,7 @@ Rails.application.routes.draw do
 
       namespace :migrations do
         post '/roles', to: 'external#create_role'
+        post '/users', to: 'external#create_user'
       end
     end
   end
