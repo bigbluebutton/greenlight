@@ -7,6 +7,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
   let(:user_with_manage_roles_permission) { create(:user, :with_manage_roles_permission) }
 
   before do
+    Faker::Construction.unique.clear
     request.headers['ACCEPT'] = 'application/json'
     sign_in_user(user_with_manage_roles_permission)
   end

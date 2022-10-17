@@ -2,7 +2,8 @@
 
 FactoryBot.define do
   factory :role do
-    name { Faker::Construction.role }
+    # name { Faker::Lorem.unique.characters(number: 10).capitalize }
+    name { Faker::Job.unique.title }
     provider { 'greenlight' }
   end
 end

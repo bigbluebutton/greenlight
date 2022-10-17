@@ -8,6 +8,7 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
   let(:user_with_manage_recordings_permission) { create(:user, :with_manage_recordings_permission) }
 
   before do
+    Faker::Construction.unique.clear
     request.headers['ACCEPT'] = 'application/json'
     sign_in_user(user_with_manage_recordings_permission)
   end
@@ -39,7 +40,8 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
 
     it 'excludes rooms whose owners have a different provider' do
       room1 = create(:room, user: create(:user, provider: 'greenlight'))
-      room2 = create(:room, user: create(:user, provider: 'test'))
+      role_with_provider_test = create(:role, provider: 'test')
+      room2 = create(:room, user: create(:user, provider: 'test', role: role_with_provider_test))
 
       recs = create_list(:recording, 2, room: room1)
       create_list(:recording, 2, room: room2)
