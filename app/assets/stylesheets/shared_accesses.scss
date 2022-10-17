@@ -1,9 +1,4 @@
 #shared-access-form {
-  input.search-bar {
-    width: 100%;
-  }
-
-
   overflow: auto;
   max-height: 500px;
 
@@ -11,6 +6,10 @@
     position: sticky;
     top: 0;
     background: white;
+  }
+
+  input.search-bar {
+    width: 100%;
   }
 }
 

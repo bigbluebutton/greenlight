@@ -8,8 +8,6 @@ export default function ActiveUsers({ input }) {
   const [page, setPage] = useState();
   const { isLoading, data: activeUsers } = useActiveUsers(input, page);
 
-  console.log(activeUsers);
-
   return (
     <div>
       <ManageUsersTable users={activeUsers?.data} />
