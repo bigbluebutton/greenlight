@@ -15,5 +15,9 @@ export default function MeetingBadges({ count }) {
 }
 
 MeetingBadges.propTypes = {
-  count: PropTypes.number.isRequired,
+  count: PropTypes.number,
+};
+
+MeetingBadges.defaultProps = {
+  count: 0,
 };
