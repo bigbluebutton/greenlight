@@ -26,17 +26,17 @@ export default function RoomsList() {
           <SearchBar id="rooms-search" setSearch={setSearch} />
         </div>
         <Modal
-          modalButton={<Button variant="brand" className="ms-auto">{ t('room.add_new_room') }</Button>}
-          title="Create New Room"
+          modalButton={<Button variant="brand" className="ms-auto me-xxl-1">{ t('room.add_new_room') }</Button>}
+          title={t('room.create_new_room')}
           body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
         />
       </Stack>
-      <Row md={4} className="g-4 pb-4 mt-4">
+      <Row className="g-4 pb-4 mt-4">
         {
           // eslint-disable-next-line react/no-array-index-key
           (isLoading && [...Array(8)].map((val, idx) => <Col key={idx} className="mt-0 mb-4"><RoomPlaceHolder /></Col>))
           || rooms?.map((room) => (
-            <Col key={room.friendly_id} className="mt-0 mb-4">
+            <Col key={room.friendly_id} className="col-md-auto mt-0 mb-4">
               {(room.optimistic && <RoomPlaceHolder />) || <RoomCard room={room} />}
             </Col>
           ))
