@@ -1,7 +1,7 @@
 #shared-access-form {
   .table-scrollbar-wrapper {
     overflow: auto;
-    max-height: 480px;
+    max-height: 365px;
   }
 
   input.search-bar {
@@ -15,7 +15,14 @@
     margin-left: 0 !important;
   }
 
+  // Height of Modal with 4 rows of users
   .modal-content {
-    min-height: 672px;
+    min-height: 554px;
+  }
+
+  #shared-access-modal-buttons {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
   }
 }

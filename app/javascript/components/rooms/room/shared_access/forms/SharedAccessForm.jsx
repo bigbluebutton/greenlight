@@ -69,7 +69,7 @@ export default function SharedAccessForm({ handleClose }) {
             </tbody>
           </Table>
         </div>
-        <Stack className="mt-3" direction="horizontal" gap={1}>
+        <Stack id="shared-access-modal-buttons" className="mt-3" direction="horizontal" gap={1}>
           <Button variant="neutral" className="ms-auto" onClick={handleClose}>
             { t('close') }
           </Button>
