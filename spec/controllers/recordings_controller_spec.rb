@@ -208,6 +208,16 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
 
     # TODO: samuel - add tests for user_with_manage_recordings_permission
   end
+
+  describe '#recordings_count' do
+    it 'returns the total count of recordings of a user' do
+      recordings = create_list(:recording, 5)
+      create_list(:room, 5, user:, recordings:)
+
+      get :recordings_count
+      expect(JSON.parse(response.body)['data']).to be(5)
+    end
+  end
 end
 
 def http_ok_response
