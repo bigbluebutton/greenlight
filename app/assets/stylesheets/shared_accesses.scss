@@ -1,6 +1,7 @@
 #shared-access-form {
   .table-scrollbar-wrapper {
     overflow: auto;
+    // Height of +/- 4 rows of users in xxl screen
     max-height: 365px;
   }
 
@@ -15,7 +16,7 @@
     margin-left: 0 !important;
   }
 
-  // Height of Modal with 4 rows of users
+  // Height of Modal with 4 rows of users in xxl screen
   .modal-content {
     min-height: 554px;
   }
