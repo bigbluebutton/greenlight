@@ -33,7 +33,7 @@ export default function RecordingRow({
   const [isUpdating, setIsUpdating] = useState(false);
 
   return (
-    <tr key={recording.id} className="align-middle">
+    <tr key={recording.id} className="align-middle border-bottom-0">
       <td className="border-end-0 text-dark">
         <Stack direction="horizontal" className="py-2">
           <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
