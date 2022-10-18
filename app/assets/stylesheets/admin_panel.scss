@@ -1,3 +1,5 @@
+$admin-card-height: 969px;
+
 #admin-panel {
   padding-bottom: $header-height;
 
@@ -5,6 +7,11 @@
     height: 100%;
     border-right: 2px solid whitesmoke;
     padding: 1rem;
+    min-height: $admin-card-height;
+  }
+
+  .admin-panel-card {
+    min-height: $admin-card-height;
   }
 
   .tab-content {
