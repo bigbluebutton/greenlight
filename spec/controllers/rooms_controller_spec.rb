@@ -172,8 +172,8 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         }
       }
     end
-    let(:user) { create(:user, :roomLimit100) }
-    let(:new_user) { create(:user) }
+    let(:user) { create(:user, :with_roomLimit_100_permission) }
+    let(:new_user) { create(:user, :with_roomLimit_100_permission) }
 
     it 'creates a room for a user' do
       expect { post :create, params: room_params }.to change { user.rooms.count }.from(0).to(1)
@@ -204,6 +204,24 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       it 'returns :bad_request if user does not exists' do
         room_params[:room][:user_id] = 'invalid-user'
+        expect { post :create, params: room_params }.not_to(change(Room, :count))
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context 'user has reached the room limit set for their role' do
+      it 'room is not created since room limit has been reached' do
+        user = create(:user, :with_roomLimit_3_permission)
+        sign_in_user(user)
+        create_list(:room, 3, user:)
+        room_params = {
+          user_id: user.id,
+          room: {
+            name: Faker::Name.name,
+            user_id: user.id
+          }
+        }
+
         expect { post :create, params: room_params }.not_to(change(Room, :count))
         expect(response).to have_http_status(:bad_request)
       end

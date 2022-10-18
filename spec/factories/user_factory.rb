@@ -57,9 +57,15 @@ FactoryBot.define do
       end
     end
 
-    trait :roomLimit100 do
+    trait :with_roomLimit_100_permission do
       after(:create) do |user|
         create(:role_permission, role: user.role, permission: create(:permission, name: 'RoomLimit'), value: '100')
+      end
+    end
+
+    trait :with_roomLimit_3_permission do
+      after(:create) do |user|
+        create(:role_permission, role: user.role, permission: create(:permission, name: 'RoomLimit'), value: '3')
       end
     end
 
