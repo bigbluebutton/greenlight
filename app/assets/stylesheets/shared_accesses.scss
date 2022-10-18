@@ -1,5 +1,4 @@
 #shared-access-form {
-
   .table-scrollbar-wrapper {
     overflow: auto;
     max-height: 480px;
@@ -14,5 +13,9 @@
 #shared-access-modal {
   .modal-header {
     margin-left: 0 !important;
+  }
+
+  .modal-content {
+    min-height: 672px;
   }
 }
