@@ -79,7 +79,12 @@ namespace :migrations do
 
     Room.select(:uid, :name, :bbb_id, :last_session, :user_id)
         .find_each(batch_size: COMMON[:batch_size]).each do |r|
-          params = { room: { friendly_id: r.uid, name: r.name, meeting_id: r.bbb_id, last_session: r.last_session, user_id: r.user_id } }
+          params = { room: { friendly_id: r.uid,
+                             name: r.name,
+                             meeting_id: r.bbb_id,
+                             last_session: r.last_session,
+                             owner_email: r.user.email,
+                             owner_provider: r.user.provider } }
           response = Net::HTTP.post(uri('rooms'), payload(params), COMMON[:headers])
 
           case response
