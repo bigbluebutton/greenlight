@@ -38,17 +38,17 @@ module Api
         # Does: Creates a user.
 
         def create_user
-          language = if user_params[:language].blank? || user_params[:language] == 'default'
-                       I18n.default_locale
-                     else
-                       user_params[:language]
-                     end
+          user_hash = user_params.to_h
 
-          role = Role.find_by(name: user_params[:role], provider: 'greenlight')
+          user_hash[:language] = I18n.default_locale if user_hash[:language].blank? || user_hash[:language] == 'default'
+
+          role = Role.find_by(name: user_hash[:role], provider: 'greenlight')
 
           return render_error status: :bad_request unless role
 
-          user = User.new(user_params.merge(provider: 'greenlight', password: generate_secure_pwd, language:, role:))
+          user_hash[:password] = generate_secure_pwd if user_hash[:external_id].blank?
+
+          user = User.new(user_hash.merge(provider: 'greenlight', role:))
           return render_error status: :bad_request unless user.save
 
           return render_data status: :created if user.external_id?
