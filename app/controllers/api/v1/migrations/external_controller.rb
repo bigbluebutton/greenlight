@@ -61,6 +61,22 @@ module Api
           render_data status: :created
         end
 
+        # POST /api/v1/migrations/rooms.json
+        # Expects: { room: { :name, :friendly_id, :meeting_id, :last_session } }
+        # Returns: { data: Array[serializable objects] , errors: Array[String] }
+        # Does: Creates a room.
+        def create_room
+          user = User.find_by(email: room_params[:owner_email], provider: room_params[:owner_provider])
+
+          return render_error status: :bad_request unless user
+
+          room = Room.new(room_params.except(:owner_email, :owner_provider).merge({ user: }))
+
+          return render_error status: :bad_request unless room.save
+
+          render_data status: :created
+        end
+
         private
 
         def role_params
@@ -69,6 +85,10 @@ module Api
 
         def user_params
           decrypted_params.require(:user).permit(:name, :email, :external_id, :language, :role)
+        end
+
+        def room_params
+          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, :owner_provider)
         end
 
         def decrypted_params
