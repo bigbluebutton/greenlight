@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import {
   Row, Col, Tab, Tabs, Container,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import AdminNavSideBar from '../AdminNavSideBar';
 import Appearance from './appearance/Appearance';
 import Administration from './administration/Administration';
@@ -10,9 +11,10 @@ import Settings from './settings/Settings';
 import Registration from './registration/Registration';
 
 export default function SiteSettings() {
+  const { t } = useTranslation();
   return (
     <div id="admin-panel">
-      <h3 className="py-5"> Administrator Panel </h3>
+      <h3 className="py-5">{ t('admin.admin_panel') }</h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="site-settings">
           <Row>
@@ -25,9 +27,9 @@ export default function SiteSettings() {
               <Tab.Content className="p-0">
                 <Container className="admin-table p-0">
                   <div className="ps-4 pe-4 pt-4">
-                    <h3> Customize Greenlight </h3>
+                    <h3>{ t('admin.site_settings.customize_greenlight') }</h3>
                   </div>
-                  <Tabs className="border-bottom ps-3" defaultActiveKey="appearance" unmountOnExit>
+                  <Tabs className="border-bottom ps-3" defaultActiveKey="appearance">
                     <Tab className="p-4" eventKey="appearance" title="Appearance">
                       <Appearance />
                     </Tab>
