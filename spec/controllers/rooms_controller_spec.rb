@@ -215,7 +215,6 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         sign_in_user(user)
         create_list(:room, 3, user:)
         room_params = {
-          user_id: user.id,
           room: {
             name: Faker::Name.name,
             user_id: user.id

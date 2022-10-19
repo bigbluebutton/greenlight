@@ -59,7 +59,7 @@ module Api
 
       # POST /api/v1/rooms.json
       def create
-        return render_error status: :bad_request, errors: 'RoomLimitError' if room_limit_reached(User.find(room_params[:user_id]))
+        return render_error status: :bad_request, errors: 'RoomLimitError' if RolePermission.room_limit_reached(room_params[:user_id])
 
         # TODO: amir - ensure accessibility for authenticated requests only.
         # The created room will be the current user's unless a user_id param is provided with the request.
@@ -116,14 +116,6 @@ module Api
 
       def room_params
         params.require(:room).permit(:name, :user_id, :presentation)
-      end
-
-      def room_limit_reached(user)
-        if RolePermission.joins(:permission).find_by(role_id: user.role_id, permission: { name: 'RoomLimit' }).value.to_i <= user.rooms.count.to_i
-          return true
-        end
-
-        false
       end
     end
   end
