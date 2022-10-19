@@ -77,7 +77,6 @@ namespace :migrations do
   task :rooms, [] => :environment do |_task, _args|
     has_encountred_issue = 0
 
-    # TODO: Optimize this by running in batches.
     Room.select(:uid, :name, :bbb_id, :last_session, :user_id)
         .find_each(batch_size: COMMON[:batch_size]).each do |r|
           params = { room: { friendly_id: r.uid, name: r.name, meeting_id: r.bbb_id, last_session: r.last_session, user_id: r.user_id } }
