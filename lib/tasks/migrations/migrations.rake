@@ -16,10 +16,12 @@ namespace :migrations do
       case response
       when Net::HTTPCreated
         puts green "Succesfully migrated Role:"
+        puts cyan "  ID: #{r.id}"
         puts cyan "  Name: #{r.name}"
       else
         puts red "Unable to migrate Role:"
-        puts red "  Name: #{r.name}"
+        puts yellow "  ID: #{r.id}"
+        puts yellow "  Name: #{r.name}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
     end
@@ -27,6 +29,38 @@ namespace :migrations do
     puts
     puts green "Roles migration complete."
     puts yellow "In case of an error please retry the process to resolve." unless has_encountred_issue.zero?
+    exit has_encountred_issue
+  end
+
+  task :users, [] => :environment do |_task, _args|
+    has_encountred_issue = 0
+
+    # TODO: Optimize this by running in batches.
+    User.select(:id, :uid, :name, :email, :social_uid, :language, :role_id).each do |u|
+      params = { user: { name: u.name, email: u.email, external_id: u.social_uid, language: u.language, role: u.role.name } }
+      response = Net::HTTP.post(uri('users'), payload(params), COMMON[:headers])
+
+      case response
+      when Net::HTTPCreated
+        puts green "Succesfully migrated User:"
+        puts cyan "  UID: #{u.uid}"
+        puts cyan "  Name: #{params[:user][:name]}"
+      else
+        puts red "Unable to migrate User:"
+        puts yellow "  UID: #{u.uid}"
+        puts yellow "  Name: #{params[:user][:name]}"
+        has_encountred_issue = 1 # At least one of the migrations failed.
+      end
+    end
+
+    puts
+    puts green "Users migration completed."
+
+    unless has_encountred_issue.zero?
+      puts yellow "In case of an error please retry the process to resolve."
+      puts yellow "If you have not migrated your roles, kindly run 'rake migrations:roles' first and then retry."
+    end
+
     exit has_encountred_issue
   end
 
@@ -57,8 +91,7 @@ namespace :migrations do
   end
 
   def payload(params)
-    encrypted_params = { "encrypted_params" => encrypt_params(params) }
-    res = { "v2" => encrypted_params }
+    res = { "v2" => { "encrypted_params" => encrypt_params(params) } }
     res.to_json
   end
 end
