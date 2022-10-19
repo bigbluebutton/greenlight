@@ -74,6 +74,39 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
+  task :rooms, [] => :environment do |_task, _args|
+    has_encountred_issue = 0
+
+    # TODO: Optimize this by running in batches.
+    Room.select(:uid, :name, :bbb_id, :last_session, :user_id)
+        .find_each(batch_size: COMMON[:batch_size]).each do |r|
+          params = { room: { friendly_id: r.uid, name: r.name, meeting_id: r.bbb_id, last_session: r.last_session, user_id: r.user_id } }
+          response = Net::HTTP.post(uri('rooms'), payload(params), COMMON[:headers])
+
+          case response
+          when Net::HTTPCreated
+            puts green "Succesfully migrated Room:"
+            puts cyan "  UID: #{r.uid}"
+            puts cyan "  Name: #{r.name}"
+          else
+            puts red "Unable to migrate Room:"
+            puts yellow "  UID: #{r.uid}"
+            puts yellow "  Name: #{r.name}"
+            has_encountred_issue = 1 # At least one of the migrations failed.
+          end
+    end
+
+    puts
+    puts green "Rooms migration completed."
+
+    unless has_encountred_issue.zero?
+      puts yellow "In case of an error please retry the process to resolve."
+      puts yellow "If you have not migrated your users, kindly run 'rake migrations:users' first and then retry."
+    end
+
+    exit has_encountred_issue
+  end
+
   private
 
   def encrypt_params(params)
