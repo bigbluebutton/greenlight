@@ -32,33 +32,33 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task :users, [] => :environment do |_task, _args|
+  task :rooms, [] => :environment do |_task, _args|
     has_encountred_issue = 0
 
     # TODO: Optimize this by running in batches.
-    User.select(:id, :uid, :name, :email, :social_uid, :language, :role_id).each do |u|
-      params = { user: { name: u.name, email: u.email, external_id: u.social_uid, language: u.language, role: u.role.name } }
+    Room.select(:uid, :name, :bbb_id, :last_session, :user_id).each do |r|
+      params = { room: { friendly_id: r.uid, name: r.name, meeting_id: r.bbb_id, last_session: r.last_session, user_id: r.user_id } }
       response = Net::HTTP.post(uri('users'), payload(params), COMMON[:headers])
 
       case response
       when Net::HTTPCreated
-        puts green "Succesfully migrated User:"
-        puts cyan "  UID: #{u.uid}"
-        puts cyan "  Name: #{params[:user][:name]}"
+        puts green "Succesfully migrated Room:"
+        puts cyan "  UID: #{r.uid}"
+        puts cyan "  Name: #{r.name}"
       else
-        puts red "Unable to migrate User:"
-        puts yellow "  UID: #{u.uid}"
-        puts yellow "  Name: #{params[:user][:name]}"
+        puts red "Unable to migrate Room:"
+        puts yellow "  UID: #{r.uid}"
+        puts yellow "  Name: #{r.name}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
     end
 
     puts
-    puts green "Users migration completed."
+    puts green "Rooms migration completed."
 
     unless has_encountred_issue.zero?
       puts yellow "In case of an error please retry the process to resolve."
-      puts yellow "If you have not migrated your roles, kindly run 'rake migrations:roles' first and then retry."
+      puts yellow "If you have not migrated your users, kindly run 'rake migrations:users' first and then retry."
     end
 
     exit has_encountred_issue
