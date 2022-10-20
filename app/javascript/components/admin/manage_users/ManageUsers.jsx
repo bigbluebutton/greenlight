@@ -41,7 +41,7 @@ export default function ManageUsers() {
                         id="shared-access-modal"
                       />
                     </Stack>
-                    <Tabs defaultActiveKey="active">
+                    <Tabs defaultActiveKey="active" unmountOnExit>
                       <Tab eventKey="active" title={t('admin.manage_users.active')}>
                         <ActiveUsers input={input} />
                       </Tab>

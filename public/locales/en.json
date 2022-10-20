@@ -219,9 +219,7 @@
         "allow_users_to_share_rooms": "Allow Users to Share Rooms",
         "allow_users_to_share_rooms_description": "Setting to disabled will remove the button from the room options dropdown, preventing users from sharing rooms",
         "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",
-        "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room",
-        "default_role": "Default Role",
-        "default_role_description": "The default role to be assigned to newly created users"
+        "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room"
       },
       "registration": {
         "registration": "Registration",
@@ -229,7 +227,16 @@
         "role_mapping_by_email_description": "Map the user to a role using their email. Must be in the format: role1=email1, role2=email2",
         "enter_role_mapping_rule": "Enter a role mapping rule",
         "resync_on_login": "Resync User Data On Every Sign In",
-        "resync_on_login_description": "Resync a user's information every time they sign in, making the external authentication provider always match the information in Greenlight"
+        "resync_on_login_description": "Resync a user's information every time they sign in, making the external authentication provider always match the information in Greenlight",
+        "default_role": "Default Role",
+        "default_role_description": "The default role to be assigned to newly created users",
+        "registration_method": "Registration Method",
+        "registration_method_description": "Change the way that users register to the website",
+        "registration_methods" : {
+          "open": "Open Registration",
+          "invite": "Join by Invitation",
+          "approval": "Approve/Decline"
+        }
       }
     },
     "room_configuration": {
