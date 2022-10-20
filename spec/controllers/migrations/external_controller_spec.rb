@@ -133,10 +133,10 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
         context 'when external_id is present' do
           before { valid_user_params[:external_id] = 'EXTERNAL' }
 
-          it 'returns :created, creates a user but does not send a reset email' do
+          it 'returns :created, creates a user but does not generate a pwd nor send a reset email' do
             encrypted_params = encrypt_params({ user: valid_user_params }, expires_in: 10.seconds)
 
-            expect_any_instance_of(described_class).to receive(:generate_secure_pwd).and_call_original
+            expect_any_instance_of(described_class).not_to receive(:generate_secure_pwd).and_call_original
             expect { post :create_user, params: { v2: { encrypted_params: } } }.to change(User, :count).from(0).to(1)
             expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
 
@@ -148,7 +148,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
             expect(user.session_token).to be_present
             expect(user.provider).to eq('greenlight')
             expect(response).to have_http_status(:created)
-            expect(user.password_digest).to be_present
+            expect(user.password_digest).to be_blank
             expect(user.reset_digest).to be_blank
           end
         end
