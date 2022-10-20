@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 namespace :migrations do
+  DEFAULT_ROLES_MAP = { "admin" => "Administrator", "user" => "User" }.freeze
   COMMON = {
     headers: { "Content-Type" => "application/json" },
     batch_size: 1000,
@@ -13,7 +14,7 @@ namespace :migrations do
     Role.select(:id, :name)
         .where.not(name: Role::RESERVED_ROLE_NAMES)
         .find_each(batch_size: COMMON[:batch_size]) do |r|
-          params = { role: { name: r.name } }
+          params = { role: { name: r.name.capitalize } }
           response = Net::HTTP.post(uri('roles'), payload(params), COMMON[:headers])
 
           case response
@@ -39,10 +40,14 @@ namespace :migrations do
     start, stop = range(args)
 
     has_encountred_issue = 0
+    filtered_roles_names = Role::RESERVED_ROLE_NAMES - %w[admin user]
 
     User.select(:id, :uid, :name, :email, :social_uid, :language, :role_id)
+        .joins(:role)
+        .where.not(roles: { name: filtered_roles_names }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |u|
-          params = { user: { name: u.name, email: u.email, external_id: u.social_uid, language: u.language, role: u.role.name } }
+          role_name = infer_role_name(u.role.name)
+          params = { user: { name: u.name, email: u.email, external_id: u.social_uid, language: u.language, role: role_name } }
           response = Net::HTTP.post(uri('users'), payload(params), COMMON[:headers])
 
           case response
@@ -110,5 +115,9 @@ namespace :migrations do
     raise red "Unable to migrate: Invalid provided range [start: #{start}, finish: #{stop}]" if stop && start > stop
 
     [start, stop]
+  end
+
+  def infer_role_name(name)
+    DEFAULT_ROLES_MAP[name] || name.capitalize
   end
 end
