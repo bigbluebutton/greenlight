@@ -82,7 +82,7 @@ namespace :migrations do
           params = { room: { friendly_id: r.uid,
                              name: r.name,
                              meeting_id: r.bbb_id,
-                             last_session: r.last_session,
+                             last_session: r.last_session.to_datetime,
                              owner_email: r.user.email,
                              owner_provider: r.user.provider } }
           response = Net::HTTP.post(uri('rooms'), payload(params), COMMON[:headers])
