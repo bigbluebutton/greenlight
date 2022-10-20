@@ -12,6 +12,9 @@ module Api
       before_action only: %i[create] do
         ensure_authorized('ManageUsers', user_id: room_params[:user_id])
       end
+      before_action only: %i[create] do
+        ensure_authorized('RoomLimit', user_id: room_params[:user_id])
+      end
       before_action only: %i[show] do
         ensure_authorized(%w[ManageRooms SharedRoom], friendly_id: params[:friendly_id])
       end
@@ -59,8 +62,6 @@ module Api
 
       # POST /api/v1/rooms.json
       def create
-        return render_error status: :bad_request, errors: 'RoomLimitError' if RolePermission.room_limit_reached(room_params[:user_id])
-
         # TODO: amir - ensure accessibility for authenticated requests only.
         # The created room will be the current user's unless a user_id param is provided with the request.
         room = Room.create(name: room_params[:name], user_id: room_params[:user_id])

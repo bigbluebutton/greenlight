@@ -27,6 +27,8 @@ class PermissionsChecker
         return true if authorize_shared_room
       when 'ManageRecordings'
         return true if authorize_manage_recordings
+      when 'RoomLimit'
+        return true if authorize_room_limit
       end
     end
 
@@ -55,5 +57,15 @@ class PermissionsChecker
     return false if @record_id.blank?
 
     @current_user.recordings.find_by(record_id: @record_id).present?
+  end
+
+  def authorize_room_limit
+    user = User.find(@user_id)
+    # return true if room limit has not been reached
+    if RolePermission.joins(:permission).find_by(role_id: user.role_id, permission: { name: 'RoomLimit' }).value.to_i <= user.rooms.count.to_i
+      return false
+    end
+
+    true
   end
 end
