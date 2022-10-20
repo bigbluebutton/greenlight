@@ -25,7 +25,11 @@ module Api
         # Returns: { data: Array[serializable objects(recordings)] , errors: Array[String] }
         # Does: Creates a role.
         def create_role
-          role = Role.new role_params.merge(provider: 'greenlight')
+          role_hash = role_params.to_h
+
+          return render_data status: :created if Role.exists? name: role_hash[:name], provider: 'greenlight'
+
+          role = Role.new role_hash.merge(provider: 'greenlight')
 
           return render_error status: :bad_request unless role.save
 
@@ -39,6 +43,8 @@ module Api
 
         def create_user
           user_hash = user_params.to_h
+
+          return render_data status: :created if User.exists? email: user_hash[:email], provider: 'greenlight'
 
           user_hash[:language] = I18n.default_locale if user_hash[:language].blank? || user_hash[:language] == 'default'
 
