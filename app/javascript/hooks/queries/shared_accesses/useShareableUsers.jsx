@@ -7,10 +7,11 @@ export default function useShareableUsers(friendlyId, input) {
   };
 
   return useQuery(
-    ['getShareableUsers', input],
+    ['getShareableUsers', { ...params }],
     () => axios.get(`/shared_accesses/${friendlyId}/shareable_users.json`, { params }).then((resp) => resp.data.data),
     {
       keepPreviousData: true,
+      enabled: input?.length >= 3,
     },
   );
 }

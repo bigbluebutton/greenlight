@@ -30,14 +30,18 @@ module Api
 
       # GET /api/v1/shared_accesses/friendly_id/shareable_users.json
       def shareable_users
+        return render_error status: :bad_request unless params[:search].present? && params[:search].length >= 3
+
         # role_id of roles that have SharedList permission set to true
         role_ids = RolePermission.joins(:permission).where(permission: { name: 'SharedList' }).where(value: 'true').pluck(:role_id)
 
         # Can't share the room if it's already shared or it's the room owner
-        render_data data: User.with_attached_avatar
+        shareable_users = User.with_attached_avatar
                               .where.not(id: [@room.shared_users.pluck(:id) << @room.user_id])
                               .where(role_id: [role_ids])
-                              .search(params[:search]), status: :ok
+                              .search(params[:search])
+
+        render_data data: shareable_users, status: :ok
       end
 
       private

@@ -485,3 +485,14 @@ input[type="range"]:focus::-moz-range-thumb {
   0% { transform: rotate(0deg) }
   to { transform: rotate(359deg) }
 }
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #c4c4c4;
+}
