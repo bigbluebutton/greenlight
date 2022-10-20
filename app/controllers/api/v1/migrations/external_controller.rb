@@ -72,6 +72,10 @@ module Api
 
           room = Room.new(room_params.except(:owner_email, :owner_provider).merge({ user: }))
 
+          # Redefines the validations method to do nothing
+          room.define_singleton_method(:set_friendly_id) {}
+          room.define_singleton_method(:set_meeting_id) {}
+
           return render_error status: :bad_request unless room.save
 
           render_data status: :created

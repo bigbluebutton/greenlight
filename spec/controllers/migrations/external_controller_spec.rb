@@ -333,6 +333,42 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
     end
   end
 
+  describe '#create_room' do
+    let(:user) { create(:user) }
+    let(:valid_room_params) do
+      {
+        name: 'My Awesome Room',
+        friendly_id: 'us2-xy5-lf5-zl2',
+        meeting_id: 'kzukaw3xk7ql5kefbfpsruud61pztf00jzltgafs',
+        last_session: Time.zone.now.to_datetime,
+        owner_email: user.email,
+        owner_provider: user.provider
+      }
+    end
+
+    before { clear_enqueued_jobs }
+
+    context 'when decryption passes' do
+      it 'creates a new room' do
+        encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
+        expect { post :create_room, params: { v2: { encrypted_params: } } }.to change(Room, :count).from(0).to(1)
+        room = Room.take
+        expect(room.name).to eq(valid_room_params[:name])
+        expect(room.friendly_id).to eq(valid_room_params[:friendly_id])
+        expect(room.meeting_id).to eq(valid_room_params[:meeting_id])
+        expect(room.last_session).to eq(valid_room_params[:last_session])
+        expect(room.user).to eq(user)
+      end
+
+      it 'does not create a new room if the room owner is not found' do
+        valid_room_params[:owner_email] = 'random_email@google.com'
+        valid_room_params[:provider] = 'random_provider'
+        encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
+        expect { post :create_room, params: { v2: { encrypted_params: } } }.not_to change(Room, :count)
+      end
+    end
+  end
+
   private
 
   def encrypt_params(params, key: nil, expires_at: nil, expires_in: nil, purpose: nil)

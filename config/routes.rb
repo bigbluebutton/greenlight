@@ -77,7 +77,7 @@ Rails.application.routes.draw do
         resources :rooms_configurations, only: :update, param: :name
         resources :roles
         # TODO: Review update route
-        resources :role_permissions, only: [:index] do 
+        resources :role_permissions, only: [:index] do
           collection do
             post '/', to: 'role_permissions#update'
           end
@@ -87,6 +87,7 @@ Rails.application.routes.draw do
       namespace :migrations do
         post '/roles', to: 'external#create_role'
         post '/users', to: 'external#create_user'
+        post '/rooms', to: 'external#create_room'
       end
     end
   end
