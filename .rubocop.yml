@@ -44,7 +44,7 @@ RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
 RSpec/NestedGroups:
-  Max: 6
+  Max: 7
 
 # Enable having lines with up to 150 charachters in length.
 Layout/LineLength:
