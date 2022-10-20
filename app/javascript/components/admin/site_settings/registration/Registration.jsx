@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Row, Stack} from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 import RegistrationForm from './forms/RegistrationForm';
@@ -8,7 +8,7 @@ import Spinner from '../../../shared_components/utilities/Spinner';
 import SettingsRow from '../SettingsRow';
 import useEnv from '../../../../hooks/queries/env/useEnv';
 import SettingSelect from '../settings/SettingSelect';
-import useRoles from "../../../../hooks/queries/admin/roles/useRoles";
+import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
 
 export default function Registration() {
   const { t } = useTranslation();
@@ -26,9 +26,9 @@ export default function Registration() {
         title={t('admin.site_settings.registration.registration_method')}
         description={t('admin.site_settings.registration.registration_method_description')}
       >
-        <option value='open'> {t('admin.site_settings.registration.registration_methods.open')} </option>
-        <option value='invite'> {t('admin.site_settings.registration.registration_methods.invite')} </option>
-        <option value='approval'> {t('admin.site_settings.registration.registration_methods.approval')} </option>
+        <option value="open"> {t('admin.site_settings.registration.registration_methods.open')} </option>
+        <option value="invite"> {t('admin.site_settings.registration.registration_methods.invite')} </option>
+        <option value="approval"> {t('admin.site_settings.registration.registration_methods.approval')} </option>
       </SettingSelect>
 
       { env.OPENID_CONNECT && (
@@ -52,7 +52,7 @@ export default function Registration() {
         title={t('admin.site_settings.registration.default_role')}
         description={t('admin.site_settings.registration.default_role_description')}
       >
-        { roles?.map((role) => ( <option key={role.id} value={role.name}> {role.name} </option> )) }
+        { roles?.map((role) => (<option key={role.id} value={role.name}> {role.name} </option>)) }
       </SettingSelect>
 
       <Row className="mb-3">
