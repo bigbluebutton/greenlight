@@ -19,10 +19,7 @@ export default function SharedAccessForm({ handleClose }) {
   const { friendlyId } = useParams();
   const createSharedUser = useShareAccess({ friendlyId, closeModal: handleClose });
   const [input, setInput] = useState();
-
-  // launch a query only if there is more than three characters in the search box
-  const isThreeCharacters = input?.length >= 3;
-  const { data: shareableUsers } = useShareableUsers(friendlyId, input, isThreeCharacters);
+  const { data: shareableUsers } = useShareableUsers(friendlyId, input);
 
   return (
     <div id="shared-access-form">
@@ -39,7 +36,7 @@ export default function SharedAccessForm({ handleClose }) {
             <tbody className="border-top-0">
               {
                 (() => {
-                  if (isThreeCharacters && shareableUsers?.length) {
+                  if (input?.length >= 3 && shareableUsers?.length) {
                     return (
                       shareableUsers.map((user) => (
                         <tr key={user.id} className="align-middle">
@@ -60,7 +57,7 @@ export default function SharedAccessForm({ handleClose }) {
                           </td>
                         </tr>
                       )));
-                  } if (isThreeCharacters) {
+                  } if (input?.length >= 3) {
                     return (<tr className="fw-bold"><td>{ t('user.no_user_found') }</td><td /></tr>);
                   }
                   return (<tr className="fw-bold"><td colSpan="2">{ t('user.type_three_characters') }</td></tr>);
