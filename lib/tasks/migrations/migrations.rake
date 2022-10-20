@@ -2,28 +2,31 @@
 
 namespace :migrations do
   COMMON = {
-    headers: { "Content-Type" => "application/json" }
+    headers: { "Content-Type" => "application/json" },
+    batch_size: 1000,
   }.freeze
 
   desc "Migrates v2 resources to v3"
   task :roles, [] => :environment do |_task, _args|
     has_encountred_issue = 0
 
-    Role.select(:id, :name).where.not(name: Role::RESERVED_ROLE_NAMES).each do |r|
-      params = { role: { name: r.name } }
-      response = Net::HTTP.post(uri('roles'), payload(params), COMMON[:headers])
+    Role.select(:id, :name)
+        .where.not(name: Role::RESERVED_ROLE_NAMES)
+        .find_each(batch_size: COMMON[:batch_size]) do |r|
+          params = { role: { name: r.name } }
+          response = Net::HTTP.post(uri('roles'), payload(params), COMMON[:headers])
 
-      case response
-      when Net::HTTPCreated
-        puts green "Succesfully migrated Role:"
-        puts cyan "  ID: #{r.id}"
-        puts cyan "  Name: #{r.name}"
-      else
-        puts red "Unable to migrate Role:"
-        puts yellow "  ID: #{r.id}"
-        puts yellow "  Name: #{r.name}"
-        has_encountred_issue = 1 # At least one of the migrations failed.
-      end
+          case response
+          when Net::HTTPCreated
+            puts green "Succesfully migrated Role:"
+            puts cyan "  ID: #{r.id}"
+            puts cyan "  Name: #{params[:role][:name]}"
+          else
+            puts red "Unable to migrate Role:"
+            puts yellow "  ID: #{r.id}"
+            puts yellow "  Name: #{params[:role][:name]}"
+            has_encountred_issue = 1 # At least one of the migrations failed.
+          end
     end
 
     puts
@@ -32,25 +35,27 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task :users, [] => :environment do |_task, _args|
+  task :users, [:start, :stop] => :environment do |_task, args|
+    start, stop = range(args)
+
     has_encountred_issue = 0
 
-    # TODO: Optimize this by running in batches.
-    User.select(:id, :uid, :name, :email, :social_uid, :language, :role_id).each do |u|
-      params = { user: { name: u.name, email: u.email, external_id: u.social_uid, language: u.language, role: u.role.name } }
-      response = Net::HTTP.post(uri('users'), payload(params), COMMON[:headers])
+    User.select(:id, :uid, :name, :email, :social_uid, :language, :role_id)
+        .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |u|
+          params = { user: { name: u.name, email: u.email, external_id: u.social_uid, language: u.language, role: u.role.name } }
+          response = Net::HTTP.post(uri('users'), payload(params), COMMON[:headers])
 
-      case response
-      when Net::HTTPCreated
-        puts green "Succesfully migrated User:"
-        puts cyan "  UID: #{u.uid}"
-        puts cyan "  Name: #{params[:user][:name]}"
-      else
-        puts red "Unable to migrate User:"
-        puts yellow "  UID: #{u.uid}"
-        puts yellow "  Name: #{params[:user][:name]}"
-        has_encountred_issue = 1 # At least one of the migrations failed.
-      end
+          case response
+          when Net::HTTPCreated
+            puts green "Succesfully migrated User:"
+            puts cyan "  UID: #{u.uid}"
+            puts cyan "  Name: #{params[:user][:name]}"
+          else
+            puts red "Unable to migrate User:"
+            puts yellow "  UID: #{u.uid}"
+            puts yellow "  Name: #{params[:user][:name]}"
+            has_encountred_issue = 1 # At least one of the migrations failed.
+          end
     end
 
     puts
@@ -93,5 +98,17 @@ namespace :migrations do
   def payload(params)
     res = { "v2" => { "encrypted_params" => encrypt_params(params) } }
     res.to_json
+  end
+
+  def range(args)
+    start = args[:start].to_i
+    start = 1 unless start.positive?
+
+    stop = args[:stop].to_i
+    stop = nil unless stop.positive?
+
+    raise red "Unable to migrate: Invalid provided range [start: #{start}, finish: #{stop}]" if stop && start > stop
+
+    [start, stop]
   end
 end
