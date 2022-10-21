@@ -8,16 +8,29 @@ import Spinner from '../../../shared_components/utilities/Spinner';
 import SettingsRow from '../SettingsRow';
 import useEnv from '../../../../hooks/queries/env/useEnv';
 import SettingSelect from '../settings/SettingSelect';
+import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
 
 export default function Registration() {
   const { t } = useTranslation();
   const { isLoadingEnv, data: env } = useEnv();
-  const { isLoading, data: siteSettings } = useSiteSettings(['RoleMapping', 'DefaultRole', 'ResyncOnLogin']);
+  const { isLoading, data: siteSettings } = useSiteSettings(['RoleMapping', 'DefaultRole', 'ResyncOnLogin', 'RegistrationMethod']);
+  const { data: roles } = useRoles();
 
   if (isLoading || isLoadingEnv) return <Spinner />;
 
   return (
     <>
+      <SettingSelect
+        settingName="RegistrationMethod"
+        defaultValue={siteSettings.RegistrationMethod}
+        title={t('admin.site_settings.registration.registration_method')}
+        description={t('admin.site_settings.registration.registration_method_description')}
+      >
+        <option value="open"> {t('admin.site_settings.registration.registration_methods.open')} </option>
+        <option value="invite"> {t('admin.site_settings.registration.registration_methods.invite')} </option>
+        <option value="approval"> {t('admin.site_settings.registration.registration_methods.approval')} </option>
+      </SettingSelect>
+
       { env.OPENID_CONNECT && (
         <Row className="mb-3">
           <SettingsRow
@@ -36,9 +49,11 @@ export default function Registration() {
       <SettingSelect
         settingName="DefaultRole"
         defaultValue={siteSettings.DefaultRole}
-        title={t('admin.site_settings.settings.default_role')}
-        description={t('admin.site_settings.settings.default_role_description')}
-      />
+        title={t('admin.site_settings.registration.default_role')}
+        description={t('admin.site_settings.registration.default_role_description')}
+      >
+        { roles?.map((role) => (<option key={role.id} value={role.name}> {role.name} </option>)) }
+      </SettingSelect>
 
       <Row className="mb-3">
         <h6> { t('admin.site_settings.registration.role_mapping_by_email') } </h6>

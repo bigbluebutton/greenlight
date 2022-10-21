@@ -29,7 +29,7 @@ export default function SiteSettings() {
                   <div className="ps-4 pe-4 pt-4">
                     <h3>{ t('admin.site_settings.customize_greenlight') }</h3>
                   </div>
-                  <Tabs className="border-bottom ps-3" defaultActiveKey="appearance">
+                  <Tabs className="border-bottom ps-3" defaultActiveKey="appearance" unmountOnExit>
                     <Tab className="p-4" eventKey="appearance" title="Appearance">
                       <Appearance />
                     </Tab>

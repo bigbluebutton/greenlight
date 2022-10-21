@@ -30,20 +30,62 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       allow(SettingGetter).to receive(:new).and_call_original
       allow(SettingGetter).to receive(:new).with(setting_name: 'DefaultRole', provider: 'greenlight').and_return(fake_setting_getter)
       allow(fake_setting_getter).to receive(:call).and_return('User')
+
+      reg_method = instance_double(SettingGetter) # TODO: - ahmad: Completely refactor how setting getter can be mocked
+      allow(SettingGetter).to receive(:new).with(setting_name: 'RegistrationMethod', provider: 'greenlight').and_return(reg_method)
+      allow(reg_method).to receive(:call).and_return('open')
     end
 
-    context 'when user is saved' do
-      it 'sends activation email to and signs in the created user' do
-        session[:session_token] = nil
-        expect { post :create, params: user_params }.to change(User, :count).by(1)
-        expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
-                                                                                                     'deliver_now', Hash)
+    context 'valid user params' do
+      it 'creates a user account for valid params' do
+        expect { post :create, params: user_params }.to change(User, :count).from(1).to(2)
+
         expect(response).to have_http_status(:created)
-        expect(session[:session_token]).to be_present
-        expect(session[:session_token]).not_to eql(user.session_token)
+        expect(JSON.parse(response.body)['errors']).to be_nil
       end
 
-      context 'from another user' do
+      it 'assigns the User role to the user' do
+        post :create, params: user_params
+        expect(User.find_by(email: user_params[:user][:email]).role.name).to eq('User')
+      end
+
+      context 'User language' do
+        it 'Persists the user language in the user record' do
+          post :create, params: user_params
+          expect(User.find_by(email: user_params[:user][:email]).language).to eq('language')
+        end
+
+        it 'defaults user language to default_locale if the language isn\'t specified' do
+          allow(I18n).to receive(:default_locale).and_return(:default_language)
+          user_params[:user][:language] = nil
+          post :create, params: user_params
+          expect(User.find_by(email: user_params[:user][:email]).language).to eq('default_language')
+        end
+      end
+
+      context 'activation' do
+        it 'generates an activation token for the user' do
+          freeze_time
+
+          post :create, params: user_params
+          user = User.find_by email: user_params[:user][:email]
+          expect(user.activation_digest).to be_present
+          expect(user.activation_sent_at).to eq(Time.current)
+          expect(user).not_to be_active
+        end
+
+        it 'sends activation email to and signs in the created user' do
+          session[:session_token] = nil
+          expect { post :create, params: user_params }.to change(User, :count).by(1)
+          expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
+                                                                                                       'deliver_now', Hash)
+          expect(response).to have_http_status(:created)
+          expect(session[:session_token]).to be_present
+          expect(session[:session_token]).not_to eql(user.session_token)
+        end
+      end
+
+      context 'Admin creation' do
         it 'sends activation email to but does NOT signin the created user' do
           expect { post :create, params: user_params }.to change(User, :count).by(1)
           expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
@@ -54,13 +96,40 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
     end
 
-    context 'when user is NOT saved' do
-      before { allow_any_instance_of(User).to receive(:save).and_return(false) }
+    context 'invalid user params' do
+      it 'fails for invalid values' do
+        invalid_user_params = {
+          user: { name: '', email: 'invalid', password: 'something' }
+        }
+        expect { post :create, params: invalid_user_params }.not_to change(User, :count)
 
-      it 'returns :bad_request' do
-        expect { post :create, params: user_params }.not_to change(User, :count)
         expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
         expect(response).to have_http_status(:bad_request)
+        expect(JSON.parse(response.body)['errors']).to be_present
+      end
+    end
+
+    context 'Role mapping' do
+      before do
+        role_map = instance_double(SettingGetter)
+        allow(SettingGetter).to receive(:new).with(setting_name: 'RoleMapping', provider: 'greenlight').and_return(role_map)
+        allow(role_map).to receive(:call).and_return('Decepticons=@decepticons.cybertron,Autobots=autobots.cybertron')
+      end
+
+      it 'Creates a User and assign a role if a rule matches their email' do
+        autobots = create(:role, name: 'Autobots')
+        user_params = {
+          name: 'Optimus Prime',
+          email: 'optimus@autobots.cybertron',
+          password: 'Autobots1!',
+          language: 'teletraan'
+        }
+
+        expect { post :create, params: { user: user_params } }.to change(User, :count).from(1).to(2)
+
+        expect(User.find_by(email: user_params[:email]).role).to eq(autobots)
+        expect(response).to have_http_status(:created)
+        expect(JSON.parse(response.body)['errors']).to be_nil
       end
     end
   end
