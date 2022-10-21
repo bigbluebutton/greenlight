@@ -37,7 +37,10 @@ module Api
 
         if user.save
           # Delete invitation (ignore whether it exists or not)
-          Invitation.delete_by(email: user_params[:email], provider: current_provider, token: user_params[:invite_token]) if registration_method == SiteSetting::REGISTRATION_METHODS[:invite]
+          if registration_method == SiteSetting::REGISTRATION_METHODS[:invite]
+            Invitation.delete_by(email: user_params[:email], provider: current_provider,
+                                 token: user_params[:invite_token])
+          end
 
           user.generate_session_token!
           session[:session_token] = user.session_token unless current_user # if this is NOT an admin creating a user

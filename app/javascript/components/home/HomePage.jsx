@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Card, Form } from 'react-bootstrap';
-import {Navigate, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import ButtonLink from '../shared_components/utilities/ButtonLink';
@@ -8,7 +8,7 @@ import Spinner from '../shared_components/utilities/Spinner';
 import useEnv from '../../hooks/queries/env/useEnv';
 import Logo from '../shared_components/Logo';
 import { useAuth } from '../../contexts/auth/AuthProvider';
-import useSiteSetting from "../../hooks/queries/site_settings/useSiteSetting";
+import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 
 export default function HomePage() {
   const { isLoading, data: env } = useEnv();
@@ -18,8 +18,8 @@ export default function HomePage() {
 
   const { search } = useLocation();
   const [searchParams] = useSearchParams();
-  const invite_token = searchParams.get('invite_token');
-  const { data: registrationMethod } = useSiteSetting('RegistrationMethod')
+  const inviteToken = searchParams.get('inviteToken');
+  const { data: registrationMethod } = useSiteSetting('RegistrationMethod');
 
   // redirect user to correct page based on signed in status and CreateRoom permission
   useEffect(
@@ -34,13 +34,13 @@ export default function HomePage() {
   );
 
   useEffect(() => {
-    document.cookie = `token=${invite_token};path=/;`;
-  }, [invite_token])
+    document.cookie = `token=${inviteToken};path=/;`;
+  }, [inviteToken]);
 
   if (isLoading) return <Spinner />;
 
-  function showSignUp(){
-    return registrationMethod != 'invite' || !!invite_token
+  function showSignUp() {
+    return registrationMethod !== 'invite' || !!inviteToken;
   }
 
   // TODO - samuel: OPENID signup and signin are both pointing at the same endpoint
@@ -64,10 +64,13 @@ export default function HomePage() {
               </Form>
             ) : (
               <>
-                { showSignUp() &&
-                  <ButtonLink to={`/signup${search}`} variant="brand-outline-color" className="btn btn-xlg m-2">{t('authentication.sign_up')}</ButtonLink>
-                }
-                <ButtonLink to='/signin' variant="brand" className="btn btn-xlg m-2">{t('authentication.sign_in')}</ButtonLink>
+                { showSignUp()
+                  && (
+                  <ButtonLink to={`/signup${search}`} variant="brand-outline-color" className="btn btn-xlg m-2">
+                    {t('authentication.sign_up')}
+                  </ButtonLink>
+                  ) }
+                <ButtonLink to="/signin" variant="brand" className="btn btn-xlg m-2">{t('authentication.sign_in')}</ButtonLink>
               </>
             )
           }
