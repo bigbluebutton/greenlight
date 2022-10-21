@@ -167,8 +167,8 @@
       "create_room": "Create Room",
       "create_new_room": "Create New Room",
       "user_created_at": "Created: {{user.created_at}}",
-      "enter_user_email": "Enter the new user's email",
-      "enter_user_name": "Enter the new user's name",
+      "enter_user_email": "Enter an email",
+      "enter_user_name": "Enter a name",
       "are_you_sure_delete_account": "Are you sure you want to delete {{user.name}}'s account?",
       "delete_account_warning": "If you choose to delete this account, it will NOT be recoverable."
     },
