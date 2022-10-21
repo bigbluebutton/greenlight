@@ -73,8 +73,10 @@ module Api
           room = Room.new(room_params.except(:owner_email, :owner_provider).merge({ user: }))
 
           # Redefines the validations method to do nothing
+          # rubocop:disable Lint/EmptyBlock
           room.define_singleton_method(:set_friendly_id) {}
           room.define_singleton_method(:set_meeting_id) {}
+          # rubocop:enable Lint/EmptyBlock
 
           return render_error status: :bad_request unless room.save
 
