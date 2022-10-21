@@ -371,8 +371,16 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
       end
 
       describe 'when decrypted params data are invalid' do
-        it 'returns :bad_request without creating a room' do
-          encrypted_params = encrypt_params({ room: { name: '', friendly_id: '', meeting_id: '' } }, expires_in: 10.seconds)
+        it 'returns :bad_request without creating a room if meeting id is blank' do
+          valid_room_params[:meeting_id] = ''
+          encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
+          expect { post :create_room, params: { v2: { encrypted_params: } } }.not_to change(Room, :count)
+          expect(response).to have_http_status(:bad_request)
+        end
+
+        it 'returns :bad_request without creating a room if friendly id is blank' do
+          valid_room_params[:friendly_id] = ''
+          encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
           expect { post :create_room, params: { v2: { encrypted_params: } } }.not_to change(Room, :count)
           expect(response).to have_http_status(:bad_request)
         end
