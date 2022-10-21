@@ -5,5 +5,5 @@ class Invitation < ApplicationRecord
 
   validates :email, presence: true, uniqueness: { scope: :provider }
   validates :provider, presence: true
-  validates :token, presence: true, uniqueness: true
+  validates :token, uniqueness: true
 end

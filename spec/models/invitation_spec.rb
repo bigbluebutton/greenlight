@@ -11,7 +11,6 @@ RSpec.describe Invitation, type: :model do
 
     it { is_expected.to validate_presence_of(:provider) }
 
-    it { is_expected.to validate_presence_of(:token) }
     it { is_expected.to validate_uniqueness_of(:token) }
   end
 end

@@ -132,6 +132,48 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(JSON.parse(response.body)['errors']).to be_nil
       end
     end
+
+    context 'Registration Method' do
+      context 'invite' do
+        before do
+          reg_method = instance_double(SettingGetter)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'RegistrationMethod', provider: 'greenlight').and_return(reg_method)
+          allow(reg_method).to receive(:call).and_return('invite')
+        end
+
+        it 'creates a user account if they have a valid invitation' do
+          invite = create(:invitation, email: user_params[:user][:email])
+          user_params[:user][:invite_token] = invite.token
+
+          expect { post :create, params: user_params }.to change(User, :count).from(1).to(2)
+
+          expect(response).to have_http_status(:created)
+          expect(JSON.parse(response.body)['errors']).to be_nil
+        end
+
+        it 'deletes an invitation after using it' do
+          invite = create(:invitation, email: user_params[:user][:email])
+          user_params[:user][:invite_token] = invite.token
+
+          expect { post :create, params: user_params }.to change(Invitation, :count).by(-1)
+        end
+
+        it 'returns an InviteInvalid error if no invite is passed' do
+          expect { post :create, params: user_params }.not_to change(User, :count)
+
+          expect(response).to have_http_status(:bad_request)
+          expect(JSON.parse(response.body)['errors']).to eq('InviteInvalid')
+        end
+
+        it 'returns an InviteInvalid error if the token is wrong' do
+          user_params[:user][:invite_token] = 'fake-token'
+          expect { post :create, params: user_params }.not_to change(User, :count)
+
+          expect(response).to have_http_status(:bad_request)
+          expect(JSON.parse(response.body)['errors']).to eq('InviteInvalid')
+        end
+      end
+    end
   end
 
   describe '#show' do

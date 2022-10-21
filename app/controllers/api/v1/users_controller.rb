@@ -26,12 +26,19 @@ module Api
         # TODO: amir - ensure accessibility for unauthenticated requests only.
         params[:user][:language] = I18n.default_locale if params[:user][:language].blank?
 
-        user = UserCreator.new(user_params:, provider: current_provider, role: default_role).call
+        registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
+
+        return render_error errors: 'InviteInvalid' if registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token
+
+        user = UserCreator.new(user_params: user_params.except(:invite_token), provider: current_provider, role: default_role).call
 
         # TODO: Add proper error logging for non-verified token hcaptcha
         return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         if user.save
+          # Delete invitation (ignore whether it exists or not)
+          Invitation.delete_by(email: user_params[:email], provider: current_provider, token: user_params[:invite_token]) if registration_method == SiteSetting::REGISTRATION_METHODS[:invite]
+
           user.generate_session_token!
           session[:session_token] = user.session_token unless current_user # if this is NOT an admin creating a user
 
@@ -97,11 +104,17 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id)
+        params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id, :invite_token)
       end
 
       def change_password_params
         params.require(:user).permit(:old_password, :new_password)
+      end
+
+      def valid_invite_token
+        return false if user_params[:invite_token].blank?
+
+        Invitation.exists?(email: user_params[:email], provider: current_provider, token: user_params[:invite_token])
       end
     end
   end
