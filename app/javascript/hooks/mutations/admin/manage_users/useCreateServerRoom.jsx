@@ -14,7 +14,13 @@ export default function useCreateServerRoom({ userId, onSettled }) {
         queryClient.invalidateQueries('getServerRooms');
         toast.success(t('toast.success.room.room_created'));
       },
-      onError: () => { toast.error(t('toast.error.problem_completing_action')); },
+      onError: (err) => {
+        if (err.response.data.errors === 'RoomLimitError') {
+          toast.error(t('toast.error.rooms.room_limit'));
+        } else {
+          toast.error(t('toast.error.problem_completing_action'));
+        }
+      },
       onSettled,
     },
   );

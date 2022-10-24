@@ -333,6 +333,9 @@
       },
       "users": {
         "invalid_invite": "Your invitation token is either invalid or incorrect. Please contact your administrator to receive a new one"
+      },
+      "rooms": {
+        "room_limit": "Room can not be created due to room limit being reached"
       }
     }
   },

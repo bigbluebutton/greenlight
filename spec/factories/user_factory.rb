@@ -15,6 +15,10 @@ FactoryBot.define do
       create(:role_permission, role: user.role, permission: create(:permission, name: 'CreateRoom'), value: 'true')
     end
 
+    after(:create) do |user|
+      create(:role_permission, role: user.role, permission: create(:permission, name: 'RoomLimit'), value: '100')
+    end
+
     trait :with_manage_users_permission do
       after(:create) do |user|
         create(:role_permission, role: user.role, permission: create(:permission, name: 'ManageUsers'), value: 'true')
@@ -54,6 +58,12 @@ FactoryBot.define do
     trait :can_record do
       after(:create) do |user|
         create(:role_permission, role: user.role, permission: create(:permission, name: 'CanRecord'), value: 'true')
+      end
+    end
+
+    trait :with_roomLimit_3_permission do
+      after(:create) do |user|
+        create(:role_permission, role: user.role, permission: create(:permission, name: 'RoomLimit'), value: '3')
       end
     end
 

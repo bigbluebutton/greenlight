@@ -59,6 +59,11 @@ module Api
 
       # POST /api/v1/rooms.json
       def create
+        return render_error status: :bad_request, errors: 'RoomLimitError' unless PermissionsChecker.new(
+          permission_names: 'RoomLimit',
+          user_id: room_params[:user_id], current_user:, friendly_id: nil, record_id: nil
+        ).call
+
         # TODO: amir - ensure accessibility for authenticated requests only.
         # The created room will be the current user's unless a user_id param is provided with the request.
         room = Room.create(name: room_params[:name], user_id: room_params[:user_id])

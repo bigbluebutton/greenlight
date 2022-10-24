@@ -34,9 +34,15 @@ export default function useCreateRoom({ userId, onSettled }) {
       onMutate: optimisticCreateRoom,
       onSuccess: () => { toast.success(t('toast.success.room.room_created')); },
       // If the mutation fails, use the context returned from onMutate to roll back
+
       onError: (err, newRoom, context) => {
         queryClient.setQueryData(ROOMSLISTQUERYKEY, context.oldRooms);
-        toast.error(t('toast.error.problem_completing_action'));
+        // specifc toast for room limit being met
+        if (err.response.data.errors === 'RoomLimitError') {
+          toast.error(t('toast.error.rooms.room_limit'));
+        } else {
+          toast.error(t('toast.error.problem_completing_action'));
+        }
       },
       // Always refetch after error or success:
       onSettled: () => {
