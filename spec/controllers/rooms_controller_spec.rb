@@ -172,8 +172,8 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         }
       }
     end
-    let(:user) { create(:user, :with_roomLimit_100_permission) }
-    let(:new_user) { create(:user, :with_roomLimit_100_permission) }
+    let(:user) { create(:user) }
+    let(:new_user) { create(:user) }
 
     it 'creates a room for a user' do
       expect { post :create, params: room_params }.to change { user.rooms.count }.from(0).to(1)
@@ -211,7 +211,10 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
     context 'user has reached the room limit set for their role' do
       it 'room is not created since room limit has been reached' do
-        user = create(:user, :with_roomLimit_3_permission)
+        user = create(:user)
+        permission_id = user.role.permissions.find_by(name: 'RoomLimit').id
+        user.role.role_permissions.find_by(permission_id:).update(value: '3')
+
         sign_in_user(user)
         create_list(:room, 3, user:)
         room_params = {
