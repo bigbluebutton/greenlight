@@ -16,6 +16,9 @@ export default function UserSignupForm({ handleClose }) {
   const { isSubmitting } = methods.formState;
   const fields = signupFormFields;
 
+  fields.name.placeHolder = t('admin.manage_users.enter_user_name');
+  fields.email.placeHolder = t('admin.manage_users.enter_user_email');
+
   return (
     <Form methods={methods} onSubmit={createUser.mutate}>
       <FormControl field={fields.name} type="text" />
