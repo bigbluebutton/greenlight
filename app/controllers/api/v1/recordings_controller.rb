@@ -70,6 +70,11 @@ module Api
         render_data status: :ok
       end
 
+      def recordings_count
+        count = current_user.recordings.count
+        render_data data: count, status: :ok
+      end
+
       private
 
       def recording_params

@@ -446,6 +446,8 @@ input[type="range"]:focus::-moz-range-thumb {
   }
 
   .nav-link {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
     &:hover {
       border-bottom: 2px solid var(--brand-color) !important;
     }
