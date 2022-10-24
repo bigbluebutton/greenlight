@@ -11,8 +11,8 @@ import CreateRoleModal from '../../shared_components/modals/CreateRoleModal';
 
 export default function Roles() {
   const { t } = useTranslation();
-  const [input, setInput] = useState();
-  const { data: roles, isLoading } = useRoles(input);
+  const [searchInput, setSearchInput] = useState();
+  const { data: roles, isLoading } = useRoles(searchInput);
 
   return (
     <div id="admin-panel">
@@ -34,7 +34,7 @@ export default function Roles() {
                   <div className="p-4">
                     <Stack direction="horizontal" className="mb-4">
                       <div>
-                        <SearchBarQuery setInput={setInput} />
+                        <SearchBarQuery searchInput={searchInput} setSearchInput={setSearchInput} />
                       </div>
                       <CreateRoleModal />
                     </Stack>

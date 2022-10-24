@@ -16,16 +16,16 @@ import SharedAccessEmpty from './SharedAccessEmpty';
 export default function SharedAccess() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
-  const [input, setInput] = useState();
-  const { data: sharedUsers } = useSharedUsers(friendlyId, input);
+  const [searchInput, setSearchInput] = useState();
+  const { data: sharedUsers } = useSharedUsers(friendlyId, searchInput);
   const deleteSharedAccess = useDeleteSharedAccess(friendlyId);
 
-  if (sharedUsers?.length || input) {
+  if (sharedUsers?.length || searchInput) {
     return (
       <div id="shared-access-list">
         <Stack direction="horizontal" className="w-100 mt-3">
           <div>
-            <SearchBarQuery setInput={setInput} />
+            <SearchBarQuery searchInput={searchInput} setSearchInput={setSearchInput} />
           </div>
           <Modal
             modalButton={<Button variant="brand-outline" className="ms-auto">{ t('room.shared_access.add_share_access')}</Button>}

@@ -18,12 +18,12 @@ export default function SharedAccessForm({ handleClose }) {
   const { register, handleSubmit } = useForm();
   const { friendlyId } = useParams();
   const createSharedUser = useShareAccess({ friendlyId, closeModal: handleClose });
-  const [input, setInput] = useState();
-  const { data: shareableUsers } = useShareableUsers(friendlyId, input);
+  const [searchInput, setSearchInput] = useState();
+  const { data: shareableUsers } = useShareableUsers(friendlyId, searchInput);
 
   return (
     <div id="shared-access-form">
-      <SearchBarQuery setInput={setInput} />
+      <SearchBarQuery searchInput={searchInput} setSearchInput={setSearchInput} />
       <Form onSubmit={handleSubmit(createSharedUser.mutate)}>
         <div className="table-scrollbar-wrapper">
           <Table hover className="text-secondary my-3">
@@ -36,7 +36,7 @@ export default function SharedAccessForm({ handleClose }) {
             <tbody className="border-top-0">
               {
                 (() => {
-                  if (input?.length >= 3 && shareableUsers?.length) {
+                  if (searchInput?.length >= 3 && shareableUsers?.length) {
                     return (
                       shareableUsers.map((user) => (
                         <tr key={user.id} className="align-middle">
@@ -57,7 +57,7 @@ export default function SharedAccessForm({ handleClose }) {
                           </td>
                         </tr>
                       )));
-                  } if (input?.length >= 3) {
+                  } if (searchInput?.length >= 3) {
                     return (<tr className="fw-bold"><td>{ t('user.no_user_found') }</td><td /></tr>);
                   }
                   return (<tr className="fw-bold"><td colSpan="2">{ t('user.type_three_characters') }</td></tr>);

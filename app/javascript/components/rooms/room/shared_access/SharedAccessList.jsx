@@ -9,13 +9,13 @@ import { useTranslation } from 'react-i18next';
 import Modal from '../../../shared_components/modals/Modal';
 import SharedAccessForm from './forms/SharedAccessForm';
 import Avatar from '../../../users/user/Avatar';
-import SearchBar from '../../../shared_components/search/SearchBar';
 import useDeleteSharedAccess from '../../../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
 import Spinner from '../../../shared_components/utilities/Spinner';
+import SearchBarQuery from '../../../shared_components/search/SearchBarQuery';
 
 export default function SharedAccessList({ users, isLoading }) {
   const { t } = useTranslation();
-  const [search, setSearch] = useState('');
+  const [searchInput, setSearchInput] = useState('');
   const { friendlyId } = useParams();
   const { handleDeleteSharedAccess } = useDeleteSharedAccess(friendlyId);
 
@@ -25,7 +25,7 @@ export default function SharedAccessList({ users, isLoading }) {
     <div id="shared-access-list">
       <Stack direction="horizontal" className="w-100 mt-5">
         <div>
-          <SearchBar setSearch={setSearch} className="w-100" />
+          <SearchBarQuery searchInput={searchInput} setSearchInput={setSearchInput} className="w-100" />
         </div>
         <Modal
           modalButton={<Button variant="brand-outline" className="ms-auto">{ t('room.shared_access.add_share_access') }</Button>}
@@ -49,7 +49,7 @@ export default function SharedAccessList({ users, isLoading }) {
           {
             users?.filter((user) => {
               if (user.name.toLowerCase()
-                .includes(search.toLowerCase())) {
+                .includes(searchInput.toLowerCase())) {
                 return user;
               }
               return false;

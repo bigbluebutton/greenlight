@@ -1,10 +1,13 @@
 import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
+import { useTranslation } from 'react-i18next';
 
-export default function SearchBarQuery({ setInput }) {
+export default function SearchBarQuery({ searchInput, setSearchInput }) {
+  const { t } = useTranslation();
+
   const onChangeHandler = (event) => {
-    setInput(event.target.value);
+    setSearchInput(event.target.value);
   };
 
   const debouncedOnChangeHandler = useMemo(
@@ -14,12 +17,12 @@ export default function SearchBarQuery({ setInput }) {
 
   useEffect(() => () => {
     debouncedOnChangeHandler.cancel();
-  }, []);
+  }, [searchInput]);
 
   return (
     <input
       className="search-bar rounded border form-control"
-      placeholder="Search"
+      placeholder={t('search')}
       type="search"
       onChange={debouncedOnChangeHandler}
     />
@@ -27,5 +30,10 @@ export default function SearchBarQuery({ setInput }) {
 }
 
 SearchBarQuery.propTypes = {
-  setInput: PropTypes.func.isRequired,
+  searchInput: PropTypes.string,
+  setSearchInput: PropTypes.func.isRequired,
+};
+
+SearchBarQuery.defaultProps = {
+  searchInput: '',
 };

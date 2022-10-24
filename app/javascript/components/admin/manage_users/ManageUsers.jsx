@@ -12,7 +12,7 @@ import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
 
 export default function ManageUsers() {
   const { t } = useTranslation();
-  const [input, setInput] = useState();
+  const [searchInput, setSearchInput] = useState();
   return (
     <div id="admin-panel">
       <h3 className="py-5">{ t('admin.admin_panel') }</h3>
@@ -32,7 +32,7 @@ export default function ManageUsers() {
                   </div>
                   <div className="p-4">
                     <Stack direction="horizontal" className="mb-4">
-                      <SearchBarQuery setInput={setInput} />
+                      <SearchBarQuery searchInput={searchInput} searchInput={searchInput} setSearchInput={setSearchInput} />
                       <Modal
                         modalButton={<Button variant="brand" className="ms-auto btn">{ t('admin.manage_users.add_new_user') }</Button>}
                         title={t('admin.manage_users.create_new_user')}
@@ -42,7 +42,7 @@ export default function ManageUsers() {
                     </Stack>
                     <Tabs defaultActiveKey="active" unmountOnExit>
                       <Tab eventKey="active" title={t('admin.manage_users.active')}>
-                        <ActiveUsers input={input} />
+                        <ActiveUsers input={searchInput} />
                       </Tab>
                       <Tab eventKey="pending" title={t('admin.manage_users.pending')}>
                         Pending users component

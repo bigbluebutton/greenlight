@@ -9,15 +9,15 @@ import RoomsRecordingRow from './room_recordings/RoomsRecordingRow';
 import Pagination from '../shared_components/Pagination';
 
 export default function Recordings() {
-  const [input, setInput] = useState();
+  const [searchInput, setSearchInput] = useState();
   const [page, setPage] = useState();
-  const { isLoading, data: recordings } = useRecordings(input, page);
+  const { isLoading, data: recordings } = useRecordings(searchInput, page);
 
   return (
     <>
       <Stack direction="horizontal" className="w-100 mt-5">
         <div>
-          <SearchBarQuery setInput={setInput} />
+          <SearchBarQuery searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
       </Stack>
       <Card className="border-0 shadow-sm p-0 mt-4">
