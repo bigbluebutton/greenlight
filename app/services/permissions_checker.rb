@@ -60,6 +60,8 @@ class PermissionsChecker
   end
 
   def authorize_room_limit
+    return false if @user_id.blank?
+
     user = User.find(@user_id)
     # return true if room limit has not been reached
     if RolePermission.joins(:permission).find_by(role_id: user.role_id, permission: { name: 'RoomLimit' }).value.to_i <= user.rooms.count.to_i
