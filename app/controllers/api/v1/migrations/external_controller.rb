@@ -66,11 +66,13 @@ module Api
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Creates a room.
         def create_room
-          user = User.find_by(email: room_params[:owner_email], provider: room_params[:owner_provider])
+          room_hash = room_params.to_h
+
+          user = User.find_by(email: room_hash[:owner_email], provider: room_hash[:owner_provider])
 
           return render_error status: :bad_request unless user
 
-          room = Room.new(room_params.except(:owner_email, :owner_provider).merge({ user: }))
+          room = Room.new(room_hash.except(:owner_email, :owner_provider).merge({ user: }))
 
           # Redefines the validations method to do nothing
           # rubocop:disable Lint/EmptyBlock
