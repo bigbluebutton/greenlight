@@ -32,7 +32,7 @@ export default function ManageUsers() {
                   </div>
                   <div className="p-4">
                     <Stack direction="horizontal" className="mb-4">
-                      <SearchBarQuery searchInput={searchInput} searchInput={searchInput} setSearchInput={setSearchInput} />
+                      <SearchBarQuery searchInput={searchInput} setSearchInput={setSearchInput} />
                       <Modal
                         modalButton={<Button variant="brand" className="ms-auto btn">{ t('admin.manage_users.add_new_user') }</Button>}
                         title={t('admin.manage_users.create_new_user')}
