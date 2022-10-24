@@ -14,7 +14,19 @@ class Recording < ApplicationRecord
   scope :with_provider, ->(current_provider) { where(user: { provider: current_provider }) }
 
   def self.search(input)
-    return where('recordings.name ILIKE ?', "%#{input}%").includes(:formats) if input
+    # to prevent showing all recordings with length/participants 0 when input it not 0 (by setting default to -1 instead of 0)
+    int_input = if input.to_i.zero? && input != '0'
+                  -1
+                else
+                  input.to_i
+                end
+    if input
+      return joins(:formats).where(
+        'recordings.length = :int_input OR recordings.participants = :int_input OR recordings.name ILIKE :input
+        OR recordings.visibility ILIKE :input OR formats.recording_type ILIKE :input',
+        input: "%#{input}%", int_input:
+      ).includes(:formats)
+    end
 
     all.includes(:formats)
   end
