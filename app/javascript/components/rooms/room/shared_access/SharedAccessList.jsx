@@ -11,7 +11,7 @@ import SharedAccessForm from './forms/SharedAccessForm';
 import Avatar from '../../../users/user/Avatar';
 import useDeleteSharedAccess from '../../../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
 import Spinner from '../../../shared_components/utilities/Spinner';
-import SearchBarQuery from '../../../shared_components/search/SearchBarQuery';
+import SearchBar from '../../../shared_components/search/SearchBar';
 
 export default function SharedAccessList({ users, isLoading }) {
   const { t } = useTranslation();
@@ -25,7 +25,7 @@ export default function SharedAccessList({ users, isLoading }) {
     <div id="shared-access-list">
       <Stack direction="horizontal" className="w-100 mt-5">
         <div>
-          <SearchBarQuery searchInput={searchInput} setSearchInput={setSearchInput} className="w-100" />
+          <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} className="w-100" />
         </div>
         <Modal
           modalButton={<Button variant="brand-outline" className="ms-auto">{ t('room.shared_access.add_share_access') }</Button>}

@@ -8,7 +8,7 @@ import ActiveUsers from './ActiveUsers';
 import AdminNavSideBar from '../AdminNavSideBar';
 import Modal from '../../shared_components/modals/Modal';
 import UserSignupForm from './forms/UserSignupForm';
-import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
+import SearchBar from '../../shared_components/search/SearchBar';
 
 export default function ManageUsers() {
   const { t } = useTranslation();
@@ -32,7 +32,7 @@ export default function ManageUsers() {
                   </div>
                   <div className="p-4">
                     <Stack direction="horizontal" className="mb-4">
-                      <SearchBarQuery searchInput={searchInput} setSearchInput={setSearchInput} />
+                      <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
                       <Modal
                         modalButton={<Button variant="brand" className="ms-auto btn">{ t('admin.manage_users.add_new_user') }</Button>}
                         title={t('admin.manage_users.create_new_user')}

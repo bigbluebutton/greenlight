@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import AdminNavSideBar from '../AdminNavSideBar';
-import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
+import SearchBar from '../../shared_components/search/SearchBar';
 import RecordingsList from '../../recordings/RecordingsList';
 import useServerRecordings from '../../../hooks/queries/admin/server_recordings/useServerRecordings';
 import ServerRecordingRow from './ServerRecordingRow';
@@ -35,7 +35,7 @@ export default function ServerRecordings() {
                     <h3> {t('admin.server_recordings.latest_recordings')} </h3>
                   </div>
                   <div className="p-4">
-                    <SearchBarQuery searchInput={searchInput} setSearchInput={setSearchInput} />
+                    <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
                     <Row className="mt-4">
                       <Col>
                         <RecordingsList

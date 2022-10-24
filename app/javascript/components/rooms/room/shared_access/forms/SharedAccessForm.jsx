@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import useShareAccess from '../../../../../hooks/mutations/shared_accesses/useShareAccess';
 import Avatar from '../../../../users/user/Avatar';
-import SearchBarQuery from '../../../../shared_components/search/SearchBarQuery';
+import SearchBar from '../../../../shared_components/search/SearchBar';
 import useShareableUsers from '../../../../../hooks/queries/shared_accesses/useShareableUsers';
 
 export default function SharedAccessForm({ handleClose }) {
@@ -23,7 +23,7 @@ export default function SharedAccessForm({ handleClose }) {
 
   return (
     <div id="shared-access-form">
-      <SearchBarQuery searchInput={searchInput} setSearchInput={setSearchInput} />
+      <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
       <Form onSubmit={handleSubmit(createSharedUser.mutate)}>
         <div className="table-scrollbar-wrapper">
           <Table hover className="text-secondary my-3">

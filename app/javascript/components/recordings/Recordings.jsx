@@ -3,7 +3,7 @@ import {
   Card, Stack,
 } from 'react-bootstrap';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
-import SearchBarQuery from '../shared_components/search/SearchBarQuery';
+import SearchBar from '../shared_components/search/SearchBar';
 import RecordingsList from './RecordingsList';
 import RoomsRecordingRow from './room_recordings/RoomsRecordingRow';
 import Pagination from '../shared_components/Pagination';
@@ -17,7 +17,7 @@ export default function Recordings() {
     <>
       <Stack direction="horizontal" className="w-100 mt-5">
         <div>
-          <SearchBarQuery searchInput={searchInput} setSearchInput={setSearchInput} />
+          <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
       </Stack>
       <Card className="border-0 shadow-sm p-0 mt-4">

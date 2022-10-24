@@ -10,7 +10,7 @@ import RoomPlaceHolder from './RoomPlaceHolder';
 import Modal from '../shared_components/modals/Modal';
 import CreateRoomForm from './room/forms/CreateRoomForm';
 import { useAuth } from '../../contexts/auth/AuthProvider';
-import SearchBarQuery from '../shared_components/search/SearchBarQuery';
+import SearchBar from '../shared_components/search/SearchBar';
 
 export default function RoomsList() {
   const { t } = useTranslation();
@@ -23,7 +23,7 @@ export default function RoomsList() {
     <>
       <Stack direction="horizontal" className="w-100 mt-5">
         <div>
-          <SearchBarQuery searchInput={searchInput} id="rooms-search" setSearchInput={setSearchInput} />
+          <SearchBar searchInput={searchInput} id="rooms-search" setSearchInput={setSearchInput} />
         </div>
         <Modal
           modalButton={<Button variant="brand" className="ms-auto me-xxl-1">{ t('room.add_new_room') }</Button>}

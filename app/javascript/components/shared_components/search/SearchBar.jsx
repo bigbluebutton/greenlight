@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 import { useTranslation } from 'react-i18next';
 
-export default function SearchBarQuery({ searchInput, setSearchInput }) {
+export default function SearchBar({ searchInput, setSearchInput }) {
   const { t } = useTranslation();
 
   const onChangeHandler = (event) => {
@@ -29,11 +29,11 @@ export default function SearchBarQuery({ searchInput, setSearchInput }) {
   );
 }
 
-SearchBarQuery.propTypes = {
+SearchBar.propTypes = {
   searchInput: PropTypes.string,
   setSearchInput: PropTypes.func.isRequired,
 };
 
-SearchBarQuery.defaultProps = {
+SearchBar.defaultProps = {
   searchInput: '',
 };

@@ -4,7 +4,7 @@ import {
 } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import useRoomRecordings from '../../../hooks/queries/recordings/useRoomRecordings';
-import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
+import SearchBar from '../../shared_components/search/SearchBar';
 import RecordingsList from '../RecordingsList';
 import useRoomRecordingsProcessing from '../../../hooks/queries/recordings/useRoomRecordingsProcessing';
 import RoomsRecordingRow from './RoomsRecordingRow';
@@ -21,7 +21,7 @@ export default function RoomRecordings() {
     <>
       <Stack direction="horizontal" className="w-100 mt-3">
         <div>
-          <SearchBarQuery searchInput={searchInput} setSearchInput={setSearchInput} />
+          <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
       </Stack>
       <Card className="border-0 shadow-sm mt-4">
