@@ -333,6 +333,112 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
     end
   end
 
+  describe '#create_room' do
+    let(:user) { create(:user) }
+    let(:valid_room_params) do
+      {
+        name: 'My Awesome Room',
+        friendly_id: 'us2-xy5-lf5-zl2',
+        meeting_id: 'kzukaw3xk7ql5kefbfpsruud61pztf00jzltgafs',
+        last_session: Time.zone.now.to_datetime,
+        owner_email: user.email,
+        owner_provider: user.provider
+      }
+    end
+
+    before { clear_enqueued_jobs }
+
+    context 'when decryption passes' do
+      describe 'when decrypted params encapsulation is conform and data is valid' do
+        it 'creates a new room' do
+          encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
+          expect { post :create_room, params: { v2: { encrypted_params: } } }.to change(Room, :count).from(0).to(1)
+          room = Room.take
+          expect(room.name).to eq(valid_room_params[:name])
+          expect(room.friendly_id).to eq(valid_room_params[:friendly_id])
+          expect(room.meeting_id).to eq(valid_room_params[:meeting_id])
+          expect(room.last_session).to eq(valid_room_params[:last_session])
+          expect(room.user).to eq(user)
+          expect(response).to have_http_status(:created)
+        end
+
+        it 'does not create a new room if the room owner is not found' do
+          valid_room_params[:owner_email] = 'random_email@google.com'
+          valid_room_params[:provider] = 'random_provider'
+          encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
+          expect { post :create_room, params: { v2: { encrypted_params: } } }.not_to change(Room, :count)
+        end
+      end
+
+      describe 'when decrypted params data are invalid' do
+        it 'returns :bad_request without creating a room if meeting id is blank' do
+          valid_room_params[:meeting_id] = ''
+          encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
+          expect { post :create_room, params: { v2: { encrypted_params: } } }.not_to change(Room, :count)
+          expect(response).to have_http_status(:bad_request)
+        end
+
+        it 'returns :bad_request without creating a room if friendly id is blank' do
+          valid_room_params[:friendly_id] = ''
+          encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
+          expect { post :create_room, params: { v2: { encrypted_params: } } }.not_to change(Room, :count)
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+
+      describe 'when decrypted params encapsulation is not conform' do
+        it 'returns :bad_request without creating a room' do
+          encrypted_params = encrypt_params({ not_room: valid_room_params }, expires_in: 10.seconds)
+          expect { post :create_room, params: { v2: { encrypted_params: } } }.not_to change(Room, :count)
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+    end
+
+    context 'when decryption fails' do
+      describe 'because payload encapsulation is not conform' do
+        it 'returns :bad_request without creating a room' do
+          encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
+          expect { post :create_room, params: { not_v2: { encrypted_params: } } }.not_to change(Room, :count)
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+
+      describe 'because the encrypted_params cipher isn\'t a String' do
+        it 'returns :bad_request without creating a room' do
+          expect { post :create_room, params: { v2: { encrypted_params: { something: 'unexpected' } } } }.not_to change(Room, :count)
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+
+      describe 'because the decrypted params isn\'t a Hash' do
+        it 'returns :bad_request without creating a room' do
+          encrypted_params = encrypt_params('Not a hash', expires_in: 10.seconds)
+          expect { post :create_room, params: { v2: { encrypted_params: } } }.not_to change(Room, :count)
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+
+      describe 'because the encrypted payload expired' do
+        it 'returns :bad_request without creating a room' do
+          encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
+          travel_to 15.seconds.from_now
+          expect { post :create_room, params: { v2: { encrypted_params: } } }.not_to change(Room, :count)
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+
+      describe 'because the ciphertext was not generated with the same configuration' do
+        it 'returns :bad_request without creating a room' do
+          key = Rails.application.secrets.secret_key_base[1..32]
+          encrypted_params = encrypt_params({ room: valid_room_params }, key:, expires_in: 10.seconds)
+          expect { post :create_room, params: { v2: { encrypted_params: } } }.not_to change(Room, :count)
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+    end
+  end
+
   private
 
   def encrypt_params(params, key: nil, expires_at: nil, expires_in: nil, purpose: nil)

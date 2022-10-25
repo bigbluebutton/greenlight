@@ -61,6 +61,30 @@ module Api
           render_data status: :created
         end
 
+        # POST /api/v1/migrations/rooms.json
+        # Expects: { room: { :name, :friendly_id, :meeting_id, :last_session } }
+        # Returns: { data: Array[serializable objects] , errors: Array[String] }
+        # Does: Creates a room.
+        def create_room
+          room_hash = room_params.to_h
+
+          user = User.find_by(email: room_hash[:owner_email], provider: room_hash[:owner_provider])
+
+          return render_error status: :bad_request unless user
+
+          room = Room.new(room_hash.except(:owner_email, :owner_provider).merge({ user: }))
+
+          # Redefines the validations method to do nothing
+          # rubocop:disable Lint/EmptyBlock
+          room.define_singleton_method(:set_friendly_id) {}
+          room.define_singleton_method(:set_meeting_id) {}
+          # rubocop:enable Lint/EmptyBlock
+
+          return render_error status: :bad_request unless room.save
+
+          render_data status: :created
+        end
+
         private
 
         def role_params
@@ -69,6 +93,10 @@ module Api
 
         def user_params
           decrypted_params.require(:user).permit(:name, :email, :external_id, :language, :role)
+        end
+
+        def room_params
+          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, :owner_provider)
         end
 
         def decrypted_params
