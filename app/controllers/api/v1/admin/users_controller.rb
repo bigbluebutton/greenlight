@@ -4,14 +4,14 @@ module Api
   module V1
     module Admin
       class UsersController < ApiController
-        before_action only: %i[active_users] do
+        before_action only: %i[verified_users] do
           ensure_authorized('ManageUsers')
         end
 
-        def active_users
+        def verified_users
           sort_config = config_sorting(allowed_columns: %w[name roles.name])
 
-          # TODO: Change to get active users only
+          # TODO: Change to get verified users only
           users = User.includes(:role)
                       .with_provider(current_provider)
                       .with_attached_avatar

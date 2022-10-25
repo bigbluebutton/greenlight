@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import useActiveUsers from '../../../hooks/queries/admin/manage_users/useActiveUsers';
+import useVerifiedUsers from '../../../hooks/queries/admin/manage_users/useVerifiedUsers';
 import ManageUsersTable from './ManageUsersTable';
 import Pagination from '../../shared_components/Pagination';
 
-export default function ActiveUsers({ searchInput }) {
+export default function VerifiedUsers({ searchInput }) {
   const [page, setPage] = useState();
-  const { isLoading, data: activeUsers } = useActiveUsers(searchInput, page);
+  const { isLoading, data: verifiedUsers } = useVerifiedUsers(searchInput, page);
 
   return (
     <div>
-      <ManageUsersTable users={activeUsers?.data} />
+      <ManageUsersTable users={verifiedUsers?.data} />
       {!isLoading
         && (
           <div className="pagination-wrapper">
             <Pagination
-              page={activeUsers.meta.page}
-              totalPages={activeUsers.meta.pages}
+              page={verifiedUsers.meta.page}
+              totalPages={verifiedUsers.meta.pages}
               setPage={setPage}
             />
           </div>
@@ -25,10 +25,10 @@ export default function ActiveUsers({ searchInput }) {
   );
 }
 
-ActiveUsers.propTypes = {
+VerifiedUsers.propTypes = {
   searchInput: PropTypes.string,
 };
 
-ActiveUsers.defaultProps = {
+VerifiedUsers.defaultProps = {
   searchInput: '',
 };

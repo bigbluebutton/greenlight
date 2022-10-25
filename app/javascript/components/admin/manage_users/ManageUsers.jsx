@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { EnvelopeIcon, UserPlusIcon } from '@heroicons/react/24/outline';
-import ActiveUsers from './ActiveUsers';
+import VerifiedUsers from './VerifiedUsers';
 import AdminNavSideBar from '../AdminNavSideBar';
 import Modal from '../../shared_components/modals/Modal';
 import UserSignupForm from './forms/UserSignupForm';
@@ -65,7 +65,7 @@ export default function ManageUsers() {
                     </Stack>
                     <Tabs defaultActiveKey="active" unmountOnExit>
                       <Tab eventKey="active" title={t('admin.manage_users.active')}>
-                        <ActiveUsers input={searchInput} />
+                        <VerifiedUsers input={searchInput} />
                       </Tab>
                       <Tab eventKey="pending" title={t('admin.manage_users.pending')}>
                         Pending users component

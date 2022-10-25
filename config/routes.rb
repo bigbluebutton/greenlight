@@ -66,7 +66,7 @@ Rails.application.routes.draw do
       namespace :admin do
         resources :users do
           collection do
-            get '/active_users', to: 'users#active_users'
+            get '/verified_users', to: 'users#verified_users'
             post '/:user_id/create_server_room', to: 'users#create_server_room'
           end
         end
