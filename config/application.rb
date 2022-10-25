@@ -31,7 +31,6 @@ module Greenlight
 
     ActiveModelSerializers.config.adapter = :json
 
-    # TODO: Hadi - Need to discuss this...
     config.active_storage.variant_processor = :mini_magick
   end
 end

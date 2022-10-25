@@ -17,7 +17,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_uniqueness_of(:email).scoped_to(:provider).case_insensitive }
     it { is_expected.to validate_uniqueness_of(:reset_digest) }
-    it { is_expected.to validate_uniqueness_of(:activation_digest) }
+    it { is_expected.to validate_uniqueness_of(:verification_digest) }
     it { is_expected.to validate_presence_of(:password).on(:create) }
 
     it { is_expected.to validate_presence_of(:session_token) }
@@ -169,8 +169,8 @@ RSpec.describe User, type: :model do
         allow(SecureRandom).to receive(:alphanumeric).and_return token
 
         expect(user.generate_activation_token!).to eq(token)
-        expect(user.reload.activation_digest).to eq(described_class.generate_digest(token))
-        expect(user.activation_sent_at).to eq(Time.current)
+        expect(user.reload.verification_digest).to eq(described_class.generate_digest(token))
+        expect(user.verification_sent_at).to eq(Time.current)
       end
     end
 
@@ -185,27 +185,27 @@ RSpec.describe User, type: :model do
 
     describe '#invalidate_activation_token' do
       it 'removes the user activation token data and returns the record' do
-        user = create(:user, activation_digest: 'something', activation_sent_at: Time.current)
+        user = create(:user, verification_digest: 'something', verification_sent_at: Time.current)
 
         expect(user.invalidate_activation_token).to be(true)
-        expect(user.reload.activation_digest).to be_nil
-        expect(user.activation_sent_at).to be_nil
+        expect(user.reload.verification_digest).to be_nil
+        expect(user.verification_sent_at).to be_nil
       end
     end
 
-    describe '#activate!' do
+    describe '#verify!' do
       it 'activates the user' do
         user = create(:user)
-        user.activate!
-        expect(user).to be_active
+        user.verify!
+        expect(user).to be_verified
       end
     end
 
-    describe '#deactive!' do
+    describe '#deverify!' do
       it 'deactivates the user' do
         user = create(:user)
-        user.deactivate!
-        expect(user).not_to be_active
+        user.deverify!
+        expect(user).not_to be_verified
       end
     end
   end
@@ -283,7 +283,7 @@ RSpec.describe User, type: :model do
     describe '#verify_activation_token' do
       let(:period) { User::ACTIVATION_TOKEN_VALIDITY_PERIOD }
       let!(:user) do
-        create(:user, activation_digest: 'token_digest', activation_sent_at: Time.zone.at(1_655_290_260))
+        create(:user, verification_digest: 'token_digest', verification_sent_at: Time.zone.at(1_655_290_260))
       end
 
       before do
@@ -296,16 +296,16 @@ RSpec.describe User, type: :model do
         travel period
 
         expect(described_class.verify_activation_token('token')).to eq(user)
-        expect(user.reload.activation_digest).to be_present
-        expect(user.activation_sent_at).to be_present
+        expect(user.reload.verification_digest).to be_present
+        expect(user.verification_sent_at).to be_present
       end
 
       it 'does not return the user but reset its token if expired' do
         travel period + 1.second
 
         expect(described_class.verify_activation_token('token')).to be(false)
-        expect(user.reload.activation_digest).to be_blank
-        expect(user.activation_sent_at).to be_blank
+        expect(user.reload.verification_digest).to be_blank
+        expect(user.verification_sent_at).to be_blank
       end
 
       it 'return FALSE for inexistent tokens' do

@@ -20,6 +20,8 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
+  enum status: { active: 0, pending: 1, banned: 2 }
+
   validates :name, presence: true # TODO: amir - Change into full_name or seperate first and last name.
   validates :email,
             format: /\A[\w\-.]+@[\w\-.]+\.[a-z]+\z/i,
@@ -27,7 +29,7 @@ class User < ApplicationRecord
             uniqueness: { case_sensitive: false, scope: :provider }
 
   validates :provider, presence: true
-
+  validates :status, presence: true
   validates :password,
             presence: true,
             on: :create, unless: :external_id?
@@ -42,7 +44,7 @@ class User < ApplicationRecord
             size: { less_than: 3.megabytes }
 
   validates :reset_digest, uniqueness: true, if: :reset_digest?
-  validates :activation_digest, uniqueness: true, if: :activation_digest?
+  validates :verification_digest, uniqueness: true, if: :verification_digest?
   validates :session_token, presence: true, uniqueness: true
   validates :session_expiry, presence: true
 
@@ -126,11 +128,11 @@ class User < ApplicationRecord
     token = SecureRandom.alphanumeric(40)
     digest = User.generate_digest(token)
 
-    update! activation_digest: digest, activation_sent_at: Time.current
+    update! verification_digest: digest, verification_sent_at: Time.current
 
     token
   rescue ActiveRecord::RecordInvalid
-    raise unless errors.attribute_names.include? :activation_digest
+    raise unless errors.attribute_names.include? :verification_digest
 
     retry
   end
@@ -145,12 +147,12 @@ class User < ApplicationRecord
   def self.verify_activation_token(token)
     digest = generate_digest(token)
 
-    user = find_by activation_digest: digest
+    user = find_by verification_digest: digest
     return false unless user
 
-    return false unless user.activation_sent_at
+    return false unless user.verification_sent_at
 
-    expired = activation_token_expired?(user.activation_sent_at)
+    expired = activation_token_expired?(user.verification_sent_at)
 
     if expired
       user.invalidate_activation_token
@@ -166,15 +168,15 @@ class User < ApplicationRecord
   end
 
   def invalidate_activation_token
-    update activation_sent_at: nil, activation_digest: nil # Remove expired/valid tokens.
+    update verification_sent_at: nil, verification_digest: nil # Remove expired/valid tokens.
   end
 
-  def activate!
-    update! active: true
+  def verify!
+    update! verified: true
   end
 
-  def deactivate!
-    update! active: false
+  def deverify!
+    update! verified: false
   end
 
   def check_user_role_provider

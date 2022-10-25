@@ -69,9 +69,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
           post :create, params: user_params
           user = User.find_by email: user_params[:user][:email]
-          expect(user.activation_digest).to be_present
-          expect(user.activation_sent_at).to eq(Time.current)
-          expect(user).not_to be_active
+          expect(user.verification_digest).to be_present
+          expect(user.verification_sent_at).to eq(Time.current)
+          expect(user).not_to be_verified
         end
 
         it 'sends activation email to and signs in the created user' do

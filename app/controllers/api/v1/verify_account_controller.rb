@@ -40,7 +40,7 @@ module Api
         # TODO: optimise this.
         return render_error status: :internal_server_error unless user.invalidate_activation_token
 
-        user.activate!
+        user.verify!
 
         render_data status: :ok
       end
@@ -51,7 +51,7 @@ module Api
         return render_error status: :bad_request unless params[:user]
 
         @user = User.find_by email: params[:user][:email]
-        return render_data status: :ok unless @user && !@user.active?
+        return render_data status: :ok unless @user && !@user.verified?
 
         ensure_authorized('ManageUsers', user_id: @user.id)
       end

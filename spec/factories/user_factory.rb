@@ -9,6 +9,7 @@ FactoryBot.define do
     password { 'Password1!' }
     role
     last_login { nil }
+    status { 0 }
     language { %w[en fr es ar].sample }
 
     after(:create) do |user|
