@@ -40,7 +40,11 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = if ENV['AWS_ACCESS_KEY_ID'].present?
+                                    :amazon
+                                  else
+                                    :local
+                                  end
 
   if ENV['SMTP_SERVER'].present?
     config.action_mailer.perform_deliveries = true
