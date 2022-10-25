@@ -8,5 +8,9 @@ FactoryBot.define do
     visibility { 'Unlisted' }
     length { Faker::Number.within(range: 1..60) }
     participants { Faker::Number.within(range: 1..100) }
+
+    after(:create) do |recording|
+      create(:format, recording:)
+    end
   end
 end
