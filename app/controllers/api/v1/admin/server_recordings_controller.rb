@@ -20,7 +20,6 @@ module Api
                                 .with_provider(current_provider)
                                 .order(sort_config)
                                 &.search(params[:search])
-
           pagy, recordings = pagy(recordings)
 
           render_data data: recordings, meta: pagy_metadata(pagy), status: :ok
