@@ -11,8 +11,8 @@ RSpec.describe Api::V1::VerifyAccountController, type: :controller do
   end
 
   describe 'POST verify_account#create' do
-    let(:inactive_user) { create(:user, email: 'inactive@greenlight.com', active: false) }
-    let(:active_user) { create(:user, email: 'active@greenlight.com', active: true) }
+    let(:inactive_user) { create(:user, email: 'inactive@greenlight.com', verified: false) }
+    let(:active_user) { create(:user, email: 'active@greenlight.com', verified: true) }
 
     before do
       allow_any_instance_of(User).to receive(:generate_activation_token!).and_return('TOKEN')
@@ -122,8 +122,8 @@ RSpec.describe Api::V1::VerifyAccountController, type: :controller do
       post :activate, params: { user: valid_params }
       expect(response).to have_http_status(:ok)
       expect(user.reload).to be_active
-      expect(user.activation_digest).to be_blank
-      expect(user.activation_sent_at).to be_blank
+      expect(user.verification_digest).to be_blank
+      expect(user.verification_sent_at).to be_blank
     end
 
     it 'returns :forbidden for invalid token' do
@@ -140,7 +140,7 @@ RSpec.describe Api::V1::VerifyAccountController, type: :controller do
 
       post :activate, params: { user: valid_params }
       expect(response).to have_http_status(:internal_server_error)
-      expect(user.reload).not_to be_active
+      expect(user.reload).not_to be_verified
     end
 
     it 'returns :bad_request for missing params' do
