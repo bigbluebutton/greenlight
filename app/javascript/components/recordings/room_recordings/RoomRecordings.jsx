@@ -4,24 +4,24 @@ import {
 } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import useRoomRecordings from '../../../hooks/queries/recordings/useRoomRecordings';
-import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
+import SearchBar from '../../shared_components/search/SearchBar';
 import RecordingsList from '../RecordingsList';
 import useRoomRecordingsProcessing from '../../../hooks/queries/recordings/useRoomRecordingsProcessing';
 import RoomsRecordingRow from './RoomsRecordingRow';
 import Pagination from '../../shared_components/Pagination';
 
 export default function RoomRecordings() {
-  const [input, setInput] = useState('');
+  const [searchInput, setSearchInput] = useState('');
   const [page, setPage] = useState();
   const { friendlyId } = useParams();
-  const { isLoading, data: roomRecordings } = useRoomRecordings(friendlyId, input, page);
+  const { isLoading, data: roomRecordings } = useRoomRecordings(friendlyId, searchInput, page);
   const roomRecordingsProcessing = useRoomRecordingsProcessing(friendlyId);
 
   return (
     <>
       <Stack direction="horizontal" className="w-100 mt-3">
         <div>
-          <SearchBarQuery setInput={setInput} />
+          <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
       </Stack>
       <Card className="border-0 shadow-sm mt-4">

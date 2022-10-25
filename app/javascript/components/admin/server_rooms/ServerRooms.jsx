@@ -6,16 +6,16 @@ import {
 import { useTranslation } from 'react-i18next';
 import useServerRooms from '../../../hooks/queries/admin/server_rooms/useServerRooms';
 import ServerRoomRow from './ServerRoomRow';
-import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
+import SearchBar from '../../shared_components/search/SearchBar';
 import AdminNavSideBar from '../AdminNavSideBar';
 import Pagination from '../../shared_components/Pagination';
 import SortBy from '../../shared_components/search/SortBy';
 
 export default function ServerRooms() {
   const { t } = useTranslation();
-  const [input, setInput] = useState();
+  const [searchInput, setSearchInput] = useState();
   const [page, setPage] = useState();
-  const { isLoading, data: serverRooms } = useServerRooms(input, page);
+  const { isLoading, data: serverRooms } = useServerRooms(searchInput, page);
 
   return (
     <div id="admin-panel">
@@ -35,7 +35,7 @@ export default function ServerRooms() {
                     <h3> { t('admin.server_rooms.server_rooms') } </h3>
                   </div>
                   <div className="p-4">
-                    <SearchBarQuery setInput={setInput} />
+                    <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
                     <Table className="table-bordered border border-2 mt-4 mb-0" hover>
                       <thead>
                         <tr className="text-muted small">

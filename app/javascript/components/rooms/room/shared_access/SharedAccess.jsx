@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import Modal from '../../../shared_components/modals/Modal';
 import SharedAccessForm from './forms/SharedAccessForm';
 import Avatar from '../../../users/user/Avatar';
-import SearchBarQuery from '../../../shared_components/search/SearchBarQuery';
+import SearchBar from '../../../shared_components/search/SearchBar';
 import useDeleteSharedAccess from '../../../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
 import useSharedUsers from '../../../../hooks/queries/shared_accesses/useSharedUsers';
 import SharedAccessEmpty from './SharedAccessEmpty';
@@ -16,16 +16,16 @@ import SharedAccessEmpty from './SharedAccessEmpty';
 export default function SharedAccess() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
-  const [input, setInput] = useState();
-  const { data: sharedUsers } = useSharedUsers(friendlyId, input);
+  const [searchInput, setSearchInput] = useState();
+  const { data: sharedUsers } = useSharedUsers(friendlyId, searchInput);
   const deleteSharedAccess = useDeleteSharedAccess(friendlyId);
 
-  if (sharedUsers?.length || input) {
+  if (sharedUsers?.length || searchInput) {
     return (
       <div id="shared-access-list">
         <Stack direction="horizontal" className="w-100 mt-3">
           <div>
-            <SearchBarQuery setInput={setInput} />
+            <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
           </div>
           <Modal
             modalButton={<Button variant="brand-outline" className="ms-auto">{ t('room.shared_access.add_share_access')}</Button>}

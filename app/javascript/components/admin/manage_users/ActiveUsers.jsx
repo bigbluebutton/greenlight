@@ -4,9 +4,9 @@ import useActiveUsers from '../../../hooks/queries/admin/manage_users/useActiveU
 import ManageUsersTable from './ManageUsersTable';
 import Pagination from '../../shared_components/Pagination';
 
-export default function ActiveUsers({ input }) {
+export default function ActiveUsers({ searchInput }) {
   const [page, setPage] = useState();
-  const { isLoading, data: activeUsers } = useActiveUsers(input, page);
+  const { isLoading, data: activeUsers } = useActiveUsers(searchInput, page);
 
   return (
     <div>
@@ -26,9 +26,9 @@ export default function ActiveUsers({ input }) {
 }
 
 ActiveUsers.propTypes = {
-  input: PropTypes.string,
+  searchInput: PropTypes.string,
 };
 
 ActiveUsers.defaultProps = {
-  input: '',
+  searchInput: '',
 };

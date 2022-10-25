@@ -5,14 +5,14 @@ import {
 import { useTranslation } from 'react-i18next';
 import AdminNavSideBar from '../AdminNavSideBar';
 import RolesList from './RolesList';
-import SearchBarQuery from '../../shared_components/search/SearchBarQuery';
+import SearchBar from '../../shared_components/search/SearchBar';
 import useRoles from '../../../hooks/queries/admin/roles/useRoles';
 import CreateRoleModal from '../../shared_components/modals/CreateRoleModal';
 
 export default function Roles() {
   const { t } = useTranslation();
-  const [input, setInput] = useState();
-  const { data: roles, isLoading } = useRoles(input);
+  const [searchInput, setSearchInput] = useState();
+  const { data: roles, isLoading } = useRoles(searchInput);
 
   return (
     <div id="admin-panel">
@@ -34,7 +34,7 @@ export default function Roles() {
                   <div className="p-4">
                     <Stack direction="horizontal" className="mb-4">
                       <div>
-                        <SearchBarQuery setInput={setInput} />
+                        <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
                       </div>
                       <CreateRoleModal />
                     </Stack>
