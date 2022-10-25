@@ -12,7 +12,10 @@ module Api
         def index
           sort_config = config_sorting(allowed_columns: %w[email])
 
-          render_data data: Invitation.where(provider: current_provider)&.order(sort_config, updated_at: :desc)&.search(params[:search]), status: :ok
+          invitations = Invitation.where(provider: current_provider)&.order(sort_config, updated_at: :desc)&.search(params[:search])
+          pagy, invitations = pagy(invitations)
+
+          render_data data: invitations, meta: pagy_metadata(pagy), status: :ok
         end
 
         # POST /api/v1/admin/invitations

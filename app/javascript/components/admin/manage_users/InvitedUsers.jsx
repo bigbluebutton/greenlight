@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import SortBy from '../../shared_components/search/SortBy';
 import useInvitations from '../../../hooks/queries/admin/manage_users/useInvitations';
+import Pagination from '../../shared_components/Pagination';
 
 export default function InvitedUsers({ searchInput }) {
   const { t } = useTranslation();
@@ -43,6 +44,13 @@ export default function InvitedUsers({ searchInput }) {
             )}
         </tbody>
       </Table>
+      <div className="pagination-wrapper">
+        <Pagination
+          page={invitations?.meta?.page}
+          totalPages={invitations?.meta?.pages}
+          setPage={setPage}
+        />
+      </div>
     </div>
   );
 }
