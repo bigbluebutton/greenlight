@@ -4,8 +4,15 @@ module Api
   module V1
     module Admin
       class InvitationsController < ApiController
-        before_action only: %i[create] do
+        before_action only: %i[index create] do
           ensure_authorized('ManageUsers')
+        end
+
+        # GET /api/v1/admin/invitations
+        def index
+          sort_config = config_sorting(allowed_columns: %w[email])
+
+          render_data data: Invitation.where(provider: current_provider)&.order(sort_config, updated_at: :desc)&.search(params[:search]), status: :ok
         end
 
         # POST /api/v1/admin/invitations

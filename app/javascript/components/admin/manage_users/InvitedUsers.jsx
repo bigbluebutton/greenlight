@@ -1,0 +1,56 @@
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Table } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { CheckIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import SortBy from '../../shared_components/search/SortBy';
+import useInvitations from '../../../hooks/queries/admin/manage_users/useInvitations';
+
+export default function InvitedUsers({ searchInput }) {
+  const { t } = useTranslation();
+  const [page, setPage] = useState();
+  const { data: invitations } = useInvitations(searchInput, page);
+
+  return (
+    <div id="admin-table">
+      <Table className="table-bordered border border-2 mb-0" hover>
+        <thead>
+          <tr className="text-muted small">
+            <th className="fw-normal border-end-0">{ t('user.email_address') }<SortBy fieldName="email" /></th>
+            <th className="fw-normal border-0">{ t('admin.manage_users.invited.time_sent') }</th>
+            <th className="fw-normal border-0">{ t('admin.manage_users.invited.valid') }</th>
+          </tr>
+        </thead>
+        <tbody className="border-top-0">
+          {invitations?.data?.length
+            ? (
+              invitations?.data?.map((invitation) => (
+                <tr key={invitation.email} className="align-middle text-muted">
+                  <td className="text-dark border-0">{invitation.email}</td>
+                  <td className="text-dark border-0">{invitation.updated_at}</td>
+                  <td className="text-dark border-0">
+                    { invitation.valid ? <CheckIcon className="text-success hi-s" /> : <XMarkIcon className="text-danger hi-s" />}
+                  </td>
+                </tr>
+              ))
+            )
+            : (
+              <tr>
+                <td className="fw-bold">
+                  { t('user.no_user_found') }
+                </td>
+              </tr>
+            )}
+        </tbody>
+      </Table>
+    </div>
+  );
+}
+
+InvitedUsers.propTypes = {
+  searchInput: PropTypes.string,
+};
+
+InvitedUsers.defaultProps = {
+  searchInput: '',
+};

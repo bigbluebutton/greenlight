@@ -77,7 +77,7 @@ Rails.application.routes.draw do
         resources :site_settings, only: %i[index update], param: :name
         resources :rooms_configurations, only: :update, param: :name
         resources :roles
-        resources :invitations, only: :create
+        resources :invitations, only: %i[index create]
         # TODO: Review update route
         resources :role_permissions, only: [:index] do
           collection do
