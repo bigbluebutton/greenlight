@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
 import axios from '../../../../helpers/Axios';
 
-export default function useActiveUsers(input, page) {
+export default function useVerifiedUsers(input, page) {
   const [searchParams] = useSearchParams();
 
   const params = {
@@ -14,7 +14,7 @@ export default function useActiveUsers(input, page) {
 
   return useQuery(
     ['getAdminUsers', { ...params }],
-    () => axios.get('/admin/users/active_users.json', { params }).then((resp) => resp.data),
+    () => axios.get('/admin/users/verified_users.json', { params }).then((resp) => resp.data),
     {
       keepPreviousData: true,
     },
