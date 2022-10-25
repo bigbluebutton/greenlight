@@ -74,11 +74,12 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task :rooms, [] => :environment do |_task, _args|
+  task :rooms, [:start, :stop] => :environment do |_task, _args|
+    start, stop = range(args)
     has_encountred_issue = 0
 
     Room.select(:uid, :name, :bbb_id, :last_session, :user_id)
-        .find_each(batch_size: COMMON[:batch_size]).each do |r|
+        .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]).each do |r|
           params = { room: { friendly_id: r.uid,
                              name: r.name,
                              meeting_id: r.bbb_id,
