@@ -59,7 +59,7 @@ export default function Room() {
             {startMeeting.isLoading && <Spinner />}
           </Button>
           <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={copyInvite}>
-            <Square2StackIcon className="hi-xs" />
+            <Square2StackIcon className="hi-s me-1" />
             { t('copy') }
           </Button>
         </Col>

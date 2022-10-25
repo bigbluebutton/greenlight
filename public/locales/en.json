@@ -157,8 +157,11 @@
       "pending": "Pending",
       "banned": "Banned",
       "deleted": "Deleted",
+      "invited": "Invited",
+      "invite_user": "Invite User",
+      "send_invitation": "Send Invitation",
       "new_user": "New User",
-      "add_new_user": "+ New User",
+      "add_new_user": "New User",
       "create_new_user": "Create New User",
       "edit_user": "Edit User",
       "delete_user": "Delete User",
@@ -322,6 +325,9 @@
         "role_updated": "Role updated.",
         "role_deleted": "Role deleted.",
         "role_permission_updated": "Role permission updated."
+      },
+      "invitations": {
+        "invitation_sent": "Invitation sent"
       }
     },
     "error": {

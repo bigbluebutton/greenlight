@@ -23,5 +23,12 @@ class UserMailer < ApplicationMailer
 
     mail(to: email_address_with_name(@user.email, @user.name), subject: 'Account Activation')
   end
+
+  def invitation_email
+    @name = params[:name]
+    @signup_url = params[:signup_url]
+
+    mail(to: @email, subject: 'Invitation to join BigBlueButton')
+  end
   # rubocop:enable Rails/I18nLocaleTexts
 end
