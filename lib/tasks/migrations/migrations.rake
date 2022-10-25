@@ -74,7 +74,7 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task :rooms, [:start, :stop] => :environment do |_task, _args|
+  task :rooms, [:start, :stop] => :environment do |_task, args|
     start, stop = range(args)
     has_encountred_issue = 0
 
