@@ -9,8 +9,9 @@ import ActiveUsers from './ActiveUsers';
 import AdminNavSideBar from '../AdminNavSideBar';
 import Modal from '../../shared_components/modals/Modal';
 import UserSignupForm from './forms/UserSignupForm';
-import useSiteSetting from "../../../hooks/queries/site_settings/useSiteSetting";
+import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
 import SearchBar from '../../shared_components/search/SearchBar';
+import InviteUserForm from './forms/InviteUserForm';
 
 export default function ManageUsers() {
   const { t } = useTranslation();
