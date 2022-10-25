@@ -94,11 +94,6 @@ input.search-bar {
   background-color: var(--brand-color-light);
 }
 
-//Heroicons
-.hi-xs {
-  width: 18px;
-}
-
 //default Heroicon width
 .hi-xs {
   width:16px;
@@ -106,6 +101,7 @@ input.search-bar {
 
 .hi-s {
   width: 24px;
+  padding-bottom: 1px;
 }
 
 .hi-m {

@@ -4,15 +4,19 @@ import {
   Row, Col, Tab, Tabs, Stack, Button, Container,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { EnvelopeIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import ActiveUsers from './ActiveUsers';
 import AdminNavSideBar from '../AdminNavSideBar';
 import Modal from '../../shared_components/modals/Modal';
 import UserSignupForm from './forms/UserSignupForm';
+import useSiteSetting from "../../../hooks/queries/site_settings/useSiteSetting";
 import SearchBar from '../../shared_components/search/SearchBar';
 
 export default function ManageUsers() {
   const { t } = useTranslation();
   const [searchInput, setSearchInput] = useState();
+  const { data: registrationMethod } = useSiteSetting('RegistrationMethod');
+
   return (
     <div id="admin-panel">
       <h3 className="py-5">{ t('admin.admin_panel') }</h3>
@@ -33,12 +37,30 @@ export default function ManageUsers() {
                   <div className="p-4">
                     <Stack direction="horizontal" className="mb-4">
                       <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
-                      <Modal
-                        modalButton={<Button variant="brand" className="ms-auto btn">{ t('admin.manage_users.add_new_user') }</Button>}
-                        title={t('admin.manage_users.create_new_user')}
-                        body={<UserSignupForm />}
-                        size="lg"
-                      />
+                      <div className="ms-auto">
+                        { registrationMethod
+                          && (
+                          <Modal
+                            modalButton={(
+                              <Button variant="brand" className="me-3">
+                                <EnvelopeIcon className="hi-s me-1" />{ t('admin.manage_users.invite_user') }
+                              </Button>
+                            )}
+                            title={t('admin.manage_users.invite_user')}
+                            body={<InviteUserForm />}
+                            size="md"
+                          />
+                          )}
+                        <Modal
+                          modalButton={
+                            <Button variant="brand"><UserPlusIcon className="hi-s me-1" /> { t('admin.manage_users.add_new_user') }</Button>
+                          }
+                          title={t('admin.manage_users.create_new_user')}
+                          body={<UserSignupForm />}
+                          size="lg"
+                        />
+
+                      </div>
                     </Stack>
                     <Tabs defaultActiveKey="active" unmountOnExit>
                       <Tab eventKey="active" title={t('admin.manage_users.active')}>
@@ -53,6 +75,12 @@ export default function ManageUsers() {
                       <Tab eventKey="deleted" title={t('admin.manage_users.deleted')}>
                         Deleted users component
                       </Tab>
+                      { registrationMethod
+                        && (
+                        <Tab eventKey="invited" title={t('admin.manage_users.invited')}>
+                          Invited users component
+                        </Tab>
+                        )}
                     </Tabs>
                   </div>
                 </Container>
