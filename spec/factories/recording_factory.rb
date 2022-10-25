@@ -5,7 +5,7 @@ FactoryBot.define do
     room
     name { Faker::Educator.course_name }
     record_id { Faker::Internet.uuid }
-    visibility { 'Unlisted' }
+    visibility { 'Unpublished' }
     length { Faker::Number.within(range: 1..60) }
     participants { Faker::Number.within(range: 1..100) }
 

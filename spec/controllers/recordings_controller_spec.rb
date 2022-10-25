@@ -44,6 +44,34 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       expect(response_recording_ids).to match_array(recordings.pluck(:id))
     end
 
+    it 'returns all the recordings since they all have presentation format' do
+      recordings = create_list(:recording, 5) do |recording|
+        recording.name = "Greenlight #{rand(100 - 999)}"
+      end
+
+      create(:room, user:, recordings:)
+
+      create_list(:recording, 10)
+
+      get :index, params: { search: 'presentation' }
+      response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      expect(response_recording_ids).to match_array(recordings.pluck(:id))
+    end
+
+    it 'returns all the recordings since they all have unpublished visibility' do
+      recordings = create_list(:recording, 5) do |recording|
+        recording.name = "Greenlight #{rand(100 - 999)}"
+      end
+
+      create(:room, user:, recordings:)
+
+      create_list(:recording, 10)
+
+      get :index, params: { search: 'unpublished' }
+      response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      expect(response_recording_ids).to match_array(recordings.pluck(:id))
+    end
+
     it 'returns all recordings if the search bar is empty' do
       recordings = create_list(:recording, 5)
       create(:room, user:, recordings:)
