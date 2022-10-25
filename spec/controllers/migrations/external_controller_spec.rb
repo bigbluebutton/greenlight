@@ -36,6 +36,16 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
           expect(response).to have_http_status(:bad_request)
         end
       end
+
+      describe 'when role was created' do
+        let(:role) { create(:role, provider: 'greenlight', name: 'OnlyOne') }
+
+        it 'returns :created without creating a role' do
+          encrypted_params = encrypt_params({ role: { name: role.name } }, expires_in: 10.seconds)
+          expect { post :create_role, params: { v2: { encrypted_params: } } }.not_to change(Role, :count)
+          expect(response).to have_http_status(:created)
+        end
+      end
     end
 
     context 'when decryption failes' do
@@ -84,13 +94,13 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
   end
 
   describe '#create_user' do
+    let(:valid_user_role) { create(:role, provider: 'greenlight') }
     let(:valid_user_params) do
-      role = create(:role, provider: 'greenlight')
       {
         name: 'user',
         email: 'user@users.com',
         language: 'language',
-        role: role.name
+        role: valid_user_role.name
       }
     end
 
@@ -121,7 +131,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
             expect(user.name).to eq(valid_user_params[:name])
             expect(user.email).to eq(valid_user_params[:email])
             expect(user.language).to eq(valid_user_params[:language])
-            expect(user.role.name).to eq(valid_user_params[:role])
+            expect(user.role).to eq(valid_user_role)
             expect(user.session_token).to be_present
             expect(user.provider).to eq('greenlight')
             expect(response).to have_http_status(:created)
@@ -144,7 +154,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
             expect(user.name).to eq(valid_user_params[:name])
             expect(user.email).to eq(valid_user_params[:email])
             expect(user.language).to eq(valid_user_params[:language])
-            expect(user.role.name).to eq(valid_user_params[:role])
+            expect(user.role).to eq(valid_user_role)
             expect(user.session_token).to be_present
             expect(user.provider).to eq('greenlight')
             expect(response).to have_http_status(:created)
@@ -165,7 +175,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
               expect(user.name).to eq(valid_user_params[:name])
               expect(user.email).to eq(valid_user_params[:email])
               expect(user.language).to eq(I18n.default_locale.to_s)
-              expect(user.role.name).to eq(valid_user_params[:role])
+              expect(user.role).to eq(valid_user_role)
               expect(user.session_token).to be_present
               expect(user.provider).to eq('greenlight')
               expect(response).to have_http_status(:created)
@@ -183,7 +193,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
               expect(user.name).to eq(valid_user_params[:name])
               expect(user.email).to eq(valid_user_params[:email])
               expect(user.language).to eq(I18n.default_locale.to_s)
-              expect(user.role.name).to eq(valid_user_params[:role])
+              expect(user.role).to eq(valid_user_role)
               expect(user.session_token).to be_present
               expect(user.provider).to eq('greenlight')
               expect(response).to have_http_status(:created)
@@ -202,7 +212,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
             expect(user.name).to eq(valid_user_params[:name])
             expect(user.email).to eq(valid_user_params[:email])
             expect(user.language).to eq(valid_user_params[:language])
-            expect(user.role.name).to eq(valid_user_params[:role])
+            expect(user.role).to eq(valid_user_role)
             expect(user.session_token).to be_present
             expect(user.provider).to eq('greenlight')
             expect(response).to have_http_status(:created)
@@ -274,6 +284,20 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
               end
             end
           end
+        end
+      end
+
+      describe 'when user was created' do
+        let!(:user) { create(:user, valid_user_params.merge(role: valid_user_role)) }
+
+        it 'returns :created without creating a user' do
+          encrypted_params = encrypt_params({ user: valid_user_params }, expires_in: 10.seconds)
+
+          expect_any_instance_of(described_class).not_to receive(:generate_secure_pwd).and_call_original
+          expect { post :create_user, params: { v2: { encrypted_params: } } }.not_to change(User, :count)
+          expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+
+          expect(response).to have_http_status(:created)
         end
       end
     end
