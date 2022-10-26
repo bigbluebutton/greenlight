@@ -31,6 +31,12 @@ class Room < ApplicationRecord
     all
   end
 
+  def self.admin_search(input)
+    return where('rooms.name ILIKE :input OR users.name ILIKE :input OR rooms.friendly_id ILIKE :input', input: "%#{input}%") if input
+
+    all
+  end
+
   def anyone_joins_as_moderator?
     MeetingOption.get_setting_value(name: 'glAnyoneJoinAsModerator', room_id: id)&.value == 'true'
   end

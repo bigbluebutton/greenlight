@@ -14,7 +14,9 @@ module Api
         def index
           sort_config = config_sorting(allowed_columns: %w[name user.name])
 
-          rooms = Room.includes(:user).with_provider(current_provider).order(sort_config, online: :desc)&.search(params[:search])
+          # rooms = Room.joins(:user).includes(:user).order(sort_config, online: :desc)&.admin_search(params[:search])
+          rooms = Room.includes(:user).joins(:user).where(users: { provider: current_provider }).order(sort_config,
+                                                                                                       online: :desc)&.admin_search(params[:search])
 
           online_server_rooms(rooms)
 
