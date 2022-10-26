@@ -74,7 +74,7 @@ module Api
         def create_room
           room_hash = room_params.to_h
 
-          user = User.find_by(email: room_hash[:owner_email], provider: room_hash[:owner_provider])
+          user = User.find_by(email: room_hash[:owner_email], provider: 'greenlight')
 
           return render_error status: :bad_request unless user
 
@@ -102,7 +102,7 @@ module Api
         end
 
         def room_params
-          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, :owner_provider)
+          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email)
         end
 
         def decrypted_params
