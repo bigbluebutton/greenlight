@@ -65,7 +65,7 @@ export default function ManageUsers() {
                     </Stack>
                     <Tabs defaultActiveKey="active" unmountOnExit>
                       <Tab eventKey="active" title={t('admin.manage_users.active')}>
-                        <VerifiedUsers input={searchInput} />
+                        <VerifiedUsers searchInput={searchInput} />
                       </Tab>
                       <Tab eventKey="pending" title={t('admin.manage_users.pending')}>
                         Pending users component
