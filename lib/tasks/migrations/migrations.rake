@@ -78,14 +78,14 @@ namespace :migrations do
     start, stop = range(args)
     has_encountred_issue = 0
 
-    Room.select(:uid, :name, :bbb_id, :last_session, :user_id)
+    Room.select(:id, :uid, :name, :bbb_id, :last_session, :user_id)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]).each do |r|
           params = { room: { friendly_id: r.uid,
                              name: r.name,
                              meeting_id: r.bbb_id,
                              last_session: r.last_session.to_datetime,
-                             owner_email: r.user.email,
-                             owner_provider: r.user.provider } }
+                             owner_email: r.owner.email,
+                             owner_provider: r.owner.provider } }
           response = Net::HTTP.post(uri('rooms'), payload(params), COMMON[:headers])
 
           case response
