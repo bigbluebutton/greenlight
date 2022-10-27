@@ -7,7 +7,7 @@ ruby '>= 3.0'
 
 gem 'active_model_serializers'
 gem 'active_storage_validations'
-gem "aws-sdk-s3", require: false
+gem 'aws-sdk-s3', require: false
 gem 'bcrypt', '~> 3.1.7'
 gem 'bigbluebutton-api-ruby', '1.8'
 gem 'bootsnap', require: false
