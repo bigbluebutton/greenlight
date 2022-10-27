@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    name: Rubocop + RSpec + ESLint + Jest
+    name: Rubocop + RSpec + ESLint
     runs-on: ubuntu-20.04
 
     services:
@@ -66,6 +66,3 @@ jobs:
 
       - name: Run ESLint
         run: npx eslint app/javascript/* --ext .js,.jsx
-
-      - name: Run Jest
-        run: npx jest --passWithNoTests -u
