@@ -13,6 +13,7 @@ import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting'
 import SearchBar from '../../shared_components/search/SearchBar';
 import InviteUserForm from './forms/InviteUserForm';
 import InvitedUsers from './InvitedUsers';
+import PendingUsers from './PendingUsers';
 
 export default function ManageUsers() {
   const { t } = useTranslation();
@@ -40,7 +41,7 @@ export default function ManageUsers() {
                     <Stack direction="horizontal" className="mb-4">
                       <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
                       <div className="ms-auto">
-                        { registrationMethod
+                        { registrationMethod === 'invite'
                           && (
                           <Modal
                             modalButton={(
@@ -68,16 +69,19 @@ export default function ManageUsers() {
                       <Tab eventKey="active" title={t('admin.manage_users.active')}>
                         <VerifiedUsers searchInput={searchInput} />
                       </Tab>
-                      <Tab eventKey="pending" title={t('admin.manage_users.pending')}>
-                        Pending users component
-                      </Tab>
+                      { registrationMethod === 'approval'
+                        && (
+                          <Tab eventKey="pending" title={t('admin.manage_users.pending')}>
+                            <PendingUsers searchInput={searchInput} />
+                          </Tab>
+                        )}
                       <Tab eventKey="banned" title={t('admin.manage_users.banned')}>
                         Banned users component
                       </Tab>
                       <Tab eventKey="deleted" title={t('admin.manage_users.deleted')}>
                         Deleted users component
                       </Tab>
-                      { registrationMethod
+                      { registrationMethod === 'invite'
                         && (
                         <Tab eventKey="invited" title={t('admin.manage_users.invited_tab')}>
                           <InvitedUsers input={searchInput} />
