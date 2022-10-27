@@ -14,6 +14,7 @@ import SearchBar from '../../shared_components/search/SearchBar';
 import InviteUserForm from './forms/InviteUserForm';
 import InvitedUsers from './InvitedUsers';
 import PendingUsers from './PendingUsers';
+import BannedUsers from './BannedUsers';
 
 export default function ManageUsers() {
   const { t } = useTranslation();
@@ -76,7 +77,7 @@ export default function ManageUsers() {
                           </Tab>
                         )}
                       <Tab eventKey="banned" title={t('admin.manage_users.banned')}>
-                        Banned users component
+                        <BannedUsers searchInput={searchInput} />
                       </Tab>
                       <Tab eventKey="deleted" title={t('admin.manage_users.deleted')}>
                         Deleted users component
