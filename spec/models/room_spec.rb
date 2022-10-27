@@ -11,6 +11,8 @@ RSpec.describe Room, type: :model do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to have_many(:recordings).dependent(:destroy) }
     it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_length_of(:name).is_at_least(2) }
+    it { is_expected.to validate_length_of(:name).is_at_most(255) }
     # Can't test validation on friendly_id and meeting_id due to before_validations
 
     context 'presentation validations' do
