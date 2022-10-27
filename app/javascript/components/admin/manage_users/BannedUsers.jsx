@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import ManageUsersTable from './ManageUsersTable';
 import Pagination from '../../shared_components/Pagination';
 import useBannedUsers from '../../../hooks/queries/admin/manage_users/useBannedUsers';
+import BannedPendingUsersTable from './BannedPendingUsersTable';
 
 export default function BannedUsers({ searchInput }) {
   const [page, setPage] = useState();
@@ -10,7 +10,7 @@ export default function BannedUsers({ searchInput }) {
 
   return (
     <div>
-      <ManageUsersTable users={bannedUsers?.data} />
+      <BannedPendingUsersTable users={bannedUsers?.data} />
       {!isLoading
         && (
           <div className="pagination-wrapper">
