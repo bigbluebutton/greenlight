@@ -55,7 +55,7 @@ class User < ApplicationRecord
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
 
   def self.search(input)
-    return where('users.name ILIKE ?', "%#{input}%") if input
+    return joins(:role).where('users.name ILIKE :input OR users.email ILIKE :input OR roles.name ILIKE :input', input: "%#{input}%") if input
 
     all
   end
