@@ -83,9 +83,8 @@ namespace :migrations do
           params = { room: { friendly_id: r.uid,
                              name: r.name,
                              meeting_id: r.bbb_id,
-                             last_session: r.last_session.to_datetime,
-                             owner_email: r.owner.email,
-                             owner_provider: r.owner.provider } }
+                             last_session: r.last_session&.to_datetime,
+                             owner_email: r.owner.email } }
           response = Net::HTTP.post(uri('rooms'), payload(params), COMMON[:headers])
 
           case response
