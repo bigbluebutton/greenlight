@@ -4,6 +4,6 @@ class InvitationSerializer < ApplicationSerializer
   attributes :email, :updated_at, :valid
 
   def valid
-    Time.zone.now.between?(object.updated_at, object.updated_at + 48.hours)
+    object.updated_at.in(Invitation::INVITATION_VALIDITY_PERIOD)
   end
 end
