@@ -12,6 +12,7 @@ import UserSignupForm from './forms/UserSignupForm';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
 import SearchBar from '../../shared_components/search/SearchBar';
 import InviteUserForm from './forms/InviteUserForm';
+import InvitedUsers from './InvitedUsers';
 
 export default function ManageUsers() {
   const { t } = useTranslation();
@@ -78,8 +79,8 @@ export default function ManageUsers() {
                       </Tab>
                       { registrationMethod
                         && (
-                        <Tab eventKey="invited" title={t('admin.manage_users.invited')}>
-                          Invited users component
+                        <Tab eventKey="invited" title={t('admin.manage_users.invited_tab')}>
+                          <InvitedUsers input={searchInput} />
                         </Tab>
                         )}
                     </Tabs>

@@ -12,6 +12,46 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
     sign_in_user(user_with_manage_users_permission)
   end
 
+  describe 'invitation#index' do
+    it 'returns the list of invitations' do
+      invitations = [
+        create(:invitation, email: 'user@test.com'),
+        create(:invitation, email: 'user2@test.com'),
+        create(:invitation, email: 'user3@test.com')
+      ]
+
+      get :index
+
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)['data'].pluck('email')).to match_array(invitations.pluck(:email))
+    end
+
+    it 'returns the invitations according to the query' do
+      invitations = [
+        create(:invitation, email: 'user@test.com'),
+        create(:invitation, email: 'user2@test.com')
+      ]
+
+      create(:invitation, email: 'user3@not.com')
+
+      get :index, params: { search: 'test.com' }
+
+      expect(JSON.parse(response.body)['data'].pluck('email')).to match_array(invitations.pluck(:email))
+    end
+
+    context 'user without ManageUsers permission' do
+      before do
+        sign_in_user(user)
+      end
+
+      it 'returns :forbidden for user without ManageUsers permission' do
+        valid_params = { emails: 'user@test.com,user2@test.com,user3@test.com' }
+        expect { post :create, params: { invitations: valid_params } }.not_to change(Role, :count)
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
+
   describe 'invitation#create' do
     it 'returns :ok and creates the invitations' do
       valid_params = { emails: 'user@test.com,user2@test.com,user3@test.com' }
