@@ -13,7 +13,7 @@ export default function useUpdateUser(userId) {
       onSuccess: () => {
         queryClient.invalidateQueries('useSessions');
         queryClient.invalidateQueries(['getUser', userId.toString()]);
-        toast.success(t('toast.success.user_updated'));
+        toast.success(t('toast.success.user.user_updated'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));
