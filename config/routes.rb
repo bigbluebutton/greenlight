@@ -64,9 +64,10 @@ Rails.application.routes.draw do
       resources :rooms_configurations, only: :index
 
       namespace :admin do
-        resources :users do
+        resources :users, only: %i[update] do
           collection do
             get '/verified_users', to: 'users#verified_users'
+            get '/pending', to: 'users#pending'
             post '/:user_id/create_server_room', to: 'users#create_server_room'
           end
         end

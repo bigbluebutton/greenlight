@@ -35,6 +35,9 @@ module Api
         # TODO: Add proper error logging for non-verified token hcaptcha
         return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
+        # Set to pending if registration method is approval
+        user.pending! if !current_user && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
+
         if user.save
           # Delete invitation (ignore whether it exists or not)
           if registration_method == SiteSetting::REGISTRATION_METHODS[:invite]
