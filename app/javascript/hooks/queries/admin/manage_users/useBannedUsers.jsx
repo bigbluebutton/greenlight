@@ -8,7 +8,7 @@ export default function useBannedUsers(input, page) {
   };
 
   return useQuery(
-    ['getAdminBannedUsers', { ...params }],
+    ['getBannedUsers', { ...params }],
     () => axios.get('/admin/users/banned_users.json', { params }).then((resp) => resp.data),
     {
       keepPreviousData: true,

@@ -8,7 +8,6 @@ import Avatar from '../../users/user/Avatar';
 
 export default function BannedPendingRow({ user, children }) {
   const { t } = useTranslation();
-
   return (
     <tr key={user.id} className="align-middle text-muted">
       <td className="text-dark border-end-0">

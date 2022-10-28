@@ -10,7 +10,7 @@ export default function BannedUsers({ searchInput }) {
 
   return (
     <div>
-      <BannedPendingUsersTable users={bannedUsers?.data} />
+      <BannedPendingUsersTable users={bannedUsers?.data} pendingTable={false} />
       {!isLoading
         && (
           <div className="pagination-wrapper">
