@@ -38,13 +38,11 @@ namespace :migrations do
 
   task :users, [:start, :stop] => :environment do |_task, args|
     start, stop = range(args)
-
     has_encountred_issue = 0
-    filtered_roles_names = Role::RESERVED_ROLE_NAMES - %w[admin user]
 
     User.select(:id, :uid, :name, :email, :social_uid, :language, :role_id)
         .joins(:role)
-        .where.not(roles: { name: filtered_roles_names }, deleted: true)
+        .where.not(roles: { name: %w[super_admin pending denied] }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |u|
           role_name = infer_role_name(u.role.name)
           params = { user: { name: u.name, email: u.email, external_id: u.social_uid, language: u.language, role: role_name } }
@@ -76,14 +74,13 @@ namespace :migrations do
 
   task :rooms, [:start, :stop] => :environment do |_task, args|
     start, stop = range(args)
-
     has_encountred_issue = 0
-    filtered_roles_names = Role::RESERVED_ROLE_NAMES - %w[admin user]
-    filtered_roles_ids = Role.where(name: filtered_roles_names).pluck(:id).uniq
+
+    filtered_roles_ids = Role.where(name: %w[super_admin pending denied]).pluck(:id).uniq
 
     Room.select(:id, :uid, :name, :bbb_id, :last_session, :user_id)
         .joins(:owner)
-        .where.not(users: { role_id: filtered_roles_ids })
+        .where.not(users: { role_id: filtered_roles_ids, deleted: true })
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
           params = { room: { friendly_id: r.uid,
                              name: r.name,
