@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
 import BannedPendingRow from './BannedPendingRow';
-import SortBy from '../../shared_components/search/SortBy';
 
 export default function BannedPendingUsersTable({ users }) {
   const { t } = useTranslation();
@@ -14,8 +13,8 @@ export default function BannedPendingUsersTable({ users }) {
       <Table className="table-bordered border border-2 mb-0" hover>
         <thead>
           <tr className="text-muted small">
-            <th className="fw-normal border-end-0">{ t('user.name') }<SortBy fieldName="name" /></th>
-            <th className="fw-normal border-0">{ t('user.email_address') }</th>
+            <th className="fw-normal border-end-0">{ t('user.name') } </th>
+            <th className="fw-normal border-0">{ t('user.email_address') } </th>
             <th className="fw-normal border-0">{ t('created_at') } </th>
           </tr>
         </thead>

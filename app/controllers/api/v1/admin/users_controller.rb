@@ -24,13 +24,12 @@ module Api
         end
 
         def banned_users
-          sort_config = config_sorting(allowed_columns: %w[name roles.name])
           # getting all the users who have a banned status
           users = User.includes(:role)
                       .with_provider(current_provider)
                       .with_attached_avatar
                       .where(status: :banned)
-                      .order(sort_config, created_at: :desc)&.search(params[:search])
+                      .order(created_at: :desc)&.search(params[:search])
 
           pagy, users = pagy(users)
 
