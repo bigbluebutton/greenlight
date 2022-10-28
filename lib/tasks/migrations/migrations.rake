@@ -4,7 +4,7 @@ namespace :migrations do
   DEFAULT_ROLES_MAP = { "admin" => "Administrator", "user" => "User" }.freeze
   COMMON = {
     headers: { "Content-Type" => "application/json" },
-    batch_size: 1000,
+    batch_size: 500,
   }.freeze
 
   desc "Migrates v2 resources to v3"
@@ -114,25 +114,23 @@ namespace :migrations do
   private
 
   def encrypt_params(params)
-    unless Rails.configuration.v3_secret_key_base.present?
+    unless ENV["V3_SECRET_KEY_BASE"].present?
       raise red 'Unable to migrate: No "V3_SECRET_KEY_BASE" provided, please check your .env file.'
     end
 
-    unless Rails.configuration.v3_secret_key_base.size >= 32
+    unless ENV["V3_SECRET_KEY_BASE"].size >= 32
       raise red 'Unable to migrate: Provided "V3_SECRET_KEY_BASE" must be at least 32 charchters in length.'
     end
 
-    key = Rails.configuration.v3_secret_key_base[0..31]
+    key = ENV["V3_SECRET_KEY_BASE"][0..31]
     crypt = ActiveSupport::MessageEncryptor.new(key, cipher: 'aes-256-gcm', serializer: Marshal)
     crypt.encrypt_and_sign(params, expires_in: 10.seconds)
   end
 
   def uri(path)
-    unless Rails.configuration.v3_endpoint.present?
-      raise red 'Unable to migrate: No "V3_ENDPOINT" provided, please check your .env file.'
-    end
+    raise red 'Unable to migrate: No "V3_ENDPOINT" provided, please check your .env file.' unless ENV["V3_ENDPOINT"].present?
 
-    res = URI(Rails.configuration.v3_endpoint)
+    res = URI(ENV["V3_ENDPOINT"])
     res.path = "/api/v1/migrations/#{path}.json"
     res
   end
