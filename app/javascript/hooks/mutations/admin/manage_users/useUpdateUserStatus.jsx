@@ -12,6 +12,7 @@ export default function useUpdateUserStatus() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['getPendingUsers']);
+        queryClient.invalidateQueries(['getBannedUsers']);
         toast.success(t('toast.success.user.user_updated'));
       },
       onError: () => {
