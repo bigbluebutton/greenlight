@@ -76,10 +76,15 @@ namespace :migrations do
 
   task :rooms, [:start, :stop] => :environment do |_task, args|
     start, stop = range(args)
+
     has_encountred_issue = 0
+    filtered_roles_names = Role::RESERVED_ROLE_NAMES - %w[admin user]
+    filtered_roles_ids = Role.where(name: filtered_roles_names).pluck(:id).uniq
 
     Room.select(:id, :uid, :name, :bbb_id, :last_session, :user_id)
-        .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]).each do |r|
+        .joins(:owner)
+        .where.not(users: { role_id: filtered_roles_ids })
+        .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
           params = { room: { friendly_id: r.uid,
                              name: r.name,
                              meeting_id: r.bbb_id,
