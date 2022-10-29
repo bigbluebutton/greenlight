@@ -222,3 +222,68 @@ input:focus, select:focus {
     color: $primary-color;
   }
 }
+
+@font-face {
+  font-family: IRANSans;
+  src: url("https://files.iranlms.org/fonts/iransans/IRANSansWeb.woff") format("woff");
+}
+
+body, p, span, button, input, b, strong, a, h1, h2, h3, h4, h5, h6, tr, td, th, .form-label {
+  font-family: IRANSans, Yekan !important;
+}
+
+.ml-auto, .mx-auto {
+  margin-right: auto;
+  margin-left: unset !important;
+}
+
+a, p, span.strong, input, button, textarea, label, h1, h2, h3, h4, h5, h6 {
+  direction: rtl;
+}
+
+body .text-left {
+  text-align: right !important;
+}
+
+html, body {
+  font-family: "yekan" !important;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  direction: rtl !important;
+}
+
+.pr-1, .px-1 {
+  padding-left: 0.25rem !important;
+}
+
+.ml-2, .mx-2 {
+  margin-right: 0.5rem !important;
+}
+
+.dropdown-item {
+  text-align: right;
+}
+
+.mr-3, .mx-3 {
+  margin-left: 0.75rem !important;
+}
+
+.dropdown-icon {
+  margin-left: .5rem !important;
+  margin-right: -.5rem !important;
+}
+
+@media (min-width: 992px) {
+  .offset-lg-2 {
+    margin-right: 16.6666666667%;
+  }
+  .offset-lg-3 {
+    margin-right: 25%;
+  }
+}
+
+.form-label {
+  text-align: right;
+}
