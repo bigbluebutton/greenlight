@@ -24,10 +24,9 @@ module Authenticator
     migrate_twitter_user(user)
 
     session[:user_id] = user.id
-    user.update(last_login: Time.zone.now)
-
+    # Upon login the session metadata activated_at has to match to login event timestamp.
+    session[:activated_at] = user.last_login.to_i if user.without_terms_acceptance { user.update(last_login: Time.zone.now) }
     logger.info("Support: #{user.email} has successfully logged in.")
-
     # If there are not terms, or the user has accepted them, check for email verification
     if !Rails.configuration.terms || user.accepted_terms
       check_email_verified(user)
@@ -50,7 +49,9 @@ module Authenticator
         dont_redirect_to.push(File.join(ENV['OAUTH2_REDIRECT'], "auth", "openid_connect", "callback"))
       end
 
-      url = if cookies[:return_to] && !dont_redirect_to.include?(cookies[:return_to])
+      valid_url = cookies[:return_to] && URI.parse(cookies[:return_to]).host == URI.parse(request.original_url).host
+
+      url = if cookies[:return_to] && valid_url && !dont_redirect_to.include?(cookies[:return_to])
         cookies[:return_to]
       elsif user.role.get_permission("can_create_rooms")
         user.main_room
@@ -85,8 +86,10 @@ module Authenticator
 
   # Check if the user exists under the same email with no social uid and that social accounts are allowed
   def auth_changed_to_social?(email)
+    return true if Rails.configuration.social_switching
+
     Rails.configuration.loadbalanced_configuration &&
-      User.exists?(email: email, provider: @user_domain, social_uid: nil) &&
+      User.exists?(email: email, provider: @user_domain) &&
       !allow_greenlight_accounts?
   end
 

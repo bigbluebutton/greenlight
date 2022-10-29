@@ -28,29 +28,29 @@
               <span class="input-icon-addon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </span>
-              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off, required: true %>
+              <%= f.text_field :name, id: "create-room-name", class: "form-control text-center", value: "", placeholder: t("modal.create_room.name_placeholder"), autocomplete: :off, required: true , minlength: 2, maxlength: 256 %>
               <div class="invalid-feedback text-left"><%= t("modal.create_room.not_blank") %></div>
             </div>
 
             <div class="input-icon mb-2">
-              <span onclick="generateAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
+              <span onclick="generateAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer" id="generate-room-access-code" tabindex="0" aria-label='<%= t("modal.create_room.access_code_placeholder") %>'>
                 <i class="fas fa-dice"></i>
               </span>
-              <%= f.label :access_code, t("modal.create_room.access_code_placeholder"), id: "create-room-access-code", class: "form-control" %>
+              <%= f.label :access_code, t("modal.create_room.access_code_placeholder"), id: "create-room-access-code", class: "form-control", role: "log" %>
               <%= f.hidden_field :access_code %>
-              <span onclick="ResetAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
+              <span onclick="ResetAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer" id="reset-access-code" tabindex="0" aria-label='<%= t("modal.create_room.reset_access_code") %>' >
                 <i class="far fa-trash-alt"></i>
               </span>
             </div>
 
             <% if moderator_code_allowed? %>
               <div class="input-icon mb-2">
-                <span onclick="generateModeratorAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
+                <span onclick="generateModeratorAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer" id="generate-moderator-room-access-code" tabindex="0" aria-label='<%= t("modal.create_room.moderator_access_code_placeholder") %>'>
                   <i class="fas fa-dice"></i>
                 </span>
-                <%= f.label :moderator_access_code, t("modal.create_room.moderator_access_code_placeholder"), id: "create-room-moderator-access-code", class: "form-control" %>
+                <%= f.label :moderator_access_code, t("modal.create_room.moderator_access_code_placeholder"), id: "create-room-moderator-access-code", class: "form-control", role: "log" %>
                 <%= f.hidden_field :moderator_access_code %>
-                <span onclick="ResetModeratorAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer">
+                <span onclick="ResetModeratorAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer" id="reset-moderator-access-code" tabindex="0" aria-label='<%= t("modal.create_room.reset_moderator_access_code") %>'>
                   <i class="far fa-trash-alt"></i>
                 </span>
               </div>

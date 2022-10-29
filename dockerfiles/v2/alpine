@@ -1,0 +1,60 @@
+FROM alpine:3.13 AS alpine
+
+ARG RAILS_ROOT=/usr/src/app
+ENV RAILS_ROOT=${RAILS_ROOT}
+
+FROM alpine AS base
+WORKDIR $RAILS_ROOT
+RUN apk add --no-cache \
+    libpq \
+    libxml2 \
+    libxslt \
+    ruby \
+    ruby-irb \
+    ruby-bigdecimal \
+    ruby-bundler \
+    ruby-json \
+    tzdata \
+    shared-mime-info
+
+FROM base as builder
+RUN apk add --no-cache \
+    build-base \
+    curl-dev \
+    git \
+    libxml2-dev \
+    libxslt-dev \
+    pkgconf \
+    postgresql-dev \
+    sqlite-libs \
+    sqlite-dev \
+    ruby-dev \
+    yaml-dev \
+    zlib-dev \
+    nodejs \
+    yarn \
+    && ( echo 'install: --no-document' ; echo 'update: --no-document' ) >>/etc/gemrc
+COPY Gemfile* ./
+RUN bundle config build.nokogiri --use-system-libraries \
+    && bundle config set --local deployment 'true'  without 'development:test' \
+    && bundle install -j4 \
+    && rm -rf vendor/bundle/ruby/*/cache \
+    && find vendor/bundle/ruby/*/gems/ \( -name '*.c' -o -name '*.o' \) -delete
+COPY . ./
+
+FROM base
+ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true
+
+ARG version_code
+ENV VERSION_CODE=$version_code
+
+COPY --from=builder $RAILS_ROOT $RAILS_ROOT
+
+EXPOSE 80
+
+# FIXME / to remove / https://github.com/nahi/httpclient/issues/445
+RUN cat /etc/ssl/certs/ca-certificates.crt \
+    >/usr/src/app/vendor/bundle/ruby/2.7.0/gems/httpclient-2.8.3/lib/httpclient/cacert.pem
+
+RUN chmod +x bin/start
+CMD [ "bin/start" ]

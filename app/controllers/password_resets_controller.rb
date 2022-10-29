@@ -19,7 +19,6 @@
 class PasswordResetsController < ApplicationController
   include Emailer
 
-  before_action :disable_password_reset, unless: -> { Rails.configuration.enable_email_verification }
   before_action :find_user, only: [:edit, :update]
   before_action :check_expiration, only: [:edit, :update]
 
@@ -53,13 +52,21 @@ class PasswordResetsController < ApplicationController
     elsif params[:user][:password] != params[:user][:password_confirmation]
       # Password does not match password confirmation
       flash.now[:alert] = I18n.t("password_different_notice")
-    elsif @user.update_attributes(user_params)
-      # Clear the user's social uid if they are switching from a social to a local account
-      @user.update_attribute(:social_uid, nil) if @user.social_uid.present?
+    elsif @user.without_terms_acceptance { @user.update_attributes(user_params) }
+      @user.without_terms_acceptance {
+        # Clear the user's social uid if they are switching from a social to a local account
+        @user.update_attribute(:social_uid, nil) if @user.social_uid.present?
+        # Deactivate the reset digest in use disabling the reset link.
+        @user.update(reset_digest: nil, reset_sent_at: nil, last_pwd_update: Time.zone.now)
+        # For password resets the last_pwd_update has to match the resetting event timestamp.
+        # And the activated_at session metadata has to match it only if the authenticated user
+        # is the user with the account having its password reset.
+        # This keeps that user session only alive while invalidating all others for the same account.
+        session[:activated_at] = @user.last_pwd_update.to_i if current_user&.id == @user.id
+      }
       # Successfully reset password
       return redirect_to root_path, flash: { success: I18n.t("password_reset_success") }
     end
-
     render 'edit'
   end
 
@@ -78,11 +85,6 @@ class PasswordResetsController < ApplicationController
   # Checks expiration of reset token.
   def check_expiration
     redirect_to new_password_reset_url, alert: I18n.t("expired_reset_token") if @user.password_reset_expired?
-  end
-
-  # Redirects to 404 if emails are not enabled
-  def disable_password_reset
-    redirect_to '/404'
   end
 
   # Checks that the captcha passed is valid

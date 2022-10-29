@@ -25,10 +25,18 @@ nl:
         name: Naam
         password: Wachtwoord
         password_confirmation: Wachtwoordbevestiging
+        old_password: Oud wachtwoord
     errors:
       models:
         user:
-          confirmation: Wachtwoorden komen niet overeen
+          confirmation: komt niet overeen
+          attributes:
+            email:
+              invalid: ongeldig e-mailformaat
+            password:
+              invalid: niet complex genoeg volgens de vereisten 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -335,6 +343,8 @@ nl:
   language_default: Standaard (browsertaal)
   ldap_error: Kan geen verbinding maken met de LDAP-server. Controleer uw LDAP-configuratie in het env-bestand en zorg ervoor dat uw server actief is.
   login: Inloggen
+  login_page:
+    locked_out: Je account is geblokkeerd omdat je teveel mislukte aanmeldpogingen gedaan hebt. Probeer later opnieuw.
   login_title: Meld u aan bij uw account
   mailer:
     user:
@@ -400,7 +410,9 @@ nl:
       access_code: Toegangscode
       moderator_access_code: Moderator Code
       access_code_placeholder: Genereer een optionele toegangscode voor de kamer
+      reset_access_code: Optionele toegangscode voor de kamer resetten
       moderator_access_code_placeholder: Genereer een optionele code voor moderatoren
+      reset_moderator_access_code: Optionele toegangscode voor moderatoren resetten
       auto_join: Ga automatisch mee naar binnen
       create: Ruimte creëren
       free_delete: U kunt deze ruimte op elk gewenst moment verwijderen.
@@ -484,6 +496,13 @@ nl:
   password_empty_notice: Wachtwoord mag niet leeg zijn.
   password_reset_success: Wachtwoord is opnieuw ingesteld.
   password_different_notice: Wachtwoordbevestiging komt niet overeen.
+  old_password_incorrect: is fout
+  password_complexity:
+    minimum_len: Minstens 8 tekens
+    one_lower_case: Minstens 1 kleine letter
+    one_upper_case: Minstens 1 hoofdletter
+    one_digit: Minstens 1 cijfer
+    one_sym: Minstens 1 niet alfanumeriek teken
   provider:
     google: Google
     office365: Office 365
@@ -514,7 +533,7 @@ nl:
     visibility:
       inaccessible: Ontoegankelijk
       public: Openbaar
-      unlisted: Niet-genoteerd
+      unlisted: Niet gepubliceerd
     format:
       notes: Notities
       podcast: Podcast
@@ -535,10 +554,12 @@ nl:
     invite:
       fail: Uw token is ongeldig of is verlopen. Neem contact op met uw beheerder als u denkt dat dit een vergissing is.
       no_invite: Je hebt geen uitnodiging om lid te worden. Neem contact op met uw beheerder om er een te ontvangen.
+    insecure_password: "Om de veiligheid van de accounts te verbeteren, hebben we de vereiste complexiteit voor all wachtwoorden verhoogd. Maak een nieuw wachtwoord volgens onderstaande criteria."
   remove: Verwijder
   rename: Hernoem
   reset_password:
     captcha: "reCAPTCHA-verificatie is mislukt, probeer het opnieuw."
+    complexity: Wachtwoord voldoet niet aan de complexiteitsvereisten
     invalid_token: Token voor wachtwoordherstel is ongeldig. Probeer je wachtwoord opnieuw in te stellen.
     subtitle: Reset wachtwoord
     password: Nieuw wachtwoord
@@ -660,3 +681,5 @@ nl:
     signin: Meld u aan om toegang te krijgen tot uw account.
     title: Controleer je email
     verification: Verificatie
+  session:
+    expired: Sessie verlopen (Meld u opnieuw aan.).

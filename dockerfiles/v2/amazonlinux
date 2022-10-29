@@ -1,0 +1,51 @@
+FROM amazonlinux:2.0.20220218.1 AS amazonlinux
+
+ARG RAILS_ROOT=/usr/src/app
+ENV RAILS_ROOT=${RAILS_ROOT}
+
+FROM amazonlinux AS amazonlinux-base
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /sbin/tini
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini.asc /tini.asc
+RUN gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 595E85A6B1B4779EA4DAAEC70B588DFF0527A9B7
+RUN gpg --batch --verify /tini.asc /sbin/tini
+RUN chmod +x /sbin/tini
+RUN yum -y install redhat-rpm-config
+
+FROM amazonlinux-base AS base
+WORKDIR $RAILS_ROOT
+# Install Node.js (needed for yarn)
+RUN yum -y install gcc-c++ make
+RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash -
+RUN yum -y install nodejs
+# Install Ruby & Rails
+RUN curl -sL -o /etc/yum.repos.d/yarn.repo https://dl.yarnpkg.com/rpm/yarn.repo
+RUN amazon-linux-extras enable ruby3.0 \
+  && yum -y install git tar gzip yarn shared-mime-info libxslt zlib-devel sqlite-devel mariadb-devel postgresql-devel ruby-devel rubygems-devel rubygem-bundler rubygem-io-console rubygem-irb rubygem-json rubygem-minitest rubygem-net-http-persistent rubygem-net-telnet rubygem-power_assert rubygem-rake rubygem-test-unit rubygem-thor rubygem-xmlrpc rubygem-bigdecimal \
+  && gem install rails
+RUN yum -y install python3 python3-pip shadow-utils
+
+FROM base as builder
+COPY Gemfile* ./
+RUN bundle config build.nokogiri --use-system-libraries \
+    && bundle install --deployment --without development:test -j4 \
+    && rm -rf vendor/bundle/ruby/*/cache \
+    && find vendor/bundle/ruby/*/gems/ \( -name '*.c' -o -name '*.o' \) -delete
+COPY . ./
+
+FROM base
+ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true
+
+ARG version_code
+ENV VERSION_CODE=$version_code
+
+COPY --from=builder $RAILS_ROOT $RAILS_ROOT
+
+EXPOSE 80
+
+# FIXME / to remove / https://github.com/nahi/httpclient/issues/445
+RUN cat /etc/ssl/certs/ca-bundle.crt \
+    >/usr/src/app/vendor/bundle/ruby/3.0.0/gems/httpclient-2.8.3/lib/httpclient/cacert.pem
+
+RUN chmod +x bin/start
+CMD [ "bin/start" ]

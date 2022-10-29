@@ -25,10 +25,18 @@ sv_SE:
         name: Namn
         password: Lösenord
         password_confirmation: Lösenordsbekräftelse
+        old_password: Gammalt lösenord
     errors:
       models:
         user:
-          confirmation: matchar inte lösenordet
+          confirmation: stämmer inte
+          attributes:
+            email:
+              invalid: ogiltigt e-postformat
+            password:
+              invalid: inte uppfyllde komplexitetskraven 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -36,26 +44,68 @@ sv_SE:
         enabled: Aktiverad
         info: Tillåt endast autentiserade användare att gå med i ett rum
         title: Kräver godkännande för rummen
-        user-info: Du måste logga in på Greenlight för att gå med i det här rummet
+        user-info: Du måste logga in för att gå med i det här rummet.
       branding:
         change: Ändra bild
-        info: Ändra varumärkesbilden som visas längst upp till vänster
+        info: Ändra logotypen som visas längst upp till vänster
         placeholder: Bild URL...
-        title: Varumärksbild
+        title: Logotyp
+        invalid: Ogiltig URL
+      legal:
+        change: Ändra URL
+        info: Ändra villkorslänken som visas längst ned på sidan
+        placeholder: Villkor URL...
+        title: Villkor
+        invalid: Ogiltig URL
+      privpolicy:
+        change: Ändra URL
+        info: Ändra sekretesspolicylänken som visas längst ned på sidan
+        placeholder: Sekretesspolicy URL...
+        title: Sekretesspolicy
+        invalid: Ogiltig URL
       cache:
         info: Rensar den lagrade leverantörens cache som tvingar fram en ny begäran om den uppdaterade informationen
         title: Rensa cache för leverantör
         button: Rensa cache
+      clear_auth:
+        info: Rensar den aktuella autentiseringen för användare så att de kan logga in igen med en annan autentiseringsmetod
+        title: Rensa aktuell autentisering
+        button: Rensa autentisering
       color:
         info: Om du ändrar den ordinarie färgen ändras både Ljusare och Mörkare. Ljusare och Mörkare kan sedan ändras individuellt
         title: Grundfärg
-        regular: Regelbunden
+        regular: Vanlig
         lighten: Ljusare
-        darken: Mörkna
+        darken: Mörkare
+      email_mapping:
+        info: "Tilldela en roll till användaren med sin e-post. Måste vara i formatet email1=roll1,email2=rolle2"
+        title: Rolltilldelning via e-post
+        update:
+      log_level:
+        title: Loggnivå
+        information: Ändra loggnivån för hela distributionen
+        debug: Felsökning
+        info: Info
+        warn: Varna
+        error: Fel
+        fatal: Dödlig
+        unknown: Okänd
       recording_visibility:
         info: Ställ in inspelningens synlighet för nya inspelningar
         title: Inspelning av standardsynlighet
         warning: Den här inställningen kommer endast att tillämpas på rum som inte körs
+      require_consent:
+        info: Den här inställningen möjliggör en rumsinställning som gör att rumsägare kan välja vilka rum som kan spelas in. Användare som går med i ett inspelningsbart rum måste samtycka innan de går med.
+        title: Kräv rumsägare och deltagares samtycke till inspelning
+      maintenance_banner:
+        info: Visar en banner för att informera användaren om ett planerat underhåll
+        title: Underhållsbanner
+        display: Ställa
+        clear: Rensa
+        time: "Exempel: Uppdatering planerad till 13 december kl. 23:00 ET. Användare kan få problem med att logga in."
+      preupload:
+        info: Användare kan ladda upp en presentation för att användas som standardpresentation för det specifika rummet
+        title: Tillåt användare att ladda upp presentationer i förväg
       registration:
         info: Ändra hur användarna registrerar sig på webbplatsen
         title: Registreringsmetod
@@ -66,7 +116,15 @@ sv_SE:
       rooms:
         info: Begränsar antalet rum som en användare kan ha (inklusive hemrum). Den här inställningen gäller inte för administratörer.
         title: Antal rum per användare
+      shared_access:
+        info: "Om du ställer in på inaktiverad tas knappen bort från rullgardinsmenyn Rumsalternativ, vilket hindrar användare från att dela rum"
+        title: Tillåt användare att dela rum
       subtitle: Anpassa Greenlight
+      tabs:
+        appearance: Utseende
+        administration: Administrering
+        registration: Registrering
+        settings: Inställningar
       title: Webbplatsinställningar
     flash:
       approved: Användaren har framgångsrikt godkänts.
@@ -77,20 +135,30 @@ sv_SE:
       demoted: Användaren har framgångsrikt tagits bort
       invite: "Inbjudan har framgångsrikt skickats till %{email}"
       invite_email_verification: E-postmeddelanden måste vara aktiverade för att kunna använda denna metod. Kontakta din systemadministratör.
+      merge_fail: Det uppstod ett problem när användarkontona slogs samman. Kolla de valda användarna och försök igen
+      merge_success: Användarkonton har slagits samman
+      perm_deleted: Användaren har raderats permanent
       promoted: Användaren har framgångsrikt främjats
       registration_method_updated: Registreringsmetoden har uppdaterats
       reset_password: Användaren har fått ett e-postmeddelande för att återställa sitt lösenord. (Be dem kontrollera deras skräppostmapp om de inte har fått den)
+      restored: Användaren har återställts
+      room_configuration: Rumskonfigurationen har ändrats
       settings: Webbplatsinställningarna har ändrats
       unauthorized: Du har inte behörighet att utföra åtgärder på den här användaren
     recordings:
+      latest: Senaste inspelningarna
       title: Serverinspelningar
       no_recordings: Denna server har inga inspelningar.
+      search_info: Ange en användares fullständiga e-postadress eller ett rums uid
     roles:
+      appear_in_share_list: Inkludera användare med denna roll i rullgardinsmenyn för att dela rum
       can_create_rooms: Kan skapa rum
+      can_launch_recording: Tillåt användare med den här rollen att spela in sina möten
       delete: Radera rollen
-      invalid_create:
-      invalid_order:
-      invalid_update:
+      invalid_create: Det gick inte att skapa en ny roll. Kontrollera rollvärdena och försök igen
+      invalid_order: Det uppstod ett problem med att uppdatera rollens prioritet. Kontrollera värdena och försök igen
+      invalid_update: Det uppstod ett problem med att uppdatera rollens behörigheter. Kontrollera värdena och försök igen
+      manage_rooms_recordings: Tillåt användare med den här rollen att hantera serverrum och inspelningar
       name: Rollnamn
       new_role: Skapa en ny roll
       role_has_users: "Denna roll tilldelas %{user_count} konton. Ta bort alla konton från den här rollen innan du tar bort den."
@@ -100,10 +168,41 @@ sv_SE:
       edit_site_settings: Låt användare med den här rollen redigera webbplatsinställningar
       edit_roles: Låt användare med den här rollen redigera andra roller
       manage_users: Låt användare med den här rollen hantera användare
-      invalid_assignment: 
+      invalid_assignment: Det uppstod ett problem med att tilldela rollerna till användaren. Kontrollera värdena och försök igen
       colour:
         title: Rollfärg
         info: Ställ in färgen som ska associeras med rollen
+    room_configuration:
+      title: Rumsinställningar
+      mute:
+        info: Tystar automatiskt användaren när de går med i mötet
+      require_moderator:
+        info: Frågar mötets moderator när en användare försöker gå med. Om användaren godkänns kommer de att kunna gå med i mötet.
+      allow_any:
+        info: Tillåter alla användare att starta mötet när som helst. Som standard kan bara rumsägaren starta mötet.
+      all_moderator:
+        info: Ger alla användare moderatorprivilegier när de går med i mötet.
+      recordings:
+        info: Tillåter rumsägare att välja om de vill ha möjligheten att spela in ett rum eller inte. Om det är aktiverat måste moderatorn fortfarande klicka på knappen "Spela in" när mötet har startat.
+      moderator_codes:
+        info: Tillåter rumsägare att valfritt generera en moderatorkod som tillåter andra användare att ansluta sig som moderatorer.
+        title: Moderatorkod
+      options:
+        disabled: Inaktiverad
+        enabled: Alltid aktiverad
+        optional: Frivillig
+    rooms:
+      timeout: "På grund av %{server} tidsgränsen för serverbegäran kan informationen för status och deltagare inte vara korrekt"
+      title: Serverrum
+      table:
+        ended: "Avslutade: %{session}"
+        id: ID
+        not_running: Pågår ej
+        participants: Deltagare
+        running: Pågår
+        started: "Startades: %{session}"
+        status: Status
+        view: Se
     title: Organisationsinställningar
     users:
       invite: Bjud in användare
@@ -116,16 +215,21 @@ sv_SE:
         delete: Radera
         edit: Redigera
         edit_roles: Redigera användarroller
+        merge: Slå ihop
+        perm_delete: Ta bort permanent
         unban: Icke-bannlys användaren
+        undelete: Ångra radering
       table:
         authenticator: Autentiserare
         created: Skapad
+        time: Tid skickad
         name: Namn
         not_found: Inga användare matchar din sökning
         no_users: Inga användare hittades
         role: Roll
         uid: Användar ID
         username: Användarnamn
+        valid: Giltig
       title: Hantera användare
   add_to_google_calendar: "Lägg till i Google Kalender"
   bigbluebutton: BigBlueButton
@@ -134,6 +238,7 @@ sv_SE:
   cookies:
     cookie_info: Kakor hjälper oss att leverera våra tjänster. Genom att använda våra tjänster godkänner du vår användning av kakor.
     cookie_button: Jag godkänner
+    policy: "För mer information, se vår <a href=\"%{privacy_link}\"><u> integritetspolicy</u></a>."
   copied: Kopierad
   copy: Kopiera
   date:
@@ -153,7 +258,7 @@ sv_SE:
     internal:
       message: Ser ut som något gick fel på vår ände.
       help: "Felet har loggats, vi tar en titt!"
-      report:
+      report: Rapportera problem
     maintenance:
       message: Vi är tyvärr stängd för underhåll.
       help: Vi kommer snart tillbaka!
@@ -172,6 +277,7 @@ sv_SE:
       accepted: måste accepteras
       confirmation: "matchar inte %{attribute}"
       inclusion: ingår inte i listan
+      domain: "måste sluta med \"%{email_domain}\""
     no_provider:
       message: Webbplatsen du försöker nå är inte aktiverad
       help: Kontakta din systemadministratör för att ställa in Greenlight
@@ -196,6 +302,8 @@ sv_SE:
     designs: Anpassade designer
     authentication: Användarautentisering
   footer:
+    legal: Villkor
+    privpolicy: Sekretesspolicy
     powered_by: "Drivs av %{href}."
   forgot_password:
     subtitle: Glömt ditt lösenord
@@ -214,6 +322,7 @@ sv_SE:
   home_room: Hemrum
   info_update_success: Information framgångsrikt uppdaterad.
   invalid_credentials: E-postadressen och lösenordet du angav matchade inte våra poster. Försök igen eller klicka på Glömt lösenord för att återställa ditt lösenord.
+  invalid_credentials_external: E-postadressen och lösenordet du angav matchade inte våra uppgifter. Var god försök igen.
   invalid_login_method: Inloggningen misslyckades på grund av felaktighet i kontot. Du måste logga in med omniauth.
   invite_message: "För att bjuda in någon till mötet, skicka dem den här länken:"
   javascript:
@@ -223,6 +332,8 @@ sv_SE:
         body: 'För att se inspelningen, följ länken nedan:'
         autogenerated: 'Det här e-postmeddelandet genererades automatiskt av BigBlueButton.'
         footer: 'BigBlueButton är ett open source webbkonferenssystem. För mer information om BigBlueButton, se https://bigbluebutton.org/.'
+    search:
+      start: Börja söka...
   landing:
     about: "%{href} är ett enkelt front-end för din BigBlueButton open-source webbkonferensserver. Du kan skapa egna rum för att vara värd sessioner, eller gå med andra med en kort och bekväm länk."
     welcome: Välkommen till BigBlueButton.
@@ -232,6 +343,8 @@ sv_SE:
   language_default: Standard (webbläsarspråk)
   ldap_error: Det gick inte att ansluta till LDAP-servern. Kontrollera din LDAP-konfiguration i env-filen och se till att servern körs.
   login: Logga in
+  login_page:
+    locked_out: Ditt konto har låsts på grund av för många felaktiga lösenordsförsök. Vänligen försök igen senare.
   login_title: Logga in på ditt konto
   mailer:
     user:
@@ -256,6 +369,7 @@ sv_SE:
         info: "Du har blivit inbjuden till ditt eget personliga rum genom %{name}"
         signup_info: "För att registrera dig med din e-post, klicka på knappen nedan och följ stegen."
         signup_link: Bli medlem
+        valid: "Inbjudan är giltig till: %{date}"
         signup:
           info: En användare som inbjudits har anmält sig för att använda Greenlight.
           admins_link: Besök organisationssidan
@@ -283,9 +397,8 @@ sv_SE:
         verify_text: 'För att verifiera ditt konto, följ bara den här länken: %{url}'
         verify_link: Verifiera konto
         thanks: Tack för att du gick med och har en bra dag!
-  maintenance:
-    window_alert: "Underhållsfönster planerat för %{date}"
   max_concurrent: Det maximala antalet samtidiga sessioner har uppnåtts!
+  merged: Slogs samman
   modal:
     create_role:
       create: Skapa en ny roll
@@ -295,7 +408,11 @@ sv_SE:
       title: Skapa ny roll
     create_room:
       access_code: Åtkomstkod
+      moderator_access_code: Moderatorkod
       access_code_placeholder: Generera en valfri rumskod
+      reset_access_code: Återställ den valfria rumsåtkomstkoden
+      moderator_access_code_placeholder: Generera en valfri kod för moderatorer
+      reset_moderator_access_code: Återställ den valfria koden för moderatorer
       auto_join: Anslut mig automatiskt till rummet
       create: Skapa rum
       free_delete: Du kommer att vara fri att ta bort det här rummet när som helst.
@@ -306,7 +423,12 @@ sv_SE:
       confirm: "Är du säker på att du vill radera detta konto?"
       delete: "Jag är säker, ta bort det här kontot."
       keep: Egentligen jag behåller det.
+      delete_warning: Detta kommer att inaktivera användarens konto. Alla avaktiverade användare hittar du under fliken raderade.
       warning: Detta beslut är slutgiltigt. Du kommer <b>inte</b> att kunna återställa tillhörande data.
+    delete_rec:
+      delete: "Jag är säker, radera den här inspelningen."
+      header: "Är du säker på att du vill ta bort den här inspelningen?"
+      warning: Du kommer <b> inte </b> att kunna återställa den här inspelningen
     delete_room:
       confirm: "Är du säker på att du vill radera %{room}?"
       delete: "Jag är säker, ta bort det här rummet."
@@ -314,7 +436,7 @@ sv_SE:
       warning: Du kommer <b>inte</b> att kunna återställa det här rummet
       recording_warning: "eller någon av dess %{recordings_num} associerade inspelningar."
     invite_user:
-      email_placeholder: Ange användarnas e-postadresser (separerade med komma)
+      email_placeholder: Ange användarnas e-postadresser (avgränsade med kommatecken)
       footer: Användaren får ett mail med instruktioner om hur man registrerar sig
       send: Skicka inbjudan
       title: Bjud in användaren
@@ -322,7 +444,19 @@ sv_SE:
       or: eller
       with: "Logga in med %{provider}"
       forgot_password: "Glömt ditt lösenord?"
+    preupload:
+      change: Byt ut presentation
+      choose: Välj en fil...
+      current: "Aktuell presentation:"
+      footer: Beroende på storleken på presentationen kan det ta ytterligare tid att ladda upp innan den kan användas.
+      invalid: Ogiltig storlek/filtyp. Se begränsningarna nedan.
+      title: Lägg till presentation
+      use: Använd presentation
     rename_recording:
+    remove_shared:
+      title: "Är du säker på att du vill ta bort det här rummet från din rumslista?"
+      delete: "Jag är säker, ta bort det här rummet."
+      warning: Du kommer <b> inte</b> att kunna komma åt det här rummet längre.
     room_settings:
       title: Rumsinställningar
       update: Uppdatera rum
@@ -332,8 +466,23 @@ sv_SE:
       require_approval: Kräv godkännande av moderator innan du går med
       start: Låt alla användare starta detta möte
       footer_text: Justering till ditt rum kan göras när som helst.
+      recording: Tillåt rummet att spelas in
     rename_room:
       name_placeholder: Ange ett nytt rumnamn ...
+    share_access:
+      footer: Genom att dela ett rum med en användare kan de starta rummet och se rummets inspelningar
+      list: Delad med
+      title: Dela tillgång till rummet
+      save: Spara ändringar
+      cancel_changes: Avbryt ändringarna
+      select: Välj Användare
+    merge_user:
+      cancel: Avbryt
+      from: Konto som ska slås ihop
+      title: Slå ihop användarkonton
+      to: Primärt konto
+      save: Slå ihop
+      footer: Rummen på det konto som ska slås ihop kommer att överföras till det primära kontots rumslista och sedan raderas kontot.
   name_update_success: Rumsnamn har framgångsrikt ändrats!
   no_user_email_exists: Det finns ingen befintlig användare med det angivna e-postmeddelandet. Se till att du har skrivit den korrekt.
   omniauth_error: Ett fel uppstod vid autentisering med omniauth. Vänligen försök igen eller kontakta en administratör!
@@ -347,11 +496,19 @@ sv_SE:
   password_empty_notice: Lösenordet kan inte vara tomt.
   password_reset_success: Lösenordet har återställts.
   password_different_notice: Lösenordsbekräftelsen matchar inte.
+  old_password_incorrect: är inkorrekt
+  password_complexity:
+    minimum_len: Minst 8 tecken
+    one_lower_case: Minst 1 gemener
+    one_upper_case: Minst 1 versaler
+    one_digit: Minst 1 nummer
+    one_sym: Minst 1 icke-alfanumeriskt tecken
   provider:
     google: Google
     office365: Office 365
     twitter: Twitter
     ldap: LDAP
+    openid_connect: OpenID Connect
   recaptcha:
     errors:
       recaptcha_unreachable: "Oj, vi lyckades inte validera ditt reCAPTCHA-svar. Var god försök igen."
@@ -359,9 +516,12 @@ sv_SE:
   recording:
     all_recordings: Alla inspelningar
     email: Skicka inspelning med e-post
-    no_recordings: "Det här rummet har inga %{inject}inspelningar."
+    error: "Det gick inte att hämta %{count} inspelning(er)"
+    no_public_recordings: Detta rum har inga offentliga inspelningar.
+    no_recordings: Detta rum har inga inspelningar.
     no_user_recordings: Du har för tillfället inga inspelningar.
-    no_matched_recordings: "Inga %{inject} inspelningar matchar din sökning."
+    no_matched_pub_recordings: Inga offentliga inspelningar matchar din sökning.
+    no_matched_recordings: Inga inspelningar matchar din sökning.
     recorded_on: "Inspelad den %{date}"
     table:
       name: Namn
@@ -371,6 +531,7 @@ sv_SE:
       visibility: Synlighet
       formats: Format
     visibility:
+      inaccessible: Otillgänglig
       public: Publik
       unlisted: Onoterade
     format:
@@ -384,7 +545,7 @@ sv_SE:
       fail: "Ditt konto har inte godkänts än. Om flera dagar har gått sedan du registrerade dig, kontakta din administratör."
       signup: Ditt konto har framgångsrikt skapats. Det har skickats till en administratör för godkännande.
     banned:
-      fail: "Du har inte tillgång till den här applikationen. Om du tror att detta är ett misstag, vänligen kontakta din administratör." 
+      fail: "Du har inte tillgång till den här applikationen. Om du tror att detta är ett misstag, vänligen kontakta din administratör."
     deprecated:
       new_signin: Välj en ny inloggningsmetod för ditt konto. Alla dina rum från ditt gamla konto migreras till det nya kontot
       twitter_signin: "Logga in via Twitter har fasats ut och kommer att tas bort i nästa utgåva. Klicka <a href=\"%{link}\"> här </a> to för att flytta ditt konto till en ny autentiseringsmetod"
@@ -393,30 +554,51 @@ sv_SE:
     invite:
       fail: "Din token är antingen ogiltig eller har gått ut. Om du tror att detta är ett misstag, vänligen kontakta din administratör."
       no_invite: Du har ingen inbjudan att gå med. Kontakta din administratör för att få en.
+    insecure_password: För att förbättra kontosäkerheten har vi ökat lösenordskomplexiteten för alla lösenord. Vänligen skapa ett nytt lösenord som matchar kraven nedan.
+  remove: Ta bort
   rename: Döpa om
   reset_password:
+    captcha: "reCAPTCHA-verifiering misslyckades, försök igen."
+    complexity: Lösenordet uppfyllde inte komplexitetskraven
+    invalid_token: Lösenordsåterställningstoken är ogiltig. Försök att återställa ditt lösenord igen.
     subtitle: Återställ lösenord
     password: Nytt lösenord
     confirm: Ny lösenord bekräftelse
     update: Uppdatera lösenordet
+    auth_change: Autentiseringsmetoden har ändrats. Kontrollera din e-post för att ange ditt lösenord.
   roles:
+    active: Aktiva
     admin: Administratör
     banned: Bannlyst
+    deleted: Raderade
     pending: Avvaktan
+    invited: Inbjudna
     user: Användare
   room:
     access_code_required: Ange en giltig åtkomstkod för att gå in i rummet
+    add_presentation: Lägg till presentation
+    copy_access: Kopiera åtkomstkod
+    copy_moderator_access: Kopiera moderatorkod
     create_room: Skapa ett rum
     create_room_error: Det uppstod ett fel vid skapandet av rummet
     create_room_success: Rummet skapades framgångsrikt
+    delete:
+      home_room: Det går inte att ta bort användarens Hemrum
+      success: Rummet har raderats
+      fail: "Det gick inte att ta bort rummet (%{error})"
     enter_the_access_code: Ange rummets åtkomstkod
+    enter_the_moderator_access_code: Ange rummets moderatorkod!
+    optional_moderator_access_code: "Valfri moderatorkod:"
     invalid_provider: Du har angett en ogiltig webbadress. Kontrollera webbadressen och försök igen.
+    invitation_description: "Du har blivit inbjuden att gå med i %{name}. För att gå med, klicka på länken ovan och ange ditt namn."
     invited: Du har blivit inbjuden att gå med
+    recording_present: Jag godkänner att denna session kommer att spelas in. Detta kan inkludera min röst och video om de är aktiverade.
     invite_participants: Bjud in deltagare
     join: Anslut dig
     last_session: "Sista sessionen på %{session}"
     login: Gå in
     owner: Ägare
+    owner_banned: Detta rum är för närvarande inte tillgängligt
     no_room:
       description: Ange rumsadressen eller rums-ID för det rum du vill gå med i.
       edit_profile: Redigera användarprofil
@@ -427,12 +609,23 @@ sv_SE:
       recent_rooms: Gå till ett nyligen anslutet rum
       title: Gå med i ett rum
     no_sessions: Det här rummet har inga sessioner än!
+    preupload_success: Presentationen har lagts till
+    preupload_error: Det uppstod ett fel när rumspresentationen skulle uppdateras
+    preupload_remove_success: Presentationen har tagits bort
+    preupload_remove_error: Det gick inte att ta bort rumspresentationen
     recordings: Ruminspelningar
     room_limit: Du har nått det maximala antalet tillåtna rum
     room_limit_exceeded: "Du har överskridit antalet tillåtna rum. Vänligen, ta bort %{difference} rum för att komma åt detta rum."
     sessions: Sessioner
     settings: Ruminställningar
+    share: Hantera åtkomst
+    shared_by: "Delad av %{email}"
+    remove_shared_access_success: Det delade rummet har tagits bort från din rumslista
+    remove_shared_access_error: Det gick inte att ta bort det delade rummet från din lista
+    shared_access_success: Rummet har delats
+    shared_access_error: Det gick inte att dela rummet
     start: Starta
+    search: Sök efter rum...
     unavailable: Detta rum är för närvarande inte tillgängligt på grund av att ägarens e-post inte verifieras.
     update_settings_error: Det uppstod ett fel vid uppdatering av rumsinställningarna
     update_settings_success: Rumsinställningar har framgångsrikt uppdaterats
@@ -446,9 +639,10 @@ sv_SE:
       provider: Leverantör
       image: Bild
       image_url: Profilbild URL
-      roles: Användarroller
+      roles: Användarroll
       subtitle: Uppdatera din kontoinformation
       title: Kontoinformation
+      reset_password: Återställ användarlösenord
     delete:
       button: "Ja, jag vill ta bort mitt konto."
       disclaimer: "Om du väljer att radera ditt konto kommer det att <b>INTE</b> kunna återställas. All information om ditt konto, inklusive inställningar, rum och inspelning kommer att tas bort."
@@ -473,6 +667,9 @@ sv_SE:
     title: Villkor
   test_install: >
     Denna implementering använder en förkonfigurerad testserver, du borde ersätta det här med din egen. För detaljer, se %{href}.
+  time:
+    formats:
+      default: "%b %d %d, %Y %-I:%M%P"
   update: Uppdatera
   verify:
     accept: Kontrollera

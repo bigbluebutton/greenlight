@@ -28,6 +28,7 @@ ko_KR:
     errors:
       models:
         user:
+          password: 복잡성 요구 사항을 충족하지 않습니다.
           confirmation: 패스워드가 일치하지 않습니다.
   administrator:
     site_settings:
@@ -145,6 +146,7 @@ ko_KR:
     roles:
       appear_in_share_list: 공유 ROOM의 드롭다운에 이 역할을 가진 사용자 포함
       can_create_rooms: ROOM을 생성
+      can_launch_recording: 이 역할을 가진 사용자가 회의를 녹음할 수 있도록 허용
       delete: Role 삭제
       invalid_create: 새 Role를 만드는 중에 문제가 발생했습니다. Role 설정을 확인하고 다시 시도하십시오.
       invalid_order: Role의 우선 순위를 업데이트하는 중에 문제가 발생했습니다. 설정을 확인하고 다시 시도하십시오.
@@ -268,6 +270,7 @@ ko_KR:
       accepted: must be accepted
       confirmation: "%{attribute}일치하지 않습니다"
       inclusion: 목록에 포함되지 않음
+      domain: "\"%{email_domain}\" 으로 끝나야 합니다."
     no_provider:
       message: 액세스하려는 사이트가 활성화되지 않았습니다.
       help: Greenlight를 설정하려면 시스템 관리자에게 문의하십시오.
@@ -312,6 +315,7 @@ ko_KR:
   home_room: Home Room
   info_update_success: 정보가 성공적으로 업데이트되었습니다.
   invalid_credentials: 입력하신 이메일과 비밀번호가 저희 기록과 일치하지 않습니다. 다시 시도하거나 암호 찾기를 클릭하여 암호를 재설정하십시오.
+  invalid_credentials_external: 입력하신 이메일과 비밀번호가 저희 기록과 일치하지 않습니다. 다시 시도해 주세요.
   invalid_login_method: 계정 불일치로 인해 로그인하지 못했습니다. omniauth로 로그인해야합니다.
   invite_message: "미팅에 다른 사람을 초대하려면 다음 링크를 보냅니다 :"
   javascript:
@@ -332,6 +336,8 @@ ko_KR:
   language_default: 기본값 (브라우저 언어)
   ldap_error: LDAP 서버에 연결할 수 없습니다. env 파일에서 LDAP 구성을 확인하고 서버가 실행 중인지 확인하십시오.
   login: 로그인
+  login_page:
+    locked_out: 잘못된 비밀번호 시도 횟수가 너무 많아 계정이 잠겼습니다. 나중에 다시 시도 해주십시오.
   login_title: 계정에 로그인
   mailer:
     user:
@@ -397,7 +403,9 @@ ko_KR:
       access_code: 액세스 코드
       moderator_access_code: 중재자 코드
       access_code_placeholder: 선택적 room 액세스 코드 생성
+      reset_access_code: 선택적 room 액세스 코드 재생성
       moderator_access_code_placeholder: 중재자를위한 선택적 코드 생성
+      reset_moderator_access_code: 중재자를 위한 선택적 코드 재설정
       auto_join: 자동으로 room에 참여
       create: Room 만들기
       free_delete: 이 room은 언제든지 삭제할 수 있습니다.
@@ -495,9 +503,11 @@ ko_KR:
     all_recordings: 모든 레코딩
     email: 이메일 레코딩
     error: "%{count}개의 레코딩(들)을 검색하는 동안 오류가 발생함"
-    no_recordings: "이 room에는 %{inject}개의 레코딩 기록이 없다."
+    no_public_recordings: 이 room에는 공개된 레코딩이 없습니다.
+    no_recordings: 이 방room에는 레코딩이 없습니다.
     no_user_recordings: 현재 레코딩이 없는 경우.
-    no_matched_recordings: "검색과 일치하는 %{inject}개의 레코딩 기록이 없음"
+    no_matched_pub_recordings: 검색어와 일치하는 공개된 레코딩이 없습니다.
+    no_matched_recordings: 검색어와 일치하는 레코딩이 없습니다.
     recorded_on: "녹화된 날짜 %{date}"
     table:
       name: 이름
@@ -507,6 +517,7 @@ ko_KR:
       visibility: 가시성
       formats: 형식
     visibility:
+      inaccessible: 액세스할 수 없습니다.
       public: Public
       unlisted: 목록에 없음
     format:
@@ -529,10 +540,12 @@ ko_KR:
     invite:
       fail: 토큰이 잘못되었거나 만료되었습니다. 관리자에게 문의하십시오.
       no_invite: 초대장이 없는 경우. 관리자에게 문의하여 수신하십시오.
+    insecure_password: 계정 보안을 개선하기 위해 모든 비밀번호의 복잡성을 높였습니다. 아래 요구 사항과 일치하는 새 비밀번호를 만드십시오.
   remove: 삭제
   rename: 이름 변경
   reset_password:
     captcha: reCAPTCHA 확인 실패. 다시 시도하십시오.
+    complexity: 비밀번호가 복잡성 요구 사항을 충족하지 않습니다.
     invalid_token: 암호 재설정 토큰이 잘못되었습니다. 암호를 다시 설정해 보십시오.
     subtitle: 암호 재설정
     password: 새로운 패스워드
@@ -640,6 +653,9 @@ ko_KR:
     title: 이용약관
   test_install: >
     이 배포는 미리 구성된 테스트 서버를 사용하고 있으므로, 이 서버를 자신의 서버로 교체하십시오. 자세한 내용은 %{href}를 참조하십시오.
+  time:
+    formats:
+      default: "%b %d, %Y %-I:%M%P"
   update: 업데이트
   verify:
     accept: 검증하다

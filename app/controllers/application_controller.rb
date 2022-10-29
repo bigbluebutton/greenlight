@@ -28,13 +28,32 @@ class ApplicationController < ActionController::Base
   # Retrieves the current user.
   def current_user
     @current_user ||= User.includes(:role, :main_room).find_by(id: session[:user_id])
-
     if Rails.configuration.loadbalanced_configuration && (@current_user && !@current_user.has_role?(:super_admin) &&
          @current_user.provider != @user_domain)
-        @current_user = nil
-        session.clear
-      end
+      reset_session
+      return nil # This stops the session validation checks for loadbalanced configurations.
+    end
+    # For backward compatibility and for seamless integration with existing and running deployments:
+    # The active sessions will be declared as active on first interaction after the update.
 
+    # This keeps alive the already active sessions before the upgrade for accounts having no password updates.
+    session[:activated_at] ||= Time.zone.now.to_i if @current_user&.last_pwd_update.nil?
+
+    # Once a request is issued back to the server with a session that had been active before
+    # the last password update it will automatically get invalidated and the request will get
+    # redirected back to the root path.
+    # This solves #3086.
+    unless session[:activated_at].to_i >= @current_user&.last_pwd_update.to_i
+      # For backward compatibility and for seamless integration with existing and running deployments:
+      # The last_pwd_update attribute will default to nil and nil.to_i will always be 0.
+      # This with the activated_at fallback to the first connection after the upgrade will result in
+      # keeping alive old sessions and ensuring a seamless intergation.
+      # In cases where the account has a password update after the upgrade, all of old the active sessions
+      # which haven't updated their state and all the other active updated sessions before the password
+      # update event will be cought and declared as invalid where users will get unauthenticated and redirected to root path.
+      reset_session
+      redirect_to root_path, flash: { alert: I18n.t("session.expired") } and return
+    end
     @current_user
   end
   helper_method :current_user

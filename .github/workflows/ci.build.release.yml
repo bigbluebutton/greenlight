@@ -1,0 +1,110 @@
+env:
+  RUBY_VERSION: 2.7
+
+name: CI Build Release
+on:
+  release:
+    types: [released]
+
+jobs:
+  main:
+    name: Build Docker Image
+    env:
+      DOCKER_REPOSITORY: ${{ secrets.DOCKER_REPOSITORY }}
+      DOCKER_BUILD_ENABLED: ${{ secrets.DOCKER_BUILD_ENABLED }}
+      DOCKER_BUILD_ALTERNATE_ENABLED: ${{ secrets.DOCKER_BUILD_ALTERNATE_ENABLED }}
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true')
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true')
+        uses: docker/setup-buildx-action@v1
+
+      - name: Cache Docker layers
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true')
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Login to DockerHub
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true')
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Extract Docker Repository
+        id: ci_docker_repository
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true')
+        shell: bash
+        run: echo "##[set-output name=repository;]$(echo ${DOCKER_REPOSITORY:-$GITHUB_REPOSITORY})"
+
+      - name: Extract Tag Release Version
+        id: ci_tag_release_version
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true')
+        shell: bash
+        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/} | cut -c 9-)"
+
+      - name: Extract Tag Release Major
+        id: ci_tag_release_major
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true')
+        shell: bash
+        run: echo "##[set-output name=tag;]$(echo ${{steps.ci_tag_release_version.outputs.tag}} | cut -f1-1 -d'.')"
+
+      - name: Extract Tag Release Minor
+        id: ci_tag_release_minor
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true')
+        shell: bash
+        run: echo "##[set-output name=tag;]$(echo ${{steps.ci_tag_release_version.outputs.tag}} | cut -f1-2 -d'.')"
+
+      - name: Build and Push
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true')
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: |
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_version.outputs.tag }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_major.outputs.tag }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_minor.outputs.tag }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:latest"
+          build-args: "version_code=release-${{ steps.ci_tag_release_version.outputs.tag }}"
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      # Alternate Image with alpine
+      - name: Alternate Alpine Build and Push
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'true')
+        uses: docker/build-push-action@v2
+        with:
+          file: dockerfiles/v2/alpine
+          push: true
+          tags: |
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_version.outputs.tag }}-alpine"
+          build-args: "version_code=release-${{ steps.ci_tag_release_version.outputs.tag }}"
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      # Alternate Image with amazonlinux
+      - name: Alternate Amazon Linux Build and Push
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'true')
+        uses: docker/build-push-action@v2
+        with:
+          file: dockerfiles/v2/amazonlinux
+          push: true
+          tags: |
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_version.outputs.tag }}-amazonlinux"
+          build-args: "version_code=release-${{ steps.ci_tag_release_version.outputs.tag }}"
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      - name: Move cache
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true')
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache

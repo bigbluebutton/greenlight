@@ -25,10 +25,18 @@ ar_IQ:
         name: الاسم
         password: كلمة السر
         password_confirmation: تأكيد كلمة السر
+        old_password: كلمة المرور القديمة
     errors:
       models:
         user:
-          confirmation: لا يتطابق مع كلمة السر
+          confirmation: لا تتطابق
+          attributes:
+            email:
+              invalid: تنسيق بريد إلكتروني غير صالح
+            password:
+              invalid: لا تفي بمتطلبات التعقيد 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -335,6 +343,8 @@ ar_IQ:
   language_default: الافتراضي (لغة المتصفح)
   ldap_error: غير قادر على الاتصال بخادم LDAP. يرجى التحقق من تكوين LDAP في ملف env والتأكد من تشغيل خادمك.
   login: تسجيل الدخول
+  login_page:
+    locked_out: تم قفل حسابك بسبب إجراء محاولات كثيرة غير صحيحة لإدخال كلمة المرور. الرجاء معاودة المحاولة في وقت لاحق.
   login_title: تسجيل الدخول إلى حسابك
   mailer:
     user:
@@ -400,7 +410,9 @@ ar_IQ:
       access_code: رمز الوصول
       moderator_access_code: رمز المشرف
       access_code_placeholder: إنشاء رمز وصول اختياري للغرفة
+      reset_access_code: أعد تعيين رمز الدخول الاختياري للغرفة
       moderator_access_code_placeholder: قم بإنشاء رمز اختياري للمشرفين
+      reset_moderator_access_code: إعادة تعيين الرمز الاختياري للمشرفين
       auto_join: الانضمام التلقائي إلى الغرفة
       create: إنشاء غرفة
       free_delete: سيكون لك مطلق الحرية في حذف هذه الغرفة في أي وقت.
@@ -484,6 +496,13 @@ ar_IQ:
   password_empty_notice: لا يمكن أن تكون كلمة المرور فارغة.
   password_reset_success: تم إعادة تعيين كلمة المرور.
   password_different_notice: تأكيد كلمة المرور غير متطابق.
+  old_password_incorrect: غير صحيح
+  password_complexity:
+    minimum_len: 8 أحرف على الأقل
+    one_lower_case: حرف 1 صغير على الأقل
+    one_upper_case: حرف كبير 1 على الأقل
+    one_digit: رقم 1 على الأقل
+    one_sym: حرف 1 على الأقل ليس أبجديًا رقميًا
   provider:
     google: Google
     office365: أوفيس 365
@@ -535,10 +554,12 @@ ar_IQ:
     invite:
       fail: الرمز المميز الخاص بك إما غير صالح أو انتهت صلاحيته. إذا كنت تعتقد أن هذا خطأ، يرجى الاتصال بالمسؤول.
       no_invite: ليس لديك دعوة للانضمام. الرجاء الاتصال بالمسؤول للحصول على الدعوة.
+    insecure_password: لتحسين أمان الحساب ، قمنا بزيادة تعقيد كلمات المرور لجميع كلمات المرور. يرجى إنشاء كلمة مرور جديدة تطابق المتطلبات أدناه.
   remove: إزالة
   rename: إعادة تسمية
   reset_password:
     captcha: فشل التحقق من reCAPTCHA، الرجاء المحاولة مرة أخرى.
+    complexity: كلمة المرور لا تفي بمتطلبات التعقيد
     invalid_token: رمز إعادة تعيين كلمة المرور غير صالح. يرجى محاولة إعادة تعيين كلمة المرور الخاصة بك مرة أخرى.
     subtitle: إعادة تعيين كلمة المرور
     password: كلمة المرور الجديدة
@@ -660,3 +681,5 @@ ar_IQ:
     signin: الرجاء تسجيل الدخول للوصول إلى حسابك.
     title: قم بتأكيد بريدك الالكتروني
     verification: التحقق
+  session:
+    expired: انتهت الجلسة (الرجاء تسجيل الدخول مرة أخرى.).

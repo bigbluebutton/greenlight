@@ -145,18 +145,6 @@ $(document).on('turbolinks:load', function(){
       $("#role-colorinput-regular").css("border-color", role_colour);
 
       loadRoleColourSelector(role_colour, $("#role-colorinput-regular").data("disabled"));
-
-      // Loads the jquery sortable so users can manually sort roles
-      $("#rolesSelect").sortable({
-        items: "a:not(.sort-disabled)",
-        update: function() {
-          $.ajax({
-            url: $(this).data("url"),
-            type: 'PATCH',
-            data: $(this).sortable('serialize')
-          });
-        }
-      });
     }
   }
 });
