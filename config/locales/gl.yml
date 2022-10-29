@@ -25,10 +25,18 @@ gl:
         name: Nome
         password: Contrasinal
         password_confirmation: Confirmación do contrasinal
+        old_password: Contrasinal antigo
     errors:
       models:
         user:
-          confirmation: o contrasinal non coincide
+          confirmation: non coincide
+          attributes:
+            email:
+              invalid: formato de correo-e non válido
+            password:
+              invalid: non cumpría os requisitos de complexidade 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -145,7 +153,7 @@ gl:
     roles:
       appear_in_share_list: Incluír usuarios con este rol no menú despregábel para compartir salas
       can_create_rooms: Pode crear salas
-      can_launch_recording: Permitir os usuarios con este rol para gravar estas reunións
+      can_launch_recording: Permitirlle aos usuarios con este rol gravar estas xuntanzas
       delete: Eliminar o rol
       invalid_create: Produciuse un problema ao crear un novo rol. Comprobe os valores dos roles e ténteo de novo
       invalid_order: Produciuse un problema ao actualizar a prioridade do rol. Comprobe os valores dos roles e ténteo de novo
@@ -335,6 +343,8 @@ gl:
   language_default: Por omisión (idioma do navegador)
   ldap_error: Non foi posíbel conectar co servidor LDAP. Verifique a súa configuración LDAP no ficheiro «env» e asegúrese de que o seu servidor estea a funcionar.
   login: Acceder
+  login_page:
+    locked_out: A súa conta foi bloqueada por mor de demasiados intentos de contrasinais incorrectos. Ténteo de novo máis adiante.
   login_title: Acceder á súa conta
   mailer:
     user:
@@ -400,7 +410,9 @@ gl:
       access_code: Código de acceso
       moderator_access_code: Código do moderador
       access_code_placeholder: Xerar un código de acceso á sala opcional
+      reset_access_code: Restabelecer o código de acceso á sala opcional
       moderator_access_code_placeholder: Xera un código opcional para os moderadores
+      reset_moderator_access_code: Restabelecer o código opcional para os moderadores
       auto_join: Unirse automaticamente comigo na sala
       create: Crear unha sala
       free_delete: Será libre de eliminar esta sala en calquera momento.
@@ -484,6 +496,13 @@ gl:
   password_empty_notice: O contrasinal non pode estar baleiro.
   password_reset_success: Restabeleceuse o contrasinal.
   password_different_notice: A confirmación de contrasinal non coincide.
+  old_password_incorrect: é incorrecto
+  password_complexity:
+    minimum_len: Polo menos 8 caracteres
+    one_lower_case: Polo menos 1 carácter en minúscula
+    one_upper_case: Polo menos 1 carácter en maiúscula
+    one_digit: Polo menos 1 número
+    one_sym: Polo menos 1 carácter non alfanumérico
   provider:
     google: Google
     office365: Office 365
@@ -501,8 +520,8 @@ gl:
     no_public_recordings: Esta sala non ten gravacións públicas.
     no_recordings: Esta sala non ten gravacións.
     no_user_recordings: Non ten gravacións.
-    no_matched_pub_recordings: Non hai gravacións públicas que coincidan coa túa busca.
-    no_matched_recordings: Non hai gravacións que coincidan coa túa busca.
+    no_matched_pub_recordings: Non hai gravacións públicas que coincidan coa súa busca.
+    no_matched_recordings: Non hai gravacións que coincidan coa súa busca.
     recorded_on: "Gravada o %{date}"
     table:
       name: Nome
@@ -535,10 +554,12 @@ gl:
     invite:
       fail: "O seu testemuño caducou ou non é válido. Se cre que é un erro, póñase en contacto co administrador do sistema. "
       no_invite: "Non ten un convite para unirse. Contacte co administrador do sistema para obter un. "
+    insecure_password: "Para mellorar a seguridade da conta, aumentamos a complexidade dos contrasinais para todos os contrasinais. Crea un novo contrasinal que coincida cos requisitos que se indican a continuación."
   remove: Retirar
   rename: Renomear
   reset_password:
     captcha: "Produciuse un fallo na verificación de reCAPTCHA, ténteo de novo."
+    complexity: O contrasinal non cumpría os requisitos de complexidade
     invalid_token: O testemuño de restablecemento de contrasinal non é válido. Tente restabelecer o seu contrasinal de novo.
     subtitle: Restabelecer o contrasinal
     password: Novo contrasinal
@@ -648,7 +669,7 @@ gl:
     Esta instalación está a usar un servidor para probas preconfigurado. Debe substituílo polo seu propio servidor. Para obter máis detalles, consulte %{href}.
   time:
     formats:
-      default: "%b %d, %Y %-I:%M%P"
+      default: "%d de %b de %Y %-I:%M%P"
   update: Actualizar
   verify:
     accept: Verificar

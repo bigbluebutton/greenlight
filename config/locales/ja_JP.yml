@@ -25,10 +25,18 @@ ja_JP:
         name: 名前
         password: パスワード
         password_confirmation: パスワード確認
+        old_password: 前のパスワード
     errors:
       models:
         user:
-          confirmation: パスワードが一致しません
+          confirmation: 一致しません
+          attributes:
+            email:
+              invalid: Eメールの形式が正しくありません
+            password:
+              invalid: 十分に複雑ではありません 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -65,26 +73,26 @@ ja_JP:
         button: 認証のクリア
       color:
         info: 基調色を変更すると、明色と暗色もそれに応じて変わります。明色と暗色を個別に変更することもできます
-        title: 色
+        title: 色調
         regular: 基調色
         lighten: 明色
         darken: 暗色
       email_mapping:
-        info: "メールアドレスを使用してユーザーに役割を割り当てる。メールアドレス1=役割1,メールアドレス2=役割2の形式で記述する必要があります"
+        info: "メールアドレスを使用してユーザーに役割を割り当てる。「メール1=役割1,メール2=役割2」の形式で記述する必要があります"
         title: メールアドレスによる役割の割り当て
         update:
       log_level:
         title: ログレベル
         information: 配置されたすべてのログレベルを変更する
         debug: デバッグ
-        info: 情報
+        info: 情報収集
         warn: 警告
         error: エラー
         fatal: 致命的
         unknown: 不明
       recording_visibility:
         info: 新しい録画の標準の公開方法を設定する
-        title: 標準の録画公開度
+        title: 録画の標準公開度
         warning: この設定は実行していない会議室にのみ適用されます
       require_consent:
         info: これにより、会議室のオーナーが、部屋ごとの録画の可否を設定できるようになります。録画される会議に参加するユーザーからは、同意を得る必要があります。
@@ -96,10 +104,10 @@ ja_JP:
         clear: 消去する
         time: "例: アップデートが日本時間の12月13日23:00から予定されています。その間サインインがうまくできない可能性があります。"
       preupload:
-        info: ユーザーがプレゼン資料を事前にアップロードできるようになります。この資料は、会議室固有の標準資料として使用されます。
+        info: ユーザーがプレゼン資料を事前にアップロードできるようになります。この資料は、会議室限定の基本プレゼンとして使用されます。
         title: プレゼン資料の事前アップロードを許可
       registration:
-        info: ユーザーがWebサイトに登録する方法を変更する
+        info: ユーザーがWebサイトに登録する方法を変更します
         title: 登録方法
         methods:
           approval: 承認制
@@ -127,8 +135,8 @@ ja_JP:
       demoted: ユーザーが降格されました
       invite: "%{email} に招待状を送信しました"
       invite_email_verification: この方法を使用するには、メールを有効にする必要があります。 システム管理者にお問い合わせください。
-      merge_fail: ユーザーアカウントのマージ中に問題が発生しました。 選択したユーザーを確認して、もう一度お試しください
-      merge_success: ユーザーアカウントがマージされました
+      merge_fail: ユーザーアカウントの合併中に問題が発生しました。 選択したユーザーを確認して、もう一度お試しください
+      merge_success: ユーザーアカウントを合併しました
       perm_deleted: ユーザーが完全に削除されました
       promoted: ユーザーが昇格しました
       registration_method_updated: 登録方法が更新されました
@@ -138,12 +146,12 @@ ja_JP:
       settings: サイト設定が変更されました
       unauthorized: このユーザーにアクションを実行する権限がありません
     recordings:
-      latest: 最新の録画
+      latest: 最近の録画
       title: すべての録画
       no_recordings: このサーバには録画がありません。
       search_info: ユーザーの電子メールアドレスか、会議室のIDを入力して下さい。
     roles:
-      appear_in_share_list: 会議室共有のドロップダウンに含める
+      appear_in_share_list: 会議室を共有するとき、この役割の人を選択可能にする
       can_create_rooms: 会議室の作成権
       can_launch_recording: 会議を録画する権限
       delete: 役割の削除
@@ -169,7 +177,7 @@ ja_JP:
       mute:
         info: ユーザーが会議に参加した時、自動的にミュートします。
       require_moderator:
-        info: ユーザーが会議に参加しようとした時、モデレータに問い合わせが行きます。許可が得られればユーザーは参加できます。
+        info: 会議への参加希望に対し、許可するかどうかいちいちモデレーターに問い合わせます。許可されればユーザーは参加できます。
       allow_any:
         info: 全てのユーザーがいつでも会議を開始することを許可します。通常は会議室のオーナーだけが会議を開始できます。
       all_moderator:
@@ -178,7 +186,7 @@ ja_JP:
         info: 会議室のオーナーが、会議を録画させるかどうかの選択肢を提供できるようになります。これをオンにしたとしても、録画を開始するためには、司会者は"録画"ボタンを押す必要があります。
       moderator_codes:
         info: 会議室の所有者に、モデレーターPINコードの発行を許可します。このコードがあれば、他のユーザーが直接モデレーターとして会議に参加できます。
-        title: モデレーターPINコード
+        title: モデレーター接続コード
       options:
         disabled: 常に無効
         enabled: 常に有効
@@ -194,7 +202,7 @@ ja_JP:
         running: 会議中
         started: "会議開始: %{session}"
         status: 状況
-        view: 表示
+        view: 見る
     title: 設定
     users:
       invite: ユーザーを招待する
@@ -207,13 +215,13 @@ ja_JP:
         delete: 削除する
         edit: 編集する
         edit_roles: ユーザーの役割を編集する
-        merge: マージ
+        merge: 他のアカウントと合併
         perm_delete: 完全に削除する
         unban: ユーザーのロックを解除
         undelete: 削除の取消
       table:
         authenticator: 認証元
-        created: 作成
+        created: アカウント作成
         time: 送付時刻
         name: 名前
         not_found: 検索条件に一致するユーザーはいません
@@ -335,6 +343,8 @@ ja_JP:
   language_default: デフォルト(ブラウザの言語)
   ldap_error: LDAPサーバーに接続できません。.envファイルのLDAP構成を確認しサーバが実行されていることを確認してください。
   login: サインイン
+  login_page:
+    locked_out: あなたのアカウントは、何度もパスワードを間違えたためブロックされました。あとでもう一度やってみてください。
   login_title: アカウントにサインイン
   mailer:
     user:
@@ -388,7 +398,7 @@ ja_JP:
         verify_link: アカウントを確認
         thanks: 参加していただきありがとうございます！
   max_concurrent: 同時開催可能なセッションの最大数に達しました！
-  merged: マージ
+  merged: 合併
   modal:
     create_role:
       create: 新しい役割を作成
@@ -400,7 +410,9 @@ ja_JP:
       access_code: アクセスコード
       moderator_access_code: モデレーターコード
       access_code_placeholder: 会議室のアクセスコードを生成する
-      moderator_access_code_placeholder: 予備のモデレーターコードを作成する
+      reset_access_code: 会議室のアクセスコードをリセットする
+      moderator_access_code_placeholder: モデレーターコードを作成する
+      reset_moderator_access_code: モデレーターコードをリセットする
       auto_join: 会議に自動的に参加する
       create: 会議室の作成
       free_delete: この会議室はいつでも自由に削除できます。
@@ -410,7 +422,7 @@ ja_JP:
     delete_account:
       confirm: このアカウントを削除してもよろしいですか？
       delete: このアカウントを削除します。
-      keep: やっぱり残します。
+      keep: やはり残します。
       delete_warning: これによりユーザーのアカウントが無効になります。 無効化されたすべてのユーザーは［削除］タブに表示されます。
       warning: この決定は最終的なものです。 関連するデータを回復することは<b>二度と</b>できません。
     delete_rec:
@@ -438,8 +450,8 @@ ja_JP:
       current: "現在のプレゼン資料: "
       footer: プレゼン資料のサイズによっては、使用可能になるまでに更にアップロード時間が必要となることがあります。
       invalid: サイズかファイルの種類が不適当です。下の制限事項をお読みください。
-      title: プレゼン資料を追加
-      use: プレゼン資料を使用
+      title: プレゼン資料の前置き
+      use: この資料を使う
     rename_recording:
     remove_shared:
       title: この会議室を会議室リストから削除してもよろしいですか？
@@ -458,19 +470,19 @@ ja_JP:
     rename_room:
       name_placeholder: 新しい会議室名を入力してください...
     share_access:
-      footer: 会議室を共有すると、 ユーザも会議を開始したり会議の録画を表示したりできます
+      footer: 会議室を共有すると、 他のユーザーも会議を開始したり録画リストを閲覧できます
       list: 共有するユーザー
-      title: 会議室アクセスの共有
+      title: 会議室の共有
       save: 変更を保存
       cancel_changes: 変更をキャンセル
       select: ユーザーの選択
     merge_user:
       cancel: キャンセル
-      from: マージするアカウント
-      title: ユーザーアカウントのマージ
-      to: プライマリアカウント
-      save: マージ
-      footer: マージされるアカウントの会議室は、アカウント削除前にプライマリアカウントの会議室一覧に転送されます。
+      from: 合併元のアカウント
+      title: ユーザーアカウントの合併
+      to: 合併先のアカウント
+      save: 合併する
+      footer: 合併元アカウントの会議室は、全て合併先の会議室リストにまず転送され、その後合併元アカウント自体が削除されます。
   name_update_success: 会議室名が変更されました！
   no_user_email_exists: 指定されたメールアドレスを持つユーザーは存在しません。 入力内容を確認してください。
   omniauth_error: OmniAuthで認証中にエラーが発生しました。 再試行するか、管理者に連絡してください！
@@ -484,6 +496,13 @@ ja_JP:
   password_empty_notice: パスワードは空にできません。
   password_reset_success: パスワードがリセットされました。
   password_different_notice: パスワードが一致しません。
+  old_password_incorrect: 正しくありません
+  password_complexity:
+    minimum_len: 少なくとも8文字が必要です
+    one_lower_case: 少なくとも１文字が小文字である必要があります
+    one_upper_case: 少なくとも１文字が大文字である必要があります
+    one_digit: 少なくとも１文字が数字である必要があります
+    one_sym: 少なくとも１文字がアルファベットや数字以外の文字である必要があります
   provider:
     google: Google
     office365: Office 365
@@ -499,11 +518,11 @@ ja_JP:
     email: 録画情報をメールする
     error: "%{count} 件の録画取得中にエラーが発生しました"
     no_public_recordings: この会議室では録画の公開はありません。
-    no_recordings: この会議室では何も録画されていません。
+    no_recordings: この会議室には録画がありません。
     no_user_recordings: 現在、録画はありません。
     no_matched_pub_recordings: 公開された録画には、検索条件に一致するものはありません。
     no_matched_recordings: 検索条件に一致する録画はありません。
-    recorded_on: "録画日は %{date} です"
+    recorded_on: " 録画日時：%{date} "
     table:
       name: 名前
       thumbnails: サムネイル
@@ -535,10 +554,12 @@ ja_JP:
     invite:
       fail: トークンが無効であるか、期限が切れています。 これが間違いだと思われる場合は、管理者に連絡してください。
       no_invite: 招待状がありません。 管理者に連絡して、招待状を受け取ってください。
+    insecure_password: アカウントのセキュリティを高めるため、全てのパスワードについて複雑さを向上させています。以下の条件に合うように新しいパスワードを設定してください。
   remove: 削除
   rename: 名前の変更
   reset_password:
     captcha: reCAPTCHAの検証に失敗しました。 もう一度お試しください。
+    complexity: パスワードの複雑さが十分ではありません。
     invalid_token: パスワードの再設定トークンが正しくありません。パスワードの再設定をもう一度行ってみてください。
     subtitle: パスワードを再設定する
     password: 新しいパスワード
@@ -555,7 +576,7 @@ ja_JP:
     user: ユーザー
   room:
     access_code_required: 会議に参加するには、有効なアクセスコードを入力してください
-    add_presentation: プレゼン資料を追加
+    add_presentation: プレゼン資料の前置き
     copy_access: アクセスコードをコピー
     copy_moderator_access: モデレーターコードをコピーする
     create_room: 会議室の作成
@@ -567,14 +588,14 @@ ja_JP:
       fail: "会議室の削除に失敗しました(%{error})"
     enter_the_access_code: 会議室のアクセスコードを入力してください
     enter_the_moderator_access_code: モデレーターコードを使用して会議室に入室する
-    optional_moderator_access_code: "予備のモデレーターコード"
+    optional_moderator_access_code: "モデレーターコード"
     invalid_provider: 無効なURLを入力しました。 URLを確認して、もう一度試してみてください。
     invitation_description: "BigBlueButtonを使用して%{name}に参加するよう招待されました。参加するためには下のリンクをクリックし、名前を入力してください。"
     invited: 招待されています
     recording_present: このセッションが録画されるかもしれないこと、その場合自分の声や動画が録画に含まれうることを承知しています。
     invite_participants: 参加者を招待する
     join: 参加する
-    last_session: "%{session} ：最後のセッション"
+    last_session: "最後のセッション：%{session}"
     login: 入力
     owner: オーナー
     owner_banned: この会議室は現在利用できません
@@ -592,7 +613,7 @@ ja_JP:
     preupload_error: 会議室のプレゼン資料をアップデートする際にエラーが起こりました
     preupload_remove_success: プレゼン資料を消去しました
     preupload_remove_error: 会議室のプレゼン資料を消去する際にエラーが起こりました
-    recordings: 件の録画
+    recordings: 会議室の録画
     room_limit: 許可された会議室数の上限に達しました
     room_limit_exceeded: "許可された会議室数を超えています。 この会議室にアクセスするには、会議室を %{difference} 個削除してください。"
     sessions: セッション
@@ -648,7 +669,7 @@ ja_JP:
     この構成では、事前に構成されたテストサーバを使用しています。これを独自のものに置き換える必要があります。 詳細については %{href} をご覧ください。
   time:
     formats:
-      default: "%Y年%b%d日 %-I:%M%P"
+      default: "%Y年%-m月-%d日 %-I:%M%P"
   update: 更新
   verify:
     accept: 確認
@@ -660,3 +681,5 @@ ja_JP:
     signin: アカウントにアクセスするにはサインインしてください。
     title: メールを確認します
     verification: 検証
+  session:
+    expired: セッションの期限切れです（もう一度サインインしてください）。

@@ -51,6 +51,10 @@ module Greenlight
     # The default callback url that bn launcher will redirect to
     config.gl_callback_url = ENV["GL_CALLBACK_URL"]
 
+    # Greenlight V3 variables:
+    config.v3_endpoint = ENV["V3_ENDPOINT"]
+    config.v3_secret_key_base = ENV["V3_SECRET_KEY_BASE"]
+
     # Default credentials (test-install.blindsidenetworks.com/bigbluebutton).
     config.bigbluebutton_endpoint_default = "http://test-install.blindsidenetworks.com/bigbluebutton/api/"
     config.bigbluebutton_secret_default = "8cd8ef52e8e101574e400365b55e11a6"
@@ -182,6 +186,11 @@ module Greenlight
     config.moderator_codes_default = "disabled"
 
     # Default admin password
-    config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'administrator'
+    config.admin_password_default = ENV['ADMIN_PASSWORD'] || 'Administrator1!'
+
+    # Max avatar image size
+    config.max_avatar_size = ENV['MAX_AVATAR_SIZE'].to_i.zero? ? 100_000 : ENV['MAX_AVATAR_SIZE'].to_i
+
+    config.social_switching = ENV['SOCIAL_SWITCHING'] == "true"
   end
 end

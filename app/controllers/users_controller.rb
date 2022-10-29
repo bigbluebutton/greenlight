@@ -97,13 +97,13 @@ class UsersController < ApplicationController
       params[:user][:name] = @user.name
       params[:user][:email] = @user.email
     end
-
-    if @user.update_attributes(user_params)
-      @user.update_attributes(email_verified: false) if user_params[:email] != @user.email
-
-      user_locale(@user)
-
-      if update_roles(params[:user][:role_id])
+    old_user_email = @user.email
+    if @user.without_terms_acceptance { @user.update_attributes(user_params) }
+      @user.without_terms_acceptance {
+        @user.update_attributes(email_verified: false) if user_params[:email] != old_user_email
+        user_locale(@user)
+      }
+      if @user.without_terms_acceptance { update_roles(params[:user][:role_id]) }
         return redirect_to redirect_path, flash: { success: I18n.t("info_update_success") }
       else
         flash[:alert] = I18n.t("administrator.roles.invalid_assignment")
@@ -116,23 +116,25 @@ class UsersController < ApplicationController
   # POST /u/:user_uid/change_password
   def update_password
     # Update the users password.
-    if @user.authenticate(user_params[:password])
-      # Verify that the new passwords match.
-      if user_params[:new_password] == user_params[:password_confirmation]
-        @user.password = user_params[:new_password]
-      else
-        # New passwords don't match.
-        @user.errors.add(:password_confirmation, "doesn't match")
-      end
+    if @user.authenticate(user_params[:old_password])
+      # Bad UX on client side [FIXED].
+      @user.assign_attributes user_params.slice(:password, :password_confirmation)
     else
       # Original password is incorrect, can't update.
-      @user.errors.add(:password, "is incorrect")
+      @user.errors.add(:old_password, I18n.t("old_password_incorrect"))
     end
 
     # Notify the user that their account has been updated.
-    return redirect_to change_password_path,
-      flash: { success: I18n.t("info_update_success") } if @user.errors.empty? && @user.save
-
+    if @user.errors.empty? && @user.without_terms_acceptance {
+        @user.save && @user.update(last_pwd_update: Time.zone.now)
+    }
+      # Changing the password has to update the last_pwd_update to match the event timestamp.
+      # The activated_at session metadata has to match it too to reset the state of the active session
+      # making this change password request.
+      # This keeps only this session alive.
+      session[:activated_at] = @user.last_pwd_update.to_i if current_user.id == @user.id
+      return redirect_to change_password_path, flash: { success: I18n.t("info_update_success") }
+    end
     # redirect_to change_password_path
     render :change_password
   end
@@ -203,7 +205,7 @@ class UsersController < ApplicationController
   # GET /shared_access_list
   def shared_access_list
     # Don't allow searchs unless atleast 3 characters are passed
-    return redirect_to '/404' if params[:search].length < 3
+    return redirect_to '/404' unless params[:search].strip.length >= 3
 
     roles_can_appear = []
     Role.where(provider: @user_domain).each do |role|
@@ -235,7 +237,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :image, :password, :password_confirmation,
-      :new_password, :provider, :accepted_terms, :language)
+      :old_password, :accepted_terms, :language)
   end
 
   def send_registration_email

@@ -25,10 +25,18 @@ pt_BR:
         name: Nome
         password: Senha
         password_confirmation: Confirmação de Senha
+        old_password: Senha antiga
     errors:
       models:
         user:
-          confirmation: não corresponde à senha
+          confirmation: não corresponde
+          attributes:
+            email:
+              invalid: Formato de e-mail inválido
+            password:
+              invalid: não atendeu aos requisitos de complexidade 
+              
+  
   administrator:
     site_settings:
       authentication:
@@ -335,6 +343,8 @@ pt_BR:
   language_default: Padrão (idioma do navegador)
   ldap_error: Não é possível conectar ao servidor LDAP. Verifique sua configuração LDAP e certifique-se de que seu servidor está funcionando.
   login: Entrar
+  login_page:
+    locked_out: "Sua conta foi bloqueada devido a muitas tentativas com senhas incorretas. Por favor, tente novamente mais tarde"
   login_title: Entre em sua conta.
   mailer:
     user:
@@ -400,7 +410,9 @@ pt_BR:
       access_code: Código de acesso
       moderator_access_code: Código do moderador
       access_code_placeholder: Gerar um código de acesso opcional para a sala
+      reset_access_code: Redefinir o código de acesso opcional para a sala
       moderator_access_code_placeholder: Gerar um código opcional para moderadores
+      reset_moderator_access_code: Redefinir o código opcional para moderadores
       auto_join: Entrar na sala automaticamente.
       create: Criar Sala
       free_delete: Você poderá apagar esta sala a qualquer momento.
@@ -484,6 +496,13 @@ pt_BR:
   password_empty_notice: A senha não pode ser vazia.
   password_reset_success: A senha foi resetada.
   password_different_notice: A confirmação de senha não confere.
+  old_password_incorrect: está incorreto
+  password_complexity:
+    minimum_len: Pelo menos 8 caracteres
+    one_lower_case: Pelo menos 1 caractere minúsculo
+    one_upper_case: Pelo menos 1 caractere maiúsculo
+    one_digit: Pelo menos 1 número
+    one_sym: Pelo menos 1 caractere não alfanumérico
   provider:
     google: Google
     office365: Office 365
@@ -535,10 +554,12 @@ pt_BR:
     invite:
       fail: "Ou seu token é inválido, ou ele expirou. Se você acredita que isso seja um engano, por favor, contate o seu administrador."
       no_invite: "Você não possui um convite para entrar. Por favor, contate o seu administrador para receber um."
+    insecure_password: "Para melhorar a segurança de sua conta, aumentamos a complexidade de todas as senhas. Crie uma nova senha que atenda aos requisitos listados abaixo."
   remove: Remover
   rename: Renomear
   reset_password:
     captcha: "Verificação do reCAPTCHA falhou, por favor, tente novamente."
+    complexity: A senha não atendeu aos requisitos de complexidade
     invalid_token: "O token de redefinição de senha é inválido. Por favor, tente redefinir sua senha novamente."
     subtitle: Resetar senha
     password: Nova senha

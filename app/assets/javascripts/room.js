@@ -46,9 +46,15 @@ $(document).on('turbolinks:load', function(){
       showUpdateRoom(this)
     })
 
+    // share room pop up accessibility
+    manageAccessAccessibility();
+
     $(".delete-room").click(function() {
       showDeleteRoom(this)
     })
+
+    // For keyboard users to be able to generate access code
+    generateAccessCodeAccessibility()
 
     $('.selectpicker').selectpicker({
       liveSearchPlaceholder: getLocalizedString('javascript.search.start')
@@ -332,23 +338,38 @@ function saveAccessChanges() {
 // Get list of users shared with and display them
 function displaySharedUsers(path) {
   $.get(path, function(users) {
-    // Create list element and add to user list
-    var user_list_html = ""
+
+    $("#user-list").html("") // Clear current inputs
 
     users.forEach(function(user) {
-      user_list_html += "<li class='list-group-item text-left' data-uid='" + user.uid + "'>"
 
-      if (user.image) {
-        user_list_html += "<img id='user-image' class='avatar float-left mr-2' src='" + user.image + "'></img>"
-      } else {
-        user_list_html += "<span class='avatar float-left mr-2'>" + user.name.charAt(0) + "</span>"
-      }
-      user_list_html += "<span class='shared-user'>" + user.name + "<span class='text-muted ml-1'>" + user.uid + "</span></span>"
-      user_list_html += "<span class='text-primary float-right shared-user cursor-pointer' onclick='removeSharedUser(this)'><i class='fas fa-times'></i></span>"
-      user_list_html += "</li>"
+      listName = document.createElement("li"),
+      spanAvatar = document.createElement("span"),
+      spanName = document.createElement("span"),
+      spanUid = document.createElement("span"),
+      spanRemove = document.createElement("span"),
+      spanRemoveIcon = document.createElement("i");
+
+      listName.setAttribute('class', 'list-group-item text-left')
+      listName.setAttribute('data-uid', user.uid)
+      spanAvatar.innerText = user.name.charAt(0)
+      spanAvatar.setAttribute('class', 'avatar float-left mr-2')
+      spanName.setAttribute('class', 'shared-user')
+      spanName.innerText = user.name
+      spanUid.setAttribute('class', 'text-muted ml-1')
+      spanUid.innerText = user.uid
+      spanRemove.setAttribute('class', 'text-primary float-right shared-user cursor-pointer')
+      spanRemove.setAttribute('onclick', 'removeSharedUser(this)')
+      spanRemoveIcon.setAttribute('class', 'fas fa-times')
+
+      listName.appendChild(spanAvatar)
+      listName.appendChild(spanName)
+      spanName.appendChild(spanUid)
+      listName.appendChild(spanRemove)
+      spanRemove.appendChild(spanRemoveIcon)
+
+      $("#user-list").append(listName)
     })
-
-    $("#user-list").html(user_list_html)
   });
 }
 
@@ -429,4 +450,68 @@ function filterRooms() {
 function clearRoomSearch() {
   $('#room-search').val(''); 
   filterRooms()
+}
+
+function manageAccessAccessibility() {
+  // share room pop up accessibility
+  var holdModal = false;
+  $("#shareRoomModal").on("show.bs.modal", function() {
+    // for screen reader to be able to read results
+    $("#shareRoomModal .form-control").attr("aria-atomic", true);
+    $("#shareRoomModal .dropdown-menu div.inner").attr("role", "alert");
+    $("#shareRoomModal ul.dropdown-menu").attr("role", "listbox");
+    $("#shareRoomModal div.dropdown-menu").find("*").keyup(function(event) {
+      $("#shareRoomModal ul.dropdown-menu li").attr("aria-selected", false);
+      $("#shareRoomModal ul.dropdown-menu li.active").attr("aria-selected", true);
+      $("#shareRoomModal ul.dropdown-menu li.active a").attr("aria-selected", true);
+    });           
+    // for keyboard support
+    // so that it can escape / close search user without closing the modal
+    $("#shareRoomModal div.dropdown-menu input").keydown(function(event) {
+      if (event.keyCode === 27) {                                             
+        holdModal = true;   
+      }                                 
+    }); 
+  });
+
+  // reset escape button if the search is closed / done
+  $("#shareRoomModal").on("hide.bs.modal", function(e) {
+    if (holdModal) {
+      holdModal = false;
+      e.stopPropagation();
+      return false;   
+    }            
+  });
+}
+
+function generateAccessCodeAccessibility() {
+  // For keyboard users to be able to generate access code
+  $("#generate-room-access-code").keyup(function(event) {
+    if (event.keyCode === 13 || event.keyCode === 32) {
+        generateAccessCode();
+    }
+  })
+
+  // For keyboard users to be able to reset access code
+  $("#reset-access-code").keyup(function(event) {
+    if (event.keyCode === 13 || event.keyCode === 32) {
+        ResetAccessCode();
+    }
+  })
+
+  // For keyboard users to be able to generate access code
+  // for moderator
+  $("#generate-moderator-room-access-code").keyup(function(event) {
+    if (event.keyCode === 13 || event.keyCode === 32) {
+        generateModeratorAccessCode();
+    }
+  })
+
+  // For keyboard users to be able to reset access code
+  // for moderator
+  $("#reset-moderator-access-code").keyup(function(event) {
+    if (event.keyCode === 13 || event.keyCode === 32) {
+        ResetModeratorAccessCode();
+    }
+  })
 }
