@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe RoleCreator, type: :service do
-
   describe '#call' do
     before do
       create(:permission, name: 'CreateRoom')
@@ -32,5 +33,4 @@ describe RoleCreator, type: :service do
       expect(role.role_permissions.pluck(:value)).to eq(%w[false false false false false false false false 0])
     end
   end
-
 end

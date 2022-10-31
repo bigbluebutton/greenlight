@@ -1,5 +1,6 @@
-class RoleCreator
+# frozen_string_literal: true
 
+class RoleCreator
   def initialize(name:, provider:)
     @name = name
     @provider = provider
