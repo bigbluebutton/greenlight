@@ -9,7 +9,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    sign_in_user(user)
   end
 
   describe '#create' do
@@ -38,7 +37,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context 'valid user params' do
       it 'creates a user account for valid params' do
-        expect { post :create, params: user_params }.to change(User, :count).from(1).to(2)
+        expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
 
         expect(response).to have_http_status(:created)
         expect(JSON.parse(response.body)['errors']).to be_nil
@@ -87,6 +86,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       context 'Admin creation' do
         it 'sends activation email to but does NOT signin the created user' do
+          sign_in_user(user)
+
           expect { post :create, params: user_params }.to change(User, :count).by(1)
           expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
                                                                                                        'deliver_now', Hash)
@@ -125,7 +126,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           language: 'teletraan'
         }
 
-        expect { post :create, params: { user: user_params } }.to change(User, :count).from(1).to(2)
+        expect { post :create, params: { user: user_params } }.to change(User, :count).from(0).to(1)
 
         expect(User.find_by(email: user_params[:email]).role).to eq(autobots)
         expect(response).to have_http_status(:created)
@@ -145,7 +146,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           invite = create(:invitation, email: user_params[:user][:email])
           user_params[:user][:invite_token] = invite.token
 
-          expect { post :create, params: user_params }.to change(User, :count).from(1).to(2)
+          expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
 
           expect(response).to have_http_status(:created)
           expect(JSON.parse(response.body)['errors']).to be_nil
@@ -173,10 +174,28 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect(JSON.parse(response.body)['errors']).to eq('InviteInvalid')
         end
       end
+
+      context 'approval' do
+        before do
+          reg_method = instance_double(SettingGetter)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'RegistrationMethod', provider: 'greenlight').and_return(reg_method)
+          allow(reg_method).to receive(:call).and_return('approval')
+        end
+
+        it 'sets a user to pending when registering' do
+          expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
+
+          expect(User.find_by(email: user_params[:user][:email]).status).to eq('pending')
+        end
+      end
     end
   end
 
   describe '#show' do
+    before do
+      sign_in_user(user)
+    end
+
     it 'returns a user if id is valid' do
       user = create(:user)
       get :show, params: { id: user.id }
@@ -192,6 +211,10 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   end
 
   describe '#update' do
+    before do
+      sign_in_user(user)
+    end
+
     it 'updates the users attributes' do
       updated_params = {
         name: 'New Name',
@@ -230,6 +253,10 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   end
 
   describe '#destroy' do
+    before do
+      sign_in_user(user)
+    end
+
     it 'deletes the current_user account' do
       expect(response).to have_http_status(:ok)
       expect { delete :destroy, params: { id: user.id } }.to change(User, :count).by(-1)
@@ -259,6 +286,10 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   end
 
   describe 'change_password' do
+    before do
+      sign_in_user(user)
+    end
+
     let!(:user) { create(:user, password: 'Test12345678+') }
 
     it 'changes current_user password if the params are valid' do
