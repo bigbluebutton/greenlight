@@ -47,6 +47,11 @@ class User < ApplicationRecord
   validates :verification_digest, uniqueness: true, if: :verification_digest?
   validates :session_token, presence: true, uniqueness: true
   validates :session_expiry, presence: true
+  validates :language, presence: true
+
+  validates :name, length: { minimum: 2, maximum: 255 }
+  validates :email, length: { minimum: 5, maximum: 255 }
+  validates :password, length: { maximum: 255 }
 
   validate :check_user_role_provider, if: :role_changed?
 
