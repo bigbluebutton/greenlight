@@ -40,7 +40,7 @@ module Api
         # Does: Creates a role.
 
         def create
-          role = Role.new role_params.merge(provider: current_provider)
+          role = RoleCreator.new(name: role_params[:name], provider: current_provider).call
 
           return render_error errors: role.errors.to_a, status: :bad_request unless role.save
 
@@ -67,6 +67,7 @@ module Api
           return render_error errors: @role.errors.to_a, status: :method_not_allowed if undeletable_roles.include?(@role.name)
 
           @role.destroy!
+
           render_data status: :ok
         end
 

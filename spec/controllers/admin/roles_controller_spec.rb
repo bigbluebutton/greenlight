@@ -6,6 +6,8 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
   let(:user) { create(:user) }
   let(:user_with_manage_roles_permission) { create(:user, :with_manage_roles_permission) }
 
+  let(:fake_role_creator) { instance_double(RoleCreator) }
+
   before do
     Faker::Construction.unique.clear
     request.headers['ACCEPT'] = 'application/json'
@@ -105,6 +107,18 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
   end
 
   describe 'roles#create' do
+    before do
+      create(:permission, name: 'CreateRoom')
+      create(:permission, name: 'ManageUsers')
+      create(:permission, name: 'ManageRooms')
+      create(:permission, name: 'ManageRecordings')
+      create(:permission, name: 'ManageSiteSettings')
+      create(:permission, name: 'ManageRoles')
+      create(:permission, name: 'SharedList')
+      create(:permission, name: 'CanRecord')
+      create(:permission, name: 'RoomLimit')
+    end
+
     it 'returns :created and creates a role for valid params' do
       valid_params = { name: 'CrazyRole' }
       expect { post :create, params: { role: valid_params } }.to change(Role, :count).by(1)
