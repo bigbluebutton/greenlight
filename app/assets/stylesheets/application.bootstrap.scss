@@ -282,6 +282,24 @@ input.search-bar {
   }
 }
 
+input[type='text']:focus {
+    border-color: var(--brand-color) !important;
+}
+
+input[type='checkbox'] {
+  &:checked {
+    background-color: var(--brand-color) !important;
+    border-color: var(--brand-color) !important;
+    color: white !important;
+  }
+
+  &:focus {
+    border-color: var(--brand-color) !important;
+    box-shadow: 0 0 0 0.25rem var(--brand-color-light) !important;
+  }
+
+}
+
 //Bootstrap overwrite
 .form-switch .form-check-input:focus {
   border-color: rgba(0, 0, 0, 0.25);

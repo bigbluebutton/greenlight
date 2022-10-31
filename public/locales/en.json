@@ -97,7 +97,8 @@
       "join_meeting": "Join Meeting",
       "meeting_invitation": "You have been invited to join",
       "meeting_not_started": "The meeting has not started yet",
-      "join_meeting_automatically": "You will automatically join when the meeting starts"
+      "join_meeting_automatically": "You will automatically join when the meeting starts",
+      "recording_consent": "I acknowledge that this session may be recorded. This may include my voice and video if enabled."
     },
     "presentation": {
       "presentation": "Presentation",
