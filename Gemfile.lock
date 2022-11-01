@@ -81,6 +81,22 @@ GEM
     aes_key_wrap (1.1.0)
     ast (2.4.2)
     attr_required (1.0.1)
+    aws-eventstream (1.2.0)
+    aws-partitions (1.653.0)
+    aws-sdk-core (3.166.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.651.0)
+      aws-sigv4 (~> 1.5)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.59.0)
+      aws-sdk-core (~> 3, >= 3.165.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.117.1)
+      aws-sdk-core (~> 3, >= 3.165.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.4)
+    aws-sigv4 (1.5.2)
+      aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.18)
     bigbluebutton-api-ruby (1.8.0)
       childprocess (>= 1.0.1)
@@ -149,6 +165,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jmespath (1.6.1)
     jsbundling-rails (1.0.2)
       railties (>= 6.0.0)
     json (2.6.2)
@@ -365,6 +382,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   active_storage_validations
+  aws-sdk-s3
   bcrypt (~> 3.1.7)
   bigbluebutton-api-ruby (= 1.8)
   bootsnap

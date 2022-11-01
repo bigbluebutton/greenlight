@@ -149,8 +149,8 @@ export default function RoomJoin() {
         <Card.Body className="pt-4 px-5">
           <Row>
             <Col className="col-xxl-8">
-              <span className="text-muted mb-0">{ t('room.meeting.meeting_invitation') }</span>
-              <h1>
+              <span className="text-muted">{ t('room.meeting.meeting_invitation') }</span>
+              <h1 className="mt-2">
                 {publicRoom.data.name}
                 {publicRoom.isFetching && <Spinner />}
               </h1>
@@ -168,6 +168,20 @@ export default function RoomJoin() {
             <Form methods={methods} onSubmit={handleJoin}>
               <FormControl field={fields.name} type="text" disabled={currentUser?.signed_in} autoFocus={!currentUser?.signed_in} />
               {hasAccessCode && <FormControl field={fields.accessCode} type="text" autoFocus={currentUser?.signed_in} />}
+
+              {publicRoom?.data?.recording_consent === 'true' && (
+                <div className="mb-1">
+                  <input
+                    id="consentCheck"
+                    className="form-check-input fs-5 me-2"
+                    type="checkbox"
+                  />
+                  <label className="d-inline text-danger align-middle" htmlFor="consentCheck">
+                    {t('room.meeting.recording_consent')}
+                  </label>
+                </div>
+              )}
+
               <Button
                 variant="brand"
                 className="mt-3 d-block float-end"

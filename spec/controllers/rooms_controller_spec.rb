@@ -104,7 +104,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       room = create(:room, user:)
 
       expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight', current_user: nil, show_codes: false,
-                                                       settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode])
+                                                       settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode record])
       expect(fake_room_settings_getter).to receive(:call)
 
       get :public_show, params: { friendly_id: room.friendly_id }
