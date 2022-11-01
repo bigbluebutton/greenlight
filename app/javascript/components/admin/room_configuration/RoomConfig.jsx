@@ -18,7 +18,7 @@ export default function RoomConfig() {
     <div id="admin-panel">
       <h3 className="py-5"> { t('admin.admin_panel') } </h3>
       <Card className="border-0 shadow-sm">
-        <Tab.Container activeKey="room-configuration">
+        <Tab.Container activeKey="room_configuration">
           <Row>
             <Col className="pe-0" sm={3}>
               <div id="admin-sidebar">
