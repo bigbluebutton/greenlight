@@ -169,7 +169,7 @@ export default function RoomJoin() {
               <FormControl field={fields.name} type="text" disabled={currentUser?.signed_in} autoFocus={!currentUser?.signed_in} />
               {hasAccessCode && <FormControl field={fields.accessCode} type="text" autoFocus={currentUser?.signed_in} />}
 
-              {publicRoom?.data?.recording === 'true' && (
+              {publicRoom?.data?.recording_consent === 'true' && (
                 <div className="mb-1">
                   <input
                     id="consentCheck"

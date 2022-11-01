@@ -34,11 +34,4 @@ export const joinFormFields = {
       id: 'access_code',
     },
   },
-  consent: {
-    label: 'I acknowledge that this session may be recorded. This may include my voice and video if enabled.',
-    controlId: 'joinFormConsent',
-    hookForm: {
-      id: 'consent',
-    },
-  },
 };
