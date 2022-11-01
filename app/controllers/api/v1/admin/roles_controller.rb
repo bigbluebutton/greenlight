@@ -40,7 +40,6 @@ module Api
         # Does: Creates a role.
 
         def create
-          binding.break
           role = Role.new(name: role_params[:name], provider: current_provider)
 
           return render_error errors: role.errors.to_a, status: :bad_request unless role.save

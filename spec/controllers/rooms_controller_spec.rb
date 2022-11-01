@@ -197,7 +197,6 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       end
 
       it 'creates a room for another user' do
-        binding.break
         room_params[:room][:user_id] = new_user.id
         expect { post :create, params: room_params }.to(change { new_user.rooms.count })
         expect(response).to have_http_status(:created)
@@ -212,7 +211,6 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
     context 'user has reached the room limit set for their role' do
       it 'room is not created since room limit has been reached' do
-        user = create(:user)
         permission_id = user.role.permissions.find_by(name: 'RoomLimit').id
         user.role.role_permissions.find_by(permission_id:).update(value: '3')
 

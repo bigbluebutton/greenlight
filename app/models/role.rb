@@ -20,10 +20,18 @@ class Role < ApplicationRecord
     all
   end
 
-  # Populate the Role Permissions with false as default value on Role creation.
+  # Populate the Role Permissions with default values on Role creation.
+  # The created Role has the same permissions as the 'User' role
   def create_role_permissions
     Permission.all.find_each do |permission|
-      value = permission.name == 'RoomLimit' ? '0' : 'false'
+      value = case permission.name
+              when 'CreateRoom', 'SharedList', 'CanRecord'
+                'true'
+              when 'RoomLimit'
+                '100'
+              else
+                'false'
+      end
       RolePermission.create(role: self, permission:, value:)
     end
   end
