@@ -105,18 +105,6 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
   end
 
   describe 'roles#create' do
-    before do
-      create(:permission, name: 'CreateRoom')
-      create(:permission, name: 'ManageUsers')
-      create(:permission, name: 'ManageRooms')
-      create(:permission, name: 'ManageRecordings')
-      create(:permission, name: 'ManageSiteSettings')
-      create(:permission, name: 'ManageRoles')
-      create(:permission, name: 'SharedList')
-      create(:permission, name: 'CanRecord')
-      create(:permission, name: 'RoomLimit')
-    end
-
     it 'returns :created and creates a role for valid params' do
       valid_params = { name: 'CrazyRole' }
       expect { post :create, params: { role: valid_params } }.to change(Role, :count).by(1)
@@ -129,6 +117,11 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       post :create, params: { not_role: invalid_params }
       expect(response).to have_http_status(:bad_request)
       expect(JSON.parse(response.body)['errors']).not_to be_empty
+    end
+
+    it 'calls create_role_permissions on role' do
+      expect_any_instance_of(Role).to receive(:create_role_permissions)
+      post :create, params: { role: { name: 'Test Role' } }
     end
 
     context 'user without ManageRoles permission' do

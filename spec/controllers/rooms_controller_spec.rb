@@ -197,6 +197,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       end
 
       it 'creates a room for another user' do
+        binding.break
         room_params[:room][:user_id] = new_user.id
         expect { post :create, params: room_params }.to(change { new_user.rooms.count })
         expect(response).to have_http_status(:created)

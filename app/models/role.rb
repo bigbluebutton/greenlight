@@ -10,12 +10,22 @@ class Role < ApplicationRecord
 
   before_validation :set_random_color, on: :create
 
+  after_create :create_role_permissions
+
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
 
   def self.search(input)
     return where('name ILIKE ?', "%#{input}%") if input
 
     all
+  end
+
+  # Populate the Role Permissions with false as default value on Role creation.
+  def create_role_permissions
+    Permission.all.find_each do |permission|
+      value = permission.name == 'RoomLimit' ? '0' : 'false'
+      RolePermission.create(role: self, permission:, value:)
+    end
   end
 
   private
