@@ -3,12 +3,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 const validationSchema = yup.object({
   // TODO: amir - Revisit validations.
-  name: yup.string().required('Please enter a full name.').min(2, 'Name must be at least 2 characters long')
+  name: yup.string().required('Please enter a full name.')
+    .min(2, 'Name must be at least 2 characters long')
     .max(255, 'Name must be at most 255 characters long'),
 
   email: yup.string().required('Please enter an email.').email('Entered value does not match email format.')
     .min(6, 'Email must be at least 6 characters long')
-    .max(255, 'Email must be at most 5 characters long'),
+    .max(255, 'Email must be at most 255 characters long'),
 
   password: yup.string().max(255, 'Password must be at most 255 characters long')
     .matches(
