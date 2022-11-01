@@ -31,7 +31,7 @@ class Role < ApplicationRecord
                 '100'
               else
                 'false'
-      end
+              end
       RolePermission.create(role: self, permission:, value:)
     end
   end

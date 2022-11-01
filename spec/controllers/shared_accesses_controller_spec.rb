@@ -79,7 +79,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
       room.shared_users = create_list(:user, 5)
       shareable_users = create_list(:user, 5, name: 'John Doe')
 
-      get :shareable_users, params: { friendly_id: room.friendly_id, search: 'John' }
+      get :shareable_users, params: { friendly_id: room.friendly_id, search: 'John Doe' }
       response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
       expect(response_users_ids).to match_array(shareable_users.pluck(:id))
     end
@@ -100,7 +100,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
         room.shared_users = create_list(:user, 5)
         create(:user, :without_shared_list_permission, name: 'John Doe')
 
-        get :shareable_users, params: { friendly_id: room.friendly_id, search: 'John' }
+        get :shareable_users, params: { friendly_id: room.friendly_id, search: 'John Doe' }
         response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
         expect(response_users_ids).to match_array([])
       end
