@@ -3,12 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::SharedAccessesController, type: :controller do
-  let(:user) { create(:user) }
-
   before do
     request.headers['ACCEPT'] = 'application/json'
+    create_default_permissions
     sign_in_user(user)
   end
+
+  let(:user) { create(:user) }
 
   describe '#create' do
     it 'shares a room with a user' do

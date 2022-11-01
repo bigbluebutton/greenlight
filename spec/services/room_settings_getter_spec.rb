@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 describe RoomSettingsGetter, type: :service do
+  before do
+    create_default_permissions
+  end
+
   let(:user) { create(:user) }
 
   describe '#call' do

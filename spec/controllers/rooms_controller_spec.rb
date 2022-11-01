@@ -3,14 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RoomsController, type: :controller do
+  before do
+    request.headers['ACCEPT'] = 'application/json'
+    create_default_permissions
+    sign_in_user(user)
+  end
+
   let(:user) { create(:user) }
   let(:user_with_manage_rooms_permission) { create(:user, :with_manage_rooms_permission) }
   let(:user_with_manage_users_permission) { create(:user, :with_manage_users_permission) }
-
-  before do
-    request.headers['ACCEPT'] = 'application/json'
-    sign_in_user(user)
-  end
 
   describe '#index' do
     it 'ids of rooms in response are matching room ids that belong to current_user' do

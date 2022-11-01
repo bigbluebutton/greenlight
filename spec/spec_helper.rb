@@ -16,14 +16,6 @@
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  # Those permissions are enabled by default on new Roles
-  config.before do
-    create(:permission, name: 'CreateRoom')
-    create(:permission, name: 'CanRecord')
-    create(:permission, name: 'SharedList')
-    create(:permission, name: 'RoomLimit')
-  end
-
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
