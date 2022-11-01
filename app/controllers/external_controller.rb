@@ -45,7 +45,7 @@ class ExternalController < ApplicationController
     # This is needed to handle duplicate requests
     unless Recording.exists?(record_id:)
       @room = Room.find_by(meeting_id: response[0]['meeting_id'])
-      @room.update(recordings_processing: @room.recordings_processing - 1)
+      @room.update(recordings_processing: @room.recordings_processing - 1) unless @room.recordings_processing.zero?
     end
 
     RecordingCreator.new(recording:).call

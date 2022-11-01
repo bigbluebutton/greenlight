@@ -8,7 +8,7 @@ export default function ProcessingRecordingRow() {
 
   return (
     <tr className="align-middle">
-      <td className="text-dark">
+      <td className="text-dark border-end-0">
         <Stack direction="horizontal" className="py-2">
           <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
             <VideoCameraIcon className="hi-s text-brand" />
@@ -16,11 +16,11 @@ export default function ProcessingRecordingRow() {
           { t('recording.processing_recording') }
         </Stack>
       </td>
-      <td />
-      <td />
-      <td />
-      <td />
-      <td />
+      <td className="border-0" />
+      <td className="border-0" />
+      <td className="border-0" />
+      <td className="border-0" />
+      <td className="border-0" />
     </tr>
   );
 }

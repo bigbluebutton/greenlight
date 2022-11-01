@@ -24,7 +24,7 @@ export default function RoomRecordings() {
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
       </Stack>
-      <Card className="border-0 shadow-sm mt-4">
+      <Card className="border-0 shadow-sm mt-4 mb-5">
         <RecordingsList
           recordings={roomRecordings?.data}
           RecordingRow={RoomsRecordingRow}
