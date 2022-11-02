@@ -4,7 +4,7 @@ module Api
   module V1
     module Admin
       class RolePermissionsController < ApiController
-        before_action only: %i[index update] do
+        before_action do
           ensure_authorized('ManageRoles')
         end
 

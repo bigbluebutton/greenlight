@@ -4,7 +4,7 @@ module Api
   module V1
     module Admin
       class InvitationsController < ApiController
-        before_action only: %i[index create] do
+        before_action do
           ensure_authorized('ManageUsers')
         end
 

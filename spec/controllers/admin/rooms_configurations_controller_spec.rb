@@ -4,10 +4,11 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::RoomsConfigurationsController, type: :controller do
   let(:user) { create(:user) }
+  let(:user_with_manage_site_settings_permission) { create(:user, :with_manage_site_settings_permission) }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    sign_in_user(user)
+    sign_in_user(user_with_manage_site_settings_permission)
   end
 
   describe 'rooms_configurations#update' do
@@ -43,6 +44,17 @@ RSpec.describe Api::V1::Admin::RoomsConfigurationsController, type: :controller 
       put :update, params: { name: 'Option', RoomsConfig: { value: 'invalid' } }
 
       expect(response).to have_http_status(:bad_request)
+    end
+
+    context 'user without ManageSiteSettings permission' do
+      before do
+        sign_in_user(user)
+      end
+
+      it 'cannot update the Room Configurations' do
+        put :update, params: { name: 'Option', RoomsConfig: { value: 'true' } }
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 end

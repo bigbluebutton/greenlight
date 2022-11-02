@@ -14,7 +14,7 @@ import useUpdateRole from '../../../../hooks/mutations/admin/roles/useUpdateRole
 import Modal from '../../../shared_components/modals/Modal';
 import DeleteRoleForm from './DeleteRoleForm';
 import useUpdateRolePermission from '../../../../hooks/mutations/admin/role_permissions/useUpdateRolePermissions';
-import useRoomConfigs from '../../../../hooks/queries/admin/room_configuration/useRoomConfigs';
+import useRoomConfigs from '../../../../hooks/queries/rooms/useRoomConfigs';
 import useRolePermissions from '../../../../hooks/queries/admin/role_permissions/useRolePermissions';
 import RolePermissionRow from '../RolePermissionRow';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';

@@ -4,6 +4,10 @@ module Api
   module V1
     module Admin
       class RoomsConfigurationsController < ApiController
+        before_action do
+          ensure_authorized('ManageSiteSettings')
+        end
+
         # PUT /api/v1/admin/rooms_configurations/:name.json
         # Expects: { RoomsConfig: { :value } }
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
