@@ -19,6 +19,7 @@ class Room < ApplicationRecord
             size: { less_than: 30.megabytes }
 
   validates :name, length: { minimum: 2, maximum: 255 }
+  validates :recordings_processing, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   before_validation :set_friendly_id, :set_meeting_id, on: :create
   after_create :create_meeting_options

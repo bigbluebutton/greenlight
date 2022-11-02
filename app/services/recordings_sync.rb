@@ -12,5 +12,6 @@ class RecordingsSync
     recordings[:recordings].each do |recording|
       RecordingCreator.new(recording:).call
     end
+    @room.update(recordings_processing: 0)
   end
 end
