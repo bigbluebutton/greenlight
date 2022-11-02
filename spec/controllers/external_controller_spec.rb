@@ -159,7 +159,7 @@ RSpec.describe ExternalController, type: :controller do
   end
 
   describe '#recording_ready' do
-    let(:room) { create(:room) }
+    let(:room) { create(:room, recordings_processing: 1) }
 
     before do
       allow_any_instance_of(BigBlueButtonApi).to receive(:decode_jwt).and_return(

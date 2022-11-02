@@ -20,7 +20,7 @@ export default function Recordings() {
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
       </Stack>
-      <Card className="border-0 shadow-sm p-0 mt-4">
+      <Card className="border-0 shadow-sm p-0 mt-4 mb-5">
         <RecordingsList
           recordings={recordings?.data}
           isLoading={isLoading}

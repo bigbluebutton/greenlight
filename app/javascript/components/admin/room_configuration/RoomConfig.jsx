@@ -15,7 +15,7 @@ export default function RoomConfig() {
   const { data: roomConfigs, isLoading } = useRoomConfigs();
 
   return (
-    <div id="admin-panel">
+    <div id="admin-panel" className="pb-3">
       <h3 className="py-5"> { t('admin.admin_panel') } </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="room_configuration">
