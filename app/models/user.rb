@@ -22,17 +22,21 @@ class User < ApplicationRecord
 
   enum status: { active: 0, pending: 1, banned: 2 }
 
-  validates :name, presence: true # TODO: amir - Change into full_name or seperate first and last name.
+  validates :name, presence: true,
+                   length: { minimum: 2, maximum: 255 } # TODO: amir - Change into full_name or seperate first and last name.
+
   validates :email,
             format: /\A[\w\-.]+@[\w\-.]+\.[a-z]+\z/i,
             presence: true,
-            uniqueness: { case_sensitive: false, scope: :provider }
+            uniqueness: { case_sensitive: false, scope: :provider },
+            length: { minimum: 5, maximum: 255 }
 
   validates :provider, presence: true
   validates :status, presence: true
   validates :password,
             presence: true,
-            on: :create, unless: :external_id?
+            on: :create, unless: :external_id?,
+            length: { maximum: 255 }
 
   validates :password,
             format: %r{\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[`@%~!#£$\\^&*()\]\[+={}/|:;"'<>\-,.?_ ]).{8,}\z},
@@ -47,6 +51,7 @@ class User < ApplicationRecord
   validates :verification_digest, uniqueness: true, if: :verification_digest?
   validates :session_token, presence: true, uniqueness: true
   validates :session_expiry, presence: true
+  validates :language, presence: true
 
   validate :check_user_role_provider, if: :role_changed?
 
