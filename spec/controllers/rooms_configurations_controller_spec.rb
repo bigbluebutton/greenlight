@@ -7,7 +7,6 @@ RSpec.describe Api::V1::RoomsConfigurationsController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    create_default_permissions
     sign_in_user(user)
   end
 

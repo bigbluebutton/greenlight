@@ -3,10 +3,6 @@
 module Api
   module V1
     class RoomsConfigurationsController < ApiController
-      before_action do
-        ensure_authorized('CreateRoom')
-      end
-
       # GET /api/v1/rooms_configurations.json
       # Expects: {}
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
