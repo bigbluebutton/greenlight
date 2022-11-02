@@ -9,7 +9,7 @@ class BigBlueButtonApi
   def bbb_server
     # TODO: Amir - Protect the BBB secret.
     # TODO: Hadi - Add additional logic here...
-    @bbb_server ||= BigBlueButton::BigBlueButtonApi.new(bbb_endpoint, bbb_secret, '1.8')
+    @bbb_server ||= BigBlueButton::BigBlueButtonApi.new(Rails.configuration.bigbluebutton_endpoint, Rails.configuration.bigbluebutton_secret, '1.8')
   end
 
   # Start a meeting for a specific room and returns the join URL.
@@ -75,15 +75,5 @@ class BigBlueButtonApi
   # Decodes the JWT using the BBB secret as key (Used in Recording Ready Callback)
   def decode_jwt(token)
     JWT.decode token, bbb_secret, true, { algorithm: 'HS256' }
-  end
-
-  private
-
-  def bbb_endpoint
-    ENV.fetch 'BIGBLUEBUTTON_ENDPOINT', 'https://test-install.blindsidenetworks.com/bigbluebutton/api'
-  end
-
-  def bbb_secret
-    ENV.fetch 'BIGBLUEBUTTON_SECRET', '8cd8ef52e8e101574e400365b55e11a6'
   end
 end
