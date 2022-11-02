@@ -47,10 +47,10 @@ describe RecordingsSync, type: :service do
         service.call
         expect(Recording.where(id: other_recordings.pluck(:id))).to eq(other_recordings)
       end
-    end
 
-    it 'resets the recordings processing value for the room' do
-      expect { service.call }.to change(room, :recordings_processing).from(5).to(0)
+      it 'resets the recordings processing value for the room' do
+        expect { service.call }.to change(room, :recordings_processing).from(5).to(0)
+      end
     end
   end
 
