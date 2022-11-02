@@ -16,7 +16,8 @@ describe BigBlueButtonApi, type: :service do
       expect(BigBlueButton::BigBlueButtonApi).to receive(:new).with(
         Rails.configuration.bigbluebutton_endpoint,
         Rails.configuration.bigbluebutton_secret,
-        '1.8')
+        '1.8'
+      )
       bbb_service.bbb_server
     end
 
