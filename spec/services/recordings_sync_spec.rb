@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe RecordingsSync, type: :service do
   let(:user) { create(:user) }
-  let(:room) { create(:room, user:) }
+  let(:room) { create(:room, user:, recordings_processing: 5) }
   let(:service) { described_class.new(room:) }
 
   describe '#call' do
@@ -46,6 +46,10 @@ describe RecordingsSync, type: :service do
 
         service.call
         expect(Recording.where(id: other_recordings.pluck(:id))).to eq(other_recordings)
+      end
+
+      it 'resets the recordings processing value for the room' do
+        expect { service.call }.to change(room, :recordings_processing).from(5).to(0)
       end
     end
   end
