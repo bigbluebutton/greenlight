@@ -7,14 +7,17 @@ describe BigBlueButtonApi, type: :service do
   let(:bbb_service) { described_class.new }
 
   before do
-    ENV['BIGBLUEBUTTON_ENDPOINT'] = 'http://test.com/bigbluebutton/api'
-    ENV['BIGBLUEBUTTON_SECRET'] = 'test'
+    Rails.configuration.bigbluebutton_endpoint = 'http://test.com/bigbluebutton/api'
+    Rails.configuration.bigbluebutton_secret = 'test'
   end
 
   describe 'Instance of BigBlueButtonApi being created' do
     it 'Created an instance of BigBlueButtonApi' do
-      expect(BigBlueButton::BigBlueButtonApi).to receive(:new).with(ENV.fetch('BIGBLUEBUTTON_ENDPOINT', nil), ENV.fetch('BIGBLUEBUTTON_SECRET', nil),
-                                                                    '1.8')
+      expect(BigBlueButton::BigBlueButtonApi).to receive(:new).with(
+        Rails.configuration.bigbluebutton_endpoint,
+        Rails.configuration.bigbluebutton_secret,
+        '1.8'
+      )
       bbb_service.bbb_server
     end
 
