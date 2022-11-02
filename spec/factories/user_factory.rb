@@ -12,14 +12,6 @@ FactoryBot.define do
     status { 0 }
     language { %w[en fr es ar].sample }
 
-    after(:create) do |user|
-      create(:role_permission, role: user.role, permission: create(:permission, name: 'CreateRoom'), value: 'true')
-    end
-
-    after(:create) do |user|
-      create(:role_permission, role: user.role, permission: create(:permission, name: 'RoomLimit'), value: '100')
-    end
-
     trait :with_manage_users_permission do
       after(:create) do |user|
         create(:role_permission, role: user.role, permission: create(:permission, name: 'ManageUsers'), value: 'true')
@@ -50,33 +42,21 @@ FactoryBot.define do
       end
     end
 
-    trait :with_shared_list_permission do
+    trait :without_shared_list_permission do
       after(:create) do |user|
-        create(:role_permission, role: user.role, permission: create(:permission, name: 'SharedList'), value: 'true')
-      end
-    end
-
-    trait :can_record do
-      after(:create) do |user|
-        create(:role_permission, role: user.role, permission: create(:permission, name: 'CanRecord'), value: 'true')
-      end
-    end
-
-    trait :with_roomLimit_3_permission do
-      after(:create) do |user|
-        create(:role_permission, role: user.role, permission: create(:permission, name: 'RoomLimit'), value: '3')
+        RolePermission.find_by(role: user.role, permission: Permission.find_by(name: 'SharedList')).update(value: 'false')
       end
     end
 
     trait :without_create_room_permission do
       after(:create) do |user|
-        create(:role_permission, role: user.role, permission: create(:permission, name: 'CreateRoom'), value: 'false')
+        RolePermission.find_by(role: user.role, permission: Permission.find_by(name: 'CreateRoom')).update(value: 'false')
       end
     end
 
-    trait :without_can_record do
+    trait :without_can_record_permission do
       after(:create) do |user|
-        create(:role_permission, role: user.role, permission: create(:permission, name: 'CanRecord'), value: 'false')
+        RolePermission.find_by(role: user.role, permission: Permission.find_by(name: 'CanRecord')).update(value: 'false')
       end
     end
   end

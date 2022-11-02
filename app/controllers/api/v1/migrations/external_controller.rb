@@ -74,6 +74,8 @@ module Api
         def create_room
           room_hash = room_params.to_h
 
+          return render_data status: :created if Room.exists? friendly_id: room_hash[:friendly_id]
+
           user = User.find_by(email: room_hash[:owner_email], provider: 'greenlight')
 
           return render_error status: :bad_request unless user

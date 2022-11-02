@@ -3,14 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RoomsController, type: :controller do
+  before do
+    request.headers['ACCEPT'] = 'application/json'
+    create_default_permissions
+    sign_in_user(user)
+  end
+
   let(:user) { create(:user) }
   let(:user_with_manage_rooms_permission) { create(:user, :with_manage_rooms_permission) }
   let(:user_with_manage_users_permission) { create(:user, :with_manage_users_permission) }
-
-  before do
-    request.headers['ACCEPT'] = 'application/json'
-    sign_in_user(user)
-  end
 
   describe '#index' do
     it 'ids of rooms in response are matching room ids that belong to current_user' do
@@ -104,7 +105,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       room = create(:room, user:)
 
       expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight', current_user: nil, show_codes: false,
-                                                       settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode])
+                                                       settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode record])
       expect(fake_room_settings_getter).to receive(:call)
 
       get :public_show, params: { friendly_id: room.friendly_id }
@@ -211,7 +212,6 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
     context 'user has reached the room limit set for their role' do
       it 'room is not created since room limit has been reached' do
-        user = create(:user)
         permission_id = user.role.permissions.find_by(name: 'RoomLimit').id
         user.role.role_permissions.find_by(permission_id:).update(value: '3')
 

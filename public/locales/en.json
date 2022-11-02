@@ -21,6 +21,8 @@
   "need_help": "Need help?",
   "powered_by": "Powered by ",
   "are_you_sure": "Are you sure?",
+  "return_home": "Return Home",
+  "created_at": "Created at",
   "homepage": {
     "welcome_bbb": "Welcome to BigBlueButton.",
     "greenlight_description": "Greenlight is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link."
@@ -95,7 +97,8 @@
       "join_meeting": "Join Meeting",
       "meeting_invitation": "You have been invited to join",
       "meeting_not_started": "The meeting has not started yet",
-      "join_meeting_automatically": "You will automatically join when the meeting starts"
+      "join_meeting_automatically": "You will automatically join when the meeting starts",
+      "recording_consent": "I acknowledge that this session may be recorded. This may include my voice and video if enabled."
     },
     "presentation": {
       "presentation": "Presentation",
@@ -350,12 +353,12 @@
     }
   },
   "global_error_page": {
-    "title": "Something Went Wrong",
-    "message": "Looks like something went wrong on our end.\nPlease try again.\nIf the error is reoccurring, kindly consider reporting the incident to the administrator(s)."
+    "title": "Error",
+    "message": "Oops! Something went wrong. If the incident occurs again, please contact the administrator."
   },
   "not_found_error_page": {
     "title": "404",
-    "message": "The resource you are trying to access cannot be found.\nMaybe you were looking for something else?"
+    "message": "Oops! The page you are trying to access can't be found."
   },
   "account_activation_page": {
     "title": "Account Activation",

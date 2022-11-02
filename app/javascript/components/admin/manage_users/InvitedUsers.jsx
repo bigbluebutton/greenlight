@@ -45,11 +45,13 @@ export default function InvitedUsers({ searchInput }) {
         </tbody>
       </Table>
       <div className="pagination-wrapper">
+        { invitations?.meta && (
         <Pagination
           page={invitations?.meta?.page}
           totalPages={invitations?.meta?.pages}
           setPage={setPage}
         />
+        ) }
       </div>
     </div>
   );

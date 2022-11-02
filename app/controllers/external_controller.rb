@@ -45,7 +45,7 @@ class ExternalController < ApplicationController
     # This is needed to handle duplicate requests
     unless Recording.exists?(record_id:)
       @room = Room.find_by(meeting_id: response[0]['meeting_id'])
-      @room.update(recordings_processing: @room.recordings_processing - 1)
+      @room.update(recordings_processing: @room.recordings_processing - 1) unless @room.recordings_processing.zero?
     end
 
     RecordingCreator.new(recording:).call
@@ -55,9 +55,10 @@ class ExternalController < ApplicationController
 
   # GET /meeting_ended
   def meeting_ended
+    # TODO: - ahmad: Add some sort of validation
     return render json: {} unless params[:recordingmarks] == 'true'
 
-    @room = Room.find_by(meeting_id: params[:meetingID])
+    @room = Room.find_by(meeting_id: extract_meeting_id)
     @room.update(recordings_processing: @room.recordings_processing + 1, online: false)
 
     render json: {}, status: :ok
@@ -67,5 +68,11 @@ class ExternalController < ApplicationController
 
   def extract_language_code(locale)
     locale.try(:scan, /^[a-z]{2}/)&.first || I18n.default_locale
+  end
+
+  def extract_meeting_id
+    meeting_id = params[:meetingID]
+    meeting_id = meeting_id.split('_')[0] if meeting_id.end_with?('_')
+    meeting_id
   end
 end

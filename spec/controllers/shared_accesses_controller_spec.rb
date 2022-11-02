@@ -3,12 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::SharedAccessesController, type: :controller do
-  let(:user) { create(:user) }
-
   before do
     request.headers['ACCEPT'] = 'application/json'
+    create_default_permissions
     sign_in_user(user)
   end
+
+  let(:user) { create(:user) }
 
   describe '#create' do
     it 'shares a room with a user' do
@@ -73,36 +74,35 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
       expect(response).to have_http_status(:bad_request)
     end
 
-    it 'does not return the users without SharedList permission' do
+    it 'returns the users that the room can be shared to' do
       room = create(:room)
       room.shared_users = create_list(:user, 5)
       shareable_users = create_list(:user, 5, name: 'John Doe')
-      shareable_users << user
 
-      get :shareable_users, params: { friendly_id: room.friendly_id, search: 'John' }
+      get :shareable_users, params: { friendly_id: room.friendly_id, search: 'John Doe' }
       response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
-      expect(response_users_ids).to match_array([])
+      expect(response_users_ids).to match_array(shareable_users.pluck(:id))
     end
 
-    context 'users with SharedList permission' do
-      it 'returns the users that the room can be shared to' do
-        room = create(:room)
-        room.shared_users = create_list(:user, 5, :with_shared_list_permission)
-        shareable_users = create_list(:user, 5, :with_shared_list_permission, name: 'John Doe')
+    it 'returns the shareable users according to the query' do
+      room = create(:room)
+      room.shared_users = create_list(:user, 5)
+      shareable_users = create_list(:user, 5, name: 'Jane Doe')
 
-        get :shareable_users, params: { friendly_id: room.friendly_id, search: 'John' }
-        response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
-        expect(response_users_ids).to match_array(shareable_users.pluck(:id))
-      end
+      get :shareable_users, params: { friendly_id: room.friendly_id, search: 'Jane Doe' }
+      response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
+      expect(response_users_ids).to match_array(shareable_users.pluck(:id))
+    end
 
-      it 'returns the shareable users according to the query' do
+    context 'user without SharedList permission' do
+      it 'does not return the users without SharedList permission' do
         room = create(:room)
         room.shared_users = create_list(:user, 5)
-        shareable_users = create_list(:user, 5, :with_shared_list_permission, name: 'Jane Doe')
+        create(:user, :without_shared_list_permission, name: 'John Doe')
 
-        get :shareable_users, params: { friendly_id: room.friendly_id, search: 'Jane Doe' }
+        get :shareable_users, params: { friendly_id: room.friendly_id, search: 'John Doe' }
         response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
-        expect(response_users_ids).to match_array(shareable_users.pluck(:id))
+        expect(response_users_ids).to match_array([])
       end
     end
   end

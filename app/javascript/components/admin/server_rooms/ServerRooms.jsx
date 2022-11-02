@@ -18,10 +18,10 @@ export default function ServerRooms() {
   const { isLoading, data: serverRooms } = useServerRooms(searchInput, page);
 
   return (
-    <div id="admin-panel">
+    <div id="admin-panel" className="pb-3">
       <h3 className="py-5"> { t('admin.admin_panel') } </h3>
       <Card className="border-0 shadow-sm">
-        <Tab.Container activeKey="server-rooms">
+        <Tab.Container activeKey="server_rooms">
           <Row>
             <Col className="pe-0" sm={3}>
               <div id="admin-sidebar">

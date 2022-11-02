@@ -29,12 +29,14 @@ export default function RecordingsList({
           ? (
             recordings?.map((recording) => <RecordingRow key={recording.id} recording={recording} />)
           )
-          : (
+          : (recordingsProcessing === 0
+            && (
             <tr>
               <td className="fw-bold" colSpan="6">
                 { t('recording.no_recording_found') }
               </td>
             </tr>
+            )
           ))}
       </tbody>
     </Table>

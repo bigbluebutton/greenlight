@@ -32,6 +32,7 @@ import ErrorBoundary from './components/shared_components/ErrorBoundary';
 import DefaultErrorPage from './components/errors/DefaultErrorPage';
 import NotFoundPage from './components/errors/NotFoundPage';
 import VerifyAccount from './components/users/account_activation/VerifyAccount';
+import AdminPanel from './components/admin/AdminPanel';
 
 const queryClient = new QueryClient();
 
@@ -51,13 +52,13 @@ const root = (
                 <Route path="/activate_account/:token" element={<ActivateAccount />} />
                 <Route path="/verify_account" element={<VerifyAccount />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/admin" element={<Navigate to="/admin/users" replace />} />
+                <Route path="/admin" element={<AdminPanel />} />
                 <Route path="/admin/users" element={<ManageUsers />} />
                 <Route path="/admin/edit_user/:userId" element={<EditUser />} />
-                <Route path="/admin/server-recordings" element={<ServerRecordings />} />
-                <Route path="/admin/server-rooms" element={<ServerRooms />} />
-                <Route path="/admin/room-configuration" element={<RoomConfig />} />
-                <Route path="/admin/site-settings" element={<SiteSettings />} />
+                <Route path="/admin/server_recordings" element={<ServerRecordings />} />
+                <Route path="/admin/server_rooms" element={<ServerRooms />} />
+                <Route path="/admin/room_configuration" element={<RoomConfig />} />
+                <Route path="/admin/site_settings" element={<SiteSettings />} />
                 <Route path="/admin/roles" element={<Roles />} />
                 <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
                 <Route path="/rooms" element={<Rooms />} />

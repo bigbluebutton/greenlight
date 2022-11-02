@@ -3,13 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RecordingsController, type: :controller do
-  let(:user) { create(:user) }
-  let(:user_with_manage_recordings_permission) { create(:user, :with_manage_recordings_permission) }
-
   before do
     request.headers['ACCEPT'] = 'application/json'
+    create_default_permissions
     sign_in_user(user)
   end
+
+  let(:user) { create(:user) }
+  let(:user_with_manage_recordings_permission) { create(:user, :with_manage_recordings_permission) }
 
   describe '#index' do
     it 'returns recordings ids that belong to current_user' do

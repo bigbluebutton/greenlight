@@ -51,7 +51,7 @@ module Api
           provider: current_provider,
           current_user:,
           show_codes: false,
-          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode]
+          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode record]
         ).call
 
         render_data data: @room, serializer: PublicRoomSerializer, options: { settings: }, status: :ok
@@ -66,15 +66,13 @@ module Api
 
         # TODO: amir - ensure accessibility for authenticated requests only.
         # The created room will be the current user's unless a user_id param is provided with the request.
-        room = Room.create(name: room_params[:name], user_id: room_params[:user_id])
-
-        return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+        room = Room.new(name: room_params[:name], user_id: room_params[:user_id])
 
         if room.save
           logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
           render_data status: :created
         else
-          render_error status: :bad_request
+          render_error errors: room.errors.to_a, status: :bad_request
         end
       end
 

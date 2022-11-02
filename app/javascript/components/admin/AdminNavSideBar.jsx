@@ -23,7 +23,7 @@ export default function AdminNavSideBar() {
       )}
       {(currentUser.permissions.ManageRooms === 'true') && (
         <Nav.Item>
-          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/server-rooms" eventKey="server-rooms">
+          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/server_rooms" eventKey="server_rooms">
             <ServerStackIcon className="hi-s me-3" />
             { t('admin.server_rooms.server_rooms') }
           </Nav.Link>
@@ -31,7 +31,7 @@ export default function AdminNavSideBar() {
       )}
       {(currentUser.permissions.ManageRecordings === 'true') && (
         <Nav.Item>
-          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/server-recordings" eventKey="server-recordings">
+          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/server_recordings" eventKey="server_recordings">
             <VideoCameraIcon className="hi-s me-3" />
             { t('admin.server_recordings.server_recordings') }
           </Nav.Link>
@@ -40,13 +40,13 @@ export default function AdminNavSideBar() {
       {(currentUser.permissions.ManageSiteSettings === 'true') && (
         <>
           <Nav.Item>
-            <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/site-settings" eventKey="site-settings">
+            <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/site_settings" eventKey="site_settings">
               <Cog8ToothIcon className="hi-s me-3" />
               { t('admin.site_settings.site_settings') }
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/room-configuration" eventKey="room-configuration">
+            <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/room_configuration" eventKey="room_configuration">
               <AdjustmentsVerticalIcon className="hi-s me-3" />
               { t('admin.room_configuration.room_configuration') }
             </Nav.Link>
