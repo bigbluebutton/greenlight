@@ -36,7 +36,7 @@ export default function RoomsList() {
           // eslint-disable-next-line react/no-array-index-key
           (isLoading && [...Array(8)].map((val, idx) => <Col key={idx} className="mt-0 mb-4"><RoomPlaceHolder /></Col>))
           || rooms?.map((room) => (
-            <Col key={room.friendly_id} className="col-md-auto mt-0 mb-4">
+            <Col key={room.friendly_id} className="col mt-0 mb-4">
               {(room.optimistic && <RoomPlaceHolder />) || <RoomCard room={room} />}
             </Col>
           ))

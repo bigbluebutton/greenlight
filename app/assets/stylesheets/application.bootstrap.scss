@@ -22,6 +22,8 @@ body {
 .header {
   height: $header-height;
   background: white;
+  vertical-align: top;
+  display: block;
 }
 
 // TODO - samuel: make responsive/add breakpoints

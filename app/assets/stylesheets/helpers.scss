@@ -2,20 +2,16 @@
   text-decoration: none !important;
   color: #0d6efd;
 }
-
 .wide-background-room {
-  background: white;
-  margin: 0 -600rem;
-  padding: 0.25rem 600rem;
-  //TODO - samuel: need to find a solution for this
-  height: 302px;
+  //  height: 302px;
+
 }
 
 .wide-background-rooms {
-  background: white;
-  margin: 0 -600rem;
-  padding: 0.25rem 600rem;
-  height: 90px;
+  margin-top: -90px;
+  z-index: 9999;
+  position: relative;
+
 }
 
 .vertical-center {
@@ -24,10 +20,6 @@
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-
-.regular-height {
-  height: calc(100vh - $header-height - $footer-height);
 }
 
 .no-header-height {
