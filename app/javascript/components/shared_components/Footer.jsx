@@ -13,23 +13,16 @@ export default function Footer() {
   if (isLoading) return <Spinner />;
 
   return (
-    <footer id="footer" className="footer background-whitesmoke text-center py-2">
-      <span className="text-muted"> { t('powered_by') }</span>
+    <footer id="footer" className="footer background-whitesmoke text-center pb-2">
       <a href="https://docs.bigbluebutton.org/greenlight_v3/gl3-install.html" target="_blank" rel="noreferrer">Greenlight</a>
-      <span className="text-muted"> {env.VERSION_TAG}</span>
+      <span className="text-muted"> {env.VERSION_TAG} </span>
       { terms
         && (
-        <>
-          <span> | </span>
-          <a href={terms} target="_blank" rel="noreferrer">{ t('admin.site_settings.administration.terms') }</a>
-        </>
+          <a className="ps-3" href={terms} target="_blank" rel="noreferrer">{ t('admin.site_settings.administration.terms') }</a>
         )}
       { privacyPolicy
         && (
-        <>
-          <span> | </span>
-          <a href={privacyPolicy} target="_blank" rel="noreferrer">{ t('admin.site_settings.administration.privacy_policy') }</a>
-        </>
+          <a className="ps-3" href={privacyPolicy} target="_blank" rel="noreferrer">{ t('admin.site_settings.administration.privacy_policy') }</a>
         )}
     </footer>
   );

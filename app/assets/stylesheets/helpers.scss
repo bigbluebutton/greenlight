@@ -4,18 +4,15 @@
 }
 
 .wide-background-room {
-  background: white;
-  margin: 0 -600rem;
-  padding: 0.25rem 600rem;
-  //TODO - samuel: need to find a solution for this
-  height: 302px;
+  margin-top: -299px;
+  z-index: 1;
+  position: relative;
 }
 
 .wide-background-rooms {
-  background: white;
-  margin: 0 -600rem;
-  padding: 0.25rem 600rem;
-  height: 90px;
+  margin-top: -90px;
+  z-index: 1;
+  position: relative;
 }
 
 .vertical-center {
@@ -26,12 +23,12 @@
   transform: translateY(-50%);
 }
 
-.regular-height {
-  height: calc(100vh - $header-height - $footer-height);
+.no-header-height {
+  height: calc(100vh - $footer-height - $footer-buffer-height);
 }
 
-.no-header-height {
-  height: calc(100vh - $footer-height);
+.regular-height {
+  min-height: calc(100vh - $header-height - $footer-height - $footer-buffer-height);
 }
 
 .cursor-pointer {

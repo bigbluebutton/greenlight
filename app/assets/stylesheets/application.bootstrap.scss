@@ -24,6 +24,17 @@ body {
   background: white;
 }
 
+.background-sm-buffer {
+  background-color: white;
+  height: $background-sm-buffer-height;
+}
+
+.background-lg-buffer {
+  background-color: white;
+  height: $background-lg-buffer-height;
+}
+
+
 // TODO - samuel: make responsive/add breakpoints
 .btn-xlg {
   font-size: 1.5rem;
@@ -121,6 +132,7 @@ input.search-bar {
 }
 
 #footer {
+  margin-top: $footer-buffer-height;
   max-height: $footer-height;
   a {
     text-decoration: none !important;
@@ -152,6 +164,7 @@ input.search-bar {
 }
 
 #nav-user-dropdown {
+  padding-right: 0;
   color: $black !important;
   &:hover {
     color: $black !important;

@@ -7,6 +7,7 @@ import Header from './components/shared_components/Header';
 import { useAuth } from './contexts/auth/AuthProvider';
 import Footer from './components/shared_components/Footer';
 import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
+import BackgroundBuffer from './components/shared_components/BackgroundBuffer';
 
 export default function App() {
   const currentUser = useAuth();
@@ -29,6 +30,7 @@ export default function App() {
   return (
     <>
       {currentUser?.signed_in && <Header /> }
+      <BackgroundBuffer />
       <Container className={pageHeight}>
         <Outlet />
       </Container>
