@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Stack, Navbar, NavDropdown, Container,
+  Dropdown,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import {
-  EllipsisVerticalIcon, HomeIcon, PencilSquareIcon, TrashIcon,
+  EllipsisVerticalIcon, HomeIcon, PencilSquareIcon, TrashIcon, XCircleIcon,
 } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import Avatar from '../../users/user/Avatar';
@@ -14,10 +15,12 @@ import CreateRoomForm from '../../rooms/room/forms/CreateRoomForm';
 import useCreateServerRoom from '../../../hooks/mutations/admin/manage_users/useCreateServerRoom';
 import DeleteUserForm from './forms/DeleteUserForm';
 import RolePill from '../roles/RolePill';
+import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
 
 export default function ManageUserRow({ user }) {
   const { t } = useTranslation();
   const mutationWrapper = (args) => useCreateServerRoom({ userId: user.id, ...args });
+  const updateUserStatus = useUpdateUserStatus();
 
   return (
     <tr key={user.id} className="align-middle text-muted">
@@ -51,6 +54,10 @@ export default function ManageUserRow({ user }) {
                   title={t('admin.manage_users.create_new_room')}
                   body={<CreateRoomForm mutation={mutationWrapper} userId={user.id} />}
                 />
+                <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'banned' })}>
+                  <XCircleIcon className="hi-s me-2" />
+                  Ban
+                </Dropdown.Item>
               </NavDropdown>
             </div>
           </Container>
