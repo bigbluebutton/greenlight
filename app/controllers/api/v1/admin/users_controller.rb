@@ -4,8 +4,29 @@ module Api
   module V1
     module Admin
       class UsersController < ApiController
-        before_action only: %i[verified_users pending update] do
+        before_action do
           ensure_authorized('ManageUsers')
+        end
+
+        def update
+          user = User.find(params[:id])
+
+          if user.update(user_params)
+            render_data status: :ok
+          else
+            render_error errors: user.errors.to_a
+          end
+        end
+
+        def pending
+          pending_users = User.includes(:role)
+                              .with_provider(current_provider)
+                              .where(status: 'pending')
+                              .search(params[:search])
+
+          pagy, pending_users = pagy(pending_users)
+
+          render_data data: pending_users, meta: pagy_metadata(pagy), serializer: UserSerializer, status: :ok
         end
 
         def verified_users
@@ -34,27 +55,6 @@ module Api
           pagy, users = pagy(users)
 
           render_data data: users, meta: pagy_metadata(pagy), serializer: UserSerializer, status: :ok
-        end
-
-        def pending
-          pending_users = User.includes(:role)
-                              .with_provider(current_provider)
-                              .where(status: 'pending')
-                              .search(params[:search])
-
-          pagy, pending_users = pagy(pending_users)
-
-          render_data data: pending_users, meta: pagy_metadata(pagy), serializer: UserSerializer, status: :ok
-        end
-
-        def update
-          user = User.find(params[:id])
-
-          if user.update(user_params)
-            render_data status: :ok
-          else
-            render_error errors: user.errors.to_a
-          end
         end
 
         private

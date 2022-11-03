@@ -50,6 +50,8 @@ class PermissionsChecker
   end
 
   def authorize_shared_room
+    return false if @friendly_id.blank?
+
     @current_user.shared_rooms.exists?(friendly_id: @friendly_id)
   end
 

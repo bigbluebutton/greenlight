@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import AdminNavSideBar from '../AdminNavSideBar';
 import RoomConfigRow from './RoomConfigRow';
 import useUpdateRoomConfig from '../../../hooks/mutations/admin/room_configuration/useUpdateRoomConfig';
-import useRoomConfigs from '../../../hooks/queries/admin/room_configuration/useRoomConfigs';
+import useRoomConfigs from '../../../hooks/queries/rooms/useRoomConfigs';
 import Spinner from '../../shared_components/utilities/Spinner';
 
 export default function RoomConfig() {

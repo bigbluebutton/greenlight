@@ -9,7 +9,7 @@ import useDeleteRoom from '../../../../hooks/mutations/rooms/useDeleteRoom';
 import RoomSettingsRow from './RoomSettingsRow';
 import Modal from '../../../shared_components/modals/Modal';
 import DeleteRoomForm from '../forms/DeleteRoomForm';
-import useRoomConfigs from '../../../../hooks/queries/admin/room_configuration/useRoomConfigs';
+import useRoomConfigs from '../../../../hooks/queries/rooms/useRoomConfigs';
 import AccessCodeRow from './AccessCodeRow';
 import useUpdateRoomSetting from '../../../../hooks/mutations/room_settings/useUpdateRoomSetting';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
