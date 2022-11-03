@@ -157,8 +157,12 @@
     "manage_users": {
       "manage_users": "Manage Users",
       "active": "Active",
+      "approve": "Approve",
+      "decline": "Decline",
       "pending": "Pending",
       "banned": "Banned",
+      "ban": "Ban",
+      "unban": "Unban",
       "deleted": "Deleted",
       "invited_tab": "Invited",
       "invite_user": "Invite User",

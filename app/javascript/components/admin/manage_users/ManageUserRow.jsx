@@ -56,7 +56,7 @@ export default function ManageUserRow({ user }) {
                 />
                 <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'banned' })}>
                   <XCircleIcon className="hi-s me-2" />
-                  Ban
+                  {t('admin.manage_users.ban')}
                 </Dropdown.Item>
               </NavDropdown>
             </div>
