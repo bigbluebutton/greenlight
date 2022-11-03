@@ -1,21 +1,17 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 
-export default function BackgroundBuffer({ location }) {
-  const bufferSize = () => {
-    if (location === '/rooms') {
-      return 'background-sm-buffer';
-    }
+export default function BackgroundBuffer() {
+  const location = useLocation();
 
-    return 'background-lg-buffer';
-  };
+  if (location?.pathname.startsWith('/rooms/')) {
+    return <Container className="background-lg-buffer" fluid />;
+  }
 
-  return (
-    <Container className={bufferSize()} fluid />
-  );
+  if (location?.pathname.startsWith('/rooms')) {
+    return <Container className="background-sm-buffer" fluid />;
+  }
+
+  return null;
 }
-
-BackgroundBuffer.propTypes = {
-  location: PropTypes.string.isRequired,
-};

@@ -12,7 +12,7 @@ import BackgroundBuffer from './components/shared_components/BackgroundBuffer';
 export default function App() {
   const currentUser = useAuth();
   const pageHeight = currentUser?.signed_in ? 'regular-height' : 'no-header-height';
-  const location = useLocation();
+
 
   // //i18n
   const { i18n } = useTranslation();
@@ -31,7 +31,7 @@ export default function App() {
   return (
     <>
       {currentUser?.signed_in && <Header /> }
-      {location?.pathname.startsWith('/rooms') && <BackgroundBuffer location={location.pathname} />}
+      <BackgroundBuffer />
       <Container className={pageHeight}>
         <Outlet />
       </Container>

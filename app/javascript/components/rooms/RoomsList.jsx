@@ -31,7 +31,7 @@ export default function RoomsList() {
           body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
         />
       </Stack>
-      <Row className="g-4 pb-4 mt-4">
+      <Row className="g-4 mt-4">
         {
           // eslint-disable-next-line react/no-array-index-key
           (isLoading && [...Array(8)].map((val, idx) => <Col key={idx} className="mt-0 mb-4"><RoomPlaceHolder /></Col>))

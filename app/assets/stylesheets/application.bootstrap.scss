@@ -26,12 +26,12 @@ body {
 
 .background-sm-buffer {
   background-color: white;
-  height: 70px;
+  height: $background-sm-buffer-height;
 }
 
 .background-lg-buffer {
   background-color: white;
-  height: 300px;
+  height: $background-lg-buffer-height;
 }
 
 
@@ -132,6 +132,7 @@ input.search-bar {
 }
 
 #footer {
+  margin-top: $footer-buffer-height;
   max-height: $footer-height;
   a {
     text-decoration: none !important;
@@ -163,6 +164,7 @@ input.search-bar {
 }
 
 #nav-user-dropdown {
+  padding-right: 0;
   color: $black !important;
   &:hover {
     color: $black !important;

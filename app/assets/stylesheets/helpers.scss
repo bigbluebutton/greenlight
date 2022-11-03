@@ -24,11 +24,11 @@
 }
 
 .no-header-height {
-  height: calc(100vh - $footer-height);
+  height: calc(100vh - $footer-height - $footer-buffer-height);
 }
 
 .regular-height {
-  min-height: calc(100vh - $header-height - $footer-height);
+  min-height: calc(100vh - $header-height - $footer-height - $footer-buffer-height);
 }
 
 .cursor-pointer {
