@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Container, Spinner } from 'react-bootstrap';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import Header from './components/shared_components/Header';
@@ -12,7 +12,6 @@ import BackgroundBuffer from './components/shared_components/BackgroundBuffer';
 export default function App() {
   const currentUser = useAuth();
   const pageHeight = currentUser?.signed_in ? 'regular-height' : 'no-header-height';
-
 
   // //i18n
   const { i18n } = useTranslation();
