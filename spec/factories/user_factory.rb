@@ -56,7 +56,7 @@ FactoryBot.define do
 
     trait :without_can_record_permission do
       after(:create) do |user|
-        RolePermission.find_by(role: user.role, permission: Permission.find_by(name: 'CanRecord')).update(value: 'false')
+        RolePermission.find_or_create_by(role: user.role, permission: Permission.find_or_create_by(name: 'CanRecord')).update(value: 'false')
       end
     end
   end

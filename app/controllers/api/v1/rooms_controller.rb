@@ -6,7 +6,8 @@ module Api
       skip_before_action :ensure_authenticated, only: %i[public_show]
 
       before_action :find_room, only: %i[show update destroy recordings recordings_processing purge_presentation public_show]
-      before_action except: %i[public_show] do
+
+      before_action only: %i[create index] do
         ensure_authorized('CreateRoom')
       end
       before_action only: %i[create] do
@@ -15,7 +16,7 @@ module Api
       before_action only: %i[show] do
         ensure_authorized(%w[ManageRooms SharedRoom], friendly_id: params[:friendly_id])
       end
-      before_action only: %i[destroy] do
+      before_action only: %i[update destroy recordings recordings_processing purge_presentation] do
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
 

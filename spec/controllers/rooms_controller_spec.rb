@@ -5,7 +5,6 @@ require 'rails_helper'
 RSpec.describe Api::V1::RoomsController, type: :controller do
   before do
     request.headers['ACCEPT'] = 'application/json'
-    create_default_permissions
     sign_in_user(user)
   end
 
@@ -242,7 +241,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
   describe '#purge_presentation' do
     it 'deletes the presentation' do
-      room = create(:room, presentation: fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+      room = create(:room, user:, presentation: fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
       expect(room.reload.presentation).to be_attached
       delete :purge_presentation, params: { friendly_id: room.friendly_id }
       expect(room.reload.presentation).not_to be_attached

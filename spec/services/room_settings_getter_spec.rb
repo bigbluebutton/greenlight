@@ -3,10 +3,6 @@
 require 'rails_helper'
 
 describe RoomSettingsGetter, type: :service do
-  before do
-    create_default_permissions
-  end
-
   let(:user) { create(:user) }
 
   describe '#call' do
@@ -230,6 +226,8 @@ describe RoomSettingsGetter, type: :service do
           end
 
           it 'room_setting record value remains true if room_configuration record value is optional and CanRecord permission is set to true' do
+            RolePermission.find_or_create_by(role: user.role, permission: Permission.find_or_create_by(name: 'CanRecord')).update(value: 'true')
+
             room = create(:room)
             setting1 = create(:meeting_option, name: 'record')
 

@@ -5,6 +5,10 @@ module Api
     class RoomSettingsController < ApiController
       before_action :find_room, only: %i[show update]
 
+      before_action only: %i[show update] do
+        ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
+      end
+
       # GET /api/v1/room_settings/:friendly_id
       def show
         options = RoomSettingsGetter.new(room_id: @room.id, provider: current_provider, current_user:, show_codes: true,

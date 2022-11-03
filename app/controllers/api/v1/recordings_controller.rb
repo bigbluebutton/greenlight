@@ -7,7 +7,7 @@ module Api
       before_action only: %i[update destroy update_visibility] do
         ensure_authorized('ManageRecordings', record_id: params[:id])
       end
-      before_action do
+      before_action only: %i[index recordings_count] do
         ensure_authorized('CreateRoom')
       end
 
