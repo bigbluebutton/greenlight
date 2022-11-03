@@ -33,11 +33,11 @@ export default function BannedPendingUsersTable({ users, pendingTable }) {
                       <Dropdown.Menu>
                         <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'active' })}>
                           <CheckCircleIcon className="hi-s me-2" />
-                          Approve
+                          {t('admin.manage_users.approve')}
                         </Dropdown.Item>
                         <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'banned' })}>
                           <XCircleIcon className="hi-s me-2" />
-                          Decline
+                          {t('admin.manage_users.decline')}
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
@@ -48,7 +48,7 @@ export default function BannedPendingUsersTable({ users, pendingTable }) {
                       <Dropdown.Menu>
                         <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'active' })}>
                           <CheckCircleIcon className="hi-s me-2" />
-                          Unban
+                          {t('admin.manage_users.unban')}
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
