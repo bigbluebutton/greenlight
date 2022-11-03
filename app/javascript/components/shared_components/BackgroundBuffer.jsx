@@ -6,7 +6,7 @@ export default function BackgroundBuffer() {
   const location = useLocation();
   const { friendlyId } = useParams();
 
-  // The background buffer is needed only if the pathname start with /rooms
+  // The background buffer is needed only in /rooms and /rooms/friendly_id
   if (location?.pathname.startsWith('/rooms')) {
     if (location?.pathname === `/rooms/${friendlyId}`) {
       return <Container className="background-lg-buffer" fluid />;
