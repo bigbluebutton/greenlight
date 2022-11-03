@@ -2,16 +2,17 @@
   text-decoration: none !important;
   color: #0d6efd;
 }
-.wide-background-room {
-  //  height: 302px;
 
+.wide-background-room {
+  margin-top: -299px;
+  z-index: 1;
+  position: relative;
 }
 
 .wide-background-rooms {
   margin-top: -90px;
-  z-index: 9999;
+  z-index: 1;
   position: relative;
-
 }
 
 .vertical-center {
@@ -24,6 +25,10 @@
 
 .no-header-height {
   height: calc(100vh - $footer-height);
+}
+
+.regular-height {
+  min-height: calc(100vh - $header-height - $footer-height);
 }
 
 .cursor-pointer {

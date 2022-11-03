@@ -22,9 +22,18 @@ body {
 .header {
   height: $header-height;
   background: white;
-  vertical-align: top;
-  display: block;
 }
+
+.background-sm-buffer {
+  background-color: white;
+  height: 70px;
+}
+
+.background-lg-buffer {
+  background-color: white;
+  height: 300px;
+}
+
 
 // TODO - samuel: make responsive/add breakpoints
 .btn-xlg {
