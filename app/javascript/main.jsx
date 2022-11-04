@@ -45,7 +45,6 @@ const root = (
             <Routes>
               <Route path="/" element={<App />}>
                 <Route index element={<HomePage />} />
-                <Route path="/error_page" element={<DefaultErrorPage />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/signin" element={<SignIn />} />
                 <Route path="/forget_password" element={<ForgetPassword />} />
