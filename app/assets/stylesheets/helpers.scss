@@ -15,12 +15,18 @@
   position: relative;
 }
 
+// For elements that its parents height is fixed
 .vertical-center {
   position: relative;
   top: 45%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+
+// For elements that its parents height is NOT fixed
+.vertical-buffer {
+  padding-top: 10%;
 }
 
 .no-header-height {
