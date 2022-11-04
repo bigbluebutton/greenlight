@@ -3,6 +3,7 @@
 module Api
   module V1
     class RoomsConfigurationsController < ApiController
+      # TODO: samuel - Review this, RoomsConfig#index is needed when user with ManageRooms what to access another users room
       before_action only: %i[index] do
         ensure_authorized(%w[CreateRoom ManageSiteSettings ManageRoles], friendly_id: params[:friendly_id])
       end
