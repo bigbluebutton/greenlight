@@ -68,6 +68,14 @@
   line-height: 18px;
 }
 
+.shared-badge {
+  background-color: whitesmoke !important;
+  height: 24px;
+  line-height: 18px;
+  font-weight: normal;
+  color: gray;
+}
+
 .blinking-green-dot {
   animation: blinker 2s linear infinite;
   width: 10px;

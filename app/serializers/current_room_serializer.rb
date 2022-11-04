@@ -3,7 +3,7 @@
 class CurrentRoomSerializer < ApplicationSerializer
   include Presentable
 
-  attributes :id, :name, :presentation_name, :thumbnail, :online, :participants, :owner_name
+  attributes :id, :name, :presentation_name, :thumbnail, :online, :participants, :shared, :owner_name
 
   attribute :last_session, if: -> { object.last_session }
 

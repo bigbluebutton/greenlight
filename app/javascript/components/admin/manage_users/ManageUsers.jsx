@@ -46,7 +46,7 @@ export default function ManageUsers() {
                           && (
                           <Modal
                             modalButton={(
-                              <Button variant="brand" className="me-3">
+                              <Button variant="brand-outline" className="me-3">
                                 <EnvelopeIcon className="hi-s me-1" />{ t('admin.manage_users.invite_user') }
                               </Button>
                             )}
@@ -78,9 +78,6 @@ export default function ManageUsers() {
                         )}
                       <Tab eventKey="banned" title={t('admin.manage_users.banned')}>
                         <BannedUsers searchInput={searchInput} />
-                      </Tab>
-                      <Tab eventKey="deleted" title={t('admin.manage_users.deleted')}>
-                        Deleted users component
                       </Tab>
                       { registrationMethod === 'invite'
                         && (
