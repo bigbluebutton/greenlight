@@ -1,14 +1,10 @@
 env:
   RUBY_VERSION: 3.1
 
-name: CI Build Push
+name: CI Build Release
 on:
-  push:
-    branches-ignore:
-      - v1
-      - v2
-      - v3
-      - translations*
+  release:
+    types: [released]
 
 jobs:
   main:
@@ -49,17 +45,23 @@ jobs:
         shell: bash
         run: echo "##[set-output name=repository;]$(echo ${DOCKER_REPOSITORY:-$GITHUB_REPOSITORY})"
 
-      - name: Extract Branch Name
-        id: ci_branch_name
+      - name: Extract Tag Release Version
+        id: ci_tag_release_version
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/} | cut -c 9-)"
 
-      - name: Extract Commit Short SHA
-        id: ci_commit_short_sha
+      - name: Extract Tag Release Major
+        id: ci_tag_release_major
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
         shell: bash
-        run: echo "##[set-output name=short_sha;]$(echo ${GITHUB_SHA} | cut -c1-7)"
+        run: echo "##[set-output name=tag;]$(echo ${{steps.ci_tag_release_version.outputs.tag}} | cut -f1-1 -d'.')"
+
+      - name: Extract Tag Release Minor
+        id: ci_tag_release_minor
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true')
+        shell: bash
+        run: echo "##[set-output name=tag;]$(echo ${{steps.ci_tag_release_version.outputs.tag}} | cut -f1-2 -d'.')"
 
       - name: Build and Push
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
@@ -67,34 +69,37 @@ jobs:
         with:
           push: true
           tags: |
-            "${{ steps.ci_docker_repository.outputs.repository }}:${{ steps.ci_branch_name.outputs.branch }}"
-          build-args: "VERSION_TAG=${{ steps.ci_branch_name.outputs.branch }}-${{ steps.ci_commit_short_sha.outputs.short_sha }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_version.outputs.tag }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_major.outputs.tag }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_minor.outputs.tag }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:latest"
+          build-args: "VERSION_TAG=release-${{ steps.ci_tag_release_version.outputs.tag }}"
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
       # Alternate Image with alpine
       - name: Alternate Alpine Build and Push
-        if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'true') && github.ref != 'refs/heads/master'
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'true')
         uses: docker/build-push-action@v2
         with:
-          file: dockerfiles/v3/alpine
+          file: dockerfiles/v2/alpine
           push: true
           tags: |
-            "${{ steps.ci_docker_repository.outputs.repository }}:${{ steps.ci_branch_name.outputs.branch }}-alpine"
-          build-args: "VERSION_TAG=${{ steps.ci_branch_name.outputs.branch }}-${{ steps.ci_commit_short_sha.outputs.short_sha }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_version.outputs.tag }}-alpine"
+          build-args: "VERSION_TAG=release-${{ steps.ci_tag_release_version.outputs.tag }}"
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
-      # Alternate Images with amazonlinux
+      # Alternate Image with amazonlinux
       - name: Alternate Amazon Linux Build and Push
-        if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'true') && github.ref != 'refs/heads/master'
+        if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'true')
         uses: docker/build-push-action@v2
         with:
-          file: dockerfiles/v3/amazonlinux
+          file: dockerfiles/v2/amazonlinux
           push: true
           tags: |
-            "${{ steps.ci_docker_repository.outputs.repository }}:${{ steps.ci_branch_name.outputs.branch }}-amazonlinux"
-          build-args: "VERSION_TAG=${{ steps.ci_branch_name.outputs.branch }}-${{ steps.ci_commit_short_sha.outputs.short_sha }}"
+            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_version.outputs.tag }}-amazonlinux"
+          build-args: "VERSION_TAG=release-${{ steps.ci_tag_release_version.outputs.tag }}"
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
