@@ -15,7 +15,6 @@
   position: relative;
 }
 
-// For elements that its parents height is fixed
 .vertical-center {
   position: relative;
   top: 45%;
@@ -24,7 +23,6 @@
   transform: translateY(-50%);
 }
 
-// For elements that its parents height is NOT fixed
 .vertical-buffer {
   padding-top: 10%;
 }
