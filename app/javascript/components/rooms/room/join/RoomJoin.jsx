@@ -141,7 +141,7 @@ export default function RoomJoin() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="vertical-center">
+    <div className="vertical-buffer">
       <div className="text-center pb-4">
         <Logo size="medium" />
       </div>

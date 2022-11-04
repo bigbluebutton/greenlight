@@ -3,13 +3,14 @@ import {
   Row, Tabs, Tab, Placeholder,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
 import Presentation from './presentation/Presentation';
 import RoomSettings from './room_settings/RoomSettings';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
 import SharedAccess from './shared_access/SharedAccess';
 
-export default function FeatureTabs() {
+export default function FeatureTabs({ shared }) {
   const { t } = useTranslation();
   const { isLoading: isLoadingPreup, data: preuploadEnabled } = useSiteSetting('PreuploadPresentation');
   const { isLoading: isLoadingShare, data: shareRoomEnabled } = useSiteSetting('ShareRooms');
@@ -23,6 +24,19 @@ export default function FeatureTabs() {
           <Placeholder xs={1} size="lg" className="mx-2" />
           <Placeholder xs={1} size="lg" className="mx-2" />
         </Placeholder>
+      </Row>
+    );
+  }
+
+  // Returns only the Recording tab if the room is a Shared Room
+  if (shared) {
+    return (
+      <Row className="pt-4 mx-0">
+        <Tabs defaultActiveKey="recordings" unmountOnExit>
+          <Tab eventKey="recordings" title={t('recording.recording')}>
+            <RoomRecordings />
+          </Tab>
+        </Tabs>
       </Row>
     );
   }
@@ -52,3 +66,7 @@ export default function FeatureTabs() {
     </Row>
   );
 }
+
+FeatureTabs.propTypes = {
+  shared: PropTypes.bool.isRequired,
+};

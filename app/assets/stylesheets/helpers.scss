@@ -23,6 +23,10 @@
   transform: translateY(-50%);
 }
 
+.vertical-buffer {
+  padding-top: 10%;
+}
+
 .no-header-height {
   height: calc(100vh - $footer-height - $footer-buffer-height);
 }

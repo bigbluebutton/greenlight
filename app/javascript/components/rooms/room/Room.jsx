@@ -11,6 +11,7 @@ import Spinner from '../../shared_components/utilities/Spinner';
 import useRoom from '../../../hooks/queries/rooms/useRoom';
 import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from '../MeetingBadges';
+import SharedBadge from './SharedBadge';
 
 function copyInvite() {
   navigator.clipboard.writeText(`${window.location}/join`);
@@ -36,18 +37,21 @@ export default function Room() {
       </Row>
       <Row className="my-5">
         <Col className="col-xxl-8">
-          <Stack direction="horizontal" gap={2}>
-            <h1>{room.name}</h1>
-            <div className="mb-1">
-              { room?.online
-                && <MeetingBadges count={room?.participants} />}
-            </div>
+          <Stack className="room-header-wrapper">
+            <Stack direction="horizontal" gap={2}>
+              <h1>{room.name}</h1>
+              <Stack direction="horizontal" className="mb-1">
+                { room?.online
+                  && <MeetingBadges count={room?.participants} />}
+                { room?.shared && <SharedBadge ownerName={room?.owner_name} /> }
+              </Stack>
+            </Stack>
+            { room.last_session ? (
+              <span className="text-muted"> { t('room.last_session', { room }) }  </span>
+            ) : (
+              <span className="text-muted"> { t('room.no_last_session') } </span>
+            )}
           </Stack>
-          { room.last_session ? (
-            <span className="text-muted"> { t('room.last_session', { room }) }  </span>
-          ) : (
-            <span className="text-muted mt-2"> { t('room.no_last_session') } </span>
-          )}
         </Col>
         <Col>
           <Button variant="brand" className="mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
@@ -64,7 +68,7 @@ export default function Room() {
           </Button>
         </Col>
       </Row>
-      <FeatureTabs />
+      <FeatureTabs shared={room?.shared} />
     </div>
   );
 }
