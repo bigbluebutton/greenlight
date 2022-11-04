@@ -5,6 +5,10 @@ module Api
     class SharedAccessesController < ApiController
       before_action :find_room
 
+      before_action only: %i[show create destroy shareable_users] do
+        ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
+      end
+
       # POST /api/v1/shared_accesses.json
       def create
         shared_users_ids = Array(params[:shared_users])

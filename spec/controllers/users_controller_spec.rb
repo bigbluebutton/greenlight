@@ -197,16 +197,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
 
     it 'returns a user if id is valid' do
-      user = create(:user)
       get :show, params: { id: user.id }
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)['data']['id']).to eq(user.id)
-    end
-
-    it 'returns :not_found if the user doesnt exist' do
-      get :show, params: { id: 'invalid__id' }
-      expect(response).to have_http_status(:not_found)
-      expect(JSON.parse(response.body)['data']).to be_nil
     end
   end
 
