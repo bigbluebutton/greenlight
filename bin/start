@@ -6,6 +6,17 @@ fi
 export PORT="${PORT:=3000}"
 echo "Web app starting on port: $PORT"
 
+if [ "$RAILS_ENV" = "production" ]; then
+  while ! rails db:version 2>/dev/null
+  do
+    echo "Waiting for postgres to start up ..."
+    sleep 1
+  done
+fi
+
+rails db:create
+rails db:migrate:with_data
+
 rails assets:precompile
 
 rails s -b 0.0.0.0 -p $PORT
