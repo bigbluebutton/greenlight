@@ -17,9 +17,6 @@ export default function FeatureTabs({ shared }) {
   const { isLoading: isLoadingShare, data: shareRoomEnabled } = useSiteSetting('ShareRooms');
 
   const currentUser = useAuth();
-  const { permissions } = currentUser;
-
-  console.log(currentUser)
 
   if (isLoadingPreup || isLoadingShare) {
     return (
