@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import {
-  EllipsisVerticalIcon, HomeIcon, PencilSquareIcon, TrashIcon, NoSymbolIcon
+  EllipsisVerticalIcon, HomeIcon, PencilSquareIcon, TrashIcon, NoSymbolIcon,
 } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import Avatar from '../../users/user/Avatar';
