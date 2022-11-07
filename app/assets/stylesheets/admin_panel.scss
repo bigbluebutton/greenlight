@@ -37,6 +37,16 @@ $admin-card-height: 550px;
     }
   }
 
+  .dropdown-item {
+    color: $muted;
+    &:hover {
+      color: var(--brand-color);
+    }
+    &:active {
+      background-color: white !important;
+    }
+  }
+
   .dropdown-toggle::after {
     display: none !important;
   }

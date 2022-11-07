@@ -19,7 +19,7 @@ import RoomJoin from './components/rooms/room/join/RoomJoin';
 import ForgetPassword from './components/users/password_management/ForgetPassword';
 import ManageUsers from './components/admin/manage_users/ManageUsers';
 import ServerRecordings from './components/admin/server_recordings/ServerRecordings';
-import ServerRooms from './components/admin/server_rooms/ServerRooms';
+import ServerRoomsTable from './components/admin/server_rooms/ServerRooms';
 import SiteSettings from './components/admin/site_settings/SiteSettings';
 import RoomConfig from './components/admin/room_configuration/RoomConfig';
 import Roles from './components/admin/roles/Roles';
@@ -56,7 +56,7 @@ const root = (
                 <Route path="/admin/users" element={<ManageUsers />} />
                 <Route path="/admin/edit_user/:userId" element={<EditUser />} />
                 <Route path="/admin/server_recordings" element={<ServerRecordings />} />
-                <Route path="/admin/server_rooms" element={<ServerRooms />} />
+                <Route path="/admin/server_rooms" element={<ServerRoomsTable />} />
                 <Route path="/admin/room_configuration" element={<RoomConfig />} />
                 <Route path="/admin/site_settings" element={<SiteSettings />} />
                 <Route path="/admin/roles" element={<Roles />} />
