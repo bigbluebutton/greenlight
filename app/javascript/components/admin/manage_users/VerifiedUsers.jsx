@@ -13,13 +13,11 @@ export default function VerifiedUsers({ searchInput }) {
       <ManageUsersTable users={verifiedUsers?.data} />
       {!isLoading
         && (
-          <div className="pagination-wrapper">
-            <Pagination
-              page={verifiedUsers.meta.page}
-              totalPages={verifiedUsers.meta.pages}
-              setPage={setPage}
-            />
-          </div>
+          <Pagination
+            page={verifiedUsers.meta.page}
+            totalPages={verifiedUsers.meta.pages}
+            setPage={setPage}
+          />
         )}
     </div>
   );

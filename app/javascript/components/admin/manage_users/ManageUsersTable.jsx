@@ -9,8 +9,8 @@ export default function ManageUsersTable({ users }) {
   const { t } = useTranslation();
 
   return (
-    <div id="admin-table">
-      <Table className="table-bordered border border-2 mb-0" hover>
+    <div>
+      <Table className="table-bordered border border-2 mt-4 mb-0" hover>
         <thead>
           <tr className="text-muted small">
             <th className="fw-normal border-end-0">{ t('user.name') }<SortBy fieldName="name" /></th>
