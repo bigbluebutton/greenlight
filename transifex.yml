@@ -5,4 +5,4 @@ git:
       file_format: KEYVALUEJSON
       source_file_extension: json
       source_language: en
-      translation_files_expression: public/locales/<lang>.yml
+      translation_files_expression: public/locales/<lang>.json
