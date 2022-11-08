@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import RolePill from './RolePill';
+import RoleBadge from './RoleBadge';
 
 export default function RoleRow({ role }) {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ export default function RoleRow({ role }) {
   return (
     <tr className="align-middle text-muted border border-2 cursor-pointer" onClick={handleClick}>
       <td className="py-4">
-        <RolePill role={role} />
+        <RoleBadge role={role} />
       </td>
     </tr>
   );
