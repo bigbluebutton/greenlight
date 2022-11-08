@@ -199,7 +199,7 @@
       "last_session": "Last Session: {{lastSession}}",
       "no_meeting_yet": "No meeting yet.",
       "delete_server_rooms": "Delete Server Room",
-      "resync_recordings": "Re-Synchronize recordings"
+      "resync_recordings": "Re-Sync Recordings"
     },
     "server_recordings": {
       "server_recordings": "Server Recordings",

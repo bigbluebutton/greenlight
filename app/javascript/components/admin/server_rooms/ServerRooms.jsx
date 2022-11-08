@@ -54,7 +54,7 @@ export default function ServerRooms() {
                           )
                           : (
                             <tr>
-                              <td className="fw-bold">
+                              <td className="fw-bold" colSpan="6">
                                 { t('room.no_rooms_found') }
                               </td>
                             </tr>
@@ -63,13 +63,11 @@ export default function ServerRooms() {
                     </Table>
                     {!isLoading
                       && (
-                        <div className="pagination-wrapper">
-                          <Pagination
-                            page={serverRooms.meta.page}
-                            totalPages={serverRooms.meta.pages}
-                            setPage={setPage}
-                          />
-                        </div>
+                        <Pagination
+                          page={serverRooms.meta.page}
+                          totalPages={serverRooms.meta.pages}
+                          setPage={setPage}
+                        />
                       )}
                   </div>
                 </Container>

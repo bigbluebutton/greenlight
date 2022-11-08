@@ -60,26 +60,30 @@ export default function ServerRoomRow({ room }) {
       <td className="border-start-0">
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
-          <Dropdown.Menu>
+          <Dropdown.Menu className="admin-table-dropdown">
             { room.online
               ? (
-                <Dropdown.Item className="text-muted" onClick={handleJoin}>
-                  <ArrowTopRightOnSquareIcon className="hi-s pb-1 me-1" /> {t('join')}
+                <Dropdown.Item onClick={handleJoin}>
+                  <ArrowTopRightOnSquareIcon className="hi-s me-2" />
+                  {t('join')}
                 </Dropdown.Item>
               )
               : (
-                <Dropdown.Item className="text-muted" onClick={startMeeting.mutate}>
-                  <ArrowTopRightOnSquareIcon className="hi-s pb-1 me-1" /> {t('start')}
+                <Dropdown.Item onClick={startMeeting.mutate}>
+                  <ArrowTopRightOnSquareIcon className="hi-s me-2" />
+                  {t('start')}
                 </Dropdown.Item>
               )}
-            <Dropdown.Item className="text-muted" as={Link} to={`/rooms/${friendlyId}`}>
-              <EyeIcon className="hi-s pb-1 me-1" /> {t('view')}
+            <Dropdown.Item as={Link} to={`/rooms/${friendlyId}`}>
+              <EyeIcon className="hi-s me-2" />
+              {t('view')}
             </Dropdown.Item>
-            <Dropdown.Item className="text-muted" onClick={recordingsResyncAPI.mutate}>
-              <ArrowPathIcon className="hi-s pb-1 me-1" /> {t('admin.server_rooms.resync_recordings')}
+            <Dropdown.Item onClick={recordingsResyncAPI.mutate}>
+              <ArrowPathIcon className="hi-s me-2" />
+              {t('admin.server_rooms.resync_recordings')}
             </Dropdown.Item>
             <Modal
-              modalButton={<Dropdown.Item className="text-muted"><TrashIcon className="hi-s pb-1 me-1" /> { t('delete') }</Dropdown.Item>}
+              modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{ t('delete') }</Dropdown.Item>}
               title={t('admin.server_rooms.delete_server_rooms')}
               body={<DeleteRoomForm mutation={mutationWrapper} />}
             />

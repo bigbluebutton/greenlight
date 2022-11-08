@@ -13,13 +13,11 @@ export default function PendingUsers({ searchInput }) {
       <BannedPendingUsersTable users={users?.data} pendingTable />
       {!isLoading
         && (
-        <div className="pagination-wrapper">
-          <Pagination
-            page={users?.meta.page}
-            totalPages={users?.meta.pages}
-            setPage={setPage}
-          />
-        </div>
+        <Pagination
+          page={users?.meta.page}
+          totalPages={users?.meta.pages}
+          setPage={setPage}
+        />
         )}
     </div>
   );

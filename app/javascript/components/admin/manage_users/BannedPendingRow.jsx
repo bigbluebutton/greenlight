@@ -9,15 +9,15 @@ import Avatar from '../../users/user/Avatar';
 export default function BannedPendingRow({ user, children }) {
   const { t } = useTranslation();
   return (
-    <tr key={user.id} className="align-middle text-muted">
-      <td className="text-dark border-end-0">
+    <tr key={user.id} className="align-middle text-muted border border-2">
+      <td className="border-end-0">
         <Stack direction="horizontal">
           <div className="me-2">
             <Avatar avatar={user.avatar} radius={40} />
           </div>
           <Stack>
-            <strong> {user.name} </strong>
-            <span className="small text-muted"> { t('admin.manage_users.user_created_at', { user }) }</span>
+            <span className="text-dark fw-bold"> {user.name} </span>
+            <span className="small"> { t('admin.manage_users.user_created_at', { user }) }</span>
           </Stack>
         </Stack>
       </td>

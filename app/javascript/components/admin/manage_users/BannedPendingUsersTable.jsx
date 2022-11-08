@@ -2,7 +2,9 @@ import React from 'react';
 import { Table, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { CheckCircleIcon, EllipsisVerticalIcon, XCircleIcon } from '@heroicons/react/24/outline';
+import {
+  EllipsisVerticalIcon, CheckIcon, XCircleIcon, CheckCircleIcon,
+} from '@heroicons/react/24/outline';
 import BannedPendingRow from './BannedPendingRow';
 import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
 
@@ -26,39 +28,34 @@ export default function BannedPendingUsersTable({ users, pendingTable }) {
             ? (
               users?.map((user) => (
                 <BannedPendingRow key={user.id} user={user}>
-                  {pendingTable ? (
-                    <Dropdown className="float-end cursor-pointer">
-                      <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
-
-                      <Dropdown.Menu>
+                  <Dropdown className="float-end cursor-pointer">
+                    <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
+                    <Dropdown.Menu>
+                      {pendingTable ? (
+                        <>
+                          <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'active' })}>
+                            <CheckCircleIcon className="hi-s me-2" />
+                            {t('admin.manage_users.approve')}
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'banned' })}>
+                            <XCircleIcon className="hi-s me-2" />
+                            {t('admin.manage_users.decline')}
+                          </Dropdown.Item>
+                        </>
+                      ) : (
                         <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'active' })}>
-                          <CheckCircleIcon className="hi-s me-2" />
-                          {t('admin.manage_users.approve')}
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'banned' })}>
-                          <XCircleIcon className="hi-s me-2" />
-                          {t('admin.manage_users.decline')}
-                        </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  ) : (
-                    <Dropdown className="float-end cursor-pointer">
-                      <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
-
-                      <Dropdown.Menu>
-                        <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'active' })}>
-                          <CheckCircleIcon className="hi-s me-2" />
+                          <CheckIcon className="hi-s me-2" />
                           {t('admin.manage_users.unban')}
                         </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  )}
+                      )}
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </BannedPendingRow>
               ))
             )
             : (
               <tr>
-                <td className="fw-bold">
+                <td className="fw-bold" colSpan="6">
                   { t('user.no_user_found') }
                 </td>
               </tr>
