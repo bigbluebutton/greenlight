@@ -1,3 +1,44 @@
+#user-recordings {
+  table {
+    border-top-right-radius: $border-radius-lg;
+    border-top-left-radius: $border-radius-lg;
+    border-spacing: 0;
+    overflow: hidden;
+  }
+
+  tr {
+    border-color: whitesmoke !important;
+    border-right: 0 !important;
+    border-left: 0 !important;
+  }
+
+  tbody {
+    tr {
+      &:last-child:not(.no-recordings-found) {
+        border-bottom: 3px solid whitesmoke !important;
+      }
+    }
+  }
+
+  .dropdown-item {
+    color: $muted;
+    &:hover {
+      color: var(--brand-color);
+    }
+    &:active {
+      background-color: white !important;
+    }
+  }
+
+  .pagination-wrapper {
+    border: 0 !important;
+  }
+
+  .no-recordings-found {
+    border-bottom: 0 !important;
+  }
+}
+
 .recordings-list {
   .recording-icon-circle {
     width: 40px;

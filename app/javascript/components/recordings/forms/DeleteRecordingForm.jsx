@@ -18,7 +18,7 @@ export default function DeleteRecordingForm({ mutation: useDeleteAPI, recordId, 
       <p className="text-center"> { t('recording.are_you_sure_delete_recording') }</p>
       <Form methods={methods} onSubmit={deleteAPI.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
-          <Button variant="brand-outline" onClick={handleClose}>
+          <Button variant="neutral" onClick={handleClose}>
             { t('close') }
           </Button>
           <Button variant="danger" type="submit" disabled={deleteAPI.isLoading}>
