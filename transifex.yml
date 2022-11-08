@@ -1,7 +1,8 @@
-filters: 
-  - filter_type: file
-    source_file: public/locales/en.yml
-    file_format: KEYVALUEJSON
-    source_file_extension: json
-    source_language: en
-    translation_files_expression: public/locales/<lang>.yml
+git:
+  filters:
+    - filter_type: file
+      source_file: public/locales/en.yml
+      file_format: KEYVALUEJSON
+      source_file_extension: json
+      source_language: en
+      translation_files_expression: public/locales/<lang>.yml
