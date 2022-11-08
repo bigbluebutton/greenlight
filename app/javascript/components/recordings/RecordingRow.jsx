@@ -40,7 +40,7 @@ export default function RecordingRow({
             <VideoCameraIcon className="hi-s text-brand" />
           </div>
           <Stack>
-            <strong >
+            <strong>
               {/* TODO: add an x button or something to the edit name form */}
               <UpdateRecordingForm
                 mutation={useUpdateAPI}
