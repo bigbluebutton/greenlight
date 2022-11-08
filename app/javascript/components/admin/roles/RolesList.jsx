@@ -10,7 +10,7 @@ export default function RolesList({ roles, isLoading }) {
   const { t } = useTranslation();
 
   return (
-    <Table hover bordered className="text-secondary mb-0 recordings-list">
+    <Table className="table-bordered border border-2 mb-0" hover>
       <thead>
         <tr className="text-muted small">
           <th className="fw-normal">{ t('admin.roles.role') }<SortBy fieldName="name" /></th>
@@ -28,7 +28,7 @@ export default function RolesList({ roles, isLoading }) {
             roles?.length ? (roles?.map((role) => <RoleRow key={role.id} role={role} />))
               : (
                 <tr>
-                  <td className="fw-bold">
+                  <td className="fw-bold" colSpan="6">
                     { t('admin.roles.no_role_found') }
                   </td>
                 </tr>
