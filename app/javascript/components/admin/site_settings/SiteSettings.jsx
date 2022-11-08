@@ -4,13 +4,13 @@ import {
   Row, Col, Tab, Tabs, Container,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { Navigate } from 'react-router-dom';
 import AdminNavSideBar from '../AdminNavSideBar';
 import Appearance from './appearance/Appearance';
 import Administration from './administration/Administration';
 import Settings from './settings/Settings';
 import Registration from './registration/Registration';
-import {useAuth} from "../../../contexts/auth/AuthProvider";
-import {Navigate} from "react-router-dom";
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function SiteSettings() {
   const { t } = useTranslation();

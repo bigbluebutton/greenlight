@@ -9,7 +9,7 @@ import useRole from '../../../hooks/queries/admin/roles/useRole';
 import EditRoleForm from './forms/EditRoleForm';
 import Spinner from '../../shared_components/utilities/Spinner';
 import AdminNavSideBar from '../AdminNavSideBar';
-import {useAuth} from "../../../contexts/auth/AuthProvider";
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function EditRole() {
   const { t } = useTranslation();

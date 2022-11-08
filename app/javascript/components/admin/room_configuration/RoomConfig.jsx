@@ -4,13 +4,13 @@ import {
   Col, Row, Tab, Container,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { Navigate } from 'react-router-dom';
 import AdminNavSideBar from '../AdminNavSideBar';
 import RoomConfigRow from './RoomConfigRow';
 import useUpdateRoomConfig from '../../../hooks/mutations/admin/room_configuration/useUpdateRoomConfig';
 import useRoomConfigs from '../../../hooks/queries/rooms/useRoomConfigs';
 import Spinner from '../../shared_components/utilities/Spinner';
-import {useAuth} from "../../../contexts/auth/AuthProvider";
-import {Navigate} from "react-router-dom";
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function RoomConfig() {
   const { t } = useTranslation();

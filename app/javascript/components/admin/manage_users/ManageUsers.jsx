@@ -16,7 +16,7 @@ import InviteUserForm from './forms/InviteUserForm';
 import InvitedUsers from './InvitedUsers';
 import PendingUsers from './PendingUsers';
 import BannedUsers from './BannedUsers';
-import {useAuth} from "../../../contexts/auth/AuthProvider";
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function ManageUsers() {
   const { t } = useTranslation();

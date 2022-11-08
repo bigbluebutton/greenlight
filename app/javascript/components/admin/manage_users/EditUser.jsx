@@ -10,7 +10,7 @@ import AdminNavSideBar from '../AdminNavSideBar';
 import AccountInfo from '../../users/user/AccountInfo';
 import useUser from '../../../hooks/queries/users/useUser';
 import Spinner from '../../shared_components/utilities/Spinner';
-import {useAuth} from "../../../contexts/auth/AuthProvider";
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function EditUser() {
   const { t } = useTranslation();

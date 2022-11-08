@@ -4,14 +4,14 @@ import {
   Col, Container, Row, Tab,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { Navigate } from 'react-router-dom';
 import AdminNavSideBar from '../AdminNavSideBar';
 import SearchBar from '../../shared_components/search/SearchBar';
 import RecordingsList from '../../recordings/RecordingsList';
 import useServerRecordings from '../../../hooks/queries/admin/server_recordings/useServerRecordings';
 import ServerRecordingRow from './ServerRecordingRow';
 import Pagination from '../../shared_components/Pagination';
-import {useAuth} from "../../../contexts/auth/AuthProvider";
-import {Navigate} from "react-router-dom";
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function ServerRecordings() {
   const { t } = useTranslation();
