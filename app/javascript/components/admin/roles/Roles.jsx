@@ -8,11 +8,18 @@ import RolesList from './RolesList';
 import SearchBar from '../../shared_components/search/SearchBar';
 import useRoles from '../../../hooks/queries/admin/roles/useRoles';
 import CreateRoleModal from '../../shared_components/modals/CreateRoleModal';
+import {useAuth} from "../../../contexts/auth/AuthProvider";
+import {Navigate} from "react-router-dom";
 
 export default function Roles() {
   const { t } = useTranslation();
   const [searchInput, setSearchInput] = useState();
   const { data: roles, isLoading } = useRoles(searchInput);
+  const currentUser = useAuth();
+
+  if (currentUser.permissions?.ManageRoles !== 'true') {
+    return <Navigate to="/404" />;
+  }
 
   return (
     <div id="admin-panel" className="pb-3">

@@ -10,12 +10,19 @@ import RecordingsList from '../../recordings/RecordingsList';
 import useServerRecordings from '../../../hooks/queries/admin/server_recordings/useServerRecordings';
 import ServerRecordingRow from './ServerRecordingRow';
 import Pagination from '../../shared_components/Pagination';
+import {useAuth} from "../../../contexts/auth/AuthProvider";
+import {Navigate} from "react-router-dom";
 
 export default function ServerRecordings() {
   const { t } = useTranslation();
   const [searchInput, setSearchInput] = useState();
   const [page, setPage] = useState();
   const { isLoading, data: serverRecordings } = useServerRecordings(searchInput, page);
+  const currentUser = useAuth();
+
+  if (currentUser.permissions?.ManageRecordings !== 'true') {
+    return <Navigate to="/404" />;
+  }
 
   return (
     <div id="admin-panel" className="pb-3">

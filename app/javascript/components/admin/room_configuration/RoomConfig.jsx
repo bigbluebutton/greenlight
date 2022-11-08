@@ -9,10 +9,17 @@ import RoomConfigRow from './RoomConfigRow';
 import useUpdateRoomConfig from '../../../hooks/mutations/admin/room_configuration/useUpdateRoomConfig';
 import useRoomConfigs from '../../../hooks/queries/rooms/useRoomConfigs';
 import Spinner from '../../shared_components/utilities/Spinner';
+import {useAuth} from "../../../contexts/auth/AuthProvider";
+import {Navigate} from "react-router-dom";
 
 export default function RoomConfig() {
   const { t } = useTranslation();
   const { data: roomConfigs, isLoading } = useRoomConfigs();
+  const currentUser = useAuth();
+
+  if (currentUser.permissions?.ManageSiteSettings !== 'true') {
+    return <Navigate to="/404" />;
+  }
 
   return (
     <div id="admin-panel" className="pb-3">
