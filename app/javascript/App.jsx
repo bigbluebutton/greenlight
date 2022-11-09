@@ -30,7 +30,7 @@ export default function App() {
   return (
     <>
       {currentUser?.signed_in && <Header /> }
-      <BackgroundBuffer />
+      {currentUser?.verified && <BackgroundBuffer /> }
       <Container className={pageHeight}>
         <Outlet />
       </Container>
