@@ -1,13 +1,12 @@
 import React from 'react';
 import {
-  Button, Card, Stack,
+  Button, Card,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import useCreateActivationLink from '../../../hooks/mutations/account_activation/useCreateActivationLink';
 import Spinner from '../../shared_components/utilities/Spinner';
 import Logo from '../../shared_components/Logo';
-import ButtonLink from '../../shared_components/utilities/ButtonLink';
 
 export default function VerifyAccount() {
   const currentUser = useAuth();
