@@ -11,6 +11,7 @@ import useUpdateUser from '../../../../hooks/mutations/users/useUpdateUser';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
+import i18next from "i18next";
 
 export default function UpdateUserForm({ user }) {
   const { t } = useTranslation();
@@ -18,10 +19,11 @@ export default function UpdateUserForm({ user }) {
   // TODO: Make LOCALES a context that provides the available languages and their native names in the client app.
   const LOCALES = {
     en: 'English',
-    ar: 'العربيّة',
+    fa_IR: 'فارسی',
     fr: 'Français',
-    es: 'Española',
+    tr: 'Türkçe',
   };
+
 
   const methods = useForm({
     defaultValues: {
