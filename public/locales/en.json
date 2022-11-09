@@ -366,7 +366,9 @@
   },
   "account_activation_page": {
     "title": "Account Activation",
-    "message": "Your account has not been verified yet.\nIn order to use Greenlight full features you are kindly invited to verify your account.\nIf you haven't received an activation link or if you are having a problem using it,\nplease click the resend button below to get a new link.",
+    "account_unverified": "Your account has not been verified yet.",
+    "message": "In order to use Greenlight, please verify your account by following the instruction in the activation email that was sent to you.",
+    "resend_activation_link": "If you haven't received an activation link or if you are having a problem using it, click the resend button below to request a new activation email.",
     "resend_btn_lbl": "Resend Verification"
   }
 }
