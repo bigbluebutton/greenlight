@@ -4,18 +4,25 @@ import {
   Col, Container, Row, Tab, Table,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { Navigate } from 'react-router-dom';
 import useServerRooms from '../../../hooks/queries/admin/server_rooms/useServerRooms';
 import ServerRoomRow from './ServerRoomRow';
 import SearchBar from '../../shared_components/search/SearchBar';
 import AdminNavSideBar from '../AdminNavSideBar';
 import Pagination from '../../shared_components/Pagination';
 import SortBy from '../../shared_components/search/SortBy';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function ServerRooms() {
   const { t } = useTranslation();
   const [searchInput, setSearchInput] = useState();
   const [page, setPage] = useState();
   const { isLoading, data: serverRooms } = useServerRooms(searchInput, page);
+  const currentUser = useAuth();
+
+  if (currentUser.permissions?.ManageRooms !== 'true') {
+    return <Navigate to="/404" />;
+  }
 
   return (
     <div id="admin-panel" className="pb-3">

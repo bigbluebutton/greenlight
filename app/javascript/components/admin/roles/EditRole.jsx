@@ -9,12 +9,18 @@ import useRole from '../../../hooks/queries/admin/roles/useRole';
 import EditRoleForm from './forms/EditRoleForm';
 import Spinner from '../../shared_components/utilities/Spinner';
 import AdminNavSideBar from '../AdminNavSideBar';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function EditRole() {
   const { t } = useTranslation();
   const { roleId } = useParams();
   const navigate = useNavigate();
   const { data: role, isError } = useRole(roleId);
+  const currentUser = useAuth();
+
+  if (currentUser.permissions?.ManageRoles !== 'true') {
+    return <Navigate to="/404" />;
+  }
 
   if (isError) {
     return <Navigate to="/admin/roles" replace />;
