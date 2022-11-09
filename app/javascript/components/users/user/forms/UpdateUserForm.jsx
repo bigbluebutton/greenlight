@@ -4,6 +4,7 @@ import { Button, Form as BootStrapForm, Stack } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
 import { validationSchema, updateUserFormFields } from '../../../../helpers/forms/UpdateUserFormHelpers';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
@@ -11,7 +12,6 @@ import useUpdateUser from '../../../../hooks/mutations/users/useUpdateUser';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
-import i18next from "i18next";
 
 export default function UpdateUserForm({ user }) {
   const { t } = useTranslation();
@@ -23,7 +23,6 @@ export default function UpdateUserForm({ user }) {
     fr: 'Français',
     tr: 'Türkçe',
   };
-
 
   const methods = useForm({
     defaultValues: {
