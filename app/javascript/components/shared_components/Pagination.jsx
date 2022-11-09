@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pagination as PaginationSemanticUi } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import PaginationButton from './PaginationPrevButton';
+import PaginationButton from './PaginationButton';
 
 export default function Pagination({
   page, totalPages, setPage,
@@ -20,7 +20,7 @@ export default function Pagination({
       return true;
     }
     return false;
-  }
+  };
 
   if (totalPages > 1) {
     return (
