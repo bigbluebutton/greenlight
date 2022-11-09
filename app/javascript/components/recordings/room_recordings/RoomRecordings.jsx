@@ -18,7 +18,7 @@ export default function RoomRecordings() {
   const roomRecordingsProcessing = useRoomRecordingsProcessing(friendlyId);
 
   return (
-    <>
+    <div id="user-recordings">
       <Stack direction="horizontal" className="w-100 mt-3">
         <div>
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
@@ -39,6 +39,6 @@ export default function RoomRecordings() {
           setPage={setPage}
         />
         )}
-    </>
+    </div>
   );
 }

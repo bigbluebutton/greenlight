@@ -14,7 +14,7 @@
 
   tbody {
     tr {
-      &:last-child:not(.no-recordings-found) {
+      &:nth-child(10):not(.no-recordings-found) {
         border-bottom: 4px solid whitesmoke !important;
       }
     }

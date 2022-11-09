@@ -68,7 +68,6 @@ export default function ManageUsers() {
                           }
                           title={t('admin.manage_users.create_new_user')}
                           body={<UserSignupForm />}
-                          size="lg"
                         />
 
                       </div>
