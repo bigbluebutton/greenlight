@@ -4,7 +4,6 @@ import { Button, Form as BootStrapForm, Stack } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import i18next from 'i18next';
 import { validationSchema, updateUserFormFields } from '../../../../helpers/forms/UpdateUserFormHelpers';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
