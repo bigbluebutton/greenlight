@@ -9,7 +9,7 @@ export default function CreateRoleModal() {
 
   return (
     <Modal
-      modalButton={<Button variant="brand" className="ms-auto">{ t('admin.roles.create_role') }</Button>}
+      modalButton={<Button variant="brand" className="ms-auto">{ t('admin.roles.add_role') }</Button>}
       title={t('admin.roles.create_new_role')}
       body={<CreateRoleForm />}
     />
