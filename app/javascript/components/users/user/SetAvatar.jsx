@@ -94,7 +94,7 @@ export default function SetAvatar({ user }) {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="brand-outline" onClick={handleClose}>
+          <Button variant="neutral" onClick={handleClose}>
             { t('close') }
           </Button>
           <Button variant="brand" onClick={handleSave}>

@@ -20,7 +20,7 @@ export default function DeletePresentationForm({ handleClose }) {
       <p className="text-center"> { t('room.presentation.are_you_sure_delete_presentation') }</p>
       <Form methods={methods} onSubmit={deletePresentation.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
-          <Button variant="brand-outline" onClick={handleClose}>
+          <Button variant="close" onClick={handleClose}>
             { t('close') }
           </Button>
           <Button variant="danger" type="submit" disabled={deletePresentation.isLoading}>
