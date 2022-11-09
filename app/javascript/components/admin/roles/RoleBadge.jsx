@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 export default function RoleBadge({ role }) {
   return (
     <Badge className="rounded-pill role-badge ms-2">
-      <span className="role-color-dot me-2" ref={(el) => el && el.style.setProperty('background-color', color, 'important')} />
-      {name}
+      <span className="role-color-dot me-2" ref={(el) => el && el.style.setProperty('background-color', role?.color, 'important')} />
+      {role?.name}
     </Badge>
   );
 }
