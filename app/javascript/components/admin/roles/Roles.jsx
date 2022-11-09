@@ -34,7 +34,7 @@ export default function Roles() {
             </Col>
             <Col className="ps-0" sm={9}>
               <Tab.Content className="p-0">
-                <Container className="p-0">
+                <Container className="admin-table p-0">
                   <div className="p-4 border-bottom">
                     <h3> { t('admin.roles.manage_roles') } </h3>
                   </div>

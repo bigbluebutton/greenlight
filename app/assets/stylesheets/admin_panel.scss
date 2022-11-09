@@ -74,3 +74,18 @@ $admin-card-height: 550px;
 .room-limit{
   width: 100px;
 }
+
+.role-badge {
+  background-color: whitesmoke !important;
+  height: 24px;
+  line-height: 18px;
+  color: gray;
+}
+
+.role-color-dot {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 100%;
+}
+

@@ -12,7 +12,7 @@ export default function RecordingsList({
   const { t } = useTranslation();
 
   return (
-    <Table hover className="table-bordered border border-2 mb-0 recordings-list">
+    <Table className="table-bordered border border-2 mb-0 recordings-list" hover>
       <thead>
         <tr className="text-muted small">
           <th className="fw-normal border-end-0">{ t('recording.name') }<SortBy fieldName="name" /></th>

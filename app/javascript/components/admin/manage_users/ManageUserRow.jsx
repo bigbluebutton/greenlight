@@ -14,8 +14,8 @@ import Modal from '../../shared_components/modals/Modal';
 import CreateRoomForm from '../../rooms/room/forms/CreateRoomForm';
 import useCreateServerRoom from '../../../hooks/mutations/admin/manage_users/useCreateServerRoom';
 import DeleteUserForm from './forms/DeleteUserForm';
-import RolePill from '../roles/RolePill';
 import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
+import RoleBadge from '../roles/RoleBadge';
 
 export default function ManageUserRow({ user }) {
   const { t } = useTranslation();
@@ -37,7 +37,7 @@ export default function ManageUserRow({ user }) {
       </td>
 
       <td className="border-0"> {user.email} </td>
-      <td className="border-0"> <RolePill role={user.role} /> </td>
+      <td className="border-0"> <RoleBadge role={user.role} /> </td>
       <td className="border-start-0">
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
