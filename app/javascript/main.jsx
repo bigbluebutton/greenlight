@@ -33,8 +33,8 @@ import DefaultErrorPage from './components/errors/DefaultErrorPage';
 import NotFoundPage from './components/errors/NotFoundPage';
 import VerifyAccount from './components/users/account_activation/VerifyAccount';
 import AdminPanel from './components/admin/AdminPanel';
-import UnauthenticatedOnly from "./routes/UnauthenticatedOnly";
-import AuthenticatedOnly from "./routes/AuthenticatedOnly";
+import UnauthenticatedOnly from './routes/UnauthenticatedOnly';
+import AuthenticatedOnly from './routes/AuthenticatedOnly';
 
 const queryClient = new QueryClient();
 
