@@ -1,7 +1,7 @@
 import {
   VideoCameraIcon, Square2StackIcon,
   EllipsisVerticalIcon,
-  TrashIcon,
+  TrashIcon, PencilSquareIcon,
 } from '@heroicons/react/24/outline';
 import Form from 'react-bootstrap/Form';
 import React, { useState } from 'react';
@@ -33,14 +33,15 @@ export default function RecordingRow({
   const [isUpdating, setIsUpdating] = useState(false);
 
   return (
-    <tr key={recording.id} className="align-middle">
+    <tr key={recording.id} className="align-middle text-muted border border-2">
       <td className="border-end-0 text-dark">
         <Stack direction="horizontal" className="py-2">
           <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
             <VideoCameraIcon className="hi-s text-brand" />
           </div>
           <Stack>
-            <strong role="button" aria-hidden="true" onClick={() => !isUpdating && setIsEditing(true)} onBlur={() => setIsEditing(false)}>
+            <strong>
+              {/* TODO: add an x button or something to the edit name form */}
               <UpdateRecordingForm
                 mutation={useUpdateAPI}
                 recordId={recording.record_id}
@@ -50,13 +51,24 @@ export default function RecordingRow({
                 noLabel
               />
               {
-                !isEditing && recording.name
+                !isEditing
+                && (
+                <>
+                  { recording.name }
+                  <PencilSquareIcon
+                    role="button"
+                    aria-hidden="true"
+                    onClick={() => !isUpdating && setIsEditing(true)}
+                    onBlur={() => setIsEditing(false)}
+                    className="hi-s text-muted ms-1 mb-1"
+                  />
+                </>
+                )
               }
               {
                 isUpdating && <Spinner animation="grow" variant="brand" />
               }
             </strong>
-
             <span className="small text-muted"> {recording.created_at} </span>
           </Stack>
         </Stack>
@@ -91,12 +103,15 @@ export default function RecordingRow({
         ))}
       </td>
       <td className="border-start-0">
-        <Dropdown className="cursor-pointer">
+        <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
           <Dropdown.Menu>
-            <Dropdown.Item onClick={() => copyUrls()}><Square2StackIcon className="hi-s" />{ t('recording.copy_recording_urls') }</Dropdown.Item>
+            <Dropdown.Item onClick={() => copyUrls()}>
+              <Square2StackIcon className="hi-s me-2" />
+              { t('recording.copy_recording_urls') }
+            </Dropdown.Item>
             <Modal
-              modalButton={<Dropdown.Item><TrashIcon className="hi-s" />{ t('delete') }</Dropdown.Item>}
+              modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{ t('delete') }</Dropdown.Item>}
               title={t('are_you_sure')}
               body={(
                 <DeleteRecordingForm
