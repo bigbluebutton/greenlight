@@ -49,7 +49,7 @@
     "email_address": "آدرس ایمیل",
     "authenticator": "احراز هویت",
     "full_name": "نام کامل",
-    "no_user_found": "هیچ کاربری پیدا نشد.",
+    "no_user_found": "هیچ کاربری پیدا نشد",
     "type_three_characters": "لطفا سه «۳» کاراکتر یا بیشتر برای نمایش دیگر کاربران تایپ کنید.",
     "profile": {
       "profile": "نمایه",
@@ -148,7 +148,7 @@
     "length_in_minutes": "{{recording.length}} دقیقه",
     "processing_recording": "در حال پردازش ضبط...",
     "copy_recording_urls": "کپی آدرس(های) ضبط شده",
-    "no_recording_found": "هیچ ضبطی پیدا نشد.",
+    "no_recording_found": "هیچ ضبطی پیدا نشد",
     "are_you_sure_delete_recording": "آیا مطمئنید که می‌خواهید این ضبط را حذف کنید؟"
   },
   "admin": {
@@ -344,6 +344,7 @@
       "problem_completing_action": "در تکمیل آن اقدام مشکلی وجود داشت.\nلطفا دوباره تلاش کنید.",
       "file_type_not_supported": "نوع پرونده پشتیبانی نمی‌شود.",
       "file_size_too_large": "سایز پرونده خیلی بزرگ است.",
+      "signin_required": "برای دسترسی به این صفحه باید وارد سیستم شوید",
       "roles": {
         "role_assigned": "این نقش را نمی‌توانید حذف کنید، زیرا به حداقل یک کاربر اختصاص داده شده است."
       },
