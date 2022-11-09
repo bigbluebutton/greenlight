@@ -8,6 +8,20 @@ export default function Pagination({
 }) {
   const handlePage = (e, { activePage }) => setPage(activePage);
 
+  const disabledPrevious = () => {
+    if (page === 1) {
+      return true;
+    }
+    return false;
+  };
+
+  const disabledNext = () => {
+    if (page === totalPages) {
+      return true;
+    }
+    return false;
+  }
+
   if (totalPages > 1) {
     return (
       <div className="semantic-ui-pagination pagination-wrapper">
@@ -18,12 +32,16 @@ export default function Pagination({
           onPageChange={handlePage}
           firstItem={null}
           lastItem={null}
-          prevItem={{
-            content: <PaginationButton direction="Previous" />,
+          prevItem={
+          {
+            disabled: disabledPrevious(),
+            content: <PaginationButton page={page} totalPages={totalPages} direction="Previous" />,
             icon: true,
-          }}
+          }
+        }
           nextItem={{
-            content: <PaginationButton direction="Next" />,
+            disabled: disabledNext(),
+            content: <PaginationButton page={page} totalPages={totalPages} direction="Next" />,
             icon: true,
           }}
         />
