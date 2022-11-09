@@ -344,6 +344,7 @@
       "problem_completing_action": "There was a problem completing that action. \n Please try again.",
       "file_type_not_supported": "File type is not supported.",
       "file_size_too_large": "File size is too large.",
+      "signin_required": "You must be signed in to access this page",
       "roles": {
         "role_assigned": "This role can't be deleted as it is assigned to at least one user."
       },
