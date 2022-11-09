@@ -24,19 +24,14 @@ export default function VerifyAccount() {
         <strong className="mb-3">{ t('account_activation_page.account_unverified') }</strong>
         <span className="mb-3">{ t('account_activation_page.message') }</span>
         <span className="mb-4">{ t('account_activation_page.resend_activation_link') }</span>
-        <Stack direction="vertical" gap={2}>
-          <Button
-            variant="brand-outline"
-            className="btn btn-lg"
-            onClick={createActivationLinkAPI.mutate}
-            disabled={createActivationLinkAPI.isLoading}
-          >
-            { t('account_activation_page.resend_btn_lbl') } {createActivationLinkAPI.isLoading && <Spinner />}
-          </Button>
-          <ButtonLink to="/" variant="brand" className="btn btn-lg">
-            {t('return_home')}
-          </ButtonLink>
-        </Stack>
+        <Button
+          variant="brand"
+          className="btn btn-lg"
+          onClick={createActivationLinkAPI.mutate}
+          disabled={createActivationLinkAPI.isLoading}
+        >
+          { t('account_activation_page.resend_btn_lbl') } {createActivationLinkAPI.isLoading && <Spinner />}
+        </Button>
       </Card>
     </div>
   );
