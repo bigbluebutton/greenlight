@@ -220,7 +220,7 @@
         "upload_brand_image_description": "Tetszőleges PNG, JPG vagy SVG-fájl feltöltése.  A fájl méretétől függően több időre lehet szükség, mielőtt használható lesz."
       },
       "administration": {
-        "administration": "Adminisztráció",
+        "administration": "Üzemeltetés",
         "terms": "Felhasználási feltételek",
         "privacy": "Adatvédelem",
         "privacy_policy": "Adatvédelmi nyilatkozat",
@@ -260,7 +260,7 @@
       "disabled": "Letiltva",
       "configurations": {
         "allow_room_to_be_recorded": "A szoba felvételének engedélyezése",
-        "allow_room_to_be_recorded_description": "A szoba tulajdonosai adhatják meg, hogy felvehető legyen-e a szoba vagy sem. Ha engedélyezett, egy moderátornak akkor is rá kell kattintania a Rögzítés gombra, ha a találkozó elindult.",
+        "allow_room_to_be_recorded_description": "A szoba tulajdonosai adhatják meg, hogy az rögzíthető legyen-e vagy sem. Ha be van kapcsolva, egy moderátornak akkor is rá kell kattintania a Rögzítés gombra a találkozó indulásakor.",
         "require_user_signed_in": "A felhasználóknak csatlakozás előtt be kell jelentkezniük",
         "require_user_signed_in_description": "Csak a Greenlight-fiókkal rendelkező felhasználókat engedi csatlakozni a találkozóhoz. Ha nincsenek bejelentkezve, akkor át lesznek irányítva a bejelentkezési oldalra, ha megpróbálnak csatlakozni a szobához.",
         "require_mod_approval": "A csatlakozás előtt moderátori jóváhagyás szükség",
@@ -270,7 +270,7 @@
         "allow_users_to_join_as_mods": "A felhasználók csatlakozhatnak moderátorként",
         "allow_users_to_join_as_mods_description": "A találkozóhoz csatlakozáskor megadja a felhasználóknak az összes moderátori jogosultságot a BigBlueButtonban",
         "mute_users_on_join": "A felhasználók némítása csatlakozáskor",
-        "mute_users_on_join_description": "Automatikusan lenémítja a felhasználót, amikor csatlakozik a BigBlueButton találkozóhoz.",
+        "mute_users_on_join_description": "A felhasználó automatikus némítása amikor csatlakozik a BigBlueButton találkozóhoz.",
         "viewer_access_code": "Nézői hozzáférési kód",
         "viewer_access_code_description": "A szoba tulajdonosai véletlenszerű alfanumerikus kódot kapnak, amely megosztható másokkal. Az előállított kódra lesz szükség, hogy a felhasználók csatlakozhassanak a szoba találkozóihoz",
         "mod_access_code": "Moderátori hozzáférési kód",
@@ -286,7 +286,8 @@
       "delete_role": "Szerepkör törlése",
       "are_you_sure_delete_role": "Biztos, hogy törli ezt a szerepkört?",
       "enter_role_name": "Adja meg egy szerepkör nevét",
-      "create_role": "+ Szerepkör létrehozása",
+      "add_role": "+ Szerepkör létrehozása",
+      "create_role": "Szerepkör létrehozása",
       "create_new_role": "Új szerepkör létrehozása",
       "no_role_found": "Nem található szerepkör."
     }
@@ -366,7 +367,9 @@
   },
   "account_activation_page": {
     "title": "Fiók aktiválása",
-    "message": "A fiókja még nem lett megerősítve.\nHogy kihasználja a Greenlight összes funkcióját, megkérjük, hogy erősítse meg a fiókját.\nHa nem kapott aktiválási hivatkozást vagy problémája van a használatával,\nakkor kattintson az újraküldés gombra és kérjen egy új hivatkozást.",
+    "account_unverified": "Fiókját még nem ellenőrizték.",
+    "message": "A Greenlight használatához kérem, a megküldött aktiváló e-mailben lévő utasítások alapján ellenőrizze a fiókját.",
+    "resend_activation_link": "Amennyiben nem kapta meg az aktiváló e-mailt vagy problémája akad annak használatával, kattintson az újraküldés gombra egy új aktiváló e-mail kéréséhez.",
     "resend_btn_lbl": "Megerősítés újraküldése"
   }
 }
