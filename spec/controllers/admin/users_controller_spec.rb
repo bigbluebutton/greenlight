@@ -57,6 +57,27 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
     end
   end
 
+  describe '#banned' do
+    it 'returns a list of pending users' do
+      users = create_list(:user, 3, status: 'banned')
+
+      get :banned_users
+
+      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(users.pluck(:id))
+    end
+
+    context 'user without ManageUsers permission' do
+      before do
+        sign_in_user(user)
+      end
+
+      it 'returns :forbidden for user without ManageUsers permission' do
+        get :banned_users
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
+
   describe '#update' do
     it 'updates a users status' do
       post :update, params: { id: user.id, user: { status: 'banned' } }
