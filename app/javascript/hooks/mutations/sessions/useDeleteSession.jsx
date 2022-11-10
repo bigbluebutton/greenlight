@@ -13,8 +13,8 @@ export default function useDeleteSession() {
     () => axios.delete('/sessions/signout.json'),
     {
       onSuccess: async () => {
-        await queryClient.refetchQueries('useSessions');
-        navigate('/');
+        await navigate('/');
+        queryClient.refetchQueries('useSessions');
         toast.success(t('toast.success.session.signed_out'));
       },
       onError: () => {
