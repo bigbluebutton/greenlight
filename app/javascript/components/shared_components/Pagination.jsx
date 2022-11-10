@@ -8,19 +8,9 @@ export default function Pagination({
 }) {
   const handlePage = (e, { activePage }) => setPage(activePage);
 
-  const disabledPrevious = () => {
-    if (page === 1) {
-      return true;
-    }
-    return false;
-  };
+  const disabledPrevious = () => (page === 1);
 
-  const disabledNext = () => {
-    if (page === totalPages) {
-      return true;
-    }
-    return false;
-  };
+  const disabledNext = () => (page === totalPages);
 
   if (totalPages > 1) {
     return (
