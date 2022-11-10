@@ -30,10 +30,15 @@ export default function Header() {
     return false;
   };
 
+  let homePath = '/rooms'
+  if (currentUser?.permissions?.CreateRoom === 'false') {
+    homePath = '/home'
+  }
+
   return (
     <Navbar className="header">
       <Container className="ps-0">
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to={homePath}>
           <Logo />
         </Navbar.Brand>
 

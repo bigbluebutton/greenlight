@@ -14,9 +14,10 @@ export default function useCreateSession(token) {
   return useMutation(
     (session) => axios.post('/sessions.json', { session, token }),
     {
-      onSuccess: (response) => {
-        queryClient.invalidateQueries('useSessions');
+      onSuccess: async (response) => {
+        await queryClient.refetchQueries('useSessions');
         // if the current user does NOT have the CreateRoom permission, then do not re-direct to rooms page
+
         if (redirect) {
           navigate(redirect);
         } else if (response.data.data.permissions.CreateRoom === 'false') {

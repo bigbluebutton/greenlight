@@ -21,18 +21,6 @@ export default function HomePage() {
   const inviteToken = searchParams.get('inviteToken');
   const { data: registrationMethod } = useSiteSetting('RegistrationMethod');
 
-  // redirect user to correct page based on signed in status and CreateRoom permission
-  useEffect(
-    () => {
-      if (currentUser.signed_in && currentUser.permissions.CreateRoom === 'true') {
-        navigate('/rooms');
-      } else if (currentUser.signed_in && currentUser.permissions.CreateRoom === 'false') {
-        navigate('/home');
-      }
-    },
-    [currentUser.signed_in],
-  );
-
   useEffect(() => {
     document.cookie = `token=${inviteToken};path=/;`;
   }, [inviteToken]);
@@ -45,7 +33,7 @@ export default function HomePage() {
 
   // TODO - samuel: OPENID signup and signin are both pointing at the same endpoint
   return (
-    <div className="vertical-center">
+    <div className="vertical-buffer">
       <div className="text-center mb-4">
         <Logo size="large" />
       </div>

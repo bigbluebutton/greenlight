@@ -42,7 +42,7 @@ export default function SigninForm() {
       methods={methods}
       onSubmit={async (data) => {
         const response = await captchaRef.current?.execute({ async: true });
-        await createSession.mutate(data, response);
+        createSession.mutate(data, response);
       }}
     >
       <FormControl field={fields.email} type="email" />
