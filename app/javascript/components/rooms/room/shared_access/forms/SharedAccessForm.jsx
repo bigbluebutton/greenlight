@@ -26,7 +26,7 @@ export default function SharedAccessForm({ handleClose }) {
       <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
       <Form onSubmit={handleSubmit(createSharedUser.mutate)}>
         <div className="table-scrollbar-wrapper">
-          <Table hover className="text-secondary my-3">
+          <Table hover responsive className="text-secondary my-3">
             <thead>
               <tr className="text-muted small">
                 <th className="fw-normal w-50">{ t('user.name') }</th>
