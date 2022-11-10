@@ -22,6 +22,17 @@ body {
 .header {
   height: $header-height;
   background: white;
+
+  .navbar-toggler {
+    &:active {
+      outline: none !important;
+      box-shadow: none;
+    }
+    &:focus {
+      outline: none !important;
+      box-shadow: none;
+    }
+  }
 }
 
 .background-sm-buffer {

@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import { Navbar, NavDropdown } from 'react-bootstrap';
+import { Navbar, NavDropdown, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/auth/AuthProvider';
@@ -36,13 +36,17 @@ export default function Header() {
   }
 
   return (
-    <Navbar className="header">
+    <Navbar className="header" expand="sm">
       <Container className="ps-0">
         <Navbar.Brand as={Link} to={homePath}>
           <Logo />
         </Navbar.Brand>
 
-        <div className="d-inline-flex">
+        <Navbar.Toggle className="border-0">
+          <Avatar avatar={currentUser?.avatar} radius={40} />
+        </Navbar.Toggle>
+
+        <Navbar.Collapse className="justify-content-end">
           <Avatar avatar={currentUser?.avatar} radius={40} />
           <NavDropdown title={currentUser?.name} id="nav-user-dropdown">
             <NavDropdown.Item as={Link} to="/profile">{ t('user.profile.profile') }</NavDropdown.Item>
@@ -53,7 +57,7 @@ export default function Header() {
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={deleteSession.mutate}>{ t('authentication.sign_out') }</NavDropdown.Item>
           </NavDropdown>
-        </div>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
