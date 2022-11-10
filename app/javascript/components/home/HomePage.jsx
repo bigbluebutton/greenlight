@@ -1,20 +1,17 @@
 import React, { useEffect } from 'react';
 import { Card, Form } from 'react-bootstrap';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import ButtonLink from '../shared_components/utilities/ButtonLink';
 import Spinner from '../shared_components/utilities/Spinner';
 import useEnv from '../../hooks/queries/env/useEnv';
 import Logo from '../shared_components/Logo';
-import { useAuth } from '../../contexts/auth/AuthProvider';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 
 export default function HomePage() {
   const { isLoading, data: env } = useEnv();
   const { t } = useTranslation();
-  const currentUser = useAuth();
-  const navigate = useNavigate();
 
   const { search } = useLocation();
   const [searchParams] = useSearchParams();

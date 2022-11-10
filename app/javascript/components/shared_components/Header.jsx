@@ -30,9 +30,9 @@ export default function Header() {
     return false;
   };
 
-  let homePath = '/rooms'
+  let homePath = '/rooms';
   if (currentUser?.permissions?.CreateRoom === 'false') {
-    homePath = '/home'
+    homePath = '/home';
   }
 
   return (
