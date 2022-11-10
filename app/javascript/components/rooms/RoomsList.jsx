@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import RoomCard from './RoomCard';
 import useRooms from '../../hooks/queries/rooms/useRooms';
 import useCreateRoom from '../../hooks/mutations/rooms/useCreateRoom';
-import RoomPlaceHolder from './RoomPlaceHolder';
+import RoomCardPlaceHolder from './RoomCardPlaceHolder';
 import Modal from '../shared_components/modals/Modal';
 import CreateRoomForm from './room/forms/CreateRoomForm';
 import { useAuth } from '../../contexts/auth/AuthProvider';
@@ -34,10 +34,10 @@ export default function RoomsList() {
       <Row className="g-4 mt-4">
         {
           // eslint-disable-next-line react/no-array-index-key
-          (isLoading && [...Array(8)].map((val, idx) => <Col key={idx} className="mt-0 mb-4"><RoomPlaceHolder /></Col>))
+          (isLoading && [...Array(8)].map((val, idx) => <Col key={idx} className="col-md-auto mt-0 mb-4"><RoomCardPlaceHolder /></Col>))
           || rooms?.map((room) => (
             <Col key={room.friendly_id} className="col-md-auto mt-0 mb-4">
-              {(room.optimistic && <RoomPlaceHolder />) || <RoomCard room={room} />}
+              {(room.optimistic && <RoomCardPlaceHolder />) || <RoomCard room={room} />}
             </Col>
           ))
         }
