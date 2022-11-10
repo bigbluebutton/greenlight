@@ -35,6 +35,9 @@ $admin-card-height: 550px;
     table, td, tr {
       border-color: whitesmoke !important;
     }
+    td {
+      max-width: 200px;
+    }
   }
 
   .dropdown-item {
