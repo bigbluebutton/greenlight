@@ -74,7 +74,7 @@ jobs:
         if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'true')
         uses: docker/build-push-action@v2
         with:
-          file: dockerfiles/v2/alpine
+          file: dockerfiles/v3/alpine
           push: true
           tags: |
             "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_version.outputs.tag }}-alpine"
@@ -87,7 +87,7 @@ jobs:
         if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'true')
         uses: docker/build-push-action@v2
         with:
-          file: dockerfiles/v2/amazonlinux
+          file: dockerfiles/v3/amazonlinux
           push: true
           tags: |
             "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_version.outputs.tag }}-amazonlinux"
