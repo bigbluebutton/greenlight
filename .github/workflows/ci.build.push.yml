@@ -25,7 +25,7 @@ jobs:
 
       - name: Set up Docker Buildx
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: Cache Docker layers
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
@@ -38,7 +38,7 @@ jobs:
 
       - name: Login to DockerHub
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -63,7 +63,7 @@ jobs:
 
       - name: Build and Push
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           tags: |
@@ -75,7 +75,7 @@ jobs:
       # Alternate Image with alpine
       - name: Alternate Alpine Build and Push
         if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'true') && github.ref != 'refs/heads/master'
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           file: dockerfiles/v3/alpine
           push: true
@@ -88,7 +88,7 @@ jobs:
       # Alternate Images with amazonlinux
       - name: Alternate Amazon Linux Build and Push
         if: contains(env.DOCKER_BUILD_ENABLED, 'true') && contains(env.DOCKER_BUILD_ALTERNATE_ENABLED, 'true') && github.ref != 'refs/heads/master'
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           file: dockerfiles/v3/amazonlinux
           push: true
