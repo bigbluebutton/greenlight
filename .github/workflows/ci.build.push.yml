@@ -25,7 +25,7 @@ jobs:
 
       - name: Set up Docker Buildx
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: Cache Docker layers
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
