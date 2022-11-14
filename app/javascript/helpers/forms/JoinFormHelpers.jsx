@@ -5,6 +5,7 @@ const validationSchema = yup.object({
   // TODO: amir - Revisit validations.
   name: yup.string().required('Please enter your full name.'),
   access_code: yup.string(),
+  consent: yup.boolean().oneOf([true], ''),
 });
 
 export const joinFormConfig = {
@@ -32,6 +33,16 @@ export const joinFormFields = {
     controlId: 'joinFormCode',
     hookForm: {
       id: 'access_code',
+    },
+  },
+  recordingConsent: {
+    label: 'I acknowledge that this session may be recorded. This may include my voice and video if enabled.',
+    controlId: 'consentCheck',
+    hookForm: {
+      id: 'consent',
+      validations: {
+        shouldUnregister: true,
+      },
     },
   },
 };

@@ -22,6 +22,7 @@ import Logo from '../../../shared_components/Logo';
 import Avatar from '../../../users/user/Avatar';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
+import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -71,7 +72,7 @@ export default function RoomJoin() {
       //  When the user provides valid input (name, codes) the UI will subscribe to the room channel.
       const channel = subscribeToRoom(friendlyId, { onReceived: () => { setHasStarted(true); } });
 
-      //  Cleanup: On component unmouting any opened channel subscriptions will be closed.
+      //  Cleanup: On component unmounting any opened channel subscriptions will be closed.
       return () => {
         channel.unsubscribe();
         console.info(`WS: unsubscribed from room(friendly_id): ${friendlyId} channel.`);
@@ -81,7 +82,7 @@ export default function RoomJoin() {
 
   useEffect(() => {
     // Meeting started:
-    //  When meeting starts thig logic will be fired, indicating the event to waiting users (thorugh a toast) for UX matter.
+    //  When meeting starts this logic will be fired, indicating the event to waiting users (through a toast) for UX matter.
     //  Logging the event for debugging purposes and refetching the join logic with the user's given input (name & codes).
     //  With a delay of 7s to give reasonable time for the meeting to fully start on the BBB server.
     if (hasStarted) {
@@ -129,8 +130,8 @@ export default function RoomJoin() {
   const WaitingPage = (
     <Stack direction="horizontal" className="py-4">
       <div>
-        <h5>{ t('room.meeting.meeting_not_started') }</h5>
-        <span className="text-muted">{ t('room.meeting.join_meeting_automatically') }</span>
+        <h5>{t('room.meeting.meeting_not_started')}</h5>
+        <span className="text-muted">{t('room.meeting.join_meeting_automatically')}</span>
       </div>
       <div className="d-block ms-auto">
         <GGSpinner />
@@ -149,7 +150,7 @@ export default function RoomJoin() {
         <Card.Body className="pt-4 px-5">
           <Row>
             <Col className="col-xxl-8">
-              <span className="text-muted">{ t('room.meeting.meeting_invitation') }</span>
+              <span className="text-muted">{t('room.meeting.meeting_invitation')}</span>
               <h1 className="mt-2">
                 {publicRoom.data.name}
                 {publicRoom.isFetching && <Spinner />}
@@ -168,18 +169,15 @@ export default function RoomJoin() {
             <Form methods={methods} onSubmit={handleJoin}>
               <FormControl field={fields.name} type="text" disabled={currentUser?.signed_in} autoFocus={!currentUser?.signed_in} />
               {hasAccessCode && <FormControl field={fields.accessCode} type="text" autoFocus={currentUser?.signed_in} />}
-
               {publicRoom?.data?.recording_consent === 'true' && (
-                <div className="mb-1">
-                  <input
-                    id="consentCheck"
-                    className="form-check-input fs-5 me-2"
-                    type="checkbox"
-                  />
-                  <label className="d-inline text-danger align-middle" htmlFor="consentCheck">
-                    {t('room.meeting.recording_consent')}
-                  </label>
-                </div>
+                <FormControlGeneric
+                  id={fields.recordingConsent.controlId}
+                  className="text-muted"
+                  field={fields.recordingConsent}
+                  label={fields.recordingConsent.label}
+                  control={RegularForm.Check}
+                  type="checkbox"
+                />
               )}
 
               <Button
@@ -188,24 +186,24 @@ export default function RoomJoin() {
                 type="submit"
                 disabled={publicRoom.isFetching || roomStatusAPI.isLoading}
               >
-                { t('room.meeting.join_meeting') }
+                {t('room.meeting.join_meeting')}
                 {roomStatusAPI.isLoading && <Spinner />}
               </Button>
             </Form>
           )}
         </Card.Footer>
       </Card>
-      { !currentUser?.signed_in && (
+      {!currentUser?.signed_in && (
         env.OPENID_CONNECT ? (
-          <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> { t('authentication.already_have_account') }
+          <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> {t('authentication.already_have_account')}
             <RegularForm action="/auth/openid_connect" method="POST" data-turbo="false">
               <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
               <Button variant="link" className="cursor-pointer ms-2 ps-0" type="submit">{t('authentication.sign_in')}</Button>
             </RegularForm>
           </Stack>
         ) : (
-          <div className="text-center text-muted mt-3"> { t('authentication.already_have_account') }
-            <Link to={`/signin?location=${path}`} className="text-link ms-1"> { t('authentication.sign_in') } </Link>
+          <div className="text-center text-muted mt-3"> {t('authentication.already_have_account')}
+            <Link to={`/signin?location=${path}`} className="text-link ms-1"> {t('authentication.sign_in')} </Link>
           </div>
         )
       )}
