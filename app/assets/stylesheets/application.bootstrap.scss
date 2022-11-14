@@ -33,15 +33,18 @@ body {
       box-shadow: none;
     }
   }
+
+  img {
+    margin-left: $mobile-gutter;
+  }
 }
 
 #navbar-menu {
   @include media-breakpoint-down(sm) {
-    padding-left: 16px;
-    padding-right: 16px;
-    margin-right: -16px;
+    padding-left: $mobile-gutter;
+    padding-right: $mobile-gutter;
+    margin-right: -$mobile-gutter;
     z-index: 10;
-    font-weight: 600;
 
     position: absolute;
     width: 100%;
