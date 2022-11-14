@@ -1,6 +1,8 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import { Nav, NavDropdown, Navbar, Button } from 'react-bootstrap';
+import {
+  Nav, NavDropdown, Navbar, Button,
+} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { StarIcon, IdentificationIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
@@ -8,7 +10,6 @@ import { useAuth } from '../../contexts/auth/AuthProvider';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
 import Avatar from '../users/user/Avatar';
 import Logo from './Logo';
-import ButtonLink from './utilities/ButtonLink';
 
 export default function Header() {
   const { t } = useTranslation();

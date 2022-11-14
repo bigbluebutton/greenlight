@@ -34,8 +34,10 @@ body {
     }
   }
 
-  img {
-    margin-left: $mobile-gutter;
+  @include media-breakpoint-down(sm) {
+    img {
+      margin-left: $mobile-gutter;
+    }
   }
 }
 
