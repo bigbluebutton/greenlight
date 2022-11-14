@@ -19,7 +19,7 @@ body {
   background: whitesmoke;
 }
 
-.header {
+#navbar {
   height: $header-height;
   background: white;
 
@@ -31,6 +31,24 @@ body {
     &:focus {
       outline: none !important;
       box-shadow: none;
+    }
+  }
+}
+
+#navbar-menu {
+  @include media-breakpoint-down(sm) {
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-right: -16px;
+    z-index: 10;
+    font-weight: 600;
+
+    position: absolute;
+    width: 100%;
+    top: 100%;
+
+    a {
+      color: $black !important;
     }
   }
 }
@@ -189,6 +207,7 @@ input.search-bar {
 
 #nav-user-dropdown {
   padding-right: 0;
+
   color: $black !important;
   &:hover {
     color: $black !important;
@@ -198,6 +217,10 @@ input.search-bar {
   }
   &:focus {
     color: $black !important;
+  }
+
+  .dropdown-menu {
+    display: block;
   }
 }
 
