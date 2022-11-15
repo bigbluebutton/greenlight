@@ -37,7 +37,7 @@ export default function SharedAccess() {
         </Stack>
         <Card className="border-0 shadow-sm mt-3">
           <Card.Body className="p-0">
-            <Table hover className="text-secondary mb-0">
+            <Table hover responsive className="text-secondary mb-0">
               <thead>
                 <tr className="text-muted small">
                   <th className="fw-normal w-50">{ t('user.name') }</th>

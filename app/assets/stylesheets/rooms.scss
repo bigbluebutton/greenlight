@@ -1,20 +1,40 @@
 #room-card {
   border: 2px solid transparent !important;
-  width: 311px;
+  width: 305px;
+
+  @include media-breakpoint-down(xxl) {
+    width: 261px;
+  }
+
+  @include media-breakpoint-down(xl) {
+    width: 216px;
+  }
+
+  @include media-breakpoint-down(md) {
+    width: 245px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    min-width: 245px;
+    width: 100%;
+  }
 
   &:hover {
     border: 2px solid var(--brand-color-light) !important;
   }
+
   .room-icon {
     width: 75px;
     height: 75px;
     background-color: var(--brand-color-light);
   }
+
   .card-body {
     &:hover {
       cursor: pointer;
     }
   }
+
   .room-card-badges {
     margin-bottom: auto;
     margin-left: auto;
@@ -27,8 +47,6 @@
       }
     }
   }
-
-
 }
 
 .tab-content {

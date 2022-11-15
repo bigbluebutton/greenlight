@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Row, Spinner, Tab, Tabs,
+  Spinner, Tab, Tabs,
 } from 'react-bootstrap';
 import RoomsList from './RoomsList';
 import Recordings from '../recordings/Recordings';
@@ -13,7 +13,7 @@ export default function Rooms() {
   if (isLoading) return <Spinner />;
 
   return (
-    <Row className="pt-5 wide-background-rooms">
+    <div className="pt-5 wide-background-rooms">
       <Tabs defaultActiveKey="rooms" unmountOnExit>
         <Tab eventKey="rooms" title="Rooms">
           <RoomsList />
@@ -23,6 +23,6 @@ export default function Rooms() {
           <Recordings />
         </Tab>
       </Tabs>
-    </Row>
+    </div>
   );
 }

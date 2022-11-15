@@ -10,7 +10,7 @@ export default function RolesList({ roles, isLoading }) {
   const { t } = useTranslation();
 
   return (
-    <Table className="table-bordered border border-2 mb-0" hover>
+    <Table className="table-bordered border border-2 mb-0" hover responsive>
       <thead>
         <tr className="text-muted small">
           <th className="fw-normal">{ t('admin.roles.role') }<SortBy fieldName="name" /></th>
