@@ -9,11 +9,14 @@ import Presentation from './presentation/Presentation';
 import RoomSettings from './room_settings/RoomSettings';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
 import SharedAccess from './shared_access/SharedAccess';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function FeatureTabs({ shared }) {
   const { t } = useTranslation();
   const { isLoading: isLoadingPreup, data: preuploadEnabled } = useSiteSetting('PreuploadPresentation');
   const { isLoading: isLoadingShare, data: shareRoomEnabled } = useSiteSetting('ShareRooms');
+
+  const currentUser = useAuth();
 
   if (isLoadingPreup || isLoadingShare) {
     return (
@@ -28,8 +31,8 @@ export default function FeatureTabs({ shared }) {
     );
   }
 
-  // Returns only the Recording tab if the room is a Shared Room
-  if (shared) {
+  // Returns only the Recording tab if the room is a Shared Room and the User does not have the ManageRoom permission
+  if (shared && !currentUser?.permissions?.ManageRooms) {
     return (
       <Row className="pt-4 mx-0">
         <Tabs defaultActiveKey="recordings" unmountOnExit>

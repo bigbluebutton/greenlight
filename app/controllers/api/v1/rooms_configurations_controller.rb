@@ -4,7 +4,7 @@ module Api
   module V1
     class RoomsConfigurationsController < ApiController
       before_action only: %i[index] do
-        ensure_authorized(%w[CreateRoom ManageSiteSettings ManageRoles], friendly_id: params[:friendly_id])
+        ensure_authorized(%w[CreateRoom ManageSiteSettings ManageRoles ManageRooms], friendly_id: params[:friendly_id])
       end
 
       # GET /api/v1/rooms_configurations.json
