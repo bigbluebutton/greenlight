@@ -11,7 +11,8 @@ class ExternalController < ApplicationController
     user_info = {
       name: credentials['info']['name'],
       email: credentials['info']['email'],
-      language: extract_language_code(credentials['info']['locale'])
+      language: extract_language_code(credentials['info']['locale']),
+      verified: true
     }
 
     user = User.find_or_create_by!(external_id: credentials['uid'], provider:) do |u|
