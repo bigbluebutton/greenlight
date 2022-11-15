@@ -145,7 +145,7 @@
     "published": "Published",
     "unpublished": "Unpublished",
     "protected": "Protected",
-    "length_in_minutes": "{{recording.length}} minutes",
+    "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Processing recording...",
     "copy_recording_urls": "Copy Recording Url(s)",
     "no_recording_found": "No recording found",

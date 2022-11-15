@@ -43,7 +43,7 @@ export default function ServerRooms() {
                   </div>
                   <div className="p-4">
                     <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
-                    <Table className="table-bordered border border-2 mt-4 mb-0" hover responsive>
+                    <Table id="server-rooms-table" className="table-bordered border border-2 mt-4 mb-0" hover responsive>
                       <thead>
                         <tr className="text-muted small">
                           <th className="fw-normal border-end-0">{ t('admin.server_rooms.name') }<SortBy fieldName="name" /></th>

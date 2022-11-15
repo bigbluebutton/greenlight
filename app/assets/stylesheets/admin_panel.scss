@@ -1,5 +1,3 @@
-$admin-card-height: 550px;
-
 #admin-panel {
   #admin-sidebar {
     height: 100%;
@@ -35,9 +33,6 @@ $admin-card-height: 550px;
     table, td, tr {
       border-color: whitesmoke !important;
     }
-    td {
-      max-width: 200px;
-    }
   }
 
   .dropdown-item {
@@ -52,6 +47,91 @@ $admin-card-height: 550px;
 
   .dropdown-toggle::after {
     display: none !important;
+  }
+}
+
+#manage-users-table {
+  @include media-breakpoint-down(xl) {
+    td, tr {
+      // Full name and creation date
+      &:nth-child(1) {
+        min-width: $column-lg-width;
+      }
+      // Email address
+      &:nth-child(2) {
+        min-width: $column-lg-width;
+      }
+      // Role
+      &:nth-child(3) {
+        min-width: $column-md-width;
+      }
+      // Dropdown button
+      &:nth-child(4) {
+        min-width: $column-sm-width;
+      }
+    }
+  }
+}
+
+#server-rooms-table {
+  @include media-breakpoint-down(xl) {
+    td, tr {
+      // Full name and last meeting date
+      &:nth-child(1) {
+        min-width: $column-lg-width;
+      }
+      // Owner name
+      &:nth-child(2) {
+        min-width: $column-md-width;
+      }
+      // Room ID
+      &:nth-child(3) {
+        min-width: $column-md-width;
+      }
+      // # of participants
+      &:nth-child(4) {
+        min-width: $column-sm-width;
+      }
+      // Status
+      &:nth-child(5) {
+        min-width: $column-sm-width;
+      }
+      // Dropdown button
+      &:nth-child(6) {
+        min-width: $column-xs-width;
+      }
+    }
+  }
+}
+
+#recordings-table {
+  @include media-breakpoint-down(xl) {
+    td, tr {
+      // Name and recording date
+      &:nth-child(1) {
+        min-width: $column-lg-width;
+      }
+      // Length
+      &:nth-child(2) {
+        min-width: $column-sm-width;
+      }
+      // # of users
+      &:nth-child(3) {
+        min-width: $column-xs-width;
+      }
+      // Visibility dropdown
+      &:nth-child(4) {
+        min-width: $column-md-width;
+      }
+      // Format badges
+      &:nth-child(4) {
+        min-width: $column-lg-width;
+      }
+      // Dropdown button
+      &:nth-child(4) {
+        min-width: $column-xs-width;
+      }
+    }
   }
 }
 
