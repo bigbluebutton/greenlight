@@ -22,7 +22,7 @@ export default function FormControlGeneric({
 
 FormControlGeneric.defaultProps = {
   control: BootStrapForm.Control,
-  children: undefined,
+  children: null,
 };
 
 FormControlGeneric.propTypes = {
