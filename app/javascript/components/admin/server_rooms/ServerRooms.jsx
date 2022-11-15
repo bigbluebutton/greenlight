@@ -12,6 +12,7 @@ import AdminNavSideBar from '../AdminNavSideBar';
 import Pagination from '../../shared_components/Pagination';
 import SortBy from '../../shared_components/search/SortBy';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
+import ServerRoomsRowPlaceHolder from './ServerRoomsRowPlaceHolder';
 
 export default function ServerRooms() {
   const { t } = useTranslation();
@@ -54,18 +55,30 @@ export default function ServerRooms() {
                           <th className="border-start-0" aria-label="options" />
                         </tr>
                       </thead>
+
                       <tbody className="border-top-0">
-                        {serverRooms?.data.length
-                          ? (
-                            serverRooms?.data.map((room) => <ServerRoomRow key={room.friendly_id} room={room} />)
-                          )
-                          : (
-                            <tr>
-                              <td className="fw-bold" colSpan="6">
-                                { t('room.no_rooms_found') }
-                              </td>
-                            </tr>
-                          )}
+
+                        {
+                          isLoading
+                            ? (
+                              // eslint-disable-next-line react/no-array-index-key
+                              [...Array(10)].map((val, idx) => <ServerRoomsRowPlaceHolder key={idx} />)
+                            )
+                            : (
+                              serverRooms?.data.length
+                                ? (
+                                  serverRooms?.data.map((room) => <ServerRoomRow key={room.friendly_id} room={room} />)
+                                )
+                                : (
+                                  <tr>
+                                    <td className="fw-bold" colSpan="6">
+                                      { t('room.no_rooms_found') }
+                                    </td>
+                                  </tr>
+                                )
+                            )
+                        }
+
                       </tbody>
                     </Table>
                     {!isLoading
