@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import ManageUserRow from './ManageUserRow';
 import SortBy from '../../shared_components/search/SortBy';
+import Pagination from '../../shared_components/Pagination';
 
-export default function ManageUsersTable({ users }) {
+export default function ManageUsersTable({ users, setPage }) {
   const { t } = useTranslation();
 
   return (
@@ -19,9 +20,9 @@ export default function ManageUsersTable({ users }) {
         </tr>
       </thead>
       <tbody className="border-top-0">
-        {users?.length
+        {users?.data?.length
           ? (
-            users?.map((user) => <ManageUserRow key={user.id} user={user} />)
+            users?.data?.map((user) => <ManageUserRow key={user.id} user={user} />)
           )
           : (
             <tr>
@@ -31,6 +32,19 @@ export default function ManageUsersTable({ users }) {
             </tr>
           )}
       </tbody>
+      { (users?.meta?.pages > 1)
+        && (
+          <tr>
+            <td colSpan={12}>
+              <Pagination
+                page={users?.meta?.page}
+                totalPages={users?.meta?.pages}
+                setPage={setPage}
+              />
+            </td>
+          </tr>
+        )
+      }
     </Table>
   );
 }

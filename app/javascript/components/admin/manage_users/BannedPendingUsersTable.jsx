@@ -7,9 +7,10 @@ import {
 } from '@heroicons/react/24/outline';
 import BannedPendingRow from './BannedPendingRow';
 import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
+import Pagination from '../../shared_components/Pagination';
 
 // pendingTable prop is true when table is being used for pending data, false when table is being used for banned data
-export default function BannedPendingUsersTable({ users, pendingTable }) {
+export default function BannedPendingUsersTable({ users, pendingTable, setPage }) {
   const { t } = useTranslation();
   const updateUserStatus = useUpdateUserStatus();
 
@@ -60,6 +61,15 @@ export default function BannedPendingUsersTable({ users, pendingTable }) {
                 </td>
               </tr>
             )}
+          <tr>
+            <td colSpan={12}>
+              <Pagination
+                page={users?.meta?.page}
+                totalPages={users?.meta?.pages}
+                setPage={setPage}
+              />
+            </td>
+          </tr>
         </tbody>
       </Table>
     </div>
