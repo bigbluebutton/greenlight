@@ -39,31 +39,31 @@ export default function Header() {
   }
 
   return (
-    <Navbar id="navbar" expand="sm">
+    <Navbar collapseOnSelect id="navbar" expand="sm">
       <Container className="ps-0">
         <Navbar.Brand as={Link} to={homePath}>
           <Logo />
         </Navbar.Brand>
 
-        <Navbar.Toggle className="border-0">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" className="border-0">
           <Avatar avatar={currentUser?.avatar} radius={40} />
         </Navbar.Toggle>
 
         {/* /!* Visible only on mobile *!/ */}
         <Navbar.Collapse id="navbar-menu" className="bg-white">
           <Nav className="d-block d-sm-none text-black">
-            <Nav.Link as={Link} to="/profile">
+            <Nav.Link eventKey={1} as={Link} to="/profile">
               <IdentificationIcon className="hi-s me-3" />
               {t('user.profile.profile')}
             </Nav.Link>
-            <Nav.Link href="https://docs.bigbluebutton.org/greenlight/gl-overview.html">
+            <Nav.Link eventKey={2} href="https://docs.bigbluebutton.org/greenlight/gl-overview.html">
               <QuestionMarkCircleIcon className="hi-s me-3" />
               {t('help_center')}
             </Nav.Link>
             {
               adminAccess()
               && (
-                <Nav.Link as={Link} to="/admin">
+                <Nav.Link eventKey={3} as={Link} to="/admin">
                   <StarIcon className="hi-s me-3 mb-1" />
                   { t('admin.admin_panel') }
                 </Nav.Link>
