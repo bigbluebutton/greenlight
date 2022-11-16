@@ -22,8 +22,8 @@ export default function DeleteRecordingForm({ mutation: useDeleteAPI, recordId, 
             { t('close') }
           </Button>
           <Button variant="danger" type="submit" disabled={deleteAPI.isLoading}>
+            {deleteAPI.isLoading && <Spinner className="me-2" />}
             { t('delete') }
-            {deleteAPI.isLoading && <Spinner />}
           </Button>
         </Stack>
       </Form>

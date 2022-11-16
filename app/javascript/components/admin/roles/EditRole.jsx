@@ -15,7 +15,7 @@ export default function EditRole() {
   const { t } = useTranslation();
   const { roleId } = useParams();
   const navigate = useNavigate();
-  const { data: role, isError } = useRole(roleId);
+  const { data: role, isError, isLoading } = useRole(roleId);
   const currentUser = useAuth();
 
   if (currentUser.permissions?.ManageRoles !== 'true') {
@@ -25,6 +25,8 @@ export default function EditRole() {
   if (isError) {
     return <Navigate to="/admin/roles" replace />;
   }
+
+  if (isLoading) return null;
 
   return (
     <div id="admin-panel" className="pb-3">
@@ -57,7 +59,7 @@ export default function EditRole() {
                   <Row><hr className="w-100 mx-0" /></Row>
                   <Row className="my-2">
                     <Col>
-                      {(!role && <Spinner />) || <EditRoleForm role={role} />}
+                      <EditRoleForm role={role} />
                     </Col>
                   </Row>
                 </Container>

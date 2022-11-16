@@ -34,8 +34,8 @@ export default function ChangePwdForm() {
           { t('cancel') }
         </Button>
         <Button variant="brand" type="submit" disabled={changePwd.isLoading}>
+          {changePwd.isLoading && <Spinner className="me-2" />}
           { t('user.account.change_password') }
-          {changePwd.isLoading && <Spinner />}
         </Button>
       </Stack>
     </Form>

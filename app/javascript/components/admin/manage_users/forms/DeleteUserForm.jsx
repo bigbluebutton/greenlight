@@ -27,8 +27,8 @@ export default function DeleteUserForm({ user, handleClose }) {
             { t('close') }
           </Button>
           <Button variant="danger" type="submit" disabled={deleteUser.isLoading}>
+            { deleteUser.isLoading && <Spinner className="me-2" /> }
             { t('delete') }
-            { deleteUser.isLoading && <Spinner /> }
           </Button>
         </Stack>
       </Form>

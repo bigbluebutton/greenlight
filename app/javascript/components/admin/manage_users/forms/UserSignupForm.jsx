@@ -28,8 +28,8 @@ export default function UserSignupForm({ handleClose }) {
 
       <Stack className="mt-1" gap={1}>
         <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={isSubmitting}>
+          { isSubmitting && <Spinner className="me-2" /> }
           { t('admin.manage_users.create_account') }
-          { isSubmitting && <Spinner /> }
         </Button>
       </Stack>
     </Form>

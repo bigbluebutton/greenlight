@@ -185,8 +185,8 @@ export default function RoomJoin() {
                 type="submit"
                 disabled={publicRoom.isFetching || roomStatusAPI.isLoading}
               >
+                {roomStatusAPI.isLoading && <Spinner className="me-2" />}
                 {t('room.meeting.join_meeting')}
-                {roomStatusAPI.isLoading && <Spinner />}
               </Button>
             </Form>
           )}

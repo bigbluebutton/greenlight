@@ -26,8 +26,8 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
           type="text"
         />
         <Button id={`${id}-submit-btn`} variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
+          {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
           Change URL
-          {updateSiteSettingsAPI.isLoading && <Spinner />}
         </Button>
       </InputGroup>
     </Form>
