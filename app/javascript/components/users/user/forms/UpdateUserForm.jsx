@@ -22,6 +22,7 @@ export default function UpdateUserForm({ user }) {
     fa_IR: 'فارسی',
     fr: 'Français',
     hu_HU: 'magyar',
+    ru: 'русский',
     tr: 'Türkçe',
   };
 
