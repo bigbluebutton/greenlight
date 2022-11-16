@@ -41,7 +41,7 @@ export default function Header() {
   return (
     <Navbar collapseOnSelect id="navbar" expand="sm">
       <Container className="ps-0">
-        <Navbar.Brand as={Link} to={homePath}>
+        <Navbar.Brand as={Link} to={homePath} className="ps-2">
           <Logo />
         </Navbar.Brand>
 
@@ -50,8 +50,8 @@ export default function Header() {
         </Navbar.Toggle>
 
         {/* /!* Visible only on mobile *!/ */}
-        <Navbar.Collapse id="navbar-menu" className="bg-white">
-          <Nav className="d-block d-sm-none text-black">
+        <Navbar.Collapse id="navbar-menu" className="bg-white w-100 position-absolute">
+          <Nav className="d-block d-sm-none text-black px-2">
             <Nav.Link eventKey={1} as={Link} to="/profile">
               <IdentificationIcon className="hi-s me-3" />
               {t('user.profile.profile')}

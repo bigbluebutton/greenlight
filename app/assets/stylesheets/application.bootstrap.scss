@@ -33,28 +33,14 @@ body {
       box-shadow: none;
     }
   }
-
-  @include media-breakpoint-down(sm) {
-    img {
-      margin-left: $mobile-gutter;
-    }
-  }
 }
 
 #navbar-menu {
-  @include media-breakpoint-down(sm) {
-    padding-left: $mobile-gutter;
-    padding-right: $mobile-gutter;
-    margin-right: -$mobile-gutter;
-    z-index: 10;
+  z-index: 10;
+  top: 100%;
 
-    position: absolute;
-    width: 100%;
-    top: 100%;
-
-    a {
-      color: $black !important;
-    }
+  a {
+    color: $black !important;
   }
 }
 
