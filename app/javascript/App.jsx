@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, Spinner } from 'react-bootstrap';
+import Container from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';

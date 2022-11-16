@@ -7,7 +7,6 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import useRole from '../../../hooks/queries/admin/roles/useRole';
 import EditRoleForm from './forms/EditRoleForm';
-import Spinner from '../../shared_components/utilities/Spinner';
 import AdminNavSideBar from '../AdminNavSideBar';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 

@@ -10,7 +10,6 @@ import Modal from '../../../shared_components/modals/Modal';
 import SharedAccessForm from './forms/SharedAccessForm';
 import Avatar from '../../../users/user/Avatar';
 import useDeleteSharedAccess from '../../../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
-import Spinner from '../../../shared_components/utilities/Spinner';
 import SearchBar from '../../../shared_components/search/SearchBar';
 
 export default function SharedAccessList({ users, isLoading }) {

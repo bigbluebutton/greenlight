@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useEnv from '../../hooks/queries/env/useEnv';
-import Spinner from './utilities/Spinner';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 
 export default function Footer() {

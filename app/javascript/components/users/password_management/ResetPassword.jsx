@@ -3,7 +3,6 @@ import Card from 'react-bootstrap/Card';
 import { useParams } from 'react-router-dom';
 import useVerifyToken from '../../../hooks/mutations/users/useVerifyToken';
 import ResetPwdForm from './forms/ResetPwdForm';
-import Spinner from '../../shared_components/utilities/Spinner';
 import Logo from '../../shared_components/Logo';
 
 export default function ResetPassword() {
@@ -14,7 +13,7 @@ export default function ResetPassword() {
     verifyTokenAPI.mutate();
   }, []);
 
-  if (verifyTokenAPI.isIdle || verifyTokenAPI.isLoading) return <Spinner />;
+  if (verifyTokenAPI.isIdle || verifyTokenAPI.isLoading) return null;
 
   return (
     <div className="vertical-center">

@@ -3,7 +3,6 @@ import { Stack } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import BrandColorPopover from './BrandColorPopover';
 import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSiteSettings';
-import Spinner from '../../../shared_components/utilities/Spinner';
 
 export default function BrandColor() {
   const { t } = useTranslation();

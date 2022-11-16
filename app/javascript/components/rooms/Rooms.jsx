@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Spinner, Tab, Tabs,
+  Tab, Tabs,
 } from 'react-bootstrap';
 import RoomsList from './RoomsList';
 import Recordings from '../recordings/Recordings';

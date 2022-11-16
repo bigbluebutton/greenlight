@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Spinner } from 'react-bootstrap';
+import Row from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import LinksForm from './LinksForm';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';

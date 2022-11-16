@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import Logo from '../../../shared_components/Logo';
 import useEnv from '../../../../hooks/queries/env/useEnv';
-import Spinner from '../../../shared_components/utilities/Spinner';
 import ButtonLink from '../../../shared_components/utilities/ButtonLink';
 
 export default function RequireAuthentication({ path }) {
