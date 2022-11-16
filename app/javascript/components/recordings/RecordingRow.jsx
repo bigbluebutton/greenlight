@@ -95,7 +95,7 @@ export default function RecordingRow({
         {recording.formats.map((format) => (
           <Button
             onClick={() => window.open(format.url, '_blank')}
-            className={`btn-sm rounded-pill me-1 border-0 btn-format-${format.recording_type.toLowerCase()}`}
+            className={`btn-sm rounded-pill me-1 mt-1 border-0 btn-format-${format.recording_type.toLowerCase()}`}
             key={format.id}
           >
             {format.recording_type}
