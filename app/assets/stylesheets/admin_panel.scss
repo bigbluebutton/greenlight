@@ -33,6 +33,9 @@
     table, td, tr {
       border-color: whitesmoke !important;
     }
+    .dropdown {
+      position: static;
+    }
   }
 
   .dropdown-item {
@@ -105,6 +108,7 @@
 }
 
 #recordings-table {
+
   @include media-breakpoint-down(xl) {
     td, tr {
       // Name and recording date
