@@ -198,7 +198,6 @@ input.search-bar {
 
 #nav-user-dropdown {
   padding-right: 0;
-
   color: $black !important;
   &:hover {
     color: $black !important;
@@ -208,10 +207,6 @@ input.search-bar {
   }
   &:focus {
     color: $black !important;
-  }
-
-  .dropdown-menu {
-    display: block;
   }
 }
 

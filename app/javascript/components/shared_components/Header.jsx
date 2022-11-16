@@ -79,7 +79,7 @@ export default function Header() {
           <div className="d-inline-block">
             <Avatar avatar={currentUser?.avatar} radius={40} />
           </div>
-          <NavDropdown title={currentUser?.name} id="nav-user-dropdown" className="d-inline-block">
+          <NavDropdown title={currentUser?.name} id="nav-user-dropdown" className="d-inline-block" align="end">
             <NavDropdown.Item as={Link} to="/profile">
               <IdentificationIcon className="hi-s me-3" />
               { t('user.profile.profile') }
