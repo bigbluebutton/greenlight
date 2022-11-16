@@ -30,7 +30,8 @@ export default function AuthProvider({ children }) {
 
   const memoizedCurrentUser = useMemo(() => user, [user]);
 
-  if (status === 'loading') return <p> Loading... </p>;
+  if (status === 'loading') return null;
+
   if (status === 'error') {
     return (
       <p>{error}</p>

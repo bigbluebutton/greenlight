@@ -27,7 +27,7 @@ export default function SigninForm() {
   const { isLoading, data: env } = useEnv();
   const captchaRef = useRef(null);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   const onError = () => {
     toast.error(t('toast.error.problem_completing_action'));

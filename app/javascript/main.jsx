@@ -39,7 +39,7 @@ import AuthenticatedOnly from './routes/AuthenticatedOnly';
 const queryClient = new QueryClient();
 
 const root = (
-  <React.Suspense fallback="Loading...">
+  <React.Suspense fallback={DefaultErrorPage}>
     <ErrorBoundary fallback={DefaultErrorPage}>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>

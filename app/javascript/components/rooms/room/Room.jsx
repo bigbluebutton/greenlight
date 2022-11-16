@@ -21,10 +21,10 @@ function copyInvite() {
 export default function Room() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
-  const { isLoading: isLoadingRoom, data: room } = useRoom(friendlyId);
+  const { isLoading, data: room } = useRoom(friendlyId);
   const startMeeting = useStartMeeting(friendlyId);
 
-  if (isLoadingRoom) return <Spinner />; // Todo: amir - Revisit this.
+  if (isLoading) return null;
 
   return (
     <div className="wide-background-room">

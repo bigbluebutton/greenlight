@@ -8,7 +8,7 @@ export default function Settings() {
   const { t } = useTranslation();
   const { isLoading, data: siteSettings } = useSiteSettings(['ShareRooms', 'PreuploadPresentation']);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <>

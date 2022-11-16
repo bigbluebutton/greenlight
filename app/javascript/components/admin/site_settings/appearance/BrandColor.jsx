@@ -9,7 +9,7 @@ export default function BrandColor() {
   const { t } = useTranslation();
   const { isLoading, data: colors } = useSiteSettings(['PrimaryColor', 'PrimaryColorLight']);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <div className="mb-3">

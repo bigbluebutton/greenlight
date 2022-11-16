@@ -25,7 +25,7 @@ export default function App() {
   document.documentElement.style.setProperty('--brand-color', brandColor);
   document.documentElement.style.setProperty('--brand-color-light', brandColorLight);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <>

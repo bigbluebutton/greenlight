@@ -10,7 +10,7 @@ export default function Footer() {
   const { data: terms } = useSiteSetting('Terms');
   const { data: privacyPolicy } = useSiteSetting('PrivacyPolicy');
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <footer id="footer" className="footer background-whitesmoke text-center pb-2">

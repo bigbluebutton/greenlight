@@ -19,7 +19,7 @@ export default function SharedAccessList({ users, isLoading }) {
   const { friendlyId } = useParams();
   const { handleDeleteSharedAccess } = useDeleteSharedAccess(friendlyId);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <div id="shared-access-list">

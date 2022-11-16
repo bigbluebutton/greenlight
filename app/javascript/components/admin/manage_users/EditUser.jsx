@@ -23,7 +23,7 @@ export default function EditUser() {
     return <Navigate to="/404" />;
   }
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <div id="admin-panel" className="pb-3">

@@ -9,7 +9,7 @@ export default function Administration() {
   const { t } = useTranslation();
   const { isLoading, data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy']);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <>

@@ -11,7 +11,7 @@ import ButtonLink from '../../../shared_components/utilities/ButtonLink';
 export default function RequireAuthentication({ path }) {
   const { t } = useTranslation();
   const { isLoading, data: env } = useEnv();
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <div className="vertical-center">
