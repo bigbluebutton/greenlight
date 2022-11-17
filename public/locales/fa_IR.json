@@ -145,7 +145,7 @@
     "published": "منتشر شده",
     "unpublished": "منتشر نشده",
     "protected": "محافظت شده",
-    "length_in_minutes": "{{recording.length}} دقیقه",
+    "length_in_minutes": "{{recording.length}} دقیقه.",
     "processing_recording": "در حال پردازش ضبط...",
     "copy_recording_urls": "کپی آدرس(های) ضبط شده",
     "no_recording_found": "هیچ ضبطی پیدا نشد",
