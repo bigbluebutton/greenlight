@@ -13,7 +13,7 @@ export function useAuth() {
 }
 
 export default function AuthProvider({ children }) {
-  const { data: currentUser, status, error } = useSessions();
+  const { isLoading, data: currentUser } = useSessions();
 
   const user = {
     id: currentUser?.id,
@@ -30,12 +30,7 @@ export default function AuthProvider({ children }) {
 
   const memoizedCurrentUser = useMemo(() => user, [user]);
 
-  if (status === 'loading') return <p> Loading... </p>;
-  if (status === 'error') {
-    return (
-      <p>{error}</p>
-    );
-  }
+  if (isLoading) return null;
 
   return (
     <AuthContext.Provider value={memoizedCurrentUser}>

@@ -21,10 +21,10 @@ function copyInvite() {
 export default function Room() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
-  const { isLoading: isLoadingRoom, data: room } = useRoom(friendlyId);
+  const { isLoading, data: room } = useRoom(friendlyId);
   const startMeeting = useStartMeeting(friendlyId);
 
-  if (isLoadingRoom) return <Spinner />; // Todo: amir - Revisit this.
+  if (isLoading) return null;
 
   return (
     <div className="wide-background-room">
@@ -55,12 +55,12 @@ export default function Room() {
         </Col>
         <Col>
           <Button variant="brand" className="mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
+            {startMeeting.isLoading && <Spinner className="me-2" />}
             { room.online ? (
               t('room.meeting.join_meeting')
             ) : (
               t('room.meeting.start_meeting')
             )}
-            {startMeeting.isLoading && <Spinner />}
           </Button>
           <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={copyInvite}>
             <Square2StackIcon className="hi-s me-1" />

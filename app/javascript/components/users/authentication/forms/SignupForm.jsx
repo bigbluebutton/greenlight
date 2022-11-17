@@ -21,7 +21,7 @@ export default function SignupForm() {
   const { isLoading, data: env } = useEnv();
   const captchaRef = useRef(null);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   const onError = () => {
     toast.error(t('toast.error.problem_completing_action'));
@@ -58,8 +58,8 @@ export default function SignupForm() {
         )}
       <Stack className="mt-1" gap={1}>
         <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={isSubmitting}>
+          { isSubmitting && <Spinner className="me-2" /> }
           { t('authentication.create_account') }
-          { isSubmitting && <Spinner /> }
         </Button>
       </Stack>
     </Form>

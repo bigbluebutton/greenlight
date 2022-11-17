@@ -44,7 +44,7 @@ export default function UpdateUserForm({ user }) {
   const isAdmin = currentUser.permissions.ManageUsers === 'true';
   const { data: roles, isLoading } = useRoles('', isAdmin);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <Form methods={methods} onSubmit={updateUser.mutate}>
@@ -74,10 +74,8 @@ export default function UpdateUserForm({ user }) {
           Cancel
         </Button>
         <Button variant="brand" type="submit" disabled={isSubmitting}>
+          {isSubmitting && <Spinner className="me-2" />}
           { t('update') }
-          {
-            isSubmitting && <Spinner />
-          }
         </Button>
       </Stack>
     </Form>

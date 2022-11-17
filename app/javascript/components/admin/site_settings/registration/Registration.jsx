@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 import RegistrationForm from './forms/RegistrationForm';
 import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSiteSettings';
-import Spinner from '../../../shared_components/utilities/Spinner';
 import SettingsRow from '../SettingsRow';
 import useEnv from '../../../../hooks/queries/env/useEnv';
 import SettingSelect from '../settings/SettingSelect';
@@ -16,7 +15,7 @@ export default function Registration() {
   const { isLoading, data: siteSettings } = useSiteSettings(['RoleMapping', 'DefaultRole', 'ResyncOnLogin', 'RegistrationMethod']);
   const { data: roles } = useRoles();
 
-  if (isLoading || isLoadingEnv) return <Spinner />;
+  if (isLoading || isLoadingEnv) return null;
 
   return (
     <>

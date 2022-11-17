@@ -25,6 +25,7 @@ export default function RecordingsList({
       </thead>
       <tbody className="border-top-0">
         {[...Array(recordingsProcessing)].map(() => <ProcessingRecordingRow />)}
+        {/* TODO ADD PLACEHOLDER HERE */}
         {(isLoading && <tr><td colSpan="6"><Spinner /></td></tr>) || (recordings?.length
           ? (
             recordings?.map((recording) => <RecordingRow key={recording.id} recording={recording} />)

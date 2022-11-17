@@ -23,8 +23,8 @@ export default function DeleteRoleForm({ role, handleClose }) {
             { t('close') }
           </Button>
           <Button variant="danger" type="submit" disabled={deleteRoleAPI.isLoading}>
+            {deleteRoleAPI.isLoading && <Spinner className="me-2" />}
             { t('delete') }
-            {deleteRoleAPI.isLoading && <Spinner />}
           </Button>
         </Stack>
       </Form>

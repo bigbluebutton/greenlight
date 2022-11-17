@@ -9,7 +9,6 @@ import {
 } from '../../../../helpers/forms/EditRoleFormHelpers';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
-import Spinner from '../../../shared_components/utilities/Spinner';
 import useUpdateRole from '../../../../hooks/mutations/admin/roles/useUpdateRole';
 import Modal from '../../../shared_components/modals/Modal';
 import DeleteRoleForm from './DeleteRoleForm';
@@ -59,7 +58,7 @@ export default function EditRoleForm({ role }) {
     );
   }
 
-  if (roomConfigs.isLoading || rolePermissionsIsLoading) return <Spinner />;
+  if (roomConfigs.isLoading || rolePermissionsIsLoading) return null;
   fieldsRoomLimit.value.placeHolder = rolePermissions.RoomLimit;
 
   return (

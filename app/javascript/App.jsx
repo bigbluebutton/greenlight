@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, Spinner } from 'react-bootstrap';
+import Container from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +25,7 @@ export default function App() {
   document.documentElement.style.setProperty('--brand-color', brandColor);
   document.documentElement.style.setProperty('--brand-color-light', brandColorLight);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <>

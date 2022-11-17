@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useEnv from '../../hooks/queries/env/useEnv';
-import Spinner from './utilities/Spinner';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 
 export default function Footer() {
@@ -10,7 +9,7 @@ export default function Footer() {
   const { data: terms } = useSiteSetting('Terms');
   const { data: privacyPolicy } = useSiteSetting('PrivacyPolicy');
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <footer id="footer" className="footer background-whitesmoke text-center pb-2">

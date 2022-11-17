@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Spinner, Tab, Tabs,
+  Tab, Tabs,
 } from 'react-bootstrap';
 import RoomsList from './RoomsList';
 import Recordings from '../recordings/Recordings';
@@ -10,7 +10,7 @@ import useRecordingsCount from '../../hooks/queries/recordings/useRecordingsCoun
 export default function Rooms() {
   const { isLoading, data: recordingsCount } = useRecordingsCount();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <div className="pt-5 wide-background-rooms">

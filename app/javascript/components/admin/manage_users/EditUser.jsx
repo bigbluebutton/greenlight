@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import AdminNavSideBar from '../AdminNavSideBar';
 import AccountInfo from '../../users/user/AccountInfo';
 import useUser from '../../../hooks/queries/users/useUser';
-import Spinner from '../../shared_components/utilities/Spinner';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function EditUser() {
@@ -23,7 +22,7 @@ export default function EditUser() {
     return <Navigate to="/404" />;
   }
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <div id="admin-panel" className="pb-3">

@@ -1,14 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSiteSettings';
-import Spinner from '../../../shared_components/utilities/Spinner';
 import SettingsRow from '../SettingsRow';
 
 export default function Settings() {
   const { t } = useTranslation();
   const { isLoading, data: siteSettings } = useSiteSettings(['ShareRooms', 'PreuploadPresentation']);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <>

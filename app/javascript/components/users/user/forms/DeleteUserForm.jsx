@@ -25,8 +25,8 @@ export default function DeleteUserForm({ handleClose }) {
             { t('close') }
           </Button>
           <Button variant="danger" type="submit" disabled={deleteUserAPI.isLoading}>
+            { deleteUserAPI.isLoading && <Spinner className="me-2" /> }
             { t('user.account.delete_account') }
-            { deleteUserAPI.isLoading && <Spinner /> }
           </Button>
         </Stack>
       </Form>

@@ -29,7 +29,7 @@ export default function VerifyAccount() {
           onClick={createActivationLinkAPI.mutate}
           disabled={createActivationLinkAPI.isLoading}
         >
-          { t('account_activation_page.resend_btn_lbl') } {createActivationLinkAPI.isLoading && <Spinner />}
+          { t('account_activation_page.resend_btn_lbl') } {createActivationLinkAPI.isLoading && <Spinner className="me-2" />}
         </Button>
       </Card>
     </div>

@@ -4,7 +4,6 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import ButtonLink from '../shared_components/utilities/ButtonLink';
-import Spinner from '../shared_components/utilities/Spinner';
 import useEnv from '../../hooks/queries/env/useEnv';
 import Logo from '../shared_components/Logo';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
@@ -22,7 +21,7 @@ export default function HomePage() {
     document.cookie = `token=${inviteToken};path=/;`;
   }, [inviteToken]);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   function showSignUp() {
     return registrationMethod !== 'invite' || !!inviteToken;

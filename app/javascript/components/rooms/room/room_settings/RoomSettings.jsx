@@ -3,7 +3,6 @@ import { Row, Col, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import { useTranslation } from 'react-i18next';
-import Spinner from '../../../shared_components/utilities/Spinner';
 import useRoomSettings from '../../../../hooks/queries/rooms/useRoomSettings';
 import useDeleteRoom from '../../../../hooks/mutations/rooms/useDeleteRoom';
 import RoomSettingsRow from './RoomSettingsRow';
@@ -25,7 +24,7 @@ export default function RoomSettings() {
   const updateMutationWrapper = () => useUpdateRoomSetting(friendlyId);
   const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
 
-  if (roomSetting.isLoading || roomsConfigs.isLoading) return <Spinner />;
+  if (roomSetting.isLoading || roomsConfigs.isLoading) return null;
 
   return (
     <div id="room-settings">

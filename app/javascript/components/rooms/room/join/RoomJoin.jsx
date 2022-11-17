@@ -109,7 +109,7 @@ export default function RoomJoin() {
     }
   }, [roomStatusAPI.isError]);
 
-  if (publicRoom.isLoading) return <Spinner />;
+  if (publicRoom.isLoading) return null;
 
   if (!currentUser.signed_in && publicRoom.data.require_authentication === 'true') {
     return <RequireAuthentication path={path} />;
@@ -139,7 +139,7 @@ export default function RoomJoin() {
     </Stack>
   );
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return null;
 
   return (
     <div className="vertical-buffer">
@@ -152,8 +152,7 @@ export default function RoomJoin() {
             <Col className="col-xxl-8">
               <span className="text-muted">{t('room.meeting.meeting_invitation')}</span>
               <h1 className="mt-2">
-                {publicRoom.data.name}
-                {publicRoom.isFetching && <Spinner />}
+                {publicRoom?.data.name}
               </h1>
             </Col>
             <Col>
@@ -186,8 +185,8 @@ export default function RoomJoin() {
                 type="submit"
                 disabled={publicRoom.isFetching || roomStatusAPI.isLoading}
               >
+                {roomStatusAPI.isLoading && <Spinner className="me-2" />}
                 {t('room.meeting.join_meeting')}
-                {roomStatusAPI.isLoading && <Spinner />}
               </Button>
             </Form>
           )}

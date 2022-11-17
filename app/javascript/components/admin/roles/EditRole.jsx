@@ -7,7 +7,6 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import useRole from '../../../hooks/queries/admin/roles/useRole';
 import EditRoleForm from './forms/EditRoleForm';
-import Spinner from '../../shared_components/utilities/Spinner';
 import AdminNavSideBar from '../AdminNavSideBar';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 
@@ -15,7 +14,7 @@ export default function EditRole() {
   const { t } = useTranslation();
   const { roleId } = useParams();
   const navigate = useNavigate();
-  const { data: role, isError } = useRole(roleId);
+  const { data: role, isError, isLoading } = useRole(roleId);
   const currentUser = useAuth();
 
   if (currentUser.permissions?.ManageRoles !== 'true') {
@@ -25,6 +24,8 @@ export default function EditRole() {
   if (isError) {
     return <Navigate to="/admin/roles" replace />;
   }
+
+  if (isLoading) return null;
 
   return (
     <div id="admin-panel" className="pb-3">
@@ -57,7 +58,7 @@ export default function EditRole() {
                   <Row><hr className="w-100 mx-0" /></Row>
                   <Row className="my-2">
                     <Col>
-                      {(!role && <Spinner />) || <EditRoleForm role={role} />}
+                      <EditRoleForm role={role} />
                     </Col>
                   </Row>
                 </Container>

@@ -24,8 +24,8 @@ export default function DeletePresentationForm({ handleClose }) {
             { t('close') }
           </Button>
           <Button variant="danger" type="submit" disabled={deletePresentation.isLoading}>
+            { deletePresentation.isLoading && <Spinner className="me-2" /> }
             { t('delete') }
-            { deletePresentation.isLoading && <Spinner /> }
           </Button>
         </Stack>
       </Form>

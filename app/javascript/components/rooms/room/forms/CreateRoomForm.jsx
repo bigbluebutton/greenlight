@@ -27,8 +27,8 @@ export default function CreateRoomForm({ mutation: useCreateRoomAPI, userId, han
           { t('close') }
         </Button>
         <Button variant="brand" type="submit" disabled={createRoomAPI.isLoading}>
+          {createRoomAPI.isLoading && <Spinner className="me-2" />}
           { t('room.create_room') }
-          {createRoomAPI.isLoading && <Spinner />}
         </Button>
       </Stack>
     </Form>

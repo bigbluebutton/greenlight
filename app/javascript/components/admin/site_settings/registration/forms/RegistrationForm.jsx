@@ -28,8 +28,8 @@ export default function RegistrationForm({ value, mutation: useUpdateSiteSetting
           type="text"
         />
         <Button id="RegistrationForm-submit-btn" variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
+          {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
           { t('update') }
-          {updateSiteSettingsAPI.isLoading && <Spinner />}
         </Button>
       </InputGroup>
     </Form>
