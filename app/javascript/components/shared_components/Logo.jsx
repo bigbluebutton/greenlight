@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 
 export default function Logo({ size }) {
-  const { data: brandingImage } = useSiteSetting('BrandingImage');
+  const { isLoading, data: brandingImage } = useSiteSetting('BrandingImage');
 
   const sizeClass = `${size}-logo`;
+
+  if (isLoading) return null;
 
   return (
     <Image

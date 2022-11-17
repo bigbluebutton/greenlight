@@ -11,7 +11,6 @@ import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 export default function HomePage() {
   const { data: env } = useEnv();
   const { t } = useTranslation();
-
   const { search } = useLocation();
   const [searchParams] = useSearchParams();
   const inviteToken = searchParams.get('inviteToken');
@@ -48,9 +47,9 @@ export default function HomePage() {
               <>
                 { showSignUp()
                   && (
-                  <ButtonLink to={`/signup${search}`} variant="brand-outline-color" className="btn btn-xlg m-2">
-                    {t('authentication.sign_up')}
-                  </ButtonLink>
+                    <ButtonLink to={`/signup${search}`} variant="brand-outline-color" className="btn btn-xlg m-2">
+                      {t('authentication.sign_up')}
+                    </ButtonLink>
                   ) }
                 <ButtonLink to="/signin" variant="brand" className="btn btn-xlg m-2">{t('authentication.sign_in')}</ButtonLink>
               </>

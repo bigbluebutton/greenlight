@@ -13,7 +13,7 @@ export function useAuth() {
 }
 
 export default function AuthProvider({ children }) {
-  const { data: currentUser } = useSessions();
+  const { isLoading, data: currentUser } = useSessions();
 
   const user = {
     id: currentUser?.id,
@@ -29,6 +29,8 @@ export default function AuthProvider({ children }) {
   };
 
   const memoizedCurrentUser = useMemo(() => user, [user]);
+
+  if (isLoading) return null;
 
   return (
     <AuthContext.Provider value={memoizedCurrentUser}>

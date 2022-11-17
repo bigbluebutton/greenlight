@@ -20,10 +20,12 @@ export default function App() {
   }, [currentUser?.language]);
 
   // Greenlight V3 brand-color theming
-  const { data: brandColor } = useSiteSetting('PrimaryColor');
+  const { isLoading, data: brandColor } = useSiteSetting('PrimaryColor');
   const { data: brandColorLight } = useSiteSetting('PrimaryColorLight');
   document.documentElement.style.setProperty('--brand-color', brandColor);
   document.documentElement.style.setProperty('--brand-color-light', brandColorLight);
+
+  if (isLoading) return null;
 
   return (
     <>
