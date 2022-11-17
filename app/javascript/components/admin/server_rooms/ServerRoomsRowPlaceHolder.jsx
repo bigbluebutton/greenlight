@@ -5,7 +5,6 @@ export default function ServerRoomsRowPlaceHolder() {
   return (
     <tr>
       <td>
-
         <Placeholder className="ps-0" animation="glow">
           <Placeholder xs={8} size="md" className="me-2" />
         </Placeholder>
