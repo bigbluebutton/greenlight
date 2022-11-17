@@ -6,9 +6,7 @@ import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSi
 
 export default function BrandColor() {
   const { t } = useTranslation();
-  const { isLoading, data: colors } = useSiteSettings(['PrimaryColor', 'PrimaryColorLight']);
-
-  if (isLoading) return null;
+  const { data: colors } = useSiteSettings(['PrimaryColor', 'PrimaryColorLight']);
 
   return (
     <div className="mb-3">
@@ -18,13 +16,13 @@ export default function BrandColor() {
           name="PrimaryColor"
           btnName={t('admin.site_settings.appearance.regular')}
           btnVariant="brand"
-          initialColor={colors.PrimaryColor}
+          initialColor={colors?.PrimaryColor}
         />
         <BrandColorPopover
           name="PrimaryColorLight"
           btnName={t('admin.site_settings.appearance.lighten')}
           btnVariant="brand-light"
-          initialColor={colors.PrimaryColorLight}
+          initialColor={colors?.PrimaryColorLight}
         />
       </Stack>
     </div>
