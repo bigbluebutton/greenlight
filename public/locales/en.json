@@ -1,6 +1,7 @@
 {
   "start": "Start",
   "search": "Search",
+  "home": "Home",
   "previous": "Previous",
   "back": "Back",
   "next": "Next",
@@ -18,7 +19,7 @@
   "copy": "Copy",
   "or": "Or",
   "online": "Online",
-  "need_help": "Need help?",
+  "help_center": "Help Center",
   "are_you_sure": "Are you sure?",
   "return_home": "Return Home",
   "created_at": "Created at",

@@ -19,9 +19,29 @@ body {
   background: whitesmoke;
 }
 
-.header {
+#navbar {
   height: $header-height;
   background: white;
+
+  .navbar-toggler {
+    &:active {
+      outline: none !important;
+      box-shadow: none;
+    }
+    &:focus {
+      outline: none !important;
+      box-shadow: none;
+    }
+  }
+}
+
+#navbar-menu {
+  z-index: 10;
+  top: 100%;
+
+  a {
+    color: $black !important;
+  }
 }
 
 .background-sm-buffer {
