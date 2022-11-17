@@ -14,15 +14,13 @@ import { useAuth } from '../../../contexts/auth/AuthProvider';
 export default function EditUser() {
   const { t } = useTranslation();
   const { userId } = useParams();
-  const { isLoading, data: user } = useUser(userId);
+  const { data: user } = useUser(userId);
   const navigate = useNavigate();
   const currentUser = useAuth();
 
   if (currentUser.permissions?.ManageUsers !== 'true') {
     return <Navigate to="/404" />;
   }
-
-  if (isLoading) return null;
 
   return (
     <div id="admin-panel" className="pb-3">

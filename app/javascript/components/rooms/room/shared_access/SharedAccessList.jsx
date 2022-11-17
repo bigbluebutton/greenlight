@@ -12,13 +12,11 @@ import Avatar from '../../../users/user/Avatar';
 import useDeleteSharedAccess from '../../../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
 import SearchBar from '../../../shared_components/search/SearchBar';
 
-export default function SharedAccessList({ users, isLoading }) {
+export default function SharedAccessList({ users }) {
   const { t } = useTranslation();
   const [searchInput, setSearchInput] = useState('');
   const { friendlyId } = useParams();
   const { handleDeleteSharedAccess } = useDeleteSharedAccess(friendlyId);
-
-  if (isLoading) return null;
 
   return (
     <div id="shared-access-list">
@@ -88,5 +86,4 @@ SharedAccessList.propTypes = {
     avatar: PropTypes.string.isRequired,
     filter: PropTypes.func,
   })).isRequired,
-  isLoading: PropTypes.bool.isRequired,
 };
