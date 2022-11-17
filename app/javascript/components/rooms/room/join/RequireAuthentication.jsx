@@ -9,8 +9,7 @@ import ButtonLink from '../../../shared_components/utilities/ButtonLink';
 
 export default function RequireAuthentication({ path }) {
   const { t } = useTranslation();
-  const { isLoading, data: env } = useEnv();
-  if (isLoading) return null;
+  const { data: env } = useEnv();
 
   return (
     <div className="vertical-center">
@@ -23,7 +22,7 @@ export default function RequireAuthentication({ path }) {
         </Card.Body>
         <Card.Footer className="bg-white">
           {
-            env.OPENID_CONNECT ? (
+            env?.OPENID_CONNECT ? (
               <Form action="/auth/openid_connect" method="POST" data-turbo="false">
                 <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
                 <Button variant="brand-outline-color" className="btn btn-lg m-2" type="submit">{t('authentication.sign_up')}</Button>
