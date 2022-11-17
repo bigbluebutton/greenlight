@@ -109,17 +109,19 @@ export default function RoomJoin() {
     }
   }, [roomStatusAPI.isError]);
 
-  if (!currentUser.signed_in && publicRoom?.data.require_authentication === 'true') {
+  if (publicRoom.isLoading) return null;
+
+  if (!currentUser.signed_in && publicRoom.data.require_authentication === 'true') {
     return <RequireAuthentication path={path} />;
   }
 
   if (publicRoom.data.owner_id === currentUser?.id) {
-    return <Navigate to={`/rooms/${publicRoom?.data.friendly_id}`} />;
+    return <Navigate to={`/rooms/${publicRoom.data.friendly_id}`} />;
   }
 
-  const hasAccessCode = publicRoom?.data?.viewer_access_code || publicRoom?.data?.moderator_access_code;
+  const hasAccessCode = publicRoom.data?.viewer_access_code || publicRoom.data?.moderator_access_code;
 
-  if (!publicRoom?.data?.viewer_access_code && publicRoom?.data?.moderator_access_code) {
+  if (!publicRoom.data?.viewer_access_code && publicRoom.data?.moderator_access_code) {
     fields.accessCode.label = t('room.settings.mod_access_code_optional');
   } else {
     fields.accessCode.label = t('room.settings.access_code');
@@ -179,7 +181,7 @@ export default function RoomJoin() {
                 variant="brand"
                 className="mt-3 d-block float-end"
                 type="submit"
-                disabled={publicRoom?.isFetching || roomStatusAPI.isLoading}
+                disabled={publicRoom.isFetching || roomStatusAPI.isLoading}
               >
                 {roomStatusAPI.isLoading && <Spinner className="me-2" />}
                 {t('room.meeting.join_meeting')}
@@ -189,7 +191,7 @@ export default function RoomJoin() {
         </Card.Footer>
       </Card>
       {!currentUser?.signed_in && (
-        env?.OPENID_CONNECT ? (
+        env.OPENID_CONNECT ? (
           <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> {t('authentication.already_have_account')}
             <RegularForm action="/auth/openid_connect" method="POST" data-turbo="false">
               <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
