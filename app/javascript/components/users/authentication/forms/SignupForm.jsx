@@ -18,10 +18,8 @@ export default function SignupForm() {
   const { onSubmit: createUser } = useCreateUser(token);
   const { isSubmitting } = methods.formState;
   const fields = signupFormFields;
-  const { isLoading, data: env } = useEnv();
+  const { data: env } = useEnv();
   const captchaRef = useRef(null);
-
-  if (isLoading) return null;
 
   const onError = () => {
     toast.error(t('toast.error.problem_completing_action'));
@@ -43,11 +41,11 @@ export default function SignupForm() {
       <FormControl field={fields.email} type="email" />
       <FormControl field={fields.password} type="password" />
       <FormControl field={fields.password_confirmation} type="password" />
-      { env.HCAPTCHA_KEY
+      { env?.HCAPTCHA_KEY
         && (
         <Container className="d-flex justify-content-center mt-3">
           <HCaptcha
-            sitekey={env.HCAPTCHA_KEY}
+            sitekey={env?.HCAPTCHA_KEY}
             size="invisible"
             onVerify={(response) => setToken(response)}
             onError={onError}

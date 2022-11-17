@@ -27,7 +27,7 @@ export default function EditRoleForm({ role }) {
   const fieldsRoleName = editRoleFormFieldsRoleName;
   const fieldsRoomLimit = editRoleFormFieldsRoomLimit;
   const roomConfigs = useRoomConfigs();
-  const { data: rolePermissions, isLoading: rolePermissionsIsLoading } = useRolePermissions(role.id);
+  const { data: rolePermissions } = useRolePermissions(role.id);
   const currentUser = useAuth();
   const editRoleFormConfigRoomLimit = {
     mode: 'onBlur',
@@ -58,7 +58,6 @@ export default function EditRoleForm({ role }) {
     );
   }
 
-  if (roomConfigs.isLoading || rolePermissionsIsLoading) return null;
   fieldsRoomLimit.value.placeHolder = rolePermissions.RoomLimit;
 
   return (
@@ -73,14 +72,14 @@ export default function EditRoleForm({ role }) {
             permissionName="CreateRoom"
             description="Can create rooms"
             roleId={role.id}
-            defaultValue={rolePermissions.CreateRoom === 'true'}
+            defaultValue={rolePermissions?.CreateRoom === 'true'}
             updateMutation={updateRolePermission}
           />
           <RolePermissionRow
             permissionName="ManageUsers"
             description="Allow users with this role to manage users"
             roleId={role.id}
-            defaultValue={rolePermissions.ManageUsers === 'true'}
+            defaultValue={rolePermissions?.ManageUsers === 'true'}
             updateMutation={updateRolePermission}
           />
           {(roomConfigs.data.record === 'optional') && (
@@ -88,7 +87,7 @@ export default function EditRoleForm({ role }) {
               permissionName="CanRecord"
               description="Allow users with this role to record their meetings"
               roleId={role.id}
-              defaultValue={rolePermissions.CanRecord === 'true'}
+              defaultValue={rolePermissions?.CanRecord === 'true'}
               updateMutation={updateRolePermission}
             />
           )}
@@ -96,21 +95,21 @@ export default function EditRoleForm({ role }) {
             permissionName="ManageRooms"
             description="Allow users with this role to manage server rooms"
             roleId={role.id}
-            defaultValue={rolePermissions.ManageRooms === 'true'}
+            defaultValue={rolePermissions?.ManageRooms === 'true'}
             updateMutation={updateRolePermission}
           />
           <RolePermissionRow
             permissionName="ManageRecordings"
             description="Allow users with this role to manage server recordings"
             roleId={role.id}
-            defaultValue={rolePermissions.ManageRecordings === 'true'}
+            defaultValue={rolePermissions?.ManageRecordings === 'true'}
             updateMutation={updateRolePermission}
           />
           <RolePermissionRow
             permissionName="ManageSiteSettings"
             description="Allow users with this role to manage site settings"
             roleId={role.id}
-            defaultValue={rolePermissions.ManageSiteSettings === 'true'}
+            defaultValue={rolePermissions?.ManageSiteSettings === 'true'}
             updateMutation={updateRolePermission}
           />
           {/* Don't show ManageRoles if current_user is editing their own role */}
@@ -119,7 +118,7 @@ export default function EditRoleForm({ role }) {
             permissionName="ManageRoles"
             description="Allow users with this role to edit other roles"
             roleId={role.id}
-            defaultValue={rolePermissions.ManageRoles === 'true'}
+            defaultValue={rolePermissions?.ManageRoles === 'true'}
             updateMutation={updateRolePermission}
           />
           )}
@@ -127,7 +126,7 @@ export default function EditRoleForm({ role }) {
             permissionName="SharedList"
             description="Include users with this role in the dropdown for sharing rooms"
             roleId={role.id}
-            defaultValue={rolePermissions.SharedList === 'true'}
+            defaultValue={rolePermissions?.SharedList === 'true'}
             updateMutation={updateRolePermission}
           />
 

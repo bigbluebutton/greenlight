@@ -8,9 +8,7 @@ import RecordingsCountTab from '../recordings/RecordingsCountTab';
 import useRecordingsCount from '../../hooks/queries/recordings/useRecordingsCount';
 
 export default function Rooms() {
-  const { isLoading, data: recordingsCount } = useRecordingsCount();
-
-  if (isLoading) return null;
+  const { data: recordingsCount } = useRecordingsCount();
 
   return (
     <div className="pt-5 wide-background-rooms">

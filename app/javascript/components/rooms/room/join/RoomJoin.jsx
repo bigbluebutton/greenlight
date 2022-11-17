@@ -33,7 +33,7 @@ export default function RoomJoin() {
   const publicRoom = usePublicRoom(friendlyId);
   const roomStatusAPI = useRoomStatus(friendlyId);
 
-  const { isLoading, data: env } = useEnv();
+  const { data: env } = useEnv();
 
   const methods = useForm(joinFormConfig);
 
@@ -138,8 +138,6 @@ export default function RoomJoin() {
       </div>
     </Stack>
   );
-
-  if (isLoading) return null;
 
   return (
     <div className="vertical-buffer">

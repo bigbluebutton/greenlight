@@ -5,9 +5,7 @@ import SettingsRow from '../SettingsRow';
 
 export default function Settings() {
   const { t } = useTranslation();
-  const { isLoading, data: siteSettings } = useSiteSettings(['ShareRooms', 'PreuploadPresentation']);
-
-  if (isLoading) return null;
+  const { data: siteSettings } = useSiteSettings(['ShareRooms', 'PreuploadPresentation']);
 
   return (
     <>
@@ -19,7 +17,7 @@ export default function Settings() {
             { t('admin.site_settings.settings.allow_users_to_share_rooms_description') }
           </p>
       )}
-        value={siteSettings.ShareRooms}
+        value={siteSettings?.ShareRooms}
       />
       <SettingsRow
         name="PreuploadPresentation"
@@ -29,7 +27,7 @@ export default function Settings() {
             {t('admin.site_settings.settings.allow_users_to_preupload_presentation_description')}
           </p>
       )}
-        value={siteSettings.PreuploadPresentation}
+        value={siteSettings?.PreuploadPresentation}
       />
     </>
   );

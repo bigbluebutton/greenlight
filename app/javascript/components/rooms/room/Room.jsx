@@ -21,10 +21,8 @@ function copyInvite() {
 export default function Room() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
-  const { isLoading, data: room } = useRoom(friendlyId);
+  const { data: room } = useRoom(friendlyId);
   const startMeeting = useStartMeeting(friendlyId);
-
-  if (isLoading) return null;
 
   return (
     <div className="wide-background-room">
@@ -39,14 +37,14 @@ export default function Room() {
         <Col className="col-xxl-8">
           <Stack className="room-header-wrapper">
             <Stack direction="horizontal" gap={2}>
-              <h1>{room.name}</h1>
+              <h1>{room?.name}</h1>
               <Stack direction="horizontal" className="mb-1">
                 { room?.online
                   && <MeetingBadges count={room?.participants} />}
                 { room?.shared && <SharedBadge ownerName={room?.owner_name} /> }
               </Stack>
             </Stack>
-            { room.last_session ? (
+            { room?.last_session ? (
               <span className="text-muted"> { t('room.last_session', { room }) }  </span>
             ) : (
               <span className="text-muted"> { t('room.no_last_session') } </span>
@@ -56,7 +54,7 @@ export default function Room() {
         <Col>
           <Button variant="brand" className="mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
             {startMeeting.isLoading && <Spinner className="me-2" />}
-            { room.online ? (
+            { room?.online ? (
               t('room.meeting.join_meeting')
             ) : (
               t('room.meeting.start_meeting')

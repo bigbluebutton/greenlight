@@ -7,9 +7,7 @@ import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSi
 
 export default function Administration() {
   const { t } = useTranslation();
-  const { isLoading, data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy']);
-
-  if (isLoading) return null;
+  const { data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy']);
 
   return (
     <>
@@ -19,7 +17,7 @@ export default function Administration() {
         <LinksForm
           id="termsForm"
           mutation={() => useUpdateSiteSetting('Terms')}
-          value={siteSettings.Terms}
+          value={siteSettings?.Terms}
         />
       </Row>
       <Row>
@@ -28,7 +26,7 @@ export default function Administration() {
         <LinksForm
           id="privacyForm"
           mutation={() => useUpdateSiteSetting('PrivacyPolicy')}
-          value={siteSettings.PrivacyPolicy}
+          value={siteSettings?.PrivacyPolicy}
         />
       </Row>
     </>
