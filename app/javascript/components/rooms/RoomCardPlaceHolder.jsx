@@ -6,7 +6,7 @@ export default function RoomCardPlaceHolder() {
     <Card id="room-card" border="light">
       <Card.Body>
         <Placeholder as={Card.Title} animation="glow" className="mb-3">
-          <Placeholder style={{ height: '65px', width: '65px', 'border-radius': '50%' }} />
+          <Placeholder style={{ height: '65px', width: '65px', 'border-radius': '10%' }} />
         </Placeholder>
         <Placeholder as={Card.Title} animation="glow">
           <Placeholder xs={5} size="sm" />
