@@ -177,16 +177,31 @@ input.search-bar {
 }
 
 #nav-user-dropdown {
-  padding-right: 0;
-  color: $black !important;
   &:hover {
     color: $black !important;
   }
   &:active {
-    color: $black !important;
+    background-color: transparent !important;
   }
   &:focus {
+    background-color: transparent !important;
+  }
+}
+
+.dropdown {
+  a {
     color: $black !important;
+    &:hover {
+      color: var(--brand-color) !important;
+    }
+    &:active {
+      color: $black !important;
+      background-color: whitesmoke !important;
+    }
+    &:focus {
+      color: $black !important;
+      background-color: whitesmoke !important;
+    }
   }
 }
 
