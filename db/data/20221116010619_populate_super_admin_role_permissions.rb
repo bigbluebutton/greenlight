@@ -25,7 +25,7 @@ class PopulateSuperAdminRolePermissions < ActiveRecord::Migration[7.0]
       { role: super_admin, permission: manage_recordings, value: 'true' },
       { role: super_admin, permission: manage_site_settings, value: 'true' },
       { role: super_admin, permission: manage_roles, value: 'true' },
-      { role: super_admin, permission: shared_list, value: 'true' },
+      { role: super_admin, permission: shared_list, value: 'false' },
       { role: super_admin, permission: can_record, value: 'true' },
       { role: super_admin, permission: room_limit, value: '100' }
     ]
