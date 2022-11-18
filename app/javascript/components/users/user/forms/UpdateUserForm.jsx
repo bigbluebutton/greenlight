@@ -12,19 +12,18 @@ import Spinner from '../../../shared_components/utilities/Spinner';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
 
+// TODO: Make LOCALES a context that provides the available languages and their native names in the client app.
+const LOCALES = {
+  el_GR: 'ελληνικά',
+  en: 'English',
+  fa_IR: 'فارسی',
+  fr: 'Français',
+  hu_HU: 'magyar',
+  ru: 'русский',
+  tr: 'Türkçe',
+};
 export default function UpdateUserForm({ user }) {
   const { t } = useTranslation();
-
-  // TODO: Make LOCALES a context that provides the available languages and their native names in the client app.
-  const LOCALES = {
-    el_GR: 'ελληνικά',
-    en: 'English',
-    fa_IR: 'فارسی',
-    fr: 'Français',
-    hu_HU: 'magyar',
-    ru: 'русский',
-    tr: 'Türkçe',
-  };
 
   const methods = useForm({
     defaultValues: {
@@ -36,7 +35,6 @@ export default function UpdateUserForm({ user }) {
     resolver: yupResolver(validationSchema),
   });
 
-  const { formState: { isSubmitting } } = methods;
   const updateUser = useUpdateUser(user?.id);
   const fields = updateUserFormFields;
   const currentUser = useAuth();
@@ -67,13 +65,14 @@ export default function UpdateUserForm({ user }) {
           onClick={() => methods.reset({
             name: user.name,
             email: user.email,
+            language: user.language,
           })}
         >
           Cancel
         </Button>
-        <Button variant="brand" type="submit" disabled={isSubmitting}>
-          {isSubmitting && <Spinner className="me-2" />}
+        <Button variant="brand" type="submit" disabled={updateUser.isLoading}>
           { t('update') }
+          {updateUser.isLoading && <Spinner className="me-2" />}
         </Button>
       </Stack>
     </Form>
