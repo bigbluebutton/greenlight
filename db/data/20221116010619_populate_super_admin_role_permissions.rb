@@ -3,11 +3,11 @@
 class PopulateSuperAdminRolePermissions < ActiveRecord::Migration[7.0]
   def up
     Role.create! [
-      { name: 'SuperAdmin', provider: 'bn' },
+      { name: 'SuperAdmin', provider: 'bn' }
     ]
 
     super_admin = Role.find_by(name: 'SuperAdmin')
-   
+
     create_room = Permission.find_by(name: 'CreateRoom')
     manage_users = Permission.find_by(name: 'ManageUsers')
     manage_rooms = Permission.find_by(name: 'ManageRooms')
