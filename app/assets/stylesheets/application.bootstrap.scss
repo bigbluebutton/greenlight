@@ -225,6 +225,17 @@ input.search-bar {
   }
 }
 
+// Custom Select component.
+.select{
+  .dropdown-item.active, .dropdown-item:active  {
+    background-color: var(--brand-color) !important;
+  }
+  
+  .dropdown-item.active:hover {
+    color: $black !important;
+  }  
+}
+
 //Brand
 :root {
   --brand-color: '';
@@ -387,6 +398,10 @@ input[type='checkbox'] {
 
 .form-control:focus {
   box-shadow: none;
+}
+
+.form-control:focus, .form-control:hover {
+  border-color: var(--brand-color) !important;
 }
 
 
