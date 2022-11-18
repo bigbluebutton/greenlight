@@ -215,11 +215,9 @@ input.search-bar {
       color: var(--brand-color) !important;
     }
     &:active {
-      color: $black !important;
       background-color: whitesmoke !important;
     }
     &:focus {
-      color: $black !important;
       background-color: whitesmoke !important;
     }
   }
@@ -230,10 +228,10 @@ input.search-bar {
   .dropdown-item.active, .dropdown-item:active  {
     background-color: var(--brand-color) !important;
   }
-  
+
   .dropdown-item.active:hover {
     color: $black !important;
-  }  
+  }
 }
 
 //Brand
