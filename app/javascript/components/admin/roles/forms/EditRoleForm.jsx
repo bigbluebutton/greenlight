@@ -27,7 +27,7 @@ export default function EditRoleForm({ role }) {
   const fieldsRoleName = editRoleFormFieldsRoleName;
   const fieldsRoomLimit = editRoleFormFieldsRoomLimit;
   const roomConfigs = useRoomConfigs();
-  const { data: rolePermissions } = useRolePermissions(role?.id);
+  const { isLoading, data: rolePermissions } = useRolePermissions(role?.id);
   const currentUser = useAuth();
   const editRoleFormConfigRoomLimit = {
     mode: 'onBlur',
@@ -59,6 +59,8 @@ export default function EditRoleForm({ role }) {
   }
 
   fieldsRoomLimit.value.placeHolder = rolePermissions?.RoomLimit;
+
+  if (roomConfigs.isLoading || isLoading) return null;
 
   return (
     <div id="edit-role-form">

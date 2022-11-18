@@ -14,7 +14,7 @@ export default function EditRole() {
   const { t } = useTranslation();
   const { roleId } = useParams();
   const navigate = useNavigate();
-  const { data: role, isError } = useRole(roleId);
+  const { data: role, isError, isLoading } = useRole(roleId);
   const currentUser = useAuth();
 
   if (currentUser.permissions?.ManageRoles !== 'true') {
@@ -24,6 +24,8 @@ export default function EditRole() {
   if (isError) {
     return <Navigate to="/admin/roles" replace />;
   }
+
+  if (isLoading) return null;
 
   return (
     <div id="admin-panel" className="pb-3">
@@ -44,7 +46,7 @@ export default function EditRole() {
                       <h3 className="mb-0">{ t('admin.roles.roles') }</h3>
                       <Breadcrumb id="role-breadcrumb" className="float-start small">
                         <Breadcrumb.Item className="text-link" onClick={() => navigate('/admin/roles')}>{ t('admin.roles.role') }</Breadcrumb.Item>
-                        <Breadcrumb.Item active><strong>{role?.name ?? 'Edit Role'}</strong></Breadcrumb.Item>
+                        <Breadcrumb.Item active><strong>{role?.name}</strong></Breadcrumb.Item>
                       </Breadcrumb>
                     </Stack>
                     <Stack
