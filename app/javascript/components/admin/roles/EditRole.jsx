@@ -1,7 +1,7 @@
 import { ArrowLeftCircleIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import {
-  Col, Container, Row, Tab, Card, Breadcrumb,
+  Col, Container, Row, Tab, Card, Breadcrumb, Stack,
 } from 'react-bootstrap';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -31,34 +31,33 @@ export default function EditRole() {
       <Card className="border-0 shadow-sm">
         <Tab.Container activeKey="roles">
           <Row>
-            <Col sm={3}>
+            <Col className="pe-0" sm={3}>
               <div id="admin-sidebar">
                 <AdminNavSideBar />
               </div>
             </Col>
-            <Col sm={9}>
-              <Tab.Content className="p-3 ps-0">
-                <Container>
-                  <Row className="mt-1"><h3>{ t('admin.roles.roles')}</h3></Row>
-                  <Row className="mt-0 mb-1">
-                    <Col order="first">
-                      <Breadcrumb className="float-start">
-                        <Breadcrumb.Item onClick={() => navigate('/admin/roles')}>{ t('admin.roles.roles') }</Breadcrumb.Item>
-                        <Breadcrumb.Item active>{role?.name ?? 'Edit Role'}</Breadcrumb.Item>
+            <Col className="ps-0" sm={9}>
+              <Tab.Content className="ps-0">
+                <Container className="admin-table p-0">
+                  <div className="p-4 border-bottom">
+                    <Stack className="d-inline-block ">
+                      <h3 className="mb-0">{ t('admin.roles.roles') }</h3>
+                      <Breadcrumb id="role-breadcrumb" className="float-start small">
+                        <Breadcrumb.Item className="text-link" onClick={() => navigate('/admin/roles')}>{ t('admin.roles.role') }</Breadcrumb.Item>
+                        <Breadcrumb.Item active><strong>{role?.name ?? 'Edit Role'}</strong></Breadcrumb.Item>
                       </Breadcrumb>
-                    </Col>
-                    <Col order="last">
-                      <div className="float-end cursor-pointer" aria-hidden="true" onClick={() => navigate('/admin/roles')}>
-                        <ArrowLeftCircleIcon className="hi-s" /> { t('back') }
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row><hr className="w-100 mx-0" /></Row>
-                  <Row className="my-2">
-                    <Col>
-                      <EditRoleForm role={role} />
-                    </Col>
-                  </Row>
+                    </Stack>
+                    <Stack
+                      className="d-inline-block float-end cursor-pointer pe-2 pt-2 text-muted"
+                      aria-hidden="true"
+                      onClick={() => navigate('/admin/roles')}
+                    >
+                      <ArrowLeftCircleIcon className="hi-s" /> { t('back') }
+                    </Stack>
+                  </div>
+                  <div className="p-4">
+                    <EditRoleForm role={role} />
+                  </div>
                 </Container>
               </Tab.Content>
             </Col>

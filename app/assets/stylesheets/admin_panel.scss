@@ -26,7 +26,7 @@
   }
 
   input.search-bar {
-    max-width: 300px;
+    max-width: $input-max-width;
   }
 
   .admin-table {
@@ -176,3 +176,16 @@
   border-radius: 100%;
 }
 
+#role-breadcrumb {
+  height: 8px;
+  a {
+    color: $muted;
+    text-decoration: none !important;
+  }
+}
+
+#edit-role-form {
+  input {
+    max-width: $input-max-width;
+  }
+}
