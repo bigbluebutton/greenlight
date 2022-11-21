@@ -1,7 +1,8 @@
 import React, { useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
-import { ACTIONS, SelectContext } from './Select';
+import SelectContext from '../contexts/SelectContext';
+import { ACTIONS } from '../constants/SelectConstants';
 
 export default function Option({ children: title, value }) {
   const { selected, dispatch } = useContext(SelectContext);
