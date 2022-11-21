@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
 import SelectContext from '../contexts/SelectContext';
 import { ACTIONS } from '../constants/SelectConstants';
+import Option from './Option';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -13,6 +14,38 @@ const reducer = (state, action) => {
     default:
       return state;
   }
+};
+
+const createOptionsFromChildren = (children) => {
+  const options = {};
+
+  React.Children.forEach(children, (elem) => {
+    if (!elem) { return; }
+
+    if (!React.isValidElement(elem)) {
+      throw new Error('Only react elements are allowed inside of <Select> component.');
+    }
+
+    if (elem.type !== Option) { return; }
+
+    const { children: title, value } = elem.props;
+
+    if (!title || typeof title !== 'string') {
+      throw new Error('An <Option> component was caught with an invalid title. All nested <Option> components must have a string children title.');
+    }
+
+    if (value === undefined || value === null || value === '') {
+      throw new Error('An <Option> component was caught with no value prop. All nested <Option> components must have a value prop.');
+    }
+
+    if (options[value]) {
+      throw new Error('An <Option> component was caught with a duplicated value. All nested <Option> components must have a unique value.');
+    }
+
+    options[value] = title;
+  });
+
+  return options;
 };
 
 export default function Select({
