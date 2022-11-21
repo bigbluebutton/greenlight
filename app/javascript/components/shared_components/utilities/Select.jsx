@@ -10,7 +10,7 @@ import Option from './Option';
 const reducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.SELECT:
-      return { title: action.msg.title, value: action.msg.value };
+      return { value: action.msg.value };
     default:
       return state;
   }
@@ -49,18 +49,26 @@ const createOptionsFromChildren = (children) => {
 };
 
 export default function Select({
-  children, id, variant, isValid, defaultOpt, onChange, onBlur,
+  children, id, variant, isValid, value, onChange, onBlur,
 }) {
-  const [selected, dispatch] = useReducer(reducer, defaultOpt);
-
-  const current = useMemo(() => ({ selected, dispatch }), [selected.title, selected.value]);
+  const [selected, dispatch] = useReducer(reducer, { value });
   const handleBlur = useCallback(() => { onBlur(selected.value); }, [onBlur]);
 
+  const current = useMemo(() => ({ selected, dispatch }), [selected.value]);
+  const options = useMemo(() => createOptionsFromChildren(children), [React.Children.count(children)]);
+  selected.title = options[selected.value];
+
   useEffect(() => { onChange(selected.value); }, [onChange, selected.value]);
+  useEffect(() => { dispatch({ type: ACTIONS.SELECT, msg: { value } }); }, [value]);
+  useEffect(() => {
+    if (!selected.title) {
+      console.error(`Unable to find an <Option> with value: "${selected.value}", this may not be expected and may lead to a bug.`);
+    }
+  }, [selected.title]);
 
   return (
     <SelectContext.Provider value={current}>
-      <Dropdown id={id} className="select d-grid mt-1 border-0 p-0">
+      <Dropdown id={id} className={`select d-grid mt-1 border-0 p-0 ${!isValid ? 'is-invalid' : ''}`}>
         <Dropdown.Toggle
           onBlur={handleBlur}
           className="text-start text-black border-1 form-control"
@@ -83,6 +91,7 @@ Select.defaultProps = {
   onChange: () => { },
   onBlur: () => { },
   isValid: true,
+  value: undefined,
 };
 
 Select.propTypes = {
@@ -92,8 +101,5 @@ Select.propTypes = {
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   isValid: PropTypes.bool,
-  defaultOpt: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-  }).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
 };
