@@ -10,7 +10,7 @@ export default function VerifiedUsers({ searchInput }) {
 
   return (
     <div>
-      <ManageUsersTable users={verifiedUsers?.data} />
+      <ManageUsersTable users={verifiedUsers?.data} isLoading={isLoading} />
       {!isLoading
         && (
           <Pagination

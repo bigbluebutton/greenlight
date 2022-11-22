@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import ProcessingRecordingRow from './ProcessingRecordingRow';
 import SortBy from '../shared_components/search/SortBy';
-import Spinner from '../shared_components/utilities/Spinner';
 import RecordingsListRowPlaceHolder from './RecordingsListRowPlaceHolder';
 
 export default function RecordingsList({
