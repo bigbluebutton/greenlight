@@ -191,11 +191,11 @@ export default function RoomJoin() {
         </Card.Footer>
       </Card>
       {!currentUser?.signed_in && (
-        env.OPENID_CONNECT ? (
+        env?.OPENID_CONNECT ? (
           <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> {t('authentication.already_have_account')}
             <RegularForm action="/auth/openid_connect" method="POST" data-turbo="false">
               <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
-              <Button variant="link" className="cursor-pointer ms-2 ps-0" type="submit">{t('authentication.sign_in')}</Button>
+              <Button variant="link" className="btn-sm fs-6 cursor-pointer ms-2 ps-0" type="submit">{t('authentication.sign_in')}</Button>
             </RegularForm>
           </Stack>
         ) : (
