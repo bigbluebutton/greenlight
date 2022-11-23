@@ -1,7 +1,7 @@
 import React from 'react';
 import { Placeholder } from 'react-bootstrap';
 
-export default function ServerRoomsRowPlaceHolder() {
+export default function RecordingsListRowPlaceHolder() {
   return (
     <tr>
       <td>

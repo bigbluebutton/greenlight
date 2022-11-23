@@ -1,7 +1,7 @@
 import React from 'react';
 import { Placeholder } from 'react-bootstrap';
 
-export default function ServerRoomsRowPlaceHolder() {
+export default function RecordingsListRowPlaceHolder() {
   return (
     <tr>
       <td>
@@ -14,22 +14,12 @@ export default function ServerRoomsRowPlaceHolder() {
       </td>
       <td>
         <Placeholder className="ps-0" animation="glow">
-          <Placeholder xs={6} size="md" className="me-2" bg="secondary" />
+          <Placeholder xs={8} size="md" className="me-2" bg="secondary" />
         </Placeholder>
       </td>
       <td>
         <Placeholder className="ps-0" animation="glow">
-          <Placeholder xs={6} size="md" className="me-2" bg="secondary" />
-        </Placeholder>
-      </td>
-      <td>
-        <Placeholder className="ps-0" animation="glow">
-          <Placeholder xs={6} size="md" className="me-2" bg="secondary" />
-        </Placeholder>
-      </td>
-      <td>
-        <Placeholder className="ps-0" animation="glow">
-          <Placeholder xs={6} size="md" className="me-2" bg="secondary" />
+          <Placeholder xs={8} size="md" className="me-2" bg="secondary" />
         </Placeholder>
       </td>
     </tr>
