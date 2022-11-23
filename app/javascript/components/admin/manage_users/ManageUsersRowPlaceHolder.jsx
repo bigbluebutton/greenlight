@@ -16,16 +16,10 @@ export default function RecordingsListRowPlaceHolder() {
         <Placeholder className="ps-0" animation="glow">
           <Placeholder xs={8} size="md" className="me-2" bg="secondary" />
         </Placeholder>
-        <Placeholder className="ps-0" animation="glow">
-          <Placeholder xs={10} size="md" className="me-2" bg="secondary" />
-        </Placeholder>
       </td>
       <td>
         <Placeholder className="ps-0" animation="glow">
           <Placeholder xs={8} size="md" className="me-2" bg="secondary" />
-        </Placeholder>
-        <Placeholder className="ps-0" animation="glow">
-          <Placeholder xs={10} size="md" className="me-2" bg="secondary" />
         </Placeholder>
       </td>
     </tr>
