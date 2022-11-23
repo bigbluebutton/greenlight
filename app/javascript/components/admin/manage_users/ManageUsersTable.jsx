@@ -40,17 +40,6 @@ export default function ManageUsersTable({ users, isLoading }) {
                 )
             )
         }
-        {users?.length
-          ? (
-            users?.map((user) => <ManageUserRow key={user.id} user={user} />)
-          )
-          : (
-            <tr>
-              <td className="fw-bold" colSpan="6">
-                {t('user.no_user_found')}
-              </td>
-            </tr>
-          )}
       </tbody>
     </Table>
   );
