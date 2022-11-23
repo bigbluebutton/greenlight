@@ -46,13 +46,13 @@ const router = createBrowserRouter(
     >
       <Route index element={<HomePage />} />
 
-      <Route errorElement={<UnauthenticatedOnly />}>
+      <Route element={<UnauthenticatedOnly />}>
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/forget_password" element={<ForgetPassword />} />
       </Route>
 
-      <Route errorElement={<AuthenticatedOnly />}>
+      <Route element={<AuthenticatedOnly />}>
         <Route path="/rooms" element={<Rooms />} />
         <Route path="/rooms/:friendlyId" element={<Room />} />
         <Route path="/home" element={<Home />} />
