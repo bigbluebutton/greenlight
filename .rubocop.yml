@@ -76,7 +76,7 @@ RSpec/AnyInstance:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
-  Max: 13
+  Max: 14
 
 Metrics/PerceivedComplexity:
   Max: 13
