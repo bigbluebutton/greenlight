@@ -1,12 +1,13 @@
 // Entry point for the build script in your package.json
 import '@hotwired/turbo-rails';
-import React from 'react';
+import * as React from 'react';
 import { render } from 'react-dom';
 import {
-  BrowserRouter as Router, Routes, Route, Navigate,
+  Route, RouterProvider, createBrowserRouter, createRoutesFromElements,
 } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import './i18n';
+import { Spinner } from 'react-bootstrap';
 import App from './App';
 import Signup from './components/users/authentication/Signup';
 import SignIn from './components/users/authentication/SignIn';
@@ -28,63 +29,62 @@ import EditUser from './components/admin/manage_users/EditUser';
 import EditRole from './components/admin/roles/EditRole';
 import Home from './components/home/Home';
 import ActivateAccount from './components/users/account_activation/ActivateAccount';
-import ErrorBoundary from './components/shared_components/ErrorBoundary';
-import DefaultErrorPage from './components/errors/DefaultErrorPage';
-import NotFoundPage from './components/errors/NotFoundPage';
 import VerifyAccount from './components/users/account_activation/VerifyAccount';
 import AdminPanel from './components/admin/AdminPanel';
 import UnauthenticatedOnly from './routes/UnauthenticatedOnly';
 import AuthenticatedOnly from './routes/AuthenticatedOnly';
+import ErrorBoundary from './components/shared_components/ErrorBoundary';
 
 const queryClient = new QueryClient();
 
-const root = (
-  <React.Suspense fallback={DefaultErrorPage}>
-    <ErrorBoundary fallback={DefaultErrorPage}>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <Router>
-            <Routes>
-              <Route path="/" element={<App />}>
-                <Route index element={<HomePage />} />
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route
+      path="/"
+      element={<App />}
+      errorElement={<ErrorBoundary />}
+    >
+      <Route index element={<HomePage />} />
 
-                <Route element={<UnauthenticatedOnly />}>
-                  <Route path="/signup" element={<Signup />} />
-                  <Route path="/signin" element={<SignIn />} />
-                  <Route path="/forget_password" element={<ForgetPassword />} />
-                </Route>
+      <Route element={<UnauthenticatedOnly />}>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/forget_password" element={<ForgetPassword />} />
+      </Route>
 
-                <Route element={<AuthenticatedOnly />}>
-                  <Route path="/rooms" element={<Rooms />} />
-                  <Route path="/rooms/:friendlyId" element={<Room />} />
-                  <Route path="/home" element={<Home />} />
+      <Route element={<AuthenticatedOnly />}>
+        <Route path="/rooms" element={<Rooms />} />
+        <Route path="/rooms/:friendlyId" element={<Room />} />
+        <Route path="/home" element={<Home />} />
 
-                  <Route path="/admin" element={<AdminPanel />} />
-                  <Route path="/admin/users" element={<ManageUsers />} />
-                  <Route path="/admin/users/edit/:userId" element={<EditUser />} />
-                  <Route path="/admin/server_recordings" element={<ServerRecordings />} />
-                  <Route path="/admin/server_rooms" element={<ServerRooms />} />
-                  <Route path="/admin/room_configuration" element={<RoomConfig />} />
-                  <Route path="/admin/site_settings" element={<SiteSettings />} />
-                  <Route path="/admin/roles" element={<Roles />} />
-                  <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
-                </Route>
+        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/admin/users" element={<ManageUsers />} />
+        <Route path="/admin/users/edit/:userId" element={<EditUser />} />
+        <Route path="/admin/server_recordings" element={<ServerRecordings />} />
+        <Route path="/admin/server_rooms" element={<ServerRooms />} />
+        <Route path="/admin/room_configuration" element={<RoomConfig />} />
+        <Route path="/admin/site_settings" element={<SiteSettings />} />
+        <Route path="/admin/roles" element={<Roles />} />
+        <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
+      </Route>
 
-                <Route path="/reset_password/:token" element={<ResetPassword />} />
-                <Route path="/activate_account/:token" element={<ActivateAccount />} />
-                <Route path="/verify_account" element={<VerifyAccount />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
-                <Route path="/404" element={<NotFoundPage />} />
-                <Route path="*" element={<Navigate to="404" />} />
-              </Route>
-            </Routes>
-          </Router>
-        </AuthProvider>
-      </QueryClientProvider>
-    </ErrorBoundary>
-  </React.Suspense>
+      <Route path="/reset_password/:token" element={<ResetPassword />} />
+      <Route path="/activate_account/:token" element={<ActivateAccount />} />
+      <Route path="/verify_account" element={<VerifyAccount />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
+    </Route>,
+  ),
 );
 
 const rootElement = document.getElementById('root');
-render(root, rootElement);
+render(
+  <React.Suspense fallback={<Spinner />}>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </QueryClientProvider>
+  </React.Suspense>,
+  rootElement,
+);

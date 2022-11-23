@@ -1,38 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import * as React from 'react';
+import NotFoundPage from '../errors/NotFoundPage';
+import DefaultErrorPage from '../errors/DefaultErrorPage';
 
-export default class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { error: null, errorInfo: null };
-  }
+export default function ErrorBoundary() {
+  const error = useRouteError();
 
-  componentDidCatch(error, errorInfo) {
-    // Catch errors in any components below in the tree and re-render with error message
-    this.setState({
-      error,
-      errorInfo,
-    });
-  }
-
-  render() {
-    const { error, errorInfo } = this.state;
-    const { fallback: Fallback, children } = this.props;
-
-    if (errorInfo) {
-      // Rendering the fallback UI while providing the error object and info.
-      return <Fallback error={error} errorInfo={errorInfo} />;
+  if (isRouteErrorResponse(error)) {
+    if (error.status === 404) {
+      return (
+        <NotFoundPage />
+      );
     }
-    // In normal cases, render the subtree.
-    return children;
   }
+  return <DefaultErrorPage />;
 }
-
-ErrorBoundary.defaultProps = {
-  fallback: () => null,
-};
-
-ErrorBoundary.propTypes = {
-  children: PropTypes.node.isRequired,
-  fallback: PropTypes.func,
-};
