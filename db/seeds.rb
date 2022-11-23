@@ -14,7 +14,8 @@ User.create(
   password: 'Administrator1!',
   provider: 'greenlight',
   language: 'en',
-  role: Role.find_by(name: 'Administrator')
+  role: Role.find_by(name: 'Administrator'),
+  verified: true
 )
 
 Rails.logger.debug 'Successfully created an administrator account'

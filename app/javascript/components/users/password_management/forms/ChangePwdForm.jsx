@@ -29,6 +29,7 @@ export default function ChangePwdForm() {
           onClick={() => methods.reset({
             old_password: '',
             new_password: '',
+            password_confirmation: '',
           })}
         >
           { t('cancel') }
