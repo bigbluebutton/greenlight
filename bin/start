@@ -6,6 +6,8 @@ fi
 export PORT="${PORT:=3000}"
 echo "Web app starting on port: $PORT"
 
+rails assets:precompile
+
 if [ "$RAILS_ENV" = "production" ]; then
   while ! rails db:version 2>/dev/null
   do
@@ -16,7 +18,5 @@ fi
 
 rails db:create
 rails db:migrate:with_data
-
-rails assets:precompile
 
 rails s -b 0.0.0.0 -p $PORT
