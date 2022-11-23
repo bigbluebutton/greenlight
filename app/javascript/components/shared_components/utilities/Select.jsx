@@ -3,12 +3,8 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
-
-export const SelectContext = React.createContext(null);
-
-export const ACTIONS = {
-  SELECT: 'SELECT',
-};
+import SelectContext from '../contexts/SelectContext';
+import { ACTIONS } from '../constants/SelectConstants';
 
 const reducer = (state, action) => {
   switch (action.type) {
