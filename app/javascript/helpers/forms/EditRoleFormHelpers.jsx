@@ -18,7 +18,7 @@ export const editRoleFormConfigRoleName = {
 
 export const editRoleFormFieldsRoleName = {
   name: {
-    label: 'Name',
+    label: 'Role Name',
     placeHolder: 'Enter role name',
     controlId: 'editRoleFormName',
     hookForm: {

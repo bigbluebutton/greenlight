@@ -21,30 +21,30 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 export default function EditRoleForm({ role }) {
   const { t } = useTranslation();
   const methodsRoleName = useForm(editRoleFormConfigRoleName);
-  const updateRoleAPI = useUpdateRole(role.id);
+  const updateRoleAPI = useUpdateRole(role?.id);
   const updateRolePermission = () => useUpdateRolePermission();
   const updateAPI = updateRolePermission();
   const fieldsRoleName = editRoleFormFieldsRoleName;
   const fieldsRoomLimit = editRoleFormFieldsRoomLimit;
   const roomConfigs = useRoomConfigs();
-  const { data: rolePermissions } = useRolePermissions(role.id);
+  const { isLoading, data: rolePermissions } = useRolePermissions(role?.id);
   const currentUser = useAuth();
   const editRoleFormConfigRoomLimit = {
     mode: 'onBlur',
-    defaultValues: { role_id: role.id, name: 'RoomLimit' },
+    defaultValues: { role_id: role?.id, name: 'RoomLimit' },
     resolver: yupResolver(validationSchemaRoomLimit),
   };
   const methodsRoomLimit = useForm(editRoleFormConfigRoomLimit);
 
   useEffect(
     () => {
-      methodsRoleName.setValue('name', role.name);
+      methodsRoleName.setValue('name', role?.name);
     },
-    [role.name],
+    [role?.name],
   );
 
   function deleteRoleButton() {
-    if (role.name === 'User' || role.name === 'Administrator' || role.name === 'Guest') {
+    if (role?.name === 'User' || role?.name === 'Administrator' || role?.name === 'Guest') {
       return null;
     }
     return (
@@ -58,93 +58,91 @@ export default function EditRoleForm({ role }) {
     );
   }
 
-  fieldsRoomLimit.value.placeHolder = rolePermissions.RoomLimit;
+  fieldsRoomLimit.value.placeHolder = rolePermissions?.RoomLimit;
+
+  if (roomConfigs.isLoading || isLoading) return null;
 
   return (
-    <div>
-      <Stack>
-        <Form methods={methodsRoleName} onBlur={(e) => updateRoleAPI.mutate({ name: e.target.value })}>
-          <FormControl field={fieldsRoleName.name} type="text" />
-        </Form>
+    <div id="edit-role-form">
+      <Form methods={methodsRoleName} onBlur={(e) => updateRoleAPI.mutate({ name: e.target.value })}>
+        <FormControl field={fieldsRoleName.name} type="text" />
+      </Form>
+      <RolePermissionRow
+        permissionName="CreateRoom"
+        description="Can create rooms"
+        roleId={role?.id}
+        defaultValue={rolePermissions?.CreateRoom === 'true'}
+        updateMutation={updateRolePermission}
+      />
+      <RolePermissionRow
+        permissionName="ManageUsers"
+        description="Allow users with this role to manage users"
+        roleId={role?.id}
+        defaultValue={rolePermissions?.ManageUsers === 'true'}
+        updateMutation={updateRolePermission}
+      />
+      {(roomConfigs?.data?.record === 'optional') && (
+      <RolePermissionRow
+        permissionName="CanRecord"
+        description="Allow users with this role to record their meetings"
+        roleId={role?.id}
+        defaultValue={rolePermissions?.CanRecord === 'true'}
+        updateMutation={updateRolePermission}
+      />
+      )}
+      <RolePermissionRow
+        permissionName="ManageRooms"
+        description="Allow users with this role to manage server rooms"
+        roleId={role?.id}
+        defaultValue={rolePermissions?.ManageRooms === 'true'}
+        updateMutation={updateRolePermission}
+      />
+      <RolePermissionRow
+        permissionName="ManageRecordings"
+        description="Allow users with this role to manage server recordings"
+        roleId={role?.id}
+        defaultValue={rolePermissions?.ManageRecordings === 'true'}
+        updateMutation={updateRolePermission}
+      />
+      <RolePermissionRow
+        permissionName="ManageSiteSettings"
+        description="Allow users with this role to manage site settings"
+        roleId={role?.id}
+        defaultValue={rolePermissions?.ManageSiteSettings === 'true'}
+        updateMutation={updateRolePermission}
+      />
+      {/* Don't show ManageRoles if current_user is editing their own role */}
+      {(currentUser.role.id !== role?.id) && (
+        <RolePermissionRow
+          permissionName="ManageRoles"
+          description="Allow users with this role to edit other roles"
+          roleId={role?.id}
+          defaultValue={rolePermissions?.ManageRoles === 'true'}
+          updateMutation={updateRolePermission}
+        />
+      )}
+      <RolePermissionRow
+        permissionName="SharedList"
+        description="Include users with this role in the dropdown for sharing rooms"
+        roleId={role?.id}
+        defaultValue={rolePermissions?.SharedList === 'true'}
+        updateMutation={updateRolePermission}
+      />
 
-        <Stack>
-          <RolePermissionRow
-            permissionName="CreateRoom"
-            description="Can create rooms"
-            roleId={role.id}
-            defaultValue={rolePermissions?.CreateRoom === 'true'}
-            updateMutation={updateRolePermission}
-          />
-          <RolePermissionRow
-            permissionName="ManageUsers"
-            description="Allow users with this role to manage users"
-            roleId={role.id}
-            defaultValue={rolePermissions?.ManageUsers === 'true'}
-            updateMutation={updateRolePermission}
-          />
-          {(roomConfigs.data.record === 'optional') && (
-            <RolePermissionRow
-              permissionName="CanRecord"
-              description="Allow users with this role to record their meetings"
-              roleId={role.id}
-              defaultValue={rolePermissions?.CanRecord === 'true'}
-              updateMutation={updateRolePermission}
-            />
-          )}
-          <RolePermissionRow
-            permissionName="ManageRooms"
-            description="Allow users with this role to manage server rooms"
-            roleId={role.id}
-            defaultValue={rolePermissions?.ManageRooms === 'true'}
-            updateMutation={updateRolePermission}
-          />
-          <RolePermissionRow
-            permissionName="ManageRecordings"
-            description="Allow users with this role to manage server recordings"
-            roleId={role.id}
-            defaultValue={rolePermissions?.ManageRecordings === 'true'}
-            updateMutation={updateRolePermission}
-          />
-          <RolePermissionRow
-            permissionName="ManageSiteSettings"
-            description="Allow users with this role to manage site settings"
-            roleId={role.id}
-            defaultValue={rolePermissions?.ManageSiteSettings === 'true'}
-            updateMutation={updateRolePermission}
-          />
-          {/* Don't show ManageRoles if current_user is editing their own role */}
-          {(currentUser.role.id !== role.id) && (
-          <RolePermissionRow
-            permissionName="ManageRoles"
-            description="Allow users with this role to edit other roles"
-            roleId={role.id}
-            defaultValue={rolePermissions?.ManageRoles === 'true'}
-            updateMutation={updateRolePermission}
-          />
-          )}
-          <RolePermissionRow
-            permissionName="SharedList"
-            description="Include users with this role in the dropdown for sharing rooms"
-            roleId={role.id}
-            defaultValue={rolePermissions?.SharedList === 'true'}
-            updateMutation={updateRolePermission}
-          />
-
-          <Form methods={methodsRoomLimit} onBlur={methodsRoomLimit.handleSubmit(updateAPI.mutate)}>
-            <Stack direction="horizontal">
-              <div className="text-muted me-auto">
-                Room Limit
-              </div>
-              <div className="float-end">
-                <FormControl field={fieldsRoomLimit.value} noLabel className="room-limit" type="number" />
-              </div>
-            </Stack>
-          </Form>
+      <Form methods={methodsRoomLimit} onBlur={methodsRoomLimit.handleSubmit(updateAPI.mutate)}>
+        <Stack direction="horizontal">
+          <div className="text-muted me-auto">
+            Room Limit
+          </div>
+          <div className="float-end">
+            <FormControl field={fieldsRoomLimit.value} noLabel className="room-limit" type="number" />
+          </div>
         </Stack>
-        {
-          deleteRoleButton()
-        }
-      </Stack>
+      </Form>
+
+      {
+        deleteRoleButton()
+      }
     </div>
   );
 }
