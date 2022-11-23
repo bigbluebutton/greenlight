@@ -9,13 +9,13 @@ export default function AuthenticatedOnly() {
   const { t } = useTranslation();
   const currentUser = useAuth();
 
-  if (!currentUser.verified) {
+  if (currentUser.signed_in && !currentUser.verified) {
     return <VerifyAccount currentUser={currentUser} />;
   }
 
   if (!currentUser.signed_in) {
     toast.error(t('toast.error.signin_required'));
-    return <Navigate to="/" />;
+    return <Navigate to="/signin" />;
   }
 
   return <Outlet />;

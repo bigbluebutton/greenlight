@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import './i18n';
-import { Spinner } from 'react-bootstrap';
 import App from './App';
 import Signup from './components/users/authentication/Signup';
 import SignIn from './components/users/authentication/SignIn';
@@ -33,7 +32,8 @@ import VerifyAccount from './components/users/account_activation/VerifyAccount';
 import AdminPanel from './components/admin/AdminPanel';
 import UnauthenticatedOnly from './routes/UnauthenticatedOnly';
 import AuthenticatedOnly from './routes/AuthenticatedOnly';
-import ErrorBoundary from './components/shared_components/ErrorBoundary';
+import DefaultErrorPage from './components/errors/DefaultErrorPage';
+import NotFoundPage from './components/errors/NotFoundPage';
 
 const queryClient = new QueryClient();
 
@@ -42,17 +42,17 @@ const router = createBrowserRouter(
     <Route
       path="/"
       element={<App />}
-      errorElement={<ErrorBoundary />}
+      errorElement={<DefaultErrorPage />}
     >
       <Route index element={<HomePage />} />
 
-      <Route element={<UnauthenticatedOnly />}>
+      <Route errorElement={<UnauthenticatedOnly />}>
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/forget_password" element={<ForgetPassword />} />
       </Route>
 
-      <Route element={<AuthenticatedOnly />}>
+      <Route errorElement={<AuthenticatedOnly />}>
         <Route path="/rooms" element={<Rooms />} />
         <Route path="/rooms/:friendlyId" element={<Room />} />
         <Route path="/home" element={<Home />} />
@@ -73,13 +73,16 @@ const router = createBrowserRouter(
       <Route path="/verify_account" element={<VerifyAccount />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
+
+      <Route path="*" element={<NotFoundPage />} />
     </Route>,
   ),
 );
 
 const rootElement = document.getElementById('root');
 render(
-  <React.Suspense fallback={<Spinner />}>
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  <React.Suspense fallback={<></>}>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <RouterProvider router={router} />
